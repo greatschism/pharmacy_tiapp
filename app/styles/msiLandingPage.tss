@@ -1,0 +1,30 @@
+/*
+* msiLandingPage.tss
+*
+* Description:
+*
+* Author : rgupta@mscripts.com              
+*
+* Date : 25th July 2014
+*
+* 
+* Maintenance Log
+*
+* Date                                                   Author                                                                                  Changes
+* 25th July 2014                                         rgupta                                                                                   Initial creation (MX-1204)
+*/
+
+
+
+".container" : {
+ width: Ti.UI.FILL,
+ }
+"#menuContainer" :{
+	width:280,
+	layout:"horizontal",
+	top:"20%"
+}
+"#label":{
+	top:"20%"
+}
+

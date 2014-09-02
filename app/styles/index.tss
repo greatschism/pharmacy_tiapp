@@ -1,0 +1,4 @@
+"#label":{
+	borderColour:Alloy.CFG.defaults.colors.borderColor
+}
+

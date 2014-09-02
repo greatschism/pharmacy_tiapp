@@ -1,0 +1,55 @@
+"#leftMenu": {
+	top: "0",
+	left: "0",
+	width: "250",
+	zIndex: "2",
+	backgroundColor : Alloy.Globals.client
+},
+"#logo":{
+	height:34,
+	top:5,
+	width:Ti.UI.SIZE,
+	image:"/images/logo_header.png"
+}
+"#navview": {
+	top: "0",
+	left: "0",
+	width : Ti.Platform.displayCaps.platformWidth,
+	height : "44",
+	backgroundColor: Alloy.Globals.client
+	//backgroundImage : '/ds.slideMenu/NavBackground.png'
+},
+"#movableview": {
+	left: "0",
+	zIndex: "3",
+	width : Ti.Platform.displayCaps.platformWidth
+},
+"#contentview": {
+	left : "0",
+	width : Ti.Platform.displayCaps.platformWidth,
+	height : Ti.UI.Fill,
+	top : "44",
+	backgroundColor : 'white'
+},
+"#shadowview": {
+	shadowColor:"black",
+    shadowOffset:{x:"0",y:"0"},
+    shadowRadius:"2.5"
+},
+"#leftButton": {
+	backgroundImage : "/ds.slideMenu/ButtonMenu.png",
+	left : "10",
+	top : "10",
+	width : "31",
+	height : "24",
+	style : "none"
+},
+"#rightButton": {
+	backgroundImage : "/ds.slideMenu/ButtonMenu.png",
+	right : "10",
+	top : "10",
+	width : "31",
+	height : "24",
+	style : "none",
+	visible : false
+}
