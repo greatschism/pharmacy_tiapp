@@ -1,0 +1,17 @@
+"#menu":{
+	separatorColor: "#d8d8d8"
+},
+".spacer":{
+	height: 20
+},
+"ListItem[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+".row":{
+	height: 48
+},
+".title":{
+	left: 15,
+	textAlign: "left",
+	color: "#000"
+}

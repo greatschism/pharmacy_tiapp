@@ -1,0 +1,5 @@
+<Alloy>
+	<Button title="Back" class="actionbar-right-btn" onClick="Alloy.Globals.Navigator.popView" />
+	<View class="vertical">
+	</View>
+</Alloy> 

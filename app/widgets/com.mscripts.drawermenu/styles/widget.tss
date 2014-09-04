@@ -1,0 +1,9 @@
+"#menuView":{
+	left: 0,
+	width: 240,
+	zIndex: 0
+},
+"#mainView":{
+	backgroundColor: "#fff",
+	zIndex: 1
+}

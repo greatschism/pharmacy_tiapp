@@ -1,0 +1,6 @@
+"Window":{
+	backgroundColor: "#fff"
+},
+"Window[platform=ios]":{
+	tintColor: "#000"
+}

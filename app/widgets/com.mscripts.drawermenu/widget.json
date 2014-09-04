@@ -1,0 +1,14 @@
+{
+	"id": "com.mscripts.drawermenu",
+	"name": "Drawer Menu",
+	"description": "Implements a slide-in, Facebook-style menu.",
+	"author": "Manoj",
+	"version": "2.0",
+	"copyright": "@ 2014",
+	"license": "MIT",
+	"min-alloy-version": "1.0",
+	"min-titanium-version": "2.1",
+	"tags": "",
+	"platforms": "android,ios",
+	"dependencies": {}
+}

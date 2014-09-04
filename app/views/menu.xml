@@ -1,0 +1,20 @@
+<Alloy>
+	<ListView platform="ios,android" defaultItemTemplate="template" onItemclick="didItemClick">
+		<HeaderView if="Alloy.Globals.iOS7Plus">
+			<View class="spacer" />
+		</HeaderView>
+		<Templates>
+			<ItemTemplate name="template" class="row">
+				<Label bindId="title" class="title" />
+			</ItemTemplate>
+		</Templates>
+		<ListSection dataCollection="menuItems">
+			<ListItem title:text="{title}" />
+		</ListSection>
+	</ListView>
+	<TableView platform="mobileweb" dataCollection="menuItems" onClick="didItemClick">
+		<TableViewRow class="row">
+			<Label text="{title}" class="title" />
+		</TableViewRow>
+	</TableView>
+</Alloy>
