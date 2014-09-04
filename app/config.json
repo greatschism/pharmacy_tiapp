@@ -1,39 +1,24 @@
 {
 	"global": {
-		"defaults": {
-			"colors": {
-				"backgroundColor": "blue",
-				"borderColor": "red",
-				"textColor": "black"
+		"menuItems": [
+			{
+				"title": "Home",
+				"ctrl": "home",
+				"landingPage": true
+			}, {
+				"title": "Prescriptions",
+				"ctrl": "prescriptions"
+			}, {
+				"title": "Doctors",
+				"ctrl": "doctors"
+			}, {
+				"title": "Stores",
+				"ctrl": "stores"
+			}, {
+				"title": "Account",
+				"ctrl": "account"
 			}
-		},
-
-
-
-		"configurations2": {
-			"defaults": {
-				"colors": {
-					"backgroundColor": "blue",
-					"borderColor": "red",
-					"textColor": "black"
-				}
-			},
-			"menuType": "landing",
-			"menuItems": ["prescriptions", "Doctors", "Stores"],
-			"template": "msiLandingPage"
-		},
-		"configurations1": {
-			"defaults": {
-				"colors": {
-					"backgroundColor": "blue",
-					"borderColor": "red",
-					"textColor": "black"
-				}
-			},
-			"menuType": "landing",
-			"menuItems": ["prescriptions", "Doctors", "Stores", "Account"],
-			"template": "msiLandingPage"
-		}
+		]
 	},
 	"env:development": {},
 	"env:test": {},
@@ -43,6 +28,6 @@
 	"os:ios": {},
 	"os:mobileweb": {},
 	"dependencies": {
-		"ds.slideMenu": "0.1"
+		"com.mscripts.drawermenu": "1.0"
 	}
 }
