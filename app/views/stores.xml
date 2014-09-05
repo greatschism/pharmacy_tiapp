@@ -6,7 +6,7 @@
 			<WebView id="mapView" platform="mobileweb" />
 		</View>
 		<View id="listContainer">
-			<SearchBar id="searchbar" platform="ios,android" />
+			<Widget id="searchbar" src="com.mscripts.searchbar" />
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favourites" class="row">
@@ -15,7 +15,10 @@
 							<Label bindId="title" class="title" />
 							<Label bindId="subtitle" class="subtitle" />
 						</View>
-						<Label bindId="distance" class="distance" />
+						<View class="distance-view">
+							<ImageView class="distance-img" />
+							<Label bindId="distance" class="distance" />
+						</View>
 						<ImageView class="child" />
 					</ItemTemplate>
 					<ItemTemplate name="nearby" class="row">
@@ -23,7 +26,10 @@
 							<Label bindId="title" class="title" />
 							<Label bindId="subtitle" class="subtitle" />
 						</View>
-						<Label bindId="distance" class="distance" />
+						<View class="distance-view">
+							<ImageView class="distance-img" />
+							<Label bindId="distance" class="distance" />
+						</View>
 						<ImageView class="child" />
 					</ItemTemplate>
 				</Templates>
@@ -31,7 +37,6 @@
 					<ListItem template="{template}" title:text="{title}" subtitle:text="{subtitle}" distance:text="{distance}" />
 				</ListSection>
 			</ListView>
-			<TextField id="searchbar" platform="mobileweb" />
 			<TableView id="listView" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="row">
 					<ImageView class="favourite" visible="{favourite}" />
@@ -39,7 +44,10 @@
 						<Label text="{title}" class="title" />
 						<Label text="{subtitle}" class="subtitle" />
 					</View>
-					<Label text="{distance}" class="distance" />
+					<View class="distance-view">
+						<ImageView class="distance-img" />
+						<Label text="{distance}" class="distance" />
+					</View>
 					<ImageView class="child" />
 				</TableViewRow>
 			</TableView>

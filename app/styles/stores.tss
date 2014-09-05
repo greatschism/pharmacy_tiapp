@@ -12,28 +12,17 @@
 	visible: true
 },
 "#searchbar":{
-	hintText: "Search",
-	color: "#000",
-	showCancel: false
-},
-"#searchbar[platform=android]":{
-	height: 50,
-	backgroundColor: "transparent",
-	borderColor: "#ccc"
-},
-"#searchbar[platform=mobileweb]":{
-	top: 10,
-	width: "90%",
-	height: 40,
-	borderColor: "#000",
-	borderRadius: 5,
-	borderWidth: 2
+	top: 5,
+	hintText: "search by zip, city or state",
+	font: {
+		fontFmaily: Alloy.CFG.fonts.light,
+		fontSize: 15
+	},
+	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
 "#listView":{
+	top: 5,
 	separatorColor: "#ccc"
-},
-"#listView[platform=mobileweb]":{
-	top: 10
 },
 "#listView[platform=ios]":{
 	separatorInsets: {
@@ -78,9 +67,20 @@
 	textAlign: "left",
 	color: "#8b8b8b"
 },
-".distance":{
+".distance-view":{
 	right: 30,
 	bottom: 10,
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	layout: "horizontal"
+},
+".distance-img":{
+	left: 0,
+	width: 10,
+	image: "/images/pin.png"
+},
+".distance":{
+	left: 5,
 	height: 17,
 	font:{
 		fontFamily: Alloy.CFG.fonts.light,

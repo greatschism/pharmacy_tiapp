@@ -1,0 +1,31 @@
+"#widget": {
+	width: "95%",
+	height: 40,
+	borderColor: "#8b8b8b",
+	borderWidth: 1,
+	borderRadius: 5
+},
+"#searchImg":{
+	left: 10,
+	width: 20,
+	image: WPATH( "search.png")
+},
+"#txt":{
+	left: 30,
+	right: 25,
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+	autocorrect: false,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+},
+"#cancelImg":{
+	right: 10,
+	width: 20,
+	image: WPATH("cancel.png"),
+	visible: false
+}
