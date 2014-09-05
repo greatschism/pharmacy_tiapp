@@ -12,3 +12,4 @@ var isIOS7Plus = function() {
 Alloy.Globals.iOS7Plus = isIOS7Plus();
 
 Alloy.Collections.menuItems = new Backbone.Collection();
+Alloy.Collections.stores = new Backbone.Collection();

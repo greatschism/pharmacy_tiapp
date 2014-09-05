@@ -91,7 +91,9 @@ exports.openView = function(ctrlParams) {
 		}
 		var viewStack = $.mainView.children;
 		if (viewStack[stackIndex].children.length == 0) {
-			viewStack[stackIndex].add(Widget.createController("template", ctrlParams).getView());
+			var template = Widget.createController("template", ctrlParams).getView();
+			template.children[1].children[0].fireEvent("push");
+			viewStack[stackIndex].add(template);
 			console.debug(ctrlParams.ctrl + " is created");
 		}
 		var tempIndex;
@@ -106,6 +108,7 @@ exports.openView = function(ctrlParams) {
 		}
 		if (_stackIndex >= 0) {
 			console.debug("current view at " + _stackIndex + " will be moved to " + tempIndex);
+			viewStack[_stackIndex].children[0].children[1].children[0].fireEvent("pop");
 			viewStack[_stackIndex].zIndex = tempIndex;
 			console.debug("current view at " + _stackIndex + " has been moved to " + viewStack[_stackIndex].zIndex);
 		}
@@ -131,8 +134,9 @@ exports.pushView = function(ctrlParams) {
 			left : $.mainView.width - 1
 		});
 		var doAnimations = function() {
-			viewToPush.removeEventListener("postlayout", doAnimations);
 			console.debug("open window stack : do animations (postlayout called)");
+			viewToPush.removeEventListener("postlayout", doAnimations);
+			viewToPush.children[1].children[0].fireEvent("push");
 			viewToPop.animate(Ti.UI.createAnimation({
 				left : -45,
 				curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
@@ -165,6 +169,7 @@ exports.popView = function() {
 		var viewsOnStack = viewStack[_stackIndex].children;
 		var viewToPop = viewsOnStack[viewsOnStack.length - 1];
 		var viewToPush = viewsOnStack[viewsOnStack.length - 2];
+		viewToPop.children[1].children[0].fireEvent("pop");
 		viewToPop.animate(Ti.UI.createAnimation({
 			left : $.mainView.width - 1,
 			curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,

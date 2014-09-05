@@ -1,0 +1,90 @@
+"#toggleBtn":{
+	title: "map"
+},
+"#mapContainer":{
+	visible: false
+},
+"#listContainer":{
+	layout: "vertical",
+	visible: true
+},
+"#searchbar":{
+	hintText: "Search",
+	color: "#000",
+	showCancel: false
+},
+"#searchbar[platform=android]":{
+	height: 50,
+	backgroundColor: "transparent",
+	borderColor: "#ccc"
+},
+"#searchbar[platform=mobileweb]":{
+	top: 10,
+	width: "90%",
+	height: 40,
+	borderColor: "#000",
+	borderRadius: 5,
+	borderWidth: 2
+},
+"#listView":{
+	separatorColor: "#ccc"
+},
+"#listView[platform=mobileweb]":{
+	top: 10
+},
+"#listView[platform=ios]":{
+	separatorInsets: {
+		top: 0,
+		left: 0
+	}
+},
+"ListItem[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
+},
+".row":{
+	height: 60
+},
+".favourite":{
+	left: 5,
+	width: 15,
+	image: "/images/favourite.png"
+},
+".title-view":{
+	left: 25,
+	right: 120,
+	height: Ti.UI.SIZE,
+	layout: "vertical"
+},
+".title":{
+	left: 0,
+	height: 25,
+	font:{
+		fontSize: 20
+	},
+	textAlign: "left",
+	color: "#000"
+},
+".subtitle":{
+	left: 0,
+	height: 17,
+	font:{
+		fontSize: 13
+	},
+	textAlign: "left",
+	color: "#ccc"
+},
+".distance":{
+	right: 30,
+	bottom: 10,
+	height: 17,
+	font:{
+		fontSize: 13
+	},
+	textAlign: "left",
+	color: "#ccc"
+},
+".child":{
+	right: 5,
+	width: 15,
+	image: "/images/right_arrow.png"
+}
