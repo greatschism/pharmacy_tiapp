@@ -2,15 +2,25 @@
 	layout: "vertical"
 },
 ".actionbar-right-btn":{
-	right: 10,
-	font:{
-		fontFamily: Alloy.CFG.fonts.light,
-		fontSize: 17
-	},
+	right: 0,
+	width: 60,
+	height: 40,
 	color: "#fff",
 	backgroundColor: "transparent",
 	borderColor: "transparent",
 	role: "actionbar"
+},
+".actionbar-right-btn[platform=ios]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular,
+		fontSize: 17
+	}
+},
+".actionbar-right-btn[platform=android,mobileweb]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.light,
+		fontSize: 17
+	}
 },
 ".button":{
 	width: "90%",
