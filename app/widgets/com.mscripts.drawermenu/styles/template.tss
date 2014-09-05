@@ -4,7 +4,7 @@
 },
 "#actionbar":{
 	top: 0,
-	backgroundColor: "#d8d8d8"
+	backgroundColor: "#F79538"
 },
 "#actionbar[if=Alloy.Globals.iOS7Plus]":{
 	height: 68
@@ -20,10 +20,11 @@
 },
 "#titleLbl":{
 	font:{
+		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 20
 	},
 	textAlign: "center",
-	color: "#000"
+	color: "#fff"
 },
 "#leftImgView":{
 	left: 0,

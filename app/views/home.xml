@@ -1,5 +1,5 @@
 <Alloy>
-	<Button title="Done" class="actionbar-right-btn" />
+	<Button title="done" class="actionbar-right-btn" />
 	<View class="vertical">
 		<Button top="20" title="Go to Prescriptions" class="button" onClick="didClick" />
 		<Button top="20" title="Order a refill" class="button" onClick="didClick" />

@@ -3,7 +3,11 @@
 },
 ".actionbar-right-btn":{
 	right: 10,
-	color: "#000",
+	font:{
+		fontFamily: Alloy.CFG.fonts.light,
+		fontSize: 17
+	},
+	color: "#fff",
 	backgroundColor: "transparent",
 	borderColor: "transparent",
 	role: "actionbar"

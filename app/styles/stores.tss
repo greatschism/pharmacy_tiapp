@@ -62,29 +62,32 @@
 	left: 0,
 	height: 25,
 	font:{
+		fontFamily: Alloy.CFG.fonts.regular,
 		fontSize: 20
 	},
 	textAlign: "left",
-	color: "#000"
+	color: "#8b8b8b"
 },
 ".subtitle":{
 	left: 0,
 	height: 17,
 	font:{
+		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 13
 	},
 	textAlign: "left",
-	color: "#ccc"
+	color: "#8b8b8b"
 },
 ".distance":{
 	right: 30,
 	bottom: 10,
 	height: 17,
 	font:{
+		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 13
 	},
 	textAlign: "left",
-	color: "#ccc"
+	color: "#8b8b8b"
 },
 ".child":{
 	right: 5,

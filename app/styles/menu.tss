@@ -12,6 +12,9 @@
 },
 ".title":{
 	left: 15,
+	font:{
+		fontFamily: Alloy.CFG.fonts.light
+	},
 	textAlign: "left",
 	color: "#000"
 }
