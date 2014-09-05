@@ -4,6 +4,9 @@
 "#mapContainer":{
 	visible: false
 },
+"#mapView[platform=mobileweb]":{
+	url: "/html/map.html"
+},
 "#listContainer":{
 	layout: "vertical",
 	visible: true
