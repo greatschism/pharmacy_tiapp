@@ -1,0 +1,83 @@
+"#widget": {
+	width: "95%",
+	height: 40,
+	borderColor: "#8b8b8b",
+	borderWidth: 1,
+	borderRadius: 5
+},
+".txt":{
+	height: Ti.UI.FILL,
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+	autocorrect: false,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+},
+".txt[platform=ios]":{
+	paddingLeft: 8,
+	paddingRight: 8
+},
+".container-fill[platform=android,ios]":{
+	width: Ti.UI.FILL
+},
+".container-fill[platform=mobileweb]":{
+	left: 10,
+	width: Ti.UI.FILL
+},
+".txt-fill[platform=android,ios]":{
+	width: Ti.UI.FILL
+},
+".txt-fill[platform=mobileweb]":{
+	right: 10,
+	width: Ti.UI.FILL
+},
+".container-left-right[platform=android,ios]":{
+	left: 30,
+	width: Ti.UI.FILL
+},
+".container-left-right[platform=mobileweb]":{
+	left: 40,
+	width: Ti.UI.FILL
+},
+".txt-left-right[platform=android,ios]":{
+	right: 30,
+	width: Ti.UI.FILL
+},
+".txt-left-right[platform=mobileweb]":{
+	right: 40,
+	width: Ti.UI.FILL
+},
+".container-left[platform=android,ios]":{
+	left: 30,
+	width: Ti.UI.FILL
+},
+".container-left[platform=mobileweb]":{
+	left: 40,
+	width: Ti.UI.FILL
+},
+".txt-left[platform=android,ios]":{
+	right: 0,
+	width: Ti.UI.FILL
+},
+".txt-left[platform=mobileweb]":{
+	right: 10,
+	width: Ti.UI.FILL
+},
+".container-right[platform=android,ios]":{
+	left: 0,
+	width: Ti.UI.FILL
+},
+".container-right[platform=mobileweb]":{
+	left: 10,
+	width: Ti.UI.FILL
+},
+".txt-right[platform=android,ios]":{
+	right: 30,
+	width: Ti.UI.FILL
+},
+".txt-right[platform=mobileweb]":{
+	right: 40,
+	width: Ti.UI.FILL
+}

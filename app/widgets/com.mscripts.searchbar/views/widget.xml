@@ -1,7 +1,0 @@
-<Alloy>
-	<View>
-		<ImageView id="searchImg" />
-		<TextField id="txt" onChange="didChange" onFocus="didFocus" onBlur="didBlur" />
-		<ImageView id="cancelImg" onSingletap="didTap" />
-	</View>
-</Alloy>

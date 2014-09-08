@@ -1,0 +1,5 @@
+"#search":{
+	left: 10,
+	width: 20,
+	image: WPATH( "search.png")
+}

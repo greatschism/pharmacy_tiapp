@@ -8,9 +8,25 @@ function didPush(e) {
 		distance : "0.81 mi away",
 		favourite : true
 	}, {
-		title : "445 Bush St.",
+		title : "446 Bush St.",
 		subtitle : "San Francisco, CA, 94103",
 		distance : "0.81 mi away",
+		favourite : true
+	},
+	{
+		title : "447 Bush St.",
+		subtitle : "San Francisco, CA, 94103",
+		distance : "0.82 mi away",
+		favourite : false
+	},{
+		title : "448 Bush St.",
+		subtitle : "San Francisco, CA, 94103",
+		distance : "0.85 mi away",
+		favourite : false
+	},{
+		title : "449 Bush St.",
+		subtitle : "San Francisco, CA, 94103",
+		distance : "0.91 mi away",
 		favourite : false
 	}]);
 }

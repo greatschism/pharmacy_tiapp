@@ -50,6 +50,6 @@
     },
     "dependencies": {
         "com.mscripts.drawermenu": "1.0",
-        "com.mscripts.searchbar": "1.0"
+        "com.mscripts.textfield": "1.0"
     }
 }

@@ -12,6 +12,8 @@
 	visible: true
 },
 "#searchbar":{
+	search: true,
+	clearButton: true,
 	top: 5,
 	hintText: "search by zip, city or state",
 	font: {

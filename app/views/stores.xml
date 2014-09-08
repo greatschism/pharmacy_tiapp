@@ -6,7 +6,7 @@
 			<WebView id="mapView" platform="mobileweb" />
 		</View>
 		<View id="listContainer">
-			<Widget id="searchbar" src="com.mscripts.searchbar" />
+			<Widget id="searchbar" src="com.mscripts.textfield" />
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favourites" class="row">
