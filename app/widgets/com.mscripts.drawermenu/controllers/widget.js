@@ -27,6 +27,9 @@ function orientationChanged(e) {
 exports.init = function(params) {
 	if (_.has(params, "parent")) {
 		_parent = params.parent;
+		if (OS_ANDROID) {
+			_parent.addEventListener("androidback", $.popView);
+		}
 		enableSwipe();
 	}
 	if (_.has(params, "ctrls")) {
@@ -137,19 +140,33 @@ exports.pushView = function(ctrlParams) {
 			console.debug("open window stack : do animations (postlayout called)");
 			viewToPush.removeEventListener("postlayout", doAnimations);
 			viewToPush.children[1].children[0].fireEvent("push");
+			var actionViewToPush = viewToPush.children[0].children[0];
+			var actionViewToPop = viewToPop.children[0].children[0];
+			actionViewToPush.applyProperties({
+				opacity : 0
+			});
+			actionViewToPop.animate(Ti.UI.createAnimation({
+				opacity : 0,
+				duration : 250
+			}));
 			viewToPop.animate(Ti.UI.createAnimation({
 				left : -45,
 				curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
-				duration : 400
+				duration : 300
 			}), function() {
 				viewToPop.applyProperties({
 					left : -45
 				});
 			});
+			actionViewToPush.animate(Ti.UI.createAnimation({
+				delay : 250,
+				opacity : 1,
+				duration : 50
+			}));
 			viewToPush.animate(Ti.UI.createAnimation({
 				left : 0,
 				curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
-				duration : 450
+				duration : 350
 			}), function() {
 				viewToPush.applyProperties({
 					left : 0
@@ -164,30 +181,46 @@ exports.pushView = function(ctrlParams) {
 
 exports.popView = function() {
 	if (!_busy) {
-		_busy = true;
 		var viewStack = $.mainView.children;
 		var viewsOnStack = viewStack[_stackIndex].children;
-		var viewToPop = viewsOnStack[viewsOnStack.length - 1];
-		var viewToPush = viewsOnStack[viewsOnStack.length - 2];
-		viewToPop.children[1].children[0].fireEvent("pop");
-		viewToPop.animate(Ti.UI.createAnimation({
-			left : $.mainView.width - 1,
-			curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
-			duration : 400
-		}), function() {
-			viewStack[_stackIndex].remove(viewToPop);
-			viewToPop = null;
-		});
-		viewToPush.animate(Ti.UI.createAnimation({
-			left : 0,
-			curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
-			duration : 450
-		}), function() {
-			viewToPush.applyProperties({
-				left : 0
+		var len = viewsOnStack.length;
+		if (len > 1) {
+			_busy = true;
+			var viewToPop = viewsOnStack[len - 1];
+			var viewToPush = viewsOnStack[len - 2];
+			viewToPop.children[1].children[0].fireEvent("pop");
+			var actionViewToPush = viewToPush.children[0].children[0];
+			var actionViewToPop = viewToPop.children[0].children[0];
+			actionViewToPush.animate(Ti.UI.createAnimation({
+				delay : 250,
+				opacity : 1,
+				duration : 50
+			}));
+			viewToPush.animate(Ti.UI.createAnimation({
+				left : 0,
+				curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
+				duration : 300
+			}), function() {
+				viewToPush.applyProperties({
+					left : 0
+				});
 			});
-			_busy = false;
-		});
+			actionViewToPop.animate(Ti.UI.createAnimation({
+				opacity : 0,
+				duration : 250
+			}));
+			viewToPop.animate(Ti.UI.createAnimation({
+				left : $.mainView.width - 1,
+				curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
+				duration : 350
+			}), function() {
+				viewStack[_stackIndex].remove(viewToPop);
+				viewToPop = null;
+				_busy = false;
+			});
+		} else if (OS_ANDROID) {
+			_parent.fireEvent("closeapp");
+		}
 	}
 };
 

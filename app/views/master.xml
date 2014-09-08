@@ -1,5 +1,5 @@
 <Alloy>
-	<Window>
+	<Window onCloseapp="destory">
 		<Widget id="drawer" src="com.mscripts.drawermenu" />
 	</Window>
 </Alloy>
