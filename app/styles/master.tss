@@ -1,6 +1,12 @@
 "Window":{
 	backgroundColor: "#fff"
 },
+"Window[formFactor=handheld]":{
+	orientationModes: [Titanium.UI.PORTRAIT]
+},
+"Window[formFactor=tablet]":{
+	orientationModes: [Titanium.UI.PORTRAIT, Titanium.UI.UPSIDE_PORTRAIT]
+},
 "Window[platform=ios]":{
 	tintColor: "#000",
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
