@@ -1,55 +1,52 @@
 {
-    "global": {
-        "menuItems": [
-            {
-                "title": "Home",
-                "ctrl": "home",
-                "landingPage": true
-            },
-            {
-                "title": "Prescriptions",
-                "ctrl": "prescriptions"
-            },
-            {
-                "title": "Doctors",
-                "ctrl": "doctors"
-            },
-            {
-                "title": "Stores",
-                "ctrl": "stores"
-            },
-            {
-                "title": "Account",
-                "ctrl": "account"
-            }
-        ]
-    },
-    "env:development": {},
-    "env:test": {},
-    "env:production": {},
-    "os:android": {
-        "fonts": {
-            "light": "Roboto-Light",
-            "regular": "Roboto-Regular"
-        }
-    },
-    "os:blackberry": {},
-    "os:ios": {
-        "fonts": {
-            "light": "Lato-Light",
-            "lightItalic": "Lato-LightItalic",
-            "regular": "Lato-Regular",
-            "bold": "Lato-Bold"
-        }
-    },
-    "os:mobileweb": {
-        "fonts": {
-            "light": "Roboto-Light",
-            "regular": "Roboto-Regular"
-        }
-    },
-    "dependencies": {
-        "com.mscripts.drawermenu": "1.0",
-        "com.mscripts.textfield": "1.0"
-    }
+	"global": {
+		"layout": "hamburger",
+		"menuItems": [
+			{
+				"title": "Home",
+				"ctrl": "home",
+				"landingPage": true
+			}, {
+				"title": "Prescriptions",
+				"ctrl": "prescriptions"
+			}, {
+				"title": "Doctors",
+				"ctrl": "doctors"
+			}, {
+				"title": "Stores",
+				"ctrl": "stores"
+			}, {
+				"title": "Account",
+				"ctrl": "account"
+			}
+		]
+	},
+	"env:development": {},
+	"env:test": {},
+	"env:production": {},
+	"os:android": {
+		"fonts": {
+			"light": "Roboto-Light",
+			"regular": "Roboto-Regular"
+		}
+	},
+	"os:blackberry": {},
+	"os:ios": {
+		"fonts": {
+			"light": "Lato-Light",
+			"lightItalic": "Lato-LightItalic",
+			"regular": "Lato-Regular",
+			"bold": "Lato-Bold"
+		}
+	},
+	"os:mobileweb": {
+		"fonts": {
+			"light": "Roboto-Light",
+			"regular": "Roboto-Regular"
+		}
+	},
+	"dependencies": {
+		"com.mscripts.hamburger": "1.0",
+		"com.mscripts.textfield": "1.0"
+	}
 }

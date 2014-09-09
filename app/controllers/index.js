@@ -1,1 +1,1 @@
-Alloy.createController("master").init();
+Alloy.createController(Alloy.CFG.layout + "/master");

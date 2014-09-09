@@ -1,5 +1,6 @@
 <Alloy>
-	<Button title="back" class="actionbar-right-btn" onClick="Alloy.Globals.Navigator.popView" />
-	<View class="vertical" onPop="didPop">
+	<View class="vertical">
+		<Button top="20" title="Close to home" class="button" onClick="didCloseToHome" />
+		<Button top="20" title="Order a new refill" class="button" onClick="didRefilClick" />
 	</View>
 </Alloy> 

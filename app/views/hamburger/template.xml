@@ -2,8 +2,8 @@
 	<View>
 		<View id="actionbar">
 			<View id="actionView">
-				<View id="leftView" onSingletap="Alloy.Globals.Navigator.toggleLeftMenu">
-					<ImageView id="leftImg" class="hambuger"  />
+				<View id="leftView" onSingletap="didTap">
+					<ImageView id="leftImg" />
 				</View>
 				<!--<Button id="leftBtn" onClick="Alloy.Globals.Navigator.toggleLeftMenu" />-->
 				<Label id="titleLbl" class="actionbar-title" />

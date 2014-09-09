@@ -1,6 +1,6 @@
 {
-	"id": "com.mscripts.drawermenu",
-	"name": "Drawer Menu",
+	"id": "com.mscripts.hamburger",
+	"name": "Hamburger Menu",
 	"description": "Implements a slide-in, Facebook-style menu.",
 	"author": "Manoj Kumar",
 	"version": "2.0",

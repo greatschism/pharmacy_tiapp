@@ -1,6 +1,6 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {}, App = require("core");
 
 function didClick(e) {
 	console.log("go to home clicked!!!");
-	Alloy.Globals.Navigator.openView(Alloy.Collections.menuItems.at(0).toJSON());
+	App.Navigator.open(Alloy.Collections.menuItems.at(0).toJSON());
 }

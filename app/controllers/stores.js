@@ -1,7 +1,7 @@
 var args = arguments[0] || {};
 
-function didPush(e) {
-	console.log("your view is up now! initialization if any");
+function init(e) {
+	console.log("init");
 	Alloy.Collections.stores.reset([{
 		title : "1 Sansome St.",
 		subtitle : "San Francisco, CA, 94103",
@@ -12,18 +12,17 @@ function didPush(e) {
 		subtitle : "San Francisco, CA, 94103",
 		distance : "0.81 mi away",
 		favourite : true
-	},
-	{
+	}, {
 		title : "447 Bush St.",
 		subtitle : "San Francisco, CA, 94103",
 		distance : "0.82 mi away",
 		favourite : false
-	},{
+	}, {
 		title : "448 Bush St.",
 		subtitle : "San Francisco, CA, 94103",
 		distance : "0.85 mi away",
 		favourite : false
-	},{
+	}, {
 		title : "449 Bush St.",
 		subtitle : "San Francisco, CA, 94103",
 		distance : "0.91 mi away",
@@ -31,8 +30,9 @@ function didPush(e) {
 	}]);
 }
 
-function didPop(e){
-	$.searchbar.blur();
+function terminate(e) {
+	console.log("terminate");
+	$.destroy();
 }
 
 function transformFunction(model) {
@@ -52,3 +52,6 @@ function didToggle(e) {
 function didItemClick(e) {
 
 }
+
+exports.init = init;
+exports.terminate = terminate;

@@ -38,14 +38,19 @@
 	left: 0,
 	width: 60
 },
-".hambuger":{
+".hamburger":{
 	width: 40,
-	image: WPATH( "hambuger.png"),
+	image: "/images/hamburger.png",
+	touchEnabled: false
+},
+".back":{
+	width: 30,
+	image: "/images/back.png",
 	touchEnabled: false
 },
 /*"#leftBtn":{
 	left: 10,
-	backgroundImage: WPATH( "hambuger.png"),
+	backgroundImage: WPATH( "hamburger.png"),
 	backgroundColor: "transparent",
 	borderColor: "transparent"
 },

@@ -1,6 +1,6 @@
 <Alloy>
 	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
-	<View onPush="didPush" onPop="didPop">
+	<View>
 		<View id="mapContainer">
 			<View id="mapView" module="ti.map" platform="ios,android" />
 			<WebView id="mapView" platform="mobileweb" />
