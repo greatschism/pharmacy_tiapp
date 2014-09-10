@@ -1,0 +1,54 @@
+<h1>Change Log - Crittercism Android Module for Titanium</h1>
+<h3>08.15.2013 - v1.0.7</h3>
+<ul>
+<li>Adding NDK support.</li>
+</ul>
+<h3>06.14.2013 - v1.0.6</h3>
+<ul>
+<li>Fix: metadata no longer being overwritten</li>
+</ul>
+<h3>05.17.2013 - v1.0.4</h3>
+<ul>
+<li>Fix: now sending unhandled exceptions as crashes</li>
+</ul>
+<h3>05.10.2013 - v1.0.3</h3>
+<ul>
+<li>Updated the property for Crittercism App ID to "com-appcelerator-apm-id"</li>
+<li>Fix: receiving uncaught JS and Java exceptions more effectively</li>
+</ul>
+<h3>04.05.2013 - v1.0.2</h3>
+<ul>
+<li>Updated to 3.0.10 of Crittercism library<ul>
+<li>See library <a href="https://app.crittercism.com/downloads/android">release notes</a></li>
+</ul>
+</li>
+<li>Update the name of the module to "com.appcelerator.apm"<ul>
+<li>Updated docs to reflect above change</li>
+<li>Updated sample app to reflect above change</li>
+</ul>
+</li>
+<li>Removed support for init boolean "didCrashOnLastLoad", now use API<ul>
+<li>Updated docs to reflect above change</li>
+<li>Updated sample app to reflect above change</li>
+</ul>
+</li>
+<li>Removed support for Objects in setMetadata as this can cause unexpected behavior, will revisit<ul>
+<li>Note: This now accepts String objects in the value parameter</li>
+<li>Updated docs and sample app to reflect above change</li>
+</ul>
+</li>
+</ul>
+<h3>03.06.2013 - v1.0.1</h3>
+<ul>
+<li>Added change log to both native modules</li>
+<li>Added support for "com-crittercism-ti" property in Tiapp.xml</li>
+<li>Added support for optional init() parameters to reflect use of property<ul>
+<li>Note: adding appID to init call will override defined property.</li>
+</ul>
+</li>
+<li>Demo app currently injects the property manually</li>
+<li>Documentation to reflect the changes of init parameters being optional<ul>
+<li>Reduced the init explanation to a single item in docs</li>
+</ul>
+</li>
+</ul>
