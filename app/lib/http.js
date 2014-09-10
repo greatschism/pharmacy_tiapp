@@ -1,6 +1,6 @@
 /**
  * HTTP request class
- * 
+ *
  * @class http
  */
 
@@ -20,7 +20,7 @@
 exports.request = function(_params) {
 	Ti.API.debug("HTTP.request " + _params.url);
 
-	if(Ti.Network.online) {
+	if (Ti.Network.online) {
 		var xhr = Ti.Network.createHTTPClient();
 
 		xhr.timeout = _params.timeout ? _params.timeout : 10000;
@@ -31,22 +31,23 @@ exports.request = function(_params) {
 		 * @ignore
 		 */
 		xhr.onload = function(_data) {
-			if(_data) {
+			if (_data) {
 				switch(_params.format.toLowerCase()) {
-					case "data":
-					case "xml":
-						_data = this.responseData;
-						break;
-					case "json":
-						_data = JSON.parse(this.responseText);
-						break;
-					case "text":
-						_data = this.responseText;
-						break;
+				case "data":
+					_data = this.responseData;
+				case "xml":
+					_data = this.responseXML;
+					break;
+				case "json":
+					_data = JSON.parse(this.responseText);
+					break;
+				case "text":
+					_data = this.responseText;
+					break;
 				}
 
-				if(_params.success) {
-					if(_params.passthrough) {
+				if (_params.success) {
+					if (_params.passthrough) {
 						_params.success(_data, _params.url, _params.passthrough);
 					} else {
 						_params.success(_data, _params.url);
@@ -57,9 +58,9 @@ exports.request = function(_params) {
 			}
 		};
 
-		if(_params.ondatastream) {
+		if (_params.ondatastream) {
 			xhr.ondatastream = function(_event) {
-				if(_params.ondatastream) {
+				if (_params.ondatastream) {
 					_params.ondatastream(_event.progress);
 				}
 			};
@@ -71,8 +72,8 @@ exports.request = function(_params) {
 		 * @ignore
 		 */
 		xhr.onerror = function(_event) {
-			if(_params.failure) {
-				if(_params.passthrough) {
+			if (_params.failure) {
+				if (_params.passthrough) {
 					_params.failure(this, _params.url, _params.passthrough);
 				} else {
 					_params.failure(this, _params.url);
@@ -89,8 +90,8 @@ exports.request = function(_params) {
 
 		xhr.open(_params.type, _params.url, _params.async);
 
-		if(_params.headers) {
-			for(var i = 0, j = _params.headers.length; i < j; i++) {
+		if (_params.headers) {
+			for (var i = 0, j = _params.headers.length; i < j; i++) {
 				xhr.setRequestHeader(_params.headers[i].name, _params.headers[i].value);
 			}
 		}
@@ -98,16 +99,16 @@ exports.request = function(_params) {
 		// Overcomes the 'unsupported browser' error sometimes received
 		xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
-		if(_params.data) {
-			xhr.send(JSON.stringify(_params.data));
+		if (_params.data) {
+			xhr.send(_params.data);
 		} else {
 			xhr.send();
 		}
 	} else {
 		Ti.API.error("No internet connection");
 
-		if(_params.failure) {
-			if(_params.passthrough) {
+		if (_params.failure) {
+			if (_params.passthrough) {
 				_params.failure(null, _params.url, _params.passthrough);
 			} else {
 				_params.failure(null, _params.url);

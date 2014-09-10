@@ -1,0 +1,14 @@
+<Alloy>
+	<ListView>
+		<HeaderView>
+			<View class="header-view">
+				<View class="auto-height header-content">
+					<ImageView class="logo" />
+					<View class="auto-height address-view">
+					</View>
+				</View>
+				<Button id="refillBtn" class="button" />
+			</View>
+		</HeaderView>
+	</ListView>
+</Alloy>

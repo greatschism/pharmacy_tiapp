@@ -10,31 +10,39 @@
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favourites" class="row">
-						<ImageView class="favourite" />
-						<View class="title-view">
-							<Label bindId="title" class="title" />
-							<Label bindId="subtitle" class="subtitle" />
-						</View>
-						<View class="distance-view">
-							<ImageView class="distance-img" />
-							<Label bindId="distance" class="distance" />
+						<View class="container-view">
+							<ImageView class="favourite" />
+							<View class="content-view">
+								<View class="title-view">
+									<Label bindId="title" class="title" />
+									<Label bindId="subtitle" class="subtitle" />
+								</View>
+								<View class="distance-view">
+									<ImageView class="distance-img" />
+									<Label bindId="distance" class="distance" />
+								</View>
+							</View>
 						</View>
 						<ImageView class="child" />
 					</ItemTemplate>
 					<ItemTemplate name="nearby" class="row">
-						<View class="title-view">
-							<Label bindId="title" class="title" />
-							<Label bindId="subtitle" class="subtitle" />
-						</View>
-						<View class="distance-view">
-							<ImageView class="distance-img" />
-							<Label bindId="distance" class="distance" />
+						<View class="container-view">
+							<View class="content-view">
+								<View class="title-view">
+									<Label bindId="title" class="title" />
+									<Label bindId="subtitle" class="subtitle" />
+								</View>
+								<View class="distance-view">
+									<ImageView class="distance-img" />
+									<Label bindId="distance" class="distance" />
+								</View>
+							</View>
 						</View>
 						<ImageView class="child" />
 					</ItemTemplate>
 				</Templates>
 				<ListSection dataCollection="stores" dataTransform="transformFunction">
-					<ListItem template="{template}" title:text="{title}" subtitle:text="{subtitle}" distance:text="{distance}" />
+					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distance:text="{distance}" />
 				</ListSection>
 			</ListView>
 			<TableView id="listView" platform="mobileweb" dataCollection="stores" onClick="didItemClick">

@@ -1,6 +1,9 @@
 ".vertical":{
 	layout: "vertical"
 },
+".auto-height":{
+	height: Ti.UI.SIZE
+},
 ".actionbar-right-btn":{
 	right: 0,
 	width: 60,
@@ -26,6 +29,6 @@
 	width: "90%",
 	height: 45,
 	color: "#fff",
-	backgroundColor: "#FE2E2E",
+	backgroundColor: "#F79538",
 	borderRadius: 5
 }

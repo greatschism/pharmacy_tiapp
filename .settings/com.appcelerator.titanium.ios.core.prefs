@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 iosLaunchConfigurationAttributes/ATTR_MINIFY=true
 iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=mscripts-application
-iosLaunchConfigurationAttributes/appid=com.mscripts.mscripts
-iosLaunchConfigurationAttributes/certificate=Hareesh Khurana (KY878Q597V)
+iosLaunchConfigurationAttributes/appid=com.mcripts.appcelerator
+iosLaunchConfigurationAttributes/certificate=MSCRIPTS, LLC
+iosLaunchConfigurationAttributes/distribute_path=/Users/esimacmini2013/Downloads
 iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/output_format=ipa
 iosLaunchConfigurationAttributes/sdk_version=7.1
-iosLaunchConfigurationAttributes/uuid=26AC4329-D506-48CF-9B04-B4D7739C8CDA
+iosLaunchConfigurationAttributes/uuid=7808C6A1-40AD-446D-89BA-F8C6089CE3BE

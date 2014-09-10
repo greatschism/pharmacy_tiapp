@@ -1,0 +1,18 @@
+".header-view":{
+	height: Ti.UI.SIZE,
+	layout: "vertical"
+},
+".header-content":{
+	top: 10
+},
+".logo":{
+	left: 15,
+	width: 60
+},
+".address-view":{
+	left: 75
+},
+"#refillBtn":{
+	top: 10,
+	title: "Refill a prescriptions here"
+}

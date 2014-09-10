@@ -10,4 +10,7 @@
 "Window[platform=ios]":{
 	tintColor: "#000",
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
+},
+"Window[platform=android]":{
+	exitOnClose: true
 }
