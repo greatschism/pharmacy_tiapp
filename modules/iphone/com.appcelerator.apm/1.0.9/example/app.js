@@ -1,0 +1,186 @@
+// An Example app to show usage of the Crittercism APIs
+// this does not currently contain best practices for
+// Crittercism in conjunction with Titanium
+// 
+// Updated 12-12-2013
+
+Ti.API.info("Ti App: importing Crittercism...");
+var crittercism = require('com.appcelerator.apm');
+Ti.API.info("module is => " + crittercism + "\n");
+
+var didCrash;
+// Note: initializing differently for each platform is a work around until the single appcelerator
+// platform is available on Crittercism.
+if (Titanium.Platform.osname == 'android')
+{
+	Ti.API.info("Ti App: initializing Crittercism Android...");
+	didCrash = crittercism.didCrashOnLastAppLoad();
+}
+else if (Titanium.Platform.osname == 'iphone' || Titanium.Platform.osname == 'ipad')
+{
+	didCrash = crittercism.didCrashOnLastAppLoad();
+}
+Ti.API.info("Ti App: Crittercism initialized\n");
+
+// Note: this currently does not trigger for iOS
+var crashed = (didCrash)?"Yes":"No";
+Ti.API.info("Ti App: didCrashOnLastLoad: " + crashed + "\n");
+
+Ti.API.info("Ti App: Crittercism UUID: " + crittercism.getUUID() + "\n");
+
+// Android Only
+Ti.API.info("Ti App: Crittercism Notification Title: " + crittercism.getNotificationTitle() + "\n");
+
+var win = Titanium.UI.createWindow({
+	title : 'Crittercism Test',
+	backgroundColor : '#fff'
+});
+crittercism.leaveBreadcrumb("Creating window");
+
+var topLabel = Titanium.UI.createLabel({
+	top:10,
+	color : '#999',
+	text : 'Crittercism Test App!',
+	font : {
+		fontSize : 16,
+		fontFamily : 'Helvetica Neue'
+	},
+	width : 'auto'
+});
+
+win.add(topLabel);
+
+var setMetaData = Titanium.UI.createButton({
+	top:35,
+	width:301,
+	height:30,
+	title:'Set Metadata'
+});
+
+setMetaData.addEventListener('click', function()
+{
+	Ti.API.info("setMetaData // Setting Username");
+	crittercism.leaveBreadcrumb("setMetaData // Setting Username");
+	crittercism.setUsername("TheCritter");
+	
+	Ti.API.info("setMetaData // Setting Arbitrary Single Set Metadata");
+	crittercism.setMetadata("gameLevel", "6");
+	crittercism.setMetadata("playerID", "9491824");
+});
+
+win.add(setMetaData);
+
+var crashButton = Titanium.UI.createButton({
+	top:70,
+	width:301,
+	height:30,
+	title:'Crash'
+});
+
+crashButton.addEventListener('click', function()
+{
+	crittercism.leaveBreadcrumb("Clicking the crash button");
+	if (Titanium.Platform.osname == 'iphone' || Titanium.Platform.osname == 'ipad') {
+		var foo2 = Ti.UI.createView();
+		Ti.API.debug("Let's crash this thing" + foo2.autorelease.autorelease.autorelease.autorelease);
+	} else {
+		doSomething();
+	}
+});
+
+win.add(crashButton);
+
+var handledButton = Titanium.UI.createButton({
+	top:105,
+	width:301,
+	height:30,
+	title:'Send Handled Exception'
+});
+
+handledButton.addEventListener('click', function()
+{	
+	var error = new Error("A Custom Error!");
+	crittercism.logHandledException(error);
+
+	try {
+		crittercism.leaveBreadcrumb("Attempting some awesome task...");
+		doSomething();
+	} catch (err){
+		crittercism.leaveBreadcrumb("Oh no, it failed! Log it...");
+		crittercism.logHandledException(err);
+	}
+});
+
+win.add(handledButton);
+
+var doSomething = function doSomething () {
+	crittercism.leaveBreadcrumb("doSomething // Entered");
+	foo();
+}
+
+function foo () {
+	crittercism.leaveBreadcrumb("Foo // Entered");
+	bar();
+}
+
+function bar () {
+	crittercism.leaveBreadcrumb("Bar // Entered");
+	something();
+}
+
+var something = function() {
+	crittercism.leaveBreadcrumb("Something // Entered");
+	// create an array with an invalid size
+	var a = new Array(0x100000000);
+	
+	var array = new Array();
+	
+	win.add(array[0]); // this gets caught because the object is undefined and not a proxy
+	
+	// throw a custom exception
+	var er = new Error("My Awesome Uncaught Error!");
+	throw er;
+}
+
+var status = false;
+
+var optOutToggle = Titanium.UI.createButton({
+	top:140,
+	width:301,
+	height:30,
+	title:'Toggle OptOut Status: No'
+});
+
+optOutToggle.addEventListener('click', function()
+{
+	// Set the status
+	crittercism.setOptOutStatus(status = !status);
+	
+	// change the status in the button title for visibility
+	var stringStatus = crittercism.getOptOutStatus() ? "Yes" : "No";
+	optOutToggle.title = 'Toggle OptOut Status: ' + stringStatus;
+});
+
+win.add(optOutToggle);
+
+// iOS Only
+var asyncBreadcrumbToggle = Titanium.UI.createButton({
+	top:175,
+	width:301,
+	height:30,
+	title:'Toggle Async BreadCrumbs: No'
+});
+
+asyncBreadcrumbToggle.addEventListener('click', function()
+{
+	// Set the status
+	crittercism.setAsyncBreadcrumbMode(status = !status);
+	
+	// change the status in the button title for visibility
+	var stringStatus = status? "Yes" : "No";
+	asyncBreadcrumbToggle.title = 'Toggle Async BreadCrumbs: ' + stringStatus;
+});
+
+win.add(asyncBreadcrumbToggle);
+
+win.open();
