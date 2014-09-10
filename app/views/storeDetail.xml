@@ -4,7 +4,9 @@
 			<View class="header-view">
 				<View class="auto-height header-content">
 					<ImageView class="logo" />
-					<View class="auto-height address-view">
+					<View class="auto-height vertical address-view">
+						<Label id="titleLbl" text="{store.addressline1}" />
+						<Label id="subtitleLbl" text="{store.subtitle}" />
 					</View>
 				</View>
 				<Button id="refillBtn" class="button" />

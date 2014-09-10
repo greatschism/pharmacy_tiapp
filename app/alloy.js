@@ -13,3 +13,5 @@ Alloy.Globals.iOS7Plus = isIOS7Plus();
 
 Alloy.Collections.menuItems = new Backbone.Collection();
 Alloy.Collections.stores = new Backbone.Collection();
+
+Alloy.Models.store = new Backbone.Model();

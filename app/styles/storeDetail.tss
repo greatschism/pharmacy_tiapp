@@ -3,16 +3,35 @@
 	layout: "vertical"
 },
 ".header-content":{
-	top: 10
+	top: 20
 },
 ".logo":{
 	left: 15,
-	width: 60
+	width: 50
 },
 ".address-view":{
 	left: 75
 },
+"#titleLbl":{
+	left: 0,
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular,
+		fontSize: 22
+	},
+	textAlign: "left",
+	color: "#8b8b8b"
+},
+"#subtitleLbl":{
+	top: 5,
+	left: 0,
+	font:{
+		fontFamily: Alloy.CFG.fonts.light,
+		fontSize: 15
+	},
+	textAlign: "left",
+	color: "#8b8b8b"
+},
 "#refillBtn":{
-	top: 10,
+	top: 20,
 	title: "Refill a prescriptions here"
 }
