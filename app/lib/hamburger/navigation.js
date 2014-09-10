@@ -42,6 +42,18 @@ function Navigation(_args) {
 	this.parent = _args.parent;
 
 	/**
+	 * The window object
+	 * @type {Object}
+	 */
+	this.window = _args.window;
+
+	/**
+	 * The device object
+	 * @type {Object}
+	 */
+	this.device = _args.device;
+
+	/**
 	 * Open a screen controller
 	 * @param {Object} arguments The arguments for the controller (required)
 	 * @return {Controllers} Returns the new controller
@@ -63,9 +75,7 @@ function Navigation(_args) {
 
 		var controller = Alloy.createController("hamburger/template", arguments);
 
-		if (_.isFunction(controller.child.init)) {
-			controller.child.init();
-		}
+		that.init(controller);
 
 		var view = controller.getView();
 
@@ -75,9 +85,7 @@ function Navigation(_args) {
 
 			// Handle removing the current controller from the screen
 			if (that.currentController) {
-				if (_.isFunction(that.currentController.child.terminate)) {
-					that.currentController.child.terminate();
-				}
+				that.terminate(that.currentController);
 				that.parent.remove(that.currentController.getView());
 				that.controllers.pop();
 			}
@@ -112,9 +120,7 @@ function Navigation(_args) {
 
 		var controller = Alloy.createController("hamburger/template", arguments);
 
-		if (_.isFunction(controller.child.init)) {
-			controller.child.init();
-		}
+		that.init(controller);
 
 		var view = controller.getView();
 
@@ -150,18 +156,19 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		if (_.isFunction(that.currentController.child.terminate)) {
-			that.currentController.child.terminate();
-		}
-
 		if (that.controllers.length == 1) {
-			_args.window.close();
-			if (_callback) {
-				_callback();
+			if (OS_ANDROID) {
+				that.terminate(that.currentController);
+				that.window.close();
+				if (_callback) {
+					_callback();
+				}
+				that.isBusy = false;
 			}
-			that.isBusy = false;
 			return;
 		}
+		
+		that.terminate(that.currentController);
 
 		that.animateOut(that.currentController.getView(), function() {
 
@@ -195,14 +202,10 @@ function Navigation(_args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		if (_.isFunction(that.currentController.child.terminate)) {
-			that.currentController.child.terminate();
-		}
+		that.terminate(that.currentController);
 
 		for (var i = 0, x = removeControllers.length; i < x; i++) {
-			if (_.isFunction(removeControllers[i].child.terminate)) {
-				removeControllers[i].child.terminate();
-			}
+			that.terminate(removeControllers[i]);
 			that.parent.remove(removeControllers[i].getView());
 		}
 
@@ -220,6 +223,26 @@ function Navigation(_args) {
 			}
 
 		});
+	};
+
+	/**
+	 * Calls init method of the controller if exists
+	 * @param {Controller} _controller
+	 */
+	this.init = function(_controller) {
+		if (_.isFunction(_controller.child.init)) {
+			_controller.child.init();
+		}
+	};
+
+	/**
+	 * Calls terminate method of the controller if exists
+	 * @param {Controller} _controller
+	 */
+	this.terminate = function(_controller) {
+		if (_.isFunction(_controller.child.terminate)) {
+			_controller.child.terminate();
+		}
 	};
 
 	/**
