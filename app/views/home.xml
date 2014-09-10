@@ -1,7 +1,29 @@
 <Alloy>
-	<Button title="done" class="actionbar-right-btn" />
-	<View class="vertical">
-		<Button top="20" title="Go to Prescriptions" class="button" onClick="didPrescriptionClick" />
-		<Button top="20" title="Order a refill" class="button" onClick="didRefilClick" />
-	</View>
+	<Button title="sign in" class="actionbar-right-btn" />
+	<ScrollView layout="vertical">
+		<ImageView id="image" image="/images/my_prescriptions.png" title="prescriptions"/>
+		<View layout="horizontal" height="Ti.UI.SIZE">
+			<View width="50%" height="Ti.UI.SIZE">
+				<ImageView title="refill" image="/images/refill_from_a_number.png" />
+			</View>
+			<View width="50%" height="Ti.UI.SIZE">
+				<ImageView image="/images/transfer.png"/>
+			</View>
+		</View>
+		<View layout="horizontal" height="Ti.UI.SIZE">
+			<View width="33%" height="Ti.UI.SIZE">
+				<ImageView image="/images/pharmacy_rewards.png" width="Ti.UI.FILL"/>
+			</View>
+			<View width="33%" height="Ti.UI.SIZE">
+				<ImageView image="/images/finda_pharmacy.png" width="Ti.UI.FILL"/>
+			</View>
+			<View width="33%" height="Ti.UI.SIZE">
+				<ImageView image="/images/generics.png" width="Ti.UI.FILL"/>
+			</View>
+		</View>
+		<ImageView image="/images/flu_shots.png" title="flushot" width="Ti.UI.FILL"/>
+		<ImageView image="/images/clinic.png" height="Ti.UI.SIZE" title="clinic" width="Ti.UI.FILL"/>
+		<ImageView image="/images/wellness_guide.png" height="Ti.UI.SIZE" title="wellness guide" width="Ti.UI.FILL"/>
+		<ImageView image="/images/shop_target.png" height="Ti.UI.SIZE" title="shop" width="Ti.UI.FILL"/>
+	</ScrollView>
 </Alloy> 

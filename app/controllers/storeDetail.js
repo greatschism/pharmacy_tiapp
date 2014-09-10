@@ -11,6 +11,7 @@ function init() {
 
 function terminate() {
 	$.destroy();
+	Alloy.Models.store.clear();
 }
 
 exports.init = init;

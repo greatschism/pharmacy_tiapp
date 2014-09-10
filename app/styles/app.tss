@@ -32,3 +32,145 @@
 	backgroundColor: "#F79538",
 	borderRadius: 5
 }
+
+// Width Helpers to support Grid Layout
+".mscriptsw-1%":{
+    width: '1%'
+}
+".mscriptsw-5%":{
+    width: '5%'
+}
+".mscriptsw-10%":{
+    width: '10%'
+}
+".mscriptsw-15%":{
+    width: '15%'
+}
+".mscriptsw-20%":{
+    width: '20%'
+}
+".mscriptsw-25%":{
+    width: '25%'
+}
+".mscriptsw-30%":{
+    width: '30%'
+}
+".mscriptsw-35%":{
+    width: '35%'
+}
+".mscriptsw-40%":{
+    width: '40%'
+}
+".mscriptsw-45%":{
+    width: '45%'
+}
+".mscriptsw-50%":{
+    width: '50%'
+}
+".mscriptsw-55%":{
+    width: '55%'
+}
+".mscriptsw-60%":{
+    width: '60%'
+}
+".mscriptsw-65%":{
+    width: '65%'
+}
+".mscriptsw-70%":{
+    width: '70%'
+}
+".mscriptsw-75%":{
+    width: '75%'
+}
+".mscriptsw-80%":{
+    width: '80%'
+}
+".mscriptsw-85%":{
+    width: '85%'
+}
+".mscriptsw-90%":{
+    width: '90%'
+}
+".mscriptsw-95%":{
+    width: '95%'
+}
+".mscriptsw-100%":{
+    width: '100%'
+}
+".mscriptsw-size":{
+    width: Ti.UI.SIZE
+}
+".mscriptsw-fill":{
+    width: Ti.UI.FILL
+}
+
+// Height helpers
+".mscriptsh-1%":{
+    height: '1%'
+}
+".mscriptsh-5%":{
+    height: '5%'
+}
+".mscriptsh-10%":{
+    height: '10%'
+}
+".mscriptsh-15%":{
+    height: '15%'
+}
+".mscriptsh-20%":{
+    height: '20%'
+}
+".mscriptsh-25%":{
+    height: '25%'
+}
+".mscriptsh-30%":{
+    height: '30%'
+}
+".mscriptsh-35%":{
+    height: '35%'
+}
+".mscriptsh-40%":{
+    height: '40%'
+}
+".mscriptsh-45%":{
+    height: '45%'
+}
+".mscriptsh-50%":{
+    height: '50%'
+}
+".mscriptsh-55%":{
+    height: '55%'
+}
+".mscriptsh-60%":{
+    height: '60%'
+}
+".mscriptsh-65%":{
+    height: '65%'
+}
+".mscriptsh-70%":{
+    height: '70%'
+}
+".mscriptsh-75%":{
+    height: '75%'
+}
+".mscriptsh-80%":{
+    height: '80%'
+}
+".mscriptsh-85%":{
+    height: '85%'
+}
+".mscriptsh-90%":{
+    height: '90%'
+}
+".mscriptsh-95%":{
+    height: '95%'
+}
+".mscriptsh-100%":{
+    height: '100%'
+}
+".mscriptsh-size":{
+    height: Ti.UI.SIZE
+}
+".mscriptsh-fill":{
+    height: Ti.UI.FILL
+}

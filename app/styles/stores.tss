@@ -41,7 +41,7 @@
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 ".row":{
-	height: 55
+	height: 60
 },
 ".child":{
 	right: 5,
@@ -89,7 +89,7 @@
 	right: 0,
 	bottom: 10,
 	width: "35%",
-	height: 17,
+	height: Ti.UI.SIZE,
 	layout: "horizontal"
 },
 ".distance-img":{
@@ -99,7 +99,7 @@
 },
 ".distance":{
 	left: 5,
-	height: 20,
+	height: 17,
 	font:{
 		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 13
