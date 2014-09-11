@@ -89,8 +89,7 @@
 	right: 0,
 	bottom: 10,
 	width: "35%",
-	height: Ti.UI.SIZE,
-	layout: "horizontal"
+	height: Ti.UI.SIZE
 },
 ".distance-img":{
 	left: 0,
@@ -98,7 +97,7 @@
 	image: "/images/pin.png"
 },
 ".distance":{
-	left: 5,
+	left: 20,
 	height: 17,
 	font:{
 		fontFamily: Alloy.CFG.fonts.light,

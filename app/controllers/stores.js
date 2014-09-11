@@ -37,23 +37,38 @@ function didSuccess(doc) {
 	var xmlTools = new _xmlTools(doc);
 	var pharmacies = xmlTools.toObject().advsearchpharmacy.pharmacy;
 	pharmacies[0].favourite = true;
+	for (var i in pharmacies) {
+		var pahamacy = pharmacies[i];
+		pahamacy.template = pahamacy.favourite ? "favourites" : "nearby";
+		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
+		pahamacy.distance = pahamacy.distance + " mi away";
+	}
 	Alloy.Collections.stores.reset(pharmacies);
+	if (OS_MOBILEWEB) {
+
+	} else {
+		loadNativeMap();
+	}
 }
 
 function didError(http, url) {
 	alert("Failed to retrive");
 }
 
-function terminate(e) {
-	$.destroy();
-}
-
-function transformFunction(model) {
-	var transform = model.toJSON();
-	transform.template = transform.favourite ? "favourites" : "nearby";
-	transform.subtitle = transform.city + ", " + transform.state + " " + transform.zip;
-	transform.distance = transform.distance + " mi away";
-	return transform;
+function loadNativeMap(e) {
+	var annotations = [];
+	var Map = Alloy.Globals.Map;
+	Alloy.Collections.stores.map(function(model) {
+		var data = model.toJSON();
+		annotations.push(Map.createAnnotation({
+			storeId : data.storeid,
+			title : data.addressline1,
+			subtitle : data.subtitle,
+			latitude : data.latitude,
+			longitude : data.longitude
+		}));
+	});
+	$.mapView.annotations = annotations;
 }
 
 function didToggle(e) {
@@ -64,15 +79,30 @@ function didToggle(e) {
 	$.toggleBtn.title = lVisible ? "list" : "map";
 }
 
+function didAnnotationClick(e) {
+	var annotation = e.annotation;
+	if (annotation && e.clicksource != "pin") {
+		openStoreDetail(annotation.storeId);
+	}
+}
+
 function didItemClick(e) {
+	openStoreDetail(e.itemId);
+}
+
+function openStoreDetail(storeId) {
 	App.Navigator.open({
 		ctrl : "storeDetail",
 		title : "Find a store",
 		ctrlArguments : {
-			storeId : e.itemId
+			storeId : storeId
 		},
 		stack : true
 	});
+}
+
+function terminate(e) {
+	$.destroy();
 }
 
 exports.init = init;

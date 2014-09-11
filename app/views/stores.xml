@@ -2,7 +2,7 @@
 	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
 	<View>
 		<View id="mapContainer">
-			<View id="mapView" module="ti.map" platform="ios,android" />
+			<View id="mapView" ns="Alloy.Globals.Map" platform="ios,android" onClick="didAnnotationClick" />
 			<WebView id="mapView" platform="mobileweb" />
 		</View>
 		<View id="listContainer">
@@ -41,7 +41,7 @@
 						<ImageView class="child" />
 					</ItemTemplate>
 				</Templates>
-				<ListSection dataCollection="stores" dataTransform="transformFunction">
+				<ListSection dataCollection="stores">
 					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distance:text="{distance}" />
 				</ListSection>
 			</ListView>
@@ -49,7 +49,7 @@
 				<TableViewRow class="row">
 					<ImageView class="favourite" visible="{favourite}" />
 					<View class="title-view">
-						<Label text="{title}" class="title" />
+						<Label text="{addressline1}" class="title" />
 						<Label text="{subtitle}" class="subtitle" />
 					</View>
 					<View class="distance-view">
