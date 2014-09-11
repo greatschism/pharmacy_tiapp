@@ -7,7 +7,11 @@ function init() {
 		var sections = icons[i];
 		var width = Math.floor(Ti.Platform.displayCaps.platformWidth / sections.length);
 		for (var j in sections) {
-			view.add(getImage(sections[j].image, width));
+			var image = "/images/home/".concat(sections[j].image);
+			var imageView = OS_MOBILEWEB ? getMImage(image, width) : getNImage(image, width);
+			imageView.navigation = sections[j].navigation || {};
+			imageView.addEventListener("click", didItemClick);
+			view.add(imageView);
 		}
 		$.scrollView.add(view);
 	}
@@ -22,36 +26,36 @@ function getView() {
 	});
 }
 
-function getImage(image, width) {
-	var image = "/images/home/".concat(image), height;
-	if (!OS_MOBILEWEB) {
-		var blob = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, image).read();
-		height = (blob.height / blob.width) * width;
-		if (OS_ANDROID) {
-			width = width / (App.Device.dpi / 160);
-			height = height / (App.Device.dpi / 160);
-		}
-	} else {
-		height = "auto";
+function getNImage(image, width) {
+	var blob = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, image).read(), height;
+	height = (blob.height / blob.width) * width;
+	blob = null;
+	if (OS_ANDROID) {
+		width = width / (App.Device.dpi / 160);
+		height = height / (App.Device.dpi / 160);
 	}
-	return createImage(image, width, height);
+	return Ti.UI.createView({
+		left : 0,
+		width : width,
+		height : height,
+		backgroundImage : image
+	});
 }
 
-function createImage(image, width, height) {
-	if (OS_MOBILEWEB)
-		return Ti.UI.createImageView({
-			left : 0,
-			width : width,
-			height : height,
-			image : image
-		});
-	else
-		return Ti.UI.createView({
-			left : 0,
-			width : width,
-			height : height,
-			backgroundImage : image
-		});
+function getMImage(image, width) {
+	return Ti.UI.createImageView({
+		left : 0,
+		width : width,
+		height : "auto",
+		image : image
+	});
+}
+
+function didItemClick(e) {
+	var navigation = e.source.navigation;
+	if (!_.isEmpty(navigation)) {
+		App.Navigator.open(navigation);
+	}
 }
 
 exports.init = init;

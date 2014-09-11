@@ -1,23 +1,13 @@
-var args = arguments[0] || {}, _selectedIndex, App = require("core");
-
-(function() {
-
-	Alloy.Collections.menuItems.reset(Alloy.CFG.menuItems);
-
-	var landingPage = Alloy.Collections.menuItems.where({
-	landingPage: true
-	})[0];
-
-	_selectedIndex = Alloy.Collections.menuItems.indexOf(landingPage);
-
-	App.Navigator.open(landingPage.toJSON());
-})();
+var args = arguments[0] || {}, App = require("core");
+Alloy.Collections.menuItems.reset(Alloy.CFG.menuItems);
+App.Navigator.open(Alloy.Collections.menuItems.where({
+landingPage: true
+})[0].toJSON());
 
 function didItemClick(e) {
-	var index = OS_MOBILEWEB ? e.index : e.itemIndex;
-	if (_selectedIndex !== index) {
-		_selectedIndex = index;
-		App.Navigator.open(Alloy.Collections.menuItems.at(_selectedIndex).toJSON());
+	var item = Alloy.Collections.menuItems.at( OS_MOBILEWEB ? e.index : e.itemIndex).toJSON();
+	if (item.ctrl != App.Navigator.currentItem.ctrl) {
+		App.Navigator.open(item);
 	}
 	App.hamburger.closeLeftMenu();
 }

@@ -35,7 +35,11 @@
 				{
 					"image": "pharmacy_rewards.png"
 				}, {
-					"image": "finda_pharmacy.png"
+					"image": "finda_pharmacy.png",
+					"navigation": {
+						"title": "Stores",
+						"ctrl": "stores"
+					}
 				}, {
 					"image": "generics.png"
 				}

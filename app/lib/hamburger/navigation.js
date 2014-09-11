@@ -34,6 +34,12 @@ function Navigation(_args) {
 	 * @type {Controllers}
 	 */
 	this.currentController = null;
+	
+	/**
+	 * The current top level controller's name 
+	 * @type {Controllers}
+	 */
+	this.currentItem = null;
 
 	/**
 	 * The parent object all screen controllers are added to
@@ -73,7 +79,9 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/template", arguments);
+		that.currentItem = arguments;
+
+		var controller = Alloy.createController("hamburger/template", that.currentItem);
 
 		that.init(controller);
 
