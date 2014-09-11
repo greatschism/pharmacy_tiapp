@@ -65,7 +65,9 @@ function loadNativeMap(e) {
 			title : data.addressline1,
 			subtitle : data.subtitle,
 			latitude : data.latitude,
-			longitude : data.longitude
+			longitude : data.longitude,
+			leftButton : "/images/store/left_button.png",
+			rightButton : "/images/store/right_button.png"
 		}));
 	});
 	$.mapView.annotations = annotations;
@@ -81,10 +83,18 @@ function didToggle(e) {
 
 function didAnnotationClick(e) {
 	var annotation = e.annotation;
-	var clicksource = e.clicksource;
-	console.log(clicksource);
-	if (annotation && clicksource != "pin" && clicksource != null) {
-		openStoreDetail(annotation.storeId);
+	if (annotation) {
+		var clicksource = e.clicksource;
+		switch(clicksource) {
+		case "rightPane":
+		case "infoWindow":
+		case "title":
+		case "subtitle":
+			openStoreDetail(annotation.storeId);
+			break;
+		case "leftPane":
+			break;
+		}
 	}
 }
 

@@ -94,7 +94,7 @@
 ".distance-img":{
 	left: 0,
 	width: 10,
-	image: "/images/pin.png"
+	image: "/images/store/list_item_pin.png"
 },
 ".distance":{
 	left: 20,
