@@ -81,7 +81,9 @@ function didToggle(e) {
 
 function didAnnotationClick(e) {
 	var annotation = e.annotation;
-	if (annotation && e.clicksource != "pin") {
+	var clicksource = e.clicksource;
+	console.log(clicksource);
+	if (annotation && clicksource != "pin" && clicksource != null) {
 		openStoreDetail(annotation.storeId);
 	}
 }
