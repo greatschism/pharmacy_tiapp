@@ -19,6 +19,47 @@
 				"title": "Account",
 				"ctrl": "account"
 			}
+		],
+		"icons": [
+			[
+				{
+					"image": "my_prescriptions.png"
+				}
+			], [
+				{
+					"image": "refill_from_a_number.png"
+				}, {
+					"image": "transfer.png"
+				}
+			], [
+				{
+					"image": "pharmacy_rewards.png"
+				}, {
+					"image": "finda_pharmacy.png"
+				}, {
+					"image": "generics.png"
+				}
+			],
+			[
+				{
+					"image": "flu_shots.png"
+				}
+			],
+			[
+				{
+					"image": "clinic.png"
+				}
+			],
+			[
+				{
+					"image": "wellness_guide.png"
+				}
+			],
+			[
+				{
+					"image": "shop_target.png"
+				}
+			]
 		]
 	},
 	"env:development": {},
