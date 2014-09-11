@@ -13,6 +13,9 @@ function init(e) {
 
 function locationCallback(e) {
 	if (e.success && e.coords) {
+		App.Navigator.showLoader({
+			message : "Processing. Please wait"
+		});
 		var coords = e.coords;
 		var data = "<request><advsearchpharmacy><latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
 		_http.request({
@@ -49,6 +52,7 @@ function didSuccess(doc) {
 	} else {
 		loadNativeMap();
 	}
+	App.Navigator.hideLoader();
 }
 
 function didError(http, url) {
@@ -60,17 +64,39 @@ function loadNativeMap(e) {
 	var Map = Alloy.Globals.Map;
 	Alloy.Collections.stores.map(function(model) {
 		var data = model.toJSON();
-		annotations.push(Map.createAnnotation({
+		var properties = {
 			storeId : data.storeid,
 			title : data.addressline1,
 			subtitle : data.subtitle,
 			latitude : data.latitude,
-			longitude : data.longitude,
-			leftButton : "/images/store/left_button.png",
-			rightButton : "/images/store/right_button.png"
-		}));
+			longitude : data.longitude
+		};
+		if (OS_IOS) {
+			_.extend(properties, {
+				leftView : getMapIcon("/images/store/left_button.png", "leftPane", data.storeid),
+				rightView : getMapIcon("/images/store/right_button.png", "rightPane", data.storeid)
+			});
+		} else {
+			_.extend(properties, {
+				leftButton : "/images/store/left_button.png",
+				rightButton : "/images/store/right_button.png"
+			});
+		}
+		annotations.push(Map.createAnnotation(properties));
 	});
 	$.mapView.annotations = annotations;
+}
+
+function getMapIcon(image, clicksource, storeId) {
+	var view = Ti.UI.createView({
+		width : 20,
+		height : 20,
+		backgroundImage : image,
+		clicksource : clicksource,
+		storeId : storeId
+	});
+	view.addEventListener("click", didAnnotationClick);
+	return view;
 }
 
 function didToggle(e) {
@@ -82,9 +108,10 @@ function didToggle(e) {
 }
 
 function didAnnotationClick(e) {
-	var annotation = e.annotation;
+	var annotation = e.annotation || e.source;
 	if (annotation) {
-		var clicksource = e.clicksource;
+		var clicksource = e.clicksource || annotation.clicksource;
+		console.log(clicksource);
 		switch(clicksource) {
 		case "rightPane":
 		case "infoWindow":

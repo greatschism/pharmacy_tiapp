@@ -1,0 +1,8 @@
+<Alloy>
+	<View>
+		<View id="container">
+			<ActivityIndicator id="activityIndicator" />
+			<Label id="messageLbl" />
+		</View>
+	</View>
+</Alloy>

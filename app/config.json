@@ -25,13 +25,15 @@
 				{
 					"image": "my_prescriptions.png"
 				}
-			], [
+			],
+			[
 				{
 					"image": "refill_from_a_number.png"
 				}, {
 					"image": "transfer.png"
 				}
-			], [
+			],
+			[
 				{
 					"image": "pharmacy_rewards.png"
 				}, {
@@ -92,6 +94,7 @@
 	},
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",
-		"com.mscripts.textfield": "1.0"
+		"com.mscripts.textfield": "1.0",
+		"com.mscripts.loading": "1.0"
 	}
 }

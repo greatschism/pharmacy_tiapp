@@ -1,0 +1,29 @@
+"#widget": {
+	backgroundColor: "#75000000",
+	zIndex: 100
+},
+"#container":{
+	width: "90%",
+	height: 90,
+	layout: "horizontal",
+	backgroundColor: "#000",
+	borderRadius: 5
+},
+"#activityIndicator":{
+	left: 20,
+	height: Ti.UI.FILL
+},
+"#activityIndicator[platform=android,mobileweb]":{
+	style: Ti.UI.ActivityIndicatorStyle.BIG
+},
+"#activityIndicator[platform=ios]":{
+	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+},
+"#messageLbl":{
+	left: 20,
+	height: Ti.UI.FILL,
+	font:{
+		fontSize: 13
+	},
+	color: "#fff"
+}

@@ -34,12 +34,18 @@ function Navigation(_args) {
 	 * @type {Controllers}
 	 */
 	this.currentController = null;
-	
+
 	/**
-	 * The current top level controller's name 
-	 * @type {Controllers}
+	 * The current top level controller arguments reference
+	 * @type {Object}
 	 */
 	this.currentItem = null;
+
+	/**
+	 * controller that blocks ui from user interaction
+	 * @type {Controllers}
+	 */
+	this.loader = null;
 
 	/**
 	 * The parent object all screen controllers are added to
@@ -175,7 +181,7 @@ function Navigation(_args) {
 			}
 			return;
 		}
-		
+
 		that.terminate(that.currentController);
 
 		that.animateOut(that.currentController.getView(), function() {
@@ -312,6 +318,36 @@ function Navigation(_args) {
 		});
 
 		_view.animate(animation);
+	};
+
+	/**
+	 *block ui
+	 * @param {Object} _params
+	 */
+	this.showLoader = function(_params) {
+		if (that.loader == null) {
+			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", _params);
+			that.window.add(that.loader.getView());
+		}
+	};
+
+	/**
+	 *un-block ui
+	 */
+	this.hideLoader = function() {
+		if (that.loader != null) {
+			that.window.remove(that.loader.getView());
+			that.loader = null;
+		}
+	};
+
+	/**
+	 *un-block ui
+	 */
+	this.setMessage = function(message) {
+		if (that.loader != null) {
+			that.loader.setMessage(message);
+		}
 	};
 
 	/**
