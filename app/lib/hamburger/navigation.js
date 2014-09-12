@@ -36,6 +36,12 @@ function Navigation(_args) {
 	this.currentController = null;
 
 	/**
+	 * The controller object that initiated the navigator
+	 * @type {Controllers}
+	 */
+	this.starter = null;
+
+	/**
 	 * The current top level controller arguments reference
 	 * @type {Object}
 	 */
@@ -83,9 +89,14 @@ function Navigation(_args) {
 			return;
 		}
 
-		that.isBusy = true;
-
 		that.currentItem = arguments;
+
+		if (that.starter && that.starter.arguments.ctrl == that.currentItem.ctrl) {
+			that.close();
+			return that.starter;
+		}
+
+		that.isBusy = true;
 
 		var controller = Alloy.createController("hamburger/template", that.currentItem);
 
@@ -95,17 +106,31 @@ function Navigation(_args) {
 
 			view.removeEventListener("postlayout", postlayout);
 
-			// Handle removing the current controller from the screen
-			if (that.currentController) {
-				that.terminate();
-				that.parent.remove(that.currentController.getView());
-				that.controllers.pop();
+			if (that.starter == null) {
+
+				that.starter = controller;
+
+				that.starter.arguments = that.currentItem;
+
+				that.init(that.starter);
+
+			} else {
+
+				// Handle removing the current controller from the screen
+				if (that.currentController) {
+					that.terminate();
+					that.parent.remove(that.currentController.getView());
+					that.controllers.pop();
+				}
+
+				that.controllers.push(controller);
+				that.currentController = controller;
+
+				that.init();
+
 			}
 
-			that.controllers.push(controller);
-			that.currentController = controller;
-
-			that.init();
+			that.isBusy = false;
 
 			//that.testOutput();
 		};
@@ -114,9 +139,7 @@ function Navigation(_args) {
 
 		that.parent.add(view);
 
-		that.isBusy = false;
-
-		return that.currentController;
+		return controller;
 	};
 
 	/**
@@ -153,7 +176,7 @@ function Navigation(_args) {
 
 		that.parent.add(view);
 
-		return that.currentController;
+		return controller;
 	};
 
 	/**
@@ -168,34 +191,39 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		if (that.controllers.length == 1) {
-			if (OS_ANDROID) {
-				that.terminate();
-				that.window.close();
-				if (_callback) {
-					_callback();
-				}
-				that.isBusy = false;
-			}
-			return;
-		}
+		if (that.controllers.length == 0 && OS_ANDROID) {
 
-		that.terminate();
+			that.terminate(that.starter);
 
-		that.animateOut(that.currentController.getView(), function() {
-
-			that.controllers.pop();
-
-			// Assign the new current controller from the stack
-			that.currentController = that.controllers[that.controllers.length - 1];
-
-			//that.testOutput();
+			that.window.close();
 
 			if (_callback) {
 				_callback();
 			}
 
-		});
+			return;
+
+		} else if (that.controllers.length > 0) {
+
+			that.terminate();
+
+			var animator = that.controllers.length == 1 ? "fadeOut" : "animateOut";
+
+			that[animator](that.currentController.getView(), function() {
+
+				that.controllers.pop();
+
+				// Assign the new current controller from the stack
+				that.currentController = that.controllers.length ? that.controllers[that.controllers.length - 1] : null;
+
+				//that.testOutput();
+
+				if (_callback) {
+					_callback();
+				}
+
+			});
+		}
 	};
 
 	/**
@@ -204,15 +232,15 @@ function Navigation(_args) {
 	 */
 	this.closeToHome = function(_callback) {
 
-		if (that.isBusy || that.controllers.length == 1) {
+		if (that.isBusy || that.controllers.length == 0) {
 			return;
 		}
 
 		that.isBusy = true;
 
-		var removeControllers = that.controllers.splice(1, that.controllers.length - 2);
+		var removeControllers = that.controllers.splice(0, that.controllers.length - 1);
 
-		that.currentController = that.controllers[that.controllers.length - 1];
+		that.currentController = that.controllers[0];
 
 		that.terminate();
 
@@ -221,18 +249,17 @@ function Navigation(_args) {
 			that.parent.remove(removeControllers[i].getView());
 		}
 
-		that.animateOut(that.currentController.getView(), function() {
+		that.fadeOut(that.currentController.getView(), function() {
 
 			that.controllers.pop();
 
-			// Assign the new current controller from the stack
-			that.currentController = that.controllers[that.controllers.length - 1];
-
-			//that.testOutput();
+			that.currentController = null;
 
 			if (_callback) {
 				_callback();
 			}
+
+			//that.testOutput();
 
 		});
 	};
@@ -321,6 +348,20 @@ function Navigation(_args) {
 	};
 
 	/**
+	 * Animate fade out a screen controller
+	 * @param {View} _controller
+	 * @param {Function} _callback
+	 */
+	this.fadeOut = function(_view, _callback) {
+		require("alloy/animation").fadeAndRemove(_view, 300, that.parent, function() {
+			that.isBusy = false;
+			if (_callback) {
+				_callback();
+			}
+		});
+	};
+
+	/**
 	 *block ui
 	 * @param {Object} _params
 	 */
@@ -354,6 +395,9 @@ function Navigation(_args) {
 	 * Spits information about the navigation stack out to console
 	 */
 	this.testOutput = function() {
+
+		Ti.API.debug(JSON.stringify(that.starter));
+
 		var stack = [];
 
 		for (var i = 0, x = that.controllers.length; i < x; i++) {

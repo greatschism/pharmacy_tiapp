@@ -9,7 +9,7 @@
 						<Label id="subtitleLbl" text="{store.subtitle}" />
 					</View>
 				</View>
-				<Button id="refillBtn" class="button" />
+				<Button id="refillBtn" class="button" onClick="didRefill" />
 			</View>
 		</HeaderView>
 	</ListView>

@@ -1,15 +1,16 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {}, App = require("core");
 
-function init() {
-	Alloy.Models.store.set(Alloy.Collections.stores.where({
-	storeid: args.storeId
-	})[0].toJSON());
-}
+Alloy.Models.store.set(Alloy.Collections.stores.where({
+storeid: args.storeId
+})[0].toJSON());
 
 function terminate() {
 	$.destroy();
 	Alloy.Models.store.clear();
 }
 
-exports.init = init;
-exports.terminate = terminate;
+function didRefill(e) {
+	App.Navigator.closeToHome();
+}
+
+exports.terminate = terminate; 
