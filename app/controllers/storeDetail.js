@@ -10,7 +10,14 @@ function terminate() {
 }
 
 function didRefill(e) {
-	App.Navigator.closeToHome();
+	App.Navigator.open({
+		ctrl : "refill",
+		title : "Order a refill",
+		stack : true,
+		ctrlArguments : {
+			message : "Refill"
+		}
+	});
 }
 
 exports.terminate = terminate; 
