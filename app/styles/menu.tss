@@ -1,25 +1,12 @@
 "#menu":{
 	separatorColor: "#d8d8d8"
 },
-".spacer":{
-	height: 20
-},
-"ListItem[platform=ios]":{
-	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
-},
 ".row":{
 	height: 48
 },
 ".title":{
 	left: 15,
 	font:{
-		fontFamily: Alloy.CFG.fonts.light,
-		fontSize: 18
-	},
-	textAlign: "left",
-	color: "#000"
-},
-".title[platform=android]":{
-	ellipsize : true,
-    wordWrap : false
+		fontFamily: Alloy.CFG.fonts.light
+	}
 }

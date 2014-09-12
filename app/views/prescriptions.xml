@@ -1,5 +1,5 @@
 <Alloy>
 	<View>
-		<Button title="Go to Home" class="button" onClick="didClick" />
+		<Button title="Go to Home" onClick="didClick" />
 	</View>
 </Alloy> 

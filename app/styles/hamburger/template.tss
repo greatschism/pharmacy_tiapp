@@ -24,14 +24,12 @@
 },
 "#titleLbl[platform=ios]":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.regular,
-		fontSize: 20
+		fontFamily: Alloy.CFG.fonts.regular
 	}
 },
 "#titleLbl[platform=android,mobileweb]":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.light,
-		fontSize: 20
+		fontFamily: Alloy.CFG.fonts.light
 	}
 },
 "#leftView":{
@@ -48,18 +46,6 @@
 	image: "/images/back.png",
 	touchEnabled: false
 },
-/*"#leftBtn":{
-	left: 10,
-	backgroundImage: WPATH( "hamburger.png"),
-	backgroundColor: "transparent",
-	borderColor: "transparent"
-},
-"#leftBtn[platfrom=ios]":{
-	height: 20
-},
-"#leftBtn[platfrom=android]":{
-	width: 40
-},*/
 "#contentView[if=Alloy.Globals.iOS7Plus]":{
 	top: 68
 },

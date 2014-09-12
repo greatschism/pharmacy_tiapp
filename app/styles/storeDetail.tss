@@ -1,8 +1,4 @@
-".header-view":{
-	height: Ti.UI.SIZE,
-	layout: "vertical"
-},
-".header-content":{
+".top-20":{
 	top: 20
 },
 ".logo":{
@@ -12,26 +8,9 @@
 ".address-view":{
 	left: 75
 },
-"#titleLbl":{
-	left: 0,
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular,
-		fontSize: 22
-	},
-	textAlign: "left",
-	color: "#8b8b8b"
-},
 "#subtitleLbl":{
-	top: 5,
-	left: 0,
-	font:{
-		fontFamily: Alloy.CFG.fonts.light,
-		fontSize: 15
-	},
-	textAlign: "left",
-	color: "#8b8b8b"
+	top: 5
 },
 "#refillBtn":{
-	top: 20,
 	title: "Refill a prescriptions here"
 }

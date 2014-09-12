@@ -1,11 +1,11 @@
 <Alloy>
 	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
 	<View>
-		<View id="mapContainer">
+		<View id="mapContainer" class="hide">
 			<View id="mapView" ns="Alloy.Globals.Map" platform="ios,android" onClick="didAnnotationClick" />
 			<WebView id="mapView" platform="mobileweb" />
 		</View>
-		<View id="listContainer">
+		<View id="listContainer" class="vgroup show">
 			<Widget id="searchbar" src="com.mscripts.textfield" />
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
@@ -13,13 +13,13 @@
 						<View class="container-view">
 							<ImageView class="favourite" />
 							<View class="content-view">
-								<View class="title-view">
-									<Label bindId="title" class="title" />
-									<Label bindId="subtitle" class="subtitle" />
+								<View class="left mscriptsw-60 auto-height vgroup">
+									<Label bindId="title" class="title mscriptsw-95 gray" />
+									<Label bindId="subtitle" class="subtitle mscriptsw-95 h5 gray" />
 								</View>
-								<View class="distance-view">
-									<ImageView class="distance-img" />
-									<Label bindId="distance" class="distance" />
+								<View class="distance-view right mscriptsw-35 auto-height">
+									<ImageView class="distance-img left" />
+									<Label bindId="distance" class="distance gray" />
 								</View>
 							</View>
 						</View>
@@ -28,13 +28,13 @@
 					<ItemTemplate name="nearby" class="row">
 						<View class="container-view">
 							<View class="content-view">
-								<View class="title-view">
-									<Label bindId="title" class="title" />
-									<Label bindId="subtitle" class="subtitle" />
+								<View class="left mscriptsw-60 auto-height vgroup">
+									<Label bindId="title" class="title mscriptsw-95 gray" />
+									<Label bindId="subtitle" class="subtitle mscriptsw-95 h5 gray" />
 								</View>
-								<View class="distance-view">
-									<ImageView class="distance-img" />
-									<Label bindId="distance" class="distance" />
+								<View class="distance-view right mscriptsw-35 auto-height">
+									<ImageView class="distance-img left" />
+									<Label bindId="distance" class="distance gray" />
 								</View>
 							</View>
 						</View>
@@ -48,13 +48,13 @@
 			<TableView id="listView" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="row">
 					<ImageView class="favourite" visible="{favourite}" />
-					<View class="title-view">
-						<Label text="{addressline1}" class="title" />
-						<Label text="{subtitle}" class="subtitle" />
+					<View class="left mscriptsw-60 auto-height vgroup">
+						<Label text="{addressline1}" class="title mscriptsw-95 gray" />
+						<Label text="{subtitle}" class="subtitle h5 gray" />
 					</View>
-					<View class="distance-view">
-						<ImageView class="distance-img" />
-						<Label text="{distance}" class="distance" />
+					<View class="distance-view right mscriptsw-35 auto-height">
+						<ImageView class="distance-img left" />
+						<Label text="{distance}" class="distance gray" />
 					</View>
 					<ImageView class="child" />
 				</TableViewRow>

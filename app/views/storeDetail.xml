@@ -1,15 +1,15 @@
 <Alloy>
 	<ListView>
 		<HeaderView>
-			<View class="header-view">
-				<View class="auto-height header-content">
+			<View class="auto-height vgroup">
+				<View class="auto-height top-20">
 					<ImageView class="logo" />
-					<View class="auto-height vertical address-view">
-						<Label id="titleLbl" text="{store.addressline1}" />
-						<Label id="subtitleLbl" text="{store.subtitle}" />
+					<View class="auto-height vgroup address-view">
+						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
 					</View>
 				</View>
-				<Button id="refillBtn" class="button" onClick="didRefill" />
+				<Button id="refillBtn" class="top-20" onClick="didRefill" />
 			</View>
 		</HeaderView>
 	</ListView>

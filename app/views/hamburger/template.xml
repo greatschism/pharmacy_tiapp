@@ -5,8 +5,7 @@
 				<View id="leftView" onSingletap="didTap">
 					<ImageView id="leftImg" />
 				</View>
-				<!--<Button id="leftBtn" onClick="Alloy.Globals.Navigator.toggleLeftMenu" />-->
-				<Label id="titleLbl" class="actionbar-title" />
+				<Label id="titleLbl" class="actionbar-title h2 white" />
 			</View>
 		</View>
 		<View id="contentView" />

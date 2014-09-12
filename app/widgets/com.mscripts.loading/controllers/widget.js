@@ -12,7 +12,6 @@ if (_.has(args, "message")) {
 $.activityIndicator.show();
 
 function setMessage(message) {
-	console.log(message);
 	$.messageLbl.setText(message);
 }
 
