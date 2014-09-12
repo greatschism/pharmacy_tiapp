@@ -15,7 +15,8 @@
  * @param _params.data The data to send
  * @param {Function} _params.failure A function to execute when there is an XHR error
  * @param {Function} _params.success A function to execute when when successful
- * @param {Function} _params.passthrough Parameters to pass through to the failure or success callbacks
+ * @param {Function} _params.done A function to execute after the success or failure callback
+ * @param {Object} _params.passthrough Parameters to pass through to the failure or success callback
  */
 exports.request = function(_params) {
 	Ti.API.debug("HTTP.request " + _params.url);
@@ -52,6 +53,9 @@ exports.request = function(_params) {
 					} else {
 						_params.success(_data, _params.url);
 					}
+					if (_params.done) {
+						_params.done();
+					}
 				} else {
 					return _data;
 				}
@@ -78,10 +82,12 @@ exports.request = function(_params) {
 				} else {
 					_params.failure(this, _params.url);
 				}
+				if (_params.done) {
+					_params.done();
+				}
 			} else {
 				Ti.API.error(JSON.stringify(this));
 			}
-
 			Ti.API.error(_event);
 		};
 

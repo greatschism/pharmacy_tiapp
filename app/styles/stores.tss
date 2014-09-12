@@ -75,6 +75,10 @@
 	textAlign: "left",
 	color: "#8b8b8b"
 },
+".title[platform=android]":{
+	ellipsize: true,
+	wordWrap: false
+},
 ".subtitle":{
 	width: "95%",
 	height: 16,
@@ -84,6 +88,10 @@
 	},
 	textAlign: "left",
 	color: "#8b8b8b"
+},
+".subtitle[platform=android]":{
+	ellipsize: true,
+	wordWrap: false
 },
 ".distance-view":{
 	right: 0,
@@ -105,4 +113,8 @@
 	},
 	textAlign: "left",
 	color: "#8b8b8b"
+},
+".distance[platform=android]":{
+	ellipsize: true,
+	wordWrap: false
 }

@@ -6,13 +6,14 @@ if (!_.isEmpty(options)) {
 }
 
 if (_.has(args, "message")) {
-	$.messageLbl.setText(args.message);
+	setMessage(args.message);
 }
 
 $.activityIndicator.show();
 
 function setMessage(message) {
+	console.log(message);
 	$.messageLbl.setText(message);
 }
 
-exports.setMessage = setMessage;
+exports.setMessage = setMessage; 

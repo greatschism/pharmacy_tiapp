@@ -89,8 +89,6 @@ function Navigation(_args) {
 
 		var controller = Alloy.createController("hamburger/template", that.currentItem);
 
-		that.init(controller);
-
 		var view = controller.getView();
 
 		var postlayout = function() {
@@ -99,13 +97,15 @@ function Navigation(_args) {
 
 			// Handle removing the current controller from the screen
 			if (that.currentController) {
-				that.terminate(that.currentController);
+				that.terminate();
 				that.parent.remove(that.currentController.getView());
 				that.controllers.pop();
 			}
 
 			that.controllers.push(controller);
 			that.currentController = controller;
+
+			that.init();
 
 			//that.testOutput();
 		};
@@ -134,8 +134,6 @@ function Navigation(_args) {
 
 		var controller = Alloy.createController("hamburger/template", arguments);
 
-		that.init(controller);
-
 		var view = controller.getView();
 
 		var postlayout = function() {
@@ -146,7 +144,7 @@ function Navigation(_args) {
 
 			that.currentController = controller;
 
-			that.animateIn(view);
+			that.animateIn(view, that.init);
 
 			//that.testOutput();
 		};
@@ -172,7 +170,7 @@ function Navigation(_args) {
 
 		if (that.controllers.length == 1) {
 			if (OS_ANDROID) {
-				that.terminate(that.currentController);
+				that.terminate();
 				that.window.close();
 				if (_callback) {
 					_callback();
@@ -182,7 +180,7 @@ function Navigation(_args) {
 			return;
 		}
 
-		that.terminate(that.currentController);
+		that.terminate();
 
 		that.animateOut(that.currentController.getView(), function() {
 
@@ -216,7 +214,7 @@ function Navigation(_args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		that.terminate(that.currentController);
+		that.terminate();
 
 		for (var i = 0, x = removeControllers.length; i < x; i++) {
 			that.terminate(removeControllers[i]);
@@ -240,12 +238,13 @@ function Navigation(_args) {
 	};
 
 	/**
-	 * Calls init method of the controller if exists
+	 * Calls init method of the current controller if exists
 	 * @param {Controller} _controller
 	 */
 	this.init = function(_controller) {
-		if (_.isFunction(_controller.child.init)) {
-			_controller.child.init();
+		var controller = _controller || that.currentController;
+		if (_.isFunction(controller.child.init)) {
+			controller.child.init();
 		}
 	};
 
@@ -254,8 +253,9 @@ function Navigation(_args) {
 	 * @param {Controller} _controller
 	 */
 	this.terminate = function(_controller) {
-		if (_.isFunction(_controller.child.terminate)) {
-			_controller.child.terminate();
+		var controller = _controller || that.currentController;
+		if (_.isFunction(controller.child.terminate)) {
+			controller.child.terminate();
 		}
 	};
 

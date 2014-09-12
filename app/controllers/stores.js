@@ -23,7 +23,8 @@ function locationCallback(e) {
 			type : "POST",
 			format : "xml",
 			success : didSuccess,
-			error : didError,
+			failure : didError,
+			done : didFinish,
 			data : data
 		});
 	} else {
@@ -52,25 +53,50 @@ function didSuccess(doc) {
 	} else {
 		loadNativeMap();
 	}
-	App.Navigator.hideLoader();
 }
 
 function didError(http, url) {
 	alert("Failed to retrive");
 }
 
+function didFinish() {
+	App.Navigator.hideLoader();
+}
+
 function loadNativeMap(e) {
-	var annotations = [];
-	var Map = Alloy.Globals.Map;
+
+	var Map = Alloy.Globals.Map, annotations = [];
+
+	var totalLocations = Alloy.Collections.stores.length, minLongi = null, minLati = null, maxLongi = null, maxLati = null;
+
 	Alloy.Collections.stores.map(function(model) {
+
 		var data = model.toJSON();
+
+		var latitude = Number(data.latitude);
+		var longitude = Number(data.longitude);
+
+		if (minLati == null || minLati > latitude) {
+			minLati = latitude;
+		} else if (maxLati == null || maxLati < latitude) {
+			maxLati = latitude;
+		}
+
+		if (minLongi == null || minLongi > longitude) {
+			minLongi = longitude;
+		} else if (maxLongi == null || maxLongi < longitude) {
+			maxLongi = longitude;
+		}
+
 		var properties = {
+			image : "/images/store/annotation.png",
 			storeId : data.storeid,
 			title : data.addressline1,
 			subtitle : data.subtitle,
-			latitude : data.latitude,
-			longitude : data.longitude
+			latitude : latitude,
+			longitude : longitude
 		};
+
 		if (OS_IOS) {
 			_.extend(properties, {
 				leftView : getMapIcon("/images/store/left_button.png", "leftPane", data.storeid),
@@ -82,15 +108,31 @@ function loadNativeMap(e) {
 				rightButton : "/images/store/right_button.png"
 			});
 		}
+
 		annotations.push(Map.createAnnotation(properties));
+
 	});
+
 	$.mapView.annotations = annotations;
+
+	var ltDiff = (maxLati || minLati) - minLati;
+	var lgDiff = (maxLongi || minLongi) - minLongi;
+	var delta = ltDiff > lgDiff ? ltDiff : lgDiff;
+	if (totalLocations > 0 && delta > 0) {
+		$.mapView.setLocation({
+			animate : true,
+			latitude : ((maxLati + minLati) / 2),
+			longitude : ((maxLongi + minLongi) / 2),
+			latitudeDelta : delta,
+			longitudeDelta : delta,
+		});
+	}
 }
 
 function getMapIcon(image, clicksource, storeId) {
 	var view = Ti.UI.createView({
-		width : 20,
-		height : 20,
+		width : 30,
+		height : 30,
 		backgroundImage : image,
 		clicksource : clicksource,
 		storeId : storeId
@@ -111,7 +153,6 @@ function didAnnotationClick(e) {
 	var annotation = e.annotation || e.source;
 	if (annotation) {
 		var clicksource = e.clicksource || annotation.clicksource;
-		console.log(clicksource);
 		switch(clicksource) {
 		case "rightPane":
 		case "infoWindow":

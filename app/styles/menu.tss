@@ -18,4 +18,8 @@
 	},
 	textAlign: "left",
 	color: "#000"
+},
+".title[platform=android]":{
+	ellipsize : true,
+    wordWrap : false
 }

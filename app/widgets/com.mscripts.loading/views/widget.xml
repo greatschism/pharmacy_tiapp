@@ -2,7 +2,9 @@
 	<View>
 		<View id="container">
 			<ActivityIndicator id="activityIndicator" />
-			<Label id="messageLbl" />
+			<View id="messageView">
+				<Label id="messageLbl" />
+			</View>
 		</View>
 	</View>
 </Alloy>

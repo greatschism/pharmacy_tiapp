@@ -1,6 +1,11 @@
 "#widget": {
-	backgroundColor: "#75000000",
 	zIndex: 100
+},
+"#widget[platform=android,ios]":{
+	backgroundColor: "#50000000"
+},
+"#widget[platform=mobileweb]":{
+	backgroundColor: "rgba(0,0,0,0.5)"
 },
 "#container":{
 	width: "90%",
@@ -10,20 +15,30 @@
 	borderRadius: 5
 },
 "#activityIndicator":{
-	left: 20,
+	left: 15
+},
+"#activityIndicator[platform=android]":{
+	style: Ti.UI.ActivityIndicatorStyle.BIG,
 	height: Ti.UI.FILL
 },
-"#activityIndicator[platform=android,mobileweb]":{
-	style: Ti.UI.ActivityIndicatorStyle.BIG
+"#activityIndicator[platform=mobileweb]":{
+	style: Ti.UI.ActivityIndicatorStyle.PLAIN
 },
 "#activityIndicator[platform=ios]":{
 	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
 },
+"#messageView":{
+	left: 10,
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL
+},
 "#messageLbl":{
-	left: 20,
+	right: 15,
+	width: Ti.UI.FILL,
 	height: Ti.UI.FILL,
 	font:{
 		fontSize: 13
 	},
+	textAlign: "left",
 	color: "#fff"
 }

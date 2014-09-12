@@ -1,6 +1,6 @@
 var args = arguments[0] || {}, App = require("core");
 
-function init() {
+(function() {
 	var icons = Alloy.CFG.icons;
 	for (var i in icons) {
 		var view = getView();
@@ -8,14 +8,14 @@ function init() {
 		var width = Math.floor(Ti.Platform.displayCaps.platformWidth / sections.length);
 		for (var j in sections) {
 			var image = "/images/home/".concat(sections[j].image);
-			var imageView = OS_MOBILEWEB ? getMImage(image, width) : getNImage(image, width);
+			var imageView = OS_MOBILEWEB ? getMImage(image, width) : getNImage(sections[j].image, image, width);
 			imageView.navigation = sections[j].navigation || {};
 			imageView.addEventListener("click", didItemClick);
 			view.add(imageView);
 		}
 		$.scrollView.add(view);
 	}
-}
+})();
 
 function getView() {
 	return Ti.UI.createView({
@@ -26,10 +26,14 @@ function getView() {
 	});
 }
 
-function getNImage(image, width) {
-	var blob = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, image).read(), height;
-	height = (blob.height / blob.width) * width;
-	blob = null;
+function getNImage(name, image, width) {
+	var height = Ti.App.Properties.getInt(String(name).concat(width), 0), blob;
+	if (!height) {
+		blob = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, image).read();
+		height = Math.floor((blob.height / blob.width) * width);
+		blob = null;
+		Ti.App.Properties.setInt(String(name).concat(width), height);
+	}
 	if (OS_ANDROID) {
 		width = width / (App.Device.dpi / 160);
 		height = height / (App.Device.dpi / 160);
@@ -57,5 +61,3 @@ function didItemClick(e) {
 		App.Navigator.open(navigation);
 	}
 }
-
-exports.init = init;

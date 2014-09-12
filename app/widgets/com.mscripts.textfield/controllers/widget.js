@@ -31,7 +31,7 @@ if (args.clearButton == true || _.has(args, "rightImage")) {
 	$.rightImg.addEventListener("singletap", listener);
 }
 
-options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
+options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor"]);
 if (!_.isEmpty(options)) {
 	$.widget.applyProperties(options);
 }
