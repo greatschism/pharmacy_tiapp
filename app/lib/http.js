@@ -22,44 +22,47 @@ exports.request = function(_params) {
 	Ti.API.debug("HTTP.request " + _params.url);
 
 	if (Ti.Network.online) {
+
 		var xhr = Ti.Network.createHTTPClient();
 
 		xhr.timeout = _params.timeout ? _params.timeout : 10000;
 
 		/**
 		 * Data return
-		 * @param {Object} _data The HTTP response object
+		 * @param {Object} _data The HTTP SuccessResponse object
 		 * @ignore
 		 */
-		xhr.onload = function(_data) {
-			if (_data) {
-				switch(_params.format.toLowerCase()) {
-				case "data":
-					_data = this.responseData;
-				case "xml":
-					_data = this.responseXML;
-					break;
-				case "json":
-					_data = JSON.parse(this.responseText);
-					break;
-				case "text":
-					_data = this.responseText;
-					break;
-				}
+		xhr.onload = function(response) {
 
-				if (_params.success) {
-					if (_params.passthrough) {
-						_params.success(_data, _params.url, _params.passthrough);
-					} else {
-						_params.success(_data, _params.url);
-					}
-					if (_params.done) {
-						_params.done();
-					}
-				} else {
-					return _data;
-				}
+			var _data;
+
+			switch(_params.format.toLowerCase()) {
+			case "data":
+				_data = this.responseData || this.responseText;
+			case "xml":
+				_data = this.responseXML || Ti.XML.parseString(this.responseText);
+				break;
+			case "json":
+				_data = JSON.parse(this.responseText);
+				break;
+			case "text":
+				_data = this.responseText;
+				break;
 			}
+
+			if (_params.success) {
+				if (_params.passthrough) {
+					_params.success(_data, _params.url, _params.passthrough);
+				} else {
+					_params.success(_data, _params.url);
+				}
+				if (_params.done) {
+					_params.done();
+				}
+			} else {
+				return _data;
+			}
+
 		};
 
 		if (_params.ondatastream) {
@@ -103,13 +106,16 @@ exports.request = function(_params) {
 		}
 
 		// Overcomes the 'unsupported browser' error sometimes received
-		xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
+		if (!OS_MOBILEWEB) {
+			xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
+		}
 
 		if (_params.data) {
 			xhr.send(_params.data);
 		} else {
 			xhr.send();
 		}
+
 	} else {
 		Ti.API.error("No internet connection");
 

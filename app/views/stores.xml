@@ -45,15 +45,19 @@
 				</ListSection>
 			</ListView>
 			<TableView id="listView" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
-				<TableViewRow class="row">
-					<ImageView class="favourite" visible="{favourite}" />
-					<View class="left mscriptsw-60 auto-height vgroup">
-						<Label text="{addressline1}" class="title mscriptsw-95 gray" />
-						<Label text="{subtitle}" class="subtitle h5 gray" />
-					</View>
-					<View class="distance-view right mscriptsw-35 auto-height">
-						<ImageView class="distance-img left" />
-						<Label text="{distance}" class="distance gray" />
+				<TableViewRow class="row" itemId="{storeid}">
+					<View class="container-view">
+						<ImageView class="favourite" visible="{favourite}" />
+						<View class="content-view">
+							<View class="left mscriptsw-60 auto-height vgroup">
+								<Label text="{addressline1}" class="title mscriptsw-95 gray" />
+								<Label text="{subtitle}" class="subtitle mscriptsw-95 h5 gray" />
+							</View>
+							<View class="distance-view right mscriptsw-35 auto-height">
+								<ImageView class="distance-img left" />
+								<Label text="{distance}" class="distance gray" />
+							</View>
+						</View>
 					</View>
 					<ImageView class="child" />
 				</TableViewRow>

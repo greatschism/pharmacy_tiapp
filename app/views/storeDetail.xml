@@ -1,5 +1,5 @@
 <Alloy>
-	<ListView>
+	<ListView platform="ios,android">
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<View class="auto-height top-20">
@@ -13,4 +13,18 @@
 			</View>
 		</HeaderView>
 	</ListView>
+	<TableView platform="mobileweb">
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<View class="auto-height top-20">
+					<ImageView class="logo" />
+					<View class="auto-height vgroup address-view">
+						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+					</View>
+				</View>
+				<Button id="refillBtn" class="top-20" onClick="didRefill" />
+			</View>
+		</HeaderView>
+	</TableView>
 </Alloy>

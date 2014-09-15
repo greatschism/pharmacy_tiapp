@@ -19,10 +19,14 @@ function init(e) {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
+	/*coords = {
+	 latitude : 12.9739156,
+	 longitude : 77.6172187
+	 };*/
 	if (coords.latitude) {
 		var data = "<request><advsearchpharmacy><latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
 		_http.request({
-			url : "http://mck.emscripts.com/fvonphonehandlerv1/advsearchpharmacies",
+			url : "https://staging.remscripts.com/pdxonphonehandlerv6_3/advsearchpharmacies",
 			type : "POST",
 			format : "xml",
 			success : didSuccess,
@@ -167,7 +171,7 @@ function didAnnotationClick(e) {
 }
 
 function didItemClick(e) {
-	openStoreDetail(e.itemId);
+	openStoreDetail( OS_MOBILEWEB ? e.row.itemId : e.itemId);
 }
 
 function openStoreDetail(storeId) {
