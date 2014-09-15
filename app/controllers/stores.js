@@ -7,16 +7,19 @@ function init(e) {
 	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
 		alert("Your system has disallowed app from running geolocation services.");
 	} else {
+		if (OS_MOBILEWEB) {
+			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
+		}
+		App.Navigator.showLoader({
+			message : "Processing. Please wait"
+		});
 		Ti.Geolocation.getCurrentPosition(locationCallback);
 	}
 }
 
 function locationCallback(e) {
-	if (e.success && e.coords) {
-		App.Navigator.showLoader({
-			message : "Processing. Please wait"
-		});
-		var coords = e.coords;
+	var coords = e.coords || {};
+	if (coords.latitude) {
 		var data = "<request><advsearchpharmacy><latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
 		_http.request({
 			url : "http://mck.emscripts.com/fvonphonehandlerv1/advsearchpharmacies",
@@ -29,6 +32,7 @@ function locationCallback(e) {
 		});
 	} else {
 		alert("Unable to find your location, please check your settings");
+		didFinish();
 	}
 }
 
@@ -48,11 +52,7 @@ function didSuccess(doc) {
 		pahamacy.distance = pahamacy.distance + " mi away";
 	}
 	Alloy.Collections.stores.reset(pharmacies);
-	if (OS_MOBILEWEB) {
-
-	} else {
-		loadNativeMap();
-	}
+	loadMap();
 }
 
 function didError(http, url) {
@@ -63,7 +63,7 @@ function didFinish() {
 	App.Navigator.hideLoader();
 }
 
-function loadNativeMap(e) {
+function loadMap(e) {
 
 	var Map = Alloy.Globals.Map, annotations = [];
 

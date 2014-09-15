@@ -10,9 +10,7 @@ var isIOS7Plus = function() {
 };
 
 Alloy.Globals.iOS7Plus = isIOS7Plus();
-if (!OS_MOBILEWEB) {
-	Alloy.Globals.Map = require("ti.map");
-}
+Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 Alloy.Collections.menuItems = new Backbone.Collection();
 Alloy.Collections.stores = new Backbone.Collection();

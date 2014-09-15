@@ -100,44 +100,30 @@ function Navigation(_args) {
 
 		var controller = Alloy.createController("hamburger/template", that.currentItem);
 
-		var view = controller.getView();
+		that.init(controller);
 
-		var postlayout = function() {
+		that.parent.add(controller.getView());
 
-			view.removeEventListener("postlayout", postlayout);
+		if (that.starter == null) {
 
-			if (that.starter == null) {
+			that.starter = controller;
 
-				that.starter = controller;
+			that.starter.arguments = that.currentItem;
 
-				that.starter.arguments = that.currentItem;
+		} else {
 
-				that.init(that.starter);
-
-			} else {
-
-				// Handle removing the current controller from the screen
-				if (that.currentController) {
-					that.terminate();
-					that.parent.remove(that.currentController.getView());
-					that.controllers.pop();
-				}
-
-				that.controllers.push(controller);
-				that.currentController = controller;
-
-				that.init();
-
+			// Handle removing the current controller from the screen
+			if (that.currentController) {
+				that.terminate();
+				that.parent.remove(that.currentController.getView());
+				that.controllers.pop();
 			}
 
-			that.isBusy = false;
+			that.controllers.push(controller);
+			that.currentController = controller;
+		}
 
-			//that.testOutput();
-		};
-
-		view.addEventListener("postlayout", postlayout);
-
-		that.parent.add(view);
+		that.isBusy = false;
 
 		return controller;
 	};
@@ -189,8 +175,6 @@ function Navigation(_args) {
 			return;
 		}
 
-		that.isBusy = true;
-
 		if (that.controllers.length == 0 && OS_ANDROID) {
 
 			that.terminate(that.starter);
@@ -204,6 +188,8 @@ function Navigation(_args) {
 			return;
 
 		} else if (that.controllers.length > 0) {
+
+			that.isBusy = true;
 
 			that.terminate();
 

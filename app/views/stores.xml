@@ -2,8 +2,7 @@
 	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
 	<View>
 		<View id="mapContainer" class="hide">
-			<View id="mapView" ns="Alloy.Globals.Map" platform="ios,android" onClick="didAnnotationClick" />
-			<WebView id="mapView" platform="mobileweb" />
+			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
 		<View id="listContainer" class="vgroup show">
 			<Widget id="searchbar" src="com.mscripts.textfield" />
