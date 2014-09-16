@@ -60,7 +60,7 @@
 	image: "/images/store/list_item_pin.png"
 },
 ".distance":{
-	left: 20,
+	left: 15,
 	height: 17,
 	font:{
 		fontFamily: Alloy.CFG.fonts.light,

@@ -12,11 +12,11 @@
 						<View class="container-view">
 							<ImageView class="favourite" />
 							<View class="content-view">
-								<View class="left mscriptsw-60 auto-height vgroup">
-									<Label bindId="title" class="title mscriptsw-95 gray" />
-									<Label bindId="subtitle" class="subtitle mscriptsw-95 h5 gray" />
+								<View class="left width-60 auto-height vgroup">
+									<Label bindId="title" class="title width-95 gray" />
+									<Label bindId="subtitle" class="subtitle width-95 h5 gray" />
 								</View>
-								<View class="distance-view right mscriptsw-35 auto-height">
+								<View class="distance-view right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="distance gray" />
 								</View>
@@ -27,11 +27,11 @@
 					<ItemTemplate name="nearby" class="row">
 						<View class="container-view">
 							<View class="content-view">
-								<View class="left mscriptsw-60 auto-height vgroup">
-									<Label bindId="title" class="title mscriptsw-95 gray" />
-									<Label bindId="subtitle" class="subtitle mscriptsw-95 h5 gray" />
+								<View class="left width-60 auto-height vgroup">
+									<Label bindId="title" class="title width-95 gray" />
+									<Label bindId="subtitle" class="subtitle width-95 h5 gray" />
 								</View>
-								<View class="distance-view right mscriptsw-35 auto-height">
+								<View class="distance-view right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="distance gray" />
 								</View>
@@ -49,11 +49,11 @@
 					<View class="container-view">
 						<ImageView class="favourite" visible="{favourite}" />
 						<View class="content-view">
-							<View class="left mscriptsw-60 auto-height vgroup">
-								<Label text="{addressline1}" class="title mscriptsw-95 gray" />
-								<Label text="{subtitle}" class="subtitle mscriptsw-95 h5 gray" />
+							<View class="left width-60 auto-height vgroup">
+								<Label text="{addressline1}" class="title width-95 gray" />
+								<Label text="{subtitle}" class="subtitle width-95 h5 gray" />
 							</View>
-							<View class="distance-view right mscriptsw-35 auto-height">
+							<View class="distance-view right width-35 auto-height">
 								<ImageView class="distance-img left" />
 								<Label text="{distance}" class="distance gray" />
 							</View>

@@ -5,11 +5,40 @@
 	left: 15,
 	width: 50
 },
-".address-view":{
+".text-view":{
 	left: 75
+},
+".address-view":{
+	right: 40
+},
+".favourite":{
+	top: 10,
+	right: 15,
+	width: 20,
+	image: "/images/favourite.png"
 },
 "#subtitleLbl":{
 	top: 5
+},
+".location-view":{
+	top: 10,
+	height: 20
+},
+".distance-img":{
+	width: 10,
+	image: "/images/store/list_item_pin.png"
+},
+".location-lbl":{
+	left: 20,
+	height: 17,
+	font:{
+		fontFamily: Alloy.CFG.fonts.light,
+		fontSize: 13
+	}
+},
+"#clockImg":{
+	left: 5,
+	width: 10
 },
 "#refillBtn":{
 	title: "Refill a prescriptions here"

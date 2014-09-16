@@ -4,9 +4,22 @@
 			<View class="auto-height vgroup">
 				<View class="auto-height top-20">
 					<ImageView class="logo" />
-					<View class="auto-height vgroup address-view">
-						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+					<View class="auto-height text-view">
+						<View class="auto-height vgroup address-view">
+							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+							<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+							<View class="location-view">
+								<View class="left width-45">
+									<ImageView class="distance-img left" />
+									<Label text="{store.distance}" class="location-lbl gray" />
+								</View>
+								<View class="right width-55">
+									<ImageView id="clockImg" />
+									<Label id="clockLbl" class="location-lbl" />
+								</View>
+							</View>
+						</View>
+						<ImageView class="favourite" />
 					</View>
 				</View>
 				<Button id="refillBtn" class="top-20" onClick="didRefill" />
@@ -18,9 +31,22 @@
 			<View class="auto-height vgroup">
 				<View class="auto-height top-20">
 					<ImageView class="logo" />
-					<View class="auto-height vgroup address-view">
-						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+					<View class="auto-height text-view">
+						<View class="auto-height vgroup address-view">
+							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+							<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+							<View class="location-view">
+								<View class="left width-45">
+									<ImageView class="distance-img left" />
+									<Label text="{store.distance}" class="location-lbl gray" />
+								</View>
+								<View class="right width-55">
+									<ImageView id="clockImg" />
+									<Label id="clockLbl" class="location-lbl" />
+								</View>
+							</View>
+						</View>
+						<ImageView class="favourite" />
 					</View>
 				</View>
 				<Button id="refillBtn" class="top-20" onClick="didRefill" />
