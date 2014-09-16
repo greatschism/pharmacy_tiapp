@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
-iosLaunchConfigurationAttributes/ATTR_MINIFY=true
+iosLaunchConfigurationAttributes/ATTR_MINIFY=false
 iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=mscripts-application
+iosLaunchConfigurationAttributes/ATTR_UPLOAD_DEBUG_SYMBOLS=true
 iosLaunchConfigurationAttributes/appid=com.mcripts.appcelerator
 iosLaunchConfigurationAttributes/certificate=MSCRIPTS, LLC
 iosLaunchConfigurationAttributes/distribute_path=/Users/esimacmini2013/Downloads

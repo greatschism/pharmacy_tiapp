@@ -102,6 +102,8 @@
         <module platform="commonjs">ti.cloud</module>
         <module platform="iphone">ti.map</module>
         <module platform="android">ti.map</module>
+        <module platform="android">com.appcelerator.apm</module>
+        <module platform="iphone">com.appcelerator.apm</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>
