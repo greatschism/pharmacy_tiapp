@@ -26,7 +26,7 @@ function didTap(e) {
 	if (args.stack) {
 		App.Navigator.close();
 	} else {
-		App.hamburger.toggleLeftMenu();
+		App.Hamburger.toggleLeftMenu();
 	}
 }
 

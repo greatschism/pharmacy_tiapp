@@ -308,13 +308,13 @@
 * backgroundColor Classes
 */
 ".bg-white":{
-	color: "#ffffff"
+	backgroundColor: "#ffffff"
 },
 ".bg-red":{
-	color: "#ae331f"
+	backgroundColor: "#ae331f"
 },
 ".sea-buckthorn":{
-	color: "#F79538"
+	backgroundColor: "#F79538"
 },
 /**
 * 	Alert / Notification Styles

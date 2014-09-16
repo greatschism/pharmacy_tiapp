@@ -1,13 +1,10 @@
 "#toggleBtn":{
 	title: "map"
 },
-"#mapView[platform=ios,android]":{
+"#mapView":{
 	animate: true,
 	regionFit: true,
 	userLocation: true
-},
-"#mapView[platform=mobileweb]":{
-	url: "/html/map.html"
 },
 "#searchbar":{
 	search: true,

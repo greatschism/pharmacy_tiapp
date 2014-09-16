@@ -9,5 +9,5 @@ function didItemClick(e) {
 	if (item.ctrl != App.Navigator.currentItem.ctrl) {
 		App.Navigator.open(item);
 	}
-	App.hamburger.closeLeftMenu();
+	App.Hamburger.closeLeftMenu();
 }

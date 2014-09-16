@@ -1,10 +1,10 @@
 <Alloy>
 	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
 	<View>
-		<View id="mapContainer" class="hide">
+		<View id="mapContainer">
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
-		<View id="listContainer" class="vgroup show">
+		<View id="listContainer" class="vgroup bg-white show">
 			<Widget id="searchbar" src="com.mscripts.textfield" />
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>

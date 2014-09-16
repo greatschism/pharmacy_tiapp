@@ -51,7 +51,7 @@ var App = {
 	 * The global hamburger used in the app
 	 * @type {Object}
 	 */
-	hamburger : {},
+	Hamburger : {},
 	/**
 	 * Sets up the app singleton and all it's child dependencies.
 	 * **NOTE: This should only be fired in index controller file and only once.**
@@ -74,7 +74,7 @@ var App = {
 
 		// Require in the navigation module
 		App.Navigator = require("hamburger/navigation")({
-			parent : App.hamburger.getTopLevelViews()[1],
+			parent : App.Hamburger.getTopLevelViews()[1],
 			window : App.globalWindow,
 			device : App.Device
 		});
