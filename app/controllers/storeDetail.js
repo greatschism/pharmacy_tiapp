@@ -13,9 +13,11 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 		day : moment().format("dddd")
 	});
 	if (date) {
-		var storehour = String(date.storehours);
-		var till = storehour.substring(storehour.indexOf("-") + 1, storehour.length);
-		var toClose = moment(till, "h:mm A").diff(moment(), "minutes");
+		var storehour = String(date.storehours), till = "", toClose = false, subIndex = storehour.indexOf("-");
+		if (subIndex >= 0) {
+			till = storehour.substring(storehour.indexOf("-") + 1, storehour.length);
+			toClose = moment(till, "h:mm A").diff(moment(), "minutes");
+		}
 		var image, labelDict;
 		if (toClose > 0) {
 			image = "/images/store/clock_open.png";
@@ -26,7 +28,7 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 		} else {
 			image = "/images/store/clock_close.png";
 			labelDict = {
-				text : "Closed at ".concat(till),
+				text : till ? "Closed at ".concat(till) : "Closed",
 				color : "#610e07"
 			};
 		}
