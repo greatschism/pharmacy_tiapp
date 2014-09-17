@@ -5,12 +5,17 @@
 	navTintColor: "#fff",
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
-"ListItem[platform=ios]":{
-	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE,
+"ListView":{
+	separatorColor: "#ccc"
+},
+"ListView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
 		left: 0
 	}
+},
+"ListItem[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "TableViewRow[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
@@ -107,17 +112,29 @@
 ".auto-height":{
 	height: Ti.UI.SIZE
 },
-".bottom":{
-	bottom: 0
-},
 ".top":{
 	top: 0
 },
-".right":{
-	right: 0
+".bottom":{
+	bottom: 0
 },
 ".left":{
 	left: 0
+},
+".top-5":{
+	top: 5
+},
+".bototm-5":{
+	bototm: 5
+},
+".left-5":{
+	left: 5
+},
+".right-5":{
+	left: 5
+},
+".right":{
+	right: 0
 },
 ".spacer":{
 	height: 20
@@ -294,15 +311,21 @@
 },
 ".black":{
 	color: "#000000"
-}
+},
 ".red":{
 	color: "#ae331f"
 },
-".sea-buckthorn":{
+".seabuckthorn":{
 	color: "#F79538"
 },
 ".gray":{
 	color: "#8b8b8b"
+},
+".alto":{
+	color: "#D0D0D0"
+},
+".cloudy":{
+	color: "#A39D9A"
 },
 /*
 * backgroundColor Classes
@@ -310,10 +333,16 @@
 ".bg-white":{
 	backgroundColor: "#ffffff"
 },
+".bg-black":{
+	color: "#000000"
+},
 ".bg-red":{
 	backgroundColor: "#ae331f"
 },
-".sea-buckthorn":{
+".bg-armadillo":{
+	backgroundColor: "#50473D"
+},
+".bg-seabuckthorn":{
 	backgroundColor: "#F79538"
 },
 /**

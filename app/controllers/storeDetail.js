@@ -4,7 +4,11 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 	var store = Alloy.Collections.stores.where({
 	storeid: args.storeId
 	})[0].toJSON();
+	var services = store.storeservices.storespecial;
 	var dates = store.hours.date;
+	dates = _.sortBy(dates, function(obj) {
+		return moment().day(obj.day, "dddd").day();
+	});
 	var date = _.findWhere(dates, {
 		day : moment().format("dddd")
 	});
@@ -29,7 +33,18 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 		$.clockImg.image = image;
 		$.clockLbl.applyProperties(labelDict);
 	}
+	$.favouriteImg.image = "/images/store/".concat(store.favourite ? "favourite" : "unfavourite").concat(".png");
 	Alloy.Models.store.set(store);
+	Alloy.Collections.storeOptions.reset([{
+		icon : "/images/store/phone.png",
+		name : "Call",
+		detail : "(" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber
+	}, {
+		icon : "/images/store/direction.png",
+		name : "Get directions"
+	}]);
+	Alloy.Collections.storeHours.reset(dates);
+	Alloy.Collections.storeServices.reset(services);
 })();
 
 function terminate() {

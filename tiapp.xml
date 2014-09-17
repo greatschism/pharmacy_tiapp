@@ -133,5 +133,6 @@
 		<plugin>com.soasta.touchtest.android</plugin>
 	</plugins>
 	<property name="com-soasta-touchtest-version" type="string">7040.132</property>
+	<property name="com-soasta-touchtest-ios-appId" type="string">255447</property>
 	<property name="com-soasta-touchtest-android-appId" type="string">285585</property>
 </ti:app>

@@ -1,6 +1,12 @@
 ".top-20":{
 	top: 20
 },
+".left-15":{
+	left: 15
+},
+".right-15":{
+	right: 15
+},
 ".logo":{
 	left: 15,
 	width: 50
@@ -11,11 +17,10 @@
 ".address-view":{
 	right: 40
 },
-".favourite":{
+"#favouriteImg":{
 	top: 10,
 	right: 15,
-	width: 20,
-	image: "/images/favourite.png"
+	width: 20
 },
 "#subtitleLbl":{
 	top: 5
@@ -37,9 +42,20 @@
 	}
 },
 "#clockImg":{
-	left: 5,
 	width: 10
 },
 "#refillBtn":{
 	title: "Refill a prescriptions here"
+},
+".row-h50":{
+	height: 50
+},
+".row-h30":{
+	height: 30
+},
+".row-h20":{
+	height: 20
+},
+".left-icon":{
+	width: 20
 }

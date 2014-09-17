@@ -18,8 +18,7 @@
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
 "#listView":{
-	top: 5,
-	separatorColor: "#ccc"
+	top: 5
 },
 ".row":{
 	height: 60
@@ -35,7 +34,7 @@
 ".favourite":{
 	left: 5,
 	width: 15,
-	image: "/images/favourite.png"
+	image: "/images/store/favourite.png"
 },
 ".content-view":{
 	left: 25
