@@ -38,8 +38,9 @@
 "Button":{
 	width: "90%",
 	height: 45,
-	color: "#fff",
-	backgroundColor: "#F79538",
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular
+	},
 	borderRadius: 5
 },
 "ImageView[platform=ios]":{
@@ -413,10 +414,16 @@
 /*
 *actionbar button
 */
-".actionbar-right-btn":{
+".actionbar-right-view":{
 	right: 0,
 	width: 60,
 	height: 40,
+	role: "actionbar"
+},
+".actionbar-right-btn":{
+	right: 0,
+	width: 60,
+	height: 25,
 	color: "#fff",
 	backgroundColor: "transparent",
 	borderColor: "transparent",
@@ -433,4 +440,25 @@
 		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 17
 	}
+},
+/*
+*button with image on left
+*/
+".button-view":{
+	width: "90%",
+	height: 45,
+	borderRadius: 5
+},
+".button-img":{
+	left: 10,
+	width: 50,
+	touchEnabled: false
+},
+".button-title":{
+	left: 65,
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular,
+		fontSize: 17
+	},
+	touchEnabled: false
 }

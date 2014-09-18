@@ -2,10 +2,6 @@
 	backgroundColor: "#fff",
 	width: "100%"
 },
-"#actionbar":{
-	top: 0,
-	backgroundColor: "#F79538"
-},
 "#actionbar[if=Alloy.Globals.iOS7Plus]":{
 	height: 68
 },

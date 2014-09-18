@@ -31,14 +31,17 @@
 								</View>
 								<View class="right width-55">
 									<ImageView id="clockImg" class="left-5" />
-									<Label id="clockLbl" class="location-lbl" />
+									<Label id="clockLbl" class="location-lbl" left="30" />
 								</View>
 							</View>
 						</View>
 						<ImageView id="favouriteImg" />
 					</View>
 				</View>
-				<Button id="refillBtn" class="top-20" onClick="didRefill" />
+				<View class="top-20 button-view bg-seabuckthorn" onSingletap="didRefill">
+					<ImageView image="/images/store/refill.png" class="button-img" />
+					<Label text="Refill a prescriptions here" class="button-title h3 white" />
+				</View>
 				<View class="spacer" />
 			</View>
 		</HeaderView>
@@ -82,14 +85,17 @@
 							</View>
 							<View class="right width-55">
 								<ImageView id="clockImg" class="left-5" />
-								<Label id="clockLbl" class="location-lbl" />
+								<Label id="clockLbl" class="location-lbl" left="30" />
 							</View>
 						</View>
 					</View>
 					<ImageView id="favouriteImg" />
 				</View>
 			</View>
-			<Button id="refillBtn" class="top-20" onClick="didRefill" />
+			<View class="top-20 button-view bg-seabuckthorn" onSingletap="didRefill">
+				<ImageView image="/images/store/refill.png" class="button-img" />
+				<Label text="Refill a prescriptions here" class="button-title h3 white" />
+			</View>
 			<View class="spacer" />
 		</View>
 		<TableView class="auto-height" dataCollection="storeOptions">

@@ -15,18 +15,20 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 	if (date) {
 		var storehour = String(date.storehours), till = "", toClose = false, subIndex = storehour.indexOf("-");
 		if (subIndex >= 0) {
-			till = storehour.substring(storehour.indexOf("-") + 1, storehour.length);
+			from = storehour.substring(0, subIndex - 1);
+			till = storehour.substring(subIndex + 1, storehour.length);
+			toOpen = moment(from, "h:mm A").diff(moment(), "minutes");
 			toClose = moment(till, "h:mm A").diff(moment(), "minutes");
 		}
 		var image, labelDict;
-		if (toClose > 0) {
-			image = "/images/store/clock_open.png";
+		if (toOpen < 0 && toClose > 0) {
+			image = "/images/store/green_clock.png";
 			labelDict = {
 				text : "Open till ".concat(till),
 				color : "#245e3d"
 			};
 		} else {
-			image = "/images/store/clock_close.png";
+			image = "/images/store/red_clock.png";
 			labelDict = {
 				text : till ? "Closed at ".concat(till) : "Closed",
 				color : "#610e07"
@@ -38,7 +40,7 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 	$.favouriteImg.image = "/images/store/".concat(store.favourite ? "favourite" : "unfavourite").concat(".png");
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeOptions.reset([{
-		icon : "/images/store/phone.png",
+		icon : "/images/store/call.png",
 		name : "Call",
 		detail : "(" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber
 	}, {

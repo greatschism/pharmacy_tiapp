@@ -1,5 +1,5 @@
 <Alloy>
 	<View class="vgroup">
-		<Button title="Go to Home" onClick="didClick" top="20" />
+		<Button title="Go to Home" class="bg-seabuckthorn white" onClick="didClick" top="20" />
 	</View>
 </Alloy> 

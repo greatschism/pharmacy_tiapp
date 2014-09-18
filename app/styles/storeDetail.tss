@@ -9,7 +9,8 @@
 },
 ".logo":{
 	left: 15,
-	width: 50
+	width: 50,
+	image: "/images/store/pharmacy.png"
 },
 ".text-view":{
 	left: 75
@@ -42,10 +43,7 @@
 	}
 },
 "#clockImg":{
-	width: 10
-},
-"#refillBtn":{
-	title: "Refill a prescriptions here"
+	width: 20
 },
 ".row-h50":{
 	height: 50

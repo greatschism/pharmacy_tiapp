@@ -19,10 +19,10 @@ function init(e) {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	/*coords = {
-	 latitude : 12.9739156,
-	 longitude : 77.6172187
-	 };*/
+	coords = {
+		latitude : 12.9739156,
+		longitude : 77.6172187
+	};
 	if (coords.latitude) {
 		var data = "<request><advsearchpharmacy><latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
 		_http.request({
@@ -150,7 +150,7 @@ function didToggle(e) {
 	var lVisible = $.listContainer.visible;
 	$.listContainer.visible = !lVisible;
 	$.mapContainer.visible = lVisible;
-	$.toggleBtn.title = lVisible ? "list" : "map";
+	$.toggleImg.image = lVisible ? "/images/store/list.png" : "/images/store/map.png";
 }
 
 function didAnnotationClick(e) {

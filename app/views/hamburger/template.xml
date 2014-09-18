@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
-		<View id="actionbar">
+		<View id="actionbar" class="top bg-seabuckthorn">
 			<View id="actionView">
 				<View id="leftView" onSingletap="didTap">
 					<ImageView id="leftImg" />

@@ -1,5 +1,7 @@
 <Alloy>
-	<Button id="toggleBtn" class="actionbar-right-btn" onClick="didToggle" />
+	<View id="toggleView" class="actionbar-right-view" onSingletap="didToggle">
+		<ImageView id="toggleImg" />
+	</View>
 	<View>
 		<View id="mapContainer">
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
