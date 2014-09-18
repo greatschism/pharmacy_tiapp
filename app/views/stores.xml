@@ -7,7 +7,7 @@
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
 		<View id="listContainer" class="vgroup bg-white show">
-			<Widget id="searchbar" src="com.mscripts.textfield" />
+			<Widget id="searchbar" src="com.mscripts.textfield" onReturn="init" />
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favourites" class="row">

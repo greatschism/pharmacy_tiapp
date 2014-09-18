@@ -1,6 +1,6 @@
 var args = arguments[0] || {}, App = require("core"), _http = require("http"), _xmlTools = require("XMLTools");
 
-function init(e) {
+function init() {
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
 		alert("You have disallowed Titanium from running geolocation services.");
@@ -19,12 +19,17 @@ function init(e) {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	coords = {
-		latitude : 12.9739156,
-		longitude : 77.6172187
-	};
+	/*coords = {
+	 latitude : 12.9739156,
+	 longitude : 77.6172187
+	 };*/
 	if (coords.latitude) {
-		var data = "<request><advsearchpharmacy><latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
+		var data = "<request><advsearchpharmacy>";
+		var searchStr = $.searchbar.getValue();
+		if (searchStr != "") {
+			data += "<searchstring>" + searchStr + "</searchstring>";
+		}
+		data += "<latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
 		_http.request({
 			url : "https://staging.remscripts.com/pdxonphonehandlerv6_3/advsearchpharmacies",
 			type : "POST",
@@ -44,6 +49,7 @@ function didSuccess(doc) {
 	var errormessage = doc.getElementsByTagName("errormessage");
 	if (errormessage.item(0) != null || errormessage.item(0) != undefined) {
 		alert(errormessage.item(0).text);
+		Alloy.Collections.stores.reset([]);
 		return;
 	}
 	var xmlTools = new _xmlTools(doc);
@@ -185,7 +191,7 @@ function openStoreDetail(storeId) {
 	});
 }
 
-function terminate(e) {
+function terminate() {
 	$.destroy();
 }
 
