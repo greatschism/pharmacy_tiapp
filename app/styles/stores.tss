@@ -12,7 +12,7 @@
 	search: true,
 	clearButton: true,
 	top: 5,
-	hintText: "search by zip, city or state",
+	hintText: Alloy.Globals.Strings.storeSearchHint,
 	font: {
 		fontFmaily: Alloy.CFG.fonts.light,
 		fontSize: 15

@@ -1,7 +1,7 @@
 var args = arguments[0] || {}, App = require("core"), _controller;
 
 (function() {
-	$.titleLbl.text = args.title || "";
+	$.titleLbl.text = args.title || Alloy.Globals.Strings[args.titleid || ""];
 	if (args.stack) {
 		$.addClass($.leftImg, "back");
 		$.template.applyProperties({

@@ -42,10 +42,10 @@ function Navigation(_args) {
 	this.starter = null;
 
 	/**
-	 * The current top level controller arguments reference
+	 * The current top level controller's arguments
 	 * @type {Object}
 	 */
-	this.currentItem = null;
+	this.currentParams = null;
 
 	/**
 	 * controller that blocks ui from user interaction
@@ -73,32 +73,37 @@ function Navigation(_args) {
 
 	/**
 	 * Open a screen controller
-	 * @param {Object} arguments The arguments for the controller (required)
-	 * @return {Controllers} Returns the new controller
+	 * @param {Object} _params The arguments for the method
+	 * @param {String} _params.ctrl name of the Controller to be opened
+	 * @param {Object} _params.ctrlArguments arguments to be passed to the new controller
+	 * @param {String} _params.title title to be displayed on the title bar
+	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
+	 * @param {Boolen} _params.stack if true opens the Controller as a detail page
+	 * @return {Controller} Returns the new controller
 	 */
-	this.open = function(arguments) {
+	this.open = function(_params) {
 
 		/**
-		 *  if arguments.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
+		 *  if _params.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
 		 */
-		if (arguments.stack || that.controllers.length > 1) {
-			return that.push(arguments);
+		if (_params.stack || that.controllers.length > 1) {
+			return that.push(_params);
 		}
 
 		if (that.isBusy) {
 			return;
 		}
 
-		that.currentItem = arguments;
+		that.currentParams = _params;
 
-		if (that.starter && that.starter.arguments.ctrl == that.currentItem.ctrl) {
+		if (that.starter && that.starter._params.ctrl == that.currentParams.ctrl) {
 			that.close();
 			return that.starter;
 		}
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/template", that.currentItem);
+		var controller = Alloy.createController("hamburger/template", that.currentParams);
 
 		that.init(controller);
 
@@ -108,7 +113,7 @@ function Navigation(_args) {
 
 			that.starter = controller;
 
-			that.starter.arguments = that.currentItem;
+			that.starter._params = that.currentParams;
 
 		} else {
 
@@ -130,10 +135,10 @@ function Navigation(_args) {
 
 	/**
 	 * Pushes a screen controller on top of the stack
-	 * @param {Object} arguments The arguments for the controller (required)
-	 * @return {Controllers} Returns the new controller
+	 * @param {Object} _params The arguments for the method
+	 * @return {Controller} Returns the new controller
 	 */
-	this.push = function(arguments) {
+	this.push = function(_params) {
 
 		if (that.isBusy) {
 			return;
@@ -141,7 +146,7 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/template", arguments);
+		var controller = Alloy.createController("hamburger/template", _params);
 
 		var view = controller.getView();
 
@@ -384,7 +389,7 @@ function Navigation(_args) {
 	 */
 	this.testOutput = function() {
 
-		Ti.API.debug(JSON.stringify(that.starter));
+		console.debug(JSON.stringify(that.starter));
 
 		var stack = [];
 
@@ -392,8 +397,8 @@ function Navigation(_args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		Ti.API.debug("Stack Length: " + that.controllers.length);
-		Ti.API.debug(JSON.stringify(stack));
+		console.debug("Stack Length: " + that.controllers.length);
+		console.debug(JSON.stringify(stack));
 	};
 }
 

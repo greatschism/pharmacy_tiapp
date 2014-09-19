@@ -1,0 +1,14 @@
+{
+	"code": "en",
+	"version": 1,
+	"strings": {
+		"english": "English",
+		"spanish": "Spanish",
+		"home": "Home",
+		"prescriptions": "Prescriptions",
+		"doctors": "Doctors",
+		"stores": "Stores",
+		"account": "Account",
+		"storeSearchHint": "search by zip, city or state"
+	}
+}

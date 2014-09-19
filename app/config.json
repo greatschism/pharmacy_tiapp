@@ -1,22 +1,33 @@
 {
 	"global": {
+		"languages": [
+			{
+				"code": "en",
+				"titleid": "english",
+				"url": "url_to_download"
+			}, {
+				"code": "es",
+				"titleid": "spanish",
+				"url": "url_to_download"
+			}
+		],
 		"layout": "hamburger",
 		"menuItems": [
 			{
-				"title": "Home",
+				"titleid": "home",
 				"ctrl": "home",
 				"landingPage": true
 			}, {
-				"title": "Prescriptions",
+				"titleid": "prescriptions",
 				"ctrl": "prescriptions"
 			}, {
-				"title": "Doctors",
+				"titleid": "doctors",
 				"ctrl": "doctors"
 			}, {
-				"title": "Stores",
+				"titleid": "stores",
 				"ctrl": "stores"
 			}, {
-				"title": "Account",
+				"titleid": "account",
 				"ctrl": "account"
 			}
 		],
@@ -67,7 +78,7 @@
 				}
 			]
 		],
-		"enableAnalytic":true
+		"enableAnalytic": true
 	},
 	"env:development": {},
 	"env:test": {},

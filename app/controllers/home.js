@@ -1,4 +1,4 @@
-var args = arguments[0] || {}, App = require("core");
+var args = arguments[0] || {}, App = require("core"), animation = require("alloy/animation");
 
 (function() {
 	var icons = Alloy.CFG.icons;
@@ -14,6 +14,9 @@ var args = arguments[0] || {}, App = require("core");
 			view.add(imageView);
 		}
 		$.scrollView.add(view);
+	}
+	if (OS_IOS || OS_ANDROID) {
+		animation.fadeIn($.scrollView, 300);
 	}
 })();
 

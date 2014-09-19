@@ -1,21 +1,30 @@
-var isIOS7Plus = function() {
-	if (OS_IOS) {
-		var version = Titanium.Platform.version.split(".");
-		var major = parseInt(version[0], 10);
-		if (major >= 7) {
-			return true;
+(function() {
+
+	var isIOS7Plus = function() {
+		if (OS_IOS) {
+			var version = Titanium.Platform.version.split(".");
+			var major = parseInt(version[0], 10);
+			if (major >= 7) {
+				return true;
+			}
 		}
-	}
-	return false;
-};
+		return false;
+	};
 
-Alloy.Globals.iOS7Plus = isIOS7Plus();
-Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
+	Alloy.Globals.iOS7Plus = isIOS7Plus();
 
-Alloy.Collections.menuItems = new Backbone.Collection();
-Alloy.Collections.stores = new Backbone.Collection();
-Alloy.Collections.storeOptions = new Backbone.Collection();
-Alloy.Collections.storeHours = new Backbone.Collection();
-Alloy.Collections.storeServices = new Backbone.Collection();
+	var Locale = require("localization");
+	Locale.init();
+	Alloy.Globals.Strings = Locale.currentLanguage.strings;
 
-Alloy.Models.store = new Backbone.Model();
+	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
+
+	Alloy.Collections.menuItems = new Backbone.Collection();
+	Alloy.Collections.stores = new Backbone.Collection();
+	Alloy.Collections.storeOptions = new Backbone.Collection();
+	Alloy.Collections.storeHours = new Backbone.Collection();
+	Alloy.Collections.storeServices = new Backbone.Collection();
+
+	Alloy.Models.store = new Backbone.Model();
+
+})();
