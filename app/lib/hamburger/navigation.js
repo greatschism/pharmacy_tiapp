@@ -176,7 +176,7 @@ function Navigation(_args) {
 	 */
 	this.close = function(_callback) {
 
-		if (that.isBusy) {
+		if (that.isBusy || (OS_ANDROID && that.loader != null)) {
 			return;
 		}
 
@@ -358,7 +358,6 @@ function Navigation(_args) {
 	 */
 	this.showLoader = function(_params) {
 		if (that.loader == null) {
-			that.isBusy = true;
 			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", _params);
 			that.window.add(that.loader.getView());
 		}
@@ -371,7 +370,6 @@ function Navigation(_args) {
 		if (that.loader != null) {
 			that.window.remove(that.loader.getView());
 			that.loader = null;
-			that.isBusy = false;
 		}
 	};
 
