@@ -10,6 +10,9 @@ function init() {
 		if (OS_MOBILEWEB) {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
 		}
+		if (OS_IOS) {
+			Ti.Geolocation.purpose = "find nearby pharmacies";
+		}
 		App.Navigator.showLoader({
 			message : "Processing. Please wait"
 		});
