@@ -27,4 +27,5 @@
 
 	Alloy.Models.store = new Backbone.Model();
 
+	require('tests/unitTests');
 })();
