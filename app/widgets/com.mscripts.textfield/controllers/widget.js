@@ -1,47 +1,51 @@
-var args = arguments[0] || {}, options = {};
+var args = arguments[0] || {};
 
-var className = args.search && (args.clearButton || args.rightImage) ? "left-right" : (args.search ? "left" : (args.clearButton || args.rightImage ? "right" : "fill"));
-$.addClass($.container, "container-" + className);
-$.txt = Ti.UI.createTextField();
-$.addClass($.txt, "txt txt-" + className);
-$.txt.addEventListener("focus", didFocus);
-$.txt.addEventListener("blur", didBlur);
-$.txt.addEventListener("return", didReturn);
-$.container.add($.txt);
+(function() {
 
-if (args.search == true) {
-	console.debug("adding search icon");
-	$.widget.add(Widget.createController("search").getView());
-}
+	var options = {};
 
-if (args.clearButton == true || _.has(args, "rightImage")) {
-	console.debug("adding right butotn");
-	$.rightImg = Widget.createController("rightImg", {
-		image : args.clearButton ? WPATH("cancel.png") : args.rightImage
-	}).getView();
-	$.container.add($.rightImg);
-	var listener;
-	if (args.clearButton == true) {
-		$.txt.addEventListener("change", didChange);
-		listener = didClear;
-	} else {
-		$.rightImg.visible = true;
-		listener = didClick;
+	var className = args.search && (args.clearButton || args.rightImage) ? "left-right" : (args.search ? "left" : (args.clearButton || args.rightImage ? "right" : "fill"));
+	$.addClass($.container, "container-" + className);
+	$.txt = Ti.UI.createTextField();
+	$.addClass($.txt, "txt txt-" + className);
+	$.txt.addEventListener("focus", didFocus);
+	$.txt.addEventListener("blur", didBlur);
+	$.txt.addEventListener("return", didReturn);
+	$.container.add($.txt);
+
+	if (args.search == true) {
+		console.debug("adding search icon");
+		$.widget.add(Widget.createController("search").getView());
 	}
-	$.rightImg.addEventListener("singletap", listener);
-}
 
-options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor"]);
-if (!_.isEmpty(options)) {
-	$.widget.applyProperties(options);
-}
+	if (args.clearButton == true || _.has(args, "rightImage")) {
+		console.debug("adding right butotn");
+		$.rightImg = Widget.createController("rightImg", {
+			image : args.clearButton ? WPATH("cancel.png") : args.rightImage
+		}).getView();
+		$.container.add($.rightImg);
+		var listener;
+		if (args.clearButton == true) {
+			$.txt.addEventListener("change", didChange);
+			listener = didClear;
+		} else {
+			$.rightImg.visible = true;
+			listener = didClick;
+		}
+		$.rightImg.addEventListener("singletap", listener);
+	}
 
-options = _.pick(args, ["font", "color", "hintText", "value", "returnKeyType", "autocorrect", "autocapitalization"]);
-if (!_.isEmpty(options)) {
-	$.txt.applyProperties(options);
-}
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor"]);
+	if (!_.isEmpty(options)) {
+		$.widget.applyProperties(options);
+	}
 
-args = options = null;
+	options = _.pick(args, ["font", "color", "hintText", "value", "returnKeyType", "autocorrect", "autocapitalization"]);
+	if (!_.isEmpty(options)) {
+		$.txt.applyProperties(options);
+	}
+
+})();
 
 function didFocus(e) {
 	$.trigger("focus");

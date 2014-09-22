@@ -1,1 +1,8 @@
-<Alloy></Alloy>
+<Alloy>
+	<View onClick="showPicker">
+		<View id="container">
+			<TextField id="txt" />
+		</View>
+		<ImageView id="rightImg" />
+	</View>
+</Alloy>

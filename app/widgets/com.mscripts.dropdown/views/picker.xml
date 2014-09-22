@@ -1,0 +1,12 @@
+<Alloy>
+	<View>
+		<View id="toolbar">
+			<Button id="leftBtn" onClick="didLeftClick" />
+			<Button id="rightBtn" onClick="didRightClick" />
+		</View>
+		<ListView id="listView" platform="ios,android">
+			<ListSection id="section"></ListSection>
+		</ListView>
+		<TableView id="listView" platform="mobileweb"></TableView>
+	</View>
+</Alloy>

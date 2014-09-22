@@ -1,0 +1,39 @@
+"#widget": {
+	width: "95%",
+	height: 40,
+	borderColor: "#8b8b8b",
+	borderWidth: 1,
+	borderRadius: 5
+},
+"#container[platform=ios,android]":{
+	right: 30
+},
+"#container[platform=mobileweb]":{
+	right: 40
+},
+"#txt":{
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0,
+	editable: false,
+	autocorrect: false,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+},
+"#txt[platform=ios,android]":{
+	left: 0
+},
+"#txt[platform=mobileweb]":{
+	left: 10
+},
+"#txt[platform=ios]":{
+	paddingLeft: 8,
+	paddingRight: 8
+},
+"#rightImg":{
+	right: 10,
+	width: 20
+}

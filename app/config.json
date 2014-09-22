@@ -107,6 +107,7 @@
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",
 		"com.mscripts.textfield": "1.0",
-		"com.mscripts.loading": "1.0"
+		"com.mscripts.loading": "1.0",
+		"com.mscripts.dropdown": "1.0"
 	}
 }

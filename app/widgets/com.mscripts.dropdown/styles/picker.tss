@@ -1,0 +1,33 @@
+"#picker": {
+	width: Ti.UI.FILL,
+	height: 260,
+	zIndex: 10
+},
+"#toolbar":{
+	top: 0,
+	height: 40,
+	backgroundColor: "#F1F1F1"
+},
+"Button":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.FILL,
+	font:{
+		fontSize: 17
+	},
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderRadius: 5
+},
+"#leftBtn":{
+	left: 10,
+	title: "Cancel"
+},
+"#rightBtn":{
+	right: 10,
+	title: "Done"
+},
+"#listView":{
+	top: 40,
+	height: 220
+}
