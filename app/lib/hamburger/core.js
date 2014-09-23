@@ -169,7 +169,7 @@ var App = {
 	 * @param {Object} _event Standard Ti callback
 	 */
 	back : function(_event) {
-		App.Navigator.close();
+		App.Navigator.close(null, true);
 	},
 	/**
 	 * Handle the orientation change event callback

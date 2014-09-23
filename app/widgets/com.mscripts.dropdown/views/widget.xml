@@ -1,7 +1,7 @@
 <Alloy>
 	<View onClick="showPicker">
 		<View id="container">
-			<TextField id="txt" />
+			<Label id="lbl" />
 		</View>
 		<ImageView id="rightImg" />
 	</View>

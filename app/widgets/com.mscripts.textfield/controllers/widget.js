@@ -6,8 +6,11 @@ var args = arguments[0] || {};
 
 	var className = args.search && (args.clearButton || args.rightImage) ? "left-right" : (args.search ? "left" : (args.clearButton || args.rightImage ? "right" : "fill"));
 	$.addClass($.container, "container-" + className);
-	$.txt = Ti.UI.createTextField();
-	$.addClass($.txt, "txt txt-" + className);
+	$.txt = $.UI.create("TextField", {
+		apiName : "TextField",
+		classes : ["txt", ("txt-" + className)],
+		id : "txt"
+	});
 	$.txt.addEventListener("focus", didFocus);
 	$.txt.addEventListener("blur", didBlur);
 	$.txt.addEventListener("return", didReturn);

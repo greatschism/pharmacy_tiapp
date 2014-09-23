@@ -104,31 +104,40 @@ function Navigation(_args) {
 		that.isBusy = true;
 
 		var controller = Alloy.createController("hamburger/template", that.currentParams);
+		
+		var view = controller.getView();
 
 		that.init(controller);
 
-		that.parent.add(controller.getView());
+		var postlayout = function() {
 
-		if (that.starter == null) {
+			view.removeEventListener("postlayout", postlayout);
 
-			that.starter = controller;
+			if (that.starter == null) {
 
-			that.starter._params = that.currentParams;
+				that.starter = controller;
 
-		} else {
+				that.starter._params = that.currentParams;
 
-			// Handle removing the current controller from the screen
-			if (that.currentController) {
-				that.terminate();
-				that.parent.remove(that.currentController.getView());
-				that.controllers.pop();
+			} else {
+
+				// Handle removing the current controller from the screen
+				if (that.currentController) {
+					that.terminate();
+					that.parent.remove(that.currentController.getView());
+					that.controllers.pop();
+				}
+
+				that.controllers.push(controller);
+				that.currentController = controller;
 			}
 
-			that.controllers.push(controller);
-			that.currentController = controller;
-		}
+			that.isBusy = false;
+		};
 
-		that.isBusy = false;
+		view.addEventListener("postlayout", postlayout);
+
+		that.parent.add(view);
 
 		return controller;
 	};
@@ -173,10 +182,11 @@ function Navigation(_args) {
 	/**
 	 * Close the controller at the top of the stack
 	 * @param {Function} _callback
+	 * @param {Boolean} _backButton
 	 */
-	this.close = function(_callback) {
+	this.close = function(_callback, _backButton) {
 
-		if (that.isBusy || (OS_ANDROID && that.loader != null)) {
+		if (that.isBusy || (OS_ANDROID && _backButton === true && that.loader != null)) {
 			return;
 		}
 
@@ -205,7 +215,14 @@ function Navigation(_args) {
 				that.controllers.pop();
 
 				// Assign the new current controller from the stack
-				that.currentController = that.controllers.length ? that.controllers[that.controllers.length - 1] : null;
+				var len = that.controllers.length;
+				if (len) {
+					that.currentController = that.controllers[len - 1];
+				} else {
+					that.currentController = null;
+					//now starter will be at top level so
+					that.currentParams = that.starter._params;
+				}
 
 				//that.testOutput();
 

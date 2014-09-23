@@ -1,6 +1,8 @@
 <Alloy>
-	<View class="vgroup">
-		<Button title="Go to Home" class="bg-seabuckthorn white" onClick="didClick" top="20" />
-		<Widget id="dropdown" src="com.mscripts.dropdown" />
+	<View>
+		<View class="vgroup">
+			<Button title="Go to Home" class="bg-seabuckthorn white" onClick="didClick" top="20" />
+			<Widget id="dropdown" src="com.mscripts.dropdown" />
+		</View>
 	</View>
 </Alloy> 

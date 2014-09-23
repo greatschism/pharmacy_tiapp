@@ -11,27 +11,17 @@
 "#container[platform=mobileweb]":{
 	right: 40
 },
-"#txt":{
+"#lbl":{
+	left: 10,
 	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	color: "#000",
-	backgroundColor: "transparent",
-	borderColor: "transparent",
-	borderWidth: 0,
-	editable: false,
-	autocorrect: false,
-	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
-	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+	font:{
+		fontSize: 14
+	},
+	color: "#000"
 },
-"#txt[platform=ios,android]":{
-	left: 0
-},
-"#txt[platform=mobileweb]":{
-	left: 10
-},
-"#txt[platform=ios]":{
-	paddingLeft: 8,
-	paddingRight: 8
+"#lbl[platform=android]":{
+	ellipsize: true,
+	wordWrap: false
 },
 "#rightImg":{
 	right: 10,

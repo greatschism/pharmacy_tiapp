@@ -8,9 +8,9 @@ var args = arguments[0] || {}, _choices = [], _selectedIndex = -1, _picker, _par
 		$.widget.applyProperties(options);
 	}
 
-	options = _.pick(args, ["font", "color", "hintText", "value", "returnKeyType", "autocorrect", "autocapitalization"]);
+	options = _.pick(args, ["font", "color", "text"]);
 	if (!_.isEmpty(options)) {
-		$.txt.applyProperties(options);
+		$.lbl.applyProperties(options);
 	}
 
 	$.rightImg.image = args.rightImage || WPATH("dropdown.png");
@@ -40,7 +40,7 @@ function getParentView() {
 
 function showPicker() {
 	if (!_picker && _parent) {
-		var pickerDict = _.pick(args, ["toolbarDict", "buttonDict", "leftTitle", "rightTitle"]);
+		var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
 		_.extend(pickerDict, {
 			choices : _choices,
 			selectedIndex : _selectedIndex,
@@ -79,7 +79,7 @@ function getChoices() {
 
 function setSelectedIndex(index) {
 	_selectedIndex = index;
-	$.txt.setValue(getSelectedItem().title || "");
+	$.lbl.setText(getSelectedItem().title || "");
 }
 
 function getSelectedIndex() {

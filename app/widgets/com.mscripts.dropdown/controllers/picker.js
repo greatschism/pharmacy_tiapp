@@ -1,4 +1,4 @@
-var args = arguments[0] || {}, _bottom = -1 * Ti.Platform.displayCaps.platformHeight, _choices = [], _selectedIndex = -1, _parent;
+var args = arguments[0] || {}, PICKER_HEIGHT = 340, _height = Ti.Platform.displayCaps.platformHeight, _choiceDict = {}, _choices = [], _selectedIndex = -1, _parent;
 
 (function() {
 
@@ -8,6 +8,10 @@ var args = arguments[0] || {}, _bottom = -1 * Ti.Platform.displayCaps.platformHe
 
 	if (_.has(args, "toolbarDict")) {
 		$.toolbar.applyProperties(args.toolbarDict);
+	}
+
+	if (_.has(args, "_choiceDict")) {
+		_choiceDict = args._choiceDict;
 	}
 
 	if (_.has(args, "buttonDict")) {
@@ -37,20 +41,73 @@ var args = arguments[0] || {}, _bottom = -1 * Ti.Platform.displayCaps.platformHe
 	}
 
 	if (OS_ANDROID) {
-		_bottom = (_bottom / (Ti.Platform.displayCaps.dpi / 160));
+		_height = (_height / (Ti.Platform.displayCaps.dpi / 160));
 	}
-	$.picker.bottom = _bottom;
+
+	$.picker.top = _height + PICKER_HEIGHT;
 
 })();
 
 function init() {
+	if (OS_IOS || OS_ANDROID) {
+		var items = [];
+		for (var i in _choices) {
+			var titleProp = {
+				text : _choices[i].title
+			};
+			_.extend(titleProp, _choiceDict);
+			items.push({
+				title : titleProp,
+				image : {
+					image : _choices[i].image || WPATH("checked.png")
+				},
+				template : _selectedIndex == i ? "checked" : "unchecked",
+				properties : {
+					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
+				}
+			});
+		}
+		$.section.setItems(items);
+	} else {
+		var data = [];
+		for (var i in _choices) {
+			data.push(getRow({
+				title : _choices[i].title,
+				image : _selectedIndex == i ? _choices[i].image || WPATH("checked.png") : false
+			}));
+		}
+		$.listView.setData(data);
+	}
 	$.picker.addEventListener("postlayout", didPostlayout);
 	_parent.add($.picker);
 }
 
+function getRow(data) {
+	var row = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow",
+		classes : ["row"]
+	});
+	if (data.image) {
+		var image = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			classes : ["checked"]
+		});
+		image.image = data.image;
+		row.add(image);
+	}
+	var title = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["title"]
+	});
+	_choiceDict.text = data.title;
+	title.applyProperties(_choiceDict);
+	row.add(title);
+	return row;
+}
+
 function terminate(callback) {
 	$.picker.animate({
-		bottom : _bottom,
+		top : _height + PICKER_HEIGHT,
 		duration : 300
 	}, function() {
 		_parent.remove($.picker);
@@ -61,11 +118,54 @@ function terminate(callback) {
 }
 
 function didPostlayout(e) {
+	var top = _height - PICKER_HEIGHT;
 	$.picker.removeEventListener("postlayout", didPostlayout);
 	$.picker.animate({
-		bottom : 0,
+		top : top,
 		duration : 300
+	}, function() {
+		$.picker.top = top;
 	});
+}
+
+function didItemClick(e) {
+	var itemIndex = e.itemIndex;
+	if (itemIndex !== _selectedIndex) {
+		var section = e.section;
+		if (_selectedIndex >= 0) {
+			var toUncheck = section.getItemAt(_selectedIndex);
+			toUncheck.template = "unchecked";
+			$.section.updateItemAt(_selectedIndex, toUncheck);
+		}
+		_selectedIndex = itemIndex;
+		var toCheck = section.getItemAt(_selectedIndex);
+		toCheck.template = "checked";
+		$.section.updateItemAt(_selectedIndex, toCheck);
+		$.trigger("change", {
+			selectedIndex : _selectedIndex,
+			selectedItem : getSelectedItem()
+		});
+	}
+}
+
+function didTVRClick(e) {
+	var index = e.index;
+	if (index !== _selectedIndex) {
+		if (_selectedIndex >= 0) {
+			$.listView.updateRow(_selectedIndex, getRow({
+				title : _choices[_selectedIndex].title
+			}));
+		}
+		_selectedIndex = index;
+		$.listView.updateRow(_selectedIndex, getRow({
+			title : _choices[_selectedIndex].title,
+			image : _choices[_selectedIndex].image || WPATH("checked.png")
+		}));
+		$.trigger("change", {
+			selectedIndex : _selectedIndex,
+			selectedItem : getSelectedItem()
+		});
+	}
 }
 
 function didLeftClick(e) {
@@ -101,11 +201,20 @@ function getSelectedIndex() {
 	return _selectedIndex;
 }
 
+function getSelectedItem() {
+	var item = {};
+	if (_selectedIndex >= 0 && _selectedIndex < _choices.length) {
+		item = _choices[_selectedIndex];
+	}
+	return item;
+}
+
 exports.init = init;
 exports.terminate = terminate;
 exports.setChoices = setChoices;
 exports.getChoices = getChoices;
 exports.setParentView = setParentView;
 exports.getParentView = getParentView;
+exports.getSelectedItem = getSelectedItem;
 exports.setSelectedIndex = setSelectedIndex;
 exports.getSelectedIndex = getSelectedIndex;

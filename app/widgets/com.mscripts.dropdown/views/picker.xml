@@ -4,9 +4,18 @@
 			<Button id="leftBtn" onClick="didLeftClick" />
 			<Button id="rightBtn" onClick="didRightClick" />
 		</View>
-		<ListView id="listView" platform="ios,android">
-			<ListSection id="section"></ListSection>
+		<ListView id="listView" defaultItemTemplate="unchecked" onItemclick="didItemClick" platform="ios,android">
+			<Templates>
+				<ItemTemplate name="unchecked" class="row">
+					<Label bindId="title" class="title" />
+				</ItemTemplate>
+				<ItemTemplate name="checked" class="row">
+					<ImageView bindId="image" class="checked" />
+					<Label bindId="title" class="title" />
+				</ItemTemplate>
+			</Templates>
+			<ListSection id="section" />
 		</ListView>
-		<TableView id="listView" platform="mobileweb"></TableView>
+		<TableView id="listView" onClick="didTVRClick" platform="mobileweb" />
 	</View>
 </Alloy>
