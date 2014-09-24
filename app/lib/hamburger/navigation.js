@@ -82,6 +82,7 @@ function Navigation(_args) {
 	 * @param {Object} _params The arguments for the method
 	 * @param {String} _params.ctrl name of the Controller to be opened
 	 * @param {Object} _params.ctrlArguments arguments to be passed to the new controller
+	 * @param {String} _params.titleImage image to be displayed on the title bar
 	 * @param {String} _params.title title to be displayed on the title bar
 	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
 	 * @param {Boolen} _params.stack if true opens the Controller as a detail page

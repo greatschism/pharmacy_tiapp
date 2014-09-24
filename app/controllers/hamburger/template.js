@@ -1,7 +1,16 @@
 var args = arguments[0] || {}, App = require("core"), _controller;
 
 (function() {
-	$.titleLbl.text = args.title || Alloy.Globals.Strings[args.titleid || ""];
+	if (args.titleImage) {
+		$.titleImg = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			classes : ["title-img"]
+		});
+		$.titleImg.image = args.titleImage;
+		$.actionView.add($.titleImg);
+	} else {
+		$.titleLbl.text = args.title || Alloy.Globals.Strings[args.titleid || ""];
+	}
 	if (args.stack) {
 		$.addClass($.leftImg, "back");
 		$.template.applyProperties({

@@ -28,6 +28,10 @@
 		fontFamily: Alloy.CFG.fonts.light
 	}
 },
+".title-img":{
+	width: Ti.UI.SIZE,
+	height: 40
+},
 "#leftView":{
 	left: 0,
 	width: 60

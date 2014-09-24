@@ -4,7 +4,7 @@
 	} else {
 		Alloy.createController("stack/master", {
 			"ctrl" : "login",
-			"titleid" : "login"
+			"titleImage" : "/images/login/pharmacy.png"
 		});
 	}
 })();
