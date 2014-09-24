@@ -11,7 +11,7 @@
 				"url": "url_to_download"
 			}
 		],
-		"layout": "hamburger",
+		"navigator": "hamburger",
 		"menuItems": [
 			{
 				"titleid": "home",

@@ -8,8 +8,6 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 			opacity : 0,
 			left : App.Device.width
 		});
-	} else {
-		$.addClass($.leftImg, "hamburger");
 	}
 	_controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 	var children = _controller.getTopLevelViews();
@@ -25,8 +23,6 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 function didTap(e) {
 	if (args.stack) {
 		App.Navigator.close();
-	} else {
-		App.Navigator.hamburger.toggleLeftMenu();
 	}
 }
 

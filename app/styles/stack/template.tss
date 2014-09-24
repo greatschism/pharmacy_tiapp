@@ -1,0 +1,45 @@
+"#template":{
+	backgroundColor: "#fff",
+	width: "100%"
+},
+"#actionbar[if=Alloy.Globals.iOS7Plus]":{
+	height: 68
+},
+"#actionbar[if=!Alloy.Globals.iOS7Plus]":{
+	height: 48
+},
+"#actionView[if=Alloy.Globals.iOS7Plus]":{
+	top: 15
+},
+"#actionView[if=!Alloy.Globals.iOS7Plus]":{
+	top: 0
+},
+"#titleLbl":{
+	textAlign: "center",
+	color: "#fff"
+},
+"#titleLbl[platform=ios]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular
+	}
+},
+"#titleLbl[platform=android,mobileweb]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.light
+	}
+},
+"#leftView":{
+	left: 0,
+	width: 60
+},
+".back":{
+	width: 30,
+	image: "/images/back.png",
+	touchEnabled: false
+},
+"#contentView[if=Alloy.Globals.iOS7Plus]":{
+	top: 68
+},
+"#contentView[if=!Alloy.Globals.iOS7Plus]":{
+	top: 48
+}

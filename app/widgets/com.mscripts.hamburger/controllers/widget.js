@@ -17,7 +17,7 @@ exports.init = function(params) {
 	//Ti.Gesture.addEventListener("orientationchange", orientationChanged);
 };
 
-exports.destroy = function(params) {
+exports.terminate = function(params) {
 	//Ti.Gesture.removeEventListener("orientationchange", orientationChanged);
 };
 
@@ -39,14 +39,14 @@ exports.toggleLeftMenu = function() {
 	}
 };
 
-exports.openLeftMenu = function(){
-	if(!_menuOpen){
+exports.openLeftMenu = function() {
+	if (!_menuOpen) {
 		$.toggleLeftMenu();
 	}
 };
 
-exports.closeLeftMenu = function(){
-	if(_menuOpen){
+exports.closeLeftMenu = function() {
+	if (_menuOpen) {
 		$.toggleLeftMenu();
 	}
 };

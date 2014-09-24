@@ -15,5 +15,11 @@ function didItemClick(e) {
 	if (item.ctrl && item.ctrl != App.Navigator.currentParams.ctrl) {
 		App.Navigator.open(item);
 	}
-	App.Hamburger.closeLeftMenu();
+	App.Navigator.hamburger.closeLeftMenu();
 }
+
+function terminate(){
+	$.destroy();
+}
+
+exports.terminate = terminate;

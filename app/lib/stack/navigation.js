@@ -9,7 +9,7 @@
 /**
  * The Navigation object
  * @param {Object} _args
- * @param {Object} _args.parent The parent which this navigation stack will belong
+ * @param {Object} _args.window The parent which this navigation stack will belong
  * @constructor
  */
 function Navigation(_args) {
@@ -36,18 +36,6 @@ function Navigation(_args) {
 	this.currentController = null;
 
 	/**
-	 * The controller object that initiated the navigator
-	 * @type {Controllers}
-	 */
-	this.starter = null;
-
-	/**
-	 * The current top level controller's arguments
-	 * @type {Object}
-	 */
-	this.currentParams = null;
-
-	/**
 	 * controller that blocks ui from user interaction
 	 * @type {Controllers}
 	 */
@@ -64,18 +52,6 @@ function Navigation(_args) {
 	 * @type {Object}
 	 */
 	this.window = _args.window;
-
-	/**
-	 * The hamburger object
-	 * @type {Object}
-	 */
-	this.hamburger = _args.hamburger;
-
-	/**
-	 * The parent object all screen controllers are added to
-	 * @type {Object}
-	 */
-	this.parent = _args.hamburger.getTopLevelViews()[1];
 
 	/**
 	 * Open a screen controller
@@ -100,16 +76,9 @@ function Navigation(_args) {
 			return;
 		}
 
-		that.currentParams = _params;
-
-		if (that.starter && that.starter._params.ctrl == that.currentParams.ctrl) {
-			that.close();
-			return that.starter;
-		}
-
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/template", that.currentParams);
+		var controller = Alloy.createController("stack/template", _params);
 
 		var view = controller.getView();
 
@@ -119,31 +88,22 @@ function Navigation(_args) {
 
 			view.removeEventListener("postlayout", postlayout);
 
-			if (that.starter == null) {
-
-				that.starter = controller;
-
-				that.starter._params = that.currentParams;
-
-			} else {
-
-				// Handle removing the current controller from the screen
-				if (that.currentController) {
-					that.terminate();
-					that.parent.remove(that.currentController.getView());
-					that.controllers.pop();
-				}
-
-				that.controllers.push(controller);
-				that.currentController = controller;
+			// Handle removing the current controller from the screen
+			if (that.currentController) {
+				that.terminate();
+				that.window.remove(that.currentController.getView());
+				that.controllers.pop();
 			}
+
+			that.controllers.push(controller);
+			that.currentController = controller;
 
 			that.isBusy = false;
 		};
 
 		view.addEventListener("postlayout", postlayout);
 
-		that.parent.add(view);
+		that.window.add(view);
 
 		return controller;
 	};
@@ -161,7 +121,7 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/template", _params);
+		var controller = Alloy.createController("stack/template", _params);
 
 		that.init(controller);
 
@@ -182,7 +142,7 @@ function Navigation(_args) {
 
 		view.addEventListener("postlayout", postlayout);
 
-		that.parent.add(view);
+		that.window.add(view);
 
 		return controller;
 	};
@@ -199,14 +159,12 @@ function Navigation(_args) {
 			return;
 		}
 
-		var len = that.controllers.length;
+		that.isBusy = true;
 
-		if (len == 0) {
+		that.terminate();
 
-			that.terminate(that.starter);
+		if (that.controllers.length == 1) {
 
-			that.starter = null;
-			that.currentParams = null;
 			that.controllers = [];
 			that.currentController = null;
 
@@ -220,43 +178,32 @@ function Navigation(_args) {
 
 		} else {
 
-			that.isBusy = true;
+			var len = that.controllers.length;
 
 			var count = _count || 1;
 
-			if (count > len) {
-				count = len;
+			if (count >= len) {
+				count = len - 1;
 			}
-
-			that.terminate();
 
 			var removeControllers = that.controllers.splice(len - count, count - 1);
 			for (var i = 0, x = removeControllers.length; i < x; i++) {
 				that.terminate(removeControllers[i]);
-				that.parent.remove(removeControllers[i].getView());
+				that.window.remove(removeControllers[i].getView());
 			}
 
-			var animator = len == count ? "fadeOut" : "animateOut";
-
-			that[animator](that.currentController.getView(), function() {
+			that.animateOut(that.currentController.getView(), function() {
 
 				that.controllers.pop();
 
-				// Assign the new current controller from the stack
-				len = that.controllers.length;
-				if (len > 0) {
-					that.currentController = that.controllers[len - 1];
-				} else {
-					that.currentController = null;
-					//now starter will be at top level so
-					that.currentParams = that.starter._params;
-				}
+				that.currentController = that.controllers[that.controllers.length - 1];
+
+				//that.testOutput();
 
 				if (_callback) {
 					_callback();
 				}
 
-				//that.testOutput();
 			});
 		}
 	};
@@ -267,11 +214,11 @@ function Navigation(_args) {
 	 */
 	this.closeToHome = function(_callback) {
 
-		if (that.isBusy || that.controllers.length == 0) {
+		if (that.isBusy || that.controllers.length == 1) {
 			return;
 		}
 
-		that.close(that.controllers.length, function() {
+		that.close(that.controllers.length - 1, function() {
 			if (_callback) {
 				_callback();
 			}
@@ -362,20 +309,6 @@ function Navigation(_args) {
 	};
 
 	/**
-	 * Animate fade out a screen controller
-	 * @param {View} _controller
-	 * @param {Function} _callback
-	 */
-	this.fadeOut = function(_view, _callback) {
-		require("alloy/animation").fadeAndRemove(_view, 300, that.parent, function() {
-			that.isBusy = false;
-			if (_callback) {
-				_callback();
-			}
-		});
-	};
-
-	/**
 	 *block ui
 	 * @param {Object} _params
 	 */
@@ -409,8 +342,6 @@ function Navigation(_args) {
 	 * Spits information about the navigation stack out to console
 	 */
 	this.testOutput = function() {
-
-		console.debug(JSON.stringify(that.starter));
 
 		var stack = [];
 

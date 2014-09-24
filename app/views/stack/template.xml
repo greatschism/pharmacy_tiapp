@@ -1,0 +1,13 @@
+<Alloy>
+	<View>
+		<View id="actionbar" class="top bg-seabuckthorn">
+			<View id="actionView">
+				<View id="leftView" onSingletap="didTap">
+					<ImageView id="leftImg" />
+				</View>
+				<Label id="titleLbl" class="actionbar-title h2 white" />
+			</View>
+		</View>
+		<View id="contentView" />
+	</View>
+</Alloy>

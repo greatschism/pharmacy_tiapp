@@ -9,6 +9,7 @@
 		"doctors": "Doctors",
 		"stores": "Stores",
 		"account": "Account",
+		"login": "Login",
 		"storeSearchHint": "search by zip, city or state"
 	}
 }

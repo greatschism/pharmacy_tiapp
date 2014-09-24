@@ -1,17 +1,24 @@
 var args = arguments[0] || {}, App = require("core"), _menuCtrl;
 
-App.globalWindow = $.window;
-App.Hamburger = $.hamburger;
-App.init();
+(function() {
+	App.globalWindow = $.window;
+	App.init();
 
-_menuCtrl = Alloy.createController("menu");
-App.Hamburger.init({
-	menuView : _menuCtrl.getView()
-});
+	App.setNavigator({
+		type : Alloy.CFG.navigator,
+		hamburger : $.hamburger
+	});
 
-$.window.open();
+	_menuCtrl = Alloy.createController("menu");
+	App.Navigator.hamburger.init({
+		menuView : _menuCtrl.getView()
+	});
+
+	$.window.open();
+})();
 
 function didClose(e) {
-	App.Hamburger.destroy();
-	_menuCtrl.destroy();
+	_menuCtrl.terminate();
+	App.Navigator.hamburger.terminate();
+	App.terminate();
 }
