@@ -2,12 +2,12 @@
 	backgroundColor: "#fff",
 	width: "100%"
 },
-"#actionbar":{
+"#navBar":{
 	top: 0,
 	height: Alloy.CFG.navBarHeight
 },
-"#actionView":{
-	top: Alloy.CFG.actionViewTop
+"#navBarView":{
+	top: Alloy.CFG.navBarTop
 },
 "#titleLbl":{
 	textAlign: "center",

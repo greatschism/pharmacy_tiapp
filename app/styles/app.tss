@@ -412,30 +412,30 @@
 	height: 1
 },
 /*
-*actionbar button
+*navbar button
 */
-".actionbar-right-view":{
+".nav-bar-right-view":{
 	right: 0,
 	width: 60,
 	height: 40,
-	role: "actionbar"
+	role: "navBar"
 },
-".actionbar-right-btn":{
+".nav-bar-right-btn":{
 	right: 0,
 	width: 60,
 	height: 25,
 	color: "#fff",
 	backgroundColor: "transparent",
 	borderColor: "transparent",
-	role: "actionbar"
+	role: "navBar"
 },
-".actionbar-right-btn[platform=ios]":{
+".nav-bar-right-btn[platform=ios]":{
 	font:{
 		fontFamily: Alloy.CFG.fonts.regular,
 		fontSize: 17
 	}
 },
-".actionbar-right-btn[platform=android,mobileweb]":{
+".nav-bar-right-btn[platform=android,mobileweb]":{
 	font:{
 		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 17

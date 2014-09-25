@@ -1,5 +1,5 @@
 <Alloy>
-	<View id="toggleView" class="actionbar-right-view" onSingletap="didToggle">
+	<View id="toggleView" class="nav-bar-right-view" onSingletap="didToggle">
 		<ImageView id="toggleImg" />
 	</View>
 	<View>

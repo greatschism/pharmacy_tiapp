@@ -7,7 +7,7 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 			id : "titleImg"
 		});
 		$.titleImg.image = args.titleImage;
-		$.actionView.add($.titleImg);
+		$.navBarView.add($.titleImg);
 	} else {
 		$.titleLbl.text = args.title || Alloy.Globals.Strings[args.titleid || ""];
 	}
@@ -23,8 +23,8 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 	_controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 	var children = _controller.getTopLevelViews();
 	for (var i in children) {
-		if (children[i].role === "actionbar") {
-			$.actionView.add(children[i]);
+		if (children[i].role === "navBar") {
+			$.navBarView.add(children[i]);
 		} else {
 			$.contentView.add(children[i]);
 		}

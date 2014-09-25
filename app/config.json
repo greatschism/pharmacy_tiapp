@@ -86,7 +86,7 @@
 	"env:production": {},
 	"os:android": {
 		"navBarHeight": 48,
-		"actionViewTop": 0,
+		"navBarTop": 0,
 		"fonts": {
 			"light": "Roboto-Light",
 			"regular": "Roboto-Regular"
@@ -95,7 +95,7 @@
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
-		"actionViewTop": 15,
+		"navBarTop": 15,
 		"fonts": {
 			"light": "Lato-Light",
 			"lightItalic": "Lato-LightItalic",
@@ -105,7 +105,7 @@
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
-		"actionViewTop": 0,
+		"navBarTop": 0,
 		"fonts": {
 			"light": "Roboto-Light",
 			"regular": "Roboto-Regular"
