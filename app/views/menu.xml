@@ -1,6 +1,6 @@
 <Alloy>
 	<ListView platform="ios,android" defaultItemTemplate="template" onItemclick="didItemClick">
-		<HeaderView if="Alloy.Globals.iOS7Plus">
+		<HeaderView platform="ios">
 			<View class="spacer" />
 		</HeaderView>
 		<Templates>

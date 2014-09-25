@@ -35,4 +35,12 @@ function didTap(e) {
 	}
 }
 
+function showNavBar(_animated) {
+	
+}
+
+function hideNavBar(_animated) {
+
+}
+
 exports.child = _controller;
