@@ -44,58 +44,75 @@ function didTap(e) {
 }
 
 function showNavBar(_animated, _callback) {
-	var afterAnimation = function() {
-		$.navBar.top = 0;
-		$.contentView.top = Alloy.CFG.navBarHeight;
+	if ($.navBar.top != 0) {
+		if (_animated !== false) {
+			var contentAnimation = Ti.UI.createAnimation({
+				top : Alloy.CFG.navBarHeight,
+				duration : Alloy.CFG.ANIMATION_DURATION
+			});
+			$.contentView.animate(contentAnimation);
+			var navBarAnimation = Ti.UI.createAnimation({
+				top : 0,
+				duration : Alloy.CFG.ANIMATION_DURATION,
+				delay : 100
+			});
+			navBarAnimation.addEventListener("complete", function onComplete() {
+				navBarAnimation.removeEventListener("complete", onComplete);
+				$.contentView.top = Alloy.CFG.navBarHeight;
+				$.navBar.top = 0;
+				if (_callback) {
+					_callback();
+				}
+			});
+			$.navBar.animate(navBarAnimation);
+		} else {
+			$.contentView.top = Alloy.CFG.navBarHeight;
+			$.navBar.top = 0;
+			if (_callback) {
+				_callback();
+			}
+		}
+	} else {
 		if (_callback) {
 			_callback();
 		}
-	};
-	if ($.navBar.top != 0 && _animated !== false) {
-		animateNavbar(0, Alloy.CFG.navBarHeight, afterAnimation);
-	} else {
-		afterAnimation();
 	}
 }
 
 function hideNavBar(_animated, _callback) {
-	var afterAnimation = function() {
-		$.navBar.top = -Alloy.CFG.navBarHeight;
-		$.contentView.top = 0;
-		if (_callback) {
-			_callback();
+	if ($.navBar.top == 0) {
+		if (_animated !== false) {
+			var navBarAnimation = Ti.UI.createAnimation({
+				top : -Alloy.CFG.navBarHeight,
+				duration : Alloy.CFG.ANIMATION_DURATION
+			});
+			$.navBar.animate(navBarAnimation);
+			var contentAnimation = Ti.UI.createAnimation({
+				top : 0,
+				duration : Alloy.CFG.ANIMATION_DURATION,
+				delay : 100
+			});
+			contentAnimation.addEventListener("complete", function onComplete() {
+				contentAnimation.removeEventListener("complete", onComplete);
+				$.navBar.top = -Alloy.CFG.navBarHeight;
+				$.contentView.top = 0;
+				if (_callback) {
+					_callback();
+				}
+			});
+			$.contentView.animate(contentAnimation);
+		} else {
+			$.navBar.top = -Alloy.CFG.navBarHeight;
+			$.contentView.top = 0;
+			if (_callback) {
+				_callback();
+			}
 		}
-	};
-	if ($.navBar.top == 0 && _animated !== false) {
-		animateNavbar(-Alloy.CFG.navBarHeight, 0, afterAnimation);
 	} else {
-		afterAnimation();
-	}
-}
-
-function animateNavbar(_navBarTop, _contentTop, _callback) {
-	var navBarAnimation = Ti.UI.createAnimation({
-		top : _navBarTop,
-		duration : Alloy.CFG.ANIMATION_DURATION
-	});
-	navBarAnimation.addEventListener("complete", function navBarComplete() {
-		$.navBar.top = _navBarTop;
-		navBarAnimation.removeEventListener("complete", navBarComplete);
-	});
-	$.navBar.animate(navBarAnimation);
-	var contentAnimation = Ti.UI.createAnimation({
-		top : _contentTop,
-		duration : Alloy.CFG.ANIMATION_DURATION,
-		delay : 100
-	});
-	contentAnimation.addEventListener("complete", function contentComplete() {
-		$.contentView.top = _contentTop;
-		contentAnimation.removeEventListener("complete", contentComplete);
 		if (_callback) {
 			_callback();
 		}
-	});
-	$.contentView.animate(contentAnimation);
+	}
 }
 
 exports.child = _controller;
