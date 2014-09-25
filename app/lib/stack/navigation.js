@@ -224,6 +224,52 @@ function Navigation(_args) {
 	};
 
 	/**
+	 * shows navBar of current controller
+	 * @param {Function} _callback
+	 */
+	this.showNavBar = function(_animated, _callback) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		that.currentController.showNavBar(_animated, function() {
+
+			that.isBusy = false;
+
+			if (_callback) {
+				_callback();
+			}
+
+		});
+	};
+
+	/**
+	 * Hides navBar of current controller
+	 * @param {Function} _callback
+	 */
+	this.hideNavBar = function(_animated, _callback) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		that.currentController.hideNavBar(_animated, function() {
+
+			that.isBusy = false;
+
+			if (_callback) {
+				_callback();
+			}
+
+		});
+	};
+
+	/**
 	 * Calls init method of the current controller if exists
 	 * @param {Controller} _controller
 	 */
@@ -265,13 +311,14 @@ function Navigation(_args) {
 				left : 0
 			});
 
+			animation.removeEventListener("complete", onComplete);
+
 			that.isBusy = false;
 
 			if (_callback) {
 				_callback();
 			}
 
-			animation.removeEventListener("complete", onComplete);
 		});
 
 		_view.animate(animation);
@@ -294,13 +341,14 @@ function Navigation(_args) {
 
 			that.parent.remove(_view);
 
+			animation.removeEventListener("complete", onComplete);
+
 			that.isBusy = false;
 
 			if (_callback) {
 				_callback();
 			}
 
-			animation.removeEventListener("complete", onComplete);
 		});
 
 		_view.animate(animation);

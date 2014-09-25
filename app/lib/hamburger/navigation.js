@@ -13,7 +13,7 @@
  * @constructor
  */
 function Navigation(_args) {
-	
+
 	var that = this;
 
 	_args = _args || {};
@@ -277,6 +277,54 @@ function Navigation(_args) {
 	};
 
 	/**
+	 * shows navBar of current controller
+	 * @param {Function} _callback
+	 */
+	this.showNavBar = function(_animated, _callback) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		var controller = that.currentController || that.homeController;
+		controller.showNavBar(_animated, function() {
+
+			that.isBusy = false;
+
+			if (_callback) {
+				_callback();
+			}
+
+		});
+	};
+
+	/**
+	 * Hides navBar of current controller
+	 * @param {Function} _callback
+	 */
+	this.hideNavBar = function(_animated, _callback) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		var controller = that.currentController || that.homeController;
+		controller.hideNavBar(_animated, function() {
+
+			that.isBusy = false;
+
+			if (_callback) {
+				_callback();
+			}
+
+		});
+	};
+
+	/**
 	 * Calls init method of the current controller if exists
 	 * @param {Controller} _controller
 	 */
@@ -317,7 +365,7 @@ function Navigation(_args) {
 				opacity : 1,
 				left : 0
 			});
-			
+
 			animation.removeEventListener("complete", onComplete);
 
 			that.isBusy = false;
@@ -347,7 +395,7 @@ function Navigation(_args) {
 		animation.addEventListener("complete", function onComplete() {
 
 			that.parent.remove(_view);
-			
+
 			animation.removeEventListener("complete", onComplete);
 
 			that.isBusy = false;
