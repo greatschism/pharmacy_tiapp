@@ -1,5 +1,11 @@
 "#buttonbar":{
 	top: 20,
+	height: 60,
+	toggleMode: false,
+	borderColor: "transparent",
+	separatorStyle: {
+		backgroundColor: "#fff"
+	},
 	items: [
 		{
 			"title": "Log in"

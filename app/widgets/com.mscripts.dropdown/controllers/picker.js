@@ -10,7 +10,7 @@ var args = arguments[0] || {}, PICKER_HEIGHT = 340, _height = Ti.Platform.displa
 		$.toolbar.applyProperties(args.toolbarDict);
 	}
 
-	if (_.has(args, "_choiceDict")) {
+	if (_.has(args, "choiceDict")) {
 		_choiceDict = args._choiceDict;
 	}
 

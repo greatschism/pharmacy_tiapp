@@ -1,5 +1,7 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<Widget id="buttonbar" class="h4" src="com.mscripts.buttonbar" />
+	<ScrollView>
+		<View class="vgroup">
+			<Widget id="buttonbar" class="h2 font-regular bg-seabuckthorn white" src="com.mscripts.buttonbar" />
+		</View>
 	</ScrollView>
 </Alloy> 
