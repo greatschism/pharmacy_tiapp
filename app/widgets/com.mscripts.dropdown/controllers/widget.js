@@ -3,7 +3,7 @@ var args = arguments[0] || {}, _choices = [], _selectedIndex = -1, _picker, _par
 (function() {
 	var options = {};
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor"]);
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}

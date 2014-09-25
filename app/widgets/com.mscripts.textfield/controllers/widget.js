@@ -37,8 +37,8 @@ var args = arguments[0] || {};
 		}
 		$.rightImg.addEventListener("singletap", listener);
 	}
-
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor"]);
+	
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}

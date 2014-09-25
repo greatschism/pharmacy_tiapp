@@ -38,7 +38,6 @@
 	left: 20,
 	height: 17,
 	font:{
-		fontFamily: Alloy.CFG.fonts.light,
 		fontSize: 13
 	}
 },

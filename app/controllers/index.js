@@ -3,8 +3,8 @@
 		Alloy.createController(Alloy.CFG.navigator + "/master");
 	} else {
 		Alloy.createController("stack/master", {
-			"ctrl" : "login",
+			"ctrl" : "carousel",
 			"titleImage" : "/images/login/pharmacy.png"
 		});
 	}
-})();
+})(); 

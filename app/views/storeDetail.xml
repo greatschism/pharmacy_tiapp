@@ -27,11 +27,11 @@
 							<View class="location-view">
 								<View class="left width-45">
 									<ImageView class="distance-img left" />
-									<Label text="{store.distance}" class="location-lbl gray" />
+									<Label text="{store.distance}" class="location-lbl font-light gray" />
 								</View>
 								<View class="right width-55">
 									<ImageView id="clockImg" class="left-5" />
-									<Label id="clockLbl" class="location-lbl" left="30" />
+									<Label id="clockLbl" class="location-lbl font-light" left="30" />
 								</View>
 							</View>
 						</View>
@@ -81,11 +81,11 @@
 						<View class="location-view">
 							<View class="left width-45">
 								<ImageView class="distance-img left" />
-								<Label text="{store.distance}" class="location-lbl gray" />
+								<Label text="{store.distance}" class="location-lbl font-light gray" />
 							</View>
 							<View class="right width-55">
 								<ImageView id="clockImg" class="left-5" />
-								<Label id="clockLbl" class="location-lbl" left="30" />
+								<Label id="clockLbl" class="location-lbl font-light" left="30" />
 							</View>
 						</View>
 					</View>

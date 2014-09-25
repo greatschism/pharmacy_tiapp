@@ -5,8 +5,5 @@
 	height: 48
 },
 ".title":{
-	left: 15,
-	font:{
-		fontFamily: Alloy.CFG.fonts.light
-	}
+	left: 15
 }

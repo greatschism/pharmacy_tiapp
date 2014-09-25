@@ -9,10 +9,6 @@
 "#navBarView":{
 	top: Alloy.CFG.navBarTop
 },
-"#titleLbl":{
-	textAlign: "center",
-	color: "#fff"
-},
 "#titleLbl[platform=ios]":{
 	font:{
 		fontFamily: Alloy.CFG.fonts.regular

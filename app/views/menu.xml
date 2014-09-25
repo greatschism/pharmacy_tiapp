@@ -5,7 +5,7 @@
 		</HeaderView>
 		<Templates>
 			<ItemTemplate name="template" class="row">
-				<Label bindId="title" class="title h3 black" />
+				<Label bindId="title" class="title h3 black font-light" />
 			</ItemTemplate>
 		</Templates>
 		<ListSection dataCollection="menuItems" dataTransform="transformFunction" >

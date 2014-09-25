@@ -1,0 +1,10 @@
+"#buttonbar":{
+	top: 20,
+	items: [
+		{
+			"title": "Log in"
+		},{
+			"title": "Sign up"
+		}
+	]
+}

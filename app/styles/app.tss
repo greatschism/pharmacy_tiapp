@@ -122,6 +122,9 @@
 ".left":{
 	left: 0
 },
+".right":{
+	right: 0
+},
 ".top-5":{
 	top: 5
 },
@@ -134,11 +137,43 @@
 ".right-5":{
 	left: 5
 },
-".right":{
-	right: 0
-},
 ".spacer":{
 	height: 20
+},
+/**
+* text alignment
+*/
+".text-left":{
+	textAlign: "left"
+},
+".text-center":{
+	textAlign: "center"
+},
+".text-right":{
+	textAlign: "right"
+},
+/**
+* 	fonts
+*/
+".font-light":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.light
+	}
+},
+".font-regular":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular
+	}
+},
+".font-light-italic[platform=ios]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.lightItalic
+	}
+},
+".font-bold[platform=ios]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.bold
+	}
 },
 /**
 * 	Typography
@@ -457,7 +492,6 @@
 ".button-title":{
 	left: 65,
 	font:{
-		fontFamily: Alloy.CFG.fonts.regular,
 		fontSize: 17
 	},
 	touchEnabled: false

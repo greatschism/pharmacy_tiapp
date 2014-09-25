@@ -1,0 +1,7 @@
+"#widget": {
+	width: "95%",
+	height: 45,
+	borderColor: "#8b8b8b",
+	borderWidth: 1,
+	borderRadius: 5
+}
