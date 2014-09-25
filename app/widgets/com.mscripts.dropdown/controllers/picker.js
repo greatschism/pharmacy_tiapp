@@ -106,26 +106,32 @@ function getRow(data) {
 }
 
 function terminate(callback) {
-	$.picker.animate({
+	var animation = Ti.UI.createAnimation({
 		top : _height + PICKER_HEIGHT,
 		duration : 300
-	}, function() {
+	});
+	animation.addEventListener("complete", function onComplete() {
 		_parent.remove($.picker);
 		if (callback) {
 			callback();
 		}
+		animation.removeEventListener("complete", onComplete);
 	});
+	$.picker.animate(animation);
 }
 
 function didPostlayout(e) {
-	var top = _height - PICKER_HEIGHT;
 	$.picker.removeEventListener("postlayout", didPostlayout);
-	$.picker.animate({
+	var top = _height - PICKER_HEIGHT;
+	var animation = Ti.UI.createAnimation({
 		top : top,
 		duration : 300
-	}, function() {
-		$.picker.top = top;
 	});
+	animation.addEventListener("complete", function onComplete() {
+		$.picker.top = top;
+		animation.removeEventListener("complete", onComplete);
+	});
+	$.picker.animate(animation);
 }
 
 function didItemClick(e) {

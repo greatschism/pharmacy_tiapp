@@ -35,12 +35,16 @@ function didTap(e) {
 	}
 }
 
-function showNavBar(_animated) {
-	
+function showNavBar(_animated, _callback) {
+	var animated = _animated || true;
 }
 
-function hideNavBar(_animated) {
-
+function hideNavBar(_animated, _callback) {
+	if ($.actionbar.top != 0) {
+		var animated = _animated || true;
+		if (animated) {
+		}
+	}
 }
 
 exports.child = _controller;

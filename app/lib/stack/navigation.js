@@ -85,7 +85,7 @@ function Navigation(_args) {
 
 		that.init(controller);
 
-		var postlayout = function() {
+		view.addEventListener("postlayout", function postlayout() {
 
 			view.removeEventListener("postlayout", postlayout);
 
@@ -100,9 +100,7 @@ function Navigation(_args) {
 			that.currentController = controller;
 
 			that.isBusy = false;
-		};
-
-		view.addEventListener("postlayout", postlayout);
+		});
 
 		that.window.add(view);
 
@@ -128,7 +126,7 @@ function Navigation(_args) {
 
 		var view = controller.getView();
 
-		var postlayout = function() {
+		view.addEventListener("postlayout", function postlayout() {
 
 			view.removeEventListener("postlayout", postlayout);
 
@@ -139,9 +137,7 @@ function Navigation(_args) {
 			that.animateIn(view);
 
 			//that.testOutput();
-		};
-
-		view.addEventListener("postlayout", postlayout);
+		});
 
 		that.window.add(view);
 

@@ -2,6 +2,9 @@
 	backgroundColor: "#fff",
 	width: "100%"
 },
+"#actionbar":{
+	top: 0
+},
 "#actionbar[platform=ios]":{
 	height: 68
 },

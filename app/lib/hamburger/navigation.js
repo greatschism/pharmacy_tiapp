@@ -39,7 +39,7 @@ function Navigation(_args) {
 	 * The controller object that initiated the navigator
 	 * @type {Controllers}
 	 */
-	this.starter = null;
+	this.homeController = null;
 
 	/**
 	 * The current top level controller's arguments
@@ -103,9 +103,9 @@ function Navigation(_args) {
 
 		that.currentParams = _params;
 
-		if (that.starter && that.starter._params.ctrl == that.currentParams.ctrl) {
+		if (that.homeController && that.homeController._params.ctrl == that.currentParams.ctrl) {
 			that.close();
-			return that.starter;
+			return that.homeController;
 		}
 
 		that.isBusy = true;
@@ -116,15 +116,15 @@ function Navigation(_args) {
 
 		that.init(controller);
 
-		var postlayout = function() {
+		view.addEventListener("postlayout", function postlayout() {
 
 			view.removeEventListener("postlayout", postlayout);
 
-			if (that.starter == null) {
+			if (that.homeController == null) {
 
-				that.starter = controller;
+				that.homeController = controller;
 
-				that.starter._params = that.currentParams;
+				that.homeController._params = that.currentParams;
 
 			} else {
 
@@ -140,9 +140,7 @@ function Navigation(_args) {
 			}
 
 			that.isBusy = false;
-		};
-
-		view.addEventListener("postlayout", postlayout);
+		});
 
 		that.parent.add(view);
 
@@ -168,7 +166,7 @@ function Navigation(_args) {
 
 		var view = controller.getView();
 
-		var postlayout = function() {
+		view.addEventListener("postlayout", function postlayout() {
 
 			view.removeEventListener("postlayout", postlayout);
 
@@ -179,9 +177,7 @@ function Navigation(_args) {
 			that.animateIn(view);
 
 			//that.testOutput();
-		};
-
-		view.addEventListener("postlayout", postlayout);
+		});
 
 		that.parent.add(view);
 
@@ -204,9 +200,9 @@ function Navigation(_args) {
 
 		if (len == 0) {
 
-			that.terminate(that.starter);
+			that.terminate(that.homeController);
 
-			that.starter = null;
+			that.homeController = null;
 			that.currentParams = null;
 			that.controllers = [];
 			that.currentController = null;
@@ -249,8 +245,8 @@ function Navigation(_args) {
 					that.currentController = that.controllers[len - 1];
 				} else {
 					that.currentController = null;
-					//now starter will be at top level so
-					that.currentParams = that.starter._params;
+					//now homeController will be at top level so
+					that.currentParams = that.homeController._params;
 				}
 
 				if (_callback) {
@@ -320,6 +316,8 @@ function Navigation(_args) {
 				opacity : 1,
 				left : 0
 			});
+			
+			animation.removeEventListener("complete", onComplete);
 
 			that.isBusy = false;
 
@@ -327,7 +325,6 @@ function Navigation(_args) {
 				_callback();
 			}
 
-			animation.removeEventListener("complete", onComplete);
 		});
 
 		_view.animate(animation);
@@ -349,6 +346,8 @@ function Navigation(_args) {
 		animation.addEventListener("complete", function onComplete() {
 
 			that.parent.remove(_view);
+			
+			animation.removeEventListener("complete", onComplete);
 
 			that.isBusy = false;
 
@@ -356,7 +355,6 @@ function Navigation(_args) {
 				_callback();
 			}
 
-			animation.removeEventListener("complete", onComplete);
 		});
 
 		_view.animate(animation);
@@ -368,12 +366,27 @@ function Navigation(_args) {
 	 * @param {Function} _callback
 	 */
 	this.fadeOut = function(_view, _callback) {
-		require("alloy/animation").fadeAndRemove(_view, 300, that.parent, function() {
+
+		var animation = Ti.UI.createAnimation({
+			opacity : 0,
+			duration : 300
+		});
+
+		animation.addEventListener("complete", function onComplete() {
+
+			that.parent.remove(_view);
+
+			animation.removeEventListener("complete", onComplete);
+
 			that.isBusy = false;
+
 			if (_callback) {
 				_callback();
 			}
+
 		});
+
+		_view.animate(animation);
 	};
 
 	/**
@@ -411,7 +424,7 @@ function Navigation(_args) {
 	 */
 	this.testOutput = function() {
 
-		console.debug(JSON.stringify(that.starter));
+		console.debug(JSON.stringify(that.homeController));
 
 		var stack = [];
 
