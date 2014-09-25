@@ -4,7 +4,7 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 	if (args.titleImage) {
 		$.titleImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			classes : ["title-img"]
+			id : "titleImg"
 		});
 		$.titleImg.image = args.titleImage;
 		$.actionView.add($.titleImg);

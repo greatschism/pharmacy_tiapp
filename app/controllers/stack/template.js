@@ -4,7 +4,7 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 	if (args.titleImage) {
 		$.titleImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			classes : ["title-img"]
+			id : "titleImg"
 		});
 		$.titleImg.image = args.titleImage;
 		$.actionView.add($.titleImg);
@@ -43,6 +43,10 @@ function hideNavBar(_animated, _callback) {
 	if ($.actionbar.top != 0) {
 		var animated = _animated || true;
 		if (animated) {
+			var navBarAnimation = Ti.UI.createAnimation({
+				top : -Alloy.CFG.navBarHeight,
+				duration : Alloy.CFG.ANIMATION_DURATION
+			});
 		}
 	}
 }

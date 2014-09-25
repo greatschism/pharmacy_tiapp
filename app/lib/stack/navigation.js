@@ -13,6 +13,7 @@
  * @constructor
  */
 function Navigation(_args) {
+
 	var that = this;
 
 	_args = _args || {};
@@ -254,7 +255,7 @@ function Navigation(_args) {
 		var animation = Ti.UI.createAnimation({
 			opacity : 1,
 			left : 0,
-			duration : 300
+			duration : Alloy.CFG.ANIMATION_DURATION
 		});
 
 		animation.addEventListener("complete", function onComplete() {
@@ -286,7 +287,7 @@ function Navigation(_args) {
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
 			left : _args.device.width,
-			duration : 300
+			duration : Alloy.CFG.ANIMATION_DURATION
 		});
 
 		animation.addEventListener("complete", function onComplete() {
