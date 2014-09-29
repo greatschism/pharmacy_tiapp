@@ -5,7 +5,22 @@
 	borderWidth: 1,
 	borderRadius: 5
 },
-".txt":{
+"#search":{
+	left: 10,
+	width: 20,
+	image: WPATH( "search.png")
+},
+"#rightImg":{
+	right: 10,
+	width: 20,
+	visible: false
+},
+"#rightBtn":{
+	right: 10,
+	backgroundColor: "transparent",
+	borderColor: "transparent"
+},
+"#txt":{
 	height: Ti.UI.FILL,
 	color: "#000",
 	backgroundColor: "transparent",
@@ -15,7 +30,7 @@
 	autocorrect: false,
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
-".txt[platform=ios]":{
+"#txt[platform=ios]":{
 	paddingLeft: 8,
 	paddingRight: 8
 },
