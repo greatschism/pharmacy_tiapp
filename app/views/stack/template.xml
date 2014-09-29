@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
-		<View id="navBar" class="top bg-seabuckthorn">
+		<View id="navBar" class="top bg-orange">
 			<View id="navBarView">
 				<View id="leftView" onSingletap="didTap">
 					<ImageView id="leftImg" />

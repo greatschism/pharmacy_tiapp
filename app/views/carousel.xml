@@ -1,7 +1,17 @@
 <Alloy>
 	<ScrollView>
 		<View class="vgroup">
-			<Widget id="buttonbar" class="h2 font-regular bg-seabuckthorn white" src="com.mscripts.buttonbar" />
+			<ScrollableView id="scrollableView" class="top-20">
+				<View class="item-container bg-orange" />
+				<View class="item-container bg-black" />
+				<View class="item-container bg-red" />
+				<View class="item-container bg-orange" />
+			</ScrollableView>
+			<Widget id="buttonbar" class="h2 font-regular bg-orange white" src="com.mscripts.buttonbar" />
+			<View class="top-20 button-view auto-width hgroup">
+				<Label id="refillLbl" class="button-title h3 orange" />
+				<ImageView id="refillImg" class="button-img" />
+			</View>
 		</View>
 	</ScrollView>
 </Alloy> 

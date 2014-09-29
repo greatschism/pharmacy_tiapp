@@ -351,7 +351,7 @@
 ".red":{
 	color: "#ae331f"
 },
-".seabuckthorn":{
+".orange":{
 	color: "#F79538"
 },
 ".gray":{
@@ -366,6 +366,9 @@
 /*
 * backgroundColor Classes
 */
+".bg-transparent":{
+	backgroundColor: "transparent"
+},
 ".bg-white":{
 	backgroundColor: "#ffffff"
 },
@@ -378,7 +381,7 @@
 ".bg-armadillo":{
 	backgroundColor: "#50473D"
 },
-".bg-seabuckthorn":{
+".bg-orange":{
 	backgroundColor: "#F79538"
 },
 /**
@@ -477,10 +480,9 @@
 	}
 },
 /*
-*button with image on left
+*button with image on left / right
 */
 ".button-view":{
-	width: "90%",
 	height: 45,
 	borderRadius: 5
 },
@@ -490,7 +492,28 @@
 	touchEnabled: false
 },
 ".button-title":{
+	left: 10,
+	touchEnabled: false
+},
+".button-img-left":{
+	left: 10,
+	width: 50,
+	touchEnabled: false
+},
+".button-title-left":{
 	left: 65,
+	font:{
+		fontSize: 17
+	},
+	touchEnabled: false
+},
+".button-img-right":{
+	right: 10,
+	width: 50,
+	touchEnabled: false
+},
+".button-title-right":{
+	right: 65,
 	font:{
 		fontSize: 17
 	},

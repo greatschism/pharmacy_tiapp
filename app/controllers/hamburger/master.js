@@ -5,7 +5,7 @@ var args = arguments[0] || {}, App = require("core"), _menuCtrl;
 	App.init();
 
 	App.setNavigator({
-		type : Alloy.CFG.navigator,
+		type : "hamburger",
 		hamburger : $.hamburger
 	});
 

@@ -28,7 +28,7 @@
 ".child":{
 	right: 5,
 	width: 15,
-	image: "/images/right_arrow.png"
+	image: "/images/right_angle_gray.png"
 },
 ".container-view":{
 	right: 25

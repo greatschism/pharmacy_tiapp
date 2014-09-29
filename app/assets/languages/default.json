@@ -9,7 +9,9 @@
 		"doctors": "Doctors",
 		"stores": "Stores",
 		"account": "Account",
-		"login": "Login",
+		"login": "Log in",
+		"signup": "Sign up",
+		"refillWithoutLogin": "Refill without logging in",
 		"storeSearchHint": "search by zip, city or state"
 	}
 }

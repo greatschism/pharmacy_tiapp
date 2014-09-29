@@ -38,9 +38,9 @@
 						<ImageView id="favouriteImg" />
 					</View>
 				</View>
-				<View class="top-20 button-view bg-seabuckthorn" onSingletap="didRefill">
-					<ImageView image="/images/store/refill.png" class="button-img" />
-					<Label text="Refill a prescriptions here" class="button-title h3 white" />
+				<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
+					<ImageView image="/images/store/refill.png" class="button-img-left" />
+					<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 				</View>
 				<View class="spacer" />
 			</View>
@@ -92,9 +92,9 @@
 					<ImageView id="favouriteImg" />
 				</View>
 			</View>
-			<View class="top-20 button-view bg-seabuckthorn" onSingletap="didRefill">
-				<ImageView image="/images/store/refill.png" class="button-img" />
-				<Label text="Refill a prescriptions here" class="button-title h3 white" />
+			<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
+				<ImageView image="/images/store/refill.png" class="button-img-left" />
+				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 			</View>
 			<View class="spacer" />
 		</View>

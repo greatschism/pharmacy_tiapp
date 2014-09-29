@@ -32,6 +32,6 @@
 },
 ".back":{
 	width: 30,
-	image: "/images/back.png",
+	image: "/images/left_angle_white.png",
 	touchEnabled: false
 }
