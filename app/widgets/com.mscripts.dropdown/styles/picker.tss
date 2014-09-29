@@ -48,7 +48,7 @@
 	},
 	color: "#000"
 },
-".title[platform=android]":{
+".title[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
 },

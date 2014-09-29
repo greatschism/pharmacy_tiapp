@@ -13,7 +13,7 @@ var args = arguments[0] || {}, _items = [], _selectedIndex = -1, _toggleMode = t
 	touchEnabled : false
 };
 
-if (OS_ANDROID) {
+if (OS_ANDROID || OS_MOBILEWEB) {
 	_.extend(ldict, {
 		ellipsize : true,
 		wordWrap : false
@@ -124,6 +124,7 @@ function setItems(items) {
 				image : item.image,
 				touchEnabled : false
 			};
+
 			if (OS_MOBILEWEB) {
 				_.extend(imgDict, {
 					width : "auto",
@@ -131,14 +132,58 @@ function setItems(items) {
 				});
 			}
 
+			if (_.has(item, "imageWidth")) {
+				imgDict.width = item.imageWidth;
+			}
+
+			if (_.has(item, "imageHeight")) {
+				imgDict.height = item.imageHeight;
+			}
+
+			if (item.title) {
+				if (item.imageRight) {
+					imgDict.right = item.imageRight;
+				} else {
+					imgDict.left = item.imageLeft || 10;
+				}
+			}
+
 			btnView.add(Ti.UI.createImageView(imgDict));
 
-		} else {
+		}
 
-			ldict.text = item.title;
-			ldict.color = item.color || _color;
-			btnView.add(Ti.UI.createLabel(ldict));
+		if (item.title) {
 
+			var label = {
+				text : item.title,
+				color : item.color || _color
+			};
+			_.extend(label, ldict);
+
+			if (item.image) {
+
+				label.width = Ti.UI.FILL;
+
+				var viewDict = {
+					touchEnabled : false
+				};
+
+				if (item.imageRight) {
+					viewDict.right = item.imageRight + item.imageWidth + 10;
+					label.left = OS_MOBILEWEB ? 20 : 10;
+				} else {
+					viewDict.left = (item.imageLeft || 10) + item.imageWidth + 10;
+					label.right = OS_MOBILEWEB ? 20 : 10;
+				}
+
+				label.textAlign = item.textAlign || "left";
+				var view = Ti.UI.createView(viewDict);
+				view.add(Ti.UI.createLabel(label));
+				btnView.add(view);
+
+			} else {
+				btnView.add(Ti.UI.createLabel(label));
+			}
 		}
 
 		if (l != i) {
@@ -158,34 +203,76 @@ function didTap(e) {
 
 		var children = $.widget.children;
 
+		/**
+		 * Apple Bug : http://stackoverflow.com/questions/22718172/uilabel-dotted-line-color-bug-in-ios-7-1
+		 */
+
 		if (_selectedIndex >= 0) {
 			var dObj = _items[_selectedIndex];
 			var dView = children[_selectedIndex];
 			dView.backgroundColor = dObj.backgroundColor || _backgroundColor;
-			var dItem = dView.children[0];
-			if (dItem.apiName == "Ti.UI.ImageView") {
-				dItem.image = dObj.image;
-			} else {
-				//Ti.UI.Label (need not to change if selectedTitle is not present)
-				if (dObj.selectedTitle) {
-					dItem.text = dObj.title;
+			var dChildren = dView.children;
+			var dlen = dObj.title && dObj.image ? 2 : 1;
+			for (var i = 0; i < dlen; i++) {
+				var dItem = dChildren[i];
+				if (dItem.apiName == "Ti.UI.ImageView") {
+					dItem.image = dObj.image;
+				} else {
+					//Ti.UI.Label || Ti.UI.View - if image and button both are placed
+					if (dItem.apiName == "Ti.UI.View") {
+						dItem = dItem.children[0];
+					}
+					var text = dObj.title;
+					if (OS_IOS) {
+						dItem.attributedString = Titanium.UI.iOS.createAttributedString({
+							text : text,
+							attributes : [{
+								type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+								value : dObj.color || _color,
+								range : [0, text.length]
+							}]
+						});
+					} else {
+						dItem.applyProperties({
+							text : text,
+							color : dObj.color || _color
+						});
+					}
 				}
-				dItem.color = dObj.color || _color;
 			}
 		}
 
 		var sObj = _items[index];
 		var sView = children[index];
 		sView.backgroundColor = sObj.selectedBackgroundColor || _selectedBackgroundColor;
-		var sItem = sView.children[0];
-		if (sItem.apiName == "Ti.UI.ImageView") {
-			sItem.image = sObj.selectedImage || sObj.image;
-		} else {
-			//Ti.UI.Label
-			if (sObj.selectedTitle) {
-				sItem.text = sObj.selectedTitle;
+		var sChildren = sView.children;
+		var slen = sObj.title && sObj.image ? 2 : 1;
+		for (var i = 0; i < slen; i++) {
+			var sItem = sChildren[i];
+			if (sItem.apiName == "Ti.UI.ImageView") {
+				sItem.image = sObj.selectedImage || sObj.image;
+			} else {
+				//Ti.UI.Label || Ti.UI.View - if image and button both are placed
+				if (sItem.apiName == "Ti.UI.View") {
+					sItem = sItem.children[0];
+				}
+				var text = sObj.selectedTitle || sObj.title;
+				if (OS_IOS) {
+					sItem.attributedString = Titanium.UI.iOS.createAttributedString({
+						text : text,
+						attributes : [{
+							type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+							value : sObj.selectedColor || _selectedColor,
+							range : [0, text.length]
+						}]
+					});
+				} else {
+					sItem.applyProperties({
+						text : text,
+						color : sObj.selectedColor || _selectedColor
+					});
+				}
 			}
-			sItem.color = sObj.selectedColor || _selectedColor;
 		}
 
 		//to check whether it is simulated or triggered

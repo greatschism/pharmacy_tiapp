@@ -31,7 +31,7 @@
 	},
 	textAlign: "left"
 },
-"Label[platform=android]":{
+"Label[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
 },
