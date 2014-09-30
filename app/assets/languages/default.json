@@ -14,6 +14,9 @@
 		"mscriptsMobilePharmacy": "mscripts mobile pharmacy",
 		"username": "Username",
 		"password": "Password",
+		"keepMeLoggedIn": "Keep me logged in",
+		"needTo": "Need to",
+		"createAccountQuestion": "create a new account?",
 		"signup": "Sign up",
 		"refillWithoutLogin": "Refill without logging in",
 		"storeSearchHint": "search by zip, city or state"
