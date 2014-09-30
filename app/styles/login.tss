@@ -1,0 +1,28 @@
+".top-10":{
+	top: 10
+},
+".top-20":{
+	top: 20
+},
+".logo-img":{
+	width: 75,
+	image: "/images/login/pharmacy.png"
+},
+"#signinLbl":{
+	text: Alloy.Globals.Strings.signinToThe
+},
+"#pharmacyLbl":{
+	text: Alloy.Globals.Strings.mscriptsMobilePharmacy
+},
+".txt":{
+	width: "85%",
+	height: 50,
+	borderRadius: 0
+},
+"#unameTxt":{
+	hintText: Alloy.Globals.Strings.username
+},
+"#passwordTxt":{
+	hintText: Alloy.Globals.Strings.password,
+	passwordMask: true
+}

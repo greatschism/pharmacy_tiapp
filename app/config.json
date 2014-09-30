@@ -98,8 +98,8 @@
 		"navBarTop": 15,
 		"fonts": {
 			"light": "Lato-Light",
-			"lightItalic": "Lato-LightItalic",
 			"regular": "Lato-Regular",
+			"lightItalic": "Lato-LightItalic",
 			"bold": "Lato-Bold"
 		}
 	},

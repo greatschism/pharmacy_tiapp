@@ -1,3 +1,13 @@
 <Alloy>
-	<View></View>
+	<ScrollView class="bg-orange">
+		<View class="auto-height vgroup top-20">
+			<ImageView class="logo-img" />
+			<View class="auto-width auto-height hgroup top-10">
+				<Label id="signinLbl" class="auto-width h4 font-light white" />
+				<Label id="pharmacyLbl" class="auto-width h4 font-regular white left-5" />
+			</View>
+			<Widget id="unameTxt" src="com.mscripts.textfield" class="top-20 bg-white black txt h3 font-regular" />
+			<Widget id="passwordTxt" src="com.mscripts.textfield" class="top bg-white black txt h3 font-regular" />
+		</View>
+	</ScrollView>
 </Alloy> 

@@ -92,7 +92,7 @@ var args = arguments[0] || {};
 		$.widget.applyProperties(options);
 	}
 
-	options = _.pick(args, ["font", "color", "hintText", "value", "returnKeyType", "autocorrect", "autocapitalization"]);
+	options = _.pick(args, ["font", "color", "hintText", "value", "passwordMask", "returnKeyType", "autocorrect", "autocapitalization"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}
@@ -147,4 +147,8 @@ exports.setValue = function(value) {
 
 exports.getValue = function() {
 	return $.txt.getValue();
+};
+
+exports.setPasswordMask = function(value) {
+	$.txt.setPasswordMask(value);
 };

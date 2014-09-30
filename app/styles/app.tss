@@ -165,14 +165,14 @@
 		fontFamily: Alloy.CFG.fonts.regular
 	}
 },
-".font-light-italic[platform=ios]":{
+".normal":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.lightItalic
+		fontWeight: "normal"
 	}
 },
-".font-bold[platform=ios]":{
+".bold":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.bold
+		fontWeight: "bold"
 	}
 },
 /**

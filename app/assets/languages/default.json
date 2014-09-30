@@ -10,6 +10,10 @@
 		"stores": "Stores",
 		"account": "Account",
 		"login": "Log in",
+		"signinToThe": "Sign in to the",
+		"mscriptsMobilePharmacy": "mscripts mobile pharmacy",
+		"username": "Username",
+		"password": "Password",
 		"signup": "Sign up",
 		"refillWithoutLogin": "Refill without logging in",
 		"storeSearchHint": "search by zip, city or state"

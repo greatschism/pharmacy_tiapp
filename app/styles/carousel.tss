@@ -4,7 +4,7 @@
 "#scrollableView":{
 	height: 320,
 	showPagingControl: false,
-	disableBounce: false
+	disableBounce: true
 },
 "#pagingControl":{
 	length: 4,
@@ -21,9 +21,11 @@
 	},
 	items: [
 		{
-			"title": Alloy.Globals.Strings.login
+			"title": Alloy.Globals.Strings.login,
+			"action": "login"
 		},{
-			"title": Alloy.Globals.Strings.signup
+			"title": Alloy.Globals.Strings.signup,
+			"action": "signup"
 		}
 	]
 },

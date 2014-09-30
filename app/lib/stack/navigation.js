@@ -185,7 +185,8 @@ function Navigation(_args) {
 			}
 
 			var removeControllers = that.controllers.splice(len - count, count - 1);
-			for (var i = 0, x = removeControllers.length; i < x; i++) {
+			for (var i = 0,
+			    x = removeControllers.length; i < x; i++) {
 				that.terminate(removeControllers[i]);
 				that.window.remove(removeControllers[i].getView());
 			}
@@ -339,7 +340,7 @@ function Navigation(_args) {
 
 		animation.addEventListener("complete", function onComplete() {
 
-			that.parent.remove(_view);
+			that.window.remove(_view);
 
 			animation.removeEventListener("complete", onComplete);
 
@@ -391,7 +392,8 @@ function Navigation(_args) {
 
 		var stack = [];
 
-		for (var i = 0, x = that.controllers.length; i < x; i++) {
+		for (var i = 0,
+		    x = that.controllers.length; i < x; i++) {
 			stack.push(that.controllers[i].getView());
 		}
 
