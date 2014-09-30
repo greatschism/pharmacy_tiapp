@@ -2,10 +2,14 @@
 	top: 20
 },
 "#scrollableView":{
-	height: 350
+	height: 320,
+	showPagingControl: false,
+	disableBounce: false
 },
-".item-container":{
-	width: "90%"
+"#pagingControl":{
+	length: 4,
+	color: "#e8e5e5",
+	selectedColor: "#EAD5C2"
 },
 "#buttonbar":{
 	top: 20,

@@ -1,4 +1,8 @@
-var args = arguments[0] || {}, LEFT_MENU_WIDTH = 240, MENU_SLIDING_DURATION = 150, _menuOpen = false, _busy = false;
+var args = arguments[0] || {},
+    LEFT_MENU_WIDTH = 240,
+    MENU_SLIDING_DURATION = 150,
+    _menuOpen = false,
+    _busy = false;
 
 function orientationChanged(e) {
 	var newWidth;

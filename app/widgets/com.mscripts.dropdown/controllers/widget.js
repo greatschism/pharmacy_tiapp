@@ -1,4 +1,8 @@
-var args = arguments[0] || {}, _choices = [], _selectedIndex = -1, _picker, _parent;
+var args = arguments[0] || {},
+    _choices = [],
+    _selectedIndex = -1,
+    _picker,
+    _parent;
 
 (function() {
 	var options = {};

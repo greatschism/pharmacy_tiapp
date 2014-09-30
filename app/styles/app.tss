@@ -373,7 +373,7 @@
 	backgroundColor: "#ffffff"
 },
 ".bg-black":{
-	color: "#000000"
+	backgroundColor: "#000000"
 },
 ".bg-red":{
 	backgroundColor: "#ae331f"

@@ -1,11 +1,21 @@
-var args = arguments[0] || {}, _items = [], _selectedIndex = -1, _toggleMode = true, _color = "#000", _selectedColor = "#0094d7", _backgroundColor = "transparent", _selectedBackgroundColor = "transparent", _font = {
+var args = arguments[0] || {},
+    _items = [],
+    _selectedIndex = -1,
+    _toggleMode = true,
+    _color = "#000",
+    _selectedColor = "#0094d7",
+    _backgroundColor = "transparent",
+    _selectedBackgroundColor = "transparent",
+    _font = {
 	fontSize : 14
-}, _separatorStyle = {
+},
+    _separatorStyle = {
 	right : 0,
 	width : 1,
 	backgroundColor : "#8b8b8b",
 	touchEnabled : false
-}, ldict = {
+},
+    ldict = {
 	width : "90%",
 	height : (_font.fontSize + 10),
 	font : _font,
