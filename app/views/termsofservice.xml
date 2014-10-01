@@ -2,7 +2,10 @@
 	<View>
 		<View class="vgroup">
 			<Button title="Go to Home" class="bg-orange white" onClick="didClick" top="20" />
+		    <WebView ></WebView>
 		
+		
+		    <Button title="done" class="bg-orange"></Button>
 		</View>
 	</View>
 </Alloy> 
