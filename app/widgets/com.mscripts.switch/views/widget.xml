@@ -1,0 +1,8 @@
+<Alloy>
+	<View platform="android,mobileweb" onSingletap="didSingletap">
+		<View id="bgView">
+			<View id="swt" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchcancel" />
+		</View>
+	</View>
+	<Switch id="swt" platform="ios" onChange="didChange" />
+</Alloy>

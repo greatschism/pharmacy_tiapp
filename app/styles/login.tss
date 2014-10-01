@@ -42,6 +42,11 @@
 	right: 75,
 	text: Alloy.Globals.Strings.keepMeLoggedIn
 },
+"#keepMeSwt":{
+	right: 10,
+	enabledColor: "#F79538",
+	value: true
+},
 "#loginBtn":{
 	title: Alloy.Globals.Strings.login,
 	height: 50

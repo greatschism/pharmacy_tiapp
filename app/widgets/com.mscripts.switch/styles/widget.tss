@@ -1,0 +1,22 @@
+"#widget[platform=android,mobileweb]": {
+	width: 55,
+	height: 34,
+	borderColor: "#8b8b8b",
+	borderWidth: 2,
+	borderRadius: 18,
+	zIndex: 1
+},
+"#bgView[platform=android,mobileweb]":{
+	backgroundColor: "#CAC4C1",
+	zIndex: 0
+},
+"#swt[platform=android,mobileweb]":{
+	left: 2,
+	width: 30,
+	height: 30,
+	backgroundColor: "#FFFFFF",
+	borderRadius: 15
+},
+"#swt[platform=ios]":{
+	value: false
+}
