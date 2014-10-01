@@ -9,7 +9,7 @@
 						<Label id="pharmacyLbl" class="auto-width h4 font-regular white left-5" />
 					</View>
 					<Widget id="unameTxt" src="com.mscripts.textfield" class="top-20 width-85 bg-white black txt h3 font-regular" />
-					<Widget id="passwordTxt" src="com.mscripts.textfield" class="top width-85 bg-white black txt h3 font-regular" />
+					<Widget id="passwordTxt" src="com.mscripts.textfield" class="top width-85 bg-white black txt h3 font-regular" onRightclick="didRightclickPwd" />
 					<View class="top width-85 bg-white box">
 						<Label id="keepMeLbl" class="fill-width h3 font-regular cloudy" />
 						<Widget id="keepMeSwt" src="com.mscripts.switch" />
@@ -19,7 +19,7 @@
 				</View>
 			</ScrollView>
 		</View>
-		<View id="footer" class="auto-width hgroup">
+		<View id="footer" class="auto-width auto-height hgroup">
 			<Label id="needLbl" class="auto-width h4 font-light white" />
 			<Label id="createLbl" class="auto-width h4 font-regular white left-5" />
 		</View>

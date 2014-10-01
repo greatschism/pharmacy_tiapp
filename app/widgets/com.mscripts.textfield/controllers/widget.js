@@ -28,8 +28,6 @@ var args = arguments[0] || {};
 
 	if (args.search == true) {
 
-		console.debug("adding search icon");
-
 		$.widget.add($.UI.create("ImageView", {
 			apiName : "ImageView",
 			id : "search"
@@ -37,8 +35,6 @@ var args = arguments[0] || {};
 	}
 
 	if (args.clearButton == true || _.has(args, "rightImage")) {
-
-		console.debug("adding right image");
 
 		$.rightImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
@@ -65,8 +61,6 @@ var args = arguments[0] || {};
 		$.rightImg.addEventListener("singletap", listener);
 
 	} else if (_.has(args, "rightButtonTitle")) {
-
-		console.debug("adding right button");
 
 		$.rightBtn = $.UI.create("Button", {
 			apiName : "Button",
@@ -115,9 +109,6 @@ function didChange(e) {
 }
 
 function didReturn(e) {
-	if (OS_ANDROID) {
-		$.txt.blur();
-	}
 	$.trigger("return");
 }
 
@@ -130,25 +121,70 @@ function didClick(e) {
 	$.trigger("rightclick");
 }
 
-exports.focus = function() {
+function focus() {
 	$.txt.focus();
-};
+}
 
-exports.blur = function() {
+function blur() {
 	$.txt.blur();
-};
+}
 
-exports.setValue = function(value) {
+function setValue(value) {
 	$.txt.setValue(value);
 	if (args.clearButton == true) {
 		$.rightImg.visible = $.txt.getValue() != "";
 	}
-};
+}
 
-exports.getValue = function() {
+function getValue() {
 	return $.txt.getValue();
-};
+}
 
-exports.setPasswordMask = function(value) {
-	$.txt.setPasswordMask(value);
-};
+function setPasswordMask(value) {
+	$.txt.passwordMask = value;
+	if (OS_IOS || OS_ANDROID) {
+		var len = $.txt.value.length;
+		$.txt.setSelection(len, len);
+	}
+}
+
+function getPasswordMask() {
+	return $.txt.passwordMask;
+}
+
+function setRightImage(image) {
+	if ($.rightImg) {
+		$.rightImg.image = image;
+	}
+}
+
+function getRightImage() {
+	if ($.rightImg) {
+		return $.rightImg.image;
+	}
+	return false;
+}
+
+function setRightButtonTitle() {
+	if ($.rightBtn) {
+		$.rightBtn.title = image;
+	}
+}
+
+function getRightButtonTitle(value) {
+	if ($.rightBtn) {
+		return $.rightBtn.title;
+	}
+	return false;
+}
+
+exports.blur = blur;
+exports.focus = focus;
+exports.setValue = setValue;
+exports.getValue = getValue;
+exports.setRightImage = setRightImage;
+exports.getRightImage = getRightImage;
+exports.setPasswordMask = setPasswordMask;
+exports.getPasswordMask = getPasswordMask;
+exports.setRightButtonTitle = setRightButtonTitle;
+exports.getRightButtonTitle = getRightButtonTitle;

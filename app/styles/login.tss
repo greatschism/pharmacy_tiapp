@@ -5,11 +5,10 @@
 	top: 20
 },
 "#content":{
-	bottom: 60
+	bottom: 90
 },
 "#footer":{
-	bottom: 20,
-	height: 20
+	bottom: 50
 },
 ".logo-img":{
 	width: 75,
@@ -26,11 +25,16 @@
 	borderRadius: 0
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.Strings.username
+	hintText: Alloy.Globals.Strings.username,
+	autocorrect: false,
+	autocapitalization: false
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.Strings.password,
-	passwordMask: true
+	passwordMask: true,
+	rightImage: "/images/login/question_mark.png",
+	autocorrect: false,
+	autocapitalization: false
 },
 ".box":{
 	height: 50,
