@@ -1,7 +1,7 @@
 <Alloy>
 	<ListView platform="ios,android" defaultItemTemplate="template" onItemclick="didItemClick">
 		<HeaderView platform="ios">
-			<View class="spacer" />
+			<View class="vspacer" />
 		</HeaderView>
 		<Templates>
 			<ItemTemplate name="template" class="row">

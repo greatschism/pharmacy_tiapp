@@ -42,7 +42,7 @@
 					<ImageView image="/images/store/refill.png" class="button-img-left" />
 					<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 				</View>
-				<View class="spacer" />
+				<View class="vspacer" />
 			</View>
 		</HeaderView>
 		<ListSection dataCollection="storeOptions">
@@ -96,7 +96,7 @@
 				<ImageView image="/images/store/refill.png" class="button-img-left" />
 				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 			</View>
-			<View class="spacer" />
+			<View class="vspacer" />
 		</View>
 		<TableView class="auto-height" dataCollection="storeOptions">
 			<HeaderView>

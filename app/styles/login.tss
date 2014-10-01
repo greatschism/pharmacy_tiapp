@@ -22,6 +22,8 @@
 },
 ".txt":{
 	height: 50,
+	borderColor: "transparent",
+	borderWidth: 0,
 	borderRadius: 0
 },
 "#unameTxt":{
@@ -36,10 +38,8 @@
 	autocorrect: false,
 	autocapitalization: false
 },
-".box":{
-	height: 50,
-	borderWidth: 1,
-	borderColor: "#8b8b8b"
+"#keepMeView":{
+	height: 50
 },
 "#keepMeLbl":{
 	left: 10,
