@@ -1,0 +1,17 @@
+".bottom-50":{
+	bottom: 50
+},
+"#hintLbl":{
+	text: Alloy.Globals.Strings.loginRecoveryHint
+},
+"#emailTxt":{
+	height: 50,
+	hintText: Alloy.Globals.Strings.emailAddress,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL
+},
+"#sendBtn":{
+	title: Alloy.Globals.Strings.send
+},
+"#cantRememberLbl":{
+	text: Alloy.Globals.Strings.cantRememberEmail
+}

@@ -121,6 +121,12 @@
 ".right-5":{
 	left: 5
 },
+".top-10":{
+	top: 10
+},
+".top-20":{
+	top: 20
+},
 /**
 * spacer & separators
 */
@@ -149,6 +155,13 @@
 },
 ".text-right":{
 	textAlign: "right"
+},
+/**
+* enable multi line
+*/
+".multi-line[platform=android,mobileweb]":{
+	ellipsize: false,
+	wordWrap: true
 },
 /**
 * 	fonts

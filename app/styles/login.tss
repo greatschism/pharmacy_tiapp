@@ -1,9 +1,3 @@
-".top-10":{
-	top: 10
-},
-".top-20":{
-	top: 20
-},
 "#content":{
 	bottom: 90
 },

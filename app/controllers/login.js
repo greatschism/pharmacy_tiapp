@@ -1,5 +1,10 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    App = require("core");
 
 function didRightclickPwd(e) {
-	alert("forgot password");
+	App.Navigator.open({
+		ctrl : "loginRecovery",
+		titleid : "loginRecovery",
+		stack : true
+	});
 }

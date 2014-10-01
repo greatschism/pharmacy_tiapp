@@ -1,0 +1,10 @@
+<Alloy>
+	<View class="bg-orange">
+		<View class="top width-85 auto-height vgroup">
+			<Label id="hintLbl" class="top-20 fill-width auto-height multi-line font-light h3 white text-center" />
+			<Widget id="emailTxt" src="com.mscripts.textfield" class="top-20 fill-width black txt h3 font-regular bg-white" />
+			<Button id="sendBtn" class="top-20 fill-width bg-white orange h2 font-regular" />
+		</View>
+		<Label id="cantRememberLbl" class="bottom-50 width-85 font-regular h3 white text-center" />
+	</View>
+</Alloy>

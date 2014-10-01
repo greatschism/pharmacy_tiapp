@@ -17,6 +17,11 @@
 		"keepMeLoggedIn": "Keep me logged in",
 		"needTo": "Need to",
 		"createAccountQuestion": "create a new account?",
+		"loginRecovery": "Login recovery",
+		"loginRecoveryHint": "Please enter the email address you originally signed up with. We will send you your username and instructions on how to reset your password.",
+		"emailAddress": "Email address",
+		"send": "Send",
+		"cantRememberEmail": "Can't remember what email you used?",
 		"signup": "Sign up",
 		"refillWithoutLogin": "Refill without logging in",
 		"storeSearchHint": "search by zip, city or state"
