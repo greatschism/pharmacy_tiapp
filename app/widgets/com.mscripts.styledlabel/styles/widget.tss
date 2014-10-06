@@ -1,0 +1,8 @@
+"#widget":{
+	height: Ti.UI.SIZE,
+	backgroundColor: "#fff"
+},
+"#widget[platform=android]":{
+	ellipsize: false,
+	wordWrap: true
+}

@@ -1,18 +1,15 @@
-"#content":{
-	bottom: 90
-},
-"#footer":{
-	bottom: 50
-},
 ".logo-img":{
 	width: 75,
 	image: "/images/login/pharmacy.png"
 },
-"#signinLbl":{
-	text: Alloy.Globals.Strings.signinToThe
+".height-50d":{
+	height: 50
 },
-"#pharmacyLbl":{
-	text: Alloy.Globals.Strings.mscriptsMobilePharmacy
+"#content":{
+	bottom: 100
+},
+"#headerLbl":{
+	html: Alloy.Globals.Strings.loginToPharmacy
 },
 ".txt":{
 	height: 50,
@@ -46,12 +43,9 @@
 	value: true
 },
 "#loginBtn":{
-	title: Alloy.Globals.Strings.login,
-	height: 50
+	title: Alloy.Globals.Strings.login
 },
-"#needLbl":{
-	text: Alloy.Globals.Strings.needTo
-},
-"#createLbl":{
-	text: Alloy.Globals.Strings.createAccountQuestion
+"#footerLbl":{
+	bottom: 40,
+	html: Alloy.Globals.Strings.needToCreateAccount
 }

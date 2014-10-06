@@ -18,5 +18,10 @@ function didClickButtonBar(e) {
 		});
 	} else {
 		//sign up
+		App.Navigator.open({
+			ctrl : "termsAndConditions",
+			titleid : "termsAndConditions",
+			stack : true
+		});
 	}
 }

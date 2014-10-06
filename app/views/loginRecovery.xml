@@ -5,6 +5,6 @@
 			<Widget id="emailTxt" src="com.mscripts.textfield" class="top-20 fill-width black txt h3 font-regular bg-white" />
 			<Button id="sendBtn" class="top-20 fill-width bg-white orange h2 font-regular" />
 		</View>
-		<Label id="cantRememberLbl" class="bottom-50 width-85 font-regular h3 white text-center" />
+		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="width-85 font-regular h3 bg-orange white text-center" />
 	</View>
 </Alloy>

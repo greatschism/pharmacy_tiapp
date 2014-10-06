@@ -4,10 +4,7 @@
 			<ScrollView>
 				<View class="vgroup">
 					<ImageView class="logo-img" />
-					<View class="auto-width auto-height hgroup top-10">
-						<Label id="signinLbl" class="auto-width h3 font-light white" />
-						<Label id="pharmacyLbl" class="auto-width h3 font-regular white left-5" />
-					</View>
+					<Widget id="headerLbl" src="com.mscripts.styledlabel" class="top-10 width-85 height-50d h3 font-light bg-orange white text-center" />
 					<View class="top-20 width-85 auto-height vgroup bg-white rounded-corner-4 border-gray">
 						<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
 						<View class="hseparator" />
@@ -23,9 +20,6 @@
 				</View>
 			</ScrollView>
 		</View>
-		<View id="footer" class="auto-width auto-height hgroup">
-			<Label id="needLbl" class="auto-width h3 font-light white" />
-			<Label id="createLbl" class="auto-width h3 font-regular white left-5" />
-		</View>
+		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="width-85 height-50d h3 font-light bg-orange white text-center" />
 	</View>
 </Alloy> 

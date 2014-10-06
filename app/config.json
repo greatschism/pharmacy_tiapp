@@ -126,6 +126,7 @@
         "com.mscripts.dropdown": "1.0",
         "com.mscripts.buttonbar": "1.0",
         "com.mscripts.pagingcontrol": "1.0",
-        "com.mscripts.switch": "1.0"
+        "com.mscripts.switch": "1.0",
+        "com.mscripts.styledlabel": "1.0"
     }
 }

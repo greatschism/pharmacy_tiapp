@@ -1,6 +1,7 @@
 "#template":{
 	backgroundColor: "#fff",
-	width: "100%"
+	width: "100%",
+	zIndex: 1
 },
 "#navBar":{
 	top: 0,

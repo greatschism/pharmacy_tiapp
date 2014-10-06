@@ -37,7 +37,7 @@
 },
 "Button":{
 	width: "90%",
-	height: 45,
+	height: 50,
 	font:{
 		fontFamily: Alloy.CFG.fonts.regular
 	},

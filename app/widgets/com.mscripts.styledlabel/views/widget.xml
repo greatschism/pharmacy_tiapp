@@ -1,0 +1,5 @@
+<Alloy>
+	<Label module="ti.styledlabel" platform="ios" />
+	<Label platform="android" />
+	<WebView platform="mobileweb" />
+</Alloy>

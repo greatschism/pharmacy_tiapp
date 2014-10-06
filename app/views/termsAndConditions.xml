@@ -1,0 +1,11 @@
+<Alloy>
+	<View>
+		<ListView>
+			<FooterView>
+				<View class="auto-height">
+					<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular"></Button>
+				</View>
+			</FooterView>
+		</ListView>
+	</View>
+</Alloy>
