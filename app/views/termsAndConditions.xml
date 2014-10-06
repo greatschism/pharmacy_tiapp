@@ -11,7 +11,7 @@
 		</ListSection>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular" />
+				<Button id="doneBtn" class="width-90 bg-orange white h2 font-regular" onClick="didDoneClick" />
 			</View>
 		</FooterView>
 	</ListView>
@@ -22,7 +22,7 @@
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular" />
+				<Button id="doneBtn" class="width-90 bg-orange white h2 font-regular" onClick="didDoneClick" />
 			</View>
 		</FooterView>
 	</TableView>

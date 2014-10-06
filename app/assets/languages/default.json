@@ -23,6 +23,9 @@
 		"signup": "Sign up",
 		"termsAndConditions": "Terms and Conditions",
 		"done": "Done",
+		"mobileNumber": "Mobile number",
+		"welcome": "Welcome!",
+		"mobileNumberHint": "Let's see if we recogonize you. Please enter your mobile phone number.",
 		"refillWithoutLogin": "Refill without logging in",
 		"storeSearchHint": "search by zip, city or state"
 	}

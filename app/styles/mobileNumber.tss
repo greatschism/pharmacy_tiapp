@@ -1,0 +1,12 @@
+"#titleLbl":{
+	text: Alloy.Globals.Strings.welcome
+},
+"#hintLbl":{
+	text: Alloy.Globals.Strings.mobileNumberHint
+},
+"#mobileTxt":{
+	height: 50,
+	borderRadius: 0,
+	hintText: Alloy.Globals.Strings.mobileNumber,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+}

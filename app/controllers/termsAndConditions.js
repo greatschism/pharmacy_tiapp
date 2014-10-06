@@ -30,5 +30,13 @@ function terminate() {
 	$.destroy();
 }
 
+function didDoneClick(e) {
+	App.Navigator.open({
+		ctrl : "mobileNumber",
+		titleImage : "/images/login/pharmacy.png",
+		stack : true
+	});
+}
+
 exports.init = init;
 exports.terminate = terminate;
