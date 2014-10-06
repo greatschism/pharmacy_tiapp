@@ -86,7 +86,7 @@ var args = arguments[0] || {};
 		$.widget.applyProperties(options);
 	}
 
-	options = _.pick(args, ["font", "color", "hintText", "value", "passwordMask", "returnKeyType", "autocorrect", "autocapitalization"]);
+	options = _.pick(args, ["font", "color", "hintText", "value", "passwordMask", "returnKeyType", "autocorrect", "autocapitalization", "keyboardType"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}

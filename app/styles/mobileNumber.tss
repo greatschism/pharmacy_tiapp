@@ -8,5 +8,9 @@
 	height: 50,
 	borderRadius: 0,
 	hintText: Alloy.Globals.Strings.mobileNumber,
+	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+"#continueBtn":{
+	title: Alloy.Globals.Strings.continue
 }
