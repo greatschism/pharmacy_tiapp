@@ -1,0 +1,8 @@
+"#webView":{
+	bottom: 90
+},
+"#doneBtn":{
+	bottom: 20,
+	height: 50,
+	title: Alloy.Globals.Strings.done
+}

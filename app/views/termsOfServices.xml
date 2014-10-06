@@ -1,0 +1,8 @@
+<Alloy>
+	<View>
+		<View class="vgroup">
+			<WebView id="webView" />
+			<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular"></Button>
+		</View>
+	</View>
+</Alloy> 
