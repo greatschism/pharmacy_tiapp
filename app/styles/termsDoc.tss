@@ -1,4 +1,5 @@
 "#webView":{
+	scalesPageToFit: true,
 	bottom: 90
 },
 "#doneBtn":{

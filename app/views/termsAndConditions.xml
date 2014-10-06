@@ -1,11 +1,29 @@
 <Alloy>
-	<View>
-		<ListView>
-			<FooterView>
-				<View class="auto-height">
-					<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular"></Button>
-				</View>
-			</FooterView>
-		</ListView>
-	</View>
+	<ListView defaultItemTemplate="template" onItemclick="didItemClick" platform="ios,android">
+		<Templates>
+			<ItemTemplate name="template" class="row">
+				<Label bindId="title" class="title black font-light" />
+				<ImageView class="child" />
+			</ItemTemplate>
+		</Templates>
+		<ListSection dataCollection="termsAndConditions">
+			<ListItem title:text="{name}" itemUrl="{url}" />
+		</ListSection>
+		<FooterView>
+			<View class="auto-height">
+				<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular" />
+			</View>
+		</FooterView>
+	</ListView>
+	<TableView dataCollection="termsAndConditions" onClick="didItemClick" platform="mobileweb">
+		<TableViewRow class="row" itemUrl="{url}">
+			<Label text="{name}" class="title black font-light" />
+			<ImageView class="child" />
+		</TableViewRow>
+		<FooterView>
+			<View class="auto-height">
+				<Button id="doneBtn" class="width-85 bg-orange white h2 font-regular" />
+			</View>
+		</FooterView>
+	</TableView>
 </Alloy>

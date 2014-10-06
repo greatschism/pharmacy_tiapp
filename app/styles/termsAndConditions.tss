@@ -1,3 +1,21 @@
+".row":{
+	height: 60
+},
+".title":{
+	left: 15,
+	right: 25,
+	height: 22,
+	font:{
+		fontSize: 17
+	}
+},
+".child":{
+	right: 5,
+	width: 15,
+	image: "/images/right_angle_gray.png"
+},
 "#doneBtn":{
+	top: 20,
+	bottom: 20,
 	title: Alloy.Globals.Strings.done
 }

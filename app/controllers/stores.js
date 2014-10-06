@@ -1,4 +1,7 @@
-var args = arguments[0] || {}, App = require("core"), _http = require("http"), _xmlTools = require("XMLTools");
+var args = arguments[0] || {},
+    App = require("core"),
+    _http = require("http"),
+    _xmlTools = require("XMLTools");
 
 function init() {
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
@@ -78,9 +81,14 @@ function didFinish() {
 
 function loadMap(e) {
 
-	var Map = Alloy.Globals.Map, annotations = [];
+	var Map = Alloy.Globals.Map,
+	    annotations = [];
 
-	var totalLocations = Alloy.Collections.stores.length, minLongi = null, minLati = null, maxLongi = null, maxLati = null;
+	var totalLocations = Alloy.Collections.stores.length,
+	    minLongi = null,
+	    minLati = null,
+	    maxLongi = null,
+	    maxLati = null;
 
 	Alloy.Collections.stores.map(function(model) {
 
