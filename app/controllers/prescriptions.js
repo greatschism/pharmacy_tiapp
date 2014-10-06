@@ -1,4 +1,5 @@
-var args = arguments[0] || {}, App = require("core");
+var args = arguments[0] || {},
+    App = require("core");
 
 _.map(Alloy.CFG.languages, function(obj) {
 	obj.title = Alloy.Globals.Strings[obj.titleid];

@@ -1,4 +1,6 @@
-var args = arguments[0] || {}, App = require("core"), moment = require("alloy/moment");
+var args = arguments[0] || {},
+    App = require("core"),
+    moment = require("alloy/moment");
 
 (function() {
 	var store = Alloy.Collections.stores.where({
@@ -13,14 +15,18 @@ var args = arguments[0] || {}, App = require("core"), moment = require("alloy/mo
 		day : moment().format("dddd")
 	});
 	if (date) {
-		var storehour = String(date.storehours), till = "", toClose = false, subIndex = storehour.indexOf("-");
+		var storehour = String(date.storehours),
+		    till = "",
+		    toClose = false,
+		    subIndex = storehour.indexOf("-");
 		if (subIndex >= 0) {
 			from = storehour.substring(0, subIndex - 1);
 			till = storehour.substring(subIndex + 1, storehour.length);
 			toOpen = moment(from, "h:mm A").diff(moment(), "minutes");
 			toClose = moment(till, "h:mm A").diff(moment(), "minutes");
 		}
-		var image, labelDict;
+		var image,
+		    labelDict;
 		if (toOpen < 0 && toClose > 0) {
 			image = "/images/store/green_clock.png";
 			labelDict = {

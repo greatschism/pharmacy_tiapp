@@ -1,4 +1,6 @@
-var args = arguments[0] || {}, App = require("core");
+var args = arguments[0] || {},
+    App = require("core");
+    
 Alloy.Collections.menuItems.reset(Alloy.CFG.menuItems);
 App.Navigator.open(Alloy.Collections.menuItems.where({
 landingPage: true
@@ -18,8 +20,8 @@ function didItemClick(e) {
 	App.Navigator.hamburger.closeLeftMenu();
 }
 
-function terminate(){
+function terminate() {
 	$.destroy();
 }
 
-exports.terminate = terminate;
+exports.terminate = terminate; 

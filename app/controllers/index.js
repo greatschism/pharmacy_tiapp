@@ -7,4 +7,4 @@
 			titleImage : "/images/login/pharmacy.png"
 		});
 	}
-})(); 
+})();

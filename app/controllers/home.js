@@ -1,4 +1,5 @@
-var args = arguments[0] || {}, App = require("core"), animation = require("alloy/animation");
+var args = arguments[0] || {},
+    App = require("core");
 
 (function() {
 	var icons = Alloy.CFG.icons;
@@ -16,7 +17,10 @@ var args = arguments[0] || {}, App = require("core"), animation = require("alloy
 		$.scrollView.add(view);
 	}
 	if (OS_IOS || OS_ANDROID) {
-		animation.fadeIn($.scrollView, 300);
+		$.scrollView.animate(Ti.UI.createAnimation({
+			opacity : 1,
+			duration : 300
+		}));
 	}
 })();
 
@@ -30,7 +34,8 @@ function getView() {
 }
 
 function getNImage(name, image, width) {
-	var height = Ti.App.Properties.getInt(String(name).concat(width), 0), blob;
+	var height = Ti.App.Properties.getInt(String(name).concat(width), 0),
+	    blob;
 	if (!height) {
 		blob = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, image).read();
 		height = Math.floor((blob.height / blob.width) * width);
