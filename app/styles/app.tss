@@ -112,8 +112,8 @@
 ".top-5":{
 	top: 5
 },
-".bototm-5":{
-	bototm: 5
+".bottom-5":{
+	bottom: 5
 },
 ".left-5":{
 	left: 5
