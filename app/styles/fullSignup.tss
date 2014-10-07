@@ -1,0 +1,72 @@
+"#logoImg":{
+	width: 75,
+	image: "/images/login/pharmacy.png"
+},
+"#hintLbl":{
+	text: Alloy.Globals.Strings.signupHint
+},
+".height-50d":{
+	height: 50
+},
+".vseparator":{
+	zIndex: 1
+},
+".txt":{
+	height: 50,
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderRadius: 0
+},
+"#fnameTxt":{
+	hintText: Alloy.Globals.Strings.fname
+},
+"#lnameTxt":{
+	hintText: Alloy.Globals.Strings.lname
+},
+"#dobLbl":{
+	left: 8,
+	text: Alloy.Globals.Strings.dob
+},
+"#emailTxt":{
+	hintText: Alloy.Globals.Strings.email
+},
+"#unameTxt":{
+	hintText: Alloy.Globals.Strings.username,
+	autocorrect: false,
+	autocapitalization: false
+},
+"#passwordTxt":{
+	right: 75,
+	hintText: Alloy.Globals.Strings.password,
+	passwordMask: true,
+	autocorrect: false,
+	autocapitalization: false
+},
+"#toggleSwt":{
+	right: 10,
+	enabledColor: "#F79538",
+	value: true
+},
+"#rxNoTxt":{
+	hintText: Alloy.Globals.Strings.rxNo
+},
+"#locationLbl":{
+	left: 8,
+	right: 40,
+	text: Alloy.Globals.Strings.pharmacyLocation
+},
+"#downImg":{
+	right: 10,
+	width: 20,
+	image: "/images/down_angle_gray.png"
+},
+"#agreementLbl":{
+	html: Alloy.Globals.Strings.signupAgreement
+},
+"#singupLbl":{
+	text: Alloy.Globals.Strings.signup
+},
+"#singupImg":{
+	width: 20,
+	image: "/images/right_arrow_orange.png"
+}

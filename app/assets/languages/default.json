@@ -8,7 +8,9 @@
 		"prescriptions": "Prescriptions",
 		"doctors": "Doctors",
 		"stores": "Stores",
+		"storeSearchHint": "search by zip, city or state",
 		"account": "Account",
+		"refillWithoutLogin": "Refill without logging in",
 		"login": "Log in",
 		"loginToPharmacy": "Sign in to the <b>mscripts mobile pharmacy</b>",
 		"username": "Username",
@@ -27,7 +29,13 @@
 		"welcome": "Welcome!",
 		"mobileNumberHint": "Let's see if we recogonize you. Please enter your mobile phone number.",
 		"continue": "Continue",
-		"refillWithoutLogin": "Refill without logging in",
-		"storeSearchHint": "search by zip, city or state"
+		"signupHint": "Sign up and get refill in seconds",
+		"fname": "First name",
+		"lname": "Last name",
+		"dob": "Date of birth",
+		"email": "Email",
+		"rxNo": "Rx number",
+		"pharmacyLocation": "Pharmacy location",
+		"signupAgreement": "By signing up for this service, I agree to the <font color=\"#0092d5\"><u>Terms and conditions</u></font>"
 	}
 }

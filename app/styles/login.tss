@@ -1,12 +1,12 @@
-".logo-img":{
-	width: 75,
-	image: "/images/login/pharmacy.png"
-},
 ".height-50d":{
 	height: 50
 },
 "#content":{
 	bottom: 100
+},
+"#logoImg":{
+	width: 75,
+	image: "/images/login/pharmacy.png"
 },
 "#headerLbl":{
 	html: Alloy.Globals.Strings.loginToPharmacy

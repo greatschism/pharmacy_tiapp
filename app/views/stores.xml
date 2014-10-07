@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="toggleView" class="nav-bar-right-view" onSingletap="didToggle">
-		<ImageView id="toggleImg" />
+		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
 	<View>
 		<View id="mapContainer">

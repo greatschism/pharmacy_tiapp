@@ -1,7 +1,6 @@
 "#toggleImg":{
 	image: "/images/store/map.png",
-	width: 40,
-	touchEnabled: false
+	width: 40
 },
 "#mapView":{
 	animate: true,
