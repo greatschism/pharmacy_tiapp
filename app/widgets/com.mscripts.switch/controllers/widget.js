@@ -85,25 +85,21 @@ function didTouchend(e) {
 	if (!_busy) {
 		_busy = true;
 		var left = $.swt.left;
-		var value;
 		if (left == _enabledLeft || left == _disabledLeft) {
-			value = left == _enabledLeft ? true : false;
+			var value = left == _enabledLeft ? true : false;
 			_busy = false;
 			setValue(value);
 		} else {
-			value = !_value;
-			if (value) {
+			_value = !_value;
+			if (_value) {
 				enabledSwt(true);
 			} else {
 				disableSwt(true);
 			}
 		}
-		if (_value != value) {
-			_value = value;
-			$.trigger("change", {
-				value : _value
-			});
-		}
+		$.trigger("change", {
+			value : _value
+		});
 	}
 }
 
@@ -120,6 +116,9 @@ function didSingletap(e) {
 
 function didChange(e) {
 	_value = e.value;
+	$.trigger("change", {
+		value : _value
+	});
 }
 
 function setValue(value, animate) {
