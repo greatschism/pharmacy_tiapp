@@ -70,7 +70,11 @@ function Navigation(_args) {
 		/**
 		 *  if _params.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
 		 */
-		if (_params.stack || that.controllers.length > 1) {
+		if (!_.has(_params, "stack") && that.controllers.length > 1) {
+			_params.stack = true;
+		}
+
+		if (_params.stack) {
 			return that.push(_params);
 		}
 

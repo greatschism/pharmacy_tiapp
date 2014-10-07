@@ -94,7 +94,11 @@ function Navigation(_args) {
 		/**
 		 *  if _params.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
 		 */
-		if (_params.stack || that.controllers.length > 1) {
+		if (!_.has(_params, "stack") && that.controllers.length > 1) {
+			_params.stack = true;
+		}
+
+		if (_params.stack) {
 			return that.push(_params);
 		}
 
@@ -229,7 +233,8 @@ function Navigation(_args) {
 			that.terminate();
 
 			var removeControllers = that.controllers.splice(len - count, count - 1);
-			for (var i = 0, x = removeControllers.length; i < x; i++) {
+			for (var i = 0,
+			    x = removeControllers.length; i < x; i++) {
 				that.terminate(removeControllers[i]);
 				that.parent.remove(removeControllers[i].getView());
 			}
@@ -477,7 +482,8 @@ function Navigation(_args) {
 
 		var stack = [];
 
-		for (var i = 0, x = that.controllers.length; i < x; i++) {
+		for (var i = 0,
+		    x = that.controllers.length; i < x; i++) {
 			stack.push(that.controllers[i].getView());
 		}
 
