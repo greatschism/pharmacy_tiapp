@@ -1,3 +1,15 @@
 <Alloy>
-	<View></View>
+	<View id="toggleView" class="nav-bar-right-view" onSingletap="didToggle">
+		<ImageView id="toggleImg" />
+	</View>
+	<View id="upcomingApptView" color="#000000">
+		<Label id="lbUpcomingAppt" class="Label" title="Upcoming appointments" color="black" top="0" height="30"/>
+	</View>
+	<View >
+		<ListView></ListView>
+	</View>
+	<View >
+		<Label id="lbSetupReminder" title="Set up an appointment reminder "></Label>
+	</View>
+
 </Alloy> 
