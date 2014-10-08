@@ -8,3 +8,8 @@ function didRightclickPwd(e) {
 		stack : true
 	});
 }
+
+function moveToNext(e) {
+	var nextItem = e.nextItem || "";
+	$[nextItem] && $[nextItem].focus();
+}

@@ -4,7 +4,8 @@
 "#emailTxt":{
 	height: 50,
 	hintText: Alloy.Globals.Strings.emailAddress,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#sendBtn":{
 	title: Alloy.Globals.Strings.send

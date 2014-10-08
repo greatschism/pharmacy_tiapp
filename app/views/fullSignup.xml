@@ -4,21 +4,24 @@
 		<Label id="hintLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
 		<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
 			<View class="height-50d">
-				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 black txt h3 font-regular" />
-				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 black txt h3 font-regular" />
+				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 black txt h3 font-regular" onReturn="moveToNext" />
+				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 black txt h3 font-regular" onReturn="moveToNext" />
 				<View class="vseparator" />
 			</View>
 			<View class="hseparator" />
 			<Label id="dobLbl" class="fill-width height-50d h3 font-regular cloudy" />
 		</View>
-		<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
-			<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
-			<View class="hseparator" />
-			<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
-			<View class="hseparator" />
-			<View class="height-50d">
-				<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
-				<Widget id="toggleSwt" src="com.mscripts.switch" onChange="didToggle" />
+		<View class="auto-height">
+			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="width-95" />
+			<View id="inputView" class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
+				<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+				<View class="hseparator" />
+				<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+				<View class="hseparator" />
+				<View class="height-50d">
+					<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
+					<Widget id="toggleSwt" src="com.mscripts.switch" onChange="didToggle" />
+				</View>
 			</View>
 		</View>
 		<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">

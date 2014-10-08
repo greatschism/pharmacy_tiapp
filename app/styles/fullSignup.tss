@@ -15,32 +15,42 @@
 	height: 50,
 	borderColor: "transparent",
 	borderWidth: 0,
-	borderRadius: 0
+	borderRadius: 0,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.Strings.fname
+	hintText: Alloy.Globals.Strings.fname,
+	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	hintText: Alloy.Globals.Strings.lname
+	hintText: Alloy.Globals.Strings.lname,
+	nextItem: "emailTxt"
 },
 "#dobLbl":{
 	left: 8,
 	text: Alloy.Globals.Strings.dob
 },
+"#inputView":{
+	zIndex: 1
+},
+"#passwordTooltip":{
+	top: 50,
+	text: Alloy.Globals.Strings.passwordTip,
+	zIndex: 2
+},
 "#emailTxt":{
-	hintText: Alloy.Globals.Strings.email
+	hintText: Alloy.Globals.Strings.email,
+	nextItem: "unameTxt"
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.Strings.username,
-	autocorrect: false,
-	autocapitalization: false
+	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
 	right: 75,
 	hintText: Alloy.Globals.Strings.password,
-	passwordMask: true,
-	autocorrect: false,
-	autocapitalization: false
+	nextItem: "rxNoTxt",
+	passwordMask: true
 },
 "#toggleSwt":{
 	right: 10,
@@ -48,7 +58,8 @@
 	value: true
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.Strings.rxNo
+	hintText: Alloy.Globals.Strings.rxNo,
+	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#locationLbl":{
 	left: 8,

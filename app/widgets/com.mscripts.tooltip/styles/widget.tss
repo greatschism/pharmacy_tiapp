@@ -1,0 +1,29 @@
+"#widget":{
+	width: "90%",
+	height: 70,
+	zIndex: 0,
+	opacity: 0,
+	visible: false,
+},
+"#containerView":{
+	bottom: 15,
+	backgroundColor: "#3d3d3d"
+},
+"#label":{
+	width: "90%",
+	height: Ti.UI.SIZE,
+	font:{
+		fontSize: 13
+	},
+	color: "#aeaaa6",
+	textAlign: "left"
+},
+"#label[platform=android,mobileweb]":{
+	ellipsize: false,
+	wordWrap: true
+},
+"#edgeImg":{
+	bottom: 0,
+	height: 20,
+	image: WPATH( "down.png")
+}

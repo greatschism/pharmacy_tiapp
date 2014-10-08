@@ -1,0 +1,8 @@
+<Alloy>
+	<View>
+		<View id="containerView">
+			<Label id="label" />
+		</View>
+		<ImageView id="edgeImg" />
+	</View>
+</Alloy>

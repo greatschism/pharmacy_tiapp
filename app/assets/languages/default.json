@@ -35,6 +35,7 @@
 		"dob": "Date of birth",
 		"email": "Email",
 		"rxNo": "Rx number",
+		"passwordTip": "Password needs to have at least 2 numbers and be at least 6 characters long.",
 		"pharmacyLocation": "Pharmacy location",
 		"signupAgreement": "By signing up for this service, I agree to the <font color=\"#0092d5\"><u>Terms and conditions</u></font>"
 	}

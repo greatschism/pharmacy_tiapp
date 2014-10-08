@@ -135,11 +135,13 @@ function Navigation(_args) {
 
 			view.removeEventListener("postlayout", postlayout);
 
-			that.controllers.push(controller);
+			that.animateIn(view, function() {
 
-			that.currentController = controller;
+				that.currentController.getView().visible = false;
 
-			that.animateIn(view);
+				that.controllers.push(controller);
+				that.currentController = controller;
+			});
 
 			//that.testOutput();
 		});
@@ -195,11 +197,14 @@ function Navigation(_args) {
 				that.window.remove(removeControllers[i].getView());
 			}
 
+			var controllerToOpen = that.controllers[that.controllers.length - 2];
+			controllerToOpen.getView().visible = true;
+
 			that.animateOut(that.currentController.getView(), function() {
 
 				that.controllers.pop();
 
-				that.currentController = that.controllers[that.controllers.length - 1];
+				that.currentController = controllerToOpen;
 
 				//that.testOutput();
 

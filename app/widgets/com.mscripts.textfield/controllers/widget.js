@@ -5,11 +5,11 @@ var args = arguments[0] || {};
 	var options = {};
 
 	var cls = "fill";
-	if (args.search && (args.clearButton || args.rightImag || args.rightButtonTitle)) {
+	if (args.search && (args.clearButton || args.rightImage || args.rightButtonTitle)) {
 		cls = "left-right";
 	} else if (args.search) {
 		cls = "left";
-	} else if (args.clearButton || args.rightImag || args.rightButtonTitle) {
+	} else if (args.clearButton || args.rightImage || args.rightButtonTitle) {
 		cls = "right";
 	}
 
@@ -109,7 +109,9 @@ function didChange(e) {
 }
 
 function didReturn(e) {
-	$.trigger("return");
+	$.trigger("return", {
+		nextItem : args.nextItem || ""
+	});
 }
 
 function didClear(e) {

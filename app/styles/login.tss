@@ -19,18 +19,14 @@
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.Strings.username,
-	autocorrect: false,
-	autocapitalization: false
+	nextItem: "passwordTxt",
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.Strings.password,
 	passwordMask: true,
 	rightImage: "/images/login/question_mark.png",
-	autocorrect: false,
-	autocapitalization: false
-},
-"#keepMeView":{
-	height: 50
+	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#keepMeLbl":{
 	left: 10,
