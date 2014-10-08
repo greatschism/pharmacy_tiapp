@@ -40,6 +40,7 @@
 },
 "#emailTxt":{
 	hintText: Alloy.Globals.Strings.email,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "unameTxt"
 },
 "#unameTxt":{

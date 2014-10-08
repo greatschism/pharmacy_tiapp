@@ -152,11 +152,6 @@ function enabledSwt(animate) {
 			_busy = false;
 		});
 		$.swt.animate(animation);
-		$.bgView.animate(Ti.UI.createAnimation({
-			delay : 50,
-			backgroundColor : _enabledColor,
-			duration : 200
-		}));
 	} else {
 		$.bgView.backgroundColor = _enabledColor;
 		$.swt.left = _enabledLeft;
@@ -177,11 +172,6 @@ function disableSwt(animate) {
 			_busy = false;
 		});
 		$.swt.animate(animation);
-		$.bgView.animate(Ti.UI.createAnimation({
-			delay : 50,
-			backgroundColor : _disabledColor,
-			duration : 200
-		}));
 	} else {
 		$.bgView.backgroundColor = _disabledColor;
 		$.swt.left = _disabledLeft;
