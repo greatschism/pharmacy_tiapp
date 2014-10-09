@@ -4,6 +4,9 @@ var args = arguments[0] || {},
     _xmlTools = require("XMLTools");
 
 function init() {
+	if (OS_ANDROID) {
+		$.searchbar.blur();
+	}
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
 		alert("You have disallowed Titanium from running geolocation services.");
@@ -179,7 +182,11 @@ function didAnnotationClick(e) {
 		case "infoWindow":
 		case "title":
 		case "subtitle":
-			openStoreDetail(annotation.storeId);
+			if (args.orgin == "fullSignup") {
+				fullsignup(annotation.storeId);
+			} else {
+				openStoreDetail(annotation.storeId);
+			}
 			break;
 		case "leftPane":
 			break;
@@ -188,7 +195,19 @@ function didAnnotationClick(e) {
 }
 
 function didItemClick(e) {
-	openStoreDetail( OS_MOBILEWEB ? e.row.itemId : e.itemId);
+	var itemId = OS_MOBILEWEB ? e.row.itemId : e.itemId;
+	if (args.orgin == "fullSignup") {
+		fullsignup(itemId);
+	} else {
+		openStoreDetail(itemId);
+	}
+}
+
+function fullsignup(storeId) {
+	Alloy.Models.store.set(Alloy.Collections.stores.where({
+	storeid: storeId
+	})[0].toJSON());
+	App.Navigator.close();
 }
 
 function openStoreDetail(storeId) {

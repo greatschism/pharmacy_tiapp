@@ -1,4 +1,10 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    App = require("core"),
+    _locationFirstUpdate = true;
+
+function init() {
+	Alloy.Models.store.on("change", updateStore);
+}
 
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(e.value);
@@ -20,3 +26,32 @@ function moveToNext(e) {
 function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
+
+function chooseLocation(e) {
+	App.Navigator.open({
+		titleid : "stores",
+		ctrl : "stores",
+		ctrlArguments : {
+			orgin : "fullSignup"
+		}
+	});
+}
+
+function updateStore() {
+	if (_locationFirstUpdate) {
+		_locationFirstUpdate = false;
+		$.resetClass($.locationLbl, ["fill-width", "height-50d", "h3", "font-regular", "black", "touch-disabled"]);
+	}
+	$.locationLbl.text = Alloy.Models.store.get("addressline1");
+}
+
+function chooseDob(e) {
+
+}
+
+function terminate() {
+	Alloy.Models.store.off("change", updateStore);
+}
+
+exports.init = init;
+exports.terminate = terminate;
