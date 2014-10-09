@@ -13,7 +13,18 @@ var args = arguments[0] || {};
 		cls = "right";
 	}
 
-	$.addClass($.txt, "txt-" + cls);
+	$.addClass($.container, "container-" + cls);
+
+	$.txt = $.UI.create("TextField", {
+		apiName : "TextField",
+		classes : [("txt-" + cls)],
+		id : "txt"
+	});
+	$.txt.addEventListener("focus", didFocus);
+	$.txt.addEventListener("blur", didBlur);
+	$.txt.addEventListener("return", didReturn);
+	$.txt.addEventListener("change", didChange);
+	$.container.add($.txt);
 
 	if (args.search == true) {
 
@@ -34,10 +45,10 @@ var args = arguments[0] || {};
 
 		if (args.rightImageWidth) {
 			$.rightImg.width = args.rightImageWidth;
-			$.txt.right = $.rightImg.width;
+			$.txt.right = $.rightImg.width + 10;
 		}
 
-		$.widget.add($.rightImg);
+		$.container.add($.rightImg);
 
 		var listener;
 		if (args.clearButton == true) {
@@ -63,9 +74,9 @@ var args = arguments[0] || {};
 			},
 			color : args.rightButtonColor || "#000"
 		});
-		$.widget.add($.rightBtn);
+		$.container.add($.rightBtn);
 
-		$.txt.right = $.rightBtn.width + 10;
+		$.txt.right = $.rightBtn.width + 20;
 
 		$.rightBtn.addEventListener("click", didClick);
 	}
@@ -133,8 +144,6 @@ function getValue() {
 
 function setPasswordMask(value) {
 	$.txt.passwordMask = value;
-	var len = $.txt.value.length;
-	$.txt.setSelection(len, len);
 }
 
 function getPasswordMask() {

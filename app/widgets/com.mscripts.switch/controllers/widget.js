@@ -50,6 +50,9 @@ var args = arguments[0] || {},
 })();
 
 function didTouchcancel(e) {
+	$.trigger("touch", {
+		value : true
+	});
 	_busy = true;
 	_touchStartX = e.x;
 	if (_value) {
@@ -61,6 +64,9 @@ function didTouchcancel(e) {
 
 function didTouchstart(e) {
 	if (!_busy) {
+		$.trigger("touch", {
+			value : false
+		});
 		_touchStartX = e.x;
 	}
 }
@@ -83,6 +89,9 @@ function didTouchmove(e) {
 
 function didTouchend(e) {
 	if (!_busy) {
+		$.trigger("touch", {
+			value : true
+		});
 		_busy = true;
 		var left = $.swt.left;
 		if (left == _enabledLeft || left == _disabledLeft) {

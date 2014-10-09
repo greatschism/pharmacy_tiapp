@@ -16,3 +16,7 @@ function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	$[nextItem] && $[nextItem].focus();
 }
+
+function handleScroll(e) {
+	$.scrollView.canCancelEvents = e.value;
+}

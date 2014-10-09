@@ -1,7 +1,7 @@
 ".height-50d":{
 	height: 50
 },
-"#content":{
+"#scrollView":{
 	bottom: 100
 },
 "#logoImg":{

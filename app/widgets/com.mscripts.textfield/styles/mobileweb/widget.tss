@@ -30,23 +30,35 @@
 	autocorrect: false,
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
-"#txt[platform=ios]":{
-	paddingLeft: 8,
-	paddingRight: 8
+".container-fill":{
+	left: 10,
+	width: Ti.UI.FILL
 },
 ".txt-fill":{
+	right: 10,
+	width: Ti.UI.FILL
+},
+".container-left-right":{
+	left: 40,
 	width: Ti.UI.FILL
 },
 ".txt-left-right":{
-	left: 30,
-	right: 30,
+	right: 40,
+	width: Ti.UI.FILL
+},
+".container-left":{
+	left: 40,
 	width: Ti.UI.FILL
 },
 ".txt-left":{
-	left: 30,
+	right: 10,
+	width: Ti.UI.FILL
+},
+".container-right":{
+	left: 10,
 	width: Ti.UI.FILL
 },
 ".txt-right":{
-	right: 30,
+	right: 40,
 	width: Ti.UI.FILL
 }
