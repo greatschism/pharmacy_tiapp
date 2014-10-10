@@ -14,13 +14,27 @@
 			<ListSection>
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
-						<Label id="appointmentLbl" class="cloudy left-5" />
+						<Label id="appointmentLbl" text="Upcoming appointments" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem title:text="Something" />
+				<ListItem icon="right_arrow_orange" title:text="You have an appointment with Dr. Joe" />
 				<ListItem title:text="Something" />
 			</ListSection>
+			
+			
+			<ListSection>
+				<HeaderView>
+					<View class="row-h20 bg-armadillo">
+						<Label id="mydoctorsLbl" text="My Doctors" class="cloudy left-5" />
+					</View>
+				</HeaderView>
+				<ListItem title:text="My Doctors" />
+				<ListItem title:text="My Doctors" />
+			</ListSection>
+			
+			
+			
 		</ListView>
-		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
+		<Button id="addDoctorBtn" text="Add another doctor" class="width-90 bg-orange white h2 font-regular" />
 	</View>
 </Alloy> 
