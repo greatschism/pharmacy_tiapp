@@ -1,26 +1,26 @@
-"#widget": {
+"#widget[platform=ios,android]": {
 	width: "95%",
 	height: 40,
 	borderColor: "#8b8b8b",
 	borderWidth: 1,
 	borderRadius: 5
 },
-"#search":{
+"#search[platform=ios,android]":{
 	left: 10,
 	width: 20,
 	image: WPATH( "search.png")
 },
-"#rightImg":{
+"#rightImg[platform=ios,android]":{
 	right: 10,
 	width: 20,
 	visible: false
 },
-"#rightBtn":{
+"#rightBtn[platform=ios,android]":{
 	right: 10,
 	backgroundColor: "transparent",
 	borderColor: "transparent"
 },
-"#txt":{
+"#txt[platform=ios,android]":{
 	height: Ti.UI.FILL,
 	color: "#000",
 	backgroundColor: "transparent",

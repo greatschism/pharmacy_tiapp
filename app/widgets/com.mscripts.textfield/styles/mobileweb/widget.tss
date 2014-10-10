@@ -30,35 +30,35 @@
 	autocorrect: false,
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
-".container-fill[platform=mobileweb]":{
+".container-fill":{
 	left: 10,
 	width: Ti.UI.FILL
 },
-".txt-fill[platform=mobileweb]":{
+".txt-fill":{
 	right: 10,
 	width: Ti.UI.FILL
 },
-".container-left-right[platform=mobileweb]":{
+".container-left-right":{
 	left: 40,
 	width: Ti.UI.FILL
 },
-".txt-left-right[platform=mobileweb]":{
+".txt-left-right":{
 	right: 40,
 	width: Ti.UI.FILL
 },
-".container-left[platform=mobileweb]":{
+".container-left":{
 	left: 40,
 	width: Ti.UI.FILL
 },
-".txt-left[platform=mobileweb]":{
+".txt-left":{
 	right: 10,
 	width: Ti.UI.FILL
 },
-".container-right[platform=mobileweb]":{
+".container-right":{
 	left: 10,
 	width: Ti.UI.FILL
 },
-".txt-right[platform=mobileweb]":{
+".txt-right":{
 	right: 40,
 	width: Ti.UI.FILL
 }
