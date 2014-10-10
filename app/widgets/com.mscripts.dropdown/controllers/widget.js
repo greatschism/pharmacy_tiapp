@@ -46,11 +46,29 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "selectedDate")) {
-		setSelectedDate(args.selectedDate);
+		setValue(args.selectedDate);
 	}
 
 	if (_.has(args, "format")) {
 		_format = args.format;
+	}
+
+	if (OS_MOBILEWEB && args.type == Ti.UI.PICKER_TYPE_DATE) {
+		$.widget.removeEventListener("click", showPicker);
+		$.container.remove($.lbl);
+		var moment = require("alloy/moment");
+		_picker = Ti.UI.createPicker({
+			width : Ti.UI.FILL,
+			height : Ti.UI.FILL,
+			type : Ti.UI.PICKER_TYPE_DATE,
+			minDate : moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"),
+			maxDate : moment(args.maxDate || new Date()).format("YYYY-MM-DD"),
+			value : moment(_selectedDate || new Date()).format("YYYY-MM-DD"),
+			backgroundColor : "transparent",
+			borderColor : "transparent",
+			borderWidth : 0
+		});
+		$.container.add(_picker);
 	}
 
 })();
@@ -81,7 +99,7 @@ function showPicker() {
 						if (e.cancel) {
 							$.trigger("cancel");
 						} else {
-							setSelectedDate(e.value);
+							setValue(e.value);
 						}
 					}
 				});
@@ -164,29 +182,37 @@ function getSelectedItem() {
 }
 
 function doSelectDate(e) {
-	setSelectedDate(_picker.getValue());
+	setValue(_picker.getValue());
 	hidePicker();
 }
 
-function setSelectedDate(date) {
-	_selectedDate = date;
-	removeHint();
-	var moment = require("alloy/moment");
-	$.lbl.text = moment(_selectedDate).format(_format);
+function setValue(date) {
+	if (OS_MOBILEWEB) {
+		_picker.value = moment(date).format("YYYY-MM-DD");
+	} else {
+		_selectedDate = date;
+		removeHint();
+		var moment = require("alloy/moment");
+		$.lbl.text = moment(_selectedDate).format(_format);
+	}
 }
 
-function getSelectedDate() {
-	return _selectedDate;
+function getValue() {
+	if (OS_MOBILEWEB) {
+		return _picker.value;
+	} else {
+		return _selectedDate;
+	}
 }
 
+exports.setValue = setValue;
+exports.getValue = getValue;
 exports.showPicker = showPicker;
 exports.hidePicker = hidePicker;
 exports.setChoices = setChoices;
 exports.getChoices = getChoices;
 exports.setParentView = setParentView;
 exports.getParentView = getParentView;
-exports.setSelectedDate = setSelectedDate;
-exports.getSelectedDate = getSelectedDate;
 exports.getSelectedItem = getSelectedItem;
 exports.setSelectedIndex = setSelectedIndex;
 exports.getSelectedIndex = getSelectedIndex;

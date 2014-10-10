@@ -34,19 +34,19 @@
 	paddingLeft: 8,
 	paddingRight: 8
 },
-".txt-fill":{
+".txt-fill[platform=ios,android]":{
 	width: Ti.UI.FILL
 },
-".txt-left-right":{
+".txt-left-right[platform=ios,android]":{
 	left: 30,
 	right: 30,
 	width: Ti.UI.FILL
 },
-".txt-left":{
+".txt-left[platform=ios,android]":{
 	left: 30,
 	width: Ti.UI.FILL
 },
-".txt-right":{
+".txt-right[platform=ios,android]":{
 	right: 30,
 	width: Ti.UI.FILL
 }
