@@ -1,0 +1,14 @@
+"#toggleImg":{
+	image: "/images/toggle.png",
+	width: 40
+},
+"#listView":{
+	bottom: 90
+},
+"#appointmentLbl":{
+	text: Alloy.Globals.Strings.upcomingAppointments
+},
+"#addDoctorBtn":{
+	bottom: 20,
+	title: Alloy.Globals.Strings.addAnotherDoctor
+}
