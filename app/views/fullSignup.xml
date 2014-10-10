@@ -1,44 +1,46 @@
 <Alloy>
-	<ScrollView id="scrollView" class="vgroup bg-orange">
-		<ImageView id="logoImg" />
-		<Label id="hintLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
-		<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
-			<View class="height-50d">
-				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 black txt h3 font-regular" onReturn="moveToNext" />
-				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 black txt h3 font-regular" onReturn="moveToNext" />
-				<View class="vseparator" />
-			</View>
-			<View class="hseparator" />
-			<Label id="dobLbl" class="fill-width height-50d h3 font-regular cloudy" onClick="chooseDob" />
-		</View>
-		<View class="auto-height">
-			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="width-95" />
-			<View id="inputView" class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
-				<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
-				<View class="hseparator" />
-				<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
-				<View class="hseparator" />
+	<View>
+		<ScrollView id="scrollView" class="vgroup bg-orange">
+			<ImageView id="logoImg" />
+			<Label id="hintLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
+			<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
 				<View class="height-50d">
-					<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
-					<Widget id="toggleSwt" src="com.mscripts.switch" onChange="didToggle" onTouch="handleScroll" />
+					<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 black txt h3 font-regular" onReturn="moveToNext" />
+					<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 black txt h3 font-regular" onReturn="moveToNext" />
+					<View class="vseparator" />
+				</View>
+				<View class="hseparator" />
+				<Widget id="dob" src="com.mscripts.dropdown" class="fill-width height-50d h3 font-regular" />
+			</View>
+			<View class="auto-height">
+				<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="width-95" />
+				<View id="inputView" class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
+					<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+					<View class="hseparator" />
+					<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+					<View class="hseparator" />
+					<View class="height-50d">
+						<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
+						<Widget id="toggleSwt" src="com.mscripts.switch" onChange="didToggle" onTouch="handleScroll" />
+					</View>
 				</View>
 			</View>
-		</View>
-		<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
-			<Widget id="rxNoTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
-			<View class="hseparator" />
-			<View class="height-50d" onClick="chooseLocation">
-				<Label id="locationLbl" class="fill-width height-50d h3 font-regular cloudy touch-disabled" />
-				<ImageView id="downImg" class="touch-disabled" />
+			<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
+				<Widget id="rxNoTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" />
+				<View class="hseparator" />
+				<View class="height-50d" onClick="chooseLocation">
+					<Label id="locationLbl" class="fill-width height-50d h3 font-regular cloudy touch-disabled" />
+					<ImageView id="downImg" class="touch-disabled" />
+				</View>
 			</View>
-		</View>
-		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="top-20 width-90 height-50d h4 font-light bg-orange white text-center" />
-		<View id="signupView" class="top-20 button-view width-90 bg-white">
-			<View class="auto-width auto-height hgroup touch-disabled">
-				<Label id="singupLbl" class="button-title h2 orange" />
-				<ImageView id="singupImg" class="button-img" />
+			<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="top-20 width-90 height-50d h4 font-light bg-orange white text-center" />
+			<View id="signupView" class="top-20 button-view width-90 bg-white">
+				<View class="auto-width auto-height hgroup touch-disabled">
+					<Label id="singupLbl" class="button-title h2 orange" />
+					<ImageView id="singupImg" class="button-img" />
+				</View>
 			</View>
-		</View>
-		<View class="vspacer" />
-	</ScrollView>
+			<View class="vspacer" />
+		</ScrollView>
+	</View>
 </Alloy>

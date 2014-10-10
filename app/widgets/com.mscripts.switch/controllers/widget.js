@@ -26,7 +26,7 @@ var args = arguments[0] || {},
 			options.width = args.thumbWidth || args.height || $.widget.height;
 			$.swt.applyProperties(options);
 		}
-		_enabledLeft = $.widget.width - ($.swt.width + 2);
+		_enabledLeft = $.widget.width - ($.swt.width + (OS_MOBILEWEB ? 5 : 2));
 	}
 
 	if (_.has(args, "thumbColor")) {

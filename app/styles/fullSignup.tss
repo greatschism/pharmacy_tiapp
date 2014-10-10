@@ -26,9 +26,12 @@
 	hintText: Alloy.Globals.Strings.lname,
 	nextItem: "emailTxt"
 },
-"#dobLbl":{
-	left: 8,
-	text: Alloy.Globals.Strings.dob
+"#dob":{
+	hintText: Alloy.Globals.Strings.dob,
+	type: Ti.UI.PICKER_TYPE_DATE,
+	rightImage: "/images/down_angle_gray.png",
+	borderColor: "transparent",
+	borderRadius: 0
 },
 "#inputView":{
 	zIndex: 1

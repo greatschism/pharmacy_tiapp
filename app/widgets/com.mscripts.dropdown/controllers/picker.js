@@ -1,4 +1,10 @@
-var args = arguments[0] || {}, PICKER_HEIGHT = 340, _height = Ti.Platform.displayCaps.platformHeight, _choiceDict = {}, _choices = [], _selectedIndex = -1, _parent;
+var args = arguments[0] || {},
+    PICKER_HEIGHT = 340,
+    _height = Ti.Platform.displayCaps.platformHeight,
+    _choiceDict = {},
+    _choices = [],
+    _selectedIndex = -1,
+    _parent;
 
 (function() {
 

@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     _locationFirstUpdate = true;
 
 function init() {
+	$.dob.setParentView($.fullSignup);
 	Alloy.Models.store.on("change", updateStore);
 }
 
@@ -43,10 +44,6 @@ function updateStore() {
 		$.resetClass($.locationLbl, ["fill-width", "height-50d", "h3", "font-regular", "black", "touch-disabled"]);
 	}
 	$.locationLbl.text = Alloy.Models.store.get("addressline1");
-}
-
-function chooseDob(e) {
-
 }
 
 function terminate() {
