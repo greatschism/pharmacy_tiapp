@@ -63,7 +63,7 @@ function OpenCamera(e) {
 function doctorDetails() {
 
 App.Navigator.open({
-		ctrl : "addADoctor",
+		ctrl : "addDoctor",
 		title : "Add a Doctor",
 		
 		stack : true
