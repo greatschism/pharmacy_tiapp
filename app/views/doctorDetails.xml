@@ -1,4 +1,137 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<ListView platform="ios,android">
+		<Templates>
+			<ItemTemplate name="options" class="row-h50">
+				<View class="auto-height hgroup">
+					<ImageView bindId="icon" class="left-icon left-15" />
+					<Label bindId="name" class="h2 cloudy left-5" />
+					<Label bindId="detail" class="h2 alto left-5" />
+				</View>
+			</ItemTemplate>
+			<ItemTemplate name="hours" class="row-h30">
+				<Label bindId="day" class="h4 cloudy left-15" />
+				<Label bindId="storehours" class="h4 cloudy right-15" />
+			</ItemTemplate>
+			<ItemTemplate name="services" class="row-h30">
+				<Label bindId="service" class="h4 cloudy left-15" />
+			</ItemTemplate>
+		</Templates>
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<View class="auto-height top-20">
+					<ImageView class="logo" />
+					<View class="auto-height text-view">
+						<View class="auto-height vgroup address-view">
+							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+							<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+							<View class="location-view">
+								<View class="left width-45">
+									<ImageView class="distance-img left" />
+									<Label text="{store.distance}" class="location-lbl font-light gray" />
+								</View>
+								<View class="right width-55">
+									<ImageView id="clockImg" class="left-5" />
+									<Label id="clockLbl" class="location-lbl font-light" left="30" />
+								</View>
+							</View>
+						</View>
+						<ImageView id="favouriteImg" />
+					</View>
+				</View>
+				<View class="top-20 button-view width-90 bg-orange" >
+					<ImageView image="/images/store/refill.png" class="button-img-left" />
+					<Label text="Hide this doctor" class="button-title-left h3 white" />
+				</View>
+				<View class="vspacer" />
+			</View>
+		</HeaderView>
+		<ListSection dataCollection="storeOptions">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Prescriptions" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<ListItem template="options" icon:image="{icon}" name:text="{name}" detail:text="{detail}" />
+		</ListSection>
+		<ListSection dataCollection="storeHours">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Store hours" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<ListItem template="hours" day:text="{day}" storehours:text="{storehours}" />
+		</ListSection>
+		<ListSection dataCollection="storeServices">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Store services" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<ListItem template="services" service:text="{service}" />
+		</ListSection>
+	</ListView>
+	<ScrollView class="vgroup" platform="mobileweb">
+		<View class="auto-height vgroup">
+			<View class="auto-height top-20">
+				<ImageView class="logo" />
+				<View class="auto-height text-view">
+					<View class="auto-height vgroup address-view">
+						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
+						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
+						<View class="location-view">
+							<View class="left width-45">
+								<ImageView class="distance-img left" />
+								<Label text="{store.distance}" class="location-lbl font-light gray" />
+							</View>
+							<View class="right width-55">
+								<ImageView id="clockImg" class="left-5" />
+								<Label id="clockLbl" class="location-lbl font-light" left="30" />
+							</View>
+						</View>
+					</View>
+					<ImageView id="favouriteImg" />
+				</View>
+			</View>
+			<View class="top-20 button-view width-90 bg-orange" >
+				<ImageView image="/images/store/refill.png" class="button-img-left" />
+				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
+			</View>
+			<View class="vspacer" />
+		</View>
+		<TableView class="auto-height" dataCollection="storeOptions">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Store options" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<TableViewRow class="row-h50">
+				<View class="auto-height hgroup">
+					<ImageView image="{icon}" class="left-icon left-15" />
+					<Label text="{name}" class="h2 cloudy left-5" />
+					<Label text="{detail}" class="h2 alto left-5" />
+				</View>
+			</TableViewRow>
+		</TableView>
+		<TableView class="auto-height" dataCollection="storeHours">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Store hours" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<TableViewRow class="row-h30">
+				<Label text="{day}" class="h4 cloudy left-15" />
+				<Label text="{storehours}" class="h4 cloudy right-15" />
+			</TableViewRow>
+		</TableView>
+		<TableView class="auto-height" dataCollection="storeServices">
+			<HeaderView>
+				<View class="row-h20 bg-armadillo">
+					<Label text="Store services" class="cloudy left-5" />
+				</View>
+			</HeaderView>
+			<TableViewRow class="row-h30">
+				<Label text="{service}" class="h4 cloudy left-15" />
+			</TableViewRow>
+		</TableView>
+	</ScrollView>
 </Alloy>

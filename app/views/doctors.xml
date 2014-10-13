@@ -3,11 +3,11 @@
 		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
 	<View>
-		<ListView id="listView" defaultItemTemplate="appointment" platform="ios,android">
+		<ListView id="listView" defaultItemTemplate="appointment" platform="ios,android" onItemClick="OpenCamera">
 			<Templates>
 				<ItemTemplate name="appointment" class="row-h50">
 					<View class="auto-height hgroup">
-						<ImageView bindId="icon" class="left-icon left-15" />
+						<ImageView bindId="icon" id="icon" class="left-icon left-15" />
 						<Label bindId="title" class="h2 alto left-5" />
 					</View>
 				</ItemTemplate>
@@ -18,8 +18,8 @@
 						<Label id="appointmentLbl" text="Upcoming appointments" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="appointment" image="/images/icon_user_orange_large.png" title:text="You have an appointment with Dr. Joe" />
-				<ListItem title:text="You have an upcoming appointment" itemClick="OpenCamera"/>
+				<ListItem template="appointment" icon:image="/images/icon_user_orange_large.png" title:text="You have an appointment with Dr. Joe" />
+				<ListItem title:text="You have an upcoming appointment" />
 			</ListSection>
 			<ListSection>
 				<HeaderView>
@@ -32,6 +32,6 @@
 			</ListSection>
 
 		</ListView>
-		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
+		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" onClick="doctorDetails"/>
 	</View>
 </Alloy> 
