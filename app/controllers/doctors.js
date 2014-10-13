@@ -1,5 +1,6 @@
 var args = arguments[0] || {};
-
+  App = require("core");
+  
 function didToggle(e) {
 
 }
@@ -8,12 +9,15 @@ function didItemClick(e) {
 
 }
 
-function OpenCamera(e) {
-	var win = Ti.UI.createWindow({
-		backgroundColor : "#00ff00"
-	});
+$.listView.addEventListener('itemclick', function(e) {
+	var item = e.section.getItemAt(e.itemIndex);
 
-	win.addEventListener("open", function() {
+	e.section.updateItemAt(e.itemIndex, item);
+	OpenCamera();
+});
+
+function OpenCamera(e) {
+	
 		Titanium.Media.showCamera({
 
 			success : function(event) {
@@ -22,7 +26,7 @@ function OpenCamera(e) {
 
 				Ti.API.debug('Our type was: ' + event.mediaType);
 				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-					anImageView.image = image;
+					$.icon.image = image;
 					//new_upload_profile_picture_update(anImageView.image);
 				} else {
 					alert("got the wrong type back =" + event.mediaType);
@@ -48,11 +52,22 @@ function OpenCamera(e) {
 			},
 			saveToPhotoGallery : true,
 			allowEditing : false,
-			
+
 			mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO]
 		});
+	
+
+	
+}
+
+function doctorDetails() {
+
+App.Navigator.open({
+		ctrl : "addADoctor",
+		title : "Add a Doctor",
+		
+		stack : true
 	});
 
-	win.open();
 }
 
