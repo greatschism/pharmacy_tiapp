@@ -4,6 +4,9 @@
 	Locale.init();
 	Alloy.Globals.Strings = Locale.currentLanguage.strings;
 
+	if (OS_IOS) {
+		require("ti.styledlabel");
+	}
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();

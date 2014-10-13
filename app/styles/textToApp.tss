@@ -1,0 +1,25 @@
+"#logoImg":{
+	width: 75,
+	image: "/images/login/pharmacy.png"
+},
+"#titleLbl":{
+	text: Alloy.Globals.Strings.textToAppTitle
+},
+"#hintLbl":{
+	text: Alloy.Globals.Strings.textToAppHint
+},
+"#codeTxt":{
+	height: 50,
+	width: 120,
+	maxLength: 3,
+	hintText: Alloy.Globals.Strings.yourCode,
+	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
+	returnKeyType: Ti.UI.RETURNKEY_DONE
+},
+"#continueBtn":{
+	title: Alloy.Globals.Strings.continue
+},
+"#resendLbl":{
+	height: 50,
+	html: Alloy.Globals.Strings.didNotGetText
+}

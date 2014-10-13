@@ -7,6 +7,13 @@ function init() {
 	Alloy.Models.store.on("change", updateStore);
 }
 
+function didClickSignup(e) {
+	App.Navigator.open({
+		ctrl : "textToApp",
+		stack : true
+	});
+}
+
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(e.value);
 }
@@ -34,7 +41,8 @@ function chooseLocation(e) {
 		ctrl : "stores",
 		ctrlArguments : {
 			orgin : "fullSignup"
-		}
+		},
+		stack : true
 	});
 }
 

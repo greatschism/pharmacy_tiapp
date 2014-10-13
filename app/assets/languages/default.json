@@ -38,6 +38,15 @@
 		"passwordTip": "Password needs to have at least 2 numbers and be at least 6 characters long.",
 		"pharmacyLocation": "Pharmacy location",
 		"signupAgreement": "By signing up for this service, I agree to the <font color=\"#0092d5\"><u>Terms and conditions</u></font>",
+		"textToAppTitle": "Great! You've received texts from us before.",
+		"textToAppHint": "We have just sent you a text message with a three digit code. Enter it here.",
+		"yourCode": "Your code",
+		"didNotGetText": "Didn't get the text? <b>Press Here.</b>",
+		"sharedMobileCheckHint": "It looks like this phone number is linked to multiple people.",
+		"whoYouAre": "Let us know who you are.",
+		"next": "Next",
+		"signupHint": "Great. Your phone number is confirmed. You're almost done.",
+		"createAccount": "Create account",
 		"addAnotherDoctor": "Add another doctor",
 		"upcomingAppointments": "Upcoming appointments"
 	}

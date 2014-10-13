@@ -1,0 +1,20 @@
+<Alloy>
+	<View class="bg-orange">
+		<ScrollView class="vgroup">
+			<Label id="hintLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
+			<Label id="whoLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
+			<View class="top-20 width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
+				<Widget id="fnameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+				<View class="hseparator" />
+				<Widget id="dob" src="com.mscripts.dropdown" class="fill-width height-50d h3 font-regular" />
+			</View>
+			<View id="nextView" class="top-20 button-view width-90 bg-white" onClick="didClickNext">
+				<View class="auto-width auto-height hgroup touch-disabled">
+					<Label id="nextLbl" class="button-title h2 orange" />
+					<ImageView id="nextImg" class="button-img" />
+				</View>
+			</View>
+			<View class="vspacer" />
+		</ScrollView>
+	</View>
+</Alloy>

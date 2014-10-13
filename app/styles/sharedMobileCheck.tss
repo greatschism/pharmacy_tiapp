@@ -1,0 +1,28 @@
+"#hintLbl":{
+	text: Alloy.Globals.Strings.sharedMobileCheckHint
+},
+"#whoLbl":{
+	text: Alloy.Globals.Strings.whoYouAre
+},
+"#fnameTxt":{
+	height: 50,
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderRadius: 0,
+	hintText: Alloy.Globals.Strings.fname,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+"#dob":{
+	hintText: Alloy.Globals.Strings.dob,
+	type: Ti.UI.PICKER_TYPE_DATE,
+	rightImage: "/images/down_angle_gray.png",
+	borderColor: "transparent",
+	borderRadius: 0
+},
+"#nextLbl":{
+	text: Alloy.Globals.Strings.next
+},
+"#nextImg":{
+	width: 20,
+	image: "/images/right_arrow_orange.png"
+}

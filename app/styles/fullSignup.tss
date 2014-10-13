@@ -5,9 +5,6 @@
 "#hintLbl":{
 	text: Alloy.Globals.Strings.signupHint
 },
-".height-50d":{
-	height: 50
-},
 ".vseparator":{
 	zIndex: 1
 },

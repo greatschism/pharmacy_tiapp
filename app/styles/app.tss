@@ -287,6 +287,9 @@
 	width: "100%"
 },
 // Height helpers
+".height-50d":{
+	height: 50
+},
 ".height-1":{
 	height: "1%"
 },

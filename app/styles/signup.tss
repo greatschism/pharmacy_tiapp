@@ -1,0 +1,53 @@
+"#checkImg":{
+	width: 75,
+	image: "/images/checked.png"
+},
+"#hintLbl":{
+	text: Alloy.Globals.Strings.signupHint
+},
+".txt":{
+	height: 50,
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderRadius: 0,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+"#inputView":{
+	zIndex: 1
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.Strings.passwordTip,
+	zIndex: 2
+},
+"#passwordTooltip[platform=ios,android]":{
+	top: 50
+},
+"#passwordTooltip[platform=mobileweb]":{
+	top: 105
+},
+"#unameTxt":{
+	hintText: Alloy.Globals.Strings.username,
+	nextItem: "emailTxt"
+},
+"#emailTxt":{
+	hintText: Alloy.Globals.Strings.email,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	right: 75,
+	hintText: Alloy.Globals.Strings.password,
+	passwordMask: true,
+	returnKeyType: Ti.UI.RETURNKEY_DONE
+},
+"#toggleSwt":{
+	right: 10,
+	enabledColor: "#F79538",
+	value: true
+},
+"#agreementLbl":{
+	html: Alloy.Globals.Strings.signupAgreement
+},
+"#createBtn":{
+	title: Alloy.Globals.Strings.createAccount
+}
