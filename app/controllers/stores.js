@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     App = require("core"),
+    _dialog = require("dialog"),
     _http = require("http"),
     _xmlTools = require("XMLTools");
 
@@ -9,9 +10,13 @@ function init() {
 	}
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
-		alert("You have disallowed Titanium from running geolocation services.");
+		_dialog.show({
+			message : "You have disallowed Titanium from running geolocation services."
+		});
 	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
-		alert("Your system has disallowed app from running geolocation services.");
+		_dialog.show({
+			message : "Your system has disallowed app from running geolocation services."
+		});
 	} else {
 		if (OS_MOBILEWEB) {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
@@ -20,7 +25,7 @@ function init() {
 			Ti.Geolocation.purpose = "find nearby pharmacies";
 		}
 		App.Navigator.showLoader({
-			message : "Processing. Please wait"
+			message : Alloy.Globals.Strings.pleaseWait
 		});
 		Ti.Geolocation.getCurrentPosition(locationCallback);
 	}
@@ -49,7 +54,9 @@ function locationCallback(e) {
 			data : data
 		});
 	} else {
-		alert("Unable to find your location, please check your settings");
+		_dialog.show({
+			message : Alloy.Globals.Strings.unableToFindGEO
+		});
 		didFinish();
 	}
 }
@@ -57,7 +64,9 @@ function locationCallback(e) {
 function didSuccess(doc) {
 	var errormessage = doc.getElementsByTagName("errormessage");
 	if (errormessage.item(0) != null || errormessage.item(0) != undefined) {
-		alert(errormessage.item(0).text);
+		_dialog.show({
+			message : errormessage.item(0).text
+		});
 		Alloy.Collections.stores.reset([]);
 		return;
 	}
@@ -75,7 +84,9 @@ function didSuccess(doc) {
 }
 
 function didError(http, url) {
-	alert("Failed to retrive");
+	_dialog.show({
+		message : Alloy.Globals.Strings.failedToRetrive
+	});
 }
 
 function didFinish() {

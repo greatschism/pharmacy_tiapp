@@ -1,3 +1,6 @@
+"#carousel[platform=ios,android]":{
+	opacity: 0
+},
 "#scrollableView":{
 	height: 320,
 	showPagingControl: false,

@@ -1,5 +1,5 @@
 (function() {
-	if (Ti.App.Properties.getString("login", false)) {
+	if (Ti.App.Properties.getString("sessionid", false)) {
 		Alloy.createController(Alloy.CFG.navigator + "/master");
 	} else {
 		Alloy.createController("stack/master", {

@@ -1,18 +1,13 @@
-var args = arguments[0] || {}, App = require("core");
+var args = arguments[0] || {},
+    App = require("core");
 
-(function() {
+function didOpen(e) {
 	App.globalWindow = $.window;
 	App.init();
-
 	App.setNavigator({
 		type : "stack"
 	});
-
 	App.Navigator.open(args);
-
-	$.window.open();
-})();
-
-function didClose(e) {
-	App.terminate();
 }
+
+$.window.open();

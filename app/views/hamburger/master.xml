@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="window" onClose="didClose">
+	<Window id="window" onOpen="didOpen" onClose="didClose">
 		<Widget id="hamburger" src="com.mscripts.hamburger" />
 	</Window>
 </Alloy>
