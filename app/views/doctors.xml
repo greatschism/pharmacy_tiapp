@@ -7,6 +7,7 @@
 			<Templates>
 				<ItemTemplate name="appointment" class="row-h50">
 					<View class="auto-height hgroup">
+						<ImageView bindId="icon" class="left-icon left-15" />
 						<Label bindId="title" class="h2 alto left-5" />
 					</View>
 				</ItemTemplate>
@@ -17,11 +18,9 @@
 						<Label id="appointmentLbl" text="Upcoming appointments" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem icon="right_arrow_orange" title:text="You have an appointment with Dr. Joe" />
-				<ListItem title:text="Something" />
+				<ListItem template="appointment" image="/images/icon_user_orange_large.png" title:text="You have an appointment with Dr. Joe" />
+				<ListItem title:text="You have an upcoming appointment" itemClick="OpenCamera"/>
 			</ListSection>
-			
-			
 			<ListSection>
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
@@ -31,10 +30,8 @@
 				<ListItem title:text="My Doctors" />
 				<ListItem title:text="My Doctors" />
 			</ListSection>
-			
-			
-			
+
 		</ListView>
-		<Button id="addDoctorBtn" text="Add another doctor" class="width-90 bg-orange white h2 font-regular" />
+		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
 	</View>
 </Alloy> 

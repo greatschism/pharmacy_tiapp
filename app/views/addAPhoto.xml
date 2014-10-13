@@ -1,4 +1,5 @@
 <Alloy>
-	<View class="container">
+	<View class="vgroup">
+		<Button top="20" title="Back" class="bg-orange white" />
 	</View>
-</Alloy>
+</Alloy> 
