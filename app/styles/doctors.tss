@@ -8,6 +8,45 @@
 "#appointmentLbl":{
 	text: Alloy.Globals.Strings.upcomingAppointments
 },
+"#doctorLbl":{
+	text: Alloy.Globals.Strings.myDoctors
+},
+"#addImg":{
+	left: 0,
+	width: 20,
+	image: "/images/plus_black.png"
+},
+"#addLbl":{
+	left: 0,
+	text: Alloy.Globals.Strings.setupAppointmentReminder
+},
+".child":{
+	right: 5,
+	width: 15,
+	image: "/images/right_angle_gray.png"
+},
+".container-view":{
+	right: 25
+},
+".profile-img":{
+	left: 5,
+	width: 30
+},
+".title":{
+	left: 45,
+	font:{
+		fontSize: 16
+	}
+},
+".title[platform=mobileweb]":{
+	right: 25
+},
+".row-h20":{
+	height: 20
+},
+".row-h40":{
+	height: 40
+},
 "#addDoctorBtn":{
 	bottom: 20,
 	title: Alloy.Globals.Strings.addAnotherDoctor

@@ -9,6 +9,15 @@
 	width: 50,
 	image: "/images/store/pharmacy.png"
 },
+"#optionsLbl":{
+	text: Alloy.Globals.Strings.storeOptions
+},
+"#hoursLbl":{
+	text: Alloy.Globals.Strings.storeHours
+},
+"#servicesLbl":{
+	text: Alloy.Globals.Strings.storeServices
+},
 ".text-view":{
 	left: 75
 },

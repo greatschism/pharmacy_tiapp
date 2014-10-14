@@ -48,7 +48,7 @@
 		<ListSection dataCollection="storeOptions">
 			<HeaderView>
 				<View class="row-h20 bg-armadillo">
-					<Label text="Store options" class="cloudy left-5" />
+					<Label id="optionsLbl" class="cloudy left-5" />
 				</View>
 			</HeaderView>
 			<ListItem template="options" icon:image="{icon}" name:text="{name}" detail:text="{detail}" />
@@ -56,7 +56,7 @@
 		<ListSection dataCollection="storeHours">
 			<HeaderView>
 				<View class="row-h20 bg-armadillo">
-					<Label text="Store hours" class="cloudy left-5" />
+					<Label id="hoursLbl" class="cloudy left-5" />
 				</View>
 			</HeaderView>
 			<ListItem template="hours" day:text="{day}" storehours:text="{storehours}" />
@@ -64,7 +64,7 @@
 		<ListSection dataCollection="storeServices">
 			<HeaderView>
 				<View class="row-h20 bg-armadillo">
-					<Label text="Store services" class="cloudy left-5" />
+					<Label id="servicesLbl" class="cloudy left-5" />
 				</View>
 			</HeaderView>
 			<ListItem template="services" service:text="{service}" />

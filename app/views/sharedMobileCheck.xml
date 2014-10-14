@@ -9,7 +9,7 @@
 				<Widget id="dob" src="com.mscripts.dropdown" class="fill-width height-50d h3 font-regular" />
 			</View>
 			<View id="nextView" class="top-20 button-view width-90 bg-white" onClick="didClickNext">
-				<View class="auto-width auto-height hgroup touch-disabled">
+				<View class="auto hgroup touch-disabled">
 					<Label id="nextLbl" class="button-title h2 orange" />
 					<ImageView id="nextImg" class="button-img" />
 				</View>

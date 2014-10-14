@@ -77,6 +77,9 @@
 ".hgroup":{
 	layout: "horizontal"
 },
+".no-hwrap":{
+	horizontalWrap: false
+},
 ".fill":{
 	width: Ti.UI.FILL,
 	height: Ti.UI.FILL
@@ -389,6 +392,9 @@
 ".cloudy":{
 	color: "#A39D9A"
 },
+".gulfstream":{
+	color: "#7EB4B5"
+},
 /*
 * backgroundColor Classes
 */
@@ -406,6 +412,9 @@
 },
 ".bg-armadillo":{
 	backgroundColor: "#50473D"
+},
+".bg-aeroblue":{
+	backgroundColor: "#CBFCE4"
 },
 ".bg-orange":{
 	backgroundColor: "#F79538"

@@ -1,37 +1,75 @@
 <Alloy>
-	<View id="toggleView" class="nav-bar-right-view" onSingletap="didToggle">
+	<View class="nav-bar-right-view" onSingletap="didToggle">
 		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
 	<View>
-		<ListView id="listView" defaultItemTemplate="appointment" platform="ios,android" onItemClick="OpenCamera">
+		<ListView id="listView" defaultItemTemplate="appointment" platform="ios,android">
 			<Templates>
-				<ItemTemplate name="appointment" class="row-h50">
-					<View class="auto-height hgroup">
-						<ImageView bindId="icon" id="icon" class="left-icon left-15" />
-						<Label bindId="title" class="h2 alto left-5" />
+				<ItemTemplate name="appointment" class="auto-height">
+					<View class="container-view auto-height">
+						<ImageView bindId="profile" class="profile-img" />
+						<Label bindId="title" class="title auto-height top-5 bottom-5 font-regular gray multi-line" />
 					</View>
+					<ImageView class="child" />
 				</ItemTemplate>
+				<ItemTemplate name="doctor" class="auto-height"></ItemTemplate>
 			</Templates>
-			<ListSection>
+			<ListSection dataCollection="upcomingAppointments" dataTransform="transformFunction">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
-						<Label id="appointmentLbl" text="Upcoming appointments" class="cloudy left-5" />
+						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="appointment" icon:image="/images/icon_user_orange_large.png" title:text="You have an appointment with Dr. Joe" />
-				<ListItem title:text="You have an upcoming appointment" />
+				<ListItem profile:image="{image}" title:attributedString="{title}" platform="ios" />
+				<ListItem profile:image="{image}" title:html="{title}" platform="android" />
+				<FooterView>
+					<View class="row-h40 bg-aeroblue">
+						<View class="auto hgroup touch-disabled">
+							<ImageView id="addImg" class="button-img left touch-disabled" />
+							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+						</View>
+					</View>
+				</FooterView>
 			</ListSection>
 			<ListSection>
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
-						<Label id="mydoctorsLbl" text="My Doctors" class="cloudy left-5" />
+						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem title:text="My Doctors" />
-				<ListItem title:text="My Doctors" />
 			</ListSection>
-
 		</ListView>
-		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" onClick="doctorDetails"/>
+		<ScrollView id="listView" class="vgroup" platform="mobileweb">
+			<TableView class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformFunction">
+				<HeaderView>
+					<View class="row-h20 bg-armadillo">
+						<Label id="appointmentLbl" class="cloudy left-5" />
+					</View>
+				</HeaderView>
+				<TableViewRow>
+					<View class="container-view auto-height">
+						<ImageView image="{image}" class="profile-img" />
+						<Label text="{title}" class="title auto-height top-5 bottom-5 font-regular gray multi-line" />
+					</View>
+					<ImageView class="child" />
+				</TableViewRow>
+				<FooterView>
+					<View class="row-h40 bg-aeroblue">
+						<View class="auto hgroup touch-disabled">
+							<ImageView id="addImg" class="button-img left touch-disabled" />
+							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+						</View>
+					</View>
+				</FooterView>
+			</TableView>
+			<TableView class="auto-height">
+				<HeaderView>
+					<View class="row-h20 bg-armadillo">
+						<Label id="doctorLbl" class="cloudy left-5" />
+					</View>
+				</HeaderView>
+			</TableView>
+		</ScrollView>
+		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
 	</View>
 </Alloy> 

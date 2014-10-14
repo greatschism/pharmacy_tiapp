@@ -6,8 +6,11 @@
 		"spanish": "Spanish",
 		"home": "Home",
 		"prescriptions": "Prescriptions",
-		"doctors": "Doctors",
+		"careTeam": "Care team",
 		"stores": "Stores",
+		"storeOptions": "Store options",
+		"storeHours": "Store hours",
+		"storeServices": "Store services",
 		"storeSearchHint": "search by zip, city or state",
 		"account": "Account",
 		"refillWithoutLogin": "Refill without logging in",
@@ -52,6 +55,8 @@
 		"signupHint": "Great. Your phone number is confirmed. You're almost done.",
 		"createAccount": "Create account",
 		"addAnotherDoctor": "Add another doctor",
-		"upcomingAppointments": "Upcoming appointments"
+		"upcomingAppointments": "Upcoming appointments",
+		"myDoctors": "My doctors",
+		"setupAppointmentReminder": "Set up an appointment reminder"
 	}
 }
