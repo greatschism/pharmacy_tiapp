@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "choiceDict")) {
-		_choiceDict = args._choiceDict;
+		_choiceDict = args.choiceDict;
 	}
 
 	if (_.has(args, "buttonDict")) {
