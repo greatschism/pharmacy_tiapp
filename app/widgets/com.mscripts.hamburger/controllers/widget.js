@@ -46,13 +46,17 @@ exports.toggleLeftMenu = function() {
 exports.openLeftMenu = function() {
 	if (!_menuOpen) {
 		$.toggleLeftMenu();
+		return true;
 	}
+	return false;
 };
 
 exports.closeLeftMenu = function() {
 	if (_menuOpen) {
 		$.toggleLeftMenu();
+		return true;
 	}
+	return false;
 };
 
 exports.setMenuView = function(view) {

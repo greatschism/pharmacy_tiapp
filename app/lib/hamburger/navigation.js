@@ -209,8 +209,17 @@ function Navigation(_args) {
 	 */
 	this.close = function(_count, _callback, _backButton) {
 
-		if (that.isBusy || (OS_ANDROID && _backButton === true && that.loader != null)) {
+		if (that.isBusy) {
 			return;
+		}
+
+		if (OS_ANDROID && _backButton === true) {
+			if (that.loader != null) {
+				return;
+			}
+			if (that.hamburger.closeLeftMenu()) {
+				return;
+			}
 		}
 
 		that.hideKeyboard();
@@ -462,7 +471,7 @@ function Navigation(_args) {
 
 		_view.animate(animation);
 	};
-	
+
 	/**
 	 *hides the keyboard
 	 */
