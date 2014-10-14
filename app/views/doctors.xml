@@ -3,7 +3,7 @@
 		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
 	<View>
-		<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" />
+		<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" onClick="didClickMenu" />
 		<ListView id="listView" defaultItemTemplate="appointment" platform="ios,android">
 			<Templates>
 				<ItemTemplate name="appointment" class="auto-height">

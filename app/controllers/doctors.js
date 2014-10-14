@@ -36,6 +36,10 @@ function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
+function didClickMenu(e){
+	console.log(e);
+}
+
 function didItemClick(e) {
 
 }

@@ -20,6 +20,12 @@ var args = arguments[0] || {},
 
 })();
 
+function didTap(e) {
+	if (e.source == $.widget) {
+		hide();
+	}
+}
+
 function didItemClick(e) {
 	var itemIndex = OS_MOBILEWEB ? e.index : e.itemIndex;
 	$.trigger("click", {
@@ -30,7 +36,7 @@ function didItemClick(e) {
 }
 
 function applyProperties(dict) {
-	$.widget.applyProperties(dict);
+	$.container.applyProperties(dict);
 }
 
 function getRow(data) {
@@ -59,7 +65,7 @@ function getRow(data) {
 function setItems(items) {
 	_items = items;
 	var height = _items.length * 60;
-	$.widget.height = height > 300 ? 300 : height;
+	$.container.height = height > 300 ? 300 : height;
 	if (OS_IOS || OS_ANDROID) {
 		var items = [];
 		for (var i in _items) {
