@@ -122,6 +122,8 @@
         <module platform="iphone">ti.styledlabel</module>
         <module platform="android">com.soasta.touchtest</module>
         <module platform="iphone">com.soasta.touchtest</module>
+        <module platform="iphone">ti.keyboard</module>
+        <module platform="android">ti.keyboard</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

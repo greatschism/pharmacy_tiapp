@@ -79,6 +79,12 @@ function Navigation(_args) {
 	this.parent = _args.hamburger.getTopLevelViews()[1];
 
 	/**
+	 * ti.keyboard module
+	 * @type {Module}
+	 */
+	this.keyboard = OS_IOS || OS_ANDROID ? require("ti.keyboard") : false;
+
+	/**
 	 * Open a screen controller
 	 * @param {Object} _params The arguments for the method
 	 * @param {String} _params.ctrl name of the Controller to be opened
@@ -114,6 +120,8 @@ function Navigation(_args) {
 		}
 
 		that.isBusy = true;
+
+		that.hideKeyboard();
 
 		var controller = Alloy.createController("hamburger/template", that.currentParams);
 
@@ -165,6 +173,8 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
+		that.hideKeyboard();
+
 		var controller = Alloy.createController("hamburger/template", _params);
 
 		that.init(controller);
@@ -202,6 +212,8 @@ function Navigation(_args) {
 		if (that.isBusy || (OS_ANDROID && _backButton === true && that.loader != null)) {
 			return;
 		}
+
+		that.hideKeyboard();
 
 		var len = that.controllers.length;
 
@@ -450,6 +462,15 @@ function Navigation(_args) {
 
 		_view.animate(animation);
 	};
+	
+	/**
+	 *hides the keyboard
+	 */
+	this.hideKeyboard = function() {
+		if (that.keyboard) {
+			that.keyboard.hide();
+		}
+	};
 
 	/**
 	 *block ui
@@ -457,6 +478,7 @@ function Navigation(_args) {
 	 */
 	this.showLoader = function(_params) {
 		if (that.loader == null) {
+			that.hideKeyboard();
 			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", _params);
 			that.window.add(that.loader.getView());
 		}

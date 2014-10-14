@@ -7,6 +7,9 @@
 	if (OS_IOS) {
 		require("ti.styledlabel");
 	}
+	if (OS_IOS || OS_ANDROID) {
+		require("ti.keyboard");
+	}
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();

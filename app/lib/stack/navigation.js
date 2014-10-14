@@ -55,6 +55,12 @@ function Navigation(_args) {
 	this.window = _args.window;
 
 	/**
+	 * ti.keyboard module
+	 * @type {Module}
+	 */
+	this.keyboard = OS_IOS || OS_ANDROID ? require("ti.keyboard") : false;
+
+	/**
 	 * Open a screen controller
 	 * @param {Object} _params The arguments for the method
 	 * @param {String} _params.ctrl name of the Controller to be opened
@@ -83,6 +89,8 @@ function Navigation(_args) {
 		}
 
 		that.isBusy = true;
+
+		that.hideKeyboard();
 
 		var controller = Alloy.createController("stack/template", _params);
 
@@ -125,6 +133,8 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
+		that.hideKeyboard();
+
 		var controller = Alloy.createController("stack/template", _params);
 
 		that.init(controller);
@@ -164,6 +174,8 @@ function Navigation(_args) {
 		}
 
 		that.isBusy = true;
+
+		that.hideKeyboard();
 
 		that.terminate();
 
@@ -365,11 +377,21 @@ function Navigation(_args) {
 	};
 
 	/**
+	 *hides the keyboard
+	 */
+	this.hideKeyboard = function() {
+		if (that.keyboard) {
+			that.keyboard.hide();
+		}
+	};
+
+	/**
 	 *block ui
 	 * @param {Object} _params
 	 */
 	this.showLoader = function(_params) {
 		if (that.loader == null) {
+			that.hideKeyboard();
 			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", _params);
 			that.window.add(that.loader.getView());
 		}
