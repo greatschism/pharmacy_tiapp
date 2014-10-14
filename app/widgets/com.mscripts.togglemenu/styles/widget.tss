@@ -1,0 +1,50 @@
+"#widget":{
+	top: 0,
+	right: 10,
+	width: 220,
+	zIndex: 0,
+	opacity: 0,
+	visible: false,
+	height: Ti.UI.SIZE,
+	backgroundColor: "#50473D"
+},
+"#listView":{
+	height: Ti.UI.SIZE,
+	backgroundColor: "transparent",
+	separatorColor: "#ccc",
+	separatorInsets: {
+		top: 0,
+		left: 0
+	}
+},
+".row":{
+	height: 60
+},
+".title":{
+	left: 10,
+	right: 10,
+	font:{
+		fontSize: 20
+	},
+	color: "#fff"
+},
+".title[platform=android,mobileweb]":{
+	ellipsize: true,
+	wordWrap: false
+},
+".icon":{
+	left: 10,
+	width: 30
+},
+".icon-title":{
+	left: 50,
+	right: 10,
+	font:{
+		fontSize: 20
+	},
+	color: "#fff"
+},
+".icon-title[platform=android,mobileweb]":{
+	ellipsize: true,
+	wordWrap: false
+}

@@ -17,6 +17,9 @@
 "ListItem[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
+"TableView":{
+	separatorColor: "#ccc"
+},
 "TableViewRow[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 	separatorInsets: {

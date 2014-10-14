@@ -33,7 +33,7 @@ function transformFunction(model) {
 }
 
 function didToggle(e) {
-
+	$.toggleMenu.toggle();
 }
 
 function didItemClick(e) {

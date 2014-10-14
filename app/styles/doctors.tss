@@ -2,6 +2,16 @@
 	image: "/images/toggle.png",
 	width: 40
 },
+"#toggleMenu":{
+	items: [
+		{
+			title: "Item 1"
+		},{
+			title: "Item 2",
+			image: "/images/profile.png"
+		}
+	]
+},
 "#listView":{
 	bottom: 90
 },
