@@ -19,7 +19,7 @@
 	Alloy.Collections.storeHours = new Backbone.Collection();
 	Alloy.Collections.storeServices = new Backbone.Collection();
 	Alloy.Collections.upcomingAppointments = new Backbone.Collection();
-	Alloy.Collections.myDoctors = new Backbone.Collection();
+	Alloy.Collections.doctors = new Backbone.Collection();
 
 	Alloy.Models.store = new Backbone.Model();
 

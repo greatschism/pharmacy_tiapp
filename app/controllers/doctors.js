@@ -6,10 +6,37 @@ function init() {
 		desc : "You have an upcoming appointment with Dr. Doe on",
 		time : "May 12th at 4.30 PM."
 	}]);
-	Alloy.Collections.myDoctors.reset([]);
+	Alloy.Collections.doctors.reset([{
+		image : "/images/add_photo.png",
+		fname : "Jane",
+		lname : "Doe",
+		prescriptions : [{
+			name : "Omeprazole"
+		}, {
+			name : "Omeprazole 500mg"
+		}, {
+			name : "Omeprazole 500mg"
+		}, {
+			name : "Omeprazole 500mg"
+		}, {
+			name : "Omeprazole 500mg"
+		}]
+	}, {
+		image : "/images/profile.png",
+		fname : "Herman",
+		lname : "Melville",
+		prescriptions : [{
+			name : "Omeprazole"
+		}]
+	}, {
+		image : "/images/profile.png",
+		fname : "Hareesh",
+		lname : "Khurana",
+		prescriptions : []
+	}]);
 }
 
-function transformFunction(model) {
+function transformAppointment(model) {
 	var transform = model.toJSON();
 	if (OS_IOS) {
 		var text = transform.desc + " " + transform.time;
@@ -32,11 +59,39 @@ function transformFunction(model) {
 	return transform;
 }
 
+function transformDoctor(model) {
+	var transform = model.toJSON();
+	transform.name = "Dr. " + transform.fname + " " + transform.lname;
+	var prescriptions = transform.prescriptions;
+	var description = "";
+	var len = prescriptions.length;
+	if (len) {
+		description = "Dr. " + transform.lname + " has prescribed you " + prescriptions[0].name;
+		if (len > 1) {
+			switch(len) {
+			case 2:
+				description += " and " + prescriptions[1].name;
+				break;
+			case 3:
+				description += ", " + prescriptions[1].name + " and " + prescriptions[2].name;
+				break;
+			default:
+				description += ", " + prescriptions[1].name + " and [" + (len - 2) + "] more";
+			}
+		}
+	} else {
+		description = "You have no active prescriptions associated with Dr. " + transform.lname;
+	}
+	description += ".";
+	transform.description = description;
+	return transform;
+}
+
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
-function didClickMenu(e){
+function didClickMenu(e) {
 	console.log(e);
 }
 

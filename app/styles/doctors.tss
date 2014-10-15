@@ -42,11 +42,16 @@
 	left: 5,
 	width: 30
 },
-".title":{
-	left: 45,
+".content-view":{
+	left: 45
+},
+".font-16":{
 	font:{
 		fontSize: 16
 	}
+},
+".title":{
+	left: 45
 },
 ".title[platform=mobileweb]":{
 	right: 25
