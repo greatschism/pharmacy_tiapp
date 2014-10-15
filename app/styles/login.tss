@@ -33,7 +33,7 @@
 "#keepMeSwt":{
 	right: 10,
 	enabledColor: "#F79538",
-	value: true
+	value: false
 },
 "#loginBtn":{
 	title: Alloy.Globals.Strings.login
