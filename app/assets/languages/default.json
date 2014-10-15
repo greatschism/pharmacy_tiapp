@@ -57,6 +57,9 @@
 		"addAnotherDoctor": "Add another doctor",
 		"upcomingAppointments": "Upcoming appointments",
 		"myDoctors": "My doctors",
-		"setupAppointmentReminder": "Set up an appointment reminder"
+		"setupAppointmentReminder": "Set up an appointment reminder",
+		"findPicture": "Find a picture on my phone",
+		"takePhoto": "Take photo",
+		"cancel": "Cancel"
 	}
 }

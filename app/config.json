@@ -132,6 +132,7 @@
         "com.mscripts.switch": "1.0",
         "com.mscripts.styledlabel": "1.0",
         "com.mscripts.tooltip": "1.0",
-        "com.mscripts.togglemenu": "1.0"
+        "com.mscripts.togglemenu": "1.0",
+        "com.mscripts.optiondialog": "1.0"
     }
 }

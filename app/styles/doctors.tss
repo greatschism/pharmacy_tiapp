@@ -65,4 +65,12 @@
 "#addDoctorBtn":{
 	bottom: 20,
 	title: Alloy.Globals.Strings.addAnotherDoctor
+},
+"#photoDialog":{
+	options: [
+		Alloy.Globals.Strings.findPicture, 
+		Alloy.Globals.Strings.takePhoto, 
+		Alloy.Globals.Strings.cancel
+	],
+	cancel: 2
 }

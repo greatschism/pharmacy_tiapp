@@ -4,6 +4,7 @@
 	</View>
 	<View>
 		<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" onClick="didClickMenu" />
+		<Widget id="photoDialog" src="com.mscripts.optiondialog" />
 		<ListView id="listView" platform="ios,android">
 			<Templates>
 				<ItemTemplate name="appointment" class="auto-height">
@@ -15,7 +16,7 @@
 				</ItemTemplate>
 				<ItemTemplate name="doctor" class="auto-height">
 					<View class="container-view auto-height">
-						<ImageView bindId="profile" class="profile-img" />
+						<ImageView bindId="profile" class="profile-img" onSingletap="didClickProfileImg" />
 						<View class="content-view top-5 bottom-5 auto-height vgroup">
 							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line" />
 							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line" />
@@ -47,7 +48,7 @@
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="doctor" profile:image="{image}" doctor:text="{name}" prescription:text="{description}" />
+				<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" prescription:text="{description}" />
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
@@ -81,7 +82,7 @@
 				</HeaderView>
 				<TableViewRow>
 					<View class="container-view auto-height">
-						<ImageView image="{image}" class="profile-img" />
+						<ImageView image="{image}" itemId="{id}" class="profile-img" onSingletap="didClickProfileImg" />
 						<View class="content-view top-5 bottom-5 auto-height vgroup">
 							<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
 							<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line" />

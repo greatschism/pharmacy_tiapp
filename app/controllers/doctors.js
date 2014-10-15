@@ -7,7 +7,8 @@ function init() {
 		time : "May 12th at 4.30 PM."
 	}]);
 	Alloy.Collections.doctors.reset([{
-		image : "/images/add_photo.png",
+		id : 1,
+		image : "",
 		fname : "Jane",
 		lname : "Doe",
 		prescriptions : [{
@@ -22,6 +23,7 @@ function init() {
 			name : "Omeprazole 500mg"
 		}]
 	}, {
+		id : 2,
 		image : "/images/profile.png",
 		fname : "Herman",
 		lname : "Melville",
@@ -29,6 +31,7 @@ function init() {
 			name : "Omeprazole"
 		}]
 	}, {
+		id : 3,
 		image : "/images/profile.png",
 		fname : "Hareesh",
 		lname : "Khurana",
@@ -61,6 +64,9 @@ function transformAppointment(model) {
 
 function transformDoctor(model) {
 	var transform = model.toJSON();
+	if (!transform.image) {
+		transform.image = "/images/add_photo.png";
+	}
 	transform.name = "Dr. " + transform.fname + " " + transform.lname;
 	var prescriptions = transform.prescriptions;
 	var description = "";
@@ -92,53 +98,28 @@ function didToggle(e) {
 }
 
 function didClickMenu(e) {
-	console.log(e);
-}
-
-function didItemClick(e) {
 
 }
 
-function openCamera(e) {
-	var win = Ti.UI.createWindow({
-		backgroundColor : "#00ff00"
-	});
-	win.addEventListener("open", function() {
-		Titanium.Media.showCamera({
-			success : function(event) {
-				var cropRect = event.cropRect;
-				var image = event.media;
+function didClickProfileImg(e) {
+	var itemId = OS_MOBILEWEB ? e.source.itemId : e.itemId;
+	if (itemId) {
+		var doctor = Alloy.Collections.doctors.where({
+		id: itemId
+		})[0].toJSON();
+		if (!doctor.image) {
+			$.photoDialog.itemId = itemId;
+			$.photoDialog.show();
+		}
+	}
+}
 
-				Ti.API.debug('Our type was: ' + event.mediaType);
-				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-					anImageView.image = image;
-					//new_upload_profile_picture_update(anImageView.image);
-				} else {
-					alert("got the wrong type back =" + event.mediaType);
-				}
-			},
-			cancel : function() {
-			},
-			error : function(error) {
-				// create alert
-				var a = Titanium.UI.createAlertDialog({
-					title : 'Camera'
-				});
-				// set message
-				if (error.code == Titanium.Media.NO_CAMERA) {
-					a.setMessage('Please run this test on device');
-				} else {
-					a.setMessage('Unexpected error: ' + error.code);
-				}
-				// show alert
-				a.show();
-			},
-			saveToPhotoGallery : true,
-			allowEditing : false,
-			mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO]
-		});
-	});
-	win.open();
+function openCamera() {
+
+}
+
+function openGallery() {
+
 }
 
 function terminate() {
