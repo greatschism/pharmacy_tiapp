@@ -39,7 +39,7 @@ function didClickLogin(e) {
 
 		});
 
-		if (OS_IOS || OS_ANDORID) {
+		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
 				_keychainAccount.account = uname;
 				_keychainAccount.valueData = password;
