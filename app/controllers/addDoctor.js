@@ -1,5 +1,5 @@
 var args = arguments[0] || {};
-  App = require("core");
+App = require("core");
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
@@ -10,11 +10,6 @@ function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
 
+function chooseLocation(e) {
 
-
-
-
-function chooseLocation(e)
-{
-	
 }
