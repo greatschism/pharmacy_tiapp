@@ -55,12 +55,11 @@ function didClickLogin(e) {
 			data : data
 		});
 
+	} else {
+		_dialog.show({
+			message : Alloy.Globals.Strings.loginRequiredFileds
+		});
 	}
-	//else {
-	//	_dialog.show({
-	//		message : Alloy.Globals.Strings.loginRequiredFileds
-	//	});
-	//}
 }
 
 function handleScroll(e) {
