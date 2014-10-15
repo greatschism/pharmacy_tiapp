@@ -217,6 +217,10 @@ function Navigation(_args) {
 			if (that.loader != null) {
 				return;
 			}
+			var controller = that.currentController || that.homeController;
+			if (_.isFunction(controller.child.androidback) && controller.child.androidback()) {
+				return;
+			}
 			if (that.hamburger.closeLeftMenu()) {
 				return;
 			}

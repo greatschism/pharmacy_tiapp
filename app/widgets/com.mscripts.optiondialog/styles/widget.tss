@@ -1,3 +1,63 @@
 "#widget":{
-		
+	zIndex: 0,
+	visible: false
+},
+"#widget[platform=android,ios]":{
+	backgroundColor: "#50000000"
+},
+"#widget[platform=mobileweb]":{
+	backgroundColor: "rgba(0,0,0,0.5)"
+},
+"#container":{
+	height: Ti.UI.SIZE,
+	backgroundColor: "#EDEBED",
+	borderRadius: 4
+},
+"#container[formFactor=handheld]":{
+	width: "85%"
+},
+"#container[formFactor=tablet]":{
+	width: "45%"
+},
+"#listView":{
+	height: Ti.UI.SIZE,
+	backgroundColor: "transparent",
+	separatorColor: "#d3d6d8",
+	separatorInsets: {
+		top: 0,
+		left: 0
+	}
+},
+".row":{
+	height: 60
+},
+".title":{
+	left: 10,
+	right: 10,
+	font:{
+		fontSize: 20
+	},
+	textAlign: "center",
+	color: "#000"
+},
+".title[platform=android,mobileweb]":{
+	ellipsize: true,
+	wordWrap: false
+},
+".icon":{
+	left: 10,
+	width: 30
+},
+".icon-title":{
+	left: 50,
+	right: 10,
+	font:{
+		fontSize: 20
+	},
+	textAlign: "center",
+	color: "#000"
+},
+".icon-title[platform=android,mobileweb]":{
+	ellipsize: true,
+	wordWrap: false
 }

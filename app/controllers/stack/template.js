@@ -1,4 +1,6 @@
-var args = arguments[0] || {}, App = require("core"), _controller;
+var args = arguments[0] || {},
+    App = require("core"),
+    _controller;
 
 (function() {
 
@@ -28,10 +30,13 @@ var args = arguments[0] || {}, App = require("core"), _controller;
 	_controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 	var children = _controller.getTopLevelViews();
 	for (var i in children) {
+		var view = children[i].__controllerPath ? children[i].getView() : children[i];
 		if (children[i].role === "navBar") {
-			$.navBarView.add(children[i]);
+			$.navBarView.add(view);
+		} else if (children[i].role == "overlay") {
+			$.template.add(view);
 		} else {
-			$.contentView.add(children[i]);
+			view && $.contentView.add(view);
 		}
 	}
 

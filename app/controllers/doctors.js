@@ -101,8 +101,12 @@ function didClickMenu(e) {
 
 }
 
+function didClickOption(e) {
+	console.log(e);
+}
+
 function didClickProfileImg(e) {
-	var itemId = OS_MOBILEWEB ? e.source.itemId : e.itemId;
+	var itemId = Number( OS_MOBILEWEB ? e.source.itemId : e.itemId);
 	if (itemId) {
 		var doctor = Alloy.Collections.doctors.where({
 		id: itemId
@@ -126,5 +130,10 @@ function terminate() {
 	$.destroy();
 }
 
+function didAndroidBack() {
+	return $.toggleMenu.hide();
+}
+
 exports.init = init;
 exports.terminate = terminate;
+exports.androidback = didAndroidBack;

@@ -4,9 +4,11 @@ var args = arguments[0] || {},
 
 (function() {
 
+	$.role = args.role || "";
+
 	var options = {};
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "zIndex", "opacity", "visible"]);
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
@@ -67,13 +69,13 @@ function setItems(items) {
 	var height = _items.length * 60;
 	$.container.height = height > 300 ? 300 : height;
 	if (OS_IOS || OS_ANDROID) {
-		var items = [];
+		var data = [];
 		for (var i in _items) {
 			var titleProp = {
 				text : _items[i].title
 			};
 			_.extend(titleProp, _properties);
-			items.push({
+			data.push({
 				title : titleProp,
 				icon : {
 					image : _items[i].image || ""
@@ -85,7 +87,7 @@ function setItems(items) {
 				}
 			});
 		}
-		$.section.setItems(items);
+		$.section.setItems(data);
 	} else {
 		var data = [];
 		for (var i in _items) {
@@ -128,7 +130,9 @@ function show(callback) {
 			}
 		});
 		$.widget.animate(animation);
+		return true;
 	}
+	return false;
 }
 
 function hide(callback) {
@@ -146,7 +150,9 @@ function hide(callback) {
 			}
 		});
 		$.widget.animate(animation);
+		return true;
 	}
+	return false;
 }
 
 function toggle(callback) {

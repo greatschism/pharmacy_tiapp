@@ -1,10 +1,10 @@
 <Alloy>
+	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" onClick="didClickMenu" />
+	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="font-regular h2" onClick="didClickOption"  />
 	<View class="nav-bar-right-view" onSingletap="didToggle">
 		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
 	<View>
-		<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" onClick="didClickMenu" />
-		<Widget id="photoDialog" src="com.mscripts.optiondialog" />
 		<ListView id="listView" platform="ios,android">
 			<Templates>
 				<ItemTemplate name="appointment" class="auto-height">

@@ -1,18 +1,20 @@
-var args = arguments[0] || {}, options;
+var args = arguments[0] || {};
 
-options = _.pick(args, ["font", "color", "textAlign", "text"]);
-if (!_.isEmpty(options)) {
-	$.messageLbl.applyProperties(options);
-}
+(function() {
+	var options = _.pick(args, ["font", "color", "textAlign", "text"]);
+	if (!_.isEmpty(options)) {
+		$.messageLbl.applyProperties(options);
+	}
 
-if (_.has(args, "message")) {
-	setMessage(args.message);
-}
+	if (_.has(args, "message")) {
+		setMessage(args.message);
+	}
 
-$.activityIndicator.show();
+	$.activityIndicator.show();
+})();
 
 function setMessage(message) {
 	$.messageLbl.setText(message);
 }
 
-exports.setMessage = setMessage; 
+exports.setMessage = setMessage;

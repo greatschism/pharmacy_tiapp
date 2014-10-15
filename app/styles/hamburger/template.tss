@@ -5,7 +5,8 @@
 },
 "#navBar":{
 	top: 0,
-	height: Alloy.CFG.navBarHeight
+	height: Alloy.CFG.navBarHeight,
+	zIndex: 1
 },
 "#navBarView":{
 	top: Alloy.CFG.navBarTop
@@ -29,7 +30,8 @@
 	width: 60
 },
 "#contentView":{
-	top: Alloy.CFG.navBarHeight
+	top: Alloy.CFG.navBarHeight,
+	zIndex: 1
 },
 ".hamburger":{
 	width: 40,

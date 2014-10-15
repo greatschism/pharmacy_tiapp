@@ -27,7 +27,7 @@
                 "ctrl": "prescriptions"
             },
             {
-                "titleid": "careTeam",
+                "titleid": "doctors",
                 "ctrl": "doctors"
             },
             {

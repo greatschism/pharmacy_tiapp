@@ -3,6 +3,8 @@
 	width: 40
 },
 "#toggleMenu":{
+	role: "overlay",
+	top: Alloy.CFG.navBarHeight,
 	items: [
 		{
 			title: "Item 1"
@@ -10,7 +12,8 @@
 			title: "Item 2",
 			image: "/images/profile.png"
 		}
-	]
+	],
+	zIndex: 2
 },
 "#listView":{
 	bottom: 90
@@ -67,10 +70,19 @@
 	title: Alloy.Globals.Strings.addAnotherDoctor
 },
 "#photoDialog":{
+	role: "overlay",
+	title: Alloy.Globals.Strings.findPhoto,
 	options: [
-		Alloy.Globals.Strings.findPicture, 
-		Alloy.Globals.Strings.takePhoto, 
-		Alloy.Globals.Strings.cancel
+		{
+			title: Alloy.Globals.Strings.findPicture
+		},
+		{
+			title: Alloy.Globals.Strings.takePhoto
+		},
+		{
+			title: Alloy.Globals.Strings.cancel
+		}
 	],
-	cancel: 2
+	cancel: 2,
+	zIndex: 2
 }

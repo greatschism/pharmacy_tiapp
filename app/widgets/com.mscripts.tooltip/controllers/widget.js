@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 
 (function() {
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "opacity", "visible"]);
+	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
