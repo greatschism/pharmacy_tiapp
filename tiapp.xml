@@ -124,6 +124,8 @@
         <module platform="iphone">com.soasta.touchtest</module>
         <module platform="iphone">ti.keyboard</module>
         <module platform="android">ti.keyboard</module>
+        <module platform="iphone">com.obscure.keychain</module>
+        <module platform="android">com.obscure.keychain</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

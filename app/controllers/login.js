@@ -1,6 +1,18 @@
-var args = arguments[0] || {}, App = require("core"), _dialog = require("dialog"), _http = require("http"), _xmlTools = require("XMLTools");
+var args = arguments[0] || {},
+    App = require("core"),
+    _dialog = require("dialog"),
+    _http = require("http"),
+    _xmlTools = require("XMLTools"),
+    _keychainAccount;
 
-var keychain = require('com.obscure.keychain');
+if (OS_IOS || OS_ANDROID) {
+	_keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+	if (_keychainAccount.account) {
+		$.unameTxt.setValue(_keychainAccount.account);
+		$.passwordTxt.setValue(_keychainAccount.valueData);
+		$.keepMeSwt.setValue(true);
+	}
+}
 
 function didRightclickPwd(e) {
 	App.Navigator.open({
@@ -15,27 +27,25 @@ function moveToNext(e) {
 	$[nextItem] && $[nextItem].focus();
 }
 
-var userKeychainItem = keychain.createKeychainItem('username');
-var passKeychainItem = keychain.createKeychainItem('password');
-
 function didClickLogin(e) {
-	var uname = $.unameTxt.getValue();
-	uname = userKeychainItem.valueData;
-	var password = $.passwordTxt.getValue();
-	password = passKeychainItem.valueData;
 
-	if (uname.value != '' && password.value != '') {
+	var uname = $.unameTxt.getValue();
+	var password = $.passwordTxt.getValue();
+
+	if (uname != "" && password != "") {
+
 		App.Navigator.showLoader({
 			message : Alloy.Globals.Strings.pleaseWait
 
 		});
 
-		if ($.keepMeSwt.getValue() == true) {
-
-			// store credentials in the keychain
-			userKeychainItem.valueData = uname;
-			passKeychainItem.valueData = password;
-			alert("credentials stored");
+		if (OS_IOS || OS_ANDORID) {
+			if ($.keepMeSwt.getValue() == true) {
+				_keychainAccount.account = uname;
+				_keychainAccount.valueData = password;
+			} else {
+				_keychainAccount.reset();
+			}
 		}
 
 		var data = "<request><authenticate>";
@@ -64,14 +74,6 @@ function didClickLogin(e) {
 
 function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
-
-	if ($.keepMeSwt.value == true) {
-
-		// store credentials in the keychain
-		userKeychainItem.valueData = uname.value;
-		passKeychainItem.valueData = password.value;
-		alert("credentials stored");
-	}
 }
 
 function didSuccess(doc) {
