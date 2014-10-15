@@ -422,6 +422,9 @@
 ".bg-orange":{
 	backgroundColor: "#F79538"
 },
+".bg-light-green":{
+	backgroundColor: "#CAFEDB"
+},
 /**
 * 	Alert / Notification Styles
 *  These should be used in conjunction with Views and/or labels
