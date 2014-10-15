@@ -53,7 +53,7 @@
 ".title":{
 	left: 45
 },
-".title[platform=mobileweb]":{
+".right-25[platform=mobileweb]":{
 	right: 25
 },
 ".row-h20":{

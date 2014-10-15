@@ -51,7 +51,7 @@
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
-			<TableView class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformFunction">
+			<TableView class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
@@ -60,7 +60,7 @@
 				<TableViewRow>
 					<View class="container-view auto-height">
 						<ImageView image="{image}" class="profile-img" />
-						<Label text="{title}" class="title auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
+						<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
 					</View>
 					<ImageView class="child" />
 				</TableViewRow>
@@ -73,12 +73,22 @@
 					</View>
 				</FooterView>
 			</TableView>
-			<TableView class="auto-height">
+			<TableView class="auto-height" dataCollection="doctors" dataTransform="transformDoctor">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
+				<TableViewRow>
+					<View class="container-view auto-height">
+						<ImageView image="{image}" class="profile-img" />
+						<View class="content-view top-5 bottom-5 auto-height vgroup">
+							<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
+							<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line" />
+						</View>
+					</View>
+					<ImageView class="child" />
+				</TableViewRow>
 			</TableView>
 		</ScrollView>
 		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
