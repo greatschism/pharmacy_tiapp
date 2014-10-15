@@ -1,4 +1,19 @@
 
 ".container" : {
   
+},
+
+"#hintLbl": {
+	html: Alloy.Globals.Strings.doctorInfo
+},
+
+".txt":{
+	height: 50,
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderRadius: 0,
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
 }
+
+
+
