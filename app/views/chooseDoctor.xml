@@ -1,3 +1,39 @@
 <Alloy>
-	<View></View>
+	<ListView id="listView" platform="ios,android" defaultItemTemplate="doctor">
+		<Templates>
+			<ItemTemplate name="doctor" class="auto-height top-10">
+				<View class="container-view auto-height bottom-10">
+					<ImageView bindId="profile" class="profile-img" />
+					<Label bindId="doctor" class="doctor auto-height h3 font-regular black multi-line" />
+				</View>
+				<ImageView class="child" />
+			</ItemTemplate>
+		</Templates>
+		<ListSection dataCollection="doctors" dataTransform="transformDoctor">
+			<HeaderView>
+				<View class="row-h40 bg-aeroblue">
+					<Label id="appointmentLbl" class="button-title width-95 h4 text-center gulfstream touch-disabled" />
+				</View>
+			</HeaderView>
+			<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" />
+		</ListSection>
+	</ListView>
+	<TableView id="listView" platform="mobileweb" dataCollection="doctors" dataTransform="transformDoctor">
+		<HeaderView>
+			<View class="row-h40 bg-aeroblue">
+				<Label id="appointmentLbl" class="button-title width-90 h4 text-center gulfstream touch-disabled" />
+			</View>
+		</HeaderView>
+		<TableViewRow class="auto-height top-10">
+			<View class="top auto-height bottom-10">
+				<View class="top container-view auto-height">
+					<View class="top auto-height">
+						<ImageView image="{image}" itemId="{id}" class="profile-img" />
+					</View>
+					<Label text="{name}" class="doctor right-25 auto-height h3 font-regular black multi-line" />
+				</View>
+				<ImageView class="child" />
+			</View>
+		</TableViewRow>
+	</TableView>
 </Alloy>

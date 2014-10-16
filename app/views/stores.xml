@@ -18,7 +18,7 @@
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
 								</View>
-								<View class="distance-view right width-35 auto-height">
+								<View class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="distance font-light gray" />
 								</View>
@@ -33,7 +33,7 @@
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
 								</View>
-								<View class="distance-view right width-35 auto-height">
+								<View class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="distance font-light gray" />
 								</View>
@@ -55,7 +55,7 @@
 								<Label text="{addressline1}" class="title width-95 gray" />
 								<Label text="{subtitle}" class="subtitle font-light width-95 h5 gray" />
 							</View>
-							<View class="distance-view right width-35 auto-height">
+							<View class="bottom-10 right width-35 auto-height">
 								<ImageView class="distance-img left" />
 								<Label text="{distance}" class="distance font-light gray" />
 							</View>

@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    App = require("core");
 
 function init() {
 	Alloy.Collections.upcomingAppointments.reset([{
@@ -124,6 +125,14 @@ function openCamera() {
 
 function openGallery() {
 
+}
+
+function didClickAddDoctor(e) {
+	App.Navigator.open({
+		stack : true,
+		title : Alloy.Globals.Strings.addDoctor,
+		ctrl : "addDoctor"
+	});
 }
 
 function terminate() {

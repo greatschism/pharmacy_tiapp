@@ -56,12 +56,15 @@
 		"signupHint": "Great. Your phone number is confirmed. You're almost done.",
 		"createAccount": "Create account",
 		"addAnotherDoctor": "Add another doctor",
+		"addDoctor": "Add a doctor",
 		"upcomingAppointments": "Upcoming appointments",
 		"myDoctors": "My doctors",
 		"setupAppointmentReminder": "Set up an appointment reminder",
 		"chooseOne": "Choose one",
 		"findPicture": "Find a picture on my phone",
 		"takePhoto": "Take photo",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"whichDoctorYouHaveAppointment": "Which doctor do you have an appointment with?",
+		"chooseDoctor": "Choose a doctor"
 	}
 }

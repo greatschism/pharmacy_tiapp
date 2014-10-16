@@ -42,11 +42,11 @@
 	right: 25
 },
 ".profile-img":{
-	left: 5,
-	width: 30
+	left: 10,
+	width: 40
 },
 ".content-view":{
-	left: 45
+	left: 60
 },
 ".font-16":{
 	font:{
@@ -54,7 +54,7 @@
 	}
 },
 ".title":{
-	left: 45
+	left: 60
 },
 ".right-25[platform=mobileweb]":{
 	right: 25

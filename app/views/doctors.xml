@@ -7,17 +7,17 @@
 	<View>
 		<ListView id="listView" platform="ios,android">
 			<Templates>
-				<ItemTemplate name="appointment" class="auto-height">
-					<View class="container-view auto-height">
+				<ItemTemplate name="appointment" class="auto-height top-10">
+					<View class="container-view auto-height bottom-10">
 						<ImageView bindId="profile" class="profile-img" />
-						<Label bindId="title" class="title auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
+						<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
 					</View>
 					<ImageView class="child" />
 				</ItemTemplate>
-				<ItemTemplate name="doctor" class="auto-height">
-					<View class="container-view auto-height">
+				<ItemTemplate name="doctor" class="auto-height top-10">
+					<View class="container-view auto-height bottom-10">
 						<ImageView bindId="profile" class="profile-img" onSingletap="didClickProfileImg" />
-						<View class="content-view top-5 bottom-5 auto-height vgroup">
+						<View class="content-view auto-height vgroup">
 							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line" />
 							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line" />
 						</View>
@@ -58,12 +58,16 @@
 						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow>
-					<View class="container-view auto-height">
-						<ImageView image="{image}" class="profile-img" />
-						<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
+				<TableViewRow class="auto-height top-10">
+					<View class="top auto-height bottom-10">
+						<View class="top container-view auto-height">
+							<View class="top auto-height">
+								<ImageView image="{image}" class="profile-img" />
+							</View>
+							<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
+						</View>
+						<ImageView class="child" />
 					</View>
-					<ImageView class="child" />
 				</TableViewRow>
 				<FooterView>
 					<View class="row-h40 bg-aeroblue">
@@ -80,18 +84,22 @@
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow>
-					<View class="container-view auto-height">
-						<ImageView image="{image}" itemId="{id}" class="profile-img" onSingletap="didClickProfileImg" />
-						<View class="content-view top-5 bottom-5 auto-height vgroup">
-							<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
-							<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line" />
+				<TableViewRow class="auto-height top-10">
+					<View class="top auto-height bottom-10">
+						<View class="top container-view auto-height">
+							<View class="top auto-height">
+								<ImageView image="{image}" itemId="{id}" class="profile-img" onSingletap="didClickProfileImg" />
+							</View>
+							<View class="content-view auto-height vgroup">
+								<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
+								<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line" />
+							</View>
 						</View>
+						<ImageView class="child" />
 					</View>
-					<ImageView class="child" />
 				</TableViewRow>
 			</TableView>
 		</ScrollView>
-		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" />
+		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" onClick="didClickAddDoctor" />
 	</View>
 </Alloy> 

@@ -49,9 +49,6 @@
 ".subtitle":{
 	height: 16
 },
-".distance-view":{
-	bottom: 10
-},
 ".distance-img":{
 	width: 10,
 	image: "/images/store/list_item_pin.png"
