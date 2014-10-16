@@ -4,17 +4,17 @@ var args = arguments[0] || {},
     _http = require("http"),
     _xmlTools = require("XMLTools"),
     _keychainAccount,
-    _CryptoJS = require("aes");
+    _stringCrypto;
 
 if (OS_IOS || OS_ANDROID) {
+	_stringCrypto = require("bencoding.securely").createStringCrypto();
 	_keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
 	if (_keychainAccount.account) {
 		$.unameTxt.setValue(_keychainAccount.account);
-		$.passwordTxt.setValue(_keychainAccount.valueData);
+		$.passwordTxt.setValue(_stringCrypto.AESDecrypt(Alloy.CFG.secret, _keychainAccount.valueData));
 		$.keepMeSwt.setValue(true);
 	}
 }
-
 
 function didRightclickPwd(e) {
 	App.Navigator.open({
@@ -44,7 +44,7 @@ function didClickLogin(e) {
 		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
 				_keychainAccount.account = uname;
-				_keychainAccount.valueData = password;
+				_keychainAccount.valueData = _stringCrypto.AESEncrypt(Alloy.CFG.secret, password);
 			} else {
 				_keychainAccount.reset();
 			}
