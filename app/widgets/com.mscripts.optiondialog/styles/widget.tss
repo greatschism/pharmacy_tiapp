@@ -28,6 +28,15 @@
 		left: 0
 	}
 },
+".header":{
+	height: 30
+},
+"#titleLbl":{
+	color: "#8b8b8b",
+	font:{
+		fontSize: 15
+	}
+},
 ".row":{
 	height: 60
 },
@@ -43,6 +52,9 @@
 ".title[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
+},
+".gray":{
+	color: "#8b8b8b"
 },
 ".icon":{
 	left: 10,

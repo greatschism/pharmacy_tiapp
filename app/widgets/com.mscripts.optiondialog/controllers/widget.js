@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
-    _properties = {},
-    _height = Ti.Platform.displayCaps.platformHeight,
     CONTAINER_HEIGHT = 0,
+    _height = Ti.Platform.displayCaps.platformHeight,
+    _properties = {},
     _options = [];
 
 (function() {
@@ -9,10 +9,12 @@ var args = arguments[0] || {},
 	if (OS_IOS || OS_ANDROID) {
 
 		$.dialog = Ti.UI.createOptionDialog({
-			title : args.title || "Choose one",
 			options : _.pluck(args.options, "title"),
 			cancel : args.cancel || -1
 		});
+		if (OS_ANDROID) {
+			$.dialog.title = args.title || "Choose one";
+		}
 		$.dialog.addEventListener("click", didItemClick);
 
 	} else {
@@ -30,6 +32,8 @@ var args = arguments[0] || {},
 		if (!_.isEmpty(options)) {
 			_.extend(_properties, options);
 		}
+
+		$.titleLbl.text = args.title || "Choose one";
 
 		if (OS_ANDROID) {
 			_height = (_height / (Ti.Platform.displayCaps.dpi / 160));
@@ -88,13 +92,15 @@ function getRow(data) {
 }
 
 function setOptions(options) {
+
 	_options = options;
 
-	var height = _options.length * 60;
-	CONTAINER_HEIGHT = height > 300 ? 300 : height;
+	var len = Alloy.isHandheld ? _options.length : _options.length - 1;
+
+	var height = (len * 60) + 30;
+	CONTAINER_HEIGHT = height > 330 ? 330 : height;
 	$.container.height = CONTAINER_HEIGHT + 2;
 
-	var len = Alloy.isHandheld ? _options.length : _options.length - 1;
 	if (OS_IOS || OS_ANDROID) {
 		var data = [];
 		for (var i = 0; i < len; i++) {

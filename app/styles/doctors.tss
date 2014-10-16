@@ -71,7 +71,7 @@
 },
 "#photoDialog":{
 	role: "overlay",
-	title: Alloy.Globals.Strings.findPhoto,
+	title: Alloy.Globals.Strings.chooseOne,
 	options: [
 		{
 			title: Alloy.Globals.Strings.findPicture

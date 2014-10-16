@@ -12,9 +12,21 @@
 						<Label bindId="title" class="icon-title" />
 					</ItemTemplate>
 				</Templates>
-				<ListSection id="section" />
+				<ListSection id="section">
+					<HeaderView>
+						<View class="header">
+							<Label id="titleLbl" class="title" />
+						</View>
+					</HeaderView>
+				</ListSection>
 			</ListView>
-			<TableView id="listView" platform="mobileweb" onClick="didItemClick" />
+			<TableView id="listView" platform="mobileweb" onClick="didItemClick">
+				<HeaderView>
+					<View class="header">
+						<Label id="titleLbl" class="title" />
+					</View>
+				</HeaderView>
+			</TableView>
 		</View>
 	</View>
 </Alloy>
