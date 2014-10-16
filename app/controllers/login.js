@@ -3,7 +3,8 @@ var args = arguments[0] || {},
     _dialog = require("dialog"),
     _http = require("http"),
     _xmlTools = require("XMLTools"),
-    _keychainAccount;
+    _keychainAccount,
+    _CryptoJS = require("aes");
 
 if (OS_IOS || OS_ANDROID) {
 	_keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
@@ -13,6 +14,7 @@ if (OS_IOS || OS_ANDROID) {
 		$.keepMeSwt.setValue(true);
 	}
 }
+
 
 function didRightclickPwd(e) {
 	App.Navigator.open({
