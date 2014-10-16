@@ -64,6 +64,7 @@
 		"findPicture": "Find a picture on my phone",
 		"takePhoto": "Take photo",
 		"cancel": "Cancel",
+		"addDoctorHint": "Enter your doctor's information. First and last name are required, <b>all other fields optional.</b>",
 		"whichDoctorYouHaveAppointment": "Which doctor do you have an appointment with?",
 		"chooseDoctor": "Choose a doctor"
 	}

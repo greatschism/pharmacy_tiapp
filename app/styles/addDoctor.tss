@@ -1,12 +1,6 @@
-
-".container" : {
-  
-},
-
 "#hintLbl": {
-	html: Alloy.Globals.Strings.doctorInfo
+	html: Alloy.Globals.Strings.addDoctorHint
 },
-
 ".txt":{
 	height: 50,
 	borderColor: "transparent",
@@ -14,6 +8,3 @@
 	borderRadius: 0,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 }
-
-
-
