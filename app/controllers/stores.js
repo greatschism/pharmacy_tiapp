@@ -22,7 +22,7 @@ function init() {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
 		}
 		if (OS_IOS) {
-			Ti.Geolocation.purpose = "find nearby pharmacies";
+			Ti.Geolocation.purpose = "Help you to locate the nearest pharmacies.";
 		}
 		App.Navigator.showLoader({
 			message : Alloy.Globals.Strings.pleaseWait
