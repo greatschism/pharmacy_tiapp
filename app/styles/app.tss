@@ -125,7 +125,7 @@
 	left: 5
 },
 ".right-5":{
-	left: 5
+	right: 5
 },
 ".top-10":{
 	top: 10
@@ -133,8 +133,23 @@
 ".bottom-10":{
 	bottom: 10
 },
+".left-10":{
+	left: 10
+},
+".right-10":{
+	right: 10
+},
 ".top-20":{
 	top: 20
+},
+".bottom-20":{
+	bottom: 20
+},
+".left-20":{
+	left: 20
+},
+".right-20":{
+	right: 20
 },
 /**
 * spacer & separators
@@ -232,6 +247,9 @@
 * 	Grid helpers
 */
 // Width Helpers
+".width-20d":{
+	width: 20
+},
 ".width-1":{
 	width: "1%"
 },
@@ -363,13 +381,15 @@
 	height: "100%"
 },
 /*
-* Color Classes
+* Border Classes
 */
-".border-white":{
-	borderColor: "#ffffff"
+".no-border":{
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderRadius: 0
 },
-".border-black":{
-	borderColor: "#000000"
+".border-transparent":{
+	borderColor: "transparent"
 },
 ".border-gray":{
 	borderColor: "#8b8b8b"
@@ -459,7 +479,7 @@
 *button with image on left / right
 */
 ".button-view":{
-	height: 45,
+	height: 50,
 	borderRadius: 5
 },
 ".button-img":{
@@ -494,4 +514,12 @@
 		fontSize: 17
 	},
 	touchEnabled: false
+},
+/**
+ * 	child symbol on table / list view
+ */
+".child":{
+	right: 5,
+	width: 15,
+	image: "/images/right_angle_gray.png"
 }

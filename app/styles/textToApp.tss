@@ -9,7 +9,6 @@
 	text: Alloy.Globals.Strings.textToAppHint
 },
 "#codeTxt":{
-	height: 50,
 	width: 120,
 	maxLength: 3,
 	hintText: Alloy.Globals.Strings.yourCode,
@@ -20,6 +19,5 @@
 	title: Alloy.Globals.Strings.continue
 },
 "#resendLbl":{
-	height: 50,
 	html: Alloy.Globals.Strings.didNotGetText
 }

@@ -25,15 +25,10 @@
 	right: 40
 },
 "#favouriteImg":{
-	top: 10,
 	right: 15,
 	width: 20
 },
-"#subtitleLbl":{
-	top: 5
-},
 ".location-view":{
-	top: 10,
 	height: 20
 },
 ".distance-img":{
@@ -41,24 +36,14 @@
 	image: "/images/store/list_item_pin.png"
 },
 ".location-lbl":{
-	left: 20,
 	height: 17,
 	font:{
 		fontSize: 13
 	}
-},
-"#clockImg":{
-	width: 20
-},
-".row-h50":{
-	height: 50
 },
 ".row-h30":{
 	height: 30
 },
 ".row-h20":{
 	height: 20
-},
-".left-icon":{
-	width: 20
 }

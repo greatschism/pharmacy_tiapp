@@ -1,9 +1,9 @@
 <Alloy>
 	<ListView platform="ios,android">
 		<Templates>
-			<ItemTemplate name="options" class="row-h50">
+			<ItemTemplate name="options" class="height-50d">
 				<View class="auto-height hgroup">
-					<ImageView bindId="icon" class="left-icon left-15" />
+					<ImageView bindId="icon" class="width-20d left-15" />
 					<Label bindId="name" class="h2 cloudy left-5" />
 					<Label bindId="detail" class="h2 alto left-5" />
 				</View>
@@ -23,19 +23,19 @@
 					<View class="auto-height text-view">
 						<View class="auto-height vgroup address-view">
 							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-							<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
-							<View class="location-view">
+							<Label id="subtitleLbl" class="top-5 h4 left gray" text="{store.subtitle}" />
+							<View class="top-10 location-view">
 								<View class="left width-45">
 									<ImageView class="distance-img left" />
-									<Label text="{store.distance}" class="location-lbl font-light gray" />
+									<Label text="{store.distance}" class="location-lbl left-20 font-light gray" />
 								</View>
 								<View class="right width-55">
-									<ImageView id="clockImg" class="left-5" />
-									<Label id="clockLbl" class="location-lbl font-light" left="30" />
+									<ImageView id="clockImg" class="left-5 width-20d" />
+									<Label id="clockLbl" class="location-lbl left-20 font-light" left="30" />
 								</View>
 							</View>
 						</View>
-						<ImageView id="favouriteImg" />
+						<ImageView id="favouriteImg" class="top-10 width-20d" />
 					</View>
 				</View>
 				<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
@@ -77,19 +77,19 @@
 				<View class="auto-height text-view">
 					<View class="auto-height vgroup address-view">
 						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-						<Label id="subtitleLbl" class="h4 left gray" text="{store.subtitle}" />
-						<View class="location-view">
+						<Label id="subtitleLbl" class="top-5 h4 left gray" text="{store.subtitle}" />
+						<View class="top-10 location-view">
 							<View class="left width-45">
 								<ImageView class="distance-img left" />
-								<Label text="{store.distance}" class="location-lbl font-light gray" />
+								<Label text="{store.distance}" class="location-lbl left-20 font-light gray" />
 							</View>
 							<View class="right width-55">
-								<ImageView id="clockImg" class="left-5" />
-								<Label id="clockLbl" class="location-lbl font-light" left="30" />
+								<ImageView id="clockImg" class="left-5 width-20d" />
+								<Label id="clockLbl" class="location-lbl left-20 font-light" left="30" />
 							</View>
 						</View>
 					</View>
-					<ImageView id="favouriteImg" />
+					<ImageView id="favouriteImg" class="top-10" />
 				</View>
 			</View>
 			<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
@@ -104,9 +104,9 @@
 					<Label text="Store options" class="cloudy left-5" />
 				</View>
 			</HeaderView>
-			<TableViewRow class="row-h50">
+			<TableViewRow class="height-50d">
 				<View class="auto-height hgroup">
-					<ImageView image="{icon}" class="left-icon left-15" />
+					<ImageView image="{icon}" class="width-20d left-15" />
 					<Label text="{name}" class="h2 cloudy left-5" />
 					<Label text="{detail}" class="h2 alto left-5" />
 				</View>

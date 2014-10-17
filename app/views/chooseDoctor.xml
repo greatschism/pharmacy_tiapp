@@ -2,8 +2,8 @@
 	<ListView id="listView" platform="ios,android" defaultItemTemplate="doctor">
 		<Templates>
 			<ItemTemplate name="doctor" class="auto-height top-10">
-				<View class="container-view auto-height bottom-10">
-					<ImageView bindId="profile" class="profile-img" />
+				<View class="right-25 auto-height bottom-10">
+					<ImageView bindId="profile" class="profile-img left-10" />
 					<Label bindId="doctor" class="doctor auto-height h3 font-regular black multi-line" />
 				</View>
 				<ImageView class="child" />
@@ -26,9 +26,9 @@
 		</HeaderView>
 		<TableViewRow class="auto-height top-10">
 			<View class="top auto-height bottom-10">
-				<View class="top container-view auto-height">
+				<View class="top right-25 auto-height">
 					<View class="top auto-height">
-						<ImageView image="{image}" itemId="{id}" class="profile-img" />
+						<ImageView image="{image}" itemId="{id}" class="profile-img left-10" />
 					</View>
 					<Label text="{name}" class="doctor right-25 auto-height h3 font-regular black multi-line" />
 				</View>

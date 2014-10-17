@@ -1,5 +1,5 @@
 (function() {
-	if (Ti.App.Properties.getString("sessionid", false) || OS_MOBILEWEB) {
+	if (Ti.App.Properties.getString("sessionid", false)) {
 		Alloy.createController(Alloy.CFG.navigator + "/master");
 	} else {
 		Alloy.createController("stack/master", {
@@ -7,4 +7,4 @@
 			titleImage : "/images/login/pharmacy.png"
 		});
 	}
-})();
+})(); 

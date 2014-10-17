@@ -6,17 +6,17 @@
 			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="width-95" />
 			<View id="inputView" class="auto-height vgroup">
 				<View class="width-90 auto-height vgroup bg-white rounded-corner-4 border-gray">
-					<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+					<Widget id="unameTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
 					<View class="hseparator" />
-					<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
+					<Widget id="emailTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
 				</View>
 				<View class="top-20 width-90 height-50d bg-white rounded-corner-4 border-gray">
-					<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black txt h3 font-regular" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
-					<Widget id="toggleSwt" src="com.mscripts.switch" onChange="didToggle" onTouch="handleScroll" />
+					<Widget id="passwordTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
+					<Widget id="toggleSwt" src="com.mscripts.switch" class="right-10" onChange="didToggle" onTouch="handleScroll" />
 				</View>
 			</View>
 		</View>
-		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="top-20 width-90 height-50d h4 font-light bg-orange white text-center" />
+		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="top-20 width-90 auto-height h4 font-light bg-orange white text-center" />
 		<Button id="createBtn" class="top-20 width-90 bg-white orange h2 font-regular" onClick="didClickCreate" />
 		<View class="vspacer" />
 	</ScrollView>

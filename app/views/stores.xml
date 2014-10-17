@@ -7,12 +7,12 @@
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
 		<View id="listContainer" class="vgroup bg-white show">
-			<Widget id="searchbar" src="com.mscripts.textfield" onReturn="init" />
-			<ListView id="listView" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
+			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5" onReturn="init" />
+			<ListView id="listView" class="top-5" platform="ios,android" defaultItemTemplate="favourites" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favourites" class="row">
 						<View class="container-view">
-							<ImageView class="favourite" />
+							<ImageView class="left-5 favourite" />
 							<View class="content-view">
 								<View class="left width-60 auto-height vgroup">
 									<Label bindId="title" class="title width-95 gray" />
@@ -46,10 +46,10 @@
 					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distance:text="{distance}" />
 				</ListSection>
 			</ListView>
-			<TableView id="listView" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
+			<TableView id="listView" class="top-5" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="row" itemId="{storeid}">
 					<View class="container-view">
-						<ImageView class="favourite" visible="{favourite}" />
+						<ImageView class="left-5 favourite" visible="{favourite}" />
 						<View class="content-view">
 							<View class="left width-60 auto-height vgroup">
 								<Label text="{addressline1}" class="title width-95 gray" />

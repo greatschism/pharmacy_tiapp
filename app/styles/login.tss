@@ -8,12 +8,6 @@
 "#headerLbl":{
 	html: Alloy.Globals.Strings.loginToPharmacy
 },
-".txt":{
-	height: 50,
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0
-},
 "#unameTxt":{
 	hintText: Alloy.Globals.Strings.username,
 	nextItem: "passwordTxt",
@@ -26,12 +20,10 @@
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#keepMeLbl":{
-	left: 10,
 	right: 75,
 	text: Alloy.Globals.Strings.keepMeLoggedIn
 },
 "#keepMeSwt":{
-	right: 10,
 	enabledColor: "#F79538",
 	value: false
 },

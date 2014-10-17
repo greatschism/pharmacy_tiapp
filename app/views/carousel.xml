@@ -7,7 +7,7 @@
 			<View class="bg-orange" />
 		</ScrollableView>
 		<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="top-20" onChange="didChangePage" />
-		<Widget id="buttonbar" class="h2 font-regular bg-orange white" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
+		<Widget id="buttonbar" class="top-20 border-transparent h2 font-regular bg-orange white" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
 		<View class="top-20 button-view auto-width hgroup">
 			<Label id="refillLbl" class="button-title h3 orange" />
 			<ImageView id="refillImg" class="button-img" />

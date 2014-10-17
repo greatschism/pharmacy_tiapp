@@ -3,16 +3,12 @@
 	image: "/images/login/pharmacy.png"
 },
 "#hintLbl":{
-	text: Alloy.Globals.Strings.signupHint
+	text: Alloy.Globals.Strings.fullSignupHint
 },
 ".vseparator":{
 	zIndex: 1
 },
 ".txt":{
-	height: 50,
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
@@ -26,9 +22,7 @@
 "#dob":{
 	hintText: Alloy.Globals.Strings.dob,
 	type: Ti.UI.PICKER_TYPE_DATE,
-	rightImage: "/images/down_angle_gray.png",
-	borderColor: "transparent",
-	borderRadius: 0
+	rightImage: "/images/down_angle_gray.png"
 },
 "#inputView":{
 	zIndex: 1
@@ -54,7 +48,6 @@
 	passwordMask: true
 },
 "#toggleSwt":{
-	right: 10,
 	enabledColor: "#F79538",
 	value: true
 },
@@ -68,8 +61,6 @@
 	text: Alloy.Globals.Strings.pharmacyLocation
 },
 "#downImg":{
-	right: 10,
-	width: 20,
 	image: "/images/down_angle_gray.png"
 },
 "#agreementLbl":{

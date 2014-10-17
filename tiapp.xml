@@ -119,7 +119,6 @@
         <module platform="commonjs">ti.cloud</module>
         <module platform="android">ti.map</module>
         <module platform="iphone">ti.map</module>
-        <module platform="iphone">ti.styledlabel</module>
         <module platform="android">com.soasta.touchtest</module>
         <module platform="iphone">com.soasta.touchtest</module>
         <module platform="iphone">ti.keyboard</module>

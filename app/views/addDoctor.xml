@@ -1,44 +1,7 @@
 <Alloy>
-	<View>
-		<ScrollView id="scrollView" class="vgroup bg-white">
-			<Label id="hintLbl" class="fill-width height-50d multi-line font-light h5 black bg-light-green text-center" />
-			<View class="width-100 auto-height vgroup bg-white border-gray">
-				<View class="height-50d">
-					<Widget id="fnameTxt" src="com.mscripts.textfield" hintText="Firstname*" class="left width-50 black txt h3 font-regular" onReturn="moveToNext" />
-					<Widget id="lnameTxt" src="com.mscripts.textfield" hintText="Lastname*" class="right width-50 black txt h3 font-regular" onReturn="moveToNext" />
-					<View class="vseparator" />
-				</View>
-				<View class="hseparator" />
-				<Widget id="dphone" src="com.mscripts.textfield" hintText="Phone" class="fill-width height-50d txt h3 font-regular" />
-				<View class="hseparator" />
-				<Widget id="dfax" src="com.mscripts.textfield" hintText="Fax" class="fill-width height-50d txt h3 font-regular" />
-			</View>
-			<View class="auto-height">
-				<View id="inputView" class="top-20 width-100 auto-height vgroup bg-white border-gray">
-					<Widget id="hospitalName" src="com.mscripts.textfield" hintText="Office or Hospital name" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
-					<View class="hseparator" />
-					<Widget id="streetName" src="com.mscripts.textfield" hintText="Street name" class="fill-width black txt h3 font-regular" onReturn="moveToNext" />
-					<View class="hseparator" />
-					<View class="height-50d">
-						<Widget id="cityTxt" src="com.mscripts.textfield" hintText="City" class="left width-50 black txt h3 font-regular" onReturn="moveToNext" />
-						<Widget id="stateTxt" src="com.mscripts.textfield" hintText="State" class="right width-50 black txt h3 font-regular" onReturn="moveToNext" />
-						<View class="vseparator" />
-					</View>
-					<View class="hseparator" />
-					<Widget id="zipTxt" src="com.mscripts.textfield" hintText="Zip code" class="left fill-width black txt h3 font-regular" onReturn="moveToNext" />
-					<View class="hseparator" />
-					<View class="height-50d">
-						<Widget id="notesTxt" src="com.mscripts.textfield" hintText="Notes"class="fill-width black txt h3 font-regular"  onReturn="moveToNext" />
-					</View>
-				</View>
-			</View>
-			<View id="signupView" class="top-20 button-view width-90 bg-orange">
-				<View class="auto-width auto-height hgroup touch-disabled">
-					<Button id="saveBtn" class="button-title center white h2 orange" />
-					<ImageView id="singupImg"  class="button-img" />
-				</View>
-			</View>
-			<View class="vspacer" />
-		</ScrollView>
-	</View>
+	<ScrollView class="vgroup">
+		<View class="auto-height bg-aeroblue">
+			<Widget id="hintLbl" src="com.mscripts.styledlabel" class="width-90 auto-height bg-transparent h4 font-light black text-center" />
+		</View>
+	</ScrollView>
 </Alloy>

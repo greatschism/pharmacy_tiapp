@@ -6,10 +6,6 @@
 	text: Alloy.Globals.Strings.signupHint
 },
 ".txt":{
-	height: 50,
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#inputView":{
@@ -41,7 +37,6 @@
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#toggleSwt":{
-	right: 10,
 	enabledColor: "#F79538",
 	value: true
 },

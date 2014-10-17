@@ -9,11 +9,6 @@
 		fontSize: 17
 	}
 },
-".child":{
-	right: 5,
-	width: 15,
-	image: "/images/right_angle_gray.png"
-},
 "#doneBtn":{
 	top: 20,
 	bottom: 20,

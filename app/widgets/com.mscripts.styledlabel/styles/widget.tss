@@ -1,8 +1,13 @@
 "#widget":{
 	height: Ti.UI.SIZE,
-	backgroundColor: "#fff"
+	font:{
+		fontSize: 18
+	},
+	color: "#000",
+	textAlign: "center",
+	backgroundColor: "transparent"
 },
-"#widget[platform=android]":{
+"#widget[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
 }

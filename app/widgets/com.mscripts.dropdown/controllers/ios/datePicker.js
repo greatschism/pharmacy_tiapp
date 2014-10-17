@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    PICKER_HEIGHT = 340,
+    PICKER_HEIGHT = 290,
     _height = Ti.Platform.displayCaps.platformHeight,
     _parent;
 

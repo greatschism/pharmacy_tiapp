@@ -2,7 +2,6 @@
 	text: Alloy.Globals.Strings.loginRecoveryHint
 },
 "#emailTxt":{
-	height: 50,
 	hintText: Alloy.Globals.Strings.emailAddress,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
@@ -12,6 +11,5 @@
 },
 "#cantRememberLbl":{
 	html: Alloy.Globals.Strings.cantRememberEmail,
-	bottom: 40,
-	height: 50
+	bottom: 40
 }

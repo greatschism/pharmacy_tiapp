@@ -1,6 +1,6 @@
 "#picker": {
 	width: Ti.UI.FILL,
-	height: 340,
+	height: 290,
 	zIndex: 10
 },
 "#toolbar":{
@@ -29,7 +29,7 @@
 },
 "#listView":{
 	top: 40,
-	height: 300
+	height: 250
 },
 "#listView[platform=ios]":{
 	separatorInsets: {

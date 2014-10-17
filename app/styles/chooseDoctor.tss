@@ -4,21 +4,12 @@
 "#appointmentLbl":{
 	text: Alloy.Globals.Strings.whichDoctorYouHaveAppointment
 },
-".child":{
-	right: 5,
-	width: 15,
-	image: "/images/right_angle_gray.png"
-},
-".container-view":{
+".right-25":{
 	right: 25
 },
 ".profile-img":{
-	left: 10,
 	width: 40
 },
 ".doctor":{
 	left: 60
-},
-".right-25[platform=mobileweb]":{
-	right: 25
 }

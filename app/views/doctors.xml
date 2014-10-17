@@ -8,15 +8,15 @@
 		<ListView id="listView" platform="ios,android">
 			<Templates>
 				<ItemTemplate name="appointment" class="auto-height top-10">
-					<View class="container-view auto-height bottom-10">
-						<ImageView bindId="profile" class="profile-img" />
+					<View class="right-25 auto-height bottom-10">
+						<ImageView bindId="profile" class="profile-img left-10" />
 						<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
 					</View>
 					<ImageView class="child" />
 				</ItemTemplate>
 				<ItemTemplate name="doctor" class="auto-height top-10">
-					<View class="container-view auto-height bottom-10">
-						<ImageView bindId="profile" class="profile-img" onSingletap="didClickProfileImg" />
+					<View class="right-25 auto-height bottom-10">
+						<ImageView bindId="profile" class="profile-img left-10" onSingletap="didClickProfileImg" />
 						<View class="content-view auto-height vgroup">
 							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line" />
 							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line" />
@@ -36,8 +36,8 @@
 				<FooterView>
 					<View class="row-h40 bg-aeroblue">
 						<View class="auto hgroup touch-disabled">
-							<ImageView id="addImg" class="button-img left touch-disabled" />
-							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+							<ImageView id="addImg" class="width-20d left touch-disabled" />
+							<Label id="addLbl" class="button-title h4 gulfstream" />
 						</View>
 					</View>
 				</FooterView>
@@ -60,9 +60,9 @@
 				</HeaderView>
 				<TableViewRow class="auto-height top-10">
 					<View class="top auto-height bottom-10">
-						<View class="top container-view auto-height">
+						<View class="top right-25 auto-height">
 							<View class="top auto-height">
-								<ImageView image="{image}" class="profile-img" />
+								<ImageView image="{image}" class="profile-img left-10" />
 							</View>
 							<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
 						</View>
@@ -72,7 +72,7 @@
 				<FooterView>
 					<View class="row-h40 bg-aeroblue">
 						<View class="auto hgroup touch-disabled">
-							<ImageView id="addImg" class="button-img left touch-disabled" />
+							<ImageView id="addImg" class="width-20d left touch-disabled" />
 							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
 						</View>
 					</View>
@@ -86,9 +86,9 @@
 				</HeaderView>
 				<TableViewRow class="auto-height top-10">
 					<View class="top auto-height bottom-10">
-						<View class="top container-view auto-height">
+						<View class="top right-25 auto-height">
 							<View class="top auto-height">
-								<ImageView image="{image}" itemId="{id}" class="profile-img" onSingletap="didClickProfileImg" />
+								<ImageView image="{image}" itemId="{id}" class="profile-img left-10" onSingletap="didClickProfileImg" />
 							</View>
 							<View class="content-view auto-height vgroup">
 								<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
@@ -100,6 +100,6 @@
 				</TableViewRow>
 			</TableView>
 		</ScrollView>
-		<Button id="addDoctorBtn" class="width-90 bg-orange white h2 font-regular" onClick="didClickAddDoctor" />
+		<Button id="addDoctorBtn" class="bottom-20 width-90 bg-orange white h2 font-regular" onClick="didClickAddDoctor" />
 	</View>
 </Alloy> 

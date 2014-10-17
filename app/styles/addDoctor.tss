@@ -2,9 +2,5 @@
 	html: Alloy.Globals.Strings.addDoctorHint
 },
 ".txt":{
-	height: 50,
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 }

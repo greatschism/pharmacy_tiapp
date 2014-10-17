@@ -5,19 +5,13 @@
 	text: Alloy.Globals.Strings.whoYouAre
 },
 "#fnameTxt":{
-	height: 50,
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0,
 	hintText: Alloy.Globals.Strings.fname,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#dob":{
 	hintText: Alloy.Globals.Strings.dob,
 	type: Ti.UI.PICKER_TYPE_DATE,
-	rightImage: "/images/down_angle_gray.png",
-	borderColor: "transparent",
-	borderRadius: 0
+	rightImage: "/images/down_angle_gray.png"
 },
 "#nextLbl":{
 	text: Alloy.Globals.Strings.next

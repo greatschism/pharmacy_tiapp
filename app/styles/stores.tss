@@ -10,7 +10,6 @@
 "#searchbar":{
 	search: true,
 	clearButton: true,
-	top: 5,
 	hintText: Alloy.Globals.Strings.storeSearchHint,
 	font: {
 		fontFmaily: Alloy.CFG.fonts.light,
@@ -18,22 +17,13 @@
 	},
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-"#listView":{
-	top: 5
-},
 ".row":{
 	height: 60
-},
-".child":{
-	right: 5,
-	width: 15,
-	image: "/images/right_angle_gray.png"
 },
 ".container-view":{
 	right: 25
 },
 ".favourite":{
-	left: 5,
 	width: 15,
 	image: "/images/store/favourite.png"
 },
