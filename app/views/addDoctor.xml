@@ -3,5 +3,36 @@
 		<View class="auto-height bg-aeroblue">
 			<Widget id="hintLbl" src="com.mscripts.styledlabel" class="width-90 auto-height bg-transparent h4 font-light black text-center" />
 		</View>
+		<View class="auto-height vgroup">
+			<View class="hseparator" />
+			<View class="height-50d">
+				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+				<View class="vseparator" />
+			</View>
+			<View class="hseparator" />
+			<Widget id="phoneTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<Widget id="faxTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<View class="top-20 hseparator" />
+			<Widget id="hospitalTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<Widget id="streetTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<View class="height-50d">
+				<Widget id="cityTxt" src="com.mscripts.textfield" class="left width-50 black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+				<Widget id="stateTxt" src="com.mscripts.textfield" class="right width-50 black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+				<View class="vseparator" />
+			</View>
+			<View class="hseparator" />
+			<Widget id="zipTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<View class="top-20 hseparator" />
+			<Widget id="notesTxta" src="com.mscripts.textarea" class="fill-width black no-border h3 font-regular" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<Button id="saveBtn" class="top-20 width-90 bg-orange white h2 font-regular" onClick="didClickSave" />
+			<View class="vspacer" />
+		</View>
 	</ScrollView>
 </Alloy>

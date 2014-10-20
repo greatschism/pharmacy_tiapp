@@ -30,6 +30,8 @@
 		"hintUsername": "Username",
 		"hintPassword": "Password",
 		"hintEmailAddress": "Email address",
+		"hintFnameRequired": "First name*",
+		"hintLnameRequired": "Last name*",
 		"hintFname": "First name",
 		"hintLname": "Last name",
 		"hintDOB": "Date of birth",
@@ -37,6 +39,14 @@
 		"hintRxNo": "Rx number",
 		"hintPharmacyLocation": "Pharmacy location",
 		"hintYourCode": "Your code",
+		"hintPhone": "Phone",
+		"hintFax": "Fax",
+		"hintOfficeOrHospitalName": "Office or hospital name",
+		"hintStreetName": "Street name",
+		"hintCity": "City",
+		"hintState": "State",
+		"hintZipCode": "Zip code",
+		"hintNotes": "Notes",
 
 		"lblRefillWithoutLogin": "Refill without logging in",
 		"lblLoginToMobilePharmacy": "Sign in to the <b>mscripts mobile pharmacy</b>",
@@ -71,12 +81,13 @@
 		"btnNext": "Next",
 		"btnCreateAccount": "Create account",
 		"btnAddAnotherDoctor": "Add another doctor",
+		"btnSave": "Save",
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
-		"optionCancel": "Cancel"
-		
+		"optionCancel": "Cancel",
+
 		"strLogin": "Log in",
-		"strSignup": "Sign up",
+		"strSignup": "Sign up"
 	}
 }

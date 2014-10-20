@@ -1,0 +1,45 @@
+"#widget": {
+	width: "95%",
+	height: 100,
+	borderColor: "#8b8b8b",
+	borderWidth: 1,
+	borderRadius: 5
+},
+"#container[platform=mobileweb]":{
+	right: 10
+},
+"#txta":{
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+	autocorrect: false,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	zIndex: 0
+},
+"#txta[platform=ios,mobileweb]":{
+	suppressReturn: false
+},
+"#txta[platform=mobileweb]":{
+	left: 10
+},
+"#hintLbl[platform=ios, mobileweb]":{
+	wordWrap: false,
+	zIndex: 1
+},
+"#hintLbl[platform=ios]":{
+	top: 8,
+	left: 5,
+	right: 5,
+	color: "#A39D9A"
+},
+"#hintLbl[platform=mobileweb]":{
+	top: 0,
+	left: 10,
+	right: 10,
+	ellipsize: true,
+	color: "#000"
+}
