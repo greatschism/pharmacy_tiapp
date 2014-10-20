@@ -67,7 +67,7 @@
 	html: Alloy.Globals.Strings.lblSignupAgreement
 },
 "#singupLbl":{
-	text: Alloy.Globals.Strings.btnSignup
+	text: Alloy.Globals.Strings.strSignup
 },
 "#singupImg":{
 	width: 20,

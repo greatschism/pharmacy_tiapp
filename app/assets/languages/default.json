@@ -12,9 +12,7 @@
 		"titleDoctors": "Doctors",
 		"titleStores": "Stores",
 		"titleAccount": "Account",
-		"titleLogin": "Log in",
 		"titleLoginRecovery": "Login recovery",
-		"titleSignup": "Sign up",
 		"titleTermsAndConditions": "Terms and Conditions",
 		"titleMobileNumber": "Mobile number",
 		"titleChooseDoctor": "Choose a doctor",
@@ -68,8 +66,6 @@
 		"msgPasswordTips": "Password needs to have at least 2 numbers and be at least 6 characters long.",
 
 		"btnSend": "Send",
-		"btnLogin": "Log in",
-		"btnSignup": "Sign up",
 		"btnDone": "Done",
 		"btnContinue": "Continue",
 		"btnNext": "Next",
@@ -79,5 +75,8 @@
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
 		"optionCancel": "Cancel"
+		
+		"strLogin": "Log in",
+		"strSignup": "Sign up",
 	}
 }

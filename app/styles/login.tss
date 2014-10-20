@@ -28,7 +28,7 @@
 	value: false
 },
 "#loginBtn":{
-	title: Alloy.Globals.Strings.btnLogin
+	title: Alloy.Globals.Strings.strLogin
 },
 "#footerLbl":{
 	bottom: 40,

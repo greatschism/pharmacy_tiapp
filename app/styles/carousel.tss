@@ -19,10 +19,10 @@
 	},
 	items: [
 		{
-			"title": Alloy.Globals.Strings.titleLogin,
+			"title": Alloy.Globals.Strings.strLogin,
 			"action": "login"
 		},{
-			"title": Alloy.Globals.Strings.titleSignup,
+			"title": Alloy.Globals.Strings.strSignup,
 			"action": "signup"
 		}
 	]
