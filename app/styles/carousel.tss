@@ -19,16 +19,16 @@
 	},
 	items: [
 		{
-			"title": Alloy.Globals.Strings.login,
+			"title": Alloy.Globals.Strings.titleLogin,
 			"action": "login"
 		},{
-			"title": Alloy.Globals.Strings.signup,
+			"title": Alloy.Globals.Strings.titleSignup,
 			"action": "signup"
 		}
 	]
 },
 "#refillLbl":{
-	text: Alloy.Globals.Strings.refillWithoutLogin
+	text: Alloy.Globals.Strings.lblRefillWithoutLogin
 },
 "#refillImg":{
 	width: 20,

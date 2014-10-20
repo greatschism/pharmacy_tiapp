@@ -29,7 +29,7 @@ function didClickButtonBar(e) {
 		//sign up
 		App.Navigator.open({
 			ctrl : "termsAndConditions",
-			titleid : "termsAndConditions",
+			titleid : "titleTermsAndConditions",
 			stack : true
 		});
 	}

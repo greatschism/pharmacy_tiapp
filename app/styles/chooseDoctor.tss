@@ -2,7 +2,7 @@
 	height: 40
 },
 "#appointmentLbl":{
-	text: Alloy.Globals.Strings.whichDoctorYouHaveAppointment
+	text: Alloy.Globals.Strings.lblWhichDoctorYouHaveAppointment
 },
 ".right-25":{
 	right: 25

@@ -25,7 +25,7 @@ function init() {
 			Ti.Geolocation.purpose = "Help you to locate the nearest pharmacies.";
 		}
 		App.Navigator.showLoader({
-			message : Alloy.Globals.Strings.pleaseWait
+			message : Alloy.Globals.Strings.msgPleaseWait
 		});
 		Ti.Geolocation.getCurrentPosition(locationCallback);
 	}
@@ -55,7 +55,7 @@ function locationCallback(e) {
 		});
 	} else {
 		_dialog.show({
-			message : Alloy.Globals.Strings.unableToFindGEO
+			message : Alloy.Globals.Strings.msgUnableToFindYourGEO
 		});
 		didFinish();
 	}
@@ -85,7 +85,7 @@ function didSuccess(doc) {
 
 function didError(http, url) {
 	_dialog.show({
-		message : Alloy.Globals.Strings.failedToRetrive
+		message : Alloy.Globals.Strings.msgFailedToRetrive
 	});
 }
 

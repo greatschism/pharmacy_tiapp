@@ -3,7 +3,7 @@
 	image: "/images/checked.png"
 },
 "#hintLbl":{
-	text: Alloy.Globals.Strings.signupHint
+	text: Alloy.Globals.Strings.lblGreatYourPhoneNumberIsConfirmed
 },
 ".txt":{
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
@@ -12,7 +12,7 @@
 	zIndex: 1
 },
 "#passwordTooltip":{
-	text: Alloy.Globals.Strings.passwordTip,
+	text: Alloy.Globals.Strings.msgPasswordTips,
 	zIndex: 2
 },
 "#passwordTooltip[platform=ios,android]":{
@@ -22,17 +22,17 @@
 	top: 105
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.Strings.username,
+	hintText: Alloy.Globals.Strings.hintUsername,
 	nextItem: "emailTxt"
 },
 "#emailTxt":{
-	hintText: Alloy.Globals.Strings.email,
+	hintText: Alloy.Globals.Strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
 	right: 75,
-	hintText: Alloy.Globals.Strings.password,
+	hintText: Alloy.Globals.Strings.hintPassword,
 	passwordMask: true,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
@@ -41,8 +41,8 @@
 	value: true
 },
 "#agreementLbl":{
-	html: Alloy.Globals.Strings.signupAgreement
+	html: Alloy.Globals.Strings.lblSignupAgreement
 },
 "#createBtn":{
-	title: Alloy.Globals.Strings.createAccount
+	title: Alloy.Globals.Strings.btnCreateAccount
 }

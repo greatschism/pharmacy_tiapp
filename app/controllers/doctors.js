@@ -130,7 +130,7 @@ function openGallery() {
 function didClickAddDoctor(e) {
 	App.Navigator.open({
 		stack : true,
-		title : Alloy.Globals.Strings.addDoctor,
+		title : Alloy.Globals.Strings.titleAddDoctor,
 		ctrl : "addDoctor"
 	});
 }

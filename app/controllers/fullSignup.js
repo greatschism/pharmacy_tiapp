@@ -37,7 +37,7 @@ function handleScroll(e) {
 
 function chooseLocation(e) {
 	App.Navigator.open({
-		titleid : "stores",
+		titleid : "titleStores",
 		ctrl : "stores",
 		ctrlArguments : {
 			orgin : "fullSignup"

@@ -3,21 +3,21 @@
 	image: "/images/login/pharmacy.png"
 },
 "#titleLbl":{
-	text: Alloy.Globals.Strings.textToAppTitle
+	text: Alloy.Globals.Strings.lblGreatYouHaveReceiveTextFromUsBefore
 },
 "#hintLbl":{
-	text: Alloy.Globals.Strings.textToAppHint
+	text: Alloy.Globals.Strings.lblJustSentYouTextMessage
 },
 "#codeTxt":{
 	width: 120,
 	maxLength: 3,
-	hintText: Alloy.Globals.Strings.yourCode,
+	hintText: Alloy.Globals.Strings.hintYourCode,
 	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#continueBtn":{
-	title: Alloy.Globals.Strings.continue
+	title: Alloy.Globals.Strings.btnContinue
 },
 "#resendLbl":{
-	html: Alloy.Globals.Strings.didNotGetText
+	html: Alloy.Globals.Strings.lblDidNotGetText
 }

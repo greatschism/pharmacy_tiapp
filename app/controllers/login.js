@@ -19,7 +19,7 @@ if (OS_IOS || OS_ANDROID) {
 function didRightclickPwd(e) {
 	App.Navigator.open({
 		ctrl : "loginRecovery",
-		titleid : "loginRecovery",
+		titleid : "titleLoginRecovery",
 		stack : true
 	});
 }
@@ -37,7 +37,7 @@ function didClickLogin(e) {
 	if (uname != "" && password != "") {
 
 		App.Navigator.showLoader({
-			message : Alloy.Globals.Strings.pleaseWait
+			message : Alloy.Globals.Strings.msgPleaseWait
 
 		});
 
@@ -69,7 +69,7 @@ function didClickLogin(e) {
 
 	} else {
 		_dialog.show({
-			message : Alloy.Globals.Strings.loginRequiredFileds
+			message : Alloy.Globals.Strings.valLoginRequiredFileds
 		});
 	}
 }
@@ -94,7 +94,7 @@ function didSuccess(doc) {
 
 function didError(http, url) {
 	_dialog.show({
-		message : Alloy.Globals.Strings.failedToRetrive
+		message : Alloy.Globals.Strings.msgFailedToRetrive
 	});
 }
 

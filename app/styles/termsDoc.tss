@@ -3,5 +3,5 @@
 	bottom: 90
 },
 "#doneBtn":{
-	title: Alloy.Globals.Strings.done
+	title: Alloy.Globals.Strings.btnDone
 }

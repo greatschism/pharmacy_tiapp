@@ -10,13 +10,13 @@
 	image: "/images/store/pharmacy.png"
 },
 "#optionsLbl":{
-	text: Alloy.Globals.Strings.storeOptions
+	text: Alloy.Globals.Strings.sectionStoreOptions
 },
 "#hoursLbl":{
-	text: Alloy.Globals.Strings.storeHours
+	text: Alloy.Globals.Strings.sectionStoreHours
 },
 "#servicesLbl":{
-	text: Alloy.Globals.Strings.storeServices
+	text: Alloy.Globals.Strings.sectionStoreServices
 },
 ".text-view":{
 	left: 75

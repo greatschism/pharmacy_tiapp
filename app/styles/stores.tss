@@ -10,7 +10,7 @@
 "#searchbar":{
 	search: true,
 	clearButton: true,
-	hintText: Alloy.Globals.Strings.storeSearchHint,
+	hintText: Alloy.Globals.Strings.hintSearchByZipCityOrState,
 	font: {
 		fontFmaily: Alloy.CFG.fonts.light,
 		fontSize: 15

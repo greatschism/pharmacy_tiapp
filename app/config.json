@@ -6,31 +6,31 @@
 		"languages": [
 			{
 				"code": "en",
-				"titleid": "english",
+				"titleid": "lngEnglish",
 				"url": "url_to_download"
 			}, {
 				"code": "es",
-				"titleid": "spanish",
+				"titleid": "lngSpanish",
 				"url": "url_to_download"
 			}
 		],
 		"navigator": "hamburger",
 		"menuItems": [
 			{
-				"titleid": "home",
+				"titleid": "titleHome",
 				"ctrl": "home",
 				"landingPage": true
 			}, {
-				"titleid": "prescriptions",
+				"titleid": "titlePrescriptions",
 				"ctrl": "prescriptions"
 			}, {
-				"titleid": "doctors",
+				"titleid": "titleDoctors",
 				"ctrl": "doctors"
 			}, {
-				"titleid": "stores",
+				"titleid": "titleStores",
 				"ctrl": "stores"
 			}, {
-				"titleid": "account",
+				"titleid": "titleAccount",
 				"ctrl": "account"
 			}
 		],

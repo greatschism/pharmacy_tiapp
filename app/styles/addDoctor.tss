@@ -1,5 +1,5 @@
 "#hintLbl": {
-	html: Alloy.Globals.Strings.addDoctorHint
+	html: Alloy.Globals.Strings.lblEnterYourDoctorsInformation
 },
 ".txt":{
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
