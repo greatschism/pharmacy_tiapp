@@ -73,9 +73,9 @@
 	<ScrollView class="vgroup" platform="mobileweb">
 		<View class="auto-height vgroup">
 			<View class="auto-height top-20">
-				<ImageView class="logo" />
-				<View class="auto-height text-view">
-					<View class="auto-height vgroup address-view">
+				<ImageView class="left-15 logo" />
+				<View class="top auto-height text-view">
+					<View class="top auto-height vgroup address-view">
 						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
 						<Label id="subtitleLbl" class="top-5 h4 left gray" text="{store.subtitle}" />
 						<View class="top-10 location-view">
@@ -89,7 +89,7 @@
 							</View>
 						</View>
 					</View>
-					<ImageView id="favouriteImg" class="top-10" />
+					<ImageView id="favouriteImg" class="top-10 top-10 right-15 width-20d" />
 				</View>
 			</View>
 			<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
