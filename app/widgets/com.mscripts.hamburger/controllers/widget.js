@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     LEFT_MENU_WIDTH = 240,
-    MENU_SLIDING_DURATION = 150,
+    MENU_SLIDING_DURATION = 100,
     _menuOpen = false,
     _busy = false;
 
@@ -25,7 +25,7 @@ exports.terminate = function(params) {
 	//Ti.Gesture.removeEventListener("orientationchange", orientationChanged);
 };
 
-exports.toggleLeftMenu = function() {
+exports.toggleLeftMenu = function(callback) {
 	if (!_busy) {
 		_busy = true;
 		var moveTo = 0;
@@ -33,30 +33,44 @@ exports.toggleLeftMenu = function() {
 			moveTo = LEFT_MENU_WIDTH;
 		}
 		_menuOpen = !_menuOpen;
-		$.mainView.animate(Ti.UI.createAnimation({
+		var animation = Ti.UI.createAnimation({
 			left : moveTo,
 			curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
 			duration : MENU_SLIDING_DURATION
-		}), function() {
-			_busy = false;
 		});
+		animation.addEventListener("complete", function onComplete() {
+			animation.removeEventListener("complete", onComplete);
+			_busy = false;
+			if (callback) {
+				callback();
+			}
+		});
+		$.mainView.animate(animation);
 	}
 };
 
-exports.openLeftMenu = function() {
+exports.openLeftMenu = function(callback) {
 	if (!_menuOpen) {
-		$.toggleLeftMenu();
+		$.toggleLeftMenu(callback);
 		return true;
+	} else {
+		if (callback) {
+			callback();
+		}
+		return false;
 	}
-	return false;
 };
 
-exports.closeLeftMenu = function() {
+exports.closeLeftMenu = function(callback) {
 	if (_menuOpen) {
-		$.toggleLeftMenu();
+		$.toggleLeftMenu(callback);
 		return true;
+	} else {
+		if (callback) {
+			callback();
+		}
+		return false;
 	}
-	return false;
 };
 
 exports.setMenuView = function(view) {
