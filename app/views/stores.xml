@@ -20,7 +20,7 @@
 								</View>
 								<View class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
-									<Label bindId="distance" class="distance font-light gray" />
+									<Label bindId="distance" class="left-15 distance font-light gray" />
 								</View>
 							</View>
 						</View>
@@ -35,7 +35,7 @@
 								</View>
 								<View class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
-									<Label bindId="distance" class="distance font-light gray" />
+									<Label bindId="distance" class="left-15 distance font-light gray" />
 								</View>
 							</View>
 						</View>
@@ -57,7 +57,7 @@
 							</View>
 							<View class="bottom-10 right width-35 auto-height">
 								<ImageView class="distance-img left" />
-								<Label text="{distance}" class="distance font-light gray" />
+								<Label text="{distance}" class="left-15 distance font-light gray" />
 							</View>
 						</View>
 					</View>

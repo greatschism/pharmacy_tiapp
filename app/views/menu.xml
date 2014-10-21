@@ -5,7 +5,7 @@
 		</HeaderView>
 		<Templates>
 			<ItemTemplate name="template" class="row">
-				<Label bindId="title" class="title h3 black font-light" />
+				<Label bindId="title" class="left-15 h3 black font-light" />
 			</ItemTemplate>
 		</Templates>
 		<ListSection dataCollection="menuItems" dataTransform="transformFunction" >
@@ -14,7 +14,7 @@
 	</ListView>
 	<TableView platform="mobileweb" dataCollection="menuItems" dataTransform="transformFunction" onClick="didItemClick">
 		<TableViewRow class="row">
-			<Label text="{title}" class="title h4 black" />
+			<Label text="{title}" class="left-15 h4 black" />
 		</TableViewRow>
 	</TableView>
 </Alloy>

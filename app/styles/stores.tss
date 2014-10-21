@@ -44,7 +44,6 @@
 	image: "/images/store/list_item_pin.png"
 },
 ".distance":{
-	left: 15,
 	height: 17,
 	font:{
 		fontSize: 13

@@ -46,11 +46,11 @@ var args = arguments[0] || {},
 	$.favouriteImg.image = "/images/store/".concat(store.favourite ? "favourite" : "unfavourite").concat(".png");
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeOptions.reset([{
-		icon : "/images/store/call.png",
+		icon : "/images/call.png",
 		name : "Call",
 		detail : "(" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber
 	}, {
-		icon : "/images/store/direction.png",
+		icon : "/images/direction.png",
 		name : "Get directions"
 	}]);
 	Alloy.Collections.storeHours.reset(dates);

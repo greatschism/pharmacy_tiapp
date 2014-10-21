@@ -12,6 +12,13 @@ function init() {
 		image : "",
 		fname : "Jane",
 		lname : "Doe",
+		phone : "(415) 193-3291",
+		fax : "(415) 111-3291",
+		hospital : "Smith Hospital",
+		street : "12 Pequod St.",
+		city : "Nantuket",
+		state : "MA",
+		zip : "02554",
 		prescriptions : [{
 			name : "Omeprazole"
 		}, {
@@ -28,6 +35,13 @@ function init() {
 		image : "/images/profile.png",
 		fname : "Herman",
 		lname : "Melville",
+		phone : "(415) 193-3291",
+		fax : "(415) 111-3291",
+		hospital : "Smith Hospital",
+		street : "12 Pequod St.",
+		city : "Nantuket",
+		state : "MA",
+		zip : "02554",
 		prescriptions : [{
 			name : "Omeprazole"
 		}]
@@ -36,6 +50,13 @@ function init() {
 		image : "/images/profile.png",
 		fname : "Hareesh",
 		lname : "Khurana",
+		phone : "(415) 193-3291",
+		fax : "(415) 111-3291",
+		hospital : "Smith Hospital",
+		street : "12 Pequod St.",
+		city : "Nantuket",
+		state : "MA",
+		zip : "02554",
 		prescriptions : []
 	}]);
 }
@@ -133,6 +154,23 @@ function didClickAddDoctor(e) {
 		title : Alloy.Globals.Strings.titleAddDoctor,
 		ctrl : "addDoctor"
 	});
+}
+
+function didClickDoctor(e) {
+	var itemId = Number( OS_MOBILEWEB ? e.source.itemId : e.itemId);
+	if (itemId) {
+		var doctor = Alloy.Collections.doctors.where({
+		id: itemId
+		})[0].toJSON();
+		App.Navigator.open({
+			stack : true,
+			title : "Dr. " + doctor.lname,
+			ctrl : "doctorDetails",
+			ctrlArguments : {
+				itemId : itemId
+			}
+		});
+	}
 }
 
 function terminate() {

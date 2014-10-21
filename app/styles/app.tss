@@ -139,6 +139,18 @@
 ".right-10":{
 	right: 10
 },
+".top-15":{
+	top: 15
+},
+".bottom-15":{
+	bottom: 15
+},
+".left-15":{
+	left: 15
+},
+".right-15":{
+	right: 15
+},
 ".top-20":{
 	top: 20
 },
@@ -421,6 +433,9 @@
 ".gulfstream":{
 	color: "#7EB4B5"
 },
+".malibu":{
+	color: "#56BCFB"
+},
 /*
 * backgroundColor Classes
 */
@@ -444,6 +459,9 @@
 },
 ".bg-orange":{
 	backgroundColor: "#F79538"
+},
+".bg-gallery":{
+	backgroundColor: "#ECECEC"
 },
 /*
 *navbar button
@@ -516,8 +534,8 @@
 	touchEnabled: false
 },
 /**
- * 	child symbol on table / list view
- */
+* 	child symbol on table / list view
+*/
 ".child":{
 	right: 5,
 	width: 15,

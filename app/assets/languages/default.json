@@ -7,7 +7,6 @@
 		"lngSpanish": "Spanish",
 
 		"titleHome": "Home",
-		"titlePrescriptions": "Prescriptions",
 		"titleCareTeam": "Care team",
 		"titleDoctors": "Doctors",
 		"titleStores": "Stores",
@@ -47,6 +46,7 @@
 		"hintState": "State",
 		"hintZipCode": "Zip code",
 		"hintNotes": "Notes",
+		"hintClickToAddNote": "Click to add note",
 
 		"lblRefillWithoutLogin": "Refill without logging in",
 		"lblLoginToMobilePharmacy": "Sign in to the <b>mscripts mobile pharmacy</b>",
@@ -67,6 +67,7 @@
 		"lblSetupAppointmentReminder": "Set up an appointment reminder",
 		"lblEnterYourDoctorsInformation": "Enter your doctor's information. First and last name are required, <b>all other fields optional.</b>",
 		"lblWhichDoctorYouHaveAppointment": "Which doctor do you have an appointment with?",
+		"lblMore": "More",
 
 		"valLoginRequiredFileds": "Username and Password can't be blank",
 
@@ -82,12 +83,14 @@
 		"btnCreateAccount": "Create account",
 		"btnAddAnotherDoctor": "Add another doctor",
 		"btnSave": "Save",
+		"btnHideThisDoctor": "Hide this doctor",
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
 		"optionCancel": "Cancel",
 
 		"strLogin": "Log in",
-		"strSignup": "Sign up"
+		"strSignup": "Sign up",
+		"strPrescriptions": "Prescriptions"
 	}
 }

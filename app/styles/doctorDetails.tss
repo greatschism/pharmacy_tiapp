@@ -1,0 +1,55 @@
+"#listView":{
+	bottom: 90
+},
+".profile-img":{
+	width: 75
+},
+".text-view":{
+	left: 100
+},
+".left-30":{
+	left: 30
+},
+".right-30":{
+	right: 30
+},
+"#notesTxta":{
+	height: 65,
+	hintText: Alloy.Globals.Strings.hintClickToAddNote
+},
+"#prescriptionsLbl":{
+	text: Alloy.Globals.Strings.strPrescriptions
+},
+".row-h20":{
+	height: 20
+},
+".row-h40":{
+	height: 40
+},
+"#moreImg":{
+	image: "/images/plus_black.png"
+},
+"#moreLbl":{
+	left: 0,
+	text: Alloy.Globals.Strings.lblMore
+},
+"#hideDoctorBtn":{
+	title: Alloy.Globals.Strings.btnHideThisDoctor
+},
+"#photoDialog":{
+	role: "overlay",
+	title: Alloy.Globals.Strings.titleChooseOne,
+	options: [
+		{
+			title: Alloy.Globals.Strings.optionFindPictureOnMyPhone
+		},
+		{
+			title: Alloy.Globals.Strings.optionTakePhoto
+		},
+		{
+			title: Alloy.Globals.Strings.optionCancel
+		}
+	],
+	cancel: 2,
+	zIndex: 2
+}

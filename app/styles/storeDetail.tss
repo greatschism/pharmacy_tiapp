@@ -1,11 +1,4 @@
-".left-15":{
-	left: 15
-},
-".right-15":{
-	right: 15
-},
 ".logo":{
-	left: 15,
 	width: 50,
 	image: "/images/store/pharmacy.png"
 },
@@ -23,10 +16,6 @@
 },
 ".address-view":{
 	right: 40
-},
-"#favouriteImg":{
-	right: 15,
-	width: 20
 },
 ".location-view":{
 	height: 20

@@ -3,7 +3,4 @@
 },
 ".row":{
 	height: 48
-},
-".title":{
-	left: 15
 }

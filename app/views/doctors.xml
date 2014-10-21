@@ -17,9 +17,9 @@
 				<ItemTemplate name="doctor" class="auto-height top-10">
 					<View class="right-25 auto-height bottom-10">
 						<ImageView bindId="profile" class="profile-img left-10" onSingletap="didClickProfileImg" />
-						<View class="content-view auto-height vgroup">
-							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line" />
-							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line" />
+						<View class="content-view auto-height vgroup" onClick="didClickDoctor">
+							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
+							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line touch-disabled" />
 						</View>
 					</View>
 					<ImageView class="child" />
@@ -37,7 +37,7 @@
 					<View class="row-h40 bg-aeroblue">
 						<View class="auto hgroup touch-disabled">
 							<ImageView id="addImg" class="width-20d left touch-disabled" />
-							<Label id="addLbl" class="button-title h4 gulfstream" />
+							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
 						</View>
 					</View>
 				</FooterView>
@@ -88,11 +88,11 @@
 					<View class="top auto-height bottom-10">
 						<View class="top right-25 auto-height">
 							<View class="top auto-height">
-								<ImageView image="{image}" itemId="{id}" class="profile-img left-10" onSingletap="didClickProfileImg" />
+								<ImageView image="{image}" class="profile-img left-10" itemId="{id}" onSingletap="didClickProfileImg" />
 							</View>
-							<View class="content-view auto-height vgroup">
-								<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line" />
-								<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line" />
+							<View class="content-view auto-height vgroup" itemId="{id}" onClick="didClickDoctor">
+								<Label text="{name}" class="right-25 left auto-height font-16 font-regular black multi-line touch-disabled" />
+								<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line touch-disabled" />
 							</View>
 						</View>
 						<ImageView class="child" />

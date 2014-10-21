@@ -19,7 +19,7 @@
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<View class="auto-height top-20">
-					<ImageView class="logo" />
+					<ImageView class="left-15 logo" />
 					<View class="auto-height text-view">
 						<View class="auto-height vgroup address-view">
 							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
@@ -35,7 +35,7 @@
 								</View>
 							</View>
 						</View>
-						<ImageView id="favouriteImg" class="top-10 width-20d" />
+						<ImageView id="favouriteImg" class="top-10 right-15 width-20d" />
 					</View>
 				</View>
 				<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">

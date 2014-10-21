@@ -2,7 +2,7 @@
 	<ListView defaultItemTemplate="template" onItemclick="didItemClick" platform="ios,android">
 		<Templates>
 			<ItemTemplate name="template" class="row">
-				<Label bindId="title" class="title black font-light" />
+				<Label bindId="title" class="left-15 title black font-light" />
 				<ImageView class="child" />
 			</ItemTemplate>
 		</Templates>
@@ -17,7 +17,7 @@
 	</ListView>
 	<TableView dataCollection="termsAndConditions" onClick="didItemClick" platform="mobileweb">
 		<TableViewRow class="row" itemUrl="{url}">
-			<Label text="{name}" class="title black font-light" />
+			<Label text="{name}" class="left-15 title black font-light" />
 			<ImageView class="child" />
 		</TableViewRow>
 		<FooterView>
