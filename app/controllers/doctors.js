@@ -173,6 +173,14 @@ function didClickDoctor(e) {
 	}
 }
 
+function didClickSetAppointment(e) {
+	App.Navigator.open({
+		stack : true,
+		title : Alloy.Globals.Strings.titleChooseDoctor,
+		ctrl : "chooseDoctor"
+	});
+}
+
 function terminate() {
 	$.destroy();
 }

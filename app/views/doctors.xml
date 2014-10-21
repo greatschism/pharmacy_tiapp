@@ -34,7 +34,7 @@
 				<ListItem template="appointment" profile:image="{image}" title:attributedString="{title}" platform="ios" />
 				<ListItem template="appointment" profile:image="{image}" title:html="{title}" platform="android" />
 				<FooterView>
-					<View class="row-h40 bg-aeroblue">
+					<View class="row-h40 bg-aeroblue" onClick="didClickSetAppointment">
 						<View class="auto hgroup touch-disabled">
 							<ImageView id="addImg" class="width-20d left touch-disabled" />
 							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
@@ -71,9 +71,11 @@
 				</TableViewRow>
 				<FooterView>
 					<View class="row-h40 bg-aeroblue">
-						<View class="auto hgroup touch-disabled">
-							<ImageView id="addImg" class="width-20d left touch-disabled" />
-							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+						<View onClick="didClickSetAppointment">
+							<View class="auto hgroup touch-disabled">
+								<ImageView id="addImg" class="width-20d left touch-disabled" />
+								<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+							</View>
 						</View>
 					</View>
 				</FooterView>
