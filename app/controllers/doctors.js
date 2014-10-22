@@ -120,32 +120,33 @@ function didToggle(e) {
 }
 
 function didClickMenu(e) {
-
-}
-
-function didClickOption(e) {
 	console.log(e);
 }
 
-function didClickProfileImg(e) {
-	var itemId = Number( OS_MOBILEWEB ? e.source.itemId : e.itemId);
-	if (itemId) {
-		var doctor = Alloy.Collections.doctors.where({
-		id: itemId
-		})[0].toJSON();
-		if (!doctor.image) {
-			$.photoDialog.itemId = itemId;
-			$.photoDialog.show();
+function didItemClick(e) {
+	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
+	var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
+	var doctors = Alloy.Collections.doctors.where({
+		id : itemId
+	});
+	if (doctors.length) {
+		var doctor = doctors[0].toJSON();
+		if (bindId == "profile") {
+			if (!doctor.image) {
+				$.photoDialog.itemId = itemId;
+				$.photoDialog.show();
+			}
+		} else {
+			App.Navigator.open({
+				stack : true,
+				title : "Dr. " + doctor.lname,
+				ctrl : "doctorDetails",
+				ctrlArguments : {
+					itemId : itemId
+				}
+			});
 		}
 	}
-}
-
-function openCamera() {
-
-}
-
-function openGallery() {
-
 }
 
 function didClickAddDoctor(e) {
@@ -156,21 +157,16 @@ function didClickAddDoctor(e) {
 	});
 }
 
-function didClickDoctor(e) {
-	var itemId = Number( OS_MOBILEWEB ? e.source.itemId : e.itemId);
-	if (itemId) {
-		var doctor = Alloy.Collections.doctors.where({
-		id: itemId
-		})[0].toJSON();
-		App.Navigator.open({
-			stack : true,
-			title : "Dr. " + doctor.lname,
-			ctrl : "doctorDetails",
-			ctrlArguments : {
-				itemId : itemId
-			}
-		});
-	}
+function didClickOption(e) {
+	console.log(e);
+}
+
+function openCamera() {
+
+}
+
+function openGallery() {
+
 }
 
 function didClickSetAppointment(e) {
