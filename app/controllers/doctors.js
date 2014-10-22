@@ -125,26 +125,40 @@ function didClickMenu(e) {
 
 function didItemClick(e) {
 	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
-	var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
-	var doctors = Alloy.Collections.doctors.where({
-		id : itemId
-	});
-	if (doctors.length) {
-		var doctor = doctors[0].toJSON();
-		if (bindId == "profile") {
-			if (!doctor.image) {
-				$.photoDialog.itemId = itemId;
-				$.photoDialog.show();
+	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
+	if (section == $.appointmentSection) {
+		App.Navigator.open({
+			stack : true,
+			titleid : "titleEditReminder",
+			ctrl : "chooseTime",
+			ctrlArguments : {
+				itemId : itemId,
+				edit : true
 			}
-		} else {
-			App.Navigator.open({
-				stack : true,
-				title : "Dr. " + doctor.lname,
-				ctrl : "doctorDetails",
-				ctrlArguments : {
-					itemId : itemId
+		});
+	} else {
+		//doctorSection
+		var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
+		var doctors = Alloy.Collections.doctors.where({
+			id : itemId
+		});
+		if (doctors.length) {
+			var doctor = doctors[0].toJSON();
+			if (bindId == "profile") {
+				if (!doctor.image) {
+					$.photoDialog.itemId = itemId;
+					$.photoDialog.show();
 				}
-			});
+			} else {
+				App.Navigator.open({
+					stack : true,
+					title : "Dr. " + doctor.lname,
+					ctrl : "doctorDetails",
+					ctrlArguments : {
+						itemId : itemId
+					}
+				});
+			}
 		}
 	}
 }

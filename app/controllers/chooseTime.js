@@ -1,5 +1,11 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment");
+    
+(function(){
+	if(args.edit){
+		$.deleteBtn.show();
+	}	
+})();
 
 function init() {
 	Alloy.Collections.chooseTime.reset([{

@@ -25,7 +25,7 @@
 					<ImageView class="child" />
 				</ItemTemplate>
 			</Templates>
-			<ListSection dataCollection="upcomingAppointments" dataTransform="transformAppointment">
+			<ListSection id="appointmentSection" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
@@ -42,7 +42,7 @@
 					</View>
 				</FooterView>
 			</ListSection>
-			<ListSection dataCollection="doctors" dataTransform="transformDoctor">
+			<ListSection id="doctorSection" dataCollection="doctors" dataTransform="transformDoctor">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
@@ -52,13 +52,13 @@
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
-			<TableView class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
+			<TableView  id="appointmentSection" class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformAppointment" onClick="didItemClick">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow class="auto-height top-10">
+				<TableViewRow class="auto-height top-10" rowTable="appointmentSection">
 					<View class="top auto-height bottom-10">
 						<View class="top right-25 auto-height">
 							<View class="top auto-height">
@@ -80,13 +80,13 @@
 					</View>
 				</FooterView>
 			</TableView>
-			<TableView class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
+			<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow class="auto-height top-10" rowId="{id}">
+				<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
 					<View class="top auto-height bottom-10">
 						<View class="top right-25 auto-height">
 							<View class="top auto-height">

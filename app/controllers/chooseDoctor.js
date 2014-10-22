@@ -2,37 +2,7 @@ var args = arguments[0] || {},
     App = require("core");
 
 function init() {
-	Alloy.Collections.doctors.reset([{
-		id : 1,
-		image : "",
-		fname : "Jane",
-		lname : "Doe",
-		prescriptions : [{
-			name : "Omeprazole"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}]
-	}, {
-		id : 2,
-		image : "/images/profile.png",
-		fname : "Herman",
-		lname : "Melville",
-		prescriptions : [{
-			name : "Omeprazole"
-		}]
-	}, {
-		id : 3,
-		image : "/images/profile.png",
-		fname : "Hareesh",
-		lname : "Khurana",
-		prescriptions : []
-	}]);
+	Alloy.Collections.doctors.trigger("reset");
 }
 
 function transformDoctor(model) {
