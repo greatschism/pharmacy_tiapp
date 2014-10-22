@@ -10,6 +10,7 @@
 		"titleCareTeam": "Care team",
 		"titleDoctors": "Doctors",
 		"titleStores": "Stores",
+		"titleFindStore": "Find a store",
 		"titleAccount": "Account",
 		"titleLoginRecovery": "Login recovery",
 		"titleTermsAndConditions": "Terms and Conditions",
@@ -17,6 +18,8 @@
 		"titleChooseDoctor": "Choose a doctor",
 		"titleChooseOne": "Choose one",
 		"titleAddDoctor": "Add a doctor",
+		"titleChooseTime": "Choose a time",
+		"titleOrderRefill": "Order a refill",
 
 		"sectionStoreOptions": "Store options",
 		"sectionStoreHours": "Store hours",
@@ -68,6 +71,9 @@
 		"lblEnterYourDoctorsInformation": "Enter your doctor's information. First and last name are required, <b>all other fields optional.</b>",
 		"lblWhichDoctorYouHaveAppointment": "Which doctor do you have an appointment with?",
 		"lblMore": "More",
+		"lblWhenIsYourAppointment": "When is your appointment?",
+		"lblOnThisDate": "On this date",
+		"lblAtThisTime": "At this time",
 
 		"valLoginRequiredFileds": "Username and Password can't be blank",
 
@@ -84,6 +90,8 @@
 		"btnAddAnotherDoctor": "Add another doctor",
 		"btnSave": "Save",
 		"btnHideThisDoctor": "Hide this doctor",
+		"btnEditReminderSettings": "Edit reminder settings",
+		"btnDeleteThisReminder": "Delete this reminder",
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",

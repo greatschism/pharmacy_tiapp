@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    App = require("core");
 
 function init() {
 	Alloy.Collections.doctors.reset([{
@@ -41,6 +42,18 @@ function transformDoctor(model) {
 	}
 	transform.name = "Dr. " + transform.fname + " " + transform.lname;
 	return transform;
+}
+
+function didItemClick(e) {
+	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
+	App.Navigator.open({
+		stack : true,
+		titleid : "titleChooseTime",
+		ctrl : "chooseTime",
+		ctrlArguments : {
+			itemId : itemId
+		}
+	});
 }
 
 function terminate() {

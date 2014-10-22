@@ -152,7 +152,7 @@ function didItemClick(e) {
 function didClickAddDoctor(e) {
 	App.Navigator.open({
 		stack : true,
-		title : Alloy.Globals.Strings.titleAddDoctor,
+		titleid : "titleAddDoctor",
 		ctrl : "addDoctor"
 	});
 }
@@ -172,7 +172,7 @@ function openGallery() {
 function didClickSetAppointment(e) {
 	App.Navigator.open({
 		stack : true,
-		title : Alloy.Globals.Strings.titleChooseDoctor,
+		titleid : "titleChooseDoctor",
 		ctrl : "chooseDoctor"
 	});
 }

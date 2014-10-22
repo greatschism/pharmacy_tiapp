@@ -1,5 +1,5 @@
 <Alloy>
-	<ListView id="listView" platform="ios,android" defaultItemTemplate="doctor">
+	<ListView id="listView" platform="ios,android" defaultItemTemplate="doctor" onItemclick="didItemClick">
 		<Templates>
 			<ItemTemplate name="doctor" class="auto-height top-10">
 				<View class="right-25 auto-height bottom-10">
@@ -15,20 +15,20 @@
 					<Label id="appointmentLbl" class="button-title width-95 h4 text-center gulfstream touch-disabled" />
 				</View>
 			</HeaderView>
-			<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" />
+			<ListItem itemId="{id}" profile:image="{image}" doctor:text="{name}" />
 		</ListSection>
 	</ListView>
-	<TableView id="listView" platform="mobileweb" dataCollection="doctors" dataTransform="transformDoctor">
+	<TableView id="listView" platform="mobileweb" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
 		<HeaderView>
 			<View class="row-h40 bg-aeroblue">
 				<Label id="appointmentLbl" class="button-title width-90 h4 text-center gulfstream touch-disabled" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="auto-height top-10">
+		<TableViewRow class="auto-height top-10" rowId="{id}">
 			<View class="top auto-height bottom-10">
 				<View class="top right-25 auto-height">
 					<View class="top auto-height">
-						<ImageView image="{image}" itemId="{id}" class="profile-img left-10" />
+						<ImageView image="{image}" class="profile-img left-10" />
 					</View>
 					<Label text="{name}" class="doctor right-25 auto-height h3 font-regular black multi-line" />
 				</View>

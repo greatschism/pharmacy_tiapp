@@ -34,9 +34,6 @@
 ".profile-img":{
 	width: 40
 },
-".right-25":{
-	right: 25
-},
 ".content-view":{
 	left: 60
 },

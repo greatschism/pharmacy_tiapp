@@ -1,0 +1,16 @@
+".row-h40":{
+	height: 40
+},
+"#whenLbl":{
+	text: Alloy.Globals.Strings.lblWhenIsYourAppointment
+},
+"#saveBtn":{
+	title: Alloy.Globals.Strings.btnSave
+},
+"#editBtn":{
+	title: Alloy.Globals.Strings.btnEditReminderSettings,
+	borderWidth: 1
+},
+"#deleteBtn":{
+	title: Alloy.Globals.Strings.btnDeleteThisReminder
+}

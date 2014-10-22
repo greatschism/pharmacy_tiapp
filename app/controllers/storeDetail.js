@@ -65,7 +65,7 @@ function terminate() {
 function didRefill(e) {
 	App.Navigator.open({
 		ctrl : "refill",
-		title : "Order a refill",
+		titleid : "titleOrderRefill",
 		stack : true,
 		ctrlArguments : {
 			message : "Refill"

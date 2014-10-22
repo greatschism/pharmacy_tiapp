@@ -4,9 +4,6 @@
 "#appointmentLbl":{
 	text: Alloy.Globals.Strings.lblWhichDoctorYouHaveAppointment
 },
-".right-25":{
-	right: 25
-},
 ".profile-img":{
 	width: 40
 },

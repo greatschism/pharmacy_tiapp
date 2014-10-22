@@ -163,6 +163,9 @@
 ".right-20":{
 	right: 20
 },
+".right-25":{
+	right: 25
+},
 /**
 * spacer & separators
 */
@@ -405,6 +408,9 @@
 },
 ".border-gray":{
 	borderColor: "#8b8b8b"
+},
+".border-orange":{
+	borderColor: "#F79538"
 },
 /*
 * Color Classes

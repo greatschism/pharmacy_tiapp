@@ -224,7 +224,7 @@ function fullsignup(storeId) {
 function openStoreDetail(storeId) {
 	App.Navigator.open({
 		ctrl : "storeDetail",
-		title : "Find a store",
+		titleid : "titleFindStore",
 		ctrlArguments : {
 			storeId : storeId
 		},

@@ -15,6 +15,7 @@
 	Alloy.Collections.upcomingAppointments = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
+	Alloy.Collections.chooseTime = new Backbone.Collection();
 
 	Alloy.Models.store = new Backbone.Model();
 	Alloy.Models.doctor = new Backbone.Model();
