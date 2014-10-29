@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 (function() {
 	if (OS_IOS || OS_ANDROID) {
@@ -21,13 +21,13 @@ function didScrollend(e) {
 function didClickButtonBar(e) {
 	var action = e.action;
 	if (action == "login") {
-		App.Navigator.open({
+		app.Navigator.open({
 			ctrl : "login",
 			stack : true
 		});
 	} else {
 		//sign up
-		App.Navigator.open({
+		app.Navigator.open({
 			ctrl : "termsAndConditions",
 			titleid : "titleTermsAndConditions",
 			stack : true

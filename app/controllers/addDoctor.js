@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";

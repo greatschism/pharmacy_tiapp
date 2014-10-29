@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function init() {
 	Alloy.Collections.upcomingAppointments.reset([{
@@ -124,10 +124,10 @@ function didClickMenu(e) {
 }
 
 function didItemClick(e) {
-	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
+	var itemId = Number( OS_MOBILEWEB ? e.row.rowId : e.itemId);
 	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
 	if (section == $.appointmentSection) {
-		App.Navigator.open({
+		app.Navigator.open({
 			stack : true,
 			titleid : "titleEditReminder",
 			ctrl : "chooseTime",
@@ -150,7 +150,7 @@ function didItemClick(e) {
 					$.photoDialog.show();
 				}
 			} else {
-				App.Navigator.open({
+				app.Navigator.open({
 					stack : true,
 					title : "Dr. " + doctor.lname,
 					ctrl : "doctorDetails",
@@ -164,7 +164,7 @@ function didItemClick(e) {
 }
 
 function didClickAddDoctor(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		stack : true,
 		titleid : "titleAddDoctor",
 		ctrl : "addDoctor"
@@ -184,7 +184,7 @@ function openGallery() {
 }
 
 function didClickSetAppointment(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		stack : true,
 		titleid : "titleChooseDoctor",
 		ctrl : "chooseDoctor"

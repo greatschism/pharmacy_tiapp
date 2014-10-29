@@ -1,23 +1,22 @@
 var args = arguments[0] || {},
-    App = require("core"),
-    _dialog = require("dialog"),
-    _http = require("http"),
-    _xmlTools = require("XMLTools"),
-    _keychainAccount,
-    _stringCrypto;
+    app = require("core"),
+    dialog = require("dialog"),
+    http = require("http"),
+    keychainAccount,
+    stringCrypto;
 
 if (OS_IOS || OS_ANDROID) {
-	_stringCrypto = require("bencoding.securely").createStringCrypto();
-	_keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
-	if (_keychainAccount.account) {
-		$.unameTxt.setValue(_keychainAccount.account);
-		$.passwordTxt.setValue(_stringCrypto.AESDecrypt(Alloy.CFG.secret, _keychainAccount.valueData));
+	stringCrypto = require("bencoding.securely").createStringCrypto();
+	keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+	if (keychainAccount.account) {
+		$.unameTxt.setValue(keychainAccount.account);
+		$.passwordTxt.setValue(stringCrypto.AESDecrypt(Alloy.CFG.secret, keychainAccount.valueData));
 		$.keepMeSwt.setValue(true);
 	}
 }
 
 function didRightclickPwd(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "loginRecovery",
 		titleid : "titleLoginRecovery",
 		stack : true
@@ -36,39 +35,45 @@ function didClickLogin(e) {
 
 	if (uname != "" && password != "") {
 
-		App.Navigator.showLoader({
+		app.Navigator.showLoader({
 			message : Alloy.Globals.Strings.msgPleaseWait
 
 		});
 
 		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
-				_keychainAccount.account = uname;
-				_keychainAccount.valueData = _stringCrypto.AESEncrypt(Alloy.CFG.secret, password);
+				keychainAccount.account = uname;
+				keychainAccount.valueData = stringCrypto.AESEncrypt(Alloy.CFG.secret, password);
 			} else {
-				_keychainAccount.reset();
+				keychainAccount.reset();
 			}
 		}
 
-		var data = "<request><authenticate>";
-		data += "<username>" + uname + "</username>";
-		data += "<password>" + password + "</password>";
-		data += "<clientname>" + Alloy.CFG.clientname + "</clientname>";
-		data += "<emailpin>" + Alloy.CFG.emailpin + "</emailpin>";
-		data += "<featurecode>" + Alloy.CFG.featurecode + "</featurecode>";
-		data += "<language/></authenticate></request>";
-		_http.request({
-			url : "https://staging.remscripts.com/pdxonphonehandlerv6_3/authenticate",
+		var data = {
+			request : {
+				authenticate : {
+					username : uname,
+					password : password,
+					clientname : Alloy.CFG.clientname,
+					emailpin : Alloy.CFG.emailpin,
+					featurecode : Alloy.CFG.featurecode,
+					language : ""
+				}
+			}
+		};
+
+		http.request({
+			url : Alloy.CFG.baseUrl.concat("authenticate"),
 			type : "POST",
 			format : "xml",
+			data : data,
 			success : didSuccess,
 			failure : didError,
-			done : didFinish,
-			data : data
+			done : didFinish
 		});
 
 	} else {
-		_dialog.show({
+		dialog.show({
 			message : Alloy.Globals.Strings.valLoginRequiredFileds
 		});
 	}
@@ -78,26 +83,24 @@ function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
 
-function didSuccess(doc) {
-	var errormessage = doc.getElementsByTagName("errormessage");
-	if (errormessage.item(0) != null || errormessage.item(0) != undefined) {
-		_dialog.show({
-			message : errormessage.item(0).text
+function didSuccess(result) {
+	var error = result.authenticate.error;
+	if (_.isObject(error)) {
+		dialog.show({
+			message : error.errormessage
 		});
-		return;
+	} else {
+		Ti.App.Properties.setString("sessionid", result.authenticate.sessionid);
+		Alloy.createController(Alloy.CFG.navigator + "/master");
 	}
-	var xmlTools = new _xmlTools(doc);
-	var response = xmlTools.toObject();
-	Ti.App.Properties.setString("sessionid", response.authenticate.sessionid);
-	Alloy.createController(Alloy.CFG.navigator + "/master");
 }
 
 function didError(http, url) {
-	_dialog.show({
+	dialog.show({
 		message : Alloy.Globals.Strings.msgFailedToRetrive
 	});
 }
 
 function didFinish() {
-	App.Navigator.hideLoader();
+	app.Navigator.hideLoader();
 }

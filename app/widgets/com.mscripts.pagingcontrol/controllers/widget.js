@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
-    _color = "#000",
-    _selectedColor = "#fff",
-    _length = 0,
-    _currentPage = 0;
+    color = "#000",
+    selectedColor = "#fff",
+    length = 0,
+    currentPage = 0;
 
 (function() {
 
@@ -12,15 +12,15 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "color")) {
-		_color = args.color;
+		color = args.color;
 	}
 
 	if (_.has(args, "selectedColor")) {
-		_selectedColor = args.selectedColor;
+		selectedColor = args.selectedColor;
 	}
 
 	if (_.has(args, "currentPage")) {
-		_currentPage = args.currentPage;
+		currentPage = args.currentPage;
 	}
 
 	if (_.has(args, "length")) {
@@ -29,9 +29,9 @@ var args = arguments[0] || {},
 
 })();
 
-function setLength(length) {
+function setLength(_length) {
 
-	_length = length;
+	length = _length;
 
 	var children = $.widget.children;
 	for (var i in children) {
@@ -44,13 +44,13 @@ function setLength(length) {
 	});
 	$.widget.add($.container);
 
-	for (var i = 0; i < _length; i++) {
+	for (var i = 0; i < length; i++) {
 		var view = $.UI.create("View", {
 			apiName : "View",
 			classes : ["paging-control"]
 		});
 		view.index = i;
-		view.backgroundColor = (i == _currentPage ? _selectedColor : _color);
+		view.backgroundColor = (i == currentPage ? selectedColor : color);
 		view.addEventListener("singletap", moveTo);
 		$.container.add(view);
 	}
@@ -58,29 +58,29 @@ function setLength(length) {
 
 function moveTo(e) {
 	var index = e.source.index;
-	if (index != _currentPage) {
-		updateSelection(index, _currentPage);
-		_currentPage = index;
+	if (index != currentPage) {
+		updateSelection(index, currentPage);
+		currentPage = index;
 		$.trigger("change", {
-			currentPage : _currentPage
+			currentPage : currentPage
 		});
 	}
 }
 
 function updateSelection(currentIndex, previousIndex) {
-	$.container.children[previousIndex].backgroundColor = _color;
-	$.container.children[currentIndex].backgroundColor = _selectedColor;
+	$.container.children[previousIndex].backgroundColor = color;
+	$.container.children[currentIndex].backgroundColor = selectedColor;
 }
 
 function setCurrentPage(index) {
-	if (index < _length) {
-		updateSelection(index, _currentPage);
-		_currentPage = index;
+	if (index < length) {
+		updateSelection(index, currentPage);
+		currentPage = index;
 	}
 }
 
 function getCurrentPage() {
-	return _currentPage;
+	return currentPage;
 }
 
 exports.setLength = setLength;

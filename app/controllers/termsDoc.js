@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function didClickDone(e) {
-	App.Navigator.close();
+	app.Navigator.close();
 }

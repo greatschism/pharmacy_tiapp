@@ -1,8 +1,7 @@
 var args = arguments[0] || {},
-    App = require("core"),
-    _dialog = require("dialog"),
-    _http = require("http"),
-    _xmlTools = require("XMLTools");
+    app = require("core"),
+    dialog = require("dialog"),
+    http = require("http");
 
 function init() {
 	if (OS_ANDROID) {
@@ -10,11 +9,11 @@ function init() {
 	}
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
-		_dialog.show({
+		dialog.show({
 			message : "You have disallowed Titanium from running geolocation services."
 		});
 	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
-		_dialog.show({
+		dialog.show({
 			message : "Your system has disallowed app from running geolocation services."
 		});
 	} else {
@@ -24,7 +23,7 @@ function init() {
 		if (OS_IOS) {
 			Ti.Geolocation.purpose = "Help you to locate the nearest pharmacies.";
 		}
-		App.Navigator.showLoader({
+		app.Navigator.showLoader({
 			message : Alloy.Globals.Strings.msgPleaseWait
 		});
 		Ti.Geolocation.getCurrentPosition(locationCallback);
@@ -34,63 +33,69 @@ function init() {
 function locationCallback(e) {
 	var coords = e.coords || {};
 	/*coords = {
-	 latitude : 12.9739156,
-	 longitude : 77.6172187
-	 };*/
+		latitude : 12.9739156,
+		longitude : 77.6172187
+	};*/
 	if (coords.latitude) {
-		var data = "<request><advsearchpharmacy>";
-		var searchStr = $.searchbar.getValue();
-		if (searchStr != "") {
-			data += "<searchstring>" + searchStr + "</searchstring>";
-		}
-		data += "<latitude>" + coords.latitude + "</latitude><longitude>" + coords.longitude + "</longitude><storeid></storeid><searchstring></searchstring><fetchalldetails>1</fetchalldetails><pagesize>6</pagesize><pagenumber>1</pagenumber><featurecode>TH054</featurecode></advsearchpharmacy></request>";
-		_http.request({
-			url : "https://staging.remscripts.com/pdxonphonehandlerv6_3/advsearchpharmacies",
+		var data = {
+			request : {
+				advsearchpharmacy : {
+					searchstring : $.searchbar.getValue(),
+					storeid : "",
+					latitude : coords.latitude,
+					longitude : coords.longitude,
+					fetchalldetails : 1,
+					pagenumber : "",
+					pagesize : "",
+					featurecode : Alloy.CFG.featurecode
+				}
+			}
+		};
+		http.request({
+			url : Alloy.CFG.baseUrl.concat("advsearchpharmacies"),
 			type : "POST",
 			format : "xml",
+			data : data,
 			success : didSuccess,
 			failure : didError,
-			done : didFinish,
-			data : data
+			done : didFinish
 		});
 	} else {
-		_dialog.show({
+		dialog.show({
 			message : Alloy.Globals.Strings.msgUnableToFindYourGEO
 		});
 		didFinish();
 	}
 }
 
-function didSuccess(doc) {
-	var errormessage = doc.getElementsByTagName("errormessage");
-	if (errormessage.item(0) != null || errormessage.item(0) != undefined) {
-		_dialog.show({
-			message : errormessage.item(0).text
+function didSuccess(result) {
+	var error = result.advsearchpharmacy.error;
+	if (_.isObject(error)) {
+		dialog.show({
+			message : error.errormessage
 		});
-		Alloy.Collections.stores.reset([]);
-		return;
+	} else {
+		var pharmacies = result.advsearchpharmacy.pharmacy;
+		pharmacies[0].favourite = true;
+		for (var i in pharmacies) {
+			var pahamacy = pharmacies[i];
+			pahamacy.template = pahamacy.favourite ? "favourites" : "nearby";
+			pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
+			pahamacy.distance = pahamacy.distance + " mi away";
+		}
+		Alloy.Collections.stores.reset(pharmacies);
+		loadMap();
 	}
-	var xmlTools = new _xmlTools(doc);
-	var pharmacies = xmlTools.toObject().advsearchpharmacy.pharmacy;
-	pharmacies[0].favourite = true;
-	for (var i in pharmacies) {
-		var pahamacy = pharmacies[i];
-		pahamacy.template = pahamacy.favourite ? "favourites" : "nearby";
-		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
-		pahamacy.distance = pahamacy.distance + " mi away";
-	}
-	Alloy.Collections.stores.reset(pharmacies);
-	loadMap();
 }
 
 function didError(http, url) {
-	_dialog.show({
+	dialog.show({
 		message : Alloy.Globals.Strings.msgFailedToRetrive
 	});
 }
 
 function didFinish() {
-	App.Navigator.hideLoader();
+	app.Navigator.hideLoader();
 }
 
 function loadMap(e) {
@@ -218,11 +223,11 @@ function fullsignup(storeId) {
 	Alloy.Models.store.set(Alloy.Collections.stores.where({
 	storeid: storeId
 	})[0].toJSON());
-	App.Navigator.close();
+	app.Navigator.close();
 }
 
 function openStoreDetail(storeId) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "storeDetail",
 		titleid : "titleFindStore",
 		ctrlArguments : {

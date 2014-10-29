@@ -1,25 +1,25 @@
 var args = arguments[0] || {},
-    App = require("core"),
-    _menuCtrl;
+    app = require("core"),
+    menuCtrl;
 
 function initHamburger() {
-	App.globalWindow = $.window;
-	App.init();
-	App.setNavigator({
+	app.globalWindow = $.window;
+	app.init();
+	app.setNavigator({
 		type : "hamburger",
 		hamburger : $.hamburger
 	});
-	_menuCtrl = Alloy.createController("menu");
-	App.Navigator.hamburger.init({
-		menuView : _menuCtrl.getView()
+	menuCtrl = Alloy.createController("menu");
+	app.Navigator.hamburger.init({
+		menuView : menuCtrl.getView()
 	});
 }
 
 function didOpen() {
-	if (!_.isEmpty(App.Navigator)) {
-		App.Navigator.closeToHome(function() {
-			App.Navigator.close(1, function() {
-				App.terminate();
+	if (!_.isEmpty(app.Navigator)) {
+		app.Navigator.closeToHome(function() {
+			app.Navigator.close(1, function() {
+				app.terminate();
 				initHamburger();
 			});
 		});
@@ -29,9 +29,9 @@ function didOpen() {
 }
 
 function didClose(e) {
-	_menuCtrl.terminate();
-	App.Navigator.hamburger.terminate();
-	App.terminate();
+	menuCtrl.terminate();
+	app.Navigator.hamburger.terminate();
+	app.terminate();
 }
 
 $.window.open();

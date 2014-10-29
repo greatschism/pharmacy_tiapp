@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function init() {
 	Alloy.Collections.doctors.trigger("reset");
@@ -16,7 +16,7 @@ function transformDoctor(model) {
 
 function didItemClick(e) {
 	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
-	App.Navigator.open({
+	app.Navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",
 		ctrl : "chooseTime",

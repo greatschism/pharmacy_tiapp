@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
     LEFT_MENU_WIDTH = 240,
     MENU_SLIDING_DURATION = 100,
-    _menuOpen = false,
-    _busy = false;
+    menuOpen = false,
+    busy = false;
 
 function orientationChanged(e) {
 	var newWidth;
@@ -26,13 +26,13 @@ exports.terminate = function(params) {
 };
 
 exports.toggleLeftMenu = function(callback) {
-	if (!_busy) {
-		_busy = true;
+	if (!busy) {
+		busy = true;
 		var moveTo = 0;
-		if (!_menuOpen) {
+		if (!menuOpen) {
 			moveTo = LEFT_MENU_WIDTH;
 		}
-		_menuOpen = !_menuOpen;
+		menuOpen = !menuOpen;
 		var animation = Ti.UI.createAnimation({
 			left : moveTo,
 			curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
@@ -40,7 +40,7 @@ exports.toggleLeftMenu = function(callback) {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			_busy = false;
+			busy = false;
 			if (callback) {
 				callback();
 			}
@@ -50,7 +50,7 @@ exports.toggleLeftMenu = function(callback) {
 };
 
 exports.openLeftMenu = function(callback) {
-	if (!_menuOpen) {
+	if (!menuOpen) {
 		$.toggleLeftMenu(callback);
 		return true;
 	} else {
@@ -62,7 +62,7 @@ exports.openLeftMenu = function(callback) {
 };
 
 exports.closeLeftMenu = function(callback) {
-	if (_menuOpen) {
+	if (menuOpen) {
 		$.toggleLeftMenu(callback);
 		return true;
 	} else {

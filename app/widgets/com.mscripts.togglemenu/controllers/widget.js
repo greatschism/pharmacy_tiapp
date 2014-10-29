@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    _properties = {},
-    _items = [];
+    properties = {},
+    items = [];
 
 (function() {
 
@@ -15,7 +15,7 @@ var args = arguments[0] || {},
 
 	options = _.pick(args, ["font", "color"]);
 	if (!_.isEmpty(options)) {
-		_.extend(_properties, options);
+		_.extend(properties, options);
 	}
 
 	setItems(args.items || []);
@@ -32,7 +32,7 @@ function didItemClick(e) {
 	var itemIndex = OS_MOBILEWEB ? e.index : e.itemIndex;
 	$.trigger("click", {
 		index : itemIndex,
-		data : _items[itemIndex] || {}
+		data : items[itemIndex] || {}
 	});
 	hide();
 }
@@ -58,29 +58,29 @@ function getRow(data) {
 		apiName : "Label",
 		classes : [data.image ? "icon-title" : "title"]
 	});
-	_properties.text = data.title;
-	title.applyProperties(_properties);
+	properties.text = data.title;
+	title.applyProperties(properties);
 	row.add(title);
 	return row;
 }
 
-function setItems(items) {
-	_items = items;
-	var height = _items.length * 60;
+function setItems(_items) {
+	items = _items;
+	var height = items.length * 60;
 	$.container.height = height > 300 ? 300 : height;
 	if (OS_IOS || OS_ANDROID) {
 		var data = [];
-		for (var i in _items) {
+		for (var i in items) {
 			var titleProp = {
-				text : _items[i].title
+				text : items[i].title
 			};
-			_.extend(titleProp, _properties);
+			_.extend(titleProp, properties);
 			data.push({
 				title : titleProp,
 				icon : {
-					image : _items[i].image || ""
+					image : items[i].image || ""
 				},
-				template : _items[i].image ? "icon" : "label",
+				template : items[i].image ? "icon" : "label",
 				properties : {
 					backgroundColor : "transparent",
 					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
@@ -90,10 +90,10 @@ function setItems(items) {
 		$.section.setItems(data);
 	} else {
 		var data = [];
-		for (var i in _items) {
+		for (var i in items) {
 			data.push(getRow({
-				title : _items[i].title,
-				image : _items[i].image || ""
+				title : items[i].title,
+				image : items[i].image || ""
 			}));
 		}
 		$.listView.setData(data);
@@ -101,7 +101,7 @@ function setItems(items) {
 }
 
 function getItems() {
-	return _items;
+	return items;
 }
 
 function animate(dict, callback) {

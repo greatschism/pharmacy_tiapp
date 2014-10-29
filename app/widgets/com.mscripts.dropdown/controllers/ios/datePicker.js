@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     PICKER_HEIGHT = 290,
-    _height = Ti.Platform.displayCaps.platformHeight,
-    _parent;
+    height = Ti.Platform.displayCaps.platformHeight,
+    parent;
 
 (function() {
 
@@ -36,25 +36,25 @@ var args = arguments[0] || {},
 	}
 
 	if (OS_ANDROID) {
-		_height = (_height / (Ti.Platform.displayCaps.dpi / 160));
+		height = (height / (Ti.Platform.displayCaps.dpi / 160));
 	}
 
-	$.datePicker.top = _height + PICKER_HEIGHT;
+	$.datePicker.top = height + PICKER_HEIGHT;
 
 })();
 
 function init() {
 	$.datePicker.addEventListener("postlayout", didPostlayout);
-	_parent.add($.datePicker);
+	parent.add($.datePicker);
 }
 
 function terminate(callback) {
 	var animation = Ti.UI.createAnimation({
-		top : _height + PICKER_HEIGHT,
+		top : height + PICKER_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
-		_parent.remove($.datePicker);
+		parent.remove($.datePicker);
 		if (callback) {
 			callback();
 		}
@@ -65,7 +65,7 @@ function terminate(callback) {
 
 function didPostlayout(e) {
 	$.datePicker.removeEventListener("postlayout", didPostlayout);
-	var top = _height - PICKER_HEIGHT;
+	var top = height - PICKER_HEIGHT;
 	var animation = Ti.UI.createAnimation({
 		top : top,
 		duration : 300
@@ -85,12 +85,12 @@ function didRightClick(e) {
 	$.trigger("rightclick");
 }
 
-function setParentView(parent) {
-	_parent = parent;
+function setParentView(_parent) {
+	parent = _parent;
 }
 
 function getParentView() {
-	return _parent;
+	return parent;
 }
 
 function setValue(date) {

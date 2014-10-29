@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core"),
+    app = require("core"),
     moment = require("alloy/moment");
 
 (function() {
@@ -63,7 +63,7 @@ function terminate() {
 }
 
 function didRefill(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "refill",
 		titleid : "titleOrderRefill",
 		stack : true,

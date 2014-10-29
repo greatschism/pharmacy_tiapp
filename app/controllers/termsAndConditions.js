@@ -1,9 +1,9 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function didItemClick(e) {
 	var item = Alloy.Collections.termsAndConditions.at( OS_MOBILEWEB ? e.index : e.itemIndex).toJSON();
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "termsDoc",
 		ctrlArguments : {
 			url : item.url
@@ -31,7 +31,7 @@ function terminate() {
 }
 
 function didDoneClick(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "mobileNumber",
 		titleImage : "/images/login/pharmacy.png",
 		stack : true

@@ -6,21 +6,21 @@
  * @uses push
  * @uses Modules.ti.urbanairship
  */
-var APP = require("core");
-var PUSH = require("push");
+var app = require("core");
+var push = require("push");
 
 /**
  * Sets up UrbanAirship push
  */
 exports.init = function() {
-	APP.log("debug", "UA.init");
+	app.log("debug", "UA.init");
 
 	var UA = require("ti.urbanairship");
 
 	UA.options = {
-		APP_STORE_OR_AD_HOC_BUILD: true,
-		PRODUCTION_APP_KEY: APP.Settings.notifications.key,
-		PRODUCTION_APP_SECRET: APP.Settings.notifications.secret,
+		app_STORE_OR_AD_HOC_BUILD: true,
+		PRODUCTION_app_KEY: app.Settings.notifications.key,
+		PRODUCTION_app_SECRET: app.Settings.notifications.secret,
 		LOGGING_ENABLED: false
 	};
 
@@ -35,15 +35,15 @@ exports.init = function() {
 		 * @param {Object} _data UrbanAirship data object
 		 */
 		success: function(_data) {
-			APP.log("debug", "UA.init @success");
-			APP.log("trace", _data.deviceToken);
+			app.log("debug", "UA.init @success");
+			app.log("trace", _data.deviceToken);
 
-			PUSH.deviceToken = _data.deviceToken;
+			push.deviceToken = _data.deviceToken;
 
-			UA.registerDevice(PUSH.deviceToken, {
+			UA.registerDevice(push.deviceToken, {
 				tags: [
-					APP.ID,
-					APP.Version,
+					app.ID,
+					app.Version,
 					Ti.Platform.osname,
 					Ti.Platform.locale
 				]
@@ -54,24 +54,24 @@ exports.init = function() {
 		 * @param {Object} _data UrbanAirship data object
 		 */
 		error: function(_data) {
-			APP.log("debug", "UA.init @error");
-			APP.log("trace", JSON.stringify(_data));
+			app.log("debug", "UA.init @error");
+			app.log("trace", JSON.stringify(_data));
 		},
 		/**
 		 * Fired when a push notification is received
 		 * @param {Object} _data UrbanAirship data object
 		 */
 		callback: function(_data) {
-			APP.log("debug", "UA.init @callback");
-			APP.log("trace", JSON.stringify(_data));
+			app.log("debug", "UA.init @callback");
+			app.log("trace", JSON.stringify(_data));
 
-			PUSH.pushRecieved(_data.data);
+			push.pushRecieved(_data.data);
 
 			if(_data.data.tab) {
 				var tabIndex = parseInt(_data.data.tab, 10) - 1;
 
-				if(APP.Nodes[tabIndex]) {
-					APP.handleNavigation(tabIndex);
+				if(app.Nodes[tabIndex]) {
+					app.handleNavigation(tabIndex);
 				}
 			}
 		}

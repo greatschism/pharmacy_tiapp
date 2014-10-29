@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 (function() {
 	var icons = Alloy.CFG.icons;
@@ -43,8 +43,8 @@ function getNImage(name, image, width) {
 		Ti.App.Properties.setInt(String(name).concat(width), height);
 	}
 	if (OS_ANDROID) {
-		width = width / (App.Device.dpi / 160);
-		height = height / (App.Device.dpi / 160);
+		width = width / (app.Device.dpi / 160);
+		height = height / (app.Device.dpi / 160);
 	}
 	return Ti.UI.createView({
 		left : 0,
@@ -66,6 +66,6 @@ function getMImage(image, width) {
 function didItemClick(e) {
 	var navigation = e.source.navigation;
 	if (!_.isEmpty(navigation)) {
-		App.Navigator.open(navigation);
+		app.Navigator.open(navigation);
 	}
 }

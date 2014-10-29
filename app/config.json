@@ -1,141 +1,134 @@
 {
-    "global": {
-        "clientname": "Meg-lo",
-        "emailpin": "",
-        "featurecode": "IP002",
-        "languages": [
-            {
-                "code": "en",
-                "titleid": "lngEnglish",
-                "url": "url_to_download"
-            },
-            {
-                "code": "es",
-                "titleid": "lngSpanish",
-                "url": "url_to_download"
-            }
-        ],
-        "navigator": "hamburger",
-        "menuItems": [
-            {
-                "titleid": "titleHome",
-                "ctrl": "home",
-                "landingPage": true
-            },
-            {
-                "titleid": "strPrescriptions",
-                "ctrl": "prescriptions"
-            },
-            {
-                "titleid": "titleDoctors",
-                "ctrl": "doctors"
-            },
-            {
-                "titleid": "titleStores",
-                "ctrl": "stores"
-            },
-            {
-                "titleid": "titleAccount",
-                "ctrl": "account"
-            }
-        ],
-        "icons": [
-            [
-                {
-                    "image": "my_prescriptions.png"
-                }
-            ],
-            [
-                {
-                    "image": "refill_from_a_number.png"
-                },
-                {
-                    "image": "transfer.png"
-                }
-            ],
-            [
-                {
-                    "image": "pharmacy_rewards.png"
-                },
-                {
-                    "image": "finda_pharmacy.png",
-                    "navigation": {
-                        "title": "Stores",
-                        "ctrl": "stores"
-                    }
-                },
-                {
-                    "image": "generics.png"
-                }
-            ],
-            [
-                {
-                    "image": "flu_shots.png"
-                }
-            ],
-            [
-                {
-                    "image": "clinic.png"
-                }
-            ],
-            [
-                {
-                    "image": "wellness_guide.png"
-                }
-            ],
-            [
-                {
-                    "image": "shop_target.png"
-                }
-            ]
-        ],
-        "ANIMATION_DURATION": 300,
-        "enableAnalytic": true
-    },
-    "env:development": {},
-    "env:test": {},
-    "env:production": {},
-    "os:android": {
-        "secret": "1234",
-        "navBarHeight": 48,
-        "navBarTop": 0,
-        "fonts": {
-            "light": "Roboto-Light",
-            "regular": "Roboto-Regular"
-        }
-    },
-    "os:blackberry": {},
-    "os:ios": {
-        "secret": "1234",
-        "navBarHeight": 68,
-        "navBarTop": 15,
-        "fonts": {
-            "light": "Lato-Light",
-            "regular": "Lato-Regular",
-            "lightItalic": "Lato-LightItalic",
-            "bold": "Lato-Bold"
-        }
-    },
-    "os:mobileweb": {
-        "navBarHeight": 48,
-        "navBarTop": 0,
-        "fonts": {
-            "light": "Roboto-Light",
-            "regular": "Roboto-Regular"
-        }
-    },
-    "dependencies": {
-        "com.mscripts.hamburger": "1.0",
-        "com.mscripts.textfield": "1.0",
-        "com.mscripts.loading": "1.0",
-        "com.mscripts.dropdown": "1.0",
-        "com.mscripts.buttonbar": "1.0",
-        "com.mscripts.pagingcontrol": "1.0",
-        "com.mscripts.switch": "1.0",
-        "com.mscripts.styledlabel": "1.0",
-        "com.mscripts.tooltip": "1.0",
-        "com.mscripts.togglemenu": "1.0",
-        "com.mscripts.optiondialog": "1.0",
-        "com.mscripts.textarea": "1.0"
-    }
+	"global": {
+		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_3/",
+		"clientname": "Meg-lo",
+		"emailpin": "",
+		"featurecode": "IP002",
+		"languages": [
+			{
+				"code": "en",
+				"titleid": "lngEnglish",
+				"url": "url_to_download"
+			}, {
+				"code": "es",
+				"titleid": "lngSpanish",
+				"url": "url_to_download"
+			}
+		],
+		"navigator": "hamburger",
+		"menuItems": [
+			{
+				"titleid": "titleHome",
+				"ctrl": "home",
+				"landingPage": true
+			}, {
+				"titleid": "strPrescriptions",
+				"ctrl": "prescriptions"
+			}, {
+				"titleid": "titleDoctors",
+				"ctrl": "doctors"
+			}, {
+				"titleid": "titleStores",
+				"ctrl": "stores"
+			}, {
+				"titleid": "titleAccount",
+				"ctrl": "account"
+			}
+		],
+		"icons": [
+			[
+				{
+					"image": "my_prescriptions.png"
+				}
+			],
+			[
+				{
+					"image": "refill_from_a_number.png"
+				}, {
+					"image": "transfer.png"
+				}
+			],
+			[
+				{
+					"image": "pharmacy_rewards.png"
+				}, {
+					"image": "finda_pharmacy.png",
+					"navigation": {
+						"title": "Stores",
+						"ctrl": "stores"
+					}
+				}, {
+					"image": "generics.png"
+				}
+			],
+			[
+				{
+					"image": "flu_shots.png"
+				}
+			],
+			[
+				{
+					"image": "clinic.png"
+				}
+			],
+			[
+				{
+					"image": "wellness_guide.png"
+				}
+			],
+			[
+				{
+					"image": "shop_target.png"
+				}
+			]
+		],
+		"ANIMATION_DURATION": 300,
+		"enableAnalytic": true
+	},
+	"env:development": {},
+	"env:test": {},
+	"env:production": {},
+	"os:android": {
+		"secret": "1234",
+		"navBarHeight": 48,
+		"navBarTop": 0,
+		"fonts": {
+			"light": "Roboto-Light",
+			"regular": "Roboto-Regular"
+		}
+	},
+	"os:blackberry": {},
+	"os:ios": {
+		"secret": "1234",
+		"navBarHeight": 68,
+		"navBarTop": 15,
+		"fonts": {
+			"light": "Lato-Light",
+			"regular": "Lato-Regular",
+			"lightItalic": "Lato-LightItalic",
+			"bold": "Lato-Bold"
+		}
+	},
+	"os:mobileweb": {
+		"navBarHeight": 48,
+		"navBarTop": 0,
+		"fonts": {
+			"light": "Roboto-Light",
+			"regular": "Roboto-Regular"
+		}
+	},
+	"dependencies": {
+		"com.mscripts.hamburger": "1.0",
+		"com.mscripts.textfield": "1.0",
+		"com.mscripts.loading": "1.0",
+		"com.mscripts.dropdown": "1.0",
+		"com.mscripts.buttonbar": "1.0",
+		"com.mscripts.pagingcontrol": "1.0",
+		"com.mscripts.switch": "1.0",
+		"com.mscripts.styledlabel": "1.0",
+		"com.mscripts.tooltip": "1.0",
+		"com.mscripts.togglemenu": "1.0",
+		"com.mscripts.optiondialog": "1.0",
+		"com.mscripts.textarea": "1.0"
+	}
 }

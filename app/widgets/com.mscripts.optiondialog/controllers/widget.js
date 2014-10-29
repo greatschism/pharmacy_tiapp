@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
     CONTAINER_HEIGHT = 0,
-    _height = Ti.Platform.displayCaps.platformHeight,
-    _properties = {},
-    _options = [];
+    height = Ti.Platform.displayCaps.platformHeight,
+    properties = {},
+    options = [];
 
 (function() {
 
@@ -30,13 +30,13 @@ var args = arguments[0] || {},
 
 		options = _.pick(args, ["font", "color"]);
 		if (!_.isEmpty(options)) {
-			_.extend(_properties, options);
+			_.extend(properties, options);
 		}
 
 		$.titleLbl.text = args.title || "Choose one";
 
 		if (OS_ANDROID) {
-			_height = (_height / (Ti.Platform.displayCaps.dpi / 160));
+			height = (height / (Ti.Platform.displayCaps.dpi / 160));
 		}
 
 		setOptions(args.options || []);
@@ -58,7 +58,7 @@ function didItemClick(e) {
 		$.trigger("click", {
 			index : itemIndex,
 			cancel : args.cancel,
-			data : _options[itemIndex] || {}
+			data : options[itemIndex] || {}
 		});
 		hide();
 	}
@@ -85,17 +85,17 @@ function getRow(data) {
 		apiName : "Label",
 		classes : [data.image ? "icon-title" : "title"]
 	});
-	_properties.text = data.title;
-	title.applyProperties(_properties);
+	properties.text = data.title;
+	title.applyProperties(properties);
 	row.add(title);
 	return row;
 }
 
-function setOptions(options) {
+function setOptions(_options) {
 
-	_options = options;
+	options = _options;
 
-	var len = Alloy.isHandheld ? _options.length : _options.length - 1;
+	var len = Alloy.isHandheld ? options.length : options.length - 1;
 
 	var height = (len * 60) + 30;
 	CONTAINER_HEIGHT = height > 330 ? 330 : height;
@@ -105,15 +105,15 @@ function setOptions(options) {
 		var data = [];
 		for (var i = 0; i < len; i++) {
 			var titleProp = {
-				text : _options[i].title
+				text : options[i].title
 			};
-			_.extend(titleProp, _properties);
+			_.extend(titleProp, properties);
 			data.push({
 				title : titleProp,
 				icon : {
-					image : _options[i].image || ""
+					image : options[i].image || ""
 				},
-				template : _options[i].image ? "icon" : "label",
+				template : options[i].image ? "icon" : "label",
 				properties : {
 					backgroundColor : "transparent",
 					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
@@ -125,20 +125,20 @@ function setOptions(options) {
 		var data = [];
 		for (var i = 0; i < len; i++) {
 			data.push(getRow({
-				title : _options[i].title,
-				image : _options[i].image || ""
+				title : options[i].title,
+				image : options[i].image || ""
 			}));
 		}
 		$.listView.setData(data);
 	}
 
 	if (Alloy.isHandheld) {
-		$.container.top = _height + CONTAINER_HEIGHT;
+		$.container.top = height + CONTAINER_HEIGHT;
 	}
 }
 
 function getOptions() {
-	return _options;
+	return options;
 }
 
 function animate(dict, callback) {
@@ -160,7 +160,7 @@ function show(callback) {
 			$.widget.visible = true;
 			$.widget.zIndex = args.zIndex || 1;
 			if (Alloy.isHandheld) {
-				var top = _height - CONTAINER_HEIGHT;
+				var top = height - CONTAINER_HEIGHT;
 				var animation = Ti.UI.createAnimation({
 					top : top,
 					duration : 300
@@ -190,7 +190,7 @@ function hide(callback) {
 	} else {
 		if ($.widget.visible) {
 			if (Alloy.isHandheld) {
-				var top = _height + CONTAINER_HEIGHT;
+				var top = height + CONTAINER_HEIGHT;
 				var animation = Ti.UI.createAnimation({
 					top : top,
 					duration : 300

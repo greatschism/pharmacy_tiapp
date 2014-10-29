@@ -1,15 +1,15 @@
 var args = arguments[0] || {},
-    _items = [],
-    _selectedIndex = -1,
-    _toggleMode = true,
-    _color = "#000",
-    _selectedColor = "#0094d7",
-    _backgroundColor = "transparent",
-    _selectedBackgroundColor = "transparent",
-    _font = {
+    items = [],
+    selectedIndex = -1,
+    toggleMode = true,
+    color = "#000",
+    selectedColor = "#0094d7",
+    backgroundColor = "transparent",
+    selectedBackgroundColor = "transparent",
+    font = {
 	fontSize : 14
 },
-    _separatorStyle = {
+    separatorStyle = {
 	right : 0,
 	width : 1,
 	backgroundColor : "#8b8b8b",
@@ -17,8 +17,8 @@ var args = arguments[0] || {},
 },
     ldict = {
 	width : "90%",
-	height : (_font.fontSize + 10),
-	font : _font,
+	height : (font.fontSize + 10),
+	font : font,
 	textAlign : "center",
 	touchEnabled : false
 };
@@ -68,62 +68,62 @@ if (OS_ANDROID || OS_MOBILEWEB) {
 	}
 
 	if (_.has(args, "toggleMode")) {
-		_toggleMode = args.toggleMode;
+		toggleMode = args.toggleMode;
 	}
 
-	if (_toggleMode && _.has(args, "selectedIndex")) {
+	if (toggleMode && _.has(args, "selectedIndex")) {
 		setSelectedIndex(args.selectedIndex);
 	}
 
 })();
 
-function setFont(font) {
-	_font = font;
-	ldict.font = _font;
-	ldict.height = (_font.fontSize || 14) + 10;
+function setFont(_font) {
+	font = _font;
+	ldict.font = font;
+	ldict.height = (font.fontSize || 14) + 10;
 }
 
-function setColor(color) {
-	_color = color;
+function setColor(_color) {
+	color = _color;
 }
 
-function setSelectedColor(selectedColor) {
-	_selectedColor = selectedColor;
+function setSelectedColor(_selectedColor) {
+	selectedColor = _selectedColor;
 }
 
-function setBackgroundColor(backgroundColor) {
-	_backgroundColor = backgroundColor;
+function setBackgroundColor(_backgroundColor) {
+	backgroundColor = _backgroundColor;
 }
 
-function setSelectedBackgroundColor(selectedBackgroundColor) {
-	_selectedBackgroundColor = selectedBackgroundColor;
+function setSelectedBackgroundColor(_selectedBackgroundColor) {
+	selectedBackgroundColor = _selectedBackgroundColor;
 }
 
-function setSeparatorStyle(separatorStyle) {
-	_.extend(_separatorStyle, separatorStyle);
+function setSeparatorStyle(_separatorStyle) {
+	_.extend(separatorStyle, _separatorStyle);
 }
 
-function setItems(items) {
+function setItems(_items) {
 
 	var children = $.widget.children;
 	for (var i in children) {
 		$.widget.remove(children[i]);
 	}
 
-	_items = items;
+	items = _items;
 
-	var itemW = String(Math.floor(100 / items.length)).concat("%");
+	var itemW = String(Math.floor(100 / _items.length)).concat("%");
 	var itemH = $.widget.height;
-	var l = _items.length - 1;
-	for (var i in _items) {
+	var l = items.length - 1;
+	for (var i in items) {
 
-		var item = _items[i];
+		var item = items[i];
 
 		var btnView = Ti.UI.createView({
 			index : i,
 			width : item.width || itemW,
 			height : itemH,
-			backgroundColor : item.backgroundColor || _backgroundColor
+			backgroundColor : item.backgroundColor || backgroundColor
 		});
 
 		btnView.addEventListener("singletap", didTap);
@@ -166,7 +166,7 @@ function setItems(items) {
 
 			var label = {
 				text : item.title,
-				color : item.color || _color
+				color : item.color || color
 			};
 			_.extend(label, ldict);
 
@@ -197,7 +197,7 @@ function setItems(items) {
 		}
 
 		if (l != i) {
-			btnView.add(Ti.UI.createView(_separatorStyle));
+			btnView.add(Ti.UI.createView(separatorStyle));
 		}
 
 		$.widget.add(btnView);
@@ -209,7 +209,7 @@ function didTap(e) {
 
 	var index = e.source.index;
 
-	if (_toggleMode && _selectedIndex != index) {
+	if (toggleMode && selectedIndex != index) {
 
 		var children = $.widget.children;
 
@@ -217,10 +217,10 @@ function didTap(e) {
 		 * Apple Bug : http://stackoverflow.com/questions/22718172/uilabel-dotted-line-color-bug-in-ios-7-1
 		 */
 
-		if (_selectedIndex >= 0) {
-			var dObj = _items[_selectedIndex];
-			var dView = children[_selectedIndex];
-			dView.backgroundColor = dObj.backgroundColor || _backgroundColor;
+		if (selectedIndex >= 0) {
+			var dObj = items[selectedIndex];
+			var dView = children[selectedIndex];
+			dView.backgroundColor = dObj.backgroundColor || backgroundColor;
 			var dChildren = dView.children;
 			var dlen = dObj.title && dObj.image ? 2 : 1;
 			for (var i = 0; i < dlen; i++) {
@@ -238,23 +238,23 @@ function didTap(e) {
 							text : text,
 							attributes : [{
 								type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-								value : dObj.color || _color,
+								value : dObj.color || color,
 								range : [0, text.length]
 							}]
 						});
 					} else {
 						dItem.applyProperties({
 							text : text,
-							color : dObj.color || _color
+							color : dObj.color || color
 						});
 					}
 				}
 			}
 		}
 
-		var sObj = _items[index];
+		var sObj = items[index];
 		var sView = children[index];
-		sView.backgroundColor = sObj.selectedBackgroundColor || _selectedBackgroundColor;
+		sView.backgroundColor = sObj.selectedBackgroundColor || selectedBackgroundColor;
 		var sChildren = sView.children;
 		var slen = sObj.title && sObj.image ? 2 : 1;
 		for (var i = 0; i < slen; i++) {
@@ -272,14 +272,14 @@ function didTap(e) {
 						text : text,
 						attributes : [{
 							type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-							value : sObj.selectedColor || _selectedColor,
+							value : sObj.selectedColor || selectedColor,
 							range : [0, text.length]
 						}]
 					});
 				} else {
 					sItem.applyProperties({
 						text : text,
-						color : sObj.selectedColor || _selectedColor
+						color : sObj.selectedColor || selectedColor
 					});
 				}
 			}
@@ -290,17 +290,17 @@ function didTap(e) {
 			$.trigger("change", {
 				selectedItem : sObj,
 				selectedIndex : index,
-				previousIndex : _selectedIndex
+				previousIndex : selectedIndex
 			});
 		}
 
-		_selectedIndex = index;
+		selectedIndex = index;
 
 	} else {
 
 		//to check whether it is simulated or triggered
 		if (e.type) {
-			$.trigger("click", _items[index]);
+			$.trigger("click", items[index]);
 		}
 
 	}
@@ -316,7 +316,7 @@ function setSelectedIndex(index) {
 }
 
 function getSelectedIndex(index) {
-	return _selectedIndex;
+	return selectedIndex;
 }
 
 exports.setFont = setFont;

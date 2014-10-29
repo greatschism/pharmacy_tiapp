@@ -6,8 +6,8 @@
  * @uses push
  * @uses Modules.ti.cloudpush
  */
-var APP = require("core");
-var PUSH = require("push");
+var app = require("core");
+var push = require("push");
 
 if(OS_ANDROID) {
 	var CloudPush = require('ti.cloudpush');
@@ -20,23 +20,23 @@ if(OS_ANDROID) {
 	var registerAndroid = function(_callback) {
 		CloudPush.retrieveDeviceToken({
 			success: function(_data) {
-				APP.log("debug", "ACS.registerAndroid @success");
-				APP.log("trace", _data.deviceToken);
+				app.log("debug", "ACS.registerAndroid @success");
+				app.log("trace", _data.deviceToken);
 
-				PUSH.deviceToken = _data.deviceToken;
+				push.deviceToken = _data.deviceToken;
 
-				Ti.App.Properties.setString("PUSH_DEVICETOKEN", _data.deviceToken);
+				Ti.App.Properties.setString("push_DEVICETOKEN", _data.deviceToken);
 
 				CloudPush.addEventListener('callback', function(evt) {
-					PUSH.pushRecieved(evt);
-					APP.log(JSON.stringify(evt));
+					push.pushRecieved(evt);
+					app.log(JSON.stringify(evt));
 				});
 
 				_callback();
 			},
 			error: function(_data) {
-				APP.log("debug", "ACS.registerAndroid @error");
-				APP.log("trace", JSON.stringify(_data));
+				app.log("debug", "ACS.registerAndroid @error");
+				app.log("trace", JSON.stringify(_data));
 			}
 		});
 	};
@@ -49,7 +49,7 @@ if(OS_IOS) {
 	 * @platform iOS
 	 */
 	var registeriOS = function(_callback) {
-		APP.log("debug", "PUSH.registeriOS");
+		app.log("debug", "push.registeriOS");
 
 		Ti.Network.registerForPushNotifications({
 			types: [
@@ -58,22 +58,22 @@ if(OS_IOS) {
                 Ti.Network.NOTIFICATION_TYPE_SOUND
             ],
 			success: function(_data) {
-				APP.log("debug", "ACS.registeriOS @success");
-				APP.log("trace", _data.deviceToken);
+				app.log("debug", "ACS.registeriOS @success");
+				app.log("trace", _data.deviceToken);
 
-				PUSH.deviceToken = _data.deviceToken;
-				Ti.App.Properties.setString("PUSH_DEVICETOKEN", _data.deviceToken);
+				push.deviceToken = _data.deviceToken;
+				Ti.App.Properties.setString("push_DEVICETOKEN", _data.deviceToken);
 
 				_callback();
 			},
 			error: function(_data) {
-				APP.log("debug", "ACS.registeriOS @error");
-				APP.log("trace", JSON.stringify(_data));
+				app.log("debug", "ACS.registeriOS @error");
+				app.log("trace", JSON.stringify(_data));
 			},
 			callback: function(_data) {
-				PUSH.pushRecieved(_data);
+				push.pushRecieved(_data);
 
-				APP.log(JSON.stringify(_data));
+				app.log(JSON.stringify(_data));
 			}
 		});
 	};
@@ -84,7 +84,7 @@ if(OS_IOS) {
  * @param {Function} _callback The function to run after registration is complete
  */
 exports.registerDevice = function(_callback) {
-	APP.log("debug", "ACS.registerDevice");
+	app.log("debug", "ACS.registerDevice");
 
 	if(OS_IOS) {
 		registeriOS(_callback);

@@ -12,6 +12,7 @@
  * @param {String} _params.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
  * @param {String} _params.url The URL source to call
  * @param {Array} _params.headers Array of request headers to send
+ * @param {Boolean} _params.autoCast whether or not to convert JSON to XML (Request) and/or XML to JSON (Response)
  * @param _params.data The data to send
  * @param {Function} _params.failure A function to execute when there is an XHR error
  * @param {Function} _params.success A function to execute when when successful
@@ -19,6 +20,7 @@
  * @param {Object} _params.passthrough Parameters to pass through to the failure or success callback
  */
 exports.request = function(_params) {
+	
 	Ti.API.debug("HTTP.request " + _params.url);
 
 	if (Ti.Network.online) {
@@ -40,7 +42,11 @@ exports.request = function(_params) {
 			case "data":
 				_data = this.responseData || this.responseText;
 			case "xml":
-				_data = this.responseXML || Ti.XML.parseString(this.responseText);
+				if (_params.autoCast !== false) {
+					_data = new (require("XMLTools"))(this.responseText).toObject();
+				} else {
+					_data = this.responseXML || Ti.XML.parseString(this.responseText);
+				}
 				break;
 			case "json":
 				_data = JSON.parse(this.responseText);
@@ -100,7 +106,8 @@ exports.request = function(_params) {
 		xhr.open(_params.type, _params.url, _params.async);
 
 		if (_params.headers) {
-			for (var i = 0, j = _params.headers.length; i < j; i++) {
+			for (var i = 0,
+			    j = _params.headers.length; i < j; i++) {
 				xhr.setRequestHeader(_params.headers[i].name, _params.headers[i].value);
 			}
 		}
@@ -111,6 +118,22 @@ exports.request = function(_params) {
 		}
 
 		if (_params.data) {
+			if (_params.autoCast !== false && typeof _params.data === "object" && _params.format.toLowerCase() === "xml") {
+				var xml = "";
+				var jsonToXml = function(json) {
+					for (var i in json) {
+						xml += "<" + i + ">";
+						if ( typeof json[i] === "object") {
+							jsonToXml(json[i]);
+						} else {
+							xml += json[i];
+						}
+						xml += "</" + i + ">";
+					}
+				};
+				jsonToXml(_params.data);
+				_params.data = xml;
+			}
 			xhr.send(_params.data);
 		} else {
 			xhr.send();

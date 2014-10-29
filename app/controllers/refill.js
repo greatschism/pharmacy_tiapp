@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function didCloseToHome(e) {
-	App.Navigator.closeToHome();
+	app.Navigator.closeToHome();
 }

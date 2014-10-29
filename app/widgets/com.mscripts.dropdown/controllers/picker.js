@@ -1,10 +1,10 @@
 var args = arguments[0] || {},
     PICKER_HEIGHT = 290,
-    _height = Ti.Platform.displayCaps.platformHeight,
-    _choiceDict = {},
-    _choices = [],
-    _selectedIndex = -1,
-    _parent;
+    height = Ti.Platform.displayCaps.platformHeight,
+    choiceDict = {},
+    choices = [],
+    selectedIndex = -1,
+    parent;
 
 (function() {
 
@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "choiceDict")) {
-		_choiceDict = args.choiceDict;
+		choiceDict = args.choiceDict;
 	}
 
 	if (_.has(args, "buttonDict")) {
@@ -47,27 +47,27 @@ var args = arguments[0] || {},
 	}
 
 	if (OS_ANDROID) {
-		_height = (_height / (Ti.Platform.displayCaps.dpi / 160));
+		height = (height / (Ti.Platform.displayCaps.dpi / 160));
 	}
 
-	$.picker.top = _height + PICKER_HEIGHT;
+	$.picker.top = height + PICKER_HEIGHT;
 
 })();
 
 function init() {
 	if (OS_IOS || OS_ANDROID) {
 		var items = [];
-		for (var i in _choices) {
+		for (var i in choices) {
 			var titleProp = {
-				text : _choices[i].title
+				text : choices[i].title
 			};
-			_.extend(titleProp, _choiceDict);
+			_.extend(titleProp, choiceDict);
 			items.push({
 				title : titleProp,
 				image : {
-					image : _choices[i].image || WPATH("checked.png")
+					image : choices[i].image || WPATH("checked.png")
 				},
-				template : _selectedIndex == i ? "checked" : "unchecked",
+				template : selectedIndex == i ? "checked" : "unchecked",
 				properties : {
 					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
 				}
@@ -76,16 +76,16 @@ function init() {
 		$.section.setItems(items);
 	} else {
 		var data = [];
-		for (var i in _choices) {
+		for (var i in choices) {
 			data.push(getRow({
-				title : _choices[i].title,
-				image : _selectedIndex == i ? _choices[i].image || WPATH("checked.png") : false
+				title : choices[i].title,
+				image : selectedIndex == i ? choices[i].image || WPATH("checked.png") : false
 			}));
 		}
 		$.listView.setData(data);
 	}
 	$.picker.addEventListener("postlayout", didPostlayout);
-	_parent.add($.picker);
+	parent.add($.picker);
 }
 
 function getRow(data) {
@@ -105,19 +105,19 @@ function getRow(data) {
 		apiName : "Label",
 		classes : ["title"]
 	});
-	_choiceDict.text = data.title;
-	title.applyProperties(_choiceDict);
+	choiceDict.text = data.title;
+	title.applyProperties(choiceDict);
 	row.add(title);
 	return row;
 }
 
 function terminate(callback) {
 	var animation = Ti.UI.createAnimation({
-		top : _height + PICKER_HEIGHT,
+		top : height + PICKER_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
-		_parent.remove($.picker);
+		parent.remove($.picker);
 		if (callback) {
 			callback();
 		}
@@ -128,7 +128,7 @@ function terminate(callback) {
 
 function didPostlayout(e) {
 	$.picker.removeEventListener("postlayout", didPostlayout);
-	var top = _height - PICKER_HEIGHT;
+	var top = height - PICKER_HEIGHT;
 	var animation = Ti.UI.createAnimation({
 		top : top,
 		duration : 300
@@ -142,19 +142,19 @@ function didPostlayout(e) {
 
 function didItemClick(e) {
 	var itemIndex = e.itemIndex;
-	if (itemIndex !== _selectedIndex) {
+	if (itemIndex !== selectedIndex) {
 		var section = e.section;
-		if (_selectedIndex >= 0) {
-			var toUncheck = section.getItemAt(_selectedIndex);
+		if (selectedIndex >= 0) {
+			var toUncheck = section.getItemAt(selectedIndex);
 			toUncheck.template = "unchecked";
-			$.section.updateItemAt(_selectedIndex, toUncheck);
+			$.section.updateItemAt(selectedIndex, toUncheck);
 		}
-		_selectedIndex = itemIndex;
-		var toCheck = section.getItemAt(_selectedIndex);
+		selectedIndex = itemIndex;
+		var toCheck = section.getItemAt(selectedIndex);
 		toCheck.template = "checked";
-		$.section.updateItemAt(_selectedIndex, toCheck);
+		$.section.updateItemAt(selectedIndex, toCheck);
 		$.trigger("change", {
-			selectedIndex : _selectedIndex,
+			selectedIndex : selectedIndex,
 			selectedItem : getSelectedItem()
 		});
 	}
@@ -162,19 +162,19 @@ function didItemClick(e) {
 
 function didTVRClick(e) {
 	var index = e.index;
-	if (index !== _selectedIndex) {
-		if (_selectedIndex >= 0) {
-			$.listView.updateRow(_selectedIndex, getRow({
-				title : _choices[_selectedIndex].title
+	if (index !== selectedIndex) {
+		if (selectedIndex >= 0) {
+			$.listView.updateRow(selectedIndex, getRow({
+				title : choices[selectedIndex].title
 			}));
 		}
-		_selectedIndex = index;
-		$.listView.updateRow(_selectedIndex, getRow({
-			title : _choices[_selectedIndex].title,
-			image : _choices[_selectedIndex].image || WPATH("checked.png")
+		selectedIndex = index;
+		$.listView.updateRow(selectedIndex, getRow({
+			title : choices[selectedIndex].title,
+			image : choices[selectedIndex].image || WPATH("checked.png")
 		}));
 		$.trigger("change", {
-			selectedIndex : _selectedIndex,
+			selectedIndex : selectedIndex,
 			selectedItem : getSelectedItem()
 		});
 	}
@@ -188,35 +188,35 @@ function didRightClick(e) {
 	$.trigger("rightclick");
 }
 
-function setParentView(parent) {
-	_parent = parent;
+function setParentView(_parent) {
+	parent = _parent;
 }
 
 function getParentView() {
-	return _parent;
+	return parent;
 }
 
-function setChoices(choices) {
-	_choices = choices;
-	_selectedIndex = -1;
+function setChoices(_choices) {
+	choices = _choices;
+	selectedIndex = -1;
 }
 
 function getChoices() {
-	return _choices;
+	return choices;
 }
 
 function setSelectedIndex(index) {
-	_selectedIndex = index;
+	selectedIndex = index;
 }
 
 function getSelectedIndex() {
-	return _selectedIndex;
+	return selectedIndex;
 }
 
 function getSelectedItem() {
 	var item = {};
-	if (_selectedIndex >= 0 && _selectedIndex < _choices.length) {
-		item = _choices[_selectedIndex];
+	if (selectedIndex >= 0 && selectedIndex < choices.length) {
+		item = choices[selectedIndex];
 	}
 	return item;
 }

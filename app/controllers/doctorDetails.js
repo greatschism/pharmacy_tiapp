@@ -1,4 +1,5 @@
 var args = arguments[0] || {};
+
 (function() {
 	var doctor = Alloy.Collections.doctors.where({
 	id: args.itemId

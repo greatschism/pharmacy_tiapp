@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    App = require("core");
+    app = require("core");
 
 function init() {
 	$.dob.setParentView($.sharedMobileCheck);
@@ -11,7 +11,7 @@ function moveToNext(e) {
 }
 
 function didClickNext(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "signup",
 		stack : true
 	});

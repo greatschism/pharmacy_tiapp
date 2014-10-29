@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    App = require("core"),
-    _controller;
+    app = require("core"),
+    controller;
 
 (function() {
 
@@ -23,14 +23,14 @@ var args = arguments[0] || {},
 		$.addClass($.leftImg, "back");
 		$.template.applyProperties({
 			opacity : 0,
-			left : App.Device.width
+			left : app.Device.width
 		});
 	} else {
 		$.addClass($.leftImg, "hamburger");
 	}
 
-	_controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
-	var children = _controller.getTopLevelViews();
+	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
+	var children = controller.getTopLevelViews();
 	for (var i in children) {
 		var view = children[i].__controllerPath ? children[i].getView() : children[i];
 		if (children[i].role === "navBar") {
@@ -46,9 +46,9 @@ var args = arguments[0] || {},
 
 function didTap(e) {
 	if (args.stack) {
-		App.Navigator.close();
+		app.Navigator.close();
 	} else {
-		App.Navigator.hamburger.toggleLeftMenu();
+		app.Navigator.hamburger.toggleLeftMenu();
 	}
 }
 
@@ -124,6 +124,6 @@ function hideNavBar(_animated, _callback) {
 	}
 }
 
-exports.child = _controller;
+exports.child = controller;
 exports.showNavBar = showNavBar;
 exports.hideNavBar = hideNavBar;

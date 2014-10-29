@@ -1,11 +1,11 @@
 var args = arguments[0] || {},
-    _busy = false,
+    busy = false,
     _value,
-    _touchStartX = 0,
-    _disabledLeft = 2,
-    _enabledLeft,
-    _disabledColor,
-    _enabledColor;
+    touchStartX = 0,
+    disabledLeft = 2,
+    enabledLeft,
+    disabledColor,
+    enabledColor;
 
 (function() {
 
@@ -26,7 +26,7 @@ var args = arguments[0] || {},
 			options.width = args.thumbWidth || args.height || $.widget.height;
 			$.swt.applyProperties(options);
 		}
-		_enabledLeft = $.widget.width - ($.swt.width + (OS_MOBILEWEB ? 5 : 2));
+		enabledLeft = $.widget.width - ($.swt.width + ( OS_MOBILEWEB ? 5 : 2));
 	}
 
 	if (_.has(args, "thumbColor")) {
@@ -37,12 +37,12 @@ var args = arguments[0] || {},
 		}
 	}
 
-	_disabledColor = args.disabledColor || args.backgroundColor || "#CAC4C1";
-	_enabledColor = args.enabledColor || "#69D669";
+	disabledColor = args.disabledColor || args.backgroundColor || "#CAC4C1";
+	enabledColor = args.enabledColor || "#69D669";
 
 	if (OS_IOS) {
-		$.swt.tintColor = _disabledColor;
-		$.swt.onTintColor = _enabledColor;
+		$.swt.tintColor = disabledColor;
+		$.swt.onTintColor = enabledColor;
 	}
 
 	setValue(args.value || false, false);
@@ -53,8 +53,8 @@ function didTouchcancel(e) {
 	$.trigger("touch", {
 		value : true
 	});
-	_busy = true;
-	_touchStartX = e.x;
+	busy = true;
+	touchStartX = e.x;
 	if (_value) {
 		enabledSwt(true);
 	} else {
@@ -63,40 +63,40 @@ function didTouchcancel(e) {
 }
 
 function didTouchstart(e) {
-	if (!_busy) {
+	if (!busy) {
 		$.trigger("touch", {
 			value : false
 		});
-		_touchStartX = e.x;
+		touchStartX = e.x;
 	}
 }
 
 function didTouchmove(e) {
-	if (!_busy) {
+	if (!busy) {
 		var coords = $.swt.convertPointToView({
 			x : e.x,
 			y : e.y
 		}, $.bgView);
-		var newLeft = coords.x - _touchStartX;
-		if (newLeft > _enabledLeft) {
-			newLeft = _enabledLeft;
-		} else if (newLeft < _disabledLeft) {
-			newLeft = _disabledLeft;
+		var newLeft = coords.x - touchStartX;
+		if (newLeft > enabledLeft) {
+			newLeft = enabledLeft;
+		} else if (newLeft < disabledLeft) {
+			newLeft = disabledLeft;
 		}
 		$.swt.left = newLeft;
 	}
 }
 
 function didTouchend(e) {
-	if (!_busy) {
+	if (!busy) {
 		$.trigger("touch", {
 			value : true
 		});
-		_busy = true;
+		busy = true;
 		var left = $.swt.left;
-		if (left == _enabledLeft || left == _disabledLeft) {
-			var value = left == _enabledLeft ? true : false;
-			_busy = false;
+		if (left == enabledLeft || left == disabledLeft) {
+			var value = left == enabledLeft ? true : false;
+			busy = false;
 			setValue(value);
 		} else {
 			_value = !_value;
@@ -113,7 +113,7 @@ function didTouchend(e) {
 }
 
 function didSingletap(e) {
-	if (!_busy) {
+	if (!busy) {
 		var value = !_value;
 		if (setValue(value)) {
 			$.trigger("change", {
@@ -131,10 +131,10 @@ function didChange(e) {
 }
 
 function setValue(value, animate) {
-	if (_value != value && _busy == false) {
+	if (_value != value && busy == false) {
 		_value = value;
 		if (OS_ANDROID || OS_MOBILEWEB) {
-			_busy = true;
+			busy = true;
 			if (_value) {
 				enabledSwt(animate);
 			} else {
@@ -151,40 +151,40 @@ function setValue(value, animate) {
 function enabledSwt(animate) {
 	if (animate !== false) {
 		var animation = Ti.UI.createAnimation({
-			left : _enabledLeft,
+			left : enabledLeft,
 			duration : 300
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.bgView.backgroundColor = _enabledColor;
-			$.swt.left = _enabledLeft;
-			_busy = false;
+			$.bgView.backgroundColor = enabledColor;
+			$.swt.left = enabledLeft;
+			busy = false;
 		});
 		$.swt.animate(animation);
 	} else {
-		$.bgView.backgroundColor = _enabledColor;
-		$.swt.left = _enabledLeft;
-		_busy = false;
+		$.bgView.backgroundColor = enabledColor;
+		$.swt.left = enabledLeft;
+		busy = false;
 	}
 }
 
 function disableSwt(animate) {
 	if (animate !== false) {
 		var animation = Ti.UI.createAnimation({
-			left : _disabledLeft,
+			left : disabledLeft,
 			duration : 300
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.bgView.backgroundColor = _disabledColor;
-			$.swt.left = _disabledLeft;
-			_busy = false;
+			$.bgView.backgroundColor = disabledColor;
+			$.swt.left = disabledLeft;
+			busy = false;
 		});
 		$.swt.animate(animation);
 	} else {
-		$.bgView.backgroundColor = _disabledColor;
-		$.swt.left = _disabledLeft;
-		_busy = false;
+		$.bgView.backgroundColor = disabledColor;
+		$.swt.left = disabledLeft;
+		busy = false;
 	}
 }
 

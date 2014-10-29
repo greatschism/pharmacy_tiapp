@@ -1,11 +1,11 @@
 var args = arguments[0] || {},
-    _isHintText = false,
-    _choices = [],
-    _selectedIndex = -1,
-    _selectedDate,
-    _format = "MM-DD-YYYY",
-    _picker,
-    _parent;
+    isHintText = false,
+    choices = [],
+    selectedIndex = -1,
+    selectedDate,
+    format = "MM-DD-YYYY",
+    picker,
+    parent;
 
 (function() {
 	var options = {};
@@ -21,7 +21,7 @@ var args = arguments[0] || {},
 	}
 
 	if (args.hintText) {
-		_isHintText = true;
+		isHintText = true;
 		$.lbl.applyProperties({
 			text : args.hintText,
 			color : "#A39D9A"
@@ -50,51 +50,51 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "format")) {
-		_format = args.format;
+		format = args.format;
 	}
 
 	if (OS_MOBILEWEB && args.type == Ti.UI.PICKER_TYPE_DATE) {
 		$.widget.removeEventListener("click", showPicker);
 		$.container.remove($.lbl);
 		var moment = require("alloy/moment");
-		_picker = Ti.UI.createPicker({
+		picker = Ti.UI.createPicker({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
 			type : Ti.UI.PICKER_TYPE_DATE,
 			minDate : moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"),
 			maxDate : moment(args.maxDate || new Date()).format("YYYY-MM-DD"),
-			value : moment(_selectedDate || new Date()).format("YYYY-MM-DD"),
+			value : moment(selectedDate || new Date()).format("YYYY-MM-DD"),
 			backgroundColor : "transparent",
 			borderColor : "transparent",
 			borderWidth : 0
 		});
-		$.container.add(_picker);
+		$.container.add(picker);
 	}
 
 })();
 
-function setParentView(parent) {
-	_parent = parent;
+function setParentView(_parent) {
+	parent = _parent;
 }
 
 function getParentView() {
-	return _parent;
+	return parent;
 }
 
 function showPicker() {
-	if (!_picker && _parent) {
+	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
 			if (OS_ANDROID) {
-				var picker = Ti.UI.createPicker({
+				var _picker = Ti.UI.createPicker({
 					type : Ti.UI.PICKER_TYPE_DATE,
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
-					value : _selectedDate || new Date()
+					value : selectedDate || new Date()
 				});
-				picker.showDatePickerDialog({
+				_picker.showDatePickerDialog({
 					title : args.title || "Set date",
 					okButtonTitle : args.okButtonTitle || "Set",
-					value : _selectedDate || new Date(),
+					value : selectedDate || new Date(),
 					callback : function(e) {
 						if (e.cancel) {
 							$.trigger("cancel");
@@ -108,100 +108,100 @@ function showPicker() {
 				_.extend(pickerDict, {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
-					value : _selectedDate || new Date(),
-					parent : _parent
+					value : selectedDate || new Date(),
+					parent : parent
 				});
-				_picker = Widget.createController("datePicker", pickerDict);
-				_picker.on("leftclick", hidePicker);
-				_picker.on("rightclick", doSelectDate);
-				_picker.init();
+				picker = Widget.createController("datePicker", pickerDict);
+				picker.on("leftclick", hidePicker);
+				picker.on("rightclick", doSelectDate);
+				picker.init();
 			}
 		} else {
 			var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
 			_.extend(pickerDict, {
-				choices : _choices,
-				selectedIndex : _selectedIndex,
-				parent : _parent
+				choices : choices,
+				selectedIndex : selectedIndex,
+				parent : parent
 			});
-			_picker = Widget.createController("picker", pickerDict);
-			_picker.on("leftclick", hidePicker);
-			_picker.on("rightclick", doSelect);
-			_picker.init();
+			picker = Widget.createController("picker", pickerDict);
+			picker.on("leftclick", hidePicker);
+			picker.on("rightclick", doSelect);
+			picker.init();
 		}
 	}
 
 }
 
 function hidePicker() {
-	if (_picker) {
-		_picker.off("leftclick", hidePicker);
-		_picker.off("rightclick", doSelect);
-		_picker.terminate(function() {
-			_picker = null;
+	if (picker) {
+		picker.off("leftclick", hidePicker);
+		picker.off("rightclick", doSelect);
+		picker.terminate(function() {
+			picker = null;
 		});
 	}
 }
 
 function doSelect(e) {
-	setSelectedIndex(_picker.getSelectedIndex());
+	setSelectedIndex(picker.getSelectedIndex());
 	hidePicker();
 }
 
-function setChoices(choices) {
-	_choices = choices;
-	_selectedIndex = -1;
+function setChoices(_choices) {
+	choices = _choices;
+	selectedIndex = -1;
 }
 
 function getChoices() {
-	return _choices;
+	return choices;
 }
 
 function setSelectedIndex(index) {
-	_selectedIndex = index;
+	selectedIndex = index;
 	removeHint();
 	$.lbl.setText(getSelectedItem().title || "");
 }
 
 function removeHint() {
-	if (_isHintText) {
-		_isHintText = false;
+	if (isHintText) {
+		isHintText = false;
 		$.lbl.color = args.color || "#000";
 	}
 }
 
 function getSelectedIndex() {
-	return _selectedIndex;
+	return selectedIndex;
 }
 
 function getSelectedItem() {
 	var item = {};
-	if (_selectedIndex >= 0 && _selectedIndex < _choices.length) {
-		item = _choices[_selectedIndex];
+	if (selectedIndex >= 0 && selectedIndex < choices.length) {
+		item = choices[selectedIndex];
 	}
 	return item;
 }
 
 function doSelectDate(e) {
-	setValue(_picker.getValue());
+	setValue(picker.getValue());
 	hidePicker();
 }
 
 function setValue(date) {
 	if (OS_MOBILEWEB) {
-		_picker.value = moment(date).format("YYYY-MM-DD");
+		picker.value = moment(date).format("YYYY-MM-DD");
 	} else {
-		_selectedDate = date;
+		selectedDate = date;
 		removeHint();
 		var moment = require("alloy/moment");
-		$.lbl.text = moment(_selectedDate).format(_format);
+		$.lbl.text = moment(selectedDate).format(format);
 	}
 }
 
 function getValue() {
 	if (OS_MOBILEWEB) {
-		return _picker.value;
+		return picker.value;
 	} else {
-		return _selectedDate;
+		return selectedDate;
 	}
 }
 

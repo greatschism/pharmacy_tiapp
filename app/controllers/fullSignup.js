@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    App = require("core"),
-    _locationFirstUpdate = true;
+    app = require("core"),
+    locationFirstUpdate = true;
 
 function init() {
 	$.dob.setParentView($.fullSignup);
@@ -8,7 +8,7 @@ function init() {
 }
 
 function didClickSignup(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		ctrl : "textToApp",
 		stack : true
 	});
@@ -36,7 +36,7 @@ function handleScroll(e) {
 }
 
 function chooseLocation(e) {
-	App.Navigator.open({
+	app.Navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",
 		ctrlArguments : {
@@ -47,8 +47,8 @@ function chooseLocation(e) {
 }
 
 function updateStore() {
-	if (_locationFirstUpdate) {
-		_locationFirstUpdate = false;
+	if (locationFirstUpdate) {
+		locationFirstUpdate = false;
 		$.resetClass($.locationLbl, ["fill-width", "height-50d", "h3", "font-regular", "black", "touch-disabled"]);
 	}
 	$.locationLbl.text = Alloy.Models.store.get("addressline1");

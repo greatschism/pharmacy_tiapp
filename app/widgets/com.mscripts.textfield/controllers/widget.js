@@ -154,13 +154,13 @@ function getRightImage() {
 	return false;
 }
 
-function setRightButtonTitle() {
+function setRightButtonTitle(value) {
 	if ($.rightBtn) {
-		$.rightBtn.title = image;
+		$.rightBtn.title = value;
 	}
 }
 
-function getRightButtonTitle(value) {
+function getRightButtonTitle() {
 	if ($.rightBtn) {
 		return $.rightBtn.title;
 	}

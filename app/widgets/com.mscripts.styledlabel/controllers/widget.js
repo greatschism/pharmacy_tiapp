@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
-    _html,
-    _bold;
+    html,
+    bold;
 
 (function() {
 
@@ -9,7 +9,7 @@ var args = arguments[0] || {},
 		$.widget.applyProperties(options);
 	}
 
-	_bold = {
+	bold = {
 		fontSize : args.font && args.font.fontSize ? args.font.fontSize : 18,
 		fontWeight : "bold",
 	};
@@ -20,8 +20,8 @@ var args = arguments[0] || {},
 
 })();
 
-function setHtml(html) {
-	_html = html;
+function setHtml(_html) {
+	html = _html;
 	if (OS_IOS) {
 		var htmlparser = require(WPATH("htmlparser"));
 		var handler = new htmlparser.HtmlBuilder(function(error, dom) {
@@ -59,7 +59,7 @@ function setHtml(html) {
 					case "b":
 						attributes.push({
 							type : Titanium.UI.iOS.ATTRIBUTE_FONT,
-							value : _bold,
+							value : bold,
 							range : [text.length, strings[j].length]
 						});
 						break;
@@ -92,12 +92,12 @@ function setHtml(html) {
 		});
 		new htmlparser.Parser(handler).parseComplete(html);
 	} else {
-		$.widget.html = _html;
+		$.widget.html = html;
 	}
 }
 
 function getHtml() {
-	return _html;
+	return html;
 }
 
 function didClick(e) {
