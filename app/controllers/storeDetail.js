@@ -43,7 +43,7 @@ var args = arguments[0] || {},
 		$.clockImg.image = image;
 		$.clockLbl.applyProperties(labelDict);
 	}
-	$.favouriteImg.image = "/images/store/".concat(store.favourite ? "favourite" : "unfavourite").concat(".png");
+	$.favouriteImg.image = "/images/store/".concat(store.bookmarked ? "favourite" : "unfavourite").concat(".png");
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeOptions.reset([{
 		icon : "/images/call.png",

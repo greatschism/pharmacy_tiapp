@@ -1,11 +1,8 @@
-var http = require("http"),
-    dialog = require("dialog");
+var http = require("httpwrapper");
 
 function didOpen(e) {
 	http.request({
-		url : Alloy.CFG.baseUrl.concat("appload"),
-		type : "POST",
-		format : "xml",
+		method : "appload",
 		data : {
 			request : {
 				appload : {
@@ -20,15 +17,7 @@ function didOpen(e) {
 				}
 			}
 		},
-		success : didAppLoad,
-		failure : didError,
-		done : didFinish
-	});
-}
-
-function didError(http, url) {
-	dialog.show({
-		message : Alloy.Globals.Strings.msgFailedToRetrive
+		success : didAppLoad
 	});
 }
 
@@ -37,30 +26,23 @@ function didFinish() {
 }
 
 function didAppLoad(result) {
-	var error = result.appload.error;
-	if (_.isObject(error)) {
-		dialog.show({
-			message : error.errormessage
-		});
+	Alloy.Globals.appLoad = result.appload;
+	if (_.has(Alloy.Globals.userInfo, "sessionId")) {
+		Alloy.createController(Alloy.CFG.navigator + "/master");
 	} else {
-		Alloy.Globals.appLoad = result.appload;
-		if (_.has(Alloy.Globals.userInfo, "sessionId")) {
-			Alloy.createController(Alloy.CFG.navigator + "/master");
+		var fistLoad = Ti.App.Properties.getBool("firstLoad", true),
+		    params;
+		if (fistLoad) {
+			params = {
+				ctrl : "carousel",
+				titleImage : "/images/login/pharmacy.png"
+			};
 		} else {
-			var fistLoad = Ti.App.Properties.getBool("firstLoad", true),
-			    params;
-			if (fistLoad) {
-				params = {
-					ctrl : "carousel",
-					titleImage : "/images/login/pharmacy.png"
-				};
-			} else {
-				params = {
-					ctrl : "login"
-				};
-			}
-			Alloy.createController("stack/master", params);
+			params = {
+				ctrl : "login"
+			};
 		}
+		Alloy.createController("stack/master", params);
 	}
 }
 

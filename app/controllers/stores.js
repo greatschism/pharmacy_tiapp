@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
-    http = require("http");
+    http = require("httpwrapper"),
+    dialog = require("dialog");
 
 function init() {
 	if (OS_ANDROID) {
@@ -32,15 +32,13 @@ function init() {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	/*coords = {
-	 latitude : 12.9739156,
-	 longitude : 77.6172187
-	 };*/
+	coords = {
+		latitude : 12.9739156,
+		longitude : 77.6172187
+	};
 	if (coords.latitude) {
 		http.request({
-			url : Alloy.CFG.baseUrl.concat("advsearchpharmacies"),
-			type : "POST",
-			format : "xml",
+			method : "advsearchpharmacies",
 			data : {
 				request : {
 					advsearchpharmacy : {
@@ -55,46 +53,27 @@ function locationCallback(e) {
 					}
 				}
 			},
-			success : didSuccess,
-			failure : didError,
-			done : didFinish
+			success : didGetPharmacies
 		});
 	} else {
+		app.navigator.hideLoader();
 		dialog.show({
 			message : Alloy.Globals.Strings.msgUnableToFindYourGEO
 		});
-		didFinish();
 	}
 }
 
-function didSuccess(result) {
-	var error = result.advsearchpharmacy.error;
-	if (_.isObject(error)) {
-		dialog.show({
-			message : error.errormessage
-		});
-	} else {
-		var pharmacies = result.advsearchpharmacy.pharmacy;
-		pharmacies[0].favourite = true;
-		for (var i in pharmacies) {
-			var pahamacy = pharmacies[i];
-			pahamacy.template = pahamacy.favourite ? "favourites" : "nearby";
-			pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
-			pahamacy.distance = pahamacy.distance + " mi away";
-		}
-		Alloy.Collections.stores.reset(pharmacies);
-		loadMap();
+function didGetPharmacies(result) {
+	var pharmacies = result.advsearchpharmacy.pharmacy;
+	for (var i in pharmacies) {
+		var pahamacy = pharmacies[i];
+		pahamacy.bookmarked = Number(pahamacy.bookmarked);
+		pahamacy.template = pahamacy.bookmarked ? "favourite" : "nearby";
+		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
+		pahamacy.distance = pahamacy.distance + " mi away";
 	}
-}
-
-function didError(http, url) {
-	dialog.show({
-		message : Alloy.Globals.Strings.msgFailedToRetrive
-	});
-}
-
-function didFinish() {
-	app.navigator.hideLoader();
+	Alloy.Collections.stores.reset(pharmacies);
+	loadMap();
 }
 
 function loadMap(e) {

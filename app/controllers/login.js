@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
-    http = require("http"),
+    http = require("httpwrapper"),
     keychainAccount,
     stringCrypto;
 
@@ -35,11 +35,6 @@ function didClickLogin(e) {
 
 	if (uname != "" && password != "") {
 
-		app.navigator.showLoader({
-			message : Alloy.Globals.Strings.msgPleaseWait
-
-		});
-
 		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
 				keychainAccount.account = uname;
@@ -50,9 +45,7 @@ function didClickLogin(e) {
 		}
 
 		http.request({
-			url : Alloy.CFG.baseUrl.concat("authenticate"),
-			type : "POST",
-			format : "xml",
+			method : "authenticate",
 			data : {
 				request : {
 					authenticate : {
@@ -65,9 +58,7 @@ function didClickLogin(e) {
 					}
 				}
 			},
-			success : didSuccess,
-			failure : didError,
-			done : didFinish
+			success : didAuthenticate
 		});
 
 	} else {
@@ -77,40 +68,23 @@ function didClickLogin(e) {
 	}
 }
 
-function handleScroll(e) {
-	$.scrollView.canCancelEvents = e.value;
-}
-
-function didSuccess(result) {
-	var error = result.authenticate.error;
-	if (_.isObject(error)) {
-		dialog.show({
-			message : error.errormessage
+function didAuthenticate(result) {
+	Alloy.Globals.userInfo.sessionId = result.authenticate.sessionid;
+	if (app.navigator.name === Alloy.CFG.navigator) {
+		Alloy.Collections.menuItems.where({
+		action: "signin"
+		})[0].set({
+			titleid : "strSignout",
+			action : "signout"
 		});
+		app.navigator.close();
 	} else {
-		Alloy.Globals.userInfo.sessionId = result.authenticate.sessionid;
-		if (app.navigator.name === Alloy.CFG.navigator) {
-			Alloy.Collections.menuItems.where({
-			action: "signin"
-			})[0].set({
-				titleid : "strSignout",
-				action : "signout"
-			});
-			app.navigator.close();
-		} else {
-			Alloy.createController(Alloy.CFG.navigator + "/master");
-		}
+		Alloy.createController(Alloy.CFG.navigator + "/master");
 	}
 }
 
-function didError(http, url) {
-	dialog.show({
-		message : Alloy.Globals.Strings.msgFailedToRetrive
-	});
-}
-
-function didFinish() {
-	app.navigator.hideLoader();
+function handleScroll(e) {
+	$.scrollView.canCancelEvents = e.value;
 }
 
 function didClickSignup(e) {

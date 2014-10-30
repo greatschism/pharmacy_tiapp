@@ -5,6 +5,7 @@
 	Alloy.Globals.Strings = Locale.currentLanguage.strings;
 
 	Alloy.Globals.userInfo = {};
+	Alloy.Globals.appLoad = {};
 
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 

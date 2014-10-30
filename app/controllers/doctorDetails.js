@@ -33,7 +33,7 @@ var args = arguments[0] || {};
 		footerView.addEventListener("click", didClickMore);
 		$.footerView.add(footerView);
 	}
-	Alloy.Collections.prescriptions.reset(doctor.prescriptions.slice(0, 4));
+	Alloy.Collections.prescriptions.reset(_.first(doctor.prescriptions, 4));
 	Alloy.Models.doctor.set(doctor);
 })();
 

@@ -12,9 +12,7 @@
  * @param {String} _params.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
  * @param {String} _params.url The URL source to call
  * @param {Array} _params.headers Array of request headers to send
- * @param {Boolean} _params.autoCast whether or not to convert JSON to XML (Request) and/or XML to JSON (Response)
- * @param {Boolean} _params.encrypt whether or not to encrypt the request
- * @param _params.data The data to send
+ * @param {Object/String} _params.data The data to send
  * @param {Function} _params.failure A function to execute when there is an XHR error
  * @param {Function} _params.success A function to execute when when successful
  * @param {Function} _params.done A function to execute after the success or failure callback
@@ -26,9 +24,7 @@ exports.request = function(_params) {
 
 	if (Ti.Network.online) {
 
-		var xhr = Ti.Network.createHTTPClient(),
-		    stringCrypto,
-		    encryptionKey;
+		var xhr = Ti.Network.createHTTPClient();
 
 		xhr.timeout = _params.timeout ? _params.timeout : 10000;
 
@@ -39,33 +35,19 @@ exports.request = function(_params) {
 		 */
 		xhr.onload = function(response) {
 
-			var responseText = this.responseText;
-			/*console.log(responseText);
-
-			if (OS_IOS || OS_ANDROID) {
-			 if (_params.encrypt !== false) {
-			 responseText = stringCrypto.AESDecrypt(encryptionKey, responseText, false);
-			 }
-			 }
-			 console.log(responseText);*/
-
 			var _data;
 
 			switch(_params.format.toLowerCase()) {
 			case "data":
-				_data = this.responseData || responseText;
+				_data = this.responseData || this.responseText;
 			case "xml":
-				if (_params.autoCast !== false) {
-					_data = new (require("XMLTools"))(responseText).toObject();
-				} else {
-					_data = this.responseXML || Ti.XML.parseString(responseText);
-				}
+				_data = this.responseXML || Ti.XML.parseString(this.responseText);
 				break;
 			case "json":
-				_data = JSON.parse(responseText);
+				_data = JSON.parse(this.responseText);
 				break;
 			case "text":
-				_data = responseText;
+				_data = this.responseText;
 				break;
 			}
 
@@ -120,8 +102,8 @@ exports.request = function(_params) {
 
 		if (_params.headers) {
 			for (var i = 0,
-			    j = _params.headers.length; i < j; i++) {
-				xhr.setRequestHeader(_params.headers[i].name, _params.headers[i].value);
+			    len = _params.headers.length; i < len; i++) {
+				xhr.setRequestHeader(_params.headers[i].key, _params.headers[i].value);
 			}
 		}
 
@@ -131,41 +113,13 @@ exports.request = function(_params) {
 		}
 
 		if (_params.data) {
-
-			if (_params.autoCast !== false && typeof _params.data === "object" && _params.format.toLowerCase() === "xml") {
-				var xml = "";
-				var jsonToXml = function(json) {
-					for (var i in json) {
-						xml += "<" + i + ">";
-						if ( typeof json[i] === "object") {
-							jsonToXml(json[i]);
-						} else {
-							xml += json[i];
-						}
-						xml += "</" + i + ">";
-					}
-				};
-				jsonToXml(_params.data);
-				_params.data = xml;
-			}
-
-			/*if (OS_IOS || OS_ANDROID) {
-			 if (_params.encrypt !== false && typeof _params.data === "string") {
-			 stringCrypto = require("bencoding.securely").createStringCrypto();
-			 encryptionKey = Alloy.CFG.staticKey.concat(require("utilities").getRandomString(8));
-			 _params.data = stringCrypto.AESEncrypt(encryptionKey, _params.data, false);
-			 }
-			 }
-			 console.log(encryptionKey);
-			 console.log(_params.data);*/
-
 			xhr.send(_params.data);
-
 		} else {
 			xhr.send();
 		}
 
 	} else {
+
 		Ti.API.error("No internet connection");
 
 		if (_params.failure) {
