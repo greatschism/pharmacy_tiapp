@@ -10,15 +10,15 @@ function initHamburger() {
 		hamburger : $.hamburger
 	});
 	menuCtrl = Alloy.createController("menu");
-	app.Navigator.hamburger.init({
+	app.navigator.hamburger.init({
 		menuView : menuCtrl.getView()
 	});
 }
 
 function didOpen() {
-	if (!_.isEmpty(app.Navigator)) {
-		app.Navigator.closeToHome(function() {
-			app.Navigator.close(1, function() {
+	if (!_.isEmpty(app.navigator)) {
+		app.navigator.closeToHome(function() {
+			app.navigator.close(1, function() {
 				app.terminate();
 				initHamburger();
 			});
@@ -30,7 +30,7 @@ function didOpen() {
 
 function didClose(e) {
 	menuCtrl.terminate();
-	app.Navigator.hamburger.terminate();
+	app.navigator.hamburger.terminate();
 	app.terminate();
 }
 

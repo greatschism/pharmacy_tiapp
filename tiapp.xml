@@ -127,6 +127,7 @@
         <module platform="android">com.obscure.keychain</module>
         <module platform="iphone">bencoding.securely</module>
         <module platform="android">bencoding.securely</module>
+        <module platform="iphone">bencoding.network</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

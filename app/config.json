@@ -1,9 +1,11 @@
 {
 	"global": {
-		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_3/",
+		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
 		"clientname": "Meg-lo",
 		"emailpin": "",
 		"featurecode": "IP002",
+		"staticKey": "joScADBv",
+		"secret": "1234",
 		"languages": [
 			{
 				"code": "en",
@@ -33,6 +35,9 @@
 			}, {
 				"titleid": "titleAccount",
 				"ctrl": "account"
+			}, {
+				"titleid": "strSignout",
+				"action": "signout"
 			}
 		],
 		"icons": [
@@ -89,7 +94,6 @@
 	"env:test": {},
 	"env:production": {},
 	"os:android": {
-		"secret": "1234",
 		"navBarHeight": 48,
 		"navBarTop": 0,
 		"fonts": {
@@ -99,7 +103,6 @@
 	},
 	"os:blackberry": {},
 	"os:ios": {
-		"secret": "1234",
 		"navBarHeight": 68,
 		"navBarTop": 15,
 		"fonts": {

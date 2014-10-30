@@ -1,0 +1,6 @@
+"#index[platform=android]":{
+	exitOnClose: true
+},
+"#loading":{
+	message: Alloy.Globals.Strings.msgPleaseWait
+}

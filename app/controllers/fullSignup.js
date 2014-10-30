@@ -8,7 +8,7 @@ function init() {
 }
 
 function didClickSignup(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "textToApp",
 		stack : true
 	});
@@ -36,7 +36,7 @@ function handleScroll(e) {
 }
 
 function chooseLocation(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",
 		ctrlArguments : {

@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 (function() {
+	Ti.App.Properties.setBool("firstLoad", false);
 	if (OS_IOS || OS_ANDROID) {
 		$.carousel.animate(Ti.UI.createAnimation({
 			opacity : 1,
@@ -21,13 +22,13 @@ function didScrollend(e) {
 function didClickButtonBar(e) {
 	var action = e.action;
 	if (action == "login") {
-		app.Navigator.open({
+		app.navigator.open({
 			ctrl : "login",
 			stack : true
 		});
 	} else {
 		//sign up
-		app.Navigator.open({
+		app.navigator.open({
 			ctrl : "termsAndConditions",
 			titleid : "titleTermsAndConditions",
 			stack : true

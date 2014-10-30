@@ -23,7 +23,7 @@ var args = arguments[0] || {},
 		$.addClass($.leftImg, "back");
 		$.template.applyProperties({
 			opacity : 0,
-			left : app.Device.width
+			left : app.device.width
 		});
 	} else {
 		$.addClass($.leftImg, "hamburger");
@@ -46,9 +46,9 @@ var args = arguments[0] || {},
 
 function didTap(e) {
 	if (args.stack) {
-		app.Navigator.close();
+		app.navigator.close();
 	} else {
-		app.Navigator.hamburger.toggleLeftMenu();
+		app.navigator.hamburger.toggleLeftMenu();
 	}
 }
 

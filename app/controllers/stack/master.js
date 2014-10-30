@@ -7,7 +7,7 @@ function didOpen(e) {
 	app.setNavigator({
 		type : "stack"
 	});
-	app.Navigator.open(args);
+	app.navigator.open(args);
 }
 
 $.window.open();

@@ -150,7 +150,12 @@ exports.hexToHsb = function(_hex) {
 	rgb.g /= 255;
 	rgb.b /= 255;
 
-	var minVal = Math.min(rgb.r, rgb.g, rgb.b), maxVal = Math.max(rgb.r, rgb.g, rgb.b), delta = maxVal - minVal, del_r, del_g, del_b;
+	var minVal = Math.min(rgb.r, rgb.g, rgb.b),
+	    maxVal = Math.max(rgb.r, rgb.g, rgb.b),
+	    delta = maxVal - minVal,
+	    del_r,
+	    del_g,
+	    del_b;
 
 	hsb.b = maxVal;
 
@@ -558,4 +563,18 @@ exports.htmlTranslationTable = function() {
 	};
 
 	return entities;
+};
+
+/**
+ * Get random string
+ * @param {Number} _length The length of the string
+ */
+exports.getRandomString = function(_length) {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	for (var i = 0; i < _length; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
 };

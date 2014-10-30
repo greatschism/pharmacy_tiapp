@@ -63,7 +63,7 @@ function terminate() {
 }
 
 function didRefill(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "refill",
 		titleid : "titleOrderRefill",
 		stack : true,

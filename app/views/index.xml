@@ -1,1 +1,5 @@
-<Alloy />
+<Alloy>
+	<Window onOpen="didOpen">
+		<Widget id="loading" src="com.mscripts.loading" />
+	</Window>
+</Alloy>

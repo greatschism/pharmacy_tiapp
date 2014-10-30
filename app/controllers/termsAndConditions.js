@@ -3,7 +3,7 @@ var args = arguments[0] || {},
 
 function didItemClick(e) {
 	var item = Alloy.Collections.termsAndConditions.at( OS_MOBILEWEB ? e.index : e.itemIndex).toJSON();
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "termsDoc",
 		ctrlArguments : {
 			url : item.url
@@ -31,7 +31,7 @@ function terminate() {
 }
 
 function didDoneClick(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "mobileNumber",
 		titleImage : "/images/login/pharmacy.png",
 		stack : true

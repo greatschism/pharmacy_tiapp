@@ -11,7 +11,7 @@ function moveToNext(e) {
 }
 
 function didClickNext(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "signup",
 		stack : true
 	});

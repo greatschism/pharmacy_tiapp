@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 Alloy.Collections.menuItems.reset(Alloy.CFG.menuItems);
-app.Navigator.open(Alloy.Collections.menuItems.where({
+app.navigator.open(Alloy.Collections.menuItems.where({
 landingPage: true
 })[0].toJSON());
 
@@ -13,10 +13,26 @@ function transformFunction(model) {
 }
 
 function didItemClick(e) {
-	var item = Alloy.Collections.menuItems.at( OS_MOBILEWEB ? e.index : e.itemIndex).toJSON();
-	app.Navigator.hamburger.closeLeftMenu(function() {
-		if (item.ctrl && item.ctrl != app.Navigator.currentParams.ctrl) {
-			app.Navigator.open(item);
+	var mdoel = Alloy.Collections.menuItems.at( OS_MOBILEWEB ? e.index : e.itemIndex);
+	var itemObj = mdoel.toJSON();
+	app.navigator.hamburger.closeLeftMenu(function() {
+		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
+			app.navigator.open(itemObj);
+		} else if (itemObj.action) {
+			switch(itemObj.action) {
+			case "signout":
+				Alloy.Globals.userInfo = {};
+				mdoel.set({
+					titleid : "strSignin",
+					action : "signin"
+				});
+				break;
+			case "signin":
+				app.navigator.open({
+					ctrl : "login"
+				});
+				break;
+			}
 		}
 	});
 }

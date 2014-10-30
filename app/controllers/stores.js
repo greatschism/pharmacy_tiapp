@@ -23,7 +23,7 @@ function init() {
 		if (OS_IOS) {
 			Ti.Geolocation.purpose = "Help you to locate the nearest pharmacies.";
 		}
-		app.Navigator.showLoader({
+		app.navigator.showLoader({
 			message : Alloy.Globals.Strings.msgPleaseWait
 		});
 		Ti.Geolocation.getCurrentPosition(locationCallback);
@@ -33,29 +33,28 @@ function init() {
 function locationCallback(e) {
 	var coords = e.coords || {};
 	/*coords = {
-		latitude : 12.9739156,
-		longitude : 77.6172187
-	};*/
+	 latitude : 12.9739156,
+	 longitude : 77.6172187
+	 };*/
 	if (coords.latitude) {
-		var data = {
-			request : {
-				advsearchpharmacy : {
-					searchstring : $.searchbar.getValue(),
-					storeid : "",
-					latitude : coords.latitude,
-					longitude : coords.longitude,
-					fetchalldetails : 1,
-					pagenumber : "",
-					pagesize : "",
-					featurecode : Alloy.CFG.featurecode
-				}
-			}
-		};
 		http.request({
 			url : Alloy.CFG.baseUrl.concat("advsearchpharmacies"),
 			type : "POST",
 			format : "xml",
-			data : data,
+			data : {
+				request : {
+					advsearchpharmacy : {
+						searchstring : $.searchbar.getValue(),
+						storeid : "",
+						latitude : coords.latitude,
+						longitude : coords.longitude,
+						fetchalldetails : 1,
+						pagenumber : "",
+						pagesize : "",
+						featurecode : Alloy.CFG.featurecode
+					}
+				}
+			},
 			success : didSuccess,
 			failure : didError,
 			done : didFinish
@@ -95,7 +94,7 @@ function didError(http, url) {
 }
 
 function didFinish() {
-	app.Navigator.hideLoader();
+	app.navigator.hideLoader();
 }
 
 function loadMap(e) {
@@ -223,11 +222,11 @@ function fullsignup(storeId) {
 	Alloy.Models.store.set(Alloy.Collections.stores.where({
 	storeid: storeId
 	})[0].toJSON());
-	app.Navigator.close();
+	app.navigator.close();
 }
 
 function openStoreDetail(storeId) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "storeDetail",
 		titleid : "titleFindStore",
 		ctrlArguments : {

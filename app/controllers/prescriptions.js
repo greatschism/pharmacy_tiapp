@@ -10,5 +10,5 @@ $.dropdown.setParentView($.prescriptions);
 
 function didClick(e) {
 	console.log("go to home clicked!!!");
-	app.Navigator.open(Alloy.Collections.menuItems.at(0).toJSON());
+	app.navigator.open(Alloy.Collections.menuItems.at(0).toJSON());
 }

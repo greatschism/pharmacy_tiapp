@@ -25,6 +25,12 @@ function Navigation(_args) {
 	this.isBusy = false;
 
 	/**
+	 * name of the navigator
+	 * @type {String}
+	 */
+	this.name = "hamburger";
+
+	/**
 	 * The controller stack
 	 * @type {Array}
 	 */
@@ -303,7 +309,14 @@ function Navigation(_args) {
 	 */
 	this.closeToHome = function(_callback) {
 
-		if (that.isBusy || that.controllers.length == 0) {
+		if (that.isBusy) {
+			return;
+		}
+
+		if (that.controllers.length == 0) {
+			if (_callback) {
+				_callback();
+			}
 			return;
 		}
 

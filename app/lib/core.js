@@ -29,7 +29,7 @@ var App = {
 	 * @param {String} orientation The device orientation, either "landscape" or "portrait"
 	 * @param {String} statusBarOrientation A Ti.UI orientation value
 	 */
-	Device : {
+	device : {
 		version : Ti.Platform.version,
 		versionMajor : parseInt(Ti.Platform.version.split(".")[0], 10),
 		versionMinor : parseInt(Ti.Platform.version.split(".")[1], 10),
@@ -43,7 +43,7 @@ var App = {
 	 * The navigator object which handles all navigation
 	 * @type {Object}
 	 */
-	Navigator : {},
+	navigator : {},
 
 	/**
 	 * The global window used in the app
@@ -90,7 +90,7 @@ var App = {
 			App.globalWindow.removeEventListener("androidback", App.back);
 		}
 
-		App.Navigator = {};
+		App.navigator = {};
 	},
 
 	/**
@@ -101,10 +101,10 @@ var App = {
 	setNavigator : function(_params) {
 		_.extend(_params, {
 			window : App.globalWindow,
-			device : App.Device
+			device : App.device
 		});
 		// Require in the navigation module
-		App.Navigator = require(String(_params.type).concat("/navigation"))(_params);
+		App.navigator = require(String(_params.type).concat("/navigation"))(_params);
 	},
 
 	/**
@@ -157,17 +157,17 @@ var App = {
 	 * @param {Controllers} _controller
 	 */
 	setViewsForOrientation : function(_controller) {
-		if (!App.Device.orientation) {
+		if (!App.device.orientation) {
 			return;
 		}
 
 		// Restricted the UI for portrait and landscape orientation
-		if (App.Device.orientation == "portrait" || App.Device.orientation == "landscape") {
+		if (App.device.orientation == "portrait" || App.device.orientation == "landscape") {
 			for (var view in _controller.__views) {
-				if (_controller.__views[view][App.Device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
-					_controller.__views[view].applyProperties(_controller.__views[view][App.Device.orientation]);
-				} else if (_controller.__views[view].wrapper && _controller.__views[view].wrapper[App.Device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
-					_controller.__views[view].applyProperties(_controller.__views[view].wrapper[App.Device.orientation]);
+				if (_controller.__views[view][App.device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
+					_controller.__views[view].applyProperties(_controller.__views[view][App.device.orientation]);
+				} else if (_controller.__views[view].wrapper && _controller.__views[view].wrapper[App.device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
+					_controller.__views[view].applyProperties(_controller.__views[view].wrapper[App.device.orientation]);
 				}
 			}
 		}
@@ -202,7 +202,7 @@ var App = {
 	 * @param {Object} _event Standard Ti callback
 	 */
 	back : function(_event) {
-		App.Navigator.close(1, null, true);
+		App.navigator.close(1, null, true);
 	},
 
 	/**
@@ -215,43 +215,43 @@ var App = {
 			return;
 		}
 
-		App.Device.orientation = _event.source.isLandscape() ? "landscape" : "portrait";
+		App.device.orientation = _event.source.isLandscape() ? "landscape" : "portrait";
 
 		/**
 		 * Fires an event for orientation change handling throughout the app
 		 * @event orientationChange
 		 */
 		Ti.App.fireEvent("orientationChange", {
-			orientation : App.Device.orientation
+			orientation : App.device.orientation
 		});
 	},
 
 	/**
 	 * Determines the device dimensions
-	 * @return {Object} Returns the new values of the new {@link core.Device.width} & {@link core.Device.height} settings
+	 * @return {Object} Returns the new values of the new {@link core.device.width} & {@link core.device.height} settings
 	 */
 	getDeviceDimensions : function() {
 		// Set device height and width based on orientation
-		switch(App.Device.orientation) {
+		switch(App.device.orientation) {
 		case "portrait":
-			App.Device.width = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth;
-			App.Device.height = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight;
+			App.device.width = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth;
+			App.device.height = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight;
 			break;
 		case "landscape":
-			App.Device.width = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight;
-			App.Device.height = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth;
+			App.device.width = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformWidth : Ti.Platform.displayCaps.platformHeight;
+			App.device.height = Ti.Platform.displayCaps.platformWidth > Ti.Platform.displayCaps.platformHeight ? Ti.Platform.displayCaps.platformHeight : Ti.Platform.displayCaps.platformWidth;
 			break;
 		}
 
 		// Convert dimensions from DP to PX for Android
 		if (OS_ANDROID) {
-			App.Device.width = (App.Device.width / (App.Device.dpi / 160));
-			App.Device.height = (App.Device.height / (App.Device.dpi / 160));
+			App.device.width = (App.device.width / (App.device.dpi / 160));
+			App.device.height = (App.device.height / (App.device.dpi / 160));
 		}
 
 		return {
-			width : App.Device.width,
-			height : App.Device.height
+			width : App.device.width,
+			height : App.device.height
 		};
 	}
 };

@@ -127,7 +127,7 @@ function didItemClick(e) {
 	var itemId = Number( OS_MOBILEWEB ? e.row.rowId : e.itemId);
 	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
 	if (section == $.appointmentSection) {
-		app.Navigator.open({
+		app.navigator.open({
 			stack : true,
 			titleid : "titleEditReminder",
 			ctrl : "chooseTime",
@@ -150,7 +150,7 @@ function didItemClick(e) {
 					$.photoDialog.show();
 				}
 			} else {
-				app.Navigator.open({
+				app.navigator.open({
 					stack : true,
 					title : "Dr. " + doctor.lname,
 					ctrl : "doctorDetails",
@@ -164,7 +164,7 @@ function didItemClick(e) {
 }
 
 function didClickAddDoctor(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		stack : true,
 		titleid : "titleAddDoctor",
 		ctrl : "addDoctor"
@@ -184,7 +184,7 @@ function openGallery() {
 }
 
 function didClickSetAppointment(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseDoctor",
 		ctrl : "chooseDoctor"

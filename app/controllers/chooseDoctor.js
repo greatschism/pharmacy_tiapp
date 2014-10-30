@@ -16,7 +16,7 @@ function transformDoctor(model) {
 
 function didItemClick(e) {
 	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
-	app.Navigator.open({
+	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",
 		ctrl : "chooseTime",

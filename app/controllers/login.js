@@ -16,7 +16,7 @@ if (OS_IOS || OS_ANDROID) {
 }
 
 function didRightclickPwd(e) {
-	app.Navigator.open({
+	app.navigator.open({
 		ctrl : "loginRecovery",
 		titleid : "titleLoginRecovery",
 		stack : true
@@ -35,7 +35,7 @@ function didClickLogin(e) {
 
 	if (uname != "" && password != "") {
 
-		app.Navigator.showLoader({
+		app.navigator.showLoader({
 			message : Alloy.Globals.Strings.msgPleaseWait
 
 		});
@@ -49,24 +49,22 @@ function didClickLogin(e) {
 			}
 		}
 
-		var data = {
-			request : {
-				authenticate : {
-					username : uname,
-					password : password,
-					clientname : Alloy.CFG.clientname,
-					emailpin : Alloy.CFG.emailpin,
-					featurecode : Alloy.CFG.featurecode,
-					language : ""
-				}
-			}
-		};
-
 		http.request({
 			url : Alloy.CFG.baseUrl.concat("authenticate"),
 			type : "POST",
 			format : "xml",
-			data : data,
+			data : {
+				request : {
+					authenticate : {
+						username : uname,
+						password : password,
+						clientname : Alloy.CFG.clientname,
+						emailpin : Alloy.CFG.emailpin,
+						featurecode : Alloy.CFG.featurecode,
+						language : ""
+					}
+				}
+			},
 			success : didSuccess,
 			failure : didError,
 			done : didFinish
@@ -90,8 +88,18 @@ function didSuccess(result) {
 			message : error.errormessage
 		});
 	} else {
-		Ti.App.Properties.setString("sessionid", result.authenticate.sessionid);
-		Alloy.createController(Alloy.CFG.navigator + "/master");
+		Alloy.Globals.userInfo.sessionId = result.authenticate.sessionid;
+		if (app.navigator.name === Alloy.CFG.navigator) {
+			Alloy.Collections.menuItems.where({
+			action: "signin"
+			})[0].set({
+				titleid : "strSignout",
+				action : "signout"
+			});
+			app.navigator.close();
+		} else {
+			Alloy.createController(Alloy.CFG.navigator + "/master");
+		}
 	}
 }
 
@@ -102,5 +110,13 @@ function didError(http, url) {
 }
 
 function didFinish() {
-	app.Navigator.hideLoader();
+	app.navigator.hideLoader();
+}
+
+function didClickSignup(e) {
+	app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : true
+	});
 }

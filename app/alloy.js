@@ -4,6 +4,8 @@
 	Locale.init();
 	Alloy.Globals.Strings = Locale.currentLanguage.strings;
 
+	Alloy.Globals.userInfo = {};
+
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
