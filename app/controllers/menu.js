@@ -20,12 +20,14 @@ function didItemClick(e) {
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
 			if (itemObj.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
-				app.navigator.open({
-					ctrl : "login",
-					ctrlArguments : {
-						navigateTo : itemObj
-					}
-				});
+				if (app.navigator.currentParams.ctrl != "login") {
+					app.navigator.open({
+						ctrl : "login",
+						ctrlArguments : {
+							navigateTo : itemObj
+						}
+					});
+				}
 			} else {
 				app.navigator.open(itemObj);
 			}
