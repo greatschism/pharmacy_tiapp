@@ -5,14 +5,14 @@ function init() {
 	Alloy.Collections.upcomingAppointments.reset([{
 	
 		desc : "Tramadol HCL, 20mg tab qual",
-		time : "Order placed; should be ready by Tuesday by 2PM."
+		time : "Order placed; should be ready by Tuesday 2PM."
 	}]);
 	Alloy.Collections.doctors.reset([{
 		id : 1,
 		image : "",
-		fname : "Jane",
-		lname : "Doe",
-		phone : "(415) 193-3291",
+		fname : "Advil 100mg tablet",
+		lname : "Rx83484848",
+		phone : "Overdue by 17 days ",
 		fax : "(415) 111-3291",
 		hospital : "Smith Hospital",
 		street : "12 Pequod St.",
@@ -32,10 +32,10 @@ function init() {
 		}]
 	}, {
 		id : 2,
-		image : "/images/profile.png",
-		fname : "Herman",
-		lname : "Melville",
-		phone : "(415) 193-3291",
+		image : "",
+		fname : "Aderrall",
+		lname : "Rx7373737",
+		phone : "Due for refill in 6 days",
 		fax : "(415) 111-3291",
 		hospital : "Smith Hospital",
 		street : "12 Pequod St.",
@@ -47,10 +47,10 @@ function init() {
 		}]
 	}, {
 		id : 3,
-		image : "/images/profile.png",
-		fname : "Hareesh",
-		lname : "Khurana",
-		phone : "(415) 193-3291",
+		image : "",
+		fname : "Prednisone, 20mg tab qual",
+		lname : "Rx523533636",
+		phone : "Due for refill in 5 days",
 		fax : "(415) 111-3291",
 		hospital : "Smith Hospital",
 		street : "12 Pequod St.",
@@ -163,13 +163,7 @@ function didItemClick(e) {
 	}
 }
 
-function didClickAddDoctor(e) {
-	app.navigator.open({
-		stack : true,
-		titleid : "titleAddDoctor",
-		ctrl : "addDoctor"
-	});
-}
+
 
 function didClickOption(e) {
 	console.log(e);
