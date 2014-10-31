@@ -102,6 +102,6 @@
 				</TableViewRow>
 			</TableView>
 		</ScrollView>
-		<Button id="addDoctorBtn" class="bottom-20 width-90 bg-orange white h2 font-regular" onClick="didClickAddDoctor" />
+		
 	</View>
 </Alloy> 
