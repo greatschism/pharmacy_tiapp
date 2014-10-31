@@ -69,14 +69,15 @@ function didClickLogin(e) {
 }
 
 function didAuthenticate(result) {
-	Alloy.Globals.userInfo.sessionId = result.authenticate.sessionid;
+	Alloy.Models.user.set({
+		loggedIn: true,
+		sessionId: result.authenticate.sessionid
+	}); 
+	Alloy.Collections.menuItems.add({
+		titleid : "strSignout",
+		action : "signout"
+	});
 	if (app.navigator.name === Alloy.CFG.navigator) {
-		Alloy.Collections.menuItems.where({
-		action: "signin"
-		})[0].set({
-			titleid : "strSignout",
-			action : "signout"
-		});
 		app.navigator.close();
 	} else {
 		Alloy.createController(Alloy.CFG.navigator + "/master");

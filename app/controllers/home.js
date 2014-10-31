@@ -16,6 +16,8 @@ var args = arguments[0] || {},
 		}
 		$.scrollView.add(view);
 	}
+	Alloy.Models.user.on("change", didChangeUser);
+	Alloy.Models.user.trigger("change");
 	if (OS_IOS || OS_ANDROID) {
 		$.scrollView.animate(Ti.UI.createAnimation({
 			opacity : 1,
@@ -23,6 +25,10 @@ var args = arguments[0] || {},
 		}));
 	}
 })();
+
+function didChangeUser(){
+	$.signinBtn.visible = !Alloy.Models.user.get("loggedIn");
+}
 
 function getView() {
 	return Ti.UI.createView({
@@ -69,3 +75,15 @@ function didItemClick(e) {
 		app.navigator.open(navigation);
 	}
 }
+
+function didClickSignin(e){
+	app.navigator.open({
+		ctrl: "login"
+	});
+}
+
+function terminate() {
+	Alloy.Models.user.off("change", didChangeUser);
+}
+
+exports.terminate = terminate;

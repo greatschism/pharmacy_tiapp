@@ -20,9 +20,9 @@
 ".row":{
 	height: 60
 },
-".favourite":{
+".favorite":{
 	width: 15,
-	image: "/images/store/favourite.png"
+	image: "/images/store/favorite.png"
 },
 ".content-view":{
 	left: 25

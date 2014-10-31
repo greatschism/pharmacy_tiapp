@@ -79,26 +79,27 @@ exports.request = function(_params) {
 	jsonToXml(_params.data);
 	_params.data = xml;
 
+	var user = Alloy.Models.user.toJSON();
 	var headers = [{
 		key : "sessionid",
-		value : Alloy.Globals.userInfo.sessionId || ""
+		value : user.sessionId
 	}, {
 		key : "clientid",
-		value : Alloy.Globals.appLoad.clientid
+		value : user.appLoad.clientid || ""
 	}, {
 		key : "language",
 		value : ""
 	}];
-	if (_.has(Alloy.Globals.appLoad, "apploadid")) {
+	if (_.has(user.appLoad, "apploadid")) {
 		headers.push({
 			key : "apploadid",
-			value : Alloy.Globals.appLoad.apploadid
+			value : user.appLoad.apploadid
 		});
 	}
-	if (_.has(Alloy.Globals.userInfo, "sessionId")) {
+	if (user.sessionId) {
 		headers.push({
 			key : "mscriptstoken",
-			value : Alloy.Globals.appLoad.mscriptstoken
+			value : user.appLoad.mscriptstoken
 		});
 	}
 	_params.headers = _.union(headers, _params.headers || []);

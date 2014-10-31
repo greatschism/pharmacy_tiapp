@@ -32,10 +32,10 @@ function init() {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	coords = {
+	/*coords = {
 		latitude : 12.9739156,
 		longitude : 77.6172187
-	};
+	};*/
 	if (coords.latitude) {
 		http.request({
 			method : "advsearchpharmacies",
@@ -68,7 +68,7 @@ function didGetPharmacies(result) {
 	for (var i in pharmacies) {
 		var pahamacy = pharmacies[i];
 		pahamacy.bookmarked = Number(pahamacy.bookmarked);
-		pahamacy.template = pahamacy.bookmarked ? "favourite" : "nearby";
+		pahamacy.template = pahamacy.bookmarked ? "favorite" : "nearby";
 		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
 		pahamacy.distance = pahamacy.distance + " mi away";
 	}

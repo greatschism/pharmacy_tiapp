@@ -1,6 +1,17 @@
-".logo":{
-	width: 50,
-	image: "/images/store/pharmacy.png"
+".width-50d":{
+	width: 50
+},
+".width-135d":{
+	width: 135
+},
+".width-30d":{
+	width: 30
+},
+".right-140":{
+	right: 140
+},
+"#directionBtn":{
+	title: Alloy.Globals.Strings.strDirections
 },
 "#optionsLbl":{
 	text: Alloy.Globals.Strings.sectionStoreOptions
@@ -11,14 +22,16 @@
 "#servicesLbl":{
 	text: Alloy.Globals.Strings.sectionStoreServices
 },
+"#addToFavoriteBtn":{
+	right: 60,
+	height: 45,
+	title: Alloy.Globals.Strings.btnAddToFavorites
+},
+"#homeImg":{
+	image: "/images/home.png"
+},
 ".text-view":{
-	left: 75
-},
-".address-view":{
-	right: 40
-},
-".location-view":{
-	height: 20
+	left: 60
 },
 ".distance-img":{
 	width: 10,

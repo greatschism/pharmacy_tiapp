@@ -1,3 +1,6 @@
 "#scrollView[platform=ios,android]":{
 	opacity: 0
+},
+"#signinBtn":{
+	title: Alloy.Globals.Strings.strSignin
 }

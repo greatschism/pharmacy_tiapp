@@ -1,4 +1,4 @@
 <Alloy>
-	<!--<Button title="sign in" class="nav-bar-right-btn" />-->
+	<Button id="signinBtn" class="nav-bar-right-btn" onClick="didClickSignin" />
 	<ScrollView id="scrollView" class="vgroup" />
 </Alloy> 

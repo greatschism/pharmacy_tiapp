@@ -17,42 +17,41 @@
 			</ItemTemplate>
 		</Templates>
 		<HeaderView>
-			<View class="auto-height vgroup">
-				<View class="auto-height top-20">
-					<ImageView class="left-15 logo" />
+			<View class="left-5 right-5 auto-height vgroup">
+				<View class="top-20 auto-height">
+					<ImageView id="favoriteImg" class="top left width-50d" />
 					<View class="auto-height text-view">
-						<View class="auto-height vgroup address-view">
-							<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-							<Label id="subtitleLbl" class="top-5 h4 left gray" text="{store.subtitle}" />
-							<View class="top-10 location-view">
-								<View class="left width-45">
-									<ImageView class="distance-img left" />
-									<Label text="{store.distance}" class="location-lbl left-20 font-light gray" />
-								</View>
-								<View class="right width-55">
-									<ImageView id="clockImg" class="left-5 width-20d" />
-									<Label id="clockLbl" class="location-lbl left-20 font-light" left="30" />
-								</View>
+						<View class="top left right-140 auto-height vgroup">
+							<Label id="titleLbl" class="left h4 bold multi-line gray" text="{store.addressline1}" />
+							<Label id="subtitleLbl" class="top-5 left h6 multi-line gray" text="{store.subtitle}" />
+						</View>
+						<View class="top right auto-height vgroup width-135d">
+							<View class="left-5 auto-height hgroup no-hwrap">
+								<ImageView class="left-5 distance-img left" />
+								<Label text="{store.distance}" class="location-lbl left-10 font-light gray" />
+							</View>
+							<View class="top-5 left-5 auto-height hgroup no-hwrap">
+								<ImageView id="clockImg" class="left width-20d" />
+								<Label id="clockLbl" class="location-lbl left-5 font-light" />
 							</View>
 						</View>
-						<ImageView id="favouriteImg" class="top-10 right-15 width-20d" />
 					</View>
 				</View>
-				<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
+				<View class="top-5 auto-height">
+					<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3 font-regular" />
+					<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" />
+				</View>
+				<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
 					<ImageView image="/images/store/refill.png" class="button-img-left" />
 					<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
+				</View>
+				<View class="top-20 auto-height">
+					<Button id="addToFavoriteBtn" class="left-15 fill-width bg-white orange border-orange h3 font-light" />
+					<ImageView id="homeImg" class="right-15 width-30d"  />
 				</View>
 				<View class="vspacer" />
 			</View>
 		</HeaderView>
-		<ListSection dataCollection="storeOptions">
-			<HeaderView>
-				<View class="row-h20 bg-armadillo">
-					<Label id="optionsLbl" class="cloudy left-5" />
-				</View>
-			</HeaderView>
-			<ListItem template="options" icon:image="{icon}" name:text="{name}" detail:text="{detail}" />
-		</ListSection>
 		<ListSection dataCollection="storeHours">
 			<HeaderView>
 				<View class="row-h20 bg-armadillo">
@@ -73,23 +72,22 @@
 	<ScrollView class="vgroup" platform="mobileweb">
 		<View class="auto-height vgroup">
 			<View class="auto-height top-20">
-				<ImageView class="left-15 logo" />
-				<View class="top auto-height text-view">
-					<View class="top auto-height vgroup address-view">
-						<Label id="titleLbl" class="h2 left gray" text="{store.addressline1}" />
-						<Label id="subtitleLbl" class="top-5 h4 left gray" text="{store.subtitle}" />
-						<View class="top-10 location-view">
-							<View class="left width-45">
-								<ImageView class="distance-img left" />
-								<Label text="{store.distance}" class="location-lbl left-20 font-light gray" />
-							</View>
-							<View class="right width-55">
-								<ImageView id="clockImg" class="left-5 width-20d" />
-								<Label id="clockLbl" class="location-lbl left-20 font-light" left="30" />
-							</View>
+				<ImageView id="favoriteImg" class="top left-5 width-50d" />
+				<View class="right-5 auto-height text-view">
+					<View class="top left right-140 auto-height vgroup">
+						<Label id="titleLbl" class="left h4 bold gray" text="{store.addressline1}" />
+						<Label id="subtitleLbl" class="top-5 left h6 gray" text="{store.subtitle}" />
+					</View>
+					<View class="top right auto-height vgroup width-135d">
+						<View class="left-5 auto-height hgroup no-hwrap">
+							<ImageView class="left-5 distance-img left" />
+							<Label text="{store.distance}" class="location-lbl left-10 font-light gray" />
+						</View>
+						<View class="top-5 left-5 auto-height hgroup no-hwrap">
+							<ImageView id="clockImg" class="left width-20d" />
+							<Label id="clockLbl" class="location-lbl left-5 font-light" />
 						</View>
 					</View>
-					<ImageView id="favouriteImg" class="top-10 top-10 right-15 width-20d" />
 				</View>
 			</View>
 			<View class="top-20 button-view width-90 bg-orange" onSingletap="didRefill">
@@ -98,20 +96,6 @@
 			</View>
 			<View class="vspacer" />
 		</View>
-		<TableView class="auto-height" dataCollection="storeOptions">
-			<HeaderView>
-				<View class="row-h20 bg-armadillo">
-					<Label text="Store options" class="cloudy left-5" />
-				</View>
-			</HeaderView>
-			<TableViewRow class="height-50d">
-				<View class="auto-height hgroup">
-					<ImageView image="{icon}" class="width-20d left-15" />
-					<Label text="{name}" class="h2 cloudy left-5" />
-					<Label text="{detail}" class="h2 alto left-5" />
-				</View>
-			</TableViewRow>
-		</TableView>
 		<TableView class="auto-height" dataCollection="storeHours">
 			<HeaderView>
 				<View class="row-h20 bg-armadillo">

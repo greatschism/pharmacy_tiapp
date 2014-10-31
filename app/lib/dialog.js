@@ -10,7 +10,7 @@
  * @param {String} _params.title title of alert box
  * @param {String} _params.message message of alert box
  * @param {String[]} _params.buttonNames buttonNames of alert box
- * @param {String} _params.cancel cancel index of alert box
+ * @param {String} _params.cancelIndex cancel index of alert box
  * @param {String} _params.ok ok text of alert box
  * @param {View} _params.androidView androidView of alert box
  * @param {Function} _params.success callback, if any button is clicked other than cancel
@@ -25,7 +25,7 @@ exports.show = function(_params) {
 	if (_.has(_params, "buttonNames")) {
 		_.extend(dict, {
 			buttonNames : _params.buttonNames,
-			cancel : _params.cancel || -1
+			cancel : _params.cancelIndex || -1
 		});
 	} else {
 		_.extend(dict, {

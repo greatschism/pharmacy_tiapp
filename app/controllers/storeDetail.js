@@ -43,16 +43,9 @@ var args = arguments[0] || {},
 		$.clockImg.image = image;
 		$.clockLbl.applyProperties(labelDict);
 	}
-	$.favouriteImg.image = "/images/store/".concat(store.bookmarked ? "favourite" : "unfavourite").concat(".png");
+	$.favoriteImg.image = "/images/store/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
+	store.phone = Alloy.Globals.Strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	Alloy.Models.store.set(store);
-	Alloy.Collections.storeOptions.reset([{
-		icon : "/images/call.png",
-		name : "Call",
-		detail : "(" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber
-	}, {
-		icon : "/images/direction.png",
-		name : "Get directions"
-	}]);
 	Alloy.Collections.storeHours.reset(dates);
 	Alloy.Collections.storeServices.reset(services);
 })();

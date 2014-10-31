@@ -17,7 +17,8 @@ function didOpen(e) {
 				}
 			}
 		},
-		success : didAppLoad
+		success : didAppLoad,
+		done : didFinish
 	});
 }
 
@@ -26,23 +27,18 @@ function didFinish() {
 }
 
 function didAppLoad(result) {
-	Alloy.Globals.appLoad = result.appload;
-	if (_.has(Alloy.Globals.userInfo, "sessionId")) {
-		Alloy.createController(Alloy.CFG.navigator + "/master");
+	Alloy.Models.user.set({
+		appLoad: result.appload
+	},{
+		silent: true
+	}); 
+	if (Ti.App.Properties.getBool("firstLoad", true)) {
+		Alloy.createController("stack/master", {
+			ctrl : "carousel",
+			titleImage : "/images/login/pharmacy.png"
+		});
 	} else {
-		var fistLoad = Ti.App.Properties.getBool("firstLoad", true),
-		    params;
-		if (fistLoad) {
-			params = {
-				ctrl : "carousel",
-				titleImage : "/images/login/pharmacy.png"
-			};
-		} else {
-			params = {
-				ctrl : "login"
-			};
-		}
-		Alloy.createController("stack/master", params);
+		Alloy.createController(Alloy.CFG.navigator + "/master");
 	}
 }
 
