@@ -99,7 +99,9 @@
 				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 			</View>
 			<View class="top-20 auto-height">
-				<Button id="addToFavoriteBtn" class="left-15 fill-width bg-white orange border-orange h3 font-light" />
+				<View class="auto-height left-15">
+					<Button id="addToFavoriteBtn" class="fill-width bg-white orange border-orange h3 font-light" />
+				</View>
 				<ImageView id="homeImg" class="right-15 width-30d"  />
 			</View>
 			<View class="vspacer" />

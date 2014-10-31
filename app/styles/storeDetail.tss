@@ -25,7 +25,8 @@
 "#addToFavoriteBtn":{
 	right: 60,
 	height: 45,
-	title: Alloy.Globals.Strings.btnAddToFavorites
+	title: Alloy.Globals.Strings.btnAddToFavorites,
+	borderWidth: 1
 },
 "#homeImg":{
 	image: "/images/home.png"
