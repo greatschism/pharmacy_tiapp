@@ -9,8 +9,7 @@
 		{
 			title: Alloy.Globals.Strings.menuSearch
 		},{
-			title: Alloy.Globals.Strings.menuSort
-			
+			title: Alloy.Globals.Strings.menuSort		
 		},
 		{
 			title: Alloy.Globals.Strings.menuUnhide
@@ -22,10 +21,10 @@
 	bottom: 90
 },
 "#appointmentLbl":{
-	text: Alloy.Globals.Strings.sectionUpcomingAppointments
+	text: Alloy.Globals.Strings.sectionGettingRefilled
 },
 "#doctorLbl":{
-	text: Alloy.Globals.Strings.sectionMyDoctors
+	text: Alloy.Globals.Strings.sectionReadytoRefill
 },
 "#addImg":{
 	image: "/images/plus_black.png"
