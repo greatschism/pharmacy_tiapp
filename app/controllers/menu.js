@@ -19,33 +19,42 @@ function didItemClick(e) {
 	var itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
-			app.navigator.open(itemObj);
+			if (itemObj.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
+				app.navigator.open({
+					ctrl : "login",
+					ctrlArguments : {
+						navigateTo : itemObj
+					}
+				});
+			} else {
+				app.navigator.open(itemObj);
+			}
 		} else if (itemObj.action) {
 			switch(itemObj.action) {
 			case "signout":
 				dialog.show({
-					message: Alloy.Globals.Strings.msgSignout,
-					buttonNames: [Alloy.Globals.Strings.btnYes, Alloy.Globals.Strings.btnNo],
-					cancelIndex: 1,
-					success: function(){
+					message : Alloy.Globals.Strings.msgSignout,
+					buttonNames : [Alloy.Globals.Strings.btnYes, Alloy.Globals.Strings.btnNo],
+					cancelIndex : 1,
+					success : function() {
 						http.request({
 							method : "logout",
 							data : {
-								request:{
-									logout:{
-										featurecode : Alloy.CFG.featurecode
+								request : {
+									logout : {
+										featurecode : "TH0XX"
 									}
 								}
 							},
-							success : function(result){
+							success : function(result) {
 								Alloy.Models.user.set({
-									loggedIn: false,
-									sessionId: ""
+									loggedIn : false,
+									sessionId : ""
 								});
 								Alloy.Collections.menuItems.remove(model);
-								app.navigator.closeToHome(function(){
+								app.navigator.closeToHome(function() {
 									dialog.show({
-										message: Alloy.Globals.Strings.msgSignedoutSuccessfully
+										message : Alloy.Globals.Strings.msgSignedoutSuccessfully
 									});
 								});
 							}

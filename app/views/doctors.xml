@@ -48,7 +48,7 @@
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" prescription:text="{description}" />
+				<ListItem template="doctor" itemId="{customerdoctorid}" profile:image="{image}" doctor:text="{fname} {lname}" prescription:text="{description}" />
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">

@@ -53,7 +53,7 @@ function didClickLogin(e) {
 						password : password,
 						clientname : Alloy.CFG.clientname,
 						emailpin : Alloy.CFG.emailpin,
-						featurecode : Alloy.CFG.featurecode,
+						featurecode : "TH053",
 						language : ""
 					}
 				}
@@ -70,15 +70,19 @@ function didClickLogin(e) {
 
 function didAuthenticate(result) {
 	Alloy.Models.user.set({
-		loggedIn: true,
-		sessionId: result.authenticate.sessionid
-	}); 
+		loggedIn : true,
+		sessionId : result.authenticate.sessionid
+	});
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
 		action : "signout"
 	});
 	if (app.navigator.name === Alloy.CFG.navigator) {
-		app.navigator.close();
+		if (_.has(args, "navigateTo")) {
+			app.navigator.open(args.navigateTo);
+		} else {
+			app.navigator.close();
+		}
 	} else {
 		Alloy.createController(Alloy.CFG.navigator + "/master");
 	}

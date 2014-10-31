@@ -49,7 +49,7 @@ function locationCallback(e) {
 						fetchalldetails : 1,
 						pagenumber : "",
 						pagesize : "",
-						featurecode : Alloy.CFG.featurecode
+						featurecode : "TH054"
 					}
 				}
 			},

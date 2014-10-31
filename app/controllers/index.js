@@ -13,7 +13,7 @@ function didOpen(e) {
 					phoneplatform : "IP",
 					appversion : Ti.App.version,
 					clientname : Alloy.CFG.clientname,
-					featurecode : Alloy.CFG.featurecode
+					featurecode : "TH610"
 				}
 			}
 		},

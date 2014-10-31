@@ -1,64 +1,90 @@
 var args = arguments[0] || {},
-    app = require("core");
+    app = require("core"),
+    http = require("httpwrapper"),
+    dialog = require("dialog");
 
 function init() {
-	Alloy.Collections.upcomingAppointments.reset([{
-		image : "/images/profile.png",
-		desc : "You have an upcoming appointment with Dr. Doe on",
-		time : "May 12th at 4.30 PM."
-	}]);
-	Alloy.Collections.doctors.reset([{
-		id : 1,
-		image : "",
-		fname : "Jane",
-		lname : "Doe",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : [{
-			name : "Omeprazole"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}]
-	}, {
-		id : 2,
-		image : "/images/profile.png",
-		fname : "Herman",
-		lname : "Melville",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : [{
-			name : "Omeprazole"
-		}]
-	}, {
-		id : 3,
-		image : "/images/profile.png",
-		fname : "Hareesh",
-		lname : "Khurana",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : []
-	}]);
+	http.request({
+		method : "getdoctors",
+		data : {
+			request : {
+				doctors : {
+					customerdoctorid : "",
+					masterdoctorid : "",
+					pagesize : "",
+					pagenumber : "",
+					featurecode : "IP022"
+				}
+			}
+		},
+		success : didGetDoctors
+	});
+	/*Alloy.Collections.upcomingAppointments.reset([{
+	 image : "/images/profile.png",
+	 desc : "You have an upcoming appointment with Dr. Doe on",
+	 time : "May 12th at 4.30 PM."
+	 }]);
+	 Alloy.Collections.doctors.reset([{
+	 id : 1,
+	 image : "",
+	 fname : "Jane",
+	 lname : "Doe",
+	 phone : "(415) 193-3291",
+	 fax : "(415) 111-3291",
+	 hospital : "Smith Hospital",
+	 street : "12 Pequod St.",
+	 city : "Nantuket",
+	 state : "MA",
+	 zip : "02554",
+	 prescriptions : [{
+	 name : "Omeprazole"
+	 }, {
+	 name : "Omeprazole 500mg"
+	 }, {
+	 name : "Omeprazole 500mg"
+	 }, {
+	 name : "Omeprazole 500mg"
+	 }, {
+	 name : "Omeprazole 500mg"
+	 }]
+	 }, {
+	 id : 2,
+	 image : "/images/profile.png",
+	 fname : "Herman",
+	 lname : "Melville",
+	 phone : "(415) 193-3291",
+	 fax : "(415) 111-3291",
+	 hospital : "Smith Hospital",
+	 street : "12 Pequod St.",
+	 city : "Nantuket",
+	 state : "MA",
+	 zip : "02554",
+	 prescriptions : [{
+	 name : "Omeprazole"
+	 }]
+	 }, {
+	 id : 3,
+	 image : "/images/profile.png",
+	 fname : "Hareesh",
+	 lname : "Khurana",
+	 phone : "(415) 193-3291",
+	 fax : "(415) 111-3291",
+	 hospital : "Smith Hospital",
+	 street : "12 Pequod St.",
+	 city : "Nantuket",
+	 state : "MA",
+	 zip : "02554",
+	 prescriptions : []
+	 }]);*/
+}
+
+function didGetDoctors(result) {
+	var doctors = result.doctors.doctor;
+	for (var i in doctors) {
+		doctors[i].image = "/images/profile.png";
+		doctors[i].description = "";
+	}
+	Alloy.Collections.doctors.reset();
 }
 
 function transformAppointment(model) {
@@ -89,7 +115,7 @@ function transformDoctor(model) {
 	if (!transform.image) {
 		transform.image = "/images/add_photo.png";
 	}
-	transform.name = "Dr. " + transform.fname + " " + transform.lname;
+	/*transform.name = "Dr. " + transform.fname + " " + transform.lname;
 	var prescriptions = transform.prescriptions;
 	var description = "";
 	var len = prescriptions.length;
@@ -111,7 +137,7 @@ function transformDoctor(model) {
 		description = "You have no active prescriptions associated with Dr. " + transform.lname;
 	}
 	description += ".";
-	transform.description = description;
+	transform.description = description;*/
 	return transform;
 }
 

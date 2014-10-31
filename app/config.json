@@ -3,7 +3,6 @@
 		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
 		"clientname": "Meg-lo",
 		"emailpin": "",
-		"featurecode": "IP002",
 		"staticKey": "joScADBv",
 		"secret": "1234",
 		"languages": [
@@ -22,19 +21,24 @@
 			{
 				"titleid": "titleHome",
 				"ctrl": "home",
-				"landingPage": true
+				"landingPage": true,
+				"requiresLogin": false
 			}, {
 				"titleid": "strPrescriptions",
-				"ctrl": "prescriptions"
+				"ctrl": "prescriptions",
+				"requiresLogin": true
 			}, {
 				"titleid": "titleDoctors",
-				"ctrl": "doctors"
+				"ctrl": "doctors",
+				"requiresLogin": true
 			}, {
 				"titleid": "titleStores",
-				"ctrl": "stores"
+				"ctrl": "stores",
+				"requiresLogin": false
 			}, {
 				"titleid": "titleAccount",
-				"ctrl": "account"
+				"ctrl": "account",
+				"requiresLogin": true
 			}
 		],
 		"icons": [
