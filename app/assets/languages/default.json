@@ -76,6 +76,12 @@
 		"lblOnThisDate": "On this date",
 		"lblAtThisTime": "At this time",
 
+
+        "menuSearch": "Search",
+        "menuSort": "Sort",
+        "menuUnhide": "Unhide prescriptions",
+
+
 		"valLoginRequiredFileds": "Username and Password can't be blank",
 
 		"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
