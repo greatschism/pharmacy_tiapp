@@ -26,6 +26,9 @@
 		"sectionStoreServices": "Store services",
 		"sectionUpcomingAppointments": "Upcoming appointments",
 		"sectionMyDoctors": "My doctors",
+		"sectionGettingRefilled": "Getting refilled",
+		"sectionReadytoRefill": "Ready to refill",
+		"sectionOtherPrescriptions": "Other prescriptions",
 
 		"hintSearchByZipCityOrState": "search by zip, city or state",
 		"hintMobileNumber": "Mobile Number",
