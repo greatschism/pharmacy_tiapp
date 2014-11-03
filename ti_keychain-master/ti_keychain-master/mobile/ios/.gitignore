@@ -1,0 +1,6 @@
+tmp
+bin
+build
+*.zip
+*.xcodeproj/xcuserdata
+*.xcodeproj/project.xcworkspace
