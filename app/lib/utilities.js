@@ -571,7 +571,7 @@ exports.htmlTranslationTable = function() {
  */
 exports.getRandomString = function(_length) {
 	var text = "";
-	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	var possible = "0123456789qwertyuiopasdfghjklzxcvbnm";
 
 	for (var i = 0; i < _length; i++)
 		text += possible.charAt(Math.floor(Math.random() * possible.length));

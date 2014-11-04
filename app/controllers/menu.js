@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     http = require("httpwrapper");
 
-Alloy.Collections.menuItems.reset(Alloy.CFG.menuItems);
+Alloy.Collections.menuItems.trigger("reset");
 app.navigator.open(Alloy.Collections.menuItems.where({
 landingPage: true
 })[0].toJSON());

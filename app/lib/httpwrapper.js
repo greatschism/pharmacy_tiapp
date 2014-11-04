@@ -2,15 +2,15 @@
  * @param {Object} _params The arguments for the method
  */
 
-exports.request = function(_params) {
+var app = require("core"),
+    http = require("http"),
+    dialog = require("dialog"),
+    utilities = require("utilities"),
+    xmlTools = require("XMLTools"),
+    encryptionKey,
+    stringCrypto;
 
-	var app = require("core"),
-	    http = require("http"),
-	    dialog = require("dialog"),
-	    utilities = require("utilities"),
-	    xmlTools = require("XMLTools"),
-	    stringCrypto,
-	    encryptionKey;
+exports.request = function(_params) {
 
 	var httpParams = {
 		url : Alloy.CFG.baseUrl.concat(_params.method || ""),

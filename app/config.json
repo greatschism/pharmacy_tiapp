@@ -3,8 +3,6 @@
 		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
 		"clientname": "Meg-lo",
 		"emailpin": "",
-		"staticKey": "joScADBv",
-		"secret": "1234",
 		"languages": [
 			{
 				"code": "en",
@@ -95,6 +93,8 @@
 	"env:test": {},
 	"env:production": {},
 	"os:android": {
+		"staticKey": "joScADBv",
+		"secret": "1234",
 		"navBarHeight": 48,
 		"navBarTop": 0,
 		"fonts": {
@@ -104,6 +104,8 @@
 	},
 	"os:blackberry": {},
 	"os:ios": {
+		"staticKey": "joScADBv",
+		"secret": "1234",
 		"navBarHeight": 68,
 		"navBarTop": 15,
 		"fonts": {
