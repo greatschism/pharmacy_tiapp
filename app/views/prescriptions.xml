@@ -16,13 +16,14 @@
 				</ItemTemplate>
 				<ItemTemplate name="doctor" class="auto-height top-10">
 					<View class="right-25 auto-height bottom-10">
-						<ImageView bindId="profile" class="profile-img left-10" />
+					
 						<View class="content-view auto-height vgroup">
 							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
 							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line touch-disabled" />
+						
 						</View>
 					</View>
-					<ImageView class="child" />
+					
 				</ItemTemplate>
 			</Templates>
 			<ListSection id="appointmentSection" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
@@ -33,14 +34,7 @@
 				</HeaderView>
 				<ListItem template="appointment" profile:image="{image}" title:attributedString="{title}" platform="ios" />
 				<ListItem template="appointment" profile:image="{image}" title:html="{title}" platform="android" />
-				<FooterView>
-					<View class="row-h40 bg-aeroblue" onClick="didClickSetAppointment">
-						<View class="auto hgroup touch-disabled">
-							<ImageView id="addImg" class="width-20d left touch-disabled" />
-							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
-						</View>
-					</View>
-				</FooterView>
+				
 			</ListSection>
 			<ListSection id="doctorSection" dataCollection="doctors" dataTransform="transformDoctor">
 				<HeaderView>
@@ -48,7 +42,7 @@
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" prescription:text="{description}" />
+				<ListItem template="doctor" itemId="{id}" doctor:text="{name}" prescription:text="{description}" />
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
@@ -97,7 +91,7 @@
 								<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 font-regular gray multi-line touch-disabled" />
 							</View>
 						</View>
-						<ImageView class="child" />
+						
 					</View>
 				</TableViewRow>
 			</TableView>
