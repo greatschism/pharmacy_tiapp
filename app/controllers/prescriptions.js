@@ -1,38 +1,37 @@
 var args = arguments[0] || {}, app = require("core");
 
 function init() {
-	Alloy.Collections.upcomingAppointments.reset([{
+	Alloy.Collections.gettingRefilled.reset([{
 
 		desc : "Tramadol HCL, 20mg tab qual",
 		time : "Order placed; should be ready by Tuesday 2PM."
 	}]);
-	
-	
-	Alloy.Collections.doctors.reset([{
+
+	Alloy.Collections.readytoRefill.reset([{
 		id : 1,
-		
+
 		prescname : "Advil, 100mg tablet",
-        rxnumber : "Rx7327373783",
-       duedate : "Overdue by 17 days"
+		rxnumber : "Rx7327373783",
+		duedate : "Overdue by 17 days"
 
 	}, {
 		id : 2,
-	
+
 		prescname : "Adderrall, 100mg tablet",
 		rxnumber : "Rx7327373783",
 		duedate : "Overdue by 14 days"
-	
+
 	}, {
 		id : 3,
-		
+
 		prescname : "Atorvastatin, 10mg tab",
-        rxnumber : "Rx7327373783",
-	   duedate : "Due for refill in 6 days"
-		
+		rxnumber : "Rx7327373783",
+		duedate : "Due for refill in 6 days"
+
 	}]);
 }
 
-function transformAppointment(model) {
+function transformGettingRefilled(model) {
 	var transform = model.toJSON();
 	if (OS_IOS) {
 		var text = transform.desc + " " + transform.time;
@@ -55,23 +54,21 @@ function transformAppointment(model) {
 	return transform;
 }
 
-function transformDoctor(model) {
+function transformReadyToRefill(model) {
 	var transform = model.toJSON();
-	
-	transform.name = transform.prescname ;
-//	var prescriptions = transform.prescriptions;
+
+	transform.name = transform.prescname;
+
 	var description = "";
 
-		 description = rxnumber + "        " + duedate;
-		
-				 description += transform.rxnumber + "     " + transform.duedate;
-				
-				 description += transform.rxnumber + "     " + transform.duedate;
-				
-				 description += transform.rxnumber + "     " + transform.duedate;
-			
-	
-		
+	description = transform.rxnumber + "        " + transform.duedate;
+
+	//	description += transform.rxnumber + "     " + transform.duedate;
+
+	//	description += transform.rxnumber + "     " + transform.duedate;
+
+	//	description += transform.rxnumber + "     " + transform.duedate;
+
 	description += ".";
 	transform.description = description;
 	return transform;
