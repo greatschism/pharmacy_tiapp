@@ -116,23 +116,23 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="android">ti.network</module>
+        <module platform="commonjs">ti.cloud</module>
+        <module platform="iphone">ti.map</module>
+        <module platform="android">ti.map</module>
         <module deploy-type="development" platform="android" version="1.0">com.soasta.touchtest</module>
         <module deploy-type="test" platform="android" version="1.0">com.soasta.touchtest</module>
         <module deploy-type="development" platform="iphone" version="1.0">com.soasta.touchtest</module>
         <module deploy-type="test" platform="iphone" version="1.0">com.soasta.touchtest</module>
-        <module platform="commonjs">ti.cloud</module>
-        <module platform="android">bencoding.securely</module>
-        <module platform="android">ti.keyboard</module>
-        <module platform="android">ti.map</module>
-        <module platform="iphone">bencoding.securely</module>
         <module platform="android">com.appcelerator.apm</module>
-        <module platform="iphone">bencoding.network</module>
-        <module platform="iphone">com.obscure.keychain</module>
-        <module platform="iphone">ti.keyboard</module>
-        <module platform="android">com.obscure.keychain</module>
         <module platform="iphone">com.appcelerator.apm</module>
-        <module platform="iphone">ti.map</module>
+        <module platform="android">ti.keyboard</module>
+        <module platform="iphone">ti.keyboard</module>
+        <module platform="iphone">bencoding.network</module>
+        <module platform="android">ti.network</module>
+        <module platform="iphone">com.obscure.keychain</module>
+        <module platform="android">com.obscure.keychain</module>
+        <module platform="android">bencoding.securely</module>
+        <module platform="iphone">bencoding.securely</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>
