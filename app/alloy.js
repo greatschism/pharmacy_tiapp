@@ -16,6 +16,7 @@
 	Alloy.Collections.prescriptions = new Backbone.Collection();
 	Alloy.Collections.chooseTime = new Backbone.Collection();
 	Alloy.Collections.gettingRefilled = new Backbone.Collection();
+	Alloy.Collections.readytoRefill = new Backbone.Collection();
 
 	Alloy.Models.user = new Backbone.Model({
 		loggedIn: false,
