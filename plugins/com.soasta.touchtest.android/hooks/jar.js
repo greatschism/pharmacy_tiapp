@@ -7,9 +7,9 @@ var exec = require('child_process').exec,
 
 var TMP_FOLDER = path.join(__dirname, '.tmp');
 
-var appc, logger, _init;
+var appc, logger, _initialize;
 
-function init(_appc, _logger) 
+function initialize(_appc, _logger) 
 {
 	if (!_appc || typeof _appc !== 'object') 
 	{
@@ -22,15 +22,15 @@ function init(_appc, _logger)
 
 	appc = _appc;
 	logger = _logger;
-	_init = true;
+	_initialize = true;
 }
-exports.init = init;
+exports.initialize = initialize;
 
 function create(target, source, callback) 
 {
-	if (!_init) 
+	if (!_initialize) 
 	{ 
-	  return callback(new Error('module not initialized, call init()')); 
+	  return callback(new Error('module not initialized, call initialize()')); 
   }
 	if (!target || typeof target !== 'string') 
 	{
@@ -56,9 +56,9 @@ exports.create = create;
 
 function extract(jarfiles, callback) 
 {
-	if (!_init) 
+	if (!_initialize) 
 	{ 
-	  return callback(new Error('module not initialized, call init()')); 
+	  return callback(new Error('module not initialized, call initialize()')); 
   }
 	if (!jarfiles) 
 	{ 

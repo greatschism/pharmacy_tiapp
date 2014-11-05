@@ -9,7 +9,7 @@ function didOpen(e) {
 					phonemodel : Ti.Platform.model,
 					phoneos : Ti.Platform.osname,
 					deviceid : Ti.Platform.id,
-					networkcarrier : OS_IOS ? require("bencoding.network").createCarrier().findInfo().carrierName : OS_ANDROID ? "" : "",
+					networkcarrier : OS_IOS ? require("bencoding.network").createCarrier().findInfo().carrierName : OS_ANDROID ? require("ti.network").findInfo().carrierName : Ti.Platform.osname,
 					phoneplatform : "IP",
 					appversion : Ti.App.version,
 					clientname : Alloy.CFG.clientname,
@@ -28,10 +28,10 @@ function didFinish() {
 
 function didAppLoad(result) {
 	Alloy.Models.user.set({
-		appLoad: result.appload
-	},{
-		silent: true
-	}); 
+		appLoad : result.appload
+	}, {
+		silent : true
+	});
 	if (Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {
 			ctrl : "carousel",

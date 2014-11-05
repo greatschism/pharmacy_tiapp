@@ -76,8 +76,8 @@ exports.init = function(logger, config, cli, appc)
 		SOASTA_HOOK.config.androidJar = build.androidTargetSDK.androidJar;
 		
 		// Initialize modules
-		bindings.init(SOASTA_HOOK.config.templateDir);
-		jar.init(SOASTA_HOOK.appc, SOASTA_HOOK.logger);
+		bindings.initialize(SOASTA_HOOK.config.templateDir);
+		jar.initialize(SOASTA_HOOK.appc, SOASTA_HOOK.logger);
 
 		SOASTA_HOOK.moduleEnabled = isAndroidModuleEnabled(build);
 		if (!SOASTA_HOOK.moduleEnabled)

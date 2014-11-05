@@ -5,7 +5,7 @@ var fs = require('fs'),
 
 var dirs, modulesJson;
 
-function init(androidDir) 
+function initialize(androidDir) 
 {
 	if (!androidDir || typeof androidDir !== 'string') 
 	{
@@ -19,7 +19,7 @@ function init(androidDir)
 	};
 	modulesJson = JSON.parse(fs.readFileSync(path.join(dirs.android, 'modules.json'), 'utf8')) || {};
 }
-exports.init = init;
+exports.initialize = initialize;
 
 function findModuleJar(name) 
 {
