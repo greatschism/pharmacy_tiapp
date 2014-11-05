@@ -7,52 +7,53 @@
 	<View>
 		<ListView id="listView" platform="ios,android" onItemclick="didItemClick">
 			<Templates>
-				<ItemTemplate name="appointment" class="auto-height top-10">
+				<ItemTemplate name="gettingRefilled" class="auto-height top-10">
 					<View class="right-25 auto-height bottom-10">
 					
 						<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
 					</View>
-					<ImageView class="child" />
+						<ImageView class="profile-img left-10" />
 				</ItemTemplate>
-				<ItemTemplate name="doctor" class="auto-height top-10">
+				<ItemTemplate name="readytoRefill" class="auto-height top-10">
 					<View class="right-25 auto-height bottom-10">
 					
 						<View class="content-view auto-height vgroup">
-							<Label bindId="doctor" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
-							<Label bindId="prescription" class="left auto-height h5 font-regular gray multi-line touch-disabled" />
+							<Label bindId="prescription" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
+							<Label bindId="rxnumber" class="left auto-height h5 font-regular gray multi-line touch-disabled" />
+							<Label bindId="duedate" class="right auto-height h5 font-regular gray multi-line touch-disabled"/>
 						
 						</View>
 					</View>
 					
 				</ItemTemplate>
 			</Templates>
-			<ListSection id="appointmentSection" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
+			<ListSection id="gettingRefilledSection" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
-						<Label id="appointmentLbl" class="cloudy left-5" />
+						<Label id="gettingRefilledLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="appointment" profile:image="{image}" title:attributedString="{title}" platform="ios" />
-				<ListItem template="appointment" profile:image="{image}" title:html="{title}" platform="android" />
+				<ListItem template="gettingRefilled" title:attributedString="{title}" platform="ios" />
+				<ListItem template="gettingRefilled" title:html="{title}" platform="android" />
 				
 			</ListSection>
-			<ListSection id="doctorSection" dataCollection="doctors" dataTransform="transformDoctor">
+			<ListSection id="readytoRefillSection" dataCollection="readytoRefill" dataTransform="transformReadyToRefill">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
-						<Label id="doctorLbl" class="cloudy left-5" />
+						<Label id="readyRefillLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="doctor" itemId="{id}" doctor:text="{name}" prescription:text="{description}" />
+				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}" duedate:text="{description}" />
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
-			<TableView  id="appointmentSection" class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformAppointment" onClick="didItemClick">
+			<TableView  id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled" onClick="didItemClick">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow class="auto-height top-10" rowTable="appointmentSection">
+				<TableViewRow class="auto-height top-10" rowTable="gettingRefilledSection">
 					<View class="top auto-height bottom-10">
 						<View class="top right-25 auto-height">
 							<View class="top auto-height">
@@ -65,30 +66,28 @@
 				</TableViewRow>
 				<FooterView>
 					<View class="row-h40 bg-aeroblue">
-						<View onClick="didClickSetAppointment">
+						<View>
 							<View class="auto hgroup touch-disabled">
 								<ImageView id="addImg" class="width-20d left touch-disabled" />
-								<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+							
 							</View>
 						</View>
 					</View>
 				</FooterView>
 			</TableView>
-			<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
+			<TableView id="readytoRefillSection" class="auto-height" dataCollection="readytoRefill" dataTransform="transformReadyToRefill" onClick="didItemClick">
 				<HeaderView>
 					<View class="row-h20 bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
+				<TableViewRow class="auto-height top-10" rowTable="readytoRefillSection" rowId="{id}">
 					<View class="top auto-height bottom-10">
 						<View class="top right-25 auto-height">
-							<View class="top auto-height">
-								<ImageView image="{image}" bindId="profile" class="profile-img left-10" />
-							</View>
+							
 							<View class="content-view auto-height vgroup">
-								<Label text="{name}" bindId="doctor" class="right-25 left auto-height font-16 font-regular black multi-line touch-disabled" />
-								<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 font-regular gray multi-line touch-disabled" />
+								<Label text="{name}" bindId="prescription" class="right-25 left auto-height font-16 font-regular black multi-line touch-disabled" />
+								<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line touch-disabled" />
 							</View>
 						</View>
 						
