@@ -141,7 +141,7 @@ function didClickSetAppointment(e) {
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseDoctor",
-		ctrl : "chooseDoctor"
+		ctrl : "prescriptionDetails"
 	});
 }
 
