@@ -67,7 +67,7 @@
 
 	if ( typeof (module) !== 'undefined' && typeof (module.exports) !== 'undefined') {
 
-		var Stream = require('stream');
+		var Stream = require('./stream');
 		inherits(Parser, Stream);
 
 		Parser.prototype.writable = true;
