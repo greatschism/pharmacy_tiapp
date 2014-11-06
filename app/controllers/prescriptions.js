@@ -29,6 +29,16 @@ function init() {
 		duedate : "Due for refill in 6 days"
 
 	}]);
+
+	Alloy.Collections.otherPrescriptions.reset([{
+
+		id : 1,
+		prescname : "Tramadol HCL, 20mg tab",
+		rxnumber : "Rx848484",
+		duedate : "Due for refill on 05/14/14"
+
+	}]);
+
 }
 
 function transformGettingRefilled(model) {
@@ -63,13 +73,20 @@ function transformReadyToRefill(model) {
 
 	description = transform.rxnumber + "        " + transform.duedate;
 
-	//	description += transform.rxnumber + "     " + transform.duedate;
+	//	description += ".";
+	transform.description = description;
+	return transform;
+}
 
-	//	description += transform.rxnumber + "     " + transform.duedate;
+function transformOtherPrescriptions(model) {
+	var transform = model.toJSON();
 
-	//	description += transform.rxnumber + "     " + transform.duedate;
+	transform.name = transform.prescname;
+	var description = "";
 
-	description += ".";
+	description = transform.rxnumber + "        " + transform.duedate;
+
+	//description += ".";
 	transform.description = description;
 	return transform;
 }
