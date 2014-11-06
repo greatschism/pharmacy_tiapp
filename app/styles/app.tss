@@ -166,6 +166,9 @@
 ".right-25":{
 	right: 25
 },
+".top-50":{
+	top: 50
+},
 /**
 * spacer & separators
 */
