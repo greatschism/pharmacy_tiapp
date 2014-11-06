@@ -17,8 +17,18 @@
 	],
 	zIndex: 2
 },
+"#searchbar":{
+	search: true,
+	clearButton: true,
+	hintText: "Search prescriptions",
+	font: {
+		fontFmaily: Alloy.CFG.fonts.light,
+		fontSize: 15
+	},
+	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+},
 "#listView":{
-	bottom: 90
+	bottom: 10
 },
 "#gettingRefilledLbl":{
 	text: Alloy.Globals.Strings.sectionGettingRefilled
