@@ -1,6 +1,6 @@
 "#menu":{
 	separatorColor: "#d8d8d8"
 },
-".row":{
+".height-48d":{
 	height: 48
 }

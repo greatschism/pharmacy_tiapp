@@ -4,7 +4,7 @@
 			<View class="vspacer" />
 		</HeaderView>
 		<Templates>
-			<ItemTemplate name="template" class="row">
+			<ItemTemplate name="template" class="height-48d">
 				<Label bindId="title" class="left-15 h3 black font-light" />
 			</ItemTemplate>
 		</Templates>
@@ -13,7 +13,7 @@
 		</ListSection>
 	</ListView>
 	<TableView platform="mobileweb" dataCollection="menuItems" dataTransform="transformFunction" onClick="didItemClick">
-		<TableViewRow class="row">
+		<TableViewRow class="height-48d">
 			<Label text="{title}" class="left-15 h4 black" />
 		</TableViewRow>
 	</TableView>

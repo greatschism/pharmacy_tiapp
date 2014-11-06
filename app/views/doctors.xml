@@ -27,14 +27,14 @@
 			</Templates>
 			<ListSection id="appointmentSection" dataCollection="upcomingAppointments" dataTransform="transformAppointment">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
 				<ListItem template="appointment" profile:image="{image}" title:attributedString="{title}" platform="ios" />
 				<ListItem template="appointment" profile:image="{image}" title:html="{title}" platform="android" />
 				<FooterView>
-					<View class="row-h40 bg-aeroblue" onClick="didClickSetAppointment">
+					<View class="height-40d bg-aeroblue" onClick="didClickSetAppointment">
 						<View class="auto hgroup touch-disabled">
 							<ImageView id="addImg" class="width-20d left touch-disabled" />
 							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
@@ -44,7 +44,7 @@
 			</ListSection>
 			<ListSection id="doctorSection" dataCollection="doctors" dataTransform="transformDoctor">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
@@ -54,7 +54,7 @@
 		<ScrollView id="listView" class="vgroup" platform="mobileweb">
 			<TableView  id="appointmentSection" class="auto-height" dataCollection="upcomingAppointments" dataTransform="transformAppointment" onClick="didItemClick">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="appointmentLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
@@ -70,7 +70,7 @@
 					</View>
 				</TableViewRow>
 				<FooterView>
-					<View class="row-h40 bg-aeroblue">
+					<View class="height-40d bg-aeroblue">
 						<View onClick="didClickSetAppointment">
 							<View class="auto hgroup touch-disabled">
 								<ImageView id="addImg" class="width-20d left touch-disabled" />
@@ -82,7 +82,7 @@
 			</TableView>
 			<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>

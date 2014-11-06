@@ -37,7 +37,7 @@
 		left: 0
 	}
 },
-".row":{
+".height-48d":{
 	height: 48
 },
 ".title":{

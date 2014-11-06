@@ -7,10 +7,10 @@
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
 		<View id="listContainer" class="vgroup bg-white show">
-			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5" onReturn="init" />
+			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 font-light" onReturn="init" />
 			<ListView id="listView" class="top-5" platform="ios,android" onItemclick="didItemClick">
 				<Templates>
-					<ItemTemplate name="favorite" class="row">
+					<ItemTemplate name="favorite" class="height-60d">
 						<View class="right-25">
 							<ImageView class="left-5 favorite" />
 							<View class="content-view">
@@ -26,7 +26,7 @@
 						</View>
 						<ImageView class="child" />
 					</ItemTemplate>
-					<ItemTemplate name="nearby" class="row">
+					<ItemTemplate name="nearby" class="height-60d">
 						<View class="right-25">
 							<View class="content-view">
 								<View class="left width-60 auto-height vgroup">
@@ -47,7 +47,7 @@
 				</ListSection>
 			</ListView>
 			<TableView id="listView" class="top-5" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
-				<TableViewRow class="row" itemId="{storeid}">
+				<TableViewRow class="height-60d" itemId="{storeid}">
 					<View class="right-25">
 						<ImageView class="left-5 favorite" visible="{bookmarked}" />
 						<View class="content-view">

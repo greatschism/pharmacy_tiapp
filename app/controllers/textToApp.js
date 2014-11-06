@@ -4,7 +4,7 @@ var args = arguments[0] || {},
 function didClickContinue(e) {
 	app.navigator.open({
 		ctrl : "sharedMobileCheck",
-		titleImage : "/images/login/pharmacy.png",
+		titleImage : "/images/pharmacy_gray.png",
 		stack : true
 	});
 }

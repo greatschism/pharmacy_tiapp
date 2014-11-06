@@ -42,7 +42,12 @@
 		"icons": [
 			[
 				{
-					"image": "my_prescriptions.png"
+					"image": "my_prescriptions.png",
+					"navigation": {
+						"titleid": "strPrescriptions",
+						"ctrl": "prescriptions",
+						"requiresLogin": true
+					}
 				}
 			],
 			[
@@ -58,8 +63,9 @@
 				}, {
 					"image": "finda_pharmacy.png",
 					"navigation": {
-						"title": "Stores",
-						"ctrl": "stores"
+						"titleid": "titleStores",
+						"ctrl": "stores",
+						"requiresLogin": false
 					}
 				}, {
 					"image": "generics.png"

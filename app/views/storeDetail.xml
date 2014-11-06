@@ -8,11 +8,11 @@
 					<Label bindId="detail" class="h2 alto left-5" />
 				</View>
 			</ItemTemplate>
-			<ItemTemplate name="hours" class="row-h30">
+			<ItemTemplate name="hours" class="height-30d">
 				<Label bindId="day" class="h4 cloudy left-15" />
 				<Label bindId="storehours" class="h4 cloudy right-15" />
 			</ItemTemplate>
-			<ItemTemplate name="services" class="row-h30">
+			<ItemTemplate name="services" class="height-30d">
 				<Label bindId="service" class="h4 cloudy left-15" />
 			</ItemTemplate>
 		</Templates>
@@ -42,7 +42,7 @@
 					<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" />
 				</View>
 				<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
-					<ImageView image="/images/store/refill.png" class="button-img-left" />
+					<ImageView image="/images/rx.png" class="button-img-left" />
 					<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 				</View>
 				<View class="top-20 auto-height">
@@ -54,7 +54,7 @@
 		</HeaderView>
 		<ListSection dataCollection="storeHours">
 			<HeaderView>
-				<View class="row-h20 bg-armadillo">
+				<View class="height-20d bg-armadillo">
 					<Label id="hoursLbl" class="cloudy left-5" />
 				</View>
 			</HeaderView>
@@ -62,7 +62,7 @@
 		</ListSection>
 		<ListSection dataCollection="storeServices">
 			<HeaderView>
-				<View class="row-h20 bg-armadillo">
+				<View class="height-20d bg-armadillo">
 					<Label id="servicesLbl" class="cloudy left-5" />
 				</View>
 			</HeaderView>
@@ -95,7 +95,7 @@
 				<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" />
 			</View>
 			<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
-				<ImageView image="/images/store/refill.png" class="button-img-left" />
+				<ImageView image="/images/rx.png" class="button-img-left" />
 				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 			</View>
 			<View class="top-20 auto-height">
@@ -108,22 +108,22 @@
 		</View>
 		<TableView class="auto-height" dataCollection="storeHours">
 			<HeaderView>
-				<View class="row-h20 bg-armadillo">
+				<View class="height-20d bg-armadillo">
 					<Label text="Store hours" class="cloudy left-5" />
 				</View>
 			</HeaderView>
-			<TableViewRow class="row-h30">
+			<TableViewRow class="height-30d">
 				<Label text="{day}" class="h4 cloudy left-15" />
 				<Label text="{storehours}" class="h4 cloudy right-15" />
 			</TableViewRow>
 		</TableView>
 		<TableView class="auto-height" dataCollection="storeServices">
 			<HeaderView>
-				<View class="row-h20 bg-armadillo">
+				<View class="height-20d bg-armadillo">
 					<Label text="Store services" class="cloudy left-5" />
 				</View>
 			</HeaderView>
-			<TableViewRow class="row-h30">
+			<TableViewRow class="height-30d">
 				<Label text="{service}" class="h4 cloudy left-15" />
 			</TableViewRow>
 		</TableView>

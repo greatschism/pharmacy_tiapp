@@ -81,7 +81,7 @@ var args = arguments[0] || {};
 		$.rightBtn.addEventListener("click", didClick);
 	}
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "opacity", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
@@ -176,8 +176,20 @@ function getRightButtonTitle() {
 	return false;
 }
 
+function animate(animationProp, callback) {
+	var animation = Ti.UI.createAnimation(animationProp);
+	animation.addEventListener("complete", function onComplete() {
+		animation.removeEventListener("complete", onComplete);
+		if (callback) {
+			callback($.widget);
+		}
+	});
+	$.widget.animate(animation);
+}
+
 exports.blur = blur;
 exports.focus = focus;
+exports.animate = animate;
 exports.setValue = setValue;
 exports.getValue = getValue;
 exports.setRightImage = setRightImage;

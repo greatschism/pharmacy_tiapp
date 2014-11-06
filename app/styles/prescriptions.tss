@@ -2,85 +2,57 @@
 	image: "/images/toggle.png",
 	width: 40
 },
+"#searchbar":{
+	search: true,
+	clearButton: true,
+	opacity: 0,
+	font: {
+		fontSize: 15
+	},
+	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+},
 "#toggleMenu":{
 	role: "overlay",
 	top: Alloy.CFG.navBarHeight,
 	items: [
 		{
-			title: Alloy.Globals.Strings.menuSearch
+			title: Alloy.Globals.Strings.menuSearch,
+			action: "search"
 		},{
-			title: Alloy.Globals.Strings.menuSort		
+			title: Alloy.Globals.Strings.menuSort,
+			action: "sort"
 		},
 		{
-			title: Alloy.Globals.Strings.menuUnhide
+			title: Alloy.Globals.Strings.menuUnhidePrescriptions,
+			action: "unhide"
 		}
 	],
 	zIndex: 2
 },
-"#searchbar":{
-	search: true,
-	clearButton: true,
-	hintText: "Search prescriptions",
-	font: {
-		fontFmaily: Alloy.CFG.fonts.light,
-		fontSize: 15
-	},
-	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+".height-5d":{
+	height: 5
 },
-"#listView":{
-	bottom: 10
+".height-15d":{
+	height: 15
+},
+".height-30d":{
+	height: 30
+},
+"#gettingRefilledImg":{
+	image: "/images/clock_green.png"
 },
 "#gettingRefilledLbl":{
 	text: Alloy.Globals.Strings.sectionGettingRefilled
 },
-"#readyRefillLbl":{
+"#readyForRefillImg":{
+	image: "/images/refill.png"
+},
+"#readyForRefillLbl":{
 	text: Alloy.Globals.Strings.sectionReadytoRefill
 },
-"#otherLbl":{
-	text : Alloy.Globals.Strings.sectionOtherPrescriptions
+"#otherPrecriptionsImg":{
+	image: "/images/pill.png"
 },
-"#addImg":{
-	image: "/images/plus_black.png"
-},
-"#addLbl":{
-	left: 0,
-	text: Alloy.Globals.Strings.lblSetupAppointmentReminder
-},
-".profile-img":{
-	width: 10
-},
-".content-view":{
-	left: 60
-},
-".font-16":{
-	font:{
-		fontSize: 16
-	}
-},
-".title":{
-	left: 60
-},
-".row-h20":{
-	height: 20
-},
-".row-h40":{
-	height: 40
-},
-
-"#photoDialog":{
-	role: "overlay",
-	title: Alloy.Globals.Strings.titleChooseOne,
-	options: [
-		{
-			title: Alloy.Globals.Strings.optionFindPictureOnMyPhone
-		},
-		{
-			title: Alloy.Globals.Strings.optionTakePhoto
-		},
-		{
-			title: Alloy.Globals.Strings.optionCancel
-		}
-	],
-	cancel: 2,
-	zIndex: 2
+"#otherPrecriptionsLbl":{
+	text: Alloy.Globals.Strings.sectionOtherPrescriptions
 }

@@ -11,7 +11,7 @@ var args = arguments[0] || {};
 	if (doctor.prescriptions.length > 4) {
 		var footerView = $.UI.create("View", {
 			apiName : "View",
-			classes : ["row-h40", "bg-aeroblue"]
+			classes : ["height-40d", "bg-aeroblue"]
 		});
 		var container = $.UI.create("View", {
 			apiName : "View",

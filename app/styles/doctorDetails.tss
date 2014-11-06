@@ -20,10 +20,10 @@
 "#prescriptionsLbl":{
 	text: Alloy.Globals.Strings.strPrescriptions
 },
-".row-h20":{
+".height-20d":{
 	height: 20
 },
-".row-h40":{
+".height-40d":{
 	height: 40
 },
 "#moreImg":{

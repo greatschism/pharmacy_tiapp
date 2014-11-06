@@ -32,10 +32,10 @@ function init() {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	/*coords = {
+	coords = {
 		latitude : 12.9739156,
 		longitude : 77.6172187
-	};*/
+	};
 	if (coords.latitude) {
 		http.request({
 			method : "advsearchpharmacies",
@@ -107,7 +107,7 @@ function loadMap(e) {
 		}
 
 		var properties = {
-			image : "/images/store/annotation.png",
+			image : "/images/annotation.png",
 			storeId : data.storeid,
 			title : data.addressline1,
 			subtitle : data.subtitle,
@@ -117,13 +117,13 @@ function loadMap(e) {
 
 		if (OS_IOS) {
 			_.extend(properties, {
-				leftView : getMapIcon("/images/store/left_button.png", "leftPane", data.storeid),
-				rightView : getMapIcon("/images/store/right_button.png", "rightPane", data.storeid)
+				leftView : getMapIcon("/images/left_button.png", "leftPane", data.storeid),
+				rightView : getMapIcon("/images/right_button.png", "rightPane", data.storeid)
 			});
 		} else {
 			_.extend(properties, {
-				leftButton : "/images/store/left_button.png",
-				rightButton : "/images/store/right_button.png"
+				leftButton : "/images/left_button.png",
+				rightButton : "/images/right_button.png"
 			});
 		}
 
@@ -164,7 +164,7 @@ function didToggle(e) {
 	var lVisible = $.listContainer.visible;
 	$.listContainer.visible = !lVisible;
 	$.mapContainer.visible = lVisible;
-	$.toggleImg.image = lVisible ? "/images/store/list.png" : "/images/store/map.png";
+	$.toggleImg.image = lVisible ? "/images/list.png" : "/images/map.png";
 }
 
 function didAnnotationClick(e) {

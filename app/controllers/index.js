@@ -35,7 +35,7 @@ function didAppLoad(result) {
 	if (Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {
 			ctrl : "carousel",
-			titleImage : "/images/login/pharmacy.png"
+			titleImage : "/images/pharmacy_gray.png"
 		});
 	} else {
 		Alloy.createController(Alloy.CFG.navigator + "/master");

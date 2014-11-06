@@ -43,7 +43,7 @@
 			</HeaderView>
 			<ListSection id="section" dataCollection="prescriptions">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="prescriptionsLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
@@ -85,7 +85,7 @@
 			</View>
 			<TableView class="auto-height" dataCollection="prescriptions">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
+					<View class="height-20d bg-armadillo">
 						<Label id="prescriptionsLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>

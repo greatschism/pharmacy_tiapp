@@ -6,10 +6,10 @@
 		</View>
 		<ListView id="listView" defaultItemTemplate="unchecked" onItemclick="didItemClick" platform="ios,android">
 			<Templates>
-				<ItemTemplate name="unchecked" class="row">
+				<ItemTemplate name="unchecked" class="height-48d">
 					<Label bindId="title" class="title" />
 				</ItemTemplate>
-				<ItemTemplate name="checked" class="row">
+				<ItemTemplate name="checked" class="height-48d">
 					<ImageView bindId="image" class="checked" />
 					<Label bindId="title" class="title" />
 				</ItemTemplate>

@@ -71,7 +71,7 @@ function applyProperties(dict) {
 function getRow(data) {
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
-		classes : ["row"]
+		classes : ["height-48d"]
 	});
 	if (data.image) {
 		var image = $.UI.create("ImageView", {

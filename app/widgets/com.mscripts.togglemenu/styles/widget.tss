@@ -6,29 +6,41 @@
 "#container":{
 	top: 0,
 	right: 10,
-	width: 220,
+	width: 220
+},
+"#edgeImg":{
+	top: 0,
+	right: 4,
+	height: 30,
+	image: WPATH( "up.png")
+},
+"#listContainer":{
+	top: 30,
 	height: Ti.UI.SIZE,
-	backgroundColor: "#50473D"
+	backgroundColor: "#FFF",
+	borderColor: "#9C9996",
+	borderWidth: 1,
+	borderRadius: 4
 },
 "#listView":{
 	height: Ti.UI.SIZE,
 	backgroundColor: "transparent",
-	separatorColor: "#ccc",
+	separatorColor: "#E8E8E8",
 	separatorInsets: {
 		top: 0,
 		left: 0
 	}
 },
-".row":{
-	height: 60
+".height-40d":{
+	height: 40
 },
 ".title":{
 	left: 10,
 	right: 10,
 	font:{
-		fontSize: 20
+		fontSize: 18
 	},
-	color: "#fff"
+	color: "#000"
 },
 ".title[platform=android,mobileweb]":{
 	ellipsize: true,
@@ -42,9 +54,9 @@
 	left: 50,
 	right: 10,
 	font:{
-		fontSize: 20
+		fontSize: 18
 	},
-	color: "#fff"
+	color: "#000"
 },
 ".icon-title[platform=android,mobileweb]":{
 	ellipsize: true,

@@ -28,13 +28,13 @@ var args = arguments[0] || {},
 		var image,
 		    labelDict;
 		if (toOpen < 0 && toClose > 0) {
-			image = "/images/store/green_clock.png";
+			image = "/images/clock_green.png";
 			labelDict = {
 				text : "Open till ".concat(till),
 				color : "#245e3d"
 			};
 		} else {
-			image = "/images/store/red_clock.png";
+			image = "/images/clock_red.png";
 			labelDict = {
 				text : till ? "Closed at ".concat(till) : "Closed",
 				color : "#610e07"
@@ -43,7 +43,7 @@ var args = arguments[0] || {},
 		$.clockImg.image = image;
 		$.clockLbl.applyProperties(labelDict);
 	}
-	$.favoriteImg.image = "/images/store/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
+	$.favoriteImg.image = "/images/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
 	store.phone = Alloy.Globals.Strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeHours.reset(dates);

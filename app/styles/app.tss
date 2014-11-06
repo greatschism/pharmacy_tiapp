@@ -163,11 +163,11 @@
 ".right-20":{
 	right: 20
 },
+".left-25":{
+	left: 25
+},
 ".right-25":{
 	right: 25
-},
-".top-50":{
-	top: 50
 },
 /**
 * spacer & separators
@@ -471,6 +471,9 @@
 },
 ".bg-gallery":{
 	backgroundColor: "#ECECEC"
+},
+".bg-malibu":{
+	backgroundColor: "#56BCFB"
 },
 /*
 *navbar button

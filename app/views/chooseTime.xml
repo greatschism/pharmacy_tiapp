@@ -10,7 +10,7 @@
 			</ItemTemplate>
 		</Templates>
 		<HeaderView>
-			<View class="row-h40 bg-aeroblue">
+			<View class="height-40d bg-aeroblue">
 				<Label id="whenLbl" class="button-title width-95 h4 text-center gulfstream touch-disabled" />
 			</View>
 		</HeaderView>
@@ -27,7 +27,7 @@
 	</ListView>
 	<TableView id="listView" platform="mobileweb" dataCollection="chooseTime" onClick="didItemClick">
 		<HeaderView>
-			<View class="row-h40 bg-aeroblue">
+			<View class="height-40d bg-aeroblue">
 				<Label id="whenLbl" class="button-title width-90 h4 text-center gulfstream touch-disabled" />
 			</View>
 		</HeaderView>

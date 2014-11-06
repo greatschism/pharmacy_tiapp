@@ -1,5 +1,5 @@
 "#toggleImg":{
-	image: "/images/store/map.png",
+	image: "/images/map.png",
 	width: 40
 },
 "#mapView":{
@@ -12,17 +12,16 @@
 	clearButton: true,
 	hintText: Alloy.Globals.Strings.hintSearchByZipCityOrState,
 	font: {
-		fontFmaily: Alloy.CFG.fonts.light,
 		fontSize: 15
 	},
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-".row":{
+".height-60d":{
 	height: 60
 },
 ".favorite":{
 	width: 15,
-	image: "/images/store/favorite.png"
+	image: "/images/favorite.png"
 },
 ".content-view":{
 	left: 25
@@ -38,7 +37,7 @@
 },
 ".distance-img":{
 	width: 10,
-	image: "/images/store/list_item_pin.png"
+	image: "/images/list_item_pin.png"
 },
 ".distance":{
 	height: 17,

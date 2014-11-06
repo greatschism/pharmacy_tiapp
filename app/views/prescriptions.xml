@@ -3,109 +3,44 @@
 	<View class="nav-bar-right-view" onSingletap="didToggle">
 		<ImageView id="toggleImg" class="touch-disabled" />
 	</View>
-	
 	<View>
-		<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 auto-height show" />
-		<ListView id="listView" class="top-50" platform="ios,android" onItemclick="didItemClick">
-
+		<Widget id="searchbar" src="com.mscripts.textfield" class="top-10 font-light" />
+		<ListView id="listView" platform="ios,android" class="top" onItemclick="didItemClick">
 			<Templates>
-				<ItemTemplate name="gettingRefilled" class="auto-height">
-					<View class="right-25 auto-height bottom-10">
-
-						<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
+				<ItemTemplate name="gettingRefilled" class="auto-height top-10">
+					<View class="auto-height vgroup bottom-10">
+						<Label bindId="title" class="left-15 right-15 auto-height h2 font-regular black multi-line" />
+						<Label bindId="info" class="left-15 right-15 auto-height h5 font-regular gray multi-line" />
+						<View bindId="progress" class="left top-10 width-1 height-5d bg-malibu" />
 					</View>
-					<ImageView class="profile-img " />
-				</ItemTemplate>
-				<ItemTemplate name="readytoRefill" class="auto-height top-10">
-					<View class="right-25 auto-height bottom-5">
-
-						<View class="content-view auto-height vgroup">
-							<Label bindId="prescription" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
-							<Label bindId="rxnumber" class="left top-5 auto-height h5 font-regular gray touch-disabled" />
-							<Label bindId="duedate" class="right top-5 auto-height h5 font-regular orange touch-disabled"/>
-
-						</View>
-					</View>
-
 				</ItemTemplate>
 			</Templates>
 			<ListSection id="gettingRefilledSection" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
-						<Label id="gettingRefilledLbl" class="cloudy left-5" />
+					<View class="height-30d bg-armadillo">
+						<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
+						<Label id="gettingRefilledLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
-				<ListItem template="gettingRefilled" title:attributedString="{title}" platform="ios" />
-				<ListItem template="gettingRefilled" title:html="{title}" platform="android" />
-
+				<ListItem template="gettingRefilled" title:text="{name}" info:text="{info}" progress:width="{progress}"  />
 			</ListSection>
-			<ListSection id="readytoRefillSection" dataCollection="readytoRefill" dataTransform="transformReadyToRefill">
+			<ListSection id="readyForRefillSection" dataCollection="readyForRefill">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
-						<Label id="readyRefillLbl" class="cloudy left-5" />
+					<View class="height-30d bg-armadillo">
+						<ImageView id="readyForRefillImg" class="left-5 height-15d" />
+						<Label id="readyForRefillLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
-				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}"  />
 			</ListSection>
-			<ListSection id="othersSection" dataCollection="otherPrescriptions" dataTransform="transformOtherPrescriptions">
+			<ListSection id="otherPrecriptionsSection" dataCollection="otherPrescriptions">
 				<HeaderView>
-					<View class="row-h20 bg-armadillo">
-						<Label id="otherLbl" class="cloudy left-5" />
+					<View class="height-30d bg-armadillo">
+						<ImageView id="otherPrecriptionsImg" class="left-5 height-15d" />
+						<Label id="otherPrecriptionsLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
-				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}"  />
 			</ListSection>
-
 		</ListView>
-		<ScrollView id="listView" class="vgroup" platform="mobileweb">
-			<TableView  id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled" onClick="didItemClick">
-				<HeaderView>
-					<View class="row-h20 bg-armadillo">
-						<Label id="appointmentLbl" class="cloudy left-5" />
-					</View>
-				</HeaderView>
-				<TableViewRow class="auto-height top-10" rowTable="gettingRefilledSection">
-					<View class="top auto-height bottom-10">
-						<View class="top right-25 auto-height">
-							<View class="top auto-height">
-								<ImageView image="{image}" class="profile-img left-10" />
-							</View>
-							<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 font-regular gray multi-line" />
-						</View>
-						<ImageView class="child" />
-					</View>
-				</TableViewRow>
-				<FooterView>
-					<View class="row-h40 bg-aeroblue">
-						<View>
-							<View class="auto hgroup touch-disabled">
-								<ImageView id="addImg" class="width-20d left touch-disabled" />
-
-							</View>
-						</View>
-					</View>
-				</FooterView>
-			</TableView>
-			<TableView id="readytoRefillSection" class="auto-height" dataCollection="readytoRefill" dataTransform="transformReadyToRefill" onClick="didItemClick">
-				<HeaderView>
-					<View class="row-h20 bg-armadillo">
-						<Label id="doctorLbl" class="cloudy left-5" />
-					</View>
-				</HeaderView>
-				<TableViewRow class="auto-height top-10" rowTable="readytoRefillSection" rowId="{id}">
-					<View class="top auto-height bottom-10">
-						<View class="top right-25 auto-height">
-
-							<View class="content-view auto-height vgroup">
-								<Label text="{name}" bindId="prescription" class="right-25 left auto-height font-16 font-regular black multi-line touch-disabled" />
-								<Label text="{description}" class="right-25 left auto-height h5 font-regular gray multi-line touch-disabled" />
-							</View>
-						</View>
-
-					</View>
-				</TableViewRow>
-			</TableView>
-		</ScrollView>
-
+		<ScrollView id="listView" class="top vgroup" platform="mobileweb"></ScrollView>
 	</View>
 </Alloy> 

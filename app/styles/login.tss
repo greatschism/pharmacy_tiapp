@@ -3,7 +3,7 @@
 },
 "#logoImg":{
 	width: 75,
-	image: "/images/login/pharmacy.png"
+	image: "/images/pharmacy_gray.png"
 },
 "#headerLbl":{
 	html: Alloy.Globals.Strings.lblLoginToMobilePharmacy
@@ -16,7 +16,7 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.Strings.hintPassword,
 	passwordMask: true,
-	rightImage: "/images/login/question_mark.png",
+	rightImage: "/images/question_mark.png",
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#keepMeLbl":{

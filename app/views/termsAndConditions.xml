@@ -1,7 +1,7 @@
 <Alloy>
 	<ListView defaultItemTemplate="template" onItemclick="didItemClick" platform="ios,android">
 		<Templates>
-			<ItemTemplate name="template" class="row">
+			<ItemTemplate name="template" class="height-60d">
 				<Label bindId="title" class="left-15 right-25 title black font-light" />
 				<ImageView class="child" />
 			</ItemTemplate>
@@ -16,7 +16,7 @@
 		</FooterView>
 	</ListView>
 	<TableView dataCollection="termsAndConditions" onClick="didItemClick" platform="mobileweb">
-		<TableViewRow class="row" itemUrl="{url}">
+		<TableViewRow class="height-60d" itemUrl="{url}">
 			<Label text="{name}" class="left-15 right-25 title black font-light" />
 			<ImageView class="child" />
 		</TableViewRow>

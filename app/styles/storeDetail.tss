@@ -13,9 +13,6 @@
 "#directionBtn":{
 	title: Alloy.Globals.Strings.strDirections
 },
-"#optionsLbl":{
-	text: Alloy.Globals.Strings.sectionStoreOptions
-},
 "#hoursLbl":{
 	text: Alloy.Globals.Strings.sectionStoreHours
 },
@@ -36,7 +33,7 @@
 },
 ".distance-img":{
 	width: 10,
-	image: "/images/store/list_item_pin.png"
+	image: "/images/list_item_pin.png"
 },
 ".location-lbl":{
 	height: 17,
@@ -44,9 +41,9 @@
 		fontSize: 13
 	}
 },
-".row-h30":{
+".height-30d":{
 	height: 30
 },
-".row-h20":{
+".height-20d":{
 	height: 20
 }

@@ -26,7 +26,7 @@ var args = arguments[0] || {},
 	}
 })();
 
-function didChangeUser(){
+function didChangeUser() {
 	$.signinBtn.visible = !Alloy.Models.user.get("loggedIn");
 }
 
@@ -71,14 +71,21 @@ function getMImage(image, width) {
 
 function didItemClick(e) {
 	var navigation = e.source.navigation;
-	if (!_.isEmpty(navigation)) {
+	if (navigation.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
+		app.navigator.open({
+			ctrl : "login",
+			ctrlArguments : {
+				navigateTo : navigation
+			}
+		});
+	} else {
 		app.navigator.open(navigation);
 	}
 }
 
-function didClickSignin(e){
+function didClickSignin(e) {
 	app.navigator.open({
-		ctrl: "login"
+		ctrl : "login"
 	});
 }
 

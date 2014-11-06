@@ -8,7 +8,15 @@ var args = arguments[0] || {},
 
 	var options = {};
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
+	if (!_.isEmpty(options)) {
+		if (_.has(options, "top")) {
+			options.top -= 15;
+		}
+		$.container.applyProperties(options);
+	}
+
+	options = _.pick(args, ["backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
@@ -38,13 +46,13 @@ function didItemClick(e) {
 }
 
 function applyProperties(dict) {
-	$.container.applyProperties(dict);
+	$.listContainer.applyProperties(dict);
 }
 
 function getRow(data) {
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
-		classes : ["row"]
+		classes : ["height-48d"]
 	});
 	if (data.image) {
 		var image = $.UI.create("ImageView", {
@@ -66,8 +74,8 @@ function getRow(data) {
 
 function setItems(_items) {
 	items = _items;
-	var height = items.length * 60;
-	$.container.height = height > 300 ? 300 : height;
+	var height = (items.length * 40) + 30;
+	$.container.height = height > 310 ? 310 : height;
 	if (OS_IOS || OS_ANDROID) {
 		var data = [];
 		for (var i in items) {

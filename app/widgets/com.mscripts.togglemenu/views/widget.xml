@@ -1,19 +1,22 @@
 <Alloy>
 	<View onSingletap="didTap">
 		<View id="container">
-			<ListView id="listView" platform="ios,android" defaultItemTemplate="label" onItemclick="didItemClick">
-				<Templates>
-					<ItemTemplate name="label" class="row">
-						<Label bindId="title" class="title" />
-					</ItemTemplate>
-					<ItemTemplate name="icon" class="row">
-						<ImageView bindId="icon" class="icon" />
-						<Label bindId="title" class="icon-title" />
-					</ItemTemplate>
-				</Templates>
-				<ListSection id="section" />
-			</ListView>
-			<TableView id="listView" platform="mobileweb" onClick="didItemClick" />
+			<ImageView id="edgeImg" />
+			<View id="listContainer">
+				<ListView id="listView" platform="ios,android" defaultItemTemplate="label" onItemclick="didItemClick">
+					<Templates>
+						<ItemTemplate name="label" class="height-40d">
+							<Label bindId="title" class="title" />
+						</ItemTemplate>
+						<ItemTemplate name="icon" class="height-40d">
+							<ImageView bindId="icon" class="icon" />
+							<Label bindId="title" class="icon-title" />
+						</ItemTemplate>
+					</Templates>
+					<ListSection id="section" />
+				</ListView>
+				<TableView id="listView" platform="mobileweb" onClick="didItemClick" />
+			</View>
 		</View>
 	</View>
 </Alloy>
