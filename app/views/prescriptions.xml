@@ -6,10 +6,10 @@
 	
 	<View>
 		<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 auto-height show" />
-		<ListView id="listView" platform="ios,android" onItemclick="didItemClick">
+		<ListView id="listView" class="top-50" platform="ios,android" onItemclick="didItemClick">
 
 			<Templates>
-				<ItemTemplate name="gettingRefilled" class="auto-height top-50">
+				<ItemTemplate name="gettingRefilled" class="auto-height">
 					<View class="right-25 auto-height bottom-10">
 
 						<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
@@ -17,12 +17,12 @@
 					<ImageView class="profile-img " />
 				</ItemTemplate>
 				<ItemTemplate name="readytoRefill" class="auto-height top-10">
-					<View class="right-25 auto-height bottom-10">
+					<View class="right-25 auto-height bottom-5">
 
 						<View class="content-view auto-height vgroup">
 							<Label bindId="prescription" class="left auto-height font-16 font-regular black multi-line touch-disabled" />
-							<Label bindId="rxnumber" class="left auto-height h5 font-regular gray touch-disabled" />
-							<Label bindId="duedate" class="right auto-height h5 font-regular gray touch-disabled"/>
+							<Label bindId="rxnumber" class="left top-5 auto-height h5 font-regular gray touch-disabled" />
+							<Label bindId="duedate" class="right top-5 auto-height h5 font-regular orange touch-disabled"/>
 
 						</View>
 					</View>
@@ -45,7 +45,7 @@
 						<Label id="readyRefillLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}" duedate:text="{description}" />
+				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}"  />
 			</ListSection>
 			<ListSection id="othersSection" dataCollection="otherPrescriptions" dataTransform="transformOtherPrescriptions">
 				<HeaderView>
@@ -53,7 +53,7 @@
 						<Label id="otherLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}" duedate:text="{description}" />
+				<ListItem template="readytoRefill" itemId="{id}" prescription:text="{name}" rxnumber:text="{description}"  />
 			</ListSection>
 
 		</ListView>
