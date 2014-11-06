@@ -20,11 +20,14 @@
 "#listView":{
 	bottom: 90
 },
-"#appointmentLbl":{
+"#gettingRefilledLbl":{
 	text: Alloy.Globals.Strings.sectionGettingRefilled
 },
-"#doctorLbl":{
+"#readyRefillLbl":{
 	text: Alloy.Globals.Strings.sectionReadytoRefill
+},
+"#otherLbl":{
+	text : Alloy.Globals.Strings.sectionOtherPrescriptions
 },
 "#addImg":{
 	image: "/images/plus_black.png"
@@ -34,7 +37,7 @@
 	text: Alloy.Globals.Strings.lblSetupAppointmentReminder
 },
 ".profile-img":{
-	width: 40
+	width: 10
 },
 ".content-view":{
 	left: 60
@@ -53,9 +56,7 @@
 ".row-h40":{
 	height: 40
 },
-"#addDoctorBtn":{
-	title: Alloy.Globals.Strings.btnAddAnotherDoctor
-},
+
 "#photoDialog":{
 	role: "overlay",
 	title: Alloy.Globals.Strings.titleChooseOne,
