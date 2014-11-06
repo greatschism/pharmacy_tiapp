@@ -97,46 +97,23 @@ function didToggle(e) {
 
 function didClickMenu(e) {
 	console.log(e);
+	
 }
 
 function didItemClick(e) {
 	var itemId = Number( OS_MOBILEWEB ? e.row.rowId : e.itemId);
 	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
-	if (section == $.appointmentSection) {
+	if (section == $.gettingRefilledSection) {
 		app.navigator.open({
 			stack : true,
 			titleid : "titleEditReminder",
-			ctrl : "chooseTime",
+			ctrl : "prescriptionDetails",
 			ctrlArguments : {
 				itemId : itemId,
 				edit : true
 			}
 		});
-	} else {
-		//doctorSection
-		var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
-		var doctors = Alloy.Collections.doctors.where({
-			id : itemId
-		});
-		if (doctors.length) {
-			var doctor = doctors[0].toJSON();
-			if (bindId == "profile") {
-				if (!doctor.image) {
-					$.photoDialog.itemId = itemId;
-					$.photoDialog.show();
-				}
-			} else {
-				app.navigator.open({
-					stack : true,
-					title : "Dr. " + doctor.lname,
-					ctrl : "doctorDetails",
-					ctrlArguments : {
-						itemId : itemId
-					}
-				});
-			}
-		}
-	}
+	} 
 }
 
 function didClickOption(e) {
