@@ -2,11 +2,12 @@ var args = arguments[0] || {},
     app = require("core"),
     moment = require("alloy/moment");
 
+function init() {
 	Alloy.Collections.prescriptionDetails.reset([{
-
-		desc : "Tramadol HCL, 20mg tab qual",
-		time : "Order placed; should be ready by Tuesday 2PM."
+		name : "Tramadol HCL, 20mg tab qual",
+		readyAt : "1416835462"
 	}]);
+}
 
 
 function terminate() {
