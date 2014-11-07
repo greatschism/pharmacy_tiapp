@@ -17,10 +17,10 @@
 	text: Alloy.Globals.Strings.sectionStoreOptions
 },
 "#hoursLbl":{
-	text: Alloy.Globals.Strings.sectionStoreHours
+	text: "Reminders"
 },
 "#servicesLbl":{
-	text: Alloy.Globals.Strings.sectionStoreServices
+	text: "Drug instructions"
 },
 "#addToFavoriteBtn":{
 	right: 60,
