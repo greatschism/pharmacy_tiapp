@@ -12,6 +12,7 @@
 "#edgeImg":{
 	top: 0,
 	right: 4,
+	width: 30,
 	height: 30,
 	image: WPATH( "up.png")
 },
