@@ -1,4 +1,47 @@
+".width-50d":{
+	width: 50
+},
+".width-135d":{
+	width: 135
+},
+".width-30d":{
+	width: 30
+},
+".right-140":{
+	right: 140
+},
+"#directionBtn":{
+	title: Alloy.Globals.Strings.strDirections
+},
+"#optionsLbl":{
+	text: Alloy.Globals.Strings.sectionStoreOptions
+},
+"#hoursLbl":{
+	text: Alloy.Globals.Strings.sectionStoreHours
+},
+"#servicesLbl":{
+	text: Alloy.Globals.Strings.sectionStoreServices
+},
+"#addToFavoriteBtn":{
+	right: 60,
+	height: 45,
+	title: Alloy.Globals.Strings.btnAddToFavorites,
+	borderWidth: 1
+},
 
-".container" : {
-  
+".text-view":{
+	left: 60
+},
+
+".location-lbl":{
+	height: 17,
+	font:{
+		fontSize: 13
+	}
+},
+".row-h30":{
+	height: 30
+},
+".row-h20":{
+	height: 20
 }
