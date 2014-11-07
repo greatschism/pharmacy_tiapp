@@ -14,6 +14,15 @@
 						<View bindId="progress" class="left top-10 width-1 height-5d bg-malibu" />
 					</View>
 				</ItemTemplate>
+				<ItemTemplate name="prescription" class="auto-height top-10">
+					<View class="auto-height vgroup bottom-10">
+						<Label bindId="title" class="left-15 right-15 auto-height h2 font-regular black multi-line" />
+						<View class="top-10 left-15 right-15 auto-height">
+							<Label bindId="rx" class="left width-45 height-15d h5 font-regular gray" />
+							<Label bindId="due" class="right width-55 height-15d h5 font-regular text-right" />
+						</View>
+					</View>
+				</ItemTemplate>
 			</Templates>
 			<ListSection id="gettingRefilledSection" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
 				<HeaderView>
@@ -24,23 +33,87 @@
 				</HeaderView>
 				<ListItem template="gettingRefilled" title:text="{name}" info:text="{info}" progress:width="{progress}"  />
 			</ListSection>
-			<ListSection id="readyForRefillSection" dataCollection="readyForRefill">
+			<ListSection id="readyForRefillSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
 				<HeaderView>
 					<View class="height-30d bg-armadillo">
 						<ImageView id="readyForRefillImg" class="left-5 height-15d" />
 						<Label id="readyForRefillLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
+				<ListItem template="prescription" title:text="{name}" rx:text="{rx}" due:text="{due}" due:color="{color}"  />
 			</ListSection>
-			<ListSection id="otherPrecriptionsSection" dataCollection="otherPrescriptions">
+			<ListSection id="otherPrescriptionsSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterOtherPrescription">
 				<HeaderView>
 					<View class="height-30d bg-armadillo">
-						<ImageView id="otherPrecriptionsImg" class="left-5 height-15d" />
-						<Label id="otherPrecriptionsLbl" class="cloudy left-25" />
+						<ImageView id="otherPrescriptionsImg" class="left-5 height-15d" />
+						<Label id="otherPrescriptionsLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
+				<ListItem template="prescription" title:text="{name}" rx:text="{rx}" due:text="{due}" due:color="{color}"  />
 			</ListSection>
 		</ListView>
-		<ScrollView id="listView" class="top vgroup" platform="mobileweb"></ScrollView>
+		<ScrollView id="listView" class="top vgroup" platform="mobileweb">
+			<TableView id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
+				<HeaderView>
+					<View class="height-30d bg-armadillo">
+						<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
+						<Label id="gettingRefilledLbl" class="cloudy left-25" />
+					</View>
+				</HeaderView>
+				<TableViewRow class="auto-height top-10">
+					<View class="top auto-height bottom-10">
+						<View class="top auto-height">
+							<View class="top auto-height vgroup">
+								<Label text="{name}" class="left-15 right-15 auto-height h2 font-regular black multi-line" />
+								<Label text="{info}" class="left-15 right-15 auto-height h5 font-regular gray multi-line" />
+								<View width="{progress}" class="left top-10 width-1 height-5d bg-malibu" />
+							</View>
+						</View>
+					</View>
+				</TableViewRow>
+			</TableView>
+			<TableView id="readyForRefillSection" class="auto-height" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
+				<HeaderView>
+					<View class="height-30d bg-armadillo">
+						<ImageView id="readyForRefillImg" class="left-5 height-15d" />
+						<Label id="readyForRefillLbl" class="cloudy left-25" />
+					</View>
+				</HeaderView>
+				<TableViewRow class="auto-height top-10">
+					<View class="top auto-height bottom-10">
+						<View class="top auto-height">
+							<View class="top auto-height vgroup">
+								<Label text="{name}" class="left-15 right-15 auto-height h2 font-regular black multi-line" />
+								<View class="top-10 left-15 right-15 auto-height">
+									<Label text="{rx}" class="left width-45 height-15d h5 font-regular gray" />
+									<Label text="{due}" color="{color}" class="right width-55 height-15d h5 font-regular text-right" />
+								</View>
+							</View>
+						</View>
+					</View>
+				</TableViewRow>
+			</TableView>
+			<TableView id="otherPrescriptionsSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterOtherPrescription">
+				<HeaderView>
+					<View class="height-30d bg-armadillo">
+						<ImageView id="otherPrescriptionsImg" class="left-5 height-15d" />
+						<Label id="otherPrescriptionsLbl" class="cloudy left-25" />
+					</View>
+				</HeaderView>
+				<TableViewRow class="auto-height top-10">
+					<View class="top auto-height bottom-10">
+						<View class="top auto-height">
+							<View class="top auto-height vgroup">
+								<Label text="{name}" class="left-15 right-15 auto-height h2 font-regular black multi-line" />
+								<View class="top-10 left-15 right-15 auto-height">
+									<Label text="{rx}" class="left width-45 height-15d h5 font-regular gray" />
+									<Label text="{due}" color="{color}" class="right width-55 height-15d h5 font-regular text-right" />
+								</View>
+							</View>
+						</View>
+					</View>
+				</TableViewRow>
+			</TableView>
+		</ScrollView>
 	</View>
 </Alloy> 

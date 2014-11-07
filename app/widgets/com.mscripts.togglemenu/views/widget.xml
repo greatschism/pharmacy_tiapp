@@ -5,10 +5,10 @@
 			<View id="listContainer">
 				<ListView id="listView" platform="ios,android" defaultItemTemplate="label" onItemclick="didItemClick">
 					<Templates>
-						<ItemTemplate name="label" class="height-40d">
+						<ItemTemplate name="label" class="height-60d">
 							<Label bindId="title" class="title" />
 						</ItemTemplate>
-						<ItemTemplate name="icon" class="height-40d">
+						<ItemTemplate name="icon" class="height-60d">
 							<ImageView bindId="icon" class="icon" />
 							<Label bindId="title" class="icon-title" />
 						</ItemTemplate>

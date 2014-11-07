@@ -50,9 +50,9 @@
 "#readyForRefillLbl":{
 	text: Alloy.Globals.Strings.sectionReadytoRefill
 },
-"#otherPrecriptionsImg":{
+"#otherPrescriptionsImg":{
 	image: "/images/pill.png"
 },
-"#otherPrecriptionsLbl":{
+"#otherPrescriptionsLbl":{
 	text: Alloy.Globals.Strings.sectionOtherPrescriptions
 }

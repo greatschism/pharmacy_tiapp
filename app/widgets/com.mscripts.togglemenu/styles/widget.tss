@@ -6,7 +6,8 @@
 "#container":{
 	top: 0,
 	right: 10,
-	width: 220
+	width: 220,
+	layout: "vertical"
 },
 "#edgeImg":{
 	top: 0,
@@ -15,7 +16,7 @@
 	image: WPATH( "up.png")
 },
 "#listContainer":{
-	top: 30,
+	top: 0,
 	height: Ti.UI.SIZE,
 	backgroundColor: "#FFF",
 	borderColor: "#9C9996",
@@ -25,14 +26,16 @@
 "#listView":{
 	height: Ti.UI.SIZE,
 	backgroundColor: "transparent",
-	separatorColor: "#E8E8E8",
+	separatorColor: "#E8E8E8"
+},
+"#listView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
 		left: 0
 	}
 },
-".height-40d":{
-	height: 40
+".height-60d":{
+	height: 60
 },
 ".title":{
 	left: 10,
@@ -48,10 +51,10 @@
 },
 ".icon":{
 	left: 10,
-	width: 30
+	width: 25
 },
 ".icon-title":{
-	left: 50,
+	left: 45,
 	right: 10,
 	font:{
 		fontSize: 18

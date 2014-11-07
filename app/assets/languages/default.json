@@ -90,6 +90,11 @@
 		"menuSearch": "Search",
 		"menuSort": "Sort",
 		"menuUnhidePrescriptions": "Unhide prescriptions",
+		"msgOrderPlacedReadyBy": "Order placed should be ready by",
+		"msgOrderPlacedReadyBy": "Order placed should be ready by",
+		"msgOverdueBy": "Overdue by",
+		"msgDueFoRefillIn": "Due for refill in",
+		"msgDueFoRefillOn": "Due for refill on",
 
 		"btnYes": "Yes",
 		"btnNo": "No",
@@ -115,6 +120,7 @@
 		"strSignout": "Sign out",
 		"strCall": "Call",
 		"strDirections": "Directions",
-		"strPrescriptions": "Prescriptions"
+		"strPrescriptions": "Prescriptions",
+		"strDays": "days"
 	}
 }

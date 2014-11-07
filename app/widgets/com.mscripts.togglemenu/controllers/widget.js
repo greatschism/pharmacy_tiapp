@@ -52,7 +52,7 @@ function applyProperties(dict) {
 function getRow(data) {
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
-		classes : ["height-48d"]
+		classes : ["height-60d"]
 	});
 	if (data.image) {
 		var image = $.UI.create("ImageView", {
@@ -74,8 +74,8 @@ function getRow(data) {
 
 function setItems(_items) {
 	items = _items;
-	var height = (items.length * 40) + 30;
-	$.container.height = height > 310 ? 310 : height;
+	var height = (items.length * 60) + 40;
+	$.container.height = height > 330 ? 330 : height;
 	if (OS_IOS || OS_ANDROID) {
 		var data = [];
 		for (var i in items) {

@@ -16,14 +16,12 @@
 	Alloy.Collections.prescriptions = new Backbone.Collection();
 	Alloy.Collections.chooseTime = new Backbone.Collection();
 	Alloy.Collections.gettingRefilled = new Backbone.Collection();
-	Alloy.Collections.readyForRefill = new Backbone.Collection();
-	Alloy.Collections.otherPrescriptions = new Backbone.Collection();
 
 	Alloy.Models.user = new Backbone.Model({
-		loggedIn: false,
-		sessionId: "",
-		appLoad: {}
+		loggedIn : false,
+		sessionId : "",
+		appLoad : {}
 	});
 	Alloy.Models.store = new Backbone.Model();
 	Alloy.Models.doctor = new Backbone.Model();
-})();
+})(); 
