@@ -69,9 +69,23 @@ function transformPrescription(model) {
 	return transform;
 }
 
-function didItemClick(e) {
 
+function didItemClick(e) {
+var itemId = Number( OS_MOBILEWEB ? e.row.rowId : e.itemId);
+	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
+	if (section == $.gettingRefilledSection) {
+		app.navigator.open({
+			stack : true,
+			titleid : "Details",
+			ctrl : "prescriptionDetails",
+			ctrlArguments : {
+				itemId : itemId,
+				edit : true
+			}
+		});
+	}
 }
+
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
