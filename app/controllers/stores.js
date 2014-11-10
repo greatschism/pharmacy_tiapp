@@ -32,10 +32,12 @@ function init() {
 
 function locationCallback(e) {
 	var coords = e.coords || {};
-	coords = {
-		latitude : 12.9739156,
-		longitude : 77.6172187
-	};
+	if (Ti.Platform.model == "google_sdk" || Ti.Platform.model == "Simulator") {
+		coords = {
+			latitude : 12.9739156,
+			longitude : 77.6172187
+		};
+	}
 	if (coords.latitude) {
 		http.request({
 			method : "advsearchpharmacies",

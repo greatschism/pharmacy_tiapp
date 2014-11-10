@@ -5,10 +5,11 @@
 var app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
-    utilities = require("utilities"),
-    xmlTools = require("XMLTools"),
-    encryptionKey,
-    stringCrypto;
+    xmlTools = require("XMLTools");
+
+if (OS_IOS || OS_ANDORID) {
+	var encryptionUtil = require("encryptionUtil");
+}
 
 exports.request = function(_params) {
 
@@ -18,11 +19,9 @@ exports.request = function(_params) {
 		format : "TEXT",
 		success : function(_data) {
 
-			/*console.log(_data);
-			 if (OS_IOS || OS_ANDROID) {
-			 _data = stringCrypto.AESDecrypt(encryptionKey, responseText, false);
-			 }
-			 console.log(_data);*/
+			if (OS_IOS || OS_ANDROID) {
+				_data = encryptionUtil.decrypt(_data);
+			}
 
 			_data = new xmlTools(_data).toObject();
 
@@ -104,14 +103,9 @@ exports.request = function(_params) {
 	}
 	_params.headers = _.union(headers, _params.headers || []);
 
-	/*console.log(_params.data);
-	 if (OS_IOS || OS_ANDROID) {
-	 stringCrypto = require("bencoding.securely").createStringCrypto();
-	 encryptionKey = Alloy.CFG.staticKey.concat(require("utilities").getRandomString(8));
-	 _params.data = stringCrypto.AESEncrypt(encryptionKey, _params.data, false);
-	 }
-	 console.log(encryptionKey);
-	 console.log(_params.data);*/
+	if (OS_IOS || OS_ANDROID) {
+		_params.data = encryptionUtil.encrypt(_params.data);
+	}
 
 	_.extend(httpParams, _.omit(_params, ["method", "success", "failure", "done"]));
 

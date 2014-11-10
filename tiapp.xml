@@ -131,8 +131,6 @@
         <module platform="android">ti.network</module>
         <module platform="iphone">com.obscure.keychain</module>
         <module platform="android">com.obscure.keychain</module>
-        <module platform="android">bencoding.securely</module>
-        <module platform="iphone">bencoding.securely</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

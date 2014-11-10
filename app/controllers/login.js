@@ -1,16 +1,14 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
-    http = require("httpwrapper"),
-    keychainAccount,
-    stringCrypto;
+    http = require("httpwrapper");
 
 if (OS_IOS || OS_ANDROID) {
-	stringCrypto = require("bencoding.securely").createStringCrypto();
-	keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+	var encryptionUtil = require("encryptionUtil"),
+	    keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
 	if (keychainAccount.account) {
 		$.unameTxt.setValue(keychainAccount.account);
-		$.passwordTxt.setValue(stringCrypto.AESDecrypt(Alloy.CFG.secret, keychainAccount.valueData));
+		$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
 		$.keepMeSwt.setValue(true);
 	}
 }
@@ -38,7 +36,7 @@ function didClickLogin(e) {
 		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
 				keychainAccount.account = uname;
-				keychainAccount.valueData = stringCrypto.AESEncrypt(Alloy.CFG.secret, password);
+				keychainAccount.valueData = encryptionUtil.encrypt(password);
 			} else {
 				keychainAccount.reset();
 			}
