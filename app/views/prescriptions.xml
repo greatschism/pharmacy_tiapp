@@ -31,7 +31,7 @@
 						<Label id="gettingRefilledLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
-				<ListItem template="gettingRefilled" title:text="{name}" info:text="{info}" progress:width="{progress}"  />
+				<ListItem template="gettingRefilled" itemId="{id}" title:text="{name}" info:text="{info}" progress:width="{progress}"  />
 			</ListSection>
 			<ListSection id="readyForRefillSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
 				<HeaderView>
@@ -53,14 +53,14 @@
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" class="top vgroup" platform="mobileweb">
-			<TableView id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
+			<TableView id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled"  onClick="didItemClick">
 				<HeaderView>
 					<View class="height-30d bg-armadillo">
 						<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
 						<Label id="gettingRefilledLbl" class="cloudy left-25" />
 					</View>
 				</HeaderView>
-				<TableViewRow class="auto-height top-10">
+				<TableViewRow class="auto-height top-10" rowTable="gettingRefilledSection" rowId="{id}">
 					<View class="top auto-height bottom-10">
 						<View class="top auto-height">
 							<View class="top auto-height vgroup">

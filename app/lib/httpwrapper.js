@@ -7,11 +7,11 @@ var app = require("core"),
     dialog = require("dialog"),
     xmlTools = require("XMLTools");
 
-if (OS_IOS || OS_ANDORID) {
+if (OS_IOS || OS_ANDROID) {
 	var encryptionUtil = require("encryptionUtil");
 }
 
-exports.request = function(_params) {
+function request(_params) {
 
 	var httpParams = {
 		url : Alloy.CFG.baseUrl.concat(_params.method || ""),
@@ -110,5 +110,6 @@ exports.request = function(_params) {
 	_.extend(httpParams, _.omit(_params, ["method", "success", "failure", "done"]));
 
 	http.request(httpParams);
+}
 
-};
+exports.request = request;

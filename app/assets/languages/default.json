@@ -25,9 +25,7 @@
 		"titleAddPrescriptions": "Add prescriptions",
 		"titleYourRefillIsOrdered": "Your refill has been ordered!",
 		"titleRefillHistory": "Refill history",
-		
-		
-		
+		"titleDetails": "Details",
 
 		"sectionStoreHours": "Store hours",
 		"sectionStoreServices": "Store services",
@@ -41,10 +39,7 @@
 		"sectionDrugInstructions": "Drug instructions",
 		"sectionYourOrder": "Your order",
 		"sectionPickupDetails": "Pickup details",
-		 
 		
-		
-
 		"hintSearchByZipCityOrState": "search by zip, city or state",
 		"hintMobileNumber": "Mobile Number",
 		"hintUsername": "Username",
@@ -109,15 +104,7 @@
 		"lblConfigurableCondition": "More help for your comfigurable condition",
 		"lblConfigurableItem": "Configurable text item",
 		
-		
-		
-		
-		
-		
 		"valLoginRequiredFileds": "Username and Password can't be blank",
-
-
-
 
 		"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
 		"msgPleaseWait": "Processing. Please wait",
@@ -129,8 +116,6 @@
 		"msgOrderProcessed" : "We've processed your order",
 		"msgShouldBeReadyBy": "Should be ready by",
 		
-		
-
 		"menuSearch": "Search",
 		"menuSort": "Sort",
 		"menuUnhidePrescriptions": "Unhide prescriptions",
@@ -158,8 +143,6 @@
 		"btnAddAnotherPrescription": "Add another prescription",
 		"btnAddAllPrescriptions": "Add all prescriptions ready for refill",
 		"btnRead": "Read",
-		
-		
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
