@@ -7,7 +7,7 @@
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
 		<View id="listContainer" class="vgroup bg-white show">
-			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 font-light" onReturn="init" />
+			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 font-light" onReturn="didReturn" onClear="didSearch" />
 			<ListView id="listView" class="top-5" platform="ios,android" onItemclick="didItemClick">
 				<Templates>
 					<ItemTemplate name="favorite" class="height-60d">
@@ -18,7 +18,7 @@
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
 								</View>
-								<View class="bottom-10 right width-35 auto-height">
+								<View bindId="distanceView" class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="left-15 distance font-light gray" />
 								</View>
@@ -33,7 +33,7 @@
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
 								</View>
-								<View class="bottom-10 right width-35 auto-height">
+								<View bindId="distanceView" class="bottom-10 right width-35 auto-height">
 									<ImageView class="distance-img left" />
 									<Label bindId="distance" class="left-15 distance font-light gray" />
 								</View>
@@ -43,7 +43,7 @@
 					</ItemTemplate>
 				</Templates>
 				<ListSection dataCollection="stores">
-					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distance:text="{distance}" />
+					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distanceView:visible="{showDistance}" distance:text="{distance}" />
 				</ListSection>
 			</ListView>
 			<TableView id="listView" class="top-5" platform="mobileweb" dataCollection="stores" onClick="didItemClick">

@@ -40,7 +40,7 @@ function request(_params) {
 		},
 		failure : function(http, url) {
 			dialog.show({
-				message : Alloy.Globals.Strings.msgFailedToRetrive
+				message : Alloy.Globals.Strings.msgFailedToRetrieve
 			});
 			if (_params.failure) {
 				_params.failure();

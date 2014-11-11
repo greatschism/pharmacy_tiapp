@@ -32,7 +32,7 @@
 		"sectionUpcomingAppointments": "Upcoming appointments",
 		"sectionMyDoctors": "My doctors",
 		"sectionGettingRefilled": "Getting refilled",
-		"sectionReadytoRefill": "Ready to refill",
+		"sectionReadyForRefill": "Ready for refill",
 		"sectionOtherPrescriptions": "Other prescriptions",
 		"sectionPrescriptionDetails": "Prescription details",
 		"sectionReminders": "Reminders",
@@ -108,7 +108,7 @@
 
 		"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
 		"msgPleaseWait": "Processing. Please wait",
-		"msgFailedToRetrive": "Failed to retrive",
+		"msgFailedToRetrieve": "Failed to retrieve",
 		"msgPasswordTips": "Password needs to have at least 2 numbers and be at least 6 characters long.",
 		"msgSignout": "Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully": "You have signed out successfully.",
@@ -124,6 +124,9 @@
 		"msgOverdueBy": "Overdue by",
 		"msgDueFoRefillIn": "Due for refill in",
 		"msgDueFoRefillOn": "Due for refill on",
+		"msgGeoAuthorizationDenied": "Your have disallowed app from running geolocation services. Please check your settings.",
+		"msgGeoAuthorizationRestricted": "Location service is turned off. Please check your settings.",
+		"msgGeoPurpose": "Help you to locate the nearest pharmacies.",
 		"msgUnderConstruction": "Under construction",
 
 		"btnYes": "Yes",

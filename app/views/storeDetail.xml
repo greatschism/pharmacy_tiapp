@@ -26,7 +26,7 @@
 							<Label id="subtitleLbl" class="top-5 left h6 multi-line gray" text="{store.subtitle}" />
 						</View>
 						<View class="top right auto-height vgroup width-135d">
-							<View class="left-5 auto-height hgroup no-hwrap">
+							<View id="distanceView" class="left-5 auto-height hgroup no-hwrap">
 								<ImageView class="left-5 distance-img left" />
 								<Label text="{store.distance}" class="location-lbl left-10 font-light gray" />
 							</View>

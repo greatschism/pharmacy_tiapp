@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
+    utilities = require("utilities"),
     moment = require("alloy/moment");
 
 (function() {
@@ -45,6 +46,10 @@ var args = arguments[0] || {},
 	}
 	$.favoriteImg.image = "/images/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
 	store.phone = Alloy.Globals.Strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
+	if (_.isEmpty(Alloy.Globals.currentLocation)) {
+		$.directionBtn.hide();
+		$.distanceView.hide();
+	}
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeHours.reset(dates);
 	Alloy.Collections.storeServices.reset(services);
@@ -55,12 +60,7 @@ function didClickPhone(e) {
 }
 
 function didClickDirection(e) {
-	var params = "?saddr=" + Alloy.Globals.currentLocation.latitude + "," + Alloy.Globals.currentLocation.longitude + "&daddr=" + Alloy.Models.store.get("latitude") + "," + Alloy.Models.store.get("longitude") + "&directionsmode=transit";
-	if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
-		Ti.Platform.openURL("comgooglemaps://".concat(params));
-	} else {
-		Ti.Platform.openURL("http://maps.google.com/maps?".concat(params));
-	}
+	utilities.getDirection(Alloy.Globals.currentLocation, (Alloy.Models.store.get("latitude") + "," + Alloy.Models.store.get("longitude")));
 }
 
 function terminate() {

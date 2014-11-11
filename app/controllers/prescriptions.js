@@ -11,27 +11,27 @@ function init() {
 	Alloy.Collections.prescriptions.reset([{
 		id : 1,
 		name : "Advil 1, 100mg tablet",
-		rx : "RX#493030003",
+		rx : "Rx#493030003",
 		dueDate : "1414737560"
 	}, {
 		id : 2,
 		name : "Adderall 2, 100mg tablet",
-		rx : "RX#493030003",
+		rx : "Rx#493030003",
 		dueDate : "1414823960"
 	}, {
 		id : 3,
 		name : "Advil 3, 100mg tablet",
-		rx : "RX#493030003",
+		rx : "Rx#493030003",
 		dueDate : "1415687960"
 	}, {
 		id : 4,
 		name : "Adderall 4, 100mg tablet",
-		rx : "RX#493030003",
+		rx : "Rx#493030003",
 		dueDate : "1415860760"
 	}, {
 		id : 5,
 		name : "Adderall 5, 100mg tablet",
-		rx : "RX#493030003",
+		rx : "Rx#493030003",
 		dueDate : "1416561726"
 	}]);
 }

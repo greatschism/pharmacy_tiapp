@@ -48,7 +48,7 @@
 	image: "/images/refill.png"
 },
 "#readyForRefillLbl":{
-	text: Alloy.Globals.Strings.sectionReadytoRefill
+	text: Alloy.Globals.Strings.sectionReadyForRefill
 },
 "#otherPrescriptionsImg":{
 	image: "/images/pill.png"

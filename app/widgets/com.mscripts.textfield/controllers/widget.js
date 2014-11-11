@@ -106,6 +106,7 @@ function didReturn(e) {
 function didClear(e) {
 	$.txt.setValue("");
 	$.rightImg.visible = false;
+	$.trigger("clear");
 }
 
 function didClick(e) {

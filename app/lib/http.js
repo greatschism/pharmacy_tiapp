@@ -12,7 +12,7 @@
  * @param {String} _params.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
  * @param {String} _params.url The URL source to call
  * @param {Array} _params.headers Array of request headers to send
- * @param {Object/String} _params.data The data to send
+ * @param {Object|String} _params.data The data to send
  * @param {Function} _params.failure A function to execute when there is an XHR error
  * @param {Function} _params.success A function to execute when when successful
  * @param {Function} _params.done A function to execute after the success or failure callback

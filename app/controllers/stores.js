@@ -1,74 +1,84 @@
 var args = arguments[0] || {},
     app = require("core"),
+    utilities = require("utilities"),
     http = require("httpwrapper"),
     dialog = require("dialog");
 
-function init() {
-	if (OS_ANDROID) {
-		$.searchbar.blur();
-	}
+function getLocation(callback) {
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
 		dialog.show({
-			message : "You have disallowed Titanium from running geolocation services."
+			message : Alloy.Globals.Strings.msgGeoAuthorizationDenied
 		});
 	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
 		dialog.show({
-			message : "Your system has disallowed app from running geolocation services."
+			message : Alloy.Globals.Strings.msgGeoAuthorizationRestricted
 		});
 	} else {
 		if (OS_MOBILEWEB) {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
 		}
 		if (OS_IOS) {
-			Ti.Geolocation.purpose = "Help you to locate the nearest pharmacies.";
+			Ti.Geolocation.purpose = Alloy.Globals.Strings.msgGeoPurpose;
 		}
 		app.navigator.showLoader({
 			message : Alloy.Globals.Strings.msgPleaseWait
 		});
-		Ti.Geolocation.getCurrentPosition(locationCallback);
+		Ti.Geolocation.getCurrentPosition(function(e) {
+			if (e.success && _.isEmpty(e.coords) == false) {
+				Alloy.Globals.currentLocation = e.coords;
+			}
+			if (callback) {
+				callback();
+			} else {
+				didSearch();
+			}
+		});
 	}
 }
 
-function locationCallback(e) {
-	if (e.success) {
-		Alloy.Globals.currentLocation = e.coords;
+function didReturn(e) {
+	if (OS_ANDROID) {
+		$.searchbar.blur();
 	}
-	if (!_.isEmpty(Alloy.Globals.currentLocation)) {
-		http.request({
-			method : "advsearchpharmacies",
-			data : {
-				request : {
-					advsearchpharmacy : {
-						searchstring : $.searchbar.getValue(),
-						storeid : "",
-						latitude : Alloy.Globals.currentLocation.latitude,
-						longitude : Alloy.Globals.currentLocation.longitude,
-						fetchalldetails : 1,
-						pagenumber : "",
-						pagesize : "",
-						featurecode : "TH054"
-					}
+	if ($.searchbar.getValue() != "") {
+		didSearch();
+	}
+}
+
+function didSearch() {
+	http.request({
+		method : "advsearchpharmacies",
+		data : {
+			request : {
+				advsearchpharmacy : {
+					searchstring : $.searchbar.getValue(),
+					storeid : "",
+					latitude : Alloy.Globals.currentLocation.latitude || "",
+					longitude : Alloy.Globals.currentLocation.longitude || "",
+					fetchalldetails : 1,
+					pagenumber : "",
+					pagesize : "",
+					featurecode : "TH054"
 				}
-			},
-			success : didGetPharmacies
-		});
-	} else {
-		app.navigator.hideLoader();
-		dialog.show({
-			message : Alloy.Globals.Strings.msgUnableToFindYourGEO
-		});
-	}
+			}
+		},
+		success : didGetPharmacies
+	});
 }
 
 function didGetPharmacies(result) {
+	var showDistance = !_.isEmpty(Alloy.Globals.currentLocation);
 	var pharmacies = result.advsearchpharmacy.pharmacy;
 	for (var i in pharmacies) {
 		var pahamacy = pharmacies[i];
 		pahamacy.bookmarked = Number(pahamacy.bookmarked);
 		pahamacy.template = pahamacy.bookmarked ? "favorite" : "nearby";
 		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
-		pahamacy.distance = pahamacy.distance + " mi away";
+		pahamacy.showDistance = showDistance;
+		if (showDistance) {
+			pahamacy.distance = pahamacy.distance + " mi away";
+		}
 	}
 	Alloy.Collections.stores.reset(pharmacies);
 	loadMap();
@@ -115,13 +125,13 @@ function loadMap(e) {
 
 		if (OS_IOS) {
 			_.extend(properties, {
-				leftView : getMapIcon("/images/left_button.png", "leftPane", data.storeid),
-				rightView : getMapIcon("/images/right_button.png", "rightPane", data.storeid)
+				leftView : getMapIcon("/images/map_left_button.png", "leftPane", data.storeid),
+				rightView : getMapIcon("/images/map_right_button.png", "rightPane", data.storeid)
 			});
 		} else {
 			_.extend(properties, {
-				leftButton : "/images/left_button.png",
-				rightButton : "/images/right_button.png"
+				leftButton : "/images/map_left_button.png",
+				rightButton : "/images/map_right_button.png"
 			});
 		}
 
@@ -181,6 +191,16 @@ function didAnnotationClick(e) {
 			}
 			break;
 		case "leftPane":
+			if (_.isEmpty(Alloy.Globals.currentLocation) == false) {
+				var stores = Alloy.Collections.stores.where({
+					storeid : annotation.storeId
+				});
+				if (stores.length) {
+					utilities.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
+				}
+			} else {
+
+			}
 			break;
 		}
 	}
@@ -217,5 +237,5 @@ function terminate() {
 	$.destroy();
 }
 
-exports.init = init;
+exports.init = getLocation;
 exports.terminate = terminate;

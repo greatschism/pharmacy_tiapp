@@ -578,3 +578,27 @@ exports.getRandomString = function(_length) {
 
 	return text;
 };
+
+/**
+ * Open maps for direction
+ * @param {String|Object} source address query or latitude and longitude
+ * @param {String|Object} destination address query or latitude and longitude
+ * @param {String} mode direction mode
+ */
+exports.getDirection = function(source, destination, mode) {
+
+	if (_.isObject(source)) {
+		source = source.latitude + "," + source.longitude;
+	}
+
+	if (_.isObject(destination)) {
+		destination = destination.latitude + "," + destination.longitude;
+	}
+
+	var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "transit");
+	if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
+		Ti.Platform.openURL("comgooglemaps://".concat(params));
+	} else {
+		Ti.Platform.openURL("http://maps.google.com/maps".concat(params));
+	}
+};
