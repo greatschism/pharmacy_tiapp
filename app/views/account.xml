@@ -1,3 +1,5 @@
 <Alloy>
-	<View></View>
+	<View>
+		<Label class="width-90 red h1 bold text-center under-construction" />
+	</View>
 </Alloy> 

@@ -1,13 +1,13 @@
 <Alloy>
-	<View>
-		<View id="navBar" class="top bg-orange">
-			<View id="navBarView">
-				<View id="leftView" onSingletap="didTap">
+	<View class="template-view">
+		<View id="navBar" class="top bg-orange nav-bar">
+			<View id="navBarView" class="nav-bar-view">
+				<View class="nav-bar-left-view" onSingletap="didTap">
 					<ImageView id="leftImg" />
 				</View>
-				<Label id="titleLbl" class="nav-bar-title h2 white text-center" />
+				<Label id="titleLbl" class="h2 white text-center nav-bar-title-lbl" />
 			</View>
 		</View>
-		<View id="contentView" />
+		<View id="contentView" class="template-content-view" />
 	</View>
 </Alloy>

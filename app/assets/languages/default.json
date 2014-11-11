@@ -39,7 +39,7 @@
 		"sectionDrugInstructions": "Drug instructions",
 		"sectionYourOrder": "Your order",
 		"sectionPickupDetails": "Pickup details",
-		
+
 		"hintSearchByZipCityOrState": "search by zip, city or state",
 		"hintMobileNumber": "Mobile Number",
 		"hintUsername": "Username",
@@ -103,7 +103,7 @@
 		"lblWrongAddress": "Wrong address? Call you pharmacy to update",
 		"lblConfigurableCondition": "More help for your comfigurable condition",
 		"lblConfigurableItem": "Configurable text item",
-		
+
 		"valLoginRequiredFileds": "Username and Password can't be blank",
 
 		"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
@@ -113,9 +113,9 @@
 		"msgSignout": "Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully": "You have signed out successfully.",
 		"msgRefillOrder": "Your refill order has been sent and will be ready to pick up on:",
-		"msgOrderProcessed" : "We've processed your order",
+		"msgOrderProcessed": "We've processed your order",
 		"msgShouldBeReadyBy": "Should be ready by",
-		
+
 		"menuSearch": "Search",
 		"menuSort": "Sort",
 		"menuUnhidePrescriptions": "Unhide prescriptions",
@@ -124,6 +124,7 @@
 		"msgOverdueBy": "Overdue by",
 		"msgDueFoRefillIn": "Due for refill in",
 		"msgDueFoRefillOn": "Due for refill on",
+		"msgUnderConstruction": "Under construction",
 
 		"btnYes": "Yes",
 		"btnNo": "No",

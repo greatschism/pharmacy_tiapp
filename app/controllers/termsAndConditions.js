@@ -33,7 +33,7 @@ function terminate() {
 function didDoneClick(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",
-		titleImage : "/images/pharmacy_gray.png",
+		titleImage : "/images/pharmacy_white.png",
 		stack : true
 	});
 }

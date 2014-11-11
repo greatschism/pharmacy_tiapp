@@ -475,6 +475,55 @@
 ".bg-malibu":{
 	backgroundColor: "#56BCFB"
 },
+/**
+* 	Tempalte View
+*/
+".template-view":{
+	backgroundColor: "#fff",
+	width: "100%",
+	zIndex: 1
+},
+".nav-bar":{
+	top: 0,
+	height: Alloy.CFG.navBarHeight,
+	zIndex: 1
+},
+".nav-bar-view":{
+	top: Alloy.CFG.navBarTop
+},
+".nav-bar-title-lbl[platform=ios]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular
+	}
+},
+".nav-bar-title-lbl[platform=android,mobileweb]":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.light
+	}
+},
+".nav-bar-title-img":{
+	width: Ti.UI.SIZE,
+	height: 40
+},
+".nav-bar-left-view":{
+	left: 0,
+	width: 60
+},
+".template-content-view":{
+	top: Alloy.CFG.navBarHeight,
+	zIndex: 1
+},
+".hamburger":{
+	width: 40,
+	image: "/images/hamburger.png",
+	touchEnabled: false
+},
+".back":{
+	left: 5,
+	width: 30,
+	image: "/images/left_angle_white.png",
+	touchEnabled: false
+}
 /*
 *navbar button
 */
@@ -552,4 +601,10 @@
 	right: 5,
 	width: 15,
 	image: "/images/right_angle_gray.png"
+},
+/**
+* 	under-construction
+*/
+".under-construction":{
+	text: Alloy.Globals.Strings.msgUnderConstruction
 }

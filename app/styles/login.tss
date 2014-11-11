@@ -3,7 +3,7 @@
 },
 "#logoImg":{
 	width: 75,
-	image: "/images/pharmacy_gray.png"
+	image: "/images/pharmacy_white.png"
 },
 "#headerLbl":{
 	html: Alloy.Globals.Strings.lblLoginToMobilePharmacy

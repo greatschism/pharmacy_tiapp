@@ -7,7 +7,7 @@ var args = arguments[0] || {},
 	if (args.titleImage) {
 		$.titleImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			id : "titleImg"
+			id : "nav-bar-title-img"
 		});
 		$.titleImg.image = args.titleImage;
 		$.navBarView.add($.titleImg);

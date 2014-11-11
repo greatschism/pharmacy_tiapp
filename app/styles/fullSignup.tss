@@ -1,6 +1,6 @@
 "#logoImg":{
 	width: 75,
-	image: "/images/pharmacy_gray.png"
+	image: "/images/pharmacy_white.png"
 },
 "#hintLbl":{
 	text: Alloy.Globals.Strings.lblSignupAndGetRefillInSeconds
