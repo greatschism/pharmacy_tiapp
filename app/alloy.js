@@ -3,6 +3,14 @@
 	var Locale = require("localization");
 	Locale.init();
 	Alloy.Globals.Strings = Locale.currentLanguage.strings;
+	
+	Alloy.Globals.currentLocation = {};
+	if (Ti.Platform.model == "google_sdk" || Ti.Platform.model == "Simulator") {
+		Alloy.Globals.currentLocation = {
+			latitude : 12.9739156,
+			longitude : 77.6172187
+		};
+	}
 
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 

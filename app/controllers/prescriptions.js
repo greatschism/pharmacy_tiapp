@@ -62,10 +62,11 @@ function transformPrescription(model) {
 	var fromToday = dueDate.diff(moment(), "days") + 1;
 	if (fromToday <= 7) {
 		if (fromToday >= 0) {
-			transform.due = Alloy.Globals.Strings.msgDueFoRefillIn.concat(" " + fromToday + " " + Alloy.Globals.Strings.strDays);
+			transform.due = Alloy.Globals.Strings.msgDueFoRefillIn.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.Strings.strDays : Alloy.Globals.Strings.strDay));
 			transform.color = "#F79538";
 		} else {
-			transform.due = Alloy.Globals.Strings.msgOverdueBy.concat(" " + Math.abs(fromToday) + " " + Alloy.Globals.Strings.strDays);
+			fromToday = Math.abs(fromToday);
+			transform.due = Alloy.Globals.Strings.msgOverdueBy.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.Strings.strDays : Alloy.Globals.Strings.strDay));
 			transform.color = "#ae331f";
 		}
 	} else {

@@ -71,15 +71,17 @@ function getMImage(image, width) {
 
 function didItemClick(e) {
 	var navigation = e.source.navigation;
-	if (navigation.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
-		app.navigator.open({
-			ctrl : "login",
-			ctrlArguments : {
-				navigateTo : navigation
-			}
-		});
-	} else {
-		app.navigator.open(navigation);
+	if (!_.isEmpty(navigation)) {
+		if (navigation.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
+			app.navigator.open({
+				ctrl : "login",
+				ctrlArguments : {
+					navigateTo : navigation
+				}
+			});
+		} else {
+			app.navigator.open(navigation);
+		}
 	}
 }
 

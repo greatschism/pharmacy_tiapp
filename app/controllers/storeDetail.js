@@ -50,6 +50,19 @@ var args = arguments[0] || {},
 	Alloy.Collections.storeServices.reset(services);
 })();
 
+function didClickPhone(e) {
+	Ti.Platform.openURL("tel:" + Alloy.Models.store.get("mobileareacode") + Alloy.Models.store.get("mobileprefix") + Alloy.Models.store.get("mobilenumber"));
+}
+
+function didClickDirection(e) {
+	var params = "?saddr=" + Alloy.Globals.currentLocation.latitude + "," + Alloy.Globals.currentLocation.longitude + "&daddr=" + Alloy.Models.store.get("latitude") + "," + Alloy.Models.store.get("longitude") + "&directionsmode=transit";
+	if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
+		Ti.Platform.openURL("comgooglemaps://".concat(params));
+	} else {
+		Ti.Platform.openURL("http://maps.google.com/maps?".concat(params));
+	}
+}
+
 function terminate() {
 	$.destroy();
 	Alloy.Models.store.clear();

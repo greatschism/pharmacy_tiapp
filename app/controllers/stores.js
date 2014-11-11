@@ -31,14 +31,10 @@ function init() {
 }
 
 function locationCallback(e) {
-	var coords = e.coords || {};
-	if (Ti.Platform.model == "google_sdk" || Ti.Platform.model == "Simulator") {
-		coords = {
-			latitude : 12.9739156,
-			longitude : 77.6172187
-		};
+	if (e.success) {
+		Alloy.Globals.currentLocation = e.coords;
 	}
-	if (coords.latitude) {
+	if (!_.isEmpty(Alloy.Globals.currentLocation)) {
 		http.request({
 			method : "advsearchpharmacies",
 			data : {
@@ -46,8 +42,8 @@ function locationCallback(e) {
 					advsearchpharmacy : {
 						searchstring : $.searchbar.getValue(),
 						storeid : "",
-						latitude : coords.latitude,
-						longitude : coords.longitude,
+						latitude : Alloy.Globals.currentLocation.latitude,
+						longitude : Alloy.Globals.currentLocation.longitude,
 						fetchalldetails : 1,
 						pagenumber : "",
 						pagesize : "",

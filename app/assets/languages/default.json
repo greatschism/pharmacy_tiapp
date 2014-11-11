@@ -156,6 +156,7 @@
 		"strCall": "Call",
 		"strDirections": "Directions",
 		"strPrescriptions": "Prescriptions",
+		"strDay": "day",
 		"strDays": "days"
 	}
 }
