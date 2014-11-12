@@ -47,7 +47,7 @@
 			title: Alloy.Globals.Strings.optionTakePhoto
 		},
 		{
-			title: Alloy.Globals.Strings.optionCancel
+			title: Alloy.Globals.Strings.strCancel
 		}
 	],
 	cancel: 2,

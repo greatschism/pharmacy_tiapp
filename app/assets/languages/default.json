@@ -115,6 +115,7 @@
 		"msgRefillOrder": "Your refill order has been sent and will be ready to pick up on:",
 		"msgOrderProcessed": "We've processed your order",
 		"msgShouldBeReadyBy": "Should be ready by",
+		"msgChangeHomePharmacy": "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
 		"menuSearch": "Search",
 		"menuSort": "Sort",
@@ -150,8 +151,8 @@
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
-		"optionCancel": "Cancel",
-
+		
+		"strCancel": "Cancel",
 		"strLogin": "Log in",
 		"strSignup": "Sign up",
 		"strSignin": "Sign in",

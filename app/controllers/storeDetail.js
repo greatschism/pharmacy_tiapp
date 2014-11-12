@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
+    dialog = require("dialog"),
     utilities = require("utilities"),
     moment = require("alloy/moment");
 
@@ -50,6 +51,12 @@ var args = arguments[0] || {},
 		$.directionBtn.hide();
 		$.distanceView.hide();
 	}
+	if (!Alloy.Models.user.get("loggedIn")) {
+		$.favoriteImg.hide();
+		$.textView.left = 15;
+		$.headerView.remove($.refillView);
+		$.headerView.remove($.optionsView);
+	}
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeHours.reset(dates);
 	Alloy.Collections.storeServices.reset(services);
@@ -61,6 +68,25 @@ function didClickPhone(e) {
 
 function didClickDirection(e) {
 	utilities.getDirection(Alloy.Globals.currentLocation, (Alloy.Models.store.get("latitude") + "," + Alloy.Models.store.get("longitude")));
+}
+
+function underConstruction() {
+	dialog.show({
+		message : Alloy.Globals.Strings.msgUnderConstruction
+	});
+}
+
+function didClickFavorite(e) {
+	underConstruction();
+}
+
+function didClickHome(e) {
+	dialog.show({
+		message : String.format(Alloy.Globals.Strings.msgChangeHomePharmacy, Alloy.Models.store.get("addressline1")),
+		buttonNames : [Alloy.Globals.Strings.btnYes, Alloy.Globals.Strings.strCancel],
+		cancelIndex : 1,
+		success : underConstruction
+	});
 }
 
 function terminate() {

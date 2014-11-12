@@ -63,7 +63,11 @@ function didSearch() {
 				}
 			}
 		},
-		success : didGetPharmacies
+		success : didGetPharmacies,
+		failure : function() {
+			Alloy.Collections.stores.reset([]);
+			loadMap();
+		}
 	});
 }
 
@@ -125,14 +129,22 @@ function loadMap(e) {
 
 		if (OS_IOS) {
 			_.extend(properties, {
-				leftView : getMapIcon("/images/map_left_button.png", "leftPane", data.storeid),
 				rightView : getMapIcon("/images/map_right_button.png", "rightPane", data.storeid)
 			});
+			if (!_.isEmpty(Alloy.Globals.currentLocation)) {
+				_.extend(properties, {
+					leftView : getMapIcon("/images/map_left_button.png", "leftPane", data.storeid)
+				});
+			}
 		} else {
 			_.extend(properties, {
-				leftButton : "/images/map_left_button.png",
 				rightButton : "/images/map_right_button.png"
 			});
+			if (!_.isEmpty(Alloy.Globals.currentLocation)) {
+				_.extend(properties, {
+					leftButton : "/images/map_left_button.png"
+				});
+			}
 		}
 
 		annotations.push(Map.createAnnotation(properties));
@@ -191,15 +203,11 @@ function didAnnotationClick(e) {
 			}
 			break;
 		case "leftPane":
-			if (_.isEmpty(Alloy.Globals.currentLocation) == false) {
-				var stores = Alloy.Collections.stores.where({
-					storeid : annotation.storeId
-				});
-				if (stores.length) {
-					utilities.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
-				}
-			} else {
-
+			var stores = Alloy.Collections.stores.where({
+				storeid : annotation.storeId
+			});
+			if (stores.length) {
+				utilities.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
 			}
 			break;
 		}
