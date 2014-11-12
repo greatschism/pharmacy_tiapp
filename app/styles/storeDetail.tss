@@ -28,8 +28,11 @@
 "#homeImg":{
 	image: "/images/home.png"
 },
-".text-view":{
+".text-view[if=Alloy.Globals.loggedIn]":{
 	left: 60
+},
+".text-view[if=!Alloy.Globals.loggedIn]":{
+	left: 15
 },
 ".distance-img":{
 	width: 10,

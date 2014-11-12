@@ -17,9 +17,9 @@
 			</ItemTemplate>
 		</Templates>
 		<HeaderView>
-			<View id="headerView" class="left-5 right-5 auto-height vgroup">
+			<View class="left-5 right-5 auto-height vgroup">
 				<View class="top-20 auto-height">
-					<ImageView id="favoriteImg" class="top left width-50d" />
+					<ImageView id="favoriteImg" class="top left width-50d" if="Alloy.Globals.loggedIn" />
 					<View id="textView" class="auto-height text-view">
 						<View class="top left right-140 auto-height vgroup">
 							<Label id="titleLbl" class="left h4 bold multi-line gray" text="{store.addressline1}" />
@@ -41,11 +41,11 @@
 					<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3 font-regular" onClick="didClickPhone" />
 					<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" onClick="didClickDirection" />
 				</View>
-				<View id="refillView" class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
+				<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill" if="Alloy.Globals.loggedIn">
 					<ImageView image="/images/rx.png" class="button-img-left" />
 					<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 				</View>
-				<View id="optionsView" class="top-20 auto-height">
+				<View class="top-20 auto-height" if="Alloy.Globals.loggedIn">
 					<Button id="addToFavoriteBtn" class="left-15 fill-width bg-white orange border-orange h3 font-light" onClick="didClickFavorite" />
 					<ImageView id="homeImg" class="right-15 width-30d" onClick="didClickHome"  />
 				</View>
@@ -70,9 +70,9 @@
 		</ListSection>
 	</ListView>
 	<ScrollView class="vgroup" platform="mobileweb">
-		<View id="headerView" class="left-5 right-5 auto-height vgroup">
+		<View class="left-5 right-5 auto-height vgroup">
 			<View class="top-20 auto-height">
-				<ImageView id="favoriteImg" class="top left width-50d" />
+				<ImageView id="favoriteImg" class="top left width-50d" if="Alloy.Globals.loggedIn" />
 				<View id="textView" class="auto-height text-view">
 					<View class="top left right-140 auto-height vgroup">
 						<Label id="titleLbl" class="left h4 bold multi-line gray" text="{store.addressline1}" />
@@ -94,11 +94,11 @@
 				<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3 font-regular" onClick="didClickPhone" />
 				<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" onClick="didClickDirection" />
 			</View>
-			<View id="refillView" class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
+			<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill" if="Alloy.Globals.loggedIn">
 				<ImageView image="/images/rx.png" class="button-img-left" />
 				<Label text="Refill a prescriptions here" class="button-title-left h3 white" />
 			</View>
-			<View id="optionsView" class="top-20 auto-height">
+			<View class="top-20 auto-height" if="Alloy.Globals.loggedIn">
 				<Button id="addToFavoriteBtn" class="left-15 fill-width bg-white orange border-orange h3 font-light" onClick="didClickFavorite" />
 				<ImageView id="homeImg" class="right-15 width-30d" onClick="didClickHome"  />
 			</View>

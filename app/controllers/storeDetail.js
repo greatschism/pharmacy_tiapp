@@ -45,17 +45,13 @@ var args = arguments[0] || {},
 		$.clockImg.image = image;
 		$.clockLbl.applyProperties(labelDict);
 	}
-	$.favoriteImg.image = "/images/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
+	if (Alloy.Globals.loggedIn) {
+		$.favoriteImg.image = "/images/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
+	}
 	store.phone = Alloy.Globals.Strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	if (_.isEmpty(Alloy.Globals.currentLocation)) {
 		$.directionBtn.hide();
 		$.distanceView.hide();
-	}
-	if (!Alloy.Models.user.get("loggedIn")) {
-		$.favoriteImg.hide();
-		$.textView.left = 15;
-		$.headerView.remove($.refillView);
-		$.headerView.remove($.optionsView);
 	}
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeHours.reset(dates);

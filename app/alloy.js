@@ -3,7 +3,8 @@
 	var Locale = require("localization");
 	Locale.init();
 	Alloy.Globals.Strings = Locale.currentLanguage.strings;
-	
+
+	Alloy.Globals.loggedIn = false;
 	Alloy.Globals.currentLocation = {};
 	if (Ti.Platform.model == "google_sdk" || Ti.Platform.model == "Simulator") {
 		Alloy.Globals.currentLocation = {
@@ -32,4 +33,9 @@
 	});
 	Alloy.Models.store = new Backbone.Model();
 	Alloy.Models.doctor = new Backbone.Model();
-})(); 
+
+	Alloy.Models.user.on("change:loggedIn", function didLoginChange() {
+		Alloy.Globals.loggedIn = Alloy.Models.user.get("loggedIn");
+	});
+
+})();
