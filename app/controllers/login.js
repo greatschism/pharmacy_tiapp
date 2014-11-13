@@ -73,7 +73,8 @@ function didAuthenticate(result) {
 	});
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
-		action : "signout"
+		action : "signout",
+		leftImage : "/images/logout_white.png"
 	});
 	if (app.navigator.name === Alloy.CFG.navigator) {
 		if (_.has(args, "navigateTo")) {

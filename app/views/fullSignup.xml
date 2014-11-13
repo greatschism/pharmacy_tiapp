@@ -29,7 +29,7 @@
 				<Widget id="rxNoTxt" src="com.mscripts.textfield" class="fill-width black height-50d txt no-border h3 font-regular" />
 				<View class="hseparator" />
 				<View class="height-50d" onClick="chooseLocation">
-					<Label id="locationLbl" class="fill-width height-50d h3 font-regular cloudy touch-disabled" />
+					<Label id="locationLbl" class="fill-width height-50d h3 cloudy touch-disabled" />
 					<ImageView id="downImg" class="width-20d right-10 touch-disabled" />
 				</View>
 			</View>

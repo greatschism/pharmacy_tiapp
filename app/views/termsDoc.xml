@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
 		<WebView id="webView" />
-		<Button id="doneBtn" class="bottom-20 width-90 bg-orange white h2 font-regular" onClick="didClickDone" />
+		<Button id="doneBtn" class="bottom-20 width-90 bg-orange white h2" onClick="didClickDone" />
 	</View>
 </Alloy> 

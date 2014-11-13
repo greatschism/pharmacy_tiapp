@@ -19,7 +19,7 @@
 		</ListSection>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Button id="saveBtn" class="top-20 width-90 bg-orange white h2 font-regular" onClick="didClickSave" />
+				<Button id="saveBtn" class="top-20 width-90 bg-orange white h2" onClick="didClickSave" />
 				<Button id="editBtn" class="top-10 width-90 bg-white orange h2 font-light border-orange" onClick="didClickEdit" />
 				<Button id="deleteBtn" class="top-5 width-90 bg-white orange h2 font-light malibu hide" onClick="didClickDelete" />
 			</View>
@@ -42,7 +42,7 @@
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Button id="saveBtn" class="top-20 width-90 bg-orange white h2 font-regular" onClick="didClickSave" />
+				<Button id="saveBtn" class="top-20 width-90 bg-orange white h2" onClick="didClickSave" />
 				<Button id="editBtn" class="top-10 width-90 bg-white orange h2 font-light border-orange" onClick="didClickEdit" />
 				<Button id="deleteBtn" class="top-5 width-90 bg-white orange h2 font-light malibu hide" onClick="didClickDelete" />
 			</View>

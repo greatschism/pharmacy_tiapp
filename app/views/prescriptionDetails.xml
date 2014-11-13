@@ -4,7 +4,7 @@
 			<ItemTemplate name="prescriptionDetails" class="auto-height">
 				<View class="right-25 auto-height bottom-10">
 
-					<Label bindId="title" class="title auto-height font-16 font-regular gray multi-line" />
+					<Label bindId="title" class="title auto-height font-16 gray multi-line" />
 				</View>
 			</ItemTemplate>
 			<ItemTemplate name="reminders" class="height-50d">
@@ -42,7 +42,7 @@
 					</View>
 				</View>
 				<View class="top-5 auto-height">
-					<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3 font-regular" />
+					<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3" />
 					
 				</View>
 				<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
@@ -92,8 +92,8 @@
 				</View>
 			</View>
 			<View class="top-5 auto-height">
-				<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3 font-regular" />
-				<Button id="directionBtn" class="right width-40 bg-white malibu h3 font-regular" />
+				<Button id="phoneBtn" title="{store.phone}" class="left width-60 bg-white malibu h3" />
+				<Button id="directionBtn" class="right width-40 bg-white malibu h3" />
 			</View>
 			<View class="top-10 button-view width-95 bg-orange" onSingletap="didRefill">
 				<ImageView image="/images/store/refill.png" class="button-img-left" />

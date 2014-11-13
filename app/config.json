@@ -19,23 +19,52 @@
 			{
 				"titleid": "titleHome",
 				"ctrl": "home",
-				"landingPage": true,
-				"requiresLogin": false
+				"leftImage": "/images/home_white.png",
+				"requiresLogin": false,
+				"landingPage": true
 			}, {
 				"titleid": "strPrescriptions",
 				"ctrl": "prescriptions",
+				"leftImage": "/images/pill_white.png",
 				"requiresLogin": true
+			}, {
+				"titleid": "strReminders",
+				"action": "reminders",
+				"leftImage": "/images/reminder_white.png"
+			}, {
+				"titleid": "titlePharmacyRewards",
+				"action": "pharmacyRewards",
+				"leftImage": "/images/reward_white.png"
+			}, {
+				"titleid": "titleCoupons",
+				"action": "coupons",
+				"leftImage": "/images/coupon_white.png"
+			}, {
+				"titleid": "titleFamilyAccounts",
+				"action": "familyAccounts",
+				"leftImage": "/images/family_white.png"
+			}, {
+				"titleid": "titleTransferPrescription",
+				"action": "transferPrescription",
+				"leftImage": "/images/transfer_white.png"
 			}, {
 				"titleid": "titleDoctors",
 				"ctrl": "doctors",
+				"leftImage": "/images/doctor_white.png",
 				"requiresLogin": true
+			}, {
+				"titleid": "titleRefillViaCamera",
+				"action": "refillViaCamera",
+				"leftImage": "/images/camera_white.png"
 			}, {
 				"titleid": "titleStores",
 				"ctrl": "stores",
+				"leftImage": "/images/pharmacy_white.png",
 				"requiresLogin": false
 			}, {
 				"titleid": "titleAccount",
 				"ctrl": "account",
+				"leftImage": "/images/account_white.png",
 				"requiresLogin": true
 			}
 		],

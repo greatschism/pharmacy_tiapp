@@ -64,6 +64,10 @@ function didItemClick(e) {
 					}
 				});
 				break;
+			default:
+				dialog.show({
+					message : Alloy.Globals.Strings.msgUnderConstruction
+				});
 			}
 		}
 	});

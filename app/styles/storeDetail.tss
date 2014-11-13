@@ -26,7 +26,7 @@
 	borderWidth: 1
 },
 "#homeImg":{
-	image: "/images/home.png"
+	image: "/images/home_gray.png"
 },
 ".text-view[if=Alloy.Globals.loggedIn]":{
 	left: 60

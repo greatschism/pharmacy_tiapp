@@ -4,7 +4,7 @@
 			<ItemTemplate name="doctor" class="auto-height top-10">
 				<View class="right-25 auto-height bottom-10">
 					<ImageView bindId="profile" class="profile-img left-10" />
-					<Label bindId="doctor" class="doctor auto-height h3 font-regular black multi-line" />
+					<Label bindId="doctor" class="doctor auto-height h3 black multi-line" />
 				</View>
 				<ImageView class="child" />
 			</ItemTemplate>
@@ -30,7 +30,7 @@
 					<View class="top auto-height">
 						<ImageView image="{image}" class="profile-img left-10" />
 					</View>
-					<Label text="{name}" class="doctor right-25 auto-height h3 font-regular black multi-line" />
+					<Label text="{name}" class="doctor right-25 auto-height h3 black multi-line" />
 				</View>
 				<ImageView class="child" />
 			</View>

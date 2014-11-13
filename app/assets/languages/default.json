@@ -7,11 +7,15 @@
 		"lngSpanish": "Spanish",
 
 		"titleHome": "Home",
-		"titleCareTeam": "Care team",
+		"titlePharmacyRewards": "Pharmacy rewards",
+		"titleCoupons": "Coupons",
+		"titleFamilyAccounts": "Family accounts",
+		"titleTransferPrescription": "Transfer a prescription",
 		"titleDoctors": "Doctors",
+		"titleRefillViaCamera": "Refill via camera",
 		"titleStores": "Stores",
-		"titleFindStore": "Find a store",
 		"titleAccount": "Account",
+		"titleFindStore": "Find a store",
 		"titleLoginRecovery": "Login recovery",
 		"titleTermsAndConditions": "Terms and Conditions",
 		"titleMobileNumber": "Mobile number",
@@ -35,7 +39,6 @@
 		"sectionReadyForRefill": "Ready for refill",
 		"sectionOtherPrescriptions": "Other prescriptions",
 		"sectionPrescriptionDetails": "Prescription details",
-		"sectionReminders": "Reminders",
 		"sectionDrugInstructions": "Drug instructions",
 		"sectionYourOrder": "Your order",
 		"sectionPickupDetails": "Pickup details",
@@ -162,6 +165,7 @@
 		"strDirections": "Directions",
 		"strPrescriptions": "Prescriptions",
 		"strDay": "day",
-		"strDays": "days"
+		"strDays": "days",
+		"strReminders": "Reminders"
 	}
 }
