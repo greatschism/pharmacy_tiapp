@@ -12,20 +12,50 @@ function orientationChanged(e) {
 	$.mainView.width = newWidth;
 }
 
-exports.init = function(params) {
+function didTapOverlay(e) {
+	if (menuOpen) {
+		closeLeftMenu();
+	}
+}
+
+function init(params) {
 	if (_.has(params, "menuView")) {
 		$.setMenuView(params.menuView);
 	}
 	//calling orientationChanged to apply width to mainView - Do not remove
 	orientationChanged();
 	//Ti.Gesture.addEventListener("orientationchange", orientationChanged);
-};
+}
 
-exports.terminate = function(params) {
+function terminate(params) {
 	//Ti.Gesture.removeEventListener("orientationchange", orientationChanged);
-};
+}
 
-exports.toggleLeftMenu = function(callback) {
+function openLeftMenu(callback) {
+	if (!menuOpen) {
+		toggleLeftMenu(callback);
+		return true;
+	} else {
+		if (callback) {
+			callback();
+		}
+		return false;
+	}
+}
+
+function closeLeftMenu(callback) {
+	if (menuOpen) {
+		toggleLeftMenu(callback);
+		return true;
+	} else {
+		if (callback && callback instanceof Function) {
+			callback();
+		}
+		return false;
+	}
+}
+
+function toggleLeftMenu(callback) {
 	if (!busy) {
 		busy = true;
 		var moveTo = 0;
@@ -40,6 +70,8 @@ exports.toggleLeftMenu = function(callback) {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
+			$.mainView.left = moveTo;
+			$.overlayView.visible = menuOpen;
 			busy = false;
 			if (callback) {
 				callback();
@@ -47,45 +79,31 @@ exports.toggleLeftMenu = function(callback) {
 		});
 		$.mainView.animate(animation);
 	}
-};
+}
 
-exports.openLeftMenu = function(callback) {
-	if (!menuOpen) {
-		$.toggleLeftMenu(callback);
-		return true;
-	} else {
-		if (callback) {
-			callback();
-		}
-		return false;
-	}
-};
-
-exports.closeLeftMenu = function(callback) {
-	if (menuOpen) {
-		$.toggleLeftMenu(callback);
-		return true;
-	} else {
-		if (callback) {
-			callback();
-		}
-		return false;
-	}
-};
-
-exports.setMenuView = function(view) {
+function setMenuView(view) {
 	$.menuView.add(view);
 	var children = $.menuView.children;
 	if (children.length > 1) {
 		$.menuView.remove(children[1]);
 	}
-};
+}
 
-exports.setDuration = function(duration) {
+function setDuration(duration) {
 	MENU_SLIDING_DURATION = duration;
-};
+}
 
-exports.setMenuWidth = function(width) {
+function setMenuWidth(width) {
 	LEFT_MENU_WIDTH = width;
-	$.menuView.setWidth(LEFT_MENU_WIDTH);
-};
+	$.overlayView.left = LEFT_MENU_WIDTH;
+	$.menuView.width = LEFT_MENU_WIDTH;
+}
+
+exports.init = init;
+exports.terminate = terminate;
+exports.setMenuView = setMenuView;
+exports.setDuration = setDuration;
+exports.setMenuWidth = setMenuWidth;
+exports.openLeftMenu = openLeftMenu;
+exports.closeLeftMenu = closeLeftMenu;
+exports.toggleLeftMenu = toggleLeftMenu;

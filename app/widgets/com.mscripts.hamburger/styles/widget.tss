@@ -6,4 +6,10 @@
 "#mainView":{
 	backgroundColor: "#fff",
 	zIndex: 1
+},
+"#overlayView":{
+	left: 240,
+	backgroundColor: "transparent",
+	zIndex: 2,
+	visible: false
 }

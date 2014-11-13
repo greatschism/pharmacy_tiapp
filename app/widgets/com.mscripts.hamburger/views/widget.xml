@@ -1,4 +1,5 @@
 <Alloy>
 	<View id="menuView" />
 	<View id="mainView" />
+	<View id="overlayView" onSingletap="didTapOverlay" />
 </Alloy>
