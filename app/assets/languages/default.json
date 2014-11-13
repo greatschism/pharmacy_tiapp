@@ -128,6 +128,7 @@
 		"msgGeoAuthorizationDenied": "Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted": "Location service is turned off. Please check your settings.",
 		"msgGeoPurpose": "Help you to locate the nearest pharmacies.",
+		"msgYourOrderIsReady": "Your order is ready to be picked up!",
 		"msgUnderConstruction": "Under construction",
 
 		"btnYes": "Yes",
@@ -151,7 +152,7 @@
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
-		
+
 		"strCancel": "Cancel",
 		"strLogin": "Log in",
 		"strSignup": "Sign up",

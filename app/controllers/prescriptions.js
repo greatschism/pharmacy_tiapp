@@ -5,8 +5,12 @@ var args = arguments[0] || {},
 function init() {
 	Alloy.Collections.gettingRefilled.reset([{
 		id : 1,
-		name : "Tramadol HCL, 20mg tab qual",
-		readyAt : "1415774742"
+		name : "Tramadol HCL, 20mg tab qual 1",
+		readyAt : "1414885443"
+	}, {
+		id : 2,
+		name : "Tramadol HCL, 20mg tab qual 2",
+		readyAt : "1416317443"
 	}]);
 	Alloy.Collections.prescriptions.reset([{
 		id : 1,
@@ -51,7 +55,27 @@ function filterOtherPrescription(collection) {
 function transformGettingRefilled(model) {
 	var transform = model.toJSON();
 	var availableDate = moment.unix(transform.readyAt);
-	transform.progress = Math.floor(100 / (availableDate.diff(moment(), "days") + 1)) + "%";
+	var diff = availableDate.diff(moment(), "days", true) + 1;
+	if (diff > 1) {
+		transform.progress = Math.floor(100 / diff) + "%";
+		if (OS_MOBILEWEB) {
+			transform.gettingRefilled = true;
+			transform.refilled = false;
+			transform.gettingRefilledHeight = Ti.UI.SIZE;
+			transform.refilledHeight = 0;
+		} else {
+			transform.template = "gettingRefilled";
+		}
+	} else {
+		if (OS_MOBILEWEB) {
+			transform.refilled = true;
+			transform.gettingRefilled = false;
+			transform.gettingRefilledHeight = 0;
+			transform.refilledHeight = Ti.UI.SIZE;
+		} else {
+			transform.template = "refilled";
+		}
+	}
 	transform.info = Alloy.Globals.Strings.msgOrderPlacedReadyBy.concat(" " + availableDate.format("dddd hA"));
 	return transform;
 }

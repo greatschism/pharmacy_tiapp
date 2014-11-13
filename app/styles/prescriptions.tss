@@ -38,6 +38,13 @@
 ".height-30d":{
 	height: 30
 },
+".icon-success":{
+	image: "/images/success.png",
+	width: 15
+},
+".text-completed":{
+	text: Alloy.Globals.Strings.msgYourOrderIsReady
+},
 "#gettingRefilledImg":{
 	image: "/images/clock_green.png"
 },

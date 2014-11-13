@@ -53,52 +53,54 @@
 				<View id="footerView" class="auto-height" />
 			</FooterView>
 		</ListView>
-		<ScrollView id="listView" class="vgroup" platform="mobileweb">
-			<View class="auto-height left-15 right-15 vgroup">
-				<View class="auto-height top-20">
-					<ImageView image="{doctor.image}" class="top left profile-img" onClick="didClickProfileImg" />
-					<View class="top auto-height vgroup text-view">
-						<Label class="h2 left black" text="{doctor.name}" />
-						<View class="top-10 auto-height">
-							<ImageView image="/images/call.png" class="left width-20d" />
-							<Label class="left-30 right-30 malibu font-regular" text="{doctor.phone}" />
-							<ImageView image="/images/edit.png" class="right width-20d" />
-						</View>
-						<View class="top-10 hseparator bg-gallery" />
-						<View class="top-10 auto-height">
-							<ImageView image="/images/fax.png" class="left width-20d" />
-							<Label class="left-30 malibu font-regular" text="{doctor.fax}" />
-						</View>
-						<View class="top-10 hseparator bg-gallery" />
-						<View class="top-10 auto-height">
-							<ImageView image="/images/direction.png" class="top left width-20d" />
-							<View class="top left-30 auto-height vgroup">
-								<Label class="left malibu font-regular" text="{doctor.hospital}" />
-								<Label class="left malibu font-regular" text="{doctor.street}" />
-								<Label class="left malibu font-regular" text="{doctor.city}, {doctor.state}, {doctor.zip}" />
+		<ScrollView id="listView" platform="mobileweb">
+			<View class="vgroup">
+				<View class="auto-height left-15 right-15 vgroup">
+					<View class="auto-height top-20">
+						<ImageView image="{doctor.image}" class="top left profile-img" onClick="didClickProfileImg" />
+						<View class="top auto-height vgroup text-view">
+							<Label class="h2 left black" text="{doctor.name}" />
+							<View class="top-10 auto-height">
+								<ImageView image="/images/call.png" class="left width-20d" />
+								<Label class="left-30 right-30 malibu font-regular" text="{doctor.phone}" />
+								<ImageView image="/images/edit.png" class="right width-20d" />
+							</View>
+							<View class="top-10 hseparator bg-gallery" />
+							<View class="top-10 auto-height">
+								<ImageView image="/images/fax.png" class="left width-20d" />
+								<Label class="left-30 malibu font-regular" text="{doctor.fax}" />
+							</View>
+							<View class="top-10 hseparator bg-gallery" />
+							<View class="top-10 auto-height">
+								<ImageView image="/images/direction.png" class="top left width-20d" />
+								<View class="top left-30 auto-height vgroup">
+									<Label class="left malibu font-regular" text="{doctor.hospital}" />
+									<Label class="left malibu font-regular" text="{doctor.street}" />
+									<Label class="left malibu font-regular" text="{doctor.city}, {doctor.state}, {doctor.zip}" />
+								</View>
 							</View>
 						</View>
 					</View>
+					<Widget id="notesTxta" src="com.mscripts.textarea" class="top-20 fill-width black border-gray h4 font-regular" />
+					<View class="vspacer" />
 				</View>
-				<Widget id="notesTxta" src="com.mscripts.textarea" class="top-20 fill-width black border-gray h4 font-regular" />
-				<View class="vspacer" />
-			</View>
-			<TableView class="auto-height" dataCollection="prescriptions">
-				<HeaderView>
-					<View class="height-20d bg-armadillo">
-						<Label id="prescriptionsLbl" class="cloudy left-5" />
-					</View>
-				</HeaderView>
-				<TableViewRow class="auto-height top-10">
-					<View class="top auto-height bottom-10">
-						<View class="top auto-height left-15 right-15">
-							<Label text="{name}" class="left width-65 text-left h4 black multi-line" />
-							<Label text="Not filled yet" class="right width-35 text-right h4 cloudy multi-line" />
+				<TableView class="auto-height" dataCollection="prescriptions">
+					<HeaderView>
+						<View class="height-20d bg-armadillo">
+							<Label id="prescriptionsLbl" class="cloudy left-5" />
 						</View>
-					</View>
-				</TableViewRow>
-			</TableView>
-			<View id="footerView" class="auto-height" />
+					</HeaderView>
+					<TableViewRow class="auto-height top-10">
+						<View class="top auto-height bottom-10">
+							<View class="top auto-height left-15 right-15">
+								<Label text="{name}" class="left width-65 text-left h4 black multi-line" />
+								<Label text="Not filled yet" class="right width-35 text-right h4 cloudy multi-line" />
+							</View>
+						</View>
+					</TableViewRow>
+				</TableView>
+				<View id="footerView" class="auto-height" />
+			</View>
 		</ScrollView>
 		<Button id="hideDoctorBtn" class="bottom-20 width-90 bg-orange white h2 font-regular" onClick="didClickHideDoctor" />
 	</View>
