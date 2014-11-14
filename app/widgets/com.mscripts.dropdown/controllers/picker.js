@@ -47,7 +47,7 @@ var args = arguments[0] || {},
 	}
 
 	if (OS_ANDROID) {
-		height = (height / (Ti.Platform.displayCaps.dpi / 160));
+		height /= Ti.Platform.displayCaps.logicalDensityFactor;
 	}
 
 	$.picker.top = height + PICKER_HEIGHT;

@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     LEFT_MENU_WIDTH = 240,
     MENU_SLIDING_DURATION = 100,
     keyboard = OS_IOS || OS_ANDROID ? require("ti.keyboard") : false,
+    logicalDensityFactor = OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : false,
     menuOpen = false,
     listenForDrag = false,
     touchStartX = 0,
@@ -12,7 +13,7 @@ function orientationChanged(e) {
 	var newWidth;
 	newWidth = Ti.Platform.displayCaps.platformWidth;
 	if (OS_ANDROID)
-		newWidth /= Ti.Platform.displayCaps.logicalDensityFactor;
+		newWidth /= logicalDensityFactor;
 	$.mainView.width = newWidth;
 }
 
@@ -53,7 +54,7 @@ function didTouchmove(e) {
 	var _x = parseInt(coords.x, 10);
 	var newLeft = _x - touchStartX;
 	if (OS_ANDROID) {
-		newLeft /= Ti.Platform.displayCaps.logicalDensityFactor;
+		newLeft /= logicalDensityFactor;
 	}
 	if (touchStarted && newLeft >= 0 && newLeft <= LEFT_MENU_WIDTH) {
 		$.mainView.left = newLeft;
@@ -71,7 +72,7 @@ function didTouchend(e) {
 	}, $.widget);
 	var _x = parseInt(coords.x, 10);
 	if (OS_ANDROID) {
-		_x /= Ti.Platform.displayCaps.logicalDensityFactor;
+		_x /= logicalDensityFactor;
 	}
 	if (!menuOpen && _x >= LEFT_MENU_WIDTH / 2) {
 		openLeftMenu();

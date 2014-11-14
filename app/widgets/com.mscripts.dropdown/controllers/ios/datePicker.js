@@ -35,10 +35,6 @@ var args = arguments[0] || {},
 		$.picker.applyProperties(options);
 	}
 
-	if (OS_ANDROID) {
-		height = (height / (Ti.Platform.displayCaps.dpi / 160));
-	}
-
 	$.datePicker.top = height + PICKER_HEIGHT;
 
 })();

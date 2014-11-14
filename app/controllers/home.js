@@ -49,8 +49,8 @@ function getNImage(name, image, width) {
 		Ti.App.Properties.setInt(String(name).concat(width), height);
 	}
 	if (OS_ANDROID) {
-		width = width / (app.device.dpi / 160);
-		height = height / (app.device.dpi / 160);
+		width /= app.device.logicalDensityFactor;
+		height /= app.device.logicalDensityFactor;
 	}
 	return Ti.UI.createView({
 		left : 0,

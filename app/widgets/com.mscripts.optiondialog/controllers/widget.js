@@ -36,7 +36,7 @@ var args = arguments[0] || {},
 		$.titleLbl.text = args.title || "Choose one";
 
 		if (OS_ANDROID) {
-			height = (height / (Ti.Platform.displayCaps.dpi / 160));
+			height /= Ti.Platform.displayCaps.logicalDensityFactor;
 		}
 
 		setOptions(args.options || []);

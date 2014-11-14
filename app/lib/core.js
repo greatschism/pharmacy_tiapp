@@ -36,6 +36,7 @@ var App = {
 		width : null,
 		height : null,
 		dpi : Ti.Platform.displayCaps.dpi,
+		logicalDensityFactor : OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : Ti.Platform.displayCaps.dpi / 160,
 		orientation : Ti.Gesture.orientation == Ti.UI.LANDSCAPE_LEFT || Ti.Gesture.orientation == Ti.UI.LANDSCAPE_RIGHT ? "landscape" : "portrait"
 	},
 
@@ -245,8 +246,8 @@ var App = {
 
 		// Convert dimensions from DP to PX for Android
 		if (OS_ANDROID) {
-			App.device.width = (App.device.width / (App.device.dpi / 160));
-			App.device.height = (App.device.height / (App.device.dpi / 160));
+			App.device.width /= App.device.logicalDensityFactor;
+			App.device.height /= App.device.logicalDensityFactor;
 		}
 
 		return {
