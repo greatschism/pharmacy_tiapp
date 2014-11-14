@@ -12,8 +12,7 @@
 			title: "Item 2",
 			image: "/images/profile.png"
 		}
-	],
-	zIndex: 2
+	]
 },
 "#listView":{
 	bottom: 90

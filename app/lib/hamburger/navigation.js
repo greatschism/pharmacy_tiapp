@@ -82,7 +82,7 @@ function Navigation(_args) {
 	 * The parent object all screen controllers are added to
 	 * @type {Object}
 	 */
-	this.parent = _args.hamburger.getTopLevelViews()[1];
+	this.parent = _args.hamburger.getContentView();
 
 	/**
 	 * ti.keyboard module

@@ -26,8 +26,7 @@
 			title: Alloy.Globals.Strings.menuUnhidePrescriptions,
 			action: "unhide"
 		}
-	],
-	zIndex: 2
+	]
 },
 ".height-5d":{
 	height: 5

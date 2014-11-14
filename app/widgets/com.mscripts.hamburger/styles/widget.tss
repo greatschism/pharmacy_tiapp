@@ -4,12 +4,23 @@
 	zIndex: 0
 },
 "#mainView":{
-	backgroundColor: "#fff",
-	zIndex: 1
+	zIndex: 1,
+	backgroundColor: "#fff"
+},
+"#dragView":{
+	left: 0,
+	zIndex: 2,
+	backgroundColor: "transparent"
+},
+"#dragView[platform=ios,mobileweb]":{
+	width: 5
+},
+"#dragView[platform=android]":{
+	width: 10
 },
 "#overlayView":{
 	left: 240,
-	backgroundColor: "transparent",
 	zIndex: 2,
-	visible: false
+	visible: false,
+	backgroundColor: "transparent"
 }

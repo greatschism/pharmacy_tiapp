@@ -126,7 +126,7 @@ function animate(dict, callback) {
 function show(callback) {
 	if (!$.widget.visible) {
 		$.widget.visible = true;
-		$.widget.zIndex = args.zIndex || 1;
+		$.widget.zIndex = args.zIndex || 10;
 		var animation = Ti.UI.createAnimation({
 			opacity : 1,
 			duration : 300
