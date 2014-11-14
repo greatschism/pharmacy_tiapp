@@ -70,6 +70,9 @@ function didTouchend(e) {
 		y : e.y
 	}, $.widget);
 	var _x = parseInt(coords.x, 10);
+	if (OS_ANDROID) {
+		_x /= Ti.Platform.displayCaps.logicalDensityFactor;
+	}
 	if (!menuOpen && _x >= LEFT_MENU_WIDTH / 2) {
 		openLeftMenu();
 	} else {
