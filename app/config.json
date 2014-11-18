@@ -3,6 +3,8 @@
 		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
 		"clientname": "Meg-lo",
 		"emailpin": "",
+		"clientIdentifier": "1234",
+		"apiVersion": "1.0",
 		"languages": [
 			{
 				"code": "en",

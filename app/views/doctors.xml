@@ -48,7 +48,7 @@
 						<Label id="doctorLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="doctor" itemId="{id}" profile:image="{image}" doctor:text="{name}" prescription:text="{description}" />
+				<ListItem template="doctor" itemId="{doctor_id}" profile:image="{thumbnail_url}" doctor:text="{long_name}" prescription:text="{description}" />
 			</ListSection>
 		</ListView>
 		<ScrollView id="listView" platform="mobileweb">
@@ -87,14 +87,14 @@
 							<Label id="doctorLbl" class="cloudy left-5" />
 						</View>
 					</HeaderView>
-					<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
+					<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{doctor_id}">
 						<View class="top auto-height bottom-10">
 							<View class="top right-25 auto-height">
 								<View class="top auto-height">
-									<ImageView image="{image}" bindId="profile" class="profile-img left-10" />
+									<ImageView image="{thumbnail_url}" bindId="profile" class="profile-img left-10" />
 								</View>
 								<View class="content-view auto-height vgroup">
-									<Label text="{name}" bindId="doctor" class="right-25 left auto-height font-16 black multi-line touch-disabled" />
+									<Label text="{long_name}" bindId="doctor" class="right-25 left auto-height font-16 black multi-line touch-disabled" />
 									<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 gray multi-line touch-disabled" />
 								</View>
 							</View>

@@ -13,9 +13,9 @@
 			<HeaderView>
 				<View class="auto-height left-15 right-15 vgroup">
 					<View class="auto-height top-20">
-						<ImageView image="{doctor.image}" class="top left profile-img" onClick="didClickProfileImg" />
+						<ImageView image="{doctor.thumbnail_url}" class="top left profile-img" onClick="didClickProfileImg" />
 						<View class="top auto-height vgroup text-view">
-							<Label class="h2 left black" text="{doctor.name}" />
+							<Label class="h2 left black" text="{doctor.long_name}" />
 							<View class="top-10 auto-height">
 								<ImageView image="/images/call.png" class="left width-20d" />
 								<Label class="left-30 right-30 malibu" text="{doctor.phone}" />
@@ -30,8 +30,8 @@
 							<View class="top-10 auto-height">
 								<ImageView image="/images/direction.png" class="top left width-20d" />
 								<View class="top left-30 auto-height vgroup">
-									<Label class="left malibu" text="{doctor.hospital}" />
-									<Label class="left malibu" text="{doctor.street}" />
+									<Label class="left malibu" text="{doctor.org_name}" />
+									<Label class="left malibu" text="{doctor.addressline1}" />
 									<Label class="left malibu" text="{doctor.city}, {doctor.state}, {doctor.zip}" />
 								</View>
 							</View>
@@ -47,7 +47,7 @@
 						<Label id="prescriptionsLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="prescription" medicine:text="{name}" lastrefill:text="Not filled yet" />
+				<ListItem template="prescription" medicine:text="{prescription_name}" lastrefill:text="Not filled yet" />
 			</ListSection>
 			<FooterView>
 				<View id="footerView" class="auto-height" />
@@ -57,9 +57,9 @@
 			<View class="vgroup">
 				<View class="auto-height left-15 right-15 vgroup">
 					<View class="auto-height top-20">
-						<ImageView image="{doctor.image}" class="top left profile-img" onClick="didClickProfileImg" />
+						<ImageView image="{doctor.thumbnail_url}" class="top left profile-img" onClick="didClickProfileImg" />
 						<View class="top auto-height vgroup text-view">
-							<Label class="h2 left black" text="{doctor.name}" />
+							<Label class="h2 left black" text="{doctor.long_name}" />
 							<View class="top-10 auto-height">
 								<ImageView image="/images/call.png" class="left width-20d" />
 								<Label class="left-30 right-30 malibu" text="{doctor.phone}" />
@@ -74,7 +74,7 @@
 							<View class="top-10 auto-height">
 								<ImageView image="/images/direction.png" class="top left width-20d" />
 								<View class="top left-30 auto-height vgroup">
-									<Label class="left malibu" text="{doctor.hospital}" />
+									<Label class="left malibu" text="{doctor.org_name}" />
 									<Label class="left malibu" text="{doctor.street}" />
 									<Label class="left malibu" text="{doctor.city}, {doctor.state}, {doctor.zip}" />
 								</View>
@@ -93,7 +93,7 @@
 					<TableViewRow class="auto-height top-10">
 						<View class="top auto-height bottom-10">
 							<View class="top auto-height left-15 right-15">
-								<Label text="{name}" class="left width-65 text-left h4 black multi-line" />
+								<Label text="{prescription_name}" class="left width-65 text-left h4 black multi-line" />
 								<Label text="Not filled yet" class="right width-35 text-right h4 cloudy multi-line" />
 							</View>
 						</View>

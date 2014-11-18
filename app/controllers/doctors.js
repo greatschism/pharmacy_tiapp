@@ -4,63 +4,31 @@ var args = arguments[0] || {},
     dialog = require("dialog");
 
 function init() {
+	http.request({
+		url : "http://10.10.10.20:9000/simple-service-webapp/services/doctor",
+		dataTransform : false,
+		format : "JSON",
+		action : "list",
+		data : {
+			doctor_details : null
+		},
+		success : didSuccess
+	});
+}
+
+function didSuccess(result) {
 	Alloy.Collections.upcomingAppointments.reset([{
 		image : "/images/profile.png",
 		desc : "You have an upcoming appointment with Dr. Doe on",
 		time : "May 12th at 4.30 PM."
 	}]);
-	Alloy.Collections.doctors.reset([{
-		id : 1,
-		image : "",
-		fname : "Jane",
-		lname : "Doe",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : [{
-			name : "Omeprazole"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}, {
-			name : "Omeprazole 500mg"
-		}]
-	}, {
-		id : 2,
-		image : "/images/profile.png",
-		fname : "Herman",
-		lname : "Melville",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : [{
-			name : "Omeprazole"
-		}]
-	}, {
-		id : 3,
-		image : "/images/profile.png",
-		fname : "Hareesh",
-		lname : "Khurana",
-		phone : "(415) 193-3291",
-		fax : "(415) 111-3291",
-		hospital : "Smith Hospital",
-		street : "12 Pequod St.",
-		city : "Nantuket",
-		state : "MA",
-		zip : "02554",
-		prescriptions : []
-	}]);
+	var doctors = result.doctor_details;
+	for (var i in doctors) {
+		doctors[i].short_name = "Dr. " + doctors[i].last_name;
+		doctors[i].long_name = "Dr. " + doctors[i].first_name + " " + doctors[i].last_name;
+		doctors[i].thumbnail_url = "/images/profile.png";
+	}
+	Alloy.Collections.doctors.reset(doctors);
 }
 
 function transformAppointment(model) {
@@ -88,29 +56,25 @@ function transformAppointment(model) {
 
 function transformDoctor(model) {
 	var transform = model.toJSON();
-	if (!transform.image) {
-		transform.image = "/images/add_photo.png";
-	}
-	transform.name = "Dr. " + transform.fname + " " + transform.lname;
-	var prescriptions = transform.prescriptions;
-	var description = "";
-	var len = prescriptions.length;
+	prescriptions = transform.prescriptions,
+	description = "",
+	len = prescriptions.length;
 	if (len) {
-		description = "Dr. " + transform.lname + " has prescribed you " + prescriptions[0].name;
+		description = transform.short_name + " has prescribed you " + prescriptions[0].prescription_name;
 		if (len > 1) {
 			switch(len) {
 			case 2:
-				description += " and " + prescriptions[1].name;
+				description += " and " + prescriptions[1].prescription_name;
 				break;
 			case 3:
-				description += ", " + prescriptions[1].name + " and " + prescriptions[2].name;
+				description += ", " + prescriptions[1].prescription_name + " and " + prescriptions[2].prescription_name;
 				break;
 			default:
-				description += ", " + prescriptions[1].name + " and [" + (len - 2) + "] more";
+				description += ", " + prescriptions[1].prescription_name + " and [" + (len - 2) + "] more";
 			}
 		}
 	} else {
-		description = "You have no active prescriptions associated with Dr. " + transform.lname;
+		description = "You have no active prescriptions associated with " + transform.short_name;
 	}
 	description += ".";
 	transform.description = description;
@@ -126,7 +90,7 @@ function didClickMenu(e) {
 }
 
 function didItemClick(e) {
-	var itemId = Number( OS_MOBILEWEB ? e.row.rowId : e.itemId);
+	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
 	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
 	if (section == $.appointmentSection) {
 		app.navigator.open({
@@ -142,19 +106,17 @@ function didItemClick(e) {
 		//doctorSection
 		var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
 		var doctors = Alloy.Collections.doctors.where({
-			id : itemId
+			doctor_id : itemId
 		});
 		if (doctors.length) {
 			var doctor = doctors[0].toJSON();
 			if (bindId == "profile") {
-				if (!doctor.image) {
-					$.photoDialog.itemId = itemId;
-					$.photoDialog.show();
-				}
+				$.photoDialog.itemId = itemId;
+				$.photoDialog.show();
 			} else {
 				app.navigator.open({
 					stack : true,
-					title : "Dr. " + doctor.lname,
+					title : doctor.short_name,
 					ctrl : "doctorDetails",
 					ctrlArguments : {
 						itemId : itemId

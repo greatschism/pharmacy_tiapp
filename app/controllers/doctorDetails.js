@@ -1,13 +1,26 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    http = require("httpwrapper");
 
-(function() {
-	var doctor = Alloy.Collections.doctors.where({
-	id: args.itemId
-	})[0].toJSON();
-	doctor.name = "Dr. " + doctor.fname + " " + doctor.lname;
-	if (!doctor.image) {
-		doctor.image = "/images/add_photo.png";
-	}
+function init() {
+	http.request({
+		url : "http://10.10.10.20:9000/simple-service-webapp/services/doctor",
+		dataTransform : false,
+		format : "JSON",
+		action : "get",
+		data : {
+			doctor_details : {
+				doctor_id : args.itemId
+			}
+		},
+		success : didSuccess
+	});
+}
+
+function didSuccess(result) {
+	var doctor = result.doctor_details;
+	doctor.short_name = "Dr. " + doctor.last_name;
+	doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
+	doctor.thumbnail_url = "/images/profile.png";
 	if (doctor.prescriptions.length > 4) {
 		var footerView = $.UI.create("View", {
 			apiName : "View",
@@ -33,9 +46,9 @@ var args = arguments[0] || {};
 		footerView.addEventListener("click", didClickMore);
 		$.footerView.add(footerView);
 	}
-	Alloy.Collections.prescriptions.reset(_.first(doctor.prescriptions, 4));
 	Alloy.Models.doctor.set(doctor);
-})();
+	Alloy.Collections.prescriptions.reset(_.first(doctor.prescriptions, 4));
+}
 
 function didClickMore(e) {
 	$.footerView.remove($.footerView.children[0]);
@@ -43,9 +56,7 @@ function didClickMore(e) {
 }
 
 function didClickProfileImg(e) {
-	if (Alloy.Models.doctor.get("image") == "/images/add_photo.png") {
-		$.photoDialog.show();
-	}
+	$.photoDialog.show();
 }
 
 function didClickHideDoctor(e) {
@@ -61,4 +72,5 @@ function terminate() {
 	Alloy.Models.doctor.clear();
 }
 
+exports.init = init;
 exports.terminate = terminate;

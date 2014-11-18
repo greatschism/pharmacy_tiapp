@@ -15,7 +15,7 @@
 					<Label id="appointmentLbl" class="button-title width-95 h4 text-center gulfstream touch-disabled" />
 				</View>
 			</HeaderView>
-			<ListItem itemId="{id}" profile:image="{image}" doctor:text="{name}" />
+			<ListItem itemId="{doctor_id}" profile:image="{thumbnail_url}" doctor:text="{long_name}" />
 		</ListSection>
 	</ListView>
 	<TableView id="listView" platform="mobileweb" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
@@ -24,13 +24,13 @@
 				<Label id="appointmentLbl" class="button-title width-90 h4 text-center gulfstream touch-disabled" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="auto-height top-10" rowId="{id}">
+		<TableViewRow class="auto-height top-10" rowId="{doctor_id}">
 			<View class="top auto-height bottom-10">
 				<View class="top right-25 auto-height">
 					<View class="top auto-height">
-						<ImageView image="{image}" class="profile-img left-10" />
+						<ImageView image="{thumbnail_url}" class="profile-img left-10" />
 					</View>
-					<Label text="{name}" class="doctor right-25 auto-height h3 black multi-line" />
+					<Label text="{long_name}" class="doctor right-25 auto-height h3 black multi-line" />
 				</View>
 				<ImageView class="child" />
 			</View>

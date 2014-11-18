@@ -7,10 +7,6 @@ function init() {
 
 function transformDoctor(model) {
 	var transform = model.toJSON();
-	if (!transform.image) {
-		transform.image = "/images/add_photo.png";
-	}
-	transform.name = "Dr. " + transform.fname + " " + transform.lname;
 	return transform;
 }
 

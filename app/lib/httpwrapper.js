@@ -13,17 +13,22 @@ if (OS_IOS || OS_ANDROID) {
 
 function request(_params) {
 
+	var format = _params.format || "TEXT",
+	    user = Alloy.Models.user.toJSON();
+
 	var httpParams = {
-		url : Alloy.CFG.baseUrl.concat(_params.method || ""),
+		url : _params.method ? Alloy.CFG.baseUrl.concat(_params.method) : _params.url,
 		type : "POST",
-		format : "TEXT",
+		format : format,
 		success : function(_data) {
 
-			if (OS_IOS || OS_ANDROID) {
-				_data = encryptionUtil.decrypt(_data);
-			}
+			/*if (OS_IOS || OS_ANDROID) {
+			 _data = encryptionUtil.decrypt(_data);
+			 }*/
 
-			_data = new xmlTools(_data).toObject();
+			if (format == "TEXT") {
+				_data = new xmlTools(_data).toObject();
+			}
 
 			var error = _data[_.keys(_data)[0]].error;
 			if (_.isObject(error)) {
@@ -62,52 +67,61 @@ function request(_params) {
 		});
 	}
 
-	//Convert JSON to XML
-	var xml = "";
-	var jsonToXml = function(json) {
-		for (var i in json) {
-			xml += "<" + i + ">";
-			if ( typeof json[i] === "object") {
-				jsonToXml(json[i]);
-			} else {
-				xml += json[i];
+	if (format == "TEXT") {
+
+		var xml = "";
+		var jsonToXml = function(json) {
+			for (var i in json) {
+				xml += "<" + i + ">";
+				if ( typeof json[i] === "object") {
+					jsonToXml(json[i]);
+				} else {
+					xml += json[i];
+				}
+				xml += "</" + i + ">";
 			}
-			xml += "</" + i + ">";
+		};
+		jsonToXml(_params.data);
+		_params.data = xml;
+
+		var headers = [{
+			key : "sessionid",
+			value : user.sessionId
+		}, {
+			key : "clientid",
+			value : user.appLoad.clientid || ""
+		}, {
+			key : "language",
+			value : ""
+		}];
+		if (_.has(user.appLoad, "apploadid")) {
+			headers.push({
+				key : "apploadid",
+				value : user.appLoad.apploadid
+			});
 		}
-	};
-	jsonToXml(_params.data);
-	_params.data = xml;
+		if (user.sessionId) {
+			headers.push({
+				key : "mscriptstoken",
+				value : user.appLoad.mscriptstoken
+			});
+		}
+		_params.headers = _.union(headers, _params.headers || []);
 
-	var user = Alloy.Models.user.toJSON();
-	var headers = [{
-		key : "sessionid",
-		value : user.sessionId
-	}, {
-		key : "clientid",
-		value : user.appLoad.clientid || ""
-	}, {
-		key : "language",
-		value : ""
-	}];
-	if (_.has(user.appLoad, "apploadid")) {
-		headers.push({
-			key : "apploadid",
-			value : user.appLoad.apploadid
+	} else {
+		_.extend(_params.data, {
+			patient_identifier : {
+				session_id : user.sessionId
+			}
 		});
-	}
-	if (user.sessionId) {
-		headers.push({
-			key : "mscriptstoken",
-			value : user.appLoad.mscriptstoken
-		});
-	}
-	_params.headers = _.union(headers, _params.headers || []);
-
-	if (OS_IOS || OS_ANDROID) {
-		_params.data = encryptionUtil.encrypt(_params.data);
+		_params.data = "action=" + _params.action + "&client_identifier=" + Alloy.CFG.clientIdentifier + "&version=" + Alloy.CFG.apiVersion + "&data=" + JSON.stringify(_params.data);
 	}
 
-	_.extend(httpParams, _.omit(_params, ["method", "success", "failure", "done"]));
+	/*if (OS_IOS || OS_ANDROID) {
+	 _params.data = encryptionUtil.encrypt(_params.data);
+	 }*/
+
+	_.extend(httpParams, _.omit(_params, ["method", "format", "success", "failure", "done"]));
 
 	http.request(httpParams);
 }
