@@ -30,7 +30,10 @@
 "#loginBtn":{
 	title: Alloy.Globals.Strings.strLogin
 },
+"#footerView":{
+	bottom: 0,
+	height: 100
+},
 "#footerLbl":{
-	bottom: 40,
 	html: Alloy.Globals.Strings.lblNeedToCreateAccount
 }

@@ -46,6 +46,9 @@
 	},
 	borderRadius: 5
 },
+"Button[platform=ios]":{
+	style: Ti.UI.iPhone.SystemButtonStyle.PLAIN
+},
 "ImageView[platform=ios]":{
 	preventDefaultImage: true
 },
