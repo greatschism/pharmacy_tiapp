@@ -22,8 +22,8 @@ function didRightclickPwd(e) {
 }
 
 function moveToNext(e) {
-	var nextItem = e.nextItem || "";
-	$[nextItem] && $[nextItem].focus();
+	var nextItem = e.nextItem || false;
+	nextItem ? $[nextItem] && $[nextItem].focus() : didClickLogin();
 }
 
 function didClickLogin(e) {

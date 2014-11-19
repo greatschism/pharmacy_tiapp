@@ -1,15 +1,9 @@
 var args = arguments[0] || {},
     app = require("core");
 
-(function() {
+function init() {
 	Ti.App.Properties.setBool("firstLoad", false);
-	if (OS_IOS || OS_ANDROID) {
-		$.carousel.animate(Ti.UI.createAnimation({
-			opacity : 1,
-			duration : 300
-		}));
-	}
-})();
+}
 
 function didChangePage(e) {
 	$.scrollableView.setCurrentPage(e.currentPage);
@@ -35,3 +29,5 @@ function didClickButtonBar(e) {
 		});
 	}
 }
+
+exports.init = init;

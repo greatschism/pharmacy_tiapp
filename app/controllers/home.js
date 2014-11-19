@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core");
 
-(function() {
+function init() {
 	var icons = Alloy.CFG.icons;
 	for (var i in icons) {
 		var view = getView();
@@ -18,13 +18,7 @@ var args = arguments[0] || {},
 	}
 	Alloy.Models.user.on("change", didChangeUser);
 	Alloy.Models.user.trigger("change");
-	if (OS_IOS || OS_ANDROID) {
-		$.scrollView.animate(Ti.UI.createAnimation({
-			opacity : 1,
-			duration : 300
-		}));
-	}
-})();
+}
 
 function didChangeUser() {
 	$.signinBtn.visible = !Alloy.Models.user.get("loggedIn");
@@ -95,4 +89,5 @@ function terminate() {
 	Alloy.Models.user.off("change", didChangeUser);
 }
 
+exports.init = init;
 exports.terminate = terminate;

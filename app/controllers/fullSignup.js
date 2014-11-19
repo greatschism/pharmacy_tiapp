@@ -28,7 +28,7 @@ function didBlurPassword(e) {
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
-	$[nextItem] && $[nextItem].focus();
+	nextItem ? $[nextItem] && $[nextItem].focus() : didClickSignup();
 }
 
 function handleScroll(e) {
