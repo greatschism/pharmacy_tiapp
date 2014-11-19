@@ -46,6 +46,7 @@ function didSuccess(result) {
 		footerView.addEventListener("click", didClickMore);
 		$.footerView.add(footerView);
 	}
+	$.notesTxta.setValue(doctor.notes);
 	Alloy.Models.doctor.set(doctor);
 	Alloy.Collections.prescriptions.reset(_.first(doctor.prescriptions, 4));
 }

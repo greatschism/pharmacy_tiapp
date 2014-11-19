@@ -26,7 +26,7 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "leftTitle")) {
-		$.rightBtn.title = args.leftTitle;
+		$.leftBtn.title = args.leftTitle;
 	}
 
 	if (_.has(args, "rightTitle")) {
