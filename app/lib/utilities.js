@@ -599,6 +599,12 @@ exports.getDirection = function(source, destination, mode) {
 	if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
 		Ti.Platform.openURL("comgooglemaps://".concat(params));
 	} else {
-		Ti.Platform.openURL("http://maps.google.com/maps".concat(params));
+		var url = "http://maps.google.com/maps".concat(params);
+		if (OS_MOBILEWEB) {
+			//Ti.Platform.openURL will not open new window on Mobile Web
+			window && window.open(url);
+		} else {
+			Ti.Platform.openURL(url);
+		}
 	}
 };
