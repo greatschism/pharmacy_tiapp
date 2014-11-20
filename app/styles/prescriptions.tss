@@ -28,6 +28,9 @@
 		}
 	]
 },
+".width-150d":{
+	width: 150
+},
 ".height-5d":{
 	height: 5
 },
@@ -36,6 +39,15 @@
 },
 ".height-30d":{
 	height: 30
+},
+".height-75d":{
+	height: 75
+},
+".lbl-refill":{
+	title: Alloy.Globals.Strings.lblRefill
+},
+".lbl-hide":{
+	title: Alloy.Globals.Strings.lblHide
 },
 ".icon-success":{
 	image: "/images/success.png",

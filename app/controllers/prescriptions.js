@@ -113,6 +113,32 @@ function didItemClick(e) {
 				edit : true
 			}
 		});
+	} else if (section == $.otherPrescriptionsSection) {
+
+	}
+}
+
+function didClickOverduePrescription(e) {
+	console.log(e);
+}
+
+function didSwipeOverduePrescription(e) {
+	var source = e.source;
+	var right = false;
+	if (e.direction == "left" & source.right == 0) {
+		right = 150;
+	} else if (e.direction == "right" & source.right == 150) {
+		right = 0;
+	}
+	if (right !== false) {
+		var animation = Ti.UI.createAnimation({
+			right : right,
+			duration : Alloy.CFG.ANIMATION_DURATION
+		});
+		animation.addEventListener("complete", function onComplete() {
+			source.right = right;
+		});
+		source.animate(animation);
 	}
 }
 

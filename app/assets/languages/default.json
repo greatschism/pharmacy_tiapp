@@ -91,6 +91,8 @@
 		"lblOnThisDate": "On this date",
 		"lblAtThisTime": "At this time",
 		"lblRefillLeft": "Refills left",
+		"lblRefill": "Refill",
+		"lblHide": "Hide",
 		"lblDueforRefill": "Due for refill",
 		"lblLastRefilled": "Last refilled",
 		"lblRemindMeRefillMedication": "Remind me to <b>refill</b> this medication",
