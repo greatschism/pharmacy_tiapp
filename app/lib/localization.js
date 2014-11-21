@@ -23,7 +23,7 @@ var Locale = {
 		/**
 		 * check whether there is a change in app version
 		 */
-		if (Ti.App.Properties.getString("updatedOn", "") != Ti.App.version || Ti.App.deployType != "production") {
+		if (Ti.App.Properties.getString("updatedLangFileOn", "") != Ti.App.version || Ti.App.deployType != "production") {
 
 			/**
 			 * get the languages supported by app from Alloy.CFG
@@ -109,7 +109,7 @@ var Locale = {
 			 */
 			lColl.commit();
 
-			Ti.App.Properties.setString("updatedOn", Ti.App.version);
+			Ti.App.Properties.setString("updatedLangFileOn", Ti.App.version);
 
 		} else {
 
