@@ -1,3 +1,6 @@
 <Alloy>
-	<Label onClick="didClick" />
+	<Label id="lbl" onClick="didClick" platform="ios,mobileweb" />
+	<View onClick="didClick" platform="android">
+		<Label id="lbl" />
+	</View>
 </Alloy>

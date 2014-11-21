@@ -3,8 +3,11 @@ var args = arguments[0] || {},
     locationFirstUpdate = true;
 
 function init() {
-	$.dob.setParentView($.fullSignup);
 	Alloy.Models.store.on("change", updateStore);
+}
+
+function setParentViews(view){
+	$.dob.setParentView(view);
 }
 
 function didClickSignup(e) {
@@ -60,3 +63,4 @@ function terminate() {
 
 exports.init = init;
 exports.terminate = terminate;
+exports.setParentViews = setParentViews;

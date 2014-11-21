@@ -31,14 +31,20 @@ var args = arguments[0] || {},
 	var children = controller.getTopLevelViews();
 	for (var i in children) {
 		var view = children[i].__controllerPath ? children[i].getView() : children[i];
-		if (children[i].role === "navBar") {
-			$.navBarView.add(view);
-		} else if (children[i].role == "overlay") {
-			$.template.add(view);
-		} else {
-			view && $.contentView.add(view);
+		var role = children[i].role;
+		switch(role){
+			case "navBar":
+				$.navBarView.add(view);
+				break;
+			case "overlay":
+				$.template.add(view);
+				break;
+			default:
+				view && $.contentView.add(view);
 		}
 	}
+	
+	_.isFunction(controller.setParentViews) && controller.setParentViews($.contentView);
 
 })();
 

@@ -4,9 +4,22 @@ var args = arguments[0] || {},
 
 (function() {
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
-	if (!_.isEmpty(options)) {
-		$.widget.applyProperties(options);
+	var options;
+
+	if(OS_IOS || OS_MOBILEWEB){
+		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+		if (!_.isEmpty(options)) {
+			$.lbl.applyProperties(options);
+		}
+	}else{
+		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+		if (!_.isEmpty(options)) {
+			$.widget.applyProperties(options);
+		}
+		options = _.pick(args, ["font", "color", "textAlign"]);
+		if (!_.isEmpty(options)) {
+			$.lbl.applyProperties(options);
+		}
 	}
 
 	bold = {
@@ -84,7 +97,7 @@ function setHtml(_html) {
 					}
 				}
 
-				$.widget.attributedString = Ti.UI.iOS.createAttributedString({
+				$.lbl.attributedString = Ti.UI.iOS.createAttributedString({
 					text : strings.join(''),
 					attributes : attributes
 				});
@@ -92,7 +105,7 @@ function setHtml(_html) {
 		});
 		new htmlparser.Parser(handler).parseComplete(html);
 	} else {
-		$.widget.html = html;
+		$.lbl.html = html;
 	}
 }
 

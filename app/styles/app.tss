@@ -467,7 +467,7 @@
 	backgroundColor: "#50473D"
 },
 ".bg-wildwillow":{
-	backgroundColor: "##9ACF6C"
+	backgroundColor: "#9ACF6C"
 },
 ".bg-aeroblue":{
 	backgroundColor: "#CBFCE4"

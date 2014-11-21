@@ -1,4 +1,8 @@
-"#widget":{
+"#widget[platform=android]":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
+"#lbl":{
 	height: Ti.UI.SIZE,
 	font:{
 		fontSize: 18
@@ -7,7 +11,10 @@
 	textAlign: "center",
 	backgroundColor: "transparent"
 },
-"#widget[platform=android,mobileweb]":{
+"#lbl[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
+},
+"#lbl[platform=android]":{
+	touchEnabled: false
 }

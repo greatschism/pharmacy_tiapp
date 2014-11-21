@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
     app = require("core");
 
-function init() {
-	$.dob.setParentView($.sharedMobileCheck);
+function setParentViews(view){
+	$.dob.setParentView(view);
 }
 
 function moveToNext(e) {
@@ -17,4 +17,4 @@ function didClickNext(e) {
 	});
 }
 
-exports.init = init;
+exports.setParentViews = setParentViews;
