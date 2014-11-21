@@ -123,6 +123,7 @@
 				}
 			]
 		],
+		"DUE_FOR_REFILL_IN_DAYS": 7,
 		"ANIMATION_DURATION": 300,
 		"enableAnalytic": true
 	},

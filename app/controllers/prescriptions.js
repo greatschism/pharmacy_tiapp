@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    DUE_FOR_REFILL_IN_DAYS = Alloy.CFG.DUE_FOR_REFILL_IN_DAYS,
     app = require("core"),
     moment = require("alloy/moment");
 
@@ -6,11 +7,11 @@ function init() {
 	Alloy.Collections.gettingRefilled.reset([{
 		id : 1,
 		name : "Tramadol HCL, 20mg tab qual 1",
-		readyAt : "1414885443"
+		readyAt : "1417174965"
 	}, {
 		id : 2,
 		name : "Tramadol HCL, 20mg tab qual 2",
-		readyAt : "1416317443"
+		readyAt : "1417434165"
 	}]);
 	Alloy.Collections.prescriptions.reset([{
 		id : 1,
@@ -42,20 +43,20 @@ function init() {
 
 function filterReadyForRefill(collection) {
 	return collection.reject(function(model) {
-		return (moment.unix(model.get("dueDate")).diff(moment(), "days") + 1) > 7;
+		return moment.unix(model.get("dueDate")).diff(moment(), "days") > DUE_FOR_REFILL_IN_DAYS;
 	});
 }
 
 function filterOtherPrescription(collection) {
 	return collection.reject(function(model) {
-		return (moment.unix(model.get("dueDate")).diff(moment(), "days") + 1) <= 7;
+		return moment.unix(model.get("dueDate")).diff(moment(), "days") <= DUE_FOR_REFILL_IN_DAYS;
 	});
 }
 
 function transformGettingRefilled(model) {
 	var transform = model.toJSON();
 	var availableDate = moment.unix(transform.readyAt);
-	var diff = availableDate.diff(moment(), "days", true) + 1;
+	var diff = availableDate.diff(moment(), "days", true);
 	if (diff > 1) {
 		transform.progress = Math.floor(100 / diff) + "%";
 		if (OS_MOBILEWEB) {
@@ -83,8 +84,8 @@ function transformGettingRefilled(model) {
 function transformPrescription(model) {
 	var transform = model.toJSON();
 	var dueDate = moment.unix(transform.dueDate);
-	var fromToday = dueDate.diff(moment(), "days") + 1;
-	if (fromToday <= 7) {
+	var fromToday = dueDate.diff(moment(), "days");
+	if (fromToday <= DUE_FOR_REFILL_IN_DAYS) {
 		if (fromToday >= 0) {
 			transform.due = Alloy.Globals.Strings.msgDueFoRefillIn.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.Strings.strDays : Alloy.Globals.Strings.strDay));
 			transform.color = "#F79538";
@@ -123,11 +124,12 @@ function didClickOverduePrescription(e) {
 }
 
 function didSwipeOverduePrescription(e) {
-	var source = e.source;
-	var right = false;
-	if (e.direction == "left" & source.right == 0) {
+	var source = e.source,
+	    direction = e.direction,
+	    right = false;
+	if (direction == "left" && source.right == 0) {
 		right = 150;
-	} else if (e.direction == "right" & source.right == 150) {
+	} else if (direction == "right" && source.right == 150) {
 		right = 0;
 	}
 	if (right !== false) {
