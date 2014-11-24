@@ -124,6 +124,11 @@ function didClickOverduePrescription(e) {
 }
 
 function didSwipeOverduePrescription(e) {
+	/**
+	 * On swipe left & right is 0 - move the view by 150dp from right, to show the buttons.
+	 * On swipe right & right is 150 - move the view back to right = 0, to hide the buttons.
+	 * value of right is being checked to avoid animating the view, if it is already at the right place.
+	 */
 	var source = e.source,
 	    direction = e.direction,
 	    right = false;

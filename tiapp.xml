@@ -6,8 +6,8 @@
     <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
     <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mcripts.appcelerator</id>
-    <name>mscripts-application</name>
-    <version>1.1</version>
+    <name>myScripts</name>
+    <version>1.2</version>
     <publisher>rgupta</publisher>
     <url>http://www.mscripts.com</url>
     <description>not specified</description>

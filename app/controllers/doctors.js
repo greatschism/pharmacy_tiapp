@@ -55,13 +55,23 @@ function transformAppointment(model) {
 }
 
 function transformDoctor(model) {
+	/**
+	 * Description format
+	 * 0 drugs You have no active prescriptions associated with Dr. [LASTNAME]
+	 * 1 drug Dr.[NAME] has prescribed you [DRUGNAME].
+	 * 2 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME] and [DRUGNAME].
+	 * 3 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
+	 * 4 or more Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
+	 */
 	var transform = model.toJSON();
 	prescriptions = transform.prescriptions,
 	description = "",
 	len = prescriptions.length;
 	if (len) {
+		//When len is > 0
 		description = transform.short_name + " has prescribed you " + prescriptions[0].prescription_name;
 		if (len > 1) {
+			//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
 			switch(len) {
 			case 2:
 				description += " and " + prescriptions[1].prescription_name;
@@ -74,6 +84,7 @@ function transformDoctor(model) {
 			}
 		}
 	} else {
+		//When len is 0
 		description = "You have no active prescriptions associated with " + transform.short_name;
 	}
 	description += ".";
