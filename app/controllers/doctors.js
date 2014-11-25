@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		url : "http://10.10.10.20:9000/simple-service-webapp/services/doctor",
+		url : "http://10.10.10.20:9000/services-demo/services/doctor",
 		dataTransform : false,
 		format : "JSON",
 		action : "list",

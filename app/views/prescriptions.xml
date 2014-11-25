@@ -5,147 +5,77 @@
 	</View>
 	<View>
 		<Widget id="searchbar" src="com.mscripts.textfield" class="top-10 font-light" />
-		<ListView id="listView" platform="ios,android" class="top" onItemclick="didItemClick">
-			<Templates>
-				<ItemTemplate name="gettingRefilled" class="auto-height top-10">
-					<View class="auto-height vgroup bottom-10">
-						<Label bindId="title" class="left-15 right-15 auto-height h2 black multi-line" />
-						<Label bindId="info" class="left-15 right-15 auto-height h5 gray multi-line" />
-						<View bindId="progress" class="left top-10 width-1 height-5d bg-malibu" />
-					</View>
-				</ItemTemplate>
-				<ItemTemplate name="refilled" class="auto-height top-10">
-					<View class="auto-height vgroup bottom-10">
-						<Label bindId="title" class="left-15 right-15 auto-height h2 black multi-line" />
-						<View class="top-10 left-15 right-15 auto-height hgroup">
-							<ImageView class="left icon-success" />
-							<Label class="left-5 auto-height h5 gray multi-line text-completed" />
-						</View>
-					</View>
-				</ItemTemplate>
-				<ItemTemplate name="readyForRefill" class="height-75d">
-					<View class="right width-150d hgroup">
-						<Button class="width-50 fill-height bg-wildwillow white no-border lbl-refill" />
-						<Button class="width-50 fill-height bg-red white no-border lbl-hide" />
-					</View>
-					<View class="right width-100 bg-white" onClick="didClickOverduePrescription" onSwipe="didSwipeOverduePrescription">
-						<View class="auto-height vgroup top-10 bottom-10 touch-disabled">
-							<Label bindId="title" class="left-15 right-15 height-30d h2 black touch-disabled" />
-							<View class="top-10 left-15 right-15 height-15d touch-disabled">
-								<Label bindId="rx" class="left width-45 height-15d h5 gray touch-disabled" />
-								<Label bindId="due" class="right width-55 height-15d h5 text-right touch-disabled" />
-							</View>
-						</View>
-					</View>
-				</ItemTemplate>
-				<ItemTemplate name="prescription" class="auto-height top-10">
-					<View class="auto-height vgroup bottom-10">
-						<Label bindId="title" class="left-15 right-15 auto-height h2 black multi-line" />
-						<View class="top-10 left-15 right-15 auto-height">
-							<Label bindId="rx" class="left width-45 height-15d h5 gray" />
-							<Label bindId="due" class="right width-55 height-15d h5 text-right" />
-						</View>
-					</View>
-				</ItemTemplate>
-			</Templates>
-			<ListSection id="gettingRefilledSection" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled">
-				<HeaderView>
-					<View class="height-30d bg-armadillo">
-						<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
-						<Label id="gettingRefilledLbl" class="cloudy left-25" />
-					</View>
-				</HeaderView>
-				<ListItem template="{template}" itemId="{id}" title:text="{name}" info:text="{info}" progress:width="{progress}"  />
-			</ListSection>
-			<ListSection id="readyForRefillSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
-				<HeaderView>
-					<View class="height-30d bg-armadillo">
-						<ImageView id="readyForRefillImg" class="left-5 height-15d" />
-						<Label id="readyForRefillLbl" class="cloudy left-25" />
-					</View>
-				</HeaderView>
-				<ListItem template="readyForRefill" title:text="{name}" rx:text="{rx}" due:text="{due}" due:color="{color}"  />
-			</ListSection>
-			<ListSection id="otherPrescriptionsSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterOtherPrescription">
-				<HeaderView>
-					<View class="height-30d bg-armadillo">
-						<ImageView id="otherPrescriptionsImg" class="left-5 height-15d" />
-						<Label id="otherPrescriptionsLbl" class="cloudy left-25" />
-					</View>
-				</HeaderView>
-				<ListItem template="prescription" title:text="{name}" rx:text="{rx}" due:text="{due}" due:color="{color}"  />
-			</ListSection>
-		</ListView>
-		<ScrollView id="listView" class="top" platform="mobileweb">
-			<View class="vgroup">
-				<TableView id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled"  onClick="didItemClick">
-					<HeaderView>
-						<View class="height-30d bg-armadillo">
-							<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
-							<Label id="gettingRefilledLbl" class="cloudy left-25" />
-						</View>
-					</HeaderView>
-					<TableViewRow class="auto-height top-10" rowTable="gettingRefilledSection" rowId="{id}">
-						<View class="top auto-height bottom-10">
-							<View class="top auto-height">
-								<View class="top auto-height vgroup">
-									<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
-									<View class="auto-height" visible="{gettingRefilled}" height="{gettingRefilledHeight}" class="vgroup">
-										<Label text="{info}" class="left-15 right-15 auto-height h5 gray multi-line" />
-										<View width="{progress}" visible="{gettingRefilled}" class="left top-10 width-1 height-5d bg-malibu" />
-									</View>
-									<View visible="{refilled}" height="{refilledHeight}" class="top-10 left-15 right-15 auto-height hgroup">
-										<ImageView class="left icon-success" />
-										<Label class="left-5 auto-height h5 gray multi-line text-completed" />
-									</View>
-								</View>
-							</View>
-						</View>
-					</TableViewRow>
-				</TableView>
-				<TableView id="readyForRefillSection" class="auto-height" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
-					<HeaderView>
-						<View class="height-30d bg-armadillo">
-							<ImageView id="readyForRefillImg" class="left-5 height-15d" />
-							<Label id="readyForRefillLbl" class="cloudy left-25" />
-						</View>
-					</HeaderView>
-					<TableViewRow class="auto-height top-10">
-						<View class="top auto-height bottom-10">
-							<View class="top auto-height">
-								<View class="top auto-height vgroup">
-									<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
-									<View class="top-10 left-15 right-15 auto-height">
-										<Label text="{rx}" class="left width-45 height-15d h5 gray" />
-										<Label text="{due}" color="{color}" class="right width-55 height-15d h5 text-right" />
-									</View>
-								</View>
-							</View>
-						</View>
-					</TableViewRow>
-				</TableView>
-				<TableView id="otherPrescriptionsSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterOtherPrescription">
-					<HeaderView>
-						<View class="height-30d bg-armadillo">
-							<ImageView id="otherPrescriptionsImg" class="left-5 height-15d" />
-							<Label id="otherPrescriptionsLbl" class="cloudy left-25" />
-						</View>
-					</HeaderView>
-					<TableViewRow class="auto-height top-10">
-						<View class="top auto-height bottom-10">
-							<View class="top auto-height">
-								<View class="top auto-height vgroup">
-									<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
-									<View class="top-10 left-15 right-15 auto-height">
-										<Label text="{rx}" class="left width-45 height-15d h5 gray" />
-										<Label text="{due}" color="{color}" class="right width-55 height-15d h5 text-right" />
-									</View>
-								</View>
-							</View>
-						</View>
-					</TableViewRow>
-				</TableView>
-			</View>
-		</ScrollView>
+		<TableView id="listView" class="top" />
+		<!--<ScrollView id="listView" class="top" platform="mobileweb">
+		<View class="vgroup">
+		<TableView id="gettingRefilledSection" class="auto-height" dataCollection="gettingRefilled" dataTransform="transformGettingRefilled"  onClick="didItemClick">
+		<HeaderView>
+		<View class="height-30d bg-armadillo">
+		<ImageView id="gettingRefilledImg" class="left-5 height-15d" />
+		<Label id="gettingRefilledLbl" class="cloudy left-25" />
+		</View>
+		</HeaderView>
+		<TableViewRow class="auto-height top-10" rowTable="gettingRefilledSection" rowId="{id}">
+		<View class="top auto-height bottom-10">
+		<View class="top auto-height">
+		<View class="top auto-height vgroup">
+		<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
+		<View class="auto-height" visible="{gettingRefilled}" height="{gettingRefilledHeight}" class="vgroup">
+		<Label text="{info}" class="left-15 right-15 auto-height h5 gray multi-line" />
+		<View width="{progress}" visible="{gettingRefilled}" class="left top-10 width-1 height-5d bg-malibu" />
+		</View>
+		<View visible="{refilled}" height="{refilledHeight}" class="top-10 left-15 right-15 auto-height hgroup">
+		<ImageView class="left icon-success" />
+		<Label class="left-5 auto-height h5 gray multi-line text-completed" />
+		</View>
+		</View>
+		</View>
+		</View>
+		</TableViewRow>
+		</TableView>
+		<TableView id="readyForRefillSection" class="auto-height" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterReadyForRefill">
+		<HeaderView>
+		<View class="height-30d bg-armadillo">
+		<ImageView id="readyForRefillImg" class="left-5 height-15d" />
+		<Label id="readyForRefillLbl" class="cloudy left-25" />
+		</View>
+		</HeaderView>
+		<TableViewRow class="auto-height top-10">
+		<View class="top auto-height bottom-10">
+		<View class="top auto-height">
+		<View class="top auto-height vgroup">
+		<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
+		<View class="top-10 left-15 right-15 auto-height">
+		<Label text="{rx}" class="left width-45 height-15d h5 gray" />
+		<Label text="{due}" color="{color}" class="right width-55 height-15d h5 text-right" />
+		</View>
+		</View>
+		</View>
+		</View>
+		</TableViewRow>
+		</TableView>
+		<TableView id="otherPrescriptionsSection" dataCollection="prescriptions" dataTransform="transformPrescription" dataFilter="filterOtherPrescription">
+		<HeaderView>
+		<View class="height-30d bg-armadillo">
+		<ImageView id="otherPrescriptionsImg" class="left-5 height-15d" />
+		<Label id="otherPrescriptionsLbl" class="cloudy left-25" />
+		</View>
+		</HeaderView>
+		<TableViewRow class="auto-height top-10">
+		<View class="top auto-height bottom-10">
+		<View class="top auto-height">
+		<View class="top auto-height vgroup">
+		<Label text="{name}" class="left-15 right-15 auto-height h2 black multi-line" />
+		<View class="top-10 left-15 right-15 auto-height">
+		<Label text="{rx}" class="left width-45 height-15d h5 gray" />
+		<Label text="{due}" color="{color}" class="right width-55 height-15d h5 text-right" />
+		</View>
+		</View>
+		</View>
+		</View>
+		</TableViewRow>
+		</TableView>
+		</View>
+		</ScrollView>-->
 	</View>
 </Alloy> 

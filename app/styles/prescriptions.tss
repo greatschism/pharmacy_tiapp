@@ -55,22 +55,4 @@
 },
 ".text-completed":{
 	text: Alloy.Globals.Strings.msgYourOrderIsReady
-},
-"#gettingRefilledImg":{
-	image: "/images/clock_green.png"
-},
-"#gettingRefilledLbl":{
-	text: Alloy.Globals.Strings.sectionGettingRefilled
-},
-"#readyForRefillImg":{
-	image: "/images/refill.png"
-},
-"#readyForRefillLbl":{
-	text: Alloy.Globals.Strings.sectionReadyForRefill
-},
-"#otherPrescriptionsImg":{
-	image: "/images/pill.png"
-},
-"#otherPrescriptionsLbl":{
-	text: Alloy.Globals.Strings.sectionOtherPrescriptions
 }
