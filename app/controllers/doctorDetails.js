@@ -17,7 +17,7 @@ function init() {
 }
 
 function didSuccess(result) {
-	var doctor = result.doctor_details;
+	var doctor = result.data[0].doctors[0];
 	doctor.short_name = "Dr. " + doctor.last_name;
 	doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
 	doctor.thumbnail_url = "/images/profile.png";

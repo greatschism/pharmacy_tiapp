@@ -22,7 +22,7 @@ function didSuccess(result) {
 		desc : "You have an upcoming appointment with Dr. Doe on",
 		time : "May 12th at 4.30 PM."
 	}]);
-	var doctors = result.doctor_details;
+	var doctors = result.data[0].doctors;
 	for (var i in doctors) {
 		doctors[i].short_name = "Dr. " + doctors[i].last_name;
 		doctors[i].long_name = "Dr. " + doctors[i].first_name + " " + doctors[i].last_name;
