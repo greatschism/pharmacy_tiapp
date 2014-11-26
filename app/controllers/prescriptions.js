@@ -149,15 +149,15 @@ function getSectionReadyForRefill() {
 			}),
 			    options = $.UI.create("View", {
 				apiName : "View",
-				classes : ["right", "width-150d", "hgroup"]
+				classes : ["right", "width-150d"]
 			}),
 			    opt1 = $.UI.create("Button", {
 				apiName : "Button",
-				classes : ["width-50", "fill-height", "bg-wildwillow", "white", "no-border", "lbl-refill"]
+				classes : ["left", "width-50", "fill-height", "bg-wildwillow", "white", "no-border", "lbl-refill"]
 			}),
 			    opt2 = $.UI.create("Button", {
 				apiName : "Button",
-				classes : ["width-50", "fill-height", "bg-red", "white", "no-border", "lbl-hide"]
+				classes : ["right", "width-50", "fill-height", "bg-red", "white", "no-border", "lbl-hide"]
 			}),
 			    content = $.UI.create("View", {
 				apiName : "View",
