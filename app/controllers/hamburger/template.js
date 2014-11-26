@@ -7,7 +7,7 @@ var args = arguments[0] || {},
 	if (args.titleImage) {
 		$.titleImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			id : "nav-bar-title-img"
+			classes : ["nav-bar-title-img"]
 		});
 		$.titleImg.image = args.titleImage;
 		$.navBarView.add($.titleImg);
@@ -35,18 +35,18 @@ var args = arguments[0] || {},
 	for (var i in children) {
 		var view = children[i].__controllerPath ? children[i].getView() : children[i];
 		var role = children[i].role;
-		switch(role){
-			case "navBar":
-				$.navBarView.add(view);
-				break;
-			case "overlay":
-				$.template.add(view);
-				break;
-			default:
-				view && $.contentView.add(view);
+		switch(role) {
+		case "navBar":
+			$.navBarView.add(view);
+			break;
+		case "overlay":
+			$.template.add(view);
+			break;
+		default:
+			view && $.contentView.add(view);
 		}
 	}
-	
+
 	_.isFunction(controller.setParentViews) && controller.setParentViews($.contentView);
 
 })();
