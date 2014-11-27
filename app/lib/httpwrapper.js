@@ -2,7 +2,8 @@
  * @param {Object} _params The arguments for the method
  */
 
-var app = require("core"),
+var cfg = Alloy.CFG,
+    app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
     xmlTools = require("XMLTools");
@@ -17,7 +18,7 @@ function request(_params) {
 	    user = Alloy.Models.user.toJSON();
 
 	var httpParams = {
-		url : _params.method ? Alloy.CFG.baseUrl.concat(_params.method) : _params.url,
+		url : _params.method ? cfg.baseUrl.concat(_params.method) : _params.url,
 		type : "POST",
 		format : format,
 		success : function(_data) {
@@ -110,11 +111,11 @@ function request(_params) {
 
 	} else {
 		_.extend(_params.data, {
-			patient_identifier : {
-				session_id : user.sessionId
-			}
+			client_identifier : cfg.clientIdentifier,
+			version : cfg.apiVersion,
+			session_id : user.sessionId
 		});
-		_params.data = "action=" + _params.action + "&client_identifier=" + Alloy.CFG.clientIdentifier + "&version=" + Alloy.CFG.apiVersion + "&data=" + JSON.stringify(_params.data);
+		_params.data = JSON.stringify(_params.data);
 	}
 
 	/*if (OS_IOS || OS_ANDROID) {

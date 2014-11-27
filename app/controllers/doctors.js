@@ -1,34 +1,83 @@
 var args = arguments[0] || {},
     app = require("core"),
+    moment = require("alloy/moment"),
     http = require("httpwrapper"),
-    dialog = require("dialog");
+    dialog = require("dialog"),
+    msgHasPrescribedYou = Alloy.Globals.Strings.msgHasPrescribedYou,
+    msgYouHaveNoActiveprescription = Alloy.Globals.Strings.msgYouHaveNoActiveprescription,
+    strAnd = Alloy.Globals.Strings.strAnd,
+    strMore = Alloy.Globals.Strings.strMore,
+    doctors,
+    prescriptions,
+    appointments;
 
 function init() {
+	startTime = moment();
 	http.request({
-		url : "http://10.10.10.20:9000/services-demo/services/doctor",
+		url : "http://10.10.10.20:9000/services-demo/services/doctors/list",
+		keepBlook : true,
 		dataTransform : false,
 		format : "JSON",
-		action : "list",
-		data : {
-			doctor_details : null
-		},
-		success : didSuccess
+		data : {},
+		success : didReceiveDoctors
 	});
 }
 
-function didSuccess(result) {
-	Alloy.Collections.upcomingAppointments.reset([{
-		image : "/images/profile.png",
-		desc : "You have an upcoming appointment with Dr. Doe on",
-		time : "May 12th at 4.30 PM."
-	}]);
-	var doctors = result.data[0].doctors;
+function didReceiveDoctors(result) {
+	doctors = result.data[0].doctors;
+	startPre = moment();
+	http.request({
+		url : "http://10.10.10.20:9000/services-demo/services/prescriptions/list",
+		keepBlook : true,
+		dataTransform : false,
+		format : "JSON",
+		data : {},
+		success : didReceivePrescriptions
+	});
+}
+
+function didReceivePrescriptions(result) {
+	prescriptions = result.data[0].prescriptions;
+	startApp = moment();
+	http.request({
+		url : "http://10.10.10.20:9000/services-demo/services/appointments/get",
+		keepBlook : true,
+		dataTransform : false,
+		format : "JSON",
+		data : {},
+		success : didReceiveAppointments
+	});
+}
+
+function didReceiveAppointments(result) {
+	appointments = result.data.appointment;
 	for (var i in doctors) {
-		doctors[i].short_name = "Dr. " + doctors[i].last_name;
-		doctors[i].long_name = "Dr. " + doctors[i].first_name + " " + doctors[i].last_name;
-		doctors[i].thumbnail_url = "/images/profile.png";
+		var doctor = doctors[i];
+		doctor.short_name = "Dr. " + doctor.last_name;
+		doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
+		doctor.thumbnail_url = "/images/profile.png";
+		var docPrescriptions = _.where(prescriptions, {
+			doctor_id : doctor.id
+		});
+		for (var j in docPrescriptions) {
+			docPrescriptions[j].lastRefill = moment(docPrescriptions[j].presc_last_filled_date, "YYYY/MM/DD").format("MM/DD/YYYY");
+		}
+		doctor.prescriptions = docPrescriptions;
 	}
+	var msg = Alloy.Globals.Strings.msgYouHaveUpcomingAppointmentWith;
+	for (var i in appointments) {
+		var appointment = appointments[i];
+		var doctor = _.where(doctors, {
+		id : appointment.doctor_id
+		})[0];
+		appointment.thumbnail_url = doctor.thumbnail_url;
+		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h.mm A");
+		appointment.desc = String.format(msg, doctor.short_name);
+	}
+	Alloy.Collections.appointments.reset(appointments);
 	Alloy.Collections.doctors.reset(doctors);
+	doctos = prescriptions = appointments = null;
+	app.navigator.hideLoader();
 }
 
 function transformAppointment(model) {
@@ -69,23 +118,23 @@ function transformDoctor(model) {
 	len = prescriptions.length;
 	if (len) {
 		//When len is > 0
-		description = transform.short_name + " has prescribed you " + prescriptions[0].prescription_name;
+		description = String.format(msgHasPrescribedYou, transform.short_name, prescriptions[0].presc_name);
 		if (len > 1) {
 			//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
 			switch(len) {
 			case 2:
-				description += " and " + prescriptions[1].prescription_name;
+				description += " " + strAnd + " " + prescriptions[1].presc_name;
 				break;
 			case 3:
-				description += ", " + prescriptions[1].prescription_name + " and " + prescriptions[2].prescription_name;
+				description += ", " + prescriptions[1].presc_name + " " + strAnd + " " + prescriptions[2].presc_name;
 				break;
 			default:
-				description += ", " + prescriptions[1].prescription_name + " and [" + (len - 2) + "] more";
+				description += ", " + prescriptions[1].presc_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
 			}
 		}
 	} else {
 		//When len is 0
-		description = "You have no active prescriptions associated with " + transform.short_name;
+		description = String.format(msgYouHaveNoActiveprescription, transform.short_name);
 	}
 	description += ".";
 	transform.description = description;
@@ -116,24 +165,21 @@ function didItemClick(e) {
 	} else {
 		//doctorSection
 		var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
-		var doctors = Alloy.Collections.doctors.where({
-			doctor_id : itemId
-		});
-		if (doctors.length) {
-			var doctor = doctors[0].toJSON();
-			if (bindId == "profile") {
-				$.photoDialog.itemId = itemId;
-				$.photoDialog.show();
-			} else {
-				app.navigator.open({
-					stack : true,
-					title : doctor.short_name,
-					ctrl : "doctorDetails",
-					ctrlArguments : {
-						itemId : itemId
-					}
-				});
-			}
+		if (bindId == "profile") {
+			$.photoDialog.itemId = itemId;
+			$.photoDialog.show();
+		} else {
+			var doctor = Alloy.Collections.doctors.where({
+			id: itemId
+			})[0].toJSON();
+			app.navigator.open({
+				stack : true,
+				title : doctor.short_name,
+				ctrl : "doctorDetails",
+				ctrlArguments : {
+					doctor : doctor
+				}
+			});
 		}
 	}
 }

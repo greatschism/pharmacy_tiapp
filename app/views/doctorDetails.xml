@@ -6,7 +6,7 @@
 				<ItemTemplate name="prescription" class="auto-height top-10">
 					<View class="bottom-10 auto-height left-15 right-15">
 						<Label bindId="medicine" class="left width-65 text-left h4 black multi-line" />
-						<Label bindId="lastrefill" class="right width-35 text-right h4 cloudy multi-line" />
+						<Label bindId="lastRefill" class="right width-35 text-right h4 cloudy multi-line" />
 					</View>
 				</ItemTemplate>
 			</Templates>
@@ -41,13 +41,13 @@
 					<View class="vspacer" />
 				</View>
 			</HeaderView>
-			<ListSection id="section" dataCollection="prescriptions">
+			<ListSection id="section" dataCollection="doctorPrescriptions">
 				<HeaderView>
 					<View class="height-20d bg-armadillo">
 						<Label id="prescriptionsLbl" class="cloudy left-5" />
 					</View>
 				</HeaderView>
-				<ListItem template="prescription" medicine:text="{prescription_name}" lastrefill:text="Not filled yet" />
+				<ListItem template="prescription" medicine:text="{presc_name}" lastRefill:text="{lastRefill}" />
 			</ListSection>
 			<FooterView>
 				<View id="footerView" class="auto-height" />
@@ -94,7 +94,7 @@
 						<View class="top auto-height bottom-10">
 							<View class="top auto-height left-15 right-15">
 								<Label text="{prescription_name}" class="left width-65 text-left h4 black multi-line" />
-								<Label text="Not filled yet" class="right width-35 text-right h4 cloudy multi-line" />
+								<Label text="{lastRefill}" class="right width-35 text-right h4 cloudy multi-line" />
 							</View>
 						</View>
 					</TableViewRow>

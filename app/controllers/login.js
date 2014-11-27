@@ -88,7 +88,7 @@ function didAuthenticate(result) {
 }
 
 function handleScroll(e) {
-	$.scrollView.canCancelEvents = e.value;
+	$.login.canCancelEvents = e.value;
 }
 
 function didClickSignup(e) {

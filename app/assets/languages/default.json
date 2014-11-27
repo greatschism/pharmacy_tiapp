@@ -121,6 +121,9 @@
 		"msgOrderProcessed": "We've processed your order",
 		"msgShouldBeReadyBy": "Should be ready by",
 		"msgChangeHomePharmacy": "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
+		"msgYouHaveUpcomingAppointmentWith": "You have an upcoming appointment with %s on ",
+		"msgHasPrescribedYou": "%s has prescribed you %s",
+		"msgYouHaveNoActiveprescription": "You have no active prescriptions associated with %s",
 
 		"menuSearch": "Search",
 		"menuSort": "Sort",
@@ -168,6 +171,8 @@
 		"strPrescriptions": "Prescriptions",
 		"strDay": "day",
 		"strDays": "days",
-		"strReminders": "Reminders"
+		"strReminders": "Reminders",
+		"strAnd": "and",
+		"strMore": "more"
 	}
 }

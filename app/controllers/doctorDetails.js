@@ -2,25 +2,7 @@ var args = arguments[0] || {},
     http = require("httpwrapper");
 
 function init() {
-	http.request({
-		url : "http://10.10.10.20:9000/services-demo/services/doctor",
-		dataTransform : false,
-		format : "JSON",
-		action : "get",
-		data : {
-			doctor_details : {
-				doctor_id : args.itemId
-			}
-		},
-		success : didSuccess
-	});
-}
-
-function didSuccess(result) {
-	var doctor = result.data[0].doctors[0];
-	doctor.short_name = "Dr. " + doctor.last_name;
-	doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
-	doctor.thumbnail_url = "/images/profile.png";
+	var doctor = args.doctor;
 	if (doctor.prescriptions.length > 4) {
 		var footerView = $.UI.create("View", {
 			apiName : "View",
@@ -48,12 +30,12 @@ function didSuccess(result) {
 	}
 	$.notesTxta.setValue(doctor.notes);
 	Alloy.Models.doctor.set(doctor);
-	Alloy.Collections.prescriptions.reset(_.first(doctor.prescriptions, 4));
+	Alloy.Collections.doctorPrescriptions.reset(_.first(doctor.prescriptions, 4));
 }
 
 function didClickMore(e) {
 	$.footerView.remove($.footerView.children[0]);
-	Alloy.Collections.prescriptions.reset(Alloy.Models.doctor.get("prescriptions"));
+	Alloy.Collections.doctorPrescriptions.reset(Alloy.Models.doctor.get("prescriptions"));
 }
 
 function didClickProfileImg(e) {

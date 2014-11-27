@@ -1,6 +1,3 @@
-"#scrollView":{
-	bottom: 100
-},
 "#logoImg":{
 	width: 75,
 	image: "/images/pharmacy_white.png"
@@ -29,10 +26,6 @@
 },
 "#loginBtn":{
 	title: Alloy.Globals.Strings.strLogin
-},
-"#footerView":{
-	bottom: 0,
-	height: 100
 },
 "#footerLbl":{
 	html: Alloy.Globals.Strings.lblNeedToCreateAccount

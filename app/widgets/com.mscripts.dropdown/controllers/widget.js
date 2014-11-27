@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -85,12 +86,17 @@ function showPicker() {
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
 			if (OS_ANDROID) {
-				var _picker = Ti.UI.createPicker({
+				var dict = {
 					type : Ti.UI.PICKER_TYPE_DATE,
-					minDate : args.minDate || new Date(1900, 0, 1),
-					maxDate : args.maxDate || new Date(),
 					value : selectedDate || new Date()
-				});
+				};
+				if (osMajorVersion > 2) {
+					_.extend(dict, {
+						minDate : args.minDate || new Date(1900, 0, 1),
+						maxDate : args.maxDate || new Date()
+					});
+				}
+				var _picker = Ti.UI.createPicker(dict);
 				_picker.showDatePickerDialog({
 					title : args.title || "Set date",
 					okButtonTitle : args.okButtonTitle || "Set",

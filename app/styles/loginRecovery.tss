@@ -10,6 +10,5 @@
 	title: Alloy.Globals.Strings.btnSend
 },
 "#cantRememberLbl":{
-	html: Alloy.Globals.Strings.lblCantRememberEmail,
-	bottom: 40
+	html: Alloy.Globals.Strings.lblCantRememberEmail
 }

@@ -13,7 +13,7 @@
 					<ItemTemplate name="favorite" class="height-60d">
 						<View class="right-25">
 							<ImageView class="left-5 favorite" />
-							<View class="content-view">
+							<View class="left-25">
 								<View class="left width-60 auto-height vgroup">
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
@@ -28,7 +28,7 @@
 					</ItemTemplate>
 					<ItemTemplate name="nearby" class="height-60d">
 						<View class="right-25">
-							<View class="content-view">
+							<View class="left-25">
 								<View class="left width-60 auto-height vgroup">
 									<Label bindId="title" class="title width-95 gray" />
 									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
@@ -50,7 +50,7 @@
 				<TableViewRow class="height-60d" itemId="{storeid}">
 					<View class="right-25">
 						<ImageView class="left-5 favorite" visible="{bookmarked}" />
-						<View class="content-view">
+						<View class="left-25">
 							<View class="left width-60 auto-height vgroup">
 								<Label text="{addressline1}" class="title width-95 gray" />
 								<Label text="{subtitle}" class="subtitle font-light width-95 h5 gray" />

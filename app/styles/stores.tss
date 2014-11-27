@@ -23,9 +23,6 @@
 	width: 15,
 	image: "/images/favorite.png"
 },
-".content-view":{
-	left: 25
-},
 ".title":{
 	height: 22,
 	font:{
