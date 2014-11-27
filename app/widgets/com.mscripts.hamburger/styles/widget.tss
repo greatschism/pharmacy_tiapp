@@ -12,11 +12,11 @@
 	zIndex: 2,
 	backgroundColor: "transparent"
 },
-"#dragView[platform=ios,mobileweb]":{
+"#dragView[platform=ios]":{
 	width: 5
 },
-"#dragView[platform=android]":{
-	width: 10
+"#dragView[platform=android,mobileweb]":{
+	width: 15
 },
 "#overlayView":{
 	left: 240,

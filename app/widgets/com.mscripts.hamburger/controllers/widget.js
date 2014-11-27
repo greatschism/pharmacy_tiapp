@@ -7,7 +7,8 @@ var args = arguments[0] || {},
     listenForDrag = false,
     touchStartX = 0,
     touchStarted = false,
-    busy = false;
+    busy = false,
+    parent;
 
 function orientationChanged(e) {
 	var newWidth;
@@ -50,7 +51,7 @@ function didTouchmove(e) {
 	var coords = e.source.convertPointToView({
 		x : e.x,
 		y : e.y
-	}, $.widget);
+	}, parent);
 	var _x = parseInt(coords.x, 10);
 	var newLeft = _x - touchStartX;
 	if (OS_ANDROID) {
@@ -69,7 +70,7 @@ function didTouchend(e) {
 	var coords = e.source.convertPointToView({
 		x : e.x,
 		y : e.y
-	}, $.widget);
+	}, parent);
 	var _x = parseInt(coords.x, 10);
 	if (OS_ANDROID) {
 		_x /= logicalDensityFactor;
@@ -83,6 +84,10 @@ function didTouchend(e) {
 }
 
 function init(params) {
+	if (!_.has(params, "parent")) {
+		return false;
+	}
+	parent = params.parent;
 	if (_.has(params, "menuView")) {
 		$.setMenuView(params.menuView);
 	}
@@ -95,6 +100,7 @@ function init(params) {
 }
 
 function terminate(params) {
+	parent = null;
 	//Ti.Gesture.removeEventListener("orientationchange", orientationChanged);
 }
 

@@ -1,9 +1,7 @@
 <Alloy>
-	<View>
-		<View id="menuView" />
-		<View id="mainView">
-			<View id="dragView" />
-		</View>
-		<View id="overlayView" />
+	<View id="menuView" />
+	<View id="mainView">
+		<View id="dragView" />
 	</View>
+	<View id="overlayView" />
 </Alloy>

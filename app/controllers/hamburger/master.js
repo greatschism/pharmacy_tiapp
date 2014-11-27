@@ -11,7 +11,8 @@ function initHamburger() {
 	});
 	menuCtrl = Alloy.createController("menu");
 	app.navigator.hamburger.init({
-		menuView : menuCtrl.getView()
+		menuView : menuCtrl.getView(),
+		parent : $.window
 	});
 }
 
