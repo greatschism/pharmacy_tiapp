@@ -173,6 +173,9 @@
 		"strDays": "days",
 		"strReminders": "Reminders",
 		"strAnd": "and",
-		"strMore": "more"
+		"strMore": "more",
+		
+		"btnAbout":"About",
+		"alertTitleAbout": "About"
 	}
 }

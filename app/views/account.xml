@@ -1,5 +1,5 @@
 <Alloy>
 	<View>
-		<Label class="width-90 red h1 bold text-center under-construction" />
+		<Button id="AboutBtn" class="bottom-5 width-90 bg-white orange h2 font-light malibu" onClick="didClickAbout" /> 
 	</View>
 </Alloy> 

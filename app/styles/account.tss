@@ -1,0 +1,3 @@
+"#AboutBtn":{
+	title: Alloy.Globals.Strings.btnAbout
+}

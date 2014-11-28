@@ -1,174 +1,192 @@
 {
-	"global": {
-		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
-		"clientname": "Meg-lo",
-		"emailpin": "",
-		"clientIdentifier": "1234",
-		"apiVersion": "1.0",
-		"languages": [
-			{
-				"code": "en",
-				"titleid": "lngEnglish",
-				"url": "url_to_download"
-			}, {
-				"code": "es",
-				"titleid": "lngSpanish",
-				"url": "url_to_download"
-			}
-		],
-		"navigator": "hamburger",
-		"menuItems": [
-			{
-				"titleid": "titleHome",
-				"ctrl": "home",
-				"leftImage": "/images/home_white.png",
-				"requiresLogin": false,
-				"landingPage": true
-			}, {
-				"titleid": "strPrescriptions",
-				"ctrl": "prescriptions",
-				"leftImage": "/images/pill_white.png",
-				"requiresLogin": true
-			}, {
-				"titleid": "strReminders",
-				"action": "reminders",
-				"leftImage": "/images/reminder_white.png"
-			}, {
-				"titleid": "titlePharmacyRewards",
-				"action": "pharmacyRewards",
-				"leftImage": "/images/reward_white.png"
-			}, {
-				"titleid": "titleCoupons",
-				"action": "coupons",
-				"leftImage": "/images/coupon_white.png"
-			}, {
-				"titleid": "titleFamilyAccounts",
-				"action": "familyAccounts",
-				"leftImage": "/images/family_white.png"
-			}, {
-				"titleid": "titleTransferPrescription",
-				"action": "transferPrescription",
-				"leftImage": "/images/transfer_white.png"
-			}, {
-				"titleid": "titleDoctors",
-				"ctrl": "doctors",
-				"leftImage": "/images/doctor_white.png",
-				"requiresLogin": true
-			}, {
-				"titleid": "titleRefillViaCamera",
-				"action": "refillViaCamera",
-				"leftImage": "/images/camera_white.png"
-			}, {
-				"titleid": "titleStores",
-				"ctrl": "stores",
-				"leftImage": "/images/pharmacy_white.png",
-				"requiresLogin": false
-			}, {
-				"titleid": "titleAccount",
-				"ctrl": "account",
-				"leftImage": "/images/account_white.png",
-				"requiresLogin": true
-			}
-		],
-		"icons": [
-			[
-				{
-					"image": "my_prescriptions.png",
-					"navigation": {
-						"titleid": "strPrescriptions",
-						"ctrl": "prescriptions",
-						"requiresLogin": true
-					}
-				}
-			],
-			[
-				{
-					"image": "refill_from_a_number.png"
-				}, {
-					"image": "transfer.png"
-				}
-			],
-			[
-				{
-					"image": "pharmacy_rewards.png"
-				}, {
-					"image": "finda_pharmacy.png",
-					"navigation": {
-						"titleid": "titleStores",
-						"ctrl": "stores",
-						"requiresLogin": false
-					}
-				}, {
-					"image": "generics.png"
-				}
-			],
-			[
-				{
-					"image": "flu_shots.png"
-				}
-			],
-			[
-				{
-					"image": "clinic.png"
-				}
-			],
-			[
-				{
-					"image": "wellness_guide.png"
-				}
-			],
-			[
-				{
-					"image": "shop_target.png"
-				}
-			]
-		],
-		"DUE_FOR_REFILL_IN_DAYS": 7,
-		"ANIMATION_DURATION": 300,
-		"enableAnalytic": true
-	},
-	"env:development": {},
-	"env:test": {},
-	"env:production": {},
-	"os:android": {
-		"navBarHeight": 48,
-		"navBarTop": 0,
-		"fonts": {
-			"light": "Roboto-Light",
-			"regular": "Roboto-Regular"
-		}
-	},
-	"os:blackberry": {},
-	"os:ios": {
-		"navBarHeight": 68,
-		"navBarTop": 15,
-		"fonts": {
-			"light": "Lato-Light",
-			"regular": "Lato-Regular",
-			"lightItalic": "Lato-LightItalic",
-			"bold": "Lato-Bold"
-		}
-	},
-	"os:mobileweb": {
-		"navBarHeight": 48,
-		"navBarTop": 0,
-		"fonts": {
-			"light": "Roboto-Light",
-			"regular": "Roboto-Regular"
-		}
-	},
-	"dependencies": {
-		"com.mscripts.hamburger": "1.0",
-		"com.mscripts.textfield": "1.0",
-		"com.mscripts.loading": "1.0",
-		"com.mscripts.dropdown": "1.0",
-		"com.mscripts.buttonbar": "1.0",
-		"com.mscripts.pagingcontrol": "1.0",
-		"com.mscripts.switch": "1.0",
-		"com.mscripts.styledlabel": "1.0",
-		"com.mscripts.tooltip": "1.0",
-		"com.mscripts.togglemenu": "1.0",
-		"com.mscripts.optiondialog": "1.0",
-		"com.mscripts.textarea": "1.0"
-	}
+  "global": {
+    "baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
+    "clientname": "Meg-lo",
+    "emailpin": "",
+    "clientIdentifier": "1234",
+    "apiVersion": "1.0",
+    "languages": [
+      {
+        "code": "en",
+        "titleid": "lngEnglish",
+        "url": "url_to_download"
+      },
+      {
+        "code": "es",
+        "titleid": "lngSpanish",
+        "url": "url_to_download"
+      }
+    ],
+    "navigator": "hamburger",
+    "buildVersion":"${version}",
+    "buildDate":"${BUILD_DATE}",
+    "buildNumber":"${BUILD_NUMBER}",
+    "menuItems": [
+      {
+        "titleid": "titleHome",
+        "ctrl": "home",
+        "leftImage": "/images/home_white.png",
+        "requiresLogin": false,
+        "landingPage": true
+      },
+      {
+        "titleid": "strPrescriptions",
+        "ctrl": "prescriptions",
+        "leftImage": "/images/pill_white.png",
+        "requiresLogin": true
+      },
+      {
+        "titleid": "strReminders",
+        "action": "reminders",
+        "leftImage": "/images/reminder_white.png"
+      },
+      {
+        "titleid": "titlePharmacyRewards",
+        "action": "pharmacyRewards",
+        "leftImage": "/images/reward_white.png"
+      },
+      {
+        "titleid": "titleCoupons",
+        "action": "coupons",
+        "leftImage": "/images/coupon_white.png"
+      },
+      {
+        "titleid": "titleFamilyAccounts",
+        "action": "familyAccounts",
+        "leftImage": "/images/family_white.png"
+      },
+      {
+        "titleid": "titleTransferPrescription",
+        "action": "transferPrescription",
+        "leftImage": "/images/transfer_white.png"
+      },
+      {
+        "titleid": "titleDoctors",
+        "ctrl": "doctors",
+        "leftImage": "/images/doctor_white.png",
+        "requiresLogin": true
+      },
+      {
+        "titleid": "titleRefillViaCamera",
+        "action": "refillViaCamera",
+        "leftImage": "/images/camera_white.png"
+      },
+      {
+        "titleid": "titleStores",
+        "ctrl": "stores",
+        "leftImage": "/images/pharmacy_white.png",
+        "requiresLogin": false
+      },
+      {
+        "titleid": "titleAccount",
+        "ctrl": "account",
+        "leftImage": "/images/account_white.png",
+        "requiresLogin": true
+      }
+    ],
+    "icons": [
+      [
+        {
+          "image": "my_prescriptions.png",
+          "navigation": {
+            "titleid": "strPrescriptions",
+            "ctrl": "prescriptions",
+            "requiresLogin": true
+          }
+        }
+      ],
+      [
+        {
+          "image": "refill_from_a_number.png"
+        },
+        {
+          "image": "transfer.png"
+        }
+      ],
+      [
+        {
+          "image": "pharmacy_rewards.png"
+        },
+        {
+          "image": "finda_pharmacy.png",
+          "navigation": {
+            "titleid": "titleStores",
+            "ctrl": "stores",
+            "requiresLogin": false
+          }
+        },
+        {
+          "image": "generics.png"
+        }
+      ],
+      [
+        {
+          "image": "flu_shots.png"
+        }
+      ],
+      [
+        {
+          "image": "clinic.png"
+        }
+      ],
+      [
+        {
+          "image": "wellness_guide.png"
+        }
+      ],
+      [
+        {
+          "image": "shop_target.png"
+        }
+      ]
+    ],
+    "DUE_FOR_REFILL_IN_DAYS": 7,
+    "ANIMATION_DURATION": 300,
+    "enableAnalytic": true
+  },
+  "env:development": {},
+  "env:test": {},
+  "env:production": {},
+  "os:android": {
+    "navBarHeight": 48,
+    "navBarTop": 0,
+    "fonts": {
+      "light": "Roboto-Light",
+      "regular": "Roboto-Regular"
+    }
+  },
+  "os:blackberry": {},
+  "os:ios": {
+    "navBarHeight": 68,
+    "navBarTop": 15,
+    "fonts": {
+      "light": "Lato-Light",
+      "regular": "Lato-Regular",
+      "lightItalic": "Lato-LightItalic",
+      "bold": "Lato-Bold"
+    }
+  },
+  "os:mobileweb": {
+    "navBarHeight": 48,
+    "navBarTop": 0,
+    "fonts": {
+      "light": "Roboto-Light",
+      "regular": "Roboto-Regular"
+    }
+  },
+  "dependencies": {
+    "com.mscripts.hamburger": "1.0",
+    "com.mscripts.textfield": "1.0",
+    "com.mscripts.loading": "1.0",
+    "com.mscripts.dropdown": "1.0",
+    "com.mscripts.buttonbar": "1.0",
+    "com.mscripts.pagingcontrol": "1.0",
+    "com.mscripts.switch": "1.0",
+    "com.mscripts.styledlabel": "1.0",
+    "com.mscripts.tooltip": "1.0",
+    "com.mscripts.togglemenu": "1.0",
+    "com.mscripts.optiondialog": "1.0",
+    "com.mscripts.textarea": "1.0",
+    "nl.fokkezb.button": "*"
+  }
 }
