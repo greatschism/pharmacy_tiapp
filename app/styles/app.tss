@@ -11,7 +11,8 @@
 "ListView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: 0
+		left: 15,
+		right: 15
 	}
 },
 "ListItem[platform=ios]":{
@@ -20,12 +21,15 @@
 "TableView":{
 	separatorColor: "#ccc"
 },
-"TableViewRow[platform=ios]":{
-	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+"TableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: 0
+		left: 15,
+		right: 15
 	}
+},
+"TableViewRow[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 },
 "Label":{
 	font:{
