@@ -77,23 +77,19 @@ function getSectionGettingRefilled() {
 	var section = getSection("/images/clock_green.png", Alloy.Globals.Strings.sectionGettingRefilled);
 	gettingRefilledColl.each(function(model) {
 		var transform = transformGettingRefilled(model),
-		    trow = $.UI.create("TableViewRow", {
+		    row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow",
-			classes : ["auto-height"]
-		}),
-		    row = $.UI.create("View", {
-			apiName : "View",
-			classes : ["auto-height", "top-10"]
+			classes : ["height-75d"]
 		}),
 		    content = $.UI.create("View", {
 			apiName : "View",
-			classes : ["auto-height", "vgroup", "bottom-10"]
+			classes : ["top-10", "bottom-10", "auto-height", "vgroup"]
 		}),
 		    title = $.UI.create("Label", {
 			apiName : "Label",
 			classes : ["left-15", "right-15", "auto-height", "h2", "black", "multi-line", "touch-disabled"]
 		});
-		trow.className = transform.template;
+		row.className = transform.template;
 		content.rowId = transform.id;
 		content.addEventListener("click", didItemClick);
 		title.text = transform.name;
@@ -129,8 +125,7 @@ function getSectionGettingRefilled() {
 			content.add(hbox);
 		}
 		row.add(content);
-		trow.add(row);
-		section.add(trow);
+		section.add(row);
 	});
 	return section;
 }
@@ -140,11 +135,8 @@ function getSectionReadyForRefill() {
 	prescriptionsColl.each(function(model) {
 		if (moment.unix(model.get("dueDate")).diff(moment(), "days") <= DUE_FOR_REFILL_IN_DAYS) {
 			var transform = transformPrescription(model),
-			    trow = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
-			    row = $.UI.create("View", {
-				apiName : "View",
+			    row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
 				classes : ["height-75d"]
 			}),
 			    options = $.UI.create("View", {
@@ -165,7 +157,7 @@ function getSectionReadyForRefill() {
 			}),
 			    sub = $.UI.create("View", {
 				apiName : "View",
-				classes : ["auto-height", "vgroup", "top-10", "bottom-10"]
+				classes : ["top-10", "bottom-10", "auto-height", "vgroup"]
 			}),
 			    title = $.UI.create("Label", {
 				apiName : "Label",
@@ -183,7 +175,7 @@ function getSectionReadyForRefill() {
 				apiName : "Label",
 				classes : ["right", "width-55", "height-15d", "h5", "text-right", "touch-disabled"]
 			});
-			trow.className = "ready";
+			row.className = "ready";
 			sub.rowId = transform.id;
 			sub.addEventListener("click", didItemClick);
 			content.addEventListener("swipe", didItemSwipe);
@@ -202,8 +194,7 @@ function getSectionReadyForRefill() {
 			sub.add(detail);
 			content.add(sub);
 			row.add(content);
-			trow.add(row);
-			section.add(trow);
+			section.add(row);
 		}
 	});
 	return section;
@@ -214,16 +205,13 @@ function getSectionOthers() {
 	prescriptionsColl.each(function(model) {
 		if (moment.unix(model.get("dueDate")).diff(moment(), "days") > DUE_FOR_REFILL_IN_DAYS) {
 			var transform = transformPrescription(model),
-			    trow = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
-			    row = $.UI.create("View", {
-				apiName : "View",
-				classes : ["auto-height", "top-10"]
+			    row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
+				classes : ["height-75d"]
 			}),
 			    content = $.UI.create("View", {
 				apiName : "View",
-				classes : ["auto-height", "vgroup", "bottom-10"]
+				classes : ["auto-height", "vgroup", "top-10", "bottom-10"]
 			}),
 			    title = $.UI.create("Label", {
 				apiName : "Label",
@@ -241,7 +229,7 @@ function getSectionOthers() {
 				apiName : "Label",
 				classes : ["right", "width-55", "height-15d", "h5", "text-right", "touch-disabled"]
 			});
-			trow.className = "others";
+			row.className = "others";
 			content.rowId = transform.id;
 			content.addEventListener("click", didItemClick);
 			title.text = transform.name;
@@ -255,8 +243,7 @@ function getSectionOthers() {
 			detail.add(due);
 			content.add(detail);
 			row.add(content);
-			trow.add(row);
-			section.add(trow);
+			section.add(row);
 		}
 	});
 	return section;
