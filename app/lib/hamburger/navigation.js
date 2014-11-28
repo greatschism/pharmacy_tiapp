@@ -9,7 +9,9 @@
 /**
  * The Navigation object
  * @param {Object} _args
- * @param {Object} _args.parent The parent which this navigation stack will belong
+ * @param {Object} _args.window The parent which this navigation stack will belong
+ * @param {Object} _args.device device information form core
+ * @param {Object} _args.hamburger hamburger control
  * @constructor
  */
 function Navigation(_args) {
@@ -43,10 +45,10 @@ function Navigation(_args) {
 	this.currentController = null;
 
 	/**
-	 * The controller object that initiated the navigator
-	 * @type {Controllers}
+	 * The first controller's arguments, used in android to redirect user back to the controller on back button
+	 * @type {Boolean/Object}
 	 */
-	this.homeController = null;
+	this.homeParams = false;
 
 	/**
 	 * The current top level controller's arguments
@@ -77,12 +79,6 @@ function Navigation(_args) {
 	 * @type {Object}
 	 */
 	this.hamburger = _args.hamburger;
-
-	/**
-	 * The parent object all screen controllers are added to
-	 * @type {Object}
-	 */
-	this.parent = _args.hamburger.getContentView();
 
 	/**
 	 * ti.keyboard module
@@ -118,12 +114,11 @@ function Navigation(_args) {
 			return;
 		}
 
-		that.currentParams = _params;
-
-		if (that.homeController && that.homeController._params.ctrl == that.currentParams.ctrl) {
-			that.close();
-			return that.homeController;
+		if (!that.homeParams) {
+			that.homeParams = _params;
 		}
+
+		that.currentParams = _params;
 
 		that.isBusy = true;
 
@@ -139,29 +134,20 @@ function Navigation(_args) {
 
 			view.removeEventListener("postlayout", postlayout);
 
-			if (that.homeController == null) {
-
-				that.homeController = controller;
-
-				that.homeController._params = that.currentParams;
-
-			} else {
-
-				// Handle removing the current controller from the screen
-				if (that.currentController) {
-					that.terminate();
-					that.parent.remove(that.currentController.getView());
-					that.controllers.pop();
-				}
-
-				that.controllers.push(controller);
-				that.currentController = controller;
+			// Handle removing the current controller from the screen
+			if (that.currentController) {
+				that.terminate();
+				that.window.remove(that.currentController.getView());
+				that.controllers.pop();
 			}
+
+			that.controllers.push(controller);
+			that.currentController = controller;
 
 			that.isBusy = false;
 		});
 
-		that.parent.add(view);
+		that.window.add(view);
 
 		return controller;
 	};
@@ -202,7 +188,7 @@ function Navigation(_args) {
 			//that.testOutput();
 		});
 
-		that.parent.add(view);
+		that.window.add(view);
 
 		return controller;
 	};
@@ -223,8 +209,7 @@ function Navigation(_args) {
 			if (that.loader != null) {
 				return;
 			}
-			var controller = that.currentController || that.homeController;
-			if (_.isFunction(controller.child.androidback) && controller.child.androidback()) {
+			if (_.isFunction(that.currentController.child.androidback) && that.currentController.child.androidback()) {
 				return;
 			}
 			if (that.hamburger.closeLeftMenu()) {
@@ -232,20 +217,25 @@ function Navigation(_args) {
 			}
 		}
 
-		that.hideKeyboard();
+		if (that.controllers.length == 1) {
 
-		var len = that.controllers.length;
+			var condition = OS_ANDROID && _backButton === true;
 
-		if (len == 0) {
+			if (condition && that.homeParams.ctrl != that.currentParams.ctrl) {
+				that.open(that.homeParams);
+				return;
+			}
 
-			that.terminate(that.homeController);
+			if (OS_IOS || OS_MOBILEWEB || condition) {
 
-			that.homeController = null;
-			that.currentParams = null;
-			that.controllers = [];
-			that.currentController = null;
+				that.isBusy = true;
 
-			if (OS_IOS || OS_MOBILEWEB || (OS_ANDROID && _backButton === true)) {
+				that.hideKeyboard();
+
+				that.terminate();
+
+				that.controllers = [];
+				that.currentController = null;
 				that.window.close();
 			}
 
@@ -255,50 +245,36 @@ function Navigation(_args) {
 
 		} else {
 
-			that.isBusy = true;
+			var len = that.controllers.length;
 
 			var count = _count || 1;
 
-			if (count > len) {
-				count = len;
+			if (count >= len) {
+				count = len - 1;
 			}
-
-			that.terminate();
 
 			var removeControllers = that.controllers.splice(len - count, count - 1);
 			for (var i = 0,
 			    x = removeControllers.length; i < x; i++) {
 				that.terminate(removeControllers[i]);
-				that.parent.remove(removeControllers[i].getView());
+				that.window.remove(removeControllers[i].getView());
 			}
 
-			var animator;
-			if (len == count) {
-				animator = "fadeOut";
-			} else {
-				animator = "animateOut";
-				that.controllers[that.controllers.length - 2].getView().visible = true;
-			}
+			var controllerToOpen = that.controllers[that.controllers.length - 2];
+			controllerToOpen.getView().visible = true;
 
-			that[animator](that.currentController.getView(), function() {
+			that.animateOut(that.currentController.getView(), function() {
 
 				that.controllers.pop();
 
-				// Assign the new current controller from the stack
-				len = that.controllers.length;
-				if (len > 0) {
-					that.currentController = that.controllers[len - 1];
-				} else {
-					that.currentController = null;
-					//now homeController will be at top level so
-					that.currentParams = that.homeController._params;
-				}
+				that.currentController = controllerToOpen;
+
+				//that.testOutput();
 
 				if (_callback) {
 					_callback();
 				}
 
-				//that.testOutput();
 			});
 		}
 	};
@@ -313,14 +289,14 @@ function Navigation(_args) {
 			return;
 		}
 
-		if (that.controllers.length == 0) {
+		if (that.controllers.length == 1) {
 			if (_callback) {
 				_callback();
 			}
 			return;
 		}
 
-		that.close(that.controllers.length, function() {
+		that.close(that.controllers.length - 1, function() {
 			if (_callback) {
 				_callback();
 			}
@@ -339,8 +315,7 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = that.currentController || that.homeController;
-		controller.showNavBar(_animated, function() {
+		that.currentController.showNavBar(_animated, function() {
 
 			that.isBusy = false;
 
@@ -363,8 +338,7 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = that.currentController || that.homeController;
-		controller.hideNavBar(_animated, function() {
+		that.currentController.hideNavBar(_animated, function() {
 
 			that.isBusy = false;
 
@@ -439,13 +413,13 @@ function Navigation(_args) {
 
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
-			left : _args.device.width,
+			left : that.device.width,
 			duration : Alloy.CFG.ANIMATION_DURATION
 		});
 
 		animation.addEventListener("complete", function onComplete() {
 
-			that.parent.remove(_view);
+			that.window.remove(_view);
 
 			animation.removeEventListener("complete", onComplete);
 
@@ -474,7 +448,7 @@ function Navigation(_args) {
 
 		animation.addEventListener("complete", function onComplete() {
 
-			that.parent.remove(_view);
+			that.window.remove(_view);
 
 			animation.removeEventListener("complete", onComplete);
 
@@ -533,8 +507,6 @@ function Navigation(_args) {
 	 * Spits information about the navigation stack out to console
 	 */
 	this.testOutput = function() {
-
-		console.debug(JSON.stringify(that.homeController));
 
 		var stack = [];
 

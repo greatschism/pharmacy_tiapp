@@ -3,10 +3,6 @@
 	width: 240,
 	zIndex: 0
 },
-"#mainView":{
-	zIndex: 1,
-	backgroundColor: "#fff"
-},
 "#dragView":{
 	left: 0,
 	zIndex: 2,

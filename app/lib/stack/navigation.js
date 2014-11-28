@@ -10,6 +10,7 @@
  * The Navigation object
  * @param {Object} _args
  * @param {Object} _args.window The parent which this navigation stack will belong
+ * @param {Object} _args.device device information form core
  * @constructor
  */
 function Navigation(_args) {

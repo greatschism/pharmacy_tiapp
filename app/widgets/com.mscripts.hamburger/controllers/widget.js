@@ -10,14 +10,6 @@ var args = arguments[0] || {},
     busy = false,
     parent;
 
-function orientationChanged(e) {
-	var newWidth;
-	newWidth = Ti.Platform.displayCaps.platformWidth;
-	if (OS_ANDROID)
-		newWidth /= logicalDensityFactor;
-	$.mainView.width = newWidth;
-}
-
 function enableDrag() {
 	if (!listenForDrag) {
 		listenForDrag = true;
@@ -51,14 +43,15 @@ function didTouchmove(e) {
 	var coords = e.source.convertPointToView({
 		x : e.x,
 		y : e.y
-	}, parent);
-	var _x = parseInt(coords.x, 10);
-	var newLeft = _x - touchStartX;
+	}, parent),
+	    _x = parseInt(coords.x, 10),
+	    newLeft = _x - touchStartX,
+	    children = parent.children;
 	if (OS_ANDROID) {
 		newLeft /= logicalDensityFactor;
 	}
 	if (touchStarted && newLeft >= 0 && newLeft <= LEFT_MENU_WIDTH) {
-		$.mainView.left = newLeft;
+		children[children.length - 1].left = newLeft;
 	}
 	if (newLeft > 10) {
 		touchStarted = true;
@@ -70,8 +63,8 @@ function didTouchend(e) {
 	var coords = e.source.convertPointToView({
 		x : e.x,
 		y : e.y
-	}, parent);
-	var _x = parseInt(coords.x, 10);
+	}, parent),
+	    _x = parseInt(coords.x, 10);
 	if (OS_ANDROID) {
 		_x /= logicalDensityFactor;
 	}
@@ -94,14 +87,10 @@ function init(params) {
 	if (params.disableDrag !== true) {
 		enableDrag();
 	}
-	//calling orientationChanged to apply width to mainView - Do not remove
-	orientationChanged();
-	//Ti.Gesture.addEventListener("orientationchange", orientationChanged);
 }
 
 function terminate(params) {
 	parent = null;
-	//Ti.Gesture.removeEventListener("orientationchange", orientationChanged);
 }
 
 function openLeftMenu(callback) {
@@ -131,7 +120,8 @@ function closeLeftMenu(callback) {
 function toggleLeftMenu(callback) {
 	if (!busy) {
 		busy = true;
-		var moveTo = 0;
+		var moveTo = 0,
+		    mainView = parent.children[parent.children.length - 1];
 		if (!menuOpen) {
 			moveTo = LEFT_MENU_WIDTH;
 		}
@@ -143,7 +133,7 @@ function toggleLeftMenu(callback) {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.mainView.left = moveTo;
+			mainView.left = moveTo;
 			$.overlayView.visible = menuOpen;
 			if (keyboard) {
 				keyboard.hide();
@@ -153,7 +143,7 @@ function toggleLeftMenu(callback) {
 				callback();
 			}
 		});
-		$.mainView.animate(animation);
+		mainView.animate(animation);
 	}
 }
 
@@ -175,10 +165,6 @@ function setMenuWidth(width) {
 	$.menuView.width = LEFT_MENU_WIDTH;
 }
 
-function getContentView() {
-	return $.mainView;
-}
-
 exports.init = init;
 exports.terminate = terminate;
 exports.enableDrag = enableDrag;
@@ -189,4 +175,3 @@ exports.setMenuWidth = setMenuWidth;
 exports.openLeftMenu = openLeftMenu;
 exports.closeLeftMenu = closeLeftMenu;
 exports.toggleLeftMenu = toggleLeftMenu;
-exports.getContentView = getContentView;
