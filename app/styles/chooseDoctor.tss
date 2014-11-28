@@ -2,7 +2,7 @@
 	height: 40
 },
 "#appointmentLbl":{
-	text: Alloy.Globals.Strings.lblWhichDoctorYouHaveAppointment
+	text: Alloy.Globals.strings.lblWhichDoctorYouHaveAppointment
 },
 ".profile-img":{
 	width: 40

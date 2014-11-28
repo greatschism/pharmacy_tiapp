@@ -61,7 +61,7 @@ function didClickLogin(e) {
 
 	} else {
 		dialog.show({
-			message : Alloy.Globals.Strings.valLoginRequiredFileds
+			message : Alloy.Globals.strings.valLoginRequiredFileds
 		});
 	}
 }

@@ -1,3 +1,3 @@
 "#signinBtn":{
-	title: Alloy.Globals.Strings.strSignin
+	title: Alloy.Globals.strings.strSignin
 }

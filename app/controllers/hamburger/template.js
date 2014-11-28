@@ -12,7 +12,7 @@ var args = arguments[0] || {},
 		$.titleImg.image = args.titleImage;
 		$.navBarView.add($.titleImg);
 	} else {
-		$.titleLbl.text = args.title || Alloy.Globals.Strings[args.titleid || ""];
+		$.titleLbl.text = args.title || Alloy.Globals.strings[args.titleid || ""];
 	}
 
 	if (args.navBarHidden === true) {

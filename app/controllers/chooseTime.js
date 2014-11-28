@@ -9,10 +9,10 @@ var args = arguments[0] || {},
 
 function init() {
 	Alloy.Collections.chooseTime.reset([{
-		label : Alloy.Globals.Strings.lblOnThisDate,
+		label : Alloy.Globals.strings.lblOnThisDate,
 		value : moment().format("MMM Do, YYYY")
 	}, {
-		label : Alloy.Globals.Strings.lblAtThisTime,
+		label : Alloy.Globals.strings.lblAtThisTime,
 		value : moment().format("h A")
 	}]);
 }

@@ -15,10 +15,10 @@
 },
 "#notesTxta":{
 	height: 65,
-	hintText: Alloy.Globals.Strings.hintClickToAddNote
+	hintText: Alloy.Globals.strings.hintClickToAddNote
 },
 "#prescriptionsLbl":{
-	text: Alloy.Globals.Strings.strPrescriptions
+	text: Alloy.Globals.strings.strPrescriptions
 },
 ".height-20d":{
 	height: 20
@@ -31,23 +31,23 @@
 },
 "#moreLbl":{
 	left: 0,
-	text: Alloy.Globals.Strings.lblMore
+	text: Alloy.Globals.strings.lblMore
 },
 "#hideDoctorBtn":{
-	title: Alloy.Globals.Strings.btnHideThisDoctor
+	title: Alloy.Globals.strings.btnHideThisDoctor
 },
 "#photoDialog":{
 	role: "overlay",
-	title: Alloy.Globals.Strings.titleChooseOne,
+	title: Alloy.Globals.strings.titleChooseOne,
 	options: [
 		{
-			title: Alloy.Globals.Strings.optionFindPictureOnMyPhone
+			title: Alloy.Globals.strings.optionFindPictureOnMyPhone
 		},
 		{
-			title: Alloy.Globals.Strings.optionTakePhoto
+			title: Alloy.Globals.strings.optionTakePhoto
 		},
 		{
-			title: Alloy.Globals.Strings.strCancel
+			title: Alloy.Globals.strings.strCancel
 		}
 	],
 	cancel: 2,

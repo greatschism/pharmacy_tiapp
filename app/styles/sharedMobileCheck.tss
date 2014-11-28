@@ -1,20 +1,20 @@
 "#hintLbl":{
-	text: Alloy.Globals.Strings.lblItLooksLikeThisPhoneNumberIsLinked
+	text: Alloy.Globals.strings.lblItLooksLikeThisPhoneNumberIsLinked
 },
 "#whoLbl":{
-	text: Alloy.Globals.Strings.lblLetUsKnowWhoYouAre
+	text: Alloy.Globals.strings.lblLetUsKnowWhoYouAre
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.Strings.hintFname,
+	hintText: Alloy.Globals.strings.hintFname,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#dob":{
-	hintText: Alloy.Globals.Strings.hintDOB,
+	hintText: Alloy.Globals.strings.hintDOB,
 	type: Ti.UI.PICKER_TYPE_DATE,
 	rightImage: "/images/down_angle_gray.png"
 },
 "#nextLbl":{
-	text: Alloy.Globals.Strings.btnNext
+	text: Alloy.Globals.strings.btnNext
 },
 "#nextImg":{
 	width: 20,

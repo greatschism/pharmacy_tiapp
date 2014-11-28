@@ -18,17 +18,17 @@
 	bottom: 90
 },
 "#appointmentLbl":{
-	text: Alloy.Globals.Strings.sectionUpcomingAppointments
+	text: Alloy.Globals.strings.sectionUpcomingAppointments
 },
 "#doctorLbl":{
-	text: Alloy.Globals.Strings.sectionMyDoctors
+	text: Alloy.Globals.strings.sectionMyDoctors
 },
 "#addImg":{
 	image: "/images/plus_black.png"
 },
 "#addLbl":{
 	left: 0,
-	text: Alloy.Globals.Strings.lblSetupAppointmentReminder
+	text: Alloy.Globals.strings.lblSetupAppointmentReminder
 },
 ".profile-img":{
 	width: 40
@@ -51,20 +51,20 @@
 	height: 40
 },
 "#addDoctorBtn":{
-	title: Alloy.Globals.Strings.btnAddAnotherDoctor
+	title: Alloy.Globals.strings.btnAddAnotherDoctor
 },
 "#photoDialog":{
 	role: "overlay",
-	title: Alloy.Globals.Strings.titleChooseOne,
+	title: Alloy.Globals.strings.titleChooseOne,
 	options: [
 		{
-			title: Alloy.Globals.Strings.optionFindPictureOnMyPhone
+			title: Alloy.Globals.strings.optionFindPictureOnMyPhone
 		},
 		{
-			title: Alloy.Globals.Strings.optionTakePhoto
+			title: Alloy.Globals.strings.optionTakePhoto
 		},
 		{
-			title: Alloy.Globals.Strings.strCancel
+			title: Alloy.Globals.strings.strCancel
 		}
 	],
 	cancel: 2,

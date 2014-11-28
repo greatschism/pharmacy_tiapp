@@ -10,7 +10,7 @@ landingPage: true
 
 function transformFunction(model) {
 	var transform = model.toJSON();
-	transform.title = Alloy.Globals.Strings[transform.titleid];
+	transform.title = Alloy.Globals.strings[transform.titleid];
 	return transform;
 }
 
@@ -35,8 +35,8 @@ function didItemClick(e) {
 			switch(itemObj.action) {
 			case "signout":
 				dialog.show({
-					message : Alloy.Globals.Strings.msgSignout,
-					buttonNames : [Alloy.Globals.Strings.btnYes, Alloy.Globals.Strings.btnNo],
+					message : Alloy.Globals.strings.msgSignout,
+					buttonNames : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
 					cancelIndex : 1,
 					success : function() {
 						http.request({
@@ -56,7 +56,7 @@ function didItemClick(e) {
 								Alloy.Collections.menuItems.remove(model);
 								app.navigator.closeToHome(function() {
 									dialog.show({
-										message : Alloy.Globals.Strings.msgSignedoutSuccessfully
+										message : Alloy.Globals.strings.msgSignedoutSuccessfully
 									});
 								});
 							}
@@ -66,7 +66,7 @@ function didItemClick(e) {
 				break;
 			default:
 				dialog.show({
-					message : Alloy.Globals.Strings.msgUnderConstruction
+					message : Alloy.Globals.strings.msgUnderConstruction
 				});
 			}
 		}

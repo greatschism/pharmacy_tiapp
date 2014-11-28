@@ -11,18 +11,18 @@
 	right: 140
 },
 "#directionBtn":{
-	title: Alloy.Globals.Strings.strDirections
+	title: Alloy.Globals.strings.strDirections
 },
 "#hoursLbl":{
-	text: Alloy.Globals.Strings.sectionStoreHours
+	text: Alloy.Globals.strings.sectionStoreHours
 },
 "#servicesLbl":{
-	text: Alloy.Globals.Strings.sectionStoreServices
+	text: Alloy.Globals.strings.sectionStoreServices
 },
 "#addToFavoriteBtn":{
 	right: 60,
 	height: 45,
-	title: Alloy.Globals.Strings.btnAddToFavorites,
+	title: Alloy.Globals.strings.btnAddToFavorites,
 	borderWidth: 1
 },
 "#homeImg":{

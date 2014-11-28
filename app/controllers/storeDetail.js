@@ -48,7 +48,7 @@ var args = arguments[0] || {},
 	if (Alloy.Globals.loggedIn) {
 		$.favoriteImg.image = "/images/".concat(store.bookmarked ? "favorite" : "unfavorite").concat(".png");
 	}
-	store.phone = Alloy.Globals.Strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
+	store.phone = Alloy.Globals.strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	if (_.isEmpty(Alloy.Globals.currentLocation)) {
 		$.directionBtn.hide();
 		$.distanceView.hide();
@@ -68,7 +68,7 @@ function didClickDirection(e) {
 
 function underConstruction() {
 	dialog.show({
-		message : Alloy.Globals.Strings.msgUnderConstruction
+		message : Alloy.Globals.strings.msgUnderConstruction
 	});
 }
 
@@ -78,8 +78,8 @@ function didClickFavorite(e) {
 
 function didClickHome(e) {
 	dialog.show({
-		message : String.format(Alloy.Globals.Strings.msgChangeHomePharmacy, Alloy.Models.store.get("addressline1")),
-		buttonNames : [Alloy.Globals.Strings.btnYes, Alloy.Globals.Strings.strCancel],
+		message : String.format(Alloy.Globals.strings.msgChangeHomePharmacy, Alloy.Models.store.get("addressline1")),
+		buttonNames : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.strCancel],
 		cancelIndex : 1,
 		success : underConstruction
 	});

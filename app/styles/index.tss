@@ -2,5 +2,5 @@
 	exitOnClose: true
 },
 "#loading":{
-	message: Alloy.Globals.Strings.msgPleaseWait
+	message: Alloy.Globals.strings.msgPleaseWait
 }

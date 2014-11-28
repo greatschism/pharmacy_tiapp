@@ -74,7 +74,7 @@ function init() {
 }
 
 function getSectionGettingRefilled() {
-	var section = getSection("/images/clock_green.png", Alloy.Globals.Strings.sectionGettingRefilled);
+	var section = getSection("/images/clock_green.png", Alloy.Globals.strings.sectionGettingRefilled);
 	gettingRefilledColl.each(function(model) {
 		var transform = transformGettingRefilled(model),
 		    row = $.UI.create("TableViewRow", {
@@ -131,7 +131,7 @@ function getSectionGettingRefilled() {
 }
 
 function getSectionReadyForRefill() {
-	var section = getSection("/images/refill.png", Alloy.Globals.Strings.sectionReadyForRefill);
+	var section = getSection("/images/refill.png", Alloy.Globals.strings.sectionReadyForRefill);
 	prescriptionsColl.each(function(model) {
 		if (moment.unix(model.get("dueDate")).diff(moment(), "days") <= DUE_FOR_REFILL_IN_DAYS) {
 			var transform = transformPrescription(model),
@@ -201,7 +201,7 @@ function getSectionReadyForRefill() {
 }
 
 function getSectionOthers() {
-	var section = getSection("/images/pill.png", Alloy.Globals.Strings.sectionOtherPrescriptions);
+	var section = getSection("/images/pill.png", Alloy.Globals.strings.sectionOtherPrescriptions);
 	prescriptionsColl.each(function(model) {
 		if (moment.unix(model.get("dueDate")).diff(moment(), "days") > DUE_FOR_REFILL_IN_DAYS) {
 			var transform = transformPrescription(model),
@@ -259,7 +259,7 @@ function transformGettingRefilled(model) {
 	} else {
 		transform.template = "refilled";
 	}
-	transform.info = Alloy.Globals.Strings.msgOrderPlacedReadyBy.concat(" " + availableDate.format("dddd hA"));
+	transform.info = Alloy.Globals.strings.msgOrderPlacedReadyBy.concat(" " + availableDate.format("dddd hA"));
 	return transform;
 }
 
@@ -269,15 +269,15 @@ function transformPrescription(model) {
 	var fromToday = dueDate.diff(moment(), "days");
 	if (fromToday <= DUE_FOR_REFILL_IN_DAYS) {
 		if (fromToday >= 0) {
-			transform.due = Alloy.Globals.Strings.msgDueFoRefillIn.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.Strings.strDays : Alloy.Globals.Strings.strDay));
+			transform.due = Alloy.Globals.strings.msgDueFoRefillIn.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.strings.strDays : Alloy.Globals.strings.strDay));
 			transform.color = "#F79538";
 		} else {
 			fromToday = Math.abs(fromToday);
-			transform.due = Alloy.Globals.Strings.msgOverdueBy.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.Strings.strDays : Alloy.Globals.Strings.strDay));
+			transform.due = Alloy.Globals.strings.msgOverdueBy.concat(" " + fromToday + " " + (fromToday > 1 ? Alloy.Globals.strings.strDays : Alloy.Globals.strings.strDay));
 			transform.color = "#ae331f";
 		}
 	} else {
-		transform.due = Alloy.Globals.Strings.msgDueFoRefillOn.concat(" " + dueDate.format("MM/DD/YY"));
+		transform.due = Alloy.Globals.strings.msgDueFoRefillOn.concat(" " + dueDate.format("MM/DD/YY"));
 		transform.color = "#8b8b8b";
 	}
 	return transform;

@@ -3,7 +3,7 @@
 	image: "/images/pharmacy_white.png"
 },
 "#hintLbl":{
-	text: Alloy.Globals.Strings.lblSignupAndGetRefillInSeconds
+	text: Alloy.Globals.strings.lblSignupAndGetRefillInSeconds
 },
 ".vseparator":{
 	zIndex: 1
@@ -12,15 +12,15 @@
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.Strings.hintFname,
+	hintText: Alloy.Globals.strings.hintFname,
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	hintText: Alloy.Globals.Strings.hintLname,
+	hintText: Alloy.Globals.strings.hintLname,
 	nextItem: "emailTxt"
 },
 "#dob":{
-	hintText: Alloy.Globals.Strings.hintDOB,
+	hintText: Alloy.Globals.strings.hintDOB,
 	type: Ti.UI.PICKER_TYPE_DATE,
 	rightImage: "/images/down_angle_gray.png"
 },
@@ -29,21 +29,21 @@
 },
 "#passwordTooltip":{
 	top: 50,
-	text: Alloy.Globals.Strings.msgPasswordTips,
+	text: Alloy.Globals.strings.msgPasswordTips,
 	zIndex: 2
 },
 "#emailTxt":{
-	hintText: Alloy.Globals.Strings.hintEmail,
+	hintText: Alloy.Globals.strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "unameTxt"
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.Strings.hintUsername,
+	hintText: Alloy.Globals.strings.hintUsername,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
 	right: 75,
-	hintText: Alloy.Globals.Strings.hintPassword,
+	hintText: Alloy.Globals.strings.hintPassword,
 	nextItem: "rxNoTxt",
 	passwordMask: true
 },
@@ -52,22 +52,22 @@
 	value: true
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.Strings.hintRxNo,
+	hintText: Alloy.Globals.strings.hintRxNo,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#locationLbl":{
 	left: 8,
 	right: 40,
-	text: Alloy.Globals.Strings.hintPharmacyLocation
+	text: Alloy.Globals.strings.hintPharmacyLocation
 },
 "#downImg":{
 	image: "/images/down_angle_gray.png"
 },
 "#agreementLbl":{
-	html: Alloy.Globals.Strings.lblSignupAgreement
+	html: Alloy.Globals.strings.lblSignupAgreement
 },
 "#singupLbl":{
-	text: Alloy.Globals.Strings.strSignup
+	text: Alloy.Globals.strings.strSignup
 },
 "#singupImg":{
 	width: 20,

@@ -11,10 +11,10 @@
 	right: 140
 },
 "#directionBtn":{
-	title: Alloy.Globals.Strings.strDirections
+	title: Alloy.Globals.strings.strDirections
 },
 "#optionsLbl":{
-	text: Alloy.Globals.Strings.sectionStoreOptions
+	text: Alloy.Globals.strings.sectionStoreOptions
 },
 "#hoursLbl":{
 	text: "Reminders"
@@ -25,7 +25,7 @@
 "#addToFavoriteBtn":{
 	right: 60,
 	height: 45,
-	title: Alloy.Globals.Strings.btnAddToFavorites,
+	title: Alloy.Globals.strings.btnAddToFavorites,
 	borderWidth: 1
 },
 

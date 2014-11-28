@@ -3,30 +3,30 @@
 	image: "/images/pharmacy_white.png"
 },
 "#headerLbl":{
-	html: Alloy.Globals.Strings.lblLoginToMobilePharmacy
+	html: Alloy.Globals.strings.lblLoginToMobilePharmacy
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.Strings.hintUsername,
+	hintText: Alloy.Globals.strings.hintUsername,
 	nextItem: "passwordTxt",
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#passwordTxt":{
-	hintText: Alloy.Globals.Strings.hintPassword,
+	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true,
 	rightImage: "/images/question_mark.png",
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#keepMeLbl":{
 	right: 75,
-	text: Alloy.Globals.Strings.lblKeepMeLoggedIn
+	text: Alloy.Globals.strings.lblKeepMeLoggedIn
 },
 "#keepMeSwt":{
 	enabledColor: "#F79538",
 	value: false
 },
 "#loginBtn":{
-	title: Alloy.Globals.Strings.strLogin
+	title: Alloy.Globals.strings.strLogin
 },
 "#footerLbl":{
-	html: Alloy.Globals.Strings.lblNeedToCreateAccount
+	html: Alloy.Globals.strings.lblNeedToCreateAccount
 }

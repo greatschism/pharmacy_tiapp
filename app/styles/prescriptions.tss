@@ -16,14 +16,14 @@
 	top: Alloy.CFG.navBarHeight,
 	items: [
 		{
-			title: Alloy.Globals.Strings.menuSearch,
+			title: Alloy.Globals.strings.menuSearch,
 			action: "search"
 		},{
-			title: Alloy.Globals.Strings.menuSort,
+			title: Alloy.Globals.strings.menuSort,
 			action: "sort"
 		},
 		{
-			title: Alloy.Globals.Strings.menuUnhidePrescriptions,
+			title: Alloy.Globals.strings.menuUnhidePrescriptions,
 			action: "unhide"
 		}
 	]
@@ -44,15 +44,15 @@
 	height: 75
 },
 ".lbl-refill":{
-	title: Alloy.Globals.Strings.lblRefill
+	title: Alloy.Globals.strings.lblRefill
 },
 ".lbl-hide":{
-	title: Alloy.Globals.Strings.lblHide
+	title: Alloy.Globals.strings.lblHide
 },
 ".icon-success":{
 	image: "/images/success.png",
 	width: 15
 },
 ".text-completed":{
-	text: Alloy.Globals.Strings.msgYourOrderIsReady
+	text: Alloy.Globals.strings.msgYourOrderIsReady
 }

@@ -1,14 +1,14 @@
 "#hintLbl":{
-	text: Alloy.Globals.Strings.lblPleaseEnterEmailAddressYouOriginallySignedup
+	text: Alloy.Globals.strings.lblPleaseEnterEmailAddressYouOriginallySignedup
 },
 "#emailTxt":{
-	hintText: Alloy.Globals.Strings.hintEmailAddress,
+	hintText: Alloy.Globals.strings.hintEmailAddress,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#sendBtn":{
-	title: Alloy.Globals.Strings.btnSend
+	title: Alloy.Globals.strings.btnSend
 },
 "#cantRememberLbl":{
-	html: Alloy.Globals.Strings.lblCantRememberEmail
+	html: Alloy.Globals.strings.lblCantRememberEmail
 }

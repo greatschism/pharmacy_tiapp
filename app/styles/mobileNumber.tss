@@ -1,15 +1,15 @@
 "#titleLbl":{
-	text: Alloy.Globals.Strings.lblWelcome
+	text: Alloy.Globals.strings.lblWelcome
 },
 "#hintLbl":{
-	text: Alloy.Globals.Strings.lblLetsSeeIfWeRecogonizeYou
+	text: Alloy.Globals.strings.lblLetsSeeIfWeRecogonizeYou
 },
 "#mobileTxt":{
 	borderRadius: 0,
-	hintText: Alloy.Globals.Strings.hintMobileNumber,
+	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#continueBtn":{
-	title: Alloy.Globals.Strings.btnContinue
+	title: Alloy.Globals.strings.btnContinue
 }

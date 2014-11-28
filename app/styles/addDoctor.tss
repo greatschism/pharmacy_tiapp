@@ -1,51 +1,51 @@
 "#hintLbl": {
 	top: 5,
 	bottom: 5,
-	html: Alloy.Globals.Strings.lblEnterYourDoctorsInformation
+	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation
 },
 ".txt":{
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.Strings.hintFnameRequired,
+	hintText: Alloy.Globals.strings.hintFnameRequired,
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	hintText: Alloy.Globals.Strings.hintLnameRequired,
+	hintText: Alloy.Globals.strings.hintLnameRequired,
 	nextItem: "phoneTxt"
 },
 "#phoneTxt":{
-	hintText: Alloy.Globals.Strings.hintPhone,
+	hintText: Alloy.Globals.strings.hintPhone,
 	nextItem: "faxTxt"
 },
 "#faxTxt":{
-	hintText: Alloy.Globals.Strings.hintFax,
+	hintText: Alloy.Globals.strings.hintFax,
 	nextItem: "hospitalTxt"
 },
 "#hospitalTxt":{
-	hintText: Alloy.Globals.Strings.hintOfficeOrHospitalName,
+	hintText: Alloy.Globals.strings.hintOfficeOrHospitalName,
 	nextItem: "streetTxt"
 },
 "#streetTxt":{
-	hintText: Alloy.Globals.Strings.hintStreetName,
+	hintText: Alloy.Globals.strings.hintStreetName,
 	nextItem: "cityTxt"
 },
 "#cityTxt":{
-	hintText: Alloy.Globals.Strings.hintCity,
+	hintText: Alloy.Globals.strings.hintCity,
 	nextItem: "stateTxt"
 },
 "#stateTxt":{
-	hintText: Alloy.Globals.Strings.hintState,
+	hintText: Alloy.Globals.strings.hintState,
 	nextItem: "zipTxt"
 },
 "#zipTxt":{
-	hintText: Alloy.Globals.Strings.hintZipCode,
+	hintText: Alloy.Globals.strings.hintZipCode,
 	nextItem: "notesTxta"
 },
 "#notesTxta":{
 	height: 100,
-	hintText: Alloy.Globals.Strings.hintNotes
+	hintText: Alloy.Globals.strings.hintNotes
 },
 "#saveBtn":{
-	title: Alloy.Globals.Strings.btnSave
+	title: Alloy.Globals.strings.btnSave
 }

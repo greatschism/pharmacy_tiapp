@@ -46,7 +46,7 @@ function request(_params) {
 		},
 		failure : function(http, url) {
 			dialog.show({
-				message : Alloy.Globals.Strings.msgFailedToRetrieve
+				message : Alloy.Globals.strings.msgFailedToRetrieve
 			});
 			if (_params.failure) {
 				_params.failure();
@@ -64,7 +64,7 @@ function request(_params) {
 
 	if (_params.blockUI !== false && _.isEmpty(app.navigator) === false) {
 		app.navigator.showLoader({
-			message : Alloy.Globals.Strings.msgPleaseWait
+			message : Alloy.Globals.strings.msgPleaseWait
 		});
 	}
 

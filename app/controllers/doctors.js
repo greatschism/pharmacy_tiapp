@@ -3,10 +3,10 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     http = require("httpwrapper"),
     dialog = require("dialog"),
-    msgHasPrescribedYou = Alloy.Globals.Strings.msgHasPrescribedYou,
-    msgYouHaveNoActiveprescription = Alloy.Globals.Strings.msgYouHaveNoActiveprescription,
-    strAnd = Alloy.Globals.Strings.strAnd,
-    strMore = Alloy.Globals.Strings.strMore,
+    msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
+    msgYouHaveNoActiveprescription = Alloy.Globals.strings.msgYouHaveNoActiveprescription,
+    strAnd = Alloy.Globals.strings.strAnd,
+    strMore = Alloy.Globals.strings.strMore,
     doctors,
     prescriptions,
     appointments;
@@ -64,7 +64,7 @@ function didReceiveAppointments(result) {
 		}
 		doctor.prescriptions = docPrescriptions;
 	}
-	var msg = Alloy.Globals.Strings.msgYouHaveUpcomingAppointmentWith;
+	var msg = Alloy.Globals.strings.msgYouHaveUpcomingAppointmentWith;
 	for (var i in appointments) {
 		var appointment = appointments[i];
 		var doctor = _.where(doctors, {

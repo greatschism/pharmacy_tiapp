@@ -8,21 +8,21 @@ function getLocation(callback) {
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
 		dialog.show({
-			message : Alloy.Globals.Strings.msgGeoAuthorizationDenied
+			message : Alloy.Globals.strings.msgGeoAuthorizationDenied
 		});
 	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
 		dialog.show({
-			message : Alloy.Globals.Strings.msgGeoAuthorizationRestricted
+			message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
 		});
 	} else {
 		if (OS_MOBILEWEB) {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
 		}
 		if (OS_IOS) {
-			Ti.Geolocation.purpose = Alloy.Globals.Strings.msgGeoPurpose;
+			Ti.Geolocation.purpose = Alloy.Globals.strings.msgGeoPurpose;
 		}
 		app.navigator.showLoader({
-			message : Alloy.Globals.Strings.msgPleaseWait
+			message : Alloy.Globals.strings.msgPleaseWait
 		});
 		Ti.Geolocation.getCurrentPosition(function(e) {
 			if (e.success && _.isEmpty(e.coords) == false) {
