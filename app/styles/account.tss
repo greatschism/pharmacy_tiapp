@@ -1,4 +1,4 @@
 "#AboutBtn":{
-	title: Alloy.Globals.Strings.btnAbout
-}
+	title: Alloy.Globals.strings.btnAbout
+} 
 

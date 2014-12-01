@@ -6,11 +6,10 @@ var didClickAbout = function()
 {
 	 var dialog = Ti.UI.createAlertDialog({
 			    message: 'Powered by mscripts \n' + 
-			    		 "Build Version: " + Alloy.CFG.buildVersion + "\n" + 
-			    		 "Build Date: " + Alloy.CFG.buildDate + "\n" + 
-			    		 "Build Number: " + Alloy.CFG.buildNumber,
+			    		 "Application Version: " + Ti.App.version + "\n" + 
+			    		 "Build Date: " + Ti.App.Properties.getString('buildDate'),
 			    ok: 'Ok',
-			    title: Alloy.Globals.Strings.alertTitleAbout
+			    title: Alloy.Globals.strings.alertTitleAbout
 			  });
 	 dialog.show();
 };
