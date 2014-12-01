@@ -1,14 +1,9 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    dialog = require("dialog");
 
-var didClickAbout = function()
-{
-	 var dialog = Ti.UI.createAlertDialog({
-			    message: 'Powered by mscripts \n' + 
-			    		 "Build Version: " + Alloy.CFG.buildVersion + "\n" + 
-			    		 "Build Date: " + Alloy.CFG.buildDate + "\n" + 
-			    		 "Build Number: " + Alloy.CFG.buildNumber,
-			    ok: 'Ok',
-			    title: Alloy.Globals.Strings.alertTitleAbout
-			  });
-	 dialog.show();
-};
+function didClickAbout(e) {
+	dialog.show({
+		title : Alloy.Globals.strings.strAbout,
+		message : "Powered by mscripts \nBuild Version: " + Alloy.CFG.buildVersion + "\nBuild Date: " + Alloy.CFG.buildDate + "\nBuild Number: " + Alloy.CFG.buildNumber
+	});
+}

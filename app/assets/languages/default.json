@@ -174,8 +174,6 @@
 		"strReminders": "Reminders",
 		"strAnd": "and",
 		"strMore": "more",
-		
-		"btnAbout":"About",
-		"alertTitleAbout": "About"
+		"strAbout": "About"
 	}
 }

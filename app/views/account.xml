@@ -1,5 +1,5 @@
 <Alloy>
 	<View>
-		<Button id="AboutBtn" class="bottom-5 width-90 bg-white orange h2 font-light malibu" onClick="didClickAbout" /> 
+		<Button id="aboutBtn" class="bottom-5 width-90 bg-white orange h2 font-light malibu" onClick="didClickAbout" /> 
 	</View>
 </Alloy> 
