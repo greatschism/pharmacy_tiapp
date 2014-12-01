@@ -1,3 +1,4 @@
-"#aboutBtn":{
-	title: Alloy.Globals.strings.strAbout
+"#AboutBtn":{
+	title: Alloy.Globals.Strings.btnAbout
 }
+
