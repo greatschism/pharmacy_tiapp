@@ -4,6 +4,7 @@ var args = arguments[0] || {},
 function didClickContinue(e) {
 	app.navigator.open({
 		ctrl : "fullSignup",
+		titleid: "strSignup",
 		stack : true
 	});
 }

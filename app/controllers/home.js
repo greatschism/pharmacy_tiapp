@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 function init() {
-	var icons = Alloy.CFG.icons;
+	var icons = Alloy.Globals.config.homeItems;
 	for (var i in icons) {
 		var view = getView();
 		var sections = icons[i];
@@ -69,6 +69,7 @@ function didItemClick(e) {
 		if (navigation.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
 			app.navigator.open({
 				ctrl : "login",
+				titleid : "strLogin",
 				ctrlArguments : {
 					navigateTo : navigation
 				}
@@ -81,7 +82,8 @@ function didItemClick(e) {
 
 function didClickSignin(e) {
 	app.navigator.open({
-		ctrl : "login"
+		ctrl : "login",
+		titleid : "strLogin",
 	});
 }
 

@@ -1,11 +1,10 @@
 "#titleLbl":{
-	text: Alloy.Globals.strings.lblWelcome
+	text: Alloy.Globals.strings.strWelcome
 },
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblLetsSeeIfWeRecogonizeYou
 },
 "#mobileTxt":{
-	borderRadius: 0,
 	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
 	returnKeyType: Ti.UI.RETURNKEY_NEXT

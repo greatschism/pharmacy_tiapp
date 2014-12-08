@@ -1,11 +1,9 @@
 <Alloy>
 	<View class="template-view">
-		<View id="navBar" class="top bg-orange nav-bar">
+		<View id="navBar" class="nav-bar">
 			<View id="navBarView" class="nav-bar-view">
-				<View class="nav-bar-left-view" onSingletap="didTap">
-					<ImageView id="leftImg" />
-				</View>
-				<Label id="titleLbl" class="h2 white text-center nav-bar-title-lbl" />
+				<Button id="leftBtn" class="nav-bar-left-icon" onClick="didClickLeftBtn" />
+				<Label id="titleLbl" class="nav-bar-title-lbl" />
 			</View>
 		</View>
 		<View id="contentView" class="template-content-view" />

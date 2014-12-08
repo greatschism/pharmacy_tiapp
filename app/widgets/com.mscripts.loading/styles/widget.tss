@@ -12,7 +12,7 @@
 	height: 90,
 	layout: "horizontal",
 	backgroundColor: "#000",
-	borderRadius: 5
+	borderRadius: 6
 },
 "#activityIndicator":{
 	left: 15

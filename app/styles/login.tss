@@ -1,7 +1,3 @@
-"#logoImg":{
-	width: 75,
-	image: "/images/pharmacy_white.png"
-},
 "#headerLbl":{
 	html: Alloy.Globals.strings.lblLoginToMobilePharmacy
 },
@@ -13,7 +9,9 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true,
-	rightImage: "/images/question_mark.png",
+	rightButtonFont:  Alloy.Globals.config.typography.h4,
+	rightButtonWidth: 30,
+	rightButtonTitle: "?",
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#keepMeLbl":{
@@ -21,7 +19,6 @@
 	text: Alloy.Globals.strings.lblKeepMeLoggedIn
 },
 "#keepMeSwt":{
-	enabledColor: "#F79538",
 	value: false
 },
 "#loginBtn":{

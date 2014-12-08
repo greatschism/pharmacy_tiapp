@@ -1,4 +1,6 @@
 var args = arguments[0] || {},
+	iconSet = Alloy.CFG.iconSet,
+    icons = Alloy.CFG.icons,
     app = require("core"),
     dialog = require("dialog"),
     http = require("httpwrapper");
@@ -10,12 +12,13 @@ landingPage: true
 
 function transformFunction(model) {
 	var transform = model.toJSON();
+	transform.icon = icons[iconSet + "_" + transform.icon] || icons[transform.icon];
 	transform.title = Alloy.Globals.strings[transform.titleid];
 	return transform;
 }
 
 function didItemClick(e) {
-	var model = Alloy.Collections.menuItems.at( OS_MOBILEWEB ? e.index : e.itemIndex);
+	var model = Alloy.Collections.menuItems.at(e.index);
 	var itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
@@ -23,6 +26,7 @@ function didItemClick(e) {
 				if (app.navigator.currentParams.ctrl != "login") {
 					app.navigator.open({
 						ctrl : "login",
+						titleid : "strLogin",
 						ctrlArguments : {
 							navigateTo : itemObj
 						}

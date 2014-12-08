@@ -1,22 +1,21 @@
 "#widget[platform=ios,android]": {
-	width: "95%",
-	height: 40,
+	height: 48,
 	borderColor: "#8b8b8b",
-	borderWidth: 1,
-	borderRadius: 5
+	borderWidth: 1
 },
 "#search[platform=ios,android]":{
-	left: 10,
+	left: 8,
 	width: 20,
 	image: WPATH( "search.png")
 },
 "#rightImg[platform=ios,android]":{
-	right: 10,
+	right: 8,
 	width: 20,
 	visible: false
 },
 "#rightBtn[platform=ios,android]":{
-	right: 10,
+	right: 8,
+	height: Ti.UI.FILL,
 	backgroundColor: "transparent",
 	borderColor: "transparent"
 },
@@ -38,15 +37,15 @@
 	width: Ti.UI.FILL
 },
 ".txt-left-right[platform=ios,android]":{
-	left: 30,
-	right: 30,
+	left: 28,
+	right: 28,
 	width: Ti.UI.FILL
 },
 ".txt-left[platform=ios,android]":{
-	left: 30,
+	left: 28,
 	width: Ti.UI.FILL
 },
 ".txt-right[platform=ios,android]":{
-	right: 30,
+	right: 28,
 	width: Ti.UI.FILL
 }

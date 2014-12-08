@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     moment = require("alloy/moment");
 
-(function() {
+function init() {
 	var store = Alloy.Collections.stores.where({
 	storeid: args.storeId
 	})[0].toJSON();
@@ -50,13 +50,13 @@ var args = arguments[0] || {},
 	}
 	store.phone = Alloy.Globals.strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	if (_.isEmpty(Alloy.Globals.currentLocation)) {
-		$.directionBtn.hide();
-		$.distanceView.hide();
+		$.directionBtn.visible = false;
+		$.distanceView.visible = false;
 	}
 	Alloy.Models.store.set(store);
 	Alloy.Collections.storeHours.reset(dates);
 	Alloy.Collections.storeServices.reset(services);
-})();
+}
 
 function didClickPhone(e) {
 	Ti.Platform.openURL("tel:" + Alloy.Models.store.get("mobileareacode") + Alloy.Models.store.get("mobileprefix") + Alloy.Models.store.get("mobilenumber"));
@@ -101,4 +101,5 @@ function didRefill(e) {
 	});
 }
 
+exports.init = init;
 exports.terminate = terminate;

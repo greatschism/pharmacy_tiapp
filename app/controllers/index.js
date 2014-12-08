@@ -35,10 +35,10 @@ function didAppLoad(result) {
 	if (Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {
 			ctrl : "carousel",
-			titleImage : "/images/pharmacy_white.png"
+			titleid : "strWelcome" 
 		});
 	} else {
-		Alloy.createController(Alloy.CFG.navigator + "/master");
+		Alloy.createController(Alloy.Globals.config.navigator + "/master");
 	}
 }
 

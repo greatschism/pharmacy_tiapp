@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 function didItemClick(e) {
-	var item = Alloy.Collections.termsAndConditions.at( OS_MOBILEWEB ? e.index : e.itemIndex).toJSON();
+	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
 	app.navigator.open({
 		ctrl : "termsDoc",
 		ctrlArguments : {
@@ -33,7 +33,7 @@ function terminate() {
 function didDoneClick(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",
-		titleImage : "/images/pharmacy_white.png",
+		titleid : "titleMobileNumber",
 		stack : true
 	});
 }

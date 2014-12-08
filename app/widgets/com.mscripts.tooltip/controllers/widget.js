@@ -12,6 +12,55 @@ var args = arguments[0] || {};
 		$.label.applyProperties(options);
 	}
 
+	var direction = args.direction || "bottom",
+	    containerDict = {
+		backgroundColor : args.backgroundColor || $.arrowLbl.color
+	},
+	    arrowDict = {
+		color : args.backgroundColor || $.arrowLbl.color
+	},
+	    margin = $.arrowLbl.height - 8;
+	switch(direction) {
+	case "left":
+		_.extend(arrowDict, {
+			left : 0,
+			text : "'"
+		});
+		_.extend(containerDict, {
+			left : margin
+		});
+		break;
+	case "right":
+		_.extend(arrowDict, {
+			right : 0,
+			text : "("
+		});
+		_.extend(containerDict, {
+			right : margin
+		});
+		break;
+	case "top":
+		_.extend(arrowDict, {
+			top : 0,
+			text : ")"
+		});
+		_.extend(containerDict, {
+			top : margin
+		});
+		break;
+	case "bottom":
+		_.extend(arrowDict, {
+			bottom : 0,
+			text : "%"
+		});
+		_.extend(containerDict, {
+			bottom : margin
+		});
+		break;
+	}
+	$.arrowLbl.applyProperties(arrowDict);
+	$.containerView.applyProperties(containerDict);
+
 })();
 
 function applyProperties(dict) {

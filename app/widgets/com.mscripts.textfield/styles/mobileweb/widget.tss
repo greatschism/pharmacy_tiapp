@@ -1,22 +1,21 @@
 "#widget": {
-	width: "95%",
-	height: 40,
+	height: 48,
 	borderColor: "#8b8b8b",
-	borderWidth: 1,
-	borderRadius: 5
+	borderWidth: 1
 },
 "#search":{
-	left: 10,
+	left: 8,
 	width: 20,
 	image: WPATH( "search.png")
 },
 "#rightImg":{
-	right: 10,
+	right: 8,
 	width: 20,
 	visible: false
 },
 "#rightBtn":{
-	right: 10,
+	right: 8,
+	height: Ti.UI.FILL,
 	backgroundColor: "transparent",
 	borderColor: "transparent"
 },
@@ -31,34 +30,34 @@
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
 ".container-fill":{
-	left: 10,
+	left: 8,
 	width: Ti.UI.FILL
 },
 ".txt-fill":{
-	right: 10,
+	right: 8,
 	width: Ti.UI.FILL
 },
 ".container-left-right":{
-	left: 40,
+	left: 38,
 	width: Ti.UI.FILL
 },
 ".txt-left-right":{
-	right: 40,
+	right: 38,
 	width: Ti.UI.FILL
 },
 ".container-left":{
-	left: 40,
+	left: 38,
 	width: Ti.UI.FILL
 },
 ".txt-left":{
-	right: 10,
+	right: 8,
 	width: Ti.UI.FILL
 },
 ".container-right":{
-	left: 10,
+	left: 8,
 	width: Ti.UI.FILL
 },
 ".txt-right":{
-	right: 40,
+	right: 38,
 	width: Ti.UI.FILL
 }

@@ -2,7 +2,8 @@
 	<View>
 		<View id="containerView">
 			<Label id="label" />
+			<Label id="spacer" />
 		</View>
-		<ImageView id="edgeImg" />
+		<Label id="arrowLbl" />
 	</View>
 </Alloy>

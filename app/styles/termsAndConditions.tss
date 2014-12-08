@@ -1,14 +1,3 @@
-".height-60d":{
-	height: 60
-},
-".title":{
-	height: 22,
-	font:{
-		fontSize: 17
-	}
-},
 "#doneBtn":{
-	top: 20,
-	bottom: 20,
 	title: Alloy.Globals.strings.btnDone
 }

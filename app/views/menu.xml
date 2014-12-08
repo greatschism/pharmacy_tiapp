@@ -1,28 +1,12 @@
 <Alloy>
-	<ListView platform="ios,android" class="bg-orange" defaultItemTemplate="template" onItemclick="didItemClick">
+	<TableView class="bg-primary" dataCollection="menuItems" dataTransform="transformFunction" onClick="didItemClick">
 		<HeaderView>
 			<View class="vspacer" />
 		</HeaderView>
-		<Templates>
-			<ItemTemplate name="template" class="height-48d">
-				<View class="hgroup no-hwrap">
-					<ImageView bindId="leftImage" class="left-10 icon" />
-					<Label bindId="title" class="left-10 h3 font-light white" />
-				</View>
-			</ItemTemplate>
-		</Templates>
-		<ListSection dataCollection="menuItems" dataTransform="transformFunction" >
-			<ListItem class="bg-orange" title:text="{title}" leftImage:image="{leftImage}" />
-		</ListSection>
-	</ListView>
-	<TableView platform="mobileweb" class="bg-orange" dataCollection="menuItems" dataTransform="transformFunction" onClick="didItemClick">
-		<HeaderView>
-			<View class="vspacer" />
-		</HeaderView>
-		<TableViewRow class="height-48d bg-orange">
-			<View class="hgroup no-hwrap">
-				<ImageView image="{leftImage}" class="left-10 icon" />
-				<Label text="{title}" class="left-10 h3 font-light white" />
+		<TableViewRow class="height-default bg-primary">
+			<View class="padding-left padding-left hgroup no-hwrap">
+				<Label text="{icon}" class="icon color-primary" />
+				<Label text="{title}" class="padding-left h3 color-primary" />
 			</View>
 		</TableViewRow>
 	</TableView>

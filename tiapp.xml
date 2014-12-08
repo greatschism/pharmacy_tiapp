@@ -6,8 +6,8 @@
     <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
     <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mcripts.appcelerator</id>
-    <name>myScripts</name>
-    <version>$version</version><!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
+    <name>my Pharmacy</name>
+  	<version>$version</version><!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
     <property name="buildDate" type="string">$BUILD_DATE</property> <!--  To be replaced before the build happens -->
     <publisher>mscripts</publisher>
     <url>http://www.mscripts.com</url>
@@ -68,8 +68,7 @@
         <manifest>
             <application android:hardwareAccelerated="true" android:theme="@style/Theme.NoActionBar">
                 <activity
-                    android:configChanges="keyboardHidden|orientation"
-                    android:label="mscripts-application" android:name=".MscriptsApplicationActivity">
+                    android:configChanges="keyboardHidden|orientation" android:name=".MyPharmacyActivity">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN"/>
                         <category android:name="android.intent.category.LAUNCHER"/>
@@ -120,10 +119,10 @@
         <module platform="commonjs">ti.cloud</module>
         <module platform="iphone">ti.map</module>
         <module platform="android">ti.map</module>
-        <module deploy-type="development" platform="android" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="test" platform="android" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="development" platform="iphone" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="test" platform="iphone" version="1.0">com.soasta.touchtest</module>
+        <module deploy-type="development" platform="iphone">com.soasta.touchtest</module>
+        <module deploy-type="test" platform="android">com.soasta.touchtest</module>
+        <module deploy-type="test" platform="iphone">com.soasta.touchtest</module>
+        <module deploy-type="development" platform="android">com.soasta.touchtest</module>
         <module platform="android">com.appcelerator.apm</module>
         <module platform="iphone">com.appcelerator.apm</module>
         <module platform="android">ti.keyboard</module>

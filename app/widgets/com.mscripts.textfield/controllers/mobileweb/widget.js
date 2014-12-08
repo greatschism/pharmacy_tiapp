@@ -69,7 +69,7 @@ var args = arguments[0] || {};
 		$.rightBtn.applyProperties({
 			title : args.rightButtonTitle,
 			width : args.rightButtonWidth || 50,
-			font : args.font || {
+			font : args.rightButtonFont || args.font || {
 				fontSize : 12
 			},
 			color : args.rightButtonColor || "#000"

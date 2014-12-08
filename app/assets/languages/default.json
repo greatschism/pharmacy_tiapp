@@ -19,6 +19,7 @@
 		"titleLoginRecovery": "Login recovery",
 		"titleTermsAndConditions": "Terms and Conditions",
 		"titleMobileNumber": "Mobile number",
+		"titleTellUsAboutYourSelf": "Tell us about yourself",
 		"titleChooseDoctor": "Choose a doctor",
 		"titleChooseOne": "Choose one",
 		"titleAddDoctor": "Add a doctor",
@@ -72,7 +73,6 @@
 		"lblKeepMeLoggedIn": "Keep me logged in",
 		"lblNeedToCreateAccount": "Need to <b>create a new account?</b>",
 		"lblCantRememberEmail": "<b>Can't remember what email you used?</b>",
-		"lblWelcome": "Welcome!",
 		"lblPleaseEnterEmailAddressYouOriginallySignedup": "Please enter the email address you originally signed up with. We will send you your username and instructions on how to reset your password.",
 		"lblLetsSeeIfWeRecogonizeYou": "Let's see if we recogonize you. Please enter your mobile phone number.",
 		"lblSignupAndGetRefillInSeconds": "Sign up and get refill in seconds",
@@ -160,7 +160,8 @@
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
-
+		
+		"strWelcome": "Welcome!",
 		"strCancel": "Cancel",
 		"strLogin": "Log in",
 		"strSignup": "Sign up",
@@ -174,8 +175,6 @@
 		"strReminders": "Reminders",
 		"strAnd": "and",
 		"strMore": "more",
-		
-		"btnAbout": "About",
-		"alertTitleAbout": "About"
+		"strAbout": "About"
 	}
 }

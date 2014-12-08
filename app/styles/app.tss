@@ -1,54 +1,50 @@
+/**
+* 	UI Components
+*/
 "Window":{
-	backgroundColor: "#fff"
+	backgroundColor: "#FFFFFF"
 },
 "Window[platform=ios]":{
-	navTintColor: "#fff",
+	navTintColor: "#FFFFFF",
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "ListView":{
-	separatorColor: "#ccc"
+	separatorColor: Alloy.Globals.config.backgroundColors.quaternary
 },
 "ListView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: 15,
-		right: 15
+		left: Alloy.Globals.config.margin.left,
+		right: Alloy.Globals.config.margin.right
 	}
 },
 "ListItem[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "TableView":{
-	separatorColor: "#ccc"
+	separatorColor: Alloy.Globals.config.backgroundColors.quaternary,
+	minRowHeight: Alloy.Globals.config.contentHeight
 },
 "TableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: 15,
-		right: 15
+		left: Alloy.Globals.config.margin.left,
+		right: Alloy.Globals.config.margin.right
 	}
 },
+"TableViewRow":{
+	height: Ti.UI.SIZE
+},
 "TableViewRow[platform=ios]":{
-	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	selectionStyle: Alloy.Globals.config.backgroundColors.quaternary
 },
 "Label":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular,
-		fontSize: 13
-	},
-	textAlign: "left"
+	font: Alloy.Globals.config.typography.h3,
+	color: Alloy.Globals.config.foregroundColors.secondary
 },
 "Label[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
-},
-"Button":{
-	width: "90%",
-	height: 50,
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular
-	},
-	borderRadius: 5
 },
 "Button[platform=ios]":{
 	style: Ti.UI.iPhone.SystemButtonStyle.PLAIN
@@ -64,10 +60,6 @@
 },
 ".touch-disabled":{
 	touchEnabled: false
-},
-".rounded-corner-4":{
-	borderRadius: 4,
-	borderWidth: 1
 },
 /**
 * 	Visibility
@@ -90,193 +82,23 @@
 ".no-hwrap":{
 	horizontalWrap: false
 },
+/**
+* 	Grid helpers
+*/
 ".fill":{
 	width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-},
-".fill-width":{
-	width: Ti.UI.FILL
-},
-".fill-height":{
 	height: Ti.UI.FILL
 },
 ".auto":{
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE
 },
+// Width Helpers
+".fill-width":{
+	width: Ti.UI.FILL
+},
 ".auto-width":{
 	width: Ti.UI.SIZE
-},
-".auto-height":{
-	height: Ti.UI.SIZE
-},
-".top":{
-	top: 0
-},
-".bottom":{
-	bottom: 0
-},
-".left":{
-	left: 0
-},
-".right":{
-	right: 0
-},
-".top-5":{
-	top: 5
-},
-".bottom-5":{
-	bottom: 5
-},
-".left-5":{
-	left: 5
-},
-".right-5":{
-	right: 5
-},
-".top-10":{
-	top: 10
-},
-".bottom-10":{
-	bottom: 10
-},
-".left-10":{
-	left: 10
-},
-".right-10":{
-	right: 10
-},
-".top-15":{
-	top: 15
-},
-".bottom-15":{
-	bottom: 15
-},
-".left-15":{
-	left: 15
-},
-".right-15":{
-	right: 15
-},
-".top-20":{
-	top: 20
-},
-".bottom-20":{
-	bottom: 20
-},
-".left-20":{
-	left: 20
-},
-".right-20":{
-	right: 20
-},
-".left-25":{
-	left: 25
-},
-".right-25":{
-	right: 25
-},
-".top-50":{
-	top: 50
-},
-/**
-* spacer & separators
-*/
-".hspacer":{
-	width: 20
-},
-".vspacer":{
-	height: 20
-},
-".hseparator":{
-	height: 1,
-	backgroundColor: "#8b8b8b"
-},
-".vseparator":{
-	width: 1,
-	backgroundColor: "#8b8b8b"
-},
-/**
-* text alignment
-*/
-".text-left":{
-	textAlign: "left"
-},
-".text-center":{
-	textAlign: "center"
-},
-".text-right":{
-	textAlign: "right"
-},
-/**
-* enable multi line
-*/
-".multi-line[platform=android,mobileweb]":{
-	ellipsize: false,
-	wordWrap: true
-},
-/**
-* 	fonts
-*/
-".font-light":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.light
-	}
-},
-".font-regular":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular
-	}
-},
-".normal":{
-	font:{
-		fontWeight: "normal"
-	}
-},
-".bold":{
-	font:{
-		fontWeight: "bold"
-	}
-},
-/**
-* 	Typography
-*/
-".h1":{
-	font:{
-		fontSize: 24
-	}
-},
-".h2":{
-	font:{
-		fontSize: 20
-	}
-},
-".h3":{
-	font:{
-		fontSize: 18
-	}
-},
-".h4":{
-	font:{
-		fontSize: 14
-	}
-},
-".h5":{
-	font:{
-		fontSize: 12
-	}
-},
-".h6":{
-	font:{
-		fontSize: 10
-	}
-},
-/**
-* 	Grid helpers
-*/
-// Width Helpers
-".width-20d":{
-	width: 20
 },
 ".width-1":{
 	width: "1%"
@@ -342,8 +164,14 @@
 	width: "100%"
 },
 // Height helpers
-".height-50d":{
-	height: 50
+".fill-height":{
+	height: Ti.UI.FILL
+},
+".auto-height":{
+	height: Ti.UI.SIZE
+},
+".height-default":{
+	height: Alloy.Globals.config.contentHeight
 },
 ".height-1":{
 	height: "1%"
@@ -408,212 +236,431 @@
 ".height-100":{
 	height: "100%"
 },
-/*
-* Border Classes
+/**
+* 	Padding / Margin
 */
-".no-border":{
-	borderColor: "transparent",
-	borderWidth: 0,
-	borderRadius: 0
+".top":{
+	top: 0
 },
-".border-transparent":{
-	borderColor: "transparent"
+".bottom":{
+	bottom: 0
 },
-".border-gray":{
-	borderColor: "#8b8b8b"
+".left":{
+	left: 0
 },
-".border-orange":{
-	borderColor: "#F79538"
+".right":{
+	right: 0
+},
+".padding-left":{
+	left: Alloy.Globals.config.padding.left
+},
+".padding-right":{
+	right: Alloy.Globals.config.padding.right
+},
+".margin-left":{
+	left: Alloy.Globals.config.margin.left
+},
+".margin-right":{
+	right: Alloy.Globals.config.margin.right
+},
+".margin-top":{
+	top: Alloy.Globals.config.margin.top
+},
+".margin-bottom":{
+	bottom: Alloy.Globals.config.margin.bottom
+},
+/**
+* spacer & separators
+*/
+".hspacer":{
+	width: Alloy.Globals.config.margin.left
+},
+".vspacer":{
+	height: Alloy.Globals.config.margin.top
+},
+".hseparator":{
+	height: 1,
+	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
+},
+".vseparator":{
+	width: 1,
+	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
+},
+/**
+* text alignment
+*/
+".text-left":{
+	textAlign: "left"
+},
+".text-center":{
+	textAlign: "center"
+},
+".text-right":{
+	textAlign: "right"
+},
+/**
+* enable multi line
+*/
+".multi-line[platform=android,mobileweb]":{
+	ellipsize: false,
+	wordWrap: true
+},
+/**
+* 	fonts
+*/
+".font-icon":{
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 24
+	}
+},
+".font-light":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.light
+	}
+},
+".font-light-italic":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.lightItalic
+	}
+},
+".font-regular":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.regular
+	}
+},
+".font-bold":{
+	font:{
+		fontFamily: Alloy.CFG.fonts.bold
+	}
+},
+".normal":{
+	font:{
+		fontWeight: "normal"
+	}
+},
+".bold":{
+	font:{
+		fontWeight: "bold"
+	}
+},
+/**
+* 	Typography
+*/
+".h1":{
+	font: Alloy.Globals.config.typography.h1
+},
+".h2":{
+	font: Alloy.Globals.config.typography.h2
+},
+".h3":{
+	font: Alloy.Globals.config.typography.h3
+},
+".h4":{
+	font: Alloy.Globals.config.typography.h4
+},
+".h5":{
+	font: Alloy.Globals.config.typography.h5
+},
+".h6":{
+	font: Alloy.Globals.config.typography.h5
 },
 /*
 * Color Classes
 */
-".white":{
-	color: "#ffffff"
+//primary Color
+".color-primary":{
+	color: Alloy.Globals.config.foregroundColors.primary
 },
-".black":{
-	color: "#000000"
+".color-secondary":{
+	color: Alloy.Globals.config.foregroundColors.secondary
 },
-".red":{
-	color: "#ae331f"
+".color-tertiary":{
+	color: Alloy.Globals.config.foregroundColors.tertiary
 },
-".orange":{
-	color: "#F79538"
-},
-".gray":{
-	color: "#8b8b8b"
-},
-".alto":{
-	color: "#D0D0D0"
-},
-".cloudy":{
-	color: "#A39D9A"
-},
-".gulfstream":{
-	color: "#7EB4B5"
-},
-".malibu":{
-	color: "#56BCFB"
+".color-quaternary":{
+	color: Alloy.Globals.config.foregroundColors.quaternary
 },
 /*
 * backgroundColor Classes
 */
+//transparent background
 ".bg-transparent":{
 	backgroundColor: "transparent"
 },
-".bg-white":{
-	backgroundColor: "#ffffff"
+".bg-primary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.primary
 },
-".bg-black":{
-	backgroundColor: "#000000"
+//data entry tips background & retired Buttons
+".bg-secondary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.secondary
 },
-".bg-red":{
-	backgroundColor: "#ae331f"
+//notification page icons
+".bg-tertiary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.tertiary
 },
-".bg-armadillo":{
-	backgroundColor: "#50473D"
+//options background
+".bg-quaternary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
 },
-".bg-wildwillow":{
-	backgroundColor: "#9ACF6C"
+//info button, section header & prompt background
+".bg-quinary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.quinary
 },
-".bg-aeroblue":{
-	backgroundColor: "#CBFCE4"
+//form group input background
+".bg-senary":{
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary
 },
-".bg-orange":{
-	backgroundColor: "#F79538"
+/*
+* Border Classes
+*/
+".no-border":{
+	borderWidth: 0,
+	borderColor: "transparent"
 },
-".bg-gallery":{
-	backgroundColor: "#ECECEC"
+".border-transparent":{
+	borderColor: "transparent"
 },
-".bg-malibu":{
-	backgroundColor: "#56BCFB"
+".border-primay":{
+	borderColor: Alloy.Globals.config.borderColors.primary
+},
+".border-secondary":{
+	borderColor: Alloy.Globals.config.borderColors.secondary
 },
 /**
 * 	Tempalte View
 */
 ".template-view":{
-	backgroundColor: "#fff",
+	backgroundColor: "#FFFFFF",
 	width: "100%",
 	zIndex: 1
-},
-".nav-bar":{
-	top: 0,
-	height: Alloy.CFG.navBarHeight,
-	zIndex: 1
-},
-".nav-bar-view":{
-	top: Alloy.CFG.navBarTop
-},
-".nav-bar-title-lbl[platform=ios]":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular
-	}
-},
-".nav-bar-title-lbl[platform=android,mobileweb]":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.light
-	}
-},
-".nav-bar-title-img":{
-	width: Ti.UI.SIZE,
-	height: 40
-},
-".nav-bar-left-view":{
-	left: 0,
-	width: 60
 },
 ".template-content-view":{
 	top: Alloy.CFG.navBarHeight,
 	zIndex: 1
 },
-".hamburger":{
-	width: 40,
-	image: "/images/hamburger.png",
-	touchEnabled: false
-},
-".back":{
-	left: 5,
-	width: 30,
-	image: "/images/left_angle_white.png",
-	touchEnabled: false
-}
 /*
-*navbar button
+*navbar
 */
-".nav-bar-right-view":{
+".nav-bar":{
+	top: 0,
+	height: Alloy.CFG.navBarHeight,
+	backgroundColor: Alloy.Globals.config.backgroundColors.primary,
+	zIndex: 1
+},
+".nav-bar-view":{
+	top: Alloy.CFG.navBarTop
+},
+".nav-bar-title-lbl":{
+	left: 102,
+	right: 102,
+	height: 40,
+	font: Alloy.Globals.config.typography.h2,
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary
+},
+".nav-bar-left-icon":{
+	left: 0,
+	width: 60,
+	height: Ti.UI.FILL,
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 24
+	},
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: "transparent",
+	role: "navBar"
+},
+".nav-bar-right-icon":{
 	right: 0,
 	width: 60,
+	height: Ti.UI.FILL,
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 24
+	},
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary,
+	role: "navBar"
+},
+".nav-bar-left-btn":{
+	right: 0,
+	width: 86,
 	height: 40,
+	font: Alloy.Globals.config.typography.h3,
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: "transparent",
 	role: "navBar"
 },
 ".nav-bar-right-btn":{
 	right: 0,
-	width: 60,
-	height: 25,
-	color: "#fff",
+	width: 86,
+	height: 40,
+	font: Alloy.Globals.config.typography.h3,
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary,
 	backgroundColor: "transparent",
-	borderColor: "transparent",
 	role: "navBar"
 },
-".nav-bar-right-btn[platform=ios]":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.regular,
-		fontSize: 17
-	}
-},
-".nav-bar-right-btn[platform=android,mobileweb]":{
-	font:{
-		fontFamily: Alloy.CFG.fonts.light,
-		fontSize: 17
-	}
-},
 /*
-*button with image on left / right
+*button with icon on left / right
 */
-".button-view":{
-	height: 50,
-	borderRadius: 5
+".btn-view":{
+	top: 24,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight
 },
-".button-img":{
-	left: 10,
-	width: 50,
-	touchEnabled: false
-},
-".button-title":{
-	left: 10,
-	touchEnabled: false
-},
-".button-img-left":{
-	left: 10,
-	width: 50,
-	touchEnabled: false
-},
-".button-title-left":{
-	left: 65,
+".btn-icon-left":{
+	left: Alloy.Globals.config.margin.left,
+	width: 24,
 	font:{
-		fontSize: 17
+		fontFamily: "mscripts",
+		fontSize: 24
 	},
 	touchEnabled: false
 },
-".button-img-right":{
-	right: 10,
-	width: 50,
+".btn-title-right":{
+	left: 56,
+	right: Alloy.Globals.config.margin.right,
 	touchEnabled: false
 },
-".button-title-right":{
-	right: 65,
+".btn-title-left":{
+	left: Alloy.Globals.config.margin.left,
+	right: 56,
+	touchEnabled: false
+},
+".btn-icon-right":{
+	right: Alloy.Globals.config.margin.right,
+	width: 24,
 	font:{
-		fontSize: 17
+		fontFamily: "mscripts",
+		fontSize: 24
 	},
 	touchEnabled: false
 },
 /**
+* 	form group
+*/
+".form-group":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Ti.UI.SIZE,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderColor: Alloy.Globals.config.borderColors.secondary,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+/**
+* 	text fields
+*/
+".txt":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h3,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderColor: Alloy.Globals.config.borderColors.secondary,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+".form-txt":{
+	width: Ti.UI.FILL,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h3,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	borderWidth: 0,
+	borderColor: "transparent"
+},
+".form-txt-w50":{
+	width: "50%",
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h3,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	borderWidth: 0,
+	borderColor: "transparent"
+},
+/**
+ * 	switch
+ */
+".swt":{
+	enabledColor: Alloy.Globals.config.switchEnabledColor
+},
+/**
+* 	buttons
+*/
+".btn-primary":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h4,
+	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.primary,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+".btn-secondary":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h4,
+	color: Alloy.Globals.config.foregroundColors.tertiary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+/**
+* 	styled label
+*/
+".styled-title":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Ti.UI.SIZE,
+	font: Alloy.Globals.config.typography.h2,
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary
+},
+".styled-lbl":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Ti.UI.SIZE,
+	font: Alloy.Globals.config.typography.h3,
+	textAlign: "center",
+	color: Alloy.Globals.config.foregroundColors.primary
+},
+/**
+* 	table / list view
+*/
+".list-item-title":{
+	left: Alloy.Globals.config.margin.left,
+	right: 44,
+	height: Ti.UI.SIZE,
+	font: Alloy.Globals.config.typography.h3,
+	textAlign: "left",
+	color: Alloy.Globals.config.foregroundColors.secondary
+},
+".list-item-title[platform=android,mobileweb]":{
+	ellipsize: false,
+	wordWrap: true
+},
+/**
 * 	child symbol on table / list view
 */
-".child":{
-	right: 5,
-	width: 15,
-	image: "/images/right_angle_gray.png"
+".list-item-child":{
+	right: Alloy.Globals.config.margin.right,
+	width: 12,
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 12
+	},
+	color: Alloy.Globals.config.foregroundColors.quaternary,
+	text: Alloy.CFG.icons.graterthan
 },
 /**
 * 	under-construction

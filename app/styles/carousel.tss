@@ -5,14 +5,14 @@
 },
 "#pagingControl":{
 	length: 4,
-	color: "#e8e5e5",
-	selectedColor: "#EAD5C2"
+	color: Alloy.Globals.config.backgroundColors.quaternary,
+	selectedColor: Alloy.Globals.config.backgroundColors.primary
 },
 "#buttonbar":{
 	height: 45,
 	toggleMode: false,
 	separatorStyle: {
-		backgroundColor: "#fff"
+		backgroundColor: Alloy.Globals.config.backgroundColors.senary,
 	},
 	items: [
 		{
@@ -27,7 +27,6 @@
 "#refillLbl":{
 	text: Alloy.Globals.strings.lblRefillWithoutLogin
 },
-"#refillImg":{
-	width: 20,
-	image: "/images/right_arrow_orange.png"
+"#iconLbl":{
+	text: Alloy.CFG.icons.thick_refill
 }

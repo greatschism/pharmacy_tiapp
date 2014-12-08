@@ -16,117 +16,46 @@
 				"url": "url_to_download"
 			}
 		],
-		"navigator": "hamburger",
+		"iconSet": "thick",
+		"icons": {
+			"hamburger": "R",
+			"back": "!",
+			"home": "s",
+			"graterthan": "u",
+			"search": "Q",
+			"favorite": "p",
+			"nonfavorite": "P",
+			"clock": "L",
+			"calendar": "M",
+			"camera": "<",
+			"reward": ">",
+			"userlist": "w",
+			"thick_prescriptions": "A",
+			"thick_refill": "B",
+			"thick_pharmacies": "C",
+			"thick_transfer": "D",
+			"thick_doctors": "E",
+			"thick_reminder": "F",
+			"thick_coupon": "G",
+			"thick_account": "H",
+			"thick_feedback": "I",
+			"thick_notification": "Y",
+			"thin_prescriptions": "a",
+			"thick_refillcamera": "&",
+			"thin_refill": "b",
+			"thin_pharmacies": "c",
+			"thin_transfer": "d",
+			"thin_doctors": "e",
+			"thin_reminder": "f",
+			"thin_coupon": "g",
+			"thin_account": "h",
+			"thin_feedback": "i",
+			"thin_notification": "y",
+			"thin_refillcamera": "$"
+		},
 		"buildVersion": "${version}",
 		"buildDate": "${BUILD_DATE}",
 		"buildNumber": "${BUILD_NUMBER}",
-		"menuItems": [
-			{
-				"titleid": "titleHome",
-				"ctrl": "home",
-				"leftImage": "/images/home_white.png",
-				"requiresLogin": false,
-				"landingPage": true
-			}, {
-				"titleid": "strPrescriptions",
-				"ctrl": "prescriptions",
-				"leftImage": "/images/pill_white.png",
-				"requiresLogin": true
-			}, {
-				"titleid": "strReminders",
-				"action": "reminders",
-				"leftImage": "/images/reminder_white.png"
-			}, {
-				"titleid": "titlePharmacyRewards",
-				"action": "pharmacyRewards",
-				"leftImage": "/images/reward_white.png"
-			}, {
-				"titleid": "titleCoupons",
-				"action": "coupons",
-				"leftImage": "/images/coupon_white.png"
-			}, {
-				"titleid": "titleFamilyAccounts",
-				"action": "familyAccounts",
-				"leftImage": "/images/family_white.png"
-			}, {
-				"titleid": "titleTransferPrescription",
-				"action": "transferPrescription",
-				"leftImage": "/images/transfer_white.png"
-			}, {
-				"titleid": "titleDoctors",
-				"ctrl": "doctors",
-				"leftImage": "/images/doctor_white.png",
-				"requiresLogin": true
-			}, {
-				"titleid": "titleRefillViaCamera",
-				"action": "refillViaCamera",
-				"leftImage": "/images/camera_white.png"
-			}, {
-				"titleid": "titleStores",
-				"ctrl": "stores",
-				"leftImage": "/images/pharmacy_white.png",
-				"requiresLogin": false
-			}, {
-				"titleid": "titleAccount",
-				"ctrl": "account",
-				"leftImage": "/images/account_white.png",
-				"requiresLogin": true
-			}
-		],
-		"icons": [
-			[
-				{
-					"image": "my_prescriptions.png",
-					"navigation": {
-						"titleid": "strPrescriptions",
-						"ctrl": "prescriptions",
-						"requiresLogin": true
-					}
-				}
-			],
-			[
-				{
-					"image": "refill_from_a_number.png"
-				}, {
-					"image": "transfer.png"
-				}
-			],
-			[
-				{
-					"image": "pharmacy_rewards.png"
-				}, {
-					"image": "finda_pharmacy.png",
-					"navigation": {
-						"titleid": "titleStores",
-						"ctrl": "stores",
-						"requiresLogin": false
-					}
-				}, {
-					"image": "generics.png"
-				}
-			],
-			[
-				{
-					"image": "flu_shots.png"
-				}
-			],
-			[
-				{
-					"image": "clinic.png"
-				}
-			],
-			[
-				{
-					"image": "wellness_guide.png"
-				}
-			],
-			[
-				{
-					"image": "shop_target.png"
-				}
-			]
-		],
-		"DUE_FOR_REFILL_IN_DAYS": 7,
 		"ANIMATION_DURATION": 300,
 		"enableAnalytic": true
 	},
@@ -137,8 +66,8 @@
 		"navBarHeight": 48,
 		"navBarTop": 0,
 		"fonts": {
-			"light": "Roboto-Light",
-			"regular": "Roboto-Regular"
+			"regular": "Roboto-Regular",
+			"medium": "Roboto-Medium"
 		}
 	},
 	"os:blackberry": {},
@@ -146,18 +75,16 @@
 		"navBarHeight": 68,
 		"navBarTop": 15,
 		"fonts": {
-			"light": "Lato-Light",
 			"regular": "Lato-Regular",
-			"lightItalic": "Lato-LightItalic",
-			"bold": "Lato-Bold"
+			"medium": "Lato-Bold"
 		}
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
 		"fonts": {
-			"light": "Roboto-Light",
-			"regular": "Roboto-Regular"
+			"regular": "Roboto-Regular",
+			"medium": "Roboto-Medium"
 		}
 	},
 	"dependencies": {

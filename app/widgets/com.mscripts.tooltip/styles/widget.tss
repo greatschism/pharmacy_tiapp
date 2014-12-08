@@ -1,16 +1,18 @@
 "#widget":{
-	width: "90%",
-	height: 70,
+	width: "95%",
+	height: 86,
 	zIndex: 0,
 	opacity: 0,
-	visible: false,
+	visible: false
 },
 "#containerView":{
-	bottom: 15,
-	backgroundColor: "#3d3d3d"
+	layout: "vertical"
 },
 "#label":{
-	width: "90%",
+	top: 16,
+	left: 16,
+	right: 16,
+	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	font:{
 		fontSize: 13
@@ -22,8 +24,15 @@
 	ellipsize: false,
 	wordWrap: true
 },
-"#edgeImg":{
-	bottom: 0,
-	height: 20,
-	image: WPATH( "down.png")
+"#arrowLbl":{
+	width: 24,
+	height: 24,
+	font: {
+		fontFamily: "mscripts",
+		fontSize: 24
+	},
+	color: "#3d3d3d"
+},
+"#spacer":{
+	height: 16
 }

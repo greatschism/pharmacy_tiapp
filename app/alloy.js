@@ -16,7 +16,7 @@
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
-	Alloy.Collections.menuItems = new Backbone.Collection(Alloy.CFG.menuItems);
+	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.storeHours = new Backbone.Collection();
 	Alloy.Collections.storeServices = new Backbone.Collection();
@@ -39,13 +39,64 @@
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("loggedIn");
 	});
 
-	Alloy.Globals.styles = {
-		colors : {
-			one : "#F7941E",
-			two : "#6D6E71",
-			three : "#808285",
-			four : "#C4C4C4",
-			five : "#EFEFF4"
+	//styles
+	Alloy.Globals.config = {
+		contentHeight : 48,
+		borderRadius : 6,
+		margin : {
+			top : 24,
+			bottom : 24,
+			left : 16,
+			right : 16
+		},
+		padding : {
+			left : 8,
+			right : 8
+		},
+		typography : {
+			h1 : {
+				fontFamily : Alloy.CFG.fonts.regular,
+				fontSize : 24
+			},
+			h2 : {
+				fontFamily : Alloy.CFG.fonts.medium,
+				fontSize : 20
+			},
+			h3 : {
+				fontFamily : Alloy.CFG.fonts.regular,
+				fontSize : 16
+			},
+			h4 : {
+				fontFamily : Alloy.CFG.fonts.medium,
+				fontSize : 14
+			},
+			h5 : {
+				fontFamily : Alloy.CFG.fonts.regular,
+				fontSize : 14
+			},
+			h6 : {
+				fontFamily : Alloy.CFG.fonts.regular,
+				fontSize : 12
+			}
+		},
+		switchTintColor : "#4bd865",
+		foregroundColors : {
+			primary : "#FFFFFF",
+			secondary : "#000000",
+			tertiary : "#F7941E",
+			quaternary : "#C4C4C4"
+		},
+		backgroundColors : {
+			primary : "#F7941E",
+			secondary : "#6D6E71",
+			tertiary : "#808285",
+			quaternary : "#C4C4C4",
+			quinary : "#EFEFF4",
+			senary : "#FFFFFF"
+		},
+		borderColors : {
+			primary : "#F7941E",
+			secondary : "#C4C4C4"
 		},
 		reminderColors : {
 			one : "#AF7AC4",
@@ -68,7 +119,92 @@
 		addColor : "#599DFF",
 		successColor : "#00A14B",
 		errorColor : "#ED1C24",
-		approvalColor : "#F6931E"
+		approvalColor : "#F6931E",
+		navigator : "hamburger",
+		menuItems : [{
+			titleid : "titleHome",
+			ctrl : "home",
+			icon : "home",
+			requiresLogin : false,
+			landingPage : true
+		}, {
+			titleid : "strPrescriptions",
+			ctrl : "prescriptions",
+			icon : "prescriptions",
+			requiresLogin : true
+		}, {
+			titleid : "strReminders",
+			action : "reminders",
+			icon : "reminder"
+		}, {
+			titleid : "titlePharmacyRewards",
+			action : "pharmacyRewards",
+			icon : "reward"
+		}, {
+			titleid : "titleCoupons",
+			action : "coupons",
+			icon : "coupon"
+		}, {
+			titleid : "titleFamilyAccounts",
+			action : "familyAccounts",
+			icon : "userlist"
+		}, {
+			titleid : "titleTransferPrescription",
+			action : "transferPrescription",
+			icon : "transfer"
+		}, {
+			titleid : "titleDoctors",
+			ctrl : "doctors",
+			icon : "doctors",
+			requiresLogin : true
+		}, {
+			titleid : "titleRefillViaCamera",
+			action : "refillViaCamera",
+			icon : "refillcamera"
+		}, {
+			titleid : "titleStores",
+			ctrl : "stores",
+			icon : "pharmacies",
+			requiresLogin : false
+		}, {
+			titleid : "titleAccount",
+			ctrl : "account",
+			icon : "account",
+			requiresLogin : true
+		}],
+		homeItems : [[{
+			image : "my_prescriptions.png",
+			navigation : {
+				titleid : "strPrescriptions",
+				ctrl : "prescriptions",
+				requiresLogin : true
+			}
+		}], [{
+			image : "refill_from_a_number.png"
+		}, {
+			image : "transfer.png"
+		}], [{
+			image : "pharmacy_rewards.png"
+		}, {
+			image : "finda_pharmacy.png",
+			navigation : {
+				titleid : "titleStores",
+				ctrl : "stores",
+				requiresLogin : false
+			}
+		}, {
+			image : "generics.png"
+		}], [{
+			image : "flu_shots.png"
+		}], [{
+			image : "clinic.png"
+		}], [{
+			image : "wellness_guide.png"
+		}], [{
+			image : "shop_target.png"
+		}]],
+		DUE_FOR_REFILL_IN_DAYS : 7
 	};
+	Alloy.Collections.menuItems.reset(Alloy.Globals.config.menuItems);
 
 })();

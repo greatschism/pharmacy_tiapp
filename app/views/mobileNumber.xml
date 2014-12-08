@@ -1,8 +1,8 @@
 <Alloy>
-	<View class="vgroup bg-orange">
-		<Label id="titleLbl" class="top-10 width-95 auto-height multi-line h1 white text-center" />
-		<Label id="hintLbl" class="top-20 width-95 auto-height multi-line font-light h3 white text-center" />
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="top-20 width-100 height-50d black h3 font-regular bg-white" onReturn="didClickContinue" />
-		<Button id="continueBtn" class="top-20 width-90 bg-white orange h2" onClick="didClickContinue" />
+	<View class="vgroup bg-primary">
+		<Label id="titleLbl" class="styled-title multi-line" />
+		<Label id="hintLbl" class="styled-lbl multi-line" />
+		<Widget id="mobileTxt" src="com.mscripts.textfield" class="txt" onReturn="didClickContinue" />
+		<Button id="continueBtn" class="btn-secondary" onClick="didClickContinue" />
 	</View>
 </Alloy>

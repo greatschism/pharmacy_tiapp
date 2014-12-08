@@ -1,8 +1,8 @@
 <Alloy>
-	<View class="vgroup bg-orange">
-		<Label id="hintLbl" class="top-20 width-90 auto-height multi-line font-light h3 white text-center" />
-		<Widget id="emailTxt" src="com.mscripts.textfield" class="top-20 width-90 height-50d black h3 font-regular bg-white" />
-		<Button id="sendBtn" class="top-20 width-90 bg-white orange h2" />
-		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="top-50 width-90 auto-height font-light h3 white text-center" />
+	<View class="vgroup bg-primary">
+		<Label id="hintLbl" class="styled-lbl multi-line" />
+		<Widget id="emailTxt" src="com.mscripts.textfield" class="txt" />
+		<Button id="sendBtn" class="btn-secondary" />
+		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="styled-lbl" />
 	</View>
 </Alloy>

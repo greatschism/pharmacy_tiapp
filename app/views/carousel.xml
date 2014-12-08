@@ -1,16 +1,18 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<ScrollableView id="scrollableView" class="top-20" onScrollend="didScrollend">
-			<View class="bg-orange" />
-			<View class="bg-black" />
-			<View class="bg-red" />
-			<View class="bg-orange" />
-		</ScrollableView>
-		<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="top-20" onChange="didChangePage" />
-		<Widget id="buttonbar" class="top-20 border-transparent h2 font-regular bg-orange white" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
-		<View class="top-20 button-view auto-width hgroup">
-			<Label id="refillLbl" class="button-title h3 orange" />
-			<ImageView id="refillImg" class="button-img" />
+	<ScrollView>
+		<View class="vgroup margin-left margin-right">
+			<ScrollableView id="scrollableView" class="margin-top" onScrollend="didScrollend">
+				<View class="bg-primary" />
+				<View class="bg-quaternary" />
+				<View class="bg-quinary" />
+				<View class="bg-senary" />
+			</ScrollableView>
+			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-top" onChange="didChangePage" />
+			<Widget id="buttonbar" class="margin-top h4 border-transparent bg-primary color-primary" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
+			<View class="margin-top auto-width height-default hgroup">
+				<Label id="refillLbl" class="h4 color-tertiary" />
+				<Label id="iconLbl" class="margin-left font-icon color-tertiary" />
+			</View>
 		</View>
 	</ScrollView>
 </Alloy> 

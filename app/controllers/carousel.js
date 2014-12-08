@@ -18,6 +18,7 @@ function didClickButtonBar(e) {
 	if (action == "login") {
 		app.navigator.open({
 			ctrl : "login",
+			titleid: "strLogin",
 			stack : true
 		});
 	} else {

@@ -76,14 +76,12 @@ function didAuthenticate(result) {
 		action : "signout",
 		leftImage : "/images/logout_white.png"
 	});
-	if (app.navigator.name === Alloy.CFG.navigator) {
-		if (_.has(args, "navigateTo")) {
-			app.navigator.open(args.navigateTo);
-		} else {
-			app.navigator.close();
-		}
+	if (app.navigator.name === Alloy.Globals.config.navigator) {
+		app.navigator.open(args.navigateTo || Alloy.Collections.menuItems.where({
+		landingPage: true
+		})[0].toJSON());
 	} else {
-		Alloy.createController(Alloy.CFG.navigator + "/master");
+		Alloy.createController(Alloy.Globals.config.navigator + "/master");
 	}
 }
 

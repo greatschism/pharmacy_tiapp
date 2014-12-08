@@ -6,12 +6,12 @@ var args = arguments[0] || {},
 
 	var options;
 
-	if(OS_IOS || OS_MOBILEWEB){
+	if (OS_IOS || OS_MOBILEWEB) {
 		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 		if (!_.isEmpty(options)) {
 			$.lbl.applyProperties(options);
 		}
-	}else{
+	} else {
 		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 		if (!_.isEmpty(options)) {
 			$.widget.applyProperties(options);

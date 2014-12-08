@@ -1,6 +1,9 @@
 "#webView":{
 	scalesPageToFit: true,
-	bottom: 90
+	bottom: 120
+},
+"#footerView":{
+	height: 72
 },
 "#doneBtn":{
 	title: Alloy.Globals.strings.btnDone

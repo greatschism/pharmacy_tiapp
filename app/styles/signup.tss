@@ -37,7 +37,6 @@
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#toggleSwt":{
-	enabledColor: "#F79538",
 	value: true
 },
 "#agreementLbl":{

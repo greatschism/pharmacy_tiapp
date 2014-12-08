@@ -1,14 +1,10 @@
-"#logoImg":{
-	width: 75,
-	image: "/images/pharmacy_white.png"
-},
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblSignupAndGetRefillInSeconds
 },
 ".vseparator":{
 	zIndex: 1
 },
-".txt":{
+".return-next":{
 	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
@@ -28,8 +24,10 @@
 	zIndex: 1
 },
 "#passwordTooltip":{
-	top: 50,
+	top: 40,
 	text: Alloy.Globals.strings.msgPasswordTips,
+	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.secondary,
 	zIndex: 2
 },
 "#emailTxt":{
@@ -48,7 +46,6 @@
 	passwordMask: true
 },
 "#toggleSwt":{
-	enabledColor: "#F79538",
 	value: true
 },
 "#rxNoTxt":{
@@ -56,12 +53,7 @@
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#locationLbl":{
-	left: 8,
-	right: 40,
 	text: Alloy.Globals.strings.hintPharmacyLocation
-},
-"#downImg":{
-	image: "/images/down_angle_gray.png"
 },
 "#agreementLbl":{
 	html: Alloy.Globals.strings.lblSignupAgreement

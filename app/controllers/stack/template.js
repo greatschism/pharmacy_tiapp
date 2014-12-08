@@ -1,26 +1,16 @@
 var args = arguments[0] || {},
+    icons = Alloy.CFG.icons,
     app = require("core"),
     controller;
 
 (function() {
-
-	if (args.titleImage) {
-		$.titleImg = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			classes : ["nav-bar-title-img"]
-		});
-		$.titleImg.image = args.titleImage;
-		$.navBarView.add($.titleImg);
-	} else {
-		$.titleLbl.text = args.title || Alloy.Globals.strings[args.titleid || ""];
-	}
 
 	if (args.navBarHidden === true) {
 		hideNavBar(false);
 	}
 
 	if (args.stack) {
-		$.addClass($.leftImg, "back");
+		$.leftBtn.text = icons.back;
 		$.template.applyProperties({
 			opacity : 0,
 			left : app.device.width
@@ -28,12 +18,15 @@ var args = arguments[0] || {},
 	}
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
-	var children = controller.getTopLevelViews();
+	var children = controller.getTopLevelViews(),
+	    title = args.title || Alloy.Globals.strings[args.titleid || ""] || "",
+	    navBarItems = 0;
 	for (var i in children) {
-		var view = children[i].__controllerPath ? children[i].getView() : children[i];
-		var role = children[i].role;
+		var view = children[i].__controllerPath ? children[i].getView() : children[i],
+		    role = children[i].role;
 		switch(role) {
 		case "navBar":
+			navBarItems++;
 			$.navBarView.add(view);
 			break;
 		case "overlay":
@@ -43,12 +36,21 @@ var args = arguments[0] || {},
 			view && $.contentView.add(view);
 		}
 	}
+	if (title.length > 8 && navBarItems == 0) {
+		$.titleLbl.applyProperties({
+			left : 60,
+			right : 60,
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
 
 	_.isFunction(controller.setParentViews) && controller.setParentViews($.contentView);
 
 })();
 
-function didTap(e) {
+function didClickLeftBtn(e) {
 	if (args.stack) {
 		app.navigator.close();
 	}
