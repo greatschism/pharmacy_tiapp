@@ -7,7 +7,7 @@
     <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mcripts.appcelerator</id>
     <name>my Pharmacy</name>
-  	<version>$version</version><!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
+  	<version>1.0</version><!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
     <property name="buildDate" type="string">$BUILD_DATE</property> <!--  To be replaced before the build happens -->
     <publisher>mscripts</publisher>
     <url>http://www.mscripts.com</url>
