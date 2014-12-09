@@ -1,8 +1,8 @@
 <Alloy>
-	<View class="vgroup bg-primary">
+	<ScrollView class="vgroup bg-primary">
 		<Label id="titleLbl" class="styled-title multi-line" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<Widget id="mobileTxt" src="com.mscripts.textfield" class="txt" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="btn-secondary" onClick="didClickContinue" />
-	</View>
+	</ScrollView>
 </Alloy>
