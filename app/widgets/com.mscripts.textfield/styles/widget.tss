@@ -1,0 +1,66 @@
+"#widget": {
+	height: 48,
+	borderColor: "#8b8b8b",
+	borderWidth: 1
+},
+"#search":{
+	left: 8,
+	width: 20,
+	image: WPATH( "search.png")
+},
+"#rightImg":{
+	right: 8,
+	width: 20,
+	visible: false
+},
+"#rightBtn":{
+	right: 8,
+	height: Ti.UI.FILL,
+	backgroundColor: "transparent",
+	borderColor: "transparent"
+},
+"#txt":{
+	height: Ti.UI.FILL,
+	color: "#000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+	autocorrect: false,
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+},
+"#txt[platform=ios]":{
+	paddingLeft: 8,
+	paddingRight: 8
+},
+".txt-fill[platform=ios,android]":{
+	width: Ti.UI.FILL
+},
+".txt-left-right[platform=ios,android]":{
+	left: 28,
+	right: 28
+},
+".txt-left[platform=ios,android]":{
+	left: 28,
+	width: Ti.UI.FILL
+},
+".txt-right[platform=ios,android]":{
+	right: 28,
+	width: Ti.UI.FILL
+},
+".txt-fill[platform=mobileweb]":{
+	left: 10,
+	right: 10
+},
+".txt-left-right[platform=mobileweb]":{
+	left: 38,
+	right: 38
+},
+".txt-left[platform=mobileweb]":{
+	left: 38,
+	right: 10
+},
+".txt-right[platform=mobileweb]":{
+	left: 10,
+	right: 38
+}

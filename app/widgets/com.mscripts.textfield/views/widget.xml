@@ -1,0 +1,5 @@
+<Alloy>
+	<View>
+		<TextField id="txt" onFocus="didFocus" onBlur="didBlur" onChange="didChange" onReturn="didReturn" />
+	</View>
+</Alloy>
