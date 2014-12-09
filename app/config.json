@@ -53,9 +53,6 @@
 			"thin_notification": "y",
 			"thin_refillcamera": "$"
 		},
-		"buildVersion": "${version}",
-		"buildDate": "${BUILD_DATE}",
-		"buildNumber": "${BUILD_NUMBER}",
 		"ANIMATION_DURATION": 300,
 		"enableAnalytic": true
 	},
