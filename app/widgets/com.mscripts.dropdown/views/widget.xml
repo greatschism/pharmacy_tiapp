@@ -1,8 +1,6 @@
 <Alloy>
 	<View onClick="showPicker">
-		<View id="container">
-			<Label id="lbl" />
-		</View>
-		<ImageView id="rightImg" />
+		<Label id="lbl" />
+		<Label id="rightIcon" />
 	</View>
 </Alloy>

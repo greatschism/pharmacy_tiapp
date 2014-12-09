@@ -53,15 +53,17 @@
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
 "#locationLbl":{
+	right: 40,
 	text: Alloy.Globals.strings.hintPharmacyLocation
+},
+"#downLbl":{
+	width: 20,
+	text: Alloy.CFG.icons.down_arrow,
+	color: Alloy.Globals.config.borderColors.secondary
 },
 "#agreementLbl":{
 	html: Alloy.Globals.strings.lblSignupAgreement
 },
-"#singupLbl":{
-	text: Alloy.Globals.strings.strSignup
-},
-"#singupImg":{
-	width: 20,
-	image: "/images/right_arrow_orange.png"
+"#signupBtn":{
+	title: Alloy.Globals.strings.strSignup
 }

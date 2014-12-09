@@ -29,7 +29,8 @@
 			"calendar": "M",
 			"camera": "<",
 			"reward": ">",
-			"userlist": "w",
+			"users_list": "w",
+			"down_arrow": "\"",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",
@@ -41,7 +42,7 @@
 			"thick_feedback": "I",
 			"thick_notification": "Y",
 			"thin_prescriptions": "a",
-			"thick_refillcamera": "&",
+			"thick_refill_camera": "&",
 			"thin_refill": "b",
 			"thin_pharmacies": "c",
 			"thin_transfer": "d",
@@ -51,7 +52,7 @@
 			"thin_account": "h",
 			"thin_feedback": "i",
 			"thin_notification": "y",
-			"thin_refillcamera": "$"
+			"thin_refill_camera": "$"
 		},
 		"ANIMATION_DURATION": 300,
 		"enableAnalytic": true

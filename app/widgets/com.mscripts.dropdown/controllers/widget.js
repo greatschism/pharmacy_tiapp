@@ -17,21 +17,23 @@ var args = arguments[0] || {},
 	}
 
 	options = _.pick(args, ["font", "color"]);
-	if (!_.isEmpty(options)) {
-		$.lbl.applyProperties(options);
-	}
-
 	if (args.hintText) {
 		isHintText = true;
-		$.lbl.applyProperties({
+		_.extend(options, {
 			text : args.hintText,
-			color : "#A39D9A"
+			color : args.hintTextColor || "#A39D9A"
 		});
 	} else if (args.text) {
-		$.lbl.text = args.text;
+		_.extend(options, {
+			text : args.text
+		});
 	}
+	$.lbl.applyProperties(options);
 
-	$.rightImg.image = args.rightImage || WPATH("dropdown.png");
+	$.rightIcon.applyProperties({
+		text : args.rightIcon || "\"",
+		color : args.rightIconColor || "#000"
+	});
 
 	if (_.has(args, "parent")) {
 		setParentView(args.parent);
@@ -56,7 +58,7 @@ var args = arguments[0] || {},
 
 	if (OS_MOBILEWEB && args.type == Ti.UI.PICKER_TYPE_DATE) {
 		$.widget.removeEventListener("click", showPicker);
-		$.container.remove($.lbl);
+		$.widget.remove($.lbl);
 		var moment = require("alloy/moment");
 		picker = Ti.UI.createPicker({
 			width : Ti.UI.FILL,
@@ -69,7 +71,7 @@ var args = arguments[0] || {},
 			borderColor : "transparent",
 			borderWidth : 0
 		});
-		$.container.add(picker);
+		$.widget.add(picker);
 	}
 
 })();

@@ -3,6 +3,6 @@
 		<Label id="titleLbl" class="styled-title multi-line" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<Widget id="mobileTxt" src="com.mscripts.textfield" class="txt" onReturn="didClickContinue" />
-		<Button id="continueBtn" class="btn-secondary" onClick="didClickContinue" />
+		<Button id="continueBtn" class="margin-bottom btn-secondary" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>

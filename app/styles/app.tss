@@ -314,6 +314,12 @@
 		fontSize: 24
 	}
 },
+".font-icon-tiny":{
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 12
+	}
+},
 ".font-light":{
 	font:{
 		fontFamily: Alloy.CFG.fonts.light
@@ -573,20 +579,48 @@
 	height: Alloy.Globals.config.contentHeight,
 	font: Alloy.Globals.config.typography.h3,
 	color: Alloy.Globals.config.foregroundColors.secondary,
-	borderWidth: 0,
-	borderColor: "transparent"
+	borderColor: "transparent",
+	borderWidth: 0
 },
 ".form-txt-w50":{
 	width: "50%",
 	height: Alloy.Globals.config.contentHeight,
 	font: Alloy.Globals.config.typography.h3,
 	color: Alloy.Globals.config.foregroundColors.secondary,
-	borderWidth: 0,
-	borderColor: "transparent"
+	borderColor: "transparent",
+	borderWidth: 0
 },
 /**
- * 	switch
- */
+* 	dropdown
+*/
+".dropdown":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h3,
+	hintTextColor: Alloy.Globals.config.foregroundColors.quaternary,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	rightIcon: Alloy.CFG.icons.down_arrow,
+	rightIconColor: Alloy.Globals.config.borderColors.secondary,
+	borderColor: Alloy.Globals.config.borderColors.secondary,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+".form-dropdown":{
+	width: Ti.UI.FILL,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h3,
+	hintTextColor: Alloy.Globals.config.foregroundColors.quaternary,
+	color: Alloy.Globals.config.foregroundColors.secondary,
+	rightIcon: Alloy.CFG.icons.down_arrow,
+	rightIconColor: Alloy.Globals.config.borderColors.secondary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderColor: "transparent",
+	borderWidth: 0
+},
+/**
+* 	switch
+*/
 ".swt":{
 	enabledColor: Alloy.Globals.config.switchEnabledColor
 },

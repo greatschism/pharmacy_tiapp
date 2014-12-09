@@ -12,7 +12,6 @@
 			</View>
 		</View>
 		<Button id="loginBtn" class="btn-secondary" onClick="didClickLogin" />
-		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="styled-lbl" onClick="didClickSignup" />
-		<View class="vspacer" />
+		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-lbl" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

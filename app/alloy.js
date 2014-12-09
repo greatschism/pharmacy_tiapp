@@ -147,7 +147,7 @@
 		}, {
 			titleid : "titleFamilyAccounts",
 			action : "familyAccounts",
-			icon : "userlist"
+			icon : "users_list"
 		}, {
 			titleid : "titleTransferPrescription",
 			action : "transferPrescription",
@@ -160,7 +160,7 @@
 		}, {
 			titleid : "titleRefillViaCamera",
 			action : "refillViaCamera",
-			icon : "refillcamera"
+			icon : "refill_camera"
 		}, {
 			titleid : "titleStores",
 			ctrl : "stores",

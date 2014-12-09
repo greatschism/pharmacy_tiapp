@@ -1,7 +1,7 @@
 <Alloy>
 	<View>
 		<WebView id="webView" />
-		<View id="footerView" class="margin-bottom">
+		<View id="footerView" class="bottom">
 			<Button id="doneBtn" class="btn-primary" onClick="didClickDone" />
 		</View>
 	</View>

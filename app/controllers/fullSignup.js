@@ -6,7 +6,7 @@ function init() {
 	Alloy.Models.store.on("change", updateStore);
 }
 
-function setParentViews(view){
+function setParentViews(view) {
 	$.dob.setParentView(view);
 }
 
@@ -52,7 +52,7 @@ function chooseLocation(e) {
 function updateStore() {
 	if (locationFirstUpdate) {
 		locationFirstUpdate = false;
-		$.resetClass($.locationLbl, ["fill-width", "height-50d", "h3", "font-regular", "black", "touch-disabled"]);
+		$.locationLbl.color = Alloy.Globals.config.foregroundColors.secondary;
 	}
 	$.locationLbl.text = Alloy.Models.store.get("addressline1");
 }

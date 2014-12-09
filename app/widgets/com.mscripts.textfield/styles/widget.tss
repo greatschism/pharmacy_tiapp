@@ -5,8 +5,8 @@
 },
 "#search":{
 	left: 8,
-	width: 20,
-	image: WPATH( "search.png")
+	width: 24,
+	height: Ti.UI.FILL
 },
 "#rightImg":{
 	right: 8,
@@ -17,7 +17,8 @@
 	right: 8,
 	height: Ti.UI.FILL,
 	backgroundColor: "transparent",
-	borderColor: "transparent"
+	borderColor: "transparent",
+	visible: true
 },
 "#txt":{
 	height: Ti.UI.FILL,
@@ -37,11 +38,11 @@
 	width: Ti.UI.FILL
 },
 ".txt-left-right[platform=ios,android]":{
-	left: 28,
+	left: 32,
 	right: 28
 },
 ".txt-left[platform=ios,android]":{
-	left: 28,
+	left: 32,
 	width: Ti.UI.FILL
 },
 ".txt-right[platform=ios,android]":{
@@ -53,11 +54,11 @@
 	right: 10
 },
 ".txt-left-right[platform=mobileweb]":{
-	left: 38,
+	left: 42,
 	right: 38
 },
 ".txt-left[platform=mobileweb]":{
-	left: 38,
+	left: 42,
 	right: 10
 },
 ".txt-right[platform=mobileweb]":{

@@ -15,59 +15,61 @@ var args = arguments[0] || {};
 
 	$.addClass($.txt, "txt-" + cls);
 
-	if (args.search == true) {
-
-		$.widget.add($.UI.create("ImageView", {
-			apiName : "ImageView",
+	if (args.search == true || args.leftIcon) {
+		$.search = $.UI.create("Label", {
+			apiName : "Label",
 			id : "search"
-		}));
+		});
+		$.widget.add($.search);
+		$.search.applyProperties({
+			text : args.leftIcon || "Q",
+			font : args.leftIconFont || {
+				fontFamily : "mscripts",
+				fontSize : 24
+			},
+			color : args.leftIconColor || "#000"
+		});
 	}
 
-	if (args.clearButton == true || _.has(args, "rightImage")) {
+	if (_.has(args, "rightImage")) {
 
 		$.rightImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
 			id : "rightImg"
 		});
-
-		$.rightImg.image = args.clearButton ? WPATH("cancel.png") : args.rightImage;
-
+		var rightImgDict = {
+			image : args.rightImage,
+			visible : true
+		};
 		if (args.rightImageWidth) {
-			$.rightImg.width = args.rightImageWidth;
-			$.txt.right = $.rightImg.width;
+			rightImgDict.width = args.rightImageWidth;
+			$.txt.right = rightImgDict.width + 10;
 		}
-
+		$.rightImg.applyProperties(rightImgDict);
 		$.widget.add($.rightImg);
+		$.rightImg.addEventListener("singletap", didClick);
 
-		var listener;
-		if (args.clearButton == true) {
-			listener = didClear;
-		} else {
-			$.rightImg.visible = true;
-			listener = didClick;
-		}
-
-		$.rightImg.addEventListener("singletap", listener);
-
-	} else if (_.has(args, "rightButtonTitle")) {
+	} else if (args.clearButton == true || _.has(args, "rightButtonTitle")) {
 
 		$.rightBtn = $.UI.create("Button", {
 			apiName : "Button",
 			id : "rightBtn"
 		});
 		$.rightBtn.applyProperties({
-			title : args.rightButtonTitle,
+			title : args.rightButtonTitle || "*",
 			width : args.rightButtonWidth || 50,
-			font : args.rightButtonFont || args.font || {
+			font : args.rightButtonFont || args.rightButtonTitle ? args.font || {
 				fontSize : 12
+			} : {
+				fontFamily : "mscripts",
+				fontSize : 24
 			},
-			color : args.rightButtonColor || "#000"
+			color : args.rightButtonColor || "#000",
+			visible : !args.clearButton
 		});
 		$.widget.add($.rightBtn);
-
 		$.txt.right = $.rightBtn.width + 10;
-
-		$.rightBtn.addEventListener("click", didClick);
+		$.rightBtn.addEventListener("click", args.clearButton ? didClear : didClick);
 	}
 
 	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "opacity", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
@@ -96,7 +98,7 @@ function didBlur(e) {
 function didChange(e) {
 	$.trigger("change");
 	if (args.clearButton == true) {
-		$.rightImg.visible = $.txt.getValue() != "";
+		$.rightBtn.visible = $.txt.getValue() != "";
 	}
 }
 
@@ -108,7 +110,7 @@ function didReturn(e) {
 
 function didClear(e) {
 	$.txt.setValue("");
-	$.rightImg.visible = false;
+	$.rightBtn.visible = false;
 	$.trigger("clear");
 }
 
@@ -127,7 +129,7 @@ function blur() {
 function setValue(value) {
 	$.txt.setValue(value);
 	if (args.clearButton == true) {
-		$.rightImg.visible = $.txt.getValue() != "";
+		$.rightBtn.visible = $.txt.getValue() != "";
 	}
 }
 
