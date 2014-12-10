@@ -11,12 +11,7 @@
 "#dob":{
 	hintText: Alloy.Globals.strings.hintDOB,
 	type: Ti.UI.PICKER_TYPE_DATE,
-	rightImage: "/images/down_angle_gray.png"
 },
-"#nextLbl":{
-	text: Alloy.Globals.strings.btnNext
-},
-"#nextImg":{
-	width: 20,
-	image: "/images/right_arrow_orange.png"
+"#nextBtn":{
+	title: Alloy.Globals.strings.btnNext
 }

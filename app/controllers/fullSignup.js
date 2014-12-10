@@ -12,6 +12,7 @@ function setParentViews(view) {
 
 function didClickSignup(e) {
 	app.navigator.open({
+		titleid: "titleVerifyMobileNumber",
 		ctrl : "textToApp",
 		stack : true
 	});

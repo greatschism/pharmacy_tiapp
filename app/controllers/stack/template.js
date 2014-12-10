@@ -10,7 +10,7 @@ var args = arguments[0] || {},
 	}
 
 	if (args.stack) {
-		$.leftBtn.text = icons.back;
+		$.leftBtn.title = icons.back;
 		$.template.applyProperties({
 			opacity : 0,
 			left : app.device.width

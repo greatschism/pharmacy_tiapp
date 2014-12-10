@@ -17,8 +17,7 @@
 },
 "#dob":{
 	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE,
-	rightImage: "/images/down_angle_gray.png"
+	type: Ti.UI.PICKER_TYPE_DATE
 },
 "#inputView":{
 	zIndex: 1
