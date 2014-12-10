@@ -320,6 +320,12 @@
 		fontSize: 12
 	}
 },
+".font-icon-large":{
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 75
+	}
+},
 ".font-light":{
 	font:{
 		fontFamily: Alloy.CFG.fonts.light

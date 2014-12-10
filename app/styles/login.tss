@@ -1,3 +1,6 @@
+"#titleIcon":{
+	text: Alloy.CFG.icons.thick_prescriptions
+},
 "#headerLbl":{
 	html: Alloy.Globals.strings.lblLoginToMobilePharmacy
 },

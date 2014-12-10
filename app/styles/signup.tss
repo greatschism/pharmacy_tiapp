@@ -1,25 +1,18 @@
-"#checkImg":{
-	width: 75,
-	image: "/images/checked.png"
+"#titleIcon":{
+	text: Alloy.CFG.icons.select
 },
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblGreatYourPhoneNumberIsConfirmed
-},
-".txt":{
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#inputView":{
 	zIndex: 1
 },
 "#passwordTooltip":{
+	top: 40,
 	text: Alloy.Globals.strings.msgPasswordTips,
+	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.secondary,
 	zIndex: 2
-},
-"#passwordTooltip[platform=ios,android]":{
-	top: 50
-},
-"#passwordTooltip[platform=mobileweb]":{
-	top: 105
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,

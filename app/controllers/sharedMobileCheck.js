@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core");
 
-function setParentViews(view){
+function setParentViews(view) {
 	$.dob.setParentView(view);
 }
 
@@ -12,6 +12,7 @@ function moveToNext(e) {
 
 function didClickNext(e) {
 	app.navigator.open({
+		titleid : "strSignup",
 		ctrl : "signup",
 		stack : true
 	});

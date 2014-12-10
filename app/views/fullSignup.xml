@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView id="scrollView" class="vgroup bg-primary">
+		<Label id="titleIcon" class="margin-top font-icon-large color-primary" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<View class="form-group vgroup">
 			<View class="height-default">
