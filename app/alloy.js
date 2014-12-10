@@ -50,34 +50,42 @@
 			right : 16
 		},
 		padding : {
+			top : 16,
+			bottom : 16,
 			left : 8,
 			right : 8
 		},
 		typography : {
 			h1 : {
 				fontFamily : Alloy.CFG.fonts.regular,
-				fontSize : 24
+				fontSize : 24,
 			},
+			heightH1 : 28,
 			h2 : {
 				fontFamily : Alloy.CFG.fonts.medium,
 				fontSize : 20
 			},
+			heightH2 : 24,
 			h3 : {
 				fontFamily : Alloy.CFG.fonts.regular,
 				fontSize : 16
 			},
+			heightH3 : 20,
 			h4 : {
 				fontFamily : Alloy.CFG.fonts.medium,
 				fontSize : 14
 			},
+			heightH4 : 18,
 			h5 : {
 				fontFamily : Alloy.CFG.fonts.regular,
 				fontSize : 14
 			},
+			heightH5 : 18,
 			h6 : {
 				fontFamily : Alloy.CFG.fonts.regular,
 				fontSize : 12
-			}
+			},
+			heightH6 : 16
 		},
 		switchTintColor : "#4bd865",
 		foregroundColors : {

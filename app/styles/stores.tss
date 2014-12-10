@@ -1,6 +1,5 @@
-"#toggleImg":{
-	image: "/images/map.png",
-	width: 40
+"#toggleBtn":{
+	title: Alloy.CFG.icons.map
 },
 "#mapView":{
 	animate: true,
@@ -16,29 +15,12 @@
 	},
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-".height-60d":{
-	height: 60
+"#listView[platform=mobileweb]":{
+	top: Alloy.Globals.config.margin.top
 },
-".favorite":{
-	width: 15,
-	image: "/images/favorite.png"
+".distance-icon":{
+	text: Alloy.CFG.icons.pin
 },
-".title":{
-	height: 22,
-	font:{
-		fontSize: 17
-	}
-},
-".subtitle":{
-	height: 16
-},
-".distance-img":{
-	width: 10,
-	image: "/images/list_item_pin.png"
-},
-".distance":{
-	height: 17,
-	font:{
-		fontSize: 13
-	}
+".distance-lbl":{
+	left: 28
 }

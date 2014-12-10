@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
+    icons = Alloy.CFG.icons,
     utilities = require("utilities"),
     http = require("httpwrapper"),
     dialog = require("dialog");
@@ -76,8 +77,7 @@ function didGetPharmacies(result) {
 	var pharmacies = result.advsearchpharmacy.pharmacy;
 	for (var i in pharmacies) {
 		var pahamacy = pharmacies[i];
-		pahamacy.bookmarked = Number(pahamacy.bookmarked);
-		pahamacy.template = pahamacy.bookmarked ? "favorite" : "nearby";
+		pahamacy.favorite = Number(pahamacy.bookmarked) ? icons.favorite : "";
 		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
 		pahamacy.showDistance = showDistance;
 		if (showDistance) {
@@ -184,7 +184,7 @@ function didToggle(e) {
 	var lVisible = $.listContainer.visible;
 	$.listContainer.visible = !lVisible;
 	$.mapContainer.visible = lVisible;
-	$.toggleImg.image = lVisible ? "/images/list.png" : "/images/map.png";
+	$.toggleBtn.title = lVisible ? icons.list : icons.map;
 }
 
 function didAnnotationClick(e) {

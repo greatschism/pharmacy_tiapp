@@ -257,6 +257,12 @@
 ".padding-right":{
 	right: Alloy.Globals.config.padding.right
 },
+".padding-top":{
+	top: Alloy.Globals.config.padding.top
+},
+".padding-bottom":{
+	bottom: Alloy.Globals.config.padding.bottom
+},
 ".margin-left":{
 	left: Alloy.Globals.config.margin.left
 },
@@ -375,7 +381,49 @@
 	font: Alloy.Globals.config.typography.h5
 },
 ".h6":{
+	font: Alloy.Globals.config.typography.h6
+},
+".h1-fixed[platform=andorid,mobileweb]":{
+	font: Alloy.Globals.config.typography.h1
+},
+".h2-fixed[platform=andorid,mobileweb]":{
+	font: Alloy.Globals.config.typography.h2
+},
+".h3-fixed[platform=andorid,mobileweb]":{
+	font: Alloy.Globals.config.typography.h3
+},
+".h4-fixed[platform=andorid,mobileweb]":{
+	font: Alloy.Globals.config.typography.h4
+},
+".h5-fixed[platform=andorid,mobileweb]":{
 	font: Alloy.Globals.config.typography.h5
+},
+".h6-fixed[platform=andorid,mobileweb]":{
+	font: Alloy.Globals.config.typography.h6
+},
+".h1-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h1,
+	height: Alloy.Globals.config.typography.heightH1
+},
+".h2-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h2,
+	height: Alloy.Globals.config.typography.heightH2
+},
+".h3-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h3,
+	height: Alloy.Globals.config.typography.heightH3
+},
+".h4-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h4,
+	height: Alloy.Globals.config.typography.heightH4
+},
+".h5-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h5,
+	height: Alloy.Globals.config.typography.heightH5
+},
+".h6-fixed[platform=ios]":{
+	font: Alloy.Globals.config.typography.h6,
+	height: Alloy.Globals.config.typography.heightH6
 },
 /*
 * Color Classes
@@ -494,6 +542,7 @@
 	},
 	textAlign: "center",
 	color: Alloy.Globals.config.foregroundColors.primary,
+	backgroundColor: "transparent",
 	role: "navBar"
 },
 ".nav-bar-left-btn":{
@@ -688,6 +737,25 @@
 ".list-item-title[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
+},
+".list-item-view":{
+	top: Alloy.Globals.config.padding.top,
+	bottom: Alloy.Globals.config.padding.bottom,
+	left: Alloy.Globals.config.margin.left,
+	right: 44,
+	height: Ti.UI.SIZE
+},
+".list-item-left-icon":{
+	left: 0,
+	width: 24,
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 24
+	}
+},
+".list-item-content-view":{
+	left: 32,
+	height: Ti.UI.SIZE
 },
 /**
 * 	child symbol on table / list view

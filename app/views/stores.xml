@@ -1,67 +1,27 @@
 <Alloy>
-	<View class="nav-bar-right-view" onSingletap="didToggle">
-		<ImageView id="toggleImg" class="touch-disabled" />
-	</View>
+	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
 	<View>
 		<View id="mapContainer">
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
 		</View>
-		<View id="listContainer" class="vgroup bg-white show">
-			<Widget id="searchbar" src="com.mscripts.textfield" class="top-5 font-light" onReturn="didReturn" onClear="didSearch" />
-			<ListView id="listView" class="top-5" platform="ios,android" onItemclick="didItemClick">
-				<Templates>
-					<ItemTemplate name="favorite" class="height-60d">
-						<View class="right-25">
-							<ImageView class="left-5 favorite" />
-							<View class="left-25">
-								<View class="left width-60 auto-height vgroup">
-									<Label bindId="title" class="title width-95 gray" />
-									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
-								</View>
-								<View bindId="distanceView" class="bottom-10 right width-35 auto-height">
-									<ImageView class="distance-img left" />
-									<Label bindId="distance" class="left-15 distance font-light gray" />
-								</View>
-							</View>
-						</View>
-						<ImageView class="child" />
-					</ItemTemplate>
-					<ItemTemplate name="nearby" class="height-60d">
-						<View class="right-25">
-							<View class="left-25">
-								<View class="left width-60 auto-height vgroup">
-									<Label bindId="title" class="title width-95 gray" />
-									<Label bindId="subtitle" class="subtitle font-light width-95 h5 gray" />
-								</View>
-								<View bindId="distanceView" class="bottom-10 right width-35 auto-height">
-									<ImageView class="distance-img left" />
-									<Label bindId="distance" class="left-15 distance font-light gray" />
-								</View>
-							</View>
-						</View>
-						<ImageView class="child" />
-					</ItemTemplate>
-				</Templates>
-				<ListSection dataCollection="stores">
-					<ListItem template="{template}" itemId="{storeid}" title:text="{addressline1}" subtitle:text="{subtitle}" distanceView:visible="{showDistance}" distance:text="{distance}" />
-				</ListSection>
-			</ListView>
-			<TableView id="listView" class="top-5" platform="mobileweb" dataCollection="stores" onClick="didItemClick">
-				<TableViewRow class="height-60d" itemId="{storeid}">
-					<View class="right-25">
-						<ImageView class="left-5 favorite" visible="{bookmarked}" />
-						<View class="left-25">
+		<View id="listContainer" class="vgroup bg-senary show">
+			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
+			<TableView id="listView" dataCollection="stores" onClick="didItemClick">
+				<TableViewRow class="auto-height" itemId="{storeid}">
+					<View class="list-item-view">
+						<Label class="list-item-left-icon color-tertiary" text="{favorite}" if="Alloy.Globals.loggedIn" />
+						<View class="list-item-content-view">
 							<View class="left width-60 auto-height vgroup">
-								<Label text="{addressline1}" class="title width-95 gray" />
-								<Label text="{subtitle}" class="subtitle font-light width-95 h5 gray" />
+								<Label text="{addressline1}" class="left color-secondary h3-fixed" />
+								<Label text="{subtitle}" class="left color-quaternary h5-fixed" />
 							</View>
-							<View visible="{showDistance}" class="bottom-10 right width-35 auto-height">
-								<ImageView class="distance-img left" />
-								<Label text="{distance}" class="left-15 distance font-light gray" />
+							<View class="bottom right width-40 auto-height" visible="{showDistance}">
+								<Label class="distance-icon padding-left font-icon-tiny color-quaternary" />
+								<Label text="{distance}" class="distance-lbl h6-fixed" />
 							</View>
 						</View>
 					</View>
-					<ImageView class="child" />
+					<Label class="list-item-child" />
 				</TableViewRow>
 			</TableView>
 		</View>
