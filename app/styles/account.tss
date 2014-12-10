@@ -1,4 +1,6 @@
-"#AboutBtn":{
+"#aboutBtn":{
 	title: Alloy.Globals.strings.btnAbout
-} 
-
+},
+"#languageDp":{
+	hintText: Alloy.Globals.strings.hintLanguage
+}

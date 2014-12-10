@@ -68,6 +68,7 @@
 		"hintZipCode": "Zip code",
 		"hintNotes": "Notes",
 		"hintClickToAddNote": "Click to add note",
+		"hintLanguage": "Language",
 
 		"lblRefillWithoutLogin": "Refill without logging in",
 		"lblLoginToMobilePharmacy": "Sign in to the <b>mscripts mobile pharmacy</b>",

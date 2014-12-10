@@ -1,16 +1,30 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    dialog = require("dialog"),
+    languages = Alloy.CFG.languages,
+    lngStrs = Alloy.Globals.strings;
+
+function init() {
+	_.each(languages, function(obj) {
+		obj.title = lngStrs[obj.titleid];
+	});
+	$.languageDp.setChoices(languages);
+}
 
 
+function setParentViews(view) {
+	$.languageDp.setParentView(view);
+}
 
-var didClickAbout = function()
-{
-	 var dialog = Ti.UI.createAlertDialog({
-			    message: 'Powered by mscripts \n' + 
-			    		 "Application Version: " + Ti.App.version + "\n" + 
-			    		 "Build Date: " + Ti.App.Properties.getString('buildDate'),
-			    ok: 'Ok',
-			    title: Alloy.Globals.strings.alertTitleAbout
-			  });
-	 dialog.show();
-};
+function didClickAbout() {
+	dialog.show({
+		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString('buildDate'),
+		title : Alloy.Globals.strings.alertTitleAbout
+	});
+}
 
+function didClickLanguage() {
+
+}
+
+exports.init = init;
+exports.setParentViews = setParentViews;
