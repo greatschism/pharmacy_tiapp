@@ -10,7 +10,7 @@
 					<Label bindId="title" class="title" />
 				</ItemTemplate>
 				<ItemTemplate name="checked" class="height-48d">
-					<ImageView bindId="image" class="checked" />
+					<Label bindId="rightIcon" class="checked" />
 					<Label bindId="title" class="title" />
 				</ItemTemplate>
 			</Templates>

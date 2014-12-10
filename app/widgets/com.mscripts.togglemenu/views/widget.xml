@@ -1,7 +1,7 @@
 <Alloy>
 	<View onSingletap="didTap">
 		<View id="container">
-			<ImageView id="edgeImg" />
+			<Label id="edgeLbl" />
 			<View id="listContainer">
 				<ListView id="listView" platform="ios,android" defaultItemTemplate="label" onItemclick="didItemClick">
 					<Templates>

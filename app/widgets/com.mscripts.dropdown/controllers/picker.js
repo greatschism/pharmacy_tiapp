@@ -64,8 +64,8 @@ function init() {
 			_.extend(titleProp, choiceDict);
 			items.push({
 				title : titleProp,
-				image : {
-					image : choices[i].image || WPATH("checked.png")
+				rightIcon : {
+					text : choices[i].rightIcon || "m"
 				},
 				template : selectedIndex == i ? "checked" : "unchecked",
 				properties : {
@@ -79,7 +79,7 @@ function init() {
 		for (var i in choices) {
 			data.push(getRow({
 				title : choices[i].title,
-				image : selectedIndex == i ? choices[i].image || WPATH("checked.png") : false
+				rightIcon : selectedIndex == i ? choices[i].rightIcon || "m" : ""
 			}));
 		}
 		$.listView.setData(data);
@@ -94,12 +94,12 @@ function getRow(data) {
 		classes : ["height-48d"]
 	});
 	if (data.image) {
-		var image = $.UI.create("ImageView", {
-			apiName : "ImageView",
+		var lbl = $.UI.create("Label", {
+			apiName : "Label",
 			classes : ["checked"]
 		});
-		image.image = data.image;
-		row.add(image);
+		lbl.text = data.rightIcon;
+		row.add(lbl);
 	}
 	var title = $.UI.create("Label", {
 		apiName : "Label",

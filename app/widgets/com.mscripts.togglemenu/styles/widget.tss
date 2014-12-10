@@ -6,18 +6,21 @@
 "#container":{
 	top: 0,
 	right: 10,
-	width: 220,
-	layout: "vertical"
+	width: 220
 },
-"#edgeImg":{
+"#edgeLbl":{
 	top: 0,
-	right: 4,
-	width: 30,
-	height: 30,
-	image: WPATH( "up.png")
+	width: 24,
+	height: 24,
+	font: {
+		fontFamily: "mscripts",
+		fontSize: 24
+	},
+	color: "#3d3d3d",
+	text: ")"
 },
 "#listContainer":{
-	top: 0,
+	top: 16,
 	height: Ti.UI.SIZE,
 	backgroundColor: "#FFF",
 	borderColor: "#9C9996",
