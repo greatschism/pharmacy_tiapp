@@ -12,7 +12,7 @@ function setParentViews(view) {
 
 function didClickSignup(e) {
 	app.navigator.open({
-		titleid: "titleVerifyMobileNumber",
+		titleid : "titleVerifyMobileNumber",
 		ctrl : "textToApp",
 		stack : true
 	});
@@ -32,14 +32,18 @@ function didBlurPassword(e) {
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
-	nextItem ? $[nextItem] && $[nextItem].focus() : didClickSignup();
+	if (nextItem == "pharmacy" && locationFirstUpdate) {
+		choosePharmacy();
+	} else {
+		$[nextItem] ? $[nextItem].focus() : didClickSignup();
+	}
 }
 
 function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
 
-function chooseLocation(e) {
+function choosePharmacy(e) {
 	app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",

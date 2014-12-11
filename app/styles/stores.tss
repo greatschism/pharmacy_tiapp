@@ -15,12 +15,12 @@
 	},
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-"#listView[platform=mobileweb]":{
+"#tableView[platform=mobileweb]":{
 	top: Alloy.Globals.config.margin.top
 },
 ".distance-icon":{
 	text: Alloy.CFG.icons.pin
 },
-".distance-lbl":{
-	left: 28
+".icon-lbl":{
+	left: 32
 }

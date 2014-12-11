@@ -9,7 +9,7 @@
 				<View class="vseparator" />
 			</View>
 			<View class="hseparator" />
-			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" />
+			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" onReturn="moveToNext" />
 		</View>
 		<View class="auto-height">
 			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="h5" />
@@ -25,9 +25,9 @@
 			</View>
 		</View>
 		<View class="form-group vgroup">
-			<Widget id="rxNoTxt" src="com.mscripts.textfield" class="form-txt" onReturn="moveToNext" />
+			<Widget id="rxNoTxt" src="com.mscripts.textfield" class="form-txt return-next" onReturn="moveToNext" />
 			<View class="hseparator" />
-			<View class="height-default" onClick="chooseLocation">
+			<View class="height-default" onClick="choosePharmacy">
 				<Label id="locationLbl" class="padding-left h3 color-quaternary touch-disabled" />
 				<Label id="downLbl" class="padding-right font-icon-tiny touch-disabled" />
 			</View>

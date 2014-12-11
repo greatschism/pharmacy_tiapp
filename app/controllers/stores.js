@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     icons = Alloy.CFG.icons,
+    isBusy = false,
     utilities = require("utilities"),
     http = require("httpwrapper"),
     dialog = require("dialog");
@@ -215,30 +216,38 @@ function didAnnotationClick(e) {
 }
 
 function didItemClick(e) {
-	var itemId = OS_MOBILEWEB ? e.row.itemId : e.itemId;
+	var rowId = e.row.rowId;
 	if (args.orgin == "fullSignup") {
-		fullsignup(itemId);
+		fullsignup(rowId);
 	} else {
-		openStoreDetail(itemId);
+		openStoreDetail(rowId);
 	}
 }
 
 function fullsignup(storeId) {
-	Alloy.Models.store.set(Alloy.Collections.stores.where({
-	storeid: storeId
-	})[0].toJSON());
-	app.navigator.close();
+	if (!isBusy) {
+		isBusy = true;
+		Alloy.Models.store.set(Alloy.Collections.stores.where({
+		storeid: storeId
+		})[0].toJSON());
+		app.navigator.close();
+	}
 }
 
 function openStoreDetail(storeId) {
-	app.navigator.open({
-		ctrl : "storeDetail",
-		titleid : "titleFindStore",
-		ctrlArguments : {
-			storeId : storeId
-		},
-		stack : true
-	});
+	if (!isBusy) {
+		isBusy = true;
+		app.navigator.open({
+			ctrl : "storeDetail",
+			titleid : "titleStoreDetails",
+			ctrlArguments : {
+				storeId : storeId
+			},
+			stack : true
+		}, function() {
+			isBusy = false;
+		});
+	}
 }
 
 function terminate() {

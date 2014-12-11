@@ -3,9 +3,9 @@
 		<HeaderView>
 			<View class="vspacer" />
 		</HeaderView>
-		<TableViewRow class="height-default bg-primary">
-			<View class="padding-left padding-left hgroup no-hwrap">
-				<Label text="{icon}" class="icon color-primary" />
+		<TableViewRow class="bg-primary">
+			<View class="list-item-view hgroup no-hwrap">
+				<Label text="{icon}" class="font-icon color-primary" />
 				<Label text="{title}" class="padding-left h3 color-primary" />
 			</View>
 		</TableViewRow>

@@ -22,8 +22,7 @@
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "TableView":{
-	separatorColor: Alloy.Globals.config.backgroundColors.quaternary,
-	minRowHeight: Alloy.Globals.config.contentHeight
+	separatorColor: Alloy.Globals.config.backgroundColors.quaternary
 },
 "TableView[platform=ios]":{
 	separatorInsets: {
@@ -441,13 +440,16 @@
 ".color-quaternary":{
 	color: Alloy.Globals.config.foregroundColors.quaternary
 },
+".color-quinary":{
+	color: Alloy.Globals.config.foregroundColors.quinary
+},
 /*
 * backgroundColor Classes
 */
-//transparent background
 ".bg-transparent":{
 	backgroundColor: "transparent"
 },
+//primary background
 ".bg-primary":{
 	backgroundColor: Alloy.Globals.config.backgroundColors.primary
 },
@@ -491,6 +493,7 @@
 * 	Tempalte View
 */
 ".template-view":{
+	top: 0,
 	backgroundColor: "#FFFFFF",
 	width: "100%",
 	zIndex: 1
@@ -682,6 +685,14 @@
 /**
 * 	buttons
 */
+".btn-icon":{
+	height: Alloy.Globals.config.contentHeight,
+	font: {
+		fontFamily: "mscripts",
+		fontSize: 48
+	},
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+},
 ".btn-primary":{
 	top: Alloy.Globals.config.margin.top,
 	left: Alloy.Globals.config.margin.left,
@@ -700,7 +711,33 @@
 	font: Alloy.Globals.config.typography.h4,
 	color: Alloy.Globals.config.foregroundColors.tertiary,
 	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderColor: Alloy.Globals.config.backgroundColors.primary,
+	borderWidth: 1,
 	borderRadius: Alloy.Globals.config.borderRadius
+},
+".btn-secondary-smaller":{
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h4,
+	color: Alloy.Globals.config.foregroundColors.tertiary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	borderColor: Alloy.Globals.config.backgroundColors.primary,
+	borderWidth: 1,
+	borderRadius: Alloy.Globals.config.borderRadius
+},
+".btn-thirtiary":{
+	top: Alloy.Globals.config.margin.top,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h4,
+	color: Alloy.Globals.config.foregroundColors.quinary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+},
+".btn-thirtiary-smaller":{
+	height: Alloy.Globals.config.contentHeight,
+	font: Alloy.Globals.config.typography.h4,
+	color: Alloy.Globals.config.foregroundColors.quinary,
+	backgroundColor: Alloy.Globals.config.backgroundColors.senary
 },
 /**
 * 	styled label
@@ -727,6 +764,8 @@
 * 	table / list view
 */
 ".list-item-title":{
+	top: Alloy.Globals.config.margin.top,
+	bottom: Alloy.Globals.config.margin.bottom,
 	left: Alloy.Globals.config.margin.left,
 	right: 44,
 	height: Ti.UI.SIZE,
@@ -739,6 +778,13 @@
 	wordWrap: true
 },
 ".list-item-view":{
+	top: Alloy.Globals.config.padding.top,
+	bottom: Alloy.Globals.config.padding.bottom,
+	left: Alloy.Globals.config.margin.left,
+	right: Alloy.Globals.config.margin.right,
+	height: Ti.UI.SIZE
+},
+".list-item-view-with-child":{
 	top: Alloy.Globals.config.padding.top,
 	bottom: Alloy.Globals.config.padding.bottom,
 	left: Alloy.Globals.config.margin.left,

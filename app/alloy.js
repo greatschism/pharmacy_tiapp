@@ -18,8 +18,6 @@
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
-	Alloy.Collections.storeHours = new Backbone.Collection();
-	Alloy.Collections.storeServices = new Backbone.Collection();
 	Alloy.Collections.appointments = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
 	Alloy.Collections.doctorPrescriptions = new Backbone.Collection();
@@ -92,7 +90,8 @@
 			primary : "#FFFFFF",
 			secondary : "#000000",
 			tertiary : "#F7941E",
-			quaternary : "#C4C4C4"
+			quaternary : "#C4C4C4",
+			quinary : "#599DFF"
 		},
 		backgroundColors : {
 			primary : "#F7941E",

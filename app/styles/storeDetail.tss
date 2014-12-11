@@ -1,52 +1,21 @@
-".width-50d":{
-	width: 50
+".distance-icon":{
+	text: Alloy.CFG.icons.pin
 },
-".width-135d":{
-	width: 135
+".clock-icon":{
+	text: Alloy.CFG.icons.clock
 },
-".width-30d":{
-	width: 30
-},
-".right-140":{
-	right: 140
+".icon-lbl":{
+	left: 28
 },
 "#directionBtn":{
 	title: Alloy.Globals.strings.strDirections
 },
-"#hoursLbl":{
-	text: Alloy.Globals.strings.sectionStoreHours
+"#refillBtn":{
+	title: Alloy.Globals.strings.btnRefillPrescriptionHere
 },
-"#servicesLbl":{
-	text: Alloy.Globals.strings.sectionStoreServices
+"#favoriteBtn":{
+	title: Alloy.Globals.strings.btnAddToFavorites
 },
-"#addToFavoriteBtn":{
-	right: 60,
-	height: 45,
-	title: Alloy.Globals.strings.btnAddToFavorites,
-	borderWidth: 1
-},
-"#homeImg":{
-	image: "/images/home_gray.png"
-},
-".text-view[if=Alloy.Globals.loggedIn]":{
-	left: 60
-},
-".text-view[if=!Alloy.Globals.loggedIn]":{
-	left: 15
-},
-".distance-img":{
-	width: 10,
-	image: "/images/list_item_pin.png"
-},
-".location-lbl":{
-	height: 17,
-	font:{
-		fontSize: 13
-	}
-},
-".height-30d":{
-	height: 30
-},
-".height-20d":{
-	height: 20
+"#homeBtn":{
+	title: Alloy.CFG.icons.home
 }

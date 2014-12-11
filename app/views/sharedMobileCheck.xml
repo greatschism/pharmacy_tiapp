@@ -5,7 +5,7 @@
 		<View class="form-group vgroup">
 			<Widget id="fnameTxt" src="com.mscripts.textfield" class="form-txt" onReturn="moveToNext" />
 			<View class="hseparator" />
-			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" />
+			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" onReturn="didClickNext" />
 		</View>
 		<Button id="nextBtn" class="margin-bottom btn-secondary" onClick="didClickNext" />
 	</ScrollView>

@@ -6,18 +6,18 @@
 		</View>
 		<View id="listContainer" class="vgroup bg-senary show">
 			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
-			<TableView id="listView" dataCollection="stores" onClick="didItemClick">
-				<TableViewRow class="auto-height" itemId="{storeid}" className="store">
-					<View class="list-item-view">
-						<Label class="list-item-left-icon color-tertiary" text="{favorite}" if="Alloy.Globals.loggedIn" />
+			<TableView id="tableView" dataCollection="stores" onClick="didItemClick">
+				<TableViewRow class="auto-height" rowId="{storeid}" className="store">
+					<View class="list-item-view-with-child">
+						<Label class="list-item-left-icon color-tertiary" if="Alloy.Globals.loggedIn" text="{favorite}" />
 						<View class="list-item-content-view">
 							<View class="left width-60 auto-height vgroup">
-								<Label text="{addressline1}" class="fill-width color-secondary h3-fixed" />
-								<Label text="{subtitle}" class="fill-width color-quaternary h5-fixed" />
+								<Label class="fill-width color-secondary h3-fixed" text="{addressline1}" />
+								<Label class="fill-width color-quaternary h5-fixed" text="{subtitle}" />
 							</View>
 							<View class="bottom right width-40 auto-height" visible="{showDistance}">
-								<Label class="distance-icon padding-left font-icon-tiny color-quaternary" />
-								<Label text="{distance}" class="distance-lbl fill-width h6-fixed" />
+								<Label class="distance-icon padding-left font-icon color-quaternary" />
+								<Label class="icon-lbl fill-width  color-quaternary h6-fixed" text="{distance}" />
 							</View>
 						</View>
 					</View>

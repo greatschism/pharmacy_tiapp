@@ -78,7 +78,9 @@ function didLeftClick(e) {
 }
 
 function didRightClick(e) {
-	$.trigger("rightclick");
+	$.trigger("rightclick", {
+		nextItem : args.nextItem || ""
+	});
 }
 
 function setParentView(_parent) {

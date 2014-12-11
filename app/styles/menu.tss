@@ -6,11 +6,4 @@
 },
 ".vspacer[platform=android,mobileweb]":{
 	height: 20
-},
-".icon":{
-	width: 25,
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 25
-	}
 }

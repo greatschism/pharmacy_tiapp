@@ -16,11 +16,13 @@
 },
 "#lnameTxt":{
 	hintText: Alloy.Globals.strings.hintLname,
-	nextItem: "emailTxt"
+	nextItem: "dob"
 },
 "#dob":{
 	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE
+	type: Ti.UI.PICKER_TYPE_DATE,
+	rightTitle: Alloy.Globals.strings.btnNext,
+	nextItem: "emailTxt"
 },
 "#inputView":{
 	zIndex: 1
@@ -52,7 +54,7 @@
 },
 "#rxNoTxt":{
 	hintText: Alloy.Globals.strings.hintRxNo,
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	nextItem: "pharmacy"
 },
 "#locationLbl":{
 	right: 40,

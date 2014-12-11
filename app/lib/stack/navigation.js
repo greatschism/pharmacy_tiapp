@@ -76,9 +76,18 @@ function Navigation(_args) {
 	 * @param {String} _params.title title to be displayed on the title bar
 	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
 	 * @param {Boolen} _params.stack if true opens the Controller as a detail page
+	 * @param {Function} _callback
 	 * @return {Controller} Returns the new controller
 	 */
-	this.open = function(_params) {
+	this.open = function(_params, _callback) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		that.hideKeyboard();
 
 		/**
 		 *  if _params.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
@@ -88,16 +97,9 @@ function Navigation(_args) {
 		}
 
 		if (_params.stack) {
-			return that.push(_params);
+			that.isBusy = false;
+			return that.push(_params, _callback);
 		}
-
-		if (that.isBusy) {
-			return;
-		}
-
-		that.isBusy = true;
-
-		that.hideKeyboard();
 
 		var controller = Alloy.createController("stack/template", _params);
 
@@ -119,7 +121,13 @@ function Navigation(_args) {
 			that.controllers.push(controller);
 			that.currentController = controller;
 
+			//that.testOutput();
+
 			that.isBusy = false;
+
+			if (_callback) {
+				_callback();
+			}
 		});
 
 		that.window.add(view);
@@ -130,9 +138,10 @@ function Navigation(_args) {
 	/**
 	 * Pushes a screen controller on top of the stack
 	 * @param {Object} _params The arguments for the method
+	 * @param {Function} _callback
 	 * @return {Controller} Returns the new controller
 	 */
-	this.push = function(_params) {
+	this.push = function(_params, _callback) {
 
 		if (that.isBusy) {
 			return;
@@ -158,6 +167,10 @@ function Navigation(_args) {
 
 				that.controllers.push(controller);
 				that.currentController = controller;
+
+				if (_callback) {
+					_callback();
+				}
 			});
 
 			//that.testOutput();
@@ -180,27 +193,27 @@ function Navigation(_args) {
 			return;
 		}
 
+		that.isBusy = true;
+
 		if (OS_ANDROID && _backButton === true) {
 			if (that.loader != null) {
+				that.isBusy = false;
 				return;
 			}
 			if (_.isFunction(that.currentController.child.androidback) && that.currentController.child.androidback()) {
+				that.isBusy = false;
 				return;
 			}
 		}
 
-		that.isBusy = true;
-
 		that.hideKeyboard();
-
-		that.terminate();
 
 		if (that.controllers.length == 1) {
 
-			that.controllers = [];
-			that.currentController = null;
-
 			if (OS_IOS || OS_MOBILEWEB || (OS_ANDROID && _backButton === true)) {
+				that.terminate();
+				that.controllers = [];
+				that.currentController = null;
 				that.window.close();
 			}
 
@@ -218,19 +231,19 @@ function Navigation(_args) {
 				count = len - 1;
 			}
 
-			var removeControllers = that.controllers.splice(len - count, count - 1);
+			that.terminate();
+
+			var removeControllers = that.controllers.splice(len - count, count);
 			for (var i = 0,
-			    x = removeControllers.length; i < x; i++) {
+			    x = removeControllers.length - 1; i < x; i++) {
 				that.terminate(removeControllers[i]);
 				that.window.remove(removeControllers[i].getView());
 			}
 
-			var controllerToOpen = that.controllers[that.controllers.length - 2];
+			var controllerToOpen = that.controllers[that.controllers.length - 1];
 			controllerToOpen.getView().visible = true;
 
 			that.animateOut(that.currentController.getView(), function() {
-
-				that.controllers.pop();
 
 				that.currentController = controllerToOpen;
 

@@ -15,7 +15,7 @@
 		"titleRefillViaCamera": "Refill via camera",
 		"titleStores": "Stores",
 		"titleAccount": "Account",
-		"titleFindStore": "Find a store",
+		"titleStoreDetails": "Store details",
 		"titleLoginRecovery": "Login recovery",
 		"titleTermsAndConditions": "Terms and Conditions",
 		"titleMobileNumber": "Mobile number",
@@ -150,6 +150,7 @@
 		"btnCreateAccount": "Create account",
 		"btnAddAnotherDoctor": "Add another doctor",
 		"btnSave": "Save",
+		"btnRefillPrescriptionHere": "Refill a prescription here",
 		"btnHideThisDoctor": "Hide this doctor",
 		"btnEditReminderSettings": "Edit reminder settings",
 		"btnDeleteThisReminder": "Delete this reminder",
@@ -162,7 +163,7 @@
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
-		
+
 		"strWelcome": "Welcome!",
 		"strCancel": "Cancel",
 		"strLogin": "Log in",

@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
+    keyboard = require("ti.keyboard"),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -85,6 +86,7 @@ function getParentView() {
 }
 
 function showPicker() {
+	keyboard.hide();
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
 			if (OS_ANDROID) {
@@ -108,6 +110,9 @@ function showPicker() {
 							$.trigger("cancel");
 						} else {
 							setValue(e.value);
+							$.trigger("return", {
+								nextItem : args.nextItem || ""
+							});
 						}
 					}
 				});
@@ -117,7 +122,8 @@ function showPicker() {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
 					value : selectedDate || new Date(),
-					parent : parent
+					parent : parent,
+					nextItem : args.nextItem || ""
 				});
 				picker = Widget.createController("datePicker", pickerDict);
 				picker.on("leftclick", hidePicker);
@@ -129,7 +135,8 @@ function showPicker() {
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
-				parent : parent
+				parent : parent,
+				nextItem : args.nextItem || ""
 			});
 			picker = Widget.createController("picker", pickerDict);
 			picker.on("leftclick", hidePicker);
@@ -153,6 +160,7 @@ function hidePicker() {
 function doSelect(e) {
 	setSelectedIndex(picker.getSelectedIndex());
 	hidePicker();
+	$.trigger("return", e);
 }
 
 function setChoices(_choices) {
@@ -192,6 +200,7 @@ function getSelectedItem() {
 function doSelectDate(e) {
 	setValue(picker.getValue());
 	hidePicker();
+	$.trigger("return", e);
 }
 
 function setValue(date) {
@@ -216,6 +225,7 @@ function getValue() {
 exports.setValue = setValue;
 exports.getValue = getValue;
 exports.showPicker = showPicker;
+exports.focus = showPicker;
 exports.hidePicker = hidePicker;
 exports.setChoices = setChoices;
 exports.getChoices = getChoices;
