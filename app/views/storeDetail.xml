@@ -10,11 +10,11 @@
 							<Label id="subtitleLbl" class="left h5 multi-line color-secondary" />
 						</View>
 						<View class="top left width-50 auto-height vgroup">
-							<View class="padding-left auto-height">
+							<View id="distanceView" class="padding-left auto-height">
 								<Label class="distance-icon left font-icon color-quaternary" />
 								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed color-quaternary" />
 							</View>
-							<View id="distanceView" class="padding-left auto-height">
+							<View class="padding-left auto-height">
 								<Label id="clockIcon" class="clock-icon left font-icon" />
 								<Label id="clockLbl" class="icon-lbl fill-width h5-fixed" />
 							</View>

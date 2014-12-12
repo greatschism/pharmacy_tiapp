@@ -3,8 +3,7 @@
 },
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmailAddress,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL
 },
 "#sendBtn":{
 	title: Alloy.Globals.strings.btnSend

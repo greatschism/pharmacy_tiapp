@@ -11,8 +11,7 @@
 	width: 120,
 	maxLength: 3,
 	hintText: Alloy.Globals.strings.hintYourCode,
-	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue

@@ -3,7 +3,7 @@
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<Label id="whoLbl" class="styled-lbl multi-line" />
 		<View class="form-group vgroup">
-			<Widget id="fnameTxt" src="com.mscripts.textfield" class="form-txt" onReturn="moveToNext" />
+			<Widget id="fnameTxt" src="com.mscripts.textfield" class="form-txt return-next" onReturn="moveToNext" />
 			<View class="hseparator" />
 			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" onReturn="didClickNext" />
 		</View>

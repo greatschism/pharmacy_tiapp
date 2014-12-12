@@ -1,18 +1,24 @@
 "#titleIcon":{
-	text: Alloy.CFG.icons.select
+	text: Alloy.CFG.icons.success
 },
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblGreatYourPhoneNumberIsConfirmed
 },
-"#inputView":{
+"#userView":{
 	zIndex: 1
 },
+"#passwordView":{
+	top: 70,
+	zIndex: 0
+},
+"#inputView":{
+	top: -5
+},
 "#passwordTooltip":{
-	top: 40,
+	top: 0,
 	text: Alloy.Globals.strings.msgPasswordTips,
 	color: Alloy.Globals.config.foregroundColors.primary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.secondary,
-	zIndex: 2
+	backgroundColor: Alloy.Globals.config.backgroundColors.secondary
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,
@@ -23,11 +29,13 @@
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "passwordTxt"
 },
+"#emailTxt[platform=android]":{
+	softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS
+},
 "#passwordTxt":{
 	right: 75,
 	hintText: Alloy.Globals.strings.hintPassword,
-	passwordMask: true,
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	passwordMask: true
 },
 "#toggleSwt":{
 	value: true

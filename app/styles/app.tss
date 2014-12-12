@@ -648,6 +648,12 @@
 	borderColor: "transparent",
 	borderWidth: 0
 },
+".return-next":{
+	returnKeyType: Ti.UI.RETURNKEY_NEXT
+},
+".return-done":{
+	returnKeyType: Ti.UI.RETURNKEY_DONE
+},
 /**
 * 	dropdown
 */

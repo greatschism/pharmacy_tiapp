@@ -6,8 +6,7 @@
 },
 "#mobileTxt":{
 	hintText: Alloy.Globals.strings.hintMobileNumber,
-	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
+	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue

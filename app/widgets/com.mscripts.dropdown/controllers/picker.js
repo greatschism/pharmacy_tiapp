@@ -65,7 +65,7 @@ function init() {
 			items.push({
 				title : titleProp,
 				rightIcon : {
-					text : choices[i].rightIcon || "m"
+					text : choices[i].rightIcon || "+"
 				},
 				template : selectedIndex == i ? "checked" : "unchecked",
 				properties : {
@@ -79,7 +79,7 @@ function init() {
 		for (var i in choices) {
 			data.push(getRow({
 				title : choices[i].title,
-				rightIcon : selectedIndex == i ? choices[i].rightIcon || "m" : ""
+				rightIcon : selectedIndex == i ? choices[i].rightIcon || "+" : ""
 			}));
 		}
 		$.listView.setData(data);

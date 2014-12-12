@@ -9,11 +9,14 @@ function didToggle(e) {
 }
 
 function didFocusPassword(e) {
+	$.passwordView.zIndex = 2;
 	$.passwordTooltip.show();
 }
 
 function didBlurPassword(e) {
-	$.passwordTooltip.hide();
+	$.passwordTooltip.hide(function(){
+		$.passwordView.zIndex = 0;
+	});
 }
 
 function moveToNext(e) {

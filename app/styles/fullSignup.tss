@@ -7,9 +7,6 @@
 ".vseparator":{
 	zIndex: 1
 },
-".return-next":{
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
-},
 "#fnameTxt":{
 	hintText: Alloy.Globals.strings.hintFname,
 	nextItem: "lnameTxt"

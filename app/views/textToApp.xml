@@ -3,7 +3,7 @@
 		<Label id="titleIcon" class="margin-top font-icon-large color-primary" />
 		<Label id="titleLbl" class="styled-title multi-line" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
-		<Widget id="codeTxt" src="com.mscripts.textfield" class="txt text-center" onReturn="didClickContinue" />
+		<Widget id="codeTxt" src="com.mscripts.textfield" class="txt text-center return-done" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="btn-secondary" onClick="didClickContinue" />
 		<Widget id="resendLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-lbl multi-line" />
 	</ScrollView>

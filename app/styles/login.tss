@@ -6,16 +6,14 @@
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,
-	nextItem: "passwordTxt",
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
+	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true,
 	rightButtonFont:  Alloy.Globals.config.typography.h4,
 	rightButtonWidth: 30,
-	rightButtonTitle: "?",
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	rightButtonTitle: "?"
 },
 "#keepMeLbl":{
 	right: 75,

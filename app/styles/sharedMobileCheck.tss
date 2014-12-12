@@ -5,8 +5,7 @@
 	text: Alloy.Globals.strings.lblLetUsKnowWhoYouAre
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.strings.hintFname,
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
+	hintText: Alloy.Globals.strings.hintFname
 },
 "#dob":{
 	hintText: Alloy.Globals.strings.hintDOB,
