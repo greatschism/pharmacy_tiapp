@@ -17,8 +17,8 @@
 "#passwordTooltip":{
 	top: 0,
 	text: Alloy.Globals.strings.msgPasswordTips,
-	color: Alloy.Globals.config.foregroundColors.primary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.secondary
+	color: Alloy._fg_primary,
+	backgroundColor: Alloy._bg_secondary
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,

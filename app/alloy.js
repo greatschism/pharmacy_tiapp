@@ -38,180 +38,152 @@
 	});
 
 	//styles
-	Alloy.Globals.config = {
-		contentHeight : 48,
-		borderRadius : 6,
-		margin : {
-			top : 24,
-			bottom : 24,
-			left : 16,
-			right : 16
+	_.extend(Alloy, {
+		_navigator : "hamburger",
+		_due_for_refill_in_days : 7,
+		_content_height : 48,
+		_border_radius : 6,
+		_m_top : 24,
+		_m_bottom : 24,
+		_m_left : 16,
+		_m_right : 16,
+		_p_top : 16,
+		_p_bottom : 16,
+		_p_left : 8,
+		_p_right : 8,
+		_typo_h1 : {
+			fontFamily : Alloy.CFG.fonts.regular,
+			fontSize : 24,
 		},
-		padding : {
-			top : 16,
-			bottom : 16,
-			left : 8,
-			right : 8
+		_typo_height_h1 : 28,
+		_typo_h2 : {
+			fontFamily : Alloy.CFG.fonts.medium,
+			fontSize : 20
 		},
-		typography : {
-			h1 : {
-				fontFamily : Alloy.CFG.fonts.regular,
-				fontSize : 24,
-			},
-			heightH1 : 28,
-			h2 : {
-				fontFamily : Alloy.CFG.fonts.medium,
-				fontSize : 20
-			},
-			heightH2 : 24,
-			h3 : {
-				fontFamily : Alloy.CFG.fonts.regular,
-				fontSize : 16
-			},
-			heightH3 : 20,
-			h4 : {
-				fontFamily : Alloy.CFG.fonts.medium,
-				fontSize : 14
-			},
-			heightH4 : 18,
-			h5 : {
-				fontFamily : Alloy.CFG.fonts.regular,
-				fontSize : 14
-			},
-			heightH5 : 18,
-			h6 : {
-				fontFamily : Alloy.CFG.fonts.regular,
-				fontSize : 12
-			},
-			heightH6 : 16
+		_typo_height_h2 : 24,
+		_typo_h3 : {
+			fontFamily : Alloy.CFG.fonts.regular,
+			fontSize : 16
 		},
-		switchTintColor : "#4bd865",
-		foregroundColors : {
-			primary : "#FFFFFF",
-			secondary : "#000000",
-			tertiary : "#F7941E",
-			quaternary : "#C4C4C4",
-			quinary : "#599DFF"
+		_typo_height_h3 : 20,
+		_typo_h4 : {
+			fontFamily : Alloy.CFG.fonts.medium,
+			fontSize : 14
 		},
-		backgroundColors : {
-			primary : "#F7941E",
-			secondary : "#6D6E71",
-			tertiary : "#808285",
-			quaternary : "#C4C4C4",
-			quinary : "#EFEFF4",
-			senary : "#FFFFFF"
+		_typo_height_h4 : 18,
+		_typo_h5 : {
+			fontFamily : Alloy.CFG.fonts.regular,
+			fontSize : 14
 		},
-		borderColors : {
-			primary : "#F7941E",
-			secondary : "#C4C4C4"
+		_typo_height_h5 : 18,
+		_typo_h6 : {
+			fontFamily : Alloy.CFG.fonts.regular,
+			fontSize : 12
 		},
-		reminderColors : {
-			one : "#AF7AC4",
-			two : "#27AE60",
-			three : "#F39C12",
-			four : "#D35400",
-			five : "#47C9AF",
-			six : "#4094FC",
-			seven : "#34495E",
-			eight : "#D4FB79",
-			nine : "#76D6FF",
-			ten : "#C1382A",
-			eleven : "#AAB7B7",
-			twelve : "#D28874",
-			thirteen : "#7C7645",
-			fourteen : "#FC4063",
-			fifteen : "#845FFF",
-			sixteen : "#3F09F6"
-		},
-		addColor : "#599DFF",
-		successColor : "#00A14B",
-		errorColor : "#ED1C24",
-		approvalColor : "#F6931E",
-		navigator : "hamburger",
-		menuItems : [{
-			titleid : "titleHome",
-			ctrl : "home",
-			icon : "home",
-			requiresLogin : false,
-			landingPage : true
-		}, {
+		_typo_height_h6 : 16,
+		_switch_color : "#4bd865",
+		_fg_primary : "#FFFFFF",
+		_fg_secondary : "#000000",
+		_fg_tertiary : "#F7941E",
+		_fg_quaternary : "#C4C4C4",
+		_fg_quinary : "#599DFF",
+		_bg_primary : "#F7941E",
+		_bg_secondary : "#6D6E71",
+		_bg_tertiary : "#808285",
+		_bg_quaternary : "#C4C4C4",
+		_bg_quinary : "#EFEFF4",
+		_bg_senary : "#FFFFFF",
+		_br_primary : "#F7941E",
+		_br_secondary : "#C4C4C4",
+		_add_color : "#599DFF",
+		_success_color : "#00A14B",
+		_error_color : "#ED1C24",
+		_approval_color : "#F6931E",
+		_reminder_color : ["#AF7AC4", "#27AE60", "#F39C12", "#D35400", "#47C9AF", "#4094FC", "#34495E", "#D4FB79", "#76D6FF", "#C1382A", "#AAB7B7", "#D28874", "#7C7645", "#FC4063", "#845FFF", "#3F09F6"]
+	});
+
+	Alloy.Globals.homeItems = [[{
+		image : "my_prescriptions.png",
+		navigation : {
 			titleid : "strPrescriptions",
 			ctrl : "prescriptions",
-			icon : "prescriptions",
 			requiresLogin : true
-		}, {
-			titleid : "strReminders",
-			action : "reminders",
-			icon : "reminder"
-		}, {
-			titleid : "titlePharmacyRewards",
-			action : "pharmacyRewards",
-			icon : "reward"
-		}, {
-			titleid : "titleCoupons",
-			action : "coupons",
-			icon : "coupon"
-		}, {
-			titleid : "titleFamilyAccounts",
-			action : "familyAccounts",
-			icon : "users_list"
-		}, {
-			titleid : "titleTransferPrescription",
-			action : "transferPrescription",
-			icon : "transfer"
-		}, {
-			titleid : "titleDoctors",
-			ctrl : "doctors",
-			icon : "doctors",
-			requiresLogin : true
-		}, {
-			titleid : "titleRefillViaCamera",
-			action : "refillViaCamera",
-			icon : "refill_camera"
-		}, {
+		}
+	}], [{
+		image : "refill_from_a_number.png"
+	}, {
+		image : "transfer.png"
+	}], [{
+		image : "pharmacy_rewards.png"
+	}, {
+		image : "finda_pharmacy.png",
+		navigation : {
 			titleid : "titleStores",
 			ctrl : "stores",
-			icon : "pharmacies",
 			requiresLogin : false
-		}, {
-			titleid : "titleAccount",
-			ctrl : "account",
-			icon : "account",
-			requiresLogin : true
-		}],
-		homeItems : [[{
-			image : "my_prescriptions.png",
-			navigation : {
-				titleid : "strPrescriptions",
-				ctrl : "prescriptions",
-				requiresLogin : true
-			}
-		}], [{
-			image : "refill_from_a_number.png"
-		}, {
-			image : "transfer.png"
-		}], [{
-			image : "pharmacy_rewards.png"
-		}, {
-			image : "finda_pharmacy.png",
-			navigation : {
-				titleid : "titleStores",
-				ctrl : "stores",
-				requiresLogin : false
-			}
-		}, {
-			image : "generics.png"
-		}], [{
-			image : "flu_shots.png"
-		}], [{
-			image : "clinic.png"
-		}], [{
-			image : "wellness_guide.png"
-		}], [{
-			image : "shop_target.png"
-		}]],
-		DUE_FOR_REFILL_IN_DAYS : 7
-	};
-	Alloy.Collections.menuItems.reset(Alloy.Globals.config.menuItems);
+		}
+	}, {
+		image : "generics.png"
+	}], [{
+		image : "flu_shots.png"
+	}], [{
+		image : "clinic.png"
+	}], [{
+		image : "wellness_guide.png"
+	}], [{
+		image : "shop_target.png"
+	}]];
+
+	Alloy.Collections.menuItems.reset([{
+		titleid : "titleHome",
+		ctrl : "home",
+		icon : "home",
+		requiresLogin : false,
+		landingPage : true
+	}, {
+		titleid : "strPrescriptions",
+		ctrl : "prescriptions",
+		icon : "prescriptions",
+		requiresLogin : true
+	}, {
+		titleid : "strReminders",
+		action : "reminders",
+		icon : "reminder"
+	}, {
+		titleid : "titlePharmacyRewards",
+		action : "pharmacyRewards",
+		icon : "reward"
+	}, {
+		titleid : "titleCoupons",
+		action : "coupons",
+		icon : "coupon"
+	}, {
+		titleid : "titleFamilyAccounts",
+		action : "familyAccounts",
+		icon : "users_list"
+	}, {
+		titleid : "titleTransferPrescription",
+		action : "transferPrescription",
+		icon : "transfer"
+	}, {
+		titleid : "titleDoctors",
+		ctrl : "doctors",
+		icon : "doctors",
+		requiresLogin : true
+	}, {
+		titleid : "titleRefillViaCamera",
+		action : "refillViaCamera",
+		icon : "refill_camera"
+	}, {
+		titleid : "titleStores",
+		ctrl : "stores",
+		icon : "pharmacies",
+		requiresLogin : false
+	}, {
+		titleid : "titleAccount",
+		ctrl : "account",
+		icon : "account",
+		requiresLogin : true
+	}]);
 
 })();

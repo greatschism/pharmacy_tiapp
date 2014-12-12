@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    DUE_FOR_REFILL_IN_DAYS = Alloy.Globals.config.DUE_FOR_REFILL_IN_DAYS,
+    DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     app = require("core"),
     moment = require("alloy/moment"),
     gettingRefilledColl = Alloy.Collections.gettingRefilled,

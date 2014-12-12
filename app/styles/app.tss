@@ -9,37 +9,37 @@
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "ListView":{
-	separatorColor: Alloy.Globals.config.backgroundColors.quaternary
+	separatorColor: Alloy._bg_quaternary
 },
 "ListView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: Alloy.Globals.config.margin.left,
-		right: Alloy.Globals.config.margin.right
+		left: Alloy._m_left,
+		right: Alloy._m_right
 	}
 },
 "ListItem[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "TableView":{
-	separatorColor: Alloy.Globals.config.backgroundColors.quaternary
+	separatorColor: Alloy._bg_quaternary
 },
 "TableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: Alloy.Globals.config.margin.left,
-		right: Alloy.Globals.config.margin.right
+		left: Alloy._m_left,
+		right: Alloy._m_right
 	}
 },
 "TableViewRow":{
 	height: Ti.UI.SIZE
 },
 "TableViewRow[platform=ios]":{
-	selectionStyle: Alloy.Globals.config.backgroundColors.quaternary
+	selectionStyle: Alloy._bg_quaternary
 },
 "Label":{
-	font: Alloy.Globals.config.typography.h3,
-	color: Alloy.Globals.config.foregroundColors.secondary
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary
 },
 "Label[platform=android,mobileweb]":{
 	ellipsize: true,
@@ -170,7 +170,7 @@
 	height: Ti.UI.SIZE
 },
 ".height-default":{
-	height: Alloy.Globals.config.contentHeight
+	height: Alloy._content_height
 },
 ".height-1":{
 	height: "1%"
@@ -251,45 +251,45 @@
 	right: 0
 },
 ".padding-left":{
-	left: Alloy.Globals.config.padding.left
+	left: Alloy._p_left
 },
 ".padding-right":{
-	right: Alloy.Globals.config.padding.right
+	right: Alloy._p_right
 },
 ".padding-top":{
-	top: Alloy.Globals.config.padding.top
+	top: Alloy._p_top
 },
 ".padding-bottom":{
-	bottom: Alloy.Globals.config.padding.bottom
+	bottom: Alloy._p_bottom
 },
 ".margin-left":{
-	left: Alloy.Globals.config.margin.left
+	left: Alloy._m_left
 },
 ".margin-right":{
-	right: Alloy.Globals.config.margin.right
+	right: Alloy._m_right
 },
 ".margin-top":{
-	top: Alloy.Globals.config.margin.top
+	top: Alloy._m_top
 },
 ".margin-bottom":{
-	bottom: Alloy.Globals.config.margin.bottom
+	bottom: Alloy._m_bottom
 },
 /**
 * spacer & separators
 */
 ".hspacer":{
-	width: Alloy.Globals.config.margin.left
+	width: Alloy._m_left
 },
 ".vspacer":{
-	height: Alloy.Globals.config.margin.top
+	height: Alloy._m_top
 },
 ".hseparator":{
 	height: 1,
-	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
+	backgroundColor: Alloy._bg_quaternary
 },
 ".vseparator":{
 	width: 1,
-	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
+	backgroundColor: Alloy._bg_quaternary
 },
 /**
 * text alignment
@@ -365,83 +365,83 @@
 * 	Typography
 */
 ".h1":{
-	font: Alloy.Globals.config.typography.h1
+	font: Alloy._typo_h1
 },
 ".h2":{
-	font: Alloy.Globals.config.typography.h2
+	font: Alloy._typo_h2
 },
 ".h3":{
-	font: Alloy.Globals.config.typography.h3
+	font: Alloy._typo_h3
 },
 ".h4":{
-	font: Alloy.Globals.config.typography.h4
+	font: Alloy._typo_h4
 },
 ".h5":{
-	font: Alloy.Globals.config.typography.h5
+	font: Alloy._typo_h5
 },
 ".h6":{
-	font: Alloy.Globals.config.typography.h6
+	font: Alloy._typo_h6
 },
 ".h1-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h1
+	font: Alloy._typo_h1
 },
 ".h2-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h2
+	font: Alloy._typo_h2
 },
 ".h3-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h3
+	font: Alloy._typo_h3
 },
 ".h4-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h4
+	font: Alloy._typo_h4
 },
 ".h5-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h5
+	font: Alloy._typo_h5
 },
 ".h6-fixed[platform=andorid,mobileweb]":{
-	font: Alloy.Globals.config.typography.h6
+	font: Alloy._typo_h6
 },
 ".h1-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h1,
-	height: Alloy.Globals.config.typography.heightH1
+	font: Alloy._typo_h1,
+	height: Alloy._typo_height_h1
 },
 ".h2-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h2,
-	height: Alloy.Globals.config.typography.heightH2
+	font: Alloy._typo_h2,
+	height: Alloy._typo_height_h2
 },
 ".h3-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h3,
-	height: Alloy.Globals.config.typography.heightH3
+	font: Alloy._typo_h3,
+	height: Alloy._typo_height_h3
 },
 ".h4-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h4,
-	height: Alloy.Globals.config.typography.heightH4
+	font: Alloy._typo_h4,
+	height: Alloy._typo_height_h4
 },
 ".h5-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h5,
-	height: Alloy.Globals.config.typography.heightH5
+	font: Alloy._typo_h5,
+	height: Alloy._typo_height_h5
 },
 ".h6-fixed[platform=ios]":{
-	font: Alloy.Globals.config.typography.h6,
-	height: Alloy.Globals.config.typography.heightH6
+	font: Alloy._typo_h6,
+	height: Alloy._typo_height_h6
 },
 /*
 * Color Classes
 */
 //primary Color
 ".color-primary":{
-	color: Alloy.Globals.config.foregroundColors.primary
+	color: Alloy._fg_primary
 },
 ".color-secondary":{
-	color: Alloy.Globals.config.foregroundColors.secondary
+	color: Alloy._fg_secondary
 },
 ".color-tertiary":{
-	color: Alloy.Globals.config.foregroundColors.tertiary
+	color: Alloy._fg_tertiary
 },
 ".color-quaternary":{
-	color: Alloy.Globals.config.foregroundColors.quaternary
+	color: Alloy._fg_quaternary
 },
 ".color-quinary":{
-	color: Alloy.Globals.config.foregroundColors.quinary
+	color: Alloy._fg_quinary
 },
 /*
 * backgroundColor Classes
@@ -451,27 +451,27 @@
 },
 //primary background
 ".bg-primary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.primary
+	backgroundColor: Alloy._bg_primary
 },
 //data entry tips background & retired Buttons
 ".bg-secondary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.secondary
+	backgroundColor: Alloy._bg_secondary
 },
 //notification page icons
 ".bg-tertiary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.tertiary
+	backgroundColor: Alloy._bg_tertiary
 },
 //options background
 ".bg-quaternary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.quaternary
+	backgroundColor: Alloy._bg_quaternary
 },
 //info button, section header & prompt background
 ".bg-quinary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.quinary
+	backgroundColor: Alloy._bg_quinary
 },
 //form group input background
 ".bg-senary":{
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+	backgroundColor: Alloy._bg_senary
 },
 /*
 * Border Classes
@@ -484,10 +484,10 @@
 	borderColor: "transparent"
 },
 ".border-primay":{
-	borderColor: Alloy.Globals.config.borderColors.primary
+	borderColor: Alloy._br_primary
 },
 ".border-secondary":{
-	borderColor: Alloy.Globals.config.borderColors.secondary
+	borderColor: Alloy._br_secondary
 },
 /**
 * 	Tempalte View
@@ -508,7 +508,7 @@
 ".nav-bar":{
 	top: 0,
 	height: Alloy.CFG.navBarHeight,
-	backgroundColor: Alloy.Globals.config.backgroundColors.primary,
+	backgroundColor: Alloy._bg_primary,
 	zIndex: 1
 },
 ".nav-bar-view":{
@@ -518,9 +518,9 @@
 	left: 102,
 	right: 102,
 	height: 40,
-	font: Alloy.Globals.config.typography.h2,
+	font: Alloy._typo_h2,
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary
+	color: Alloy._fg_primary
 },
 ".nav-bar-left-icon":{
 	left: 0,
@@ -531,7 +531,7 @@
 		fontSize: 24
 	},
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary,
+	color: Alloy._fg_primary,
 	backgroundColor: "transparent",
 	role: "navBar"
 },
@@ -544,7 +544,7 @@
 		fontSize: 24
 	},
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary,
+	color: Alloy._fg_primary,
 	backgroundColor: "transparent",
 	role: "navBar"
 },
@@ -552,9 +552,9 @@
 	right: 0,
 	width: 86,
 	height: 40,
-	font: Alloy.Globals.config.typography.h3,
+	font: Alloy._typo_h3,
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary,
+	color: Alloy._fg_primary,
 	backgroundColor: "transparent",
 	role: "navBar"
 },
@@ -562,9 +562,9 @@
 	right: 0,
 	width: 86,
 	height: 40,
-	font: Alloy.Globals.config.typography.h3,
+	font: Alloy._typo_h3,
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary,
+	color: Alloy._fg_primary,
 	backgroundColor: "transparent",
 	role: "navBar"
 },
@@ -573,12 +573,12 @@
 */
 ".btn-view":{
 	top: 24,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height
 },
 ".btn-icon-left":{
-	left: Alloy.Globals.config.margin.left,
+	left: Alloy._m_left,
 	width: 24,
 	font:{
 		fontFamily: "mscripts",
@@ -588,16 +588,16 @@
 },
 ".btn-title-right":{
 	left: 56,
-	right: Alloy.Globals.config.margin.right,
+	right: Alloy._m_right,
 	touchEnabled: false
 },
 ".btn-title-left":{
-	left: Alloy.Globals.config.margin.left,
+	left: Alloy._m_left,
 	right: 56,
 	touchEnabled: false
 },
 ".btn-icon-right":{
-	right: Alloy.Globals.config.margin.right,
+	right: Alloy._m_right,
 	width: 24,
 	font:{
 		fontFamily: "mscripts",
@@ -609,42 +609,42 @@
 * 	form group
 */
 ".form-group":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	color: Alloy.Globals.config.foregroundColors.secondary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
-	borderColor: Alloy.Globals.config.borderColors.secondary,
-	borderRadius: Alloy.Globals.config.borderRadius
+	color: Alloy._fg_secondary,
+	backgroundColor: Alloy._bg_senary,
+	borderColor: Alloy._br_secondary,
+	borderRadius: Alloy._border_radius
 },
 /**
 * 	text fields
 */
 ".txt":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h3,
-	color: Alloy.Globals.config.foregroundColors.secondary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
-	borderColor: Alloy.Globals.config.borderColors.secondary,
-	borderRadius: Alloy.Globals.config.borderRadius
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height,
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary,
+	backgroundColor: Alloy._bg_senary,
+	borderColor: Alloy._br_secondary,
+	borderRadius: Alloy._border_radius
 },
 ".form-txt":{
 	width: Ti.UI.FILL,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h3,
-	color: Alloy.Globals.config.foregroundColors.secondary,
+	height: Alloy._content_height,
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
 ".form-txt-w50":{
 	width: "50%",
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h3,
-	color: Alloy.Globals.config.foregroundColors.secondary,
+	height: Alloy._content_height,
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
@@ -658,27 +658,27 @@
 * 	dropdown
 */
 ".dropdown":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h3,
-	hintTextColor: Alloy.Globals.config.foregroundColors.quaternary,
-	color: Alloy.Globals.config.foregroundColors.secondary,
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height,
+	font: Alloy._typo_h3,
+	hintTextColor: Alloy._fg_quaternary,
+	color: Alloy._fg_secondary,
 	rightIcon: Alloy.CFG.icons.down_arrow,
-	rightIconColor: Alloy.Globals.config.borderColors.secondary,
-	borderColor: Alloy.Globals.config.borderColors.secondary,
-	borderRadius: Alloy.Globals.config.borderRadius
+	rightIconColor: Alloy._br_secondary,
+	borderColor: Alloy._br_secondary,
+	borderRadius: Alloy._border_radius
 },
 ".form-dropdown":{
 	width: Ti.UI.FILL,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h3,
-	hintTextColor: Alloy.Globals.config.foregroundColors.quaternary,
-	color: Alloy.Globals.config.foregroundColors.secondary,
+	height: Alloy._content_height,
+	font: Alloy._typo_h3,
+	hintTextColor: Alloy._fg_quaternary,
+	color: Alloy._fg_secondary,
 	rightIcon: Alloy.CFG.icons.down_arrow,
-	rightIconColor: Alloy.Globals.config.borderColors.secondary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+	rightIconColor: Alloy._br_secondary,
+	backgroundColor: Alloy._bg_senary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
@@ -686,114 +686,114 @@
 * 	switch
 */
 ".swt":{
-	enabledColor: Alloy.Globals.config.switchEnabledColor
+	enabledColor: Alloy._switch_Color
 },
 /**
 * 	buttons
 */
 ".btn-icon":{
-	height: Alloy.Globals.config.contentHeight,
+	height: Alloy._content_height,
 	font: {
 		fontFamily: "mscripts",
 		fontSize: 48
 	},
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+	backgroundColor: Alloy._bg_senary
 },
 ".btn-primary":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h4,
-	color: Alloy.Globals.config.foregroundColors.primary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.primary,
-	borderRadius: Alloy.Globals.config.borderRadius
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height,
+	font: Alloy._typo_h4,
+	color: Alloy._fg_primary,
+	backgroundColor: Alloy._bg_primary,
+	borderRadius: Alloy._border_radius
 },
 ".btn-secondary":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h4,
-	color: Alloy.Globals.config.foregroundColors.tertiary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
-	borderColor: Alloy.Globals.config.backgroundColors.primary,
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height,
+	font: Alloy._typo_h4,
+	color: Alloy._fg_tertiary,
+	backgroundColor: Alloy._bg_senary,
+	borderColor: Alloy._bg_primary,
 	borderWidth: 1,
-	borderRadius: Alloy.Globals.config.borderRadius
+	borderRadius: Alloy._border_radius
 },
 ".btn-secondary-smaller":{
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h4,
-	color: Alloy.Globals.config.foregroundColors.tertiary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary,
-	borderColor: Alloy.Globals.config.backgroundColors.primary,
+	height: Alloy._content_height,
+	font: Alloy._typo_h4,
+	color: Alloy._fg_tertiary,
+	backgroundColor: Alloy._bg_senary,
+	borderColor: Alloy._bg_primary,
 	borderWidth: 1,
-	borderRadius: Alloy.Globals.config.borderRadius
+	borderRadius: Alloy._border_radius
 },
 ".btn-thirtiary":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h4,
-	color: Alloy.Globals.config.foregroundColors.quinary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Alloy._content_height,
+	font: Alloy._typo_h4,
+	color: Alloy._fg_quinary,
+	backgroundColor: Alloy._bg_senary
 },
 ".btn-thirtiary-smaller":{
-	height: Alloy.Globals.config.contentHeight,
-	font: Alloy.Globals.config.typography.h4,
-	color: Alloy.Globals.config.foregroundColors.quinary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.senary
+	height: Alloy._content_height,
+	font: Alloy._typo_h4,
+	color: Alloy._fg_quinary,
+	backgroundColor: Alloy._bg_senary
 },
 /**
 * 	styled label
 */
 ".styled-title":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	font: Alloy.Globals.config.typography.h2,
+	font: Alloy._typo_h2,
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary
+	color: Alloy._fg_primary
 },
 ".styled-lbl":{
-	top: Alloy.Globals.config.margin.top,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	font: Alloy.Globals.config.typography.h3,
+	font: Alloy._typo_h3,
 	textAlign: "center",
-	color: Alloy.Globals.config.foregroundColors.primary
+	color: Alloy._fg_primary
 },
 /**
 * 	table / list view
 */
 ".list-item-title":{
-	top: Alloy.Globals.config.margin.top,
-	bottom: Alloy.Globals.config.margin.bottom,
-	left: Alloy.Globals.config.margin.left,
+	top: Alloy._m_top,
+	bottom: Alloy._m_bottom,
+	left: Alloy._m_left,
 	right: 44,
 	height: Ti.UI.SIZE,
-	font: Alloy.Globals.config.typography.h3,
+	font: Alloy._typo_h3,
 	textAlign: "left",
-	color: Alloy.Globals.config.foregroundColors.secondary
+	color: Alloy._fg_secondary
 },
 ".list-item-title[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
 },
 ".list-item-view":{
-	top: Alloy.Globals.config.padding.top,
-	bottom: Alloy.Globals.config.padding.bottom,
-	left: Alloy.Globals.config.margin.left,
-	right: Alloy.Globals.config.margin.right,
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
 	height: Ti.UI.SIZE
 },
 ".list-item-view-with-child":{
-	top: Alloy.Globals.config.padding.top,
-	bottom: Alloy.Globals.config.padding.bottom,
-	left: Alloy.Globals.config.margin.left,
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._m_left,
 	right: 44,
 	height: Ti.UI.SIZE
 },
@@ -813,13 +813,13 @@
 * 	child symbol on table / list view
 */
 ".list-item-child":{
-	right: Alloy.Globals.config.margin.right,
+	right: Alloy._m_right,
 	width: 12,
 	font:{
 		fontFamily: "mscripts",
 		fontSize: 12
 	},
-	color: Alloy.Globals.config.foregroundColors.quaternary,
+	color: Alloy._fg_quaternary,
 	text: Alloy.CFG.icons.graterthan
 },
 /**

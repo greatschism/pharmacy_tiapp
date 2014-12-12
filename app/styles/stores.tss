@@ -16,7 +16,7 @@
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
 "#tableView[platform=mobileweb]":{
-	top: Alloy.Globals.config.margin.top
+	top: Alloy._m_top
 },
 ".distance-icon":{
 	text: Alloy.CFG.icons.pin

@@ -27,8 +27,8 @@
 "#passwordTooltip":{
 	top: 40,
 	text: Alloy.Globals.strings.msgPasswordTips,
-	color: Alloy.Globals.config.foregroundColors.primary,
-	backgroundColor: Alloy.Globals.config.backgroundColors.secondary,
+	color: Alloy._fg_primary,
+	backgroundColor: Alloy._bg_secondary,
 	zIndex: 2
 },
 "#emailTxt":{
@@ -60,7 +60,7 @@
 "#downLbl":{
 	width: 20,
 	text: Alloy.CFG.icons.down_arrow,
-	color: Alloy.Globals.config.borderColors.secondary
+	color: Alloy._br_secondary
 },
 "#agreementLbl":{
 	html: Alloy.Globals.strings.lblSignupAgreement

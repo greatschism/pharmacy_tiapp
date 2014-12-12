@@ -38,7 +38,7 @@ function didAppLoad(result) {
 			titleid : "strWelcome" 
 		});
 	} else {
-		Alloy.createController(Alloy.Globals.config.navigator + "/master");
+		Alloy.createController(Alloy._navigator + "/master");
 	}
 }
 

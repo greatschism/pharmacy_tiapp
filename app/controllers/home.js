@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 function init() {
-	var icons = Alloy.Globals.config.homeItems;
+	var icons = Alloy.Globals.homeItems;
 	for (var i in icons) {
 		var view = getView();
 		var sections = icons[i];

@@ -76,12 +76,12 @@ function didAuthenticate(result) {
 		action : "signout",
 		leftImage : "/images/logout_white.png"
 	});
-	if (app.navigator.name === Alloy.Globals.config.navigator) {
+	if (app.navigator.name === Alloy._navigator) {
 		app.navigator.open(args.navigateTo || Alloy.Collections.menuItems.where({
 		landingPage: true
 		})[0].toJSON());
 	} else {
-		Alloy.createController(Alloy.Globals.config.navigator + "/master");
+		Alloy.createController(Alloy._navigator + "/master");
 	}
 }
 

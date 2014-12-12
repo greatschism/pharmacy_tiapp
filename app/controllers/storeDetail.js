@@ -19,7 +19,7 @@ function init() {
 	}
 	$.distanceLbl.text = store.distance;
 	$.callBtn.title = Alloy.Globals.strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
-	$.homeBtn.color = Alloy.Globals.config.foregroundColors.quaternary;
+	$.homeBtn.color = Alloy._fg_quaternary;
 	if (_.isEmpty(Alloy.Globals.currentLocation)) {
 		$.distanceView.visible = false;
 		$.directionBtn.visible = false;
@@ -55,16 +55,16 @@ function init() {
 			toClose = moment(till, "h:mm A").diff(moment(), "minutes");
 		}
 		if (toOpen < 0 && toClose > 0) {
-			$.clockIcon.color = Alloy.Globals.config.successColor;
+			$.clockIcon.color = Alloy._success_color;
 			$.clockLbl.applyProperties({
 				text : "Open till ".concat(till),
-				color : Alloy.Globals.config.successColor
+				color : Alloy._success_color
 			});
 		} else {
-			$.clockIcon.color = Alloy.Globals.config.errorColor;
+			$.clockIcon.color = Alloy._error_color;
 			$.clockLbl.applyProperties({
 				text : till ? "Closed at ".concat(till) : "Closed",
-				color : Alloy.Globals.config.errorColor
+				color : Alloy._error_color
 			});
 		}
 	}

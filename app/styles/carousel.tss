@@ -5,14 +5,14 @@
 },
 "#pagingControl":{
 	length: 4,
-	color: Alloy.Globals.config.backgroundColors.quaternary,
-	selectedColor: Alloy.Globals.config.backgroundColors.primary
+	color: Alloy._bg_quaternary,
+	selectedColor: Alloy._bg_primary
 },
 "#buttonbar":{
 	height: 45,
 	toggleMode: false,
 	separatorStyle: {
-		backgroundColor: Alloy.Globals.config.backgroundColors.senary,
+		backgroundColor: Alloy._bg_senary,
 	},
 	items: [
 		{

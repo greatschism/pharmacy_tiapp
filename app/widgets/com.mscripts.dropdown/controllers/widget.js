@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
-    keyboard = require("ti.keyboard"),
+    keyboard = OS_MOBILEWEB ? false : require("ti.keyboard"),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -86,7 +86,7 @@ function getParentView() {
 }
 
 function showPicker() {
-	keyboard.hide();
+	keyboard && keyboard.hide();
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
 			if (OS_ANDROID) {

@@ -11,7 +11,7 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true,
-	rightButtonFont:  Alloy.Globals.config.typography.h4,
+	rightButtonFont:  Alloy._typo_h4,
 	rightButtonWidth: 30,
 	rightButtonTitle: "?"
 },
