@@ -122,15 +122,13 @@ function createTableViewSection(title) {
 	    lbl = $.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-left", "margin-right", "h4-fixed", "fg-secondary"]
-	}),
-	    section = $.UI.create("TableViewSection", {
-		apiName : "TableViewSection"
 	});
 	lbl.text = title;
 	headerView.height = 30;
 	headerView.add(lbl);
-	section.headerView = headerView;
-	return section;
+	return Ti.UI.createTableViewSection({
+		headerView : headerView
+	});
 }
 
 function underConstruction() {
