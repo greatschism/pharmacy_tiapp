@@ -1,5 +1,5 @@
 <Alloy>
-	<TableView>
+	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<View class="margin-top margin-top margin-left margin-right auto-height hgroup no-hwrap">
@@ -26,7 +26,7 @@
 					<Button id="directionBtn" class="right width-45 btn-thirtiary-smaller" onClick="didClickDirection" />
 				</View>
 				<Button id="refillBtn" class="btn-primary" onClick="didClickRefill" />
-				<View class="margin-top margin-left margin-right auto-height">
+				<View class="margin-top margin-bottom margin-left margin-right auto-height">
 					<Button id="favoriteBtn" class="left width-65 btn-secondary-smaller" onClick="didClickFavorite" />
 					<Button id="homeBtn" class="right width-30 btn-icon" onClick="didClickHome" />
 				</View>

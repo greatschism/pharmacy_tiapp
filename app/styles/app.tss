@@ -770,8 +770,22 @@
 * 	table / list view
 */
 ".list-item-title":{
-	top: Alloy._m_top,
-	bottom: Alloy._m_bottom,
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Ti.UI.SIZE,
+	font: Alloy._typo_h3,
+	textAlign: "left",
+	color: Alloy._fg_secondary
+},
+".list-item-title[platform=android,mobileweb]":{
+	ellipsize: false,
+	wordWrap: true
+},
+".list-item-title-with-child":{
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
 	left: Alloy._m_left,
 	right: 44,
 	height: Ti.UI.SIZE,
@@ -779,7 +793,7 @@
 	textAlign: "left",
 	color: Alloy._fg_secondary
 },
-".list-item-title[platform=android,mobileweb]":{
+".list-item-title-with-child[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
 },

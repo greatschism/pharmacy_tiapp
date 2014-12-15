@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView dataCollection="termsAndConditions" onClick="didItemClick">
 		<TableViewRow itemUrl="{url}">
-			<Label text="{name}" class="list-item-title" />
+			<Label text="{name}" class="list-item-title-with-child" />
 			<Label class="list-item-child" />
 		</TableViewRow>
 		<FooterView>

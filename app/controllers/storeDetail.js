@@ -25,24 +25,63 @@ function init() {
 		$.directionBtn.visible = false;
 	}
 
-	var services = store.storeservices.storespecial;
-	if (services.length) {
-		console.log(services);
-	}
-
-	var hours = store.hours;
-	if (services.length) {
-		console.log(hours);
-	}
-
-	var dates = hours.date,
+	var dates = store.hours.date || [],
+	    services = store.storeservices.storespecial || [],
+	    data = [],
 	    date;
+
 	dates = _.sortBy(dates, function(obj) {
 		return moment().day(obj.day, "dddd").day();
 	});
 	date = _.findWhere(dates, {
 		day : moment().format("dddd")
 	});
+
+	if (dates.length) {
+		var datesSection = createTableViewSection(Alloy.Globals.strings.sectionStoreHours);
+		for (var i in dates) {
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
+			}),
+			    view = $.UI.create("View", {
+				apiName : "View",
+				classes : ["list-item-view"]
+			}),
+			    leftLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["left", "width-45", "h5", "fg-secondary"]
+			}),
+			    rightLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["right", "width-45", "h5", "text-right", "fg-secondary"]
+			});
+			leftLbl.text = dates[i].day;
+			rightLbl.text = dates[i].storehours;
+			view.add(leftLbl);
+			view.add(rightLbl);
+			row.add(view);
+			datesSection.add(row);
+		}
+		data.push(datesSection);
+	}
+
+	if (services.length) {
+		var servicesSection = createTableViewSection(Alloy.Globals.strings.sectionStoreServices);
+		for (var i in services) {
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
+			}),
+			    titleLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "fg-secondary", "multi-line"]
+			});
+			titleLbl.text = services[i].service;
+			row.add(titleLbl);
+			servicesSection.add(row);
+		}
+		data.push(servicesSection);
+	}
+
 	if (date) {
 		var storehour = String(date.storehours),
 		    till = "",
@@ -68,6 +107,30 @@ function init() {
 			});
 		}
 	}
+
+	$.tableView.data = data;
+}
+
+function createTableViewSection(title) {
+	/**
+	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
+	 */
+	var headerView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["bg-quinary"]
+	}),
+	    lbl = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-left", "margin-right", "h4-fixed", "fg-secondary"]
+	}),
+	    section = $.UI.create("TableViewSection", {
+		apiName : "TableViewSection"
+	});
+	lbl.text = title;
+	headerView.height = 30;
+	headerView.add(lbl);
+	section.headerView = headerView;
+	return section;
 }
 
 function underConstruction() {
