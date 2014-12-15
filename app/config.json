@@ -1,6 +1,6 @@
 {
 	"global": {
-		"baseUrl": "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/",
+		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
 		"clientname": "Meg-lo",
 		"emailpin": "",
 		"clientIdentifier": "1234",
@@ -36,6 +36,7 @@
 			"map": "t",
 			"list": "r",
 			"pin": "n",
+			"sort": "X",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",

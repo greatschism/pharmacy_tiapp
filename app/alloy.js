@@ -169,7 +169,7 @@
 		titleid : "titleDoctors",
 		ctrl : "doctors",
 		icon : "doctors",
-		requiresLogin : true
+		requiresLogin : false
 	}, {
 		titleid : "titleRefillViaCamera",
 		action : "refillViaCamera",

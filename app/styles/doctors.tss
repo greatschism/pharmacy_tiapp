@@ -1,57 +1,21 @@
-"#toggleImg":{
-	image: "/images/toggle.png",
-	width: 40
-},
 "#toggleMenu":{
 	role: "overlay",
 	top: Alloy.CFG.navBarHeight,
+	right: Alloy._m_right,
+	edgeLbl: {
+		right: Alloy._p_right
+	},
+	itemHeight: Alloy._content_height,
+	separatorColor: Alloy._bg_senary,
+	borderRadius: Alloy._border_radius,
+	width: 220,
 	items: [
 		{
 			title: "Item 1"
 		},{
-			title: "Item 2",
-			image: "/images/profile.png"
+			title: "Item 2"
 		}
 	]
-},
-"#listView":{
-	bottom: 90
-},
-"#appointmentLbl":{
-	text: Alloy.Globals.strings.sectionUpcomingAppointments
-},
-"#doctorLbl":{
-	text: Alloy.Globals.strings.sectionMyDoctors
-},
-"#addImg":{
-	image: "/images/plus_black.png"
-},
-"#addLbl":{
-	left: 0,
-	text: Alloy.Globals.strings.lblSetupAppointmentReminder
-},
-".profile-img":{
-	width: 40
-},
-".content-view":{
-	left: 60
-},
-".font-16":{
-	font:{
-		fontSize: 16
-	}
-},
-".title":{
-	left: 60
-},
-".height-20d":{
-	height: 20
-},
-".height-40d":{
-	height: 40
-},
-"#addDoctorBtn":{
-	title: Alloy.Globals.strings.btnAddAnotherDoctor
 },
 "#photoDialog":{
 	role: "overlay",
@@ -69,4 +33,23 @@
 	],
 	cancel: 2,
 	zIndex: 2
+},
+"#toggleBtn":{
+	title: Alloy.CFG.icons.sort
+},
+"#tableView":{
+	top: 0,
+	bottom: 96
+},
+"#footerView":{
+	height: 96
+},
+"#addDoctorBtn":{
+	title: Alloy.Globals.strings.btnAddAnotherDoctor
+},
+"#appointmentLbl":{
+	text: Alloy.Globals.strings.sectionUpcomingAppointments
+},
+"#doctorLbl":{
+	text: Alloy.Globals.strings.sectionMyDoctors
 }

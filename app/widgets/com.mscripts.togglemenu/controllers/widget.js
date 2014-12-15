@@ -1,5 +1,8 @@
 var args = arguments[0] || {},
-    properties = {},
+    properties = {
+	ellipsize : true,
+	wordWrap : false
+},
     items = [];
 
 (function() {
@@ -16,10 +19,50 @@ var args = arguments[0] || {},
 		$.container.applyProperties(options);
 	}
 
-	options = _.pick(args, ["backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
-	if (!_.isEmpty(options)) {
-		applyProperties(options);
+	options = {
+		color : args.backgroundColor || "#fff",
+		text : ")"
+	};
+	if (_.has(args, "edgeLbl")) {
+		var edgeDict = args.edgeLbl;
+		if (!_.has(edgeDict, "font")) {
+			_.extend(edgeDict, {
+				width : 24,
+				height : 24,
+				font : {
+					fontFamily : "mscripts",
+					fontSize : 24
+				}
+			});
+		} else {
+			_.extend(edgeDict, {
+				width : edgeDict.font.fontSize,
+				height : edgeDict.font.fontSize
+			});
+		}
+		_.extend(options, edgeDict);
 	}
+	$.edgeLbl.applyProperties(options);
+
+	options = {
+		top : options.height - ( OS_MOBILEWEB ? 9 : 8)
+	};
+	_.extend(options, _.pick(args, ["backgroundColor", "borderColor", "borderWidth", "borderRadius"]));
+	applyProperties(options);
+
+	options = {
+		backgroundColor : args.backgroundColor || "transparent",
+		separatorColor : args.separatorColor || "transparent"
+	};
+	if (OS_IOS) {
+		_.extend(options, {
+			separatorInsets : {
+				left : args.left || args.right || 16,
+				right : args.left || args.right || 16
+			}
+		});
+	}
+	$.tableView.applyProperties(options);
 
 	options = _.pick(args, ["font", "color"]);
 	if (!_.isEmpty(options)) {
@@ -37,7 +80,7 @@ function didTap(e) {
 }
 
 function didItemClick(e) {
-	var itemIndex = OS_MOBILEWEB ? e.index : e.itemIndex;
+	var itemIndex = e.index;
 	$.trigger("click", {
 		index : itemIndex,
 		data : items[itemIndex] || {}
@@ -50,62 +93,50 @@ function applyProperties(dict) {
 }
 
 function getRow(data) {
-	var row = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow",
-		classes : ["height-60d"]
+	var row = Ti.UI.createTableViewRow({
+		height : args.itemHeight
 	});
-	if (data.image) {
-		var image = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			classes : ["icon"]
+	if (data.icon) {
+		var iconLbl = Ti.UI.createLabel({
+			text : data.icon,
+			left : args.left || args.right || 16,
+			width : args.iconWidth || 24,
+			font : {
+				fontFamily : "mscripts",
+				fontSize : args.iconWidth || 24
+			},
+			color : properties.color || "#FFF"
 		});
-		image.image = data.image;
-		row.add(image);
+		row.add(iconLbl);
 	}
-	var title = $.UI.create("Label", {
-		apiName : "Label",
-		classes : [data.image ? "icon-title" : "title"]
+	_.extend(properties, {
+		text : data.title,
+		left : iconLbl ? (iconLbl.width + (iconLbl.left * 2)) : (args.left || args.right || 16),
+		right : args.left || args.right || 16
 	});
-	properties.text = data.title;
-	title.applyProperties(properties);
-	row.add(title);
+	if (!_.has(properties, "font")) {
+		_.extend(properties, {
+			font : {
+				fontSize : 18
+			}
+		});
+	}
+	row.add(Ti.UI.createLabel(properties));
 	return row;
 }
 
 function setItems(_items) {
 	items = _items;
-	var height = (items.length * 60) + 40;
+	var height = (items.length * args.itemHeight) + $.edgeLbl.height;
 	$.container.height = height > 330 ? 330 : height;
-	if (OS_IOS || OS_ANDROID) {
-		var data = [];
-		for (var i in items) {
-			var titleProp = {
-				text : items[i].title
-			};
-			_.extend(titleProp, properties);
-			data.push({
-				title : titleProp,
-				icon : {
-					image : items[i].image || ""
-				},
-				template : items[i].image ? "icon" : "label",
-				properties : {
-					backgroundColor : "transparent",
-					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
-				}
-			});
-		}
-		$.section.setItems(data);
-	} else {
-		var data = [];
-		for (var i in items) {
-			data.push(getRow({
-				title : items[i].title,
-				image : items[i].image || ""
-			}));
-		}
-		$.listView.setData(data);
+	var data = [];
+	for (var i in items) {
+		data.push(getRow({
+			title : items[i].title,
+			icon : items[i].icon || ""
+		}));
 	}
+	$.tableView.setData(data);
 }
 
 function getItems() {

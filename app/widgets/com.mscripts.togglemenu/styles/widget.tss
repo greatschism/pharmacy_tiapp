@@ -3,69 +3,18 @@
 	opacity: 0,
 	visible: false
 },
-"#container":{
-	top: 0,
-	right: 10,
-	width: 220
-},
 "#edgeLbl":{
-	top: 0,
-	width: 24,
-	height: 24,
-	font: {
-		fontFamily: "mscripts",
-		fontSize: 24
-	},
-	color: "#3d3d3d",
-	text: ")"
+	top: 0
+},
+"#container":{
+	top: 0
 },
 "#listContainer":{
-	top: 16,
-	height: Ti.UI.SIZE,
-	backgroundColor: "#FFF",
-	borderColor: "#9C9996",
-	borderWidth: 1,
-	borderRadius: 4
+	height: Ti.UI.SIZE
 },
-"#listView":{
-	height: Ti.UI.SIZE,
-	backgroundColor: "transparent",
-	separatorColor: "#E8E8E8"
+"#tableView":{
+	height: Ti.UI.SIZE
 },
-"#listView[platform=ios]":{
-	separatorInsets: {
-		top: 0,
-		left: 0
-	}
-},
-".height-60d":{
-	height: 60
-},
-".title":{
-	left: 10,
-	right: 10,
-	font:{
-		fontSize: 18
-	},
-	color: "#000"
-},
-".title[platform=android,mobileweb]":{
-	ellipsize: true,
-	wordWrap: false
-},
-".icon":{
-	left: 10,
-	width: 25
-},
-".icon-title":{
-	left: 45,
-	right: 10,
-	font:{
-		fontSize: 18
-	},
-	color: "#000"
-},
-".icon-title[platform=android,mobileweb]":{
-	ellipsize: true,
-	wordWrap: false
+"#tableView[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 }

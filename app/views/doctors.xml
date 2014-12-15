@@ -1,109 +1,67 @@
 <Alloy>
-	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="font-regular h2" onClick="didClickMenu" />
-	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="font-regular h2" onClick="didClickOption"  />
-	<View class="nav-bar-right-view" onSingletap="didToggle">
-		<ImageView id="toggleImg" class="touch-disabled" />
-	</View>
+	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary color-primary h4" onClick="didClickMenu" />
+	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
+	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
 	<View>
-		<ListView id="listView" platform="ios,android" onItemclick="didItemClick">
-			<Templates>
-				<ItemTemplate name="appointment" class="auto-height top-10">
-					<View class="right-25 auto-height bottom-10">
-						<ImageView bindId="profile" class="profile-img left-10" />
-						<Label bindId="title" class="title auto-height font-16 gray multi-line" />
-					</View>
-					<ImageView class="child" />
-				</ItemTemplate>
-				<ItemTemplate name="doctor" class="auto-height top-10">
-					<View class="right-25 auto-height bottom-10">
-						<ImageView bindId="profile" class="profile-img left-10" />
-						<View class="content-view auto-height vgroup">
-							<Label bindId="doctor" class="left auto-height font-16 black multi-line touch-disabled" />
-							<Label bindId="prescription" class="left auto-height h5 gray multi-line touch-disabled" />
-						</View>
-					</View>
-					<ImageView class="child" />
-				</ItemTemplate>
-			</Templates>
-			<ListSection id="appointmentSection" dataCollection="appointments" dataTransform="transformAppointment">
-				<HeaderView>
-					<View class="height-20d bg-armadillo">
-						<Label id="appointmentLbl" class="cloudy left-5" />
-					</View>
-				</HeaderView>
-				<ListItem template="appointment" profile:image="{thumbnail_url}" title:attributedString="{title}" platform="ios" />
-				<ListItem template="appointment" profile:image="{thumbnail_url}" title:html="{title}" platform="android" />
-				<FooterView>
-					<View class="height-40d bg-aeroblue" onClick="didClickSetAppointment">
-						<View class="auto hgroup touch-disabled">
-							<ImageView id="addImg" class="width-20d left touch-disabled" />
-							<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
-						</View>
-					</View>
-				</FooterView>
-			</ListSection>
-			<ListSection id="doctorSection" dataCollection="doctors" dataTransform="transformDoctor">
-				<HeaderView>
-					<View class="height-20d bg-armadillo">
-						<Label id="doctorLbl" class="cloudy left-5" />
-					</View>
-				</HeaderView>
-				<ListItem template="doctor" itemId="{id}" profile:image="{thumbnail_url}" doctor:text="{long_name}" prescription:text="{description}" />
-			</ListSection>
-		</ListView>
-		<ScrollView id="listView" platform="mobileweb">
-			<View class="vgroup">
-				<TableView  id="appointmentSection" class="auto-height" dataCollection="appointments" dataTransform="transformAppointment" onClick="didItemClick">
-					<HeaderView>
-						<View class="height-20d bg-armadillo">
-							<Label id="appointmentLbl" class="cloudy left-5" />
-						</View>
-					</HeaderView>
-					<TableViewRow class="auto-height top-10" rowTable="appointmentSection">
-						<View class="top auto-height bottom-10">
-							<View class="top right-25 auto-height">
-								<View class="top auto-height">
-									<ImageView image="{image}" class="profile-img left-10" />
-								</View>
-								<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 gray multi-line" />
-							</View>
-							<ImageView class="child" />
-						</View>
-					</TableViewRow>
-					<FooterView>
-						<View class="height-40d bg-aeroblue">
-							<View onClick="didClickSetAppointment">
-								<View class="auto hgroup touch-disabled">
-									<ImageView id="addImg" class="width-20d left touch-disabled" />
-									<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
-								</View>
-							</View>
-						</View>
-					</FooterView>
-				</TableView>
-				<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
-					<HeaderView>
-						<View class="height-20d bg-armadillo">
-							<Label id="doctorLbl" class="cloudy left-5" />
-						</View>
-					</HeaderView>
-					<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
-						<View class="top auto-height bottom-10">
-							<View class="top right-25 auto-height">
-								<View class="top auto-height">
-									<ImageView image="{thumbnail_url}" bindId="profile" class="profile-img left-10" />
-								</View>
-								<View class="content-view auto-height vgroup">
-									<Label text="{long_name}" bindId="doctor" class="right-25 left auto-height font-16 black multi-line touch-disabled" />
-									<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 gray multi-line touch-disabled" />
-								</View>
-							</View>
-							<ImageView class="child" />
-						</View>
-					</TableViewRow>
-				</TableView>
-			</View>
-		</ScrollView>
-		<Button id="addDoctorBtn" class="bottom-20 width-90 bg-orange white h2" onClick="didClickAddDoctor" />
+		<TableView id="tableView" />
+		<View id="footerView" class="bottom">
+			<Button id="addDoctorBtn" class="btn-primary" onClick="didClickAddDoctor" />
+		</View>
 	</View>
+	<!--<View>
+	<ScrollView id="listView" platform="mobileweb">
+	<View class="vgroup">
+	<TableView  id="appointmentSection" class="auto-height" dataCollection="appointments" dataTransform="transformAppointment" onClick="didItemClick">
+	<HeaderView>
+	<View class="height-20d bg-armadillo">
+	<Label id="appointmentLbl" class="cloudy left-5" />
+	</View>
+	</HeaderView>
+	<TableViewRow class="auto-height top-10" rowTable="appointmentSection">
+	<View class="top auto-height bottom-10">
+	<View class="top right-25 auto-height">
+	<View class="top auto-height">
+	<ImageView image="{image}" class="profile-img left-10" />
+	</View>
+	<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 gray multi-line" />
+	</View>
+	<ImageView class="child" />
+	</View>
+	</TableViewRow>
+	<FooterView>
+	<View class="height-40d bg-aeroblue">
+	<View onClick="didClickSetAppointment">
+	<View class="auto hgroup touch-disabled">
+	<ImageView id="addImg" class="width-20d left touch-disabled" />
+	<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
+	</View>
+	</View>
+	</View>
+	</FooterView>
+	</TableView>
+	<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
+	<HeaderView>
+	<View class="height-20d bg-armadillo">
+	<Label id="doctorLbl" class="cloudy left-5" />
+	</View>
+	</HeaderView>
+	<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
+	<View class="top auto-height bottom-10">
+	<View class="top right-25 auto-height">
+	<View class="top auto-height">
+	<ImageView image="{thumbnail_url}" bindId="profile" class="profile-img left-10" />
+	</View>
+	<View class="content-view auto-height vgroup">
+	<Label text="{long_name}" bindId="doctor" class="right-25 left auto-height font-16 black multi-line touch-disabled" />
+	<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 gray multi-line touch-disabled" />
+	</View>
+	</View>
+	<ImageView class="child" />
+	</View>
+	</TableViewRow>
+	</TableView>
+	</View>
+	</ScrollView>
+	<Button id="addDoctorBtn" class="bottom-20 width-90 bg-orange white h2" onClick="didClickAddDoctor" />
+	</View>-->
 </Alloy> 

@@ -18,7 +18,7 @@ function request(_params) {
 	    user = Alloy.Models.user.toJSON();
 
 	var httpParams = {
-		url : _params.method ? cfg.baseUrl.concat(_params.method) : _params.url,
+		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : cfg.baseUrl.concat(_params.path),
 		type : "POST",
 		format : format,
 		success : function(_data) {
@@ -42,18 +42,17 @@ function request(_params) {
 			} else if (_params.success) {
 				_params.success(_data);
 			}
-
 		},
 		failure : function(http, url) {
-			dialog.show({
-				message : Alloy.Globals.strings.msgFailedToRetrieve
-			});
 			if (_params.failure) {
 				_params.failure();
 			}
+			dialog.show({
+				message : Alloy.Globals.strings.msgFailedToRetrieve
+			});
 		},
 		done : function() {
-			if (_params.keepBlook !== true && _.isEmpty(app.navigator) === false) {
+			if ((_params.keepBlook !== true || _.isEmpty(_params.failure)) && _.isEmpty(app.navigator) === false) {
 				app.navigator.hideLoader();
 			}
 			if (_params.done) {

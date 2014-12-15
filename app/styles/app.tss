@@ -35,7 +35,7 @@
 	height: Ti.UI.SIZE
 },
 "TableViewRow[platform=ios]":{
-	selectionStyle: Alloy._bg_quaternary
+	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 },
 "Label":{
 	font: Alloy._typo_h3,

@@ -5,42 +5,28 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
     msgYouHaveNoActiveprescription = Alloy.Globals.strings.msgYouHaveNoActiveprescription,
+    msgUpcomingAppointment = Alloy.Globals.strings.msgYouHaveUpcomingAppointmentWith,
     strAnd = Alloy.Globals.strings.strAnd,
     strMore = Alloy.Globals.strings.strMore,
     doctors,
-    prescriptions,
     appointments;
 
 function init() {
-	startTime = moment();
 	http.request({
-		url : "http://10.10.10.20:9000/services-demo/services/doctors/list",
+		path : "doctors/list",
 		keepBlook : true,
 		dataTransform : false,
 		format : "JSON",
 		data : {},
-		success : didReceiveDoctors
+		success : didSuccess
+
 	});
 }
 
-function didReceiveDoctors(result) {
-	doctors = result.data[0].doctors;
-	startPre = moment();
+function didSuccess(result) {
+	doctors = result.doctor_details;
 	http.request({
-		url : "http://10.10.10.20:9000/services-demo/services/prescriptions/list",
-		keepBlook : true,
-		dataTransform : false,
-		format : "JSON",
-		data : {},
-		success : didReceivePrescriptions
-	});
-}
-
-function didReceivePrescriptions(result) {
-	prescriptions = result.data[0].prescriptions;
-	startApp = moment();
-	http.request({
-		url : "http://10.10.10.20:9000/services-demo/services/appointments/get",
+		path : "appointments/get",
 		keepBlook : true,
 		dataTransform : false,
 		format : "JSON",
@@ -56,28 +42,45 @@ function didReceiveAppointments(result) {
 		doctor.short_name = "Dr. " + doctor.last_name;
 		doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
 		doctor.thumbnail_url = "/images/profile.png";
-		var docPrescriptions = _.where(prescriptions, {
-			doctor_id : doctor.id
-		});
-		for (var j in docPrescriptions) {
-			docPrescriptions[j].lastRefill = moment(docPrescriptions[j].presc_last_filled_date, "YYYY/MM/DD").format("MM/DD/YYYY");
-		}
-		doctor.prescriptions = docPrescriptions;
 	}
-	var msg = Alloy.Globals.strings.msgYouHaveUpcomingAppointmentWith;
 	for (var i in appointments) {
-		var appointment = appointments[i];
-		var doctor = _.where(doctors, {
-		id : appointment.doctor_id
+		var appointment = appointments[i],
+		    doctor = _.where(doctors, {
+		doctor_id : appointment.doctor_id
 		})[0];
 		appointment.thumbnail_url = doctor.thumbnail_url;
 		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h.mm A");
-		appointment.desc = String.format(msg, doctor.short_name);
+		appointment.desc = String.format(msgUpcomingAppointment, doctor.short_name);
 	}
 	Alloy.Collections.appointments.reset(appointments);
 	Alloy.Collections.doctors.reset(doctors);
-	doctos = prescriptions = appointments = null;
+	doctos = appointments = null;
+	var appointmentsSection = createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments),
+	    doctorsSection = createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
+	$.tableView.data = [appointmentsSection, doctorsSection];
 	app.navigator.hideLoader();
+}
+
+function createTableViewSection(title) {
+	/**
+	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
+	 */
+	var headerView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["bg-quinary"]
+	}),
+	    lbl = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-left", "margin-right", "h4-fixed", "fg-secondary"]
+	}),
+	    section = $.UI.create("TableViewSection", {
+		apiName : "TableViewSection"
+	});
+	lbl.text = title;
+	headerView.height = 30;
+	headerView.add(lbl);
+	section.headerView = headerView;
+	return section;
 }
 
 function transformAppointment(model) {
