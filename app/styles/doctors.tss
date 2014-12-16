@@ -46,10 +46,4 @@
 },
 "#addDoctorBtn":{
 	title: Alloy.Globals.strings.btnAddAnotherDoctor
-},
-"#appointmentLbl":{
-	text: Alloy.Globals.strings.sectionUpcomingAppointments
-},
-"#doctorLbl":{
-	text: Alloy.Globals.strings.sectionMyDoctors
 }

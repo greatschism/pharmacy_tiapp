@@ -36,13 +36,23 @@ function didSuccess(result) {
 }
 
 function didReceiveAppointments(result) {
+
+	var appointmentsSection = createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments),
+	    doctorsSection = createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
+
 	appointments = result.data.appointment;
 	for (var i in doctors) {
 		var doctor = doctors[i];
 		doctor.short_name = "Dr. " + doctor.last_name;
 		doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
 		doctor.thumbnail_url = "/images/profile.png";
+
+		var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		});
+		appointmentsSection.add(row);
 	}
+
 	for (var i in appointments) {
 		var appointment = appointments[i],
 		    doctor = _.where(doctors, {
@@ -51,12 +61,13 @@ function didReceiveAppointments(result) {
 		appointment.thumbnail_url = doctor.thumbnail_url;
 		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h.mm A");
 		appointment.desc = String.format(msgUpcomingAppointment, doctor.short_name);
+
+		var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		});
+		doctorsSection.add(row);
 	}
-	Alloy.Collections.appointments.reset(appointments);
-	Alloy.Collections.doctors.reset(doctors);
-	doctos = appointments = null;
-	var appointmentsSection = createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments),
-	    doctorsSection = createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
+
 	$.tableView.data = [appointmentsSection, doctorsSection];
 	app.navigator.hideLoader();
 }

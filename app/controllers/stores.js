@@ -120,7 +120,7 @@ function loadMap(e) {
 		}
 
 		var properties = {
-			image : "/images/annotation.png",
+			image : "/images/map_pin.png",
 			storeId : data.storeid,
 			title : data.addressline1,
 			subtitle : data.subtitle,
