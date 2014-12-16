@@ -23,8 +23,10 @@ function didClickAbout() {
 }
 
 function didClickLanguage() {
-
+	
+Alert("Hi pratibha");
 }
 
 exports.init = init;
 exports.setParentViews = setParentViews;
+
