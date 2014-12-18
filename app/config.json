@@ -14,11 +14,10 @@
 				"code": "es",
 				"titleid": "lngSpanish",
 				"url": "url_to_download"
-			},
-			{
-			"code": "dummy",
-			"titleid": "Dummy",
-			"url": "url_to_download"
+			}, {
+				"code": "dummy",
+				"titleid": "Dummy",
+				"url": "url_to_download"
 			}
 		],
 		"iconSet": "thick",
@@ -44,6 +43,7 @@
 			"map": "t",
 			"list": "r",
 			"pin": "n",
+			"pill": "N",
 			"sort": "X",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",

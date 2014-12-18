@@ -443,6 +443,9 @@
 ".fg-quinary":{
 	color: Alloy._fg_quinary
 },
+".fg-success":{
+	color: Alloy._success_color
+},
 /*
 * backgroundColor Classes
 */
@@ -476,12 +479,14 @@
 ".bg-success":{
 	backgroundColor: Alloy._success_color
 },
+".bg-progress":{
+	backgroundColor: Alloy._add_color
+},
 /*
 * Border Classes
 */
 ".no-border":{
-	borderWidth: 0,
-	borderColor: "transparent"
+	borderWidth: 0
 },
 ".border-transparent":{
 	borderColor: "transparent"

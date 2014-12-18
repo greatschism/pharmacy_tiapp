@@ -10,9 +10,6 @@
 	search: true,
 	clearButton: true,
 	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
-	font: {
-		fontSize: 15
-	},
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
 "#tableView[platform=mobileweb]":{

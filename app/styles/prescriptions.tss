@@ -1,32 +1,41 @@
-"#toggleImg":{
-	image: "/images/toggle.png",
-	width: 40
+"#toggleBtn":{
+	title: Alloy.CFG.icons.sort
+},
+"#toggleMenu":{
+	role: "overlay",
+	top: Alloy.CFG.navBarHeight,
+	right: Alloy._m_right,
+	edgeLbl: {
+		right: Alloy._p_right
+	},
+	itemHeight: Alloy._content_height,
+	separatorColor: Alloy._bg_senary,
+	borderRadius: Alloy._border_radius,
+	width: 220,
+	items: [
+		{
+			title: "Item 1"
+		},{
+			title: Alloy.Globals.strings.menuSearch,
+			action: "search"
+		}
+	]
 },
 "#searchbar":{
 	search: true,
 	clearButton: true,
 	opacity: 0,
-	font: {
-		fontSize: 15
-	},
+	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-"#toggleMenu":{
-	role: "overlay",
-	top: Alloy.CFG.navBarHeight,
-	items: [
-		{
-			title: Alloy.Globals.strings.menuSearch,
-			action: "search"
-		},{
-			title: Alloy.Globals.strings.menuSort,
-			action: "sort"
-		},
-		{
-			title: Alloy.Globals.strings.menuUnhidePrescriptions,
-			action: "unhide"
-		}
-	]
+".success-icon":{
+	text: Alloy.CFG.icons.success
+},
+".btn-refill":{
+	title: Alloy.Globals.strings.lblRefill
+},
+".btn-hide":{
+	title: Alloy.Globals.strings.lblHide
 },
 ".width-150d":{
 	width: 150
@@ -34,25 +43,6 @@
 ".height-5d":{
 	height: 5
 },
-".height-15d":{
-	height: 15
-},
-".height-30d":{
-	height: 30
-},
 ".height-75d":{
 	height: 75
-},
-".lbl-refill":{
-	title: Alloy.Globals.strings.lblRefill
-},
-".lbl-hide":{
-	title: Alloy.Globals.strings.lblHide
-},
-".icon-success":{
-	image: "/images/success.png",
-	width: 15
-},
-".text-completed":{
-	text: Alloy.Globals.strings.msgYourOrderIsReady
 }

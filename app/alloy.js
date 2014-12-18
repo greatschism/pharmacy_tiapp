@@ -101,7 +101,7 @@
 		navigation : {
 			titleid : "strPrescriptions",
 			ctrl : "prescriptions",
-			requiresLogin : true
+			requiresLogin : false
 		}
 	}], [{
 		image : "refill_from_a_number.png"
@@ -137,7 +137,8 @@
 		titleid : "strPrescriptions",
 		ctrl : "prescriptions",
 		icon : "prescriptions",
-		requiresLogin : true
+		requiresLogin : true,
+		landingPage : true
 	}, {
 		titleid : "strReminders",
 		action : "reminders",
@@ -162,8 +163,7 @@
 		titleid : "titleDoctors",
 		ctrl : "doctors",
 		icon : "doctors",
-		requiresLogin : false,
-		landingPage : true
+		requiresLogin : true
 	}, {
 		titleid : "titleRefillViaCamera",
 		action : "refillViaCamera",

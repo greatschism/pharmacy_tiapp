@@ -585,17 +585,17 @@ exports.getRandomString = function(_length) {
  * @param {String|Object} destination address query or latitude and longitude
  * @param {String} mode direction mode
  */
-exports.getDirection = function(source, destination, mode) {
+exports.getDirection = function(_source, _destination, _mode) {
 
-	if (_.isObject(source)) {
-		source = source.latitude + "," + source.longitude;
+	if (_.isObject(_source)) {
+		_source = _source.latitude + "," + _source.longitude;
 	}
 
-	if (_.isObject(destination)) {
-		destination = destination.latitude + "," + destination.longitude;
+	if (_.isObject(_destination)) {
+		_destination = _destination.latitude + "," + _destination.longitude;
 	}
 
-	var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "transit");
+	var params = "?saddr=" + _source + "&daddr=" + _destination + "&directionsmode=" + (_mode || "transit");
 	if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
 		Ti.Platform.openURL("comgooglemaps://".concat(params));
 	} else {
@@ -612,7 +612,7 @@ exports.getDirection = function(source, destination, mode) {
 /**
  * create table view section
  */
-exports.createTableViewSection = function(title, footerView) {
+exports.createTableViewSection = function(_options, _footerView) {
 	/**
 	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 	 */
@@ -622,7 +622,7 @@ exports.createTableViewSection = function(title, footerView) {
 		height : 30
 	}),
 	    lbl = Ti.UI.createLabel({
-		text : title,
+		text : _options.title,
 		left : Alloy._m_left,
 		right : Alloy._m_right,
 		color : Alloy._fg_secondary,
@@ -631,12 +631,26 @@ exports.createTableViewSection = function(title, footerView) {
 	if (OS_IOS) {
 		lbl.height = Alloy._typo_height_h4;
 	}
+	if (_.has(_options, "icon")) {
+		headerView.layout = "horizontal";
+		lbl.left = Alloy._p_left;
+		headerView.add(Ti.UI.createLabel({
+			height : Ti.UI.FILL,
+			text : _options.icon,
+			left : Alloy._m_left,
+			color : _options.color || Alloy._fg_secondary,
+			font : {
+				fontFamily : "mscripts",
+				fontSize : 24
+			}
+		}));
+	}
 	headerView.add(lbl);
 	dict = {
 		headerView : headerView
 	};
-	if (footerView) {
-		dict.footerView = footerView;
+	if (_footerView) {
+		dict.footerView = _footerView;
 	}
 	return Ti.UI.createTableViewSection(dict);
 };

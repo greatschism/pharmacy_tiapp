@@ -63,8 +63,12 @@ function didReceiveAppointments(result) {
 	footerView.add(containerView);
 	footerView.addEventListener("click", didClickSetAppointment);
 
-	$.appointmentsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments, footerView);
-	$.doctorsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
+	$.appointmentsSection = utilities.createTableViewSection({
+		title : Alloy.Globals.strings.sectionUpcomingAppointments
+	}, footerView);
+	$.doctorsSection = utilities.createTableViewSection({
+		title : Alloy.Globals.strings.sectionMyDoctors
+	});
 
 	for (var i in doctors) {
 

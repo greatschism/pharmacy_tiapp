@@ -38,7 +38,9 @@ function init() {
 	});
 
 	if (dates.length) {
-		var datesSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionStoreHours);
+		var datesSection = utilities.createTableViewSection({
+			title : Alloy.Globals.strings.sectionStoreHours
+		});
 		for (var i in dates) {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
@@ -66,7 +68,9 @@ function init() {
 	}
 
 	if (services.length) {
-		var servicesSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionStoreServices);
+		var servicesSection = utilities.createTableViewSection({
+			title : Alloy.Globals.strings.sectionStoreServices
+		});
 		for (var i in services) {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"

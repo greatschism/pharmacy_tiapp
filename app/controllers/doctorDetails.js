@@ -72,7 +72,9 @@ function didClickMore(e) {
 
 function loadPrescriptions(prescriptions) {
 	if (!$.prescriptionsSection) {
-		$.prescriptionsSection = utilities.createTableViewSection(Alloy.Globals.strings.strPrescriptions);
+		$.prescriptionsSection = utilities.createTableViewSection({
+			title : Alloy.Globals.strings.strPrescriptions
+		});
 		for (var i in prescriptions) {
 			$.prescriptionsSection.add(getRow(prescriptions[i]));
 		}

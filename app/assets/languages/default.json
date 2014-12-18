@@ -128,7 +128,6 @@
 		"msgYouHaveNoActiveprescription": "You have no active prescriptions associated with %s",
 		"msgNoActiveprescription": "No active prescriptions",
 		"msgOrderPlacedReadyBy": "Order placed should be ready by",
-		"msgOrderPlacedReadyBy": "Order placed should be ready by",
 		"msgOverdueBy": "Overdue by",
 		"msgDueFoRefillIn": "Due for refill in",
 		"msgDueFoRefillOn": "Due for refill on",
