@@ -8,16 +8,11 @@
 		"languages": [
 			{
 				"code": "en",
-				"titleid": "lngEnglish",
-				"url": "url_to_download"
+				"selected": true
 			}, {
-				"code": "es",
-				"titleid": "lngSpanish",
-				"url": "url_to_download"
+				"code": "es"
 			}, {
-				"code": "dummy",
-				"titleid": "Dummy",
-				"url": "url_to_download"
+				"code": "ja"
 			}
 		],
 		"iconSet": "thick",

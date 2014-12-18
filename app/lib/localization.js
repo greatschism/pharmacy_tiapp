@@ -1,5 +1,6 @@
-var Alloy = require("alloy");
-var Scule = require("com.scule");
+var Alloy = require("alloy"),
+    Scule = require("com.scule"),
+    Utilities = require("utilities");
 
 var Locale = {
 
@@ -16,7 +17,7 @@ var Locale = {
 	/**
 	 * initialize localization
 	 */
-	init : function() {
+	init : function(languages) {
 
 		var lColl = Scule.factoryCollection(Locale.path);
 
@@ -28,58 +29,51 @@ var Locale = {
 			/**
 			 * get the languages supported by app from Alloy.CFG
 			 */
-			var cfgLangs = Alloy.CFG.languages;
+			var cfgLangs = languages || Alloy.CFG.languages;
+			_.each(cfgLangs, function(cfgLang) {
 
-			/**
-			 * update the new default language strings
-			 */
-			var defaultLang = JSON.parse(require("utilities").getFile("languages/default.json"));
-			_.extend(_.findWhere(cfgLangs, {
-				code : defaultLang.code
-			}), defaultLang);
+				/**
+				 * add / update supported languages
+				 */
+				if (!_.has(languages, "strings")) {
+					_.extend(cfgLang, JSON.parse(Utilities.getFile("languages/" + cfgLang.code + ".json")));
+				}
 
-			/**
-			 * add / update supported languages
-			 */
-			for (var i in cfgLangs) {
-
-				var lang = lColl.find({
-				code : cfgLangs[i].code
+				var langObj = lColl.find({
+				code : cfgLang.code
 				})[0] || {};
 
-				if (_.isEmpty(lang)) {
+				if (_.isEmpty(langObj)) {
 
-					/**
-					 * by default set selected flag to false
-					 */
-					_.extend(cfgLangs[i], {
+					_.defaults(cfgLang, {
 						selected : false
 					});
 
-					var created = lColl.save(cfgLangs[i]);
+					var created = lColl.save(cfgLang);
 
 					//console.log("language created : ", created);
 
 				} else {
 
-					_.extend(lang, cfgLangs[i]);
+					_.extend(langObj, cfgLang);
 
 					var updated = lColl.update({
-						"_id" : lang["_id"]
+						"_id" : langObj["_id"]
 					}, {
-						$set : lang
+						$set : langObj
 					}, {}, true);
 
 					//console.log("language updated : ", updated);
 
 				}
-			}
+
+			});
 
 			/**
 			 * remove unsupported languages
 			 */
 			var supported = _.pluck(cfgLangs, "code");
-			//console.log("language supported : ", supported);
+			console.log("language supported : ", supported);
 			var removed = lColl.remove({
 				code : {
 					$nin : supported
@@ -95,7 +89,9 @@ var Locale = {
 			});
 			if (selected.length == 0) {
 				selected = lColl.update({
-					code : defaultLang.code
+					code : _.findWhere(cfgLangs, {
+						selected : true
+					}).code
 				}, {
 					$set : {
 						selected : true
