@@ -1,41 +1,3 @@
-"#listView":{
-	bottom: 90
-},
-".profile-img":{
-	width: 75
-},
-".text-view":{
-	left: 100
-},
-".left-30":{
-	left: 30
-},
-".right-30":{
-	right: 30
-},
-"#notesTxta":{
-	height: 65,
-	hintText: Alloy.Globals.strings.hintClickToAddNote
-},
-"#prescriptionsLbl":{
-	text: Alloy.Globals.strings.strPrescriptions
-},
-".height-20d":{
-	height: 20
-},
-".height-40d":{
-	height: 40
-},
-"#moreImg":{
-	image: "/images/plus_black.png"
-},
-"#moreLbl":{
-	left: 0,
-	text: Alloy.Globals.strings.lblMore
-},
-"#hideDoctorBtn":{
-	title: Alloy.Globals.strings.btnHideThisDoctor
-},
 "#photoDialog":{
 	role: "overlay",
 	title: Alloy.Globals.strings.titleChooseOne,
@@ -52,4 +14,38 @@
 	],
 	cancel: 2,
 	zIndex: 2
+},
+"#editBtn":{
+	title: Alloy.Globals.strings.btnEdit
+},
+"#tableView":{
+	top: 0,
+	bottom: 96
+},
+"#profileImg":{
+	width: 72
+},
+".after-icon":{
+	left: 32
+},
+"#phoneIconLbl":{
+	text: Alloy.CFG.icons.phone
+},
+"#faxIconLbl":{
+	text: Alloy.CFG.icons.print
+},
+"#directionIconLbl":{
+	text: Alloy.CFG.icons.direction
+},
+"#footerView":{
+	height: 96
+},
+"#moreIcon":{
+	text: Alloy.CFG.icons.sort
+},
+"#moreLbl":{
+	text: Alloy.Globals.strings.lblMore
+},
+"#hideDoctorBtn":{
+	title: Alloy.Globals.strings.btnHideThisDoctor
 }

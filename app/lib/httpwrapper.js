@@ -44,11 +44,17 @@ function request(_params) {
 			}
 		},
 		failure : function(http, url) {
+			var retry = _params.retry !== false;
 			if (_params.failure) {
 				_params.failure();
 			}
 			dialog.show({
-				message : Alloy.Globals.strings.msgFailedToRetrieve
+				message : Alloy.Globals.strings.msgFailedToRetrieve,
+				buttonNames : retry ? [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.strOK],
+				cancelIndex : retry ? 1 : 0,
+				success : function() {
+					request(_params);
+				}
 			});
 		},
 		done : function() {

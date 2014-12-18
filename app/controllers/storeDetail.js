@@ -38,7 +38,7 @@ function init() {
 	});
 
 	if (dates.length) {
-		var datesSection = createTableViewSection(Alloy.Globals.strings.sectionStoreHours);
+		var datesSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionStoreHours);
 		for (var i in dates) {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
@@ -49,11 +49,11 @@ function init() {
 			}),
 			    leftLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["left", "width-45", "h5", "fg-secondary"]
+				classes : ["left", "width-45", "h5", "color-secondary"]
 			}),
 			    rightLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["right", "width-45", "h5", "text-right", "fg-secondary"]
+				classes : ["right", "width-45", "h5", "text-right", "color-secondary"]
 			});
 			leftLbl.text = dates[i].day;
 			rightLbl.text = dates[i].storehours;
@@ -66,14 +66,14 @@ function init() {
 	}
 
 	if (services.length) {
-		var servicesSection = createTableViewSection(Alloy.Globals.strings.sectionStoreServices);
+		var servicesSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionStoreServices);
 		for (var i in services) {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
 			    titleLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "fg-secondary", "multi-line"]
+				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "color-secondary", "multi-line"]
 			});
 			titleLbl.text = services[i].service;
 			row.add(titleLbl);
@@ -109,26 +109,6 @@ function init() {
 	}
 
 	$.tableView.data = data;
-}
-
-function createTableViewSection(title) {
-	/**
-	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
-	 */
-	var headerView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["bg-quinary"]
-	}),
-	    lbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["margin-left", "margin-right", "h4-fixed", "fg-secondary"]
-	});
-	lbl.text = title;
-	headerView.height = 30;
-	headerView.add(lbl);
-	return Ti.UI.createTableViewSection({
-		headerView : headerView
-	});
 }
 
 function underConstruction() {

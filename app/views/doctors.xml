@@ -3,65 +3,9 @@
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
 	<View>
-		<TableView id="tableView" />
+		<TableView id="tableView" onClick="didItemClick" />
 		<View id="footerView" class="bottom">
 			<Button id="addDoctorBtn" class="btn-primary" onClick="didClickAddDoctor" />
 		</View>
 	</View>
-	<!--<View>
-	<ScrollView id="listView" platform="mobileweb">
-	<View class="vgroup">
-	<TableView  id="appointmentSection" class="auto-height" dataCollection="appointments" dataTransform="transformAppointment" onClick="didItemClick">
-	<HeaderView>
-	<View class="height-20d bg-armadillo">
-	<Label id="appointmentLbl" class="cloudy left-5" />
-	</View>
-	</HeaderView>
-	<TableViewRow class="auto-height top-10" rowTable="appointmentSection">
-	<View class="top auto-height bottom-10">
-	<View class="top right-25 auto-height">
-	<View class="top auto-height">
-	<ImageView image="{image}" class="profile-img left-10" />
-	</View>
-	<Label text="{title}" class="title right-25 auto-height top-5 bottom-5 font-16 gray multi-line" />
-	</View>
-	<ImageView class="child" />
-	</View>
-	</TableViewRow>
-	<FooterView>
-	<View class="height-40d bg-aeroblue">
-	<View onClick="didClickSetAppointment">
-	<View class="auto hgroup touch-disabled">
-	<ImageView id="addImg" class="width-20d left touch-disabled" />
-	<Label id="addLbl" class="button-title h4 gulfstream touch-disabled" />
-	</View>
-	</View>
-	</View>
-	</FooterView>
-	</TableView>
-	<TableView id="doctorSection" class="auto-height" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
-	<HeaderView>
-	<View class="height-20d bg-armadillo">
-	<Label id="doctorLbl" class="cloudy left-5" />
-	</View>
-	</HeaderView>
-	<TableViewRow class="auto-height top-10" rowTable="doctorSection" rowId="{id}">
-	<View class="top auto-height bottom-10">
-	<View class="top right-25 auto-height">
-	<View class="top auto-height">
-	<ImageView image="{thumbnail_url}" bindId="profile" class="profile-img left-10" />
-	</View>
-	<View class="content-view auto-height vgroup">
-	<Label text="{long_name}" bindId="doctor" class="right-25 left auto-height font-16 black multi-line touch-disabled" />
-	<Label text="{description}" bindId="prescription" class="right-25 left auto-height h5 gray multi-line touch-disabled" />
-	</View>
-	</View>
-	<ImageView class="child" />
-	</View>
-	</TableViewRow>
-	</TableView>
-	</View>
-	</ScrollView>
-	<Button id="addDoctorBtn" class="bottom-20 width-90 bg-orange white h2" onClick="didClickAddDoctor" />
-	</View>-->
 </Alloy> 

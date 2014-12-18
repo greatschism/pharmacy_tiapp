@@ -1,12 +1,6 @@
 <Alloy>
-	<View platform="ios,android">
+	<View>
 		<TextArea id="txta" onFocus="didFocus" onBlur="didBlur" onChange="didChange" onReturn="didReturn" />
-		<Label id="hintLbl" platform="ios" onClick="focus" />
-	</View>
-	<View platform="mobileweb">
-		<View id="container">
-			<TextArea id="txta" onFocus="didFocus" onBlur="didBlur" onChange="didChange" onReturn="didReturn" />
-			<Label id="hintLbl" onClick="focus" />
-		</View>
+		<Label id="hintLbl" platform="ios,mobileweb" onClick="focus" />
 	</View>
 </Alloy>

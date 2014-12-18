@@ -608,3 +608,30 @@ exports.getDirection = function(source, destination, mode) {
 		}
 	}
 };
+
+/**
+ * create table view section
+ */
+exports.createTableViewSection = function(title) {
+	/**
+	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
+	 */
+	var headerView = Ti.UI.createView({
+		backgroundColor : Alloy._bg_quinary,
+		height : 30
+	}),
+	    lbl = Ti.UI.createLabel({
+		text : title,
+		left : Alloy._m_left,
+		right : Alloy._m_right,
+		color : Alloy._fg_secondary,
+		font : Alloy._typo_h4
+	});
+	if (OS_IOS) {
+		lbl.height = Alloy._typo_height_h4;
+	}
+	headerView.add(lbl);
+	return Ti.UI.createTableViewSection({
+		headerView : headerView
+	});
+};

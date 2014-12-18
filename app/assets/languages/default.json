@@ -126,10 +126,7 @@
 		"msgYouHaveUpcomingAppointmentWith": "You have an upcoming appointment with %s on ",
 		"msgHasPrescribedYou": "%s has prescribed you %s",
 		"msgYouHaveNoActiveprescription": "You have no active prescriptions associated with %s",
-
-		"menuSearch": "Search",
-		"menuSort": "Sort",
-		"menuUnhidePrescriptions": "Unhide prescriptions",
+		"msgNoActiveprescription": "No active prescriptions",
 		"msgOrderPlacedReadyBy": "Order placed should be ready by",
 		"msgOrderPlacedReadyBy": "Order placed should be ready by",
 		"msgOverdueBy": "Overdue by",
@@ -139,10 +136,16 @@
 		"msgGeoAuthorizationRestricted": "Location service is turned off. Please check your settings.",
 		"msgGeoPurpose": "Help you to locate the nearest pharmacies.",
 		"msgYourOrderIsReady": "Your order is ready to be picked up!",
+		"msgNotFilledYet": "Not filled yet",
 		"msgUnderConstruction": "Under construction",
+
+		"menuSearch": "Search",
+		"menuSort": "Sort",
+		"menuUnhidePrescriptions": "Unhide prescriptions",
 
 		"btnYes": "Yes",
 		"btnNo": "No",
+		"btnRetry": "Retry",
 		"btnSend": "Send",
 		"btnDone": "Done",
 		"btnContinue": "Continue",
@@ -160,12 +163,14 @@
 		"btnAddAnotherPrescription": "Add another prescription",
 		"btnAddAllPrescriptions": "Add all prescriptions ready for refill",
 		"btnRead": "Read",
+		"btnEdit": "Edit",
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",
 
 		"strWelcome": "Welcome!",
 		"strCancel": "Cancel",
+		"strOK": "OK",
 		"strLogin": "Log in",
 		"strSignup": "Sign up",
 		"strSignin": "Sign in",

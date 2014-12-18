@@ -1,15 +1,9 @@
 "#widget": {
-	width: "95%",
 	height: 100,
 	borderColor: "#8b8b8b",
-	borderWidth: 1,
-	borderRadius: 5
-},
-"#container[platform=mobileweb]":{
-	right: 10
+	borderWidth: 1
 },
 "#txta":{
-	width: Ti.UI.FILL,
 	height: Ti.UI.FILL,
 	color: "#000",
 	backgroundColor: "transparent",
@@ -20,15 +14,15 @@
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
 	zIndex: 0
 },
+"#txta[platform=ios,android]":{
+	width: Ti.UI.FILL
+},
 "#txta[platform=ios,mobileweb]":{
 	suppressReturn: false
 },
 "#txta[platform=mobileweb]":{
-	left: 10
-},
-"#hintLbl[platform=ios, mobileweb]":{
-	wordWrap: false,
-	zIndex: 1
+	left: 10,
+	right: 10
 },
 "#hintLbl[platform=ios]":{
 	top: 8,
@@ -42,4 +36,8 @@
 	right: 10,
 	ellipsize: true,
 	color: "#000"
+},
+"#hintLbl[platform=ios, mobileweb]":{
+	wordWrap: false,
+	zIndex: 1
 }

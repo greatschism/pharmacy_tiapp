@@ -621,6 +621,19 @@
 /**
 * 	text fields
 */
+".txta":{
+	top: Alloy._m_top,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary,
+	backgroundColor: Alloy._bg_senary,
+	borderColor: Alloy._br_secondary,
+	borderRadius: Alloy._border_radius
+},
+/**
+* 	text fields
+*/
 ".txt":{
 	top: Alloy._m_top,
 	left: Alloy._m_left,
@@ -769,6 +782,20 @@
 /**
 * 	table / list view
 */
+".list-item-view":{
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._m_left,
+	right: Alloy._m_right,
+	height: Ti.UI.SIZE
+},
+".list-item-view-with-child":{
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._m_left,
+	right: 48,
+	height: Ti.UI.SIZE
+},
 ".list-item-title":{
 	top: Alloy._p_top,
 	bottom: Alloy._p_bottom,
@@ -787,7 +814,7 @@
 	top: Alloy._p_top,
 	bottom: Alloy._p_bottom,
 	left: Alloy._m_left,
-	right: 44,
+	right: 48,
 	height: Ti.UI.SIZE,
 	font: Alloy._typo_h3,
 	textAlign: "left",
@@ -797,20 +824,6 @@
 	ellipsize: false,
 	wordWrap: true
 },
-".list-item-view":{
-	top: Alloy._p_top,
-	bottom: Alloy._p_bottom,
-	left: Alloy._m_left,
-	right: Alloy._m_right,
-	height: Ti.UI.SIZE
-},
-".list-item-view-with-child":{
-	top: Alloy._p_top,
-	bottom: Alloy._p_bottom,
-	left: Alloy._m_left,
-	right: 44,
-	height: Ti.UI.SIZE
-},
 ".list-item-left-icon":{
 	left: 0,
 	width: 24,
@@ -819,8 +832,17 @@
 		fontSize: 24
 	}
 },
-".list-item-content-view":{
+".list-item-content-after-icon":{
 	left: 32,
+	height: Ti.UI.SIZE
+},
+".list-item-left-image":{
+	top: 0,
+	left: 0,
+	width: 72
+},
+".list-item-content-after-image":{
+	left: 80,
 	height: Ti.UI.SIZE
 },
 /**

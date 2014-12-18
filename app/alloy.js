@@ -18,12 +18,6 @@
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
-	Alloy.Collections.appointments = new Backbone.Collection();
-	Alloy.Collections.doctors = new Backbone.Collection();
-	Alloy.Collections.doctorPrescriptions = new Backbone.Collection();
-	Alloy.Collections.prescriptions = new Backbone.Collection();
-	Alloy.Collections.chooseTime = new Backbone.Collection();
-	Alloy.Collections.gettingRefilled = new Backbone.Collection();
 
 	Alloy.Models.user = new Backbone.Model({
 		loggedIn : false,
@@ -31,7 +25,6 @@
 		appLoad : {}
 	});
 	Alloy.Models.store = new Backbone.Model();
-	Alloy.Models.doctor = new Backbone.Model();
 
 	Alloy.Models.user.on("change:loggedIn", function didLoginChange() {
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("loggedIn");
@@ -138,8 +131,7 @@
 		titleid : "titleHome",
 		ctrl : "home",
 		icon : "home",
-		requiresLogin : false,
-		landingPage : true
+		requiresLogin : false
 	}, {
 		titleid : "strPrescriptions",
 		ctrl : "prescriptions",
@@ -169,7 +161,8 @@
 		titleid : "titleDoctors",
 		ctrl : "doctors",
 		icon : "doctors",
-		requiresLogin : false
+		requiresLogin : false,
+		landingPage : true
 	}, {
 		titleid : "titleRefillViaCamera",
 		action : "refillViaCamera",

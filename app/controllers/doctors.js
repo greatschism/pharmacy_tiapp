@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     http = require("httpwrapper"),
     dialog = require("dialog"),
+    utilities = require("utilities"),
     msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
     msgYouHaveNoActiveprescription = Alloy.Globals.strings.msgYouHaveNoActiveprescription,
     msgUpcomingAppointment = Alloy.Globals.strings.msgYouHaveUpcomingAppointmentWith,
@@ -19,7 +20,6 @@ function init() {
 		format : "JSON",
 		data : {},
 		success : didSuccess
-
 	});
 }
 
@@ -37,120 +37,165 @@ function didSuccess(result) {
 
 function didReceiveAppointments(result) {
 
-	var appointmentsSection = createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments),
-	    doctorsSection = createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
-
 	appointments = result.data.appointment;
+
+	$.appointmentsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments);
+	$.doctorsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
+
 	for (var i in doctors) {
-		var doctor = doctors[i];
+
+		var doctor = doctors[i],
+		    prescriptions = doctor.prescriptions,
+		    description = "";
 		doctor.short_name = "Dr. " + doctor.last_name;
 		doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
 		doctor.thumbnail_url = "/images/profile.png";
 
+		/**
+		 * Description format
+		 * 0 drugs You have no active prescriptions associated with Dr. [LASTNAME]
+		 * 1 drug Dr.[NAME] has prescribed you [DRUGNAME].
+		 * 2 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME] and [DRUGNAME].
+		 * 3 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
+		 * 4 or more Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
+		 */
+		len = prescriptions.length;
+		if (len) {
+			//When len is > 0
+			description = String.format(msgHasPrescribedYou, doctor.short_name, prescriptions[0].prescription_name);
+			if (len > 1) {
+				//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
+				switch(len) {
+				case 2:
+					description += " " + strAnd + " " + prescriptions[1].prescription_name;
+					break;
+				case 3:
+					description += ", " + prescriptions[1].prescription_name + " " + strAnd + " " + prescriptions[2].prescription_name;
+					break;
+				default:
+					description += ", " + prescriptions[1].prescription_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
+				}
+			}
+		} else {
+			//When len is 0
+			description = String.format(msgYouHaveNoActiveprescription, doctor.short_name);
+		}
+		description += ".";
+
 		var row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
+		}),
+		    padView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-view-with-child"]
+		}),
+		    childLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["list-item-child"]
+		}),
+		    leftImg = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			classes : ["list-item-left-image"]
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-content-after-image", "vgroup"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["left", "h3", "color-secondary"]
+		}),
+		    subtitleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["left", "h5", "color-quaternary", "multi-line"]
 		});
-		appointmentsSection.add(row);
+		row.rowId = doctor.doctor_id;
+		titleLbl.text = doctor.long_name;
+		subtitleLbl.text = description;
+		leftImg.image = doctor.thumbnail_url;
+		leftImg.bindId = "profile";
+		contentView.add(titleLbl);
+		contentView.add(subtitleLbl);
+		padView.add(leftImg);
+		padView.add(contentView);
+		row.add(padView);
+		row.add(childLbl);
+		$.doctorsSection.add(row);
 	}
 
 	for (var i in appointments) {
+
 		var appointment = appointments[i],
-		    doctor = _.where(doctors, {
-		doctor_id : appointment.doctor_id
-		})[0];
+		    doctor = _.findWhere(doctors, {
+			doctor_id : appointment.doctor_id
+		});
 		appointment.thumbnail_url = doctor.thumbnail_url;
-		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h.mm A");
+		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h:mm A[.]");
 		appointment.desc = String.format(msgUpcomingAppointment, doctor.short_name);
 
 		var row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
+		}),
+		    padView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-view-with-child"]
+		}),
+		    childLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["list-item-child"]
+		}),
+		    leftImg = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			classes : ["list-item-left-image"]
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-content-after-image", "vgroup"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["h3", "multi-line"]
 		});
-		doctorsSection.add(row);
-	}
-
-	$.tableView.data = [appointmentsSection, doctorsSection];
-	app.navigator.hideLoader();
-}
-
-function createTableViewSection(title) {
-	/**
-	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
-	 */
-	var headerView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["bg-quinary"]
-	}),
-	    lbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["margin-left", "margin-right", "h4-fixed", "fg-secondary"]
-	});
-	lbl.text = title;
-	headerView.height = 30;
-	headerView.add(lbl);
-	return Ti.UI.createTableViewSection({
-		headerView : headerView
-	});
-}
-
-function transformAppointment(model) {
-	var transform = model.toJSON();
-	if (OS_IOS) {
-		var text = transform.desc + " " + transform.time;
-		var len = transform.desc.length;
-		transform.title = Ti.UI.iOS.createAttributedString({
-			text : text,
-			attributes : [{
-				type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-				value : "#8b8b8b",
-				range : [0, len]
-			}, {
-				type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-				value : "#F79538",
-				range : [len + 1, transform.time.length]
-			}]
-		});
-	} else {
-		transform.title = transform.desc + " <font color=\"#F79538\">" + transform.time + "</font>";
-	}
-	return transform;
-}
-
-function transformDoctor(model) {
-	/**
-	 * Description format
-	 * 0 drugs You have no active prescriptions associated with Dr. [LASTNAME]
-	 * 1 drug Dr.[NAME] has prescribed you [DRUGNAME].
-	 * 2 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME] and [DRUGNAME].
-	 * 3 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
-	 * 4 or more Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
-	 */
-	var transform = model.toJSON();
-	prescriptions = transform.prescriptions,
-	description = "",
-	len = prescriptions.length;
-	if (len) {
-		//When len is > 0
-		description = String.format(msgHasPrescribedYou, transform.short_name, prescriptions[0].presc_name);
-		if (len > 1) {
-			//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
-			switch(len) {
-			case 2:
-				description += " " + strAnd + " " + prescriptions[1].presc_name;
-				break;
-			case 3:
-				description += ", " + prescriptions[1].presc_name + " " + strAnd + " " + prescriptions[2].presc_name;
-				break;
-			default:
-				description += ", " + prescriptions[1].presc_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
-			}
+		if (OS_IOS) {
+			var text = appointment.desc + appointment.time;
+			titleLbl.applyProperties({
+				left : 0,
+				attributedString : Ti.UI.iOS.createAttributedString({
+					text : text,
+					attributes : [{
+						type : Ti.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+						value : Alloy._fg_secondary,
+						range : [0, text.length]
+					}, {
+						type : Ti.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+						value : Alloy._fg_tertiary,
+						range : [appointment.desc.length, appointment.time.length]
+					}, {
+						type : Ti.UI.iOS.ATTRIBUTE_FONT,
+						value : {
+							fontFamily : Alloy.CFG.fonts.medium,
+							fontSize : Alloy._typo_h3.fontSize
+						},
+						range : [appointment.desc.length, appointment.time.length]
+					}]
+				})
+			});
+		} else {
+			titleLbl.html = appointment.desc + " <font color=\"" + Alloy._fg_tertiary + "\"><b>" + appointment.time + "</b></font>";
 		}
-	} else {
-		//When len is 0
-		description = String.format(msgYouHaveNoActiveprescription, transform.short_name);
+		row.rowId = appointment.appointment_id;
+		leftImg.image = doctor.thumbnail_url;
+		leftImg.bindId = "profile";
+		contentView.add(titleLbl);
+		padView.add(leftImg);
+		padView.add(contentView);
+		row.add(padView);
+		row.add(childLbl);
+		$.appointmentsSection.add(row);
 	}
-	description += ".";
-	transform.description = description;
-	return transform;
+
+	$.tableView.data = [$.appointmentsSection, $.doctorsSection];
+	app.navigator.hideLoader();
 }
 
 function didToggle(e) {
@@ -162,28 +207,28 @@ function didClickMenu(e) {
 }
 
 function didItemClick(e) {
-	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
-	var section = OS_MOBILEWEB ? ($[e.row.rowTable]) : e.section;
-	if (section == $.appointmentSection) {
+	var doctorId = e.row.rowId,
+	    section = e.section,
+	    bindId = e.source.bindId;
+	if (section == $.appointmentsSection) {
 		app.navigator.open({
 			stack : true,
 			titleid : "titleEditReminder",
 			ctrl : "chooseTime",
 			ctrlArguments : {
-				itemId : itemId,
+				doctorId : doctorId,
 				edit : true
 			}
 		});
 	} else {
-		//doctorSection
-		var bindId = OS_MOBILEWEB ? e.source.bindId : e.bindId;
+		//doctors
 		if (bindId == "profile") {
-			$.photoDialog.itemId = itemId;
+			$.photoDialog.doctorId = doctorId;
 			$.photoDialog.show();
 		} else {
-			var doctor = Alloy.Collections.doctors.where({
-			id: itemId
-			})[0].toJSON();
+			var doctor = _.findWhere(doctors, {
+				doctor_id : String(doctorId)
+			});
 			app.navigator.open({
 				stack : true,
 				title : doctor.short_name,
