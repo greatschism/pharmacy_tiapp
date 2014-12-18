@@ -1,9 +1,12 @@
 {
 	"code": "en",
 	"version": 1,
+	"titleid": "lngEnglish",
+	"url": "url_to_download",
 	"strings": {
 
 		"lngEnglish": "English",
+		"lngJapanese": "Japanese",
 		"lngSpanish": "Spanish",
 
 		"titleHome": "Home",
