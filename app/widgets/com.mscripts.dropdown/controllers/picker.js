@@ -9,7 +9,7 @@ var args = arguments[0] || {},
 (function() {
 
 	if (_.has(args, "backgroundColor")) {
-		$.widget.backgroundColor = args.backgroundColor;
+	//	$.picker.backgroundColor = args.backgroundColor;
 	}
 
 	if (_.has(args, "toolbarDict")) {
