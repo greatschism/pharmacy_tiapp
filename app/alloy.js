@@ -18,6 +18,7 @@
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
+	Alloy.Collections.doctors = new Backbone.Collection();
 
 	Alloy.Models.user = new Backbone.Model({
 		loggedIn : false,

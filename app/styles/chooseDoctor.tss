@@ -1,12 +1,3 @@
-".height-40d":{
-	height: 40
-},
 "#appointmentLbl":{
 	text: Alloy.Globals.strings.lblWhichDoctorYouHaveAppointment
-},
-".profile-img":{
-	width: 40
-},
-".doctor":{
-	left: 60
 }

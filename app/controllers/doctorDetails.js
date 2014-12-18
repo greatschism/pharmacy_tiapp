@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     moment = require("alloy/moment"),
     http = require("httpwrapper"),
-    PRESCRIPTION_COUNT = 1;
+    PRESCRIPTION_COUNT = 4;
 
 function init() {
 	$.profileImg.image = doctor.thumbnail_url;

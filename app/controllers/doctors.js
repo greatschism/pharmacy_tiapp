@@ -286,6 +286,7 @@ function openGallery() {
 }
 
 function didClickSetAppointment(e) {
+	Alloy.Collections.doctors.reset(doctors);
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseDoctor",

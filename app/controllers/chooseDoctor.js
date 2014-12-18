@@ -5,19 +5,14 @@ function init() {
 	Alloy.Collections.doctors.trigger("reset");
 }
 
-function transformDoctor(model) {
-	var transform = model.toJSON();
-	return transform;
-}
-
 function didItemClick(e) {
-	var itemId = OS_MOBILEWEB ? e.row.rowId : e.itemId;
+	var doctorId = e.row.rowId;
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",
 		ctrl : "chooseTime",
 		ctrlArguments : {
-			itemId : itemId
+			doctorId : doctorId
 		}
 	});
 }

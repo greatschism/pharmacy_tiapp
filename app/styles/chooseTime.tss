@@ -1,15 +1,17 @@
-".height-40d":{
-	height: 40
-},
 "#whenLbl":{
 	text: Alloy.Globals.strings.lblWhenIsYourAppointment
+},
+"#dateTitleLbl":{
+	text: Alloy.Globals.strings.lblOnThisDate
+},
+"#timeTitleLbl":{
+	text: Alloy.Globals.strings.lblAtThisTime
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
 },
 "#editBtn":{
-	title: Alloy.Globals.strings.btnEditReminderSettings,
-	borderWidth: 1
+	title: Alloy.Globals.strings.btnEditReminderSettings
 },
 "#deleteBtn":{
 	title: Alloy.Globals.strings.btnDeleteThisReminder

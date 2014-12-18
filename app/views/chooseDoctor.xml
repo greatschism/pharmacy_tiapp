@@ -1,39 +1,16 @@
 <Alloy>
-	<ListView id="listView" platform="ios,android" defaultItemTemplate="doctor" onItemclick="didItemClick">
-		<Templates>
-			<ItemTemplate name="doctor" class="auto-height top-10">
-				<View class="right-25 auto-height bottom-10">
-					<ImageView bindId="profile" class="profile-img left-10" />
-					<Label bindId="doctor" class="doctor auto-height h3 black multi-line" />
-				</View>
-				<ImageView class="child" />
-			</ItemTemplate>
-		</Templates>
-		<ListSection dataCollection="doctors" dataTransform="transformDoctor">
-			<HeaderView>
-				<View class="height-40d bg-aeroblue">
-					<Label id="appointmentLbl" class="button-title width-95 h4 text-center gulfstream touch-disabled" />
-				</View>
-			</HeaderView>
-			<ListItem itemId="{doctor_id}" profile:image="{thumbnail_url}" doctor:text="{long_name}" />
-		</ListSection>
-	</ListView>
-	<TableView id="listView" platform="mobileweb" dataCollection="doctors" dataTransform="transformDoctor" onClick="didItemClick">
+	<TableView id="tableView" dataCollection="doctors" onClick="didItemClick">
 		<HeaderView>
-			<View class="height-40d bg-aeroblue">
-				<Label id="appointmentLbl" class="button-title width-90 h4 text-center gulfstream touch-disabled" />
+			<View class="auto-height bg-success">
+				<Label id="appointmentLbl" class="padding-top padding-bottom margin-left margin-right auto-height h4 text-center multi-line fg-primary" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="auto-height top-10" rowId="{doctor_id}">
-			<View class="top auto-height bottom-10">
-				<View class="top right-25 auto-height">
-					<View class="top auto-height">
-						<ImageView image="{thumbnail_url}" class="profile-img left-10" />
-					</View>
-					<Label text="{long_name}" class="doctor right-25 auto-height h3 black multi-line" />
-				</View>
-				<ImageView class="child" />
+		<TableViewRow rowId="{doctor_id}">
+			<View class="list-item-view-with-child">
+				<ImageView image="{thumbnail_url}" class="list-item-left-image" />
+				<Label text="{long_name}" class="list-item-content-after-image h3 multi-line fg-secondary" />
 			</View>
+			<Label class="list-item-child" />
 		</TableViewRow>
 	</TableView>
 </Alloy>

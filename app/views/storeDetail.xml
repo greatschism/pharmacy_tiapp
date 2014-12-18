@@ -2,7 +2,7 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
-				<View class="margin-top margin-top margin-left margin-right auto-height hgroup no-hwrap">
+				<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
 					<Label id="favoriteLbl" class="top left font-icon fg-tertiary" if="Alloy.Globals.loggedIn" />
 					<View class="padding-left fill-width auto-height hgroup no-hwrap">
 						<View class="left width-50 auto-height vgroup">
