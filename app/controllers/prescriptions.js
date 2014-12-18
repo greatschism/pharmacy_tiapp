@@ -242,7 +242,50 @@ function init() {
 			color : Alloy._fg_tertiary
 		});
 		for (var i in otherPrescriptions) {
-
+			var transform = otherPrescriptions[i],
+			    row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
+				classes : ["height-75d"]
+			}),
+			    vseparator = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vseparator", "height-90", "bg-senary", "touch-disabled"]
+			}),
+			    content = $.UI.create("View", {
+				apiName : "View",
+				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+			}),
+			    title = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["left", "h2-fixed", "fg-secondary", "touch-disabled"]
+			}),
+			    detail = $.UI.create("View", {
+				apiName : "View",
+				classes : ["auto-height", "touch-disabled"]
+			}),
+			    rx = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["left", "width-45", "h5-fixed", "fg-quaternary", "touch-disabled"]
+			}),
+			    due = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["right", "width-55", "h5-fixed", "text-right", "fg-quaternary", "touch-disabled"]
+			});
+			row.className = "others";
+			content.rowId = transform.id;
+			content.addEventListener("click", didItemClick);
+			title.text = transform.name;
+			rx.text = transform.rx;
+			due.applyProperties({
+				text : transform.due,
+				color : transform.color
+			});
+			detail.add(rx);
+			detail.add(due);
+			content.add(title);
+			content.add(detail);
+			row.add(content);
+			$.otherPrescriptionsSection.add(row);
 		}
 		data.push($.otherPrescriptionsSection);
 	}
