@@ -634,6 +634,13 @@
 	borderColor: Alloy._br_secondary,
 	borderRadius: Alloy._border_radius
 },
+".form-txta":{
+	width: Ti.UI.FILL,
+	font: Alloy._typo_h3,
+	color: Alloy._fg_secondary,
+	borderColor: "transparent",
+	borderWidth: 0
+},
 /**
 * 	text fields
 */

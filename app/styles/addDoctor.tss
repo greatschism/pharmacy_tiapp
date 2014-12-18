@@ -1,10 +1,5 @@
 "#hintLbl": {
-	top: 5,
-	bottom: 5,
 	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation
-},
-".txt":{
-	returnKeyType: Ti.UI.RETURNKEY_NEXT
 },
 "#fnameTxt":{
 	hintText: Alloy.Globals.strings.hintFnameRequired,
@@ -43,7 +38,6 @@
 	nextItem: "notesTxta"
 },
 "#notesTxta":{
-	height: 100,
 	hintText: Alloy.Globals.strings.hintNotes
 },
 "#saveBtn":{
