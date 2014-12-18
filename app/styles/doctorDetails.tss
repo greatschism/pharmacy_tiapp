@@ -18,10 +18,10 @@
 "#editBtn":{
 	title: Alloy.Globals.strings.btnEdit
 },
-"#tableView":{
-	top: 0,
-	bottom: 96
-},
+/*"#tableView":{
+top: 0,
+bottom: 96
+},*/
 "#profileImg":{
 	width: 72
 },
@@ -37,15 +37,15 @@
 "#directionIconLbl":{
 	text: Alloy.CFG.icons.direction
 },
-"#footerView":{
-	height: 96
-},
 "#moreIcon":{
 	text: Alloy.CFG.icons.sort
 },
 "#moreLbl":{
 	text: Alloy.Globals.strings.lblMore
+}/*,
+"#footerView":{
+height: 96
 },
 "#hideDoctorBtn":{
-	title: Alloy.Globals.strings.btnHideThisDoctor
-}
+title: Alloy.Globals.strings.btnHideThisDoctor
+}*/

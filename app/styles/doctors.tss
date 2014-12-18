@@ -41,6 +41,12 @@
 	top: 0,
 	bottom: 96
 },
+"#addIcon":{
+	text: Alloy.CFG.icons.sort
+},
+"#addLbl":{
+	text: Alloy.Globals.strings.lblSetupAppointmentReminder
+},
 "#footerView":{
 	height: 96
 },

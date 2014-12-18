@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView id="scrollView" class="vgroup bg-primary">
-		<Label id="titleIcon" class="margin-top font-icon-large color-primary" />
+		<Label id="titleIcon" class="margin-top font-icon-large fg-primary" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<View class="auto-height">
 			<View id="userView" class="form-group vgroup">

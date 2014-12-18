@@ -39,7 +39,31 @@ function didReceiveAppointments(result) {
 
 	appointments = result.data.appointment;
 
-	$.appointmentsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments);
+	var footerView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["bg-success"]
+	}),
+	    containerView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["auto", "hgroup", "touch-disabled"]
+	}),
+	    addIcon = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["font-icon-tiny", "fg-primary", "touch-disabled"],
+		id : "addIcon"
+	}),
+	    addLbl = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["padding-left", "h4", "fg-primary", "touch-disabled"],
+		id : "addLbl"
+	});
+	footerView.height = Alloy._content_height;
+	containerView.add(addIcon);
+	containerView.add(addLbl);
+	footerView.add(containerView);
+	footerView.addEventListener("click", didClickSetAppointment);
+
+	$.appointmentsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionUpcomingAppointments, footerView);
 	$.doctorsSection = utilities.createTableViewSection(Alloy.Globals.strings.sectionMyDoctors);
 
 	for (var i in doctors) {
@@ -103,11 +127,11 @@ function didReceiveAppointments(result) {
 		}),
 		    titleLbl = $.UI.create("Label", {
 			apiName : "Label",
-			classes : ["left", "h3", "color-secondary"]
+			classes : ["left", "h3", "fg-secondary"]
 		}),
 		    subtitleLbl = $.UI.create("Label", {
 			apiName : "Label",
-			classes : ["left", "h5", "color-quaternary", "multi-line"]
+			classes : ["left", "h5", "fg-quaternary", "multi-line"]
 		});
 		row.rowId = doctor.doctor_id;
 		titleLbl.text = doctor.long_name;

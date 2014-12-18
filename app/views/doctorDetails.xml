@@ -1,38 +1,35 @@
 <Alloy>
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="editBtn" class="nav-bar-right-btn" onClick="didClickEdit" />
-	<View>
-		<TableView id="tableView">
-			<HeaderView>
-				<View class="auto-height vgroup">
-					<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
-						<ImageView id="profileImg" class="top" onClick="didClickProfileImg" />
-						<View class="top padding-left fill-width auto-height vgroup">
-							<Label id="nameLbl" class="left h2 multi-line color-secondary" />
-							<View class="padding-top auto-height">
-								<Label id="phoneIconLbl" class="top left font-icon color-tertiary" />
-								<Label id="phoneLbl" class="after-icon h5 multi-line color-secondary" />
-							</View>
-							<View class="padding-top auto-height">
-								<Label id="faxIconLbl" class="top left font-icon color-tertiary" />
-								<Label id="faxLbl" class="after-icon h5 multi-line color-secondary" />
-							</View>
-							<View class="padding-top auto-height">
-								<Label id="directionIconLbl" class="top left font-icon color-tertiary" />
-								<View class="after-icon auto-height vgroup">
-									<Label id="orgLbl" class="left h5-fixed color-secondary" />
-									<Label id="addressLbl" class="left h5-fixed color-secondary" />
-									<Label id="zipLbl" class="left h5-fixed color-secondary" />
-								</View>
-							</View>
+	<!--<View>-->
+	<TableView id="tableView" height="Ti.UI.FILL" top="0" bottom="0">
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
+					<ImageView id="profileImg" class="top" onClick="didClickProfileImg" />
+					<View class="top padding-left fill-width auto-height vgroup">
+						<Label id="nameLbl" class="left h2 multi-line fg-secondary" />
+						<View class="padding-top auto-height">
+							<Label id="phoneIconLbl" class="top left font-icon fg-tertiary" />
+							<Label id="phoneLbl" class="after-icon h5 multi-line fg-secondary" />
+						</View>
+						<View class="padding-top auto-height">
+							<Label id="faxIconLbl" class="top left font-icon fg-tertiary" />
+							<Label id="faxLbl" class="after-icon h5 multi-line fg-secondary" />
+						</View>
+						<View class="padding-top auto-height">
+							<Label id="directionIconLbl" class="top left font-icon fg-tertiary" />
+							<Label id="directionLbl" class="after-icon h5 multi-line fg-secondary" />
 						</View>
 					</View>
-					<Widget id="notesTxta" src="com.mscripts.textarea" class="margin-bottom txta" />
 				</View>
-			</HeaderView>
-		</TableView>
-		<View id="footerView" class="bottom">
-			<Button id="hideDoctorBtn" class="btn-primary" onClick="didClickHideDoctor" />
-		</View>
+				<Widget id="notesTxta" src="com.mscripts.textarea" class="margin-bottom txta" />
+			</View>
+		</HeaderView>
+	</TableView>
+	<!--</View>
+	<View id="footerView" class="bottom">
+	<Button id="hideDoctorBtn" class="btn-primary" />
 	</View>
+	</View>-->
 </Alloy>

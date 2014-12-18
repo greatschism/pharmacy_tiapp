@@ -49,11 +49,11 @@ function init() {
 			}),
 			    leftLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["left", "width-45", "h5", "color-secondary"]
+				classes : ["left", "width-45", "h5", "fg-secondary"]
 			}),
 			    rightLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["right", "width-45", "h5", "text-right", "color-secondary"]
+				classes : ["right", "width-45", "h5", "text-right", "fg-secondary"]
 			});
 			leftLbl.text = dates[i].day;
 			rightLbl.text = dates[i].storehours;
@@ -73,7 +73,7 @@ function init() {
 			}),
 			    titleLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "color-secondary", "multi-line"]
+				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "fg-secondary", "multi-line"]
 			});
 			titleLbl.text = services[i].service;
 			row.add(titleLbl);

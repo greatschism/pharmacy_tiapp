@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary color-primary h4" onClick="didClickMenu" />
+	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
 	<View>

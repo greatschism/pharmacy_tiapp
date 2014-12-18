@@ -8,10 +8,10 @@
 				<View class="bg-senary" />
 			</ScrollableView>
 			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-top" onChange="didChangePage" />
-			<Widget id="buttonbar" class="margin-top h4 border-transparent bg-primary color-primary" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
+			<Widget id="buttonbar" class="margin-top h4 border-transparent bg-primary fg-primary" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
 			<View class="margin-top auto-width height-default hgroup">
-				<Label id="refillLbl" class="h4 color-tertiary" />
-				<Label id="iconLbl" class="margin-left font-icon color-tertiary" />
+				<Label id="refillLbl" class="h4 fg-tertiary" />
+				<Label id="iconLbl" class="margin-left font-icon fg-tertiary" />
 			</View>
 		</View>
 	</ScrollView>

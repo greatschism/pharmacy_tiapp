@@ -428,19 +428,19 @@
 * Color Classes
 */
 //primary Color
-".color-primary":{
+".fg-primary":{
 	color: Alloy._fg_primary
 },
-".color-secondary":{
+".fg-secondary":{
 	color: Alloy._fg_secondary
 },
-".color-tertiary":{
+".fg-tertiary":{
 	color: Alloy._fg_tertiary
 },
-".color-quaternary":{
+".fg-quaternary":{
 	color: Alloy._fg_quaternary
 },
-".color-quinary":{
+".fg-quinary":{
 	color: Alloy._fg_quinary
 },
 /*
@@ -472,6 +472,9 @@
 //form group input background
 ".bg-senary":{
 	backgroundColor: Alloy._bg_senary
+},
+".bg-success":{
+	backgroundColor: Alloy._success_color
 },
 /*
 * Border Classes

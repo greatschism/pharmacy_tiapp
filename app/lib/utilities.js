@@ -612,11 +612,12 @@ exports.getDirection = function(source, destination, mode) {
 /**
  * create table view section
  */
-exports.createTableViewSection = function(title) {
+exports.createTableViewSection = function(title, footerView) {
 	/**
 	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 	 */
-	var headerView = Ti.UI.createView({
+	var dict,
+	    headerView = Ti.UI.createView({
 		backgroundColor : Alloy._bg_quinary,
 		height : 30
 	}),
@@ -631,7 +632,11 @@ exports.createTableViewSection = function(title) {
 		lbl.height = Alloy._typo_height_h4;
 	}
 	headerView.add(lbl);
-	return Ti.UI.createTableViewSection({
+	dict = {
 		headerView : headerView
-	});
+	};
+	if (footerView) {
+		dict.footerView = footerView;
+	}
+	return Ti.UI.createTableViewSection(dict);
 };

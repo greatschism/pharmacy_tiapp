@@ -9,15 +9,15 @@
 			<TableView id="tableView" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="auto-height" rowId="{storeid}" className="store">
 					<View class="list-item-view-with-child">
-						<Label class="list-item-left-icon color-tertiary" if="Alloy.Globals.loggedIn" text="{favorite}" />
+						<Label class="list-item-left-icon fg-tertiary" if="Alloy.Globals.loggedIn" text="{favorite}" />
 						<View class="list-item-content-after-icon">
 							<View class="left width-60 auto-height vgroup">
-								<Label class="fill-width color-secondary h3-fixed" text="{addressline1}" />
-								<Label class="fill-width color-quaternary h5-fixed" text="{subtitle}" />
+								<Label class="fill-width fg-secondary h3-fixed" text="{addressline1}" />
+								<Label class="fill-width fg-quaternary h5-fixed" text="{subtitle}" />
 							</View>
 							<View class="bottom right width-40 auto-height" visible="{showDistance}">
-								<Label class="distance-icon padding-left font-icon color-quaternary" />
-								<Label class="icon-lbl fill-width  color-quaternary h6-fixed" text="{distance}" />
+								<Label class="distance-icon padding-left font-icon fg-quaternary" />
+								<Label class="icon-lbl fill-width  fg-quaternary h6-fixed" text="{distance}" />
 							</View>
 						</View>
 					</View>

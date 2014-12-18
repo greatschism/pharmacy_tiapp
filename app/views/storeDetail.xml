@@ -3,16 +3,16 @@
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<View class="margin-top margin-top margin-left margin-right auto-height hgroup no-hwrap">
-					<Label id="favoriteLbl" class="top left font-icon color-tertiary" if="Alloy.Globals.loggedIn" />
+					<Label id="favoriteLbl" class="top left font-icon fg-tertiary" if="Alloy.Globals.loggedIn" />
 					<View class="padding-left fill-width auto-height hgroup no-hwrap">
 						<View class="left width-50 auto-height vgroup">
-							<Label id="titleLbl" class="left h2 multi-line color-secondary" />
-							<Label id="subtitleLbl" class="left h5 multi-line color-secondary" />
+							<Label id="titleLbl" class="left h2 multi-line fg-secondary" />
+							<Label id="subtitleLbl" class="left h5 multi-line fg-secondary" />
 						</View>
 						<View class="top left width-50 auto-height vgroup">
 							<View id="distanceView" class="padding-left auto-height">
-								<Label class="distance-icon left font-icon color-quaternary" />
-								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed color-quaternary" />
+								<Label class="distance-icon left font-icon fg-quaternary" />
+								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed fg-quaternary" />
 							</View>
 							<View class="padding-left auto-height">
 								<Label id="clockIcon" class="clock-icon left font-icon" />
