@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
-		<Widget id="languageDp" src="com.mscripts.dropdown" class="form-dropdown top-10" onClick="didClickLanguage" />
+		<Widget id="languageDp" src="com.mscripts.dropdown" class="form-dropdown padding-top" onClick="didClickLanguage" />
 		<Button id="aboutBtn" class="bottom-5 width-90 bg-white orange h2 font-light malibu" onClick="didClickAbout" /> 
 	</View>
 </Alloy> 
