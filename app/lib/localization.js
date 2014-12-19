@@ -98,7 +98,7 @@ var Locale = {
 					}
 				});
 			}
-			Locale.currentLanguage = selected[0];
+			Locale.applyLanguage(selected[0]);
 
 			/**
 			 * commit changes
@@ -109,9 +109,9 @@ var Locale = {
 
 		} else {
 
-			Locale.currentLanguage = lColl.find({
+			Locale.applyLanguage(lColl.find({
 			selected : true
-			})[0];
+			})[0]);
 
 		}
 
@@ -147,13 +147,15 @@ var Locale = {
 			 * set selected as true for given language
 			 */
 			var selected = lColl.update({
-				"_id" : toSelect["_id"]
+				code : _code
 			}, {
 				$set : {
 					selected : true
 				}
 			});
 			//console.log("language selected : ", selected);
+
+			Locale.applyLanguage(toSelect);
 
 			lColl.commit();
 
@@ -199,6 +201,15 @@ var Locale = {
 	 */
 	getLanguages : function(_key) {
 		return Scule.factoryCollection(Locale.path).findAll();
+	},
+
+	/**
+	 * get languages
+	 * @param {Object} _language The current language
+	 */
+	applyLanguage : function(_language) {
+		Locale.currentLanguage = _language;
+		Alloy.Globals.strings = _language.strings;
 	}
 };
 

@@ -23,12 +23,10 @@ function create(dict) {
 			properties.text = icons[iconSet + "_" + properties.icon] || icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
 			properties.text = Alloy.Globals.strings[properties.textid];
-			delete properties.textid;
 		} else if (_.has(properties, "titleid")) {
 			properties.title = Alloy.Globals.strings[properties.titleid];
-			delete properties.titleid;
 		}
-		element.applyProperties(properties);
+		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
 	}
 	if (_.has(dict, "children")) {
 		var children = dict.children,

@@ -20,7 +20,7 @@ function init() {
 	$.templateDp.setSelectedIndex(Alloy.Globals.templateIndex);
 	i = 0;
 	_.each(languages, function(obj) {
-		var lng = _.pick(obj, ["titleid"]);
+		var lng = _.pick(obj, ["titleid", "code"]);
 		_.extend(lng, {
 			title : lngStrs[lng.titleid]
 		});
@@ -45,6 +45,7 @@ function didReturnTemplate(e) {
 
 function didReturnLanguage(e) {
 	locale.setLanguage($.languageDp.getSelectedItem().code);
+	Alloy.Collections.menuItems.trigger("reset");
 	app.navigator.open({
 		titleid : "titleHome",
 		ctrl : "home"

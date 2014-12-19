@@ -1,8 +1,6 @@
 (function() {
 
-	var Locale = require("localization");
-	Locale.init();
-	Alloy.Globals.strings = Locale.currentLanguage.strings;
+	require("localization").init();
 
 	Alloy.Globals.loggedIn = false;
 	Alloy.Globals.currentLocation = {};
