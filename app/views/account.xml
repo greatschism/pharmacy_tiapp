@@ -1,6 +1,7 @@
 <Alloy>
-	<View>
-		<Widget id="languageDp" src="com.mscripts.dropdown" class="form-dropdown padding-top" onClick="didClickLanguage" />
-		<Button id="aboutBtn" class="bottom-5 width-90 bg-white orange h2 font-light malibu" onClick="didClickAbout" /> 
-	</View>
+	<ScrollView class="vgroup">
+		<Widget id="templateDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnTemplate" />
+		<Widget id="languageDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnLanguage" />
+		<Button id="aboutBtn" class="margin-bottom btn-primary" onClick="didClickAbout" />
+	</ScrollView>
 </Alloy> 

@@ -186,11 +186,19 @@ var Locale = {
 	},
 
 	/**
-	 * get value of key;
+	 * get value of key
 	 * @param {String} _key The key to fetch
 	 */
 	getString : function(_key) {
 		return Locale.currentLanguage.strings[_key] || "";
+	},
+
+	/**
+	 * get languages
+	 * return {Array} languages The supported languages
+	 */
+	getLanguages : function(_key) {
+		return Scule.factoryCollection(Locale.path).findAll();
 	}
 };
 

@@ -40,6 +40,7 @@
 			"pin": "n",
 			"pill": "N",
 			"sort": "X",
+			"remove": "*",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",

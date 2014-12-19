@@ -16,7 +16,6 @@
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
 	Alloy.Collections.menuItems = new Backbone.Collection();
-	Alloy.Collections.homePageItems = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
@@ -101,6 +100,7 @@
 		titleid : "titleHome",
 		ctrl : "home",
 		icon : "home",
+		disaplyAtHome : false,
 		requiresLogin : false,
 		landingPage : true
 	}, {
@@ -112,24 +112,29 @@
 	}, {
 		titleid : "strReminders",
 		action : "reminders",
-		icon : "reminder"
+		icon : "reminder",
+		requiresLogin : true
 	}, {
 		titleid : "titlePharmacyRewards",
 		action : "pharmacyRewards",
-		icon : "reward"
+		icon : "reward",
+		requiresLogin : true
 	}, {
 		titleid : "titleCoupons",
 		action : "coupons",
-		icon : "coupon"
+		icon : "coupon",
+		requiresLogin : true
 	}, {
 		titleid : "titleFamilyAccounts",
 		action : "familyAccounts",
-		icon : "users_list"
+		icon : "users_list",
+		requiresLogin : true
 	}, {
 		titleid : "titleTransferPrescription",
 		action : "transferPrescription",
 		icon : "transfer",
-		disaplyAtHome : true
+		disaplyAtHome : true,
+		requiresLogin : true
 	}, {
 		titleid : "titleDoctors",
 		ctrl : "doctors",
@@ -140,7 +145,8 @@
 		titleid : "titleRefillViaCamera",
 		action : "refillViaCamera",
 		icon : "refill_camera",
-		disaplyAtHome : true
+		disaplyAtHome : true,
+		requiresLogin : false
 	}, {
 		titleid : "titleStores",
 		ctrl : "stores",
@@ -155,8 +161,349 @@
 		requiresLogin : true
 	}];
 	Alloy.Collections.menuItems.reset(items);
-	Alloy.Collections.homePageItems.reset(_.where(items, {
-		disaplyAtHome : true
-	}));
+
+	//Templates
+	Alloy.Globals.homePageTemplates = [{
+		title : "List",
+		data : [{
+			apiName : "TableView",
+			addChild : "setData",
+			asArray : true,
+			children : [{
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "prescriptions",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "strPrescriptions"
+						}
+					}]
+				}],
+				navigation : {
+					ctrl : "prescriptions"
+				}
+			}, {
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "refill_camera",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleRefillViaCamera"
+						}
+					}]
+				}],
+				navigation : {
+					action : "refillViaCamera"
+				}
+			}, {
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "pharmacies",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleStores"
+						}
+					}]
+				}],
+				navigation : {
+					ctrl : "stores"
+				}
+			}, {
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "transfer",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleTransferPrescription"
+						}
+					}]
+				}],
+				navigation : {
+					action : "transferPrescription"
+				}
+			}, {
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "doctors",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleDoctors"
+						}
+					}]
+				}],
+				navigation : {
+					ctrl : "doctors"
+				}
+			}, {
+				apiName : "TableViewRow",
+				children : [{
+					apiName : "View",
+					classes : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+					addChild : "add",
+					children : [{
+						apiName : "Label",
+						classes : ["left", "fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "account",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleAccount"
+						}
+					}]
+				}],
+				navigation : {
+					ctrl : "account"
+				}
+			}]
+		}]
+	}, {
+		title : "Grid",
+		data : [{
+			apiName : "ScrollView",
+			classes : ["vgroup"],
+			children : [{
+				apiName : "View",
+				classes : ["auto-height"],
+				children : [{
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "prescriptions",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "strPrescriptions"
+						}
+					}],
+					navigation : {
+						ctrl : "prescriptions"
+					}
+				}, {
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "refill_camera",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleRefillViaCamera"
+						}
+					}],
+					navigation : {
+						action : "refillViaCamera"
+					}
+				}]
+			}, {
+				apiName : "View",
+				classes : ["hseparator", "touch-disabled"]
+			}, {
+				apiName : "View",
+				classes : ["auto-height"],
+				children : [{
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "pharmacies",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleStores"
+						}
+					}],
+					navigation : {
+						ctrl : "stores"
+					}
+				}, {
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "transfer",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleTransferPrescription"
+						}
+					}],
+					navigation : {
+						action : "transferPrescription"
+					}
+				}]
+			}, {
+				apiName : "View",
+				classes : ["hseparator", "touch-disabled"]
+			}, {
+				apiName : "View",
+				classes : ["auto-height"],
+				children : [{
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "doctors",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleDoctors"
+						}
+					}],
+					navigation : {
+						ctrl : "doctors"
+					}
+				}, {
+					apiName : "View",
+					classes : ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+					children : [{
+						apiName : "Label",
+						classes : ["fg-tertiary", "touch-disabled"],
+						properties : {
+							icon : "account",
+							font : {
+								fontFamily : "mscripts",
+								fontSize : 40
+							}
+						}
+					}, {
+						apiName : "Label",
+						classes : ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "fg-secondary", "touch-disabled"],
+						properties : {
+							textid : "titleAccount"
+						}
+					}],
+					navigation : {
+						ctrl : "account"
+					}
+				}]
+			}, {
+				apiName : "View",
+				classes : ["hseparator", "touch-disabled"]
+			}]
+		}, {
+			apiName : "View",
+			classes : ["vseparator", "touch-disabled"]
+		}]
+	}];
+
+	Alloy.Globals.templateIndex = 0;
 
 })();

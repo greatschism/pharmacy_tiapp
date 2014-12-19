@@ -1,47 +1,61 @@
 var args = arguments[0] || {},
+    app = require("core"),
     dialog = require("dialog"),
-    languages = Alloy.CFG.languages,
+    locale = require("localization"),
+    languages = locale.getLanguages(),
     lngStrs = Alloy.Globals.strings;
 
 function init() {
-	_.each(languages, function(obj) {
-		obj.title = lngStrs[obj.titleid];
+	var templates = [],
+	    lngs = [],
+	    i = 0,
+	    selectedIndex = 0;
+	_.each(Alloy.Globals.homePageTemplates, function(obj) {
+		var template = _.pick(obj, ["title"]);
+		template.index = i;
+		templates.push(template);
+		i++;
 	});
-	$.languageDp.setChoices(languages);
+	$.templateDp.setChoices(templates);
+	$.templateDp.setSelectedIndex(Alloy.Globals.templateIndex);
+	i = 0;
+	_.each(languages, function(obj) {
+		var lng = _.pick(obj, ["titleid"]);
+		_.extend(lng, {
+			title : lngStrs[lng.titleid]
+		});
+		lngs.push(lng);
+		if (obj.selected) {
+			selectedIndex = i;
+		}
+		i++;
+	});
+	$.languageDp.setChoices(lngs);
+	$.languageDp.setSelectedIndex(selectedIndex);
 }
 
-
 function setParentViews(view) {
+	$.templateDp.setParentView(view);
 	$.languageDp.setParentView(view);
+}
+
+function didReturnTemplate(e) {
+	Alloy.Globals.templateIndex = $.templateDp.getSelectedIndex();
+}
+
+function didReturnLanguage(e) {
+	locale.setLanguage($.languageDp.getSelectedItem().code);
+	app.navigator.open({
+		titleid : "titleHome",
+		ctrl : "home"
+	});
 }
 
 function didClickAbout() {
 	dialog.show({
 		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString('buildDate'),
-		title : Alloy.Globals.strings.alertTitleAbout
+		title : Alloy.Globals.strings.strAbout
 	});
-}
-
-
-
-function didClickLanguage() {
-	 Ti.App.Properties.setString('lang', $.languageDp.getSelectedRow(0).value);
-	if(Ti.App.Properties.getString('lang') == 'undefined')
-    {
-        if(Titanium.Locale.getCurrentLanguage() == 'ja')
-        {
-            Ti.App.Properties.setString('lang', 'ja');
-        }
-        else
-        {
-            Ti.App.Properties.setString('lang', 'en');
-        }
-    }   
-    else
-    {
-        Ti.App.Properties.setString('lang', Ti.App.Properties.getString('lang'));
-    }
-
 }
 
 exports.init = init;

@@ -20,9 +20,6 @@ function getLocation(callback) {
 		if (OS_MOBILEWEB) {
 			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
 		}
-		if (OS_IOS) {
-			Ti.Geolocation.purpose = Alloy.Globals.strings.msgGeoPurpose;
-		}
 		app.navigator.showLoader({
 			message : Alloy.Globals.strings.msgPleaseWait
 		});

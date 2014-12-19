@@ -113,7 +113,7 @@ function init() {
 			}),
 			    title = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["h2", "fg-secondary", "multi-line", "touch-disabled"]
+				classes : ["left", "h2", "fg-secondary", "multi-line", "touch-disabled"]
 			});
 			contentView.rowId = transform.id;
 			contentView.addEventListener("click", didItemClick);

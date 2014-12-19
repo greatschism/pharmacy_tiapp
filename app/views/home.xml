@@ -1,13 +1,4 @@
 <Alloy>
 	<Button id="signinBtn" class="nav-bar-right-btn" onClick="didClickSignin" />
-	<View>
-		<TableView id="tableView" dataCollection="homePageItems" dataTransform="transformData" onClick="didItemClick">
-			<TableViewRow>
-				<View class="list-item-view">
-					<Label text="{icon}" class="left-icon fg-tertiary" />
-					<Label text="{title}" class="after-left-icon h4 multi-line fg-secondary" />
-				</View>
-			</TableViewRow>
-		</TableView>
-	</View>
+	<View id="containerView" />
 </Alloy> 

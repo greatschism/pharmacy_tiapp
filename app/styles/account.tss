@@ -1,6 +1,9 @@
 "#aboutBtn":{
-	title: Alloy.Globals.strings.btnAbout
+	title: Alloy.Globals.strings.strAbout
 },
 "#languageDp":{
 	hintText: Alloy.Globals.strings.hintLanguage
+},
+"#templateDp":{
+	hintText: "Template"
 }

@@ -74,6 +74,7 @@ function didAuthenticate(result) {
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
 		action : "signout",
+		icon : "remove",
 		leftImage : "/images/logout_white.png"
 	});
 	if (app.navigator.name === Alloy._navigator) {

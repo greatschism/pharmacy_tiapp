@@ -48,14 +48,16 @@ function request(_params) {
 			if (_params.failure) {
 				_params.failure();
 			}
-			dialog.show({
-				message : Alloy.Globals.strings.msgFailedToRetrieve,
-				buttonNames : retry ? [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.strOK],
-				cancelIndex : retry ? 1 : 0,
-				success : function() {
-					request(_params);
-				}
-			});
+			if (_params.prompt === false) {
+				dialog.show({
+					message : Alloy.Globals.strings.msgFailedToRetrieve,
+					buttonNames : retry ? [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.strOK],
+					cancelIndex : retry ? 1 : 0,
+					success : function() {
+						request(_params);
+					}
+				});
+			}
 		},
 		done : function() {
 			if ((_params.keepBlook !== true || _.isEmpty(_params.failure)) && _.isEmpty(app.navigator) === false) {
