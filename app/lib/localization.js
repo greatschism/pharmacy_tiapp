@@ -73,7 +73,7 @@ var Locale = {
 			 * remove unsupported languages
 			 */
 			var supported = _.pluck(cfgLangs, "code");
-			console.log("language supported : ", supported);
+			//console.log("language supported : ", supported);
 			var removed = lColl.remove({
 				code : {
 					$nin : supported

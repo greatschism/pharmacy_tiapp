@@ -3,13 +3,13 @@
 },
 ".left-icon":{
 	left: 0,
-	width: 48,
+	width: 40,
 	font:{
 		fontFamily: "mscripts",
-		fontSize: 48
+		fontSize: 40
 	}
 },
 ".after-left-icon":{
-	left: 56,
+	left: 48,
 	height: Ti.UI.SIZE
 }

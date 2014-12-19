@@ -5,7 +5,7 @@
 			<TableViewRow>
 				<View class="list-item-view">
 					<Label text="{icon}" class="left-icon fg-tertiary" />
-					<Label text="{title}" class="after-left-icon h2 multi-line fg-secondary" />
+					<Label text="{title}" class="after-left-icon h4 multi-line fg-secondary" />
 				</View>
 			</TableViewRow>
 		</TableView>
