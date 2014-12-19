@@ -22,9 +22,26 @@ function didClickAbout() {
 	});
 }
 
+
+
 function didClickLanguage() {
-	
-Alert("Hi pratibha");
+	 Ti.App.Properties.setString('lang', $.languageDp.getSelectedRow(0).value);
+	if(Ti.App.Properties.getString('lang') == 'undefined')
+    {
+        if(Titanium.Locale.getCurrentLanguage() == 'ja')
+        {
+            Ti.App.Properties.setString('lang', 'ja');
+        }
+        else
+        {
+            Ti.App.Properties.setString('lang', 'en');
+        }
+    }   
+    else
+    {
+        Ti.App.Properties.setString('lang', Ti.App.Properties.getString('lang'));
+    }
+
 }
 
 exports.init = init;
