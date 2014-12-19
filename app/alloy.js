@@ -15,8 +15,9 @@
 
 	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
 
-	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.menuItems = new Backbone.Collection();
+	Alloy.Collections.homePageItems = new Backbone.Collection();
+	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
 
@@ -96,49 +97,18 @@
 		_reminder_color : ["#AF7AC4", "#27AE60", "#F39C12", "#D35400", "#47C9AF", "#4094FC", "#34495E", "#D4FB79", "#76D6FF", "#C1382A", "#AAB7B7", "#D28874", "#7C7645", "#FC4063", "#845FFF", "#3F09F6"]
 	});
 
-	Alloy.Globals.homeItems = [[{
-		image : "my_prescriptions.png",
-		navigation : {
-			titleid : "strPrescriptions",
-			ctrl : "prescriptions",
-			requiresLogin : false
-		}
-	}], [{
-		image : "refill_from_a_number.png"
-	}, {
-		image : "transfer.png"
-	}], [{
-		image : "pharmacy_rewards.png"
-	}, {
-		image : "finda_pharmacy.png",
-		navigation : {
-			titleid : "titleStores",
-			ctrl : "stores",
-			requiresLogin : false
-		}
-	}, {
-		image : "generics.png"
-	}], [{
-		image : "flu_shots.png"
-	}], [{
-		image : "clinic.png"
-	}], [{
-		image : "wellness_guide.png"
-	}], [{
-		image : "shop_target.png"
-	}]];
-
-	Alloy.Collections.menuItems.reset([{
+	var items = [{
 		titleid : "titleHome",
 		ctrl : "home",
 		icon : "home",
-		requiresLogin : false
+		requiresLogin : false,
+		landingPage : true
 	}, {
 		titleid : "strPrescriptions",
 		ctrl : "prescriptions",
 		icon : "prescriptions",
-		requiresLogin : true,
-		landingPage : true
+		disaplyAtHome : true,
+		requiresLogin : true
 	}, {
 		titleid : "strReminders",
 		action : "reminders",
@@ -158,26 +128,35 @@
 	}, {
 		titleid : "titleTransferPrescription",
 		action : "transferPrescription",
-		icon : "transfer"
+		icon : "transfer",
+		disaplyAtHome : true
 	}, {
 		titleid : "titleDoctors",
 		ctrl : "doctors",
 		icon : "doctors",
+		disaplyAtHome : true,
 		requiresLogin : true
 	}, {
 		titleid : "titleRefillViaCamera",
 		action : "refillViaCamera",
-		icon : "refill_camera"
+		icon : "refill_camera",
+		disaplyAtHome : true
 	}, {
 		titleid : "titleStores",
 		ctrl : "stores",
 		icon : "pharmacies",
+		disaplyAtHome : true,
 		requiresLogin : false
 	}, {
 		titleid : "titleAccount",
 		ctrl : "account",
 		icon : "account",
+		disaplyAtHome : true,
 		requiresLogin : true
-	}]);
+	}];
+	Alloy.Collections.menuItems.reset(items);
+	Alloy.Collections.homePageItems.reset(_.where(items, {
+		disaplyAtHome : true
+	}));
 
 })();

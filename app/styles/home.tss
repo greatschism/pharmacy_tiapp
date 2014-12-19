@@ -1,3 +1,15 @@
 "#signinBtn":{
 	title: Alloy.Globals.strings.strSignin
+},
+".left-icon":{
+	left: 0,
+	width: 48,
+	font:{
+		fontFamily: "mscripts",
+		fontSize: 48
+	}
+},
+".after-left-icon":{
+	left: 56,
+	height: Ti.UI.SIZE
 }

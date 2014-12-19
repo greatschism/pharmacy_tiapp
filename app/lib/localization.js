@@ -35,7 +35,7 @@ var Locale = {
 				/**
 				 * add / update supported languages
 				 */
-				if (!_.has(languages, "strings")) {
+				if (!_.has(cfgLang, "strings")) {
 					_.extend(cfgLang, JSON.parse(Utilities.getFile("languages/" + cfgLang.code + ".json")));
 				}
 
