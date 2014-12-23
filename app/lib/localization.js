@@ -29,41 +29,48 @@ var Locale = {
 			/**
 			 * get the languages supported by app from Alloy.CFG
 			 */
-			var cfgLangs = languages || Alloy.CFG.languages;
+			var cfgLangs = languages || Alloy.CFG.languages,
+
+			    defaultLng = _.clone(_.findWhere(cfgLangs, {
+				selected : true
+			}) || cfgLangs[0]);
+
 			_.each(cfgLangs, function(cfgLang) {
 
 				/**
 				 * add / update supported languages
 				 */
 				if (!_.has(cfgLang, "strings")) {
-					_.extend(cfgLang, JSON.parse(Utilities.getFile("languages/" + cfgLang.code + ".json")));
+					_.extend(cfgLang, JSON.parse(Utilities.getFile("languages/" + cfgLang.code + ".json") || "{}"));
 				}
 
 				var langObj = lColl.find({
 				code : cfgLang.code
 				})[0] || {};
 
+				//console.log("check collection : ", langObj.code);
+
 				if (_.isEmpty(langObj)) {
 
-					_.defaults(cfgLang, {
+					_.extend(cfgLang, {
 						selected : false
 					});
 
 					var created = lColl.save(cfgLang);
 
-					//console.log("language created : ", created);
+					//console.log("language created : ", cfgLang._id);
 
 				} else {
 
-					_.extend(langObj, cfgLang);
+					_.extend(langObj, _.omit(cfgLang, ["selected"]));
 
 					var updated = lColl.update({
-						"_id" : langObj["_id"]
+						code : langObj.code
 					}, {
-						$set : langObj
+						$set : _.omit(langObj, ["_id"])
 					}, {}, true);
 
-					//console.log("language updated : ", updated);
+					//console.log("language updated : ", updated[0].code);
 
 				}
 
@@ -74,6 +81,7 @@ var Locale = {
 			 */
 			var supported = _.pluck(cfgLangs, "code");
 			//console.log("language supported : ", supported);
+
 			var removed = lColl.remove({
 				code : {
 					$nin : supported
@@ -89,9 +97,7 @@ var Locale = {
 			});
 			if (selected.length == 0) {
 				selected = lColl.update({
-					code : _.findWhere(cfgLangs, {
-						selected : true
-					}).code
+					code : defaultLng.code
 				}, {
 					$set : {
 						selected : true
@@ -115,7 +121,6 @@ var Locale = {
 
 		}
 
-		//console.log("language selected : ", Locale.currentLanguage);
 	},
 
 	/**
@@ -123,11 +128,14 @@ var Locale = {
 	 * @param {String} _code The language code to enable
 	 */
 	setLanguage : function(_code) {
-		var lColl = Scule.factoryCollection(Locale.path);
-		var toSelect = lColl.find({
+
+		var lColl = Scule.factoryCollection(Locale.path),
+
+		    toSelect = lColl.find({
 			code : _code
 		});
-		if (toSelect.length != 0) {
+
+		if (toSelect.length != 0 && toSelect[0].selected == false) {
 
 			toSelect = toSelect[0];
 
@@ -141,7 +149,7 @@ var Locale = {
 					selected : false
 				}
 			});
-			//console.log("language unselected : ", unselected);
+			//console.log("language unselected : len ", unselected.length, " = ", unselected[0].code);
 
 			/**
 			 * set selected as true for given language
@@ -153,9 +161,9 @@ var Locale = {
 					selected : true
 				}
 			});
-			//console.log("language selected : ", selected);
+			//console.log("language selected : len ", selected.length, " = ", selected[0].code);
 
-			Locale.applyLanguage(toSelect);
+			Locale.applyLanguage(selected[0]);
 
 			lColl.commit();
 
@@ -172,11 +180,15 @@ var Locale = {
 	 * @param {String} _code code of the language to update, (optional) if not specified current language will be updated
 	 */
 	update : function(_callback, _code) {
-		var code = _code || Locale.currentLanguage.code;
-		var lColl = Scule.factoryCollection(Locale.path);
-		var toUpdate = lColl.find({
+
+		var code = _code || Locale.currentLanguage.code,
+
+		    lColl = Scule.factoryCollection(Locale.path),
+
+		    toUpdate = lColl.find({
 			code : code
 		});
+
 		if (toUpdate.length != 0) {
 			toUpdate = toUpdate[0];
 			//code to update language
@@ -210,6 +222,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
+		//console.log("language selected : ", Locale.currentLanguage);
 	}
 };
 
