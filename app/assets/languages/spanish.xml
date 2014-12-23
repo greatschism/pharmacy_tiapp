@@ -1,208 +1,205 @@
-
 <resources>
-
-
-
 
 	<string name="code">es</string>
 	<string name="version">1</string>
 	<string name="titleid">lngJapanese</string>
 	<string name="url">url_to_download</string>
-	
-
-		<string name="lngEnglish">English </string>
-		<string name="lngJapanese">Japanese</string>
-		<string name="lngSpanish">Spanish</string>
-
-		<string name="titleHome">casa</string>
-		<string name="titlePharmacyRewards">recompensas Farmacia</string>
-		<string name="titleCoupons">Cupones</string>
-		<string name="titleFamilyAccounts">cuentas familiares</string>
-		<string name="titleTransferPrescription">Transferir una receta</string>
-		<string name="titleDoctors">Médicos</string>
-		<string name="titleRefillViaCamera">Vuelva a llenar a través de la cámara</string>
-		<string name="titleStores">Tiendas</string>
-		<string name="titleAccount">cuenta</string>
-		<string name="titleStoreDetails">Guarda detalles</string>
-		<string name="titleLoginRecovery">recuperación Login</string>
-		<string name="titleTermsAndConditions">Términos y condiciones</string>
-		<string name="titleMobileNumber">número de teléfono móvil</string>
-		<string name="titleVerifyMobileNumber">verificar el número de móvil</string>
-		<string name="titleTellUsAboutYourSelf">Háblenos de usted</string>
-		<string name="titleChooseDoctor">Elija un médico</string>
-		<string name="titleChooseOne">Elija uno</string>
-		<string name="titleAddDoctor">Añadir un doctor</string>
-		<string name="titleChooseTime">Elija una hora</string>
-		<string name="titleOrderRefill">Ordene una recarga</string>
-		<string name="titleEditReminder">Editar recordatorio</string>
-		<string name="titleOrderDetails">detalles de la orden</string>
-		<string name="titleAddPrescriptions">Añadir recetas</string>
-		<string name="titleYourRefillIsOrdered">Su recarga se ha ordenado!</string>
-		<string name="titleRefillHistory">historia Refill</string>
-		<string name="titleDetails">Detalles</string>
-
-		<string name="sectionStoreHours">El horario de apertura</string>
-		<string name="sectionStoreServices">servicios de tienda</string>
-		<string name="sectionUpcomingAppointments">próximas citas</string>
-		<string name="sectionMyDoctors">Mis médicos</string>
-		<string name="sectionGettingRefilled">siendo rellenados</string>
-		<string name="sectionReadyForRefill">listo para la recarga</string>
-		<string name="sectionOtherPrescriptions">otras recetas</string>
-		<string name="sectionPrescriptionDetails">detalles receta</string>
-		<string name="sectionDrugInstructions">instrucciones de drogas</string>
-		<string name="sectionYourOrder">Su pedido</string>
-		<string name="sectionPickupDetails">Pickup Detalles</string>
-
-		<string name="hintSearchByZipCityOrState">Búsqueda por postal , ciudad o estado</string>
-		<string name="hintMobileNumber">número de teléfono móvil</string>
-		<string name="hintUsername">Nombre de usuario</string>
-		<string name="hintPassword">contraseña</string>
-		<string name="hintEmailAddress">dirección de correo electrónico</string>
-		<string name="hintFnameRequired">nombre de pila*</string>
-		<string name="hintLnameRequired">apellido*</string>
-		<string name="hintFname">nombre de pila</string>
-		<string name="hintLname">apellido</string>
-		<string name="hintDOB">fecha de nacimiento</string>
-		<string name="hintEmail">email</string>
-		<string name="hintRxNo">número Rx</string>
-		<string name="hintPharmacyLocation">ubicación farmacia</string>
-		<string name="hintYourCode">Su código</string>
-		<string name="hintPhone">teléfono</string>
-		<string name="hintFax">fax</string>
-		<string name="hintOfficeOrHospitalName">Oficina u hospital nombre</string>
-		<string name="hintStreetName">nombre de la calle</string>
-		<string name="hintCity">ciudad</string>
-		<string name="hintState">estado</string>
-		<string name="hintZipCode">código postal</string>
-		<string name="hintNotes">Notas</string>
-		<string name="hintClickToAddNote">Haga clic para añadir nota</string>
-		<string name="hintLanguage">idioma</string>
-
-		<string name="lblRefillWithoutLogin">Vuelva a llenar sin iniciar sesión</string>
-		<string name="lblLoginToMobilePharmacy">Iniciar sesión en el <b> mscripts farmacia móvil</b></string>
-		<string name="lblKeepMeLoggedIn">Mantenme conectado</string>
-		<string name="lblNeedToCreateAccount">ja-Necesidad de <b> crear una nueva cuenta?</b></string>
-		<string name="lblCantRememberEmail">ja-<b>No puedo recordar lo correo electrónico que utilizó?</b></string>
-		<string name="lblPleaseEnterEmailAddressYouOriginallySignedup">Por favor, introduzca la dirección de correo electrónico se inscribió originalmente con . Le enviaremos su nombre de usuario y las instrucciones sobre cómo restablecer su contraseña.</string>
-		<string name="lblLetsSeeIfWeRecogonizeYou">Vamos a ver si te recogonize . Introduzca su número de teléfono móvil.</string>
-		<string name="lblSignupAndGetRefillInSeconds">Regístrate y recibe recarga en segundos</string>
-		<string name="lblGreatYouHaveReceiveTextFromUsBefore">¡Genial! Has recibido textos de nosotros antes.</string>
-		<string name="lblSignupAgreement">Al suscribirse a este servicio , estoy de acuerdo con la <font color="#0092d5"> <u> Términos y condiciones</u></font></string>
-		<string name="lblJustSentYouTextMessage"> Nos Acabamos de enviarle un mensaje de texto con un código de tres dígitos. Ingrese aquí.</string>
-		<string name="lblDidNotGetText">No tuve el texto? <b> Pulse Aquí.</b></string>
-		<string name="lblItLooksLikeThisPhoneNumberIsLinked">Parece que este número de teléfono está vinculado a varias personas.</string>
-		<string name="lblLetUsKnowWhoYouAre">Háganos saber lo que eres.</string>
-		<string name="lblGreatYourPhoneNumberIsConfirmed">Grande. Se confirma su número de teléfono . Ya casi ha terminado.</string>
-		<string name="lblSetupAppointmentReminder">Configurar un recordatorio de cita</string>
-		<string name="lblEnterYourDoctorsInformation">Ingrese la información de su médico. Nombre y apellido son obligatorios , <b> todos los otros campos opcionales.</b></string>
-		<string name="lblWhichDoctorYouHaveAppointment">¿Qué médico que tiene una cita con?</string>
-		<string name="lblMore">más</string>
-		<string name="lblWhenIsYourAppointment">¿Cuándo es su cita?</string>
-		<string name="lblOnThisDate">En esta fecha</string>
-		<string name="lblAtThisTime">En este momento</string>
-		<string name="lblRefillLeft">rellenarlo</string>
-		<string name="lblRefill">recambio</string>
-		<string name="lblHide">ocultar</string>
-		<string name="lblDueforRefill">Debido para recarga</string>
-		<string name="lblLastRefilled">última rellenados</string>
-		<string name="lblRemindMeRefillMedication">Recuérdame que <b> recarga </b> este medicamento</string>
-		<string name="lblRemindMeToTakeMedication">Recuérdame que <b> tomar </b> este medicamento</string>
-		<string name="lblTakeTwotabletsWithWater">Tome dos tabletas al día con agua</string>
-		<string name="lblPrescriptionNumber">número de la receta</string>
-		<string name="lblExpirationDate">fecha de expiración</string>
-		<string name="lblDoctor">médico</string>
-		<string name="lblPharmacy">farmacia</string>
-		<string name="lblInStorePickup">En recogida en tienda</string>
-		<string name="lblMailOrder">pedido postal</string>
-		<string name="lblMailTo">mail a</string>
-		<string name="lblWrongAddress">Dirección incorrecta ? Llame a su farmacia para actualizar</string>
-		<string name="lblConfigurableCondition">Más ayuda para su condición comfigurable</string>
-		<string name="lblConfigurableItem">Elemento de texto configurable</string>
-
-		<string name="valLoginRequiredFileds">Nombre de usuario y la contraseña no puede estar en blanco</string>
-
-		<string name="msgUnableToFindYourGEO">Incapaz de encontrar su ubicación, por favor verifica la configuración</string>
-		<string name="msgPleaseWait">Procesamiento . por favor espera</string>
-		<string name="msgFailedToRetrieve">No se pudo recuperar</string>
-		<string name="msgPasswordTips">Contraseña debe tener al menos 2 números y tener como mínimo 6 caracteres.</string>
-		<string name="msgSignout">¿Seguro que deseas SignOut y volver a la pantalla de inicio?</string>
-		<string name="msgSignedoutSuccessfully">Usted ha firmado con éxito.</string>
-		<string name="msgRefillOrder">Su orden de recarga ha sido enviado y estará listo para recoger en:</string>
-		<string name="msgOrderProcessed">Hemos procesado su pedido</string>
-		<string name="msgShouldBeReadyBy">Debería estar listo</string>
-		<string name="msgChangeHomePharmacy">Su farmacia el hogar es donde se envían cuando se recarga todos los pedidos de reposición por el texto. ¿Seguro que deseas hacer % s a su farmacia local?</string>
-		<string name="msgYouHaveUpcomingAppointmentWith">Usted tiene una cita próxima con% s en </string>
-		<string name="msgHasPrescribedYou">% s le ha prescrito % s</string>
-		<string name="msgYouHaveNoActiveprescription">No tiene recetas activos asociados a % s</string>
-		<string name="msgNoActiveprescription">No hay recetas activos</string>
-		<string name="msgOrderPlacedReadyBy">Pedido realizado debería estar lista</string>
-		<string name="msgOverdueBy">vencida por</string>
-		<string name="msgDueFoRefillIn">Debido que para rellenar de</string>
-		<string name="msgDueFoRefillOn">Debido a recarga en</string>
-		<string name="msgGeoAuthorizationDenied">Tu han rechazado la aplicación se ejecute servicios de geolocalización . Por favor verifica la configuracion.</string>
-		<string name="msgGeoAuthorizationRestricted">Servicio de localización está apagado. Por favor verifica la configuracion.</string>
-		<string name="msgGeoPurpose">Ayudará a localizar las farmacias más cercanas.</string>
-		<string name="msgYourOrderIsReady">Su pedido está listo para ser recogido!</string>
-		<string name="msgNotFilledYet">No rellenado todavía</string>
-		<string name="msgUnderConstruction">bajo construcción</string>
-
-		<string name="menuSearch">búsqueda</string>
-		<string name="menuSort">clase</string>
-		<string name="menuUnhidePrescriptions">recetas Unhide</string>
-
-		<string name="btnYes">sí</string>
-		<string name="btnNo">no</string>
-		<string name="btnRetry">Vuelva a intentarlo</string>
-		<string name="btnSend">enviar</string>
-		<string name="btnDone">hecho</string>
-		<string name="btnContinue">continuar</string>
-		<string name="btnNext">siguiente</string>
-		<string name="btnCreateAccount">crear una cuenta</string>
-		<string name="btnAddAnotherDoctor">Añadir otro médico</string>
-		<string name="btnSave">Guardar</string>
-		<string name="btnRefillPrescriptionHere">Vuelva a llenar una receta aquí</string>
-		<string name="btnHideThisDoctor">Ocultar este médico</string>
-		<string name="btnEditReminderSettings">Editar la configuración de recordatorio</string>
-		<string name="btnDeleteThisReminder">Eliminar este recordatorio</string>
-		<string name="btnAddToFavorites">Añadir a favoritos</string>
-		<string name="btnHidePrescription">Ocultar esta receta de mi lista</string>
-		<string name="btnChange">cambio</string>
-		<string name="btnAddAnotherPrescription">Añadir otra receta</string>
-		<string name="btnAddAllPrescriptions">Añadir todas las recetas listo para recarga</string>
-		<string name="btnRead">leer</string>
-		<string name="btnEdit">editar</string>
-
-		<string name="optionFindPictureOnMyPhone">Buscar una imagen en mi teléfono</string>
-		<string name="optionTakePhoto">tome la foto</string>
-
-		<string name="strWelcome">bienvenida!</string>
-		<string name="strCancel">cancelar</string>
-		<string name="strOK">Okay</string>
-		<string name="strLogin">iniciar sesión</string>
-		<string name="strSignup">contratar</string>
-		<string name="strSignin">registrarse</string>
-		<string name="strSignout">desconectar</string>
-		<string name="strCall">llamada</string>
-		<string name="strDirections">instrucciones</string>
-		<string name="strPrescriptions">Las recetas</string>
-		<string name="strDay">día</string>
-		<string name="strDays">día</string>
-		<string name="strReminders">Recordatorios</string>
-		<string name="strAnd">y</string>
-		<string name="strMore">más</string>
-		<string name="strAbout">acerca de</string>
-	
-
-
-
-
-
-
-
-
-
-
-
-
+	<string name="lngEnglish">English</string>
+	<string name="lngJapanese">Japanese</string>
+	<string name="lngSpanish">Spanish</string>
+	<string name="titleHome">casa</string>
+	<string name="titlePharmacyRewards">recompensas Farmacia</string>
+	<string name="titleCoupons">Cupones</string>
+	<string name="titleFamilyAccounts">cuentas familiares</string>
+	<string name="titleTransferPrescription">Transferir una receta</string>
+	<string name="titleDoctors">Médicos</string>
+	<string name="titleRefillViaCamera">Vuelva a llenar a través de la cámara</string>
+	<string name="titleStores">Tiendas</string>
+	<string name="titleAccount">cuenta</string>
+	<string name="titleStoreDetails">Guarda detalles</string>
+	<string name="titleLoginRecovery">recuperación Login</string>
+	<string name="titleTermsAndConditions">Términos y condiciones</string>
+	<string name="titleMobileNumber">número de teléfono móvil</string>
+	<string name="titleVerifyMobileNumber">verificar el número de móvil</string>
+	<string name="titleTellUsAboutYourSelf">Háblenos de usted</string>
+	<string name="titleChooseDoctor">Elija un médico</string>
+	<string name="titleChooseOne">Elija uno</string>
+	<string name="titleAddDoctor">Añadir un doctor</string>
+	<string name="titleChooseTime">Elija una hora</string>
+	<string name="titleOrderRefill">Ordene una recarga</string>
+	<string name="titleEditReminder">Editar recordatorio</string>
+	<string name="titleOrderDetails">detalles de la orden</string>
+	<string name="titleAddPrescriptions">Añadir recetas</string>
+	<string name="titleYourRefillIsOrdered">Su recarga se ha ordenado!</string>
+	<string name="titleRefillHistory">historia Refill</string>
+	<string name="titleDetails">Detalles</string>
+	<string name="sectionStoreHours">El horario de apertura</string>
+	<string name="sectionStoreServices">servicios de tienda</string>
+	<string name="sectionUpcomingAppointments">próximas citas</string>
+	<string name="sectionMyDoctors">Mis médicos</string>
+	<string name="sectionGettingRefilled">siendo rellenados</string>
+	<string name="sectionReadyForRefill">listo para la recarga</string>
+	<string name="sectionOtherPrescriptions">otras recetas</string>
+	<string name="sectionPrescriptionDetails">detalles receta</string>
+	<string name="sectionDrugInstructions">instrucciones de drogas</string>
+	<string name="sectionYourOrder">Su pedido</string>
+	<string name="sectionPickupDetails">Pickup Detalles</string>
+	<string name="hintSearchByZipCityOrState">Búsqueda por postal , ciudad o estado</string>
+	<string name="hintMobileNumber">número de teléfono móvil</string>
+	<string name="hintUsername">Nombre de usuario</string>
+	<string name="hintPassword">contraseña</string>
+	<string name="hintEmailAddress">dirección de correo electrónico</string>
+	<string name="hintFnameRequired">nombre de pila*</string>
+	<string name="hintLnameRequired">apellido*</string>
+	<string name="hintFname">nombre de pila</string>
+	<string name="hintLname">apellido</string>
+	<string name="hintDOB">fecha de nacimiento</string>
+	<string name="hintEmail">email</string>
+	<string name="hintRxNo">número Rx</string>
+	<string name="hintPharmacyLocation">ubicación farmacia</string>
+	<string name="hintYourCode">Su código</string>
+	<string name="hintPhone">teléfono</string>
+	<string name="hintFax">fax</string>
+	<string name="hintOfficeOrHospitalName">Oficina u hospital nombre</string>
+	<string name="hintStreetName">nombre de la calle</string>
+	<string name="hintCity">ciudad</string>
+	<string name="hintState">estado</string>
+	<string name="hintZipCode">código postal</string>
+	<string name="hintNotes">Notas</string>
+	<string name="hintClickToAddNote">Haga clic para añadir nota</string>
+	<string name="hintLanguage">idioma</string>
+	<string name="lblRefillWithoutLogin">Vuelva a llenar sin iniciar sesión</string>
+	<string name="lblLoginToMobilePharmacy">
+		Iniciar sesión en el
+		<b>mscripts farmacia móvil</b>
+	</string>
+	<string name="lblKeepMeLoggedIn">Mantenme conectado</string>
+	<string name="lblNeedToCreateAccount">
+		ja-Necesidad de
+		<b>crear una nueva cuenta?</b>
+	</string>
+	<string name="lblCantRememberEmail">
+		ja-
+		<b>No puedo recordar lo correo electrónico que utilizó?</b>
+	</string>
+	<string name="lblPleaseEnterEmailAddressYouOriginallySignedup">Por favor, introduzca la dirección de correo electrónico se inscribió originalmente con . Le enviaremos su nombre de usuario y las instrucciones sobre cómo restablecer su contraseña.</string>
+	<string name="lblLetsSeeIfWeRecogonizeYou">Vamos a ver si te recogonize . Introduzca su número de teléfono móvil.</string>
+	<string name="lblSignupAndGetRefillInSeconds">Regístrate y recibe recarga en segundos</string>
+	<string name="lblGreatYouHaveReceiveTextFromUsBefore">¡Genial! Has recibido textos de nosotros antes.</string>
+	<string name="lblSignupAgreement">
+		Al suscribirse a este servicio , estoy de acuerdo con la
+		<font color="#0092d5">
+			<u>Términos y condiciones</u>
+		</font>
+	</string>
+	<string name="lblJustSentYouTextMessage">Nos Acabamos de enviarle un mensaje de texto con un código de tres dígitos. Ingrese aquí.</string>
+	<string name="lblDidNotGetText">
+		No tuve el texto?
+		<b>Pulse Aquí.</b>
+	</string>
+	<string name="lblItLooksLikeThisPhoneNumberIsLinked">Parece que este número de teléfono está vinculado a varias personas.</string>
+	<string name="lblLetUsKnowWhoYouAre">Háganos saber lo que eres.</string>
+	<string name="lblGreatYourPhoneNumberIsConfirmed">Grande. Se confirma su número de teléfono . Ya casi ha terminado.</string>
+	<string name="lblSetupAppointmentReminder">Configurar un recordatorio de cita</string>
+	<string name="lblEnterYourDoctorsInformation">
+		Ingrese la información de su médico. Nombre y apellido son obligatorios ,
+		<b>todos los otros campos opcionales.</b>
+	</string>
+	<string name="lblWhichDoctorYouHaveAppointment">¿Qué médico que tiene una cita con?</string>
+	<string name="lblMore">más</string>
+	<string name="lblWhenIsYourAppointment">¿Cuándo es su cita?</string>
+	<string name="lblOnThisDate">En esta fecha</string>
+	<string name="lblAtThisTime">En este momento</string>
+	<string name="lblRefillLeft">rellenarlo</string>
+	<string name="lblRefill">recambio</string>
+	<string name="lblHide">ocultar</string>
+	<string name="lblDueforRefill">Debido para recarga</string>
+	<string name="lblLastRefilled">última rellenados</string>
+	<string name="lblRemindMeRefillMedication">
+		Recuérdame que
+		<b>recarga</b> este medicamento
+	</string>
+	<string name="lblRemindMeToTakeMedication">
+		Recuérdame que
+		<b>tomar</b> este medicamento
+	</string>
+	<string name="lblTakeTwotabletsWithWater">Tome dos tabletas al día con agua</string>
+	<string name="lblPrescriptionNumber">número de la receta</string>
+	<string name="lblExpirationDate">fecha de expiración</string>
+	<string name="lblDoctor">médico</string>
+	<string name="lblPharmacy">farmacia</string>
+	<string name="lblInStorePickup">En recogida en tienda</string>
+	<string name="lblMailOrder">pedido postal</string>
+	<string name="lblMailTo">mail a</string>
+	<string name="lblWrongAddress">Dirección incorrecta ? Llame a su farmacia para actualizar</string>
+	<string name="lblConfigurableCondition">Más ayuda para su condición comfigurable</string>
+	<string name="lblConfigurableItem">Elemento de texto configurable</string>
+	<string name="valLoginRequiredFileds">Nombre de usuario y la contraseña no puede estar en blanco</string>
+	<string name="msgUnableToFindYourGEO">Incapaz de encontrar su ubicación, por favor verifica la configuración</string>
+	<string name="msgPleaseWait">Procesamiento . por favor espera</string>
+	<string name="msgFailedToRetrieve">No se pudo recuperar</string>
+	<string name="msgPasswordTips">Contraseña debe tener al menos 2 números y tener como mínimo 6 caracteres.</string>
+	<string name="msgSignout">¿Seguro que deseas SignOut y volver a la pantalla de inicio?</string>
+	<string name="msgSignedoutSuccessfully">Usted ha firmado con éxito.</string>
+	<string name="msgRefillOrder">Su orden de recarga ha sido enviado y estará listo para recoger en:</string>
+	<string name="msgOrderProcessed">Hemos procesado su pedido</string>
+	<string name="msgShouldBeReadyBy">Debería estar listo</string>
+	<string name="msgChangeHomePharmacy">Su farmacia el hogar es donde se envían cuando se recarga todos los pedidos de reposición por el texto. ¿Seguro que deseas hacer % s a su farmacia local?</string>
+	<string name="msgYouHaveUpcomingAppointmentWith">Usted tiene una cita próxima con% s en</string>
+	<string name="msgHasPrescribedYou">% s le ha prescrito % s</string>
+	<string name="msgYouHaveNoActiveprescription">No tiene recetas activos asociados a % s</string>
+	<string name="msgNoActiveprescription">No hay recetas activos</string>
+	<string name="msgOrderPlacedReadyBy">Pedido realizado debería estar lista</string>
+	<string name="msgOverdueBy">vencida por</string>
+	<string name="msgDueFoRefillIn">Debido que para rellenar de</string>
+	<string name="msgDueFoRefillOn">Debido a recarga en</string>
+	<string name="msgGeoAuthorizationDenied">Tu han rechazado la aplicación se ejecute servicios de geolocalización . Por favor verifica la configuracion.</string>
+	<string name="msgGeoAuthorizationRestricted">Servicio de localización está apagado. Por favor verifica la configuracion.</string>
+	<string name="msgGeoPurpose">Ayudará a localizar las farmacias más cercanas.</string>
+	<string name="msgYourOrderIsReady">Su pedido está listo para ser recogido!</string>
+	<string name="msgNotFilledYet">No rellenado todavía</string>
+	<string name="msgUnderConstruction">bajo construcción</string>
+	<string name="menuSearch">búsqueda</string>
+	<string name="menuSort">clase</string>
+	<string name="menuUnhidePrescriptions">recetas Unhide</string>
+	<string name="btnYes">sí</string>
+	<string name="btnNo">no</string>
+	<string name="btnRetry">Vuelva a intentarlo</string>
+	<string name="btnSend">enviar</string>
+	<string name="btnDone">hecho</string>
+	<string name="btnContinue">continuar</string>
+	<string name="btnNext">siguiente</string>
+	<string name="btnCreateAccount">crear una cuenta</string>
+	<string name="btnAddAnotherDoctor">Añadir otro médico</string>
+	<string name="btnSave">Guardar</string>
+	<string name="btnRefillPrescriptionHere">Vuelva a llenar una receta aquí</string>
+	<string name="btnHideThisDoctor">Ocultar este médico</string>
+	<string name="btnEditReminderSettings">Editar la configuración de recordatorio</string>
+	<string name="btnDeleteThisReminder">Eliminar este recordatorio</string>
+	<string name="btnAddToFavorites">Añadir a favoritos</string>
+	<string name="btnHidePrescription">Ocultar esta receta de mi lista</string>
+	<string name="btnChange">cambio</string>
+	<string name="btnAddAnotherPrescription">Añadir otra receta</string>
+	<string name="btnAddAllPrescriptions">Añadir todas las recetas listo para recarga</string>
+	<string name="btnRead">leer</string>
+	<string name="btnEdit">editar</string>
+	<string name="optionFindPictureOnMyPhone">Buscar una imagen en mi teléfono</string>
+	<string name="optionTakePhoto">tome la foto</string>
+	<string name="strWelcome">bienvenida!</string>
+	<string name="strCancel">cancelar</string>
+	<string name="strOK">Okay</string>
+	<string name="strLogin">iniciar sesión</string>
+	<string name="strSignup">contratar</string>
+	<string name="strSignin">registrarse</string>
+	<string name="strSignout">desconectar</string>
+	<string name="strCall">llamada</string>
+	<string name="strDirections">instrucciones</string>
+	<string name="strPrescriptions">Las recetas</string>
+	<string name="strDay">día</string>
+	<string name="strDays">día</string>
+	<string name="strReminders">Recordatorios</string>
+	<string name="strAnd">y</string>
+	<string name="strMore">más</string>
+	<string name="strAbout">acerca de</string>
 
 </resources>
