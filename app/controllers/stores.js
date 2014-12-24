@@ -78,9 +78,11 @@ function didGetPharmacies(result) {
 		pahamacy.favorite = Number(pahamacy.bookmarked) ? icons.favorite : "";
 		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
 		pahamacy.showDistance = showDistance;
+		console.log(pahamacy.showDistance);
 		if (showDistance) {
 			pahamacy.distance = pahamacy.distance + " mi away";
 		}
+		console.log(pharmacies[i]);
 	}
 	Alloy.Collections.stores.reset(pharmacies);
 	loadMap();
