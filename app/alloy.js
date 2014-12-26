@@ -141,7 +141,8 @@
 		requiresLogin : true
 	}, {
 		titleid : "titleRefillViaCamera",
-		action : "refillViaCamera",
+		// action : "refillViaCamera",
+		ctrl : "refill",
 		icon : "refill_camera",
 		disaplyAtHome : true,
 		requiresLogin : false
@@ -219,7 +220,8 @@
 					}]
 				}],
 				navigation : {
-					action : "refillViaCamera"
+					// action : "refillViaCamera"
+					ctrl : "refill"
 				}
 			}, {
 				apiName : "TableViewRow",

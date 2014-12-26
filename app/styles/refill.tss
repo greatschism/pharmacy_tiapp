@@ -1,0 +1,6 @@
+"#scanBtn":{
+	title: Alloy.Globals.strings.btnScanPrescription
+},
+"#typeRxBtn":{
+	title: Alloy.Globals.strings.btnTypePrescription
+},

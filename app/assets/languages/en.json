@@ -35,6 +35,7 @@
 		"titleYourRefillIsOrdered": "Your refill has been ordered!",
 		"titleRefillHistory": "Refill history",
 		"titleDetails": "Details",
+		"titleRefillNow": "Refill Now",
 
 		"sectionStoreHours": "Store hours",
 		"sectionStoreServices": "Store services",
@@ -113,6 +114,7 @@
 		"lblWrongAddress": "Wrong address? Call you pharmacy to update",
 		"lblConfigurableCondition": "More help for your comfigurable condition",
 		"lblConfigurableItem": "Configurable text item",
+		"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
 
 		"valLoginRequiredFileds": "Username and Password can't be blank",
 
@@ -166,6 +168,8 @@
 		"btnAddAllPrescriptions": "Add all prescriptions ready for refill",
 		"btnRead": "Read",
 		"btnEdit": "Edit",
+		"btnScanPrescription": "Scan my Prescription",
+		"btnTypePrescription": "Type my Prescription details",
 
 		"optionFindPictureOnMyPhone": "Find a picture on my phone",
 		"optionTakePhoto": "Take photo",

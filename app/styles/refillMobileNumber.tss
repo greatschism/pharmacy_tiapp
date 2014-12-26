@@ -1,0 +1,10 @@
+"#hintLbl":{
+	text: Alloy.Globals.strings.lblRefillNowPhoneHint
+},
+"#mobileTxt":{
+	hintText: Alloy.Globals.strings.hintMobileNumber,
+	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.btnContinue
+}
