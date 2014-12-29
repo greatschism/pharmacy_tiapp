@@ -482,6 +482,9 @@
 ".bg-progress":{
 	backgroundColor: Alloy._add_color
 },
+".bg-hint":{
+	backgroundColor: Alloy._hint_backgroundColor
+},
 /*
 * Border Classes
 */
