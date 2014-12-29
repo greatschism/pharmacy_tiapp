@@ -91,6 +91,7 @@
 		_success_color : "#00A14B",
 		_error_color : "#ED1C24",
 		_approval_color : "#F6931E",
+		_hint_backgroundColor : "#D7F9E4",
 		_reminder_color : ["#AF7AC4", "#27AE60", "#F39C12", "#D35400", "#47C9AF", "#4094FC", "#34495E", "#D4FB79", "#76D6FF", "#C1382A", "#AAB7B7", "#D28874", "#7C7645", "#FC4063", "#845FFF", "#3F09F6"]
 	});
 
