@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView class="vgroup bg-primary">
+	<ScrollView class="vgroup">
 		<Label id="titleLbl" class="styled-title multi-line" />
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<Widget id="mobileTxt" src="com.mscripts.textfield" class="txt return-done" onReturn="didClickContinue" />

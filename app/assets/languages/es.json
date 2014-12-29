@@ -189,6 +189,7 @@
 		"strReminders": "Recordatorios",
 		"strAnd": "y",
 		"strMore": "más",
-		"strAbout": "acerca de"
+		"strAbout": "acerca de",
+		"strRefillOrderHint": "Please enter the information below so we can process your refill"
 	}
 }

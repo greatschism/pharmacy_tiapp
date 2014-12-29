@@ -189,6 +189,7 @@
 		"strReminders": "ja-Reminders",
 		"strAnd": "ja-and",
 		"strMore": "ja-more",
-		"strAbout": "ja-About"
+		"strAbout": "ja-About",
+		"strRefillOrderHint": "Please enter the information below so we can process your refill"
 	}
 }

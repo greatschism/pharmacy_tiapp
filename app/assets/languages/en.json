@@ -189,6 +189,7 @@
 		"strReminders": "Reminders",
 		"strAnd": "and",
 		"strMore": "more",
-		"strAbout": "About"
+		"strAbout": "About",
+		"strRefillOrderHint": "Please enter the information below so we can process your refill"
 	}
 }
