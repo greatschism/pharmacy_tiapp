@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<View class="auto-height bg-success">
-			<Widget id="hintLbl" src="com.mscripts.styledlabel" class="padding-top padding-bottom margin-left margin-right auto-height h4 text-center multi-line fg-primary" />
+		<View class="auto-height bg-hint">
+			<Widget id="hintLbl" src="com.mscripts.styledlabel" class="padding-top padding-bottom margin-left margin-right auto-height h4 text-center multi-line fg-secondary" />
 		</View>
 		<View class="hseparator" />
 		<View class="height-default">
