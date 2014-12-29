@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     moment = require("alloy/moment"),
     utilities = require("utilities"),
+      dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
     gettingRefilled,
@@ -298,15 +299,19 @@ function didItemClick(e) {
 		return;
 	}
 	var rowId = e.source.rowId;
-	if (rowId) {
-		app.navigator.open({
-			stack : true,
-			titleid : "titleDetails",
-			ctrl : "prescriptionDetails",
-			ctrlArguments : {
-				itemId : e.source.rowId
-			}
-		});
+	 if (rowId) {
+		// app.navigator.open({
+			// stack : true,
+			// titleid : "titleDetails",
+			// ctrl : "prescriptionDetails",
+			// ctrlArguments : {
+				// itemId : e.source.rowId
+			// }
+		// });
+	
+	dialog.show({
+		message : Alloy.Globals.strings.msgUnderConstruction
+	});
 	}
 }
 
