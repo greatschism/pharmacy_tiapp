@@ -227,7 +227,7 @@ function didAnnotationClick(e) {
 		case "infoWindow":
 		case "title":
 		case "subtitle":
-			if (args.orgin == "fullSignup") {
+			if (args.orgin == "fullSignup" || args.orgin == "refillTyprRx") {
 				fullsignup(annotation.storeId);
 			} else {
 				openStoreDetail(annotation.storeId);
@@ -247,7 +247,7 @@ function didAnnotationClick(e) {
 
 function didItemClick(e) {
 	var rowId = e.row.rowId;
-	if (args.orgin == "fullSignup") {
+	if (args.orgin == "fullSignup" || args.orgin == "refillTyprRx") {
 		fullsignup(rowId);
 	} else {
 		openStoreDetail(rowId);

@@ -190,6 +190,8 @@
 		"strAnd": "and",
 		"strMore": "more",
 		"strAbout": "About",
-		"strRefillOrderHint": "Please enter the information below so we can process your refill"
+		"strRefillOrderHint": "Please enter the information below so we can process your refill",
+		"strSelectPharmacyHint": "Select the pharmacy where you filled it last",
+		"strRefillTypeRxEnterNumber": "Please add a contact number"
 	}
 }
