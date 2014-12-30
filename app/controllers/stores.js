@@ -6,6 +6,30 @@ var args = arguments[0] || {},
     http = require("httpwrapper"),
     dialog = require("dialog");
 
+function toCamelCase(s) {
+	// remove all characters that should not be in a variable name
+	// as well underscores an numbers from the beginning of the string
+	s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
+	// uppercase letters preceeded by a hyphen or a space
+	s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
+		return c.toUpperCase();
+	});
+	// uppercase letters following numbers
+	s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
+		return b + c.toUpperCase();
+	});
+	return s;
+}
+
+function firstToUpperCase(str) {
+	var strTemp = str.split(' ');
+	for (var i = 0; i < strTemp.length; i++) {
+		strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
+	};
+	str = strTemp.join(" ");
+	return str;
+}
+
 function getLocation(callback) {
 	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
 	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
@@ -74,13 +98,14 @@ function didGetPharmacies(result) {
 	var showDistance = !_.isEmpty(Alloy.Globals.currentLocation);
 	var pharmacies = result.advsearchpharmacy.pharmacy;
 	for (var i in pharmacies) {
-		var pahamacy = pharmacies[i];
-		pahamacy.favorite = Number(pahamacy.bookmarked) ? icons.favorite : "";
-		pahamacy.subtitle = pahamacy.city + ", " + pahamacy.state + " " + pahamacy.zip;
-		pahamacy.showDistance = showDistance;
-		console.log(pahamacy.showDistance);
+		var pharmacy = pharmacies[i];
+		pharmacy.addressline1 = firstToUpperCase(pharmacy.addressline1);
+		pharmacy.favorite = Number(pharmacy.bookmarked) ? icons.favorite : "";
+		pharmacy.subtitle = firstToUpperCase(pharmacy.city) + ", " + pharmacy.state + " " + pharmacy.zip;
+		pharmacy.showDistance = showDistance;
+		console.log(pharmacy.showDistance);
 		if (showDistance) {
-			pahamacy.distance = pahamacy.distance + " mi away";
+			pharmacy.distance = pharmacy.distance + " mi away";
 		}
 		console.log(pharmacies[i]);
 	}
@@ -121,7 +146,7 @@ function loadMap(e) {
 		var properties = {
 			image : "/images/map_pin.png",
 			storeId : data.storeid,
-			title : data.addressline1,
+			title : firstToUpperCase(data.addressline1),
 			subtitle : data.subtitle,
 			latitude : latitude,
 			longitude : longitude
@@ -166,6 +191,12 @@ function loadMap(e) {
 		});
 	}
 }
+
+function camelCase(e) {
+	return this.replace(/(\-[a-z])/g, function($1) {
+		return $1.toUpperCase().replace('-', '');
+	});
+};
 
 function getMapIcon(image, clicksource, storeId) {
 	var view = Ti.UI.createView({
