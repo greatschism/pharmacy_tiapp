@@ -70,6 +70,17 @@ function didReceiveAppointments(result) {
 		title : Alloy.Globals.strings.sectionMyDoctors
 	});
 
+
+
+function firstToUpperCase(str) {
+	var strTemp = str.split(' ');
+	for (var i = 0; i < strTemp.length; i++) {
+		strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
+	};
+	str = strTemp.join(" ");
+	return str;
+}
+
 	for (var i in doctors) {
 
 		var doctor = doctors[i],
@@ -90,7 +101,7 @@ function didReceiveAppointments(result) {
 		len = prescriptions.length;
 		if (len) {
 			//When len is > 0
-			description = String.format(msgHasPrescribedYou, doctor.short_name, prescriptions[0].prescription_name);
+			description = String.format(msgHasPrescribedYou, doctor.short_name, firstToUpperCase(prescriptions[0].prescription_name));
 			if (len > 1) {
 				//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
 				switch(len) {
