@@ -2,13 +2,15 @@ var args = arguments[0] || {},
     app = require("core"),
     moment = require("alloy/moment"),
     utilities = require("utilities"),
-      dialog = require("dialog"),
+    dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
     gettingRefilled,
     prescriptions,
     currentSwipeView,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days;
+
+
 
 function init() {
 	gettingRefilled = [{
@@ -299,19 +301,19 @@ function didItemClick(e) {
 		return;
 	}
 	var rowId = e.source.rowId;
-	 if (rowId) {
+	if (rowId) {
 		// app.navigator.open({
-			// stack : true,
-			// titleid : "titleDetails",
-			// ctrl : "prescriptionDetails",
-			// ctrlArguments : {
-				// itemId : e.source.rowId
-			// }
+		// stack : true,
+		// titleid : "titleDetails",
+		// ctrl : "prescriptionDetails",
+		// ctrlArguments : {
+		// itemId : e.source.rowId
+		// }
 		// });
-	
-	dialog.show({
-		message : Alloy.Globals.strings.msgUnderConstruction
-	});
+
+		dialog.show({
+			message : Alloy.Globals.strings.msgUnderConstruction
+		});
 	}
 }
 
