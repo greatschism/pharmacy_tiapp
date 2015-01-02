@@ -3,6 +3,8 @@
 },
 "#fnameTxt":{
 	hintText: Alloy.Globals.strings.hintFnameRequired,
+    keyboardType:Titanium.UI.KEYBOARD_NAMEPHONE_PAD,
+ 
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
@@ -11,10 +13,13 @@
 },
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.hintPhone,
+	keyboardType:Titanium.UI.KEYBOARD_PHONE_PAD,
+	maxLength : 10,
 	nextItem: "faxTxt"
 },
 "#faxTxt":{
 	hintText: Alloy.Globals.strings.hintFax,
+	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
 	nextItem: "hospitalTxt"
 },
 "#hospitalTxt":{
