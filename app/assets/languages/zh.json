@@ -6,7 +6,7 @@
 	"strings": {
 
 		"lngEnglish": "English",
-		"lngzhpanese": "zhpanese",
+		"lngzhpanese": "Japanese",
 		"lngSpanish": "Spanish",
 		"lngChinese": "Chinese",
 
@@ -115,7 +115,7 @@
 		"lblWrongAddress": "zh-Wrong address? Call you pharmacy to update",
 		"lblConfigurableCondition": "zh-More help for your comfigurable condition",
 		"lblConfigurableItem": "zh-Configurable text item",
-		"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"lblRefillNowPhoneHint": "zh-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
 
 		"valLoginRequiredFileds": "zh-Username and Password can't be blank",
 
