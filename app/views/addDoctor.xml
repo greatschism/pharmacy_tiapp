@@ -21,7 +21,7 @@
 		<View class="hseparator" />
 		<View class="height-default">
 			<Widget id="cityTxt" src="com.mscripts.textfield" class="left form-txt-w50 return-next" onReturn="moveToNext" />
-			<Widget id="stateTxt" src="com.mscripts.textfield" class="right form-txt-w50 return-next" onReturn="moveToNext" />
+			<Widget id="stateTxt" src="com.mscripts.dropdown" class="right form-txt-w50 return-next" onReturn="moveToNext" />
 			<View class="vseparator" />
 		</View>
 		<View class="hseparator" />
