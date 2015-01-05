@@ -13,6 +13,8 @@
 				"code": "es"
 			}, {
 				"code": "ja"
+			}, {
+			"code" : "zh"
 			}
 		],
 		"iconSet": "thick",
