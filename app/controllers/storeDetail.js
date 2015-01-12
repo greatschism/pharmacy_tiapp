@@ -17,6 +17,11 @@ function init() {
 	if (Alloy.Globals.loggedIn) {
 		$.favoriteLbl.text = store.bookmarked ? icons.favorite : icon.nonfavorite;
 	}
+	else
+	{
+		$.favoriteLbl.visible = false;
+		$.homeBtn.visible = false;
+	}
 	$.distanceLbl.text = store.distance;
 	$.callBtn.title = Alloy.Globals.strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
 	$.homeBtn.color = Alloy._fg_quaternary;

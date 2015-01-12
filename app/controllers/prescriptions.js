@@ -302,18 +302,18 @@ function didItemClick(e) {
 	}
 	var rowId = e.source.rowId;
 	if (rowId) {
-		// app.navigator.open({
-		// stack : true,
-		// titleid : "titleDetails",
-		// ctrl : "prescriptionDetails",
-		// ctrlArguments : {
-		// itemId : e.source.rowId
-		// }
-		// });
-
-		dialog.show({
-			message : Alloy.Globals.strings.msgUnderConstruction
+		 app.navigator.open({
+		 stack : true,
+		 titleid : "titleDetails",
+		 ctrl : "prescriptionDetails",
+		 ctrlArguments : {
+		itemId : e.source.rowId
+		 }
 		});
+
+		//dialog.show({
+	//		message : Alloy.Globals.strings.msgUnderConstruction
+	//	});
 	}
 }
 

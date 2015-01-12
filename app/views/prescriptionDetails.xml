@@ -1,3 +1,44 @@
 <Alloy>
-	<View />
+			<Label id="detailsLbl" class="left h2" />
+	<TableView id="tableView">
+		<HeaderView>
+			<View class="auto-height vgroup">
+			
+				<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
+			
+					<View class="padding-left fill-width auto-height hgroup no-hwrap">
+						<View class="left width-50 auto-height vgroup">
+							<Label id="titleLbl" class="left h2 multi-line fg-secondary" />
+							<Label id="subtitleLbl" class="left h5 multi-line fg-secondary" />
+							<Label id="moreDetailsLbl" class="right h5 fg-secondary" />
+						</View>
+						<View class="top left width-50 auto-height vgroup">
+							<View id="distanceView" class="padding-left auto-height">
+								<Label class="distance-icon left font-icon fg-quaternary" />
+								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed fg-quaternary" />
+							</View>
+								<View class="height-default">
+				<Label id="keepMeLbl" class="padding-left fill-width" />
+				<Widget id="keepMeSwt" src="com.mscripts.switch" class="padding-right swt" onTouch="handleScroll" />
+			</View>
+							
+							<View class="padding-left auto-height">
+								<Label id="clockIcon" class="clock-icon left font-icon" />
+								<Label id="clockLbl" class="icon-lbl fill-width h5-fixed" />
+							</View>
+						</View>
+					</View>
+				</View>
+				<View class="margin-top margin-left margin-right auto-height">
+					<Button id="callBtn" class="left width-45 btn-thirtiary-smaller"  />
+					<Button id="directionBtn" class="right width-45 btn-thirtiary-smaller" />
+				</View>
+				<Button id="refillBtn" class="btn-primary" onClick="didClickRefill" />
+				<View class="margin-top margin-bottom margin-left margin-right auto-height">
+				
+					<Button id="hidePrescriptionBtn" class="right width-30 btn-icon" onClick="didClickHome" />
+				</View>
+			</View>
+		</HeaderView>
+	</TableView>
 </Alloy>

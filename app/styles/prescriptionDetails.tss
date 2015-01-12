@@ -1,0 +1,21 @@
+".distance-icon":{
+	text: Alloy.CFG.icons.pin
+},
+".clock-icon":{
+	text: Alloy.CFG.icons.clock
+},
+".icon-lbl":{
+	left: 28
+},
+"#detailsLbl":{
+	title: Alloy.Globals.strings.strDirections
+},
+"#refillBtn":{
+	title: Alloy.Globals.strings.btnRefillPrescriptionHere
+},
+"#favoriteBtn":{
+	title: Alloy.Globals.strings.btnAddToFavorites
+},
+"#hidePrescriptionBtn":{
+	title: Alloy.Globals.strings.home
+}

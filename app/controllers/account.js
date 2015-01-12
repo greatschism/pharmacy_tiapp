@@ -57,6 +57,7 @@ function didClickAbout() {
 		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString('buildDate'),
 		title : Alloy.Globals.strings.strAbout
 	});
+
 }
 
 exports.init = init;

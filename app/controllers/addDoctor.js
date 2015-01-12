@@ -1,9 +1,9 @@
 var args = arguments[0] || {},
    app = require("core"),
     dialog = require("dialog"),
-    locale = require("localization"),
-    languages = locale.getLanguages(),
-    lngStrs = Alloy.Globals.strings;
+ 
+    states = Alloy.Globals.strings;
+
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
