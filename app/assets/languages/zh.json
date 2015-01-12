@@ -147,6 +147,7 @@
 		"menuSearch": "zh-Search",
 		"menuSort": "zh-Sort",
 		"menuUnhidePrescriptions": "zh-Unhide prescriptions",
+			"menuRefresh": "Refresh",
 
 		"btnYes": "zh-Yes",
 		"btnNo": "zh-No",
