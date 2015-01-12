@@ -14,10 +14,17 @@
 	width: 220,
 	items: [
 		{
-			title: "Item 1"
-		},{
 			title: Alloy.Globals.strings.menuSearch,
-			action: "search"
+			action: "Search"
+		},{
+			title: Alloy.Globals.strings.menuSort
+		},
+		{
+			title: Alloy.Globals.strings.menuUnhidePrescriptions
+		},
+		{
+			title: Alloy.Globals.strings.menuRefresh
+			
 		}
 	]
 },
