@@ -92,6 +92,38 @@ exports.getFile = function(_path, _directory) {
 };
 
 /**
+ * Get contents of directory
+ * @param {String} _path The path of the file to read
+ * @param {String} _directory The base directory of the file to read (optional)
+ */
+exports.getFiles = function(_path, _directory) {
+	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
+	if (file.exists() && file.isDirectory()) {
+		return file.getDirectoryListing();
+	} else {
+		return [];
+	}
+};
+
+/**
+ * copy source files to destination
+ * @param {File} _sFile The File to copy
+ * @param {File} _dFile The destination file
+ * @param {Boolean} _append whether or not to append file
+ */
+exports.copy = function(_sFile, _dFile, _append) {
+	if (_sFile.exists()) {
+		if (OS_IOS) {
+			return _dFile.write(_sFile.read(), _append || false);
+		} else if (OS_ANDROID) {
+			_sFile.copy(_dFile.nativePath);
+		}
+	} else {
+		return false;
+	}
+};
+
+/**
  * Adds thousands separators to a number
  * @param {Number} _number The number to perform the action on
  */

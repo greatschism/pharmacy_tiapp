@@ -1,0 +1,17 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+description: dynamicfonts
+author: Manoj Kumar
+license: Private
+copyright: Copyright (c) 2015 by mScripts
+
+# these should not be edited
+name: dynamicfonts
+moduleid: ti.ios.dynamicfonts
+guid: e375f1ec-6028-4ce5-adbc-ab127d81aac9
+platform: iphone
+minsdk: 3.4.1.GA

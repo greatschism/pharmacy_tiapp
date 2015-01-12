@@ -122,21 +122,22 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="commonjs">ti.cloud</module>
-        <module platform="iphone">ti.map</module>
-        <module platform="android">ti.map</module>
-        <module deploy-type="development" platform="iphone">com.soasta.touchtest</module>
         <module deploy-type="test" platform="android">com.soasta.touchtest</module>
-        <module deploy-type="test" platform="iphone">com.soasta.touchtest</module>
-        <module deploy-type="development" platform="android">com.soasta.touchtest</module>
-        <module platform="android">com.appcelerator.apm</module>
-        <module platform="iphone">com.appcelerator.apm</module>
-        <module platform="android">ti.keyboard</module>
-        <module platform="iphone">ti.keyboard</module>
-        <module platform="iphone">bencoding.network</module>
         <module platform="android">ti.network</module>
+        <module deploy-type="test" platform="iphone">com.soasta.touchtest</module>
+        <module platform="commonjs">ti.cloud</module>
+        <module platform="android">ti.keyboard</module>
+        <module platform="android">ti.map</module>
+        <module platform="android">com.appcelerator.apm</module>
+        <module platform="iphone">bencoding.network</module>
         <module platform="iphone">com.obscure.keychain</module>
+        <module platform="iphone">ti.keyboard</module>
         <module platform="android">com.obscure.keychain</module>
+        <module deploy-type="development" platform="android">com.soasta.touchtest</module>
+        <module platform="iphone">com.appcelerator.apm</module>
+        <module platform="iphone">ti.ios.dynamicfonts</module>
+        <module deploy-type="development" platform="iphone">com.soasta.touchtest</module>
+        <module platform="iphone">ti.map</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

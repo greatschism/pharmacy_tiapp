@@ -1,5 +1,6 @@
 (function() {
 
+	require("resources").init();
 	require("localization").init();
 
 	Alloy.Globals.loggedIn = false;

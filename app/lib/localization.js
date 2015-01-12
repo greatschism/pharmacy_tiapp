@@ -41,7 +41,7 @@ var Locale = {
 				 * add / update supported languages
 				 */
 				if (!_.has(cfgLang, "strings")) {
-					_.extend(cfgLang, JSON.parse(Utilities.getFile("languages/" + cfgLang.code + ".json") || "{}"));
+					_.extend(cfgLang, JSON.parse(Utilities.getFile("data/languages/" + cfgLang.code + ".json") || "{}"));
 				}
 
 				var langObj = lColl.find({
