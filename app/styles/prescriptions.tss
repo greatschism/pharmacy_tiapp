@@ -21,9 +21,13 @@
 		},
 		{
 			title: Alloy.Globals.strings.menuUnhidePrescriptions
+			
+			
 		},
 		{
-			title: Alloy.Globals.strings.menuRefresh
+			title: Alloy.Globals.strings.menuRefresh,
+			icon:  Alloy.CFG.icons.refresh,
+			
 			
 		}
 	]
