@@ -3,7 +3,9 @@
 },
 "#mobileTxt":{
 	hintText: Alloy.Globals.strings.hintMobileNumber,
-	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD
+	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
+	
+	maxLength : 10,
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue
