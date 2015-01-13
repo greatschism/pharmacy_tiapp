@@ -50,7 +50,7 @@
 		"sectionYourOrder": "Your order",
 		"sectionPickupDetails": "Pickup details",
 
-		"hintSearchByZipCityOrState": "search by zip, city or state",
+		"hintSearchByZipCityOrState": "Search",
 		"hintMobileNumber": "Mobile Number",
 		"hintUsername": "Username",
 		"hintPassword": "Password",
@@ -194,6 +194,10 @@
 		"strAbout": "About",
 		"strRefillOrderHint": "Please enter the information below so we can process your refill",
 		"strSelectPharmacyHint": "Select the pharmacy where you filled it last",
-		"strRefillTypeRxEnterNumber": "Please add a contact number"
+		"strRefillTypeRxEnterNumber": "Please add a contact number",
+		"strrefillsLeft": "Refills left",
+        "strdueForRefill": "Due for refill",
+
+"strlastFilled": "Last filled"
 	}
 }
