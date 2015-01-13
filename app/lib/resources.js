@@ -7,12 +7,12 @@ var Resouces = {
 		if (OS_IOS || OS_ANDROID) {
 
 			var fontPath = "data/fonts",
-			    fontFiles = Utilities.getFiles(fontPath);
+			    fontFiles = Utilities.getFiles(fontPath),
+			    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fontPath);
 
 			if (Ti.App.Properties.getBool("updatedResourcesOn", "") != Ti.App.version || Ti.App.deployType != "production") {
 
-				var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data"),
-				    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fontPath);
+				var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data");
 
 				if (!dataDir.exists()) {
 					dataDir.createDirectory();
@@ -30,13 +30,9 @@ var Resouces = {
 				Ti.App.Properties.setString("updatedLangFileOn", Ti.App.version);
 			}
 
-			if (OS_IOS) {
-				dynamicFont = require("ti.ios.dynamicfonts");
-				for (var i in fontFiles) {
-					dynamicFont.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fontPath + "/" + fontFiles[i] + ".ttf"));
-				}
-			} else if (OS_ANDROID) {
-
+			for (var i in fontFiles) {
+				//Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fontPath + "/" + fontFiles[i] + ".ttf"));
 			}
 		}
 	}
