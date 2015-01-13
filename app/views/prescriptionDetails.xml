@@ -8,14 +8,19 @@
 			
 					<View class="padding-left fill-width auto-height hgroup no-hwrap">
 						<View class="left width-50 auto-height vgroup">
-							<Label id="titleLbl" class="left h2 multi-line fg-secondary" />
-							<Label id="subtitleLbl" class="left h5 multi-line fg-secondary" />
+							<Label id="titleLbl" class="left h4 fg-secondary" />
+				
 							<Label id="moreDetailsLbl" class="right h5 fg-secondary" />
+						</View>
+						<View class="left width-50 auto-height vgroup">
+							<Label id="refillsLeftLbl" class="left h2 fg-secondary" />
+							<Label id="dueForRefillLbl" class="left h5 fg-secondary" />
+							<Label id="lastFilledLbl" class="right h5 fg-secondary" />
 						</View>
 						<View class="top left width-50 auto-height vgroup">
 							<View id="distanceView" class="padding-left auto-height">
 								<Label class="distance-icon left font-icon fg-quaternary" />
-								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed fg-quaternary" />
+								<Label id="distanceLbl" class="fill-width h5-fixed fg-quaternary" />
 							</View>
 								<View class="height-default">
 				<Label id="keepMeLbl" class="padding-left fill-width" />
@@ -23,7 +28,7 @@
 			</View>
 							
 							<View class="padding-left auto-height">
-								<Label id="clockIcon" class="clock-icon left font-icon" />
+								<Label id="clockIcon" class="left font-icon" />
 								<Label id="clockLbl" class="icon-lbl fill-width h5-fixed" />
 							</View>
 						</View>
