@@ -1,9 +1,5 @@
-".distance-icon":{
-	text: Alloy.CFG.icons.pin
-},
-".clock-icon":{
-	text: Alloy.CFG.icons.clock
-},
+
+
 ".icon-lbl":{
 	left: 28
 },
@@ -18,4 +14,13 @@
 },
 "#hidePrescriptionBtn":{
 	title: Alloy.Globals.strings.home
+},
+"#refillsLeftLbl":{
+	title : Alloy.Globals.strings.Refillsleft
+},
+"#dueForRefillLbl":{
+	title: Alloy.Globals.strings.Dueforrefill
+},
+"#lastFilledLbl":{
+	title: Alloy.Globals.strings.Lastfilled
 }
