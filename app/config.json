@@ -43,6 +43,7 @@
 			"pill": "N",
 			"sort": "X",
 			"remove": "*",
+			"refresh": ".",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",
