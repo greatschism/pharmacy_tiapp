@@ -1,10 +1,11 @@
 var args = arguments[0] || {},
     app = require("core"),
-    icons = Alloy.CFG.icons,
-    isBusy = false,
+    logger = require("logger"),
     utilities = require("utilities"),
-    http = require("httpwrapper"),
-    dialog = require("dialog");
+    http = require("requestwrapper"),
+    dialog = require("dialog"),
+    icons = Alloy.CFG.icons,
+    isBusy = false;
 
 function toCamelCase(s) {
 	// remove all characters that should not be in a variable name
@@ -103,11 +104,11 @@ function didGetPharmacies(result) {
 		pharmacy.favorite = Number(pharmacy.bookmarked) ? icons.favorite : "";
 		pharmacy.subtitle = firstToUpperCase(pharmacy.city) + ", " + pharmacy.state + " " + pharmacy.zip;
 		pharmacy.showDistance = showDistance;
-		console.log(pharmacy.showDistance);
+		logger.i(pharmacy.showDistance);
 		if (showDistance) {
 			pharmacy.distance = pharmacy.distance + " mi away";
 		}
-		console.log(pharmacies[i]);
+		logger.i(pharmacies[i]);
 	}
 	Alloy.Collections.stores.reset(pharmacies);
 	loadMap();

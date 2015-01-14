@@ -1,29 +1,19 @@
 var Alloy = require("alloy");
 
-exports.analytics = function(type, typeDetails1, typeDetails2) 
-{
-	var returnCode = 0;
-	
-	if (Alloy.CFG.enableAnalytic) {
-		switch(type) 
-		{
-			case "breadcrumb":
-				Alloy.Globals.apm.leaveBreadcrumb(typeDetails1);
-				returnCode = 1;
-				break;
-			case "featureEvent":
-				Titanium.Analytics.featureEvent(typeDetails1);
-				returnCode = 2;
-				break;
-			case "navEvent":
-				Titanium.Analytics.navEvent(typeDetails1, typeDetails2);
-				returnCode = 3;
-				break;
-			case "default":
-				returnCode = -1;
-				break;
+var Analytics = {
+	featureEvent : function(_name, _data) {
+		if (Alloy.CFG.enableAnalytics) {
+			Ti.Analytics.featureEvent(_name, _data || {});
+		}
+	},
+	getLastEvent : function() {
+		return Ti.Analytics.lastEvent || {};
+	},
+	navEvent : function(_from, _to, _name, _data) {
+		if (Alloy.CFG.enableAnalytics) {
+			Ti.Analytics.navEvent(_from, _to, _name || "", _data || {});
 		}
 	}
-	
-	return returnCode;
 };
+
+module.exports = Analytics;

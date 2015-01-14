@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
-    http = require("httpwrapper");
+    http = require("requestwrapper");
 
 if (OS_IOS || OS_ANDROID) {
 	var encryptionUtil = require("encryptionUtil"),

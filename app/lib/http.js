@@ -3,6 +3,7 @@
  *
  * @class http
  */
+var logger = require("logger");
 
 /**
  * Standard HTTP Request
@@ -20,7 +21,7 @@
  */
 exports.request = function(_params) {
 
-	Ti.API.debug("HTTP.request " + _params.url);
+	logger.d("HTTP.request " + _params.url);
 
 	if (Ti.Network.online) {
 
@@ -90,9 +91,9 @@ exports.request = function(_params) {
 					_params.done();
 				}
 			} else {
-				Ti.API.error(JSON.stringify(this));
+				logger.e(JSON.stringify(this));
 			}
-			Ti.API.error(_event);
+			logger.e(_event);
 		};
 
 		_params.type = _params.type ? _params.type : "GET";
@@ -120,7 +121,7 @@ exports.request = function(_params) {
 
 	} else {
 
-		Ti.API.error("No internet connection");
+		logger.e("No internet connection");
 
 		if (_params.failure) {
 			if (_params.passthrough) {

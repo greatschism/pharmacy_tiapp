@@ -1,14 +1,15 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    logger = require("logger");
 
 Ti.Media.showCamera({
 	success : function(e) {
-		Ti.API.info("success");
+		logger.i("success");
 	},
 	cancel : function() {
-		Ti.API.info("error");
+		logger.i("error");
 	},
 	error : function(error) {
-		Ti.API.info("error: " + JSON.stringify(error));
+		logger.i("error: " + JSON.stringify(error));
 	},
 	autohide : false,
 	showControls : true

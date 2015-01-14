@@ -24,6 +24,12 @@ function Navigation(_args) {
 	 * @type {Boolean}
 	 */
 	this.isBusy = false;
+	
+	/**
+	 * logger
+	 * @type {Logger}
+	 */
+	this.logger = require("logger");
 
 	/**
 	 * name of the navigator
@@ -464,8 +470,8 @@ function Navigation(_args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		console.debug("Stack Length: " + that.controllers.length);
-		console.debug(JSON.stringify(stack));
+		that.logger.d("Stack Length: " + that.controllers.length);
+		that.logger.d(JSON.stringify(stack));
 	};
 }
 

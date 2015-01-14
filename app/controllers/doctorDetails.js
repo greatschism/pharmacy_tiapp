@@ -1,8 +1,9 @@
 var args = arguments[0] || {},
-    doctor = args.doctor,
-    utilities = require("utilities"),
     moment = require("alloy/moment"),
-    http = require("httpwrapper"),
+    utilities = require("utilities"),
+    logger = require("logger"),
+    http = require("requestwrapper"),
+    doctor = args.doctor,
     PRESCRIPTION_COUNT = 4;
 
 function init() {
@@ -115,7 +116,7 @@ function didClickProfileImg(e) {
 }
 
 function didClickOption(e) {
-	console.log(e);
+	logger.i(e);
 }
 
 function didClickEdit(e) {

@@ -1,9 +1,9 @@
 var args = arguments[0] || {},
-    iconSet = Alloy.CFG.iconSet,
-    icons = Alloy.CFG.icons,
     app = require("core"),
     dialog = require("dialog"),
-    http = require("httpwrapper"),
+    http = require("requestwrapper"),
+    iconSet = Alloy.CFG.iconSet,
+    icons = Alloy.CFG.icons,
     homePageParams = Alloy.Collections.menuItems.where({
 landingPage: true
 })[0].toJSON();

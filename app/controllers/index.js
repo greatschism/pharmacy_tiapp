@@ -1,4 +1,4 @@
-var http = require("httpwrapper"),
+var http = require("requestwrapper"),
     dialog = require("dialog");
 
 function didOpen(e) {
@@ -10,7 +10,7 @@ function didOpen(e) {
 					phonemodel : Ti.Platform.model,
 					phoneos : Ti.Platform.osname,
 					deviceid : Ti.Platform.id,
-					networkcarrier : "", 
+					networkcarrier : "",
 					phoneplatform : "IP",
 					appversion : Ti.App.version,
 					clientname : Alloy.CFG.clientname,
@@ -35,12 +35,13 @@ function didFailed() {
 }
 
 function didSuccess(result) {
-	$.index.remove($.loading.getView());
+	require("config").init();
 	Alloy.Models.user.set({
 		appLoad : result.appload
 	}, {
 		silent : true
 	});
+	$.index.remove($.loading.getView());
 	if (Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {
 			ctrl : "carousel",

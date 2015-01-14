@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
+    app = require("core"),
     iconSet = Alloy.CFG.iconSet,
-    icons = Alloy.CFG.icons,
-    app = require("core");
+    icons = Alloy.CFG.icons;
 
 function init() {
 	var homePageTemplate = Alloy.Globals.homePageTemplates[Alloy.Globals.templateIndex].data;

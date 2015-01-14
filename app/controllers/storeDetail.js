@@ -1,9 +1,9 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     app = require("core"),
-    icons = Alloy.CFG.icons,
     dialog = require("dialog"),
     utilities = require("utilities"),
-    moment = require("alloy/moment"),
+    icons = Alloy.CFG.icons,
     store = {};
 
 function init() {
@@ -16,9 +16,7 @@ function init() {
 	$.subtitleLbl.text = store.subtitle;
 	if (Alloy.Globals.loggedIn) {
 		$.favoriteLbl.text = store.bookmarked ? icons.favorite : icon.nonfavorite;
-	}
-	else
-	{
+	} else {
 		$.favoriteLbl.visible = false;
 		$.homeBtn.visible = false;
 	}

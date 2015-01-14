@@ -2,11 +2,11 @@
  * @param {Object} _params The arguments for the method
  */
 
-var cfg = Alloy.CFG,
-    app = require("core"),
+var app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
-    xmlTools = require("XMLTools");
+    xmlTools = require("XMLTools"),
+    cfg = Alloy.CFG;
 
 if (OS_IOS || OS_ANDROID) {
 	var encryptionUtil = require("encryptionUtil");

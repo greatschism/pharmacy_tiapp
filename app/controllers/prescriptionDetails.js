@@ -1,31 +1,21 @@
 var args = arguments[0] || {},
     app = require("core"),
-    icons = Alloy.CFG.icons,
     dialog = require("dialog"),
     utilities = require("utilities"),
     moment = require("alloy/moment"),
+    icons = Alloy.CFG.icons,
     prescription = {};
 
 function init() {
 
-
 	$.titleLbl.text = prescription.name;
 	$.subtitleLbl.text = prescription.placedat;
-	
+
 	$.distanceLbl.text = prescription.name;
 
 	$.hidePrescriptionBtn.color = Alloy._fg_quaternary;
-	
 
-	
-
-	
-
-	
-
-	
-
-//	$.tableView.data = data;
+	//	$.tableView.data = data;
 }
 
 function underConstruction() {
@@ -33,10 +23,6 @@ function underConstruction() {
 		message : Alloy.Globals.strings.msgUnderConstruction
 	});
 }
-
-
-
-
 
 function didClickRefill(e) {
 	app.navigator.open({
@@ -52,11 +38,6 @@ function didClickRefill(e) {
 function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
 }
-
-
-
-
-
 
 function didClickHome(e) {
 	dialog.show({

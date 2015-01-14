@@ -1,7 +1,8 @@
 var args = arguments[0] || {},
-    app = require("core"),
     moment = require("alloy/moment"),
-    http = require("httpwrapper"),
+    app = require("core"),
+    logger = require("logger"),
+    http = require("requestwrapper"),
     dialog = require("dialog"),
     utilities = require("utilities"),
     msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
@@ -70,16 +71,14 @@ function didReceiveAppointments(result) {
 		title : Alloy.Globals.strings.sectionMyDoctors
 	});
 
-
-
-function firstToUpperCase(str) {
-	var strTemp = str.split(' ');
-	for (var i = 0; i < strTemp.length; i++) {
-		strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
-	};
-	str = strTemp.join(" ");
-	return str;
-}
+	function firstToUpperCase(str) {
+		var strTemp = str.split(' ');
+		for (var i = 0; i < strTemp.length; i++) {
+			strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
+		};
+		str = strTemp.join(" ");
+		return str;
+	}
 
 	for (var i in doctors) {
 
@@ -242,7 +241,7 @@ function didToggle(e) {
 }
 
 function didClickMenu(e) {
-	console.log(e);
+	logger.i(e);
 }
 
 function didItemClick(e) {
@@ -289,7 +288,7 @@ function didClickAddDoctor(e) {
 }
 
 function didClickOption(e) {
-	console.log(e);
+	logger.i(e);
 }
 
 function openCamera() {

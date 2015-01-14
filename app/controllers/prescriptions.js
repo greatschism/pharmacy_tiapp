@@ -1,16 +1,14 @@
 var args = arguments[0] || {},
-    app = require("core"),
     moment = require("alloy/moment"),
+    app = require("core"),
     utilities = require("utilities"),
     dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
+    DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     gettingRefilled,
     prescriptions,
-    currentSwipeView,
-    DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days;
-
-
+    currentSwipeView;
 
 function init() {
 	gettingRefilled = [{
@@ -302,18 +300,18 @@ function didItemClick(e) {
 	}
 	var rowId = e.source.rowId;
 	if (rowId) {
-		 app.navigator.open({
-		 stack : true,
-		 titleid : "titleDetails",
-		 ctrl : "prescriptionDetails",
-		 ctrlArguments : {
-		itemId : e.source.rowId
-		 }
+		app.navigator.open({
+			stack : true,
+			titleid : "titleDetails",
+			ctrl : "prescriptionDetails",
+			ctrlArguments : {
+				itemId : e.source.rowId
+			}
 		});
 
 		//dialog.show({
-	//		message : Alloy.Globals.strings.msgUnderConstruction
-	//	});
+		//		message : Alloy.Globals.strings.msgUnderConstruction
+		//	});
 	}
 }
 

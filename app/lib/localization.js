@@ -1,6 +1,13 @@
 var Alloy = require("alloy"),
-    Scule = require("com.scule"),
-    Utilities = require("utilities");
+    scule = require("com.scule"),
+    utilities = require("utilities"),
+    logger = require("logger");
+
+/**
+ * Push the language strings on first launch to Scule DB
+ * Update the language strings
+ * Load the selected language's strings into Alloy.Globals.strings
+ */
 
 var Locale = {
 
@@ -17,9 +24,9 @@ var Locale = {
 	/**
 	 * initialize localization
 	 */
-	init : function(languages) {
+	init : function(_languages) {
 
-		var lColl = Scule.factoryCollection(Locale.path);
+		var lColl = scule.factoryCollection(Locale.path);
 
 		/**
 		 * check whether there is a change in app version
@@ -29,7 +36,7 @@ var Locale = {
 			/**
 			 * get the languages supported by app from Alloy.CFG
 			 */
-			var cfgLangs = languages || Alloy.CFG.languages,
+			var cfgLangs = _languages || Alloy.CFG.languages,
 
 			    defaultLng = _.clone(_.findWhere(cfgLangs, {
 				selected : true
@@ -41,14 +48,14 @@ var Locale = {
 				 * add / update supported languages
 				 */
 				if (!_.has(cfgLang, "strings")) {
-					_.extend(cfgLang, JSON.parse(Utilities.getFile("data/languages/" + cfgLang.code + ".json") || "{}"));
+					_.extend(cfgLang, JSON.parse(utilities.getFile("data/languages/" + cfgLang.code + ".json") || "{}"));
 				}
 
 				var langObj = lColl.find({
 				code : cfgLang.code
 				})[0] || {};
 
-				//console.log("check collection : ", langObj.code);
+				logger.i("check collection : ", langObj.code);
 
 				if (_.isEmpty(langObj)) {
 
@@ -58,7 +65,7 @@ var Locale = {
 
 					var created = lColl.save(cfgLang);
 
-					//console.log("language created : ", cfgLang._id);
+					logger.i("language created : ", cfgLang._id);
 
 				} else {
 
@@ -70,7 +77,7 @@ var Locale = {
 						$set : _.omit(langObj, ["_id"])
 					}, {}, true);
 
-					//console.log("language updated : ", updated[0].code);
+					logger.i("language updated : ", updated[0].code);
 
 				}
 
@@ -80,14 +87,14 @@ var Locale = {
 			 * remove unsupported languages
 			 */
 			var supported = _.pluck(cfgLangs, "code");
-			//console.log("language supported : ", supported);
+			logger.i("language supported : ", supported);
 
 			var removed = lColl.remove({
 				code : {
 					$nin : supported
 				}
 			});
-			//console.log("language removed : ", removed);
+			logger.i("language removed : ", removed);
 
 			/**
 			 * check for selected language, if nothing select default
@@ -129,7 +136,7 @@ var Locale = {
 	 */
 	setLanguage : function(_code) {
 
-		var lColl = Scule.factoryCollection(Locale.path),
+		var lColl = scule.factoryCollection(Locale.path),
 
 		    toSelect = lColl.find({
 			code : _code
@@ -149,7 +156,7 @@ var Locale = {
 					selected : false
 				}
 			});
-			//console.log("language unselected : len ", unselected.length, " = ", unselected[0].code);
+			logger.i("language unselected : len ", unselected.length, " = ", unselected[0].code);
 
 			/**
 			 * set selected as true for given language
@@ -161,7 +168,7 @@ var Locale = {
 					selected : true
 				}
 			});
-			//console.log("language selected : len ", selected.length, " = ", selected[0].code);
+			logger.i("language selected : len ", selected.length, " = ", selected[0].code);
 
 			Locale.applyLanguage(selected[0]);
 
@@ -183,7 +190,7 @@ var Locale = {
 
 		var code = _code || Locale.currentLanguage.code,
 
-		    lColl = Scule.factoryCollection(Locale.path),
+		    lColl = scule.factoryCollection(Locale.path),
 
 		    toUpdate = lColl.find({
 			code : code
@@ -212,7 +219,7 @@ var Locale = {
 	 * return {Array} languages The supported languages
 	 */
 	getLanguages : function(_key) {
-		return Scule.factoryCollection(Locale.path).findAll();
+		return scule.factoryCollection(Locale.path).findAll();
 	},
 
 	/**
@@ -222,7 +229,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
-		//console.log("language selected : ", Locale.currentLanguage);
+		logger.i("language selected : ", Locale.currentLanguage);
 	}
 };
 

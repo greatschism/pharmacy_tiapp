@@ -1,10 +1,5 @@
 {
 	"global": {
-		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
-		"clientname": "Meg-lo",
-		"emailpin": "",
-		"clientIdentifier": "1234",
-		"apiVersion": "1.0",
 		"languages": [
 			{
 				"code": "en",
@@ -67,12 +62,38 @@
 			"thin_notification": "y",
 			"thin_refill_camera": "$"
 		},
-		"ANIMATION_DURATION": 300,
-		"enableAnalytic": true
+		"ANIMATION_DURATION": 300
 	},
-	"env:development": {},
-	"env:test": {},
-	"env:production": {},
+	"env:development": {
+		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
+		"clientname": "Meg-lo",
+		"emailpin": "",
+		"clientIdentifier": "1234",
+		"apiVersion": "1.0",
+		"enableLogger": true,
+		"enableAPM": false,
+		"enableAnalytics": false
+	},
+	"env:test": {
+		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
+		"clientname": "Meg-lo",
+		"emailpin": "",
+		"clientIdentifier": "1234",
+		"apiVersion": "1.0",
+		"enableLogger": true,
+		"enableAPM": true,
+		"enableAnalytics": true
+	},
+	"env:production": {
+		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
+		"clientname": "Meg-lo",
+		"emailpin": "",
+		"clientIdentifier": "1234",
+		"apiVersion": "1.0",
+		"enableLogger": false,
+		"enableAPM": true,
+		"enableAnalytics": true
+	},
 	"os:android": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
