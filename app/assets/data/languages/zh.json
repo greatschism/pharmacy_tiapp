@@ -6,7 +6,7 @@
 	"strings": {
 
 		"lngEnglish": "English",
-		"lngzhpanese": "Japanese",
+		"lngJapanese": "Japanese",
 		"lngSpanish": "Spanish",
 		"lngChinese": "Chinese",
 
@@ -36,7 +36,7 @@
 		"titleYourRefillIsOrdered": "zh-Your refill has been ordered!",
 		"titleRefillHistory": "zh-Refill history",
 		"titleDetails": "zh-Details",
-		"titleRefillNow": "Refill Now",
+		"titleRefillNow": "zh-Refill Now",
 
 		"sectionStoreHours": "zh-Store hours",
 		"sectionStoreServices": "zh-Store services",
