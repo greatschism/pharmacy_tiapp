@@ -10,7 +10,7 @@ function didOpen(e) {
 					phonemodel : Ti.Platform.model,
 					phoneos : Ti.Platform.osname,
 					deviceid : Ti.Platform.id,
-					networkcarrier : "", //OS_IOS ? require("bencoding.network").createCarrier().findInfo().carrierName : OS_ANDROID ? require("ti.network").findInfo().carrierName : Ti.Platform.osname,
+					networkcarrier : "", 
 					phoneplatform : "IP",
 					appversion : Ti.App.version,
 					clientname : Alloy.CFG.clientname,
