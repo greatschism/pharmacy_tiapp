@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     logger = require("logger"),
     http = require("requestwrapper"),
     doctor = args.doctor,
@@ -73,7 +73,7 @@ function didClickMore(e) {
 
 function loadPrescriptions(prescriptions) {
 	if (!$.prescriptionsSection) {
-		$.prescriptionsSection = utilities.createTableViewSection({
+		$.prescriptionsSection = uihelper.createTableViewSection({
 			title : Alloy.Globals.strings.strPrescriptions
 		});
 		for (var i in prescriptions) {

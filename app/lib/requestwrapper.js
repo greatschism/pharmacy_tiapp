@@ -2,7 +2,8 @@
  * @param {Object} _params The arguments for the method
  */
 
-var app = require("core"),
+var Alloy = require("alloy"),
+    app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
     xmlTools = require("XMLTools"),

@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
-    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
@@ -94,7 +94,7 @@ function init() {
 	}
 	//Getting refilled
 	if (gettingRefilled.length) {
-		$.gettingRefilledSection = utilities.createTableViewSection({
+		$.gettingRefilledSection = uihelper.createTableViewSection({
 			title : strings.sectionGettingRefilled,
 			icon : icons.clock,
 			color : Alloy._success_color
@@ -160,7 +160,7 @@ function init() {
 	}
 	//Ready for refill
 	if (readyForRefill.length) {
-		$.readyForRefillSection = utilities.createTableViewSection({
+		$.readyForRefillSection = uihelper.createTableViewSection({
 			title : strings.sectionReadyForRefill,
 			icon : icons.thick_prescriptions,
 			color : Alloy._error_color
@@ -237,7 +237,7 @@ function init() {
 	}
 	//Other prescriptions
 	if (otherPrescriptions.length) {
-		$.otherPrescriptionsSection = utilities.createTableViewSection({
+		$.otherPrescriptionsSection = uihelper.createTableViewSection({
 			title : strings.sectionOtherPrescriptions,
 			icon : icons.pill,
 			color : Alloy._fg_tertiary

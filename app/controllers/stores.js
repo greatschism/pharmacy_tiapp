@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     logger = require("logger"),
-    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     http = require("requestwrapper"),
     dialog = require("dialog"),
     icons = Alloy.CFG.icons,
@@ -239,7 +239,7 @@ function didAnnotationClick(e) {
 				storeid : annotation.storeId
 			});
 			if (stores.length) {
-				utilities.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
+				uihelper.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
 			}
 			break;
 		}

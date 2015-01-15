@@ -1,12 +1,12 @@
-var STATIC_KEY = "6a6f536341444276",
+var utilities = require("utilities"),
+    c = require("crypto/core"),
+    aes = require("crypto/aes"),
+    STATIC_KEY = "6a6f536341444276",
     DYNAMIC_KEY_LENGTH = 8,
     IV_LENGTH = 16,
     DYNAMIC_KEY_LENGTH_IN_BYTES = DYNAMIC_KEY_LENGTH * 2,
     IV_LENGTH_IN_BYTES = IV_LENGTH * 2,
-    IV_BYTES_LAST_INDEX = DYNAMIC_KEY_LENGTH_IN_BYTES + IV_LENGTH_IN_BYTES,
-    utilities = require("utilities"),
-    c = require("crypto/core"),
-    aes = require("crypto/aes");
+    IV_BYTES_LAST_INDEX = DYNAMIC_KEY_LENGTH_IN_BYTES + IV_LENGTH_IN_BYTES;
 
 function encrypt(plainText) {
 	var encryptDynamicKey = c.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH));

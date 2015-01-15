@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     logger = require("logger"),
     http = require("requestwrapper"),
     dialog = require("dialog"),
-    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
     msgYouHaveNoActiveprescription = Alloy.Globals.strings.msgYouHaveNoActiveprescription,
     msgUpcomingAppointment = Alloy.Globals.strings.msgYouHaveUpcomingAppointmentWith,
@@ -64,10 +64,10 @@ function didReceiveAppointments(result) {
 	footerView.add(containerView);
 	footerView.addEventListener("click", didClickSetAppointment);
 
-	$.appointmentsSection = utilities.createTableViewSection({
+	$.appointmentsSection = uihelper.createTableViewSection({
 		title : Alloy.Globals.strings.sectionUpcomingAppointments
 	}, footerView);
-	$.doctorsSection = utilities.createTableViewSection({
+	$.doctorsSection = uihelper.createTableViewSection({
 		title : Alloy.Globals.strings.sectionMyDoctors
 	});
 

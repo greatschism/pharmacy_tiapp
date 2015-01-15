@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
     dialog = require("dialog"),
-    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     icons = Alloy.CFG.icons,
     store = {};
 
@@ -41,7 +41,7 @@ function init() {
 	});
 
 	if (dates.length) {
-		var datesSection = utilities.createTableViewSection({
+		var datesSection = uihelper.createTableViewSection({
 			title : Alloy.Globals.strings.sectionStoreHours
 		});
 		for (var i in dates) {
@@ -71,7 +71,7 @@ function init() {
 	}
 
 	if (services.length) {
-		var servicesSection = utilities.createTableViewSection({
+		var servicesSection = uihelper.createTableViewSection({
 			title : Alloy.Globals.strings.sectionStoreServices
 		});
 		for (var i in services) {
@@ -129,7 +129,7 @@ function didClickPhone(e) {
 }
 
 function didClickDirection(e) {
-	utilities.getDirection(Alloy.Globals.currentLocation, (store.latitude + "," + store.longitude));
+	uihelper.getDirection(Alloy.Globals.currentLocation, (store.latitude + "," + store.longitude));
 }
 
 function didClickRefill(e) {
