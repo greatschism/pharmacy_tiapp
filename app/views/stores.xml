@@ -3,6 +3,7 @@
 	<View>
 		<View id="mapContainer">
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
+			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
 		</View>
 		<View id="listContainer" class="vgroup bg-senary show">
 			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
@@ -17,7 +18,7 @@
 							</View>
 							<View class="bottom right width-40 auto-height" visible="{showDistance}">
 								<Label class="distance-icon padding-left font-icon fg-quaternary" />
-								<Label class="icon-lbl fill-width  fg-quaternary h6-fixed" text="{distance}" />
+								<Label class="icon-lbl fill-width h6-fixed fg-quaternary" text="{distance}" />
 							</View>
 						</View>
 					</View>
