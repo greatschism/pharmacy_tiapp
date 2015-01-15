@@ -12,11 +12,11 @@
 						<View class="top left width-50 auto-height vgroup">
 							<View id="distanceView" class="padding-left auto-height">
 								<Label class="distance-icon left font-icon fg-quaternary" />
-								<Label id="distanceLbl" class="icon-lbl fill-width h5-fixed fg-quaternary" />
+								<Label id="distanceLbl" class="icon-lbl fill-width h6-fixed fg-quaternary" />
 							</View>
 							<View class="padding-left auto-height">
 								<Label id="clockIcon" class="clock-icon left font-icon" />
-								<Label id="clockLbl" class="icon-lbl fill-width h5-fixed" />
+								<Label id="clockLbl" class="icon-lbl fill-width h6-fixed btn-thirtiary-smaller" />
 							</View>
 						</View>
 					</View>
