@@ -69,7 +69,6 @@ exports.lastUpdate = function(_url) {
  */
 exports.fileExists = function(_path, _directory) {
 	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
-
 	if (file.exists()) {
 		return true;
 	} else {
@@ -86,6 +85,20 @@ exports.getFile = function(_path, _directory) {
 	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
 	if (file.exists()) {
 		return file.read().text;
+	} else {
+		return false;
+	}
+};
+
+/**
+ * delete file
+ * @param {String} _path The path of the file to read
+ * @param {String} _directory The base directory of the file to read (optional)
+ */
+exports.deleteFile = function(_path, _directory) {
+	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
+	if (file.exists()) {
+		return file.deleteFile();
 	} else {
 		return false;
 	}

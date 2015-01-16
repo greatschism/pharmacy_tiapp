@@ -10,14 +10,14 @@ function init() {
 	    lngs = [],
 	    i = 0,
 	    selectedIndex = 0;
-	_.each(Alloy.Globals.homePageTemplates, function(obj) {
-		var template = _.pick(obj, ["title"]);
-		template.index = i;
-		templates.push(template);
-		i++;
-	});
-	$.templateDp.setChoices(templates);
-	$.templateDp.setSelectedIndex(Alloy.Globals.templateIndex);
+	/*_.each(Alloy.Globals.homePageTemplates, function(obj) {
+	 var template = _.pick(obj, ["title"]);
+	 template.index = i;
+	 templates.push(template);
+	 i++;
+	 });
+	 $.templateDp.setChoices(templates);
+	 $.templateDp.setSelectedIndex(Alloy.Globals.templateIndex);*/
 	i = 0;
 	_.each(languages, function(obj) {
 		var lng = _.pick(obj, ["titleid", "code"]);
@@ -35,12 +35,12 @@ function init() {
 }
 
 function setParentViews(view) {
-	$.templateDp.setParentView(view);
+	//$.templateDp.setParentView(view);
 	$.languageDp.setParentView(view);
 }
 
 function didReturnTemplate(e) {
-	Alloy.Globals.templateIndex = $.templateDp.getSelectedIndex();
+	//Alloy.Globals.templateIndex = $.templateDp.getSelectedIndex();
 }
 
 function didReturnLanguage(e) {
@@ -57,7 +57,6 @@ function didClickAbout() {
 		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString('buildDate'),
 		title : Alloy.Globals.strings.strAbout
 	});
-
 }
 
 exports.init = init;

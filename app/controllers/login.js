@@ -79,7 +79,7 @@ function didAuthenticate(result) {
 	});
 	if (app.navigator.name === Alloy._navigator) {
 		app.navigator.open(args.navigateTo || Alloy.Collections.menuItems.where({
-		landingPage: true
+		landing_page: true
 		})[0].toJSON());
 	} else {
 		Alloy.createController(Alloy._navigator + "/master");

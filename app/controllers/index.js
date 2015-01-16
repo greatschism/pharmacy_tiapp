@@ -1,5 +1,6 @@
 var http = require("requestwrapper"),
-    dialog = require("dialog");
+    dialog = require("dialog"),
+    utilities = require("utilities");
 
 function didOpen(e) {
 	http.request({
@@ -35,7 +36,7 @@ function didFailed() {
 }
 
 function didSuccess(result) {
-	require("config").init();
+	require("config").init(JSON.parse(utilities.getFile("data/config.json")));
 	Alloy.Models.user.set({
 		appLoad : result.appload
 	}, {

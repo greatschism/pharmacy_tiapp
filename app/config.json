@@ -1,17 +1,5 @@
 {
 	"global": {
-		"languages": [
-			{
-				"code": "en",
-				"selected": true
-			}, {
-				"code": "es"
-			}, {
-				"code": "ja"
-			}, {
-				"code": "zh"
-			}
-		],
 		"iconSet": "thick",
 		"icons": {
 			"hamburger": "R",
@@ -96,28 +84,16 @@
 	},
 	"os:android": {
 		"navBarHeight": 48,
-		"navBarTop": 0,
-		"fonts": {
-			"regular": "Roboto-Regular",
-			"medium": "Roboto-Medium"
-		}
+		"navBarTop": 0
 	},
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
-		"navBarTop": 15,
-		"fonts": {
-			"regular": "Lato-Regular",
-			"medium": "Lato-Bold"
-		}
+		"navBarTop": 15
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
-		"navBarTop": 0,
-		"fonts": {
-			"regular": "Roboto-Regular",
-			"medium": "Roboto-Medium"
-		}
+		"navBarTop": 0
 	},
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",

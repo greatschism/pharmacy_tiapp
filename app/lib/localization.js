@@ -1,20 +1,16 @@
 var Alloy = require("alloy"),
     scule = require("com.scule"),
+    resources = require("resources"),
     utilities = require("utilities"),
     logger = require("logger");
 
 /**
- * Push the language strings on first launch to Scule DB
- * Update the language strings
- * Load the selected language's strings into Alloy.Globals.strings
+ * * load the selected language from Scule DB into Alloy.Globals.strings
+ * * allow to switch to new language
+ * * get all languages
  */
 
 var Locale = {
-
-	/**
-	 * storage engine & path to scule collection
-	 */
-	path : "scule+titanium://languages",
 
 	/**
 	 * the language that is being used by app
@@ -24,110 +20,11 @@ var Locale = {
 	/**
 	 * initialize localization
 	 */
-	init : function(_languages) {
-
-		var lColl = scule.factoryCollection(Locale.path);
-
-		/**
-		 * check whether there is a change in app version
-		 */
-		if (Ti.App.Properties.getString("updatedLangFileOn", "") != Ti.App.version || Ti.App.deployType != "production") {
-
-			/**
-			 * get the languages supported by app from Alloy.CFG
-			 */
-			var cfgLangs = _languages || Alloy.CFG.languages,
-
-			    defaultLng = _.clone(_.findWhere(cfgLangs, {
-				selected : true
-			}) || cfgLangs[0]);
-
-			_.each(cfgLangs, function(cfgLang) {
-
-				/**
-				 * add / update supported languages
-				 */
-				if (!_.has(cfgLang, "strings")) {
-					_.extend(cfgLang, JSON.parse(utilities.getFile("data/languages/" + cfgLang.code + ".json") || "{}"));
-				}
-
-				var langObj = lColl.find({
-				code : cfgLang.code
-				})[0] || {};
-
-				logger.i("check collection : ", langObj.code);
-
-				if (_.isEmpty(langObj)) {
-
-					_.extend(cfgLang, {
-						selected : false
-					});
-
-					var created = lColl.save(cfgLang);
-
-					logger.i("language created : ", cfgLang._id);
-
-				} else {
-
-					_.extend(langObj, _.omit(cfgLang, ["selected"]));
-
-					var updated = lColl.update({
-						code : langObj.code
-					}, {
-						$set : _.omit(langObj, ["_id"])
-					}, {}, true);
-
-					logger.i("language updated : ", updated[0].code);
-
-				}
-
-			});
-
-			/**
-			 * remove unsupported languages
-			 */
-			var supported = _.pluck(cfgLangs, "code");
-			logger.i("language supported : ", supported);
-
-			var removed = lColl.remove({
-				code : {
-					$nin : supported
-				}
-			});
-			logger.i("language removed : ", removed);
-
-			/**
-			 * check for selected language, if nothing select default
-			 */
-			var selected = lColl.find({
-				selected : true
-			});
-			if (selected.length == 0) {
-				selected = lColl.update({
-					code : defaultLng.code
-				}, {
-					$set : {
-						selected : true
-					}
-				});
-			}
-			Locale.applyLanguage(selected[0]);
-
-			/**
-			 * commit changes
-			 */
-			lColl.commit();
-
-			Ti.App.Properties.setString("updatedLangFileOn", Ti.App.version);
-
-		} else {
-
-			Locale.applyLanguage(lColl.find({
-			selected : true
-			})[0]);
-
-		}
-
+	init : function() {
+		var lColl = scule.factoryCollection(resources.pathLanguages);
+		Locale.applyLanguage(lColl.find({
+		selected : true
+		})[0]);
 	},
 
 	/**
@@ -136,7 +33,7 @@ var Locale = {
 	 */
 	setLanguage : function(_code) {
 
-		var lColl = scule.factoryCollection(Locale.path),
+		var lColl = scule.factoryCollection(resources.pathLanguages),
 
 		    toSelect = lColl.find({
 			code : _code
@@ -156,7 +53,7 @@ var Locale = {
 					selected : false
 				}
 			});
-			logger.i("language unselected : len ", unselected.length, " = ", unselected[0].code);
+			logger.i("language unselected : len " + unselected.length, " = " + unselected[0].code);
 
 			/**
 			 * set selected as true for given language
@@ -168,7 +65,7 @@ var Locale = {
 					selected : true
 				}
 			});
-			logger.i("language selected : len ", selected.length, " = ", selected[0].code);
+			logger.i("language selected : len " + selected.length, " = " + selected[0].code);
 
 			Locale.applyLanguage(selected[0]);
 
@@ -190,10 +87,11 @@ var Locale = {
 
 		var code = _code || Locale.currentLanguage.code,
 
-		    lColl = scule.factoryCollection(Locale.path),
+		    lColl = scule.factoryCollection(resources.pathLanguages),
 
 		    toUpdate = lColl.find({
-			code : code
+			code : code,
+			update : true
 		});
 
 		if (toUpdate.length != 0) {
@@ -219,7 +117,7 @@ var Locale = {
 	 * return {Array} languages The supported languages
 	 */
 	getLanguages : function(_key) {
-		return scule.factoryCollection(Locale.path).findAll();
+		return scule.factoryCollection(resources.pathLanguages).findAll();
 	},
 
 	/**
@@ -229,7 +127,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
-		logger.i("language selected : ", Locale.currentLanguage);
+		logger.i("language selected : " + Locale.currentLanguage.code);
 	}
 };
 

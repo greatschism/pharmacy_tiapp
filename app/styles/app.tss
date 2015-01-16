@@ -333,22 +333,22 @@
 },
 ".font-light":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.light
+		fontFamily: Alloy._fonts.light
 	}
 },
 ".font-light-italic":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.lightItalic
+		fontFamily: Alloy._fonts.lightItalic
 	}
 },
 ".font-regular":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.regular
+		fontFamily: Alloy._fonts.regular
 	}
 },
 ".font-bold":{
 	font:{
-		fontFamily: Alloy.CFG.fonts.bold
+		fontFamily: Alloy._fonts.bold
 	}
 },
 ".normal":{

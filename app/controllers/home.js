@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     icons = Alloy.CFG.icons;
 
 function init() {
-	var homePageTemplate = Alloy.Globals.homePageTemplates[Alloy.Globals.templateIndex].data;
+	var homePageTemplate = Alloy.Models.template.get("data");
 	for (var i in homePageTemplate) {
 		$.containerView.add(create(homePageTemplate[i]));
 	}

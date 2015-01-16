@@ -5,7 +5,7 @@ var args = arguments[0] || {},
     iconSet = Alloy.CFG.iconSet,
     icons = Alloy.CFG.icons,
     homePageParams = Alloy.Collections.menuItems.where({
-landingPage: true
+landing_page: true
 })[0].toJSON();
 
 Alloy.Collections.menuItems.trigger("reset");

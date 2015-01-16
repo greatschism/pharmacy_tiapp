@@ -25,6 +25,7 @@
 		sessionId : "",
 		appLoad : {}
 	});
+	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.store = new Backbone.Model();
 
 	//events

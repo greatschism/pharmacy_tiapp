@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Widget id="templateDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnTemplate" />
+		<!--<Widget id="templateDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnTemplate" />-->
 		<Widget id="languageDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnLanguage" />
 		<Button id="aboutBtn" class="margin-bottom btn-primary" onClick="didClickAbout" />
 	</ScrollView>

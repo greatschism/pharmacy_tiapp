@@ -211,7 +211,7 @@ function didReceiveAppointments(result) {
 					}, {
 						type : Ti.UI.iOS.ATTRIBUTE_FONT,
 						value : {
-							fontFamily : Alloy.CFG.fonts.medium,
+							fontFamily : Alloy._fonts.medium,
 							fontSize : Alloy._typo_h3.fontSize
 						},
 						range : [appointment.desc.length, appointment.time.length]
