@@ -1,5 +1,6 @@
 var utilities = require("utilities"),
     scule = require("com.scule"),
+    http = require("http"),
     logger = require("logger");
 
 var Resources = {
@@ -13,9 +14,16 @@ var Resources = {
 	pathLanguages : "scule+titanium://languages",
 	pathFonts : "scule+titanium://fonts",
 
+	/**
+	 * items to be updated
+	 */
+	updateQueue : [],
+
+	successCallback : false,
+
 	init : function() {
 
-		if (Ti.App.Properties.getBool("updatedResourcesOn", "") != Ti.App.version || Ti.App.deployType != "production") {
+		if (Ti.App.Properties.getString("updatedResourcesOn", "") != Ti.App.version || Ti.App.deployType != "production") {
 
 			var clientData = JSON.parse(utilities.getFile("data/client.json"));
 
@@ -34,7 +42,7 @@ var Resources = {
 			//fonts
 			Resources.set("fonts", clientData.fonts.items);
 
-			Ti.App.Properties.setString("updatedLangFileOn", Ti.App.version);
+			Ti.App.Properties.setString("updatedResourcesOn", Ti.App.version);
 
 		}
 	},
@@ -201,6 +209,89 @@ var Resources = {
 			return data;
 		} else {
 			return data[0] || {};
+		}
+	},
+
+	checkForUpdates : function() {
+		//update all fonts and selected language where update flag is true
+		var langsToUpdate = Resources.getCollection("languages").find({
+			selected : true,
+			update : true
+		}),
+		    fontsToUpdate = Resources.getCollection("fonts").find({
+			update : true
+		});
+		if (langsToUpdate.length) {
+			Resources.updateQueue.push({
+				key : "languages",
+				data : _.omit(langsToUpdate[0], ["_id", "strings"])
+			});
+		}
+		for (var i in fontsToUpdate) {
+			Resources.updateQueue.push({
+				key : "fonts",
+				data : _.omit(fontsToUpdate[i], ["_id"])
+			});
+		}
+		return Resources.updateQueue.length;
+	},
+
+	update : function(_callback) {
+		var updateQueue = Resources.updateQueue;
+		if (updateQueue.length) {
+			Resources.successCallback = _callback;
+			for (var i in updateQueue) {
+				var queue = updateQueue[i];
+				http.request({
+					url : queue.data.url,
+					type : "GET",
+					format : queue.key == "languages" ? "JSON" : "DATA",
+					passthrough : queue,
+					success : Resources.didUpdate,
+					failure : Resources.didUpdate
+				});
+				logger.i("downloading " + queue.key + " from " + queue.data.url);
+			}
+		} else if (_callback) {
+			_callback();
+		}
+	},
+
+	didUpdate : function(_data, _url, _passthrough) {
+		if (_data) {
+			//reset update flag
+			var coll = Resources.getCollection(_passthrough.key),
+			    queryObj = {
+				update : true
+			},
+			    set = {
+				update : false
+			},
+			    prop;
+			if (_passthrough.key == "languages") {
+				prop = "code";
+				//append language strings
+				_.extend(set, {
+					strings : _data
+				});
+			} else {
+				//replace / add font file
+				prop = "name";
+				Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + _passthrough.data.name + ".ttf").write(_data);
+				logger.i("font updated :" + _passthrough.data.name);
+			}
+			queryObj[prop] = _passthrough.data[prop];
+			coll.update(queryObj, {
+				$set : set
+			});
+			coll.commit();
+		}
+		logger.i("downloaded  " + _passthrough.key + " completed from " + _passthrough.data.url);
+		Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
+			return _.isEqual(obj, _passthrough);
+		});
+		if (Resources.updateQueue.length == 0 && Resources.successCallback) {
+			Resources.successCallback();
 		}
 	}
 };

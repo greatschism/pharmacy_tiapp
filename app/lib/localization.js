@@ -5,9 +5,11 @@ var Alloy = require("alloy"),
     logger = require("logger");
 
 /**
+ * Does the following actions
  * * load the selected language from Scule DB into Alloy.Globals.strings
- * * allow to switch to new language
+ * * allow to switch to different language
  * * get all languages
+ * * get value of key pair
  */
 
 var Locale = {
@@ -79,29 +81,11 @@ var Locale = {
 	},
 
 	/**
-	 * updates the version of language
-	 * @param {Function} _callback function to be called once update is done
-	 * @param {String} _code code of the language to update, (optional) if not specified current language will be updated
+	 * get languages
+	 * return {Array} languages The supported languages
 	 */
-	update : function(_callback, _code) {
-
-		var code = _code || Locale.currentLanguage.code,
-
-		    lColl = scule.factoryCollection(resources.pathLanguages),
-
-		    toUpdate = lColl.find({
-			code : code,
-			update : true
-		});
-
-		if (toUpdate.length != 0) {
-			toUpdate = toUpdate[0];
-			//code to update language
-		} else {
-			if (_callback) {
-				_callback(false);
-			}
-		}
+	getLanguages : function(_key) {
+		return scule.factoryCollection(resources.pathLanguages).findAll();
 	},
 
 	/**
@@ -110,14 +94,6 @@ var Locale = {
 	 */
 	getString : function(_key) {
 		return Locale.currentLanguage.strings[_key] || "";
-	},
-
-	/**
-	 * get languages
-	 * return {Array} languages The supported languages
-	 */
-	getLanguages : function(_key) {
-		return scule.factoryCollection(resources.pathLanguages).findAll();
 	},
 
 	/**

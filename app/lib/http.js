@@ -41,6 +41,7 @@ exports.request = function(_params) {
 			switch(_params.format.toLowerCase()) {
 			case "data":
 				_data = this.responseData || this.responseText;
+				break;
 			case "xml":
 				_data = this.responseXML || Ti.XML.parseString(this.responseText);
 				break;

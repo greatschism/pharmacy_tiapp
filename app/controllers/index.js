@@ -4,21 +4,9 @@ var http = require("requestwrapper"),
 
 function didOpen(e) {
 	http.request({
-		method : "appload",
-		data : {
-			request : {
-				appload : {
-					phonemodel : Ti.Platform.model,
-					phoneos : Ti.Platform.osname,
-					deviceid : Ti.Platform.id,
-					networkcarrier : "",
-					phoneplatform : "IP",
-					appversion : Ti.App.version,
-					clientname : Alloy.CFG.clientname,
-					featurecode : "TH610"
-				}
-			}
-		},
+		path : "appload/get",
+		format : "JSON",
+		data : {},
 		retry : false,
 		prompt : false,
 		success : didSuccess,
@@ -36,12 +24,13 @@ function didFailed() {
 }
 
 function didSuccess(result) {
-	require("config").init(JSON.parse(utilities.getFile("data/config.json")));
-	Alloy.Models.user.set({
-		appLoad : result.appload
-	}, {
+	Alloy.Models.user.set(result.data, {
 		silent : true
 	});
+	require("config").init(result.data.appload.client_json, didLoadConfig);
+}
+
+function didLoadConfig() {
 	$.index.remove($.loading.getView());
 	if (Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {

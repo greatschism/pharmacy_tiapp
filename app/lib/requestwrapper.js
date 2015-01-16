@@ -18,6 +18,10 @@ function request(_params) {
 	var format = _params.format || "TEXT",
 	    user = Alloy.Models.user.toJSON();
 
+	if (!_params.data) {
+		_params.data = {};
+	}
+
 	var httpParams = {
 		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : cfg.baseUrl.concat(_params.path),
 		type : "POST",
@@ -98,7 +102,7 @@ function request(_params) {
 			value : user.sessionId
 		}, {
 			key : "clientid",
-			value : user.appLoad.clientid || ""
+			value : user.appLoad.client_id || ""
 		}, {
 			key : "language",
 			value : ""
@@ -106,13 +110,13 @@ function request(_params) {
 		if (_.has(user.appLoad, "apploadid")) {
 			headers.push({
 				key : "apploadid",
-				value : user.appLoad.apploadid
+				value : user.appLoad.id
 			});
 		}
 		if (user.sessionId) {
 			headers.push({
 				key : "mscriptstoken",
-				value : user.appLoad.mscriptstoken
+				value : user.appLoad.default_token
 			});
 		}
 		_params.headers = _.union(headers, _params.headers || []);

@@ -1,89 +1,89 @@
-function init(config) {
+var Alloy = require("alloy"),
+    resources = require("resources"),
+    localization = require("localization");
 
-	var Alloy = require("alloy"),
-	    resources = require("resources"),
-	    localization = require("localization");
+var Config = {
 
-	//initialization
-	require("apm").init();
+	init : function(_config, _callback) {
 
-	/**
-	 * Update local db
-	 */
-	//theme
-	var theme;
-	if (_.has(config, "theme")) {
-		theme = config.theme;
-		resources.set("theme", theme);
-	} else {
-		theme = resources.get("theme");
-	}
+		//initialization
+		require("apm").init();
 
-	//menu
-	var menu;
-	if (_.has(config, "menu")) {
-		menu = config.menu;
-		resources.set("menu", menu);
-	} else {
-		menu = resources.get("menu");
-	}
+		//theme
+		if (_.has(_config, "theme")) {
+			resources.set("theme", _config.theme);
+		}
 
-	//template
-	var template;
-	if (_.has(config, "template")) {
-		template = config.template;
-		resources.set("template", template);
-	} else {
-		template = resources.get("template");
-	}
+		//menu
+		if (_.has(_config, "menu")) {
+			resources.set("menu", _config.menu);
+		}
 
-	//languages
-	var languages;
-	if (_.has(config, "languages")) {
-		languages = config.languages.items;
-		resources.set("languages", languages);
-	} else {
-		languages = resources.get("languages");
-	}
+		//template
+		if (_.has(_config, "template")) {
+			resources.set("template", _config.template);
+		}
 
-	//fonts
-	var fonts;
-	if (_.has(config, "fonts")) {
-		resources.set("fonts", config.fonts.items);
-	}
-	//fonts can be platform specific, calling resources.get("fonts") to get the processed fonts for platform running now
-	fonts = resources.get("fonts");
+		//languages
+		if (_.has(_config, "languages")) {
+			resources.set("languages", _config.languages.items);
+		}
 
-	/**
-	 * load into memory
-	 */
-	//styles
-	var style = theme.style;
-	for (var i in style) {
-		Alloy["_".concat(i)] = style[i];
-	}
+		//fonts
+		if (_.has(_config, "fonts")) {
+			resources.set("fonts", _config.fonts.items);
+		}
 
-	//menu items
-	Alloy.Collections.menuItems.reset(menu.items);
-
-	//template
-	Alloy.Models.template.set(template);
-
-	//language was initialized already from alloy.js
-
-	//fonts
-	Alloy._fonts = {};
-	for (var i in fonts) {
-		/**
-		 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
+		/***
+		 * check for files to be updated
 		 */
-		Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + fonts[i].name + ".ttf"));
-		Alloy._fonts[fonts[i].code] = fonts[i].name;
+		if (OS_MOBILEWEB || resources.checkForUpdates() > 0) {
+			resources.update(function() {
+				Config.load(_callback);
+			});
+		} else {
+			Config.load(_callback);
+		}
+	},
+	load : function(_callback) {
+
+		/**
+		 * load into memory
+		 */
+
+		var theme = resources.get("theme"),
+		    menu = resources.get("menu"),
+		    template = resources.get("template"),
+		    fonts = resources.get("fonts");
+
+		//styles
+		var style = theme.style;
+		for (var i in style) {
+			Alloy["_".concat(i)] = style[i];
+		}
+
+		//menu items
+		Alloy.Collections.menuItems.reset(menu.items);
+
+		//template
+		Alloy.Models.template.set(template);
+
+		//language was initialized already from alloy.js
+
+		//fonts
+		Alloy._fonts = {};
+		for (var i in fonts) {
+			/**
+			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
+			 */
+			Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + fonts[i].name + ".ttf"));
+			Alloy._fonts[fonts[i].code] = fonts[i].name;
+		}
+
+		if (_callback) {
+			_callback();
+		}
 	}
+};
 
-	/***
-	 * check for files to be downloaded
-	 */
-}
-
-exports.init = init;
+module.exports = Config;
