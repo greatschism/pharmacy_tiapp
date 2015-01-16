@@ -17,7 +17,7 @@ function init() {
 	if (Alloy.Globals.loggedIn) {
 		$.favoriteLbl.text = store.bookmarked ? icons.favorite : icon.nonfavorite;
 	} else {
-		$.favoriteLbl.visible = false;
+	
 		$.homeBtn.visible = false;
 	}
 	$.distanceLbl.text = store.distance;
