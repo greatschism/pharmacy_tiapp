@@ -1,6 +1,7 @@
 (function() {
 
 	//initialization
+	require("apm").init();
 	require("resources").init();
 	require("localization").init();
 

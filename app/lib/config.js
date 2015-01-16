@@ -6,8 +6,9 @@ var Config = {
 
 	init : function(_config, _callback) {
 
-		//initialization
-		require("apm").init();
+		/**
+		 * initialization
+		 */
 
 		//theme
 		if (_.has(_config, "theme")) {
