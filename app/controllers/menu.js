@@ -23,7 +23,7 @@ function didItemClick(e) {
 	var itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
-			if (itemObj.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
+			if (itemObj.requires_login == true && Alloy.Models.user.get("loggedIn") == false) {
 				if (app.navigator.currentParams.ctrl != "login") {
 					app.navigator.open({
 						ctrl : "login",

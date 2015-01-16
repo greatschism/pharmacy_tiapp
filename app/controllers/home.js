@@ -58,7 +58,7 @@ function didChangeUser() {
 function didItemClick(e) {
 	var navigation = Alloy.Collections.menuItems.where(e.source.navigation)[0].toJSON();
 	if (!_.isEmpty(navigation) && _.has(navigation, "ctrl")) {
-		if (navigation.requiresLogin == true && Alloy.Models.user.get("loggedIn") == false) {
+		if (navigation.requires_login == true && Alloy.Models.user.get("loggedIn") == false) {
 			app.navigator.open({
 				ctrl : "login",
 				titleid : "strLogin",
