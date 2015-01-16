@@ -138,7 +138,7 @@ var Resources = {
 				fontsDir.createDirectory();
 			}
 		}
-		var platform = OS_IOS ? "ios" : ( OS_ANDORID ? "android" : "mobileweb");
+		var platform = OS_IOS ? "ios" : ( OS_ANDROID ? "android" : "mobileweb");
 		for (var i in _fItems) {
 			var fItem = _fItems[i];
 			if (_.indexOf(fItem.platform, platform) >= 0) {
