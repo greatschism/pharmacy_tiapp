@@ -67,7 +67,7 @@
 		}
 	},
 	"menu": {
-		"version": "1",
+		"version": 1,
 		"items": [
 			{
 				"titleid": "titleHome",
