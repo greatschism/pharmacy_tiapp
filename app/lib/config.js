@@ -77,7 +77,9 @@ var Config = {
 			/**
 			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 			 */
-			Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + fonts[i].name + ".ttf"));
+			if (OS_IOS || OS_ANDROID) {
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + fonts[i].name + ".ttf"));
+			}
 			Alloy._fonts[fonts[i].code] = fonts[i].name;
 		}
 
