@@ -288,7 +288,7 @@ var Resources = {
 			});
 			coll.commit();
 		}
-		logger.i("downloaded  " + _passthrough.key + " completed from " + _passthrough.data.url);
+		logger.i("downloaded " + _passthrough.key + " from " + _passthrough.data.url);
 		Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
 			return _.isEqual(obj, _passthrough);
 		});

@@ -37,7 +37,7 @@ exports.show = function(_params) {
 	}
 	var dialog = Ti.UI.createAlertDialog(dict);
 	dialog.addEventListener("click", function(e) {
-		var cancel = e.source.cancel;
+		var cancel = _params.cancelIndex || -1;
 		if (_params.success && e.index != cancel) {
 			_params.success(e.index);
 		} else if (_params.cancel && e.index == cancel) {
