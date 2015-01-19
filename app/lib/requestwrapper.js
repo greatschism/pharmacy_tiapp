@@ -53,7 +53,7 @@ function request(_params) {
 			if (_params.failure) {
 				_params.failure();
 			}
-			if (_params.prompt === false) {
+			if (_params.prompt !== false) {
 				dialog.show({
 					message : Alloy.Globals.strings.msgFailedToRetrieve,
 					buttonNames : retry ? [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.strOK],
@@ -94,8 +94,10 @@ function request(_params) {
 				xml += "</" + i + ">";
 			}
 		};
-		jsonToXml(_params.data);
-		_params.data = xml;
+		if ( typeof _params.data != "string") {
+			jsonToXml(_params.data);
+			_params.data = xml;
+		}
 
 		var headers = [{
 			key : "sessionid",

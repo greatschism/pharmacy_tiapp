@@ -94,7 +94,6 @@ exports.request = function(_params) {
 			} else {
 				logger.e(JSON.stringify(this));
 			}
-			logger.e(_event);
 		};
 
 		_params.type = _params.type ? _params.type : "GET";
