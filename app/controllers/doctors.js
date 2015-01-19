@@ -25,7 +25,7 @@ function init() {
 }
 
 function didSuccess(result) {
-	doctors = result.doctor_details;
+	doctors = result.data.doctors;
 	http.request({
 		path : "appointments/get",
 		keepBlook : true,

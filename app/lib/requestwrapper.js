@@ -104,7 +104,7 @@ function request(_params) {
 			value : user.sessionId
 		}, {
 			key : "clientid",
-			value : user.appLoad.client_id || ""
+			value : user.appLoad.client_id || "1"
 		}, {
 			key : "language",
 			value : ""
