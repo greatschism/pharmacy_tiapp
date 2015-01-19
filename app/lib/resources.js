@@ -37,10 +37,10 @@ var Resources = {
 			Resources.set("template", clientData.template);
 
 			//languages
-			Resources.set("languages", clientData.languages.items);
+			Resources.set("languages", clientData.languages.items, true, true);
 
 			//fonts
-			Resources.set("fonts", clientData.fonts.items);
+			Resources.set("fonts", clientData.fonts.items, true, true);
 
 			Ti.App.Properties.setString("updatedResourcesOn", Ti.App.version);
 
@@ -69,7 +69,7 @@ var Resources = {
 		return scule.factoryCollection(path);
 	},
 
-	setLanguages : function(_lItems, _clearNSup) {
+	setLanguages : function(_lItems, _clearNSup, _useLocalResources) {
 		var lColl = Resources.getCollection("languages");
 		//update languages list to local db
 		for (var i in _lItems) {
@@ -83,9 +83,10 @@ var Resources = {
 						selected : false
 					});
 				}
+				//if _useLocalResources is false, don't use local resources packed up with this build
 				_.extend(lItem, {
-					strings : JSON.parse(utilities.getFile("data/languages/" + lItem.code + ".json") || "{}"),
-					update : false
+					strings : JSON.parse(_useLocalResources === true ? utilities.getFile("data/languages/" + lItem.code + ".json") || "{}" : "{}"),
+					update : _useLocalResources !== true
 				});
 				lColl.save(lItem);
 				logger.i("language pushed to list : " + lItem.code);
@@ -105,7 +106,7 @@ var Resources = {
 				}
 			}
 		}
-		// remove unsupported languages
+		// if _clearNSup is true, remove unsupported languages
 		if (_clearNSup !== false) {
 			var supported = _.pluck(_lItems, "code");
 			logger.i("language supported : " + supported);
@@ -124,7 +125,7 @@ var Resources = {
 		lColl.commit();
 	},
 
-	setFonts : function(_fItems, _clearNSup) {
+	setFonts : function(_fItems, _clearNSup, _useLocalResources) {
 		var fColl = Resources.getCollection("fonts"),
 		    fontPath = "data/fonts",
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data"),
@@ -146,12 +147,13 @@ var Resources = {
 				name: fItem.name
 				})[0] || {};
 				if (_.isEmpty(fModel)) {
-					if (OS_IOS || OS_ANDROID) {
+					//if _useLocalResources is false, don't use local resources packed up with this build
+					if ((OS_IOS || OS_ANDROID) && _useLocalResources === true) {
 						var path = fontPath + "/" + fItem.name;
 						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, path), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, path + ".ttf"));
 					}
 					_.extend(fItem, {
-						update : false
+						update : _useLocalResources !== true
 					});
 					fColl.save(fItem);
 				} else {
@@ -170,7 +172,7 @@ var Resources = {
 				}
 			}
 		}
-		// remove unsupported fonts
+		// if _clearNSup is true, remove unsupported or unused fonts
 		if (_clearNSup !== false) {
 			var supported = _.pluck(fColl.findAll(), "name");
 			logger.i("fonts supported : " + supported);
@@ -190,11 +192,11 @@ var Resources = {
 		fColl.commit();
 	},
 
-	set : function(_key, _data) {
+	set : function(_key, _data, _clearNSup, _useLocalResources) {
 		if (_key == "languages") {
-			Resources.setLanguages(_data);
+			Resources.setLanguages(_data, _clearNSup, _useLocalResources);
 		} else if (_key == "fonts") {
-			Resources.setFonts(_data);
+			Resources.setFonts(_data, _clearNSup, _useLocalResources);
 		} else {
 			var coll = Resources.getCollection(_key);
 			coll.clear();

@@ -122,14 +122,14 @@ exports.getFiles = function(_path, _directory) {
  * copy source files to destination
  * @param {File} _sFile The File to copy
  * @param {File} _dFile The destination file
- * @param {Boolean} _append whether or not to append file
+ * @param {Boolean} _append whether or not to append file (ios only)
  */
 exports.copy = function(_sFile, _dFile, _append) {
 	if (_sFile.exists()) {
 		if (OS_IOS) {
 			return _dFile.write(_sFile.read(), _append || false);
-		} else if (OS_ANDROID) {
-			_sFile.copy(_dFile.nativePath);
+		} else {
+			return _sFile.copy(_dFile.nativePath);
 		}
 	} else {
 		return false;
