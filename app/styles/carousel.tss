@@ -12,7 +12,7 @@
 	height: 45,
 	toggleMode: false,
 	separatorStyle: {
-		backgroundColor: Alloy._bg_senary,
+		backgroundColor: Alloy._fg_primary
 	},
 	items: [
 		{

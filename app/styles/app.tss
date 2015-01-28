@@ -14,8 +14,8 @@
 "ListView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: Alloy._m_left,
-		right: Alloy._m_right
+		left: 0,
+		right: 0
 	}
 },
 "ListItem[platform=ios]":{
@@ -27,8 +27,8 @@
 "TableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
-		left: Alloy._m_left,
-		right: Alloy._m_right
+		left: 0,
+		right: 0
 	}
 },
 "TableViewRow":{
@@ -36,10 +36,6 @@
 },
 "TableViewRow[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
-},
-"Label":{
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary
 },
 "Label[platform=android,mobileweb]":{
 	ellipsize: true,
@@ -169,7 +165,7 @@
 ".auto-height":{
 	height: Ti.UI.SIZE
 },
-".height-default":{
+".default-height":{
 	height: Alloy._content_height
 },
 ".height-1":{
@@ -250,10 +246,10 @@
 ".right":{
 	right: 0
 },
-".padding-left":{
-	left: Alloy._p_left
-},
-".padding-right":{
+".padding":{
+	top: Alloy._p_top,
+	bottom: Alloy._p_bottom,
+	left: Alloy._p_left,
 	right: Alloy._p_right
 },
 ".padding-top":{
@@ -262,10 +258,16 @@
 ".padding-bottom":{
 	bottom: Alloy._p_bottom
 },
-".margin-left":{
-	left: Alloy._m_left
+".padding-left":{
+	left: Alloy._p_left
 },
-".margin-right":{
+".padding-right":{
+	right: Alloy._p_right
+},
+".margin":{
+	top: Alloy._m_top,
+	bottom: Alloy._m_bottom,
+	left: Alloy._m_left,
 	right: Alloy._m_right
 },
 ".margin-top":{
@@ -274,14 +276,20 @@
 ".margin-bottom":{
 	bottom: Alloy._m_bottom
 },
+".margin-left":{
+	left: Alloy._m_left
+},
+".margin-right":{
+	right: Alloy._m_right
+},
 /**
 * spacer & separators
 */
 ".hspacer":{
-	width: Alloy._m_left
+	width: Alloy._p_left
 },
 ".vspacer":{
-	height: Alloy._m_top
+	height: Alloy._p_top
 },
 ".hseparator":{
 	height: 1,
@@ -304,130 +312,169 @@
 	textAlign: "right"
 },
 /**
-* enable multi line
+* enable word wrap
 */
 ".multi-line[platform=android,mobileweb]":{
 	ellipsize: false,
 	wordWrap: true
 },
 /**
-* 	fonts
+* 	icon
 */
-".font-icon":{
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 24
-	}
+".icn-padding-top":{
+	top: Alloy._icn_p_top
 },
-".font-icon-tiny":{
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 12
-	}
+".icn-padding-bottom":{
+	bottom: Alloy._icn_p_bottom
 },
-".font-icon-large":{
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 75
-	}
+".icn-padding-left":{
+	left: Alloy._icn_p_left
 },
-".font-light":{
-	font:{
-		fontFamily: Alloy._fonts.light
-	}
+".icn-padding-right":{
+	right: Alloy._icn_p_right
 },
-".font-light-italic":{
+".tiny-icn":{
 	font:{
-		fontFamily: Alloy._fonts.lightItalic
-	}
+		fontFamily: Alloy._icn_font,
+		fontSize: Alloy._tiny_icn_area
+	},
+	textAlign: "center",
+	touchEnabled: false
 },
-".font-regular":{
-	font:{
-		fontFamily: Alloy._fonts.regular
-	}
+".tiny-icn-padding-top":{
+	top: Alloy._tiny_icn_p_top
 },
-".font-bold":{
-	font:{
-		fontFamily: Alloy._fonts.bold
-	}
+".tiny-icn-padding-bottom":{
+	bottom: Alloy._tiny_icn_p_bottom
 },
-".normal":{
-	font:{
-		fontWeight: "normal"
-	}
+".tiny-icn-padding-left":{
+	left: Alloy._tiny_icn_p_left
 },
-".bold":{
+".tiny-icn-padding-right":{
+	right: Alloy._tiny_icn_p_right
+},
+".large-icn":{
 	font:{
-		fontWeight: "bold"
-	}
+		fontFamily: Alloy._icn_font,
+		fontSize: Alloy._large_icn_area
+	},
+	textAlign: "center",
+	touchEnabled: false
+},
+".large-icn-padding-top":{
+	top: Alloy._large_icn_p_top
+},
+".large-icn-padding-bottom":{
+	bottom: Alloy._large_icn_p_bottom
+},
+".large-icn-padding-left":{
+	left: Alloy._large_icn_p_left
+},
+".large-icn-padding-right":{
+	right: Alloy._large_icn_p_right
 },
 /**
 * 	Typography
 */
 ".h1":{
-	font: Alloy._typo_h1
+	font: Alloy._h1
 },
 ".h2":{
-	font: Alloy._typo_h2
+	font: Alloy._h2
 },
 ".h3":{
-	font: Alloy._typo_h3
+	font: Alloy._h3
 },
 ".h4":{
-	font: Alloy._typo_h4
+	font: Alloy._h4
 },
 ".h5":{
-	font: Alloy._typo_h5
+	font: Alloy._h5
 },
 ".h6":{
-	font: Alloy._typo_h6
+	font: Alloy._h6
 },
 ".h1-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h1
+	font: Alloy._h1
 },
 ".h2-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h2
+	font: Alloy._h2
 },
 ".h3-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h3
+	font: Alloy._h3
 },
 ".h4-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h4
+	font: Alloy._h4
 },
 ".h5-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h5
+	font: Alloy._h5
 },
 ".h6-fixed[platform=andorid,mobileweb]":{
-	font: Alloy._typo_h6
+	font: Alloy._h6
 },
 ".h1-fixed[platform=ios]":{
-	font: Alloy._typo_h1,
-	height: Alloy._typo_height_h1
+	font: Alloy._h1,
+	height: Alloy._height_h1
 },
 ".h2-fixed[platform=ios]":{
-	font: Alloy._typo_h2,
-	height: Alloy._typo_height_h2
+	font: Alloy._h2,
+	height: Alloy._height_h2
 },
 ".h3-fixed[platform=ios]":{
-	font: Alloy._typo_h3,
-	height: Alloy._typo_height_h3
+	font: Alloy._h3,
+	height: Alloy._height_h3
 },
 ".h4-fixed[platform=ios]":{
-	font: Alloy._typo_h4,
-	height: Alloy._typo_height_h4
+	font: Alloy._h4,
+	height: Alloy._height_h4
 },
 ".h5-fixed[platform=ios]":{
-	font: Alloy._typo_h5,
-	height: Alloy._typo_height_h5
+	font: Alloy._h5,
+	height: Alloy._height_h5
 },
 ".h6-fixed[platform=ios]":{
-	font: Alloy._typo_h6,
-	height: Alloy._typo_height_h6
+	font: Alloy._h6,
+	height: Alloy._height_h6
+},
+/*
+* backgroundColor Classes
+*/
+".bg-transparent":{
+	backgroundColor: "transparent"
+},
+".bg-primary":{
+	backgroundColor: Alloy._bg_primary
+},
+".bg-secondary":{
+	backgroundColor: Alloy._bg_secondary
+},
+".bg-tertiary":{
+	backgroundColor: Alloy._bg_tertiary
+},
+".bg-quaternary":{
+	backgroundColor: Alloy._bg_quaternary
+},
+".bg-quinary":{
+	backgroundColor: Alloy._bg_quinary
+},
+".bg-senary":{
+	backgroundColor: Alloy._bg_senary
+},
+".bg-septenary":{
+	backgroundColor: Alloy._bg_septenary
+},
+".bg-octonary":{
+	backgroundColor: Alloy._bg_octonary
+},
+".bg-nonary":{
+	backgroundColor: Alloy._bg_nonary
+},
+".bg-denary":{
+	backgroundColor: Alloy._bg_denary
 },
 /*
 * Color Classes
 */
-//primary Color
 ".fg-primary":{
 	color: Alloy._fg_primary
 },
@@ -443,47 +490,26 @@
 ".fg-quinary":{
 	color: Alloy._fg_quinary
 },
-".fg-success":{
-	color: Alloy._success_color
+".fg-senary":{
+	color: Alloy._fg_senary
 },
-/*
-* backgroundColor Classes
-*/
-".bg-transparent":{
-	backgroundColor: "transparent"
+".fg-septenary":{
+	color: Alloy._fg_septenary
 },
-//primary background
-".bg-primary":{
-	backgroundColor: Alloy._bg_primary
+".fg-octonary":{
+	color: Alloy._fg_octonary
 },
-//data entry tips background & retired Buttons
-".bg-secondary":{
-	backgroundColor: Alloy._bg_secondary
+".fg-nonary":{
+	color: Alloy._fg_nonary
 },
-//notification page icons
-".bg-tertiary":{
-	backgroundColor: Alloy._bg_tertiary
+".fg-denary":{
+	color: Alloy._fg_denary
 },
-//options background
-".bg-quaternary":{
-	backgroundColor: Alloy._bg_quaternary
+".lbl-fg-primary":{
+	color: Alloy._lbl_fg_primary
 },
-//info button, section header & prompt background
-".bg-quinary":{
-	backgroundColor: Alloy._bg_quinary
-},
-//form group input background
-".bg-senary":{
-	backgroundColor: Alloy._bg_senary
-},
-".bg-success":{
-	backgroundColor: Alloy._success_color
-},
-".bg-progress":{
-	backgroundColor: Alloy._add_color
-},
-".bg-hint":{
-	backgroundColor: Alloy._hint_backgroundColor
+".lbl-fg-hint-text":{
+	color: Alloy._hint_color
 },
 /*
 * Border Classes
@@ -491,22 +517,26 @@
 ".no-border":{
 	borderWidth: 0
 },
+".default-border":{
+	borderWidth: Alloy._border_width
+},
+".border-radius":{
+	borderRadius: Alloy._border_radius
+},
 ".border-transparent":{
 	borderColor: "transparent"
 },
-".border-primay":{
-	borderColor: Alloy._br_primary
-},
-".border-secondary":{
-	borderColor: Alloy._br_secondary
+".border-primary":{
+	borderColor: Alloy._fg_primary,
+	borderWidth: Alloy._border_width
 },
 /**
 * 	Tempalte View
 */
 ".template-view":{
 	top: 0,
-	backgroundColor: "#FFFFFF",
 	width: "100%",
+	backgroundColor: "#FFFFFF",
 	zIndex: 1
 },
 ".template-content-view":{
@@ -516,136 +546,114 @@
 /*
 *navbar
 */
-".nav-bar":{
+".nav":{
 	top: 0,
 	height: Alloy.CFG.navBarHeight,
 	backgroundColor: Alloy._bg_primary,
 	zIndex: 1
 },
-".nav-bar-view":{
+".nav-view":{
 	top: Alloy.CFG.navBarTop
 },
-".nav-bar-title-lbl":{
-	left: 102,
-	right: 102,
-	height: 40,
-	font: Alloy._typo_h2,
+".nav-title-lbl":{
+	left: "30%",
+	right: "30%",
+	height: Alloy._height_h1,
+	font: Alloy._h1,
 	textAlign: "center",
 	color: Alloy._fg_primary
 },
-".nav-bar-left-icon":{
+".nav-left-item-container":{
 	left: 0,
-	width: 60,
+	width: "30%",
 	height: Ti.UI.FILL,
+	role: "navBar"
+},
+".nav-right-item-container":{
+	right: 0,
+	width: "30%",
+	height: Ti.UI.FILL,
+	role: "navBar"
+},
+".nav-left-icn":{
+	left: Alloy._nav_icn_m_left,
 	font:{
-		fontFamily: "mscripts",
-		fontSize: 24
+		fontFamily: Alloy._icn_font,
+		fontSize: Alloy._nav_icn_area
 	},
 	textAlign: "center",
 	color: Alloy._fg_primary,
-	backgroundColor: "transparent",
-	role: "navBar"
+	touchEnabled: false
 },
-".nav-bar-right-icon":{
-	right: 0,
-	width: 60,
-	height: Ti.UI.FILL,
+".nav-right-icn":{
+	right: Alloy._nav_icn_m_right,
 	font:{
-		fontFamily: "mscripts",
-		fontSize: 24
+		fontFamily: Alloy._icn_font,
+		fontSize: Alloy._nav_icn_area
 	},
 	textAlign: "center",
 	color: Alloy._fg_primary,
-	backgroundColor: "transparent",
-	role: "navBar"
+	touchEnabled: false
 },
-".nav-bar-left-btn":{
-	right: 0,
-	width: 86,
-	height: 40,
-	font: Alloy._typo_h3,
-	textAlign: "center",
+".nav-left-lbl":{
+	left: Alloy._nav_icn_m_left,
+	height: Alloy._height_h3,
+	font: Alloy._h3,
+	textAlign: "left",
 	color: Alloy._fg_primary,
-	backgroundColor: "transparent",
-	role: "navBar"
+	touchEnabled: false
 },
-".nav-bar-right-btn":{
-	right: 0,
-	width: 86,
-	height: 40,
-	font: Alloy._typo_h3,
-	textAlign: "center",
+".nav-right-lbl":{
+	right: Alloy._nav_icn_m_right,
+	height: Alloy._height_h3,
+	font: Alloy._h3,
+	textAlign: "right",
 	color: Alloy._fg_primary,
-	backgroundColor: "transparent",
-	role: "navBar"
+	touchEnabled: false
 },
 /*
-*button with icon on left / right
+* button view
 */
-".btn-view":{
-	top: 24,
-	left: Alloy._m_left,
-	right: Alloy._m_right,
-	height: Alloy._content_height
+".btn-hview":{
+	top: Alloy._p_top,
+	width: Ti.UI.SIZE,
+	height: Alloy._content_height,
+	layout: "horizontal"
 },
-".btn-icon-left":{
-	left: Alloy._m_left,
-	width: 24,
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 24
-	},
-	touchEnabled: false
-},
-".btn-title-right":{
-	left: 56,
-	right: Alloy._m_right,
-	touchEnabled: false
-},
-".btn-title-left":{
-	left: Alloy._m_left,
-	right: 56,
-	touchEnabled: false
-},
-".btn-icon-right":{
-	right: Alloy._m_right,
-	width: 24,
-	font:{
-		fontFamily: "mscripts",
-		fontSize: 24
-	},
-	touchEnabled: false
+".btn-lbl":{
+	font: Alloy._h3
 },
 /**
 * 	form group
 */
 ".form-group":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	color: Alloy._fg_secondary,
-	backgroundColor: Alloy._bg_senary,
-	borderColor: Alloy._br_secondary,
+	backgroundColor: Alloy._bg_denary,
+	borderColor: Alloy._bg_quaternary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 /**
 * 	text fields
 */
 ".txta":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary,
-	backgroundColor: Alloy._bg_senary,
-	borderColor: Alloy._br_secondary,
+	font: Alloy._h3,
+	color: Alloy._fg_denary,
+	backgroundColor: Alloy._bg_denary,
+	borderColor: Alloy._bg_quaternary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 ".form-txta":{
 	width: Ti.UI.FILL,
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary,
+	font: Alloy._h3,
+	color: Alloy._bg_denary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
@@ -653,29 +661,30 @@
 * 	text fields
 */
 ".txt":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Alloy._content_height,
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary,
-	backgroundColor: Alloy._bg_senary,
-	borderColor: Alloy._br_secondary,
+	font: Alloy._h3,
+	color: Alloy._fg_denary,
+	backgroundColor: Alloy._bg_denary,
+	borderColor: Alloy._bg_quaternary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 ".form-txt":{
 	width: Ti.UI.FILL,
 	height: Alloy._content_height,
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary,
+	font: Alloy._h3,
+	color: Alloy._fg_denary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
 ".form-txt-w50":{
 	width: "50%",
 	height: Alloy._content_height,
-	font: Alloy._typo_h3,
-	color: Alloy._fg_secondary,
+	font: Alloy._h3,
+	color: Alloy._fg_denary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
@@ -685,31 +694,35 @@
 ".return-done":{
 	returnKeyType: Ti.UI.RETURNKEY_DONE
 },
+".return-search":{
+	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+},
 /**
 * 	dropdown
 */
 ".dropdown":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Alloy._content_height,
-	font: Alloy._typo_h3,
-	hintTextColor: Alloy._fg_quaternary,
-	color: Alloy._fg_secondary,
+	font: Alloy._h3,
+	hintTextColor: Alloy._hint_color,
+	color: Alloy._fg_denary,
 	rightIcon: Alloy.CFG.icons.down_arrow,
-	rightIconColor: Alloy._br_secondary,
+	rightIconColor: Alloy._bg_quaternary,
 	borderColor: Alloy._br_secondary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 ".form-dropdown":{
 	width: Ti.UI.FILL,
 	height: Alloy._content_height,
-	font: Alloy._typo_h3,
-	hintTextColor: Alloy._fg_quaternary,
-	color: Alloy._fg_secondary,
+	font: Alloy._h3,
+	hintTextColor: Alloy._hint_color,
+	color: Alloy._fg_denary,
 	rightIcon: Alloy.CFG.icons.down_arrow,
-	rightIconColor: Alloy._br_secondary,
-	backgroundColor: Alloy._bg_senary,
+	rightIconColor: Alloy._bg_quaternary,
+	backgroundColor: Alloy._bg_denary,
 	borderColor: "transparent",
 	borderWidth: 0
 },
@@ -717,89 +730,89 @@
 * 	switch
 */
 ".swt":{
-	enabledColor: Alloy._switch_Color
+	disabledColor: Alloy._switch_off_color,
+	enabledColor: Alloy._switch_on_color
 },
 /**
 * 	buttons
 */
-".btn-icon":{
-	height: Alloy._content_height,
-	font: {
-		fontFamily: "mscripts",
-		fontSize: 48
-	},
-	backgroundColor: Alloy._bg_senary
-},
 ".btn-primary":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
-	height: Alloy._content_height,
-	font: Alloy._typo_h4,
-	color: Alloy._fg_primary,
-	backgroundColor: Alloy._bg_primary,
+	height: Alloy._btn_height,
+	font: Alloy._h1,
+	color: Alloy._btn_fg_primary,
+	backgroundColor: Alloy._btn_bg_primary,
 	borderRadius: Alloy._border_radius
 },
 ".btn-secondary":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
-	height: Alloy._content_height,
-	font: Alloy._typo_h4,
-	color: Alloy._fg_tertiary,
-	backgroundColor: Alloy._bg_senary,
-	borderColor: Alloy._bg_primary,
-	borderWidth: 1,
+	height: Alloy._btn_height,
+	font: Alloy._h3,
+	color: Alloy._btn_fg_secondary,
+	backgroundColor: Alloy._btn_bg_secondary,
+	borderColor: Alloy._btn_fg_secondary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 ".btn-secondary-smaller":{
-	height: Alloy._content_height,
-	font: Alloy._typo_h4,
-	color: Alloy._fg_tertiary,
-	backgroundColor: Alloy._bg_senary,
-	borderColor: Alloy._bg_primary,
-	borderWidth: 1,
+	height: Alloy._btn_height,
+	font: Alloy._h3,
+	color: Alloy._btn_fg_secondary,
+	backgroundColor: Alloy._btn_bg_secondary,
+	borderColor: Alloy._btn_fg_secondary,
+	borderWidth: Alloy._border_width,
 	borderRadius: Alloy._border_radius
 },
 ".btn-thirtiary":{
-	top: Alloy._m_top,
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
-	height: Alloy._content_height,
-	font: Alloy._typo_h4,
-	color: Alloy._fg_quinary,
-	backgroundColor: Alloy._bg_senary
+	height: Alloy._btn_height,
+	font: Alloy._h3,
+	color: Alloy._btn_fg_tertiary,
+	backgroundColor: Alloy._btn_bg_tertiary
 },
 ".btn-thirtiary-smaller":{
-	height: Alloy._content_height,
-	font: Alloy._typo_h4,
-	color: Alloy._fg_quinary,
-	backgroundColor: Alloy._bg_senary
+	height: Alloy._btn_height,
+	font: Alloy._h3,
+	color: Alloy._btn_fg_tertiary,
+	backgroundColor: Alloy._btn_bg_tertiary
 },
 /**
 * 	styled label
 */
-".styled-title":{
-	top: Alloy._m_top,
+".styled-h1":{
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	font: Alloy._typo_h2,
-	textAlign: "center",
-	color: Alloy._fg_primary
+	font: Alloy._h3,
+	boldFontFamily: Alloy._fonts.bold,
+	textAlign: "center"
 },
-".styled-lbl":{
-	top: Alloy._m_top,
+".styled-h2":{
+	top: Alloy._p_top,
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	font: Alloy._typo_h3,
-	textAlign: "center",
-	color: Alloy._fg_primary
+	font: Alloy._h5,
+	boldFontFamily: Alloy._fonts.bold,
+	textAlign: "center"
 },
 /**
 * 	table / list view
 */
+".footer-view-break[platform=ios,mobileweb]":{
+	height: Ti.UI.SIZE
+},
+".footer-view-break[platform=android]":{
+	height: 1,
+	backgroundColor: Alloy._bg_quaternary
+},
 ".list-item-view":{
 	top: Alloy._p_top,
 	bottom: Alloy._p_bottom,
@@ -820,7 +833,7 @@
 	left: Alloy._m_left,
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
-	font: Alloy._typo_h3,
+	font: Alloy._h3,
 	textAlign: "left",
 	color: Alloy._fg_secondary
 },
@@ -832,11 +845,11 @@
 	top: Alloy._p_top,
 	bottom: Alloy._p_bottom,
 	left: Alloy._m_left,
-	right: 48,
+	right: Alloy._padding_title_child_icn,
 	height: Ti.UI.SIZE,
-	font: Alloy._typo_h3,
+	font: Alloy._h3,
 	textAlign: "left",
-	color: Alloy._fg_secondary
+	color: Alloy._fg_denary
 },
 ".list-item-title-with-child[platform=android,mobileweb]":{
 	ellipsize: false,
@@ -846,7 +859,7 @@
 	left: 0,
 	width: 24,
 	font:{
-		fontFamily: "mscripts",
+		fontFamily: Alloy._icn_font,
 		fontSize: 24
 	}
 },
@@ -868,12 +881,13 @@
 */
 ".list-item-child":{
 	right: Alloy._m_right,
-	width: 12,
 	font:{
-		fontFamily: "mscripts",
-		fontSize: 12
+		fontFamily: Alloy._icn_font,
+		fontSize: Alloy._child_icn_area
 	},
-	color: Alloy._fg_quaternary,
+	textAlign: "center",
+	touchEnabled: false,
+	color: Alloy._bg_quaternary,
 	text: Alloy.CFG.icons.graterthan
 },
 /**

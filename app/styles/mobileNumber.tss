@@ -1,4 +1,5 @@
 "#titleLbl":{
+	top: Alloy._m_top,
 	text: Alloy.Globals.strings.strWelcome
 },
 "#hintLbl":{

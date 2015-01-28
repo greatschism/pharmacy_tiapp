@@ -1,5 +1,5 @@
 <Alloy>
-	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
+	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
 	<View>
 		<View id="mapContainer">
 			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />

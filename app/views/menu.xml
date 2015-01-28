@@ -5,7 +5,7 @@
 		</HeaderView>
 		<TableViewRow class="bg-primary">
 			<View class="list-item-view hgroup no-hwrap">
-				<Label text="{icon}" class="font-icon fg-primary" />
+				<Label text="{icon}" class="large-icn fg-primary" />
 				<Label text="{title}" class="padding-left h3 fg-primary" />
 			</View>
 		</TableViewRow>

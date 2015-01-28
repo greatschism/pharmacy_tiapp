@@ -61,7 +61,7 @@ exports.createTableViewSection = function(_options, _footerView) {
 			left : Alloy._m_left,
 			color : _options.color || Alloy._fg_secondary,
 			font : {
-				fontFamily : "mscripts",
+				fontFamily : Alloy._icn_font,
 				fontSize : 24
 			}
 		}));

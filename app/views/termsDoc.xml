@@ -1,8 +1,8 @@
 <Alloy>
-	<View>
-		<WebView id="webView" />
-		<View id="footerView" class="bottom">
+	<ScrollView>
+		<WebView id="webView" class="margin-top" />
+		<View id="footerView" class="margin-bottom auto-height">
 			<Button id="doneBtn" class="btn-primary" onClick="didClickDone" />
 		</View>
-	</View>
+	</ScrollView>
 </Alloy> 

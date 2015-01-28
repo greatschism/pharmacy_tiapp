@@ -10,14 +10,14 @@ var args = arguments[0] || {},
 	}
 
 	if (args.stack) {
-		$.leftBtn.title = icons.back;
+		$.lefIcnLbl.text = icons.back;
 		$.template.applyProperties({
 			opacity : 0,
 			zIndex : 3,
 			left : app.device.width
 		});
 	} else {
-		$.leftBtn.title = icons.hamburger;
+		$.lefIcnLbl.text = icons.hamburger;
 	}
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
@@ -41,8 +41,8 @@ var args = arguments[0] || {},
 	}
 	if (title.length > 8 && navBarItems == 0) {
 		$.titleLbl.applyProperties({
-			left : 60,
-			right : 60,
+			left : Alloy._nav_icn_width,
+			right : Alloy._nav_icn_width,
 			text : title
 		});
 	} else {
@@ -53,7 +53,7 @@ var args = arguments[0] || {},
 
 })();
 
-function didClickLeftBtn(e) {
+function didTapLeftIcn(e) {
 	if (args.stack) {
 		app.navigator.close();
 	} else {

@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
-	<Button id="editBtn" class="nav-bar-right-btn" onClick="didClickEdit" />
+	<Button id="editBtn" class="nav-right-btn" onClick="didClickEdit" />
 	<!--<View>-->
 	<TableView id="tableView" height="Ti.UI.FILL" top="0" bottom="0">
 		<HeaderView>

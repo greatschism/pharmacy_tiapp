@@ -1,4 +1,6 @@
 <Alloy>
-	<Button id="signinBtn" class="nav-bar-right-btn" onClick="didClickSignin" />
+	<View id="signinView" class="nav-right-item-container" onSingletap="didTapSignin">
+		<Label id="signinLbl" class="nav-right-lbl" />
+	</View>
 	<View id="containerView" />
 </Alloy> 

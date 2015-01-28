@@ -9,6 +9,11 @@ var Config = {
 		/**
 		 * initialization
 		 */
+		//for debugging purpose only, should be false on test / production
+		if (Alloy.CFG.useLocalConfiguration === true) {
+			Config.load(_callback);
+			return;
+		}
 
 		//theme
 		if (_.has(_config, "theme")) {
@@ -35,6 +40,11 @@ var Config = {
 			resources.set("fonts", _config.fonts.items);
 		}
 
+		//images
+		if (_.has(_config, "images")) {
+			resources.set("images", _config.images);
+		}
+
 		/***
 		 * check for files to be updated
 		 */
@@ -55,7 +65,8 @@ var Config = {
 		var theme = resources.get("theme"),
 		    menu = resources.get("menu"),
 		    template = resources.get("template"),
-		    fonts = resources.get("fonts");
+		    fonts = resources.get("fonts"),
+		    images = resources.get("images");
 
 		//styles
 		var style = theme.style;
@@ -69,7 +80,8 @@ var Config = {
 		//template
 		Alloy.Models.template.set(template);
 
-		//language was initialized already from alloy.js
+		//language
+		localization.init();
 
 		//fonts
 		Alloy._fonts = {};
@@ -78,9 +90,19 @@ var Config = {
 			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 			 */
 			if (OS_IOS || OS_ANDROID) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + fonts[i].name + ".ttf"));
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].name + "." + fonts[i].format));
 			}
 			Alloy._fonts[fonts[i].code] = fonts[i].name;
+		}
+		//replacing font code with post script name
+		for (var i = 1; i <= 6; i++) {
+			var hId = "_h".concat(i);
+			Alloy[hId].fontFamily = Alloy._fonts[Alloy[hId].fontFamily];
+		}
+
+		Alloy._images = {};
+		for (var i in images) {
+			Alloy._images[images[i].name] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].name + "." + images[i].format).nativePath;
 		}
 
 		if (_callback) {

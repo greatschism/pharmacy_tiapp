@@ -41,7 +41,7 @@
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	right: 75,
+	right: 70,
 	hintText: Alloy.Globals.strings.hintPassword,
 	nextItem: "rxNoTxt",
 	passwordMask: true

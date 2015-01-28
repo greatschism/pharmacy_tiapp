@@ -4,66 +4,170 @@
 		"style": {
 			"due_for_refill_in_days": 7,
 			"navigator": "hamburger",
-			"content_height": 48,
-			"border_radius": 6,
-			"m_top": 24,
-			"m_bottom": 24,
+			"m_top": 16,
+			"m_bottom": 16,
 			"m_left": 16,
 			"m_right": 16,
-			"p_top": 16,
-			"p_bottom": 16,
-			"p_left": 8,
-			"p_right": 8,
-			"typo_h1": {
-				"fontFamily": "regular",
-				"fontSize": 24
-			},
-			"typo_height_h1": 28,
-			"typo_h2": {
+			"p_top": 14,
+			"p_bottom": 14,
+			"p_left": 14,
+			"p_right": 14,
+			"content_height": 50,
+			"border_radius": 3.4,
+			"border_width": 1,
+			"icn_font": "mscripts",
+			"nav_icn_area": 22,
+			"nav_icn_m_top": 12,
+			"nav_icn_m_bottom": 12,
+			"nav_icn_m_left": 12,
+			"nav_icn_m_right": 12,
+			"nav_icn_width": 46,
+			"tiny_icn_area": 22,
+			"tiny_icn_p_top": 12,
+			"tiny_icn_p_bottom": 12,
+			"tiny_icn_p_left": 12,
+			"tiny_icn_p_right": 12,
+			"large_icn_area": 32,
+			"large_icn_p_top": 16,
+			"large_icn_p_bottom": 16,
+			"large_icn_p_left": 16,
+			"large_icn_p_right": 16,
+			"extra_large_icn_area": 50,
+			"btn_icn_area": 12,
+			"icn_p_top": 22,
+			"icn_p_bottom": 22,
+			"icn_p_left": 22,
+			"icn_p_right": 22,
+			"child_icn_area": 12,
+			"padding_title_child_icn": 50,
+			"btn_height": 50,
+			"h1": {
 				"fontFamily": "bold",
-				"fontSize": 20
+				"fontSize": 17
 			},
-			"typo_height_h2": 24,
-			"typo_h3": {
-				"fontFamily": "regular",
-				"fontSize": 16
-			},
-			"typo_height_h3": 20,
-			"typo_h4": {
+			"height_h1": 22,
+			"h2": {
 				"fontFamily": "medium",
+				"fontSize": 17
+			},
+			"height_h2": 22,
+			"h3": {
+				"fontFamily": "regular",
+				"fontSize": 17
+			},
+			"height_h3": 22,
+			"h4": {
+				"fontFamily": "bold",
+				"fontSize": 15
+			},
+			"height_h4": 20,
+			"h5": {
+				"fontFamily": "medium",
+				"fontSize": 15
+			},
+			"height_h5": 20,
+			"h6": {
+				"fontFamily": "regular",
+				"fontSize": 15
+			},
+			"height_h6": 20,
+			"h7": {
+				"fontFamily": "bold",
 				"fontSize": 14
 			},
-			"typo_height_h4": 18,
-			"typo_h5": {
+			"height_h7": 19,
+			"h8": {
 				"fontFamily": "regular",
 				"fontSize": 14
 			},
-			"typo_height_h5": 18,
-			"typo_h6": {
+			"height_h8": 19,
+			"h9": {
 				"fontFamily": "regular",
 				"fontSize": 12
 			},
-			"typo_height_h6": 16,
-			"switch_color": "#4bd865",
-			"fg_primary": "#FFFFFF",
-			"fg_secondary": "#000000",
-			"fg_tertiary": "#F7941E",
-			"fg_quaternary": "#C4C4C4",
-			"fg_quinary": "#599DFF",
+			"height_h9": 17,
 			"bg_primary": "#F7941E",
 			"bg_secondary": "#6D6E71",
 			"bg_tertiary": "#808285",
 			"bg_quaternary": "#C4C4C4",
 			"bg_quinary": "#EFEFF4",
-			"bg_senary": "#FFFFFF",
-			"br_primary": "#F7941E",
-			"br_secondary": "#C4C4C4",
-			"add_color": "#599DFF",
-			"success_color": "#00A14B",
-			"error_color": "#ED1C24",
-			"approval_color": "#F6931E",
-			"hint_backgroundColor": "#D7F9E4",
-			"reminder_color": ["#AF7AC4", "#27AE60", "#F39C12", "#D35400", "#47C9AF", "#4094FC", "#34495E", "#D4FB79", "#76D6FF", "#C1382A", "#AAB7B7", "#D28874", "#7C7645", "#FC4063", "#845FFF", "#3F09F6"]
+			"bg_senary": "#599DFF",
+			"bg_septenary": "#00A14B",
+			"bg_octonary": "#F6931E",
+			"bg_nonary": "#ED1C24",
+			"bg_denary": "#FFFFFF",
+			"fg_primary": "#FFFFFF",
+			"fg_secondary": "#FFFFFF",
+			"fg_tertiary": "#FFFFFF",
+			"fg_quaternary": "#000000",
+			"fg_quinary": "#000000",
+			"fg_senary": "#FFFFFF",
+			"fg_septenary": "#000000",
+			"fg_octonary": "#000000",
+			"fg_nonary": "#000000",
+			"fg_denary": "#000000",
+			"hint_color": "#C4C4C4",
+			"switch_on_color": "#4bd865",
+			"switch_off_color": "#C4C4C4",
+			"btn_bg_primary": "#F7941E",
+			"btn_fg_primary": "#FFFFFF",
+			"btn_bg_secondary": "#FFFFFF",
+			"btn_fg_secondary": "#F7941E",
+			"btn_bg_tertiary": "#FFFFFF",
+			"btn_fg_tertiary": "#599DFF",
+			"info_btn_border_radius": 10,
+			"lbl_fg_primary": "#F7941E",
+			"reminder_colors": [
+				{
+					"background": "#AF7AC4",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#27AE60",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#F39C12",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#D35400",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#47C9AF",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#4094FC",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#34495E",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#D4FB79",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#76D6FF",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#C1382A",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#AAB7B7",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#D28874",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#7C7645",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#FC4063",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#845FFF",
+					"foreground": "#FFFFFF"
+				}, {
+					"background": "#3F09F6",
+					"foreground": "#FFFFFF"
+				}
+			]
 		}
 	},
 	"menu": {
@@ -135,196 +239,228 @@
 		"data": [
 			{
 				"apiName": "TableView",
-				"addChild": "setData",
-				"asArray": true,
 				"children": [
 					{
-						"apiName": "TableViewRow",
-						"children": [
+						"addChild": "setFooterView",
+						"items": [
 							{
 								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
-								"children": [
-									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "prescriptions",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
-											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "strPrescriptions"
-										}
-									}
-								]
+								"classes": ["footer-view-break"]
 							}
-						],
-						"navigation": {
-							"ctrl": "prescriptions"
-						}
+						]
 					}, {
-						"apiName": "TableViewRow",
-						"children": [
+						"addChild": "setData",
+						"asArray": true,
+						"items": [
 							{
-								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
+								"apiName": "TableViewRow",
 								"children": [
 									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "refill_camera",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "prescriptions"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "strPrescriptions"
+																}
+															}
+														]
+													}
+												]
 											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "titleRefillViaCamera"
-										}
+										]
 									}
-								]
-							}
-						],
-						"navigation": {
-							"action": "refillViaCamera",
-							"ctrl": "refill"
-						}
-					}, {
-						"apiName": "TableViewRow",
-						"children": [
-							{
-								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
+								],
+								"navigation": {
+									"ctrl": "prescriptions"
+								}
+							}, {
+								"apiName": "TableViewRow",
 								"children": [
 									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "pharmacies",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "refill_camera"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleRefillViaCamera"
+																}
+															}
+														]
+													}
+												]
 											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "titleStores"
-										}
+										]
 									}
-								]
-							}
-						],
-						"navigation": {
-							"ctrl": "stores"
-						}
-					}, {
-						"apiName": "TableViewRow",
-						"children": [
-							{
-								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
+								],
+								"navigation": {
+									"action": "refillViaCamera",
+									"ctrl": "refill"
+								}
+							}, {
+								"apiName": "TableViewRow",
 								"children": [
 									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "transfer",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"addChild": "add",
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "pharmacies"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleStores"
+																}
+															}
+														]
+													}
+												]
 											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "titleTransferPrescription"
-										}
+										]
 									}
-								]
-							}
-						],
-						"navigation": {
-							"action": "transferPrescription"
-						}
-					}, {
-						"apiName": "TableViewRow",
-						"children": [
-							{
-								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
+								],
+								"navigation": {
+									"ctrl": "stores"
+								}
+							}, {
+								"apiName": "TableViewRow",
 								"children": [
 									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "doctors",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"addChild": "add",
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "transfer"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleTransferPrescription"
+																}
+															}
+														]
+													}
+												]
 											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "titleDoctors"
-										}
+										]
 									}
-								]
-							}
-						],
-						"navigation": {
-							"ctrl": "doctors"
-						}
-					}, {
-						"apiName": "TableViewRow",
-						"children": [
-							{
-								"apiName": "View",
-								"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-								"addChild": "add",
+								],
+								"navigation": {
+									"action": "transferPrescription"
+								}
+							}, {
+								"apiName": "TableViewRow",
 								"children": [
 									{
-										"apiName": "Label",
-										"classes": ["left", "fg-tertiary", "touch-disabled"],
-										"properties": {
-											"icon": "account",
-											"font": {
-												"fontFamily": "mscripts",
-												"fontSize": 40
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "doctors"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleDoctors"
+																}
+															}
+														]
+													}
+												]
 											}
-										}
-									}, {
-										"apiName": "Label",
-										"classes": ["padding-left", "h4-fixed", "fg-secondary", "touch-disabled"],
-										"properties": {
-											"textid": "titleAccount"
-										}
+										]
 									}
-								]
+								],
+								"navigation": {
+									"ctrl": "doctors"
+								}
+							}, {
+								"apiName": "TableViewRow",
+								"children": [
+									{
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["large-icn", "lbl-fg-primary"],
+																"properties": {
+																	"icon": "account"
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-left", "h3-fixed", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleAccount"
+																}
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								],
+								"navigation": {
+									"ctrl": "account"
+								}
 							}
-						],
-						"navigation": {
-							"ctrl": "account"
-						}
+						]
 					}
 				]
 			}
@@ -364,32 +500,62 @@
 				"version": 1,
 				"code": "mscripts",
 				"name": "mscripts",
+				"format": "ttf",
 				"url": "https://staging.remscripts.com/nativemia/mscripts.ttf",
 				"platform": ["ios", "android", "mobileweb"]
 			}, {
 				"version": 1,
 				"code": "regular",
 				"name": "Roboto-Regular",
+				"format": "ttf",
 				"url": "https://staging.remscripts.com/nativemia/Roboto-Regular.ttf",
 				"platform": ["android", "mobileweb"]
 			}, {
 				"version": 1,
-				"code": "bold",
+				"code": "medium",
 				"name": "Roboto-Medium",
+				"format": "ttf",
 				"url": "https://staging.remscripts.com/nativemia/Roboto-Medium.ttf",
+				"platform": ["android", "mobileweb"]
+			}, {
+				"version": 1,
+				"code": "bold",
+				"name": "Roboto-Bold",
+				"format": "ttf",
+				"url": "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
 				"platform": ["android", "mobileweb"]
 			}, {
 				"version": 1,
 				"code": "regular",
 				"name": "Lato-Regular",
+				"format": "ttf",
 				"url": "https://staging.remscripts.com/nativemia/Lato-Regular.ttf",
 				"platform": ["ios"]
 			}, {
 				"version": 1,
-				"code": "bold",
+				"code": "medium",
 				"name": "Lato-Bold",
+				"format": "ttf",
 				"url": "https://staging.remscripts.com/nativemia/Lato-Bold.ttf",
 				"platform": ["ios"]
+			}, {
+				"version": 1,
+				"code": "bold",
+				"name": "Lato-Black",
+				"format": "ttf",
+				"url": "https://staging.remscripts.com/nativemia/Lato-Black.ttf",
+				"platform": ["ios"]
+			}
+		]
+	},
+	"images": {
+		"version": 1,
+		"items": [
+			{
+				"version": 1,
+				"name": "logo",
+				"format": "png",
+				"url": "https://staging.remscripts.com/nativemia/logo.png"
 			}
 		]
 	}

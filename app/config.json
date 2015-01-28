@@ -60,7 +60,8 @@
 		"apiVersion": "1.0",
 		"enableLogger": true,
 		"enableAPM": false,
-		"enableAnalytics": false
+		"enableAnalytics": false,
+		"useLocalConfiguration": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -70,7 +71,8 @@
 		"apiVersion": "1.0",
 		"enableLogger": true,
 		"enableAPM": true,
-		"enableAnalytics": true
+		"enableAnalytics": true,
+		"useLocalConfiguration": true
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -80,7 +82,8 @@
 		"apiVersion": "1.0",
 		"enableLogger": false,
 		"enableAPM": true,
-		"enableAnalytics": true
+		"enableAnalytics": true,
+		"useLocalConfiguration": false
 	},
 	"os:android": {
 		"navBarHeight": 48,
@@ -89,7 +92,7 @@
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
-		"navBarTop": 15
+		"navBarTop": 20
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,

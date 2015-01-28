@@ -32,7 +32,7 @@ function didSuccess(result) {
 
 function didLoadConfig() {
 	$.index.remove($.loading.getView());
-	if (Ti.App.Properties.getBool("firstLoad", true)) {
+	if (!Ti.App.Properties.getBool("firstLoad", true)) {
 		Alloy.createController("stack/master", {
 			ctrl : "carousel",
 			titleid : "strWelcome"

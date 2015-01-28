@@ -96,7 +96,7 @@ exports.getFile = function(_path, _directory) {
  * @param {String} _directory The base directory of the file to read (optional)
  */
 exports.deleteFile = function(_path, _directory) {
-	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
+	var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.applicationDataDirectory, _path);
 	if (file.exists()) {
 		return file.deleteFile();
 	} else {
@@ -134,6 +134,15 @@ exports.copy = function(_sFile, _dFile, _append) {
 	} else {
 		return false;
 	}
+};
+
+exports.getFileName = function(path) {
+	return path.replace(/\\/g, '/').replace(/.*\//, '');
+};
+
+exports.getBaseFileName = function(path) {
+	path = exports.getFileName(path);
+	return path.substr(0, path.lastIndexOf('.')) || path;
 };
 
 /**

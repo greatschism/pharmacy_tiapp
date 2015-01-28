@@ -29,19 +29,23 @@ function create(dict) {
 		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
 	}
 	if (_.has(dict, "children")) {
-		var children = dict.children,
-		    asArray = dict.asArray,
-		    cElemnts = [];
+		var children = dict.children;
 		for (var i in children) {
-			var child = children[i];
-			if (asArray) {
-				cElemnts.push(create(child));
-			} else {
-				element[dict.addChild || "add"](create(child));
+			var items = children[i].items,
+			    addChild = children[i].addChild || "add",
+			    asArray = children[i].asArray,
+			    cElemnts = [];
+			for (var i in items) {
+				var childItem = items[i];
+				if (asArray) {
+					cElemnts.push(create(childItem));
+				} else {
+					element[addChild](create(childItem));
+				}
 			}
-		}
-		if (asArray) {
-			element[dict.addChild](cElemnts);
+			if (asArray) {
+				element[addChild](cElemnts);
+			}
 		}
 	}
 	if (_.has(dict, "navigation")) {
@@ -52,7 +56,7 @@ function create(dict) {
 }
 
 function didChangeUser() {
-	$.signinBtn.visible = !Alloy.Models.user.get("loggedIn");
+	$.signinView.visible = !Alloy.Models.user.get("loggedIn");
 }
 
 function didItemClick(e) {
@@ -72,7 +76,7 @@ function didItemClick(e) {
 	}
 }
 
-function didClickSignin(e) {
+function didTapSignin(e) {
 	app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",

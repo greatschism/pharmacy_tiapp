@@ -3,15 +3,15 @@
 		<View class="vgroup margin-left margin-right">
 			<ScrollableView id="scrollableView" class="margin-top" onScrollend="didScrollend">
 				<View class="bg-primary" />
-				<View class="bg-quaternary" />
-				<View class="bg-quinary" />
 				<View class="bg-senary" />
+				<View class="bg-septenary" />
+				<View class="bg-nonary" />
 			</ScrollableView>
-			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-top" onChange="didChangePage" />
-			<Widget id="buttonbar" class="margin-top h4 border-transparent bg-primary fg-primary" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
-			<View class="margin-top auto-width height-default hgroup">
-				<Label id="refillLbl" class="h4 fg-tertiary" />
-				<Label id="iconLbl" class="margin-left font-icon fg-tertiary" />
+			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="padding-top" onChange="didChangePage" />
+			<Widget id="buttonbar" class="padding-top fill-width h3 bg-primary fg-primary border-transparent border-radius" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
+			<View class="btn-hview">
+				<Label id="refillLbl" class="btn-lbl lbl-fg-primary" />
+				<Label id="iconLbl" class="padding-left tiny-icn lbl-fg-primary" />
 			</View>
 		</View>
 	</ScrollView>

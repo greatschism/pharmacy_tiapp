@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
-	<Button id="toggleBtn" class="nav-bar-right-icon" onClick="didToggle" />
+	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
 	<View>
 		<Widget id="searchbar" src="com.mscripts.textfield" class="txt" />
 		<TableView id="tableView" class="top" />

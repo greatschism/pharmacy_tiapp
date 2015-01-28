@@ -57,7 +57,7 @@ function choosePharmacy(e) {
 function updateStore() {
 	if (locationFirstUpdate) {
 		locationFirstUpdate = false;
-		$.locationLbl.color = Alloy._fg_secondary;
+		$.locationLbl.color = Alloy._fg_denary;
 	}
 	$.locationLbl.text = Alloy.Models.store.get("addressline1");
 }

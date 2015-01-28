@@ -13,6 +13,15 @@ var Resources = {
 	pathTemplate : "scule+titanium://template",
 	pathLanguages : "scule+titanium://languages",
 	pathFonts : "scule+titanium://fonts",
+	pathImages : "scule+titanium://images",
+
+	/**
+	 * directories used for storing files
+	 */
+	directoryData : "data",
+	directoryLanguages : "data/languages",
+	directoryFonts : "data/fonts",
+	directoryImages : "data/images",
 
 	/**
 	 * items to be updated
@@ -25,7 +34,7 @@ var Resources = {
 
 		if (Ti.App.Properties.getString("updatedResourcesOn", "") != Ti.App.version || Ti.App.deployType != "production") {
 
-			var clientData = JSON.parse(utilities.getFile("data/client.json"));
+			var clientData = JSON.parse(utilities.getFile(Resources.directoryData + "/client.json"));
 
 			//theme
 			Resources.set("theme", clientData.theme);
@@ -41,6 +50,9 @@ var Resources = {
 
 			//fonts
 			Resources.set("fonts", clientData.fonts.items, true, true);
+
+			//images
+			Resources.set("images", clientData.images.items, true, true);
 
 			Ti.App.Properties.setString("updatedResourcesOn", Ti.App.version);
 
@@ -65,6 +77,9 @@ var Resources = {
 		case "fonts":
 			path = Resources.pathFonts;
 			break;
+		case "images":
+			path = Resources.pathImages;
+			break;
 		}
 		return scule.factoryCollection(path);
 	},
@@ -85,7 +100,7 @@ var Resources = {
 				}
 				//if _useLocalResources is false, don't use local resources packed up with this build
 				_.extend(lItem, {
-					strings : JSON.parse(_useLocalResources === true ? utilities.getFile("data/languages/" + lItem.code + ".json") || "{}" : "{}"),
+					strings : JSON.parse(_useLocalResources === true ? utilities.getFile(Resources.directoryLanguages + "/" + lItem.code + ".json") || "{}" : "{}"),
 					update : _useLocalResources !== true
 				});
 				lColl.save(lItem);
@@ -127,10 +142,9 @@ var Resources = {
 
 	setFonts : function(_fItems, _clearNSup, _useLocalResources) {
 		var fColl = Resources.getCollection("fonts"),
-		    fontPath = "data/fonts",
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data"),
-		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fontPath),
-		    fontFiles = utilities.getFiles(fontPath, Ti.Filesystem.applicationDataDirectory);
+		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
+		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts),
+		    fontFiles = utilities.getFiles(Resources.directoryFonts, Ti.Filesystem.applicationDataDirectory);
 		if (OS_IOS || OS_ANDROID) {
 			if (!dataDir.exists()) {
 				dataDir.createDirectory();
@@ -149,8 +163,8 @@ var Resources = {
 				if (_.isEmpty(fModel)) {
 					//if _useLocalResources is false, don't use local resources packed up with this build
 					if ((OS_IOS || OS_ANDROID) && _useLocalResources === true) {
-						var path = fontPath + "/" + fItem.name;
-						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, path), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, path + ".ttf"));
+						var path = Resources.directoryFonts + "/" + fItem.name;
+						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, path), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, path + "." + fItem.format));
 					}
 					_.extend(fItem, {
 						update : _useLocalResources !== true
@@ -178,8 +192,8 @@ var Resources = {
 			logger.i("fonts supported : " + supported);
 			//delete unsupported font files
 			for (var i in fontFiles) {
-				if (_.indexOf(supported, fontFiles[i].replace(".ttf", "")) == -1) {
-					utilities.deleteFile(fontPath + "/" + fontFiles[i], Ti.Filesystem.applicationDataDirectory);
+				if (_.indexOf(supported, utilities.getBaseFileName(fontFiles[i])) == -1) {
+					utilities.deleteFile(Resources.directoryFonts + "/" + fontFiles[i]);
 				}
 			}
 			var removed = fColl.remove({
@@ -192,12 +206,81 @@ var Resources = {
 		fColl.commit();
 	},
 
+	setImages : function(_iItems, _clearNSup, _useLocalResources) {
+		var iColl = Resources.getCollection("images"),
+		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
+		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages),
+		    imageFiles = utilities.getFiles(Resources.directoryImages, Ti.Filesystem.applicationDataDirectory);
+		if (OS_IOS || OS_ANDROID) {
+			if (!dataDir.exists()) {
+				dataDir.createDirectory();
+			}
+			if (!imagesDir.exists()) {
+				imagesDir.createDirectory();
+			}
+		}
+		for (var i in _iItems) {
+			var iItem = _iItems[i];
+			var iModel = iColl.find({
+			name: iItem.name
+			})[0] || {};
+			if (_.isEmpty(iModel)) {
+				//if _useLocalResources is false, don't use local resources packed up with this build
+				if ((OS_IOS || OS_ANDROID) && _useLocalResources === true) {
+					var path = Resources.directoryImages + "/" + iItem.name;
+					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, path), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, path + "." + iItem.format));
+				}
+				_.extend(iItem, {
+					update : _useLocalResources !== true
+				});
+				iColl.save(iItem);
+			} else {
+				if (iItem.version > iModel.version) {
+					iModel = _.omit(iModel, ["_id"]);
+					_.extend(iItem, {
+						update : true
+					});
+					_.extend(iModel, iItem);
+					iColl.update({
+						code : iItem.name
+					}, {
+						$set : iItem
+					}, {}, true);
+				}
+			}
+		}
+		// if _clearNSup is true, remove unsupported or unused images
+		if (_clearNSup !== false) {
+			var supported = _.pluck(iColl.findAll(), "name");
+			logger.i("images supported : " + supported);
+			//delete unsupported image files
+			for (var i in imageFiles) {
+				if (_.indexOf(supported, utilities.getBaseFileName(imageFiles[i])) == -1) {
+					utilities.deleteFile(Resources.directoryImages + "/" + imageFiles[i]);
+				}
+			}
+			var removed = iColl.remove({
+				name : {
+					$nin : supported
+				}
+			});
+			logger.i("images removed : " + removed);
+		}
+		iColl.commit();
+	},
+
 	set : function(_key, _data, _clearNSup, _useLocalResources) {
-		if (_key == "languages") {
+		switch(_key) {
+		case "languages":
 			Resources.setLanguages(_data, _clearNSup, _useLocalResources);
-		} else if (_key == "fonts") {
+			break;
+		case "fonts":
 			Resources.setFonts(_data, _clearNSup, _useLocalResources);
-		} else {
+			break;
+		case "images":
+			Resources.setImages(_data, _clearNSup, _useLocalResources);
+			break;
+		default:
 			var coll = Resources.getCollection(_key);
 			coll.clear();
 			coll.save(_data);
@@ -207,7 +290,7 @@ var Resources = {
 
 	get : function(_key) {
 		var data = Resources.getCollection(_key).findAll();
-		if (_key == "languages" || _key == "fonts") {
+		if (_key == "languages" || _key == "fonts" || _key == "images") {
 			return data;
 		} else {
 			return data[0] || {};
@@ -222,6 +305,9 @@ var Resources = {
 		}),
 		    fontsToUpdate = Resources.getCollection("fonts").find({
 			update : true
+		}),
+		    imagesToUpdate = Resources.getCollection("images").find({
+			update : true
 		});
 		if (langsToUpdate.length) {
 			Resources.updateQueue.push({
@@ -233,6 +319,12 @@ var Resources = {
 			Resources.updateQueue.push({
 				key : "fonts",
 				data : _.omit(fontsToUpdate[i], ["_id"])
+			});
+		}
+		for (var i in imagesToUpdate) {
+			Resources.updateQueue.push({
+				key : "images",
+				data : _.omit(imagesToUpdate[i], ["_id"])
 			});
 		}
 		return Resources.updateQueue.length;
@@ -269,26 +361,38 @@ var Resources = {
 			    set = {
 				update : false
 			},
+			    key = _passthrough.key,
 			    prop;
-			if (_passthrough.key == "languages") {
+			switch(key) {
+			case "languages":
 				prop = "code";
 				//append language strings
 				_.extend(set, {
 					strings : _data
 				});
-			} else {
+				break;
+			case "fonts":
 				//replace / add font file
 				prop = "name";
-				Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "data/fonts/" + _passthrough.data.name + ".ttf").write(_data);
+				Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + _passthrough.data.name + "." + _passthrough.data.format).write(_data);
 				logger.i("font updated :" + _passthrough.data.name);
+				break;
+			case "images":
+				//replace / add image file
+				prop = "name";
+				Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + _passthrough.data.name + "." + _passthrough.data.format).write(_data);
+				logger.i("image updated :" + _passthrough.data.name);
+				break;
 			}
 			queryObj[prop] = _passthrough.data[prop];
 			coll.update(queryObj, {
 				$set : set
 			});
 			coll.commit();
+			logger.i("downloaded " + _passthrough.key + " from " + _passthrough.data.url);
+		} else {
+			logger.e("unable to download " + _passthrough.key + " from " + _passthrough.data.url);
 		}
-		logger.i("downloaded " + _passthrough.key + " from " + _passthrough.data.url);
 		Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
 			return _.isEqual(obj, _passthrough);
 		});

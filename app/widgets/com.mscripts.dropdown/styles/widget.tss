@@ -20,7 +20,7 @@
 	right: 10,
 	width: 20,
 	font: {
-		fontFamily: "mscripts",
+		fontFamily: Alloy._icn_font,
 		fontSize: 12
 	},
 	color: "#C4C4C4"

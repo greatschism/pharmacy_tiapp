@@ -22,10 +22,20 @@ var args = arguments[0] || {},
 		}
 	}
 
-	bold = {
-		fontSize : args.font && args.font.fontSize ? args.font.fontSize : 18,
-		fontWeight : "bold",
-	};
+	if (OS_IOS) {
+		bold = {
+			fontSize : args.font && args.font.fontSize ? args.font.fontSize : 18
+		};
+		if (_.has(args, "boldFontFamily")) {
+			_.extend(bold, {
+				fontFamily : args.boldFontFamily
+			});
+		} else {
+			_.extend(bold, {
+				fontWeight : "bold"
+			});
+		}
+	}
 
 	if (_.has(args, "html")) {
 		setHtml(args.html);
