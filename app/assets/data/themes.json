@@ -2,6 +2,7 @@
 	{
 		"name": "mscripts",
 		"version": 1,
+		"selected": true,
 		"style": {
 			"due_for_refill_in_days": 7,
 			"navigator": "hamburger",

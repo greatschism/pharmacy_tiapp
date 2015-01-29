@@ -2,6 +2,7 @@
 	{
 		"name": "mscripts",
 		"version": 1,
+		"selected": true,
 		"items": [
 			{
 				"titleid": "titleHome",

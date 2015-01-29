@@ -2,6 +2,7 @@
 	{
 		"name": "list",
 		"version": 1,
+		"selected": true,
 		"data": [
 			{
 				"apiName": "TableView",
