@@ -9,7 +9,9 @@ function initHamburger() {
 		type : "hamburger",
 		hamburger : $.hamburger
 	});
-	menuCtrl = Alloy.createController("menu");
+	menuCtrl = Alloy.createController("menu", {
+		navigation : args.navigation
+	});
 	app.navigator.hamburger.init({
 		menuView : menuCtrl.getView(),
 		parent : $.window

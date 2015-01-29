@@ -77,13 +77,9 @@ function didAuthenticate(result) {
 		icon : "remove",
 		leftImage : "/images/logout_white.png"
 	});
-	if (app.navigator.name === Alloy._navigator) {
-		app.navigator.open(args.navigateTo || Alloy.Collections.menuItems.where({
-		landing_page: true
-		})[0].toJSON());
-	} else {
-		Alloy.createController(Alloy._navigator + "/master");
-	}
+	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
+	landing_page: true
+	})[0].toJSON());
 }
 
 function handleScroll(e) {

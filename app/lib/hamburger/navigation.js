@@ -25,7 +25,7 @@ function Navigation(_args) {
 	 * @type {Boolean}
 	 */
 	this.isBusy = false;
-	
+
 	/**
 	 * logger
 	 * @type {Logger}
@@ -93,6 +93,14 @@ function Navigation(_args) {
 	this.keyboard = OS_IOS || OS_ANDROID ? require("ti.keyboard") : false;
 
 	/**
+	 * set home page parameters, will be used by this.open method later
+	 * @param {Object} _params The arguments for the method
+	 */
+	this.setHomeParams = function(_params) {
+		that.homeParams = _params;
+	};
+
+	/**
 	 * Open a screen controller
 	 * @param {Object} _params The arguments for the method
 	 * @param {String} _params.ctrl name of the Controller to be opened
@@ -124,10 +132,6 @@ function Navigation(_args) {
 		if (_params.stack) {
 			that.isBusy = false;
 			return that.push(_params, _callback);
-		}
-
-		if (!that.homeParams) {
-			that.homeParams = _params;
 		}
 
 		that.currentParams = _params;
@@ -247,7 +251,7 @@ function Navigation(_args) {
 
 			var condition = OS_ANDROID && _backButton === true;
 
-			if (condition && that.homeParams.ctrl != that.currentParams.ctrl) {
+			if (condition && _.isObject(that.homeParams) && that.homeParams.ctrl != that.currentParams.ctrl) {
 				that.isBusy = false;
 				return that.open(that.homeParams);
 			}

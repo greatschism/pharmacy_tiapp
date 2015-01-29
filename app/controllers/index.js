@@ -32,14 +32,13 @@ function didSuccess(result) {
 
 function didLoadConfig() {
 	$.index.remove($.loading.getView());
-	//if (Ti.App.Properties.getBool("firstLoad", true)) {
-		Alloy.createController("stack/master", {
+	Alloy.createController(Alloy._navigator + "/master", {
+		navigation : Ti.App.Properties.getBool("firstLoad", true) ? {
 			ctrl : "carousel",
-			titleid : "strWelcome"
-		});
-	/*} else {
-		Alloy.createController(Alloy._navigator + "/master");
-	}*/
+			titleid : "strWelcome",
+			navBarHidden : true
+		} : false
+	});
 }
 
 $.index.open();

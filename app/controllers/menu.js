@@ -4,12 +4,13 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     iconSet = Alloy.CFG.iconSet,
     icons = Alloy.CFG.icons,
-    homePageParams = Alloy.Collections.menuItems.where({
+    homeParams = Alloy.Collections.menuItems.where({
 landing_page: true
 })[0].toJSON();
 
 Alloy.Collections.menuItems.trigger("reset");
-app.navigator.open(homePageParams);
+app.navigator.setHomeParams(homeParams);
+app.navigator.open(args.navigation || homeParams);
 
 function transformFunction(model) {
 	var transform = model.toJSON();
@@ -29,7 +30,7 @@ function didItemClick(e) {
 						ctrl : "login",
 						titleid : "strLogin",
 						ctrlArguments : {
-							navigateTo : itemObj
+							navigation : itemObj
 						}
 					});
 				}
@@ -60,7 +61,7 @@ function didItemClick(e) {
 								});
 								Alloy.Collections.menuItems.remove(model);
 								app.navigator.closeToHome(function() {
-									app.navigator.open(homePageParams, function() {
+									app.navigator.open(homeParams, function() {
 										dialog.show({
 											message : Alloy.Globals.strings.msgSignedoutSuccessfully
 										});

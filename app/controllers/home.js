@@ -67,7 +67,7 @@ function didItemClick(e) {
 				ctrl : "login",
 				titleid : "strLogin",
 				ctrlArguments : {
-					navigateTo : navigation
+					navigation : navigation
 				}
 			});
 		} else {
