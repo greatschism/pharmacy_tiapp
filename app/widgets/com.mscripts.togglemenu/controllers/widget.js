@@ -30,7 +30,7 @@ var args = arguments[0] || {},
 				width : 24,
 				height : 24,
 				font : {
-					fontFamily : Alloy._icn_font,
+					fontFamily : Alloy._font_icon,
 					fontSize : 24
 				}
 			});
@@ -102,7 +102,7 @@ function getRow(data) {
 			left : args.left || args.right || 16,
 			width : args.iconWidth || 24,
 			font : {
-				fontFamily : Alloy._icn_font,
+				fontFamily : Alloy._font_icon,
 				fontSize : args.iconWidth || 24
 			},
 			color : properties.color || "#FFF"

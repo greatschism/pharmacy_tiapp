@@ -2,8 +2,9 @@
 	{
 		"name": "mscripts",
 		"version": 1,
+		"url": "url_to_download",
 		"selected": true,
-		"style": {
+		"styles": {
 			"due_for_refill_in_days": 7,
 			"navigator": "hamburger",
 			"m_top": 16,
@@ -17,7 +18,6 @@
 			"content_height": 50,
 			"border_radius": 3.4,
 			"border_width": 1,
-			"icn_font": "mscripts",
 			"nav_icn_area": 22,
 			"nav_icn_m_top": 12,
 			"nav_icn_m_bottom": 12,

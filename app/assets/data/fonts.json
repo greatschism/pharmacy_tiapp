@@ -2,49 +2,49 @@
 	{
 		"name": "mscripts",
 		"version": 1,
-		"code": "mscripts",
+		"code": "icon",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/mscripts.ttf",
 		"platform": ["ios", "android", "mobileweb"]
 	}, {
-		"name": "regular",
+		"name": "Roboto-Regular",
 		"version": 1,
-		"code": "Roboto-Regular",
+		"code": "regular",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Roboto-Regular.ttf",
 		"platform": ["android", "mobileweb"]
 	}, {
-		"name": "medium",
+		"name": "Roboto-Medium",
 		"version": 1,
-		"code": "Roboto-Medium",
+		"code": "medium",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Roboto-Medium.ttf",
 		"platform": ["android", "mobileweb"]
 	}, {
-		"name": "bold",
+		"name": "Roboto-Bold",
 		"version": 1,
-		"code": "Roboto-Bold",
+		"code": "bold",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
 		"platform": ["android", "mobileweb"]
 	}, {
-		"name": "regular",
+		"name": "Lato-Regular",
 		"version": 1,
-		"code": "Lato-Regular",
+		"code": "regular",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Lato-Regular.ttf",
 		"platform": ["ios"]
 	}, {
-		"name": "medium",
+		"name": "Lato-Bold",
 		"version": 1,
-		"code": "Lato-Bold",
+		"code": "medium",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Lato-Bold.ttf",
 		"platform": ["ios"]
 	}, {
-		"name": "bold",
+		"name": "Lato-Black",
 		"version": 1,
-		"code": "Lato-Black",
+		"code": "bold",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Lato-Black.ttf",
 		"platform": ["ios"]

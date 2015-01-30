@@ -335,7 +335,7 @@
 },
 ".tiny-icn":{
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: Alloy._tiny_icn_area
 	},
 	textAlign: "center",
@@ -355,7 +355,7 @@
 },
 ".large-icn":{
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: Alloy._large_icn_area
 	},
 	textAlign: "center",
@@ -578,7 +578,7 @@
 ".nav-left-icn":{
 	left: Alloy._nav_icn_m_left,
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: Alloy._nav_icn_area
 	},
 	textAlign: "center",
@@ -588,7 +588,7 @@
 ".nav-right-icn":{
 	right: Alloy._nav_icn_m_right,
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: Alloy._nav_icn_area
 	},
 	textAlign: "center",
@@ -791,7 +791,7 @@
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
 	font: Alloy._h3,
-	boldFontFamily: Alloy._fonts.bold,
+	boldFontFamily: Alloy._font_bold,
 	textAlign: "center"
 },
 ".styled-h2":{
@@ -800,7 +800,7 @@
 	right: Alloy._m_right,
 	height: Ti.UI.SIZE,
 	font: Alloy._h5,
-	boldFontFamily: Alloy._fonts.bold,
+	boldFontFamily: Alloy._font_bold,
 	textAlign: "center"
 },
 /**
@@ -859,7 +859,7 @@
 	left: 0,
 	width: 24,
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: 24
 	}
 },
@@ -882,7 +882,7 @@
 ".list-item-child":{
 	right: Alloy._m_right,
 	font:{
-		fontFamily: Alloy._icn_font,
+		fontFamily: Alloy._font_icon,
 		fontSize: Alloy._child_icn_area
 	},
 	textAlign: "center",

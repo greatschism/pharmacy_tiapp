@@ -31,14 +31,14 @@ var Locale = {
 
 	/**
 	 * change selected language
-	 * @param {String} _code The language code to enable
+	 * @param {String} _name The language name to enable
 	 */
-	setLanguage : function(_code) {
+	setLanguage : function(_name) {
 
 		var lColl = scule.factoryCollection(resources.pathLanguages),
 
 		    toSelect = lColl.find({
-			code : _code
+			name : _name
 		});
 
 		if (toSelect.length != 0 && toSelect[0].selected == false) {
@@ -55,19 +55,19 @@ var Locale = {
 					selected : false
 				}
 			});
-			logger.i("language unselected : len " + unselected.length, " = " + unselected[0].code);
+			logger.i("language unselected : len " + unselected.length, " = " + unselected[0].name);
 
 			/**
 			 * set selected as true for given language
 			 */
 			var selected = lColl.update({
-				code : _code
+				name : _name
 			}, {
 				$set : {
 					selected : true
 				}
 			});
-			logger.i("language selected : len " + selected.length, " = " + selected[0].code);
+			logger.i("language selected : len " + selected.length, " = " + selected[0].name);
 
 			Locale.applyLanguage(selected[0]);
 
@@ -103,7 +103,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
-		logger.i("language selected : " + Locale.currentLanguage.code);
+		logger.i("language selected : " + Locale.currentLanguage.name);
 	}
 };
 

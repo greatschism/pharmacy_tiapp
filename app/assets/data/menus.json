@@ -2,6 +2,7 @@
 	{
 		"name": "mscripts",
 		"version": 1,
+		"url": "url_to_download",
 		"selected": true,
 		"items": [
 			{

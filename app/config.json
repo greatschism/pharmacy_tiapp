@@ -61,7 +61,7 @@
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
-		"useLocalConfiguration": true
+		"overrideRemoteConfiguration": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -72,7 +72,7 @@
 		"enableLogger": true,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"useLocalConfiguration": true
+		"overrideRemoteConfiguration": true
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -83,7 +83,7 @@
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"useLocalConfiguration": false
+		"overrideRemoteConfiguration": false
 	},
 	"os:android": {
 		"navBarHeight": 48,

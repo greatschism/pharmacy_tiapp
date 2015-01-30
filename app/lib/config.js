@@ -10,39 +10,20 @@ var Config = {
 		 * initialization
 		 */
 		//for debugging purpose only, should be false on test / production
-		if (Alloy.CFG.useLocalConfiguration === true) {
+		if (Alloy.CFG.overrideRemoteConfiguration === true) {
 			Config.load(_callback);
 			return;
 		}
 
-		//theme
-		if (_.has(_config, "theme")) {
-			resources.set("theme", _config.theme);
-		}
-
-		//menu
-		if (_.has(_config, "menu")) {
-			resources.set("menu", _config.menu);
-		}
-
-		//template
-		if (_.has(_config, "template")) {
-			resources.set("template", _config.template);
-		}
-
-		//languages
-		if (_.has(_config, "languages")) {
-			resources.set("languages", _config.languages.items);
-		}
-
-		//fonts
-		if (_.has(_config, "fonts")) {
-			resources.set("fonts", _config.fonts.items);
-		}
-
-		//images
-		if (_.has(_config, "images")) {
-			resources.set("images", _config.images);
+		var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
+		    query = {
+			selected : true
+		};
+		for (var i in keys) {
+			var key = keys[i];
+			if (_.has(_config, key)) {
+				resources.set(key, [_.extend(_config[key], query)]);
+			}
 		}
 
 		/***
@@ -55,6 +36,7 @@ var Config = {
 		} else {
 			Config.load(_callback);
 		}
+
 	},
 	load : function(_callback) {
 
@@ -62,16 +44,24 @@ var Config = {
 		 * load into memory
 		 */
 
-		var theme = resources.get("theme"),
-		    menu = resources.get("menu"),
-		    template = resources.get("template"),
-		    fonts = resources.get("fonts"),
-		    images = resources.get("images");
+		var theme = resources.get("themes", {selected : true})[0],
+		    template = resources.get("templates", {selected : true})[0],
+		    menu = resources.get("menus", {selected : true})[0],
+		    fonts = resources.get("fonts", {
+			file : {
+				$exists : true
+			}
+		}),
+		    images = resources.get("images", {
+			file : {
+				$exists : true
+			}
+		});
 
 		//styles
-		var style = theme.style;
-		for (var i in style) {
-			Alloy["_".concat(i)] = style[i];
+		var styles = theme.styles;
+		for (var i in styles) {
+			Alloy["_".concat(i)] = styles[i];
 		}
 
 		//menu items
@@ -90,19 +80,19 @@ var Config = {
 			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 			 */
 			if (OS_IOS || OS_ANDROID) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].name + "." + fonts[i].format));
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file));
 			}
-			Alloy._fonts[fonts[i].code] = fonts[i].name;
+			Alloy["_font_" + fonts[i].code] = fonts[i].name;
 		}
 		//replacing font code with post script name
 		for (var i = 1; i <= 6; i++) {
 			var hId = "_h".concat(i);
-			Alloy[hId].fontFamily = Alloy._fonts[Alloy[hId].fontFamily];
+			Alloy[hId].fontFamily = Alloy["_font_" + Alloy[hId].fontFamily];
 		}
 
 		Alloy._images = {};
 		for (var i in images) {
-			Alloy._images[images[i].name] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].name + "." + images[i].format).nativePath;
+			Alloy["_image_" + images[i].code] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
 		}
 
 		if (_callback) {

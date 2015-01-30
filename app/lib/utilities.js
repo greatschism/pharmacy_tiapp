@@ -245,6 +245,30 @@ exports.hexToHsb = function(_hex) {
 };
 
 /**
+ * @method ucfirst
+ * Capitalizes the first character in the string.
+ * @param {String} text String to capitalize.
+ * @return {String} String with first character capitalized.
+ */
+exports.ucfirst = function(text) {
+	if (!text)
+		return text;
+	return text[0].toUpperCase() + text.substr(1);
+};
+
+/**
+ * @method lcfirst
+ * Lowercases the first character in the string.
+ * @param {String} text String to lowercase.
+ * @return {String} String with first character lowercased.
+ */
+exports.lcfirst = function(text) {
+	if (!text)
+		return text;
+	return text[0].toLowerCase() + text.substr(1);
+};
+
+/**
  * Escapes a string for SQL insertion
  * @param {String} _string The string to perform the action on
  */
