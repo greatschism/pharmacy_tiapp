@@ -78,9 +78,8 @@ var Config = {
 
 		//styles
 		var styles = theme.styles;
-		//console.log(styles.h1);
 		for (var i in styles) {
-			Alloy["_".concat(i)] = styles[i];
+			Alloy["_".concat(i)] = _.clone(styles[i]);
 		}
 
 		//menu items
@@ -108,9 +107,15 @@ var Config = {
 			Alloy[hId].fontFamily = Alloy["_font_" + Alloy[hId].fontFamily];
 		}
 
-		Alloy._images = {};
 		for (var i in images) {
-			Alloy["_image_" + images[i].code] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
+			var orientations = images[i].orientation;
+			for (var j in orientations) {
+				var key = "_image_" + images[i].code;
+				if (!_.has(Alloy, key)) {
+					Alloy[key] = {};
+				}
+				Alloy[key][orientations[j]] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
+			}
 		}
 
 		if (_callback) {

@@ -45,7 +45,6 @@ function didSuccess(result) {
 }
 
 function loadConfig() {
-	//config.load();
 	config.load(didLoadConfig);
 }
 
