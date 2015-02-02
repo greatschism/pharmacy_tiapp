@@ -91,7 +91,8 @@ var Resources = {
 	},
 
 	setThemes : function(_items, _useLocalResources) {
-		var coll = Resources.getCollection("themes");
+		var coll = Resources.getCollection("themes"),
+		    selectedItem = false;
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
@@ -122,12 +123,27 @@ var Resources = {
 				}, {}, true);
 				logger.i("theme updated : " + item.name);
 			}
+			if (item.selected === true) {
+				selectedItem = item.name;
+			}
+		}
+		if (selectedItem) {
+			coll.update({
+				name : {
+					$ne : selectedItem
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
 		coll.commit();
 	},
 
 	setTemplates : function(_items, _useLocalResources) {
-		var coll = Resources.getCollection("templates");
+		var coll = Resources.getCollection("templates"),
+		    selectedItem = false;
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
@@ -158,12 +174,27 @@ var Resources = {
 				}, {}, true);
 				logger.i("template updated : " + item.name);
 			}
+			if (item.selected === true) {
+				selectedItem = item.name;
+			}
+		}
+		if (selectedItem) {
+			coll.update({
+				name : {
+					$ne : selectedItem
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
 		coll.commit();
 	},
 
 	setMenus : function(_items, _useLocalResources) {
-		var coll = Resources.getCollection("menus");
+		var coll = Resources.getCollection("menus"),
+		    selectedItem = false;
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
@@ -194,12 +225,27 @@ var Resources = {
 				}, {}, true);
 				logger.i("menu updated : " + item.name);
 			}
+			if (item.selected === true) {
+				selectedItem = item.name;
+			}
+		}
+		if (selectedItem) {
+			coll.update({
+				name : {
+					$ne : selectedItem
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
 		coll.commit();
 	},
 
 	setLanguages : function(_items, _useLocalResources) {
-		var coll = Resources.getCollection("languages");
+		var coll = Resources.getCollection("languages"),
+		    selectedItem = false;
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
@@ -234,6 +280,20 @@ var Resources = {
 				}, {}, true);
 				logger.i("language updated : " + item.name);
 			}
+			if (item.selected === true) {
+				selectedItem = item.name;
+			}
+		}
+		if (selectedItem) {
+			coll.update({
+				name : {
+					$ne : selectedItem
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
 		coll.commit();
 	},
@@ -362,7 +422,7 @@ var Resources = {
 			for (var i in toUpdate) {
 				Resources.updateQueue.push({
 					key : key,
-					data : _.omit(toUpdate[i], ["_id", "strings"])
+					data : _.omit(toUpdate[i], ["_id", "styles", "data", "items", "strings"])
 				});
 			}
 		}
@@ -394,19 +454,19 @@ var Resources = {
 
 	didUpdate : function(_data, _url, _passthrough) {
 		if (_data) {
-			//reset update flag
 			var coll = Resources.getCollection(_passthrough.key);
+			//to do
 			coll.commit();
 			logger.i("downloaded " + _passthrough.key + " from " + _passthrough.data.url);
+			Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
+				return _.isEqual(obj, _passthrough);
+			});
+			if (Resources.updateQueue.length == 0 && Resources.successCallback) {
+				Resources.successCallback();
+				Resources.successCallback = false;
+			}
 		} else {
 			logger.e("unable to download " + _passthrough.key + " from " + _passthrough.data.url);
-		}
-		Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
-			return _.isEqual(obj, _passthrough);
-		});
-		if (Resources.updateQueue.length == 0 && Resources.successCallback) {
-			Resources.successCallback();
-			Resources.successCallback = false;
 		}
 	}
 };

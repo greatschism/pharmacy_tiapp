@@ -31,6 +31,7 @@
 	"titleRefillHistory": "Refill history",
 	"titleDetails": "Details",
 	"titleRefillNow": "Refill Now",
+	"titleUpdates": "Updates",
 
 	"sectionStoreHours": "Store hours",
 	"sectionStoreServices": "Store services",
@@ -136,6 +137,7 @@
 	"msgGeoPurpose": "Help you to locate the nearest pharmacies.",
 	"msgYourOrderIsReady": "Your order is ready to be picked up!",
 	"msgNotFilledYet": "Not filled yet",
+	"msgAppUpdateFound": "There is a update, do you want to download now?",
 	"msgUnderConstruction": "Under construction",
 
 	"menuSearch": "Search",

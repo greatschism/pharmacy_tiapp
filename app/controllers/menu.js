@@ -4,13 +4,13 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     iconSet = Alloy.CFG.iconSet,
     icons = Alloy.CFG.icons,
-    homeParams = Alloy.Collections.menuItems.where({
+    startupParams = Alloy.Collections.menuItems.where({
 landing_page: true
 })[0].toJSON();
 
 Alloy.Collections.menuItems.trigger("reset");
-app.navigator.setHomeParams(homeParams);
-app.navigator.open(args.navigation || homeParams);
+app.navigator.setStartupParams(startupParams);
+app.navigator.open(args.navigation || startupParams);
 
 function transformFunction(model) {
 	var transform = model.toJSON();
@@ -23,9 +23,9 @@ function didItemClick(e) {
 	var model = Alloy.Collections.menuItems.at(e.index);
 	var itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
-		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentParams.ctrl) {
+		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentRootParams.ctrl) {
 			if (itemObj.requires_login == true && Alloy.Models.user.get("loggedIn") == false) {
-				if (app.navigator.currentParams.ctrl != "login") {
+				if (app.navigator.currentRootParams.ctrl != "login") {
 					app.navigator.open({
 						ctrl : "login",
 						titleid : "strLogin",
@@ -60,8 +60,8 @@ function didItemClick(e) {
 									sessionId : ""
 								});
 								Alloy.Collections.menuItems.remove(model);
-								app.navigator.closeToHome(function() {
-									app.navigator.open(homeParams, function() {
+								app.navigator.closeToRoot(function() {
+									app.navigator.open(startupParams, function() {
 										dialog.show({
 											message : Alloy.Globals.strings.msgSignedoutSuccessfully
 										});

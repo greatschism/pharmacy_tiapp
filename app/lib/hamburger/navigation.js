@@ -54,13 +54,13 @@ function Navigation(_args) {
 	 * The first controller's arguments, used in android to redirect user back to the controller on back button
 	 * @type {Boolean/Object}
 	 */
-	this.homeParams = false;
+	this.startupParams = false;
 
 	/**
-	 * The current top level controller's arguments
+	 * The current root controller's arguments
 	 * @type {Object}
 	 */
-	this.currentParams = null;
+	this.currentRootParams = null;
 
 	/**
 	 * controller that blocks ui from user interaction
@@ -96,8 +96,8 @@ function Navigation(_args) {
 	 * set home page parameters, will be used by this.open method later
 	 * @param {Object} _params The arguments for the method
 	 */
-	this.setHomeParams = function(_params) {
-		that.homeParams = _params;
+	this.setStartupParams = function(_params) {
+		that.startupParams = _params;
 	};
 
 	/**
@@ -134,9 +134,9 @@ function Navigation(_args) {
 			return that.push(_params, _callback);
 		}
 
-		that.currentParams = _params;
+		that.currentRootParams = _params;
 
-		var controller = Alloy.createController("hamburger/template", that.currentParams);
+		var controller = Alloy.createController("hamburger/template", that.currentRootParams);
 
 		var view = controller.getView();
 
@@ -251,9 +251,9 @@ function Navigation(_args) {
 
 			var condition = OS_ANDROID && _backButton === true;
 
-			if (condition && _.isObject(that.homeParams) && that.homeParams.ctrl != that.currentParams.ctrl) {
+			if (condition && _.isObject(that.startupParams) && that.startupParams.ctrl != that.currentRootParams.ctrl) {
 				that.isBusy = false;
-				return that.open(that.homeParams);
+				return that.open(that.startupParams);
 			}
 
 			if (OS_IOS || OS_MOBILEWEB || condition) {
@@ -307,7 +307,7 @@ function Navigation(_args) {
 	 * Close all controllers except the first in the stack
 	 * @param {Function} _callback
 	 */
-	this.closeToHome = function(_callback) {
+	this.closeToRoot = function(_callback) {
 
 		if (that.isBusy) {
 			return;

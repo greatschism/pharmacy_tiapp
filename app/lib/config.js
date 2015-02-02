@@ -11,33 +11,51 @@ var Config = {
 		 */
 		//for debugging purpose only, should be false on test / production
 		if (Alloy.CFG.overrideRemoteConfiguration === true) {
-			Config.load(_callback);
-			return;
+			return 0;
 		}
 
-		var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-		    query = {
-			selected : true
-		};
-		for (var i in keys) {
-			var key = keys[i];
-			if (_.has(_config, key)) {
-				resources.set(key, [_.extend(_config[key], query)]);
+		var items = [{
+			key : "themes",
+			extend : {
+				selected : true
+			}
+		}, {
+			key : "templates",
+			extend : {
+				selected : true
+			}
+		}, {
+			key : "menus",
+			extend : {
+				selected : true
+			}
+		}, {
+			key : "languages",
+			extend : {
+				selected : true
+			}
+		}, {
+			key : "fonts"
+		}, {
+			key : "images"
+		}];
+		for (var i in items) {
+			var item = items[i];
+			if (_.has(_config, item.key)) {
+				var obj = _config[key];
+				if (_.has(item, "extend")) {
+					_.extend(obj, item.extend);
+				}
+				resources.set(key, [obj]);
 			}
 		}
 
 		/***
-		 * check for files to be updated
+		 * no. of items to be updated
 		 */
-		if (OS_MOBILEWEB || resources.checkForUpdates() > 0) {
-			resources.update(function() {
-				Config.load(_callback);
-			});
-		} else {
-			Config.load(_callback);
-		}
-
+		return resources.checkForUpdates();
 	},
+
 	load : function(_callback) {
 
 		/**
@@ -60,6 +78,7 @@ var Config = {
 
 		//styles
 		var styles = theme.styles;
+		//console.log(styles.h1);
 		for (var i in styles) {
 			Alloy["_".concat(i)] = styles[i];
 		}
@@ -74,13 +93,12 @@ var Config = {
 		localization.init();
 
 		//fonts
-		Alloy._fonts = {};
 		for (var i in fonts) {
 			/**
 			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 			 */
 			if (OS_IOS || OS_ANDROID) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file));
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file), fonts[i].name);
 			}
 			Alloy["_font_" + fonts[i].code] = fonts[i].name;
 		}

@@ -267,7 +267,7 @@ function Navigation(_args) {
 	 * Close all controllers except the first in the stack
 	 * @param {Function} _callback
 	 */
-	this.closeToHome = function(_callback) {
+	this.closeToRoot = function(_callback) {
 
 		if (that.isBusy) {
 			return;

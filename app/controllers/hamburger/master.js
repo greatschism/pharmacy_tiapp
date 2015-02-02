@@ -20,7 +20,7 @@ function initHamburger() {
 
 function didOpen() {
 	if (!_.isEmpty(app.navigator)) {
-		app.navigator.closeToHome(function() {
+		app.navigator.closeToRoot(function() {
 			app.navigator.close(1, function() {
 				app.terminate();
 				initHamburger();
