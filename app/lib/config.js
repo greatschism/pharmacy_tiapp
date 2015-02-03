@@ -42,11 +42,11 @@ var Config = {
 		for (var i in items) {
 			var item = items[i];
 			if (_.has(_config, item.key)) {
-				var obj = _config[key];
+				var obj = _config[item.key];
 				if (_.has(item, "extend")) {
 					_.extend(obj, item.extend);
 				}
-				resources.set(key, [obj]);
+				resources.set(item.key, [obj]);
 			}
 		}
 
