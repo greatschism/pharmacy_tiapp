@@ -14,35 +14,42 @@ var Config = {
 			return 0;
 		}
 
-		var items = [{
-			key : "themes",
-			extend : {
-				selected : true
+		var items = {
+			"theme" : {
+				"key" : "themes",
+				"extend" : {
+					"selected" : true
+				}
+			},
+			"template" : {
+				"key" : "templates",
+				"extend" : {
+					"selected" : true
+				}
+			},
+			"menu" : {
+				"key" : "menus",
+				"extend" : {
+					"selected" : true
+				}
+			},
+			"language" : {
+				"key" : "languages",
+				"extend" : {
+					"selected" : true
+				}
+			},
+			"font" : {
+				"key" : "fonts"
+			},
+			"image" : {
+				"key" : "images"
 			}
-		}, {
-			key : "templates",
-			extend : {
-				selected : true
-			}
-		}, {
-			key : "menus",
-			extend : {
-				selected : true
-			}
-		}, {
-			key : "languages",
-			extend : {
-				selected : true
-			}
-		}, {
-			key : "fonts"
-		}, {
-			key : "images"
-		}];
+		};
 		for (var i in items) {
 			var item = items[i];
-			if (_.has(_config, item.key)) {
-				var obj = _config[item.key];
+			if (_.has(_config, i)) {
+				var obj = _config[i];
 				if (_.has(item, "extend")) {
 					_.extend(obj, item.extend);
 				}
