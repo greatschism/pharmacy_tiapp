@@ -10,7 +10,7 @@ var Config = {
 		 * initialization
 		 */
 		//for debugging purpose only, should be false on test / production
-		if (Alloy.CFG.overrideRemoteConfiguration === true) {
+		if (Alloy.CFG.overrideRemoteResources === true) {
 			return 0;
 		}
 

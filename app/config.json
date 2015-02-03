@@ -65,8 +65,8 @@
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
-		"clearCachedResources": true,
-		"overrideRemoteResources": true
+		"clearCachedResources": false,
+		"overrideRemoteResources": false
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
