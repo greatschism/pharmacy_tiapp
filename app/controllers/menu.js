@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
     http = require("requestwrapper"),
-    iconSet = Alloy.CFG.iconSet,
+    iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
     startupParams = Alloy.Collections.menuItems.where({
 landing_page: true
@@ -14,7 +14,7 @@ app.navigator.open(args.navigation || startupParams);
 
 function transformFunction(model) {
 	var transform = model.toJSON();
-	transform.icon = icons[iconSet + "_" + transform.icon] || icons[transform.icon];
+	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
 	transform.title = Alloy.Globals.strings[transform.titleid];
 	return transform;
 }

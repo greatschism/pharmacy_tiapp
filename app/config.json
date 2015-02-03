@@ -1,6 +1,6 @@
 {
 	"global": {
-		"iconSet": "thick",
+		"iconPrefix": "thick",
 		"icons": {
 			"hamburger": "R",
 			"back": "!",
@@ -50,7 +50,11 @@
 			"thin_notification": "y",
 			"thin_refill_camera": "$"
 		},
-		"ANIMATION_DURATION": 300
+		"ANIMATION_DURATION": 300,
+		"BUILD_DATE": "buildDate",
+		"FIRST_LAUNCH": "firstLaunch",
+		"RESOURCES_UPDATED_ON": "resourcesUpdated",
+		"RESOURCES_CLEARED_ON": "resourcesCleared"
 	},
 	"env:development": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -61,7 +65,8 @@
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
-		"overrideRemoteConfiguration": true
+		"clearCachedResources": true,
+		"overrideRemoteResources": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -69,10 +74,11 @@
 		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
-		"enableLogger": true,
+		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"overrideRemoteConfiguration": true
+		"clearCachedResources": false,
+		"overrideRemoteResources": false
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -83,7 +89,8 @@
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"overrideRemoteConfiguration": false
+		"clearCachedResources": false,
+		"overrideRemoteResources": false
 	},
 	"os:android": {
 		"navBarHeight": 48,

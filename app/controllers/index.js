@@ -27,13 +27,13 @@ function didFailed() {
 }
 
 function didSuccess(result) {
-	Alloy.Models.user.set(result.data, {
+	Alloy.Models.user.set(result.data || {}, {
 		silent : true
 	});
 	if (_.has(result, "async_update")) {
 		asyncUpdate = result.async_update;
 	}
-	if (config.init(result.data.appload.client_json) > 0) {
+	if (config.init(result.data.client_json) > 0) {
 		if (result.force_update === true) {
 			startUpdate();
 		} else {
@@ -51,7 +51,7 @@ function loadConfig() {
 function didLoadConfig() {
 	$.index.remove($.loading.getView());
 	Alloy.createController(Alloy._navigator + "/master", {
-		navigation : Ti.App.Properties.getBool("firstLoad", true) ? {
+		navigation : Ti.App.Properties.getBool(Alloy.CFG.FIRST_LAUNCH, true) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
 			navBarHidden : true

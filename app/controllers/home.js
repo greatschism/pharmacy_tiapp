@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    iconSet = Alloy.CFG.iconSet,
+    iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons;
 
 function init() {
@@ -20,7 +20,7 @@ function create(dict) {
 	if (_.has(dict, "properties")) {
 		var properties = dict.properties;
 		if (_.has(properties, "icon")) {
-			properties.text = icons[iconSet + "_" + properties.icon] || icons[properties.icon];
+			properties.text = icons[iconPrefix + "_" + properties.icon] || icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
 			properties.text = Alloy.Globals.strings[properties.textid];
 		} else if (_.has(properties, "titleid")) {

@@ -54,7 +54,7 @@ function didReturnLanguage(e) {
 
 function didClickAbout() {
 	dialog.show({
-		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString('buildDate'),
+		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString(Alloy.CFG.BUILD_DATE),
 		title : Alloy.Globals.strings.strAbout
 	});
 }

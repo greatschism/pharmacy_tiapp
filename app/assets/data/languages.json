@@ -1,22 +1,22 @@
 [
 	{
-		"name": "en",
+		"id": "en",
 		"version": 1,
 		"titleid": "lngEnglish",
 		"url": "url_to_download",
 		"selected": true
 	}, {
-		"name": "es",
+		"id": "es",
 		"version": 1,
 		"titleid": "lngSpanish",
 		"url": "url_to_download"
 	}, {
-		"name": "ja",
+		"id": "ja",
 		"version": 1,
 		"titleid": "lngJapanese",
 		"url": "url_to_download"
 	}, {
-		"name": "zh",
+		"id": "zh",
 		"version": 1,
 		"titleid": "lngChinese",
 		"url": "url_to_download"

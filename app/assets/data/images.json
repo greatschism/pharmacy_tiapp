@@ -1,7 +1,7 @@
 [
 	{
 		"version": 1,
-		"name": "logo_pl",
+		"id": "logo_pl",
 		"code": "logo",
 		"format": "png",
 		"orientation": ["portrait", "landscape"],

@@ -32,27 +32,21 @@ var Resources = {
 
 	init : function() {
 
-		if (Ti.App.Properties.getString("updatedResourcesOn", "") != Ti.App.version || Ti.App.deployType != "production") {
+		if (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_UPDATED_ON, "") != Ti.App.version || Ti.App.deployType != "production") {
 
-			//themes
-			Resources.set("themes", JSON.parse(utilities.getFile(Resources.directoryData + "/themes.json")), true);
+			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
+			    clearCache = Alloy.CFG.clearLocalResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || Ti.App.deployType != "production");
 
-			//templates
-			Resources.set("templates", JSON.parse(utilities.getFile(Resources.directoryData + "/templates.json")), true);
+			for (var i in keys) {
+				var key = keys[i];
+				Resources.set(key, JSON.parse(utilities.getFile(Resources.directoryData + "/" + key + ".json")), true, clearCache);
+			}
 
-			//menus
-			Resources.set("menus", JSON.parse(utilities.getFile(Resources.directoryData + "/menus.json")), true);
+			if (clearCache === true) {
+				Ti.App.Properties.setString(Alloy.CFG.RESOURCES_CLEARED_ON, Ti.App.version);
+			}
 
-			//languages
-			Resources.set("languages", JSON.parse(utilities.getFile(Resources.directoryData + "/languages.json")), true);
-
-			//fonts
-			Resources.set("fonts", JSON.parse(utilities.getFile(Resources.directoryData + "/fonts.json")), true);
-
-			//images
-			Resources.set("images", JSON.parse(utilities.getFile(Resources.directoryData + "/images.json")), true);
-
-			Ti.App.Properties.setString("updatedResourcesOn", Ti.App.version);
+			Ti.App.Properties.setString(Alloy.CFG.RESOURCES_UPDATED_ON, Ti.App.version);
 
 		}
 	},
@@ -86,17 +80,20 @@ var Resources = {
 		return Resources.getCollection(_key).find(_where || {}, _conditions || {});
 	},
 
-	set : function(_key, _data, _useLocalResources) {
-		Resources["set" + utilities.ucfirst(_key)](_data, _useLocalResources);
+	set : function(_key, _data, _useLocalResources, _clearCache) {
+		Resources["set" + utilities.ucfirst(_key)](_data, _useLocalResources, _clearCache);
 	},
 
-	setThemes : function(_items, _useLocalResources) {
+	setThemes : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("themes"),
 		    selectedItem = false;
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
-			name: item.name
+			id: item.id
 			})[0] || {};
 			if (_useLocalResources !== true && _.has(item, "styles")) {
 				item = _.omit(item, ["styles"]);
@@ -110,26 +107,26 @@ var Resources = {
 					selected : item.update === true ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("theme added : " + item.name);
+				logger.i("theme added : " + item.id);
 			} else if (item.version > model.version || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "styles") === false,
 					selected : _.has(model, "styles") === false ? false : item.selected
 				});
 				coll.update({
-					name : item.name
+					id : item.id
 				}, {
 					$set : item
 				}, {}, true);
-				logger.i("theme updated : " + item.name);
+				logger.i("theme updated : " + item.id);
 			}
 			if (item.selected === true) {
-				selectedItem = item.name;
+				selectedItem = item.id;
 			}
 		}
 		if (selectedItem) {
 			coll.update({
-				name : {
+				id : {
 					$ne : selectedItem
 				}
 			}, {
@@ -141,13 +138,16 @@ var Resources = {
 		coll.commit();
 	},
 
-	setTemplates : function(_items, _useLocalResources) {
+	setTemplates : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("templates"),
 		    selectedItem = false;
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
-			name: item.name
+			id: item.id
 			})[0] || {};
 			if (_useLocalResources !== true && _.has(item, "data")) {
 				item = _.omit(item, ["data"]);
@@ -161,26 +161,26 @@ var Resources = {
 					selected : item.update === true ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("template added : " + item.name);
+				logger.i("template added : " + item.id);
 			} else if (item.version > model.version || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "data") === false,
 					selected : _.has(model, "data") === false ? false : item.selected
 				});
 				coll.update({
-					name : item.name
+					id : item.id
 				}, {
 					$set : item
 				}, {}, true);
-				logger.i("template updated : " + item.name);
+				logger.i("template updated : " + item.id);
 			}
 			if (item.selected === true) {
-				selectedItem = item.name;
+				selectedItem = item.id;
 			}
 		}
 		if (selectedItem) {
 			coll.update({
-				name : {
+				id : {
 					$ne : selectedItem
 				}
 			}, {
@@ -192,13 +192,16 @@ var Resources = {
 		coll.commit();
 	},
 
-	setMenus : function(_items, _useLocalResources) {
+	setMenus : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("menus"),
 		    selectedItem = false;
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
-			name: item.name
+			id: item.id
 			})[0] || {};
 			if (_useLocalResources !== true && _.has(item, "items")) {
 				item = _.omit(item, ["items"]);
@@ -212,26 +215,26 @@ var Resources = {
 					selected : item.update === true ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("menu added : " + item.name);
+				logger.i("menu added : " + item.id);
 			} else if (item.version > model.version || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "items") === false,
 					selected : _.has(model, "items") === false ? false : item.selected
 				});
 				coll.update({
-					name : item.name
+					id : item.id
 				}, {
 					$set : item
 				}, {}, true);
-				logger.i("menu updated : " + item.name);
+				logger.i("menu updated : " + item.id);
 			}
 			if (item.selected === true) {
-				selectedItem = item.name;
+				selectedItem = item.id;
 			}
 		}
 		if (selectedItem) {
 			coll.update({
-				name : {
+				id : {
 					$ne : selectedItem
 				}
 			}, {
@@ -243,17 +246,20 @@ var Resources = {
 		coll.commit();
 	},
 
-	setLanguages : function(_items, _useLocalResources) {
+	setLanguages : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("languages"),
 		    selectedItem = false;
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
-			name: item.name
+			id: item.id
 			})[0] || {};
 			if (_useLocalResources === true) {
 				_.extend(item, {
-					strings : JSON.parse(utilities.getFile(Resources.directoryLanguages + "/" + item.name + ".json") || "{}")
+					strings : JSON.parse(utilities.getFile(Resources.directoryLanguages + "/" + item.id + ".json") || "{}")
 				});
 			} else if (_.has(item, "strings")) {
 				item = _.omit(item, ["strings"]);
@@ -267,26 +273,26 @@ var Resources = {
 					selected : item.update === true ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("language added : " + item.name);
+				logger.i("language added : " + item.id);
 			} else if (item.version > model.version || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "strings") === false,
 					selected : _.has(model, "strings") === false ? false : item.selected
 				});
 				coll.update({
-					name : item.name
+					id : item.id
 				}, {
 					$set : item
 				}, {}, true);
-				logger.i("language updated : " + item.name);
+				logger.i("language updated : " + item.id);
 			}
 			if (item.selected === true) {
-				selectedItem = item.name;
+				selectedItem = item.id;
 			}
 		}
 		if (selectedItem) {
 			coll.update({
-				name : {
+				id : {
 					$ne : selectedItem
 				}
 			}, {
@@ -298,11 +304,14 @@ var Resources = {
 		coll.commit();
 	},
 
-	setFonts : function(_items, _useLocalResources) {
+	setFonts : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("fonts"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
 		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts),
 		    fontFiles = utilities.getFiles(Resources.directoryFonts, Ti.Filesystem.applicationDataDirectory);
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		if (OS_IOS || OS_ANDROID) {
 			if (!dataDir.exists()) {
 				dataDir.createDirectory();
@@ -316,12 +325,12 @@ var Resources = {
 			var item = _items[i];
 			if (_.indexOf(item.platform, platform) >= 0) {
 				var model = coll.find({
-				name: item.name
+				id: item.id
 				})[0] || {};
 				if (_useLocalResources === true) {
-					var file = item.name + "_" + item.version + "." + item.format;
+					var file = item.id + "_" + item.version + "." + item.format;
 					if (OS_IOS || OS_ANDROID) {
-						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file));
+						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file));
 					}
 					_.extend(item, {
 						file : file
@@ -332,25 +341,28 @@ var Resources = {
 				});
 				if (_.isEmpty(model)) {
 					coll.save(item);
-					logger.i("font added : " + item.name);
+					logger.i("font added : " + item.id);
 				} else if (item.version > model.version || _useLocalResources === true) {
 					coll.update({
-						name : item.name
+						id : item.id
 					}, {
 						$set : item
 					}, {}, true);
-					logger.i("font updated : " + item.name);
+					logger.i("font updated : " + item.id);
 				}
 			}
 		}
 		coll.commit();
 	},
 
-	setImages : function(_items, _useLocalResources) {
+	setImages : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("images"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
 		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages),
 		    imageFiles = utilities.getFiles(Resources.directoryImages, Ti.Filesystem.applicationDataDirectory);
+		if (_clearCache === true) {
+			coll.clear();
+		}
 		if (OS_IOS || OS_ANDROID) {
 			if (!dataDir.exists()) {
 				dataDir.createDirectory();
@@ -362,12 +374,12 @@ var Resources = {
 		for (var i in _items) {
 			var item = _items[i],
 			    model = coll.find({
-			name: item.name
+			id: item.id
 			})[0] || {};
 			if (_useLocalResources === true) {
-				var file = item.name + "_" + item.version + "." + item.format;
+				var file = item.id + "_" + item.version + "." + item.format;
 				if (OS_IOS || OS_ANDROID) {
-					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.name + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file));
+					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file));
 				}
 				_.extend(item, {
 					file : file
@@ -378,14 +390,14 @@ var Resources = {
 			});
 			if (_.isEmpty(model)) {
 				coll.save(item);
-				logger.i("image added : " + item.name);
+				logger.i("image added : " + item.id);
 			} else if (item.version > model.version || _useLocalResources === true) {
 				coll.update({
-					name : item.name
+					id : item.id
 				}, {
 					$set : item
 				}, {}, true);
-				logger.i("image updated : " + item.name);
+				logger.i("image updated : " + item.id);
 			}
 		}
 		coll.commit();

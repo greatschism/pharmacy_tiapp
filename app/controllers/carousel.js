@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     app = require("core");
 
 function init() {
-	Ti.App.Properties.setBool("firstLoad", false);
+	Ti.App.Properties.setBool(Alloy.CFG.FIRST_LAUNCH, false);
 }
 
 function didChangePage(e) {

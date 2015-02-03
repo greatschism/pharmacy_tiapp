@@ -97,11 +97,11 @@ var Config = {
 			 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 			 */
 			if (OS_IOS || OS_ANDROID) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file), fonts[i].name);
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file), fonts[i].id);
 			}
-			Alloy["_font_" + fonts[i].code] = fonts[i].name;
+			Alloy["_font_" + fonts[i].code] = fonts[i].id;
 		}
-		//replacing font code with post script name
+		//replacing font code with post script id
 		for (var i = 1; i <= 6; i++) {
 			var hId = "_h".concat(i);
 			Alloy[hId].fontFamily = Alloy["_font_" + Alloy[hId].fontFamily];
