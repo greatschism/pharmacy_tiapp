@@ -330,7 +330,7 @@ var Resources = {
 				if (_useLocalResources === true) {
 					var file = item.id + "_" + item.version + "." + item.format;
 					if (OS_IOS || OS_ANDROID) {
-						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file));
+						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
 					}
 					_.extend(item, {
 						file : file
@@ -379,7 +379,7 @@ var Resources = {
 			if (_useLocalResources === true) {
 				var file = item.id + "_" + item.version + "." + item.format;
 				if (OS_IOS || OS_ANDROID) {
-					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file));
+					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
 				}
 				_.extend(item, {
 					file : file
@@ -466,10 +466,145 @@ var Resources = {
 
 	didUpdate : function(_data, _passthrough) {
 		if (_data) {
-			var coll = Resources.getCollection(_passthrough.key);
-			//to do
+			var key = _passthrough.key,
+			    coll = Resources.getCollection(),
+			    model = coll.find({
+			id : _passthrough.id
+			})[0];
+			switch(key) {
+			case "themes":
+				_.extend(model, {
+					styles : _data,
+					update : false
+				});
+				if (model.revert === true) {
+					_.extend(model, {
+						selected : true,
+						revert : false
+					});
+					coll.update({
+						id : model.id
+					}, {
+						$set : model
+					}, {}, true);
+					coll.update({
+						id : {
+							$ne : model.id
+						}
+					}, {
+						$set : {
+							selected : false
+						}
+					}, {}, true);
+				}
+				break;
+			case "templates":
+				_.extend(model, {
+					data : _data,
+					update : false
+				});
+				if (model.revert === true) {
+					_.extend(model, {
+						selected : true,
+						revert : false
+					});
+					coll.update({
+						id : model.id
+					}, {
+						$set : model
+					}, {}, true);
+					coll.update({
+						id : {
+							$ne : model.id
+						}
+					}, {
+						$set : {
+							selected : false
+						}
+					}, {}, true);
+				}
+				break;
+			case "menus":
+				_.extend(model, {
+					items : _data,
+					update : false
+				});
+				if (model.revert === true) {
+					_.extend(model, {
+						selected : true,
+						revert : false
+					});
+					coll.update({
+						id : model.id
+					}, {
+						$set : model
+					}, {}, true);
+					coll.update({
+						id : {
+							$ne : model.id
+						}
+					}, {
+						$set : {
+							selected : false
+						}
+					}, {}, true);
+				}
+				break;
+			case "languages":
+				_.extend(model, {
+					strings : _data,
+					update : false
+				});
+				if (model.revert === true) {
+					_.extend(model, {
+						selected : true,
+						revert : false
+					});
+					coll.update({
+						id : model.id
+					}, {
+						$set : model
+					}, {}, true);
+					coll.update({
+						id : {
+							$ne : model.id
+						}
+					}, {
+						$set : {
+							selected : false
+						}
+					}, {}, true);
+				}
+				break;
+			case "fonts":
+				var file = model.id + "_" + model.version + "." + model.format;
+				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), _data, false);
+				_.extend(model, {
+					file : file,
+					update : false
+				});
+				coll.update({
+					id : model.id
+				}, {
+					$set : model
+				}, {}, true);
+				break;
+			case "images":
+				var file = model.id + "_" + model.version + "." + model.format;
+				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
+				_.extend(model, {
+					file : file,
+					update : false
+				});
+				coll.update({
+					id : model.id
+				}, {
+					$set : model
+				}, {}, true);
+				break;
+			}
 			coll.commit();
-			logger.i("downloaded " + _passthrough.key + " from " + _passthrough.data.url);
+			logger.i("downloaded " + key + " from " + _passthrough.data.url);
 			Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
 				return _.isEqual(obj, _passthrough);
 			});
@@ -478,7 +613,7 @@ var Resources = {
 				Resources.successCallback = false;
 			}
 		} else {
-			logger.e("unable to download " + _passthrough.key + " from " + _passthrough.data.url);
+			logger.e("unable to download " + key + " from " + _passthrough.data.url);
 		}
 	}
 };

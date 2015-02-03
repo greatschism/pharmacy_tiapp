@@ -122,18 +122,35 @@ exports.getFiles = function(_path, _directory) {
  * copy source files to destination
  * @param {File} _sFile The File to copy
  * @param {File} _dFile The destination file
- * @param {Boolean} _append whether or not to append file (ios only)
+ * @param {Boolean} _remoteBackup whether or not to backup on iCloud (ios only)
  */
-exports.copy = function(_sFile, _dFile, _append) {
+exports.copy = function(_sFile, _dFile, _remoteBackup) {
 	if (_sFile.exists()) {
 		if (OS_IOS) {
-			return _dFile.write(_sFile.read(), _append || false);
+			if (_remoteBackup === false) {
+				_dFile.setRemoteBackup(false);
+			}
+			return _dFile.write(_sFile.read());
 		} else {
 			return _sFile.copy(_dFile.nativePath);
 		}
 	} else {
 		return false;
 	}
+};
+
+/**
+ * write data to file
+ * @param {File} _dFile The destination file
+ * @param {Blob} _blob The blob object
+ * @param {Boolean} _append whether or not to append file
+ * @param {Boolean} _remoteBackup whether or not to backup on iCloud (ios only)
+ */
+exports.write = function(_dFile, _blob, _remoteBackup, _append) {
+	if (OS_IOS && _remoteBackup === false) {
+		_dFile.setRemoteBackup(false);
+	}
+	return _dFile.write(_blob, _append || false);
 };
 
 exports.getFileName = function(path) {
@@ -655,4 +672,28 @@ exports.getRandomString = function(_length) {
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 
 	return text;
+};
+
+/**
+ * Performs a deep clone of an object, returning a pointer to the clone
+ * @param o the object to clone
+ * @return object
+ */
+exports.clone = function(o) {
+	var c = {};
+	if (Scule.global.functions.isArray(o)) {
+		c = [];
+	}
+	for (var a in o) {
+		if ( typeof (o[a]) === "object") {
+			if (o[a] instanceof RegExp) {
+				c[a] = new RegExp(o[a].toString());
+			} else {
+				c[a] = Scule.global.functions.cloneObject(o[a]);
+			}
+		} else {
+			c[a] = o[a];
+		}
+	}
+	return c;
 };

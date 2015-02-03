@@ -84,16 +84,16 @@ var Config = {
 		});
 
 		//styles
-		var styles = theme.styles;
+		var styles = utilities.clone(theme.styles);
 		for (var i in styles) {
 			Alloy["_".concat(i)] = _.clone(styles[i]);
 		}
 
 		//menu items
-		Alloy.Collections.menuItems.reset(menu.items);
+		Alloy.Collections.menuItems.reset(utilities.clone(menu.items));
 
 		//template
-		Alloy.Models.template.set(template);
+		Alloy.Models.template.set(utilities.clone(template));
 
 		//language
 		localization.init();
@@ -128,6 +128,10 @@ var Config = {
 		if (_callback) {
 			_callback();
 		}
+	},
+
+	update : function(_callback) {
+		resources.update(_callback);
 	}
 };
 

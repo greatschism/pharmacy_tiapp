@@ -72,7 +72,7 @@ function startUpdate() {
 	if (asyncUpdate === true) {
 		loadConfig();
 	} else {
-
+		config.update(loadConfig);
 	}
 }
 
