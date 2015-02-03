@@ -17,27 +17,42 @@ function setMessage(message) {
 	$.messageLbl.setText(message);
 }
 
-function show(_callback, _duration) {
-	toggle(true, _callback, _duration);
+function show(_callback, _animated, _duration) {
+	if (_animated !== false) {
+		animate(true, _callback, _duration);
+	} else {
+		toggleProperties(true, _callback);
+	}
 }
 
-function hide(_callback, _duration) {
-	toggle(false, _callback, _duration);
+function hide(_callback, _animated, _duration) {
+	if (_animated !== false) {
+		animate(false, _callback, _duration);
+	} else {
+		toggleProperties(false, _callback);
+	}
 }
 
-function toggle(_visible, _callback, _duration) {
+function animate(_visible, _callback, _duration) {
 	var animation = Ti.UI.createAnimation({
 		opacity : _visible ? 1 : 0,
 		duration : _duration || 300
 	});
 	animation.addEventListener("complete", function onComplete() {
-		$.activityIndicator[_visible ? "show" : "hide"]();
 		animation.removeEventListener("complete", onComplete);
-		if (_callback) {
-			_callback();
-		}
+		toggleProperties(_visible, _callback);
 	});
 	$.widget.animate(animation);
+}
+
+function toggleProperties(_visible, _callback) {
+	$.widget.applyProperties({
+		opacity : _visible ? 1 : 0,
+		visible : _visible
+	});
+	if (_callback) {
+		_callback();
+	}
 }
 
 exports.show = show;

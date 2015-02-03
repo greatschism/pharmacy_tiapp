@@ -62,11 +62,13 @@
 		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
+		"enableEncryption": false,
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
 		"clearCachedResources": false,
-		"overrideRemoteResources": false
+		"overrideRemoteResources": false,
+		"simulateAPI": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -74,11 +76,13 @@
 		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
+		"enableEncryption": false,
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
 		"clearCachedResources": false,
-		"overrideRemoteResources": false
+		"overrideRemoteResources": false,
+		"simulateAPI": false
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -86,11 +90,13 @@
 		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
+		"enableEncryption": false,
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
 		"clearCachedResources": false,
-		"overrideRemoteResources": false
+		"overrideRemoteResources": false,
+		"simulateAPI": false
 	},
 	"os:android": {
 		"navBarHeight": 48,

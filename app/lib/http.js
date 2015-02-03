@@ -54,13 +54,9 @@ exports.request = function(_params) {
 			}
 
 			if (_params.success) {
-				if (_params.passthrough) {
-					_params.success(_data, _params.url, _params.passthrough);
-				} else {
-					_params.success(_data, _params.url);
-				}
+				_params.success(_data, _params.passthrough || {});
 				if (_params.done) {
-					_params.done();
+					_params.done(_params.passthrough || {});
 				}
 			} else {
 				return _data;
@@ -83,13 +79,9 @@ exports.request = function(_params) {
 		 */
 		xhr.onerror = function(_event) {
 			if (_params.failure) {
-				if (_params.passthrough) {
-					_params.failure(this, _params.url, _params.passthrough);
-				} else {
-					_params.failure(this, _params.url);
-				}
+				_params.failure(_params.passthrough || {});
 				if (_params.done) {
-					_params.done();
+					_params.done(_params.passthrough || {});
 				}
 			} else {
 				logger.e(JSON.stringify(this));
@@ -124,10 +116,9 @@ exports.request = function(_params) {
 		logger.e("No internet connection");
 
 		if (_params.failure) {
-			if (_params.passthrough) {
-				_params.failure(null, _params.url, _params.passthrough);
-			} else {
-				_params.failure(null, _params.url);
+			_params.failure(_params.passthrough || {});
+			if (_params.done) {
+				_params.done(_params.passthrough || {});
 			}
 		}
 	}

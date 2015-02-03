@@ -9,35 +9,33 @@ function didOpen(e) {
 	http.request({
 		path : "appload/get",
 		format : "JSON",
-		data : {},
-		retry : false,
-		prompt : false,
 		success : didSuccess,
-		failure : didFailed
+		blockUICallback : showLoader,
+		unblockUICallback : hideLoader
 	});
 }
 
-function didFailed() {
-	dialog.show({
-		message : strings.msgFailedToRetrieve,
-		buttonNames : [strings.btnRetry, strings.strCancel],
-		cancelIndex : 1,
-		success : didOpen
-	});
+function showLoader(_callback, _animated) {
+	$.loading.show(_callback, _animated || false);
+}
+
+function hideLoader(_callback, _animated) {
+	$.loading.hide(_callback, _animated || false);
 }
 
 function didSuccess(result) {
 	Alloy.Models.user.set(result.data || {}, {
 		silent : true
 	});
-	if (_.has(result, "async_update")) {
-		asyncUpdate = result.async_update;
+	var clientConfig = result.data.client_json;
+	if (_.has(clientConfig, "async_update")) {
+		asyncUpdate = clientConfig.async_update;
 	}
-	if (config.init(result.data.client_json) > 0) {
-		if (result.force_update === true) {
+	if (config.init(clientConfig) > 0) {
+		if (clientConfig.force_update === true) {
 			startUpdate();
 		} else {
-			$.loading.hide(confirmUpdate);
+			hideLoader(confirmUpdate, true);
 		}
 	} else {
 		loadConfig();

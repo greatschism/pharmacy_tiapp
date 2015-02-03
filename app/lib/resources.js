@@ -35,7 +35,7 @@ var Resources = {
 		if (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_UPDATED_ON, "") != Ti.App.version || Ti.App.deployType != "production") {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-			    clearCache = Alloy.CFG.clearLocalResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || Ti.App.deployType != "production");
+			    clearCache = Alloy.CFG.clearCachedResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || Ti.App.deployType != "production");
 
 			for (var i in keys) {
 				var key = keys[i];
@@ -464,7 +464,7 @@ var Resources = {
 		}
 	},
 
-	didUpdate : function(_data, _url, _passthrough) {
+	didUpdate : function(_data, _passthrough) {
 		if (_data) {
 			var coll = Resources.getCollection(_passthrough.key);
 			//to do

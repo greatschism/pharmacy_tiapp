@@ -6,81 +6,44 @@ var Alloy = require("alloy"),
     app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
+    utilities = require("utilities"),
     xmlTools = require("XMLTools"),
-    cfg = Alloy.CFG;
+    CFG = Alloy.CFG,
+    user = {},
+    encryptionUtil;
 
 if (OS_IOS || OS_ANDROID) {
-	var encryptionUtil = require("encryptionUtil");
+	encryptionUtil = require("encryptionUtil");
 }
 
 function request(_params) {
 
-	var format = _params.format || "TEXT",
-	    user = Alloy.Models.user.toJSON();
+	user = Alloy.Models.user.toJSON();
 
-	if (!_params.data) {
+	if (!_.has(_params, "format")) {
+		_params.format = "TEXT";
+	}
+
+	if (!_.has(_params, "data")) {
 		_params.data = {};
 	}
 
-	var httpParams = {
-		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : cfg.baseUrl.concat(_params.path),
-		type : "POST",
-		format : format,
-		success : function(_data) {
-
-			/*if (OS_IOS || OS_ANDROID) {
-			 _data = encryptionUtil.decrypt(_data);
-			 }*/
-
-			if (format == "TEXT") {
-				_data = new xmlTools(_data).toObject();
-			}
-
-			var error = _data[_.keys(_data)[0]].error;
-			if (_.isObject(error)) {
-				dialog.show({
-					message : error.errormessage
-				});
-				if (_params.failure) {
-					_params.failure(_data);
-				}
-			} else if (_params.success) {
-				_params.success(_data);
-			}
-		},
-		failure : function(http, url) {
-			var retry = _params.retry !== false;
-			if (_params.failure) {
-				_params.failure();
-			}
-			if (_params.prompt !== false) {
-				dialog.show({
-					message : Alloy.Globals.strings.msgFailedToRetrieve,
-					buttonNames : retry ? [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.strOK],
-					cancelIndex : retry ? 1 : 0,
-					success : function() {
-						request(_params);
-					}
-				});
-			}
-		},
-		done : function() {
-			if ((_params.keepBlook !== true || _.isEmpty(_params.failure)) && _.isEmpty(app.navigator) === false) {
-				app.navigator.hideLoader();
-			}
-			if (_params.done) {
-				_params.done();
-			}
-		}
-	};
-
-	if (_params.blockUI !== false && _.isEmpty(app.navigator) === false) {
-		app.navigator.showLoader({
-			message : Alloy.Globals.strings.msgPleaseWait
-		});
+	if (!_.has(_params, "type")) {
+		_params.type = "POST";
 	}
 
-	if (format == "TEXT") {
+	if (_params.blockUI !== false) {
+		if (_.isEmpty(app.navigator) === false) {
+			app.navigator.showLoader({
+				message : _params.blockerMessage || Alloy.Globals.strings.msgPleaseWait
+			});
+		}
+		if (_params.blockUICallback) {
+			_params.blockUICallback();
+		}
+	}
+
+	if (_params.format == "TEXT" && _params.dataTransform !== false) {
 
 		var xml = "";
 		var jsonToXml = function(json) {
@@ -97,6 +60,7 @@ function request(_params) {
 		if ( typeof _params.data != "string") {
 			jsonToXml(_params.data);
 			_params.data = xml;
+			_params.dataTransform = false;
 		}
 
 		var headers = [{
@@ -124,21 +88,112 @@ function request(_params) {
 		_params.headers = _.union(headers, _params.headers || []);
 
 	} else {
+
 		_.extend(_params.data, {
-			client_identifier : cfg.clientIdentifier,
-			version : cfg.apiVersion,
+			client_identifier : CFG.clientIdentifier,
+			version : CFG.apiVersion,
 			session_id : user.sessionId
 		});
 		_params.data = JSON.stringify(_params.data);
+
 	}
 
-	/*if (OS_IOS || OS_ANDROID) {
-	 _params.data = encryptionUtil.encrypt(_params.data);
-	 }*/
+	if (OS_IOS || OS_ANDROID) {
+		if (CFG.enableEncryption) {
+			_params.data = encryptionUtil.encrypt(_params.data);
+		}
+	}
 
-	_.extend(httpParams, _.omit(_params, ["method", "format", "success", "failure", "done"]));
+	var httpParams = {
+		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : CFG.baseUrl.concat(_params.path),
+		type : _params.type,
+		format : _params.format,
+		success : didSuccess,
+		failure : didFail,
+		done : didComplete,
+		passthrough : _params
+	};
+	_.extend(httpParams, _.omit(_params, ["path", "method", "type", "format", "dataTransform", "retry", "forceRetry", "prompt", "blockUI", "keepBlook", "message", "data", "success", "failure", "done"]));
 
 	http.request(httpParams);
+}
+
+function getSimulatedResponse(_passthrough) {
+	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.path], _passthrough);
+}
+
+function didSuccess(_data, _passthrough) {
+	if (CFG.simulateAPI) {
+		getSimulatedResponse(_passthrough);
+	} else {
+		if (OS_IOS || OS_ANDROID) {
+			if (CFG.enableEncryption) {
+				_data = encryptionUtil.decrypt(_data);
+			}
+		}
+
+		if (_passthrough.format == "TEXT") {
+			_data = new xmlTools(_data).toObject();
+		}
+
+		var error = _data[_.keys(_data)[0]].error;
+		if (_.isObject(error)) {
+			dialog.show({
+				message : error.errormessage
+			});
+			if (_passthrough.failure) {
+				_passthrough.failure(_passthrough);
+			}
+		} else if (_passthrough.success) {
+			_passthrough.success(_data, _passthrough);
+		}
+	}
+}
+
+function didFail(_passthrough) {
+	if (CFG.simulateAPI) {
+		getSimulatedResponse(_passthrough);
+	} else {
+		var forceRetry = _passthrough.forceRetry !== false,
+		    retry = forceRetry || _passthrough.retry !== false;
+		if (forceRetry || retry || _passthrough.prompt !== false) {
+			if (_.isEmpty(app.navigator) === false) {
+				app.navigator.hideLoader();
+			}
+			if (_passthrough.unblockUICallback) {
+				_passthrough.unblockUICallback();
+			}
+			dialog.show({
+				message : _passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
+				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
+				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
+				success : function() {
+					request(_passthrough);
+				},
+				cancel : function() {
+					if (_passthrough.failure) {
+						_passthrough.failure();
+					}
+				}
+			});
+		} else if (_passthrough.failure) {
+			_passthrough.failure();
+		}
+	}
+}
+
+function didComplete(_passthrough) {
+	if ((_passthrough.keepBlook !== true || _.isEmpty(_passthrough.failure))) {
+		if (_.isEmpty(app.navigator) === false) {
+			app.navigator.hideLoader();
+		}
+		if (_passthrough.unblockUICallback) {
+			_passthrough.unblockUICallback();
+		}
+	}
+	if (_passthrough.done) {
+		_passthrough.done();
+	}
 }
 
 exports.request = request;
