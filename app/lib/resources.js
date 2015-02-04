@@ -108,7 +108,7 @@ var Resources = {
 				});
 				coll.save(item);
 				logger.i("theme added : " + item.id);
-			} else if (item.version > model.version || _useLocalResources === true) {
+			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "styles") === false,
 					selected : _.has(model, "styles") === false ? false : item.selected
@@ -162,7 +162,7 @@ var Resources = {
 				});
 				coll.save(item);
 				logger.i("template added : " + item.id);
-			} else if (item.version > model.version || _useLocalResources === true) {
+			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "data") === false,
 					selected : _.has(model, "data") === false ? false : item.selected
@@ -216,7 +216,7 @@ var Resources = {
 				});
 				coll.save(item);
 				logger.i("menu added : " + item.id);
-			} else if (item.version > model.version || _useLocalResources === true) {
+			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "items") === false,
 					selected : _.has(model, "items") === false ? false : item.selected
@@ -274,7 +274,7 @@ var Resources = {
 				});
 				coll.save(item);
 				logger.i("language added : " + item.id);
-			} else if (item.version > model.version || _useLocalResources === true) {
+			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
 				_.extend(item, {
 					revert : item.selected === true && _.has(model, "strings") === false,
 					selected : _.has(model, "strings") === false ? false : item.selected
@@ -405,19 +405,35 @@ var Resources = {
 		//update all where update flag is true
 		var keys = {
 			"themes" : {
-				"selected" : true,
+				$or : [{
+					"selected" : true
+				}, {
+					"revert" : true
+				}],
 				"update" : true
 			},
 			"templates" : {
-				"selected" : true,
+				$or : [{
+					"selected" : true
+				}, {
+					"revert" : true
+				}],
 				"update" : true
 			},
 			"menus" : {
-				"selected" : true,
+				$or : [{
+					"selected" : true
+				}, {
+					"revert" : true
+				}],
 				"update" : true
 			},
 			"languages" : {
-				"selected" : true,
+				$or : [{
+					"selected" : true
+				}, {
+					"revert" : true
+				}],
 				"update" : true
 			},
 			"fonts" : {
