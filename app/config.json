@@ -50,12 +50,15 @@
 			"thin_notification": "y",
 			"thin_refill_camera": "$"
 		},
+		"forceUpdate": false,
+		"forceReloadAfterUpdate": false,
+		"asyncUpdate": true,
+		"deleteUnusedResoruces": true,
 		"ANIMATION_DURATION": 300,
 		"BUILD_DATE": "buildDate",
 		"FIRST_LAUNCH": "firstLaunch",
 		"RESOURCES_UPDATED_ON": "resourcesUpdated",
-		"RESOURCES_CLEARED_ON": "resourcesCleared",
-		"deleteUnusedResoruces": true
+		"RESOURCES_CLEARED_ON": "resourcesCleared"
 	},
 	"env:development": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",

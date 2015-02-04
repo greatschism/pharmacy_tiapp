@@ -2,8 +2,7 @@ var config = require("config"),
     http = require("requestwrapper"),
     dialog = require("dialog"),
     utilities = require("utilities"),
-    strings = Alloy.Globals.strings,
-    asyncUpdate = true;
+    strings = Alloy.Globals.strings;
 
 function didOpen(e) {
 	http.request({
@@ -28,11 +27,17 @@ function didSuccess(result) {
 		silent : true
 	});
 	var clientConfig = result.data.client_json;
+	if (_.has(clientConfig, "force_update")) {
+		Alloy.CFG.forceUpdate = clientConfig.force_update;
+	}
 	if (_.has(clientConfig, "async_update")) {
-		asyncUpdate = clientConfig.async_update;
+		Alloy.CFG.asyncUpdate = clientConfig.async_update;
+	}
+	if (_.has(clientConfig, "force_reload_after_update")) {
+		Alloy.CFG.forceReloadAfterUpdate = clientConfig.force_reload_after_update;
 	}
 	if (config.init(clientConfig) > 0) {
-		if (clientConfig.force_update === true) {
+		if (Alloy.CFG.forceUpdate) {
 			startUpdate();
 		} else {
 			hideLoader(confirmUpdate, true);
@@ -40,21 +45,6 @@ function didSuccess(result) {
 	} else {
 		loadConfig();
 	}
-}
-
-function loadConfig() {
-	config.load(didLoadConfig);
-}
-
-function didLoadConfig() {
-	$.index.remove($.loading.getView());
-	Alloy.createController(Alloy._navigator + "/master", {
-		navigation : Ti.App.Properties.getBool(Alloy.CFG.FIRST_LAUNCH, true) ? {
-			ctrl : "carousel",
-			titleid : "strWelcome",
-			navBarHidden : true
-		} : false
-	});
 }
 
 function confirmUpdate() {
@@ -69,7 +59,7 @@ function confirmUpdate() {
 }
 
 function startUpdate() {
-	if (asyncUpdate === true) {
+	if (Alloy.CFG.asyncUpdate) {
 		loadConfig();
 	} else {
 		showLoader(syncUpdate);
@@ -78,6 +68,22 @@ function startUpdate() {
 
 function syncUpdate() {
 	config.update(loadConfig);
+}
+
+function loadConfig() {
+	config.load(didLoadConfig);
+}
+
+function didLoadConfig(updateQueue) {
+	$.index.remove($.loading.getView());
+	Alloy.createController(Alloy._navigator + "/master", {
+		navigation : Ti.App.Properties.getBool(Alloy.CFG.FIRST_LAUNCH, true) ? {
+			ctrl : "carousel",
+			titleid : "strWelcome",
+			navBarHidden : true
+		} : false,
+		triggerUpdate : updateQueue.length > 0
+	});
 }
 
 $.index.open();

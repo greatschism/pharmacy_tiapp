@@ -3,7 +3,8 @@
 		"data": {
 			"client_json": {
 				"force_update": false,
-				"async_update": false,
+				"force_reload_after_update": false,
+				"async_update": true,
 				"theme": {
 					"id": "mscripts",
 					"version": 2,

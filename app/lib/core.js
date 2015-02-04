@@ -10,9 +10,16 @@
  * @class core
  * @singleton
  */
-var Alloy = require("alloy");
+var Alloy = require("alloy"),
+    config = require("config"),
+    dialog = require("dialog");
 
 var App = {
+
+	/**
+	 * flag that tells whether there are any updates to be applied
+	 */
+	canReload : false,
 
 	/**
 	 * Device information, some come from the Ti API calls and can be referenced
@@ -106,6 +113,37 @@ var App = {
 		});
 		// Require in the navigation module
 		App.navigator = require(String(_params.type).concat("/navigation"))(_params);
+	},
+
+	/**
+	 * handles the async update
+	 */
+	update : function() {
+		App.canReload = true;
+		config.update(App.promptAndReloadConfig);
+	},
+
+	promptAndReloadConfig : function() {
+		dialog.show({
+			title : Alloy.Globals.strings.titleUpdates,
+			message : Alloy.CFG.forceReloadAfterUpdate ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
+			buttonNames : Alloy.CFG.forceReloadAfterUpdate ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
+			cancelIndex : Alloy.CFG.forceReloadAfterUpdate ? -1 : 1,
+			success : App.reloadConfig
+		});
+	},
+
+	reloadConfig : function() {
+		if (App.canReload) {
+			App.canReload = false;
+			config.load(App.resetNavigator);
+		}
+	},
+
+	resetNavigator : function() {
+		App.navigator.closeToRoot(function() {
+			App.navigator.open(App.navigator.startupParams);
+		});
 	},
 
 	/**

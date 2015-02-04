@@ -67,13 +67,6 @@ var Config = {
 	load : function(_callback) {
 
 		/**
-		 * delete unused resources
-		 */
-		if (Alloy.CFG.deleteUnusedResoruces) {
-			resources.deleteUnusedResoruces();
-		}
-
-		/**
 		 * load into memory
 		 */
 		var theme = resources.get("themes", {selected : true})[0],
@@ -146,8 +139,15 @@ var Config = {
 			}
 		}
 
+		/**
+		 * delete unused resources
+		 */
+		if (Alloy.CFG.deleteUnusedResoruces) {
+			resources.deleteUnusedResoruces();
+		}
+
 		if (_callback) {
-			_callback();
+			_callback(resources.updateQueue);
 		}
 	},
 

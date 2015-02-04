@@ -33,6 +33,12 @@ function Navigation(_args) {
 	this.logger = require("logger");
 
 	/**
+	 * utilities
+	 * @type {Utilities}
+	 */
+	this.utilities = require("utilities");
+
+	/**
 	 * name of the navigator
 	 * @type {String}
 	 */
@@ -52,9 +58,9 @@ function Navigation(_args) {
 
 	/**
 	 * The first controller's arguments, used in android to redirect user back to the controller on back button
-	 * @type {Boolean/Object}
+	 * @type {Object}
 	 */
-	this.startupParams = false;
+	this.startupParams = null;
 
 	/**
 	 * The current root controller's arguments
@@ -97,7 +103,7 @@ function Navigation(_args) {
 	 * @param {Object} _params The arguments for the method
 	 */
 	this.setStartupParams = function(_params) {
-		that.startupParams = _params;
+		that.startupParams = that.utilities.clone(_params);
 	};
 
 	/**
@@ -132,6 +138,10 @@ function Navigation(_args) {
 		if (_params.stack) {
 			that.isBusy = false;
 			return that.push(_params, _callback);
+		}
+
+		if (!that.startupParams) {
+			that.setStartupParams(_params);
 		}
 
 		that.currentRootParams = _params;

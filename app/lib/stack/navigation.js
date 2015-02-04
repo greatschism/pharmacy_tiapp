@@ -24,12 +24,18 @@ function Navigation(_args) {
 	 * @type {Boolean}
 	 */
 	this.isBusy = false;
-	
+
 	/**
 	 * logger
 	 * @type {Logger}
 	 */
 	this.logger = require("logger");
+
+	/**
+	 * utilities
+	 * @type {Utilities}
+	 */
+	this.utilities = require("utilities");
 
 	/**
 	 * name of the navigator
@@ -48,6 +54,18 @@ function Navigation(_args) {
 	 * @type {Controllers}
 	 */
 	this.currentController = null;
+
+	/**
+	 * The first controller's arguments, used in android to redirect user back to the controller on back button
+	 * @type {Object}
+	 */
+	this.startupParams = null;
+
+	/**
+	 * The current root controller's arguments
+	 * @type {Object}
+	 */
+	this.currentRootParams = null;
 
 	/**
 	 * controller that blocks ui from user interaction
@@ -72,6 +90,14 @@ function Navigation(_args) {
 	 * @type {Module}
 	 */
 	this.keyboard = OS_IOS || OS_ANDROID ? require("ti.keyboard") : false;
+
+	/**
+	 * set home page parameters, will be used by this.open method later
+	 * @param {Object} _params The arguments for the method
+	 */
+	this.setStartupParams = function(_params) {
+		that.startupParams = that.utilities.clone(_params);
+	};
 
 	/**
 	 * Open a screen controller
@@ -107,7 +133,13 @@ function Navigation(_args) {
 			return that.push(_params, _callback);
 		}
 
-		var controller = Alloy.createController("stack/template", _params);
+		if (!that.startupParams) {
+			that.setStartupParams(_params);
+		}
+
+		that.currentRootParams = _params;
+
+		var controller = Alloy.createController("stack/template", that.currentRootParams);
 
 		var view = controller.getView();
 

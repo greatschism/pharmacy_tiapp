@@ -16,6 +16,9 @@ function initHamburger() {
 		menuView : menuCtrl.getView(),
 		parent : $.window
 	});
+	if (args.triggerUpdate === true) {
+		app.update();
+	}
 }
 
 function didOpen() {
@@ -34,7 +37,6 @@ function didOpen() {
 function didClose(e) {
 	menuCtrl.terminate();
 	app.navigator.hamburger.terminate();
-	app.terminate();
 }
 
 $.window.open();
