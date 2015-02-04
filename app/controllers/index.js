@@ -72,8 +72,12 @@ function startUpdate() {
 	if (asyncUpdate === true) {
 		loadConfig();
 	} else {
-		config.update(loadConfig);
+		showLoader(syncUpdate);
 	}
+}
+
+function syncUpdate() {
+	config.update(loadConfig);
 }
 
 $.index.open();

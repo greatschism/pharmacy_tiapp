@@ -2,7 +2,7 @@
 	"appload/get": {
 		"data": {
 			"client_json": {
-				"force_update": true,
+				"force_update": false,
 				"async_update": false,
 				"theme": {
 					"id": "mscripts",

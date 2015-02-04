@@ -104,22 +104,20 @@ function request(_params) {
 		}
 	}
 
-	var httpParams = {
+	http.request({
 		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : CFG.baseUrl.concat(_params.path),
 		type : _params.type,
 		format : _params.format,
+		data : _params.data,
 		success : didSuccess,
 		failure : didFail,
 		done : didComplete,
 		passthrough : _params
-	};
-	_.extend(httpParams, _.omit(_params, ["path", "method", "type", "format", "dataTransform", "retry", "forceRetry", "prompt", "blockUI", "keepBlook", "message", "data", "success", "failure", "done"]));
-
-	http.request(httpParams);
+	});
 }
 
 function getSimulatedResponse(_passthrough) {
-	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.path], _passthrough);
+	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.path], _passthrough.passthrough || {});
 }
 
 function didSuccess(_data, _passthrough) {
@@ -151,7 +149,7 @@ function didSuccess(_data, _passthrough) {
 }
 
 function didFail(_passthrough) {
-	if (CFG.simulateAPI) {
+	if (CFG.simulateAPI || CFG.simulateAPIOnFailure) {
 		getSimulatedResponse(_passthrough);
 	} else {
 		var forceRetry = _passthrough.forceRetry !== false,

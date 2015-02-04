@@ -127,10 +127,11 @@ exports.getFiles = function(_path, _directory) {
 exports.copy = function(_sFile, _dFile, _remoteBackup) {
 	if (_sFile.exists()) {
 		if (OS_IOS) {
+			var flag = _dFile.write(_sFile.read());
 			if (_remoteBackup === false) {
 				_dFile.setRemoteBackup(false);
 			}
-			return _dFile.write(_sFile.read());
+			return flag;
 		} else {
 			return _sFile.copy(_dFile.nativePath);
 		}
@@ -147,10 +148,11 @@ exports.copy = function(_sFile, _dFile, _remoteBackup) {
  * @param {Boolean} _remoteBackup whether or not to backup on iCloud (ios only)
  */
 exports.write = function(_dFile, _blob, _remoteBackup, _append) {
+	var flag = _dFile.write(_blob, _append || false);
 	if (OS_IOS && _remoteBackup === false) {
 		_dFile.setRemoteBackup(false);
 	}
-	return _dFile.write(_blob, _append || false);
+	return flag;
 };
 
 exports.getFileName = function(path) {
@@ -681,7 +683,7 @@ exports.getRandomString = function(_length) {
  */
 exports.clone = function(o) {
 	var c = {};
-	if (Scule.global.functions.isArray(o)) {
+	if (_.isArray(o)) {
 		c = [];
 	}
 	for (var a in o) {
@@ -689,7 +691,7 @@ exports.clone = function(o) {
 			if (o[a] instanceof RegExp) {
 				c[a] = new RegExp(o[a].toString());
 			} else {
-				c[a] = Scule.global.functions.cloneObject(o[a]);
+				c[a] = exports.clone(o[a]);
 			}
 		} else {
 			c[a] = o[a];

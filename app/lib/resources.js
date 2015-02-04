@@ -28,7 +28,7 @@ var Resources = {
 	 */
 	updateQueue : [],
 
-	successCallback : false,
+	successCallback : null,
 
 	init : function() {
 
@@ -307,8 +307,7 @@ var Resources = {
 	setFonts : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("fonts"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
-		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts),
-		    fontFiles = utilities.getFiles(Resources.directoryFonts, Ti.Filesystem.applicationDataDirectory);
+		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts);
 		if (_clearCache === true) {
 			coll.clear();
 		}
@@ -358,8 +357,7 @@ var Resources = {
 	setImages : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("images"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
-		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages),
-		    imageFiles = utilities.getFiles(Resources.directoryImages, Ti.Filesystem.applicationDataDirectory);
+		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages);
 		if (_clearCache === true) {
 			coll.clear();
 		}
@@ -442,7 +440,7 @@ var Resources = {
 	},
 
 	update : function(_callback) {
-		if (Resources.successCallback === false) {
+		if (!Resources.successCallback) {
 			var updateQueue = Resources.updateQueue;
 			if (updateQueue.length) {
 				Resources.successCallback = _callback;
@@ -456,7 +454,7 @@ var Resources = {
 						success : Resources.didUpdate,
 						failure : Resources.didUpdate
 					});
-					logger.i("downloading " + queue.key + " from " + queue.data.url);
+					logger.i("downloading " + queue.key + " - " + queue.data.id + " from " + queue.data.url);
 				}
 			} else if (_callback) {
 				_callback();
@@ -467,10 +465,10 @@ var Resources = {
 	didUpdate : function(_data, _passthrough) {
 		if (_data) {
 			var key = _passthrough.key,
-			    coll = Resources.getCollection(),
+			    coll = Resources.getCollection(key),
 			    model = coll.find({
-			id : _passthrough.id
-			})[0];
+			id : _passthrough.data.id
+			})[0] || {};
 			switch(key) {
 			case "themes":
 				_.extend(model, {
@@ -482,11 +480,6 @@ var Resources = {
 						selected : true,
 						revert : false
 					});
-					coll.update({
-						id : model.id
-					}, {
-						$set : model
-					}, {}, true);
 					coll.update({
 						id : {
 							$ne : model.id
@@ -509,11 +502,6 @@ var Resources = {
 						revert : false
 					});
 					coll.update({
-						id : model.id
-					}, {
-						$set : model
-					}, {}, true);
-					coll.update({
 						id : {
 							$ne : model.id
 						}
@@ -534,11 +522,6 @@ var Resources = {
 						selected : true,
 						revert : false
 					});
-					coll.update({
-						id : model.id
-					}, {
-						$set : model
-					}, {}, true);
 					coll.update({
 						id : {
 							$ne : model.id
@@ -561,11 +544,6 @@ var Resources = {
 						revert : false
 					});
 					coll.update({
-						id : model.id
-					}, {
-						$set : model
-					}, {}, true);
-					coll.update({
 						id : {
 							$ne : model.id
 						}
@@ -577,43 +555,73 @@ var Resources = {
 				}
 				break;
 			case "fonts":
+				coll.remove({
+					id : {
+						$ne : model.id
+					},
+					code : model.code
+				});
 				var file = model.id + "_" + model.version + "." + model.format;
 				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false
 				});
-				coll.update({
-					id : model.id
-				}, {
-					$set : model
-				}, {}, true);
 				break;
 			case "images":
+				var unusedImgIds = [],
+				    supportedOrientations = model.orientation,
+				    imagesWithSameCode = coll.find({
+					id : {
+						$ne : model.id
+					},
+					code : model.code
+				});
+				imagesWithSameCode.forEach(function(imgDocument) {
+					for (var i in supportedOrientations) {
+						if (_.contains(imgDocument[i].orientation, supportedOrientations[i])) {
+							unusedImgIds.push(imgDocument.id);
+							break;
+						}
+					}
+				});
+				coll.remove({
+					id : {
+						$in : unusedImgIds
+					}
+				});
 				var file = model.id + "_" + model.version + "." + model.format;
 				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false
 				});
-				coll.update({
-					id : model.id
-				}, {
-					$set : model
-				}, {}, true);
 				break;
 			}
 			coll.commit();
-			logger.i("downloaded " + key + " from " + _passthrough.data.url);
+			logger.i("downloaded " + key + " - " + _passthrough.data.id + " from " + _passthrough.data.url);
 			Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
 				return _.isEqual(obj, _passthrough);
 			});
 			if (Resources.updateQueue.length == 0 && Resources.successCallback) {
 				Resources.successCallback();
-				Resources.successCallback = false;
+				Resources.successCallback = null;
 			}
 		} else {
 			logger.e("unable to download " + key + " from " + _passthrough.data.url);
+		}
+	},
+
+	deleteUnusedResoruces : function() {
+		//delete unused fonts
+		var unusedFonts = _.difference(utilities.getFiles(Resources.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck(Resources.get("fonts"), "file"));
+		for (var i in unusedFonts) {
+			utilities.deleteFile(Resources.directoryFonts + "/" + unusedFonts[i]);
+		}
+		//delete unused images
+		var unusedImages = _.difference(utilities.getFiles(Resources.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck(Resources.get("images"), "file"));
+		for (var i in unusedImages) {
+			utilities.deleteFile(Resources.directoryImages + "/" + unusedImages[i]);
 		}
 	}
 };

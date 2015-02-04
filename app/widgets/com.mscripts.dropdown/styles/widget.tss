@@ -20,7 +20,7 @@
 	right: 10,
 	width: 20,
 	font: {
-		fontFamily: Alloy._font_icon,
+		fontFamily: Alloy._fonts.icon,
 		fontSize: 12
 	},
 	color: "#C4C4C4"

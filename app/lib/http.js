@@ -40,16 +40,16 @@ exports.request = function(_params) {
 
 			switch(_params.format.toLowerCase()) {
 			case "data":
-				_data = this.responseData || this.responseText;
+				_data = this.responseData || this.responseText || "{}";
 				break;
 			case "xml":
 				_data = this.responseXML || Ti.XML.parseString(this.responseText);
 				break;
 			case "json":
-				_data = JSON.parse(this.responseText);
+				_data = JSON.parse(this.responseText || "{}");
 				break;
 			case "text":
-				_data = this.responseText;
+				_data = this.responseText || "";
 				break;
 			}
 
