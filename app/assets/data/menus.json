@@ -61,7 +61,7 @@
 				"titleid": "titleAccount",
 				"ctrl": "account",
 				"icon": "account",
-				"requires_login": true
+				"requires_login": false
 			}
 		]
 	}

@@ -1,5 +1,5 @@
 <Alloy>
-	<TableView class="bg-primary" dataCollection="menuItems" dataTransform="transformFunction" onClick="didItemClick">
+	<TableView dataCollection="menuItems" dataTransform="transformFunction" dataFilter="filterFunction" onClick="didItemClick">
 		<HeaderView>
 			<View class="vspacer" />
 		</HeaderView>

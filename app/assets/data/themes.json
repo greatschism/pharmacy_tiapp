@@ -283,14 +283,14 @@
 			"hint_color": "#C4C4C4",
 			"switch_on_color": "#4bd865",
 			"switch_off_color": "#C4C4C4",
-			"btn_bg_primary": "#F7941E",
+			"btn_bg_primary": "#FF0000",
 			"btn_fg_primary": "#FFFFFF",
 			"btn_bg_secondary": "#FFFFFF",
-			"btn_fg_secondary": "#F7941E",
+			"btn_fg_secondary": "#FF0000",
 			"btn_bg_tertiary": "#FFFFFF",
 			"btn_fg_tertiary": "#599DFF",
 			"info_btn_border_radius": 10,
-			"lbl_fg_primary": "#F7941E",
+			"lbl_fg_primary": "#FF0000",
 			"reminder_colors": [
 				{
 					"background": "#AF7AC4",

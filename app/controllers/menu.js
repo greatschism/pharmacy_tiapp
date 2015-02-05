@@ -12,6 +12,11 @@ Alloy.Collections.menuItems.trigger("reset");
 app.navigator.setStartupParams(startupParams);
 app.navigator.open(args.navigation || startupParams);
 
+function filterFunction(collection) {
+	$.menu.backgroundColor = Alloy._bg_primary;
+	return collection.models;
+}
+
 function transformFunction(model) {
 	var transform = model.toJSON();
 	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];

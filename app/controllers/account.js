@@ -1,54 +1,69 @@
 var args = arguments[0] || {},
     app = require("core"),
+    config = require("config"),
+    resources = require("resources"),
     dialog = require("dialog"),
-    locale = require("localization"),
-    languages = locale.getLanguages(),
+    colls = [{
+	key : "themes",
+	selectedItem : {}
+}, {
+	key : "templates",
+	selectedItem : {}
+}, {
+	key : "languages",
+	selectedItem : {}
+}],
     lngStrs = Alloy.Globals.strings;
 
 function init() {
-	var templates = [],
-	    lngs = [],
-	    i = 0,
-	    selectedIndex = 0;
-	/*_.each(Alloy.Globals.homePageTemplates, function(obj) {
-	 var template = _.pick(obj, ["title"]);
-	 template.index = i;
-	 templates.push(template);
-	 i++;
-	 });
-	 $.templateDp.setChoices(templates);
-	 $.templateDp.setSelectedIndex(Alloy.Globals.templateIndex);*/
-	i = 0;
-	_.each(languages, function(obj) {
-		var lng = _.pick(obj, ["titleid", "code"]);
-		_.extend(lng, {
-			title : lngStrs[lng.titleid]
+	for (var i in colls) {
+		var key = colls[i].key,
+		    items = resources.get(key),
+		    selectedIndex = -1;
+		items.forEach(function(item, index) {
+			if (_.has(item, "titleid")) {
+				item.title = lngStrs[item.titleid];
+			} else {
+				item.title = item.id;
+			}
+			if (item.selected) {
+				selectedIndex = index;
+			}
 		});
-		lngs.push(lng);
-		if (obj.selected) {
-			selectedIndex = i;
-		}
-		i++;
-	});
-	$.languageDp.setChoices(lngs);
-	$.languageDp.setSelectedIndex(selectedIndex);
+		colls[i].selectedItem = items[selectedIndex] || {};
+		$[key + "Dp"].setChoices(items);
+		$[key + "Dp"].setSelectedIndex(selectedIndex);
+	}
 }
 
 function setParentViews(view) {
-	//$.templateDp.setParentView(view);
-	$.languageDp.setParentView(view);
+	$.themesDp.setParentView(view);
+	$.templatesDp.setParentView(view);
+	$.languagesDp.setParentView(view);
 }
 
-function didReturnTemplate(e) {
-	//Alloy.Globals.templateIndex = $.templateDp.getSelectedIndex();
+function didReturnThemes(e) {
+	colls[0].selectedItem = $.themesDp.getSelectedItem();
 }
 
-function didReturnLanguage(e) {
-	locale.setLanguage($.languageDp.getSelectedItem().code);
-	Alloy.Collections.menuItems.trigger("reset");
-	app.navigator.open({
-		titleid : "titleHome",
-		ctrl : "home"
+function didReturnTemplates(e) {
+	colls[1].selectedItem = $.templatesDp.getSelectedItem();
+}
+
+function didReturnLanguages(e) {
+	colls[2].selectedItem = $.languagesDp.getSelectedItem();
+}
+
+function didClickApply(e) {
+	for (var i in colls) {
+		colls[i].selectedItem.selected = true;
+		resources.set(colls[i].key, [colls[i].selectedItem]);
+	}
+	config.load(function() {
+		app.navigator.open({
+			ctrl : "home",
+			titleid : "titleHome"
+		});
 	});
 }
 
