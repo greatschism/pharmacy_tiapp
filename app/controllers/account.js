@@ -19,8 +19,10 @@ function init() {
 	for (var i in colls) {
 		var key = colls[i].key,
 		    items = resources.get(key),
-		    selectedIndex = -1;
-		items.forEach(function(item, index) {
+		    selectedIndex = -1,
+		    choices = [];
+		items.forEach(function(obj, index) {
+			var item = _.pick(obj, ["titleid", "id", "selected", "version", "styles", "data", "strings"]);
 			if (_.has(item, "titleid")) {
 				item.title = lngStrs[item.titleid];
 			} else {
@@ -29,9 +31,10 @@ function init() {
 			if (item.selected) {
 				selectedIndex = index;
 			}
+			choices.push(item);
 		});
 		colls[i].selectedItem = items[selectedIndex] || {};
-		$[key + "Dp"].setChoices(items);
+		$[key + "Dp"].setChoices(choices);
 		$[key + "Dp"].setSelectedIndex(selectedIndex);
 	}
 }
@@ -57,7 +60,7 @@ function didReturnLanguages(e) {
 function didClickApply(e) {
 	for (var i in colls) {
 		colls[i].selectedItem.selected = true;
-		resources.set(colls[i].key, [colls[i].selectedItem]);
+		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected", "styles", "data", "strings"])]);
 	}
 	config.load(function() {
 		app.navigator.open({

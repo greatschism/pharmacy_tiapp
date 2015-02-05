@@ -86,7 +86,9 @@ var Resources = {
 
 	setThemes : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("themes"),
-		    selectedId = false,
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
 		    revertId = false;
 		if (_clearCache) {
 			coll.clear();
@@ -105,19 +107,17 @@ var Resources = {
 				coll.save(item);
 				logger.i("theme added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
-				_.extend(item, {
-					update : item.version != model.version && _.has(item, "styles") === false,
-					revert : item.selected && _.has(model, "styles") === false && _.has(item, "styles") === false,
-					selected : _.has(model, "styles") === false && _.has(item, "styles") === false ? false : item.selected
-				});
+				item.update = item.version != model.version || (!_.has(item, "styles") && !_.has(model, "styles"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
 				logger.i("theme updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
 			}
-			if (item.selected) {
-				selectedId = item.id;
+			if (item.revert) {
+				revertId = item.id;
 			}
 		}
 		if (selectedId) {
@@ -131,24 +131,23 @@ var Resources = {
 				}
 			}, {}, true);
 		}
-		if (revertId) {
-			coll.update({
-				id : {
-					$ne : revertId
-				}
-			}, {
-				$set : {
-					revert : false,
-					update : false
-				}
-			}, {}, true);
-		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
 	setTemplates : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("templates"),
-		    selectedId = false,
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
 		    revertId = false;
 		if (_clearCache) {
 			coll.clear();
@@ -167,19 +166,17 @@ var Resources = {
 				coll.save(item);
 				logger.i("template added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
-				_.extend(item, {
-					update : item.version != model.version && _.has(item, "data") === false,
-					revert : item.selected && _.has(model, "data") === false && _.has(item, "data") === false,
-					selected : _.has(model, "data") === false && _.has(item, "data") === false === false ? false : item.selected
-				});
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
 				logger.i("template updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
 			}
-			if (item.selected) {
-				selectedId = item.id;
+			if (item.revert) {
+				revertId = item.id;
 			}
 		}
 		if (selectedId) {
@@ -193,24 +190,23 @@ var Resources = {
 				}
 			}, {}, true);
 		}
-		if (revertId) {
-			coll.update({
-				id : {
-					$ne : revertId
-				}
-			}, {
-				$set : {
-					revert : false,
-					update : false
-				}
-			}, {}, true);
-		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
 	setMenus : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("menus"),
-		    selectedId = false,
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
 		    revertId = false;
 		if (_clearCache) {
 			coll.clear();
@@ -229,19 +225,17 @@ var Resources = {
 				coll.save(item);
 				logger.i("menu added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
-				_.extend(item, {
-					update : item.version != model.version && _.has(item, "items") === false,
-					revert : item.selected && _.has(model, "items") === false && _.has(item, "items") === false,
-					selected : _.has(model, "items") === false && _.has(item, "items") === false ? false : item.selected
-				});
+				item.update = item.version != model.version || (!_.has(item, "items") && !_.has(model, "items"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
 				logger.i("menus updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
 			}
-			if (item.selected) {
-				selectedId = item.id;
+			if (item.revert) {
+				revertId = item.id;
 			}
 		}
 		if (selectedId) {
@@ -255,24 +249,23 @@ var Resources = {
 				}
 			}, {}, true);
 		}
-		if (revertId) {
-			coll.update({
-				id : {
-					$ne : revertId
-				}
-			}, {
-				$set : {
-					revert : false,
-					update : false
-				}
-			}, {}, true);
-		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
 	setLanguages : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("languages"),
-		    selectedId = false,
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
 		    revertId = false;
 		if (_clearCache) {
 			coll.clear();
@@ -296,19 +289,17 @@ var Resources = {
 				coll.save(item);
 				logger.i("language added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
-				_.extend(item, {
-					update : item.version != model.version && _.has(item, "strings") === false,
-					revert : item.selected && _.has(model, "strings") === false && _.has(item, "strings") === false,
-					selected : _.has(model, "strings") === false && _.has(item, "strings") === false ? false : item.selected
-				});
+				item.update = item.version != model.version || (!_.has(item, "strings") && !_.has(model, "strings"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
 				logger.i("language updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
 			}
-			if (item.selected) {
-				selectedId = item.id;
+			if (item.revert) {
+				revertId = item.id;
 			}
 		}
 		if (selectedId) {
@@ -322,18 +313,15 @@ var Resources = {
 				}
 			}, {}, true);
 		}
-		if (revertId) {
-			coll.update({
-				id : {
-					$ne : revertId
-				}
-			}, {
-				$set : {
-					revert : false,
-					update : false
-				}
-			}, {}, true);
-		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
