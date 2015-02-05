@@ -37,22 +37,22 @@
 					"async_update": true,
 					"theme": {
 						"id": "mscripts",
-						"version": 2,
+						"version": 1,
 						"url": "https://staging.remscripts.com/nativemia/theme_mscripts.json"
 					},
 					"template": {
 						"id": "list",
-						"version": 2,
+						"version": 1,
 						"url": "https://staging.remscripts.com/nativemia/template_list.json"
 					},
 					"menu": {
 						"id": "mscripts",
-						"version": 2,
+						"version": 1,
 						"url": "https://staging.remscripts.com/nativemia/menu_mscripts.json"
 					},
 					"language": {
 						"id": "en",
-						"version": 2,
+						"version": 1,
 						"url": "https://staging.remscripts.com/nativemia/en.json"
 					},
 					"images": [

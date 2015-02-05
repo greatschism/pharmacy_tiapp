@@ -97,7 +97,6 @@
 											{
 												"apiName": "View",
 												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-												"addChild": "add",
 												"children": [
 													{
 														"items": [
@@ -132,7 +131,6 @@
 											{
 												"apiName": "View",
 												"classes": ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
-												"addChild": "add",
 												"children": [
 													{
 														"items": [
@@ -231,6 +229,240 @@
 						]
 					}
 				]
+			}
+		]
+	}, {
+		"id": "grid",
+		"version": 1,
+		"url": "url_to_download",
+		"selected": false,
+		"data": [
+			{
+				"apiName": "ScrollView",
+				"classes": ["vgroup"],
+				"children": [
+					{
+						"items": [
+							{
+								"apiName": "View",
+								"classes": ["auto-height"],
+								"children": [
+									{
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "prescriptions",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "strPrescriptions"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"ctrl": "prescriptions"
+												}
+											}, {
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "refill_camera",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleRefillViaCamera"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"action": "refillViaCamera"
+												}
+											}
+										]
+									}
+								]
+							}, {
+								"apiName": "View",
+								"classes": ["hseparator", "touch-disabled"]
+							}, {
+								"apiName": "View",
+								"classes": ["auto-height"],
+								"children": [
+									{
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "pharmacies",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleStores"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"ctrl": "stores"
+												}
+											}, {
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "transfer",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleTransferPrescription"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"action": "transferPrescription"
+												}
+											}
+										]
+									}
+								]
+							}, {
+								"apiName": "View",
+								"classes": ["hseparator", "touch-disabled"]
+							}, {
+								"apiName": "View",
+								"classes": ["auto-height"],
+								"children": [
+									{
+										"items": [
+											{
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "left", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "doctors",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleDoctors"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"ctrl": "doctors"
+												}
+											}, {
+												"apiName": "View",
+												"classes": ["margin-top", "margin-bottom", "right", "width-50", "auto-height", "vgroup"],
+												"children": [
+													{
+														"items": [
+															{
+																"apiName": "Label",
+																"classes": ["lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"icon": "account",
+																	"font": {
+																		"fontFamily": "mscripts",
+																		"fontSize": 40
+																	}
+																}
+															}, {
+																"apiName": "Label",
+																"classes": ["padding-top", "margin-left", "margin-right", "h4-fixed", "text-center", "lbl-fg-primary", "touch-disabled"],
+																"properties": {
+																	"textid": "titleAccount"
+																}
+															}
+														]
+													}
+												],
+												"navigation": {
+													"action": "account"
+												}
+											}
+										]
+									}
+								]
+							}, {
+								"apiName": "View",
+								"classes": ["hseparator", "touch-disabled"]
+							}
+						]
+					}
+				]
+			}, {
+				"apiName": "View",
+				"classes": ["vseparator", "touch-disabled"]
 			}
 		]
 	}
