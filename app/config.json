@@ -70,7 +70,7 @@
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
-		"clearCachedResources": true,
+		"clearCachedResources": false,
 		"overrideRemoteResources": false,
 		"simulateAPI": true,
 		"simulateAPIOnFailure": true

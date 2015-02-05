@@ -2,7 +2,8 @@ var config = require("config"),
     http = require("requestwrapper"),
     dialog = require("dialog"),
     utilities = require("utilities"),
-    strings = Alloy.Globals.strings;
+    strings = Alloy.Globals.strings,
+    triggerAsyncUpdate = false;
 
 function didOpen(e) {
 	http.request({
@@ -26,7 +27,7 @@ function didSuccess(result) {
 	Alloy.Models.user.set(result.data || {}, {
 		silent : true
 	});
-	var clientConfig = result.data.client_json;
+	var clientConfig = result.data.appload.client_json;
 	if (_.has(clientConfig, "force_update")) {
 		Alloy.CFG.forceUpdate = clientConfig.force_update;
 	}
@@ -36,7 +37,7 @@ function didSuccess(result) {
 	if (_.has(clientConfig, "force_reload_after_update")) {
 		Alloy.CFG.forceReloadAfterUpdate = clientConfig.force_reload_after_update;
 	}
-	if (config.init(clientConfig) > 0) {
+	if (config.init(clientConfig).length) {
 		if (Alloy.CFG.forceUpdate) {
 			startUpdate();
 		} else {
@@ -60,6 +61,7 @@ function confirmUpdate() {
 
 function startUpdate() {
 	if (Alloy.CFG.asyncUpdate) {
+		triggerAsyncUpdate = true;
 		loadConfig();
 	} else {
 		showLoader(syncUpdate);
@@ -74,7 +76,7 @@ function loadConfig() {
 	config.load(didLoadConfig);
 }
 
-function didLoadConfig(updateQueue) {
+function didLoadConfig() {
 	$.index.remove($.loading.getView());
 	Alloy.createController(Alloy._navigator + "/master", {
 		navigation : Ti.App.Properties.getBool(Alloy.CFG.FIRST_LAUNCH, true) ? {
@@ -82,7 +84,7 @@ function didLoadConfig(updateQueue) {
 			titleid : "strWelcome",
 			navBarHidden : true
 		} : false,
-		triggerUpdate : updateQueue.length > 0
+		triggerUpdate : triggerAsyncUpdate
 	});
 }
 

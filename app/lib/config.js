@@ -147,7 +147,7 @@ var Config = {
 		}
 
 		if (_callback) {
-			_callback(resources.updateQueue);
+			_callback();
 		}
 	},
 

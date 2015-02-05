@@ -32,17 +32,17 @@ var Resources = {
 
 	init : function() {
 
-		if (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_UPDATED_ON, "") != Ti.App.version || Ti.App.deployType != "production") {
+		if (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_UPDATED_ON, "") != Ti.App.version || !ENV_PRODUCTION) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-			    clearCache = Alloy.CFG.clearCachedResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || Ti.App.deployType != "production");
+			    clearCache = Alloy.CFG.clearCachedResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || !ENV_PRODUCTION);
 
 			for (var i in keys) {
 				var key = keys[i];
 				Resources.set(key, JSON.parse(utilities.getFile(Resources.directoryData + "/" + key + ".json")), true, clearCache);
 			}
 
-			if (clearCache === true) {
+			if (clearCache) {
 				Ti.App.Properties.setString(Alloy.CFG.RESOURCES_CLEARED_ON, Ti.App.version);
 			}
 
@@ -86,8 +86,9 @@ var Resources = {
 
 	setThemes : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("themes"),
-		    selectedItem = false;
-		if (_clearCache === true) {
+		    selectedId = false,
+		    revertId = false;
+		if (_clearCache) {
 			coll.clear();
 		}
 		for (var i in _items) {
@@ -95,43 +96,50 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (_useLocalResources !== true && _.has(item, "styles")) {
-				item = _.omit(item, ["styles"]);
-			}
-			_.extend(item, {
-				update : !_.has(item, "styles")
-			});
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					revert : item.selected === true && item.update === true,
-					selected : item.update === true ? false : item.selected
+					update : !_.has(item, "styles"),
+					revert : item.selected && !_.has(item, "styles"),
+					selected : !_.has(item, "styles") ? false : item.selected
 				});
 				coll.save(item);
 				logger.i("theme added : " + item.id);
-			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
+			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				_.extend(item, {
-					revert : item.selected === true && _.has(model, "styles") === false,
-					selected : _.has(model, "styles") === false ? false : item.selected
+					update : item.version != model.version && _.has(item, "styles") === false,
+					revert : item.selected && _.has(model, "styles") === false && _.has(item, "styles") === false,
+					selected : _.has(model, "styles") === false && _.has(item, "styles") === false ? false : item.selected
 				});
-				coll.update({
-					id : item.id
-				}, {
-					$set : item
-				}, {}, true);
+				_.extend(model, item);
 				logger.i("theme updated : " + item.id);
 			}
-			if (item.selected === true) {
-				selectedItem = item.id;
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.selected) {
+				selectedId = item.id;
 			}
 		}
-		if (selectedItem) {
+		if (selectedId) {
 			coll.update({
 				id : {
-					$ne : selectedItem
+					$ne : selectedId
 				}
 			}, {
 				$set : {
 					selected : false
+				}
+			}, {}, true);
+		}
+		if (revertId) {
+			coll.update({
+				id : {
+					$ne : revertId
+				}
+			}, {
+				$set : {
+					revert : false,
+					update : false
 				}
 			}, {}, true);
 		}
@@ -140,8 +148,9 @@ var Resources = {
 
 	setTemplates : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("templates"),
-		    selectedItem = false;
-		if (_clearCache === true) {
+		    selectedId = false,
+		    revertId = false;
+		if (_clearCache) {
 			coll.clear();
 		}
 		for (var i in _items) {
@@ -149,43 +158,50 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (_useLocalResources !== true && _.has(item, "data")) {
-				item = _.omit(item, ["data"]);
-			}
-			_.extend(item, {
-				update : !_.has(item, "data")
-			});
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					revert : item.selected === true && item.update === true,
-					selected : item.update === true ? false : item.selected
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
 				});
 				coll.save(item);
 				logger.i("template added : " + item.id);
-			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
+			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				_.extend(item, {
-					revert : item.selected === true && _.has(model, "data") === false,
-					selected : _.has(model, "data") === false ? false : item.selected
+					update : item.version != model.version && _.has(item, "data") === false,
+					revert : item.selected && _.has(model, "data") === false && _.has(item, "data") === false,
+					selected : _.has(model, "data") === false && _.has(item, "data") === false === false ? false : item.selected
 				});
-				coll.update({
-					id : item.id
-				}, {
-					$set : item
-				}, {}, true);
+				_.extend(model, item);
 				logger.i("template updated : " + item.id);
 			}
-			if (item.selected === true) {
-				selectedItem = item.id;
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.selected) {
+				selectedId = item.id;
 			}
 		}
-		if (selectedItem) {
+		if (selectedId) {
 			coll.update({
 				id : {
-					$ne : selectedItem
+					$ne : selectedId
 				}
 			}, {
 				$set : {
 					selected : false
+				}
+			}, {}, true);
+		}
+		if (revertId) {
+			coll.update({
+				id : {
+					$ne : revertId
+				}
+			}, {
+				$set : {
+					revert : false,
+					update : false
 				}
 			}, {}, true);
 		}
@@ -194,8 +210,9 @@ var Resources = {
 
 	setMenus : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("menus"),
-		    selectedItem = false;
-		if (_clearCache === true) {
+		    selectedId = false,
+		    revertId = false;
+		if (_clearCache) {
 			coll.clear();
 		}
 		for (var i in _items) {
@@ -203,43 +220,50 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (_useLocalResources !== true && _.has(item, "items")) {
-				item = _.omit(item, ["items"]);
-			}
-			_.extend(item, {
-				update : !_.has(item, "items")
-			});
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					revert : item.selected === true && item.update === true,
-					selected : item.update === true ? false : item.selected
+					update : !_.has(item, "items"),
+					revert : item.selected && !_.has(item, "items"),
+					selected : !_.has(item, "items") ? false : item.selected
 				});
 				coll.save(item);
 				logger.i("menu added : " + item.id);
-			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
+			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				_.extend(item, {
-					revert : item.selected === true && _.has(model, "items") === false,
-					selected : _.has(model, "items") === false ? false : item.selected
+					update : item.version != model.version && _.has(item, "items") === false,
+					revert : item.selected && _.has(model, "items") === false && _.has(item, "items") === false,
+					selected : _.has(model, "items") === false && _.has(item, "items") === false ? false : item.selected
 				});
-				coll.update({
-					id : item.id
-				}, {
-					$set : item
-				}, {}, true);
-				logger.i("menu updated : " + item.id);
+				_.extend(model, item);
+				logger.i("menus updated : " + item.id);
 			}
-			if (item.selected === true) {
-				selectedItem = item.id;
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.selected) {
+				selectedId = item.id;
 			}
 		}
-		if (selectedItem) {
+		if (selectedId) {
 			coll.update({
 				id : {
-					$ne : selectedItem
+					$ne : selectedId
 				}
 			}, {
 				$set : {
 					selected : false
+				}
+			}, {}, true);
+		}
+		if (revertId) {
+			coll.update({
+				id : {
+					$ne : revertId
+				}
+			}, {
+				$set : {
+					revert : false,
+					update : false
 				}
 			}, {}, true);
 		}
@@ -248,8 +272,9 @@ var Resources = {
 
 	setLanguages : function(_items, _useLocalResources, _clearCache) {
 		var coll = Resources.getCollection("languages"),
-		    selectedItem = false;
-		if (_clearCache === true) {
+		    selectedId = false,
+		    revertId = false;
+		if (_clearCache) {
 			coll.clear();
 		}
 		for (var i in _items) {
@@ -257,47 +282,55 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (_useLocalResources === true) {
+			if (_useLocalResources) {
 				_.extend(item, {
 					strings : JSON.parse(utilities.getFile(Resources.directoryLanguages + "/" + item.id + ".json") || "{}")
 				});
-			} else if (_.has(item, "strings")) {
-				item = _.omit(item, ["strings"]);
 			}
-			_.extend(item, {
-				update : !_.has(item, "strings")
-			});
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					revert : item.selected === true && item.update === true,
-					selected : item.update === true ? false : item.selected
+					update : !_.has(item, "strings"),
+					revert : item.selected && !_.has(item, "strings"),
+					selected : !_.has(item, "strings") ? false : item.selected
 				});
 				coll.save(item);
 				logger.i("language added : " + item.id);
-			} else if (item.version > model.version || item.selected != model.selected || _useLocalResources === true) {
+			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				_.extend(item, {
-					revert : item.selected === true && _.has(model, "strings") === false,
-					selected : _.has(model, "strings") === false ? false : item.selected
+					update : item.version != model.version && _.has(item, "strings") === false,
+					revert : item.selected && _.has(model, "strings") === false && _.has(item, "strings") === false,
+					selected : _.has(model, "strings") === false && _.has(item, "strings") === false ? false : item.selected
 				});
-				coll.update({
-					id : item.id
-				}, {
-					$set : item
-				}, {}, true);
+				_.extend(model, item);
 				logger.i("language updated : " + item.id);
 			}
-			if (item.selected === true) {
-				selectedItem = item.id;
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.selected) {
+				selectedId = item.id;
 			}
 		}
-		if (selectedItem) {
+		if (selectedId) {
 			coll.update({
 				id : {
-					$ne : selectedItem
+					$ne : selectedId
 				}
 			}, {
 				$set : {
 					selected : false
+				}
+			}, {}, true);
+		}
+		if (revertId) {
+			coll.update({
+				id : {
+					$ne : revertId
+				}
+			}, {
+				$set : {
+					revert : false,
+					update : false
 				}
 			}, {}, true);
 		}
@@ -308,7 +341,7 @@ var Resources = {
 		var coll = Resources.getCollection("fonts"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
 		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts);
-		if (_clearCache === true) {
+		if (_clearCache) {
 			coll.clear();
 		}
 		if (OS_IOS || OS_ANDROID) {
@@ -326,7 +359,7 @@ var Resources = {
 				var model = coll.find({
 				id: item.id
 				})[0] || {};
-				if (_useLocalResources === true) {
+				if (_useLocalResources) {
 					var file = item.id + "_" + item.version + "." + item.format;
 					if (OS_IOS || OS_ANDROID) {
 						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
@@ -341,12 +374,8 @@ var Resources = {
 				if (_.isEmpty(model)) {
 					coll.save(item);
 					logger.i("font added : " + item.id);
-				} else if (item.version > model.version || _useLocalResources === true) {
-					coll.update({
-						id : item.id
-					}, {
-						$set : item
-					}, {}, true);
+				} else if (item.version != model.version || _useLocalResources) {
+					_.extend(model, item);
 					logger.i("font updated : " + item.id);
 				}
 			}
@@ -358,7 +387,7 @@ var Resources = {
 		var coll = Resources.getCollection("images"),
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
 		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages);
-		if (_clearCache === true) {
+		if (_clearCache) {
 			coll.clear();
 		}
 		if (OS_IOS || OS_ANDROID) {
@@ -374,7 +403,7 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (_useLocalResources === true) {
+			if (_useLocalResources) {
 				var file = item.id + "_" + item.version + "." + item.format;
 				if (OS_IOS || OS_ANDROID) {
 					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
@@ -389,12 +418,8 @@ var Resources = {
 			if (_.isEmpty(model)) {
 				coll.save(item);
 				logger.i("image added : " + item.id);
-			} else if (item.version > model.version || _useLocalResources === true) {
-				coll.update({
-					id : item.id
-				}, {
-					$set : item
-				}, {}, true);
+			} else if (item.version != model.version || _useLocalResources) {
+				_.extend(model, item);
 				logger.i("image updated : " + item.id);
 			}
 		}
@@ -452,7 +477,7 @@ var Resources = {
 				});
 			}
 		}
-		return Resources.updateQueue.length;
+		return Resources.updateQueue;
 	},
 
 	update : function(_callback) {
@@ -491,7 +516,7 @@ var Resources = {
 					styles : _data,
 					update : false
 				});
-				if (model.revert === true) {
+				if (model.revert) {
 					_.extend(model, {
 						selected : true,
 						revert : false
@@ -512,7 +537,7 @@ var Resources = {
 					data : _data,
 					update : false
 				});
-				if (model.revert === true) {
+				if (model.revert) {
 					_.extend(model, {
 						selected : true,
 						revert : false
@@ -533,7 +558,7 @@ var Resources = {
 					items : _data,
 					update : false
 				});
-				if (model.revert === true) {
+				if (model.revert) {
 					_.extend(model, {
 						selected : true,
 						revert : false
@@ -554,7 +579,7 @@ var Resources = {
 					strings : _data,
 					update : false
 				});
-				if (model.revert === true) {
+				if (model.revert) {
 					_.extend(model, {
 						selected : true,
 						revert : false
