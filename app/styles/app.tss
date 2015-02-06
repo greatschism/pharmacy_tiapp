@@ -1,6 +1,10 @@
 /**
 * 	UI Components
 */
+"Theme":{
+	id: Alloy._theme_id,
+	version: Alloy._theme_version
+},
 "Window":{
 	backgroundColor: "#FFFFFF"
 },

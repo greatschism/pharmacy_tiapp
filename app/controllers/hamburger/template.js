@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
-    icons = Alloy.CFG.icons,
     app = require("core"),
+    config = require("config"),
+    icons = Alloy.CFG.icons,
     controller;
 
 (function() {
@@ -19,6 +20,9 @@ var args = arguments[0] || {},
 	} else {
 		$.lefIcnLbl.text = icons.hamburger;
 	}
+
+	//reload tss of this controller in memory
+	config.updateTSS(args.ctrl);
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 	var children = controller.getTopLevelViews(),

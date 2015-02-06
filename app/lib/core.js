@@ -120,7 +120,7 @@ var App = {
 	 */
 	update : function() {
 		App.canReload = true;
-		config.update(App.promptAndReloadConfig);
+		config.updateResources(App.promptAndReloadConfig);
 	},
 
 	promptAndReloadConfig : function() {

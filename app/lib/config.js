@@ -84,6 +84,8 @@ var Config = {
 		});
 
 		//styles
+		Alloy._theme_id = theme.id;
+		Alloy._theme_version = theme.version;
 		var styles = utilities.clone(theme.styles);
 		for (var i in styles) {
 			Alloy["_".concat(i)] = _.clone(styles[i]);
@@ -151,8 +153,16 @@ var Config = {
 		}
 	},
 
-	update : function(_callback) {
+	updateResources : function(_callback) {
 		resources.update(_callback);
+	},
+
+	updateTSS : function(name) {
+		var styles = require("alloy/styles/" + name),
+		    theme = styles[0];
+		if (theme.style.id != Alloy._theme_id || theme.style.version != Alloy._theme_version) {
+			//to do
+		}
 	}
 };
 

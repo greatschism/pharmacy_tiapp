@@ -69,7 +69,7 @@ function startUpdate() {
 }
 
 function syncUpdate() {
-	config.update(loadConfig);
+	config.updateResources(loadConfig);
 }
 
 function loadConfig() {

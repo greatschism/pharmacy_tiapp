@@ -22,16 +22,18 @@ function init() {
 		    selectedIndex = -1,
 		    choices = [];
 		items.forEach(function(obj, index) {
-			var item = _.pick(obj, ["titleid", "id", "selected", "version", "styles", "data", "strings"]);
-			if (_.has(item, "titleid")) {
-				item.title = lngStrs[item.titleid];
-			} else {
-				item.title = item.id;
+			var item = _.pick(obj, ["titleid", "id", "selected", "version"]);
+			if (_.has(obj, "styles") || _.has(obj, "data") || _.has(obj, "strings")) {
+				if (_.has(item, "titleid")) {
+					item.title = lngStrs[item.titleid];
+				} else {
+					item.title = item.id;
+				}
+				if (item.selected) {
+					selectedIndex = index;
+				}
+				choices.push(item);
 			}
-			if (item.selected) {
-				selectedIndex = index;
-			}
-			choices.push(item);
 		});
 		colls[i].selectedItem = items[selectedIndex] || {};
 		$[key + "Dp"].setChoices(choices);
@@ -63,6 +65,7 @@ function didClickApply(e) {
 		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected", "styles", "data", "strings"])]);
 	}
 	config.load(function() {
+		Alloy.Collections.menuItems.trigger("reset");
 		app.navigator.open({
 			ctrl : "home",
 			titleid : "titleHome"
