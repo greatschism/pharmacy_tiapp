@@ -14,23 +14,18 @@ var encryptionUtil = require("encryptionUtil");
  * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
  */
 exports.getProperty = function(_name, _default, _type, _isEncrypted) {
-	var value,
-	    isValid = false,
-	    type = "string";
-	if (_type != "object" && _type != "list") {
-		type = _type;
-	}
-	value = Ti.App.Properties["get" + exports.ucfirst(type)](_name);
-	isValid = !_.isUndefined(value) && !_.isNull(value);
-	if (isValid) {
+	var value = Ti.App.Properties["get" + exports.ucfirst(_type != "object" && _type != "list" ? _type : "string")](_name);
+	if (!_.isUndefined(value) && !_.isNull(value)) {
 		if (_isEncrypted !== false) {
 			value = encryptionUtil.decrypt(value);
 		}
 		if (_type == "object" || _type == "list") {
 			value = JSON.parse(value);
 		}
+		return value;
+	} else {
+		return !_.isUndefined(_default) ? _default : "";
 	}
-	return isValid ? value : (!_.isUndefined(_default) ? _default : false);
 };
 
 /**
@@ -41,10 +36,8 @@ exports.getProperty = function(_name, _default, _type, _isEncrypted) {
  * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
  */
 exports.setProperty = function(_name, _value, _type, _isEncrypted) {
-	var type = "string";
-	if (_type != "object" && _type != "list") {
-		type = _type;
-	} else {
+	if (_type == "object" || _type == "list") {
+		_type = "string";
 		_value = JSON.stringify(_value);
 	}
 	if (_isEncrypted !== false) {
