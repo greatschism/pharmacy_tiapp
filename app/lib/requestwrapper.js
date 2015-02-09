@@ -7,7 +7,6 @@ var Alloy = require("alloy"),
     http = require("http"),
     dialog = require("dialog"),
     utilities = require("utilities"),
-    xmlTools = require("XMLTools"),
     CFG = Alloy.CFG,
     user = {},
     encryptionUtil;
@@ -21,7 +20,7 @@ function request(_params) {
 	user = Alloy.Models.user.toJSON();
 
 	if (!_.has(_params, "format")) {
-		_params.format = "TEXT";
+		_params.format = "JSON";
 	}
 
 	if (!_.has(_params, "data")) {
@@ -43,60 +42,12 @@ function request(_params) {
 		}
 	}
 
-	if (_params.format == "TEXT" && _params.dataTransform !== false) {
-
-		var xml = "";
-		var jsonToXml = function(json) {
-			for (var i in json) {
-				xml += "<" + i + ">";
-				if ( typeof json[i] === "object") {
-					jsonToXml(json[i]);
-				} else {
-					xml += json[i];
-				}
-				xml += "</" + i + ">";
-			}
-		};
-		if ( typeof _params.data != "string") {
-			jsonToXml(_params.data);
-			_params.data = xml;
-			_params.dataTransform = false;
-		}
-
-		var headers = [{
-			key : "sessionid",
-			value : user.sessionId
-		}, {
-			key : "clientid",
-			value : user.appLoad.client_id || "1"
-		}, {
-			key : "language",
-			value : ""
-		}];
-		if (_.has(user.appLoad, "apploadid")) {
-			headers.push({
-				key : "apploadid",
-				value : user.appLoad.id
-			});
-		}
-		if (user.sessionId) {
-			headers.push({
-				key : "mscriptstoken",
-				value : user.appLoad.default_token
-			});
-		}
-		_params.headers = _.union(headers, _params.headers || []);
-
-	} else {
-
-		_.extend(_params.data, {
-			client_identifier : CFG.clientIdentifier,
-			version : CFG.apiVersion,
-			session_id : user.sessionId
-		});
-		_params.data = JSON.stringify(_params.data);
-
-	}
+	_.extend(_params.data, {
+		client_identifier : CFG.clientIdentifier,
+		version : CFG.apiVersion,
+		session_id : user.sessionId
+	});
+	_params.data = JSON.stringify(_params.data);
 
 	if (OS_IOS || OS_ANDROID) {
 		if (CFG.enableEncryption) {
@@ -129,15 +80,9 @@ function didSuccess(_data, _passthrough) {
 				_data = encryptionUtil.decrypt(_data);
 			}
 		}
-
-		if (_passthrough.format == "TEXT") {
-			_data = new xmlTools(_data).toObject();
-		}
-
-		var error = _data[_.keys(_data)[0]].error;
-		if (_.isObject(error)) {
+		if (_data.status != "Success") {
 			dialog.show({
-				message : error.errormessage
+				message : _data.message
 			});
 			if (_passthrough.failure) {
 				_passthrough.failure(_passthrough);

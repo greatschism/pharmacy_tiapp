@@ -72,8 +72,8 @@
 		"enableAnalytics": false,
 		"clearCachedResources": false,
 		"overrideRemoteResources": false,
-		"simulateAPI": true,
-		"simulateAPIOnFailure": true
+		"simulateAPI": false,
+		"simulateAPIOnFailure": false
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -87,8 +87,8 @@
 		"enableAnalytics": true,
 		"clearCachedResources": false,
 		"overrideRemoteResources": false,
-		"simulateAPI": true,
-		"simulateAPIOnFailure": true
+		"simulateAPI": false,
+		"simulateAPIOnFailure": false
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -102,8 +102,8 @@
 		"enableAnalytics": true,
 		"clearCachedResources": false,
 		"overrideRemoteResources": false,
-		"simulateAPI": true,
-		"simulateAPIOnFailure": true
+		"simulateAPI": false,
+		"simulateAPIOnFailure": false
 	},
 	"os:android": {
 		"navBarHeight": 48,

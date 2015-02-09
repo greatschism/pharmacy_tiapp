@@ -12,9 +12,6 @@ function init() {
 	http.request({
 		path : "doctors/get",
 		keepBlook : true,
-		dataTransform : false,
-		format : "JSON",
-		data : {},
 		success : didSuccess
 	});
 }

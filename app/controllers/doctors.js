@@ -17,9 +17,6 @@ function init() {
 	http.request({
 		path : "doctors/list",
 		keepBlook : true,
-		dataTransform : false,
-		format : "JSON",
-		data : {},
 		success : didSuccess
 	});
 }
@@ -29,9 +26,6 @@ function didSuccess(result) {
 	http.request({
 		path : "appointments/get",
 		keepBlook : true,
-		dataTransform : false,
-		format : "JSON",
-		data : {},
 		success : didReceiveAppointments
 	});
 }

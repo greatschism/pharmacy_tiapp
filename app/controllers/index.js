@@ -8,7 +8,6 @@ var config = require("config"),
 function didOpen(e) {
 	http.request({
 		path : "appload/get",
-		format : "JSON",
 		success : didSuccess,
 		blockUICallback : showLoader,
 		unblockUICallback : hideLoader
