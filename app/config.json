@@ -4,7 +4,9 @@
 			"APPLOAD_GET": "appload/get",
 			"DOCTORS_GET": "doctors/get",
 			"DOCTORS_LIST": "doctors/list",
-			"APPOINTMENTS_GET": "appointments/get"
+			"APPOINTMENTS_GET": "appointments/get",
+			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
+			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
 		},
 		"iconPrefix": "thick",
 		"icons": {
