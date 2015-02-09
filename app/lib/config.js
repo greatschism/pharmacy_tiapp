@@ -157,6 +157,11 @@ var Config = {
 		resources.update(_callback);
 	},
 
+	/**
+	 * https://appcelerator.force.com/portal/500F000000VToZE
+	 * https://jira.appcelerator.org/browse/ALOY-755
+	 * @param {String} name
+	 */
 	updateTSS : function(name) {
 		var styles = require("alloy/styles/" + name),
 		    theme = styles[0];

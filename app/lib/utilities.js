@@ -4,62 +4,34 @@
  * @class utilities
  */
 
+var encryptionUtil = require("encryptionUtil");
+
 /**
- * Checks to see if an item in the cache is stale or fresh
- * @param {String} _url The URL of the file we're checking
- * @param {Number} _time The time, in minutes, to consider 'warm' in the cache
+ * Get the property value from Ti.App.Properties
+ * @param {String} _name Name of the property
+ * @param {String} _type Type of the property such as string (default), int or boolean - (optional)
+ * @param {Boolen} _isEncrypted Whether it is encrypted value, default true (optional)
  */
-exports.isStale = function(_url, _time) {
-	var db = Ti.Database.open("ChariTi");
-	var time = new Date().getTime();
-	var cacheTime = typeof _time !== "undefined" ? _time : 5;
-	var freshTime = time - (cacheTime * 60 * 1000);
-	var lastUpdate = 0;
-
-	var data = db.execute("SELECT time FROM updates WHERE url = " + exports.escapeString(_url) + " ORDER BY time DESC LIMIT 1;");
-
-	while (data.isValidRow()) {
-		lastUpdate = data.fieldByName("time");
-
-		data.next();
+exports.getProperty = function(_name, _type, _isEncrypted) {
+	var value = Ti.App.Properties["get" + (_type ? exports.ucfirst(_type) : "String")](_name);
+	if (_isEncrypted !== false) {
+		value = encryptionUtil.decrypt(value);
 	}
-
-	data.close();
-	db.close();
-
-	if (lastUpdate === 0) {
-		return "new";
-	} else if (lastUpdate > freshTime) {
-		return false;
-	} else {
-		return true;
-	}
+	return value;
 };
 
 /**
- * Returns last updated time for an item in the cache
- * @param {String} _url The URL of the file we're checking
+ * Set the property value in Ti.App.Properties
+ * @param {String} _name Name of the property
+ * @param {String} _value Value for the property
+ * @param {String} _type Type of the property such as string (default), int or boolean - (optional)
+ * @param {Boolen} _isEncrypted Whether it is encrypted value, default true (optional)
  */
-exports.lastUpdate = function(_url) {
-	var db = Ti.Database.open("ChariTi");
-	var lastUpdate = 0;
-
-	var data = db.execute("SELECT time FROM updates WHERE url = " + exports.escapeString(_url) + " ORDER BY time DESC LIMIT 1;");
-
-	while (data.isValidRow()) {
-		lastUpdate = data.fieldByName("time");
-
-		data.next();
+exports.setProperty = function(_name, _value, _type, _isEncrypted) {
+	if (_isEncrypted !== false) {
+		_value = encryptionUtil.encrypt(_value);
 	}
-
-	data.close();
-	db.close();
-
-	if (lastUpdate === 0) {
-		return new Date().getTime();
-	} else {
-		return lastUpdate;
-	}
+	Ti.App.Properties["set" + (_type ? exports.ucfirst(_type) : "String")](_name, _value);
 };
 
 /**

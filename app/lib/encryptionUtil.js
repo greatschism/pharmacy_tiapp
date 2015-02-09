@@ -15,10 +15,10 @@ function generateStaticKey() {
 }
 
 function encrypt(plainText) {
-	var encryptDynamicKey = c.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH));
-	var encryptIV = c.lib.WordArray.random(IV_LENGTH);
-	var encryptFinalKey = c.enc.Hex.parse(STATIC_KEY).concat(encryptDynamicKey);
-	var encryptedData = aes.encrypt(plainText, encryptFinalKey, {
+	var encryptDynamicKey = c.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH)),
+	    encryptIV = c.lib.WordArray.random(IV_LENGTH),
+	    encryptFinalKey = c.enc.Hex.parse(STATIC_KEY).concat(encryptDynamicKey),
+	    encryptedData = aes.encrypt(plainText, encryptFinalKey, {
 		iv : encryptIV
 	}).ciphertext;
 	return c.enc.Base64.stringify(encryptDynamicKey.concat(encryptIV).concat(encryptedData));
@@ -26,8 +26,8 @@ function encrypt(plainText) {
 
 function decrypt(cipherText) {
 	cipherText = c.enc.Base64.parse(cipherText).toString();
-	var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES)));
-	var decryptIV = c.enc.Hex.parse(cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
+	var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
+	    decryptIV = c.enc.Hex.parse(cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
 	return aes.decrypt({
 		ciphertext : c.enc.Hex.parse(cipherText.substring(IV_BYTES_LAST_INDEX))
 	}, decryptFinalKey, {
