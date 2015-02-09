@@ -1,5 +1,8 @@
 {
 	"global": {
+		"apiPath": {
+			"APPLOAD_GET": "appload/get"
+		},
 		"iconPrefix": "thick",
 		"icons": {
 			"hamburger": "R",

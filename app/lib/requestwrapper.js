@@ -56,7 +56,7 @@ function request(_params) {
 	}
 
 	http.request({
-		url : _params.method ? "https://staging.remscripts.com/pdxonphonehandlerv6_4_3/".concat(_params.method) : CFG.baseUrl.concat(_params.path),
+		url : CFG.baseUrl.concat(CFG.apiPath[_params.method]),
 		type : _params.type,
 		format : _params.format,
 		data : _params.data,
@@ -68,7 +68,7 @@ function request(_params) {
 }
 
 function getSimulatedResponse(_passthrough) {
-	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.path], _passthrough.passthrough || {});
+	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.method], _passthrough.passthrough || {});
 }
 
 function didSuccess(_data, _passthrough) {

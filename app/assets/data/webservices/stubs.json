@@ -1,5 +1,5 @@
 {
-	"appload/get": {
+	"APPLOAD_GET": {
 		"status": "Success",
 		"code": "200",
 		"message": "x",

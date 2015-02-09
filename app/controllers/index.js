@@ -7,7 +7,7 @@ var config = require("config"),
 
 function didOpen(e) {
 	http.request({
-		path : "appload/get",
+		method : "APPLOAD_GET",
 		success : didSuccess,
 		blockUICallback : showLoader,
 		unblockUICallback : hideLoader
