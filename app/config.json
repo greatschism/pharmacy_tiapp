@@ -1,7 +1,10 @@
 {
 	"global": {
 		"apiPath": {
-			"APPLOAD_GET": "appload/get"
+			"APPLOAD_GET": "appload/get",
+			"DOCTORS_GET": "doctors/get",
+			"DOCTORS_LIST": "doctors/list",
+			"APPOINTMENTS_GET": "appointments/get"
 		},
 		"iconPrefix": "thick",
 		"icons": {

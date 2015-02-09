@@ -15,7 +15,7 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		path : "doctors/list",
+		method : "DOCTORS_LIST",
 		keepBlook : true,
 		success : didSuccess
 	});
@@ -24,7 +24,7 @@ function init() {
 function didSuccess(result) {
 	doctors = result.data.doctors;
 	http.request({
-		path : "appointments/get",
+		method : "APPOINTMENTS_GET",
 		keepBlook : true,
 		success : didReceiveAppointments
 	});

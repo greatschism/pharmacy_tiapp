@@ -10,7 +10,7 @@ function init() {
 	$.profileImg.image = doctor.thumbnail_url;
 	$.nameLbl.text = doctor.long_name;
 	http.request({
-		path : "doctors/get",
+		method : "DOCTORS_GET",
 		keepBlook : true,
 		success : didSuccess
 	});

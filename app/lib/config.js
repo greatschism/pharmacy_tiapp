@@ -136,8 +136,9 @@ var Config = {
 			if (!_.has(Alloy._images, code)) {
 				Alloy._images[code] = {};
 			}
+			var baseDirectory = OS_MOBILEWEB ? Ti.Filesystem.resourcesDirectory : Ti.Filesystem.applicationDataDirectory;
 			for (var j in orientations) {
-				Alloy._images[code][orientations[j]] = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
+				Alloy._images[code][orientations[j]] = Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
 			}
 		}
 
