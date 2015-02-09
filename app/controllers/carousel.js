@@ -1,8 +1,9 @@
 var args = arguments[0] || {},
+    utilities = require("utilities"),
     app = require("core");
 
 function init() {
-	Ti.App.Properties.setBool(Alloy.CFG.FIRST_LAUNCH, false);
+	utilities.setProperty(Alloy.CFG.FIRST_LAUNCH, false, "bool", false);
 }
 
 function didChangePage(e) {

@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     config = require("config"),
     resources = require("resources"),
+    utilities = require("utilities"),
     dialog = require("dialog"),
     colls = [{
 	key : "themes",
@@ -75,7 +76,7 @@ function didClickApply(e) {
 
 function didClickAbout() {
 	dialog.show({
-		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Ti.App.Properties.getString(Alloy.CFG.BUILD_DATE),
+		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + utilities.getProperty(Alloy.CFG.BUILD_DATE, "", "string", false),
 		title : Alloy.Globals.strings.strAbout
 	});
 }

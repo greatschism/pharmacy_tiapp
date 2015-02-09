@@ -79,7 +79,7 @@ function loadConfig() {
 function didLoadConfig() {
 	$.index.remove($.loading.getView());
 	Alloy.createController(Alloy._navigator + "/master", {
-		navigation : Ti.App.Properties.getBool(Alloy.CFG.FIRST_LAUNCH, true) ? {
+		navigation : utilities.getProperty(Alloy.CFG.FIRST_LAUNCH, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
 			navBarHidden : true

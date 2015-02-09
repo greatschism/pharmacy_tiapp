@@ -32,10 +32,10 @@ var Resources = {
 
 	init : function() {
 
-		if (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_UPDATED_ON, "") != Ti.App.version || !ENV_PRODUCTION) {
+		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-			    clearCache = Alloy.CFG.clearCachedResources && (Ti.App.Properties.getString(Alloy.CFG.RESOURCES_CLEARED_ON, "") != Ti.App.version || !ENV_PRODUCTION);
+			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION);
 
 			for (var i in keys) {
 				var key = keys[i];
@@ -43,10 +43,10 @@ var Resources = {
 			}
 
 			if (clearCache) {
-				Ti.App.Properties.setString(Alloy.CFG.RESOURCES_CLEARED_ON, Ti.App.version);
+				utilities.setProperty(Alloy.CFG.RESOURCES_CLEARED_ON, Ti.App.version, "string", false);
 			}
 
-			Ti.App.Properties.setString(Alloy.CFG.RESOURCES_UPDATED_ON, Ti.App.version);
+			utilities.setProperty(Alloy.CFG.RESOURCES_UPDATED_ON, Ti.App.version, "string", false);
 
 		}
 	},

@@ -9,29 +9,56 @@ var encryptionUtil = require("encryptionUtil");
 /**
  * Get the property value from Ti.App.Properties
  * @param {String} _name Name of the property
- * @param {String} _type Type of the property such as string (default), int or boolean - (optional)
- * @param {Boolen} _isEncrypted Whether it is encrypted value, default true (optional)
+ * @param {String/Bool/Int/Double/Object/List} _default default value to return
+ * @param {String} _type Type of the property such as string (default), int, object, list or bool - (optional)
+ * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
  */
-exports.getProperty = function(_name, _type, _isEncrypted) {
-	var value = Ti.App.Properties["get" + (_type ? exports.ucfirst(_type) : "String")](_name);
-	if (_isEncrypted !== false) {
-		value = encryptionUtil.decrypt(value);
+exports.getProperty = function(_name, _default, _type, _isEncrypted) {
+	var value,
+	    isValid = false,
+	    type = "string";
+	if (_type != "object" && _type != "list") {
+		type = _type;
 	}
-	return value;
+	value = Ti.App.Properties["get" + exports.ucfirst(type)](_name);
+	isValid = !_.isUndefined(value) && !_.isNull(value);
+	if (isValid) {
+		if (_isEncrypted !== false) {
+			value = encryptionUtil.decrypt(value);
+		}
+		if (_type == "object" || _type == "list") {
+			value = JSON.parse(value);
+		}
+	}
+	return isValid ? value : (!_.isUndefined(_default) ? _default : false);
 };
 
 /**
  * Set the property value in Ti.App.Properties
  * @param {String} _name Name of the property
  * @param {String} _value Value for the property
- * @param {String} _type Type of the property such as string (default), int or boolean - (optional)
- * @param {Boolen} _isEncrypted Whether it is encrypted value, default true (optional)
+ * @param {String} _type Type of the property such as string (default), int, object, list or bool - (optional)
+ * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
  */
 exports.setProperty = function(_name, _value, _type, _isEncrypted) {
+	var type = "string";
+	if (_type != "object" && _type != "list") {
+		type = _type;
+	} else {
+		_value = JSON.stringify(_value);
+	}
 	if (_isEncrypted !== false) {
 		_value = encryptionUtil.encrypt(_value);
 	}
-	Ti.App.Properties["set" + (_type ? exports.ucfirst(_type) : "String")](_name, _value);
+	Ti.App.Properties["set" + exports.ucfirst(_type)](_name, _value);
+};
+
+/**
+ * remove the property from Ti.App.Properties
+ * @param {String} _name Name of the property
+ */
+exports.removeProperty = function(_name) {
+	Ti.App.Properties.removeProperty(_name);
 };
 
 /**
