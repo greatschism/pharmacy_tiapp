@@ -8,6 +8,23 @@ var config = require("config"),
 function didOpen(e) {
 	http.request({
 		method : "APPLOAD_GET",
+		data : {
+			filter : null,
+			data : [{
+				appload : [{
+					phone_model : "x",
+					phone_os : "x",
+					phone_platform : "x",
+					device_id : "x",
+					carrier : "x",
+					app_version : "x",
+					client_name : "x",
+					client_param_type : "menu",
+					client_param_version : "x",
+					client_param_base_version : "x"
+				}]
+			}]
+		},
 		success : didSuccess,
 		blockUICallback : showLoader,
 		unblockUICallback : hideLoader

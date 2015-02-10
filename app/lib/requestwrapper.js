@@ -6,6 +6,7 @@ var Alloy = require("alloy"),
     app = require("core"),
     http = require("http"),
     dialog = require("dialog"),
+    localization = require("localization"),
     utilities = require("utilities"),
     CFG = Alloy.CFG,
     user = {},
@@ -45,7 +46,8 @@ function request(_params) {
 	_.extend(_params.data, {
 		client_identifier : CFG.clientIdentifier,
 		version : CFG.apiVersion,
-		session_id : user.sessionId
+		session_id : user.sessionId,
+		lang : localization.currentLanguage.id
 	});
 	_params.data = JSON.stringify(_params.data);
 
