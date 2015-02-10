@@ -32,6 +32,7 @@
 	"titleDetails": "zh-Details",
 	"titleRefillNow": "zh-Refill Now",
 	"titleSharedMobileNumber": "zh-Mobile is Shared",
+	"titleTextHelp": "zh-Text Help",
 
 	"sectionStoreHours": "zh-Store hours",
 	"sectionStoreServices": "zh-Store services",
@@ -111,6 +112,10 @@
 	"lblConfigurableCondition": "zh-More help for your comfigurable condition",
 	"lblConfigurableItem": "zh-Configurable text item",
 	"lblRefillNowPhoneHint": "zh-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+	"lblSomePhoneCarriersExperienceDelay":"zh-Some phone carriers experience Delay in sending texts.Please choose one of the options",
+	"lblGoToFullRegistration":"zh-Go to full registration",
+	"lblSendTheTextAgain":"zh-Send the text again,"
+
 
 	"valLoginRequiredFileds": "zh-Username and Password can't be blank",
 

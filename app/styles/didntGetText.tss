@@ -1,0 +1,12 @@
+
+"#hintPara":{
+	text: Alloy.Globals.strings.lblSomePhoneCarriersExperienceDelay
+}
+"#sendTxtAgainBtn":
+{
+	text: Alloy.Globals.strings.lblSendTheTextAgain
+}
+"#goToFullRegistrBtn":
+{
+	text: Alloy.Globals.strings.lblGoToFullRegistration
+}

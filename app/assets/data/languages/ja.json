@@ -32,6 +32,7 @@
 	"titleDetails": "ja-Details",
 	"titleRefillNow": "ja-Refill Now",
 	"titleSharedMobileNumber": "ja-Mobile is Shared",
+	"titleTextHelp": "ja-Text Help",
 
 	"sectionStoreHours": "ja-Store hours",
 	"sectionStoreServices": "ja-Store services",
@@ -110,7 +111,11 @@
 	"lblWrongAddress": "ja-Wrong address? Call you pharmacy to update",
 	"lblConfigurableCondition": "ja-More help for your comfigurable condition",
 	"lblConfigurableItem": "ja-Configurable text item",
-	"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+	"lblRefillNowPhoneHint": "ja-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+	"lblSomePhoneCarriersExperienceDelay":"ja-Some phone carriers experience Delay in sending texts.Please choose one of the options",
+	"lblGoToFullRegistration":"ja-Go to full registration",
+	"lblSendTheTextAgain":"ja-Send the text again,"
+
 
 	"valLoginRequiredFileds": "ja-Username and Password can't be blank",
 

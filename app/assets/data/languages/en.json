@@ -33,6 +33,7 @@
 	"titleRefillNow": "Refill Now",
 	"titleUpdates": "Updates",
 	"titleSharedMobileNumber": "Mobile is Shared",
+	"titleTextHelp": "Text Help",
 
 	"sectionStoreHours": "Store hours",
 	"sectionStoreServices": "Store services",
@@ -112,9 +113,12 @@
 	"lblConfigurableCondition": "More help for your comfigurable condition",
 	"lblConfigurableItem": "Configurable text item",
 	"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+	"lblSomePhoneCarriersExperienceDelay":"Some phone carriers experience Delay in sending texts.Please choose one of the options",
+	"lblGoToFullRegistration":"Go to full registration",
+	"lblSendTheTextAgain":"Send the text again,"
 
 	"valLoginRequiredFileds": "Username and Password can't be blank",
-
+,
 	"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
 	"msgPleaseWait": "Processing. Please wait",
 	"msgFailedToRetrieve": "Failed to retrieve",

@@ -5,6 +5,6 @@
 		<Label id="hintLbl" class="styled-lbl multi-line" />
 		<Widget id="codeTxt" src="com.mscripts.textfield" class="txt text-center return-done" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="btn-secondary" onClick="didClickContinue" />
-		<Widget id="resendLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-lbl multi-line" />
+		<Widget id="resendLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-lbl multi-line" onClick="didClickDidntGetText" />
 	</ScrollView>
 </Alloy>

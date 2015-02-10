@@ -32,6 +32,7 @@
 	"titleDetails": "Detalles",
 	"titleRefillNow": "Refill Now",
 	"titleSharedMobileNumber": "Mobile is Shared",
+	"titleTextHelp": "Text Help",
 
 	"sectionStoreHours": "El horario de apertura",
 	"sectionStoreServices": "servicios de tienda",
@@ -111,6 +112,10 @@
 	"lblConfigurableCondition": "Más ayuda para su condición comfigurable",
 	"lblConfigurableItem": "Elemento de texto configurable",
 	"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+	"lblSomePhoneCarriersExperienceDelay":"es-Some phone carriers experience Delay in sending texts.Please choose one of the options",
+	"lblGoToFullRegistration":"es-Go to full registration",
+	"lblSendTheTextAgain":"es-Send the text again,"
+
 
 	"valLoginRequiredFileds": "Nombre de usuario y la contraseña no puede estar en blanco",
 

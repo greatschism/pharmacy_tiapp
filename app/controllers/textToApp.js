@@ -8,3 +8,13 @@ function didClickContinue(e) {
 		stack : true
 	});
 }
+
+
+function didClickDidntGetText(e) {
+	app.navigator.open({
+		ctrl : "didntgetText",
+		titleid : "titleTextHelp",
+		stack : true
+	});
+}
+"utilities"

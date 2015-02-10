@@ -1,0 +1,9 @@
+<Alloy>
+	<ScrollView class="vgroup bg-primary">
+		
+		<Label id="hintPara" class="styled-title multi-line" />
+		<Button id="sendTxtAgainBtn" class="btn-secondary" onClick="didClickSendTxtAgain" />
+		<Button id="goToFullRegistrBtn" class="btn-secondary" onClick="didClickGoToFullRegistr" />
+
+	</ScrollView>
+</Alloy>
