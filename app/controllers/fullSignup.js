@@ -11,11 +11,54 @@ function setParentViews(view) {
 }
 
 function didClickSignup(e) {
-	app.navigator.open({
-		titleid : "titleVerifyMobileNumber",
-		ctrl : "textToApp",
-		stack : true
+
+	// app.navigator.open({
+	// titleid : "titleVerifyMobileNumber",
+	// ctrl : "textToApp",
+	// stack : true
+	// });
+
+	var fname = $.fnameTxt.getValue(),
+	    lname = $.lnameTxt.getValue(),
+	    dob = $.dob.getValue(),
+	    email = $.emailTxt.getValue(),
+	    username = $.unameTxt.getValue(),
+	    password = $.passwordTxt.getValue(),
+	    rxNumber = $.rxNoTxt.getValue(),
+	    storeAddressLine1 = $.locationLbl.getValue();
+
+	var errorMessage = "",
+	    allFieldsValidated = true;
+
+	if (fname === "") {
+
+	} else if (lname === "") {
+
+	} else if (dob) {
+		
+	}
+
+	http.request({
+		method : "PATIENTS_REGISTER",
+		data : {
+			request : {
+				authenticate : {
+					username : uname,
+					password : password,
+					clientname : Alloy.CFG.clientname,
+					emailpin : Alloy.CFG.emailpin,
+					featurecode : "TH053",
+					language : ""
+				}
+			}
+		},
+		success : didAuthenticate
 	});
+
+	dialog.show({
+		message : Alloy.Globals.strings.valLoginRequiredFileds
+	});
+
 }
 
 function didToggle(e) {
@@ -60,6 +103,16 @@ function updateStore() {
 		$.locationLbl.color = Alloy._fg_denary;
 	}
 	$.locationLbl.text = Alloy.Models.store.get("addressline1");
+}
+
+function didClickTermsAndCondition() {
+
+	app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : true
+	});
+
 }
 
 function terminate() {

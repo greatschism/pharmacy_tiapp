@@ -32,7 +32,7 @@
 				<Label id="downLbl" class="padding-right tiny-icn touch-disabled" />
 			</View>
 		</View>
-		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="styled-h2 fg-primary" />
+		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="styled-h2 fg-primary" onClick="didClickTermsAndCondition"/>
 		<Button id="signupBtn" class="margin-bottom btn-secondary" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy>
