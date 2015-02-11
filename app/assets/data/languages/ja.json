@@ -114,10 +114,10 @@
 	"lblRefillNowPhoneHint": "ja-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
 	"lblSomePhoneCarriersExperienceDelay":"ja-Some phone carriers experience Delay in sending texts.Please choose one of the options",
 	"lblGoToFullRegistration":"ja-Go to full registration",
-	"lblSendTheTextAgain":"ja-Send the text again,"
+	"lblSendTheTextAgain":"ja-Send the text again",
 
 
-	"valLoginRequiredFileds": "ja-Username and Password can't be blank",
+	"valLoginRequiredFields": "ja-Username and Password can't be blank",
 
 	"msgUnableToFindYourGEO": "ja-Unable to find your location, please check your settings",
 	"msgPleaseWait": "ja-Processing. Please wait",

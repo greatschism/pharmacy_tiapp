@@ -1,4 +1,4 @@
-{
+ChildProcess.emit (events.js:110:17),maybeClose (child_process.js:1008:16),Socket.<anonymous> (child_process.js:1176:11),Socket.emit (events.js:107:17),Pipe.close (net.js:476:12){
 	"lngEnglish": "English",
 	"lngJapanese": "Japanese",
 	"lngSpanish": "Spanish",
@@ -117,7 +117,7 @@
 	"lblGoToFullRegistration":"Go to full registration",
 	"lblSendTheTextAgain":"Send the text again,"
 
-	"valLoginRequiredFileds": "Username and Password can't be blank",
+	"valLoginRequiredFields": "Username and Password can't be blank",
 
 	"msgUnableToFindYourGEO": "Unable to find your location, please check your settings",
 	"msgPleaseWait": "Processing. Please wait",
