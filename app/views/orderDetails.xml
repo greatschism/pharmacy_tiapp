@@ -1,4 +1,11 @@
 <Alloy>
-	<View class="container">
+	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
+
+	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
+	<View>
+		<TableView id="tableView" onClick="didItemClick" />
+		<View id="footerView" class="bottom">
+			<Button id="orderRefillBtn" class="btn-primary" onClick="didClickOrderRefill" />
+		</View>
 	</View>
-</Alloy>
+</Alloy> 
