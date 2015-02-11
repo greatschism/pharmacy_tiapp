@@ -29,8 +29,6 @@
 			"reward": ">",
 			"users_list": "w",
 			"down_arrow": "\"",
-			"select": "m",
-			"success": "+",
 			"map": "t",
 			"list": "r",
 			"pin": "n",
@@ -38,6 +36,8 @@
 			"sort": "X",
 			"remove": "*",
 			"refresh": ".",
+			"success_unfilled": "m",
+			"success_filled": "+",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",
@@ -79,10 +79,10 @@
 		"enableLogger": true,
 		"enableAPM": false,
 		"enableAnalytics": false,
-		"clearCachedResources": false,
+		"clearCachedResources": true,
 		"overrideRemoteResources": true,
 		"simulateAPI": false,
-		"simulateAPIOnFailure": false
+		"simulateAPIOnFailure": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -92,10 +92,10 @@
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"clearCachedResources": false,
+		"clearCachedResources": true,
 		"overrideRemoteResources": true,
 		"simulateAPI": false,
-		"simulateAPIOnFailure": false
+		"simulateAPIOnFailure": true
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -105,10 +105,10 @@
 		"enableLogger": false,
 		"enableAPM": true,
 		"enableAnalytics": true,
-		"clearCachedResources": false,
+		"clearCachedResources": true,
 		"overrideRemoteResources": true,
 		"simulateAPI": false,
-		"simulateAPIOnFailure": false
+		"simulateAPIOnFailure": true
 	},
 	"os:android": {
 		"navBarHeight": 48,
