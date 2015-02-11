@@ -105,7 +105,7 @@ function setMinDate(_minDate) {
 	}
 }
 
-function showPicker(_minDate, _maxDate) {
+function showPicker() {
 	keyboard && keyboard.hide();
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
@@ -116,8 +116,8 @@ function showPicker(_minDate, _maxDate) {
 				};
 				if (osMajorVersion > 2) {
 					_.extend(dict, {
-						minDate : _minDate || args.minDate || new Date(1900, 0, 1),
-						maxDate : _maxDate || args.maxDate || new Date()
+						minDate : args.minDate || new Date(1900, 0, 1),
+						maxDate : args.maxDate || new Date()
 					});
 				}
 				var _picker = Ti.UI.createPicker(dict);
@@ -142,8 +142,8 @@ function showPicker(_minDate, _maxDate) {
 			} else if (OS_IOS) {
 				var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
 				_.extend(pickerDict, {
-					minDate : _minDate || args.minDate || new Date(1900, 0, 1),
-					maxDate : _maxDate || args.maxDate || new Date(),
+					minDate : args.minDate || new Date(1900, 0, 1),
+					maxDate : args.maxDate || new Date(),
 					value : selectedDate || new Date(),
 					parent : parent,
 					nextItem : args.nextItem || ""
