@@ -1,4 +1,4 @@
-"#applyBtn":{
+"#doneBtn":{
 	title: Alloy.Globals.strings.btnDone
 },
 "#aboutBtn":{

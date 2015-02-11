@@ -3,10 +3,10 @@
 		<HeaderView>
 			<View class="vspacer" />
 		</HeaderView>
-		<TableViewRow class="bg-primary">
+		<TableViewRow class="primary-bg-color">
 			<View class="list-item-view hgroup no-hwrap">
-				<Label text="{icon}" class="large-icn fg-primary" />
-				<Label text="{title}" class="padding-left h3 fg-primary" />
+				<Label text="{icon}" class="left small-icon primary-color" color="#FFF" />
+				<Label text="{title}" class="padding-left list-item-title-lbl" />
 			</View>
 		</TableViewRow>
 	</TableView>

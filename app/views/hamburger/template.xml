@@ -2,8 +2,8 @@
 	<View class="template-view">
 		<View id="navBar" class="nav">
 			<View id="navBarView" class="nav-view">
-				<View id="leftIcnView" class="nav-left-item-container" onSingletap="didTapLeftIcn">
-					<Label id="lefIcnLbl" class="nav-left-icn" />
+				<View id="leftActionView" class="left nav-action-container" onSingletap="didTapLeftActionView">
+					<Label id="leftIconLbl" class="margin-left nav-icon touch-disabled" />
 				</View>
 				<Label id="titleLbl" class="nav-title-lbl" />
 			</View>

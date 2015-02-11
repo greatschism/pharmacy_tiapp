@@ -13,7 +13,7 @@ app.navigator.setStartupParams(startupParams);
 app.navigator.open(args.navigation || startupParams);
 
 function filterFunction(collection) {
-	$.menu.backgroundColor = Alloy._bg_primary;
+	$.menu.backgroundColor = Alloy.TSS.primary_bg_color.backgroundColor;
 	return collection.models;
 }
 

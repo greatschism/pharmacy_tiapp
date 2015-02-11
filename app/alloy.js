@@ -1,5 +1,17 @@
 (function() {
 
+	//default t
+	Alloy.TSS = {
+		Theme : {
+			id : "none",
+			version : 0
+		},
+		Window : {
+			backgroundColor : "#FFFFFF",
+			navTintColor : "#FFFFFF"
+		}
+	};
+
 	//initialization
 	require("apm").init();
 	require("resources").init();

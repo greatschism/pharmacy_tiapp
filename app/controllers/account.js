@@ -60,7 +60,7 @@ function didReturnLanguages(e) {
 	colls[2].selectedItem = $.languagesDp.getSelectedItem();
 }
 
-function didClickApply(e) {
+function didClickDone(e) {
 	for (var i in colls) {
 		colls[i].selectedItem.selected = true;
 		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected", "styles", "data", "strings"])]);

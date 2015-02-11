@@ -24,7 +24,7 @@ var args = arguments[0] || {};
 		$.search.applyProperties({
 			text : args.leftIcon || "Q",
 			font : args.leftIconFont || {
-				fontFamily : Alloy._fonts.icon,
+				fontFamily : Alloy.Fonts.icon,
 				fontSize : 24
 			},
 			color : args.leftIconColor || "#000"
@@ -61,7 +61,7 @@ var args = arguments[0] || {};
 			font : args.rightButtonFont || args.rightButtonTitle ? args.font || {
 				fontSize : 12
 			} : {
-				fontFamily : Alloy._fonts.icon,
+				fontFamily : Alloy.Fonts.icon,
 				fontSize : 24
 			},
 			color : args.rightButtonColor || "#000",

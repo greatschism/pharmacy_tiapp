@@ -11,11 +11,13 @@ var args = arguments[0] || {},
 	}
 
 	if (args.stack) {
-		$.lefIcnLbl.text = icons.back;
+		$.leftIconLbl.text = icons.back;
 		$.template.applyProperties({
 			opacity : 0,
 			left : app.device.width
 		});
+	} else {
+		$.leftIconLbl.visible = false;
 	}
 
 	//reload tss of this controller in memory
@@ -54,7 +56,7 @@ var args = arguments[0] || {},
 
 })();
 
-function didTapLeftIcn(e) {
+function didTapLeftActionView(e) {
 	if (args.stack) {
 		app.navigator.close();
 	}

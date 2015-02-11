@@ -7,6 +7,13 @@
 		"url": "https://staging.remscripts.com/nativemia/mscripts.ttf",
 		"platform": ["ios", "android", "mobileweb"]
 	}, {
+		"id": "Roboto-Light",
+		"version": 1,
+		"code": "light",
+		"format": "ttf",
+		"url": "https://staging.remscripts.com/nativemia/Roboto-Light.ttf",
+		"platform": ["android", "mobileweb"]
+	}, {
 		"id": "Roboto-Regular",
 		"version": 1,
 		"code": "regular",
@@ -26,6 +33,13 @@
 		"code": "bold",
 		"format": "ttf",
 		"url": "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
+		"platform": ["android", "mobileweb"]
+	}, {
+		"id": "Lato-Light",
+		"version": 1,
+		"code": "light",
+		"format": "ttf",
+		"url": "https://staging.remscripts.com/nativemia/Lato-Light.ttf",
 		"platform": ["android", "mobileweb"]
 	}, {
 		"id": "Lato-Regular",

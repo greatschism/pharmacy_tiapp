@@ -3,12 +3,12 @@
 		"apiPath": {
 			"APPLOAD_GET": "appload/get",
 			"DOCTORS_GET": "doctors/get",
-			"PRESCRIPTIONS_GET" :  "prescriptions/get",
+			"PRESCRIPTIONS_GET": "prescriptions/get",
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
 			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
-			"PATIENTS_REGISTER" : "patients/register",
+			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_VALIDATE": "patients/validate"
 		},
 		"iconPrefix": "thick",
@@ -73,8 +73,6 @@
 	},
 	"env:development": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
-		"clientname": "Meg-lo",
-		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
 		"enableEncryption": false,
@@ -88,8 +86,6 @@
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
-		"clientname": "Meg-lo",
-		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
 		"enableEncryption": false,
@@ -97,14 +93,12 @@
 		"enableAPM": true,
 		"enableAnalytics": true,
 		"clearCachedResources": false,
-		"overrideRemoteResources": false,
+		"overrideRemoteResources": true,
 		"simulateAPI": false,
 		"simulateAPIOnFailure": false
 	},
 	"env:production": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
-		"clientname": "Meg-lo",
-		"emailpin": "",
 		"clientIdentifier": "1234",
 		"apiVersion": "1.0",
 		"enableEncryption": false,
@@ -112,7 +106,7 @@
 		"enableAPM": true,
 		"enableAnalytics": true,
 		"clearCachedResources": false,
-		"overrideRemoteResources": false,
+		"overrideRemoteResources": true,
 		"simulateAPI": false,
 		"simulateAPIOnFailure": false
 	},

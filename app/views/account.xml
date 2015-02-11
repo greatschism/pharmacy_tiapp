@@ -3,7 +3,7 @@
 		<Widget id="themesDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnThemes" />
 		<Widget id="templatesDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnTemplates" />
 		<Widget id="languagesDp" src="com.mscripts.dropdown" class="margin-top dropdown" onReturn="didReturnLanguages" />
-		<Button id="applyBtn" class="btn-primary" onClick="didClickApply" />
-		<Button id="aboutBtn" class="margin-bottom btn-primary" onClick="didClickAbout" />
+		<Button id="doneBtn" class="padding-top primary-btn" onClick="didClickDone" />
+		<Button id="aboutBtn" class="padding-top margin-bottom primary-btn" onClick="didClickAbout" />
 	</ScrollView>
 </Alloy> 
