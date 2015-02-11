@@ -12,12 +12,16 @@ var args = arguments[0] || {},
 (function() {
 	var options = {};
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(args, ["top", "bottom", "left", "right", "width", "height", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
 
 	options = _.pick(args, ["font", "color"]);
+	_.extend(options, {
+		left : args.paddingLeft || 12,
+		right : args.paddingRight || 12
+	});
 	if (args.hintText) {
 		isHintText = true;
 		_.extend(options, {
@@ -31,9 +35,13 @@ var args = arguments[0] || {},
 	}
 	$.lbl.applyProperties(options);
 
-	$.rightIcon.applyProperties({
-		text : args.rightIcon || "\"",
-		color : args.rightIconColor || "#000"
+	$.downArrowLbl.applyProperties({
+		right : args.iconPaddingRight || 12,
+		text : args.iconText || "\"",
+		color : args.iconColor || "#000",
+		font : args.iconFont || {
+			fontSize : 12
+		}
 	});
 
 	if (_.has(args, "parent")) {
@@ -41,9 +49,7 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "choices")) {
-
 		setChoices(args.choices);
-
 		if (_.has(args, "selectedIndex")) {
 			setSelectedIndex(args.selectedIndex);
 		}
@@ -85,7 +91,21 @@ function getParentView() {
 	return parent;
 }
 
-function showPicker() {
+function setMaxDate(_maxDate) {
+	args.maxDate = _maxDate;
+	if (OS_MOBILEWEB) {
+		picker.setMaxDate(moment(args.maxDate || new Date()).format("YYYY-MM-DD"));
+	}
+}
+
+function setMinDate(_minDate) {
+	args.minDate = _minDate;
+	if (OS_MOBILEWEB) {
+		picker.setMinDate(moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"));
+	}
+}
+
+function showPicker(_minDate, _maxDate) {
 	keyboard && keyboard.hide();
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
@@ -96,8 +116,8 @@ function showPicker() {
 				};
 				if (osMajorVersion > 2) {
 					_.extend(dict, {
-						minDate : args.minDate || new Date(1900, 0, 1),
-						maxDate : args.maxDate || new Date()
+						minDate : _minDate || args.minDate || new Date(1900, 0, 1),
+						maxDate : _maxDate || args.maxDate || new Date()
 					});
 				}
 				var _picker = Ti.UI.createPicker(dict);
@@ -107,10 +127,13 @@ function showPicker() {
 					value : selectedDate || new Date(),
 					callback : function(e) {
 						if (e.cancel) {
-							$.trigger("cancel");
+							$.trigger("cancel", {
+								source : $
+							});
 						} else {
 							setValue(e.value);
 							$.trigger("return", {
+								source : $,
 								nextItem : args.nextItem || ""
 							});
 						}
@@ -119,8 +142,8 @@ function showPicker() {
 			} else if (OS_IOS) {
 				var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
 				_.extend(pickerDict, {
-					minDate : args.minDate || new Date(1900, 0, 1),
-					maxDate : args.maxDate || new Date(),
+					minDate : _minDate || args.minDate || new Date(1900, 0, 1),
+					maxDate : _maxDate || args.maxDate || new Date(),
 					value : selectedDate || new Date(),
 					parent : parent,
 					nextItem : args.nextItem || ""
@@ -131,7 +154,7 @@ function showPicker() {
 				picker.init();
 			}
 		} else {
-			var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
+			var pickerDict = _.pick(args, ["toolbarDict", "choiceDict", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectionIconText", "iconSelectionColor", "containerPaddingTop"]);
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
@@ -160,6 +183,7 @@ function hidePicker() {
 function doSelect(e) {
 	setSelectedIndex(picker.getSelectedIndex());
 	hidePicker();
+	e.source = $;
 	$.trigger("return", e);
 }
 
@@ -200,6 +224,7 @@ function getSelectedItem() {
 function doSelectDate(e) {
 	setValue(picker.getValue());
 	hidePicker();
+	e.source = $;
 	$.trigger("return", e);
 }
 
@@ -224,6 +249,8 @@ function getValue() {
 
 exports.setValue = setValue;
 exports.getValue = getValue;
+exports.setMaxDate = setMaxDate;
+exports.setMinDate = setMinDate;
 exports.showPicker = showPicker;
 exports.focus = showPicker;
 exports.hidePicker = hidePicker;

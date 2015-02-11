@@ -1,62 +1,27 @@
 "#picker": {
 	width: Ti.UI.FILL,
-	height: 290,
+	height: 240,
 	zIndex: 10
 },
-"#toolbar":{
+"#toolbarView":{
 	top: 0,
-	height: 40,
-	backgroundColor: "#F1F1F1"
-},
-"Button":{
-	width: Ti.UI.SIZE,
-	height: Ti.UI.FILL,
-	font:{
-		fontSize: 17
-	},
-	color: "#000",
-	backgroundColor: "transparent",
-	borderColor: "transparent",
-	borderRadius: 5
+	height: 40
 },
 "#leftBtn":{
-	left: 10,
+	left: 12,
 	title: "Cancel"
 },
 "#rightBtn":{
-	right: 10,
+	right: 12,
 	title: "Done"
 },
 "#listView":{
 	top: 40,
-	height: 250
+	height: 200
 },
 "#listView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
 		left: 0
-	}
-},
-".height-48d":{
-	height: 48
-},
-".title":{
-	left: 40,
-	right: 10,
-	font:{
-		fontSize: 18
-	},
-	color: "#000"
-},
-".title[platform=android,mobileweb]":{
-	ellipsize: true,
-	wordWrap: false
-},
-".checked":{
-	left: 10,
-	width: 20,
-	font: {
-		fontFamily: Alloy.Fonts.icon,
-		fontSize: 20
 	}
 }

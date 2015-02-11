@@ -1,27 +1,7 @@
 "#widget": {
-	height: 40,
-	borderColor: "#8b8b8b",
-	borderWidth: 1,
-	borderRadius: 5
-},
-"#lbl":{
-	left: 8,
-	right: 40,
-	font:{
-		fontSize: 14
-	},
-	color: "#000"
+	height: 50
 },
 "#lbl[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
-},
-"#rightIcon":{
-	right: 10,
-	width: 20,
-	font: {
-		fontFamily: Alloy.Fonts.icon,
-		fontSize: 12
-	},
-	color: "#C4C4C4"
 }

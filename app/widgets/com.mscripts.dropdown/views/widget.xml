@@ -1,6 +1,6 @@
 <Alloy>
 	<View onClick="showPicker">
 		<Label id="lbl" />
-		<Label id="rightIcon" />
+		<Label id="downArrowLbl" />
 	</View>
 </Alloy>

@@ -1,28 +1,39 @@
 var args = arguments[0] || {},
-    PICKER_HEIGHT = 290,
-    height = Ti.Platform.displayCaps.platformHeight,
-    choiceDict = {},
+    PICKER_HEIGHT = 240,
+    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
+    choiceDict = {
+	top : 12,
+	bottom : 12,
+	left : 12,
+	right : 12,
+	height : Ti.UI.SIZE,
+	layout : "horizontal",
+	horizontalWrap : false
+},
+    font = {
+	fontSize : 12
+},
     choices = [],
     selectedIndex = -1,
     parent;
 
 (function() {
 
-	if (_.has(args, "backgroundColor")) {
-	//	$.picker.backgroundColor = args.backgroundColor;
-	}
-
 	if (_.has(args, "toolbarDict")) {
-		$.toolbar.applyProperties(args.toolbarDict);
+		$.toolbarView.applyProperties(args.toolbarDict);
+		if (_.has(args.toolbarDict, "height")) {
+			$.listView.applyProperties({
+				top : args.toolbarDict.height,
+				height : PICKER_HEIGHT - args.toolbarDict.height
+			});
+		}
 	}
 
 	if (_.has(args, "choiceDict")) {
-		choiceDict = args.choiceDict;
-	}
-
-	if (_.has(args, "buttonDict")) {
-		$.leftBtn.applyProperties(args.buttonDict);
-		$.rightBtn.applyProperties(args.buttonDict);
+		if (_.has(args.choiceDict, "font")) {
+			font = args.choiceDict.font;
+		}
+		_.extend(choiceDict, args.choiceDict);
 	}
 
 	if (_.has(args, "leftTitle")) {
@@ -33,87 +44,77 @@ var args = arguments[0] || {},
 		$.rightBtn.title = args.rightTitle;
 	}
 
+	if (_.has(args, "leftBtnDict")) {
+		$.leftBtn.applyProperties(args.leftBtnDict);
+	}
+
+	if (_.has(args, "rightBtnDict")) {
+		$.rightBtn.applyProperties(args.rightBtnDict);
+	}
+
 	if (_.has(args, "parent")) {
 		setParentView(args.parent);
 	}
 
 	if (_.has(args, "choices")) {
-
 		setChoices(args.choices);
-
 		if (_.has(args, "selectedIndex")) {
 			setSelectedIndex(args.selectedIndex);
 		}
 	}
 
 	if (OS_ANDROID) {
-		height /= Ti.Platform.displayCaps.logicalDensityFactor;
+		SCREEN_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
 	}
 
-	$.picker.top = height + PICKER_HEIGHT;
+	$.picker.top = SCREEN_HEIGHT;
 
 })();
 
 function init() {
-	if (OS_IOS || OS_ANDROID) {
-		var items = [];
-		for (var i in choices) {
-			var titleProp = {
-				text : choices[i].title
-			};
-			_.extend(titleProp, choiceDict);
-			items.push({
-				title : titleProp,
-				rightIcon : {
-					text : choices[i].rightIcon || "+"
-				},
-				template : selectedIndex == i ? "checked" : "unchecked",
-				properties : {
-					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
-				}
-			});
-		}
-		$.section.setItems(items);
-	} else {
-		var data = [];
-		for (var i in choices) {
-			data.push(getRow({
-				title : choices[i].title,
-				rightIcon : selectedIndex == i ? choices[i].rightIcon || "+" : ""
-			}));
-		}
-		$.listView.setData(data);
+	var data = [];
+	for (var i in choices) {
+		data.push(getRow({
+			title : choices[i].title,
+			iconText : selectedIndex == i ? choices[i].iconText || args.selectionIconText || "+" : ""
+		}));
 	}
+	$.listView.setData(data);
 	$.picker.addEventListener("postlayout", didPostlayout);
 	parent.add($.picker);
 }
 
 function getRow(data) {
-	var row = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow",
-		classes : ["height-48d"]
-	});
-	if (data.image) {
-		var lbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["checked"]
+	var row = Ti.UI.createTableViewRow({
+		height : Ti.UI.SIZE,
+		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : fasle
+	}),
+	    rowView = Ti.UI.createView(choiceDict);
+	if (data.iconText) {
+		var lbl = Ti.UI.createLabel({
+			left : 0,
+			text : data.iconText,
+			color : args.iconSelectionColor || "#000",
+			font : args.iconFont || {
+				fontSize : 12
+			}
 		});
-		lbl.text = data.rightIcon;
-		row.add(lbl);
+		rowView.add(lbl);
 	}
-	var title = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["title"]
+	var titleLbl = Ti.UI.createLabel({
+		left : args.paddingLeft || 12,
+		text : data.title,
+		font : font,
+		color : args.color || "#000"
 	});
-	choiceDict.text = data.title;
-	title.applyProperties(choiceDict);
-	row.add(title);
+	rowView.add(titleLbl);
+	row.add(rowView);
 	return row;
 }
 
 function terminate(callback) {
 	var animation = Ti.UI.createAnimation({
-		top : height + PICKER_HEIGHT,
+		top : SCREEN_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
@@ -128,8 +129,8 @@ function terminate(callback) {
 
 function didPostlayout(e) {
 	$.picker.removeEventListener("postlayout", didPostlayout);
-	var top = height - PICKER_HEIGHT;
-	var animation = Ti.UI.createAnimation({
+	var top = (SCREEN_HEIGHT - PICKER_HEIGHT) - (args.containerPaddingTop || 0),
+	    animation = Ti.UI.createAnimation({
 		top : top,
 		duration : 300
 	});
@@ -140,27 +141,7 @@ function didPostlayout(e) {
 	$.picker.animate(animation);
 }
 
-function didItemClick(e) {
-	var itemIndex = e.itemIndex;
-	if (itemIndex !== selectedIndex) {
-		var section = e.section;
-		if (selectedIndex >= 0) {
-			var toUncheck = section.getItemAt(selectedIndex);
-			toUncheck.template = "unchecked";
-			$.section.updateItemAt(selectedIndex, toUncheck);
-		}
-		selectedIndex = itemIndex;
-		var toCheck = section.getItemAt(selectedIndex);
-		toCheck.template = "checked";
-		$.section.updateItemAt(selectedIndex, toCheck);
-		$.trigger("change", {
-			selectedIndex : selectedIndex,
-			selectedItem : getSelectedItem()
-		});
-	}
-}
-
-function didTVRClick(e) {
+function didClickListView(e) {
 	var index = e.index;
 	if (index !== selectedIndex) {
 		if (selectedIndex >= 0) {
@@ -171,21 +152,25 @@ function didTVRClick(e) {
 		selectedIndex = index;
 		$.listView.updateRow(selectedIndex, getRow({
 			title : choices[selectedIndex].title,
-			image : choices[selectedIndex].image || WPATH("checked.png")
+			iconText : choices[selectedIndex].iconText || args.selectionIconText || "+"
 		}));
 		$.trigger("change", {
+			soruce : $,
 			selectedIndex : selectedIndex,
 			selectedItem : getSelectedItem()
 		});
 	}
 }
 
-function didLeftClick(e) {
-	$.trigger("leftclick");
+function didClickLeftBtn(e) {
+	$.trigger("leftclick", {
+		source : $
+	});
 }
 
-function didRightClick(e) {
+function didClickRightBtn(e) {
 	$.trigger("rightclick", {
+		source : $,
 		nextItem : args.nextItem || ""
 	});
 }

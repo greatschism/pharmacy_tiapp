@@ -1,21 +1,9 @@
 <Alloy>
 	<View>
-		<View id="toolbar">
-			<Button id="leftBtn" onClick="didLeftClick" />
-			<Button id="rightBtn" onClick="didRightClick" />
+		<View id="toolbarView">
+			<Button id="leftBtn" onClick="didClickLeftBtn" />
+			<Button id="rightBtn" onClick="didClickRightBtn" />
 		</View>
-		<ListView id="listView" defaultItemTemplate="unchecked" onItemclick="didItemClick" platform="ios,android">
-			<Templates>
-				<ItemTemplate name="unchecked" class="height-48d">
-					<Label bindId="title" class="title" />
-				</ItemTemplate>
-				<ItemTemplate name="checked" class="height-48d">
-					<Label bindId="rightIcon" class="checked" />
-					<Label bindId="title" class="title" />
-				</ItemTemplate>
-			</Templates>
-			<ListSection id="section" />
-		</ListView>
-		<TableView id="listView" onClick="didTVRClick" platform="mobileweb" />
+		<TableView id="listView" onClick="didClickListView" />
 	</View>
 </Alloy>

@@ -7,7 +7,7 @@
     <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mcripts.appcelerator</id>
     <name>my Pharmacy</name>
-    <version>7.0.6</version>
+    <version>7.0.7</version>
     <!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
     <property name="buildDate" type="string">16.01.2015</property>
     <!--  To be replaced before the build happens -->
@@ -125,6 +125,8 @@
         <module platform="commonjs">ti.cloud</module>
         <module platform="iphone">ti.map</module>
         <module platform="android">ti.map</module>
+        <module platform="android">com.appcelerator.apm</module>
+        <module platform="iphone">com.appcelerator.apm</module>
         <module platform="iphone">com.obscure.keychain</module>
         <module platform="android">com.obscure.keychain</module>
         <module platform="iphone">ti.keyboard</module>
