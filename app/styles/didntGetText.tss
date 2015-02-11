@@ -10,3 +10,6 @@
 {
 	text: Alloy.Globals.strings.lblGoToFullRegistration
 }
+"#hintPara1":{
+	text: Alloy.Globals.strings.lblWeCanTryToSendTheText
+}

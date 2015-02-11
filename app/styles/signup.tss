@@ -22,6 +22,11 @@
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,
+	nextItem: "dob"
+},
+"#dob":{
+	hintText: Alloy.Globals.strings.hintDOB,
+	type: Ti.UI.PICKER_TYPE_DATE,
 	nextItem: "emailTxt"
 },
 "#emailTxt":{

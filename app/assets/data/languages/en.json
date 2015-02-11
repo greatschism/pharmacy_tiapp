@@ -113,9 +113,10 @@
 	"lblConfigurableCondition": "More help for your comfigurable condition",
 	"lblConfigurableItem": "Configurable text item",
 	"lblRefillNowPhoneHint": "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
-	"lblSomePhoneCarriersExperienceDelay":"Some phone carriers experience Delay in sending texts.Please choose one of the options",
+	"lblSomePhoneCarriersExperienceDelay":"Sorry about that.Some phone carriers experience delay when sending text messages.",
 	"lblGoToFullRegistration":"Go to full registration",
 	"lblSendTheTextAgain":"Send the text again",
+	"lblWeCanTryToSendTheText":"We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this"
 
 	"valLoginRequiredFields": "Username and Password can't be blank",
 

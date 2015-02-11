@@ -1,8 +1,10 @@
 var args = arguments[0] || {},
     app = require("core"),
     http = require("requestwrapper");
+    var mobileNumber = $.mobileTxt.getValue();
 
 function didClickContinue(e) {
+	if(mobileNumber!=""){
 
 	// app.navigator.open({
 	// ctrl : "fullSignup",
@@ -16,16 +18,20 @@ function didClickContinue(e) {
 		data : {
 			data : {
 				patient : "",
-				mobile_number : "x"
+				mobile_number : mobileNumber 
 			}
 		},
 		success : didGetResponse
 	});
+	}
+	else{
+		alert("please enter a valid mobile number");
+	}
 
 }
 
 function didGetResponse(result) {
-	var mobileNumber = $.mobileTxt.getValue();
+	
 
 	var isMobileShared = result.data.is_mobile_shared,
 	    mobileExists = result.data.mobile_exists;
