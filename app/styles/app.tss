@@ -716,6 +716,12 @@
 	font: Alloy.TSS.list_item_child.font,
 	color: Alloy.TSS.list_item_child.color
 },
+".list-item-lbl": {
+	height: Alloy.TSS.list_item_title_lbl.height,
+	ellipsize: Alloy.TSS.list_item_title_lbl.ellipsize,
+	wordWrap: Alloy.TSS.list_item_title_lbl.wordWrap,
+	font: Alloy.TSS.list_item_title_lbl.font
+},
 ".list-item-title-lbl": {
 	height: Alloy.TSS.list_item_title_lbl.height,
 	ellipsize: Alloy.TSS.list_item_title_lbl.ellipsize,
@@ -773,6 +779,9 @@
 ".primary-color": {
 	color: Alloy.TSS.primary_color.color
 },
+".secondary-color": {
+	"color": Alloy.TSS.secondary_color.color
+},
 ".success-color": {
 	color: Alloy.TSS.success_color.color
 },
@@ -798,8 +807,8 @@
 	backgroundColor: Alloy.TSS.primary_bg_color.backgroundColor
 },
 /**
- * 	common styles
- */
+* 	common styles
+*/
 ".hseparator": {
 	width: Alloy.TSS.hseparator.width,
 	backgroundColor: Alloy.TSS.hseparator.backgroundColor

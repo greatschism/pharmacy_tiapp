@@ -481,6 +481,15 @@
 					},
 					"color": "#808285"
 				},
+				"list_item_lbl": {
+					"height": 22,
+					"ellipsize": true,
+					"wordWrap": false,
+					"font": {
+						"fontFamily": "regular",
+						"fontSize": 17
+					}
+				},
 				"list_item_title_lbl": {
 					"height": 22,
 					"ellipsize": true,
@@ -552,6 +561,9 @@
 				},
 				"primary_color": {
 					"color": "#F7941E"
+				},
+				"secondary_color": {
+					"color": "#FFFFFF"
 				},
 				"success_color": {
 					"color": "#00A14B"
@@ -1075,6 +1087,15 @@
 					},
 					"color": "#808285"
 				},
+				"list_item_lbl": {
+					"height": 22,
+					"ellipsize": true,
+					"wordWrap": false,
+					"font": {
+						"fontFamily": "regular",
+						"fontSize": 17
+					}
+				},
 				"list_item_title_lbl": {
 					"height": 22,
 					"ellipsize": true,
@@ -1146,6 +1167,9 @@
 				},
 				"primary_color": {
 					"color": "#ED1C24"
+				},
+				"secondary_color": {
+					"color": "#FFFFFF"
 				},
 				"success_color": {
 					"color": "#00A14B"

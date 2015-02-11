@@ -33,45 +33,28 @@ exports.getDirection = function(_source, _destination, _mode) {
 /**
  * create table view section
  */
-exports.createTableViewSection = function(_options, _footerView) {
+exports.createTableViewSection = function(_ctrl, _title, _footerView) {
 	/**
 	 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 	 */
 	var dict,
-	    headerView = Ti.UI.createView({
-		backgroundColor : Alloy._bg_quinary,
-		height : 30
+	    headerView = _ctrl.UI.create("View", {
+		apiName : "View",
+		classes : ["section-header-view"]
 	}),
-	    lbl = Ti.UI.createLabel({
-		text : _options.title,
-		left : Alloy._m_left,
-		right : Alloy._m_right,
-		color : Alloy._fg_secondary,
-		font : Alloy._typo_h4
+	    lbl = _ctrl.UI.create("Label", {
+		apiName : "Label",
+		classes : ["section-header-lbl"]
 	});
-	if (OS_IOS) {
-		lbl.height = Alloy._typo_height_h4;
-	}
-	if (_.has(_options, "icon")) {
-		headerView.layout = "horizontal";
-		lbl.left = Alloy._p_left;
-		headerView.add(Ti.UI.createLabel({
-			height : Ti.UI.FILL,
-			text : _options.icon,
-			left : Alloy._m_left,
-			color : _options.color || Alloy._fg_secondary,
-			font : {
-				fontFamily : Alloy.Fonts.icon,
-				fontSize : 24
-			}
-		}));
-	}
+	lbl.text = _title;
 	headerView.add(lbl);
 	dict = {
 		headerView : headerView
 	};
 	if (_footerView) {
-		dict.footerView = _footerView;
+		_.extend(dict, {
+			footerView : _footerView
+		});
 	}
 	return Ti.UI.createTableViewSection(dict);
 };

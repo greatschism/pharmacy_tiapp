@@ -5,8 +5,8 @@
 		</HeaderView>
 		<TableViewRow class="primary-bg-color">
 			<View class="list-item-view hgroup no-hwrap">
-				<Label text="{icon}" class="left small-icon primary-color" color="#FFF" />
-				<Label text="{title}" class="padding-left list-item-title-lbl" />
+				<Label text="{icon}" class="left small-icon secondary-color" />
+				<Label text="{title}" class="padding-left list-item-lbl secondary-color" />
 			</View>
 		</TableViewRow>
 	</TableView>
