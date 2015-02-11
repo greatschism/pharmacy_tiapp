@@ -147,13 +147,13 @@ exports.write = function(_dFile, _blob, _remoteBackup, _append) {
 	return flag;
 };
 
-exports.getFileName = function(path) {
-	return path.replace(/\\/g, '/').replace(/.*\//, '');
+exports.getFileName = function(_path) {
+	return _path.replace(/\\/g, '/').replace(/.*\//, '');
 };
 
-exports.getBaseFileName = function(path) {
-	path = exports.getFileName(path);
-	return path.substr(0, path.lastIndexOf('.')) || path;
+exports.getBaseFileName = function(_path) {
+	_path = exports.getFileName(_path);
+	return _path.substr(0, _path.lastIndexOf('.')) || _path;
 };
 
 /**
@@ -256,27 +256,53 @@ exports.hexToHsb = function(_hex) {
 };
 
 /**
+ * @method ucword
+ * Capitalizes the first character of each word in the string.
+ * @param {String} _text String to capitalize.
+ * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
+ * @return {String} String with first character of each word capitalized.
+ */
+exports.ucword = function(_text, _transform) {
+	if (!_text)
+		return _text;
+	if (_transform !== false) {
+		_text = _text.toLowerCase();
+	}
+	return (str + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+		return $1.toUpperCase();
+	});
+};
+
+/**
  * @method ucfirst
  * Capitalizes the first character in the string.
- * @param {String} text String to capitalize.
+ * @param {String} _text String to capitalize.
+ * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
  * @return {String} String with first character capitalized.
  */
-exports.ucfirst = function(text) {
-	if (!text)
-		return text;
-	return text[0].toUpperCase() + text.substr(1);
+exports.ucfirst = function(_text, _transform) {
+	if (!_text)
+		return _text;
+	if (_transform !== false) {
+		_text = _text.toLowerCase();
+	}
+	return _text[0].toUpperCase() + _text.substr(1);
 };
 
 /**
  * @method lcfirst
  * Lowercases the first character in the string.
- * @param {String} text String to lowercase.
+ * @param {String} _text String to lowercase.
+ * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
  * @return {String} String with first character lowercased.
  */
-exports.lcfirst = function(text) {
-	if (!text)
-		return text;
-	return text[0].toLowerCase() + text.substr(1);
+exports.lcfirst = function(_text, _transform) {
+	if (!_text)
+		return _text;
+	if (_transform !== false) {
+		_text = _text.toLowerCase();
+	}
+	return _text[0].toLowerCase() + _text.substr(1);
 };
 
 /**
@@ -670,23 +696,23 @@ exports.getRandomString = function(_length) {
 
 /**
  * Performs a deep clone of an object, returning a pointer to the clone
- * @param o the object to clone
+ * @param _o the object to clone
  * @return object
  */
-exports.clone = function(o) {
+exports.clone = function(_o) {
 	var c = {};
-	if (_.isArray(o)) {
+	if (_.isArray(_o)) {
 		c = [];
 	}
-	for (var a in o) {
-		if ( typeof (o[a]) === "object") {
-			if (o[a] instanceof RegExp) {
-				c[a] = new RegExp(o[a].toString());
+	for (var a in _o) {
+		if ( typeof (_o[a]) === "object") {
+			if (_o[a] instanceof RegExp) {
+				c[a] = new RegExp(_o[a].toString());
 			} else {
-				c[a] = exports.clone(o[a]);
+				c[a] = exports.clone(_o[a]);
 			}
 		} else {
-			c[a] = o[a];
+			c[a] = _o[a];
 		}
 	}
 	return c;
