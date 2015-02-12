@@ -142,5 +142,32 @@
 				"facebook_appid": "242869275747790"
 			}
 		}
-	}
+	},
+
+
+"PATIENTS_MOBILE_EXISTS_OR_SHARED":
+{
+
+ "status": "Success",
+
+ "code": "200",
+
+ "message": "The user exists in our system.",
+
+ "description": "x",
+
+ "data":{
+
+  "patients":{
+
+   "is_mobile_shared":"1",
+
+   "mobile_exists":"1"
+
+  }
+
+ }
+
+}
+
 }

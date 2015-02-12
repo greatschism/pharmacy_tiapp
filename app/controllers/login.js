@@ -88,8 +88,12 @@ function handleScroll(e) {
 
 function didClickSignup(e) {
 	app.navigator.open({
-		ctrl : "termsAndConditions",
-		titleid : "titleTermsAndConditions",
+		
+		ctrl : "mobileNumber",
+		titleid : "",
 		stack : true
+		/*ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : true*/
 	});
 }

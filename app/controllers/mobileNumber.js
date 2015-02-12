@@ -1,83 +1,78 @@
 var args = arguments[0] || {},
     app = require("core"),
     http = require("requestwrapper");
-    var mobileNumber = $.mobileTxt.getValue();
 
 function didClickContinue(e) {
-	if(mobileNumber!=""){
+	var mobileNumber = $.mobileTxt.getValue();
 
-	// app.navigator.open({
-	// ctrl : "fullSignup",
-	// titleid: "strSignup",
-	// stack : true
-	// });
+	if (mobileNumber != "") {
 
-	http.request({
-		method : "PATIENTS_MOBILE_EXISTS_OR_SHARED", // This value is defined in config.json
-		forceRetry : false,
-		data : {
-			data : {
-				patient : "",
-				mobile_number : mobileNumber 
-			}
-		},
-		success : didGetResponse
-	});
-	}
-	else{
-		alert("please enter a valid mobile number");
-	}
+		// app.navigator.open({
+		// ctrl : "fullSignup",
+		// titleid: "strSignup",
+		// stack : true
+		// });
+		//
 
-}
-
-function didGetResponse(result) {
-	
-
-	var isMobileShared = result.data.is_mobile_shared,
-	    mobileExists = result.data.mobile_exists;
-	if (mobileExists !== 1) {
 		app.navigator.open({
-			ctrl : "fullSignup",
-			titleid : "strSignup",
-			stack : true,
-			ctrlArguments : {
-				firstName : mobileExists,
-				dateOfBirth : ""
-			}
+			ctrl : "textToApp",
+			titleid : "",
+			stack : true
 		});
-	} else {
-		if (isMobileShared !== 1) {
-
-			// http.request({
-			// method : "PATIENTS_MOBILE_EXISTS_OR_SHARED", // This value is defined in config.json
-			// forceRetry : false,
-			// data : {
-			// data : {
-			// patient : "",
-			// mobile_number : mobileNumber
-			// }
-			// },
-			// success : didGetResponse
-			// });
-			app.navigator.open({
-				ctrl : "mobileEnterOTP",
-				titleid : "",
-				stack : true,
-				ctrlArguments : {
-					firstName : "",
-					dateOfBirth : "",
-					mobileNumber : mobileNumber
-				}
-			});
-		} else {
-			app.navigator.open({
-				ctrl : "sharedMobileCheck",
-				titleid : "titleSharedMobileNumber",
-				stack : true,
-				ctrlArguments : {
-					mobileNumber : mobileNumber
-				}
-			});
-		}
+		// http.request({
+		// method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
+		//
+		// data : {
+		// client_identifier : "x",
+		// version : "x",
+		// mscripts_token : "x",
+		// filter : null,
+		// data : [{
+		// patient : "x",
+		// mobile_number : mobileNumber
+		//
+		// }]
+		// },
+		// success : didGetResponse
+		// });
+		//
+		// }
+		//
+		//
+		// else {
+		// alert("please enter a valid mobile number");
+		// }
+		// }
+		//
+		// function didGetResponse(result) {
+		// console.log("entered didgetresponse");
+		// var isMobileShared = result.data.is_mobile_shared;
+		// console.log(isMobileShared);
+		// mobileExists = result.data.mobile_exists;
+		// if (mobileExists !== 1) {
+		// app.navigator.open({
+		// ctrl : "fullSignup",
+		// titleid : "strSignup",
+		// stack : true,
+		// ctrlArguments : {
+		// firstName : mobileExists,
+		// dateOfBirth : ""
+		// }
+		// });
+		// } else {
+		// if (isMobileShared == 1) {
+		// //if it is shared  nav to text to app
+		// app.navigator.open({
+		// ctrl : "textToApp",
+		// titleid : "",
+		// stack : true
+		// });
+		//
+		// }
+		//
+		// }
 	}
 }
+
+
+			

@@ -4,8 +4,8 @@
 		<Label id="hintLbl" class="styled-h2 multi-line fg-primary" />
 		<View class="form-group vgroup">
 			<View class="default-height">
-				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left form-txt-w50 return-next" onReturn="moveToNext" />
-				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right form-txt-w50 return-next" onReturn="moveToNext" />
+				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left form-txt-w50 return-next " onReturn="moveToNext" />
+				<Widget id="lnameTxt" src="com.mscripts.textfield" class=" right form-txt-w50 return-next" onReturn="moveToNext" />
 				<View class="vseparator" />
 			</View>
 			<View class="hseparator" />
@@ -33,6 +33,6 @@
 			</View>
 		</View>
 		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="styled-h2 fg-primary" onClick="didClickTermsAndCondition"/>
-		<Button id="signupBtn" class="margin-bottom btn-secondary" onClick="didClickSignup" />
+		<Button id="signupBtn" class="margin-bottom secondary-btn" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy>

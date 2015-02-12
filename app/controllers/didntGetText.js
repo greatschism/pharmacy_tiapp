@@ -1,6 +1,7 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+ app = require("core");
 
-function didClickSendTxtAgain(){
+function didClickSendTxtAgain(e){
 	
 	app.navigator.open({
 		ctrl :  "textToApp",
@@ -11,7 +12,7 @@ function didClickSendTxtAgain(){
 }
 
 
-function didClickGoToFullRegistr(){
+function didClickGoToFullRegistr(e){
 	
 	app.navigator.open({
 		ctrl :  "fullSignup",

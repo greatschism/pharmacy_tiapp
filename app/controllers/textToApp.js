@@ -4,7 +4,7 @@ var args = arguments[0] || {},
 function didClickContinue(e) {
 	app.navigator.open({
 		ctrl : "sharedMobileCheck",
-		titleid : "titleTellUsAboutYourSelf",
+		titleid : "",
 		stack : true
 	});
 }

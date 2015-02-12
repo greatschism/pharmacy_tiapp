@@ -2,9 +2,10 @@
 	<ScrollView class="vgroup bg-primary">
 		
 		<Label id="hintPara" class="styled-title multi-line" />
-		<Label id="hintPara1" class="styled-title multi-line" />
-		<Button id="sendTxtAgainBtn" class="btn-secondary" onClick="didClickSendTxtAgain" />
-		<Button id="goToFullRegistrBtn" class="btn-secondary" onClick="didClickGoToFullRegistr" />
+		<Label id="hintParaOne" class="styled-title multi-line" />
+		<Button id="sendTxtAgainBtn" class="padding-top secondary-btn padding-bottom" onClick="didClickSendTxtAgain" />
+		<Label id="OR" class="styled-title multi-line padding-bottom" />
+		<Button id="goToFullRegistrBtn" class="secondary-btn" onClick="didClickGoToFullRegistr" />
 
 	</ScrollView>
 </Alloy>

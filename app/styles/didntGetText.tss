@@ -4,12 +4,18 @@
 }
 "#sendTxtAgainBtn":
 {
-	text: Alloy.Globals.strings.lblSendTheTextAgain
+	title: Alloy.Globals.strings.lblSendTheTextAgain
 }
 "#goToFullRegistrBtn":
 {
-	text: Alloy.Globals.strings.lblGoToFullRegistration
+	title: Alloy.Globals.strings.lblGoToFullRegistration,
+	
 }
-"#hintPara1":{
-	text: Alloy.Globals.strings.lblWeCanTryToSendTheText
+"#hintParaOne":{
+	text: Alloy.Globals.strings.lblWeCanTryToSendTheText,
+	
+}
+"#OR":{
+	text: Alloy.Globals.strings.lblOr,
+	
 }
