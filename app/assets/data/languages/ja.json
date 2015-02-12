@@ -115,7 +115,7 @@
 	"lblSomePhoneCarriersExperienceDelay":"Sorry about that.Some phone carriers experience delay when sending text messages.",
 	"lblGoToFullRegistration":"ja-Go to full registration",
 	"lblSendTheTextAgain":"ja-Send the text again",
-	"lblWeCanTryToSendTheText":"ja-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this"
+	"lblWeCanTryToSendTheText":"ja-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 
 
 	"valLoginRequiredFields": "ja-Username and Password can't be blank",

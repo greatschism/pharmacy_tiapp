@@ -115,7 +115,7 @@
 	"lblGoToFullRegistration":"es-Go to full registration",
 	"lblSendTheTextAgain":"es-Send the text again",
 	"lblSomePhoneCarriersExperienceDelay":"es-Sorry about that.Some phone carriers experience delay when sending text messages.",
-	"lblWeCanTryToSendTheText":"es-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this"
+	"lblWeCanTryToSendTheText":"es-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 
 
 	"valLoginRequiredFields": "Nombre de usuario y la contraseña no puede estar en blanco",

@@ -116,7 +116,7 @@
 	"lblSomePhoneCarriersExperienceDelay":"Sorry about that.Some phone carriers experience delay when sending text messages.",
 	"lblGoToFullRegistration":"Go to full registration",
 	"lblSendTheTextAgain":"Send the text again",
-	"lblWeCanTryToSendTheText":"We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this"
+	"lblWeCanTryToSendTheText":"We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 
 	"valLoginRequiredFields": "Username and Password can't be blank",
 
@@ -136,8 +136,8 @@
 	"msgNoActiveprescription": "No active prescriptions",
 	"msgOrderPlacedReadyBy": "Order placed should be ready by",
 	"msgOverdueBy": "Overdue by",
-	"msgDueFoRefillIn": "Due for refill in",
-	"msgDueFoRefillOn": "Due for refill on",
+	"msgDueFoRefillIn": "Refill in",
+	"msgDueFoRefillOn": "Due on",
 	"msgGeoAuthorizationDenied": "Your have disallowed app from running geolocation services. Please check your settings.",
 	"msgGeoAuthorizationRestricted": "Location service is turned off. Please check your settings.",
 	"msgGeoPurpose": "Help you to locate the nearest pharmacies.",

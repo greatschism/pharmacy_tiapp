@@ -115,6 +115,7 @@
 	"lblSomePhoneCarriersExperienceDelay":"zh-Some phone carriers experience Delay in sending texts.Please choose one of the options",
 	"lblGoToFullRegistration":"zh-Go to full registration",
 	"lblSendTheTextAgain":"zh-Send the text again",
+	"lblWeCanTryToSendTheText":"zh-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 
 
 	"valLoginRequiredFields": "zh-Username and Password can't be blank",
