@@ -6,12 +6,15 @@
     <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
     <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mcripts.appcelerator</id>
-    <name>mscripts-application</name>
-    <version>1.0</version>
-    <publisher>rgupta</publisher>
+    <name>my Pharmacy</name>
+    <version>7.0.7</version>
+    <!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
+    <property name="buildDate" type="string">16.01.2015</property>
+    <!--  To be replaced before the build happens -->
+    <publisher>mscripts</publisher>
     <url>http://www.mscripts.com</url>
-    <description>not specified</description>
-    <copyright>2014 by rgupta</copyright>
+    <description>mscripts mobile pharmacy</description>
+    <copyright>2014 by mscripts</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
@@ -21,7 +24,11 @@
     <ios>
         <plist>
             <dict>
-                <key>NSLocationAlwaysUsageDescription</key>
+                <key>NSLocationUsageDescription</key>
+                <string>Help you to locate the nearest pharmacies.</string>
+            </dict>
+            <dict>
+                <key>NSLocationWhenInUseUsageDescription</key>
                 <string>Help you to locate the nearest pharmacies.</string>
             </dict>
             <dict>
@@ -65,10 +72,9 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <manifest>
-            <application android:theme="@style/Theme.NoActionBar">
+            <application android:hardwareAccelerated="true" android:theme="@style/Theme.NoActionBar">
                 <activity
-                    android:configChanges="keyboardHidden|orientation"
-                    android:label="mscripts-application" android:name=".MscriptsApplicationActivity">
+                    android:configChanges="keyboardHidden|orientation" android:name=".MyPharmacyActivity">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN"/>
                         <category android:name="android.intent.category.LAUNCHER"/>
@@ -117,17 +123,16 @@
     </mobileweb>
     <modules>
         <module platform="commonjs">ti.cloud</module>
-        <module platform="android">ti.map</module>
         <module platform="iphone">ti.map</module>
-        <module platform="android">com.soasta.touchtest</module>
-        <module platform="iphone">com.soasta.touchtest</module>
-        <module platform="iphone">ti.keyboard</module>
-        <module platform="android">ti.keyboard</module>
+        <module platform="android">ti.map</module>
+        <module platform="android">com.appcelerator.apm</module>
+        <module platform="iphone">com.appcelerator.apm</module>
         <module platform="iphone">com.obscure.keychain</module>
         <module platform="android">com.obscure.keychain</module>
-        <module platform="iphone">bencoding.securely</module>
-        <module platform="android">bencoding.securely</module>
-        <module platform="iphone">bencoding.network</module>
+        <module platform="iphone">ti.keyboard</module>
+        <module platform="android">ti.keyboard</module>
+        <module platform="android">com.soasta.touchtest</module>
+        <module platform="iphone">com.soasta.touchtest</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>
@@ -137,12 +142,12 @@
         <target device="mobileweb">true</target>
         <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>3.4.0.GA</sdk-version>
+    <sdk-version>3.5.0.mscripts</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
         <plugin>com.soasta.touchtest.android</plugin>
     </plugins>
-    <property name="com-soasta-touchtest-version" type="string">7040.132</property>
+    <property name="com-soasta-touchtest-version" type="string">7419.118</property>
     <property name="com-soasta-touchtest-ios-appId" type="string">285585</property>
     <property name="com-soasta-touchtest-android-appId" type="string">285585</property>
 </ti:app>

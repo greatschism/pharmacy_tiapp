@@ -695,7 +695,7 @@
 	height: Ti.UI.SIZE
 },
 ".footer-view-break[platform=android]":{
-	height: 0.5,
+	height: 1,
 	backgroundColor: Alloy.TSS.footer_view_break.backgroundColor
 },
 ".section-header-view": {
