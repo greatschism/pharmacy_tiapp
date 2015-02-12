@@ -274,23 +274,6 @@
 	right: Alloy.TSS.padding_right.right
 },
 /**
-* spacer & separators
-*/
-".hspacer":{
-	width: Alloy.TSS.hspacer.width
-},
-".vspacer":{
-	height: Alloy.TSS.vspacer.height
-},
-".hseparator":{
-	height: 1,
-	backgroundColor: Alloy.TSS.hseparator.backgroundColor
-},
-".vseparator":{
-	width: 1,
-	backgroundColor: Alloy.TSS.vseparator.backgroundColor
-},
-/**
 * text alignment
 */
 ".text-left":{
@@ -671,6 +654,15 @@
 /**
 * 	labels
 */
+".single-line-title-lbl": {
+	height: Alloy.TSS.single_line_title_lbl.height,
+	font: Alloy.TSS.single_line_title_lbl.font,
+	color: Alloy.TSS.title_lbl.color
+},
+".single-line-title-lbl[platform=android,mobileweb]":{
+	ellipsize: true,
+	wordWrap: false
+},
 ".title-lbl": {
 	font: Alloy.TSS.title_lbl.font,
 	color: Alloy.TSS.title_lbl.color
@@ -830,11 +822,11 @@
 * 	common styles
 */
 ".hseparator": {
-	width: Alloy.TSS.hseparator.width,
+	height: Alloy.TSS.hseparator.height,
 	backgroundColor: Alloy.TSS.hseparator.backgroundColor
 },
 ".vseparator": {
-	height: Alloy.TSS.hseparator.height,
+	width: Alloy.TSS.vseparator.width,
 	backgroundColor: Alloy.TSS.vseparator.backgroundColor
 },
 ".hspacer": {

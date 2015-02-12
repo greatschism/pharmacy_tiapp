@@ -1,6 +1,6 @@
 <Alloy>
-	<View id="signinView" class="nav-right-item-container" onSingletap="didTapSignin">
-		<Label id="signinLbl" class="nav-right-lbl" />
+	<View id="signinView" class="right nav-action-container" onSingletap="didTapSignin">
+		<Label id="signinLbl" class="margin-right nav-action-lbl touch-disabled" />
 	</View>
 	<View id="containerView" />
 </Alloy> 

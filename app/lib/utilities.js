@@ -4,8 +4,6 @@
  * @class utilities
  */
 
-var encryptionUtil = require("encryptionUtil");
-
 /**
  * Get the property value from Ti.App.Properties
  * @param {String} _name Name of the property
@@ -17,7 +15,7 @@ exports.getProperty = function(_name, _default, _type, _isEncrypted) {
 	var value = Ti.App.Properties["get" + exports.ucfirst(_type == "object" || _type == "list" ? "string" : _type)](_name);
 	if (!_.isUndefined(value) && !_.isNull(value)) {
 		if (_isEncrypted !== false) {
-			value = encryptionUtil.decrypt(value);
+			value = require("encryptionUtil").decrypt(value);
 		}
 		if (_type == "object" || _type == "list") {
 			value = JSON.parse(value);
@@ -41,7 +39,7 @@ exports.setProperty = function(_name, _value, _type, _isEncrypted) {
 		_value = JSON.stringify(_value);
 	}
 	if (_isEncrypted !== false) {
-		_value = encryptionUtil.encrypt(_value);
+		_value = require("encryptionUtil").encrypt(_value);
 	}
 	Ti.App.Properties["set" + exports.ucfirst(_type)](_name, _value);
 };

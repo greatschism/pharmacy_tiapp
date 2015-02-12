@@ -490,6 +490,14 @@
 					"boldFontFamily": "regular",
 					"boldColor": "#0095ff"
 				},
+				"single_line_title_lbl": {
+					"height": 22,
+					"font": {
+						"fontFamily": "bold",
+						"fontSize": 17
+					},
+					"color": "#000000"
+				},
 				"title_lbl": {
 					"font": {
 						"fontFamily": "bold",
@@ -665,11 +673,11 @@
 					"backgroundColor": "#F7941E"
 				},
 				"hseparator": {
-					"width": 1,
+					"height": 1,
 					"backgroundColor": "#808285"
 				},
 				"vseparator": {
-					"height": 1,
+					"width": 1,
 					"backgroundColor": "#808285"
 				},
 				"hspacer": {
