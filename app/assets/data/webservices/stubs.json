@@ -74,6 +74,13 @@
 							"url": "https://staging.remscripts.com/nativemia/mscripts.ttf",
 							"platform": ["ios", "android", "mobileweb"]
 						}, {
+							"id": "Roboto-Light",
+							"version": 1,
+							"code": "light",
+							"format": "ttf",
+							"url": "https://staging.remscripts.com/nativemia/Roboto-Light.ttf",
+							"platform": ["android", "mobileweb"]
+						}, {
 							"id": "Roboto-Regular",
 							"version": 1,
 							"code": "regular",
@@ -94,6 +101,13 @@
 							"format": "ttf",
 							"url": "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
 							"platform": ["android", "mobileweb"]
+						}, {
+							"id": "Lato-Light",
+							"version": 1,
+							"code": "light",
+							"format": "ttf",
+							"url": "https://staging.remscripts.com/nativemia/Lato-Light.ttf",
+							"platform": ["ios"]
 						}, {
 							"id": "Lato-Regular",
 							"version": 1,
@@ -143,31 +157,16 @@
 			}
 		}
 	},
-
-
-"PATIENTS_MOBILE_EXISTS_OR_SHARED":
-{
-
- "status": "Success",
-
- "code": "200",
-
- "message": "The user exists in our system.",
-
- "description": "x",
-
- "data":{
-
-  "patients":{
-
-   "is_mobile_shared":"1",
-
-   "mobile_exists":"1"
-
-  }
-
- }
-
-}
-
+	"PATIENTS_MOBILE_EXISTS_OR_SHARED": {
+		"status": "Success",
+		"code": "200",
+		"message": "The user exists in our system.",
+		"description": "x",
+		"data": {
+			"patients": {
+				"is_mobile_shared": "1",
+				"mobile_exists": "1"
+			}
+		}
+	}
 }
