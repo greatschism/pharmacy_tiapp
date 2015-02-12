@@ -18,6 +18,8 @@ var args = arguments[0] || {},
     parent;
 
 (function() {
+	
+	$.picker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
 	if (_.has(args, "toolbarDict")) {
 		$.toolbarView.applyProperties(args.toolbarDict);
@@ -87,7 +89,7 @@ function init() {
 function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
-		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : fasle
+		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : false
 	}),
 	    rowView = Ti.UI.createView(choiceDict);
 	if (data.iconText) {

@@ -423,7 +423,7 @@
 													}
 												],
 												"navigation": {
-													"action": "account"
+													"ctrl": "account"
 												}
 											}
 										]

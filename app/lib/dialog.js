@@ -20,7 +20,7 @@
 exports.show = function(_params) {
 	var dict = {
 		title : _params.title || Ti.App.name,
-		message : "\n" + _params.message || ""
+		message : ( OS_IOS ? "\n" : "").concat(_params.message || "")
 	};
 	if (_.has(_params, "buttonNames")) {
 		_.extend(dict, {

@@ -468,6 +468,7 @@
 	rightBtnDict: Alloy.TSS.form_dropdown.rightBtnDict,
 	iconSelectionColor: Alloy.TSS.form_dropdown.iconSelectionColor,
 	selectionIconText: Alloy.CFG.icons.success_filled,
+	backgroundColor: Alloy.TSS.form_dropdown.backgroundColor,
 	borderColor: Alloy.TSS.form_dropdown.borderColor,
 	borderWidth: Alloy.TSS.form_dropdown.borderWidth
 },
@@ -515,6 +516,7 @@
 	rightBtnDict: Alloy.TSS.dropdown.rightBtnDict,
 	iconSelectionColor: Alloy.TSS.dropdown.iconSelectionColor,
 	selectionIconText: Alloy.CFG.icons.success_filled,
+	backgroundColor: Alloy.TSS.dropdown.backgroundColor,
 	borderColor: Alloy.TSS.dropdown.borderColor,
 	borderWidth: Alloy.TSS.dropdown.borderWidth,
 	borderRadius: Alloy.TSS.dropdown.borderRadius
@@ -693,7 +695,7 @@
 	height: Ti.UI.SIZE
 },
 ".footer-view-break[platform=android]":{
-	height: 1,
+	height: 0.5,
 	backgroundColor: Alloy.TSS.footer_view_break.backgroundColor
 },
 ".section-header-view": {

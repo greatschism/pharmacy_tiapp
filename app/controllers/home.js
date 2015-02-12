@@ -60,8 +60,9 @@ function didChangeUser() {
 }
 
 function didItemClick(e) {
-	var navigation = Alloy.Collections.menuItems.where(e.source.navigation)[0].toJSON();
+	var navigation = e.source.navigation;
 	if (!_.isEmpty(navigation) && _.has(navigation, "ctrl")) {
+		navigation = Alloy.Collections.menuItems.where(navigation)[0].toJSON();
 		if (navigation.requires_login == true && Alloy.Models.user.get("loggedIn") == false) {
 			app.navigator.open({
 				ctrl : "login",

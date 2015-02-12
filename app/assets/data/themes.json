@@ -251,6 +251,7 @@
 						"borderColor": "transparent"
 					},
 					"iconSelectionColor": "#00A14B",
+					"backgroundColor": "#FFFFFF",
 					"borderColor": "transparent",
 					"borderWidth": 0
 				},
@@ -339,13 +340,14 @@
 						"borderColor": "transparent"
 					},
 					"iconSelectionColor": "#00A14B",
+					"backgroundColor": "#FFFFFF",
 					"borderColor": "#808285",
 					"borderWidth": 1,
 					"borderRadius": 3.4
 				},
 				"swt": {
-					"disabledColor": "#4BD865",
-					"enabledColor": "#EFEFF4"
+					"disabledColor": "#EFEFF4",
+					"enabledColor": "#4BD865"
 				},
 				"btn_padding_top": {
 					"top": 14

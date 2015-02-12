@@ -154,7 +154,7 @@ function showPicker() {
 				picker.init();
 			}
 		} else {
-			var pickerDict = _.pick(args, ["toolbarDict", "choiceDict", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectionIconText", "iconSelectionColor", "containerPaddingTop"]);
+			var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectionIconText", "iconSelectionColor", "containerPaddingTop"]);
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
