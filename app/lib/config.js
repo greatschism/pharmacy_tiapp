@@ -93,27 +93,50 @@ var Config = {
 		localization.init();
 
 		//fonts
+		Alloy.Fonts = {};
+		if (!_.has(Alloy, "RegFonts")) {
+			Alloy.RegFonts = [];
+		}
 		/**
 		 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
 		 * Ti.App.unregisterFont - is a method available only with custom SDK build 3.5.0.mscripts and later
 		 */
-		//unregister fonts
-		if ((OS_IOS || OS_ANDROID) && _.has(Alloy, "RegFonts")) {
-			var unRegFonts = Alloy.RegFonts;
-			for (var i in unRegFonts) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + unRegFonts[i].file), unRegFonts[i].id);
-			}
-		}
-		//register fonts
-		Alloy.Fonts = {};
-		Alloy.RegFonts = [];
+		var lastUpdate = require("alloy/moment")().unix();
 		for (var i in fonts) {
+			var font = fonts[i];
 			if (OS_IOS || OS_ANDROID) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fonts[i].file), fonts[i].id);
-				Alloy.RegFonts.push(utilities.clone(fonts[i]));
+				var fontExists = _.findWhere(Alloy.RegFonts, {
+					id : font.id
+				});
+				if (_.isUndefined(fontExists)) {
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+					Alloy.RegFonts.push(_.extend(utilities.clone(font), {
+						lastUpdate : lastUpdate
+					}));
+				} else {
+					if (fontExists.file != font.file) {
+						if (OS_IOS) {
+							//ios will not allow to update a font, has to be unregistered and registered back
+							Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
+						}
+						//on android, registered font can be just replaced with new value
+						Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+					}
+					_.extend(fontExists, {
+						lastUpdate : lastUpdate
+					});
+				}
 			}
-			Alloy.Fonts[fonts[i].code] = fonts[i].id;
+			Alloy.Fonts[font.code] = font.id;
 		}
+		//remove unwanted fonts from memory
+		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
+			var flag = lastUpdate !== font.lastUpdate;
+			if (flag && (OS_IOS || OS_ANDROID)) {
+				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+			}
+			return flag;
+		});
 
 		//images
 		Alloy.Images = {};

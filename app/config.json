@@ -112,16 +112,19 @@
 	},
 	"os:android": {
 		"navBarHeight": 48,
-		"navBarTop": 0
+		"navBarTop": 0,
+		"storageEngine": "scule+tiencrypted"
 	},
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
-		"navBarTop": 20
+		"navBarTop": 20,
+		"storageEngine": "scule+tiencrypted"
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
-		"navBarTop": 0
+		"navBarTop": 0,
+		"storageEngine": "scule+titanium"
 	},
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",

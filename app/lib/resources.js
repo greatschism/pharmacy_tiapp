@@ -8,17 +8,20 @@ var Resources = {
 	/**
 	 * storage engine & path to scule collection
 	 */
-	pathThemes : "scule+titanium://themes",
-	pathTemplates : "scule+titanium://templates",
-	pathMenus : "scule+titanium://menus",
-	pathLanguages : "scule+titanium://languages",
-	pathFonts : "scule+titanium://fonts",
-	pathImages : "scule+titanium://images",
+	pathThemes : Alloy.CFG.storageEngine + "://fe021943dcda87150f590b3475afaded",
+	pathTemplates : Alloy.CFG.storageEngine + "://fed36e93a0509e20f2dc96cbbd85b678",
+	pathMenus : Alloy.CFG.storageEngine + "://81ca0b7c951be89184c130d2860a5b00",
+	pathLanguages : Alloy.CFG.storageEngine + "://f3e334d42863e8250c7d03efefbfd387",
+	pathFonts : Alloy.CFG.storageEngine + "://980d14c0c85495b48b9a9134658e6121",
+	pathImages : Alloy.CFG.storageEngine + "://59b514174bffe4ae402b3d63aad79fe0",
 
 	/**
 	 * directories used for storing files
 	 */
 	directoryData : "data",
+	directoryThemes : "data/themes",
+	directoryTemplates : "data/templates",
+	directoryMenus : "data/menus",
 	directoryLanguages : "data/languages",
 	directoryFonts : "data/fonts",
 	directoryImages : "data/images",
@@ -38,8 +41,9 @@ var Resources = {
 			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION);
 
 			for (var i in keys) {
-				var key = keys[i];
-				Resources.set(key, JSON.parse(utilities.getFile(Resources.directoryData + "/" + key + ".json")), true, clearCache);
+				var key = keys[i],
+				    o = require(Resources.directoryData + "/" + key)[key];
+				Resources.set(key, o, true, clearCache);
 			}
 
 			if (clearCache) {
@@ -98,6 +102,11 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
+			if (_useLocalResources) {
+				_.extend(item, {
+					styles : require(Resources.directoryThemes + "/" + item.id)
+				});
+			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
 					update : !_.has(item, "styles"),
@@ -157,6 +166,11 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
+			if (_useLocalResources) {
+				_.extend(item, {
+					data : require(Resources.directoryTemplates + "/" + item.id)
+				});
+			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
 					update : !_.has(item, "data"),
@@ -216,6 +230,11 @@ var Resources = {
 			    model = coll.find({
 			id: item.id
 			})[0] || {};
+			if (_useLocalResources) {
+				_.extend(item, {
+					items : require(Resources.directoryMenus + "/" + item.id)
+				});
+			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
 					update : !_.has(item, "items"),
@@ -277,7 +296,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					strings : JSON.parse(utilities.getFile(Resources.directoryLanguages + "/" + item.id + ".json") || "{}")
+					strings : require(Resources.directoryLanguages + "/" + item.id)
 				});
 			}
 			if (_.isEmpty(model)) {

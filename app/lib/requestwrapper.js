@@ -70,7 +70,7 @@ function request(_params) {
 }
 
 function getSimulatedResponse(_passthrough) {
-	_passthrough.success((JSON.parse(utilities.getFile("data/webservices/stubs.json")) || {})[_passthrough.method], _passthrough.passthrough || {});
+	_passthrough.success(require("data/webservices/stubs")[_passthrough.method] || {}, _passthrough.passthrough || {});
 }
 
 function didSuccess(_data, _passthrough) {
