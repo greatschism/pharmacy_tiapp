@@ -42,7 +42,7 @@ var Resources = {
 
 			for (var i in keys) {
 				var key = keys[i],
-				    o = require(Resources.directoryData + "/" + key)[key];
+				    o = require(Resources.directoryData + "/" + key);
 				Resources.set(key, o, true, clearCache);
 			}
 
