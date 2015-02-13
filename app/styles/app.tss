@@ -820,6 +820,12 @@
 ".primary-bg-color":{
 	backgroundColor: Alloy.TSS.primary_bg_color.backgroundColor
 },
+".tooltip-bg-color":{
+	backgroundColor: Alloy.TSS.tooltip_bg_color.backgroundColor
+},
+".tooltip-bg-critical-color":{
+	backgroundColor: Alloy.TSS.tooltip_bg_critical_color.backgroundColor
+},
 /**
 * 	common styles
 */
