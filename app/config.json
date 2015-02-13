@@ -81,7 +81,7 @@
 		"enableAnalytics": false,
 		"clearCachedResources": true,
 		"overrideRemoteResources": true,
-		"simulateAPI": false,
+		"simulateAPI": true,
 		"simulateAPIOnFailure": true
 	},
 	"env:test": {

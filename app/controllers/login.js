@@ -90,8 +90,8 @@ function didClickSignup(e) {
 	app.navigator.open({
 		
 		ctrl : "mobileNumber",
-		titleid : "",
-		stack : true
+		titleid : "titleWelcome",
+		stack : false
 		/*ctrl : "termsAndConditions",
 		titleid : "titleTermsAndConditions",
 		stack : true*/

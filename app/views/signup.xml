@@ -9,6 +9,7 @@
 				<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown" onReturn="moveToNext" />
 				<Widget id="emailTxt" src="com.mscripts.textfield" class="form-txt return-next" onReturn="moveToNext" />
 			</View>
+			<View class="hseparator" />
 			<View id="passwordView" class="auto-height vgroup">
 				<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="h5" />
 				<View id="inputView" class="form-group">
@@ -18,6 +19,6 @@
 			</View>
 		</View>
 		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="styled-lbl" />
-		<Button id="createBtn" class="margin-bottom btn-secondary" onClick="didClickCreate" />
+		<Button id="createBtn" class="margin-bottom secondary-btn" onClick="didClickCreate" />
 	</ScrollView>
 </Alloy>

@@ -2,11 +2,11 @@
 	<TableView dataCollection="termsAndConditions" onClick="didItemClick">
 		<TableViewRow itemUrl="{url}">
 			<Label text="{name}" class="list-item-title-with-child" />
-			<Label class="list-item-child" />
+			<Label class="list_item_child" />
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="doneBtn" class="margin-bottom btn-primary" onClick="didDoneClick" />
+				<Button id="doneBtn" class="margin-bottom primary-btn" onClick="didDoneClick" />
 			</View>
 		</FooterView>
 	</TableView>

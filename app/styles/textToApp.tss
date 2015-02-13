@@ -1,6 +1,4 @@
-"#titleIcon":{
-	text: Alloy.CFG.icons.thick_prescriptions
-},
+
 "#titleLbl":{
 	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore
 },

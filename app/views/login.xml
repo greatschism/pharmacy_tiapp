@@ -12,7 +12,7 @@
 				<Widget id="keepMeSwt" src="com.mscripts.switch" class="padding-right swt" onTouch="handleScroll" />
 			</View>
 		</View>
-		<Button id="loginBtn" class="btn-secondary" onClick="didClickLogin" />
+		<Button id="loginBtn" class="secondary-btn" onClick="didClickLogin" />
 		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-h2 fg-primary" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 
