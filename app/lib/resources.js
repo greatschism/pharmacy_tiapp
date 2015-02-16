@@ -8,12 +8,12 @@ var Resources = {
 	/**
 	 * storage engine & path to scule collection
 	 */
-	pathThemes : Alloy.CFG.storageEngine + "://fe021943dcda87150f590b3475afaded",
-	pathTemplates : Alloy.CFG.storageEngine + "://fed36e93a0509e20f2dc96cbbd85b678",
-	pathMenus : Alloy.CFG.storageEngine + "://81ca0b7c951be89184c130d2860a5b00",
-	pathLanguages : Alloy.CFG.storageEngine + "://f3e334d42863e8250c7d03efefbfd387",
-	pathFonts : Alloy.CFG.storageEngine + "://980d14c0c85495b48b9a9134658e6121",
-	pathImages : Alloy.CFG.storageEngine + "://59b514174bffe4ae402b3d63aad79fe0",
+	pathThemes : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("themes"),
+	pathTemplates : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("templates"),
+	pathMenus : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("menus"),
+	pathLanguages : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("languages"),
+	pathFonts : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("fonts"),
+	pathImages : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("images"),
 
 	/**
 	 * directories used for storing files
@@ -38,12 +38,11 @@ var Resources = {
 		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
+			    initialData = require(Resources.directoryData + "/" + "resources"),
 			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION);
 
 			for (var i in keys) {
-				var key = keys[i],
-				    o = require(Resources.directoryData + "/" + key);
-				Resources.set(key, o, true, clearCache);
+				Resources.set(keys[i], initialData[keys[i]], true, clearCache);
 			}
 
 			if (clearCache) {
@@ -104,7 +103,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					styles : require(Resources.directoryThemes + "/" + item.id)
+					styles : require(Resources.directoryThemes + "/" + item.id).styles
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -168,7 +167,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					data : require(Resources.directoryTemplates + "/" + item.id)
+					data : require(Resources.directoryTemplates + "/" + item.id).data
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -232,7 +231,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					items : require(Resources.directoryMenus + "/" + item.id)
+					items : require(Resources.directoryMenus + "/" + item.id).items
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -296,7 +295,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					strings : require(Resources.directoryLanguages + "/" + item.id)
+					strings : require(Resources.directoryLanguages + "/" + item.id).strings
 				});
 			}
 			if (_.isEmpty(model)) {
