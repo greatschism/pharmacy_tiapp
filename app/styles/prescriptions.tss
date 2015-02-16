@@ -21,14 +21,10 @@
 		},
 		{
 			title: Alloy.Globals.strings.menuUnhidePrescriptions
-			
-			
 		},
 		{
 			title: Alloy.Globals.strings.menuRefresh,
-			icon:  Alloy.CFG.icons.refresh,
-			
-			
+			icon:  Alloy.CFG.icons.refresh
 		}
 	]
 },
@@ -39,6 +35,7 @@
 	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
+
 ".success-icon":{
 	text: Alloy.CFG.icons.success
 },
