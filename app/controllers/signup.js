@@ -1,73 +1,57 @@
 var args = arguments[0] || {},
-app = require("core");
+app = require("core"),
+http = require("requestwrapper");
 
 var token = true,
     errorMessage = "";
 
 function didClickCreate(e) {
+		var email = $.emailTxt.getValue();
+	var uname = $.unameTxt.getValue();
+	var password = $.passwordTxt.getValue();
 	
-	// if (validate()) {
-		// // Continue with the API call
-		// http.request({
-			// method : "PATIENTS_", // This value is defined in config.json
-			// forceRetry : false,
-			// data : {
-				// data : {
-					// patient : {
-						// user_name : uname,
-						// email_address : email,
-						// password : password
-					// }
-				// },
-				// success : didGetResponse
-			// }
-		// });
-	// } else {
-		// alert(errorMessage);
-	// }
+	http.request({
+			method : "PATIENTS_STORE_TO_APP_CONVERSION",
+			data:  {
+
+ client_identifier: "x",
+
+ version: "x",
+ session_id: "x",
+
+ filter: [{
+  type:"mobile_otp"
+
+ }],
+
+ data: [{
+
+  patient: {
+   user_name:uname,
+   email_address:email,
+password:password
+
+  }
+
+ }]
+
+},
+success : didSuccess,
+})
+}
+	function didSuccess(result) {
+	console.log("ACCOUNT CREATED");
+	alert("Your account has been created");
 	
+	console.log(result.data);
 	app.navigator.open({
 			ctrl : "login",
 			titleid : "",			
 			stack : true
 		});
-}
-
-// function validate() {
-	// var password = $.passwordTooltip.getvalue();
-// var email = $.emailTxt.getvalue();
-// var dateOfbirth = $.dob.getvalue();
-	// var email = $.emailTxt.getvalue();
-// 
-	// var re = /[0-9]/;
-	// var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-	// if (uname === "") {
-		// token = false;
-		// errorMessage = "Please enter username";
-	// } else if (dateOfBirth === "") {
-		// token = false,
-		// errorMessage = "username cannot be blank";
-	// } else if (password === "") {
-		// token = false,
-		// errorMessage = "Please enter a password";
-	// } else if (length(password) < 6 && re.test(password) === false) {
-		// token = false,
-		// errorMessage = "Please enter a valid password";
-	// } else if (email === "") {
-		// token = false,
-		// errorMessage = "Please enter an email ID";
-	// } else if (reg.test(email) === false) {
-		// token = false,
-		// errorMessage = "Please enter a valid email ID";
-	// }
-	// return (token);
-// }
-// 
-// function didGetResponse(result){
-	// alert("The account has been created");
-	// // Go to Login screen closeToRoot
-	// app.navigator.closeToRoot();
-// }
+	
+	} 
+	
 
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(e.value);

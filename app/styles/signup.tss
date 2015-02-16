@@ -49,5 +49,5 @@
 	html: Alloy.Globals.strings.lblSignupAgreement
 },
 "#createBtn":{
-	title: Alloy.Globals.strings.btnCreateAccount
+	title: Alloy.Globals.strings.strSignup
 }

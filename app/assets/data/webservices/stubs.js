@@ -161,8 +161,34 @@ module.exports = {
 		"data" : {
 			"patients" : {
 				"is_mobile_shared" : "1",
-				"mobile_exists" : "0"
+				"mobile_exists" : "1"
 			}
 		}
-	}
+	},
+	
+	"PATIENTS_MOBILE_GENERATE_OTP": {
+
+ "status": "Success",
+
+ "code": "200",
+
+ "message": "OTP send successfully.",
+
+ "description": "x",
+
+ "data": ""
+
+},
+"PATIENTS_STORE_TO_APP_CONVERSION":{
+
+ "status": "Success",
+
+ "code": "200",
+ "message": "Your account has been created.",
+
+ "description": "x",
+
+ "data": ""
+
+}
 };

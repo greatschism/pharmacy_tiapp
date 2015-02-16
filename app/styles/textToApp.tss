@@ -1,6 +1,18 @@
-
+"#image":{
+	width: Ti.UI.SIZE,
+	padding:{
+		top: 26,
+		bottom: 26,
+		right: 100,
+		left: 100
+	}
+}
 "#titleLbl":{
-	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore
+	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore,
+	font: {
+        
+        fontWeight: 'bold'
+    }		
 },
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblJustSentYouTextMessage

@@ -25,19 +25,19 @@ function didClickNext() {
 }
 
 
-// function validateFunction(e) {
-// 
-	// var thisDate = e.value;
-	// var validatedValue = moment(thisDate).isValid();
-	// if (validatedValue == true) {
-		// // app.navigator.open({
-		// // titleid : "strSignup",
-		// // ctrl : "signup",
-		// // stack : true
-		// // });
-	// } else {
-		// alert("wrong date entered.");
-	// }
-// }
+function validateFunction(e) {
+
+	var thisDate = e.value;
+	var validatedValue = moment(thisDate).isValid();
+	if (validatedValue == true) {
+		// app.navigator.open({
+		// titleid : "strSignup",
+		// ctrl : "signup",
+		// stack : true
+		// });
+	} else {
+		alert("wrong date entered.");
+	}
+}
 
 exports.setParentViews = setParentViews;
