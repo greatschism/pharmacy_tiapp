@@ -77,34 +77,42 @@ var UIHelper = {
 		    newWidth = properties.width || 0,
 		    newHeight = properties.height || 0;
 		if (newWidth == 0 || newHeight == 0) {
-			var imgBlob = Ti.Filesystem.getFile(path).read(),
-			    imgWidth = imgBlob.width,
-			    imgHeight = imgBlob.height;
-			imgBlob = null;
-			if (newWidth == 0) {
-				if (_.isString(newHeight) && newHeight.indexOf("%") >= 0) {
-					newHeight = (app.device.height / 100) * parseInt(newHeight);
+			if (OS_MOBILEWEB) {
+				if (newWidth == 0) {
+					newWidth = "auto";
+				} else if (newHeight == 0) {
+					newHeight = "auto";
 				}
-				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-				if (OS_ANDROID) {
-					newWidth /= app.device.logicalDensityFactor;
+			} else {
+				var imgBlob = Ti.Filesystem.getFile(path).read(),
+				    imgWidth = imgBlob.width,
+				    imgHeight = imgBlob.height;
+				imgBlob = null;
+				if (newWidth == 0) {
+					if (_.isString(newHeight) && newHeight.indexOf("%") >= 0) {
+						newHeight = (app.device.height / 100) * parseInt(newHeight);
+					}
+					newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
+					if (OS_ANDROID) {
+						newWidth /= app.device.logicalDensityFactor;
+					}
+				} else if (newHeight == 0) {
+					if (_.isString(newWidth) && newWidth.indexOf("%") >= 0) {
+						newWidth = (app.device.width / 100) * parseInt(newWidth);
+					}
+					newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
+					if (OS_ANDROID) {
+						newHeight /= app.device.logicalDensityFactor;
+					}
 				}
-			} else if (newHeight == 0) {
-				if (_.isString(newWidth) && newWidth.indexOf("%") >= 0) {
-					newWidth = (app.device.width / 100) * parseInt(newWidth);
-				}
-				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
-				if (OS_ANDROID) {
-					newHeight /= app.device.logicalDensityFactor;
-				}
+				config.updateImageProperties({
+					code : _o.code,
+					file : utilities.getFileName(path),
+					orientation : app.device.orientation,
+					width : newWidth,
+					height : newHeight
+				});
 			}
-			config.updateImageProperties({
-				code : _o.code,
-				file : utilities.getFileName(path),
-				orientation : app.device.orientation,
-				width : newWidth,
-				height : newHeight
-			});
 		}
 		if (_o.apiName == "Ti.UI.ImageView") {
 			_o.applyProperties({

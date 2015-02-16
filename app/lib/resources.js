@@ -641,7 +641,8 @@ var Resources = {
 				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
-					update : false
+					update : false,
+					properties : {}
 				});
 				break;
 			}
