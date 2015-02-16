@@ -3,6 +3,7 @@
 	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
 	<View>
 		<Widget id="searchbar" src="com.mscripts.textfield" class="txt" />
+		
 		<TableView id="tableView" class="top" />
 	</View>
 </Alloy> 
