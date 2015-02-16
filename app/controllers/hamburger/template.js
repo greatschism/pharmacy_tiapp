@@ -59,7 +59,7 @@ var args = arguments[0] || {},
 
 function didTapLeftActionView(e) {
 	if (args.stack) {
-		app.navigator.close();
+		_.isFunction(controller.backButtonHandler) ? controller.backButtonHandler(false) : app.navigator.close();
 	} else {
 		app.navigator.hamburger.toggleLeftMenu();
 	}

@@ -238,6 +238,11 @@ function Navigation(_args) {
 				that.isBusy = false;
 				return;
 			}
+			if (_.isFunction(that.currentController.child.backButtonHandler)) {
+				that.isBusy = false;
+				that.currentController.child.backButtonHandler(true);
+				return;
+			}
 			if (_.isFunction(that.currentController.child.androidback) && that.currentController.child.androidback()) {
 				that.isBusy = false;
 				return;
