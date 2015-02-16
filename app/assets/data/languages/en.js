@@ -49,7 +49,7 @@ module.exports = {
 		"sectionPickupDetails" : "Pickup details",
 
 		"hintSearchByZipCityOrState" : "Search",
-		"hintMobileNumber" : "Mobile Number",
+		"hintMobileNumber" : "Mobile Number (xxx)-xxx xxxx",
 		"hintUsername" : "Username",
 		"hintPassword" : "Password",
 		"hintEmailAddress" : "Email address",

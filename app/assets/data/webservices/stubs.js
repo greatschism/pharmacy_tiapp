@@ -161,7 +161,7 @@ module.exports = {
 		"data" : {
 			"patients" : {
 				"is_mobile_shared" : "1",
-				"mobile_exists" : "1"
+				"mobile_exists" : "0"
 			}
 		}
 	}

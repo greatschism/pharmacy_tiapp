@@ -13,36 +13,32 @@ function didClickContinue(e) {
 		http.request({
 			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
 			data : {
-				client_identifier : "x",
-				version : "x",
-				session_id : "x",
-				filter : null,
-				lang : "en",
-				data : [{
-					appload : [{
-						phone_model : "x",
-						phone_os : "x",
-						phone_platform : "x",
-						device_id : "x",
-						carrier : "x",
-						app_version : "x",
-						client_name : "x",
-						client_param_type : "menu",
-						client_param_version : "x",
-						client_param_base_version : "x"
-						
-					}]
-				}]
-			},
-			success : didSuccess,
+				
+ client_identifier: "x",
+ version: "x",
+ session_id: "x",
+ filter: [{
+  type:"mobile_otp"
+ }],
+ data: [{
+  patient: {
+   mobile_number:mobileNumber,
+   first_name:"x",
+   last_name:"x",
+   birth_date:"x"
+  }
+ }]
+},
+	success : didSuccess,
 
 		});
 	}
 	else{
 		alert("Please enter a valid 10 digit mobile number");
 	}
-}
 
+
+}
 		
 		
 function didSuccess(result) {
