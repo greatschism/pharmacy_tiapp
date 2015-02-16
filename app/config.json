@@ -94,7 +94,7 @@
 		"enableAnalytics": true,
 		"clearCachedResources": true,
 		"overrideRemoteResources": true,
-		"simulateAPI": false,
+		"simulateAPI": true,
 		"simulateAPIOnFailure": true
 	},
 	"env:production": {
@@ -107,7 +107,7 @@
 		"enableAnalytics": true,
 		"clearCachedResources": true,
 		"overrideRemoteResources": true,
-		"simulateAPI": false,
+		"simulateAPI": true,
 		"simulateAPIOnFailure": true
 	},
 	"os:android": {

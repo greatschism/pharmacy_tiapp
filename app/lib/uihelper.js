@@ -88,22 +88,20 @@ var UIHelper = {
 				    imgWidth = imgBlob.width,
 				    imgHeight = imgBlob.height;
 				imgBlob = null;
+				if (OS_ANDROID) {
+					imgWidth /= app.device.logicalDensityFactor;
+					imgHeight /= app.device.logicalDensityFactor;
+				}
 				if (newWidth == 0) {
 					if (_.isString(newHeight) && newHeight.indexOf("%") >= 0) {
 						newHeight = (app.device.height / 100) * parseInt(newHeight);
 					}
 					newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-					if (OS_ANDROID) {
-						newWidth /= app.device.logicalDensityFactor;
-					}
 				} else if (newHeight == 0) {
 					if (_.isString(newWidth) && newWidth.indexOf("%") >= 0) {
 						newWidth = (app.device.width / 100) * parseInt(newWidth);
 					}
 					newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
-					if (OS_ANDROID) {
-						newHeight /= app.device.logicalDensityFactor;
-					}
 				}
 				config.updateImageProperties({
 					code : _o.code,
