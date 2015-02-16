@@ -39,6 +39,18 @@ module.exports = {
 			"padding_right" : {
 				"right" : 12
 			},
+			"img_padding_top" : {
+				"top" : 26
+			},
+			"img_padding_bottom" : {
+				"bottom" : 26
+			},
+			"img_padding_left" : {
+				"left" : 100
+			},
+			"img_padding_right" : {
+				"right" : 100
+			},
 			"default_height" : {
 				"height" : 50
 			},
@@ -690,7 +702,7 @@ module.exports = {
 				"height" : 12
 			},
 			"logo" : {
-				"height" : 50
+				"code" : "logo"
 			}
 		}
 	}

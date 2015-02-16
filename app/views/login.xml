@@ -1,18 +1,18 @@
 <Alloy>
-	<ScrollView class="vgroup bg-primary">
-		<Label id="titleIcon" class="margin-top large-icn fg-primary" />
-		<Widget id="headerLbl" src="com.mscripts.styledlabel" class="styled-h2 fg-primary" />
+	<ScrollView class="vgroup">
+		<ImageView id="logoImg" class="img-padding-top logo" />
+		<!--<Widget id="headerLbl" src="com.mscripts.styledlabel" class="styled-h2 fg-primary" />
 		<View class="form-group vgroup">
-			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt return-next" onReturn="moveToNext" />
-			<View class="hseparator" />
-			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt return-done" onReturn="moveToNext" onRightclick="didRightclickPwd" />
-			<View class="hseparator" />
-			<View class="default-height">
-				<Label id="keepMeLbl" class="padding-left fill-width" />
-				<Widget id="keepMeSwt" src="com.mscripts.switch" class="padding-right swt" onTouch="handleScroll" />
-			</View>
+		<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt return-next" onReturn="moveToNext" />
+		<View class="hseparator" />
+		<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt return-done" onReturn="moveToNext" onRightclick="didRightclickPwd" />
+		<View class="hseparator" />
+		<View class="default-height">
+		<Label id="keepMeLbl" class="padding-left fill-width" />
+		<Widget id="keepMeSwt" src="com.mscripts.switch" class="padding-right swt" onTouch="handleScroll" />
+		</View>
 		</View>
 		<Button id="loginBtn" class="secondary-btn" onClick="didClickLogin" />
-		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-h2 fg-primary" onClick="didClickSignup" />
+		<Widget id="footerLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-h2 fg-primary" onClick="didClickSignup" />-->
 	</ScrollView>
 </Alloy> 

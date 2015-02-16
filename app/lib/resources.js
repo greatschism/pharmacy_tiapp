@@ -617,17 +617,17 @@ var Resources = {
 				break;
 			case "images":
 				var unusedImgIds = [],
-				    supportedOrientations = model.orientation,
+				    supportedOrientations = _.keys(model.orientation),
 				    imagesWithSameCode = coll.find({
 					id : {
 						$ne : model.id
 					},
 					code : model.code
 				});
-				imagesWithSameCode.forEach(function(imgDocument) {
+				imagesWithSameCode.forEach(function(imgDoc) {
 					for (var i in supportedOrientations) {
-						if (_.contains(imgDocument[i].orientation, supportedOrientations[i])) {
-							unusedImgIds.push(imgDocument.id);
+						if (_.has(imgDoc.orientation, supportedOrientations[i])) {
+							unusedImgIds.push(imgDoc.id);
 							break;
 						}
 					}
@@ -670,6 +670,26 @@ var Resources = {
 		for (var i in unusedImages) {
 			utilities.deleteFile(Resources.directoryImages + "/" + unusedImages[i]);
 		}
+	},
+
+	updateImageProperties : function(_item) {
+		var coll = Resources.getCollection("images"),
+		    imageDoc = coll.find({
+		code : _item.code,
+		file : _item.file
+		})[0] || {};
+		if (!_.has(imageDoc, "properties")) {
+			imageDoc.properties = {};
+		}
+		if (!_.has(imageDoc.properties, _item.orientation)) {
+			imageDoc.properties[_item.orientation] = {};
+		}
+		imageDoc.properties[_item.orientation] = {
+			width : _item.width,
+			height : _item.height
+		};
+		coll.commit();
+		return imageDoc.properties[_item.orientation];
 	}
 };
 

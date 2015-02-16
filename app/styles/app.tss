@@ -843,9 +843,23 @@
 ".vspacer": {
 	height: Alloy.TSS.vspacer.height
 },
+/**
+* 	image classes
+*/
+".img-padding-top":{
+	top: Alloy.TSS.img_padding_top.top
+},
+".img-padding-bottom":{
+	bottom: Alloy.TSS.img_padding_bottom.bottom
+},
+".img-padding-left":{
+	left: Alloy.TSS.img_padding_left.left
+},
+".img-padding-right":{
+	right: Alloy.TSS.img_padding_right.right
+},
 ".logo": {
-	width: Ti.UI.SIZE,
-	height: 50
+	code: Alloy.TSS.logo.code
 },
 /**
 * 	under-construction

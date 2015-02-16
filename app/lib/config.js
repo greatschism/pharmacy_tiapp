@@ -147,8 +147,11 @@ var Config = {
 				Alloy.Images[code] = {};
 			}
 			var baseDirectory = OS_MOBILEWEB ? Ti.Filesystem.resourcesDirectory : Ti.Filesystem.applicationDataDirectory;
-			for (var j in orientations) {
-				Alloy.Images[code][orientations[j]] = Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath;
+			for (var orientation in orientations) {
+				Alloy.Images[code][orientation] = {
+					path : Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath
+				};
+				_.extend(Alloy.Images[code][orientation], _.isObject(images[i].properties) && _.isObject(images[i].properties[orientation]) ? images[i].properties[orientation] : orientations[orientation]);
 			}
 		}
 
@@ -184,6 +187,10 @@ var Config = {
 		if (_callback) {
 			_callback();
 		}
+	},
+
+	updateImageProperties : function(_item) {
+		_.extend(Alloy.Images[_item.code][_item.orientation], resources.updateImageProperties(_item));
 	},
 
 	updateResources : function(_callback) {

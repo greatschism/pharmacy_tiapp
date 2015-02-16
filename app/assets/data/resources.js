@@ -116,7 +116,14 @@ module.exports = {
 		"id" : "logo_pl",
 		"code" : "logo",
 		"format" : "png",
-		"orientation" : ["portrait", "landscape"],
+		"orientation" : {
+			"portrait" : {
+				"height" : 25
+			},
+			"landscape" : {
+				"height" : 25
+			}
+		},
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"
 	}]
 };

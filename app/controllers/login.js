@@ -1,16 +1,22 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
-    http = require("requestwrapper");
+    uihelper = require("uihelper"),
+    http = require("requestwrapper"),
+    encryptionUtil,
+    keychainAccount;
 
-if (OS_IOS || OS_ANDROID) {
-	var encryptionUtil = require("encryptionUtil"),
-	    keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
-	if (keychainAccount.account) {
-		$.unameTxt.setValue(keychainAccount.account);
-		$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
-		$.keepMeSwt.setValue(true);
+function init() {
+	if (OS_IOS || OS_ANDROID) {
+		encryptionUtil = require("encryptionUtil");
+		keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+		/*if (keychainAccount.account) {
+		 $.unameTxt.setValue(keychainAccount.account);
+		 $.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
+		 $.keepMeSwt.setValue(true);
+		 }*/
 	}
+	uihelper.getImage($.logoImg);
 }
 
 function didRightclickPwd(e) {
@@ -88,12 +94,14 @@ function handleScroll(e) {
 
 function didClickSignup(e) {
 	app.navigator.open({
-		
+
 		ctrl : "mobileNumber",
 		titleid : "titleWelcome",
 		stack : false
 		/*ctrl : "termsAndConditions",
-		titleid : "titleTermsAndConditions",
-		stack : true*/
+		 titleid : "titleTermsAndConditions",
+		 stack : true*/
 	});
 }
+
+exports.init = init;
