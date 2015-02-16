@@ -1,4 +1,5 @@
 var utilities = require("utilities"),
+    logger = require("logger"),
     c = require("crypto/core"),
     aes = require("crypto/aes"),
     STATIC_KEY_LENGTH = 8,
@@ -11,28 +12,37 @@ var utilities = require("utilities"),
     STATIC_KEY = generateStaticKey();
 
 function generateStaticKey() {
-	return "6a6f536341444276";
+	var keys = [48, 51, 57, 54, 91, 55, 82, 50];
+	for (var i in keys) {
+		keys[i] = String.fromCharCode(keys[i]);
+	}
+	return keys.reverse().join("");
 }
 
-function encrypt(plainText) {
+function encrypt(_plainText) {
 	var encryptDynamicKey = c.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH)),
 	    encryptIV = c.lib.WordArray.random(IV_LENGTH),
 	    encryptFinalKey = c.enc.Hex.parse(STATIC_KEY).concat(encryptDynamicKey),
-	    encryptedData = aes.encrypt(plainText, encryptFinalKey, {
+	    encryptedData = aes.encrypt(_plainText, encryptFinalKey, {
 		iv : encryptIV
 	}).ciphertext;
 	return c.enc.Base64.stringify(encryptDynamicKey.concat(encryptIV).concat(encryptedData));
 }
 
-function decrypt(cipherText) {
-	cipherText = c.enc.Base64.parse(cipherText).toString();
-	var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
-	    decryptIV = c.enc.Hex.parse(cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
-	return aes.decrypt({
-		ciphertext : c.enc.Hex.parse(cipherText.substring(IV_BYTES_LAST_INDEX))
-	}, decryptFinalKey, {
-		iv : decryptIV
-	}).toString(c.enc.Utf8);
+function decrypt(_cipherText) {
+	try {
+		_cipherText = c.enc.Base64.parse(_cipherText).toString();
+		var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(_cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
+		    decryptIV = c.enc.Hex.parse(_cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
+		return aes.decrypt({
+			_cipherText : c.enc.Hex.parse(_cipherText.substring(IV_BYTES_LAST_INDEX))
+		}, decryptFinalKey, {
+			iv : decryptIV
+		}).toString(c.enc.Utf8);
+	} catch(ex) {
+		logger.e("Unable to decrypt : " + ex);
+		return "";
+	}
 }
 
 exports.encrypt = encrypt;

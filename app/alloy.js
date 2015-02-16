@@ -15,7 +15,7 @@
 	//initialization
 	require("apm").init();
 	if (OS_IOS || OS_ANDROID) {
-		require("tiencrypted").init();
+		require("com.scule.encrypted").init();
 	}
 	require("resources").init();
 	require("localization").init();

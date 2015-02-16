@@ -49,7 +49,7 @@ function init() {
 		this.read = function(name, callback) {
 			var file = Titanium.Filesystem.getFile(this.configuration.path, name);
 			if (file.exists()) {
-				var o = JSON.parse(encryptionUtil.decrypt(file.read().text));
+				var o = JSON.parse(encryptionUtil.decrypt(file.read().text) || "{}");
 				if (callback) {
 					callback(o);
 				}
