@@ -8,6 +8,7 @@ var args = arguments[0] || {},
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
+    msgPickUp = Alloy.Globals.strings.msgPickUp,
     gettingRefilled,
     readyToRefill,
     otherPrescriptions,
@@ -132,14 +133,61 @@ function didSuccess(result) {
 				}), title.text = utilities.ucfirst(transform.presc_name);
 				orderPickUpLbl.text = strings.msgYourOrderIsReady;
 				orderPickUpLblIcon.text = Alloy.CFG.icons.success_filled;
-				
+
 				detail.add(orderPickUpLbl);
 				detail.add(orderPickUpLblIcon);
 				contentView.add(title);
 				contentView.add(detail);
 				row.add(contentView);
 				$.gettingRefilledSection.add(row);
-				row.addEventListener("click", didExceedPickUpDays);
+				var styleArgsNormal = {
+
+					classes : ["text-center"],
+					id : 'pickUpTooltip',
+					direction : "left",
+					height : 70,
+					width : 130,
+					top : 10,
+					right : 20,
+					backgroundColor:Alloy.TSS.secondary_color.backgroundColor,
+					color:"#FFFFFF"
+				};
+				var styleArgsCritical = {
+
+					classes : ["text-center"],
+					id : 'pickUpTooltip',
+					direction : "left",
+					height : 70,
+					width : 130,
+					top : 10,
+					right : 20,
+					backgroundColor: Alloy.TSS.tooltip_bg_critical_color.backgroundColor,
+					color:"#FFFFFF"
+				};
+				//calculate the number of days left for picking up the prescription
+				filledDate = moment(transform.latest_filled_date, "YYYY/MM/DD");
+				todaysDate = moment();
+				ndays = todaysDate.diff(filledDate, 'days');
+				console.log("difference" + ndays);
+				restockingPeriod = transform.restockperiod;
+				noOfDaysLeftForPickUp = restockingPeriod - ndays;
+				console.log("left for pickup" + noOfDaysLeftForPickUp);
+
+				if (noOfDaysLeftForPickUp > 3) {
+
+					pickUpTooltipNormal = Alloy.createWidget("com.mscripts.tooltip", "widget", styleArgsNormal);
+					pickUpTooltipNormal.setText(String.format(msgPickUp, noOfDaysLeftForPickUp));
+					row.add(pickUpTooltipNormal.getView());
+					pickUpTooltipNormal.show();
+
+				} else if (noOfDaysLeftForPickUp <= 3) {
+
+					pickUpTooltipCritical = Alloy.createWidget("com.mscripts.tooltip", "widget", styleArgsCritical);
+					pickUpTooltipCritical.setText(String.format(msgPickUp, noOfDaysLeftForPickUp));
+					row.add(pickUpTooltipCritical.getView());
+					pickUpTooltipCritical.show();
+
+				}
 			}
 		}
 
@@ -439,9 +487,7 @@ function terminate() {
 function didAndroidBack() {
 	return $.toggleMenu.hide();
 }
-function didExceedPickUpDays(){
-	return $.pickUpTooltip.show();
-}
+
 exports.init = init;
 exports.terminate = terminate;
 exports.androidback = didAndroidBack;
