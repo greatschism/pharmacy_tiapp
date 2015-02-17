@@ -529,11 +529,11 @@ module.exports = {
 				"color" : "#000000"
 			},
 			"progressbar_bg" : {
-				"height" : 16,
+				"height" : 8,
 				"backgroundColor" : "#808285"
 			},
 			"progressbar_fg" : {
-				"height" : 18,
+				"height" : 10,
 				"backgroundColor" : "#1C75BB"
 			},
 			"footer_view_break" : {
