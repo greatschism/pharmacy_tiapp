@@ -10,16 +10,17 @@ var args = arguments[0] || {},
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickUp = Alloy.Globals.strings.msgPickUp,
     gettingRefilled,
+    inprocessPrescriptions,
     readyToRefill,
     otherPrescriptions,
     prescriptions,
+    allPrescriptions,
     currentSwipeView;
 
 function init() {
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
-		success : didSuccess,
-
+		success : didSuccess
 	});
 }
 
@@ -30,8 +31,102 @@ function addRx(str) {
 }
 
 function didSuccess(result) {
-	prescriptions = result.data.prescriptions;
+	prescriptions = result.data.prescriptions || [];
+performSearch();
+	}
 
+function didItemSwipe(e) {
+	/**
+	 * On swipe left & right is 0 - move the view by 150dp from right, to show the buttons.
+	 * On swipe right & right is 150 - move the view back to right = 0, to hide the buttons.
+	 * value of right is being checked to avoid animating the view, if it is already at the right place.
+	 */
+	var source,
+	    direction,
+	    right = false;
+
+	if (currentSwipeView) {
+		source = currentSwipeView;
+		direction = "right";
+	} else {
+		source = e.source.getParent();
+		direction = e.direction;
+	}
+
+	if (direction == "left" && source.right == 0) {
+		right = 150;
+		currentSwipeView = source;
+	} else if (direction == "right" && source.right == 150) {
+		right = 0;
+	}
+	if (right !== false) {
+		var animation = Ti.UI.createAnimation({
+			right : right,
+			duration : Alloy.CFG.ANIMATION_DURATION
+		});
+		animation.addEventListener("complete", function onComplete() {
+			if (right == 0) {
+				currentSwipeView = false;
+			}
+			source.right = right;
+		});
+		source.animate(animation);
+	}
+}
+
+function didToggle(e) {
+	$.toggleMenu.toggle();
+}
+
+function didClickMenu(e) {
+
+	var action = e.data.action;
+	if (action === "Search") {
+		showSearch();
+	}
+}
+
+function showSearch() {
+	var top = 40;
+	var listAnim = Ti.UI.createAnimation({
+		top : top,
+		duration : 150
+	});
+	listAnim.addEventListener("complete", function onComplete() {
+		listAnim.removeEventListener("complete", onComplete);
+		$.tableView.top = top;
+		$.searchbar.animate({
+			opacity : 1,
+			duration : 150
+		}, function(searchbar) {
+			searchbar.opacity = 1;
+		});
+	});
+	$.tableView.animate(listAnim);
+}
+
+function hideSearch() {
+	var top = 0;
+	$.searchbar.animate({
+		opacity : 0,
+		duration : 150
+	}, function(searchbar) {
+		searchbar.opacity = 0;
+		var listAnim = Ti.UI.createAnimation({
+			top : top,
+			duration : 150
+		});
+		listAnim.addEventListener("complete", function onComplete() {
+			listAnim.removeEventListener("complete", onComplete);
+			$.tableView.top = top;
+		});
+		$.tableView.animate(listAnim);
+	});
+}
+
+function performSearch() {
+	
+	var searchString = $.searchbar.getValue();
 	var inprocessPrescriptions = _.reject(prescriptions, function(obj) {
 		return obj.refill_status != "INPROCESS" && obj.refill_status != "READYFORPICKUP";
 	}),
@@ -43,10 +138,9 @@ function didSuccess(result) {
 		refill_status : "OTHERS"
 	});
 
-	console.log(prescriptions);
 
 	if (inprocessPrescriptions.length) {
-		console.log("in process");
+
 		$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionGettingRefilled);
 		for (var i in inprocessPrescriptions) {
 			var transform = inprocessPrescriptions[i];
@@ -105,7 +199,8 @@ function didSuccess(result) {
 				orderProcessedBgImage.add(orderProcessedFgImage);
 				row.add(contentView);
 				$.gettingRefilledSection.add(row);
-			} else if (transform.refill_status == "READYFORPICKUP") {
+			} 
+			else if (transform.refill_status == "READYFORPICKUP") {
 				row = $.UI.create("TableViewRow", {
 					apiName : "TableViewRow",
 
@@ -149,8 +244,8 @@ function didSuccess(result) {
 					width : 130,
 					top : 10,
 					right : 20,
-					backgroundColor:Alloy.TSS.secondary_color.backgroundColor,
-					color:"#FFFFFF"
+					backgroundColor : Alloy.TSS.secondary_color.backgroundColor,
+					color : "#FFFFFF"
 				};
 				var styleArgsCritical = {
 
@@ -161,8 +256,8 @@ function didSuccess(result) {
 					width : 130,
 					top : 10,
 					right : 20,
-					backgroundColor: Alloy.TSS.tooltip_bg_critical_color.backgroundColor,
-					color:"#FFFFFF"
+					backgroundColor : Alloy.TSS.tooltip_bg_critical_color.backgroundColor,
+					color : "#FFFFFF"
 				};
 				//calculate the number of days left for picking up the prescription
 				filledDate = moment(transform.latest_filled_date, "YYYY/MM/DD");
@@ -390,94 +485,8 @@ function didSuccess(result) {
 
 	}
 	$.tableView.data = [$.gettingRefilledSection, $.readyForRefillSection, $.otherPrescriptionsSection];
-}
 
-function didItemSwipe(e) {
-	/**
-	 * On swipe left & right is 0 - move the view by 150dp from right, to show the buttons.
-	 * On swipe right & right is 150 - move the view back to right = 0, to hide the buttons.
-	 * value of right is being checked to avoid animating the view, if it is already at the right place.
-	 */
-	var source,
-	    direction,
-	    right = false;
 
-	if (currentSwipeView) {
-		source = currentSwipeView;
-		direction = "right";
-	} else {
-		source = e.source.getParent();
-		direction = e.direction;
-	}
-
-	if (direction == "left" && source.right == 0) {
-		right = 150;
-		currentSwipeView = source;
-	} else if (direction == "right" && source.right == 150) {
-		right = 0;
-	}
-	if (right !== false) {
-		var animation = Ti.UI.createAnimation({
-			right : right,
-			duration : Alloy.CFG.ANIMATION_DURATION
-		});
-		animation.addEventListener("complete", function onComplete() {
-			if (right == 0) {
-				currentSwipeView = false;
-			}
-			source.right = right;
-		});
-		source.animate(animation);
-	}
-}
-
-function didToggle(e) {
-	$.toggleMenu.toggle();
-}
-
-function didClickMenu(e) {
-	var action = e.data.action;
-	if (action === "search") {
-		$.tableView.top === 0 ? showSearch() : hideSearch();
-	}
-}
-
-function showSearch() {
-	var top = Alloy._content_height + Alloy._m_top + Alloy._m_bottom;
-	var listAnim = Ti.UI.createAnimation({
-		top : top,
-		duration : 150
-	});
-	listAnim.addEventListener("complete", function onComplete() {
-		listAnim.removeEventListener("complete", onComplete);
-		$.tableView.top = top;
-		$.searchbar.animate({
-			opacity : 1,
-			duration : 150
-		}, function(searchbar) {
-			searchbar.opacity = 1;
-		});
-	});
-	$.tableView.animate(listAnim);
-}
-
-function hideSearch() {
-	var top = 0;
-	$.searchbar.animate({
-		opacity : 0,
-		duration : 150
-	}, function(searchbar) {
-		searchbar.opacity = 0;
-		var listAnim = Ti.UI.createAnimation({
-			top : top,
-			duration : 150
-		});
-		listAnim.addEventListener("complete", function onComplete() {
-			listAnim.removeEventListener("complete", onComplete);
-			$.tableView.top = top;
-		});
-		$.tableView.animate(listAnim);
-	});
 }
 
 function terminate() {
