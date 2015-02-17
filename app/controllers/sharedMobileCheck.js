@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    
+
     moment = require('alloy/moment');
 ;
 
@@ -13,32 +13,22 @@ function moveToNext(e) {
 	$.dob.showPicker();
 }
 
-
 function didClickNext() {
 	fname = $.fnameTxt.getValue(),
-    dateOfBirth = $.dob.getValue();
-    
-	if(isNaN(fname)==true&&dateOfBirth!=="" )
-	{
-	//var pattern =/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/ ;
-    if (dateOfBirth == null || dateOfBirth == "") 
-    {
-        alert("Invalid date of birth\n") ; 
-        
-    }
-    else{
-        
-    
+	dateOfBirth = $.dob.getValue();
 
-
-		app.navigator.open({
-			ctrl : "signup",
-			titleid : "",			
-			stack : true
-		});
-}
-}
-else{
+	if (isNaN(fname) === true && dateOfBirth !== "") {
+		//var pattern =/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/ ;
+		if (dateOfBirth === null || dateOfBirth === "") {
+			alert("Invalid date of birth");
+		} else {
+			app.navigator.open({
+				ctrl : "signup",
+				titleid : "",
+				stack : true
+			});
+		}
+	} else {
 		alert("Please enter a valid details.");
 	}
 }

@@ -34,6 +34,7 @@ module.exports = {
 		"titleRefillNow" : "ja-Refill Now",
 		"titleSharedMobileNumber" : "ja-Mobile is Shared",
 		"titleTextHelp" : "ja-Text Help",
+		"tittleDrugInformation":"ja-Alprazolam",
 
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
@@ -117,6 +118,11 @@ module.exports = {
 		"lblGoToFullRegistration" : "ja-Go to full registration",
 		"lblSendTheTextAgain" : "ja-Send the text again",
 		"lblWeCanTryToSendTheText" : "ja-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
+		"lblDrugDetails" : "Drug details",
+		"lblDrugEffects" : "Drug effects",
+		"lblDrugConditions" : "Drug conditions",
+		"lblDrugInteractions" : "Drug interactions",
+		"lblDrugSideEffects" : "SideEffects",
 
 		"valLoginRequiredFields" : "ja-Username and Password can't be blank",
 
@@ -144,6 +150,7 @@ module.exports = {
 		"msgYourOrderIsReady" : "ja-Your order is ready to be picked up!",
 		"msgNotFilledYet" : "ja-Not filled yet",
 		"msgUnderConstruction" : "ja-Under construction",
+		"msgAgePopUp":"This service is not directed at users under the age of 12.If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 
 		"menuSearch" : "ja-Search",
 		"menuSort" : "ja-Sort",
@@ -173,6 +180,7 @@ module.exports = {
 		"btnEdit" : "ja-Edit",
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
+		"btnIAgree" : "jaI agree",
 
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",

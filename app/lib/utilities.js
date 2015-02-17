@@ -699,7 +699,28 @@ var Utility = {
 			}
 		}
 		return c;
-	}
+	},
+
+	/**
+	 * Validate if Password's format is correct
+	 * @param {password_text} text - String text
+	 */
+	validatePasswordFormat : function(_password_text) {
+		var regExPassword = /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/;
+
+		return regExPassword.test(_password_text);
+	},
+	
+	/**
+	 * Validate if Email's format is correct
+	 * @param {email_text} _email - String text
+	 */
+	validateEmailFormat : function(_email) {
+		var regExEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+		return regExEmail.test(_email);
+	},
+	
 };
 
 module.exports = Utility;

@@ -34,6 +34,7 @@ module.exports = {
 		"titleRefillNow" : "Refill Now",
 		"titleSharedMobileNumber" : "Mobile is Shared",
 		"titleTextHelp" : "Text Help",
+		"tittleDrugInformation":"es-Alprazolam",
 
 		"sectionStoreHours" : "El horario de apertura",
 		"sectionStoreServices" : "servicios de tienda",
@@ -117,6 +118,11 @@ module.exports = {
 		"lblSendTheTextAgain" : "es-Send the text again",
 		"lblSomePhoneCarriersExperienceDelay" : "es-Sorry about that.Some phone carriers experience delay when sending text messages.",
 		"lblWeCanTryToSendTheText" : "es-We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
+		"lblDrugDetails" : "Drug details",
+		"lblDrugEffects" : "Drug effects",
+		"lblDrugConditions" : "Drug conditions",
+		"lblDrugInteractions" : "Drug interactions",
+		"lblDrugSideEffects" : "SideEffects",
 
 		"valLoginRequiredFields" : "Nombre de usuario y la contraseña no puede estar en blanco",
 
@@ -144,6 +150,7 @@ module.exports = {
 		"msgYourOrderIsReady" : "Su pedido está listo para ser recogido!",
 		"msgNotFilledYet" : "No rellenado todavía",
 		"msgUnderConstruction" : "bajo construcción",
+		"msgAgePopUp":"es-This service is not directed at users under the age of 12.If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 
 		"menuSearch" : "búsqueda",
 		"menuSort" : "clase",
@@ -173,6 +180,7 @@ module.exports = {
 		"btnEdit" : "editar",
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
+		"btnIAgree" : "es-I agree",
 
 		"optionFindPictureOnMyPhone" : "Buscar una imagen en mi teléfono",
 		"optionTakePhoto" : "tome la foto",

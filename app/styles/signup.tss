@@ -1,3 +1,11 @@
+"#orderPickUpLblIcon":{
+	text:Alloy.CFG.icons.success_filled,
+	padding:{
+		top: 10,
+		bottom: 10
+	}
+}
+
 "#titleIcon":{
 	text: Alloy.CFG.icons.success
 },
@@ -11,11 +19,10 @@
 	//top: 70,
 	zIndex: 0
 },
-"#inputView":{
-	//top: -5
-},
+"#inputView":{},
 "#passwordTooltip":{
-	//top: 0,
+	//bottom: 40,
+	zIndex: 10,
 	text: Alloy.Globals.strings.msgPasswordTips,
 	color: Alloy._fg_primary,
 	backgroundColor: Alloy._bg_secondary
@@ -38,14 +45,17 @@
 	softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS
 },
 "#passwordTxt":{
+	top: 0,
 	//right: 75,
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true
 },
 "#showPassword":{
+	left: 5,
 	text: Alloy.Globals.strings.lblShowPassword
 },
 "#toggleSwt":{
+	right: 5,
 	value: true
 },
 "#agreementLbl":{
