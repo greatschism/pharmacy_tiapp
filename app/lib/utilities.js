@@ -81,12 +81,7 @@ var Utility = {
 	 * @param {String} _directory The base directory of the file to check (optional)
 	 */
 	fileExists : function(_path, _directory) {
-		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
-		if (file.exists()) {
-			return true;
-		} else {
-			return false;
-		}
+		return Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path).exists();
 	},
 
 	/**
@@ -96,11 +91,7 @@ var Utility = {
 	 */
 	getFile : function(_path, _directory) {
 		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
-		if (file.exists()) {
-			return file.read().text;
-		} else {
-			return false;
-		}
+		return file.exists() ? file.read().text : false;
 	},
 
 	/**
@@ -110,11 +101,7 @@ var Utility = {
 	 */
 	deleteFile : function(_path, _directory) {
 		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.applicationDataDirectory, _path);
-		if (file.exists()) {
-			return file.deleteFile();
-		} else {
-			return false;
-		}
+		return file.exists() ? file.deleteFile() : false;
 	},
 
 	/**
@@ -124,11 +111,7 @@ var Utility = {
 	 */
 	getFiles : function(_path, _directory) {
 		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
-		if (file.exists() && file.isDirectory()) {
-			return file.getDirectoryListing();
-		} else {
-			return [];
-		}
+		return file.exists() && file.isDirectory() ? file.getDirectoryListing() : [];
 	},
 
 	/**
