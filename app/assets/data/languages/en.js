@@ -119,7 +119,7 @@ module.exports = {
 		"lblSendTheTextAgain" : "Send the text again",
 		"lblWeCanTryToSendTheText" : "We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 		"lblOr" : "OR",
-		"lblShowPassword":"Show Password",
+		"lblShowPassword" : "Show Password",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
 
@@ -137,7 +137,7 @@ module.exports = {
 		"msgHasPrescribedYou" : "%s has prescribed you %s",
 		"msgYouHaveNoActiveprescription" : "You have no active prescriptions associated with %s",
 		"msgNoActiveprescription" : "No active prescriptions",
-		"msgOrderPlacedReadyBy": "Order processed: ready by",
+		"msgOrderPlacedReadyBy" : "Order processed: ready by",
 		"msgOverdueBy" : "Overdue by",
 		"msgDueFoRefillIn" : "Refill in",
 		"msgDueFoRefillOn" : "Due on",
@@ -150,7 +150,7 @@ module.exports = {
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",
-		"msgPickUp": "You have %d days left to pick this up!",
+		"msgPickUp" : "You have <font color=\"boldColor\" face=\"boldFontFamily\">%d days</font> left to pick this up!",
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
 		"menuUnhidePrescriptions" : "Unhide prescriptions",
