@@ -35,6 +35,7 @@ module.exports = {
 		"titleUpdates" : "Updates",
 		"titleSharedMobileNumber" : "Mobile is Shared",
 		"titleTextHelp" : "Text Help",
+		"tittleDrugInformation":"Alprazolam",
 
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
@@ -120,6 +121,12 @@ module.exports = {
 		"lblWeCanTryToSendTheText" : "We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 		"lblOr" : "OR",
 		"lblShowPassword" : "Show Password",
+		"lblDrugDetails" : "Drug details",
+		"lblDrugEffects" : "Drug effects",
+		"lblDrugConditions" : "Drug conditions",
+		"lblDrugInteractions" : "Drug interactions",
+		"lblDrugSideEffects" : "SideEffects",
+		"lblShowPassword" : "Show Password",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
 
@@ -150,6 +157,7 @@ module.exports = {
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",
+		"msgAgePopUp" : "This service is not directed at users under the age of 12.If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 
 		"menuSearch" : "Search",
@@ -180,6 +188,7 @@ module.exports = {
 		"btnEdit" : "Edit",
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
+		"btnIAgree" : "I Agree",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
