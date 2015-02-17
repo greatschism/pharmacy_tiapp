@@ -1,73 +1,39 @@
 var args = arguments[0] || {},
-    properties = {
+    items = [],
+    optionPadding = args.optionPadding || {},
+    optioDict = {
+	font : {
+		fontSize : 12
+	},
 	ellipsize : true,
 	wordWrap : false
-},
-    items = [];
+};
 
 (function() {
 
-	$.role = args.role || "";
+	$.role = args.role || "overlay";
+
+	if (_.has(args, "overlayDict")) {
+		$.overlayView.applyProperties(args.overlayDict);
+	}
+
+	if (_.has(args, "top")) {
+		$.overlayView.top = args.top;
+		$.containerView.top = args.top - 2;
+	}
 
 	var options = {};
-
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
+	options = _.pick(args, ["width", "height", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
-		if (_.has(options, "top")) {
-			options.top -= 15;
-		}
-		$.container.applyProperties(options);
+		$.containerView.applyProperties(options);
 	}
 
-	options = {
-		color : args.backgroundColor || "#fff",
-		text : ")"
-	};
-	if (_.has(args, "edgeLbl")) {
-		var edgeDict = args.edgeLbl;
-		if (!_.has(edgeDict, "font")) {
-			_.extend(edgeDict, {
-				width : 24,
-				height : 24,
-				font : {
-					fontFamily : Alloy.Fonts.icon,
-					fontSize : 24
-				}
-			});
-		} else {
-			_.extend(edgeDict, {
-				width : edgeDict.font.fontSize,
-				height : edgeDict.font.fontSize
-			});
-		}
-		_.extend(options, edgeDict);
-	}
-	$.edgeLbl.applyProperties(options);
-
-	options = {
-		top : options.height - ( OS_MOBILEWEB ? 9 : 8)
-	};
-	_.extend(options, _.pick(args, ["backgroundColor", "borderColor", "borderWidth", "borderRadius"]));
-	applyProperties(options);
-
-	options = {
-		backgroundColor : args.backgroundColor || "transparent",
-		separatorColor : args.separatorColor || "transparent"
-	};
-	if (OS_IOS) {
-		_.extend(options, {
-			separatorInsets : {
-				left : args.left || args.right || 16,
-				right : args.left || args.right || 16
-			}
-		});
-	}
-	$.tableView.applyProperties(options);
-
-	options = _.pick(args, ["font", "color"]);
+	options = _.pick(args, ["backgroundColor", "separatorInsets"]);
 	if (!_.isEmpty(options)) {
-		_.extend(properties, options);
+		$.tableView.applyProperties(options);
 	}
+
+	_.extend(optioDict, _.pick(args, ["color", "font"]));
 
 	setItems(args.items || []);
 
@@ -82,6 +48,7 @@ function didTap(e) {
 function didItemClick(e) {
 	var itemIndex = e.index;
 	$.trigger("click", {
+		source : $,
 		index : itemIndex,
 		data : items[itemIndex] || {}
 	});
@@ -89,51 +56,48 @@ function didItemClick(e) {
 }
 
 function applyProperties(dict) {
-	$.listContainer.applyProperties(dict);
+	$.containerView.applyProperties(dict);
 }
 
 function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
-		height : args.itemHeight
+		height : Ti.UI.SIZE
+	}),
+	    rowView = Ti.UI.createView(optionPadding);
+	rowView.applyProperties({
+		height : Ti.UI.SIZE,
+		layout : "horizontal"
 	});
-	if (data.icon) {
-		var iconLbl = Ti.UI.createLabel({
-			text : data.icon,
-			left : args.left || args.right || 16,
-			width : args.iconWidth || 24,
-			font : {
-				fontFamily : Alloy.Fonts.icon,
-				fontSize : args.iconWidth || 24
+	if (data.iconText) {
+		rowView.add(Ti.UI.createLabel({
+			text : data.iconText,
+			left : 0,
+			font : args.iconFont || {
+				fontSize : 12
 			},
-			color : properties.color || "#FFF"
-		});
-		row.add(iconLbl);
+			color : data.iconColor
+		}));
 	}
-	_.extend(properties, {
+	rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
 		text : data.title,
-		left : iconLbl ? (iconLbl.width + (iconLbl.left * 2)) : (args.left || args.right || 16),
-		right : args.left || args.right || 16
-	});
-	if (!_.has(properties, "font")) {
-		_.extend(properties, {
-			font : {
-				fontSize : 18
-			}
-		});
-	}
-	row.add(Ti.UI.createLabel(properties));
+		left : data.iconText ? optionPadding.left || 12 : 0
+	})));
+	row.add(rowView);
 	return row;
 }
 
 function setItems(_items) {
 	items = _items;
-	var height = (items.length * args.itemHeight) + $.edgeLbl.height;
-	$.container.height = height > 330 ? 330 : height;
+	var top = optionPadding.top || 0,
+	    bottom = optionPadding.bottom || 0,
+	    height = items.length * (top + bottom + optioDict.font.fontSize + 5);
+	$.containerView.height = height > 330 ? 330 : height;
 	var data = [];
 	for (var i in items) {
 		data.push(getRow({
 			title : items[i].title,
-			icon : items[i].icon || ""
+			iconText : items[i].iconText || "",
+			iconColor : items[i].iconColor || optioDict.color || "#000"
 		}));
 	}
 	$.tableView.setData(data);
@@ -156,14 +120,17 @@ function animate(dict, callback) {
 
 function show(callback) {
 	if (!$.widget.visible) {
-		$.widget.visible = true;
-		$.widget.zIndex = args.zIndex || 10;
+		$.widget.applyProperties({
+			visible : true,
+			zIndex : args.zIndex || 10,
+		});
 		var animation = Ti.UI.createAnimation({
 			opacity : 1,
 			duration : 300
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
+			$.widget.opacity = 1;
 			if (callback) {
 				callback();
 			}
@@ -182,8 +149,11 @@ function hide(callback) {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.widget.visible = false;
-			$.widget.zIndex = 0;
+			$.widget.applyProperties({
+				opacity : 0,
+				visible : false,
+				zIndex : 0
+			});
 			if (callback) {
 				callback();
 			}

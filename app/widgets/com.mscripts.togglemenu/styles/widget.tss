@@ -3,14 +3,11 @@
 	opacity: 0,
 	visible: false
 },
-"#edgeLbl":{
-	top: 0
+"#overlayView":{
+	touchEnabled: false
 },
-"#container":{
+"#containerView":{
 	top: 0
-},
-"#listContainer":{
-	height: Ti.UI.SIZE
 },
 "#tableView":{
 	height: Ti.UI.SIZE

@@ -58,8 +58,8 @@ module.exports = {
 				"backgroundColor" : "#F7941E"
 			},
 			"nav_title_lbl" : {
-				"left" : "30%",
-				"right" : "30%",
+				"left" : "25%",
+				"right" : "25%",
 				"height" : 22,
 				"ellipsize" : true,
 				"wordWrap" : false,
@@ -71,7 +71,7 @@ module.exports = {
 				"color" : "#FFFFFF"
 			},
 			"nav_action_container" : {
-				"width" : "30%",
+				"width" : "25%",
 				"height" : "100%"
 			},
 			"nav_action_lbl" : {
@@ -738,6 +738,35 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"backgroundColor" : "#ED1C24"
+			},
+			"togglemenu" : {
+				"right" : 12,
+				"width" : 180,
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"color" : "#000000",
+				"separatorInsets" : {
+					"left" : 0,
+					"right" : 0,
+				},
+				"separatorColor" : "#808285",
+				"overlayDict" : {
+					"backgroundColor" : "#000000",
+					"opacity" : 0.4
+				},
+				"backgroundColor" : "#FFFFFF"
 			},
 			"hseparator" : {
 				"height" : 1,

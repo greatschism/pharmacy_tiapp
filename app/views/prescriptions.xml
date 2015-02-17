@@ -1,13 +1,11 @@
 <Alloy>
-	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="secondary-color" onClick="didClickMenu" />
+	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
 	<!--<Button id="toggleBtn" class="right nav-action-container" onClick="didToggle" />-->
 	<View id="navButtonView" class="right nav-action-container" onClick="didToggle">
 		<Button id="toggleBtn" class="margin-right nav-action-lbl touch-disabled" />
 	</View>
-	
 	<View class="form-group vgroup">
-			<Widget id="searchbar" src="com.mscripts.textfield" class="form-txt" onReturn="performSearch" />
-		
+		<Widget id="searchbar" src="com.mscripts.textfield" class="form-txt" onReturn="performSearch" />
 		<TableView id="tableView" class="top" />
 	</View>
 </Alloy> 

@@ -788,6 +788,23 @@
 	color: Alloy.TSS.list_item_critical_detail_lbl.color
 },
 /**
+* 	toggle menu
+*/
+".togglemenu":{
+	role: "overlay",
+	top: Alloy.CFG.navBarHeight,
+	right: Alloy.TSS.togglemenu.right,
+	width: Alloy.TSS.togglemenu.width,
+	optionPadding: Alloy.TSS.togglemenu.optionPadding,
+	font: Alloy.TSS.togglemenu.font,
+	iconFont: Alloy.TSS.togglemenu.iconFont,
+	color: Alloy.TSS.togglemenu.color,
+	separatorInsets: Alloy.TSS.togglemenu.separatorInsets,
+	separatorColor: Alloy.TSS.togglemenu.separatorColor,
+	overlayDict: Alloy.TSS.togglemenu.overlayDict,
+	backgroundColor: Alloy.TSS.togglemenu.backgroundColor
+},
+/**
 * 	tooltip
 */
 ".arrow-up":{

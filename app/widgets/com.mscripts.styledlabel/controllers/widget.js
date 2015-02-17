@@ -136,7 +136,9 @@ function getHtml() {
 }
 
 function didClick(e) {
-	$.trigger("click");
+	$.trigger("click", {
+		source : $
+	});
 }
 
 exports.setHtml = setHtml;

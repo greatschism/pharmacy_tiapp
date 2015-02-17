@@ -1,10 +1,8 @@
 <Alloy>
 	<View onSingletap="didTap">
-		<View id="container">
-			<Label id="edgeLbl" />
-			<View id="listContainer">
-				<TableView id="tableView" onClick="didItemClick" />
-			</View>
+		<View id="overlayView" />
+		<View id="containerView">
+			<TableView id="tableView" onClick="didItemClick" />
 		</View>
 	</View>
 </Alloy>
