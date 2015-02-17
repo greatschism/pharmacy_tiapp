@@ -1,17 +1,22 @@
 "#toggleBtn":{
-	title: Alloy.CFG.icons.sort
+	title: Alloy.CFG.icons.options,
+	font:Alloy.TSS.small_icon.font,
+	color:"FFFFFF"
+
 },
+
 "#toggleMenu":{
 	role: "overlay",
 	top: Alloy.CFG.navBarHeight,
-	right: Alloy._m_right,
+	right: 1,
 	edgeLbl: {
 		right: Alloy._p_right
 	},
 	itemHeight: Alloy._content_height,
-	separatorColor: Alloy._bg_senary,
+	separatorColor: "#000000",
+	bordercolor:"#000000",
 	borderRadius: Alloy._border_radius,
-	width: 220,
+	width: 180,
 	items: [
 		{
 			title: Alloy.Globals.strings.menuSearch,
@@ -29,9 +34,7 @@
 	]
 },
 "#searchbar":{
-	search: true,
-	clearButton: true,
-	opacity: 0,
+	
 	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
