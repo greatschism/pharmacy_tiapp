@@ -20,8 +20,8 @@ function didClickNext() {
     
 	if(isNaN(fname)==true&&dateOfBirth!=="" )
 	{
-	var pattern =/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
-    if (dateOfBirth == null || dateOfBirth == "" || !pattern.test(dateOfBirth))
+	//var pattern =/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/ ;
+    if (dateOfBirth == null || dateOfBirth == "") 
     {
         alert("Invalid date of birth\n") ; 
         

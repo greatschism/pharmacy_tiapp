@@ -1,3 +1,12 @@
+"#image":{
+	width: Ti.UI.SIZE,
+	padding:{
+		top: 26,
+		bottom: 26,
+		right: 100,
+		left: 100
+	}
+}
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblItLooksLikeThisPhoneNumberIsLinked
 },

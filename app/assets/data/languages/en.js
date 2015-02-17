@@ -119,6 +119,7 @@ module.exports = {
 		"lblSendTheTextAgain" : "Send the text again",
 		"lblWeCanTryToSendTheText" : "We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
 		"lblOr" : "OR",
+		"lblShowPassword":"Show Password",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
 

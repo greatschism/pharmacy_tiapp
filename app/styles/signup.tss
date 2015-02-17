@@ -8,14 +8,14 @@
 	zIndex: 1
 },
 "#passwordView":{
-	top: 70,
+	//top: 70,
 	zIndex: 0
 },
 "#inputView":{
-	top: -5
+	//top: -5
 },
 "#passwordTooltip":{
-	top: 0,
+	//top: 0,
 	text: Alloy.Globals.strings.msgPasswordTips,
 	color: Alloy._fg_primary,
 	backgroundColor: Alloy._bg_secondary
@@ -38,9 +38,12 @@
 	softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS
 },
 "#passwordTxt":{
-	right: 75,
+	//right: 75,
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true
+},
+"#showPassword":{
+	text: Alloy.Globals.strings.lblShowPassword
 },
 "#toggleSwt":{
 	value: true
