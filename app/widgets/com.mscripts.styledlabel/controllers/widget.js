@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     html,
-    bold;
+    boldFont,
+    boldColor;
 
 (function() {
 
@@ -23,19 +24,21 @@ var args = arguments[0] || {},
 	}
 
 	if (OS_IOS) {
-		bold = {
-			fontSize : args.font && args.font.fontSize ? args.font.fontSize : 18
+		boldFont = args.font || {
+			fontFamily : "Lato",
+			fontSize : 12
 		};
 		if (_.has(args, "boldFontFamily")) {
-			_.extend(bold, {
+			_.extend(boldFont, {
 				fontFamily : args.boldFontFamily
 			});
 		} else {
-			_.extend(bold, {
+			_.extend(boldFont, {
 				fontWeight : "bold"
 			});
 		}
 	}
+	boldColor = args.boldColor || "#000";
 
 	if (_.has(args, "html")) {
 		setHtml(args.html);
@@ -44,10 +47,10 @@ var args = arguments[0] || {},
 })();
 
 function setHtml(_html) {
-	html = _html;
+	html = _html.replace(/boldFontFamily/g, boldFont.fontFamily).replace(/boldColor/g, boldColor);
 	if (OS_IOS) {
-		var htmlparser = require(WPATH("htmlparser"));
-		var handler = new htmlparser.HtmlBuilder(function(error, dom) {
+		var htmlparser = require(WPATH("htmlparser")),
+		    handler = new htmlparser.HtmlBuilder(function(error, dom) {
 			if (error) {
 				console.error("unable to parse html");
 			} else {
@@ -82,16 +85,25 @@ function setHtml(_html) {
 					case "b":
 						attributes.push({
 							type : Titanium.UI.iOS.ATTRIBUTE_FONT,
-							value : bold,
+							value : boldFont,
 							range : [text.length, strings[j].length]
 						});
 						break;
 					case "font":
-						attributes.push({
-							type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-							value : item.attributes.color,
-							range : [text.length, strings[j].length]
-						});
+						if (item.attributes.face) {
+							attributes.push({
+								type : Titanium.UI.iOS.ATTRIBUTE_FONT,
+								value : boldFont,
+								range : [text.length, strings[j].length]
+							});
+						}
+						if (item.attributes.color) {
+							attributes.push({
+								type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
+								value : item.attributes.color,
+								range : [text.length, strings[j].length]
+							});
+						}
 						break;
 					case "u":
 						attributes.push({

@@ -496,7 +496,7 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"color" : "#808285",
-				"boldFontFamily" : "regular",
+				"boldFontFamily" : "bold",
 				"boldColor" : "#0095ff"
 			},
 			"single_line_title_lbl" : {
@@ -681,6 +681,20 @@ module.exports = {
 			"primary_bg_color" : {
 				"backgroundColor" : "#F7941E"
 			},
+			"tooltip_lbl" : {
+				"left" : 12,
+				"right" : 12,
+				"ellipsize" : false,
+				"wordWrap" : true,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "center",
+				"color" : "#FFFFFF",
+				"boldFontFamily" : "bold",
+				"boldColor" : "#FFFFFF"
+			},
 			"tooltip" : {
 				"arrowDict" : {
 					"color" : "#6D6E71"
@@ -694,6 +708,7 @@ module.exports = {
 					"paddingBottom" : 12,
 					"left" : 12,
 					"right" : 12,
+					"textAlign" : "center",
 					"color" : "#FFFFFF"
 				},
 				"font" : {
@@ -715,6 +730,7 @@ module.exports = {
 					"paddingBottom" : 12,
 					"left" : 12,
 					"right" : 12,
+					"textAlign" : "center",
 					"color" : "#FFFFFF"
 				},
 				"font" : {

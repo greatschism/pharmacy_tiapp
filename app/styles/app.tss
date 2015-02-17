@@ -806,6 +806,17 @@
 	direction: "right",
 	iconText: Alloy.CFG.icons.arrow_right
 },
+".tooltip-lbl":{
+	left: Alloy.TSS.tooltip_lbl.left,
+	right:  Alloy.TSS.tooltip_lbl.right,
+	ellipsize: Alloy.TSS.tooltip_lbl.ellipsize,
+	wordWrap:  Alloy.TSS.tooltip_lbl.wordWrap,
+	font: Alloy.TSS.tooltip_lbl.font,
+	textAlign: Alloy.TSS.tooltip_lbl.textAlign,
+	color: Alloy.TSS.tooltip_lbl.color,
+	boldFontFamily:  Alloy.TSS.tooltip_lbl.boldFontFamily,
+	boldColor:  Alloy.TSS.tooltip_lbl.boldColor
+},
 ".tooltip":{
 	arrowDict: Alloy.TSS.tooltip.arrowDict,
 	iconFont: Alloy.TSS.tooltip.iconFont,

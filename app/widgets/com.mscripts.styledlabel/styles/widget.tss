@@ -1,16 +1,8 @@
+"#widget":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
 "#lbl":{
-	height: Ti.UI.SIZE,
-	font:{
-		fontSize: 18
-	},
-	color: "#000",
-	textAlign: "center",
-	backgroundColor: "transparent"
-},
-"#lbl[platform=android,mobileweb]":{
-	ellipsize: false,
-	wordWrap: true
-},
-"#lbl[platform=android]":{
-	touchEnabled: false
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
 }
