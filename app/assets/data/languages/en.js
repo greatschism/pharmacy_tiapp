@@ -74,9 +74,9 @@ module.exports = {
 		"hintLanguage" : "Language",
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
-		"lblLoginToMobilePharmacy" : "Sign in to the <b><font color=\"boldColor\">mscripts mobile pharmacy</font><b>",
+		"lblLoginToMobilePharmacy" : "Sign in to the <b><font color=\"boldColor\">mscripts mobile pharmacy</font></b>",
 		"lblKeepMeLoggedIn" : "Keep me logged in",
-		"lblNeedToCreateAccount" : "Need to <b><font color=\"boldColor\">create a new account?</font><b/>",
+		"lblNeedToCreateAccount" : "Need to <b><font color=\"boldColor\">create a new account?</font></b>",
 		"lblCantRememberEmail" : "<b><font color=\"boldColor\">Can't remember what email you used?</font></b>",
 		"lblPleaseEnterEmailAddressYouOriginallySignedup" : "Please enter the email address you originally signed up with. We will send you your username and instructions on how to reset your password.",
 		"lblLetsSeeIfWeRecogonizeYou" : "Let's see if we recogonize you. Please enter your mobile phone number.",
