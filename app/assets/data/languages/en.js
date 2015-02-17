@@ -119,7 +119,7 @@ module.exports = {
 		"lblGoToFullRegistration" : "Go to full registration",
 		"lblSendTheTextAgain" : "Send the text again",
 		"lblWeCanTryToSendTheText" : "We can try to send the text message again or you can skip this step and go through our full registraion.You will need a prescription number to do this",
-		"lblOr" : "OR",
+		"lblOr" : "Or",
 		"lblShowPassword" : "Show Password",
 		"lblDrugDetails" : "Drug details",
 		"lblDrugEffects" : "Drug effects",

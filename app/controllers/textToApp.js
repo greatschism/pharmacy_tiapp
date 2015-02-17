@@ -1,6 +1,9 @@
 var args = arguments[0] || {},
     app = require("core"),
-    http = require("requestwrapper");
+    http = require("requestwrapper"),
+    uihelper = require("uihelper");
+    
+    uihelper.getImage($.logoImage);
     
    
 function didClickContinue(e) {

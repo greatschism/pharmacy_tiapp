@@ -8,21 +8,14 @@
 	color: Alloy._bg_quaternary,
 	selectedColor: Alloy._bg_primary
 },
-"#buttonbar":{
-	height: 45,
-	toggleMode: false,
-	separatorStyle: {
-		backgroundColor: Alloy._fg_primary
-	},
-	items: [
-		{
-			"title": Alloy.Globals.strings.strLogin,
-			"action": "login"
-		},{
-			"title": Alloy.Globals.strings.strSignup,
-			"action": "signup"
-		}
-	]
+"#loginBtn":{
+	title: Alloy.Globals.strings.strSignin,
+	//backgroundColor:"F7941E"
+},
+
+"#CreateAccountBtn":{
+	title: Alloy.Globals.strings.btnCreateAccount,
+	//backgroundColor:"F7941E"
 },
 "#refillLbl":{
 	text: Alloy.Globals.strings.lblRefillWithoutLogin

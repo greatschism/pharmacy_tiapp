@@ -1,10 +1,10 @@
 <Alloy>
 	<ScrollView class="vgroup ">
-		<ImageView id="image" image="/images/logo2x.png" />
-		<Label id="titleLbl" class="styled-title multi-line " />
-		<Label id="hintLbl" class="styled-lbl multi-line" />
-		<Widget id="codeTxt" src="com.mscripts.textfield" class="txt text-center returnkey-done padding-top padding-bottom" onReturn="didClickContinue" />
-		<Button id="continueBtn" class="secondary-btn padding-top padding-bottom" onClick="didClickContinue" />
+		<ImageView id="logoImage"  class="logo" />
+		<Label id="titleLbl" class="styled-title multi-line padding-top " />
+		<Label id="hintLbl" class="styled-lbl multi-line padding-top " />
+		<Widget id="codeTxt" src="com.mscripts.textfield" class=" returnkey-done padding-top padding-bottom" onReturn="didClickContinue" />
+		<Button id="continueBtn" class="primary-btn padding-top padding-bottom" onClick="didClickContinue" />
 		<Widget id="resendLbl" src="com.mscripts.styledlabel" class="margin-bottom styled-lbl multi-line" onClick="didClickDidntGetText" />
 	</ScrollView>
 </Alloy>

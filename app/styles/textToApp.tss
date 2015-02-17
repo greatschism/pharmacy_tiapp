@@ -1,24 +1,18 @@
-"#image":{
-	width: Ti.UI.SIZE,
-	padding:{
-		top: 26,
-		bottom: 26,
-		right: 100,
-		left: 100
-	}
-}
+
 "#titleLbl":{
 	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore,
 	font: {
         
         fontWeight: 'bold'
-    }		
+   }
+   
 },
 "#hintLbl":{
-	text: Alloy.Globals.strings.lblJustSentYouTextMessage
+	text: Alloy.Globals.strings.lblJustSentYouTextMessage,
+	
 },
 "#codeTxt":{
-	width: 120,
+	width: 100,
 	maxLength: 3,
 	hintText: Alloy.Globals.strings.hintYourCode,
 	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD

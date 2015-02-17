@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup ">
-		<ImageView id="image" image="/images/logo2x.png" />
+		<ImageView id="logoImage"  class="logo" />
 		<Label id="hintLbl" class="styled-h2 fg-primary multi-line" />
 		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="padding-top margin-bottom secondary-btn padding-bottom" onClick="didClickContinue" />

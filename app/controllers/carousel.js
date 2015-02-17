@@ -14,22 +14,22 @@ function didScrollend(e) {
 	$.pagingControl.setCurrentPage(e.currentPage);
 }
 
-function didClickButtonBar(e) {
-	var action = e.action;
-	if (action == "login") {
+function didClickLogin(e) {
+	
+	
 		app.navigator.open({
 			ctrl : "login",
 			titleid : "strLogin",
 			stack : true
 		});
-	} else {
-		//sign up
+	} 
+	function didClickCreateAccount(e) {
 		app.navigator.open({
 			ctrl : "termsAndConditions",
 			titleid : "titleTermsAndConditions",
 			stack : true
 		});
 	}
-}
+
 
 exports.init = init;

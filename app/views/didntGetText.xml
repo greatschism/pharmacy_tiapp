@@ -3,9 +3,12 @@
 		
 		<Label id="hintPara" class="styled-title multi-line" />
 		<Label id="hintParaOne" class="styled-title multi-line" />
-		<Button id="sendTxtAgainBtn" class="padding-top secondary-btn padding-bottom" onClick="didClickSendTxtAgain" />
-		<Label id="OR" class="styled-title multi-line padding-bottom" />
-		<Button id="goToFullRegistrBtn" class="secondary-btn" onClick="didClickGoToFullRegistr" />
+		<Button id="sendTxtAgainBtn" class="padding-top secondary-btn padding-bottom " onClick="didClickSendTxtAgain" />
+		
+		<View class="hseparator"/>
+		<Label id="OR" class="styled-title" />
+		
+		<Button id="goToFullRegistrBtn" class="padding-top secondary-btn" onClick="didClickGoToFullRegistr" />
 
 	</ScrollView>
 </Alloy>

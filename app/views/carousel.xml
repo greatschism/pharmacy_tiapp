@@ -7,12 +7,10 @@
 				<View class="bg-septenary" />
 				<View class="bg-nonary" />
 			</ScrollableView>
+		
+			<Button id="loginBtn" class="primary-btn padding-bottom" onClick="didClickLogin" />
+			<Button id="CreateAccountBtn" class="primary-btn padding-bottom" onClick="didClickCreateAccount" />
 			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="padding-top" onChange="didChangePage" />
-			<Widget id="buttonbar" class="padding-top fill-width h3 bg-primary fg-primary border-transparent border-radius" src="com.mscripts.buttonbar" onClick="didClickButtonBar" />
-			<View class="btn-hview">
-				<Label id="refillLbl" class="btn-lbl lbl-fg-primary" />
-				<Label id="iconLbl" class="padding-left tiny-icn lbl-fg-primary" />
-			</View>
-		</View>
+					</View>
 	</ScrollView>
 </Alloy> 

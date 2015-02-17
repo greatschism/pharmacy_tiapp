@@ -1,8 +1,12 @@
 var args = arguments[0] || {},
     app = require("core"),
 
-    moment = require('alloy/moment');
-;
+    
+    moment = require('alloy/moment'),
+    uihelper = require("uihelper");
+    
+    uihelper.getImage($.logoImage);
+
 
 function setParentViews(view) {
 	$.dob.setParentView(view);
