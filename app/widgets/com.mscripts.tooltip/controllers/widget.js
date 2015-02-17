@@ -7,96 +7,70 @@ var args = arguments[0] || {};
 		applyProperties(options);
 	}
 
-	options = _.pick(args, ["text", "font", "color", "textAlign", "wordWrap", "ellipsize"]);
+	options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
-		$.label.applyProperties(options);
+		$.containerView.applyProperties(options);
 	}
 
-	var direction = args.direction || "bottom",
-	    containerDict = {
-		backgroundColor : args.backgroundColor || $.arrowLbl.color
-	},
-	    arrowDict = {
-		color : args.backgroundColor || $.arrowLbl.color
-	},
-	    margin = $.arrowLbl.height - 8;
-	switch(direction) {
-	case "left":
-		_.extend(arrowDict, {
-			left : 0,
-			text : "'"
-		});
-		_.extend(containerDict, {
-			left : margin
-		});
-		break;
-	case "right":
-		_.extend(arrowDict, {
-			right : 0,
-			text : "("
-		});
-		_.extend(containerDict, {
-			right : margin
-		});
-		break;
-	case "top":
-		_.extend(arrowDict, {
-			top : 0,
-			text : ")"
-		});
-		_.extend(containerDict, {
-			top : margin
-		});
-		break;
-	case "bottom":
-		_.extend(arrowDict, {
-			bottom : 0,
-			text : "%"
-		});
-		_.extend(containerDict, {
-			bottom : margin
-		});
-		break;
+	updateArrow(args.direction || "bottom", args.arrowDict || {});
+
+	if (_.has(args, "text")) {
+		setText(args.text);
 	}
-	$.arrowLbl.applyProperties(arrowDict);
-	$.containerView.applyProperties(containerDict);
 
 })();
 
-function applyProperties(dict) {
-	$.widget.applyProperties(dict);
+function updateArrow(_direction, _dict) {
+	var dict = {
+		text : args.iconText || _dict.iconText || "%",
+		font : _dict.font || args.iconFont || {
+			fontSize : 12
+		},
+		color : _dict.color || "#000"
+	};
+	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
+	$.arrowLbl.applyProperties(dict);
+	$.arrowLbl[_direction] = 0;
+	$.containerView[_direction] = $.arrowLbl.font.fontSize - 8;
 }
 
-function animate(dict, callback) {
-	var animation = Ti.UI.createAnimation(dict);
+function applyProperties(_dict) {
+	$.widget.applyProperties(_dict);
+}
+
+function animate(_dict, _callback) {
+	var animation = Ti.UI.createAnimation(_dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function show(callback) {
+function show(_callback) {
 	if (!$.widget.visible) {
-		$.widget.visible = true;
-		$.widget.zIndex = args.zIndex || 1;
+		$.widget.applyProperties({
+			visible : true,
+			zIndex : args.zIndex || 1
+		});
 		var animation = Ti.UI.createAnimation({
 			opacity : 1,
 			duration : 300
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			if (callback) {
-				callback();
+			$.widget.opacity = 1;
+			if (_callback) {
+				_callback();
 			}
 		});
 		$.widget.animate(animation);
 	}
 }
 
-function hide(callback) {
+function hide(_callback) {
 	if ($.widget.visible) {
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
@@ -104,10 +78,13 @@ function hide(callback) {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.widget.visible = false;
-			$.widget.zIndex = 0;
-			if (callback) {
-				callback();
+			$.widget.applyProperties({
+				opacity : 0,
+				visible : false,
+				zIndex : 0
+			});
+			if (_callback) {
+				_callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -118,13 +95,56 @@ function getVisible() {
 	return $.widget.visible;
 }
 
-function setText(text) {
-	$.label.setText(text);
+function removeAllChildren() {
+	var children = $.containerView.children;
+	for (var i in children) {
+		$.containerView.remove(children[i]);
+	}
+}
+
+function setPadding(_height) {
+	$.containerView.add(Ti.UI.createLabel({
+		height : _height,
+		touchEnabled : false
+	}));
+}
+
+function setText(_text, _styles) {
+	removeAllChildren();
+	var dict = _styles || args.labelDict || {};
+	_.extend(dict, {
+		font : args.font || {
+			fontSize : 12
+		},
+		text : _text,
+		touchEnabled : false
+	});
+	var lbl = Ti.UI.createLabel(dict);
+	if (dict.paddingTop) {
+		setPadding(dict.paddingTop);
+	}
+	$.containerView.add(lbl);
+	if (dict.paddingBottom) {
+		setPadding(dict.paddingBottom);
+	}
+}
+
+function setContentView(_view, _styles) {
+	removeAllChildren();
+	var dict = _styles || args.labelDict || {};
+	if (dict.paddingTop) {
+		setPadding(dict.paddingTop);
+	}
+	$.containerView.add(_view);
+	if (dict.paddingBottom) {
+		setPadding(dict.paddingBottom);
+	}
 }
 
 exports.show = show;
 exports.hide = hide;
 exports.animate = animate;
 exports.setText = setText;
+exports.setContentView = setContentView;
 exports.getVisible = getVisible;
 exports.applyProperties = applyProperties;

@@ -1,9 +1,6 @@
 <Alloy>
 	<View>
-		<View id="containerView">
-			<Label id="label" />
-			<Label id="spacer" />
-		</View>
+		<View id="containerView" />
 		<Label id="arrowLbl" />
 	</View>
 </Alloy>

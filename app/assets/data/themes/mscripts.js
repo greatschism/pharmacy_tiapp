@@ -681,10 +681,46 @@ module.exports = {
 			"primary_bg_color" : {
 				"backgroundColor" : "#F7941E"
 			},
-			"tooltip_bg_color" : {
-				"backgroundColor" : "#FFFFFF"
+			"tooltip" : {
+				"arrowDict" : {
+					"color" : "#6D6E71"
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"labelDict" : {
+					"paddingTop" : 12,
+					"paddingBottom" : 12,
+					"left" : 12,
+					"right" : 12,
+					"color" : "#FFFFFF"
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"backgroundColor" : "#6D6E71"
 			},
-			"tooltip_bg_critical_color" : {
+			"critical_tooltip" : {
+				"arrowDict" : {
+					"color" : "#ED1C24"
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"labelDict" : {
+					"paddingTop" : 12,
+					"paddingBottom" : 12,
+					"left" : 12,
+					"right" : 12,
+					"color" : "#FFFFFF"
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
 				"backgroundColor" : "#ED1C24"
 			},
 			"hseparator" : {

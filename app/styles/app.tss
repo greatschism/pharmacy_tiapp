@@ -788,6 +788,39 @@
 	color: Alloy.TSS.list_item_critical_detail_lbl.color
 },
 /**
+* 	tooltip
+*/
+".arrow-up":{
+	direction: "top",
+	iconText: Alloy.CFG.icons.arrow_up
+},
+".arrow-down":{
+	direction: "bottom",
+	iconText: Alloy.CFG.icons.arrow_down
+},
+".arrow-left":{
+	direction: "left",
+	iconText: Alloy.CFG.icons.arrow_left
+},
+".arrow-right":{
+	direction: "right",
+	iconText: Alloy.CFG.icons.arrow_right
+},
+".tooltip":{
+	arrowDict: Alloy.TSS.tooltip.arrowDict,
+	iconFont: Alloy.TSS.tooltip.iconFont,
+	labelDict: Alloy.TSS.tooltip.labelDict,
+	font: Alloy.TSS.tooltip.font,
+	backgroundColor: Alloy.TSS.tooltip.backgroundColor
+},
+".critical-tooltip":{
+	arrowDict: Alloy.TSS.critical_tooltip.arrowDict,
+	iconFont: Alloy.TSS.critical_tooltip.iconFont,
+	labelDict: Alloy.TSS.critical_tooltip.labelDict,
+	font: Alloy.TSS.critical_tooltip.font,
+	backgroundColor: Alloy.TSS.critical_tooltip.backgroundColor
+},
+/**
 * 	foreground colors
 */
 ".primary-color": {
@@ -819,12 +852,6 @@
 */
 ".primary-bg-color":{
 	backgroundColor: Alloy.TSS.primary_bg_color.backgroundColor
-},
-".tooltip-bg-color":{
-	backgroundColor: Alloy.TSS.tooltip_bg_color.backgroundColor
-},
-".tooltip-bg-critical-color":{
-	backgroundColor: Alloy.TSS.tooltip_bg_critical_color.backgroundColor
 },
 /**
 * 	common styles

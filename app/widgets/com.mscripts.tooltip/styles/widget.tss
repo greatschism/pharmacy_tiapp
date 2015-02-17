@@ -1,38 +1,12 @@
+"View":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
 "#widget":{
-	width: "95%",
-	height: 86,
-	zIndex: 0,
 	opacity: 0,
-	visible: false
+	visible: false,
+	zIndex: 1
 },
 "#containerView":{
 	layout: "vertical"
-},
-"#label":{
-	top: 16,
-	left: 16,
-	right: 16,
-	width: Ti.UI.FILL,
-	height: Ti.UI.SIZE,
-	font:{
-		fontSize: 13
-	},
-	color: "#aeaaa6",
-	textAlign: "left"
-},
-"#label[platform=android,mobileweb]":{
-	ellipsize: false,
-	wordWrap: true
-},
-"#arrowLbl":{
-	width: 24,
-	height: 24,
-	font: {
-		fontFamily: Alloy.Fonts.icon,
-		fontSize: 24
-	},
-	color: "#3d3d3d"
-},
-"#spacer":{
-	height: 16
 }
