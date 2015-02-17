@@ -3,7 +3,7 @@
 		"apiPath": {
 			"APPLOAD_GET": "appload/get",
 			"DOCTORS_GET": "doctors/get",
-			"PRESCRIPTIONS_GET": "prescriptions/get",
+			"PRESCRIPTIONS_LIST": "prescriptions/list",
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
@@ -11,6 +11,7 @@
 			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_VALIDATE": "patients/validate",
 			"PATIENTS_STORE_TO_APP_CONVERSION":"patients/storetoappconversion"
+		
 		},
 		"iconPrefix": "thick",
 		"icons": {
@@ -60,7 +61,8 @@
 			"thin_account": "h",
 			"thin_feedback": "i",
 			"thin_notification": "y",
-			"thin_refill_camera": "$"
+			"thin_refill_camera": "$",
+			"options":"U"
 		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,
