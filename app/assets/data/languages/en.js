@@ -137,7 +137,7 @@ module.exports = {
 		"msgHasPrescribedYou" : "%s has prescribed you %s",
 		"msgYouHaveNoActiveprescription" : "You have no active prescriptions associated with %s",
 		"msgNoActiveprescription" : "No active prescriptions",
-		"msgOrderPlacedReadyBy" : "Order placed should be ready by",
+		"msgOrderPlacedReadyBy": "Order processed: ready by",
 		"msgOverdueBy" : "Overdue by",
 		"msgDueFoRefillIn" : "Refill in",
 		"msgDueFoRefillOn" : "Due on",
@@ -150,7 +150,7 @@ module.exports = {
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",
-
+		"msgPickUp": "You have %d days left to pick this up!",
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
 		"menuUnhidePrescriptions" : "Unhide prescriptions",
