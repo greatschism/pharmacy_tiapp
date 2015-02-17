@@ -161,34 +161,112 @@ module.exports = {
 		"data" : {
 			"patients" : {
 				"is_mobile_shared" : "1",
-				"mobile_exists" : "1"
+				"mobile_exists" : "0"
 			}
 		}
 	},
-	
-	"PATIENTS_MOBILE_GENERATE_OTP": {
-
- "status": "Success",
-
- "code": "200",
-
- "message": "OTP send successfully.",
-
- "description": "x",
-
- "data": ""
-
-},
-"PATIENTS_STORE_TO_APP_CONVERSION":{
-
- "status": "Success",
-
- "code": "200",
- "message": "Your account has been created.",
-
- "description": "x",
-
- "data": ""
-
-}
+	"PRESCRIPTIONS_LIST" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lovastin, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lispinoril, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYFORPICKUP"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lispinoril, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-10",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYFORPICKUP"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Amoxilcin, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "INPROCESS"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Listersin, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL"
+			}]
+		}
+	}
 };
