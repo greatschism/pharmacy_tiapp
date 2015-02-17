@@ -147,6 +147,7 @@ function Navigation(_args) {
 
 		view.addEventListener("postlayout", function postlayout() {
 
+			//post layout event can take us to a endless loop. so remove it
 			view.removeEventListener("postlayout", postlayout);
 
 			// Handle removing the current controller from the screen
@@ -197,6 +198,7 @@ function Navigation(_args) {
 
 		view.addEventListener("postlayout", function postlayout() {
 
+			//post layout event can take us to a endless loop. so remove it
 			view.removeEventListener("postlayout", postlayout);
 
 			that.animateIn(view, function() {
@@ -266,13 +268,8 @@ function Navigation(_args) {
 
 		} else {
 
-			var len = that.controllers.length;
-
-			var count = _count || 1;
-
-			if (count >= len) {
-				count = len - 1;
-			}
+			var len = that.controllers.length,
+			    count = (_count || 1) >= len ? len - 1 : (_count || 1);
 
 			that.terminate();
 
