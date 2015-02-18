@@ -12,10 +12,8 @@
 },
 "#orderRefillBtn":{
 	title: Alloy.Globals.strings.btnOrderRefill,
-	color : "#000000"
+	color : "#ffffff"
 
 },
 
-"#pickupdetails":{
-	top: 40
-}
+
