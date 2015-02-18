@@ -2,33 +2,7 @@ var args = arguments[0] || {};
 
 (function() {
 
-	var options = {};
-
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
-	if (!_.isEmpty(options)) {
-		$.widget.applyProperties(options);
-	}
-
-	if (_.has(args, "hintText")) {
-		if (OS_IOS || OS_MOBILEWEB) {
-			options = _.pick(args, ["font", "textAlign"]);
-			_.extend(options, {
-				text : args.hintText
-			});
-			$.hintLbl.applyProperties(options);
-		} else if (OS_ANDROID) {
-			$.txta.hintText = args.hintText;
-		}
-	} else {
-		if (OS_IOS || OS_MOBILEWEB) {
-			$.widget.remove($.hintLbl);
-		}
-	}
-
-	options = _.pick(args, ["font", "color", "textAlign", "maxLength", "suppressReturn", "returnKeyType", "autocorrect", "autocapitalization", "keyboardType"]);
-	if (!_.isEmpty(options)) {
-		$.txta.applyProperties(options);
-	}
+	applyProperties(args);
 
 	if (_.has(args, "value")) {
 		setValue(args.value);
@@ -36,29 +10,68 @@ var args = arguments[0] || {};
 
 })();
 
+function applyProperties(_dict) {
+	var options = {};
+	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	if (!_.isEmpty(options)) {
+		$.widget.applyProperties(options);
+	}
+	if (_.has(_dict, "hintText")) {
+		if (OS_IOS || OS_MOBILEWEB) {
+			options = _.pick(_dict, ["font", "textAlign"]);
+			_.extend(options, {
+				text : _dict.hintText
+			});
+			if (_.has(_dict, "hintTextColor")) {
+				_.extend(options, {
+					color : _dict.hintTextColor
+				});
+			}
+			$.hintLbl.applyProperties(options);
+		} else if (OS_ANDROID) {
+			$.txta.hintText = _dict.hintText;
+		}
+	} else {
+		if (OS_IOS || OS_MOBILEWEB) {
+			$.widget.remove($.hintLbl);
+		}
+	}
+	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize"]);
+	if (!_.isEmpty(options)) {
+		$.txta.applyProperties(options);
+	}
+}
+
 function didFocus(e) {
-	$.trigger("focus");
+	$.trigger("focus", {
+		source : $
+	});
 	if (OS_MOBILEWEB && $.hintLbl) {
 		$.hintLbl.visible = false;
 	}
 }
 
 function didBlur(e) {
-	$.trigger("blur");
+	$.trigger("blur", {
+		source : $
+	});
 	if (OS_MOBILEWEB && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value.length == 0;
+		$.hintLbl.visible = $.txta.value != "";
 	}
 }
 
 function didChange(e) {
-	$.trigger("change");
+	$.trigger("change", {
+		source : $
+	});
 	if (OS_IOS && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value.length == 0;
+		$.hintLbl.visible = $.txta.value != "";
 	}
 }
 
 function didReturn(e) {
 	$.trigger("return", {
+		source : $,
 		nextItem : args.nextItem || ""
 	});
 }
@@ -74,7 +87,7 @@ function blur() {
 function setValue(value) {
 	$.txta.setValue(value);
 	if ((OS_IOS || OS_MOBILEWEB) && $.hintLbl) {
-		$.hintLbl.visible = value.length == 0;
+		$.hintLbl.visible = $.txta.value != "";
 	}
 }
 
@@ -86,3 +99,4 @@ exports.blur = blur;
 exports.focus = focus;
 exports.setValue = setValue;
 exports.getValue = getValue;
+exports.applyProperties = applyProperties;
