@@ -189,6 +189,7 @@ module.exports = {
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
 		"btnIAgree" : "I Agree",
+		"btnOrderRefill" : "Order refill",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
