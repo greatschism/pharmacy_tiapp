@@ -4,10 +4,17 @@ var args = arguments[0] || {},
     logger = require("logger"),
     http = require("requestwrapper"),
     icons = Alloy.CFG.icons,
+      resources = require("resources"),
     strings = Alloy.Globals.strings,
     dialog = require("dialog"),
     uihelper = require("uihelper"),
-    pickupdetails = $.pickupdetails.getValue(),
+
+ colls = [{
+	
+	key : "templates",
+	selectedItem : {}
+}],
+
 
     orders,
     pickupdetails;
@@ -88,26 +95,45 @@ function init() {
 	}
 	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails);
 
+
+
+
+
+
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
 	}),
 
-	    orderOption = $.UI.create("View", {
-		apiName : "View",
-		classes : ["list-item-view", "vgroup"]
-	}),
+	    pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
+		apiName : "widget",
 
-	    mailOrder = $.UI.create("Label", {
-		apiName : "Label",
-		text : "Mail order",
-		classes : ["list-item-info-lbl", "left"]
-	}),
+		classes : ["form-dropdown", "padding-top"]
 
+	}),
+	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	row2 = $.UI.create("TableViewRow",{
+		apiName : "TableViewRow"
+	}),
+	
+	
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-		classes : ["list-item-view", "vgroup"]
-	}),
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
+	}),
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
@@ -124,8 +150,38 @@ function init() {
 		classes : ["list-item-info-lbl", "right", "width-45", "h5", "#4094fc"]
 	});
 
-	orderOption.rowId = transform.id;
-	orderOption.add(mailOrder);
+
+
+
+	row.add(pickupOptions.getView());
+	
+	for (var i in colls) {
+		var key = colls[i].key,
+		    items = resources.get(key),
+		    selectedIndex = -1,
+		    choices = [];
+		items.forEach(function(obj, index) {
+			var item = _.pick(obj, ["titleid", "id", "selected", "version"]);
+			if (_.has(obj, "styles") || _.has(obj, "data") || _.has(obj, "strings")) {
+				if (_.has(item, "titleid")) {
+					item.title = lngStrs[item.titleid];
+				} else {
+					item.title = item.id;
+				}
+				if (item.selected) {
+					selectedIndex = index;
+				}
+				choices.push(item);
+			}
+		});
+		colls[i].selectedItem = items[selectedIndex] || {};
+		$[key + "Dp"].setChoices(choices);
+		$[key + "Dp"].setSelectedIndex(selectedIndex);
+	}
+	
+	
+	
+	row.addEventListener("click", didClickPickUpOptions);
 
 	containerView.rowId = transform.id;
 
@@ -135,10 +191,10 @@ function init() {
 	containerView.add(rightBtn);
 	rightBtn.addEventListener("click", didClickStoreChange);
 
-	row.add(orderOption);
-	row.add(containerView);
+	row2.add(containerView);
 
 	$.pickupDetailsSection.add(row);
+	$.pickupDetailsSection.add(row2);
 
 	data.push($.pickupDetailsSection);
 
@@ -167,6 +223,12 @@ function didClickOrderRefill(e) {
 	});
 }
 
+function didClickPickUpOptions()
+{
+	
+}
+
+
 function didClickAddAnotherPrescription(e) {
 
 	app.navigator.open({
@@ -185,7 +247,7 @@ function didClickStoreChange(e) {
 }
 
 function setParentViews(view) {
-	$.pickupdetails.setParentView(view);
+	//$.pickupdetails.setParentView(view);
 }
 
 function didItemClick(e) {
@@ -213,5 +275,5 @@ function terminate() {
 exports.init = init;
 exports.terminate = terminate;
 
-exports.setParentViews = setParentViews;
+//exports.setParentViews = setParentViews;
 
