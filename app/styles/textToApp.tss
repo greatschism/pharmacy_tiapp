@@ -1,14 +1,5 @@
 
-"#logoImage":{
-		// width: 120,
-		// height: 50,
-		padding:{
-			top: 100,
-			bottom: 100,
-			left: 100,
-			right: 100
-		}
-	},
+
 	
    "#titleLbl":{
 	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore,
@@ -23,7 +14,8 @@
 	
 },
 "#codeTxt":{
-	width: 100,
+	
+	//width: 100,
 	maxLength: 3,
 	hintText: Alloy.Globals.strings.hintYourCode,
 	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD

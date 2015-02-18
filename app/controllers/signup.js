@@ -84,7 +84,7 @@ function didCreateAccountSuccess(result) {
 
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(e.value);
-	console.log(args.birthday);
+	
 }
 
 function didFocusPassword(e) {

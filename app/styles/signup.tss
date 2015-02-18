@@ -15,17 +15,17 @@
 "#userView":{
 	zIndex: 1
 },
+"#userViewTwo":{
+	zIndex: 1
+},
 "#passwordView":{
 	//top: 70,
 	zIndex: 0
 },
 "#inputView":{},
 "#passwordTooltip":{
-	//bottom: 40,
-	zIndex: 10,
-	text: Alloy.Globals.strings.msgPasswordTips,
-	color: Alloy._fg_primary,
-	backgroundColor: Alloy._bg_secondary
+	bottom: 0,
+	text: Alloy.Globals.strings.msgPasswordTips
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,
@@ -59,12 +59,10 @@
 	value: true
 },
 "#agreementLbl":{
+
+
 	html: Alloy.Globals.strings.lblSignupAgreement
 },
 "#createBtn":{
 	title: Alloy.Globals.strings.strSignup
 }
-// ".form-group":{
-	// borderWidth:0.5,
-	// borderRadius:5
-// }

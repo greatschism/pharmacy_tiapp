@@ -26,6 +26,7 @@
 	title: Alloy.Globals.strings.strSignin,
 	//backgroundColor:"F7941E"
 },
+
 "#footerLbl":{
 	bottom:20,
 	html: Alloy.Globals.strings.lblNeedToCreateAccount

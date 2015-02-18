@@ -8,6 +8,6 @@
 			<View class="hseparator" />
 			<Widget id="dob" src="com.mscripts.dropdown" class="form-txt text-center returnkey-done form-dropdown " onReturn="didClickNext" />
 		</View>
-		<Button id="nextBtn" class="margin-bottom padding-top secondary-btn" onClick="didClickNext" />
+		<Button id="nextBtn" class="margin-bottom padding-top primary-btn" onClick="didClickNext" />
 	</ScrollView>
 </Alloy>

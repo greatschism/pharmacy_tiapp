@@ -14,8 +14,4 @@
 },
 "#nextBtn":{
 	title: Alloy.Globals.strings.btnNext
-},
-".form-group":{
-	borderWidth:0.5,
-	borderRadius:5
 }
