@@ -49,33 +49,7 @@ function request(_params) {
 		session_id : user.sessionId,
 		lang : localization.currentLanguage.id
 	});
-	/**
-	 * To do
-	 * pass the actual parameters once the server is fixed
-	 */
-	//_params.data = JSON.stringify(_params.data);
-	//remove below object
-	_params.data = {
-		client_identifier : CFG.clientIdentifier,
-		version : CFG.apiVersion,
-		session_id : user.sessionId,
-		lang : localization.currentLanguage.id,
-		filter : null,
-		data : [{
-			appload : [{
-				phone_model : "x",
-				phone_os : "x",
-				phone_platform : "x",
-				device_id : "x",
-				carrier : "x",
-				app_version : "x",
-				client_name : "x",
-				client_param_type : "menu",
-				client_param_version : "x",
-				client_param_base_version : "x"
-			}]
-		}]
-	};
+	_params.data = JSON.stringify(_params.data);
 
 	if (OS_IOS || OS_ANDROID) {
 		if (CFG.enableEncryption) {
