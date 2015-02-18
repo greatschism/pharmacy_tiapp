@@ -193,7 +193,7 @@ module.exports = {
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
-				"presc_name" : "Lispinoril, 300 mg",
+				"presc_name" : "Lisinopril, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
@@ -212,7 +212,7 @@ module.exports = {
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
-				"presc_name" : "Lispinoril, 300 mg",
+				"presc_name" : "Ciprofloxacin, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
@@ -231,7 +231,7 @@ module.exports = {
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
-				"presc_name" : "Amoxilcin, 300 mg",
+				"presc_name" : "Amoxcilin, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
@@ -250,7 +250,7 @@ module.exports = {
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
-				"presc_name" : "Listersin, 500 mg",
+				"presc_name" : "Listerin, 500 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",

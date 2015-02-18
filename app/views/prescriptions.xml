@@ -7,5 +7,5 @@
 	<View id="searchbarView" class="top search-view">
 		<Widget id="searchbar" src="com.mscripts.textfield"  class="search-txt" onChange="performSearch" />
 	</View>
-	<TableView id="tableView" />
+	<TableView id="tableView" onClick="didItemClick"/>
 </Alloy> 
