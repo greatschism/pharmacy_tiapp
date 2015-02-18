@@ -474,11 +474,11 @@ function showSearch() {
 	listAnim.addEventListener("complete", function onComplete() {
 		listAnim.removeEventListener("complete", onComplete);
 		$.tableView.top = top;
-		$.searchbar.animate({
+		$.searchbarView.animate({
 			opacity : 1,
 			duration : 150
 		}, function(searchbar) {
-			searchbar.opacity = 1;
+			$.searchbarView.opacity = 1;
 		});
 	});
 	$.tableView.animate(listAnim);
@@ -487,11 +487,11 @@ function showSearch() {
 function hideSearch() {
 	var top = 0;
 
-	$.searchbar.animate({
+	$.searchbarView.animate({
 		opacity : 0,
 		duration : 150
 	}, function(searchbar) {
-		searchbar.opacity = 0;
+		$.searchbarView.opacity = 0;
 		var listAnim = Ti.UI.createAnimation({
 			top : top,
 			duration : 150
@@ -544,7 +544,7 @@ function performSearch() {
 		for (var i in inprocessPrescriptions) {
 			var transform = inprocessPrescriptions[i];
 			if (transform.refill_status == "INPROCESS") {
-					console.log("in process");
+				console.log("in process");
 				row = $.UI.create("TableViewRow", {
 					apiName : "TableViewRow"
 				}),
@@ -697,7 +697,7 @@ function performSearch() {
 
 		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill);
 		for (var i in readyForRefill) {
-	console.log("ready for refill");
+			console.log("ready for refill");
 			var transform = readyForRefill[i],
 			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
@@ -808,9 +808,9 @@ function performSearch() {
 			}
 
 			$.readyForRefillSection.add(row);
-		
-				//$.tableView.data = [$.readyForRefillSection];
-			
+
+			//$.tableView.data = [$.readyForRefillSection];
+
 		}
 
 	}
@@ -819,7 +819,7 @@ function performSearch() {
 
 		$.otherPrescriptionsSection = uihelper.createTableViewSection($, strings.sectionOtherPrescriptions);
 		for (var i in otherPrescriptions) {
-	console.log("others");
+			console.log("others");
 			var transform = otherPrescriptions[i],
 			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
@@ -909,38 +909,31 @@ function performSearch() {
 
 			}
 			$.otherPrescriptionsSection.add(row);
-			
+
 		}
 	}
-	if(inprocessPrescriptions.length && readyForRefill.length && otherPrescriptions.length ){
+	if (inprocessPrescriptions.length && readyForRefill.length && otherPrescriptions.length) {
 		console.log("1");
-$.tableView.data=[$.gettingRefilledSection , $.readyForRefillSection, $.otherPrescriptionsSection ];
-}
-else if(inprocessPrescriptions.length && readyForRefill.length){
+		$.tableView.data = [$.gettingRefilledSection, $.readyForRefillSection, $.otherPrescriptionsSection];
+	} else if (inprocessPrescriptions.length && readyForRefill.length) {
 		console.log("2");
-$.tableView.data=[$.gettingRefilledSection , $.readyForRefillSection ];
-}
-else if(inprocessPrescriptions.length && otherPrescriptions.length){
+		$.tableView.data = [$.gettingRefilledSection, $.readyForRefillSection];
+	} else if (inprocessPrescriptions.length && otherPrescriptions.length) {
 		console.log("3");
-$.tableView.data=[$.gettingRefilledSection , $. otherPrescriptionsSection ];
-}
-else if(readyForRefill.length && otherPrescriptions.length){
+		$.tableView.data = [$.gettingRefilledSection, $.otherPrescriptionsSection];
+	} else if (readyForRefill.length && otherPrescriptions.length) {
 		console.log("4");
-$.tableView.data=[$. readyForRefillSection , $. otherPrescriptionsSection ];
-}
-
-else if(otherPrescriptions.length){
-	console.log("5");
-$.tableView.data=[$. otherPrescriptionsSection];	
-}
-else if(readyForRefill.length){
-	console.log("6");
-	$.tableView.data=[$. readyForRefillSection];
-}
-else if(inprocessPrescriptions.length){
-	console.log("7");
-	$.tableView.data=[$. gettingRefilledSection];
-}
+		$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
+	} else if (otherPrescriptions.length) {
+		console.log("5");
+		$.tableView.data = [$.otherPrescriptionsSection];
+	} else if (readyForRefill.length) {
+		console.log("6");
+		$.tableView.data = [$.readyForRefillSection];
+	} else if (inprocessPrescriptions.length) {
+		console.log("7");
+		$.tableView.data = [$.gettingRefilledSection];
+	}
 
 }
 

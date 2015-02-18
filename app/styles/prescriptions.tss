@@ -21,12 +21,12 @@
 	]
 },
 
-"#searchbar":{
-	search: true,
-	clearButton: true,
+"#searchbarView":{
 	opacity: 0,
-	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
-	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+	
+},
+"#searchbar":{
+	hintText:Alloy.Globals.strings.hintSearchByZipCityOrState,
 },
 "#tableView":{
 	top: 0

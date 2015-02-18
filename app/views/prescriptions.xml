@@ -4,9 +4,8 @@
 	<View id="navButtonView" class="right nav-action-container" onClick="didToggle">
 		<Button id="toggleBtn" class="margin-right nav-action-lbl touch-disabled" />
 	</View>
-	<View class="vgroup">
-		
-		<Widget id="searchbar" src="com.mscripts.textfield"  onChange="performSearch" />
-		<TableView id="tableView" />
+	<View id="searchbarView" class="top search-view">
+		<Widget id="searchbar" src="com.mscripts.textfield"  class="search-txt" onChange="performSearch" />
 	</View>
+	<TableView id="tableView" />
 </Alloy> 
