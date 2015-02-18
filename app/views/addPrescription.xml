@@ -1,4 +1,7 @@
 <Alloy>
-	<View class="container">
+
+	<View>
+		<TableView id="tableView" class="top" />
 	</View>
-</Alloy>
+	<Button id="doneBtn" class="padding-bottom primary-btn" onClick="didClickDone" />
+</Alloy> 
