@@ -936,11 +936,31 @@ function performSearch() {
 			$.tableView.data = [$.gettingRefilledSection];
 		}
 	} else {
-	alert("No prescriptions found. Please enter your search criteria again");
+		alert("No prescriptions found. Please enter your search criteria again");
 	}
 }
 
 function didItemClick(e) {
+	var prescriptions = {
+		"id" : "1",
+		"rx_number" : "2345678",
+		"presc_name" : "Lovastin, 200 mg",
+		"is_overdue" : "1",
+		"prefill" : "x",
+		"doctor_id" : "x",
+		"anticipated_refill_date" : "2015/12/15",
+		"expiration_date" : "2015/12/15",
+		"refill_remaining_preferences" : "x",
+		"refill_started_date" : "x",
+		"latest_refill_requested_date" : "2015-02-11",
+		"latest_refill_promised_date" : "2015-02-13",
+		"latest_filled_date" : "2015-02-16",
+		"restockperiod" : "10",
+		"presc_last_filled_date" : "x",
+		"latest_sold_date" : "x",
+		"latest_refill_completed_date" : "x",
+		"refill_status" : "OTHERS"
+	};
 	app.navigator.open({
 		ctrl : "prescriptionDetails",
 		title : prescriptions.presc_name,
