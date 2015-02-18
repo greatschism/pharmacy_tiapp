@@ -153,18 +153,6 @@ module.exports = {
 			}
 		}
 	},
-	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "The user exists in our system.",
-		"description" : "x",
-		"data" : {
-			"patients" : {
-				"is_mobile_shared" : "1",
-				"mobile_exists" : "0"
-			}
-		}
-	},
 	"PRESCRIPTIONS_LIST" : {
 		"status" : "Success",
 		"code" : "200",
@@ -269,6 +257,18 @@ module.exports = {
 			}]
 		}
 
+	},
+	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "The user exists in our system.",
+		"description" : "x",
+		"data" : {
+			"patients" : {
+				"is_mobile_shared" : "1",
+				"mobile_exists" : "0"
+			}
+		}
 	},
 	"PATIENTS_REGISTER" : {
 		"status" : "Success",
