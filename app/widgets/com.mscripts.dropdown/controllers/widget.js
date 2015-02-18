@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
     keyboard = OS_MOBILEWEB ? false : require("ti.keyboard"),
     isHintText = false,
@@ -66,12 +67,11 @@ var args = arguments[0] || {},
 	if (OS_MOBILEWEB && args.type == Ti.UI.PICKER_TYPE_DATE) {
 		$.widget.removeEventListener("click", showPicker);
 		$.widget.remove($.lbl);
-		var moment = require("alloy/moment");
 		picker = Ti.UI.createPicker({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
 			type : Ti.UI.PICKER_TYPE_DATE,
-			minDate : moment(args.minDate|| new Date(1900, 0, 1)).format("YYYY-MM-DD"),
+			minDate : moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"),
 			maxDate : moment(args.maxDate || new Date()).format("YYYY-MM-DD"),
 			value : moment(selectedDate || new Date()).format("YYYY-MM-DD"),
 			backgroundColor : "transparent",
@@ -234,7 +234,6 @@ function setValue(date) {
 	} else {
 		selectedDate = date;
 		removeHint();
-		var moment = require("alloy/moment");
 		$.lbl.text = moment(selectedDate).format(format);
 	}
 }

@@ -423,6 +423,34 @@
 /**
 * 	input controls
 */
+".search-view":{
+	left: Alloy.TSS.search_view.left,
+	right: Alloy.TSS.search_view.right,
+	height: Ti.UI.SIZE,
+	backgroundColor: Alloy.TSS.search_view.backgroundColor
+},
+".search-txt":{
+	top: Alloy.TSS.search_txt.top,
+	bottom: Alloy.TSS.search_txt.bottom,
+	left: Alloy.TSS.search_txt.left,
+	right: Alloy.TSS.search_txt.right,
+	height: Alloy.TSS.search_txt.height,
+	font: Alloy.TSS.search_txt.font,
+	leftIconText: Alloy.CFG.icons.search,
+	iconFont: Alloy.TSS.search_txt.iconFont,
+	leftIconDict: Alloy.TSS.search_txt.leftIconDict,
+	enableClearButton: Alloy.TSS.search_txt.enableClearButton,
+	paddingRight: Alloy.TSS.search_txt.paddingRight,
+	clearIconDict: Alloy.TSS.search_txt.clearIconDict,
+	clearIconText: Alloy.CFG.icons.remove,
+	color: Alloy.TSS.search_txt.color,
+	textAlign: Alloy.TSS.search_txt.textAlign,
+	backgroundColor: Alloy.TSS.search_txt.backgroundColor,
+	borderColor: Alloy.TSS.search_txt.borderColor,
+	borderWidth: Alloy.TSS.search_txt.borderWidth,
+	borderRadius: Alloy.TSS.search_txt.borderRadius,
+	returnKeyType: Ti.UI.RETURNKEY_SEARCH
+},
 ".form-group":{
 	left: Alloy.TSS.form_group.left,
 	right: Alloy.TSS.form_group.right,
@@ -445,7 +473,7 @@
 	height: Alloy.TSS.form_txt.height,
 	font: Alloy.TSS.form_txt.font,
 	color: Alloy.TSS.form_txt.color,
-	textAlign: Alloy.TSS.txta.textAlign,
+	textAlign: Alloy.TSS.form_txt.textAlign,
 	backgroundColor: Alloy.TSS.form_txt.backgroundColor,
 	borderColor: Alloy.TSS.form_txt.borderColor,
 	borderWidth: Alloy.TSS.form_txt.borderWidth

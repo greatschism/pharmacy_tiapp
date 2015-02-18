@@ -1,121 +1,128 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    enableClearButton = false;
 
 (function() {
+	applyProperties(args);
 
+	if (_.has(args, "leftIconText")) {
+		setIcon(args.leftIconText, "left", args.leftIconDict || {}, args.paddingLeft || 0);
+	} else if (_.has(args, "leftButtonTitle")) {
+		setButton(args.leftButtonTitle, "left", args.leftButtonDict || {}, args.paddingLeft || 0);
+	}
+
+	if (_.has(args, "rightIconText")) {
+		setIcon(args.rightIconText, "right", args.rightIconDict || {}, args.paddingRight || 0);
+	} else if (args.enableClearButton) {
+		enableClearButton = true;
+		setIcon(args.clearIconText, "right", args.clearIconDict || args.rightIconDict || {}, args.paddingRight || 0);
+	} else if (_.has(args, "rightButtonTitle")) {
+		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.paddingRight || 0);
+	}
+})();
+
+function setIcon(_iconText, _direction, _iconDict, _padding) {
+	var font = args.iconFont || {
+		fontSize : 12
+	},
+	    isClearButton = enableClearButton && _direction == "right";
+	$.txt[_direction] = $.txt[_direction] + (_iconDict[_direction] || 0) + font.fontSize + _padding;
+	var iconView = Ti.UI.createView({
+		width : $.txt[_direction],
+		sourceId : _direction + "Icon",
+		visible : !isClearButton
+	});
+	iconView[_direction] = 0;
+	_.extend(_iconDict, {
+		font : font,
+		text : _iconText,
+		touchEnabled : false
+	});
+	iconView.add(Ti.UI.createLabel(_iconDict));
+	iconView.addEventListener("click", isClearButton ? didClickClearText : didClick);
+	$.widget.add(iconView);
+	if (isClearButton) {
+		$.clearBtn = iconView;
+	}
+}
+
+function setButton(_title, _direction, _buttonDict, _padding) {
+	var font = args.buttonFont || args.font || {
+		fontSize : 12
+	};
+	$.txt[_direction] = $.txt[_direction] + (_buttonDict[_direction] || 0) + (_buttonDict.width || 40) + _padding;
+	var buttonView = Ti.UI.createView({
+		width : $.txt[_direction],
+		sourceId : _direction + "Button"
+	});
+	buttonView[_direction] = 0;
+	_.extend(_buttonDict, {
+		height : font.fontSize + 5,
+		ellipsize : true,
+		wordWrap : false,
+		width : _buttonDict.width || Ti.UI.FILL,
+		textAlign : _buttonDict.textAlign || "center",
+		font : font,
+		text : _title,
+		touchEnabled : false
+	});
+	buttonView.add(Ti.UI.createLabel(_buttonDict));
+	buttonView.addEventListener("click", didClick);
+	$.widget.add(buttonView);
+}
+
+function applyProperties(_dict) {
 	var options = {};
-
-	var cls = "fill";
-	if (args.search && (args.clearButton || args.rightImage || args.rightButtonTitle)) {
-		cls = "left-right";
-	} else if (args.search) {
-		cls = "left";
-	} else if (args.clearButton || args.rightImage || args.rightButtonTitle) {
-		cls = "right";
-	}
-
-	$.addClass($.txt, "txt-" + cls);
-
-	if (args.search == true || args.leftIcon) {
-		$.search = $.UI.create("Label", {
-			apiName : "Label",
-			id : "search"
-		});
-		$.widget.add($.search);
-		$.search.applyProperties({
-			text : args.leftIcon || "Q",
-			font : args.leftIconFont || {
-				fontFamily : Alloy.Fonts.icon,
-				fontSize : 24
-			},
-			color : args.leftIconColor || "#000"
-		});
-	}
-
-	if (_.has(args, "rightImage")) {
-
-		$.rightImg = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			id : "rightImg"
-		});
-		var rightImgDict = {
-			image : args.rightImage,
-			visible : true
-		};
-		if (args.rightImageWidth) {
-			rightImgDict.width = args.rightImageWidth;
-			$.txt.right = rightImgDict.width + 10;
-		}
-		$.rightImg.applyProperties(rightImgDict);
-		$.widget.add($.rightImg);
-		$.rightImg.addEventListener("singletap", didClick);
-
-	} else if (args.clearButton == true || _.has(args, "rightButtonTitle")) {
-
-		$.rightBtn = $.UI.create("Button", {
-			apiName : "Button",
-			id : "rightBtn"
-		});
-		$.rightBtn.applyProperties({
-			title : args.rightButtonTitle || "*",
-			width : args.rightButtonWidth || 50,
-			font : args.rightButtonFont || args.rightButtonTitle ? args.font || {
-				fontSize : 12
-			} : {
-				fontFamily : Alloy.Fonts.icon,
-				fontSize : 24
-			},
-			color : args.rightButtonColor || "#000",
-			visible : !args.clearButton
-		});
-		$.widget.add($.rightBtn);
-		$.txt.right = $.rightBtn.width + 10;
-		$.rightBtn.addEventListener("click", args.clearButton ? didClear : didClick);
-	}
-
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "opacity", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
-		if (_.has(options, "left") && _.has(options, "right")) {
-			delete options.width;
-		}
 		$.widget.applyProperties(options);
 	}
-
-	options = _.pick(args, ["font", "color", "hintText", "value", "textAlign", "maxLength", "passwordMask", "returnKeyType", "autocorrect", "autocapitalization", "keyboardType"]);
+	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}
+}
 
-})();
+function didClickClearText(e) {
+	setValue("");
+	$.trigger("clear", {
+		source : $,
+		clicksource : "clearButton"
+	});
+}
+
+function didClick(e) {
+	$.trigger("click", {
+		source : $,
+		clicksource : e.source.sourceId
+	});
+}
 
 function didFocus(e) {
-	$.trigger("focus");
+	$.trigger("focus", {
+		source : $
+	});
 }
 
 function didBlur(e) {
-	$.trigger("blur");
+	$.trigger("blur", {
+		source : $
+	});
 }
 
 function didChange(e) {
-	$.trigger("change");
-	if (args.clearButton == true) {
-		$.rightBtn.visible = $.txt.getValue() != "";
+	if (enableClearButton) {
+		$.clearBtn.visible = $.txt.value != "";
 	}
+	$.trigger("change", {
+		source : $
+	});
 }
 
 function didReturn(e) {
 	$.trigger("return", {
+		source : $,
 		nextItem : args.nextItem || ""
 	});
-}
-
-function didClear(e) {
-	$.txt.setValue("");
-	$.rightBtn.visible = false;
-	$.trigger("clear");
-}
-
-function didClick(e) {
-	$.trigger("rightclick");
 }
 
 function focus() {
@@ -124,53 +131,6 @@ function focus() {
 
 function blur() {
 	$.txt.blur();
-}
-
-function setValue(value) {
-	$.txt.setValue(value);
-	if (args.clearButton == true) {
-		$.rightBtn.visible = $.txt.getValue() != "";
-	}
-}
-
-function getValue() {
-	return $.txt.getValue();
-}
-
-function setPasswordMask(value) {
-	$.txt.passwordMask = value;
-	var len = $.txt.value.length;
-	$.txt.setSelection(len, len);
-}
-
-function getPasswordMask() {
-	return $.txt.passwordMask;
-}
-
-function setRightImage(image) {
-	if ($.rightImg) {
-		$.rightImg.image = image;
-	}
-}
-
-function getRightImage() {
-	if ($.rightImg) {
-		return $.rightImg.image;
-	}
-	return false;
-}
-
-function setRightButtonTitle(value) {
-	if ($.rightBtn) {
-		$.rightBtn.title = value;
-	}
-}
-
-function getRightButtonTitle() {
-	if ($.rightBtn) {
-		return $.rightBtn.title;
-	}
-	return false;
 }
 
 function animate(animationProp, callback) {
@@ -184,14 +144,36 @@ function animate(animationProp, callback) {
 	$.widget.animate(animation);
 }
 
+function setValue(_value) {
+	$.txt.setValue(_value);
+	if (enableClearButton) {
+		$.clearBtn.visible = $.txt.value != "";
+	}
+}
+
+function getValue() {
+	return $.txt.getValue();
+}
+
+function setPasswordMask(_value) {
+	$.txt.passwordMask = _value;
+	if (OS_IOS || OS_ANDROID) {
+		var len = $.txt.value.length;
+		$.txt.setSelection(len, len);
+	}
+}
+
+function getPasswordMask() {
+	return $.txt.passwordMask;
+}
+
 exports.blur = blur;
 exports.focus = focus;
 exports.animate = animate;
+exports.setIcon = setIcon;
+exports.setButton = setButton;
 exports.setValue = setValue;
 exports.getValue = getValue;
-exports.setRightImage = setRightImage;
-exports.getRightImage = getRightImage;
+exports.applyProperties = applyProperties;
 exports.setPasswordMask = setPasswordMask;
 exports.getPasswordMask = getPasswordMask;
-exports.setRightButtonTitle = setRightButtonTitle;
-exports.getRightButtonTitle = getRightButtonTitle;

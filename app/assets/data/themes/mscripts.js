@@ -173,6 +173,42 @@ module.exports = {
 				"textAlign" : "left",
 				"color" : "#000000"
 			},
+			"search_view" : {
+				"left" : 0,
+				"right" : 0,
+				"backgroundColor" : "#EEEEF4"
+			},
+			"search_txt" : {
+				"top" : 8,
+				"bottom" : 8,
+				"left" : 8,
+				"right" : 8,
+				"height" : 30,
+				"font" : {
+					"fontFamily" : "light",
+					"fontSize" : 14
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 16
+				},
+				"leftIconDict" : {
+					"left" : 4,
+					"color" : "#000000"
+				},
+				"enableClearButton" : true,
+				"paddingRight": 4,
+				"clearIconDict" : {
+					"right" : 4,
+					"color" : "#000000"
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "FFFFFF",
+				"borderWidth" : 1,
+				"borderRadius" : 3.4
+			},
 			"form_group" : {
 				"left" : 12,
 				"right" : 12,
