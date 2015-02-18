@@ -10,10 +10,10 @@ function didClickScanPrescription(e) {
 }
 
 function didClickTypeRx(e) {
-	// app.navigator.open({
-		// ctrl : "refillTypeRx",
-		// titleid: "titleOrderRefill",
-		// stack : true
-	// });
-	alert("Under Construction");
+	 app.navigator.open({
+		 ctrl : "orderDetails",
+		 titleid: "titleOrderDetails",
+		 stack : true
+	});
+	
 }
