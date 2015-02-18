@@ -12,19 +12,14 @@ var args = arguments[0] || {},
     pickupdetails;
 
 function init() {
+
 	orders = [{
 		id : 1,
 		name : "Januvia, 100mg tab",
 		subtitle : "Should be ready by 10/10/2015",
 		icon : Alloy.CFG.icons.success
 
-	},
-	{
-	id : 2,
-	name : "Hydronalin, 20mg",
-	subtitle : "You already ordered this prescription",
-	icon : Alloy.CFG.icons.success
-}];
+	}];
 	data = [];
 
 	//Your order
@@ -63,7 +58,7 @@ function init() {
 
 			name.text = transform.name;
 			subtitle.text = transform.subtitle;
-			
+
 			containerView.add(name);
 			containerView.add(subtitle);
 			containerView.add(icon);
@@ -84,6 +79,6 @@ function init() {
 function didClickDone(e) {
 
 }
-exports.init = init;
 
+exports.init = init;
 
