@@ -96,7 +96,6 @@ module.exports = {
 		"lblWhenIsYourAppointment" : "When is your appointment?",
 		"lblOnThisDate" : "On this date",
 		"lblAtThisTime" : "At this time",
-		"lblRefillLeft" : "Refills left",
 		"lblRefill" : "Refill",
 		"lblHide" : "Hide",
 		"lblDueforRefill" : "Due for refill",
@@ -192,6 +191,7 @@ module.exports = {
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
 		"btnIAgree" : "I Agree",
+		"btnOrderRefill" : "Order refill",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",

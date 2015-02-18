@@ -269,7 +269,7 @@ module.exports = {
 			}]
 		}
 	},
-	"REFILL" : {
+	"PRESCRIPTIONS_REFILL" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "x",

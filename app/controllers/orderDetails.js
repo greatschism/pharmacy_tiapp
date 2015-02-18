@@ -46,7 +46,7 @@ function init() {
 
 			    footerView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["footer-view-break","auto-height"]
+				classes : ["footer-view-break", "auto-height"]
 			}),
 			    contentView = $.UI.create("View", {
 				apiName : "View",
@@ -99,8 +99,8 @@ function init() {
 	//}),
 
 	    picker = Ti.UI.createPicker({
-        backgroundColor : "#aab7b7",
-		classes : ["height-50", "fill-width","left"]
+		backgroundColor : "#aab7b7",
+		classes : ["height-50", "fill-width", "left"]
 	}),
 
 	    items = [];
@@ -164,18 +164,14 @@ function init() {
 
 }
 
-
-
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
 function didClickOrderRefill(e) {
-	
 	http.request({
-	 method : "REFILL",
-	 
-	 data : {
+		method : "PRESCRIPTIONS_REFILL",
+		data : {
 			filter : null,
 			data : [{
 				appload : [{
@@ -192,17 +188,14 @@ function didClickOrderRefill(e) {
 				}]
 			}]
 		},
-	 
-	 
-	 
-	 keepBlook : true,
-     success : didSuccess
-	 });
-	
+
+		keepBlook : true,
+		success : didSuccess
+	});
+
 }
 
-
-function didSuccess(){
+function didSuccess() {
 
 	app.navigator.open({
 		stack : true,
