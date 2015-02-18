@@ -1,4 +1,5 @@
 
-".container" : {
-  
+"doneBtn" : {
+  title : Alloy.Globals.strings.btnDone,
+  color : "#000000"
 }
