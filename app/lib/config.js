@@ -149,7 +149,7 @@ var Config = {
 			var baseDirectory = OS_MOBILEWEB ? Ti.Filesystem.resourcesDirectory : Ti.Filesystem.applicationDataDirectory;
 			for (var orientation in orientations) {
 				Alloy.Images[code][orientation] = {
-					path : Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath
+					image : Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath
 				};
 				_.extend(Alloy.Images[code][orientation], _.isObject(images[i].properties) && _.isObject(images[i].properties[orientation]) ? images[i].properties[orientation] : orientations[orientation]);
 			}

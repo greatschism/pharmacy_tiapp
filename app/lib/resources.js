@@ -35,11 +35,11 @@ var Resources = {
 
 	init : function() {
 
-		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION) {
+		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
 			    initialData = require(Resources.directoryData + "/" + "resources"),
-			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PRODUCTION);
+			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV);
 
 			for (var i in keys) {
 				Resources.set(keys[i], initialData[keys[i]], true, clearCache);
@@ -682,13 +682,7 @@ var Resources = {
 		if (!_.has(imageDoc, "properties")) {
 			imageDoc.properties = {};
 		}
-		if (!_.has(imageDoc.properties, _item.orientation)) {
-			imageDoc.properties[_item.orientation] = {};
-		}
-		imageDoc.properties[_item.orientation] = {
-			width : _item.width,
-			height : _item.height
-		};
+		imageDoc.properties[_item.orientation] = _item.properties || {};
 		coll.commit();
 		return imageDoc.properties[_item.orientation];
 	}

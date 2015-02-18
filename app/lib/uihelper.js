@@ -73,10 +73,18 @@ var UIHelper = {
 	 */
 	getImage : function(_o) {
 		var properties = Alloy.Images[_o.code][app.device.orientation],
-		    path = properties.path,
+		    path = properties.image,
 		    newWidth = properties.width || 0,
-		    newHeight = properties.height || 0;
+		    newHeight = properties.height || 0,
+		    newProperties = false;
 		if (newWidth == 0 || newHeight == 0) {
+			if (_.has(properties, "left") && _.has(properties, "right")) {
+				newWidth = app.device.width - (properties.left + properties.right);
+				newProperties = {
+					left : properties.left,
+					right : properties.right
+				};
+			}
 			if (OS_MOBILEWEB) {
 				if (newWidth == 0) {
 					newWidth = "auto";
@@ -103,27 +111,23 @@ var UIHelper = {
 					}
 					newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
 				}
+				_.extend(newProperties, {
+					width : newWidth,
+					height : newHeight
+				});
 				config.updateImageProperties({
 					code : _o.code,
 					file : utilities.getFileName(path),
 					orientation : app.device.orientation,
-					width : newWidth,
-					height : newHeight
+					properties : newProperties
 				});
+				newProperties.image = path;
 			}
 		}
 		if (_o.apiName == "Ti.UI.ImageView") {
-			_o.applyProperties({
-				width : newWidth,
-				height : newHeight,
-				image : path
-			});
+			_o.applyProperties(newProperties || properties);
 		}
-		return {
-			width : newWidth,
-			height : newHeight,
-			image : path
-		};
+		return newProperties || properties;
 	}
 };
 

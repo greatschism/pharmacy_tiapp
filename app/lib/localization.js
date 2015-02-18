@@ -1,5 +1,4 @@
 var Alloy = require("alloy"),
-    scule = require("com.scule"),
     resources = require("resources"),
     utilities = require("utilities"),
     logger = require("logger");
@@ -23,8 +22,7 @@ var Locale = {
 	 * initialize localization
 	 */
 	init : function() {
-		var lColl = scule.factoryCollection(resources.pathLanguages);
-		Locale.applyLanguage(lColl.find({
+		Locale.applyLanguage(resources.get("languages",{
 		selected : true
 		})[0]);
 	},
@@ -34,47 +32,14 @@ var Locale = {
 	 * @param {String} _id The language id to enable
 	 */
 	setLanguage : function(_id) {
-
-		var lColl = scule.factoryCollection(resources.pathLanguages),
-
-		    toSelect = lColl.find({
-			id : _id
-		});
-
-		if (toSelect.length != 0 && toSelect[0].selected == false) {
-
-			toSelect = toSelect[0];
-
-			/**
-			 * unset current language
-			 */
-			var unselected = lColl.update({
-				selected : true
-			}, {
-				$set : {
-					selected : false
-				}
-			});
-			logger.i("language unselected : len " + unselected.length, " = " + unselected[0].id);
-
-			/**
-			 * set selected as true for given language
-			 */
-			var selected = lColl.update({
-				id : _id
-			}, {
-				$set : {
-					selected : true
-				}
-			});
-			logger.i("language selected : len " + selected.length, " = " + selected[0].id);
-
-			Locale.applyLanguage(selected[0]);
-
-			lColl.commit();
-
+		var toSelect = resources.get("languages",{
+		id : _id
+		})[0] || {};
+		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
+			toSelect.selected = true;
+			resources.set("languages", [toSelect]);
+			Locale.applyLanguage(toSelect);
 			return true;
-
 		} else {
 			return false;
 		}
@@ -85,7 +50,7 @@ var Locale = {
 	 * return {Array} languages The supported languages
 	 */
 	getLanguages : function(_key) {
-		return scule.factoryCollection(resources.pathLanguages).findAll();
+		return resources.get("languages");
 	},
 
 	/**

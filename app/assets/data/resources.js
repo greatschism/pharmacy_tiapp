@@ -118,10 +118,12 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"height" : 25
+				"right" : 100,
+				"left" : 100
 			},
 			"landscape" : {
-				"height" : 25
+				"right" : 100,
+				"left" : 100
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"

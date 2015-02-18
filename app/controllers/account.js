@@ -36,7 +36,7 @@ function init() {
 				choices.push(item);
 			}
 		});
-		colls[i].selectedItem = items[selectedIndex] || {};
+		colls[i].selectedItem = _.pick(items[selectedIndex] || {}, ["titleid", "id", "selected", "version"]);
 		$[key + "Dp"].setChoices(choices);
 		$[key + "Dp"].setSelectedIndex(selectedIndex);
 	}
@@ -49,6 +49,7 @@ function setParentViews(view) {
 }
 
 function didReturnThemes(e) {
+	console.log($.themesDp.getSelectedItem());
 	colls[0].selectedItem = $.themesDp.getSelectedItem();
 }
 
@@ -63,7 +64,7 @@ function didReturnLanguages(e) {
 function didClickDone(e) {
 	for (var i in colls) {
 		colls[i].selectedItem.selected = true;
-		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected", "styles", "data", "strings"])]);
+		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected"])]);
 	}
 	config.load(function() {
 		Alloy.Collections.menuItems.trigger("reset");
