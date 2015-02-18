@@ -9,7 +9,7 @@ var args = arguments[0] || {},
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickUp = Alloy.Globals.strings.msgPickUp,
-    gettingRefilled,
+  
     readyToRefill,
     otherPrescriptions,
     prescriptions;
