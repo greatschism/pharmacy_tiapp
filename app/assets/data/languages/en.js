@@ -29,13 +29,12 @@ module.exports = {
 		"titleOrderDetails" : "Order details",
 		"titleAddPrescriptions" : "Add prescriptions",
 		"titleYourRefillIsOrdered" : "Your refill has been ordered!",
-		"titleRefillHistory" : "Refill history",
 		"titleDetails" : "Details",
 		"titleRefillNow" : "Refill Now",
 		"titleUpdates" : "Updates",
 		"titleSharedMobileNumber" : "Mobile is Shared",
 		"titleTextHelp" : "Text Help",
-		"tittleDrugInformation":"Alprazolam",
+		"tittleDrugInformation" : "Alprazolam",
 
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
@@ -48,6 +47,7 @@ module.exports = {
 		"sectionDrugInstructions" : "Drug instructions",
 		"sectionYourOrder" : "Your order",
 		"sectionPickupDetails" : "Pickup details",
+		"sectionInformation" : "Information",
 
 		"hintSearchByZipCityOrState" : "Search",
 		"hintMobileNumber" : "Mobile Number (xxx)-xxx xxxx",
@@ -102,7 +102,7 @@ module.exports = {
 		"lblDueforRefill" : "Due for refill",
 		"lblLastRefilled" : "Last refilled",
 		"lblRemindMeRefillMedication" : "Remind me to <b>refill</b> this medication",
-		"lblRemindMeToTakeMedication" : "Remind me to <b>take</b> this medication",
+		"lblSetTimeToTakeMedication" : "Set a time to <b>take</b> this medication",
 		"lblTakeTwotabletsWithWater" : "Take two tablets daily with water",
 		"lblPrescriptionNumber" : "Prescription number",
 		"lblExpirationDate" : "Expiration date",
@@ -127,6 +127,7 @@ module.exports = {
 		"lblDrugInteractions" : "Drug interactions",
 		"lblDrugSideEffects" : "SideEffects",
 		"lblShowPassword" : "Show Password",
+		"lblDosageInstruction" : "Dosage instruction",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
 
@@ -176,7 +177,9 @@ module.exports = {
 		"btnAddAnotherDoctor" : "Add another doctor",
 		"btnSave" : "Save",
 		"btnRefillPrescriptionHere" : "Refill a prescription here",
+		"btnRefillPrescription" : "Refill prescription",
 		"btnHideThisDoctor" : "Hide this doctor",
+		"btnHideThisPrescription" : "Hide this prescription",
 		"btnEditReminderSettings" : "Edit reminder settings",
 		"btnDeleteThisReminder" : "Delete this reminder",
 		"btnAddToFavorites" : "Add to favorites",
@@ -189,7 +192,6 @@ module.exports = {
 		"btnScanPrescription" : "Scan my Prescription",
 		"btnTypePrescription" : "Type my Prescription details",
 		"btnIAgree" : "I Agree",
-		"btnOrderRefill" : "Order refill",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
@@ -213,9 +215,10 @@ module.exports = {
 		"strRefillOrderHint" : "Please enter the information below so we can process your refill",
 		"strSelectPharmacyHint" : "Select the pharmacy where you filled it last",
 		"strRefillTypeRxEnterNumber" : "Please add a contact number",
-		"strrefillsLeft" : "Refills left",
-		"strdueForRefill" : "Due for refill",
-
-		"strlastFilled" : "Last filled"
+		"strRefillsLeft" : "Refills left",
+		"strDueForRefill" : "Due for refill",
+		"strLastFilled" : "Last filled",
+		"strAutoRefill" : "Auto refill this prescription",
+		"strRefillHistory" : "Refill history"
 	}
 };

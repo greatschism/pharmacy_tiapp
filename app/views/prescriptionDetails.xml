@@ -1,49 +1,84 @@
 <Alloy>
-			<Label id="detailsLbl" class="left h2" />
-	<TableView id="tableView">
-		<HeaderView>
-			<View class="auto-height vgroup">
-			
-				<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
-			
-					<View class="padding-left fill-width auto-height hgroup no-hwrap">
-						<View class="left width-50 auto-height vgroup">
-							<Label id="titleLbl" class="left h4 fg-secondary" />
-				
-							<Label id="moreDetailsLbl" class="right h5 fg-secondary" />
-						</View>
-						<View class="left width-50 auto-height vgroup">
-							<Label id="refillsLeftLbl" class="left h2 fg-secondary" />
-							<Label id="dueForRefillLbl" class="left h5 fg-secondary" />
-							<Label id="lastFilledLbl" class="right h5 fg-secondary" />
-						</View>
-						<View class="top left width-50 auto-height vgroup">
-							<View id="distanceView" class="padding-left auto-height">
-								<Label class="distance-icon left font-icon fg-quaternary" />
-								<Label id="distanceLbl" class="fill-width h5-fixed fg-quaternary" />
+	<TableView>
+		<TableViewSection>
+			<HeaderView>
+				<View class="section-header-view">
+					<Label id="detailsLbl" class="section-header-lbl" />
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="list-item-view vgroup">
+					<Label id="prescriptionNameLbl" class="left title-lbl" />
+					<View class="padding-top auto-height">
+						<View class="left width-30 auto-height vgroup">
+							<Label id="refillsLeftLbl" class="prompt-lbl" />
+							<View class="padding-top auto-width info-view">
+								<Label id="refillLeftInfoLbl" class="info-lbl" />
 							</View>
-								<View class="height-default">
-				<Label id="keepMeLbl" class="padding-left fill-width" />
-				<Widget id="keepMeSwt" src="com.mscripts.switch" class="padding-right swt" onTouch="handleScroll" />
-			</View>
-							
-							<View class="padding-left auto-height">
-								<Label id="clockIcon" class="left font-icon" />
-								<Label id="clockLbl" class="icon-lbl fill-width h5-fixed" />
+						</View>
+						<View class="width-30 auto-height vgroup">
+							<Label id="dueForRefillLbl" class="prompt-lbl" />
+							<View class="padding-top auto-width info-view">
+								<Label id="dueForRefillInfoLbl" class="info-lbl" />
+							</View>
+						</View>
+						<View class="right width-30 auto-height vgroup">
+							<Label id="lastRefillLbl" class="prompt-lbl" />
+							<View class="padding-top auto-width info-view">
+								<Label id="lastRefillInfoLbl" class="info-lbl" />
 							</View>
 						</View>
 					</View>
+					<View class="padding-top auto-height">
+						<Label id="autoRefillLbl" class="left list-item-lbl" />
+						<Widget id="autoRefillSwt" src="com.mscripts.switch" class="right swt" />
+					</View>
 				</View>
-				<View class="margin-top margin-left margin-right auto-height">
-					<Button id="callBtn" class="left width-45 btn-thirtiary-smaller"  />
-					<Button id="directionBtn" class="right width-45 btn-thirtiary-smaller" />
+				<Button id="refillBtn" class="padding-top primary-btn" />
+			</TableViewRow>
+		</TableViewSection>
+		<TableViewSection>
+			<HeaderView>
+				<View class="section-header-view">
+					<Label id="remindersLbl" class="section-header-lbl" />
 				</View>
-				<Button id="refillBtn" class="btn-primary" onClick="didClickRefill" />
-				<View class="margin-top margin-bottom margin-left margin-right auto-height">
-				
-					<Button id="hidePrescriptionBtn" class="right width-30 btn-icon" onClick="didClickHome" />
+			</HeaderView>
+			<TableViewRow>
+				<View class="list-item-view">
+					<Widget id="remindMeToRefillLbl" src="com.mscripts.styledlabel" class="left auto-height list-item-lbl" />
+					<Widget id="remindMeToRefillSwt" src="com.mscripts.switch" class="right swt" />
 				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View class="list-item-view">
+					<Widget id="setTimeLbl" src="com.mscripts.styledlabel" class="left auto-height list-item-lbl" />
+					<Widget id="setTimeSwt" src="com.mscripts.switch" class="right swt" />
+				</View>
+			</TableViewRow>
+		</TableViewSection>
+		<TableViewSection>
+			<HeaderView>
+				<View class="section-header-view">
+					<Label id="informationLbl" class="section-header-lbl" />
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="list-item-view-with-child">
+					<Label id="refillHistoryLbl" class="left list-item-lbl" />
+				</View>
+				<Label class="list-item-child" />
+			</TableViewRow>
+			<TableViewRow>
+				<View class="list-item-view-with-child">
+					<Label id="dosageInstructionLbl" class="left list-item-lbl" />
+				</View>
+				<Label class="list-item-child-down" />
+			</TableViewRow>
+		</TableViewSection>
+		<FooterView>
+			<View class="auto">
+				<Button id="hideBtn" class="padding-top padding-bottom secondary-btn" />
 			</View>
-		</HeaderView>
+		</FooterView>
 	</TableView>
 </Alloy>

@@ -23,20 +23,18 @@ var args = arguments[0] || {},
 		}
 	}
 
-	if (OS_IOS) {
-		boldFont = args.font || {
-			fontFamily : "Lato",
-			fontSize : 12
-		};
-		if (_.has(args, "boldFontFamily")) {
-			_.extend(boldFont, {
-				fontFamily : args.boldFontFamily
-			});
-		} else {
-			_.extend(boldFont, {
-				fontWeight : "bold"
-			});
-		}
+	boldFont = _.clone(args.font) || {
+		fontFamily : "Lato",
+		fontSize : 12
+	};
+	if (_.has(args, "boldFontFamily")) {
+		_.extend(boldFont, {
+			fontFamily : args.boldFontFamily
+		});
+	} else {
+		_.extend(boldFont, {
+			fontWeight : "bold"
+		});
 	}
 	boldColor = args.boldColor || "#000";
 
@@ -120,7 +118,7 @@ function setHtml(_html) {
 				}
 
 				$.lbl.attributedString = Ti.UI.iOS.createAttributedString({
-					text : strings.join(''),
+					text : strings.join(""),
 					attributes : attributes
 				});
 			}

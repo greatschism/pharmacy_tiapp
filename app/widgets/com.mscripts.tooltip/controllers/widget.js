@@ -113,7 +113,7 @@ function setText(_text, _styles) {
 	removeAllChildren();
 	var dict = _styles || args.labelDict || {};
 	_.extend(dict, {
-		font : args.font || {
+		font : _.clone(args.font) || {
 			fontSize : 12
 		},
 		text : _text,

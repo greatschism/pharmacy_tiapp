@@ -1,26 +1,44 @@
-
-
-".icon-lbl":{
-	left: 28
-},
 "#detailsLbl":{
-	title: Alloy.Globals.strings.strDirections
-},
-"#refillBtn":{
-	title: Alloy.Globals.strings.btnRefillPrescriptionHere
-},
-"#favoriteBtn":{
-	title: Alloy.Globals.strings.btnAddToFavorites
-},
-"#hidePrescriptionBtn":{
-	title: Alloy.Globals.strings.home
+	text: Alloy.Globals.strings.sectionPrescriptionDetails
 },
 "#refillsLeftLbl":{
-	title : Alloy.Globals.strings.Refillsleft
+	text: Alloy.Globals.strings.strRefillsLeft
 },
 "#dueForRefillLbl":{
-	title: Alloy.Globals.strings.Dueforrefill
+	text: Alloy.Globals.strings.strDueForRefill
 },
-"#lastFilledLbl":{
-	title: Alloy.Globals.strings.Lastfilled
+"#lastRefillLbl":{
+	text: Alloy.Globals.strings.strLastFilled
+},
+"#autoRefillLbl":{
+	right: 60,
+	text: Alloy.Globals.strings.strAutoRefill
+},
+"#refillBtn":{
+	left: 0,
+	right: 0,
+	title: Alloy.Globals.strings.btnRefillPrescription
+},
+"#remindersLbl":{
+	text: Alloy.Globals.strings.strReminders
+},
+"#remindMeToRefillLbl":{
+	right: 60,
+	html: Alloy.Globals.strings.lblRemindMeRefillMedication
+},
+"#setTimeLbl":{
+	right: 60,
+	html: Alloy.Globals.strings.lblSetTimeToTakeMedication
+},
+"#informationLbl":{
+	text: Alloy.Globals.strings.sectionInformation
+},
+"#refillHistoryLbl":{
+	text: Alloy.Globals.strings.strRefillHistory
+},
+"#dosageInstructionLbl":{
+	text: Alloy.Globals.strings.lblDosageInstruction
+},
+"#hideBtn":{
+	title: Alloy.Globals.strings.btnHideThisPrescription
 }

@@ -46,7 +46,7 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 }
 
 function setButton(_title, _direction, _buttonDict, _padding) {
-	var font = args.buttonFont || args.font || {
+	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
 	$.txt[_direction] = $.txt[_direction] + (_buttonDict[_direction] || 0) + (_buttonDict.width || 40) + _padding;

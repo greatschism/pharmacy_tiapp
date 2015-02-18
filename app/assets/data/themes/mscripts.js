@@ -197,7 +197,7 @@ module.exports = {
 					"color" : "#000000"
 				},
 				"enableClearButton" : true,
-				"paddingRight": 4,
+				"paddingRight" : 4,
 				"clearIconDict" : {
 					"right" : 4,
 					"color" : "#000000"
@@ -486,31 +486,45 @@ module.exports = {
 				"borderColor" : "transparent",
 				"borderWidth" : 0
 			},
-			"info_btn" : {
+			"info_view" : {
 				"height" : 24,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 12
-				},
-				"textAlign" : "center",
-				"color" : "#000000",
 				"backgroundColor" : "#EFEFF4",
 				"borderColor" : "#EFEFF4",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
-			"critical_info_btn" : {
-				"height" : 24,
+			"info_lbl" : {
+				"left" : 4,
+				"right" : 4,
+				"height" : 18,
+				"ellipsize" : true,
+				"wordWrap" : false,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 12
 				},
 				"textAlign" : "center",
-				"color" : "#FFFFFF",
+				"color" : "#000000"
+			},
+			"critical_info_view" : {
+				"height" : 24,
 				"backgroundColor" : "#ED1C24",
 				"borderColor" : "#ED1C24",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
+			},
+			"critical_info_lbl" : {
+				"left" : 4,
+				"right" : 4,
+				"height" : 18,
+				"ellipsize" : true,
+				"wordWrap" : false,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 12
+				},
+				"textAlign" : "center",
+				"color" : "#FFFFFF"
 			},
 			"link_single_line" : {
 				"height" : 19,
@@ -602,13 +616,21 @@ module.exports = {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
-				"right" : 36
+				"right" : 46
 			},
 			"list_item_child" : {
 				"right" : 12,
 				"font" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 22
+				},
+				"color" : "#808285"
+			},
+			"list_item_child_down" : {
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
 				},
 				"color" : "#808285"
 			},
@@ -619,7 +641,10 @@ module.exports = {
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 17
-				}
+				},
+				"color": "#000",
+				"boldFontFamily" : "bold",
+				"boldColor" : "#FFFFFF"
 			},
 			"list_item_title_lbl" : {
 				"height" : 22,
@@ -630,7 +655,9 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"textAlign" : "left",
-				"color" : "#000000"
+				"color" : "#000000",
+				"boldFontFamily" : "bold",
+				"boldColor" : "#FFFFFF"
 			},
 			"list_item_subtitle_lbl" : {
 				"top" : 12,

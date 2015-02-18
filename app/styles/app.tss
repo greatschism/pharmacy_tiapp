@@ -365,7 +365,6 @@
 /*
 *navbar
 */
-
 ".nav":{
 	top: 0,
 	height: Alloy.CFG.navBarHeight,
@@ -642,25 +641,40 @@
 	borderColor:Alloy.TSS.thirtiary_btn_small.borderColor,
 	borderWidth:Alloy.TSS.thirtiary_btn_small.borderWidth
 },
-".info-btn":{
-	height: Alloy.TSS.info_btn.height,
-	font: Alloy.TSS.info_btn.font,
-	textAlign: Alloy.TSS.info_btn.textAlign,
-	color: Alloy.TSS.info_btn.color,
-	backgroundColor: Alloy.TSS.info_btn.backgroundColor,
-	borderColor:Alloy.TSS.info_btn.borderColor,
-	borderWidth:Alloy.TSS.info_btn.borderWidth,
-	borderRadius: Alloy.TSS.info_btn.borderRadius
+".info-view":{
+	height: Alloy.TSS.info_view.height,
+	backgroundColor: Alloy.TSS.info_view.backgroundColor,
+	borderColor:Alloy.TSS.info_view.borderColor,
+	borderWidth:Alloy.TSS.info_view.borderWidth,
+	borderRadius: Alloy.TSS.info_view.borderRadius
 },
-".critical-info-btn":{
-	height: Alloy.TSS.critical_info_btn.height,
-	font: Alloy.TSS.critical_info_btn.font,
-	textAlign: Alloy.TSS.critical_info_btn.textAlign,
-	color: Alloy.TSS.critical_info_btn.color,
-	backgroundColor: Alloy.TSS.critical_info_btn.backgroundColor,
-	borderColor:Alloy.TSS.critical_info_btn.borderColor,
-	borderWidth:Alloy.TSS.critical_info_btn.borderWidth,
-	borderRadius: Alloy.TSS.critical_info_btn.borderRadius
+".info-lbl":{
+	left: Alloy.TSS.info_lbl.left,
+	right: Alloy.TSS.info_lbl.right,
+	width: Ti.UI.SIZE,
+	height: Alloy.TSS.info_lbl.height,
+	ellipsize: Alloy.TSS.info_lbl.ellipsize,
+	wordWrap: Alloy.TSS.info_lbl.wordWrap,
+	font: Alloy.TSS.info_lbl.font,
+	textAlign: Alloy.TSS.info_lbl.textAlign,
+	color: Alloy.TSS.info_lbl.color
+},
+".critical-info-view":{
+	height: Alloy.TSS.critical_info_view.height,
+	backgroundColor: Alloy.TSS.critical_info_view.backgroundColor,
+	borderColor:Alloy.TSS.critical_info_view.borderColor,
+	borderWidth:Alloy.TSS.critical_info_view.borderWidth,
+	borderRadius: Alloy.TSS.critical_info_view.borderRadius
+},
+".critical-info-lbl":{
+	left: Alloy.TSS.critical_info_lbl.left,
+	right: Alloy.TSS.critical_info_lbl.right,
+	height: Alloy.TSS.critical_info_lbl.height,
+	ellipsize: Alloy.TSS.critical_info_lbl.ellipsize,
+	wordWrap: Alloy.TSS.critical_info_lbl.wordWrap,
+	font: Alloy.TSS.critical_info_lbl.font,
+	textAlign: Alloy.TSS.critical_info_lbl.textAlign,
+	color: Alloy.TSS.critical_info_lbl.color
 },
 /**
 * 	links
@@ -752,24 +766,36 @@
 	top: Alloy.TSS.list_item_view_with_child.top,
 	bottom: Alloy.TSS.list_item_view_with_child.bottom,
 	left: Alloy.TSS.list_item_view_with_child.left,
-	right: Alloy.TSS.list_item_view_with_child.right
+	right: Alloy.TSS.list_item_view_with_child.right,
+	height: Ti.UI.SIZE
 },
 ".list-item-child": {
+	text: Alloy.CFG.icons.arrow_right,
 	right: Alloy.TSS.list_item_child.right,
 	font: Alloy.TSS.list_item_child.font,
 	color: Alloy.TSS.list_item_child.color
 },
+".list-item-child-down": {
+	text: Alloy.CFG.icons.arrow_down,
+	right: Alloy.TSS.list_item_child_down.right,
+	font: Alloy.TSS.list_item_child_down.font,
+	color: Alloy.TSS.list_item_child_down.color
+},
 ".list-item-lbl": {
-	height: Alloy.TSS.list_item_title_lbl.height,
-	ellipsize: Alloy.TSS.list_item_title_lbl.ellipsize,
-	wordWrap: Alloy.TSS.list_item_title_lbl.wordWrap,
-	font: Alloy.TSS.list_item_title_lbl.font
+	height: Alloy.TSS.list_item_lbl.height,
+	ellipsize: Alloy.TSS.list_item_lbl.ellipsize,
+	wordWrap: Alloy.TSS.list_item_lbl.wordWrap,
+	font: Alloy.TSS.list_item_lbl.font,
+	color: Alloy.TSS.list_item_lbl.color,
+	boldFontFamily: Alloy.TSS.list_item_lbl.boldFontFamily,
+	boldColor: Alloy.TSS.list_item_lbl.boldColor
 },
 ".list-item-title-lbl": {
 	height: Alloy.TSS.list_item_title_lbl.height,
 	ellipsize: Alloy.TSS.list_item_title_lbl.ellipsize,
 	wordWrap: Alloy.TSS.list_item_title_lbl.wordWrap,
 	font: Alloy.TSS.list_item_title_lbl.font,
+	color: Alloy.TSS.list_item_title_lbl.color,
 	textAlign: Alloy.TSS.list_item_title_lbl.textAlign,
 	color: Alloy.TSS.list_item_title_lbl.color
 },
@@ -838,19 +864,19 @@
 */
 ".arrow-up":{
 	direction: "top",
-	iconText: Alloy.CFG.icons.arrow_up
+	iconText: Alloy.CFG.icons.filled_arrow_up
 },
 ".arrow-down":{
 	direction: "bottom",
-	iconText: Alloy.CFG.icons.arrow_down
+	iconText: Alloy.CFG.icons.filled_arrow_down
 },
 ".arrow-left":{
 	direction: "left",
-	iconText: Alloy.CFG.icons.arrow_left
+	iconText: Alloy.CFG.icons.filled_arrow_left
 },
 ".arrow-right":{
 	direction: "right",
-	iconText: Alloy.CFG.icons.arrow_right
+	iconText: Alloy.CFG.icons.filled_arrow_right
 },
 ".tooltip-lbl":{
 	left: Alloy.TSS.tooltip_lbl.left,
