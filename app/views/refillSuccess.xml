@@ -1,11 +1,6 @@
 <Alloy>
-	<ScrollView class="vgroup height-80" >
-		<View class="top">
 
-			<View id="singleView" />
-			<TableView id="bundledView" class="vgroup show"/>
-		</View>
-		
-	</ScrollView>
-		<Button id="doneBtn" class="padding-bottom primary-btn" onClick="didClickDone" />
+	<View id="singleView" />
+	<TableView id="bundledView" class="vgroup show"/>
+	<Button id="doneBtn" class="padding-bottom primary-btn" onClick="didClickDone" />
 </Alloy>
