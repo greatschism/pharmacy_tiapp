@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup ">
-		<ImageView id="logoImage"  class="logo" />
+		<ImageView id="logoImage" class="img-padding-top logo" />
 		<Label id="titleLbl" class="styled-title multi-line padding-top " />
 		<Label id="hintLbl" class="styled-lbl multi-line padding-top " />
 		<Widget id="codeTxt" src="com.mscripts.textfield" class=" returnkey-done padding-top padding-bottom" onReturn="didClickContinue" />

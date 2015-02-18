@@ -29,7 +29,11 @@ function didClickNext() {
 			app.navigator.open({
 				ctrl : "signup",
 				titleid : "",
-				stack : true
+				stack : true,
+				ctrlArguments : {
+			   birthday:dateOfBirth,
+				
+			}
 			});
 		}
 	} else {

@@ -4,8 +4,10 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     token = true,
     errorMessage = "";
+    $.dob.setValue(args.birthday);
 
 function didClickCreate(e) {
+	
 	var email = $.emailTxt.getValue(),
 	    dateOfBirth = $.dob.getValue(),
 	    uname = $.unameTxt.getValue(),
@@ -82,6 +84,7 @@ function didCreateAccountSuccess(result) {
 
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(e.value);
+	console.log(args.birthday);
 }
 
 function didFocusPassword(e) {

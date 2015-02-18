@@ -1,5 +1,16 @@
 
-"#titleLbl":{
+"#logoImage":{
+		// width: 120,
+		// height: 50,
+		padding:{
+			top: 100,
+			bottom: 100,
+			left: 100,
+			right: 100
+		}
+	},
+	
+   "#titleLbl":{
 	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore,
 	font: {
         

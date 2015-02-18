@@ -1,13 +1,13 @@
 <Alloy>
 	<ScrollView class="vgroup bg-primary">
-		<ImageView id="logoImage"  class="logo" />
+		<ImageView id="logoImage"  class="img-padding-top logo" />
 		<Label id="hintLbl" class="styled-lbl  padding-top " />
-		<Label id="whoLbl" class="styled-lbl padding-top" />
-		<View class="form-group vgroup">
-			<Widget id="fnameTxt" src="com.mscripts.textfield" class="txt text-center returnkey-done padding-top return-next" onReturn="moveToNext" />
-			
-			<Widget id="dob" src="com.mscripts.dropdown" class="txt text-center returnkey-done form-dropdown padding-bottom" onReturn="didClickNext" />
+		<Label id="whoLbl" class="styled-lbl " />
+		<View class="form-group vgroup padding-top padding-bottom">
+			<Widget id="fnameTxt" src="com.mscripts.textfield" class="form-txt text-center returnkey-done  return-next" onReturn="moveToNext" />
+			<View class="hseparator" />
+			<Widget id="dob" src="com.mscripts.dropdown" class="form-txt text-center returnkey-done form-dropdown " onReturn="didClickNext" />
 		</View>
-		<Button id="nextBtn" class="margin-bottom secondary-btn" onClick="didClickNext" />
+		<Button id="nextBtn" class="margin-bottom padding-top secondary-btn" onClick="didClickNext" />
 	</ScrollView>
 </Alloy>
