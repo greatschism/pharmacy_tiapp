@@ -428,9 +428,9 @@
 	right: Alloy.TSS.form_group.right,
 	height: Ti.UI.SIZE,
 	backgroundColor: Alloy.TSS.form_group.backgroundColor,
-	borderColor: Alloy.TSS.form_group.backgroundColor.borderColor,
-	borderWidth: Alloy.TSS.form_group.backgroundColor.borderWidth,
-	borderRadius: Alloy.TSS.form_group.backgroundColor.borderRadius
+	borderColor: Alloy.TSS.form_group.borderColor,
+	borderWidth: Alloy.TSS.form_group.borderWidth,
+	borderRadius: Alloy.TSS.form_group.borderRadius
 },
 ".form-txta":{
 	height: Alloy.TSS.form_txta.height,
