@@ -4,6 +4,7 @@
 	color: "FFFFFF"
 },
 "#toggleMenu":{
+		
 	items: [
 		{
 			title: Alloy.Globals.strings.menuSearch,
@@ -19,12 +20,17 @@
 		}
 	]
 },
-"#searchbar":{
 
+"#searchbar":{
+	search: true,
+	clearButton: true,
+	opacity: 0,
 	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
 	returnKeyType: Ti.UI.RETURNKEY_SEARCH
 },
-
+"#tableView":{
+	top: 0
+},
 ".success-icon":{
 	text: Alloy.CFG.icons.success
 },
