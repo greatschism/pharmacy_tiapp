@@ -16,7 +16,7 @@ function generateStaticKey() {
 	for (var i in keys) {
 		keys[i] = String.fromCharCode(keys[i]);
 	}
-	return keys.reverse().join("");
+	return keys.reverse().join("").hexEncode();
 }
 
 function encrypt(_plainText) {
@@ -35,7 +35,7 @@ function decrypt(_cipherText) {
 		var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(_cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
 		    decryptIV = c.enc.Hex.parse(_cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
 		return aes.decrypt({
-			_cipherText : c.enc.Hex.parse(_cipherText.substring(IV_BYTES_LAST_INDEX))
+			ciphertext : c.enc.Hex.parse(_cipherText.substring(IV_BYTES_LAST_INDEX))
 		}, decryptFinalKey, {
 			iv : decryptIV
 		}).toString(c.enc.Utf8);

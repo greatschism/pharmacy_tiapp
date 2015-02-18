@@ -20,7 +20,7 @@ function didClickCreate(e) {
 	if (email !== null && email === "") {
 		blnValidated = false;
 		errorMessage = "Please enter an email ID";
-	} else if (utilities.validateEmailFormat(email) === false) {
+	} else if (utilities.validateEmail(email) === false) {
 		blnValidated = false;
 		errorMessage = "Please enter a valid email ID";
 	} else if (dateOfBirth !== null && dateOfBirth === "") {
@@ -32,7 +32,7 @@ function didClickCreate(e) {
 	} else if (password !== null && password === "") {
 		blnValidated = false;
 		errorMessage = "Please enter a password";
-	} else if (utilities.validatePasswordFormat(password) === false) {
+	} else if (utilities.validatePassword(password) === false) {
 		blnValidated = false;
 		errorMessage = "Please enter a valid password. Passwords need to have at least 2 numbers and be at least 6 characters long.";
 	}

@@ -368,7 +368,7 @@ var Resources = {
 				if (_useLocalResources) {
 					var file = item.id + "_" + item.version + "." + item.format;
 					if (OS_IOS || OS_ANDROID) {
-						utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
+						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
 					}
 					_.extend(item, {
 						file : file
@@ -412,7 +412,7 @@ var Resources = {
 			if (_useLocalResources) {
 				var file = item.id + "_" + item.version + "." + item.format;
 				if (OS_IOS || OS_ANDROID) {
-					utilities.copy(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
 				}
 				_.extend(item, {
 					file : file
@@ -609,7 +609,7 @@ var Resources = {
 					code : model.code
 				});
 				var file = model.id + "_" + model.version + "." + model.format;
-				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), _data, false);
+				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false
@@ -638,7 +638,7 @@ var Resources = {
 					}
 				});
 				var file = model.id + "_" + model.version + "." + model.format;
-				utilities.write(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
+				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false,
