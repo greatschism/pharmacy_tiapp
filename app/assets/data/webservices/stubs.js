@@ -268,5 +268,27 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
+	},
+	"REFILL" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}, {
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}]
+		}
 	}
 };
+
