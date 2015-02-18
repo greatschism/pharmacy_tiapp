@@ -4,27 +4,18 @@ var args = arguments[0] || {},
     logger = require("logger"),
     http = require("requestwrapper"),
     icons = Alloy.CFG.icons,
-      resources = require("resources"),
+    resources = require("resources"),
+    config = require("config"),
+
+    utilities = require("utilities"),
     strings = Alloy.Globals.strings,
     dialog = require("dialog"),
     uihelper = require("uihelper"),
-
- colls = [{
-	
-	key : "templates",
-	selectedItem : {}
-}],
-
 
     orders,
     pickupdetails;
 
 function init() {
-	//http.request({
-	//	method : "ORDER_LIST",
-	//	keepBlook : true,
-	//	success : didSuccess
-	//});
 
 	orders = [{
 		id : 1,
@@ -55,7 +46,7 @@ function init() {
 
 			    footerView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["footer-view-break"]
+				classes : ["footer-view-break","auto-height"]
 			}),
 			    contentView = $.UI.create("View", {
 				apiName : "View",
@@ -93,94 +84,65 @@ function init() {
 
 		data.push($.yourOrderSection);
 	}
+
 	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails);
-
-
-
-
-
 
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
 	}),
 
-	    pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
-		apiName : "widget",
+	//    pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
+	//	apiName : "widget",
 
-		classes : ["form-dropdown", "padding-top"]
+	//	classes : ["form-dropdown", "padding-top"]
 
+	//}),
+
+	    picker = Ti.UI.createPicker({
+        backgroundColor : "#aab7b7",
+		classes : ["height-50", "fill-width","left"]
 	}),
-	
-	
-	
 
+	    items = [];
+	items[0] = Ti.UI.createPickerRow({
+		title : 'In store pickup'
+	});
+	items[1] = Ti.UI.createPickerRow({
+		title : 'Mail order'
+	});
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	row2 = $.UI.create("TableViewRow",{
+	picker.add(items);
+
+	picker.setSelectedIndex = 0;
+	picker.selectionIndicator = true;
+
+	row2 = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
 	}),
-	
-	
-	    containerView = $.UI.create("View", {
+
+	containerView = $.UI.create("View", {
 		apiName : "View",
 		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
 	}),
-	    addressLine1 = $.UI.create("Label", {
+	addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
 		classes : ["list-item-info-lbl", "left"]
 	}),
-	    addressLine2 = $.UI.create("Label", {
+	addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "San Franscisco,CA, 94103",
 		classes : ["list-item-info-lbl", "left"]
 	}),
-	    rightBtn = $.UI.create("Label", {
+	rightBtn = $.UI.create("Label", {
 		apiName : "Label",
 		text : "change",
-		classes : ["list-item-info-lbl", "right", "width-45", "h5", "#4094fc"]
+		classes : ["right", "width-45", "h5", "#4094fc"]
 	});
 
+	row.add(picker);
 
-
-
-	row.add(pickupOptions.getView());
-	
-	for (var i in colls) {
-		var key = colls[i].key,
-		    items = resources.get(key),
-		    selectedIndex = -1,
-		    choices = [];
-		items.forEach(function(obj, index) {
-			var item = _.pick(obj, ["titleid", "id", "selected", "version"]);
-			if (_.has(obj, "styles") || _.has(obj, "data") || _.has(obj, "strings")) {
-				if (_.has(item, "titleid")) {
-					item.title = lngStrs[item.titleid];
-				} else {
-					item.title = item.id;
-				}
-				if (item.selected) {
-					selectedIndex = index;
-				}
-				choices.push(item);
-			}
-		});
-		colls[i].selectedItem = items[selectedIndex] || {};
-		$[key + "Dp"].setChoices(choices);
-		$[key + "Dp"].setSelectedIndex(selectedIndex);
-	}
-	
-	
-	
 	row.addEventListener("click", didClickPickUpOptions);
 
 	containerView.rowId = transform.id;
@@ -202,20 +164,46 @@ function init() {
 
 }
 
-function didSuccess(result) {
-	// orders = result.data.orders;
-	// http.request({
-	// method : "ORDERS_GET",
-	// keepBlook : true,
-	// success : didReceiveOrders
-	// });
-}
+
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
 function didClickOrderRefill(e) {
+	
+	http.request({
+	 method : "REFILL",
+	 
+	 data : {
+			filter : null,
+			data : [{
+				appload : [{
+					phone_model : "x",
+					phone_os : "x",
+					phone_platform : "x",
+					device_id : "x",
+					carrier : "x",
+					app_version : "x",
+					client_name : "x",
+					client_param_type : "menu",
+					client_param_version : "x",
+					client_param_base_version : "x"
+				}]
+			}]
+		},
+	 
+	 
+	 
+	 keepBlook : true,
+     success : didSuccess
+	 });
+	
+}
+
+
+function didSuccess(){
+
 	app.navigator.open({
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
@@ -223,11 +211,10 @@ function didClickOrderRefill(e) {
 	});
 }
 
-function didClickPickUpOptions()
-{
-	
-}
+function didClickPickUpOptions(event) {
 
+	//alert('Pickup Details: ' + event.id + " => " + event.value);
+};
 
 function didClickAddAnotherPrescription(e) {
 
@@ -244,6 +231,7 @@ function didClickStoreChange(e) {
 		titleid : "titleStoreDetails",
 		ctrl : "stores"
 	});
+	alert("Stores under construction");
 }
 
 function setParentViews(view) {
@@ -261,11 +249,6 @@ function moveToNext(e) {
 
 function didClickNext() {
 
-	app.navigator.open({
-		ctrl : "signup",
-		titleid : "",
-		stack : true
-	});
 }
 
 function terminate() {
