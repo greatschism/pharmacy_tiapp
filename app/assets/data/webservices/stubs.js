@@ -161,7 +161,7 @@ module.exports = {
 		"data" : {
 			"patients" : {
 				"is_mobile_shared" : "1",
-				"mobile_exists" : "1"
+				"mobile_exists" : "0"
 			}
 		}
 	},
@@ -268,6 +268,15 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
+
+	},
+	"PATIENTS_REGISTER" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your account has been created",
+		"description" : "x",
+		"data" : ""
+
 	},
 	"PRESCRIPTIONS_REFILL" : {
 		"status" : "Success",
@@ -289,6 +298,7 @@ module.exports = {
 				"refill_store_id" : "x"
 			}]
 		}
+
 	}
 };
 

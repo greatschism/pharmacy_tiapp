@@ -73,6 +73,7 @@ module.exports = {
 		"hintNotes" : "Notes",
 		"hintClickToAddNote" : "Click to add note",
 		"hintLanguage" : "Language",
+		"hintRxNoFormat":"Rx Number (format)",
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
 		"lblLoginToMobilePharmacy" : "Sign in to the <b><font color=\"boldColor\">mscripts mobile pharmacy</font></b>",
@@ -126,6 +127,8 @@ module.exports = {
 		"lblDrugInteractions" : "Drug interactions",
 		"lblDrugSideEffects" : "SideEffects",
 		"lblShowPassword" : "Show Password",
+
+		"lblDocument":"Document",
 		"lblDosageInstruction" : "Dosage instruction",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
@@ -133,7 +136,7 @@ module.exports = {
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",
 		"msgFailedToRetrieve" : "Failed to retrieve",
-		"msgPasswordTips" : "Password needs to have at least 2 numbers and be at least 6 characters long.",
+		"msgPasswordTips" : "Password needs to have at least 2 numbers and be at least 6 characters long",
 		"msgSignout" : "Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "You have signed out successfully.",
 		"msgRefillOrder" : "Your refill order has been sent and will be ready to pick up on:",
@@ -159,6 +162,7 @@ module.exports = {
 		"msgUnderConstruction" : "Under construction",
 		"msgAgePopUp" : "This service is not directed at users under the age of 12.If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
+		"msgUserNameTips":"Your username must be between 3 – 20 characters (pending question above) and contain only letters and numbers",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",

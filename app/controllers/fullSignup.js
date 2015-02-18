@@ -2,9 +2,40 @@ var args = arguments[0] || {},
     app = require("core"),
     locationFirstUpdate = true,
     dialog = require("dialog"),
-    moment = require('alloy/moment');
+    moment = require('alloy/moment'),
+    uihelper = require("uihelper"),
+    http=require("requestwrapper"),
+    fname,
+    lname,
+    dob,
+    email,
+    username,
+    password,
+    rxNumber,
+    storeAddressLine1,
+    nameRegExp = /^[A-Za-z0-9]{3,20}$/,
+    emailRegExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+    usernameRegExpNos = /^[0-9]+$/,
+    userNameRegExp = /^[A-Za-z0-9]{3,20}$/,
+    passwordRegExp = /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/,
+    rxnoRegExp = /[0-9]{7}/;
 
+uihelper.getImage($.logoImage);
 moment().format('MM-DD-YYYY');
+
+var styleToolTip = {
+
+	classes : ["text-center", "arrow-down"],
+	height : 80,
+	width : Ti.UI.FILL,
+	bottom : 10,
+	backgroundColor : "#6D6E71",
+	color : "#ffffff",
+	zIndex : 2
+};
+
+var passwordTooltip = Alloy.createWidget("com.mscripts.tooltip", "widget", styleToolTip);
+passwordTooltip.setText(Alloy.Globals.strings.msgPasswordTips);
 
 function init() {
 	Alloy.Models.store.on("change", updateStore);
@@ -21,21 +52,15 @@ function didClickSignup(e) {
 	// ctrl : "textToApp",
 	// stack : true
 	// });
-
-	var fname = $.fnameTxt.getValue(),
-	    lname = $.lnameTxt.getValue(),
-	    dob = $.dob.getValue(),
-	    email = $.emailTxt.getValue(),
-	    username = $.unameTxt.getValue(),
-	    password = $.passwordTxt.getValue(),
-	    rxNumber = $.rxNoTxt.getValue(),
-	    storeAddressLine1 = $.locationLbl.getValue(),
-	    nameRegExp = /^[A-Za-z0-9]{3,20}$/,
-	    emailRegExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-	    usernameRegExpNos = /^[0-9]+$/,
-	    userNameRegExp = /^[A-Za-z0-9]{3,20}$/,
-	    passwordRegExp = /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/,
-	    rxnoRegExp = /[0-9]{7}/;
+	
+	fname = $.fnameTxt.getValue();
+    lname = $.lnameTxt.getValue();
+    dob = $.dob.getValue();
+    email = $.emailTxt.getValue();
+    username = $.unameTxt.getValue();
+    password = $.passwordTxt.getValue();
+    rxNumber = $.rxNoTxt.getValue();
+    storeAddressLine1 = $.locationLbl.getValue();
 
 	var errorMessage = "",
 	    allFieldsValidated = true;
@@ -85,7 +110,7 @@ function didClickSignup(e) {
 		allFieldsValidated = false;
 
 	} else if (usernameRegExpNos.test(username)) {
-		errorMessage = "Please enter a valid usernam";
+		errorMessage = "Please enter a valid username";
 		allFieldsValidated = false;
 
 	} else if (!userNameRegExp.test(username)) {
@@ -108,8 +133,9 @@ function didClickSignup(e) {
 else {
 
 		if (moment().diff(dob, 'years') < 18) {
+			
+			console.log("111");
 
-			console.log("!!!");
 			dialog.show({
 				message : Alloy.Globals.strings.msgAgePopUp,
 				buttonNames : [Alloy.Globals.strings.btnIAgree, Alloy.Globals.strings.strCancel],
@@ -117,37 +143,34 @@ else {
 				success : didSuccess
 			});
 
-			console.log("!!!1111");
-
 		} else {
-			alert("age<17");
+			console.log("111");
+			didSuccess();
 
 		}
 
-		/* dialog.show({
-		 message : Alloy.Globals.strings.valLoginRequiredFileds
-		 });*/
+		
 	}
 }
 
 function didSuccess() {
-	/*http.request({
-	 method : "PATIENTS_REGISTER",
-	 data : {
-	 request : {
-	 authenticate : {
-	 username : uname,
-	 password : password,
-	 clientname : Alloy.CFG.clientname,
-	 emailpin : Alloy.CFG.emailpin,
-	 featurecode : "TH053",
-	 language : ""
-	 }
-	 }
-	 },
-	 success : didAuthenticate
-	 });*/
-	alert("Success callback");
+	http.request({
+		method : "PATIENTS_REGISTER",
+		data : {
+			request : {
+				authenticate : {
+					username : username,
+					password : password,
+					clientname : Alloy.CFG.clientname,
+					emailpin : Alloy.CFG.emailpin,
+					featurecode : "TH053",
+					language : ""
+				}
+			}
+		},
+		success : didCreateAccount
+	});
+	
 }
 
 function didToggle(e) {
@@ -155,11 +178,23 @@ function didToggle(e) {
 }
 
 function didFocusPassword(e) {
-	$.passwordTooltip.show();
+	//console.log("1111");
+	//$.passwordTxt.add(passwordTooltip.getView());
+	//console.log("2222");
+	//passwordTooltip.show();
+//	console.log("333");
 }
 
 function didBlurPassword(e) {
-	$.passwordTooltip.hide();
+	//passwordTooltip.hide();
+}
+
+function didFocusUsername(e) {
+	//usernameTooltip.show();
+}
+
+function didBlurUsername(e) {
+	//usernameTooltip.hide();
 }
 
 function moveToNext(e) {
@@ -208,35 +243,32 @@ function terminate() {
 	Alloy.Models.store.off("change", updateStore);
 }
 
-/*function getAge(birth) {
+function didCreateAccount(result)
+{
+	
+	console.log("333");
+	dialog.show({
+				title:"Success",
+				message : result.message,
+				buttonNames : [Alloy.Globals.strings.strOK],
+				success : goToLogin
+			});
+	
+}
 
- var today = new Date();
- var nowYear = today.getFullYear();
- var nowMonth = today.getMonth();
- var nowDay = today.getDate();
-
- var components = birth.split("-");
- var birthYear = components[2];
- var birthMonth = components[0];
- var birthDay = components[1];
-
- var age = nowYear - birthYear;
- var ageMonth = nowMonth - birthMonth;
- var ageDay = nowDay - birthDay;
-
- if (ageMonth < 0 || (ageMonth == 0 && ageDay < 0)) {
- age = parseInt(age) - 1;
- }
- alert(age);
-
- if (age < 18) {
- return 0;
- } else {
- return 1;
- }
-
- }*/
+function goToLogin()
+{
+	console.log("444");
+	
+	app.navigator.closeToRoot(function() {
+		app.navigator.open({
+		ctrl : "login",
+		titleid : "Login",
+		stack : true
+	});
+	});
+}
 
 exports.init = init;
 exports.terminate = terminate;
-exports.setParentViews = setParentViews; 
+exports.setParentViews = setParentViews;

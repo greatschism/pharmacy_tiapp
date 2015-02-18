@@ -24,15 +24,10 @@
 "#inputView":{
 	zIndex: 1
 },
-"#passwordTooltip":{
-	top: 40,
-	text: Alloy.Globals.strings.msgPasswordTips,
-	color: Alloy._fg_primary,
-	backgroundColor: Alloy._bg_secondary,
-	zIndex: 2
-},
+
+
 "#emailTxt":{
-	hintText: Alloy.Globals.strings.hintEmail,
+	hintText: Alloy.Globals.strings.hintEmailAddress,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "unameTxt"
 },
@@ -50,21 +45,36 @@
 	value: true
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.strings.hintRxNo,
+	hintText: Alloy.Globals.strings.hintRxNoFormat,
 	nextItem: "pharmacy"
 },
 "#locationLbl":{
-	right: 40,
-	text: Alloy.Globals.strings.hintPharmacyLocation
+	text: Alloy.Globals.strings.hintPharmacyLocation,
+	
 },
 "#downLbl":{
 	width: 20,
 	text: Alloy.CFG.icons.down_arrow,
-	color: Alloy._br_secondary
+	color: "#000000",
+	font: Alloy.TSS.small_icon.font,
+	
 },
 "#agreementLbl":{
-	html: Alloy.Globals.strings.lblSignupAgreement
+	html: Alloy.Globals.strings.lblSignupAgreement,
+	boldColor:"#0095ff"
 },
 "#signupBtn":{
-	title: Alloy.Globals.strings.strSignup
+	title: Alloy.Globals.strings.btnCreateAccount
 }
+
+"#showPassword":{
+	text:Alloy.Globals.strings.lblShowPassword,
+}
+
+
+
+
+	/*textAlign: Alloy.TSS.txta.textAlign,
+	backgroundColor: Alloy.TSS.form_txt.backgroundColor,
+	borderColor: Alloy.TSS.form_txt.borderColor,
+	borderWidth: Alloy.TSS.form_txt.borderWidth*/

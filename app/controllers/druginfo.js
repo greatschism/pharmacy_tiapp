@@ -125,7 +125,8 @@ function viewExpand(e) {
 			$.drugDetailsParent.remove(drugDetailsInfoView);
 			}
 	
-	} else if (sourceView == "drugEffectsParent") {
+	} 
+	/*else if (sourceView == "drugEffectsParent") {
 		
 		var children=$.drugEffectsParent.getChildren();
 
@@ -137,7 +138,8 @@ function viewExpand(e) {
 			
 		}
 
-	} else if (sourceView == "drugConditionsParent") {
+	}*/
+	 else if (sourceView == "drugConditionsParent") {
 		
 		var children=$.drugConditionsParent.getChildren();
 
