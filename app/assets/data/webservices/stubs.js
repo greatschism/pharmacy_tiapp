@@ -299,6 +299,16 @@ module.exports = {
 			}]
 		}
 
+	},
+	"ADD_PRESCRIPTIONS" : {
+		
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescriptions added successfully.",
+		"description" : "x",
+		"data" : ""
 	}
+
+
 };
 
