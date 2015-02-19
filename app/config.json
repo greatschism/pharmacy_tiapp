@@ -11,7 +11,8 @@
 			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
 			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_VALIDATE": "patients/validate",
-			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion"
+			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion",
+			"ADD_PRESCRIPTIONS" : "prescriptions/add"
 		},
 		"iconPrefix": "thick",
 		"icons": {
