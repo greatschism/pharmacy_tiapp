@@ -49,7 +49,6 @@ function setParentViews(view) {
 }
 
 function didReturnThemes(e) {
-	console.log($.themesDp.getSelectedItem());
 	colls[0].selectedItem = $.themesDp.getSelectedItem();
 }
 
