@@ -207,8 +207,8 @@ var Config = {
 		    theme = dicts[0];
 		if (theme.style.id != Alloy.TSS.Theme.id || theme.style.version != Alloy.TSS.Theme.version) {
 			for (var i in dicts) {
-				var dict = dicts[i],
-				    key = dict.key.replace(/-/g, "_").replace("Ti.UI.", "");
+				var dict = dicts[i] || {},
+				    key = (dict.key || "").replace(/-/g, "_").replace("Ti.UI.", "");
 				if (_.has(Alloy.TSS, key)) {
 					var style = dict.style;
 					for (var prop in style) {

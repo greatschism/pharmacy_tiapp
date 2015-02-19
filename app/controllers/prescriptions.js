@@ -139,22 +139,20 @@ function didSuccess(result) {
 				$.gettingRefilledSection.add(row);
 				var styleArgsNormal = $.createStyle({
 
-					classes : ["arrow-left", "tooltip"],
+					classes : ["arrow-left", "tooltip", "padding-right"],
 					id : 'pickUpTooltip',
 
 					width : 150,
 					height : 80,
-					left : 200
 
 				});
 				var styleArgsCritical = $.createStyle({
 
-					classes : ["arrow-left", "critical-tooltip"],
+					classes : ["arrow-left", "critical-tooltip", "padding-right"],
 					id : 'pickUpTooltip',
 
 					width : 150,
 					height : 80,
-					left : 200
 
 				});
 				//calculate the number of days left for picking up the prescription
