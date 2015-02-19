@@ -1,7 +1,7 @@
 "#toggleBtn":{
-	title: Alloy.CFG.icons.options,
+	text: Alloy.CFG.icons.options,
 	font:Alloy.TSS.small_icon.font,
-	color: "FFFFFF"
+	color: "#FFFFFF"
 },
 "#toggleMenu":{
 		

@@ -1,8 +1,7 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
-	<!--<Button id="toggleBtn" class="right nav-action-container" onClick="didToggle" />-->
-	<View id="navButtonView" class="right nav-action-container" onClick="didToggle">
-		<Button id="toggleBtn" class="margin-right nav-action-lbl touch-disabled" />
+	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">
+		<Label id="toggleBtn" class="margin-right nav-icon" />
 	</View>
 	<View id="searchbarView" class="top search-view">
 		<Widget id="searchbar" src="com.mscripts.textfield"  class="search-txt" onChange="performSearch" />
