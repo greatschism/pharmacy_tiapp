@@ -524,6 +524,10 @@
 	borderWidth: Alloy.TSS.txt.borderWidth,
 	borderRadius: Alloy.TSS.txt.borderRadius
 },
+".txt-right-btn":{
+	paddingRight: Alloy.TSS.txt_right_btn.paddingRight,
+	rightButtonDict: Alloy.TSS.txt_right_btn.rightButtonDict
+},
 ".dropdown":{
 	containerPaddingTop: Alloy.CFG.navBarHeight,
 	left: Alloy.TSS.dropdown.left,
@@ -701,16 +705,21 @@
 */
 ".single-line-title-lbl": {
 	height: Alloy.TSS.single_line_title_lbl.height,
+	ellipsize: Alloy.TSS.single_line_title_lbl.ellipsize,
+	wordWrap:  Alloy.TSS.single_line_title_lbl.wordWrap,
 	font: Alloy.TSS.single_line_title_lbl.font,
-	color: Alloy.TSS.title_lbl.color
-},
-".single-line-title-lbl[platform=android,mobileweb]":{
-	ellipsize: true,
-	wordWrap: false
+	color: Alloy.TSS.single_line_title_lbl.color
 },
 ".title-lbl": {
 	font: Alloy.TSS.title_lbl.font,
 	color: Alloy.TSS.title_lbl.color
+},
+".paragraph-lbl":{
+	left: Alloy.TSS.paragraph_lbl.left,
+	right: Alloy.TSS.paragraph_lbl.right,
+	font: Alloy.TSS.paragraph_lbl.font,
+	textAlign: Alloy.TSS.paragraph_lbl.textAlign,
+	color: Alloy.TSS.paragraph_lbl.color
 },
 ".prompt-lbl": {
 	font: Alloy.TSS.prompt_lbl.font,

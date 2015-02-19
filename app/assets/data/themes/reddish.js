@@ -55,7 +55,7 @@ module.exports = {
 				"height" : 50
 			},
 			"nav" : {
-				"backgroundColor" : "#F7941E"
+				"backgroundColor" : "#ff0000"
 			},
 			"nav_title_lbl" : {
 				"left" : "25%",
@@ -422,8 +422,8 @@ module.exports = {
 				},
 				"textAlign" : "center",
 				"color" : "#FFFFFF",
-				"backgroundColor" : "#F7941E",
-				"borderColor" : "#F7941E",
+				"backgroundColor" : "#ff0000",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -435,8 +435,8 @@ module.exports = {
 				},
 				"textAlign" : "center",
 				"color" : "#FFFFFF",
-				"backgroundColor" : "#F7941E",
-				"borderColor" : "#F7941E",
+				"backgroundColor" : "#ff0000",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -449,9 +449,9 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"textAlign" : "center",
-				"color" : "#F7941E",
+				"color" : "#ff0000",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#F7941E",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -462,9 +462,9 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"textAlign" : "center",
-				"color" : "#F7941E",
+				"color" : "#ff0000",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#F7941E",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -738,7 +738,7 @@ module.exports = {
 				"color" : "#ED1C24"
 			},
 			"primary_color" : {
-				"color" : "#F7941E"
+				"color" : "#ff0000"
 			},
 			"secondary_color" : {
 				"color" : "#FFFFFF"
@@ -762,7 +762,7 @@ module.exports = {
 				"color" : "#A6A8AB"
 			},
 			"primary_bg_color" : {
-				"backgroundColor" : "#F7941E"
+				"backgroundColor" : "#ff0000"
 			},
 			"tooltip_lbl" : {
 				"left" : 12,

@@ -19,6 +19,7 @@
 	borderRadius: 15
 },
 "#swt[platform=ios]":{
-	height: 40,
+	width: 55,
+	height: 34,
 	value: false
 }

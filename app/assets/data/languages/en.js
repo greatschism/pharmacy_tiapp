@@ -76,7 +76,7 @@ module.exports = {
 		"hintRxNoFormat" : "Rx Number (format)",
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
-		"lblLoginToMobilePharmacy" : "Sign in to the <b><font color=\"boldColor\">mscripts mobile pharmacy</font></b>",
+		"lblSigninToMobilePharmacy" : "Sign in to the mscripts mobile pharmacy",
 		"lblKeepMeLoggedIn" : "Keep me logged in",
 		"lblNeedToCreateAccount" : "Need to <b><font color=\"boldColor\">create a new account?</font></b>",
 		"lblCantRememberEmail" : "<b><font color=\"boldColor\">Can't remember what email you used?</font></b>",
@@ -222,6 +222,7 @@ module.exports = {
 		"strDueForRefill" : "Due for refill",
 		"strLastFilled" : "Last filled",
 		"strAutoRefill" : "Auto refill this prescription",
-		"strRefillHistory" : "Refill history"
+		"strRefillHistory" : "Refill history",
+		"strRetrivePassword" : "?"
 	}
 };

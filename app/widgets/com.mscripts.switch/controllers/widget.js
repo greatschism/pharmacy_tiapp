@@ -33,7 +33,7 @@ var args = arguments[0] || {},
 		if (OS_ANDROID || OS_MOBILEWEB) {
 			$.swt.backgroundColor = args.thumbColor;
 		} else {
-			$.swt.thumbTintColor = args.thumbColor;
+			$.swt.knobColor = args.thumbColor;
 		}
 	}
 
@@ -41,8 +41,10 @@ var args = arguments[0] || {},
 	enabledColor = args.enabledColor || "#69D669";
 
 	if (OS_IOS) {
-		$.swt.tintColor = disabledColor;
-		$.swt.onTintColor = enabledColor;
+		$.swt.applyProperties({
+			inactiveColor : disabledColor,
+			activeColor : enabledColor
+		});
 	}
 
 	setValue(args.value || false, false);
@@ -51,6 +53,7 @@ var args = arguments[0] || {},
 
 function didTouchcancel(e) {
 	$.trigger("touch", {
+		source : $,
 		value : true
 	});
 	busy = true;
@@ -65,6 +68,7 @@ function didTouchcancel(e) {
 function didTouchstart(e) {
 	if (!busy) {
 		$.trigger("touch", {
+			source : $,
 			value : false
 		});
 		touchStartX = e.x;
@@ -90,6 +94,7 @@ function didTouchmove(e) {
 function didTouchend(e) {
 	if (!busy) {
 		$.trigger("touch", {
+			source : $,
 			value : true
 		});
 		busy = true;
@@ -107,6 +112,7 @@ function didTouchend(e) {
 			}
 		}
 		$.trigger("change", {
+			source : $,
 			value : _value
 		});
 	}
@@ -117,6 +123,7 @@ function didSingletap(e) {
 		var value = !_value;
 		if (setValue(value)) {
 			$.trigger("change", {
+				source : $,
 				value : value
 			});
 		}
@@ -126,6 +133,7 @@ function didSingletap(e) {
 function didChange(e) {
 	_value = e.value;
 	$.trigger("change", {
+		source : $,
 		value : _value
 	});
 }

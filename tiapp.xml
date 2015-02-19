@@ -9,7 +9,7 @@
     <name>my Pharmacy</name>
     <version>7.0.7</version>
     <!-- major.minor.buildNumber. To be modified to actuals before the build happens -->
-    <property name="buildDate" type="string">16.01.2015</property>
+    <property name="buildDate" type="string">19.02.2015</property>
     <!--  To be replaced before the build happens -->
     <publisher>mscripts</publisher>
     <url>http://www.mscripts.com</url>
@@ -135,6 +135,7 @@
         <module platform="android">com.obscure.keychain</module>
         <module platform="iphone">ti.keyboard</module>
         <module platform="android">ti.keyboard</module>
+        <module platform="iphone">ti.sevenswitch</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>

@@ -10,16 +10,16 @@ function init() {
 	if (OS_IOS || OS_ANDROID) {
 		encryptionUtil = require("encryptionUtil");
 		keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
-		/*if (keychainAccount.account) {
-		 $.unameTxt.setValue(keychainAccount.account);
-		 $.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
-		 $.keepMeSwt.setValue(true);
-		 }*/
+		if (keychainAccount.account) {
+			$.unameTxt.setValue(keychainAccount.account);
+			$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
+			$.keepMeSwt.setValue(true);
+		}
 	}
 	uihelper.getImage($.logoImg);
 }
 
-function didRightclickPwd(e) {
+function didClickPwd(e) {
 	app.navigator.open({
 		ctrl : "loginRecovery",
 		titleid : "titleLoginRecovery",
@@ -33,12 +33,9 @@ function moveToNext(e) {
 }
 
 function didClickLogin(e) {
-
-	var uname = $.unameTxt.getValue();
-	var password = $.passwordTxt.getValue();
-
+	var uname = $.unameTxt.getValue(),
+	    password = $.passwordTxt.getValue();
 	if (uname != "" && password != "") {
-
 		if (OS_IOS || OS_ANDROID) {
 			if ($.keepMeSwt.getValue() == true) {
 				keychainAccount.account = uname;
@@ -47,7 +44,6 @@ function didClickLogin(e) {
 				keychainAccount.reset();
 			}
 		}
-
 		http.request({
 			method : "authenticate",
 			data : {
@@ -64,7 +60,6 @@ function didClickLogin(e) {
 			},
 			success : didAuthenticate
 		});
-
 	} else {
 		dialog.show({
 			message : Alloy.Globals.strings.valLoginRequiredFileds

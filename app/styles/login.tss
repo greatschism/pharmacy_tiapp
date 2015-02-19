@@ -1,8 +1,5 @@
-"#titleIcon":{
-	text: Alloy.CFG.icons.thick_prescriptions
-},
-"#headerLbl":{
-	html: Alloy.Globals.strings.lblLoginToMobilePharmacy
+"#hintLbl":{
+	text: Alloy.Globals.strings.lblSigninToMobilePharmacy
 },
 "#unameTxt":{
 	hintText: Alloy.Globals.strings.hintUsername,
@@ -10,24 +7,17 @@
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.hintPassword,
-	passwordMask: true,
-	rightButtonFont:  Alloy._typo_h5,
-	rightButtonWidth: 30,
-	rightButtonTitle: "?"
+	rightButtonTitle: Alloy.Globals.strings.strRetrivePassword,
+	passwordMask: true
 },
 "#keepMeLbl":{
-	right: 75,
+	left: 0,
+	right: 60,
 	text: Alloy.Globals.strings.lblKeepMeLoggedIn
 },
-"#keepMeSwt":{
-	value: false
-},
 "#loginBtn":{
-	title: Alloy.Globals.strings.strSignin,
-	//backgroundColor:"F7941E"
+	title: Alloy.Globals.strings.strSignin
 },
-
 "#footerLbl":{
-	bottom:20,
 	html: Alloy.Globals.strings.lblNeedToCreateAccount
 }

@@ -4,6 +4,11 @@ module.exports = {
 		"version" : 1,
 		"url" : "url_to_download",
 		"selected" : true
+	}, {
+		"id" : "reddish",
+		"version" : 1,
+		"url" : "url_to_download",
+		"selected" : false
 	}],
 	"templates" : [{
 		"id" : "list",

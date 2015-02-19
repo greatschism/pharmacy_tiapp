@@ -4,5 +4,5 @@
 			<View id="swt" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchcancel" />
 		</View>
 	</View>
-	<Switch id="swt" platform="ios" onChange="didChange" />
+	<Switch id="swt" module="ti.sevenswitch" platform="ios" onChange="didChange" />
 </Alloy>
