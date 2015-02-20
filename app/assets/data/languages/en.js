@@ -48,6 +48,7 @@ module.exports = {
 		"sectionYourOrder" : "Your order",
 		"sectionPickupDetails" : "Pickup details",
 		"sectionInformation" : "Information",
+		
 
 		"hintSearchByZipCityOrState" : "Search by zip, city or state",
 		"hintMobileNumber" : "Mobile Number (xxx)xxx-xxxx",
@@ -84,7 +85,7 @@ module.exports = {
 		"lblLetsSeeIfWeRecogonizeYou" : "Let's see if we recogonize you. Please enter your mobile phone number.",
 		"lblSignupAndGetRefillInSeconds" : "Sign up and get refill in seconds",
 		"lblGreatYouHaveReceiveTextFromUsBefore" : "Great! You've received texts from us before.",
-		"lblSignupAgreement" : "By signing up for this service, I agree to the <b><font color=\"boldColor\">Terms and conditions</font></b>",
+		"lblSignupAgreement" : "By signing up for this service, I agree to the <b><font color=\"boldColor\">Privacy Policy</font></b> and <b><font color=\"boldColor\">Terms and conditions</font></b> which include receiving Health related messages.",
 		"lblJustSentYouTextMessage" : "We have just sent you a text message with a three digit code. Enter it here.",
 		"lblDidNotGetText" : "Didn't get the text? <b><font color=\"boldColor\">Press Here.</font></b>",
 		"lblItLooksLikeThisPhoneNumberIsLinked" : "It looks like this phone number is linked to multiple people.",
@@ -108,6 +109,7 @@ module.exports = {
 		"lblExpirationDate" : "Expiration date",
 		"lblDoctor" : "Doctor",
 		"lblPharmacy" : "Pharmacy",
+		"lblCallPharmacy" : "Call Pharmacy",
 		"lblInStorePickup" : "In store pickup",
 		"lblMailOrder" : "Mail order",
 		"lblMailTo" : "Mail to",
@@ -126,6 +128,9 @@ module.exports = {
 		"lblDrugConditions" : "Drug conditions",
 		"lblDrugInteractions" : "Drug interactions",
 		"lblSideEffects" : "Side effects",
+		"lblscanPrescription":"Scan my prescription",
+		"lbltypePrescription":"Type my prescription details",
+		"lblScanFailed":"We could not process your refill correctly.You can type the prescription details manually or call your pharmacy for additional help.",
 
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",

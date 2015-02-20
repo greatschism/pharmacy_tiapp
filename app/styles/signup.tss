@@ -22,9 +22,9 @@
 	//top: 70,
 	zIndex: 0
 },
-"#inputView":{},
+
 "#passwordTooltip":{
-	bottom: 0,
+	//top: 0,
 	text: Alloy.Globals.strings.msgPasswordTips
 },
 "#unameTxt":{

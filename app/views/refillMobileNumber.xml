@@ -1,8 +1,10 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<Label id="titleLbl" class="styled-title multi-line" />
-		<Label id="hintLbl" class="styled-lbl multi-line fg-quaternary" />
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="txt return-done" onReturn="didClickContinue" />
-		<Button id="continueBtn" class="margin-bottom btn-secondary" onClick="didClickContinue" />
+	
+	<ScrollView id="refillSelectMainNavWin" class="vgroup">
+		<Label id="titleLbl" class="styled-h2 padding-top fg-primary multi-line" />
+		<Label id="hintLbl" class="styled-h2 padding-top fg-primary multi-line" />		
+		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onReturn="didClickContinue" />
+		<Button id="continueBtn" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>
+

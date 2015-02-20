@@ -1,6 +1,19 @@
-<Alloy>
+<!--<Alloy>
 
 	<View id="singleView" />
+	<Label id="hintLbl" class="styled-title multi-line" />
 	<TableView id="bundledView" class="vgroup show"/>
 	<Button id="doneBtn" class="padding-bottom primary-btn" onClick="didClickDone" />
-</Alloy>
+</Alloy>-->
+
+
+<Alloy>
+	<!--<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
+	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">
+		<Label id="toggleBtn" class="margin-right nav-icon" />
+	</View>
+	<View id="searchbarView" class="top search-view">
+		<Widget id="searchbar" src="com.mscripts.textfield"  class="search-txt" onChange="performSearch" />
+	</View>-->
+	<TableView id="tableView" onClick="didItemClick"/>
+</Alloy> 

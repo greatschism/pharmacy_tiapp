@@ -1,6 +1,26 @@
-"#scanBtn":{
-	title: Alloy.Globals.strings.btnScanPrescription
-},
-"#typeRxBtn":{
-	title: Alloy.Globals.strings.btnTypePrescription
-},
+"#scanPrescription":
+{
+	top:100,
+	title: Alloy.Globals.strings.lblscanPrescription
+}
+"#typePrescription":
+{
+	title: Alloy.Globals.strings.lbltypePrescription
+	
+}
+
+"#OR":{
+	text: Alloy.Globals.strings.lblOr,
+	padding:{
+		top:10,
+		bottom:10,
+		right:10,
+		left:10
+	}
+	
+}
+".hseparator-half":{
+	height: Alloy.TSS.hseparator.height,
+	backgroundColor: Alloy.TSS.hseparator.backgroundColor,
+	width: "47%"
+}

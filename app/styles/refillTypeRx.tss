@@ -1,8 +1,8 @@
 "#hintLbl1":{
-	title: Alloy.Globals.strings.strRefillOrderHint
+	text: Alloy.Globals.strings.strRefillOrderHint
 },
 "#hintLbl2":{
-	title: Alloy.Globals.strings.strSelectPharmacyHint
+	text: Alloy.Globals.strings.strSelectPharmacyHint
 },
 "#locationLbl":{
 	right: 40,
@@ -10,8 +10,8 @@
 },
 "#downLbl":{
 	width: 20,
-	text: Alloy.CFG.icons.down_arrow,
-	color: Alloy._br_secondary
+	text: Alloy.CFG.icons.arrow_down,
+	color: "red"
 },
 "#hintLbl3":{
 	title: Alloy.Globals.strings.strRefillTypeRxEnterNumber

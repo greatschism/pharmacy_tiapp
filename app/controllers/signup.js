@@ -60,7 +60,12 @@ function didClickCreate(e) {
 	} else {
 		alert(errorMessage);
 	}
+
+
+	
 }
+
+
 
 function didCreateAccountSuccess(result) {
 	alert("Your account has been created");
@@ -88,7 +93,7 @@ function didToggle(e) {
 }
 
 function didFocusPassword(e) {
-	//$.passwordView.zIndex = 2;
+	$.passwordView.zIndex = 2;
 	$.passwordTooltip.show();
 }
 

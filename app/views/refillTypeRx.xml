@@ -1,19 +1,19 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<View class="auto-height bg-success">
-			<Widget id="hintLbl1" src="com.mscripts.styledlabel" class="padding-top padding-bottom margin-left margin-right auto-height h4 text-center multi-line fg-primary" />
+		<View class="auto-height">
+			<Widget id="hintLbl1" src="com.mscripts.styledlabel" class="padding-top padding-bottom margin-left margin-right auto-height text-center multi-line primary-color" />
 		</View>
 		<View class="form-group vgroup">
 			<Label id="hintLbl2" />
-			<View class="height-default" onClick="choosePharmacy" onReturn="moveToNext">
-				<Label id="locationLbl" class="padding-left h3 fg-quaternary touch-disabled" />
-				<Label id="downLbl" class="padding-right font-icon-tiny touch-disabled" />
+			<View class="default-height" onClick="choosePharmacy">
+				<Label id="locationLbl" class="padding-left  fg-quaternary touch-disabled" />
+				<Label id="downLbl" class="padding-right small-icon touch-disabled" />
 			</View>
 		</View>
 		<View class="form-group vgroup">
 			<Label id="hintLbl3" />
 			<Widget id="mobileNumber" src="com.mscripts.textfield" class="form-txt return-next" />
 		</View>
-		<Button id="orderRefillBtn" class="margin-bottom btn-secondary" onClick="didClickOrderRefill" />
+		<Button id="orderRefillBtn" class="margin-bottom secondary-btn" onClick="didClickOrderRefill" />
 	</ScrollView>
 </Alloy>

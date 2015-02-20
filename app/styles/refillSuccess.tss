@@ -1,8 +1,51 @@
-"#hintLbl":{
-	text: Alloy.Globals.strings.msgRefillOrder
+"#toggleBtn":{
+	text: Alloy.CFG.icons.options,
+	font:Alloy.TSS.small_icon.font,
+	color: "#FFFFFF"
 },
+// "#toggleMenu":{
+// 		
+	// items: [
+		// {
+			// title: Alloy.Globals.strings.menuSearch,
+			// action: "search"
+		// },{
+			// title: Alloy.Globals.strings.menuSort
+		// },
+		// {
+			// title: Alloy.Globals.strings.menuUnhidePrescriptions
+		// },
+		// {
+			// title: Alloy.Globals.strings.menuRefresh
+		// }
+	// ]
+// },
 
-"#doneBtn":{
-	title: Alloy.Globals.strings.btnDone,
-	color : "#ffffff"
-}
+// "#searchbarView":{
+	// opacity: 0,
+// 	
+// },
+// "#searchbar":{
+	// hintText:Alloy.Globals.strings.hintSearchByZipCityOrState,
+// },
+"#tableView":{
+	top: 0
+},
+".success-icon":{
+	text: Alloy.CFG.icons.success
+},
+// ".btn-refill":{
+	// title: Alloy.Globals.strings.lblRefill
+// },
+// ".btn-hide":{
+	// title: Alloy.Globals.strings.lblHide
+// },
+// ".width-150d":{
+	// width: 150
+// },
+// ".height-5d":{
+	// height: 5
+// },
+// ".height-75d":{
+	// height: 75
+// }

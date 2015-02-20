@@ -26,11 +26,11 @@ function updateStore() {
 }
 
 function didClickOrderRefill(e) {
-	// app.navigator.open({
-	// 	titleid : "titleRefillStatus",
-	// 	ctrl : "refillStatus",
-	// 	stack : true
-	// });
+	app.navigator.open({
+		titleid : "titleRefillStatus",
+		ctrl : "refillStatus",
+		stack : true
+	});
 	alert("Under Construction");
 }
 
@@ -44,4 +44,4 @@ function terminate() {
 
 exports.init = init;
 exports.terminate = terminate;
-exports.setParentViews = setParentViews; 
+//exports.setParentViews = setParentViews; 

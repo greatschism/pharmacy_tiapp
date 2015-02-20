@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     app = require("core");
     
-function didClickScan(e) {
+function didClickType(e) {
 	var scan=1;
 	app.navigator.open({
 		ctrl : "refillMobileNumber",
@@ -13,7 +13,7 @@ function didClickScan(e) {
 	});
 }
 
-function didClickType(e) {
+function didClickCallPharmacy(e) {
 	var type=1;
 	 app.navigator.open({
 	 	ctrl : "refillMobileNumber",

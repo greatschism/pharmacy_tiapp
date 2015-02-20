@@ -1,7 +1,16 @@
 <Alloy>
-	<View class="vgroup">
-		<Label class="top-20 width-90 red h1 bold text-center under-construction" />
-		<Button id="scanBtn" class="margin-bottom btn-secondary" onClick="didClickScanPrescription" />
-		<Button id="typeRxBtn" class="margin-bottom btn-secondary" onClick="didClickTypeRx" />
-	</View>
-</Alloy> 
+	<ScrollView class="vgroup bg-primary">
+		
+		<!--<Label id="hintPara" class="styled-title multi-line" />
+		<Label id="hintParaOne" class="styled-title multi-line" />-->
+		<Button id="scanPrescription" class="padding-top secondary-btn padding-bottom " onClick="didClickScan" />
+		
+		<View id="btnSep" class="hgroup">
+			<View class="hseparator-half"/>
+			<Label id="OR" class="styled-title" />
+			<View class="hseparator-half"/>
+		
+		<Button id="typePrescription" class="padding-top secondary-btn" onClick="didClickType" />
+</View>
+	</ScrollView>
+</Alloy>

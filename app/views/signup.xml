@@ -10,11 +10,13 @@
 				<View class="hseparator" />
 				<Widget id="dob" src="com.mscripts.dropdown" class="form-txt text-center returnkey-done return-next" onReturn="moveToNext" />
 			</View>
+			<Widget id="passwordTooltip" class="arrow-bottom tooltip" src="com.mscripts.tooltip" />
 			<View id="userViewTwo" class="form-group vgroup padding-top padding-bottom ">
+				
 				<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt text-center returnkey-done return-next" onReturn="moveToNext" />
-				<Widget id="passwordTooltip" class="arrow-bottom tooltip" src="com.mscripts.tooltip" />
 				<View class="hseparator" />
-				<View id="passwordView" class="auto-height">					
+				
+				<View id="passwordView" class="auto-height">
 					<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt text-center returnkey-done return-next" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="moveToNext" />
 				</View>
 			</View>
@@ -22,7 +24,7 @@
 				<Widget id="toggleSwt" src="com.mscripts.switch" class="swt" onChange="didToggle" onTouch="handleScroll" />
 				<Label id="showPassword" class="single-line " />		
 			</View>
-				<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="single-line padding-top padding-bottom " />
+				<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="multi-line padding-top padding-bottom " />
 				<Button id="createBtn" class="margin-bottom primary-btn padding-top padding-bottom" onClick="didClickCreate" />
 			<!--</View>-->
 		</View>
