@@ -8,11 +8,15 @@
 			"PRESCRIPTIONS_ADD": "prescriptions/add",
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",
+			"PATIENTS_AUTHENTICATE": "patients/authenticate",
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
 			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
 			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_VALIDATE": "patients/validate",
 			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion"
+		},
+		"apiCodes": {
+			"SUCCESS": "200"
 		},
 		"iconPrefix": "thick",
 		"icons": {
@@ -79,7 +83,7 @@
 		"FIRST_LAUNCH": "firstLaunch",
 		"RESOURCES_UPDATED_ON": "resourcesUpdated",
 		"RESOURCES_CLEARED_ON": "resourcesCleared",
-		"ENV_DEV": false
+		"ENV_DEV": true
 	},
 	"env:development": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
@@ -91,8 +95,8 @@
 		"enableAnalytics": false,
 		"clearCachedResources": false,
 		"overrideRemoteResources": true,
-		"simulateAPI": true,
-		"simulateAPIOnFailure": true
+		"simulateAPI": false,
+		"simulateAPIOnFailure": false
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",

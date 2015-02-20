@@ -37,16 +37,16 @@
 
 	//models
 	Alloy.Models.user = new Backbone.Model({
-		loggedIn : false,
-		sessionId : "",
-		appLoad : {}
+		logged_in : false,
+		patients : {},
+		appload : {}
 	});
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.store = new Backbone.Model();
 
 	//events
-	Alloy.Models.user.on("change:loggedIn", function didLoginChange() {
-		Alloy.Globals.loggedIn = Alloy.Models.user.get("loggedIn");
+	Alloy.Models.user.on("change:patients", function didLoginChange() {
+		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
 	});
 
 })();

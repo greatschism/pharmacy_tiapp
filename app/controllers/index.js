@@ -40,7 +40,9 @@ function hideLoader(_callback, _animated) {
 }
 
 function didSuccess(result) {
-	Alloy.Models.user.set(result.data || {}, {
+	Alloy.Models.user.set({
+		appload : result.data.appload
+	}, {
 		silent : true
 	});
 	var clientConfig = result.data.appload.client_json;

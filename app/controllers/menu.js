@@ -29,7 +29,7 @@ function didItemClick(e) {
 	var itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentRootParams.ctrl) {
-			if (itemObj.requires_login == true && Alloy.Models.user.get("loggedIn") == false) {
+			if (itemObj.requires_login && !Alloy.Globals.loggedIn) {
 				if (app.navigator.currentRootParams.ctrl != "login") {
 					app.navigator.open({
 						ctrl : "login",
@@ -52,17 +52,11 @@ function didItemClick(e) {
 					success : function() {
 						http.request({
 							method : "logout",
-							data : {
-								request : {
-									logout : {
-										featurecode : "TH0XX"
-									}
-								}
-							},
+							data : {},
 							success : function(result) {
 								Alloy.Models.user.set({
-									loggedIn : false,
-									sessionId : ""
+									logged_in : false,
+									patients : {}
 								});
 								Alloy.Collections.menuItems.remove(model);
 								app.navigator.closeToRoot(function() {

@@ -59,6 +59,7 @@ module.exports = {
 	}, {
 		"titleid" : "tittleDrugInformation",
 		"ctrl" : "druginfo",
+		"icon" : "prescriptions",
 		"requires_login" : false
 	}]
 };

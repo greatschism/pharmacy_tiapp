@@ -258,6 +258,19 @@ module.exports = {
 		}
 
 	},
+	"PATIENTS_AUTHENTICATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Login Success",
+		"description" : "x",
+		"data" : {
+			"patients" : {
+				"session_id" : "12345fhajsdfajfakfh8723aajfkajf",
+				"status" : "1",
+				"client_id" : "1"
+			}
+		}
+	},
 	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
 		"status" : "Success",
 		"code" : "200",
@@ -301,14 +314,13 @@ module.exports = {
 
 	},
 	"ADD_PRESCRIPTIONS" : {
-		
+
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Prescriptions added successfully.",
 		"description" : "x",
 		"data" : ""
 	}
-
 
 };
 

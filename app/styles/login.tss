@@ -11,13 +11,12 @@
 	passwordMask: true
 },
 "#keepMeLbl":{
-	left: 0,
 	right: 60,
 	text: Alloy.Globals.strings.lblKeepMeLoggedIn
 },
 "#loginBtn":{
 	title: Alloy.Globals.strings.strSignin
 },
-"#footerLbl":{
+"#signupLbl":{
 	html: Alloy.Globals.strings.lblNeedToCreateAccount
 }

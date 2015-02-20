@@ -135,6 +135,7 @@ module.exports = {
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",
 		"msgFailedToRetrieve" : "Failed to retrieve",
+		"msgSomethingWentWrong" : "Something went wrong! please try again",
 		"msgPasswordTips" : "Password needs to have at least 2 numbers and be at least 6 characters long",
 		"msgSignout" : "Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "You have signed out successfully.",

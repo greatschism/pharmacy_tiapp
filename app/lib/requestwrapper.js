@@ -46,7 +46,7 @@ function request(_params) {
 	_.extend(_params.data, {
 		client_identifier : CFG.clientIdentifier,
 		version : CFG.apiVersion,
-		session_id : user.sessionId,
+		session_id : user.patients.session_id,
 		lang : localization.currentLanguage.id
 	});
 	_params.data = JSON.stringify(_params.data);
@@ -70,34 +70,33 @@ function request(_params) {
 }
 
 function getSimulatedResponse(_passthrough) {
-	_passthrough.success(require("data/webservices/stubs")[_passthrough.method] || {}, _passthrough.passthrough || {});
+	return require("data/webservices/stubs")[_passthrough.method] || {};
 }
 
 function didSuccess(_data, _passthrough) {
 	if (CFG.simulateAPI) {
-		getSimulatedResponse(_passthrough);
-	} else {
-		if (OS_IOS || OS_ANDROID) {
-			if (CFG.enableEncryption) {
-				_data = encryptionUtil.decrypt(_data);
-			}
+		_data = getSimulatedResponse(_passthrough);
+	}
+	if (OS_IOS || OS_ANDROID) {
+		if (CFG.enableEncryption) {
+			_data = encryptionUtil.decrypt(_data);
 		}
-		if (_data.status != "Success") {
-			dialog.show({
-				message : _data.message
-			});
-			if (_passthrough.failure) {
-				_passthrough.failure(_passthrough);
-			}
-		} else if (_passthrough.success) {
-			_passthrough.success(_data, _passthrough);
+	}
+	if (_data.code != CFG.apiCodes.SUCCESS) {
+		dialog.show({
+			message : _data.message || Alloy.Globals.strings.msgSomethingWentWrong
+		});
+		if (_passthrough.failure) {
+			_passthrough.failure(_passthrough);
 		}
+	} else if (_passthrough.success) {
+		_passthrough.success(_data, _passthrough);
 	}
 }
 
 function didFail(_passthrough) {
 	if (CFG.simulateAPI || CFG.simulateAPIOnFailure) {
-		getSimulatedResponse(_passthrough);
+		didSuccess(getSimulatedResponse(_passthrough));
 	} else {
 		var forceRetry = _passthrough.forceRetry !== false,
 		    retry = forceRetry || _passthrough.retry !== false;

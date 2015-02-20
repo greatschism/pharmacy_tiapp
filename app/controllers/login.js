@@ -19,14 +19,6 @@ function init() {
 	uihelper.getImage($.logoImg);
 }
 
-function didClickPwd(e) {
-	app.navigator.open({
-		ctrl : "loginRecovery",
-		titleid : "titleLoginRecovery",
-		stack : true
-	});
-}
-
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	nextItem ? $[nextItem] && $[nextItem].focus() : didClickLogin();
@@ -45,38 +37,33 @@ function didClickLogin(e) {
 			}
 		}
 		http.request({
-			method : "authenticate",
+			method : "PATIENTS_AUTHENTICATE",
 			data : {
-				request : {
-					authenticate : {
-						username : uname,
-						password : password,
-						clientname : Alloy.CFG.clientname,
-						emailpin : Alloy.CFG.emailpin,
-						featurecode : "TH053",
-						language : ""
+				data : [{
+					patient : {
+						user_name : uname,
+						password : password
 					}
-				}
+				}]
 			},
 			success : didAuthenticate
 		});
 	} else {
 		dialog.show({
-			message : Alloy.Globals.strings.valLoginRequiredFileds
+			message : Alloy.Globals.strings.valLoginRequiredFields
 		});
 	}
 }
 
 function didAuthenticate(result) {
 	Alloy.Models.user.set({
-		loggedIn : true,
-		sessionId : result.authenticate.sessionid
+		logged_in : true,
+		patients : result.data.patients
 	});
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
 		action : "signout",
-		icon : "remove",
-		leftImage : "/images/logout_white.png"
+		icon : "remove"
 	});
 	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
 	landing_page: true
@@ -87,15 +74,19 @@ function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
 }
 
+function didClickPwd(e) {
+	app.navigator.open({
+		ctrl : "loginRecovery",
+		titleid : "titleLoginRecovery",
+		stack : true
+	});
+}
+
 function didClickSignup(e) {
 	app.navigator.open({
-
 		ctrl : "mobileNumber",
 		titleid : "titleWelcome",
 		stack : false
-		/*ctrl : "termsAndConditions",
-		 titleid : "titleTermsAndConditions",
-		 stack : true*/
 	});
 }
 

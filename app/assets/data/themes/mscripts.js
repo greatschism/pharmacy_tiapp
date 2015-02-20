@@ -557,6 +557,24 @@ module.exports = {
 				"boldFontFamily" : "bold",
 				"boldColor" : "#0095ff"
 			},
+			"lbl" : {
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "left",
+				"color" : "#000000"
+			},
+			"paragraph_lbl" : {
+				"left" : 12,
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "left",
+				"color" : "#000000"
+			},
 			"single_line_title_lbl" : {
 				"height" : 22,
 				"ellipsize" : false,
@@ -572,16 +590,6 @@ module.exports = {
 					"fontFamily" : "bold",
 					"fontSize" : 17
 				},
-				"color" : "#000000"
-			},
-			"paragraph_lbl" : {
-				"left" : 12,
-				"right" : 12,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"textAlign" : "left",
 				"color" : "#000000"
 			},
 			"prompt_lbl" : {

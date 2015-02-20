@@ -1,5 +1,4 @@
 <Alloy>
-	<!--<View onSingletap="didTap">-->
 	<View platform="mobileweb" onSingletap="didTap">
 		<View id="container">
 			<ListView id="listView" platform="ios,android" defaultItemTemplate="label" onItemclick="didItemClick">

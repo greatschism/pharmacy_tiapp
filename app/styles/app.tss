@@ -703,6 +703,18 @@
 /**
 * 	labels
 */
+".lbl":{
+	font: Alloy.TSS.paragraph_lbl.font,
+	textAlign: Alloy.TSS.paragraph_lbl.textAlign,
+	color: Alloy.TSS.paragraph_lbl.color
+},
+".paragraph-lbl":{
+	left: Alloy.TSS.paragraph_lbl.left,
+	right: Alloy.TSS.paragraph_lbl.right,
+	font: Alloy.TSS.paragraph_lbl.font,
+	textAlign: Alloy.TSS.paragraph_lbl.textAlign,
+	color: Alloy.TSS.paragraph_lbl.color
+},
 ".single-line-title-lbl": {
 	height: Alloy.TSS.single_line_title_lbl.height,
 	ellipsize: Alloy.TSS.single_line_title_lbl.ellipsize,
@@ -713,13 +725,6 @@
 ".title-lbl": {
 	font: Alloy.TSS.title_lbl.font,
 	color: Alloy.TSS.title_lbl.color
-},
-".paragraph-lbl":{
-	left: Alloy.TSS.paragraph_lbl.left,
-	right: Alloy.TSS.paragraph_lbl.right,
-	font: Alloy.TSS.paragraph_lbl.font,
-	textAlign: Alloy.TSS.paragraph_lbl.textAlign,
-	color: Alloy.TSS.paragraph_lbl.color
 },
 ".prompt-lbl": {
 	font: Alloy.TSS.prompt_lbl.font,
