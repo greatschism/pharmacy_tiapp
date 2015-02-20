@@ -95,8 +95,8 @@
 		"enableAnalytics": false,
 		"clearCachedResources": false,
 		"overrideRemoteResources": true,
-		"simulateAPI": false,
-		"simulateAPIOnFailure": false
+		"simulateAPI": true,
+		"simulateAPIOnFailure": true
 	},
 	"env:test": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",
