@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
+    http = require("requestwrapper"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment");
 
@@ -31,12 +32,33 @@ function didClickNext() {
 		});
 		return;
 	}
+	http.request({
+		method : "PATIENTS_MOBILE_GENERATE_OTP",
+		data : {
+			filter : [{
+				type : "mobile_otp"
+			}],
+			data : [{
+				patient : {
+					mobile_number : args.mobileNumber,
+					first_name : fname,
+					birth_date : moment(dob).format("DD-MM-YYYY")
+				}
+			}]
+		},
+		passthrough : _.extend(args, {
+			fname : fname,
+			dob : dob
+		}),
+		success : didSendOTP
+	});
+}
+
+function didSendOTP(_result, _passthrough) {
 	app.navigator.open({
 		ctrl : "textToApp",
 		stack : true,
-		ctrlArguments : _.extend(args, {
-			dob : dob
-		})
+		ctrlArguments : _passthrough
 	});
 }
 

@@ -21,7 +21,7 @@ var logger = require("logger");
  */
 exports.request = function(_params) {
 
-	logger.d("HTTP.request " + _params.url);
+	logger.i("HTTP.request " + _params.url);
 
 	if (Ti.Network.online) {
 

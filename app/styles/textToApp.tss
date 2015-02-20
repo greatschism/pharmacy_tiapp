@@ -1,21 +1,13 @@
-
-
-	
-   "#titleLbl":{
-	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore,
-	font: {
-        
-        fontWeight: 'bold'
-   }
-   
+"#titleLbl":{
+	text: Alloy.Globals.strings.lblGreatYouHaveReceiveTextFromUsBefore
 },
 "#hintLbl":{
-	text: Alloy.Globals.strings.lblJustSentYouTextMessage,
-	
+	text: Alloy.Globals.strings.lblJustSentYouTextMessage
 },
 "#codeTxt":{
-	
-	//width: 100,
+	left: null,
+	right: null,
+	textAlign: "center",
 	maxLength: 3,
 	hintText: Alloy.Globals.strings.hintYourCode,
 	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD

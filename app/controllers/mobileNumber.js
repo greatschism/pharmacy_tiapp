@@ -41,7 +41,7 @@ function didClickContinue(e) {
 			passthrough : {
 				mobileNumber : mobileNumber
 			},
-			success : didSuccess,
+			success : didSuccess
 		});
 	} else {
 		dialog.show({
@@ -52,22 +52,47 @@ function didClickContinue(e) {
 
 function didSuccess(_result, _passthrough) {
 	var isExists = parseInt(_result.data.patients.mobile_exists),
-	    isShared = parseInt(_result.data.patients.is_mobile_shared),
-	    navigation = {
-		stack : true,
-		ctrlArguments : _passthrough
-	};
+	    isShared = parseInt(_result.data.patients.is_mobile_shared);
 	if (isExists) {
-		_.extend(navigation, {
-			ctrl : isShared ? "sharedMobileCheck" : "textToApp"
-		});
+		if (isShared) {
+			app.navigator.open({
+				ctrl : "sharedMobileCheck",
+				stack : true,
+				ctrlArguments : _passthrough
+			});
+		} else {
+			http.request({
+				method : "PATIENTS_MOBILE_GENERATE_OTP",
+				data : {
+					filter : [{
+						type : "mobile_otp"
+					}],
+					data : [{
+						patient : {
+							mobile_number : _passthrough.mobileNumber
+						}
+					}]
+				},
+				passthrough : _passthrough,
+				success : didSendOTP
+			});
+		}
 	} else {
-		_.extend(navigation, {
+		app.navigator.open({
 			ctrl : "fullSignup",
 			titleid : "strSignup",
+			stack : true,
+			ctrlArguments : _passthrough
 		});
 	}
-	app.navigator.open(navigation);
+}
+
+function didSendOTP(_result, _passthrough) {
+	app.navigator.open({
+		ctrl : "textToApp",
+		stack : true,
+		ctrlArguments : _passthrough
+	});
 }
 
 exports.init = init;

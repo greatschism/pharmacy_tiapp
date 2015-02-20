@@ -9,6 +9,7 @@
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",
 			"PATIENTS_AUTHENTICATE": "patients/authenticate",
+			"PATIENTS_LOGOUT": "patients/logout",
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
 			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
 			"PATIENTS_REGISTER": "patients/register",

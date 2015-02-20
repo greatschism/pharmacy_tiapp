@@ -69,13 +69,13 @@ function request(_params) {
 	});
 }
 
-function getSimulatedResponse(_passthrough) {
-	return require("data/webservices/stubs")[_passthrough.method] || {};
+function getSimulatedResponse(_method) {
+	return require("data/webservices/stubs")[_method] || {};
 }
 
 function didSuccess(_data, _passthrough) {
 	if (CFG.simulateAPI) {
-		_data = getSimulatedResponse(_passthrough);
+		_data = getSimulatedResponse(_passthrough.method);
 	}
 	if (OS_IOS || OS_ANDROID) {
 		if (CFG.enableEncryption) {
@@ -96,7 +96,7 @@ function didSuccess(_data, _passthrough) {
 
 function didFail(_passthrough) {
 	if (CFG.simulateAPI || CFG.simulateAPIOnFailure) {
-		didSuccess(getSimulatedResponse(_passthrough));
+		didSuccess(getSimulatedResponse(_passthrough.method), _passthrough);
 	} else {
 		var forceRetry = _passthrough.forceRetry !== false,
 		    retry = forceRetry || _passthrough.retry !== false;

@@ -271,6 +271,13 @@ module.exports = {
 			}
 		}
 	},
+	"PATIENTS_LOGOUT" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "You have logged out succesfully",
+		"description" : "x",
+		"data" : ""
+	},
 	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
 		"status" : "Success",
 		"code" : "200",
@@ -278,10 +285,17 @@ module.exports = {
 		"description" : "x",
 		"data" : {
 			"patients" : {
-				"is_mobile_shared" : "1",
+				"is_mobile_shared" : "0",
 				"mobile_exists" : "1"
 			}
 		}
+	},
+	"PATIENTS_MOBILE_GENERATE_OTP" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "OTP send successfully.",
+		"description" : "x",
+		"data" : ""
 	},
 	"PATIENTS_REGISTER" : {
 		"status" : "Success",
@@ -289,7 +303,6 @@ module.exports = {
 		"message" : "Your account has been created",
 		"description" : "x",
 		"data" : ""
-
 	},
 	"PRESCRIPTIONS_REFILL" : {
 		"status" : "Success",
@@ -314,13 +327,11 @@ module.exports = {
 
 	},
 	"ADD_PRESCRIPTIONS" : {
-
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Prescriptions added successfully.",
 		"description" : "x",
 		"data" : ""
 	}
-
 };
 

@@ -51,8 +51,7 @@ function didItemClick(e) {
 					cancelIndex : 1,
 					success : function() {
 						http.request({
-							method : "logout",
-							data : {},
+							method : "PATIENTS_LOGOUT",
 							success : function(_result) {
 								Alloy.Models.user.set({
 									logged_in : false,
