@@ -1,5 +1,5 @@
-"#hintLbl":{
-	text: Alloy.Globals.strings.lblPleaseEnterEmailAddressYouOriginallySignedup
+"#instructionLbl":{
+	text: Alloy.Globals.strings.lblEmailAddressOriginallySignedup
 },
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmailAddress,

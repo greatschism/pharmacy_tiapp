@@ -1,8 +1,8 @@
 <Alloy>
-	<View class="vgroup bg-primary">
-		<Label id="hintLbl" class="margin-top styled-h2 fg-primary multi-line" />
-		<Widget id="emailTxt" src="com.mscripts.textfield" class="txt return-done" />
-		<Button id="sendBtn" class="btn-secondary" />
-		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="padding-top margin-bottom styled-h2 fg-primary" />
-	</View>
+	<ScrollView class="vgroup">
+		<Label id="instructionLbl" class="margin-top paragraph-lbl" />
+		<Widget id="emailTxt" src="com.mscripts.textfield" class="padding-top padding-bottom txt returnkey-done" onReturn="didClickSend" />
+		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" />
+		<Button id="sendBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickSend" />
+	</ScrollView>
 </Alloy>

@@ -80,7 +80,7 @@ module.exports = {
 		"lblKeepMeLoggedIn" : "Keep me logged in",
 		"lblNeedToCreateAccount" : "Need to <b><font color=\"boldColor\">create a new account?</font></b>",
 		"lblCantRememberEmail" : "<b><font color=\"boldColor\">Can't remember what email you used?</font></b>",
-		"lblPleaseEnterEmailAddressYouOriginallySignedup" : "Please enter the email address you originally signed up with. We will send you your username and instructions on how to reset your password.",
+		"lblEmailAddressOriginallySignedup" : "Please enter the email address you originally signed up with. We will send you your username and instructions on how to reset your password.",
 		"lblLetsSeeIfWeRecogonizeYou" : "Let's see if we recogonize you. Please enter your mobile phone number.",
 		"lblSignupAndGetRefillInSeconds" : "Sign up and get refill in seconds",
 		"lblGreatYouHaveReceiveTextFromUsBefore" : "Great! You've received texts from us before.",
@@ -131,6 +131,7 @@ module.exports = {
 		"lblDosageInstruction" : "Dosage instruction",
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
+		"valEmail" : "Please enter a valid email id",
 
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",
