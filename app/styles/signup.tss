@@ -1,68 +1,42 @@
-"#orderPickUpLblIcon":{
-	text:Alloy.CFG.icons.success_filled,
-	padding:{
-		top: 10,
-		bottom: 10
-	}
-}
-
-"#titleIcon":{
-	text: Alloy.CFG.icons.success
+"#iconLbl":{
+	text:Alloy.CFG.icons.success_filled
 },
-"#hintLbl":{
-	text: Alloy.Globals.strings.lblGreatYourPhoneNumberIsConfirmed
+"#titleLbl":{
+	text: Alloy.Globals.strings.lblYourPhoneNumberIsConfirmed
 },
-"#userView":{
-	zIndex: 1
-},
-"#userViewTwo":{
-	zIndex: 1
-},
-"#passwordView":{
-	//top: 70,
-	zIndex: 0
-},
-
-"#passwordTooltip":{
-	//top: 0,
-	text: Alloy.Globals.strings.msgPasswordTips
-},
-"#unameTxt":{
-	hintText: Alloy.Globals.strings.hintUsername,
-	nextItem: "dob"
-},
-"#dob":{
-	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE,
-	nextItem: "emailTxt"
+"#doneLbl":{
+	text: Alloy.Globals.strings.lblYouAreAlmostDone
 },
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	nextItem: "dob"
+},
+"#dob":{
+	leftTitle: Alloy.Globals.strings.strCancel,
+	rightTitle: Alloy.Globals.strings.btnNext,
+	hintText: Alloy.Globals.strings.hintDOB,
+	type: Ti.UI.PICKER_TYPE_DATE,
+	nextItem: "unameTxt"
+},
+"#unameTxt":{
+	hintText: Alloy.Globals.strings.hintUsername,
 	nextItem: "passwordTxt"
 },
-"#emailTxt[platform=android]":{
-	softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS
-},
 "#passwordTxt":{
-	top: 0,
-	//right: 75,
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true
 },
-"#showPassword":{
-	left: 5,
+"#showPasswordLbl":{
+	right: 60,
 	text: Alloy.Globals.strings.lblShowPassword
 },
 "#toggleSwt":{
-	right: 5,
 	value: true
 },
 "#agreementLbl":{
-
-
 	html: Alloy.Globals.strings.lblSignupAgreement
 },
-"#createBtn":{
+"#signupBtn":{
 	title: Alloy.Globals.strings.strSignup
 }

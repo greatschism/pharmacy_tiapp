@@ -8,6 +8,8 @@
 	hintText: Alloy.Globals.strings.hintFirstName
 },
 "#dob":{
+	leftTitle: Alloy.Globals.strings.strCancel,
+	rightTitle: Alloy.Globals.strings.btnDone,
 	hintText: Alloy.Globals.strings.hintDOB,
 	type: Ti.UI.PICKER_TYPE_DATE
 },

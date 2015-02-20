@@ -65,7 +65,7 @@ function init() {
 	// $.stateTxt.setSelectedIndex(selectedIndex);
 }
 
-function setParentViews(view) {
+function setParentViews(_view) {
 
 	//	$.stateTxt.setParentView(view);
 }

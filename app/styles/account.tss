@@ -3,4 +3,8 @@
 },
 "#aboutBtn":{
 	title: Alloy.Globals.strings.strAbout
+},
+".dropdown":{
+	leftTitle: Alloy.Globals.strings.strCancel,
+	rightTitle: Alloy.Globals.strings.btnDone
 }

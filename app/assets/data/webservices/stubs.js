@@ -332,6 +332,13 @@ module.exports = {
 		"description" : "x",
 		"data" : ""
 	},
+	"PATIENTS_STORE_TO_APP_CONVERSION" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your account has been created.",
+		"description" : "x",
+		"data" : ""
+	},
 	"PATIENTS_REGISTER" : {
 		"status" : "Success",
 		"code" : "200",

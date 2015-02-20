@@ -150,6 +150,12 @@ module.exports = {
 					"fontSize" : 32
 				}
 			},
+			"extra_large_icon" : {
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 64
+				}
+			},
 			"icon_padding_top" : {
 				"top" : 22
 			},

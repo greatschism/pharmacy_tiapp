@@ -91,12 +91,12 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-	   // pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
-		// apiName : "widget",
-// 
-		// classes : ["form-dropdown", "padding-top"]
-// 
-	// //}),
+	//    pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
+	//	apiName : "widget",
+
+	//	classes : ["form-dropdown", "padding-top"]
+
+	//}),
 
 	    picker = Ti.UI.createPicker({
 		backgroundColor : "#aab7b7",
@@ -227,7 +227,7 @@ function didClickStoreChange(e) {
 	alert("Stores under construction");
 }
 
-function setParentViews(view) {
+function setParentViews(_view) {
 	//$.pickupdetails.setParentView(view);
 }
 

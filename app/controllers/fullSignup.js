@@ -41,8 +41,8 @@ function init() {
 	Alloy.Models.store.on("change", updateStore);
 }
 
-function setParentViews(view) {
-	$.dob.setParentView(view);
+function setParentViews(_view) {
+	$.dob.setParentView(_view);
 }
 
 function didClickSignup(e) {

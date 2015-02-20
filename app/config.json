@@ -13,8 +13,8 @@
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
 			"PATIENTS_MOBILE_GENERATE_OTP": "patients/generatetoken",
 			"PATIENTS_VALIDATE": "patients/validate",
-			"PATIENTS_REGISTER": "patients/register",
-			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion"
+			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion",
+			"PATIENTS_REGISTER": "patients/register"
 		},
 		"apiCodes": {
 			"SUCCESS": "200"

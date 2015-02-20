@@ -92,7 +92,7 @@ function didClickSignup(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",
 		titleid : "strWelcome",
-		stack : false
+		stack : true
 	});
 }
 

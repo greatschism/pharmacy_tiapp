@@ -29,7 +29,7 @@ exports.show = function(_params) {
 		});
 	} else {
 		_.extend(dict, {
-			ok : _params.ok || "OK"
+			ok : _params.ok || Alloy.Globals.strings.strOK
 		});
 	}
 	if (OS_ANDROID && _.has(_params, "androidView")) {

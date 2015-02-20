@@ -42,10 +42,10 @@ function init() {
 	}
 }
 
-function setParentViews(view) {
-	$.themesDp.setParentView(view);
-	$.templatesDp.setParentView(view);
-	$.languagesDp.setParentView(view);
+function setParentViews(_view) {
+	$.themesDp.setParentView(_view);
+	$.templatesDp.setParentView(_view);
+	$.languagesDp.setParentView(_view);
 }
 
 function didReturnThemes(e) {

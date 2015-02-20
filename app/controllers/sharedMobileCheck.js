@@ -9,8 +9,8 @@ function init() {
 	uihelper.getImage($.logoImg);
 }
 
-function setParentViews(view) {
-	$.dob.setParentView(view);
+function setParentViews(_view) {
+	$.dob.setParentView(_view);
 }
 
 function moveToNext(e) {

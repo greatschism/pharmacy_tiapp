@@ -341,6 +341,9 @@
 ".large-icon":{
 	font: Alloy.TSS.large_icon.font
 },
+".extra-large-icon":{
+	font: Alloy.TSS.extra_large_icon.font
+},
 ".lbl-after-icon": {
 	height: Alloy.TSS.lbl_after_icon.height,
 	ellipsize: Alloy.TSS.lbl_after_icon.ellipsize,
