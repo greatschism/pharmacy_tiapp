@@ -136,6 +136,7 @@ module.exports = {
 		"valMobileNumberRequired" : "ja-Please enter a valid mobile number",
 		"valFirstNameRequired" : "ja-Please enter your first name",
 		"valDOBRequired" : "ja-Please enter your dob",
+		"valCodeRequired" : "ja-Please enter the OTP you have received",
 
 		"msgUnableToFindYourGEO" : "ja-Unable to find your location, please check your settings",
 		"msgPleaseWait" : "ja-Processing. Please wait",

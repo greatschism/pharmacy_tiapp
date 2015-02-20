@@ -258,6 +258,28 @@ module.exports = {
 		}
 
 	},
+	"PRESCRIPTIONS_REFILL" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}, {
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}]
+		}
+
+	},
 	"PATIENTS_AUTHENTICATE" : {
 		"status" : "Success",
 		"code" : "200",
@@ -297,34 +319,19 @@ module.exports = {
 		"description" : "x",
 		"data" : ""
 	},
+	"PATIENTS_VALIDATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "OTP validated successfully.",
+		"description" : "x",
+		"data" : ""
+	},
 	"PATIENTS_REGISTER" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Your account has been created",
 		"description" : "x",
 		"data" : ""
-	},
-	"PRESCRIPTIONS_REFILL" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"prescriptions" : [{
-				"refill_error_message" : "x",
-				"refill_is_error" : "x",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
-			}, {
-				"refill_error_message" : "x",
-				"refill_is_error" : "x",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
-			}]
-		}
-
 	},
 	"ADD_PRESCRIPTIONS" : {
 		"status" : "Success",
