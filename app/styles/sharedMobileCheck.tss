@@ -1,4 +1,3 @@
-
 "#hintLbl":{
 	text: Alloy.Globals.strings.lblItLooksLikeThisPhoneNumberIsLinked
 },
@@ -6,11 +5,11 @@
 	text: Alloy.Globals.strings.lblLetUsKnowWhoYouAre
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.strings.hintFname
+	hintText: Alloy.Globals.strings.hintFirstName
 },
 "#dob":{
 	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE,
+	type: Ti.UI.PICKER_TYPE_DATE
 },
 "#nextBtn":{
 	title: Alloy.Globals.strings.btnNext

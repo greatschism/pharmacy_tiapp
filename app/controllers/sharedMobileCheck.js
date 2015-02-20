@@ -1,44 +1,44 @@
 var args = arguments[0] || {},
     app = require("core"),
+    dialog = require("dialog"),
+    uihelper = require("uihelper"),
+    moment = require("alloy/moment");
 
-    
-    moment = require('alloy/moment'),
-    uihelper = require("uihelper");
-    
-    uihelper.getImage($.logoImage);
-
+function init() {
+	uihelper.getImage($.logoImg);
+}
 
 function setParentViews(view) {
 	$.dob.setParentView(view);
 }
 
 function moveToNext(e) {
-	$.fnameTxt.blur();
 	$.dob.showPicker();
 }
 
 function didClickNext() {
-	fname = $.fnameTxt.getValue(),
-	dateOfBirth = $.dob.getValue();
-
-	if (isNaN(fname) === true && dateOfBirth !== "") {
-		//var pattern =/^(?:(0[1-9]|1[012])[\- \/.](0[1-9]|[12][0-9]|3[01])[\- \/.](19|20)[0-9]{2})$/ ;
-		if (dateOfBirth === null || dateOfBirth === "") {
-			alert("Invalid date of birth");
-		} else {
-			app.navigator.open({
-				ctrl : "signup",
-				titleid : "",
-				stack : true,
-				ctrlArguments : {
-			   birthday:dateOfBirth,
-				
-			}
-			});
-		}
-	} else {
-		alert("Please enter a valid details.");
+	var fname = $.fnameTxt.getValue(),
+	    dob = $.dob.getValue();
+	if (!fname) {
+		dialog.show({
+			message : Alloy.Globals.strings.valFirstNameRequired
+		});
+		return;
 	}
+	if (!dob) {
+		dialog.show({
+			message : Alloy.Globals.strings.valDOBRequired
+		});
+		return;
+	}
+	app.navigator.open({
+		ctrl : "textToApp",
+		stack : true,
+		ctrlArguments : _.extend(args, {
+			dob : dob
+		})
+	});
 }
 
+exports.init = init;
 exports.setParentViews = setParentViews;

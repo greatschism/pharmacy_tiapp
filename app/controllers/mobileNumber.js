@@ -45,7 +45,7 @@ function didClickContinue(e) {
 		});
 	} else {
 		dialog.show({
-			message : Alloy.Globals.strings.valMobileNumber
+			message : Alloy.Globals.strings.valMobileNumberRequired
 		});
 	}
 }

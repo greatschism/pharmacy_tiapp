@@ -8,7 +8,7 @@ function didClickSend(e) {
 
 	} else {
 		dialog.show({
-			message : Alloy.Globals.strings.valEmail
+			message : Alloy.Globals.strings.valEmailRequired
 		});
 	}
 }

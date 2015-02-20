@@ -12,7 +12,7 @@
 			<Label id="keepMeLbl" class="left lbl" />
 			<Widget id="keepMeSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
 		</View>
-		<Button id="loginBtn" class="btn-padding-top btn-padding-bottom primary-btn" onClick="didClickLogin" />
+		<Button id="loginBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickLogin" />
 		<Widget id="signupLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

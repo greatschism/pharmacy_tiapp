@@ -115,7 +115,7 @@ function didChange(e) {
 	}
 	$.trigger("change", {
 		source : $,
-		value : $.txt.value
+		value : ($.txt.value || "").trim()
 	});
 }
 
@@ -153,7 +153,7 @@ function setValue(_value) {
 }
 
 function getValue() {
-	return $.txt.getValue();
+	return ($.txt.value || "").trim();
 }
 
 function setPasswordMask(_value) {

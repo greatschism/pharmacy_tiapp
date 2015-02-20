@@ -130,9 +130,12 @@ module.exports = {
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",
 
-		"valLoginRequiredFields" : "Username and Password can't be blank",
-		"valEmail" : "Please enter a valid email id",
-		"valMobileNumber" : "Please enter a valid mobile number",
+		"valUsernameRequired" : "Please enter your username",
+		"valPasswordRequired" : "Please enter your password",
+		"valEmailRequired" : "Please enter a valid email id",
+		"valMobileNumberRequired" : "Please enter a valid mobile number",
+		"valFirstNameRequired" : "Please enter your first name",
+		"valDOBRequired" : "Please enter your dob",
 
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",

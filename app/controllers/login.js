@@ -27,32 +27,38 @@ function moveToNext(e) {
 function didClickLogin(e) {
 	var uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
-	if (uname != "" && password != "") {
-		if (OS_IOS || OS_ANDROID) {
-			if ($.keepMeSwt.getValue() == true) {
-				keychainAccount.account = uname;
-				keychainAccount.valueData = encryptionUtil.encrypt(password);
-			} else {
-				keychainAccount.reset();
-			}
-		}
-		http.request({
-			method : "PATIENTS_AUTHENTICATE",
-			data : {
-				data : [{
-					patient : {
-						user_name : uname,
-						password : password
-					}
-				}]
-			},
-			success : didAuthenticate
-		});
-	} else {
+	if (!uname) {
 		dialog.show({
-			message : Alloy.Globals.strings.valLoginRequiredFields
+			message : Alloy.Globals.strings.valUsernameRequired
 		});
+		return;
 	}
+	if (!password) {
+		dialog.show({
+			message : Alloy.Globals.strings.valPasswordRequired
+		});
+		return;
+	}
+	if (OS_IOS || OS_ANDROID) {
+		if ($.keepMeSwt.getValue() == true) {
+			keychainAccount.account = uname;
+			keychainAccount.valueData = encryptionUtil.encrypt(password);
+		} else {
+			keychainAccount.reset();
+		}
+	}
+	http.request({
+		method : "PATIENTS_AUTHENTICATE",
+		data : {
+			data : [{
+				patient : {
+					user_name : uname,
+					password : password
+				}
+			}]
+		},
+		success : didAuthenticate
+	});
 }
 
 function didAuthenticate(_result) {
