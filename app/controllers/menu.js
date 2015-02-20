@@ -53,7 +53,7 @@ function didItemClick(e) {
 						http.request({
 							method : "logout",
 							data : {},
-							success : function(result) {
+							success : function(_result) {
 								Alloy.Models.user.set({
 									logged_in : false,
 									patients : {}

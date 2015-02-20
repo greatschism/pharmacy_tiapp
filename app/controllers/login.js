@@ -55,10 +55,10 @@ function didClickLogin(e) {
 	}
 }
 
-function didAuthenticate(result) {
+function didAuthenticate(_result) {
 	Alloy.Models.user.set({
 		logged_in : true,
-		patients : result.data.patients
+		patients : _result.data.patients
 	});
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
@@ -85,7 +85,7 @@ function didClickPwd(e) {
 function didClickSignup(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",
-		titleid : "titleWelcome",
+		titleid : "strWelcome",
 		stack : false
 	});
 }

@@ -39,13 +39,13 @@ function hideLoader(_callback, _animated) {
 	$.loading.hide(_callback, _animated || false);
 }
 
-function didSuccess(result) {
+function didSuccess(_result) {
 	Alloy.Models.user.set({
-		appload : result.data.appload
+		appload : _result.data.appload
 	}, {
 		silent : true
 	});
-	var clientConfig = result.data.appload.client_json;
+	var clientConfig = _result.data.appload.client_json;
 	if (_.has(clientConfig, "force_update")) {
 		Alloy.CFG.forceUpdate = clientConfig.force_update;
 	}

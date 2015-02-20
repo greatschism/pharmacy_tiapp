@@ -326,6 +326,7 @@ var Utility = {
 	/**
 	 * Check if email is valid
 	 * @param {String} _str
+	 * returns {Boolean}
 	 */
 	validateEmail : function(_str) {
 		return /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(_str);
@@ -334,6 +335,7 @@ var Utility = {
 	/**
 	 * Check whether given string has at lest 2 numbers and 6 characters
 	 * @param {String} _str
+	 * returns {Boolean}
 	 */
 	validatePassword : function(_str) {
 		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/.test(_str);
@@ -342,9 +344,10 @@ var Utility = {
 	/**
 	 * Check whether given string is a valid mobile number
 	 * @param {String} _str
+	 * returns {Boolean/String} plain mobile number XXXXXXXXXX if it passes US mobile validation (XXX)XXX-XXXX
 	 */
 	validateMobileNumber : function(_str) {
-		return /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/.test(_str);
+		return /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/.test(_str) ? _str.replace(/\D+/g, "") : false;
 	}
 };
 

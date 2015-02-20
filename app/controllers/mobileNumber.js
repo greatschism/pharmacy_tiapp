@@ -20,15 +20,15 @@ function didChange(e) {
 		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3) + '-' + value.substr(6, 4);
 	} else if (len >= 4) {
 		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3);
-	} else {
+	} else if (len > 0) {
 		value = '(' + value.substr(0, len);
 	}
 	$.mobileTxt.setValue(value);
 }
 
 function didClickContinue(e) {
-	var mobileNumber = $.mobileTxt.getValue();
-	if (utilities.validateMobileNumber(mobileNumber)) {
+	var mobileNumber = utilities.validateMobileNumber($.mobileTxt.getValue());
+	if (mobileNumber) {
 		http.request({
 			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
 			data : {
@@ -37,6 +37,9 @@ function didClickContinue(e) {
 						mobile_number : mobileNumber
 					}
 				}]
+			},
+			passthrough : {
+				mobileNumber : mobileNumber
 			},
 			success : didSuccess,
 		});
@@ -47,83 +50,24 @@ function didClickContinue(e) {
 	}
 }
 
-function didSuccess(result) {
-
-	console.log("entered didgetresponse");
-	var isMobileShared = result.data.is_mobile_shared;
-	console.log(result.data);
-	var Exists = result.data.patients;
-	var mobileExists = result.data.patients.mobile_exists;
-	var isMobileShared = result.data.patients.is_mobile_shared;
-
-	if (mobileExists == 1 && isMobileShared == 0) {
-
-		app.navigator.open({
-			ctrl : "textToApp",
-			titleid : "",
-			stack : true,
-			ctrlArguments : {
-				mobileShared : isMobileShared,
-
-			}
-		});
-
-	} else {
-		if (isMobileShared == 1 && mobileExists == 1) {
-			var mobileNumber = $.mobileTxt.getValue();
-
-			console.log("function working");
-			http.request({
-				method : "PATIENTS_MOBILE_GENERATE_OTP",
-				data : {
-
-					client_identifier : "x",
-					version : "x",
-					session_id : "x",
-					filter : [{
-						type : "mobile_otp"
-					}],
-					data : [{
-						patient : {
-							mobile_number : mobileNumber,
-							first_name : "x",
-							last_name : "x",
-							birth_date : "x"
-						}
-					}]
-				},
-				success : didSuccessOtp,
-			});
-
-		} else if (mobileExists == 0) {
-			app.navigator.open({
-				ctrl : "fullSignup",
-				titleid : "strSignup",
-				stack : true,
-				ctrlArguments : {
-					mobileShared : isMobileShared,
-				}
-			});
-		}
-	}
-
-	function didSuccessOtp(result) {
-		console.log("otp generated");
-
-		console.log(result.data);
-
-	}
-
-	//if it is shared  nav to text to app
-	app.navigator.open({
-		ctrl : "textToApp",
-		titleid : "",
+function didSuccess(_result, _passthrough) {
+	var isExists = parseInt(_result.data.patients.mobile_exists),
+	    isShared = parseInt(_result.data.patients.is_mobile_shared),
+	    navigation = {
 		stack : true,
-		ctrlArguments : {
-			mobileShared : isMobileShared,
-
-		}
-	});
+		ctrlArguments : _passthrough
+	};
+	if (isExists) {
+		_.extend(navigation, {
+			ctrl : isShared ? "sharedMobileCheck" : "textToApp"
+		});
+	} else {
+		_.extend(navigation, {
+			ctrl : "fullSignup",
+			titleid : "strSignup",
+		});
+	}
+	app.navigator.open(navigation);
 }
 
 exports.init = init;

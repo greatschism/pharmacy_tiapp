@@ -2,6 +2,7 @@
 	text: Alloy.Globals.strings.lblLetsSeeIfWeRecogonizeYou
 },
 "#mobileTxt":{
+	maxLength: 13,
 	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD
 },
