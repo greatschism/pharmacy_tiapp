@@ -136,6 +136,8 @@
         <module platform="iphone">ti.keyboard</module>
         <module platform="android">ti.keyboard</module>
         <module platform="iphone">ti.sevenswitch</module>
+        <module platform="iphone">ti.barcode</module>
+        <module platform="android">ti.barcode</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>
