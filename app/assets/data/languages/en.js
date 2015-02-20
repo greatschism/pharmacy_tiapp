@@ -5,6 +5,7 @@ module.exports = {
 		"lngSpanish" : "Spanish",
 		"lngChinese" : "Chinese",
 
+		"titleWelcome" : "Welcome!",
 		"titleHome" : "Home",
 		"titlePharmacyRewards" : "Pharmacy rewards",
 		"titleCoupons" : "Coupons",
@@ -50,7 +51,7 @@ module.exports = {
 		"sectionInformation" : "Information",
 
 		"hintSearchByZipCityOrState" : "Search",
-		"hintMobileNumber" : "Mobile Number (xxx)-xxx xxxx",
+		"hintMobileNumber" : "Mobile Number (xxx)xxx-xxxx",
 		"hintUsername" : "Username",
 		"hintPassword" : "Password",
 		"hintEmailAddress" : "Email address",
@@ -103,7 +104,7 @@ module.exports = {
 		"lblLastRefilled" : "Last refilled",
 		"lblRemindMeRefillMedication" : "Remind me to <b>refill</b> this medication",
 		"lblSetTimeToTakeMedication" : "Set a time to <b>take</b> this medication",
-		"lblTakeTwotabletsWithWater" : "Take two tablets daily with water",
+		"lblTakeTwoTabletsWithWater" : "Take two tablets daily with water",
 		"lblPrescriptionNumber" : "Prescription number",
 		"lblExpirationDate" : "Expiration date",
 		"lblDoctor" : "Doctor",
@@ -132,6 +133,7 @@ module.exports = {
 
 		"valLoginRequiredFields" : "Username and Password can't be blank",
 		"valEmail" : "Please enter a valid email id",
+		"valMobileNumber" : "Please enter a valid mobile number",
 
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",

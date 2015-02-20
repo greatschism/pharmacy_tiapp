@@ -1,8 +1,8 @@
 <Alloy>
-	<ScrollView class="vgroup ">
-		<ImageView id="logoImage"  class="img-padding-top logo" />
-		<Label id="hintLbl" class="styled-h2 padding-top fg-primary multi-line" />
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onReturn="didClickContinue" />
-		<Button id="continueBtn" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickContinue" />
+	<ScrollView class="vgroup">
+		<ImageView id="logoImg" class="img-padding-top logo" />
+		<Label id="hintLbl" class="img-padding-top paragraph-lbl" />
+		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done" onChange="didChange" onReturn="didClickContinue" />
+		<Button id="continueBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>

@@ -337,6 +337,14 @@ var Utility = {
 	 */
 	validatePassword : function(_str) {
 		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/.test(_str);
+	},
+
+	/**
+	 * Check whether given string is a valid mobile number
+	 * @param {String} _str
+	 */
+	validateMobileNumber : function(_str) {
+		return /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/.test(_str);
 	}
 };
 

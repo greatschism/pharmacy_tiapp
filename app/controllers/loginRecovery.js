@@ -3,7 +3,8 @@ var args = arguments[0] || {},
     dialog = require("dialog");
 
 function didClickSend(e) {
-	if (utilities.validateEmail($.emailTxt.getValue())) {
+	var email = $.emailTxt.getValue();
+	if (utilities.validateEmail(email)) {
 
 	} else {
 		dialog.show({

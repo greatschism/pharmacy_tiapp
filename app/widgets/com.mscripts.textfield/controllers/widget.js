@@ -114,7 +114,8 @@ function didChange(e) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
 	$.trigger("change", {
-		source : $
+		source : $,
+		value : $.txt.value
 	});
 }
 
@@ -157,14 +158,18 @@ function getValue() {
 
 function setPasswordMask(_value) {
 	$.txt.passwordMask = _value;
-	if (OS_IOS || OS_ANDROID) {
-		var len = $.txt.value.length;
-		$.txt.setSelection(len, len);
-	}
+	var len = $.txt.value.length;
+	setSelection(len, len);
 }
 
 function getPasswordMask() {
 	return $.txt.passwordMask;
+}
+
+function setSelection(_start, _end) {
+	if (OS_IOS || OS_ANDROID) {
+		$.txt.setSelection(_start, _end);
+	}
 }
 
 exports.blur = blur;
@@ -177,3 +182,4 @@ exports.getValue = getValue;
 exports.applyProperties = applyProperties;
 exports.setPasswordMask = setPasswordMask;
 exports.getPasswordMask = getPasswordMask;
+exports.setSelection = setSelection;
