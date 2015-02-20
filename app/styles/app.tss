@@ -704,9 +704,16 @@
 * 	labels
 */
 ".lbl":{
-	font: Alloy.TSS.paragraph_lbl.font,
-	textAlign: Alloy.TSS.paragraph_lbl.textAlign,
-	color: Alloy.TSS.paragraph_lbl.color
+	font: Alloy.TSS.lbl.font,
+	textAlign: Alloy.TSS.lbl.textAlign,
+	color: Alloy.TSS.lbl.color
+},
+".or-lbl":{
+	width: Alloy.TSS.or_lbl.width,
+	font: Alloy.TSS.or_lbl.font,
+	textAlign: Alloy.TSS.or_lbl.textAlign,
+	color: Alloy.TSS.or_lbl.color,
+	backgroundColor: Alloy.TSS.or_lbl.backgroundColor
 },
 ".paragraph-lbl":{
 	left: Alloy.TSS.paragraph_lbl.left,

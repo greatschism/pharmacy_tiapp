@@ -278,7 +278,13 @@ module.exports = {
 				"refill_store_id" : "x"
 			}]
 		}
-
+	},
+	"PRESCRIPTIONS_ADD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescriptions added successfully.",
+		"description" : "x",
+		"data" : ""
 	},
 	"PATIENTS_AUTHENTICATE" : {
 		"status" : "Success",
@@ -330,13 +336,6 @@ module.exports = {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Your account has been created",
-		"description" : "x",
-		"data" : ""
-	},
-	"ADD_PRESCRIPTIONS" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Prescriptions added successfully.",
 		"description" : "x",
 		"data" : ""
 	}

@@ -565,6 +565,16 @@ module.exports = {
 				"textAlign" : "left",
 				"color" : "#000000"
 			},
+			"or_lbl" : {
+				"width" : 50,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "center",
+				"color" : "#000000",
+				"backgroundColor" : "#FFFFFF"
+			},
 			"paragraph_lbl" : {
 				"left" : 12,
 				"right" : 12,

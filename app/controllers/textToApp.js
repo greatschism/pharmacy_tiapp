@@ -52,7 +52,8 @@ function didClickDidntGetText() {
 	app.navigator.open({
 		ctrl : "didntGetText",
 		titleid : "titleTextHelp",
-		stack : true
+		stack : true,
+		ctrlArguments : args
 	});
 }
 

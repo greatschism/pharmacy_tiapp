@@ -1,14 +1,12 @@
 <Alloy>
-	<ScrollView class="vgroup bg-primary">
-		
-		<Label id="hintPara" class="styled-title multi-line" />
-		<Label id="hintParaOne" class="styled-title multi-line" />
-		<Button id="sendTxtAgainBtn" class="padding-top secondary-btn padding-bottom " onClick="didClickSendTxtAgain" />
-		
-		<View class="hseparator"/>
-		<Label id="OR" class="styled-title" />
-		
-		<Button id="goToFullRegistrBtn" class="padding-top secondary-btn" onClick="didClickGoToFullRegistr" />
-
+	<ScrollView class="vgroup">
+		<Label id="appologizeLbl" class="margin-top paragraph-lbl" />
+		<Label id="resendLbl" class="padding-top paragraph-lbl" />
+		<Button id="sendAgainBtn" class="btn-padding-top padding-bottom secondary-btn" onClick="didClickSendAgain" />
+		<View class="margin-left margin-right default-height">
+			<View class="hseparator"/>
+			<Label id="orLbl" class="or-lbl" />
+		</View>
+		<Button id="signupBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy>

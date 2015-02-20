@@ -57,7 +57,7 @@ module.exports = {
 		"icon" : "account",
 		"requires_login" : false
 	}, {
-		"titleid" : "tittleDrugInformation",
+		"titleid" : "titleDrugInformation",
 		"ctrl" : "druginfo",
 		"icon" : "prescriptions",
 		"requires_login" : false

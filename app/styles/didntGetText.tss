@@ -1,21 +1,15 @@
-
-"#hintPara":{
+"#appologizeLbl":{
 	text: Alloy.Globals.strings.lblSomePhoneCarriersExperienceDelay
-}
-"#sendTxtAgainBtn":
-{
+},
+"#resendLbl":{
+	text: Alloy.Globals.strings.lblWeCanTryToSendTheText
+},
+"#orLbl":{
+	text: Alloy.Globals.strings.lblOr
+},
+"#sendAgainBtn":{
 	title: Alloy.Globals.strings.lblSendTheTextAgain
-}
-"#goToFullRegistrBtn":
-{
-	title: Alloy.Globals.strings.lblGoToFullRegistration,
-	
-}
-"#hintParaOne":{
-	text: Alloy.Globals.strings.lblWeCanTryToSendTheText,
-	
-}
-"#OR":{
-	text: Alloy.Globals.strings.lblOr,
-	
+},
+"#signupBtn":{
+	title: Alloy.Globals.strings.lblGoToFullRegistration
 }
