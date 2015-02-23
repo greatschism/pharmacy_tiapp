@@ -33,7 +33,7 @@
 						<Label id="autoRefillLbl" class="left list-item-lbl" />
 						<Widget id="autoRefillSwt" src="com.mscripts.switch" class="right swt" />
 					</View>
-					<Button id="refillBtn" class="padding-top primary-btn" />
+					<Button id="refillBtn" class="padding-top primary-btn" onClick="didClickRefillPrescription"/>
 				</View>
 			</TableViewRow>
 		</TableViewSection>
