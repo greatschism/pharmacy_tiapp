@@ -1,41 +1,39 @@
 var args = arguments[0] || {},
-    app = require("core");
+    app = require("core"),
+    http = require("requestwrapper");
 
-function didItemClick(e) {
-	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
-	app.navigator.open({
-		ctrl : "termsDoc",
-		ctrlArguments : {
-			url : item.url
+function init() {
+	http.request({
+		method : "TERMS_GET",
+		data : {
+			data : [{
+				terms : ""
+			}]
 		},
-		title : item.name,
-		stack : true
+		success : didSuccess
 	});
 }
 
-function init() {
-	Alloy.Collections.termsAndConditions.reset([{
-		name : "Terms of Service",
-		url : ""
-	}, {
-		name : "Privacy Policy",
-		url : ""
-	}, {
-		name : "Rx.com Terms and Service",
-		url : ""
-	}]);
+function didSuccess(_result) {
+	Alloy.Collections.termsAndConditions.reset(_result.data.terms);
+}
+
+function didClickItem(e) {
+	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
+	app.navigator.open({
+		ctrl : "termsDoc",
+		title : item.agreement_name,
+		stack : true,
+		ctrlArguments : item
+	});
+}
+
+function didClickDone(e) {
+	app.navigator.close();
 }
 
 function terminate() {
 	$.destroy();
-}
-
-function didDoneClick(e) {
-	app.navigator.open({
-		ctrl : "mobileNumber",
-		titleid : "titleMobileNumber",
-		stack : true
-	});
 }
 
 exports.init = init;

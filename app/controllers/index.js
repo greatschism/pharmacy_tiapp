@@ -45,7 +45,7 @@ function didSuccess(_result) {
 	}, {
 		silent : true
 	});
-	var clientConfig = _result.data.appload.client_json;
+	var clientConfig = _result.data.appload.client_json || {};
 	if (_.has(clientConfig, "force_update")) {
 		Alloy.CFG.forceUpdate = clientConfig.force_update;
 	}

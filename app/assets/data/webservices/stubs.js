@@ -153,6 +153,93 @@ module.exports = {
 			}
 		}
 	},
+	"TERMS_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"terms" : [{
+				"id" : "1234",
+				"agreement_name" : "mscriptsTOS",
+				"agreement_text" : "xxxxxx",
+				"agreement_version" : "1",
+				"agreement_valid_from" : "12/12/2013",
+				"agreement_valid_to" : "12/12/2015",
+				"agreement_url" : "https://staging.remscripts.com/tos/termsofservice.htm",
+				"agreement_html_page" : ""
+			}, {
+				"id" : "1235",
+				"agreement_name" : "HIPAA",
+				"agreement_text" : "xxxxxx",
+				"agreement_version" : "1",
+				"agreement_valid_from" : "12/12/2013",
+				"agreement_valid_to" : "12/12/2015",
+				"agreement_url" : "https://staging.remscripts.com/tos/HIPAAtermsofservice.htm",
+				"agreement_html_page" : ""
+			}]
+		}
+	},
+	"PATIENTS_AUTHENTICATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Login Success",
+		"description" : "x",
+		"data" : {
+			"patients" : {
+				"session_id" : "12345fhajsdfajfakfh8723aajfkajf",
+				"status" : "1",
+				"client_id" : "1"
+			}
+		}
+	},
+	"PATIENTS_LOGOUT" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "You have logged out succesfully",
+		"description" : "x",
+		"data" : ""
+	},
+	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "The user exists in our system.",
+		"description" : "x",
+		"data" : {
+			"patients" : {
+				"is_mobile_shared" : "0",
+				"mobile_exists" : "1"
+			}
+		}
+	},
+	"PATIENTS_MOBILE_GENERATE_OTP" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "OTP send successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PATIENTS_VALIDATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "OTP validated successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PATIENTS_STORE_TO_APP_CONVERSION" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your account has been created.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PATIENTS_REGISTER" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your account has been created",
+		"description" : "x",
+		"data" : ""
+	},
 	"PRESCRIPTIONS_LIST" : {
 		"status" : "Success",
 		"code" : "200",
@@ -256,7 +343,6 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-
 	},
 	"PRESCRIPTIONS_REFILL" : {
 		"status" : "Success",
@@ -283,66 +369,6 @@ module.exports = {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Prescriptions added successfully.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PATIENTS_AUTHENTICATE" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Login Success",
-		"description" : "x",
-		"data" : {
-			"patients" : {
-				"session_id" : "12345fhajsdfajfakfh8723aajfkajf",
-				"status" : "1",
-				"client_id" : "1"
-			}
-		}
-	},
-	"PATIENTS_LOGOUT" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "You have logged out succesfully",
-		"description" : "x",
-		"data" : ""
-	},
-	"PATIENTS_MOBILE_EXISTS_OR_SHARED" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "The user exists in our system.",
-		"description" : "x",
-		"data" : {
-			"patients" : {
-				"is_mobile_shared" : "0",
-				"mobile_exists" : "1"
-			}
-		}
-	},
-	"PATIENTS_MOBILE_GENERATE_OTP" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "OTP send successfully.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PATIENTS_VALIDATE" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "OTP validated successfully.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PATIENTS_STORE_TO_APP_CONVERSION" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Your account has been created.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PATIENTS_REGISTER" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Your account has been created",
 		"description" : "x",
 		"data" : ""
 	}

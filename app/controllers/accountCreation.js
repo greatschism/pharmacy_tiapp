@@ -115,7 +115,11 @@ function didClickTooltip(e) {
 }
 
 function didClickAgreement(e) {
-
+	app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : "true"
+	});
 }
 
 function didToggle(e) {

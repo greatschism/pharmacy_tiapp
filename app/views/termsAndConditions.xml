@@ -1,19 +1,19 @@
 <Alloy>
-	
-	<TableView dataCollection="termsAndConditions" onClick="didItemClick">
+	<TableView dataCollection="termsAndConditions" onClick="didClickItem">
 		<HeaderView>
-			<View class="auto-height">
-				<Label id="docLabel" class="padding-left"  />
-				<View class="hseparator" />
+			<View class="section-header-view">
+				<Label id="titleLbl" class="section-header-lbl" />
 			</View>
 		</HeaderView>
-		<TableViewRow itemUrl="{url}">
-			<Label text="{name}" class="list-item-title-lbl padding-left" />
-			<Label class="list_item_child childIcon" />
+		<TableViewRow itemId="{id}">
+			<View class="list-item-view-with-child">
+				<Label class="left list-item-lbl" text="{agreement_name}" />
+			</View>
+			<Label class="list-item-child" />
 		</TableViewRow>
 		<FooterView>
-			<View class="auto-height padding-top">
-				<Button id="doneBtn" class="margin-bottom primary-btn padding-top" onClick="didDoneClick" />
+			<View class="auto-height">
+				<Button id="doneBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>

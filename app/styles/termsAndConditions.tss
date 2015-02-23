@@ -1,12 +1,6 @@
+"#titleLbl":{
+	text:Alloy.Globals.strings.lblDocument
+},
 "#doneBtn":{
 	title: Alloy.Globals.strings.btnDone
-},
-"#docLabel":{
-	text:Alloy.Globals.strings.lblDocument
-}
-".childIcon":{
-	text:Alloy.CFG.icons.greaterthan,
-	right:"0",
-	font: Alloy.TSS.small_icon.font,
-	color:"#000000"
 }

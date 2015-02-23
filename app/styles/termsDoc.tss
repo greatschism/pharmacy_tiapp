@@ -1,3 +1,6 @@
+".disable-bounce":{
+	disableBounce: true
+},
 "#webView":{
 	width: "100%",
 	scalesPageToFit: true
