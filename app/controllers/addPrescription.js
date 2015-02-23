@@ -9,11 +9,10 @@ var args = arguments[0] || {},
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickUp = Alloy.Globals.strings.msgPickUp,
-  
+
     readyToRefill,
     otherPrescriptions,
     prescriptions;
-  
 
 function init() {
 	http.request({
@@ -45,7 +44,6 @@ function didSuccess(result) {
 
 	console.log(prescriptions);
 
-
 	if (readyForRefill.length) {
 		console.log("ready to refill");
 		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill);
@@ -59,7 +57,7 @@ function didSuccess(result) {
 			console.log(ndays);
 			row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow",
-				classes : ["height-75d","section-header-lbl"],
+				classes : ["height-75d", "section-header-lbl"],
 
 			}),
 
@@ -245,14 +243,57 @@ function didSuccess(result) {
 	$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
 }
 
-
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
+function didClickDone() {
 
-function didClickDone(){
-	
+	http.request({
+		method : "PRESCRIPTIONS_ADD",
+
+		data : {
+			filter : null,
+			data : [{
+				prescriptions : [{
+					id : "1",
+					rx_number : "2345678",
+					presc_name : "Lovastin, 200 mg",
+					is_overdue : "1",
+					prefill : "x",
+					doctor_id : "x",
+					anticipated_refill_date : "2015/12/15",
+					expiration_date : "2015/12/15",
+					refill_remaining_preferences : "x",
+					refill_started_date : "x",
+					latest_refill_requested_date : "2015-02-11",
+					latest_refill_promised_date : "2015-02-13",
+					latest_filled_date : "2015-02-16",
+					restockperiod : "10",
+					presc_last_filled_date : "x",
+					latest_sold_date : "x",
+					latest_refill_completed_date : "x",
+					refill_status : "OTHERS"
+				}]
+
+			}]
+		},
+		success : didSuccess,
+
+	});
+
+}
+
+function didSuccess()
+{
+	app.navigator.open({
+		ctrl : "orderDetails",
+		title : prescriptions.presc_name,
+		ctrlArguments : {
+			prescription : prescriptions
+		},
+		stack : true
+	});
 }
 
 
