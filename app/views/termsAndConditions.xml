@@ -13,7 +13,7 @@
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="doneBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickDone" />
+				<Button id="doneBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>

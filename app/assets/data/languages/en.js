@@ -131,12 +131,15 @@ module.exports = {
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",
 
+		"valFirstNameRequired" : "Please enter your first name",
+		"valLastNameRequired" : "Please enter your last name",
 		"valUsernameRequired" : "Please enter your username",
 		"valPasswordRequired" : "Please enter your password",
 		"valEmailRequired" : "Please enter a valid email id",
 		"valMobileNumberRequired" : "Please enter a valid mobile number",
-		"valFirstNameRequired" : "Please enter your first name",
 		"valDOBRequired" : "Please enter your dob",
+		"valRxNoRequired" : "Please enter your Rx Number",
+		"valPharmacyRequired" : "Please choose a pharmacy",
 		"valCodeRequired" : "Please enter the OTP you have received",
 
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",

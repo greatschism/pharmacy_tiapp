@@ -16,13 +16,6 @@
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
-	nextItem: "dob"
-},
-"#dob":{
-	leftTitle: Alloy.Globals.strings.strCancel,
-	rightTitle: Alloy.Globals.strings.btnNext,
-	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE,
 	nextItem: "unameTxt"
 },
 "#unameTxt":{

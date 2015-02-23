@@ -7,10 +7,14 @@ var args = arguments[0] || {},
     moment = require("alloy/moment");
 
 function init() {
+	if (args.fname) {
+		$.fnameTxt.setValue(args.fname);
+	}
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
 	uihelper.getImage($.logoImg);
+	Alloy.Models.store.clear();
 	Alloy.Models.store.on("change", didChangeStore);
 	$.userContainerView.addEventListener("postlayout", didPostLayoutUserContainerView);
 	$.rxContainerView.addEventListener("postlayout", didPostLayoutRxContainerView);
@@ -39,7 +43,17 @@ function setParentViews(_view) {
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
-	nextItem ? $[nextItem] && $[nextItem].focus ? $[nextItem].focus() : $[nextItem].showPicker ? $[nextItem].showPicker() : $[nextItem].fireEvent("click") : didClickCreateAccount();
+	if (nextItem && $[nextItem]) {
+		if ($[nextItem].focus) {
+			$[nextItem].focus();
+		} else if ($[nextItem].showPicker) {
+			$[nextItem].showPicker();
+		} else {
+			_.isEmpty(Alloy.Models.store.toJSON()) ? $[nextItem].fireEvent("click") : didClickCreateAccount();
+		}
+	} else {
+		didClickCreateAccount();
+	}
 }
 
 function didClickAgreement(e) {
@@ -62,8 +76,112 @@ function didChangeStore() {
 
 }
 
-function didClickCreateAccount(e) {
+function didClickPharmacy(e) {
+	app.navigator.open({
+		ctrl : "stores",
+		titleid : "titleStores",
+		stack : true,
+		ctrlArguments : {
+			orgin : $.__controllerPath
+		}
+	});
+}
 
+function didClickCreateAccount(e) {
+	var fname = $.fnameTxt.getValue(),
+	    lname = $.lnameTxt.getValue(),
+	    dob = $.dob.getValue(),
+	    email = $.emailTxt.getValue(),
+	    uname = $.unameTxt.getValue(),
+	    password = $.passwordTxt.getValue(),
+	    rxNo = $.rxNoTxt.getValue(),
+	    pharmacyObj = Alloy.Models.store.toJSON();
+	if (!fname) {
+		dialog.show({
+			message : Alloy.Globals.strings.valFirstNameRequired
+		});
+		return;
+	}
+	if (!lname) {
+		dialog.show({
+			message : Alloy.Globals.strings.valLastNameRequired
+		});
+		return;
+	}
+	if (!dob) {
+		dialog.show({
+			message : Alloy.Globals.strings.valDOBRequired
+		});
+		return;
+	}
+	if (!utilities.validateEmail(email)) {
+		dialog.show({
+			message : Alloy.Globals.strings.valEmailRequired
+		});
+		return;
+	}
+	if (!uname) {
+		dialog.show({
+			message : Alloy.Globals.strings.valUsernameRequired
+		});
+		return;
+	}
+	if (!password) {
+		dialog.show({
+			message : Alloy.Globals.strings.valPasswordRequired
+		});
+		return;
+	}
+	if (!utilities.validatePassword(password)) {
+		dialog.show({
+			message : Alloy.Globals.strings.msgPasswordTips
+		});
+		return;
+	}
+	if (!rxNo) {
+		dialog.show({
+			message : Alloy.Globals.strings.valRxNoRequired
+		});
+		return;
+	}
+	if (_.isEmpty(pharmacyObj)) {
+		dialog.show({
+			message : Alloy.Globals.strings.valPharmacyRequired
+		});
+		return;
+	}
+	http.request({
+		method : "PATIENTS_REGISTER",
+		data : {
+			filter : [{
+				type : "mobile_otp"
+			}],
+			data : [{
+				patient : {
+					first_name : fname,
+					last_name : lname,
+					birth_date : moment(dob).format("DD-MM-YYYY"),
+					email_address : email,
+					user_name : uname,
+					password : password,
+					rx_nummber : rxNo,
+					store_id : pharmacyObj.store_id || null,
+					mobile : args.mobileNumber || null
+				}
+			}]
+		},
+		success : didSuccess
+	});
+}
+
+function didSuccess(_result) {
+	dialog.show({
+		message : Alloy.Globals.strings.msgAccountCreated,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
 }
 
 function didFocusUsername(e) {
