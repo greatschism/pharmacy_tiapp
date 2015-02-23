@@ -24,6 +24,8 @@ function didChange(e) {
 		value = '(' + value.substr(0, len);
 	}
 	$.mobileTxt.setValue(value);
+	len = value.length;
+	$.mobileTxt.setSelection(len, len);
 }
 
 function didClickContinue(e) {

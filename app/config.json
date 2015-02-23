@@ -77,25 +77,6 @@
 			"thin_notification": "y",
 			"thin_refill_camera": "$"
 		},
-		"accountCreation": {
-			"usernameTooltip": {
-				"top": 84
-			},
-			"passwordTooltip": {
-				"top": 16
-			}
-		},
-		"fullSignup": {
-			"usernameTooltip": {
-				"top": 84
-			},
-			"passwordTooltip": {
-				"top": 16
-			},
-			"rxNoTooltip": {
-				"top": 84
-			}
-		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,
 		"asyncUpdate": true,
@@ -149,18 +130,75 @@
 	"os:android": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
-		"storageEngine": "scule+tiencrypted"
+		"storageEngine": "scule+tiencrypted",
+		"accountCreation": {
+			"usernameTooltip": {
+				"top": 68
+			},
+			"passwordTooltip": {
+				"top": 18
+			}
+		},
+		"fullSignup": {
+			"usernameTooltip": {
+				"top": 68
+			},
+			"passwordTooltip": {
+				"top": 18
+			},
+			"rxNoTooltip": {
+				"top": 18
+			}
+		}
 	},
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
 		"navBarTop": 20,
-		"storageEngine": "scule+tiencrypted"
+		"storageEngine": "scule+tiencrypted",
+		"accountCreation": {
+			"usernameTooltip": {
+				"top": 84
+			},
+			"passwordTooltip": {
+				"top": 16
+			}
+		},
+		"fullSignup": {
+			"usernameTooltip": {
+				"top": 84
+			},
+			"passwordTooltip": {
+				"top": 16
+			},
+			"rxNoTooltip": {
+				"top": 84
+			}
+		}
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
-		"storageEngine": "scule+titanium"
+		"storageEngine": "scule+titanium",
+		"accountCreation": {
+			"usernameTooltip": {
+				"top": 68
+			},
+			"passwordTooltip": {
+				"top": 18
+			}
+		},
+		"fullSignup": {
+			"usernameTooltip": {
+				"top": 68
+			},
+			"passwordTooltip": {
+				"top": 18
+			},
+			"rxNoTooltip": {
+				"top": 18
+			}
+		}
 	},
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",

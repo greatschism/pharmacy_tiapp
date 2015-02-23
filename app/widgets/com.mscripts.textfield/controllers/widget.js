@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
-    enableClearButton = false;
+    enableClearButton = false,
+    value = "";
 
 (function() {
 	applyProperties(args);
@@ -110,6 +111,9 @@ function didBlur(e) {
 }
 
 function didChange(e) {
+	if (value == $.txt.value) {
+		return false;
+	}
 	if (enableClearButton) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
@@ -146,7 +150,8 @@ function animate(animationProp, callback) {
 }
 
 function setValue(_value) {
-	$.txt.setValue(_value);
+	value = _value;
+	$.txt.value = _value;
 	if (enableClearButton) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
