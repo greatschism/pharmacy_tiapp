@@ -85,6 +85,17 @@
 				"top": 16
 			}
 		},
+		"fullSignup": {
+			"usernameTooltip": {
+				"top": 84
+			},
+			"passwordTooltip": {
+				"top": 16
+			},
+			"rxNoTooltip": {
+				"top": 84
+			}
+		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,
 		"asyncUpdate": true,

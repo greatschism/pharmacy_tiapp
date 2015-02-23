@@ -170,6 +170,7 @@ module.exports = {
 		"msgAgePopUp" : "ja-This service is not directed at users under the age of 12. If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "ja-You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 		"msgUserNameTips" : "ja-Your username must be between 3 – 20 characters and contain only letters and numbers",
+		"msgRxNoTips" : "ja-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "ja-Your account has been created",
 
 		"menuSearch" : "ja-Search",

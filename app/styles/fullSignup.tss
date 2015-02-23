@@ -1,34 +1,28 @@
-"#titleIcon":{
-	text: Alloy.CFG.icons.thick_prescriptions
-},
-"#hintLbl":{
-	text: Alloy.Globals.strings.lblSignupAndGetRefillInSeconds
-},
-".vseparator":{
-	zIndex: 1
-},
 "#fnameTxt":{
-	hintText: Alloy.Globals.strings.hintFname,
+	hintText: Alloy.Globals.strings.hintFirstName,
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	hintText: Alloy.Globals.strings.hintLname,
+	hintText: Alloy.Globals.strings.hintLastName,
 	nextItem: "dob"
 },
 "#dob":{
+	leftTitle: Alloy.Globals.strings.strCancel,
+	rightTitle: Alloy.Globals.strings.btnNext,
 	hintText: Alloy.Globals.strings.hintDOB,
 	type: Ti.UI.PICKER_TYPE_DATE,
-	rightTitle: Alloy.Globals.strings.btnNext,
 	nextItem: "emailTxt"
 },
-"#inputView":{
-	zIndex: 1
-},
-
-
 "#emailTxt":{
-	hintText: Alloy.Globals.strings.hintEmailAddress,
+	hintText: Alloy.Globals.strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	nextItem: "dob"
+},
+"#dob":{
+	leftTitle: Alloy.Globals.strings.strCancel,
+	rightTitle: Alloy.Globals.strings.btnNext,
+	hintText: Alloy.Globals.strings.hintDOB,
+	type: Ti.UI.PICKER_TYPE_DATE,
 	nextItem: "unameTxt"
 },
 "#unameTxt":{
@@ -36,45 +30,42 @@
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	right: 70,
 	hintText: Alloy.Globals.strings.hintPassword,
-	nextItem: "rxNoTxt",
-	passwordMask: true
+	passwordMask: true,
+	nextItem: "rxNoTxt"
+},
+"#rxNoTxt":{
+	hintText: Alloy.Globals.strings.hintRxNo,
+	nextItem: "pharmacyView"
+},
+"#showPasswordLbl":{
+	right: 60,
+	text: Alloy.Globals.strings.lblShowPassword
 },
 "#toggleSwt":{
 	value: true
 },
-"#rxNoTxt":{
-	hintText: Alloy.Globals.strings.hintRxNoFormat,
-	nextItem: "pharmacy"
-},
-"#locationLbl":{
-	text: Alloy.Globals.strings.hintPharmacyLocation,
-	
-},
-"#downLbl":{
-	width: 20,
-	text: Alloy.CFG.icons.down_arrow,
-	color: "#000000",
-	font: Alloy.TSS.small_icon.font,
-	
+"#pharmacyLbl":{
+	right: 46,
+	color: Alloy.TSS.form_dropdown.hintTextColor,
+	text: Alloy.Globals.strings.hintPharmacyLocation
 },
 "#agreementLbl":{
-	html: Alloy.Globals.strings.lblSignupAgreement,
-	boldColor:"#0095ff"
+	html: Alloy.Globals.strings.lblSignupAgreement
 },
-"#signupBtn":{
+"#createBtn":{
 	title: Alloy.Globals.strings.btnCreateAccount
+},
+".padding-tooltip":{
+	left: 4,
+	right: 4
+},
+"#usernameTooltip":{
+	text: Alloy.Globals.strings.msgUserNameTips
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+},
+"#rxNoTooltip":{
+	text: Alloy.Globals.strings.msgRxNoTips
 }
-
-"#showPassword":{
-	text:Alloy.Globals.strings.lblShowPassword,
-}
-
-
-
-
-	/*textAlign: Alloy.TSS.txta.textAlign,
-	backgroundColor: Alloy.TSS.form_txt.backgroundColor,
-	borderColor: Alloy.TSS.form_txt.borderColor,
-	borderWidth: Alloy.TSS.form_txt.borderWidth*/
