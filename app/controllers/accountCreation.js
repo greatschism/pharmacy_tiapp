@@ -9,6 +9,17 @@ function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
+	$.containerView.addEventListener("postlayout", didPostLayout);
+}
+
+function didPostLayout(e) {
+	$.containerView.removeEventListener("postlayout", didPostLayout);
+	$.usernameTooltip.applyProperties({
+		top : e.source.rect.y - Alloy.CFG.accountCreation.usernameTooltip.top
+	});
+	$.passwordTooltip.applyProperties({
+		top : e.source.rect.y - Alloy.CFG.accountCreation.passwordTooltip.top
+	});
 }
 
 function setParentViews(_view) {
@@ -81,6 +92,29 @@ function didSuccess(_result) {
 			app.navigator.closeToRoot();
 		}
 	});
+}
+
+function didFocusUsername(e) {
+	$.usernameTooltip.show();
+}
+
+function didBlurUsername(e) {
+	$.usernameTooltip.hide();
+}
+
+function didFocusPassword(e) {
+	$.passwordTooltip.show();
+}
+
+function didBlurPassword(e) {
+	$.passwordTooltip.hide();
+}
+
+function didClickTooltip(e) {
+	e.source.hide();
+}
+
+function didClickAgreement(e) {
 
 }
 

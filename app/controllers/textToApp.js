@@ -41,7 +41,7 @@ function didClickContinue() {
 
 function didSuccess(_result, _passthrough) {
 	app.navigator.open({
-		ctrl : "signup",
+		ctrl : "accountCreation",
 		titleid : "strSignup",
 		stack : true,
 		ctrlArguments : _passthrough

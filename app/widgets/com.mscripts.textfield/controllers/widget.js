@@ -172,6 +172,14 @@ function setSelection(_start, _end) {
 	}
 }
 
+function addEventListener(_event, _callback) {
+	$.widget.addEventListener(_event, _callback);
+}
+
+function removeEventListener(_event, _callback) {
+	$.widget.removeEventListener(_event, _callback);
+}
+
 exports.blur = blur;
 exports.focus = focus;
 exports.animate = animate;
@@ -179,7 +187,9 @@ exports.setIcon = setIcon;
 exports.setButton = setButton;
 exports.setValue = setValue;
 exports.getValue = getValue;
-exports.applyProperties = applyProperties;
+exports.setSelection = setSelection;
 exports.setPasswordMask = setPasswordMask;
 exports.getPasswordMask = getPasswordMask;
-exports.setSelection = setSelection;
+exports.applyProperties = applyProperties;
+exports.addEventListener = addEventListener;
+exports.removeEventListener = removeEventListener;

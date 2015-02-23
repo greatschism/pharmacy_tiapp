@@ -75,6 +75,14 @@
 			"thin_notification": "y",
 			"thin_refill_camera": "$"
 		},
+		"accountCreation": {
+			"usernameTooltip": {
+				"top": 84
+			},
+			"passwordTooltip": {
+				"top": 16
+			}
+		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,
 		"asyncUpdate": true,

@@ -18,6 +18,10 @@ var args = arguments[0] || {};
 		setText(args.text);
 	}
 
+	if (args.visible) {
+		show();
+	}
+
 })();
 
 function updateArrow(_direction, _dict) {
@@ -141,10 +145,16 @@ function setContentView(_view, _styles) {
 	}
 }
 
+function didClick(e) {
+	$.trigger("click", {
+		source : $
+	});
+}
+
 exports.show = show;
 exports.hide = hide;
 exports.animate = animate;
 exports.setText = setText;
-exports.setContentView = setContentView;
 exports.getVisible = getVisible;
+exports.setContentView = setContentView;
 exports.applyProperties = applyProperties;
