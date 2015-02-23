@@ -11,11 +11,13 @@ var args = arguments[0] || {},
     strings = Alloy.Globals.strings,
     dialog = require("dialog"),
     uihelper = require("uihelper"),
-
+    prescription,
     orders,
     pickupdetails;
 
 function init() {
+    prescription = args.prescription || {};
+
 
 	orders = [{
 		id : 1,
@@ -174,17 +176,16 @@ function didClickOrderRefill(e) {
 		data : {
 			filter : null,
 			data : [{
-				appload : [{
-					phone_model : "x",
-					phone_os : "x",
-					phone_platform : "x",
-					device_id : "x",
-					carrier : "x",
-					app_version : "x",
-					client_name : "x",
-					client_param_type : "menu",
-					client_param_version : "x",
-					client_param_base_version : "x"
+				prescriptions : [{
+					id: "x",
+   rx_number: "x",
+   store_id: "x",
+   mobile_number: "x",
+   pickup_time_group: "x",
+   pickup_mode:"instore/mailorder",
+   barcode_data: "x",
+   barcode_format: "x
+
 				}]
 			}]
 		},
@@ -200,13 +201,17 @@ function didSuccess() {
 	app.navigator.open({
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
-		ctrl : "refillSuccess"
+		ctrl : "refillSuccess",
+		ctrlArguments: 
+		{
+			
+		}
 	});
 }
 
 function didClickPickUpOptions(event) {
-
-	//alert('Pickup Details: ' + event.id + " => " + event.value);
+Ti.API.info("user selected   : "+event.selectedValue);
+	
 };
 
 function didClickAddAnotherPrescription(e) {
@@ -228,7 +233,7 @@ function didClickStoreChange(e) {
 }
 
 function setParentViews(_view) {
-	//$.pickupdetails.setParentView(view);
+	
 }
 
 function didItemClick(e) {
@@ -237,7 +242,7 @@ function didItemClick(e) {
 
 function moveToNext(e) {
 
-	//	$.pickupdetails.showPicker();
+	
 }
 
 function didClickNext() {
@@ -251,5 +256,5 @@ function terminate() {
 exports.init = init;
 exports.terminate = terminate;
 
-//exports.setParentViews = setParentViews;
+
 
