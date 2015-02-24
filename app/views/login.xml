@@ -6,7 +6,6 @@
 			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
 			<View class="hseparator" />
 			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
-			<View class="hseparator" />
 		</View>
 		<View class="padding-top margin-left margin-right auto-height">
 			<Label id="keepMeLbl" class="left lbl" />

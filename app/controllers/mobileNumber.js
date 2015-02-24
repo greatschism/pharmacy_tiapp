@@ -10,21 +10,9 @@ function init() {
 }
 
 function didChange(e) {
-	var value = e.value,
-	    len;
-	value = value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
-	len = value.length;
-	if (len >= 10) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3) + '-' + value.substr(6, 4);
-	} else if (len >= 7) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3) + '-' + value.substr(6, 4);
-	} else if (len >= 4) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3);
-	} else if (len > 0) {
-		value = '(' + value.substr(0, len);
-	}
+	var value = e.value.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1)$2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14),
+	    len = value.length;
 	$.mobileTxt.setValue(value);
-	len = value.length;
 	$.mobileTxt.setSelection(len, len);
 }
 
@@ -43,7 +31,9 @@ function didClickContinue(e) {
 			passthrough : {
 				mobileNumber : mobileNumber
 			},
-			success : didSuccess
+			success : didSuccess,
+			failure : didFail,
+			keepBlock : true
 		});
 	} else {
 		dialog.show({
@@ -52,11 +42,16 @@ function didClickContinue(e) {
 	}
 }
 
+function didFail(_passthrough) {
+	app.navigator.hideLoader();
+}
+
 function didSuccess(_result, _passthrough) {
 	var isExists = parseInt(_result.data.patients.mobile_exists),
 	    isShared = parseInt(_result.data.patients.is_mobile_shared);
 	if (isExists) {
 		if (isShared) {
+			app.navigator.hideLoader();
 			app.navigator.open({
 				ctrl : "sharedMobileCheck",
 				stack : true,
@@ -80,6 +75,7 @@ function didSuccess(_result, _passthrough) {
 			});
 		}
 	} else {
+		app.navigator.hideLoader();
 		app.navigator.open({
 			ctrl : "fullSignup",
 			titleid : "strSignup",

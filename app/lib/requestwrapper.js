@@ -127,7 +127,7 @@ function didFail(_passthrough) {
 }
 
 function didComplete(_passthrough) {
-	if ((_passthrough.keepBlook !== true || _.isEmpty(_passthrough.failure))) {
+	if (_passthrough.keepBlock !== true) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}
