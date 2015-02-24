@@ -1,5 +1,3 @@
-var Alloy = require("alloy");
-
 var Analytics = {
 	featureEvent : function(_name, _data) {
 		if (Alloy.CFG.enableAnalytics) {

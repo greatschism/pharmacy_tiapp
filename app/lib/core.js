@@ -10,9 +10,6 @@
  * @class core
  * @singleton
  */
-var Alloy = require("alloy"),
-    config = require("config"),
-    dialog = require("dialog");
 
 var App = {
 
@@ -121,11 +118,11 @@ var App = {
 	 */
 	update : function() {
 		App.canReload = true;
-		config.updateResources(App.promptAndReloadConfig);
+		require("config").updateResources(App.promptAndReloadConfig);
 	},
 
 	promptAndReloadConfig : function() {
-		dialog.show({
+		require("dialog").show({
 			title : Alloy.Globals.strings.titleUpdates,
 			message : Alloy.CFG.forceReloadAfterUpdate ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
 			buttonNames : Alloy.CFG.forceReloadAfterUpdate ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
@@ -137,7 +134,7 @@ var App = {
 	reloadConfig : function() {
 		if (App.canReload) {
 			App.canReload = false;
-			config.load(App.resetNavigator);
+			require("config").load(App.resetNavigator);
 		}
 	},
 

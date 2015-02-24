@@ -1,8 +1,3 @@
-var Alloy = require("alloy"),
-    resources = require("resources"),
-    utilities = require("utilities"),
-    logger = require("logger");
-
 /**
  * Does the following actions
  * * load the selected language from Scule DB into Alloy.Globals.strings
@@ -22,7 +17,7 @@ var Locale = {
 	 * initialize localization
 	 */
 	init : function() {
-		Locale.applyLanguage(resources.get("languages",{
+		Locale.applyLanguage(require("resources").get("languages",{
 		selected : true
 		})[0]);
 	},
@@ -32,7 +27,8 @@ var Locale = {
 	 * @param {String} _id The language id to enable
 	 */
 	setLanguage : function(_id) {
-		var toSelect = resources.get("languages",{
+		var resources = require("resources"),
+		    toSelect = resources.get("languages",{
 		id : _id
 		})[0] || {};
 		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
@@ -50,7 +46,7 @@ var Locale = {
 	 * return {Array} languages The supported languages
 	 */
 	getLanguages : function(_key) {
-		return resources.get("languages");
+		return require("resources").get("languages");
 	},
 
 	/**
@@ -68,7 +64,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
-		logger.i("language selected : " + Locale.currentLanguage.id);
+		require("logger").i("language selected : " + Locale.currentLanguage.id);
 	}
 };
 

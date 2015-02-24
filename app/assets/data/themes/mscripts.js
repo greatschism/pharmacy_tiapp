@@ -2,7 +2,8 @@ module.exports = {
 	"styles" : {
 		"config" : {
 			"NAVIGATOR" : "hamburger",
-			"DUE_FOR_REFILL_IN_DAYS" : 7
+			"DUE_FOR_REFILL_IN_DAYS" : 7,
+			"RX_NUMBER_FORMAT" : ""
 		},
 		"tss" : {
 			"Window" : {

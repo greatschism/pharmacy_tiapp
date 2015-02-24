@@ -1,5 +1,3 @@
-var Alloy = require("alloy");
-
 var Logger = {
 	t : function(_message) {
 		if (Alloy.CFG.enableLogger) {

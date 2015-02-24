@@ -1,5 +1,3 @@
-var Alloy = require("alloy");
-
 var APM = {
 	module : false,
 	init : function() {

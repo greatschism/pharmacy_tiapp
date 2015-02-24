@@ -1,7 +1,6 @@
-var Alloy = require("alloy"),
-    app = require("core"),
-    utilities = require("utilities"),
-    config = require("config");
+var app = require("core"),
+    config = require("config"),
+    utilities = require("utilities");
 
 var UIHelper = {
 

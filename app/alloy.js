@@ -17,7 +17,8 @@
 	if (OS_IOS || OS_ANDROID) {
 		require("com.scule.encrypted").init();
 	}
-	require("resources").init();
+	resources = require("resources");
+	resources.init();
 	require("localization").init();
 
 	//variables

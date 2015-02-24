@@ -2,10 +2,9 @@
  * @param {Object} _params The arguments for the method
  */
 
-var Alloy = require("alloy"),
-    app = require("core"),
-    http = require("http"),
+var app = require("core"),
     dialog = require("dialog"),
+    http = require("http"),
     localization = require("localization"),
     utilities = require("utilities"),
     CFG = Alloy.CFG,

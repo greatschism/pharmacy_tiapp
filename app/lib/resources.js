@@ -1,7 +1,6 @@
-var utilities = require("utilities"),
+var logger = require("logger"),
     scule = require("com.scule"),
-    http = require("http"),
-    logger = require("logger");
+    utilities = require("utilities");
 
 var Resources = {
 
@@ -358,9 +357,10 @@ var Resources = {
 				fontsDir.createDirectory();
 			}
 		}
+		var platform = require("core").device.platform;
 		for (var i in _items) {
 			var item = _items[i];
-			if (_.indexOf(item.platform, app.device.platform) >= 0) {
+			if (_.indexOf(item.platform, platform) >= 0) {
 				var model = coll.find({
 				id: item.id
 				})[0] || {};
@@ -487,7 +487,8 @@ var Resources = {
 
 	update : function(_callback) {
 		if (!Resources.successCallback) {
-			var updateQueue = Resources.updateQueue;
+			var http = require("http"),
+			    updateQueue = Resources.updateQueue;
 			if (updateQueue.length) {
 				Resources.successCallback = _callback;
 				for (var i in updateQueue) {

@@ -1,18 +1,15 @@
-var Alloy = require("alloy"),
-    utilities = require("utilities"),
-    resources = require("resources"),
-    localization = require("localization");
-
 var Config = {
 
 	init : function(_config, _callback) {
+
+		var resources = require("resources");
 
 		/**
 		 * initialization
 		 */
 		//for debugging purpose only, should be false on test / production
 		if (Alloy.CFG.overrideRemoteResources === true) {
-			return 0;
+			return [];
 		}
 
 		var items = {
@@ -69,7 +66,9 @@ var Config = {
 		/**
 		 * load into memory
 		 */
-		var theme = resources.get("themes", {selected : true})[0],
+		var resources = require("resources"),
+		    utilities = require("utilities"),
+		    theme = resources.get("themes", {selected : true})[0],
 		    template = resources.get("templates", {selected : true})[0],
 		    menu = resources.get("menus", {selected : true})[0],
 		    fonts = resources.get("fonts", {
@@ -90,7 +89,7 @@ var Config = {
 		Alloy.Models.template.set(utilities.clone(template));
 
 		//language
-		localization.init();
+		require("localization").init();
 
 		//fonts
 		Alloy.Fonts = {};
@@ -157,7 +156,7 @@ var Config = {
 
 		//theme
 		_.extend(Alloy.CFG, _.omit(theme.styles.config, ["ios", "android", "mobileweb"]));
-		_.extend(Alloy.CFG, _.pick(theme.styles.config, [app.device.platform]));
+		_.extend(Alloy.CFG, _.pick(theme.styles.config, [require("core").device.platform]));
 		Alloy.TSS = {
 			Theme : {
 				id : theme.id,
@@ -191,11 +190,11 @@ var Config = {
 	},
 
 	updateImageProperties : function(_item) {
-		_.extend(Alloy.Images[_item.code][_item.orientation], resources.updateImageProperties(_item));
+		_.extend(Alloy.Images[_item.code][_item.orientation], require("resources").updateImageProperties(_item));
 	},
 
 	updateResources : function(_callback) {
-		resources.update(_callback);
+		require("resources").update(_callback);
 	},
 
 	/**
