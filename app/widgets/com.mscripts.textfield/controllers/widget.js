@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     enableClearButton = false,
-    value = "";
+    triggerChange = true;
 
 (function() {
 	applyProperties(args);
@@ -111,8 +111,9 @@ function didBlur(e) {
 }
 
 function didChange(e) {
-	if (value == $.txt.value) {
-		return false;
+	if (OS_ANDROID && !triggerChange) {
+		triggerChange = true;
+		return;
 	}
 	if (enableClearButton) {
 		$.clearBtn.visible = $.txt.value != "";
@@ -150,7 +151,9 @@ function animate(animationProp, callback) {
 }
 
 function setValue(_value) {
-	value = _value;
+	if (OS_ANDROID) {
+		triggerChange = false;
+	}
 	$.txt.value = _value;
 	if (enableClearButton) {
 		$.clearBtn.visible = $.txt.value != "";
