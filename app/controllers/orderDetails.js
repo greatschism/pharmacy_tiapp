@@ -16,8 +16,7 @@ var args = arguments[0] || {},
     pickupdetails;
 
 function init() {
-    prescription = args.prescription || {};
-
+	prescription = args.prescription || {};
 
 	orders = [{
 		id : 1,
@@ -177,15 +176,14 @@ function didClickOrderRefill(e) {
 			filter : null,
 			data : [{
 				prescriptions : [{
-					id: "x",
-   rx_number: "x",
-   store_id: "x",
-   mobile_number: "x",
-   pickup_time_group: "x",
-   pickup_mode:"instore/mailorder",
-   barcode_data: "x",
-   barcode_format: "x
-
+					id : "x",
+					rx_number : "x",
+					store_id : "x",
+					mobile_number : "x",
+					pickup_time_group : "x",
+					pickup_mode : "instore/mailorder",
+					barcode_data : "x",
+					barcode_format : "x"
 				}]
 			}]
 		},
@@ -193,7 +191,6 @@ function didClickOrderRefill(e) {
 		keepBlook : true,
 		success : didSuccess
 	});
-
 }
 
 function didSuccess() {
@@ -202,16 +199,15 @@ function didSuccess() {
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
 		ctrl : "refillSuccess",
-		ctrlArguments: 
-		{
-			
+		ctrlArguments : {
+
 		}
 	});
 }
 
 function didClickPickUpOptions(event) {
-Ti.API.info("user selected   : "+event.selectedValue);
-	
+	Ti.API.info("user selected   : " + event.selectedValue);
+
 };
 
 function didClickAddAnotherPrescription(e) {
@@ -233,7 +229,7 @@ function didClickStoreChange(e) {
 }
 
 function setParentViews(_view) {
-	
+
 }
 
 function didItemClick(e) {
@@ -242,7 +238,6 @@ function didItemClick(e) {
 
 function moveToNext(e) {
 
-	
 }
 
 function didClickNext() {
@@ -255,6 +250,4 @@ function terminate() {
 
 exports.init = init;
 exports.terminate = terminate;
-
-
 
