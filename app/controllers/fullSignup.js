@@ -22,18 +22,20 @@ function init() {
 
 function didPostLayoutUserContainerView(e) {
 	$.userContainerView.removeEventListener("postlayout", didPostLayoutUserContainerView);
+	var fromTop = e.source.rect.y;
 	$.usernameTooltip.applyProperties({
-		top : e.source.rect.y - Alloy.CFG.fullSignup.usernameTooltip.top
+		top : fromTop - Alloy.CFG.fullSignup.usernameTooltip.top
 	});
 	$.passwordTooltip.applyProperties({
-		top : e.source.rect.y - Alloy.CFG.fullSignup.passwordTooltip.top
+		top : fromTop - Alloy.CFG.fullSignup.passwordTooltip.top
 	});
 }
 
 function didPostLayoutRxContainerView(e) {
 	$.rxContainerView.removeEventListener("postlayout", didPostLayoutRxContainerView);
+	var fromTop = e.source.rect.y;
 	$.rxNoTooltip.applyProperties({
-		top : e.source.rect.y - Alloy.CFG.fullSignup.rxNoTooltip.top
+		top : fromTop - Alloy.CFG.fullSignup.rxNoTooltip.top
 	});
 }
 

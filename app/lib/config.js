@@ -156,7 +156,8 @@ var Config = {
 		}
 
 		//theme
-		_.extend(Alloy.CFG, theme.styles.config);
+		_.extend(Alloy.CFG, _.omit(theme.styles.config, ["ios", "android", "mobileweb"]));
+		_.extend(Alloy.CFG, _.pick(theme.styles.config, [app.device.platform]));
 		Alloy.TSS = {
 			Theme : {
 				id : theme.id,

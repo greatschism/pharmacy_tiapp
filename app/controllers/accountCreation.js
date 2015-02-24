@@ -14,11 +14,12 @@ function init() {
 
 function didPostLayout(e) {
 	$.containerView.removeEventListener("postlayout", didPostLayout);
+	var fromTop = e.source.rect.y;
 	$.usernameTooltip.applyProperties({
-		top : e.source.rect.y - Alloy.CFG.accountCreation.usernameTooltip.top
+		top : fromTop - Alloy.CFG.accountCreation.usernameTooltip.top
 	});
 	$.passwordTooltip.applyProperties({
-		top : e.source.rect.y - Alloy.CFG.accountCreation.passwordTooltip.top
+		top : fromTop - Alloy.CFG.accountCreation.passwordTooltip.top
 	});
 }
 

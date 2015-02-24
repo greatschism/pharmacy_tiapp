@@ -358,10 +358,9 @@ var Resources = {
 				fontsDir.createDirectory();
 			}
 		}
-		var platform = OS_IOS ? "ios" : ( OS_ANDROID ? "android" : "mobileweb");
 		for (var i in _items) {
 			var item = _items[i];
-			if (_.indexOf(item.platform, platform) >= 0) {
+			if (_.indexOf(item.platform, app.device.platform) >= 0) {
 				var model = coll.find({
 				id: item.id
 				})[0] || {};
