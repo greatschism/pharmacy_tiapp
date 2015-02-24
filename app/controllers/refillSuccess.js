@@ -1,3 +1,87 @@
+// var args = arguments[0] || {},
+// moment = require("alloy/moment"),
+// app = require("core"),
+// logger = require("logger"),
+// http = require("requestwrapper"),
+// icons = Alloy.CFG.icons,
+// strings = Alloy.Globals.strings,
+// dialog = require("dialog"),
+// uihelper = require("uihelper"),
+//
+// orders,
+// pickupdetails;
+//
+// function init() {
+//
+// orders = [{
+// id : 1,
+// name : "Rx# 1234567",
+// subtitle : "Should be ready by 10/10/2015",
+// icon : Alloy.CFG.icons.success
+//
+// }];
+// data = [];
+//
+// //Your order
+// if (orders.length) {
+// for (var i in orders) {
+// var transform = orders[i],
+// name = moment.unix(transform.name),
+//
+// row = $.UI.create("TableViewRow", {
+// apiName : "TableViewRow"
+// }),
+//
+// containerView = $.UI.create("View", {
+// apiName : "View",
+// classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+//
+// }),
+// name = $.UI.create("Label", {
+// apiName : "Label",
+// classes : ["list-item-title-lbl", "left"]
+// }),
+//
+// subtitle = $.UI.create("Label", {
+// apiName : "Label",
+// classes : ["left", "h4", "#ffffff", "touch-disabled"],
+// id : "addLbl"
+// }),
+//
+// icon = $.UI.create("Label", {
+// apiName : "Label",
+// classes : ["success-filled", "fg-primary", "touch-disabled"],
+// id : "addIcon"
+// });
+//
+// containerView.rowId = transform.id;
+//
+// name.text = transform.name;
+// subtitle.text = transform.subtitle;
+//
+// containerView.add(name);
+// containerView.add(subtitle);
+// containerView.add(icon);
+// row.add(containerView);
+//
+// }
+// $.yourOrderSection = uihelper.createTableViewSection($, strings.msgRefillOrder);
+//
+// $.yourOrderSection.add(row);
+//
+// data.push($.yourOrderSection);
+// }
+//
+// $.bundledView.data = [$.yourOrderSection];
+//
+// }
+//
+// function didClickDone(e) {
+//
+// }
+//
+// exports.init = init;
+
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
@@ -7,13 +91,6 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
-
-    dialog = require("dialog"),
-    uihelper = require("uihelper"),
-
-    orders,
-    refilldetails = {};
-
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickup = Alloy.Globals.strings.msgPickup,
     gettingRefilled,
@@ -23,7 +100,6 @@ var args = arguments[0] || {},
     prescriptions,
     allPrescriptions,
     currentSwipeView;
-
 
 function init() {
 	http.request({
@@ -200,62 +276,14 @@ function didSuccess(result) {
 
 	}
 
-
-	http.request({
-		method : "PRESCRIPTIONS_REFILL",
-
-		data : {
-          filter : null,
-			data : [{
-				prescriptions : [{
-					id : "x",
-					rx_number : "x",
-					store_id : "x",
-					mobile_number : "x",
-					pickup_time_group : "x",
-					pickup_mode : "instore/mailorder",
-					barcode_data : "x",
-					barcode_format : "x"
-				}]
-
-			}]
-		},
-		success : didSuccess,
-
-	});
-
 	if (readyForRefill.length) {
-
-}
-
-function didSuccess(result) {
-	refilldetails = result.data.prescriptions;
-	console.log(refilldetails);
-
-	//	orders = [{
-	//		id : 1,
-	//		name : "Januvia, 100mg tab",
-	//		subtitle : "Should be ready by 10/10/2015",
-	//		icon : Alloy.CFG.icons.success
-
-	//	}];
-	data = [];
 
 		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill);
 		for (var i in readyForRefill) {
 
-
-
-	//Your order
-	if (refilldetails.length) {
-		for (var i in refilldetails) {
-			var transform = refilldetails[i],
-			    name = moment.unix(transform.name),
-
 			var transform = readyForRefill[i],
 			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
-
 
 			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
 
@@ -416,10 +444,6 @@ function didSuccess(result) {
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
 
-
-			name.text = transform.name;
-			subtitle.text = transform.refill_promised_date;
-
 			detail.add(rx);
 			detail.add(due);
 			content.add(title);
@@ -456,7 +480,6 @@ function didSuccess(result) {
 					apiName : "Label",
 					classes : ["list-item-critical-detail-lbl", "right"]
 
-
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillIn;
 				dueForRefillDetailLbl.text = ndays + "days";
@@ -468,8 +491,6 @@ function didSuccess(result) {
 			}
 			$.otherPrescriptionsSection.add(row);
 		}
-
-		$.yourOrderSection = uihelper.createTableViewSection($, transform.refill_inline_message);
 
 	}
 	$.tableView.data = [$.gettingRefilledSection, $.readyForRefillSection, $.otherPrescriptionsSection];
