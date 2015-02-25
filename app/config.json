@@ -41,13 +41,6 @@
 			"calendar": "M",
 			"camera": "<",
 			"reward": ">",
-			"users_list": "w",
-			"arrow_right": "?",
-			"arrow_down": "[",
-			"filled_arrow_up": ")",
-			"filled_arrow_down": "%",
-			"filled_arrow_left": "'",
-			"filled_arrow_right": "(",
 			"plus": ",",
 			"map": "t",
 			"list": "r",
@@ -57,8 +50,15 @@
 			"remove": "*",
 			"refresh": ".",
 			"confirm": "j",
-			"success_unfilled": "m",
-			"success_filled": "+",
+			"users_list": "w",
+			"arrow_right": "?",
+			"arrow_down": "[",
+			"filled_arrow_up": ")",
+			"filled_arrow_down": "%",
+			"filled_arrow_left": "'",
+			"filled_arrow_right": "(",
+			"unfilled_success": "m",
+			"filled_success": "+",
 			"thick_prescriptions": "A",
 			"thick_refill": "B",
 			"thick_pharmacies": "C",
@@ -69,8 +69,8 @@
 			"thick_account": "H",
 			"thick_feedback": "I",
 			"thick_notification": "Y",
-			"thin_prescriptions": "a",
 			"thick_refill_camera": "&",
+			"thin_prescriptions": "a",
 			"thin_refill": "b",
 			"thin_pharmacies": "c",
 			"thin_transfer": "d",
@@ -141,7 +141,7 @@
 				"top": 68
 			},
 			"passwordTooltip": {
-				"top": 18
+				"top": 36
 			}
 		},
 		"fullSignup": {
@@ -149,7 +149,7 @@
 				"top": 68
 			},
 			"passwordTooltip": {
-				"top": 18
+				"top": 36
 			},
 			"rxNoTooltip": {
 				"top": 68
@@ -166,7 +166,7 @@
 				"top": 84
 			},
 			"passwordTooltip": {
-				"top": 16
+				"top": 34
 			}
 		},
 		"fullSignup": {
@@ -174,7 +174,7 @@
 				"top": 84
 			},
 			"passwordTooltip": {
-				"top": 16
+				"top": 34
 			},
 			"rxNoTooltip": {
 				"top": 84

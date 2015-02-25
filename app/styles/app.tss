@@ -498,7 +498,7 @@
 	leftBtnDict: Alloy.TSS.form_dropdown.leftBtnDict,
 	rightBtnDict: Alloy.TSS.form_dropdown.rightBtnDict,
 	iconSelectionColor: Alloy.TSS.form_dropdown.iconSelectionColor,
-	selectionIconText: Alloy.CFG.icons.success_filled,
+	selectionIconText: Alloy.CFG.icons.filled_success,
 	backgroundColor: Alloy.TSS.form_dropdown.backgroundColor,
 	borderColor: Alloy.TSS.form_dropdown.borderColor,
 	borderWidth: Alloy.TSS.form_dropdown.borderWidth
@@ -550,7 +550,7 @@
 	leftBtnDict: Alloy.TSS.dropdown.leftBtnDict,
 	rightBtnDict: Alloy.TSS.dropdown.rightBtnDict,
 	iconSelectionColor: Alloy.TSS.dropdown.iconSelectionColor,
-	selectionIconText: Alloy.CFG.icons.success_filled,
+	selectionIconText: Alloy.CFG.icons.filled_success,
 	backgroundColor: Alloy.TSS.dropdown.backgroundColor,
 	borderColor: Alloy.TSS.dropdown.borderColor,
 	borderWidth: Alloy.TSS.dropdown.borderWidth,
