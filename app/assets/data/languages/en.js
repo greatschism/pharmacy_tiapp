@@ -127,8 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "Drug conditions",
 		"lblDrugInteractions" : "Drug interactions",
 		"lblSideEffects" : "Side effects",
-		"lblScanMyPrescription":"Scan my prescription",
-		"lblTypeMyPrescription":"Type my prescription details",
+		"lblScanMyPrescription" : "Scan my prescription",
+		"lblTypeMyPrescription" : "Type my prescription details",
 
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",
@@ -181,8 +181,8 @@ module.exports = {
 		"msgUserNameTips" : "Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "Your account has been created",
-		"msgSignUpToReceiveText":"Sign up now to receive a text message when your prescription is ready!",
-		"msgScanFailed":"We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgSignUpToReceiveText" : "Sign up now to receive a text message when your prescription is ready!",
+		"msgScanFailed" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",

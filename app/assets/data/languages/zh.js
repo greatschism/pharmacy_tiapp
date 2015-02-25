@@ -127,8 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "zh-Drug conditions",
 		"lblDrugInteractions" : "zh-Drug interactions",
 		"lblSideEffects" : "zh-Side effects",
-		"lblScanMyPrescription":"zh-Scan my prescription",
-		"lblTypeMyPrescription":"zh-Type my prescription details",
+		"lblScanMyPrescription" : "zh-Scan my prescription",
+		"lblTypeMyPrescription" : "zh-Type my prescription details",
 
 		"lblDocument" : "zh-Document",
 		"lblDosageInstruction" : "zh-Dosage instruction",
@@ -181,8 +181,8 @@ module.exports = {
 		"msgUserNameTips" : "zh-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "zh-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "zh-Your account has been created",
-		"msgSignUpToReceiveText":"zh-Sign up now to receive a text message when your prescription is ready!",
-		"msgScanFailed":"zh-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgSignUpToReceiveText" : "zh-Sign up now to receive a text message when your prescription is ready!",
+		"msgScanFailed" : "zh-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -217,7 +217,6 @@ module.exports = {
 		"btnIAgree" : "zh-I agree",
 		"btnOrderRefill" : "zh-Order refill",
 		"btnCallMyPharmacy" : "zh-Call my Pharmacy",
-
 
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",
