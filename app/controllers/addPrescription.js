@@ -12,8 +12,7 @@ var args = arguments[0] || {},
 
     readyToRefill,
     otherPrescriptions,
-    prescriptions,
-    addedPrescriptions;
+    prescriptions;
 
 function init() {
 	http.request({
@@ -287,19 +286,20 @@ function didClickDone() {
 
 function didAddPrescription(_result) {
 	
-	addedPrescription = _result.data.addedPrescriptions || [];
 	
-	app.navigator.open({
-	ctrl : "orderDetails",
+	
+//	app.navigator.open({
+//	ctrl : "orderDetails",
 
-	title : "titleAddPrescription"
+//	title : "titleAddPrescription"
 
-	ctrlArguments : { prescription :prescriptions
-	}, stack :true,
-	alert (addprescriptions.message);
-});
-
+//	ctrlArguments : { prescription :prescriptions
+//	}, stack :true,
+	alert (_result.message);
 }
+//);
+
+//}
 
 function terminate() {
 	$.destroy();
