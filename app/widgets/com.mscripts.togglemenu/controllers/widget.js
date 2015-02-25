@@ -88,6 +88,7 @@ function getRow(data) {
 
 function setItems(_items) {
 	items = _items;
+	console.log(items);
 	var top = optionPadding.top || 0,
 	    bottom = optionPadding.bottom || 0,
 	    height = items.length * (top + bottom + optioDict.font.fontSize + 5);

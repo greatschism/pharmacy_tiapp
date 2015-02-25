@@ -11,10 +11,14 @@ var args = arguments[0] || {},
     msgPickup = Alloy.Globals.strings.msgPickup,
     gettingRefilled,
     inprocessPrescriptions,
+    sortPrescriptions,
     readyToRefill,
     otherPrescriptions,
     prescriptions,
+    hiddenPrescriptions,
     allPrescriptions,
+    refillButton,
+    hideButton,
     currentSwipeView;
 
 function init() {
@@ -32,7 +36,7 @@ function addRx(str) {
 }
 
 function didSuccess(result) {
-
+	console.log("did success");
 	prescriptions = result.data.prescriptions || [];
 	var inprocessPrescriptions = _.reject(prescriptions, function(obj) {
 		return obj.refill_status != "INPROCESS" && obj.refill_status != "READYFORPICKUP";
@@ -95,6 +99,7 @@ function didSuccess(result) {
 				orderProcessedFgImage.width = remainingDays;
 				contentView.rowId = transform.id;
 				//contentView.addEventListener("click", didItemClick);
+
 				title.text = utilities.ucfirst(transform.presc_name);
 				contentView.add(title);
 				contentView.add(orderProcessedLbl);
@@ -209,25 +214,22 @@ function didSuccess(result) {
 
 			}),
 
-			options = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["primary-btn-small"]
-			}),
-			opt1 = $.UI.create("Button", {
-				apiName : "Button",
-				//classes : ["primary-btn-small"]
-			}),
-			opt2 = $.UI.create("Button", {
-				apiName : "Button",
-				classes : ["primary-btn-small"]
-			}),
-			vseparator = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["vseparator", "height-90", "touch-disabled"]
-			}),
 			content = $.UI.create("View", {
 				apiName : "View",
 				classes : ["list-item-view", "vgroup"]
+			}),
+			refillButton = $.UI.create("Button", {
+				apiName : "Button",
+				classes : ["options-positive-btn", "lbl-refill"]
+			}),
+
+			vseparator = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vseparator", "touch-disabled", "height-75d"]
+			}),
+			hideButton = $.UI.create("Button", {
+				apiName : "Button",
+				classes : ["options-negative-btn", "lbl-hide"]
 			}),
 			sub = $.UI.create("View", {
 				apiName : "View",
@@ -252,20 +254,18 @@ function didSuccess(result) {
 			row.className = "readyForRefill";
 			sub.rowId = transform.id;
 			//sub.addEventListener("click", didItemClick);
-			//content.addEventListener("swipe", didItemSwipe);
+
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
 
-			//options.add(opt1);
-			//options.add(opt2);
-			//options.add(vseparator);
 			detail.add(rx);
 			detail.add(due);
 			content.add(title);
 			content.add(detail);
 			//content.add(sub);
-			row.add(options);
+
 			row.add(content);
+
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -280,10 +280,28 @@ function didSuccess(result) {
 					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
-				overDueDetailLbl.text = ndays;
+				overDueDetailLbl.text = Math.abs(ndays) + "days";
 				row.add(content);
 				content.add(overDueLbl);
 				content.add(overDueDetailLbl);
+
+				if (Math.abs(ndays) >= 60) {
+					console.log("came here" + ndays);
+					hideFromList = $.UI.create("Button", {
+						apiName : "Button",
+						classes : ["options-critical-btn", "lbl-hide"]
+					}),
+					overDueLblSingleLine = $.UI.create("Label", {
+						apiName : "Label",
+						classes : ["list-item-critical-info-lbl", "padding-right"]
+					});
+					hideFromList.addEventListener("click", didHideFromList);
+					overDueLblSingleLine.text = strings.msgOverdueBy + Math.abs(ndays) + "days";
+					row.add(hideFromList);
+					row.add(overDueLblSingleLine);
+					overDueLbl.text = "";
+					overDueDetailLbl.text = "";
+				}
 			} else if (ndays >= 0) {
 				var dueForRefillLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -305,7 +323,12 @@ function didSuccess(result) {
 			} else {
 
 			}
-
+			row.addEventListener("swipe", didItemSwipe);
+			refillButton.right = app.device.width;
+			hideButton.right = app.device.width;
+			row.add(refillButton);
+			row.add(vseparator);
+			row.add(hideButton);
 			$.readyForRefillSection.add(row);
 		}
 
@@ -419,6 +442,7 @@ function didItemSwipe(e) {
 	 * On swipe right & right is 150 - move the view back to right = 0, to hide the buttons.
 	 * value of right is being checked to avoid animating the view, if it is already at the right place.
 	 */
+	console.log("refill width" + refillButton.right);
 	var source,
 	    direction,
 	    right = false;
@@ -430,11 +454,16 @@ function didItemSwipe(e) {
 		source = e.source.getParent();
 		direction = e.direction;
 	}
+	console.log("direction" + vseparator.height);
+	if (direction == "left" && refillButton.right == 320) {
+		console.log("swiped left");
+		refillButton.right = 0;
+		hideButton.left = "20%";
 
-	if (direction == "left" && source.right == 0) {
-		right = 150;
+		console.log("direction" + vseparator.height);
 		currentSwipeView = source;
-	} else if (direction == "right" && source.right == 150) {
+	} else if (direction == "right" && refillButton.right == 320) {
+		console.log("swiped right");
 		right = 0;
 	}
 	if (right !== false) {
@@ -458,9 +487,130 @@ function didToggle(e) {
 
 function didClickMenu(e) {
 	var action = e.data.action;
+	console.log(action);
 	if (action === "search") {
 		$.tableView.top === 0 ? showSearch() : hideSearch();
+	} else if (action === "sort") {
+		sort();
+	} else if (action == "unhide") {
+
+	} else if (action === "refresh") {
+		refreshPrescriptions();
 	}
+}
+function didClickSort(e){
+	$.sortMenu.hide();
+	var action=e.data.action;
+	if(action == "sortIndex0"){
+		http.request({
+		method : "PRESCRIPTIONS_SORT_NAME",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences : sortPrescriptions[0].code_values,
+				prescription_display_status : "active/hidden"
+
+			}]
+
+		},
+		success : didSuccess,
+
+	});
+	}
+	else if(action == "sortIndex1"){
+			http.request({
+		method : "PRESCRIPTIONS_SORT_NAME",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences : sortPrescriptions[1].code_values,
+				prescription_display_status : "active/hidden"
+
+			}]
+
+		},
+		success : didSuccess,
+
+	});
+	}
+	else if(action == "sortIndex2"){
+			http.request({
+		method : "PRESCRIPTIONS_SORT_NAME",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences : sortPrescriptions[2].code_values,
+				prescription_display_status : "active/hidden"
+
+			}]
+
+		},
+		success : didSuccess,
+
+	});
+	}
+}
+function sort() {
+
+	http.request({
+		method : "CODE_VALUES",
+		data : {
+			codes : [{
+				code_name : "x"
+			}, {
+				code_name : "x"
+			}]
+		},
+
+		success : performSort,
+
+	});
+
+}
+
+function performSort(result) {
+	sortPrescriptions = result.data.code_values || [];
+
+	items = [{
+		title : "sort " + sortPrescriptions[0].code_values,
+		action : "sortIndex0"
+
+	}, {
+		title : "sort by " + sortPrescriptions[1].code_values,
+		action : "sortIndex1"
+
+	}, {
+		title : "sort by " + sortPrescriptions[2].code_values,
+		action : "sortIndex2"
+
+	}, {
+		title : "close",
+
+	}], $.sortMenu.setItems(items);
+	$.toggleMenu.hide();
+	$.sortMenu.show();
+
+}
+
+function refreshPrescriptions() {
+	http.request({
+		method : "PRESCRIPTIONS_GET",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences : "x",
+				prescription_display_status : "active/hidden"
+
+			}]
+
+		},
+		success : didSuccess,
+
+	});
 }
 
 function showSearch() {
@@ -780,10 +930,19 @@ function performSearch() {
 						classes : ["list-item-critical-detail-lbl", "right"]
 					});
 					overDueLbl.text = strings.msgOverdueBy;
-					overDueDetailLbl.text = ndays;
+					overDueDetailLbl.text = Math.abs(ndays) + "days";
 					row.add(content);
 					content.add(overDueLbl);
 					content.add(overDueDetailLbl);
+					console.log("came here" + ndays);
+					if (ndays >= 60) {
+
+						hideFromList = $.UI.create("Button", {
+							apiName : "Button",
+							classes : ["primary-btn-small", "lbl-hide"]
+						});
+						row.add(hideFromList);
+					}
 				} else if (ndays >= 0) {
 					var dueForRefillLbl = $.UI.create("Label", {
 						apiName : "Label",
@@ -975,6 +1134,46 @@ function terminate() {
 
 function didAndroidBack() {
 	return $.toggleMenu.hide();
+}
+
+function didHidePrescriptions(result) {
+	hiddenPrescriptions = result.status || [];
+	alert(result.message);
+	if (hiddenPrescriptions === "Success") {
+		http.request({
+			method : "PRESCRIPTIONS_GET",
+			data : {
+				filter : null,
+				data : [{
+					id : "x",
+					sort_order_preferences : "x",
+					prescription_display_status : "active/hidden"
+
+				}]
+
+			},
+			success : didSuccess,
+
+		});
+	}
+	$.tableView.addEventListener("click", didItemClick);
+}
+
+function didHideFromList() {
+	$.tableView.removeEventListener("click", didItemClick);
+	http.request({
+		method : "PRESCRIPTIONS_HIDE",
+		data : {
+			filter : null,
+			data : [{
+				prescriptions : [{
+					id : "2"
+				}]
+			}]
+		},
+		success : didHidePrescriptions,
+
+	});
 }
 
 exports.init = init;

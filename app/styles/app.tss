@@ -606,6 +606,42 @@
 	borderWidth:Alloy.TSS.primary_btn_small.borderWidth,
 	borderRadius: Alloy.TSS.primary_btn_small.borderRadius
 },
+".options-positive-btn":{
+	width:Alloy.TSS.options_positive_btn.width,
+	right:Alloy.TSS.options_positive_btn.right,
+	height: Alloy.TSS.options_positive_btn.height,
+	font: Alloy.TSS.options_positive_btn.font,
+	textAlign: Alloy.TSS.options_positive_btn.textAlign,
+	color: Alloy.TSS.options_positive_btn.color,
+	backgroundColor: Alloy.TSS.options_positive_btn.backgroundColor,
+	borderColor:Alloy.TSS.options_positive_btn.borderColor,
+	borderWidth:Alloy.TSS.options_positive_btn.borderWidth
+	
+},
+".options-negative-btn":{
+	
+	//left:Alloy.TSS.options_negative_btn.left,
+	right:Alloy.TSS.options_negative_btn.right,
+	width:Alloy.TSS.options_negative_btn.width,
+	height: Alloy.TSS.options_negative_btn.height,
+	font: Alloy.TSS.options_negative_btn.font,
+	textAlign: Alloy.TSS.options_negative_btn.textAlign,
+	color: Alloy.TSS.options_negative_btn.color,
+	backgroundColor: Alloy.TSS.options_negative_btn.backgroundColor,
+	borderColor:Alloy.TSS.options_negative_btn.borderColor,
+	borderWidth:Alloy.TSS.options_negative_btn.borderWidth
+},
+".options-critical-btn":{
+	right:Alloy.TSS.options_critical_btn.right,
+	width:Alloy.TSS.options_critical_btn.width,
+	height: Alloy.TSS.options_critical_btn.height,
+	font: Alloy.TSS.options_critical_btn.font,
+	backgroundColor: Alloy.TSS.options_critical_btn.backgroundColor,
+	borderWidth:Alloy.TSS.options_critical_btn.borderWidth,
+	borderRadius:Alloy.TSS.options_critical_btn.borderRadius,
+	top:Alloy.TSS.options_critical_btn.top,
+	borderColor:Alloy.TSS.options_critical_btn.borderColor
+},
 ".secondary-btn":{
 	left: Alloy.TSS.secondary_btn.left,
 	right: Alloy.TSS.secondary_btn.right,
@@ -883,6 +919,20 @@
 	overlayDict: Alloy.TSS.togglemenu.overlayDict,
 	backgroundColor: Alloy.TSS.togglemenu.backgroundColor
 },
+".sortmenu":{
+	role: "overlay",
+	top: Alloy.CFG.navBarHeight,
+	right: Alloy.TSS.sortmenu.right,
+	width: Alloy.TSS.sortmenu.width,
+	optionPadding: Alloy.TSS.sortmenu.optionPadding,
+	font: Alloy.TSS.sortmenu.font,
+	iconFont: Alloy.TSS.sortmenu.iconFont,
+	color: Alloy.TSS.sortmenu.color,
+	separatorInsets: Alloy.TSS.sortmenu.separatorInsets,
+	separatorColor: Alloy.TSS.sortmenu.separatorColor,
+	overlayDict: Alloy.TSS.sortmenu.overlayDict,
+	backgroundColor: Alloy.TSS.sortmenu.backgroundColor
+},
 /**
 * 	tooltip
 */
@@ -969,7 +1019,8 @@
 },
 ".vseparator": {
 	width: Alloy.TSS.vseparator.width,
-	backgroundColor: Alloy.TSS.vseparator.backgroundColor
+	backgroundColor: Alloy.TSS.vseparator.backgroundColor,
+	left: Alloy.TSS.vseparator.left
 },
 ".hspacer": {
 	width: Alloy.TSS.hspacer.width
