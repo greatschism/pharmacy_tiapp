@@ -416,16 +416,18 @@ module.exports = {
 		"data" : {
 			"prescriptions" : [{
 				"refill_error_message" : "x",
-				"refill_is_error" : "x",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
+				"refill_is_error" : "false",
+				"refill_inline_message" : "Your refill request with Rx # 4417989 has been placed at TARGET PHARMACY #1308,400 COCHITUATE ROAD. Your prescription will be ready for pickup after Dec 15, 2014 4:00 PM.",
+				"refill_promised_date" : "2015/12/20 16:00:00",
+				"refill_store_id" : "1234",
+				"rx_number_id" : "123"
 			}, {
-				"refill_error_message" : "x",
-				"refill_is_error" : "x",
+				"refill_error_message" : "This prescription is already in the refill process. Please contact your pharmacy Ph: 1-209-632-0370 with any questions.",
+				"refill_is_error" : "true",
 				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
+				"refill_promised_date" : null,
+				"refill_store_id" : "2345",
+				"rx_number_id" : "124"
 			}]
 		}
 	},
@@ -570,6 +572,73 @@ module.exports = {
 				"code_display" : "Upcoming Refills (oldest first)",
 				"code_values" : "upcoming refills"
 			}]
+		}
+	},
+	"STORES_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"stores" : {
+				"id" : "1234",
+				"store_identifier" : "12345",
+				"store_ncpdp_id" : "12345",
+				"store_name" : "TEST STORE 1",
+				"addressline1" : "TEST1",
+				"addressline2" : "TEST1",
+				"state" : "CA",
+				"city" : "SF",
+				"zip" : "04003",
+				"email_address" : "x",
+				"phone" : "6172837737",
+				"fax" : "6172837737",
+				"latitude" : "34.46533",
+				"longitude" : "-71.24564",
+				"timezone" : "US/Central",
+				"distance" : "234.23",
+				"searchdistance" : "234.234",
+				"isbookmarked" : "1",
+				"ishomepharmacy" : "1",
+				"store_services" : [{
+					"flu_shots_services" : "1",
+					"doctor_care" : "1"
+				}, {
+					"service_name" : "x2",
+					"service_availability" : "0"
+				}],
+				"store_hours" : {
+					"hours" : [{
+						"day" : "Sunday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Monday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Tuesday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Wednesday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Thursday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Friday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}, {
+						"day" : "Saturday",
+						"date" : "16/11/2014",
+						"hours" : "9:00 AM - 5 PM"
+					}]
+				}
+			}
 		}
 	}
 };

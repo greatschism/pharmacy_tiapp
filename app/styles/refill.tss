@@ -1,26 +1,13 @@
 "#scanPrescription":
 {
 	top:100,
-	title: Alloy.Globals.strings.lblscanPrescription
+	title: Alloy.Globals.strings.lblScanMyPrescription
 }
 "#typePrescription":
 {
-	title: Alloy.Globals.strings.lbltypePrescription
+	title: Alloy.Globals.strings.lblTypeMyPrescription
 	
 }
-
-"#OR":{
-	text: Alloy.Globals.strings.lblOr,
-	padding:{
-		top:10,
-		bottom:10,
-		right:10,
-		left:10
-	}
-	
-}
-".hseparator-half":{
-	height: Alloy.TSS.hseparator.height,
-	backgroundColor: Alloy.TSS.hseparator.backgroundColor,
-	width: "47%"
-}
+"#orLbl":{
+	text: Alloy.Globals.strings.lblOr
+},

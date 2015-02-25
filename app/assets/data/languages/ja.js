@@ -127,8 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "ja-Drug conditions",
 		"lblDrugInteractions" : "ja-Drug interactions",
 		"lblSideEffects" : "ja-Side effects",
-		"lblScanPrescription":"ja-Scan my prescription",
-		"lblTypePrescription":"ja-Type my prescription details",
+		"lblScanMyPrescription":"ja-Scan my prescription",
+		"lblTypeMyPrescription":"ja-Type my prescription details",
 
 		"lblDocument" : "ja-Document",
 		"lblDosageInstruction" : "ja-Dosage instruction",
@@ -213,10 +213,10 @@ module.exports = {
 		"btnRead" : "ja-Read",
 		"btnEdit" : "ja-Edit",
 		"btnScanPrescription" : "ja-Scan my Prescription",
-		"btnTypePrescription" : "ja-Type my Prescription details",
+		"btnTypeMyPrescription" : "ja-Type my Prescription details",
 		"btnIAgree" : "ja-I agree",
 		"btnOrderRefill" : "ja-Order refill",
-		"btnCallPharmacy" : "ja-Call my Pharmacy",
+		"btnCallMyPharmacy" : "ja-Call my Pharmacy",
 
 
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",

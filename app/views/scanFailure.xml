@@ -1,15 +1,13 @@
 <Alloy>
 	<ScrollView class="vgroup bg-primary">
-		
-		
-		<Label id="hintParaOne" class="styled-title multi-line" />
+
+		<Label id="ScanFailed" class="styled-title multi-line" />
 		<Button id="typePrescription" class="padding-top secondary-btn padding-bottom" onClick="didClickType" />
-	
-		<View id="btnSep" class="hgroup">
-			<View class="hseparator-half"/>
-			<Label id="OR" class="styled-title" />
-			<View class="hseparator-half"/>
-				<Button id="callPharmacy" class="padding-top secondary-btn padding-bottom " onClick="didClickCallPharmacy" />
-</View>
+		<View class="margin-left margin-right default-height">
+			<View class="hseparator"/>
+			<Label id="orLbl" class="or-lbl" />
+		</View>
+		<Button id="callPharmacy" class="padding-top secondary-btn padding-bottom " onClick="didClickCallPharmacy" />
+
 	</ScrollView>
 </Alloy>
