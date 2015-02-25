@@ -42,7 +42,7 @@ function didClickNext() {
 				patient : {
 					mobile_number : args.mobileNumber,
 					first_name : fname,
-					birth_date : moment(dob).format("DD-MM-YYYY")
+					birth_date : moment(dob).format("MM-DD-YYYY")
 				}
 			}]
 		},

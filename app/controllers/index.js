@@ -9,7 +9,6 @@ function didOpen(e) {
 	http.request({
 		method : "APPLOAD_GET",
 		data : {
-			filter : null,
 			data : [{
 				appload : [{
 					phone_model : "x",

@@ -27,7 +27,7 @@ function didClickContinue() {
 				patient : {
 					mobile_number : args.mobileNumber,
 					first_name : args.fname || null,
-					birth_date : args.dob ? moment(args.dob).format("DD-MM-YYYY") : null,
+					birth_date : args.dob ? moment(args.dob).format("MM-DD-YYYY") : null,
 					token : code
 				}
 			}]

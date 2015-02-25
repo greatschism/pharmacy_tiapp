@@ -136,11 +136,12 @@ module.exports = {
 		"valPasswordRequired" : "zh-Please enter your password",
 		"valEmailRequired" : "zh-Please enter a valid email id",
 		"valMobileNumberRequired" : "zh-Please enter a valid mobile number",
-		"valDOBRequired" : "zh-Please enter your dob",
+		"valDOBRequired" : "zh-Please enter your date of birth",
 		"valRxNoRequired" : "zh-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "zh-Please choose a pharmacy",
 		"valCodeRequired" : "zh-Please enter the OTP you have received",
 
+		"msgAgeRestriction" : "zh-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "zh-Unable to find your location, please check your settings",
 		"msgPleaseWait" : "zh-Processing. Please wait",
 		"msgFailedToRetrieve" : "zh-Failed to retrieve",
@@ -205,7 +206,7 @@ module.exports = {
 		"btnEdit" : "zh-Edit",
 		"btnScanPrescription" : "zh-Scan my Prescription",
 		"btnTypePrescription" : "zh-Type my Prescription details",
-		"btnIAgree" : "zh-I Agree",
+		"btnIAgree" : "zh-I agree",
 		"btnOrderRefill" : "zh-Order refill",
 
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
