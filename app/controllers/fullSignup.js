@@ -82,7 +82,7 @@ function didClickAgreement(e) {
 }
 
 function didToggle(e) {
-	$.passwordTxt.setPasswordMask(e.value);
+	$.passwordTxt.setPasswordMask(!e.value);
 }
 
 function handleScroll(e) {

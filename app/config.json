@@ -141,7 +141,7 @@
 				"top": 68
 			},
 			"passwordTooltip": {
-				"top": 36
+				"top": 18
 			}
 		},
 		"fullSignup": {
@@ -149,7 +149,7 @@
 				"top": 68
 			},
 			"passwordTooltip": {
-				"top": 36
+				"top": 18
 			},
 			"rxNoTooltip": {
 				"top": 68
@@ -201,7 +201,7 @@
 				"top": 18
 			},
 			"rxNoTooltip": {
-				"top": 18
+				"top": 68
 			}
 		}
 	},

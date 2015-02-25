@@ -31,9 +31,6 @@
 	right: 60,
 	text: Alloy.Globals.strings.lblShowPassword
 },
-"#toggleSwt":{
-	value: true
-},
 "#agreementLbl":{
 	html: Alloy.Globals.strings.lblSignupAgreement
 },

@@ -39,9 +39,6 @@
 	right: 60,
 	text: Alloy.Globals.strings.lblShowPassword
 },
-"#toggleSwt":{
-	value: true
-},
 "#pharmacyLbl":{
 	right: 46,
 	color: Alloy.TSS.form_dropdown.hintTextColor,
