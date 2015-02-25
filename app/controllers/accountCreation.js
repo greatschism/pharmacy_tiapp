@@ -55,6 +55,12 @@ function didClickSignup(e) {
 		});
 		return;
 	}
+	if (!utilities.validateUserName(uname)) {
+		dialog.show({
+			message : Alloy.Globals.strings.msgUserNameTips
+		});
+		return;
+	}
 	if (!password) {
 		dialog.show({
 			message : Alloy.Globals.strings.valPasswordRequired

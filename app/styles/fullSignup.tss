@@ -1,8 +1,10 @@
 "#fnameTxt":{
+	maxLength: 40,
 	hintText: Alloy.Globals.strings.hintFirstName,
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
+	maxLength: 40,
 	hintText: Alloy.Globals.strings.hintLastName,
 	nextItem: "dob"
 },
@@ -19,10 +21,12 @@
 	nextItem: "unameTxt"
 },
 "#unameTxt":{
+	maxLength: 20,
 	hintText: Alloy.Globals.strings.hintUsername,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
+	maxLength: 50,
 	hintText: Alloy.Globals.strings.hintPassword,
 	passwordMask: true,
 	nextItem: "rxNoTxt"

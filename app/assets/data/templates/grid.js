@@ -42,7 +42,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
-									"textid" : "titleRefillViaCamera"
+									"textid" : "strRefillNow"
 								}
 							}]
 						}],

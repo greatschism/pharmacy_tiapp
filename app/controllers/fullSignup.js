@@ -109,9 +109,21 @@ function didClickCreateAccount(e) {
 			});
 			return;
 		}
+		if (!utilities.validateName(fname)) {
+			dialog.show({
+				message : Alloy.Globals.strings.msgFirstNameTips
+			});
+			return;
+		}
 		if (!lname) {
 			dialog.show({
 				message : Alloy.Globals.strings.valLastNameRequired
+			});
+			return;
+		}
+		if (!utilities.validateName(lname)) {
+			dialog.show({
+				message : Alloy.Globals.strings.msgLastNameTips
 			});
 			return;
 		}
@@ -130,6 +142,12 @@ function didClickCreateAccount(e) {
 		if (!uname) {
 			dialog.show({
 				message : Alloy.Globals.strings.valUsernameRequired
+			});
+			return;
+		}
+		if (!utilities.validateUserName(uname)) {
+			dialog.show({
+				message : Alloy.Globals.strings.msgUserNameTips
 			});
 			return;
 		}

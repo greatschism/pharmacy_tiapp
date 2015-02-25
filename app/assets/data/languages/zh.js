@@ -1,9 +1,9 @@
 module.exports = {
 	"strings" : {
-		"lngEnglish" : "zh-zh-English",
-		"lngJapanese" : "zh-zh-Japanese",
-		"lngSpanish" : "zh-zh-Spanish",
-		"lngChinese" : "zh-zh-Chinese",
+		"lngEnglish" : "English",
+		"lngJapanese" : "Japanese",
+		"lngSpanish" : "Spanish",
+		"lngChinese" : "Chinese",
 
 		"titleHome" : "zh-Home",
 		"titlePharmacyRewards" : "zh-Pharmacy rewards",
@@ -11,7 +11,6 @@ module.exports = {
 		"titleFamilyAccounts" : "zh-Family accounts",
 		"titleTransferPrescription" : "zh-Transfer a prescription",
 		"titleDoctors" : "zh-Doctors",
-		"titleRefillViaCamera" : "zh-Refill now",
 		"titleStores" : "zh-Find a store",
 		"titleAccount" : "zh-Account",
 		"titleStoreDetails" : "zh-Find a store",
@@ -30,7 +29,6 @@ module.exports = {
 		"titleAddPrescriptions" : "zh-Add prescriptions",
 		"titleYourRefillIsOrdered" : "zh-Your refill has been ordered!",
 		"titleDetails" : "zh-Details",
-		"titleRefillNow" : "zh-Refill Now",
 		"titleUpdates" : "zh-Updates",
 		"titleSharedMobileNumber" : "zh-Mobile is Shared",
 		"titleTextHelp" : "zh-Text Help",
@@ -99,6 +97,7 @@ module.exports = {
 		"lblAtThisTime" : "zh-At this time",
 		"lblRefill" : "zh-Refill",
 		"lblHide" : "zh-Hide",
+		"lblHideFromList" : "zh-Hide from list",
 		"lblDueforRefill" : "zh-Due for refill",
 		"lblLastRefilled" : "zh-Last refilled",
 		"lblRemindMeRefillMedication" : "zh-Remind me to <b>refill</b> this medication",
@@ -146,7 +145,9 @@ module.exports = {
 		"msgPleaseWait" : "zh-Processing. Please wait",
 		"msgFailedToRetrieve" : "zh-Failed to retrieve",
 		"msgSomethingWentWrong" : "zh-Something went wrong! please try again",
-		"msgPasswordTips" : "zh-Password needs to have at least 2 numbers and be at least 6 characters long",
+		"msgFirstNameTips" : "zh-Fist name can be alpha numeric, no special characters allowed other than hyphens, apostrophes & spaces and maximum 40 characters in length",
+		"msgLastNameTips" : "zh-Last name can be alpha numeric, no special characters allowed other than hyphens, apostrophes & spaces and maximum 40 characters in length",
+		"msgPasswordTips" : "zh-Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long",
 		"msgSignout" : "zh-Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "zh-You have signed out successfully.",
 		"msgRefillOrder" : "zh-Your refill order has been sent and will be ready to pick up on:",
@@ -212,6 +213,7 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",
 
+		"strRefillNow" : "zh-Refill now",
 		"strWelcome" : "zh-Welcome!",
 		"strCancel" : "zh-Cancel",
 		"strOK" : "zh-OK",
@@ -236,6 +238,6 @@ module.exports = {
 		"strLastFilled" : "zh-Last filled",
 		"strAutoRefill" : "zh-Auto refill this prescription",
 		"strRefillHistory" : "zh-Refill history",
-		"strRetrivePassword" : "zh-?"
+		"strRetrivePassword" : "?"
 	}
 };

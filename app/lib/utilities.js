@@ -332,6 +332,24 @@ var Utility = {
 	},
 
 	/**
+	 * Check if name is valid
+	 * @param {String} _str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40
+	 * returns {Boolean}
+	 */
+	validateName : function(_str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-'\s]{1,40}$/.test(_str);
+	},
+
+	/**
+	 * Check if user name is valid
+	 * @param {String} _str Can be Alphanumeric with no special characters and length should be 3-20
+	 * returns {Boolean}
+	 */
+	validateUserName : function(_str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z]{3,20}$/.test(_str);
+	},
+
+	/**
 	 * Check if email is valid
 	 * @param {String} _str
 	 * returns {Boolean}
@@ -341,12 +359,12 @@ var Utility = {
 	},
 
 	/**
-	 * Check whether given string has at lest 2 numbers and 6 characters
+	 * Check whether given string is alphanumeric with at lest 2 numbers and length should be 6-50
 	 * @param {String} _str
 	 * returns {Boolean}
 	 */
 	validatePassword : function(_str) {
-		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}$/.test(_str);
+		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,50}$/.test(_str);
 	},
 
 	/**

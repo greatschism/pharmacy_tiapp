@@ -41,7 +41,7 @@ module.exports = {
 		"icon" : "doctors",
 		"requires_login" : false
 	}, {
-		"titleid" : "titleRefillViaCamera",
+		"titleid" : "strRefillNow",
 		"action" : "refillViaCamera",
 		"ctrl" : "refill",
 		"icon" : "refill_camera",

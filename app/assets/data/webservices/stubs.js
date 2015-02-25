@@ -362,7 +362,72 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-
+	},
+	"PRESCRIPTIONS_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : {
+				"id" : "x",
+				"rx_number" : "x",
+				"presc_name" : "x",
+				"is_overdue" : "x",
+				"prefill" : "x",
+				"primary_store_id" : "x",
+				"original_store_id" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "x",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_left" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "x",
+				"latest_refill_promised_date" : "x",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "INPROCESS/READYTOREFILL/OTHERS",
+				"presc_instruction_message" : "x",
+				"dosage_instruction_message" : "x"
+			}
+		}
+	},
+	"PRESCRIPTIONS_ADD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescriptions added successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PRESCRIPTIONS_HIDE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescription has been hidden successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PRESCRIPTIONS_REFILL" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}, {
+				"refill_error_message" : "x",
+				"refill_is_error" : "x",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : "x",
+				"refill_store_id" : "x"
+			}]
+		}
 	},
 	"PRESCRIPTIONS_SORT_NAME" : {
 		"status" : "Success",
@@ -389,8 +454,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS"
-			},
-			{
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
@@ -409,7 +473,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "INPROCESS"
-			},  {
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Ciprofloxacin, 300 mg",
@@ -428,8 +492,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP"
-			}, 
-{
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Lisinopril, 300 mg",
@@ -488,224 +551,13 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-
-	},
-	"PRESCRIPTIONS_GET" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"prescriptions" : [{
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Lovastin, 200 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-16",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "OTHERS"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Lomotil, 200 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-16",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "OTHERS"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Metacin, 200 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-16",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "OTHERS"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Lisinopril, 300 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-16",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYFORPICKUP"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Ciprofloxacin, 300 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-10",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYFORPICKUP"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
-				"presc_name" : "Amoxcilin, 300 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-18",
-				"latest_refill_promised_date" : "2015-02-20",
-				"latest_filled_date" : "2015-02-08",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "INPROCESS"
-			}, {
-				"id" : "x",
-				"rx_number" : "1234567",
-				"presc_name" : "Avomin, 500 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-02-1",
-				"expiration_date" : "x",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-08",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL"
-			}, {
-				"id" : "x",
-				"rx_number" : "1234567",
-				"presc_name" : "Volini, 500 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-02-1",
-				"expiration_date" : "x",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-08",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL"
-			}, {
-				"id" : "x",
-				"rx_number" : "1234567",
-				"presc_name" : "Saridon, 500 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-02-23",
-				"expiration_date" : "x",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-08",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL"
-			}]
-		}
-	},
-	"PRESCRIPTIONS_REFILL" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"prescriptions" : [{
-				"refill_error_message" : "x",
-				"refill_is_error" : "x",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
-			}, {
-				"refill_error_message" : "x",
-				"refill_is_error" : "x",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "x",
-				"refill_store_id" : "x"
-			}]
-		}
-	},
-	"PRESCRIPTIONS_HIDE" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Prescription has been hidden successfully.",
-		"description" : "x",
-		"data" : ""
 	},
 	"CODE_VALUES" : {
-
 		"status" : "Success",
 		"code" : "200",
 		"message" : "x",
 		"description" : "x",
 		"data" : {
-
 			"code_name" : "Sort Order Preference",
 			"default" : "",
 			"code_values" : [{
@@ -719,14 +571,6 @@ module.exports = {
 				"code_values" : "upcoming refills"
 			}]
 		}
-	},
-
-	"PRESCRIPTIONS_ADD" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Prescriptions added successfully.",
-		"description" : "x",
-		"data" : ""
 	}
 };
 
