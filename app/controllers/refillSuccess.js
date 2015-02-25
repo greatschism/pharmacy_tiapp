@@ -211,7 +211,7 @@ function didSuccessRefill(result) {
 					//detail.add(vseparator);
 					detail.add(due);
 					orderPickUpLbl.text = prescriptions[i].refill_inline_message;
-					orderPickUpLblIcon.text = Alloy.CFG.icons.thick_confirm;
+					orderPickUpLblIcon.text = Alloy.CFG.icons.confirm;
 
 					detail.add(orderPickUpLblIcon);
 					detail.add(orderPickUpLbl);

@@ -134,7 +134,7 @@ function didSuccess(result) {
 
 				}), title.text = utilities.ucfirst(transform.presc_name);
 				orderPickUpLbl.text = strings.msgYourOrderIsReady;
-				orderPickUpLblIcon.text = Alloy.CFG.icons.success_filled;
+				orderPickUpLblIcon.text = Alloy.CFG.icons.filled_success;
 
 				detail.add(orderPickUpLbl);
 				detail.add(orderPickUpLblIcon);
@@ -776,7 +776,7 @@ function performSearch() {
 
 					}), title.text = utilities.ucfirst(transform.presc_name);
 					orderPickUpLbl.text = strings.msgYourOrderIsReady;
-					orderPickUpLblIcon.text = Alloy.CFG.icons.success_filled;
+					orderPickUpLblIcon.text = Alloy.CFG.icons.filled_success;
 
 					detail.add(orderPickUpLbl);
 					detail.add(orderPickUpLblIcon);
