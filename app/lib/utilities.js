@@ -184,6 +184,14 @@ var Utility = {
 	},
 
 	/**
+	 * Adds brackets and hyphens to the mobile number (U.S.A)
+	 * @param {Srting} _str The mobile number
+	 */
+	formatMobileNumber : function(_str) {
+		return _str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1)$2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 13);
+	},
+
+	/**
 	 * @method ucword
 	 * Capitalizes the first character of each word in the string.
 	 * @param {String} _text String to capitalize.

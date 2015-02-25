@@ -3,7 +3,20 @@ module.exports = {
 		"config" : {
 			"NAVIGATOR" : "hamburger",
 			"DUE_FOR_REFILL_IN_DAYS" : 7,
-			"RX_NUMBER_FORMAT" : ""
+			"RX_NUMBER" : {
+				"format" : " (xxxx-xxxxxxx)",
+				"length" : 12,
+				"validator" : "^[0-9]{4}-[0-9]{7}$",
+				"formatters" : [{
+					"pattern" : "\\D",
+					"modifiters" : "g",
+					"value" : ""
+				}, {
+					"pattern" : "(\\d{4})(\\d)",
+					"modifiters" : "",
+					"value" : "$1-$2"
+				}]
+			}
 		},
 		"tss" : {
 			"Window" : {
@@ -867,7 +880,7 @@ module.exports = {
 				"color" : "#000000",
 				"separatorInsets" : {
 					"left" : 0,
-					"right" : 0,
+					"right" : 0
 				},
 				"separatorColor" : "#808285",
 				"overlayDict" : {

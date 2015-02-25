@@ -28,7 +28,7 @@
 	nextItem: "rxNoTxt"
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.strings.hintRxNo,
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
 	nextItem: "pharmacyView"
 },
 "#showPasswordLbl":{

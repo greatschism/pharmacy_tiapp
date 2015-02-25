@@ -73,7 +73,6 @@ module.exports = {
 		"hintNotes" : "Notes",
 		"hintClickToAddNote" : "Click to add note",
 		"hintLanguage" : "Language",
-		"hintRxNo" : "Rx Number (format)",
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
 		"lblSigninToMobilePharmacy" : "Sign in to the mscripts mobile pharmacy",
@@ -138,7 +137,7 @@ module.exports = {
 		"valEmailRequired" : "Please enter a valid email id",
 		"valMobileNumberRequired" : "Please enter a valid mobile number",
 		"valDOBRequired" : "Please enter your dob",
-		"valRxNoRequired" : "Please enter your Rx Number",
+		"valRxNoRequired" : "Please enter a valid Rx Number",
 		"valPharmacyRequired" : "Please choose a pharmacy",
 		"valCodeRequired" : "Please enter the OTP you have received",
 

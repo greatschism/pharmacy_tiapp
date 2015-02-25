@@ -4,16 +4,31 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    rxNoLength = Alloy.CFG.RX_NUMBER.length,
+    rxNoValidator = new RegExp(Alloy.CFG.RX_NUMBER.validator),
+    rxNoFormatters = Alloy.CFG.RX_NUMBER.formatters;
 
 function init() {
+	uihelper.getImage($.logoImg);
+	if (!_.has(rxNoFormatters[0], "exp")) {
+		for (var i in rxNoFormatters) {
+			var formatter = rxNoFormatters[i];
+			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
+			delete formatter.pattern;
+			delete formatter.modifiters;
+		}
+	}
 	if (args.fname) {
 		$.fnameTxt.setValue(args.fname);
 	}
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
-	uihelper.getImage($.logoImg);
+	$.rxNoTxt.applyProperties({
+		maxLength : Alloy.CFG.RX_NUMBER.length,
+		hintText : Alloy.Globals.strings.hintRxNo.concat(Alloy.CFG.RX_NUMBER.format),
+	});
 	Alloy.Models.store.clear();
 	Alloy.Models.store.on("change", didChangeStore);
 	$.userContainerView.addEventListener("postlayout", didPostLayoutUserContainerView);
@@ -78,17 +93,6 @@ function didChangeStore() {
 
 }
 
-function didClickPharmacy(e) {
-	app.navigator.open({
-		ctrl : "stores",
-		titleid : "titleStores",
-		stack : true,
-		ctrlArguments : {
-			orgin : $.__controllerPath
-		}
-	});
-}
-
 function didClickCreateAccount(e) {
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
@@ -140,7 +144,7 @@ function didClickCreateAccount(e) {
 		});
 		return;
 	}
-	if (!rxNo) {
+	if (!rxNoValidator.test(rxNo)) {
 		dialog.show({
 			message : Alloy.Globals.strings.valRxNoRequired
 		});
@@ -166,7 +170,7 @@ function didClickCreateAccount(e) {
 					email_address : email,
 					user_name : uname,
 					password : password,
-					rx_nummber : rxNo,
+					rx_number : rxNo.replace(/\D+/g, ""),
 					store_id : pharmacyObj.store_id || null,
 					mobile : args.mobileNumber || null
 				}
@@ -212,6 +216,29 @@ function didBlurRxNo(e) {
 
 function didClickTooltip(e) {
 	e.source.hide();
+}
+
+function didChangeRxNo(e) {
+	var value = e.value,
+	    len;
+	for (var i in rxNoFormatters) {
+		value = value.replace(rxNoFormatters[i].exp, rxNoFormatters[i].value);
+	}
+	value = value.slice(0, rxNoLength);
+	len = value.length;
+	$.rxNoTxt.setValue(value);
+	$.rxNoTxt.setSelection(len, len);
+}
+
+function didClickPharmacy(e) {
+	app.navigator.open({
+		ctrl : "stores",
+		titleid : "titleStores",
+		stack : true,
+		ctrlArguments : {
+			orgin : $.__controllerPath
+		}
+	});
 }
 
 function terminate() {

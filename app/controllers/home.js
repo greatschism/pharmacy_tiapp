@@ -8,7 +8,7 @@ function init() {
 	for (var i in homePageTemplate) {
 		$.containerView.add(create(homePageTemplate[i]));
 	}
-	Alloy.Models.user.on("change", didChangeUser);
+	Alloy.Models.user.on("change", didChangeAuthorization);
 	Alloy.Models.user.trigger("change");
 }
 
@@ -55,7 +55,7 @@ function create(dict) {
 	return element;
 }
 
-function didChangeUser() {
+function didChangeAuthorization() {
 	$.signinView.visible = !Alloy.Models.user.get("logged_in");
 }
 
@@ -85,7 +85,7 @@ function didTapSignin(e) {
 }
 
 function terminate() {
-	Alloy.Models.user.off("change", didChangeUser);
+	Alloy.Models.user.off("change", didChangeAuthorization);
 }
 
 exports.init = init;

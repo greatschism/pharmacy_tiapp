@@ -155,8 +155,11 @@ var Config = {
 		}
 
 		//theme
-		_.extend(Alloy.CFG, _.omit(theme.styles.config, ["ios", "android", "mobileweb"]));
-		_.extend(Alloy.CFG, _.pick(theme.styles.config, [require("core").device.platform]));
+		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.styles.config, ["ios", "android", "mobileweb"])));
+		var platform = require("core").device.platform;
+		if (_.isObject(theme.styles.config[platform])) {
+			_.extend(Alloy.CFG, utilities.clone(theme.styles.config[platform]));
+		}
 		Alloy.TSS = {
 			Theme : {
 				id : theme.id,

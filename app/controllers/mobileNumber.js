@@ -10,7 +10,7 @@ function init() {
 }
 
 function didChange(e) {
-	var value = e.value.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1)$2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 13),
+	var value = utilities.formatMobileNumber(e.value),
 	    len = value.length;
 	$.mobileTxt.setValue(value);
 	$.mobileTxt.setSelection(len, len);
