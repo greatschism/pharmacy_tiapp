@@ -921,7 +921,8 @@
 },
 ".sortmenu":{
 	role: "overlay",
-	top: Alloy.CFG.navBarHeight,
+	top: Alloy.TSS.sortmenu.top,
+	borderRadius: Alloy.TSS.sortmenu.borderRadius,
 	right: Alloy.TSS.sortmenu.right,
 	width: Alloy.TSS.sortmenu.width,
 	optionPadding: Alloy.TSS.sortmenu.optionPadding,

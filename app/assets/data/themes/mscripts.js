@@ -940,7 +940,7 @@ module.exports = {
 			},
 			"sortmenu" : {
 				"right" : 12,
-				"width" : 300,
+				"width" : 295,
 				"left" : 12,
 				"optionPadding" : {
 					"top" : 12,
