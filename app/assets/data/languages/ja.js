@@ -28,6 +28,7 @@ module.exports = {
 		"titleOrderDetails" : "ja-Order details",
 		"titleAddPrescriptions" : "ja-Add prescriptions",
 		"titleYourRefillIsOrdered" : "ja-Your refill has been ordered!",
+		"titleYourRefillIsOnTheWay" : "ja-Your refill is on the way!",
 		"titleDetails" : "ja-Details",
 		"titleUpdates" : "ja-Updates",
 		"titleSharedMobileNumber" : "ja-Mobile is Shared",
@@ -42,6 +43,7 @@ module.exports = {
 		"sectionReadyForRefill" : "ja-Ready for refill",
 		"sectionOtherPrescriptions" : "ja-Other prescriptions",
 		"sectionPrescriptionDetails" : "ja-Prescription details",
+		"sectionPrescriptionRefilled" : "ja-Prescription refilled:",
 		"sectionDrugInstructions" : "ja-Drug instructions",
 		"sectionYourOrder" : "ja-Your order",
 		"sectionPickupDetails" : "ja-Pickup details",
@@ -125,6 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "ja-Drug conditions",
 		"lblDrugInteractions" : "ja-Drug interactions",
 		"lblSideEffects" : "ja-Side effects",
+		"lblScanPrescription":"ja-Scan my prescription",
+		"lblTypePrescription":"ja-Type my prescription details",
 
 		"lblDocument" : "ja-Document",
 		"lblDosageInstruction" : "ja-Dosage instruction",
@@ -161,6 +165,7 @@ module.exports = {
 		"msgOrderPlacedReadyBy" : "ja-Order processed: ready by",
 		"msgOverdueBy" : "ja-Overdue by",
 		"msgDueFoRefillIn" : "ja-Refill in",
+		"msgRefillPlaced" : "ja-Your refill has been placed at:",
 		"msgDueFoRefillOn" : "ja-Due on",
 		"msgGeoAuthorizationDenied" : "ja-Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted" : "ja-Location service is turned off. Please check your settings.",
@@ -176,6 +181,8 @@ module.exports = {
 		"msgUserNameTips" : "ja-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "ja-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "ja-Your account has been created",
+		"msgSignUpToReceiveText":"ja-Sign up now to receive a text message when your prescription is ready!",
+		"msgScanFailed":"ja-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
 
 		"menuSearch" : "ja-Search",
 		"menuSort" : "ja-Sort",
@@ -209,6 +216,8 @@ module.exports = {
 		"btnTypePrescription" : "ja-Type my Prescription details",
 		"btnIAgree" : "ja-I agree",
 		"btnOrderRefill" : "ja-Order refill",
+		"btnCallPharmacy" : "ja-Call my Pharmacy",
+
 
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",

@@ -28,6 +28,7 @@ module.exports = {
 		"titleOrderDetails" : "zh-Order details",
 		"titleAddPrescriptions" : "zh-Add prescriptions",
 		"titleYourRefillIsOrdered" : "zh-Your refill has been ordered!",
+		"titleYourRefillIsOnTheWay" : "zh-Your refill is on the way!",
 		"titleDetails" : "zh-Details",
 		"titleUpdates" : "zh-Updates",
 		"titleSharedMobileNumber" : "zh-Mobile is Shared",
@@ -42,6 +43,7 @@ module.exports = {
 		"sectionReadyForRefill" : "zh-Ready for refill",
 		"sectionOtherPrescriptions" : "zh-Other prescriptions",
 		"sectionPrescriptionDetails" : "zh-Prescription details",
+		"sectionPrescriptionRefilled" : "zh-Prescription refilled:",
 		"sectionDrugInstructions" : "zh-Drug instructions",
 		"sectionYourOrder" : "zh-Your order",
 		"sectionPickupDetails" : "zh-Pickup details",
@@ -125,6 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "zh-Drug conditions",
 		"lblDrugInteractions" : "zh-Drug interactions",
 		"lblSideEffects" : "zh-Side effects",
+		"lblScanPrescription":"zh-Scan my prescription",
+		"lblTypePrescription":"zh-Type my prescription details",
 
 		"lblDocument" : "zh-Document",
 		"lblDosageInstruction" : "zh-Dosage instruction",
@@ -161,6 +165,7 @@ module.exports = {
 		"msgOrderPlacedReadyBy" : "zh-Order processed: ready by",
 		"msgOverdueBy" : "zh-Overdue by",
 		"msgDueFoRefillIn" : "zh-Refill in",
+		"msgRefillPlaced" : "zh-Your refill has been placed at:",
 		"msgDueFoRefillOn" : "zh-Due on",
 		"msgGeoAuthorizationDenied" : "zh-Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted" : "zh-Location service is turned off. Please check your settings.",
@@ -176,6 +181,8 @@ module.exports = {
 		"msgUserNameTips" : "zh-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "zh-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "zh-Your account has been created",
+		"msgSignUpToReceiveText":"zh-Sign up now to receive a text message when your prescription is ready!",
+		"msgScanFailed":"zh-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -209,6 +216,8 @@ module.exports = {
 		"btnTypePrescription" : "zh-Type my Prescription details",
 		"btnIAgree" : "zh-I agree",
 		"btnOrderRefill" : "zh-Order refill",
+		"btnCallPharmacy" : "zh-Call my Pharmacy",
+
 
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",

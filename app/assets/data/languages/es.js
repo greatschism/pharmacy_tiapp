@@ -28,6 +28,7 @@ module.exports = {
 		"titleOrderDetails" : "es-Order details",
 		"titleAddPrescriptions" : "es-Add prescriptions",
 		"titleYourRefillIsOrdered" : "es-Your refill has been ordered!",
+		"titleYourRefillIsOnTheWay" : "es-Your refill is on the way!",
 		"titleDetails" : "es-Details",
 		"titleUpdates" : "es-Updates",
 		"titleSharedMobileNumber" : "es-Mobile is Shared",
@@ -42,6 +43,7 @@ module.exports = {
 		"sectionReadyForRefill" : "es-Ready for refill",
 		"sectionOtherPrescriptions" : "es-Other prescriptions",
 		"sectionPrescriptionDetails" : "es-Prescription details",
+		"sectionPrescriptionRefilled" : "es-Prescription refilled:",
 		"sectionDrugInstructions" : "es-Drug instructions",
 		"sectionYourOrder" : "es-Your order",
 		"sectionPickupDetails" : "es-Pickup details",
@@ -125,6 +127,8 @@ module.exports = {
 		"lblDrugConditions" : "es-Drug conditions",
 		"lblDrugInteractions" : "es-Drug interactions",
 		"lblSideEffects" : "es-Side effects",
+		"lblScanPrescription":"es-Scan my prescription",
+		"lblTypePrescription":"es-Type my prescription details",
 
 		"lblDocument" : "es-Document",
 		"lblDosageInstruction" : "es-Dosage instruction",
@@ -167,6 +171,7 @@ module.exports = {
 		"msgGeoPurpose" : "es-Help you to locate the nearest pharmacies.",
 		"msgYourOrderIsReady" : "es-Your order is ready to be picked up!",
 		"msgNotFilledYet" : "es-Not filled yet",
+		"msgRefillPlaced" : "es-Your refill has been placed at:",
 		"msgAppUpdateFound" : "es-There is a update, do you want to download now?",
 		"msgAppUpdatedReload" : "es-The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "es-The updates has been downloaded, the app will restart now in order to apply the updates.",
@@ -176,6 +181,8 @@ module.exports = {
 		"msgUserNameTips" : "es-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "es-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "es-Your account has been created",
+		"msgSignUpToReceiveText":"es-Sign up now to receive a text message when your prescription is ready!",
+		"msgScanFailed":"es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
 
 		"menuSearch" : "es-Search",
 		"menuSort" : "es-Sort",
@@ -209,6 +216,8 @@ module.exports = {
 		"btnTypePrescription" : "es-Type my Prescription details",
 		"btnIAgree" : "es-I agree",
 		"btnOrderRefill" : "es-Order refill",
+		"btnCallPharmacy" : "es-Call my Pharmacy",
+
 
 		"optionFindPictureOnMyPhone" : "es-Find a picture on my phone",
 		"optionTakePhoto" : "es-Take photo",
