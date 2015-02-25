@@ -278,17 +278,17 @@ function didClickDone() {
 
 			}]
 		},
-		success : didSuccess,
+	//	success : didAddPrescription,
 
 	});
 
 }
 
-function didSuccess()
+function didAddPrescription()
 {
 	app.navigator.open({
 		ctrl : "orderDetails",
-		title : prescriptions.presc_name,
+		
 		ctrlArguments : {
 			prescription : prescriptions
 		},
