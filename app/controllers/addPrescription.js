@@ -278,7 +278,7 @@ function didClickDone() {
 
 			}]
 		},
-	//	success : didAddPrescription,
+	success : didAddPrescription,
 
 	});
 
