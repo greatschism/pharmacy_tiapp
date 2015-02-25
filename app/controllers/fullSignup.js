@@ -61,7 +61,7 @@ function setParentViews(_view) {
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	if (nextItem && $[nextItem]) {
-		if ($[nextItem].focus) {
+		if (!$[nextItem].apiName && $[nextItem].focus) {
 			$[nextItem].focus();
 		} else if ($[nextItem].showPicker) {
 			$[nextItem].showPicker();
