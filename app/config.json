@@ -56,6 +56,7 @@
 			"sort": "X",
 			"remove": "*",
 			"refresh": ".",
+			"confirm": "j",
 			"success_unfilled": "m",
 			"success_filled": "+",
 			"thick_prescriptions": "A",
