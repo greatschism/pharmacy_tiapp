@@ -606,42 +606,6 @@
 	borderWidth:Alloy.TSS.primary_btn_small.borderWidth,
 	borderRadius: Alloy.TSS.primary_btn_small.borderRadius
 },
-".options-positive-btn":{
-	width:Alloy.TSS.options_positive_btn.width,
-	right:Alloy.TSS.options_positive_btn.right,
-	height: Alloy.TSS.options_positive_btn.height,
-	font: Alloy.TSS.options_positive_btn.font,
-	textAlign: Alloy.TSS.options_positive_btn.textAlign,
-	color: Alloy.TSS.options_positive_btn.color,
-	backgroundColor: Alloy.TSS.options_positive_btn.backgroundColor,
-	borderColor:Alloy.TSS.options_positive_btn.borderColor,
-	borderWidth:Alloy.TSS.options_positive_btn.borderWidth
-	
-},
-".options-negative-btn":{
-	
-	//left:Alloy.TSS.options_negative_btn.left,
-	right:Alloy.TSS.options_negative_btn.right,
-	width:Alloy.TSS.options_negative_btn.width,
-	height: Alloy.TSS.options_negative_btn.height,
-	font: Alloy.TSS.options_negative_btn.font,
-	textAlign: Alloy.TSS.options_negative_btn.textAlign,
-	color: Alloy.TSS.options_negative_btn.color,
-	backgroundColor: Alloy.TSS.options_negative_btn.backgroundColor,
-	borderColor:Alloy.TSS.options_negative_btn.borderColor,
-	borderWidth:Alloy.TSS.options_negative_btn.borderWidth
-},
-".options-critical-btn":{
-	right:Alloy.TSS.options_critical_btn.right,
-	width:Alloy.TSS.options_critical_btn.width,
-	height: Alloy.TSS.options_critical_btn.height,
-	font: Alloy.TSS.options_critical_btn.font,
-	backgroundColor: Alloy.TSS.options_critical_btn.backgroundColor,
-	borderWidth:Alloy.TSS.options_critical_btn.borderWidth,
-	borderRadius:Alloy.TSS.options_critical_btn.borderRadius,
-	top:Alloy.TSS.options_critical_btn.top,
-	borderColor:Alloy.TSS.options_critical_btn.borderColor
-},
 ".secondary-btn":{
 	left: Alloy.TSS.secondary_btn.left,
 	right: Alloy.TSS.secondary_btn.right,
@@ -683,6 +647,34 @@
 	backgroundColor: Alloy.TSS.thirtiary_btn_small.backgroundColor,
 	borderColor:Alloy.TSS.thirtiary_btn_small.borderColor,
 	borderWidth:Alloy.TSS.thirtiary_btn_small.borderWidth
+},
+".option_btn": {
+	font: Alloy.TSS.option_btn.font,
+	textAlign: Alloy.TSS.option_btn.textAlign,
+	color: Alloy.TSS.option_btn.color,
+	backgroundColor: Alloy.TSS.option_btn.backgroundColor,
+	borderColor: Alloy.TSS.option_btn.borderColor,
+	borderWidth: Alloy.TSS.option_btn.borderWidth
+},
+".positive-option_btn": {
+	font: Alloy.TSS.positive_option_btn.font,
+	textAlign: Alloy.TSS.positive_option_btn.textAlign,
+	color: Alloy.TSS.positive_option_btn.color,
+	backgroundColor: Alloy.TSS.positive_option_btn.backgroundColor,
+	borderColor: Alloy.TSS.positive_option_btn.borderColor,
+	borderWidth: Alloy.TSS.positive_option_btn.borderWidth
+},
+".critical-option_btn": {
+	font: Alloy.TSS.critical_option_btn.font,
+	textAlign: Alloy.TSS.critical_option_btn.textAlign,
+	color: Alloy.TSS.critical_option_btn.color,
+	backgroundColor: Alloy.TSS.critical_option_btn.backgroundColor,
+	borderColor: Alloy.TSS.critical_option_btn.borderColor,
+	borderWidth: Alloy.TSS.critical_option_btn.borderWidth
+},
+".option-separator": {
+	width: Alloy.TSS.option_separator.width,
+	backgroundColor: Alloy.TSS.option_separator.backgroundColor
 },
 ".info-view":{
 	height: Alloy.TSS.info_view.height,
@@ -919,21 +911,6 @@
 	overlayDict: Alloy.TSS.togglemenu.overlayDict,
 	backgroundColor: Alloy.TSS.togglemenu.backgroundColor
 },
-".sortmenu":{
-	role: "overlay",
-	top: Alloy.TSS.sortmenu.top,
-	borderRadius: Alloy.TSS.sortmenu.borderRadius,
-	right: Alloy.TSS.sortmenu.right,
-	width: Alloy.TSS.sortmenu.width,
-	optionPadding: Alloy.TSS.sortmenu.optionPadding,
-	font: Alloy.TSS.sortmenu.font,
-	iconFont: Alloy.TSS.sortmenu.iconFont,
-	color: Alloy.TSS.sortmenu.color,
-	separatorInsets: Alloy.TSS.sortmenu.separatorInsets,
-	separatorColor: Alloy.TSS.sortmenu.separatorColor,
-	overlayDict: Alloy.TSS.sortmenu.overlayDict,
-	backgroundColor: Alloy.TSS.sortmenu.backgroundColor
-},
 /**
 * 	tooltip
 */
@@ -1020,8 +997,7 @@
 },
 ".vseparator": {
 	width: Alloy.TSS.vseparator.width,
-	backgroundColor: Alloy.TSS.vseparator.backgroundColor,
-	left: Alloy.TSS.vseparator.left
+	backgroundColor: Alloy.TSS.vseparator.backgroundColor
 },
 ".hspacer": {
 	width: Alloy.TSS.hspacer.width

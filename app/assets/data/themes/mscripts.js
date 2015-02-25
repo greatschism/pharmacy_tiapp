@@ -514,24 +514,7 @@ module.exports = {
 				"borderColor" : "transparent",
 				"borderWidth" : 0
 			},
-			"options_positive_btn" : {
-				"height" : 75,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 17
-				},
-				"textAlign" : "center",
-				"color" : "#FFFFFF",
-				"backgroundColor" : "#00A14B",
-				"borderColor" : "#00A14B",
-				"borderWidth" : 1,
-				
-				"right":0,
-				"width":"40%"
-				
-			},
-			"options_negative_btn" : {
-				"height" : 75,
+			"option_btn" : {
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 17
@@ -540,28 +523,33 @@ module.exports = {
 				"color" : "#FFFFFF",
 				"backgroundColor" : "#808285",
 				"borderColor" : "#808285",
-				"borderWidth" : 1,
-				
-				//"left":"20%",
-				"right":0,
-				"width":"40%"
-			
+				"borderWidth" : 1
 			},
-			"options_critical_btn":{
-				"height" : 24,
-				"backgroundColor" : "#ED1C24",
-				"borderColor" : "#ED1C24",
-				"borderWidth" : 1,
-				"borderRadius" : 4.4,
+			"positive_option_btn" : {
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 15
+					"fontSize" : 17
 				},
-				"right":5,
-				"width":122,
-				"top":5
-				
-				
+				"textAlign" : "center",
+				"color" : "#FFFFFF",
+				"backgroundColor" : "#00A14B",
+				"borderColor" : "#00A14B",
+				"borderWidth" : 1
+			},
+			"critical_option_btn" : {
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"textAlign" : "center",
+				"color" : "#FFFFFF",
+				"backgroundColor" : "#ED1C24",
+				"borderColor" : "#ED1C24",
+				"borderWidth" : 1
+			},
+			"option_separator" : {
+				"width" : 1,
+				"backgroundColor" : "#FFFFFF"
 			},
 			"info_view" : {
 				"height" : 24,
@@ -938,45 +926,13 @@ module.exports = {
 				},
 				"backgroundColor" : "#FFFFFF"
 			},
-			"sortmenu" : {
-				"right" : 12,
-				"width" : 295,
-				"left" : 12,
-				"optionPadding" : {
-					"top" : 12,
-					"bottom" : 12,
-					"left" : 12,
-					"right" : 12
-				},
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"iconFont" : {
-					"fontFamily" : "icon",
-					"fontSize" : 22
-				},
-				"color" : "#000000",
-				"separatorInsets" : {
-					"left" : 0,
-					"right" : 0,
-				},
-				"separatorColor" : "#808285",
-				"overlayDict" : {
-					"backgroundColor" : "#000000",
-					"opacity" : 0.4
-				},
-				"backgroundColor" : "#FFFFFF"
-			},
 			"hseparator" : {
 				"height" : 1,
 				"backgroundColor" : "#808285"
 			},
 			"vseparator" : {
 				"width" : 1,
-				"backgroundColor" : "#FFFFFF",
-				"left":"60%",
-			
+				"backgroundColor" : "#808285"
 			},
 			"hspacer" : {
 				"width" : 12
