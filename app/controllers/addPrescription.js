@@ -12,7 +12,8 @@ var args = arguments[0] || {},
 
     readyToRefill,
     otherPrescriptions,
-    prescriptions;
+    prescriptions,
+    addedPrescriptions;
 
 function init() {
 	http.request({
@@ -278,25 +279,27 @@ function didClickDone() {
 
 			}]
 		},
-	success : didAddPrescription,
+		success : didAddPrescription,
 
 	});
 
 }
 
-function didAddPrescription()
-{
+function didAddPrescription(_result) {
+	
+	addedPrescription = _result.data.addedPrescriptions || [];
+	
 	app.navigator.open({
-		ctrl : "orderDetails",
-		
-		ctrlArguments : {
-			prescription : prescriptions
-		},
-		stack : true
-	});
+	ctrl : "orderDetails",
+
+	title : "titleAddPrescription"
+
+	ctrlArguments : { prescription :prescriptions
+	}, stack :true,
+	alert (addprescriptions.message);
+});
+
 }
-
-
 
 function terminate() {
 	$.destroy();
