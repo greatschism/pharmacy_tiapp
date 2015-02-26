@@ -92,18 +92,18 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-	 //  picker = Alloy.createWidget("com.mscripts.dropdown", {
+	//  picker = Alloy.createWidget("com.mscripts.dropdown", {
 	//	apiName : "widget",
 
 	//	classes : ["form-dropdown", "padding-top"]
 
 	//}),
 
-	   picker = Ti.UI.createPicker({
+	    picker = Ti.UI.createPicker({
 		backgroundColor : "#aab7b7",
 		width : Ti.UI.FILL,
 		classes : ["height-50", "fill-width", "left"]
-}),
+	}),
 
 	    items = [];
 	items[0] = Ti.UI.createPickerRow({
@@ -117,46 +117,98 @@ function init() {
 	picker.setSelectedIndex = 0;
 	picker.selectionIndicator = true;
 
-	row2 = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow"
-	}),
-
-	containerView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
-
-	}),
-	addressLine1 = $.UI.create("Label", {
-		apiName : "Label",
-		text : "1 Sanstome St.",
-		classes : ["list-item-info-lbl", "left"]
-	}),
-	addressLine2 = $.UI.create("Label", {
-		apiName : "Label",
-		text : "San Franscisco,CA, 94103",
-		classes : ["list-item-info-lbl", "left"]
-	}),
-	rightBtn = $.UI.create("Label", {
-		apiName : "Label",
-		text : "change",
-		classes : ["right", "width-45", "h5", "#4094fc"]
-	});
-
 	row.add(picker);
-
-	row.addEventListener("click", didClickPickUpOptions);
-
-	containerView.rowId = transform.id;
-
-	containerView.add(addressLine1);
-	containerView.add(addressLine2);
-
-	containerView.add(rightBtn);
-	rightBtn.addEventListener("click", didClickStoreChange);
-
-	row2.add(containerView);
-
 	$.pickupDetailsSection.add(row);
+
+	row.addEventListener("click", didClickPickUpOptions()) {
+		if (selectedIndex == 0) {
+			row2 = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+			}),
+
+			containerView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+
+			}),
+
+			
+
+			addressLine1 = $.UI.create("Label", {
+				apiName : "Label",
+				text : "1 Sanstome St.",
+				classes : ["list-item-info-lbl", "left"]
+			}),
+			addressLine2 = $.UI.create("Label", {
+				apiName : "Label",
+				text : "San Franscisco,CA, 94103",
+				classes : ["list-item-info-lbl", "left"]
+			}),
+			rightBtn = $.UI.create("Label", {
+				apiName : "Label",
+				text : "change",
+				classes : ["right", "width-45", "h5", "#4094fc"]
+			});
+
+
+			containerView.rowId = transform.id;
+
+			containerView.add(addressLine1);
+			containerView.add(addressLine2);
+
+			containerView.add(rightBtn);
+			rightBtn.addEventListener("click", didClickStoreChange);
+
+			row2.add(containerView);
+		} else {
+			row2 = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+			}),
+
+			containerView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+
+			}),
+
+			mailTo: =
+			$.UI.create("Label", {
+
+				apiName : "Label",
+				text : "Mail to:",
+				classes : ["list-item-lbl", "left", "hide"]
+			}),
+
+			addressLine1 = $.UI.create("Label", {
+				apiName : "Label",
+				text : "1 Sanstome St.",
+				classes : ["list-item-info-lbl", "left"]
+			}),
+			addressLine2 = $.UI.create("Label", {
+				apiName : "Label",
+				text : "San Franscisco,CA, 94103",
+				classes : ["list-item-info-lbl", "left"]
+			}),
+		
+
+			wrongAddressLbl = $.UI.create("Label", {
+				apiName : "Label",
+				text : "Wrong address? Call your pharmacy to update",
+				classes : ["list-item-lbl", "hide"]
+			});
+
+			containerView.rowId = transform.id;
+            containerView.add(mailTo);
+			containerView.add(addressLine1);
+			containerView.add(addressLine2);
+
+			containerView.add(wrongAddressLbl);
+			wrongAddressLbl.addEventListener("click", didClickStoreChange);
+
+			row2.add(containerView);
+		}
+	}
+
 	$.pickupDetailsSection.add(row2);
 
 	data.push($.pickupDetailsSection);
@@ -206,6 +258,11 @@ function didSuccess() {
 }
 
 function didClickPickUpOptions(event) {
+
+	if (selectedIndex == 1) {
+
+	}
+
 	Ti.API.info("user selected   : " + event.selectedValue);
 
 };
