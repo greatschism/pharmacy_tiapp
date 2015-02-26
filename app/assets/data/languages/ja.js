@@ -38,7 +38,7 @@ module.exports = {
 		"titleTourPrescriptionList" : "ja-Convinient refills & drug details with my prescription list",
 		"titleTourHelpfulMedication" : "ja-Helpful medication & refill notifications",
 		"titleTourStoreLocator" : "ja-Easy to use store locator",
-
+		"titleRefillHistory" : "ja-Refill history",
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
 		"sectionUpcomingAppointments" : "ja-Upcoming appointments",

@@ -544,7 +544,6 @@ function didGetHiddenPrescriptions(result){
 		
 	
 	$.unhideMenu.setItems(items);
-	
 	$.toggleMenu.hide();
 	$.unhideMenu.show();
 }

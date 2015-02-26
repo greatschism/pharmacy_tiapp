@@ -64,9 +64,9 @@
 			</HeaderView>
 			<TableViewRow>
 				<View class="list-item-view-with-child">
-					<Label id="refillHistoryLbl" class="left list-item-lbl" />
+					<Label id="refillHistoryLbl" class="left list-item-lbl" onClick="didClickRefillHistory"/>
 				</View>
-				<Label class="list-item-child" />
+				<Label class="list-item-child" onClick="didClickRefillHistory"/>
 			</TableViewRow>
 			<TableViewRow>
 				<View class="list-item-view-with-child">

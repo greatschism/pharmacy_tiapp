@@ -713,6 +713,14 @@ module.exports = {
 			}]
 		}
 	},
+	"REFILL_HISTORY" :{
+		 "rxnumber": "6784943",
+        "storeName": "TARGET PHARMACY LAB ST16",
+        "address": "278 SOUTH DECATUR",
+        "city": "LAS VEGAS",
+        "state": "CA",
+        "status": "Requested"
+	},
 	"CODE_VALUES" : {
 		"status" : "Success",
 		"code" : "200",

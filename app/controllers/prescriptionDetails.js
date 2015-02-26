@@ -14,6 +14,17 @@ function init() {
 	$.setTimeSwt.setValue(true);
 }
 
+function didClickRefillHistory(){
+		app.navigator.open({
+			ctrl : "refillHistory",
+			titleid : "titleRefillHistory",
+			ctrlArguments : {
+				prescription : prescription.presc_name
+			},
+			stack : true
+	});
+}
+
 
 function didClickRefillPrescription()
 {

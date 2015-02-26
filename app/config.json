@@ -19,6 +19,7 @@
 			"PRESCRIPTIONS_HIDE": "prescriptions/hide",
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
+			"REFILL_HISTORY": "prescriptions/refillhistory",
 			"CODE_VALUES": "codes/get"
 		},
 		"apiCodes": {
