@@ -120,7 +120,7 @@ function init() {
 	row.add(picker);
 	$.pickupDetailsSection.add(row);
 
-	row.addEventListener("click", didClickPickUpOptions()) {
+	row.addEventListener("click", didClickPickUpOptions() {
 		if (selectedIndex == 0) {
 			row2 = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
@@ -171,7 +171,7 @@ function init() {
 
 			}),
 
-			mailTo: =
+			mailTo =
 			$.UI.create("Label", {
 
 				apiName : "Label",
@@ -207,7 +207,7 @@ function init() {
 
 			row2.add(containerView);
 		}
-	}
+	});
 
 	$.pickupDetailsSection.add(row2);
 
