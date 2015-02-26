@@ -1,6 +1,6 @@
 (function() {
 
-	//default t
+	//default
 	Alloy.TSS = {
 		Theme : {
 			id : "none",

@@ -92,7 +92,7 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-	//    pickupOptions = Alloy.createWidget("com.mscripts.dropdown", {
+	 //  picker = Alloy.createWidget("com.mscripts.dropdown", {
 	//	apiName : "widget",
 
 	//	classes : ["form-dropdown", "padding-top"]

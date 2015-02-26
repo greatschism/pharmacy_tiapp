@@ -278,28 +278,26 @@ function didClickDone() {
 
 			}]
 		},
-		success : didAddPrescription,
+	success : didAddPrescription,
 
 	});
 
 }
 
-function didAddPrescription(_result) {
-	
-	
-	
-//	app.navigator.open({
-//	ctrl : "orderDetails",
-
-//	title : "titleAddPrescription"
-
-//	ctrlArguments : { prescription :prescriptions
-//	}, stack :true,
-	alert (_result.message);
+function didAddPrescription(_result)
+{
+	//app.navigator.open({
+	//	ctrl : "orderDetails",
+		
+	//	ctrlArguments : {
+	//		prescription : prescriptions
+	//	},
+	//	stack : true
+	//});
+	alert(_result.message);
 }
-//);
 
-//}
+
 
 function terminate() {
 	$.destroy();
