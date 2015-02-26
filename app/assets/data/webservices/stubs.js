@@ -362,74 +362,7 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-	},
-	"PRESCRIPTIONS_GET" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"prescriptions" : {
-				"id" : "x",
-				"rx_number" : "x",
-				"presc_name" : "x",
-				"is_overdue" : "x",
-				"prefill" : "x",
-				"primary_store_id" : "x",
-				"original_store_id" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "x",
-				"expiration_date" : "x",
-				"refill_remaining_preferences" : "x",
-				"refill_left" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "x",
-				"latest_refill_promised_date" : "x",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "INPROCESS/READYTOREFILL/OTHERS",
-				"presc_instruction_message" : "x",
-				"dosage_instruction_message" : "x"
-			}
-		}
-	},
-	"PRESCRIPTIONS_ADD" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Prescriptions added successfully.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PRESCRIPTIONS_HIDE" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Prescription has been hidden successfully.",
-		"description" : "x",
-		"data" : ""
-	},
-	"PRESCRIPTIONS_REFILL" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"prescriptions" : [{
-				"refill_error_message" : "x",
-				"refill_is_error" : "false",
-				"refill_inline_message" : "Your refill request with Rx # 4417989 has been placed at TARGET PHARMACY #1308,400 COCHITUATE ROAD. Your prescription will be ready for pickup after Dec 15, 2014 4:00 PM.",
-				"refill_promised_date" : "2015/12/20 16:00:00",
-				"refill_store_id" : "1234",
-				"rx_number_id" : "123"
-			}, {
-				"refill_error_message" : "This prescription is already in the refill process. Please contact your pharmacy Ph: 1-209-632-0370 with any questions.",
-				"refill_is_error" : "true",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : null,
-				"refill_store_id" : "2345",
-				"rx_number_id" : "124"
-			}]
-		}
+
 	},
 	"PRESCRIPTIONS_SORT_NAME" : {
 		"status" : "Success",
@@ -456,7 +389,8 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS"
-			}, {
+			},
+			{
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
@@ -475,7 +409,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "INPROCESS"
-			}, {
+			},  {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Ciprofloxacin, 300 mg",
@@ -494,7 +428,8 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP"
-			}, {
+			}, 
+{
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Lisinopril, 300 mg",
@@ -553,7 +488,236 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
+
 	},
+	"PRESCRIPTIONS_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lovastin, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status":"hidden"
+				
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lomotil, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status":"active"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Metacin, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status":"hidden"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Lisinopril, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYFORPICKUP",
+				"prescription_display_status":"active"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Ciprofloxacin, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-10",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYFORPICKUP",
+				"prescription_display_status":"hidden"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Amoxcilin, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-18",
+				"latest_refill_promised_date" : "2015-02-20",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "INPROCESS",
+				"prescription_display_status":"active"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Avomin, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status":"hidden"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Volini, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status":"active"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Saridon, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-23",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status":"hidden"
+			}]
+		}
+	},
+	"PRESCRIPTIONS_ADD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescriptions added successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PRESCRIPTIONS_HIDE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescription has been hidden successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"PRESCRIPTIONS_REFILL" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"refill_error_message" : "x",
+				"refill_is_error" : "false",
+				"refill_inline_message" : "Your refill request with Rx # 4417989 has been placed at TARGET PHARMACY #1308,400 COCHITUATE ROAD. Your prescription will be ready for pickup after Dec 15, 2014 4:00 PM.",
+				"refill_promised_date" : "2015/12/20 16:00:00",
+				"refill_store_id" : "1234",
+				"rx_number_id" : "123"
+			}, {
+				"refill_error_message" : "This prescription is already in the refill process. Please contact your pharmacy Ph: 1-209-632-0370 with any questions.",
+				"refill_is_error" : "true",
+				"refill_inline_message" : "x",
+				"refill_promised_date" : null,
+				"refill_store_id" : "2345",
+				"rx_number_id" : "124"
+			}]
+		}
+	},
+	
 	"CODE_VALUES" : {
 		"status" : "Success",
 		"code" : "200",
