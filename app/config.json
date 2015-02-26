@@ -20,7 +20,8 @@
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
 			"REFILL_HISTORY": "prescriptions/refillhistory",
-			"CODE_VALUES": "codes/get"
+			"CODE_VALUES": "codes/get",
+			"NEW_PASSWORD": "patients/newpassword"
 		},
 		"apiCodes": {
 			"SUCCESS": "200"

@@ -6,8 +6,8 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     moment = require("alloy/moment");
 
-function init(){
-	$.hiLbl.text = String.format((Alloy.Globals.strings.strHi),"Swan");
+function init() {
+	$.hiLbl.text = String.format((Alloy.Globals.strings.strHi), "Swan");
 }
 
 function didClickDone(e) {
@@ -25,6 +25,25 @@ function didClickDone(e) {
 		});
 		return;
 	}
+	http.request({
+		method : "NEW_PASSWORD",
+		data : {
+			data : [{
+				patient : {
+					user_name : "",
+					email_address : "",
+					password : password
+				}
+			}]
+		},
+		success : didAuthenticate
+	});
+}
+
+function didAuthenticate(_result) {
+	dialog.show({
+		message : _result.data.message
+	});
 }
 
 function handleScroll(e) {

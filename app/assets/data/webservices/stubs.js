@@ -193,6 +193,13 @@ module.exports = {
 			}
 		}
 	},
+	"NEW_PASSWORD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your password has been changed successfully…",
+		"description" : "x",
+		"data" : ""
+	},
 	"PATIENTS_LOGOUT" : {
 		"status" : "Success",
 		"code" : "200",
