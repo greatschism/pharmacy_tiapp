@@ -141,6 +141,7 @@ module.exports = {
 		"lblTurnOnPush" : "zh-Turn on Push",
 		"lblDocument" : "zh-Document",
 		"lblDosageInstruction" : "zh-Dosage instruction",
+		"lblNewPassword" : "zh-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 
 		"valFirstNameRequired" : "zh-Please enter your first name",
 		"valLastNameRequired" : "zh-Please enter your last name",
