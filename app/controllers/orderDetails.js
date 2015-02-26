@@ -120,7 +120,7 @@ function init() {
 	row.add(picker);
 	$.pickupDetailsSection.add(row);
 
-	row.addEventListener("click", didClickPickUpOptions() {
+	row.addEventListener("click", function(e) {
 		if (selectedIndex == 0) {
 			row2 = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
