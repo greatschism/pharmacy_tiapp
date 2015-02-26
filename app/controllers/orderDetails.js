@@ -92,124 +92,139 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-	//  picker = Alloy.createWidget("com.mscripts.dropdown", {
-	//	apiName : "widget",
+      view = $.UI.create("View" ,{
+      	apiName : "View",
+      	classes : ["list-item-view"]
+      }),
 
-	//	classes : ["form-dropdown", "padding-top"]
 
-	//}),
 
-	    picker = Ti.UI.createPicker({
-		backgroundColor : "#aab7b7",
-		width : Ti.UI.FILL,
-		classes : ["height-50", "fill-width", "left"]
-	}),
+	  picker = Alloy.createWidget("com.mscripts.dropdown",{
+		apiName : "widget",
 
-	    items = [];
-	items[0] = Ti.UI.createPickerRow({
-		title : 'In store pickup'
-	});
-	items[1] = Ti.UI.createPickerRow({
-		title : 'Mail order'
+		classes : ["dropdown"]
+
 	});
 
-	picker.add(items);
-	picker.setSelectedIndex = 0;
-	picker.selectionIndicator = true;
+	  var pickerOptions = [{
+	  	title : "In store pickup"
+	  },
+	  {
+	  	title : "Mail order"
+	  }];
+	  
+	  picker.setChoices(pickerOptions);
+console.log("checked");
 
-	row.add(picker);
+view.add(picker.getView());
+	row.add(view);
 	$.pickupDetailsSection.add(row);
+	picker.showPicker();
+	picker.setSelectedIndex(0);
+console.log("hdhdhd");
+	 view.addEventListener("click", function(e) {
+		console.log(e.selectedItem);
+		 if (e.selectedItem == "Mail order") {
+	
+			 Ti.API.info("hello"+e.selectedValue);
 
-	row.addEventListener("click", function(e) {
-		if (selectedIndex == 0) {
-			row2 = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
+ 			
+		 var	row2 = $.UI.create("TableViewRow", {
+				 apiName : "TableViewRow",
+				 classes : ["#4bccde","height-50","top"]
+			 }),
 
-			containerView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+			 containerView = $.UI.create("View", {
+				 apiName : "View",
+				 classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
-			}),
+			 }),
 
-			addressLine1 = $.UI.create("Label", {
-				apiName : "Label",
-				text : "1 Sanstome St.",
-				classes : ["list-item-info-lbl", "left"]
-			}),
-			addressLine2 = $.UI.create("Label", {
-				apiName : "Label",
-				text : "San Franscisco,CA, 94103",
-				classes : ["list-item-info-lbl", "left"]
-			}),
-			rightBtn = $.UI.create("Label", {
-				apiName : "Label",
-				text : "change",
-				classes : ["right", "width-45", "h5", "#4094fc"]
-			});
+		 addressLine1 = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "1 Sanstome St.",
+				 classes : ["list-item-info-lbl", "left"]
+			 }),
+			 addressLine2 = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "San Franscisco,CA, 94103",
+				 classes : ["list-item-info-lbl", "left"]
+			 }),
+			 rightBtn = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "change",
+				 classes : ["right", "width-45", "h5", "#4094fc"]
+			 });
+ 
+			 containerView.rowId = transform.id;
 
-			containerView.rowId = transform.id;
+			 containerView.add(addressLine1);
+			 containerView.add(addressLine2);
 
-			containerView.add(addressLine1);
-			containerView.add(addressLine2);
+			 containerView.add(rightBtn);
+			 rightBtn.addEventListener("click", didClickStoreChange);
 
-			containerView.add(rightBtn);
-			rightBtn.addEventListener("click", didClickStoreChange);
+			 row2.add(containerView);
+			 $.pickupDetailsSection.add(row2);
+			 console.log("helllooo");
+		 } else {
+			 row2 = $.UI.create("TableViewRow", {
+				 apiName : "TableViewRow"
+			 }),
 
-			row2.add(containerView);
-			$.pickupDetailsSection.add(row2);
-		} else {
-			row2 = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
+			 containerView = $.UI.create("View", {
+				 apiName : "View",
+				 classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
-			containerView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+			 }),
 
-			}),
+			 mailTo = $.UI.create("Label", {
 
-			mailTo = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "Mail to:",
+				 classes : ["list-item-lbl", "left"]
+			 }),
 
-				apiName : "Label",
-				text : "Mail to:",
-				classes : ["list-item-lbl", "left", "hide"]
-			}),
+			 addressLine1 = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "1 Sanstome St.",
+				 classes : ["list-item-info-lbl", "left"]
+			 }),
+			 addressLine2 = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "San Franscisco,CA, 94103",
+				 classes : ["list-item-info-lbl", "left"]
+			 }),
+ 
+			 wrongAddressLbl = $.UI.create("Label", {
+				 apiName : "Label",
+				 text : "Wrong address? Call your pharmacy to update",
+				 classes : ["list-item-lbl"]
+			 });
 
-			addressLine1 = $.UI.create("Label", {
-				apiName : "Label",
-				text : "1 Sanstome St.",
-				classes : ["list-item-info-lbl", "left"]
-			}),
-			addressLine2 = $.UI.create("Label", {
-				apiName : "Label",
-				text : "San Franscisco,CA, 94103",
-				classes : ["list-item-info-lbl", "left"]
-			}),
+			 containerView.rowId = transform.id;
+			 containerView.add(mailTo);
+			 containerView.add(addressLine1);
+			 containerView.add(addressLine2);
 
-			wrongAddressLbl = $.UI.create("Label", {
-				apiName : "Label",
-				text : "Wrong address? Call your pharmacy to update",
-				classes : ["list-item-lbl", "hide"]
-			});
-
-			containerView.rowId = transform.id;
-			containerView.add(mailTo);
-			containerView.add(addressLine1);
-			containerView.add(addressLine2);
-
-			containerView.add(wrongAddressLbl);
-			wrongAddressLbl.addEventListener("click", didClickStoreChange);
-
-			row2.add(containerView);
-			$.pickupDetailsSection.add(row2);
-		}
+			 containerView.add(wrongAddressLbl);
+			 wrongAddressLbl.addEventListener("click", didClickStoreChange);
+ 
+			 row2.add(containerView);
+			 $.pickupDetailsSection.add(row2);
+		 }
 	});
 
 	data.push($.pickupDetailsSection);
 
 	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
 
+}
+
+
+function setParentViews(view)
+{
+	$.picker.setParentView(view);
 }
 
 function didToggle(e) {
@@ -302,4 +317,5 @@ function terminate() {
 
 exports.init = init;
 exports.terminate = terminate;
+exports.setParentViews = setParentViews;
 
