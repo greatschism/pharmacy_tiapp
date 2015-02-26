@@ -54,17 +54,17 @@ function setLength(_length) {
 		$.widget.remove(children[i]);
 	}
 
-	$.container = $.UI.create("View", {
+	$.containerView = $.UI.create("View", {
 		apiName : "View",
-		id : "container"
+		id : "containerView"
 	});
-	$.widget.add($.container);
+	$.widget.add($.containerView);
 
 	for (var i = 0; i < length; i++) {
 		var view = Ti.UI.createView(i == currentPage ? selectedPagerDict : pagerDict);
 		view.index = i;
 		view.addEventListener("singletap", moveTo);
-		$.container.add(view);
+		$.containerView.add(view);
 	}
 }
 
@@ -81,8 +81,8 @@ function moveTo(e) {
 }
 
 function updateSelection(currentIndex, previousIndex) {
-	$.container.children[previousIndex].applyProperties(pagerDict);
-	$.container.children[currentIndex].applyProperties(selectedPagerDict);
+	$.containerView.children[previousIndex].applyProperties(pagerDict);
+	$.containerView.children[currentIndex].applyProperties(selectedPagerDict);
 }
 
 function setCurrentPage(index) {
