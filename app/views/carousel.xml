@@ -4,7 +4,7 @@
 			<Label id="titleLbl" class="margin-top margin-left margin-right text-center title-lbl" />
 			<ImageView id="logoImg" class="img-padding-top logo-img" />
 			<Label id="notesLbl" class="img-padding-top margin-left margin-right text-center lbl"  />
-			<Label id="swipeLbl" class="padding-top margin-left margin-right text-left title-lbl" />
+			<Label id="swipeLbl" class="padding-top margin-left margin-right text-center title-lbl" />
 			<Label id="iconLbl" class="padding-top extra-large-icon primary-color" />
 			<Button id="signinBtn" class="btn-padding-top primary-btn" onClick="didClickSignin" />
 			<Button id="createAccountBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickCreateAccount" />
@@ -14,7 +14,7 @@
 			<ImageView id="prescriptionListImg" class="img-padding-top prescription-list-img" />
 			<View class="img-padding-top margin-left margin-right auto-height hgroup no-hwrap">
 				<Label class="left light-icon large-icon primary-color"  />
-				<Label id="prescriptionListNotesLbl" class="padding-left text-left lbl" />
+				<Label id="prescriptionListNotesLbl" class="padding-left text-left link-multi-line" />
 			</View>
 		</ScrollView>
 		<ScrollView id="helpfulMedicationScrollView" class="width-100 vgroup">
@@ -30,7 +30,7 @@
 			<ImageView id="storeLocatorImg" class="img-padding-top store-locator-img" />
 			<View class="img-padding-top margin-left margin-right auto-height hgroup no-hwrap">
 				<Label class="left light-icon large-icon primary-color"  />
-				<Label id="storeLocatorNotesLbl" class="padding-left text-left lbl" />
+				<Label id="storeLocatorNotesLbl" class="padding-left text-left link-multi-line" />
 			</View>
 		</ScrollView>
 	</ScrollableView>
