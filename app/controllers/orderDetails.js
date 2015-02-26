@@ -92,17 +92,18 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-	   picker = Alloy.createWidget("com.mscripts.dropdown", {
-		apiName : "widget",
+	 //  picker = Alloy.createWidget("com.mscripts.dropdown", {
+	//	apiName : "widget",
 
-		classes : ["form-dropdown", "padding-top"]
+	//	classes : ["form-dropdown", "padding-top"]
 
-	}),
-
-	//    picker = Ti.UI.createPicker({
-	//	backgroundColor : "#aab7b7",
-	//	classes : ["height-50", "fill-width", "left"]
 	//}),
+
+	   picker = Ti.UI.createPicker({
+		backgroundColor : "#aab7b7",
+		width : Ti.UI.FILL,
+		classes : ["height-50", "fill-width", "left"]
+}),
 
 	    items = [];
 	items[0] = Ti.UI.createPickerRow({
@@ -112,10 +113,9 @@ function init() {
 		title : 'Mail order'
 	});
 
-//	picker.add(items);
-
-//	picker.setSelectedIndex = 0;
-//	picker.selectionIndicator = true;
+	picker.add(items);
+	picker.setSelectedIndex = 0;
+	picker.selectionIndicator = true;
 
 	row2 = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
