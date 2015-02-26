@@ -1,25 +1,7 @@
 "#scrollableView":{
-	height: 320,
 	showPagingControl: false,
 	disableBounce: true
 },
 "#pagingControl":{
-	length: 4,
-	color: Alloy._bg_quaternary,
-	selectedColor: Alloy._bg_primary
-},
-"#loginBtn":{
-	title: Alloy.Globals.strings.strSignin,
-	//backgroundColor:"F7941E"
-},
-
-"#CreateAccountBtn":{
-	title: Alloy.Globals.strings.btnCreateAccount,
-	//backgroundColor:"F7941E"
-},
-"#refillLbl":{
-	text: Alloy.Globals.strings.lblRefillWithoutLogin
-},
-"#iconLbl":{
-	text: Alloy.CFG.icons.thick_refill
+	length: 4
 }

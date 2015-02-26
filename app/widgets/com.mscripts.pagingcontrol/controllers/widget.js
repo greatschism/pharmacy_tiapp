@@ -1,6 +1,22 @@
 var args = arguments[0] || {},
-    color = "#000",
-    selectedColor = "#fff",
+    pagerDict = {
+	left : 5,
+	width : 10,
+	height : 10,
+	backgroundColor : "#C4C4C4",
+	borderColor : "#C4C4C4",
+	borderWidth : 1,
+	borderRadius : 5
+},
+    selectedPagerDict = {
+	left : 5,
+	width : 10,
+	height : 10,
+	backgroundColor : "#FFFFFF",
+	borderColor : "#C4C4C4",
+	borderWidth : 1,
+	borderRadius : 5
+},
     length = 0,
     currentPage = 0;
 
@@ -11,12 +27,12 @@ var args = arguments[0] || {},
 		$.widget.applyProperties(options);
 	}
 
-	if (_.has(args, "color")) {
-		color = args.color;
+	if (_.has(args, "pagerDict")) {
+		_.extend(pagerDict, args.pagerDict);
 	}
 
-	if (_.has(args, "selectedColor")) {
-		selectedColor = args.selectedColor;
+	if (_.has(args, "selectedPagerDict")) {
+		_.extend(selectedPagerDict, args.selectedPagerDict);
 	}
 
 	if (_.has(args, "currentPage")) {
@@ -45,12 +61,8 @@ function setLength(_length) {
 	$.widget.add($.container);
 
 	for (var i = 0; i < length; i++) {
-		var view = $.UI.create("View", {
-			apiName : "View",
-			classes : ["paging-control"]
-		});
+		var view = Ti.UI.createView(i == currentPage ? selectedPagerDict : pagerDict);
 		view.index = i;
-		view.backgroundColor = (i == currentPage ? selectedColor : color);
 		view.addEventListener("singletap", moveTo);
 		$.container.add(view);
 	}
@@ -62,14 +74,15 @@ function moveTo(e) {
 		updateSelection(index, currentPage);
 		currentPage = index;
 		$.trigger("change", {
+			source : $,
 			currentPage : currentPage
 		});
 	}
 }
 
 function updateSelection(currentIndex, previousIndex) {
-	$.container.children[previousIndex].backgroundColor = color;
-	$.container.children[currentIndex].backgroundColor = selectedColor;
+	$.container.children[previousIndex].applyProperties(pagerDict);
+	$.container.children[currentIndex].applyProperties(selectedPagerDict);
 }
 
 function setCurrentPage(index) {

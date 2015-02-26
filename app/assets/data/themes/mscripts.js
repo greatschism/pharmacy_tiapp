@@ -940,6 +940,26 @@ module.exports = {
 			"vspacer" : {
 				"height" : 12
 			},
+			"paging_control" : {
+				"pagerDict" : {
+					"left" : 5,
+					"width" : 10,
+					"height" : 10,
+					"backgroundColor" : "#FFFFFF",
+					"borderColor" : "#808285",
+					"borderWidth" : 1,
+					"borderRadius" : 5
+				},
+				"selectedPagerDict" : {
+					"left" : 5,
+					"width" : 8,
+					"height" : 8,
+					"backgroundColor" : "#808285",
+					"borderColor" : "#808285",
+					"borderWidth" : 1,
+					"borderRadius" : 4
+				}
+			},
 			"logo" : {
 				"code" : "logo"
 			}

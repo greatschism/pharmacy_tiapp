@@ -1,16 +1,9 @@
 <Alloy>
-	<ScrollView>
-		<View class="vgroup margin-left margin-right">
-			<ScrollableView id="scrollableView" class="margin-top" onScrollend="didScrollend">
-				<View class="bg-primary" />
-				<View class="bg-senary" />
-				<View class="bg-septenary" />
-				<View class="bg-nonary" />
-			</ScrollableView>
-		
-			<Button id="loginBtn" class="primary-btn padding-bottom" onClick="didClickLogin" />
-			<Button id="CreateAccountBtn" class="primary-btn padding-bottom" onClick="didClickCreateAccount" />
-			<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="padding-top" onChange="didChangePage" />
-					</View>
-	</ScrollView>
+	<ScrollableView id="scrollableView" onScrollend="didScrollend">
+		<ScrollView class="width-100 vgroup"></ScrollView>
+		<ScrollView class="width-100 vgroup"></ScrollView>
+		<ScrollView class="width-100 vgroup"></ScrollView>
+		<ScrollView class="width-100 vgroup"></ScrollView>
+	</ScrollableView>
+	<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-bottom paging-control" onChange="didChangePage" />
 </Alloy> 

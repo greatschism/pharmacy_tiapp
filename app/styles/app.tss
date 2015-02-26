@@ -1005,6 +1005,10 @@
 ".vspacer": {
 	height: Alloy.TSS.vspacer.height
 },
+".paging-control": {
+	pagerDict: Alloy.TSS.paging_control.pagerDict,
+	selectedPagerDict: Alloy.TSS.paging_control.selectedPagerDict
+},
 /**
 * 	image classes
 */

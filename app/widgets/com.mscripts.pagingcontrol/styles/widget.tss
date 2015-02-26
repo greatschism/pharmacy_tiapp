@@ -1,13 +1,8 @@
 "#widget":{
-	height: 10
+	height: Ti.UI.SIZE
 },
 "#container":{
 	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
 	layout: "horizontal"
-},
-".paging-control":{
-	left: 5,
-	width: 10,
-	height: 10,
-	borderRadius: 5
 }
