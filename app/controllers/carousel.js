@@ -23,17 +23,25 @@ function didScrollend(e) {
 	$.pagingControl.setCurrentPage(e.currentPage);
 }
 
-function didClickSkipToHome(e) {
-	app.navigator.open({
-		"titleid" : "titleHome",
-		"ctrl" : "home"
-	});
-}
-
-function didClickHaveAccount(e) {
+function didClickSignin(e) {
 	app.navigator.open({
 		"titleid" : "strLogin",
 		"ctrl" : "login"
+	});
+}
+
+function didClickCreateAccount(e) {
+	app.navigator.open({
+		ctrl : "mobileNumber",
+		titleid : "strWelcome",
+		stack : true
+	});
+}
+
+function didClickSkip(e) {
+	app.navigator.open({
+		"titleid" : "titleHome",
+		"ctrl" : "home"
 	});
 }
 

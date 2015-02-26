@@ -4,11 +4,10 @@
 			<Label id="titleLbl" class="margin-top margin-left margin-right text-center title-lbl" />
 			<ImageView id="logoImg" class="img-padding-top logo-img" />
 			<Label id="notesLbl" class="img-padding-top margin-left margin-right text-center lbl"  />
-			<Label id="swipeLbl" class="padding-top margin-left margin-right text-left lbl" />
+			<Label id="swipeLbl" class="padding-top margin-left margin-right text-left title-lbl" />
 			<Label id="iconLbl" class="padding-top extra-large-icon primary-color" />
-			<Widget id="skipLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickSkipToHome" />
-			<View class="spacer" />
-			<Widget id="haveAccountLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickHaveAccount" />
+			<Button id="signinBtn" class="btn-padding-top primary-btn" onClick="didClickSignin" />
+			<Button id="createAccountBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickCreateAccount" />
 		</ScrollView>
 		<ScrollView class="width-100 vgroup">
 			<Label id="prescriptionListLbl" class="margin-top margin-left margin-right text-center title-lbl" />
@@ -36,4 +35,5 @@
 		</ScrollView>
 	</ScrollableView>
 	<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-bottom paging-control" onChange="didChangePage" />
+	<Widget id="skipLbl" src="com.mscripts.styledlabel" class="margin-right margin-bottom link-multi-line" onClick="didClickSkip" />
 </Alloy> 

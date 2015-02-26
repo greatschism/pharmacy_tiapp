@@ -1,9 +1,9 @@
 module.exports = {
 	"strings" : {
-		"lngEnglish" : "English",
-		"lngJapanese" : "Japanese",
-		"lngSpanish" : "Spanish",
-		"lngChinese" : "Chinese",
+		"lngEnglish" : "zh-English",
+		"lngJapanese" : "zh-Japanese",
+		"lngSpanish" : "zh-Spanish",
+		"lngChinese" : "zh-Chinese",
 
 		"titleHome" : "zh-Home",
 		"titlePharmacyRewards" : "zh-Pharmacy rewards",
@@ -39,6 +39,8 @@ module.exports = {
 		"titleTourHelpfulMedication" : "zh-Helpful medication & refill notifications",
 		"titleTourStoreLocator" : "zh-Easy to use store locator",
 		"titleRefillHistory" : "zh-Refill history",
+		"titleSuccess" : "zh-Success!",
+		"titleAddAPicture" : "zh-Add a picture",
 		"sectionStoreHours" : "zh-Store hours",
 		"sectionStoreServices" : "zh-Store services",
 		"sectionUpcomingAppointments" : "zh-Upcoming appointments",
@@ -134,8 +136,7 @@ module.exports = {
 		"lblScanMyPrescription" : "zh-Scan my prescription",
 		"lblTypeMyPrescription" : "zh-Type my prescription details",
 		"lblSwipeToGetTour" : "zh-Swipe to get a tour of features",
-		"lblSkipToHome" : "zh-<b><font color=\"boldColor\">Skip to home page</font></b>",
-		"lblAlreadyHaveAccount" : "zh-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblSkip" : "zh-<b><font color=\"boldColor\">Skip</font></b>",
 		"lblTourNotesPrescriptionList" : "zh-my Pharmacy application helps organize your medication for easy access & convenient refills",
 		"lblTourNotesStoreLocator" : "zh-You can set a home pharmacy for prescription refills in one step",
 		"lblTurnOnPush" : "zh-Turn on Push",
@@ -192,6 +193,10 @@ module.exports = {
 		"msgAccountCreated" : "zh-Your account has been created",
 		"msgSignUpToReceiveText" : "zh-Sign up now to receive a text message when your prescription is ready!",
 		"msgScanFailed" : "zh-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgDoctorAdded" : "zh-Doctor details is saved",
+		"msgAppointmentReminder" : "zh-Your appointment reminder for %s on %s at %s has been set.",
+		"msgNoAppointment" : "zh-You have no upcomming appointment",
+		"msgNoDoctor" : "zh-You have no doctors saved in you profile",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -226,12 +231,12 @@ module.exports = {
 		"btnIAgree" : "zh-I agree",
 		"btnOrderRefill" : "zh-Order refill",
 		"btnCallMyPharmacy" : "zh-Call my Pharmacy",
-
+		"btnChangePhoto" : "zh-Change Photo",
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",
 
-		"strWelcomeNote" : "zh-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
-		"strHi" : "Hi %s,",
+		"strWelcomeNote" : "zh-Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
+		"strHi" : "zh-Hi %s,",
 		"strRefillNow" : "zh-Refill now",
 		"strWelcome" : "zh-Welcome!",
 		"strCancel" : "zh-Cancel",
@@ -257,6 +262,6 @@ module.exports = {
 		"strLastFilled" : "zh-Last filled",
 		"strAutoRefill" : "zh-Auto refill this prescription",
 		"strRefillHistory" : "zh-Refill history",
-		"strRetrivePassword" : "?"
+		"strRetrivePassword" : "zh-?"
 	}
 };

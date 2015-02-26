@@ -1,9 +1,9 @@
 module.exports = {
 	"strings" : {
-		"lngEnglish" : "English",
-		"lngJapanese" : "Japanese",
-		"lngSpanish" : "Spanish",
-		"lngChinese" : "Chinese",
+		"lngEnglish" : "ja-English",
+		"lngJapanese" : "ja-Japanese",
+		"lngSpanish" : "ja-Spanish",
+		"lngChinese" : "ja-Chinese",
 
 		"titleHome" : "ja-Home",
 		"titlePharmacyRewards" : "ja-Pharmacy rewards",
@@ -39,6 +39,8 @@ module.exports = {
 		"titleTourHelpfulMedication" : "ja-Helpful medication & refill notifications",
 		"titleTourStoreLocator" : "ja-Easy to use store locator",
 		"titleRefillHistory" : "ja-Refill history",
+		"titleSuccess" : "ja-Success!",
+		"titleAddAPicture" : "ja-Add a picture",
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
 		"sectionUpcomingAppointments" : "ja-Upcoming appointments",
@@ -134,14 +136,13 @@ module.exports = {
 		"lblScanMyPrescription" : "ja-Scan my prescription",
 		"lblTypeMyPrescription" : "ja-Type my prescription details",
 		"lblSwipeToGetTour" : "ja-Swipe to get a tour of features",
-		"lblSkipToHome" : "ja-<b><font color=\"boldColor\">Skip to home page</font></b>",
-		"lblAlreadyHaveAccount" : "ja-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblSkip" : "ja-<b><font color=\"boldColor\">Skip</font></b>",
 		"lblTourNotesPrescriptionList" : "ja-my Pharmacy application helps organize your medication for easy access & convenient refills",
 		"lblTourNotesStoreLocator" : "ja-You can set a home pharmacy for prescription refills in one step",
 		"lblTurnOnPush" : "ja-Turn on Push",
 		"lblDocument" : "ja-Document",
 		"lblDosageInstruction" : "ja-Dosage instruction",
-		"lblNewPassword" : "ja-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.", 
+		"lblNewPassword" : "ja-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 
 		"valFirstNameRequired" : "ja-Please enter your first name",
 		"valLastNameRequired" : "ja-Please enter your last name",
@@ -192,6 +193,10 @@ module.exports = {
 		"msgAccountCreated" : "ja-Your account has been created",
 		"msgSignUpToReceiveText" : "ja-Sign up now to receive a text message when your prescription is ready!",
 		"msgScanFailed" : "ja-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgDoctorAdded" : "ja-Doctor details is saved",
+		"msgAppointmentReminder" : "ja-Your appointment reminder for %s on %s at %s has been set.",
+		"msgNoAppointment" : "ja-You have no upcomming appointment",
+		"msgNoDoctor" : "ja-You have no doctors saved in you profile",
 
 		"menuSearch" : "ja-Search",
 		"menuSort" : "ja-Sort",
@@ -226,12 +231,12 @@ module.exports = {
 		"btnIAgree" : "ja-I agree",
 		"btnOrderRefill" : "ja-Order refill",
 		"btnCallMyPharmacy" : "ja-Call my Pharmacy",
-
+		"btnChangePhoto" : "ja-Change Photo",
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",
 
-		"strWelcomeNote" : "ja-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
-		"strHi" : "Hi %s,",
+		"strWelcomeNote" : "ja-Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
+		"strHi" : "ja-Hi %s,",
 		"strRefillNow" : "ja-Refill now",
 		"strWelcome" : "ja-Welcome!",
 		"strCancel" : "ja-Cancel",
@@ -257,6 +262,6 @@ module.exports = {
 		"strLastFilled" : "ja-Last filled",
 		"strAutoRefill" : "ja-Auto refill this prescription",
 		"strRefillHistory" : "ja-Refill history",
-		"strRetrivePassword" : "?"
+		"strRetrivePassword" : "ja-?"
 	}
 };

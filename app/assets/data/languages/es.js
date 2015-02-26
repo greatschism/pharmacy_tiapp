@@ -1,9 +1,9 @@
 module.exports = {
 	"strings" : {
-		"lngEnglish" : "English",
-		"lngJapanese" : "Japanese",
-		"lngSpanish" : "Spanish",
-		"lngChinese" : "Chinese",
+		"lngEnglish" : "es-English",
+		"lngJapanese" : "es-Japanese",
+		"lngSpanish" : "es-Spanish",
+		"lngChinese" : "es-Chinese",
 
 		"titleHome" : "es-Home",
 		"titlePharmacyRewards" : "es-Pharmacy rewards",
@@ -38,7 +38,9 @@ module.exports = {
 		"titleTourPrescriptionList" : "es-Convinient refills & drug details with my prescription list",
 		"titleTourHelpfulMedication" : "es-Helpful medication & refill notifications",
 		"titleTourStoreLocator" : "es-Easy to use store locator",
-		"titleRefillHistory": "es-Refill history",
+		"titleRefillHistory" : "es-Refill history",
+		"titleSuccess" : "es-Success!",
+		"titleAddAPicture" : "es-Add a picture",
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
 		"sectionUpcomingAppointments" : "es-Upcoming appointments",
@@ -134,8 +136,7 @@ module.exports = {
 		"lblScanMyPrescription" : "es-Scan my prescription",
 		"lblTypeMyPrescription" : "es-Type my prescription details",
 		"lblSwipeToGetTour" : "es-Swipe to get a tour of features",
-		"lblSkipToHome" : "es-<b><font color=\"boldColor\">Skip to home page</font></b>",
-		"lblAlreadyHaveAccount" : "es-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblSkip" : "es-<b><font color=\"boldColor\">Skip</font></b>",
 		"lblTourNotesPrescriptionList" : "es-my Pharmacy application helps organize your medication for easy access & convenient refills",
 		"lblTourNotesStoreLocator" : "es-You can set a home pharmacy for prescription refills in one step",
 		"lblTurnOnPush" : "es-Turn on Push",
@@ -192,6 +193,10 @@ module.exports = {
 		"msgAccountCreated" : "es-Your account has been created",
 		"msgSignUpToReceiveText" : "es-Sign up now to receive a text message when your prescription is ready!",
 		"msgScanFailed" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgDoctorAdded" : "es-Doctor details is saved",
+		"msgAppointmentReminder" : "es-Your appointment reminder for %s on %s at %s has been set.",
+		"msgNoAppointment" : "es-You have no upcomming appointment",
+		"msgNoDoctor" : "es-You have no doctors saved in you profile",
 
 		"menuSearch" : "es-Search",
 		"menuSort" : "es-Sort",
@@ -226,12 +231,12 @@ module.exports = {
 		"btnIAgree" : "es-I agree",
 		"btnOrderRefill" : "es-Order refill",
 		"btnCallMyPharmacy" : "es-Call my Pharmacy",
-
+		"btnChangePhoto" : "es-Change Photo",
 		"optionFindPictureOnMyPhone" : "es-Find a picture on my phone",
 		"optionTakePhoto" : "es-Take photo",
 
-		"strWelcomeNote" : "es-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
-		"strHi" : "Hi %s,",
+		"strWelcomeNote" : "es-Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
+		"strHi" : "es-Hi %s,",
 		"strRefillNow" : "es-Refill now",
 		"strWelcome" : "es-Welcome!",
 		"strCancel" : "es-Cancel",
@@ -257,6 +262,6 @@ module.exports = {
 		"strLastFilled" : "es-Last filled",
 		"strAutoRefill" : "es-Auto refill this prescription",
 		"strRefillHistory" : "es-Refill history",
-		"strRetrivePassword" : "?"
+		"strRetrivePassword" : "es-?"
 	}
 };
