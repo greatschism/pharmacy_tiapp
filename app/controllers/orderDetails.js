@@ -123,16 +123,14 @@ function init() {
 	row.addEventListener("click", function(e) {
 		if (selectedIndex == 0) {
 			row2 = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
+				apiName : "TableViewRow"
 			}),
 
 			containerView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+				apiName : "View",
+				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
 			}),
-
-			
 
 			addressLine1 = $.UI.create("Label", {
 				apiName : "Label",
@@ -150,7 +148,6 @@ function init() {
 				classes : ["right", "width-45", "h5", "#4094fc"]
 			});
 
-
 			containerView.rowId = transform.id;
 
 			containerView.add(addressLine1);
@@ -160,19 +157,19 @@ function init() {
 			rightBtn.addEventListener("click", didClickStoreChange);
 
 			row2.add(containerView);
+			$.pickupDetailsSection.add(row2);
 		} else {
 			row2 = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
+				apiName : "TableViewRow"
 			}),
 
 			containerView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+				apiName : "View",
+				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 
 			}),
 
-			mailTo =
-			$.UI.create("Label", {
+			mailTo = $.UI.create("Label", {
 
 				apiName : "Label",
 				text : "Mail to:",
@@ -189,7 +186,6 @@ function init() {
 				text : "San Franscisco,CA, 94103",
 				classes : ["list-item-info-lbl", "left"]
 			}),
-		
 
 			wrongAddressLbl = $.UI.create("Label", {
 				apiName : "Label",
@@ -198,7 +194,7 @@ function init() {
 			});
 
 			containerView.rowId = transform.id;
-            containerView.add(mailTo);
+			containerView.add(mailTo);
 			containerView.add(addressLine1);
 			containerView.add(addressLine2);
 
@@ -206,10 +202,9 @@ function init() {
 			wrongAddressLbl.addEventListener("click", didClickStoreChange);
 
 			row2.add(containerView);
+			$.pickupDetailsSection.add(row2);
 		}
 	});
-
-	$.pickupDetailsSection.add(row2);
 
 	data.push($.pickupDetailsSection);
 
