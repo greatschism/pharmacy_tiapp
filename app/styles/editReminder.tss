@@ -1,6 +1,3 @@
-"#whenLbl":{
-	text: Alloy.Globals.strings.lblWhenIsYourAppointment
-},
 "#timeTitleLbl":{
 	text: Alloy.Globals.strings.lblAtThisTime
 },
@@ -8,9 +5,7 @@
 	hintText: Alloy.Globals.strings.lblOnThisDate,
 	type: Ti.UI.PICKER_TYPE_DATE,
 	rightTitle: Alloy.Globals.strings.btnNext,
-	color:"#000000",
-	format:"MMM Do, YYYY",
-	
+	color:"#000000"
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
@@ -27,7 +22,7 @@
 "#lblTime":{
 	text: Alloy.Globals.strings.lblAtThisTime
 },
-"#timePicker":{
+"#picker":{
 	useSpinner : true,
     selectionIndicator : true,
     type : Ti.UI.PICKER_TYPE_TIME

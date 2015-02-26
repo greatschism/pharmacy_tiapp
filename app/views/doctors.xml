@@ -2,10 +2,7 @@
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
-	<View>
-		<TableView id="tableView" onClick="didItemClick" />
-		<View id="footerView" class="bottom">
-			<Button id="addDoctorBtn" class="btn-primary" onClick="didClickAddDoctor" />
-		</View>
-	</View>
+	<ScrollView class="vgroup"> 
+		<TableView id="tableView" class="auto-height" onClick="didItemClick" />
+	</ScrollView>
 </Alloy> 

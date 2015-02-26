@@ -1,16 +1,7 @@
 <Alloy>
-	<TableView id="tableView" dataCollection="doctors" onClick="didItemClick">
-		<HeaderView>
-			<View class="auto-height bg-success">
-				<Label id="appointmentLbl" class="padding-top padding-bottom margin-left margin-right auto-height h4 text-center multi-line fg-primary" />
-			</View>
-		</HeaderView>
-		<TableViewRow rowId="{doctor_id}">
-			<View class="list-item-view-with-child">
-				<ImageView image="{thumbnail_url}" class="list-item-left-image" />
-				<Label text="{long_name}" class="list-item-content-after-image h3 multi-line fg-secondary" />
-			</View>
-			<Label class="list-item-child" />
-		</TableViewRow>
-	</TableView>
+	
+	<View class="vgroup"> 
+		<TableView id="tableView" class="auto-height" onClick="didItemClick" />
+	</View>
+	
 </Alloy>

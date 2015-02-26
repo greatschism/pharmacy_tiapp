@@ -259,7 +259,7 @@ module.exports = {
 				"presc_name" : "Lovastin, 200 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
+				"doctor_id" : "1",
 				"anticipated_refill_date" : "2015/14/15",
 				"expiration_date" : "2015/14/15",
 				"refill_remaining_preferences" : "x",
@@ -278,7 +278,7 @@ module.exports = {
 				"presc_name" : "Lisinopril, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
+				"doctor_id" : "1",
 				"anticipated_refill_date" : "2015/14/15",
 				"expiration_date" : "2015/14/15",
 				"refill_remaining_preferences" : "x",
@@ -297,7 +297,7 @@ module.exports = {
 				"presc_name" : "Ciprofloxacin, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
+				"doctor_id" : "1",
 				"anticipated_refill_date" : "2015/14/15",
 				"expiration_date" : "2015/14/15",
 				"refill_remaining_preferences" : "x",
@@ -316,7 +316,7 @@ module.exports = {
 				"presc_name" : "Amoxcilin, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
+				"doctor_id" : "1",
 				"anticipated_refill_date" : "2015/14/15",
 				"expiration_date" : "2015/14/15",
 				"refill_remaining_preferences" : "x",
@@ -335,7 +335,7 @@ module.exports = {
 				"presc_name" : "Listerin, 500 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
+				"doctor_id" : "1",
 				"anticipated_refill_date" : "2014-12-18",
 				"expiration_date" : "x",
 				"refill_remaining_preferences" : "x",
@@ -814,6 +814,116 @@ module.exports = {
 				}
 			}
 		}
+	},"DOCTORS_LIST" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"doctors" : [{
+				"id" : "1",
+				"doctor_dea" : "12345",
+				"first_name" : "Test1",
+				"last_name" : "Mscripts1",
+				"addressline1" : "TEST",
+				"addressline2" : "TEST",
+				"state" : "ME",
+				"city" : "AUGUSTA",
+				"zip" : "04003",
+				"notes" : "",
+				"phone" : "6172837737",
+				"fax" : "6172837737",
+				"image_url" : "http://test.remscripts.com/ig3234",
+				"optional" : ""
+			}, {
+				"id" : "2",
+				"doctor_dea" : "23456",
+				"first_name" : "Test2",
+				"last_name" : "Mscripts2",
+				"addressline1" : "TEST",
+				"addressline2" : "TEST",
+				"state" : "ME",
+				"city" : "AUGUSTA",
+				"zip" : "04003",
+				"notes" : "",
+				"phone" : "6172837737",
+				"fax" : "6172837737",
+				"image_url" : "http://test.remscripts.com/ig3234",
+				"org_name" : "MSCRIPTS",
+				"optional" : ""
+			}]
+		}
+	},
+	"APPOINTMENTS_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"appointment" : [{
+				"doctor_id" : "1",
+				"appointment_id" : "5",
+				"appointment_time":"2015-02-19 03:05",
+				"appointment_meridiem" : "PM",
+				"time":"x",
+				"desc":"x",
+				"reminders" : {
+					"enabled" : "0/1",
+					"no_of_reminders" : "5",
+					"remind_before_in_days" : "2",
+					"reminder_hour" : "2",
+					"reminder_minute" : "30",
+					"reminder_meridiem" : "PM"
+				}
+			},
+			{
+				"doctor_id" : "2",
+				"appointment_id" : "6",
+				"appointment_time":"2015-02-19 03:05",
+				"appointment_meridiem" : "PM",
+				"time":"x",
+				"desc":"x",
+				"reminders" : {
+					"enabled" : "0/1",
+					"no_of_reminders" : "5",
+					"remind_before_in_days" : "2",
+					"reminder_hour" : "2",
+					"reminder_minute" : "30",
+					"reminder_meridiem" : "PM"
+				}
+			},
+			{
+				"doctor_id" : "2",
+				"appointment_id" : "7",
+				"appointment_time":"2015-02-19 03:05",
+				"appointment_meridiem" : "PM",
+				"time":"x",
+				"desc":"x",
+				"reminders" : {
+					"enabled" : "0/1",
+					"no_of_reminders" : "5",
+					"remind_before_in_days" : "2",
+					"reminder_hour" : "2",
+					"reminder_minute" : "30",
+					"reminder_meridiem" : "PM"
+				}
+			}]
+		}
+
+	},
+	"ADD_DOCTOR":{
+ 				"status": "Success",
+ 				"code": "200",
+ 				"message": "Doctor added successfully",
+			    "description": "x",
+ 			    "data":""
+	},
+	"ADD_APPOINTMENT":{
+				 "status": "Success",
+				 "code": "200",
+ 				 "message": "Doctor updated successfully",
+				 "description": "x",
+ 				 "data":""
 	}
 };
 

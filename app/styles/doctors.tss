@@ -16,7 +16,8 @@
 			title: "Item 2"
 		}
 	]
-},
+}
+,
 "#photoDialog":{
 	role: "overlay",
 	title: Alloy.Globals.strings.titleChooseOne,
@@ -34,13 +35,6 @@
 	cancel: 2,
 	zIndex: 2
 },
-"#toggleBtn":{
-	title: Alloy.CFG.icons.sort
-},
-"#tableView":{
-	top: 0,
-	bottom: 96
-},
 "#addIcon":{
 	text: Alloy.CFG.icons.sort
 },
@@ -52,4 +46,67 @@
 },
 "#addDoctorBtn":{
 	title: Alloy.Globals.strings.btnAddAnotherDoctor
+}
+".iconLabel":{
+	color: "#000000",
+	font: Alloy.TSS.list_item_child.font
+},
+".options":{
+	color: Alloy.TSS.title_lbl.color,
+	ellipsize: false,
+	wordWrap: true
+},
+"#addReminderIcon":{
+	text:Alloy.CFG.icons.plus
+},
+"#toggleBtn":{
+	title: Alloy.CFG.icons.sort
+},
+"#tableView":{
+	top: 0
+},
+"#addReminderLabel":{
+	text:Alloy.Globals.strings.lblSetupAppointmentReminder,
+	color: "#000000",
+	ellipsize: false,
+	wordWrap: true
+},
+
+".icon":{
+	font:{
+		fontSize:50
+	}
+}
+".h1":{
+color:"#000000",
+font:{
+	fontSize: 17,
+	fontFamily:"bold"
+}	
+},
+".h2":{
+color:"#000000",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}	
+}
+".h3":{
+color:"#808285",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
+}
+".paddingLeft":{
+	left:12
+}
+".paddingRight":{
+	right:10
+}
+".paddingTop":{
+	top:10
+}
+".paddingBottom":{
+	bottom:10
 }

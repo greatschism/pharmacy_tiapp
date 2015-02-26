@@ -1,3 +1,14 @@
+".iconLabel":{
+	color: "#000000",
+	font: Alloy.TSS.list_item_child.font,
+	right: 0
+},
+".options":{
+	color: Alloy.TSS.title_lbl.color,
+	ellipsize: false,
+	wordWrap: true
+},
 "#appointmentLbl":{
-	text: Alloy.Globals.strings.lblWhichDoctorYouHaveAppointment
+	text:Alloy.Globals.strings.lblWhichDoctorYouHaveAppointment,
+	backgroundColor: Alloy.TSS.section_header_view.backgroundColor
 }

@@ -1,20 +1,21 @@
 "#hintLbl": {
-	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation
+	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation,
+	backgroundColor:"#808285"
 },
 "#fnameTxt":{
-	hintText: Alloy.Globals.strings.hintFnameRequired,
+	hintText: Alloy.Globals.strings.hintFirstNameRequired,
     keyboardType:Titanium.UI.KEYBOARD_NAMEPHONE_PAD,
  
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	hintText: Alloy.Globals.strings.hintLnameRequired,
+	hintText: Alloy.Globals.strings.hintLastNameRequired,
 	nextItem: "phoneTxt"
 },
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.hintPhone,
 	keyboardType:Titanium.UI.KEYBOARD_PHONE_PAD,
-	maxLength : 10,
+	maxLength : 14,
 	nextItem: "faxTxt"
 },
 "#faxTxt":{

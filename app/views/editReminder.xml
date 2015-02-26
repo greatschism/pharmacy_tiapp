@@ -1,9 +1,5 @@
 <Alloy>
 	<View class="vgroup">
-	<View class="auto-height vgroup">
-		<Label id="whenLbl" class="padding-bottom margin-left margin-right h4 text-center multi-line fg-primary" />
-	</View>
-	
 	<View class="default-height hgroup">
 		<Label id="lblDate" class="left width-40 padding-left" />
 		<Widget id="dateLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
@@ -12,13 +8,11 @@
 	<View class="hgroup height-40">
 		<Label id="lblTime" class="padding-left width-45" />
 		<View class="width-50 height-30 right">
-			<Picker id="timePicker" onChange="getTime" />
+			<Picker id="picker" />
 		</View>
 	</View>	
 	
 	<Button id="saveBtn" class="primary-btn padding-bottom" onClick="didClickSave" />
-	<Button id="editBtn" class="secondary-btn padding-bottom" onClick="didClickEdit" />
-	<Button id="deleteBtn" class="secondary-btn" onClick="didClickDelete" />
 	
 	</View>	
 </Alloy>

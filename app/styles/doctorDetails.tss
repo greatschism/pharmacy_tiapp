@@ -1,48 +1,65 @@
 "#photoDialog":{
-	role: "overlay",
-	title: Alloy.Globals.strings.titleChooseOne,
-	options: [
-		{
-			title: Alloy.Globals.strings.optionFindPictureOnMyPhone
-		},
-		{
-			title: Alloy.Globals.strings.optionTakePhoto
-		},
-		{
-			title: Alloy.Globals.strings.strCancel
-		}
-	],
-	cancel: 2,
-	zIndex: 2
+role: "overlay",
+title: Alloy.Globals.strings.tittleAddAPicture,
+options: [
+{
+title: Alloy.Globals.strings.optionFindPictureOnMyPhone
+},
+{
+title: Alloy.Globals.strings.optionTakePhoto
+},
+{
+title: Alloy.Globals.strings.strCancel
+}
+],
+cancel: 2,
+zIndex: 2
 },
 "#editBtn":{
-	title: Alloy.Globals.strings.btnEdit
+title: Alloy.Globals.strings.btnEdit
 },
 /*"#tableView":{
 top: 0,
 bottom: 96
 },*/
-"#profileImg":{
-	width: 72
-},
 ".after-icon":{
-	left: 32
+left: 32
+},
+"#changeImgLbl":{
+color:"#0095ff",
+text:Alloy.Globals.strings.btnChangePhoto,
+font:{fontSize:13,
+ fontFamily:'Helvetica Neue'}	
+},
+"#phoneLbl":{
+color:"#0095ff"
+},
+"#faxLbl":{
+color:"#808285"
+},
+"#directionLbl":{
+color:"#0095ff"
 },
 "#phoneIconLbl":{
-	text: Alloy.CFG.icons.phone
+text: Alloy.CFG.icons.phone,
+color:"#F6931E"
 },
 "#faxIconLbl":{
-	text: Alloy.CFG.icons.print
+text: Alloy.CFG.icons.print,
+color:"#F6931E"
 },
 "#directionIconLbl":{
-	text: Alloy.CFG.icons.direction
+text: Alloy.CFG.icons.direction,
+color:"#F6931E"
 },
-"#moreIcon":{
-	text: Alloy.CFG.icons.sort
-},
-"#moreLbl":{
-	text: Alloy.Globals.strings.lblMore
-}/*,
+"#downLbl":{
+width: 20,
+text: Alloy.CFG.icons.down_arrow,
+color: "#000000",
+font: Alloy.TSS.small_icon.font,
+	
+}
+/*,
 "#footerView":{
 height: 96
 },

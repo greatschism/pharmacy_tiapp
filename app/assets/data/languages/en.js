@@ -39,6 +39,9 @@ module.exports = {
 		"titleTourHelpfulMedication" : "Helpful medication & refill notifications",
 		"titleTourStoreLocator" : "Easy to use store locator",
 		"titleRefillHistory": "Refill history",
+		"titleSuccess":"Success!",
+		"tittleAddAPicture":"Add a picture",
+
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
 		"sectionUpcomingAppointments" : "Upcoming appointments",
@@ -192,6 +195,10 @@ module.exports = {
 		"msgAccountCreated" : "Your account has been created",
 		"msgSignUpToReceiveText" : "Sign up now to receive a text message when your prescription is ready!",
 		"msgScanFailed" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help!",
+		"msgDoctorAdded":"Doctor details is saved",
+		"msgAppointmentReminder":"Your appointment reminder for %s on %s at %s has been set.",
+		"msgNoAppointment":"You have no upcomming appointment",
+		"msgNoDoctor":"You have no doctors saved in you profile",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
@@ -226,7 +233,8 @@ module.exports = {
 		"btnIAgree" : "I agree",
 		"btnOrderRefill" : "Order refill",
 		"btnCallMyPharmacy" : "Call my Pharmacy",
-
+		"btnChangePhoto":"Change Photo",
+		
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
 

@@ -11,223 +11,334 @@ var args = arguments[0] || {},
     strAnd = Alloy.Globals.strings.strAnd,
     strMore = Alloy.Globals.strings.strMore,
     doctors,
-    appointments;
+    appointments,
+    prescriptionsList;
 
 function init() {
 	http.request({
 		method : "DOCTORS_LIST",
-		keepBlook : true,
+		success : getPrescriptions
+	});
+}
+
+function getPrescriptions(_result) {
+	doctors = _result.data.doctors || [];
+	http.request({
+		method : "PRESCRIPTIONS_LIST",
 		success : didSuccess
 	});
 }
 
-function didSuccess(result) {
-	doctors = result.data.doctors;
+function didSuccess(_result) {
+	prescriptionsList = _result.data.prescriptions || [];
+
+	//console.log(prescriptionsList);
 	http.request({
+
 		method : "APPOINTMENTS_GET",
-		keepBlook : true,
 		success : didReceiveAppointments
 	});
 }
 
-function didReceiveAppointments(result) {
+function firstToUpperCase(str) {
+	var strTemp = str.split(' ');
+	for (var i = 0; i < strTemp.length; i++) {
+		strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
+	};
+	str = strTemp.join(" ");
+	return str;
+}
 
-	appointments = result.data.appointment;
+function didReceiveAppointments(_result) {
 
-	var footerView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["bg-success"]
-	}),
-	    containerView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto", "hgroup", "touch-disabled"]
-	}),
-	    addIcon = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["font-icon-tiny", "fg-primary", "touch-disabled"],
-		id : "addIcon"
-	}),
-	    addLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["padding-left", "h4", "fg-primary", "touch-disabled"],
-		id : "addLbl"
-	});
-	footerView.height = Alloy._content_height;
-	containerView.add(addIcon);
-	containerView.add(addLbl);
-	footerView.add(containerView);
-	footerView.addEventListener("click", didClickSetAppointment);
+	//console.log("111");
+	appointments = _result.data.appointment || [];
+	//console.log("222");
 
-	$.appointmentsSection = uihelper.createTableViewSection({
-		title : Alloy.Globals.strings.sectionUpcomingAppointments
-	}, footerView);
-	$.doctorsSection = uihelper.createTableViewSection({
-		title : Alloy.Globals.strings.sectionMyDoctors
-	});
+	
 
-	function firstToUpperCase(str) {
-		var strTemp = str.split(' ');
-		for (var i = 0; i < strTemp.length; i++) {
-			strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
-		};
-		str = strTemp.join(" ");
-		return str;
-	}
+	$.appointmentsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionUpcomingAppointments);
+	//$.setReminderSection = uihelper.createTableViewSection($, Alloy.Globals.strings.lblSetupAppointmentReminder,footerView);
+	$.doctorsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionMyDoctors);
 
-	for (var i in doctors) {
+	if (appointments.length) {
 
-		var doctor = doctors[i],
-		    prescriptions = doctor.prescriptions,
-		    description = "";
-		doctor.short_name = "Dr. " + doctor.last_name;
-		doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
-		doctor.thumbnail_url = "/images/profile.png";
-
-		/**
-		 * Description format
-		 * 0 drugs You have no active prescriptions associated with Dr. [LASTNAME]
-		 * 1 drug Dr.[NAME] has prescribed you [DRUGNAME].
-		 * 2 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME] and [DRUGNAME].
-		 * 3 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
-		 * 4 or more Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
-		 */
-		len = prescriptions.length;
-		if (len) {
-			//When len is > 0
-			description = String.format(msgHasPrescribedYou, doctor.short_name, firstToUpperCase(prescriptions[0].prescription_name));
-			if (len > 1) {
-				//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
-				switch(len) {
-				case 2:
-					description += " " + strAnd + " " + prescriptions[1].prescription_name;
-					break;
-				case 3:
-					description += ", " + prescriptions[1].prescription_name + " " + strAnd + " " + prescriptions[2].prescription_name;
-					break;
-				default:
-					description += ", " + prescriptions[1].prescription_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
-				}
-			}
-		} else {
-			//When len is 0
-			description = String.format(msgYouHaveNoActiveprescription, doctor.short_name);
-		}
-		description += ".";
-
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    padView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["list-item-view-with-child"]
-		}),
-		    childLbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["list-item-child"]
-		}),
-		    leftImg = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			classes : ["list-item-left-image"]
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["list-item-content-after-image", "vgroup"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["left", "h3", "fg-secondary"]
-		}),
-		    subtitleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["left", "h5", "fg-quaternary", "multi-line"]
-		});
-		row.rowId = doctor.doctor_id;
-		titleLbl.text = doctor.long_name;
-		subtitleLbl.text = description;
-		leftImg.image = doctor.thumbnail_url;
-		leftImg.bindId = "profile";
-		contentView.add(titleLbl);
-		contentView.add(subtitleLbl);
-		padView.add(leftImg);
-		padView.add(contentView);
-		row.add(padView);
-		row.add(childLbl);
-		$.doctorsSection.add(row);
-	}
-
-	for (var i in appointments) {
-
-		var appointment = appointments[i],
-		    doctor = _.findWhere(doctors, {
-			doctor_id : appointment.doctor_id
-		});
-		appointment.thumbnail_url = doctor.thumbnail_url;
-		appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMMM Do [at] h:mm A[.]");
-		appointment.desc = String.format(msgUpcomingAppointment, doctor.short_name);
-
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    padView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["list-item-view-with-child"]
-		}),
-		    childLbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["list-item-child"]
-		}),
-		    leftImg = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			classes : ["list-item-left-image"]
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["list-item-content-after-image", "vgroup"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			classes : ["h3", "multi-line"]
-		});
-		if (OS_IOS) {
-			var text = appointment.desc + appointment.time;
-			titleLbl.applyProperties({
-				left : 0,
-				attributedString : Ti.UI.iOS.createAttributedString({
-					text : text,
-					attributes : [{
-						type : Ti.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-						value : Alloy._fg_secondary,
-						range : [0, text.length]
-					}, {
-						type : Ti.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-						value : Alloy._fg_tertiary,
-						range : [appointment.desc.length, appointment.time.length]
-					}, {
-						type : Ti.UI.iOS.ATTRIBUTE_FONT,
-						value : {
-							fontFamily : Alloy._fonts.medium,
-							fontSize : Alloy._typo_h3.fontSize
-						},
-						range : [appointment.desc.length, appointment.time.length]
-					}]
-				})
+		for (var i in appointments) {
+			//console.log(doctors);
+			var appointment = appointments[i],
+			    doctor = _.findWhere(doctors, {
+				id : appointment.doctor_id
 			});
-		} else {
-			titleLbl.html = appointment.desc + " <font color=\"" + Alloy._fg_tertiary + "\"><b>" + appointment.time + "</b></font>";
+
+			appointment.image_url = doctor.image_url;
+
+			appointment.time = moment(appointment.appointment_time, "YYYY-MM-DD HH:mm").format("MMM Do [at] h:mm A[.]");
+			appointment.desc = String.format(msgUpcomingAppointment, doctor.last_name);
+
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
+			}),
+			    contentView = $.UI.create("View", {
+				apiName : "View",
+				horizontalWrap : "false",
+				classes : ["hgroup", "auto-height"]
+			}),
+			    leftImgView = $.UI.create("View", {
+				apiName : "View",
+				height : 32,
+				width : 32,
+				classes : ["paddingLeft"]
+			}),
+			    descriptionView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vgroup", "auto-height", "auto-width", "paddingLeft", "paddingTop", "paddingBottom"]
+
+			}),
+			    leftImg = $.UI.create("Label", {
+				apiName : "Label",
+				color : "#F6931E",
+				classes : ["small-icon", "icon"]
+
+			}),
+			    appointmentLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h1", "left", "width-90"]
+			}),
+			    doctorLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h2", "left", "width-90"]
+			}),
+			    childLbl = $.UI.create("Label", {
+				apiName : "Label",
+				text : Alloy.CFG.icons.arrow_right,
+				classes : ["iconLabel", "paddingRight"]
+			});
+
+			row.rowId = appointment.appointment_id;
+			appointmentLbl.text = appointment.time;
+			leftImg.text = Alloy.CFG.icons.calendar;
+			doctorLbl.text = appointment.desc;
+			// leftImg.image = doctor.thumbnail_url;
+			leftImg.bindId = "profile";
+			leftImgView.add(leftImg);
+			descriptionView.add(appointmentLbl);
+			descriptionView.add(doctorLbl);
+
+			contentView.add(leftImgView);
+			contentView.add(descriptionView);
+			contentView.add(childLbl);
+			row.add(contentView);
+			$.appointmentsSection.add(row);
+
 		}
-		row.rowId = appointment.appointment_id;
-		leftImg.image = doctor.thumbnail_url;
-		leftImg.bindId = "profile";
+
+	}//if appointment exits
+	else {
+
+		var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["padding-top", "auto-height"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			text : Alloy.Globals.strings.msgNoAppointment,
+			classes : ["fill-width", "paddingLeft", "paddingBottom","paddingTop"]
+		});
+
 		contentView.add(titleLbl);
-		padView.add(leftImg);
-		padView.add(contentView);
-		row.add(padView);
-		row.add(childLbl);
+		row.add(contentView);
+		row.rowId = "no appointment";
 		$.appointmentsSection.add(row);
 	}
+	
+	var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+	appointmentFooterView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["auto-height","hgroup"]
+	}),
+	setReminderIcon = $.UI.create("Label", {
+		apiName : "Label",
+		color : "#000000",
+		font : Alloy.TSS.list_item_child.font,
+		text : Alloy.CFG.icons.plus,
+		height : 32,
+		width : 32,
+		classes : ["paddingLeft","paddingTop","paddingBottom"]
+	}),
+	setReminderLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["paddingTop"],
+		text : Alloy.Globals.strings.lblSetupAppointmentReminder,
+	});
+	appointmentFooterView.add(setReminderIcon);
+	appointmentFooterView.add(setReminderLabel);
+	appointmentFooterView.addEventListener("click", didClickSetAppointment);
+	row.add(appointmentFooterView);
+	row.rowId = "set appointment";
+	$.appointmentsSection.add(row);
 
-	$.tableView.data = [$.appointmentsSection, $.doctorsSection];
+	if (doctors.length) {
+
+		console.log("doctors found");
+
+		for (var i in doctors) {
+
+			var doctor = doctors[i],
+			    prescriptions = _.where(prescriptionsList, {
+				doctor_id : doctor.id
+			});
+
+			description = "";
+			doctor.short_name = "Dr. " + doctor.last_name;
+			doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
+			doctor.thumbnail_url = "/images/profile.png";
+
+			/* Description format
+			 * 0 drugs You have no active prescriptions associated with Dr. [LASTNAME]
+			 * 1 drug Dr.[NAME] has prescribed you [DRUGNAME].
+			 * 2 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME] and [DRUGNAME].
+			 * 3 drugs Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
+			 * 4 or more Dr. [LASTNAME] has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
+			 */
+
+			len = prescriptions.length;
+			if (len) {
+
+				//When len is > 0
+				description = String.format(msgHasPrescribedYou, doctor.short_name, prescriptions[0].presc_name);
+				if (len > 1) {
+					//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
+					switch(len) {
+					case 2:
+						description += " " + strAnd + " " + prescriptions[1].presc_name;
+						break;
+					case 3:
+						description += ", " + prescriptions[1].presc_name + " " + strAnd + " " + prescriptions[2].presc_name;
+						break;
+					default:
+						description += ", " + prescriptions[1].presc_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
+					}
+				}
+			} else {
+				//When len is 0
+				description = String.format(msgYouHaveNoActiveprescription, doctor.short_name);
+			}
+			description += ".";
+
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
+			}),
+			    contentView = $.UI.create("View", {
+				apiName : "View",
+				horizontalWrap : "false",
+				classes : ["hgroup", "auto-height"]
+			}),
+			    leftImgView = $.UI.create("View", {
+				apiName : "View",
+				height : 95,
+				width : 50,
+				classes : ["paddingLeft"]
+			}),
+			    descriptionView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vgroup", "auto-height", "auto-width", "paddingLeft"]
+
+			}),
+			    leftImg = $.UI.create("Label", {
+				apiName : "Label",
+				color : "#F6931E",
+				classes : ["small-icon", "icon"]
+
+			}),
+			    titleLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h2", "left", "width-90"]
+			}),
+			    prescriptionLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h3", "left", "width-90"]
+			}),
+			    childLbl = $.UI.create("Label", {
+				apiName : "Label",
+				text : Alloy.CFG.icons.arrow_right,
+				classes : ["iconLabel", "paddingRight"]
+			});
+
+			row.rowId = doctor.id;
+			titleLbl.text = doctor.long_name;
+			leftImg.text = Alloy.CFG.icons.user;
+			prescriptionLbl.text = description;
+			// leftImg.image = doctor.thumbnail_url;
+			leftImg.bindId = "profile";
+			leftImgView.add(leftImg);
+			descriptionView.add(titleLbl);
+			descriptionView.add(prescriptionLbl);
+			contentView.add(leftImgView);
+			contentView.add(descriptionView);
+			contentView.add(childLbl);
+			row.add(contentView);
+			$.doctorsSection.add(row);
+
+		}
+
+	} else {
+
+		var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["padding-top", "auto-height"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			text : Alloy.Globals.strings.msgNoDoctor,
+			classes : ["fill-width", "padding-left", "padding-bottom"]
+		});
+
+		contentView.add(titleLbl);
+		row.add(contentView);
+		row.rowId = "no doctor";
+		$.doctorsSection.add(row);
+	}
+	
+	var rowAddDoc = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+	    mydocFooterView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["auto-height","hgroup"]
+	}),
+		addDoctorIcon = $.UI.create("Label", {
+		apiName : "Label",
+		color : "#000000",
+		font : Alloy.TSS.list_item_child.font,
+		text : Alloy.CFG.icons.plus,
+		height : 32,
+		width : 32,
+		classes : ["paddingLeft","paddingTop","paddingBottom"]
+	}),
+	    addDoctorLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["paddingTop"],
+		text : Alloy.Globals.strings.btnAddAnotherDoctor,
+	});
+
+	mydocFooterView.add(addDoctorIcon);
+	mydocFooterView.add(addDoctorLabel);
+	mydocFooterView.addEventListener("click", didClickAddDoctor);
+	rowAddDoc.add(mydocFooterView);
+	rowAddDoc.rowId = "add doctor";
+	$.doctorsSection.add(rowAddDoc);
+	
+	$.tableView.data = [$.appointmentsSection,  $.doctorsSection];
 	app.navigator.hideLoader();
+
 }
 
 function didToggle(e) {
@@ -235,41 +346,116 @@ function didToggle(e) {
 }
 
 function didClickMenu(e) {
-	logger.i(e);
-}
+	
+	if (e.index == 1) {
+		//then we are getting image from camera
+		Titanium.Media.showCamera({
+			//we got something
+			success : function(event) {
+				//getting media
+				var image = event.media;
 
-function didItemClick(e) {
-	var doctorId = e.row.rowId,
-	    section = e.section,
-	    bindId = e.source.bindId;
-	if (section == $.appointmentsSection) {
-		app.navigator.open({
-			stack : true,
-			titleid : "titleEditReminder",
-			ctrl : "chooseTime",
-			ctrlArguments : {
-				doctorId : doctorId,
-				edit : true
+				//checking if it is photo
+				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+					//we may create image view with contents from image variable
+					//or simply save path to image
+					Ti.App.Properties.setString("image", image.nativePath);
+				}
+			},
+			cancel : function() {
+				//do something if user cancels operation
+			},
+			error : function(error) {
+				//error happend, create alert
+				//var a = Titanium.UI.createAlertDialog({title:'Camera'});
+				//set message
+				if (error.code == Titanium.Media.NO_CAMERA) {
+					alert('Device does not have camera');
+				} else {
+					alert('Unexpected error: ' + error.code);
+				}
+
+				// show alert
+				// a.show();
+			},
+			allowImageEditing : true,
+			saveToPhotoGallery : true
+		});
+	} else if (e.index == 0) {
+		//obtain an image from the gallery
+		Titanium.Media.openPhotoGallery({
+			success : function(event) {
+				//getting media
+				var image = event.media;
+				// set image view
+
+				//checking if it is photo
+				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+					//we may create image view with contents from image variable
+					//or simply save path to image
+					//$.profileImg.image = image;
+					Ti.App.Properties.setString("image", image.nativePath);
+				}
+			},
+			cancel : function() {
+				//user cancelled the action fron within
+				//the photo gallery
 			}
 		});
 	} else {
+		//cancel was tapped
+		//user opted not to choose a photo
+	}
+
+}
+
+function didItemClick(e) {
+	var id = e.row.rowId,
+	    section = e.section,
+	    bindId = e.source.bindId;
+	if (section == $.appointmentsSection) {
+
+		if (!(id == "no appointment")) {
+			app.navigator.open({
+				stack : true,
+				titleid : "titleEditReminder",
+				ctrl : "chooseTime",
+				ctrlArguments : {
+					doctorId : id,
+					edit : true
+				}
+			});
+		}
+	} else {
 		//doctors
 		if (bindId == "profile") {
-			$.photoDialog.doctorId = doctorId;
+			$.photoDialog.doctorId = id;
+			//console.log(doctorId);
 			$.photoDialog.show();
-		} else {
+		} else if (!(id == "no doctor") && !(id== "add doctor")) {
 			var doctor = _.findWhere(doctors, {
-				doctor_id : String(doctorId)
+				id : String(id)
 			});
+
+			var prescriptions = [];
+			if (prescriptionsList.length) {
+				prescriptions = _.where(prescriptionsList, {
+					doctor_id : doctor.id
+				});
+
+			}
 			app.navigator.open({
 				stack : true,
 				title : doctor.short_name,
 				ctrl : "doctorDetails",
 				ctrlArguments : {
-					doctor : doctor
+					doctor : doctor,
+					prescriptions : prescriptions
 				}
 			});
+
 		}
+
 	}
 }
 
@@ -294,12 +480,17 @@ function openGallery() {
 }
 
 function didClickSetAppointment(e) {
-	Alloy.Collections.doctors.reset(doctors);
-	app.navigator.open({
-		stack : true,
-		titleid : "titleChooseDoctor",
-		ctrl : "chooseDoctor"
-	});
+	//Alloy.Collections.doctors.reset(doctors);
+	if (doctors.length) {
+		app.navigator.open({
+			stack : true,
+			titleid : "titleChooseDoctor",
+			ctrl : "chooseDoctor",
+			ctrlArguments : {
+				doctors : doctors
+			}
+		});
+	}
 }
 
 function terminate() {

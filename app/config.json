@@ -53,6 +53,7 @@
 			"refresh": ".",
 			"confirm": "j",
 			"users_list": "w",
+			"user":"W",
 			"arrow_right": "?",
 			"arrow_down": "[",
 			"swipe_indicator": "_",
