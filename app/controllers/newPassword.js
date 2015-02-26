@@ -42,7 +42,7 @@ function didClickDone(e) {
 
 function didAuthenticate(_result) {
 	dialog.show({
-		message : _result.data.message
+		message : _result.message
 	});
 }
 
