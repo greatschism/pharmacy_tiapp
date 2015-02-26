@@ -288,9 +288,13 @@ console.log(JSON.stringify(refillButton));
 
 				if (Math.abs(ndays) >= 60) {
 					console.log("came here" + ndays);
-					hideFromList = $.UI.create("Button", {
-						apiName : "Button",
-						classes : [ "lbl-hide"]
+					hideFromList = $.UI.create("View", {
+						apiName : "View",
+						classes : ["critical-info-view","width-35","height-40"]
+					}),
+					hideFromListLabel = $.UI.create("Label", {
+						apiName : "Label",
+						classes : ["critical-info-lbl"]
 					}),
 					overDueLblSingleLine = $.UI.create("Label", {
 						apiName : "Label",
@@ -298,7 +302,11 @@ console.log(JSON.stringify(refillButton));
 					});
 					hideFromList.addEventListener("click", didHideFromList);
 					overDueLblSingleLine.text = strings.msgOverdueBy + Math.abs(ndays) + "days";
+					hideFromList.right=10;
+					hideFromList.top=5;
+					hideFromListLabel.text=strings.lblHideFromList;
 					row.add(hideFromList);
+					hideFromList.add(hideFromListLabel);
 					row.add(overDueLblSingleLine);
 					overDueLbl.text = "";
 					overDueDetailLbl.text = "";
