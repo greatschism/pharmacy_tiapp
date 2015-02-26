@@ -362,7 +362,6 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-
 	},
 	"PRESCRIPTIONS_SORT_NAME" : {
 		"status" : "Success",
@@ -389,8 +388,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS"
-			},
-			{
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
@@ -409,7 +407,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "INPROCESS"
-			},  {
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Ciprofloxacin, 300 mg",
@@ -428,8 +426,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP"
-			}, 
-{
+			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
 				"presc_name" : "Lisinopril, 300 mg",
@@ -488,7 +485,6 @@ module.exports = {
 				"refill_status" : "READYTOREFILL"
 			}]
 		}
-
 	},
 	"PRESCRIPTIONS_GET" : {
 		"status" : "Success",
@@ -515,8 +511,8 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS",
-				"prescription_display_status":"hidden"
-				
+				"prescription_display_status" : "hidden"
+
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -536,7 +532,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS",
-				"prescription_display_status":"active"
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -556,7 +552,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS",
-				"prescription_display_status":"hidden"
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -576,7 +572,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP",
-				"prescription_display_status":"active"
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -596,7 +592,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP",
-				"prescription_display_status":"hidden"
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -616,7 +612,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "INPROCESS",
-				"prescription_display_status":"active"
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -636,7 +632,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL",
-				"prescription_display_status":"hidden"
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -656,7 +652,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL",
-				"prescription_display_status":"active"
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -676,7 +672,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL",
-				"prescription_display_status":"hidden"
+				"prescription_display_status" : "hidden"
 			}]
 		}
 	},
@@ -717,7 +713,6 @@ module.exports = {
 			}]
 		}
 	},
-	
 	"CODE_VALUES" : {
 		"status" : "Success",
 		"code" : "200",
