@@ -34,6 +34,7 @@ module.exports = {
 		"titleSharedMobileNumber" : "es-Mobile is Shared",
 		"titleTextHelp" : "es-Text Help",
 		"titleDrugInformation" : "es-Drug information",
+		"titleNewPassword" : "es-New Password",
 
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
