@@ -35,6 +35,9 @@ module.exports = {
 		"titleTextHelp" : "zh-Text Help",
 		"titleDrugInformation" : "zh-Drug information",
 		"titleNewPassword" : "zh-New Password",
+		"titleTourPrescriptionList" : "zh-Convinient refills & drug details with my prescription list",
+		"titleTourHelpfulMedication" : "zh-Helpful medication & refill notifications",
+		"titleTourStoreLocator" : "zh-Easy to use store locator",
 
 		"sectionStoreHours" : "zh-Store hours",
 		"sectionStoreServices" : "zh-Store services",
@@ -130,8 +133,12 @@ module.exports = {
 		"lblSideEffects" : "zh-Side effects",
 		"lblScanMyPrescription" : "zh-Scan my prescription",
 		"lblTypeMyPrescription" : "zh-Type my prescription details",
-		"lblNewPassword" : "zh-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.", 
-
+		"lblSwipeToGetTour" : "zh-Swipe to get a tour of features",
+		"lblSkipToHome" : "zh-<b><font color=\"boldColor\">Skip to home page</font></b>",
+		"lblAlreadyHaveAccount" : "zh-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblTourNotesPrescriptionList" : "zh-my Pharmacy application helps organize your medication for easy access & convenient refills",
+		"lblTourNotesStoreLocator" : "zh-You can set a home pharmacy for prescription refills in one step",
+		"lblTurnOnPush" : "zh-Turn on Push",
 		"lblDocument" : "zh-Document",
 		"lblDosageInstruction" : "zh-Dosage instruction",
 
@@ -157,6 +164,7 @@ module.exports = {
 		"msgSignout" : "zh-Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "zh-You have signed out successfully.",
 		"msgRefillOrder" : "zh-Your refill order has been sent and will be ready to pick up on:",
+		"msgRefillPlaced" : "zh-Your refill has been placed at:",
 		"msgOrderProcessed" : "zh-We've processed your order",
 		"msgShouldBeReadyBy" : "zh-Should be ready by",
 		"msgChangeHomePharmacy" : "zh-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
@@ -167,7 +175,6 @@ module.exports = {
 		"msgOrderPlacedReadyBy" : "zh-Order processed: ready by",
 		"msgOverdueBy" : "zh-Overdue by",
 		"msgDueFoRefillIn" : "zh-Refill in",
-		"msgRefillPlaced" : "zh-Your refill has been placed at:",
 		"msgDueFoRefillOn" : "zh-Due on",
 		"msgGeoAuthorizationDenied" : "zh-Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted" : "zh-Location service is turned off. Please check your settings.",
@@ -178,7 +185,6 @@ module.exports = {
 		"msgAppUpdatedReload" : "zh-The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "zh-The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "zh-Under construction",
-		"msgAgePopUp" : "zh-This service is not directed at users under the age of 12. If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "zh-You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 		"msgUserNameTips" : "zh-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "zh-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
@@ -223,6 +229,8 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",
 
+		"strWelcomeNote" : "zh-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
+		"strHi" : "Hi %s,",
 		"strRefillNow" : "zh-Refill now",
 		"strWelcome" : "zh-Welcome!",
 		"strCancel" : "zh-Cancel",
@@ -248,7 +256,6 @@ module.exports = {
 		"strLastFilled" : "zh-Last filled",
 		"strAutoRefill" : "zh-Auto refill this prescription",
 		"strRefillHistory" : "zh-Refill history",
-		"strRetrivePassword" : "?",
-		"strHi" : "zh-Hi %s,"
+		"strRetrivePassword" : "?"
 	}
 };

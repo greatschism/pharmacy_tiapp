@@ -35,6 +35,9 @@ module.exports = {
 		"titleTextHelp" : "ja-Text Help",
 		"titleDrugInformation" : "ja-Drug information",
 		"titleNewPassword" : "ja-New Password",
+		"titleTourPrescriptionList" : "ja-Convinient refills & drug details with my prescription list",
+		"titleTourHelpfulMedication" : "ja-Helpful medication & refill notifications",
+		"titleTourStoreLocator" : "ja-Easy to use store locator",
 
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
@@ -130,8 +133,12 @@ module.exports = {
 		"lblSideEffects" : "ja-Side effects",
 		"lblScanMyPrescription" : "ja-Scan my prescription",
 		"lblTypeMyPrescription" : "ja-Type my prescription details",
-		"lblNewPassword" : "ja-Please create a new password.  Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
-
+		"lblSwipeToGetTour" : "ja-Swipe to get a tour of features",
+		"lblSkipToHome" : "ja-<b><font color=\"boldColor\">Skip to home page</font></b>",
+		"lblAlreadyHaveAccount" : "ja-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblTourNotesPrescriptionList" : "ja-my Pharmacy application helps organize your medication for easy access & convenient refills",
+		"lblTourNotesStoreLocator" : "ja-You can set a home pharmacy for prescription refills in one step",
+		"lblTurnOnPush" : "ja-Turn on Push",
 		"lblDocument" : "ja-Document",
 		"lblDosageInstruction" : "ja-Dosage instruction",
 
@@ -157,6 +164,7 @@ module.exports = {
 		"msgSignout" : "ja-Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "ja-You have signed out successfully.",
 		"msgRefillOrder" : "ja-Your refill order has been sent and will be ready to pick up on:",
+		"msgRefillPlaced" : "ja-Your refill has been placed at:",
 		"msgOrderProcessed" : "ja-We've processed your order",
 		"msgShouldBeReadyBy" : "ja-Should be ready by",
 		"msgChangeHomePharmacy" : "ja-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
@@ -167,7 +175,6 @@ module.exports = {
 		"msgOrderPlacedReadyBy" : "ja-Order processed: ready by",
 		"msgOverdueBy" : "ja-Overdue by",
 		"msgDueFoRefillIn" : "ja-Refill in",
-		"msgRefillPlaced" : "ja-Your refill has been placed at:",
 		"msgDueFoRefillOn" : "ja-Due on",
 		"msgGeoAuthorizationDenied" : "ja-Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted" : "ja-Location service is turned off. Please check your settings.",
@@ -178,7 +185,6 @@ module.exports = {
 		"msgAppUpdatedReload" : "ja-The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "ja-The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "ja-Under construction",
-		"msgAgePopUp" : "ja-This service is not directed at users under the age of 12. If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "ja-You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 		"msgUserNameTips" : "ja-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "ja-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
@@ -223,6 +229,8 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",
 
+		"strWelcomeNote" : "ja-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
+		"strHi" : "Hi %s,",
 		"strRefillNow" : "ja-Refill now",
 		"strWelcome" : "ja-Welcome!",
 		"strCancel" : "ja-Cancel",
@@ -248,7 +256,6 @@ module.exports = {
 		"strLastFilled" : "ja-Last filled",
 		"strAutoRefill" : "ja-Auto refill this prescription",
 		"strRefillHistory" : "ja-Refill history",
-		"strRetrivePassword" : "?",
-		"strHi" : "ja-Hi %s,"
+		"strRetrivePassword" : "?"
 	}
 };

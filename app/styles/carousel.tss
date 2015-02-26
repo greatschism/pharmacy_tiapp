@@ -1,7 +1,52 @@
+".spacer":{
+	height: Alloy.TSS.padding_top.top,
+	backgroundColor: "transparent"
+},
+".light-icon":{
+	text: Alloy.CFG.icons.light
+},
 "#scrollableView":{
+	top: Alloy.CFG.navBarTop,
 	showPagingControl: false,
 	disableBounce: true
 },
 "#pagingControl":{
 	length: 4
+},
+"#titleLbl":{
+	text: Ti.App.name
+},
+"#notesLbl":{
+	text: Alloy.Globals.strings.strWelcomeNote
+},
+"#swipeLbl":{
+	text: Alloy.Globals.strings.lblSwipeToGetTour
+},
+"#iconLbl":{
+	text: Alloy.CFG.icons.swipe_indicator
+},
+"#skipLbl":{
+	html: Alloy.Globals.strings.lblSkipToHome
+},
+"#haveAccountLbl":{
+	html: Alloy.Globals.strings.lblAlreadyHaveAccount
+},
+"#prescriptionListLbl":{
+	text: Alloy.Globals.strings.titleTourPrescriptionList
+},
+"#helpfulMedicationLbl":{
+	text: Alloy.Globals.strings.titleTourHelpfulMedication
+},
+"#storeLocatorLbl":{
+	text: Alloy.Globals.strings.titleTourStoreLocator
+},
+"#prescriptionListNotesLbl":{
+	text: Alloy.Globals.strings.lblTourNotesPrescriptionList
+},
+"#pushLbl":{
+	right: 60,
+	text: Alloy.Globals.strings.lblTurnOnPush
+},
+"#storeLocatorNotesLbl":{
+	text: Alloy.Globals.strings.lblTourNotesStoreLocator
 }

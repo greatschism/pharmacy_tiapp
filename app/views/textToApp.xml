@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup ">
-		<ImageView id="logoImg" class="img-padding-top logo" />
+		<ImageView id="logoImg" class="img-padding-top logo-img" />
 		<Label id="titleLbl" class="img-padding-top margin-left margin-right title-lbl" />
 		<Label id="hintLbl" class="padding-top paragraph-lbl" />
 		<Widget id="codeTxt" src="com.mscripts.textfield" class="padding-top txt width-40 returnkey-done" onReturn="didClickContinue" />

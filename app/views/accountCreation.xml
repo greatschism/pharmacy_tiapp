@@ -16,7 +16,7 @@
 					<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt returnkey-done" onFocus="didFocusPassword" onBlur="didBlurPassword" onReturn="didClickSignup" />
 				</View>
 				<View class="padding-top padding-bottom margin-left margin-right auto-height">
-					<Label id="showPasswordLbl" class="left lbl" />
+					<Label id="showPasswordLbl" class="left text-left lbl" />
 					<Widget id="toggleSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
 				</View>
 				<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />

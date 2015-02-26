@@ -35,6 +35,9 @@ module.exports = {
 		"titleTextHelp" : "Text Help",
 		"titleDrugInformation" : "Drug information",
 		"titleNewPassword" : "New Password",
+		"titleTourPrescriptionList" : "Convinient refills & drug details with my prescription list",
+		"titleTourHelpfulMedication" : "Helpful medication & refill notifications",
+		"titleTourStoreLocator" : "Easy to use store locator",
 
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
@@ -130,8 +133,12 @@ module.exports = {
 		"lblSideEffects" : "Side effects",
 		"lblScanMyPrescription" : "Scan my prescription",
 		"lblTypeMyPrescription" : "Type my prescription details",
-		"lblNewPassword" : "Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.", 
-
+		"lblSwipeToGetTour" : "Swipe to get a tour of features",
+		"lblSkipToHome" : "<b><font color=\"boldColor\">Skip to home page</font></b>",
+		"lblAlreadyHaveAccount" : "Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblTourNotesPrescriptionList" : "my Pharmacy application helps organize your medication for easy access & convenient refills",
+		"lblTourNotesStoreLocator" : "You can set a home pharmacy for prescription refills in one step",
+		"lblTurnOnPush" : "Turn on Push",
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",
 
@@ -178,7 +185,6 @@ module.exports = {
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",
-		"msgAgePopUp" : "This service is not directed at users under the age of 12. If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 		"msgUserNameTips" : "Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
@@ -223,6 +229,8 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
 
+		"strWelcomeNote" : "Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
+		"strHi" : "Hi %s,",
 		"strRefillNow" : "Refill now",
 		"strWelcome" : "Welcome!",
 		"strCancel" : "Cancel",
@@ -248,7 +256,6 @@ module.exports = {
 		"strLastFilled" : "Last filled",
 		"strAutoRefill" : "Auto refill this prescription",
 		"strRefillHistory" : "Refill history",
-		"strRetrivePassword" : "?",
-		"strHi" : "Hi %s,"
+		"strRetrivePassword" : "?"
 	}
 };

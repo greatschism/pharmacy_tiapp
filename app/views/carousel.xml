@@ -1,9 +1,39 @@
 <Alloy>
 	<ScrollableView id="scrollableView" onScrollend="didScrollend">
-		<ScrollView class="width-100 vgroup"></ScrollView>
-		<ScrollView class="width-100 vgroup"></ScrollView>
-		<ScrollView class="width-100 vgroup"></ScrollView>
-		<ScrollView class="width-100 vgroup"></ScrollView>
+		<ScrollView class="width-100 vgroup">
+			<Label id="titleLbl" class="margin-left margin-right text-center title-lbl" />
+			<ImageView id="logoImg" class="img-padding-top logo-img" />
+			<Label id="notesLbl" class="img-padding-top margin-left margin-right text-center lbl"  />
+			<Label id="swipeLbl" class="padding-top margin-left margin-right text-left lbl" />
+			<Label id="iconLbl" class="padding-top extra-large-icon primary-color" />
+			<Widget id="skipLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickSkipToHome" />
+			<View class="spacer" />
+			<Widget id="haveAccountLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickHaveAccount" />
+		</ScrollView>
+		<ScrollView class="width-100 vgroup">
+			<Label id="prescriptionListLbl" class="margin-left margin-right text-center title-lbl" />
+			<ImageView id="prescriptionListImg" class="img-padding-top prescription-list-img" />
+			<View class="img-padding-top margin-left margin-right auto-height hgroup no-hwrap">
+				<Label class="left light-icon large-icon primary-color"  />
+				<Label id="prescriptionListNotesLbl" class="padding-left text-left lbl" />
+			</View>
+		</ScrollView>
+		<ScrollView id="helpfulMedicationScrollView" class="width-100 vgroup">
+			<Label id="helpfulMedicationLbl" class="margin-left margin-right text-center title-lbl" />
+			<ImageView id="helpfulMedicationImg" class="img-padding-top helpful-medication-img" />
+			<View class="img-padding-top margin-left margin-right auto-height">
+				<Label id="pushLbl" class="left text-left lbl" />
+				<Widget id="pushSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
+			</View>
+		</ScrollView>
+		<ScrollView class="width-100 vgroup">
+			<Label id="storeLocatorLbl" class="margin-left margin-right text-center title-lbl" />
+			<ImageView id="storeLocatorImg" class="img-padding-top store-locator-img" />
+			<View class="img-padding-top margin-left margin-right auto-height hgroup no-hwrap">
+				<Label class="left light-icon large-icon primary-color"  />
+				<Label id="storeLocatorNotesLbl" class="padding-left text-left lbl" />
+			</View>
+		</ScrollView>
 	</ScrollableView>
 	<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-bottom paging-control" onChange="didChangePage" />
 </Alloy> 

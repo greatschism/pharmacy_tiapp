@@ -35,6 +35,9 @@ module.exports = {
 		"titleTextHelp" : "es-Text Help",
 		"titleDrugInformation" : "es-Drug information",
 		"titleNewPassword" : "es-New Password",
+		"titleTourPrescriptionList" : "es-Convinient refills & drug details with my prescription list",
+		"titleTourHelpfulMedication" : "es-Helpful medication & refill notifications",
+		"titleTourStoreLocator" : "es-Easy to use store locator",
 
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
@@ -130,8 +133,12 @@ module.exports = {
 		"lblSideEffects" : "es-Side effects",
 		"lblScanMyPrescription" : "es-Scan my prescription",
 		"lblTypeMyPrescription" : "es-Type my prescription details",
-		"lblNewPassword" : "es-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.", 
-
+		"lblSwipeToGetTour" : "es-Swipe to get a tour of features",
+		"lblSkipToHome" : "es-<b><font color=\"boldColor\">Skip to home page</font></b>",
+		"lblAlreadyHaveAccount" : "es-Already have an account? <b><font color=\"boldColor\">Tap to sign in.</font></b>",
+		"lblTourNotesPrescriptionList" : "es-my Pharmacy application helps organize your medication for easy access & convenient refills",
+		"lblTourNotesStoreLocator" : "es-You can set a home pharmacy for prescription refills in one step",
+		"lblTurnOnPush" : "es-Turn on Push",
 		"lblDocument" : "es-Document",
 		"lblDosageInstruction" : "es-Dosage instruction",
 
@@ -157,6 +164,7 @@ module.exports = {
 		"msgSignout" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgSignedoutSuccessfully" : "es-You have signed out successfully.",
 		"msgRefillOrder" : "es-Your refill order has been sent and will be ready to pick up on:",
+		"msgRefillPlaced" : "es-Your refill has been placed at:",
 		"msgOrderProcessed" : "es-We've processed your order",
 		"msgShouldBeReadyBy" : "es-Should be ready by",
 		"msgChangeHomePharmacy" : "es-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
@@ -173,12 +181,10 @@ module.exports = {
 		"msgGeoPurpose" : "es-Help you to locate the nearest pharmacies.",
 		"msgYourOrderIsReady" : "es-Your order is ready to be picked up!",
 		"msgNotFilledYet" : "es-Not filled yet",
-		"msgRefillPlaced" : "es-Your refill has been placed at:",
 		"msgAppUpdateFound" : "es-There is a update, do you want to download now?",
 		"msgAppUpdatedReload" : "es-The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "es-The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "es-Under construction",
-		"msgAgePopUp" : "es-This service is not directed at users under the age of 12. If you are under the age of 12, you are not permitted to register as a User or use the Service. If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree",
 		"msgPickup" : "es-You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
 		"msgUserNameTips" : "es-Your username must be between 3 – 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "es-The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
@@ -223,6 +229,8 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "es-Find a picture on my phone",
 		"optionTakePhoto" : "es-Take photo",
 
+		"strWelcomeNote" : "es-Thank you for downloading the my Pharmacy application.\n\n\n This release is full of new features & functions.\n\n\n\n\n\n",
+		"strHi" : "Hi %s,",
 		"strRefillNow" : "es-Refill now",
 		"strWelcome" : "es-Welcome!",
 		"strCancel" : "es-Cancel",
@@ -248,7 +256,6 @@ module.exports = {
 		"strLastFilled" : "es-Last filled",
 		"strAutoRefill" : "es-Auto refill this prescription",
 		"strRefillHistory" : "es-Refill history",
-		"strRetrivePassword" : "?",
-		"strHi" : "es-Hi %s,"
+		"strRetrivePassword" : "?"
 	}
 };

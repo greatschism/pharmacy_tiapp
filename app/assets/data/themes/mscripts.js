@@ -619,7 +619,6 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"textAlign" : "left",
 				"color" : "#000000"
 			},
 			"or_lbl" : {
@@ -960,8 +959,17 @@ module.exports = {
 					"borderRadius" : 4
 				}
 			},
-			"logo" : {
+			"logo_img" : {
 				"code" : "logo"
+			},
+			"prescription_list_img" : {
+				"code" : "prescription_list"
+			},
+			"helpful_medication_img" : {
+				"code" : "helpful_medication"
+			},
+			"store_locator_img" : {
+				"code" : "store_locator"
 			}
 		}
 	}

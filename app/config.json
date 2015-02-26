@@ -53,6 +53,8 @@
 			"users_list": "w",
 			"arrow_right": "?",
 			"arrow_down": "[",
+			"swipe_indicator": "_",
+			"light": "=",
 			"filled_arrow_up": ")",
 			"filled_arrow_down": "%",
 			"filled_arrow_left": "'",

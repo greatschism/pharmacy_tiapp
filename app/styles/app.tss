@@ -736,7 +736,6 @@
 */
 ".lbl":{
 	font: Alloy.TSS.lbl.font,
-	textAlign: Alloy.TSS.lbl.textAlign,
 	color: Alloy.TSS.lbl.color
 },
 ".or-lbl":{
@@ -1024,8 +1023,17 @@
 ".img-padding-right":{
 	right: Alloy.TSS.img_padding_right.right
 },
-".logo": {
-	code: Alloy.TSS.logo.code
+".logo-img": {
+	code: Alloy.TSS.logo_img.code
+},
+".prescription-list-img": {
+	code: Alloy.TSS.prescription_list_img.code
+},
+".helpful-medication-img": {
+	code: Alloy.TSS.helpful_medication_img.code
+},
+".store-locator-img": {
+	code: Alloy.TSS.store_locator_img.code
 },
 /**
 * 	under-construction

@@ -132,5 +132,53 @@ module.exports = {
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"
+	}, {
+		"version" : 1,
+		"id" : "prescription_list_pl",
+		"code" : "prescription_list",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/prescription_list.png"
+	}, {
+		"version" : 1,
+		"id" : "helpful_medication_pl",
+		"code" : "helpful_medication",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/helpful_medication.png"
+	}, {
+		"version" : 1,
+		"id" : "store_locator_pl",
+		"code" : "store_locator",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/store_locator.png"
 	}]
 };
