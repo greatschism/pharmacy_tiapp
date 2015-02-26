@@ -193,7 +193,7 @@ module.exports = {
 			}
 		}
 	},
-	"NEW_PASSWORD" : {
+	"PATIENTS_NEW_PASSWORD" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Your password has been changed successfully…",
@@ -720,13 +720,13 @@ module.exports = {
 			}]
 		}
 	},
-	"REFILL_HISTORY" :{
-		 "rxnumber": "6784943",
-        "storeName": "TARGET PHARMACY LAB ST16",
-        "address": "278 SOUTH DECATUR",
-        "city": "LAS VEGAS",
-        "state": "CA",
-        "status": "Requested"
+	"PRESCRIPTIONS_REFILL_HISTORY" : {
+		"rxnumber" : "6784943",
+		"storeName" : "TARGET PHARMACY LAB ST16",
+		"address" : "278 SOUTH DECATUR",
+		"city" : "LAS VEGAS",
+		"state" : "CA",
+		"status" : "Requested"
 	},
 	"CODE_VALUES" : {
 		"status" : "Success",
@@ -814,7 +814,8 @@ module.exports = {
 				}
 			}
 		}
-	},"DOCTORS_LIST" : {
+	},
+	"DOCTORS_LIST" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "x",
@@ -863,10 +864,10 @@ module.exports = {
 			"appointment" : [{
 				"doctor_id" : "1",
 				"appointment_id" : "5",
-				"appointment_time":"2015-02-19 03:05",
+				"appointment_time" : "2015-02-19 03:05",
 				"appointment_meridiem" : "PM",
-				"time":"x",
-				"desc":"x",
+				"time" : "x",
+				"desc" : "x",
 				"reminders" : {
 					"enabled" : "0/1",
 					"no_of_reminders" : "5",
@@ -875,14 +876,13 @@ module.exports = {
 					"reminder_minute" : "30",
 					"reminder_meridiem" : "PM"
 				}
-			},
-			{
+			}, {
 				"doctor_id" : "2",
 				"appointment_id" : "6",
-				"appointment_time":"2015-02-19 03:05",
+				"appointment_time" : "2015-02-19 03:05",
 				"appointment_meridiem" : "PM",
-				"time":"x",
-				"desc":"x",
+				"time" : "x",
+				"desc" : "x",
 				"reminders" : {
 					"enabled" : "0/1",
 					"no_of_reminders" : "5",
@@ -891,14 +891,13 @@ module.exports = {
 					"reminder_minute" : "30",
 					"reminder_meridiem" : "PM"
 				}
-			},
-			{
+			}, {
 				"doctor_id" : "2",
 				"appointment_id" : "7",
-				"appointment_time":"2015-02-19 03:05",
+				"appointment_time" : "2015-02-19 03:05",
 				"appointment_meridiem" : "PM",
-				"time":"x",
-				"desc":"x",
+				"time" : "x",
+				"desc" : "x",
 				"reminders" : {
 					"enabled" : "0/1",
 					"no_of_reminders" : "5",
@@ -911,19 +910,19 @@ module.exports = {
 		}
 
 	},
-	"ADD_DOCTOR":{
- 				"status": "Success",
- 				"code": "200",
- 				"message": "Doctor added successfully",
-			    "description": "x",
- 			    "data":""
+	"ADD_DOCTOR" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor added successfully",
+		"description" : "x",
+		"data" : ""
 	},
-	"ADD_APPOINTMENT":{
-				 "status": "Success",
-				 "code": "200",
- 				 "message": "Doctor updated successfully",
-				 "description": "x",
- 				 "data":""
+	"ADD_APPOINTMENT" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor updated successfully",
+		"description" : "x",
+		"data" : ""
 	}
 };
 

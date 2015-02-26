@@ -4,20 +4,16 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
     utilities = require("utilities");
-    
- function init() {
+
+function init() {
 	http.request({
-		method : "REFILL_HISTORY",
+		method : "PRESCRIPTIONS_REFILL_HISTORY",
 		data : {
 			filter : null,
 			data : [{
-				
 
 			}]
-
 		},
-		success : didSuccess,
-
+		success : didSuccess
 	});
-
 }

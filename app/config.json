@@ -10,6 +10,7 @@
 			"PATIENTS_VALIDATE": "patients/validate",
 			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion",
 			"PATIENTS_REGISTER": "patients/register",
+			"PATIENTS_NEW_PASSWORD": "patients/newpassword",
 			"DOCTORS_GET": "doctors/get",
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",
@@ -19,9 +20,8 @@
 			"PRESCRIPTIONS_HIDE": "prescriptions/hide",
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
-			"REFILL_HISTORY": "prescriptions/refillhistory",
-			"CODE_VALUES": "codes/get",
-			"NEW_PASSWORD": "patients/newpassword"
+			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
+			"CODE_VALUES": "codes/get"
 		},
 		"apiCodes": {
 			"SUCCESS": "200"
@@ -53,7 +53,7 @@
 			"refresh": ".",
 			"confirm": "j",
 			"users_list": "w",
-			"user":"W",
+			"user": "W",
 			"arrow_right": "?",
 			"arrow_down": "[",
 			"swipe_indicator": "_",

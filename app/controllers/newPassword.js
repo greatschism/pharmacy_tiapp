@@ -1,18 +1,15 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
-    uihelper = require("uihelper"),
     http = require("requestwrapper"),
-    utilities = require("utilities"),
-    moment = require("alloy/moment");
+    utilities = require("utilities");
 
 function init() {
-	$.hiLbl.text = String.format((Alloy.Globals.strings.strHi), "Swan");
+	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
 }
 
 function didClickDone(e) {
 	var password = $.passwordTxt.getValue();
-
 	if (!password) {
 		dialog.show({
 			message : Alloy.Globals.strings.valPasswordRequired
@@ -26,7 +23,7 @@ function didClickDone(e) {
 		return;
 	}
 	http.request({
-		method : "NEW_PASSWORD",
+		method : "PATIENTS_NEW_PASSWORD",
 		data : {
 			data : [{
 				patient : {
@@ -41,9 +38,7 @@ function didClickDone(e) {
 }
 
 function didAuthenticate(_result) {
-	dialog.show({
-		message : _result.message
-	});
+	//to do
 }
 
 function handleScroll(e) {
