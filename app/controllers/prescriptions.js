@@ -15,6 +15,7 @@ var args = arguments[0] || {},
     readyToRefill,
     otherPrescriptions,
     prescriptions,
+    hiddenPrescriptionStatus,
     hiddenPrescriptions,
     allPrescriptions,
     refillButton,
@@ -220,16 +221,16 @@ function didSuccess(result) {
 			}),
 			refillButton = $.UI.create("Button", {
 				apiName : "Button",
-				classes : ["options-positive-btn", "lbl-refill"]
+				classes : ["positive-option-btn", "lbl-refill","width-40","right","height-75d"]
 			}),
-
+console.log(JSON.stringify(refillButton));
 			vseparator = $.UI.create("View", {
 				apiName : "View",
-				classes : ["vseparator", "touch-disabled", "height-75d"]
+				classes : ["option-separator", "touch-disabled"]
 			}),
 			hideButton = $.UI.create("Button", {
 				apiName : "Button",
-				classes : ["options-negative-btn", "lbl-hide"]
+				classes : ["option-btn", "lbl-hide","width-40","right","height-75d"]
 			}),
 			sub = $.UI.create("View", {
 				apiName : "View",
@@ -289,7 +290,7 @@ function didSuccess(result) {
 					console.log("came here" + ndays);
 					hideFromList = $.UI.create("Button", {
 						apiName : "Button",
-						classes : ["options-critical-btn", "lbl-hide"]
+						classes : [ "lbl-hide"]
 					}),
 					overDueLblSingleLine = $.UI.create("Label", {
 						apiName : "Label",
@@ -324,11 +325,14 @@ function didSuccess(result) {
 
 			}
 			row.addEventListener("swipe", didItemSwipe);
+				vseparator.left=192;
 			refillButton.right = app.device.width;
 			hideButton.right = app.device.width;
+		
 			row.add(refillButton);
-			row.add(vseparator);
+			
 			row.add(hideButton);
+			row.add(vseparator);
 			$.readyForRefillSection.add(row);
 		}
 
@@ -493,10 +497,48 @@ function didClickMenu(e) {
 	} else if (action === "sort") {
 		sort();
 	} else if (action == "unhide") {
+		unhide();
 
 	} else if (action === "refresh") {
 		refreshPrescriptions();
 	}
+}
+function unhide(){
+
+		http.request({
+		method : "PRESCRIPTIONS_GET",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences :"x",
+				prescription_display_status : "hidden"
+
+			}]
+
+		},
+		success : didGetHiddenPrescriptions,
+
+	});
+}
+function didGetHiddenPrescriptions(result){
+	allPrescriptions = result.data.prescriptions || [];
+	hiddenPrescriptions = new Array;
+	items = new Array;
+	for(i=0;i<allPrescriptions.length;i++){
+		if(allPrescriptions[i].prescription_display_status === "hidden"){
+			hiddenPrescriptions[i]=allPrescriptions[i].presc_name;
+			 items[i] = {title :hiddenPrescriptions[i]};
+			
+			
+		}
+	}
+		
+	
+	$.unhideMenu.setItems(items);
+	
+	$.toggleMenu.hide();
+	$.unhideMenu.show();
 }
 function didClickSort(e){
 	$.sortMenu.hide();
@@ -1137,9 +1179,10 @@ function didAndroidBack() {
 }
 
 function didHidePrescriptions(result) {
-	hiddenPrescriptions = result.status || [];
+	hiddenPrescriptionStatus = result.status || [];
+	
 	alert(result.message);
-	if (hiddenPrescriptions === "Success") {
+	if (hiddenPrescriptionStatus === "Success") {
 		http.request({
 			method : "PRESCRIPTIONS_GET",
 			data : {

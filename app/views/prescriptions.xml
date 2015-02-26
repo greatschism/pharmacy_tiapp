@@ -1,6 +1,7 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
-	<Widget id="sortMenu" src="com.mscripts.togglemenu" class="sortmenu" onClick="didClickSort" />
+	<Widget id="sortMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickSort" />
+	<Widget id="unhideMenu" src="com.mscripts.togglemenu" class="togglemenu"  />
 	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">
 		<Label id="toggleBtn" class="margin-right nav-icon" />
 	</View>

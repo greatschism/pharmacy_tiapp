@@ -4,14 +4,14 @@
 	color: "#FFFFFF"
 },
 "#toggleMenu":{
-		
+
 	items: [
 		{
 			title: Alloy.Globals.strings.menuSearch,
 			action: "search"
 		},{
 			title: Alloy.Globals.strings.menuSort,
-			action : "sort"
+			action: "sort"
 		},
 		{
 			title: Alloy.Globals.strings.menuUnhidePrescriptions,
@@ -19,26 +19,34 @@
 		},
 		{
 			title: Alloy.Globals.strings.menuRefresh,
-			action : "refresh"
+			action: "refresh"
 		}
 	]
 },
-
+"#sortMenu":{
+	right: 12,
+	width: 295,
+	left: 12
+}
+"#unhideMenu":{
+	right: 12,
+	left: 12,
+	width: 295
+}
 "#searchbarView":{
-	opacity: 0,
-	
+	opacity: 0
 },
 "#searchbar":{
-	hintText:Alloy.Globals.strings.hintSearchByZipCityOrState,
+	hintText:Alloy.Globals.strings.hintSearchByZipCityOrState
 },
 "#tableView":{
 	top: 0
 },
 ".lbl-refill":{
-	title: Alloy.Globals.strings.lblRefill
+	title: Alloy.Globals.strings.strRefillNow
 },
 ".lbl-hide":{
-	title: Alloy.Globals.strings.lblHide
+	title: Alloy.Globals.strings.lblHideFromList
 },
 ".success-icon":{
 	text: Alloy.CFG.icons.success

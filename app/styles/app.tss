@@ -648,7 +648,7 @@
 	borderColor:Alloy.TSS.thirtiary_btn_small.borderColor,
 	borderWidth:Alloy.TSS.thirtiary_btn_small.borderWidth
 },
-".option_btn": {
+".option-btn": {
 	font: Alloy.TSS.option_btn.font,
 	textAlign: Alloy.TSS.option_btn.textAlign,
 	color: Alloy.TSS.option_btn.color,
@@ -656,7 +656,7 @@
 	borderColor: Alloy.TSS.option_btn.borderColor,
 	borderWidth: Alloy.TSS.option_btn.borderWidth
 },
-".positive-option_btn": {
+".positive-option-btn": {
 	font: Alloy.TSS.positive_option_btn.font,
 	textAlign: Alloy.TSS.positive_option_btn.textAlign,
 	color: Alloy.TSS.positive_option_btn.color,
@@ -664,7 +664,7 @@
 	borderColor: Alloy.TSS.positive_option_btn.borderColor,
 	borderWidth: Alloy.TSS.positive_option_btn.borderWidth
 },
-".critical-option_btn": {
+".critical-option-btn": {
 	font: Alloy.TSS.critical_option_btn.font,
 	textAlign: Alloy.TSS.critical_option_btn.textAlign,
 	color: Alloy.TSS.critical_option_btn.color,
