@@ -5,6 +5,10 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     moment = require("alloy/moment");
 
+function init(){
+	$.hiLbl.text = String.format((Alloy.Globals.strings.strHi),"Swan");
+}
+
 function didClickDone(e) {
 	var password = $.passwordTxt.getValue();
 
@@ -21,3 +25,6 @@ function didClickDone(e) {
 		return;
 	}
 }
+
+exports.init = init;
+

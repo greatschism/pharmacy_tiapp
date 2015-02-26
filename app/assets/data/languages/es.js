@@ -130,6 +130,7 @@ module.exports = {
 		"lblSideEffects" : "es-Side effects",
 		"lblScanMyPrescription" : "es-Scan my prescription",
 		"lblTypeMyPrescription" : "es-Type my prescription details",
+		"lblNewPassword" : "es-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.", 
 
 		"lblDocument" : "es-Document",
 		"lblDosageInstruction" : "es-Dosage instruction",
@@ -247,6 +248,7 @@ module.exports = {
 		"strLastFilled" : "es-Last filled",
 		"strAutoRefill" : "es-Auto refill this prescription",
 		"strRefillHistory" : "es-Refill history",
-		"strRetrivePassword" : "?"
+		"strRetrivePassword" : "?",
+		"strHi" : "es-Hi %s,"
 	}
 };
