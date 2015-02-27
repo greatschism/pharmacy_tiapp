@@ -86,9 +86,9 @@ var UIHelper = {
 			}
 			if (OS_MOBILEWEB) {
 				if (newWidth == 0) {
-					newWidth = "auto";
+					properties.width = "auto";
 				} else if (newHeight == 0) {
-					newHeight = "auto";
+					properties.height = "auto";
 				}
 			} else {
 				var imgBlob = Ti.Filesystem.getFile(path).read(),
@@ -120,13 +120,12 @@ var UIHelper = {
 					orientation : app.device.orientation,
 					properties : newProperties
 				});
-				newProperties.image = path;
 			}
 		}
 		if (_o.apiName == "Ti.UI.ImageView") {
-			_o.applyProperties(newProperties || properties);
+			_o.applyProperties(properties);
 		}
-		return newProperties || properties;
+		return properties;
 	}
 };
 

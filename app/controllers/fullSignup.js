@@ -7,7 +7,9 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     rxNoLength = Alloy.CFG.RX_NUMBER.length,
     rxNoValidator = new RegExp(Alloy.CFG.RX_NUMBER.validator),
-    rxNoFormatters = Alloy.CFG.RX_NUMBER.formatters;
+    rxNoFormatters = Alloy.CFG.RX_NUMBER.formatters,
+    userContainerViewFromTop = 0,
+    rxContainerViewFromTop = 0;
 
 function init() {
 	uihelper.getImage($.logoImg);
@@ -25,37 +27,97 @@ function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
+	$.unameTxt.tooltip = "usernameTooltip";
+	$.passwordTxt.tooltip = "passwordTooltip";
+	$.rxNoTxt.tooltip = "rxNoTooltip";
 	$.rxNoTxt.applyProperties({
 		maxLength : Alloy.CFG.RX_NUMBER.length,
 		hintText : Alloy.Globals.strings.hintRxNo.concat(Alloy.CFG.RX_NUMBER.format),
 	});
 	Alloy.Models.store.clear();
 	Alloy.Models.store.on("change", didChangeStore);
-	$.userContainerView.addEventListener("postlayout", didPostLayoutUserContainerView);
-	$.rxContainerView.addEventListener("postlayout", didPostLayoutRxContainerView);
-}
-
-function didPostLayoutUserContainerView(e) {
-	$.userContainerView.removeEventListener("postlayout", didPostLayoutUserContainerView);
-	var fromTop = e.source.rect.y;
-	$.usernameTooltip.applyProperties({
-		top : fromTop - Alloy.CFG.fullSignup.usernameTooltip.top
-	});
-	$.passwordTooltip.applyProperties({
-		top : fromTop - Alloy.CFG.fullSignup.passwordTooltip.top
-	});
-}
-
-function didPostLayoutRxContainerView(e) {
-	$.rxContainerView.removeEventListener("postlayout", didPostLayoutRxContainerView);
-	var fromTop = e.source.rect.y;
-	$.rxNoTooltip.applyProperties({
-		top : fromTop - Alloy.CFG.fullSignup.rxNoTooltip.top
-	});
+	$.userContainerView.addEventListener("postlayout", didPostlayoutUserContainerView);
+	$.rxContainerView.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
 function setParentViews(_view) {
 	$.dob.setParentView(_view);
+}
+
+function didPostlayoutUserContainerView(e) {
+	$.userContainerView.removeEventListener("postlayout", didPostlayoutUserContainerView);
+	userContainerViewFromTop = e.source.rect.y;
+}
+
+function didPostlayoutRxContainerView(e) {
+	$.rxContainerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	rxContainerViewFromTop = e.source.rect.y;
+}
+
+function didPostlayoutTooltip(e) {
+	e.source.size = e.size;
+	e.source.off("postlayout", didPostlayoutTooltip);
+}
+
+function didFocusUsername(e) {;
+	if (_.has($.usernameTooltip, "size")) {
+		$.usernameTooltip.applyProperties({
+			top : (userContainerViewFromTop + $.usernameTooltip.ARROW_PADDING) - $.usernameTooltip.size.height
+		});
+		delete $.usernameTooltip.size;
+	}
+	$.usernameTooltip.show();
+}
+
+function didFocusPassword(e) {
+	if (_.has($.passwordTooltip, "size")) {
+		$.passwordTooltip.applyProperties({
+			top : (userContainerViewFromTop + $.passwordTooltip.ARROW_PADDING + Alloy.TSS.form_txt.height) - $.passwordTooltip.size.height
+		});
+		delete $.passwordTooltip.size;
+	}
+	$.passwordTooltip.show();
+}
+
+function didFocusRxNo(e) {
+	if (_.has($.rxNoTooltip, "size")) {
+		$.rxNoTooltip.applyProperties({
+			top : (rxContainerViewFromTop + $.rxNoTooltip.ARROW_PADDING) - $.rxNoTooltip.size.height
+		});
+		delete $.rxNoTooltip.size;
+	}
+	$.rxNoTooltip.show();
+}
+
+function didBlurTxt(e) {
+	$[e.source.tooltip].hide();
+}
+
+function didClickTooltip(e) {
+	e.source.hide();
+}
+
+function didChangeRxNo(e) {
+	var value = e.value,
+	    len;
+	for (var i in rxNoFormatters) {
+		value = value.replace(rxNoFormatters[i].exp, rxNoFormatters[i].value);
+	}
+	value = value.slice(0, rxNoLength);
+	len = value.length;
+	$.rxNoTxt.setValue(value);
+	$.rxNoTxt.setSelection(len, len);
+}
+
+function didClickPharmacy(e) {
+	app.navigator.open({
+		ctrl : "stores",
+		titleid : "titleStores",
+		stack : true,
+		ctrlArguments : {
+			orgin : $.__controllerPath
+		}
+	});
 }
 
 function moveToNext(e) {
@@ -73,14 +135,6 @@ function moveToNext(e) {
 	}
 }
 
-function didClickAgreement(e) {
-	app.navigator.open({
-		ctrl : "termsAndConditions",
-		titleid : "titleTermsAndConditions",
-		stack : "true"
-	});
-}
-
 function didToggle(e) {
 	$.passwordTxt.setPasswordMask(!e.value);
 }
@@ -91,6 +145,14 @@ function handleScroll(e) {
 
 function didChangeStore() {
 
+}
+
+function didClickAgreement(e) {
+	app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : "true"
+	});
 }
 
 function didClickCreateAccount(e) {
@@ -219,57 +281,6 @@ function didSuccess(_result) {
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
 			app.navigator.closeToRoot();
-		}
-	});
-}
-
-function didFocusUsername(e) {
-	$.usernameTooltip.show();
-}
-
-function didBlurUsername(e) {
-	$.usernameTooltip.hide();
-}
-
-function didFocusPassword(e) {
-	$.passwordTooltip.show();
-}
-
-function didBlurPassword(e) {
-	$.passwordTooltip.hide();
-}
-
-function didFocusRxNo(e) {
-	$.rxNoTooltip.show();
-}
-
-function didBlurRxNo(e) {
-	$.rxNoTooltip.hide();
-}
-
-function didClickTooltip(e) {
-	e.source.hide();
-}
-
-function didChangeRxNo(e) {
-	var value = e.value,
-	    len;
-	for (var i in rxNoFormatters) {
-		value = value.replace(rxNoFormatters[i].exp, rxNoFormatters[i].value);
-	}
-	value = value.slice(0, rxNoLength);
-	len = value.length;
-	$.rxNoTxt.setValue(value);
-	$.rxNoTxt.setSelection(len, len);
-}
-
-function didClickPharmacy(e) {
-	app.navigator.open({
-		ctrl : "stores",
-		titleid : "titleStores",
-		stack : true,
-		ctrlArguments : {
-			orgin : $.__controllerPath
 		}
 	});
 }

@@ -1,13 +1,9 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    ARROW_PADDING = 8;
 
 (function() {
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
-	if (!_.isEmpty(options)) {
-		applyProperties(options);
-	}
-
-	options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	var options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.containerView.applyProperties(options);
 	}
@@ -20,6 +16,11 @@ var args = arguments[0] || {};
 
 	if (args.visible) {
 		show();
+	}
+
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
+	if (!_.isEmpty(options)) {
+		applyProperties(options);
 	}
 
 })();
@@ -35,11 +36,21 @@ function updateArrow(_direction, _dict) {
 	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
 	$.arrowLbl.applyProperties(dict);
 	$.arrowLbl[_direction] = 0;
-	$.containerView[_direction] = $.arrowLbl.font.fontSize - 8;
+	$.containerView[_direction] = $.arrowLbl.font.fontSize - ARROW_PADDING;
 }
 
 function applyProperties(_dict) {
+	$.widget.addEventListener("postlayout", didPostlayout);
 	$.widget.applyProperties(_dict);
+}
+
+function didPostlayout(e) {
+	$.widget.removeEventListener("postlayout", didPostlayout);
+	$.trigger("postlayout", {
+		source : $,
+		rect : e.source.rect,
+		size : e.source.size
+	});
 }
 
 function animate(_dict, _callback) {
@@ -158,3 +169,4 @@ exports.setText = setText;
 exports.getVisible = getVisible;
 exports.setContentView = setContentView;
 exports.applyProperties = applyProperties;
+exports.ARROW_PADDING = ARROW_PADDING;

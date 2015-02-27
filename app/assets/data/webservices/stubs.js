@@ -728,38 +728,37 @@ module.exports = {
 		}
 	},
 	"PRESCRIPTIONS_REFILL_HISTORY" : {
-	"status": "Success",
-	"code": "200",
-	"message": "x",
-	"description": "x",
-	"data": {
-		"refills": [{
-			"rxnumber": "123456",
-			"storeid":"2",
-			"storename": "1 Sansome Street",
-			"address": "San Francisco",
-			"state": "CA",
-			"zip":"94103",
-			"orderedate": "xxx",
-			"refilldate": "2015-02-07",
-			"solddate": "xxx",
-			"status": "requested"
-		},
-		{
-			"rxnumber": "123456",
-			"storeid":"2",
-			"storename": "445 Bush Street",
-			"address": "San Francisco",
-			"state": "CA",
-			"zip":"91704",
-			"orderedate": "xxx",
-			"refilldate": "2015-02-17",
-			"solddate": "xxx",
-			"status": "requested"
-		}]
-	}
-},
-	"CODE_VALUES" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"refills" : [{
+				"rxnumber" : "123456",
+				"storeid" : "2",
+				"storename" : "1 Sansome Street",
+				"address" : "San Francisco",
+				"state" : "CA",
+				"zip" : "94103",
+				"orderedate" : "xxx",
+				"refilldate" : "2015-02-07",
+				"solddate" : "xxx",
+				"status" : "requested"
+			}, {
+				"rxnumber" : "123456",
+				"storeid" : "2",
+				"storename" : "445 Bush Street",
+				"address" : "San Francisco",
+				"state" : "CA",
+				"zip" : "91704",
+				"orderedate" : "xxx",
+				"refilldate" : "2015-02-17",
+				"solddate" : "xxx",
+				"status" : "requested"
+			}]
+		}
+	},
+	"CODES_GET" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "x",
@@ -846,46 +845,6 @@ module.exports = {
 			}
 		}
 	},
-	"DOCTORS_LIST" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"doctors" : [{
-				"id" : "1",
-				"doctor_dea" : "12345",
-				"first_name" : "Test1",
-				"last_name" : "Mscripts1",
-				"addressline1" : "TEST",
-				"addressline2" : "TEST",
-				"state" : "ME",
-				"city" : "AUGUSTA",
-				"zip" : "04003",
-				"notes" : "",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
-				"image_url" : "http://test.remscripts.com/ig3234",
-				"optional" : ""
-			}, {
-				"id" : "2",
-				"doctor_dea" : "23456",
-				"first_name" : "Test2",
-				"last_name" : "Mscripts2",
-				"addressline1" : "TEST",
-				"addressline2" : "TEST",
-				"state" : "ME",
-				"city" : "AUGUSTA",
-				"zip" : "04003",
-				"notes" : "",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
-				"image_url" : "http://test.remscripts.com/ig3234",
-				"org_name" : "MSCRIPTS",
-				"optional" : ""
-			}]
-		}
-	},
 	"APPOINTMENTS_GET" : {
 		"status" : "Success",
 		"code" : "200",
@@ -941,17 +900,57 @@ module.exports = {
 		}
 
 	},
-	"ADD_DOCTOR" : {
-		"status" : "Success",
-		"code" : "200",
-		"message" : "Doctor added successfully",
-		"description" : "x",
-		"data" : ""
-	},
-	"ADD_APPOINTMENT" : {
+	"APPOINTMENTS_ADD" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Doctor updated successfully",
+		"description" : "x",
+		"data" : ""
+	},
+	"DOCTORS_LIST" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"doctors" : [{
+				"id" : "1",
+				"doctor_dea" : "12345",
+				"first_name" : "Test1",
+				"last_name" : "Mscripts1",
+				"addressline1" : "TEST",
+				"addressline2" : "TEST",
+				"state" : "ME",
+				"city" : "AUGUSTA",
+				"zip" : "04003",
+				"notes" : "",
+				"phone" : "6172837737",
+				"fax" : "6172837737",
+				"image_url" : "http://test.remscripts.com/ig3234",
+				"optional" : ""
+			}, {
+				"id" : "2",
+				"doctor_dea" : "23456",
+				"first_name" : "Test2",
+				"last_name" : "Mscripts2",
+				"addressline1" : "TEST",
+				"addressline2" : "TEST",
+				"state" : "ME",
+				"city" : "AUGUSTA",
+				"zip" : "04003",
+				"notes" : "",
+				"phone" : "6172837737",
+				"fax" : "6172837737",
+				"image_url" : "http://test.remscripts.com/ig3234",
+				"org_name" : "MSCRIPTS",
+				"optional" : ""
+			}]
+		}
+	},
+	"DOCTORS_ADD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor added successfully",
 		"description" : "x",
 		"data" : ""
 	}

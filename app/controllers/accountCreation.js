@@ -3,28 +3,66 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    containerViewFromTop = 0;
 
 function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
-	$.containerView.addEventListener("postlayout", didPostLayout);
-}
-
-function didPostLayout(e) {
-	$.containerView.removeEventListener("postlayout", didPostLayout);
-	var fromTop = e.source.rect.y;
-	$.usernameTooltip.applyProperties({
-		top : fromTop - Alloy.CFG.accountCreation.usernameTooltip.top
-	});
-	$.passwordTooltip.applyProperties({
-		top : fromTop - Alloy.CFG.accountCreation.passwordTooltip.top
-	});
+	$.unameTxt.tooltip = "usernameTooltip";
+	$.passwordTxt.tooltip = "passwordTooltip";
+	$.containerView.addEventListener("postlayout", didPostlayout);
 }
 
 function setParentViews(_view) {
 	$.dob.setParentView(_view);
+}
+
+function didPostlayout(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayout);
+	containerViewFromTop = e.source.rect.y;
+}
+
+function didPostlayoutTooltip(e) {
+	e.source.size = e.size;
+	e.source.off("postlayout", didPostlayoutTooltip);
+}
+
+function didFocusUsername(e) {;
+	if (_.has($.usernameTooltip, "size")) {
+		$.usernameTooltip.applyProperties({
+			top : (containerViewFromTop + $.usernameTooltip.ARROW_PADDING) - $.usernameTooltip.size.height
+		});
+		delete $.usernameTooltip.size;
+	}
+	$.usernameTooltip.show();
+}
+
+function didFocusPassword(e) {
+	if (_.has($.passwordTooltip, "size")) {
+		$.passwordTooltip.applyProperties({
+			top : (containerViewFromTop + $.passwordTooltip.ARROW_PADDING + Alloy.TSS.form_txt.height) - $.passwordTooltip.size.height
+		});
+		delete $.passwordTooltip.size;
+	}
+	$.passwordTooltip.show();
+}
+
+function didBlurTxt(e) {
+	$[e.source.tooltip].hide();
+}
+
+function didClickTooltip(e) {
+	e.source.hide();
+}
+
+function didToggle(e) {
+	$.passwordTxt.setPasswordMask(!e.value);
+}
+
+function handleScroll(e) {
+	$.scrollView.canCancelEvents = e.value;
 }
 
 function moveToNext(e) {
@@ -101,40 +139,12 @@ function didSuccess(_result) {
 	});
 }
 
-function didFocusUsername(e) {
-	$.usernameTooltip.show();
-}
-
-function didBlurUsername(e) {
-	$.usernameTooltip.hide();
-}
-
-function didFocusPassword(e) {
-	$.passwordTooltip.show();
-}
-
-function didBlurPassword(e) {
-	$.passwordTooltip.hide();
-}
-
-function didClickTooltip(e) {
-	e.source.hide();
-}
-
 function didClickAgreement(e) {
 	app.navigator.open({
 		ctrl : "termsAndConditions",
 		titleid : "titleTermsAndConditions",
 		stack : "true"
 	});
-}
-
-function didToggle(e) {
-	$.passwordTxt.setPasswordMask(!e.value);
-}
-
-function handleScroll(e) {
-	$.scrollView.canCancelEvents = e.value;
 }
 
 exports.init = init;

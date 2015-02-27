@@ -22,7 +22,7 @@
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
 			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
-			"CODE_VALUES": "codes/get"
+			"CODES_GET": "codes/get"
 		},
 		"apiCodes": {
 			"SUCCESS": "200"
@@ -141,75 +141,18 @@
 	"os:android": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
-		"storageEngine": "scule+tiencrypted",
-		"accountCreation": {
-			"usernameTooltip": {
-				"top": 68
-			},
-			"passwordTooltip": {
-				"top": 18
-			}
-		},
-		"fullSignup": {
-			"usernameTooltip": {
-				"top": 68
-			},
-			"passwordTooltip": {
-				"top": 18
-			},
-			"rxNoTooltip": {
-				"top": 68
-			}
-		}
+		"storageEngine": "scule+tiencrypted"
 	},
 	"os:blackberry": {},
 	"os:ios": {
 		"navBarHeight": 68,
 		"navBarTop": 20,
-		"storageEngine": "scule+tiencrypted",
-		"accountCreation": {
-			"usernameTooltip": {
-				"top": 84
-			},
-			"passwordTooltip": {
-				"top": 34
-			}
-		},
-		"fullSignup": {
-			"usernameTooltip": {
-				"top": 84
-			},
-			"passwordTooltip": {
-				"top": 34
-			},
-			"rxNoTooltip": {
-				"top": 84
-			}
-		}
+		"storageEngine": "scule+tiencrypted"
 	},
 	"os:mobileweb": {
 		"navBarHeight": 48,
 		"navBarTop": 0,
-		"storageEngine": "scule+titanium",
-		"accountCreation": {
-			"usernameTooltip": {
-				"top": 68
-			},
-			"passwordTooltip": {
-				"top": 18
-			}
-		},
-		"fullSignup": {
-			"usernameTooltip": {
-				"top": 68
-			},
-			"passwordTooltip": {
-				"top": 18
-			},
-			"rxNoTooltip": {
-				"top": 68
-			}
-		}
+		"storageEngine": "scule+titanium"
 	},
 	"dependencies": {
 		"com.mscripts.hamburger": "1.0",

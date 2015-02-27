@@ -108,7 +108,7 @@ var Config = {
 					id : font.id
 				});
 				if (_.isUndefined(fontExists)) {
-					//Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
 					Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 						lastUpdate : lastUpdate
 					}));
@@ -116,10 +116,10 @@ var Config = {
 					if (fontExists.file != font.file) {
 						if (OS_IOS) {
 							//ios will not allow to update a font, has to be unregistered and registered back
-							//Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
+							Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
 						}
 						//on android, registered font can be just replaced with new value
-						//Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+						Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
 					}
 					_.extend(fontExists, {
 						lastUpdate : lastUpdate
@@ -132,7 +132,7 @@ var Config = {
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag && (OS_IOS || OS_ANDROID)) {
-				//Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
 			}
 			return flag;
 		});
