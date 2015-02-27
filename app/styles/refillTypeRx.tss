@@ -6,7 +6,7 @@
 },
 "#locationLbl":{
 	right: 40,
-	text: Alloy.Globals.strings.hintPharmacyLocation
+	text: Alloy.Globals.strings.hintChoosePharmacy
 },
 "#downLbl":{
 	width: 20,

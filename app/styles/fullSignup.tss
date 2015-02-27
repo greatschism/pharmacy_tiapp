@@ -42,7 +42,7 @@
 "#pharmacyLbl":{
 	right: 46,
 	color: Alloy.TSS.form_dropdown.hintTextColor,
-	text: Alloy.Globals.strings.hintPharmacyLocation
+	text: Alloy.Globals.strings.hintChoosePharmacy
 },
 "#agreementLbl":{
 	html: Alloy.Globals.strings.lblSignupAgreement
