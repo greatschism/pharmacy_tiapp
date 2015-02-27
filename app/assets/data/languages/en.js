@@ -68,6 +68,7 @@ module.exports = {
 		"hintEmail" : "Email",
 		"hintRxNo" : "Rx number",
 		"hintPharmacyLocation" : "Pharmacy location",
+		"hintChoosePharmacy" : "Click to choose a pharmacy",
 		"hintYourCode" : "Your code",
 		"hintPhone" : "Phone",
 		"hintFax" : "Fax",
@@ -79,6 +80,8 @@ module.exports = {
 		"hintNotes" : "Notes",
 		"hintClickToAddNote" : "Click to add note",
 		"hintLanguage" : "Language",
+		"hintRefillThisPrescription" : "Refill this prescription",
+		
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
 		"lblSigninToMobilePharmacy" : "Sign in to the mscripts mobile pharmacy",
@@ -154,6 +157,7 @@ module.exports = {
 		"valRxNoRequired" : "Please enter a valid Rx Number",
 		"valPharmacyRequired" : "Please choose a pharmacy",
 		"valCodeRequired" : "Please enter the OTP you have received",
+		"valPrescriptionNum" : "Please enter your prescription number",
 
 		"msgAgeRestriction" : "This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
@@ -262,6 +266,7 @@ module.exports = {
 		"strLastFilled" : "Last filled",
 		"strAutoRefill" : "Auto refill this prescription",
 		"strRefillHistory" : "Refill history",
+		"strAddPrescription" : "+ Add a prescription.",
 		"strRetrivePassword" : "?"
 	}
 };
