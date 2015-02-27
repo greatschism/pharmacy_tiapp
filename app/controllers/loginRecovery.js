@@ -37,7 +37,7 @@ function didAuthenticate(_result) {
 		success : function() {
 			app.navigator.closeToRoot();
 		}
-	});
+});
 }
 
 function didCantRemember(e) {
