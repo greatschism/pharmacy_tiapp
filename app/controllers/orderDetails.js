@@ -158,7 +158,7 @@ function init() {
 	    containerView = $.UI.create("View", {
 		apiName : "View",
 		top : 50,
-		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right"]
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
 
 	}),
 
@@ -197,7 +197,7 @@ function init() {
 	row3.add(containerView);
 
 		
-//	$.pickupDetailsSection.add(row3);
+	$.pickupDetailsSection.add(row3);
 	console.log("row 3 added");
 
 	picker.on("return", function(e) {
@@ -266,8 +266,8 @@ function init() {
 }
 
 function didClickDone(e) {
-	if (e.selectemItem = "Mail order") {
-	//	$.pickupDetailsSection.remove(row2);
+	if (e.getSelectemItem() = "Mail order") {
+		$.pickupDetailsSection.add(row3);
 
 	}
 
