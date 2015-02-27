@@ -1,19 +1,27 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<View class="auto-height">
-			<Widget id="hintLbl1" src="com.mscripts.styledlabel" class="padding-top padding-bottom margin-left margin-right auto-height text-center multi-line primary-color" />
+	<ScrollView id="scroll" class="vgroup">
+		<View class="auto-height fill-width">
+			<Label id="hintLbl1" class="  touch-disabled padding-bottom " />
 		</View>
-		<View class="form-group vgroup">
-			<Label id="hintLbl2" />
-			<View class="default-height" onClick="choosePharmacy">
-				<Label id="locationLbl" class="padding-left  fg-quaternary touch-disabled" />
-				<Label id="downLbl" class="padding-right small-icon touch-disabled" />
+		<Label id="hintLblRefillPres" class="padding-left  touch-disabled padding-bottom padding-top"/>
+		<View id="enter" class="auto-height vgroup" >
+			<View id="wid" class="form-group vgroup auto-height">
+				<Widget id="RxHintLbl" src="com.mscripts.textfield"  class="form-txt return-next" />
+				<!--<Label id="downLbl" class="right small-icon touch-disabled" />-->
 			</View>
 		</View>
+		<Label id="lblAddPrescr" class="padding-left text-center padding-right padding-bottom padding-top" onClick="didClickAddPrescription"/>
+		<Label id="hintLbl2" class="padding-left  touch-disabled"  />
 		<View class="form-group vgroup">
-			<Label id="hintLbl3" />
-			<Widget id="mobileNumber" src="com.mscripts.textfield" class="form-txt return-next" />
+			<View class="default-height" onClick="choosePharmacy">
+				<Label id="locationLbl" class="padding-left  touch-disabled  form-txt return-next" />
+				<Label id="downLbl" class=" right small-icon touch-disabled" />
+			</View>
 		</View>
-		<Button id="orderRefillBtn" class="margin-bottom secondary-btn" onClick="didClickOrderRefill" />
+		<Label id="hintLbl3" class="padding-left  touch-disabled padding-bottom padding-top"/>
+		<View class="form-group vgroup">
+			<Widget id="mobileNumber" src="com.mscripts.textfield" onChange="didChange" class="form-txt return-next" />
+		</View>
+		<Button id="orderRefillBtn" class="margin-bottom padding-bottom padding-top primary-btn" onClick="didClickOrderRefill" />
 	</ScrollView>
 </Alloy>

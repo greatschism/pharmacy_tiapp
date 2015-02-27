@@ -1,6 +1,11 @@
 "#hintLbl1":{
-	text: Alloy.Globals.strings.strRefillOrderHint
+	text: Alloy.Globals.strings.strRefillOrderHint,
+backgroundColor: "#47c9af",
+	height:Ti.UI.SIZE
 },
+// ".auto-height":{
+	// backgroundColor: "#47c9af"
+// }
 "#hintLbl2":{
 	text: Alloy.Globals.strings.strSelectPharmacyHint
 },
@@ -14,11 +19,39 @@
 	color: "red"
 },
 "#hintLbl3":{
-	title: Alloy.Globals.strings.strRefillTypeRxEnterNumber
+	text: Alloy.Globals.strings.strRefillTypeRxEnterNumber,
+	height:Ti.UI.SIZE
+},
+"#lblAddPrescr":{
+	text: Alloy.Globals.strings.strAddPrescription,
+	height:Ti.UI.SIZE,
+	color:"blue"
 },
 "#mobileNumber":{
-	hintText: Alloy.Globals.strings.hintMobileNumber
+	
+	maxLength: 13,
+	hintText: Alloy.Globals.strings.hintMobileNumber,
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD
 },
 "#orderRefillBtn":{
-	title: Alloy.Globals.strings.strSignup
+	title: Alloy.Globals.strings.btnOrderRefill
+},
+"#hintLblRefillPres":{
+	text: Alloy.Globals.strings.hintRefillThisPrescription,
+	height:Ti.UI.SIZE
+},
+"#RxHintLbl":{
+	hintText: Alloy.Globals.strings.valPrescriptionNum,
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
+	maxLength: 7,
+	//text: Alloy.Globals.strings.valPrescriptionNum,
+	font:{
+		fontSize:15,
+		
+},
+//color:"#d4d4d4"
+},
+".right-10":{
+	right:25
+	
 }

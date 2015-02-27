@@ -221,7 +221,7 @@ module.exports = {
 		"description" : "x",
 		"data" : {
 			"patients" : {
-				"is_mobile_shared" : "0",
+				"is_mobile_shared" : "1",
 				"mobile_exists" : "1"
 			}
 		}

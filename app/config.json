@@ -51,6 +51,8 @@
 			"pill": "N",
 			"sort": "X",
 			"remove": "*",
+			"minus": "-",
+			"minus_with_circle": ":",
 			"refresh": ".",
 			"confirm": "j",
 			"users_list": "w",
