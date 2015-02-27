@@ -270,6 +270,8 @@ module.exports = {
 		"strAutoRefill" : "zh-Auto refill this prescription",
 		"strRefillHistory" : "zh-Refill history",
 		"strAddPrescription" : "zh-Add a prescription",
-		"strRetrivePassword" : "zh-?"
+		"strRetrivePassword" : "zh-?",
+		"strEmailSubjectLoginRecovery" : "zh-Email recovery",
+		"strEmailBodyLoginRecovery" : "zh-I do not remember what email I used!"
 	}
 };
