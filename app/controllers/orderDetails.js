@@ -13,7 +13,10 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     prescription,
     orders,
-    pickupdetails;
+    pickupdetails,
+    picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
+		classes : ["form-dropdown"]
+	}));
 
 function init() {
 	prescription = args.prescription || {};
@@ -97,16 +100,7 @@ function init() {
       	classes : ["list-item-view"]
       }),
 
-
-
-	  picker = Alloy.createWidget("com.mscripts.dropdown",{
-		apiName : "widget",
-
-		classes : ["dropdown"]
-
-	});
-
-	  var pickerOptions = [{
+	   pickerOptions = [{
 	  	title : "In store pickup"
 	  },
 	  {
@@ -119,17 +113,18 @@ console.log("checked");
 view.add(picker.getView());
 	row.add(view);
 	$.pickupDetailsSection.add(row);
-	picker.showPicker();
+	//picker.showPicker();
 	picker.setSelectedIndex(0);
-console.log("hdhdhd");
-	 view.addEventListener("click", function(e) {
+   console.log("hdhdhd");
+
+	 picker.on("return", function(e) {
 		console.log(e.selectedItem);
-		 if (e.selectedItem == "Mail order") {
+		 if (picker.selectedIndex == 0) {
 	
 			 Ti.API.info("hello"+e.selectedValue);
 
  			
-		 var	row2 = $.UI.create("TableViewRow", {
+		 var row2 = $.UI.create("TableViewRow", {
 				 apiName : "TableViewRow",
 				 classes : ["#4bccde","height-50","top"]
 			 }),
@@ -224,7 +219,7 @@ console.log("hdhdhd");
 
 function setParentViews(view)
 {
-	$.picker.setParentView(view);
+	picker.setParentView(view);
 }
 
 function didToggle(e) {
@@ -269,9 +264,7 @@ function didSuccess() {
 
 function didClickPickUpOptions(event) {
 
-	if (selectedIndex == 1) {
-
-	}
+	
 
 	Ti.API.info("user selected   : " + event.selectedValue);
 
@@ -295,9 +288,6 @@ function didClickStoreChange(e) {
 	alert("Stores under construction");
 }
 
-function setParentViews(_view) {
-
-}
 
 function didItemClick(e) {
 
