@@ -72,10 +72,23 @@
 	wordWrap: true
 },
 
-".icon":{
+".doctorIcon":{
 	font:{
-		fontSize:50
-	}
+		fontSize:52
+	},
+	text:Alloy.CFG.icons.user
+}
+".calenderIcon":{
+	font:{
+		fontSize:35
+	},
+	text:Alloy.CFG.icons.calendar
+}
+".plusIcon":{
+	font:{
+		fontSize:30
+	},
+	text:Alloy.CFG.icons.plus
 }
 ".h1":{
 color:"#000000",
@@ -85,7 +98,7 @@ font:{
 }	
 },
 ".h2":{
-color:"#000000",
+color:"#6D6E71",
 font:{
 	fontSize: 17,
 	fontFamily:"regular"
@@ -109,4 +122,8 @@ font:{
 }
 ".paddingBottom":{
 	bottom:10
+}
+
+".paddingLeftExtra":{
+	left:15
 }

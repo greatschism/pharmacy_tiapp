@@ -97,7 +97,7 @@ function didReceiveAppointments(_result) {
 			    leftImg = $.UI.create("Label", {
 				apiName : "Label",
 				color : "#F6931E",
-				classes : ["small-icon", "icon"]
+				classes : ["small-icon", "calenderIcon"]
 
 			}),
 			    appointmentLbl = $.UI.create("Label", {
@@ -116,7 +116,6 @@ function didReceiveAppointments(_result) {
 
 			row.rowId = appointment.appointment_id;
 			appointmentLbl.text = appointment.time;
-			leftImg.text = Alloy.CFG.icons.calendar;
 			doctorLbl.text = appointment.desc;
 			// leftImg.image = doctor.thumbnail_url;
 			leftImg.bindId = "profile";
@@ -159,20 +158,19 @@ function didReceiveAppointments(_result) {
 		}),
 	appointmentFooterView = $.UI.create("View", {
 		apiName : "View",
+		horizontalWrap : "false",
 		classes : ["auto-height","hgroup"]
 	}),
 	setReminderIcon = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#000000",
-		font : Alloy.TSS.list_item_child.font,
-		text : Alloy.CFG.icons.plus,
 		height : 32,
 		width : 32,
-		classes : ["paddingLeft","paddingTop","paddingBottom"]
+		classes : ["paddingLeft","paddingTop","paddingBottom","plusIcon","small-icon"]
 	}),
 	setReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["paddingTop"],
+		classes : ["width-90","paddingLeft","auto-height"],
 		text : Alloy.Globals.strings.lblSetupAppointmentReminder,
 	});
 	appointmentFooterView.add(setReminderIcon);
@@ -236,7 +234,7 @@ function didReceiveAppointments(_result) {
 			    contentView = $.UI.create("View", {
 				apiName : "View",
 				horizontalWrap : "false",
-				classes : ["hgroup", "auto-height"]
+				classes : ["hgroup", "auto-height","left"]
 			}),
 			    leftImgView = $.UI.create("View", {
 				apiName : "View",
@@ -252,7 +250,7 @@ function didReceiveAppointments(_result) {
 			    leftImg = $.UI.create("Label", {
 				apiName : "Label",
 				color : "#F6931E",
-				classes : ["small-icon", "icon"]
+				classes : ["small-icon", "doctorIcon","left"]
 
 			}),
 			    titleLbl = $.UI.create("Label", {
@@ -271,7 +269,6 @@ function didReceiveAppointments(_result) {
 
 			row.rowId = doctor.id;
 			titleLbl.text = doctor.long_name;
-			leftImg.text = Alloy.CFG.icons.user;
 			prescriptionLbl.text = description;
 			// leftImg.image = doctor.thumbnail_url;
 			leftImg.bindId = "profile";
@@ -312,22 +309,22 @@ function didReceiveAppointments(_result) {
 		}),
 	    mydocFooterView = $.UI.create("View", {
 		apiName : "View",
+		horizontalWrap : "false",
 		classes : ["auto-height","hgroup"]
 	}),
 		addDoctorIcon = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#000000",
-		font : Alloy.TSS.list_item_child.font,
-		text : Alloy.CFG.icons.plus,
 		height : 32,
 		width : 32,
-		classes : ["paddingLeft","paddingTop","paddingBottom"]
+		classes : ["paddingLeft","paddingTop","paddingBottom","plusIcon","small-icon"]
 	}),
 	    addDoctorLabel = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["paddingTop"],
+		classes : ["width-90","paddingLeft","auto-height"],
 		text : Alloy.Globals.strings.btnAddAnotherDoctor,
 	});
+	
 
 	mydocFooterView.add(addDoctorIcon);
 	mydocFooterView.add(addDoctorLabel);

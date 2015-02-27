@@ -18,34 +18,41 @@ function init() {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
-			    contentView = $.UI.create("View", {
+			    contentView =  $.UI.create("View", {
 				apiName : "View",
-				classes : ["auto-height","padding-top","padding-bottom"]
+				horizontalWrap : "false",
+				classes : ["hgroup", "auto-height"]
 			}),
-			    orderPickUpLblIcon = $.UI.create("Label", {
+			    leftImgView = $.UI.create("View", {
+				apiName : "View",
+				height : 95,
+				width : 50,
+				classes : ["paddingLeft"]
+			}),
+				descriptionView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["auto-height", "auto-width", "paddingLeft", "paddingTop", "paddingBottom"]
+
+			}),
+			    leftImg = $.UI.create("Label", {
 				apiName : "Label",
-				color:"#F6931E",
-				classes : ["small-icon", "left", "width-10", "auto-height"]
+				color : "#F6931E",
+				classes : ["small-icon", "doctorIcon"]
 
 			}),
 			    titleLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["options", "width-80"]
-			}),
-			    childLbl = $.UI.create("Label", {
-				apiName : "Label",
-				text : Alloy.CFG.icons.arrow_right,
-				classes : ["iconLabel", "width-10", "auto-height"]
+				classes : ["h1", "left", "width-90","paddingLeft","auto-height"]
 			});
-
 			row.rowId = doctor.id;
 			titleLbl.text = doctor.long_name;
-			orderPickUpLblIcon.text = Alloy.CFG.icons.user;
-			contentView.add(orderPickUpLblIcon);
+			leftImgView.add(leftImg);
+			//descriptionView.add(titleLbl);
+			contentView.add(leftImgView);
 			contentView.add(titleLbl);
-			contentView.add(childLbl);
 			row.add(contentView);
 			$.doctorsList.add(row);
+			
 
 		}
 	}
