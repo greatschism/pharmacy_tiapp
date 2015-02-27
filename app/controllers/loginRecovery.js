@@ -33,6 +33,16 @@ function didClickSend(e) {
 function didAuthenticate(_result) {
 	//to do
 	dialog.show({
-		message : _result.message
+		message : _result.message,
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
+}
+
+function didCantRemember(e) {
+	//to do
+	dialog.show({
+		message : Alloy.Globals.strings.strCantRememberEmail
 	});
 }
