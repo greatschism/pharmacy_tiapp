@@ -11,6 +11,7 @@
 			"PATIENTS_STORE_TO_APP_CONVERSION": "patients/storetoappconversion",
 			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_NEW_PASSWORD": "patients/newpassword",
+			"PATIENTS_FORGOT_PASSWORD": "patients/forgotpassword",
 			"DOCTORS_GET": "doctors/get",
 			"DOCTORS_LIST": "doctors/list",
 			"APPOINTMENTS_GET": "appointments/get",

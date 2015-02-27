@@ -200,6 +200,13 @@ module.exports = {
 		"description" : "x",
 		"data" : ""
 	},
+	"PATIENTS_FORGOT_PASSWORD" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Your Username and Password recovery link invitation will be sent to XXXXXXX.",
+		"description" : "x",
+		"data" : ""
+	},
 	"PATIENTS_LOGOUT" : {
 		"status" : "Success",
 		"code" : "200",
