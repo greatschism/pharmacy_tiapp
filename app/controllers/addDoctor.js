@@ -1,12 +1,12 @@
 var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
+    utilities = require("utilities"),
+    http = require("requestwrapper"),
     strings = Alloy.Globals.strings,
     nameRegExp = /^[A-Za-z0-9]{3,40}$/,
-    phoneNoRegExp = /^[0-9](-)[0-9]{3}(-)[0-9]{3}(-)[0-9]{4}$/,
-    faxNoRegExp = /^(\()[0-9]{3}(\))[0-9]{7}$/,
     zipRegExp = /^\\d{5}(-\\d{4})?$/,
-    http = require("requestwrapper");
+    doctor;
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
@@ -44,11 +44,11 @@ function didClickSave(e) {
 		errorMessage = "Please enter a valid Last name";
 		allFieldsValidated = false;
 
-	} else if (phoneNo && !phoneNoRegExp.test(phoneNo)) {
+	} else if (phoneNo && !(utilities.validateMobileNumber($.phoneTxt.getValue()))) {
 		errorMessage = "Please enter a valid phone number";
 		allFieldsValidated = false;
 
-	} else if (faxNo && !faxNoRegExp.test(faxNo)) {
+	} else if (faxNo && !(utilities.validateMobileNumber($.faxTxt.getValue()))) {
 		errorMessage = "Please enter a valid fax number";
 		allFieldsValidated = false;
 
@@ -72,7 +72,7 @@ function didClickSave(e) {
 				data : {
 					"doctors" : {
 						"doctor_dea" : "12345",
-						"first_name" :fname,
+						"first_name" : fname,
 						"last_name" : lname,
 						"addressline1" : "TEST",
 						"addressline2" : "TEST",
@@ -95,8 +95,7 @@ function didClickSave(e) {
 
 }
 
-function didSuccess(_result)
-{
+function didSuccess(_result) {
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorAdded,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -104,7 +103,7 @@ function didSuccess(_result)
 			app.navigator.closeToRoot();
 		}
 	});
-	
+
 }
 
 function userVal(e) {
@@ -119,8 +118,20 @@ function userVal(e) {
 
 }
 
-function numVal(e) {
-	//  e.source.value = e.source.value.replace(/[^0-9]+/,"");
+function phoneNumberValidate(e) {
+	var value = utilities.formatMobileNumber(e.value),
+	    len = value.length;
+	$.phoneTxt.setValue(value);
+	$.phoneTxt.setSelection(len, len);
+	
+}
+
+function faxNumberValidate(e) {
+	var value = utilities.formatMobileNumber(e.value),
+	    len = value.length;
+	$.faxTxt.setValue(value);
+	$.faxTxt.setSelection(len, len);
+	
 }
 
 function didStateChange(e) {
@@ -133,6 +144,23 @@ function didStateChange(e) {
 }
 
 function init() {
+
+	if (args.edit == "true") {
+
+		doctor = args.doctor;
+
+		$.fnameTxt.setValue(doctor.first_name);
+		$.lnameTxt.setValue(doctor.last_name);
+		$.phoneTxt.setValue(doctor.phone);
+		$.faxTxt.setValue(doctor.fax);
+		$.hospitalTxt.setValue(doctor.addressline1);
+		$.streetTxt.setValue(doctor.addressline2);
+		$.cityTxt.setValue(doctor.city);
+		//$.stateTxt.setValue(doctor.stateTxt.getSelectedItem();
+		$.zipTxt.setValue(doctor.zip);
+		$.notesTxta.setValue(doctor.notes);
+	
+	}
 	// var templates = [],
 	// lngs = [],
 	// i = 0,

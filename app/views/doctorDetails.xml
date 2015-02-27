@@ -14,7 +14,7 @@
 						
 						<View class="paddingLeft auto-height paddingTop hgroup" >
 						<Label id="nameLbl" class="left h1 multi-line " />
-						<Label id="editLbl" class="paddingLeft h14  multi-line" text="Edit" onClick=""/>
+						<Label id="editLbl" class="paddingLeft h14  multi-line" text="Edit" onClick="didClickEdit"/>
 						</View>
 						
 						<View class="hseparator paddingLeft paddingTop"/>
@@ -35,7 +35,7 @@
 						
 						<View class="paddingTop paddingLeft auto-height">
 							<Label id="directionIconLbl" class="top left small-icon"  />
-							<Label id="directionLbl" class="after-icon h15  fg-secondary" />
+							<Label id="directionLbl" class="after-icon h15  fg-secondary" onClick="didClickDirections" />
 						</View>
 						
 					</View>

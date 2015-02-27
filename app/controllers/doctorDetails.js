@@ -3,6 +3,8 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     logger = require("logger"),
     http = require("requestwrapper"),
+    app = require("core"),
+    dialog= require("dialog"),
     doctor,
     prescriptions,
     PRESCRIPTION_COUNT = 4;
@@ -132,6 +134,12 @@ function didClickProfileImg(e) {
 	$.photoDialog.show();
 }
 
+function didClickDirections(e){
+	dialog.show({
+			message : Alloy.Globals.strings.msgUnderConstruction
+		});
+}
+
 function didClickOption(e) {
 	if (e.index == 1) {
 		//then we are getting image from camera
@@ -195,6 +203,17 @@ function didClickOption(e) {
 }
 
 function didClickEdit(e) {
+	
+	app.navigator.open({
+		stack : true,
+		titleid : "titleAddDoctor",
+		ctrl : "addDoctor",
+			ctrlArguments : {
+				doctor : doctor,
+				edit: "true"
+			}
+		
+	});
 
 }
 

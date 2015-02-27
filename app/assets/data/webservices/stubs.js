@@ -924,8 +924,8 @@ module.exports = {
 				"city" : "AUGUSTA",
 				"zip" : "04003",
 				"notes" : "",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
+				"phone" : "(617)283-7737",
+				"fax" : "(617)283-7737",
 				"image_url" : "http://test.remscripts.com/ig3234",
 				"optional" : ""
 			}, {
@@ -939,8 +939,8 @@ module.exports = {
 				"city" : "AUGUSTA",
 				"zip" : "04003",
 				"notes" : "",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
+				"phone" : "(617)283-7737",
+				"fax" : "(617)283-7737",
 				"image_url" : "http://test.remscripts.com/ig3234",
 				"org_name" : "MSCRIPTS",
 				"optional" : ""

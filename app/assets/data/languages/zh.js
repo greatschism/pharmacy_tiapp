@@ -57,6 +57,7 @@ module.exports = {
 
 		"hintSearchByZipCityOrState" : "zh-Search by zip, city or state",
 		"hintMobileNumber" : "zh-Mobile Number (xxx)xxx-xxxx",
+		"hintFaxNumber" : "zh-Fax Number (xxx)xxx-xxxx",
 		"hintUsername" : "zh-Username",
 		"hintPassword" : "zh-Password",
 		"hintEmailAddress" : "zh-Email address",

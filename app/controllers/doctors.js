@@ -458,7 +458,11 @@ function didClickAddDoctor(e) {
 	app.navigator.open({
 		stack : true,
 		titleid : "titleAddDoctor",
-		ctrl : "addDoctor"
+		ctrl : "addDoctor",
+			ctrlArguments : {
+				edit:"false"
+			}
+		
 	});
 }
 
