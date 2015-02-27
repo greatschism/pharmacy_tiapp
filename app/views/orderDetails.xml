@@ -1,8 +1,8 @@
 <Alloy>
-
+<View >
 	<TableView id="tableView" onClick="didItemClick"/>
 	<View id="footerView" class="bottom auto-height">
 		<Button id="orderRefillBtn" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickOrderRefill" />
 	</View>
-
+</View>
 </Alloy> 
