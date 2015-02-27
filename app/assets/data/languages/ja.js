@@ -102,7 +102,7 @@ module.exports = {
 		"lblEnterYourDoctorsInformation" : "ja-Enter your doctor's information. First and last name are required, <b><font color=\"boldColor\">all other fields optional.</font></b>",
 		"lblWhichDoctorYouHaveAppointment" : "ja-Which doctor do you have an appointment with?",
 		"lblMore" : "ja-More",
-		"lblShowMore":"ja-Show More",
+		"lblShowMore" : "ja-Show More",
 		"lblWhenIsYourAppointment" : "ja-When is your appointment?",
 		"lblOnThisDate" : "ja-On this date",
 		"lblAtThisTime" : "ja-At this time",
@@ -200,6 +200,7 @@ module.exports = {
 		"msgAppointmentReminder" : "ja-Your appointment reminder for %s on %s at %s has been set.",
 		"msgNoAppointment" : "ja-You have no upcomming appointment",
 		"msgNoDoctor" : "ja-You have no doctors saved in you profile",
+		"msgEmailRecovery" : "ja-Our friendly coustomer support team can help you recover your lost information.",
 
 		"menuSearch" : "ja-Search",
 		"menuSort" : "ja-Sort",
@@ -235,6 +236,9 @@ module.exports = {
 		"btnOrderRefill" : "ja-Order refill",
 		"btnCallMyPharmacy" : "ja-Call my Pharmacy",
 		"btnChangePhoto" : "ja-Change Photo",
+		"btnGiveUsCall" : "ja-Give us a call",
+		"btnSendUsEmail" : "ja-Send us an email",
+
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",
 
@@ -266,7 +270,6 @@ module.exports = {
 		"strAutoRefill" : "ja-Auto refill this prescription",
 		"strRefillHistory" : "ja-Refill history",
 		"strAddPrescription" : "ja-Add a prescription",
-		"strRetrivePassword" : "ja-?",
-		"strCantRememberEmail" : "ja-Our friendly coustomer support team can help you recover your lost information."
+		"strRetrivePassword" : "ja-?"
 	}
 };

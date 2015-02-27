@@ -7,21 +7,16 @@ var args = arguments[0] || {},
 function didClickSend(e) {
 	var email = $.emailTxt.getValue();
 	if (utilities.validateEmail(email)) {
-		//		app.navigator.open({
-		//			ctrl : "newPassword",
-		//			titleid : "strNewPassword"
 		http.request({
 			method : "PATIENTS_FORGOT_PASSWORD",
 			data : {
 				data : [{
 					patient : {
-						user_name : "",
-						email_address : email,
-						password : ""
+						email_address : email
 					}
 				}]
 			},
-			success : didAuthenticate
+			success : didSuccess
 		});
 	} else {
 		dialog.show({
@@ -30,19 +25,25 @@ function didClickSend(e) {
 	}
 }
 
-function didAuthenticate(_result) {
-	//to do
+function didSuccess(_result) {
 	dialog.show({
 		message : _result.message,
 		success : function() {
 			app.navigator.closeToRoot();
 		}
-});
+	});
 }
 
-function didCantRemember(e) {
-	//to do
+function didClickCantRemember(e) {
 	dialog.show({
-		message : Alloy.Globals.strings.strCantRememberEmail
+		message : Alloy.Globals.strings.msgEmailRecovery,
+		buttonNames : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail],
+		success : function(_index) {
+			if (index == 0) {
+
+			} else {
+
+			}
+		}
 	});
 }

@@ -102,7 +102,7 @@ module.exports = {
 		"lblEnterYourDoctorsInformation" : "Enter your doctor's information. First and last name are required, <b><font color=\"boldColor\">all other fields optional.</font></b>",
 		"lblWhichDoctorYouHaveAppointment" : "Which doctor do you have an appointment with?",
 		"lblMore" : "More",
-		"lblShowMore":"Show More",
+		"lblShowMore" : "Show More",
 		"lblWhenIsYourAppointment" : "When is your appointment?",
 		"lblOnThisDate" : "On this date",
 		"lblAtThisTime" : "At this time",
@@ -200,6 +200,7 @@ module.exports = {
 		"msgAppointmentReminder" : "Your appointment reminder for %s on %s at %s has been set.",
 		"msgNoAppointment" : "You have no upcomming appointment",
 		"msgNoDoctor" : "You have no doctors saved in you profile",
+		"msgEmailRecovery" : "Our friendly coustomer support team can help you recover your lost information.",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
@@ -235,6 +236,9 @@ module.exports = {
 		"btnOrderRefill" : "Order refill",
 		"btnCallMyPharmacy" : "Call my Pharmacy",
 		"btnChangePhoto" : "Change Photo",
+		"btnGiveUsCall" : "Give us a call",
+		"btnSendUsEmail" : "Send us an email",
+
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
 
@@ -266,7 +270,6 @@ module.exports = {
 		"strAutoRefill" : "Auto refill this prescription",
 		"strRefillHistory" : "Refill history",
 		"strAddPrescription" : "Add a prescription",
-		"strRetrivePassword" : "?",
-		"strCantRememberEmail" : "Our friendly coustomer support team can help you recover your lost information."
+		"strRetrivePassword" : "?"
 	}
 };

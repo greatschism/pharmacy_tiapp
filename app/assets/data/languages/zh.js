@@ -200,6 +200,7 @@ module.exports = {
 		"msgAppointmentReminder" : "zh-Your appointment reminder for %s on %s at %s has been set.",
 		"msgNoAppointment" : "zh-You have no upcomming appointment",
 		"msgNoDoctor" : "zh-You have no doctors saved in you profile",
+		"msgEmailRecovery" : "zh-Our friendly coustomer support team can help you recover your lost information.",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -235,6 +236,9 @@ module.exports = {
 		"btnOrderRefill" : "zh-Order refill",
 		"btnCallMyPharmacy" : "zh-Call my Pharmacy",
 		"btnChangePhoto" : "zh-Change Photo",
+		"btnGiveUsCall" : "zh-Give us a call",
+		"btnSendUsEmail" : "zh-Send us an email",
+
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",
 
@@ -266,7 +270,6 @@ module.exports = {
 		"strAutoRefill" : "zh-Auto refill this prescription",
 		"strRefillHistory" : "zh-Refill history",
 		"strAddPrescription" : "zh-Add a prescription",
-		"strRetrivePassword" : "zh-?",
-		"strCantRememberEmail" : "zh-Our friendly coustomer support team can help you recover your lost information."
+		"strRetrivePassword" : "zh-?"
 	}
 };

@@ -2,7 +2,7 @@
 	<ScrollView class="vgroup">
 		<Label id="instructionLbl" class="margin-top paragraph-lbl" />
 		<Widget id="emailTxt" src="com.mscripts.textfield" class="padding-top padding-bottom txt returnkey-done" onReturn="didClickSend" />
-		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didCantRemember"/>
+		<Widget id="cantRememberLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickCantRemember"/>
 		<Button id="sendBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickSend" />
 	</ScrollView>
 </Alloy>
