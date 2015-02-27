@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 function init() {
 
 	http.request({
-		method : "REFILL_HISTORY",
+		method : "PRESCRIPTIONS_REFILL_HISTORY",
 		data : {
 			client_identifier : "x",
 			version : "x",

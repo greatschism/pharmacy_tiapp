@@ -721,13 +721,37 @@ module.exports = {
 		}
 	},
 	"PRESCRIPTIONS_REFILL_HISTORY" : {
-		"rxnumber" : "6784943",
-		"storeName" : "TARGET PHARMACY LAB ST16",
-		"address" : "278 SOUTH DECATUR",
-		"city" : "LAS VEGAS",
-		"state" : "CA",
-		"status" : "Requested"
-	},
+	"status": "Success",
+	"code": "200",
+	"message": "x",
+	"description": "x",
+	"data": {
+		"refills": [{
+			"rxnumber": "123456",
+			"storeid":"2",
+			"storename": "1 Sansome Street",
+			"address": "San Francisco",
+			"state": "CA",
+			"zip":"94103",
+			"orderedate": "xxx",
+			"refilldate": "2015-02-07",
+			"solddate": "xxx",
+			"status": "requested"
+		},
+		{
+			"rxnumber": "123456",
+			"storeid":"2",
+			"storename": "445 Bush Street",
+			"address": "San Francisco",
+			"state": "CA",
+			"zip":"91704",
+			"orderedate": "xxx",
+			"refilldate": "2015-02-17",
+			"solddate": "xxx",
+			"status": "requested"
+		}]
+	}
+},
 	"CODE_VALUES" : {
 		"status" : "Success",
 		"code" : "200",
