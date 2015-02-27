@@ -39,7 +39,7 @@ function didClickCantRemember(e) {
 		message : Alloy.Globals.strings.msgEmailRecovery,
 		buttonNames : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail],
 		success : function(_index) {
-			if (index == 0) {
+			if (_index == 0) {
 
 			} else {
 
