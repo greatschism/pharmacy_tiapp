@@ -1,6 +1,5 @@
 .DS_Store
 Resources
-plugins
 build.log
 build
 npm-debug.log
