@@ -40,13 +40,13 @@ function didClickCantRemember(e) {
 		buttonNames : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail],
 		success : function(_index) {
 			if (_index == 0) {
-				Ti.Platform.openURL('tel:'+ '6172837737');
+				Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
 			} else {
-				var emailDialog = Ti.UI.createEmailDialog();
-				emailDialog.subject = "Sample Subject";
-				emailDialog.toRecipients = ['foo@yahoo.com'];
-				emailDialog.messageBody = '<b>I cannot remember my email address!</b>';
-				emailDialog.open();
+				Ti.UI.createEmailDialog({
+					subject : Alloy.Globals.strings.strEmailSubjectLoginRecovery,
+					messageBody : Alloy.Globals.strings.strEmailBodyLoginRecovery,
+					toRecipients : Alloy.CFG.SUPPORT.email
+				}).open();
 			}
 		}
 	});

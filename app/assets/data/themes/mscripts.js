@@ -16,6 +16,10 @@ module.exports = {
 					"modifiters" : "",
 					"value" : "$1-$2"
 				}]
+			},
+			"SUPPORT" : {
+				"call" : "1234567890",
+				"email" : "support@mscripts.com"
 			}
 		},
 		"tss" : {
