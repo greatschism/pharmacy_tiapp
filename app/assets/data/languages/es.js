@@ -265,6 +265,7 @@ module.exports = {
 		"strAutoRefill" : "es-Auto refill this prescription",
 		"strRefillHistory" : "es-Refill history",
 		"strAddPrescription" : "es-Add a prescription",
-		"strRetrivePassword" : "es-?"
+		"strRetrivePassword" : "es-?",
+		"strCantRememberEmail" : "es-Our friendly coustomer support team can help you recover your lost information."
 	}
 };
