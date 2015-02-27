@@ -264,7 +264,7 @@ function init() {
 
 function setParentViews(_view) {
 
-	$.stateTxt.setParentView(view);
+	$.stateTxt.setParentView(_view);
 }
 
 exports.init = init;
