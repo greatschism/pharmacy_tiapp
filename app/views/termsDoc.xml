@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView id="scrollView" class="disable-bounce">
 		<WebView id="webView" class="disable-bounce" />
-		<View id="footerView" class="auto-height">
+		<View id="footerView" class="bottom auto-height">
 			<Button id="doneBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickDone" />
 		</View>
 	</ScrollView>
