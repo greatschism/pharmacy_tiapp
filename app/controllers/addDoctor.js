@@ -64,7 +64,7 @@ function didClickSave(e) {
 		});
 	} else {
 		http.request({
-			method : "ADD_DOCTOR",
+			method : "DOCTORS_ADD",
 			data : {
 				filter : [{
 					type : ""

@@ -17,28 +17,26 @@ zIndex: 2
 },
 "#editBtn":{
 title: Alloy.Globals.strings.btnEdit
+
 },
-/*"#tableView":{
-top: 0,
-bottom: 96
-},*/
 ".after-icon":{
 left: 32
 },
 "#changeImgLbl":{
 color:"#0095ff",
 text:Alloy.Globals.strings.btnChangePhoto,
-font:{fontSize:13,
+font:{fontSize:11,
  fontFamily:'Helvetica Neue'}	
 },
-"#phoneLbl":{
-color:"#0095ff"
-},
+"#editLbl":{
+text:Alloy.Globals.strings.btnEdit	
+}
 "#faxLbl":{
-color:"#808285"
-},
-"#directionLbl":{
-color:"#0095ff"
+color:"#808285",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}
 },
 "#phoneIconLbl":{
 text: Alloy.CFG.icons.phone,
@@ -57,12 +55,56 @@ width: 20,
 text: Alloy.CFG.icons.down_arrow,
 color: "#000000",
 font: Alloy.TSS.small_icon.font,
-	
 }
-/*,
-"#footerView":{
-height: 96
+"#notesTxta":{
+hintText: Alloy.Globals.strings.hintNotes
+}
+".h1":{
+color:"#000000",
+font:{
+	fontSize: 17,
+	fontFamily:"bold"
+}},
+".h2":{
+color:"#6D6E71",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}	
 },
-"#hideDoctorBtn":{
-title: Alloy.Globals.strings.btnHideThisDoctor
-}*/
+".h3":{
+color:"#808285",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
+}
+".h14":{
+color:"#0095ff",
+font:{
+	fontSize: 14,
+	fontFamily:"bold"
+}},
+".h15":{
+color:"#0095ff",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}},
+".h15NoColor":{
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}},
+".paddingLeft":{
+	left:12
+},
+".paddingRight":{
+	right:10
+},
+".paddingTop":{
+	top:10
+},
+".paddingBottom":{
+	bottom:10
+}

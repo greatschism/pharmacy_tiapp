@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Widget id="hintLbl" src="com.mscripts.styledlabel" class=" padding-left padding-right auto-height  multi-line " />
+		<Widget id="hintLbl" src="com.mscripts.styledlabel" class="h3 auto-height  multi-line" />
 
 		<View class="form-group vgroup padding-bottom">
 			<View class="default-height hgroup">

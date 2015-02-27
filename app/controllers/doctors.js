@@ -163,10 +163,9 @@ function didReceiveAppointments(_result) {
 	}),
 	setReminderIcon = $.UI.create("Label", {
 		apiName : "Label",
-		color : "#000000",
 		height : 32,
 		width : 32,
-		classes : ["paddingLeft","paddingTop","paddingBottom","plusIcon","small-icon"]
+		classes : ["paddingLeft","paddingTop","paddingBottom","additionIcon","small-icon"]
 	}),
 	setReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
@@ -314,10 +313,9 @@ function didReceiveAppointments(_result) {
 	}),
 		addDoctorIcon = $.UI.create("Label", {
 		apiName : "Label",
-		color : "#000000",
 		height : 32,
 		width : 32,
-		classes : ["paddingLeft","paddingTop","paddingBottom","plusIcon","small-icon"]
+		classes : ["paddingLeft","paddingTop","paddingBottom","additionIcon","small-icon"]
 	}),
 	    addDoctorLabel = $.UI.create("Label", {
 		apiName : "Label",

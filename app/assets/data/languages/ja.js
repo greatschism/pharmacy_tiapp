@@ -101,6 +101,7 @@ module.exports = {
 		"lblEnterYourDoctorsInformation" : "ja-Enter your doctor's information. First and last name are required, <b><font color=\"boldColor\">all other fields optional.</font></b>",
 		"lblWhichDoctorYouHaveAppointment" : "ja-Which doctor do you have an appointment with?",
 		"lblMore" : "ja-More",
+		"lblShowMore":"ja-Show More",
 		"lblWhenIsYourAppointment" : "ja-When is your appointment?",
 		"lblOnThisDate" : "ja-On this date",
 		"lblAtThisTime" : "ja-At this time",

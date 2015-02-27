@@ -84,11 +84,12 @@
 	},
 	text:Alloy.CFG.icons.calendar
 }
-".plusIcon":{
+".additionIcon":{
 	font:{
 		fontSize:30
 	},
-	text:Alloy.CFG.icons.plus
+	text:Alloy.CFG.icons.addition,
+	color:"#599DFF"
 }
 ".h1":{
 color:"#000000",
@@ -103,26 +104,26 @@ font:{
 	fontSize: 17,
 	fontFamily:"regular"
 }	
-}
+},
 ".h3":{
 color:"#808285",
 font:{
 	fontSize: 14,
 	fontFamily:"regular"
 }	
-}
+},
 ".paddingLeft":{
 	left:12
-}
+},
 ".paddingRight":{
 	right:10
-}
+},
 ".paddingTop":{
 	top:10
-}
+},
 ".paddingBottom":{
 	bottom:10
-}
+},
 
 ".paddingLeftExtra":{
 	left:15

@@ -1,6 +1,6 @@
 "#hintLbl": {
 	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation,
-	backgroundColor:"#808285"
+	backgroundColor: "#47c9af"
 },
 "#fnameTxt":{
 	hintText: Alloy.Globals.strings.hintFirstNameRequired,
@@ -48,4 +48,11 @@
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
+}
+".h3":{
+color:"#808285",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
 }

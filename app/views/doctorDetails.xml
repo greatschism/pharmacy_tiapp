@@ -2,34 +2,45 @@
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="editBtn" class="nav-right-btn" onClick="didClickEdit" />
 	<!--<View>-->
-	<TableView id="tableView" height="Ti.UI.FILL" top="0" bottom="0">
+	<TableView id="tableView" height="Ti.UI.FILL" top="0" >
 		<HeaderView>
 			<View class="auto-height vgroup ">
-				<View class="auto-height padding-top">
-					<View class="left top auto-height auto-width vgroup" >
-					<ImageView id="profileImg" class="width-50 height-50 padding-left padding-top" backgroundColor="#F6931E" borderColor="#000000" onClick="didClickProfileImg" />
-					<Label id="changeImgLbl" class="padding-left  height-15 multi-line" fontSize=6/>
+				<View class="auto-height " >
+					<View class="left top auto-height auto-width vgroup">
+					<ImageView id="profileImg" height="70" width="70" class="paddingLeft paddingTop" borderColor="#000000" />
+					<Label id="changeImgLbl" class="padding-left multi-line" onClick="didClickProfileImg" />
 					</View>	
-					<View class="auto-height top width-60 hgroup padding-right ">
-						<Label id="nameLbl" class="left h2 multi-line  fg-secondary padding-left fill-width" />
-						<View class="hseparator padding-left padding-top"/>
-						<View class=" padding-left auto-height" onClick="phoneDialer">
+					<View class="auto-height top width-75 hgroup right" >
+						
+						<View class="paddingLeft auto-height paddingTop hgroup" >
+						<Label id="nameLbl" class="left h1 multi-line " />
+						<Label id="editLbl" class="paddingLeft h14  multi-line" text="Edit" onClick=""/>
+						</View>
+						
+						<View class="hseparator paddingLeft paddingTop"/>
+						
+						<View class=" paddingLeft paddingTop auto-height" onClick="phoneDialer">
 							<Label id="phoneIconLbl" class="top left small-icon" />
-							<Label id="phoneLbl" class="after-icon h5 multi-line fg-secondary" />
+							<Label id="phoneLbl" class="after-icon h15 multi-line fg-secondary" />
 						</View>
-						<View class="hseparator padding-left padding-top"/>
-						<View class="padding-top padding-left auto-height">
+						
+						<View class="hseparator paddingLeft paddingTop"/>
+						
+						<View class="paddingTop paddingLeft auto-height">
 							<Label id="faxIconLbl" class="top left small-icon" />
-							<Label id="faxLbl" class="after-icon h5 multi-line fg-secondary" />
+							<Label id="faxLbl" class="after-icon h15NoColor multi-line fg-secondary" />
 						</View>
-						<View class="hseparator padding-left padding-top"/>
-						<View class="padding-top padding-left auto-height">
+						
+						<View class="hseparator paddingLeft paddingTop"/>
+						
+						<View class="paddingTop paddingLeft auto-height">
 							<Label id="directionIconLbl" class="top left small-icon"  />
-							<Label id="directionLbl" class="after-icon h5  fg-secondary" />
+							<Label id="directionLbl" class="after-icon h15  fg-secondary" />
 						</View>
+						
 					</View>
 				</View>
-				<Widget id="notesTxta" src="com.mscripts.textarea" class="txta"/>
+				<Widget id="notesTxta" src="com.mscripts.textarea" class="txta paddingTop paddingBottom"/>
 			</View>
 		</HeaderView>
 	</TableView>

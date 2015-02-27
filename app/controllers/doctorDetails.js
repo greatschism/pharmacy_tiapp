@@ -13,11 +13,7 @@ function init() {
 	prescriptions = args.prescriptions || [];
 	//uihelper.getImage($.profileImg);
 	$.nameLbl.text = doctor.long_name;
-	/*http.request({
-	method : "DOCTORS_GET",
-	keepBlook : true,
-	success : didSuccess
-	});*/
+
 	//_.extend(doctor, result.data[0].doctors);
 	$.phoneLbl.text = doctor.phone;
 	$.faxLbl.text = doctor.fax;
@@ -53,17 +49,17 @@ function init() {
 			var footerView = $.UI.create("View", {
 				apiName : "View",
 				classes : ["auto-height","vgroup"],
-				backgroundColor : Alloy.TSS.section_header_view.backgroundColor,
 			}), moreIcon = $.UI.create("Label", {
 				apiName : "Label",
-				color : "#000000",
+				color : "#6D6E71",
 				font : Alloy.TSS.list_item_child.font,
 				text : Alloy.CFG.icons.arrow_down,
 				classes : ["text-center"]
 			}), moreLabel = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["text-center"],
-				text : Alloy.Globals.strings.lblMore,
+				classes : ["text-center","paddingTop"],
+				color:"#599DFF",
+				text : Alloy.Globals.strings.lblShowMore,
 			});
 			footerView.add(moreLabel);
 			footerView.add(moreIcon);
@@ -117,12 +113,12 @@ function getRow(prescription) {
 	}),
 	    leftLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["left", "width-60", "h5", "fg-secondary"]
+		classes : ["list-item-title-lbl","left"]
 	}),
 	    rightLbl = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#808285",
-		classes : ["right", "width-40", "h5", "text-right", "fg-secondary"]
+		classes : ["list-item-info-lbl","right"]
 	});
 	leftLbl.text = prescription.presc_name;
 	rightLbl.text = prescription.latest_filled_date ? Alloy.Globals.strings.lblLastRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : Alloy.Globals.strings.msgNotFilledYet;
