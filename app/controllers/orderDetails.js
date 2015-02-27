@@ -6,17 +6,17 @@ var args = arguments[0] || {},
     icons = Alloy.CFG.icons,
     resources = require("resources"),
     config = require("config"),
-
     utilities = require("utilities"),
     strings = Alloy.Globals.strings,
     dialog = require("dialog"),
     uihelper = require("uihelper"),
     prescription,
     orders,
+    row2,row3,
     pickupdetails,
     picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
-		classes : ["form-dropdown"]
-	}));
+	classes : ["form-dropdown"]
+}));
 
 function init() {
 	prescription = args.prescription || {};
@@ -47,7 +47,6 @@ function init() {
 				apiName : "Label",
 				classes : ["list-item-title-lbl", "left"]
 			}),
-
 			    footerView = $.UI.create("View", {
 				apiName : "View",
 				classes : ["footer-view-break", "auto-height"]
@@ -70,12 +69,9 @@ function init() {
 			});
 
 			containerView.rowId = transform.id;
-
 			title.text = transform.name;
 			containerView.add(title);
-
 			row.add(containerView);
-
 			footerView.height = Alloy._content_height;
 			contentView.add(addIcon);
 			contentView.add(addLbl);
@@ -95,130 +91,189 @@ function init() {
 		apiName : "TableViewRow"
 	}),
 
-      view = $.UI.create("View" ,{
-      	apiName : "View",
-      	classes : ["list-item-view"]
-      }),
+	    view = $.UI.create("View", {
+		apiName : "View",
+		classes : ["list-item-view"]
+	}),
 
-	   pickerOptions = [{
-	  	title : "In store pickup"
-	  },
-	  {
-	  	title : "Mail order"
-	  }];
-	  
-	  picker.setChoices(pickerOptions);
-console.log("checked");
+	    pickerOptions = [{
+		title : "In store pickup"
+	}, {
+		title : "Mail order"
+	}];
 
-view.add(picker.getView());
+	picker.setChoices(pickerOptions);
+
+	picker.setSelectedIndex(0);
+	console.log("checked");
+
+	view.add(picker.getView());
 	row.add(view);
 	$.pickupDetailsSection.add(row);
-	//picker.showPicker();
-	picker.setSelectedIndex(0);
-   console.log("hdhdhd");
 
-	 picker.on("return", function(e) {
-		console.log(e.selectedItem);
-		 if (picker.selectedIndex == 0) {
-	
-			 Ti.API.info("hello"+e.selectedValue);
+	var row2 = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow",
+		classes : ["#4bccde", "height-50", "top"]
+	}),
 
- 			
-		 var row2 = $.UI.create("TableViewRow", {
-				 apiName : "TableViewRow",
-				 classes : ["#4bccde","height-50","top"]
-			 }),
+	    containerView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height"]
 
-			 containerView = $.UI.create("View", {
-				 apiName : "View",
-				 classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+	}),
 
-			 }),
-
-		 addressLine1 = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "1 Sanstome St.",
-				 classes : ["list-item-info-lbl", "left"]
-			 }),
-			 addressLine2 = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "San Franscisco,CA, 94103",
-				 classes : ["list-item-info-lbl", "left"]
-			 }),
-			 rightBtn = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "change",
-				 classes : ["right", "width-45", "h5", "#4094fc"]
-			 });
- 
-			 containerView.rowId = transform.id;
-
-			 containerView.add(addressLine1);
-			 containerView.add(addressLine2);
-
-			 containerView.add(rightBtn);
-			 rightBtn.addEventListener("click", didClickStoreChange);
-
-			 row2.add(containerView);
-			 $.pickupDetailsSection.add(row2);
-			 console.log("helllooo");
-		 } else {
-			 row2 = $.UI.create("TableViewRow", {
-				 apiName : "TableViewRow"
-			 }),
-
-			 containerView = $.UI.create("View", {
-				 apiName : "View",
-				 classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
-
-			 }),
-
-			 mailTo = $.UI.create("Label", {
-
-				 apiName : "Label",
-				 text : "Mail to:",
-				 classes : ["list-item-lbl", "left"]
-			 }),
-
-			 addressLine1 = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "1 Sanstome St.",
-				 classes : ["list-item-info-lbl", "left"]
-			 }),
-			 addressLine2 = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "San Franscisco,CA, 94103",
-				 classes : ["list-item-info-lbl", "left"]
-			 }),
- 
-			 wrongAddressLbl = $.UI.create("Label", {
-				 apiName : "Label",
-				 text : "Wrong address? Call your pharmacy to update",
-				 classes : ["list-item-lbl"]
-			 });
-
-			 containerView.rowId = transform.id;
-			 containerView.add(mailTo);
-			 containerView.add(addressLine1);
-			 containerView.add(addressLine2);
-
-			 containerView.add(wrongAddressLbl);
-			 wrongAddressLbl.addEventListener("click", didClickStoreChange);
- 
-			 row2.add(containerView);
-			 $.pickupDetailsSection.add(row2);
-		 }
+	    addressLine1 = $.UI.create("Label", {
+		apiName : "Label",
+		text : "1 Sanstome St.",
+		classes : ["list-item-info-lbl", "left"]
+	}),
+	    addressLine2 = $.UI.create("Label", {
+		apiName : "Label",
+		top: 30,
+		text : "San Franscisco,CA, 94103",
+		classes : ["list-item-info-lbl", "left"]
+	}),
+	    rightBtn = $.UI.create("Label", {
+		apiName : "Label",
+		text : "change",
+		classes : ["right", "width-45", "h5", "#4094fc"]
 	});
 
-	data.push($.pickupDetailsSection);
+	containerView.rowId = transform.id;
+
+	containerView.add(addressLine1);
+	containerView.add(addressLine2);
+
+	containerView.add(rightBtn);
+	rightBtn.addEventListener("click", didClickStoreChange);
+
+	row2.add(containerView);
+	$.pickupDetailsSection.add(row2);
+	console.log("row 2 added");
+
+	var row3 = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow"
+	}),
+
+	    containerView = $.UI.create("View", {
+		apiName : "View",
+		top : 50,
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right"]
+
+	}),
+
+	    mailTo = $.UI.create("Label", {
+
+		apiName : "Label",
+		text : "Mail to:",
+		classes : ["list-item-lbl", "left"]
+	}),
+
+	    addressLine1 = $.UI.create("Label", {
+		apiName : "Label",
+		text : "1 Sanstome St.",
+		classes : ["list-item-info-lbl", "left"]
+	}),
+	    addressLine2 = $.UI.create("Label", {
+		apiName : "Label",
+		text : "San Franscisco,CA, 94103",
+		classes : ["list-item-info-lbl", "left"]
+	}),
+
+	    wrongAddressLbl = $.UI.create("Label", {
+		apiName : "Label",
+		text : "Wrong address? Call your pharmacy to update",
+		classes : ["list-item-lbl"]
+	});
+
+	containerView.rowId = transform.id;
+	containerView.add(mailTo);
+	containerView.add(addressLine1);
+	containerView.add(addressLine2);
+
+	containerView.add(wrongAddressLbl);
+	wrongAddressLbl.addEventListener("click", didClickStoreChange);
+
+	row3.add(containerView);
+
+		
+//	$.pickupDetailsSection.add(row3);
+	console.log("row 3 added");
+
+	picker.on("return", function(e) {
+
+		Ti.API.info("your selected  " + picker.getSelectedItem().title);
+
+		if (picker.getSelectedItem().title == "Mail order") {
+		
+		} else {
+
+		}
+
+	});
+
+	// row2 = $.UI.create("View", {
+	// apiName : "View"
+	// }),
+	//
+	// containerView = $.UI.create("View", {
+	// apiName : "View",
+	// classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+	//
+	// }),
+	//
+	// mailTo = $.UI.create("Label", {
+	//
+	// apiName : "Label",
+	// text : "Mail to:",
+	// classes : ["list-item-lbl", "left"]
+	// }),
+	//
+	// addressLine1 = $.UI.create("Label", {
+	// apiName : "Label",
+	// text : "1 Sanstome St.",
+	// classes : ["list-item-info-lbl", "left"]
+	// }),
+	// addressLine2 = $.UI.create("Label", {
+	// apiName : "Label",
+	// text : "San Franscisco,CA, 94103",
+	// classes : ["list-item-info-lbl", "left"]
+	// }),
+	//
+	// wrongAddressLbl = $.UI.create("Label", {
+	// apiName : "Label",
+	// text : "Wrong address? Call your pharmacy to update",
+	// classes : ["list-item-lbl"]
+	// });
+	//
+	// containerView.rowId = transform.id;
+	// containerView.add(mailTo);
+	// containerView.add(addressLine1);
+	// containerView.add(addressLine2);
+	//
+	// containerView.add(wrongAddressLbl);
+	// wrongAddressLbl.addEventListener("click", didClickStoreChange);
+
+	//	 row2.add(containerView);
+	//	 $.pickupDetailsSection.add(row2);
+
+	//});
+
+
 
 	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
 
 }
 
+function didClickDone(e) {
+	if (e.selectemItem = "Mail order") {
+	//	$.pickupDetailsSection.remove(row2);
 
-function setParentViews(view)
-{
+	}
+
+}
+
+function setParentViews(view) {
 	picker.setParentView(view);
 }
 
@@ -264,8 +319,6 @@ function didSuccess() {
 
 function didClickPickUpOptions(event) {
 
-	
-
 	Ti.API.info("user selected   : " + event.selectedValue);
 
 };
@@ -287,7 +340,6 @@ function didClickStoreChange(e) {
 	});
 	alert("Stores under construction");
 }
-
 
 function didItemClick(e) {
 
