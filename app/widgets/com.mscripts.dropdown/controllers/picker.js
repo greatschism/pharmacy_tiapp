@@ -18,7 +18,7 @@ var args = arguments[0] || {},
     parent;
 
 (function() {
-	
+
 	$.picker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
 	if (_.has(args, "toolbarDict")) {
