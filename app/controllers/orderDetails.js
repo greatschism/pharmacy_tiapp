@@ -136,7 +136,7 @@ function init() {
 	    rightBtn = $.UI.create("Label", {
 		apiName : "Label",
 		text : "change",
-		classes : ["right", "width-45", "h5", "#4094fc"]
+		classes : ["right","left-10", "width-45", "h5", "#4094fc"]
 	});
 
 	containerView.rowId = transform.id;
@@ -149,15 +149,20 @@ function init() {
 
 	row2.add(containerView);
 	$.pickupDetailsSection.add(row2);
+	
 	console.log("row 2 added");
 
+
+
+
 	var row3 = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow"
+		apiName : "TableViewRow",
+		top:  10
 	}),
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-		top : 50,
+		
 		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
 
 	}),
@@ -172,11 +177,13 @@ function init() {
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
+		
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "San Franscisco,CA, 94103",
+		top : 20,
 		classes : ["list-item-info-lbl", "left"]
 	}),
 
@@ -197,7 +204,7 @@ function init() {
 	row3.add(containerView);
 
 		
-	$.pickupDetailsSection.add(row3);
+$.pickupDetailsSection.add(row3);
 	console.log("row 3 added");
 
 	picker.on("return", function(e) {
@@ -206,8 +213,11 @@ function init() {
 
 		if (picker.getSelectedItem().title == "Mail order") {
 		
+		$.tableView.deleteRow(row2);
+		
 		} else {
-
+          $.pickupDetailsSection.add(row2);
+          $.tableView.deleteRow(row3);
 		}
 
 	});
@@ -260,8 +270,17 @@ function init() {
 	//});
 
 
-
+data.push($.pickupDetailsSection);
 	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
+
+if(picker.getSelectedItem().title == "Mail Order")
+{
+	$.pickupDetailsSection.remove(row2);
+	console.log("deleted");
+	
+	
+}
+
 
 }
 
