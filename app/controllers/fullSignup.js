@@ -123,13 +123,7 @@ function didClickPharmacy(e) {
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	if (nextItem && $[nextItem]) {
-		if (!$[nextItem].apiName && $[nextItem].focus) {
-			$[nextItem].focus();
-		} else if ($[nextItem].showPicker) {
-			$[nextItem].showPicker();
-		} else {
-			_.isEmpty(Alloy.Models.store.toJSON()) ? $[nextItem].fireEvent("click") : didClickCreateAccount();
-		}
+		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : _.isEmpty(Alloy.Models.store.toJSON()) ? $[nextItem].fireEvent("click") : didClickCreateAccount();
 	} else {
 		didClickCreateAccount();
 	}

@@ -14,7 +14,7 @@ function setParentViews(_view) {
 }
 
 function moveToNext(e) {
-	$.dob.showPicker();
+	$.dob.focus();
 }
 
 function didClickNext() {

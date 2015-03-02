@@ -67,7 +67,7 @@ function handleScroll(e) {
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
-	nextItem ? $[nextItem] && $[nextItem].focus ? $[nextItem].focus() : $[nextItem].showPicker() : didClickSignup();
+	$[nextItem] && $[nextItem].focus ? $[nextItem].focus() : didClickSignup();
 }
 
 function didClickSignup(e) {
