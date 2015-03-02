@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    triggerChange = true;
 
 (function() {
 
@@ -16,8 +17,8 @@ function applyProperties(_dict) {
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-	if (_.has(_dict, "hintText")) {
-		if (OS_IOS || OS_MOBILEWEB) {
+	if (OS_IOS || OS_MOBILEWEB) {
+		if (_.has(_dict, "hintText")) {
 			options = _.pick(_dict, ["font", "textAlign"]);
 			_.extend(options, {
 				text : _dict.hintText
@@ -28,11 +29,7 @@ function applyProperties(_dict) {
 				});
 			}
 			$.hintLbl.applyProperties(options);
-		} else if (OS_ANDROID) {
-			$.txta.hintText = _dict.hintText;
-		}
-	} else {
-		if (OS_IOS || OS_MOBILEWEB) {
+		} else {
 			$.widget.remove($.hintLbl);
 		}
 	}
@@ -56,17 +53,22 @@ function didBlur(e) {
 		source : $
 	});
 	if (OS_MOBILEWEB && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value != "";
+		$.hintLbl.visible = $.txta.value == "";
 	}
 }
 
 function didChange(e) {
-	$.trigger("change", {
-		source : $
-	});
-	if (OS_IOS && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value != "";
+	if (OS_ANDROID && !triggerChange) {
+		triggerChange = true;
+		return;
 	}
+	if (OS_IOS && $.hintLbl) {
+		$.hintLbl.visible = $.txta.value == "";
+	}
+	$.trigger("change", {
+		source : $,
+		value : ($.txta.value || "").trim()
+	});
 }
 
 function didReturn(e) {
@@ -84,19 +86,29 @@ function blur() {
 	$.txta.blur();
 }
 
-function setValue(value) {
-	$.txta.setValue(value);
+function setValue(_value) {
+	if (OS_ANDROID) {
+		triggerChange = false;
+	}
+	$.txta.value = _value;
 	if ((OS_IOS || OS_MOBILEWEB) && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value != "";
+		$.hintLbl.visible = $.txta.value == "";
 	}
 }
 
 function getValue() {
-	return $.txta.getValue();
+	return ($.txta.value || "").trim();
+}
+
+function setSelection(_start, _end) {
+	if (OS_IOS || OS_ANDROID) {
+		$.txta.setSelection(_start, _end);
+	}
 }
 
 exports.blur = blur;
 exports.focus = focus;
 exports.setValue = setValue;
 exports.getValue = getValue;
+exports.setSelection = setSelection;
 exports.applyProperties = applyProperties;
