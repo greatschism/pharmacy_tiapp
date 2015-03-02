@@ -102,9 +102,7 @@ function setItems(_items) {
 	var data = [];
 	for (var i in items) {
 		data.push(getRow({
-			title : items[i].title,
-			iconText : items[i].iconText || "",
-			iconColor : items[i].iconColor || optioDict.color || "#000"
+			title : items[i].title
 		}));
 	}
 	$.tableView.setData(data);

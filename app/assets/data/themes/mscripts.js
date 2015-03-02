@@ -929,7 +929,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF"
 			},
 			"optionpicker" : {
-				"left": 12,
+				"left" : 12,
 				"right" : 12,
 				"optionPadding" : {
 					"top" : 12,
@@ -945,6 +945,8 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
+				"unSelectedIconColor" : "#A6A8AB",
+				"selectedIconColor" : "#00A14B",
 				"color" : "#000000",
 				"separatorInsets" : {
 					"left" : 0,
