@@ -50,38 +50,45 @@ function init() {
 			}),
 			    footerView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["footer-view-break", "auto-height"]
+				horizontalWrap : "false",
+				
+				classes : ["hgroup","auto-height"]
 			}),
-			    contentView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["auto", "hgroup", "touch-disabled", "#4094fc"]
-			}),
-
+			    
 			    addIcon = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["success-filled", "fg-primary", "touch-disabled"],
-				id : "addIcon"
+				height: 50,
+				width : 32,
+				font :{
+					fontSize : 20
+				},
+				text : Alloy.CFG.icons.addition,
+				color : "#599DFF",
+				classes : ["left","paddingLeft","paddingTop","paddingBottom","additionIcon", "small-icon"]
+				
 			}),
 			    addLbl = $.UI.create("Label", {
 				apiName : "Label",
-				text : " + Add more prescription",
-				classes : ["padding-left", "h4", "#ffffff", "touch-disabled"],
-				id : "addLbl"
+				text : " Add more prescription",
+				color: "#000000",
+				classes : ["width-90","padding-left","auto-height"]
+				
 			});
 
 			containerView.rowId = transform.id;
 			title.text = transform.name;
 			containerView.add(title);
 			row.add(containerView);
-			footerView.height = Alloy._content_height;
-			contentView.add(addIcon);
-			contentView.add(addLbl);
-			footerView.add(contentView);
+			
+			footerView.add(addIcon);
+			footerView.add(addLbl);
+			
 			footerView.addEventListener("click", didClickAddAnotherPrescription);
 		}
 		$.yourOrderSection = uihelper.createTableViewSection($, strings.sectionYourOrder, footerView);
 
 		$.yourOrderSection.add(row);
+		
 
 		data.push($.yourOrderSection);
 	}
@@ -113,9 +120,8 @@ function init() {
 	$.pickupDetailsSection.add(row);
 
 	var row2 = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow",
-		classes : ["#4bccde", "height-50", "top"]
-	}),
+		apiName : "TableViewRow"
+		}),
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
@@ -126,7 +132,7 @@ function init() {
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
-		classes : ["list-item-info-lbl", "left"]
+		classes : ["list-item-info-lbl", "left","bold"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
@@ -137,7 +143,8 @@ function init() {
 	    rightBtn = $.UI.create("Label", {
 		apiName : "Label",
 		text : "change",
-		classes : ["right", "left-10", "width-45", "h5", "#4094fc"]
+		color :" #599DFF",
+		classes : ["right", "left-10", "width-45", "h4"]
 	});
 
 	containerView.rowId = transform.id;
@@ -152,15 +159,11 @@ function init() {
 	$.pickupDetailsSection.add(row2);
 
 	console.log("row 2 added");
-
-	picker.on("return", function(e) {
-
-		Ti.API.info("you selected  " + picker.getSelectedItem().title);
-
-		if (picker.getSelectedItem().title == "Mail order") {
-
-			$.tableView.deleteRow(row2);
-
+	
+	
+	//row 3
+	
+	
 			var row3 = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow",
 				top : 10
@@ -177,11 +180,12 @@ function init() {
 
 				apiName : "Label",
 				text : "Mail to:",
-				classes : ["list-item-lbl", "left"]
+				classes : ["list-item-info-lbl", "left"]
 			}),
 
 			    addressLine1 = $.UI.create("Label", {
 				apiName : "Label",
+				top: 10,
 				text : "1 Sanstome St.",
 
 				classes : ["list-item-info-lbl", "left"]
@@ -195,45 +199,59 @@ function init() {
 
 			    wrongAddressLbl = $.UI.create("Label", {
 				apiName : "Label",
+				top: 10,
+				color : "#599DFF",
 				text : "Wrong address? Call your pharmacy to update",
-				classes : ["list-item-lbl"]
+				classes : ["list-item-info-lbl"]
 			});
 
 			containerView.rowId = transform.id;
 			containerView.add(mailTo);
 			containerView.add(addressLine1);
 			containerView.add(addressLine2);
-
-			containerView.add(wrongAddressLbl);
-			wrongAddressLbl.addEventListener("click", didClickStoreChange);
+            containerView.add(wrongAddressLbl);
+			wrongAddressLbl.addEventListener("click", didClickCallPharmacy);
 
 			row3.add(containerView);
 
-			$.pickupDetailsSection.add(row3);
+		//	$.pickupDetailsSection.add(row3);
 			console.log("row 3 added");
+	
+	
 
-		} else {
-			$.pickupDetailsSection.add(row2);
+	
+	//data.push($.pickupDetailsSection);
+	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
+
+      picker.on("return", function(e) {
+
+		Ti.API.info("you selected  " + picker.getSelectedItem().title);
+if(picker.getSelectedItem().title == "In store pickup"){
+			
+			$.tableView.appendRow(row2);
 			$.tableView.deleteRow(row3);
+			console.log("row 2 added ");
+		
 		}
+
+else if (picker.getSelectedItem().title == "Mail order") {
+
+			$.tableView.deleteRow(row2);
+			$.tableView.appendRow(row3);
+			console.log("row 3 added");
+			
+
+		} 
 
 	});
 
-	data.push($.pickupDetailsSection);
-	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
-
-	if (picker.getSelectedItem().title == "Mail Order") {
-		$.pickupDetailsSection.remove(row2);
-		console.log("deleted");
-
-	}
 
 }
 
 function didClickDone(e) {
 	if (e.getSelectemItem() = "Mail order") {
-		$.pickupDetailsSection.add(row3);
-
+	//	$.pickupDetailsSection.add(row3);
+      
 	}
 
 }
@@ -304,6 +322,12 @@ function didClickStoreChange(e) {
 		ctrl : "stores"
 	});
 	alert("Stores under construction");
+}
+
+function didClickCallPharmacy(e)
+{
+	var number ="8383838383";
+	Titanium.platform.openURL('tel:'+number);
 }
 
 function didItemClick(e) {
