@@ -151,7 +151,7 @@ function didClickAgreement(e) {
 	app.navigator.open({
 		ctrl : "termsAndConditions",
 		titleid : "titleTermsAndConditions",
-		stack : "true"
+		stack : true
 	});
 }
 

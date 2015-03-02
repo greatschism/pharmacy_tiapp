@@ -25,8 +25,8 @@ function transformFunction(model) {
 }
 
 function didItemClick(e) {
-	var model = Alloy.Collections.menuItems.at(e.index);
-	var itemObj = model.toJSON();
+	var model = Alloy.Collections.menuItems.at(e.index),
+	    itemObj = model.toJSON();
 	app.navigator.hamburger.closeLeftMenu(function() {
 		if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentRootParams.ctrl) {
 			if (itemObj.requires_login && !Alloy.Globals.loggedIn) {
@@ -58,11 +58,9 @@ function didItemClick(e) {
 									patients : {}
 								});
 								Alloy.Collections.menuItems.remove(model);
-								app.navigator.closeToRoot(function() {
-									app.navigator.open(startupParams, function() {
-										dialog.show({
-											message : Alloy.Globals.strings.msgSignedoutSuccessfully
-										});
+								app.navigator.open(startupParams, function() {
+									dialog.show({
+										message : Alloy.Globals.strings.msgSignedoutSuccessfully
 									});
 								});
 							}

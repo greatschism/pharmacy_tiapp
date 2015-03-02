@@ -23,11 +23,9 @@ function initHamburger() {
 
 function didOpen() {
 	if (!_.isEmpty(app.navigator)) {
-		app.navigator.closeToRoot(function() {
-			app.navigator.close(1, function() {
-				app.terminate();
-				initHamburger();
-			});
+		app.navigator.closeAll(function() {
+			app.terminate();
+			initHamburger();
 		});
 	} else {
 		initHamburger();

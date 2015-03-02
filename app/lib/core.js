@@ -139,9 +139,7 @@ var App = {
 	},
 
 	resetNavigator : function() {
-		App.navigator.closeToRoot(function() {
-			App.navigator.open(App.navigator.startupParams);
-		});
+		App.navigator.open(App.navigator.startupParams);
 	},
 
 	/**
@@ -239,7 +237,7 @@ var App = {
 	 * @param {Object} _event Standard Ti callback
 	 */
 	back : function(_event) {
-		App.navigator.close(1, null, true);
+		App.navigator.close(1, null, true, null, true);
 	},
 
 	/**

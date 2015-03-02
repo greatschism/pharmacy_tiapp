@@ -12,11 +12,7 @@ var args = arguments[0] || {},
 
 	if (args.stack) {
 		$.leftIconLbl.text = icons.back;
-		$.template.applyProperties({
-			opacity : 0,
-			zIndex : 3,
-			left : app.device.width
-		});
+		$.template.zIndex = 3;
 	} else {
 		$.leftIconLbl.text = icons.hamburger;
 	}

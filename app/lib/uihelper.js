@@ -75,9 +75,11 @@ var UIHelper = {
 		    path = properties.image,
 		    newWidth = properties.width || 0,
 		    newHeight = properties.height || 0,
-		    newProperties = false;
+		    newProperties = {};
 		if (newWidth == 0 || newHeight == 0) {
 			if (_.has(properties, "left") && _.has(properties, "right")) {
+				properties.left = utilities.percentageToValue(properties.left, app.device.width);
+				properties.right = utilities.percentageToValue(properties.right, app.device.width);
 				newWidth = app.device.width - (properties.left + properties.right);
 				newProperties = {
 					left : properties.left,
@@ -100,14 +102,10 @@ var UIHelper = {
 					imgHeight /= app.device.logicalDensityFactor;
 				}
 				if (newWidth == 0) {
-					if (_.isString(newHeight) && newHeight.indexOf("%") >= 0) {
-						newHeight = (app.device.height / 100) * parseInt(newHeight);
-					}
+					newHeight = utilities.percentageToValue(newHeight, app.device.height);
 					newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
 				} else if (newHeight == 0) {
-					if (_.isString(newWidth) && newWidth.indexOf("%") >= 0) {
-						newWidth = (app.device.width / 100) * parseInt(newWidth);
-					}
+					newWidth = utilities.percentageToValue(newWidth, app.device.width);
 					newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
 				}
 				_.extend(newProperties, {

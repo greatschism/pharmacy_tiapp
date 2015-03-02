@@ -164,6 +164,19 @@ var Utility = {
 	},
 
 	/**
+	 * percentage to actual points
+	 * @param {String} _percentage
+	 * @param {Number} _number
+	 * @return {Number} converted value
+	 */
+	percentageToValue : function(_percentage, _number) {
+		if (_.isString(_percentage) && _percentage.indexOf("%") >= 0) {
+			_percentage = (_number / 100) * parseInt(_percentage);
+		}
+		return _percentage;
+	},
+
+	/**
 	 * Adds thousands separators to a number
 	 * @param {Number} _number The number to perform the action on
 	 */

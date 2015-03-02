@@ -33,12 +33,6 @@ function Navigation(_args) {
 	this.logger = require("logger");
 
 	/**
-	 * utilities
-	 * @type {Utilities}
-	 */
-	this.utilities = require("utilities");
-
-	/**
 	 * name of the navigator
 	 * @type {String}
 	 */
@@ -103,7 +97,7 @@ function Navigation(_args) {
 	 * @param {Object} _params The arguments for the method
 	 */
 	this.setStartupParams = function(_params) {
-		that.startupParams = that.utilities.clone(_params);
+		that.startupParams = require("utilities").clone(_params);
 	};
 
 	/**
@@ -116,29 +110,25 @@ function Navigation(_args) {
 	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
 	 * @param {Boolen} _params.stack if true opens the Controller as a detail page
 	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
 	 * @return {Controller} Returns the new controller
 	 */
-	this.open = function(_params, _callback) {
+	this.open = function(_params, _callback, _animate, _animDict) {
 
 		if (that.isBusy) {
 			return;
 		}
 
+		if (_params.stack) {
+			return that.push(_params, _callback, _animate, _animDict);
+		} else if (that.controllers.length > 1) {
+			return that.replace(_params, _callback, _animate, _animDict);
+		}
+
 		that.isBusy = true;
 
 		that.hideKeyboard();
-
-		/**
-		 *  if _params.stack is true (or) that.controllers.length > 1 (if a detail view is already opened on stack)
-		 */
-		if (!_.has(_params, "stack")) {
-			_params.stack = that.controllers.length > 1;
-		}
-
-		if (_params.stack) {
-			that.isBusy = false;
-			return that.push(_params, _callback);
-		}
 
 		if (!that.startupParams) {
 			that.setStartupParams(_params);
@@ -151,28 +141,80 @@ function Navigation(_args) {
 
 		that.init(controller);
 
+		if (_animate) {
+
+			if (!_animDict) {
+				_animDict = {
+					initDict : {
+						opacity : 0
+					},
+					terminateDict : {
+						opacity : 1
+					},
+					animation : {
+						opacity : 1,
+						duration : Alloy.CFG.ANIMATION_DURATION
+					}
+				};
+			}
+
+			if (_animDict.initDict) {
+				view.applyProperties(_animDict.initDict);
+			}
+
+		}
+
 		view.addEventListener("postlayout", function postlayout() {
 
 			//post layout event can take us to a endless loop. so remove it
 			view.removeEventListener("postlayout", postlayout);
 
-			// Handle removing the current controller from the screen
-			if (that.currentController) {
-				that.terminate();
-				that.window.remove(that.currentController.getView());
-				that.controllers.pop();
+			var animCallback = function() {
+
+				// Handle removing the current controller from the screen
+				if (that.currentController) {
+
+					that.terminate();
+
+					that.window.remove(that.currentController.getView());
+
+					that.controllers.pop();
+				}
+
+				that.controllers.push(controller);
+
+				that.currentController = controller;
+
+				//that.testOutput();
+
+				that.isBusy = false;
+
+				if (_callback) {
+					_callback();
+				}
+			};
+
+			if (_animate) {
+
+				var animation = Ti.UI.createAnimation(_animDict.animation);
+
+				animation.addEventListener("complete", function onComplete() {
+
+					animation.removeEventListener("complete", onComplete);
+
+					view.applyProperties(_animDict.terminateDict || _animDict.animation);
+
+					animCallback();
+				});
+
+				view.animate(animation);
+
+			} else {
+
+				animCallback();
+
 			}
 
-			that.controllers.push(controller);
-			that.currentController = controller;
-
-			//that.testOutput();
-
-			that.isBusy = false;
-
-			if (_callback) {
-				_callback();
-			}
 		});
 
 		that.window.add(view);
@@ -184,9 +226,11 @@ function Navigation(_args) {
 	 * Pushes a screen controller on top of the stack
 	 * @param {Object} _params The arguments for the method
 	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
 	 * @return {Controller} Returns the new controller
 	 */
-	this.push = function(_params, _callback) {
+	this.push = function(_params, _callback, _animate, _animDict) {
 
 		if (that.isBusy) {
 			return;
@@ -201,24 +245,128 @@ function Navigation(_args) {
 
 		that.init(controller);
 
+		if (_animate !== false) {
+
+			if (!_animDict) {
+				_animDict = {
+					initDict : {
+						opacity : 0,
+						left : that.device.width
+					},
+					terminateDict : {
+						opacity : 1,
+						left : 0
+					},
+					animation : {
+						opacity : 1,
+						left : 0,
+						duration : Alloy.CFG.ANIMATION_DURATION
+					}
+				};
+			}
+
+			if (_animDict.initDict) {
+				view.applyProperties(_animDict.initDict);
+			}
+
+		}
+
 		view.addEventListener("postlayout", function postlayout() {
 
 			//post layout event can take us to a endless loop. so remove it
 			view.removeEventListener("postlayout", postlayout);
 
-			that.animateIn(view, function() {
+			var animCallback = function() {
 
 				that.currentController.getView().visible = false;
 
 				that.controllers.push(controller);
+
 				that.currentController = controller;
+
+				//that.testOutput();
+
+				that.isBusy = false;
 
 				if (_callback) {
 					_callback();
 				}
-			});
+			};
 
-			//that.testOutput();
+			if (_animate !== false) {
+
+				var animation = Ti.UI.createAnimation(_animDict.animation);
+
+				animation.addEventListener("complete", function onComplete() {
+
+					animation.removeEventListener("complete", onComplete);
+
+					view.applyProperties(_animDict.terminateDict || _animDict.animation);
+
+					animCallback();
+				});
+
+				view.animate(animation);
+
+			} else {
+
+				animCallback();
+
+			}
+
+		});
+
+		that.window.add(view);
+
+		return controller;
+	};
+
+	/**
+	 * Replaces the entire stack
+	 * @param {Object} _params The arguments for the method
+	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
+	 * @return {Controller} Returns the new controller
+	 */
+	this.replace = function(_params, _callback, _animate, _animDict) {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		that.isBusy = true;
+
+		that.hideKeyboard();
+
+		that.currentRootParams = _params;
+
+		var controller = Alloy.createController("hamburger/template", that.currentRootParams),
+		    view = controller.getView();
+
+		that.init(controller);
+
+		view.addEventListener("postlayout", function postlayout() {
+
+			//post layout event can take us to a endless loop. so remove it
+			view.removeEventListener("postlayout", postlayout);
+
+			// add as the first element
+			that.controllers.unshift(controller);
+
+			that.isBusy = false;
+
+			//close all on stack in background
+			that.closeToRoot(function() {
+
+				//that.testOutput();
+
+				if (_callback) {
+					_callback();
+				}
+
+			}, _animate, _animDict);
+
 		});
 
 		that.window.add(view);
@@ -230,9 +378,11 @@ function Navigation(_args) {
 	 * Close the controller at the top of the stack
 	 * @param {Number} _count - number of pages to be close, by default 1
 	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
 	 * @param {Boolean} _backButton
 	 */
-	this.close = function(_count, _callback, _backButton) {
+	this.close = function(_count, _callback, _animate, _animDict, _backButton) {
 
 		if (that.isBusy) {
 			return;
@@ -241,21 +391,34 @@ function Navigation(_args) {
 		that.isBusy = true;
 
 		if (OS_ANDROID && _backButton === true) {
+
 			if (that.loader != null) {
+
 				that.isBusy = false;
+
 				return;
 			}
+
 			if (_.isFunction(that.currentController.child.backButtonHandler)) {
+
 				that.isBusy = false;
+
 				that.currentController.child.backButtonHandler(true);
+
 				return;
 			}
+
 			if (_.isFunction(that.currentController.child.androidback) && that.currentController.child.androidback()) {
+
 				that.isBusy = false;
+
 				return;
 			}
+
 			if (that.hamburger.closeLeftMenu()) {
+
 				that.isBusy = false;
+
 				return;
 			}
 		}
@@ -267,14 +430,20 @@ function Navigation(_args) {
 			var condition = OS_ANDROID && _backButton === true;
 
 			if (condition && _.isObject(that.startupParams) && that.startupParams.ctrl != that.currentRootParams.ctrl) {
+
 				that.isBusy = false;
+
 				return that.open(that.startupParams);
 			}
 
 			if (OS_IOS || OS_MOBILEWEB || condition) {
+
 				that.terminate();
+
 				that.controllers = [];
+
 				that.currentController = null;
+
 				that.window.close();
 			}
 
@@ -290,51 +459,118 @@ function Navigation(_args) {
 			that.terminate();
 
 			var removeControllers = that.controllers.splice(len - count, count);
+
 			for (var i = 0,
+
 			    x = removeControllers.length - 1; i < x; i++) {
+
 				that.terminate(removeControllers[i]);
+
 				that.window.remove(removeControllers[i].getView());
 			}
 
 			var controllerToOpen = that.controllers[that.controllers.length - 1];
+
 			controllerToOpen.getView().visible = true;
 
-			that.animateOut(that.currentController.getView(), function() {
+			var animCallback = function() {
+
+				that.window.remove(that.currentController.getView());
 
 				that.currentController = controllerToOpen;
 
 				//that.testOutput();
 
+				that.isBusy = false;
+
 				if (_callback) {
 					_callback();
 				}
+			};
 
-			});
+			if (_animate !== false) {
+
+				if (!_animDict) {
+					_animDict = {
+						initDict : {
+							opacity : 1,
+							left : 0
+						},
+						animation : {
+							opacity : 0,
+							left : that.device.width,
+							duration : Alloy.CFG.ANIMATION_DURATION
+						}
+					};
+				}
+
+				if (_animDict.initDict) {
+					that.currentController.getView().applyProperties(_animDict.initDict);
+				}
+
+				var animation = Ti.UI.createAnimation(_animDict.animation);
+
+				animation.addEventListener("complete", function onComplete() {
+
+					animation.removeEventListener("complete", onComplete);
+
+					animCallback();
+				});
+
+				that.currentController.getView().animate(animation);
+
+			} else {
+
+				animCallback();
+
+			}
 		}
+	};
+
+	/**
+	 * Close all controllers in the stack
+	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
+	 */
+	this.closeAll = function(_callback, _animate, _animDict) {
+		that.closeToRoot(function() {
+			that.close(1, function() {
+				if (_callback) {
+					_callback();
+				}
+			}, _animate || false, _animDict);
+		}, _animate || false, _animDict);
 	};
 
 	/**
 	 * Close all controllers except the first in the stack
 	 * @param {Function} _callback
+	 * @param {Boolean} _animate
+	 * @param {Object} _animDict
 	 */
-	this.closeToRoot = function(_callback) {
+	this.closeToRoot = function(_callback, _animate, _animDict) {
 
 		if (that.isBusy) {
 			return;
 		}
 
 		if (that.controllers.length == 1) {
+
 			if (_callback) {
 				_callback();
 			}
+
 			return;
 		}
 
 		that.close(that.controllers.length - 1, function() {
+
 			if (_callback) {
 				_callback();
 			}
-		});
+
+		}, _animate, _animDict);
 	};
 
 	/**
@@ -388,8 +624,11 @@ function Navigation(_args) {
 	 * @param {Controller} _controller
 	 */
 	this.init = function(_controller) {
+
 		var controller = _controller || that.currentController;
+
 		if (_.isFunction(controller.child.init)) {
+
 			controller.child.init();
 		}
 	};
@@ -399,109 +638,22 @@ function Navigation(_args) {
 	 * @param {Controller} _controller
 	 */
 	this.terminate = function(_controller) {
+
 		var controller = _controller || that.currentController;
+
 		if (_.isFunction(controller.child.terminate)) {
+
 			controller.child.terminate();
 		}
-	};
-
-	/**
-	 * Animate in a screen controller
-	 * @param {View} _view
-	 * @param {Function} _callback
-	 */
-	this.animateIn = function(_view, _callback) {
-
-		var animation = Ti.UI.createAnimation({
-			opacity : 1,
-			left : 0,
-			duration : Alloy.CFG.ANIMATION_DURATION
-		});
-
-		animation.addEventListener("complete", function onComplete() {
-
-			_view.applyProperties({
-				opacity : 1,
-				left : 0
-			});
-
-			animation.removeEventListener("complete", onComplete);
-
-			that.isBusy = false;
-
-			if (_callback) {
-				_callback();
-			}
-
-		});
-
-		_view.animate(animation);
-	};
-
-	/**
-	 * Animate out a screen controller
-	 * @param {View} _controller
-	 * @param {Function} _callback
-	 */
-	this.animateOut = function(_view, _callback) {
-
-		var animation = Ti.UI.createAnimation({
-			opacity : 0,
-			left : that.device.width,
-			duration : Alloy.CFG.ANIMATION_DURATION
-		});
-
-		animation.addEventListener("complete", function onComplete() {
-
-			that.window.remove(_view);
-
-			animation.removeEventListener("complete", onComplete);
-
-			that.isBusy = false;
-
-			if (_callback) {
-				_callback();
-			}
-
-		});
-
-		_view.animate(animation);
-	};
-
-	/**
-	 * Animate fade out a screen controller
-	 * @param {View} _controller
-	 * @param {Function} _callback
-	 */
-	this.fadeOut = function(_view, _callback) {
-
-		var animation = Ti.UI.createAnimation({
-			opacity : 0,
-			duration : Alloy.CFG.ANIMATION_DURATION
-		});
-
-		animation.addEventListener("complete", function onComplete() {
-
-			that.window.remove(_view);
-
-			animation.removeEventListener("complete", onComplete);
-
-			that.isBusy = false;
-
-			if (_callback) {
-				_callback();
-			}
-
-		});
-
-		_view.animate(animation);
 	};
 
 	/**
 	 *hides the keyboard
 	 */
 	this.hideKeyboard = function() {
+
 		if (that.keyboard) {
+
 			that.keyboard.hide();
 		}
 	};
@@ -511,9 +663,13 @@ function Navigation(_args) {
 	 * @param {Object} _params
 	 */
 	this.showLoader = function(_params) {
+
 		if (that.loader == null) {
+
 			that.hideKeyboard();
+
 			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", _params);
+
 			that.window.add(that.loader.getView());
 		}
 	};
@@ -522,17 +678,22 @@ function Navigation(_args) {
 	 *un-block ui
 	 */
 	this.hideLoader = function() {
+
 		if (that.loader != null) {
+
 			that.window.remove(that.loader.getView());
+
 			that.loader = null;
 		}
 	};
 
 	/**
-	 *un-block ui
+	 * set loader message
 	 */
 	this.setMessage = function(message) {
+
 		if (that.loader != null) {
+
 			that.loader.setMessage(message);
 		}
 	};
@@ -545,11 +706,14 @@ function Navigation(_args) {
 		var stack = [];
 
 		for (var i = 0,
+
 		    x = that.controllers.length; i < x; i++) {
+
 			stack.push(that.controllers[i].getView());
 		}
 
 		that.logger.d(JSON.stringify(stack));
+
 		that.logger.d("Stack Length: " + that.controllers.length);
 	};
 }

@@ -7,8 +7,9 @@ function initStack() {
 	app.setNavigator({
 		type : "stack"
 	});
-	app.navigator.setStartupParams(args);
-	app.navigator.open(args);
+	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
+	landing_page: true
+	})[0].toJSON());
 	if (args.triggerUpdate === true) {
 		app.update();
 	}
@@ -16,11 +17,9 @@ function initStack() {
 
 function didOpen(e) {
 	if (!_.isEmpty(app.navigator)) {
-		app.navigator.closeToRoot(function() {
-			app.navigator.close(1, function() {
-				app.terminate();
-				initStack();
-			});
+		app.navigator.closeAll(function() {
+			app.terminate();
+			initStack();
 		});
 	} else {
 		initStack();

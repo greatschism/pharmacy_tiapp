@@ -12,10 +12,6 @@ var args = arguments[0] || {},
 
 	if (args.stack) {
 		$.leftIconLbl.text = icons.back;
-		$.template.applyProperties({
-			opacity : 0,
-			left : app.device.width
-		});
 	} else {
 		$.leftIconLbl.visible = false;
 	}
