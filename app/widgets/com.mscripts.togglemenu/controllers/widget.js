@@ -1,4 +1,6 @@
 var args = arguments[0] || {},
+    MAX_WIDTH = (Ti.Platform.displayCaps.platformWidth / 100) * 65,
+    MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 65,
     items = [],
     optionPadding = args.optionPadding || {},
     optioDict = {
@@ -9,9 +11,16 @@ var args = arguments[0] || {},
 	wordWrap : false
 };
 
+if (OS_ANDROID) {
+	MAX_WIDTH /= Ti.Platform.displayCaps.logicalDensityFactor;
+	MAX_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
+}
+
 (function() {
 
 	$.role = args.role || "overlay";
+
+	args.width = MAX_WIDTH;
 
 	if (_.has(args, "overlayDict")) {
 		$.overlayView.applyProperties(args.overlayDict);
@@ -91,7 +100,7 @@ function setItems(_items) {
 	var top = optionPadding.top || 0,
 	    bottom = optionPadding.bottom || 0,
 	    height = items.length * (top + bottom + optioDict.font.fontSize + 5);
-	$.containerView.height = height > 330 ? 330 : height;
+	$.containerView.height = height > MAX_HEIGHT ? MAX_HEIGHT : height;
 	var data = [];
 	for (var i in items) {
 		data.push(getRow({
