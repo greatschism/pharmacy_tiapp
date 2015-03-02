@@ -902,7 +902,35 @@ module.exports = {
 			},
 			"togglemenu" : {
 				"right" : 12,
-				"width" : 180,
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"color" : "#000000",
+				"separatorInsets" : {
+					"left" : 0,
+					"right" : 0
+				},
+				"separatorColor" : "#808285",
+				"overlayDict" : {
+					"backgroundColor" : "#000000",
+					"opacity" : 0.4
+				},
+				"backgroundColor" : "#FFFFFF"
+			},
+			"optionpicker" : {
+				"left": 12,
+				"right" : 12,
 				"optionPadding" : {
 					"top" : 12,
 					"bottom" : 12,

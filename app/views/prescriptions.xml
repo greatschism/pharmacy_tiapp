@@ -1,7 +1,15 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
 	<Widget id="sortMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickSort" />
-	<Widget id="unhideMenu" src="com.mscripts.togglemenu" class="togglemenu"  />
+	<Widget id="unhideMenu" src="com.mscripts.optionpicker" class="optionpicker">
+		<View class="default-height margin-left margin-right margin-top padding-bottom" role="headerView">
+			<Button title="Select none" class="left width-50 thirtiary-btn-small" />
+			<Button title="Select all" class="right width-50 thirtiary-btn-small" />
+			<View class="vseparator" />
+			<View class="bottom hseparator" />
+			<View class="top hseparator" />
+		</View>
+	</Widget>
 	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">
 		<Label id="toggleBtn" class="margin-right nav-icon" />
 	</View>

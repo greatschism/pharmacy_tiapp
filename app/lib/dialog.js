@@ -20,7 +20,7 @@
 exports.show = function(_params) {
 	var dict = {
 		title : _params.title || Ti.App.name,
-		message : ( OS_IOS ? "\n" : "").concat(_params.message || "")
+		persistent : _params.persistent || false
 	};
 	if (_.has(_params, "buttonNames")) {
 		_.extend(dict, {
@@ -32,14 +32,19 @@ exports.show = function(_params) {
 			ok : _params.ok || Alloy.Globals.strings.strOK
 		});
 	}
+	if (OS_IOS && _.has(_params, "style")) {
+		dict.style = _params.style;
+	}
 	if (OS_ANDROID && _.has(_params, "androidView")) {
-		dialog.androidView = _params.androidView;
+		dict.androidView = _params.androidView;
+	} else {
+		dict.message = ( OS_IOS ? "\n" : "").concat(_params.message || "");
 	}
 	var dialog = Ti.UI.createAlertDialog(dict);
 	dialog.addEventListener("click", function(e) {
 		var cancel = _params.cancelIndex || -1;
 		if (_params.success && e.index !== cancel) {
-			_params.success(e.index);
+			_params.success(e.index, e);
 		} else if (_params.cancel && e.index === cancel) {
 			_params.cancel();
 		}

@@ -900,7 +900,6 @@
 	role: "overlay",
 	top: Alloy.CFG.navBarHeight,
 	right: Alloy.TSS.togglemenu.right,
-	width: Alloy.TSS.togglemenu.width,
 	optionPadding: Alloy.TSS.togglemenu.optionPadding,
 	font: Alloy.TSS.togglemenu.font,
 	iconFont: Alloy.TSS.togglemenu.iconFont,
@@ -909,6 +908,23 @@
 	separatorColor: Alloy.TSS.togglemenu.separatorColor,
 	overlayDict: Alloy.TSS.togglemenu.overlayDict,
 	backgroundColor: Alloy.TSS.togglemenu.backgroundColor
+},
+/**
+* 	option picker
+*/
+".optionpicker":{
+	role: "overlay",
+	top: Alloy.CFG.navBarHeight,
+	left: Alloy.TSS.optionpicker.left,
+	right: Alloy.TSS.optionpicker.right,
+	optionPadding: Alloy.TSS.optionpicker.optionPadding,
+	font: Alloy.TSS.optionpicker.font,
+	iconFont: Alloy.TSS.optionpicker.iconFont,
+	color: Alloy.TSS.optionpicker.color,
+	separatorInsets: Alloy.TSS.optionpicker.separatorInsets,
+	separatorColor: Alloy.TSS.optionpicker.separatorColor,
+	overlayDict: Alloy.TSS.optionpicker.overlayDict,
+	backgroundColor: Alloy.TSS.optionpicker.backgroundColor
 },
 /**
 * 	tooltip

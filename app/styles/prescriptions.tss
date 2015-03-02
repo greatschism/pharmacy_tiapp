@@ -27,12 +27,7 @@
 	right: 12,
 	width: 295,
 	left: 12
-}
-"#unhideMenu":{
-	right: 12,
-	left: 12,
-	width: 295
-}
+},
 "#searchbarView":{
 	opacity: 0
 },

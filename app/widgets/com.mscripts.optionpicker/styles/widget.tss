@@ -1,0 +1,15 @@
+"#widget":{
+	zIndex: 0,
+	opacity: 0,
+	visible: false
+},
+"#overlayView":{
+	touchEnabled: false
+},
+"#containerView":{
+	top: 0,
+	height: "65%"
+},
+"#tableView[platform=ios]":{
+	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+}
