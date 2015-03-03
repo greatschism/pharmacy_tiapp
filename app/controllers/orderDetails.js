@@ -26,10 +26,9 @@ function init() {
 		id : 1,
 		name : "Januvia, 100mg tab"
 
-	},
-	{
-		id: 2,
-		name: "Ciplox, 250mg tab"
+	}, {
+		id : 2,
+		name : "Ciplox, 250mg tab"
 	}];
 	data = [];
 
@@ -61,8 +60,7 @@ function init() {
 			$.yourOrderSection.add(row);
 		}
 
-	
- // add more prescriptions
+		// add more prescriptions
 		var row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
 		}),
@@ -70,17 +68,18 @@ function init() {
 		    footerView = $.UI.create("View", {
 			apiName : "View",
 			horizontalWrap : "false",
-			classes : ["hgroup", "auto-height"]
+			classes : ["hgroup", "auto-height","padding-top", "padding-bottom", "margin-left", "margin-right"]
 		}),
 
 		    addIcon = $.UI.create("Label", {
 			apiName : "Label",
 			height : 32,
+			left : 10,
 			width : 32,
 			font : {
 				fontSize : 20
 			},
-			text : Alloy.CFG.icons.addition,
+			text : Alloy.CFG.icons.plus,
 			color : "#599DFF",
 			classes : ["paddingLeft", "paddingTop", "paddingBottom", "additionIcon", "small-icon"]
 
@@ -101,7 +100,7 @@ function init() {
 
 		data.push($.yourOrderSection);
 	}
-// pickup details section
+	// pickup details section
 	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails);
 
 	var row = $.UI.create("TableViewRow", {
@@ -141,7 +140,7 @@ function init() {
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
-		
+
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
@@ -153,8 +152,9 @@ function init() {
 	    rightBtn = $.UI.create("Label", {
 		apiName : "Label",
 		text : "change",
+	    right: 10,
 		color : " #599DFF",
-		classes : ["right", "paddingLeft", "width-45", "h2"]
+		classes : ["right", "padding-right", "width-45", "h2"]
 	});
 
 	containerView.rowId = transform.id;
@@ -179,12 +179,12 @@ function init() {
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-    	classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
+	//	classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
 
 	}),
 
 	    mailTo = $.UI.create("Label", {
-        apiName : "Label",
+		apiName : "Label",
 		text : "Mail to:",
 		classes : ["list-item-info-lbl", "left"]
 	}),
@@ -193,7 +193,7 @@ function init() {
 		apiName : "Label",
 		top : 10,
 		text : "1 Sanstome St.",
-        classes : ["list-item-info-lbl", "left"]
+		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
@@ -207,7 +207,7 @@ function init() {
 		top : 10,
 		color : "#599DFF",
 		text : "Wrong address? Call your pharmacy to update",
-		classes : ["list-item-info-lbl","left"]
+		classes : ["list-item-info-lbl", "left"]
 	});
 
 	containerView.rowId = transform.id;
@@ -219,10 +219,8 @@ function init() {
 
 	row3.add(containerView);
 
-	
 	console.log("row 3 added");
 
-	
 	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
 
 	picker.on("return", function(e) {
