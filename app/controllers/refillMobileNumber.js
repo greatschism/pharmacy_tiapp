@@ -269,7 +269,7 @@ function didClickContinue(e) {
 						}]
 					},
 					success : didSuccess,
-				});	`
+				});	
 
 				function didSuccess(e) {
 					app.navigator.open({
