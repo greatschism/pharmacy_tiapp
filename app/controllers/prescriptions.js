@@ -605,7 +605,7 @@ function didClickSort(e){
 function sort() {
 
 	http.request({
-		method : "CODE_VALUES",
+		method : "CODES_GET",
 		data : {
 			codes : [{
 				code_name : "x"

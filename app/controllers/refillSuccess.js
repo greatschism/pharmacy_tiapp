@@ -13,6 +13,9 @@ var args = arguments[0] || {},
     inprocessPrescriptions,
     readyToRefill,
     otherPrescriptions,
+    refillPrescriptions,
+    filteredStores,
+    finalFilteredStores,
     prescriptions,
     addr,
 //row,
@@ -24,7 +27,6 @@ function init() {
 		method : "PRESCRIPTIONS_REFILL",
 		success : didSuccessRefill
 	});
-
 }
 
 function didSignUp(_result, _passthrough) {
@@ -51,183 +53,149 @@ function addRx(str) {
 	return str;
 }
 
+function didSuccessStores(result) {
+	addr = result.data.stores || [];
+
+}
+
 function didSuccessRefill(result) {
 
-	prescriptions = result.data.prescriptions || [],
-	addr = result.data.stores;
-	{
-		console.log("prescriptionsdata" + prescriptions); {
-			$.addressSection = uihelper.createTableViewSection($, strings.msgRefillPlaced); {
+	refillPrescriptions = result.data.prescriptions || [];
 
-				row = $.UI.create("TableViewRow", {
-					apiName : "TableViewRow",
-					classes : ["height-25"]
-				}),
-				content = $.UI.create("View", {
-					apiName : "View",
-					classes : ["hgroup", "auto-height"]
-				}),
+	$.addressSection = uihelper.createTableViewSection($, strings.msgRefillPlaced); {
 
-				title = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-title-lbl", "left"]
-				}),
+		row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow",
+			classes : ["height-75d"],
 
-				detail = $.UI.create("View", {
-					apiName : "View",
-					classes : ["list-item-info-lbl"]
-				}),
+		}),
+		content = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-view"]
+		}),
+		contentAddress = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-info-lbl"]
+		}),
+		contentPhoneNumber = $.UI.create("View", {
+			apiName : "View",
+			classes : ["list-item-info-lbl"]
+		}),
+		storename = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["list-item-title-lbl", "left"]
+		}),
 
-				rx = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-info-lbl", "left"]
-				}),
-				due = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-info-lbl"]
-				});
-				row.className = "others";
+		addressline1 = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["list-item-info-lbl", "padding-left"]
+		}),
+		phonenumber = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["list-item-info-lbl", "padding-left"]
+		}), content.add(storename);
+		contentAddress.add(addressline1);
+		contentPhoneNumber.add(phonenumber);
+		contentAddress.top = "40";
+		contentPhoneNumber.top = "60";
+		row.add(contentPhoneNumber);
+		row.add(contentAddress);
+		row.add(content);
+		$.addressSection.add(row);
+		if (refillPrescriptions.length) {
 
-				for (var i in prescriptions) {
+			http.request({
+				method : "STORES_GET",
+				data : {
+					filter : null,
+					get_type : "",
+					data : [{
+						id : "",
+						stores : ""
 
-					http.request({
-						method : "STORES_GET",
+					}]
 
-						data : {
+				},
+				success : function(result) {
+					filteredStores = result.data.stores;
+					finalFilteredStores = new Array;
 
-							client_identifier : "x",
-							version : "x",
-							session_id : "x",
-							filter : [{
-								get_type : "store_details"
-							}],
-							data : [{
-								stores : {
-									id : prescriptions[i].refill_store_id
-								}
-							}]
+					k = 0;
+					for ( i = 0; i < refillPrescriptions.length; i++) {
 
-						},
+						for ( j = 0; j < filteredStores.length; j++) {
 
-						success : didSuccessStore
-					});
+							if (filteredStores[j].store_id === refillPrescriptions[i].refill_store_id) {
 
-					function didSuccessStore(result) {
+								//console.log(filteredStores[j]);
 
-						// addr = result.data.stores;
-						// console.log("get store" + result);
-						//
-						// rx.text = addr.addressline1;
-						// due.text = prescriptions[i].refill_store_id;
-						// console.log("address1" + addr.addressline1);
-						// row.add(content);
-						// title.add(rx);
-						// detail.add(due);
-						//
-						// content.add(title);
-						// content.add(detail);
-						//
-						// row.add(content);
-						// console.log("content" + rx);
-						//
-						//
-						// console.log("address1" + addr.addressline1);
+								finalFilteredStores[k] = filteredStores[j];
+								k++;
+								break;
 
-						addr = result.data.stores;
-						console.log("get store" + result);
+							}
 
-						rx.text = addr.addressline1;
-						due.text = prescriptions[i].refill_store_id;
-						console.log("address1" + addr.addressline1);
-
-						detail.add(rx);
-						detail.add(due);
-
-						content.add(title);
-						content.add(detail);
-
-						row.add(content);
-						console.log("content" + rx.text);
-
-						console.log("address1" + addr.addressline1);
-
-						$.addressSection.add(row);
+						}
 					}
 
+					console.log(finalFilteredStores);
+					storename.text = finalFilteredStores[0].store_name;
+					addressline1.text = finalFilteredStores[0].addressline1 + "," + finalFilteredStores[0].state + " " + finalFilteredStores[0].zip;
+					phonenumber.text = "Call: " + finalFilteredStores[0].phone;
+
 				}
-			}
-
-			$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionPrescriptionRefilled); {
-				for (var i in prescriptions) {
-					row = $.UI.create("TableViewRow", {
-						apiName : "TableViewRow",
-						classes : ["height-25"]
-					}),
-					// contentView = $.UI.create("View", {
-					// apiName : "View",
-					// classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
-					// }),
-					content = $.UI.create("View", {
-						apiName : "View",
-						classes : ["list-item-view", "vgroup"]
-					}),
-
-					title = $.UI.create("Label", {
-						apiName : "Label",
-						classes : ["list-item-title-lbl", "left"]
-					}),
-
-					detail = $.UI.create("View", {
-						apiName : "View",
-						classes : ["list-item-info-lbl"]
-					}),
-					orderPickUpLbl = $.UI.create("Label", {
-						apiName : "Label",
-						classes : ["list-item-info-lbl"]
-					}),
-					orderPickUpLblIcon = $.UI.create("Label", {
-						apiName : "Label",
-						classes : ["small-icon", "left", "success-color", "padding-right"],
-
-					}),
-					vseparator = $.UI.create("View", {
-						apiName : "View",
-						//classes : ["vseparator", "height-90", "touch-disabled"]
-					}),
-					rx = $.UI.create("Label", {
-						apiName : "Label",
-						classes : ["list-item-info-lbl", "left"]
-					}),
-					due = $.UI.create("Label", {
-						apiName : "Label",
-						classes : ["list-item-info-lbl"]
-					});
-					row.className = "others";
-
-					rx.text = addRx(prescriptions[i].rx_number_id);
-					due.text = prescriptions[i].refill_store_id;
-					//row.add(content);
-					detail.add(rx);
-					//detail.add(vseparator);
-					detail.add(due);
-					orderPickUpLbl.text = prescriptions[i].refill_inline_message;
-					orderPickUpLblIcon.text = Alloy.CFG.icons.confirm;
-
-					detail.add(orderPickUpLblIcon);
-					detail.add(orderPickUpLbl);
-					content.add(rx);
-					//content.add(title);
-					content.add(due);
-					content.add(detail);
-
-					row.add(content);
-
-					$.gettingRefilledSection.add(row);
-				}
-				//$.gettingRefilledSection.add(row);
-			}
+			});
 		}
+
 	}
+
+	$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionPrescriptionRefilled); {
+		for (var i in refillPrescriptions) {
+			row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
+
+			}),
+
+			padView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["list-item-view", "vgroup"]
+			}),
+			listItemView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["list-item-view", "vgroup"]
+			}),
+			orderPickUpLblIcon = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["large-icon", "left", "success-color"],
+
+			});
+			rxLabel = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["list-item-title-lbl"]
+			}),
+			readyByDateLabel = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["list-item-info-lbl", "left"]
+			}), orderPickUpLblIcon.text = Alloy.CFG.icons.confirm;
+			rxLabel.left = 50;
+			readyByDateLabel.left = 50;
+			rxLabel.text = addRx(refillPrescriptions[i].rx_number_id);
+			if (refillPrescriptions[i].refill_promised_date) {
+				readyByDateLabel.text = strings.msgShouldBeReadyBy + " " + refillPrescriptions[i].refill_promised_date;
+			} else {
+				readyByDateLabel.text = "";
+			}
+
+			listItemView.add(rxLabel);
+			listItemView.add(readyByDateLabel);
+			padView.add(orderPickUpLblIcon);
+			row.add(padView);
+			row.add(listItemView);
+			$.gettingRefilledSection.add(row);
+		}
+		//$.gettingRefilledSection.add(row);
+	}
+
 	$.tableView.data = [$.addressSection, $.gettingRefilledSection];
 
 }
