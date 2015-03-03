@@ -88,7 +88,7 @@
 	font:{
 		fontSize:30
 	},
-	text:Alloy.CFG.icons.addition,
+	text:Alloy.CFG.icons.plus_with_circle,
 	color:"#599DFF"
 }
 ".h1":{
