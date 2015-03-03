@@ -21,8 +21,8 @@ function updateInputs() {
 	if (OS_IOS || OS_ANDROID) {
 		keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
 		$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
+		$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
 		if (keychainAccount.valueData) {
-			$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
 			$.keepMeSwt.setValue(true);
 		}
 	}
