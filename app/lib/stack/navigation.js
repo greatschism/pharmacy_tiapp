@@ -439,6 +439,8 @@ function Navigation(_args) {
 
 				that.currentController = controllerToOpen;
 
+				that.focus();
+
 				//that.testOutput();
 
 				that.isBusy = false;
@@ -590,6 +592,20 @@ function Navigation(_args) {
 		if (_.isFunction(controller.child.init)) {
 
 			controller.child.init();
+		}
+	};
+
+	/**
+	 * Calls focus method of the current controller if exists
+	 * @param {Controller} _controller
+	 */
+	this.focus = function(_controller) {
+
+		var controller = _controller || that.currentController;
+
+		if (_.isFunction(controller.child.focus)) {
+
+			controller.child.focus();
 		}
 	};
 

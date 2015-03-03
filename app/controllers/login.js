@@ -5,19 +5,27 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     http = require("requestwrapper"),
     encryptionUtil,
+    keychainModule,
     keychainAccount;
 
 function init() {
 	if (OS_IOS || OS_ANDROID) {
 		encryptionUtil = require("encryptionUtil");
-		keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
-		if (keychainAccount.account) {
-			$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
+		keychainModule = require("com.obscure.keychain");
+	}
+	uihelper.getImage($.logoImg);
+	updateInputs();
+}
+
+function updateInputs() {
+	if (OS_IOS || OS_ANDROID) {
+		keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
+		$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
+		if (keychainAccount.valueData) {
 			$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
 			$.keepMeSwt.setValue(true);
 		}
 	}
-	uihelper.getImage($.logoImg);
 }
 
 function moveToNext(e) {
@@ -161,3 +169,4 @@ function didClickSignup(e) {
 }
 
 exports.init = init;
+exports.focus = updateInputs;
