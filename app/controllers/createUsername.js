@@ -22,6 +22,7 @@ function moveToNext(e) {
 
 function didClickEmail() {
 	dialog.show({
+		title : Alloy.Globals.strings.titleEmailAddress,
 		message : Alloy.Globals.strings.msgWhyEmailAddress
 	});
 }
@@ -76,6 +77,7 @@ function didCreateUsername() {
 		keychainAccount.account = encryptionUtil.encrypt($.unameTxt.getValue());
 	}
 	dialog.show({
+		title : Alloy.Globals.strings.titleThanks,
 		message : Alloy.Globals.strings.msgUsernameCreated,
 		success : function() {
 			app.navigator.closeToRoot();
