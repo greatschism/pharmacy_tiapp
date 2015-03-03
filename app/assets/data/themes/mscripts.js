@@ -344,7 +344,7 @@ module.exports = {
 				"paddingRight" : 4,
 				"rightButtonDict" : {
 					"right" : 8,
-					"width" : 20,
+					"width" : 45,
 					"color" : "#0095ff"
 				}
 			},

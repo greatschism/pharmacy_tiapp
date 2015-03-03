@@ -10,7 +10,8 @@ var args = arguments[0] || {},
 function init() {
 	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
 	if (OS_IOS || OS_ANDROID) {
-		keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+		encryptionUtil = require("encryptionUtil");
+		keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
 	}
 }
 
@@ -54,29 +55,30 @@ function didClickDone(e) {
 		});
 		return;
 	}
-	// CALL to MOBILETOEPHARMACYOCNVERT
-	//	http.request({
-	//		method : "PATIENTS_NEW_PASSWORD",
-	//		data : {
-	//			data : [{
-	//				patient : {
-	//					user_name : "",
-	//					email_address : "",
-	//					password : ""
-	//				}
-	//			}]
-	//		},
-	//		success : didCreateUsername
-	//	});
-	keychainAccount.reset();
-	keychainAccount.account = uname;
+	http.request({
+		method : "PATIENTS_NEW_PASSWORD",
+		data : {
+			data : [{
+				patient : {
+					user_name : "",
+					email_address : "",
+					password : ""
+				}
+			}]
+		},
+		success : didCreateUsername
+	});
+}
+
+function didCreateUsername() {
+	if (OS_IOS || OS_ANDROID) {
+		keychainAccount.reset();
+		keychainAccount.account = encryptionUtil.encrypt($.unameTxt.getValue());
+	}
 	dialog.show({
 		message : Alloy.Globals.strings.msgUsernameCreated,
 		success : function() {
-			app.navigator.open({
-				ctrl : "login",
-				titleid : "strLogin"
-			});
+			app.navigator.closeToRoot();
 		}
 	});
 }

@@ -33,25 +33,19 @@ function didClickNext() {
 		return;
 	}
 	if (args.orgin == "login") {
-		console.log("from login");
-		//	http.request({
-		//			method : "PATIENTS_AUTHENTICATE", //to be mscripts-authenticate
-		//			data : {
-		//data : [{
-		//	patient : {
-		//			mobile_number : args.mobileNumber,
-		//				//first_name : fname,
-		//					//birth_date : moment(dob).format("MM-DD-YYYY"),
-		//						password : args.password
-		//					}
-		//				}]
-		//			},
-		//			success : didMscriptsAuthenticate
-		//		});
-		app.navigator.open({
-			ctrl : "createUsername",
-			titleid : "titlecreateUsername",
-			stack : true
+		http.request({
+			method : "PATIENTS_AUTHENTICATE", //to be mscripts-authenticate
+			data : {
+				data : [{
+					patient : {
+						mobile_number : args.mobileNumber,
+						first_name : fname,
+						birth_date : moment(dob).format("MM-DD-YYYY"),
+						password : args.password
+					}
+				}]
+			},
+			success : didAuthenticateMobileUser
 		});
 	} else {
 		http.request({
@@ -77,11 +71,11 @@ function didClickNext() {
 	}
 }
 
-function didMscriptsAuthenticate(_result) {
-	//Authenticate
+function didAuthenticateMobileUser(_result) {
 	app.navigator.open({
 		ctrl : "createUsername",
-		titleid : "titlecreateUsername"
+		titleid : "titleCreateUsername",
+		stack : true
 	});
 }
 

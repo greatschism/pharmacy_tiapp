@@ -387,6 +387,15 @@ var Utility = {
 	 */
 	validateMobileNumber : function(_str) {
 		return /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/.test(_str) ? _str.replace(/\D+/g, "") : false;
+	},
+
+	/**
+	 * Check whether given string is a 10 digit mobile number
+	 * @param {String} _str
+	 * returns {Boolean}
+	 */
+	isMobileNumber : function(_str) {
+		return /^[0-9]{10}$/.test(_str);
 	}
 };
 

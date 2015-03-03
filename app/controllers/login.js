@@ -10,9 +10,9 @@ var args = arguments[0] || {},
 function init() {
 	if (OS_IOS || OS_ANDROID) {
 		encryptionUtil = require("encryptionUtil");
-		keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+		keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
 		if (keychainAccount.account) {
-			$.unameTxt.setValue(keychainAccount.account);
+			$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
 			$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
 			$.keepMeSwt.setValue(true);
 		}
@@ -42,13 +42,13 @@ function didClickLogin(e) {
 	}
 	if (OS_IOS || OS_ANDROID) {
 		if ($.keepMeSwt.getValue() == true) {
-			keychainAccount.account = uname;
+			keychainAccount.account = encryptionUtil.encrypt(uname);
 			keychainAccount.valueData = encryptionUtil.encrypt(password);
 		} else {
 			keychainAccount.reset();
 		}
 	}
-	if (/^[0-9]{10}$/.test(uname)) {
+	if (utilities.isMobileNumber(uname)) {
 		http.request({
 			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
 			data : {
@@ -62,7 +62,7 @@ function didClickLogin(e) {
 				mobileNumber : uname,
 				password : password
 			},
-			success : didSuccess,
+			success : didSharedMobileCheck,
 			failure : didFail,
 			keepBlock : true
 		});
@@ -97,7 +97,7 @@ function didAuthenticate(_result) {
 	})[0].toJSON());
 }
 
-function didSuccess(_result, _passthrough) {
+function didSharedMobileCheck(_result, _passthrough) {
 	var isExists = parseInt(_result.data.patients.mobile_exists),
 	    isShared = parseInt(_result.data.patients.is_mobile_shared);
 	if (isExists) {
@@ -106,24 +106,22 @@ function didSuccess(_result, _passthrough) {
 			app.navigator.open({
 				ctrl : "sharedMobileCheck",
 				stack : true,
-				ctrlArguments : {
-					orgin : $.__controllerPath,
-					passthrough : _passthrough
-				}
+				ctrlArguments : _.extend(_passthrough, {
+					orgin : $.__controllerPath
+				})
 			});
 		} else {
-			app.navigator.hideLoader();
 			http.request({
 				method : "PATIENTS_AUTHENTICATE", // mscripts-authenticate
 				data : {
 					data : [{
 						patient : {
-							user_name : uname,
-							password : password
+							user_name : _passthrough.mobileNumber,
+							password : _passthrough.password
 						}
 					}]
 				},
-				success : didMscriptsAuthenticate
+				success : didAuthenticateMobileUser
 			});
 		}
 	} else {
@@ -132,11 +130,10 @@ function didSuccess(_result, _passthrough) {
 	}
 }
 
-function didMscriptsAuthenticate(_result) {
-	//go to new screen
+function didAuthenticateMobileUser(_result) {
 	app.navigator.open({
 		ctrl : "createUsername",
-		titleid : "titlecreateUsername",
+		titleid : "titleCreateUsername",
 		stack : true
 	});
 }
