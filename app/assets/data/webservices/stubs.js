@@ -361,8 +361,8 @@ module.exports = {
 				"presc_name" : "Saridon, 500 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-1-12",
+				"doctor_id" : "1",
+				"anticipated_refill_date" : "2014-12-18",
 				"expiration_date" : "x",
 				"refill_remaining_preferences" : "x",
 				"refill_started_date" : "x",
@@ -525,7 +525,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS",
-				"prescription_display_status" : "hidden"
+				"prescription_display_status" : "active"
 
 			}, {
 				"id" : "1",
@@ -566,7 +566,7 @@ module.exports = {
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS",
-				"prescription_display_status" : "hidden"
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -645,8 +645,8 @@ module.exports = {
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL",
-				"prescription_display_status" : "hidden"
+				"refill_status" : "READYFORREFILL",
+				"prescription_display_status" : "active"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -667,6 +667,27 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL",
 				"prescription_display_status" : "active"
+			},
+			{
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Listerin, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -687,6 +708,76 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL",
 				"prescription_display_status" : "hidden"
+			}]
+		}
+	},
+	"PRESCRIPTIONS_UNHIDE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"prescriptions" : [{
+				"id" : "1",
+				"rx_number" : "333333",
+				"presc_name" : "Listerin, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status" : "active"
+
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Saridon, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status" : "active"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Ciprofloxacin, 300 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-23",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYFORPICKUP",
+				"prescription_display_status" : "active"
 			}]
 		}
 	},

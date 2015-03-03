@@ -2,12 +2,15 @@
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
 	<Widget id="sortMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickSort" />
 	<Widget id="unhideMenu" src="com.mscripts.optionpicker" class="optionpicker">
-		<View class="default-height margin-left margin-right margin-top padding-bottom" role="headerView">
-			<Button title="Select none" class="left width-50 thirtiary-btn-small" />
-			<Button title="Select all" class="right width-50 thirtiary-btn-small" />
+		<View class="default-height" role="headerView" borderColor="#808285" borderWidth="1">
+			<Button title="Select none" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
+			<Button title="Select all" class="right width-50 thirtiary-btn-small" onClick="didClickSelectAll" />
 			<View class="vseparator" />
-			<View class="bottom hseparator" />
-			<View class="top hseparator" />
+		</View>
+		<View class="auto-height vgroup" role="footerView">
+			<View class="hseparator" />
+			<Button title="Unhide" class="btn-padding-top primary-btn" onClick="didClickUnhide"/>
+			<Button title="Close" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickClose" />
 		</View>
 	</Widget>
 	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">

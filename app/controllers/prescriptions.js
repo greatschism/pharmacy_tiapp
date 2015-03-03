@@ -532,20 +532,72 @@ function unhide(){
 function didGetHiddenPrescriptions(result){
 	allPrescriptions = result.data.prescriptions || [];
 	hiddenPrescriptions = new Array;
-	items = new Array;
+	items = [];
 	for(i=0;i<allPrescriptions.length;i++){
 		if(allPrescriptions[i].prescription_display_status === "hidden"){
-			hiddenPrescriptions[i]=allPrescriptions[i].presc_name;
-			 items[i] = {title :hiddenPrescriptions[i]};
+			hiddenPrescriptions[i]=allPrescriptions[i];
+			 items.push(hiddenPrescriptions[i]);
 			
 			
 		}
 	}
-		
+	console.log(items);
+	var template = [{
+		apiName : "View",
+		properties : $.createStyle({
+			classes : ["top", "auto-height", "vgroup"]
+		}),
+		children : [{
+			items : [{
+				apiName : "Label",
+				properties : $.createStyle({
+					classes : ["left", "list-item-title-lbl"]
+				}),
+				text : "presc_name"
+			}, {
+				apiName : "Label",
+				properties : $.createStyle({
+					classes : ["left", "padding-top", "list-item-subtitle-lbl"]
+				}),
+				text : "rx_number"
+			}]
+		}]
+	}];
+
 	
-	$.unhideMenu.setItems(items);
+	$.unhideMenu.setItems(items,template);
 	$.toggleMenu.hide();
 	$.unhideMenu.show();
+}
+function didClickClose(e){
+	$.unhideMenu.hide();
+}
+function didClickSelectAll(e){
+	$.unhideMenu.setSelectedItems([],true);
+}
+function didClickSelectNone(e){
+	$.unhideMenu.setSelectedItems([],false);
+}
+function didClickUnhide(e){
+	var unhiddenPrescriptions=_.where(items, {
+		selected : true
+	});
+	$.unhideMenu.hide();
+	http.request({
+		method : "PRESCRIPTIONS_UNHIDE",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences : "x",
+				prescription_display_status : "active"
+
+			}]
+
+		},
+		success : didSuccess,
+
+	});
 }
 function didClickSort(e){
 	$.sortMenu.hide();
