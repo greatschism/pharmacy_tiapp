@@ -42,7 +42,9 @@ module.exports = {
 		"titleSuccess" : "zh-Success!",
 		"titleAddAPicture" : "zh-Add a picture",
 		"titleCreateUsername" : "zh-Create a username",
-		"tittleDoctorReminderSettings":"zh-Doctor Reminder Settings",
+		"tittleDoctorReminderSettings" : "zh-Doctor Reminder Settings",
+		"titleThanks" : "zh-Thanks",
+		"titleEmailAddress" : "zh-Email Address",
 		"sectionStoreHours" : "zh-Store hours",
 		"sectionStoreServices" : "zh-Store services",
 		"sectionUpcomingAppointments" : "zh-Upcoming appointments",
@@ -148,8 +150,8 @@ module.exports = {
 		"lblDocument" : "zh-Document",
 		"lblDosageInstruction" : "zh-Dosage instruction",
 		"lblNewPassword" : "zh-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
-		"lblRemindMeAppointment":"zh-Remind me these many days before the appointment",
-	
+		"lblRemindMeAppointment" : "zh-Remind me these many days before the appointment",
+
 		"valFirstNameRequired" : "zh-Please enter your first name",
 		"valLastNameRequired" : "zh-Please enter your last name",
 		"valUsernameRequired" : "zh-Please enter your username",
@@ -207,10 +209,10 @@ module.exports = {
 		"msgWhyEmailAddress" : "zh-We'll use your email address to help you recover your username or password just in case you ever forget them.",
 		"msgCreateUsername" : "zh-We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
 		"msgUsernameCreated" : "zh-Your username has been created. You will use it to log in from now on. Please do it once now.",
-		"msgDoctorUpdated": "zh-Doctor details updated",
-		"msgAppointmentDeleted":"zh-Your doctor's appointment reminder has been deleted",
-		"msgAppointmentReminderSettingsUpdated":"Your appointment reminder settings has been updated",
-		
+		"msgDoctorUpdated" : "zh-Doctor details updated",
+		"msgAppointmentDeleted" : "zh-Your doctor's appointment reminder has been deleted",
+		"msgAppointmentReminderSettingsUpdated" : "Your appointment reminder settings has been updated",
+
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
 		"menuUnhidePrescriptions" : "zh-Unhide prescriptions",
