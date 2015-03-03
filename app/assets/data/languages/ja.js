@@ -41,7 +41,7 @@ module.exports = {
 		"titleRefillHistory" : "ja-Refill history",
 		"titleSuccess" : "ja-Success!",
 		"titleAddAPicture" : "ja-Add a picture",
-		"titlecreateUsername" : "ja-Create a username",
+		"titleCreateUsername" : "ja-Create a username",
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
 		"sectionUpcomingAppointments" : "ja-Upcoming appointments",
@@ -157,7 +157,6 @@ module.exports = {
 		"valDOBRequired" : "ja-Please enter your date of birth",
 		"valRxNoRequired" : "ja-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "ja-Please choose a pharmacy",
-		"valPrescriptionNum" : "ja-Enter your prescription number.",
 		"valCodeRequired" : "ja-Please enter the OTP you have received",
 
 		"msgAgeRestriction" : "ja-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
