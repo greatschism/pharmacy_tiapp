@@ -107,4 +107,13 @@ font:{
 },
 ".paddingBottom":{
 	bottom:10
+},
+"#profileIconLabel":{
+	font:{
+		fontSize:78,
+		fontFamily : "mscripts",
+	},
+	text:Alloy.CFG.icons.user, 
+	color:"#F6931E"
+
 }

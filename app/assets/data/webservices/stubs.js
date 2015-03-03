@@ -913,22 +913,26 @@ module.exports = {
 			"appointment" : [{
 				"doctor_id" : "1",
 				"appointment_id" : "5",
-				"appointment_time" : "2015-02-19 03:05",
-				"appointment_meridiem" : "PM",
+				"appointment_date" : "2015-03-19",
+				"appointment_hour" : "05",
+				"appointment_minute" :"10" ,
+				"appointment_meridiem" : "AM",
 				"time" : "x",
 				"desc" : "x",
 				"reminders" : {
 					"enabled" : "0/1",
 					"no_of_reminders" : "5",
-					"remind_before_in_days" : "2",
-					"reminder_hour" : "2",
-					"reminder_minute" : "30",
-					"reminder_meridiem" : "PM"
+					"remind_before_in_days" : "1",
+					"reminder_hour" : "11",
+					"reminder_minute" : "00",
+					"reminder_meridiem" : "AM"
 				}
 			}, {
 				"doctor_id" : "2",
 				"appointment_id" : "6",
-				"appointment_time" : "2015-02-19 03:05",
+				"appointment_date" : "2015-03-19",
+				"appointment_hour" : "06",
+				"appointment_minute" :"10" ,
 				"appointment_meridiem" : "PM",
 				"time" : "x",
 				"desc" : "x",
@@ -943,15 +947,17 @@ module.exports = {
 			}, {
 				"doctor_id" : "2",
 				"appointment_id" : "7",
-				"appointment_time" : "2015-02-19 03:05",
+				"appointment_date" : "2015-03-15",
+				"appointment_hour" : "07",
+				"appointment_minute" :"10" ,
 				"appointment_meridiem" : "PM",
 				"time" : "x",
 				"desc" : "x",
 				"reminders" : {
 					"enabled" : "0/1",
 					"no_of_reminders" : "5",
-					"remind_before_in_days" : "2",
-					"reminder_hour" : "2",
+					"remind_before_in_days" : "5",
+					"reminder_hour" : "5",
 					"reminder_minute" : "30",
 					"reminder_meridiem" : "PM"
 				}
@@ -985,7 +991,7 @@ module.exports = {
 				"notes" : "",
 				"phone" : "(617)283-7737",
 				"fax" : "(617)283-7737",
-				"image_url" : "http://test.remscripts.com/ig3234",
+				"image_url" : "",
 				"optional" : ""
 			}, {
 				"id" : "2",
@@ -1010,6 +1016,34 @@ module.exports = {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Doctor added successfully",
+		"description" : "x",
+		"data" : ""
+	},
+	"DOCTORS_UPDATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor updated successfully",
+		"description" : "x",
+		"data" : ""
+	},
+	"APPOINTMENTS_UPDATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor Appointment updated successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"APPOINTMENTS_DELETE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor Appointment deleted successfully.",
+		"description" : "x",
+		"data" : ""
+	},
+	"APPOINTMENTS_REMINDERS_UPDATE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor Appointment Reminder is saved successfully.",
 		"description" : "x",
 		"data" : ""
 	}

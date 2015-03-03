@@ -5,11 +5,10 @@ var args = arguments[0] || {},
 function init() {
 	//	Alloy.Collections.doctors.trigger("reset");
 
-	
 	$.doctorsList = uihelper.createTableViewSection($, Alloy.Globals.strings.lblWhichDoctorYouHaveAppointment);
-	
+
 	if (args.doctors) {
-		var doctors=args.doctors;
+		var doctors = args.doctors;
 		console.log("found docs");
 		for (var i in doctors) {
 			var doctor = doctors[i];
@@ -18,7 +17,7 @@ function init() {
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
-			    contentView =  $.UI.create("View", {
+			    contentView = $.UI.create("View", {
 				apiName : "View",
 				horizontalWrap : "false",
 				classes : ["hgroup", "auto-height"]
@@ -29,12 +28,12 @@ function init() {
 				width : 50,
 				classes : ["paddingLeft"]
 			}),
-				descriptionView = $.UI.create("View", {
+			    descriptionView = $.UI.create("View", {
 				apiName : "View",
 				classes : ["auto-height", "auto-width", "paddingLeft", "paddingTop", "paddingBottom"]
 
 			}),
-			    leftImg = $.UI.create("Label", {
+			    leftIconLabel = $.UI.create("Label", {
 				apiName : "Label",
 				color : "#F6931E",
 				classes : ["small-icon", "doctorIcon"]
@@ -42,17 +41,29 @@ function init() {
 			}),
 			    titleLbl = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["h1", "left", "width-90","paddingLeft","auto-height"]
+				classes : ["h1", "left", "width-90", "paddingLeft", "auto-height"]
+			}),
+			    profileImg = $.UI.create("ImageView", {
+				apiName : "ImageView",
+				height : "90",
+				width : "50",
+				borderColor : "#000000",
 			});
 			row.rowId = doctor.id;
 			titleLbl.text = doctor.long_name;
-			leftImgView.add(leftImg);
+			
+			if (doctor.image_url.length) 
+				{
+					//profileImg.image=doctor.image_url;
+					leftImgView.add(profileImg);
+				}
+			else
+				leftImgView.add(leftIconLabel);
 			//descriptionView.add(titleLbl);
 			contentView.add(leftImgView);
 			contentView.add(titleLbl);
 			row.add(contentView);
 			$.doctorsList.add(row);
-			
 
 		}
 	}
@@ -62,17 +73,17 @@ function init() {
 
 function didItemClick(e) {
 	var doctorId = e.row.rowId;
-	var doctor=_.findWhere(args.doctors, {
-				id : String(doctorId)
-			});
-			console.log(doctor);
+	var doctor = _.findWhere(args.doctors, {
+		id : String(doctorId)
+	});
+	console.log(doctor);
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",
 		ctrl : "chooseTime",
 		ctrlArguments : {
 			doctorId : doctorId,
-			short_name: doctor.short_name
+			short_name : doctor.short_name
 		}
 	});
 }

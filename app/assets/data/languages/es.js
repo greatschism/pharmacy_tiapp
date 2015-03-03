@@ -42,6 +42,7 @@ module.exports = {
 		"titleSuccess" : "es-Success!",
 		"titleAddAPicture" : "es-Add a picture",
 		"titleCreateUsername" : "es-Create a username",
+		"tittleDoctorReminderSettings":"es-Doctor Reminder Settings",
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
 		"sectionUpcomingAppointments" : "es-Upcoming appointments",
@@ -147,7 +148,8 @@ module.exports = {
 		"lblDocument" : "es-Document",
 		"lblDosageInstruction" : "es-Dosage instruction",
 		"lblNewPassword" : "es-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
-
+		"lblRemindMeAppointment":"es-Remind me these many days before the appointment",
+		
 		"valFirstNameRequired" : "es-Please enter your first name",
 		"valLastNameRequired" : "es-Please enter your last name",
 		"valUsernameRequired" : "es-Please enter your username",
@@ -205,7 +207,10 @@ module.exports = {
 		"msgWhyEmailAddress" : "es-We'll use your email address to help you recover your username or password just in case you ever forget them.",
 		"msgCreateUsername" : "es-We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
 		"msgUsernameCreated" : "es-Your username has been created. You will use it to log in from now on. Please do it once now.",
-
+		"msgDoctorUpdated": "es-Doctor details updated",
+		"msgAppointmentDeleted":"es-Your doctor's appointment reminder has been deleted",
+		"msgAppointmentReminderSettingsUpdated":"es-Your appointment reminder settings has been updated",
+		
 		"menuSearch" : "es-Search",
 		"menuSort" : "es-Sort",
 		"menuUnhidePrescriptions" : "es-Unhide prescriptions",

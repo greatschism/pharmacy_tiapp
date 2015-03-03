@@ -42,6 +42,8 @@ module.exports = {
 		"titleSuccess" : "Success!",
 		"titleAddAPicture" : "Add a picture",
 		"titleCreateUsername" : "Create a username",
+		"tittleDoctorReminderSettings":"Doctor Reminder Settings",
+		
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
 		"sectionUpcomingAppointments" : "Upcoming appointments",
@@ -147,6 +149,7 @@ module.exports = {
 		"lblDocument" : "Document",
 		"lblDosageInstruction" : "Dosage instruction",
 		"lblNewPassword" : "Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
+		"lblRemindMeAppointment":"Remind me these many days before the appointment",
 
 		"valFirstNameRequired" : "Please enter your first name",
 		"valLastNameRequired" : "Please enter your last name",
@@ -205,7 +208,10 @@ module.exports = {
 		"msgWhyEmailAddress" : "We'll use your email address to help you recover your username or password just in case you ever forget them.",
 		"msgCreateUsername" : "We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
 		"msgUsernameCreated" : "Your username has been created. You will use it to log in from now on. Please do it once now.",
-
+		"msgDoctorUpdated": "Doctor details updated",
+		"msgAppointmentDeleted":"Your doctor's appointment reminder has been deleted",
+		"msgAppointmentReminderSettingsUpdated":"Your appointment reminder settings has been updated",
+		
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
 		"menuUnhidePrescriptions" : "Unhide prescriptions",

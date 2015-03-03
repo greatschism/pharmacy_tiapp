@@ -1,23 +1,47 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    moment1 = require("alloy/moment"),
     app = require("core"),
     http = require("requestwrapper"),
     dialog = require("dialog"),
     dateDetails,
-    timeDetails;
+    timeDetails,
+    appointmentDate,
+    appointmentTime,
+    editFlag = false,
+    doctorId,
+    appointment,
+    shortName;
 
 (function() {
+	doctorId = args.doctorId;
+	shortName = args.short_name;
+
 	if (args.edit) {
 		console.log("edit there");
+		editFlag = true;
+		appointment = args.appointment;
+		$.dateLbl.setValue(new Date(appointment.appointment_date));
+		
+		
+		if(appointment.appointment_meridiem=="pm" || appointment.appointment_meridiem=="PM")
+		newAppointmentHour=parseInt(appointment.appointment_hour)+12;
+		else
+		newAppointmentHour=appointment.appointment_hour;
+		
+		myDate= new Date();
+		myDate.setHours(newAppointmentHour,appointment.appointment_minute);
+		$.timePicker.setValue(myDate);
+		console.log(myDate);
+		
 		$.deleteBtn.show();
-	}else{
+	} else {
 		$.deleteBtn.hide();
 	}
-	
+
 	$.dateLbl.setMinDate(new Date());
-	$.dateLbl.setMaxDate(new Date("December 31, 2015"));
-	//$.dateLbl.text = moment().format("MMM Do, YYYY");
-	//$.timeLbl.text = moment().format("h A");
+	$.dateLbl.setMaxDate(new Date("December 31, 2017"));
+	
 })();
 
 function didItemClick(e) {
@@ -28,64 +52,139 @@ function setParentViews(view) {
 	$.dateLbl.setParentView(view);
 }
 
-function getTime(e)
-{
-	timeDetails=e.value.toLocaleString();
-}
 
 function didClickSave(e) {
-	dateDetails=$.dateLbl.getValue();
+	dateDetails = $.dateLbl.getValue();
+	appointmentDate=moment(dateDetails).format("YYYY-MM-DD");
+	
+	timeDetails=  $.timePicker.getValue();
+	appointmentTime=moment1(timeDetails).format("hh:mm A");
+	
+	if (editFlag) {
+		http.request({
+			method : "APPOINTMENTS_UPDATE",
+			data : {
+				filter : [{
+					type : ""
+				}],
+				data : {
+					"appointment" : {
+						"doctor_id" : doctorId,
+						"appointment_date" : appointmentDate,
+						"appointment_hour" : moment1(timeDetails).format("hh"),
+						"appointment_minute" : moment1(timeDetails).format("mm"),
+						"appointment_meridiem" : moment1(timeDetails).format("A"),
+						"reminders" : {
+							"enabled" : "0/1",
+							"no_of_reminders" : "x",
+							"remind_before_in_days" : "x",
+							"reminder_hour" : "x",
+							"reminder_minute" : "x",
+							"reminder_meridiem" : "AM/PM"
+						}
+					}
+				}
+			},
+			success : didEditSuccess
+		});
+
+	} else {
+
+		http.request({
+			method : "APPOINTMENTS_ADD",
+			data : {
+				filter : [{
+					type : ""
+				}],
+				data : {
+					"appointment" : {
+						"doctor_id" : doctorId,
+						"appointment_date" : appointmentDate,
+						"appointment_hour" : moment(timeDetails).format("hh"),
+						"appointment_minute" : moment(timeDetails).format("mm"),
+						"appointment_meridiem" : moment(timeDetails).format("A"),
+						"reminders" : {
+							"enabled" : "0/1",
+							"no_of_reminders" : "x",
+							"remind_before_in_days" : "x",
+							"reminder_hour" : "x",
+							"reminder_minute" : "x",
+							"reminder_meridiem" : "AM/PM"
+						}
+					}
+				}
+			},
+			success : didAddSuccess
+		});
+	}
+}
+
+function didEditSuccess(_result) {
+	//alert("edit success");
+	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
+	dialog.show({
+		title : Alloy.Globals.strings.titleSuccess,
+		message : appointmentDetails,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
+}
+
+function didAddSuccess(_result) {
+	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
+	dialog.show({
+		title : Alloy.Globals.strings.titleSuccess,
+		message : appointmentDetails,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
+}
+
+
+function didClickEditButton(e) {
+	app.navigator.open({
+		stack : true,
+		titleid : "tittleDoctorReminderSettings",
+		ctrl : "editReminder",
+			ctrlArguments : {
+					reminders: appointment.reminders
+				}
+	});
+
+}
+
+function didClickDelete(e) { 
+
 	http.request({
-		method : "ADD_APPOINTMENT",
+		method : "APPOINTMENTS_DELETE",
 		data : {
 			filter : [{
 				type : ""
 			}],
-			data : {
+			"data" : {
 				"appointment" : {
-					"doctor_id" : "x",
-					"appointment_date" : dateDetails,
-					"appointment_hour" : "x",
-					"appointment_minute" : "x",
-					"appointment_meridiem" : "AM/PM",
-					"reminders" : {
-						"enabled" : "0/1",
-						"no_of_reminders" : "x",
-						"remind_before_in_days" : "x",
-						"reminder_hour" : "x",
-						"reminder_minute" : "x",
-						"reminder_meridiem" : "AM/PM"
-					}
+					"appointment_id" : appointment.appointment_id
 				}
 			}
 		},
-		success : didSuccess
+		success : didSuccessDelete
 	});
 }
-function didSuccess(_result){
-	var appointmentDetails= String.format(Alloy.Globals.strings.msgAppointmentReminder,args.short_name,dateDetails,timeDetails);
+
+function didSuccessDelete(e)
+{
 	dialog.show({
-			title: Alloy.Globals.strings.titleSuccess,
-			message :appointmentDetails,
-			buttonNames : [Alloy.Globals.strings.strOK],
-			success : function() {
+		title : Alloy.Globals.strings.titleSuccess,
+		message : Alloy.Globals.strings.msgAppointmentDeleted,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
 			app.navigator.closeToRoot();
 		}
-
-		});
-	}
-
-function didClickEdit(e) {
-	app.navigator.open({
-		stack : true,
-		titleid : "tittleDoctorReminderSettings",
-		ctrl : "editReminder"
 	});
-
 }
 
-function didClickDelete(e) {
-
-}
-
-exports.setParentViews = setParentViews; 
+exports.setParentViews = setParentViews;

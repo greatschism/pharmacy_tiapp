@@ -63,6 +63,38 @@ function didClickSave(e) {
 			message : errorMessage
 		});
 	} else {
+		
+		if(args.edit=="false")
+		{http.request({
+			method : "DOCTORS_ADD",
+			data : {
+				filter : [{
+					type : ""
+				}],
+				data : {
+					"doctors" : {
+						"doctor_dea" : "12345",
+						"first_name" : fname,
+						"last_name" : lname,
+						"addressline1" : "TEST",
+						"addressline2" : "TEST",
+						"state" : stateDetails,
+						"city" : cityDetails,
+						"zip" : zipCode,
+						"notes" : notes,
+						"phone" : phoneNo,
+						"fax" : faxNo,
+						"image_url" : "",
+						"org_name" : "MSCRIPTS",
+						"optional" : ""
+					}
+				}
+			},
+			success : didSuccessCreate
+		});
+
+	}
+	else{
 		http.request({
 			method : "DOCTORS_ADD",
 			data : {
@@ -88,16 +120,27 @@ function didClickSave(e) {
 					}
 				}
 			},
-			success : didSuccess
+			success : didSuccessUpdate
 		});
-
+		
 	}//
+
+}}
+
+function didSuccessCreate(_result) {
+	dialog.show({
+		message : Alloy.Globals.strings.msgDoctorAdded,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
 
 }
 
-function didSuccess(_result) {
+function didSuccessUpdate(_result) {
 	dialog.show({
-		message : Alloy.Globals.strings.msgDoctorAdded,
+		message : Alloy.Globals.strings.msgDoctorUpdated,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
 			app.navigator.closeToRoot();
@@ -144,24 +187,7 @@ function didStateChange(e) {
 }
 
 function init() {
-
-	if (args.edit == "true") {
-
-		doctor = args.doctor;
-
-		$.fnameTxt.setValue(doctor.first_name);
-		$.lnameTxt.setValue(doctor.last_name);
-		$.phoneTxt.setValue(doctor.phone);
-		$.faxTxt.setValue(doctor.fax);
-		$.hospitalTxt.setValue(doctor.addressline1);
-		$.streetTxt.setValue(doctor.addressline2);
-		$.cityTxt.setValue(doctor.city);
-		//$.stateTxt.setValue(doctor.stateTxt.getSelectedItem();
-		$.zipTxt.setValue(doctor.zip);
-		$.notesTxta.setValue(doctor.notes);
-	
-	}
-	// var templates = [],
+// var templates = [],
 	// lngs = [],
 	// i = 0,
 	// selectedIndex = 0;
@@ -187,107 +213,179 @@ function init() {
 	// $.stateTxt.setChoices(lngs);
 	// $.stateTxt.setSelectedIndex(selectedIndex);
 	var states = [{
-		title : "AL"
+		title : "AL",
+		id:"1"
 	}, {
-		title : "AK"
+		title : "AK",
+		id:"2"
 	}, {
-		title : "AZ"
+		title : "AZ",
+		id:"3"
 	}, {
-		title : "AR"
+		title : "AR",
+		id:"4"
 	}, {
-		title : "CA"
+		title : "CA",
+		id:"5"
 	}, {
-		title : "CO"
+		title : "CO",
+		id:"6"
 	}, {
-		title : "CT"
+		title : "CT",
+		id:"7"
 	}, {
-		title : "DE"
+		title : "DE",
+		id:"8"
 	}, {
-		title : "FL"
+		title : "FL",
+		id:"9"
 	}, {
-		title : "GA"
+		title : "GA",
+		id:"10"
 	}, {
-		title : "HI"
+		title : "HI",
+		id:"11"
 	}, {
-		title : "ID"
+		title : "ID",
+		id:"12"
 	}, {
-		title : "IL"
+		title : "IL",
+		id:"13"
 	}, {
-		title : "IN"
+		title : "IN",
+		id:"14"
 	}, {
-		title : "IA"
+		title : "IA",
+		id:"15"
 	}, {
-		title : "KS"
+		title : "KS",
+		id:"16"
 	}, {
-		title : "KY"
+		title : "KY",
+		id:"17"
 	}, {
-		title : "LA"
+		title : "LA",
+		id:"18"
 	}, {
-		title : "ME"
+		title : "ME",
+		id:"19"
 	}, {
-		title : "MD"
+		title : "MD",
+		id:"20"
 	}, {
-		title : "MA"
+		title : "MA",
+		id:"21"
 	}, {
-		title : "MI"
+		title : "MI",
+		id:"22"
 	}, {
-		title : "MN"
+		title : "MN",
+		id:"23"
 	}, {
-		title : "MS"
+		title : "MS",
+		id:"24"
 	}, {
-		title : "MO"
+		title : "MO",
+		id:"25"
 	}, {
-		title : "MT"
+		title : "MT",
+		id:"26"
 	}, {
-		title : "NE"
+		title : "NE",
+		id:"27"
 	}, {
-		title : "NV"
+		title : "NV",
+		id:"28"
 	}, {
-		title : "NH"
+		title : "NH",
+		id:"29"
 	}, {
-		title : "NJ"
+		title : "NJ",
+		id:"30"
 	}, {
-		title : "NM"
+		title : "NM",
+		id:"31"
 	}, {
-		title : "NY"
+		title : "NY",
+		id:"32"
 	}, {
-		title : "NC"
+		title : "NC",
+		id:"33"
 	}, {
-		title : "ND"
+		title : "ND",
+		id:"34"
 	}, {
-		title : "OH"
+		title : "OH",
+		id:"35"
 	}, {
-		title : "OK"
+		title : "OK",
+		id:"36"
 	}, {
-		title : "OR"
+		title : "OR",
+		id:"37"
 	}, {
-		title : "PA"
+		title : "PA",
+		id:"38"
 	}, {
-		title : "RI"
+		title : "RI",
+		id:"39"
 	}, {
-		title : "SC"
+		title : "SC",
+		id:"40"
 	}, {
-		title : "SD"
+		title : "SD",
+		id:"41"
 	}, {
-		title : "TN"
+		title : "TN",
+		id:"42"
 	}, {
-		title : "TX"
+		title : "TX",
+		id:"43"
 	}, {
-		title : "UT"
+		title : "UT",
+		id:"44"
 	}, {
-		title : "VT"
+		title : "VT",
+		id:"45"
 	}, {
-		title : "VA"
+		title : "VA",
+		id:"46"
 	}, {
-		title : "WA"
+		title : "WA",
+		id:"47"
 	}, {
-		title : "WV"
+		title : "WV",
+		id:"48"
 	}, {
-		title : "WI"
+		title : "WI",
+		id:"49"
 	}, {
-		title : "WY"
+		title : "WY",
+		id:"50"
 	}];
 	$.stateTxt.setChoices(states);
+	
+	if (args.edit == "true") {
+
+		doctor = args.doctor;
+
+		$.fnameTxt.setValue(doctor.first_name);
+		$.lnameTxt.setValue(doctor.last_name);
+		$.phoneTxt.setValue(doctor.phone);
+		$.faxTxt.setValue(doctor.fax);
+		$.hospitalTxt.setValue(doctor.addressline1);
+		$.streetTxt.setValue(doctor.addressline2);
+		$.cityTxt.setValue(doctor.city);
+		
+		state = _.findWhere(states, {
+				title : doctor.state
+			});
+		
+		$.stateTxt.setSelectedIndex(parseInt(state.id)-1);	
+		$.zipTxt.setValue(doctor.zip);
+		$.notesTxta.setValue(doctor.notes);
+	
+	}  
 }
 
 function setParentViews(_view) {

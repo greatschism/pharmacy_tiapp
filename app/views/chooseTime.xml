@@ -5,19 +5,19 @@
 	</View>
 	
 	<View class="default-height hgroup">
-		<Label id="lblDate" class="left width-40 padding-left" />
+		<Label id="lblDate" class="left width-40 padding-left h2" />
 		<Widget id="dateLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
 	</View>	
 	
 	<View class="hgroup height-40">
-		<Label id="lblTime" class="padding-left width-45" />
+		<Label id="lblTime" class="padding-left width-45 h2" />
 		<View class="width-50 height-30 right">
-			<Picker id="timePicker" onChange="getTime" />
+			<Picker id="timePicker"/>
 		</View>
 	</View>	
 	
 	<Button id="saveBtn" class="primary-btn padding-bottom" onClick="didClickSave" />
-	<Button id="editBtn" class="secondary-btn padding-bottom" onClick="didClickEdit" />
+	<Button id="editBtn" class="secondary-btn padding-bottom" onClick="didClickEditButton" />
 	<Button id="deleteBtn" class="secondary-btn" onClick="didClickDelete" />
 	
 	</View>	

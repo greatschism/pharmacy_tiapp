@@ -6,9 +6,9 @@
 		<HeaderView>
 			<View class="auto-height vgroup ">
 				<View class="auto-height " >
-					<View class="left top auto-height auto-width vgroup">
-					<ImageView id="profileImg" height="70" width="70" class="paddingLeft paddingTop" borderColor="#000000" />
-					<Label id="changeImgLbl" class="padding-left multi-line" onClick="didClickProfileImg" />
+					<View id="profileImageView" class="left top auto-height auto-width">
+					<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" />
+					<Label id="changeImgLbl" class="padding-left multi-line" top="80" onClick="didClickProfileImg" />
 					</View>	
 					<View class="auto-height top width-75 hgroup right" >
 						

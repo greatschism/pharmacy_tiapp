@@ -14,7 +14,7 @@
 	text:Alloy.Globals.strings.lblDrugSideEffects
 }
 ".list-icons-child":{
-	text:Alloy.CFG.icons.greaterthan,
+	text:Alloy.CFG.icons.arrow_right,
 	right:"0",
 	font: Alloy.TSS.small_icon.font,
 	color:"#000000"

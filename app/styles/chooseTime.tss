@@ -1,5 +1,7 @@
 "#whenLbl":{
-	text: Alloy.Globals.strings.lblWhenIsYourAppointment
+	text: Alloy.Globals.strings.lblWhenIsYourAppointment,
+	backgroundColor: "#47c9af"
+	
 },
 "#timeTitleLbl":{
 	text: Alloy.Globals.strings.lblAtThisTime
@@ -32,3 +34,11 @@
     selectionIndicator : true,
     type : Ti.UI.PICKER_TYPE_TIME
 }
+".h2":{
+color:"#6D6E71",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}	
+}
+	

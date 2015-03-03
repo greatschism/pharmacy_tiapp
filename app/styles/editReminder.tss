@@ -10,20 +10,26 @@
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
 },
-"#editBtn":{
-	title: Alloy.Globals.strings.btnEditReminderSettings
-},
-"#deleteBtn":{
-	title: Alloy.Globals.strings.btnDeleteThisReminder
-},
 "#lblDate":{
-	text: Alloy.Globals.strings.lblOnThisDate
+	text: Alloy.Globals.strings.lblRemindMeAppointment
 }
 "#lblTime":{
 	text: Alloy.Globals.strings.lblAtThisTime
 },
-"#picker":{
+"#timePicker":{
 	useSpinner : true,
     selectionIndicator : true,
     type : Ti.UI.PICKER_TYPE_TIME
+},
+"#dayPicker":{
+	useSpinner : true,
+    selectionIndicator : true,
+    type: Ti.UI.PICKER_TYPE_PLAIN
+}
+".textLayout":{
+color:"#6D6E71",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
 }

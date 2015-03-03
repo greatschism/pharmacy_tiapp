@@ -4,16 +4,36 @@ var args = arguments[0] || {},
     logger = require("logger"),
     http = require("requestwrapper"),
     app = require("core"),
-    dialog= require("dialog"),
+    dialog = require("dialog"),
     doctor,
     prescriptions,
+    profileImg,
     PRESCRIPTION_COUNT = 4;
 
 function init() {
-	//	$.profileImg.image = doctor.thumbnail_url;
+
 	doctor = args.doctor;
 	prescriptions = args.prescriptions || [];
-	//uihelper.getImage($.profileImg);
+	//console.log(doctor);
+	console.log(doctor.image_url);
+	if (doctor.image_url.length) {
+		$.profileImageView.remove($.profileIconLabel);
+		console.log("icon removed");
+		//	<ImageView id="profileImg" height="70" width="70" class="paddingLeft paddingTop" borderColor="#000000" />
+
+		profileImg = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			height : "70",
+			width : "70",
+			classes : ["paddingLeft", " paddingTop"],
+			borderColor : "#000000",
+		});
+
+		//set the image property
+		$.profileImageView.add(profileImg);
+		console.log("image added");
+	}
+
 	$.nameLbl.text = doctor.long_name;
 
 	//_.extend(doctor, result.data[0].doctors);
@@ -50,17 +70,19 @@ function init() {
 
 			var footerView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["auto-height","vgroup"],
-			}), moreIcon = $.UI.create("Label", {
+				classes : ["auto-height", "vgroup"],
+			}),
+			    moreIcon = $.UI.create("Label", {
 				apiName : "Label",
 				color : "#6D6E71",
 				font : Alloy.TSS.list_item_child.font,
 				text : Alloy.CFG.icons.arrow_down,
 				classes : ["text-center"]
-			}), moreLabel = $.UI.create("Label", {
+			}),
+			    moreLabel = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["text-center","paddingTop"],
-				color:"#599DFF",
+				classes : ["text-center", "paddingTop"],
+				color : "#599DFF",
 				text : Alloy.Globals.strings.lblShowMore,
 			});
 			footerView.add(moreLabel);
@@ -68,8 +90,8 @@ function init() {
 			footerView.addEventListener("click", didClickMore);
 			$.tableView.footerView = footerView;
 			console.log("eee");
-		} 
-		
+		}
+
 		var firstPrescriptions = _.first(prescriptions, PRESCRIPTION_COUNT);
 		loadPrescriptions(firstPrescriptions);
 		$.tableView.data = $.tableView.data;
@@ -94,13 +116,13 @@ function loadPrescriptions(prescriptions) {
 		$.prescriptionsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.strPrescriptions);
 		for (var i in prescriptions) {
 			$.prescriptionsSection.add(getRow(prescriptions[i]));
-			
+
 		}
 		$.tableView.data = [$.prescriptionsSection];
 	} else {
 		for (var i in prescriptions) {
 			$.tableView.appendRow(getRow(prescriptions[i]));
-			
+
 		}
 	}
 }
@@ -115,12 +137,12 @@ function getRow(prescription) {
 	}),
 	    leftLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["list-item-title-lbl","left"]
+		classes : ["list-item-title-lbl", "left"]
 	}),
 	    rightLbl = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#808285",
-		classes : ["list-item-info-lbl","right"]
+		classes : ["list-item-info-lbl", "right"]
 	});
 	leftLbl.text = prescription.presc_name;
 	rightLbl.text = prescription.latest_filled_date ? Alloy.Globals.strings.lblLastRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : Alloy.Globals.strings.msgNotFilledYet;
@@ -134,13 +156,26 @@ function didClickProfileImg(e) {
 	$.photoDialog.show();
 }
 
-function didClickDirections(e){
+function didClickDirections(e) {
 	dialog.show({
-			message : Alloy.Globals.strings.msgUnderConstruction
-		});
+		message : Alloy.Globals.strings.msgUnderConstruction
+	});
 }
 
 function didClickOption(e) {
+
+	if (!(profileImg)) {
+	
+		console.log("icon removed");
+		var profileImg = $.UI.create("ImageView", {
+			apiName : "ImageView",
+			height : "70",
+			width : "70",
+			classes : ["paddingLeft", " paddingTop"],
+			borderColor : "#000000",
+		});
+	}
+
 	if (e.index == 1) {
 		//then we are getting image from camera
 		Titanium.Media.showCamera({
@@ -153,6 +188,13 @@ function didClickOption(e) {
 				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 					//we may create image view with contents from image variable
 					//or simply save path to image
+					
+					if (!(profileImg)) 
+					$.profileImageView.remove($.profileIconLabel);
+					
+					profileImg.image = image;
+					$.profileImageView.add(profileImg);
+
 					Ti.App.Properties.setString("image", image.nativePath);
 				}
 			},
@@ -187,7 +229,12 @@ function didClickOption(e) {
 				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 					//we may create image view with contents from image variable
 					//or simply save path to image
-					$.profileImg.image = image;
+					if (!(profileImg)) 
+					$.profileImageView.remove($.profileIconLabel);
+					
+					profileImg.image = image;
+					$.profileImageView.add(profileImg);
+					console.log("image added");
 					Ti.App.Properties.setString("image", image.nativePath);
 				}
 			},
@@ -203,16 +250,16 @@ function didClickOption(e) {
 }
 
 function didClickEdit(e) {
-	
+
 	app.navigator.open({
 		stack : true,
 		titleid : "titleAddDoctor",
 		ctrl : "addDoctor",
-			ctrlArguments : {
-				doctor : doctor,
-				edit: "true"
-			}
-		
+		ctrlArguments : {
+			doctor : doctor,
+			edit : "true"
+		}
+
 	});
 
 }

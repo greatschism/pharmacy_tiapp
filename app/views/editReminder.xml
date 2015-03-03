@@ -1,14 +1,16 @@
 <Alloy>
 	<View class="vgroup">
 	<View class="default-height hgroup">
-		<Label id="lblDate" class="left width-40 padding-left" />
-		<Widget id="dateLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
+		<Label id="lblDate" class="padding-left width-100 textLayout" />
+		<View class="width-50 height-30 right">
+			<Picker id="dayPicker" />
+		</View>
 	</View>	
 	
 	<View class="hgroup height-40">
-		<Label id="lblTime" class="padding-left width-45" />
+		<Label id="lblTime" class="padding-left width-45 textLayout" />
 		<View class="width-50 height-30 right">
-			<Picker id="picker" />
+			<Picker id="timePicker" />
 		</View>
 	</View>	
 	
