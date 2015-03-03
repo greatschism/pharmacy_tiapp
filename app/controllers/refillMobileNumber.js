@@ -159,7 +159,13 @@ function didClickContinue(e) {
 				top : 20
 			});
 			Cancel.addEventListener('click', function(e) {
-				reset();
+				//reset();
+				app.navigator.open({
+					ctrl : "scanfailure",
+					titleid : "strRefillNow",
+					stack : true,
+
+				});
 				window.close();
 
 			});

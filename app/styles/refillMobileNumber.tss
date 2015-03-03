@@ -5,7 +5,7 @@
 	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
 	
-	maxLength : 10,
+	maxLength : 13,
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue

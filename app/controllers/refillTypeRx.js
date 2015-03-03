@@ -46,6 +46,7 @@ function updateStore() {
 function didClickOrderRefill(e) {
 
 	mob = $.mobileNumber.getValue();
+
 	if (mob !== "") {
 		http.request({
 			method : "PRESCRIPTIONS_REFILL",
@@ -112,12 +113,12 @@ function didClickAddPrescription(e) {
 		addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
 			classes : ["form-txt", "txt"],
 			rightButtonTitle : Alloy.CFG.icons.minus,
-			//hintText : Alloy.Globals.strings.valPrescriptionNum,
 			keyboardType : Ti.UI.KEYBOARD_NUMBER_PAD,
 			maxLength : 7
 
 		}));
-		//addPres.setButton(Alloy.CFG.icons.minus_with_circle);
+
+		
 
 		addPres.applyProperties({
 			hintText : Alloy.Globals.strings.valPrescriptionNum,
@@ -125,11 +126,10 @@ function didClickAddPrescription(e) {
 		});
 
 		viewArr[i].add(addPres.getView());
+		
 		$.enter.add(viewArr[i]);
 		rxnos[count] = addPres.getValue();
-		// console.log((rxnos));
-		// console.log(i);
-		// console.log(addPres.getValue());
+
 		addPres.on("click", didClickDelete);
 
 		i++;
@@ -138,9 +138,8 @@ function didClickAddPrescription(e) {
 	}
 }
 
-//addPres.on("click", didClickDelete);
 function didClickDelete(e) {
-	//console.log(e.source.bindId);
+
 	console.log(e);
 	i--;
 	count--;

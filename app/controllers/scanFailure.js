@@ -23,36 +23,38 @@ function phoneDialer(e) {
 
 function didClickCallPharmacy(e) {
 	var type=1;
-	if(sessionId!=""){
-		function phoneDialer(e) {
-	//alert("clicked");
-	var number = "tel:+" + String(num);
-	Ti.Platform.openURL(number);
-}
-	}
-	else {
-		
-		if(cache==1)
-		{
-			function phoneDialer(e) {
-	//alert("clicked");
-	var number = "tel:+" + String(num);
-	Ti.Platform.openURL(number);
-}
-		}
-		
-		
-	}
-	 app.navigator.open({
-	 	ctrl : "refillMobileNumber",
-		titleid: "titleRefillNow",
-		stack : true,
-		ctrlArguments : {
-				isTyped:type,
-			}
-		 // ctrl : "orderDetails",
-		 // titleid: "titleOrderDetails",
-		 // stack : true
-	});
+	// if(sessionId!=""){
+		// function phoneDialer(e) {
+	// //alert("clicked");
+	// var number = "tel:+" + String(num);
+	// Ti.Platform.openURL(number);
+// }
+	// }
+	// else {
+// 		
+		// if(cache==1)
+		// {
+			// function phoneDialer(e) {
+	// //alert("clicked");
+	// var number = "tel:+" + String(num);
+	// Ti.Platform.openURL(number);
+// }
+		// }
+// 		
+// 		
+	// }
+	 // app.navigator.open({
+	 	// ctrl : "refillMobileNumber",
+		// titleid: "titleRefillNow",
+		// stack : true,
+		// ctrlArguments : {
+				// isTyped:type,
+			// }
+		 // // ctrl : "orderDetails",
+		 // // titleid: "titleOrderDetails",
+		 // // stack : true
+	// });
 	
+	
+	alert("Under Construction!");
 }

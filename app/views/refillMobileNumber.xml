@@ -3,7 +3,7 @@
 	<ScrollView id="refillSelectMainNavWin" class="vgroup">
 		<Label id="titleLbl" class="styled-h2 padding-top fg-primary multi-line" />
 		<Label id="hintLbl" class="styled-h2 padding-top fg-primary multi-line" />		
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onReturn="didClickContinue" />
+		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onChange="didChange" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>
