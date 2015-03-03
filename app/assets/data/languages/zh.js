@@ -203,6 +203,9 @@ module.exports = {
 		"msgNoAppointment" : "zh-You have no upcomming appointment",
 		"msgNoDoctor" : "zh-You have no doctors saved in you profile",
 		"msgEmailRecovery" : "zh-Our friendly coustomer support team can help you recover your lost information.",
+		"msgWhyEmailAddress" : "zh-We'll use your email address to help you recover your username or password just in case you ever forget them.",
+		"msgCreateUsername" : "zh-We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
+		"msgUsernameCreated" : "zh-Your username has been created. You will use it to log in from now on. Please do it once now.",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -274,6 +277,7 @@ module.exports = {
 		"strAddPrescription" : "zh-Add a prescription",
 		"strRetrivePassword" : "zh-?",
 		"strEmailSubjectLoginRecovery" : "zh-Email recovery",
-		"strEmailBodyLoginRecovery" : "zh-I do not remember what email I used!"
+		"strEmailBodyLoginRecovery" : "zh-I do not remember what email I used!",
+		"strWhy" : "zh-Why?"
 	}
 };
