@@ -50,45 +50,49 @@ function didSuccess(result) {
 		for (var i in readyForRefill) {
 			console.log('ready for refill' + readyForRefill[i]);
 			var transform = readyForRefill[i],
-			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
+		 anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
 
 			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
 			console.log(ndays);
 			row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow",
-				classes : ["height-75d", "section-header-lbl"],
+				classes : ["height-75d"],
 
 			}),
 
-			options = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["primary-btn-small"]
+           icon = $.UI.create("View",{
+           	apiName: "View",
+           	height: 50,
+           	classes : ["vgroup"]
+           	
+           }),
+           
+           iconLbl = $.UI.create("Label", {
+				apiName : "Label",
+				height : 32,
+				width : 32,
+				font : {
+					fontSize : 20
+				},
+				text : Alloy.CFG.icons.addition,
+				color : "#599DFF",
+				classes : ["width-90", "padding-left", "auto-height"]
 			}),
-			opt1 = $.UI.create("Button", {
-				apiName : "Button",
-				//classes : ["primary-btn-small"]
-			}),
-			opt2 = $.UI.create("Button", {
-				apiName : "Button",
-				classes : ["primary-btn-small"]
-			}),
-			vseparator = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["vseparator", "height-90", "touch-disabled"]
-			}),
+
+
+			
 			content = $.UI.create("View", {
 				apiName : "View",
 				classes : ["list-item-view", "vgroup"]
 			}),
+
 			sub = $.UI.create("View", {
 				apiName : "View",
 				//classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 			}),
-			title = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["list-item-title-lbl", "left"]
-			}),
+
+			
 			detail = $.UI.create("View", {
 				apiName : "View",
 				classes : ["list-item-info-lbl"]
@@ -103,38 +107,52 @@ function didSuccess(result) {
 			});
 			row.className = "readyForRefill";
 			sub.rowId = transform.id;
-			//sub.addEventListener("click", didItemClick);
-			//content.addEventListener("swipe", didItemSwipe);
+		
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
 
-			//options.add(opt1);
-			//options.add(opt2);
-			//options.add(vseparator);
+
+             icon.add(iconLbl);
+     
+		
 			detail.add(rx);
 			detail.add(due);
+
 			content.add(title);
 			content.add(detail);
-			//content.add(sub);
-			row.add(options);
+
+			
+			row.add(icon);
+		
 			row.add(content);
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right"]
+					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
+				});
+				content = $.UI.create("View", {
+					apiName : "View",
+					classes : ["list-item-view"]
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
 					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
-				overDueDetailLbl.text = ndays;
-				detail.add(overDueLbl);
-				detail.add(overDueDetailLbl);
+				overDueDetailLbl.text = Math.abs(ndays) + "days";
+				row.add(content);
+				content.add(overDueLbl);
+				content.add(overDueDetailLbl);
+				console.log("reached");
+
 			} else if (ndays >= 0) {
 				var dueForRefillLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right"]
+					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
+				});
+				content = $.UI.create("View", {
+					apiName : "View",
+					classes : ["list-item-view"]
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -142,8 +160,9 @@ function didSuccess(result) {
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillIn;
 				dueForRefillDetailLbl.text = ndays + "days";
-				detail.add(dueForRefillLbl);
-				detail.add(dueForRefillDetailLbl);
+				row.add(content);
+				content.add(dueForRefillLbl);
+				content.add(dueForRefillDetailLbl);
 			} else {
 
 			}
@@ -168,6 +187,9 @@ function didSuccess(result) {
 				apiName : "TableViewRow",
 				classes : ["height-75d"]
 			}),
+			
+			
+			
 			vseparator = $.UI.create("View", {
 				apiName : "View",
 				//classes : ["vseparator", "height-70", "touch-disabled"]
@@ -210,7 +232,7 @@ function didSuccess(result) {
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right"]
+					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -278,26 +300,28 @@ function didClickDone() {
 
 			}]
 		},
-	success : didAddPrescription,
+		success : didAddPrescription,
 
 	});
 
 }
 
-function didAddPrescription(_result)
-{
+function didAddPrescription(_result) {
 	//app.navigator.open({
 	//	ctrl : "orderDetails",
-		
+
 	//	ctrlArguments : {
 	//		prescription : prescriptions
 	//	},
 	//	stack : true
 	//});
-	alert(_result.message);
+	Ti.APP.info(_result.message);
 }
 
-
+function didItemClick(e) {
+	var newPresc = e.rowId;
+	alert("you clicked" + newPresc);
+}
 
 function terminate() {
 	$.destroy();
