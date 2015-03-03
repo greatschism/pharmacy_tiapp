@@ -25,6 +25,9 @@
 		left: 0
 	}
 },
-"#footerView":{
+"#footerView[platform=ios]":{
+	height: Ti.UI.SIZE
+},
+"#footerView[platform=android]":{
 	height: 30
 }
