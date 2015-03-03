@@ -9,6 +9,9 @@ var args = arguments[0] || {},
 
 function init() {
 	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
+	if (OS_IOS || OS_ANDROID) {
+		keychainAccount = require("com.obscure.keychain").createKeychainItem("account");
+	}
 }
 
 function moveToNext(e) {
@@ -51,6 +54,7 @@ function didClickDone(e) {
 		});
 		return;
 	}
+	keychainAccount.account = uname;
 	// CALL to MOBILETOEPHARMACYOCNVERT
 	//	http.request({
 	//		method : "PATIENTS_NEW_PASSWORD",

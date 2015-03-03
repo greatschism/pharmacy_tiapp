@@ -50,7 +50,8 @@ function didClickNext() {
 		//		});
 		app.navigator.open({
 			ctrl : "createUsername",
-			titleid : "titlecreateUsername"
+			titleid : "titlecreateUsername",
+			stack : true
 		});
 	} else {
 		http.request({
