@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
     rxnos = [],
     app = require("core"),
-    viewArr=[],
-    i=0,
+    viewArr = [],
+    i = 0,
     dialog = require("dialog"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
@@ -10,6 +10,7 @@ var args = arguments[0] || {},
     deleteBtn,
     count = 0,
     addPres,
+    mob,
     locationFirstUpdate = true;
 
 function init() {
@@ -44,90 +45,106 @@ function updateStore() {
 
 function didClickOrderRefill(e) {
 
-	http.request({
-		method : "PRESCRIPTIONS_REFILL",
-		data : {
+	mob = $.mobileNumber.getValue();
+	if (mob !== "") {
+		http.request({
+			method : "PRESCRIPTIONS_REFILL",
+			data : {
 
-			"client_identifier" : "x",
-			"version" : "x",
-			"session_id" : "x",
-			"filter" : [{
-				"refill_type" : "quick/scan/text"
-			}],
-			"data" : [{
-				"prescriptions" : [{
-					"id" : "x",
-					"rx_number" : "x",
-					"store_id" : "x",
-					"mobile_number" : "x",
-					"pickup_time_group" : "x",
-					"pickup_mode" : "instore/mailorder",
-					"barcode_data" : "x",
-					"barcode_format" : "x"
-				}, 
-				{
+				"client_identifier" : "x",
+				"version" : "x",
+				"session_id" : "x",
+				"filter" : [{
+					"refill_type" : "quick/scan/text"
+				}],
+				"data" : [{
+					"prescriptions" : [{
+						id : "x",
+						rx_number : viewArr[0],
+						store_id : "x",
+						mobile_number : "x",
+						pickup_time_group : "x",
+						pickup_mode : "instore/mailorder",
+						barcode_data : "x",
+						barcode_format : "x"
+					}, {
 
-					id: "x",
-					rx_number: "x",
-					store_id: "x",
-					mobile_number: "x",
-					pickup_time_group: "x",
-					pickup_mode : "instore/mailorder",
-					barcode_data : "x",
-					barcode_format : "x"
+						id : "x",
+						rx_number : viewArr,
+						store_id : "x",
+						mobile_number : mob,
+						pickup_time_group : "x",
+						pickup_mode : "instore/mailorder",
+						barcode_data : "x",
+						barcode_format : "x"
+					}]
 				}]
-			}]
-		}
-	});
+			},
+			success : didSuccess,
+		});
 
+	} else {
+		alert("Please enter valid details for all fields !!");
+	}
+}
+
+function didSuccess(e) {
 	app.navigator.open({
 		titleid : "titleRefillStatus",
 		ctrl : "refillSuccess",
-		stack : true
+		stack : false
 	});
 	alert("Under Construction");
 }
 
 function didClickAddPrescription(e) {
-	rxnos[0] = $.RxHintLbl.getValue();
-	count++;
+	if (i < 11) {
 
-	viewArr[i] = $.UI.create("View", {
-		apiName : "View",
-		classes : ["padding-top", "auto-height"],
+		rxnos[0] = $.RxHintLbl.getValue();
+		//count++;
 
-	});
+		viewArr[i] = $.UI.create("View", {
+			apiName : "View",
+			classes : ["padding-top", "auto-height"],
 
-	addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
-		classes : ["form-txt", "txt"],
-		rightIconText : Alloy.CFG.icons.minus_with_circle,
-		maxLength : 7,
-		keyboardType : Ti.UI.KEYBOARD_NUMBER_PAD
+		});
 
-	}));
+		addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
+			classes : ["form-txt", "txt"],
+			rightButtonTitle : Alloy.CFG.icons.minus,
+			//hintText : Alloy.Globals.strings.valPrescriptionNum,
+			keyboardType : Ti.UI.KEYBOARD_NUMBER_PAD,
+			maxLength : 7
 
-	addPres.applyProperties({
-		hintText : Alloy.Globals.strings.hintRefillThisPrescription,
+		}));
+		//addPres.setButton(Alloy.CFG.icons.minus_with_circle);
 
-	});
+		addPres.applyProperties({
+			hintText : Alloy.Globals.strings.valPrescriptionNum,
 
-	viewArr[i].add(addPres.getView());
-	$.enter.add(viewArr[i]);
-	rxnos[count] = addPres.getValue();
-	console.log((rxnos));
-	console.log(i);
-	console.log(addPres.getValue());
-	addPres.on("click", didClickDelete);
-	viewArr[i].bindId=i;
-i++;
+		});
+
+		viewArr[i].add(addPres.getView());
+		$.enter.add(viewArr[i]);
+		rxnos[count] = addPres.getValue();
+		// console.log((rxnos));
+		// console.log(i);
+		// console.log(addPres.getValue());
+		addPres.on("click", didClickDelete);
+
+		i++;
+	} else {
+		alert("Maximum limit reached !!");
+	}
 }
 
 //addPres.on("click", didClickDelete);
 function didClickDelete(e) {
-	console.log(e.source.bindId);
+	//console.log(e.source.bindId);
 	console.log(e);
+	i--;
 	count--;
-	$.enter.remove(viewArr[e.source.bindId]);
+	$.enter.remove(viewArr[i]);
 	//didClickAddPrescription();
 }
 
