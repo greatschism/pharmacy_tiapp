@@ -210,6 +210,12 @@ function didClickContinue(e) {
 				scanContentType.text = ' ';
 				scanParsed.text = ' ';
 				scanResult.text = e.message;
+				app.navigator.open({
+					ctrl : "scanfailure",
+					titleid : "strRefillNow",
+					stack : true,
+
+				});
 			});
 			Barcode.addEventListener('cancel', function(e) {
 				Ti.API.info('Cancel received');
@@ -225,6 +231,55 @@ function didClickContinue(e) {
 					scanContentType.text += parseContentType(e.contentType) + ' ';
 					scanParsed.text += parseResult(e) + ' ';
 				}
+
+				//function didClickOrderRefill(e) {
+				mob = $.mobileNumber.getValue();
+
+				http.request({
+					method : "PRESCRIPTIONS_REFILL",
+					data : {
+
+						"client_identifier" : "x",
+						"version" : "x",
+						"session_id" : "x",
+						"filter" : [{
+							"refill_type" : "quick/scan/text"
+						}],
+						"data" : [{
+							"prescriptions" : [{
+								"id" : "x",
+								"rx_number" : "x",
+								"store_id" : "x",
+								"mobile_number" : "x",
+								"pickup_time_group" : "x",
+								"pickup_mode" : "instore/mailorder",
+								"barcode_data" : e.result,
+								"barcode_format" : e.format
+							}, {
+
+								id : "x",
+								rx_number : viewArr,
+								store_id : "x",
+								mobile_number : mob,
+								pickup_time_group : "x",
+								pickup_mode : "instore/mailorder",
+								barcode_data : e.result,
+								barcode_format : e.format
+							}]
+						}]
+					},
+					success : didSuccess,
+				});	`
+
+				function didSuccess(e) {
+					app.navigator.open({
+						titleid : "titleRefillStatus",
+						ctrl : "refillSuccess",
+						stack : true
+					});
+					alert("Under Construction");
+				}
+
 			});
 
 			/**
@@ -367,7 +422,7 @@ function didClickContinue(e) {
 			app.navigator.open({
 				ctrl : "refillTypeRx",
 				titleid : "titleYourRefillIsOnTheWay",
-				stack : false
+				stack : true
 
 			});
 		}
