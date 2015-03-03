@@ -156,6 +156,7 @@ module.exports = {
 		"valDOBRequired" : "es-Please enter your date of birth",
 		"valRxNoRequired" : "es-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "es-Please choose a pharmacy",
+		"valPrescriptionNum" : "es-Enter your prescription number.",
 		"valCodeRequired" : "es-Please enter the OTP you have received",
 
 		"msgAgeRestriction" : "es-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
