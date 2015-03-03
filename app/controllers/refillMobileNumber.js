@@ -161,7 +161,7 @@ function didClickContinue(e) {
 			Cancel.addEventListener('click', function(e) {
 				//reset();
 				app.navigator.open({
-					ctrl : "scanfailure",
+					ctrl : "scanFailure",
 					titleid : "strRefillNow",
 					stack : true,
 
