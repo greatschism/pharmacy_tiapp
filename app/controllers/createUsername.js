@@ -54,7 +54,6 @@ function didClickDone(e) {
 		});
 		return;
 	}
-	keychainAccount.account = uname;
 	// CALL to MOBILETOEPHARMACYOCNVERT
 	//	http.request({
 	//		method : "PATIENTS_NEW_PASSWORD",
@@ -67,12 +66,17 @@ function didClickDone(e) {
 	//				}
 	//			}]
 	//		},
-	//		success : didClickAgreement
+	//		success : didCreateUsername
 	//	});
+	keychainAccount.reset();
+	keychainAccount.account = uname;
 	dialog.show({
 		message : Alloy.Globals.strings.msgUsernameCreated,
 		success : function() {
-			app.navigator.closeToRoot();
+			app.navigator.open({
+				ctrl : "login",
+				titleid : "strLogin"
+			});
 		}
 	});
 }

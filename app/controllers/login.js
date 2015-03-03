@@ -132,8 +132,13 @@ function didSuccess(_result, _passthrough) {
 	}
 }
 
-function didMscriptsAuthenticate(_result){
+function didMscriptsAuthenticate(_result) {
 	//go to new screen
+	app.navigator.open({
+		ctrl : "createUsername",
+		titleid : "titlecreateUsername",
+		stack : true
+	});
 }
 
 function didFail(_passthrough) {
