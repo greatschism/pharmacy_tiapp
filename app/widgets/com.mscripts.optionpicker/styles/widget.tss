@@ -8,7 +8,9 @@
 },
 "#containerView":{
 	top: 0,
-	height: "65%"
+	height: "75%",
+	borderColor: "#808285",
+	borderWidth: 1
 },
 "#tableView[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE

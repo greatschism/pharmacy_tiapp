@@ -63,15 +63,15 @@ function init() {
 	parent.add($.datePicker);
 }
 
-function terminate(callback) {
+function terminate(_callback) {
 	var animation = Ti.UI.createAnimation({
 		top : SCREEN_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
 		parent.remove($.datePicker);
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 		animation.removeEventListener("complete", onComplete);
 	});
@@ -110,8 +110,8 @@ function getParentView() {
 	return parent;
 }
 
-function setValue(date) {
-	$.picker.value = date;
+function setValue(_date) {
+	$.picker.value = _date;
 }
 
 function getValue() {

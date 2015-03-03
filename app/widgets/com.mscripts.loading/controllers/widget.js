@@ -13,8 +13,8 @@ var args = arguments[0] || {};
 	$.activityIndicator.show();
 })();
 
-function setMessage(message) {
-	$.messageLbl.setText(message);
+function setMessage(_message) {
+	$.messageLbl.setText(_message);
 }
 
 function show(_callback, _animated, _duration) {

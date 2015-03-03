@@ -76,48 +76,48 @@ function didTouchend(e) {
 	}
 }
 
-function init(params) {
-	if (!_.has(params, "parent")) {
+function init(_params) {
+	if (!_.has(_params, "parent")) {
 		return false;
 	}
-	parent = params.parent;
-	if (_.has(params, "menuView")) {
-		$.setMenuView(params.menuView);
+	parent = _params.parent;
+	if (_.has(_params, "menuView")) {
+		$.setMenuView(_params.menuView);
 	}
-	if (params.disableDrag !== true) {
+	if (_params.disableDrag !== true) {
 		enableDrag();
 	}
 }
 
-function terminate(params) {
+function terminate() {
 	parent = null;
 }
 
-function openLeftMenu(callback) {
+function openLeftMenu(_callback) {
 	if (!menuOpen) {
-		toggleLeftMenu(callback);
+		toggleLeftMenu(_callback);
 		return true;
 	} else {
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 		return false;
 	}
 }
 
-function closeLeftMenu(callback) {
+function closeLeftMenu(_callback) {
 	if (menuOpen) {
-		toggleLeftMenu(callback);
+		toggleLeftMenu(_callback);
 		return true;
 	} else {
-		if (callback && callback instanceof Function) {
-			callback();
+		if (_callback && _callback instanceof Function) {
+			_callback();
 		}
 		return false;
 	}
 }
 
-function toggleLeftMenu(callback) {
+function toggleLeftMenu(_callback) {
 	if (!busy) {
 		busy = true;
 		var moveTo = 0,
@@ -139,28 +139,28 @@ function toggleLeftMenu(callback) {
 				keyboard.hide();
 			}
 			busy = false;
-			if (callback) {
-				callback();
+			if (_callback) {
+				_callback();
 			}
 		});
 		mainView.animate(animation);
 	}
 }
 
-function setMenuView(view) {
-	$.menuView.add(view);
+function setMenuView(_view) {
+	$.menuView.add(_view);
 	var children = $.menuView.children;
 	if (children.length > 1) {
 		$.menuView.remove(children[0]);
 	}
 }
 
-function setDuration(duration) {
-	MENU_SLIDING_DURATION = duration;
+function setDuration(_duration) {
+	MENU_SLIDING_DURATION = _duration;
 }
 
-function setMenuWidth(width) {
-	LEFT_MENU_WIDTH = width;
+function setMenuWidth(_width) {
+	LEFT_MENU_WIDTH = _width;
 	$.overlayView.left = LEFT_MENU_WIDTH;
 	$.menuView.width = LEFT_MENU_WIDTH;
 }

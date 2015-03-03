@@ -139,12 +139,12 @@ function blur() {
 	$.txt.blur();
 }
 
-function animate(animationProp, callback) {
-	var animation = Ti.UI.createAnimation(animationProp);
+function animate(_dict, _callback) {
+	var animation = Ti.UI.createAnimation(_dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (callback) {
-			callback($.widget);
+		if (_callback) {
+			_callback($.widget);
 		}
 	});
 	$.widget.animate(animation);

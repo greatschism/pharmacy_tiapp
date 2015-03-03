@@ -80,15 +80,15 @@ function moveTo(e) {
 	}
 }
 
-function updateSelection(currentIndex, previousIndex) {
-	$.containerView.children[previousIndex].applyProperties(pagerDict);
-	$.containerView.children[currentIndex].applyProperties(selectedPagerDict);
+function updateSelection(_currentIndex, _previousIndex) {
+	$.containerView.children[_previousIndex].applyProperties(pagerDict);
+	$.containerView.children[_currentIndex].applyProperties(selectedPagerDict);
 }
 
-function setCurrentPage(index) {
-	if (index < length) {
-		updateSelection(index, currentPage);
-		currentPage = index;
+function setCurrentPage(_index) {
+	if (_index < length) {
+		updateSelection(_index, currentPage);
+		currentPage = _index;
 	}
 }
 

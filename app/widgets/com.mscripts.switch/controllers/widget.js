@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     busy = false,
-    _value,
+    currentValue,
     touchStartX = 0,
     disabledLeft = 2,
     enabledLeft,
@@ -58,7 +58,7 @@ function didTouchcancel(e) {
 	});
 	busy = true;
 	touchStartX = e.x;
-	if (_value) {
+	if (currentValue) {
 		enabledSwt(true);
 	} else {
 		disableSwt(true);
@@ -104,8 +104,8 @@ function didTouchend(e) {
 			busy = false;
 			setValue(value);
 		} else {
-			_value = !_value;
-			if (_value) {
+			currentValue = !currentValue;
+			if (currentValue) {
 				enabledSwt(true);
 			} else {
 				disableSwt(true);
@@ -113,14 +113,14 @@ function didTouchend(e) {
 		}
 		$.trigger("change", {
 			source : $,
-			value : _value
+			value : currentValue
 		});
 	}
 }
 
 function didSingletap(e) {
 	if (!busy) {
-		var value = !_value;
+		var value = !currentValue;
 		if (setValue(value)) {
 			$.trigger("change", {
 				source : $,
@@ -131,33 +131,33 @@ function didSingletap(e) {
 }
 
 function didChange(e) {
-	_value = e.value;
+	currentValue = e.value;
 	$.trigger("change", {
 		source : $,
-		value : _value
+		value : currentValue
 	});
 }
 
-function setValue(value, animate) {
-	if (_value != value && busy == false) {
-		_value = value;
+function setValue(_value, _animate) {
+	if (currentValue != _value && busy == false) {
+		currentValue = _value;
 		if (OS_ANDROID || OS_MOBILEWEB) {
 			busy = true;
-			if (_value) {
-				enabledSwt(animate);
+			if (currentValue) {
+				enabledSwt(_animate);
 			} else {
-				disableSwt(animate);
+				disableSwt(_animate);
 			}
 		} else {
-			$.swt.setValue(_value);
+			$.swt.setValue(currentValue);
 		}
 		return true;
 	}
 	return false;
 }
 
-function enabledSwt(animate) {
-	if (animate !== false) {
+function enabledSwt(_animate) {
+	if (_animate !== false) {
 		var animation = Ti.UI.createAnimation({
 			left : enabledLeft,
 			duration : 300
@@ -176,8 +176,8 @@ function enabledSwt(animate) {
 	}
 }
 
-function disableSwt(animate) {
-	if (animate !== false) {
+function disableSwt(_animate) {
+	if (_animate !== false) {
 		var animation = Ti.UI.createAnimation({
 			left : disabledLeft,
 			duration : 300
@@ -197,11 +197,11 @@ function disableSwt(animate) {
 }
 
 function getValue() {
-	return _value;
+	return currentValue;
 }
 
-function setTouchEnabled(value) {
-	$.swt.touchEnabled = value;
+function setTouchEnabled(_value) {
+	$.swt.touchEnabled = _value;
 }
 
 function getTouchEnabled() {

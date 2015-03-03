@@ -78,28 +78,28 @@ function didItemClick(e) {
 	hide();
 }
 
-function applyProperties(dict) {
-	$.containerView.applyProperties(dict);
+function applyProperties(_dict) {
+	$.containerView.applyProperties(_dict);
 }
 
-function getRow(data) {
+function getRow(_data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
-	if (data.iconText) {
+	if (_data.iconText) {
 		rowView.add(Ti.UI.createLabel({
-			text : data.iconText,
+			text : _data.iconText,
 			left : 0,
 			font : args.iconFont || {
 				fontSize : 12
 			},
-			color : data.iconColor || args.iconColor || "#000"
+			color : _data.iconColor || args.iconColor || "#000"
 		}));
 	}
 	rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
-		text : data[titleProperty],
-		left : data.iconText ? paddingLeft : 0
+		text : _data[titleProperty],
+		left : _data.iconText ? paddingLeft : 0
 	})));
 	row.add(rowView);
 	return row;
@@ -120,18 +120,18 @@ function getItems() {
 	return items;
 }
 
-function animate(dict, callback) {
-	var animation = Ti.UI.createAnimation(dict);
+function animate(_dict, _callback) {
+	var animation = Ti.UI.createAnimation(_dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function show(callback) {
+function show(_callback) {
 	if (!$.widget.visible) {
 		$.widget.applyProperties({
 			visible : true,
@@ -144,8 +144,8 @@ function show(callback) {
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
-			if (callback) {
-				callback();
+			if (_callback) {
+				_callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -154,7 +154,7 @@ function show(callback) {
 	return false;
 }
 
-function hide(callback) {
+function hide(_callback) {
 	if ($.widget.visible) {
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
@@ -167,8 +167,8 @@ function hide(callback) {
 				visible : false,
 				zIndex : 0
 			});
-			if (callback) {
-				callback();
+			if (_callback) {
+				_callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -177,11 +177,11 @@ function hide(callback) {
 	return false;
 }
 
-function toggle(callback) {
+function toggle(_callback) {
 	if ($.widget.visible) {
-		hide(callback);
+		hide(_callback);
 	} else {
-		show(callback);
+		show(_callback);
 	}
 }
 

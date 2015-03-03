@@ -2,7 +2,7 @@
 	<View onSingletap="didTap">
 		<View id="overlayView" />
 		<View id="containerView">
-			<TableView id="tableView" onClick="didItemClick" />
+			<TableView id="tableView" onClick="updateItem" />
 		</View>
 	</View>
 </Alloy>

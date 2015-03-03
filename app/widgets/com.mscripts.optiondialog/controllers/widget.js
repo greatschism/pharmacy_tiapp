@@ -1,8 +1,12 @@
 var args = arguments[0] || {},
     CONTAINER_HEIGHT = 0,
-    height = Ti.Platform.displayCaps.platformHeight,
+    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
     properties = {},
     options = [];
+
+if (OS_ANDROID) {
+	SCREEN_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
+}
 
 (function() {
 
@@ -35,10 +39,6 @@ var args = arguments[0] || {},
 
 		$.titleLbl.text = args.title || "Choose one";
 
-		if (OS_ANDROID) {
-			height /= Ti.Platform.displayCaps.logicalDensityFactor;
-		}
-
 		setOptions(args.options || []);
 	}
 
@@ -64,28 +64,28 @@ function didItemClick(e) {
 	}
 }
 
-function applyProperties(dict) {
-	$.container.applyProperties(dict);
+function applyProperties(_dict) {
+	$.container.applyProperties(_dict);
 }
 
-function getRow(data) {
+function getRow(_data) {
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
 		classes : ["height-48d"]
 	});
-	if (data.image) {
+	if (_data.image) {
 		var image = $.UI.create("ImageView", {
 			apiName : "ImageView",
 			classes : ["icon"]
 		});
-		image.image = data.image;
+		image.image = _data.image;
 		row.add(image);
 	}
 	var title = $.UI.create("Label", {
 		apiName : "Label",
-		classes : [data.image ? "icon-title" : "title"]
+		classes : [_data.image ? "icon-title" : "title"]
 	});
-	properties.text = data.title;
+	properties.text = _data.title;
 	title.applyProperties(properties);
 	row.add(title);
 	return row;
@@ -133,7 +133,7 @@ function setOptions(_options) {
 	}
 
 	if (Alloy.isHandheld) {
-		$.container.top = height + CONTAINER_HEIGHT;
+		$.container.top = SCREEN_HEIGHT + CONTAINER_HEIGHT;
 	}
 }
 
@@ -141,18 +141,18 @@ function getOptions() {
 	return options;
 }
 
-function animate(dict, callback) {
-	var animation = Ti.UI.createAnimation(dict);
+function animate(_dict, _callback) {
+	var animation = Ti.UI.createAnimation(_dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function show(callback) {
+function show(_callback) {
 	if (OS_IOS || OS_ANDROID) {
 		$.dialog.show();
 	} else {
@@ -160,22 +160,22 @@ function show(callback) {
 			$.widget.visible = true;
 			$.widget.zIndex = args.zIndex || 1;
 			if (Alloy.isHandheld) {
-				var top = height - CONTAINER_HEIGHT;
+				var top = SCREEN_HEIGHT - CONTAINER_HEIGHT;
 				var animation = Ti.UI.createAnimation({
 					top : top,
 					duration : 300
 				});
 				animation.addEventListener("complete", function onComplete() {
 					$.container.top = top;
-					if (callback) {
-						callback();
+					if (_callback) {
+						_callback();
 					}
 					animation.removeEventListener("complete", onComplete);
 				});
 				$.container.animate(animation);
 			} else {
-				if (callback) {
-					callback();
+				if (_callback) {
+					_callback();
 				}
 			}
 			return true;
@@ -184,13 +184,13 @@ function show(callback) {
 	}
 }
 
-function hide(callback) {
+function hide(_callback) {
 	if (OS_IOS || OS_ANDROID) {
 		$.dialog.hide();
 	} else {
 		if ($.widget.visible) {
 			if (Alloy.isHandheld) {
-				var top = height + CONTAINER_HEIGHT;
+				var top = SCREEN_HEIGHT + CONTAINER_HEIGHT;
 				var animation = Ti.UI.createAnimation({
 					top : top,
 					duration : 300
@@ -199,8 +199,8 @@ function hide(callback) {
 					$.container.top = top;
 					$.widget.visible = false;
 					$.widget.zIndex = 0;
-					if (callback) {
-						callback();
+					if (_callback) {
+						_callback();
 					}
 					animation.removeEventListener("complete", onComplete);
 				});
@@ -208,8 +208,8 @@ function hide(callback) {
 			} else {
 				$.widget.visible = false;
 				$.widget.zIndex = 0;
-				if (callback) {
-					callback();
+				if (_callback) {
+					_callback();
 				}
 			}
 			return true;
@@ -218,11 +218,11 @@ function hide(callback) {
 	}
 }
 
-function toggle(callback) {
+function toggle(_callback) {
 	if ($.widget.visible) {
-		hide(callback);
+		hide(_callback);
 	} else {
-		show(callback);
+		show(_callback);
 	}
 }
 

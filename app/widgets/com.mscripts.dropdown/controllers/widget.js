@@ -196,8 +196,8 @@ function getChoices() {
 	return choices;
 }
 
-function setSelectedIndex(index) {
-	selectedIndex = index;
+function setSelectedIndex(_index) {
+	selectedIndex = _index;
 	removeHint();
 	$.lbl.setText(getSelectedItem().title || "");
 }
@@ -228,11 +228,11 @@ function doSelectDate(e) {
 	$.trigger("return", e);
 }
 
-function setValue(date) {
+function setValue(_date) {
 	if (OS_MOBILEWEB) {
-		picker.value = moment(date).format("YYYY-MM-DD");
+		picker.value = moment(_date).format("YYYY-MM-DD");
 	} else {
-		selectedDate = date;
+		selectedDate = _date;
 		removeHint();
 		$.lbl.text = moment(selectedDate).format(format);
 	}

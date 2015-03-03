@@ -104,16 +104,16 @@ function init() {
 	parent.add($.picker);
 }
 
-function getRow(data) {
+function getRow(_data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
 		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : false
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
-	if (data.iconText) {
+	if (_data.iconText) {
 		var lbl = Ti.UI.createLabel({
 			left : 0,
-			text : data.iconText,
+			text : _data.iconText,
 			color : args.selectedIconColor || "#000",
 			font : args.iconFont || {
 				fontSize : 12
@@ -122,22 +122,22 @@ function getRow(data) {
 		rowView.add(lbl);
 	}
 	rowView.add(Ti.UI.createLabel(_.extend(choiceDict, {
-		text : data.title,
-		left : data.iconText ? paddingLeft : 0
+		text : _data.title,
+		left : _data.iconText ? paddingLeft : 0
 	})));
 	row.add(rowView);
 	return row;
 }
 
-function terminate(callback) {
+function terminate(_callback) {
 	var animation = Ti.UI.createAnimation({
 		top : SCREEN_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
 		parent.remove($.picker);
-		if (callback) {
-			callback();
+		if (_callback) {
+			_callback();
 		}
 		animation.removeEventListener("complete", onComplete);
 	});
@@ -209,8 +209,8 @@ function getChoices() {
 	return choices;
 }
 
-function setSelectedIndex(index) {
-	selectedIndex = index;
+function setSelectedIndex(_index) {
+	selectedIndex = _index;
 }
 
 function getSelectedIndex() {

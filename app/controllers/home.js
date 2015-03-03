@@ -12,13 +12,13 @@ function init() {
 	Alloy.Models.user.trigger("change");
 }
 
-function create(dict) {
-	var element = $.UI.create(dict.apiName, {
-		apiName : dict.apiName,
-		classes : dict.classes || []
+function create(_dict) {
+	var element = $.UI.create(_dict.apiName, {
+		apiName : _dict.apiName,
+		classes : _dict.classes || []
 	});
-	if (_.has(dict, "properties")) {
-		var properties = dict.properties;
+	if (_.has(_dict, "properties")) {
+		var properties = _dict.properties;
 		if (_.has(properties, "icon")) {
 			properties.text = icons[iconPrefix + "_" + properties.icon] || icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
@@ -28,8 +28,8 @@ function create(dict) {
 		}
 		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
 	}
-	if (_.has(dict, "children")) {
-		var children = dict.children;
+	if (_.has(_dict, "children")) {
+		var children = _dict.children;
 		for (var i in children) {
 			var items = children[i].items,
 			    addChild = children[i].addChild || "add",
@@ -48,8 +48,8 @@ function create(dict) {
 			}
 		}
 	}
-	if (_.has(dict, "navigation")) {
-		element.navigation = dict.navigation;
+	if (_.has(_dict, "navigation")) {
+		element.navigation = _dict.navigation;
 		element.addEventListener("click", didItemClick);
 	}
 	return element;
