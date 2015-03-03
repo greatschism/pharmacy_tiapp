@@ -12,7 +12,18 @@ var args = arguments[0] || {},
 
     readyToRefill,
     otherPrescriptions,
-    prescriptions;
+    prescriptions,
+     iconLbl = $.UI.create("Label", {
+				apiName : "Label",
+				height : 32,
+				width : 32,
+				font : {
+					fontSize : 20
+				},
+				text : Alloy.CFG.icons.spot,
+				color : "#45cdef",
+				classes : ["width-90", "padding-left", "auto-height"]
+			});
 
 function init() {
 	http.request({
@@ -67,23 +78,13 @@ function didSuccess(result) {
            	classes : ["vgroup"]
            	
            }),
-           
-           iconLbl = $.UI.create("Label", {
-				apiName : "Label",
-				height : 32,
-				width : 32,
-				font : {
-					fontSize : 20
-				},
-				text : Alloy.CFG.icons.addition,
-				color : "#599DFF",
-				classes : ["width-90", "padding-left", "auto-height"]
-			}),
+            iconLbl,
 
 
 			
 			content = $.UI.create("View", {
 				apiName : "View",
+				left: 30,
 				classes : ["list-item-view", "vgroup"]
 			}),
 
@@ -125,6 +126,7 @@ function didSuccess(result) {
 			row.add(icon);
 		
 			row.add(content);
+			row.addEventListener("click" ,didClickTickIcon);
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -189,6 +191,14 @@ function didSuccess(result) {
 			}),
 			
 			
+           icon = $.UI.create("View",{
+           	apiName: "View",
+           	height: 50,
+           	classes : ["vgroup"]
+           	
+           }),
+           
+           iconLbl ,
 			
 			vseparator = $.UI.create("View", {
 				apiName : "View",
@@ -196,6 +206,7 @@ function didSuccess(result) {
 			}),
 			content = $.UI.create("View", {
 				apiName : "View",
+				left : 30,
 				classes : ["list-item-view", "vgroup"]
 			}),
 			sub = $.UI.create("View", {
@@ -223,7 +234,8 @@ function didSuccess(result) {
 			//content.addEventListener("click", didItemClick);
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
-
+            icon.add(iconLbl);
+            row.add(icon);
 			detail.add(rx);
 			detail.add(due);
 			content.add(title);
@@ -268,6 +280,18 @@ function didSuccess(result) {
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
+
+function didClickTickIcon(e)
+{
+	Ti.API.info("you clicked row" + e.index);
+	if(e.index.selectRow)
+	{
+		
+	}
+}
+
+
+
 
 function didClickDone() {
 
@@ -319,8 +343,7 @@ function didAddPrescription(_result) {
 }
 
 function didItemClick(e) {
-	var newPresc = e.rowId;
-	alert("you clicked" + newPresc);
+	
 }
 
 function terminate() {
