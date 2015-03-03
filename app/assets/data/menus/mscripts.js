@@ -1,7 +1,7 @@
 module.exports = {
 	"items" : [{
 		"titleid" : "titleHome",
-		"ctrl" : "createUsername",
+		"ctrl" : "home",
 		"icon" : "home",
 		"requires_login" : false,
 		"landing_page" : true
