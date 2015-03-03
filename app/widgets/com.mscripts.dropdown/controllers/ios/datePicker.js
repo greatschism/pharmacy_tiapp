@@ -1,29 +1,48 @@
 var args = arguments[0] || {},
-    PICKER_HEIGHT = 290,
-    height = Ti.Platform.displayCaps.platformHeight,
+    PICKER_HEIGHT = 240,
+    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
+    font = args.font || {
+	fontSize : 12
+},
     parent;
 
 (function() {
 
-	if (_.has(args, "backgroundColor")) {
-		$.datePicker.backgroundColor = args.backgroundColor;
-	}
+	$.datePicker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
 	if (_.has(args, "toolbarDict")) {
-		$.toolbar.applyProperties(args.toolbarDict);
-	}
-
-	if (_.has(args, "buttonDict")) {
-		$.leftBtn.applyProperties(args.buttonDict);
-		$.rightBtn.applyProperties(args.buttonDict);
+		_.extend(args.toolbarDict, {
+			font : font
+		});
+		$.toolbarView.applyProperties(args.toolbarDict);
+		if (_.has(args.toolbarDict, "height")) {
+			$.picker.applyProperties({
+				top : args.toolbarDict.height,
+				height : PICKER_HEIGHT - args.toolbarDict.height
+			});
+		}
 	}
 
 	if (_.has(args, "leftTitle")) {
-		$.rightBtn.title = args.leftTitle;
+		$.leftBtn.title = args.leftTitle;
 	}
 
 	if (_.has(args, "rightTitle")) {
 		$.rightBtn.title = args.rightTitle;
+	}
+
+	if (_.has(args, "leftBtnDict")) {
+		_.extend(args.leftBtnDict, {
+			font : font
+		});
+		$.leftBtn.applyProperties(args.leftBtnDict);
+	}
+
+	if (_.has(args, "rightBtnDict")) {
+		_.extend(args.rightBtnDict, {
+			font : font
+		});
+		$.rightBtn.applyProperties(args.rightBtnDict);
 	}
 
 	if (_.has(args, "parent")) {
@@ -35,7 +54,7 @@ var args = arguments[0] || {},
 		$.picker.applyProperties(options);
 	}
 
-	$.datePicker.top = height + PICKER_HEIGHT;
+	$.datePicker.top = SCREEN_HEIGHT;
 
 })();
 
@@ -46,7 +65,7 @@ function init() {
 
 function terminate(callback) {
 	var animation = Ti.UI.createAnimation({
-		top : height + PICKER_HEIGHT,
+		top : SCREEN_HEIGHT,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
@@ -61,7 +80,7 @@ function terminate(callback) {
 
 function didPostlayout(e) {
 	$.datePicker.removeEventListener("postlayout", didPostlayout);
-	var top = height - PICKER_HEIGHT;
+	var top = (SCREEN_HEIGHT - PICKER_HEIGHT) - (args.containerPaddingTop || 0);
 	var animation = Ti.UI.createAnimation({
 		top : top,
 		duration : 300
@@ -73,11 +92,11 @@ function didPostlayout(e) {
 	$.datePicker.animate(animation);
 }
 
-function didLeftClick(e) {
+function didClickLeftBtn(e) {
 	$.trigger("leftclick");
 }
 
-function didRightClick(e) {
+function didClickRightBtn(e) {
 	$.trigger("rightclick", {
 		nextItem : args.nextItem || ""
 	});

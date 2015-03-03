@@ -140,7 +140,7 @@ function showPicker() {
 					}
 				});
 			} else if (OS_IOS) {
-				var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "buttonDict", "leftTitle", "rightTitle"]);
+				var pickerDict = _.pick(args, ["font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "containerPaddingTop"]);
 				_.extend(pickerDict, {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
@@ -154,7 +154,7 @@ function showPicker() {
 				picker.init();
 			}
 		} else {
-			var pickerDict = _.pick(args, ["backgroundColor", "toolbarDict", "choiceDict", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectionIconText", "iconSelectionColor", "containerPaddingTop"]);
+			var pickerDict = _.pick(args, ["font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectedIconText", "selectedIconColor", "containerPaddingTop"]);
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,

@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     PICKER_HEIGHT = 240,
     SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
-    choiceDict = {
+    optionPadding = {
 	top : 12,
 	bottom : 12,
 	left : 12,
@@ -10,18 +10,37 @@ var args = arguments[0] || {},
 	layout : "horizontal",
 	horizontalWrap : false
 },
-    font = {
+    font = args.font || {
 	fontSize : 12
 },
+    choiceDict = {
+	font : {
+		fontSize : 12
+	},
+	ellipsize : true,
+	wordWrap : false
+},
     choices = [],
+    titleProperty = args.titleProperty || "title",
+    paddingLeft = args.paddingLeft || 12,
+    color = args.color || "#000",
     selectedIndex = -1,
     parent;
+
+if (OS_ANDROID) {
+	SCREEN_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
+}
 
 (function() {
 
 	$.picker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
+	_.extend(choiceDict, _.pick(args, ["color", "font"]));
+
 	if (_.has(args, "toolbarDict")) {
+		_.extend(args.toolbarDict, {
+			font : font
+		});
 		$.toolbarView.applyProperties(args.toolbarDict);
 		if (_.has(args.toolbarDict, "height")) {
 			$.listView.applyProperties({
@@ -31,11 +50,8 @@ var args = arguments[0] || {},
 		}
 	}
 
-	if (_.has(args, "choiceDict")) {
-		if (_.has(args.choiceDict, "font")) {
-			font = args.choiceDict.font;
-		}
-		_.extend(choiceDict, args.choiceDict);
+	if (_.has(args, "optionPadding")) {
+		_.extend(optionPadding, args.optionPadding);
 	}
 
 	if (_.has(args, "leftTitle")) {
@@ -47,10 +63,16 @@ var args = arguments[0] || {},
 	}
 
 	if (_.has(args, "leftBtnDict")) {
+		_.extend(args.leftBtnDict, {
+			font : font
+		});
 		$.leftBtn.applyProperties(args.leftBtnDict);
 	}
 
 	if (_.has(args, "rightBtnDict")) {
+		_.extend(args.rightBtnDict, {
+			font : font
+		});
 		$.rightBtn.applyProperties(args.rightBtnDict);
 	}
 
@@ -65,10 +87,6 @@ var args = arguments[0] || {},
 		}
 	}
 
-	if (OS_ANDROID) {
-		SCREEN_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
-	}
-
 	$.picker.top = SCREEN_HEIGHT;
 
 })();
@@ -77,8 +95,8 @@ function init() {
 	var data = [];
 	for (var i in choices) {
 		data.push(getRow({
-			title : choices[i].title,
-			iconText : selectedIndex == i ? choices[i].iconText || args.selectionIconText || "+" : ""
+			title : choices[i][titleProperty],
+			iconText : selectedIndex == i ? choices[i].iconText || args.selectedIconText || "+" : ""
 		}));
 	}
 	$.listView.setData(data);
@@ -91,25 +109,22 @@ function getRow(data) {
 		height : Ti.UI.SIZE,
 		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : false
 	}),
-	    rowView = Ti.UI.createView(choiceDict);
+	    rowView = Ti.UI.createView(optionPadding);
 	if (data.iconText) {
 		var lbl = Ti.UI.createLabel({
 			left : 0,
 			text : data.iconText,
-			color : args.iconSelectionColor || "#000",
+			color : args.selectedIconColor || "#000",
 			font : args.iconFont || {
 				fontSize : 12
 			}
 		});
 		rowView.add(lbl);
 	}
-	var titleLbl = Ti.UI.createLabel({
-		left : args.paddingLeft || 12,
+	rowView.add(Ti.UI.createLabel(_.extend(choiceDict, {
 		text : data.title,
-		font : font,
-		color : args.color || "#000"
-	});
-	rowView.add(titleLbl);
+		left : data.iconText ? paddingLeft : 0
+	})));
 	row.add(rowView);
 	return row;
 }
@@ -148,13 +163,13 @@ function didClickListView(e) {
 	if (index !== selectedIndex) {
 		if (selectedIndex >= 0) {
 			$.listView.updateRow(selectedIndex, getRow({
-				title : choices[selectedIndex].title
+				title : choices[selectedIndex][titleProperty]
 			}));
 		}
 		selectedIndex = index;
 		$.listView.updateRow(selectedIndex, getRow({
-			title : choices[selectedIndex].title,
-			iconText : choices[selectedIndex].iconText || args.selectionIconText || "+"
+			title : choices[selectedIndex][titleProperty],
+			iconText : choices[selectedIndex].iconText || args.selectedIconText || "+"
 		}));
 		$.trigger("change", {
 			soruce : $,
