@@ -41,6 +41,7 @@ module.exports = {
 		"titleRefillHistory" : "Refill history",
 		"titleSuccess" : "Success!",
 		"titleAddAPicture" : "Add a picture",
+		"titlecreateUsername" : "Create a username",
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
 		"sectionUpcomingAppointments" : "Upcoming appointments",
@@ -202,6 +203,9 @@ module.exports = {
 		"msgNoAppointment" : "You have no upcomming appointment",
 		"msgNoDoctor" : "You have no doctors saved in you profile",
 		"msgEmailRecovery" : "Our friendly coustomer support team can help you recover your lost information.",
+		"msgWhyEmailAddress" : "We'll use your email address to help you recover your username or password just in case you ever forget them.",
+		"msgCreateUsername" : "We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
+		"msgUsernameCreated" : "Your username has been created. You will use it to log in from now on. Please do it once now.",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
@@ -273,6 +277,7 @@ module.exports = {
 		"strAddPrescription" : "+ Add a prescription",
 		"strRetrivePassword" : "?",
 		"strEmailSubjectLoginRecovery" : "Email recovery",
-		"strEmailBodyLoginRecovery" : "I do not remember what email I used!"
+		"strEmailBodyLoginRecovery" : "I do not remember what email I used!",
+		"strWhy" : "Why?"
 	}
 };

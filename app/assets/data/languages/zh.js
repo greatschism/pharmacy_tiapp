@@ -41,6 +41,7 @@ module.exports = {
 		"titleRefillHistory" : "zh-Refill history",
 		"titleSuccess" : "zh-Success!",
 		"titleAddAPicture" : "zh-Add a picture",
+		"titlecreateUsername" : "zh-Create a username",
 		"sectionStoreHours" : "zh-Store hours",
 		"sectionStoreServices" : "zh-Store services",
 		"sectionUpcomingAppointments" : "zh-Upcoming appointments",

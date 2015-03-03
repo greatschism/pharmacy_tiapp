@@ -41,6 +41,7 @@ module.exports = {
 		"titleRefillHistory" : "ja-Refill history",
 		"titleSuccess" : "ja-Success!",
 		"titleAddAPicture" : "ja-Add a picture",
+		"titlecreateUsername" : "ja-Create a username",
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
 		"sectionUpcomingAppointments" : "ja-Upcoming appointments",

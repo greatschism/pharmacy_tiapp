@@ -32,25 +32,55 @@ function didClickNext() {
 		});
 		return;
 	}
-	http.request({
-		method : "PATIENTS_MOBILE_GENERATE_OTP",
-		data : {
-			filter : [{
-				type : "mobile_otp"
-			}],
-			data : [{
-				patient : {
-					mobile_number : args.mobileNumber,
-					first_name : fname,
-					birth_date : moment(dob).format("MM-DD-YYYY")
-				}
-			}]
-		},
-		passthrough : _.extend(args, {
-			fname : fname,
-			dob : dob
-		}),
-		success : didSendOTP
+	if (args.orgin == "login") {
+		console.log("from login");
+		//	http.request({
+		//			method : "PATIENTS_AUTHENTICATE", //to be mscripts-authenticate
+		//			data : {
+		//data : [{
+		//	patient : {
+		//			mobile_number : args.mobileNumber,
+		//				//first_name : fname,
+		//					//birth_date : moment(dob).format("MM-DD-YYYY"),
+		//						password : args.password
+		//					}
+		//				}]
+		//			},
+		//			success : didMscriptsAuthenticate
+		//		});
+		app.navigator.open({
+			ctrl : "createUsername",
+			titleid : "titlecreateUsername"
+		});
+	} else {
+		http.request({
+			method : "PATIENTS_MOBILE_GENERATE_OTP",
+			data : {
+				filter : [{
+					type : "mobile_otp"
+				}],
+				data : [{
+					patient : {
+						mobile_number : args.mobileNumber,
+						first_name : fname,
+						birth_date : moment(dob).format("MM-DD-YYYY")
+					}
+				}]
+			},
+			passthrough : _.extend(args, {
+				fname : fname,
+				dob : dob
+			}),
+			success : didSendOTP
+		});
+	}
+}
+
+function didMscriptsAuthenticate(_result) {
+	//Authenticate
+	app.navigator.open({
+		ctrl : "createUsername",
+		titleid : "titlecreateUsername"
 	});
 }
 

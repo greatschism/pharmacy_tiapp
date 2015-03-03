@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     dialog = require("dialog"),
     uihelper = require("uihelper"),
+    utilities = require("utilities"),
     http = require("requestwrapper"),
     encryptionUtil,
     keychainAccount;
@@ -47,18 +48,38 @@ function didClickLogin(e) {
 			keychainAccount.reset();
 		}
 	}
-	http.request({
-		method : "PATIENTS_AUTHENTICATE",
-		data : {
-			data : [{
-				patient : {
-					user_name : uname,
-					password : password
-				}
-			}]
-		},
-		success : didAuthenticate
-	});
+	if (/^[0-9]{10}$/.test(uname)) {
+		http.request({
+			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
+			data : {
+				data : [{
+					patient : {
+						mobile_number : uname
+					}
+				}]
+			},
+			passthrough : {
+				mobileNumber : uname,
+				password : password
+			},
+			success : didSuccess,
+			failure : didFail,
+			keepBlock : true
+		});
+	} else {
+		http.request({
+			method : "PATIENTS_AUTHENTICATE",
+			data : {
+				data : [{
+					patient : {
+						user_name : uname,
+						password : password
+					}
+				}]
+			},
+			success : didAuthenticate
+		});
+	}
 }
 
 function didAuthenticate(_result) {
@@ -74,6 +95,49 @@ function didAuthenticate(_result) {
 	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
 	landing_page: true
 	})[0].toJSON());
+}
+
+function didSuccess(_result, _passthrough) {
+	var isExists = parseInt(_result.data.patients.mobile_exists),
+	    isShared = parseInt(_result.data.patients.is_mobile_shared);
+	if (isExists) {
+		if (isShared) {
+			app.navigator.hideLoader();
+			app.navigator.open({
+				ctrl : "sharedMobileCheck",
+				stack : true,
+				ctrlArguments : {
+					orgin : $.__controllerPath,
+					passthrough : _passthrough
+				}
+			});
+		} else {
+			app.navigator.hideLoader();
+			http.request({
+				method : "PATIENTS_AUTHENTICATE", // mscripts-authenticate
+				data : {
+					data : [{
+						patient : {
+							user_name : uname,
+							password : password
+						}
+					}]
+				},
+				success : didMscriptsAuthenticate
+			});
+		}
+	} else {
+		app.navigator.hideLoader();
+		// error message
+	}
+}
+
+function didMscriptsAuthenticate(_result){
+	//go to new screen
+}
+
+function didFail(_passthrough) {
+	app.navigator.hideLoader();
 }
 
 function handleScroll(e) {
