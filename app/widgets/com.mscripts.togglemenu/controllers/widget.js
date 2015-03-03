@@ -2,7 +2,17 @@ var args = arguments[0] || {},
     MAX_WIDTH = (Ti.Platform.displayCaps.platformWidth / 100) * 65,
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 65,
     items = [],
-    optionPadding = args.optionPadding || {},
+    titleProperty = args.titleProperty || "title",
+    paddingLeft = args.paddingLeft || 12,
+    optionPadding = {
+	top : 12,
+	bottom : 12,
+	left : 12,
+	right : 12,
+	height : Ti.UI.SIZE,
+	layout : "horizontal",
+	horizontalWrap : false
+},
     optioDict = {
 	font : {
 		fontSize : 12
@@ -21,6 +31,10 @@ if (OS_ANDROID) {
 	$.role = args.role || "overlay";
 
 	args.width = MAX_WIDTH;
+
+	if (_.has(args, "optionPadding")) {
+		_.extend(optionPadding, args.optionPadding);
+	}
 
 	if (_.has(args, "overlayDict")) {
 		$.overlayView.applyProperties(args.overlayDict);
@@ -73,10 +87,6 @@ function getRow(data) {
 		height : Ti.UI.SIZE
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
-	rowView.applyProperties({
-		height : Ti.UI.SIZE,
-		layout : "horizontal"
-	});
 	if (data.iconText) {
 		rowView.add(Ti.UI.createLabel({
 			text : data.iconText,
@@ -84,12 +94,12 @@ function getRow(data) {
 			font : args.iconFont || {
 				fontSize : 12
 			},
-			color : data.iconColor
+			color : data.iconColor || args.iconColor || "#000"
 		}));
 	}
 	rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
-		text : data.title,
-		left : data.iconText ? optionPadding.left || 12 : 0
+		text : data[titleProperty],
+		left : data.iconText ? paddingLeft : 0
 	})));
 	row.add(rowView);
 	return row;
@@ -97,17 +107,11 @@ function getRow(data) {
 
 function setItems(_items) {
 	items = _items;
-	var top = optionPadding.top || 0,
-	    bottom = optionPadding.bottom || 0,
-	    height = items.length * (top + bottom + optioDict.font.fontSize + 5);
+	var height = items.length * (optionPadding.top + optionPadding.bottom + optioDict.font.fontSize + 5);
 	$.containerView.height = height > MAX_HEIGHT ? MAX_HEIGHT : height;
 	var data = [];
 	for (var i in items) {
-		data.push(getRow({
-			title : items[i].title,
-			iconText : items[i].iconText || "",
-			iconColor : items[i].iconColor || optioDict.color || "#000"
-		}));
+		data.push(getRow(items[i]));
 	}
 	$.tableView.setData(data);
 }
