@@ -229,7 +229,7 @@ module.exports = {
 				"color" : "#000000",
 				"textAlign" : "left",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "FFFFFF",
+				"borderColor" : "#FFFFFF",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -272,6 +272,12 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"hintTextColor" : "#808285",
@@ -285,22 +291,8 @@ module.exports = {
 					"height" : 40,
 					"backgroundColor" : "#EFEFF4"
 				},
-				"choiceDict" : {
-					"top" : 12,
-					"bottom" : 12,
-					"left" : 12,
-					"right" : 12,
-					"font" : {
-						"fontFamily" : "light",
-						"fontSize" : 17
-					}
-				},
 				"leftBtnDict" : {
 					"left" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
@@ -308,16 +300,12 @@ module.exports = {
 				},
 				"rightBtnDict" : {
 					"right" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
-				"iconSelectionColor" : "#00A14B",
+				"selectedIconColor" : "#00A14B",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent",
 				"borderWidth" : 0
@@ -369,6 +357,12 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"hintTextColor" : "#808285",
@@ -382,22 +376,8 @@ module.exports = {
 					"height" : 40,
 					"backgroundColor" : "#EFEFF4"
 				},
-				"choiceDict" : {
-					"top" : 12,
-					"bottom" : 12,
-					"left" : 12,
-					"right" : 12,
-					"font" : {
-						"fontFamily" : "light",
-						"fontSize" : 17
-					}
-				},
 				"leftBtnDict" : {
 					"left" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
@@ -405,16 +385,12 @@ module.exports = {
 				},
 				"rightBtnDict" : {
 					"right" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
-				"iconSelectionColor" : "#00A14B",
+				"selectedIconColor" : "#00A14B",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808285",
 				"borderWidth" : 1,
@@ -908,6 +884,7 @@ module.exports = {
 					"left" : 12,
 					"right" : 12
 				},
+				"paddingLeft" : 12,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
@@ -937,6 +914,7 @@ module.exports = {
 					"left" : 12,
 					"right" : 12
 				},
+				"paddingLeft" : 12,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
