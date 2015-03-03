@@ -1,0 +1,18 @@
+"#instructionLbl": {
+	text: Alloy.Globals.strings.msgCreateUsername
+},
+"#unameTxt":{
+	hintText: Alloy.Globals.strings.hintUsername,
+	nextItem: "emailTxt"
+},
+"#emailTxt":{
+	hintText: Alloy.Globals.strings.hintEmail,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	rightButtonTitle: Alloy.Globals.strings.strWhy
+},
+"#agreementLbl":{
+	html: Alloy.Globals.strings.lblSignupAgreement
+},
+"#doneBtn": {
+	title: Alloy.Globals.strings.btnDone
+}
