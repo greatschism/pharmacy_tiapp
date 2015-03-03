@@ -62,10 +62,6 @@ function didClickNext() {
 					}
 				}]
 			},
-			passthrough : _.extend(args, {
-				fname : fname,
-				dob : dob
-			}),
 			success : didSendOTP
 		});
 	}
@@ -79,11 +75,14 @@ function didAuthenticateMobileUser(_result) {
 	});
 }
 
-function didSendOTP(_result, _passthrough) {
+function didSendOTP(_result) {
 	app.navigator.open({
 		ctrl : "textToApp",
 		stack : true,
-		ctrlArguments : _passthrough
+		ctrlArguments : _.extend(args, {
+			fname : $.fnameTxt.getValue(),
+			dob : $.dob.getValue()
+		})
 	});
 }
 
