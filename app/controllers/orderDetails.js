@@ -79,7 +79,7 @@ function init() {
 			font : {
 				fontSize : 20
 			},
-			text : Alloy.CFG.icons.plus,
+			text : Alloy.CFG.icons.plus_with_circle,
 			color : "#599DFF",
 			classes : ["paddingLeft", "paddingTop", "paddingBottom", "additionIcon", "small-icon"]
 
@@ -140,12 +140,15 @@ function init() {
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
-
+        font : {
+				fontSize : 18,
+				bold : true
+			},
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
-		top : 50,
+		top : 30,
 		text : "San Franscisco,CA, 94103",
 		classes : ["list-item-info-lbl", "left"]
 	}),
@@ -153,8 +156,9 @@ function init() {
 		apiName : "Label",
 		text : "change",
 	    right: 10,
+	    
 		color : " #599DFF",
-		classes : ["right", "padding-right", "width-45", "h2"]
+		classes : ["right", "padding-right", "width-30","h1"]
 	});
 
 	containerView.rowId = transform.id;
@@ -179,7 +183,7 @@ function init() {
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-	//	classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
+	classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
 
 	}),
 
@@ -191,22 +195,22 @@ function init() {
 
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
-		top : 10,
-		text : "1 Sanstome St.",
+		top : 5,
+		text : "445 Bush Street.",
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "San Franscisco,CA, 94103",
-		top : 10,
+		top : 5,
 		classes : ["list-item-info-lbl", "left"]
 	}),
 
 	    wrongAddressLbl = $.UI.create("Label", {
 		apiName : "Label",
-		top : 10,
+		top : 5,
 		color : "#599DFF",
-		text : "Wrong address? Call your pharmacy to update",
+		text : Alloy.Globals.strings.lblWrongAddress,
 		classes : ["list-item-info-lbl", "left"]
 	});
 
@@ -289,7 +293,7 @@ function didSuccess() {
 	app.navigator.open({
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
-		ctrl : "refillSuccess",
+		ctrl : "orderSuccess",
 		ctrlArguments : {
 
 		}
