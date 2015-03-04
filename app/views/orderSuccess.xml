@@ -1,0 +1,13 @@
+<Alloy>
+
+	<TableView id="tableView" >
+	<FooterView id="mainFooter" >
+		<View id="fview" class="vgroup">
+		
+		<Button id="done" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickDone" />
+		
+		</View>
+	</FooterView>
+	</TableView>
+
+</Alloy>
