@@ -78,13 +78,24 @@ function didSuccess(result) {
            	classes : ["vgroup"]
            	
            }),
-            iconLbl,
+            iconLbl =  $.UI.create("Label", {
+				apiName : "Label",
+				height : 40,
+				width : 40,
+				font : {
+					fontSize : 20,
+					fontFamily : "mscripts"
+				},
+				text : Alloy.CFG.icons.spot,
+				color : "#808285",
+				classes : ["width-30", "padding-left", "auto-height"]
+			}),
 
 
 			
 			content = $.UI.create("View", {
 				apiName : "View",
-				left: 30,
+				left: 50,
 				classes : ["list-item-view", "vgroup"]
 			}),
 
@@ -198,7 +209,18 @@ function didSuccess(result) {
            	
            }),
            
-           iconLbl ,
+           iconLbl = $.UI.create("Label", {
+				apiName : "Label",
+				height : 40,
+				width : 40,
+				font : {
+					fontSize : 20,
+					fontFamily : "mscripts"
+				},
+				text : Alloy.CFG.icons.spot,
+				color : "#808285",
+				classes : ["width-90", "padding-left", "auto-height"]
+			}),
 			
 			vseparator = $.UI.create("View", {
 				apiName : "View",
@@ -206,7 +228,7 @@ function didSuccess(result) {
 			}),
 			content = $.UI.create("View", {
 				apiName : "View",
-				left : 30,
+				left : 50,
 				classes : ["list-item-view", "vgroup"]
 			}),
 			sub = $.UI.create("View", {
@@ -284,8 +306,12 @@ function didToggle(e) {
 function didClickTickIcon(e)
 {
 	Ti.API.info("you clicked row" + e.index);
-	if(e.index.selectRow)
+	var rowId = e.row.rowId;
+	if(e.selectRow)
 	{
+		var addPrescriptions = [];
+		addPrescriptions.push(e.rowData.presc_name);
+		console.log("added" +addPrescriptions);
 		
 	}
 }
@@ -331,19 +357,26 @@ function didClickDone() {
 }
 
 function didAddPrescription(_result) {
-	//app.navigator.open({
-	//	ctrl : "orderDetails",
+	app.navigator.open({
+		ctrl : "orderDetails",
 
-	//	ctrlArguments : {
-	//		prescription : prescriptions
-	//	},
-	//	stack : true
-	//});
-	Ti.APP.info(_result.message);
+		ctrlArguments : {
+			prescription : prescriptions
+		},
+		stack : true
+	});
+	alert(_result.message);
 }
 
 function didItemClick(e) {
-	
+	var rowId = e.row.rowId;
+	if(e.selectRow)
+	{
+		var addPrescriptions = [];
+		addPrescriptions.push(rowId);
+		console.log(addPrescriptions);
+		
+	}
 }
 
 function terminate() {
