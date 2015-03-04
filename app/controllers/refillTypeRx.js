@@ -112,13 +112,18 @@ function didClickAddPrescription(e) {
 
 		addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
 			classes : ["form-txt", "txt"],
-			rightButtonTitle : Alloy.CFG.icons.minus,
+			rightIconText : Alloy.CFG.icons.minus_with_circle,
+			iconFont : Alloy.TSS.small_icon.font,
+			rightIconDict : {
+				"Color" : "#ED1C24",
+				"right":10
+
+			},
 			keyboardType : Ti.UI.KEYBOARD_NUMBER_PAD,
-			maxLength : 7
+			maxLength : 7,
+			
 
 		}));
-
-		
 
 		addPres.applyProperties({
 			hintText : Alloy.Globals.strings.hintRxNo,
@@ -126,10 +131,9 @@ function didClickAddPrescription(e) {
 		});
 
 		viewArr[i].add(addPres.getView());
-		
+
 		$.enter.add(viewArr[i]);
 		rxnos[count] = addPres.getValue();
-
 		addPres.on("click", didClickDelete);
 
 		i++;

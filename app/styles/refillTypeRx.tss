@@ -40,7 +40,7 @@
 	height:Ti.UI.SIZE
 },
 "#RxHintLbl":{
-	hintText: Alloy.Globals.strings.valPrescriptionNum,
+	hintText: Alloy.Globals.strings.hintRxNo,
 	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
 	maxLength: 7,
 	//text: Alloy.Globals.strings.valPrescriptionNum,

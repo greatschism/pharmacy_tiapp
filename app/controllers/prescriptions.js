@@ -173,7 +173,7 @@ function didSuccess(result) {
 
 					var styledLbl = Alloy.createWidget("com.mscripts.styledlabel", "widget", $.createStyle({
 						classes : ["tooltip-lbl"],
-						html : String.format(msgPickup, noOfDaysLeftForPickUp)
+						html : String.format(msgPickup, Math.abs(noOfDaysLeftForPickUp))
 					}));
 
 					pickUpTooltipNormal = Alloy.createWidget("com.mscripts.tooltip", "widget", styleArgsNormal);
@@ -184,7 +184,7 @@ function didSuccess(result) {
 				} else if (noOfDaysLeftForPickUp <= 3) {
 					var styledLbl = Alloy.createWidget("com.mscripts.styledlabel", "widget", $.createStyle({
 						classes : ["tooltip-lbl"],
-						html : String.format(msgPickup, noOfDaysLeftForPickUp)
+						html : String.format(msgPickup, Math.abs(noOfDaysLeftForPickUp))
 					}));
 
 					pickUpTooltipCritical = Alloy.createWidget("com.mscripts.tooltip", "widget", styleArgsCritical);
