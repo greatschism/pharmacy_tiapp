@@ -199,10 +199,10 @@ function didClickContinue(e) {
 			/**
 			 * Now listen for various events from the Barcode module. This is the module's way of communicating with us.
 			 */
-			var scannedBarcodes = {},
+			var scannedBarcodes,
 			    scannedBarcodesCount = 0;
 			function reset() {
-				scannedBarcodes = {};
+				scannedBarcodes=0;
 				scannedBarcodesCount = 0;
 				cancelButton.title = 'Cancel';
 
@@ -228,18 +228,19 @@ function didClickContinue(e) {
 			});
 			Barcode.addEventListener('success', function(e) {
 				Ti.API.info('Success called with barcode: ' + e.result);
-				if (!scannedBarcodes['' + e.result]) {
-					scannedBarcodes[e.result] = true;
+				if (!scannedBarcodes['' + e.result] && scannedBarcodes[e.result] == true && scannedBarcodesCount == 0){
+					
 					scannedBarcodesCount += 1;
 					cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
 
 					scanResult.text += e.result + ' ';
 					scanContentType.text += parseContentType(e.contentType) + ' ';
 					scanParsed.text += parseResult(e) + ' ';
+					//cancel();
 				}
 
 				//function didClickOrderRefill(e) {
-				mob = $.mobileNumber.getValue();
+				// mob = $.mobileNumber.getValue();
 
 				http.request({
 					method : "PRESCRIPTIONS_REFILL",
@@ -264,9 +265,9 @@ function didClickContinue(e) {
 							}, {
 
 								id : "x",
-								rx_number : viewArr,
+								rx_number : "x",
 								store_id : "x",
-								mobile_number : mob,
+								mobile_number : "x",
 								pickup_time_group : "x",
 								pickup_mode : "instore/mailorder",
 								barcode_data : e.result,
@@ -276,17 +277,20 @@ function didClickContinue(e) {
 					},
 					success : didSuccess,
 				});	
-
+				
+});
 				function didSuccess(e) {
+					Barcode.cancel();
+					window.close();
 					app.navigator.open({
 						titleid : "titleRefillStatus",
 						ctrl : "refillSuccess",
 						stack : true
 					});
-					alert("Under Construction");
+					//alert("Under Construction");
 				}
 
-			});
+			
 
 			/**
 			 * Finally, we'll add a couple labels to the window. When the user scans a barcode, we'll stick information about it in
