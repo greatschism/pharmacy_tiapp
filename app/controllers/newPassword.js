@@ -39,6 +39,7 @@ function didClickDone(e) {
 
 function didAuthenticate(_result) {
 	dialog.show({
+		title : Alloy.Globals.strings.titleSuccess,
 		message : _result.message,
 		success : function() {
 			app.navigator.closeToRoot();
