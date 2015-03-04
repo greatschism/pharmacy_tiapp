@@ -917,7 +917,7 @@ module.exports = {
 				"paddingLeft" : 12,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 14
+					"fontSize" : 17
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
