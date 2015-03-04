@@ -10,8 +10,6 @@ var args = arguments[0] || {},
 
 	$.datePicker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
-	$.picker.type = args.type;
-
 	if (_.has(args, "toolbarDict")) {
 		_.extend(args.toolbarDict, {
 			font : font
@@ -51,7 +49,7 @@ var args = arguments[0] || {},
 		setParentView(args.parent);
 	}
 
-	options = _.pick(args, ["minDate", "maxDate", "value"]);
+	options = _.pick(args, ["type", "minDate", "maxDate", "value"]);
 	if (!_.isEmpty(options)) {
 		$.picker.applyProperties(options);
 	}
