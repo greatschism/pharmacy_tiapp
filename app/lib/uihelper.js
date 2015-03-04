@@ -38,9 +38,10 @@ var UIHelper = {
 	 * create table view section
 	 * @param {Controller} _ctrl controller object
 	 * @param {String} _title section header's title
+	 * @param {View} _customerView (optional)
 	 * @param {View} _footerView (optional)
 	 */
-	createTableViewSection : function(_ctrl, _title, _footerView) {
+	createTableViewSection : function(_ctrl, _title, _customerView, _footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
@@ -55,6 +56,9 @@ var UIHelper = {
 		});
 		lbl.text = _title;
 		headerView.add(lbl);
+		if (_customerView) {
+			headerView.add(_customerView);
+		}
 		dict = {
 			headerView : headerView
 		};
