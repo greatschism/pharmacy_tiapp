@@ -108,6 +108,7 @@
 		"BUILD_DATE": "buildDate",
 		"FIRST_LAUNCH": "firstLaunch",
 		"USER_ACCOUNT": "account",
+		"STORE_LAST_REFILLED": "storeLastRefilled",
 		"RESOURCES_UPDATED_ON": "resourcesUpdated",
 		"RESOURCES_CLEARED_ON": "resourcesCleared",
 		"ENV_DEV": true
