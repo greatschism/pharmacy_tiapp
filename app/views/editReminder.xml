@@ -1,7 +1,7 @@
 <Alloy>
 	<View class="vgroup">
 	<View class="default-height hgroup">
-		<Label id="lblDate" class="padding-left width-100 textLayout" />
+		<Label id="lblDate" class="padding-left width-45 textLayout" />
 		<View class="width-50 height-30 right">
 			<Picker id="dayPicker" />
 		</View>
