@@ -45,7 +45,7 @@ function didClickCantRemember(e) {
 				Ti.UI.createEmailDialog({
 					subject : Alloy.Globals.strings.strEmailSubjectLoginRecovery,
 					messageBody : Alloy.Globals.strings.strEmailBodyLoginRecovery,
-					toRecipients : Alloy.CFG.SUPPORT.email
+					toRecipients : [Alloy.CFG.SUPPORT.email]
 				}).open();
 			}
 		}
