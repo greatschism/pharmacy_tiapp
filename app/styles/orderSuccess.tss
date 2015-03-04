@@ -1,0 +1,30 @@
+"#toggleBtn":{
+	text: Alloy.CFG.icons.options,
+	font:Alloy.TSS.small_icon.font,
+	color: "#FFFFFF"
+},
+"#tableView":{
+	top: 0
+},
+".success-icon":{
+	text: Alloy.CFG.icons.success
+},
+".lbl-signup":{
+	title: Alloy.Globals.strings.strSignup
+}
+"#signup":
+{
+	
+	title: Alloy.Globals.strings.strSignup
+}
+"#hintParaOne":
+{
+	
+	text: Alloy.Globals.strings.msgSignUpToReceiveText
+}
+"#done":
+{
+	title: Alloy.Globals.strings.btnDone,
+	
+	
+}
