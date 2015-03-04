@@ -104,34 +104,18 @@ function didAuthenticate(_result) {
 function didSharedMobileCheck(_result) {
 	var isExists = parseInt(_result.data.patients.mobile_exists),
 	    isShared = parseInt(_result.data.patients.is_mobile_shared);
-	if (isExists) {
-		if (isShared) {
-			app.navigator.hideLoader();
-			app.navigator.open({
-				ctrl : "sharedMobileCheck",
-				stack : true,
-				ctrlArguments : {
-					orgin : $.__controllerPath,
-					mobileNumber : $.unameTxt.getValue(),
-					password : $.passwordTxt.getValue()
-				}
-			});
-		} else {
-			http.request({
-				method : "PATIENTS_AUTHENTICATE",
-				data : {
-					data : [{
-						patient : {
-							user_name : $.unameTxt.getValue(),
-							password : $.passwordTxt.getValue()
-						}
-					}]
-				},
-				success : didAuthenticateMobileUser
-			});
-		}
-	} else {
+	if (isExists && isShared) {
 		app.navigator.hideLoader();
+		app.navigator.open({
+			ctrl : "sharedMobileCheck",
+			stack : true,
+			ctrlArguments : {
+				orgin : $.__controllerPath,
+				mobileNumber : $.unameTxt.getValue(),
+				password : $.passwordTxt.getValue()
+			}
+		});
+	} else {
 		http.request({
 			method : "PATIENTS_AUTHENTICATE",
 			data : {
@@ -142,7 +126,7 @@ function didSharedMobileCheck(_result) {
 					}
 				}]
 			},
-			success : didAuthenticate
+			success : didAuthenticateMobileUser
 		});
 	}
 }
