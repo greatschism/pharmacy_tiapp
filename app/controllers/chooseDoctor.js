@@ -9,11 +9,11 @@ function init() {
 
 	if (args.doctors) {
 		var doctors = args.doctors;
-		console.log("found docs");
+		
 		for (var i in doctors) {
 			var doctor = doctors[i];
 			doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
-			console.log(doctor);
+			
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
@@ -76,7 +76,7 @@ function didItemClick(e) {
 	var doctor = _.findWhere(args.doctors, {
 		id : String(doctorId)
 	});
-	console.log(doctor);
+	
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",

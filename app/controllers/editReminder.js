@@ -5,83 +5,74 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     timeDetails,
     timed,
-    reminders,appointmentId;
+    reminders,
+    appointmentId;
 
 (function() {
 	/*if (args.edit) {
 	 $.deleteBtn.show();
 	 }*/
-	
-	reminders=args.reminders;
-	appointment=args.appointment;
-	appointmentId=args.appointment_id;
-	console.log(reminders);
-	
+
 	var data = [];
-	for(i=1;i<=30;i++){
-		data[i-1] = Ti.UI.createPickerRow({
-		title : i.toString()
-	});
+	for ( i = 1; i <= 30; i++) {
+		data[i - 1] = Ti.UI.createPickerRow({
+			title : i.toString()
+		});
 	}
+
 	$.dayPicker.add(data);
 	
-	day = _.findWhere(data, {
-				title : reminders.remind_before_in_days
-			});
-			
-	$.dayPicker.setSelectedRow(0,(day.title)-1,false);		
+	//console.log(reminders);
 
-	// cant set constraints to time picker
-	/*
-	minDate= new Date();
-	minDate.setHours(7,00,00,00);
-	$.timePicker.setMinDate(minDate);
-	maxDate= new Date();
-	maxDate.setHours(23,00,00,00);
-	$.timePicker.setMaxDate(minDate);
-	*/
-	if (reminders.reminder_meridiem == "pm" || reminders.reminder_meridiem == "PM")
-		newReminderHour = parseInt(reminders.reminder_hour) + 12;
-	else
-		newReminderHour = reminders.reminder_hour;
+	newAppointment = args.newAppointment;
 
-	myDate= new Date();
-	myDate.setHours(newReminderHour,reminders.reminder_minute);
-	$.timePicker.setValue(myDate);
-	console.log(myDate);
-
+	if (newAppointment == 0) {
+		console.log("not new app");
+		reminders = args.reminders;
+		appointmentId = args.appointment_id;
 	
+		day = _.findWhere(data, {
+			title : reminders.remind_before_in_days
+		});
+
+		$.dayPicker.setSelectedRow(0, (day.title) - 1, false);
+
+		// cant set constraints to time picker
+		/*
+		 minDate= new Date();
+		 minDate.setHours(7,00,00,00);
+		 $.timePicker.setMinDate(minDate);
+		 maxDate= new Date();
+		 maxDate.setHours(23,00,00,00);
+		 $.timePicker.setMaxDate(minDate);
+		 */
+		if (reminders.reminder_meridiem == "pm" || reminders.reminder_meridiem == "PM")
+			newReminderHour = parseInt(reminders.reminder_hour) + 12;
+		else
+			newReminderHour = reminders.reminder_hour;
+
+		myDate = new Date();
+		myDate.setHours(newReminderHour, reminders.reminder_minute);
+		$.timePicker.setValue(myDate);
+		console.log(myDate);
+	}
+
 })();
 
 function didClickSave(e) {
 	timeDetails = $.timePicker.getValue();
-
-	http.request({
-		method : "APPOINTMENTS_REMINDERS_UPDATE",
-		data : {
-			filter : [{
-				type : ""
-			}],
-			"data" : {
-				"appointment" : {
-					"appointment_id":appointmentId,
-					"reminders" : {
-						"enabled" : "0/1",
-						"no_of_reminders" : "",
-						"remind_before_in_days" : $.dayPicker.getSelectedRow(0).title,
-						"reminder_hour" : moment(timeDetails).format("hh"),
-						"reminder_minute" : moment(timeDetails).format("mm"),
-						"reminder_meridiem" : moment(timeDetails).format("A")
-					}
-				}
+	
+	Alloy.Models.doctor.set({
+			reminder_change : {
+				"enabled" : "1",
+				"no_of_reminders" : "1",
+				"remind_before_in_days" : $.dayPicker.getSelectedRow(0).title,
+				"reminder_hour" : moment(timeDetails).format("hh"),
+				"reminder_minute" : moment(timeDetails).format("mm"),
+				"reminder_meridiem" : moment(timeDetails).format("A")
 			}
-		},
-		success : didSaveSuccess
-	});
+		});
 
-}
-
-function didSaveSuccess(_result) {
 	dialog.show({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : Alloy.Globals.strings.msgAppointmentReminderSettingsUpdated,
@@ -90,5 +81,5 @@ function didSaveSuccess(_result) {
 			app.navigator.close();
 		}
 	});
-}
 
+}

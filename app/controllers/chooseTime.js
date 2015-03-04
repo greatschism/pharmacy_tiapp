@@ -11,38 +11,64 @@ var args = arguments[0] || {},
     editFlag = false,
     doctorId,
     appointment,
-    shortName;
+    shortName,
+    reminder;
 
-(function() {
+function init() {
+	
+	Alloy.Models.doctor.on("change:reminder_change", didAddReminder);
+	
 	doctorId = args.doctorId;
 	shortName = args.short_name;
+	console.log(args.index);
 
 	if (args.edit) {
-		console.log("edit there");
+		//console.log("edit there");
 		editFlag = true;
 		appointment = args.appointment;
 		$.dateLbl.setValue(new Date(appointment.appointment_date));
-		
-		
-		if(appointment.appointment_meridiem=="pm" || appointment.appointment_meridiem=="PM")
-		newAppointmentHour=parseInt(appointment.appointment_hour)+12;
+
+		if (appointment.appointment_meridiem == "pm" || appointment.appointment_meridiem == "PM")
+			newAppointmentHour = parseInt(appointment.appointment_hour) + 12;
 		else
-		newAppointmentHour=appointment.appointment_hour;
-		
-		myDate= new Date();
-		myDate.setHours(newAppointmentHour,appointment.appointment_minute);
+			newAppointmentHour = appointment.appointment_hour;
+
+		myDate = new Date();
+		myDate.setHours(newAppointmentHour, appointment.appointment_minute);
 		$.timePicker.setValue(myDate);
-		console.log(myDate);
-		
+		//console.log(myDate);
+
 		$.deleteLbl.show();
+
+		reminder = {
+			enabled : appointment.reminders.enable,
+			no_of_reminders : appointment.reminders.no_of_reminders,
+			remind_before_in_days : appointment.reminders.remind_before_in_days,
+			reminder_hour : appointment.reminders.reminder_hour,
+			reminder_minute : appointment.reminders.reminder_minute,
+			reminder_meridiem : appointment.reminders.reminder_meridiem
+		};
+
 	} else {
 		$.deleteLbl.hide();
+
+		reminder = {
+			enabled : "1",
+			no_of_reminders : "1",
+			remind_before_in_days : "1",
+			reminder_hour : "07",
+			reminder_minute : "00",
+			reminder_meridiem : "AM"
+		};
+
 	}
 
+	//console.log(reminder);
+	//console.log(reminder.enabled);
 	$.dateLbl.setMinDate(new Date());
 	$.dateLbl.setMaxDate(new Date("December 31, 2017"));
 	
-})();
+}
 
 function didItemClick(e) {
 
@@ -52,14 +78,13 @@ function setParentViews(view) {
 	$.dateLbl.setParentView(view);
 }
 
-
 function didClickSave(e) {
 	dateDetails = $.dateLbl.getValue();
-	appointmentDate=moment(dateDetails).format("YYYY-MM-DD");
-	
-	timeDetails=  $.timePicker.getValue();
-	appointmentTime=moment1(timeDetails).format("hh:mm A");
-	
+	appointmentDate = moment(dateDetails).format("YYYY-MM-DD");
+
+	timeDetails = $.timePicker.getValue();
+	appointmentTime = moment1(timeDetails).format("hh:mm A");
+
 	if (editFlag) {
 		http.request({
 			method : "APPOINTMENTS_UPDATE",
@@ -70,18 +95,18 @@ function didClickSave(e) {
 				data : {
 					"appointment" : {
 						"doctor_id" : doctorId,
-						"appointment_id":appointment.appointment_id,
+						"appointment_id" : appointment.appointment_id,
 						"appointment_date" : appointmentDate,
 						"appointment_hour" : moment1(timeDetails).format("hh"),
 						"appointment_minute" : moment1(timeDetails).format("mm"),
 						"appointment_meridiem" : moment1(timeDetails).format("A"),
 						"reminders" : {
-							"enabled" : "0/1",
-							"no_of_reminders" : "x",
-							"remind_before_in_days" : "x",
-							"reminder_hour" : "x",
-							"reminder_minute" : "x",
-							"reminder_meridiem" : "AM/PM"
+							"enabled" : reminder.enabled,
+							"no_of_reminders" : reminder.no_of_reminders,
+							"remind_before_in_days" : reminder.remind_before_in_days,
+							"reminder_hour" : reminder.reminder_hour,
+							"reminder_minute" : reminder.reminder_minute,
+							"reminder_meridiem" : reminder.reminder_meridiem
 						}
 					}
 				}
@@ -90,7 +115,7 @@ function didClickSave(e) {
 		});
 
 	} else {
-
+		//console.log(doctorId);
 		http.request({
 			method : "APPOINTMENTS_ADD",
 			data : {
@@ -105,12 +130,12 @@ function didClickSave(e) {
 						"appointment_minute" : moment(timeDetails).format("mm"),
 						"appointment_meridiem" : moment(timeDetails).format("A"),
 						"reminders" : {
-							"enabled" : "0/1",
-							"no_of_reminders" : "x",
-							"remind_before_in_days" : "x",
-							"reminder_hour" : "x",
-							"reminder_minute" : "x",
-							"reminder_meridiem" : "AM/PM"
+							"enabled" : reminder.enabled,
+							"no_of_reminders" : reminder.no_of_reminders,
+							"remind_before_in_days" : reminder.remind_before_in_days,
+							"reminder_hour" : reminder.reminder_hour,
+							"reminder_minute" : reminder.reminder_minute,
+							"reminder_meridiem" : reminder.reminder_meridiem
 						}
 					}
 				}
@@ -121,7 +146,26 @@ function didClickSave(e) {
 }
 
 function didEditSuccess(_result) {
-	//alert("edit success");
+	//console.log("value edited");
+	Alloy.Models.doctor.set({
+		appointment_update : {
+			"doctor_id" : doctorId,
+			"appointment_id":appointment.appointment_id,
+			"appointment_date" : appointmentDate,
+			"appointment_hour" : moment(timeDetails).format("hh"),
+			"appointment_minute" : moment(timeDetails).format("mm"),
+			"appointment_meridiem" : moment(timeDetails).format("A"),
+			"reminders" : {
+				"enabled" : reminder.enabled,
+				"no_of_reminders" : reminder.no_of_reminders,
+				"remind_before_in_days" : reminder.remind_before_in_days,
+				"reminder_hour" : reminder.reminder_hour,
+				"reminder_minute" : reminder.reminder_minute,
+				"reminder_meridiem" : reminder.reminder_meridiem
+			}
+		}
+	});
+	
 	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
 	dialog.show({
 		title : Alloy.Globals.strings.titleSuccess,
@@ -134,6 +178,26 @@ function didEditSuccess(_result) {
 }
 
 function didAddSuccess(_result) {
+	//console.log("value added");
+	Alloy.Models.doctor.set({
+		appointment_add : {
+			"doctor_id" : doctorId,
+			"appointment_id" : _result.appointment_id,
+			"appointment_date" : appointmentDate,
+			"appointment_hour" : moment(timeDetails).format("hh"),
+			"appointment_minute" : moment(timeDetails).format("mm"),
+			"appointment_meridiem" : moment(timeDetails).format("A"),
+			"reminders" : {
+				"enabled" : reminder.enabled,
+				"no_of_reminders" : reminder.no_of_reminders,
+				"remind_before_in_days" : reminder.remind_before_in_days,
+				"reminder_hour" : reminder.reminder_hour,
+				"reminder_minute" : reminder.reminder_minute,
+				"reminder_meridiem" : reminder.reminder_meridiem
+			}
+		}
+	});
+
 	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
 	dialog.show({
 		title : Alloy.Globals.strings.titleSuccess,
@@ -145,21 +209,31 @@ function didAddSuccess(_result) {
 	});
 }
 
-
 function didClickEditButton(e) {
+
+	var appId;
+
+	if (args.edit) {
+		newAppointment = 0;
+		appId=appointment.appointment_id;
+	} else {
+		newAppointment = 1;
+		appId = "";
+	}
 	app.navigator.open({
 		stack : true,
 		titleid : "tittleDoctorReminderSettings",
 		ctrl : "editReminder",
-			ctrlArguments : {
-					reminders: appointment.reminders,
-					appointment_id:appointment.appointment_id
-				}
+		ctrlArguments : {
+			reminders : reminder,
+			appointment_id : appId,
+			newAppointment : newAppointment
+		}
 	});
 
 }
 
-function didClickDelete(e) { 
+function didClickDelete(e) {
 
 	http.request({
 		method : "APPOINTMENTS_DELETE",
@@ -177,8 +251,11 @@ function didClickDelete(e) {
 	});
 }
 
-function didSuccessDelete(e)
-{
+function didSuccessDelete(e) {
+	
+	Alloy.Models.doctor.set({
+		appointment_delete :{"index": args.index} });
+			
 	dialog.show({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : Alloy.Globals.strings.msgAppointmentDeleted,
@@ -189,4 +266,26 @@ function didSuccessDelete(e)
 	});
 }
 
+function terminate() {
+	Alloy.Models.doctor.off("change:reminder_change", didAddReminder);
+}
+
+function didAddReminder() {
+
+	//console.log("value came to choose time");
+	var newReminder = Alloy.Models.doctor.get("reminder_change");
+	//console.log(newReminder);
+	//console.log("here");
+	reminder = {
+		enabled : newReminder.enabled,
+		no_of_reminders : newReminder.no_of_reminders,
+		remind_before_in_days : newReminder.remind_before_in_days,
+		reminder_hour : newReminder.reminder_hour,
+		reminder_minute : newReminder.reminder_minute,
+		reminder_meridiem : newReminder.reminder_meridiem
+	};
+
+}
+
+exports.init=init;
 exports.setParentViews = setParentViews;

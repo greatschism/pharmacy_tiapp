@@ -130,6 +130,28 @@ function didClickSave(e) {
 }}
 
 function didSuccessCreate(_result) {
+	
+
+	Alloy.Models.doctor.set({
+		doctor_add: {
+						"id":_result.doctor_id,
+						"doctor_dea" : "12345",
+						"first_name" : fname,
+						"last_name" : lname,
+						"addressline1" : "TEST",
+						"addressline2" : "TEST",
+						"state" : stateDetails,
+						"city" : cityDetails,
+						"zip" : zipCode,
+						"notes" : notes,
+						"phone" : phoneNo,
+						"fax" : faxNo,
+						"image_url" : "",
+						"org_name" : "MSCRIPTS",
+						"optional" : ""
+		}
+	});
+	
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorAdded,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -141,6 +163,26 @@ function didSuccessCreate(_result) {
 }
 
 function didSuccessUpdate(_result) {
+	Alloy.Models.doctor.set({
+		doctor_add: {
+						"id":args.doctor.id,
+						"doctor_dea" : "12345",
+						"first_name" : fname,
+						"last_name" : lname,
+						"addressline1" : "TEST",
+						"addressline2" : "TEST",
+						"state" : stateDetails,
+						"city" : cityDetails,
+						"zip" : zipCode,
+						"notes" : notes,
+						"phone" : phoneNo,
+						"fax" : faxNo,
+						"image_url" : "",
+						"org_name" : "MSCRIPTS",
+						"optional" : ""
+		}
+	});
+	
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorUpdated,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -382,8 +424,9 @@ function init() {
 		state = _.findWhere(states, {
 				title : doctor.state
 			});
-		
+		if(state.length)
 		$.stateTxt.setSelectedIndex(parseInt(state.id)-1);	
+		
 		$.zipTxt.setValue(doctor.zip);
 		$.notesTxta.setValue(doctor.notes);
 	
