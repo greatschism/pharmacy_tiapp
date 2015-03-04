@@ -10,6 +10,8 @@ var args = arguments[0] || {},
 
 	$.datePicker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
+	$.picker.type = args.type;
+
 	if (_.has(args, "toolbarDict")) {
 		_.extend(args.toolbarDict, {
 			font : font

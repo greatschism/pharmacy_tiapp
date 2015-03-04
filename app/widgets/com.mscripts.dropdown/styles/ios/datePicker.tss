@@ -17,6 +17,5 @@
 },
 "#picker":{
 	top: 40,
-	height: 200,
-	type: Ti.UI.PICKER_TYPE_DATE
+	height: 200
 }

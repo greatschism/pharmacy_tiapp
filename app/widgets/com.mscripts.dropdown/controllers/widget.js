@@ -64,13 +64,13 @@ var args = arguments[0] || {},
 		format = args.format;
 	}
 
-	if (OS_MOBILEWEB && args.type == Ti.UI.PICKER_TYPE_DATE) {
+	if (OS_MOBILEWEB && (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME)) {
 		$.widget.removeEventListener("click", showPicker);
 		$.widget.remove($.lbl);
 		picker = Ti.UI.createPicker({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			type : Ti.UI.PICKER_TYPE_DATE,
+			type : args.type,
 			minDate : moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"),
 			maxDate : moment(args.maxDate || new Date()).format("YYYY-MM-DD"),
 			value : moment(selectedDate || new Date()).format("YYYY-MM-DD"),
@@ -108,10 +108,10 @@ function setMinDate(_minDate) {
 function showPicker() {
 	keyboard && keyboard.hide();
 	if (!picker && parent) {
-		if (args.type == Ti.UI.PICKER_TYPE_DATE) {
+		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
-				var dict = {
-					type : Ti.UI.PICKER_TYPE_DATE,
+				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
+				    dict = {
 					value : selectedDate || new Date()
 				};
 				if (osMajorVersion > 2) {
@@ -121,8 +121,8 @@ function showPicker() {
 					});
 				}
 				var _picker = Ti.UI.createPicker(dict);
-				_picker.showDatePickerDialog({
-					title : args.title || "Set date",
+				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
+					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
 					okButtonTitle : args.okButtonTitle || "Set",
 					value : selectedDate || new Date(),
 					callback : function(e) {
@@ -140,7 +140,7 @@ function showPicker() {
 					}
 				});
 			} else if (OS_IOS) {
-				var pickerDict = _.pick(args, ["font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "containerPaddingTop"]);
+				var pickerDict = _.pick(args, ["type", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "containerPaddingTop"]);
 				_.extend(pickerDict, {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
