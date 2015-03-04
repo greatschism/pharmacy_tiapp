@@ -176,7 +176,7 @@ function didSuccessRefill(result) {
 			readyByDateLabel = $.UI.create("Label", {
 				apiName : "Label",
 				classes : ["list-item-info-lbl", "left"]
-			}), orderPickUpLblIcon.text = Alloy.CFG.icons.confirm;
+			}), orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox;
 			rxLabel.left = 50;
 			readyByDateLabel.left = 50;
 			rxLabel.text = addRx(refillPrescriptions[i].rx_number_id);
