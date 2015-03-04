@@ -154,7 +154,7 @@ function showPicker() {
 				picker.init();
 			}
 		} else {
-			var pickerDict = _.pick(args, ["font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectedIconText", "selectedIconColor", "containerPaddingTop"]);
+			var pickerDict = _.pick(args, ["titleProperty", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectedIconText", "selectedIconColor", "containerPaddingTop"]);
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
@@ -198,8 +198,11 @@ function getChoices() {
 
 function setSelectedIndex(_index) {
 	selectedIndex = _index;
-	removeHint();
-	$.lbl.setText(getSelectedItem().title || "");
+	var selectedItem = getSelectedItem();
+	if (!_.isEmpty(selectedItem)) {
+		removeHint();
+		$.lbl.setText(selectedItem[args.valueProperty || args.titleProperty || "title"] || "");
+	}
 }
 
 function removeHint() {
