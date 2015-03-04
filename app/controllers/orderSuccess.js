@@ -14,8 +14,8 @@ var args = arguments[0] || {},
     readyToRefill,
     otherPrescriptions,
     refillPrescriptions,
-    filteredStores,
-    finalFilteredStores,
+    allPrescriptions,
+    prescNamesArray,
     prescriptions,
     addr,
 //row,
@@ -51,24 +51,12 @@ function didSuccessStores(_result) {
 
 function didSuccessRefill(_result) {
 
+   // response of refill prescriptions
 	refillPrescriptions = _result.data.prescriptions || [];
-
-	if (refillPrescriptions.length) {
-
-		for ( i = 0; i < refillPrescriptions.length; i++) {
-
-			if (refillPrescriptions[i].refill_is_error == true) {
-
-			} else {
-
-			}
-
-		}
-
-	}
 
 	$.gettingRefilledSection = uihelper.createTableViewSection($, strings.msgRefillOrder);
 	{
+
 		for (var i in refillPrescriptions) {
 			row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow",
@@ -95,10 +83,58 @@ function didSuccessRefill(_result) {
 			readyByDateLabel = $.UI.create("Label", {
 				apiName : "Label",
 				classes : ["list-item-info-lbl", "left"]
-			}), orderPickUpLblIcon.text = Alloy.CFG.icons.checked;
+			}), orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox;
 			rxLabel.left = 50;
 			readyByDateLabel.left = 50;
-			rxLabel.text = addRx(refillPrescriptions[i].rx_number_id);
+
+			if (refillPrescriptions.length) {
+
+				http.request({
+					method : "PRESCRIPTIONS_GET",
+					data : {
+						filter : null,
+						get_type : "",
+						data : [{
+							id : "",
+							prescriptions : ""
+
+						}]
+
+					},
+					success : function(result) {
+						
+						//response of prescriptions get
+						allPrescriptions = result.data.prescriptions;
+						prescNamesArray = new Array;
+
+						k = 0;
+						for ( i = 0; i < refillPrescriptions.length; i++) {
+
+							for ( j = 0; j < allPrescriptions.length; j++) {
+
+								if (allPrescriptions[j].rx_number === refillPrescriptions[i].rx_number_id) {
+
+									prescNamesArray[k] = allPrescriptions[j];
+									k++;
+									break;
+
+								}
+
+							}
+						
+						}
+
+						console.log("yoooooooo" + prescNamesArray);
+					
+                     //	rxLabel.text = prescNamesArray[i].presc_name;
+					}
+				});
+
+			}
+
+
+		    rxLabel.text = "Lovatino, 50mg tab";
+			console.log(refillPrescriptions[i].presc_name);
 			if (refillPrescriptions[i].refill_promised_date) {
 				readyByDateLabel.text = strings.msgShouldBeReadyBy + " " + refillPrescriptions[i].refill_promised_date;
 			} else {
@@ -111,8 +147,9 @@ function didSuccessRefill(_result) {
 			row.add(padView);
 			row.add(listItemView);
 			$.gettingRefilledSection.add(row);
+
 		}
-		//$.gettingRefilledSection.add(row);
+
 	}
 
 	$.tableView.data = [$.gettingRefilledSection];
