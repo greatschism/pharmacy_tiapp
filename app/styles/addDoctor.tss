@@ -41,6 +41,7 @@
 },
 "#zipTxt":{
 	hintText: Alloy.Globals.strings.hintZipCode,
+	maxLength : 9,
 	nextItem: "notesTxta"
 },
 "#notesTxta":{

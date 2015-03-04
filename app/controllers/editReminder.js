@@ -5,7 +5,7 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     timeDetails,
     timed,
-    reminders;
+    reminders,appointmentId;
 
 (function() {
 	/*if (args.edit) {
@@ -14,6 +14,7 @@ var args = arguments[0] || {},
 	
 	reminders=args.reminders;
 	appointment=args.appointment;
+	appointmentId=args.appointment_id;
 	console.log(reminders);
 	
 	var data = [];
@@ -63,6 +64,7 @@ function didClickSave(e) {
 			}],
 			"data" : {
 				"appointment" : {
+					"appointment_id":appointmentId,
 					"reminders" : {
 						"enabled" : "0/1",
 						"no_of_reminders" : "",

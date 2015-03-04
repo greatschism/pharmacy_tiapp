@@ -70,6 +70,7 @@ function didClickSave(e) {
 				data : {
 					"appointment" : {
 						"doctor_id" : doctorId,
+						"appointment_id":appointment.appointment_id,
 						"appointment_date" : appointmentDate,
 						"appointment_hour" : moment1(timeDetails).format("hh"),
 						"appointment_minute" : moment1(timeDetails).format("mm"),
@@ -151,7 +152,8 @@ function didClickEditButton(e) {
 		titleid : "tittleDoctorReminderSettings",
 		ctrl : "editReminder",
 			ctrlArguments : {
-					reminders: appointment.reminders
+					reminders: appointment.reminders,
+					appointment_id:appointment.appointment_id
 				}
 	});
 

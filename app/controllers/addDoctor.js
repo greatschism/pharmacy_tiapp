@@ -5,7 +5,7 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     strings = Alloy.Globals.strings,
     nameRegExp = /^[A-Za-z0-9]{3,40}$/,
-    zipRegExp = /^\\d{5}(-\\d{4})?$/,
+    zipRegExp = /^[0-9]{5}([0-9]{4})?$/,
     doctor;
 
 function moveToNext(e) {
@@ -25,6 +25,7 @@ function didClickSave(e) {
 	zipCode = $.zipTxt.getValue();
 	notes = $.notesTxta.getValue();
 
+	console.log(zipCode);
 	var errorMessage = "",
 	    allFieldsValidated = true;
 
@@ -52,7 +53,7 @@ function didClickSave(e) {
 		errorMessage = "Please enter a valid fax number";
 		allFieldsValidated = false;
 
-	} else if (zipCode && !zipRegExp.test(zipCode)) {
+	} else if (zipCode.length && !zipRegExp.test(zipCode)) {
 		errorMessage = "Please enter a valid zip code";
 		allFieldsValidated = false;
 
@@ -96,13 +97,14 @@ function didClickSave(e) {
 	}
 	else{
 		http.request({
-			method : "DOCTORS_ADD",
+			method : "DOCTORS_UPDATE",
 			data : {
 				filter : [{
 					type : ""
 				}],
 				data : {
 					"doctors" : {
+						"id":doctor.id,
 						"doctor_dea" : "12345",
 						"first_name" : fname,
 						"last_name" : lname,

@@ -1,7 +1,7 @@
 <Alloy>
 	<View class="vgroup">
 	<View class="auto-height vgroup">
-		<Label id="whenLbl" class="padding-bottom h4 text-center multi-line fg-primary" />
+		<Label id="whenLbl" class="padding-bottom margin-left margin-right h4 text-center multi-line fg-primary" />
 	</View>
 	
 	<View class="default-height hgroup">
