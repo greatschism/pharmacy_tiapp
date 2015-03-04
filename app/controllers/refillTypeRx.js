@@ -91,11 +91,11 @@ function didClickOrderRefill(e) {
 
 function didSuccess(e) {
 	app.navigator.open({
-		titleid : "titleRefillStatus",
+		titleid : "titleYourRefillIsOnTheWay",
 		ctrl : "refillSuccess",
 		stack : false
 	});
-	alert("Under Construction");
+	//alert("Under Construction");
 }
 
 function didClickAddPrescription(e) {
@@ -121,7 +121,7 @@ function didClickAddPrescription(e) {
 		
 
 		addPres.applyProperties({
-			hintText : Alloy.Globals.strings.valPrescriptionNum,
+			hintText : Alloy.Globals.strings.hintRxNo,
 
 		});
 
