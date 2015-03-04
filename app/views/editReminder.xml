@@ -1,20 +1,20 @@
 <Alloy>
 	<View class="vgroup">
-	<View class="default-height hgroup">
+	<View class="auto-height hgroup "  horizontalWrap="false">
 		<Label id="lblDate" class="padding-left width-45 textLayout" />
-		<View class="width-50 height-30 right">
+		<View class="width-45 default-height" >
 			<Picker id="dayPicker" />
 		</View>
 	</View>	
 	
-	<View class="hgroup height-40">
-		<Label id="lblTime" class="padding-left width-45 textLayout" />
-		<View class="width-50 height-30 right">
+	<View class="hgroup auto-height top"  horizontalWrap="false">
+		<Label id="lblTime" class="padding-left width-45 textLayout"  />
+		<View class="width-45 default-height" >
 			<Picker id="timePicker" />
 		</View>
 	</View>	
 	
-	<Button id="saveBtn" class="primary-btn padding-bottom" onClick="didClickSave" />
+	<Button id="saveBtn" class="primary-btn padding-top" onClick="didClickSave" />
 	
 	</View>	
 </Alloy>

@@ -45,7 +45,7 @@ function init() {
 			}),
 			    profileImg = $.UI.create("ImageView", {
 				apiName : "ImageView",
-				height : "90",
+				height : "60",
 				width : "50",
 				borderColor : "#000000",
 			});

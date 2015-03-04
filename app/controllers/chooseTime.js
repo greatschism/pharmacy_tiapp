@@ -34,9 +34,9 @@ var args = arguments[0] || {},
 		$.timePicker.setValue(myDate);
 		console.log(myDate);
 		
-		$.deleteBtn.show();
+		$.deleteLbl.show();
 	} else {
-		$.deleteBtn.hide();
+		$.deleteLbl.hide();
 	}
 
 	$.dateLbl.setMinDate(new Date());

@@ -20,8 +20,9 @@
 "#editBtn":{
 	title: Alloy.Globals.strings.btnEditReminderSettings
 },
-"#deleteBtn":{
-	title: Alloy.Globals.strings.btnDeleteThisReminder
+"#deleteLbl":{
+	text: Alloy.Globals.strings.btnDeleteThisReminder,
+	color:"#599DFF"
 },
 "#lblDate":{
 	text: Alloy.Globals.strings.lblOnThisDate
