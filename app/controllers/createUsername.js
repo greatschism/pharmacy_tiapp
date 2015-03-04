@@ -57,13 +57,16 @@ function didClickDone(e) {
 		return;
 	}
 	http.request({
-		method : "PATIENTS_NEW_PASSWORD",
+		method : "PATIENTS_STORE_TO_APP_CONVERSION",
 		data : {
+			filter : [{
+				type : "mobile_otp"
+			}],
 			data : [{
 				patient : {
-					user_name : "",
-					email_address : "",
-					password : ""
+					user_name : uname,
+					email_address : email,
+					password : args.password
 				}
 			}]
 		},

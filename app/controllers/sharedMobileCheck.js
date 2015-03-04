@@ -34,7 +34,7 @@ function didClickNext() {
 	}
 	if (args.orgin == "login") {
 		http.request({
-			method : "PATIENTS_AUTHENTICATE", //to be mscripts-authenticate
+			method : "PATIENTS_AUTHENTICATE",
 			data : {
 				data : [{
 					patient : {
@@ -71,7 +71,10 @@ function didAuthenticateMobileUser(_result) {
 	app.navigator.open({
 		ctrl : "createUsername",
 		titleid : "titleCreateUsername",
-		stack : true
+		stack : true,
+		ctrlArguments : {
+			password : args.password
+		}
 	});
 }
 

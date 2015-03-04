@@ -38,7 +38,12 @@ function didClickDone(e) {
 }
 
 function didAuthenticate(_result) {
-	//to do
+	dialog.show({
+		message : _result.message,
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
 }
 
 function handleScroll(e) {

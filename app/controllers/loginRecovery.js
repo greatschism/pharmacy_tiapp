@@ -29,7 +29,11 @@ function didSuccess(_result) {
 	dialog.show({
 		message : _result.message,
 		success : function() {
-			app.navigator.closeToRoot();
+			//app.navigator.closeToRoot(); --original flow
+			app.navigator.open ({  // -- temporary redirection for demo
+				ctrl : "newPassword",
+				stack : true
+			});
 		}
 	});
 }

@@ -196,7 +196,7 @@ module.exports = {
 	"PATIENTS_NEW_PASSWORD" : {
 		"status" : "Success",
 		"code" : "200",
-		"message" : "Your password has been changed successfully…",
+		"message" : "Your password has been changed. You can use it the next time you log in.",
 		"description" : "x",
 		"data" : ""
 	},

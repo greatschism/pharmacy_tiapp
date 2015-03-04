@@ -118,7 +118,7 @@ function didSharedMobileCheck(_result) {
 			});
 		} else {
 			http.request({
-				method : "PATIENTS_AUTHENTICATE", // mscripts-authenticate
+				method : "PATIENTS_AUTHENTICATE",
 				data : {
 					data : [{
 						patient : {
@@ -132,7 +132,18 @@ function didSharedMobileCheck(_result) {
 		}
 	} else {
 		app.navigator.hideLoader();
-		// error message
+		http.request({
+			method : "PATIENTS_AUTHENTICATE",
+			data : {
+				data : [{
+					patient : {
+						user_name : $.unameTxt.getValue(),
+						password : $.passwordTxt.getValue()
+					}
+				}]
+			},
+			success : didAuthenticate
+		});
 	}
 }
 
@@ -140,7 +151,10 @@ function didAuthenticateMobileUser(_result) {
 	app.navigator.open({
 		ctrl : "createUsername",
 		titleid : "titleCreateUsername",
-		stack : true
+		stack : true,
+		ctrlArguments : {
+			password : $.passwordTxt.getValue()
+		}
 	});
 }
 
