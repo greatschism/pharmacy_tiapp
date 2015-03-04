@@ -138,12 +138,12 @@ function didReceiveAppointments(_result) {
 		}),
 		    contentView = $.UI.create("View", {
 			apiName : "View",
-			classes : ["padding-top", "auto-height"]
+			classes : ["auto-height","paddingTop"]
 		}),
 		    titleLbl = $.UI.create("Label", {
 			apiName : "Label",
 			text : Alloy.Globals.strings.msgNoAppointment,
-			classes : ["fill-width", "paddingLeft", "paddingBottom", "paddingTop"]
+			classes : ["paddingBottom"]
 		});
 
 		contentView.add(titleLbl);
@@ -301,12 +301,13 @@ function didReceiveAppointments(_result) {
 		}),
 		    contentView = $.UI.create("View", {
 			apiName : "View",
-			classes : ["padding-top", "auto-height"]
+			horizontalWrap : "false",
+			classes : ["auto-height","paddingTop"]
 		}),
 		    titleLbl = $.UI.create("Label", {
 			apiName : "Label",
 			text : Alloy.Globals.strings.msgNoDoctor,
-			classes : ["fill-width", "padding-left", "padding-bottom"]
+			classes : ["paddingBottom"]
 		});
 
 		contentView.add(titleLbl);
@@ -394,32 +395,7 @@ function didItemClick(e) {
 			sourceElement = e.source;
 			parentView = e.source.parent;
 			$.photoDialog.show();
-			/*
-			source.removeAllChildren();
-
-			var profileImg = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			height : 90,
-			width : 50,
-			borderColor : "#000000",
-			classes : ["left"]
-
-			});
-			console.log(source);
-			console.log(source.getChildren());
-			source.add(profileImg);
-			//e.source.getParent().add(leftImage);
-			/*var leftImageView = $.UI.create("View", {
-			apiName : "View",
-
-			borderColor : "#000fff",
-			classes : ["paddingLeft"]
-			});
-			leftImageView.add(leftImage);*/
-			//e.source.parent=leftImageView;
-			//console.log(e.source.parent.getChildren());*/
-
-			//$.photoDialog.show();
+			
 		} else if (!(id == "no doctor") && !(id == "add doctor")) {
 			var doctor = _.findWhere(doctors, {
 				id : String(id)
