@@ -17,7 +17,8 @@ var args = arguments[0] || {},
     sourceElement,
     profileImg,
     noOfAppointment = 0,
-    noOfDoctors = 0;
+    noOfDoctors = 0,
+    clickedRowAppointment=0;
 
 function init() {
 
@@ -210,6 +211,7 @@ function didItemClick(e) {
 
 		if (!(id == "no appointment") && !(id == "set appointment")) {
 			
+			clickedRowAppointment=e.index;
 			var appointment = _.findWhere(appointments, {
 				appointment_id : id
 			});
@@ -592,12 +594,21 @@ function didAddAppointment() {
 
 function didEditAppointment() {
 	var newAppointment = Alloy.Models.doctor.get("appointment_update");
-	/*var oldAppointment=_.findWhere(appointments, {
+	var oldAppointment=_.findWhere(appointments, {
+		appointment_id : newAppointment.appointment_id
+	});
+	var updatedAppointment=_.extend(oldAppointment,newAppointment);
+	
+	var doctor = _.findWhere(doctors, {
 		id : newAppointment.doctor_id
 	});
-	extend*/
-	//console.log(ap);
-	//console.log("alskhdaklsugdjlakshndasd");
+
+	var row = createAppointmentRow(doctor, newAppointment);
+	
+	//console.log(updatedAppointment);
+	//console.log(appointments);
+	
+	$.tableView.updateRow(clickedRowAppointment,row);
 
 }
 
