@@ -16,6 +16,10 @@ module.exports = {
 					"modifiters" : "",
 					"value" : "$1-$2"
 				}]
+			},
+			"SUPPORT" : {
+				"call" : "1234567890",
+				"email" : "support@mscripts.com"
 			}
 		},
 		"tss" : {
@@ -69,7 +73,7 @@ module.exports = {
 				"height" : 50
 			},
 			"nav" : {
-				"backgroundColor" : "#ED1C24"
+				"backgroundColor" : "#ff0000"
 			},
 			"nav_title_lbl" : {
 				"left" : "25%",
@@ -225,7 +229,7 @@ module.exports = {
 				"color" : "#000000",
 				"textAlign" : "left",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "FFFFFF",
+				"borderColor" : "#FFFFFF",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -268,6 +272,12 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"hintTextColor" : "#808285",
@@ -281,22 +291,8 @@ module.exports = {
 					"height" : 40,
 					"backgroundColor" : "#EFEFF4"
 				},
-				"choiceDict" : {
-					"top" : 12,
-					"bottom" : 12,
-					"left" : 12,
-					"right" : 12,
-					"font" : {
-						"fontFamily" : "light",
-						"fontSize" : 17
-					}
-				},
 				"leftBtnDict" : {
 					"left" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
@@ -304,16 +300,12 @@ module.exports = {
 				},
 				"rightBtnDict" : {
 					"right" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
-				"iconSelectionColor" : "#00A14B",
+				"selectedIconColor" : "#00A14B",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent",
 				"borderWidth" : 0
@@ -352,7 +344,7 @@ module.exports = {
 				"paddingRight" : 4,
 				"rightButtonDict" : {
 					"right" : 8,
-					"width" : 20,
+					"width" : 45,
 					"color" : "#0095ff"
 				}
 			},
@@ -365,6 +357,12 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"hintTextColor" : "#808285",
@@ -378,22 +376,8 @@ module.exports = {
 					"height" : 40,
 					"backgroundColor" : "#EFEFF4"
 				},
-				"choiceDict" : {
-					"top" : 12,
-					"bottom" : 12,
-					"left" : 12,
-					"right" : 12,
-					"font" : {
-						"fontFamily" : "light",
-						"fontSize" : 17
-					}
-				},
 				"leftBtnDict" : {
 					"left" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
@@ -401,16 +385,12 @@ module.exports = {
 				},
 				"rightBtnDict" : {
 					"right" : 12,
-					"font" : {
-						"fontFamily" : "bold",
-						"fontSize" : 17
-					},
 					"textAlign" : "center",
 					"color" : "#000000",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
-				"iconSelectionColor" : "#00A14B",
+				"selectedIconColor" : "#00A14B",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808285",
 				"borderWidth" : 1,
@@ -442,8 +422,8 @@ module.exports = {
 				},
 				"textAlign" : "center",
 				"color" : "#FFFFFF",
-				"backgroundColor" : "#ED1C24",
-				"borderColor" : "#ED1C24",
+				"backgroundColor" : "#ff0000",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -455,8 +435,8 @@ module.exports = {
 				},
 				"textAlign" : "center",
 				"color" : "#FFFFFF",
-				"backgroundColor" : "#ED1C24",
-				"borderColor" : "#ED1C24",
+				"backgroundColor" : "#ff0000",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -469,9 +449,9 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"textAlign" : "center",
-				"color" : "#ED1C24",
+				"color" : "#ff0000",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#ED1C24",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -482,9 +462,9 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"textAlign" : "center",
-				"color" : "#ED1C24",
+				"color" : "#ff0000",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#ED1C24",
+				"borderColor" : "#ff0000",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -619,7 +599,6 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"textAlign" : "left",
 				"color" : "#000000"
 			},
 			"or_lbl" : {
@@ -813,7 +792,7 @@ module.exports = {
 				"color" : "#ED1C24"
 			},
 			"primary_color" : {
-				"color" : "#ED1C24"
+				"color" : "#ff0000"
 			},
 			"secondary_color" : {
 				"color" : "#FFFFFF"
@@ -837,7 +816,7 @@ module.exports = {
 				"color" : "#A6A8AB"
 			},
 			"primary_bg_color" : {
-				"backgroundColor" : "#ED1C24"
+				"backgroundColor" : "#ff0000"
 			},
 			"tooltip_lbl" : {
 				"left" : 12,
@@ -899,21 +878,53 @@ module.exports = {
 			},
 			"togglemenu" : {
 				"right" : 12,
-				"width" : 180,
 				"optionPadding" : {
 					"top" : 12,
 					"bottom" : 12,
 					"left" : 12,
 					"right" : 12
 				},
+				"paddingLeft" : 12,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 14
+					"fontSize" : 17
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
+				"color" : "#000000",
+				"separatorInsets" : {
+					"left" : 0,
+					"right" : 0
+				},
+				"separatorColor" : "#808285",
+				"overlayDict" : {
+					"backgroundColor" : "#000000",
+					"opacity" : 0.4
+				},
+				"backgroundColor" : "#FFFFFF"
+			},
+			"optionpicker" : {
+				"left" : 12,
+				"right" : 12,
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
+				"paddingLeft" : 12,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"unSelectedIconColor" : "#A6A8AB",
+				"selectedIconColor" : "#00A14B",
 				"color" : "#000000",
 				"separatorInsets" : {
 					"left" : 0,
@@ -940,8 +951,37 @@ module.exports = {
 			"vspacer" : {
 				"height" : 12
 			},
-			"logo" : {
+			"paging_control" : {
+				"pagerDict" : {
+					"left" : 5,
+					"width" : 10,
+					"height" : 10,
+					"backgroundColor" : "#FFFFFF",
+					"borderColor" : "#808285",
+					"borderWidth" : 1,
+					"borderRadius" : 5
+				},
+				"selectedPagerDict" : {
+					"left" : 5,
+					"width" : 8,
+					"height" : 8,
+					"backgroundColor" : "#808285",
+					"borderColor" : "#808285",
+					"borderWidth" : 1,
+					"borderRadius" : 4
+				}
+			},
+			"logo_img" : {
 				"code" : "logo"
+			},
+			"prescription_list_img" : {
+				"code" : "prescription_list"
+			},
+			"helpful_medication_img" : {
+				"code" : "helpful_medication"
+			},
+			"store_locator_img" : {
+				"code" : "store_locator"
 			}
 		}
 	}
