@@ -9,14 +9,7 @@
 ".success-icon":{
 	text: Alloy.CFG.icons.success
 },
-".lbl-signup":{
-	title: Alloy.Globals.strings.strSignup
-}
-"#signup":
-{
-	
-	title: Alloy.Globals.strings.strSignup
-}
+
 "#hintParaOne":
 {
 	
