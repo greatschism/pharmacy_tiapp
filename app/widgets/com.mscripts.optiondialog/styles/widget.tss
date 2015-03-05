@@ -16,7 +16,7 @@
 "#containerView[formFactor=tablet]":{
 	width: "45%"
 },
-"#listView":{
+"#tableView":{
 	height: Ti.UI.SIZE,
 	backgroundColor: "transparent",
 	separatorColor: "#d3d6d8",

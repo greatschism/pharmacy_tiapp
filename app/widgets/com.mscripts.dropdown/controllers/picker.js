@@ -44,7 +44,7 @@ if (OS_ANDROID) {
 		});
 		$.toolbarView.applyProperties(args.toolbarDict);
 		if (_.has(args.toolbarDict, "height")) {
-			$.listView.applyProperties({
+			$.tableView.applyProperties({
 				top : args.toolbarDict.height,
 				height : PICKER_HEIGHT - args.toolbarDict.height
 			});
@@ -100,7 +100,7 @@ function init() {
 			iconText : selectedIndex == i ? choices[i].iconText || args.selectedIconText || "+" : ""
 		}));
 	}
-	$.listView.setData(data);
+	$.tableView.setData(data);
 	$.picker.addEventListener("postlayout", didPostlayout);
 	parent.add($.picker);
 }
@@ -163,12 +163,12 @@ function didClickListView(e) {
 	var index = e.index;
 	if (index !== selectedIndex) {
 		if (selectedIndex >= 0) {
-			$.listView.updateRow(selectedIndex, getRow({
+			$.tableView.updateRow( OS_IOS ? selectedIndex : $.tableView.sections[0].rows[selectedIndex], getRow({
 				title : choices[selectedIndex][titleProperty]
 			}));
 		}
 		selectedIndex = index;
-		$.listView.updateRow(selectedIndex, getRow({
+		$.tableView.updateRow( OS_IOS ? index : e.row, getRow({
 			title : choices[selectedIndex][titleProperty],
 			iconText : choices[selectedIndex].iconText || args.selectedIconText || "+"
 		}));

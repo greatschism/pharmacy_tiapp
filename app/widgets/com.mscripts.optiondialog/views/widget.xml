@@ -1,7 +1,7 @@
 <Alloy>
 	<View platform="mobileweb" onSingletap="didTap">
 		<View id="containerView">
-			<TableView id="listView" onClick="didItemClick">
+			<TableView id="tableView" onClick="didItemClick">
 				<HeaderView>
 					<View id="headerView">
 						<Label id="titleLbl" class="title" />

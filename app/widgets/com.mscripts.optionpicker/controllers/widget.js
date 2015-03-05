@@ -71,6 +71,7 @@ function didTap(e) {
 }
 
 function setSelectedItems(_where, _selected) {
+	var rows = $.tableView.sections[0].rows;
 	for (var i in items) {
 		var equal = true;
 		for (j in _where) {
@@ -82,6 +83,7 @@ function setSelectedItems(_where, _selected) {
 		if (equal) {
 			updateItem({
 				index : i,
+				row : rows[i],
 				force : true,
 				selected : _selected
 			});
@@ -105,11 +107,11 @@ function updateItem(e) {
 		if (e.force) {
 			if (e.selected != data.selected) {
 				data.selected = e.selected;
-				$.tableView.updateRow(itemIndex, getRow(data));
+				$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
 			}
 		} else {
 			data.selected = !data.selected;
-			$.tableView.updateRow(itemIndex, getRow(data));
+			$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
 			if (args.autoHide) {
 				$.trigger("click", {
 					source : $,

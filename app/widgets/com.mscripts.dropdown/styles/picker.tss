@@ -15,11 +15,11 @@
 	right: 12,
 	title: "Done"
 },
-"#listView":{
+"#tableView":{
 	top: 40,
 	height: 200
 },
-"#listView[platform=ios]":{
+"#tableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,
 		left: 0

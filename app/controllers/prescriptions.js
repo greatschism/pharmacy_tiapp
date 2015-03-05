@@ -573,10 +573,10 @@ function didClickClose(e){
 	$.unhideMenu.hide();
 }
 function didClickSelectAll(e){
-	$.unhideMenu.setSelectedItems([],true);
+	$.unhideMenu.setSelectedItems({},true);
 }
 function didClickSelectNone(e){
-	$.unhideMenu.setSelectedItems([],false);
+	$.unhideMenu.setSelectedItems({},false);
 }
 function didClickUnhide(e){
 	var unhiddenPrescriptions=_.where(items, {

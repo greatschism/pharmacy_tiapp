@@ -90,7 +90,7 @@ function setOptions(_options) {
 	for (var i = 0; i < len; i++) {
 		data.push(getRow(dialogOptions[i]));
 	}
-	$.listView.setData(data);
+	$.tableView.setData(data);
 
 	if (Alloy.isHandheld) {
 		$.containerView.top = SCREEN_HEIGHT;

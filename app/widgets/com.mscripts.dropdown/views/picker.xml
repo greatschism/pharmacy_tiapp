@@ -4,7 +4,7 @@
 			<Button id="leftBtn" onClick="didClickLeftBtn" />
 			<Button id="rightBtn" onClick="didClickRightBtn" />
 		</View>
-		<TableView id="listView" onClick="didClickListView">
+		<TableView id="tableView" onClick="didClickListView">
 			<FooterView>
 				<View id="footerView" />
 			</FooterView>
