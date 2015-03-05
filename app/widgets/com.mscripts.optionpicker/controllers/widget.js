@@ -58,6 +58,7 @@ var args = arguments[0] || {},
 	}
 
 	_.extend(optioDict, _.pick(args, ["color", "font"]));
+	optioDict.height = optioDict.font.fontSize + 5;
 
 	setItems(args.items || []);
 

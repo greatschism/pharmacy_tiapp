@@ -57,6 +57,7 @@ if (OS_ANDROID) {
 	}
 
 	_.extend(optioDict, _.pick(args, ["color", "font"]));
+	optioDict.height = optioDict.font.fontSize + 5;
 
 	setItems(args.items || []);
 
@@ -107,7 +108,7 @@ function getRow(_data) {
 
 function setItems(_items) {
 	items = _items;
-	var height = items.length * (optionPadding.top + optionPadding.bottom + optioDict.font.fontSize + 5);
+	var height = items.length * (optionPadding.top + optionPadding.bottom + optioDict.height);
 	$.containerView.height = height > MAX_HEIGHT ? MAX_HEIGHT : height;
 	var data = [];
 	for (var i in items) {

@@ -36,6 +36,7 @@ if (OS_ANDROID) {
 	$.picker.backgroundColor = args.backgroundColor || "#FFFFFF";
 
 	_.extend(choiceDict, _.pick(args, ["color", "font"]));
+	choiceDict.height = choiceDict.font.fontSize + 5;
 
 	if (_.has(args, "toolbarDict")) {
 		_.extend(args.toolbarDict, {
