@@ -72,6 +72,7 @@ function didClickSave(e) {
 		});
 	} else {
 		
+		
 		if(args.edit=="false")
 		{http.request({
 			method : "DOCTORS_ADD",
@@ -431,7 +432,7 @@ function init() {
 		state = _.findWhere(states, {
 				title : doctor.state
 			});
-		if(state.length)
+		if(state)
 		$.stateTxt.setSelectedIndex(parseInt(state.id)-1);	
 		
 		$.zipTxt.setValue(doctor.zip);
