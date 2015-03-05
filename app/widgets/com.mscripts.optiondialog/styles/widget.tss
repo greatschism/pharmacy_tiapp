@@ -2,21 +2,18 @@
 	zIndex: 0,
 	visible: false
 },
-"#widget[platform=android,ios]":{
-	backgroundColor: "#50000000"
-},
 "#widget[platform=mobileweb]":{
 	backgroundColor: "rgba(0,0,0,0.5)"
 },
-"#container":{
+"#containerView":{
 	height: Ti.UI.SIZE,
 	backgroundColor: "#EDEBED",
 	borderRadius: 4
 },
-"#container[formFactor=handheld]":{
+"#containerView[formFactor=handheld]":{
 	width: "85%"
 },
-"#container[formFactor=tablet]":{
+"#containerView[formFactor=tablet]":{
 	width: "45%"
 },
 "#listView":{
@@ -28,21 +25,20 @@
 		left: 0
 	}
 },
-".header":{
+"#headerView":{
 	height: 30
 },
 "#titleLbl":{
 	color: "#8b8b8b",
+	height: 20,
 	font:{
 		fontSize: 15
 	}
 },
-".height-60d":{
-	height: 60
-},
 ".title":{
-	left: 10,
-	right: 10,
+	left: 8,
+	right: 8,
+	height: 25,
 	font:{
 		fontSize: 20
 	},
@@ -50,26 +46,6 @@
 	color: "#000"
 },
 ".title[platform=android,mobileweb]":{
-	ellipsize: true,
-	wordWrap: false
-},
-".gray":{
-	color: "#8b8b8b"
-},
-".icon":{
-	left: 10,
-	width: 30
-},
-".icon-title":{
-	left: 50,
-	right: 10,
-	font:{
-		fontSize: 20
-	},
-	textAlign: "center",
-	color: "#000"
-},
-".icon-title[platform=android,mobileweb]":{
 	ellipsize: true,
 	wordWrap: false
 }

@@ -1,12 +1,10 @@
 var args = arguments[0] || {},
-    CONTAINER_HEIGHT = 0,
     SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
+    MAX_HEIGHT = (SCREEN_HEIGHT / 100) * 65,
+    CONTAINER_HEIGHT = 0,
     properties = {},
-    options = [];
-
-if (OS_ANDROID) {
-	SCREEN_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
-}
+    dialogOptions = [],
+    cancelIndex = -1;
 
 (function() {
 
@@ -23,7 +21,7 @@ if (OS_ANDROID) {
 
 	} else {
 
-		$.role = args.role || "";
+		$.role = args.role || "overlay";
 
 		var options = {};
 
@@ -54,91 +52,53 @@ function didItemClick(e) {
 	if (OS_IOS || OS_ANDROID) {
 		$.trigger("click", e);
 	} else {
-		var itemIndex = OS_MOBILEWEB ? e.index : e.itemIndex;
+		var itemIndex = e.index;
 		$.trigger("click", {
 			index : itemIndex,
-			cancel : args.cancel,
-			data : options[itemIndex] || {}
+			cancel : cancelIndex,
+			data : dialogOptions[itemIndex] || {}
 		});
 		hide();
 	}
 }
 
 function applyProperties(_dict) {
-	$.container.applyProperties(_dict);
+	$.containerView.applyProperties(_dict);
 }
 
 function getRow(_data) {
 	var row = $.UI.create("TableViewRow", {
-		apiName : "TableViewRow",
-		classes : ["height-48d"]
-	});
-	if (_data.image) {
-		var image = $.UI.create("ImageView", {
-			apiName : "ImageView",
-			classes : ["icon"]
-		});
-		image.image = _data.image;
-		row.add(image);
-	}
-	var title = $.UI.create("Label", {
-		apiName : "Label",
-		classes : [_data.image ? "icon-title" : "title"]
+		height : 60
 	});
 	properties.text = _data.title;
-	title.applyProperties(properties);
-	row.add(title);
+	row.add($.UI.create("Label", properties));
 	return row;
 }
 
 function setOptions(_options) {
 
-	options = _options;
+	dialogOptions = _options;
 
-	var len = Alloy.isHandheld ? options.length : options.length - 1;
+	var len = dialogOptions.length,
+	    height = (len * 60) + 30;
 
-	var height = (len * 60) + 30;
-	CONTAINER_HEIGHT = height > 330 ? 330 : height;
-	$.container.height = CONTAINER_HEIGHT + 2;
+	CONTAINER_HEIGHT = height > MAX_HEIGHT ? MAX_HEIGHT : height;
 
-	if (OS_IOS || OS_ANDROID) {
-		var data = [];
-		for (var i = 0; i < len; i++) {
-			var titleProp = {
-				text : options[i].title
-			};
-			_.extend(titleProp, properties);
-			data.push({
-				title : titleProp,
-				icon : {
-					image : options[i].image || ""
-				},
-				template : options[i].image ? "icon" : "label",
-				properties : {
-					backgroundColor : "transparent",
-					selectionStyle : OS_IOS ? Ti.UI.iPhone.ListViewCellSelectionStyle.NONE : false
-				}
-			});
-		}
-		$.section.setItems(data);
-	} else {
-		var data = [];
-		for (var i = 0; i < len; i++) {
-			data.push(getRow({
-				title : options[i].title,
-				image : options[i].image || ""
-			}));
-		}
-		$.listView.setData(data);
+	$.containerView.height = CONTAINER_HEIGHT + 2;
+
+	var data = [];
+	for (var i = 0; i < len; i++) {
+		data.push(getRow(dialogOptions[i]));
 	}
+	$.listView.setData(data);
 
 	if (Alloy.isHandheld) {
-		$.container.top = SCREEN_HEIGHT + CONTAINER_HEIGHT;
+		$.containerView.top = SCREEN_HEIGHT;
 	}
 }
 
 function getOptions() {
-	return options;
+	return dialogOptions;
 }
 
 function animate(_dict, _callback) {
@@ -157,27 +117,32 @@ function show(_callback) {
 		$.dialog.show();
 	} else {
 		if (!$.widget.visible) {
-			$.widget.visible = true;
-			$.widget.zIndex = args.zIndex || 1;
-			if (Alloy.isHandheld) {
-				var top = SCREEN_HEIGHT - CONTAINER_HEIGHT;
-				var animation = Ti.UI.createAnimation({
-					top : top,
-					duration : 300
-				});
-				animation.addEventListener("complete", function onComplete() {
-					$.container.top = top;
+			$.widget.addEventListener("postlayout", function didPostlayout(e) {
+				$.widget.removeEventListener("postlayout", didPostlayout);
+				if (Alloy.isHandheld) {
+					var top = SCREEN_HEIGHT - CONTAINER_HEIGHT,
+					    animation = Ti.UI.createAnimation({
+						top : top,
+						duration : 300
+					});
+					animation.addEventListener("complete", function onComplete() {
+						animation.removeEventListener("complete", onComplete);
+						$.containerView.top = top;
+						if (_callback) {
+							_callback();
+						}
+					});
+					$.containerView.animate(animation);
+				} else {
 					if (_callback) {
 						_callback();
 					}
-					animation.removeEventListener("complete", onComplete);
-				});
-				$.container.animate(animation);
-			} else {
-				if (_callback) {
-					_callback();
 				}
-			}
+			});
+			$.widget.applyProperties({
+				visible : true,
+				zIndex : args.zIndex || 1
+			});
 			return true;
 		}
 		return false;
@@ -190,24 +155,27 @@ function hide(_callback) {
 	} else {
 		if ($.widget.visible) {
 			if (Alloy.isHandheld) {
-				var top = SCREEN_HEIGHT + CONTAINER_HEIGHT;
 				var animation = Ti.UI.createAnimation({
-					top : top,
+					top : SCREEN_HEIGHT,
 					duration : 300
 				});
 				animation.addEventListener("complete", function onComplete() {
-					$.container.top = top;
-					$.widget.visible = false;
-					$.widget.zIndex = 0;
+					$.containerView.top = SCREEN_HEIGHT;
+					$.widget.applyProperties({
+						visible : false,
+						zIndex : 0
+					});
 					if (_callback) {
 						_callback();
 					}
 					animation.removeEventListener("complete", onComplete);
 				});
-				$.container.animate(animation);
+				$.containerView.animate(animation);
 			} else {
-				$.widget.visible = false;
-				$.widget.zIndex = 0;
+				$.widget.applyProperties({
+					visible : false,
+					zIndex : 0
+				});
 				if (_callback) {
 					_callback();
 				}
