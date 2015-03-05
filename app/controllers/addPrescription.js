@@ -13,17 +13,17 @@ var args = arguments[0] || {},
     readyToRefill,
     otherPrescriptions,
     prescriptions,
-     iconLbl = $.UI.create("Label", {
-				apiName : "Label",
-				height : 32,
-				width : 32,
-				font : {
-					fontSize : 20
-				},
-				text : Alloy.CFG.icons.spot,
-				color : "#45cdef",
-				classes : ["width-90", "padding-left", "auto-height"]
-			});
+    iconLbl = $.UI.create("Label", {
+	apiName : "Label",
+	height : 32,
+	width : 32,
+	font : {
+		fontSize : 20
+	},
+	text : Alloy.CFG.icons.spot,
+	color : "#45cdef",
+	classes : ["width-90", "padding-left", "auto-height"]
+});
 
 function init() {
 	http.request({
@@ -61,7 +61,7 @@ function didSuccess(result) {
 		for (var i in readyForRefill) {
 			console.log('ready for refill' + readyForRefill[i]);
 			var transform = readyForRefill[i],
-		 anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
+			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
 
 			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
@@ -72,13 +72,13 @@ function didSuccess(result) {
 
 			}),
 
-           icon = $.UI.create("View",{
-           	apiName: "View",
-           	height: 50,
-           	classes : ["vgroup"]
-           	
-           }),
-            iconLbl =  $.UI.create("Label", {
+			icon = $.UI.create("View", {
+				apiName : "View",
+				height : 50,
+				classes : ["vgroup"]
+
+			}),
+			iconLbl = $.UI.create("Label", {
 				apiName : "Label",
 				height : 40,
 				width : 40,
@@ -91,11 +91,9 @@ function didSuccess(result) {
 				classes : ["width-30", "padding-left", "auto-height"]
 			}),
 
-
-			
 			content = $.UI.create("View", {
 				apiName : "View",
-				left: 50,
+				left : 50,
 				classes : ["list-item-view", "vgroup"]
 			}),
 
@@ -104,7 +102,6 @@ function didSuccess(result) {
 				//classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 			}),
 
-			
 			detail = $.UI.create("View", {
 				apiName : "View",
 				classes : ["list-item-info-lbl"]
@@ -119,25 +116,23 @@ function didSuccess(result) {
 			});
 			row.className = "readyForRefill";
 			sub.rowId = transform.id;
-		
+			row.rowId = transform.rx_number;
+			console.log("fdhfgdhgdhjg" + transform.rx_number);
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
 
+			icon.add(iconLbl);
 
-             icon.add(iconLbl);
-     
-		
 			detail.add(rx);
 			detail.add(due);
 
 			content.add(title);
 			content.add(detail);
 
-			
 			row.add(icon);
-		
+
 			row.add(content);
-			row.addEventListener("click" ,didClickTickIcon);
+			row.addEventListener("click", didClickTickIcon);
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -200,16 +195,15 @@ function didSuccess(result) {
 				apiName : "TableViewRow",
 				classes : ["height-75d"]
 			}),
-			
-			
-           icon = $.UI.create("View",{
-           	apiName: "View",
-           	height: 50,
-           	classes : ["vgroup"]
-           	
-           }),
-           
-           iconLbl = $.UI.create("Label", {
+
+			icon = $.UI.create("View", {
+				apiName : "View",
+				height : 50,
+				classes : ["vgroup"]
+
+			}),
+
+			iconLbl = $.UI.create("Label", {
 				apiName : "Label",
 				height : 40,
 				width : 40,
@@ -221,7 +215,7 @@ function didSuccess(result) {
 				color : "#808285",
 				classes : ["width-90", "padding-left", "auto-height"]
 			}),
-			
+
 			vseparator = $.UI.create("View", {
 				apiName : "View",
 				//classes : ["vseparator", "height-70", "touch-disabled"]
@@ -256,8 +250,8 @@ function didSuccess(result) {
 			//content.addEventListener("click", didItemClick);
 			title.text = utilities.ucfirst(transform.presc_name);
 			rx.text = addRx(transform.rx_number);
-            icon.add(iconLbl);
-            row.add(icon);
+			icon.add(iconLbl);
+			row.add(icon);
 			detail.add(rx);
 			detail.add(due);
 			content.add(title);
@@ -268,18 +262,27 @@ function didSuccess(result) {
 					apiName : "Label",
 					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
 				});
+				content = $.UI.create("View",{
+					apiName: "Label",
+					classes : ["list-item-view"]
+				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
 					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = ndays;
-				detail.add(overDueLbl);
-				detail.add(overDueDetailLbl);
+				row.add(content);
+				content.add(overDueLbl);
+				content.add(overDueDetailLbl);
 			} else if (ndays >= 0) {
 				var dueForRefillLbl = $.UI.create("Label", {
 					apiName : "Label",
 					classes : ["list-item-critical-info-lbl", "right"]
+				});
+					content = $.UI.create("View",{
+					apiName: "Label",
+					classes : ["list-item-view"]
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -287,8 +290,9 @@ function didSuccess(result) {
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillOn;
 				dueForRefillDetailLbl.text = ndays + "days";
-				detail.add(dueForRefillLbl);
-				detail.add(dueForRefillDetailLbl);
+				row.add(content);
+				content.add(dueForRefillLbl);
+				content.add(dueForRefillDetailLbl);
 			} else {
 
 			}
@@ -303,21 +307,16 @@ function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
-function didClickTickIcon(e)
-{
+function didClickTickIcon(e) {
 	Ti.API.info("you clicked row" + e.index);
 	var rowId = e.row.rowId;
-	if(e.selectRow)
-	{
+	if (e.selectRow) {
 		var addPrescriptions = [];
 		addPrescriptions.push(e.rowData.presc_name);
-		console.log("added" +addPrescriptions);
-		
+		console.log("added" + addPrescriptions);
+
 	}
 }
-
-
-
 
 function didClickDone() {
 
@@ -370,13 +369,13 @@ function didAddPrescription(_result) {
 
 function didItemClick(e) {
 	var rowId = e.row.rowId;
-	if(e.selectRow)
-	{
-		var addPrescriptions = [];
-		addPrescriptions.push(rowId);
-		console.log(addPrescriptions);
-		
-	}
+	var prescription = _.findWhere(readyToRefill, {
+		rx_number : rowId
+	});
+	console.log("jdjfdjdfjfdg" + rowId);
+	console.log(prescription);
+	console.log(readyToRefill);
+
 }
 
 function terminate() {
