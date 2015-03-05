@@ -6,7 +6,14 @@ var args = arguments[0] || {},
     strings = Alloy.Globals.strings,
     nameRegExp = /^[A-Za-z0-9]{3,40}$/,
     zipRegExp = /^[0-9]{5}([0-9]{4})?$/,
-    doctor;
+    doctor,
+    fname,
+    lname,
+    faxNo,
+    hospitalDetails,
+    streetDetails,
+    zipCode,
+    notes;
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
@@ -18,8 +25,8 @@ function didClickSave(e) {
 	lname = $.lnameTxt.getValue();
 	phoneNo = $.phoneTxt.getValue();
 	faxNo = $.faxTxt.getValue();
-	hospitalDetails = $.hospitalTxt.getValue();
-	streetDetaisl = $.streetTxt.getValue();
+	hospitalDetails = $.hospitalTxt.getValue() ;
+	streetDetails = $.streetTxt.getValue() ;
 	cityDetails = $.cityTxt.getValue();
 	stateDetails = $.stateTxt.getSelectedItem();
 	zipCode = $.zipTxt.getValue();
@@ -77,8 +84,8 @@ function didClickSave(e) {
 						"doctor_dea" : "12345",
 						"first_name" : fname,
 						"last_name" : lname,
-						"addressline1" : "TEST",
-						"addressline2" : "TEST",
+						"addressline1" : hospitalDetails,
+						"addressline2" : streetDetails,
 						"state" : stateDetails,
 						"city" : cityDetails,
 						"zip" : zipCode,
@@ -108,8 +115,8 @@ function didClickSave(e) {
 						"doctor_dea" : "12345",
 						"first_name" : fname,
 						"last_name" : lname,
-						"addressline1" : "TEST",
-						"addressline2" : "TEST",
+						"addressline1" : hospitalDetails,
+						"addressline2" : streetDetails,
 						"state" : stateDetails,
 						"city" : cityDetails,
 						"zip" : zipCode,
@@ -138,8 +145,8 @@ function didSuccessCreate(_result) {
 						"doctor_dea" : "12345",
 						"first_name" : fname,
 						"last_name" : lname,
-						"addressline1" : "TEST",
-						"addressline2" : "TEST",
+						"addressline1" : hospitalDetails,
+						"addressline2" : streetDetails,
 						"state" : stateDetails,
 						"city" : cityDetails,
 						"zip" : zipCode,
@@ -164,13 +171,13 @@ function didSuccessCreate(_result) {
 
 function didSuccessUpdate(_result) {
 	Alloy.Models.doctor.set({
-		doctor_add: {
+		doctor_update: {
 						"id":args.doctor.id,
 						"doctor_dea" : "12345",
 						"first_name" : fname,
 						"last_name" : lname,
-						"addressline1" : "TEST",
-						"addressline2" : "TEST",
+						"addressline1" : hospitalDetails,
+						"addressline2" : streetDetails,
 						"state" : stateDetails,
 						"city" : cityDetails,
 						"zip" : zipCode,

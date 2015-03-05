@@ -18,7 +18,8 @@ var args = arguments[0] || {},
     profileImg,
     noOfAppointment = 0,
     noOfDoctors = 0,
-    clickedRowAppointment=0;
+    clickedAppointmentRow=0,
+    clickedDoctorRow=0;
 
 function init() {
 
@@ -26,6 +27,7 @@ function init() {
 	Alloy.Models.doctor.on("change:appointment_add", didAddAppointment);
 	Alloy.Models.doctor.on("change:appointment_update", didEditAppointment);
 	Alloy.Models.doctor.on("change:appointment_delete", didDeleteAppointment);
+	Alloy.Models.doctor.on("change:doctor_update", didEditDoctor);
 
 	http.request({
 		method : "DOCTORS_LIST",
@@ -83,23 +85,8 @@ function didReceiveAppointments(_result) {
 
 	} else {
 
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["auto-height", "paddingTop"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : Alloy.Globals.strings.msgNoAppointment,
-			classes : ["paddingBottom"]
-		});
-
-		contentView.add(titleLbl);
-		row.add(contentView);
-		row.rowId = "no appointment";
-		$.appointmentsSection.add(row);
+		var noAppointmentRow=createNoAppointmentRow();
+		$.appointmentsSection.add(noAppointmentRow);
 	}
 
 	var row = $.UI.create("TableViewRow", {
@@ -143,24 +130,8 @@ function didReceiveAppointments(_result) {
 
 	} else {
 
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			horizontalWrap : "false",
-			classes : ["auto-height", "paddingTop"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : Alloy.Globals.strings.msgNoDoctor,
-			classes : ["paddingBottom"]
-		});
-
-		contentView.add(titleLbl);
-		row.add(contentView);
-		row.rowId = "no doctor";
-		$.doctorsSection.add(row);
+		var noDoctorRow=createNoDoctorRow();
+		$.doctorsSection.add(noDoctorRow);
 	}
 
 	var rowAddDoc = $.UI.create("TableViewRow", {
@@ -211,7 +182,7 @@ function didItemClick(e) {
 
 		if (!(id == "no appointment") && !(id == "set appointment")) {
 			
-			clickedRowAppointment=e.index;
+			clickedAppointmentRow=e.index;
 			var appointment = _.findWhere(appointments, {
 				appointment_id : id
 			});
@@ -249,7 +220,7 @@ function didItemClick(e) {
 			var doctor = _.findWhere(doctors, {
 				id : String(id)
 			});
-
+			clickedDoctorRow=e.index;
 			var prescriptions = [];
 			if (prescriptionsList.length) {
 				prescriptions = _.where(prescriptionsList, {
@@ -560,12 +531,58 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	return row;
 }
 
+function createNoAppointmentRow()
+{
+	var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["auto-height", "paddingTop"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			text : Alloy.Globals.strings.msgNoAppointment,
+			classes : ["paddingBottom"]
+		});
+
+		contentView.add(titleLbl);
+		row.add(contentView);
+		row.rowId = "no appointment";
+		return row;
+}
+
+function createNoDoctorRow()
+{
+		var row = $.UI.create("TableViewRow", {
+			apiName : "TableViewRow"
+		}),
+		    contentView = $.UI.create("View", {
+			apiName : "View",
+			horizontalWrap : "false",
+			classes : ["auto-height", "paddingTop"]
+		}),
+		    titleLbl = $.UI.create("Label", {
+			apiName : "Label",
+			text : Alloy.Globals.strings.msgNoDoctor,
+			classes : ["paddingBottom"]
+		});
+
+		contentView.add(titleLbl);
+		row.add(contentView);
+		row.rowId = "no doctor";
+		
+		return row;
+	
+}
+
 function terminate() {
 	$.destroy();
 	Alloy.Models.doctor.off("change:doctor_add", didAddDoctor);
 	Alloy.Models.doctor.off("change:appointment_add", didAddAppointment);
 	Alloy.Models.doctor.off("change:appointment_update", didEditAppointment);
 	Alloy.Models.doctor.off("change:appointment_delete", didDeleteAppointment);
+	Alloy.Models.doctor.off("change:doctor_update", didEditDoctor);
 }
 
 function didAddDoctor() {
@@ -573,7 +590,12 @@ function didAddDoctor() {
 	var row = createDoctorRow(doctor, prescriptionsList);
 	console.log(doctor);
 	doctors.push(doctor);
+	
+	if(noOfDoctors==0)
+	$.tableView.updateRow(2,row); // 2 since 0th row- no appointment and 1st row is add appointment
+	else
 	$.tableView.insertRowAfter(noOfDoctors + noOfAppointment, row);
+	
 	noOfDoctors++;
 }
 
@@ -587,7 +609,12 @@ function didAddAppointment() {
 
 	var row = createAppointmentRow(doctor, newAppointment);
 	appointments.push(newAppointment);
+	
+	if(noOfAppointment==0)
+	$.tableView.updateRow(0,row);
+	else
 	$.tableView.insertRowAfter(noOfAppointment - 1, row);
+	
 	noOfAppointment++;
 
 }
@@ -605,18 +632,38 @@ function didEditAppointment() {
 
 	var row = createAppointmentRow(doctor, newAppointment);
 	
-	//console.log(updatedAppointment);
-	//console.log(appointments);
 	
-	$.tableView.updateRow(clickedRowAppointment,row);
+	$.tableView.updateRow(clickedAppointmentRow,row);
 
+}
+
+function didEditDoctor(){
+	
+	var newDoctor = Alloy.Models.doctor.get("doctor_update");
+	var oldDoctor=_.findWhere(doctors, {
+		id : newDoctor.id
+	});
+	var updatedDoctor=_.extend(oldDoctor,newDoctor);
+	
+	var row = createDoctorRow(updatedDoctor, prescriptionsList);
+	
+	
+	$.tableView.updateRow(clickedDoctorRow,row);
+	
+	
 }
 
 function didDeleteAppointment(){
 	var rowId = Alloy.Models.doctor.get("appointment_delete");
-	//console.log("delete");
-	//console.log(rowId.index);
+	
+	if(noOfAppointment==1)
+	{
+		var noAppointmentRow=createNoAppointmentRow();
+		$.tableView.updateRow(0,noAppointmentRow);
+	}
+	else
 	$.tableView.deleteRow(rowId.index);
+	noOfAppointment--;
 }
 
 function didAndroidBack() {
