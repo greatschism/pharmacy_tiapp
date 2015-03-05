@@ -144,11 +144,13 @@ function init() {
 				fontSize : 18,
 				bold : true
 			},
+		top :0,	
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		top : 30,
+		
 		text : "San Franscisco,CA, 94103",
 		classes : ["list-item-info-lbl", "left"]
 	}),
