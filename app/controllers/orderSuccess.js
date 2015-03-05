@@ -134,7 +134,7 @@ function didSuccessRefill(_result) {
 
 						}
 						console.log("how many" + prescNamesArray.length);
-						console.log("yoooooooo" + prescNamesArray);
+					
 
 					}
 				});
