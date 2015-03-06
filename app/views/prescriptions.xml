@@ -1,23 +1,27 @@
 <Alloy>
-	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickMenu" />
-	<Widget id="sortMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickSort" />
-	<Widget id="unhideMenu" src="com.mscripts.optionpicker" class="optionpicker">
-		<View class="default-height" role="headerView" borderColor="#808285" borderWidth="1">
-			<Button title="Select none" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
-			<Button title="Select all" class="right width-50 thirtiary-btn-small" onClick="didClickSelectAll" />
+	<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />
+	<Widget id="sortPicker" src="com.mscripts.togglemenu" class="optionpicker" onClick="didClickSortPicker" />
+	<Widget id="unhidePicker" src="com.mscripts.optionpicker" class="optionpicker">
+		<View class="default-height" role="headerView">
+			<Button id="selectNoneBtn" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
+			<Button  class="right width-50 thirtiary-btn-small" onClick="didClickSelectAll" />
 			<View class="vseparator" />
 		</View>
 		<View class="auto-height vgroup" role="footerView">
 			<View class="hseparator" />
-			<Button title="Unhide" class="btn-padding-top primary-btn" onClick="didClickUnhide"/>
-			<Button title="Close" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickClose" />
+			<Button id="unhideBtn" class="btn-padding-top primary-btn" onClick="didClickUnhideBtn"/>
+			<Button id="closeBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickCloseBtn" />
 		</View>
 	</Widget>
-	<View id="navBtnView" class="right nav-action-container" onClick="didToggle">
-		<Label id="toggleBtn" class="margin-right nav-icon" />
+	<View id="optionsView" class="right nav-action-container" onClick="didClickOptionView">
+		<Label id="optionsLbl" class="margin-right nav-icon touch-disabled" />
 	</View>
-	<View id="searchbarView" class="top search-view">
-		<Widget id="searchbar" src="com.mscripts.textfield"  class="search-txt" onChange="performSearch" />
+	<View id="searchView" class="top search-view">
+		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt" onChange="didChangeSearch" />
 	</View>
-	<TableView id="tableView" onClick="didItemClick"/>
+	<TableView id="tableView" class="top" onClick="didItemClick">
+		<FooterView>
+			<View class="footer-view-break" />
+		</FooterView>
+	</TableView>
 </Alloy> 

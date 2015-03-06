@@ -53,7 +53,7 @@ var args = arguments[0] || {},
 
 })();
 
-function didTapLeftActionView(e) {
+function didClickLeftActionView(e) {
 	if (args.stack) {
 		_.isFunction(controller.backButtonHandler) ? controller.backButtonHandler(false) : app.navigator.close();
 	} else {

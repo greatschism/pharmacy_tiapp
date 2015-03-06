@@ -80,7 +80,7 @@ function setParentViews(view) {
 
 function didClickSave(e) {
 	dateDetails = $.dateLbl.getValue();
-	appointmentDate = moment(dateDetails).format("YYYY-MM-DD");
+	appointmentDate = moment(dateDetails).format(Alloy.CFG.apiCodes.DATE_FORMAT);
 
 	timeDetails = $.timePicker.getValue();
 	appointmentTime = moment1(timeDetails).format("hh:mm A");

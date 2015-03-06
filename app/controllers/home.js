@@ -77,7 +77,7 @@ function didItemClick(e) {
 	}
 }
 
-function didTapSignin(e) {
+function didClickSignin(e) {
 	app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",

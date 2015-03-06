@@ -1,0 +1,6 @@
+"#iconLbl":{
+	text: Alloy.CFG.icons.filled_success
+},
+"#subtitleLbl":{
+	top: 0
+}

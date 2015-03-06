@@ -33,7 +33,12 @@
 			"CODES_GET": "codes/get"
 		},
 		"apiCodes": {
-			"SUCCESS": "200"
+			"SUCCESS": "200",
+			"DATE_FORMAT": "YYYY-MM-DD",
+			"PRESCRIPTION_GETTING_REFILLED": "INPROCESS",
+			"PRESCRIPTION_READY_FOR_REFILL": "READYTOREFILL",
+			"PRESCRIPTION_READY_FOR_PICKUP": "READYFORPICKUP",
+			"PRESCRIPTION_OTHERS": "OTHERS"
 		},
 		"iconPrefix": "thick",
 		"icons": {

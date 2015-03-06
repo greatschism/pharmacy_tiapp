@@ -56,16 +56,21 @@ function request(_params) {
 		}
 	}
 
-	http.request({
-		url : CFG.baseUrl.concat(CFG.apiPath[_params.method]),
-		type : _params.type,
-		format : _params.format,
-		data : _params.data,
-		success : didSuccess,
-		failure : didFail,
-		done : didComplete,
-		passthrough : _params
-	});
+	if (CFG.simulateAPI) {
+		didSuccess(getSimulatedResponse(_params.method), _params);
+		didComplete(_params);
+	} else {
+		http.request({
+			url : CFG.baseUrl.concat(CFG.apiPath[_params.method]),
+			type : _params.type,
+			format : _params.format,
+			data : _params.data,
+			success : didSuccess,
+			failure : didFail,
+			done : didComplete,
+			passthrough : _params
+		});
+	}
 }
 
 function getSimulatedResponse(_method) {
@@ -73,9 +78,6 @@ function getSimulatedResponse(_method) {
 }
 
 function didSuccess(_data, _passthrough) {
-	if (CFG.simulateAPI) {
-		_data = getSimulatedResponse(_passthrough.method);
-	}
 	if (OS_IOS || OS_ANDROID) {
 		if (CFG.enableEncryption) {
 			_data = encryptionUtil.decrypt(_data);
@@ -94,7 +96,7 @@ function didSuccess(_data, _passthrough) {
 }
 
 function didFail(_passthrough) {
-	if (CFG.simulateAPI || CFG.simulateAPIOnFailure) {
+	if (CFG.simulateAPIOnFailure) {
 		didSuccess(getSimulatedResponse(_passthrough.method), _passthrough);
 	} else {
 		var forceRetry = _passthrough.forceRetry !== false,

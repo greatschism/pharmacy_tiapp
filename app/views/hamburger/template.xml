@@ -2,7 +2,7 @@
 	<View class="template-view">
 		<View id="navBar" class="nav">
 			<View id="navBarView" class="nav-view">
-				<View id="leftActionView" class="left nav-action-container" onClick="didTapLeftActionView">
+				<View id="leftActionView" class="left nav-action-container" onClick="didClickLeftActionView">
 					<Label id="leftIconLbl" class="margin-left nav-icon touch-disabled" />
 				</View>
 				<Label id="titleLbl" class="nav-title-lbl" />

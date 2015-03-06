@@ -1,10 +1,7 @@
-"#toggleBtn":{
-	text: Alloy.CFG.icons.options,
-	font:Alloy.TSS.small_icon.font,
-	color: "#FFFFFF"
+"#optionsLbl":{
+	text: Alloy.CFG.icons.options
 },
-"#toggleMenu":{
-
+"#optionsMenu":{
 	items: [
 		{
 			title: Alloy.Globals.strings.menuSearch,
@@ -23,36 +20,6 @@
 		}
 	]
 },
-"#sortMenu":{
-	right: 12,
-	width: 295,
-	left: 12
-},
-"#searchbarView":{
-	opacity: 0
-},
 "#searchbar":{
 	hintText:Alloy.Globals.strings.hintSearchByZipCityOrState
-},
-"#tableView":{
-	top: 0
-},
-".lbl-refill":{
-	title: Alloy.Globals.strings.strRefillNow
-},
-".lbl-hide":{
-	title: Alloy.Globals.strings.lblHideFromList
-},
-".success-icon":{
-	text: Alloy.CFG.icons.success
-},
-
-".width-150d":{
-	width: 150
-},
-".height-5d":{
-	height: 5
-},
-".height-75d":{
-	height: 75
 }

@@ -40,7 +40,7 @@ function didClickNext() {
 					patient : {
 						mobile_number : args.mobileNumber,
 						first_name : fname,
-						birth_date : moment(dob).format("MM-DD-YYYY"),
+						birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT),
 						password : args.password
 					}
 				}]
@@ -58,7 +58,7 @@ function didClickNext() {
 					patient : {
 						mobile_number : args.mobileNumber,
 						first_name : fname,
-						birth_date : moment(dob).format("MM-DD-YYYY")
+						birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT)
 					}
 				}]
 			},

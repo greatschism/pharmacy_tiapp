@@ -2,7 +2,10 @@ module.exports = {
 	"styles" : {
 		"config" : {
 			"NAVIGATOR" : "hamburger",
-			"DUE_FOR_REFILL_IN_DAYS" : 7,
+			"DATE_FORMAT" : "MM/DD/YYYY",
+			"PRESCRIPTION_TOOLTIP_REMINDER_AT" : 5,
+			"PRESCRIPTION_CRITICAL_REMINDER_AT" : 3,
+			"RX_NUMBER_PREFIX" : "Rx# ",
 			"RX_NUMBER" : {
 				"format" : " (xxxx-xxxxxxx)",
 				"length" : 12,
@@ -674,7 +677,7 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false,
 				"font" : {
-					"fontFamily" : "bold",
+					"fontFamily" : "medium",
 					"fontSize" : 15
 				},
 				"textAlign" : "left",
@@ -757,12 +760,12 @@ module.exports = {
 				"color" : "#808285"
 			},
 			"list_item_detail_lbl" : {
-				"top" : 12,
+				"top" : 0,
 				"height" : 19,
 				"ellipsize" : true,
 				"wordWrap" : false,
 				"font" : {
-					"fontFamily" : "bold",
+					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
 				"textAlign" : "right",
@@ -780,12 +783,12 @@ module.exports = {
 				"color" : "#ED1C24"
 			},
 			"list_item_critical_detail_lbl" : {
-				"top" : 12,
+				"top" : 0,
 				"height" : 19,
 				"ellipsize" : true,
 				"wordWrap" : false,
 				"font" : {
-					"fontFamily" : "bold",
+					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
 				"textAlign" : "right",

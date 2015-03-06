@@ -255,7 +255,7 @@ function didClickCreateAccount(e) {
 				patient : {
 					first_name : fname,
 					last_name : lname,
-					birth_date : moment(dob).format("MM-DD-YYYY"),
+					birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT),
 					email_address : email,
 					user_name : uname,
 					password : password,

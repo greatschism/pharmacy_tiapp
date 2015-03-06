@@ -32,6 +32,7 @@
 	//collections
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
+	Alloy.Collections.prescriptions = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
 
@@ -42,13 +43,13 @@
 		appload : {}
 	});
 	Alloy.Models.doctor = new Backbone.Model({
-		doctor_add:{},
-		doctor_delete:{},
-		doctor_update:{},
-		appointment_add:{},
-		appointment_delete:{},
-		appointment_update:{},
-		reminder_change:{}
+		doctor_add : {},
+		doctor_delete : {},
+		doctor_update : {},
+		appointment_add : {},
+		appointment_delete : {},
+		appointment_update : {},
+		reminder_change : {}
 	});
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.store = new Backbone.Model();
@@ -57,7 +58,5 @@
 	Alloy.Models.user.on("change:patients", function didLoginChange() {
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
 	});
-	
-
 
 })();
