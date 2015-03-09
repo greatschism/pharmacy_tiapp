@@ -29,7 +29,9 @@
 	selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 },
 "TableView":{
-	separatorColor: Alloy.TSS.TableView.separatorColor,
+	separatorColor: Alloy.TSS.TableView.separatorColor
+},
+"TableView[platform=android]":{
 	borderColor: Alloy.TSS.TableView.borderColor
 },
 "TableView[platform=ios]":{

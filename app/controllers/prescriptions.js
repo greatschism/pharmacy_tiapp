@@ -42,6 +42,11 @@ function init() {
 }
 
 function didGetPresecriptionList(_result, _passthrough) {
+	if (rows.length) {
+		resetTable();
+		rows = [];
+	}
+	//process data from server
 	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
@@ -95,22 +100,16 @@ function didGetPresecriptionList(_result, _passthrough) {
 		sections[prescription.property].add(row);
 		rows.push(row);
 	});
-	var data = [];
-	_.each(sectionIds, function(sectionId) {
-		if (sections[sectionId]) {
-			data.push(sections[sectionId]);
-		}
-	});
-	$.tableView.setData(data);
+	updateTable();
 	Alloy.Collections.prescriptions.reset(_result.data.prescriptions);
 }
 
-function didChangeSearch(e) {
-	var searchBy = ($.searchbar.getValue()).toLowerCase(),
-	    data = [];
-	$.tableView.setData(data, {
+function resetTable() {
+	//remove all sections from table
+	$.tableView.setData([], {
 		animated : true
 	});
+	//remove all rows from sections
 	_.each(sectionIds, function(sectionId) {
 		var section = sections[sectionId];
 		if (section) {
@@ -120,19 +119,32 @@ function didChangeSearch(e) {
 			});
 		}
 	});
-	_.each(rows, function(row) {
-		if (row.searchableText.indexOf(searchBy) >= 0) {
-			sections[row.sectionId].add(row);
-		}
-	});
+}
+
+function updateTable() {
+	//add valid sections to table
+	var data = [];
 	_.each(sectionIds, function(sectionId) {
-		if (sections[sectionId].rows.length) {
-			data.push(sections[sectionId]);
+		var section = sections[sectionId];
+		if (section && section.rows.length) {
+			data.push(section);
 		}
 	});
 	$.tableView.setData(data, {
 		animated : true
 	});
+}
+
+function didChangeSearch(e) {
+	resetTable();
+	var searchBy = ($.searchbar.getValue()).toLowerCase();
+	//add rows those which passes search key
+	_.each(rows, function(row) {
+		if (row.searchableText.indexOf(searchBy) >= 0) {
+			sections[row.sectionId].add(row);
+		}
+	});
+	updateTable();
 }
 
 function didItemClick(e) {
@@ -148,6 +160,9 @@ function didClickOptionMenu(e) {
 	switch(action) {
 	case "search":
 		toggleSearchView();
+		break;
+	case "refresh":
+		init();
 		break;
 	}
 }

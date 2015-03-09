@@ -137,29 +137,30 @@ function Navigation(_args) {
 		that.currentRootParams = _params;
 
 		var controller = Alloy.createController("hamburger/template", that.currentRootParams),
-		    view = controller.getView();
+		    view = controller.getView(),
+		    currentView;
 
 		that.init(controller);
 
-		if (_animate) {
+		if (_animate && that.currentController) {
+
+			currentView = that.currentController.getView();
 
 			if (!_animDict) {
 				_animDict = {
 					initDict : {
-						opacity : 0
-					},
-					terminateDict : {
-						opacity : 1
+						left : 0,
+						zIndex : 100
 					},
 					animation : {
-						opacity : 1,
+						left : that.device.width,
 						duration : Alloy.CFG.ANIMATION_DURATION
 					}
 				};
 			}
 
 			if (_animDict.initDict) {
-				view.applyProperties(_animDict.initDict);
+				currentView.applyProperties(_animDict.initDict);
 			}
 
 		}
@@ -176,7 +177,7 @@ function Navigation(_args) {
 
 					that.terminate();
 
-					that.window.remove(that.currentController.getView());
+					that.window.remove(currentView || that.currentController.getView());
 
 					that.controllers.pop();
 				}
@@ -194,7 +195,7 @@ function Navigation(_args) {
 				}
 			};
 
-			if (_animate) {
+			if (currentView) {
 
 				var animation = Ti.UI.createAnimation(_animDict.animation);
 
@@ -202,12 +203,12 @@ function Navigation(_args) {
 
 					animation.removeEventListener("complete", onComplete);
 
-					view.applyProperties(_animDict.terminateDict || _animDict.animation);
+					currentView.applyProperties(_animDict.terminateDict || _animDict.animation);
 
 					animCallback();
 				});
 
-				view.animate(animation);
+				currentView.animate(animation);
 
 			} else {
 
