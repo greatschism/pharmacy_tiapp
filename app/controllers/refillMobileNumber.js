@@ -8,14 +8,14 @@ var args = arguments[0] || {},
 function didChange(e) {
 	var value = e.value,
 	    len;
-	value = value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
+	value = value.replace('(', '').replace(') ', '').replace(' ', '').replace('-', '');
 	len = value.length;
 	if (len >= 10) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3) + '-' + value.substr(6, 4);
+		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 4);
 	} else if (len >= 7) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3) + '-' + value.substr(6, 4);
+		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 4);
 	} else if (len >= 4) {
-		value = '(' + value.substr(0, 3) + ')' + value.substr(3, 3);
+		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3);
 	} else if (len > 0) {
 		value = '(' + value.substr(0, len);
 	}
@@ -175,26 +175,26 @@ function didClickContinue(e) {
 			/**
 			 * Create a button that will show the gallery picker.
 			 */
-			var scanImage = Ti.UI.createButton({
-				title : 'Scan Image from Gallery',
-				width : 200,
-				height : 60,
-				top : 20
-			});
-			scanImage.addEventListener('click', function() {
-				reset();
-				Ti.Media.openPhotoGallery({
-					success : function(evt) {
-						Barcode.parse({
-							image : evt.media/*,
-							 acceptedFormats: [
-							 Barcode.FORMAT_QR_CODE
-							 ]*/
-						});
-					}
-				});
-			});
-			scrollView.add(scanImage);
+			// var scanImage = Ti.UI.createButton({
+				// title : 'Scan Image from Gallery',
+				// width : 200,
+				// height : 60,
+				// top : 20
+			// });
+			// scanImage.addEventListener('click', function() {
+				// reset();
+				// Ti.Media.openPhotoGallery({
+					// success : function(evt) {
+						// Barcode.parse({
+							// image : evt.media/*,
+							 // acceptedFormats: [
+							 // Barcode.FORMAT_QR_CODE
+							 // ]*/
+						// });
+					// }
+				// });
+			// });
+			// scrollView.add(scanImage);
 
 			/**
 			 * Now listen for various events from the Barcode module. This is the module's way of communicating with us.
@@ -216,6 +216,7 @@ function didClickContinue(e) {
 				scanContentType.text = ' ';
 				scanParsed.text = ' ';
 				scanResult.text = e.message;
+				Ti.API.info('error received');
 				app.navigator.open({
 					ctrl : "scanfailure",
 					titleid : "strRefillNow",
@@ -229,10 +230,11 @@ function didClickContinue(e) {
 			Barcode.addEventListener('success', function(e) {
 				Ti.API.info('Success called with barcode: ' + e.result);
 				if (!scannedBarcodes['' + e.result] && scannedBarcodes[e.result] == true && scannedBarcodesCount == 0){
-					
+					console.log("success1");
+					Ti.API.info('success received');
 					scannedBarcodesCount += 1;
 					cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
-
+console.log("successscannedBarcodesCount1"+ scannedBarcodesCount);
 					scanResult.text += e.result + ' ';
 					scanContentType.text += parseContentType(e.contentType) + ' ';
 					scanParsed.text += parseResult(e) + ' ';
@@ -257,22 +259,24 @@ function didClickContinue(e) {
 								"id" : "x",
 								"rx_number" : "x",
 								"store_id" : "x",
-								"mobile_number" : "x",
+								"mobile_number" : mob,
 								"pickup_time_group" : "x",
 								"pickup_mode" : "instore/mailorder",
 								"barcode_data" : e.result,
 								"barcode_format" : e.format
-							}, {
-
-								id : "x",
-								rx_number : "x",
-								store_id : "x",
-								mobile_number : "x",
-								pickup_time_group : "x",
-								pickup_mode : "instore/mailorder",
-								barcode_data : e.result,
-								barcode_format : e.format
-							}]
+							}
+							// }, {
+// 
+								// id : "x",
+								// rx_number : "x",
+								// store_id : "x",
+								// mobile_number : "x",
+								// pickup_time_group : "x",
+								// pickup_mode : "instore/mailorder",
+								// barcode_data : e.result,
+								// barcode_format : e.format
+							// }]
+							]
 						}]
 					},
 					success : didSuccess,
@@ -280,12 +284,13 @@ function didClickContinue(e) {
 				
 });
 				function didSuccess(e) {
+					
 					Barcode.cancel();
 					window.close();
 					app.navigator.open({
-						titleid : "titleRefillStatus",
+						titleid : "titleYourRefillIsOnTheWay",
 						ctrl : "refillSuccess",
-						stack : true
+						stack : false
 					});
 					//alert("Under Construction");
 				}
