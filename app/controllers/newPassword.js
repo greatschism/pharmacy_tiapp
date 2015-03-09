@@ -47,8 +47,12 @@ function didAuthenticate(_result) {
 	});
 }
 
+function didToggle(e) {
+	$.passwordTxt.setPasswordMask(!e.value);
+}
+
 function handleScroll(e) {
-	$.newPassword.canCancelEvents = e.value;
+	$.scrollView.canCancelEvents = e.value;
 }
 
 exports.init = init;
