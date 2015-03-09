@@ -1,3 +1,7 @@
+"#row":{
+	sectionId: "",
+	searchableText: ""
+},
 "#iconLbl":{
 	text: Alloy.CFG.icons.filled_success
 },

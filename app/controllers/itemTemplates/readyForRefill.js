@@ -12,7 +12,7 @@ var args = arguments[0] || {};
 	if (args.autoHide) {
 		$.resetClass($.prescriptionView, ["left", "width-55", "auto-height", "vgroup"]);
 		$.resetClass($.detailView, ["right", "width-40", "auto-height", "vgroup"]);
-		$.resetClass($.hideView, ["right", "auto", "critical-option-view", "touch-disabled"]);
+		$.addClass($.hideView, ["critical-option-view"]);
 		$.resetClass($.infoLbl, ["padding-left", "padding-right", "critical-option-lbl", "touch-disabled"]);
 		$.detailLbl.text = args.info + " " + args.detail;
 		$.infoLbl.text = Alloy.Globals.strings.lblHideFromList;
@@ -20,4 +20,6 @@ var args = arguments[0] || {};
 		$.infoLbl.text = args.info;
 		$.detailLbl.text = args.detail;
 	}
+	$.row.sectionId = args.property;
+	$.row.searchableText = (args.presc_name + args.rx_number_formated).toLowerCase();
 })();

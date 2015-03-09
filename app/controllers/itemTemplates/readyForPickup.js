@@ -8,4 +8,6 @@ var args = arguments[0] || {};
 		tooltip.setContentView(Alloy.createWidget("com.mscripts.styledlabel", "widget", args.tooltip_lbl_style).getView());
 		$.rowView.add(tooltip.getView());
 	}
-})(); 
+	$.row.sectionId = args.property;
+	$.row.searchableText = (args.presc_name + args.rx_number_formated).toLowerCase();
+})();

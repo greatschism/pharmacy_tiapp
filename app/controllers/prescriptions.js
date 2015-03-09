@@ -12,6 +12,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
+    sectionIds = ["gettingRefilled", "readyForPickup", "readyForRefill", "otherPrescriptions"],
     sections = {},
     rows = [],
     currentDate = moment(),
@@ -94,16 +95,44 @@ function didGetPresecriptionList(_result, _passthrough) {
 		sections[prescription.property].add(row);
 		rows.push(row);
 	});
-	var tempSections = ["gettingRefilled", "readyForPickup", "readyForRefill", "otherPrescriptions"];
-	for (var section in tempSections) {
-		tempSections[section] = sections[tempSections[section]];
-	}
-	$.tableView.setData(tempSections);
+	var data = [];
+	_.each(sectionIds, function(sectionId) {
+		if (sections[sectionId]) {
+			data.push(sections[sectionId]);
+		}
+	});
+	$.tableView.setData(data);
 	Alloy.Collections.prescriptions.reset(_result.data.prescriptions);
 }
 
 function didChangeSearch(e) {
-
+	var searchBy = ($.searchbar.getValue()).toLowerCase(),
+	    data = [];
+	$.tableView.setData(data, {
+		animated : true
+	});
+	_.each(sectionIds, function(sectionId) {
+		var section = sections[sectionId];
+		if (section) {
+			var srows = section.rows;
+			_.each(srows, function(srow) {
+				section.remove(srow);
+			});
+		}
+	});
+	_.each(rows, function(row) {
+		if (row.searchableText.indexOf(searchBy) >= 0) {
+			sections[row.sectionId].add(row);
+		}
+	});
+	_.each(sectionIds, function(sectionId) {
+		if (sections[sectionId].rows.length) {
+			data.push(sections[sectionId]);
+		}
+	});
+	$.tableView.setData(data, {
+		animated : true
+	});
 }
 
 function didItemClick(e) {
@@ -136,7 +165,7 @@ function toggleSearchView() {
 		svAnimation.addEventListener("complete", function onComplete() {
 			$.searchView.opacity = 0;
 		});
-		svAnimation.animate($.searchView);
+		$.searchView.animate(svAnimation);
 	}
 	var tbAnimation = Ti.UI.createAnimation({
 		top : tableTop,
@@ -144,8 +173,11 @@ function toggleSearchView() {
 	});
 	tbAnimation.addEventListener("complete", function onComplete() {
 		$.tableView.top = tableTop;
+		if (tableTop != 0) {
+			$.searchbar.focus();
+		}
 	});
-	tbAnimation.animate($.tableView);
+	$.tableView.animate(tbAnimation);
 }
 
 function didClickSortPicker(e) {

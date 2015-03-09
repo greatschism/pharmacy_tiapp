@@ -35,7 +35,8 @@ module.exports = {
 				"separatorColor" : "#808285"
 			},
 			"TableView" : {
-				"separatorColor" : "#808285"
+				"separatorColor" : "#808285",
+				"borderColor" : "#808285"
 			},
 			"margin_top" : {
 				"top" : 12
