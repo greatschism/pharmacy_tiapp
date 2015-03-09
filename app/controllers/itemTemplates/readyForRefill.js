@@ -10,8 +10,8 @@ var args = arguments[0] || {};
 		$.detailLbl.applyProperties(args.detail_style);
 	}
 	if (args.autoHide) {
-		$.resetClass($.prescriptionView, ["left", "width-50", "auto-height", "vgroup"]);
-		$.resetClass($.detailView, ["right", "width-45", "auto-height", "vgroup"]);
+		$.resetClass($.prescriptionView, ["left", "width-55", "auto-height", "vgroup"]);
+		$.resetClass($.detailView, ["right", "width-40", "auto-height", "vgroup"]);
 		$.addClass($.hideView, ["critical-option-view"]);
 		$.resetClass($.infoLbl, ["padding-left", "padding-right", "critical-option-lbl", "touch-disabled"]);
 		$.detailLbl.text = args.info + " " + args.detail;
