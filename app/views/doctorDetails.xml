@@ -7,7 +7,7 @@
 			<View class="auto-height vgroup ">
 				<View class="auto-height " >
 					<View id="profileImageView" class="left top auto-height auto-width">
-					<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" />
+					<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" onClick="didClickProfileImg" />
 					<Label id="changeImgLbl" class="padding-left multi-line" top="80" onClick="didClickProfileImg" />
 					</View>	
 					<View class="auto-height top width-75 hgroup right" >

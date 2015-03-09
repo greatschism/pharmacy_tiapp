@@ -46,7 +46,6 @@ function getPrescriptions(_result) {
 function didSuccess(_result) {
 	prescriptionsList = _result.data.prescriptions || [];
 
-	//console.log(prescriptionsList);
 	http.request({
 
 		method : "APPOINTMENTS_GET",
@@ -117,7 +116,7 @@ function didReceiveAppointments(_result) {
 
 	if (doctors.length) {
 
-		console.log("doctors found");
+	
 
 		for (var i in doctors) {
 
@@ -186,13 +185,11 @@ function didItemClick(e) {
 			var appointment = _.findWhere(appointments, {
 				appointment_id : id
 			});
-			console.log(appointment);
+		
 			var doctor = _.findWhere(doctors, {
 				id : appointment.doctor_id
 			});
 
-			console.log(e.index);
-			
 			app.navigator.open({
 				stack : true,
 				titleid : "titleEditReminder",
@@ -473,7 +470,7 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	}),
 	    leftImgView = $.UI.create("View", {
 		apiName : "View",
-		height : 95,
+		height : 60,
 		width : 50,
 		classes : ["paddingLeft"]
 	}),
@@ -588,7 +585,7 @@ function terminate() {
 function didAddDoctor() {
 	var doctor = Alloy.Models.doctor.get("doctor_add");
 	var row = createDoctorRow(doctor, prescriptionsList);
-	console.log(doctor);
+
 	doctors.push(doctor);
 	
 	if(noOfDoctors==0)

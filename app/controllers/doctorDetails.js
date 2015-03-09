@@ -14,12 +14,11 @@ function init() {
 
 	doctor = args.doctor;
 	prescriptions = args.prescriptions || [];
-	//console.log(doctor);
-	console.log(doctor.image_url);
+	
+	
 	if (doctor.image_url.length) {
 		$.profileImageView.remove($.profileIconLabel);
-		console.log("icon removed");
-		//	<ImageView id="profileImg" height="70" width="70" class="paddingLeft paddingTop" borderColor="#000000" />
+	
 
 		profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
@@ -31,12 +30,11 @@ function init() {
 
 		//set the image property
 		$.profileImageView.add(profileImg);
-		console.log("image added");
+		
 	}
 
 	$.nameLbl.text = doctor.long_name;
 
-	//_.extend(doctor, result.data[0].doctors);
 	$.phoneLbl.text = doctor.phone;
 	$.faxLbl.text = doctor.fax;
 	$.directionLbl.text = doctor.addressline1 + "\n" + doctor.addressline2 + "\n " + doctor.city + ", " + doctor.state + ", " + doctor.zip;
@@ -64,10 +62,7 @@ function init() {
 	} else {
 
 		if (len > PRESCRIPTION_COUNT) {
-			console.log(len);
-			console.log(PRESCRIPTION_COUNT);
-			console.log("ddd");
-
+		
 			var footerView = $.UI.create("View", {
 				apiName : "View",
 				classes : ["auto-height", "vgroup"],
@@ -89,7 +84,7 @@ function init() {
 			footerView.add(moreIcon);
 			footerView.addEventListener("click", didClickMore);
 			$.tableView.footerView = footerView;
-			console.log("eee");
+			
 		}
 
 		var firstPrescriptions = _.first(prescriptions, PRESCRIPTION_COUNT);
@@ -166,7 +161,7 @@ function didClickOption(e) {
 
 	if (!(profileImg)) {
 	
-		console.log("icon removed");
+		
 		var profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
 			height : "70",
@@ -234,7 +229,7 @@ function didClickOption(e) {
 					
 					profileImg.image = image;
 					$.profileImageView.add(profileImg);
-					console.log("image added");
+					
 					Ti.App.Properties.setString("image", image.nativePath);
 				}
 			},

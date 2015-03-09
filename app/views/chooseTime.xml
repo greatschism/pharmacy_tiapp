@@ -9,11 +9,9 @@
 		<Widget id="dateLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
 	</View>	
 	
-	<View class="hgroup auto-height top">
+	<View class="default-height hgroup">
 		<Label id="lblTime" class="padding-left width-45 h2" />
-		<View class="width-45 default-height">
-			<Picker id="timePicker"/>
-		</View>
+		<Widget id="timeLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
 	</View>	
 	
 	<Button id="saveBtn" class="primary-btn padding-top" onClick="didClickSave" />

@@ -22,12 +22,12 @@ var args = arguments[0] || {},
 
 	$.dayPicker.add(data);
 	
-	//console.log(reminders);
+	
 
 	newAppointment = args.newAppointment;
 
 	if (newAppointment == 0) {
-		console.log("not new app");
+		
 		reminders = args.reminders;
 		appointmentId = args.appointment_id;
 	
@@ -38,14 +38,14 @@ var args = arguments[0] || {},
 		$.dayPicker.setSelectedRow(0, (day.title) - 1, false);
 
 		// cant set constraints to time picker
-		/*
-		 minDate= new Date();
+		
+		/* minDate= new Date();
 		 minDate.setHours(7,00,00,00);
-		 $.timePicker.setMinDate(minDate);
+		 $.timeLbl.setMinDate(minDate);
 		 maxDate= new Date();
 		 maxDate.setHours(23,00,00,00);
-		 $.timePicker.setMaxDate(minDate);
-		 */
+		 $.timeLbl.setMaxDate(minDate);*/
+		 
 		if (reminders.reminder_meridiem == "pm" || reminders.reminder_meridiem == "PM")
 			newReminderHour = parseInt(reminders.reminder_hour) + 12;
 		else
@@ -53,14 +53,14 @@ var args = arguments[0] || {},
 
 		myDate = new Date();
 		myDate.setHours(newReminderHour, reminders.reminder_minute);
-		$.timePicker.setValue(myDate);
-		console.log(myDate);
+		$.timeLbl.setValue(myDate);
+	
 	}
 
 })();
 
 function didClickSave(e) {
-	timeDetails = $.timePicker.getValue();
+	timeDetails = $.timeLbl.getValue();
 	
 	Alloy.Models.doctor.set({
 			reminder_change : {
@@ -83,3 +83,9 @@ function didClickSave(e) {
 	});
 
 }
+
+function setParentViews(view) {
+	$.timeLbl.setParentView(view);
+}
+
+exports.setParentViews = setParentViews;

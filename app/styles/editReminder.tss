@@ -1,11 +1,13 @@
 "#timeTitleLbl":{
 	text: Alloy.Globals.strings.lblAtThisTime
 },
-"#dateLbl":{
-	hintText: Alloy.Globals.strings.lblOnThisDate,
-	type: Ti.UI.PICKER_TYPE_DATE,
+"#timeLbl":{
+	hintText: Alloy.Globals.strings.lblAtThisTime,
+	type: Ti.UI.PICKER_TYPE_TIME,
 	rightTitle: Alloy.Globals.strings.btnNext,
-	color:"#000000"
+	color:"#000000",
+	format:"hh:mm:A"
+	
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
@@ -15,11 +17,6 @@
 }
 "#lblTime":{
 	text: Alloy.Globals.strings.lblAtThisTime
-},
-"#timePicker":{
-	useSpinner : true,
-    selectionIndicator : true,
-    type : Ti.UI.PICKER_TYPE_TIME
 },
 "#dayPicker":{
 	useSpinner : true,

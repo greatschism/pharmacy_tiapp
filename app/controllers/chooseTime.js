@@ -20,10 +20,10 @@ function init() {
 	
 	doctorId = args.doctorId;
 	shortName = args.short_name;
-	console.log(args.index);
+
 
 	if (args.edit) {
-		//console.log("edit there");
+		
 		editFlag = true;
 		appointment = args.appointment;
 		$.dateLbl.setValue(new Date(appointment.appointment_date));
@@ -35,8 +35,8 @@ function init() {
 
 		myDate = new Date();
 		myDate.setHours(newAppointmentHour, appointment.appointment_minute);
-		$.timePicker.setValue(myDate);
-		//console.log(myDate);
+		$.timeLbl.setValue(myDate);
+		
 
 		$.deleteLbl.show();
 
@@ -63,8 +63,7 @@ function init() {
 
 	}
 
-	//console.log(reminder);
-	//console.log(reminder.enabled);
+	
 	$.dateLbl.setMinDate(new Date());
 	$.dateLbl.setMaxDate(new Date("December 31, 2017"));
 	
@@ -76,13 +75,14 @@ function didItemClick(e) {
 
 function setParentViews(view) {
 	$.dateLbl.setParentView(view);
+	$.timeLbl.setParentView(view);
 }
 
 function didClickSave(e) {
 	dateDetails = $.dateLbl.getValue();
 	appointmentDate = moment(dateDetails).format(Alloy.CFG.apiCodes.DATE_FORMAT);
 
-	timeDetails = $.timePicker.getValue();
+	timeDetails = $.timeLbl.getValue();
 	appointmentTime = moment1(timeDetails).format("hh:mm A");
 
 	if (editFlag) {
@@ -115,7 +115,7 @@ function didClickSave(e) {
 		});
 
 	} else {
-		//console.log(doctorId);
+	
 		http.request({
 			method : "APPOINTMENTS_ADD",
 			data : {
@@ -146,7 +146,7 @@ function didClickSave(e) {
 }
 
 function didEditSuccess(_result) {
-	//console.log("value edited");
+	
 	Alloy.Models.doctor.set({
 		appointment_update : {
 			"doctor_id" : doctorId,
@@ -178,7 +178,7 @@ function didEditSuccess(_result) {
 }
 
 function didAddSuccess(_result) {
-	//console.log("value added");
+	
 	Alloy.Models.doctor.set({
 		appointment_add : {
 			"doctor_id" : doctorId,
@@ -272,10 +272,9 @@ function terminate() {
 
 function didAddReminder() {
 
-	//console.log("value came to choose time");
+	
 	var newReminder = Alloy.Models.doctor.get("reminder_change");
-	//console.log(newReminder);
-	//console.log("here");
+	
 	reminder = {
 		enabled : newReminder.enabled,
 		no_of_reminders : newReminder.no_of_reminders,

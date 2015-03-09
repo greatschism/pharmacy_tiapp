@@ -32,7 +32,7 @@ function didClickSave(e) {
 	zipCode = $.zipTxt.getValue();
 	notes = $.notesTxta.getValue();
 
-	console.log(zipCode);
+	
 	var errorMessage = "",
 	    allFieldsValidated = true;
 
