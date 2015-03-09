@@ -3,6 +3,7 @@ module.exports = {
 		"config" : {
 			"NAVIGATOR" : "hamburger",
 			"DATE_FORMAT" : "MM/DD/YYYY",
+			"PRESCRIPTION_AUTO_HIDE_AT" : 60,
 			"PRESCRIPTION_TOOLTIP_REMINDER_AT" : 5,
 			"PRESCRIPTION_CRITICAL_REMINDER_AT" : 3,
 			"RX_NUMBER_PREFIX" : "Rx# ",
@@ -530,6 +531,24 @@ module.exports = {
 				"borderColor" : "#ED1C24",
 				"borderWidth" : 1
 			},
+			"critical_option_view" : {
+				"height" : 25,
+				"backgroundColor" : "#ED1C24",
+				"borderColor" : "#ED1C24",
+				"borderWidth" : 1,
+				"borderRadius" : 6.25
+			},
+			"critical_option_lbl" : {
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "center",
+				"color" : "#FFFFFF",
+				"ellipsize" : true,
+				"wordWrap" : false,
+			},
 			"option_separator" : {
 				"width" : 1,
 				"backgroundColor" : "#FFFFFF"
@@ -820,6 +839,9 @@ module.exports = {
 			},
 			"primary_bg_color" : {
 				"backgroundColor" : "#F7941E"
+			},
+			"secondary_bg_color" : {
+				"backgroundColor" : "#FFFFFF"
 			},
 			"tooltip_lbl" : {
 				"left" : 12,

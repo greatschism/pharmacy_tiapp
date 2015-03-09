@@ -362,7 +362,7 @@ module.exports = {
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-03-01",
+				"anticipated_refill_date" : "2014-12-01",
 				"expiration_date" : "2015-06-15",
 				"refill_remaining_preferences" : "x",
 				"refill_started_date" : "x",

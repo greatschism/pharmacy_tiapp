@@ -1,5 +1,5 @@
 <Alloy>
-	<TableViewRow class="auto-height">
+	<TableViewRow id="row" class="auto-height">
 		<View class="list-item-view">
 			<View class="left width-65 auto-height vgroup">
 				<Label id="titleLbl" class="left list-item-title-lbl text-left" />

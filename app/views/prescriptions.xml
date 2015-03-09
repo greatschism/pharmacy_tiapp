@@ -16,10 +16,10 @@
 	<View id="optionsView" class="right nav-action-container" onClick="didClickOptionView">
 		<Label id="optionsLbl" class="margin-right nav-icon touch-disabled" />
 	</View>
-	<View id="searchView" class="top search-view">
+	<View id="searchView" class="top search-view fade-out">
 		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt" onChange="didChangeSearch" />
 	</View>
-	<TableView id="tableView" class="top" onClick="didItemClick">
+	<TableView id="tableView" class="top secondary-bg-color" onClick="didItemClick">
 		<FooterView>
 			<View class="footer-view-break" />
 		</FooterView>

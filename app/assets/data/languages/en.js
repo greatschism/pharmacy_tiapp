@@ -62,6 +62,7 @@ module.exports = {
 		"sectionInformation" : "Information",
 
 		"hintSearchByZipCityOrState" : "Search by zip, city or state",
+		"hintSearchByPrescriptionName" : "Search by prescription name or rx number",
 		"hintMobileNumber" : "Mobile Number (xxx)xxx-xxxx",
 		"hintFaxNumber" : "Fax Number (xxx)xxx-xxxx",
 		"hintUsername" : "Username",

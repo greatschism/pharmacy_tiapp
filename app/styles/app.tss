@@ -68,6 +68,12 @@
 ".show":{
 	visible: true
 },
+".fade-in":{
+	opacity: 1
+},
+".fade-out":{
+	opacity: 0
+},
 /**
 * 	Layouts & Fills
 */
@@ -672,6 +678,21 @@
 	borderColor: Alloy.TSS.critical_option_btn.borderColor,
 	borderWidth: Alloy.TSS.critical_option_btn.borderWidth
 },
+".critical-option-view":{
+	height: Alloy.TSS.critical_option_view.height,
+	backgroundColor: Alloy.TSS.critical_option_view.backgroundColor,
+	borderColor: Alloy.TSS.critical_option_view.borderColor,
+	borderWidth: Alloy.TSS.critical_option_view.borderWidth,
+	borderRadius: Alloy.TSS.critical_option_view.borderRadius
+},
+".critical-option-lbl":{
+	height: Alloy.TSS.critical_option_lbl.height,
+	font: Alloy.TSS.critical_option_lbl.font,
+	textAlign: Alloy.TSS.critical_option_lbl.textAlign,
+	color: Alloy.TSS.critical_option_lbl.color,
+	ellipsize: Alloy.TSS.critical_option_lbl.ellipsize,
+	wordWrap: Alloy.TSS.critical_option_lbl.wordWrap
+},
 ".option-separator": {
 	width: Alloy.TSS.option_separator.width,
 	backgroundColor: Alloy.TSS.option_separator.backgroundColor
@@ -1008,6 +1029,9 @@
 */
 ".primary-bg-color":{
 	backgroundColor: Alloy.TSS.primary_bg_color.backgroundColor
+},
+".secondary-bg-color":{
+	backgroundColor: Alloy.TSS.secondary_bg_color.backgroundColor
 },
 /**
 * 	common styles

@@ -1,14 +1,18 @@
 <Alloy>
-	<TableViewRow class="auto-height">
+	<TableViewRow id="row" class="auto-height">
 		<View class="auto-height">
-			<View class="list-item-view">
-				<View class="left width-70 auto-height vgroup">
-					<Label id="titleLbl" class="left list-item-title-lbl text-left" />
-					<Label id="subtitleLbl" class="left list-item-subtitle-lbl text-left" />
-				</View>
-				<View class="right width-25 auto-height vgroup">
-					<Label id="infoLbl" class="right list-item-info-lbl text-right" />
-					<Label id="detailLbl" class="right list-item-detail-lbl text-right" />
+			<View id="contentView" class="width-100 auto-height secondary-bg-color">
+				<View class="list-item-view">
+					<View id="prescriptionView" class="left width-70 auto-height vgroup">
+						<Label id="titleLbl" class="left list-item-title-lbl text-left touch-disabled" />
+						<Label id="subtitleLbl" class="left list-item-subtitle-lbl text-left touch-disabled" />
+					</View>
+					<View id="detailView" class="right width-25 auto-height vgroup">
+						<View id="hideView" class="right auto touch-disabled">
+							<Label id="infoLbl" class="right list-item-info-lbl text-right touch-disabled" />
+						</View>
+						<Label id="detailLbl" class="right list-item-detail-lbl text-right touch-disabled" />
+					</View>
 				</View>
 			</View>
 		</View>
