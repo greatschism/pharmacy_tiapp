@@ -28,7 +28,7 @@
 },
 "#mobileNumber":{
 
-	maxLength: 13,
+	maxLength: 14,
 	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD
 },
