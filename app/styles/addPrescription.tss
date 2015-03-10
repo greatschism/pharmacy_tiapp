@@ -2,4 +2,8 @@
 "#doneBtn" : {
   title : Alloy.Globals.strings.btnDone,
   color : "#ffffff"
+},
+"#addAllBtn":{
+	title : Alloy.Globals.strings.sectionAddAll,
+	color : "#000000"
 }
