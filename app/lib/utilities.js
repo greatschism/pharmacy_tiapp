@@ -201,7 +201,7 @@ var Utility = {
 	 * @param {Srting} _str The mobile number
 	 */
 	formatMobileNumber : function(_str) {
-		return _str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1)$2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 13);
+		return _str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
 	},
 
 	/**

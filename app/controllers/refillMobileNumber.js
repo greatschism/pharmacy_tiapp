@@ -5,21 +5,13 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     uihelper = require("uihelper");
 
+
+
 function didChange(e) {
-	var value = e.value,
-	    len;
-	value = value.replace('(', '').replace(') ', '').replace(' ', '').replace('-', '');
-	len = value.length;
-	if (len >= 11) {
-		value = '(' + value.substr(0, 3) + ') ' + value.substr(4, 3) + '-' + value.substr(6, 5);
-	} else if (len >= 7) {
-		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 5);
-	} else if (len >= 4) {
-		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3);
-	} else if (len > 0) {
-		value = '(' + value.substr(0, len);
-	}
+	var value = utilities.formatMobileNumber(e.value),
+	    len = value.length;
 	$.mobileTxt.setValue(value);
+	$.mobileTxt.setSelection(len, len);
 }
 
 function didClickContinue(e) {
