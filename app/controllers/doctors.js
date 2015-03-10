@@ -18,8 +18,8 @@ var args = arguments[0] || {},
     profileImg,
     noOfAppointment = 0,
     noOfDoctors = 0,
-    clickedAppointmentRow=0,
-    clickedDoctorRow=0;
+    clickedAppointmentRow = 0,
+    clickedDoctorRow = 0;
 
 function init() {
 
@@ -84,7 +84,7 @@ function didReceiveAppointments(_result) {
 
 	} else {
 
-		var noAppointmentRow=createNoAppointmentRow();
+		var noAppointmentRow = createNoAppointmentRow();
 		$.appointmentsSection.add(noAppointmentRow);
 	}
 
@@ -116,8 +116,6 @@ function didReceiveAppointments(_result) {
 
 	if (doctors.length) {
 
-	
-
 		for (var i in doctors) {
 
 			var doctor = doctors[i];
@@ -129,7 +127,7 @@ function didReceiveAppointments(_result) {
 
 	} else {
 
-		var noDoctorRow=createNoDoctorRow();
+		var noDoctorRow = createNoDoctorRow();
 		$.doctorsSection.add(noDoctorRow);
 	}
 
@@ -180,12 +178,12 @@ function didItemClick(e) {
 	if (section == $.appointmentsSection) {
 
 		if (!(id == "no appointment") && !(id == "set appointment")) {
-			
-			clickedAppointmentRow=e.index;
+
+			clickedAppointmentRow = e.index;
 			var appointment = _.findWhere(appointments, {
 				appointment_id : id
 			});
-		
+
 			var doctor = _.findWhere(doctors, {
 				id : appointment.doctor_id
 			});
@@ -199,7 +197,7 @@ function didItemClick(e) {
 					short_name : doctor.short_name,
 					appointment : appointment,
 					edit : true,
-					index: e.index
+					index : e.index
 				}
 			});
 		}
@@ -213,11 +211,11 @@ function didItemClick(e) {
 			$.photoDialog.show();
 
 		} else if (!(id == "no doctor") && !(id == "add doctor")) {
-			
+
 			var doctor = _.findWhere(doctors, {
 				id : String(id)
 			});
-			clickedDoctorRow=e.index;
+			clickedDoctorRow = e.index;
 			var prescriptions = [];
 			if (prescriptionsList.length) {
 				prescriptions = _.where(prescriptionsList, {
@@ -528,49 +526,47 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	return row;
 }
 
-function createNoAppointmentRow()
-{
+function createNoAppointmentRow() {
 	var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["auto-height", "paddingTop"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : Alloy.Globals.strings.msgNoAppointment,
-			classes : ["paddingBottom"]
-		});
+		apiName : "TableViewRow"
+	}),
+	    contentView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["auto-height", "paddingTop"]
+	}),
+	    titleLbl = $.UI.create("Label", {
+		apiName : "Label",
+		text : Alloy.Globals.strings.msgNoAppointment,
+		classes : ["paddingBottom"]
+	});
 
-		contentView.add(titleLbl);
-		row.add(contentView);
-		row.rowId = "no appointment";
-		return row;
+	contentView.add(titleLbl);
+	row.add(contentView);
+	row.rowId = "no appointment";
+	return row;
 }
 
-function createNoDoctorRow()
-{
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			horizontalWrap : "false",
-			classes : ["auto-height", "paddingTop"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : Alloy.Globals.strings.msgNoDoctor,
-			classes : ["paddingBottom"]
-		});
+function createNoDoctorRow() {
+	var row = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow"
+	}),
+	    contentView = $.UI.create("View", {
+		apiName : "View",
+		horizontalWrap : "false",
+		classes : ["auto-height", "paddingTop"]
+	}),
+	    titleLbl = $.UI.create("Label", {
+		apiName : "Label",
+		text : Alloy.Globals.strings.msgNoDoctor,
+		classes : ["paddingBottom"]
+	});
 
-		contentView.add(titleLbl);
-		row.add(contentView);
-		row.rowId = "no doctor";
-		
-		return row;
-	
+	contentView.add(titleLbl);
+	row.add(contentView);
+	row.rowId = "no doctor";
+
+	return row;
+
 }
 
 function terminate() {
@@ -584,15 +580,28 @@ function terminate() {
 
 function didAddDoctor() {
 	var doctor = Alloy.Models.doctor.get("doctor_add");
+
 	var row = createDoctorRow(doctor, prescriptionsList);
 
 	doctors.push(doctor);
+
+	doctors = _.sortBy(doctors, 'last_name');
+
+	var position = doctors.map(function(doc) {//get index of the doctor from the sorted list
+		return doc.id;
+	}).indexOf(doctor.id);
+
+	console.log(position);
+
+	if (noOfDoctors == 0)//1st doctor added
+		$.tableView.updateRow(2, row);
+	// 2 since 0th row- no appointment and 1st row is add appointment
 	
-	if(noOfDoctors==0)
-	$.tableView.updateRow(2,row); // 2 since 0th row- no appointment and 1st row is add appointment
-	else
-	$.tableView.insertRowAfter(noOfDoctors + noOfAppointment, row);
-	
+else if (position == 0) {//if doctors exist and new doctor is 1st in the sorted list (if after used, row comes in appointment section)
+		$.tableView.insertRowBefore(noOfAppointment + 1, row);
+	} else
+		$.tableView.insertRowAfter(position + noOfAppointment, row);
+
 	noOfDoctors++;
 }
 
@@ -606,60 +615,67 @@ function didAddAppointment() {
 
 	var row = createAppointmentRow(doctor, newAppointment);
 	appointments.push(newAppointment);
-	
-	if(noOfAppointment==0)
-	$.tableView.updateRow(0,row);
+
+	if (noOfAppointment == 0)
+		$.tableView.updateRow(0, row);
 	else
-	$.tableView.insertRowAfter(noOfAppointment - 1, row);
-	
+		$.tableView.insertRowAfter(noOfAppointment - 1, row);
+
 	noOfAppointment++;
 
 }
 
 function didEditAppointment() {
 	var newAppointment = Alloy.Models.doctor.get("appointment_update");
-	var oldAppointment=_.findWhere(appointments, {
+	var oldAppointment = _.findWhere(appointments, {
 		appointment_id : newAppointment.appointment_id
 	});
-	var updatedAppointment=_.extend(oldAppointment,newAppointment);
-	
+	var updatedAppointment = _.extend(oldAppointment, newAppointment);
+
 	var doctor = _.findWhere(doctors, {
 		id : newAppointment.doctor_id
 	});
 
 	var row = createAppointmentRow(doctor, newAppointment);
-	
-	
-	$.tableView.updateRow(clickedAppointmentRow,row);
+
+	$.tableView.updateRow(clickedAppointmentRow, row);
 
 }
 
-function didEditDoctor(){
-	
+function didEditDoctor() {
+
 	var newDoctor = Alloy.Models.doctor.get("doctor_update");
-	var oldDoctor=_.findWhere(doctors, {
+	var oldDoctor = _.findWhere(doctors, {
 		id : newDoctor.id
 	});
-	var updatedDoctor=_.extend(oldDoctor,newDoctor);
-	
+	var updatedDoctor = _.extend(oldDoctor, newDoctor);
+
 	var row = createDoctorRow(updatedDoctor, prescriptionsList);
-	
-	
-	$.tableView.updateRow(clickedDoctorRow,row);
-	
-	
+
+	$.tableView.updateRow(clickedDoctorRow, row);
+
+	if (appointments.length) {
+		for (var i in appointments) {
+			
+			if (appointments[i].doctor_id == updatedDoctor.id) {
+				console.log(i);
+				var row = createAppointmentRow(updatedDoctor, appointments[i]);
+				$.tableView.updateRow(i, row);
+			}
+
+		}
+	}
+
 }
 
-function didDeleteAppointment(){
+function didDeleteAppointment() {
 	var rowId = Alloy.Models.doctor.get("appointment_delete");
-	
-	if(noOfAppointment==1)
-	{
-		var noAppointmentRow=createNoAppointmentRow();
-		$.tableView.updateRow(0,noAppointmentRow);
-	}
-	else
-	$.tableView.deleteRow(rowId.index);
+
+	if (noOfAppointment == 1) {
+		var noAppointmentRow = createNoAppointmentRow();
+		$.tableView.updateRow(0, noAppointmentRow);
+	} else
+		$.tableView.deleteRow(rowId.index);
 	noOfAppointment--;
 }
 

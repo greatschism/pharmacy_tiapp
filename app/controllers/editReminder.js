@@ -39,7 +39,7 @@ var args = arguments[0] || {},
 
 		// cant set constraints to time picker
 		
-		/* minDate= new Date();
+		 /*minDate= new Date();
 		 minDate.setHours(7,00,00,00);
 		 $.timeLbl.setMinDate(minDate);
 		 maxDate= new Date();

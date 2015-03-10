@@ -13,7 +13,8 @@ var args = arguments[0] || {},
     hospitalDetails,
     streetDetails,
     zipCode,
-    notes;
+    notes,
+    states = [];
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
@@ -25,14 +26,13 @@ function didClickSave(e) {
 	lname = $.lnameTxt.getValue();
 	phoneNo = $.phoneTxt.getValue();
 	faxNo = $.faxTxt.getValue();
-	hospitalDetails = $.hospitalTxt.getValue() ;
-	streetDetails = $.streetTxt.getValue() ;
+	hospitalDetails = $.hospitalTxt.getValue();
+	streetDetails = $.streetTxt.getValue();
 	cityDetails = $.cityTxt.getValue();
-	stateDetails = $.stateTxt.getSelectedItem();
+	stateDetails = $.stateTxt.getSelectedItem().code_values;
 	zipCode = $.zipTxt.getValue();
 	notes = $.notesTxta.getValue();
-
-	
+	console.log(stateDetails);
 	var errorMessage = "",
 	    allFieldsValidated = true;
 
@@ -71,95 +71,96 @@ function didClickSave(e) {
 			message : errorMessage
 		});
 	} else {
-		
-		
-		if(args.edit=="false")
-		{http.request({
-			method : "DOCTORS_ADD",
-			data : {
-				filter : [{
-					type : ""
-				}],
+
+		fname = firstToUpperCase(fname);
+		lname = firstToUpperCase(lname);
+
+		if (args.edit == "false") {
+			http.request({
+				method : "DOCTORS_ADD",
 				data : {
-					"doctors" : {
-						"doctor_dea" : "12345",
-						"first_name" : fname,
-						"last_name" : lname,
-						"addressline1" : hospitalDetails,
-						"addressline2" : streetDetails,
-						"state" : stateDetails,
-						"city" : cityDetails,
-						"zip" : zipCode,
-						"notes" : notes,
-						"phone" : phoneNo,
-						"fax" : faxNo,
-						"image_url" : "",
-						"org_name" : "MSCRIPTS",
-						"optional" : ""
+					filter : [{
+						type : ""
+					}],
+					data : {
+						"doctors" : {
+							"doctor_dea" : "12345",
+							"first_name" : fname,
+							"last_name" : lname,
+							"addressline1" : hospitalDetails,
+							"addressline2" : streetDetails,
+							"state" : stateDetails || "",
+							"city" : cityDetails,
+							"zip" : zipCode,
+							"notes" : notes,
+							"phone" : phoneNo,
+							"fax" : faxNo,
+							"image_url" : "",
+							"org_name" : "MSCRIPTS",
+							"optional" : ""
+						}
 					}
-				}
-			},
-			success : didSuccessCreate
-		});
+				},
+				success : didSuccessCreate
+			});
+
+		} else {
+			http.request({
+				method : "DOCTORS_UPDATE",
+				data : {
+					filter : [{
+						type : ""
+					}],
+					data : {
+						"doctors" : {
+							"id" : doctor.id,
+							"doctor_dea" : "12345",
+							"first_name" : fname,
+							"last_name" : lname,
+							"addressline1" : hospitalDetails,
+							"addressline2" : streetDetails,
+							"state" : stateDetails || "",
+							"city" : cityDetails,
+							"zip" : zipCode,
+							"notes" : notes,
+							"phone" : phoneNo,
+							"fax" : faxNo,
+							"image_url" : "",
+							"org_name" : "MSCRIPTS",
+							"optional" : ""
+						}
+					}
+				},
+				success : didSuccessUpdate
+			});
+
+		}//
 
 	}
-	else{
-		http.request({
-			method : "DOCTORS_UPDATE",
-			data : {
-				filter : [{
-					type : ""
-				}],
-				data : {
-					"doctors" : {
-						"id":doctor.id,
-						"doctor_dea" : "12345",
-						"first_name" : fname,
-						"last_name" : lname,
-						"addressline1" : hospitalDetails,
-						"addressline2" : streetDetails,
-						"state" : stateDetails,
-						"city" : cityDetails,
-						"zip" : zipCode,
-						"notes" : notes,
-						"phone" : phoneNo,
-						"fax" : faxNo,
-						"image_url" : "",
-						"org_name" : "MSCRIPTS",
-						"optional" : ""
-					}
-				}
-			},
-			success : didSuccessUpdate
-		});
-		
-	}//
-
-}}
+}
 
 function didSuccessCreate(_result) {
-	
 
 	Alloy.Models.doctor.set({
-		doctor_add: {
-						"id":_result.doctor_id,
-						"doctor_dea" : "12345",
-						"first_name" : fname,
-						"last_name" : lname,
-						"addressline1" : hospitalDetails,
-						"addressline2" : streetDetails,
-						"state" : stateDetails,
-						"city" : cityDetails,
-						"zip" : zipCode,
-						"notes" : notes,
-						"phone" : phoneNo,
-						"fax" : faxNo,
-						"image_url" : "",
-						"org_name" : "MSCRIPTS",
-						"optional" : ""
+		doctor_add : {
+			"id" : _result.doctor_id,
+			"doctor_dea" : "12345",
+			"first_name" : fname,
+			"last_name" : lname,
+			"addressline1" : hospitalDetails,
+			"addressline2" : streetDetails,
+			"state" : stateDetails || "",
+			"city" : cityDetails,
+			"zip" : zipCode,
+			"notes" : notes,
+			"phone" : phoneNo,
+			"fax" : faxNo,
+			"image_url" : "",
+			"org_name" : "MSCRIPTS",
+			"optional" : ""
 		}
 	});
-	
+
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorAdded,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -172,25 +173,25 @@ function didSuccessCreate(_result) {
 
 function didSuccessUpdate(_result) {
 	Alloy.Models.doctor.set({
-		doctor_update: {
-						"id":args.doctor.id,
-						"doctor_dea" : "12345",
-						"first_name" : fname,
-						"last_name" : lname,
-						"addressline1" : hospitalDetails,
-						"addressline2" : streetDetails,
-						"state" : stateDetails,
-						"city" : cityDetails,
-						"zip" : zipCode,
-						"notes" : notes,
-						"phone" : phoneNo,
-						"fax" : faxNo,
-						"image_url" : "",
-						"org_name" : "MSCRIPTS",
-						"optional" : ""
+		doctor_update : {
+			"id" : args.doctor.id,
+			"doctor_dea" : "12345",
+			"first_name" : fname,
+			"last_name" : lname,
+			"addressline1" : hospitalDetails,
+			"addressline2" : streetDetails,
+			"state" : stateDetails || "",
+			"city" : cityDetails,
+			"zip" : zipCode,
+			"notes" : notes,
+			"phone" : phoneNo,
+			"fax" : faxNo,
+			"image_url" : "",
+			"org_name" : "MSCRIPTS",
+			"optional" : ""
 		}
 	});
-	
+
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorUpdated,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -218,7 +219,7 @@ function phoneNumberValidate(e) {
 	    len = value.length;
 	$.phoneTxt.setValue(value);
 	$.phoneTxt.setSelection(len, len);
-	
+
 }
 
 function faxNumberValidate(e) {
@@ -226,7 +227,7 @@ function faxNumberValidate(e) {
 	    len = value.length;
 	$.faxTxt.setValue(value);
 	$.faxTxt.setSelection(len, len);
-	
+
 }
 
 function didStateChange(e) {
@@ -238,8 +239,46 @@ function didStateChange(e) {
 	//	});
 }
 
+function didLoadStates(_result) {
+
+	var stateList = _result.data.code_values;
+
+	$.stateTxt.setChoices(stateList);
+
+	if (args.edit == "true") {
+
+		doctor = args.doctor;
+
+		$.fnameTxt.setValue(doctor.first_name);
+		$.lnameTxt.setValue(doctor.last_name);
+		$.phoneTxt.setValue(doctor.phone);
+		$.faxTxt.setValue(doctor.fax);
+		$.hospitalTxt.setValue(doctor.addressline1);
+		$.streetTxt.setValue(doctor.addressline2);
+		$.cityTxt.setValue(doctor.city);
+
+		/*console.log(stateList);
+		 console.log(doctor.state);
+		 state = _.findWhere(stateList, {
+		 code_values : doctor.state
+		 });
+
+		 console.log(state);*/
+		if (doctor.state) {
+			var position = stateList.map(function(eachState) {//get index of the state
+				return eachState.code_values;
+			}).indexOf(doctor.state);
+			console.log(position);
+			$.stateTxt.setSelectedIndex(position);
+		}
+		$.zipTxt.setValue(doctor.zip);
+		$.notesTxta.setValue(doctor.notes);
+
+	}
+}
+
 function init() {
-// var templates = [],
+	// var templates = [],
 	// lngs = [],
 	// i = 0,
 	// selectedIndex = 0;
@@ -264,181 +303,16 @@ function init() {
 	// });
 	// $.stateTxt.setChoices(lngs);
 	// $.stateTxt.setSelectedIndex(selectedIndex);
-	var states = [{
-		title : "AL",
-		id:"1"
-	}, {
-		title : "AK",
-		id:"2"
-	}, {
-		title : "AZ",
-		id:"3"
-	}, {
-		title : "AR",
-		id:"4"
-	}, {
-		title : "CA",
-		id:"5"
-	}, {
-		title : "CO",
-		id:"6"
-	}, {
-		title : "CT",
-		id:"7"
-	}, {
-		title : "DE",
-		id:"8"
-	}, {
-		title : "FL",
-		id:"9"
-	}, {
-		title : "GA",
-		id:"10"
-	}, {
-		title : "HI",
-		id:"11"
-	}, {
-		title : "ID",
-		id:"12"
-	}, {
-		title : "IL",
-		id:"13"
-	}, {
-		title : "IN",
-		id:"14"
-	}, {
-		title : "IA",
-		id:"15"
-	}, {
-		title : "KS",
-		id:"16"
-	}, {
-		title : "KY",
-		id:"17"
-	}, {
-		title : "LA",
-		id:"18"
-	}, {
-		title : "ME",
-		id:"19"
-	}, {
-		title : "MD",
-		id:"20"
-	}, {
-		title : "MA",
-		id:"21"
-	}, {
-		title : "MI",
-		id:"22"
-	}, {
-		title : "MN",
-		id:"23"
-	}, {
-		title : "MS",
-		id:"24"
-	}, {
-		title : "MO",
-		id:"25"
-	}, {
-		title : "MT",
-		id:"26"
-	}, {
-		title : "NE",
-		id:"27"
-	}, {
-		title : "NV",
-		id:"28"
-	}, {
-		title : "NH",
-		id:"29"
-	}, {
-		title : "NJ",
-		id:"30"
-	}, {
-		title : "NM",
-		id:"31"
-	}, {
-		title : "NY",
-		id:"32"
-	}, {
-		title : "NC",
-		id:"33"
-	}, {
-		title : "ND",
-		id:"34"
-	}, {
-		title : "OH",
-		id:"35"
-	}, {
-		title : "OK",
-		id:"36"
-	}, {
-		title : "OR",
-		id:"37"
-	}, {
-		title : "PA",
-		id:"38"
-	}, {
-		title : "RI",
-		id:"39"
-	}, {
-		title : "SC",
-		id:"40"
-	}, {
-		title : "SD",
-		id:"41"
-	}, {
-		title : "TN",
-		id:"42"
-	}, {
-		title : "TX",
-		id:"43"
-	}, {
-		title : "UT",
-		id:"44"
-	}, {
-		title : "VT",
-		id:"45"
-	}, {
-		title : "VA",
-		id:"46"
-	}, {
-		title : "WA",
-		id:"47"
-	}, {
-		title : "WV",
-		id:"48"
-	}, {
-		title : "WI",
-		id:"49"
-	}, {
-		title : "WY",
-		id:"50"
-	}];
-	$.stateTxt.setChoices(states);
-	
-	if (args.edit == "true") {
 
-		doctor = args.doctor;
+	http.request({
+		method : "STATES_GET",
+		success : didLoadStates
+	});
 
-		$.fnameTxt.setValue(doctor.first_name);
-		$.lnameTxt.setValue(doctor.last_name);
-		$.phoneTxt.setValue(doctor.phone);
-		$.faxTxt.setValue(doctor.fax);
-		$.hospitalTxt.setValue(doctor.addressline1);
-		$.streetTxt.setValue(doctor.addressline2);
-		$.cityTxt.setValue(doctor.city);
-		
-		state = _.findWhere(states, {
-				title : doctor.state
-			});
-		if(state)
-		$.stateTxt.setSelectedIndex(parseInt(state.id)-1);	
-		
-		$.zipTxt.setValue(doctor.zip);
-		$.notesTxta.setValue(doctor.notes);
-	
-	}  
+}
+
+function firstToUpperCase(str) {
+	return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
 }
 
 function setParentViews(_view) {

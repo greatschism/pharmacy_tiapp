@@ -37,7 +37,9 @@
 },
 "#stateTxt":{
 	hintText: Alloy.Globals.strings.hintState,
-	nextItem: "zipTxt"
+	nextItem: "zipTxt",
+	valueProperty: "code_values",
+	titleProperty: "code_display"
 },
 "#zipTxt":{
 	hintText: Alloy.Globals.strings.hintZipCode,

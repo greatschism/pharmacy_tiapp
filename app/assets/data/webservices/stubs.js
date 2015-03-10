@@ -222,7 +222,7 @@ module.exports = {
 		"data" : {
 			"patients" : {
 				"is_mobile_shared" : "1",
-				"mobile_exists" : "1"
+				"mobile_exists" : "0"
 			}
 		}
 	},
@@ -1052,8 +1052,8 @@ module.exports = {
 				"last_name" : "Mscripts1",
 				"addressline1" : "TEST",
 				"addressline2" : "TEST",
-				"state" : "ME",
-				"city" : "AUGUSTA",
+				"state" : "AZ",
+				"city" : "ARIZONA",
 				"zip" : "04003",
 				"notes" : "",
 				"phone" : "(617)283-7737",
@@ -1067,8 +1067,8 @@ module.exports = {
 				"last_name" : "Mscripts2",
 				"addressline1" : "TEST",
 				"addressline2" : "TEST",
-				"state" : "ME",
-				"city" : "AUGUSTA",
+				"state" : "AZ",
+				"city" : "ARIZONA",
 				"zip" : "04003",
 				"notes" : "",
 				"phone" : "(617)283-7737",
@@ -1114,6 +1114,29 @@ module.exports = {
 		"message" : "Doctor Appointment Reminder is saved successfully.",
 		"description" : "x",
 		"data" : ""
+	},
+	"STATES_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"code_name" : "STATES",
+			"default" : "",
+			"code_values" : [{
+				"code_display" : "ALABAMA",
+				"code_values" : "AL"
+			}, {
+				"code_display" : "ALASKA",
+				"code_values" : "AK"
+			}, {
+				"code_display" : "ARIZONA",
+				"code_values" : "AZ"
+			},{
+				"code_display" : "ARKANSAS",
+				"code_values" : "AR"
+			}]
+		}
 	}
 };
 

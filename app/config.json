@@ -30,7 +30,8 @@
 			"PRESCRIPTIONS_HIDE": "prescriptions/hide",
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
-			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory"
+			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
+			"STATES_GET":"states/get"
 		},
 		"apiCodes": {
 			"SUCCESS": "200",
