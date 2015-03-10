@@ -591,7 +591,7 @@ function didAddDoctor() {
 		return doc.id;
 	}).indexOf(doctor.id);
 
-	console.log(position);
+	//console.log(position);
 
 	if (noOfDoctors == 0)//1st doctor added
 		$.tableView.updateRow(2, row);
@@ -648,22 +648,45 @@ function didEditDoctor() {
 	var oldDoctor = _.findWhere(doctors, {
 		id : newDoctor.id
 	});
-	var updatedDoctor = _.extend(oldDoctor, newDoctor);
 
-	var row = createDoctorRow(updatedDoctor, prescriptionsList);
+	if (newDoctor.last_name == oldDoctor.last_name) {
+		var updatedDoctor = _.extend(oldDoctor, newDoctor);
 
-	$.tableView.updateRow(clickedDoctorRow, row);
+		var row = createDoctorRow(updatedDoctor, prescriptionsList);
 
-	if (appointments.length) {
-		for (var i in appointments) {
-			
-			if (appointments[i].doctor_id == updatedDoctor.id) {
-				console.log(i);
-				var row = createAppointmentRow(updatedDoctor, appointments[i]);
-				$.tableView.updateRow(i, row);
+		$.tableView.updateRow(clickedDoctorRow, row);
+
+	} else {
+
+		$.tableView.deleteRow(clickedDoctorRow);
+
+		var updatedDoctor = _.extend(oldDoctor, newDoctor);
+		doctors = _.sortBy(doctors, 'last_name');
+		
+		var row = createDoctorRow(updatedDoctor, prescriptionsList);
+
+		var position = doctors.map(function(doc) {//get index of the doctor from the sorted list
+			return doc.id;
+		}).indexOf(updatedDoctor.id);
+
+		//console.log(position);
+		if (position == 0) {//if doctors exist and new doctor is 1st in the sorted list (if after used, row comes in appointment section)
+			$.tableView.insertRowBefore(noOfAppointment + 1, row);
+		} else
+			$.tableView.insertRowAfter(position + noOfAppointment, row);
+
+		if (appointments.length) {
+			for (var i in appointments) {
+
+				if (appointments[i].doctor_id == updatedDoctor.id) {
+
+					var row = createAppointmentRow(updatedDoctor, appointments[i]);
+					$.tableView.updateRow(i, row);
+				}
+
 			}
-
 		}
+
 	}
 
 }
