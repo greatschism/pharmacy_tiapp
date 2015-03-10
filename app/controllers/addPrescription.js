@@ -10,7 +10,7 @@ var args = arguments[0] || {},
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickUp = Alloy.Globals.strings.msgPickUp,
 
-    readyToRefill,
+    readyForRefill,
     otherPrescriptions,
     prescriptions,
     iconLbl = $.UI.create("Label", {
@@ -55,10 +55,17 @@ function didSuccess(result) {
 
 	console.log(prescriptions);
 
+    
+
+
+
 	if (readyForRefill.length) {
+		
+
+		
 		console.log("ready to refill");
-		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill);
-		for (var i in readyForRefill) {
+		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill, $, $.addAllBtn);
+			for (var i in readyForRefill) {
 			console.log('ready for refill' + readyForRefill[i]);
 			var transform = readyForRefill[i],
 			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
@@ -132,7 +139,11 @@ function didSuccess(result) {
 			row.add(icon);
 
 			row.add(content);
-			row.addEventListener("click", didClickTickIcon);
+			
+			
+			$.addAllBtn.addEventListener('click' , didClickAddAll);
+			
+			
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
@@ -301,22 +312,27 @@ function didSuccess(result) {
 
 	}
 	$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
+			
 }
+
+	function didClickAddAll(e)
+		{
+			addedAllPrescriptions = new Array;
+			for(var i in readyForRefill)
+			{
+				addedAllPrescriptions[i] = readyForRefill[i];
+			//	addedAllPrescriptions.push(otherPrescriptions);
+				console.log("reteyeuwuwu" +addedAllPrescriptions);
+			}
+		}
+
+
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
 
-function didClickTickIcon(e) {
-	Ti.API.info("you clicked row" + e.index);
-	var rowId = e.row.rowId;
-	if (e.selectRow) {
-		var addPrescriptions = [];
-		addPrescriptions.push(e.rowData.presc_name);
-		console.log("added" + addPrescriptions);
 
-	}
-}
 
 function didClickDone() {
 
@@ -369,12 +385,13 @@ function didAddPrescription(_result) {
 
 function didItemClick(e) {
 	var rowId = e.row.rowId;
-	var prescription = _.findWhere(readyToRefill, {
+	section = e.section;
+	var prescription = _.findWhere(readyForRefill, {
 		rx_number : rowId
 	});
 	console.log("jdjfdjdfjfdg" + rowId);
 	console.log(prescription);
-	console.log(readyToRefill);
+	console.log(readyForRefill);
 
 }
 
