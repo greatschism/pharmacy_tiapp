@@ -386,7 +386,7 @@ var Utility = {
 	 * returns {Boolean/String} plain mobile number XXXXXXXXXX if it passes US mobile validation (XXX)XXX-XXXX
 	 */
 	validateMobileNumber : function(_str) {
-		return /^\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/.test(_str) ? _str.replace(/\D+/g, "") : false;
+		return /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(_str) ? _str.replace(/\D+/g, "") : false;
 	},
 
 	/**
