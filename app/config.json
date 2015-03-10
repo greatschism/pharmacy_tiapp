@@ -3,6 +3,7 @@
 		"apiPath": {
 			"APPLOAD_GET": "appload/get",
 			"TERMS_GET": "terms/get",
+			"CODE_VALUES_GET": "codevalues/get",
 			"PATIENTS_AUTHENTICATE": "patients/authenticate",
 			"PATIENTS_LOGOUT": "patients/logout",
 			"PATIENTS_MOBILE_EXISTS_OR_SHARED": "patients/mobileexistsorshared",
@@ -29,8 +30,7 @@
 			"PRESCRIPTIONS_HIDE": "prescriptions/hide",
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
-			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
-			"CODES_GET": "codes/get"
+			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory"
 		},
 		"apiCodes": {
 			"SUCCESS": "200",

@@ -33,6 +33,7 @@
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
+	Alloy.Collections.sortPreferences = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
 

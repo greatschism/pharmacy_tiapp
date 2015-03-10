@@ -23,4 +23,9 @@
 "#searchbar":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
+},
+"#sortPicker":{
+	autoHide: true,
+	radioButton: true,
+	titleProperty: "code_display"
 }

@@ -37,11 +37,11 @@ var args = arguments[0] || {},
 function init() {
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
-		success : didGetPresecriptionList
+		success : didGetPrescriptionList
 	});
 }
 
-function didGetPresecriptionList(_result, _passthrough) {
+function didGetPrescriptionList(_result, _passthrough) {
 	if (rows.length) {
 		resetTable();
 		rows = [];
@@ -161,6 +161,9 @@ function didClickOptionMenu(e) {
 	case "search":
 		toggleSearchView();
 		break;
+	case "sort":
+		sort();
+		break;
 	case "refresh":
 		init();
 		break;
@@ -195,8 +198,28 @@ function toggleSearchView() {
 	$.tableView.animate(tbAnimation);
 }
 
-function didClickSortPicker(e) {
+function sort() {
+	if (!Alloy.Collections.sortPreferences.length) {
+		getSortPreferences();
+	}
+	$.sortPicker.show();
+}
 
+function getSortPreferences() {
+	http.request({
+		method : "CODE_VALUES_GET",
+		success : updateSortPreferences
+	});
+}
+
+function updateSortPreferences(_result) {
+	Alloy.Collections.sortPreferences.reset(_result.data.code_values);
+	$.sortPicker.setItems(Alloy.Collections.sortPreferences.toJSON());
+	sort();
+}
+
+function didClickSortPicker(e) {
+	console.log(e.data);
 }
 
 function didClickUnhideBtn(e) {

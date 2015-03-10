@@ -1,5 +1,8 @@
 var args = arguments[0] || {},
+    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
+    MAX_HEIGHT = (SCREEN_HEIGHT / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,
+    IS_RADIO_BUTTON = args.radioButton || false,
     items = [],
     template = args.template || false,
     unSelectedIconText = args.unSelectedIconText || "x",
@@ -103,13 +106,27 @@ function updateItem(e) {
 	    selectedItems = _.where(items, {
 		selected : true
 	});
-	if (data && (SELECTION_LIMIT == 0 || (data.selected || selectedItems.length < SELECTION_LIMIT))) {
+	if (data && (IS_RADIO_BUTTON || SELECTION_LIMIT == 0 || (data.selected || selectedItems.length < SELECTION_LIMIT))) {
 		if (e.force) {
 			if (e.selected != data.selected) {
 				data.selected = e.selected;
 				$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
 			}
 		} else {
+			if (IS_RADIO_BUTTON && selectedItems.length != 0) {
+				var selectedItem,
+				    i;
+				for (i in items) {
+					if (items[i].selected === true) {
+						selectedItem = items[i];
+						break;
+					}
+				}
+				if (selectedItem) {
+					selectedItem.selected = false;
+					$.tableView.updateRow( OS_IOS ? i : e.row, getRow(selectedItem));
+				}
+			}
 			data.selected = !data.selected;
 			$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
 			if (args.autoHide) {
@@ -206,6 +223,10 @@ function setItems(_items, _template) {
 		data.push(getRow(item));
 	}
 	$.tableView.setData(data);
+	if (!template && !_.has(args, "height")) {
+		var height = items.length * (optioDict.height + optionPadding.top + optionPadding.bottom);
+		$.containerView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
+	}
 }
 
 function getItems() {

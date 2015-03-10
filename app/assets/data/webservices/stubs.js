@@ -386,25 +386,6 @@ module.exports = {
 			"prescriptions" : [{
 				"id" : "1",
 				"rx_number" : "2345678",
-				"presc_name" : "Lovastin, 200 mg",
-				"is_overdue" : "1",
-				"prefill" : "x",
-				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015/14/15",
-				"expiration_date" : "2015/14/15",
-				"refill_remaining_preferences" : "x",
-				"refill_started_date" : "x",
-				"latest_refill_requested_date" : "2015-02-11",
-				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-16",
-				"restockperiod" : "10",
-				"presc_last_filled_date" : "x",
-				"latest_sold_date" : "x",
-				"latest_refill_completed_date" : "x",
-				"refill_status" : "OTHERS"
-			}, {
-				"id" : "1",
-				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
@@ -420,7 +401,28 @@ module.exports = {
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "INPROCESS"
+				"refill_status" : "INPROCESS",
+				"prescription_display_status" : "active"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Avomin, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -439,7 +441,8 @@ module.exports = {
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYFORPICKUP"
+				"refill_status" : "READYFORPICKUP",
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "1",
 				"rx_number" : "2345678",
@@ -458,26 +461,68 @@ module.exports = {
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYFORPICKUP"
+				"refill_status" : "READYFORPICKUP",
+				"prescription_display_status" : "active"
 			}, {
-				"id" : "x",
-				"rx_number" : "1234567",
-				"presc_name" : "Listerin, 500 mg",
+				"id" : "1",
+				"rx_number" : "222222",
+				"presc_name" : "Lomotil, 200 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
-				"anticipated_refill_date" : "2014-12-18",
-				"expiration_date" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
 				"refill_remaining_preferences" : "x",
 				"refill_started_date" : "x",
 				"latest_refill_requested_date" : "2015-02-11",
 				"latest_refill_promised_date" : "2015-02-13",
-				"latest_filled_date" : "2015-02-08",
+				"latest_filled_date" : "2015-02-16",
 				"restockperiod" : "10",
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL"
+				"refill_status" : "OTHERS",
+				"prescription_display_status" : "active"
+			}, {
+				"id" : "1",
+				"rx_number" : "333333",
+				"presc_name" : "Lovastin, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status" : "hidden"
+			}, {
+				"id" : "1",
+				"rx_number" : "2345678",
+				"presc_name" : "Metacin, 200 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015/14/15",
+				"expiration_date" : "2015/14/15",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-16",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "OTHERS",
+				"prescription_display_status" : "hidden"
 			}, {
 				"id" : "x",
 				"rx_number" : "1234567",
@@ -485,7 +530,7 @@ module.exports = {
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
-				"anticipated_refill_date" : "2015-1-12",
+				"anticipated_refill_date" : "2015-02-23",
 				"expiration_date" : "x",
 				"refill_remaining_preferences" : "x",
 				"refill_started_date" : "x",
@@ -496,7 +541,28 @@ module.exports = {
 				"presc_last_filled_date" : "x",
 				"latest_sold_date" : "x",
 				"latest_refill_completed_date" : "x",
-				"refill_status" : "READYTOREFILL"
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status" : "hidden"
+			}, {
+				"id" : "x",
+				"rx_number" : "1234567",
+				"presc_name" : "Volini, 500 mg",
+				"is_overdue" : "1",
+				"prefill" : "x",
+				"doctor_id" : "x",
+				"anticipated_refill_date" : "2015-02-1",
+				"expiration_date" : "x",
+				"refill_remaining_preferences" : "x",
+				"refill_started_date" : "x",
+				"latest_refill_requested_date" : "2015-02-11",
+				"latest_refill_promised_date" : "2015-02-13",
+				"latest_filled_date" : "2015-02-08",
+				"restockperiod" : "10",
+				"presc_last_filled_date" : "x",
+				"latest_sold_date" : "x",
+				"latest_refill_completed_date" : "x",
+				"refill_status" : "READYTOREFILL",
+				"prescription_display_status" : "active"
 			}]
 		}
 	},
@@ -758,7 +824,7 @@ module.exports = {
 			}]
 		}
 	},
-	"CODES_GET" : {
+	"CODE_VALUES_GET" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "x",
@@ -768,7 +834,8 @@ module.exports = {
 			"default" : "",
 			"code_values" : [{
 				"code_display" : "Name (Alphabetically)",
-				"code_values" : "by name"
+				"code_values" : "by name",
+				"selected" : true
 			}, {
 				"code_display" : "Most Recently Filled (newest first)",
 				"code_values" : "most recently filled"

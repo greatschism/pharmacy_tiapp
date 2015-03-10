@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />
-	<Widget id="sortPicker" src="com.mscripts.togglemenu" class="optionpicker" onClick="didClickSortPicker" />
+	<Widget id="sortPicker" src="com.mscripts.optionpicker" class="optionpicker" onClick="didClickSortPicker" />
 	<Widget id="unhidePicker" src="com.mscripts.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">
 			<Button id="selectNoneBtn" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
