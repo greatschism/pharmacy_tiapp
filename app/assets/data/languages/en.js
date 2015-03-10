@@ -60,6 +60,7 @@ module.exports = {
 		"sectionYourOrder" : "Your order",
 		"sectionPickupDetails" : "Pickup details",
 		"sectionInformation" : "Information",
+		"sectionAddAll" : "add all",
 
 		"hintSearchByZipCityOrState" : "Search by zip, city or state",
 		"hintSearchByPrescriptionName" : "Search by prescription name or rx number",

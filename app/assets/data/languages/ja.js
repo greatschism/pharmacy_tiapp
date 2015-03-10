@@ -58,6 +58,7 @@ module.exports = {
 		"sectionYourOrder" : "ja-Your order",
 		"sectionPickupDetails" : "ja-Pickup details",
 		"sectionInformation" : "ja-Information",
+		"sectionAddAll" : "ja-add all",
 
 		"hintSearchByZipCityOrState" : "ja-Search by zip, city or state",
 		"hintMobileNumber" : "ja-Mobile Number (xxx)xxx-xxxx",
