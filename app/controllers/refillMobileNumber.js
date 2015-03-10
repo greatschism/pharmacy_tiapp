@@ -10,10 +10,10 @@ function didChange(e) {
 	    len;
 	value = value.replace('(', '').replace(') ', '').replace(' ', '').replace('-', '');
 	len = value.length;
-	if (len >= 10) {
-		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 4);
+	if (len >= 11) {
+		value = '(' + value.substr(0, 3) + ') ' + value.substr(4, 3) + '-' + value.substr(6, 5);
 	} else if (len >= 7) {
-		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 4);
+		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6, 5);
 	} else if (len >= 4) {
 		value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3);
 	} else if (len > 0) {
@@ -24,7 +24,7 @@ function didChange(e) {
 
 function didClickContinue(e) {
 	var mob = $.mobileTxt.getValue();
-	if (isNaN(mob) == true && mob.length == 13) {
+	if (isNaN(mob) == true && mob.length == 14) {
 		if (args.isScan == 1) {
 			console.log("func");
 
@@ -213,6 +213,8 @@ function didClickContinue(e) {
 
 
 			Barcode.addEventListener('error', function(e) {
+				console.log("error");
+				
 				scanContentType.text = ' ';
 				scanParsed.text = ' ';
 				scanResult.text = e.message;
@@ -226,10 +228,12 @@ function didClickContinue(e) {
 			});
 			Barcode.addEventListener('cancel', function(e) {
 				Ti.API.info('Cancel received');
+				Barcode.cancel();
 			});
 			Barcode.addEventListener('success', function(e) {
-				Ti.API.info('Success called with barcode: ' + e.result);
-				if (!scannedBarcodes['' + e.result] && scannedBarcodes[e.result] == true && scannedBarcodesCount == 0){
+				//Ti.API.info('Success called with barcode: ' + e.result);
+				if (scannedBarcodesCount == 0){
+					Ti.API.info('Success called with barcode: ' + e.result);
 					console.log("success1");
 					Ti.API.info('success received');
 					scannedBarcodesCount += 1;
@@ -239,8 +243,8 @@ console.log("successscannedBarcodesCount1"+ scannedBarcodesCount);
 					scanContentType.text += parseContentType(e.contentType) + ' ';
 					scanParsed.text += parseResult(e) + ' ';
 					//cancel();
-				}
-
+				
+console.log("scan success2");
 				//function didClickOrderRefill(e) {
 				// mob = $.mobileNumber.getValue();
 
@@ -281,9 +285,10 @@ console.log("successscannedBarcodesCount1"+ scannedBarcodesCount);
 					},
 					success : didSuccess,
 				});	
-				
-});
+	}	}		
+);
 				function didSuccess(e) {
+					console.log("api success");
 					
 					Barcode.cancel();
 					window.close();
