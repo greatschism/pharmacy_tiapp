@@ -1,8 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    utilities = require("utilities"),
-    num = 9999999999,
-    numNotLog = 6666666666;
+    utilities = require("utilities");
 
 function didClickType(e) {
 	var scan = 1;
@@ -29,39 +27,8 @@ function didClickCallPharmacy(e) {
 
 	if (_.isEmpty(storeLastRefilledAt)) {
 		alert("Inside if");
-	}
-	else{
+	} else {
 		alert(storeLastRefilledAt);
+		Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
 	}
-	// if(sessionId!=""){
-	// function phoneDialer(e) {
-	// //alert("clicked");
-	// var number = "tel:+" + String(num);
-	// Ti.Platform.openURL(number);
-	// }
-	// }
-	// else {
-	//
-	// if(cache==1)
-	// {
-	// function phoneDialer(e) {
-	// //alert("clicked");
-	// var number = "tel:+" + String(num);
-	// Ti.Platform.openURL(number);
-	// }
-	// }
-	//
-	//
-	// }
-	// app.navigator.open({
-	// ctrl : "refillMobileNumber",
-	// titleid: "titleRefillNow",
-	// stack : true,
-	// ctrlArguments : {
-	// isTyped:type,
-	// }
-	// // ctrl : "orderDetails",
-	// // titleid: "titleOrderDetails",
-	// // stack : true
-	// });
 }
