@@ -22,11 +22,17 @@ function phoneDialer(e) {
 
 function didClickCallPharmacy(e) {
 	var type = 1;
-
 	var storeLastRefilledAt = utilities.getProperty(Alloy.CFG.STORE_LAST_REFILLED, {}, "object");
-
 	if (_.isEmpty(storeLastRefilledAt)) {
-		alert("Inside if");
+		//Call stores
+		app.navigator.open({
+			titleid : "titleStores",
+			ctrl : "stores",
+			ctrlArguments : {
+				orgin : "scanFailure"
+			},
+			stack : true
+		});
 	} else {
 		alert(storeLastRefilledAt);
 		Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
