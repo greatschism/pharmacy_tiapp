@@ -786,8 +786,8 @@ module.exports = {
 			}, {
 				"refill_error_message" : "This prescription is already in the refill process. Please contact your pharmacy Ph: 1-209-632-0370 with any questions.",
 				"refill_is_error" : "true",
-				"refill_inline_message" : "x",
-				"refill_promised_date" : "2105/11/5",
+				"refill_inline_message" : "It is too soon to fill this prescription",
+				"refill_promised_date" : "2015/11/5",
 				"refill_store_id" : "2345",
 				"rx_number_id" : "222222"
 			}]
