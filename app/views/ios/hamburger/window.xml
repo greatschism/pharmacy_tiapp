@@ -1,0 +1,3 @@
+<Alloy>
+	<Window onOpen="didOpen" onFocus="didOpen" onBlur="didBlur" onClose="didClose" />
+</Alloy>
