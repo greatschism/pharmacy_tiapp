@@ -55,17 +55,11 @@ function didSuccess(result) {
 
 	console.log(prescriptions);
 
-    
-
-
-
 	if (readyForRefill.length) {
-		
 
-		
 		console.log("ready to refill");
 		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill, $, $.addAllBtn);
-			for (var i in readyForRefill) {
+		for (var i in readyForRefill) {
 			console.log('ready for refill' + readyForRefill[i]);
 			var transform = readyForRefill[i],
 			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
@@ -108,7 +102,10 @@ function didSuccess(result) {
 				apiName : "View",
 				//classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
 			}),
-
+			title = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["list-item-title-lbl", "left"]
+			}),
 			detail = $.UI.create("View", {
 				apiName : "View",
 				classes : ["list-item-info-lbl"]
@@ -139,15 +136,24 @@ function didSuccess(result) {
 			row.add(icon);
 
 			row.add(content);
-			
-			
-			$.addAllBtn.addEventListener('click' , didClickAddAll);
-			
-			
+
+			$.addAllBtn.addEventListener('click', didClickAddAll);
+
+			function didClickAddAll(e) {
+				addedAll = new Array;
+				if (readyForRefill.length) {
+					for (var i in readyForRefill) {
+						addedAll[i] = readyForRefill[i];
+
+					}
+					console.log("added all prescriptions" + addedAll);
+				}
+			}
+
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
+					classes : ["list-item-critical-info-lbl", "right", "padding-top", "padding-bottom"]
 				});
 				content = $.UI.create("View", {
 					apiName : "View",
@@ -155,7 +161,7 @@ function didSuccess(result) {
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-top", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = Math.abs(ndays) + "days";
@@ -167,7 +173,7 @@ function didSuccess(result) {
 			} else if (ndays >= 0) {
 				var dueForRefillLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
+					classes : ["list-item-critical-info-lbl", "padding-top", "right", "padding-bottom"]
 				});
 				content = $.UI.create("View", {
 					apiName : "View",
@@ -175,7 +181,7 @@ function didSuccess(result) {
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-top", "right"]
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillIn;
 				dueForRefillDetailLbl.text = ndays + "days";
@@ -271,15 +277,15 @@ function didSuccess(result) {
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right", "padding-bottom"]
+					classes : ["list-item-critical-info-lbl","padding-top", "right","padding-bottom"]
 				});
-				content = $.UI.create("View",{
-					apiName: "Label",
+				content = $.UI.create("View", {
+					apiName : "Label",
 					classes : ["list-item-view"]
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl","right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = ndays;
@@ -291,8 +297,8 @@ function didSuccess(result) {
 					apiName : "Label",
 					classes : ["list-item-critical-info-lbl", "right"]
 				});
-					content = $.UI.create("View",{
-					apiName: "Label",
+				content = $.UI.create("View", {
+					apiName : "Label",
 					classes : ["list-item-view"]
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
@@ -312,27 +318,12 @@ function didSuccess(result) {
 
 	}
 	$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
-			
+
 }
-
-	function didClickAddAll(e)
-		{
-			addedAllPrescriptions = new Array;
-			for(var i in readyForRefill)
-			{
-				addedAllPrescriptions[i] = readyForRefill[i];
-			//	addedAllPrescriptions.push(otherPrescriptions);
-				console.log("reteyeuwuwu" +addedAllPrescriptions);
-			}
-		}
-
-
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
 }
-
-
 
 function didClickDone() {
 
@@ -388,10 +379,17 @@ function didItemClick(e) {
 	section = e.section;
 	var prescription = _.findWhere(readyForRefill, {
 		rx_number : rowId
+
 	});
-	console.log("jdjfdjdfjfdg" + rowId);
-	console.log(prescription);
-	console.log(readyForRefill);
+	selectedPresc = new Array;
+	if (e.row) {
+
+		console.log("got" + rowId);
+		selectedPresc.push(rowId);
+		iconLbl.text = Alloy.CFG.icons.checkbox;
+		iconLbl.color = "#cde345";
+
+	}
 
 }
 
