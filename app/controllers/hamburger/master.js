@@ -1,21 +1,15 @@
 var args = arguments[0] || {},
     app = require("core"),
-    menuCtrl;
+    uihelper = require("uihelper");
 
 function initHamburger() {
-	app.globalWindow = $.window;
-	app.init();
-	app.setNavigator({
-		type : "hamburger",
-		hamburger : $.hamburger
+	app.init({
+		drawer : $.drawer,
+		navigationWindow : $.navigationWindow || null,
+		rootWindow : $.rootWindow,
+		type : "hamburger"
 	});
-	menuCtrl = Alloy.createController("menu", {
-		navigation : args.navigation
-	});
-	app.navigator.hamburger.init({
-		menuView : menuCtrl.getView(),
-		parent : $.window
-	});
+	$.menuCtrl.init(args.navigation);
 	if (args.triggerUpdate === true) {
 		app.update();
 	}
@@ -23,18 +17,23 @@ function initHamburger() {
 
 function didOpen() {
 	if (!_.isEmpty(app.navigator)) {
-		app.navigator.closeAll(function() {
-			app.terminate();
-			initHamburger();
-		});
-	} else {
-		initHamburger();
+		app.navigator.closeToRoot();
+		if (app.drawer) {
+			app.drawer.close();
+		}
+		app.terminate();
 	}
+	initHamburger();
+	$.drawer.centerWindow.accessibilityHidden = false;
+	$.drawer.leftWindow.accessibilityHidden = false;
+}
+
+function didLeftWindowOpen(e) {
+	uihelper.requestForFocus($.menuCtrl.getView());
 }
 
 function didClose(e) {
-	menuCtrl.terminate();
-	app.navigator.hamburger.terminate();
+	$.menuCtrl.terminate();
 }
 
-$.window.open();
+$.drawer.open();

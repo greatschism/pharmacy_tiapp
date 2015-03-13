@@ -4,27 +4,21 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
-    encryptionUtil,
-    keychainModule,
+    encryptionUtil = require("encryptionUtil"),
+    keychainModule = require("com.obscure.keychain"),
     keychainAccount;
 
 function init() {
-	if (OS_IOS || OS_ANDROID) {
-		encryptionUtil = require("encryptionUtil");
-		keychainModule = require("com.obscure.keychain");
-	}
 	uihelper.getImage($.logoImg);
 	updateInputs();
 }
 
 function updateInputs() {
-	if (OS_IOS || OS_ANDROID) {
-		keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
-		$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
-		$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
-		if (keychainAccount.valueData) {
-			$.keepMeSwt.setValue(true);
-		}
+	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
+	$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
+	$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
+	if (keychainAccount.valueData) {
+		$.keepMeSwt.setValue(true);
 	}
 }
 
@@ -48,13 +42,11 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if (OS_IOS || OS_ANDROID) {
-		if ($.keepMeSwt.getValue() == true) {
-			keychainAccount.account = encryptionUtil.encrypt(uname);
-			keychainAccount.valueData = encryptionUtil.encrypt(password);
-		} else {
-			keychainAccount.reset();
-		}
+	if ($.keepMeSwt.getValue() == true) {
+		keychainAccount.account = encryptionUtil.encrypt(uname);
+		keychainAccount.valueData = encryptionUtil.encrypt(password);
+	} else {
+		keychainAccount.reset();
 	}
 	if (utilities.isMobileNumber(uname)) {
 		http.request({

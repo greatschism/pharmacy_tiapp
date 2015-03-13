@@ -99,7 +99,8 @@ function didLoadConfig() {
 		navigation : utilities.getProperty(Alloy.CFG.FIRST_LAUNCH, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
-			navBarHidden : true
+			navBarHidden : true,
+			gestureEnabled : false
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});

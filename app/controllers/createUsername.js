@@ -4,15 +4,11 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
-    encryptionUtil,
-    keychainAccount;
+    encryptionUtil = require("encryptionUtil"),
+    keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
 
 function init() {
 	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
-	if (OS_IOS || OS_ANDROID) {
-		encryptionUtil = require("encryptionUtil");
-		keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
-	}
 }
 
 function moveToNext(e) {
@@ -75,10 +71,8 @@ function didClickDone(e) {
 }
 
 function didCreateUsername() {
-	if (OS_IOS || OS_ANDROID) {
-		keychainAccount.reset();
-		keychainAccount.account = encryptionUtil.encrypt($.unameTxt.getValue());
-	}
+	keychainAccount.reset();
+	keychainAccount.account = encryptionUtil.encrypt($.unameTxt.getValue());
 	dialog.show({
 		title : Alloy.Globals.strings.titleThanks,
 		message : Alloy.Globals.strings.msgUsernameCreated,

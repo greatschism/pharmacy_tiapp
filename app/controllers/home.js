@@ -56,7 +56,12 @@ function create(_dict) {
 }
 
 function didChangeAuthorization() {
-	$.signinView.visible = !Alloy.Models.user.get("logged_in");
+	var loggedIn = Alloy.Models.user.get("logged_in");
+	$.rightNavBtn.applyProperties({
+		touchEnabled : !loggedIn,
+		accessibilityHidden : loggedIn,
+		visible : !loggedIn
+	});
 }
 
 function didItemClick(e) {
@@ -77,7 +82,7 @@ function didItemClick(e) {
 	}
 }
 
-function didClickSignin(e) {
+function didClickRightNavBtn(e) {
 	app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",
