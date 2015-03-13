@@ -11,6 +11,7 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     uihelper = require("uihelper"),
     prescription,
+    prescriptionList,
     orders,
     row2,
     row3,
@@ -21,14 +22,12 @@ var args = arguments[0] || {},
 
 function init() {
 	prescription = args.prescription || {};
+	console.log("resut presc name is " + prescription.presc_name);
 
 	orders = [{
 		id : 1,
-		name : "Januvia, 100mg tab"
+		name : "Lomotil, 200mg tab"
 
-	}, {
-		id : 2,
-		name : "Ciplox, 250mg tab"
 	}];
 	data = [];
 
@@ -68,10 +67,10 @@ function init() {
 		    footerView = $.UI.create("View", {
 			apiName : "View",
 			horizontalWrap : "false",
-			classes : ["hgroup", "auto-height","padding-top", "padding-bottom", "margin-left", "margin-right"]
-		}),
+			classes : ["hgroup", "auto-height", "padding-top", "padding-bottom", "margin-left", "margin-right"]
+		});
 
-		    addIcon = $.UI.create("Label", {
+		addIcon = $.UI.create("Label", {
 			apiName : "Label",
 			height : 32,
 			left : 10,
@@ -84,7 +83,7 @@ function init() {
 			classes : ["paddingLeft", "paddingTop", "paddingBottom", "additionIcon", "small-icon"]
 
 		}),
-		    addLbl = $.UI.create("Label", {
+		addLbl = $.UI.create("Label", {
 			apiName : "Label",
 			text : " Add more prescription",
 			color : "#000000",
@@ -140,27 +139,27 @@ function init() {
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
 		text : "1 Sanstome St.",
-        font : {
-				fontSize : 18,
-				bold : true
-			},
-		top :0,	
+		font : {
+			fontSize : 18,
+			bold : true
+		},
+		top : 0,
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		top : 30,
-		
+
 		text : "San Franscisco,CA, 94103",
 		classes : ["list-item-info-lbl", "left"]
 	}),
 	    rightBtn = $.UI.create("Label", {
 		apiName : "Label",
 		text : "change",
-	    right: 10,
-	    
+		right : 10,
+
 		color : " #599DFF",
-		classes : ["right", "padding-right", "width-30","h1"]
+		classes : ["right", "padding-right", "width-30", "h1"]
 	});
 
 	containerView.rowId = transform.id;
@@ -185,43 +184,46 @@ function init() {
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-	classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
 
 	}),
 
-	    mailTo = $.UI.create("Label", {
-		apiName : "Label",
-		text : "Mail to:",
-		classes : ["list-item-info-lbl", "left"]
-	}),
+	//    mailTo = $.UI.create("Label", {
+	//	apiName : "Label",
+	//	text : "Mail to:",
+	//	classes : ["list-item-info-lbl", "left"]
+	//	}),
 
 	    addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
-		top : 5,
-		text : "445 Bush Street.",
-		classes : ["list-item-info-lbl", "left"]
-	}),
-	    addressLine2 = $.UI.create("Label", {
-		apiName : "Label",
-		text : "San Franscisco,CA, 94103",
-		top : 5,
-		classes : ["list-item-info-lbl", "left"]
-	}),
-
-	    wrongAddressLbl = $.UI.create("Label", {
-		apiName : "Label",
-		top : 5,
-		color : "#599DFF",
-		text : Alloy.Globals.strings.lblWrongAddress,
-		classes : ["list-item-info-lbl", "left"]
+		color : "#BDBDBD",
+		font : {
+			fontSize : 14
+		},
+		text : Alloy.Globals.strings.msgMailOrder,
+		classes : ["multi-line", "left"]
 	});
+	//   addressLine2 = $.UI.create("Label", {
+	//	apiName : "Label",
+	//	text : "San Franscisco,CA, 94103",
+	//	top : 5,
+	//	classes : ["list-item-info-lbl", "left"]
+	//}),
+
+	//    wrongAddressLbl = $.UI.create("Label", {
+	//	apiName : "Label",
+	//	top : 5,
+	//	color : "#599DFF",
+	//	text : Alloy.Globals.strings.lblWrongAddress,
+	//	classes : ["list-item-info-lbl", "left"]
+	//});
 
 	containerView.rowId = transform.id;
-	containerView.add(mailTo);
+	//containerView.add(mailTo);
 	containerView.add(addressLine1);
-	containerView.add(addressLine2);
-	containerView.add(wrongAddressLbl);
-	wrongAddressLbl.addEventListener("click", didClickCallPharmacy);
+	//containerView.add(addressLine2);
+	//containerView.add(wrongAddressLbl);
+	//	wrongAddressLbl.addEventListener("click", didClickCallPharmacy);
 
 	row3.add(containerView);
 
@@ -281,6 +283,15 @@ function didClickOrderRefill(e) {
 					pickup_mode : "instore/mailorder",
 					barcode_data : "x",
 					barcode_format : "x"
+				}, {
+					id : "x",
+					rx_number : "x",
+					store_id : "x",
+					mobile_number : "x",
+					pickup_time_group : "x",
+					pickup_mode : "instore/mailorder",
+					barcode_data : "x",
+					barcode_format : "x"
 				}]
 			}]
 		},
@@ -290,39 +301,37 @@ function didClickOrderRefill(e) {
 	});
 }
 
-function didSuccess() {
+function didSuccess(result) {
+
+	var abc = result.data.prescriptions || [];
+	console.log("pratibha" + abc);
 
 	app.navigator.open({
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
 		ctrl : "orderSuccess",
 		ctrlArguments : {
-
+			prescription : prescription.rx_number
 		}
 	});
+
 }
-
-function didClickPickUpOptions(event) {
-
-	Ti.API.info("user selected   : " + event.selectedValue);
-
-};
 
 function didClickAddAnotherPrescription(e) {
 
 	app.navigator.open({
 		stack : true,
-		titleid : "titleAddPrescriptions",
+		titleid : "Add prescriptions",
 		ctrl : "addPrescription"
 	});
 }
 
 function didClickStoreChange(e) {
-	app.navigator.open({
-		stack : true,
-		titleid : "titleStoreDetails",
-		ctrl : "stores"
-	});
+	//app.navigator.open({
+	//	stack : true,
+	//	titleid : "titleStoreDetails",
+	//	ctrl : "stores"
+	//});
 	alert("Stores under construction");
 }
 
