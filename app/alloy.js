@@ -14,14 +14,12 @@
 
 	//initialization
 	require("apm").init();
-	if (OS_IOS || OS_ANDROID) {
-		require("com.scule.encrypted").init();
-	}
+	require("com.scule.encrypted").init();
 	require("resources").init();
 	require("localization").init();
 
 	//variables
-	Alloy.Globals.Map = OS_MOBILEWEB ? Ti.Map : require("ti.map");
+	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.loggedIn = false;
 	Alloy.Globals.currentLocation = {};
 

@@ -1,5 +1,6 @@
 {
 	"global": {
+		"storageEngine": "scule+tiencrypted",
 		"apiPath": {
 			"APPLOAD_GET": "appload/get",
 			"TERMS_GET": "terms/get",
@@ -158,28 +159,14 @@
 		"simulateAPI": true,
 		"simulateAPIOnFailure": true
 	},
-	"os:android": {
-		"navBarHeight": 48,
-		"navBarTop": 0,
-		"storageEngine": "scule+tiencrypted"
-	},
+	"os:android": {},
 	"os:blackberry": {},
-	"os:ios": {
-		"navBarHeight": 68,
-		"navBarTop": 20,
-		"storageEngine": "scule+tiencrypted"
-	},
-	"os:mobileweb": {
-		"navBarHeight": 48,
-		"navBarTop": 0,
-		"storageEngine": "scule+titanium"
-	},
+	"os:ios": {},
 	"dependencies": {
-		"com.mscripts.hamburger": "1.0",
+		"nl.fokkezb.drawer": "1.0",
 		"com.mscripts.textfield": "1.0",
 		"com.mscripts.loading": "1.0",
 		"com.mscripts.dropdown": "1.0",
-		"com.mscripts.buttonbar": "1.0",
 		"com.mscripts.pagingcontrol": "1.0",
 		"com.mscripts.switch": "1.0",
 		"com.mscripts.styledlabel": "1.0",

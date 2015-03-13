@@ -1,5 +1,0 @@
-<Alloy>
-	<View id="menuView" />
-	<View id="dragView" />
-	<View id="overlayView" />
-</Alloy>
