@@ -216,6 +216,7 @@ module.exports = {
 		"msgDoctorUpdated" : "Doctor details updated",
 		"msgAppointmentDeleted" : "Your doctor's appointment reminder has been deleted",
 		"msgAppointmentReminderSettingsUpdated" : "Your appointment reminder settings has been updated",
+		"msgMailOrder" : "Mail order prescriptions will be sent to the address that your pharmacy has on file.",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
