@@ -23,18 +23,18 @@ function didClickContinue(e) {
 			var Barcode = require('ti.barcode');
 			Barcode.allowRotation = true;
 			Barcode.displayedMessage = '';
-			Barcode.useLED = true;
+			Barcode.useLED = false;
 
-			var window = Ti.UI.createWindow({
-				backgroundColor : 'white'
-			});
-			var scrollView = Ti.UI.createScrollView({
-				contentWidth : 'auto',
-				contentHeight : 'auto',
-				top : 0,
-				showVerticalScrollIndicator : true,
-				layout : 'vertical'
-			});
+			// var window = Ti.UI.createWindow({
+				// backgroundColor : 'white'
+			// });
+			// var scrollView = Ti.UI.createScrollView({
+				// contentWidth : 'auto',
+				// contentHeight : 'auto',
+				// top : 0,
+				// showVerticalScrollIndicator : true,
+				// layout : 'vertical'
+			// });
 
 			/**
 			 * Create a chrome for the barcode scanner.
@@ -68,49 +68,50 @@ function didClickContinue(e) {
 				Barcode.useFrontCamera = !Barcode.useFrontCamera;
 				switchButton.title = Barcode.useFrontCamera ? 'Back Camera' : 'Front Camera';
 			});
-			overlay.add(switchButton);
+			//overlay.add(switchButton);
 
-			var toggleLEDButton = Ti.UI.createButton({
-				title : Barcode.useLED ? 'LED is On' : 'LED is Off',
-				textAlign : 'center',
-				color : '#000',
-				backgroundColor : '#fff',
-				style : 0,
-				font : {
-					fontWeight : 'bold',
-					fontSize : 16
-				},
-				borderColor : '#000',
-				borderRadius : 10,
-				borderWidth : 1,
-				opacity : 0.5,
-				width : 220,
-				height : 30,
-				bottom : 40
-			});
-			toggleLEDButton.addEventListener('click', function() {
-				Barcode.useLED = !Barcode.useLED;
-				toggleLEDButton.title = Barcode.useLED ? 'LED is On' : 'LED is Off';
-			});
-			overlay.add(toggleLEDButton);
+			// var toggleLEDButton = Ti.UI.createButton({
+				// title : Barcode.useLED ? 'LED is On' : 'LED is Off',
+				// textAlign : 'center',
+				// color : '#000',
+				// backgroundColor : '#fff',
+				// style : 0,
+				// font : {
+					// fontWeight : 'bold',
+					// fontSize : 16
+				// },
+				// borderColor : '#000',
+				// borderRadius : 10,
+				// borderWidth : 1,
+				// opacity : 0.5,
+				// width : 220,
+				// height : 30,
+				// bottom : 40
+			// });
+			// toggleLEDButton.addEventListener('click', function() {
+				// Barcode.useLED = !Barcode.useLED;
+				// toggleLEDButton.title = Barcode.useLED ? 'LED is On' : 'LED is Off';
+			// });
+			// //overlay.add(toggleLEDButton);
 
 			var cancelButton = Ti.UI.createButton({
-				title : 'Cancel',
-				textAlign : 'center',
-				color : '#000',
-				backgroundColor : '#fff',
+				title : 'Back',
+				textAlign : 'left',
+				color : '#fff',
+				//backgroundColor : '#fff',
 				style : 0,
 				font : {
 					fontWeight : 'bold',
 					fontSize : 16
 				},
-				borderColor : '#000',
-				borderRadius : 10,
-				borderWidth : 1,
+				//borderColor : '#000',
+				//borderRadius : 10,
+				//borderWidth : 1,
 				opacity : 0.5,
-				width : 220,
+				width : 50,
 				height : 30,
-				top : 20
+				top : 15,
+				left:20
 			});
 			cancelButton.addEventListener('click', function() {
 				Barcode.cancel();
@@ -126,7 +127,7 @@ function didClickContinue(e) {
 				height : 60,
 				top : 20
 			});
-			scanCode.addEventListener('click', function() {
+			//scanCode.addEventListener('click', function() {
 				reset();
 				// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
 				// to test your barcode scanning overlay.
@@ -134,14 +135,14 @@ function didClickContinue(e) {
 					animate : true,
 					overlay : overlay,
 					showCancel : false,
-					showRectangle : false,
+					showRectangle : true,
 					keepOpen : true/*,
 					 acceptedFormats: [
 					 Barcode.FORMAT_QR_CODE
 					 ]*/
 				});
-			});
-			scrollView.add(scanCode);
+			//});
+			//scrollView.add(scanCode);
 
 			// creating cancel button on screen
 			var Cancel = Ti.UI.createButton({
@@ -158,11 +159,11 @@ function didClickContinue(e) {
 					stack : true,
 
 				});
-				window.close();
+				//window.close();
 
 			});
 
-			scrollView.add(Cancel);
+			//scrollView.add(Cancel);
 
 			/**
 			 * Create a button that will show the gallery picker.
@@ -196,20 +197,20 @@ function didClickContinue(e) {
 			function reset() {
 				scannedBarcodes=0;
 				scannedBarcodesCount = 0;
-				cancelButton.title = 'Cancel';
+				//cancelButton.title = 'Cancel';
 
-				scanResult.text = ' ';
-				scanContentType.text = ' ';
-				scanParsed.text = ' ';
+				// scanResult.text = ' ';
+				// scanContentType.text = ' ';
+				// scanParsed.text = ' ';
 			}
 
 
 			Barcode.addEventListener('error', function(e) {
 				console.log("error");
 				
-				scanContentType.text = ' ';
-				scanParsed.text = ' ';
-				scanResult.text = e.message;
+				// scanContentType.text = ' ';
+				// scanParsed.text = ' ';
+				// scanResult.text = e.message;
 				Ti.API.info('error received');
 				app.navigator.open({
 					ctrl : "scanfailure",
@@ -229,11 +230,11 @@ function didClickContinue(e) {
 					console.log("success1");
 					Ti.API.info('success received');
 					scannedBarcodesCount += 1;
-					cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
+					//cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
 console.log("successscannedBarcodesCount1"+ scannedBarcodesCount);
-					scanResult.text += e.result + ' ';
-					scanContentType.text += parseContentType(e.contentType) + ' ';
-					scanParsed.text += parseResult(e) + ' ';
+					// scanResult.text += e.result + ' ';
+					// scanContentType.text += parseContentType(e.contentType) + ' ';
+					// scanParsed.text += parseResult(e) + ' ';
 					//cancel();
 				
 console.log("scan success2");
@@ -283,7 +284,7 @@ console.log("scan success2");
 					console.log("api success");
 					
 					Barcode.cancel();
-					window.close();
+					//window.close();
 					app.navigator.open({
 						titleid : "titleYourRefillIsOnTheWay",
 						ctrl : "refillSuccess",
@@ -298,7 +299,7 @@ console.log("scan success2");
 			 * Finally, we'll add a couple labels to the window. When the user scans a barcode, we'll stick information about it in
 			 * to these labels.
 			 */
-			scrollView.add(Ti.UI.createLabel({
+			/*scrollView.add(Ti.UI.createLabel({
 				text : 'You may need to rotate the device',
 				top : 10,
 				height : Ti.UI.SIZE || 'auto',
@@ -322,7 +323,7 @@ console.log("scan success2");
 				color : 'black',
 				height : Ti.UI.SIZE || 'auto'
 			});
-			scrollView.add(scanResult);
+			//scrollView.add(scanResult);
 
 			scrollView.add(Ti.UI.createLabel({
 				text : 'Content Type: ',
@@ -340,7 +341,7 @@ console.log("scan success2");
 				color : 'black',
 				height : Ti.UI.SIZE || 'auto'
 			});
-			scrollView.add(scanContentType);
+			//scrollView.add(scanContentType);
 
 			scrollView.add(Ti.UI.createLabel({
 				text : 'Parsed: ',
@@ -359,6 +360,7 @@ console.log("scan success2");
 				height : Ti.UI.SIZE || 'auto'
 			});
 			scrollView.add(scanParsed);
+			*/
 
 			function parseContentType(contentType) {
 				switch (contentType) {
@@ -427,8 +429,8 @@ console.log("scan success2");
 			}
 
 
-			window.add(scrollView);
-			window.open();
+			//window.add(scrollView);
+			//window.open();
 
 		} else if (args.isTyped == 1) {
 			app.navigator.open({
