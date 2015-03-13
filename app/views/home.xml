@@ -1,6 +1,4 @@
 <Alloy>
-	<View id="signinView" class="right nav-action-container" onClick="didClickSignin">
-		<Label id="signinLbl" class="margin-right nav-action-lbl touch-disabled" />
-	</View>
+	<Button id="rightNavBtn" class="nav-btn role-right-nav-btn" onClick="didClickRightNavBtn" />
 	<View id="containerView" />
 </Alloy> 
