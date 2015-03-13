@@ -74,6 +74,25 @@
 				</View>
 				<Label class="list-item-child-down" />
 			</TableViewRow>
+			<TableViewRow id ="dummy">
+				<View id="moreHelpView" class="list-item-view ">
+					<Label id="moreHelpLbl" class="left list-item-lbl"/>
+				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View id="configItemView" class="list-item-view-with-child ">
+					<Label id="configReadLbl" class="left list-item-lbl"/>
+				</View>
+				<Label id="readLbl" class="margin-right"/>
+				<Label class="list-item-child" />
+			</TableViewRow>
+			<TableViewRow>
+				<View id="adherenceView" class="left vgroup list-item-view-with-child ">
+					<Label id="iconLbl" height="70" width="70" class="left"/>
+				</View>
+				<Label id="configAdherLbl" class="multi-line"/>
+				<Label class="list-item-child" />
+			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto">
