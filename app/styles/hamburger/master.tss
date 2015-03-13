@@ -1,10 +1,26 @@
-"Window[formFactor=handheld]":{
+"#drawer":{
+	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH,
+	animationMode: "ANIMATION_SCALE",
+	closeDrawerGestureMode: "CLOSE_MODE_ALL"
+},
+"#drawer[platform=ios]":{
+	accessibilityLabel: Ti.App.name,
+	openDrawerGestureMode: "OPEN_MODE_BEZEL_PANNING_CENTERWINDOW",
+	animationMode: "ANIMATION_SLIDE"
+},
+"#drawer[platform=android]":{
+	openDrawerGestureMode: "OPEN_MODE_MARGIN",
+	animationMode: "ANIMATION_NONE"
+},
+"#drawer[formFactor=handheld]":{
 	orientationModes: [Titanium.UI.PORTRAIT]
 },
-"Window[formFactor=tablet]":{
+"#drawer[formFactor=tablet]":{
 	orientationModes: [Titanium.UI.PORTRAIT, Titanium.UI.UPSIDE_PORTRAIT]
 },
-"Window[platform=android]":{
-	exitOnClose: true,
-	windowSoftInputMode: Titanium.UI.Android.SOFT_INPUT_STATE_HIDDEN | Titanium.UI.Android.SOFT_INPUT_ADJUST_PAN
+"#rootWindow":{
+	backgroundColor: "#FFFFFF"
+},
+"#rootWindow[platform=ios]":{
+	navBarHidden: true
 }

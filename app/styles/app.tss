@@ -12,7 +12,9 @@
 	backgroundColor: Alloy.TSS.Window.backgroundColor
 },
 "Window[platform=ios]":{
+	barColor: Alloy.TSS.Window.barColor,
 	navTintColor: Alloy.TSS.Window.navTintColor,
+	titleAttributes: Alloy.TSS.Window.titleAttributes,
 	statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "ListView":{
@@ -61,6 +63,9 @@
 },
 ".touch-disabled":{
 	touchEnabled: false
+},
+".accessibility-disabled":{
+	accessibilityHidden: true
 },
 /**
 * 	Visibility
@@ -297,11 +302,11 @@
 /**
 * enable / disable word wrap
 */
-".single-line[platform=android,mobileweb]":{
+".single-line[platform=android]":{
 	ellipsize: true,
 	wordWrap: false
 },
-".multi-line[platform=android,mobileweb]":{
+".multi-line[platform=android]":{
 	ellipsize: false,
 	wordWrap: true
 },
@@ -353,84 +358,15 @@
 ".extra-large-icon":{
 	font: Alloy.TSS.extra_large_icon.font
 },
-".lbl-after-icon": {
-	height: Alloy.TSS.lbl_after_icon.height,
-	ellipsize: Alloy.TSS.lbl_after_icon.ellipsize,
-	wordWrap: Alloy.TSS.lbl_after_icon.wordWrap,
-	font: Alloy.TSS.lbl_after_icon.font,
-	textAlign: Alloy.TSS.lbl_after_icon.textAlign,
-	color: Alloy.TSS.lbl_after_icon.color
-},
-/**
-* 	Tempalte View
-*/
-".template-view":{
-	top: 0,
-	width: "100%",
-	backgroundColor: "#FFFFFF",
-	zIndex: 1
-},
-".template-content-view":{
-	top: Alloy.CFG.navBarHeight,
-	zIndex: 1
-},
 /*
 *navbar
 */
-".nav":{
-	top: 0,
-	height: Alloy.CFG.navBarHeight,
-	backgroundColor: Alloy.TSS.nav.backgroundColor,
-	zIndex: 1
+".nav-icon-btn":{
+	font: Alloy.TSS.nav_icon_btn.font,
+	color: Alloy.TSS.nav_icon_btn.color
 },
-".nav-view":{
-	top: Alloy.CFG.navBarTop
-},
-".nav-title-lbl":{
-	left: Alloy.TSS.nav_title_lbl.left,
-	right: Alloy.TSS.nav_title_lbl.right,
-	height: Alloy.TSS.nav_title_lbl.height,
-	font: Alloy.TSS.nav_title_lbl.font,
-	textAlign: Alloy.TSS.nav_title_lbl.textAlign,
-	color: Alloy.TSS.nav_title_lbl.color
-},
-".nav-action-container":{
-	width: Alloy.TSS.nav_action_container.width,
-	height: Alloy.TSS.nav_action_container.height,
-	role: "navBar"
-},
-".nav-action-lbl":{
-	height: Alloy.TSS.nav_action_lbl.height,
-	ellipsize: Alloy.TSS.nav_action_lbl.ellipsize,
-	wordWrap: Alloy.TSS.nav_action_lbl.wordWrap,
-	font: Alloy.TSS.nav_action_lbl.font,
-	color: Alloy.TSS.nav_action_lbl.color,
-	role: "navBar"
-},
-".nav-icon-margin-top": {
-	top: Alloy.TSS.nav_icon_margin_top.top
-},
-".nav-icon-margin-bottom": {
-	bottom: Alloy.TSS.nav_icon_margin_top.bottom
-},
-".nav-icon-margin-left": {
-	left: Alloy.TSS.nav_icon_margin_top.left
-},
-".nav-icon-margin-right": {
-	right: Alloy.TSS.nav_icon_margin_top.right
-},
-".nav-icon":{
-	font: Alloy.TSS.nav_icon.font,
-	textAlign: Alloy.TSS.nav_icon.textAlign,
-	color: Alloy.TSS.nav_icon.color,
-	touchEnabled: false
-},
-".nav-action-lbl-after-icon": {
-	height: Alloy.TSS.nav_action_lbl_after_icon.height,
-	ellipsize: Alloy.TSS.nav_action_lbl_after_icon.ellipsize,
-	wordWrap: Alloy.TSS.nav_action_lbl_after_icon.wordWrap,
-	font: Alloy.TSS.nav_action_lbl_after_icon.font,
-	color: Alloy.TSS.nav_action_lbl_after_icon.color
+".role-right-nav-btn":{
+	role: "rightNavButton"
 },
 /**
 * 	input controls
@@ -809,7 +745,7 @@
 /**
 * 	table / list view
 */
-".footer-view-break[platform=ios,mobileweb]":{
+".footer-view-break[platform=ios]":{
 	height: Ti.UI.SIZE
 },
 ".footer-view-break[platform=android]":{

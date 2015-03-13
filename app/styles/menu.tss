@@ -1,9 +1,0 @@
-"#menu":{
-	separatorColor: "transparent"
-},
-".vspacer[platform=ios]":{
-	height: 40
-},
-".vspacer[platform=android,mobileweb]":{
-	height: 20
-}

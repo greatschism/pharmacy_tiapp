@@ -1,0 +1,12 @@
+"#menu":{
+	separatorColor: "transparent"
+},
+"#headerView[platform=ios]":{
+	height: 40
+},
+"#headerView[platform=android]":{
+	height: 20
+},
+"#footerView":{
+	height: 20
+}

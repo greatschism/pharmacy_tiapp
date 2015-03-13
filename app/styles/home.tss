@@ -1,3 +1,3 @@
-"#signinLbl":{
-	text: Alloy.Globals.strings.strSignin
+"#rightNavBtn":{
+	title: Alloy.Globals.strings.strSignin
 }
