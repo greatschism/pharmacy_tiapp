@@ -18,9 +18,7 @@ var args = arguments[0] || {},
     prescNamesArray,
     prescriptions,
     addr,
-//row,
-    allPrescriptions,
-    currentSwipeView;
+    allPrescriptions;
 
 function init() {
 	http.request({
@@ -46,115 +44,125 @@ function addRx(str) {
 
 function didSuccessRefill(_result) {
 
-	// response of refill prescriptions
+	// response of prescriptions refill
 	refillPrescriptions = _result.data.prescriptions || [];
+	console.log("refill prescriptions" + refillPrescriptions);
 
-	$.gettingRefilledSection = uihelper.createTableViewSection($, strings.msgRefillOrder);
-	{
+	if (refillPrescriptions.length) {
+		for ( i = 0; i < refillPrescriptions.length; i++) {
+			var data = [];
+			http.request({
+				method : "PRESCRIPTIONS_GET",
+				data : {
+					filter : null,
+					get_type : "",
+					data : [{
+						id : "",
+						prescriptions : ""
 
-		for (var i in refillPrescriptions) {
-			row = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow",
+					}]
 
-			}),
+				},
+				success : function(result) {
 
-			padView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["list-item-view", "vgroup"]
-			}),
-			listItemView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["list-item-view", "vgroup"]
-			}),
-			orderPickUpLblIcon = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["large-icon", "left", "success-color"],
+					//response of prescriptions get
+					getPrescriptions = result.data.prescriptions;
+					prescNamesArray = new Array;
 
-			});
-			rxLabel = $.UI.create("Label", {
-				apiName : "Label",
-				left : 50,
-				classes : ["list-item-title-lbl"]
-			}),
-			readyByDateLabel = $.UI.create("Label", {
-				apiName : "Label",
-				left : 50,
-				classes : ["list-item-info-lbl", "left"]
-			});
+					k = 0;
+					for ( i = 0; i < refillPrescriptions.length; i++) {
 
-			listItemView.add(rxLabel);
-			listItemView.add(readyByDateLabel);
-			padView.add(orderPickUpLblIcon);
-			row.add(padView);
-			row.add(listItemView);
-			$.gettingRefilledSection.add(row);
+						for ( j = 0; j < getPrescriptions.length; j++) {
+							//matching rx numbers
+							if (getPrescriptions[j].rx_number === refillPrescriptions[i].rx_number_id) {
+								// if matching add all in another array
+								prescNamesArray[k] = getPrescriptions[j];
+								console.log("newly added " + prescNamesArray[i].presc_name);
 
-			if (refillPrescriptions[i].refill_is_error = true) {
-				orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox;
-			} else {
-				orderPickUpLblIcon.text = Alloy.CFG.icons.unfilled_success;
-			}
-
-			if (refillPrescriptions.length) {
-
-				http.request({
-					method : "PRESCRIPTIONS_GET",
-					data : {
-						filter : null,
-						get_type : "",
-						data : [{
-							id : "",
-							prescriptions : ""
-
-						}]
-
-					},
-					success : function(result) {
-
-						//response of prescriptions get
-						getPrescriptions = result.data.prescriptions;
-						prescNamesArray = new Array;
-
-						k = 0;
-						for ( i = 0; i < refillPrescriptions.length; i++) {
-
-							for ( j = 0; j < getPrescriptions.length; j++) {
-
-								if (getPrescriptions[j].rx_number === refillPrescriptions[i].rx_number_id) {
-
-									prescNamesArray[k] = getPrescriptions[j];
-									console.log("helllllll" + prescNamesArray);
-									k++;
-									break;
-
-								}
-
+								k++;
 							}
-							rxLabel.text = prescNamesArray[0].presc_name;
 
 						}
-						console.log("how many" + prescNamesArray.length);
-					
 
 					}
-				});
 
+					console.log("how many" + prescNamesArray.length);
+
+				}
+			});
+
+			for (var i in refillPrescriptions) {
+				data.push(getRow({
+					name : prescNamesArray[i].presc_name,
+					refill_promised_date : refillPrescriptions[i].refill_promised_date,
+					refill_is_error : refillPrescriptions[i].refill_is_error,
+					refill_inline_message : refillPrescriptions[i].refill_inline_message
+
+				}));
 			}
-
-			rxLabel.text = refillPrescriptions[i].presc_name;
-			console.log("jdfhfdhjfdhj" + refillPrescriptions[i].presc_name);
-			if (refillPrescriptions[i].refill_promised_date) {
-				readyByDateLabel.text = strings.msgShouldBeReadyBy + " " + refillPrescriptions[i].refill_promised_date;
-			} else {
-				readyByDateLabel.text = "";
-			}
-
+			
+			$.tableView.setData(data);
 		}
-
 	}
+}
 
-	$.tableView.data = [$.gettingRefilledSection];
+function getRow(data) {
 
+	$.hintParaOne.text = strings.msgRefillOrder;
+	$.tableView.top = 50;
+	console.log(data);
+	var row = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow",
+		classes : ["height-75d"],
+
+	}),
+
+	    padView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["list-item-view", "vgroup"]
+	}),
+	    listItemView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["list-item-view", "vgroup"]
+	}),
+	    orderPickUpLblIcon = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["left","large-icon"]
+
+	});
+	
+	rxLabel = $.UI.create("Label", {
+		apiName : "Label",
+		left : 50,
+		text : data.name,
+		classes : ["list-item-title-lbl"]
+	}),
+	readyByDateLabel = $.UI.create("Label", {
+		apiName : "Label",
+		left : 50,
+		text : data.refill_inline_message,
+		classes : ["list-item-info-lbl", "left"]
+	});
+
+	listItemView.add(rxLabel);
+	listItemView.add(readyByDateLabel);
+	if (data.refill_is_error == true) {
+ 
+		 orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox,
+		 orderPickUpLblIcon.color = Alloy.success_color;
+		
+	 }
+	 else if (data.refill_is_error = false) {
+		orderPickUpLblIcon.text = Alloy.CFG.icons.remove, orderPickUpLblIcon.color = Alloy.error_color;
+	 }
+	
+	
+	padView.add(orderPickUpLblIcon);
+	row.add(padView);
+	row.add(listItemView);
+
+	row.addEventListener("click", didItemClick);
+	return row;
 }
 
 function didToggle(e) {
@@ -162,7 +170,7 @@ function didToggle(e) {
 }
 
 function didItemClick(e) {
-	console.log("jhf");
+	console.log("pratibha");
 
 }
 
