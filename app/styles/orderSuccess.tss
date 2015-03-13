@@ -6,18 +6,25 @@
 "#tableView":{
 	top: 0
 },
-".success-icon":{
-	text: Alloy.CFG.icons.success
-},
 
-"#hintParaOne":
-{
-	
-	text: Alloy.Globals.strings.msgSignUpToReceiveText
-}
+"#tableView":{
+	top : 50
+},
 "#done":
 {
-	title: Alloy.Globals.strings.btnDone,
+	title: Alloy.Globals.strings.btnDone
 	
 	
+},
+"#hintParaOne":{
+	
+	top : 0,
+	left : 10,
+	right : 10,
+
+	
+},
+"#mainView":{
+	backgroundColor : '#F2F2F2'
 }
+
