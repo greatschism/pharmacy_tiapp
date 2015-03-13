@@ -349,13 +349,11 @@ var Resources = {
 		if (_clearCache) {
 			coll.clear();
 		}
-		if (OS_IOS || OS_ANDROID) {
-			if (!dataDir.exists()) {
-				dataDir.createDirectory();
-			}
-			if (!fontsDir.exists()) {
-				fontsDir.createDirectory();
-			}
+		if (!dataDir.exists()) {
+			dataDir.createDirectory();
+		}
+		if (!fontsDir.exists()) {
+			fontsDir.createDirectory();
 		}
 		var platform = require("core").device.platform;
 		for (var i in _items) {
@@ -366,9 +364,7 @@ var Resources = {
 				})[0] || {};
 				if (_useLocalResources) {
 					var file = item.id + "_" + item.version + "." + item.format;
-					if (OS_IOS || OS_ANDROID) {
-						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
-					}
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
 					_.extend(item, {
 						file : file
 					});
@@ -395,13 +391,11 @@ var Resources = {
 		if (_clearCache) {
 			coll.clear();
 		}
-		if (OS_IOS || OS_ANDROID) {
-			if (!dataDir.exists()) {
-				dataDir.createDirectory();
-			}
-			if (!imagesDir.exists()) {
-				imagesDir.createDirectory();
-			}
+		if (!dataDir.exists()) {
+			dataDir.createDirectory();
+		}
+		if (!imagesDir.exists()) {
+			imagesDir.createDirectory();
 		}
 		for (var i in _items) {
 			var item = _items[i],
@@ -410,9 +404,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				var file = item.id + "_" + item.version + "." + item.format;
-				if (OS_IOS || OS_ANDROID) {
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
-				}
+				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
 				_.extend(item, {
 					file : file
 				});

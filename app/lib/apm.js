@@ -1,7 +1,7 @@
 var APM = {
 	module : false,
 	init : function() {
-		if ((OS_IOS || OS_ANDROID) && Alloy.CFG.enableAPM && !APM.module) {
+		if (Alloy.CFG.enableAPM && !APM.module) {
 			APM.module = require("com.appcelerator.apm");
 			APM.module.init();
 		}

@@ -101,9 +101,7 @@ exports.request = function(_params) {
 		}
 
 		// Overcomes the 'unsupported browser' error sometimes received
-		if (!OS_MOBILEWEB) {
-			xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
-		}
+		xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
 		if (_params.data) {
 			xhr.send(_params.data);

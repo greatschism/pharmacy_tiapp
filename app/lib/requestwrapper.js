@@ -9,11 +9,7 @@ var app = require("core"),
     utilities = require("utilities"),
     CFG = Alloy.CFG,
     user = {},
-    encryptionUtil;
-
-if (OS_IOS || OS_ANDROID) {
-	encryptionUtil = require("encryptionUtil");
-}
+    encryptionUtil = require("encryptionUtil");
 
 function request(_params) {
 
@@ -50,10 +46,8 @@ function request(_params) {
 	});
 	_params.data = JSON.stringify(_params.data);
 
-	if (OS_IOS || OS_ANDROID) {
-		if (CFG.enableEncryption) {
-			_params.data = encryptionUtil.encrypt(_params.data);
-		}
+	if (CFG.enableEncryption) {
+		_params.data = encryptionUtil.encrypt(_params.data);
 	}
 
 	if (CFG.simulateAPI) {
@@ -78,10 +72,8 @@ function getSimulatedResponse(_method) {
 }
 
 function didSuccess(_data, _passthrough) {
-	if (OS_IOS || OS_ANDROID) {
-		if (CFG.enableEncryption) {
-			_data = encryptionUtil.decrypt(_data);
-		}
+	if (CFG.enableEncryption) {
+		_data = encryptionUtil.decrypt(_data);
 	}
 	if (_data.code != CFG.apiCodes.SUCCESS) {
 		dialog.show({

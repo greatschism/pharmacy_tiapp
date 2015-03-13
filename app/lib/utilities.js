@@ -40,7 +40,7 @@ var Utility = {
 	getProperty : function(_name, _default, _type, _isEncrypted) {
 		var value = Ti.App.Properties["get" + Utility.ucfirst(_type == "object" || _type == "list" ? "string" : _type)](_name);
 		if (!_.isUndefined(value) && !_.isNull(value)) {
-			if ((OS_IOS || OS_ANDROID) && _isEncrypted !== false) {
+			if (_isEncrypted !== false) {
 				value = require("encryptionUtil").decrypt(value);
 			}
 			if (_type == "object" || _type == "list") {
@@ -64,7 +64,7 @@ var Utility = {
 			_type = "string";
 			_value = JSON.stringify(_value);
 		}
-		if ((OS_IOS || OS_ANDROID) && _isEncrypted !== false) {
+		if (_isEncrypted !== false) {
 			_value = require("encryptionUtil").encrypt(_value);
 		}
 		Ti.App.Properties["set" + Utility.ucfirst(_type)](_name, _value);

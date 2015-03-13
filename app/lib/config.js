@@ -102,36 +102,34 @@ var Config = {
 		 */
 		var lastUpdate = require("alloy/moment")().unix();
 		for (var i in fonts) {
-			var font = fonts[i];
-			if (OS_IOS || OS_ANDROID) {
-				var fontExists = _.findWhere(Alloy.RegFonts, {
-					id : font.id
-				});
-				if (_.isUndefined(fontExists)) {
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
-					Alloy.RegFonts.push(_.extend(utilities.clone(font), {
-						lastUpdate : lastUpdate
-					}));
-				} else {
-					if (fontExists.file != font.file) {
-						if (OS_IOS) {
-							//ios will not allow to update a font, has to be unregistered and registered back
-							Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
-						}
-						//on android, registered font can be just replaced with new value
-						Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+			var font = fonts[i],
+			    fontExists = _.findWhere(Alloy.RegFonts, {
+				id : font.id
+			});
+			if (_.isUndefined(fontExists)) {
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
+					lastUpdate : lastUpdate
+				}));
+			} else {
+				if (fontExists.file != font.file) {
+					if (OS_IOS) {
+						//ios will not allow to update a font, has to be unregistered and registered back
+						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
 					}
-					_.extend(fontExists, {
-						lastUpdate : lastUpdate
-					});
+					//on android, registered font can be just replaced with new value
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
 				}
+				_.extend(fontExists, {
+					lastUpdate : lastUpdate
+				});
 			}
 			Alloy.Fonts[font.code] = font.id;
 		}
 		//remove unwanted fonts from memory
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
-			if (flag && (OS_IOS || OS_ANDROID)) {
+			if (flag) {
 				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
 			}
 			return flag;
@@ -145,17 +143,16 @@ var Config = {
 			if (!_.has(Alloy.Images, code)) {
 				Alloy.Images[code] = {};
 			}
-			var baseDirectory = OS_MOBILEWEB ? Ti.Filesystem.resourcesDirectory : Ti.Filesystem.applicationDataDirectory;
 			for (var orientation in orientations) {
 				Alloy.Images[code][orientation] = {
-					image : Ti.Filesystem.getFile(baseDirectory, resources.directoryImages + "/" + images[i].file).nativePath
+					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath
 				};
 				_.extend(Alloy.Images[code][orientation], _.isObject(images[i].properties) && _.isObject(images[i].properties[orientation]) ? images[i].properties[orientation] : orientations[orientation]);
 			}
 		}
 
 		//theme
-		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.styles.config, ["ios", "android", "mobileweb"])));
+		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.styles.config, ["ios", "android"])));
 		var platform = require("core").device.platform;
 		if (_.isObject(theme.styles.config[platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.styles.config[platform]));
@@ -179,6 +176,7 @@ var Config = {
 			}
 			Alloy.TSS[ts] = tss[ts];
 		}
+		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
 
 		/**
 		 * delete unused resources

@@ -34,7 +34,7 @@ var App = {
 	 * @param {String} statusBarOrientation A Ti.UI orientation value
 	 */
 	device : {
-		platform : OS_IOS ? "ios" : OS_ANDROID ? "android" : "mobileweb",
+		platform : OS_IOS ? "ios" : "android",
 		version : Ti.Platform.version,
 		versionMajor : parseInt(Ti.Platform.version.split(".")[0], 10),
 		versionMinor : parseInt(Ti.Platform.version.split(".")[1], 10),
@@ -52,16 +52,43 @@ var App = {
 	navigator : {},
 
 	/**
-	 * The global window used in the app
-	 * @type {Object}
+	 * The drawer used in app
+	 * @type {Object|Boolean}
 	 */
-	globalWindow : {},
+	drawer : false,
+
+	/**
+	 * The navigationWindow used in the app (iOS only)
+	 * @type {Object|Boolean}
+	 */
+	navigationWindow : false,
+
+	/**
+	 * The rootWindow used in the app (A view on Android)
+	 * @type {Object|Boolean}
+	 */
+	rootWindow : false,
 
 	/**
 	 * Sets up the app singleton and all it's child dependencies.
 	 * **NOTE: This should only be fired only once.**
 	 */
 	init : function(_params) {
+
+		// Get device dimensions
+		App.getDeviceDimensions();
+
+		if (_.has(_params, "drawer")) {
+			App.drawer = _params.drawer;
+		}
+
+		if (_.has(_params, "rootWindow")) {
+			App.rootWindow = _params.rootWindow;
+		}
+
+		if (_.has(_params, "navigationWindow")) {
+			App.navigationWindow = _params.navigationWindow;
+		}
 
 		// Global system Events
 		Ti.Network.addEventListener("change", App.networkChange);
@@ -70,13 +97,9 @@ var App = {
 		Ti.App.addEventListener("resumed", App.resume);
 		Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
-		if (OS_ANDROID) {
-			Ti.Android.currentActivity.addEventListener("resume", App.resume);
-			App.globalWindow.addEventListener("androidback", App.back);
+		if (_.has(_params, "type")) {
+			App.setNavigator(_params.type);
 		}
-
-		// Get device dimensions
-		App.getDeviceDimensions();
 	},
 
 	/**
@@ -84,6 +107,7 @@ var App = {
 	 * **NOTE: This should only be fired only once after init.**
 	 */
 	terminate : function() {
+
 		// Global system Events
 		Ti.Network.removeEventListener("change", App.networkChange);
 		Ti.App.removeEventListener("pause", App.exit);
@@ -91,26 +115,24 @@ var App = {
 		Ti.App.removeEventListener("resumed", App.resume);
 		Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
 
-		if (OS_ANDROID) {
-			Ti.Android.currentActivity.removeEventListener("resume", App.resume);
-			App.globalWindow.removeEventListener("androidback", App.back);
-		}
-
 		App.navigator = {};
+		App.drawer = false;
+		App.navigationWindow = false;
+		App.rootWindow = false;
 	},
 
 	/**
 	 * initiate the navigator object
-	 * @param {Object} _params the argument for the navigator
-	 * @param {String} _params.type type of navigator (required by the init method to determine what navigator to use)
+	 * @param {String} _type type of navigator
 	 */
-	setNavigator : function(_params) {
-		_.extend(_params, {
-			window : App.globalWindow,
+	setNavigator : function(_type) {
+		// Require in the navigation module
+		App.navigator = require(String(_type).concat("/navigation"))({
+			navigationWindow : App.navigationWindow,
+			rootWindow : App.rootWindow,
+			drawer : App.drawer,
 			device : App.device
 		});
-		// Require in the navigation module
-		App.navigator = require(String(_params.type).concat("/navigation"))(_params);
 	},
 
 	/**
@@ -134,77 +156,7 @@ var App = {
 	reloadConfig : function() {
 		if (App.canReload) {
 			App.canReload = false;
-			require("config").load(App.resetNavigator);
-		}
-	},
-
-	resetNavigator : function() {
-		App.navigator.open(App.navigator.startupParams);
-	},
-
-	/**
-	 * Helper to bind the orientation events to a controller.
-	 *
-	 * **NOTE** It is VERY important this is
-	 * managed right because we're adding global events. They must be removed
-	 * or a leak can happen because of all the closures. We could slightly
-	 * reduce the closures if we placed these in the individual controllers
-	 * but then we're duplicating code. This keeps the controllers clean. Currently,
-	 * this method will _add_ and _remove_ the global events, so things should go
-	 * out of scope and GC'd correctly.
-	 *
-	 * @param {Controllers} _controller The controller to bind the orientation events
-	 */
-	bindOrientationEvents : function(_controller) {
-		_controller.window.addEventListener("close", function() {
-			if (_controller.handleOrientation) {
-				Ti.App.removeEventListener("orientationChange", _controller.handleOrientation);
-			}
-		});
-
-		_controller.window.addEventListener("open", function() {
-			Ti.App.addEventListener("orientationChange", function(_event) {
-				if (_controller.handleOrientation) {
-					_controller.handleOrientation(_event);
-				}
-
-				App.setViewsForOrientation(_controller);
-			});
-		});
-	},
-
-	/**
-	 * Update views for current orientation helper
-	 *
-	 * We're doing this because Alloy does not have support for
-	 * orientation support in tss files yet. In order not to duplicate
-	 * a ton of object properties, hardcode them, etc. we're using this method.
-	 *
-	 * Once Alloy has orientation support (e.g. `#myElement[orientation=landscape]`), this
-	 * can be removed and the tss reworked.
-	 *
-	 * All that has to be done is implement the following structure in a `.tss` file:
-	 * 		"#myElement": {
-	 * 			landscape: { backgroundColor: "red" },
-	 * 			portrait: { backgroundColor: "green" }
-	 * 		}
-	 *
-	 * @param {Controllers} _controller
-	 */
-	setViewsForOrientation : function(_controller) {
-		if (!App.device.orientation) {
-			return;
-		}
-
-		// Restricted the UI for portrait and landscape orientation
-		if (App.device.orientation == "portrait" || App.device.orientation == "landscape") {
-			for (var view in _controller.__views) {
-				if (_controller.__views[view][App.device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
-					_controller.__views[view].applyProperties(_controller.__views[view][App.device.orientation]);
-				} else if (_controller.__views[view].wrapper && _controller.__views[view].wrapper[App.device.orientation] && typeof _controller.__views[view].applyProperties == "function") {
-					_controller.__views[view].applyProperties(_controller.__views[view].wrapper[App.device.orientation]);
-				}
-			}
+			require("config").load(App.navigator.resetNavigator);
 		}
 	},
 
@@ -233,24 +185,20 @@ var App = {
 	},
 
 	/**
-	 * Android Back Button event observer
-	 * @param {Object} _event Standard Ti callback
-	 */
-	back : function(_event) {
-		App.navigator.close(1, null, true, null, true);
-	},
-
-	/**
 	 * Handle the orientation change event callback
 	 * @param {Object} _event Standard Ti Callback
 	 */
 	orientationChange : function(_event) {
+
 		// Ignore face-up, face-down and unknown orientation
 		if (_event.orientation === Titanium.UI.FACE_UP || _event.orientation === Titanium.UI.FACE_DOWN || _event.orientation === Titanium.UI.UNKNOWN) {
 			return;
 		}
 
 		App.device.orientation = _event.source.isLandscape() ? "landscape" : "portrait";
+
+		// Get device dimensions
+		App.getDeviceDimensions();
 
 		/**
 		 * Fires an event for orientation change handling throughout the app
@@ -266,6 +214,7 @@ var App = {
 	 * @return {Object} Returns the new values of the new {@link core.device.width} & {@link core.device.height} settings
 	 */
 	getDeviceDimensions : function() {
+
 		// Set device height and width based on orientation
 		switch(App.device.orientation) {
 		case "portrait":

@@ -5,6 +5,20 @@ var app = require("core"),
 var UIHelper = {
 
 	/**
+	 * force accessibility system to focus a view
+	 * Note : Support only on SDK 3.5.1.mscripts and later.
+	 * - Passing a TableViewRow in android would crash since TableViewRowProxy is not actually a view (Refer TiViewProxy.forceCreateView() in TableViewRowProxy.java)
+	 * @param {View} _focusableView to focus
+	 */
+	requestForFocus : function(_focusableView) {
+		if (OS_IOS) {
+			Ti.App.fireSystemEvent(Titanium.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+		} else {
+			Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+		}
+	},
+
+	/**
 	 * Open maps for direction
 	 * @param {String|Object} source address query or latitude and longitude
 	 * @param {String|Object} destination address query or latitude and longitude
@@ -24,13 +38,7 @@ var UIHelper = {
 		if (OS_IOS && Ti.Platform.canOpenURL("comgooglemaps://")) {
 			Ti.Platform.openURL("comgooglemaps://".concat(params));
 		} else {
-			var url = "http://maps.google.com/maps".concat(params);
-			if (OS_MOBILEWEB) {
-				//Ti.Platform.openURL will not open new window on Mobile Web
-				window && window.open(url);
-			} else {
-				Ti.Platform.openURL(url);
-			}
+			Ti.Platform.openURL("http://maps.google.com/maps".concat(params));
 		}
 	},
 
@@ -94,39 +102,31 @@ var UIHelper = {
 					right : properties.right
 				};
 			}
-			if (OS_MOBILEWEB) {
-				if (newWidth == 0) {
-					properties.width = "auto";
-				} else if (newHeight == 0) {
-					properties.height = "auto";
-				}
-			} else {
-				var imgBlob = Ti.Filesystem.getFile(path).read(),
-				    imgWidth = imgBlob.width,
-				    imgHeight = imgBlob.height;
-				imgBlob = null;
-				if (OS_ANDROID) {
-					imgWidth /= app.device.logicalDensityFactor;
-					imgHeight /= app.device.logicalDensityFactor;
-				}
-				if (newWidth == 0) {
-					newHeight = utilities.percentageToValue(newHeight, app.device.height);
-					newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-				} else if (newHeight == 0) {
-					newWidth = utilities.percentageToValue(newWidth, app.device.width);
-					newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
-				}
-				_.extend(newProperties, {
-					width : newWidth,
-					height : newHeight
-				});
-				config.updateImageProperties({
-					code : _o.code,
-					file : utilities.getFileName(path),
-					orientation : app.device.orientation,
-					properties : newProperties
-				});
+			var imgBlob = Ti.Filesystem.getFile(path).read(),
+			    imgWidth = imgBlob.width,
+			    imgHeight = imgBlob.height;
+			imgBlob = null;
+			if (OS_ANDROID) {
+				imgWidth /= app.device.logicalDensityFactor;
+				imgHeight /= app.device.logicalDensityFactor;
 			}
+			if (newWidth == 0) {
+				newHeight = utilities.percentageToValue(newHeight, app.device.height);
+				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
+			} else if (newHeight == 0) {
+				newWidth = utilities.percentageToValue(newWidth, app.device.width);
+				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
+			}
+			_.extend(newProperties, {
+				width : newWidth,
+				height : newHeight
+			});
+			config.updateImageProperties({
+				code : _o.code,
+				file : utilities.getFileName(path),
+				orientation : app.device.orientation,
+				properties : newProperties
+			});
 		}
 		if (_o.apiName == "Ti.UI.ImageView") {
 			_o.applyProperties(properties);
