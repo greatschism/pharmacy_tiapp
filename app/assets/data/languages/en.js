@@ -290,5 +290,8 @@ module.exports = {
 		"strEmailSubjectLoginRecovery" : "Email recovery",
 		"strEmailBodyLoginRecovery" : "I do not remember what email I used!",
 		"strWhy" : "Why?",
+
+		"accessibilityLblMenu" : "Menu",
+		"accessibilityLblBack" : "Back"
 	}
 };

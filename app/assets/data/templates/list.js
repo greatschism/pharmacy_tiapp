@@ -19,7 +19,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "prescriptions"
 								}
@@ -45,7 +45,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "refill_camera"
 								}
@@ -72,7 +72,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "pharmacies"
 								}
@@ -98,7 +98,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "transfer"
 								}
@@ -124,7 +124,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "doctors"
 								}
@@ -150,7 +150,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "account"
 								}

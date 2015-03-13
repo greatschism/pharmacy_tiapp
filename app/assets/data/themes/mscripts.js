@@ -2,6 +2,7 @@ module.exports = {
 	"styles" : {
 		"config" : {
 			"NAVIGATOR" : "hamburger",
+			"LEFT_DRAWER_WIDTH" : 270,
 			"DATE_FORMAT" : "MM/DD/YYYY",
 			"PRESCRIPTION_AUTO_HIDE_AT" : 60,
 			"PRESCRIPTION_TOOLTIP_REMINDER_AT" : 5,
@@ -29,7 +30,15 @@ module.exports = {
 		"tss" : {
 			"Window" : {
 				"backgroundColor" : "#FFFFFF",
-				"navTintColor" : "#FFFFFF"
+				"barColor" : "#F7941E",
+				"navTintColor" : "#FFFFFF",
+				"titleAttributes" : {
+					"font" : {
+						"fontFamily" : "medium",
+						"fontSize" : 17
+					},
+					"color" : "#FFFFFF"
+				}
 			},
 			"ListView" : {
 				"separatorColor" : "#808285"
@@ -77,65 +86,17 @@ module.exports = {
 			"default_height" : {
 				"height" : 50
 			},
-			"nav" : {
-				"backgroundColor" : "#F7941E"
+			"icon_padding_top" : {
+				"top" : 22
 			},
-			"nav_title_lbl" : {
-				"left" : "25%",
-				"right" : "25%",
-				"height" : 22,
-				"ellipsize" : true,
-				"wordWrap" : false,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 17
-				},
-				"textAlign" : "center",
-				"color" : "#FFFFFF"
+			"icon_padding_bottom" : {
+				"bottom" : 22
 			},
-			"nav_action_container" : {
-				"width" : "25%",
-				"height" : "100%"
+			"icon_padding_left" : {
+				"left" : 22
 			},
-			"nav_action_lbl" : {
-				"height" : 19,
-				"ellipsize" : true,
-				"wordWrap" : false,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"color" : "#FFFFFF"
-			},
-			"nav_action_lbl_after_icon" : {
-				"height" : 17,
-				"ellipsize" : true,
-				"wordWrap" : false,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 12
-				},
-				"color" : "#FFFFFF"
-			},
-			"nav_icon_margin_top" : {
-				"top" : 12
-			},
-			"nav_icon_margin_bottom" : {
-				"bottom" : 12
-			},
-			"nav_icon_margin_left" : {
-				"left" : 12
-			},
-			"nav_icon_margin_right" : {
-				"right" : 12
-			},
-			"nav_icon" : {
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 22
-				},
-				"textAlign" : "center",
-				"color" : "#FFFFFF"
+			"icon_padding_right" : {
+				"right" : 22
 			},
 			"small_icon_margin_top" : {
 				"top" : 12
@@ -179,28 +140,12 @@ module.exports = {
 					"fontSize" : 64
 				}
 			},
-			"icon_padding_top" : {
-				"top" : 22
-			},
-			"icon_padding_bottom" : {
-				"bottom" : 22
-			},
-			"icon_padding_left" : {
-				"left" : 22
-			},
-			"icon_padding_right" : {
-				"right" : 22
-			},
-			"lbl_after_icon" : {
-				"height" : 22,
-				"ellipsize" : true,
-				"wordWrap" : false,
+			"nav_icon_btn" : {
 				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontFamily" : "icon",
+					"fontSize" : 22
 				},
-				"textAlign" : "left",
-				"color" : "#000000"
+				"color" : "#FFFFFF"
 			},
 			"search_view" : {
 				"left" : 0,
@@ -739,9 +684,9 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
-				"color" : "#000",
+				"color" : "#000000",
 				"boldFontFamily" : "bold",
-				"boldColor" : "#FFFFFF"
+				"boldColor" : "#000000"
 			},
 			"list_item_title_lbl" : {
 				"height" : 22,
@@ -754,7 +699,7 @@ module.exports = {
 				"textAlign" : "left",
 				"color" : "#000000",
 				"boldFontFamily" : "bold",
-				"boldColor" : "#FFFFFF"
+				"boldColor" : "#000000"
 			},
 			"list_item_subtitle_lbl" : {
 				"top" : 12,

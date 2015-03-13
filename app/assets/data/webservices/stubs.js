@@ -69,35 +69,35 @@ module.exports = {
 						"code" : "icon",
 						"format" : "ttf",
 						"url" : "https://staging.remscripts.com/nativemia/mscripts.ttf",
-						"platform" : ["ios", "android", "mobileweb"]
+						"platform" : ["ios", "android"]
 					}, {
 						"id" : "Roboto-Light",
 						"version" : 1,
 						"code" : "light",
 						"format" : "ttf",
 						"url" : "https://staging.remscripts.com/nativemia/Roboto-Light.ttf",
-						"platform" : ["android", "mobileweb"]
+						"platform" : ["android"]
 					}, {
 						"id" : "Roboto-Regular",
 						"version" : 1,
 						"code" : "regular",
 						"format" : "ttf",
 						"url" : "https://staging.remscripts.com/nativemia/Roboto-Regular.ttf",
-						"platform" : ["android", "mobileweb"]
+						"platform" : ["android"]
 					}, {
 						"id" : "Roboto-Medium",
 						"version" : 1,
 						"code" : "medium",
 						"format" : "ttf",
 						"url" : "https://staging.remscripts.com/nativemia/Roboto-Medium.ttf",
-						"platform" : ["android", "mobileweb"]
+						"platform" : ["android"]
 					}, {
 						"id" : "Roboto-Bold",
 						"version" : 1,
 						"code" : "bold",
 						"format" : "ttf",
 						"url" : "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
-						"platform" : ["android", "mobileweb"]
+						"platform" : ["android"]
 					}, {
 						"id" : "Lato-Light",
 						"version" : 1,

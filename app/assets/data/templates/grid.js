@@ -13,13 +13,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "prescriptions"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "strPrescriptions"
 								}
@@ -34,13 +34,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "refill_camera"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "strRefillNow"
 								}
@@ -64,13 +64,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "pharmacies"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleStores"
 								}
@@ -85,13 +85,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "transfer"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleTransferPrescription"
 								}
@@ -115,13 +115,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "doctors"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleDoctors"
 								}
@@ -136,13 +136,13 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["large-icon", "primary-color", "touch-disabled"],
+								"classes" : ["large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
 									"icon" : "account"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["padding-top", "margin-left", "margin-right", "title-lbl", "text-center", "touch-disabled"],
+								"classes" : ["padding-top", "margin-left", "margin-right", "single-line-title-lbl", "text-center", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleAccount"
 								}
