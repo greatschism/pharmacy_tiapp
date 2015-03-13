@@ -41,4 +41,45 @@
 },
 "#hideBtn":{
 	title: Alloy.Globals.strings.btnHideThisPrescription
+},
+"#dummy":{
+	backgroundColor: "#EFFBFB",
+	width: Ti.FILL_WIDTH,
+	height: 50
+},
+"#moreHelpLbl":{
+	text: "More help for your configurable condition",
+	color: "#000000",
+	font:{
+		fontSize: 15
+	}
+},
+"#configReadLbl":{
+	text: "Configurable text item"
+},
+"#configAdherLbl":{
+
+	font:{
+		fontSize: 16
+	},
+	left: 80,
+	text: "Configurable adherance item with image."
+},
+"#readLbl":{
+	font:{
+		fontSize: 12
+	},
+	right: 40,
+	text: "Read",
+	color: "#BDBDBD"
+},
+"#iconLbl":{
+	font:{
+		fontSize: 70,
+		fontFamily: "mscripts"
+	},
+	left: 0,
+	color: "#F6931E",
+	text: Alloy.CFG.icons.user
 }
+
