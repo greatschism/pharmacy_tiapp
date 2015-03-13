@@ -1,0 +1,16 @@
+<Alloy>
+	<TableView dataCollection="menuItems" dataTransform="transformFunction" dataFilter="filterFunction" onClick="didItemClick">
+		<HeaderView>
+			<View id="headerView" class="touch-disabled accessibility-disabled" />
+		</HeaderView>
+		<TableViewRow class="primary-bg-color">
+			<View class="list-item-view hgroup no-hwrap touch-disabled">
+				<Label text="{icon}" class="left small-icon secondary-color touch-disabled accessibility-disabled" />
+				<Label text="{title}" class="padding-left list-item-lbl secondary-color touch-disabled" />
+			</View>
+		</TableViewRow>
+		<FooterView>
+			<View id="footerView" class="touch-disabled accessibility-disabled" />
+		</FooterView>
+	</TableView>
+</Alloy>

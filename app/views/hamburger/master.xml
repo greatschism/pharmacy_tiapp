@@ -1,5 +1,14 @@
 <Alloy>
-	<Window id="window" onOpen="didOpen" onClose="didClose">
-		<Widget id="hamburger" src="com.mscripts.hamburger" />
-	</Window>
+	<Widget id="drawer" src="nl.fokkezb.drawer" onWindowDidOpen="didLeftWindowOpen" onOpen="didOpen" onClose="didClose">
+		<Window id="leftWindow" platform="ios" role="leftWindow">
+			<Require id="menuCtrl" src="hamburger/menu" />
+		</Window>
+		<NavigationWindow id="navigationWindow" platform="ios" role="centerWindow">
+			<Window id="rootWindow" />
+		</NavigationWindow>
+		<View id="leftWindow" platform="android" role="leftWindow">
+			<Require id="menuCtrl" src="hamburger/menu" />
+		</View>
+		<View id="rootWindow" platform="android" role="centerWindow" />
+	</Widget>
 </Alloy>
