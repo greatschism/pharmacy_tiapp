@@ -112,3 +112,5 @@ function hideNavBar(_animated) {
 function setRightNavButton(_view) {
 	$.window.setRightNavButton(_view);
 }
+
+exports.ctrlPath = controller ? controller.__controllerPath : "";

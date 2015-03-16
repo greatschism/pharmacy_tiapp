@@ -32,19 +32,22 @@ function didItemClick(e) {
 	if (app.navigator.drawer.isLeftWindowOpen()) {
 		app.navigator.drawer.closeLeftWindow();
 	}
-	if (itemObj.ctrl && itemObj.ctrl != app.navigator.currentController.__controllerPath) {
-		if (itemObj.requires_login && !Alloy.Globals.loggedIn) {
-			if (app.navigator.currentController.__controllerPath != "login") {
-				app.navigator.open({
-					ctrl : "login",
-					titleid : "strLogin",
-					ctrlArguments : {
-						navigation : itemObj
-					}
-				});
+	if (itemObj.ctrl) {
+		var ctrlPath = app.navigator.currentController.ctrlPath;
+		if (itemObj.ctrl != ctrlPath) {
+			if (itemObj.requires_login && !Alloy.Globals.loggedIn) {
+				if (ctrlPath != "login") {
+					app.navigator.open({
+						ctrl : "login",
+						titleid : "strLogin",
+						ctrlArguments : {
+							navigation : itemObj
+						}
+					});
+				}
+			} else {
+				app.navigator.open(itemObj);
 			}
-		} else {
-			app.navigator.open(itemObj);
 		}
 	} else if (itemObj.action) {
 		switch(itemObj.action) {
