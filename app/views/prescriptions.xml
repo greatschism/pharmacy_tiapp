@@ -1,5 +1,6 @@
 <Alloy>
-	<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />
+	<!--<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />-->
+
 	<Widget id="sortPicker" src="com.mscripts.optionpicker" class="optionpicker" onClick="didClickSortPicker" />
 	<Widget id="unhidePicker" src="com.mscripts.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">
@@ -13,9 +14,7 @@
 			<Button id="closeBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickCloseBtn" />
 		</View>
 	</Widget>
-	<View id="optionsView" class="right nav-action-container" onClick="didClickOptionView">
-		<Label id="optionsLbl" class="margin-right nav-icon touch-disabled" />
-	</View>
+	<Button id="rightNavBtn" class="role-right-nav-btn nav-btn" onClick="didClickOptionView"/>
 	<View id="searchView" class="top search-view fade-out">
 		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt" onChange="didChangeSearch" onClear="didChangeSearch" />
 	</View>
