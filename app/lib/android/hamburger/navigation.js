@@ -91,14 +91,15 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		if (that.controllers.length) {
-			that.controllers.pop().terminate();
-			that.controllers = [];
-		}
-
 		that.currentController = Alloy.createController("hamburger/view", _params);
 
 		that.drawer.setCenterWindow(that.currentController.getView());
+
+		if (that.controllers.length) {
+			that.closeToRoot();
+			that.controllers.pop().terminate();
+			that.controllers = [];
+		}
 
 		that.currentController.focus();
 

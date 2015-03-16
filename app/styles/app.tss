@@ -361,9 +361,17 @@
 /*
 *navbar
 */
+".nav-btn":{
+	font: Alloy.TSS.nav_btn.font,
+	color: Alloy.TSS.nav_btn.color,
+	backgroundColor: Alloy.TSS.nav_btn.backgroundColor,
+	borderColor: Alloy.TSS.nav_btn.borderColor
+},
 ".nav-icon-btn":{
 	font: Alloy.TSS.nav_icon_btn.font,
-	color: Alloy.TSS.nav_icon_btn.color
+	color: Alloy.TSS.nav_icon_btn.color,
+	backgroundColor: Alloy.TSS.nav_icon_btn.backgroundColor,
+	borderColor: Alloy.TSS.nav_icon_btn.borderColor
 },
 ".role-right-nav-btn":{
 	role: "rightNavButton"

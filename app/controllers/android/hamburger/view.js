@@ -9,37 +9,14 @@ var args = arguments[0] || {},
 
 	abextras.setTitle(args.title || Alloy.Globals.strings[args.titleid || ""] || "");
 
-	var dict = {};
 	if (args.navBarHidden) {
-		dict.navBarHidden = true;
+		hideNavBar();
 	}
-
-	$.leftNavView = Ti.UI.createView();
-
-	if (args.stack) {
-		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_NONE);
-		$.leftNavBtn = $.UI.create("Button", {
-			classes : ["nav-icon-btn"],
-			title : Alloy.CFG.icons.back,
-			accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
-		});
-	} else {
-		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_MARGIN);
-		$.leftNavBtn = $.UI.create("Button", {
-			classes : ["nav-icon-btn"],
-			title : Alloy.CFG.icons.hamburger,
-			accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
-		});
-	}
-
-	$.leftNavView.addEventListener("click", didClickLeftNavView);
-
-	$.leftNavView.add($.leftNavBtn);
-
-	dict.leftNavButton = $.leftNavView;
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
+
+	var hasRightNavButton = false;
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
@@ -52,14 +29,17 @@ var args = arguments[0] || {},
 		}
 		switch(child.role) {
 		case "rightNavButton":
-			dict.rightNavButton = child;
+			hasRightNavButton = true;
+			setRightNavButton(child);
 			break;
 		default:
 			$.containerView.add(child);
 		}
 	});
 
-	//$.window.applyProperties(dict);
+	if (!hasRightNavButton) {
+		setRightNavButton();
+	}
 
 	controller.app = app;
 
@@ -89,31 +69,33 @@ function terminate(e) {
 	_.isFunction(controller.terminate) && controller.terminate();
 }
 
-function didClickLeftNavView(e) {
-	if (args.stack) {
-		if (_.isFunction(controller.backButtonHandler) && controller.backButtonHandler()) {
-			return;
-		}
-		app.navigator.close();
-	} else {
-		app.navigator.drawer.toggleLeftWindow();
+function showNavBar(_animated) {
+	var actionBar = $.rootWindow.getActivity().actionBar;
+	if (actionBar) {
+		actionBar.show();
 	}
 }
 
-function showNavBar(_animated) {
-	$.window.showNavBar({
-		animated : _.isUndefined(_animated) ? true : false
-	});
-}
-
 function hideNavBar(_animated) {
-	$.window.hideNavBar({
-		animated : _.isUndefined(_animated) ? true : false
-	});
+	var actionBar = $.rootWindow.getActivity().actionBar;
+	if (actionBar) {
+		actionBar.hide();
+	}
 }
 
 function setRightNavButton(_view) {
-	$.window.setRightNavButton(_view);
+	var activity = $.window.getActivity();
+	activity.onCreateOptionsMenu = function(e) {
+		var menu = e.menu;
+		menu.clear();
+		if (_view) {
+			menu.add({
+				actionView : _view,
+				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
+			});
+		}
+	};
+	activity.invalidateOptionsMenu();
 }
 
 exports.blur = blur;

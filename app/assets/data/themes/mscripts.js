@@ -145,7 +145,18 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
-				"color" : "#FFFFFF"
+				"color" : "#FFFFFF",
+				"backgroundColor" : "transparent",
+				"borderColor" : "transparent"
+			},
+			"nav_btn" : {
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"color" : "#FFFFFF",
+				"backgroundColor" : "transparent",
+				"borderColor" : "transparent"
 			},
 			"search_view" : {
 				"left" : 0,

@@ -29,9 +29,6 @@ function transformFunction(model) {
 function didItemClick(e) {
 	var model = Alloy.Collections.menuItems.at(e.index),
 	    itemObj = model.toJSON();
-	if (app.navigator.drawer.isLeftWindowOpen()) {
-		app.navigator.drawer.closeLeftWindow();
-	}
 	if (itemObj.ctrl) {
 		var ctrlPath = app.navigator.currentController.ctrlPath;
 		if (itemObj.ctrl != ctrlPath) {
@@ -49,7 +46,13 @@ function didItemClick(e) {
 				app.navigator.open(itemObj);
 			}
 		}
+		if (app.navigator.drawer.isLeftWindowOpen()) {
+			app.navigator.drawer.closeLeftWindow();
+		}
 	} else if (itemObj.action) {
+		if (app.navigator.drawer.isLeftWindowOpen()) {
+			app.navigator.drawer.closeLeftWindow();
+		}
 		switch(itemObj.action) {
 		case "signout":
 			dialog.show({

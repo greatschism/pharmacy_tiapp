@@ -49,7 +49,7 @@ var args = arguments[0] || {},
 		}
 		switch(child.role) {
 		case "rightNavButton":
-			dict.rightNavButton = child;
+			setRightNavButton(child);
 			break;
 		default:
 			$.window.add(child);
@@ -110,7 +110,9 @@ function hideNavBar(_animated) {
 }
 
 function setRightNavButton(_view) {
-	$.window.setRightNavButton(_view);
+	var wrapperView = Ti.UI.createView();
+	wrapperView.add(_view);
+	$.window.setRightNavButton(wrapperView);
 }
 
 exports.ctrlPath = controller ? controller.__controllerPath : "";

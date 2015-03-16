@@ -70,7 +70,7 @@ function didItemClick(e) {
 	}
 }
 
-function didClickRightNavView(e) {
+function didClickRightNav(e) {
 	$.app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",
