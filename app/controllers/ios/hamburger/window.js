@@ -60,7 +60,11 @@ var args = arguments[0] || {},
 
 	controller.app = app;
 
-	controller.hideNavBar = hideNavBar;
+	controller.window = $.window;
+
+	controller.setRightNavButton = setRightNavButton;
+
+	controller.showNavBar = showNavBar;
 
 	controller.hideNavBar = hideNavBar;
 
@@ -103,4 +107,8 @@ function hideNavBar(_animated) {
 	$.window.hideNavBar({
 		animated : _.isUndefined(_animated) ? true : false
 	});
+}
+
+function setRightNavButton(_view) {
+	$.window.setRightNavButton(_view);
 }

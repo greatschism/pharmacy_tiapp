@@ -62,10 +62,9 @@ function didItemClick(e) {
 								patients : {}
 							});
 							Alloy.Collections.menuItems.remove(model);
-							app.navigator.open(landingPage, function() {
-								dialog.show({
-									message : Alloy.Globals.strings.msgSignedoutSuccessfully
-								});
+							app.navigator.open(landingPage);
+							dialog.show({
+								message : Alloy.Globals.strings.msgSignedoutSuccessfully
 							});
 						}
 					});

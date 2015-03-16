@@ -1,4 +1,6 @@
 <Alloy>
-	<Button id="rightNavBtn" class="nav-btn role-right-nav-btn" onClick="didClickRightNavBtn" />
+	<View id="rightNavView" class="role-right-nav-btn" onClick="didClickRightNavView" if="!Alloy.Globals.loggedIn">
+		<Button id="rightNavBtn" />
+	</View>
 	<View id="containerView" />
 </Alloy> 

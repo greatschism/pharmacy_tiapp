@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    app = require("core"),
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons;
 
@@ -8,8 +7,6 @@ function init() {
 	for (var i in homePageTemplate) {
 		$.containerView.add(create(homePageTemplate[i]));
 	}
-	Alloy.Models.user.on("change", didChangeAuthorization);
-	Alloy.Models.user.trigger("change");
 }
 
 function create(_dict) {
@@ -55,21 +52,12 @@ function create(_dict) {
 	return element;
 }
 
-function didChangeAuthorization() {
-	var loggedIn = Alloy.Models.user.get("logged_in");
-	$.rightNavBtn.applyProperties({
-		touchEnabled : !loggedIn,
-		accessibilityHidden : loggedIn,
-		visible : !loggedIn
-	});
-}
-
 function didItemClick(e) {
 	var navigation = e.source.navigation;
 	if (!_.isEmpty(navigation) && _.has(navigation, "ctrl")) {
 		navigation = Alloy.Collections.menuItems.where(navigation)[0].toJSON();
 		if (navigation.requires_login && !Alloy.Globals.loggedIn) {
-			app.navigator.open({
+			$.app.navigator.open({
 				ctrl : "login",
 				titleid : "strLogin",
 				ctrlArguments : {
@@ -77,21 +65,16 @@ function didItemClick(e) {
 				}
 			});
 		} else {
-			app.navigator.open(navigation);
+			$.app.navigator.open(navigation);
 		}
 	}
 }
 
-function didClickRightNavBtn(e) {
-	app.navigator.open({
+function didClickRightNavView(e) {
+	$.app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",
 	});
 }
 
-function terminate() {
-	Alloy.Models.user.off("change", didChangeAuthorization);
-}
-
 exports.init = init;
-exports.terminate = terminate;
