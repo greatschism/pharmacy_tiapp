@@ -1,6 +1,8 @@
-"#optionsLbl":{
-	text: Alloy.CFG.icons.options
+"#rightNavBtn":{
+	title: Alloy.CFG.icons.options,
+
 },
+
 "#optionsMenu":{
 	items: [
 		{
