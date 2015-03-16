@@ -44,6 +44,9 @@ var args = arguments[0] || {},
 		if (child.__controllerPath) {
 			child = child.getView();
 		}
+		if (!child) {
+			return;
+		}
 		switch(child.role) {
 		case "rightNavButton":
 			dict.rightNavButton = child;
