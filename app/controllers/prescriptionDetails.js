@@ -1,6 +1,12 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment"),
+   moment = require("alloy/moment"),
     app = require("core"),
+    uihelper = require("uihelper"),
+    http = require("requestwrapper"),
+    utilities = require("utilities"),
+    dialog = require("dialog"),
+    icons = Alloy.CFG.icons,
+    strings = Alloy.Globals.strings,
     prescription;
 
 function init() {
@@ -32,7 +38,7 @@ function didClickRefillPrescription()
 			ctrl : "orderDetails",
 			titleid : "titleOrderDetails",
 			ctrlArguments : {
-				prescription : prescription.presc_name
+			//	prescription : prescription.presc_name
 			},
 			stack : true
 	});
