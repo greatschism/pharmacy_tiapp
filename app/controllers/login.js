@@ -78,6 +78,10 @@ function didClickLogin(e) {
 	}
 }
 
+function outputState() {
+	Ti.API.info('Switch value: ' + $.basicSwitch.value);
+}
+
 function didAuthenticate(_result) {
 	Alloy.Models.user.set({
 		logged_in : true,
@@ -140,6 +144,12 @@ function didFail(_passthrough) {
 
 function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
+	Ti.API.info('Switch value: ' + $.keepMeSwt.value);
+	if ($.keepMeSwt.value) {
+		$.keepMeSwt.setBackgroundImage("/images/toggle_btn_on.png");
+	} else {
+		$.keepMeSwt.setBackgroundImage("/images/toggle_btn_off.png");
+	}
 }
 
 function didClickPwd(e) {

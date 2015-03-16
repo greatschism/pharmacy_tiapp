@@ -9,9 +9,9 @@
 		</View>
 		<View class="padding-top margin-left margin-right auto-height">
 			<Label id="keepMeLbl" class="left text-left lbl" />
-			<Widget id="keepMeSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
+			<Switch id="keepMeSwt" value="true" class="right swt" onChange="handleScroll" onTouch="handleScroll" titleOn="" titleOff="" backgroundImage="/images/toggle_btn_on.png" width="80" height="30"/>
 		</View>
 		<Button id="loginBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickLogin" />
 		<Widget id="signupLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
 	</ScrollView>
-</Alloy> 
+</Alloy>
