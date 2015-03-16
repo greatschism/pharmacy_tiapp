@@ -38,7 +38,13 @@ var Utility = {
 	 * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
 	 */
 	getProperty : function(_name, _default, _type, _isEncrypted) {
-		var value = Ti.App.Properties["get" + Utility.ucfirst(_type == "object" || _type == "list" ? "string" : _type)](_name);
+		var type = _type || "string";
+		if (type == "object" || type == "list") {
+			type = "string";
+		} else if (type == "int" || type == "bool") {
+			_isEncrypted = false;
+		}
+		var value = Ti.App.Properties["get" + Utility.ucfirst(type)](_name);
 		if (!_.isUndefined(value) && !_.isNull(value)) {
 			if (_isEncrypted !== false) {
 				value = require("encryptionUtil").decrypt(value);
@@ -60,9 +66,12 @@ var Utility = {
 	 * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
 	 */
 	setProperty : function(_name, _value, _type, _isEncrypted) {
-		if (_type == "object" || _type == "list") {
-			_type = "string";
+		var type = _type || "string";
+		if (type == "object" || type == "list") {
+			type = "string";
 			_value = JSON.stringify(_value);
+		} else if (type == "int" || type == "bool") {
+			_isEncrypted = false;
 		}
 		if (_isEncrypted !== false) {
 			_value = require("encryptionUtil").encrypt(_value);

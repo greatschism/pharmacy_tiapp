@@ -19,6 +19,11 @@ var App = {
 	canReload : false,
 
 	/**
+	 * callback to be called after app update
+	 */
+	updateCallback : {},
+
+	/**
 	 * Device information, some come from the Ti API calls and can be referenced
 	 * from here so multiple bridge calls aren't necessary, others generated here
 	 * for ease of calculations and such.
@@ -52,24 +57,6 @@ var App = {
 	navigator : {},
 
 	/**
-	 * The drawer used in app
-	 * @type {Object|Boolean}
-	 */
-	drawer : false,
-
-	/**
-	 * The navigationWindow used in the app (iOS only)
-	 * @type {Object|Boolean}
-	 */
-	navigationWindow : false,
-
-	/**
-	 * The rootWindow used in the app (A view on Android)
-	 * @type {Object|Boolean}
-	 */
-	rootWindow : false,
-
-	/**
 	 * Sets up the app singleton and all it's child dependencies.
 	 * **NOTE: This should only be fired only once.**
 	 */
@@ -77,18 +64,6 @@ var App = {
 
 		// Get device dimensions
 		App.getDeviceDimensions();
-
-		if (_.has(_params, "drawer")) {
-			App.drawer = _params.drawer;
-		}
-
-		if (_.has(_params, "rootWindow")) {
-			App.rootWindow = _params.rootWindow;
-		}
-
-		if (_.has(_params, "navigationWindow")) {
-			App.navigationWindow = _params.navigationWindow;
-		}
 
 		// Global system Events
 		Ti.Network.addEventListener("change", App.networkChange);
@@ -98,7 +73,7 @@ var App = {
 		Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
 		if (_.has(_params, "type")) {
-			App.setNavigator(_params.type);
+			App.setNavigator(_params);
 		}
 	},
 
@@ -115,30 +90,28 @@ var App = {
 		Ti.App.removeEventListener("resumed", App.resume);
 		Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
 
+		App.navigator.terminate();
 		App.navigator = {};
-		App.drawer = false;
-		App.navigationWindow = false;
-		App.rootWindow = false;
 	},
 
 	/**
 	 * initiate the navigator object
-	 * @param {String} _type type of navigator
+	 * @param {Object} _params type of navigator
 	 */
-	setNavigator : function(_type) {
+	setNavigator : function(_params) {
 		// Require in the navigation module
-		App.navigator = require(String(_type).concat("/navigation"))({
-			navigationWindow : App.navigationWindow,
-			rootWindow : App.rootWindow,
-			drawer : App.drawer,
+		App.navigator = require(String(_params.type).concat("/navigation"))(_.extend(_params, {
 			device : App.device
-		});
+		}));
 	},
 
 	/**
 	 * handles the async update
 	 */
-	update : function() {
+	update : function(_updateCallback) {
+		if (_.isFunction(_updateCallback)) {
+			App.updateCallback = _updateCallback;
+		}
 		App.canReload = true;
 		require("config").updateResources(App.promptAndReloadConfig);
 	},
@@ -154,9 +127,12 @@ var App = {
 	},
 
 	reloadConfig : function() {
-		if (App.canReload) {
+		if (App.canReload && _.isFunction(App.updateCallback)) {
 			App.canReload = false;
-			require("config").load(App.navigator.resetNavigator);
+			require("config").load(function() {
+				App.updateCallback();
+				App.updateCallback = {};
+			});
 		}
 	},
 

@@ -195,6 +195,19 @@ function Navigation(_args) {
 	};
 
 	/**
+	 * close all the windows  including the drawer
+	 */
+	this.terminate = function() {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		App.navigator.closeToRoot();
+		that.drawer.close();
+	};
+
+	/**
 	 *block ui
 	 * @param {Object} _params
 	 */
