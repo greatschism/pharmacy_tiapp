@@ -30,6 +30,7 @@ var args = arguments[0] || {},
 	classes : ["padding-top", "padding-bottom", "padding-right", "show", "arrow-left", "critical-tooltip"],
 	width : 150
 }),
+
     tooltipLblStyle = $.createStyle({
 	classes : ["tooltip-lbl"]
 });
@@ -152,7 +153,50 @@ function didItemClick(e) {
 }
 
 function didClickOptionView(e) {
-	$.optionsMenu.toggle();
+
+	var TiNorm = require('com.alcoapps.normalizations');
+	var cancelIndex = 4;
+	var OptionsMenu = new TiNorm.OptionsMenu({
+		parent : $.index,
+		title : "Options Menu",
+		options : [{
+			title : Alloy.Globals.strings.menuSearch
+		}, {
+			title : Alloy.Globals.strings.menuSort
+		}, {
+			title : Alloy.Globals.strings.menuUnhidePrescriptions
+		}, {
+			title : Alloy.Globals.strings.menuRefresh
+		}, {
+			title : "Cancel"
+		}],
+
+		destructive : cancelIndex,
+		callback : function(e) {
+			switch (e.index) {
+			case 0:
+				toggleSearchView();
+				break;
+			case 1:
+				sort();
+				break;
+			case 2:
+				alert('Clicked on Option3');
+				break;
+			case 3:
+				init();
+				break;
+			case 4:
+				break;
+			}
+		}
+	});
+	OptionsMenu.show();
+}
+
+function doClickOptionDialog(e) {
+
+	alert(e.index);
 }
 
 function didClickOptionMenu(e) {
