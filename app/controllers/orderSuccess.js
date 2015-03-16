@@ -48,7 +48,7 @@ function didSuccessRefill(_result) {
 	refillPrescriptions = _result.data.prescriptions || [];
 	console.log("refill prescriptions" + refillPrescriptions);
 
-	if (refillPrescriptions.length) {
+	//if (refillPrescriptions.length) {
 		for ( i = 0; i < refillPrescriptions.length; i++) {
 			var data = [];
 			http.request({
@@ -91,19 +91,28 @@ function didSuccessRefill(_result) {
 				}
 			});
 
-			for (var i in refillPrescriptions) {
+			//for (var i in refillPrescriptions) {
 				data.push(getRow({
-					name : prescNamesArray[i].presc_name,
-					refill_promised_date : refillPrescriptions[i].refill_promised_date,
-					refill_is_error : refillPrescriptions[i].refill_is_error,
-					refill_inline_message : refillPrescriptions[i].refill_inline_message
+					name : prescNamesArray[0].presc_name,
+					refill_promised_date : refillPrescriptions[0].refill_promised_date,
+					refill_is_error : refillPrescriptions[0].refill_is_error,
+					refill_inline_message : refillPrescriptions[0].refill_inline_message
 
 				}));
-			}
+		//	}
 			
 			$.tableView.setData(data);
 		}
-	}
+	//}
+	// else{
+		// data.push(getRow({
+			// name :prescNamesArray[0].presc_name,
+					// refill_promised_date : refillPrescriptions[0].refill_promised_date,
+					// refill_is_error : refillPrescriptions[0].refill_is_error,
+					// refill_inline_message : refillPrescriptions[0].refill_inline_message
+// 
+		// }));
+	// }
 }
 
 function getRow(data) {
@@ -127,7 +136,7 @@ function getRow(data) {
 	}),
 	    orderPickUpLblIcon = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["left","large-icon"]
+		classes : ["left","large-icon","success-color"]
 
 	});
 	
@@ -146,14 +155,14 @@ function getRow(data) {
 
 	listItemView.add(rxLabel);
 	listItemView.add(readyByDateLabel);
-	if (data.refill_is_error == true) {
+	if (data.refill_is_error = true) {
  
-		 orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox,
-		 orderPickUpLblIcon.color = Alloy.success_color;
+		 orderPickUpLblIcon.text = Alloy.CFG.icons.checkbox;
+		
 		
 	 }
 	 else if (data.refill_is_error = false) {
-		orderPickUpLblIcon.text = Alloy.CFG.icons.remove, orderPickUpLblIcon.color = Alloy.error_color;
+		orderPickUpLblIcon.text = Alloy.CFG.icons.remove;
 	 }
 	
 	
