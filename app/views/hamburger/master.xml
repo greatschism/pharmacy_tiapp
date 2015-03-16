@@ -9,6 +9,6 @@
 		<View id="leftWindow" platform="android" role="leftWindow">
 			<Require id="menuCtrl" src="hamburger/menu" />
 		</View>
-		<View id="rootWindow" platform="android" role="centerWindow" />
+		<View id="centerView" platform="android" role="centerWindow" />
 	</Widget>
 </Alloy>

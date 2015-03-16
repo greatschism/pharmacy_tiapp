@@ -1,15 +1,16 @@
 "#drawer":{
 	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH,
-	animationMode: "ANIMATION_SCALE",
-	closeDrawerGestureMode: "CLOSE_MODE_ALL"
+	animationMode: "ANIMATION_SCALE"
 },
 "#drawer[platform=ios]":{
 	accessibilityLabel: Ti.App.name,
 	openDrawerGestureMode: "OPEN_MODE_BEZEL_PANNING_CENTERWINDOW",
+	closeDrawerGestureMode: "CLOSE_MODE_ALL",
 	animationMode: "ANIMATION_SLIDE"
 },
 "#drawer[platform=android]":{
 	openDrawerGestureMode: "OPEN_MODE_MARGIN",
+	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
 	animationMode: "ANIMATION_NONE"
 },
 "#drawer[formFactor=handheld]":{
@@ -23,4 +24,7 @@
 },
 "#rootWindow[platform=ios]":{
 	navBarHidden: true
+},
+"#centerView[platform=android]":{
+	backgroundColor: "#FFFFFF"
 }

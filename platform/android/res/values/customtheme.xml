@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.NoActionBar" parent="@style/Theme.AppCompat.Light">
-    	<item name="android:windowBackground">@drawable/background</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+	<style name="Theme.Mscripts" parent="@style/Theme.AppCompat.Light">
+		<item name="android:windowBackground">@drawable/background</item>
 		<item name="android:textCursorDrawable">@null</item>
-    </style>
+	</style>
 </resources>

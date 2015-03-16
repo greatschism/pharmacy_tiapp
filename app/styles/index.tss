@@ -1,5 +1,6 @@
 "#index[platform=android]":{
-	exitOnClose: true
+	exitOnClose: true,
+	theme: "Theme.AppCompat.Translucent.NoTitleBar"
 },
 "#loading":{
 	message: Alloy.Globals.strings.msgPleaseWait

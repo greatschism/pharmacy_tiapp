@@ -11,10 +11,12 @@ var UIHelper = {
 	 * @param {View} _focusableView to focus
 	 */
 	requestForFocus : function(_focusableView) {
-		if (OS_IOS) {
-			Ti.App.fireSystemEvent(Titanium.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
-		} else {
-			Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+		if (Ti.App.accessibilityEnabled) {
+			if (OS_IOS) {
+				Ti.App.fireSystemEvent(Titanium.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+			} else {
+				Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+			}
 		}
 	},
 

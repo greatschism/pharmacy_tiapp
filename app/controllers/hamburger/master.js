@@ -22,9 +22,32 @@ function updateCallback() {
 	Alloy.Collections.menuItems.trigger("reset");
 }
 
-function didOpen() {
+function didOpen(e) {
 	if (!_.isEmpty(app.navigator)) {
 		app.terminate();
+	}
+	if (OS_ANDROID) {
+		$.rootWindow = this;
+		$.rootWindow.addEventListener("androidback", function didAndoridBack() {
+			app.navigator.close(1, true);
+		});
+		var actionBar = $.rootWindow.getActivity().actionBar;
+		if (actionBar) {
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setOnHomeIconItemSelected(function() {
+				app.navigator.drawer.toggleLeftWindow();
+			});
+		}
+		var abextras = require("com.alcoapps.actionbarextras");
+		abextras.setWindow($.rootWindow);
+		abextras.setBackgroundColor(Alloy.TSS.Window.barColor);
+		abextras.setFont(Alloy.TSS.Window.titleAttributes.font);
+		abextras.setColor(Alloy.TSS.Window.titleAttributes.color);
+		abextras.setLogo({
+			icon : Alloy.CFG.icons.hamburger,
+			fontFamily : Alloy.TSS.nav_icon_btn.font.fontFamily,
+			color : Alloy.TSS.nav_icon_btn.color
+		});
 	}
 	initHamburger();
 	$.drawer.centerWindow.accessibilityHidden = false;

@@ -63,12 +63,6 @@ function Navigation(_args) {
 	this.drawer = _args.drawer;
 
 	/**
-	 * The navigation window object
-	 * @type {Object}
-	 */
-	this.navigationWindow = _args.navigationWindow;
-
-	/**
 	 * The root window object
 	 * @type {Object}
 	 */
@@ -91,21 +85,22 @@ function Navigation(_args) {
 			return;
 		}
 
-		if (_params.stack && that.navigationWindow) {
+		if (_params.stack) {
 			return that.push(_params);
 		}
 
 		that.isBusy = true;
 
-		that.controllers = [];
+		if (that.controllers.length) {
+			that.controllers.pop().terminate();
+			that.controllers = [];
+		}
 
-		that.currentController = Alloy.createController("hamburger/window", _params);
+		that.currentController = Alloy.createController("hamburger/view", _params);
 
-		that.navigationWindow = Ti.UI.iOS.createNavigationWindow({
-			window : that.currentController.getView()
-		});
+		that.drawer.setCenterWindow(that.currentController.getView());
 
-		that.drawer.setCenterWindow(that.navigationWindow);
+		that.currentController.focus();
 
 		that.controllers.push(that.currentController);
 
@@ -192,6 +187,19 @@ function Navigation(_args) {
 		}
 
 		return that.close(that.controllers.length);
+	};
+
+	/**
+	 * close all the windows  including the drawer
+	 */
+	this.terminate = function() {
+
+		if (that.isBusy) {
+			return;
+		}
+
+		App.navigator.closeToRoot();
+		that.drawer.close();
 	};
 
 	/**

@@ -66,10 +66,6 @@ var App = {
 		App.getDeviceDimensions();
 
 		// Global system Events
-		Ti.Network.addEventListener("change", App.networkChange);
-		Ti.App.addEventListener("pause", App.exit);
-		Ti.App.addEventListener("close", App.exit);
-		Ti.App.addEventListener("resumed", App.resume);
 		Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
 		if (_.has(_params, "type")) {
@@ -84,10 +80,6 @@ var App = {
 	terminate : function() {
 
 		// Global system Events
-		Ti.Network.removeEventListener("change", App.networkChange);
-		Ti.App.removeEventListener("pause", App.exit);
-		Ti.App.removeEventListener("close", App.exit);
-		Ti.App.removeEventListener("resumed", App.resume);
 		Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
 
 		App.navigator.terminate();
@@ -134,30 +126,6 @@ var App = {
 				App.updateCallback = {};
 			});
 		}
-	},
-
-	/**
-	 * Global network event handler
-	 * @param {Object} _event Standard Ti callback
-	 */
-	networkChange : function(_event) {
-
-	},
-
-	/**
-	 * Exit event observer
-	 * @param {Object} _event Standard Ti callback
-	 */
-	exit : function(_event) {
-
-	},
-
-	/**
-	 * Resume event observer
-	 * @param {Object} _event Standard Ti callback
-	 */
-	resume : function(_event) {
-
 	},
 
 	/**

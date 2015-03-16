@@ -1,21 +1,45 @@
 var args = arguments[0] || {},
     app = require("core"),
-    config = require("config"),
-    rootWindow = args.rootWindow || app.rootWindow,
+    abextras = require("com.alcoapps.actionbarextras"),
     controller;
 
 (function() {
 
-	if (args.navBarHidden === true) {
-		hideNavBar(false);
+	$.window = app.navigator.rootWindow;
+
+	abextras.setTitle(args.title || Alloy.Globals.strings[args.titleid || ""] || "");
+
+	var dict = {};
+	if (args.navBarHidden) {
+		dict.navBarHidden = true;
 	}
 
-	//rootWindow.title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+	$.leftNavView = Ti.UI.createView();
 
-	//rootWindow.setLeftNavButton($.leftNavView);
+	if (args.stack) {
+		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_NONE);
+		$.leftNavBtn = $.UI.create("Button", {
+			classes : ["nav-icon-btn"],
+			title : Alloy.CFG.icons.back,
+			accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
+		});
+	} else {
+		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_MARGIN);
+		$.leftNavBtn = $.UI.create("Button", {
+			classes : ["nav-icon-btn"],
+			title : Alloy.CFG.icons.hamburger,
+			accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
+		});
+	}
+
+	$.leftNavView.addEventListener("click", didClickLeftNavView);
+
+	$.leftNavView.add($.leftNavBtn);
+
+	dict.leftNavButton = $.leftNavView;
 
 	//reload tss of this controller in memory
-	config.updateTSS(args.ctrl);
+	require("config").updateTSS(args.ctrl);
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
@@ -23,33 +47,76 @@ var args = arguments[0] || {},
 		if (child.__controllerPath) {
 			child = child.getView();
 		}
+		if (!child) {
+			return;
+		}
 		switch(child.role) {
 		case "rightNavButton":
-			//rootWindow.setRightNavButton(child);
+			dict.rightNavButton = child;
 			break;
 		default:
 			$.containerView.add(child);
 		}
 	});
 
-	_.isFunction(controller.setParentViews) && controller.setParentViews($.containerView);
+	//$.window.applyProperties(dict);
 
-	rootWindow.add($.containerView);
+	controller.app = app;
+
+	controller.window = $.window;
+
+	controller.setRightNavButton = setRightNavButton;
+
+	controller.showNavBar = showNavBar;
+
+	controller.hideNavBar = hideNavBar;
+
+	_.isFunction(controller.init) && controller.init();
+
+	_.isFunction(controller.setParentViews) && controller.setParentViews($.containerView);
 
 })();
 
-function didClickLeftNavBtn(e) {
-	app.navigator.drawer.toggleLeftWindow();
+function focus(e) {
+	_.isFunction(controller.focus) && controller.focus();
 }
 
-function showNavBar(_animated, _callback) {
-
+function blur(e) {
+	_.isFunction(controller.blur) && controller.blur();
 }
 
-function hideNavBar(_animated, _callback) {
-
+function terminate(e) {
+	_.isFunction(controller.terminate) && controller.terminate();
 }
 
-exports.child = controller;
-exports.showNavBar = showNavBar;
-exports.hideNavBar = hideNavBar;
+function didClickLeftNavView(e) {
+	if (args.stack) {
+		if (_.isFunction(controller.backButtonHandler) && controller.backButtonHandler()) {
+			return;
+		}
+		app.navigator.close();
+	} else {
+		app.navigator.drawer.toggleLeftWindow();
+	}
+}
+
+function showNavBar(_animated) {
+	$.window.showNavBar({
+		animated : _.isUndefined(_animated) ? true : false
+	});
+}
+
+function hideNavBar(_animated) {
+	$.window.hideNavBar({
+		animated : _.isUndefined(_animated) ? true : false
+	});
+}
+
+function setRightNavButton(_view) {
+	$.window.setRightNavButton(_view);
+}
+
+exports.blur = blur;
+exports.focus = focus;
+exports.terminate = terminate;
+exports.ctrlPath = controller ? controller.__controllerPath : "";
