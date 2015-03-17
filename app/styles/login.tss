@@ -19,7 +19,4 @@
 },
 "#signupLbl":{
 	html: Alloy.Globals.strings.lblNeedToCreateAccount
-},
-"#keepMeSwt":{
-	accessibilityLabel: Alloy.Globals.strings.lblKeepMeLoggedIn
 }
