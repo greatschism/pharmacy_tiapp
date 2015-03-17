@@ -154,44 +154,33 @@ function didItemClick(e) {
 
 function didClickOptionView(e) {
 
-	var TiNorm = require('com.alcoapps.normalizations');
-	var cancelIndex = 4;
-	var OptionsMenu = new TiNorm.OptionsMenu({
-		parent : $.index,
-		title : "Options Menu",
-		options : [{
-			title : Alloy.Globals.strings.menuSearch
-		}, {
-			title : Alloy.Globals.strings.menuSort
-		}, {
-			title : Alloy.Globals.strings.menuUnhidePrescriptions
-		}, {
-			title : Alloy.Globals.strings.menuRefresh
-		}, {
-			title : "Cancel"
-		}],
+	var menuItems = [
+		 Alloy.Globals.strings.menuSearch,
+		Alloy.Globals.strings.menuSort,
 
-		destructive : cancelIndex,
-		callback : function(e) {
-			switch (e.index) {
-			case 0:
-				toggleSearchView();
-				break;
-			case 1:
-				sort();
-				break;
-			case 2:
-				alert('Clicked on Option3');
-				break;
-			case 3:
-				init();
-				break;
-			case 4:
-				break;
-			}
-		}
-	});
-	OptionsMenu.show();
+		Alloy.Globals.strings.menuUnhidePrescriptions,
+		Alloy.Globals.strings.menuRefresh,
+];
+	$.optionsMenu.options=menuItems;
+	$.optionsMenu.show();
+	 $.optionsMenu.addEventListener('click',function(e)
+            {
+            	switch(e.index) {
+	case 0:
+		toggleSearchView();
+		break;
+	case 1:
+		sort();
+		break;
+	case 2:
+		init();
+		break;
+	case 3:
+		init();
+		break;
+	}
+            	
+            });
 }
 
 function doClickOptionDialog(e) {
