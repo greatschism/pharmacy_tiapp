@@ -4,7 +4,11 @@
 "#mobileTxt":{
 	maxLength: 14,
 	hintText: Alloy.Globals.strings.hintMobileNumber,
-	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD
+	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
+	font : {
+					fontWeight : 'bold',
+					fontSize : 15
+				}
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue
