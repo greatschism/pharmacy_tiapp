@@ -1,6 +1,6 @@
 <Alloy>
 	<!--<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />-->
-
+ <OptionDialog id="optionsMenu" title="Options Menu"/>
 	<Widget id="sortPicker" src="com.mscripts.optionpicker" class="optionpicker" onClick="didClickSortPicker" />
 	<Widget id="unhidePicker" src="com.mscripts.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">

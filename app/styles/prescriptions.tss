@@ -3,25 +3,7 @@
 
 },
 
-"#optionsMenu":{
-	items: [
-		{
-			title: Alloy.Globals.strings.menuSearch,
-			action: "search"
-		},{
-			title: Alloy.Globals.strings.menuSort,
-			action: "sort"
-		},
-		{
-			title: Alloy.Globals.strings.menuUnhidePrescriptions,
-			action: "unhide"
-		},
-		{
-			title: Alloy.Globals.strings.menuRefresh,
-			action: "refresh"
-		}
-	]
-},
+
 "#searchbar":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
