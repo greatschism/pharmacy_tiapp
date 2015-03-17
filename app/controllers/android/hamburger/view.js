@@ -7,10 +7,14 @@ var args = arguments[0] || {},
 
 	$.window = app.navigator.rootWindow;
 
+	abextras.setWindow($.window);
+
 	abextras.setTitle(args.title || Alloy.Globals.strings[args.titleid || ""] || "");
 
 	if (args.navBarHidden) {
 		hideNavBar();
+	} else if (app.navigator.rootNavBarHidden) {
+		showNavBar();
 	}
 
 	//reload tss of this controller in memory
@@ -70,16 +74,18 @@ function terminate(e) {
 }
 
 function showNavBar(_animated) {
-	var actionBar = $.rootWindow.getActivity().actionBar;
+	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.show();
+		app.navigator.rootNavBarHidden = false;
 	}
 }
 
 function hideNavBar(_animated) {
-	var actionBar = $.rootWindow.getActivity().actionBar;
+	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.hide();
+		app.navigator.rootNavBarHidden = true;
 	}
 }
 

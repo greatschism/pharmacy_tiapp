@@ -1,4 +1,3 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<Window onOpen="didOpen" onFocus="didOpen" onBlur="didBlur" onClose="didClose" />
 </Alloy>

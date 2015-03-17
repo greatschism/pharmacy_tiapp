@@ -69,6 +69,12 @@ function Navigation(_args) {
 	this.rootWindow = _args.rootWindow;
 
 	/**
+	 * Tells whether root window's action bar is hidden or not
+	 * @type {Boolean}
+	 */
+	this.rootNavBarHidden = false;
+
+	/**
 	 * Open a screen controller
 	 * @param {Object} _params The arguments for the method
 	 * @param {String} _params.ctrl name of the Controller to be opened
@@ -132,7 +138,7 @@ function Navigation(_args) {
 
 		that.currentController = Alloy.createController("hamburger/window", _params);
 
-		that.navigationWindow.openWindow(that.currentController.getView());
+		that.currentController.getView().open();
 
 		that.controllers.push(that.currentController);
 
@@ -165,7 +171,7 @@ function Navigation(_args) {
 			removeControllers[i].getView().close();
 		}
 
-		that.navigationWindow.closeWindow(that.currentController.getView());
+		that.currentController.getView().close();
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
