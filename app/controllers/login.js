@@ -9,6 +9,7 @@ var args = arguments[0] || {},
     keychainAccount;
 
 function init() {
+	$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_off"}).image);
 	uihelper.getImage($.logoImg);
 	updateInputs();
 }
@@ -144,11 +145,10 @@ function didFail(_passthrough) {
 
 function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
-	Ti.API.info('Switch value: ' + $.keepMeSwt.value);
 	if ($.keepMeSwt.value) {
-		$.keepMeSwt.setBackgroundImage(uihelper.getImage({code : toggle-on}).image);
+		$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_on"}).image);
 	} else {
-		$.keepMeSwt.setBackgroundImage(uihelper.getImage({code : toggle-off}).image);
+		$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_off"}).image);
 	}
 }
 
