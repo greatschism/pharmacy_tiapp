@@ -146,9 +146,9 @@ function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
 	Ti.API.info('Switch value: ' + $.keepMeSwt.value);
 	if ($.keepMeSwt.value) {
-		$.keepMeSwt.setBackgroundImage("/images/toggle_btn_on.png");
+		$.keepMeSwt.setBackgroundImage(uihelper.getImage({code : toggle-on}).image);
 	} else {
-		$.keepMeSwt.setBackgroundImage("/images/toggle_btn_off.png");
+		$.keepMeSwt.setBackgroundImage(uihelper.getImage({code : toggle-off}).image);
 	}
 }
 
