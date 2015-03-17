@@ -58,35 +58,35 @@ module.exports = {
 		"code" : "icon",
 		"format" : "ttf",
 		"url" : "https://staging.remscripts.com/nativemia/mscripts.ttf",
-		"platform" : ["ios", "android"]
+		"platform" : ["ios", "android", "mobileweb"]
 	}, {
 		"id" : "Roboto-Light",
 		"version" : 1,
 		"code" : "light",
 		"format" : "ttf",
 		"url" : "https://staging.remscripts.com/nativemia/Roboto-Light.ttf",
-		"platform" : ["android"]
+		"platform" : ["android", "mobileweb"]
 	}, {
 		"id" : "Roboto-Regular",
 		"version" : 1,
 		"code" : "regular",
 		"format" : "ttf",
 		"url" : "https://staging.remscripts.com/nativemia/Roboto-Regular.ttf",
-		"platform" : ["android"]
+		"platform" : ["android", "mobileweb"]
 	}, {
 		"id" : "Roboto-Medium",
 		"version" : 1,
 		"code" : "medium",
 		"format" : "ttf",
 		"url" : "https://staging.remscripts.com/nativemia/Roboto-Medium.ttf",
-		"platform" : ["android"]
+		"platform" : ["android", "mobileweb"]
 	}, {
 		"id" : "Roboto-Bold",
 		"version" : 1,
 		"code" : "bold",
 		"format" : "ttf",
 		"url" : "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
-		"platform" : ["android"]
+		"platform" : ["android", "mobileweb"]
 	}, {
 		"id" : "Lato-Light",
 		"version" : 1,
@@ -125,6 +125,10 @@ module.exports = {
 			"portrait" : {
 				"right" : 100,
 				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"
@@ -135,6 +139,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
 				"right" : 100,
 				"left" : 100
 			}
@@ -149,6 +157,10 @@ module.exports = {
 			"portrait" : {
 				"right" : 100,
 				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/helpful_medication.png"
@@ -161,8 +173,44 @@ module.exports = {
 			"portrait" : {
 				"right" : 100,
 				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/store_locator.png"
+	}, {
+		"version" : 1,
+		"id" : "toggle_btn_off",
+		"code" : "toggle_btn_off",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_off.png"
+	}, {
+		"version" : 1,
+		"id" : "toggle_btn_on",
+		"code" : "toggle_btn_on",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"
 	}]
 };
