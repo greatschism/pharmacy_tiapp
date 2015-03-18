@@ -45,6 +45,7 @@ module.exports = {
 		"tittleDoctorReminderSettings" : "Doctor Reminder Settings",
 		"titleThanks" : "Thanks",
 		"titleEmailAddress" : "Email Address",
+		"titleEditDoctor":"Edit a doctor",
 
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
@@ -61,6 +62,8 @@ module.exports = {
 		"sectionPickupDetails" : "Pickup details",
 		"sectionInformation" : "Information",
 		"sectionAddAll" : "add all",
+		"sectionDoctors" : "Doctors",
+		"sectionHasPrescribedYou":"Has prescribed you",
 
 		"hintSearchByZipCityOrState" : "Search by zip, city or state",
 		"hintSearchByPrescriptionName" : "Search by prescription name or rx number",
@@ -89,6 +92,8 @@ module.exports = {
 		"hintAddNote" : "Add note",
 		"hintLanguage" : "Language",
 		"hintRefillThisPrescription" : "Refill this prescription",
+		"hintAddressLine1":"Address line 1",
+		"hintAddressLine2":"Address line 2",
 
 		"lblRefillWithoutLogin" : "Refill without logging in",
 		"lblSigninToMobilePharmacy" : "Sign in to the mscripts mobile pharmacy",
@@ -155,6 +160,10 @@ module.exports = {
 		"lblDosageInstruction" : "Dosage instruction",
 		"lblNewPassword" : "Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 		"lblRemindMeAppointment" : "Remind me these many days before the appointment",
+		"lblRefilled" : "Refilled",
+		"lblAddress":"Address",
+		"lblDescription":"Description",
+		"lblExpired":"Expired",
 
 		"valFirstNameRequired" : "Please enter your first name",
 		"valLastNameRequired" : "Please enter your last name",
@@ -166,6 +175,8 @@ module.exports = {
 		"valRxNoRequired" : "Please enter a valid Rx Number",
 		"valPharmacyRequired" : "Please choose a pharmacy",
 		"valCodeRequired" : "Please enter the OTP you have received",
+		"valFaxNumber":"Please enter a valid fax number",
+		"valZipCode":"Please enter a valid zip code",
 
 		"msgAgeRestriction" : "This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
@@ -183,8 +194,8 @@ module.exports = {
 		"msgShouldBeReadyBy" : "Should be ready by",
 		"msgChangeHomePharmacy" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 		"msgYouHaveUpcomingAppointmentWith" : "You have an upcoming appointment with %s",
-		"msgHasPrescribedYou" : "%s has prescribed you %s",
-		"msgYouHaveNoActiveprescription" : "You have no active prescriptions associated with %s",
+		"msgHasPrescribedYou" : "Has prescribed you:",
+		"msgYouHaveNoActiveprescription" : "You have no active prescriptions",
 		"msgNoActiveprescription" : "No active prescriptions",
 		"msgOrderPlacedReadyBy" : "Order processed: ready by %s",
 		"msgOverdueBy" : "overdue by",
@@ -217,6 +228,10 @@ module.exports = {
 		"msgAppointmentDeleted" : "Your doctor's appointment reminder has been deleted",
 		"msgAppointmentReminderSettingsUpdated" : "Your appointment reminder settings has been updated",
 		"msgMailOrder" : "Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgManuallyAddedDoctor":"You manually added this doctor. Associated prescriptions not available.",
+		"msgManuallyAddedByYou":"Manually added by you",
+		"msgDoctorDeleted":"The doctor has been removed from your list",
+
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
@@ -254,6 +269,7 @@ module.exports = {
 		"btnChangePhoto" : "Change Photo",
 		"btnGiveUsCall" : "Give us a call",
 		"btnSendUsEmail" : "Send us an email",
+		"btnRemoveDoctor":"Remove doctor from list",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",

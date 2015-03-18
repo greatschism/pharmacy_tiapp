@@ -16,21 +16,11 @@ cancel: 2,
 zIndex: 2
 },
 "#editBtn":{
-title: Alloy.Globals.strings.btnEdit
-
+title: Alloy.CFG.icons.edit
 },
 ".after-icon":{
 left: 32
 },
-"#changeImgLbl":{
-color:"#0095ff",
-text:Alloy.Globals.strings.btnChangePhoto,
-font:{fontSize:11,
- fontFamily:'Helvetica Neue'}	
-},
-"#editLbl":{
-text:Alloy.Globals.strings.btnEdit	
-}
 "#faxLbl":{
 color:"#808285",
 font:{
@@ -50,14 +40,10 @@ color:"#F6931E"
 text: Alloy.CFG.icons.direction,
 color:"#F6931E"
 },
-"#downLbl":{
-width: 20,
-text: Alloy.CFG.icons.down_arrow,
-color: "#000000",
-font: Alloy.TSS.small_icon.font,
-}
 "#notesTxta":{
-hintText: Alloy.Globals.strings.hintNotes
+hintText: Alloy.Globals.strings.hintNotes,
+height:55,
+autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_SENTENCES
 }
 ".h1":{
 color:"#000000",
@@ -116,4 +102,7 @@ font:{
 	text:Alloy.CFG.icons.user, 
 	color:"#F6931E"
 
+},
+"#nameLbl":{
+	font:Alloy.TSS.section_header_lbl.font
 }

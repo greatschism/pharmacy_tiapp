@@ -1,56 +1,62 @@
-"#hintLbl": {
-	html: Alloy.Globals.strings.lblEnterYourDoctorsInformation,
-	backgroundColor: "#47c9af"
-},
 "#fnameTxt":{
 	hintText: Alloy.Globals.strings.hintFirstNameRequired,
-    keyboardType:Titanium.UI.KEYBOARD_NAMEPHONE_PAD,
-	nextItem: "lnameTxt"
+	nextItem: "lnameTxt",
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS,
 },
 "#lnameTxt":{
 	hintText: Alloy.Globals.strings.hintLastNameRequired,
-	nextItem: "phoneTxt"
+	nextItem: "phoneTxt",
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS,
 },
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.hintMobileNumber,
-	keyboardType:Titanium.UI.KEYBOARD_PHONE_PAD,
-	maxLength : 13,
+	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
+	maxLength : 14,
 	nextItem: "faxTxt"
 },
 "#faxTxt":{
 	hintText: Alloy.Globals.strings.hintFaxNumber,
-	maxLength : 13,
+	maxLength : 14,
 	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
 	nextItem: "hospitalTxt"
 },
-"#hospitalTxt":{
-	hintText: Alloy.Globals.strings.hintOfficeOrHospitalName,
-	nextItem: "streetTxt"
+"#addressLine1":{
+	hintText: Alloy.Globals.strings.hintAddressLine1,
+	nextItem: "addressLine2",
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS
 },
-"#streetTxt":{
-	hintText: Alloy.Globals.strings.hintStreetName,
-	nextItem: "cityTxt"
+"#addressLine2":{
+	hintText: Alloy.Globals.strings.hintAddressLine2,
+	nextItem: "zipTxt",
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS
 },
 "#cityTxt":{
 	hintText: Alloy.Globals.strings.hintCity,
-	nextItem: "stateTxt"
+	nextItem: "stateTxt",
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS
 },
 "#stateTxt":{
 	hintText: Alloy.Globals.strings.hintState,
-	nextItem: "zipTxt",
+	nextItem: "notesTxta",
 	valueProperty: "code_values",
 	titleProperty: "code_display"
 },
 "#zipTxt":{
 	hintText: Alloy.Globals.strings.hintZipCode,
 	maxLength : 9,
-	nextItem: "notesTxta"
+	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
+	nextItem: "cityTxt"
 },
 "#notesTxta":{
-	hintText: Alloy.Globals.strings.hintNotes
+	hintText: Alloy.Globals.strings.hintNotes,
+	height:55,
+	autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_SENTENCES
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
+}
+"#removeBtn":{
+	title: Alloy.Globals.strings.btnRemoveDoctor
 }
 ".h3":{
 color:"#808285",
@@ -58,4 +64,13 @@ font:{
 	fontSize: 14,
 	fontFamily:"regular"
 }	
+},
+"#addressLbl":{
+	backgroundColor:Alloy.TSS.section_header_view.backgroundColor,
+	text: Alloy.Globals.strings.lblAddress
+},
+"#descriptionLbl":{
+	backgroundColor:Alloy.TSS.section_header_view.backgroundColor,
+	text: Alloy.Globals.strings.lblDescription
 }
+

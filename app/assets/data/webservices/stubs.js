@@ -280,7 +280,7 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "OTHERS"
 			}, {
-				"id" : "1",
+				"id" : "2",
 				"rx_number" : "2345678",
 				"presc_name" : "Lisinopril, 300 mg",
 				"is_overdue" : "0",
@@ -299,7 +299,7 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP"
 			}, {
-				"id" : "1",
+				"id" : "3",
 				"rx_number" : "2345678",
 				"presc_name" : "Ciprofloxacin, 300 mg",
 				"is_overdue" : "0",
@@ -318,7 +318,7 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYFORPICKUP"
 			}, {
-				"id" : "1",
+				"id" : "4",
 				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
 				"is_overdue" : "0",
@@ -337,7 +337,7 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "INPROCESS"
 			}, {
-				"id" : "x",
+				"id" : "5",
 				"rx_number" : "3455645",
 				"presc_name" : "Listerin, 500 mg",
 				"is_overdue" : "0",
@@ -356,7 +356,7 @@ module.exports = {
 				"latest_refill_completed_date" : "x",
 				"refill_status" : "READYTOREFILL"
 			}, {
-				"id" : "x",
+				"id" : "6",
 				"rx_number" : "1234567",
 				"presc_name" : "Saridon, 500 mg",
 				"is_overdue" : "1",
@@ -1049,7 +1049,7 @@ module.exports = {
 				"id" : "1",
 				"doctor_dea" : "12345",
 				"first_name" : "Test1",
-				"last_name" : "Mscripts1",
+				"last_name" : "Doc",
 				"addressline1" : "TEST",
 				"addressline2" : "TEST",
 				"state" : "AZ",
@@ -1059,12 +1059,13 @@ module.exports = {
 				"phone" : "(617)283-7737",
 				"fax" : "(617)283-7737",
 				"image_url" : "",
-				"optional" : ""
+				"optional" : "",
+				"doctor_type" : "auto"
 			}, {
 				"id" : "2",
 				"doctor_dea" : "23456",
 				"first_name" : "Test2",
-				"last_name" : "Mscripts2",
+				"last_name" : "Doctor",
 				"addressline1" : "TEST",
 				"addressline2" : "TEST",
 				"state" : "AZ",
@@ -1073,24 +1074,35 @@ module.exports = {
 				"notes" : "",
 				"phone" : "(617)283-7737",
 				"fax" : "(617)283-7737",
-				"image_url" : "http://test.remscripts.com/ig3234",
+				"image_url" : "",
 				"org_name" : "MSCRIPTS",
-				"optional" : ""
+				"optional" : "",
+				"doctor_type" : "auto"
 			}]
 		}
 	},
 	"DOCTORS_ADD" : {
-		"doctor_id" : "7",
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Doctor added successfully",
 		"description" : "x",
-		"data" : ""
+		"data" : {
+			"doctors" : [{
+				"id" : "7"
+			}]
+		}
 	},
 	"DOCTORS_UPDATE" : {
 		"status" : "Success",
 		"code" : "200",
 		"message" : "Doctor updated successfully",
+		"description" : "x",
+		"data" : ""
+	},
+	"DOCTORS_REMOVE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Doctor deleted successfully",
 		"description" : "x",
 		"data" : ""
 	},
@@ -1132,7 +1144,7 @@ module.exports = {
 			}, {
 				"code_display" : "ARIZONA",
 				"code_values" : "AZ"
-			},{
+			}, {
 				"code_display" : "ARKANSAS",
 				"code_values" : "AR"
 			}]

@@ -43,12 +43,8 @@
 	});
 	Alloy.Models.doctor = new Backbone.Model({
 		doctor_add : {},
-		doctor_delete : {},
+		doctor_remove : {},
 		doctor_update : {},
-		appointment_add : {},
-		appointment_delete : {},
-		appointment_update : {},
-		reminder_change : {}
 	});
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.store = new Backbone.Model();

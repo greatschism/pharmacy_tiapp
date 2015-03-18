@@ -45,6 +45,8 @@ module.exports = {
 		"tittleDoctorReminderSettings" : "zh-Doctor Reminder Settings",
 		"titleThanks" : "zh-Thanks",
 		"titleEmailAddress" : "zh-Email Address",
+		"titleEditDoctor":"zh-Edit a doctor",
+		
 		"sectionStoreHours" : "zh-Store hours",
 		"sectionStoreServices" : "zh-Store services",
 		"sectionUpcomingAppointments" : "zh-Upcoming appointments",
@@ -59,6 +61,8 @@ module.exports = {
 		"sectionPickupDetails" : "zh-Pickup details",
 		"sectionInformation" : "zh-Information",
 		"sectionAddAll" : "zh-add all",
+		"sectionDoctors" : "zh-Doctors",
+		"sectionHasPrescribedYou":"zh-Has prescribed you",
 
 		"hintSearchByZipCityOrState" : "zh-Search by zip, city or state",
 		"hintMobileNumber" : "zh-Mobile Number (xxx)xxx-xxxx",
@@ -86,6 +90,8 @@ module.exports = {
 		"hintAddNote" : "zh-Add note",
 		"hintLanguage" : "zh-Language",
 		"hintRefillThisPrescription" : "zh-Refill this prescription",
+		"hintAddressLine1":"zh-Address line 1",
+		"hintAddressLine2":"zh-Address line 2",
 
 		"lblRefillWithoutLogin" : "zh-Refill without logging in",
 		"lblSigninToMobilePharmacy" : "zh-Sign in to the mscripts mobile pharmacy",
@@ -152,6 +158,11 @@ module.exports = {
 		"lblDosageInstruction" : "zh-Dosage instruction",
 		"lblNewPassword" : "zh-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 		"lblRemindMeAppointment" : "zh-Remind me these many days before the appointment",
+		"lblRefilled" : "zh-Refilled",
+		"lblAddress":"zh-Address",
+		"lblDescription":"zh-Description",
+		"lblExpired":"zh-Expired",
+
 
 		"valFirstNameRequired" : "zh-Please enter your first name",
 		"valLastNameRequired" : "zh-Please enter your last name",
@@ -163,6 +174,8 @@ module.exports = {
 		"valRxNoRequired" : "zh-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "zh-Please choose a pharmacy",
 		"valCodeRequired" : "zh-Please enter the OTP you have received",
+		"valFaxNumber":"zh-Please enter a valid fax number",
+		"valZipCode":"zh-Please enter a valid zip code",
 
 		"msgAgeRestriction" : "zh-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "zh-Unable to find your location, please check your settings",
@@ -180,8 +193,8 @@ module.exports = {
 		"msgShouldBeReadyBy" : "zh-Should be ready by",
 		"msgChangeHomePharmacy" : "zh-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 		"msgYouHaveUpcomingAppointmentWith" : "zh-You have an upcoming appointment with %s",
-		"msgHasPrescribedYou" : "zh-%s has prescribed you %s",
-		"msgYouHaveNoActiveprescription" : "zh-You have no active prescriptions associated with %s",
+		"msgHasPrescribedYou" : "zh-Has prescribed you:",
+		"msgYouHaveNoActiveprescription" : "zh-You have no active prescriptions",
 		"msgNoActiveprescription" : "zh-No active prescriptions",
 		"msgOrderPlacedReadyBy" : "zh-Order processed: ready by",
 		"msgOverdueBy" : "zh-Overdue by",
@@ -213,7 +226,10 @@ module.exports = {
 		"msgDoctorUpdated" : "zh-Doctor details updated",
 		"msgAppointmentDeleted" : "zh-Your doctor's appointment reminder has been deleted",
 		"msgAppointmentReminderSettingsUpdated" : "Your appointment reminder settings has been updated",
-			"msgMailOrder" : "zh-Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgMailOrder" : "zh-Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgManuallyAddedDoctor":"zh-You manually added this doctor. Associated prescriptions not available.",
+		"msgManuallyAddedByYou":"zh-Manually added by you",
+		"msgDoctorDeleted":"zh-The doctor has been removed from your list",
 
 		"menuSearch" : "zh-Search",
 		"menuSort" : "zh-Sort",
@@ -251,6 +267,7 @@ module.exports = {
 		"btnChangePhoto" : "zh-Change Photo",
 		"btnGiveUsCall" : "zh-Give us a call",
 		"btnSendUsEmail" : "zh-Send us an email",
+		"btnRemoveDoctor":"zh-Remove doctor from list",
 
 		"optionFindPictureOnMyPhone" : "zh-Find a picture on my phone",
 		"optionTakePhoto" : "zh-Take photo",

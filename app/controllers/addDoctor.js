@@ -4,14 +4,13 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     http = require("requestwrapper"),
     strings = Alloy.Globals.strings,
-    nameRegExp = /^[A-Za-z0-9]{3,40}$/,
     zipRegExp = /^[0-9]{5}([0-9]{4})?$/,
     doctor,
     fname,
     lname,
     faxNo,
-    hospitalDetails,
-    streetDetails,
+    addressLine1,
+    addressLine2,
     zipCode,
     notes,
     states = [];
@@ -26,54 +25,60 @@ function didClickSave(e) {
 	lname = $.lnameTxt.getValue();
 	phoneNo = $.phoneTxt.getValue();
 	faxNo = $.faxTxt.getValue();
-	hospitalDetails = $.hospitalTxt.getValue();
-	streetDetails = $.streetTxt.getValue();
+	addressLine1 = $.addressLine1.getValue();
+	addressLine2 = $.addressLine2.getValue();
 	cityDetails = $.cityTxt.getValue();
 	stateDetails = $.stateTxt.getSelectedItem().code_values;
 	zipCode = $.zipTxt.getValue();
 	notes = $.notesTxta.getValue();
-	console.log(stateDetails);
-	var errorMessage = "",
-	    allFieldsValidated = true;
+
+	var  allFieldsValidated = true;
 
 	if (fname == "" || fname == null) {
-		errorMessage = "Please enter your first name";
+		dialog.show({
+				message : Alloy.Globals.strings.valFirstNameRequired
+			});
 		allFieldsValidated = false;
 
 	} else if (lname == "" || lname == null) {
-		errorMessage = "Please enter your last name";
+		dialog.show({
+				message : Alloy.Globals.strings.valLastNameRequired
+			});
 		allFieldsValidated = false;
 
-	} else if (!nameRegExp.test(fname)) {
-		errorMessage = "Please enter a valid First name";
+	} else if (!utilities.validateName(fname)) {
+		dialog.show({
+				message : Alloy.Globals.strings.msgFirstNameTips
+			});
 		allFieldsValidated = false;
 
-	} else if (!nameRegExp.test(lname)) {
-		errorMessage = "Please enter a valid Last name";
+	} else if (!utilities.validateName(lname)) {
+		dialog.show({
+				message : Alloy.Globals.strings.msgLastNameTips
+			});
 		allFieldsValidated = false;
 
 	} else if (phoneNo && !(utilities.validateMobileNumber($.phoneTxt.getValue()))) {
-		errorMessage = "Please enter a valid phone number";
+		dialog.show({
+			message : Alloy.Globals.strings.valMobileNumberRequired
+		});
 		allFieldsValidated = false;
 
 	} else if (faxNo && !(utilities.validateMobileNumber($.faxTxt.getValue()))) {
-		errorMessage = "Please enter a valid fax number";
+		dialog.show({
+			message : Alloy.Globals.strings.valFaxNumberRequired
+		});
 		allFieldsValidated = false;
 
 	} else if (zipCode.length && !zipRegExp.test(zipCode)) {
-		errorMessage = "Please enter a valid zip code";
+		dialog.show({
+			message : Alloy.Globals.strings.valZipCode
+		});
 		allFieldsValidated = false;
 
 	}
 
-	if (!allFieldsValidated) {
-		dialog.show({
-			message : errorMessage
-		});
-	} else {
-
-		fname = firstToUpperCase(fname);
-		lname = firstToUpperCase(lname);
+	if (allFieldsValidated) {
 
 		if (args.edit == "false") {
 			http.request({
@@ -87,8 +92,8 @@ function didClickSave(e) {
 							"doctor_dea" : "12345",
 							"first_name" : fname,
 							"last_name" : lname,
-							"addressline1" : hospitalDetails,
-							"addressline2" : streetDetails,
+							"addressline1" : addressLine1,
+							"addressline2" : addressLine2,
 							"state" : stateDetails || "",
 							"city" : cityDetails,
 							"zip" : zipCode,
@@ -97,7 +102,8 @@ function didClickSave(e) {
 							"fax" : faxNo,
 							"image_url" : "",
 							"org_name" : "MSCRIPTS",
-							"optional" : ""
+							"optional" : "",
+							"doctor_type" : "manual"
 						}
 					}
 				},
@@ -117,8 +123,8 @@ function didClickSave(e) {
 							"doctor_dea" : "12345",
 							"first_name" : fname,
 							"last_name" : lname,
-							"addressline1" : hospitalDetails,
-							"addressline2" : streetDetails,
+							"addressline1" : addressLine1,
+							"addressline2" : addressLine2,
 							"state" : stateDetails || "",
 							"city" : cityDetails,
 							"zip" : zipCode,
@@ -127,7 +133,8 @@ function didClickSave(e) {
 							"fax" : faxNo,
 							"image_url" : "",
 							"org_name" : "MSCRIPTS",
-							"optional" : ""
+							"optional" : "",
+							"doctor_type" : doctor.manually_added
 						}
 					}
 				},
@@ -143,12 +150,12 @@ function didSuccessCreate(_result) {
 
 	Alloy.Models.doctor.set({
 		doctor_add : {
-			"id" : _result.doctor_id,
+			"id" : _result.data.doctors[0].id,
 			"doctor_dea" : "12345",
 			"first_name" : fname,
 			"last_name" : lname,
-			"addressline1" : hospitalDetails,
-			"addressline2" : streetDetails,
+			"addressline1" : addressLine1,
+			"addressline2" : addressLine2,
 			"state" : stateDetails || "",
 			"city" : cityDetails,
 			"zip" : zipCode,
@@ -157,7 +164,8 @@ function didSuccessCreate(_result) {
 			"fax" : faxNo,
 			"image_url" : "",
 			"org_name" : "MSCRIPTS",
-			"optional" : ""
+			"optional" : "",
+			"doctor_type" : "manual"
 		}
 	});
 
@@ -178,8 +186,8 @@ function didSuccessUpdate(_result) {
 			"doctor_dea" : "12345",
 			"first_name" : fname,
 			"last_name" : lname,
-			"addressline1" : hospitalDetails,
-			"addressline2" : streetDetails,
+			"addressline1" : addressLine1,
+			"addressline2" : addressLine2,
 			"state" : stateDetails || "",
 			"city" : cityDetails,
 			"zip" : zipCode,
@@ -188,12 +196,49 @@ function didSuccessUpdate(_result) {
 			"fax" : faxNo,
 			"image_url" : "",
 			"org_name" : "MSCRIPTS",
-			"optional" : ""
+			"optional" : "",
+			"doctor_type" : doctor.manually_added
 		}
 	});
 
 	dialog.show({
 		message : Alloy.Globals.strings.msgDoctorUpdated,
+		buttonNames : [Alloy.Globals.strings.strOK],
+		success : function() {
+			app.navigator.closeToRoot();
+		}
+	});
+
+}
+
+function didClickRemove() {
+
+	http.request({
+		method : "DOCTORS_REMOVE",
+		data : {
+			filter : [{
+				type : ""
+			}],
+			data : {
+				"doctors" : {
+					"id" : doctor.id
+				}
+			}
+
+		},
+		success : didSuccessRemove
+	});
+}
+
+function didSuccessRemove(_result) {
+	Alloy.Models.doctor.set({
+		doctor_remove : {
+			"id" : doctor.id
+		}
+	});
+
+	dialog.show({
+		message : Alloy.Globals.strings.msgDoctorDeleted,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
 			app.navigator.closeToRoot();
@@ -248,34 +293,35 @@ function didLoadStates(_result) {
 	if (args.edit == "true") {
 
 		doctor = args.doctor;
+		$.lnameTxt.applyProperties({
+			"editable" : "false"
+		});
 
 		$.fnameTxt.setValue(doctor.first_name);
 		$.lnameTxt.setValue(doctor.last_name);
 		$.phoneTxt.setValue(doctor.phone);
 		$.faxTxt.setValue(doctor.fax);
-		$.hospitalTxt.setValue(doctor.addressline1);
-		$.streetTxt.setValue(doctor.addressline2);
+		$.addressLine1.setValue(doctor.addressline1);
+		$.addressLine2.setValue(doctor.addressline2);
 		$.cityTxt.setValue(doctor.city);
 
-		/*console.log(stateList);
-		 console.log(doctor.state);
-		 state = _.findWhere(stateList, {
-		 code_values : doctor.state
-		 });
-
-		 console.log(state);*/
 		if (doctor.state) {
 			var position = stateList.map(function(eachState) {//get index of the state
 				return eachState.code_values;
 			}).indexOf(doctor.state);
-			console.log(position);
+	
 			$.stateTxt.setSelectedIndex(position);
 		}
 		$.zipTxt.setValue(doctor.zip);
 		$.notesTxta.setValue(doctor.notes);
 
 	}
+	else
+	{
+		$.removeBtn.hide();
+	}
 }
+
 
 function init() {
 	// var templates = [],

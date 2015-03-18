@@ -1,8 +1,7 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
-	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
 	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
-	<ScrollView class="vgroup"> 
+	<View class="vgroup "> 
 		<TableView id="tableView" class="auto-height" onClick="didItemClick" />
-	</ScrollView>
+	</View>
 </Alloy> 

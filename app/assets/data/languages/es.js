@@ -45,6 +45,8 @@ module.exports = {
 		"tittleDoctorReminderSettings" : "es-Doctor Reminder Settings",
 		"titleThanks" : "es-Thanks",
 		"titleEmailAddress" : "es-Email Address",
+		"titleEditDoctor":"es-Edit a doctor",
+
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
 		"sectionUpcomingAppointments" : "es-Upcoming appointments",
@@ -59,6 +61,8 @@ module.exports = {
 		"sectionPickupDetails" : "es-Pickup details",
 		"sectionInformation" : "es-Information",
 		"sectionAddAll" : "es-add all",
+		"sectionDoctors" : "es-Doctors",
+		"sectionHasPrescribedYou":"es-Has prescribed you",
 
 		"hintSearchByZipCityOrState" : "es-Search by zip, city or state",
 		"hintMobileNumber" : "es-Mobile Number (xxx)xxx-xxxx",
@@ -86,6 +90,8 @@ module.exports = {
 		"hintAddNote" : "es-Add note",
 		"hintLanguage" : "es-Language",
 		"hintRefillThisPrescription" : "es-Refill this prescription",
+		"hintAddressLine1":"es-Address line 1",
+		"hintAddressLine2":"es-Address line 2",
 
 		"lblRefillWithoutLogin" : "es-Refill without logging in",
 		"lblSigninToMobilePharmacy" : "es-Sign in to the mscripts mobile pharmacy",
@@ -152,6 +158,11 @@ module.exports = {
 		"lblDosageInstruction" : "es-Dosage instruction",
 		"lblNewPassword" : "es-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 		"lblRemindMeAppointment" : "es-Remind me these many days before the appointment",
+		"lblRefilled" : "es-Refilled",
+		"lblAddress":"es-Address",
+		"lblDescription":"es-Description",
+		"lblExpired":"es-Expired",
+
 
 		"valFirstNameRequired" : "es-Please enter your first name",
 		"valLastNameRequired" : "es-Please enter your last name",
@@ -163,6 +174,8 @@ module.exports = {
 		"valRxNoRequired" : "es-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "es-Please choose a pharmacy",
 		"valCodeRequired" : "es-Please enter the OTP you have received",
+		"valFaxNumber":"es-Please enter a valid fax number",
+		"valZipCode":"es-Please enter a valid zip code",
 
 		"msgAgeRestriction" : "es-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "es-Unable to find your location, please check your settings",
@@ -180,8 +193,8 @@ module.exports = {
 		"msgShouldBeReadyBy" : "es-Should be ready by",
 		"msgChangeHomePharmacy" : "es-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 		"msgYouHaveUpcomingAppointmentWith" : "es-You have an upcoming appointment with %s",
-		"msgHasPrescribedYou" : "es-%s has prescribed you %s",
-		"msgYouHaveNoActiveprescription" : "es-You have no active prescriptions associated with %s",
+		"msgHasPrescribedYou" : "es-Has prescribed you:",
+		"msgYouHaveNoActiveprescription" : "es-You have no active prescriptions",
 		"msgNoActiveprescription" : "es-No active prescriptions",
 		"msgOrderPlacedReadyBy" : "es-Order processed: ready by",
 		"msgOverdueBy" : "es-Overdue by",
@@ -214,6 +227,9 @@ module.exports = {
 		"msgAppointmentDeleted" : "es-Your doctor's appointment reminder has been deleted",
 		"msgAppointmentReminderSettingsUpdated" : "es-Your appointment reminder settings has been updated",
 		"msgMailOrder" : "es-Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgManuallyAddedDoctor":"es-You manually added this doctor. Associated prescriptions not available.",
+		"msgManuallyAddedByYou":"es-Manually added by you",
+		"msgDoctorDeleted":"es-The doctor has been removed from your list",
 
 		"menuSearch" : "es-Search",
 		"menuSort" : "es-Sort",
@@ -251,6 +267,7 @@ module.exports = {
 		"btnChangePhoto" : "es-Change Photo",
 		"btnGiveUsCall" : "es-Give us a call",
 		"btnSendUsEmail" : "es-Send us an email",
+		"btnRemoveDoctor":"es-Remove doctor from list",
 
 		"optionFindPictureOnMyPhone" : "es-Find a picture on my phone",
 		"optionTakePhoto" : "es-Take photo",

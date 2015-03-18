@@ -1,43 +1,34 @@
 <Alloy>
 	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
-	<Button id="editBtn" class="nav-right-btn" onClick="didClickEdit" />
+	<Button id="editBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickEdit" />
 	<!--<View>-->
-	<TableView id="tableView" height="Ti.UI.FILL" top="0" >
+	<TableView id="tableView" height="Ti.UI.FILL" top="0" onClick="didItemClick">
 		<HeaderView>
 			<View class="auto-height vgroup ">
-				<View class="auto-height " >
-					<View id="profileImageView" class="left top auto-height auto-width">
-					<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" onClick="didClickProfileImg" />
-					<Label id="changeImgLbl" class="padding-left multi-line" top="80" onClick="didClickProfileImg" />
-					</View>	
+
+				<View id="profileNameView" class="auto-height paddingTop paddingBottom paddingLeft">
+					<Label id="nameLbl" class="left multi-line fill-width" />
+				</View>
+				<View class="auto-height top">
+
+					<View id="profileImageView" class="left auto-height auto-width top">
+						<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" onClick="didClickProfileImg" />
+					</View>
 					<View class="auto-height top width-75 hgroup right" >
-						
-						<View class="paddingLeft auto-height paddingTop hgroup" >
-						<Label id="nameLbl" class="left h1 multi-line " />
-						<Label id="editLbl" class="paddingLeft h14  multi-line" text="Edit" onClick="didClickEdit"/>
-						</View>
-						
-						<View class="hseparator paddingLeft paddingTop"/>
-						
 						<View class=" paddingLeft paddingTop auto-height" onClick="phoneDialer">
 							<Label id="phoneIconLbl" class="top left small-icon" />
 							<Label id="phoneLbl" class="after-icon h15 multi-line fg-secondary" />
 						</View>
-						
 						<View class="hseparator paddingLeft paddingTop"/>
-						
 						<View class="paddingTop paddingLeft auto-height">
 							<Label id="faxIconLbl" class="top left small-icon" />
 							<Label id="faxLbl" class="after-icon h15NoColor multi-line fg-secondary" />
 						</View>
-						
 						<View class="hseparator paddingLeft paddingTop"/>
-						
 						<View class="paddingTop paddingLeft auto-height">
 							<Label id="directionIconLbl" class="top left small-icon"  />
 							<Label id="directionLbl" class="after-icon h15  fg-secondary" onClick="didClickDirections" />
 						</View>
-						
 					</View>
 				</View>
 				<Widget id="notesTxta" src="com.mscripts.textarea" class="txta paddingTop paddingBottom"/>

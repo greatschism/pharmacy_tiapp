@@ -226,7 +226,7 @@ var Utility = {
 		if (_transform !== false) {
 			_text = _text.toLowerCase();
 		}
-		return (str + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+		return (_text + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
 			return $1.toUpperCase();
 		});
 	},

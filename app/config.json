@@ -105,7 +105,8 @@
 			"thin_account": "h",
 			"thin_feedback": "i",
 			"thin_notification": "y",
-			"thin_refill_camera": "$"
+			"thin_refill_camera": "$",
+			"edit":"{"
 		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,

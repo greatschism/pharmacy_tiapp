@@ -7,18 +7,15 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     doctor,
     prescriptions,
-    profileImg,
-    PRESCRIPTION_COUNT = 4;
+    profileImg;
 
 function init() {
 
 	doctor = args.doctor;
 	prescriptions = args.prescriptions || [];
-	
-	
+
 	if (doctor.image_url.length) {
 		$.profileImageView.remove($.profileIconLabel);
-	
 
 		profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
@@ -30,96 +27,61 @@ function init() {
 
 		//set the image property
 		$.profileImageView.add(profileImg);
-		
+
 	}
 
 	$.nameLbl.text = doctor.long_name;
 
 	$.phoneLbl.text = doctor.phone;
 	$.faxLbl.text = doctor.fax;
-	$.directionLbl.text = doctor.addressline1 + "\n" + doctor.addressline2 + "\n " + doctor.city + ", " + doctor.state + ", " + doctor.zip;
+
+	$.directionLbl.text=doctor.addressline1 ? doctor.addressline2 ? doctor.addressline1+"\n"+doctor.addressline2 : doctor.addressline1 : doctor.addressline2 ? doctor.addressline2 : "";
+	
+	if((doctor.city || doctor.state || doctor.zip) && $.directionLbl.text)
+	{
+		$.directionLbl.text+="\n";
+	}
+	if(doctor.city || doctor.state || doctor.zip)
+	{
+		$.directionLbl.text+=doctor.city ? doctor.state ? doctor.city+","+doctor.state : doctor.city : doctor.state ? doctor.state : "";
+		
+		if((doctor.city || doctor.state) && doctor.zip)
+		$.directionLbl.text+=","+ doctor.zip;
+		else if(doctor.zip)
+		$.directionLbl.text+=doctor.zip;
+	}
+	
+
 	$.notesTxta.setValue(doctor.notes);
 	var len = prescriptions.length;
-	if (len == 0) {
-		$.prescriptionsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.strPrescriptions);
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			classes : ["padding-top", "auto-height"]
-		}),
-		    titleLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : Alloy.Globals.strings.msgNoActiveprescription,
-			classes : ["fill-width", "padding-left", "padding-bottom"]
-		});
-		contentView.add(titleLbl);
-		row.add(contentView);
+	$.prescriptionsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionHasPrescribedYou);
+
+	if (doctor.doctor_type == "manual") {
+		var row = createNoPrescriptionRow(Alloy.Globals.strings.msgManuallyAddedDoctor);
 		$.prescriptionsSection.add(row);
 		$.tableView.data = [$.prescriptionsSection];
 
 	} else {
+		if (len == 0) {
+			var row = createNoPrescriptionRow(Alloy.Globals.strings.msgYouHaveNoActiveprescription);
+			$.prescriptionsSection.add(row);
+			$.tableView.data = [$.prescriptionsSection];
 
-		if (len > PRESCRIPTION_COUNT) {
-		
-			var footerView = $.UI.create("View", {
-				apiName : "View",
-				classes : ["auto-height", "vgroup"],
-			}),
-			    moreIcon = $.UI.create("Label", {
-				apiName : "Label",
-				color : "#6D6E71",
-				font : Alloy.TSS.list_item_child.font,
-				text : Alloy.CFG.icons.arrow_down,
-				classes : ["text-center"]
-			}),
-			    moreLabel = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["text-center", "paddingTop"],
-				color : "#599DFF",
-				text : Alloy.Globals.strings.lblShowMore,
-			});
-			footerView.add(moreLabel);
-			footerView.add(moreIcon);
-			footerView.addEventListener("click", didClickMore);
-			$.tableView.footerView = footerView;
-			
+		} else {
+
+			for (var i in prescriptions) {
+				$.prescriptionsSection.add(getRow(prescriptions[i]));
+
+			}
+			$.tableView.data = [$.prescriptionsSection];
 		}
-
-		var firstPrescriptions = _.first(prescriptions, PRESCRIPTION_COUNT);
-		loadPrescriptions(firstPrescriptions);
-		$.tableView.data = $.tableView.data;
 	}
-}
-
-function didClickMore(e) {
-	loadPrescriptions(_.last(prescriptions, prescriptions.length - PRESCRIPTION_COUNT));
-	$.tableView.footerView = $.UI.create("View", {
-		classes : ["auto"]
-	});
 }
 
 function phoneDialer(e) {
-	//alert("clicked");
+
 	var number = "tel:+" + String(doctor.phone);
 	Ti.Platform.openURL(number);
-}
-
-function loadPrescriptions(prescriptions) {
-	if (!$.prescriptionsSection) {
-		$.prescriptionsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.strPrescriptions);
-		for (var i in prescriptions) {
-			$.prescriptionsSection.add(getRow(prescriptions[i]));
-
-		}
-		$.tableView.data = [$.prescriptionsSection];
-	} else {
-		for (var i in prescriptions) {
-			$.tableView.appendRow(getRow(prescriptions[i]));
-
-		}
-	}
 }
 
 function getRow(prescription) {
@@ -140,11 +102,34 @@ function getRow(prescription) {
 		classes : ["list-item-info-lbl", "right"]
 	});
 	leftLbl.text = prescription.presc_name;
-	rightLbl.text = prescription.latest_filled_date ? Alloy.Globals.strings.lblLastRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : Alloy.Globals.strings.msgNotFilledYet;
+	var expiryDate=moment(prescription.expiration_date, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD");
+	if(moment().diff(expiryDate,"days")>0)
+	rightLbl.text=Alloy.Globals.strings.lblExpired;
+	else
+	rightLbl.text = prescription.latest_filled_date ? Alloy.Globals.strings.lblRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : Alloy.Globals.strings.msgNotFilledYet;
 	view.add(leftLbl);
 	view.add(rightLbl);
 	row.add(view);
+	row.rowId = prescription.id;
+
 	return row;
+}
+
+function didItemClick(e) {
+	var id = e.row.rowId;
+	var prescription = _.findWhere(prescriptions, {
+		id : id
+	});
+
+	app.navigator.open({
+		stack : true,
+		title : Alloy.Globals.strings.lblDrugDetails,
+		ctrl : "prescriptionDetails",
+		ctrlArguments : {
+			prescription : prescription
+		}
+	});
+
 }
 
 function didClickProfileImg(e) {
@@ -157,11 +142,28 @@ function didClickDirections(e) {
 	});
 }
 
+function createNoPrescriptionRow(message) {
+	var row = $.UI.create("TableViewRow", {
+		apiName : "TableViewRow"
+	}),
+	    contentView = $.UI.create("View", {
+		apiName : "View",
+		classes : ["padding-top", "auto-height"]
+	}),
+	    titleLbl = $.UI.create("Label", {
+		apiName : "Label",
+		text : message,
+		classes : ["fill-width", "padding-left", "padding-bottom", "h2"]
+	});
+	contentView.add(titleLbl);
+	row.add(contentView);
+	return row;
+}
+
 function didClickOption(e) {
 
 	if (!(profileImg)) {
-	
-		
+
 		var profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
 			height : "70",
@@ -183,10 +185,10 @@ function didClickOption(e) {
 				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 					//we may create image view with contents from image variable
 					//or simply save path to image
-					
-					if (!(profileImg)) 
-					$.profileImageView.remove($.profileIconLabel);
-					
+
+					if (!(profileImg))
+						$.profileImageView.remove($.profileIconLabel);
+
 					profileImg.image = image;
 					$.profileImageView.add(profileImg);
 
@@ -209,8 +211,8 @@ function didClickOption(e) {
 				// show alert
 				// a.show();
 			},
-			allowImageEditing : true,
-			saveToPhotoGallery : true
+			saveToPhotoGallery : true,
+			allowEditing : true
 		});
 	} else if (e.index == 0) {
 		//obtain an image from the gallery
@@ -224,19 +226,20 @@ function didClickOption(e) {
 				if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 					//we may create image view with contents from image variable
 					//or simply save path to image
-					if (!(profileImg)) 
-					$.profileImageView.remove($.profileIconLabel);
-					
+					if (!(profileImg))
+						$.profileImageView.remove($.profileIconLabel);
+
 					profileImg.image = image;
 					$.profileImageView.add(profileImg);
-					
+
 					Ti.App.Properties.setString("image", image.nativePath);
 				}
 			},
 			cancel : function() {
 				//user cancelled the action fron within
 				//the photo gallery
-			}
+			},
+			allowEditing : true
 		});
 	} else {
 		//cancel was tapped
@@ -248,7 +251,7 @@ function didClickEdit(e) {
 
 	app.navigator.open({
 		stack : true,
-		titleid : "titleAddDoctor",
+		titleid : "titleEditDoctor",
 		ctrl : "addDoctor",
 		ctrlArguments : {
 			doctor : doctor,

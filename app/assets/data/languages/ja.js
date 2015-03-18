@@ -45,6 +45,8 @@ module.exports = {
 		"tittleDoctorReminderSettings" : "ja-Doctor Reminder Settings",
 		"titleThanks" : "ja-Thanks",
 		"titleEmailAddress" : "ja-Email Address",
+		"titleEditDoctor":"ja-Edit a doctor",
+		
 		"sectionStoreHours" : "ja-Store hours",
 		"sectionStoreServices" : "ja-Store services",
 		"sectionUpcomingAppointments" : "ja-Upcoming appointments",
@@ -59,6 +61,8 @@ module.exports = {
 		"sectionPickupDetails" : "ja-Pickup details",
 		"sectionInformation" : "ja-Information",
 		"sectionAddAll" : "ja-add all",
+		"sectionDoctors" : "ja-Doctors",
+		"sectionHasPrescribedYou":"ja-Has prescribed you",
 
 		"hintSearchByZipCityOrState" : "ja-Search by zip, city or state",
 		"hintMobileNumber" : "ja-Mobile Number (xxx)xxx-xxxx",
@@ -86,6 +90,8 @@ module.exports = {
 		"hintAddNote" : "ja-Add note",
 		"hintLanguage" : "ja-Language",
 		"hintRefillThisPrescription" : "ja-Refill this prescription",
+		"hintAddressLine1":"ja-Address line 1",
+		"hintAddressLine2":"ja-Address line 2",
 
 		"lblRefillWithoutLogin" : "ja-Refill without logging in",
 		"lblSigninToMobilePharmacy" : "ja-Sign in to the mscripts mobile pharmacy",
@@ -152,6 +158,11 @@ module.exports = {
 		"lblDosageInstruction" : "ja-Dosage instruction",
 		"lblNewPassword" : "ja-Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 		"lblRemindMeAppointment" : "ja-Remind me these many days before the appointment",
+		"lblRefilled" : "ja-Refilled",
+		"lblAddress":"ja-Address",
+		"lblDescription":"ja-Description",
+		"lblExpired":"ja-Expired",
+
 
 		"valFirstNameRequired" : "ja-Please enter your first name",
 		"valLastNameRequired" : "ja-Please enter your last name",
@@ -163,6 +174,8 @@ module.exports = {
 		"valRxNoRequired" : "ja-Please enter a valid Rx Number",
 		"valPharmacyRequired" : "ja-Please choose a pharmacy",
 		"valCodeRequired" : "ja-Please enter the OTP you have received",
+		"valFaxNumber":"ja-Please enter a valid fax number",
+		"valZipCode":"ja-Please enter a valid zip code",
 
 		"msgAgeRestriction" : "ja-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "ja-Unable to find your location, please check your settings",
@@ -180,8 +193,8 @@ module.exports = {
 		"msgShouldBeReadyBy" : "ja-Should be ready by",
 		"msgChangeHomePharmacy" : "ja-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 		"msgYouHaveUpcomingAppointmentWith" : "ja-You have an upcoming appointment with %s ",
-		"msgHasPrescribedYou" : "ja-%s has prescribed you %s",
-		"msgYouHaveNoActiveprescription" : "ja-You have no active prescriptions associated with %s",
+		"msgHasPrescribedYou" : "ja-Has prescribed you:",
+		"msgYouHaveNoActiveprescription" : "ja-You have no active prescriptions",
 		"msgNoActiveprescription" : "ja-No active prescriptions",
 		"msgOrderPlacedReadyBy" : "ja-Order processed: ready by",
 		"msgOverdueBy" : "ja-Overdue by",
@@ -213,7 +226,10 @@ module.exports = {
 		"msgDoctorUpdated" : "ja-Doctor details updated",
 		"msgAppointmentDeleted" : "ja-Your doctor's appointment reminder has been deleted",
 		"msgAppointmentReminderSettingsUpdated" : "ja-Your appointment reminder settings has been updated",
-			"msgMailOrder" : "ja-Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgMailOrder" : "ja-Mail order prescriptions will be sent to the address that your pharmacy has on file.",
+		"msgManuallyAddedDoctor":"ja-You manually added this doctor. Associated prescriptions not available.",
+		"msgManuallyAddedByYou":"ja-Manually added by you",
+		"msgDoctorDeleted":"ja-The doctor has been removed from your list",
 
 		"menuSearch" : "ja-Search",
 		"menuSort" : "ja-Sort",
@@ -251,6 +267,7 @@ module.exports = {
 		"btnChangePhoto" : "ja-Change Photo",
 		"btnGiveUsCall" : "ja-Give us a call",
 		"btnSendUsEmail" : "ja-Send us an email",
+		"btnRemoveDoctor":"ja-Remove doctor from list",
 
 		"optionFindPictureOnMyPhone" : "ja-Find a picture on my phone",
 		"optionTakePhoto" : "ja-Take photo",
