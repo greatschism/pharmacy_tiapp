@@ -30,7 +30,7 @@ function didSuccess(_result) {
 		message : _result.message,
 		success : function() {
 			//app.navigator.closeToRoot(); --original flow
-			app.navigator.open ({  // -- temporary redirection for demo
+			app.navigator.open({// -- temporary redirection for demo
 				ctrl : "newPassword",
 				stack : true
 			});
@@ -39,19 +39,26 @@ function didSuccess(_result) {
 }
 
 function didClickCantRemember(e) {
+	var osname = Ti.Platform.osname;
+	console.log("os is " + osname);
+
+	var isiPhone = (osname == 'iphone') ? true : false;
+
 	dialog.show({
-		message : Alloy.Globals.strings.msgEmailRecovery,
-		buttonNames : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail],
-		success : function(_index) {
-			if (_index == 0) {
-				Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
-			} else {
-				Ti.UI.createEmailDialog({
-					subject : Alloy.Globals.strings.strEmailSubjectLoginRecovery,
-					messageBody : Alloy.Globals.strings.strEmailBodyLoginRecovery,
-					toRecipients : [Alloy.CFG.SUPPORT.email]
-				}).open();
-			}
+	message : Alloy.Globals.strings.msgEmailRecovery,
+	buttonNames : (isiPhone) ? [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail] ,
+	success : function(_index) {
+
+		if (_index == 0) {
+			Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
+		} else if(_index == 1){
+			Ti.UI.createEmailDialog({
+				subject : Alloy.Globals.strings.strEmailSubjectLoginRecovery,
+				messageBody : Alloy.Globals.strings.strEmailBodyLoginRecovery,
+				toRecipients : [Alloy.CFG.SUPPORT.email]
+			}).open();
 		}
-	});
+	}
+});
+
 }
