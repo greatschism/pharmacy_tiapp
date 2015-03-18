@@ -80,7 +80,7 @@ function init() {
 
 function phoneDialer(e) {
 
-	var number = "tel:+" + String(doctor.phone);
+	var number = "tel:" + String(doctor.phone);
 	Ti.Platform.openURL(number);
 }
 
