@@ -161,21 +161,21 @@ function didClickOptionView(e) {
 		Alloy.Globals.strings.menuUnhidePrescriptions,
 		Alloy.Globals.strings.menuRefresh,
 ];
-	$.optionsMenu.options=menuItems;
-	$.optionsMenu.show();
-	 $.optionsMenu.addEventListener('click',function(e)
+		$.optionsMenu.options=menuItems;
+		$.optionsMenu.show();
+		$.optionsMenu.addEventListener('click',function(e)
             {
-            	switch(e.index) {
-	case 0:
+  	  switch(e.index) {
+		case 0:
 		toggleSearchView();
 		break;
-	case 1:
+		case 1:
 		sort();
 		break;
-	case 2:
-		init();
+		case 2:
+		alert("Unhide under construction");
 		break;
-	case 3:
+		case 3:
 		init();
 		break;
 	}
