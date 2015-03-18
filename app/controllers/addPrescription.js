@@ -371,7 +371,7 @@ function didAddPrescription(_result) {
 		},
 		stack : true
 	});
-	alert(_result.message);
+
 }
 
 function didItemClick(e) {
