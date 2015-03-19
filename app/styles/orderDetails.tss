@@ -1,7 +1,4 @@
 
-"#toggleBtn":{
-	
-},
 "#tableView":{
 	top: 0,
 	bottom: 96
@@ -12,8 +9,7 @@
 },
 "#orderRefillBtn":{
 	title: Alloy.Globals.strings.btnOrderRefill,
-	color : "#ffffff"
-
-},
+	color: "#ffffff"
+}
 
 
