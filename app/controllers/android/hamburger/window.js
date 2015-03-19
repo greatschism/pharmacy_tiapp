@@ -74,15 +74,15 @@ function didOpen(e) {
 	if (args.navBarHidden) {
 		hideNavBar();
 	}
+
+	focus();
 }
 
-function didFocus(e) {
-	console.log(args.title || Alloy.Globals.strings[args.titleid || ""] || "", "-", "focus");
+function focus(e) {
 	_.isFunction(controller.focus) && controller.focus();
 }
 
-function didBlur(e) {
-	console.log(args.title || Alloy.Globals.strings[args.titleid || ""] || "", "-", "blur");
+function blur(e) {
 	_.isFunction(controller.blur) && controller.blur();
 }
 
@@ -126,4 +126,6 @@ function setRightNavButton(_view) {
 	activity.invalidateOptionsMenu();
 }
 
+exports.focus = focus;
+exports.blur = blur;
 exports.ctrlPath = controller ? controller.__controllerPath : "";

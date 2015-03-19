@@ -1,3 +1,3 @@
 <Alloy>
-	<Window onOpen="didOpen" onFocus="didFocus" onBlur="didBlur" onClose="didClose" onAndroidback="didClickLeftNavView" />
+	<Window onOpen="didOpen" onClose="didClose" onAndroidback="didClickLeftNavView" />
 </Alloy>

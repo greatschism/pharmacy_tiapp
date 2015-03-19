@@ -140,9 +140,9 @@ function Navigation(_args) {
 
 		that.currentController.getView().fireEvent("blur");
 
-		that.currentController = controller;
+		that.controllers.push(controller);
 
-		that.controllers.push(that.currentController);
+		that.currentController = controller;
 
 		that.isBusy = false;
 

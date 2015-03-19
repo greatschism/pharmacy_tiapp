@@ -107,7 +107,7 @@ function setRightNavButton(_view) {
 	activity.invalidateOptionsMenu();
 }
 
-exports.blur = blur;
 exports.focus = focus;
+exports.blur = blur;
 exports.terminate = terminate;
 exports.ctrlPath = controller ? controller.__controllerPath : "";

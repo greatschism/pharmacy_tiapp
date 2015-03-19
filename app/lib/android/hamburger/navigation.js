@@ -101,15 +101,13 @@ function Navigation(_args) {
 
 		that.drawer.setCenterWindow(that.currentController.getView());
 
+		that.currentController.focus();
+
 		if (that.controllers.length) {
 			that.closeToRoot();
-			var controller = that.controllers.pop();
-			controller.blur();
-			controller.terminate();
+			that.controllers.pop().terminate();
 			that.controllers = [];
 		}
-
-		that.currentController.focus();
 
 		that.controllers.push(that.currentController);
 
@@ -138,15 +136,19 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		that.currentController = Alloy.createController("hamburger/window", _params);
+		var controller = Alloy.createController("hamburger/window", _params);
 
-		that.currentController.getView().open({
+		controller.getView().open({
 			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open,
 			activityExitAnimation : Titanium.App.Android.R.anim.acitivty_close,
 			animated : true
 		});
 
-		that.controllers.push(that.currentController);
+		that.currentController.blur();
+
+		that.controllers.push(controller);
+
+		that.currentController = controller;
 
 		that.isBusy = false;
 
@@ -203,9 +205,7 @@ function Navigation(_args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		if (_.isFunction(that.currentController.focus)) {
-			that.currentController.focus();
-		}
+		that.currentController.focus();
 
 		//that.testOutput();
 
