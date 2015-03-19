@@ -11,22 +11,21 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     uihelper = require("uihelper"),
     prescription,
-    prescriptionList,
     orders,
     row2,
     row3,
     pickupdetails,
     picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
-	classes : ["form-dropdown"]
+	// classes : ["dropdown"]
 }));
 
 function init() {
 	prescription = args.prescription || {};
-	console.log("resut presc name is " + prescription.presc_name);
+	//	console.log("result presc name is " + prescription.presc_name);
 
 	orders = [{
 		id : 1,
-		name : "Lomotil, 200mg tab"
+		name : "Lovastin, 200mg tab"
 
 	}];
 	data = [];
@@ -37,6 +36,7 @@ function init() {
 		for (var i in orders) {
 			var transform = orders[i],
 			    name = moment.unix(transform.name),
+
 			    row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
@@ -57,14 +57,14 @@ function init() {
 
 			row.add(containerView);
 			$.yourOrderSection.add(row);
-		}
+		}//end of orders loop
 
-		// add more prescriptions
+		// // add more prescriptions
 		var row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow"
 		}),
 
-		    footerView = $.UI.create("View", {
+		    contentView = $.UI.create("View", {
 			apiName : "View",
 			horizontalWrap : "false",
 			classes : ["hgroup", "auto-height", "padding-top", "padding-bottom", "margin-left", "margin-right"]
@@ -73,28 +73,28 @@ function init() {
 		addIcon = $.UI.create("Label", {
 			apiName : "Label",
 			height : 32,
-			left : 10,
+			left : 5,
 			width : 32,
 			font : {
 				fontSize : 20
 			},
 			text : Alloy.CFG.icons.plus_with_circle,
 			color : "#599DFF",
-			classes : ["paddingLeft", "paddingTop", "paddingBottom", "additionIcon", "small-icon"]
+			classes : ["padding-left", "padding-top", "padding-bottom", "small-icon"]
 
 		}),
 		addLbl = $.UI.create("Label", {
 			apiName : "Label",
-			text : " Add more prescription",
+			text : "Add more prescription",
 			color : "#000000",
-			classes : ["width-90", "paddingLeft", "auto-height"]
+			classes : ["width-90", "padding-left", "auto-height"]
 
 		});
 
-		footerView.add(addIcon);
-		footerView.add(addLbl);
-		footerView.addEventListener("click", didClickAddAnotherPrescription);
-		row.add(footerView);
+		contentView.add(addIcon);
+		contentView.add(addLbl);
+		contentView.addEventListener("click", didClickAddAnotherPrescription);
+		row.add(contentView);
 		$.yourOrderSection.add(row);
 
 		data.push($.yourOrderSection);
@@ -126,7 +126,8 @@ function init() {
 	row.add(view);
 	$.pickupDetailsSection.add(row);
 
-	var row2 = $.UI.create("TableViewRow", {
+	var row2 = $.UI.create("TableViewRow", {
+
 		apiName : "TableViewRow"
 	}),
 
@@ -157,8 +158,7 @@ function init() {
 		apiName : "Label",
 		text : "change",
 		right : 10,
-
-		color : " #599DFF",
+		color : "#599DFF",
 		classes : ["right", "padding-right", "width-30", "h1"]
 	});
 
@@ -188,13 +188,7 @@ function init() {
 
 	}),
 
-	//    mailTo = $.UI.create("Label", {
-	//	apiName : "Label",
-	//	text : "Mail to:",
-	//	classes : ["list-item-info-lbl", "left"]
-	//	}),
-
-	    addressLine1 = $.UI.create("Label", {
+	    mailTo = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#BDBDBD",
 		font : {
@@ -203,27 +197,9 @@ function init() {
 		text : Alloy.Globals.strings.msgMailOrder,
 		classes : ["multi-line", "left"]
 	});
-	//   addressLine2 = $.UI.create("Label", {
-	//	apiName : "Label",
-	//	text : "San Franscisco,CA, 94103",
-	//	top : 5,
-	//	classes : ["list-item-info-lbl", "left"]
-	//}),
-
-	//    wrongAddressLbl = $.UI.create("Label", {
-	//	apiName : "Label",
-	//	top : 5,
-	//	color : "#599DFF",
-	//	text : Alloy.Globals.strings.lblWrongAddress,
-	//	classes : ["list-item-info-lbl", "left"]
-	//});
 
 	containerView.rowId = transform.id;
-	//containerView.add(mailTo);
-	containerView.add(addressLine1);
-	//containerView.add(addressLine2);
-	//containerView.add(wrongAddressLbl);
-	//	wrongAddressLbl.addEventListener("click", didClickCallPharmacy);
+	containerView.add(mailTo);
 
 	row3.add(containerView);
 
@@ -253,19 +229,11 @@ function init() {
 }
 
 function didClickDone(e) {
-	if (e.getSelectemItem() = "Mail order") {
-		//	$.pickupDetailsSection.add(row3);
-
-	}
 
 }
 
 function setParentViews(view) {
 	picker.setParentView(view);
-}
-
-function didToggle(e) {
-	$.toggleMenu.toggle();
 }
 
 function didClickOrderRefill(e) {
@@ -296,22 +264,21 @@ function didClickOrderRefill(e) {
 			}]
 		},
 
-		keepBlook : true,
 		success : didSuccess
 	});
 }
 
 function didSuccess(result) {
 
-	var abc = result.data.prescriptions || [];
-	console.log("pratibha" + abc);
+	//var abc = result.data.prescriptions || [];
+	//	console.log("pratibha" + abc);
 
 	app.navigator.open({
 		stack : true,
 		titleid : "titleYourRefillIsOrdered",
 		ctrl : "orderSuccess",
 		ctrlArguments : {
-			prescription : prescription.rx_number
+			//	prescription : prescription.rx_number
 		}
 	});
 
@@ -335,10 +302,10 @@ function didClickStoreChange(e) {
 	alert("Stores under construction");
 }
 
-function didClickCallPharmacy(e) {
-	var number = "6172837737";
-	Ti.platform.openURL('tel:' + number);
-}
+// function didClickCallPharmacy(e) {
+// var number = "6172837737";
+// Ti.platform.openURL('tel:' + number);
+// }
 
 function didItemClick(e) {
 
