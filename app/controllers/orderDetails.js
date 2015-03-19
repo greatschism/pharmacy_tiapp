@@ -16,7 +16,7 @@ var args = arguments[0] || {},
     row3,
     pickupdetails,
     picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
-	// classes : ["dropdown"]
+	// classes : ["form-dropdown"]
 }));
 
 function init() {
