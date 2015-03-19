@@ -286,11 +286,12 @@ function didSuccess(result) {
 
 function didClickAddAnotherPrescription(e) {
 
-	app.navigator.open({
-		stack : true,
-		titleid : "Add prescriptions",
-		ctrl : "addPrescription"
-	});
+	// app.navigator.open({
+		// stack : true,
+		// titleid : "Add prescriptions",
+		// ctrl : "addPrescription"
+	// });
+	alert("under construction");
 }
 
 function didClickStoreChange(e) {
