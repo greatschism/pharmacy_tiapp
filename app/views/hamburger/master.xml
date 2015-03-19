@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="drawer" src="nl.fokkezb.drawer" onWindowDidOpen="didLeftWindowOpen" onOpen="didOpen" onClose="didClose">
+	<Widget id="drawer" src="nl.fokkezb.drawer" onWindowDidOpen="didLeftWindowOpen" onOpen="didOpen" onClose="didClose" onAndroidback="didAndoridBack">
 		<Window id="leftWindow" platform="ios" role="leftWindow">
 			<Require id="menuCtrl" src="hamburger/menu" />
 		</Window>

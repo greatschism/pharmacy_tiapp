@@ -33,9 +33,6 @@
 "TableView":{
 	separatorColor: Alloy.TSS.TableView.separatorColor
 },
-"TableView[platform=android]":{
-	borderColor: Alloy.TSS.TableView.borderColor
-},
 "TableView[platform=ios]":{
 	separatorInsets: {
 		top: 0,

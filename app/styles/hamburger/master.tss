@@ -1,6 +1,5 @@
 "#drawer":{
-	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH,
-	animationMode: "ANIMATION_SCALE"
+	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH
 },
 "#drawer[platform=ios]":{
 	accessibilityLabel: Ti.App.name,
@@ -9,9 +8,11 @@
 	animationMode: "ANIMATION_SLIDE"
 },
 "#drawer[platform=android]":{
+	exitOnClose: true,
 	openDrawerGestureMode: "OPEN_MODE_MARGIN",
 	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
-	animationMode: "ANIMATION_NONE"
+	animationMode: "ANIMATION_NONE",
+	backgroundColor: Alloy.TSS.primary_bg_color.backgroundColor
 },
 "#drawer[formFactor=handheld]":{
 	orientationModes: [Titanium.UI.PORTRAIT]

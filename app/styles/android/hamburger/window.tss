@@ -1,3 +1,6 @@
+"#window":{
+	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN
+},
 "#window[formFactor=handheld]":{
 	orientationModes: [Titanium.UI.PORTRAIT]
 },

@@ -1,5 +1,5 @@
 <Alloy>
-	<Window onOpen="didOpen">
+	<Window onOpen="didOpen" onAndroidback="didAndroidback">
 		<Widget id="loading" src="com.mscripts.loading" />
 	</Window>
 </Alloy>
