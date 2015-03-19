@@ -1,21 +1,24 @@
 var args = arguments[0] || {},
     app = require("core"),
-    abextras = require("com.alcoapps.actionbarextras"),
     controller;
 
 (function() {
 
 	$.window = app.navigator.rootWindow;
 
-	abextras.setWindow($.window);
-
-	abextras.setTitle(args.title || Alloy.Globals.strings[args.titleid || ""] || "");
-
 	if (args.navBarHidden) {
 		hideNavBar();
 	} else if (app.navigator.rootNavBarHidden) {
 		showNavBar();
 	}
+
+	var title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+
+	$.window.title = title;
+
+	$.window.getActivity().actionBar.updateActionBarProperties({
+		title : title
+	});
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
@@ -73,7 +76,7 @@ function terminate(e) {
 	_.isFunction(controller.terminate) && controller.terminate();
 }
 
-function showNavBar(_animated) {
+function showNavBar() {
 	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.show();
@@ -81,7 +84,7 @@ function showNavBar(_animated) {
 	}
 }
 
-function hideNavBar(_animated) {
+function hideNavBar() {
 	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.hide();

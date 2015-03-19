@@ -94,8 +94,7 @@ function loadConfig() {
 }
 
 function didLoadConfig() {
-	$.index.remove($.loading.getView());
-	Alloy.createController(Alloy.CFG.NAVIGATOR + "/master", {
+	var ctrl = Alloy.createController(Alloy.CFG.NAVIGATOR + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.FIRST_LAUNCH, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
@@ -104,6 +103,17 @@ function didLoadConfig() {
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});
+	ctrl.on("open", didOpenMastWindow);
+	ctrl.init();
+}
+
+function didOpenMastWindow(e) {
+	$.index.close();
+}
+
+function didAndroidback(e) {
+	$.index.setExitOnClose(true);
+	$.index.close();
 }
 
 $.index.open();

@@ -1,33 +1,29 @@
 var args = arguments[0] || {},
     app = require("core"),
-    abextras = require("com.alcoapps.actionbarextras"),
     controller,
     rightNavView;
 
 (function() {
 
-	abextras.setWindow($.window);
-
-	abextras.setBackgroundColor(Alloy.TSS.Window.barColor);
-
-	abextras.setTitle({
-		title : args.title || Alloy.Globals.strings[args.titleid || ""] || "",
-		font : Alloy.TSS.Window.titleAttributes.font,
-		color : Alloy.TSS.Window.titleAttributes.color
-	});
-
-	abextras.setLogo({
-		icon : Alloy.CFG.icons.back,
-		fontFamily : Alloy.TSS.nav_icon_btn.font.fontFamily,
-		color : Alloy.TSS.nav_icon_btn.color
-	});
-
-	if (args.navBarHidden) {
-		hideNavBar();
-	}
-
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
+
+	var title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+
+	$.window.title = title;
+
+	$.window.setActionBarProperties({
+		title : title,
+		font : Alloy.TSS.Window.titleAttributes.font.fontFamily,
+		color : Alloy.TSS.Window.titleAttributes.color,
+		backgroundColor : Alloy.TSS.Window.barColor,
+		logo : {
+			icon : Alloy.CFG.icons.back,
+			font : Alloy.TSS.nav_icon_btn.font.fontFamily,
+			color : Alloy.TSS.nav_icon_btn.color,
+			accessibilityLabel : Alloy.Globals.strings.accessibilityLblNavigateBack
+		}
+	});
 
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
@@ -64,19 +60,29 @@ var args = arguments[0] || {},
 })();
 
 function didOpen(e) {
+
 	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
-		actionBar.setHomeButtonEnabled(true);
 		actionBar.setOnHomeIconItemSelected(didClickLeftNavView);
 	}
+
 	if (rightNavView) {
 		setRightNavButton(rightNavView);
 		rightNavView = null;
 	}
+
+	if (args.navBarHidden) {
+		hideNavBar();
+	}
+}
+
+function didFocus(e) {
+	console.log(args.title || Alloy.Globals.strings[args.titleid || ""] || "", "-", "focus");
 	_.isFunction(controller.focus) && controller.focus();
 }
 
 function didBlur(e) {
+	console.log(args.title || Alloy.Globals.strings[args.titleid || ""] || "", "-", "blur");
 	_.isFunction(controller.blur) && controller.blur();
 }
 
@@ -91,14 +97,14 @@ function didClickLeftNavView(e) {
 	app.navigator.close();
 }
 
-function showNavBar(_animated) {
+function showNavBar() {
 	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.show();
 	}
 }
 
-function hideNavBar(_animated) {
+function hideNavBar() {
 	var actionBar = $.window.getActivity().actionBar;
 	if (actionBar) {
 		actionBar.hide();
