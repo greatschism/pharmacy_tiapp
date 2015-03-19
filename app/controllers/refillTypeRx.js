@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = arguments[0]|| {},
     rxnos = [],
     app = require("core"),
     viewArr = [],
@@ -8,7 +8,7 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     deleteBtn,
-    count = 0,
+   
     addPres,
     mob,
     locationFirstUpdate = true;
@@ -61,7 +61,7 @@ function didClickOrderRefill(e) {
 				"data" : [{
 					"prescriptions" : [{
 						id : "x",
-						rx_number : viewArr[0],
+						rx_number : rxnos[0],
 						store_id : "x",
 						mobile_number : "x",
 						pickup_time_group : "x",
@@ -111,17 +111,16 @@ function didClickAddPrescription(e) {
 		});
 
 		addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
-			classes : ["form-txt", "txt"],
+			classes : ["form-txt", "txt", "padding-top"],
 			rightIconText : Alloy.CFG.icons.minus_with_circle,
 			iconFont : Alloy.TSS.small_icon.font,
 			rightIconDict : {
 				"Color" : "#ED1C24",
-				"right":10
+				"right" : 10
 
 			},
 			keyboardType : Ti.UI.KEYBOARD_NUMBER_PAD,
 			maxLength : 7,
-			
 
 		}));
 
@@ -130,25 +129,25 @@ function didClickAddPrescription(e) {
 
 		});
 
-		viewArr[i].add(addPres.getView());
+		$.enter.add(addPres.getView());
+		
 
-		$.enter.add(viewArr[i]);
-		rxnos[count] = addPres.getValue();
-		addPres.on("click", didClickDelete);
+		console.log("entered func");
+		addPres.on('click', function(e) {
+
+			console.log(e);
+
+			
+			$.enter.remove(e.source.getView());
+			i--;
+
+		});
 
 		i++;
+
 	} else {
 		alert("Maximum limit reached !!");
 	}
-}
-
-function didClickDelete(e) {
-
-	console.log(e);
-	i--;
-	count--;
-	$.enter.remove(viewArr[i]);
-	//didClickAddPrescription();
 }
 
 function terminate() {
