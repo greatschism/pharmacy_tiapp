@@ -3,11 +3,24 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
+    cached=" ",
+    prepopulated_number=5454545454,
     uihelper = require("uihelper");
-
-
+    
+    
+function init() {
+	console.log("init trigg");
+	if ((OS_IOS || OS_ANDROID) && (cached != 0 || cached != "" )) {
+		//utilities.setProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, $.mobileTxt.getValue(), "string", false);
+		prepopulated_number = utilities.getProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, cached, "string", false);
+		$.mobileTxt.setValue(prepopulated_number);
+		console.log("prepopulated_number"+prepopulated_number);
+	}
+	console.log("ios");
+}
 
 function didChange(e) {
+	console.log("didchng");
 	var value = utilities.formatMobileNumber(e.value),
 	    len = value.length;
 	$.mobileTxt.setValue(value);
@@ -16,6 +29,8 @@ function didChange(e) {
 
 function didClickContinue(e) {
 	var mob = $.mobileTxt.getValue();
+	cached = utilities.setProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, mob, "string", false);
+	console.log("cached" + (cached));
 	if (isNaN(mob) == true && mob.length == 14) {
 		if (args.isScan == 1) {
 			console.log("func");
@@ -26,14 +41,14 @@ function didClickContinue(e) {
 			Barcode.useLED = false;
 
 			// var window = Ti.UI.createWindow({
-				// backgroundColor : 'white'
+			// backgroundColor : 'white'
 			// });
 			// var scrollView = Ti.UI.createScrollView({
-				// contentWidth : 'auto',
-				// contentHeight : 'auto',
-				// top : 0,
-				// showVerticalScrollIndicator : true,
-				// layout : 'vertical'
+			// contentWidth : 'auto',
+			// contentHeight : 'auto',
+			// top : 0,
+			// showVerticalScrollIndicator : true,
+			// layout : 'vertical'
 			// });
 
 			/**
@@ -71,26 +86,26 @@ function didClickContinue(e) {
 			//overlay.add(switchButton);
 
 			// var toggleLEDButton = Ti.UI.createButton({
-				// title : Barcode.useLED ? 'LED is On' : 'LED is Off',
-				// textAlign : 'center',
-				// color : '#000',
-				// backgroundColor : '#fff',
-				// style : 0,
-				// font : {
-					// fontWeight : 'bold',
-					// fontSize : 16
-				// },
-				// borderColor : '#000',
-				// borderRadius : 10,
-				// borderWidth : 1,
-				// opacity : 0.5,
-				// width : 220,
-				// height : 30,
-				// bottom : 40
+			// title : Barcode.useLED ? 'LED is On' : 'LED is Off',
+			// textAlign : 'center',
+			// color : '#000',
+			// backgroundColor : '#fff',
+			// style : 0,
+			// font : {
+			// fontWeight : 'bold',
+			// fontSize : 16
+			// },
+			// borderColor : '#000',
+			// borderRadius : 10,
+			// borderWidth : 1,
+			// opacity : 0.5,
+			// width : 220,
+			// height : 30,
+			// bottom : 40
 			// });
 			// toggleLEDButton.addEventListener('click', function() {
-				// Barcode.useLED = !Barcode.useLED;
-				// toggleLEDButton.title = Barcode.useLED ? 'LED is On' : 'LED is Off';
+			// Barcode.useLED = !Barcode.useLED;
+			// toggleLEDButton.title = Barcode.useLED ? 'LED is On' : 'LED is Off';
 			// });
 			// //overlay.add(toggleLEDButton);
 
@@ -111,7 +126,7 @@ function didClickContinue(e) {
 				width : 50,
 				height : 30,
 				top : 15,
-				left:20
+				left : 20
 			});
 			cancelButton.addEventListener('click', function() {
 				Barcode.cancel();
@@ -128,19 +143,19 @@ function didClickContinue(e) {
 				top : 20
 			});
 			//scanCode.addEventListener('click', function() {
-				reset();
-				// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
-				// to test your barcode scanning overlay.
-				Barcode.capture({
-					animate : true,
-					overlay : overlay,
-					showCancel : false,
-					showRectangle : true,
-					keepOpen : true/*,
-					 acceptedFormats: [
-					 Barcode.FORMAT_QR_CODE
-					 ]*/
-				});
+			reset();
+			// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
+			// to test your barcode scanning overlay.
+			Barcode.capture({
+				animate : true,
+				overlay : overlay,
+				showCancel : false,
+				showRectangle : true,
+				keepOpen : true/*,
+				 acceptedFormats: [
+				 Barcode.FORMAT_QR_CODE
+				 ]*/
+			});
 			//});
 			//scrollView.add(scanCode);
 
@@ -169,23 +184,23 @@ function didClickContinue(e) {
 			 * Create a button that will show the gallery picker.
 			 */
 			// var scanImage = Ti.UI.createButton({
-				// title : 'Scan Image from Gallery',
-				// width : 200,
-				// height : 60,
-				// top : 20
+			// title : 'Scan Image from Gallery',
+			// width : 200,
+			// height : 60,
+			// top : 20
 			// });
 			// scanImage.addEventListener('click', function() {
-				// reset();
-				// Ti.Media.openPhotoGallery({
-					// success : function(evt) {
-						// Barcode.parse({
-							// image : evt.media/*,
-							 // acceptedFormats: [
-							 // Barcode.FORMAT_QR_CODE
-							 // ]*/
-						// });
-					// }
-				// });
+			// reset();
+			// Ti.Media.openPhotoGallery({
+			// success : function(evt) {
+			// Barcode.parse({
+			// image : evt.media/*,
+			// acceptedFormats: [
+			// Barcode.FORMAT_QR_CODE
+			// ]*/
+			// });
+			// }
+			// });
 			// });
 			// scrollView.add(scanImage);
 
@@ -195,7 +210,7 @@ function didClickContinue(e) {
 			var scannedBarcodes,
 			    scannedBarcodesCount = 0;
 			function reset() {
-				scannedBarcodes=0;
+				scannedBarcodes = 0;
 				scannedBarcodesCount = 0;
 				//cancelButton.title = 'Cancel';
 
@@ -207,7 +222,7 @@ function didClickContinue(e) {
 
 			Barcode.addEventListener('error', function(e) {
 				console.log("error");
-				
+
 				// scanContentType.text = ' ';
 				// scanParsed.text = ' ';
 				// scanResult.text = e.message;
@@ -225,45 +240,45 @@ function didClickContinue(e) {
 			});
 			Barcode.addEventListener('success', function(e) {
 				//Ti.API.info('Success called with barcode: ' + e.result);
-				if (scannedBarcodesCount == 0){
+				if (scannedBarcodesCount == 0) {
 					Ti.API.info('Success called with barcode: ' + e.result);
 					console.log("success1");
 					Ti.API.info('success received');
 					scannedBarcodesCount += 1;
 					//cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
-console.log("successscannedBarcodesCount1"+ scannedBarcodesCount);
+					console.log("successscannedBarcodesCount1" + scannedBarcodesCount);
 					// scanResult.text += e.result + ' ';
 					// scanContentType.text += parseContentType(e.contentType) + ' ';
 					// scanParsed.text += parseResult(e) + ' ';
 					//cancel();
-				
-console.log("scan success2");
-				//function didClickOrderRefill(e) {
-				// mob = $.mobileNumber.getValue();
 
-				http.request({
-					method : "PRESCRIPTIONS_REFILL",
-					data : {
+					console.log("scan success2");
+					//function didClickOrderRefill(e) {
+					// mob = $.mobileNumber.getValue();
 
-						"client_identifier" : "x",
-						"version" : "x",
-						"session_id" : "x",
-						"filter" : [{
-							"refill_type" : "quick/scan/text"
-						}],
-						"data" : [{
-							"prescriptions" : [{
-								"id" : "x",
-								"rx_number" : "x",
-								"store_id" : "x",
-								"mobile_number" : mob,
-								"pickup_time_group" : "x",
-								"pickup_mode" : "instore/mailorder",
-								"barcode_data" : e.result,
-								"barcode_format" : e.format
-							}
-							// }, {
-// 
+					http.request({
+						method : "PRESCRIPTIONS_REFILL",
+						data : {
+
+							"client_identifier" : "x",
+							"version" : "x",
+							"session_id" : "x",
+							"filter" : [{
+								"refill_type" : "quick/scan/text"
+							}],
+							"data" : [{
+								"prescriptions" : [{
+									"id" : "x",
+									"rx_number" : "x",
+									"store_id" : "x",
+									"mobile_number" : mob,
+									"pickup_time_group" : "x",
+									"pickup_mode" : "instore/mailorder",
+									"barcode_data" : e.result,
+									"barcode_format" : e.format
+								}
+								// }, {
+								//
 								// id : "x",
 								// rx_number : "x",
 								// store_id : "x",
@@ -272,95 +287,93 @@ console.log("scan success2");
 								// pickup_mode : "instore/mailorder",
 								// barcode_data : e.result,
 								// barcode_format : e.format
-							// }]
-							]
-						}]
-					},
-					success : didSuccess,
-				});	
-	}	}		
-);
-				function didSuccess(e) {
-					console.log("api success");
-					
-					Barcode.cancel();
-					//window.close();
-					app.navigator.open({
-						titleid : "titleYourRefillIsOnTheWay",
-						ctrl : "refillSuccess",
-						stack : false
+								// }]
+								]
+							}]
+						},
+						success : didSuccess,
 					});
-					//alert("Under Construction");
 				}
+			});
+			function didSuccess(e) {
+				console.log("api success");
 
-			
+				Barcode.cancel();
+				//window.close();
+				app.navigator.open({
+					titleid : "titleYourRefillIsOnTheWay",
+					ctrl : "refillSuccess",
+					stack : false
+				});
+				//alert("Under Construction");
+			}
 
 			/**
 			 * Finally, we'll add a couple labels to the window. When the user scans a barcode, we'll stick information about it in
 			 * to these labels.
 			 */
 			/*scrollView.add(Ti.UI.createLabel({
-				text : 'You may need to rotate the device',
-				top : 10,
-				height : Ti.UI.SIZE || 'auto',
-				width : Ti.UI.SIZE || 'auto'
-			}));
+			 text : 'You may need to rotate the device',
+			 top : 10,
+			 height : Ti.UI.SIZE || 'auto',
+			 width : Ti.UI.SIZE || 'auto'
+			 }));
 
-			scrollView.add(Ti.UI.createLabel({
-				text : 'Result: ',
-				textAlign : 'left',
-				top : 10,
-				left : 10,
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			}));
+			 scrollView.add(Ti.UI.createLabel({
+			 text : 'Result: ',
+			 textAlign : 'left',
+			 top : 10,
+			 left : 10,
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 }));
 
-			var scanResult = Ti.UI.createLabel({
-				text : ' ',
-				textAlign : 'left',
-				top : 10,
-				left : 10,
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			});
-			//scrollView.add(scanResult);
+			 var scanResult = Ti.UI.createLabel({
+			 text : ' ',
+			 textAlign : 'left',
+			 top : 10,
+			 left : 10,
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 });
+			 //scrollView.add(scanResult);
 
-			scrollView.add(Ti.UI.createLabel({
-				text : 'Content Type: ',
-				top : 10,
-				left : 10,
-				textAlign : 'left',
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			}));
-			var scanContentType = Ti.UI.createLabel({
-				text : ' ',
-				textAlign : 'left',
-				top : 10,
-				left : 10,
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			});
-			//scrollView.add(scanContentType);
+			 scrollView.add(Ti.UI.createLabel({
+			 text : 'Content Type: ',
+			 top : 10,
+			 left : 10,
+			 textAlign : 'left',
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 }));
+			 var scanContentType = Ti.UI.createLabel({
+			 text : ' ',
+			 textAlign : 'left',
+			 top : 10,
+			 left : 10,
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 });
+			 //scrollView.add(scanContentType);
 
-			scrollView.add(Ti.UI.createLabel({
-				text : 'Parsed: ',
-				textAlign : 'left',
-				top : 10,
-				left : 10,
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			}));
-			var scanParsed = Ti.UI.createLabel({
-				text : ' ',
-				textAlign : 'left',
-				top : 10,
-				left : 10,
-				color : 'black',
-				height : Ti.UI.SIZE || 'auto'
-			});
-			scrollView.add(scanParsed);
-			*/
+			 scrollView.add(Ti.UI.createLabel({
+			 text : 'Parsed: ',
+			 textAlign : 'left',
+			 top : 10,
+			 left : 10,
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 }));
+			 var scanParsed = Ti.UI.createLabel({
+			 text : ' ',
+			 textAlign : 'left',
+			 top : 10,
+			 left : 10,
+			 color : 'black',
+			 height : Ti.UI.SIZE || 'auto'
+			 });
+			 scrollView.add(scanParsed);
+			 */
 
 			function parseContentType(contentType) {
 				switch (contentType) {
@@ -428,7 +441,6 @@ console.log("scan success2");
 				return msg;
 			}
 
-
 			//window.add(scrollView);
 			//window.open();
 
@@ -444,3 +456,4 @@ console.log("scan success2");
 		alert("please enter a valid 10 digit number");
 	}
 }
+exports.init = init;
