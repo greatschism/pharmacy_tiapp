@@ -11,19 +11,19 @@
 					<Label id="prescriptionNameLbl" class="left title-lbl" />
 					<View class="padding-top auto-height">
 						<View class="left width-30 auto-height vgroup">
-							<Label id="refillsLeftLbl" class="prompt-lbl" />
+							<Label id="refillsLeftLbl" class="info-lbl" />
 							<View class="padding-top auto-width info-view">
 								<Label id="refillLeftInfoLbl" class="info-lbl" />
 							</View>
 						</View>
 						<View class="width-30 auto-height vgroup">
-							<Label id="dueForRefillLbl" class="prompt-lbl" />
+							<Label id="dueForRefillLbl" class="info-lbl" />
 							<View class="padding-top auto-width info-view">
 								<Label id="dueForRefillInfoLbl" class="info-lbl" />
 							</View>
 						</View>
 						<View class="right width-30 auto-height vgroup">
-							<Label id="lastRefillLbl" class="prompt-lbl" />
+							<Label id="lastRefillLbl" class="info-lbl" />
 							<View class="padding-top auto-width info-view">
 								<Label id="lastRefillInfoLbl" class="info-lbl" />
 							</View>
