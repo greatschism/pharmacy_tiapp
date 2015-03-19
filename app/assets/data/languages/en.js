@@ -220,7 +220,7 @@ module.exports = {
 		"msgAppointmentReminder" : "Your appointment reminder for %s on %s at %s has been set.",
 		"msgNoAppointment" : "You have no upcomming appointment",
 		"msgNoDoctor" : "You have no doctors saved in you profile",
-		"msgEmailRecovery" : "Our friendly coustomer support team can help you recover your lost information.",
+		"msgEmailRecovery" : "Our friendly customer support team can help you recover your lost information.",
 		"msgWhyEmailAddress" : "We'll use your email address to help you recover your username or password just in case you ever forget them.",
 		"msgCreateUsername" : "We've made a few changes to make this system easier to use.\n\nPlease create a username and enter your email address.",
 		"msgUsernameCreated" : "Your username has been created. You will use it to log in from now on. Please do it once now.",
