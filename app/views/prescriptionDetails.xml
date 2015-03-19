@@ -74,7 +74,7 @@
 				</View>
 				<Label class="list-item-child-down" />
 			</TableViewRow>
-			<TableViewRow id ="dummy">
+			<TableViewRow id ="tabView">
 				<View id="moreHelpView" class="list-item-view ">
 					<Label id="moreHelpLbl" class="left list-item-lbl"/>
 				</View>
