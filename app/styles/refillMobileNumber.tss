@@ -8,7 +8,7 @@
 					fontWeight : 'bold',
 					fontSize : 15
 				},
-	maxLength : 14,
+	maxLength : 14
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue
