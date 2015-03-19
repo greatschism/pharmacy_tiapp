@@ -149,7 +149,14 @@ function didChangeSearch(e) {
 }
 
 function didItemClick(e) {
-
+app.navigator.open({
+	ctrl : "prescriptionDetails",
+	titleid : "",
+	ctrlArguments : {
+		
+	},
+	stack :true
+});
 }
 
 function didClickOptionView(e) {
