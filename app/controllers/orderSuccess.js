@@ -117,7 +117,7 @@ function didSuccessRefill(_result) {
 
 function getRow(data) {
 
-	$.hintParaOne.text = strings.msgRefillOrder;
+	$.hintParaOne.text = strings.msgRefillOrder + " " + data.refill_promised_date;
 	$.tableView.top = 50;
 	console.log(data);
 	var row = $.UI.create("TableViewRow", {
@@ -149,7 +149,7 @@ function getRow(data) {
 	readyByDateLabel = $.UI.create("Label", {
 		apiName : "Label",
 		left : 50,
-		text : data.refill_inline_message,
+		text : "Should be ready by" + " " +data.refill_promised_date,
 		classes : ["list-item-info-lbl", "left"]
 	});
 
@@ -162,7 +162,7 @@ function getRow(data) {
 		
 	 }
 	 else if (data.refill_is_error = false) {
-		orderPickUpLblIcon.text = Alloy.CFG.icons.remove;
+		orderPickUpLblIcon.text = Alloy.CFG.icons.unfilled_success;
 	 }
 	
 	
