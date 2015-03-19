@@ -134,9 +134,13 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		that.currentController = Alloy.createController("hamburger/window", _params);
+		var controller = Alloy.createController("hamburger/window", _params);
 
-		that.navigationWindow.openWindow(that.currentController.getView());
+		that.navigationWindow.openWindow(controller.getView());
+
+		that.currentController.getView().fireEvent("blur");
+
+		that.currentController = controller;
 
 		that.controllers.push(that.currentController);
 
