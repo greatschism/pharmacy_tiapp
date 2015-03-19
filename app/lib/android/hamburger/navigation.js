@@ -166,6 +166,10 @@ function Navigation(_args) {
 		}
 
 		if (_androidback) {
+			if (that.drawer.isLeftWindowOpen()) {
+				that.drawer.closeLeftWindow();
+				return;
+			}
 			if (_.isFunction(that.currentController.backButtonHandler) && that.currentController.backButtonHandler()) {
 				return;
 			}
