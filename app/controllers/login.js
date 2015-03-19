@@ -6,10 +6,17 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     encryptionUtil = require("encryptionUtil"),
     keychainModule = require("com.obscure.keychain"),
-    keychainAccount;
+    keychainAccount,
+    isiPhone;
 
 function init() {
-	$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_off"}).image);
+	var osname = Ti.Platform.osname;
+	isiPhone = (osname == 'iphone') ? true : false;
+	if (!isiPhone) {
+		$.keepMeSwt.setBackgroundImage(uihelper.getImage({
+			"code" : "toggle_btn_off"
+		}).image);
+	}
 	uihelper.getImage($.logoImg);
 	updateInputs();
 }
@@ -145,10 +152,16 @@ function didFail(_passthrough) {
 
 function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
-	if ($.keepMeSwt.value) {
-		$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_on"}).image);
-	} else {
-		$.keepMeSwt.setBackgroundImage(uihelper.getImage({"code" : "toggle_btn_off"}).image);
+	if (!isiPhone) {
+		if ($.keepMeSwt.value) {
+			$.keepMeSwt.setBackgroundImage(uihelper.getImage({
+				"code" : "toggle_btn_on"
+			}).image);
+		} else {
+			$.keepMeSwt.setBackgroundImage(uihelper.getImage({
+				"code" : "toggle_btn_off"
+			}).image);
+		}
 	}
 }
 

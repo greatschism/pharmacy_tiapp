@@ -40,8 +40,6 @@ function didSuccess(_result) {
 
 function didClickCantRemember(e) {
 	var osname = Ti.Platform.osname;
-	console.log("os is " + osname);
-
 	var isiPhone = (osname == 'iphone') ? true : false;
 
 	dialog.show({

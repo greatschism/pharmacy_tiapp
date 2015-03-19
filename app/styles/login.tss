@@ -19,4 +19,8 @@
 },
 "#signupLbl":{
 	html: Alloy.Globals.strings.lblNeedToCreateAccount
+},
+"#keepMeSwt[platform=android]":{
+	width : 70,
+	height : 30
 }

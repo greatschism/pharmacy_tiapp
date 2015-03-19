@@ -9,7 +9,7 @@
 		</View>
 		<View class="padding-top margin-left margin-right auto-height" focusable="true">
 			<Label id="keepMeLbl" class="left text-left lbl" />
-			<Switch id="keepMeSwt" class="right store-locator-img" onChange="handleScroll" onTouch="handleScroll" titleOn="" titleOff="" width="70" height="30"/>
+			<Switch id="keepMeSwt" class="right store-locator-img" onChange="handleScroll" onTouch="handleScroll" titleOn="" titleOff=""/>
 		</View>
 		<Button id="loginBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickLogin" />
 		<Widget id="signupLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
