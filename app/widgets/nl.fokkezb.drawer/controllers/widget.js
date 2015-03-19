@@ -53,7 +53,7 @@ _.each(["centerWindow", "leftWindow", "rightWindow", "closeDrawerGestureMode", "
 });
 
 // expose other functions
-_.each(["toggleLeftWindow", "toggleRightWindow", "bounceLeftWindow", "bounceRightWindow", "isAnyWindowOpen", "isLeftWindowOpen", "isRightWindowOpen", "open", "close"], function(fn) {
+_.each(["toggleLeftWindow", "toggleRightWindow", "bounceLeftWindow", "bounceRightWindow", "isAnyWindowOpen", "isLeftWindowOpen", "isRightWindowOpen", "getActivity", "open", "close"], function(fn) {
 	if (!exports[fn]) {
 
 		// we need wrapper function for Android
@@ -62,6 +62,11 @@ _.each(["toggleLeftWindow", "toggleRightWindow", "bounceLeftWindow", "bounceRigh
 		};
 	}
 });
+
+//set action bar properties (Android only)
+exports.setActionBarProperties = function(_params) {
+	return $.instance.setActionBarProperties(_params);
+};
 
 // expose constants
 _.each(["OPEN_MODE_NONE", "OPEN_MODE_BEZEL_PANNING_CENTERWINDOW", "OPEN_MODE_MARGIN"], function(key) {

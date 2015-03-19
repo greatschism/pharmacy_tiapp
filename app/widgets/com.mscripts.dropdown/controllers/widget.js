@@ -1,7 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
-    keyboard = OS_MOBILEWEB ? false : require("ti.keyboard"),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -106,7 +105,7 @@ function setMinDate(_minDate) {
 }
 
 function showPicker() {
-	keyboard && keyboard.hide();
+	Ti.App.hideKeyboard();
 	if (!picker && parent) {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
