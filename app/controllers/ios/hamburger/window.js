@@ -111,6 +111,11 @@ function hideNavBar(_animated) {
 
 function setRightNavButton(_view) {
 	var wrapperView = Ti.UI.createView();
+	wrapperView.addEventListener("click", function(e) {
+		if (e.source == wrapperView) {
+			_view.fireEvent("click");
+		}
+	});
 	wrapperView.add(_view);
 	$.window.setRightNavButton(wrapperView);
 }
