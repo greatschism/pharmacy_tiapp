@@ -120,7 +120,7 @@ function setRightNavButton(_view) {
 		});
 		wrapperView.add(_view);
 	}
-	$.window.setRightNavButton(wrapperView || null);
+	$.window.setRightNavButton(wrapperView || Ti.UI.createView());
 }
 
 exports.ctrlPath = controller ? controller.__controllerPath : "";
