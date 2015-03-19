@@ -1,6 +1,5 @@
 "#rightNavBtn":{
-	title: Alloy.CFG.icons.options,
-
+	title: Alloy.CFG.icons.options
 },
 
 
@@ -12,4 +11,9 @@
 	autoHide: true,
 	radioButton: true,
 	titleProperty: "code_display"
+},
+"#sepView":{
+	top: 50,
+	color: "#b5b5b5",
+	height: 0.8
 }
