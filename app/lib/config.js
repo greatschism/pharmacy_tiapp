@@ -1,4 +1,4 @@
-var Config = {
+var Configuration = {
 
 	init : function(_config, _callback) {
 
@@ -223,4 +223,4 @@ var Config = {
 	}
 };
 
-module.exports = Config;
+module.exports = Configuration;

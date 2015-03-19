@@ -2,7 +2,7 @@ var app = require("core"),
     config = require("config"),
     utilities = require("utilities");
 
-var UIHelper = {
+var Helper = {
 
 	/**
 	 * force accessibility system to focus a view
@@ -17,6 +17,16 @@ var UIHelper = {
 			} else {
 				Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
 			}
+		}
+	},
+
+	/**
+	 * Accessibility system announcement
+	 * @param {String} _str for announcement
+	 */
+	requestAnnouncement : function(_str) {
+		if (Ti.App.accessibilityEnabled) {
+			Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, _str);
 		}
 	},
 
@@ -137,4 +147,4 @@ var UIHelper = {
 	}
 };
 
-module.exports = UIHelper;
+module.exports = Helper;

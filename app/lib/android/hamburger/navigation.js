@@ -103,7 +103,9 @@ function Navigation(_args) {
 
 		if (that.controllers.length) {
 			that.closeToRoot();
-			that.controllers.pop().terminate();
+			var controller = that.controllers.pop();
+			controller.blur();
+			controller.terminate();
 			that.controllers = [];
 		}
 
@@ -138,7 +140,11 @@ function Navigation(_args) {
 
 		that.currentController = Alloy.createController("hamburger/window", _params);
 
-		that.currentController.getView().open();
+		that.currentController.getView().open({
+			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open,
+			activityExitAnimation : Titanium.App.Android.R.anim.acitivty_close,
+			animated : true
+		});
 
 		that.controllers.push(that.currentController);
 
@@ -150,11 +156,25 @@ function Navigation(_args) {
 	/**
 	 * closes a controller
 	 * @param {Number} _count No. of pages to close (optional)
+	 * @param {Boolean} _androidback whether back button triggered this action
 	 * @return {Controller} Returns the current controller
 	 */
-	this.close = function(_count) {
+	this.close = function(_count, _androidback) {
 
 		if (that.isBusy) {
+			return;
+		}
+
+		if (_androidback) {
+			if (_.isFunction(that.currentController.backButtonHandler) && that.currentController.backButtonHandler()) {
+				return;
+			}
+			if (that.controllers.length == 1) {
+				return that.terminate();
+			}
+		}
+
+		if (that.controllers.length == 1) {
 			return;
 		}
 
@@ -171,11 +191,17 @@ function Navigation(_args) {
 			removeControllers[i].getView().close();
 		}
 
-		that.currentController.getView().close();
+		that.currentController.getView().close({
+			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open_back,
+			activityExitAnimation : Titanium.App.Android.R.anim.acitivty_close_back,
+			animated : true
+		});
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		that.currentController.getView().fireEvent("focus");
+		if (_.isFunction(that.currentController.focus)) {
+			that.currentController.focus();
+		}
 
 		//that.testOutput();
 
@@ -205,7 +231,7 @@ function Navigation(_args) {
 			return;
 		}
 
-		App.navigator.closeToRoot();
+		that.closeToRoot();
 		that.drawer.close();
 	};
 

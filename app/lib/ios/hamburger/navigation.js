@@ -152,7 +152,7 @@ function Navigation(_args) {
 	 */
 	this.close = function(_count) {
 
-		if (that.isBusy) {
+		if (that.isBusy || that.controllers.length == 1) {
 			return;
 		}
 
@@ -203,7 +203,7 @@ function Navigation(_args) {
 			return;
 		}
 
-		App.navigator.closeToRoot();
+		that.closeToRoot();
 		that.drawer.close();
 	};
 

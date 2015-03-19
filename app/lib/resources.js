@@ -2,7 +2,7 @@ var logger = require("logger"),
     scule = require("com.scule"),
     utilities = require("utilities");
 
-var Resources = {
+var Res = {
 
 	/**
 	 * storage engine & path to scule collection
@@ -37,11 +37,11 @@ var Resources = {
 		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-			    initialData = require(Resources.directoryData + "/" + "resources"),
+			    initialData = require(Res.directoryData + "/" + "resources"),
 			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV);
 
 			for (var i in keys) {
-				Resources.set(keys[i], initialData[keys[i]], true, clearCache);
+				Res.set(keys[i], initialData[keys[i]], true, clearCache);
 			}
 
 			if (clearCache) {
@@ -57,37 +57,37 @@ var Resources = {
 		var path;
 		switch(_key) {
 		case "themes":
-			path = Resources.pathThemes;
+			path = Res.pathThemes;
 			break;
 		case "templates":
-			path = Resources.pathTemplates;
+			path = Res.pathTemplates;
 			break;
 		case "menus":
-			path = Resources.pathMenus;
+			path = Res.pathMenus;
 			break;
 		case "languages":
-			path = Resources.pathLanguages;
+			path = Res.pathLanguages;
 			break;
 		case "fonts":
-			path = Resources.pathFonts;
+			path = Res.pathFonts;
 			break;
 		case "images":
-			path = Resources.pathImages;
+			path = Res.pathImages;
 			break;
 		}
 		return scule.factoryCollection(path);
 	},
 
 	get : function(_key, _where, _conditions) {
-		return Resources.getCollection(_key).find(_where || {}, _conditions || {});
+		return Res.getCollection(_key).find(_where || {}, _conditions || {});
 	},
 
 	set : function(_key, _data, _useLocalResources, _clearCache) {
-		Resources["set" + utilities.ucfirst(_key)](_data, _useLocalResources, _clearCache);
+		Res["set" + utilities.ucfirst(_key)](_data, _useLocalResources, _clearCache);
 	},
 
 	setThemes : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("themes"),
+		var coll = Res.getCollection("themes"),
 		    selectedId = (coll.find({
 		selected: true
 		})[0] || {}).id,
@@ -102,7 +102,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					styles : require(Resources.directoryThemes + "/" + item.id).styles
+					styles : require(Res.directoryThemes + "/" + item.id).styles
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -151,7 +151,7 @@ var Resources = {
 	},
 
 	setTemplates : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("templates"),
+		var coll = Res.getCollection("templates"),
 		    selectedId = (coll.find({
 		selected: true
 		})[0] || {}).id,
@@ -166,7 +166,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					data : require(Resources.directoryTemplates + "/" + item.id).data
+					data : require(Res.directoryTemplates + "/" + item.id).data
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -215,7 +215,7 @@ var Resources = {
 	},
 
 	setMenus : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("menus"),
+		var coll = Res.getCollection("menus"),
 		    selectedId = (coll.find({
 		selected: true
 		})[0] || {}).id,
@@ -230,7 +230,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					items : require(Resources.directoryMenus + "/" + item.id).items
+					items : require(Res.directoryMenus + "/" + item.id).items
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -279,7 +279,7 @@ var Resources = {
 	},
 
 	setLanguages : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("languages"),
+		var coll = Res.getCollection("languages"),
 		    selectedId = (coll.find({
 		selected: true
 		})[0] || {}).id,
@@ -294,7 +294,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				_.extend(item, {
-					strings : require(Resources.directoryLanguages + "/" + item.id).strings
+					strings : require(Res.directoryLanguages + "/" + item.id).strings
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -343,9 +343,9 @@ var Resources = {
 	},
 
 	setFonts : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("fonts"),
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
-		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts);
+		var coll = Res.getCollection("fonts"),
+		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
+		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts);
 		if (_clearCache) {
 			coll.clear();
 		}
@@ -364,7 +364,7 @@ var Resources = {
 				})[0] || {};
 				if (_useLocalResources) {
 					var file = item.id + "_" + item.version + "." + item.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), false);
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
 					_.extend(item, {
 						file : file
 					});
@@ -385,9 +385,9 @@ var Resources = {
 	},
 
 	setImages : function(_items, _useLocalResources, _clearCache) {
-		var coll = Resources.getCollection("images"),
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryData),
-		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages);
+		var coll = Res.getCollection("images"),
+		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
+		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages);
 		if (_clearCache) {
 			coll.clear();
 		}
@@ -404,7 +404,7 @@ var Resources = {
 			})[0] || {};
 			if (_useLocalResources) {
 				var file = item.id + "_" + item.version + "." + item.format;
-				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Resources.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), false);
+				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
 				_.extend(item, {
 					file : file
 				});
@@ -466,23 +466,23 @@ var Resources = {
 			}
 		};
 		for (var key in keys) {
-			var toUpdate = Resources.get(key, keys[key]);
+			var toUpdate = Res.get(key, keys[key]);
 			for (var i in toUpdate) {
-				Resources.updateQueue.push({
+				Res.updateQueue.push({
 					key : key,
 					data : _.omit(toUpdate[i], ["_id", "styles", "data", "items", "strings"])
 				});
 			}
 		}
-		return Resources.updateQueue;
+		return Res.updateQueue;
 	},
 
 	update : function(_callback) {
-		if (!Resources.successCallback) {
+		if (!Res.successCallback) {
 			var http = require("http"),
-			    updateQueue = Resources.updateQueue;
+			    updateQueue = Res.updateQueue;
 			if (updateQueue.length) {
-				Resources.successCallback = _callback;
+				Res.successCallback = _callback;
 				for (var i in updateQueue) {
 					var queue = updateQueue[i];
 					http.request({
@@ -490,8 +490,8 @@ var Resources = {
 						type : "GET",
 						format : queue.key == "fonts" || queue.key == "images" ? "DATA" : "JSON",
 						passthrough : queue,
-						success : Resources.didUpdate,
-						failure : Resources.didUpdate
+						success : Res.didUpdate,
+						failure : Res.didUpdate
 					});
 					logger.i("downloading " + queue.key + " - " + queue.data.id + " from " + queue.data.url);
 				}
@@ -504,7 +504,7 @@ var Resources = {
 	didUpdate : function(_data, _passthrough) {
 		if (_data) {
 			var key = _passthrough.key,
-			    coll = Resources.getCollection(key),
+			    coll = Res.getCollection(key),
 			    model = coll.find({
 			id : _passthrough.data.id
 			})[0] || {};
@@ -601,7 +601,7 @@ var Resources = {
 					code : model.code
 				});
 				var file = model.id + "_" + model.version + "." + model.format;
-				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryFonts + "/" + file), _data, false);
+				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false
@@ -630,7 +630,7 @@ var Resources = {
 					}
 				});
 				var file = model.id + "_" + model.version + "." + model.format;
-				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Resources.directoryImages + "/" + file), _data, false);
+				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), _data, false);
 				_.extend(model, {
 					file : file,
 					update : false,
@@ -640,12 +640,12 @@ var Resources = {
 			}
 			coll.commit();
 			logger.i("downloaded " + key + " - " + _passthrough.data.id + " from " + _passthrough.data.url);
-			Resources.updateQueue = _.reject(Resources.updateQueue, function(obj) {
+			Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
 				return _.isEqual(obj, _passthrough);
 			});
-			if (Resources.updateQueue.length == 0 && Resources.successCallback) {
-				Resources.successCallback();
-				Resources.successCallback = null;
+			if (Res.updateQueue.length == 0 && Res.successCallback) {
+				Res.successCallback();
+				Res.successCallback = null;
 			}
 		} else {
 			logger.e("unable to download " + key + " from " + _passthrough.data.url);
@@ -654,19 +654,19 @@ var Resources = {
 
 	deleteUnusedResoruces : function() {
 		//delete unused fonts
-		var unusedFonts = _.difference(utilities.getFiles(Resources.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck(Resources.get("fonts"), "file"));
+		var unusedFonts = _.difference(utilities.getFiles(Res.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.get("fonts"), "file"));
 		for (var i in unusedFonts) {
-			utilities.deleteFile(Resources.directoryFonts + "/" + unusedFonts[i]);
+			utilities.deleteFile(Res.directoryFonts + "/" + unusedFonts[i]);
 		}
 		//delete unused images
-		var unusedImages = _.difference(utilities.getFiles(Resources.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck(Resources.get("images"), "file"));
+		var unusedImages = _.difference(utilities.getFiles(Res.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.get("images"), "file"));
 		for (var i in unusedImages) {
-			utilities.deleteFile(Resources.directoryImages + "/" + unusedImages[i]);
+			utilities.deleteFile(Res.directoryImages + "/" + unusedImages[i]);
 		}
 	},
 
 	updateImageProperties : function(_item) {
-		var coll = Resources.getCollection("images"),
+		var coll = Res.getCollection("images"),
 		    imageDoc = coll.find({
 		code : _item.code,
 		file : _item.file
@@ -680,4 +680,4 @@ var Resources = {
 	}
 };
 
-module.exports = Resources;
+module.exports = Res;
