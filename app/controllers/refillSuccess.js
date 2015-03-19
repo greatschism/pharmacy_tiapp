@@ -24,6 +24,9 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
+		method : "PATIENTS_AUTHENTICATE",
+		success : didSuccessAuthenticate
+	}), http.request({
 		method : "PRESCRIPTIONS_REFILL",
 		success : didSuccessRefill
 	});
@@ -53,12 +56,25 @@ function addRx(str) {
 	return str;
 }
 
+function didSuccessAuthenticate(_result, _passthrough) {
+	console.log("apisucc");
+	var res = _result.data.patients || [];
+	if (res.session_id) {
+		$.signup.show();
+	} else {
+		$.hintParaOne.hide();
+		$.signup.hide();
+	}
+}
+
 function didSuccessStores(result) {
 	addr = result.data.stores || [];
 
 }
 
 function didSuccessRefill(result) {
+	
+	//Alloy.CFG.REFILL_SUCCESS=1;
 
 	refillPrescriptions = result.data.prescriptions || [];
 
@@ -210,4 +226,5 @@ function didItemClick(e) {
 }
 
 exports.init = init;
+
 
