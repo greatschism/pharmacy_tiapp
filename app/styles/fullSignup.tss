@@ -15,6 +15,11 @@
 	type: Ti.UI.PICKER_TYPE_DATE,
 	nextItem: "emailTxt"
 },
+"#dobTxt":{
+	maxLength: 40,
+	hintText: Alloy.Globals.strings.hintDOB,
+	nextItem: "emailTxt"
+},
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmail,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,

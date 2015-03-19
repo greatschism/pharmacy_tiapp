@@ -9,6 +9,7 @@ var args = arguments[0] || {},
     rxNoValidator = new RegExp(Alloy.CFG.RX_NUMBER.validator),
     rxNoFormatters = Alloy.CFG.RX_NUMBER.formatters,
     userContainerViewFromTop = 0,
+    modalWindow,
     rxContainerViewFromTop = 0;
 
 function init() {
@@ -41,7 +42,9 @@ function init() {
 }
 
 function setParentViews(_view) {
+	if (OS_ANDROID) {
 	$.dob.setParentView(_view);
+	}
 }
 
 function didPostlayoutUserContainerView(e) {
@@ -281,6 +284,87 @@ function didSuccess(_result) {
 
 function terminate() {
 	Alloy.Models.store.off("change", didChangeStore);
+}
+
+function didShowPickerPopOver(v) {
+
+modalWindow = Ti.UI.createWindow();
+
+	modalWindow.open({
+		title : 'Select A Date',
+
+	});
+
+	// default date
+	var dateValue = new Date();
+	dateValue.setFullYear(2015);
+	dateValue.setMonth(0);
+	dateValue.setDate(1);
+
+	// lets create a date picker
+	var picker = Ti.UI.createPicker({
+		type : Ti.UI.PICKER_TYPE_DATE,
+		value : dateValue,
+		accessibilityLabel : dateValue,
+		backgroundColor:'grey'
+
+	});
+	picker.setLocale(Titanium.Platform.locale);
+	picker.selectionIndicator = true;
+	modalWindow.add(picker);
+	var label = Ti.UI.createLabel({
+		text : 'Done',
+		top : 160,
+		width : 'auto',
+		height : 'auto',
+		textAlign : 'right',
+		right : 20,
+		color : 'black',
+
+	});
+	modalWindow.add(label);
+
+	picker.addEventListener('change', function(e) {
+		usePickerDate = true;
+		var pickerdate = e.value;
+
+		var day = pickerdate.getDate();
+		day = day.toString();
+
+		if (day.length < 2) {
+			day = '0' + day;
+
+		}
+
+		var month = pickerdate.getMonth();
+		month = month + 1;
+		month = month.toString();
+
+		if (month.length < 2) {
+			month = '0' + month;
+		}
+
+		var year = pickerdate.getFullYear();
+		searchDate = year + "-" + month + "-" + day;
+		$.dobTxt.setValue(searchDate);
+		// alert(searchDate);
+	});
+
+	label.addEventListener('click', function(e) {
+
+	modalWindow.close();
+		
+			
+
+	});
+	modalWindow.addEventListener('close', close);
+
+};
+
+function close(){
+
+	
+	uihelper.requestForFocus($.dobTxt);
 }
 
 exports.init = init;

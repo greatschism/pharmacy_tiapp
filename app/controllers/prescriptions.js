@@ -188,20 +188,7 @@ function doClickOptionDialog(e) {
 	alert(e.index);
 }
 
-function didClickOptionMenu(e) {
-	var action = e.data.action;
-	switch(action) {
-	case "search":
-		toggleSearchView();
-		break;
-	case "sort":
-		sort();
-		break;
-	case "refresh":
-		init();
-		break;
-	}
-}
+
 
 function toggleSearchView() {
 	var tableTop = 0;
