@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="Theme.Mscripts" parent="@style/Theme.AppCompat.Light">
-		<item name="android:windowBackground">@drawable/background</item>
+	<style name="ListView" parent="@android:style/Widget.ListView">
+		<item name="android:listSelector">@android:color/transparent</item>
+	</style>
+	<style name="Theme.LightActionBar" parent="@style/Theme.AppCompat.Light">
+		<item name="android:selectableItemBackground">@android:color/transparent</item>
 		<item name="android:textCursorDrawable">@null</item>
+		<item name="android:listViewStyle">@style/ListView</item>
+	</style>
+	<style name="Theme.NoActionBar" parent="@style/Theme.LightActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+	<style name="Theme.Splash" parent="@style/Theme.NoActionBar">
+		<item name="android:windowBackground">@drawable/background</item>
 	</style>
 </resources>
