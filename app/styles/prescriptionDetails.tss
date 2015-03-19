@@ -24,25 +24,37 @@
 },
 "#remindMeToRefillLbl":{
 	right: 60,
+	font :{
+		fontSize : 14
+	},
 	html: Alloy.Globals.strings.lblRemindMeRefillMedication
 },
 "#setTimeLbl":{
 	right: 60,
+	font :{
+		fontSize : 14
+	},
 	html: Alloy.Globals.strings.lblSetTimeToTakeMedication
 },
 "#informationLbl":{
 	text: Alloy.Globals.strings.sectionInformation
 },
 "#refillHistoryLbl":{
+	font :{
+		fontSize : 14
+	},
 	text: Alloy.Globals.strings.strRefillHistory
 },
 "#dosageInstructionLbl":{
+	font :{
+		fontSize : 14
+	},
 	text: Alloy.Globals.strings.lblDosageInstruction
 },
 "#hideBtn":{
 	title: Alloy.Globals.strings.btnHideThisPrescription
 },
-"#dummy":{
+"#tabView":{
 	backgroundColor: "#EFFBFB",
 	width: Ti.FILL_WIDTH,
 	height: 50
@@ -51,10 +63,13 @@
 	text: "More help for your configurable condition",
 	color: "#000000",
 	font:{
-		fontSize: 15
+		fontSize: 14
 	}
 },
 "#configReadLbl":{
+	font :{
+		fontSize : 14
+	},
 	text: "Configurable text item"
 },
 "#configAdherLbl":{
