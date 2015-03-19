@@ -9,6 +9,7 @@
 },
 "#drawer[platform=android]":{
 	exitOnClose: true,
+	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN,
 	openDrawerGestureMode: "OPEN_MODE_MARGIN",
 	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
 	animationMode: "ANIMATION_NONE",
