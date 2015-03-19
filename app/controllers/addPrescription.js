@@ -79,18 +79,7 @@ function didSuccess(result) {
 				classes : ["vgroup"]
 
 			}),
-			iconLbl = $.UI.create("Label", {
-				apiName : "Label",
-				height : 40,
-				width : 40,
-				font : {
-					fontSize : 20,
-					fontFamily : "mscripts"
-				},
-				text : Alloy.CFG.icons.spot,
-				color : "#808285",
-				classes : ["width-30", "padding-left", "auto-height"]
-			}),
+			iconLbl,
 
 			content = $.UI.create("View", {
 				apiName : "View",
@@ -161,7 +150,7 @@ function didSuccess(result) {
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-top", "right"]
+					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = Math.abs(ndays) + "days";
@@ -181,7 +170,7 @@ function didSuccess(result) {
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-top", "right"]
+					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillIn;
 				dueForRefillDetailLbl.text = ndays + "days";
@@ -220,18 +209,7 @@ function didSuccess(result) {
 
 			}),
 
-			iconLbl = $.UI.create("Label", {
-				apiName : "Label",
-				height : 40,
-				width : 40,
-				font : {
-					fontSize : 20,
-					fontFamily : "mscripts"
-				},
-				text : Alloy.CFG.icons.spot,
-				color : "#808285",
-				classes : ["width-90", "padding-left", "auto-height"]
-			}),
+			iconLbl ,
 
 			vseparator = $.UI.create("View", {
 				apiName : "View",
@@ -277,7 +255,7 @@ function didSuccess(result) {
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl","padding-top", "right","padding-bottom"]
+					classes : ["list-item-critical-info-lbl", "padding-top", "right", "padding-bottom"]
 				});
 				content = $.UI.create("View", {
 					apiName : "Label",
@@ -285,7 +263,7 @@ function didSuccess(result) {
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl","right"]
+					classes : ["list-item-critical-detail-lbl", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = ndays;
@@ -387,7 +365,7 @@ function didItemClick(e) {
 		console.log("got" + rowId);
 		selectedPresc.push(rowId);
 		iconLbl.text = Alloy.CFG.icons.checkbox;
-		iconLbl.color = "#cde345";
+		iconLbl.color = "#00A14B";
 
 	}
 
