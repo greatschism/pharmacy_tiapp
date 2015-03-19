@@ -32,7 +32,7 @@
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
 			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
-			"STATES_GET":"states/get"
+			"STATES_GET": "states/get"
 		},
 		"apiCodes": {
 			"SUCCESS": "200",
@@ -106,7 +106,7 @@
 			"thin_feedback": "i",
 			"thin_notification": "y",
 			"thin_refill_camera": "$",
-			"edit":"{"
+			"edit": "{"
 		},
 		"forceUpdate": false,
 		"forceReloadAfterUpdate": false,
