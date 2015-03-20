@@ -5,7 +5,7 @@
 		<View class="padding-top form-group vgroup">
 			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
 			<View class="hseparator" />
-			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
+			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt icon-right returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
 		</View>
 		<View class="padding-top margin-left margin-right auto-height" focusable="true">
 			<Label id="keepMeLbl" class="left text-left lbl" />

@@ -119,7 +119,10 @@
 		"STORE_LAST_REFILLED": "storeLastRefilled",
 		"RESOURCES_UPDATED_ON": "resourcesUpdated",
 		"RESOURCES_CLEARED_ON": "resourcesCleared",
-		"ENV_DEV": true
+		"ENV_DEV": true,
+		"PHARMACY_PHONE_LAST_USED":"phoneLastUpdated"
+		
+
 	},
 	"env:development": {
 		"baseUrl": "https://dev.remscripts.com/services-demo/services/",

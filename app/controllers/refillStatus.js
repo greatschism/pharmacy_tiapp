@@ -84,9 +84,10 @@ function didSuccess(result) {
 				contentView.add(title);
 				contentView.add(detail);
 				row.add(contentView);
-				$.gettingRefilledSection.add(row);
+				//$.gettingRefilledSection.add(row);
 
 			}
+			$.gettingRefilledSection.add(row);
 
 		 {
 
@@ -155,8 +156,9 @@ function didSuccess(result) {
 
 			}
 			$.tableView.data = [$.otherPrescriptionsSection, $.gettingRefilledSection];
-			 
+			//$.gettingRefilledSection.add(row); 
 		}
+		//$.gettingRefilledSection.add(row);
 
 	}
 
