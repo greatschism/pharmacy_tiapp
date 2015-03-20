@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     http = require("requestwrapper"),
     cached=" ",
-    prepopulated_number=5454545454,
+    prepopulated_number="",
     uihelper = require("uihelper");
     
     
