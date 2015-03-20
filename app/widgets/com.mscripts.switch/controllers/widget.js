@@ -11,26 +11,26 @@ var args = arguments[0] || {},
 
 	var options = {};
 
-	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
-		if (OS_ANDROID || OS_MOBILEWEB) {
+		if (OS_ANDROID) {
 			$.widget.applyProperties(options);
 		} else {
 			$.swt.applyProperties(options);
 		}
 	}
 
-	if (OS_ANDROID || OS_MOBILEWEB) {
+	if (OS_ANDROID) {
 		options = _.pick(args, ["height", "borderRadius"]);
 		if (!_.isEmpty(options) || _.has(args, "thumbWidth")) {
 			options.width = args.thumbWidth || args.height || $.widget.height;
 			$.swt.applyProperties(options);
 		}
-		enabledLeft = $.widget.width - ($.swt.width + ( OS_MOBILEWEB ? 5 : 2));
+		enabledLeft = $.widget.width - ($.swt.width + 2);
 	}
 
 	if (_.has(args, "thumbColor")) {
-		if (OS_ANDROID || OS_MOBILEWEB) {
+		if (OS_ANDROID) {
 			$.swt.backgroundColor = args.thumbColor;
 		} else {
 			$.swt.knobColor = args.thumbColor;
@@ -48,6 +48,7 @@ var args = arguments[0] || {},
 	}
 
 	setValue(args.value || false, false);
+	updateAccessibility(false);
 
 })();
 
@@ -111,10 +112,7 @@ function didTouchend(e) {
 				disableSwt(true);
 			}
 		}
-		$.trigger("change", {
-			source : $,
-			value : currentValue
-		});
+		triggerChange();
 	}
 }
 
@@ -122,11 +120,24 @@ function didSingletap(e) {
 	if (!busy) {
 		var value = !currentValue;
 		if (setValue(value)) {
-			$.trigger("change", {
-				source : $,
-				value : value
-			});
+			triggerChange();
 		}
+	}
+}
+
+function triggerChange() {
+	updateAccessibility();
+	$.trigger("change", {
+		source : $,
+		value : currentValue
+	});
+}
+
+function updateAccessibility(_fireEvent) {
+	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "Switch on" : args.accessibilityLabelOff || "Switch off";
+	$.widget.accessibilityLabel = accessibilityLabel;
+	if (_fireEvent !== false && Ti.App.accessibilityEnabled) {
+		Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, $.widget, accessibilityLabel);
 	}
 }
 
@@ -141,7 +152,7 @@ function didChange(e) {
 function setValue(_value, _animate) {
 	if (currentValue != _value && busy == false) {
 		currentValue = _value;
-		if (OS_ANDROID || OS_MOBILEWEB) {
+		if (OS_ANDROID) {
 			busy = true;
 			if (currentValue) {
 				enabledSwt(_animate);

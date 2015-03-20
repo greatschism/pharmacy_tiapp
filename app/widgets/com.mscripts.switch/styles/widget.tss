@@ -1,26 +1,30 @@
-"#widget[platform=android,mobileweb]": {
+"#widget[platform=android]": {
 	width: 55,
 	height: 34,
 	borderColor: "#8b8b8b",
 	borderWidth: 2,
 	borderRadius: 18,
-	zIndex: 1
+	zIndex: 1,
+	accessibilityHidden: false
 },
-"#bgView[platform=android,mobileweb]":{
+"#bgView[platform=android]":{
 	borderRadius: 18,
 	backgroundColor: "#CAC4C1",
-	zIndex: 0
+	zIndex: 0,
+	accessibilityHidden: true
 },
-"#swt[platform=android,mobileweb]":{
+"#swt[platform=android]":{
 	left: 2,
 	width: 30,
 	height: 30,
 	backgroundColor: "#FFFFFF",
-	borderRadius: 15
+	borderRadius: 15,
+	accessibilityHidden: true
 },
 "#swt[platform=ios]":{
 	top: 4,
 	width: 55,
 	height: 34,
-	value: false
+	value: false,
+	accessibilityHidden: false
 }
