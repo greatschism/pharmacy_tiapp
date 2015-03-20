@@ -64,11 +64,7 @@ function didAndoridBack(e) {
 }
 
 function didLeftWindowOpen(e) {
-	if (OS_IOS) {
-		uihelper.requestForFocus($.menuCtrl.getView());
-	} else {
-		uihelper.requestAnnouncement(Alloy.Globals.strings.accessibilityLblMenu);
-	}
+	uihelper.requestForFocus($.menuCtrl.getView());
 }
 
 function didClose(e) {
