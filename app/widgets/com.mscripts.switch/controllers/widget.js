@@ -48,7 +48,10 @@ var args = arguments[0] || {},
 	}
 
 	setValue(args.value || false, false);
-	updateAccessibility(false);
+
+	if (OS_ANDROID) {
+		updateAccessibility(false);
+	}
 
 })();
 
@@ -136,8 +139,8 @@ function triggerChange() {
 function updateAccessibility(_fireEvent) {
 	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "Switch on" : args.accessibilityLabelOff || "Switch off";
 	$.widget.accessibilityLabel = accessibilityLabel;
-	if (_fireEvent !== false && Ti.App.accessibilityEnabled) {
-		Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, $.widget, accessibilityLabel);
+	if (Ti.App.accessibilityEnabled && _fireEvent !== false) {
+		//Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_LABEL_CHANGED, $.widget);
 	}
 }
 
