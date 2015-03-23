@@ -11,16 +11,20 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     uihelper = require("uihelper"),
     prescription,
+    addedPrescriptions,
     orders,
     row2,
     row3,
     pickupdetails,
     picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
-	// classes : ["form-dropdown"]
+	//classes : ["form-dropdown"]
 }));
 
 function init() {
 	prescription = args.prescription || {};
+	
+	addedPrescriptions = args.addedPrescriptions || {};
+	
 	//	console.log("result presc name is " + prescription.presc_name);
 
 	orders = [{
@@ -73,14 +77,14 @@ function init() {
 		addIcon = $.UI.create("Label", {
 			apiName : "Label",
 			height : 32,
-			left : 5,
+			
 			width : 32,
 			font : {
-				fontSize : 20
+				fontSize : 18
 			},
 			text : Alloy.CFG.icons.plus_with_circle,
 			color : "#599DFF",
-			classes : ["padding-left", "padding-top", "padding-bottom", "small-icon"]
+		//	classes : ["padding-left", "padding-top", "padding-bottom", "small-icon"]
 
 		}),
 		addLbl = $.UI.create("Label", {
@@ -108,7 +112,7 @@ function init() {
 
 	    view = $.UI.create("View", {
 		apiName : "View",
-		classes : ["list-item-view", "auto-height"]
+		classes : ["list-item-view", "padding-top", "padding-bottom", "auto-height"]
 	}),
 
 	    pickerOptions = [{
@@ -286,12 +290,12 @@ function didSuccess(result) {
 
 function didClickAddAnotherPrescription(e) {
 
-	// app.navigator.open({
-		// stack : true,
-		// titleid : "Add prescriptions",
-		// ctrl : "addPrescription"
-	// });
-	alert("under construction");
+	 app.navigator.open({
+		 stack : true,
+		 titleid : "Add prescriptions",
+		 ctrl : "addPrescription"
+	});
+	//alert("under construction");
 }
 
 function didClickStoreChange(e) {
