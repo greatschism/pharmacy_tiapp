@@ -42,9 +42,9 @@ function init() {
 }
 
 function setParentViews(_view) {
-	if (OS_ANDROID) {
+	
 	$.dob.setParentView(_view);
-	}
+	
 }
 
 function didPostlayoutUserContainerView(e) {

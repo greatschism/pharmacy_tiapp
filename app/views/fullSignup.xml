@@ -10,8 +10,8 @@
 						<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 form-txt returnkey-next" onReturn="moveToNext" />
 					</View>
 					<View class="hseparator" />
-					<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown " platform="android" onReturn="moveToNext" />
-						<TextField id="dobTxt" class="left width-50 form-txt" platform="ios" onClick="didShowPickerPopOver"/>
+					<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown " onReturn="moveToNext" />
+						
 				</View>
 				<Widget id="emailTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-next" onReturn="moveToNext" />
 				<View id="userContainerView" class="padding-top form-group vgroup">
