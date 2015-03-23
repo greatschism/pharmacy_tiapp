@@ -21,6 +21,6 @@
 	html: Alloy.Globals.strings.lblNeedToCreateAccount
 },
 "#keepMeSwt[platform=android]":{
-	width : 70,
-	height : 30
+	accessibilityLabelOn: Alloy.Globals.strings.accessibilityLblSwitchOn,
+	accessibilityLabelOff: Alloy.Globals.strings.accessibilityLblSwitchOff
 }

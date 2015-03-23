@@ -6,17 +6,9 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     encryptionUtil = require("encryptionUtil"),
     keychainModule = require("com.obscure.keychain"),
-    keychainAccount,
-    isiPhone;
+    keychainAccount;
 
 function init() {
-	var osname = Ti.Platform.osname;
-	isiPhone = (osname == 'iphone') ? true : false;
-	if (!isiPhone) {
-		$.keepMeSwt.setBackgroundImage(uihelper.getImage({
-			"code" : "toggle_btn_off"
-		}).image);
-	}
 	uihelper.getImage($.logoImg);
 	updateInputs();
 }
@@ -86,10 +78,6 @@ function didClickLogin(e) {
 	}
 }
 
-function outputState() {
-	Ti.API.info('Switch value: ' + $.basicSwitch.value);
-}
-
 function didAuthenticate(_result) {
 	Alloy.Models.user.set({
 		logged_in : true,
@@ -152,17 +140,6 @@ function didFail(_passthrough) {
 
 function handleScroll(e) {
 	$.login.canCancelEvents = e.value;
-	if (!isiPhone) {
-		if ($.keepMeSwt.value) {
-			$.keepMeSwt.setBackgroundImage(uihelper.getImage({
-				"code" : "toggle_btn_on"
-			}).image);
-		} else {
-			$.keepMeSwt.setBackgroundImage(uihelper.getImage({
-				"code" : "toggle_btn_off"
-			}).image);
-		}
-	}
 }
 
 function didClickPwd(e) {

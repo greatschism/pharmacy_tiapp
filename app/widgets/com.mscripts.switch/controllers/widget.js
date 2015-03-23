@@ -56,10 +56,6 @@ var args = arguments[0] || {},
 })();
 
 function didTouchcancel(e) {
-	$.trigger("touch", {
-		source : $,
-		value : true
-	});
 	busy = true;
 	touchStartX = e.x;
 	if (currentValue) {
@@ -71,10 +67,6 @@ function didTouchcancel(e) {
 
 function didTouchstart(e) {
 	if (!busy) {
-		$.trigger("touch", {
-			source : $,
-			value : false
-		});
 		touchStartX = e.x;
 	}
 }
@@ -97,16 +89,14 @@ function didTouchmove(e) {
 
 function didTouchend(e) {
 	if (!busy) {
-		$.trigger("touch", {
-			source : $,
-			value : true
-		});
 		busy = true;
 		var left = $.swt.left;
 		if (left == enabledLeft || left == disabledLeft) {
 			var value = left == enabledLeft ? true : false;
 			busy = false;
-			setValue(value);
+			if (setValue(value)) {
+				triggerChange();
+			}
 		} else {
 			currentValue = !currentValue;
 			if (currentValue) {
@@ -114,8 +104,8 @@ function didTouchend(e) {
 			} else {
 				disableSwt(true);
 			}
+			triggerChange();
 		}
-		triggerChange();
 	}
 }
 
@@ -140,7 +130,7 @@ function updateAccessibility(_fireEvent) {
 	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "Switch on" : args.accessibilityLabelOff || "Switch off";
 	$.widget.accessibilityLabel = accessibilityLabel;
 	if (Ti.App.accessibilityEnabled && _fireEvent !== false) {
-		//Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_LABEL_CHANGED, $.widget);
+		Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, $.widget);
 	}
 }
 
