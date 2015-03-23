@@ -22,7 +22,7 @@ var args = arguments[0] || {},
 	},
 	text : Alloy.CFG.icons.spot,
 	color : "#45cdef",
-	classes : ["width-90", "padding-left", "auto-height"]
+	classes : ["width-90", "padding-left", "auto-height", "success-color"]
 });
 
 function init() {
@@ -78,8 +78,7 @@ function didSuccess(result) {
 				height : 50,
 				classes : ["vgroup"]
 
-			}),
-			iconLbl,
+			}), iconLbl,
 
 			content = $.UI.create("View", {
 				apiName : "View",
@@ -128,16 +127,7 @@ function didSuccess(result) {
 
 			$.addAllBtn.addEventListener('click', didClickAddAll);
 
-			function didClickAddAll(e) {
-				addedAll = new Array;
-				if (readyForRefill.length) {
-					for (var i in readyForRefill) {
-						addedAll[i] = readyForRefill[i];
-
-					}
-					console.log("added all prescriptions" + addedAll);
-				}
-			}
+			
 
 			if (ndays < 0) {
 				var overDueLbl = $.UI.create("Label", {
@@ -150,7 +140,7 @@ function didSuccess(result) {
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = Math.abs(ndays) + "days";
@@ -170,7 +160,7 @@ function didSuccess(result) {
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillIn;
 				dueForRefillDetailLbl.text = ndays + "days";
@@ -207,9 +197,7 @@ function didSuccess(result) {
 				height : 50,
 				classes : ["vgroup"]
 
-			}),
-
-			iconLbl ,
+			}), iconLbl,
 
 			vseparator = $.UI.create("View", {
 				apiName : "View",
@@ -263,7 +251,7 @@ function didSuccess(result) {
 				});
 				overDueDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
 				});
 				overDueLbl.text = strings.msgOverdueBy;
 				overDueDetailLbl.text = ndays;
@@ -273,7 +261,7 @@ function didSuccess(result) {
 			} else if (ndays >= 0) {
 				var dueForRefillLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right"]
+					classes : ["list-item-critical-info-lbl", "padding-top", "right"]
 				});
 				content = $.UI.create("View", {
 					apiName : "Label",
@@ -281,7 +269,7 @@ function didSuccess(result) {
 				});
 				dueForRefillDetailLbl = $.UI.create("Label", {
 					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "right"]
+					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
 				});
 				dueForRefillLbl.text = strings.msgDueFoRefillOn;
 				dueForRefillDetailLbl.text = ndays + "days";
@@ -298,6 +286,32 @@ function didSuccess(result) {
 	$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
 
 }
+
+
+
+function didClickAddAll(e) {
+				addedAll = new Array;
+				if (readyForRefill.length) {
+					for (var i in readyForRefill) {
+						addedAll[i] = readyForRefill[i];
+
+					}
+					console.log("added all prescriptions" + addedAll[i].presc_name);
+				}
+				if(otherPrescriptions.length)
+				{
+					for (var i in readyForRefill) {
+						addedAll[i] = otherPrescriptions[i];
+
+					}
+				}
+			}
+
+
+
+
+
+
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
@@ -345,7 +359,7 @@ function didAddPrescription(_result) {
 		ctrl : "orderDetails",
 
 		ctrlArguments : {
-			prescription : prescriptions
+			//prescription : 
 		},
 		stack : true
 	});
@@ -354,20 +368,28 @@ function didAddPrescription(_result) {
 
 function didItemClick(e) {
 	var rowId = e.row.rowId;
+	var rowName = e.row.rowName;
 	section = e.section;
 	var prescription = _.findWhere(readyForRefill, {
-		rx_number : rowId
+		rx_number : rowId,
+		presn_name : rowName
 
 	});
 	selectedPresc = new Array;
+		var row = e.source;
 	if (e.row) {
 
 		console.log("got" + rowId);
 		selectedPresc.push(rowId);
+		selectedPresc.push(rowName);
+		console.log("here it is" +selectedPresc);
 		iconLbl.text = Alloy.CFG.icons.checkbox;
 		iconLbl.color = "#00A14B";
 
 	}
+	
+
+    alert(row.text + ' ' + row.title.text);
 
 }
 
