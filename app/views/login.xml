@@ -5,13 +5,13 @@
 		<View class="padding-top form-group vgroup">
 			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
 			<View class="hseparator" />
-			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt icon-right returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
+			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
 		</View>
-		<View class="padding-top margin-left margin-right auto-height" focusable="true">
+		<View class="padding-top margin-left margin-right auto-height">
 			<Label id="keepMeLbl" class="left text-left lbl" />
-			<Switch id="keepMeSwt" class="right store-locator-img" onChange="handleScroll" onTouch="handleScroll" titleOn="" titleOff=""/>
+			<Widget id="keepMeSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
 		</View>
 		<Button id="loginBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickLogin" />
 		<Widget id="signupLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
 	</ScrollView>
-</Alloy>
+</Alloy> 
