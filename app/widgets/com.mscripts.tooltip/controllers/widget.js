@@ -3,7 +3,7 @@ var args = arguments[0] || {},
 
 (function() {
 
-	var options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	var options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius", ]);
 	if (!_.isEmpty(options)) {
 		$.containerView.applyProperties(options);
 	}
@@ -11,7 +11,7 @@ var args = arguments[0] || {},
 	updateArrow(args.direction || "bottom", args.arrowDict || {});
 
 	if (_.has(args, "text")) {
-		setText(args.text);
+		setText(args.text, null, args.accessibilityLabel, args.accessibilityHidden);
 	}
 
 	if (args.visible) {
@@ -32,7 +32,7 @@ function updateArrow(_direction, _dict) {
 			fontSize : 12
 		},
 		color : _dict.color || "#000",
-		accessibilityHidden : "true"
+		accessibilityHidden : true
 	};
 	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
 	$.arrowLbl.applyProperties(dict);
@@ -126,7 +126,7 @@ function setPadding(_height) {
 	}));
 }
 
-function setText(_text, _styles) {
+function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
 	removeAllChildren();
 	var dict = _styles || args.labelDict || {};
 	_.extend(dict, {
@@ -139,6 +139,13 @@ function setText(_text, _styles) {
 	var lbl = Ti.UI.createLabel(dict);
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);
+	}
+	if (_accessibilityHidden !== true) {
+		if (_accessibilityLabel) {
+			dict.accessibilityLabel = _accessibilityLabel;
+		}
+	} else {
+		dict.accessibilityHidden = true;
 	}
 	$.containerView.add(lbl);
 	if (dict.paddingBottom) {
