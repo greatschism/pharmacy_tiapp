@@ -31,7 +31,8 @@ function updateArrow(_direction, _dict) {
 		font : _dict.font || args.iconFont || {
 			fontSize : 12
 		},
-		color : _dict.color || "#000"
+		color : _dict.color || "#000",
+		accessibilityHidden : "true"
 	};
 	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
 	$.arrowLbl.applyProperties(dict);
@@ -120,7 +121,8 @@ function removeAllChildren() {
 function setPadding(_height) {
 	$.containerView.add(Ti.UI.createLabel({
 		height : _height,
-		touchEnabled : false
+		touchEnabled : false,
+		accessibilityHidden : true
 	}));
 }
 
