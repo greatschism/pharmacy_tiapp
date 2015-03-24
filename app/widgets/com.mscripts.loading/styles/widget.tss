@@ -1,4 +1,19 @@
-"#widget[platform=android]":{
+"#window[platform=ios]":{
+	backgroundColor: "transparent"
+},
+"#indicator[platform=ios]":{
+	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+},
+"#indicatorView[platform=ios]":{
+	width: 70,
+	height: 70,
+	borderRadius: 4
+},
+"#bgView":{
+	backgroundColor: "#000000",
+	opacity: 0.65
+},
+"#indicator[platform=android]":{
 	location: Ti.UI.Android.PROGRESS_INDICATOR_DIALOG,
 	type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT,
 	cancelable: false

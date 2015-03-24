@@ -1,3 +1,9 @@
 <Alloy>
-	<ProgressIndicator ns="Ti.UI.Android" platform="android" />
+	<Window id="window" platform="ios">
+		<View id="indicatorView">
+			<View id="bgView" />
+			<ActivityIndicator id="indicator" />
+		</View>
+	</Window>
+	<ProgressIndicator id="indicator" ns="Ti.UI.Android" platform="android" />
 </Alloy>
