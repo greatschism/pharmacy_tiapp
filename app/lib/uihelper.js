@@ -13,9 +13,9 @@ var Helper = {
 	requestForFocus : function(_focusableView) {
 		if (Ti.App.accessibilityEnabled) {
 			if (OS_IOS) {
-				Ti.App.fireSystemEvent(Titanium.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+				Ti.App.fireSystemEvent(Ti.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
 			} else {
-				Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
+				Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, _focusableView);
 			}
 		}
 	},
@@ -26,7 +26,7 @@ var Helper = {
 	 */
 	requestAnnouncement : function(_str) {
 		if (Ti.App.accessibilityEnabled) {
-			Ti.App.fireSystemEvent(Titanium.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, _str);
+			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, _str);
 		}
 	},
 

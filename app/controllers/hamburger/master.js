@@ -64,7 +64,13 @@ function didAndoridBack(e) {
 }
 
 function didLeftWindowOpen(e) {
-	uihelper.requestForFocus($.menuCtrl.getView());
+	if (OS_IOS) {
+		uihelper.requestForFocus($.menuCtrl.getView());
+	} else {
+		setTimeout(function() {
+			uihelper.requestForFocus($.menuCtrl.getView());
+		}, 250);
+	}
 }
 
 function didClose(e) {

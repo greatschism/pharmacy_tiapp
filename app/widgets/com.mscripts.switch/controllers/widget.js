@@ -125,11 +125,14 @@ function triggerChange() {
 }
 
 function updateAccessibility(_fireEvent) {
-	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "on" : args.accessibilityLabelOff || "off",
-	    switchView = OS_IOS ? $.swt : $.widget;
-	switchView.accessibilityLabel = accessibilityLabel;
-	if (!switchView.accessibilityHidden && _fireEvent !== false && Ti.App.accessibilityEnabled) {
-		Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, $.widget);
+	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "on" : args.accessibilityLabelOff || "off";
+	if (OS_IOS) {
+		$.swt.accessibilityLabel = accessibilityLabel;
+	} else {
+		$.widget.accessibilityLabel = accessibilityLabel;
+		if (!$.widget.accessibilityHidden && _fireEvent !== false && Ti.App.accessibilityEnabled) {
+			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.widget);
+		}
 	}
 }
 
