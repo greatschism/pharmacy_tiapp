@@ -95,7 +95,7 @@ function didSuccessRefill(result) {
 		}),
 		contentPhoneNumber = $.UI.create("View", {
 			apiName : "View",
-			classes : ["list-item-info-lbl"]
+			classes : ["list-item-info-lbl","h2"]
 		}),
 		storename = $.UI.create("Label", {
 			apiName : "Label",
@@ -108,7 +108,7 @@ function didSuccessRefill(result) {
 		}),
 		phonenumber = $.UI.create("Label", {
 			apiName : "Label",
-			classes : ["list-item-info-lbl", "padding-left"]
+			classes : [ "list-item-info-lbl","padding-left", "h2"]
 		}), content.add(storename);
 		contentAddress.add(addressline1);
 		contentPhoneNumber.add(phonenumber);
