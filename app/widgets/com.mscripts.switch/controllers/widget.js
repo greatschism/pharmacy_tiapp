@@ -49,9 +49,7 @@ var args = arguments[0] || {},
 
 	setValue(args.value || false, false);
 
-	if (OS_ANDROID) {
-		updateAccessibility(false);
-	}
+	updateAccessibility(false);
 
 })();
 
@@ -127,15 +125,17 @@ function triggerChange() {
 }
 
 function updateAccessibility(_fireEvent) {
-	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "Switch on" : args.accessibilityLabelOff || "Switch off";
-	$.widget.accessibilityLabel = accessibilityLabel;
-	if (Ti.App.accessibilityEnabled && _fireEvent !== false) {
+	var accessibilityLabel = currentValue ? args.accessibilityLabelOn || "on" : args.accessibilityLabelOff || "off",
+	    switchView = OS_IOS ? $.swt : $.widget;
+	switchView.accessibilityLabel = accessibilityLabel;
+	if (!switchView.accessibilityHidden && _fireEvent !== false && Ti.App.accessibilityEnabled) {
 		Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_SCREEN_CHANGED, $.widget);
 	}
 }
 
 function didChange(e) {
 	currentValue = e.value;
+	updateAccessibility(false);
 	$.trigger("change", {
 		source : $,
 		value : currentValue

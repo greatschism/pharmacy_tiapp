@@ -26,5 +26,5 @@
 	width: 55,
 	height: 34,
 	value: false,
-	accessibilityHidden: false
+	accessibilityLabel: "switch"
 }
