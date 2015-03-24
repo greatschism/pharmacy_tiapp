@@ -13,7 +13,7 @@ var args = arguments[0] || {},
 	$.window.title = title;
 
 	$.window.setActionBarProperties({
-		title : title,
+		title : "\t" + title,
 		font : Alloy.TSS.Window.titleAttributes.font.fontFamily,
 		color : Alloy.TSS.Window.titleAttributes.color,
 		backgroundColor : Alloy.TSS.Window.barColor,

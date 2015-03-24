@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 	$.window.title = title;
 
 	$.window.getActivity().actionBar.updateActionBarProperties({
-		title : title
+		title : "\t" + title
 	});
 
 	//reload tss of this controller in memory

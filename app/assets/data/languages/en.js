@@ -308,6 +308,8 @@ module.exports = {
 
 		"accessibilityLblMenu" : "Menu",
 		"accessibilityLblBack" : "Back",
+		"accessibilityLblNavigateMenu" : "Navigate menu",
+		"accessibilityLblNavigateBack" : "Navigate back",
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off"
 	}
