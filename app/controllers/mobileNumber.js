@@ -33,7 +33,7 @@ function didClickContinue(e) {
 			},
 			success : didSuccess,
 			failure : didFail,
-			keepBlock : true
+			keepLoader : true
 		});
 	} else {
 		dialog.show({

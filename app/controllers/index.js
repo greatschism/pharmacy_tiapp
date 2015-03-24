@@ -25,17 +25,9 @@ function didOpen(e) {
 			}]
 		},
 		success : didSuccess,
-		blockUICallback : showLoader,
-		unblockUICallback : hideLoader
+		showLoaderCallback : $.loading.show,
+		hideLoaderCallback : $.loading.hide
 	});
-}
-
-function showLoader(_callback, _animated) {
-	$.loading.show(_callback, _animated || false);
-}
-
-function hideLoader(_callback, _animated) {
-	$.loading.hide(_callback, _animated || false);
 }
 
 function didSuccess(_result) {
@@ -58,7 +50,8 @@ function didSuccess(_result) {
 		if (Alloy.CFG.forceUpdate) {
 			startUpdate();
 		} else {
-			hideLoader(confirmUpdate, true);
+			$.loading.hide();
+			confirmUpdate();
 		}
 	} else {
 		loadConfig();
@@ -81,7 +74,8 @@ function startUpdate() {
 		triggerAsyncUpdate = true;
 		loadConfig();
 	} else {
-		showLoader(syncUpdate);
+		$.loading.show();
+		syncUpdate();
 	}
 }
 

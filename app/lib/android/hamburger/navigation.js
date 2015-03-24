@@ -241,13 +241,15 @@ function Navigation(_args) {
 
 	/**
 	 *block ui
-	 * @param {Object} _params
+	 * @param {String} message
 	 */
-	this.showLoader = function(_params) {
+	this.showLoader = function(_message) {
 
 		if (that.loader == null) {
 
-			//add loader
+			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", {
+				message : _message || Alloy.Globals.strings.msgPleaseWait
+			});
 		}
 	};
 
@@ -258,7 +260,7 @@ function Navigation(_args) {
 
 		if (that.loader != null) {
 
-			//remove loader
+			that.loader.hide();
 
 			that.loader = null;
 		}

@@ -3,5 +3,6 @@
 	theme: "Theme.NoActionBar"
 },
 "#loading":{
-	message: Alloy.Globals.strings.msgPleaseWait
+	message: Alloy.Globals.strings.msgPleaseWait,
+	visible: false
 }

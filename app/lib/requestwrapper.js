@@ -27,14 +27,12 @@ function request(_params) {
 		_params.type = "POST";
 	}
 
-	if (_params.blockUI !== false) {
+	if (_params.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.showLoader({
-				message : _params.blockerMessage || Alloy.Globals.strings.msgPleaseWait
-			});
+			app.navigator.showLoader(_params.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
 		}
-		if (_params.blockUICallback) {
-			_params.blockUICallback();
+		if (_params.showLoaderCallback) {
+			_params.showLoaderCallback();
 		}
 	}
 
@@ -97,8 +95,8 @@ function didFail(_passthrough) {
 			if (_.isEmpty(app.navigator) === false) {
 				app.navigator.hideLoader();
 			}
-			if (_passthrough.unblockUICallback) {
-				_passthrough.unblockUICallback();
+			if (_passthrough.hideLoaderCallback) {
+				_passthrough.hideLoaderCallback();
 			}
 			dialog.show({
 				message : _passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
@@ -120,12 +118,12 @@ function didFail(_passthrough) {
 }
 
 function didComplete(_passthrough) {
-	if (_passthrough.keepBlock !== true) {
+	if (_passthrough.keepLoader !== true) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}
-		if (_passthrough.unblockUICallback) {
-			_passthrough.unblockUICallback();
+		if (_passthrough.hideLoaderCallback) {
+			_passthrough.hideLoaderCallback();
 		}
 	}
 	if (_passthrough.done) {

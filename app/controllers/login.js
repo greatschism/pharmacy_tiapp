@@ -60,7 +60,7 @@ function didClickLogin(e) {
 			},
 			success : didSharedMobileCheck,
 			failure : didFail,
-			keepBlock : true
+			keepLoader : true
 		});
 	} else {
 		http.request({

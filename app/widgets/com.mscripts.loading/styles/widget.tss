@@ -1,44 +1,5 @@
-"#widget": {
-	zIndex: 100
-},
-"#widget[platform=android,ios]":{
-	backgroundColor: "#50000000"
-},
-"#widget[platform=mobileweb]":{
-	backgroundColor: "rgba(0,0,0,0.5)"
-},
-"#container":{
-	width: "90%",
-	height: 90,
-	layout: "horizontal",
-	backgroundColor: "#000",
-	borderRadius: 6
-},
-"#activityIndicator":{
-	left: 15
-},
-"#activityIndicator[platform=android]":{
-	style: Ti.UI.ActivityIndicatorStyle.BIG,
-	height: Ti.UI.FILL
-},
-"#activityIndicator[platform=mobileweb]":{
-	style: Ti.UI.ActivityIndicatorStyle.PLAIN
-},
-"#activityIndicator[platform=ios]":{
-	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
-},
-"#messageView":{
-	left: 10,
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-},
-"#messageLbl":{
-	right: 15,
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	font:{
-		fontSize: 13
-	},
-	textAlign: "left",
-	color: "#fff"
+"#widget[platform=android]":{
+	location: Ti.UI.Android.PROGRESS_INDICATOR_DIALOG,
+	type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT,
+	cancelable: false
 }
