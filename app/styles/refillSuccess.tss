@@ -14,17 +14,22 @@
 }
 "#signup":
 {
-	
+
 	title: Alloy.Globals.strings.strSignup
 }
 "#hintParaOne":
 {
-	
+
 	text: Alloy.Globals.strings.msgSignUpToReceiveText
 }
 "#done":
 {
-	title: Alloy.Globals.strings.btnDone,
-	
-	
+	title: Alloy.Globals.strings.btnDone
+},
+".h2":{
+	color: "#0095ff",
+	font:{
+		fontSize: 15,
+		fontFamily: "regular"
+	}
 }
