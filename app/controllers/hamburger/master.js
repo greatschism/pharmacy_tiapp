@@ -4,8 +4,12 @@ var args = arguments[0] || {},
 
 function init() {
 	if (OS_ANDROID) {
+		var title = Alloy.Globals.strings[(args.navigation || _.findWhere(Alloy.Collections.menuItems.toJSON(), {
+			landing_page : true
+		})).titleid] || Ti.App.name;
+		$.drawer.title = title;
 		$.drawer.setActionBarProperties({
-			title : Ti.App.name,
+			title : "\t" + title,
 			font : Alloy.TSS.Window.titleAttributes.font.fontFamily,
 			color : Alloy.TSS.Window.titleAttributes.color,
 			backgroundColor : Alloy.TSS.Window.barColor,

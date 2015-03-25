@@ -1,9 +1,10 @@
 <Alloy>
-	<Window id="window" platform="ios">
-		<View id="indicatorView">
-			<View id="bgView" />
-			<ActivityIndicator id="indicator" />
+	<Window id="window" onAndroidback="didAndroidback">
+		<View id="containerView">
+			<ActivityIndicator id="activityIndicator" />
+			<View id="messageView">
+				<Label id="messageLbl" />
+			</View>
 		</View>
 	</Window>
-	<ProgressIndicator id="indicator" ns="Ti.UI.Android" platform="android" />
 </Alloy>

@@ -1,12 +1,12 @@
 var args = arguments[0] || {};
 (function() {
 
-	var options = _.pick(args, ["cancelable", "location", "type"]);
+	var options = _.pick(args, ["font", "color", "textAlign", "text"]);
 	if (!_.isEmpty(options)) {
-		$.indicator.applyProperties(options);
+		$.messageLbl.applyProperties(options);
 	}
 
-	if (args.message) {
+	if (_.has(args, "message")) {
 		setMessage(args.message);
 	}
 
@@ -17,25 +17,22 @@ var args = arguments[0] || {};
 })();
 
 function setMessage(_message) {
-	if (OS_ANDROID) {
-		$.indicator.setMessage(_message);
-	} else {
-		$.indicatorView.accessibilityLabel = _message;
-	}
+	$.window.title = _message;
+	$.messageLbl.text = _message;
 }
 
 function show() {
-	$.indicator.show();
-	if (OS_IOS) {
-		$.window.open();
-	}
+	$.activityIndicator.show();
+	$.window.open();
 }
 
 function hide() {
-	$.indicator.hide();
-	if (OS_IOS) {
-		$.window.close();
-	}
+	$.activityIndicator.hide();
+	$.window.close();
+}
+
+function didAndroidback() {
+	return false;
 }
 
 exports.show = show;

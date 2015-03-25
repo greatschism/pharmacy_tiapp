@@ -102,12 +102,12 @@ function didLoadConfig() {
 }
 
 function didOpenMastWindow(e) {
-	$.index.close();
+	$.window.close();
 }
 
 function didAndroidback(e) {
-	$.index.setExitOnClose(true);
-	$.index.close();
+	$.window.setExitOnClose(true);
+	$.window.close();
 }
 
-$.index.open();
+$.window.open();
