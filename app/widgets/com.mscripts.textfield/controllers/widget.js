@@ -8,7 +8,7 @@ var args = arguments[0] || {},
 	if (_.has(args, "leftIconText")) {
 		setIcon(args.leftIconText, "left", args.leftIconDict || {}, args.paddingLeft || 0);
 	} else if (_.has(args, "leftButtonTitle")) {
-		setButton(args.leftButtonTitle, "left", args.leftButtonDict || {}, args.paddingLeft || 0, null, args.accessibilityLabel, args.accessibilityHidden);
+		setButton(args.leftButtonTitle, "left", args.leftButtonDict || {}, args.paddingLeft || 0);
 	}
 
 	if (_.has(args, "rightIconText")) {
@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 		enableClearButton = true;
 		setIcon(args.clearIconText, "right", args.clearIconDict || args.rightIconDict || {}, args.paddingRight || 0);
 	} else if (_.has(args, "rightButtonTitle")) {
-		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.paddingRight || 0, null, args.accessibilityLabel, args.accessibilityHidden);
+		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.paddingRight || 0);
 	}
 })();
 
@@ -38,6 +38,13 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 		text : _iconText,
 		touchEnabled : false
 	});
+	if (_iconDict.accessibilityHidden !== true) {
+		if (_iconDict.accessibilityLabel) {
+			iconView.accessibilityLabel = _iconDict.accessibilityLabel;
+		}
+	} else {
+		iconView.accessibilityHidden = true;
+	}
 	iconView.add(Ti.UI.createLabel(_iconDict));
 	iconView.addEventListener("click", isClearButton ? didClickClearText : didClick);
 	$.widget.add(iconView);
@@ -46,7 +53,7 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 	}
 }
 
-function setButton(_title, _direction, _buttonDict, _padding, _access, _accessibilityLabel, _accessibilityHidden) {
+function setButton(_title, _direction, _buttonDict, _padding, _access) {
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
@@ -68,9 +75,9 @@ function setButton(_title, _direction, _buttonDict, _padding, _access, _accessib
 	});
 	buttonView.add(Ti.UI.createLabel(_buttonDict));
 	buttonView.addEventListener("click", didClick);
-	if (_accessibilityHidden !== true) {
-		if (_accessibilityLabel) {
-			buttonView.accessibilityLabel = _accessibilityLabel;
+	if (_buttonDict.accessibilityHidden !== true) {
+		if (_buttonDict.accessibilityLabel) {
+			buttonView.accessibilityLabel = _buttonDict.accessibilityLabel;
 		}
 	} else {
 		buttonView.accessibilityHidden = true;
@@ -80,7 +87,7 @@ function setButton(_title, _direction, _buttonDict, _padding, _access, _accessib
 
 function applyProperties(_dict) {
 	var options = {};
-	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
