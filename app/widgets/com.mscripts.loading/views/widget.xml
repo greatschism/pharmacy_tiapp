@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="window" onAndroidback="didAndroidback">
+	<Window id="window" onOpen="didOpen" onAndroidback="didAndroidback">
 		<View id="containerView">
 			<ActivityIndicator id="activityIndicator" />
 			<View id="messageView">

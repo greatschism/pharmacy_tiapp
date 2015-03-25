@@ -1,4 +1,7 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    isOpened = false,
+    isCloseRequested = false;
+
 (function() {
 
 	var options = _.pick(args, ["font", "color", "textAlign", "text"]);
@@ -16,6 +19,13 @@ var args = arguments[0] || {};
 
 })();
 
+function didOpen(e) {
+	isOpened = true;
+	if (isCloseRequested) {
+		hide();
+	}
+}
+
 function setMessage(_message) {
 	$.window.title = _message;
 	$.messageLbl.text = _message;
@@ -23,12 +33,18 @@ function setMessage(_message) {
 
 function show() {
 	$.activityIndicator.show();
-	$.window.open();
+	$.window.open({
+		animated : false
+	});
 }
 
 function hide() {
-	$.activityIndicator.hide();
-	$.window.close();
+	isCloseRequested = true;
+	if (isOpened) {
+		$.window.close({
+			animated : false
+		});
+	}
 }
 
 function didAndroidback() {
