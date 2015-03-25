@@ -38,13 +38,6 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 		text : _iconText,
 		touchEnabled : false
 	});
-	if (_iconDict.accessibilityHidden !== true) {
-		if (_iconDict.accessibilityLabel) {
-			iconView.accessibilityLabel = _iconDict.accessibilityLabel;
-		}
-	} else {
-		iconView.accessibilityHidden = true;
-	}
 	iconView.add(Ti.UI.createLabel(_iconDict));
 	iconView.addEventListener("click", isClearButton ? didClickClearText : didClick);
 	$.widget.add(iconView);
@@ -53,7 +46,7 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 	}
 }
 
-function setButton(_title, _direction, _buttonDict, _padding, _access) {
+function setButton(_title, _direction, _buttonDict, _padding) {
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
@@ -75,13 +68,6 @@ function setButton(_title, _direction, _buttonDict, _padding, _access) {
 	});
 	buttonView.add(Ti.UI.createLabel(_buttonDict));
 	buttonView.addEventListener("click", didClick);
-	if (_buttonDict.accessibilityHidden !== true) {
-		if (_buttonDict.accessibilityLabel) {
-			buttonView.accessibilityLabel = _buttonDict.accessibilityLabel;
-		}
-	} else {
-		buttonView.accessibilityHidden = true;
-	}
 	$.widget.add(buttonView);
 }
 
