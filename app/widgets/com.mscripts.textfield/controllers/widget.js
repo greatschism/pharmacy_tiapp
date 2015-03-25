@@ -8,7 +8,7 @@ var args = arguments[0] || {},
 	if (_.has(args, "leftIconText")) {
 		setIcon(args.leftIconText, "left", args.leftIconDict || {}, args.paddingLeft || 0);
 	} else if (_.has(args, "leftButtonTitle")) {
-		setButton(args.leftButtonTitle, "left", args.leftButtonDict || {}, args.paddingLeft || 0);
+		setButton(args.leftButtonTitle, "left", args.leftButtonDict || {}, args.paddingLeft || 0, null, args.accessibilityLabel, args.accessibilityHidden);
 	}
 
 	if (_.has(args, "rightIconText")) {
@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 		enableClearButton = true;
 		setIcon(args.clearIconText, "right", args.clearIconDict || args.rightIconDict || {}, args.paddingRight || 0);
 	} else if (_.has(args, "rightButtonTitle")) {
-		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.paddingRight || 0);
+		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.paddingRight || 0, null, args.accessibilityLabel, args.accessibilityHidden);
 	}
 })();
 
@@ -46,7 +46,7 @@ function setIcon(_iconText, _direction, _iconDict, _padding) {
 	}
 }
 
-function setButton(_title, _direction, _buttonDict, _padding) {
+function setButton(_title, _direction, _buttonDict, _padding, _access, _accessibilityLabel, _accessibilityHidden) {
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
@@ -68,16 +68,23 @@ function setButton(_title, _direction, _buttonDict, _padding) {
 	});
 	buttonView.add(Ti.UI.createLabel(_buttonDict));
 	buttonView.addEventListener("click", didClick);
+	if (_accessibilityHidden !== true) {
+		if (_accessibilityLabel) {
+			buttonView.accessibilityLabel = _accessibilityLabel;
+		}
+	} else {
+		buttonView.accessibilityHidden = true;
+	}
 	$.widget.add(buttonView);
 }
 
 function applyProperties(_dict) {
 	var options = {};
-	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize"]);
+	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}
