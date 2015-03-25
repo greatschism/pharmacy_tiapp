@@ -1,6 +1,5 @@
 <Alloy>
-	<!--<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />-->
-	<OptionDialog id="optionsMenu" title="Options Menu"/>
+	<Widget id="optionDialog" src="com.mscripts.optiondialog" onClick="didClickOptionDialog" />
 	<Widget id="sortPicker" src="com.mscripts.optionpicker" class="optionpicker" onClick="didClickSortPicker" />
 	<Widget id="unhidePicker" src="com.mscripts.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">
@@ -14,11 +13,9 @@
 			<Button id="closeBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickCloseBtn" />
 		</View>
 	</Widget>
-	<Button id="rightNavBtn" class="role-right-nav-btn nav-btn" onClick="didClickOptionView"/>
-	<View id="searchView" class="top search-view fade-out">
-		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt"
-		onChange="didChangeSearch" onClear="didChangeSearch" />
-		<View id="sepView" class="hseparator"/>
+	<Button id="rightNavBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickOptionBtn"/>
+	<View id="searchView" class="top search-view hide fade-out">
+		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt" onChange="didChangeSearch" onClear="didChangeSearch" />
 	</View>
 	<TableView id="tableView" class="top secondary-bg-color" onClick="didItemClick">
 		<FooterView>

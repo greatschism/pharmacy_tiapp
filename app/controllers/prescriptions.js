@@ -30,7 +30,6 @@ var args = arguments[0] || {},
 	classes : ["padding-top", "padding-bottom", "padding-right", "show", "arrow-left", "critical-tooltip"],
 	width : 150
 }),
-
     tooltipLblStyle = $.createStyle({
 	classes : ["tooltip-lbl"]
 });
@@ -149,66 +148,55 @@ function didChangeSearch(e) {
 }
 
 function didItemClick(e) {
-app.navigator.open({
-	ctrl : "prescriptionDetails",
-	titleid : "",
-	ctrlArguments : {
-		
-	},
-	stack :true
-});
+	app.navigator.open({
+		ctrl : "prescriptionDetails",
+		titleid : "",
+		ctrlArguments : {
+
+		},
+		stack : true
+	});
 }
 
-function didClickOptionView(e) {
+function didClickOptionBtn(e) {
+	$.optionDialog.show();
+}
 
-	var menuItems = [
-		 Alloy.Globals.strings.menuSearch,
-		Alloy.Globals.strings.menuSort,
-
-		Alloy.Globals.strings.menuUnhidePrescriptions,
-		Alloy.Globals.strings.menuRefresh,
-];
-		$.optionsMenu.options=menuItems;
-		$.optionsMenu.show();
-		$.optionsMenu.addEventListener('click',function(e)
-            {
-  	  switch(e.index) {
-		case 0:
+function didClickOptionDialog(e) {
+	switch(e.index) {
+	case 0:
 		toggleSearchView();
 		break;
-		case 1:
+	case 1:
 		sort();
 		break;
-		case 2:
+	case 2:
 		alert("Unhide under construction");
 		break;
-		case 3:
+	case 3:
 		init();
 		break;
 	}
-            	
-            });
 }
-
-function doClickOptionDialog(e) {
-
-	alert(e.index);
-}
-
-
 
 function toggleSearchView() {
 	var tableTop = 0;
 	if ($.tableView.top == tableTop) {
 		tableTop = $.searchView.size.height;
-		$.searchView.opacity = 1;
+		$.searchView.applyProperties({
+			opacity : 1,
+			visible : true
+		});
 	} else {
 		var svAnimation = Ti.UI.createAnimation({
 			opacity : 0,
 			duration : 200
 		});
 		svAnimation.addEventListener("complete", function onComplete() {
-			$.searchView.opacity = 0;
+			$.searchView.applyProperties({
+				opacity : 0,
+				visible : false
+			});
 		});
 		$.searchView.animate(svAnimation);
 	}
@@ -265,9 +253,4 @@ function didClickSelectAll(e) {
 	$.unhidePicker.setSelection({}, true);
 }
 
-function didAndroidBack() {
-	return $.optionsMenu.hide();
-}
-
 exports.init = init;
-exports.androidback = didAndroidBack;

@@ -1,8 +1,9 @@
 "#rightNavBtn":{
 	title: Alloy.CFG.icons.options
 },
-
-
+"#optionDialog":{
+	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh]
+},
 "#searchbar":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName,
 	returnKeyType: Ti.UI.RETURNKEY_DONE
@@ -11,9 +12,4 @@
 	autoHide: true,
 	radioButton: true,
 	titleProperty: "code_display"
-},
-"#sepView":{
-	top: 50,
-	color: "#b5b5b5",
-	height: 0.8
 }
