@@ -4,9 +4,13 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
+    currentIndex = -1,
     landingPage;
 
 function init(_navigation) {
+	if (OS_ANDROID) {
+		app.navigator.drawer.addEventListener("windowDidClose", didLeftWindowClose);
+	}
 	landingPage = _.findWhere(Alloy.Collections.menuItems.toJSON(), {
 		landing_page : true
 	});
@@ -14,20 +18,11 @@ function init(_navigation) {
 	app.navigator.open(_navigation || landingPage);
 }
 
-function filterFunction(collection) {
-	$.menu.backgroundColor = Alloy.TSS.primary_bg_color.backgroundColor;
-	return collection.models;
-}
-
-function transformFunction(model) {
-	var transform = model.toJSON();
-	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
-	transform.title = Alloy.Globals.strings[transform.titleid];
-	return transform;
-}
-
-function didItemClick(e) {
-	var model = Alloy.Collections.menuItems.at(e.index),
+function didLeftWindowClose(e) {
+	if (currentIndex == -1) {
+		return false;
+	}
+	var model = Alloy.Collections.menuItems.at(currentIndex),
 	    itemObj = model.toJSON();
 	if (itemObj.ctrl) {
 		var ctrlPath = app.navigator.currentController.ctrlPath;
@@ -46,13 +41,7 @@ function didItemClick(e) {
 				app.navigator.open(itemObj);
 			}
 		}
-		if (app.navigator.drawer.isLeftWindowOpen()) {
-			app.navigator.drawer.closeLeftWindow();
-		}
 	} else if (itemObj.action) {
-		if (app.navigator.drawer.isLeftWindowOpen()) {
-			app.navigator.drawer.closeLeftWindow();
-		}
 		switch(itemObj.action) {
 		case "signout":
 			dialog.show({
@@ -83,9 +72,33 @@ function didItemClick(e) {
 			});
 		}
 	}
+	currentIndex = -1;
+}
+
+function filterFunction(collection) {
+	$.menu.backgroundColor = Alloy.TSS.primary_bg_color.backgroundColor;
+	return collection.models;
+}
+
+function transformFunction(model) {
+	var transform = model.toJSON();
+	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
+	transform.title = Alloy.Globals.strings[transform.titleid];
+	return transform;
+}
+
+function didItemClick(e) {
+	currentIndex = e.index;
+	if (!OS_ANDROID) {
+		didLeftWindowClose();
+	}
+	app.navigator.drawer.toggleLeftWindow();
 }
 
 function terminate() {
+	if (OS_ANDROID) {
+		app.navigator.drawer.removeEventListener("windowDidClose", didLeftWindowClose);
+	}
 	$.destroy();
 }
 
