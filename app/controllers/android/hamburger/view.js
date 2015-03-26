@@ -98,10 +98,14 @@ function setRightNavButton(_view) {
 		var menu = e.menu;
 		menu.clear();
 		if (_view) {
-			menu.add({
+			var menuItem = menu.add({
 				actionView : _view,
-				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
+				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
+				visible : false
 			});
+			setTimeout(function() {
+				menuItem.setVisible(true);
+			}, 300);
 		}
 	};
 	activity.invalidateOptionsMenu();
