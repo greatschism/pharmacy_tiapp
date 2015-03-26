@@ -4,6 +4,7 @@ module.exports = {
 		"children" : [{
 			"addChild" : "setFooterView",
 			"items" : [{
+				"platform" : ["ios"],
 				"apiName" : "View",
 				"classes" : ["footer-view-break"]
 			}]

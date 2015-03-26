@@ -10,10 +10,15 @@ function init() {
 }
 
 function create(_dict) {
-	var element = $.UI.create(_dict.apiName, {
-		apiName : _dict.apiName,
-		classes : _dict.classes || []
-	});
+	var element;
+	if (_dict.module) {
+		element = require(_dict.module)[_dict.apiName](_dict.classes || {});
+	} else {
+		element = $.UI.create(_dict.apiName, {
+			apiName : _dict.apiName,
+			classes : _dict.classes || []
+		});
+	}
 	if (_.has(_dict, "properties")) {
 		var properties = _dict.properties;
 		if (_.has(properties, "icon")) {
@@ -34,6 +39,9 @@ function create(_dict) {
 			    cElemnts = [];
 			for (var i in items) {
 				var childItem = items[i];
+				if (childItem.platform && _.indexOf(childItem.platform, $.app.device.platform) == -1) {
+					continue;
+				}
 				if (asArray) {
 					cElemnts.push(create(childItem));
 				} else {

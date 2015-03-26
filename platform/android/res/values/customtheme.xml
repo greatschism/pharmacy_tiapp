@@ -2,6 +2,7 @@
 <resources>
 	<style name="ListView" parent="@android:style/Widget.ListView">
 		<item name="android:listSelector">@android:color/transparent</item>
+		<item name="android:dividerHeight">1px</item>
 	</style>
 	<style name="Theme.LightActionBar" parent="@style/Theme.AppCompat.Light">
 		<item name="android:selectableItemBackground">@android:color/transparent</item>

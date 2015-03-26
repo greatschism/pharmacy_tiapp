@@ -750,12 +750,8 @@
 /**
 * 	table / list view
 */
-".footer-view-break[platform=ios]":{
+".footer-view-break":{
 	height: Ti.UI.SIZE
-},
-".footer-view-break[platform=android]":{
-	height: 1,
-	backgroundColor: Alloy.TSS.footer_view_break.backgroundColor
 },
 ".section-header-view": {
 	height: Alloy.TSS.section_header_view.height,
