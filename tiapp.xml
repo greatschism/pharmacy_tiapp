@@ -138,7 +138,6 @@
         <module platform="android">ti.barcode</module>
         <module platform="iphone">dk.napp.drawer</module>
         <module platform="android">dk.napp.drawer</module>
-        <module platform="iphone">ti.sevenswitch</module>
         <module platform="iphone">com.obscure.keychain</module>
         <module platform="android">com.obscure.keychain</module>
     </modules>
