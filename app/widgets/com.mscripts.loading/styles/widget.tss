@@ -18,9 +18,6 @@
 	style: Ti.UI.ActivityIndicatorStyle.BIG,
 	height: Ti.UI.FILL
 },
-"#activityIndicator[platform=mobileweb]":{
-	style: Ti.UI.ActivityIndicatorStyle.PLAIN
-},
 "#activityIndicator[platform=ios]":{
 	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
 },

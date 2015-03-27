@@ -17,7 +17,7 @@ function applyProperties(_dict) {
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-	if (OS_IOS || OS_MOBILEWEB) {
+	if (OS_IOS) {
 		if (_.has(_dict, "hintText")) {
 			options = _.pick(_dict, ["font", "textAlign"]);
 			_.extend(options, {
@@ -43,18 +43,12 @@ function didFocus(e) {
 	$.trigger("focus", {
 		source : $
 	});
-	if (OS_MOBILEWEB && $.hintLbl) {
-		$.hintLbl.visible = false;
-	}
 }
 
 function didBlur(e) {
 	$.trigger("blur", {
 		source : $
 	});
-	if (OS_MOBILEWEB && $.hintLbl) {
-		$.hintLbl.visible = $.txta.value == "";
-	}
 }
 
 function didChange(e) {
@@ -91,7 +85,7 @@ function setValue(_value) {
 		triggerChange = false;
 	}
 	$.txta.value = _value;
-	if ((OS_IOS || OS_MOBILEWEB) && $.hintLbl) {
+	if (OS_IOS && $.hintLbl) {
 		$.hintLbl.visible = $.txta.value == "";
 	}
 }

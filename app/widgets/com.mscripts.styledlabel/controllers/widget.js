@@ -7,8 +7,8 @@ var args = arguments[0] || {},
 
 	var options;
 
-	if (OS_IOS || OS_MOBILEWEB) {
-		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	if (OS_IOS) {
+		options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 		if (!_.isEmpty(options)) {
 			$.lbl.applyProperties(options);
 		}
@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 		if (!_.isEmpty(options)) {
 			$.widget.applyProperties(options);
 		}
-		options = _.pick(args, ["font", "color", "textAlign"]);
+		options = _.pick(args, ["font", "color", "textAlign", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 		if (!_.isEmpty(options)) {
 			$.lbl.applyProperties(options);
 		}

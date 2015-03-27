@@ -134,20 +134,14 @@ function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
 			fontSize : 12
 		},
 		text : _text,
-		touchEnabled : false
+		touchEnabled : false,
+		accessibilityHidden: _.isUndefined(_accessibilityHidden) ? true : _accessibilityHidden,
+		accessibilityLabel: _accessibilityHidden !== false && _accessibilityLabel ? _accessibilityLabel : null 
 	});
-	var lbl = Ti.UI.createLabel(dict);
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);
 	}
-	if (_accessibilityHidden !== true) {
-		if (_accessibilityLabel) {
-			dict.accessibilityLabel = _accessibilityLabel;
-		}
-	} else {
-		dict.accessibilityHidden = true;
-	}
-	$.containerView.add(lbl);
+	$.containerView.add(Ti.UI.createLabel(dict));
 	if (dict.paddingBottom) {
 		setPadding(dict.paddingBottom);
 	}

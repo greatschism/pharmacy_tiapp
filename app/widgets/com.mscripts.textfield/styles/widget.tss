@@ -15,10 +15,6 @@
 	paddingLeft: 8,
 	paddingRight: 8
 },
-"#txt[platform=mobileweb]":{
-	left: 10,
-	right: 10
-},
 "#txt[platform=ios,android]":{
 	left: 0,
 	right: 0

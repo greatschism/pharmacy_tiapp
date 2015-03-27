@@ -1,30 +1,4 @@
-"#widget[platform=android]": {
-	width: 55,
-	height: 34,
-	borderColor: "#8b8b8b",
-	borderWidth: 2,
-	borderRadius: 18,
-	zIndex: 1,
-	accessibilityHidden: false
-},
-"#bgView[platform=android]":{
-	borderRadius: 18,
-	backgroundColor: "#CAC4C1",
-	zIndex: 0,
-	accessibilityHidden: true
-},
-"#swt[platform=android]":{
-	left: 2,
-	width: 30,
-	height: 30,
-	backgroundColor: "#FFFFFF",
-	borderRadius: 15,
-	accessibilityHidden: true
-},
-"#swt[platform=ios]":{
-	top: 4,
-	width: 55,
-	height: 34,
-	value: false,
-	accessibilityLabel: "switch"
+"#swt":{
+	width: 56,
+	height: 36
 }

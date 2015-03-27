@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
 		<TextArea id="txta" onFocus="didFocus" onBlur="didBlur" onChange="didChange" onReturn="didReturn" />
-		<Label id="hintLbl" platform="ios,mobileweb" onClick="focus" />
+		<Label id="hintLbl" platform="ios" onClick="focus" />
 	</View>
 </Alloy>

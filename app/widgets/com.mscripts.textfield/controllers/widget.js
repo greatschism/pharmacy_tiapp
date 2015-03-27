@@ -27,23 +27,20 @@ function setIcon(_iconText, _direction, _iconDict, _accessibility, _padding) {
 	},
 	    isClearButton = enableClearButton && _direction == "right";
 	$.txt[_direction] = $.txt[_direction] + (_iconDict[_direction] || 0) + font.fontSize + _padding;
-	var iconView = Ti.UI.createView({
+	_iconDict[_direction] = 0;
+	_.extend(_iconDict, {
 		width : $.txt[_direction],
+		font : font,
+		title : _iconText,
 		sourceId : _direction + "Icon",
 		visible : !isClearButton
 	});
-	iconView[_direction] = 0;
-	_.extend(_iconDict, {
-		font : font,
-		text : _iconText,
-		touchEnabled : false
-	});
 	_.extend(_iconDict, _accessibility);
-	iconView.add(Ti.UI.createLabel(_iconDict));
-	iconView.addEventListener("click", isClearButton ? didClickClearText : didClick);
-	$.widget.add(iconView);
+	var iconBtn = Ti.UI.createButton(_iconDict);
+	iconBtn.addEventListener("click", isClearButton ? didClickClearText : didClick);
+	$.widget.add(iconBtn);
 	if (isClearButton) {
-		$.clearBtn = iconView;
+		$.clearBtn = iconBtn;
 	}
 }
 
@@ -52,25 +49,17 @@ function setButton(_title, _direction, _buttonDict, _accessibility, _padding) {
 		fontSize : 12
 	};
 	$.txt[_direction] = $.txt[_direction] + (_buttonDict[_direction] || 0) + (_buttonDict.width || 40) + _padding;
-	var buttonView = Ti.UI.createView({
+	_buttonDict[_direction] = 0;
+	_.extend(_buttonDict, {
 		width : $.txt[_direction],
+		font : font,
+		title : _title,
 		sourceId : _direction + "Button"
 	});
-	buttonView[_direction] = 0;
-	_.extend(_buttonDict, {
-		height : font.fontSize + 5,
-		ellipsize : true,
-		wordWrap : false,
-		width : _buttonDict.width || Ti.UI.FILL,
-		textAlign : _buttonDict.textAlign || "center",
-		font : font,
-		text : _title,
-		touchEnabled : false
-	});
 	_.extend(_buttonDict, _accessibility);
-	buttonView.add(Ti.UI.createLabel(_buttonDict));
-	buttonView.addEventListener("click", didClick);
-	$.widget.add(buttonView);
+	var button = Ti.UI.createButton(_buttonDict);
+	button.addEventListener("click", didClick);
+	$.widget.add(button);
 }
 
 function applyProperties(_dict) {
