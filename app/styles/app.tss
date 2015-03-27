@@ -432,7 +432,7 @@
 	borderWidth: Alloy.TSS.form_txt.borderWidth
 },
 ".form-dropdown":{
-	containerPaddingTop: Alloy.CFG.navBarHeight,
+	//containerPaddingTop: Alloy.CFG.navBarHeight,
 	height: Alloy.TSS.form_dropdown.height,
 	font: Alloy.TSS.form_dropdown.font,
 	color: Alloy.TSS.form_dropdown.color,
