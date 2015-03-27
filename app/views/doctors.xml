@@ -1,6 +1,5 @@
 <Alloy>
 	<Widget id="toggleMenu" src="com.mscripts.togglemenu" class="bg-quaternary fg-primary h4" onClick="didClickMenu" />
-	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
 	<View class="vgroup "> 
 		<TableView id="tableView" class="auto-height" onClick="didItemClick" />
 	</View>

@@ -9,7 +9,7 @@ var args = arguments[0] || {},
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
     msgPickUp = Alloy.Globals.strings.msgPickUp,
-
+    patientName,
     readyForRefill,
     otherPrescriptions,
     prescriptions,
@@ -26,6 +26,8 @@ var args = arguments[0] || {},
 });
 
 function init() {
+	patientName = args.patientName;
+
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
 		success : didSuccess,
@@ -53,123 +55,94 @@ function didSuccess(result) {
 		refill_status : "OTHERS"
 	});
 
-	console.log(prescriptions);
+	
+	var addIcon = $.UI.create("Label", {
+		apiName : "Label",
+		height : 32,
+		width : 32,
+		classes : ["userIcon", "small-icon", "right"]
+	});
 
+	var sectionHeading = patientName + "" + strings.sectionPatientsPrescription;
+	$.userLbl.text=sectionHeading;
+
+	//$.outerSection = uihelper.createTableViewSection($, sectionHeading, $, addIcon);*/
 	if (readyForRefill.length) {
 
-		console.log("ready to refill");
-		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill, $, $.addAllBtn);
+		var addAllLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["padding-right", "h14"],
+			text : strings.lblSelectAll,
+			color : "#599DFF"
+		});
+
+		$.readyForRefillSection = uihelper.createTableViewSection($, strings.sectionReadyForRefill, $, addAllLbl);
 		for (var i in readyForRefill) {
-			console.log('ready for refill' + readyForRefill[i]);
-			var transform = readyForRefill[i],
-			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
+
+			var prescription = readyForRefill[i],
+			    anticipatedRefillDate = moment(prescription.anticipated_refill_date, "YYYY/MM/DD");
 			todaysDate = moment();
 
 			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
-			console.log(ndays);
-			row = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow",
-				classes : ["height-75d"],
-
-			}),
-
-			icon = $.UI.create("View", {
-				apiName : "View",
-				height : 50,
-				classes : ["vgroup"]
-
-			}), iconLbl,
-
-			content = $.UI.create("View", {
-				apiName : "View",
-				left : 50,
-				classes : ["list-item-view", "vgroup"]
-			}),
-
-			sub = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
-			}),
-			title = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["list-item-title-lbl", "left"]
-			}),
-			detail = $.UI.create("View", {
-				apiName : "View",
-				classes : ["list-item-info-lbl"]
-			}),
-			rx = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["list-item-info-lbl", "left"]
-			}),
-			due = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["list-item-info-lbl"]
-			});
-			row.className = "readyForRefill";
-			sub.rowId = transform.id;
-			row.rowId = transform.rx_number;
-			console.log("fdhfgdhgdhjg" + transform.rx_number);
-			title.text = utilities.ucfirst(transform.presc_name);
-			rx.text = addRx(transform.rx_number);
-
-			icon.add(iconLbl);
-
-			detail.add(rx);
-			detail.add(due);
-
-			content.add(title);
-			content.add(detail);
-
-			row.add(icon);
-
-			row.add(content);
-
-			$.addAllBtn.addEventListener('click', didClickAddAll);
-
 			
 
+			row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
+			}),
+
+			contentView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["list-item-view", "auto-height", "padding-top", "padding-bottom"]
+			}),
+			iconView = $.UI.create("View", {
+				apiName : "Label",
+				classes : ["left", "auto-height", "auto-width"],
+			}),
+			detailsView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vgroup", "auto-height", "auto-width"],
+				left : 40,
+			}),
+			messageView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vgroup", "auto-height", "auto-width", "right"],
+			}),
+			icon = $.UI.create("Label", {
+				apiName : "Label",
+				height : 32,
+				width : 32,
+				classes : ["spotIcon", "small-icon"]
+			}),
+			prescriptionLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h1", "left"]
+			}),
+			rxNoLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h3", "left"]
+			}),
+			msgLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h3", "left"]
+			});
+			prescriptionLbl.text = utilities.ucfirst(prescription.presc_name);
+			rxNoLbl.text = addRx(prescription.rx_number);
+
 			if (ndays < 0) {
-				var overDueLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "right", "padding-top", "padding-bottom"]
-				});
-				content = $.UI.create("View", {
-					apiName : "View",
-					classes : ["list-item-view"]
-				});
-				overDueDetailLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
-				});
-				overDueLbl.text = strings.msgOverdueBy;
-				overDueDetailLbl.text = Math.abs(ndays) + "days";
-				row.add(content);
-				content.add(overDueLbl);
-				content.add(overDueDetailLbl);
-				console.log("reached");
-
+				msgLbl.text = strings.msgOverdueBy + "\n" + Math.abs(ndays) + " days";
+				msgLbl.color = Alloy.TSS.list_item_critical_detail_lbl.color;
 			} else if (ndays >= 0) {
-				var dueForRefillLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "padding-top", "right", "padding-bottom"]
-				});
-				content = $.UI.create("View", {
-					apiName : "View",
-					classes : ["list-item-view"]
-				});
-				dueForRefillDetailLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
-				});
-				dueForRefillLbl.text = strings.msgDueFoRefillIn;
-				dueForRefillDetailLbl.text = ndays + "days";
-				row.add(content);
-				content.add(dueForRefillLbl);
-				content.add(dueForRefillDetailLbl);
-			} else {
-
+				msgLbl.text = strings.msgDueFoRefillIn + "\n" + Math.abs(ndays) + " days";
 			}
+			iconView.add(icon);
+			detailsView.add(prescriptionLbl);
+			detailsView.add(rxNoLbl);
+			messageView.add(msgLbl);
+
+			contentView.add(iconView);
+			contentView.add(detailsView);
+			contentView.add(messageView);
+			row.add(contentView);
 
 			$.readyForRefillSection.add(row);
 		}
@@ -177,141 +150,97 @@ function didSuccess(result) {
 	}
 
 	if (otherPrescriptions.length) {
+
+		var addAllLbl = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["padding-right", "h14"],
+			text : strings.lblSelectAll,
+			color : "#599DFF"
+		});
 		console.log("others");
-		$.otherPrescriptionsSection = uihelper.createTableViewSection($, strings.sectionOtherPrescriptions);
+
+		$.otherPrescriptionsSection = uihelper.createTableViewSection($, strings.sectionOtherPrescriptions, $, addAllLbl);
+
 		for (var i in otherPrescriptions) {
-			console.log('otherPrescriptions' + otherPrescriptions[i]);
-			var transform = otherPrescriptions[i],
-			    anticipatedRefillDate = moment(transform.anticipated_refill_date, "YYYY/MM/DD");
-			todaysDate = moment();
-
-			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
-			console.log(ndays);
-			row = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow",
-				classes : ["height-75d"]
+			
+			var prescription = otherPrescriptions[i],
+			    anticipatedRefillDate = moment(prescription.anticipated_refill_date, "YYYY/MM/DD").format("MM/DD/YYYY"),
+			    row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow"
 			}),
-
-			icon = $.UI.create("View", {
+			    contentView = $.UI.create("View", {
 				apiName : "View",
-				height : 50,
-				classes : ["vgroup"]
-
-			}), iconLbl,
-
-			vseparator = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["vseparator", "height-70", "touch-disabled"]
+				classes : ["list-item-view", "auto-height", "padding-top", "padding-bottom"]
 			}),
-			content = $.UI.create("View", {
-				apiName : "View",
-				left : 50,
-				classes : ["list-item-view", "vgroup"]
-			}),
-			sub = $.UI.create("View", {
-				apiName : "View",
-				//classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
-			}),
-			title = $.UI.create("Label", {
+			    iconView = $.UI.create("View", {
 				apiName : "Label",
-				classes : ["list-item-title-lbl", "left"]
+				classes : ["left", "auto-height", "auto-width"],
 			}),
-			detail = $.UI.create("View", {
+			    detailsView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["list-item-info-lbl"]
+				classes : ["vgroup", "auto-height", "auto-width"],
+				left : 40,
 			}),
-			rx = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["list-item-info-lbl", "left"]
+			    messageView = $.UI.create("View", {
+				apiName : "View",
+				classes : ["vgroup", "auto-height", "auto-width", "right"],
 			}),
-			due = $.UI.create("Label", {
+			    icon = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["list-item-info-lbl"]
+				height : 32,
+				width : 32,
+				classes : ["spotIcon", "small-icon"]
+			}),
+			    prescriptionLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h1", "left"]
+			}),
+			    rxNoLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h3", "left"]
+			}),
+			    msgLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["h3", "left"]
 			});
-			row.className = "others";
-			content.rowId = transform.id;
-			//content.addEventListener("click", didItemClick);
-			title.text = utilities.ucfirst(transform.presc_name);
-			rx.text = addRx(transform.rx_number);
-			icon.add(iconLbl);
-			row.add(icon);
-			detail.add(rx);
-			detail.add(due);
-			content.add(title);
-			content.add(detail);
-			row.add(content);
-			if (ndays < 0) {
-				var overDueLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "padding-top", "right", "padding-bottom"]
-				});
-				content = $.UI.create("View", {
-					apiName : "Label",
-					classes : ["list-item-view"]
-				});
-				overDueDetailLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
-				});
-				overDueLbl.text = strings.msgOverdueBy;
-				overDueDetailLbl.text = ndays;
-				row.add(content);
-				content.add(overDueLbl);
-				content.add(overDueDetailLbl);
-			} else if (ndays >= 0) {
-				var dueForRefillLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-info-lbl", "padding-top", "right"]
-				});
-				content = $.UI.create("View", {
-					apiName : "Label",
-					classes : ["list-item-view"]
-				});
-				dueForRefillDetailLbl = $.UI.create("Label", {
-					apiName : "Label",
-					classes : ["list-item-critical-detail-lbl", "padding-bottom", "right"]
-				});
-				dueForRefillLbl.text = strings.msgDueFoRefillOn;
-				dueForRefillDetailLbl.text = ndays + "days";
-				row.add(content);
-				content.add(dueForRefillLbl);
-				content.add(dueForRefillDetailLbl);
-			} else {
+			prescriptionLbl.text = utilities.ucfirst(prescription.presc_name);
+			rxNoLbl.text = addRx(prescription.rx_number);
+			msgLbl.text = strings.msgDueFoRefillOn + "\n" + anticipatedRefillDate;
+				
+			iconView.add(icon);
+			detailsView.add(prescriptionLbl);
+			detailsView.add(rxNoLbl);
+			messageView.add(msgLbl);
 
-			}
+			contentView.add(iconView);
+			contentView.add(detailsView);
+			contentView.add(messageView);
+			row.add(contentView);
+		
 			$.otherPrescriptionsSection.add(row);
 		}
 
 	}
-	$.tableView.data = [$.readyForRefillSection, $.otherPrescriptionsSection];
+	$.tableView.data = [$.outerSection, $.readyForRefillSection, $.otherPrescriptionsSection];
 
 }
 
-
-
 function didClickAddAll(e) {
-				addedAll = new Array;
-				if (readyForRefill.length) {
-					for (var i in readyForRefill) {
-						addedAll[i] = readyForRefill[i];
+	addedAll = new Array;
+	if (readyForRefill.length) {
+		for (var i in readyForRefill) {
+			addedAll[i] = readyForRefill[i];
 
-					}
-					console.log("added all prescriptions" + addedAll[i].presc_name);
-				}
-				if(otherPrescriptions.length)
-				{
-					for (var i in readyForRefill) {
-						addedAll[i] = otherPrescriptions[i];
+		}
+		
+	}
+	if (otherPrescriptions.length) {
+		for (var i in readyForRefill) {
+			addedAll[i] = otherPrescriptions[i];
 
-					}
-				}
-			}
-
-
-
-
-
-
+		}
+	}
+}
 
 function didToggle(e) {
 	$.toggleMenu.toggle();
@@ -359,7 +288,7 @@ function didAddPrescription(_result) {
 		ctrl : "orderDetails",
 
 		ctrlArguments : {
-			//prescription : 
+			//prescription :
 		},
 		stack : true
 	});
@@ -376,20 +305,17 @@ function didItemClick(e) {
 
 	});
 	selectedPresc = new Array;
-		var row = e.source;
+	var row = e.source;
 	if (e.row) {
 
-		console.log("got" + rowId);
 		selectedPresc.push(rowId);
 		selectedPresc.push(rowName);
-		console.log("here it is" +selectedPresc);
 		iconLbl.text = Alloy.CFG.icons.checkbox;
 		iconLbl.color = "#00A14B";
 
 	}
-	
 
-    alert(row.text + ' ' + row.title.text);
+	alert(row.text + ' ' + row.title.text);
 
 }
 

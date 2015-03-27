@@ -6,8 +6,8 @@
 				<Label id="subtitleLbl" class="left list-item-subtitle-lbl text-left" />
 			</View>
 			<View class="right width-30 auto-height vgroup">
-				<Label id="infoLbl" class="right list-item-info-lbl text-right" />
-				<Label id="detailLbl" class="right list-item-detail-lbl text-right" />
+				<Label id="infoLbl" class="right h2 text-right" />
+				<Label id="detailLbl" class="right h2 text-right" />
 			</View>
 		</View>
 	</TableViewRow>

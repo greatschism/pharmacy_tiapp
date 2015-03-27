@@ -5,6 +5,7 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     app = require("core"),
     dialog = require("dialog"),
+    strings = Alloy.Globals.strings,
     doctor,
     prescriptions,
     profileImg;
@@ -19,9 +20,9 @@ function init() {
 
 		profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			height : "70",
-			width : "70",
-			classes : ["paddingLeft", " paddingTop"],
+			height : "90",
+			width : "90",
+			classes : ["left", " paddingTop"],
 			borderColor : "#000000",
 		});
 
@@ -32,38 +33,53 @@ function init() {
 
 	$.nameLbl.text = doctor.long_name;
 
-	$.phoneLbl.text = doctor.phone;
-	$.faxLbl.text = doctor.fax;
+	if (doctor.phone.length)
+		$.phoneLbl.text = doctor.phone;
+	else{
+		$.resetClass($.phoneLbl, ["after-icon","s21","multi-line"]);
+		$.phoneLbl.text = strings.lblEditToAddDetails;
+	}
+	
+	if (doctor.fax.length)
+		$.faxLbl.text = doctor.fax;
+	else{
+		$.resetClass($.faxLbl, ["after-icon","s21","multi-line"]);
+		$.faxLbl.text = strings.lblEditToAddDetails;
+	}
+	var directionDetails;
+	directionDetails = doctor.addressline1 ? doctor.addressline2 ? doctor.addressline1 + "\n" + doctor.addressline2 : doctor.addressline1 : doctor.addressline2 ? doctor.addressline2 : "";
 
-	$.directionLbl.text=doctor.addressline1 ? doctor.addressline2 ? doctor.addressline1+"\n"+doctor.addressline2 : doctor.addressline1 : doctor.addressline2 ? doctor.addressline2 : "";
-	
-	if((doctor.city || doctor.state || doctor.zip) && $.directionLbl.text)
-	{
-		$.directionLbl.text+="\n";
+	if ((doctor.city || doctor.state || doctor.zip) && directionDetails) {
+		directionDetails += "\n";
 	}
-	if(doctor.city || doctor.state || doctor.zip)
-	{
-		$.directionLbl.text+=doctor.city ? doctor.state ? doctor.city+","+doctor.state : doctor.city : doctor.state ? doctor.state : "";
-		
-		if((doctor.city || doctor.state) && doctor.zip)
-		$.directionLbl.text+=","+ doctor.zip;
-		else if(doctor.zip)
-		$.directionLbl.text+=doctor.zip;
+	if (doctor.city || doctor.state || doctor.zip) {
+		directionDetails += doctor.city ? doctor.state ? doctor.city + "," + doctor.state : doctor.city : doctor.state ? doctor.state : "";
+
+		if ((doctor.city || doctor.state) && doctor.zip)
+			directionDetails += "," + doctor.zip;
+		else if (doctor.zip)
+			directionDetails += doctor.zip;
 	}
-	
+
+	if (directionDetails.length)
+		$.directionLbl.text = directionDetails;
+	else {
+		$.resetClass($.directionLbl, ["after-icon","s21"]);
+		$.directionLbl.text = strings.lblEditToAddDetails;
+	}
 
 	$.notesTxta.setValue(doctor.notes);
 	var len = prescriptions.length;
-	$.prescriptionsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionHasPrescribedYou);
+	$.prescriptionsSection = uihelper.createTableViewSection($, strings.sectionHasPrescribedYou);
 
 	if (doctor.doctor_type == "manual") {
-		var row = createNoPrescriptionRow(Alloy.Globals.strings.msgManuallyAddedDoctor);
+		var row = createNoPrescriptionRow(strings.msgManuallyAddedDoctor);
 		$.prescriptionsSection.add(row);
 		$.tableView.data = [$.prescriptionsSection];
 
 	} else {
 		if (len == 0) {
-			var row = createNoPrescriptionRow(Alloy.Globals.strings.msgYouHaveNoActiveprescription);
+			var row = createNoPrescriptionRow(strings.msgYouHaveNoActiveprescription);
 			$.prescriptionsSection.add(row);
 			$.tableView.data = [$.prescriptionsSection];
 
@@ -94,19 +110,19 @@ function getRow(prescription) {
 	}),
 	    leftLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["list-item-title-lbl", "left"]
+		classes : ["list-item-title-lbl", "left","s6"]
 	}),
 	    rightLbl = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#808285",
-		classes : ["list-item-info-lbl", "right"]
+		classes : ["list-item-info-lbl", "right","s3"]
 	});
 	leftLbl.text = prescription.presc_name;
-	var expiryDate=moment(prescription.expiration_date, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD");
-	if(moment().diff(expiryDate,"days")>0)
-	rightLbl.text=Alloy.Globals.strings.lblExpired;
+	var expiryDate = moment(prescription.expiration_date, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD");
+	if (moment().diff(expiryDate, "days") > 0)
+		rightLbl.text = strings.lblExpired;
 	else
-	rightLbl.text = prescription.latest_filled_date ? Alloy.Globals.strings.lblRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : Alloy.Globals.strings.msgNotFilledYet;
+		rightLbl.text = prescription.latest_filled_date ? strings.lblRefilled.concat(": " + moment(prescription.latest_filled_date, "YYYY-MM-DD HH:mm").format("D/M/YY")) : strings.msgNotFilledYet;
 	view.add(leftLbl);
 	view.add(rightLbl);
 	row.add(view);
@@ -123,7 +139,7 @@ function didItemClick(e) {
 
 	app.navigator.open({
 		stack : true,
-		title : Alloy.Globals.strings.lblDrugDetails,
+		title : strings.lblDrugDetails,
 		ctrl : "prescriptionDetails",
 		ctrlArguments : {
 			prescription : prescription
@@ -138,7 +154,7 @@ function didClickProfileImg(e) {
 
 function didClickDirections(e) {
 	dialog.show({
-		message : Alloy.Globals.strings.msgUnderConstruction
+		message : strings.msgUnderConstruction
 	});
 }
 
@@ -153,7 +169,7 @@ function createNoPrescriptionRow(message) {
 	    titleLbl = $.UI.create("Label", {
 		apiName : "Label",
 		text : message,
-		classes : ["fill-width", "padding-left", "padding-bottom", "h2"]
+		classes : ["fill-width", "padding-left", "padding-bottom", "s3"]
 	});
 	contentView.add(titleLbl);
 	row.add(contentView);
@@ -166,9 +182,9 @@ function didClickOption(e) {
 
 		var profileImg = $.UI.create("ImageView", {
 			apiName : "ImageView",
-			height : "70",
-			width : "70",
-			classes : ["paddingLeft", " paddingTop"],
+			height : "90",
+			width : "90",
+			classes : ["left", " paddingTop"],
 			borderColor : "#000000",
 		});
 	}

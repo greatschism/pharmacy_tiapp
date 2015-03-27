@@ -7,9 +7,52 @@
 "#footerView":{
 	height: 96
 },
-"#orderRefillBtn":{
-	title: Alloy.Globals.strings.btnOrderRefill,
-	color: "#ffffff"
+"#submitBtn":{
+	title: Alloy.Globals.strings.btnSubmit
+},
+".additionIcon":{
+	font:{
+		fontSize:28
+	},
+	text:Alloy.CFG.icons.plus,
+	color:"#599DFF"
+},
+".deleteIcon":{
+	font:{
+		fontSize:28
+	},
+	text:Alloy.CFG.icons.minus_with_circle,
+	color:"#ED1C24"
+},
+".editIcon":{
+	font:{
+		fontSize:30
+	},
+	text:Alloy.CFG.icons.edit,
+	color:"#599DFF"
+},
+".h1":{
+color:"#000000",
+font:{
+	fontSize: 17,
+	fontFamily:"bold"
+}	
+},
+".h2":{
+color:"#6D6E71",
+font:{
+	fontSize: 17,
+	fontFamily:"regular"
+}	
+},
+".h3":{
+color:"#808285",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
 }
+
+
 
 

@@ -9,5 +9,9 @@
 	title: Alloy.Globals.strings.btnSend
 },
 "#cantRememberLbl":{
-	html: Alloy.Globals.strings.lblCantRememberEmail
+	html: Alloy.Globals.strings.lblCantRememberEmail,
+	font:{
+	fontSize: 14,
+	fontFamily:"bold"
+}
 }

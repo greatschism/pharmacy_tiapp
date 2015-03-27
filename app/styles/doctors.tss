@@ -131,6 +131,6 @@ font:{
 	left:15
 }
 ".viewSize":{
-	height : 52,
-	width : 55
+	height : 48,
+	width : 60
 }

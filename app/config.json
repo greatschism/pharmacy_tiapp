@@ -14,6 +14,7 @@
 			"PATIENTS_REGISTER": "patients/register",
 			"PATIENTS_NEW_PASSWORD": "patients/newpassword",
 			"PATIENTS_FORGOT_PASSWORD": "patients/forgotpassword",
+			"PATIENTS_GET":"patients/get",
 			"DOCTORS_GET": "doctors/get",
 			"DOCTORS_LIST": "doctors/list",
 			"DOCTORS_ADD": "doctors/add",
@@ -32,6 +33,7 @@
 			"PRESCRIPTIONS_REFILL": "prescriptions/refill",
 			"PRESCRIPTIONS_SORT_NAME": "prescriptions/sort/name",
 			"PRESCRIPTIONS_REFILL_HISTORY": "prescriptions/refillhistory",
+			"PRESCRIPTIONS_UNHIDE":"prescriptions/unhide",
 			"STATES_GET": "states/get"
 		},
 		"apiCodes": {

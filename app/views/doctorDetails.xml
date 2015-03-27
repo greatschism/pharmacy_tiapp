@@ -7,27 +7,27 @@
 			<View class="auto-height vgroup ">
 
 				<View id="profileNameView" class="auto-height paddingTop paddingBottom paddingLeft">
-					<Label id="nameLbl" class="left multi-line fill-width" />
+					<Label id="nameLbl" class="left multi-line fill-width s1" />
 				</View>
-				<View class="auto-height top">
+				<View class="auto-height top">  
 
-					<View id="profileImageView" class="left auto-height auto-width top">
-						<Label id="profileIconLabel" height="70" width="70" classes="paddingTop paddingLeft" onClick="didClickProfileImg" />
+					<View id="profileImageView" class="padding-left auto-height auto-width top" >
+						<Label id="profileIconLabel" height="90" width="90" class="left" onClick="didClickProfileImg" />
 					</View>
-					<View class="auto-height top width-75 hgroup right" >
+					<View class="auto-height top detailsWidth hgroup right" >
 						<View class=" paddingLeft paddingTop auto-height" onClick="phoneDialer">
 							<Label id="phoneIconLbl" class="top left small-icon" />
-							<Label id="phoneLbl" class="after-icon h15 multi-line fg-secondary" />
+							<Label id="phoneLbl" class="after-icon s3 multi-line " />
 						</View>
 						<View class="hseparator paddingLeft paddingTop"/>
 						<View class="paddingTop paddingLeft auto-height">
 							<Label id="faxIconLbl" class="top left small-icon" />
-							<Label id="faxLbl" class="after-icon h15NoColor multi-line fg-secondary" />
+							<Label id="faxLbl" class="after-icon s3 multi-line " />
 						</View>
 						<View class="hseparator paddingLeft paddingTop"/>
 						<View class="paddingTop paddingLeft auto-height">
 							<Label id="directionIconLbl" class="top left small-icon"  />
-							<Label id="directionLbl" class="after-icon h15  fg-secondary" onClick="didClickDirections" />
+							<Label id="directionLbl" class="after-icon s13 " onClick="didClickDirections" />
 						</View>
 					</View>
 				</View>

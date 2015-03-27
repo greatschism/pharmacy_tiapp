@@ -56,7 +56,7 @@ function didSuccess(_result) {
 	});
 	addDoctorIcon.addEventListener("click", didClickAddDoctor);
 
-	$.doctorsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionDoctors, $, addDoctorIcon);
+	$.doctorsSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionDoctors, null, addDoctorIcon);
 
 	if (doctors.length) {
 
@@ -176,7 +176,7 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 			description = msgYouHaveNoActiveprescription;
 		}
 	}
-	description += ".";
+	//description += ".";
 
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
@@ -184,7 +184,7 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	    contentView = $.UI.create("View", {
 		apiName : "View",
 		horizontalWrap : "false",
-		classes : ["hgroup", "auto-height", "left"]
+		classes : ["auto-height", "left"]
 	}),
 	    leftImgView = $.UI.create("View", {
 		apiName : "View",
@@ -192,7 +192,8 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	}),
 	    descriptionView = $.UI.create("View", {
 		apiName : "View",
-		classes : ["vgroup", "auto-height", "auto-width", "padding-left","padding-bottom","padding-top"]
+		left:84,
+		classes : ["vgroup", "auto-height", "auto-width","padding-bottom","padding-top"]
 
 	}),
 	    leftIconLabel = $.UI.create("Label", {
@@ -203,11 +204,11 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	}),
 	    titleLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["h2", "left", "width-90"]
+		classes : ["h2", "left", "width-85"]
 	}),
 	    prescriptionLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["h3", "left", "width-90"]
+		classes : ["h3", "left", "width-85"]
 	}),
 	    childLbl = $.UI.create("Label", {
 		apiName : "Label",

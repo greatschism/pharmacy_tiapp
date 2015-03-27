@@ -12,9 +12,11 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
-    sectionIds = ["gettingRefilled", "readyForPickup", "readyForRefill", "otherPrescriptions"],
+    sectionIds = ["readyForPickup","gettingRefilled", "readyForRefill", "otherPrescriptions"],
     sections = {},
     rows = [],
+    patient,
+    items,
     currentDate = moment(),
     overDueInfoStyle = $.createStyle({
 	classes : ["right", "list-item-critical-info-lbl", "text-right"]
@@ -30,11 +32,20 @@ var args = arguments[0] || {},
 	classes : ["padding-top", "padding-bottom", "padding-right", "show", "arrow-left", "critical-tooltip"],
 	width : 150
 }),
+
     tooltipLblStyle = $.createStyle({
 	classes : ["tooltip-lbl"]
 });
 
 function init() {
+	http.request({
+		method : "PATIENTS_GET",
+		success : didGetPatients
+	});
+}
+
+function didGetPatients(_result) {
+	patient=_result.data.patients;
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
 		success : didGetPrescriptionList
@@ -50,6 +61,16 @@ function didGetPrescriptionList(_result, _passthrough) {
 	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
+		var userIcon=$.UI.create("Label", {
+		apiName : "Label",
+		height : 32,
+		width : 32,
+		classes : ["additionIcon", "small-icon", "right"]
+	});
+
+	var sectionHeading=patient.first_name+""+strings.sectionPatientsPrescription;
+
+	sections["readyForPickup"] = uihelper.createTableViewSection($, sectionHeading, $, userIcon);
 	_.map(_result.data.prescriptions, function(prescription) {
 		var status = prescription.refill_status,
 		    refillDate = moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT);
@@ -81,10 +102,19 @@ function didGetPrescriptionList(_result, _passthrough) {
 			if (prescription.is_overdue) {
 				prescription.info_style = overDueInfoStyle;
 				prescription.detail_style = overDueDetailStyle;
+				
+				if(prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT){
+					prescription.info = strings.msgOverdueBy+" "+prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
+					prescription.detail = strings.lblSwipeLeftToHide;				
+				}else{
+					prescription.info = strings.msgOverdueBy;
+					prescription.detail = prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
+				}
 			}
-			prescription.autoHide = prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT;
-			prescription.info = prescription.is_overdue ? strings.msgOverdueBy : strings.msgDueFoRefillIn;
+			else{
+			prescription.info = strings.msgDueFoRefillIn;
 			prescription.detail = prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
+			}
 			prescription.property = "readyForRefill";
 			break;
 		case apiCodes.PRESCRIPTION_OTHERS:
@@ -148,55 +178,104 @@ function didChangeSearch(e) {
 }
 
 function didItemClick(e) {
-	app.navigator.open({
-		ctrl : "prescriptionDetails",
-		titleid : "",
-		ctrlArguments : {
-
-		},
-		stack : true
-	});
+app.navigator.open({
+	ctrl : "prescriptionDetails",
+	titleid : "",
+	ctrlArguments : {
+		patientName: patient.first_name
+	},
+	stack :true
+});
 }
 
-function didClickOptionBtn(e) {
-	$.optionDialog.show();
-}
+function didClickOptionView(e) {
 
-function didClickOptionDialog(e) {
-	switch(e.index) {
-	case 0:
+	var menuItems = [
+		 Alloy.Globals.strings.menuSearch,
+		Alloy.Globals.strings.menuSort,
+
+		Alloy.Globals.strings.menuUnhidePrescriptions,
+		Alloy.Globals.strings.menuRefresh,
+];
+		$.optionsMenu.options=menuItems;
+		$.optionsMenu.show();
+		$.optionsMenu.addEventListener('click',function(e)
+            {
+  	  switch(e.index) {
+		case 0:
 		toggleSearchView();
 		break;
-	case 1:
+		case 1:
 		sort();
 		break;
-	case 2:
-		alert("Unhide under construction");
+		case 2:
+		unhide();
 		break;
-	case 3:
+		case 3:
 		init();
 		break;
 	}
+            	
+            });
 }
+
+function doClickOptionDialog(e) {
+
+	alert(e.index);
+}
+
+function unhide(){
+
+		http.request({
+		method : "PRESCRIPTIONS_GET",
+		data : {
+			filter : null,
+			data : [{
+				id : "x",
+				sort_order_preferences :"x",
+				prescription_display_status : "hidden"
+
+			}]
+
+		},
+		success : didGetHiddenPrescriptions,
+
+	});
+}
+
+function didGetHiddenPrescriptions(result){
+	allPrescriptions = result.data.prescriptions || [];
+	hiddenPrescriptions = new Array;
+	items = new Array;
+	var k=0;
+	for(var i in allPrescriptions){
+		if(allPrescriptions[i].prescription_display_status === "hidden"){
+			hiddenPrescriptions[k]=allPrescriptions[i].presc_name;
+			 items[k] = {title :hiddenPrescriptions[k], id:allPrescriptions[i].id};
+			k++;
+			
+		}
+	}
+		
+	$.unhideMenu.setItems(items);
+	
+	$.optionsMenu.hide();
+	$.unhideMenu.show();
+}
+
 
 function toggleSearchView() {
 	var tableTop = 0;
 	if ($.tableView.top == tableTop) {
 		tableTop = $.searchView.size.height;
-		$.searchView.applyProperties({
-			opacity : 1,
-			visible : true
-		});
+		$.searchView.opacity = 1;
 	} else {
 		var svAnimation = Ti.UI.createAnimation({
 			opacity : 0,
 			duration : 200
 		});
 		svAnimation.addEventListener("complete", function onComplete() {
-			$.searchView.applyProperties({
-				opacity : 0,
-				visible : false
-			});
+			$.searchView.opacity = 0;
 		});
 		$.searchView.animate(svAnimation);
 	}
@@ -237,20 +316,51 @@ function didClickSortPicker(e) {
 	console.log(e.data);
 }
 
-function didClickUnhideBtn(e) {
-	$.unhidePicker.hide();
-}
-
 function didClickCloseBtn(e) {
-	$.unhidePicker.hide();
+	$.unhideMenu.hide();
 }
 
+function didClickUnhideBtn(e)
+{
+	var unhiddenPrescriptions=$.unhideMenu.getSelectedItems();
+	var list;
+	list= new Array;
+	if(unhiddenPrescriptions.length)
+	{for (var i in unhiddenPrescriptions)
+	{
+		list[i]={id:unhiddenPrescriptions[i].id};
+	}
+	$.unhideMenu.hide();
+	http.request({
+		method : "PRESCRIPTIONS_UNHIDE",
+		data : {
+			filter : null,
+			"data": [{
+						"prescriptions": list
+ 					}]
+		},
+		success : didSuccess,
+	});
+	}
+	
+}
+
+function didSuccess(_result){
+	dialog.show({
+				message : Alloy.Globals.strings.msgPrescriptionsUnhidden
+			});
+}
 function didClickSelectNone(e) {
-	$.unhidePicker.setSelection({}, false);
+	$.unhideMenu.setSelectedItems([], false);
 }
 
 function didClickSelectAll(e) {
-	$.unhidePicker.setSelection({}, true);
+	$.unhideMenu.setSelectedItems([], true);
+}
+
+function didAndroidBack() {
+	return $.optionsMenu.hide();
 }
 
 exports.init = init;
+exports.androidback = didAndroidBack;

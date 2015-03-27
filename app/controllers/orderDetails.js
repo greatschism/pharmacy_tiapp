@@ -12,20 +12,22 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     prescription,
     addedPrescriptions,
+    patientName,
+    addIcon,
     orders,
     row2,
     row3,
     pickupdetails,
-    picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
-	//classes : ["form-dropdown"]
-}));
+    picker;
 
 function init() {
 	prescription = args.prescription || {};
-	
+	patientName = args.patientName;
 	addedPrescriptions = args.addedPrescriptions || {};
-	
-	//	console.log("result presc name is " + prescription.presc_name);
+
+	picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
+		classes : ["form-dropdown"]
+	}));
 
 	orders = [{
 		id : 1,
@@ -34,7 +36,15 @@ function init() {
 	}];
 	data = [];
 
-	$.yourOrderSection = uihelper.createTableViewSection($, strings.sectionYourOrder);
+	addIcon = $.UI.create("Label", {
+		apiName : "Label",
+		height : 32,
+		width : 32,
+		classes : ["additionIcon", "small-icon", "padding-right"]
+	});
+	addIcon.addEventListener("click", didClickAddAnotherPrescription);
+
+	$.yourOrderSection = uihelper.createTableViewSection($, strings.sectionYourOrder, $, addIcon);
 	//Your orders
 	if (orders.length) {
 		for (var i in orders) {
@@ -47,64 +57,33 @@ function init() {
 
 			    containerView = $.UI.create("View", {
 				apiName : "View",
-				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height", "vgroup"]
+				classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height"]
 
 			}),
 			    title = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["list-item-title-lbl", "left"]
+				classes : ["list-item-title-lbl", "left","h1"]
+			}),
+			    deleteIcon = $.UI.create("Label", {
+				apiName : "Label",
+				height : 32,
+				width : 32,
+				classes : ["deleteIcon", "small-icon", "right"]
 			});
 
 			containerView.rowId = transform.id;
 			title.text = transform.name;
 			containerView.add(title);
-
+			containerView.add(deleteIcon);
 			row.add(containerView);
 			$.yourOrderSection.add(row);
 		}//end of orders loop
 
-		// // add more prescriptions
-		var row = $.UI.create("TableViewRow", {
-			apiName : "TableViewRow"
-		}),
-
-		    contentView = $.UI.create("View", {
-			apiName : "View",
-			horizontalWrap : "false",
-			classes : ["hgroup", "auto-height", "padding-top", "padding-bottom", "margin-left", "margin-right"]
-		});
-
-		addIcon = $.UI.create("Label", {
-			apiName : "Label",
-			height : 32,
-			
-			width : 32,
-			font : {
-				fontSize : 18
-			},
-			text : Alloy.CFG.icons.plus_with_circle,
-			color : "#599DFF",
-		//	classes : ["padding-left", "padding-top", "padding-bottom", "small-icon"]
-
-		}),
-		addLbl = $.UI.create("Label", {
-			apiName : "Label",
-			text : "Add more prescription",
-			color : "#000000",
-			classes : ["width-90", "padding-left", "auto-height"]
-
-		});
-
-		contentView.add(addIcon);
-		contentView.add(addLbl);
-		contentView.addEventListener("click", didClickAddAnotherPrescription);
-		row.add(contentView);
-		$.yourOrderSection.add(row);
-
-		data.push($.yourOrderSection);
 	}
 	// pickup details section
-	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails);
+
+
+	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails, false);
 
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow"
@@ -124,7 +103,6 @@ function init() {
 	picker.setChoices(pickerOptions);
 
 	picker.setSelectedIndex(0);
-	console.log("checked");
 
 	view.add(picker.getView());
 	row.add(view);
@@ -149,21 +127,20 @@ function init() {
 			bold : true
 		},
 		top : 0,
-		classes : ["list-item-info-lbl", "left"]
+		classes : ["list-item-info-lbl", "left","h1"]
 	}),
 	    addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		top : 30,
 
 		text : "San Franscisco,CA, 94103",
-		classes : ["list-item-info-lbl", "left"]
+		classes : ["list-item-info-lbl", "left","h2"]
 	}),
-	    rightBtn = $.UI.create("Label", {
+	    editIcon = $.UI.create("Label", {
 		apiName : "Label",
-		text : "change",
-		right : 10,
-		color : "#599DFF",
-		classes : ["right", "padding-right", "width-30", "h1"]
+		height : 32,
+		width : 32,
+		classes : ["editIcon", "small-icon", "right"]
 	});
 
 	containerView.rowId = transform.id;
@@ -171,43 +148,31 @@ function init() {
 	containerView.add(addressLine1);
 	containerView.add(addressLine2);
 
-	containerView.add(rightBtn);
-	rightBtn.addEventListener("click", didClickStoreChange);
+	containerView.add(editIcon);
+	editIcon.addEventListener("click", didClickStoreChange);
 
 	row2.add(containerView);
 	$.pickupDetailsSection.add(row2);
 
-	console.log("row 2 added");
-
-	//if picker choosen is mail order add another view
-
 	var row3 = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
-		top : 10
 	}),
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "vgroup"]
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right","auto-height"]
 
 	}),
-
-	    mailTo = $.UI.create("Label", {
+		 mailTo = $.UI.create("Label", {
 		apiName : "Label",
-		color : "#BDBDBD",
-		font : {
-			fontSize : 14
-		},
 		text : Alloy.Globals.strings.msgMailOrder,
-		classes : ["multi-line", "left"]
+		classes : ["left","h3"]
 	});
 
 	containerView.rowId = transform.id;
 	containerView.add(mailTo);
 
 	row3.add(containerView);
-
-	console.log("row 3 added");
 
 	$.tableView.data = [$.yourOrderSection, $.pickupDetailsSection];
 
@@ -216,16 +181,11 @@ function init() {
 		Ti.API.info("you selected  " + picker.getSelectedItem().title);
 		if (picker.getSelectedItem().title == "In store pickup") {
 
-			$.tableView.appendRow(row2);
-			$.tableView.deleteRow(row3);
-			console.log("store view added ");
+			$.tableView.updateRow(2,row2);
 
 		} else if (picker.getSelectedItem().title == "Mail order") {
 
-			$.tableView.deleteRow(row2);
-			$.tableView.appendRow(row3);
-			console.log("mail order added");
-
+			$.tableView.updateRow(2,row3);
 		}
 
 	});
@@ -275,7 +235,6 @@ function didClickOrderRefill(e) {
 function didSuccess(result) {
 
 	//var abc = result.data.prescriptions || [];
-	//	console.log("pratibha" + abc);
 
 	app.navigator.open({
 		stack : true,
@@ -290,10 +249,13 @@ function didSuccess(result) {
 
 function didClickAddAnotherPrescription(e) {
 
-	 app.navigator.open({
-		 stack : true,
-		 titleid : "Add prescriptions",
-		 ctrl : "addPrescription"
+	app.navigator.open({
+		stack : true,
+		titleid : "titleAddPrescriptions",
+		ctrl : "addPrescription",
+		ctrlArguments : {
+			patientName : patientName
+		}
 	});
 	//alert("under construction");
 }

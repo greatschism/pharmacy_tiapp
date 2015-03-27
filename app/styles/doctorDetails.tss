@@ -2,15 +2,9 @@
 role: "overlay",
 title: Alloy.Globals.strings.tittleAddAPicture,
 options: [
-{
-title: Alloy.Globals.strings.optionFindPictureOnMyPhone
-},
-{
-title: Alloy.Globals.strings.optionTakePhoto
-},
-{
-title: Alloy.Globals.strings.strCancel
-}
+Alloy.Globals.strings.optionFindPictureOnMyPhone
+, Alloy.Globals.strings.optionTakePhoto
+, Alloy.Globals.strings.strCancel
 ],
 cancel: 2,
 zIndex: 2
@@ -20,13 +14,6 @@ title: Alloy.CFG.icons.edit
 },
 ".after-icon":{
 left: 32
-},
-"#faxLbl":{
-color:"#808285",
-font:{
-	fontSize: 17,
-	fontFamily:"regular"
-}
 },
 "#phoneIconLbl":{
 text: Alloy.CFG.icons.phone,
@@ -44,44 +31,40 @@ color:"#F6931E"
 hintText: Alloy.Globals.strings.hintNotes,
 height:55,
 autocapitalization:Titanium.UI.TEXT_AUTOCAPITALIZATION_SENTENCES
-}
-".h1":{
+},
+".s1":{
 color:"#000000",
 font:{
 	fontSize: 17,
 	fontFamily:"bold"
 }},
-".h2":{
-color:"#6D6E71",
-font:{
-	fontSize: 17,
-	fontFamily:"regular"
-}	
-},
-".h3":{
+".s3":{
 color:"#808285",
 font:{
 	fontSize: 14,
 	fontFamily:"regular"
 }	
-}
-".h14":{
+},
+".s13":{
 color:"#0095ff",
 font:{
 	fontSize: 14,
-	fontFamily:"bold"
-}},
-".h15":{
-color:"#0095ff",
+	fontFamily:"regular"
+}	
+},
+".s6":{
+color:"#000000",
 font:{
-	fontSize: 17,
+	fontSize: 14,
 	fontFamily:"regular"
 }},
-".h15NoColor":{
+".s21":{
+color:"#c4c4c4",
 font:{
-	fontSize: 17,
+	fontSize: 14,
 	fontFamily:"regular"
-}},
+}	
+}, 
 ".paddingLeft":{
 	left:12
 },
@@ -96,7 +79,7 @@ font:{
 },
 "#profileIconLabel":{
 	font:{
-		fontSize:78,
+		fontSize:95,
 		fontFamily : "mscripts",
 	},
 	text:Alloy.CFG.icons.user, 
@@ -105,4 +88,7 @@ font:{
 },
 "#nameLbl":{
 	font:Alloy.TSS.section_header_lbl.font
+},
+".detailsWidth":{
+	width:220
 }

@@ -7,10 +7,12 @@ var args = arguments[0] || {},
     dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
-    prescription;
+    prescription,
+    patientName;
 
 function init() {
 	prescription = args.prescription || {};
+	patientName=args.patientName || "";
 	$.prescriptionNameLbl.text = prescription.presc_name;
 	$.refillLeftInfoLbl.text = prescription.refill_remaining_preferences;
 	$.dueForRefillInfoLbl.text = moment(prescription.anticipated_refill_date, "YYYY/MM/DD").format("D/M/YY");
@@ -39,6 +41,7 @@ function didClickRefillPrescription()
 			titleid : "titleOrderDetails",
 			ctrlArguments : {
 			//	prescription : prescription.presc_name
+			patientName: patientName
 			},
 			stack : true
 	});

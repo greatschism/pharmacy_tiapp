@@ -263,7 +263,7 @@ module.exports = {
 			"prescriptions" : [{
 				"id" : "1",
 				"rx_number" : "2345678",
-				"presc_name" : "Lovastin, 200 mg",
+				"presc_name" : "Lovastin 200 mg",
 				"is_overdue" : "0",
 				"prefill" : "x",
 				"doctor_id" : "1",
@@ -282,7 +282,7 @@ module.exports = {
 			}, {
 				"id" : "2",
 				"rx_number" : "2345678",
-				"presc_name" : "Lisinopril, 300 mg",
+				"presc_name" : "Lisinopril 300 mg",
 				"is_overdue" : "0",
 				"prefill" : "x",
 				"doctor_id" : "1",
@@ -301,7 +301,7 @@ module.exports = {
 			}, {
 				"id" : "3",
 				"rx_number" : "2345678",
-				"presc_name" : "Ciprofloxacin, 300 mg",
+				"presc_name" : "Ciprofloxacin 300 mg",
 				"is_overdue" : "0",
 				"prefill" : "x",
 				"doctor_id" : "1",
@@ -320,7 +320,7 @@ module.exports = {
 			}, {
 				"id" : "4",
 				"rx_number" : "2345678",
-				"presc_name" : "Amoxcilin, 300 mg",
+				"presc_name" : "Amoxcilin 300 mg",
 				"is_overdue" : "0",
 				"prefill" : "x",
 				"doctor_id" : "1",
@@ -339,7 +339,7 @@ module.exports = {
 			}, {
 				"id" : "5",
 				"rx_number" : "3455645",
-				"presc_name" : "Listerin, 500 mg",
+				"presc_name" : "Listerin 500 mg",
 				"is_overdue" : "0",
 				"prefill" : "x",
 				"doctor_id" : "1",
@@ -358,7 +358,7 @@ module.exports = {
 			}, {
 				"id" : "6",
 				"rx_number" : "1234567",
-				"presc_name" : "Saridon, 500 mg",
+				"presc_name" : "Saridon 500 mg",
 				"is_overdue" : "1",
 				"prefill" : "x",
 				"doctor_id" : "x",
@@ -594,7 +594,7 @@ module.exports = {
 				"prescription_display_status" : "hidden"
 
 			}, {
-				"id" : "1",
+				"id" : "2",
 				"rx_number" : "222222",
 				"presc_name" : "Lomotil, 200 mg",
 				"is_overdue" : "1",
@@ -614,7 +614,7 @@ module.exports = {
 				"refill_status" : "OTHERS",
 				"prescription_display_status" : "active"
 			}, {
-				"id" : "1",
+				"id" : "3",
 				"rx_number" : "2345678",
 				"presc_name" : "Metacin, 200 mg",
 				"is_overdue" : "1",
@@ -634,7 +634,7 @@ module.exports = {
 				"refill_status" : "OTHERS",
 				"prescription_display_status" : "hidden"
 			}, {
-				"id" : "1",
+				"id" : "4",
 				"rx_number" : "2345678",
 				"presc_name" : "Lisinopril, 300 mg",
 				"is_overdue" : "1",
@@ -654,7 +654,7 @@ module.exports = {
 				"refill_status" : "READYFORPICKUP",
 				"prescription_display_status" : "active"
 			}, {
-				"id" : "1",
+				"id" : "5",
 				"rx_number" : "2345678",
 				"presc_name" : "Ciprofloxacin, 300 mg",
 				"is_overdue" : "1",
@@ -674,7 +674,7 @@ module.exports = {
 				"refill_status" : "READYFORPICKUP",
 				"prescription_display_status" : "hidden"
 			}, {
-				"id" : "1",
+				"id" : "6",
 				"rx_number" : "2345678",
 				"presc_name" : "Amoxcilin, 300 mg",
 				"is_overdue" : "1",
@@ -694,7 +694,7 @@ module.exports = {
 				"refill_status" : "INPROCESS",
 				"prescription_display_status" : "active"
 			}, {
-				"id" : "x",
+				"id" : "7",
 				"rx_number" : "1234567",
 				"presc_name" : "Avomin, 500 mg",
 				"is_overdue" : "1",
@@ -714,7 +714,7 @@ module.exports = {
 				"refill_status" : "READYTOREFILL",
 				"prescription_display_status" : "hidden"
 			}, {
-				"id" : "x",
+				"id" : "8",
 				"rx_number" : "1234567",
 				"presc_name" : "Volini, 500 mg",
 				"is_overdue" : "1",
@@ -734,7 +734,7 @@ module.exports = {
 				"refill_status" : "READYTOREFILL",
 				"prescription_display_status" : "active"
 			}, {
-				"id" : "x",
+				"id" : "9",
 				"rx_number" : "1234567",
 				"presc_name" : "Saridon, 500 mg",
 				"is_overdue" : "1",
@@ -1056,8 +1056,8 @@ module.exports = {
 				"city" : "ARIZONA",
 				"zip" : "04003",
 				"notes" : "",
-				"phone" : "(617)283-7737",
-				"fax" : "(617)283-7737",
+				"phone" : "(617) 283-7737",
+				"fax" : "(617) 283-7737",
 				"image_url" : "",
 				"optional" : "",
 				"doctor_type" : "auto"
@@ -1072,8 +1072,8 @@ module.exports = {
 				"city" : "ARIZONA",
 				"zip" : "04003",
 				"notes" : "",
-				"phone" : "(617)283-7737",
-				"fax" : "(617)283-7737",
+				"phone" : "(617) 283-7737",
+				"fax" : "(617) 283-7737",
 				"image_url" : "",
 				"org_name" : "MSCRIPTS",
 				"optional" : "",
@@ -1149,6 +1149,43 @@ module.exports = {
 				"code_values" : "AR"
 			}]
 		}
+	},
+	"PATIENTS_GET" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "x",
+		"description" : "x",
+		"data" : {
+			"patients" : {
+				"patient_id" : "1234",
+				"patient_status" : "1",
+				"first_name" : "MSCRIPTS",
+				"last_name" : "USER1",
+				"birth_date" : "12/26/2000",
+				"email_address" : "user1@mscripts.com",
+				"is_email_verified" : "0",
+				"mobile_number" : "6172837737",
+				"is_mobile_verified" : "1",
+				"gender" : "M",
+				"address_line1" : "45, Test Road1,",
+				"address_line2" : "Test cross",
+				"city" : "Augusta",
+				"state" : "ME",
+				"zip" : "345678",
+				"home_phone" : "6172837737",
+				"fax_number" : "6172827373"
+
+			}
+
+		}
+
+	},
+	"PRESCRIPTIONS_UNHIDE" : {
+		"status" : "Success",
+		"code" : "200",
+		"message" : "Prescriptions unhidden successfully.",
+		"description" : "x",
+		"data" : ""
 	}
 };
 

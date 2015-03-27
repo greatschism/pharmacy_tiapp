@@ -1,8 +1,16 @@
 <Alloy>
-
-	<View>
-		<Button id="addAllBtn"  class= "padding-right txt-right-btn"/>
-		<TableView id="tableView" class="top" onClick="didItemClick"/>
+	<Button id="optionBtn" class="role-right-nav-btn nav-icon-btn" />
+	<View class="vgroup">
+		<View height=40>
+			<Label id="userLbl" class=" h1 left padding-left"/>
+			<Label class="userIconSize padding-right userIcon"/>
+		</View>
+		<TableView id="tableView" class="top">
+			<FooterView height=50 >
+            <View class="auto-height">
+            <Button id="submitBtn" class="primary-btn padding-top" onClick="didClickDone" />
+            </View>
+        </FooterView>
+       </TableView>
 	</View>
-	<Button id="doneBtn" class="padding-bottom primary-btn" onClick="didClickDone" />
 </Alloy> 
