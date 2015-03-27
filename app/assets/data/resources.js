@@ -182,33 +182,29 @@ module.exports = {
 		"url" : "https://staging.remscripts.com/nativemia/store_locator.png"
 	}, {
 		"version" : 1,
-		"id" : "toggle_btn_off",
+		"id" : "toggle_btn_off_pl",
 		"code" : "toggle_btn_off",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : 66
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : 66
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_off.png"
 	}, {
 		"version" : 1,
-		"id" : "toggle_btn_on",
+		"id" : "toggle_btn_on_pl",
 		"code" : "toggle_btn_on",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : 66
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : 66
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"
