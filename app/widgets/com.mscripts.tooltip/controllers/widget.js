@@ -1,5 +1,4 @@
-var args = arguments[0] || {},
-    ARROW_PADDING = 8;
+var args = arguments[0] || {};
 
 (function() {
 
@@ -37,7 +36,7 @@ function updateArrow(_direction, _dict) {
 	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
 	$.arrowLbl.applyProperties(dict);
 	$.arrowLbl[_direction] = 0;
-	$.containerView[_direction] = $.arrowLbl.font.fontSize - ARROW_PADDING;
+	$.containerView[_direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
 }
 
 function applyProperties(_dict) {
@@ -172,4 +171,3 @@ exports.setText = setText;
 exports.getVisible = getVisible;
 exports.setContentView = setContentView;
 exports.applyProperties = applyProperties;
-exports.ARROW_PADDING = ARROW_PADDING;
