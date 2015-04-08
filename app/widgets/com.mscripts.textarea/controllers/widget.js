@@ -19,7 +19,7 @@ function applyProperties(_dict) {
 	}
 	if (OS_IOS) {
 		if (_.has(_dict, "hintText")) {
-			options = _.pick(_dict, ["font", "textAlign"]);
+			options = _.pick(_dict, ["font", "textAlign", "accessibilityHidden"]);
 			_.extend(options, {
 				text : _dict.hintText
 			});
@@ -33,7 +33,7 @@ function applyProperties(_dict) {
 			$.widget.remove($.hintLbl);
 		}
 	}
-	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize"]);
+	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txta.applyProperties(options);
 	}
