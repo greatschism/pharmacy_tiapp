@@ -1,9 +1,11 @@
 <Alloy>
 	<View>
-		<View id="toolbarView">
-			<Button id="leftBtn" onClick="didClickLeftBtn" />
-			<Button id="rightBtn" onClick="didClickRightBtn" />
+		<View id="pickerView">
+			<Picker id="picker" />
+			<View id="toolbarView">
+				<Button id="leftBtn" onClick="terminate" />
+				<Button id="rightBtn" onClick="terminate" />
+			</View>
 		</View>
-		<Picker id="picker" />
 	</View>
 </Alloy>

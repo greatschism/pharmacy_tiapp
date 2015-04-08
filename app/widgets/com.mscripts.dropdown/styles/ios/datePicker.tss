@@ -1,21 +1,36 @@
 "#datePicker": {
-	width: Ti.UI.FILL,
-	height: 240,
+	backgroundColor: "#50000000",
+	opacity: 0,
 	zIndex: 10
 },
+"#picker":{
+	top: 0
+},
+"#pickerView":{
+	left: 12,
+	right: 12,
+	borderRadius: 3.4,
+	height: 250,
+	backgroundColor: "#FFFFFF"
+},
 "#toolbarView":{
-	top: 0,
-	height: 40
+	bottom: 0,
+	height: 50
+},
+"Button":{
+	font:{
+		fontSize: 17
+	},
+	color: "#000000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0
 },
 "#leftBtn":{
-	left: 12,
+	left: 0,
 	title: "Cancel"
 },
 "#rightBtn":{
-	right: 12,
-	title: "Done"
-},
-"#picker":{
-	top: 40,
-	height: 200
+	right: 0,
+	title: "OK"
 }

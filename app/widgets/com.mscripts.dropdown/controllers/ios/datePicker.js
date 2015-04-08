@@ -1,6 +1,4 @@
 var args = arguments[0] || {},
-    PICKER_HEIGHT = 240,
-    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
     font = args.font || {
 	fontSize : 12
 },
@@ -8,19 +6,12 @@ var args = arguments[0] || {},
 
 (function() {
 
-	$.datePicker.backgroundColor = args.backgroundColor || "#FFFFFF";
-
 	if (_.has(args, "toolbarDict")) {
-		_.extend(args.toolbarDict, {
-			font : font
-		});
-		$.toolbarView.applyProperties(args.toolbarDict);
-		if (_.has(args.toolbarDict, "height")) {
-			$.picker.applyProperties({
-				top : args.toolbarDict.height,
-				height : PICKER_HEIGHT - args.toolbarDict.height
-			});
+		var toolbarDict = args.toolbarDict;
+		if (_.has(toolbarDict, "height")) {
+			delete toolbarDict.height;
 		}
+		$.toolbarView.applyProperties(args.toolbarDict);
 	}
 
 	if (_.has(args, "leftTitle")) {
@@ -54,52 +45,53 @@ var args = arguments[0] || {},
 		$.picker.applyProperties(options);
 	}
 
-	$.datePicker.top = SCREEN_HEIGHT;
-
 })();
 
 function init() {
+	_.each(parent.children, function(child) {
+		child.accessibilityHidden = true;
+	});
 	$.datePicker.addEventListener("postlayout", didPostlayout);
 	parent.add($.datePicker);
 }
 
 function terminate(_callback) {
+	_.each(parent.children, function(child) {
+		child.accessibilityHidden = false;
+	});
 	var animation = Ti.UI.createAnimation({
-		top : SCREEN_HEIGHT,
+		opacity : 0,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
+		animation.removeEventListener("complete", onComplete);
 		parent.remove($.datePicker);
-		if (_callback) {
+		if (_.isFunction(_callback)) {
 			_callback();
 		}
-		animation.removeEventListener("complete", onComplete);
+		$.trigger("terminate", {
+			soruce : $,
+			value : _callback.source && _callback.source == $.leftBtn ? null : $.picker.value,
+			nextItem : args.nextItem || ""
+		});
 	});
 	$.datePicker.animate(animation);
 }
 
 function didPostlayout(e) {
 	$.datePicker.removeEventListener("postlayout", didPostlayout);
-	var top = (SCREEN_HEIGHT - PICKER_HEIGHT) - (args.containerPaddingTop || 0);
 	var animation = Ti.UI.createAnimation({
-		top : top,
+		opacity : 1,
 		duration : 300
 	});
 	animation.addEventListener("complete", function onComplete() {
-		$.datePicker.top = top;
 		animation.removeEventListener("complete", onComplete);
+		$.datePicker.opacity = 1;
+		if (Ti.App.accessibilityEnabled) {
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.picker);
+		}
 	});
 	$.datePicker.animate(animation);
-}
-
-function didClickLeftBtn(e) {
-	$.trigger("leftclick");
-}
-
-function didClickRightBtn(e) {
-	$.trigger("rightclick", {
-		nextItem : args.nextItem || ""
-	});
 }
 
 function setParentView(_parent) {

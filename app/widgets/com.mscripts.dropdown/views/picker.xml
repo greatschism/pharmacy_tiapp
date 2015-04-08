@@ -1,10 +1,6 @@
 <Alloy>
 	<View>
-		<View id="toolbarView">
-			<Button id="leftBtn" onClick="didClickLeftBtn" />
-			<Button id="rightBtn" onClick="didClickRightBtn" />
-		</View>
-		<TableView id="tableView" onClick="didClickListView">
+		<TableView id="tableView" onClick="didItemClick">
 			<FooterView>
 				<View id="footerView" />
 			</FooterView>

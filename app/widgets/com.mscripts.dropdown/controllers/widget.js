@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    osMajorVersion = parseInt(Ti.Platform.version.split(".")[0], 10),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -10,12 +9,12 @@ var args = arguments[0] || {},
     parent;
 
 (function() {
-	var options = {};
 
-	options = _.pick(args, ["top", "bottom", "left", "right", "width", "height", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
-	if (!_.isEmpty(options)) {
-		$.widget.applyProperties(options);
+	var options = _.pick(args, ["top", "bottom", "left", "right", "width", "height", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityHidden", "accessibilityHint ", "accessibilityLabel", "accessibilityValue"]);
+	if (!options.accessibilityHidden && !options.accessibilityLabel) {
+		options.accessibilityLabel = args.hintText || args.text || "";
 	}
+	$.widget.applyProperties(options);
 
 	options = _.pick(args, ["font", "color"]);
 	_.extend(options, {
@@ -63,23 +62,6 @@ var args = arguments[0] || {},
 		format = args.format;
 	}
 
-	if (OS_MOBILEWEB && (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME)) {
-		$.widget.removeEventListener("click", showPicker);
-		$.widget.remove($.lbl);
-		picker = Ti.UI.createPicker({
-			width : Ti.UI.FILL,
-			height : Ti.UI.FILL,
-			type : args.type,
-			minDate : moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"),
-			maxDate : moment(args.maxDate || new Date()).format("YYYY-MM-DD"),
-			value : moment(selectedDate || new Date()).format("YYYY-MM-DD"),
-			backgroundColor : "transparent",
-			borderColor : "transparent",
-			borderWidth : 0
-		});
-		$.widget.add(picker);
-	}
-
 })();
 
 function setParentView(_parent) {
@@ -92,16 +74,10 @@ function getParentView() {
 
 function setMaxDate(_maxDate) {
 	args.maxDate = _maxDate;
-	if (OS_MOBILEWEB) {
-		picker.setMaxDate(moment(args.maxDate || new Date()).format("YYYY-MM-DD"));
-	}
 }
 
 function setMinDate(_minDate) {
 	args.minDate = _minDate;
-	if (OS_MOBILEWEB) {
-		picker.setMinDate(moment(args.minDate || new Date(1900, 0, 1)).format("YYYY-MM-DD"));
-	}
 }
 
 function showPicker() {
@@ -110,32 +86,20 @@ function showPicker() {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
 				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
-				    dict = {
-					value : selectedDate || new Date()
-				};
-				if (osMajorVersion > 2) {
-					_.extend(dict, {
-						minDate : args.minDate || new Date(1900, 0, 1),
-						maxDate : args.maxDate || new Date()
-					});
-				}
-				var _picker = Ti.UI.createPicker(dict);
+				    _picker = Ti.UI.createPicker(dict);
 				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
 					okButtonTitle : args.okButtonTitle || "Set",
 					value : selectedDate || new Date(),
 					callback : function(e) {
-						if (e.cancel) {
-							$.trigger("cancel", {
-								source : $
-							});
-						} else {
+						if (!e.cancel) {
 							setValue(e.value);
-							$.trigger("return", {
-								source : $,
-								nextItem : args.nextItem || ""
-							});
 						}
+						$.trigger("return", {
+							source : $,
+							value : !e.cancel ? e.value : null,
+							nextItem : args.nextItem || ""
+						});
 					}
 				});
 			} else if (OS_IOS) {
@@ -148,12 +112,11 @@ function showPicker() {
 					nextItem : args.nextItem || ""
 				});
 				picker = Widget.createController("datePicker", pickerDict);
-				picker.on("leftclick", hidePicker);
-				picker.on("rightclick", doSelectDate);
+				picker.on("terminate", didTerminateDatePicker);
 				picker.init();
 			}
 		} else {
-			var pickerDict = _.pick(args, ["titleProperty", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftBtnDict", "rightBtnDict", "iconFont", "selectedIconText", "selectedIconColor", "containerPaddingTop"]);
+			var pickerDict = _.pick(args, ["autoHide", "tableViewDict", "selectedAccessibilityValue", "titleProperty", "font", "color", "optionPadding", "iconFont", "selectedIconText", "selectedIconColor"]);
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
@@ -161,29 +124,51 @@ function showPicker() {
 				nextItem : args.nextItem || ""
 			});
 			picker = Widget.createController("picker", pickerDict);
-			picker.on("leftclick", hidePicker);
-			picker.on("rightclick", doSelect);
+			picker.on("terminate", didTerminatePicker);
 			picker.init();
 		}
 	}
+}
 
+function didTerminateDatePicker(e) {
+	if (picker) {
+		picker.off("terminate", didTerminatePicker);
+		if (e.value) {
+			setValue(e.value);
+		}
+		if (Ti.App.accessibilityEnabled) {
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.widget);
+		}
+		$.trigger("return", {
+			source : $,
+			value : e.value,
+			nextItem : args.nextItem || ""
+		});
+		picker = null;
+	}
+}
+
+function didTerminatePicker(e) {
+	if (picker) {
+		picker.off("terminate", didTerminatePicker);
+		setSelectedIndex(e.selectedIndex);
+		if (Ti.App.accessibilityEnabled) {
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.widget);
+		}
+		$.trigger("return", {
+			source : $,
+			selectedIndex : e.selectedIndex,
+			selectedItem : e.selectedItem,
+			nextItem : args.nextItem || ""
+		});
+		picker = null;
+	}
 }
 
 function hidePicker() {
 	if (picker) {
-		picker.off("leftclick", hidePicker);
-		picker.off("rightclick", doSelect);
-		picker.terminate(function() {
-			picker = null;
-		});
+		picker.terminate();
 	}
-}
-
-function doSelect(e) {
-	setSelectedIndex(picker.getSelectedIndex());
-	hidePicker();
-	e.source = $;
-	$.trigger("return", e);
 }
 
 function setChoices(_choices) {
@@ -195,19 +180,21 @@ function getChoices() {
 	return choices;
 }
 
+function removeHint() {
+	if (isHintText) {
+		isHintText = false;
+		$.lbl.color = args.color || "#000";
+	}
+}
+
 function setSelectedIndex(_index) {
 	selectedIndex = _index;
 	var selectedItem = getSelectedItem();
 	if (!_.isEmpty(selectedItem)) {
 		removeHint();
-		$.lbl.setText(selectedItem[args.valueProperty || args.titleProperty || "title"] || "");
-	}
-}
-
-function removeHint() {
-	if (isHintText) {
-		isHintText = false;
-		$.lbl.color = args.color || "#000";
+		var label = selectedItem[args.valueProperty || args.titleProperty || "title"] || "";
+		$.widget.accessibilityLabel = label;
+		$.lbl.text = label;
 	}
 }
 
@@ -223,29 +210,16 @@ function getSelectedItem() {
 	return item;
 }
 
-function doSelectDate(e) {
-	setValue(picker.getValue());
-	hidePicker();
-	e.source = $;
-	$.trigger("return", e);
-}
-
 function setValue(_date) {
-	if (OS_MOBILEWEB) {
-		picker.value = moment(_date).format("YYYY-MM-DD");
-	} else {
-		selectedDate = _date;
-		removeHint();
-		$.lbl.text = moment(selectedDate).format(format);
-	}
+	selectedDate = _date;
+	removeHint();
+	var label = moment(selectedDate).format(format);
+	$.widget.accessibilityLabel = label;
+	$.lbl.text = label;
 }
 
 function getValue() {
-	if (OS_MOBILEWEB) {
-		return picker.value;
-	} else {
-		return selectedDate;
-	}
+	return selectedDate;
 }
 
 exports.setValue = setValue;

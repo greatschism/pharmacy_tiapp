@@ -12,11 +12,7 @@ var Helper = {
 	 */
 	requestForFocus : function(_focusableView) {
 		if (Ti.App.accessibilityEnabled) {
-			if (OS_IOS) {
-				Ti.App.fireSystemEvent(Ti.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED, _focusableView);
-			} else {
-				Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, _focusableView);
-			}
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED : Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, _focusableView);
 		}
 	},
 
