@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
-    SCREEN_HEIGHT = Ti.Platform.displayCaps.platformHeight,
-    MAX_HEIGHT = (SCREEN_HEIGHT / 100) * 75,
+    MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,
     IS_RADIO_BUTTON = args.radioButton || false,
     items = [],
@@ -28,6 +27,10 @@ var args = arguments[0] || {},
 	ellipsize : true,
 	wordWrap : false
 };
+
+if (OS_ANDROID) {
+	MAX_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
+}
 
 (function() {
 
