@@ -86,7 +86,7 @@ function showPicker() {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
 				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
-				    _picker = Ti.UI.createPicker(dict);
+				    _picker = Ti.UI.createPicker();
 				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
 					okButtonTitle : args.okButtonTitle || "Set",
