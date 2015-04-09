@@ -6,9 +6,9 @@
 			<Button id="selectNoneBtn" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
 			<Button id="selectAllBtn" class="right width-50 thirtiary-btn-small" onClick="didClickSelectAll" />
 			<View class="vseparator" />
+			<View class="bottom hseparator" />
 		</View>
 		<View class="auto-height vgroup" role="footerView">
-			<View class="hseparator" />
 			<Button id="unhideBtn" class="btn-padding-top primary-btn" onClick="didClickUnhideBtn"/>
 			<Button id="closeBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickCloseBtn" />
 		</View>
