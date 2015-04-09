@@ -179,13 +179,18 @@ module.exports = {
 				},
 				"leftIconDict" : {
 					"left" : 4,
-					"color" : "#000000"
+					"color" : "#000000",
+					"backgroundColor" : "transparent"
+				},
+				"leftIconAccessibility" : {
+					"accessibilityHidden" : true
 				},
 				"enableClearButton" : true,
 				"paddingRight" : 4,
 				"clearIconDict" : {
 					"right" : 4,
-					"color" : "#000000"
+					"color" : "#000000",
+					"backgroundColor" : "transparent"
 				},
 				"color" : "#000000",
 				"textAlign" : "left",
@@ -306,7 +311,8 @@ module.exports = {
 				"rightButtonDict" : {
 					"right" : 8,
 					"width" : 45,
-					"color" : "#0095ff"
+					"color" : "#0095ff",
+					"backgroundColor" : "transparent"
 				}
 			},
 			"dropdown" : {

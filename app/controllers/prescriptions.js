@@ -159,9 +159,6 @@ function didItemClick(e) {
 	app.navigator.open({
 		ctrl : "prescriptionDetails",
 		titleid : "",
-		ctrlArguments : {
-			patientName : patient.first_name
-		},
 		stack : true
 	});
 }
