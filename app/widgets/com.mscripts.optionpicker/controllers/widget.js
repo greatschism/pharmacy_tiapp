@@ -34,33 +34,20 @@ if (OS_ANDROID) {
 
 (function() {
 
-	$.role = args.role || "overlay";
-
-	if (_.has(args, "overlayDict")) {
-		$.overlayView.applyProperties(args.overlayDict);
-	}
-
-	if (_.has(args, "top")) {
-		$.overlayView.top = args.top;
-		$.containerView.top = args.top + optionPadding.top;
-	}
-
-	var options = {};
-	options = _.pick(args, ["width", "height", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius"]);
+	var options = _.pick(args, ["top", "width", "height", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
-		$.containerView.applyProperties(options);
+		applyProperties(options);
 	}
 
 	options = _.pick(args, ["headerView", "footerView", "backgroundColor", "separatorInsets"]);
-	if (!_.isEmpty(options)) {
-		$.tableView.applyProperties(options);
-	}
-
 	if (_.has(args, "children")) {
 		var children = args.children;
 		for (var i in children) {
-			$.tableView[children[i].role] = children[i];
+			options[children[i].role] = children[i];
 		}
+	}
+	if (!_.isEmpty(options)) {
+		$.tableView.applyProperties(options);
 	}
 
 	_.extend(optioDict, _.pick(args, ["color", "font"]));
@@ -69,12 +56,6 @@ if (OS_ANDROID) {
 	setItems(args.items || []);
 
 })();
-
-function didTap(e) {
-	if (args.persistent === false && e.source == $.widget) {
-		hide();
-	}
-}
 
 function setSelectedItems(_where, _selected) {
 	var rows = $.tableView.sections[0].rows;
@@ -150,7 +131,8 @@ function applyProperties(_dict) {
 
 function getRow(_data) {
 	var row = Ti.UI.createTableViewRow({
-		height : Ti.UI.SIZE
+		height : Ti.UI.SIZE,
+		accessibilityValue : _data.selected ? args.selectedAccessibilityValue || "Selected" : null
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
 	rowView.add(Ti.UI.createLabel({
@@ -160,7 +142,8 @@ function getRow(_data) {
 			fontSize : 12
 		},
 		color : _data.selected ? selectedIconColor : unSelectedIconColor,
-		touchEnabled : false
+		touchEnabled : false,
+		accessibilityHidden : true
 	}));
 	if (template) {
 		var contentView = Ti.UI.createView({
@@ -227,7 +210,15 @@ function setItems(_items, _template) {
 	}
 	$.tableView.setData(data);
 	if (!template && !_.has(args, "height")) {
-		var height = items.length * (optioDict.height + optionPadding.top + optionPadding.bottom);
+		var height = items.length * (optioDict.height + optionPadding.top + optionPadding.bottom),
+		    headerView = $.tableView.getHeaderView(),
+		    footerView = $.tableView.getFooterView();
+		if (headerView) {
+			height += (headerView.size.height || 50);
+		}
+		if (footerView) {
+			height += (footerView.size.height || 50);
+		}
 		$.containerView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
 	}
 }
@@ -257,6 +248,12 @@ function animate(_dict, _callback) {
 
 function show(_callback) {
 	if (!$.widget.visible) {
+		_.each($.widget.getParent().children, function(child) {
+			if (child == $.widget) {
+				return;
+			}
+			child.accessibilityHidden = true;
+		});
 		$.widget.applyProperties({
 			visible : true,
 			zIndex : args.zIndex || 10,
@@ -268,6 +265,9 @@ function show(_callback) {
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
+			if (Ti.App.accessibilityEnabled) {
+				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
+			}
 			if (_callback) {
 				_callback();
 			}
@@ -280,6 +280,12 @@ function show(_callback) {
 
 function hide(_callback) {
 	if ($.widget.visible) {
+		_.each($.widget.getParent().children, function(child) {
+			if (child == $.widget) {
+				return;
+			}
+			child.accessibilityHidden = false;
+		});
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
 			duration : 300

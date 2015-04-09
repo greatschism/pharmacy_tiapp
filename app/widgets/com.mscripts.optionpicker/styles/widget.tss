@@ -1,16 +1,11 @@
 "#widget":{
 	zIndex: 0,
 	opacity: 0,
-	visible: false
-},
-"#overlayView":{
-	touchEnabled: false
+	visible: false,
+	backgroundColor: "#50000000"
 },
 "#containerView":{
-	top: 0,
-	height: "75%",
-	borderColor: "#808285",
-	borderWidth: 1
+	height: Ti.UI.SIZE
 },
 "#tableView[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE

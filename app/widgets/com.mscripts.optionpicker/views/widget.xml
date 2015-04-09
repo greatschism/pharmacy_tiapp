@@ -1,6 +1,5 @@
 <Alloy>
-	<View onSingletap="didTap">
-		<View id="overlayView" />
+	<View>
 		<View id="containerView">
 			<TableView id="tableView" onClick="updateItem" />
 		</View>
