@@ -15,7 +15,6 @@ var args = arguments[0] || {},
     sectionIds = ["readyForPickup", "gettingRefilled", "readyForRefill", "otherPrescriptions"],
     sections = {},
     rows = [],
-    patient,
     items,
     currentDate = moment(),
     overDueInfoStyle = $.createStyle({
@@ -38,14 +37,6 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		method : "PATIENTS_GET",
-		success : didGetPatients
-	});
-}
-
-function didGetPatients(_result) {
-	patient = _result.data.patients;
-	http.request({
 		method : "PRESCRIPTIONS_LIST",
 		success : didGetPrescriptionList
 	});
@@ -60,16 +51,6 @@ function didGetPrescriptionList(_result, _passthrough) {
 	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
-	var userIcon = $.UI.create("Label", {
-		apiName : "Label",
-		height : 32,
-		width : 32,
-		classes : ["additionIcon", "small-icon", "right"]
-	});
-
-	var sectionHeading = patient.first_name + "" + strings.sectionPatientsPrescription;
-
-	sections["readyForPickup"] = uihelper.createTableViewSection($, sectionHeading, $, userIcon);
 	_.map(_result.data.prescriptions, function(prescription) {
 		var status = prescription.refill_status,
 		    refillDate = moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT);
@@ -77,15 +58,6 @@ function didGetPrescriptionList(_result, _passthrough) {
 		prescription.refill_in_days = Math.abs(currentDate.diff(refillDate, "days"));
 		prescription.rx_number_formated = RX_NUMBER_PREFIX.concat(prescription.rx_number);
 		switch(status) {
-		case apiCodes.PRESCRIPTION_GETTING_REFILLED:
-			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.DATE_FORMAT),
-			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT),
-			    timeSpent = currentDate.diff(refillRequestDate, "seconds"),
-			    timeTake = promisedDate.diff(refillRequestDate, "seconds");
-			prescription.progress = Math.floor((timeSpent / timeTake) * 100) + "%";
-			prescription.info = String.format(strings.msgOrderPlacedReadyBy, refillDate.format("dddd"));
-			prescription.property = "gettingRefilled";
-			break;
 		case apiCodes.PRESCRIPTION_READY_FOR_PICKUP:
 			prescription.days_after_promised_date = currentDate.diff(moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT), "days");
 			prescription.days_remaining_for_pickup = prescription.restockperiod - prescription.days_after_promised_date;
@@ -97,11 +69,19 @@ function didGetPrescriptionList(_result, _passthrough) {
 			prescription.info = strings.msgYourOrderIsReady;
 			prescription.property = "readyForPickup";
 			break;
+		case apiCodes.PRESCRIPTION_GETTING_REFILLED:
+			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.DATE_FORMAT),
+			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT),
+			    timeSpent = currentDate.diff(refillRequestDate, "seconds"),
+			    timeTake = promisedDate.diff(refillRequestDate, "seconds");
+			prescription.progress = Math.floor((timeSpent / timeTake) * 100) + "%";
+			prescription.info = String.format(strings.msgOrderPlacedReadyBy, refillDate.format("dddd"));
+			prescription.property = "gettingRefilled";
+			break;
 		case apiCodes.PRESCRIPTION_READY_FOR_REFILL:
 			if (prescription.is_overdue) {
 				prescription.info_style = overDueInfoStyle;
 				prescription.detail_style = overDueDetailStyle;
-
 				if (prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT) {
 					prescription.info = strings.msgOverdueBy + " " + prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
 					prescription.detail = strings.lblSwipeLeftToHide;

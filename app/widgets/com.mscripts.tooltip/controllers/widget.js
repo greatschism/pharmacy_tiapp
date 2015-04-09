@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 
 (function() {
 
-	var options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius", ]);
+	var options = _.pick(args, ["layout", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.containerView.applyProperties(options);
 	}
@@ -13,11 +13,14 @@ var args = arguments[0] || {};
 		setText(args.text, null, args.accessibilityLabel, args.accessibilityHidden);
 	}
 
-	if (args.visible) {
-		show();
-	}
-
 	options = _.pick(args, ["width", "height", "top", "bottom", "left", "right"]);
+	if (args.visible) {
+		_.extend(options, {
+			visible : true,
+			opacity : 1,
+			zIndex : args.zIndex || 1
+		});
+	}
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
@@ -134,8 +137,8 @@ function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
 		},
 		text : _text,
 		touchEnabled : false,
-		accessibilityHidden: _.isUndefined(_accessibilityHidden) ? true : _accessibilityHidden,
-		accessibilityLabel: _accessibilityHidden !== false && _accessibilityLabel ? _accessibilityLabel : null 
+		accessibilityHidden : _.isUndefined(_accessibilityHidden) ? true : _accessibilityHidden,
+		accessibilityLabel : _accessibilityHidden !== false && _accessibilityLabel ? _accessibilityLabel : null
 	});
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);

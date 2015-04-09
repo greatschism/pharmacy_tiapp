@@ -64,7 +64,7 @@ module.exports = {
 		"sectionAddAll" : "add all",
 		"sectionDoctors" : "Doctors",
 		"sectionHasPrescribedYou" : "Has prescribed you",
-		"sectionPatientsPrescription":"'s prescriptions",
+		"sectionPatientsPrescription" : "'s prescriptions",
 
 		"hintSearchByZipCityOrState" : "Search by zip, city or state",
 		"hintSearchByPrescriptionName" : "Search by prescription name or rx number",
@@ -165,10 +165,9 @@ module.exports = {
 		"lblAddress" : "Address",
 		"lblDescription" : "Description",
 		"lblExpired" : "Expired",
-		"lblSelectAll":"Select all",
-		"lblSwipeLeftToHide":"swipe left to hide",
-		"lblEditToAddDetails":"Edit to add details",
-		
+		"lblSelectAll" : "Select all",
+		"lblSwipeLeftToHide" : "swipe left to hide",
+		"lblEditToAddDetails" : "Edit to add details",
 
 		"valFirstNameRequired" : "Please enter your first name",
 		"valLastNameRequired" : "Please enter your last name",
@@ -236,7 +235,7 @@ module.exports = {
 		"msgManuallyAddedDoctor" : "You manually added this doctor. Associated prescriptions not available.",
 		"msgManuallyAddedByYou" : "Manually added by you",
 		"msgDoctorDeleted" : "The doctor has been removed from your list",
-		"msgPrescriptionsUnhidden":"Precriptions unhiddden sucessfully",
+		"msgPrescriptionsUnhidden" : "Precriptions unhiddden sucessfully",
 
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
@@ -275,10 +274,10 @@ module.exports = {
 		"btnGiveUsCall" : "Give us a call",
 		"btnSendUsEmail" : "Send us an email",
 		"btnRemoveDoctor" : "Remove doctor from list",
-		"btnSubmit":"Submit",
-		"btnSelectNone":"Select none",
-		"btnClose":"Close",
-		"btnUnhide":"Unhide",
+		"btnSubmit" : "Submit",
+		"btnSelectNone" : "Select none",
+		"btnClose" : "Close",
+		"btnUnhide" : "Unhide",
 
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
@@ -318,6 +317,7 @@ module.exports = {
 
 		"accessibilityLblMenu" : "Menu",
 		"accessibilityLblBack" : "Back",
+		"accessibilityLblOptions" : "Options",
 		"accessibilityLblNavigateMenu" : "Navigate menu",
 		"accessibilityLblNavigateBack" : "Navigate back",
 		"accessibilityLblSwitchOn" : "On",
