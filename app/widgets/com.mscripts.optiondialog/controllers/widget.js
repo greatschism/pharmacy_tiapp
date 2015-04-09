@@ -29,4 +29,4 @@ function applyProperties(_properties) {
 
 exports.show = show;
 exports.hide = hide;
-exports.setOptions = applyProperties;
+exports.applyProperties = applyProperties;

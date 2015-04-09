@@ -12,7 +12,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
-    sectionIds = ["readyForPickup","gettingRefilled", "readyForRefill", "otherPrescriptions"],
+    sectionIds = ["readyForPickup", "gettingRefilled", "readyForRefill", "otherPrescriptions"],
     sections = {},
     rows = [],
     patient,
@@ -32,7 +32,6 @@ var args = arguments[0] || {},
 	classes : ["padding-top", "padding-bottom", "padding-right", "show", "arrow-left", "critical-tooltip"],
 	width : 150
 }),
-
     tooltipLblStyle = $.createStyle({
 	classes : ["tooltip-lbl"]
 });
@@ -45,7 +44,7 @@ function init() {
 }
 
 function didGetPatients(_result) {
-	patient=_result.data.patients;
+	patient = _result.data.patients;
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
 		success : didGetPrescriptionList
@@ -61,14 +60,14 @@ function didGetPrescriptionList(_result, _passthrough) {
 	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
-		var userIcon=$.UI.create("Label", {
+	var userIcon = $.UI.create("Label", {
 		apiName : "Label",
 		height : 32,
 		width : 32,
 		classes : ["additionIcon", "small-icon", "right"]
 	});
 
-	var sectionHeading=patient.first_name+""+strings.sectionPatientsPrescription;
+	var sectionHeading = patient.first_name + "" + strings.sectionPatientsPrescription;
 
 	sections["readyForPickup"] = uihelper.createTableViewSection($, sectionHeading, $, userIcon);
 	_.map(_result.data.prescriptions, function(prescription) {
@@ -102,18 +101,17 @@ function didGetPrescriptionList(_result, _passthrough) {
 			if (prescription.is_overdue) {
 				prescription.info_style = overDueInfoStyle;
 				prescription.detail_style = overDueDetailStyle;
-				
-				if(prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT){
-					prescription.info = strings.msgOverdueBy+" "+prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
-					prescription.detail = strings.lblSwipeLeftToHide;				
-				}else{
+
+				if (prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT) {
+					prescription.info = strings.msgOverdueBy + " " + prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
+					prescription.detail = strings.lblSwipeLeftToHide;
+				} else {
 					prescription.info = strings.msgOverdueBy;
 					prescription.detail = prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
 				}
-			}
-			else{
-			prescription.info = strings.msgDueFoRefillIn;
-			prescription.detail = prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
+			} else {
+				prescription.info = strings.msgDueFoRefillIn;
+				prescription.detail = prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
 			}
 			prescription.property = "readyForRefill";
 			break;
@@ -178,91 +176,72 @@ function didChangeSearch(e) {
 }
 
 function didItemClick(e) {
-app.navigator.open({
-	ctrl : "prescriptionDetails",
-	titleid : "",
-	ctrlArguments : {
-		patientName: patient.first_name
-	},
-	stack :true
-});
+	app.navigator.open({
+		ctrl : "prescriptionDetails",
+		titleid : "",
+		ctrlArguments : {
+			patientName : patient.first_name
+		},
+		stack : true
+	});
 }
 
-function didClickOptionView(e) {
+function didClickOptionMenu(e) {
+	$.optionsMenu.show();
+}
 
-	var menuItems = [
-		 Alloy.Globals.strings.menuSearch,
-		Alloy.Globals.strings.menuSort,
-
-		Alloy.Globals.strings.menuUnhidePrescriptions,
-		Alloy.Globals.strings.menuRefresh,
-];
-		$.optionsMenu.options=menuItems;
-		$.optionsMenu.show();
-		$.optionsMenu.addEventListener('click',function(e)
-            {
-  	  switch(e.index) {
-		case 0:
+function didClickOptionItem(e) {
+	switch(e.index) {
+	case 0:
 		toggleSearchView();
 		break;
-		case 1:
+	case 1:
 		sort();
 		break;
-		case 2:
+	case 2:
 		unhide();
 		break;
-		case 3:
+	case 3:
 		init();
 		break;
 	}
-            	
-            });
 }
 
-function doClickOptionDialog(e) {
-
-	alert(e.index);
-}
-
-function unhide(){
-
-		http.request({
+function unhide() {
+	http.request({
 		method : "PRESCRIPTIONS_GET",
 		data : {
 			filter : null,
 			data : [{
 				id : "x",
-				sort_order_preferences :"x",
+				sort_order_preferences : "x",
 				prescription_display_status : "hidden"
 
 			}]
-
 		},
 		success : didGetHiddenPrescriptions,
-
 	});
 }
 
-function didGetHiddenPrescriptions(result){
+function didGetHiddenPrescriptions(result) {
 	allPrescriptions = result.data.prescriptions || [];
 	hiddenPrescriptions = new Array;
 	items = new Array;
-	var k=0;
-	for(var i in allPrescriptions){
-		if(allPrescriptions[i].prescription_display_status === "hidden"){
-			hiddenPrescriptions[k]=allPrescriptions[i].presc_name;
-			 items[k] = {title :hiddenPrescriptions[k], id:allPrescriptions[i].id};
+	var k = 0;
+	for (var i in allPrescriptions) {
+		if (allPrescriptions[i].prescription_display_status === "hidden") {
+			hiddenPrescriptions[k] = allPrescriptions[i].presc_name;
+			items[k] = {
+				title : hiddenPrescriptions[k],
+				id : allPrescriptions[i].id
+			};
 			k++;
-			
+
 		}
 	}
-		
 	$.unhideMenu.setItems(items);
-	
-	$.optionsMenu.hide();
 	$.unhideMenu.show();
 }
-
 
 function toggleSearchView() {
 	var tableTop = 0;
@@ -294,9 +273,9 @@ function toggleSearchView() {
 
 function sort() {
 	if (!Alloy.Collections.sortPreferences.length) {
-		getSortPreferences();
+		return getSortPreferences();
 	}
-	$.sortPicker.show();
+	$.sortMenu.show();
 }
 
 function getSortPreferences() {
@@ -307,49 +286,54 @@ function getSortPreferences() {
 }
 
 function updateSortPreferences(_result) {
-	Alloy.Collections.sortPreferences.reset(_result.data.code_values);
-	$.sortPicker.setItems(Alloy.Collections.sortPreferences.toJSON());
+	var codeValues = _result.data.code_values;
+	codeValues.push({
+		code_display : Alloy.Globals.strings.strCancel,
+		code_value : 0
+	});
+	Alloy.Collections.sortPreferences.reset(codeValues);
+	$.sortMenu.applyProperties({
+		options : _.pluck(codeValues, "code_display"),
+		cancel : codeValues.length - 1
+	});
 	sort();
-}
-
-function didClickSortPicker(e) {
-	console.log(e.data);
 }
 
 function didClickCloseBtn(e) {
 	$.unhideMenu.hide();
 }
 
-function didClickUnhideBtn(e)
-{
-	var unhiddenPrescriptions=$.unhideMenu.getSelectedItems();
+function didClickUnhideBtn(e) {
+	var unhiddenPrescriptions = $.unhideMenu.getSelectedItems();
 	var list;
-	list= new Array;
-	if(unhiddenPrescriptions.length)
-	{for (var i in unhiddenPrescriptions)
-	{
-		list[i]={id:unhiddenPrescriptions[i].id};
+	list = new Array;
+	if (unhiddenPrescriptions.length) {
+		for (var i in unhiddenPrescriptions) {
+			list[i] = {
+				id : unhiddenPrescriptions[i].id
+			};
+		}
+		$.unhideMenu.hide();
+		http.request({
+			method : "PRESCRIPTIONS_UNHIDE",
+			data : {
+				filter : null,
+				"data" : [{
+					"prescriptions" : list
+				}]
+			},
+			success : didSuccess,
+		});
 	}
-	$.unhideMenu.hide();
-	http.request({
-		method : "PRESCRIPTIONS_UNHIDE",
-		data : {
-			filter : null,
-			"data": [{
-						"prescriptions": list
- 					}]
-		},
-		success : didSuccess,
-	});
-	}
-	
+
 }
 
-function didSuccess(_result){
+function didSuccess(_result) {
 	dialog.show({
-				message : Alloy.Globals.strings.msgPrescriptionsUnhidden
-			});
+		message : Alloy.Globals.strings.msgPrescriptionsUnhidden
+	});
 }
+
 function didClickSelectNone(e) {
 	$.unhideMenu.setSelectedItems([], false);
 }

@@ -1,25 +1,14 @@
 "#rightNavBtn":{
-	title: Alloy.CFG.icons.options
+	title: Alloy.CFG.icons.options,
+	accessibilityLabel: Alloy.Globals.strings.accessibilityLblOptions
 },
-"#optionDialog":{
-	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh]
+"#optionsMenu":{
+	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh, Alloy.Globals.strings.strCancel],
+	cancel: 4
 },
 "#searchbar":{
-	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName,
-	returnKeyType: Ti.UI.RETURNKEY_DONE
+	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
 },
-"#sortPicker":{
-	autoHide: true,
-	radioButton: true,
-	titleProperty: "code_display"
-},
-".additionIcon":{
-	font:{
-		fontSize:25
-	},
-	text:Alloy.CFG.icons.user,
-	color:"#5B5B5B"
-}
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.btnSelectNone
 },
@@ -31,6 +20,4 @@
 },
 "#closeBtn":{
 	title: Alloy.Globals.strings.btnClose
-},
-
-
+}

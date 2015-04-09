@@ -1,7 +1,6 @@
 <Alloy>
-	<!--<Widget id="optionsMenu" src="com.mscripts.togglemenu" class="togglemenu" onClick="didClickOptionMenu" />-->
-	<OptionDialog id="optionsMenu" title="Options Menu"/>
-	<Widget id="sortPicker" src="com.mscripts.optionpicker" class="optionpicker" onClick="didClickSortPicker" />
+	<Widget id="optionsMenu" src="com.mscripts.optiondialog" onClick="didClickOptionItem" />
+	<Widget id="sortMenu" src="com.mscripts.optiondialog" />
 	<Widget id="unhideMenu" src="com.mscripts.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">
 			<Button id="selectNoneBtn" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
@@ -14,11 +13,9 @@
 			<Button id="closeBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickCloseBtn" />
 		</View>
 	</Widget>
-	<Button id="rightNavBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickOptionView"/>
+	<Button id="rightNavBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickOptionMenu"/>
 	<View id="searchView" class="top search-view fade-out">
-		<Widget id="searchbar" src="com.mscripts.textfield"  class="top search-txt"
-		onChange="didChangeSearch" onClear="didChangeSearch" />
-		<View id="sepView" class="hseparator"/>
+		<Widget id="searchbar" src="com.mscripts.textfield"  class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch" />
 	</View>
 	<TableView id="tableView" class="top secondary-bg-color" onClick="didItemClick">
 		<FooterView>
