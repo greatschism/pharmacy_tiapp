@@ -90,8 +90,8 @@ function didClickMenu(e) {
 
 function didItemClick(e) {
 	var id = e.row.rowId;
-	  
- if (!(id == "no doctor")) {
+
+	if (!(id == "no doctor")) {
 
 		var doctor = _.findWhere(doctors, {
 			id : String(id)
@@ -188,12 +188,12 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	}),
 	    leftImgView = $.UI.create("View", {
 		apiName : "View",
-		classes : ["padding-left","viewSize"]
+		classes : ["padding-left", "viewSize"]
 	}),
 	    descriptionView = $.UI.create("View", {
 		apiName : "View",
-		left:84,
-		classes : ["vgroup", "auto-height", "auto-width","padding-bottom","padding-top"]
+		left : 84,
+		classes : ["vgroup", "auto-height", "auto-width", "padding-bottom", "padding-top"]
 
 	}),
 	    leftIconLabel = $.UI.create("Label", {
@@ -285,8 +285,6 @@ function didAddDoctor() {
 		return doc.id;
 	}).indexOf(doctor.id);
 
-
-
 	if (noOfDoctors == 0)//1st doctor added
 		$.tableView.updateRow(0, row);
 	// 2 since 0th row- no appointment and 1st row is add appointment
@@ -294,7 +292,7 @@ function didAddDoctor() {
 else if (position == 0) {//if doctors exist and new doctor is 1st in the sorted list (if after used, row comes in appointment section)
 		$.tableView.insertRowBefore(0, row);
 	} else
-		$.tableView.insertRowAfter(position-1, row);
+		$.tableView.insertRowAfter(position - 1, row);
 
 	noOfDoctors++;
 }
@@ -306,36 +304,35 @@ function didEditDoctor() {
 		id : newDoctor.id
 	});
 
-		var updatedDoctor = _.extend(oldDoctor, newDoctor);
-		var row = createDoctorRow(updatedDoctor, prescriptionsList);
+	var updatedDoctor = _.extend(oldDoctor, newDoctor);
 
-		var position = doctors.map(function(doc) {//get index of the doctor from the sorted list
-			return doc.id;
-		}).indexOf(updatedDoctor.id);
+	var row = createDoctorRow(newDoctor, prescriptionsList);
 
-		$.tableView.updateRow(position, row);
+	var position = doctors.map(function(doc) {//get index of the doctor from the sorted list
+		return doc.id;
+	}).indexOf(newDoctor.id);
 
-	}
+	$.tableView.updateRow(position, row);
 
-function didRemoveDoctor(){
+}
+
+function didRemoveDoctor() {
 	var doctor = Alloy.Models.doctor.get("doctor_remove");
 
-	if(noOfDoctors==1){
-		var row=createNoDoctorRow();
-		$.tableView.updateRow(clickedDoctorRow,row);
-	}
-	else
-	$.tableView.deleteRow(clickedDoctorRow);
-	
+	if (noOfDoctors == 1) {
+		var row = createNoDoctorRow();
+		$.tableView.updateRow(clickedDoctorRow, row);
+	} else
+		$.tableView.deleteRow(clickedDoctorRow);
+
 	var position = doctors.map(function(doc) {//get index of the doctor tobe deleted
-			return doc.id;
-		}).indexOf(doctor.id);
-		
+		return doc.id;
+	}).indexOf(doctor.id);
+
 	doctors.splice(position, 1);
 
 	noOfDoctors--;
-	
-	
+
 }
 
 function didAndroidBack() {

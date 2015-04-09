@@ -205,7 +205,7 @@ function didSuccessUpdate(_result) {
 		message : Alloy.Globals.strings.msgDoctorUpdated,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
-			app.navigator.closeToRoot();
+			app.navigator.close();
 		}
 	});
 

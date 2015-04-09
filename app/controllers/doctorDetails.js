@@ -14,7 +14,9 @@ function init() {
 
 	doctor = args.doctor;
 	prescriptions = args.prescriptions || [];
-
+	
+	Alloy.Models.doctor.on("change:doctor_update", didEditDoctor);
+	
 	if (doctor.image_url.length) {
 		$.profileImageView.remove($.profileIconLabel);
 
@@ -31,44 +33,8 @@ function init() {
 
 	}
 
-	$.nameLbl.text = doctor.long_name;
-
-	if (doctor.phone.length)
-		$.phoneLbl.text = doctor.phone;
-	else{
-		$.resetClass($.phoneLbl, ["after-icon","s21","multi-line"]);
-		$.phoneLbl.text = strings.lblEditToAddDetails;
-	}
-	
-	if (doctor.fax.length)
-		$.faxLbl.text = doctor.fax;
-	else{
-		$.resetClass($.faxLbl, ["after-icon","s21","multi-line"]);
-		$.faxLbl.text = strings.lblEditToAddDetails;
-	}
-	var directionDetails;
-	directionDetails = doctor.addressline1 ? doctor.addressline2 ? doctor.addressline1 + "\n" + doctor.addressline2 : doctor.addressline1 : doctor.addressline2 ? doctor.addressline2 : "";
-
-	if ((doctor.city || doctor.state || doctor.zip) && directionDetails) {
-		directionDetails += "\n";
-	}
-	if (doctor.city || doctor.state || doctor.zip) {
-		directionDetails += doctor.city ? doctor.state ? doctor.city + "," + doctor.state : doctor.city : doctor.state ? doctor.state : "";
-
-		if ((doctor.city || doctor.state) && doctor.zip)
-			directionDetails += "," + doctor.zip;
-		else if (doctor.zip)
-			directionDetails += doctor.zip;
-	}
-
-	if (directionDetails.length)
-		$.directionLbl.text = directionDetails;
-	else {
-		$.resetClass($.directionLbl, ["after-icon","s21"]);
-		$.directionLbl.text = strings.lblEditToAddDetails;
-	}
-
-	$.notesTxta.setValue(doctor.notes);
+    populateDetails(doctor);
+    
 	var len = prescriptions.length;
 	$.prescriptionsSection = uihelper.createTableViewSection($, strings.sectionHasPrescribedYou);
 
@@ -276,6 +242,59 @@ function didClickEdit(e) {
 
 	});
 
+}
+
+function populateDetails(_doctor){
+	$.nameLbl.text = _doctor.long_name;
+
+	if (_doctor.phone.length)
+		$.phoneLbl.text = _doctor.phone;
+	else{
+		$.resetClass($.phoneLbl, ["after-icon","s21","multi-line"]);
+		$.phoneLbl.text = strings.lblEditToAddDetails;
+	}
+	
+	if (_doctor.fax.length)
+		$.faxLbl.text = _doctor.fax;
+	else{
+		$.resetClass($.faxLbl, ["after-icon","s21","multi-line"]);
+		$.faxLbl.text = strings.lblEditToAddDetails;
+	}
+	var directionDetails;
+	directionDetails = _doctor.addressline1 ? _doctor.addressline2 ? _doctor.addressline1 + "\n" + _doctor.addressline2 : _doctor.addressline1 : _doctor.addressline2 ? _doctor.addressline2 : "";
+
+	if ((_doctor.city || _doctor.state || _doctor.zip) && directionDetails) {
+		directionDetails += "\n";
+	}
+	if (_doctor.city || _doctor.state || _doctor.zip) {
+		directionDetails += _doctor.city ? _doctor.state ? _doctor.city + "," + _doctor.state : _doctor.city : _doctor.state ? _doctor.state : "";
+
+		if ((_doctor.city || _doctor.state) && _doctor.zip)
+			directionDetails += "," + _doctor.zip;
+		else if (_doctor.zip)
+			directionDetails += _doctor.zip;
+	}
+
+	if (directionDetails.length)
+		$.directionLbl.text = directionDetails;
+	else {
+		$.resetClass($.directionLbl, ["after-icon","s21"]);
+		$.directionLbl.text = strings.lblEditToAddDetails;
+	}
+
+	$.notesTxta.setValue(_doctor.notes);
+}
+
+function terminate() {
+	$.destroy();
+	Alloy.Models.doctor.off("change:doctor_update", didEditDoctor);
+}
+
+function didEditDoctor()
+{
+		var newDoctor = Alloy.Models.doctor.get("doctor_update");
+		populateDetails(newDoctor);
+				
 }
 
 exports.init = init;

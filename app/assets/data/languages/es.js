@@ -46,6 +46,7 @@ module.exports = {
 		"titleThanks" : "es-Thanks",
 		"titleEmailAddress" : "es-Email Address",
 		"titleEditDoctor" : "es-Edit a doctor",
+		"titleDrugDetails":"es-Drug details",
 
 		"sectionStoreHours" : "es-Store hours",
 		"sectionStoreServices" : "es-Store services",
