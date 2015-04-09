@@ -76,7 +76,7 @@ function didClickDone(e) {
 
 function didClickAbout() {
 	dialog.show({
-		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + utilities.getProperty(Alloy.CFG.BUILD_DATE, "", "string", false),
+		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Alloy.CFG.buildDate,
 		title : Alloy.Globals.strings.strAbout
 	});
 }
