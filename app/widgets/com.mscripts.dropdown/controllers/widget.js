@@ -168,7 +168,9 @@ function didTerminatePicker(e) {
 function hidePicker() {
 	if (picker) {
 		picker.terminate();
+		return true;
 	}
+	return false;
 }
 
 function setChoices(_choices) {
