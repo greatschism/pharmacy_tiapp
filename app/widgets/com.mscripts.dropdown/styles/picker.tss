@@ -6,7 +6,8 @@
 "#tableView":{
 	left: 12,
 	right: 12,
-	borderRadius: 3.4
+	borderRadius: 3.4,
+	backgroundColor: "#FFFFFF"
 },
 "#tableView[platform=ios]":{
 	separatorInsets: {
