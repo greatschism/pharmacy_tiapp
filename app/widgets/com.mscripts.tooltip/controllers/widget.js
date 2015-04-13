@@ -137,8 +137,8 @@ function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
 		},
 		text : _text,
 		touchEnabled : false,
-		accessibilityHidden : _.isUndefined(_accessibilityHidden) ? true : _accessibilityHidden,
-		accessibilityLabel : _accessibilityHidden !== false && _accessibilityLabel ? _accessibilityLabel : null
+		accessibilityHidden : _.isUndefined(_accessibilityHidden) ? false : _accessibilityHidden,
+		accessibilityLabel : _accessibilityHidden !== true && _accessibilityLabel ? _accessibilityLabel : null
 	});
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);
