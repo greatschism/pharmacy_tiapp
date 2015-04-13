@@ -15,7 +15,7 @@ function updateForState(_preventAccessbilityFocus) {
 		if (args.onAccessibilityLabel) {
 			$.swt.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
 		}
-		if (_preventAccessbilityFocus !== true && args.triggerAccessbilityFocus) {
+		if (Ti.App.accessibilityEnabled && _preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
 			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.swt);
 		}
 	}
