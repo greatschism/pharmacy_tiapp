@@ -283,7 +283,6 @@ var Utility = {
 			return _string;
 		}
 		_string = _string.replace(/&amp;*/ig, "&");
-		_string = Utility.htmlDecode(_string);
 		_string = _string.replace(/\s*<br[^>]*>\s*/ig, "\n");
 		_string = _string.replace(/\s*<\/p>*\s*/ig, "\n\n");
 		_string = _string.replace(/<a[^h]*href=["']{1}([^'"]*)["']{1}>([^<]*)<\/a>/ig, "$2 [$1]");

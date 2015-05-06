@@ -53,5 +53,7 @@
 	Alloy.Models.user.on("change:patients", function didLoginChange() {
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
 	});
-
+if (!ENV_PROD) {
+		require("specs/app_test");
+	}
 })();
