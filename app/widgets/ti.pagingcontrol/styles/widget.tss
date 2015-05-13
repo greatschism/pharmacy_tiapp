@@ -1,0 +1,8 @@
+"#widget":{
+	height: Ti.UI.SIZE
+},
+"#contentView":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	layout: "horizontal"
+}

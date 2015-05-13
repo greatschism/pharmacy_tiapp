@@ -2,90 +2,121 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
     http = require("requestwrapper"),
-    dialog = require("dialog"),
-    timeDetails,
-    timed,
+    uihelper = require("uihelper"),
+    moment = require("alloy/moment"),
     reminders,
-    appointmentId;
+    reminderfrequency,
+    dialog,
+    dosageReminderTime1,
+    dosageReminderTime2,
+    dosageReminderTime3;
+var optionsArray = ['daily', 'twice daily', 'thrice daily'];
+
+function setTimer(index) {
+	var timeDetails = Ti.App.Properties.getString("dosageReminderTime" + index);
+	var appointment_hour = moment(timeDetails, "hh:mm A").format("hh");
+	var appointment_minute = moment(timeDetails, "hh:mm A").format("mm");
+	var appointment_meridiem = moment(timeDetails, "hh:mm A").format("A");
+	if (appointment_meridiem == "pm" || appointment_meridiem == "PM")
+		var newReminderHour = parseInt(appointment_hour) + 12;
+	else
+		var newReminderHour = appointment_hour;
+	myDate = new Date();
+	myDate.setHours(newReminderHour, appointment_minute);
+	return myDate;
+}
 
 (function() {
-	/*if (args.edit) {
-	 $.deleteBtn.show();
-	 }*/
 
-	var data = [];
-	for ( i = 1; i <= 30; i++) {
-		data[i - 1] = Ti.UI.createPickerRow({
-			title : i.toString()
-		});
+	$.dosageRemindersValue.text = Ti.App.Properties.getString("dosageReminderFrequency" + args.row_id);
+	switch(args.row_id) {
+	case 0:
+		$.lblTimeValue.setValue(setTimer(1));
+		$.lblTimeValue1.setValue(setTimer(2));
+		$.lblTimeValue2.setValue(setTimer(3));
+		break;
+	case 1:
+		$.lblTimeValue.setValue(setTimer(4));
+		$.lblTimeValue1.setValue(setTimer(5));
+		$.lblTimeValue2.setValue(setTimer(6)); 
+		break;
+	case 2:
+		$.lblTimeValue.setValue(setTimer(7));
+		$.lblTimeValue1.setValue(setTimer(8));
+		$.lblTimeValue2.setValue(setTimer(9));
+		break;
 	}
-
-	$.dayPicker.add(data);
-	
-	
-
-	newAppointment = args.newAppointment;
-
-	if (newAppointment == 0) {
-		
-		reminders = args.reminders;
-		appointmentId = args.appointment_id;
-	
-		day = _.findWhere(data, {
-			title : reminders.remind_before_in_days
-		});
-
-		$.dayPicker.setSelectedRow(0, (day.title) - 1, false);
-
-		// cant set constraints to time picker
-		
-		 /*minDate= new Date();
-		 minDate.setHours(7,00,00,00);
-		 $.timeLbl.setMinDate(minDate);
-		 maxDate= new Date();
-		 maxDate.setHours(23,00,00,00);
-		 $.timeLbl.setMaxDate(minDate);*/
-		 
-		if (reminders.reminder_meridiem == "pm" || reminders.reminder_meridiem == "PM")
-			newReminderHour = parseInt(reminders.reminder_hour) + 12;
-		else
-			newReminderHour = reminders.reminder_hour;
-
-		myDate = new Date();
-		myDate.setHours(newReminderHour, reminders.reminder_minute);
-		$.timeLbl.setValue(myDate);
-	
-	}
-
+	setHeight(_.indexOf(optionsArray, Ti.App.Properties.getString("dosageReminderFrequency" + args.row_id)));
 })();
 
 function didClickSave(e) {
-	timeDetails = $.timeLbl.getValue();
-	
-	Alloy.Models.doctor.set({
-			reminder_change : {
-				"enabled" : "1",
-				"no_of_reminders" : "1",
-				"remind_before_in_days" : $.dayPicker.getSelectedRow(0).title,
-				"reminder_hour" : moment(timeDetails).format("hh"),
-				"reminder_minute" : moment(timeDetails).format("mm"),
-				"reminder_meridiem" : moment(timeDetails).format("A")
-			}
-		});
+	reminderfrequency = $.dosageRemindersValue.text;
+	Ti.App.Properties.setString("dosageReminderFrequency" + args.row_id, reminderfrequency);
+	dosageReminderTime1 = moment($.lblTimeValue.getValue()).format("hh:mm A");
+	dosageReminderTime2 = moment($.lblTimeValue1.getValue()).format("hh:mm A");
+	dosageReminderTime3 = moment($.lblTimeValue2.getValue()).format("hh:mm A");
+	Ti.API.info(args.row_id);
+	switch(args.row_id) {
+	case 0:
+		Ti.App.Properties.setString("dosageReminderTime1", dosageReminderTime1);
+		Ti.App.Properties.setString("dosageReminderTime2", dosageReminderTime2);
+		Ti.App.Properties.setString("dosageReminderTime3", dosageReminderTime3);
+		break;
+	case 1:
+		Ti.App.Properties.setString("dosageReminderTime4", dosageReminderTime1);
+		Ti.App.Properties.setString("dosageReminderTime5", dosageReminderTime2);
+		Ti.App.Properties.setString("dosageReminderTime6", dosageReminderTime3);
+		break;
+	case 2:
+		Ti.App.Properties.setString("dosageReminderTime7", dosageReminderTime1);
+		Ti.App.Properties.setString("dosageReminderTime8", dosageReminderTime2);
+		Ti.App.Properties.setString("dosageReminderTime9", dosageReminderTime3);
+		break;
+	}
+	app.navigator.close();
+}
 
-	dialog.show({
-		title : Alloy.Globals.strings.titleSuccess,
-		message : Alloy.Globals.strings.msgAppointmentReminderSettingsUpdated,
-		buttonNames : [Alloy.Globals.strings.strOK],
-		success : function() {
-			app.navigator.close();
-		}
-	});
+function didClickShowTimer() {
+	$.lblTimeValue.showPicker();
+}
 
+function didClickShowTimer1() {
+	$.lblTimeValue1.showPicker();
+}
+
+function didClickShowTimer2() {
+	$.lblTimeValue2.showPicker();
 }
 
 function setParentViews(view) {
-	$.timeLbl.setParentView(view);
+	$.lblTimeValue.setParentView(view);
+	$.lblTimeValue1.setParentView(view);
+	$.lblTimeValue2.setParentView(view);
+}
+
+dialog = Titanium.UI.createOptionDialog({
+	options : optionsArray
+});
+dialog.addEventListener('click', function(e) {
+	setHeight(e.index);
+	$.dosageRemindersValue.text = optionsArray[e.index];
+});
+function didSelectDosageReminderOptions() {
+	dialog.show();
+}
+
+function setHeight(index) {
+	switch(index) {
+	case 0:
+		$.tableView.height = 100;
+		break;
+	case 1:
+		$.tableView.height = 150;
+		break;
+	case 2:
+		$.tableView.height = 200;
+		break;
+	}
 }
 
 exports.setParentViews = setParentViews;

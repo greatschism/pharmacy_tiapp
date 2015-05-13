@@ -4,7 +4,6 @@ var args = arguments[0] || {},
     logger = require("logger"),
     http = require("requestwrapper"),
     app = require("core"),
-    dialog = require("dialog"),
     strings = Alloy.Globals.strings,
     doctor,
     prescriptions,
@@ -14,10 +13,9 @@ function init() {
 
 	doctor = args.doctor;
 	prescriptions = args.prescriptions || [];
-	
 	Alloy.Models.doctor.on("change:doctor_update", didEditDoctor);
-	
-	if (doctor.image_url.length) {
+
+	if (!_.isEmpty(doctor.image_url)) {
 		$.profileImageView.remove($.profileIconLabel);
 
 		profileImg = $.UI.create("ImageView", {
@@ -25,6 +23,7 @@ function init() {
 			height : "90",
 			width : "90",
 			classes : ["left", " paddingTop"],
+			image : doctor.image_url,
 			borderColor : "#000000",
 		});
 
@@ -33,8 +32,8 @@ function init() {
 
 	}
 
-    populateDetails(doctor);
-    
+	populateDetails(doctor);
+
 	var len = prescriptions.length;
 	$.prescriptionsSection = uihelper.createTableViewSection($, strings.sectionHasPrescribedYou);
 
@@ -76,12 +75,12 @@ function getRow(prescription) {
 	}),
 	    leftLbl = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["list-item-title-lbl", "left","s6"]
+		classes : ["list-item-title-lbl", "left", "s6"]
 	}),
 	    rightLbl = $.UI.create("Label", {
 		apiName : "Label",
 		color : "#808285",
-		classes : ["list-item-info-lbl", "right","s3"]
+		classes : ["list-item-info-lbl", "right", "s3"]
 	});
 	leftLbl.text = prescription.presc_name;
 	var expiryDate = moment(prescription.expiration_date, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD");
@@ -119,9 +118,7 @@ function didClickProfileImg(e) {
 }
 
 function didClickDirections(e) {
-	dialog.show({
-		message : strings.msgUnderConstruction
-	});
+	uihelper.getDirection($.directionLbl.text);
 }
 
 function createNoPrescriptionRow(message) {
@@ -244,20 +241,20 @@ function didClickEdit(e) {
 
 }
 
-function populateDetails(_doctor){
+function populateDetails(_doctor) {
 	$.nameLbl.text = _doctor.long_name;
 
 	if (_doctor.phone.length)
 		$.phoneLbl.text = _doctor.phone;
-	else{
-		$.resetClass($.phoneLbl, ["after-icon","s21","multi-line"]);
+	else {
+		$.resetClass($.phoneLbl, ["after-icon", "s21", "multi-line"]);
 		$.phoneLbl.text = strings.lblEditToAddDetails;
 	}
-	
+
 	if (_doctor.fax.length)
 		$.faxLbl.text = _doctor.fax;
-	else{
-		$.resetClass($.faxLbl, ["after-icon","s21","multi-line"]);
+	else {
+		$.resetClass($.faxLbl, ["after-icon", "s21", "multi-line"]);
 		$.faxLbl.text = strings.lblEditToAddDetails;
 	}
 	var directionDetails;
@@ -278,7 +275,7 @@ function populateDetails(_doctor){
 	if (directionDetails.length)
 		$.directionLbl.text = directionDetails;
 	else {
-		$.resetClass($.directionLbl, ["after-icon","s21"]);
+		$.resetClass($.directionLbl, ["after-icon", "s21"]);
 		$.directionLbl.text = strings.lblEditToAddDetails;
 	}
 
@@ -290,11 +287,10 @@ function terminate() {
 	Alloy.Models.doctor.off("change:doctor_update", didEditDoctor);
 }
 
-function didEditDoctor()
-{
-		var newDoctor = Alloy.Models.doctor.get("doctor_update");
-		populateDetails(newDoctor);
-				
+function didEditDoctor() {
+	var newDoctor = Alloy.Models.doctor.get("doctor_update");
+	populateDetails(newDoctor);
+
 }
 
 exports.init = init;

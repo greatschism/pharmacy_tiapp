@@ -1,7 +1,0 @@
-<Alloy>
-	<View>
-		<View id="containerView">
-			<TableView id="tableView" onClick="updateItem" />
-		</View>
-	</View>
-</Alloy>

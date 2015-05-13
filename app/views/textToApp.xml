@@ -3,8 +3,8 @@
 		<ImageView id="logoImg" class="img-padding-top logo-img" />
 		<Label id="titleLbl" class="img-padding-top margin-left margin-right title-lbl" />
 		<Label id="hintLbl" class="padding-top paragraph-lbl" />
-		<Widget id="codeTxt" src="com.mscripts.textfield" class="padding-top txt width-40 returnkey-done" onReturn="didClickContinue" />
+		<Widget id="codeTxt" src="ti.textfield" class="padding-top txt width-40 returnkey-done" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="btn-padding-top btn-padding-bottom primary-btn" onClick="didClickContinue" />
-		<Widget id="resendLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickDidntGetText" />
+		<Widget id="resendLbl" src="ti.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickDidntGetText" />
 	</ScrollView>
 </Alloy>

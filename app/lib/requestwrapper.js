@@ -2,29 +2,32 @@
  * @param {Object} _params The arguments for the method
  */
 
-var app = require("core"),
-    dialog = require("dialog"),
+var Alloy = require("alloy"),
+    _ = Alloy._,
+    app = require("core"),
+    uihelper = require("uihelper"),
     http = require("http"),
     localization = require("localization"),
     utilities = require("utilities"),
-    CFG = Alloy.CFG,
-    user = {},
+    XMLTools = require("XMLTools"),
     encryptionUtil = require("encryptionUtil");
 
 function request(_params) {
 
-	user = Alloy.Models.user.toJSON();
+	if (!_.has(_params, "type")) {
+		_params.type = "POST";
+	}
+
+	if (!_.has(_params, "timeout")) {
+		_params.timeout = Alloy.CFG.HTTP_TIMEOUT * 1000;
+	}
 
 	if (!_.has(_params, "format")) {
-		_params.format = "JSON";
+		_params.format = "json";
 	}
 
 	if (!_.has(_params, "data")) {
 		_params.data = {};
-	}
-
-	if (!_.has(_params, "type")) {
-		_params.type = "POST";
 	}
 
 	if (_params.showLoader !== false) {
@@ -36,26 +39,38 @@ function request(_params) {
 		}
 	}
 
-	_.extend(_params.data, {
-		client_identifier : CFG.clientIdentifier,
-		version : CFG.apiVersion,
-		session_id : user.patients.session_id,
-		lang : localization.currentLanguage.id
-	});
-	_params.data = JSON.stringify(_params.data);
+	var format = _params.format.toLowerCase(),
+	    url;
+	switch(format) {
+	case "json":
+		url = Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[_params.method]);
+		_.extend(_params.data, {
+			client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
+			version : Alloy.CFG.API_VERSION,
+			session_id : Alloy.Models.user.get("patients").session_id,
+			lang : localization.currentLanguage.id
+		});
+		_params.data = JSON.stringify(_params.data);
+		break;
+	case "xml":
+		url = Alloy.CFG.BASE_URL_LEGACY.concat(Alloy.CFG.apiPath[_params.method]);
+		_params.data = XMLTools.toXML(_params.data);
+		break;
+	}
 
-	if (CFG.enableEncryption) {
+	if (Alloy.CFG.ENCRYPTION_ENABLED) {
 		_params.data = encryptionUtil.encrypt(_params.data);
 	}
 
-	if (CFG.simulateAPI) {
+	if (Alloy.CFG.SIMULATE_API) {
 		didSuccess(getSimulatedResponse(_params.method), _params);
 		didComplete(_params);
 	} else {
 		http.request({
-			url : CFG.baseUrl.concat(CFG.apiPath[_params.method]),
+			url : url,
 			type : _params.type,
 			format : _params.format,
+			timeout : _params.timeout,
 			data : _params.data,
 			success : didSuccess,
 			failure : didFail,
@@ -70,11 +85,15 @@ function getSimulatedResponse(_method) {
 }
 
 function didSuccess(_data, _passthrough) {
-	if (CFG.enableEncryption) {
+	if (Alloy.CFG.ENCRYPTION_ENABLED) {
 		_data = encryptionUtil.decrypt(_data);
 	}
-	if (_data.code != CFG.apiCodes.SUCCESS) {
-		dialog.show({
+	if (_passthrough.format.toLowerCase() == "xml") {
+		_data = XMLTools.toJSON(_data);
+		_data = _data[_.keys(_data)[0]];
+	}
+	if (_data.code != Alloy.CFG.apiCodes.SUCCESS && _.has(_data, "error")) {
+		uihelper.showDialog({
 			message : _data.message || Alloy.Globals.strings.msgSomethingWentWrong
 		});
 		if (_passthrough.failure) {
@@ -86,7 +105,7 @@ function didSuccess(_data, _passthrough) {
 }
 
 function didFail(_passthrough) {
-	if (CFG.simulateAPIOnFailure) {
+	if (Alloy.CFG.SIMULATE_API_ON_FAILURE) {
 		didSuccess(getSimulatedResponse(_passthrough.method), _passthrough);
 	} else {
 		var forceRetry = _passthrough.forceRetry !== false,
@@ -98,7 +117,7 @@ function didFail(_passthrough) {
 			if (_passthrough.hideLoaderCallback) {
 				_passthrough.hideLoaderCallback();
 			}
-			dialog.show({
+			uihelper.showDialog({
 				message : _passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
 				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
 				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,

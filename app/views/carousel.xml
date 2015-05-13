@@ -22,7 +22,7 @@
 			<ImageView id="helpfulMedicationImg" class="img-padding-top helpful-medication-img" />
 			<View class="img-padding-top margin-left margin-right auto-height">
 				<Label id="pushLbl" class="left text-left lbl" />
-				<Widget id="pushSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
+				<Widget id="pushSwt" src="ti.switch" class="right swt" onTouch="handleScroll"  />
 			</View>
 		</ScrollView>
 		<ScrollView class="width-100 vgroup">
@@ -34,6 +34,6 @@
 			</View>
 		</ScrollView>
 	</ScrollableView>
-	<Widget id="pagingControl" src="com.mscripts.pagingcontrol" class="margin-bottom paging-control" onChange="didChangePage" />
-	<Widget id="skipLbl" src="com.mscripts.styledlabel" class="margin-right margin-bottom link-multi-line" onClick="didClickSkip" />
+	<Widget id="pagingControl" src="ti.pagingcontrol" class="margin-bottom paging-control" onChange="didChangePage" />
+	<Widget id="skipLbl" src="ti.styledlabel" class="margin-right margin-bottom link-multi-line" onClick="didClickSkip" />
 </Alloy> 

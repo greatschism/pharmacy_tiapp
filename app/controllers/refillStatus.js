@@ -4,7 +4,6 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
-    dialog = require("dialog"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
@@ -43,14 +42,13 @@ function didSuccess(result) {
 	}),
 	    otherPrescriptions = _.where(prescriptions, {
 		refill_status : "OTHERS"
-	});
-	 {
+	}); {
 
 		$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionPrescriptionRefilled);
 
 		for (var i in inprocessPrescriptions) {
 			var transform = inprocessPrescriptions[i];
-			 if (transform.refill_status == "READYFORPICKUP") {
+			if (transform.refill_status == "READYFORPICKUP") {
 				row = $.UI.create("TableViewRow", {
 					apiName : "TableViewRow",
 
@@ -87,9 +85,7 @@ function didSuccess(result) {
 				//$.gettingRefilledSection.add(row);
 
 			}
-			$.gettingRefilledSection.add(row);
-
-		 {
+			$.gettingRefilledSection.add(row); {
 
 				$.otherPrescriptionsSection = uihelper.createTableViewSection($, strings.msgRefillPlaced);
 				for (var i in otherPrescriptions) {
@@ -156,7 +152,7 @@ function didSuccess(result) {
 
 			}
 			$.tableView.data = [$.otherPrescriptionsSection, $.gettingRefilledSection];
-			//$.gettingRefilledSection.add(row); 
+			//$.gettingRefilledSection.add(row);
 		}
 		//$.gettingRefilledSection.add(row);
 

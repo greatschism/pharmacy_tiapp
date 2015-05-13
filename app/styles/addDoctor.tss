@@ -11,12 +11,12 @@
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.hintMobileNumber,
 	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
-	maxLength : 14,
+	maxLength : 10,
 	nextItem: "faxTxt"
 },
 "#faxTxt":{
 	hintText: Alloy.Globals.strings.hintFaxNumber,
-	maxLength : 14,
+	maxLength : 10,
 	keyboardType:Titanium.UI.KEYBOARD_NUMBER_PAD,
 	nextItem: "hospitalTxt"
 },

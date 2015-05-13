@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
@@ -17,7 +16,7 @@ function moveToNext(e) {
 }
 
 function didClickEmail() {
-	dialog.show({
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleEmailAddress,
 		message : Alloy.Globals.strings.msgWhyEmailAddress
 	});
@@ -35,19 +34,19 @@ function didClickDone(e) {
 	var email = $.emailTxt.getValue();
 	var uname = $.unameTxt.getValue();
 	if (!uname) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valUsernameRequired
 		});
 		return;
 	}
 	if (!utilities.validateUserName(uname)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgUserNameTips
 		});
 		return;
 	}
 	if (!utilities.validateEmail(email)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valEmailRequired
 		});
 		return;
@@ -73,7 +72,7 @@ function didClickDone(e) {
 function didCreateUsername() {
 	keychainAccount.reset();
 	keychainAccount.account = encryptionUtil.encrypt($.unameTxt.getValue());
-	dialog.show({
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleThanks,
 		message : Alloy.Globals.strings.msgUsernameCreated,
 		success : function() {

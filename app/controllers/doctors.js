@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     app = require("core"),
     logger = require("logger"),
     http = require("requestwrapper"),
-    dialog = require("dialog"),
+    utilities = require("utilities"),
     uihelper = require("uihelper"),
     msgHasPrescribedYou = Alloy.Globals.strings.msgHasPrescribedYou,
     msgYouHaveNoActiveprescription = Alloy.Globals.strings.msgYouHaveNoActiveprescription,
@@ -18,20 +18,40 @@ var args = arguments[0] || {},
     clickedDoctorRow = 0;
 
 function init() {
+	Alloy.Models.doctor.on("change:doctor_add", invokeAPI);
+	Alloy.Models.doctor.on("change:doctor_update", invokeAPI);
+	Alloy.Models.doctor.on("change:doctor_remove", invokeAPI);
+	invokeAPI();
+}
 
-	Alloy.Models.doctor.on("change:doctor_add", didAddDoctor);
-	Alloy.Models.doctor.on("change:doctor_update", didEditDoctor);
-	Alloy.Models.doctor.on("change:doctor_remove", didRemoveDoctor);
+function invokeAPI() {
 	http.request({
 		method : "DOCTORS_LIST",
+		data : {
+			data : [{
+				doctors : {
+
+				}
+			}]
+		},
 		success : getPrescriptions
 	});
 }
 
 function getPrescriptions(_result) {
 	doctors = _result.data.doctors || [];
+	//console.log(doctors);
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
+		data : {
+			data : [{
+				prescriptions : {
+					id : null,
+					sort_order_preferences : "By Name",
+					prescription_display_status : "active"
+				}
+			}]
+		},
 		success : didSuccess
 	});
 }
@@ -48,6 +68,7 @@ function firstToUpperCase(str) {
 function didSuccess(_result) {
 
 	prescriptionsList = _result.data.prescriptions || [];
+	//console.log(prescriptionsList);
 	addDoctorIcon = $.UI.create("Label", {
 		apiName : "Label",
 		height : 32,
@@ -62,7 +83,8 @@ function didSuccess(_result) {
 
 		for (var i in doctors) {
 
-			var doctor = doctors[i];
+			doctor = doctors[i];
+
 			noOfDoctors++;
 			var row = createDoctorRow(doctor, prescriptionsList);
 			$.doctorsSection.add(row);
@@ -90,18 +112,23 @@ function didClickMenu(e) {
 
 function didItemClick(e) {
 	var id = e.row.rowId;
-
+	console.log(id);
+	console.log(e.index);
 	if (!(id == "no doctor")) {
 
-		var doctor = _.findWhere(doctors, {
-			id : String(id)
-		});
+		var doctor = doctors[e.index];
 		clickedDoctorRow = e.index;
 		var prescriptions = [];
+
 		if (prescriptionsList.length) {
-			prescriptions = _.where(prescriptionsList, {
-				doctor_id : doctor.id
-			});
+			// prescriptions = _.where(prescriptionsList, {
+			// id : prescriptionsList.doctor_id
+			// });
+			for ( i = 0; i < prescriptionsList.length; i++) {
+				if (prescriptionsList[i].doctor_id === id) {
+					prescriptions[i] = prescriptionsList[i];
+				}
+			}
 
 		}
 
@@ -141,7 +168,6 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	var prescriptions = _.where(_prescriptionsList, {
 		doctor_id : _doctor.id
 	});
-
 	len = prescriptions.length;
 	if (_doctor.doctor_type == "manual") {
 		description = Alloy.Globals.strings.msgManuallyAddedByYou;
@@ -157,18 +183,18 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 			*/
 
 			//When len is > 0
-			description = msgHasPrescribedYou + " " + prescriptions[0].presc_name;
+			description = msgHasPrescribedYou + " " + utilities.ucword(prescriptions[0].presc_name);
 			if (len > 1) {
 				//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
 				switch(len) {
 				case 2:
-					description += " " + strAnd + " " + prescriptions[1].presc_name;
+					description += " " + strAnd + " " + utilities.ucword(prescriptions[1].presc_name);
 					break;
 				case 3:
-					description += ", " + prescriptions[1].presc_name + " " + strAnd + " " + prescriptions[2].presc_name;
+					description += ", " + utilities.ucword(prescriptions[1].presc_name) + " " + strAnd + " " + utilities.ucword(prescriptions[2].presc_name);
 					break;
 				default:
-					description += ", " + prescriptions[1].presc_name + " " + strAnd + " [" + (len - 2) + "] " + strMore;
+					description += ", " + utilities.ucword(prescriptions[1].presc_name) + " " + strAnd + " [" + (len - 2) + "] " + strMore;
 				}
 			}
 		} else {
@@ -217,17 +243,16 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 	}),
 	    profileImg = $.UI.create("ImageView", {
 		apiName : "ImageView",
-		height : "45",
 		width : "55",
 		borderColor : "#000000",
 	});
 
 	row.rowId = _doctor.id;
-	titleLbl.text = _doctor.long_name;
+	titleLbl.text = utilities.ucword(_doctor.long_name);
 	prescriptionLbl.text = description;
 	// leftIconLabel.image = _doctor.thumbnail_url;
-	if (_doctor.image_url.length) {
-		//profileImg.image=_doctor.image_url;
+	if (!_.isEmpty(_doctor.image_url)) {
+		profileImg.image = _doctor.image_url;
 		leftImgView.add(profileImg);
 	} else {
 		leftImgView.add(leftIconLabel);
@@ -268,9 +293,9 @@ function createNoDoctorRow() {
 
 function terminate() {
 	$.destroy();
-	Alloy.Models.doctor.off("change:doctor_add", didAddDoctor);
-	Alloy.Models.doctor.off("change:doctor_update", didEditDoctor);
-	Alloy.Models.doctor.off("change:doctor_remove", didRemoveDoctor);
+	Alloy.Models.doctor.off("change:doctor_add", invokeAPI);
+	Alloy.Models.doctor.off("change:doctor_update", invokeAPI);
+	Alloy.Models.doctor.off("change:doctor_remove", invokeAPI);
 }
 
 function didAddDoctor() {

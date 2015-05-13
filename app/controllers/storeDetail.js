@@ -1,8 +1,7 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment"),
     app = require("core"),
-    dialog = require("dialog"),
     uihelper = require("uihelper"),
+    moment = require("alloy/moment"),
     icons = Alloy.CFG.icons,
     store = {};
 
@@ -14,80 +13,29 @@ function init() {
 
 	$.titleLbl.text = store.addressline1;
 	$.subtitleLbl.text = store.subtitle;
+
 	if (Alloy.Globals.loggedIn) {
-		$.favoriteLbl.text = store.bookmarked ? icons.favorite : icon.nonfavorite;
-	} else {
-	
-		$.homeBtn.visible = false;
+		$.favoriteIconLbl.text = store.favorite;
+		if (store.favorite) {
+			$.favoriteBtn.title = Alloy.Globals.strings.btnRemoveFromFavorites;
+		}
+		$.homeBtn.color = Number(store.ishomepharmacy) ? Alloy.TSS.primary_color.color : Alloy.TSS.unselected_color.color;
 	}
-	$.distanceLbl.text = store.distance;
-	$.callBtn.title = Alloy.Globals.strings.strCall + " (" + store.mobileareacode + ") " + store.mobileprefix + " - " + store.mobilenumber;
-	$.homeBtn.color = Alloy._fg_quaternary;
-	if (_.isEmpty(Alloy.Globals.currentLocation)) {
-		$.distanceView.visible = false;
+
+	if (!store.distance_enabled) {
 		$.directionBtn.visible = false;
 	}
 
-	var dates = store.hours.date || [],
-	    services = store.storeservices.storespecial || [],
-	    data = [],
-	    date;
+	$.callLbl.setHtml(String.format(Alloy.Globals.strings.strCall, "(" + store.mobileareacode + ")" + store.mobileprefix + "-" + store.mobilenumber));
 
-	dates = _.sortBy(dates, function(obj) {
+	var dates = _.sortBy(store.hours.date || [], function(obj) {
 		return moment().day(obj.day, "dddd").day();
-	});
-	date = _.findWhere(dates, {
+	}),
+	    date = _.findWhere(dates, {
 		day : moment().format("dddd")
-	});
-
-	if (dates.length) {
-		var datesSection = uihelper.createTableViewSection({
-			title : Alloy.Globals.strings.sectionStoreHours
-		});
-		for (var i in dates) {
-			var row = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
-			    view = $.UI.create("View", {
-				apiName : "View",
-				classes : ["list-item-view"]
-			}),
-			    leftLbl = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["left", "width-45", "h5", "fg-secondary"]
-			}),
-			    rightLbl = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["right", "width-45", "h5", "text-right", "fg-secondary"]
-			});
-			leftLbl.text = dates[i].day;
-			rightLbl.text = dates[i].storehours;
-			view.add(leftLbl);
-			view.add(rightLbl);
-			row.add(view);
-			datesSection.add(row);
-		}
-		data.push(datesSection);
-	}
-
-	if (services.length) {
-		var servicesSection = uihelper.createTableViewSection({
-			title : Alloy.Globals.strings.sectionStoreServices
-		});
-		for (var i in services) {
-			var row = $.UI.create("TableViewRow", {
-				apiName : "TableViewRow"
-			}),
-			    titleLbl = $.UI.create("Label", {
-				apiName : "Label",
-				classes : ["margin-left", "margin-right", "padding-top", "padding-bottom", "auto-height", "h5", "text-left", "fg-secondary", "multi-line"]
-			});
-			titleLbl.text = services[i].service;
-			row.add(titleLbl);
-			servicesSection.add(row);
-		}
-		data.push(servicesSection);
-	}
+	}),
+	    services = store.storeservices.storespecial || [],
+	    data = [];
 
 	if (date) {
 		var storehour = String(date.storehours),
@@ -101,35 +49,82 @@ function init() {
 			toClose = moment(till, "h:mm A").diff(moment(), "minutes");
 		}
 		if (toOpen < 0 && toClose > 0) {
-			$.clockIcon.color = Alloy._success_color;
+			$.clockIconLbl.color = Alloy.TSS.success_color.color;
 			$.clockLbl.applyProperties({
 				text : "Open till ".concat(till),
-				color : Alloy._success_color
+				color : Alloy.TSS.success_color.color
 			});
 		} else {
-			$.clockIcon.color = Alloy._error_color;
+			$.clockIconLbl.color = Alloy.TSS.error_color.color;
 			$.clockLbl.applyProperties({
 				text : till ? "Closed at ".concat(till) : "Closed",
-				color : Alloy._error_color
+				color : Alloy.TSS.error_color.color
 			});
 		}
+	}
+
+	if (dates.length) {
+		var datesSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionStoreHours);
+		for (var i in dates) {
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
+				classes : ["auto-height"]
+			}),
+			    view = $.UI.create("View", {
+				apiName : "View",
+				classes : ["list-item-view"]
+			}),
+			    leftLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["left", "list-item-info-lbl"]
+			}),
+			    rightLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["right", "list-item-detail-lbl"]
+			});
+			leftLbl.text = dates[i].day;
+			rightLbl.text = dates[i].storehours;
+			view.add(leftLbl);
+			view.add(rightLbl);
+			row.add(view);
+			datesSection.add(row);
+		}
+		data.push(datesSection);
+	}
+
+	if (services.length) {
+		var servicesSection = uihelper.createTableViewSection($, Alloy.Globals.strings.sectionStoreServices);
+		for (var i in services) {
+			var row = $.UI.create("TableViewRow", {
+				apiName : "TableViewRow",
+				classes : ["auto-height"]
+			}),
+			    titleLbl = $.UI.create("Label", {
+				apiName : "Label",
+				classes : ["list-item-title-lbl"]
+			});
+			titleLbl.text = services[i].service;
+			row.add(titleLbl);
+			servicesSection.add(row);
+		}
+		data.push(servicesSection);
 	}
 
 	$.tableView.data = data;
 }
 
 function underConstruction() {
-	dialog.show({
+	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgUnderConstruction
 	});
 }
 
 function didClickPhone(e) {
-	Ti.Platform.openURL("tel:" + store.mobileareacode + store.mobileprefix + store.mobilenumber);
+	uihelper.showDialer(store.mobileareacode + store.mobileprefix + store.mobilenumber);
 }
 
 function didClickDirection(e) {
-	uihelper.getDirection(Alloy.Globals.currentLocation, (store.latitude + "," + store.longitude));
+	uihelper.getDirection(store.latitude + "," + store.longitude);
 }
 
 function didClickRefill(e) {
@@ -148,7 +143,7 @@ function didClickFavorite(e) {
 }
 
 function didClickHome(e) {
-	dialog.show({
+	uihelper.showDialog({
 		message : String.format(Alloy.Globals.strings.msgChangeHomePharmacy, store.addressline1),
 		buttonNames : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.strCancel],
 		cancelIndex : 1,

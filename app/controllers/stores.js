@@ -1,64 +1,14 @@
 var args = arguments[0] || {},
     app = require("core"),
     logger = require("logger"),
+    utilities = require("utilities"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
-    dialog = require("dialog"),
-    icons = Alloy.CFG.icons,
-    isBusy = false;
+    icons = Alloy.CFG.icons;
 
-function toCamelCase(s) {
-	// remove all characters that should not be in a variable name
-	// as well underscores an numbers from the beginning of the string
-	s = s.replace(/([^a-zA-Z0-9_\- ])|^[_0-9]+/g, "").trim().toLowerCase();
-	// uppercase letters preceeded by a hyphen or a space
-	s = s.replace(/([ -]+)([a-zA-Z0-9])/g, function(a, b, c) {
-		return c.toUpperCase();
-	});
-	// uppercase letters following numbers
-	s = s.replace(/([0-9]+)([a-zA-Z])/g, function(a, b, c) {
-		return b + c.toUpperCase();
-	});
-	return s;
-}
-
-function firstToUpperCase(str) {
-	var strTemp = str.split(' ');
-	for (var i = 0; i < strTemp.length; i++) {
-		strTemp[i] = strTemp[i].substr(0, 1).toUpperCase() + strTemp[i].substr(1).toLowerCase();
-	};
-	str = strTemp.join(" ");
-	return str;
-}
-
-function getLocation(callback) {
-	var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
-	if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
-		dialog.show({
-			message : Alloy.Globals.strings.msgGeoAuthorizationDenied
-		});
-	} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
-		dialog.show({
-			message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
-		});
-	} else {
-		if (OS_MOBILEWEB) {
-			Ti.Geolocation.MobileWeb.locationTimeout = 10000;
-		}
-		app.navigator.showLoader({
-			message : Alloy.Globals.strings.msgPleaseWait
-		});
-		Ti.Geolocation.getCurrentPosition(function(e) {
-			if (e.success && _.isEmpty(e.coords) == false) {
-				Alloy.Globals.currentLocation = e.coords;
-			}
-			if (callback) {
-				callback();
-			} else {
-				didSearch();
-			}
-		});
-	}
+function init() {
+	//app.navigator.showLoader(Alloy.Globals.strings.msgPleaseWait);
+	//uihelper.getLocation(didSearch);
 }
 
 function didReturn(e) {
@@ -66,60 +16,62 @@ function didReturn(e) {
 		$.searchbar.blur();
 	}
 	if ($.searchbar.getValue() != "") {
-		didSearch();
+		uihelper.getLocation(didSearch);
 	}
 }
 
-function didSearch() {
+function didSearch(_currentLocation) {
 	http.request({
-		method : "advsearchpharmacies",
+		method : "STORES_ADVANCED_SEARCH",
 		data : {
 			request : {
 				advsearchpharmacy : {
 					searchstring : $.searchbar.getValue(),
 					storeid : "",
-					latitude : Alloy.Globals.currentLocation.latitude || "",
-					longitude : Alloy.Globals.currentLocation.longitude || "",
 					fetchalldetails : 1,
-					pagenumber : "",
-					pagesize : "",
+					pagesize : 15,
+					pagenumber : 1,
+					latitude : _currentLocation.latitude || "",
+					longitude : _currentLocation.longitude || "",
+					fetchalldetails : 1,
 					featurecode : "TH054"
 				}
 			}
 		},
-		success : didGetPharmacies,
-		failure : function() {
-			Alloy.Collections.stores.reset([]);
-			loadMap();
-		}
+		passthrough : _currentLocation,
+		format : "xml",
+		success : didGetStores,
+		failure : didFailure
 	});
 }
 
-function didGetPharmacies(result) {
-	var showDistance = !_.isEmpty(Alloy.Globals.currentLocation);
-	var pharmacies = result.advsearchpharmacy.pharmacy;
-	for (var i in pharmacies) {
-		var pharmacy = pharmacies[i];
-		pharmacy.addressline1 = firstToUpperCase(pharmacy.addressline1);
-		pharmacy.favorite = Number(pharmacy.bookmarked) ? icons.favorite : "";
-		pharmacy.subtitle = firstToUpperCase(pharmacy.city) + ", " + pharmacy.state + " " + pharmacy.zip;
-		pharmacy.showDistance = showDistance;
-		logger.i(pharmacy.showDistance);
-		if (showDistance) {
-			pharmacy.distance = pharmacy.distance + " mi away";
-		}
-		logger.i(pharmacies[i]);
-	}
-	Alloy.Collections.stores.reset(pharmacies);
+function didFailure() {
+	Alloy.Collections.stores.reset([]);
 	loadMap();
 }
 
-function loadMap(e) {
+function didGetStores(_result, _currentLocation) {
+	var distanceEnabled = !_.isEmpty(_currentLocation),
+	    pharmacies = _result.pharmacy;
+	for (var i in pharmacies) {
+		var pharmacy = pharmacies[i];
+		pharmacy.addressline1 = utilities.ucword(pharmacy.addressline1);
+		pharmacy.favorite = Number(pharmacy.ishomepharmacy) ? icons.home : Number(pharmacy.bookmarked) ? icons.favorite : "";
+		pharmacy.subtitle = utilities.ucfirst(pharmacy.city) + ", " + pharmacy.state + " " + pharmacy.zip;
+		pharmacy.distance_enabled = distanceEnabled;
+		if (distanceEnabled) {
+			pharmacy.distance = pharmacy.distance + " mi";
+		}
+	}
+	Alloy.Collections.stores.reset(pharmacies);
+	loadMap(distanceEnabled);
+}
+
+function loadMap(_directionEnabled) {
 
 	var Map = Alloy.Globals.Map,
-	    annotations = [];
-
-	var totalLocations = Alloy.Collections.stores.length,
+	    totalLocations = Alloy.Collections.stores.length,
+	    annotations = [],
 	    minLongi = null,
 	    minLati = null,
 	    maxLongi = null,
@@ -127,10 +79,9 @@ function loadMap(e) {
 
 	Alloy.Collections.stores.map(function(model) {
 
-		var data = model.toJSON();
-
-		var latitude = Number(data.latitude);
-		var longitude = Number(data.longitude);
+		var data = model.toJSON(),
+		    latitude = Number(data.latitude),
+		    longitude = Number(data.longitude);
 
 		if (minLati == null || minLati > latitude) {
 			minLati = latitude;
@@ -145,9 +96,11 @@ function loadMap(e) {
 		}
 
 		var properties = {
-			image : "/images/map_pin.png",
+			image : uihelper.getImage({
+				code : "map_pin"
+			}).image,
 			storeId : data.storeid,
-			title : firstToUpperCase(data.addressline1),
+			title : data.addressline1,
 			subtitle : data.subtitle,
 			latitude : latitude,
 			longitude : longitude
@@ -157,7 +110,7 @@ function loadMap(e) {
 			_.extend(properties, {
 				rightView : getMapIcon("/images/map_right_button.png", "rightPane", data.storeid)
 			});
-			if (!_.isEmpty(Alloy.Globals.currentLocation)) {
+			if (_directionEnabled) {
 				_.extend(properties, {
 					leftView : getMapIcon("/images/map_left_button.png", "leftPane", data.storeid)
 				});
@@ -166,7 +119,7 @@ function loadMap(e) {
 			_.extend(properties, {
 				rightButton : "/images/map_right_button.png"
 			});
-			if (!_.isEmpty(Alloy.Globals.currentLocation)) {
+			if (_directionEnabled) {
 				_.extend(properties, {
 					leftButton : "/images/map_left_button.png"
 				});
@@ -179,9 +132,9 @@ function loadMap(e) {
 
 	$.mapView.annotations = annotations;
 
-	var ltDiff = (maxLati || minLati) - minLati;
-	var lgDiff = (maxLongi || minLongi) - minLongi;
-	var delta = ltDiff > lgDiff ? ltDiff : lgDiff;
+	var ltDiff = (maxLati || minLati) - minLati,
+	    lgDiff = (maxLongi || minLongi) - minLongi,
+	    delta = ltDiff > lgDiff ? ltDiff : lgDiff;
 	if (totalLocations > 0 && delta > 0) {
 		$.mapView.setLocation({
 			animate : true,
@@ -192,12 +145,6 @@ function loadMap(e) {
 		});
 	}
 }
-
-function camelCase(e) {
-	return this.replace(/(\-[a-z])/g, function($1) {
-		return $1.toUpperCase().replace('-', '');
-	});
-};
 
 function getMapIcon(image, clicksource, storeId) {
 	var view = Ti.UI.createView({
@@ -213,9 +160,9 @@ function getMapIcon(image, clicksource, storeId) {
 
 function didToggle(e) {
 	$.searchbar.blur();
-	var lVisible = $.listContainer.visible;
-	$.listContainer.visible = !lVisible;
-	$.mapContainer.visible = lVisible;
+	var lVisible = $.tableView.visible;
+	$.tableView.visible = !lVisible;
+	$.mapView.visible = lVisible;
 	$.toggleBtn.title = lVisible ? icons.list : icons.map;
 }
 
@@ -228,8 +175,8 @@ function didAnnotationClick(e) {
 		case "infoWindow":
 		case "title":
 		case "subtitle":
-			if (args.orgin == "fullSignup" || args.orgin == "refillTyprRx") {
-				fullsignup(annotation.storeId);
+			if (args.orgin) {
+				updateStoreAndClose(annotation.storeId);
 			} else {
 				openStoreDetail(annotation.storeId);
 			}
@@ -239,7 +186,7 @@ function didAnnotationClick(e) {
 				storeid : annotation.storeId
 			});
 			if (stores.length) {
-				uihelper.getDirection(Alloy.Globals.currentLocation, (stores[0].get("latitude") + "," + stores[0].get("longitude")));
+				uihelper.getDirection(stores[0].get("latitude") + "," + stores[0].get("longitude"));
 			}
 			break;
 		}
@@ -248,42 +195,34 @@ function didAnnotationClick(e) {
 
 function didItemClick(e) {
 	var rowId = e.row.rowId;
-	if (args.orgin == "fullSignup" || args.orgin == "refillTyprRx") {
-		fullsignup(rowId);
+	if (args.orgin) {
+		updateStoreAndClose(rowId);
 	} else {
 		openStoreDetail(rowId);
 	}
 }
 
-function fullsignup(storeId) {
-	if (!isBusy) {
-		isBusy = true;
-		Alloy.Models.store.set(Alloy.Collections.stores.where({
-		storeid: storeId
-		})[0].toJSON());
-		app.navigator.close();
-	}
+function updateStoreAndClose(storeId) {
+	Alloy.Models.store.set(Alloy.Collections.stores.where({
+	storeid: storeId
+	})[0].toJSON());
+	app.navigator.close();
 }
 
 function openStoreDetail(storeId) {
-	if (!isBusy) {
-		isBusy = true;
-		app.navigator.open({
-			ctrl : "storeDetail",
-			titleid : "titleStoreDetails",
-			ctrlArguments : {
-				storeId : storeId
-			},
-			stack : true
-		}, function() {
-			isBusy = false;
-		});
-	}
+	app.navigator.open({
+		ctrl : "storeDetail",
+		titleid : "titleStoreDetails",
+		ctrlArguments : {
+			storeId : storeId
+		},
+		stack : true
+	});
 }
 
 function terminate() {
 	$.destroy();
 }
 
-exports.init = getLocation;
+exports.init = init;
 exports.terminate = terminate;

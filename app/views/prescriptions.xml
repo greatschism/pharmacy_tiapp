@@ -1,7 +1,7 @@
 <Alloy>
-	<Widget id="optionsMenu" src="com.mscripts.optiondialog" onClick="didClickOptionItem" />
-	<Widget id="sortMenu" src="com.mscripts.optiondialog" />
-	<Widget id="unhideMenu" src="com.mscripts.optionpicker" class="optionpicker">
+	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionItem" />
+	<Widget id="sortMenu" src="ti.optiondialog" onClick="didClickSort" />
+	<Widget id="unhideMenu" src="ti.optionpicker" class="optionpicker">
 		<View class="default-height" role="headerView">
 			<Button id="selectNoneBtn" class="left width-50 thirtiary-btn-small" onClick="didClickSelectNone" />
 			<Button id="selectAllBtn" class="right width-50 thirtiary-btn-small" onClick="didClickSelectAll" />
@@ -15,7 +15,7 @@
 	</Widget>
 	<Button id="rightNavBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickOptionMenu"/>
 	<View id="searchView" class="top search-view fade-out">
-		<Widget id="searchbar" src="com.mscripts.textfield"  class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch" />
+		<Widget id="searchbar" src="ti.textfield"  class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch" />
 	</View>
 	<TableView id="tableView" class="top secondary-bg-color" onClick="didItemClick">
 		<FooterView>

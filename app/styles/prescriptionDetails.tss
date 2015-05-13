@@ -17,7 +17,7 @@
 "#refillBtn":{
 	left: 0,
 	right: 0,
-	title: Alloy.Globals.strings.btnRefillPrescription
+	title: Alloy.Globals.strings.lblRefill
 },
 "#remindersLbl":{
 	text: Alloy.Globals.strings.strReminders
@@ -45,12 +45,26 @@
 	},
 	text: Alloy.Globals.strings.strRefillHistory
 },
+
 "#dosageInstructionLbl":{
-	font :{
-		fontSize : 14
+	text:Alloy.Globals.strings.lblDosageInstruction,
+	font:{
+		fontSize: 14,
+		fontFamily: "bold"
 	},
-	text: Alloy.Globals.strings.lblDosageInstruction
-},
+	right: 60,
+	bottom: 15
+}
+"#dosageInstructionLblValue":{
+	text:"Take twice a day with plenty of water.",
+	font:{
+		fontSize: 12,
+		fontFamily: "bold"
+	},
+
+	top: 20,
+	width: 400
+}
 "#hideBtn":{
 	title: Alloy.Globals.strings.btnHideThisPrescription
 },
@@ -96,5 +110,66 @@
 	left: 0,
 	color: "#F6931E",
 	text: Alloy.CFG.icons.user
+},
+".s1":{
+color:"#000000",
+font:{
+	fontSize: 17,
+	fontFamily:"bold"
+}},
+".s3":{
+color:"#808285",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
+},
+".s13":{
+color:"#0095ff",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
+},
+".s6":{
+color:"#000000",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}},
+".s21":{
+color:"#c4c4c4",
+font:{
+	fontSize: 14,
+	fontFamily:"regular"
+}	
+},
+".s7":{
+color:"#000000",
+font:{
+	fontSize: 14,
+	fontFamily:"bold"
+}	
+},
+".s12":{
+color:"#5b5b5b",
+font:{
+	fontSize: 12,
+	fontFamily:"regular"
+}	
+},
+".s17":{
+color:"#000000",
+font:{
+	fontSize: 12,
+	fontFamily:"regular"
+}	
+},
+".filledArrowIcon":{
+	font:{
+		fontSize:28,
+		fontFamily : "mscripts",
+	},
+	text:Alloy.CFG.icons.filled_arrow_down,
+	color:"#808285"
 }
-

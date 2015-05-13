@@ -4,7 +4,6 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    dialog = require("dialog"),
     RX_NUMBER_PREFIX = Alloy.CFG.RX_NUMBER_PREFIX,
     PRESCRIPTION_AUTO_HIDE_AT = Alloy.CFG.PRESCRIPTION_AUTO_HIDE_AT,
     PRESCRIPTION_TOOLTIP_REMINDER_AT = Alloy.CFG.PRESCRIPTION_TOOLTIP_REMINDER_AT,
@@ -34,10 +33,22 @@ var args = arguments[0] || {},
     tooltipLblStyle = $.createStyle({
 	classes : ["tooltip-lbl"]
 });
-
+Ti.App.addEventListener("reload", init);
 function init() {
+
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
+		data : {
+			data : [{
+				prescriptions : {
+					id : null,
+					sort_order_preferences : (_.findWhere(Alloy.Collections.sortPreferences.toJSON(), {
+						selected : true
+					}) || {}).code_value || null,
+					prescription_display_status : "active"
+				}
+			}]
+		},
 		success : didGetPrescriptionList
 	});
 }
@@ -51,12 +62,15 @@ function didGetPrescriptionList(_result, _passthrough) {
 	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
+	var i = 5;
 	_.map(_result.data.prescriptions, function(prescription) {
+		i++;
 		var status = prescription.refill_status,
-		    refillDate = moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT);
+		    refillDate = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT) : moment().add(i, "days");
 		prescription.is_overdue = parseInt(prescription.is_overdue);
 		prescription.refill_in_days = Math.abs(currentDate.diff(refillDate, "days"));
 		prescription.rx_number_formated = RX_NUMBER_PREFIX.concat(prescription.rx_number);
+		prescription.presc_name = utilities.ucword(prescription.presc_name);
 		switch(status) {
 		case apiCodes.PRESCRIPTION_READY_FOR_PICKUP:
 			prescription.days_after_promised_date = currentDate.diff(moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT), "days");
@@ -70,15 +84,16 @@ function didGetPrescriptionList(_result, _passthrough) {
 			prescription.property = "readyForPickup";
 			break;
 		case apiCodes.PRESCRIPTION_GETTING_REFILLED:
-			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.DATE_FORMAT),
-			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT),
+			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.DATE_TIME_FORMAT),
+			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.DATE_TIME_FORMAT),
 			    timeSpent = currentDate.diff(refillRequestDate, "seconds"),
 			    timeTake = promisedDate.diff(refillRequestDate, "seconds");
 			prescription.progress = Math.floor((timeSpent / timeTake) * 100) + "%";
-			prescription.info = String.format(strings.msgOrderPlacedReadyBy, refillDate.format("dddd"));
+			prescription.info = String.format(strings.msgOrderPlacedReadyBy, promisedDate.format("dddd"));
 			prescription.property = "gettingRefilled";
 			break;
 		case apiCodes.PRESCRIPTION_READY_FOR_REFILL:
+		case apiCodes.PRESCRIPTION_TO_BE_REFILLED:
 			if (prescription.is_overdue) {
 				prescription.info_style = overDueInfoStyle;
 				prescription.detail_style = overDueDetailStyle;
@@ -156,9 +171,33 @@ function didChangeSearch(e) {
 }
 
 function didItemClick(e) {
+	http.request({
+		method : "PRESCRIPTIONS_GET",
+		data : {
+			data : [{
+				prescriptions : {
+					id : e.row.rowId,
+					sort_order_preferences : (_.findWhere(Alloy.Collections.sortPreferences.toJSON(), {
+						selected : true
+					}) || {}).code_value || null,
+					prescription_display_status : "active"
+				}
+			}]
+		},
+		success : didGetPrescriptions
+	});
+}
+
+function didGetPrescriptions(_result) {
+	prescriptionData = _result.data.prescriptions[0] || {};
 	app.navigator.open({
 		ctrl : "prescriptionDetails",
-		titleid : "",
+		title : prescriptionData.presc_name,
+		ctrlArguments : {
+			patientName : prescriptionData.presc_name,
+			prescription : prescriptionData,
+			doctorId : prescriptionData.doctor_id
+		},
 		stack : true
 	});
 }
@@ -186,38 +225,32 @@ function didClickOptionItem(e) {
 
 function unhide() {
 	http.request({
-		method : "PRESCRIPTIONS_GET",
+		method : "PRESCRIPTIONS_LIST",
 		data : {
-			filter : null,
 			data : [{
-				id : "x",
-				sort_order_preferences : "x",
-				prescription_display_status : "hidden"
-
+				prescriptions : {
+					id : null,
+					sort_order_preferences : (_.findWhere(Alloy.Collections.sortPreferences.toJSON(), {
+						selected : true
+					}) || {}).code_value || null,
+					prescription_display_status : "hidden"
+				}
 			}]
 		},
 		success : didGetHiddenPrescriptions,
 	});
 }
 
-function didGetHiddenPrescriptions(result) {
-	allPrescriptions = result.data.prescriptions || [];
-	hiddenPrescriptions = new Array;
-	items = new Array;
-	var k = 0;
-	for (var i in allPrescriptions) {
-		if (allPrescriptions[i].prescription_display_status === "hidden") {
-			hiddenPrescriptions[k] = allPrescriptions[i].presc_name;
-			items[k] = {
-				title : hiddenPrescriptions[k],
-				id : allPrescriptions[i].id
-			};
-			k++;
-
-		}
+function didGetHiddenPrescriptions(_result) {
+	//for demo purpose only
+	if (!_.isEmpty(_result)) {
+		$.unhideMenu.setItems(_result.data.prescriptions);
+		$.unhideMenu.show();
+	} else {
+		uihelper.showDialog({
+			message : "No hidden prescriptions found"
+		});
 	}
-	$.unhideMenu.setItems(items);
-	$.unhideMenu.show();
 }
 
 function toggleSearchView() {
@@ -255,6 +288,17 @@ function sort() {
 	$.sortMenu.show();
 }
 
+function didClickSort(e) {
+	if (!e.cancel) {
+		Alloy.Collections.sortPreferences.sortBy(function(model, index) {
+			model.set({
+				selected : e.index == index
+			});
+		});
+		init();
+	}
+}
+
 function getSortPreferences() {
 	http.request({
 		method : "CODE_VALUES_GET",
@@ -281,47 +325,41 @@ function didClickCloseBtn(e) {
 }
 
 function didClickUnhideBtn(e) {
-	var unhiddenPrescriptions = $.unhideMenu.getSelectedItems();
-	var list;
-	list = new Array;
-	if (unhiddenPrescriptions.length) {
-		for (var i in unhiddenPrescriptions) {
-			list[i] = {
-				id : unhiddenPrescriptions[i].id
-			};
-		}
-		$.unhideMenu.hide();
-		http.request({
-			method : "PRESCRIPTIONS_UNHIDE",
-			data : {
-				filter : null,
-				"data" : [{
-					"prescriptions" : list
-				}]
-			},
-			success : didSuccess,
-		});
-	}
-
+	$.unhideMenu.hide();
+	http.request({
+		method : "PRESCRIPTIONS_UNHIDE",
+		data : {
+			data : [{
+				prescriptions : $.unhideMenu.getSelectedItems()
+			}]
+		},
+		success : didSuccess,
+	});
 }
 
 function didSuccess(_result) {
-	dialog.show({
-		message : Alloy.Globals.strings.msgPrescriptionsUnhidden
+	uihelper.showDialog({
+		message : Alloy.Globals.strings.msgPrescriptionsUnhidden,
+		success : init
 	});
 }
 
 function didClickSelectNone(e) {
-	$.unhideMenu.setSelectedItems([], false);
+	$.unhideMenu.setSelectedItems({}, false);
 }
 
 function didClickSelectAll(e) {
-	$.unhideMenu.setSelectedItems([], true);
+	$.unhideMenu.setSelectedItems({}, true);
 }
 
 function didAndroidBack() {
 	return $.optionsMenu.hide();
 }
 
+function terminate() {
+	Ti.App.removeEventListener("reload", init);
+}
+
 exports.init = init;
 exports.androidback = didAndroidBack;
+exports.terminate = terminate;

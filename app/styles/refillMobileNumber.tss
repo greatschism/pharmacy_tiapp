@@ -1,5 +1,9 @@
 "#hintLbl":{
-	text: Alloy.Globals.strings.lblRefillNowPhoneHint
+	text: Alloy.Globals.strings.lblRefillNowPhoneHint,
+	font : {
+					fontWeight : 'regular',
+					fontSize : 14
+				},
 },
 "#mobileTxt":{
 	hintText: Alloy.Globals.strings.hintMobileNumber,

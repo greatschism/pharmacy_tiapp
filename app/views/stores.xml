@@ -1,28 +1,23 @@
 <Alloy>
-	<Button id="toggleBtn" class="nav-right-icon" onClick="didToggle" />
-	<View>
-		<View id="mapContainer">
-			<View id="mapView" ns="Alloy.Globals.Map" onClick="didAnnotationClick" />
-			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
+	<Button id="toggleBtn" class="role-right-nav-btn nav-icon-btn" onClick="didToggle" />
+	<View class="vgroup">
+		<View id="searchView" class="top search-view">
+			<Widget id="searchbar" src="ti.textfield"  class="top returnkey-search search-txt" onReturn="didSearch" onClear="didSearch" />
 		</View>
-		<View id="listContainer" class="vgroup bg-senary show">
-			<Widget id="searchbar" src="com.mscripts.textfield" class="txt" onReturn="didReturn" onClear="didSearch" />
-			<TableView id="tableView" dataCollection="stores" onClick="didItemClick">
+		<View>
+			<View id="mapView" ns="Alloy.Globals.Map" class="hide" onClick="didAnnotationClick" />
+			<TableView id="tableView" class="secondary-bg-color show" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="auto-height" rowId="{storeid}" className="store">
-					<View class="list-item-view-with-child">
-						<Label class="list-item-left-icon fg-tertiary" if="Alloy.Globals.loggedIn" text="{favorite}" />
-						<View class="list-item-content-after-icon">
-							<View class="left width-60 auto-height vgroup">
-								<Label class="fill-width fg-secondary h3-fixed" text="{addressline1}" />
-								<Label class="fill-width fg-quaternary h5-fixed" text="{subtitle}" />
-							</View>
-							<View class="bottom right width-40 auto-height" visible="{showDistance}">
-								<Label class="distance-icon padding-left font-icon fg-quaternary" />
-								<Label class="icon-lbl fill-width h6-fixed fg-quaternary" text="{distance}" />
-							</View>
+					<Label class="list-item-left-icon" if="Alloy.Globals.loggedIn" text="{favorite}" />
+					<View class="list-item-view-with-icon">
+						<View class="left width-60 auto-height vgroup">
+							<Label class="left list-item-title-lbl" text="{addressline1}" />
+							<Label class="left list-item-subtitle-lbl" text="{subtitle}" />
+						</View>
+						<View class="right width-35 auto-height vgroup" visible="{distance_enabled}">
+							<Label class="right list-item-info-lbl" text="{distance}" />
 						</View>
 					</View>
-					<Label class="list-item-child" />
 				</TableViewRow>
 			</TableView>
 		</View>

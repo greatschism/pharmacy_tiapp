@@ -1,16 +1,18 @@
 <Alloy>
 	<TableView dataCollection="menuItems" dataTransform="transformFunction" dataFilter="filterFunction" onClick="didItemClick">
 		<HeaderView>
-			<View id="headerView" class="touch-disabled accessibility-disabled" />
+			<View id="headerView">
+				<ImageView id="logoImg" class="margin-bottom" />
+			</View>
 		</HeaderView>
-		<TableViewRow class="primary-bg-color">
-			<View class="list-item-view hgroup no-hwrap touch-disabled">
-				<Label text="{icon}" class="left small-icon secondary-color touch-disabled accessibility-disabled" />
-				<Label text="{title}" class="padding-left list-item-lbl secondary-color touch-disabled" />
+		<TableViewRow class="menu-row">
+			<View class="menu-item-view">
+				<Label text="{icon}" class="menu-item-icon" />
+				<Label text="{title}" class="menu-item-lbl" />
 			</View>
 		</TableViewRow>
 		<FooterView>
-			<View id="footerView" class="touch-disabled accessibility-disabled" />
+			<View id="footerView" />
 		</FooterView>
 	</TableView>
 </Alloy>

@@ -1,8 +1,0 @@
-"#widget":{
-	height: Ti.UI.SIZE
-},
-"#containerView":{
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	layout: "horizontal"
-}

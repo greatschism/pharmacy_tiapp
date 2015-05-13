@@ -3,13 +3,13 @@ var args = arguments[0] || {},
 
 Ti.Media.showCamera({
 	success : function(e) {
-		logger.i("success");
+		logger.info("success");
 	},
 	cancel : function() {
-		logger.i("error");
+		logger.info("error");
 	},
 	error : function(error) {
-		logger.i("error: " + JSON.stringify(error));
+		logger.info("error: " + JSON.stringify(error));
 	},
 	autohide : false,
 	showControls : true

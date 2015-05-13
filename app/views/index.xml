@@ -1,4 +1,4 @@
 <Alloy>
 	<Window id="window" onOpen="didOpen" onAndroidback="didAndroidback" />
-	<Widget id="loading" src="com.mscripts.loading" />
+	<Widget id="loading" src="ti.loading" />
 </Alloy>

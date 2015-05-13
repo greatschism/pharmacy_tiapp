@@ -1,34 +1,19 @@
 var args = arguments[0] || {},
     app = require("core"),
     controller,
-    rightNavView;
+    rightNavItem;
 
 (function() {
+
+	$.window.title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
 
-	var title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
-
-	$.window.title = title;
-
-	$.window.setActionBarProperties({
-		title : "\t" + title,
-		font : Alloy.TSS.Window.titleAttributes.font.fontFamily,
-		color : Alloy.TSS.Window.titleAttributes.color,
-		backgroundColor : Alloy.TSS.Window.barColor,
-		logo : {
-			icon : Alloy.CFG.icons.back,
-			font : Alloy.TSS.nav_icon_btn.font.fontFamily,
-			color : Alloy.TSS.nav_icon_btn.color,
-			accessibilityLabel : Alloy.Globals.strings.accessibilityLblNavigateBack
-		}
-	});
-
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		if (child.__controllerPath) {
+		if (child.__controllerPath && !child.role) {
 			child = child.getView();
 		}
 		if (!child) {
@@ -36,7 +21,7 @@ var args = arguments[0] || {},
 		}
 		switch(child.role) {
 		case "rightNavButton":
-			rightNavView = child;
+			rightNavItem = child;
 			break;
 		default:
 			$.window.add(child);
@@ -44,6 +29,20 @@ var args = arguments[0] || {},
 	});
 
 	controller.app = app;
+
+	controller.logger = require("logger");
+
+	controller.http = require("requestwrapper");
+
+	controller.httpclient = require("http");
+
+	controller.utilities = require("utilities");
+
+	controller.uihelper = require("uihelper");
+
+	controller.uihelper = require("analytics");
+
+	controller.apm = require("apm");
 
 	controller.window = $.window;
 
@@ -61,14 +60,10 @@ var args = arguments[0] || {},
 
 function didOpen(e) {
 
-	var actionBar = $.window.getActivity().actionBar;
-	if (actionBar) {
-		actionBar.setOnHomeIconItemSelected(didClickLeftNavView);
-	}
+	$.actionBar = $.window.getActivity().actionBar;
 
-	if (rightNavView) {
-		setRightNavButton(rightNavView);
-		rightNavView = null;
+	if (rightNavItem) {
+		setRightNavButton(rightNavItem);
 	}
 
 	if (args.navBarHidden) {
@@ -94,33 +89,24 @@ function didClickLeftNavView(e) {
 	if (_.isFunction(controller.backButtonHandler) && controller.backButtonHandler()) {
 		return;
 	}
-	app.navigator.close();
+	app.navigator.close(1, e && e.source == $.window);
 }
 
 function showNavBar() {
-	var actionBar = $.window.getActivity().actionBar;
-	if (actionBar) {
-		actionBar.show();
-	}
+	$.actionBar.show();
 }
 
 function hideNavBar() {
-	var actionBar = $.window.getActivity().actionBar;
-	if (actionBar) {
-		actionBar.hide();
-	}
+	$.actionBar.hide();
 }
 
-function setRightNavButton(_view) {
+function setRightNavButton(_widget) {
 	var activity = $.window.getActivity();
 	activity.onCreateOptionsMenu = function(e) {
 		var menu = e.menu;
 		menu.clear();
-		if (_view) {
-			menu.add({
-				actionView : _view,
-				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
-			});
+		if (_widget && _widget.__controllerPath) {
+			_widget.setMenu(menu);
 		}
 	};
 	activity.invalidateOptionsMenu();

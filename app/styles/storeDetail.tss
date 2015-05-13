@@ -1,11 +1,5 @@
-".distance-icon":{
-	text: Alloy.CFG.icons.pin
-},
 ".clock-icon":{
 	text: Alloy.CFG.icons.clock
-},
-".icon-lbl":{
-	left: 28
 },
 "#directionBtn":{
 	title: Alloy.Globals.strings.strDirections

@@ -1,9 +1,9 @@
 <Alloy>
 	
 	<ScrollView id="refillSelectMainNavWin" class="vgroup">
-		<Label id="titleLbl" class="styled-h2 padding-top fg-primary multi-line" />
-		<Label id="hintLbl" class="styled-h2 padding-top fg-primary multi-line" />		
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done padding-bottom" onChange="didChange" onReturn="didClickContinue" />
+		<Label id="titleLbl" class=" padding-top multi-line" />
+		<Label id="hintLbl" class=" padding-left padding-right multi-line" />		
+		<Widget id="mobileTxt" src="ti.textfield" class="padding-top txt returnkey-done padding-bottom" onChange="didChange" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="padding-top margin-bottom primary-btn padding-bottom" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>

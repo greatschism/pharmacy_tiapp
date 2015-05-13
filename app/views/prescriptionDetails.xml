@@ -1,29 +1,32 @@
 <Alloy>
 	<TableView>
 		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="detailsLbl" class="section-header-lbl" />
+			<TableViewRow>
+				<View id="detailsView" class="auto-height vgroup">
+					<View id="nameView" class= "padding-bottom auto-height"  >
+					<Label id="prescriptionNameLbl" class="s1 padding-left" />
+					<Label id="filledArrowIconLbl" class="padding-right filledArrowIcon" onClick="didClickExpand" />
+					</View>
 				</View>
-			</HeaderView>
+			</TableViewRow>
 			<TableViewRow>
 				<View class="list-item-view vgroup">
-					<Label id="prescriptionNameLbl" class="left title-lbl" />
-					<View class="padding-top auto-height">
-						<View class="left width-30 auto-height vgroup">
-							<Label id="refillsLeftLbl" class="info-lbl" />
+				
+					<View class="auto-height">
+						<View class="left width-20 auto-height vgroup">
+							<Label id="refillsLeftLbl" class="s12" />
 							<View class="padding-top auto-width info-view">
 								<Label id="refillLeftInfoLbl" class="info-lbl" />
 							</View>
 						</View>
-						<View class="width-30 auto-height vgroup">
-							<Label id="dueForRefillLbl" class="info-lbl" />
+						<View class="width-35 auto-height vgroup">
+							<Label id="dueForRefillLbl" class="s12" />
 							<View class="padding-top auto-width info-view">
 								<Label id="dueForRefillInfoLbl" class="info-lbl" />
 							</View>
 						</View>
-						<View class="right width-30 auto-height vgroup">
-							<Label id="lastRefillLbl" class="info-lbl" />
+						<View class="right width-35 auto-height vgroup">
+							<Label id="lastRefillLbl" class="s12" />
 							<View class="padding-top auto-width info-view">
 								<Label id="lastRefillInfoLbl" class="info-lbl" />
 							</View>
@@ -31,7 +34,7 @@
 					</View>
 					<View class="padding-top auto-height">
 						<Label id="autoRefillLbl" class="left list-item-lbl" />
-						<Widget id="autoRefillSwt" src="com.mscripts.switch" class="right swt" />
+						<Widget id="autoRefillSwt" src="ti.switch" class="right swt" />
 					</View>
 					<Button id="refillBtn" class="padding-top primary-btn" onClick="didClickRefillPrescription"/>
 				</View>
@@ -40,19 +43,19 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="section-header-view">
-					<Label id="remindersLbl" class="section-header-lbl" />
+					<Label id="remindersLbl" class="section-header-lbl"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
 				<View class="list-item-view">
-					<Widget id="remindMeToRefillLbl" src="com.mscripts.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="remindMeToRefillSwt" src="com.mscripts.switch" class="right swt" />
+					<Widget id="remindMeToRefillLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
+					<Widget id="remindMeToRefillSwt" src="ti.switch" class="right swt" />
 				</View>
 			</TableViewRow>
 			<TableViewRow>
 				<View class="list-item-view">
-					<Widget id="setTimeLbl" src="com.mscripts.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="setTimeSwt" src="com.mscripts.switch" class="right swt" />
+					<Widget id="setTimeLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
+					<Widget id="setTimeSwt" src="ti.switch" class="right swt" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
@@ -62,19 +65,22 @@
 					<Label id="informationLbl" class="section-header-lbl" />
 				</View>
 			</HeaderView>
-			<TableViewRow>
+			<TableViewRow onClick="didClickRefillHistory">
 				<View class="list-item-view-with-child">
-					<Label id="refillHistoryLbl" class="left list-item-lbl" onClick="didClickRefillHistory"/>
+					<Label id="refillHistoryLbl" class="left list-item-lbl" />
 				</View>
-				<Label class="list-item-child" onClick="didClickRefillHistory"/>
+				<Label class="list-item-child" />
 			</TableViewRow>
 			<TableViewRow>
-				<View class="list-item-view-with-child">
-					<Label id="dosageInstructionLbl" class="left list-item-lbl" />
+				<View id="dosageInstructionsRow" class="list-item-view-with-child auto-height" >
+					<Label id="dosageInstructionLbl" class="left list-item-lbl"  />
+					<Label id="dosageInstructionLblValue" class="left list-item-title-lbl" />
+					
 				</View>
-				<Label class="list-item-child-down" />
+				
+				
 			</TableViewRow>
-			<TableViewRow id ="tabView">
+			<!-- <TableViewRow id ="tabView">
 				<View id="moreHelpView" class="list-item-view ">
 					<Label id="moreHelpLbl" class="left list-item-lbl"/>
 				</View>
@@ -92,11 +98,11 @@
 				</View>
 				<Label id="configAdherLbl" class="multi-line"/>
 				<Label class="list-item-child" />
-			</TableViewRow>
+			</TableViewRow> -->
 		</TableViewSection>
 		<FooterView>
 			<View class="auto">
-				<Button id="hideBtn" class="padding-top padding-bottom secondary-btn" />
+				<Button id="hideBtn" class="padding-top padding-bottom secondary-btn" onClick="didClickHidePrescription" />
 			</View>
 		</FooterView>
 	</TableView>

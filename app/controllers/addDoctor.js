@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
     strings = Alloy.Globals.strings,
@@ -32,46 +32,46 @@ function didClickSave(e) {
 	zipCode = $.zipTxt.getValue();
 	notes = $.notesTxta.getValue();
 
-	var  allFieldsValidated = true;
+	var allFieldsValidated = true;
 
 	if (fname == "" || fname == null) {
-		dialog.show({
-				message : Alloy.Globals.strings.valFirstNameRequired
-			});
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.valFirstNameRequired
+		});
 		allFieldsValidated = false;
 
 	} else if (lname == "" || lname == null) {
-		dialog.show({
-				message : Alloy.Globals.strings.valLastNameRequired
-			});
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.valLastNameRequired
+		});
 		allFieldsValidated = false;
 
 	} else if (!utilities.validateName(fname)) {
-		dialog.show({
-				message : Alloy.Globals.strings.msgFirstNameTips
-			});
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.msgFirstNameTips
+		});
 		allFieldsValidated = false;
 
 	} else if (!utilities.validateName(lname)) {
-		dialog.show({
-				message : Alloy.Globals.strings.msgLastNameTips
-			});
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.msgLastNameTips
+		});
 		allFieldsValidated = false;
 
-	} else if (phoneNo && !(utilities.validateMobileNumber($.phoneTxt.getValue()))) {
-		dialog.show({
+	} else if (phoneNo && phoneNo.length < 10) {
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valMobileNumberRequired
 		});
 		allFieldsValidated = false;
 
-	} else if (faxNo && !(utilities.validateMobileNumber($.faxTxt.getValue()))) {
-		dialog.show({
+	} else if (faxNo && faxNo.length < 10) {
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valFaxNumberRequired
 		});
 		allFieldsValidated = false;
 
 	} else if (zipCode.length && !zipRegExp.test(zipCode)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valZipCode
 		});
 		allFieldsValidated = false;
@@ -87,25 +87,25 @@ function didClickSave(e) {
 					filter : [{
 						type : ""
 					}],
-					data : {
-						"doctors" : {
-							"doctor_dea" : "12345",
-							"first_name" : fname,
-							"last_name" : lname,
-							"addressline1" : addressLine1,
-							"addressline2" : addressLine2,
-							"state" : stateDetails || "",
-							"city" : cityDetails,
-							"zip" : zipCode,
-							"notes" : notes,
-							"phone" : phoneNo,
-							"fax" : faxNo,
-							"image_url" : "",
-							"org_name" : "MSCRIPTS",
-							"optional" : "",
-							"doctor_type" : "manual"
+					data : [{
+						doctors : {
+							id : "12345",
+							first_name : fname,
+							last_name : lname,
+							addressline1 : addressLine1,
+							addressline2 : addressLine2,
+							state : stateDetails || "",
+							city : cityDetails,
+							zip : zipCode,
+							notes : notes,
+							phone : phoneNo,
+							fax : faxNo,
+							image_url : "",
+							org_name : "MSCRIPTS",
+							optional : "",
+							doctor_type : "manual"
 						}
-					}
+					}]
 				},
 				success : didSuccessCreate
 			});
@@ -114,29 +114,25 @@ function didClickSave(e) {
 			http.request({
 				method : "DOCTORS_UPDATE",
 				data : {
-					filter : [{
-						type : ""
-					}],
-					data : {
-						"doctors" : {
-							"id" : doctor.id,
-							"doctor_dea" : "12345",
-							"first_name" : fname,
-							"last_name" : lname,
-							"addressline1" : addressLine1,
-							"addressline2" : addressLine2,
-							"state" : stateDetails || "",
-							"city" : cityDetails,
-							"zip" : zipCode,
-							"notes" : notes,
-							"phone" : phoneNo,
-							"fax" : faxNo,
-							"image_url" : "",
-							"org_name" : "MSCRIPTS",
-							"optional" : "",
-							"doctor_type" : doctor.manually_added
+					data : [{
+						doctors : {
+							id : doctor.id,
+							first_name : fname,
+							last_name : lname,
+							addressline1 : addressLine1,
+							addressline2 : addressLine2,
+							state : stateDetails || "",
+							city : cityDetails,
+							zip : zipCode,
+							notes : notes,
+							phone : phoneNo,
+							fax : faxNo,
+							image_url : "",
+							org_name : "MSCRIPTS",
+							optional : "",
+							doctor_type : doctor.manually_added
 						}
-					}
+					}]
 				},
 				success : didSuccessUpdate
 			});
@@ -150,26 +146,25 @@ function didSuccessCreate(_result) {
 
 	Alloy.Models.doctor.set({
 		doctor_add : {
-			"id" : _result.data.doctors[0].id,
-			"doctor_dea" : "12345",
-			"first_name" : fname,
-			"last_name" : lname,
-			"addressline1" : addressLine1,
-			"addressline2" : addressLine2,
-			"state" : stateDetails || "",
-			"city" : cityDetails,
-			"zip" : zipCode,
-			"notes" : notes,
-			"phone" : phoneNo,
-			"fax" : faxNo,
-			"image_url" : "",
-			"org_name" : "MSCRIPTS",
-			"optional" : "",
-			"doctor_type" : "manual"
+			//id : require("alloy/moment")().unix(),
+			first_name : fname,
+			last_name : lname,
+			addressline1 : addressLine1,
+			addressline2 : addressLine2,
+			state : stateDetails || "",
+			city : cityDetails,
+			zip : zipCode,
+			notes : notes,
+			phone : phoneNo,
+			fax : faxNo,
+			image_url : "",
+			org_name : "MSCRIPTS",
+			optional : "",
+			doctor_type : "manual"
 		}
 	});
 
-	dialog.show({
+	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgDoctorAdded,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
@@ -180,29 +175,29 @@ function didSuccessCreate(_result) {
 }
 
 function didSuccessUpdate(_result) {
+
 	Alloy.Models.doctor.set({
 		doctor_update : {
-			"id" : args.doctor.id,
-			"doctor_dea" : "12345",
-			"first_name" : fname,
-			"last_name" : lname,
-			"addressline1" : addressLine1,
-			"addressline2" : addressLine2,
-			"state" : stateDetails || "",
-			"city" : cityDetails,
-			"zip" : zipCode,
-			"notes" : notes,
-			"phone" : phoneNo,
-			"fax" : faxNo,
-			"image_url" : "",
-			"org_name" : "MSCRIPTS",
-			"optional" : "",
-			"doctor_type" : doctor.manually_added
+			id : doctor.id,
+			first_name : fname,
+			last_name : lname,
+			addressline1 : addressLine1,
+			addressline2 : addressLine2,
+			state : stateDetails || "",
+			city : cityDetails,
+			zip : zipCode,
+			notes : notes,
+			phone : phoneNo,
+			fax : faxNo,
+			image_url : "",
+			org_name : "MSCRIPTS",
+			optional : "",
+			doctor_type : doctor.manually_added
 		}
 	});
 
-	dialog.show({
-		message : Alloy.Globals.strings.msgDoctorUpdated,
+	uihelper.showDialog({
+		message : "Doctor update successfully",
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
 			app.navigator.close();
@@ -220,8 +215,8 @@ function didClickRemove() {
 				type : ""
 			}],
 			data : {
-				"doctors" : {
-					"id" : doctor.id
+				doctors : {
+					id : doctor.id
 				}
 			}
 
@@ -237,7 +232,7 @@ function didSuccessRemove(_result) {
 		}
 	});
 
-	dialog.show({
+	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgDoctorDeleted,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
@@ -309,19 +304,16 @@ function didLoadStates(_result) {
 			var position = stateList.map(function(eachState) {//get index of the state
 				return eachState.code_values;
 			}).indexOf(doctor.state);
-	
+
 			$.stateTxt.setSelectedIndex(position);
 		}
 		$.zipTxt.setValue(doctor.zip);
 		$.notesTxta.setValue(doctor.notes);
 
-	}
-	else
-	{
+	} else {
 		$.removeBtn.hide();
 	}
 }
-
 
 function init() {
 	// var templates = [],

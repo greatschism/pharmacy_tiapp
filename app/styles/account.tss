@@ -1,10 +1,58 @@
-"#doneBtn":{
-	title: Alloy.Globals.strings.btnDone
+"#notificationLbl":{
+	text: Alloy.Globals.strings.lblNotificationInfo
 },
-"#aboutBtn":{
-	title: Alloy.Globals.strings.strAbout
+"#mobileNumberLbl":{
+	text: Alloy.Globals.strings.lblYourMobileNumber
 },
-".dropdown":{
-	leftTitle: Alloy.Globals.strings.strCancel,
-	rightTitle: Alloy.Globals.strings.btnDone
+"#mobileNumberValue":{
+	color: "#0095ff"
+},
+"#emailLbl":{
+	text: Alloy.Globals.strings.lblYourEmail
+},
+"#emailValue":{
+	color: "#0095ff"
+},
+"#prescriptionDisplayLbl":{
+	text: Alloy.Globals.strings.lblPrescriptionDisplay
+},
+"#hideExpiredPrescriptionLbl":{
+	right: 60,
+	font :{
+		fontSize : 14
+	},
+	html: Alloy.Globals.strings.lblHideExpiredPrescriptions
+},
+"#hideZeroRefillPrescriptionLbl":{
+	right: 60,
+	font :{
+		fontSize : 14
+	},
+	html: Alloy.Globals.strings.lblHideZeroRefillPrescriptions
+},
+"#locationSettingLbl":{
+	text: Alloy.Globals.strings.lblLocationSettings
+}
+"#timeZoneLbl": {
+	text: Alloy.Globals.strings.lblTimeZone
+}
+"#languageLbl": {
+	text: Alloy.Globals.strings.hintLanguage
+},
+
+"#loginLbl":{
+	text: Alloy.Globals.strings.lblLogin
+},
+"#keepMeSignedInLbl":{
+	right: 60,
+	font :{
+		fontSize : 14
+	},
+	html: Alloy.Globals.strings.lblKeepMeSignedIn
+},
+"#contactSupportBtn":{
+	title: Alloy.Globals.strings.lblContactSupport
+},
+"#viewAgreementBtn":{
+	title: Alloy.Globals.strings.lblViewMyAgreements
 }

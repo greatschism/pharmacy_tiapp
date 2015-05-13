@@ -5,38 +5,38 @@
 				<ImageView id="logoImg" class="img-padding-top logo-img" />
 				<View class="img-padding-top form-group vgroup">
 					<View class="default-height">
-						<Widget id="fnameTxt" src="com.mscripts.textfield" class="left width-50 form-txt returnkey-next" onReturn="moveToNext" />
+						<Widget id="fnameTxt" src="ti.textfield" class="left width-50 form-txt returnkey-next"  />
 						<View class="vseparator" />
-						<Widget id="lnameTxt" src="com.mscripts.textfield" class="right width-50 form-txt returnkey-next" onReturn="moveToNext" />
+						<Widget id="lnameTxt" src="ti.textfield" class="right width-50 form-txt returnkey-next"  />
 					</View>
 					<View class="hseparator" />
-					<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown " onReturn="moveToNext" />
+					<Widget id="dob" src="ti.dropdown" class="form-dropdown "  />
 						
 				</View>
-				<Widget id="emailTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-next" onReturn="moveToNext" />
+				<Widget id="emailTxt" src="ti.textfield" class="padding-top txt returnkey-next"  />
 				<View id="userContainerView" class="padding-top form-group vgroup">
-					<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onFocus="didFocusUsername" onBlur="didBlurTxt" onReturn="moveToNext" />
+					<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onFocus="didFocusUsername" onBlur="didBlurTxt"  />
 					<View class="hseparator" />
-					<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onFocus="didFocusPassword" onBlur="didBlurTxt" onReturn="moveToNext" />
+					<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" onFocus="didFocusPassword" onBlur="didBlurTxt"  />
 				</View>
 				<View class="padding-top margin-left margin-right auto-height">
 					<Label id="showPasswordLbl" class="left text-left lbl" />
-					<Widget id="toggleSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
+					<Widget id="toggleSwt" src="ti.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
 				</View>
 				<View id="rxContainerView" class="padding-top padding-bottom form-group vgroup">
-					<Widget id="rxNoTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onChange="didChangeRxNo" onFocus="didFocusRxNo" onBlur="didBlurTxt" onReturn="moveToNext"/>
+					<Widget id="rxNoTxt" src="ti.textfield" class="form-txt returnkey-next" onChange="didChangeRxNo" onFocus="didFocusRxNo" onBlur="didBlurTxt" />
 					<View class="hseparator" />
 					<View id="pharmacyView" class="default-height" onClick="didClickPharmacy">
 						<Label id="pharmacyLbl" class="padding-left text-left lbl touch-disabled" />
 						<Label class="list-item-child touch-disabled" />
 					</View>
 				</View>
-				<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
+				<Widget id="agreementLbl" src="ti.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
 				<Button id="createBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickCreateAccount" />
 			</View>
-			<Widget id="usernameTooltip" src="com.mscripts.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-			<Widget id="rxNoTooltip" src="com.mscripts.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="usernameTooltip" src="ti.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="passwordTooltip" src="ti.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="rxNoTooltip" src="ti.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		</View>
 	</ScrollView>
 </Alloy>

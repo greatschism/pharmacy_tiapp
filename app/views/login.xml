@@ -3,15 +3,15 @@
 		<ImageView id="logoImg" class="img-padding-top logo-img" />
 		<Label id="hintLbl" class="img-padding-top paragraph-lbl" />
 		<View class="padding-top form-group vgroup">
-			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 			<View class="hseparator" />
-			<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
+			<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-done"  onClick="didClickPwd" />
 		</View>
 		<View class="padding-top margin-left margin-right auto-height">
 			<Label id="keepMeLbl" class="left text-left lbl" />
-			<Widget id="keepMeSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll"  />
+			<Widget id="keepMeSwt" src="ti.switch" class="right swt" onTouch="handleScroll"  />
 		</View>
 		<Button id="loginBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickLogin" />
-		<Widget id="signupLbl" src="com.mscripts.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
+		<Widget id="signupLbl" src="ti.styledlabel" class="margin-left margin-right margin-bottom link-multi-line" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

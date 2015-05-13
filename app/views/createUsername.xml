@@ -3,11 +3,11 @@
 		<Label id="userLbl" class="margin-top paragraph-lbl"/>
 		<Label id="instructionLbl" class="padding-top paragraph-lbl" />
 		<View class="padding-top padding-bottom form-group vgroup">
-			<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 			<View class="hseparator" />
-			<Widget id="emailTxt" src="com.mscripts.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="didClickDone" onClick="didClickEmail" />
+			<Widget id="emailTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="didClickDone" onClick="didClickEmail" />
 		</View>
-		<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
+		<Widget id="agreementLbl" src="ti.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
 		<Button id="doneBtn" class="btn-padding-top padding-bottom primary-btn" onClick="didClickDone" />
 	</ScrollView>
 </Alloy> 

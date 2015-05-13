@@ -1,3 +1,6 @@
+var Alloy = require("alloy"),
+    _ = Alloy._;
+
 var Configuration = {
 
 	init : function(_config, _callback) {
@@ -8,7 +11,7 @@ var Configuration = {
 		 * initialization
 		 */
 		//for debugging purpose only, should be false on test / production
-		if (Alloy.CFG.overrideRemoteResources === true) {
+		if (Alloy.CFG.OVERRIDE_REMOTE_RESOURCES === true) {
 			return [];
 		}
 
@@ -97,8 +100,9 @@ var Configuration = {
 			Alloy.RegFonts = [];
 		}
 		/**
-		 * Ti.App.registerFont - is a method available only with custom SDK build 3.4.1.mscripts and later
-		 * Ti.App.unregisterFont - is a method available only with custom SDK build 3.5.0.mscripts and later
+		 * Ti.App.registerFont
+		 *  and
+		 * Ti.App.unregisterFont - is a method available only with custom SDK
 		 */
 		var lastUpdate = require("alloy/moment")().unix();
 		for (var i in fonts) {
@@ -168,21 +172,25 @@ var Configuration = {
 			if (_.has(tss[ts], "font")) {
 				tss[ts].font.fontFamily = Alloy.Fonts[tss[ts].font.fontFamily];
 			}
+			if (_.has(tss[ts], "buttonFont")) {
+				tss[ts].buttonFont.fontFamily = Alloy.Fonts[tss[ts].buttonFont.fontFamily];
+			}
 			if (_.has(tss[ts], "iconFont")) {
 				tss[ts].iconFont.fontFamily = Alloy.Fonts[tss[ts].iconFont.fontFamily];
 			}
-			if (_.has(tss[ts], "boldFontFamily")) {
-				tss[ts].boldFontFamily = Alloy.Fonts[tss[ts].boldFontFamily];
+			if (_.has(tss[ts], "secondaryFont")) {
+				tss[ts].secondaryFont.fontFamily = Alloy.Fonts[tss[ts].secondaryFont.fontFamily];
 			}
-			Alloy.TSS[ts] = tss[ts];
+			//remove any '#' or '.' character in first place and repalce '-' with '_'
+			Alloy.TSS[ts.replace(/^#/, '').replace(/^\./, '').replace(/-+/g, "_")] = tss[ts];
 		}
 		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
 
 		/**
 		 * delete unused resources
 		 */
-		if (Alloy.CFG.deleteUnusedResoruces) {
-			resources.deleteUnusedResoruces();
+		if (Alloy.CFG.DELETE_UNUSED_RESOURCES) {
+			resources.deleteUnusedResources();
 		}
 
 		if (_callback) {
@@ -209,7 +217,7 @@ var Configuration = {
 		if (theme.style.id != Alloy.TSS.Theme.id || theme.style.version != Alloy.TSS.Theme.version) {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
-				    key = (dict.key || "").replace(/-/g, "_").replace("Ti.UI.", "");
+				    key = (dict.key || "").replace(/-/g, "_");
 				if (_.has(Alloy.TSS, key)) {
 					var style = dict.style;
 					for (var prop in style) {

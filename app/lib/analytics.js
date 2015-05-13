@@ -1,6 +1,8 @@
-var Analytics = {
+var Alloy = require("alloy");
+
+var TiAnalytics = {
 	featureEvent : function(_name, _data) {
-		if (Alloy.CFG.enableAnalytics) {
+		if (Alloy.CFG.ANALYTICS_ENABLED) {
 			Ti.Analytics.featureEvent(_name, _data || {});
 		}
 	},
@@ -8,10 +10,10 @@ var Analytics = {
 		return Ti.Analytics.lastEvent || {};
 	},
 	navEvent : function(_from, _to, _name, _data) {
-		if (Alloy.CFG.enableAnalytics) {
+		if (Alloy.CFG.ANALYTICS_ENABLED) {
 			Ti.Analytics.navEvent(_from, _to, _name || "", _data || {});
 		}
 	}
 };
 
-module.exports = Analytics;
+module.exports = TiAnalytics;

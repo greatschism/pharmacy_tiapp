@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment");
@@ -21,13 +20,13 @@ function didClickNext() {
 	var fname = $.fnameTxt.getValue(),
 	    dob = $.dob.getValue();
 	if (!fname) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valFirstNameRequired
 		});
 		return;
 	}
 	if (!dob) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valDOBRequired
 		});
 		return;

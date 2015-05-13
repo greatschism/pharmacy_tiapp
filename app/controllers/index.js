@@ -1,6 +1,6 @@
 var config = require("config"),
     http = require("requestwrapper"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     utilities = require("utilities"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
@@ -38,16 +38,16 @@ function didSuccess(_result) {
 	});
 	var clientConfig = _result.data.appload.client_json || {};
 	if (_.has(clientConfig, "force_update")) {
-		Alloy.CFG.forceUpdate = clientConfig.force_update;
+		Alloy.CFG.FORCE_UPDATE = clientConfig.force_update;
 	}
 	if (_.has(clientConfig, "async_update")) {
-		Alloy.CFG.asyncUpdate = clientConfig.async_update;
+		Alloy.CFG.ASYNC_UPDATE = clientConfig.async_update;
 	}
 	if (_.has(clientConfig, "force_reload_after_update")) {
-		Alloy.CFG.forceReloadAfterUpdate = clientConfig.force_reload_after_update;
+		Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE = clientConfig.force_reload_after_update;
 	}
 	if (config.init(clientConfig).length) {
-		if (Alloy.CFG.forceUpdate) {
+		if (Alloy.CFG.FORCE_UPDATE) {
 			startUpdate();
 		} else {
 			$.loading.hide();
@@ -59,7 +59,7 @@ function didSuccess(_result) {
 }
 
 function confirmUpdate() {
-	dialog.show({
+	uihelper.showDialog({
 		title : strings.titleUpdates,
 		message : strings.msgAppUpdateFound,
 		buttonNames : [strings.btnYes, strings.btnNo],
@@ -70,7 +70,7 @@ function confirmUpdate() {
 }
 
 function startUpdate() {
-	if (Alloy.CFG.asyncUpdate) {
+	if (Alloy.CFG.ASYNC_UPDATE) {
 		triggerAsyncUpdate = true;
 		loadConfig();
 	} else {

@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
@@ -42,9 +41,9 @@ function init() {
 }
 
 function setParentViews(_view) {
-	
+
 	$.dob.setParentView(_view);
-	
+
 }
 
 function didPostlayoutUserContainerView(e) {
@@ -163,79 +162,79 @@ function didClickCreateAccount(e) {
 	    pharmacyObj = Alloy.Models.store.toJSON();
 	if (!e.ageValidated) {
 		if (!fname) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valFirstNameRequired
 			});
 			return;
 		}
 		if (!utilities.validateName(fname)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgFirstNameTips
 			});
 			return;
 		}
 		if (!lname) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valLastNameRequired
 			});
 			return;
 		}
 		if (!utilities.validateName(lname)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgLastNameTips
 			});
 			return;
 		}
 		if (!dob) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valDOBRequired
 			});
 			return;
 		}
 		if (!utilities.validateEmail(email)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valEmailRequired
 			});
 			return;
 		}
 		if (!uname) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valUsernameRequired
 			});
 			return;
 		}
 		if (!utilities.validateUserName(uname)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgUserNameTips
 			});
 			return;
 		}
 		if (!password) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valPasswordRequired
 			});
 			return;
 		}
 		if (!utilities.validatePassword(password)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgPasswordTips
 			});
 			return;
 		}
 		if (!rxNoValidator.test(rxNo)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valRxNoRequired
 			});
 			return;
 		}
 		if (_.isEmpty(pharmacyObj)) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.valPharmacyRequired
 			});
 			return;
 		}
 		if (moment().diff(dob, "years", true) < 18) {
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgAgeRestriction,
 				buttonNames : [Alloy.Globals.strings.btnIAgree, Alloy.Globals.strings.strCancel],
 				cancelIndex : 1,
@@ -273,7 +272,7 @@ function didClickCreateAccount(e) {
 }
 
 function didSuccess(_result) {
-	dialog.show({
+	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgAccountCreated,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {
@@ -288,7 +287,7 @@ function terminate() {
 
 function didShowPickerPopOver(v) {
 
-modalWindow = Ti.UI.createWindow();
+	modalWindow = Ti.UI.createWindow();
 
 	modalWindow.open({
 		title : 'Select A Date',
@@ -306,7 +305,7 @@ modalWindow = Ti.UI.createWindow();
 		type : Ti.UI.PICKER_TYPE_DATE,
 		value : dateValue,
 		accessibilityLabel : dateValue,
-		backgroundColor:'grey'
+		backgroundColor : 'grey'
 
 	});
 	picker.setLocale(Titanium.Platform.locale);
@@ -352,19 +351,16 @@ modalWindow = Ti.UI.createWindow();
 
 	label.addEventListener('click', function(e) {
 
-	modalWindow.close();
-		
-			
+		modalWindow.close();
 
 	});
 	modalWindow.addEventListener('close', close);
 
 };
 
-function close(){
+function close() {
 
-	
-	uihelper.requestForFocus($.dobTxt);
+	uihelper.requestViewFocus($.dobTxt);
 }
 
 exports.init = init;

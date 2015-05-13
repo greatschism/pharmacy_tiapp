@@ -5,5 +5,6 @@ var args = arguments[0] || {};
 	$.subtitleLbl.text = args.info;
 	$.progressView.width = args.progress;
 	$.row.sectionId = args.property;
+	$.row.rowId = args.id;
 	$.row.searchableText = (args.presc_name + args.rx_number_formated).toLowerCase();
 })();

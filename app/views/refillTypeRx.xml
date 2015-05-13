@@ -1,12 +1,12 @@
 <Alloy>
 	<ScrollView id="scroll" class="vgroup">
-		<View class="auto-height fill-width">
-			<Label id="hintLbl1" class="  touch-disabled padding-bottom " />
+		<View id="hintView" class="fill-width">
+			<Label id="hintLbl1" class="touch-disabled width-80" top="8"/>
 		</View>
 		<Label id="hintLblRefillPres" class="padding-left  touch-disabled padding-bottom padding-top"/>
 		<View id="enter" class="auto-height vgroup" >
 			<View id="wid" class="form-group vgroup auto-height">
-				<Widget id="RxHintLbl" src="com.mscripts.textfield"  class="form-txt return-next" />
+				<Widget id="RxHintLbl" src="ti.textfield"  class="form-txt return-next" />
 				<!--<Label id="downLbl" class="right small-icon touch-disabled" />-->
 			</View>
 		</View>
@@ -20,7 +20,7 @@
 		</View>
 		<Label id="hintLbl3" class="padding-left  touch-disabled padding-bottom padding-top"/>
 		<View class="form-group vgroup">
-			<Widget id="mobileNumber" src="com.mscripts.textfield" onChange="didChange" class="form-txt return-next" />
+			<Widget id="mobileNumber" src="ti.textfield" onChange="didChange" class="form-txt return-next" />
 		</View>
 		<Button id="orderRefillBtn" class="margin-bottom padding-bottom padding-top primary-btn" onClick="didClickOrderRefill" />
 	</ScrollView>

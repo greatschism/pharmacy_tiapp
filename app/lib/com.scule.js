@@ -6040,7 +6040,7 @@ var Scule = {
             }
 
             if (!(parts.engine in Scule.db.engines)) {
-                throw parts.engine + ' is nto a registered Scule storage engine';
+                throw parts.engine + ' is not a registered Scule storage engine';
             }
 
             var storage    = new Scule.db.engines[parts.engine](configuration);

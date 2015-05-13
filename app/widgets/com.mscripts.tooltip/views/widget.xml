@@ -1,6 +1,0 @@
-<Alloy>
-	<View onClick="didClick">
-		<View id="containerView" />
-		<Label id="arrowLbl" />
-	</View>
-</Alloy>

@@ -1,0 +1,12 @@
+"View":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
+"#widget":{
+	opacity: 0,
+	visible: false,
+	zIndex: 1
+},
+"#contentView":{
+	layout: "vertical"
+}

@@ -9,11 +9,11 @@ function init() {
 
 	if (args.doctors) {
 		var doctors = args.doctors;
-		
+
 		for (var i in doctors) {
 			var doctor = doctors[i];
 			doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
-			
+
 			var row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
 			}),
@@ -51,13 +51,11 @@ function init() {
 			});
 			row.rowId = doctor.id;
 			titleLbl.text = doctor.long_name;
-			
-			if (doctor.image_url.length) 
-				{
-					//profileImg.image=doctor.image_url;
-					leftImgView.add(profileImg);
-				}
-			else
+
+			if (_.isEmpty(doctor.image_url)) {
+				//profileImg.image=doctor.image_url;
+				leftImgView.add(profileImg);
+			} else
 				leftImgView.add(leftIconLabel);
 			//descriptionView.add(titleLbl);
 			contentView.add(leftImgView);
@@ -76,7 +74,7 @@ function didItemClick(e) {
 	var doctor = _.findWhere(args.doctors, {
 		id : String(doctorId)
 	});
-	
+
 	app.navigator.open({
 		stack : true,
 		titleid : "titleChooseTime",

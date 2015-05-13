@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
     moment = require("alloy/moment"),
@@ -76,37 +76,37 @@ function didClickSignup(e) {
 	    uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
 	if (!utilities.validateEmail(email)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valEmailRequired
 		});
 		return;
 	}
 	if (!dob) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valDOBRequired
 		});
 		return;
 	}
 	if (!uname) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valUsernameRequired
 		});
 		return;
 	}
 	if (!utilities.validateUserName(uname)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgUserNameTips
 		});
 		return;
 	}
 	if (!password) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valPasswordRequired
 		});
 		return;
 	}
 	if (!utilities.validatePassword(password)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPasswordTips
 		});
 		return;
@@ -130,7 +130,7 @@ function didClickSignup(e) {
 }
 
 function didSuccess(_result) {
-	dialog.show({
+	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgAccountCreated,
 		buttonNames : [Alloy.Globals.strings.strOK],
 		success : function() {

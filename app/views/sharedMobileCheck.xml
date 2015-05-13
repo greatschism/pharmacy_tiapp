@@ -4,9 +4,9 @@
 		<Label id="hintLbl" class="img-padding-top paragraph-lbl" />
 		<Label id="whoLbl" class="padding-top paragraph-lbl" />
 		<View class="padding-top form-group vgroup">
-			<Widget id="fnameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+			<Widget id="fnameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 			<View class="hseparator" />
-			<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown " onReturn="didClickNext" />
+			<Widget id="dob" src="ti.dropdown" class="form-dropdown " onReturn="didClickNext" />
 		</View>
 		<Button id="nextBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickNext" />
 	</ScrollView>

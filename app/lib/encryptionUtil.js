@@ -40,7 +40,7 @@ function decrypt(_cipherText) {
 			iv : decryptIV
 		}).toString(c.enc.Utf8);
 	} catch(ex) {
-		logger.e("Unable to decrypt : " + ex);
+		logger.error("Unable to decrypt : " + ex);
 		return "";
 	}
 }

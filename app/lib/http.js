@@ -21,7 +21,7 @@ var logger = require("logger");
  */
 exports.request = function(_params) {
 
-	logger.i("HTTP.request " + _params.url);
+	logger.debug("HTTP.request " + _params.url);
 
 	if (Ti.Network.online) {
 
@@ -36,6 +36,8 @@ exports.request = function(_params) {
 		 */
 		xhr.onload = function(response) {
 
+			logger.debug("HTTP.response " + (this.responseText || "No response or unable to parse the response"));
+
 			var _data;
 
 			switch(_params.format.toLowerCase()) {
@@ -43,7 +45,7 @@ exports.request = function(_params) {
 				_data = this.responseData || this.responseText || "{}";
 				break;
 			case "xml":
-				_data = this.responseXML || Ti.XML.parseString(this.responseText);
+				_data = this.responseXML || Ti.XML.parseString(this.responseText || "<response />");
 				break;
 			case "json":
 				_data = JSON.parse(this.responseText || "{}");
@@ -78,13 +80,12 @@ exports.request = function(_params) {
 		 * @ignore
 		 */
 		xhr.onerror = function(_event) {
+			logger.error("HTTP.error " + _event.code + " - " + _event.error);
 			if (_params.failure) {
 				_params.failure(_params.passthrough || {});
 				if (_params.done) {
 					_params.done(_params.passthrough || {});
 				}
-			} else {
-				logger.e(JSON.stringify(this));
 			}
 		};
 
@@ -101,9 +102,10 @@ exports.request = function(_params) {
 		}
 
 		// Overcomes the 'unsupported browser' error sometimes received
-		xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
+		// xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
 		if (_params.data) {
+			logger.debug("HTTP.data " + _params.data);
 			xhr.send(_params.data);
 		} else {
 			xhr.send();
@@ -111,7 +113,7 @@ exports.request = function(_params) {
 
 	} else {
 
-		logger.e("No internet connection");
+		logger.debug("No internet connection");
 
 		if (_params.failure) {
 			_params.failure(_params.passthrough || {});

@@ -1,10 +1,9 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
-    uihelper = require("uihelper"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
     DUE_FOR_REFILL_IN_DAYS = Alloy._due_for_refill_in_days,
@@ -55,7 +54,6 @@ function didSuccess(result) {
 		refill_status : "OTHERS"
 	});
 
-	
 	var addIcon = $.UI.create("Label", {
 		apiName : "Label",
 		height : 32,
@@ -64,7 +62,7 @@ function didSuccess(result) {
 	});
 
 	var sectionHeading = patientName + "" + strings.sectionPatientsPrescription;
-	$.userLbl.text=sectionHeading;
+	$.userLbl.text = sectionHeading;
 
 	//$.outerSection = uihelper.createTableViewSection($, sectionHeading, $, addIcon);*/
 	if (readyForRefill.length) {
@@ -84,7 +82,6 @@ function didSuccess(result) {
 			todaysDate = moment();
 
 			ndays = anticipatedRefillDate.diff(todaysDate, 'days');
-			
 
 			row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow"
@@ -162,7 +159,7 @@ function didSuccess(result) {
 		$.otherPrescriptionsSection = uihelper.createTableViewSection($, strings.sectionOtherPrescriptions, $, addAllLbl);
 
 		for (var i in otherPrescriptions) {
-			
+
 			var prescription = otherPrescriptions[i],
 			    anticipatedRefillDate = moment(prescription.anticipated_refill_date, "YYYY/MM/DD").format("MM/DD/YYYY"),
 			    row = $.UI.create("TableViewRow", {
@@ -206,7 +203,7 @@ function didSuccess(result) {
 			prescriptionLbl.text = utilities.ucfirst(prescription.presc_name);
 			rxNoLbl.text = addRx(prescription.rx_number);
 			msgLbl.text = strings.msgDueFoRefillOn + "\n" + anticipatedRefillDate;
-				
+
 			iconView.add(icon);
 			detailsView.add(prescriptionLbl);
 			detailsView.add(rxNoLbl);
@@ -216,7 +213,7 @@ function didSuccess(result) {
 			contentView.add(detailsView);
 			contentView.add(messageView);
 			row.add(contentView);
-		
+
 			$.otherPrescriptionsSection.add(row);
 		}
 
@@ -232,7 +229,7 @@ function didClickAddAll(e) {
 			addedAll[i] = readyForRefill[i];
 
 		}
-		
+
 	}
 	if (otherPrescriptions.length) {
 		for (var i in readyForRefill) {

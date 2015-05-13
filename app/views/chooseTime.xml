@@ -6,12 +6,12 @@
 	
 	<View class="default-height hgroup">
 		<Label id="lblDate" class="left width-40 padding-left h2" />
-		<Widget id="dateLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
+		<Widget id="dateLbl" src="ti.dropdown" class="form-dropdown fill-width" />
 	</View>	
 	
 	<View class="default-height hgroup">
 		<Label id="lblTime" class="padding-left width-45 h2" />
-		<Widget id="timeLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
+		<Widget id="timeLbl" src="ti.dropdown" class="form-dropdown fill-width" />
 	</View>	
 	
 	<Button id="saveBtn" class="primary-btn padding-top" onClick="didClickSave" />

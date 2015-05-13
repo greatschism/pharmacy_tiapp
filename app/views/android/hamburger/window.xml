@@ -1,3 +1,5 @@
 <Alloy>
-	<Window onOpen="didOpen" onClose="didClose" onAndroidback="didClickLeftNavView" />
+	<Window onOpen="didOpen" onClose="didClose" onAndroidback="didClickLeftNavView">
+		<ActionBar onHomeIconItemSelected="didClickLeftNavView"  />
+	</Window>
 </Alloy>

@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
@@ -31,13 +30,13 @@ function didClickLogin(e) {
 	var uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
 	if (!uname) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valUsernameRequired
 		});
 		return;
 	}
 	if (!password) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valPasswordRequired
 		});
 		return;

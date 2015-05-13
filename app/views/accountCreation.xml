@@ -6,24 +6,24 @@
 				<Label id="titleLbl" class="padding-top margin-left margin-right text-left title-lbl" />
 				<Label id="doneLbl" class="padding-top paragraph-lbl" />
 				<View class="padding-top form-group vgroup">
-					<Widget id="emailTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+					<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 					<View class="hseparator" />
-					<Widget id="dob" src="com.mscripts.dropdown" class="form-dropdown " onReturn="moveToNext" />
+					<Widget id="dob" src="ti.dropdown" class="form-dropdown "  />
 				</View>
 				<View id="containerView" class="padding-top form-group vgroup">
-					<Widget id="unameTxt" src="com.mscripts.textfield" class="form-txt returnkey-next" onFocus="didFocusUsername" onBlur="didBlurTxt" onReturn="moveToNext" />
+					<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onFocus="didFocusUsername" onBlur="didBlurTxt"  />
 					<View class="hseparator" />
-					<Widget id="passwordTxt" src="com.mscripts.textfield" class="form-txt returnkey-done" onFocus="didFocusPassword" onBlur="didBlurTxt" onReturn="didClickSignup" />
+					<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" onFocus="didFocusPassword" onBlur="didBlurTxt" onReturn="didClickSignup" />
 				</View>
 				<View class="padding-top padding-bottom margin-left margin-right auto-height">
 					<Label id="showPasswordLbl" class="left text-left lbl" />
-					<Widget id="toggleSwt" src="com.mscripts.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
+					<Widget id="toggleSwt" src="ti.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
 				</View>
-				<Widget id="agreementLbl" src="com.mscripts.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
+				<Widget id="agreementLbl" src="ti.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
 				<Button id="signupBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickSignup" />
 			</View>
-			<Widget id="usernameTooltip" src="com.mscripts.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-			<Widget id="passwordTooltip" src="com.mscripts.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="usernameTooltip" src="ti.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="passwordTooltip" src="ti.tooltip" class="padding-tooltip arrow-down tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		</View>
 	</ScrollView>
 </Alloy>

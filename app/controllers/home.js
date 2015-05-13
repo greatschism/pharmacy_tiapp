@@ -1,18 +1,19 @@
 var args = arguments[0] || {},
+    logger = require("logger"),
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons;
 
 function init() {
 	var homePageTemplate = Alloy.Models.template.get("data");
 	for (var i in homePageTemplate) {
-		$.containerView.add(create(homePageTemplate[i]));
+		$.contentView.add(create(homePageTemplate[i]));
 	}
 }
 
 function create(_dict) {
 	var element;
 	if (_dict.module) {
-		element = require(_dict.module)[_dict.apiName](_dict.classes || {});
+		element = require(_dict.module)[_dict.apiName](_dict.properties || {});
 	} else {
 		element = $.UI.create(_dict.apiName, {
 			apiName : _dict.apiName,

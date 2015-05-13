@@ -1,4 +1,6 @@
-var logger = require("logger"),
+var Alloy = require("alloy"),
+    _ = Alloy._,
+    logger = require("logger"),
     scule = require("com.scule"),
     utilities = require("utilities");
 
@@ -7,12 +9,12 @@ var Res = {
 	/**
 	 * storage engine & path to scule collection
 	 */
-	pathThemes : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("themes"),
-	pathTemplates : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("templates"),
-	pathMenus : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("menus"),
-	pathLanguages : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("languages"),
-	pathFonts : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("fonts"),
-	pathImages : Alloy.CFG.storageEngine + "://" + Ti.Utils.md5HexDigest("images"),
+	pathThemes : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("themes"),
+	pathTemplates : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("templates"),
+	pathMenus : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("menus"),
+	pathLanguages : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("languages"),
+	pathFonts : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("fonts"),
+	pathImages : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("images"),
 
 	/**
 	 * directories used for storing files
@@ -38,7 +40,7 @@ var Res = {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
 			    initialData = require(Res.directoryData + "/" + "resources"),
-			    clearCache = Alloy.CFG.clearCachedResources && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV);
+			    clearCache = Alloy.CFG.CLEAR_CACHED_RESOURCES && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || Alloy.CFG.ENV_DEV);
 
 			for (var i in keys) {
 				Res.set(keys[i], initialData[keys[i]], true, clearCache);
@@ -112,13 +114,13 @@ var Res = {
 					selected : !_.has(item, "styles") ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("theme added : " + item.id);
+				logger.debug("theme added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				item.update = item.version != model.version || (!_.has(item, "styles") && !_.has(model, "styles"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
-				logger.i("theme updated : " + item.id);
+				logger.debug("theme updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
@@ -176,13 +178,13 @@ var Res = {
 					selected : !_.has(item, "data") ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("template added : " + item.id);
+				logger.debug("template added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
-				logger.i("template updated : " + item.id);
+				logger.debug("template updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
@@ -240,13 +242,13 @@ var Res = {
 					selected : !_.has(item, "items") ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("menu added : " + item.id);
+				logger.debug("menu added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				item.update = item.version != model.version || (!_.has(item, "items") && !_.has(model, "items"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
-				logger.i("menus updated : " + item.id);
+				logger.debug("menus updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
@@ -304,13 +306,13 @@ var Res = {
 					selected : !_.has(item, "strings") ? false : item.selected
 				});
 				coll.save(item);
-				logger.i("language added : " + item.id);
+				logger.debug("language added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || _useLocalResources) {
 				item.update = item.version != model.version || (!_.has(item, "strings") && !_.has(model, "strings"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
-				logger.i("language updated : " + item.id);
+				logger.debug("language updated : " + item.id);
 			}
 			if (item.selected) {
 				selectedId = item.id;
@@ -374,10 +376,10 @@ var Res = {
 				});
 				if (_.isEmpty(model)) {
 					coll.save(item);
-					logger.i("font added : " + item.id);
+					logger.debug("font added : " + item.id);
 				} else if (item.version != model.version || _useLocalResources) {
 					_.extend(model, item);
-					logger.i("font updated : " + item.id);
+					logger.debug("font updated : " + item.id);
 				}
 			}
 		}
@@ -414,10 +416,10 @@ var Res = {
 			});
 			if (_.isEmpty(model)) {
 				coll.save(item);
-				logger.i("image added : " + item.id);
+				logger.debug("image added : " + item.id);
 			} else if (item.version != model.version || _useLocalResources) {
 				_.extend(model, item);
-				logger.i("image updated : " + item.id);
+				logger.debug("image updated : " + item.id);
 			}
 		}
 		coll.commit();
@@ -488,12 +490,12 @@ var Res = {
 					http.request({
 						url : queue.data.url,
 						type : "GET",
-						format : queue.key == "fonts" || queue.key == "images" ? "DATA" : "JSON",
+						format : queue.key == "fonts" || queue.key == "images" ? "data" : "json",
 						passthrough : queue,
 						success : Res.didUpdate,
 						failure : Res.didUpdate
 					});
-					logger.i("downloading " + queue.key + " - " + queue.data.id + " from " + queue.data.url);
+					logger.debug("downloading " + queue.key + " - " + queue.data.id + " from " + queue.data.url);
 				}
 			} else if (_callback) {
 				_callback();
@@ -639,7 +641,7 @@ var Res = {
 				break;
 			}
 			coll.commit();
-			logger.i("downloaded " + key + " - " + _passthrough.data.id + " from " + _passthrough.data.url);
+			logger.debug("downloaded " + key + " - " + _passthrough.data.id + " from " + _passthrough.data.url);
 			Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
 				return _.isEqual(obj, _passthrough);
 			});
@@ -648,11 +650,11 @@ var Res = {
 				Res.successCallback = null;
 			}
 		} else {
-			logger.e("unable to download " + key + " from " + _passthrough.data.url);
+			logger.error("unable to download " + key + " from " + _passthrough.data.url);
 		}
 	},
 
-	deleteUnusedResoruces : function() {
+	deleteUnusedResources : function() {
 		//delete unused fonts
 		var unusedFonts = _.difference(utilities.getFiles(Res.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.get("fonts"), "file"));
 		for (var i in unusedFonts) {

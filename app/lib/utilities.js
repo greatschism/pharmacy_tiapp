@@ -4,6 +4,9 @@
  * @class utilities
  */
 
+var Alloy = require("alloy"),
+    _ = Alloy._;
+
 /**
  * String to Hex
  */

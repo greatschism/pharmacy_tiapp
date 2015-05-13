@@ -4,9 +4,8 @@ module.exports = {
 		"children" : [{
 			"addChild" : "setFooterView",
 			"items" : [{
-				"platform" : ["ios"],
 				"apiName" : "View",
-				"classes" : ["footer-view-break"]
+				"classes" : ["auto-height"]
 			}]
 		}, {
 			"addChild" : "setData",
@@ -15,18 +14,18 @@ module.exports = {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "prescriptions"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
-								"properties" : {
-									"icon" : "prescriptions"
-								}
-							}, {
-								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "strPrescriptions"
 								}
@@ -41,18 +40,18 @@ module.exports = {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "refill_camera"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
-								"properties" : {
-									"icon" : "refill_camera"
-								}
-							}, {
-								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "strRefillNow"
 								}
@@ -61,25 +60,76 @@ module.exports = {
 					}]
 				}],
 				"navigation" : {
-					"action" : "refillViaCamera",
 					"ctrl" : "refill"
 				}
 			}, {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "reminder"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"icon" : "pharmacies"
+									"textid" : "strReminders"
 								}
-							}, {
+							}]
+						}]
+					}]
+				}],
+				"navigation" : {
+					"ctrl" : "reminders"
+				}
+			}, {
+				"apiName" : "TableViewRow",
+				"children" : [{
+					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "users_list"
+						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"children" : [{
+							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleFamilyAccounts"
+								}
+							}]
+						}]
+					}]
+				}],
+				"navigation" : {
+					"ctrl" : "addFamilyAccount"
+				}
+			}, {
+				"apiName" : "TableViewRow",
+				"children" : [{
+					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "pharmacies"
+						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleStores"
 								}
@@ -94,18 +144,18 @@ module.exports = {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "transfer"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
-								"properties" : {
-									"icon" : "transfer"
-								}
-							}, {
-								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleTransferPrescription"
 								}
@@ -114,24 +164,24 @@ module.exports = {
 					}]
 				}],
 				"navigation" : {
-					"action" : "transferPrescription"
+					"ctrl" : "transferPrescription"
 				}
 			}, {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "doctors"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
-								"properties" : {
-									"icon" : "doctors"
-								}
-							}, {
-								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleDoctors"
 								}
@@ -146,18 +196,18 @@ module.exports = {
 				"apiName" : "TableViewRow",
 				"children" : [{
 					"items" : [{
+						"apiName" : "Label",
+						"classes" : ["content-left-icon", "touch-disabled"],
+						"properties" : {
+							"icon" : "account"
+						}
+					}, {
 						"apiName" : "View",
-						"classes" : ["list-item-view", "hgroup", "no-hwrap", "touch-disabled"],
+						"classes" : ["content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["left", "large-icon", "primary-color", "touch-disabled", "accessibility-disabled"],
-								"properties" : {
-									"icon" : "account"
-								}
-							}, {
-								"apiName" : "Label",
-								"classes" : ["padding-left", "list-item-title-lbl", "touch-disabled"],
+								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleAccount"
 								}

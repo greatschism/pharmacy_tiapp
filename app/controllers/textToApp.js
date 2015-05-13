@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment");
@@ -12,7 +11,7 @@ function init() {
 function didClickContinue() {
 	var code = $.codeTxt.getValue();
 	if (!code || code.length != 3) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valCodeRequired
 		});
 		return;

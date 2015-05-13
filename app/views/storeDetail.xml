@@ -2,33 +2,26 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
-				<View class="margin-top margin-left margin-right auto-height hgroup no-hwrap">
-					<Label id="favoriteLbl" class="top left font-icon fg-tertiary" if="Alloy.Globals.loggedIn" />
-					<View class="padding-left fill-width auto-height hgroup no-hwrap">
-						<View class="left width-50 auto-height vgroup">
-							<Label id="titleLbl" class="left h2 multi-line fg-secondary" />
-							<Label id="subtitleLbl" class="left h5 multi-line fg-secondary" />
+				<View class="margin-top margin-left margin-right auto-height no-hwrap">
+					<Label id="favoriteIconLbl" class="top list-item-left-icon" if="Alloy.Globals.loggedIn" />
+					<View class="list-item-view-with-icon">
+						<View class="left width-60 auto-height vgroup">
+							<Label id="titleLbl" class="left list-item-title-lbl" />
+							<Label id="subtitleLbl" class="left list-item-subtitle-lbl" />
+							<Widget id="callLbl" src="ti.styledlabel" class="padding-top left link-single-line" />
 						</View>
-						<View class="top left width-50 auto-height vgroup">
-							<View id="distanceView" class="padding-left auto-height">
-								<Label class="distance-icon left font-icon fg-quaternary" />
-								<Label id="distanceLbl" class="icon-lbl fill-width h6-fixed fg-quaternary" />
-							</View>
-							<View class="padding-left auto-height">
-								<Label id="clockIcon" class="clock-icon left font-icon" />
-								<Label id="clockLbl" class="icon-lbl fill-width h6-fixed btn-thirtiary-smaller" />
-							</View>
+						<View class="top right width-35 auto-height hgroup no-hwrap">
+							<Label id="clockIconLbl" class="left small-icon clock-icon" />
+							<Label id="clockLbl" class="left lbl" />
 						</View>
+						<Button id="directionBtn" class="bottom right width-35 thirtiary-btn-small" onClick="didClickDirection" />
 					</View>
 				</View>
-				<View class="margin-top margin-left margin-right auto-height">
-					<Button id="callBtn" class="left width-45 btn-thirtiary-smaller" onClick="didClickPhone" />
-					<Button id="directionBtn" class="right width-45 btn-thirtiary-smaller" onClick="didClickDirection" />
-				</View>
-				<Button id="refillBtn" class="btn-primary" onClick="didClickRefill" />
-				<View class="margin-top margin-bottom margin-left margin-right auto-height">
-					<Button id="favoriteBtn" class="left width-65 btn-secondary-smaller" onClick="didClickFavorite" />
-					<Button id="homeBtn" class="right width-30 btn-icon" onClick="didClickHome" />
+				<Button id="refillBtn" class="margin-bottom primary-btn" onClick="didClickRefill" if="!Alloy.Globals.loggedIn" />
+				<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" if="Alloy.Globals.loggedIn" />
+				<View class="margin-top margin-bottom margin-left margin-right auto-height" if="Alloy.Globals.loggedIn">
+					<Button id="favoriteBtn" class="left width-65 secondary-btn-small" onClick="didClickFavorite" />
+					<Button id="homeBtn" class="right width-30 nav-icon-btn" onClick="didClickHome" />
 				</View>
 			</View>
 		</HeaderView>

@@ -5,6 +5,8 @@
  * * get all languages
  * * get value of key pair
  */
+var Alloy = require("alloy"),
+    _ = Alloy._;
 
 var Locale = {
 
@@ -64,7 +66,7 @@ var Locale = {
 	applyLanguage : function(_language) {
 		Locale.currentLanguage = _language;
 		Alloy.Globals.strings = _language.strings;
-		require("logger").i("language selected : " + Locale.currentLanguage.id);
+		require("logger").info("language selected : " + Locale.currentLanguage.id);
 	}
 };
 

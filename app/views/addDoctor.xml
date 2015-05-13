@@ -2,43 +2,38 @@
 	<ScrollView class="vgroup">
 		<View class="form-group vgroup padding-bottom padding-top">
 			<View class="default-height hgroup">
-				<Widget id="fnameTxt" src="com.mscripts.textfield" class="left form-txt return-next width-50" onReturn="moveToNext" />
+				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt returnkey-next width-50"  />
 				<View class="vseparator" />
-				<Widget id="lnameTxt" src="com.mscripts.textfield" class="right form-txt return-next fill-width" onReturn="moveToNext" />
-
+				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt returnkey-next fill-width"  />
 			</View>
 			<View class="hseparator" />
-			<Widget id="phoneTxt" src="com.mscripts.textfield" class="form-txt return-next" onChange="phoneNumberValidate" onReturn="moveToNext" />
+			<Widget id="phoneTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 			<View class="hseparator" />
-			<Widget id="faxTxt" src="com.mscripts.textfield" class="form-txt return-next" onChange="faxNumberValidate" onReturn="moveToNext" />
+			<Widget id="faxTxt" src="ti.textfield" class="form-txt returnkey-next" />
 		</View>
-		
 		<View class="section-header-view padding-bottom">
-		<Label id="addressLbl" class="section-header-lbl"/>
+			<Label id="addressLbl" class="section-header-lbl"/>
 		</View>
-		
 		<View class="form-group vgroup padding-bottom">
-			<Widget id="addressLine1" src="com.mscripts.textfield" class="form-txt" onReturn="moveToNext" />
+			<Widget id="addressLine1" src="ti.textfield" class="form-txt"  />
 			<View class="hseparator" />
 			<View class="default-height hgroup">
-				<Widget id="addressLine2" src="com.mscripts.textfield" class="form-txt return-next width-50"  onReturn="moveToNext" />
+				<Widget id="addressLine2" src="ti.textfield" class="form-txt returnkey-next width-50"   />
 				<View class="vseparator" />
-				<Widget id="zipTxt" src="com.mscripts.textfield" class="form-txt return-next fill-width" onReturn="moveToNext" />
+				<Widget id="zipTxt" src="ti.textfield" class="form-txt returnkey-next fill-width"  />
 			</View>
 			<View class="hseparator" />
 			<View class="default-height hgroup">
-				<Widget id="cityTxt" src="com.mscripts.textfield" class="left form-txt return-next width-50"  onReturn="moveToNext" />
+				<Widget id="cityTxt" src="ti.textfield" class="left form-txt returnkey-next width-50"   />
 				<View class="vseparator" />
-				<Widget id="stateTxt" src="com.mscripts.dropdown" class="form-dropdown fill-width" onReturn="moveToNext" />
+				<Widget id="stateTxt" src="ti.dropdown" class="form-dropdown fill-width"  />
 			</View>
 		</View>
-		
 		<View class="section-header-view padding-bottom">
-		<Label id="descriptionLbl" class="section-header-lbl"/>
+			<Label id="descriptionLbl" class="section-header-lbl"/>
 		</View>
-		
 		<View class="form-group padding-bottom">
-			<Widget id="notesTxta" src="com.mscripts.textarea" class="form-txta height-20" onReturn="moveToNext" />
+			<Widget id="notesTxta" src="ti.textarea" class="form-txta height-20"  />
 		</View>
 		<Button id="saveBtn" class="primary-btn padding-bottom" onClick="didClickSave" />
 		<Button id="removeBtn" class="margin-bottom secondary-btn " onClick="didClickRemove" />

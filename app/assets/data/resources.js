@@ -5,7 +5,7 @@ module.exports = {
 		"url" : "url_to_download",
 		"selected" : true
 	}, {
-		"id" : "reddish",
+		"id" : "walmart",
 		"version" : 1,
 		"url" : "url_to_download",
 		"selected" : false
@@ -134,6 +134,22 @@ module.exports = {
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"
 	}, {
 		"version" : 1,
+		"id" : "logo_white_pl",
+		"code" : "logo_white",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"top" : 40,
+				"height" : 30
+			},
+			"landscape" : {
+				"top" : 40,
+				"right" : 30
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/logo.png"
+	}, {
+		"version" : 1,
 		"id" : "prescription_list_pl",
 		"code" : "prescription_list",
 		"format" : "png",
@@ -205,6 +221,20 @@ module.exports = {
 			},
 			"landscape" : {
 				"width" : 66
+			}
+		},
+		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"
+	}, {
+		"version" : 1,
+		"id" : "map_pin_pl",
+		"code" : "map_pin",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 30
+			},
+			"landscape" : {
+				"width" : 30
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"

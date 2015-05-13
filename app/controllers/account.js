@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     config = require("config"),
     resources = require("resources"),
     utilities = require("utilities"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     colls = [{
 	key : "themes",
 	selectedItem : {}
@@ -17,70 +17,27 @@ var args = arguments[0] || {},
     lngStrs = Alloy.Globals.strings;
 
 function init() {
-	for (var i in colls) {
-		var key = colls[i].key,
-		    items = resources.get(key),
-		    selectedIndex = -1,
-		    choices = [];
-		items.forEach(function(obj, index) {
-			var item = _.pick(obj, ["titleid", "id", "selected", "version"]);
-			if (_.has(obj, "styles") || _.has(obj, "data") || _.has(obj, "strings")) {
-				if (_.has(item, "titleid")) {
-					item.title = lngStrs[item.titleid];
-				} else {
-					item.title = item.id;
-				}
-				if (item.selected) {
-					selectedIndex = index;
-				}
-				choices.push(item);
-			}
-		});
-		colls[i].selectedItem = _.pick(items[selectedIndex] || {}, ["titleid", "id", "selected", "version"]);
-		$[key + "Dp"].setChoices(choices);
-		$[key + "Dp"].setSelectedIndex(selectedIndex);
+	$.hideExpiredPrescriptionSwt.setValue(true);
+	$.hideZeroRefillPrescriptionSwt.setValue(true);
+	$.keepMeSignedInSwt.setValue(true);
+	$.mobileNumberValue.text = "(606) 249 9965";
+
+	if (!Ti.App.Properties.getString("emailID")) {
+		$.emailValue.text = "test@gmail.com";
+	} else {
+		$.emailValue.text = Ti.App.Properties.getString("emailID");
 	}
 }
 
-function setParentViews(_view) {
-	$.themesDp.setParentView(_view);
-	$.templatesDp.setParentView(_view);
-	$.languagesDp.setParentView(_view);
+function didClickmobileNumber() {
 }
 
-function didReturnThemes(e) {
-	colls[0].selectedItem = $.themesDp.getSelectedItem();
-}
-
-function didReturnTemplates(e) {
-	colls[1].selectedItem = $.templatesDp.getSelectedItem();
-}
-
-function didReturnLanguages(e) {
-	colls[2].selectedItem = $.languagesDp.getSelectedItem();
-}
-
-function didClickDone(e) {
-	for (var i in colls) {
-		colls[i].selectedItem.selected = true;
-		resources.set(colls[i].key, [_.pick(colls[i].selectedItem, ["id", "titleid", "version", "selected"])]);
-	}
-	config.load(function() {
-		Alloy.Collections.menuItems.trigger("reset");
-		app.navigator.open({
-			ctrl : "home",
-			titleid : "titleHome"
-		});
-	});
-}
-
-function didClickAbout() {
-	dialog.show({
-		message : 'Powered by mscripts \n' + "Application Version: " + Ti.App.version + "\n" + "Build Date: " + Alloy.CFG.buildDate,
-		title : Alloy.Globals.strings.strAbout
+function didClickEmailAddress() {
+	app.navigator.open({
+		ctrl : "changeEmailAddress",
+		titleid : "titleChangeEmailAddress",
+		stack : "true"
 	});
 }
 
 exports.init = init;
-exports.setParentViews = setParentViews;
-

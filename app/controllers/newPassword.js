@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     http = require("requestwrapper"),
     utilities = require("utilities");
 
@@ -11,13 +11,13 @@ function init() {
 function didClickDone(e) {
 	var password = $.passwordTxt.getValue();
 	if (!password) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valPasswordRequired
 		});
 		return;
 	}
 	if (!utilities.validatePassword(password)) {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPasswordTips
 		});
 		return;
@@ -38,7 +38,7 @@ function didClickDone(e) {
 }
 
 function didAuthenticate(_result) {
-	dialog.show({
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : _result.message,
 		success : function() {

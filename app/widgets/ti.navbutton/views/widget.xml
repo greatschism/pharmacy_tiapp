@@ -1,0 +1,3 @@
+<Alloy>
+	<View platform="ios" onClick="didClick" />
+</Alloy>

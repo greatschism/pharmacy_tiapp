@@ -1,6 +1,6 @@
 <Alloy>
-	<Widget id="photoDialog" src="com.mscripts.optiondialog" class="h4" onClick="didClickOption"  />
-	<Button id="editBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickEdit" />
+	<Widget id="photoDialog" src="ti.optiondialog" class="h4" onClick="didClickOption"  />
+	<!--<Button id="editBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickEdit" />-->
 	<!--<View>-->
 	<TableView id="tableView" height="Ti.UI.FILL" top="0" onClick="didItemClick">
 		<HeaderView>
@@ -31,7 +31,7 @@
 						</View>
 					</View>
 				</View>
-				<Widget id="notesTxta" src="com.mscripts.textarea" class="txta paddingTop paddingBottom"/>
+				<Widget id="notesTxta" src="ti.textarea" class="txta paddingTop paddingBottom"/>
 			</View>
 		</HeaderView>
 	</TableView>

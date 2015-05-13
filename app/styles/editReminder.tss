@@ -1,13 +1,35 @@
-"#timeTitleLbl":{
-	text: Alloy.Globals.strings.lblAtThisTime
-},
-"#timeLbl":{
-	hintText: Alloy.Globals.strings.lblAtThisTime,
+"#lblTimeValue":{
+	left: null,
+	right: 0,
+	width: 150,
+	textAlignment: "right",
 	type: Ti.UI.PICKER_TYPE_TIME,
 	rightTitle: Alloy.Globals.strings.btnNext,
 	color:"#000000",
-	format:"hh:mm:A"
-	
+	format:"hh:mm:A",
+	fontFamily: "MyriadPro-Bold"	
+},
+"#lblTimeValue1":{
+	left: null,
+	right: 0,
+	width: 150,
+	textAlignment: "right",
+	type: Ti.UI.PICKER_TYPE_TIME,
+	rightTitle: Alloy.Globals.strings.btnNext,
+	color:"#000000",
+	format:"hh:mm:A",
+	fontFamily: "MyriadPro-Bold"	
+},
+"#lblTimeValue2":{
+	left: null,
+	right: 0,
+	width: 150,
+	textAlignment: "right",
+	type: Ti.UI.PICKER_TYPE_TIME,
+	rightTitle: Alloy.Globals.strings.btnNext,
+	color:"#000000",
+	format:"hh:mm:A",
+	fontFamily: "MyriadPro-Bold"	
 },
 "#saveBtn":{
 	title: Alloy.Globals.strings.btnSave
@@ -18,15 +40,9 @@
 "#lblTime":{
 	text: Alloy.Globals.strings.lblAtThisTime
 },
-"#dayPicker":{
-	useSpinner : true,
-    selectionIndicator : true,
-    type: Ti.UI.PICKER_TYPE_PLAIN
-}
-".textLayout":{
-color:"#6D6E71",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}	
+"#lblTime1":{
+	text: Alloy.Globals.strings.lblAtThisTime
+},
+"#lblTime2":{
+	text: Alloy.Globals.strings.lblAtThisTime
 }

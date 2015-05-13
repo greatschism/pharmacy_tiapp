@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
     uihelper = require("uihelper");
@@ -36,7 +35,7 @@ function didClickContinue(e) {
 			keepLoader : true
 		});
 	} else {
-		dialog.show({
+		uihelper.showDialog({
 			message : Alloy.Globals.strings.valMobileNumberRequired
 		});
 	}

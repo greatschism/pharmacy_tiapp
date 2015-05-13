@@ -1,0 +1,11 @@
+<Alloy>
+	<View>
+		<View id="pickerView">
+			<Picker id="picker" onChange="didChange" />
+			<View id="toolbarView">
+				<Button id="leftBtn" onClick="terminate" />
+				<Button id="rightBtn" onClick="terminate" />
+			</View>
+		</View>
+	</View>
+</Alloy>

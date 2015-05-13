@@ -1,14 +1,13 @@
-var args = arguments[0]|| {},
+var args = arguments[0] || {},
     rxnos = [],
     app = require("core"),
     viewArr = [],
     i = 0,
-    dialog = require("dialog"),
     utilities = require("utilities"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     deleteBtn,
-   
+
     addPres,
     mob,
     locationFirstUpdate = true;
@@ -90,11 +89,17 @@ function didClickOrderRefill(e) {
 }
 
 function didSuccess(e) {
-	app.navigator.open({
-		titleid : "titleYourRefillIsOnTheWay",
-		ctrl : "refillSuccess",
-		stack : false
+	uihelper.showDialog({
+		message : "Your refill has been placed successfully",
+		success : function() {
+			app.navigator.closeToRoot();
+		}
 	});
+	/*app.navigator.open({
+	titleid : "titleOrderDetails",
+	ctrl : "refillSuccess",
+	stack : true
+	});*/
 	//alert("Under Construction");
 }
 
@@ -110,7 +115,7 @@ function didClickAddPrescription(e) {
 
 		});
 
-		addPres = Alloy.createWidget("com.mscripts.textfield", "widget", $.createStyle({
+		addPres = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
 			classes : ["form-txt", "txt", "padding-top"],
 			rightIconText : Alloy.CFG.icons.minus_with_circle,
 			iconFont : Alloy.TSS.small_icon.font,
@@ -130,14 +135,12 @@ function didClickAddPrescription(e) {
 		});
 
 		$.enter.add(addPres.getView());
-		
 
 		console.log("entered func");
 		addPres.on('click', function(e) {
 
 			console.log(e);
 
-			
 			$.enter.remove(e.source.getView());
 			i--;
 

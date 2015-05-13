@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     moment1 = require("alloy/moment"),
     app = require("core"),
     http = require("requestwrapper"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     dateDetails,
     timeDetails,
     appointmentDate,
@@ -15,15 +15,14 @@ var args = arguments[0] || {},
     reminder;
 
 function init() {
-	
+
 	Alloy.Models.doctor.on("change:reminder_change", didAddReminder);
-	
+
 	doctorId = args.doctorId;
 	shortName = args.short_name;
 
-
 	if (args.edit) {
-		
+
 		editFlag = true;
 		appointment = args.appointment;
 		$.dateLbl.setValue(new Date(appointment.appointment_date));
@@ -36,7 +35,6 @@ function init() {
 		myDate = new Date();
 		myDate.setHours(newAppointmentHour, appointment.appointment_minute);
 		$.timeLbl.setValue(myDate);
-		
 
 		$.deleteLbl.show();
 
@@ -63,10 +61,9 @@ function init() {
 
 	}
 
-	
 	$.dateLbl.setMinDate(new Date());
 	$.dateLbl.setMaxDate(new Date("December 31, 2017"));
-	
+
 }
 
 function didItemClick(e) {
@@ -115,7 +112,7 @@ function didClickSave(e) {
 		});
 
 	} else {
-	
+
 		http.request({
 			method : "APPOINTMENTS_ADD",
 			data : {
@@ -146,11 +143,11 @@ function didClickSave(e) {
 }
 
 function didEditSuccess(_result) {
-	
+
 	Alloy.Models.doctor.set({
 		appointment_update : {
 			"doctor_id" : doctorId,
-			"appointment_id":appointment.appointment_id,
+			"appointment_id" : appointment.appointment_id,
 			"appointment_date" : appointmentDate,
 			"appointment_hour" : moment(timeDetails).format("hh"),
 			"appointment_minute" : moment(timeDetails).format("mm"),
@@ -165,9 +162,9 @@ function didEditSuccess(_result) {
 			}
 		}
 	});
-	
+
 	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
-	dialog.show({
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : appointmentDetails,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -178,7 +175,7 @@ function didEditSuccess(_result) {
 }
 
 function didAddSuccess(_result) {
-	
+
 	Alloy.Models.doctor.set({
 		appointment_add : {
 			"doctor_id" : doctorId,
@@ -199,7 +196,7 @@ function didAddSuccess(_result) {
 	});
 
 	var appointmentDetails = String.format(Alloy.Globals.strings.msgAppointmentReminder, shortName, appointmentDate, appointmentTime);
-	dialog.show({
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : appointmentDetails,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -215,7 +212,7 @@ function didClickEditButton(e) {
 
 	if (args.edit) {
 		newAppointment = 0;
-		appId=appointment.appointment_id;
+		appId = appointment.appointment_id;
 	} else {
 		newAppointment = 1;
 		appId = "";
@@ -252,11 +249,14 @@ function didClickDelete(e) {
 }
 
 function didSuccessDelete(e) {
-	
+
 	Alloy.Models.doctor.set({
-		appointment_delete :{"index": args.index} });
-			
-	dialog.show({
+		appointment_delete : {
+			"index" : args.index
+		}
+	});
+
+	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleSuccess,
 		message : Alloy.Globals.strings.msgAppointmentDeleted,
 		buttonNames : [Alloy.Globals.strings.strOK],
@@ -272,9 +272,8 @@ function terminate() {
 
 function didAddReminder() {
 
-	
 	var newReminder = Alloy.Models.doctor.get("reminder_change");
-	
+
 	reminder = {
 		enabled : newReminder.enabled,
 		no_of_reminders : newReminder.no_of_reminders,
@@ -286,5 +285,5 @@ function didAddReminder() {
 
 }
 
-exports.init=init;
+exports.init = init;
 exports.setParentViews = setParentViews;

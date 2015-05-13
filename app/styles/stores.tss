@@ -1,23 +1,12 @@
 "#toggleBtn":{
 	title: Alloy.CFG.icons.map
 },
+"#searchbar":{
+	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState
+},
 "#mapView":{
 	animate: true,
 	regionFit: true,
-	userLocation: true
-},
-"#searchbar":{
-	search: true,
-	clearButton: true,
-	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState,
-	returnKeyType: Ti.UI.RETURNKEY_SEARCH
-},
-"#tableView[platform=mobileweb]":{
-	top: Alloy._m_top
-},
-".distance-icon":{
-	text: Alloy.CFG.icons.pin
-},
-".icon-lbl":{
-	left: 32
+	userLocation: true,
+	fragmentOnly: true
 }

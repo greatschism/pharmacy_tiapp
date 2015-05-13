@@ -55,7 +55,7 @@ function init() {
 }
 
 function didSuccess(result) {
-	console.log("refill history");
+	
 	refillHistory = result.data.refills;
 
 	if (refillHistory.length) {
@@ -79,7 +79,7 @@ function didSuccess(result) {
 }
 
 function getRow(data) {
-	console.log(data);
+
 	var row = $.UI.create("TableViewRow", {
 		apiName : "TableViewRow",
 		classes : ["height-75d"],

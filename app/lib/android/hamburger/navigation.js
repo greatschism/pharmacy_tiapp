@@ -14,6 +14,10 @@
  * @param {Object} _args.hamburger hamburger control
  * @constructor
  */
+
+var Alloy = require("alloy"),
+    _ = Alloy._;
+
 function Navigation(_args) {
 
 	var that = this;
@@ -247,7 +251,7 @@ function Navigation(_args) {
 
 		if (that.loader == null) {
 
-			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", {
+			that.loader = Alloy.createWidget("ti.loading", "widget", {
 				message : _message || Alloy.Globals.strings.msgPleaseWait
 			});
 		}
@@ -269,7 +273,7 @@ function Navigation(_args) {
 	/**
 	 * set loader message
 	 */
-	this.setMessage = function(message) {
+	this.setLoaderMessage = function(message) {
 
 		if (that.loader != null) {
 
@@ -292,9 +296,9 @@ function Navigation(_args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		logger.i(JSON.stringify(stack));
+		logger.info(JSON.stringify(stack));
 
-		logger.i("stack length: " + that.controllers.length);
+		logger.info("stack length: " + that.controllers.length);
 	};
 }
 

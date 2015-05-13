@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    dialog = require("dialog"),
+    uihelper = require("uihelper"),
     http = require("requestwrapper"),
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
@@ -9,7 +9,7 @@ var args = arguments[0] || {},
 
 function init(_navigation) {
 	if (OS_ANDROID) {
-		app.navigator.drawer.addEventListener("windowDidClose", didLeftWindowClose);
+		app.navigator.drawer.addEventListener(Alloy.CFG.DRAWER_LAYOUT ? "drawerclose" : "windowDidClose", didDrawerclose);
 	}
 	landingPage = _.findWhere(Alloy.Collections.menuItems.toJSON(), {
 		landing_page : true
@@ -18,7 +18,20 @@ function init(_navigation) {
 	app.navigator.open(_navigation || landingPage);
 }
 
-function didLeftWindowClose(e) {
+function filterFunction(collection) {
+	$.menu.applyProperties(Alloy.TSS.menu_view);
+	uihelper.getImage("logo_white", $.logoImg);
+	return collection.models;
+}
+
+function transformFunction(model) {
+	var transform = model.toJSON();
+	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
+	transform.title = Alloy.Globals.strings[transform.titleid];
+	return transform;
+}
+
+function didDrawerclose(e) {
 	if (currentIndex == -1) {
 		return false;
 	}
@@ -44,7 +57,7 @@ function didLeftWindowClose(e) {
 	} else if (itemObj.action) {
 		switch(itemObj.action) {
 		case "signout":
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgSignout,
 				buttonNames : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
 				cancelIndex : 1,
@@ -58,7 +71,7 @@ function didLeftWindowClose(e) {
 							});
 							Alloy.Collections.menuItems.remove(model);
 							app.navigator.open(landingPage);
-							dialog.show({
+							uihelper.showDialog({
 								message : Alloy.Globals.strings.msgSignedoutSuccessfully
 							});
 						}
@@ -67,7 +80,7 @@ function didLeftWindowClose(e) {
 			});
 			break;
 		default:
-			dialog.show({
+			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgUnderConstruction
 			});
 		}
@@ -75,29 +88,17 @@ function didLeftWindowClose(e) {
 	currentIndex = -1;
 }
 
-function filterFunction(collection) {
-	$.menu.backgroundColor = Alloy.TSS.primary_bg_color.backgroundColor;
-	return collection.models;
-}
-
-function transformFunction(model) {
-	var transform = model.toJSON();
-	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
-	transform.title = Alloy.Globals.strings[transform.titleid];
-	return transform;
-}
-
 function didItemClick(e) {
 	currentIndex = e.index;
-	if (!OS_ANDROID) {
-		didLeftWindowClose();
-	}
 	app.navigator.drawer.toggleLeftWindow();
+	if (OS_IOS) {
+		didDrawerclose();
+	}
 }
 
 function terminate() {
 	if (OS_ANDROID) {
-		app.navigator.drawer.removeEventListener("windowDidClose", didLeftWindowClose);
+		app.navigator.drawer.removeEventListener(Alloy.CFG.DRAWER_LAYOUT ? "drawerclose" : "windowDidClose", didDrawerclose);
 	}
 	$.destroy();
 }

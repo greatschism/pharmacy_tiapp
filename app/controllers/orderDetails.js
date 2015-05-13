@@ -8,7 +8,6 @@ var args = arguments[0] || {},
     config = require("config"),
     utilities = require("utilities"),
     strings = Alloy.Globals.strings,
-    dialog = require("dialog"),
     uihelper = require("uihelper"),
     prescription,
     addedPrescriptions,
@@ -18,20 +17,24 @@ var args = arguments[0] || {},
     row2,
     row3,
     pickupdetails,
-    picker;
+    picker,
+    storeId = 2109,
+    addressLine1,
+    addressLine2;
 
 function init() {
+	Alloy.Models.store.on("change", didChangeStore);
 	prescription = args.prescription || {};
 	patientName = args.patientName;
 	addedPrescriptions = args.addedPrescriptions || {};
 
-	picker = Alloy.createWidget("com.mscripts.dropdown", "widget", $.createStyle({
+	picker = Alloy.createWidget("ti.dropdown", "widget", $.createStyle({
 		classes : ["form-dropdown"]
 	}));
 
 	orders = [{
 		id : 1,
-		name : "Lovastin, 200mg tab"
+		name : prescription.presc_name
 
 	}];
 	data = [];
@@ -44,7 +47,7 @@ function init() {
 	});
 	addIcon.addEventListener("click", didClickAddAnotherPrescription);
 
-	$.yourOrderSection = uihelper.createTableViewSection($, strings.sectionYourOrder, $, addIcon);
+	$.yourOrderSection = uihelper.createTableViewSection($, strings.sectionYourOrder, $);
 	//Your orders
 	if (orders.length) {
 		for (var i in orders) {
@@ -62,7 +65,7 @@ function init() {
 			}),
 			    title = $.UI.create("Label", {
 				apiName : "Label",
-				classes : ["list-item-title-lbl", "left","h1"]
+				classes : ["list-item-title-lbl", "left", "h1"]
 			}),
 			    deleteIcon = $.UI.create("Label", {
 				apiName : "Label",
@@ -74,14 +77,13 @@ function init() {
 			containerView.rowId = transform.id;
 			title.text = transform.name;
 			containerView.add(title);
-			containerView.add(deleteIcon);
+			//containerView.add(deleteIcon);
 			row.add(containerView);
 			$.yourOrderSection.add(row);
 		}//end of orders loop
 
 	}
 	// pickup details section
-
 
 	$.pickupDetailsSection = uihelper.createTableViewSection($, strings.sectionPickupDetails, false);
 
@@ -117,26 +119,26 @@ function init() {
 		apiName : "View",
 		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height"]
 
-	}),
+	});
 
-	    addressLine1 = $.UI.create("Label", {
+	addressLine1 = $.UI.create("Label", {
 		apiName : "Label",
-		text : "1 Sanstome St.",
+		text : "2130 Ruf Snow Drive",
 		font : {
 			fontSize : 18,
 			bold : true
 		},
 		top : 0,
-		classes : ["list-item-info-lbl", "left","h1"]
+		classes : ["list-item-info-lbl", "left", "h1"]
 	}),
-	    addressLine2 = $.UI.create("Label", {
+	addressLine2 = $.UI.create("Label", {
 		apiName : "Label",
 		top : 30,
 
-		text : "San Franscisco,CA, 94103",
-		classes : ["list-item-info-lbl", "left","h2"]
-	}),
-	    editIcon = $.UI.create("Label", {
+		text : "Keller, TX, 76248",
+		classes : ["list-item-info-lbl", "left", "h2"]
+	});
+	var editIcon = $.UI.create("Label", {
 		apiName : "Label",
 		height : 32,
 		width : 32,
@@ -160,13 +162,13 @@ function init() {
 
 	    containerView = $.UI.create("View", {
 		apiName : "View",
-		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right","auto-height"]
+		classes : ["padding-top", "padding-bottom", "margin-left", "margin-right", "auto-height"]
 
 	}),
-		 mailTo = $.UI.create("Label", {
+	    mailTo = $.UI.create("Label", {
 		apiName : "Label",
 		text : Alloy.Globals.strings.msgMailOrder,
-		classes : ["left","h3"]
+		classes : ["left", "h3"]
 	});
 
 	containerView.rowId = transform.id;
@@ -181,11 +183,11 @@ function init() {
 		Ti.API.info("you selected  " + picker.getSelectedItem().title);
 		if (picker.getSelectedItem().title == "In store pickup") {
 
-			$.tableView.updateRow(2,row2);
+			$.tableView.updateRow(2, row2);
 
 		} else if (picker.getSelectedItem().title == "Mail order") {
 
-			$.tableView.updateRow(2,row3);
+			$.tableView.updateRow(2, row3);
 		}
 
 	});
@@ -204,35 +206,33 @@ function didClickOrderRefill(e) {
 	http.request({
 		method : "PRESCRIPTIONS_REFILL",
 		data : {
-			filter : null,
 			data : [{
-				prescriptions : [{
-					id : "x",
-					rx_number : "x",
-					store_id : "x",
-					mobile_number : "x",
-					pickup_time_group : "x",
-					pickup_mode : "instore/mailorder",
+				prescriptions : {
+					id : prescription.id,
+					rx_number : prescription.rx_number,
+					store_id : storeId,
+					mobile_number : "",
+					pickup_time_group : "pickupAsap",
+					pickup_mode : "instore",
 					barcode_data : "x",
 					barcode_format : "x"
-				}, {
-					id : "x",
-					rx_number : "x",
-					store_id : "x",
-					mobile_number : "x",
-					pickup_time_group : "x",
-					pickup_mode : "instore/mailorder",
-					barcode_data : "x",
-					barcode_format : "x"
-				}]
+				}
 			}]
 		},
-
 		success : didSuccess
 	});
 }
 
 function didSuccess(result) {
+
+	uihelper.showDialog({
+		message : "Your refill has been placed successfully. It will be ready by May 1st at 8:00 AM. Call 425-555-1212 with any questions.",
+		success : function() {
+			app.navigator.closeToRoot();
+			Ti.App.fireEvent("reload");
+		}
+	});
+	return;
 
 	//var abc = result.data.prescriptions || [];
 
@@ -261,12 +261,14 @@ function didClickAddAnotherPrescription(e) {
 }
 
 function didClickStoreChange(e) {
-	//app.navigator.open({
-	//	stack : true,
-	//	titleid : "titleStoreDetails",
-	//	ctrl : "stores"
-	//});
-	alert("Stores under construction");
+	app.navigator.open({
+		stack : true,
+		titleid : "titleStores",
+		ctrl : "stores",
+		ctrlArguments : {
+			orgin : "orderDetails"
+		}
+	});
 }
 
 // function didClickCallPharmacy(e) {
@@ -286,7 +288,14 @@ function didClickNext() {
 
 }
 
+function didChangeStore(e) {
+	storeId = Alloy.Models.store.get("storeid");
+	addressLine1.text = Alloy.Models.store.get("addressline1");
+	addressLine2.text = Alloy.Models.store.get("city") + ", " + Alloy.Models.store.get("state") + ", " + Alloy.Models.store.get("zip");
+}
+
 function terminate() {
+	Alloy.Models.store.off("change", didChangeStore);
 	$.destroy();
 }
 

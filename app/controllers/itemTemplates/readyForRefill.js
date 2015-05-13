@@ -9,6 +9,7 @@ var args = arguments[0] || {};
 	}
 	$.infoLbl.text = args.info;
 	$.detailLbl.text = args.detail;
+	$.row.rowId = args.id;
 	$.row.sectionId = args.property;
 	$.row.searchableText = (args.presc_name + args.rx_number_formated).toLowerCase();
 })();

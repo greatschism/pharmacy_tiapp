@@ -6,6 +6,8 @@ var args = arguments[0] || {},
 
 	$.window = app.navigator.rootWindow;
 
+	$.actionBar = $.window.getActivity().actionBar;
+
 	if (args.navBarHidden) {
 		hideNavBar();
 	} else if (app.navigator.rootNavBarHidden) {
@@ -16,19 +18,17 @@ var args = arguments[0] || {},
 
 	$.window.title = title;
 
-	$.window.getActivity().actionBar.updateActionBarProperties({
-		title : "\t" + title
-	});
+	$.actionBar.setTitle(title);
+
+	var hasRightNavButton = false;
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
 
-	var hasRightNavButton = false;
-
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		if (child.__controllerPath) {
+		if (child.__controllerPath && !child.role) {
 			child = child.getView();
 		}
 		if (!child) {
@@ -39,16 +39,41 @@ var args = arguments[0] || {},
 			hasRightNavButton = true;
 			setRightNavButton(child);
 			break;
+		case "contentView":
+			$.contentView = child;
+			break;
 		default:
-			$.containerView.add(child);
+			if (!$.contentView) {
+				$.contentView = $.UI.create("View", {
+					apiName : "View",
+					id : "contentView"
+				});
+			}
+			$.contentView.add(child);
 		}
 	});
+
+	$.addTopLevelView($.contentView);
 
 	if (!hasRightNavButton) {
 		setRightNavButton();
 	}
 
 	controller.app = app;
+
+	controller.logger = require("logger");
+
+	controller.http = require("requestwrapper");
+
+	controller.httpclient = require("http");
+
+	controller.utilities = require("utilities");
+
+	controller.uihelper = require("uihelper");
+
+	controller.uihelper = require("analytics");
+
+	controller.apm = require("apm");
 
 	controller.window = $.window;
 
@@ -60,7 +85,7 @@ var args = arguments[0] || {},
 
 	_.isFunction(controller.init) && controller.init();
 
-	_.isFunction(controller.setParentViews) && controller.setParentViews($.containerView);
+	_.isFunction(controller.setParentViews) && controller.setParentViews($.contentView);
 
 })();
 
@@ -77,35 +102,22 @@ function terminate(e) {
 }
 
 function showNavBar() {
-	var actionBar = $.window.getActivity().actionBar;
-	if (actionBar) {
-		actionBar.show();
-		app.navigator.rootNavBarHidden = false;
-	}
+	$.actionBar.show();
+	app.navigator.rootNavBarHidden = false;
 }
 
 function hideNavBar() {
-	var actionBar = $.window.getActivity().actionBar;
-	if (actionBar) {
-		actionBar.hide();
-		app.navigator.rootNavBarHidden = true;
-	}
+	$.actionBar.hide();
+	app.navigator.rootNavBarHidden = true;
 }
 
-function setRightNavButton(_view) {
+function setRightNavButton(_widget) {
 	var activity = $.window.getActivity();
 	activity.onCreateOptionsMenu = function(e) {
 		var menu = e.menu;
 		menu.clear();
-		if (_view) {
-			var menuItem = menu.add({
-				actionView : _view,
-				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
-				visible : false
-			});
-			setTimeout(function() {
-				menuItem.setVisible(true);
-			}, 300);
+		if (_widget && _widget.__controllerPath) {
+			_widget.setMenu(menu);
 		}
 	};
 	activity.invalidateOptionsMenu();

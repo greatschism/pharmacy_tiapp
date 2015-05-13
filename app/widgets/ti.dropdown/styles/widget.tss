@@ -1,0 +1,14 @@
+"#widget": {
+	height: 50,
+	accessibilityValue: "Dropdown"
+},
+"#lbl":{
+	accessibilityHidden: true
+},
+"#lbl[platform=android]":{
+	ellipsize: true,
+	wordWrap: false
+},
+"#downArrowLbl":{
+	accessibilityHidden: true
+}

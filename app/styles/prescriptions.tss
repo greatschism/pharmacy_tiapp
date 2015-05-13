@@ -9,6 +9,9 @@
 "#searchbar":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
 },
+"#unhideMenu":{
+	titleProperty: "presc_name"
+},
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.btnSelectNone
 },

@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="ListView" parent="@android:style/Widget.ListView">
-		<item name="android:listSelector">@android:color/transparent</item>
+	<style name="Material.ListView" parent="@android:style/Widget.ListView">
 		<item name="android:dividerHeight">1px</item>
 	</style>
-	<style name="Theme.LightActionBar" parent="@style/Theme.AppCompat.Light">
-		<item name="android:selectableItemBackground">@android:color/transparent</item>
+	<style name="Theme.Material" parent="Theme.AppCompat">
+		<item name="colorControlHighlight">#D4D4D4</item>
+		<item name="android:colorEdgeEffect">#D4D4D4</item>
 		<item name="android:textCursorDrawable">@null</item>
-		<item name="android:listViewStyle">@style/ListView</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:windowBackground">@android:color/white</item>
+		<item name="android:listViewStyle">@style/Material.ListView</item>
 	</style>
-	<style name="Theme.NoActionBar" parent="@style/Theme.LightActionBar">
+	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
-	<style name="Theme.Splash" parent="@style/Theme.NoActionBar">
+	<style name="Theme.Material.Translucent.NoActionBar" parent="Theme.Material.NoActionBar">
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
+	<style name="Theme.Material.Splash" parent="Theme.Material.NoActionBar">
 		<item name="android:windowBackground">@drawable/background</item>
 	</style>
 </resources>

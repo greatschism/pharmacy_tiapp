@@ -187,7 +187,7 @@ module.exports = {
 		"description" : "x",
 		"data" : {
 			"patients" : {
-				"session_id" : "12345fhajsdfajfakfh8723aajfkajf",
+				"session_id" : "3dd3eNEByEEQBBNoBoEzeNyBePzQdNJJ",
 				"status" : "1",
 				"client_id" : "1"
 			}
@@ -802,10 +802,10 @@ module.exports = {
 			"refills" : [{
 				"rxnumber" : "123456",
 				"storeid" : "2",
-				"storename" : "1 Sansome Street",
-				"address" : "San Francisco",
-				"state" : "CA",
-				"zip" : "94103",
+				"storename" : "Walmart Pharmacy",
+				"address" : "2130 Ruf Snow Drive",
+				"state" : "TX",
+				"zip" : "76248",
 				"orderedate" : "xxx",
 				"refilldate" : "2015-02-07",
 				"solddate" : "xxx",
@@ -813,10 +813,10 @@ module.exports = {
 			}, {
 				"rxnumber" : "123456",
 				"storeid" : "2",
-				"storename" : "445 Bush Street",
-				"address" : "San Francisco",
-				"state" : "CA",
-				"zip" : "91704",
+				"storename" : "Walmart Pharmacy",
+				"address" : "201 S Vancouver Av",
+				"state" : "AR",
+				"zip" : "72801",
 				"orderedate" : "xxx",
 				"refilldate" : "2015-02-17",
 				"solddate" : "xxx",
@@ -834,14 +834,14 @@ module.exports = {
 			"default" : "",
 			"code_values" : [{
 				"code_display" : "Name (Alphabetically)",
-				"code_values" : "by name",
+				"code_value" : "by name",
 				"selected" : true
 			}, {
 				"code_display" : "Most Recently Filled (newest first)",
-				"code_values" : "most recently filled"
+				"code_value" : "most recently filled"
 			}, {
 				"code_display" : "Upcoming Refills (oldest first)",
-				"code_values" : "upcoming refills"
+				"code_value" : "upcoming refills"
 			}]
 		}
 	},
@@ -855,12 +855,12 @@ module.exports = {
 				"store_id" : "1234",
 				"store_identifier" : "12345",
 				"store_ncpdp_id" : "12345",
-				"store_name" : "445, Bush Street",
-				"addressline1" : "San francisco",
+				"store_name" : "Walmart Pharmacy",
+				"addressline1" : "2130 Ruf Snow Drive",
 				"addressline2" : "TEST1",
-				"state" : "CA",
-				"city" : "SF",
-				"zip" : "94103",
+				"state" : "TX",
+				"city" : "Keller",
+				"zip" : "76248",
 				"email_address" : "x",
 				"phone" : "(617)283-7737",
 				"fax" : "6172837737",
@@ -913,17 +913,17 @@ module.exports = {
 				"store_id" : "123456",
 				"store_identifier" : "12345",
 				"store_ncpdp_id" : "12345",
-				"store_name" : "TEST STORE 1",
-				"addressline1" : "TEST1",
+				"store_name" : "Walmart Pharmacy",
+				"addressline1" : "201 S Vancouver Ave",
 				"addressline2" : "TEST1",
-				"state" : "CA",
-				"city" : "SF",
-				"zip" : "04003",
+				"state" : "AR",
+				"city" : "Russellville",
+				"zip" : "72801",
 				"email_address" : "x",
 				"phone" : "(617)283-7737",
 				"fax" : "6172837737",
-				"latitude" : "34.46533",
-				"longitude" : "-71.24564",
+				"latitude" : "40.46533",
+				"longitude" : "-78.24564",
 				"timezone" : "US/Central",
 				"distance" : "234.23",
 				"searchdistance" : "234.234",
@@ -1029,7 +1029,6 @@ module.exports = {
 				}
 			}]
 		}
-
 	},
 	"APPOINTMENTS_ADD" : {
 		"appointment_id" : "10",
@@ -1174,11 +1173,8 @@ module.exports = {
 				"zip" : "345678",
 				"home_phone" : "6172837737",
 				"fax_number" : "6172827373"
-
 			}
-
 		}
-
 	},
 	"PRESCRIPTIONS_UNHIDE" : {
 		"status" : "Success",
@@ -1188,4 +1184,3 @@ module.exports = {
 		"data" : ""
 	}
 };
-

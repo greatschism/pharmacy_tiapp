@@ -1,18 +1,28 @@
 <Alloy>
 	<View class="vgroup">
-	<View class="auto-height hgroup "  horizontalWrap="false">
-		<Label id="lblDate" class="padding-left width-45 textLayout" />
-		<View class="width-45 default-height" >
-			<Picker id="dayPicker" />
-		</View>
-	</View>	
-	
-	<View class="hgroup auto-height top"  horizontalWrap="false">
-		<Label id="lblTime" class="padding-left width-45 textLayout"  />
-		<Widget id="timeLbl" src="com.mscripts.dropdown" class="form-dropdown fill-width" />
-	</View>	
-	
-	<Button id="saveBtn" class="primary-btn padding-top" onClick="didClickSave" />
-	
-	</View>	
+		<TableView id="tableView" height="100" top="0" scrollable="false">
+			<TableViewSection>
+				<TableViewRow height="50">
+					<View class="list-item-view-with-child" onClick="didSelectDosageReminderOptions">
+						<Label id="lblDate" class="left list-item-lbl"/>
+						<Label id="dosageRemindersValue" class="right list-item-title-lbl link-single-line"/>
+					</View>
+					<Label class="list-item-child" />
+				</TableViewRow>
+				<TableViewRow height="50">
+					<Label id="lblTime" class="margin-left list-item-lbl" onClick="didClickShowTimer" />
+					<Widget id="lblTimeValue" src="ti.dropdown" class="form-dropdown fill-width" />
+				</TableViewRow>
+				<TableViewRow height="50">
+					<Label id="lblTime1" class="margin-left list-item-lbl" onClick="didClickShowTimer1"/>
+					<Widget id="lblTimeValue1" src="ti.dropdown" class="form-dropdown fill-width" />
+				</TableViewRow>
+				<TableViewRow height="50">
+					<Label id="lblTime2" class="margin-left list-item-lbl" onClick="didClickShowTimer2"/>
+					<Widget id="lblTimeValue2" src="ti.dropdown" class="form-dropdown fill-width" />
+				</TableViewRow>
+			</TableViewSection>
+		</TableView>
+		<Button id="saveBtn" class="primary-btn padding-top" onClick="didClickSave" />
+	</View>
 </Alloy>

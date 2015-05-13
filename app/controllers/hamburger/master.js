@@ -3,47 +3,34 @@ var args = arguments[0] || {},
     uihelper = require("uihelper");
 
 function init() {
+	if (OS_IOS) {
+		$.drawer.addEventListener("open", didOpen);
+		$.drawer.addEventListener("close", didClose);
+		$.drawer.addEventListener("windowDidOpen", didLeftWindowOpen);
+	}
 	if (OS_ANDROID) {
-		var title = Alloy.Globals.strings[(args.navigation || _.findWhere(Alloy.Collections.menuItems.toJSON(), {
-			landing_page : true
-		})).titleid] || Ti.App.name;
-		$.drawer.title = title;
-		$.drawer.setActionBarProperties({
-			title : "\t" + title,
-			font : Alloy.TSS.Window.titleAttributes.font.fontFamily,
-			color : Alloy.TSS.Window.titleAttributes.color,
-			backgroundColor : Alloy.TSS.Window.barColor,
-			logo : {
-				icon : Alloy.CFG.icons.hamburger,
-				font : Alloy.TSS.nav_icon_btn.font.fontFamily,
-				color : Alloy.TSS.nav_icon_btn.color,
-				accessibilityLabel : Alloy.Globals.strings.accessibilityLblNavigateMenu
-			}
+		$.drawer.getView().addEventListener("open", didOpen);
+		//due to bug here - https://github.com/viezel/NappDrawer/issues/159
+		$.drawer.addEventListener("didChangeOffset", function() {
 		});
 	}
 	$.drawer.open();
 }
 
 function didOpen(e) {
+	if (OS_IOS) {
+		$.drawer.centerWindow.accessibilityHidden = false;
+		$.drawer.leftWindow.accessibilityHidden = false;
+	}
+	if (OS_ANDROID) {
+		$.rootWindow = Alloy.CFG.DRAWER_LAYOUT ? e.source : this;
+		$.rootWindow.addEventListener("close", didClose);
+		$.rootWindow.addEventListener("androidback", didAndoridBack);
+	}
 	$.trigger("open");
 	if (!_.isEmpty(app.navigator)) {
 		app.terminate();
 	}
-	if (OS_ANDROID) {
-		$.rootWindow = this;
-		var actionBar = $.rootWindow.getActivity().actionBar;
-		if (actionBar) {
-			actionBar.setOnHomeIconItemSelected(function() {
-				app.navigator.drawer.toggleLeftWindow();
-			});
-		}
-	}
-	initHamburger();
-	$.drawer.centerWindow.accessibilityHidden = false;
-	$.drawer.leftWindow.accessibilityHidden = false;
-}
-
-function initHamburger() {
 	app.init({
 		type : "hamburger",
 		drawer : $.drawer,
@@ -69,11 +56,7 @@ function didAndoridBack(e) {
 
 function didLeftWindowOpen(e) {
 	if (OS_IOS) {
-		uihelper.requestForFocus($.menuCtrl.getView());
-	} else {
-		setTimeout(function() {
-			uihelper.requestForFocus($.menuCtrl.getView());
-		}, 250);
+		uihelper.requestViewFocus($.menuCtrl.getView());
 	}
 }
 

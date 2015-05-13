@@ -2,7 +2,7 @@
 	<ScrollView class="vgroup">
 		<ImageView id="logoImg" class="img-padding-top logo-img" />
 		<Label id="hintLbl" class="img-padding-top paragraph-lbl" />
-		<Widget id="mobileTxt" src="com.mscripts.textfield" class="padding-top txt returnkey-done" onChange="didChange" onReturn="didClickContinue" />
+		<Widget id="mobileTxt" src="ti.textfield" class="padding-top txt returnkey-done" onChange="didChange" onReturn="didClickContinue" />
 		<Button id="continueBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickContinue" />
 	</ScrollView>
 </Alloy>

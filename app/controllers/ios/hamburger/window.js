@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
+    logger = require("logger"),
     controller;
 
 (function() {
@@ -14,14 +15,14 @@ var args = arguments[0] || {},
 	$.leftNavView = Ti.UI.createView();
 
 	if (args.stack) {
-		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_NONE);
+		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_NONE");
 		$.leftNavBtn = $.UI.create("Button", {
 			classes : ["nav-icon-btn"],
 			title : Alloy.CFG.icons.back,
 			accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
 		});
 	} else {
-		app.navigator.drawer.setOpenDrawerGestureMode(app.navigator.drawer.OPEN_MODE_BEZEL_PANNING_CENTERWINDOW);
+		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_ALL");
 		$.leftNavBtn = $.UI.create("Button", {
 			classes : ["nav-icon-btn"],
 			title : Alloy.CFG.icons.hamburger,
@@ -59,6 +60,20 @@ var args = arguments[0] || {},
 	$.window.applyProperties(dict);
 
 	controller.app = app;
+
+	controller.logger = logger;
+
+	controller.http = require("requestwrapper");
+
+	controller.httpclient = require("http");
+
+	controller.utilities = require("utilities");
+
+	controller.uihelper = require("uihelper");
+
+	controller.uihelper = require("analytics");
+
+	controller.apm = require("apm");
 
 	controller.window = $.window;
 
@@ -109,18 +124,14 @@ function hideNavBar(_animated) {
 	});
 }
 
-function setRightNavButton(_view) {
-	var wrapperView;
-	if (_view) {
-		wrapperView = Ti.UI.createView();
-		wrapperView.addEventListener("click", function(e) {
-			if (e.source == wrapperView) {
-				_view.fireEvent("click");
-			}
-		});
-		wrapperView.add(_view);
+function setRightNavButton(_widget) {
+	var view;
+	if (_widget && _widget.__controllerPath) {
+		view = _widget.getView();
+	} else {
+		view = Ti.UI.createView();
 	}
-	$.window.setRightNavButton(wrapperView || Ti.UI.createView());
+	$.window.setRightNavButton(view);
 }
 
 exports.ctrlPath = controller ? controller.__controllerPath : "";

@@ -11,6 +11,9 @@
  * @singleton
  */
 
+var Alloy = require("alloy"),
+    _ = Alloy._;
+
 var App = {
 
 	/**
@@ -109,11 +112,11 @@ var App = {
 	},
 
 	promptAndReloadConfig : function() {
-		require("dialog").show({
+		require("uihelper").showDialog({
 			title : Alloy.Globals.strings.titleUpdates,
-			message : Alloy.CFG.forceReloadAfterUpdate ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
-			buttonNames : Alloy.CFG.forceReloadAfterUpdate ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
-			cancelIndex : Alloy.CFG.forceReloadAfterUpdate ? -1 : 1,
+			message : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
+			buttonNames : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
+			cancelIndex : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? -1 : 1,
 			success : App.reloadConfig
 		});
 	},

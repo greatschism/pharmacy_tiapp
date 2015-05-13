@@ -1,9 +1,17 @@
 "#hintLbl1":{
 	text: Alloy.Globals.strings.strRefillOrderHint,
-	backgroundColor: "#47c9af",
-	height:Ti.UI.SIZE
-},
 
+	
+	font : {
+					fontWeight : 'regular',
+					fontSize : 14
+				},
+				
+},
+"#hintView":{
+	height: 50,
+		backgroundColor: "#EFEFF4"
+}
 "#hintLbl2":{
 	text: Alloy.Globals.strings.strSelectPharmacyHint
 },

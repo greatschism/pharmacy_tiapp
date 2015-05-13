@@ -14,6 +14,10 @@
  * @param {Object} _args.hamburger hamburger control
  * @constructor
  */
+
+var Alloy = require("alloy"),
+    _ = Alloy._;
+
 function Navigation(_args) {
 
 	var that = this;
@@ -69,6 +73,12 @@ function Navigation(_args) {
 	this.navigationWindow = _args.navigationWindow;
 
 	/**
+	 * Wrapper view for styling the status bar style
+	 * @type {View}
+	 */
+	this.statusBar = {},
+
+	/**
 	 * The root window object
 	 * @type {Object}
 	 */
@@ -104,6 +114,14 @@ function Navigation(_args) {
 		that.navigationWindow = Ti.UI.iOS.createNavigationWindow({
 			window : that.currentController.getView()
 		});
+
+		that.statusBar = Ti.UI.createView({
+			top : 0,
+			height : 20,
+			width : Ti.UI.FILL,
+			backgroundColor : Alloy.TSS.Window.statusBarColor
+		});
+		that.navigationWindow.add(that.statusBar);
 
 		that.drawer.setCenterWindow(that.navigationWindow);
 
@@ -219,7 +237,7 @@ function Navigation(_args) {
 
 		if (that.loader == null) {
 
-			that.loader = Alloy.createWidget("com.mscripts.loading", "widget", {
+			that.loader = Alloy.createWidget("ti.loading", "widget", {
 				message : _message || Alloy.Globals.strings.msgPleaseWait
 			});
 		}
@@ -241,7 +259,7 @@ function Navigation(_args) {
 	/**
 	 * set loader message
 	 */
-	this.setMessage = function(message) {
+	this.setLoaderMessage = function(message) {
 
 		if (that.loader != null) {
 
@@ -264,9 +282,9 @@ function Navigation(_args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		logger.i(JSON.stringify(stack));
+		logger.info(JSON.stringify(stack));
 
-		logger.i("stack length: " + that.controllers.length);
+		logger.info("stack length: " + that.controllers.length);
 	};
 }
 

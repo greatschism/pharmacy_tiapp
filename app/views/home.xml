@@ -1,4 +1,4 @@
 <Alloy>
-	<Button id="rightNavBtn" class="nav-btn role-right-nav-btn" onClick="didClickRightNav" if="!Alloy.Globals.loggedIn" />
-	<View id="containerView" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-btn" onClick="didClickRightNav" if="!Alloy.Globals.loggedIn" />
+	<View id="contentView" class="role-content-view" />
 </Alloy> 
