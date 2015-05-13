@@ -6,4 +6,10 @@ describe("EncryptionUtil Test Suite", function() {
 		var strEncrypt = encryptionUtil.encrypt("testString");
 		encryptionUtil.decrypt(strEncrypt).should.be.equal("testString");
 	});
+	it("Enryption Util (Test Case 2)", function() {
+		encryptionUtil.encrypt("").should.be.ok;
+	});
+	it("Enryption Util (Test Case 3)", function() {
+		encryptionUtil.decrypt("").should.not.be.ok;
+	});
 }); 
