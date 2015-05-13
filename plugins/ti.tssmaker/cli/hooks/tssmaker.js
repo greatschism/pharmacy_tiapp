@@ -149,12 +149,10 @@ exports.init = function(logger, config, cli, appc) {
 	};
 
 	cli.on("build.pre.construct", function(build, done) {
-		getLastModifiedDate(themeJSPath, new Date(), function(_themeJSLmd) {
-			var yesterDay = new Date();
-			yesterDay.setDate(yesterDay.getDate() - 1);
-			getLastModifiedDate(appTSSPath, yesterDay, function(_appTSSLmd) {
-				getLastModifiedDate(defaultJSPath, new Date(), function(_defaultJSLmd) {
-					if (_themeJSLmd > _appTSSLmd || _defaultJSLmd > _appTSSLmd) {
+		getLastModifiedDate(themeJSPath, false, function(_themeJSLmd) {
+			getLastModifiedDate(appTSSPath, false, function(_appTSSLmd) {
+				getLastModifiedDate(defaultJSPath, false, function(_defaultJSLmd) {
+					if (_themeJSLmd == false || _appTSSLmd == false || _defaultJSLmd == false || _themeJSLmd > _appTSSLmd || _defaultJSLmd > _appTSSLmd) {
 						logger.info("theme js is modified, app.tss should be updated. Processing...");
 						processRequest(build, done);
 					} else {
