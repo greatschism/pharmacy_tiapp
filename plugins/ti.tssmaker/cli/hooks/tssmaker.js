@@ -98,23 +98,10 @@ exports.init = function(logger, config, cli, appc) {
 					}
 					var dict = tss[ts];
 					for (var key in dict) {
-						var value;
-						switch(dict[key]) {
-						case "auto":
-							value = "Ti.UI.SIZE";
-							break;
-						case "fill":
-							value = "Ti.UI.FILL";
-							break;
-						default:
-							value = "Alloy.TSS." + ts.replace(/^#/, '').replace(/^\./, '').replace(/-+/g, "_") + "." + key;
-						}
-						atss[ts][key] = value;
+						atss[ts][key] = "Alloy.TSS." + ts.replace(/^#/, '').replace(/^\./, '').replace(/-+/g, "_") + "." + key;
 					}
 				}
 				var appStr = JSON.stringify(atss);
-				appStr = appStr.replace(/"auto"+/g, "Ti.UI.SIZE");
-				appStr = appStr.replace(/"fill"+/g, "Ti.UI.FILL");
 				appStr = trimDoubleQuotes(appStr, /"Alloy.TSS+/g);
 				appStr = trimDoubleQuotes(appStr, /"Ti.UI+/g);
 				appStr = appStr.substring(1, appStr.length - 1);

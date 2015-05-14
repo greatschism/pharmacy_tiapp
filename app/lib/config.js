@@ -167,8 +167,18 @@ var Configuration = {
 				version : theme.version
 			}
 		};
-		var tss = utilities.clone(theme.styles.tss);
+		var tss = utilities.clone(theme.styles.tss),
+		    constants = {
+			"auto" : Ti.UI.SIZE,
+			"fill" : Ti.UI.FILL
+		};
 		for (var ts in tss) {
+			if (_.has(tss[ts], "width")) {
+				tss[ts].width = constants[tss[ts].width] || tss[ts].width;
+			}
+			if (_.has(tss[ts], "height")) {
+				tss[ts].height = constants[tss[ts].height] || tss[ts].height;
+			}
 			if (_.has(tss[ts], "font")) {
 				tss[ts].font.fontFamily = Alloy.Fonts[tss[ts].font.fontFamily];
 			}

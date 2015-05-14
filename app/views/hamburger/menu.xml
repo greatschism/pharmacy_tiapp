@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView dataCollection="menuItems" dataTransform="transformFunction" dataFilter="filterFunction" onClick="didItemClick">
 		<HeaderView>
-			<View id="headerView">
+			<View id="headerView" class="auto-height">
 				<ImageView id="logoImg" class="margin-bottom" />
 			</View>
 		</HeaderView>
