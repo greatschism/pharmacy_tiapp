@@ -1,15 +1,15 @@
-var encryptionUtil = require("encryptionUtil");
-var alloy = require("alloy");
+var Alloy = require("alloy"),
+    encryptionUtil = require("encryptionUtil");
 
 describe("EncryptionUtil Test Suite", function() {
-	it("Enryption Util (Test Case 1)", function() {
-		var strEncrypt = encryptionUtil.encrypt("testString");
-		encryptionUtil.decrypt(strEncrypt).should.be.equal("testString");
+
+	it("Test Case 1: encrypt / decrypt", function() {
+		var strEncrypt = encryptionUtil.encrypt("test string");
+		encryptionUtil.decrypt(strEncrypt).should.be.equal("test string");
 	});
-	it("Enryption Util (Test Case 2)", function() {
-		encryptionUtil.encrypt("").should.be.ok;
+
+	it("Test Case 2: decrypt with invalid string", function() {
+		encryptionUtil.decrypt("test string").should.be.equal("");
 	});
-	it("Enryption Util (Test Case 3)", function() {
-		encryptionUtil.decrypt("").should.not.be.ok;
-	});
-}); 
+
+});

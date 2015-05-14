@@ -1,12 +1,30 @@
-var localization = require('localization');
-var alloy = require("alloy");
+var Alloy = require("alloy"),
+    localization = require("localization");
 
 describe("Localization Test Suite", function() {
-	it("Get the current language - English (Test Case 1)", function() {
-		localization.currentLanguage.id="en";
-		localization.currentLanguage.id.should.be.equal("en");
+
+	it("Test Case 1: setLanguage with valid id", function() {
+		localization.setLanguage("es").should.be.equal(true);
 	});
-	it("Get the current language - Spanish (Test Case 2)", function() {
-		localization.currentLanguage.id.should.not.equal("es");
+
+	it("Test Case 2: currentLanguage", function() {
+		localization.currentLanguage.id.should.be.equal("es");
 	});
+
+	it("Test Case 3: setLanguage with invalid id", function() {
+		localization.setLanguage("esx").should.be.equal(false);
+	});
+
+	it("Test Case 4: switch back to en", function() {
+		localization.setLanguage("en").should.be.equal(true);
+	});
+
+	it("Test Case 5: getString with valid id", function() {
+		localization.getString("strOK").should.be.equal("OK");
+	});
+
+	it("Test Case 6: getString with invalid id", function() {
+		localization.getString("invalid").should.be.equal("");
+	});
+
 });

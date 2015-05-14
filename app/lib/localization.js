@@ -47,7 +47,7 @@ var Locale = {
 	 * get languages
 	 * return {Array} languages The supported languages
 	 */
-	getLanguages : function(_key) {
+	getLanguages : function() {
 		return require("resources").get("languages");
 	},
 
