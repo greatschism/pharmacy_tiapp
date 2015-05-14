@@ -5,4 +5,5 @@ require("specs/localization_test");
 require("specs/encryptionUtil_test");
 require("specs/config_test");
 require("specs/uihelper_test");
+require("specs/apm_test");
 mocha.run();
