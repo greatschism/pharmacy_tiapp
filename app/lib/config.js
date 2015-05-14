@@ -223,7 +223,6 @@ var Configuration = {
 	},
 
 	updateImageProperties : function(_item) {
-		console.log(_item);
 		_.extend(Alloy.Images[_item.code][_item.orientation], require("resources").updateImageProperties(_item));
 	},
 
