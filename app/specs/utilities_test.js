@@ -1,5 +1,4 @@
-var Alloy = require("alloy"),
-    utilities = require("utilities");
+var utilities = require("utilities");
 
 describe("Utility Test Suite", function() {
 

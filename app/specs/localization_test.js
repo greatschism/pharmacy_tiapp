@@ -1,5 +1,4 @@
-var Alloy = require("alloy"),
-    localization = require("localization");
+var localization = require("localization");
 
 describe("Localization Test Suite", function() {
 

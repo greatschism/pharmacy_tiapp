@@ -1,5 +1,4 @@
-var Alloy = require("alloy"),
-    encryptionUtil = require("encryptionUtil");
+var encryptionUtil = require("encryptionUtil");
 
 describe("EncryptionUtil Test Suite", function() {
 
