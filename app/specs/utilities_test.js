@@ -1,142 +1,185 @@
-var utilities = require("utilities");
-var alloy = require("alloy");
+var Alloy = require("alloy"),
+    utilities = require("utilities");
 
 describe("Utility Test Suite", function() {
-	it("Get the Utilities - Boolean Type (Test Case 1)", function() {
-		utilities.setProperty("boolUtility", false, "bool", false);
-		utilities.getProperty("boolUtility", false, "bool", false).should.be.equal(false);
-	});
-	it("Get the Utilities - Boolean Type (Test Case 2)", function() {
-		utilities.setProperty("boolUtility", true, "bool", false);
-		utilities.getProperty("boolUtility", true, "bool", false).should.be.equal(true);
-	});
-	it("Get the Utilities - String Type (Test Case 3)", function() {
-		utilities.setProperty("stringUtility", "stringValue", "string", false);
-		utilities.getProperty("stringUtility", "stringValue", "string", false).should.be.equal("stringValue");
-	});
-	it("Get the Utilities - String Type (Test Case 3a)", function() {
-		utilities.setProperty("stringUtility", undefined, "string", false);
-		utilities.getProperty("stringUtility", undefined, "string", false).should.equal("");
+
+	it("Test Case 1: setProperty / getProperty with type boolean", function() {
+		utilities.setProperty("testBool", false, "bool", false);
+		utilities.getProperty("testBool", true, "bool", false).should.be.equal(false);
 	});
 
-	it("Get the Utilities - Object Type (Test Case 4)", function() {
-		utilities.setProperty("objectUtility", {
-			name : "mscripts"
-		}, "object");
-		utilities.getProperty("objectUtility", {
-			name : "mscripts"
-		}, "object").should.have.property('name', 'mscripts');
-	});
-	it("Get the Utilities - Integer Type (Test Case 5)", function() {
-		utilities.setProperty("integerUtility", 100, "int");
-		utilities.getProperty("integerUtility", 100, "int").should.be.equal(100);
+	it("Test Case 2: setProperty / getProperty with type int", function() {
+		utilities.setProperty("testInt", 100, "int", false);
+		utilities.getProperty("testInt", 1, "int", false).should.be.equal(100);
 	});
 
-	it("Remove the Utility property (Test Case 6)", function() {(utilities.removeProperty("integerUtility"));
-		utilities.getProperty("integerUtility", 100, "int").should.be.empty;
+	it("Test Case 3: setProperty / getProperty with type int and encryption as ture. Encryption not supported for int & bool type, so should be handled and stored as unencrypted.", function() {
+		utilities.setProperty("testIntEncrypted", 100, "int", true);
+		utilities.getProperty("testIntEncrypted", 1, "int", false).should.be.equal(100);
 	});
 
-	it("File manipulations (Test Case 7)", function() {
-		utilities.getFileName("/images/logo_pl.png").should.be.equal("logo_pl.png");
+	it("Test Case 4: setProperty / getProperty with type string and no encryption", function() {
+		utilities.setProperty("testString", "test", "string", false);
+		utilities.getProperty("testString", "default", "string", false).should.be.equal("test");
 	});
-	it("File manipulations (Test Case 8)", function() {
-		utilities.getFileName("/images/helpful_medication_pl.png").should.be.equal("helpful_medication_pl.png");
+
+	it("Test Case 5: setProperty / getProperty with type string and encryption enabled", function() {
+		utilities.setProperty("testStringEncrypted", "test", "string", true);
+		utilities.getProperty("testStringEncrypted", "default", "string", true).should.be.equal("test");
 	});
-	it("Format Number (Test Case 14)", function() {
-		utilities.formatNumber("1000").should.be.equal("1,000");
+
+	it("Test Case 6: setProperty / getProperty with type object and no encryption", function() {
+		utilities.setProperty("testObject", {
+			name : "test"
+		}, "object", false);
+		utilities.getProperty("testObject", {}, "object", false).should.have.property("name", "test");
 	});
-	it("Format Number (Test Case 15)", function() {
-		utilities.formatNumber("10000").should.be.equal("10,000");
+
+	it("Test Case 7: setProperty / getProperty with type object and encryption enabled", function() {
+		utilities.setProperty("testObjectEncrypted", {
+			name : "test"
+		}, "object", true);
+		utilities.getProperty("testObjectEncrypted", {}, "object", true).should.have.property("name", "test");
 	});
-	it("Format Number (Test Case 16)", function() {
-		utilities.formatNumber("100000").should.be.equal("100,000");
+
+	it("Test Case 8: removeProperty", function() {
+		utilities.removeProperty("testObjectEncrypted");
+		utilities.getProperty("testObjectEncrypted", {}, "object", true).should.not.have.property("name", "test");
 	});
-	it("Format Number (Test Case 17)", function() {
-		utilities.formatNumber("1000000").should.be.equal("1,000,000");
+
+	it("Test Case 9: writeFile", function() {
+		utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt"), "Unit testing is running").should.be.equal(true);
 	});
-	it("Format Number (Test Case 18)", function() {
-		utilities.formatNumber("10000000").should.be.equal("10,000,000");
+
+	it("Test Case 10: getFile", function() {
+		utilities.getFile("test.txt", Ti.Filesystem.applicationDataDirectory).should.be.equal("Unit testing is running");
 	});
-	it("Format Number (Test Case 18a)", function() {
-		utilities.formatNumber("10000000").should.not.equal("12bdc");
+
+	it("Test Case 11: copyFile", function() {
+		if (utilities.fileExists("test_copied.txt", Ti.Filesystem.applicationDataDirectory)) {
+			utilities.deleteFile("test_copied.txt", Ti.Filesystem.applicationDataDirectory);
+		}
+		utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt"), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test_copied.txt"), false).should.be.equal(true);
 	});
-	it("Format Mobile Number (Test Case 19)", function() {
-		utilities.formatMobileNumber("6172837737").should.be.equal("(617) 283-7737");
+
+	it("Test Case 12: getFileName", function() {
+		utilities.getFileName(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt").nativePath).should.be.equal("test.txt");
 	});
-	it("Format Words - Capitalize first character of each word (Test Case 20)", function() {
-		utilities.ucword("mscripts india").should.be.equal("Mscripts India");
+
+	it("Test Case 13: getFileBaseName", function() {
+		utilities.getFileBaseName(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "test.txt").nativePath).should.be.equal("test");
 	});
-	it("Format Words - Capitalize first character of each word (Test Case 20a)", function() {
-		utilities.ucword("mscripts india").should.not.equal("Mscripts india");
+
+	it("Test Case 14: deleteFile", function() {
+		utilities.deleteFile("test.txt", Ti.Filesystem.applicationDataDirectory).should.be.equal(true);
 	});
-	it("Format Words - Capitalize only the first character of a string (Test Case 21)", function() {
-		utilities.ucfirst("mscripts india").should.be.equal("Mscripts india");
+
+	it("Test Case 15: getFiles", function() {
+		utilities.getFiles("/", Ti.Filesystem.applicationDataDirectory).should.be.instanceof(Array);
 	});
-	it("Format Words - Capitalize only the first character of a string (Test Case 21a)", function() {
-		utilities.ucfirst("mscripts india").should.not.equal("mscripts india");
+
+	it("Test Case 16: fileExists with valid path", function() {
+		utilities.fileExists("test_copied.txt", Ti.Filesystem.applicationDataDirectory).should.be.equal(true);
 	});
-	it("Format Words - Lower case only the first character of string (Test Case 22)", function() {
-		utilities.lcfirst("Mscripts India", false).should.be.equal("mscripts India");
+
+	it("Test Case 17: fileExists with invalid path", function() {
+		utilities.fileExists("copied.txt", Ti.Filesystem.applicationDataDirectory).should.be.equal(false);
 	});
-	it("Format Words - Lower case first character of each word (Test Case 23)", function() {
-		utilities.lcfirst("Mscripts India").should.be.equal("mscripts india");
+
+	it("Test Case 18: percentageToValue", function() {
+		utilities.percentageToValue("50%", 640).should.be.equal(320);
 	});
-	it("Format Words - Escape the character in the string (Test Case 24)", function() {
-		utilities.escapeString("mscriptsindia").should.be.equal("\"mscriptsindia\"");
+
+	it("Test Case 19: formatNumber", function() {
+		utilities.formatNumber(1250000).should.be.equal("1,250,000");
 	});
-	it("Format Words - Escape the character in the string (Test Case 24a)", function() {
-		utilities.escapeString("mscriptsindia").should.not.equal("\mscriptsindia");
+
+	it("Test Case 20: formatMobileNumber", function() {
+		utilities.formatMobileNumber(1234567890).should.be.equal("(123) 456-7890");
 	});
-	it("Format Words - Clean Strings (Test Case 25)", function() {
-		utilities.cleanString("To break lines<br>in a text,<br>use the br element.").should.equal("To break lines\nin a text,\nuse the br element.");
+
+	it("Test Case 21: ucword", function() {
+		utilities.ucword("unit testing").should.be.equal("Unit Testing");
 	});
-	it("Get random numbers (Test Case 26)", function() {
-		utilities.getRandomString("10").should.be.ok;
+
+	it("Test Case 22: ucfirst", function() {
+		utilities.ucfirst("unit testing").should.be.equal("Unit testing");
 	});
-	it("Clone an object (Test Case 27)", function() {
-		utilities.clone({
-			name : "mscripts"
-		}).should.have.property({
-			"name" : "mscripts"
-		});
+
+	it("Test Case 23: lcfirst", function() {
+		utilities.lcfirst("Unit testing").should.be.equal("unit testing");
 	});
-	it("Validate Names Success (Test Case 28)", function() {
-		utilities.validateName("mscripts'India'- ").should.true;
+
+	it("Test Case 24: cleanString", function() {
+		utilities.cleanString("A&ampB").should.be.equal("A&B");
 	});
-	it("Validate User Names Success (Test Case 29)", function() {
-		utilities.validateUserName("mscriptsIndia").should.true;
+
+	it("Test Case 24: cleanString", function() {
+		utilities.cleanString("A&ampB").should.be.equal("A&B");
 	});
-	it("Validate Names Failure (Test Case 30)", function() {
-		utilities.validateName("mscripts'India'-$").should.false;
+
+	it("Test Case 25: getRandomString", function() {
+		utilities.getRandomString(10).should.have.lengthOf(10);
 	});
-	it("Validate User Names Failure (Test Case 31)", function() {
-		utilities.validateUserName("'mscriptsIndia'").should.false;
+
+	it("Test Case 26: clone", function() {
+		var obj = {
+			name : "ABC",
+			properties : {
+				height : 100
+			}
+		};
+		var clonedObj = utilities.clone(obj);
+		delete obj.properties;
+		clonedObj.should.be.an.instanceOf(Object).and.have.property("properties");
 	});
-	it("Validate Email Success (Test Case 32)", function() {
-		utilities.validateEmail("mscriptsIndia@mscripts.com").should.true;
+
+	it("Test Case 27: validateName with valid name", function() {
+		utilities.validateName("Sample's NameE1").should.be.equal(true);
 	});
-	it("Validate Email Failure (Test Case 33)", function() {
-		utilities.validateEmail("mscriptsIndia@mscripts").should.false;
+
+	it("Test Case 28: validateName with invalid name", function() {
+		utilities.validateName("sabc.jkjk").should.be.equal(false);
 	});
-	it("Validate Email Failure (Test Case 33a)", function() {
-		utilities.validateEmail("123").should.false;
+
+	it("Test Case 29: validateUserName with valid username", function() {
+		utilities.validateUserName("abc123").should.be.equal(true);
 	});
-	it("Validate Password Success (Test Case 34)", function() {
-		utilities.validatePassword("mscripts123").should.true;
+
+	it("Test Case 30: validateUserName with invalid username", function() {
+		utilities.validateUserName("abc-123").should.be.equal(false);
 	});
-	it("Validate password Failure (Test Case 35)", function() {
-		utilities.validatePassword("mscripts").should.false;
+
+	it("Test Case 31: validateEmail with valid email", function() {
+		utilities.validateEmail("abc123@gmail.com").should.be.equal(true);
 	});
-	it("Validate mobile number Success (Test Case 36)", function() {
-		utilities.validateMobileNumber("(617) 283-7737").should.be.ok;
+
+	it("Test Case 32: validateEmail with invalid email", function() {
+		utilities.validateEmail("abc-123").should.be.equal(false);
 	});
-	it("Validate mobile number Failure (Test Case 37)", function() {
-		utilities.validateMobileNumber("6172837737").should.false;
+
+	it("Test Case 33: validatePassword with valid password", function() {
+		utilities.validatePassword("pass?123").should.be.equal(true);
 	});
-	it("Mobile number Success (Test Case 38)", function() {
-		utilities.isMobileNumber("6172837737").should.true;
+
+	it("Test Case 34: validatePassword with invalid password", function() {
+		utilities.validatePassword("easypassword").should.be.equal(false);
 	});
-	it("Mobile number Failure (Test Case 39)", function() {
-		utilities.isMobileNumber("617283773789686").should.false;
+
+	it("Test Case 35: validateMobileNumber with valid mobile number", function() {
+		utilities.validateMobileNumber("(123) 456-7890").should.be.equal("1234567890");
 	});
+
+	it("Test Case 36: validateMobileNumber with invalid mobile number", function() {
+		utilities.validateMobileNumber("(123) 456-789").should.be.equal(false);
+	});
+
+	it("Test Case 37: isMobileNumber with valid mobile number", function() {
+		utilities.isMobileNumber("1234567890").should.be.equal(true);
+	});
+
+	it("Test Case 38: isMobileNumber with invalid mobile number", function() {
+		utilities.isMobileNumber("123456a").should.be.equal(false);
+	});
+
 });

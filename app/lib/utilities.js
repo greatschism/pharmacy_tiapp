@@ -79,7 +79,7 @@ var Utility = {
 		if (_isEncrypted !== false) {
 			_value = require("encryptionUtil").encrypt(_value);
 		}
-		Ti.App.Properties["set" + Utility.ucfirst(_type)](_name, _value);
+		Ti.App.Properties["set" + Utility.ucfirst(type)](_name, _value);
 	},
 
 	/**
@@ -213,6 +213,9 @@ var Utility = {
 	 * @param {Srting} _str The mobile number
 	 */
 	formatMobileNumber : function(_str) {
+		if (!_.isString(_str)) {
+			_str += "";
+		}
 		return _str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
 	},
 
@@ -267,22 +270,11 @@ var Utility = {
 	},
 
 	/**
-	 * Escapes a string for SQL insertion
-	 * @param {String} _string The string to perform the action on
-	 */
-	escapeString : function(_string) {
-		if ( typeof _string !== "string") {
-			return "\"" + _string + "\"";
-		}
-		return "\"" + _string.replace(/"/g, "'") + "\"";
-	},
-
-	/**
 	 * Removes HTML entities, replaces breaks/paragraphs with newline, strips HTML, trims
 	 * @param {String} _string The string to perform the action on
 	 */
 	cleanString : function(_string) {
-		if ( typeof _string !== "string") {
+		if (!_.isString(_string)) {
 			return _string;
 		}
 		_string = _string.replace(/&amp;*/ig, "&");
@@ -295,15 +287,6 @@ var Utility = {
 		_string = _string.replace(/\n[^\S\n]*/g, "\n");
 		_string = _string.replace(/^\s+|\s+$/g, "");
 		return _string;
-	},
-
-	/**
-	 * Combination of clean and escape string
-	 * @param {String} _string The string to perform the action on
-	 */
-	cleanEscapeString : function(_string) {
-		_string = Utility.cleanString(_string);
-		return Utility.escapeString(_string);
 	},
 
 	/**
