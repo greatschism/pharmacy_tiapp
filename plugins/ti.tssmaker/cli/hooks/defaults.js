@@ -56,16 +56,16 @@ module.exports = {
 	".right" : {
 		"right" : 0
 	},
-	"auto-width" : {
+	".auto-width" : {
 		"width" : "Ti.UI.SIZE"
 	},
-	"auto-height" : {
+	".auto-height" : {
 		"height" : "Ti.UI.SIZE"
 	},
-	"fill-width" : {
+	".fill-width" : {
 		"width" : "Ti.UI.FILL"
 	},
-	"fill-height" : {
+	".fill-height" : {
 		"height" : "Ti.UI.FILL"
 	},
 	".vgroup" : {

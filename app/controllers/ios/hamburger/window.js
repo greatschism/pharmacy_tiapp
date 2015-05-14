@@ -124,14 +124,8 @@ function hideNavBar(_animated) {
 	});
 }
 
-function setRightNavButton(_widget) {
-	var view;
-	if (_widget && _widget.__controllerPath) {
-		view = _widget.getView();
-	} else {
-		view = Ti.UI.createView();
-	}
-	$.window.setRightNavButton(view);
+function setRightNavButton(_view) {
+	$.window.setRightNavButton( _view ? _view : Ti.UI.createView());
 }
 
 exports.ctrlPath = controller ? controller.__controllerPath : "";

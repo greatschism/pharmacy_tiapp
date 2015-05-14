@@ -96,9 +96,24 @@ exports.init = function(logger, config, cli, appc) {
 						atss[ts] = {
 						};
 					}
+					/**
+					 * remove any '#' or '.' character in first place and repalce '-' with '_'
+					 * and transform classifiers
+					 * Example
+					 * input: ".some-classname[platform=ios formFactor=handheld]"
+					 * output: "some_classname_platform_ios_formFacoor_handheld"
+					 */
+					var identifier = "Alloy.TSS." + ts.replace(/^#/g, "").replace(/^\./, "").replace(/-+/g, "_").replace(/\[.*$/g, ""),
+					    matches = ts.match(/\[.*$/g);
+					if (matches && matches.length) {
+						var classifiers = (matches[0] || "").replace(/\[|\]/g, "").split(" ");
+						for (var i in classifiers) {
+							identifier += "_" + classifiers[i].split("=").join("_");
+						}
+					}
 					var dict = tss[ts];
 					for (var key in dict) {
-						atss[ts][key] = "Alloy.TSS." + ts.replace(/^#/, '').replace(/^\./, '').replace(/-+/g, "_") + "." + key;
+						atss[ts][key] = identifier + "." + key;
 					}
 				}
 				var appStr = JSON.stringify(atss);

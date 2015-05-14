@@ -73,12 +73,6 @@ function Navigation(_args) {
 	this.navigationWindow = _args.navigationWindow;
 
 	/**
-	 * Wrapper view for styling the status bar style
-	 * @type {View}
-	 */
-	this.statusBar = {},
-
-	/**
 	 * The root window object
 	 * @type {Object}
 	 */
@@ -114,14 +108,6 @@ function Navigation(_args) {
 		that.navigationWindow = Ti.UI.iOS.createNavigationWindow({
 			window : that.currentController.getView()
 		});
-
-		that.statusBar = Ti.UI.createView({
-			top : 0,
-			height : 20,
-			width : Ti.UI.FILL,
-			backgroundColor : Alloy.TSS.Window.statusBarColor
-		});
-		that.navigationWindow.add(that.statusBar);
 
 		that.drawer.setCenterWindow(that.navigationWindow);
 

@@ -12,7 +12,7 @@
 			</View>
 		</TableViewRow>
 		<FooterView>
-			<View id="footerView" />
+			<View id="footerView" platform="ios" class="auto-height" />
 		</FooterView>
 	</TableView>
 </Alloy>

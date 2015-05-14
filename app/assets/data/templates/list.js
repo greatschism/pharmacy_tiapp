@@ -5,6 +5,7 @@ module.exports = {
 			"addChild" : "setFooterView",
 			"items" : [{
 				"apiName" : "View",
+				"platform" : ["ios"],
 				"classes" : ["auto-height"]
 			}]
 		}, {

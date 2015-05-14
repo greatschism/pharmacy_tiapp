@@ -4,9 +4,13 @@ var args = arguments[0] || {},
     icons = Alloy.CFG.icons;
 
 function init() {
-	var homePageTemplate = Alloy.Models.template.get("data");
-	for (var i in homePageTemplate) {
-		$.contentView.add(create(homePageTemplate[i]));
+	var items = Alloy.Models.template.get("data");
+	for (var i in items) {
+		var item = items[i];
+		if (_.has(item, "platform") && _.indexOf(item.platform, $.app.device.platform) == -1) {
+			continue;
+		}
+		$.contentView.add(create(item));
 	}
 }
 
@@ -40,7 +44,7 @@ function create(_dict) {
 			    cElemnts = [];
 			for (var i in items) {
 				var childItem = items[i];
-				if (childItem.platform && _.indexOf(childItem.platform, $.app.device.platform) == -1) {
+				if (_.has(childItem, "platform") && _.indexOf(childItem.platform, $.app.device.platform) == -1) {
 					continue;
 				}
 				if (asArray) {

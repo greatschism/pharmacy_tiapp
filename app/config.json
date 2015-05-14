@@ -49,7 +49,8 @@
 		},
 		"iconPrefix": "thick",
 		"iconNotations": {
-			"pet_medications": "0xE000"
+			"switch_on": "0xE001",
+			"switch_off": "0xE002"
 		},
 		"icons": {
 			"thick_prescriptions": "A",

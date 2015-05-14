@@ -191,8 +191,22 @@ var Configuration = {
 			if (_.has(tss[ts], "secondaryFont")) {
 				tss[ts].secondaryFont.fontFamily = Alloy.Fonts[tss[ts].secondaryFont.fontFamily];
 			}
-			//remove any '#' or '.' character in first place and repalce '-' with '_'
-			Alloy.TSS[ts.replace(/^#/, '').replace(/^\./, '').replace(/-+/g, "_")] = tss[ts];
+			/**
+			 * remove any '#' or '.' character in first place and repalce '-' with '_'
+			 * and transform classifiers
+			 * Example
+			 * input: ".some-classname[platform=ios formFactor=handheld]"
+			 * output: "some_classname_platform_ios_formFacoor_handheld"
+			 */
+			var identifier = ts.replace(/^#/g, "").replace(/^\./, "").replace(/-+/g, "_").replace(/\[.*$/g, ""),
+			    matches = ts.match(/\[.*$/g);
+			if (matches && matches.length) {
+				var classifiers = (matches[0] || "").replace(/\[|\]/g, "").split(" ");
+				for (var i in classifiers) {
+					identifier += "_" + classifiers[i].split("=").join("_");
+				}
+			}
+			Alloy.TSS[identifier] = tss[ts];
 		}
 		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
 
@@ -228,6 +242,14 @@ var Configuration = {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
+				if (style.queries && style.queries.formFactor) {
+					var formFactor = "_formFactor_" + (style.queries.formFactor.toLowerCase().replace("is", ""));
+					if (_.has(Alloy.TSS, (key + formFactor))) {
+						key += formFactor;
+					} else {
+						key += "_platform_" + require("core").device.platform + formFactor;
+					}
+				}
 				if (_.has(Alloy.TSS, key)) {
 					var style = dict.style;
 					for (var prop in style) {
