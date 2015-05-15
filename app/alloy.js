@@ -41,15 +41,6 @@
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
 	});
 
-	//Run unit test on development and test environment
-	if (!ENV_PROD) {
-		require("specs/app_test");
-	}
-
-	//initialization
-	require("apm").init();
 	require("com.scule.encrypted").init();
-	require("resources").init();
-	require("config").load();
 
 })();

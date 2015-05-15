@@ -1,8 +1,0 @@
-"#window[platform=android]":{
-	exitOnClose: false,
-	theme: "Theme.Material.NoActionBar"
-},
-"#loading":{
-	message: Alloy.Globals.strings.msgPleaseWait,
-	visible: false
-}

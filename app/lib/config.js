@@ -197,6 +197,7 @@ var Configuration = {
 			 * Example
 			 * input: ".some-classname[platform=ios formFactor=handheld]"
 			 * output: "some_classname_platform_ios_formFacoor_handheld"
+			 * Note: Will support only one platform and one formFactor query, muliple combination should not be used
 			 */
 			var identifier = ts.replace(/^#/g, "").replace(/^\./, "").replace(/-+/g, "_").replace(/\[.*$/g, ""),
 			    matches = ts.match(/\[.*$/g);
@@ -233,6 +234,7 @@ var Configuration = {
 	/**
 	 * https://appcelerator.force.com/portal/500F000000VToZE
 	 * https://jira.appcelerator.org/browse/ALOY-755
+	 * Note: Will support only one platform and one formFactor query, muliple combination should not be used
 	 * @param {String} name
 	 */
 	updateTSS : function(name) {
@@ -242,8 +244,8 @@ var Configuration = {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
-				if (style.queries && style.queries.formFactor) {
-					var formFactor = "_formFactor_" + (style.queries.formFactor.toLowerCase().replace("is", ""));
+				if (dict.queries && dict.queries.formFactor) {
+					var formFactor = "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));
 					if (_.has(Alloy.TSS, (key + formFactor))) {
 						key += formFactor;
 					} else {

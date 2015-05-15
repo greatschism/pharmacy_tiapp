@@ -60,7 +60,11 @@ function init() {
 
 	};
 
-	Scule.registerStorageEngine("tiencrypted", TiEncryptedStorageEngine);
+	try {
+		Scule.registerStorageEngine("tiencrypted", TiEncryptedStorageEngine);
+	} catch(error) {
+		require("logger").error("tiencrypted:", error);
+	}
 
 };
 

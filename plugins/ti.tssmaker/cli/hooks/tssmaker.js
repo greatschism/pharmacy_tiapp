@@ -102,6 +102,7 @@ exports.init = function(logger, config, cli, appc) {
 					 * Example
 					 * input: ".some-classname[platform=ios formFactor=handheld]"
 					 * output: "some_classname_platform_ios_formFacoor_handheld"
+					 * Note: Will support only one platform and one formFactor query, muliple combination should not be used
 					 */
 					var identifier = "Alloy.TSS." + ts.replace(/^#/g, "").replace(/^\./, "").replace(/-+/g, "_").replace(/\[.*$/g, ""),
 					    matches = ts.match(/\[.*$/g);
