@@ -11,8 +11,8 @@
 				<Label text="{title}" class="menu-item-lbl" />
 			</View>
 		</TableViewRow>
-		<FooterView>
-			<View id="footerView" platform="ios" class="auto-height" />
+		<FooterView platform="ios">
+			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
 </Alloy>
