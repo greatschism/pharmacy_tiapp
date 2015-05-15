@@ -133,7 +133,7 @@ function didAuthenticateMobileUser(_result) {
 	});
 }
 
-function didFail(_passthrough) {
+function didFail(_error, _passthrough) {
 	app.navigator.hideLoader();
 }
 

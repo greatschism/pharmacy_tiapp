@@ -97,14 +97,14 @@ function didSuccess(_data, _passthrough) {
 			message : _data.message || Alloy.Globals.strings.msgSomethingWentWrong
 		});
 		if (_passthrough.failure) {
-			_passthrough.failure(_passthrough.passthrough);
+			_passthrough.failure(_data, _passthrough.passthrough);
 		}
 	} else if (_passthrough.success) {
 		_passthrough.success(_data, _passthrough.passthrough);
 	}
 }
 
-function didFail(_passthrough) {
+function didFail(_error, _passthrough) {
 	if (Alloy.CFG.SIMULATE_API_ON_FAILURE) {
 		didSuccess(getSimulatedResponse(_passthrough.method), _passthrough);
 	} else {
@@ -126,12 +126,12 @@ function didFail(_passthrough) {
 				},
 				cancel : function() {
 					if (_passthrough.failure) {
-						_passthrough.failure(_passthrough.passthrough);
+						_passthrough.failure(_error, _passthrough.passthrough);
 					}
 				}
 			});
 		} else if (_passthrough.failure) {
-			_passthrough.failure(_passthrough.passthrough);
+			_passthrough.failure(_error, _passthrough.passthrough);
 		}
 	}
 }
@@ -146,7 +146,7 @@ function didComplete(_passthrough) {
 		}
 	}
 	if (_passthrough.done) {
-		_passthrough.done();
+		_passthrough.done(_passthrough.passthrough);
 	}
 }
 

@@ -41,7 +41,7 @@ function didClickContinue(e) {
 	}
 }
 
-function didFail(_passthrough) {
+function didFail(_error, _passthrough) {
 	app.navigator.hideLoader();
 }
 

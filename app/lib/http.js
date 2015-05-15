@@ -82,7 +82,7 @@ exports.request = function(_params) {
 		xhr.onerror = function(_event) {
 			logger.error("HTTP.error " + _event.code + " - " + _event.error);
 			if (_params.failure) {
-				_params.failure(_params.passthrough || {});
+				_params.failure(_event, _params.passthrough || {});
 				if (_params.done) {
 					_params.done(_params.passthrough || {});
 				}

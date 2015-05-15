@@ -88,6 +88,7 @@ function loadConfig() {
 }
 
 function didLoadConfig() {
+	return;
 	var ctrl = Alloy.createController(Alloy.CFG.NAVIGATOR + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.FIRST_LAUNCH, true, "bool", false) ? {
 			ctrl : "carousel",
