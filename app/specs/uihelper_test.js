@@ -1,5 +1,4 @@
 var uihelper = require("uihelper");
-var config = require("config");
 var imageView;
 
  describe("Uihelper Test Suite", function() {
