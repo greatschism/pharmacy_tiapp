@@ -3,7 +3,7 @@ var Alloy = require("alloy");
 var TiPerformance = {
 	module : false,
 	init : function() {
-		if (Alloy.CFG.APM_ENABLED && !APM.module) {
+		if (Alloy.CFG.APM_ENABLED && !TiPerformance.module) {
 			TiPerformance.module = require("com.appcelerator.apm");
 			TiPerformance.module.init();
 		}
