@@ -156,7 +156,7 @@ describe("Utility Test Suite", function() {
 	it("Test Case 32: validateEmail with invalid email", function() {
 		utilities.validateEmail("abc-123").should.be.equal(false);
 	});
-
+ 
 	it("Test Case 33: validatePassword with valid password", function() {
 		utilities.validatePassword("pass?123").should.be.equal(true);
 	});
