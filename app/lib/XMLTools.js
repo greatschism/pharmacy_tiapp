@@ -86,7 +86,6 @@ var XMLTools = function(_inputXml) {
 };
 
 XMLTools.prototype.getDocument = function() {
-	console.log("this doc");
 	return this.doc;
 };
 
