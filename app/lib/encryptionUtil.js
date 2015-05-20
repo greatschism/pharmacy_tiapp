@@ -39,8 +39,8 @@ function decrypt(_cipherText) {
 		}, decryptFinalKey, {
 			iv : decryptIV
 		}).toString(c.enc.Utf8);
-	} catch(ex) {
-		logger.error("Unable to decrypt : " + ex);
+	} catch(error) {
+		logger.error("Unable to decrypt : ", error);
 		return "";
 	}
 }

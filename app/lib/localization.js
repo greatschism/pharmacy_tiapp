@@ -6,7 +6,7 @@
  * * get value of key pair
  */
 var Alloy = require("alloy"),
-    _ = Alloy._;
+    _ = require("alloy/underscore")._;
 
 var Locale = {
 

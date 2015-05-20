@@ -1,5 +1,5 @@
 var Alloy = require("alloy"),
-    _ = Alloy._,
+    _ = require("alloy/underscore")._,
     logger = require("logger"),
     scule = require("com.scule"),
     utilities = require("utilities");

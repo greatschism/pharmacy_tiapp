@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
-    <property name="acs-api-key-production" type="string">QuHVfamomVmVwt0v20DUM78tQP4Uehol</property>
-    <property name="acs-authbase-url" type="string">https://secure-identity.cloud.appcelerator.com</property>
-    <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
-    <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <id>com.mscripts.appcelerator</id>
     <name>my Pharmacy</name>
     <version>7.0.11</version>
@@ -137,9 +132,10 @@
         <plugin>ti.tssmaker</plugin>
         <plugin>com.soasta.touchtest.android</plugin>
     </plugins>
-    <property name="com-soasta-touchtest-version" type="string">7732.159</property>
-    <property name="com-soasta-touchtest-ios-appId" type="string">347008</property>
-    <property name="com-soasta-touchtest-android-appId" type="string">285585</property>
+    <property name="acs-api-key-production" type="string">QuHVfamomVmVwt0v20DUM78tQP4Uehol</property>
+    <property name="acs-authbase-url" type="string">https://secure-identity.cloud.appcelerator.com</property>
+    <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
+    <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
     <property name="acs-authbase-url-development" type="string">https://secure-identity.cloud.appcelerator.com</property>
     <property name="acs-base-url-development" type="string">https://api.cloud.appcelerator.com</property>
     <property name="acs-oauth-secret-development" type="string">6Lg4brViaM4Csi78s6iGSGnfaY4Ai9wP</property>
@@ -154,4 +150,8 @@
     <property name="acs-password-production" type="string">PF1TaO2Cmekz9DyMka</property>
     <property name="appc-org-id" type="number">100000377</property>
     <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
+    <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
+    <property name="com-soasta-touchtest-version" type="string">7732.159</property>
+    <property name="com-soasta-touchtest-ios-appId" type="string">347008</property>
+    <property name="com-soasta-touchtest-android-appId" type="string">285585</property>
 </ti:app>

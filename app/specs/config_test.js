@@ -22,12 +22,10 @@ describe("Config Test Suite", function() {
 		_.isUndefined(Alloy.TSS).should.equal(true);
 	});
 
-	it("Test Case 3: load", function() {
-		var called = false;
+	it("Test Case 3: load", function(_done) {
 		config.load(function() {
-			called = true;
+			_done();
 		});
-		called.should.be.equal(true);
 	});
 
 	it("Test Case 4: check Alloy.TSS after calling load", function() {

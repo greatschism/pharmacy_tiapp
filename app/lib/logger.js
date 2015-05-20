@@ -1,5 +1,6 @@
 var Alloy = require("alloy"),
-    _ = Alloy._;
+    _ = require("alloy/underscore")._,
+    utilities = require("utilities");
 
 var TiLog = {
 	LOG_LEVEL_NONE : -1,
@@ -53,12 +54,24 @@ var TiLog = {
 					str += _arguments[i];
 				} else if (_.isArray(_arguments[i])) {
 					str += _arguments[i].join(" ");
+				} else if (utilities.isError(_arguments[i])) {
+					str += "{Errror:{";
+					if (_.has(error, "name")) {
+						str += "name: " + error.name;
+					}
+					if (_.has(error, "message")) {
+						str += " message: " + error.message;
+					}
+					if (_.has(error, "lineNumber")) {
+						str += "lineNumber: " + error.lineNumber;
+					}
+					str += "}}";
 				} else if (_.isObject(_arguments[i])) {
 					str += JSON.stringify(_arguments[i]);
 				}
 			}
-		} catch(e) {
-			str = "Logger is unable to parse the message";
+		} catch(error) {
+			str = "Logger: unable to parse with message " + (utilities.isError(error) ? error.message : "none");
 		}
 		return str;
 	}

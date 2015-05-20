@@ -5,7 +5,7 @@
  */
 
 var Alloy = require("alloy"),
-    _ = Alloy._;
+    _ = require("alloy/underscore")._;
 
 /**
  * String to Hex
@@ -390,6 +390,14 @@ var Utility = {
 	 */
 	isMobileNumber : function(_str) {
 		return /^[0-9]{10}$/.test(_str);
+	},
+
+	/**
+	 * check if object is instanceof Error
+	 * Current underscore version 1.6.0 from Alloy 1.6 doesn't support _.isError (Was introduced in underscore 1.8.0)
+	 */
+	isError : function(_obj) {
+		return Object.prototype.toString.call(_obj) === "[object Error]";
 	}
 };
 

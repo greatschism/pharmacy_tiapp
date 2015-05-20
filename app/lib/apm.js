@@ -1,43 +1,69 @@
-var Alloy = require("alloy");
+var Alloy = require("alloy"),
+    _ = require("alloy/underscore")._,
+    utilities = require("utilities"),
+    PerformanceModule = false;
 
 var TiPerformance = {
-	module : false,
-	init : function() {
-		if (Alloy.CFG.APM_ENABLED && !TiPerformance.module) {
-			TiPerformance.module = require("com.appcelerator.apm");
-			TiPerformance.module.init();
+	init : function(_callback, _appId, _config) {
+		if (Alloy.CFG.APM_ENABLED && !PerformanceModule) {
+			var Module = require("com.appcelerator.apm"),
+			    didServiceready = function() {
+				PerformanceModule = Module;
+				if (_.isFunction(_callback)) {
+					_callback(true);
+				}
+			};
+			if (OS_ANDROID) {
+				Module.addEventListener("serviceready", didServiceready);
+			}
+			Module.init(_appId || utilities.getProperty("com-appcelerator-apm-id", "", "string", false), _config || {});
+			if (!OS_ANDROID) {
+				didServiceready();
+			}
+		} else {
+			if (_.isFunction(_callback)) {
+				_callback(false);
+			}
 		}
 	},
-	didCrashOnLastAppLoad : function(_error) {
-		if (TiPerformance.module) {
-			return TiPerformance.module.didCrashOnLastAppLoad();
+	didCrashOnLastAppLoad : function() {
+		if (PerformanceModule) {
+			return PerformanceModule.didCrashOnLastAppLoad();
 		}
 		return false;
 	},
 	setUsername : function(_username) {
-		if (TiPerformance.module) {
-			TiPerformance.module.setUsername(_username);
+		if (PerformanceModule) {
+			PerformanceModule.setUsername(_username);
 		}
 	},
+	getUUID : function() {
+		if (OS_ANDROID && PerformanceModule) {
+			PerformanceModule.getUUID();
+		}
+		return "";
+	},
 	setOptOutStatus : function(_status) {
-		if (TiPerformance.module) {
-			TiPerformance.module.setOptOutStatus(_status);
+		if (PerformanceModule) {
+			PerformanceModule.setOptOutStatus(_status);
 		}
 	},
 	setMetadata : function(_key, _value) {
-		if (TiPerformance.module) {
-			TiPerformance.module.setMetadata(_key, _value);
+		if (PerformanceModule) {
+			PerformanceModule.setMetadata(_key, _value);
 		}
 	},
 	leaveBreadcrumb : function(_breadcrumb) {
-		if (TiPerformance.module) {
-			TiPerformance.module.leaveBreadcrumb(_breadcrumb || "");
+		if (PerformanceModule) {
+			PerformanceModule.leaveBreadcrumb(_breadcrumb || "");
 		}
 	},
 	logHandledException : function(_error) {
-		if (TiPerformance.module) {
-			TiPerformance.module.logHandledException(_error || {});
+		if (PerformanceModule && utilities.isError(_error)) {
+			PerformanceModule.logHandledException(_error);
+			return true;
 		}
+		return false;
 	}
 };
 

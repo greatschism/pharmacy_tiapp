@@ -4,6 +4,8 @@ var resources = require("resources"),
 describe("Resources Test Suite", function() {
 
 	it("Test Case 1: init", function() {
+		//data manipulation might take time
+		this.timeout(10000);
 		resources.init();
 		utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false).should.be.equal(Ti.App.version);
 	});

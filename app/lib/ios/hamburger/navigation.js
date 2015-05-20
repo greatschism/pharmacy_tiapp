@@ -16,7 +16,7 @@
  */
 
 var Alloy = require("alloy"),
-    _ = Alloy._;
+    _ = require("alloy/underscore")._;
 
 function Navigation(_args) {
 

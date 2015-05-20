@@ -1,22 +1,30 @@
-var XMLTools=require("XMLTools");
-describe("XML Tools Test Suite",function(){
-	it("XML Tools - Convert XML to JSON success",function(){
-		(typeof(XMLTools.toJSON("<company></company>"))== "object").should.be.true;	
+var XMLTools = require("XMLTools");
+
+describe("XMLTools Test Suite", function() {
+
+	it("Test Case 1: toJSON with Object at top level", function() {
+		XMLTools.toJSON("<response><name>ti-mocha</name></response>").should.be.an.instanceOf(Object).and.have.property("name", "ti-mocha");
 	});
-	it("XML Tools - Convert XML to JSON success",function(){
-	(typeof(XMLTools.toJSON("<company>mscripts</company>"))== "string").should.be.true;
+
+	it("Test Case 2: toJSON with Array at top level", function() {
+		XMLTools.toJSON("<response><names><name>a</name><name>b</name><name>c</name><name>d</name></names></response>").names.name.should.be.an.instanceOf(Array).and.have.lengthOf(4);
 	});
-	it("XML Tools - Convert JSON to XML success",function(){
-		(typeof(XMLTools.toXML({ "company": "mscripts" }))== "string").should.be.true;
+
+	it("Test Case 3: toXML with Object at top level", function() {
+		XMLTools.toXML({
+			data : {
+				name : "ti-mocha"
+			}
+		}).should.equal("<data><name>ti-mocha</name></data>");
 	});
-	it("XML Tools - Convert XML to JSON failure",function(){
-		(typeof(XMLTools.toJSON("<company></company>"))== "string").should.be.false;	
+
+	it("Test Case 4: toXML with Array at top level", function() {
+		XMLTools.toXML({
+			data : {
+				names : ["a", "b", "c", "d"]
+			}
+		}).should.equal("<data><names>a</names><names>b</names><names>c</names><names>d</names></data>");
 	});
-	it("XML Tools - Convert XML to JSON failure",function(){
-	(typeof(XMLTools.toJSON("<company>mscripts</company>"))== "object").should.be.false;
-	});
-	it("XML Tools - Convert JSON to XML failure",function(){
-		(typeof(XMLTools.toXML({ "company": "mscripts" }))== "object").should.be.false;
-	});
+
 });
 

@@ -156,7 +156,7 @@ describe("Utility Test Suite", function() {
 	it("Test Case 32: validateEmail with invalid email", function() {
 		utilities.validateEmail("abc-123").should.be.equal(false);
 	});
- 
+
 	it("Test Case 33: validatePassword with valid password", function() {
 		utilities.validatePassword("pass?123").should.be.equal(true);
 	});
@@ -179,6 +179,16 @@ describe("Utility Test Suite", function() {
 
 	it("Test Case 38: isMobileNumber with invalid mobile number", function() {
 		utilities.isMobileNumber("123456a").should.be.equal(false);
+	});
+
+	it("Test Case 39: isError with valid Error Object", function() {
+		utilities.isError(new Error("unit test for isError")).should.be.equal(true);
+	});
+
+	it("Test Case 40: isError with invalid Error Object", function() {
+		utilities.isError({
+			message : "unit test for isError"
+		}).should.be.equal(false);
 	});
 
 });
