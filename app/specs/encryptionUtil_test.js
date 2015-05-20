@@ -10,4 +10,5 @@ describe("EncryptionUtil Test Suite", function() {
 	it("Test Case 2: decrypt with invalid string", function() {
 		encryptionUtil.decrypt("test string").should.be.equal("");
 	});
+	
 });
