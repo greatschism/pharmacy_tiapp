@@ -8,4 +8,5 @@ require("specs/utilities_test");
 require("specs/uihelper_test");
 require("specs/apm_test");
 require("specs/XMLTools_test");
+require("specs/http_test");
 module.exports = mocha;
