@@ -111,10 +111,7 @@ module.exports = {
 							}]
 						}]
 					}]
-				}],
-				"navigation" : {
-					"ctrl" : "addFamilyAccount"
-				}
+				}]
 			}, {
 				"apiName" : "TableViewRow",
 				"children" : [{
