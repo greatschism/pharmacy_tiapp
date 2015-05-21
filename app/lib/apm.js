@@ -16,7 +16,10 @@ var TiPerformance = {
 			if (OS_ANDROID) {
 				Module.addEventListener("serviceready", didServiceready);
 			}
-			Module.init(_appId || utilities.getProperty("com-appcelerator-apm-id", "", "string", false), _config || {});
+			if (!_appId) {
+				_appId = utilities.getProperty("com-appcelerator-apm-id", "", "string", false);
+			}
+			Module.init(_appId, _config || {});
 			if (!OS_ANDROID) {
 				didServiceready();
 			}
@@ -38,8 +41,8 @@ var TiPerformance = {
 		}
 	},
 	getUUID : function() {
-		if (OS_ANDROID && PerformanceModule) {
-			PerformanceModule.getUUID();
+		if (PerformanceModule) {
+			return PerformanceModule.getUUID();
 		}
 		return "";
 	},
@@ -59,8 +62,12 @@ var TiPerformance = {
 		}
 	},
 	logHandledException : function(_error) {
-		if (PerformanceModule && utilities.isError(_error)) {
-			PerformanceModule.logHandledException(_error);
+		if (PerformanceModule && (_.isObject(_error) || utilities.isError(_error))) {
+			PerformanceModule.logHandledException({
+				name : _error.name || "Error",
+				message : _error.message || "",
+				line : _error.lineNumber || ""
+			});
 			return true;
 		}
 		return false;

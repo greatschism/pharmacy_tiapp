@@ -62,14 +62,15 @@ describe("APM Test Suite", function() {
 		_done();
 	});
 
-	it("Test Case 10: logHandledException with valid Error Object", function() {
+	it("Test Case 10: logHandledException with Error Object", function() {
 		apm.logHandledException(new Error("unit test logHandledException")).should.be.equal(true);
 	});
 
-	it("Test Case 11: logHandledException with invalid Error Object", function() {
+	it("Test Case 11: logHandledException with JSON Object", function() {
 		apm.logHandledException({
+			name : "Error",
 			message : "unit test logHandledException"
-		}).should.be.equal(false);
+		}).should.be.equal(true);
 	});
 
 });
