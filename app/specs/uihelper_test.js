@@ -32,9 +32,8 @@ describe("UIHelper Test Suite", function() {
 			if (locationTimeout) {
 				clearTimeout(locationTimeout);
 			}
+			//object can be empty when location services are not enabled
 			_location.should.be.instanceof(Object);
-			_location.should.have.property("latitude");
-			_location.should.have.property("longitude");
 			_done();
 		});
 	});
