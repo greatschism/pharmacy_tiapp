@@ -44,7 +44,7 @@ var TiPerformance = {
 		if (PerformanceModule) {
 			return PerformanceModule.getUUID();
 		}
-		return "";
+		return false;
 	},
 	setOptOutStatus : function(_status) {
 		if (PerformanceModule) {
