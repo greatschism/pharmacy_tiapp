@@ -1,6 +1,6 @@
 require("specs/ti-mocha");
 require("specs/should");
-require("specs/apm_test");
+//require("specs/apm_test");
 require("specs/resources_test");
 require("specs/config_test");
 require("specs/localization_test");
