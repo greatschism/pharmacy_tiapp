@@ -92,16 +92,11 @@ var Helper = {
 		}
 
 		if (_.isUndefined(_source)) {
-			Helper.getLocation(function(_currentLocation) {
-				Helper.getDirection(_destination, _currentLocation, _mode);
-			});
-			return;
-		} else {
-			if (_.isEmpty(_source)) {
-				_source = "";
-			} else {
-				_source = _source.latitude + "," + _source.longitude;
-			}
+			_source = _currentLocation;
+		}
+
+		if (_.isObject(_source)) {
+			_source = _source.latitude + "," + _source.longitude;
 		}
 
 		var params = "?saddr=" + _source + "&daddr=" + _destination + "&directionsmode=" + (_mode || "transit");
@@ -213,17 +208,13 @@ var Helper = {
 		var properties = Alloy.Images[_code][app.device.orientation],
 		    path = properties.image,
 		    newWidth = properties.width || 0,
-		    newHeight = properties.height || 0,
-		    newProperties = _.clone(properties);
+		    newHeight = properties.height || 0;
 		if (newWidth == 0 || newHeight == 0) {
-			if (_.has(properties, "left") && _.has(properties, "right")) {
-				properties.left = utilities.percentageToValue(properties.left, app.device.width);
-				properties.right = utilities.percentageToValue(properties.right, app.device.width);
-				newWidth = app.device.width - (properties.left + properties.right);
-				_.extend(newProperties, {
-					left : properties.left,
-					right : properties.right
-				});
+			var newProperties = _.pick(properties, ["top", "bottom", "left", "right", "width", "height"]);
+			if (_.has(newProperties, "left") && _.has(newProperties, "right")) {
+				newProperties.left = utilities.percentageToValue(properties.left, app.device.width);
+				newProperties.right = utilities.percentageToValue(properties.right, app.device.width);
+				newWidth = app.device.width - (newProperties.left + newProperties.right);
 			}
 			//image's width and height are density independent
 			var imgBlob = Ti.Filesystem.getFile(path).read(),
