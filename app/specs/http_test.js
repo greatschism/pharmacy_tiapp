@@ -1,35 +1,27 @@
-/**
- * @author lraj
- */
-var http=require("http");
-describe("http Test Suite",function(){
-	
-	var reqObject = {
-  	url: 'https://trvpc.remscripts.com/tronphonehandler/appload',
-  	type: 'POST',
-  	format: 'xml',
-  	data: '<request><appload><phonemodel></phonemodel><phoneos></phoneos><phoneplatform>IP</phoneplatform><deviceid></deviceid><appversion>v1</appversion><carrier></carrier><clientname></clientname><featurecode>TH038</featurecode></appload></request>'
-  	
-  	};
-	it("http - To verify the json response- TC001",function(){
-		http.request(reqObject).should.be.true;	
-	});
-	/*
-	it("XML Tools - Convert XML to JSON success",function(){ 
-	(typeof(request(""))== "string").should.be.true;
-	});
-	it("XML Tools - Convert JSON to XML success",function(){
-		(typeof(XMLTools.toXML({ "company": "mscripts" }))== "string").should.be.true;
-	});
-	it("XML Tools - Convert XML to JSON failure",function(){
-		(typeof(XMLTools.toJSON("<company></company>"))== "string").should.be.false;	
-	});
-	it("XML Tools - Convert XML to JSON failure",function(){
-	(typeof(XMLTools.toJSON("<company>mscripts</company>"))== "object").should.be.false;
-	});
-	it("XML Tools - Convert JSON to XML failure",function(){
-		(typeof(XMLTools.toXML({ "company": "mscripts" }))== "object").should.be.false;
-	});
-*/
-});
+var http = require("http");
 
+describe("HTTP Test Suite", function() {
+
+	it("Test Case 1: request", function(_done) {
+		this.timeout(30000);
+		http.request({
+			url : "https://api.github.com/users/mano-mykingdom",
+			type : "GET",
+			format : "JSON",
+			passthrough : "Github",
+			success : function(_result, _passthrough) {
+				_result.should.be.instanceof(Object);
+				_passthrough.should.be.equal("Github");
+			},
+			failure : function(_error, _passthrough) {
+				_error.should.be.instanceof(Object);
+				_passthrough.should.be.equal("Github");
+			},
+			done : function(_passthrough) {
+				_passthrough.should.be.equal("Github");
+				_done();
+			}
+		});
+	});
+
+});

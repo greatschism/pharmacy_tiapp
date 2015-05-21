@@ -40,7 +40,7 @@ exports.request = function(_params) {
 
 			var _data;
 
-			switch(_params.format.toLowerCase()) {
+			switch((_params.format || "").toLowerCase()) {
 			case "data":
 				_data = this.responseData || this.responseText || "{}";
 				break;
@@ -51,8 +51,8 @@ exports.request = function(_params) {
 				_data = JSON.parse(this.responseText || "{}");
 				break;
 			case "text":
+			default:
 				_data = this.responseText || "";
-				break;
 			}
 
 			if (_params.success) {
@@ -116,7 +116,10 @@ exports.request = function(_params) {
 		logger.debug("No internet connection");
 
 		if (_params.failure) {
-			_params.failure(_params.passthrough || {});
+			_params.failure({
+				code : 1007,
+				error : "No network connection. No network."
+			}, _params.passthrough || {});
 			if (_params.done) {
 				_params.done(_params.passthrough || {});
 			}
