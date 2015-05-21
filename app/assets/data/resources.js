@@ -144,7 +144,7 @@ module.exports = {
 			},
 			"landscape" : {
 				"top" : 40,
-				"right" : 30
+				"height" : 30
 			}
 		},
 		"url" : "https://staging.remscripts.com/nativemia/logo.png"

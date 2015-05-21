@@ -1,6 +1,5 @@
 "#drawer":{
-	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH,
-	animationMode: "ANIMATION_NONE"
+	leftDrawerWidth: Alloy.CFG.LEFT_DRAWER_WIDTH
 },
 "#drawer[platform=ios]":{
 	accessibilityLabel: Ti.App.name,
