@@ -10,9 +10,6 @@ function init() {
 	}
 	if (OS_ANDROID) {
 		$.drawer.getView().addEventListener("open", didOpen);
-		//due to bug here - https://github.com/viezel/NappDrawer/issues/159
-		$.drawer.addEventListener("didChangeOffset", function() {
-		});
 	}
 	$.drawer.open();
 }
