@@ -1610,7 +1610,7 @@ module.exports = {
 				"height" : 1,
 				"backgroundColor" : "#D4D4D4"
 			},
-			".option-devider-lbl" : {
+			".option-divider-lbl" : {
 				"width" : 52,
 				"height" : "fill",
 				"font" : {
