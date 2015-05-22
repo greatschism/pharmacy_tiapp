@@ -4,11 +4,6 @@ module.exports = {
 		"version" : 1,
 		"url" : "url_to_download",
 		"selected" : true
-	}, {
-		"id" : "walmart",
-		"version" : 1,
-		"url" : "url_to_download",
-		"selected" : false
 	}],
 	"templates" : [{
 		"id" : "list",
@@ -22,7 +17,7 @@ module.exports = {
 		"selected" : false
 	}],
 	"menus" : [{
-		"id" : "mscripts",
+		"id" : "hamburger",
 		"version" : 1,
 		"url" : "url_to_download",
 		"selected" : true
