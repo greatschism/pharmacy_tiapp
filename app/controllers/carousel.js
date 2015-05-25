@@ -5,10 +5,10 @@ var args = arguments[0] || {},
 
 function init() {
 	utilities.setProperty(Alloy.CFG.FIRST_LAUNCH, false, "bool", false);
-	uihelper.getImage($.logoImg);
-	uihelper.getImage($.prescriptionListImg);
-	uihelper.getImage($.helpfulMedicationImg);
-	uihelper.getImage($.storeLocatorImg);
+	uihelper.getImage("logo", $.logoImg);
+	uihelper.getImage("prescription_list", $.prescriptionListImg);
+	uihelper.getImage("helpful_medication", $.helpfulMedicationImg);
+	uihelper.getImage("store_locator", $.storeLocatorImg);
 }
 
 function handleScroll(e) {
