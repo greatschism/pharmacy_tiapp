@@ -13,21 +13,22 @@ var drugDetails,
     drugEffectsInfoView,
     http = require('http'),
     XMLTools = require("XMLTools"),
-    app=require("core"),xml,my_object;
+    app = require("core"),
+    xml,
+    my_object;
 
 function didFailure() {
 	console.error(JSON.stringify(this));
 };
 
-function didSuccess(_data) {
-	xml = new XMLTools(_data);
+function didSuccess(data) {
+	xml = new XMLTools(data);
 	my_object = xml.toObject();
 	drugDetails = my_object["SOAP-ENV:Body"]["gsdd:ContentPatientEducation"]["gsdd:PatientEducationSheet"]["gsdd:Description"];
 	conditions = my_object["SOAP-ENV:Body"]["gsdd:ContentPatientEducation"]["gsdd:PatientEducationSheet"]["gsdd:Contraindications"];
 	effects = my_object["SOAP-ENV:Body"]["gsdd:ContentPatientEducation"]["gsdd:PatientEducationSheet"]["gsdd:Description"];
 	sideEffects = my_object["SOAP-ENV:Body"]["gsdd:ContentPatientEducation"]["gsdd:PatientEducationSheet"]["gsdd:SideEffects"];
 	app.navigator.hideLoader();
-
 
 	//View displayed on clicking drug_details
 	drugDetailsInfoView = $.UI.create("View", {
@@ -45,7 +46,7 @@ function didSuccess(_data) {
 		text : "Alprazolam"
 	});
 	drugDetailsDescription = $.UI.create("Label", {
-		classes : ["multi-line"," margin-top"," margin-bottom","textStyle","margin-left","margin-right"],
+		classes : ["multi-line", " margin-top", " margin-bottom", "textStyle", "margin-left", "margin-right"],
 		text : drugDetails
 
 	});
@@ -53,8 +54,7 @@ function didSuccess(_data) {
 	drugDetailsInfoView.add(genericNameLabel);
 	drugDetailsInfoView.add(genericName);
 	drugDetailsInfoView.add(drugDetailsDescription);
-	
-	
+
 	//View displayed on clicking drug_effects
 	drugEffectsInfoView = $.UI.create("View", {
 		classes : ["auto-height", "vgroup"]
@@ -67,24 +67,20 @@ function didSuccess(_data) {
 	});
 	drugEffectsInfoView.add(drugEffectsDescription);
 
-	
-	
 	//View displayed on clicking other_conditions
 	drugConditionsInfoView = $.UI.create("View", {
 		classes : ["auto-height", "vgroup"]
 	});
-	
+
 	drugConditionDescription = $.UI.create("Label", {
-		classes :'textStyle' ,
+		classes : 'textStyle',
 		text : conditions
 
 	});
 	drugConditionsInfoView.add(drugConditionDescription);
-	
-	
 
 	//View to display side_effects
-    drugSideEffectsInfoView = $.UI.create("View", {
+	drugSideEffectsInfoView = $.UI.create("View", {
 		classes : ["auto-height", "vgroup"]
 	});
 	drugSideeffectDescription = $.UI.create("Label", {
@@ -92,12 +88,15 @@ function didSuccess(_data) {
 		text : sideEffects
 
 	});
-	
+
 	drugSideEffectsInfoView.add(drugSideeffectDescription);
 }
 
 function init() {
-	app.navigator.showLoader({message:"Loading",textAlign:"center"});
+	app.navigator.showLoader({
+		message : "Loading",
+		textAlign : "center"
+	});
 	http.request({
 		type : "POST",
 		format : "XML",
@@ -109,41 +108,40 @@ function init() {
 	});
 }
 
-
 function viewExpand(e) {
 	var sourceView = e.source.id;
 	console.log(sourceView);
 	if (sourceView == "drugDetailsParent") {
-		
-		var children=$.drugDetailsParent.getChildren();
+
+		var children = $.drugDetailsParent.getChildren();
 		//console.log(children.length);
-		
-		if(children.length==1){
+
+		if (children.length == 1) {
 			$.drugDetailsParent.showVerticalScrollIndicator = 'true';
 			$.drugDetailsParent.add(drugDetailsInfoView);
-		}else {
-			$.drugDetailsParent.remove(drugDetailsInfoView);
-			}
-	
-	} 
-	/*else if (sourceView == "drugEffectsParent") {
-		
-		var children=$.drugEffectsParent.getChildren();
-
-		if (children.length==1) {
-			$.drugEffectsParent.add(drugEffectsInfoView);
-			
 		} else {
-			$.drugEffectsParent.remove(drugEffectsInfoView);
-			
+			$.drugDetailsParent.remove(drugDetailsInfoView);
 		}
 
-	}*/
-	 else if (sourceView == "drugConditionsParent") {
-		
-		var children=$.drugConditionsParent.getChildren();
+	}
+	/* else if (sourceView == "drugEffectsParent") {
 
-		if (children.length==1) {
+	 var children=$.drugEffectsParent.getChildren();
+
+	 if (children.length==1) {
+	 $.drugEffectsParent.add(drugEffectsInfoView);
+
+	 } else {
+	 $.drugEffectsParent.remove(drugEffectsInfoView);
+
+	 }
+
+	 }*/
+	else if (sourceView == "drugConditionsParent") {
+
+		var children = $.drugConditionsParent.getChildren();
+
+		if (children.length == 1) {
 			$.drugConditionsParent.add(drugConditionsInfoView);
 
 		} else {
@@ -151,15 +149,15 @@ function viewExpand(e) {
 
 		}
 	} else if (sourceView == "drugSideEffectsParent") {
-		
-		var children=$.drugSideEffectsParent.getChildren();
 
-		if (children.length==1) {
+		var children = $.drugSideEffectsParent.getChildren();
+
+		if (children.length == 1) {
 			$.drugSideEffectsParent.add(drugSideEffectsInfoView);
 
 		} else {
 			$.drugSideEffectsParent.remove(drugSideEffectsInfoView);
-	
+
 		}
 
 	}

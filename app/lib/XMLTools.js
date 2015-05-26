@@ -1,27 +1,27 @@
-var addToObject = function(_obj, _key, _value) {
-	if (_obj[_key] == null) {
-		_obj[_key] = _value;
-	} else if (!(_obj[_key] instanceof Array)) {
-		var tmp = _obj[_key];
-		var arr = [tmp, _value];
-		_obj[_key] = arr;
+var addToObject = function(obj, key, value) {
+	if (obj[key] == null) {
+		obj[key] = value;
+	} else if (!(obj[key] instanceof Array)) {
+		var tmp = obj[key];
+		var arr = [tmp, value];
+		obj[key] = arr;
 	} else {
-		_obj[_key].push(_value);
+		obj[key].push(value);
 	}
-	return _obj;
+	return obj;
 };
 
-var traverseTree = function(_node) {
+var traverseTree = function(node) {
 	var textOnly = true;
 	var part = {};
-	if (_node.hasChildNodes()) {
-		for (var ch_index = 0; ch_index < _node.childNodes.length; ch_index++) {
-			var ch = _node.childNodes.item(ch_index);
+	if (node.hasChildNodes()) {
+		for (var chindex = 0; chindex < node.childNodes.length; chindex++) {
+			var ch = node.childNodes.item(chindex);
 			if (ch.nodeName == '#text' && ch.textContent.replace(/\n/g, '').replace(/ /g, '') == "")
 				continue;
 			//skip blank text element
-			if (ch.nodeType === 3 || ch.nodeType === ch.CDATA_SECTION_NODE) {//Text Node
-				if (_node.childNodes.length === 1 && !_node.hasAttributes()) {
+			if (ch.nodeType === 3 || ch.nodeType === ch.CDATA_SECTIONnode) {//Text Node
+				if (node.childNodes.length === 1 && !node.hasAttributes()) {
 					return ch.textContent;
 				} else {
 					part.text = ch.textContent;
@@ -32,9 +32,9 @@ var traverseTree = function(_node) {
 		}
 		textOnly = false;
 	}
-	if (_node.hasAttributes()) {
-		for (var att_index = 0; att_index < _node.attributes.length; att_index++) {
-			var att = _node.attributes.item(att_index);
+	if (node.hasAttributes()) {
+		for (var attindex = 0; attindex < node.attributes.length; attindex++) {
+			var att = node.attributes.item(attindex);
 			//part = addToObject(part, att.nodeName, att.nodeValue);
 			part[att.nodeName] = att.nodeValue;
 		}
@@ -43,45 +43,45 @@ var traverseTree = function(_node) {
 	return part;
 };
 
-var traverseObject = function(_v, _name, _ind) {
+var traverseObject = function(v, name, ind) {
 	var xml = "";
-	if ( _v instanceof Array) {
+	if ( v instanceof Array) {
 		for (var i = 0,
-		    n = _v.length; i < n; i++)
-			xml += _ind + traverseObject(_v[i], _name, _ind + "\t") + "\n";
-	} else if ( typeof (_v) == "object") {
+		    n = v.length; i < n; i++)
+			xml += ind + traverseObject(v[i], name, ind + "\t") + "\n";
+	} else if ( typeof (v) == "object") {
 		var hasChild = false;
-		xml += _ind + "<" + _name;
-		for (var m in _v) {
+		xml += ind + "<" + name;
+		for (var m in v) {
 			if (m.charAt(0) == "@")
-				xml += " " + m.substr(1) + "=\"" + _v[m].toString() + "\"";
+				xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
 			else
 				hasChild = true;
 		}
 		xml += hasChild ? ">" : "/>";
 		if (hasChild) {
-			for (var m in _v) {
+			for (var m in v) {
 				if (m == "#text")
-					xml += _v[m];
+					xml += v[m];
 				else if (m == "#cdata")
-					xml += "<![CDATA[" + _v[m] + "]]>";
+					xml += "<![CDATA[" + v[m] + "]]>";
 				else if (m.charAt(0) != "@")
-					xml += traverseObject(_v[m], m, _ind + "\t");
+					xml += traverseObject(v[m], m, ind + "\t");
 			}
-			xml += (xml.charAt(xml.length - 1) == "\n" ? _ind : "") + "</" + _name + ">";
+			xml += (xml.charAt(xml.length - 1) == "\n" ? ind : "") + "</" + name + ">";
 		}
 	} else {
-		xml += _ind + "<" + _name + ">" + _v.toString() + "</" + _name + ">";
+		xml += ind + "<" + name + ">" + v.toString() + "</" + name + ">";
 	}
 	return xml;
 };
 
-var XMLTools = function(_inputXml) {
-	if ( typeof _inputXml == 'string') {
-		this.doc = Ti.XML.parseString(_inputXml).documentElement;
+var XMLTools = function(inputXml) {
+	if ( typeof inputXml == 'string') {
+		this.doc = Ti.XML.parseString(inputXml).documentElement;
 	}
-	if ( typeof _inputXml == 'object') {
-		this.doc = _inputXml.documentElement;
+	if ( typeof inputXml == 'object') {
+		this.doc = inputXml.documentElement;
 	}
 };
 
@@ -107,13 +107,13 @@ XMLTools.prototype.toJSON = function() {
 	return (JSON.stringify(this.obj));
 };
 
-exports.toJSON = function(_xmlStr) {
-	return new XMLTools(_xmlStr).toObject();
+exports.toJSON = function(xmlStr) {
+	return new XMLTools(xmlStr).toObject();
 };
 
-exports.toXML = function(_jsonObj) {
+exports.toXML = function(jsonObj) {
 	var xml = "";
-	for (var m in _jsonObj)
-	xml += traverseObject(_jsonObj[m], m, "");
+	for (var m in jsonObj)
+	xml += traverseObject(jsonObj[m], m, "");
 	return xml.replace(/\t|\n/g, "");
 };

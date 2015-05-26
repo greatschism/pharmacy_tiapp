@@ -260,7 +260,7 @@ module.exports = {
 			".nav-btn" : {
 				"font" : {
 					"fontFamily" : "medium",
-					"fontSize" : 12
+					"fontSize" : 17
 				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
@@ -1684,6 +1684,13 @@ module.exports = {
 				},
 				"color" : "#FFFFFF",
 				"backgroundColor" : "#ED1C24"
+			},
+			".primary-icon-large" : {
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"color" : "#F7941E"
 			},
 			".lbl" : {
 				"left" : 12,

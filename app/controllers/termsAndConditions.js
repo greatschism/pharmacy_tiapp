@@ -14,8 +14,8 @@ function init() {
 	});
 }
 
-function didSuccess(_result) {
-	Alloy.Collections.termsAndConditions.reset(_result.data.terms);
+function didSuccess(result) {
+	Alloy.Collections.termsAndConditions.reset(result.data.terms);
 }
 
 function didClickItem(e) {

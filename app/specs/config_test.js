@@ -22,9 +22,9 @@ describe("Config Test Suite", function() {
 		_.isUndefined(Alloy.TSS).should.equal(true);
 	});
 
-	it("Test Case 3: load", function(_done) {
+	it("Test Case 3: load", function(done) {
 		config.load(function() {
-			_done();
+			done();
 		});
 	});
 

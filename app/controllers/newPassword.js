@@ -37,10 +37,10 @@ function didClickDone(e) {
 	});
 }
 
-function didAuthenticate(_result) {
+function didAuthenticate(result) {
 	uihelper.showDialog({
 		title : Alloy.Globals.strings.titleSuccess,
-		message : _result.message,
+		message : result.message,
 		success : function() {
 			app.navigator.closeToRoot();
 		}

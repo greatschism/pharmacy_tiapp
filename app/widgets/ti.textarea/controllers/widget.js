@@ -11,21 +11,21 @@ var args = arguments[0] || {},
 
 })();
 
-function applyProperties(_dict) {
+function applyProperties(dict) {
 	var options = {};
-	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
 	if (OS_IOS) {
-		if (_.has(_dict, "hintText")) {
-			options = _.pick(_dict, ["font", "textAlign", "accessibilityHidden"]);
+		if (_.has(dict, "hintText")) {
+			options = _.pick(dict, ["font", "textAlign", "accessibilityHidden"]);
 			_.extend(options, {
-				text : _dict.hintText
+				text : dict.hintText
 			});
-			if (_.has(_dict, "hintTextColor")) {
+			if (_.has(dict, "hintTextColor")) {
 				_.extend(options, {
-					color : _dict.hintTextColor
+					color : dict.hintTextColor
 				});
 			}
 			$.hintLbl.applyProperties(options);
@@ -33,7 +33,7 @@ function applyProperties(_dict) {
 			$.widget.remove($.hintLbl);
 		}
 	}
-	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	options = _.pick(dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txta.applyProperties(options);
 	}
@@ -80,11 +80,11 @@ function blur() {
 	$.txta.blur();
 }
 
-function setValue(_value) {
+function setValue(value) {
 	if (OS_ANDROID) {
 		triggerChange = false;
 	}
-	$.txta.value = _value;
+	$.txta.value = value;
 	if (OS_IOS && $.hintLbl) {
 		$.hintLbl.visible = $.txta.value == "";
 	}
@@ -94,9 +94,9 @@ function getValue() {
 	return ($.txta.value || "").trim();
 }
 
-function setSelection(_start, _end) {
+function setSelection(start, end) {
 	if (OS_IOS || OS_ANDROID) {
-		$.txta.setSelection(_start, _end);
+		$.txta.setSelection(start, end);
 	}
 }
 

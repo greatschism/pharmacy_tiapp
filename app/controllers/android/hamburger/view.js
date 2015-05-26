@@ -111,13 +111,13 @@ function hideNavBar() {
 	app.navigator.rootNavBarHidden = true;
 }
 
-function setRightNavButton(_widget) {
+function setRightNavButton(widget) {
 	var activity = $.window.getActivity();
 	activity.onCreateOptionsMenu = function(e) {
 		var menu = e.menu;
 		menu.clear();
-		if (_widget && _widget.__controllerPath) {
-			_widget.setMenu(menu);
+		if (widget && widget.__controllerPath) {
+			widget.setMenu(menu);
 		}
 	};
 	activity.invalidateOptionsMenu();

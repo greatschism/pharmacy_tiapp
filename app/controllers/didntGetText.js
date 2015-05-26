@@ -22,7 +22,7 @@ function didClickSendAgain(e) {
 	});
 }
 
-function didSendOTP(_result) {
+function didSendOTP(result) {
 	app.navigator.close();
 }
 

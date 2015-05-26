@@ -45,8 +45,8 @@ function init() {
 	});
 }
 
-function didGetDoctor(_result) {
-	doctor = _.isEmpty(_result) ? require("data/stubs").DOCTORS_LIST.data.doctors[0] : _result.data.doctors;
+function didGetDoctor(result) {
+	doctor = _.isEmpty(result) ? require("data/stubs").DOCTORS_LIST.data.doctors[0] : result.data.doctors;
 	$.prescriptionNameLbl.text = prescription.presc_name;
 	$.refillLeftInfoLbl.text = prescription.refill_remaining_preferences || 1;
 	$.dueForRefillInfoLbl.text = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.DATE_FORMAT).format(Alloy.CFG.DATE_FORMAT) : moment().add(30, "days").format(Alloy.CFG.DATE_FORMAT);
@@ -95,7 +95,6 @@ function didClickExpand() {
 	}
 
 }
-
 
 function createDetailsView() {
 	contentView = $.UI.create("View", {

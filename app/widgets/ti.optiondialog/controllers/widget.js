@@ -22,9 +22,9 @@ function hide() {
 	$.optionDialog.hide();
 }
 
-function applyProperties(_properties) {
-	$.optionDialog.applyProperties(_properties);
-	_.extend(args, _properties);
+function applyProperties(properties) {
+	$.optionDialog.applyProperties(properties);
+	_.extend(args, properties);
 }
 
 function destroy() {

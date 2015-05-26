@@ -145,7 +145,6 @@
 		"ANALYTICS_ENABLED": false,
 		"CLEAR_CACHED_RESOURCES": false,
 		"OVERRIDE_REMOTE_RESOURCES": true,
-		"SIMULATE_API": false,
 		"SIMULATE_API_ON_FAILURE": true
 	},
 	"env:test": {
@@ -158,7 +157,6 @@
 		"ANALYTICS_ENABLED": false,
 		"CLEAR_CACHED_RESOURCES": false,
 		"OVERRIDE_REMOTE_RESOURCES": true,
-		"SIMULATE_API": false,
 		"SIMULATE_API_ON_FAILURE": true
 	},
 	"env:production": {
@@ -171,8 +169,7 @@
 		"ANALYTICS_ENABLED": false,
 		"CLEAR_CACHED_RESOURCES": false,
 		"OVERRIDE_REMOTE_RESOURCES": true,
-		"SIMULATE_API": false,
-		"SIMULATE_API_ON_FAILURE": true
+		"SIMULATE_API_ON_FAILURE": false
 	},
 	"os:android": {
 		"DRAWER_LAYOUT": false

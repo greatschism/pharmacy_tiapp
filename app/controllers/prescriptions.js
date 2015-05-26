@@ -53,17 +53,17 @@ function init() {
 	});
 }
 
-function didGetPrescriptionList(_result, _passthrough) {
+function didGetPrescriptionList(result, passthrough) {
 	if (rows.length) {
 		resetTable();
 		rows = [];
 	}
 	//process data from server
-	_result.data.prescriptions = _.sortBy(_result.data.prescriptions, function(obj) {
+	result.data.prescriptions = _.sortBy(result.data.prescriptions, function(obj) {
 		return -parseInt(obj.is_overdue);
 	});
 	var i = 5;
-	_.map(_result.data.prescriptions, function(prescription) {
+	_.map(result.data.prescriptions, function(prescription) {
 		i++;
 		var status = prescription.refill_status,
 		    refillDate = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT) : moment().add(i, "days");
@@ -124,7 +124,7 @@ function didGetPrescriptionList(_result, _passthrough) {
 		rows.push(row);
 	});
 	updateTable();
-	Alloy.Collections.prescriptions.reset(_result.data.prescriptions);
+	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 }
 
 function resetTable() {
@@ -188,8 +188,8 @@ function didItemClick(e) {
 	});
 }
 
-function didGetPrescriptions(_result) {
-	prescriptionData = _result.data.prescriptions[0] || {};
+function didGetPrescriptions(result) {
+	prescriptionData = result.data.prescriptions[0] || {};
 	app.navigator.open({
 		ctrl : "prescriptionDetails",
 		title : prescriptionData.presc_name,
@@ -241,10 +241,10 @@ function unhide() {
 	});
 }
 
-function didGetHiddenPrescriptions(_result) {
+function didGetHiddenPrescriptions(result) {
 	//for demo purpose only
-	if (!_.isEmpty(_result)) {
-		$.unhideMenu.setItems(_result.data.prescriptions);
+	if (!_.isEmpty(result)) {
+		$.unhideMenu.setItems(result.data.prescriptions);
 		$.unhideMenu.show();
 	} else {
 		uihelper.showDialog({
@@ -306,8 +306,8 @@ function getSortPreferences() {
 	});
 }
 
-function updateSortPreferences(_result) {
-	var codeValues = _result.data.code_values;
+function updateSortPreferences(result) {
+	var codeValues = result.data.code_values;
 	codeValues.push({
 		code_display : Alloy.Globals.strings.strCancel,
 		code_value : 0
@@ -337,7 +337,7 @@ function didClickUnhideBtn(e) {
 	});
 }
 
-function didSuccess(_result) {
+function didSuccess(result) {
 	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgPrescriptionsUnhidden,
 		success : init

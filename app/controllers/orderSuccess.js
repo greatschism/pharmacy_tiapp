@@ -26,12 +26,12 @@ function init() {
 	});
 }
 
-function didClickDone(_result, _passthrough) {
+function didClickDone(result, passthrough) {
 	app.navigator.open({
 		ctrl : "orderDetails",
 		titleid : "",
 		stack : false,
-		ctrlArguments : _passthrough
+		ctrlArguments : passthrough
 	});
 }
 
@@ -41,10 +41,10 @@ function addRx(str) {
 	return str;
 }
 
-function didSuccessRefill(_result) {
+function didSuccessRefill(result) {
 
 	// response of prescriptions refill
-	refillPrescriptions = _result.data.prescriptions || [];
+	refillPrescriptions = result.data.prescriptions || [];
 	console.log("refill prescriptions" + refillPrescriptions);
 
 	//if (refillPrescriptions.length) {

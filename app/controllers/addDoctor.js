@@ -142,7 +142,7 @@ function didClickSave(e) {
 	}
 }
 
-function didSuccessCreate(_result) {
+function didSuccessCreate(result) {
 
 	Alloy.Models.doctor.set({
 		doctor_add : {
@@ -174,7 +174,7 @@ function didSuccessCreate(_result) {
 
 }
 
-function didSuccessUpdate(_result) {
+function didSuccessUpdate(result) {
 
 	Alloy.Models.doctor.set({
 		doctor_update : {
@@ -225,7 +225,7 @@ function didClickRemove() {
 	});
 }
 
-function didSuccessRemove(_result) {
+function didSuccessRemove(result) {
 	Alloy.Models.doctor.set({
 		doctor_remove : {
 			"id" : doctor.id
@@ -279,9 +279,9 @@ function didStateChange(e) {
 	//	});
 }
 
-function didLoadStates(_result) {
+function didLoadStates(result) {
 
-	var stateList = _result.data.code_values;
+	var stateList = result.data.code_values;
 
 	$.stateTxt.setChoices(stateList);
 
@@ -353,9 +353,9 @@ function firstToUpperCase(str) {
 	return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
 }
 
-function setParentViews(_view) {
+function setParentViews(view) {
 
-	$.stateTxt.setParentView(_view);
+	$.stateTxt.setParentView(view);
 }
 
 exports.init = init;

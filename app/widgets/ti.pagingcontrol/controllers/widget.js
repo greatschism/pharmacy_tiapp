@@ -45,9 +45,9 @@ var args = arguments[0] || {},
 
 })();
 
-function setLength(_length) {
+function setLength(len) {
 
-	length = _length;
+	length = len;
 
 	var children = $.widget.children;
 	for (var i in children) {
@@ -80,15 +80,15 @@ function moveTo(e) {
 	}
 }
 
-function updateSelection(_currentIndex, _previousIndex) {
-	$.contentView.children[_previousIndex].applyProperties(pagerDict);
-	$.contentView.children[_currentIndex].applyProperties(selectedPagerDict);
+function updateSelection(currentIndex, previousIndex) {
+	$.contentView.children[previousIndex].applyProperties(pagerDict);
+	$.contentView.children[currentIndex].applyProperties(selectedPagerDict);
 }
 
-function setCurrentPage(_index) {
-	if (_index < length) {
-		updateSelection(_index, currentPage);
-		currentPage = _index;
+function setCurrentPage(index) {
+	if (index < length) {
+		updateSelection(index, currentPage);
+		currentPage = index;
 	}
 }
 

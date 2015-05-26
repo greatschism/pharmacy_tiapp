@@ -15,8 +15,8 @@ function init() {
 	$.containerView.addEventListener("postlayout", didPostlayout);
 }
 
-function setParentViews(_view) {
-	$.dob.setParentView(_view);
+function setParentViews(view) {
+	$.dob.setParentView(view);
 }
 
 function didPostlayout(e) {
@@ -129,7 +129,7 @@ function didClickSignup(e) {
 	});
 }
 
-function didSuccess(_result) {
+function didSuccess(result) {
 	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgAccountCreated,
 		buttonNames : [Alloy.Globals.strings.strOK],

@@ -26,12 +26,12 @@ var Locale = {
 
 	/**
 	 * change selected language
-	 * @param {String} _id The language id to enable
+	 * @param {String} id The language id to enable
 	 */
-	setLanguage : function(_id) {
+	setLanguage : function(id) {
 		var resources = require("resources"),
 		    toSelect = resources.get("languages",{
-		id : _id
+		id : id
 		})[0] || {};
 		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
 			toSelect.selected = true;
@@ -55,17 +55,17 @@ var Locale = {
 	 * get value of key
 	 * @param {String} _key The key to fetch
 	 */
-	getString : function(_key) {
-		return Locale.currentLanguage.strings[_key] || "";
+	getString : function(key) {
+		return Locale.currentLanguage.strings[key] || "";
 	},
 
 	/**
 	 * get languages
 	 * @param {Object} _language The current language
 	 */
-	applyLanguage : function(_language) {
-		Locale.currentLanguage = _language;
-		Alloy.Globals.strings = _language.strings;
+	applyLanguage : function(language) {
+		Locale.currentLanguage = language;
+		Alloy.Globals.strings = language.strings;
 		require("logger").info("language selected : " + Locale.currentLanguage.id);
 	}
 };

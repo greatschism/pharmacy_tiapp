@@ -3,7 +3,7 @@ var Alloy = require("alloy"),
 
 var Configuration = {
 
-	init : function(_config, _callback) {
+	init : function(config, callback) {
 
 		var resources = require("resources");
 
@@ -47,16 +47,15 @@ var Configuration = {
 				"key" : "images"
 			}
 		};
-		for (var i in items) {
-			var item = items[i];
-			if (_.has(_config, i)) {
-				var obj = _config[i];
+		_.each(items, function(item) {
+			if (_.has(config, i)) {
+				var obj = config[i];
 				if (_.has(item, "extend")) {
 					_.extend(obj, item.extend);
 				}
 				resources.set(item.key, _.isArray(obj) ? obj : [obj]);
 			}
-		}
+		});
 
 		/***
 		 * no. of items to be updated
@@ -64,7 +63,7 @@ var Configuration = {
 		return resources.checkForUpdates();
 	},
 
-	load : function(_callback) {
+	load : function(callback) {
 
 		/**
 		 * load into memory
@@ -218,17 +217,17 @@ var Configuration = {
 			resources.deleteUnusedResources();
 		}
 
-		if (_callback) {
-			_callback();
+		if (callback) {
+			callback();
 		}
 	},
 
-	updateImageProperties : function(_item) {
-		_.extend(Alloy.Images[_item.code][_item.orientation], require("resources").updateImageProperties(_item));
+	updateImageProperties : function(item) {
+		_.extend(Alloy.Images[item.code][item.orientation], require("resources").updateImageProperties(item));
 	},
 
-	updateResources : function(_callback) {
-		require("resources").update(_callback);
+	updateResources : function(callback) {
+		require("resources").update(callback);
 	},
 
 	/**

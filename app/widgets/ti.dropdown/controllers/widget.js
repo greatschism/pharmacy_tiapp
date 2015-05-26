@@ -64,28 +64,28 @@ var args = arguments[0] || {},
 
 })();
 
-function setParentView(_parent) {
-	parent = _parent;
+function setParentView(view) {
+	parent = view;
 }
 
 function getParentView() {
 	return parent;
 }
 
-function setMaxDate(_maxDate) {
+function setMaxDate(maxDate) {
 	args.maxDate = _maxDate;
 }
 
-function setMinDate(_minDate) {
-	args.minDate = _minDate;
+function setMinDate(minDate) {
+	args.minDate = minDate;
 }
 
 function showPicker() {
 	Ti.App.hideKeyboard();
 	if (!picker && parent) {
-		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
+		if (args.type == Ti.UI.PICKER_TYPEdate || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
-				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
+				var isDatePicker = args.type == Ti.UI.PICKER_TYPEdate,
 				    _picker = Ti.UI.createPicker();
 				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
@@ -175,8 +175,8 @@ function hidePicker() {
 	return false;
 }
 
-function setChoices(_choices) {
-	choices = _choices;
+function setChoices(items) {
+	choices = items;
 	selectedIndex = -1;
 }
 
@@ -191,8 +191,8 @@ function removeHint() {
 	}
 }
 
-function setSelectedIndex(_index) {
-	selectedIndex = _index;
+function setSelectedIndex(index) {
+	selectedIndex = index;
 	var selectedItem = getSelectedItem();
 	if (!_.isEmpty(selectedItem)) {
 		removeHint();
@@ -214,8 +214,8 @@ function getSelectedItem() {
 	return item;
 }
 
-function setValue(_date) {
-	selectedDate = _date;
+function setValue(date) {
+	selectedDate = date;
 	removeHint();
 	var label = moment(selectedDate).format(format);
 	$.widget.accessibilityLabel = label;

@@ -38,12 +38,12 @@ function didClickContinue() {
 	});
 }
 
-function didSuccess(_result, _passthrough) {
+function didSuccess(result, passthrough) {
 	app.navigator.open({
 		ctrl : "accountCreation",
 		titleid : "strSignup",
 		stack : true,
-		ctrlArguments : _passthrough
+		ctrlArguments : passthrough
 	});
 }
 

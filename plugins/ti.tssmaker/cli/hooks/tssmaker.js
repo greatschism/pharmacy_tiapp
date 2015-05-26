@@ -42,47 +42,47 @@ exports.init = function(logger, config, cli, appc) {
 	var atss = require("./defaults"),
 	    tss = {};
 
-	function getLastModifiedDate(_file, _defaultDate, _callback) {
-		fs.stat(_file, function(err, stats) {
-			_callback( err ? _defaultDate : new Date(stats.mtime));
+	function getLastModifiedDate(file, defaultDate, callback) {
+		fs.stat(file, function(err, stats) {
+			callback( err ? defaultDate : new Date(stats.mtime));
 		});
 	}
 
-	function isExists(_file, _callback) {
-		fs.exists(_file, _callback);
+	function isExists(file, callback) {
+		fs.exists(file, callback);
 	}
 
-	function checkAndDeleteCached(_file, _callback) {
-		isExists(_file, function(_exists) {
-			if (_exists) {
-				console.log("found old copy of " + _file);
-				fs.unlink(_file, function(err) {
+	function checkAndDeleteCached(file, callback) {
+		isExists(file, function(exists) {
+			if (exists) {
+				console.log("found old copy of " + file);
+				fs.unlink(file, function(err) {
 					if (err) {
-						console.error("unable to deleted old copy of " + _file);
+						console.error("unable to deleted old copy of " + file);
 					} else {
-						console.log("successfully deleted old copy of " + _file);
+						console.log("successfully deleted old copy of " + file);
 					}
-					_callback();
+					callback();
 				});
 			} else {
-				_callback();
+				callback();
 			}
 		});
 	}
 
-	function trimDoubleQuotes(_str, _regExp) {
+	function trimDoubleQuotes(str, regExp) {
 		do {
-			m = _regExp.exec(_str);
+			m = regExp.exec(str);
 			if (m) {
 				var index = m.index;
-				_str = _str.slice(0, index) + _str.slice(index + 1);
-				while (_str[index] != '"') {
+				str = str.slice(0, index) + str.slice(index + 1);
+				while (str[index] != '"') {
 					index++;
 				}
-				_str = _str.slice(0, index) + _str.slice(index + 1);
+				str = str.slice(0, index) + str.slice(index + 1);
 			}
 		} while (m);
-		return _str;
+		return str;
 	}
 
 	function makeAppTss(build, done) {
@@ -139,8 +139,8 @@ exports.init = function(logger, config, cli, appc) {
 	};
 
 	function processRequest(build, done) {
-		isExists(themeJSPath, function(_exists) {
-			if (_exists) {
+		isExists(themeJSPath, function(exists) {
+			if (exists) {
 				checkAndDeleteCached(appTSSPath, function() {
 					makeAppTss(build, done);
 				});
@@ -152,10 +152,10 @@ exports.init = function(logger, config, cli, appc) {
 	};
 
 	cli.on("build.pre.construct", function(build, done) {
-		getLastModifiedDate(themeJSPath, false, function(_themeJSLmd) {
-			getLastModifiedDate(appTSSPath, false, function(_appTSSLmd) {
-				getLastModifiedDate(defaultJSPath, false, function(_defaultJSLmd) {
-					if (_themeJSLmd == false || _appTSSLmd == false || _defaultJSLmd == false || _themeJSLmd > _appTSSLmd || _defaultJSLmd > _appTSSLmd) {
+		getLastModifiedDate(themeJSPath, false, function(themeJSLmd) {
+			getLastModifiedDate(appTSSPath, false, function(appTSSLmd) {
+				getLastModifiedDate(defaultJSPath, false, function(defaultJSLmd) {
+					if (themeJSLmd == false || appTSSLmd == false || defaultJSLmd == false || themeJSLmd > appTSSLmd || defaultJSLmd > appTSSLmd) {
 						logger.info("theme js is modified, app.tss should be updated. Processing...");
 						processRequest(build, done);
 					} else {

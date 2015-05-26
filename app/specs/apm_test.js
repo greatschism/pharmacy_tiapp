@@ -3,23 +3,23 @@ var apm = require("apm"),
 
 describe("APM Test Suite", function() {
 
-	it("Test Case 1: init with APM disabled", function(_done) {
+	it("Test Case 1: init with APM disabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(30000);
-		Alloy.CFG.APM_ENABLED = false;
-		apm.init(function(_enabled) {
-			_enabled.should.be.equal(false);
-			_done();
+		Alloy.CFG.APMenabled = false;
+		apm.init(function(enabled) {
+			enabled.should.be.equal(false);
+			done();
 		});
 	});
 
-	it("Test Case 2: init with APM enabled", function(_done) {
+	it("Test Case 2: init with APM enabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(30000);
-		Alloy.CFG.APM_ENABLED = true;
-		apm.init(function(_enabled) {
-			_enabled.should.be.equal(true);
-			_done();
+		Alloy.CFG.APMenabled = true;
+		apm.init(function(enabled) {
+			enabled.should.be.equal(true);
+			done();
 		}, utilities.getProperty("com-appcelerator-apm-id", "", "string", false), {
 			notificationTitle : "UnitTest",
 			shouldCollectLogcat : true
@@ -30,36 +30,36 @@ describe("APM Test Suite", function() {
 		apm.didCrashOnLastAppLoad().should.be.equal(require("com.appcelerator.apm").didCrashOnLastAppLoad());
 	});
 
-	it("Test Case 4: getUUID", function(_done) {
+	it("Test Case 4: getUUID", function(done) {
 		if (OS_ANDROID) {
 			apm.getUUID().should.be.type("string");
 		}
-		_done();
+		done();
 	});
 
-	it("Test Case 5: setUsername", function(_done) {
+	it("Test Case 5: setUsername", function(done) {
 		apm.setUsername("ti-mocha");
-		_done();
+		done();
 	});
 
-	it("Test Case 6: setOptOutStatus with true", function(_done) {
+	it("Test Case 6: setOptOutStatus with true", function(done) {
 		apm.setOptOutStatus(true);
-		_done();
+		done();
 	});
 
-	it("Test Case 7: setOptOutStatus with false", function(_done) {
+	it("Test Case 7: setOptOutStatus with false", function(done) {
 		apm.setOptOutStatus(false);
-		_done();
+		done();
 	});
 
-	it("Test Case 8: setMetadata", function(_done) {
+	it("Test Case 8: setMetadata", function(done) {
 		apm.setMetadata("testKey", "testValue");
-		_done();
+		done();
 	});
 
-	it("Test Case 9: leaveBreadcrumb", function(_done) {
+	it("Test Case 9: leaveBreadcrumb", function(done) {
 		apm.leaveBreadcrumb("testing leaveBreadcrumb");
-		_done();
+		done();
 	});
 
 	it("Test Case 10: logHandledException with Error Object", function() {

@@ -77,10 +77,10 @@ function didClickLogin(e) {
 	}
 }
 
-function didAuthenticate(_result) {
+function didAuthenticate(result) {
 	Alloy.Models.user.set({
 		logged_in : true,
-		patients : _result.data.patients
+		patients : result.data.patients
 	});
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
@@ -92,9 +92,9 @@ function didAuthenticate(_result) {
 	})[0].toJSON());
 }
 
-function didSharedMobileCheck(_result) {
-	var isExists = parseInt(_result.data.patients.mobile_exists),
-	    isShared = parseInt(_result.data.patients.is_mobile_shared);
+function didSharedMobileCheck(result) {
+	var isExists = parseInt(result.data.patients.mobile_exists),
+	    isShared = parseInt(result.data.patients.is_mobile_shared);
 	if (isExists && isShared) {
 		app.navigator.hideLoader();
 		app.navigator.open({
@@ -122,7 +122,7 @@ function didSharedMobileCheck(_result) {
 	}
 }
 
-function didAuthenticateMobileUser(_result) {
+function didAuthenticateMobileUser(result) {
 	app.navigator.open({
 		ctrl : "createUsername",
 		titleid : "titleCreateUsername",
@@ -133,7 +133,7 @@ function didAuthenticateMobileUser(_result) {
 	});
 }
 
-function didFail(_error, _passthrough) {
+function didFail(error, passthrough) {
 	app.navigator.hideLoader();
 }
 

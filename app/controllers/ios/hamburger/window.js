@@ -112,20 +112,20 @@ function didClickLeftNavView(e) {
 	}
 }
 
-function showNavBar(_animated) {
+function showNavBar(animated) {
 	$.window.showNavBar({
-		animated : _.isUndefined(_animated) ? true : false
+		animated : _.isUndefined(animated) ? true : false
 	});
 }
 
-function hideNavBar(_animated) {
+function hideNavBar(animated) {
 	$.window.hideNavBar({
-		animated : _.isUndefined(_animated) ? true : false
+		animated : _.isUndefined(animated) ? true : false
 	});
 }
 
-function setRightNavButton(_view) {
-	$.window.setRightNavButton( _view ? _view : Ti.UI.createView());
+function setRightNavButton(view) {
+	$.window.setRightNavButton( view ? view : Ti.UI.createView());
 }
 
 exports.ctrlPath = controller ? controller.__controllerPath : "";

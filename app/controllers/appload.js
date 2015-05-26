@@ -30,13 +30,14 @@ function didOpen(e) {
 	});
 }
 
-function didSuccess(_result) {
+function didSuccess(result) {
+	var appload = result.data.appload || {};
 	Alloy.Models.user.set({
-		appload : _result.data.appload
+		appload : appload
 	}, {
 		silent : true
 	});
-	var clientConfig = _result.data.appload.client_json || {};
+	var clientConfig = appload.client_json || {};
 	if (_.has(clientConfig, "force_update")) {
 		Alloy.CFG.FORCE_UPDATE = clientConfig.force_update;
 	}

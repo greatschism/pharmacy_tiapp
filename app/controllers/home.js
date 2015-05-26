@@ -5,27 +5,26 @@ var args = arguments[0] || {},
 
 function init() {
 	var items = Alloy.Models.template.get("data");
-	for (var i in items) {
-		var item = items[i];
+	_.each(items, function(item) {
 		if (_.has(item, "platform") && _.indexOf(item.platform, $.app.device.platform) == -1) {
-			continue;
+			return;
 		}
 		$.contentView.add(create(item));
-	}
+	});
 }
 
-function create(_dict) {
+function create(dict) {
 	var element;
-	if (_dict.module) {
-		element = require(_dict.module)[_dict.apiName](_dict.properties || {});
+	if (dict.module) {
+		element = require(dict.module)[dict.apiName](dict.properties || {});
 	} else {
-		element = $.UI.create(_dict.apiName, {
-			apiName : _dict.apiName,
-			classes : _dict.classes || []
+		element = $.UI.create(dict.apiName, {
+			apiName : dict.apiName,
+			classes : dict.classes || []
 		});
 	}
-	if (_.has(_dict, "properties")) {
-		var properties = _dict.properties;
+	if (_.has(dict, "properties")) {
+		var properties = dict.properties;
 		if (_.has(properties, "icon")) {
 			properties.text = icons[iconPrefix + "_" + properties.icon] || icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
@@ -35,34 +34,48 @@ function create(_dict) {
 		}
 		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
 	}
-	if (_.has(_dict, "children")) {
-		var children = _dict.children;
-		for (var i in children) {
-			var items = children[i].items,
-			    addChild = children[i].addChild || "add",
-			    asArray = children[i].asArray,
+	if (_.has(dict, "children")) {
+		_.each(dict.children, function(child) {
+			var items = child.items,
+			    addChild = child.addChild || "add",
+			    asArray = child.asArray,
 			    cElemnts = [];
-			for (var i in items) {
-				var childItem = items[i];
+			_.each(items, function(childItem) {
 				if (_.has(childItem, "platform") && _.indexOf(childItem.platform, $.app.device.platform) == -1) {
-					continue;
+					return;
 				}
 				if (asArray) {
 					cElemnts.push(create(childItem));
 				} else {
 					element[addChild](create(childItem));
 				}
-			}
+			});
 			if (asArray) {
 				element[addChild](cElemnts);
 			}
-		}
+		});
 	}
-	if (_.has(_dict, "navigation")) {
-		element.navigation = _dict.navigation;
+	if (_.has(dict, "navigation")) {
+		element.navigation = dict.navigation;
 		element.addEventListener("click", didItemClick);
 	}
+	if (_.has(dict, "actions")) {
+		_.each(dict.actions, function(action) {
+			element.addEventListener(action.event, getListener(action.event));
+		});
+		element.actions = dict.actions;
+	}
+	if (_.has(dict, "id")) {
+		$[dict.id] = element;
+	}
 	return element;
+}
+
+function getListener(event) {
+	switch(event) {
+	case "postlayout":
+		return didPostlayout;
+	}
 }
 
 function didItemClick(e) {
@@ -87,6 +100,24 @@ function didClickRightNav(e) {
 	$.app.navigator.open({
 		ctrl : "login",
 		titleid : "strLogin",
+	});
+}
+
+function didPostlayout(e) {
+	var source = e.source,
+	    binders = (_.findWhere(source.actions, {
+		event : "postlayout"
+	}) || {}).binders || [];
+	source.removeEventListener("postlayout", didPostlayout);
+	_.each(binders, function(binder) {
+		var properties = _.pick(source, binder.properties);
+		if (_.has(properties, "width")) {
+			properties.width = source.rect.width;
+		}
+		if (_.has(properties, "height")) {
+			properties.height = source.rect.height;
+		}
+		$[binder.id].applyProperties(properties);
 	});
 }
 

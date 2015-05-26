@@ -46,15 +46,15 @@ var TiLog = {
 		var func = TiLog[arguments[0]];
 		(func || TiLog.info)(_.toArray(arguments).slice( func ? 1 : 0));
 	},
-	format : function(_arguments) {
+	format : function(arguments) {
 		var str = "";
 		try {
-			for (var i in _arguments) {
-				if (_.isString(_arguments[i])) {
-					str += _arguments[i];
-				} else if (_.isArray(_arguments[i])) {
-					str += _arguments[i].join(" ");
-				} else if (utilities.isError(_arguments[i])) {
+			for (var i in arguments) {
+				if (_.isString(arguments[i])) {
+					str += arguments[i];
+				} else if (_.isArray(arguments[i])) {
+					str += arguments[i].join(" ");
+				} else if (utilities.isError(arguments[i])) {
 					str += "{Errror:{";
 					if (_.has(error, "name")) {
 						str += "name: " + error.name;
@@ -66,8 +66,8 @@ var TiLog = {
 						str += "lineNumber: " + error.lineNumber;
 					}
 					str += "}}";
-				} else if (_.isObject(_arguments[i])) {
-					str += JSON.stringify(_arguments[i]);
+				} else if (_.isObject(arguments[i])) {
+					str += JSON.stringify(arguments[i]);
 				}
 			}
 		} catch(error) {

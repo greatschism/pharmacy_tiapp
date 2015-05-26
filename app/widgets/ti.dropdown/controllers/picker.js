@@ -74,18 +74,18 @@ function init() {
 	parent.add($.picker);
 }
 
-function getRow(_data) {
+function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
 		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : false,
-		accessibilityLabel : _data.title,
-		accessibilityValue : _data.iconText ? args.selectedAccessibilityValue || "Selected" : null
+		accessibilityLabel : data.title,
+		accessibilityValue : data.iconText ? args.selectedAccessibilityValue || "Selected" : null
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
-	if (_data.iconText) {
+	if (data.iconText) {
 		var lbl = Ti.UI.createLabel({
 			left : 0,
-			text : _data.iconText,
+			text : data.iconText,
 			color : args.selectedIconColor || "#000",
 			font : args.iconFont || {
 				fontSize : 12
@@ -95,15 +95,15 @@ function getRow(_data) {
 		rowView.add(lbl);
 	}
 	rowView.add(Ti.UI.createLabel(_.extend(choiceDict, {
-		text : _data.title,
-		left : _data.iconText ? paddingLeft : 0,
+		text : data.title,
+		left : data.iconText ? paddingLeft : 0,
 		accessibilityHidden : true
 	})));
 	row.add(rowView);
 	return row;
 }
 
-function terminate(_callback) {
+function terminate(callback) {
 	_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
 	});
@@ -114,8 +114,8 @@ function terminate(_callback) {
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
 		parent.remove($.picker);
-		if (_.isFunction(_callback)) {
-			_callback();
+		if (_.isFunction(callback)) {
+			callback();
 		}
 		$.trigger("terminate", {
 			soruce : $,
@@ -167,16 +167,16 @@ function didItemClick(e) {
 	}
 }
 
-function setParentView(_parent) {
-	parent = _parent;
+function setParentView(view) {
+	parent = view;
 }
 
 function getParentView() {
 	return parent;
 }
 
-function setChoices(_choices) {
-	choices = _choices;
+function setChoices(items) {
+	choices = items;
 	selectedIndex = -1;
 }
 
@@ -184,8 +184,8 @@ function getChoices() {
 	return choices;
 }
 
-function setSelectedIndex(_index) {
-	selectedIndex = _index;
+function setSelectedIndex(index) {
+	selectedIndex = index;
 }
 
 function getSelectedIndex() {

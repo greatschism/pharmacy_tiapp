@@ -22,8 +22,8 @@ var args = arguments[0] || {},
 
 })();
 
-function setHtml(_html) {
-	html = _html;
+function setHtml(data) {
+	html = data;
 	var htmlparser = require(WPATH("htmlparser")).get(WPATH),
 	    handler = new htmlparser.HtmlBuilder(function(error, dom) {
 		if (error) {

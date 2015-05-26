@@ -20,7 +20,7 @@ function didReturn(e) {
 	}
 }
 
-function didSearch(_currentLocation) {
+function didSearch(currentLocation) {
 	http.request({
 		method : "STORES_ADVANCED_SEARCH",
 		data : {
@@ -31,14 +31,14 @@ function didSearch(_currentLocation) {
 					fetchalldetails : 1,
 					pagesize : 15,
 					pagenumber : 1,
-					latitude : _currentLocation.latitude || "",
-					longitude : _currentLocation.longitude || "",
+					latitude : currentLocation.latitude || "",
+					longitude : currentLocation.longitude || "",
 					fetchalldetails : 1,
 					featurecode : "TH054"
 				}
 			}
 		},
-		passthrough : _currentLocation,
+		passthrough : currentLocation,
 		format : "xml",
 		success : didGetStores,
 		failure : didFailure
@@ -50,9 +50,9 @@ function didFailure() {
 	loadMap();
 }
 
-function didGetStores(_result, _currentLocation) {
-	var distanceEnabled = !_.isEmpty(_currentLocation),
-	    pharmacies = _result.pharmacy;
+function didGetStores(result, currentLocation) {
+	var distanceEnabled = !_.isEmpty(currentLocation),
+	    pharmacies = result.pharmacy;
 	for (var i in pharmacies) {
 		var pharmacy = pharmacies[i];
 		pharmacy.addressline1 = utilities.ucword(pharmacy.addressline1);
@@ -67,7 +67,7 @@ function didGetStores(_result, _currentLocation) {
 	loadMap(distanceEnabled);
 }
 
-function loadMap(_directionEnabled) {
+function loadMap(directionEnabled) {
 
 	var Map = Alloy.Globals.Map,
 	    totalLocations = Alloy.Collections.stores.length,
@@ -110,7 +110,7 @@ function loadMap(_directionEnabled) {
 			_.extend(properties, {
 				rightView : getMapIcon("/images/map_right_button.png", "rightPane", data.storeid)
 			});
-			if (_directionEnabled) {
+			if (directionEnabled) {
 				_.extend(properties, {
 					leftView : getMapIcon("/images/map_left_button.png", "leftPane", data.storeid)
 				});
@@ -119,7 +119,7 @@ function loadMap(_directionEnabled) {
 			_.extend(properties, {
 				rightButton : "/images/map_right_button.png"
 			});
-			if (_directionEnabled) {
+			if (directionEnabled) {
 				_.extend(properties, {
 					leftButton : "/images/map_left_button.png"
 				});

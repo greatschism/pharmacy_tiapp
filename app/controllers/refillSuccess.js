@@ -31,21 +31,21 @@ function init() {
 	});
 }
 
-function didSignUp(_result, _passthrough) {
+function didSignUp(result, passthrough) {
 	app.navigator.open({
 		ctrl : "fullSignup",
 		titleid : "",
 		stack : true,
-		ctrlArguments : _passthrough
+		ctrlArguments : passthrough
 	});
 }
 
-function didClickDone(_result, _passthrough) {
+function didClickDone(result, passthrough) {
 	app.navigator.open({
 		ctrl : "home",
 		titleid : "",
 		stack : false,
-		ctrlArguments : _passthrough
+		ctrlArguments : passthrough
 	});
 }
 
@@ -55,9 +55,9 @@ function addRx(str) {
 	return str;
 }
 
-function didSuccessAuthenticate(_result, _passthrough) {
+function didSuccessAuthenticate(result, passthrough) {
 	console.log("apisucc");
-	var res = _result.data.patients || [];
+	var res = result.data.patients || [];
 	if (res.session_id) {
 		$.signup.show();
 	} else {
@@ -72,12 +72,13 @@ function didSuccessStores(result) {
 }
 
 function didSuccessRefill(result) {
-	
+
 	//Alloy.CFG.REFILL_SUCCESS=1;
 
 	refillPrescriptions = result.data.prescriptions || [];
 
-	$.addressSection = uihelper.createTableViewSection($, strings.msgRefillPlaced); {
+	$.addressSection = uihelper.createTableViewSection($, strings.msgRefillPlaced);
+	{
 
 		row = $.UI.create("TableViewRow", {
 			apiName : "TableViewRow",
@@ -94,7 +95,7 @@ function didSuccessRefill(result) {
 		}),
 		contentPhoneNumber = $.UI.create("View", {
 			apiName : "View",
-			classes : ["list-item-info-lbl","h2"]
+			classes : ["list-item-info-lbl", "h2"]
 		}),
 		storename = $.UI.create("Label", {
 			apiName : "Label",
@@ -107,7 +108,7 @@ function didSuccessRefill(result) {
 		}),
 		phonenumber = $.UI.create("Label", {
 			apiName : "Label",
-			classes : [ "list-item-info-lbl","padding-left", "h2"]
+			classes : ["list-item-info-lbl", "padding-left", "h2"]
 		}), content.add(storename);
 		contentAddress.add(addressline1);
 		contentPhoneNumber.add(phonenumber);
@@ -164,7 +165,8 @@ function didSuccessRefill(result) {
 
 	}
 
-	$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionPrescriptionRefilled); {
+	$.gettingRefilledSection = uihelper.createTableViewSection($, strings.sectionPrescriptionRefilled);
+	{
 		for (var i in refillPrescriptions) {
 			row = $.UI.create("TableViewRow", {
 				apiName : "TableViewRow",
@@ -225,5 +227,4 @@ function didItemClick(e) {
 }
 
 exports.init = init;
-
 

@@ -21,22 +21,22 @@ var args = arguments[0] || {},
 	}
 })();
 
-function setIcon(_iconText, _direction, _iconDict, _accessibility, _padding) {
+function setIcon(iconText, direction, iconDict, accessibility, padding) {
 	var font = args.iconFont || {
 		fontSize : 12
 	},
-	    isClearButton = enableClearButton && _direction == "right";
-	$.txt[_direction] = $.txt[_direction] + (_iconDict[_direction] || 0) + font.fontSize + _padding;
-	_iconDict[_direction] = 0;
-	_.extend(_iconDict, {
-		width : $.txt[_direction],
+	    isClearButton = enableClearButton && direction == "right";
+	$.txt[direction] = $.txt[direction] + (iconDict[direction] || 0) + font.fontSize + padding;
+	iconDict[direction] = 0;
+	_.extend(iconDict, {
+		width : $.txt[direction],
 		font : font,
-		title : _iconText,
-		sourceId : _direction + "Icon",
+		title : iconText,
+		sourceId : direction + "Icon",
 		visible : !isClearButton
 	});
-	_.extend(_iconDict, _accessibility);
-	var iconBtn = Ti.UI.createButton(_iconDict);
+	_.extend(iconDict, accessibility);
+	var iconBtn = Ti.UI.createButton(iconDict);
 	iconBtn.addEventListener("click", isClearButton ? didClickClearText : didClick);
 	$.widget.add(iconBtn);
 	if (isClearButton) {
@@ -44,31 +44,31 @@ function setIcon(_iconText, _direction, _iconDict, _accessibility, _padding) {
 	}
 }
 
-function setButton(_title, _direction, _buttonDict, _accessibility, _padding) {
+function setButton(title, direction, buttonDict, accessibility, padding) {
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
-	$.txt[_direction] = $.txt[_direction] + (_buttonDict[_direction] || 0) + (_buttonDict.width || 40) + _padding;
-	_buttonDict[_direction] = 0;
-	_.extend(_buttonDict, {
-		width : $.txt[_direction],
+	$.txt[direction] = $.txt[direction] + (buttonDict[direction] || 0) + (buttonDict.width || 40) + padding;
+	buttonDict[direction] = 0;
+	_.extend(buttonDict, {
+		width : $.txt[direction],
 		font : font,
-		title : _title,
-		sourceId : _direction + "Button"
+		title : title,
+		sourceId : direction + "Button"
 	});
-	_.extend(_buttonDict, _accessibility);
-	var button = Ti.UI.createButton(_buttonDict);
+	_.extend(buttonDict, accessibility);
+	var button = Ti.UI.createButton(buttonDict);
 	button.addEventListener("click", didClick);
 	$.widget.add(button);
 }
 
-function applyProperties(_dict) {
+function applyProperties(dict) {
 	var options = {};
-	options = _.pick(_dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
+	options = _.pick(dict, ["left", "right", "top", "bottom", "width", "height", "visible", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-	options = _.pick(_dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	options = _.pick(dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}
@@ -130,22 +130,22 @@ function blur() {
 	$.txt.blur();
 }
 
-function animate(_dict, _callback) {
-	var animation = Ti.UI.createAnimation(_dict);
+function animate(dict, callback) {
+	var animation = Ti.UI.createAnimation(dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (_callback) {
-			_callback($.widget);
+		if (callback) {
+			callback($.widget);
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function setValue(_value) {
+function setValue(value) {
 	if (OS_ANDROID) {
 		triggerChange = false;
 	}
-	$.txt.value = _value;
+	$.txt.value = value;
 	if (enableClearButton) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
@@ -155,8 +155,8 @@ function getValue() {
 	return ($.txt.value || "").trim();
 }
 
-function setPasswordMask(_value) {
-	$.txt.passwordMask = _value;
+function setPasswordMask(value) {
+	$.txt.passwordMask = value;
 	var len = $.txt.value.length;
 	setSelection(len, len);
 }
@@ -165,18 +165,18 @@ function getPasswordMask() {
 	return $.txt.passwordMask;
 }
 
-function setSelection(_start, _end) {
+function setSelection(start, end) {
 	if (OS_IOS || OS_ANDROID) {
-		$.txt.setSelection(_start, _end);
+		$.txt.setSelection(start, end);
 	}
 }
 
-function addEventListener(_event, _callback) {
-	$.widget.addEventListener(_event, _callback);
+function addEventListener(event, callback) {
+	$.widget.addEventListener(event, callback);
 }
 
-function removeEventListener(_event, _callback) {
-	$.widget.removeEventListener(_event, _callback);
+function removeEventListener(event, callback) {
+	$.widget.removeEventListener(event, callback);
 }
 
 exports.blur = blur;

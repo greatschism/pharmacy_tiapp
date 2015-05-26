@@ -35,116 +35,116 @@ var Utility = {
 
 	/**
 	 * Get the property value from Ti.App.Properties
-	 * @param {String} _name Name of the property
-	 * @param {String/Bool/Int/Double/Object/List} _default default value to return
-	 * @param {String} _type Type of the property such as string (default), int, object, list or bool - (optional)
-	 * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
+	 * @param {String} name Name of the property
+	 * @param {String/Bool/Int/Double/Object/List} defaultValue defaultValue value to return
+	 * @param {String} dataType Type of the property such as string (defaultValue), int, object, list or bool - (optional)
+	 * @param {Boolen} isEncrypted Whether it is encrypted value, defaultValue to true (optional)
 	 */
-	getProperty : function(_name, _default, _type, _isEncrypted) {
-		var type = _type || "string";
+	getProperty : function(name, defaultValue, dataType, isEncrypted) {
+		var type = dataType || "string";
 		if (type == "object" || type == "list") {
 			type = "string";
 		} else if (type == "int" || type == "bool") {
-			_isEncrypted = false;
+			isEncrypted = false;
 		}
-		var value = Ti.App.Properties["get" + Utility.ucfirst(type)](_name);
+		var value = Ti.App.Properties["get" + Utility.ucfirst(type)](name);
 		if (!_.isUndefined(value) && !_.isNull(value)) {
-			if (_isEncrypted !== false) {
+			if (isEncrypted !== false) {
 				value = require("encryptionUtil").decrypt(value);
 			}
-			if (_type == "object" || _type == "list") {
+			if (dataType == "object" || dataType == "list") {
 				value = JSON.parse(value);
 			}
 			return value;
 		} else {
-			return !_.isUndefined(_default) ? _default : "";
+			return !_.isUndefined(defaultValue) ? defaultValue : "";
 		}
 	},
 
 	/**
 	 * Set the property value in Ti.App.Properties
-	 * @param {String} _name Name of the property
-	 * @param {String} _value Value for the property
-	 * @param {String} _type Type of the property such as string (default), int, object, list or bool - (optional)
-	 * @param {Boolen} _isEncrypted Whether it is encrypted value, default to true (optional)
+	 * @param {String} name Name of the property
+	 * @param {String} value Value for the property
+	 * @param {String} dataType Type of the property such as string (defaultValue), int, object, list or bool - (optional)
+	 * @param {Boolen} isEncrypted Whether it is encrypted value, defaultValue to true (optional)
 	 */
-	setProperty : function(_name, _value, _type, _isEncrypted) {
-		var type = _type || "string";
+	setProperty : function(name, value, dataType, isEncrypted) {
+		var type = dataType || "string";
 		if (type == "object" || type == "list") {
 			type = "string";
-			_value = JSON.stringify(_value);
+			value = JSON.stringify(value);
 		} else if (type == "int" || type == "bool") {
-			_isEncrypted = false;
+			isEncrypted = false;
 		}
-		if (_isEncrypted !== false) {
-			_value = require("encryptionUtil").encrypt(_value);
+		if (isEncrypted !== false) {
+			value = require("encryptionUtil").encrypt(value);
 		}
-		Ti.App.Properties["set" + Utility.ucfirst(type)](_name, _value);
+		Ti.App.Properties["set" + Utility.ucfirst(type)](name, value);
 	},
 
 	/**
 	 * remove the property from Ti.App.Properties
-	 * @param {String} _name Name of the property
+	 * @param {String} name Name of the property
 	 */
-	removeProperty : function(_name) {
-		Ti.App.Properties.removeProperty(_name);
+	removeProperty : function(name) {
+		Ti.App.Properties.removeProperty(name);
 	},
 
 	/**
 	 * Checks to see if a file exists
-	 * @param {String} _path The path of the file to check
-	 * @param {String} _directory The base directory of the file to check (optional)
+	 * @param {String} path The path of the file to check
+	 * @param {String} directory The base directory of the file to check (optional)
 	 */
-	fileExists : function(_path, _directory) {
-		return Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path).exists();
+	fileExists : function(path, directory) {
+		return Ti.Filesystem.getFile(directory || Ti.Filesystem.resourcesDirectory, path).exists();
 	},
 
 	/**
 	 * Get contents of file
-	 * @param {String} _path The path of the file to read
-	 * @param {String} _directory The base directory of the file to read (optional)
+	 * @param {String} path The path of the file to read
+	 * @param {String} directory The base directory of the file to read (optional)
 	 */
-	getFile : function(_path, _directory) {
-		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
+	getFile : function(path, directory) {
+		var file = Ti.Filesystem.getFile(directory || Ti.Filesystem.resourcesDirectory, path);
 		return file.exists() ? file.read().text : false;
 	},
 
 	/**
 	 * delete file
-	 * @param {String} _path The path of the file to read
-	 * @param {String} _directory The base directory of the file to read (optional)
+	 * @param {String} path The path of the file to read
+	 * @param {String} directory The base directory of the file to read (optional)
 	 */
-	deleteFile : function(_path, _directory) {
-		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.applicationDataDirectory, _path);
+	deleteFile : function(path, directory) {
+		var file = Ti.Filesystem.getFile(directory || Ti.Filesystem.applicationDataDirectory, path);
 		return file.exists() ? file.deleteFile() : false;
 	},
 
 	/**
 	 * Get contents of directory
-	 * @param {String} _path The path of the file to read
-	 * @param {String} _directory The base directory of the file to read (optional)
+	 * @param {String} path The path of the file to read
+	 * @param {String} directory The base directory of the file to read (optional)
 	 */
-	getFiles : function(_path, _directory) {
-		var file = Ti.Filesystem.getFile(_directory || Ti.Filesystem.resourcesDirectory, _path);
+	getFiles : function(path, directory) {
+		var file = Ti.Filesystem.getFile(directory || Ti.Filesystem.resourcesDirectory, path);
 		return file.exists() && file.isDirectory() ? file.getDirectoryListing() : [];
 	},
 
 	/**
 	 * copy source files to destination
-	 * @param {File} _sFile The File to copy
-	 * @param {File} _dFile The destination file
-	 * @param {Boolean} _remoteBackup whether or not to backup on iCloud (ios only)
+	 * @param {File} sFile The File to copy
+	 * @param {File} dFile The destination file
+	 * @param {Boolean} remoteBackup whether or not to backup on iCloud (ios only)
 	 */
-	copyFile : function(_sFile, _dFile, _remoteBackup) {
-		if (_sFile.exists()) {
+	copyFile : function(sFile, dFile, remoteBackup) {
+		if (sFile.exists()) {
 			if (OS_IOS) {
-				var flag = _dFile.write(_sFile.read());
-				if (_remoteBackup === false) {
-					_dFile.setRemoteBackup(false);
+				var flag = dFile.write(sFile.read());
+				if (remoteBackup === false) {
+					dFile.setRemoteBackup(false);
 				}
 				return flag;
 			} else {
-				return _sFile.copy(_dFile.nativePath);
+				return sFile.copy(dFile.nativePath);
 			}
 		} else {
 			return false;
@@ -153,49 +153,49 @@ var Utility = {
 
 	/**
 	 * write data to file
-	 * @param {File} _dFile The destination file
-	 * @param {Blob} _blob The blob object
-	 * @param {Boolean} _append whether or not to append file
-	 * @param {Boolean} _remoteBackup whether or not to backup on iCloud (ios only)
+	 * @param {File} dFile The destination file
+	 * @param {Blob} blob The blob object
+	 * @param {Boolean} append whether or not to append file
+	 * @param {Boolean} remoteBackup whether or not to backup on iCloud (ios only)
 	 */
-	writeFile : function(_dFile, _blob, _remoteBackup, _append) {
-		var flag = _dFile.write(_blob, _append || false);
-		if (OS_IOS && _remoteBackup === false) {
-			_dFile.setRemoteBackup(false);
+	writeFile : function(dFile, blob, remoteBackup, append) {
+		var flag = dFile.write(blob, append || false);
+		if (OS_IOS && remoteBackup === false) {
+			dFile.setRemoteBackup(false);
 		}
 		return flag;
 	},
 
-	getFileName : function(_path) {
-		return _path.replace(/\\/g, '/').replace(/.*\//, '');
+	getFileName : function(path) {
+		return path.replace(/\\/g, '/').replace(/.*\//, '');
 	},
 
-	getFileBaseName : function(_path) {
-		_path = Utility.getFileName(_path);
-		return _path.substr(0, _path.lastIndexOf('.')) || _path;
+	getFileBaseName : function(path) {
+		path = Utility.getFileName(path);
+		return path.substr(0, path.lastIndexOf('.')) || path;
 	},
 
 	/**
 	 * percentage to actual points
-	 * @param {String} _percentage
-	 * @param {Number} _number
+	 * @param {String} percentage
+	 * @param {Number} number
 	 * @return {Number} converted value
 	 */
-	percentageToValue : function(_percentage, _number) {
-		if (_.isString(_percentage) && _percentage.indexOf("%") >= 0) {
-			_percentage = (_number / 100) * parseInt(_percentage);
+	percentageToValue : function(percentage, number) {
+		if (_.isString(percentage) && percentage.indexOf("%") >= 0) {
+			percentage = (number / 100) * parseInt(percentage);
 		}
-		return _percentage;
+		return percentage;
 	},
 
 	/**
 	 * Adds thousands separators to a number
-	 * @param {Number} _number The number to perform the action on
+	 * @param {Number} number The number to perform the action on
 	 */
-	formatNumber : function(_number) {
-		_number = _number + "";
+	formatNumber : function(number) {
+		number = number + "";
 
-		x = _number.split(".");
+		x = number.split(".");
 		x1 = x[0];
 		x2 = x.length > 1 ? "." + x[1] : "";
 
@@ -210,29 +210,29 @@ var Utility = {
 
 	/**
 	 * Adds brackets and hyphens to the mobile number (U.S.A)
-	 * @param {Srting} _str The mobile number
+	 * @param {Srting} str The mobile number
 	 */
-	formatMobileNumber : function(_str) {
-		if (!_.isString(_str)) {
-			_str += "";
+	formatMobileNumber : function(str) {
+		if (!_.isString(str)) {
+			str += "";
 		}
-		return _str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
+		return str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
 	},
 
 	/**
 	 * @method ucword
 	 * Capitalizes the first character of each word in the string.
-	 * @param {String} _text String to capitalize.
-	 * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
+	 * @param {String} text String to capitalize.
+	 * @param {Boolen} transform, defaultValue to true Whether or not to transform all other characters to lower case.
 	 * @return {String} String with first character of each word capitalized.
 	 */
-	ucword : function(_text, _transform) {
-		if (!_text)
-			return _text;
-		if (_transform !== false) {
-			_text = _text.toLowerCase();
+	ucword : function(text, transform) {
+		if (!text)
+			return text;
+		if (transform !== false) {
+			text = text.toLowerCase();
 		}
-		return (_text + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+		return (text + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
 			return $1.toUpperCase();
 		});
 	},
@@ -240,79 +240,79 @@ var Utility = {
 	/**
 	 * @method ucfirst
 	 * Capitalizes the first character in the string.
-	 * @param {String} _text String to capitalize.
-	 * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
+	 * @param {String} text String to capitalize.
+	 * @param {Boolen} transform, defaultValue to true Whether or not to transform all other characters to lower case.
 	 * @return {String} String with first character capitalized.
 	 */
-	ucfirst : function(_text, _transform) {
-		if (!_text)
-			return _text;
-		if (_transform !== false) {
-			_text = _text.toLowerCase();
+	ucfirst : function(text, transform) {
+		if (!text)
+			return text;
+		if (transform !== false) {
+			text = text.toLowerCase();
 		}
-		return _text[0].toUpperCase() + _text.substr(1);
+		return text[0].toUpperCase() + text.substr(1);
 	},
 
 	/**
 	 * @method lcfirst
 	 * Lowercases the first character in the string.
-	 * @param {String} _text String to lowercase.
-	 * @param {Boolen} _transform, default to true Whether or not to transform all other characters to lower case.
+	 * @param {String} text String to lowercase.
+	 * @param {Boolen} transform, defaultValue to true Whether or not to transform all other characters to lower case.
 	 * @return {String} String with first character lowercased.
 	 */
-	lcfirst : function(_text, _transform) {
-		if (!_text)
-			return _text;
-		if (_transform !== false) {
-			_text = _text.toLowerCase();
+	lcfirst : function(text, transform) {
+		if (!text)
+			return text;
+		if (transform !== false) {
+			text = text.toLowerCase();
 		}
-		return _text[0].toLowerCase() + _text.substr(1);
+		return text[0].toLowerCase() + text.substr(1);
 	},
 
 	/**
 	 * Removes HTML entities, replaces breaks/paragraphs with newline, strips HTML, trims
-	 * @param {String} _string The string to perform the action on
+	 * @param {String} string The string to perform the action on
 	 */
-	cleanString : function(_string) {
-		if (!_.isString(_string)) {
-			return _string;
+	cleanString : function(string) {
+		if (!_.isString(string)) {
+			return string;
 		}
-		_string = _string.replace(/&amp;*/ig, "&");
-		_string = _string.replace(/\s*<br[^>]*>\s*/ig, "\n");
-		_string = _string.replace(/\s*<\/p>*\s*/ig, "\n\n");
-		_string = _string.replace(/<a[^h]*href=["']{1}([^'"]*)["']{1}>([^<]*)<\/a>/ig, "$2 [$1]");
-		_string = _string.replace(/<[^>]*>/g, "");
-		_string = _string.replace(/\s*\n{3,}\s*/g, "\n\n");
-		_string = _string.replace(/[^\S\n]{2,}/g, " ");
-		_string = _string.replace(/\n[^\S\n]*/g, "\n");
-		_string = _string.replace(/^\s+|\s+$/g, "");
-		return _string;
+		string = string.replace(/&amp;*/ig, "&");
+		string = string.replace(/\s*<br[^>]*>\s*/ig, "\n");
+		string = string.replace(/\s*<\/p>*\s*/ig, "\n\n");
+		string = string.replace(/<a[^h]*href=["']{1}([^'"]*)["']{1}>([^<]*)<\/a>/ig, "$2 [$1]");
+		string = string.replace(/<[^>]*>/g, "");
+		string = string.replace(/\s*\n{3,}\s*/g, "\n\n");
+		string = string.replace(/[^\S\n]{2,}/g, " ");
+		string = string.replace(/\n[^\S\n]*/g, "\n");
+		string = string.replace(/^\s+|\s+$/g, "");
+		return string;
 	},
 
 	/**
 	 * Cleans up nasty XML
-	 * @param {String} _string The XML string to perform the action on
+	 * @param {String} string The XML string to perform the action on
 	 */
-	xmlNormalize : function(_string) {
-		_string = _string.replace(/&nbsp;*/ig, " ");
-		_string = _string.replace(/&(?!amp;)\s*/g, "&amp;");
-		_string = _string.replace(/^\s+|\s+$/g, "");
-		_string = _string.replace(/<title>(?!<!\[CDATA\[)/ig, "<title><![CDATA[");
-		_string = _string.replace(/<description>(?!<!\[CDATA\[)/ig, "<description><![CDATA[");
-		_string = _string.replace(/(\]\]>)?<\/title>/ig, "]]></title>");
-		_string = _string.replace(/(\]\]>)?<\/description>/ig, "]]></description>");
-		return _string;
+	xmlNormalize : function(string) {
+		string = string.replace(/&nbsp;*/ig, " ");
+		string = string.replace(/&(?!amp;)\s*/g, "&amp;");
+		string = string.replace(/^\s+|\s+$/g, "");
+		string = string.replace(/<title>(?!<!\[CDATA\[)/ig, "<title><![CDATA[");
+		string = string.replace(/<description>(?!<!\[CDATA\[)/ig, "<description><![CDATA[");
+		string = string.replace(/(\]\]>)?<\/title>/ig, "]]></title>");
+		string = string.replace(/(\]\]>)?<\/description>/ig, "]]></description>");
+		return string;
 	},
 
 	/**
 	 * Get random string
-	 * @param {Number} _length The length of the string
+	 * @param {Number} length The length of the string
 	 */
-	getRandomString : function(_length) {
+	getRandomString : function(length) {
 		var text = "";
 		var possible = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
 
-		for (var i = 0; i < _length; i++)
+		for (var i = 0; i < length; i++)
 			text += possible.charAt(Math.floor(Math.random() * possible.length));
 
 		return text;
@@ -320,19 +320,19 @@ var Utility = {
 
 	/**
 	 * Performs a deep clone of an object, returning a pointer to the clone
-	 * @param _o the object to clone
+	 * @param o the object to clone
 	 * @return object
 	 */
-	clone : function(_o) {
+	clone : function(o) {
 		var c = {};
-		if (_.isArray(_o)) {
+		if (_.isArray(o)) {
 			c = [];
 		}
-		for (var a in _o) {
-			if ( typeof (_o[a]) === "object") {
-				c[a] = Utility.clone(_o[a]);
+		for (var a in o) {
+			if ( typeof (o[a]) === "object") {
+				c[a] = Utility.clone(o[a]);
 			} else {
-				c[a] = _o[a];
+				c[a] = o[a];
 			}
 		}
 		return c;
@@ -340,64 +340,64 @@ var Utility = {
 
 	/**
 	 * Check if name is valid
-	 * @param {String} _str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40
+	 * @param {String} str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40
 	 * returns {Boolean}
 	 */
-	validateName : function(_str) {
-		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-'\s]{1,40}$/.test(_str);
+	validateName : function(str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-'\s]{1,40}$/.test(str);
 	},
 
 	/**
 	 * Check if user name is valid
-	 * @param {String} _str Can be Alphanumeric with no special characters and length should be 3-20
+	 * @param {String} str Can be Alphanumeric with no special characters and length should be 3-20
 	 * returns {Boolean}
 	 */
-	validateUserName : function(_str) {
-		return /^(?=.*[a-zA-Z])[0-9a-zA-Z]{3,20}$/.test(_str);
+	validateUserName : function(str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z]{3,20}$/.test(str);
 	},
 
 	/**
 	 * Check if email is valid
-	 * @param {String} _str
+	 * @param {String} str
 	 * returns {Boolean}
 	 */
-	validateEmail : function(_str) {
-		return /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(_str);
+	validateEmail : function(str) {
+		return /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(str);
 	},
 
 	/**
 	 * Check whether given string is alphanumeric with at lest 2 numbers and length should be 6-50
-	 * @param {String} _str
+	 * @param {String} str
 	 * returns {Boolean}
 	 */
-	validatePassword : function(_str) {
-		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,50}$/.test(_str);
+	validatePassword : function(str) {
+		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,50}$/.test(str);
 	},
 
 	/**
 	 * Check whether given string is a valid mobile number
-	 * @param {String} _str
+	 * @param {String} str
 	 * returns {Boolean/String} plain mobile number XXXXXXXXXX if it passes US mobile validation (XXX)XXX-XXXX
 	 */
-	validateMobileNumber : function(_str) {
-		return /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(_str) ? _str.replace(/\D+/g, "") : false;
+	validateMobileNumber : function(str) {
+		return /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(str) ? str.replace(/\D+/g, "") : false;
 	},
 
 	/**
 	 * Check whether given string is a 10 digit mobile number
-	 * @param {String} _str
+	 * @param {String} str
 	 * returns {Boolean}
 	 */
-	isMobileNumber : function(_str) {
-		return /^[0-9]{10}$/.test(_str);
+	isMobileNumber : function(str) {
+		return /^[0-9]{10}$/.test(str);
 	},
 
 	/**
 	 * check if object is instanceof Error
 	 * Current underscore version 1.6.0 from Alloy 1.6 doesn't support _.isError (Was introduced in underscore 1.8.0)
 	 */
-	isError : function(_obj) {
-		return Object.prototype.toString.call(_obj) === "[object Error]";
+	isError : function(obj) {
+		return Object.prototype.toString.call(obj) === "[object Error]";
 	}
 };
 

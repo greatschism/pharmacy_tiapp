@@ -1,5 +1,5 @@
 /**
- * @param {Object} _params The arguments for the method
+ * @param {Object} params The arguments for the method
  */
 
 var Alloy = require("alloy"),
@@ -12,141 +12,136 @@ var Alloy = require("alloy"),
     XMLTools = require("XMLTools"),
     encryptionUtil = require("encryptionUtil");
 
-function request(_params) {
+function request(params) {
 
-	if (!_.has(_params, "type")) {
-		_params.type = "POST";
+	if (!_.has(params, "type")) {
+		params.type = "POST";
 	}
 
-	if (!_.has(_params, "timeout")) {
-		_params.timeout = Alloy.CFG.HTTP_TIMEOUT * 1000;
+	if (!_.has(params, "timeout")) {
+		params.timeout = Alloy.CFG.HTTP_TIMEOUT * 1000;
 	}
 
-	if (!_.has(_params, "format")) {
-		_params.format = "json";
+	if (!_.has(params, "format")) {
+		params.format = "json";
 	}
 
-	if (!_.has(_params, "data")) {
-		_params.data = {};
+	if (!_.has(params, "data")) {
+		params.data = {};
 	}
 
-	if (_params.showLoader !== false) {
+	if (params.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.showLoader(_params.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
+			app.navigator.showLoader(params.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
 		}
-		if (_params.showLoaderCallback) {
-			_params.showLoaderCallback();
+		if (params.showLoaderCallback) {
+			params.showLoaderCallback();
 		}
 	}
 
-	var format = _params.format.toLowerCase(),
+	var format = params.format.toLowerCase(),
 	    url;
 	switch(format) {
 	case "json":
-		url = Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[_params.method]);
-		_.extend(_params.data, {
+		url = Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[params.method]);
+		_.extend(params.data, {
 			client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
 			version : Alloy.CFG.API_VERSION,
 			session_id : Alloy.Models.user.get("patients").session_id,
 			lang : localization.currentLanguage.id
 		});
-		_params.data = JSON.stringify(_params.data);
+		params.data = JSON.stringify(params.data);
 		break;
 	case "xml":
-		url = Alloy.CFG.BASE_URL_LEGACY.concat(Alloy.CFG.apiPath[_params.method]);
-		_params.data = XMLTools.toXML(_params.data);
+		url = Alloy.CFG.BASE_URL_LEGACY.concat(Alloy.CFG.apiPath[params.method]);
+		params.data = XMLTools.toXML(params.data);
 		break;
 	}
 
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
-		_params.data = encryptionUtil.encrypt(_params.data);
+		params.data = encryptionUtil.encrypt(params.data);
 	}
 
-	if (Alloy.CFG.SIMULATE_API) {
-		didSuccess(getSimulatedResponse(_params.method), _params);
-		didComplete(_params);
-	} else {
-		http.request({
-			url : url,
-			type : _params.type,
-			format : _params.format,
-			timeout : _params.timeout,
-			data : _params.data,
-			success : didSuccess,
-			failure : didFail,
-			done : didComplete,
-			passthrough : _params
-		});
-	}
+	http.request({
+		url : url,
+		type : params.type,
+		format : params.format,
+		timeout : params.timeout,
+		data : params.data,
+		success : didSuccess,
+		failure : didFail,
+		done : didComplete,
+		passthrough : params
+	});
+
 }
 
-function getSimulatedResponse(_method) {
-	return require("data/webservices/stubs")[_method] || {};
-}
-
-function didSuccess(_data, _passthrough) {
+function didSuccess(data, passthrough) {
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
-		_data = encryptionUtil.decrypt(_data);
+		data = encryptionUtil.decrypt(data);
 	}
-	if (_passthrough.format.toLowerCase() == "xml") {
-		_data = XMLTools.toJSON(_data);
-		_data = _data[_.keys(_data)[0]];
+	if (passthrough.format.toLowerCase() == "xml") {
+		data = XMLTools.toJSON(data);
+		data = data[_.keys(data)[0]];
 	}
-	if (_data.code != Alloy.CFG.apiCodes.SUCCESS && _.has(_data, "error")) {
+	if (data.code != Alloy.CFG.apiCodes.SUCCESS && _.has(data, "error")) {
 		uihelper.showDialog({
-			message : _data.message || Alloy.Globals.strings.msgSomethingWentWrong
+			message : data.message || Alloy.Globals.strings.msgSomethingWentWrong
 		});
-		if (_passthrough.failure) {
-			_passthrough.failure(_data, _passthrough.passthrough);
+		if (passthrough.failure) {
+			passthrough.failure(data, passthrough.passthrough);
 		}
-	} else if (_passthrough.success) {
-		_passthrough.success(_data, _passthrough.passthrough);
+	} else if (passthrough.success) {
+		passthrough.success(data, passthrough.passthrough);
 	}
 }
 
-function didFail(_error, _passthrough) {
+function didFail(error, passthrough) {
 	if (Alloy.CFG.SIMULATE_API_ON_FAILURE) {
-		didSuccess(getSimulatedResponse(_passthrough.method), _passthrough);
+		didSuccess({
+			code : Alloy.CFG.apiCodes.SUCCESS,
+			data : {}
+		}, passthrough);
 	} else {
-		var forceRetry = _passthrough.forceRetry !== false,
-		    retry = forceRetry || _passthrough.retry !== false;
-		if (forceRetry || retry || _passthrough.prompt !== false) {
+		var forceRetry = passthrough.forceRetry !== false,
+		    retry = forceRetry || passthrough.retry !== false;
+		if (forceRetry || retry || passthrough.prompt !== false) {
 			if (_.isEmpty(app.navigator) === false) {
 				app.navigator.hideLoader();
 			}
-			if (_passthrough.hideLoaderCallback) {
-				_passthrough.hideLoaderCallback();
+			if (passthrough.hideLoaderCallback) {
+				passthrough.hideLoaderCallback();
 			}
 			uihelper.showDialog({
-				message : _passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
+				message : passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
 				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
 				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 				success : function() {
-					request(_passthrough);
+					request(passthrough);
 				},
 				cancel : function() {
-					if (_passthrough.failure) {
-						_passthrough.failure(_error, _passthrough.passthrough);
+					if (passthrough.failure) {
+						passthrough.failure(error, passthrough.passthrough);
 					}
 				}
 			});
-		} else if (_passthrough.failure) {
-			_passthrough.failure(_error, _passthrough.passthrough);
+		} else if (passthrough.failure) {
+			passthrough.failure(error, passthrough.passthrough);
 		}
 	}
 }
 
-function didComplete(_passthrough) {
-	if (_passthrough.keepLoader !== true) {
+function didComplete(passthrough) {
+	if (passthrough.keepLoader !== true) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}
-		if (_passthrough.hideLoaderCallback) {
-			_passthrough.hideLoaderCallback();
+		if (passthrough.hideLoaderCallback) {
+			passthrough.hideLoaderCallback();
 		}
 	}
-	if (_passthrough.done) {
-		_passthrough.done(_passthrough.passthrough);
+	if (passthrough.done) {
+		passthrough.done(passthrough.passthrough);
 	}
 }
 

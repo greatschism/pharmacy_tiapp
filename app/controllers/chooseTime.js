@@ -142,7 +142,7 @@ function didClickSave(e) {
 	}
 }
 
-function didEditSuccess(_result) {
+function didEditSuccess(result) {
 
 	Alloy.Models.doctor.set({
 		appointment_update : {
@@ -174,12 +174,12 @@ function didEditSuccess(_result) {
 	});
 }
 
-function didAddSuccess(_result) {
+function didAddSuccess(result) {
 
 	Alloy.Models.doctor.set({
 		appointment_add : {
 			"doctor_id" : doctorId,
-			"appointment_id" : _result.appointment_id,
+			"appointment_id" : result.appointment_id,
 			"appointment_date" : appointmentDate,
 			"appointment_hour" : moment(timeDetails).format("hh"),
 			"appointment_minute" : moment(timeDetails).format("mm"),

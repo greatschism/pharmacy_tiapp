@@ -60,11 +60,11 @@ function didChange(e) {
 	selectedDate = e.value;
 }
 
-function terminate(_callback) {
+function terminate(callback) {
 	_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
 	});
-	var isCancel = _callback.source && _callback.source == $.leftBtn,
+	var isCancel = callback.source && callback.source == $.leftBtn,
 	    animation = Ti.UI.createAnimation({
 		opacity : 0,
 		duration : 300
@@ -72,8 +72,8 @@ function terminate(_callback) {
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
 		parent.remove($.datePicker);
-		if (_.isFunction(_callback)) {
-			_callback();
+		if (_.isFunction(callback)) {
+			callback();
 		}
 		$.trigger("terminate", {
 			soruce : $,
@@ -101,16 +101,16 @@ function didPostlayout(e) {
 	$.datePicker.animate(animation);
 }
 
-function setParentView(_parent) {
-	parent = _parent;
+function setParentView(view) {
+	parent = view;
 }
 
 function getParentView() {
 	return parent;
 }
 
-function setValue(_date) {
-	selectedDate = _date;
+function setValue(date) {
+	selectedDate = date;
 	$.picker.value = selectedDate;
 }
 

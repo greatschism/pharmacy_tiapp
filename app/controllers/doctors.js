@@ -38,8 +38,8 @@ function invokeAPI() {
 	});
 }
 
-function getPrescriptions(_result) {
-	doctors = _result.data.doctors || [];
+function getPrescriptions(result) {
+	doctors = result.data.doctors || [];
 	//console.log(doctors);
 	http.request({
 		method : "PRESCRIPTIONS_LIST",
@@ -65,9 +65,9 @@ function firstToUpperCase(str) {
 	return str;
 }
 
-function didSuccess(_result) {
+function didSuccess(result) {
 
-	prescriptionsList = _result.data.prescriptions || [];
+	prescriptionsList = result.data.prescriptions || [];
 	//console.log(prescriptionsList);
 	addDoctorIcon = $.UI.create("Label", {
 		apiName : "Label",
@@ -158,18 +158,18 @@ function didClickAddDoctor(e) {
 	});
 }
 
-function createDoctorRow(_doctor, _prescriptionsList) {
+function createDoctorRow(doctor, prescriptionsList) {
 
 	description = "";
-	_doctor.short_name = "Dr. " + _doctor.last_name;
-	_doctor.long_name = "Dr. " + _doctor.first_name + " " + _doctor.last_name;
-	_doctor.thumbnail_url = "/images/profile.png";
+	doctor.short_name = "Dr. " + doctor.last_name;
+	doctor.long_name = "Dr. " + doctor.first_name + " " + doctor.last_name;
+	doctor.thumbnail_url = "/images/profile.png";
 
-	var prescriptions = _.where(_prescriptionsList, {
-		doctor_id : _doctor.id
+	var prescriptions = _.where(prescriptionsList, {
+		doctor_id : doctor.id
 	});
 	len = prescriptions.length;
-	if (_doctor.doctor_type == "manual") {
+	if (doctor.doctor_type == "manual") {
 		description = Alloy.Globals.strings.msgManuallyAddedByYou;
 	} else {
 		if (len) {
@@ -247,12 +247,12 @@ function createDoctorRow(_doctor, _prescriptionsList) {
 		borderColor : "#000000",
 	});
 
-	row.rowId = _doctor.id;
-	titleLbl.text = utilities.ucword(_doctor.long_name);
+	row.rowId = doctor.id;
+	titleLbl.text = utilities.ucword(doctor.long_name);
 	prescriptionLbl.text = description;
-	// leftIconLabel.image = _doctor.thumbnail_url;
-	if (!_.isEmpty(_doctor.image_url)) {
-		profileImg.image = _doctor.image_url;
+	// leftIconLabel.image = doctor.thumbnail_url;
+	if (!_.isEmpty(doctor.image_url)) {
+		profileImg.image = doctor.image_url;
 		leftImgView.add(profileImg);
 	} else {
 		leftImgView.add(leftIconLabel);

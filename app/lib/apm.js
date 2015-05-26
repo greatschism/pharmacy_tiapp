@@ -4,28 +4,28 @@ var Alloy = require("alloy"),
     PerformanceModule = false;
 
 var TiPerformance = {
-	init : function(_callback, _appId, _config) {
+	init : function(callback, appId, config) {
 		if (Alloy.CFG.APM_ENABLED && !PerformanceModule) {
 			var Module = require("com.appcelerator.apm"),
 			    didServiceready = function() {
 				PerformanceModule = Module;
-				if (_.isFunction(_callback)) {
-					_callback(true);
+				if (_.isFunction(callback)) {
+					callback(true);
 				}
 			};
 			if (OS_ANDROID) {
 				Module.addEventListener("serviceready", didServiceready);
 			}
-			if (!_appId) {
-				_appId = utilities.getProperty("com-appcelerator-apm-id", "", "string", false);
+			if (!appId) {
+				appId = utilities.getProperty("com-appcelerator-apm-id", "", "string", false);
 			}
-			Module.init(_appId, _config || {});
+			Module.init(appId, config || {});
 			if (!OS_ANDROID) {
 				didServiceready();
 			}
 		} else {
-			if (_.isFunction(_callback)) {
-				_callback(false);
+			if (_.isFunction(callback)) {
+				callback(false);
 			}
 		}
 	},
@@ -35,9 +35,9 @@ var TiPerformance = {
 		}
 		return false;
 	},
-	setUsername : function(_username) {
+	setUsername : function(username) {
 		if (PerformanceModule) {
-			PerformanceModule.setUsername(_username);
+			PerformanceModule.setUsername(username);
 		}
 	},
 	getUUID : function() {
@@ -46,27 +46,27 @@ var TiPerformance = {
 		}
 		return false;
 	},
-	setOptOutStatus : function(_status) {
+	setOptOutStatus : function(status) {
 		if (PerformanceModule) {
-			PerformanceModule.setOptOutStatus(_status);
+			PerformanceModule.setOptOutStatus(status);
 		}
 	},
-	setMetadata : function(_key, _value) {
+	setMetadata : function(key, value) {
 		if (PerformanceModule) {
-			PerformanceModule.setMetadata(_key, _value);
+			PerformanceModule.setMetadata(key, value);
 		}
 	},
-	leaveBreadcrumb : function(_breadcrumb) {
+	leaveBreadcrumb : function(breadcrumb) {
 		if (PerformanceModule) {
-			PerformanceModule.leaveBreadcrumb(_breadcrumb || "");
+			PerformanceModule.leaveBreadcrumb(breadcrumb || "");
 		}
 	},
-	logHandledException : function(_error) {
-		if (PerformanceModule && (_.isObject(_error) || utilities.isError(_error))) {
+	logHandledException : function(error) {
+		if (PerformanceModule && (_.isObject(error) || utilities.isError(error))) {
 			PerformanceModule.logHandledException({
-				name : _error.name || "Error",
-				message : _error.message || "",
-				line : _error.lineNumber || ""
+				name : error.name || "Error",
+				message : error.message || "",
+				line : error.lineNumber || ""
 			});
 			return true;
 		}

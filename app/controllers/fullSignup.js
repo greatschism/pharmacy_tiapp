@@ -40,10 +40,8 @@ function init() {
 	$.rxContainerView.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
-function setParentViews(_view) {
-
-	$.dob.setParentView(_view);
-
+function setParentViews(view) {
+	$.dob.setParentView(view);
 }
 
 function didPostlayoutUserContainerView(e) {
@@ -271,7 +269,7 @@ function didClickCreateAccount(e) {
 	});
 }
 
-function didSuccess(_result) {
+function didSuccess(result) {
 	uihelper.showDialog({
 		message : Alloy.Globals.strings.msgAccountCreated,
 		buttonNames : [Alloy.Globals.strings.strOK],

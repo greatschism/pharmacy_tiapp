@@ -7,7 +7,7 @@ var args = arguments[0] || {},
     currentIndex = -1,
     landingPage;
 
-function init(_navigation) {
+function init(navigation) {
 	if (OS_ANDROID) {
 		app.navigator.drawer.addEventListener(Alloy.CFG.DRAWER_LAYOUT ? "drawerclose" : "windowDidClose", didDrawerclose);
 	}
@@ -15,7 +15,7 @@ function init(_navigation) {
 		landing_page : true
 	});
 	Alloy.Collections.menuItems.trigger("reset");
-	app.navigator.open(_navigation || landingPage);
+	app.navigator.open(navigation || landingPage);
 }
 
 function filterFunction(collection) {
@@ -64,7 +64,7 @@ function didDrawerclose(e) {
 				success : function() {
 					http.request({
 						method : "PATIENTS_LOGOUT",
-						success : function(_result) {
+						success : function(result) {
 							Alloy.Models.user.set({
 								logged_in : false,
 								patients : {}

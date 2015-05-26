@@ -57,12 +57,12 @@ if (OS_ANDROID) {
 
 })();
 
-function setSelectedItems(_where, _selected) {
+function setSelectedItems(where, selected) {
 	var rows = $.tableView.sections[0].rows;
 	for (var i in items) {
 		var equal = true;
-		for (j in _where) {
-			if (!_.isEqual(items[i], _where[i])) {
+		for (j in where) {
+			if (!_.isEqual(items[i], where[i])) {
 				equal = false;
 				break;
 			}
@@ -72,7 +72,7 @@ function setSelectedItems(_where, _selected) {
 				index : i,
 				row : rows[i],
 				force : true,
-				selected : _selected
+				selected : selected
 			});
 		}
 	}
@@ -125,23 +125,23 @@ function updateItem(e) {
 	}
 }
 
-function applyProperties(_dict) {
-	$.contentView.applyProperties(_dict);
+function applyProperties(dict) {
+	$.contentView.applyProperties(dict);
 }
 
-function getRow(_data) {
+function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
-		accessibilityValue : _data.selected ? args.selectedAccessibilityValue || "Selected" : null
+		accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
 	rowView.add(Ti.UI.createLabel({
-		text : _data.selected ? selectedIconText : unSelectedIconText,
+		text : data.selected ? selectedIconText : unSelectedIconText,
 		left : 0,
 		font : args.iconFont || {
 			fontSize : 12
 		},
-		color : _data.selected ? selectedIconColor : unSelectedIconColor,
+		color : data.selected ? selectedIconColor : unSelectedIconColor,
 		touchEnabled : false,
 		accessibilityHidden : true
 	}));
@@ -152,12 +152,12 @@ function getRow(_data) {
 			touchEnabled : false
 		});
 		for (var i in template) {
-			contentView.add(create(template[i], _data));
+			contentView.add(create(template[i], data));
 		}
 		rowView.add(contentView);
 	} else {
 		rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
-			text : _data[titleProperty],
+			text : data[titleProperty],
 			left : paddingLeft,
 			touchEnabled : false
 		})));
@@ -166,14 +166,14 @@ function getRow(_data) {
 	return row;
 }
 
-function create(_dict, _data) {
-	var element = $.UI.create(_dict.apiName, _dict.properties || {});
+function create(dict, data) {
+	var element = $.UI.create(dict.apiName, dict.properties || {});
 	element.touchEnabled = false;
-	if (_.has(_dict, "text")) {
-		element.text = _data[_dict.text];
+	if (_.has(dict, "text")) {
+		element.text = data[dict.text];
 	}
-	if (_.has(_dict, "children")) {
-		var children = _dict.children;
+	if (_.has(dict, "children")) {
+		var children = dict.children;
 		for (var i in children) {
 			var cItems = children[i].items,
 			    addChild = children[i].addChild || "add",
@@ -182,9 +182,9 @@ function create(_dict, _data) {
 			for (var i in cItems) {
 				var childItem = cItems[i];
 				if (asArray) {
-					cElemnts.push(create(childItem, _data));
+					cElemnts.push(create(childItem, data));
 				} else {
-					element[addChild](create(childItem, _data));
+					element[addChild](create(childItem, data));
 				}
 			}
 			if (asArray) {
@@ -195,10 +195,10 @@ function create(_dict, _data) {
 	return element;
 }
 
-function setItems(_items, _template) {
-	items = _items;
-	if (_template) {
-		template = _template;
+function setItems(items, template) {
+	items = items;
+	if (template) {
+		template = template;
 	}
 	var data = [];
 	for (var i in items) {
@@ -227,26 +227,26 @@ function getItems() {
 	return items;
 }
 
-function setHeaderView(_view) {
-	$.tableView.headerView = _view;
+function setHeaderView(view) {
+	$.tableView.headerView = view;
 }
 
-function setFooterView(_view) {
-	$.tableView.footerView = _view;
+function setFooterView(view) {
+	$.tableView.footerView = view;
 }
 
-function animate(_dict, _callback) {
-	var animation = Ti.UI.createAnimation(_dict);
+function animate(dict, callback) {
+	var animation = Ti.UI.createAnimation(dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (_callback) {
-			_callback();
+		if (callback) {
+			callback();
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function show(_callback) {
+function show(callback) {
 	if (!$.widget.visible) {
 		_.each($.widget.getParent().children, function(child) {
 			if (child == $.widget) {
@@ -266,10 +266,10 @@ function show(_callback) {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
 			if (Ti.App.accessibilityEnabled) {
-				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
+				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITYview_FOCUS_CHANGED, $.tableView);
 			}
-			if (_callback) {
-				_callback();
+			if (callback) {
+				callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -278,7 +278,7 @@ function show(_callback) {
 	return false;
 }
 
-function hide(_callback) {
+function hide(callback) {
 	if ($.widget.visible) {
 		_.each($.widget.getParent().children, function(child) {
 			if (child == $.widget) {
@@ -297,8 +297,8 @@ function hide(_callback) {
 				visible : false,
 				zIndex : 0
 			});
-			if (_callback) {
-				_callback();
+			if (callback) {
+				callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -307,11 +307,11 @@ function hide(_callback) {
 	return false;
 }
 
-function toggle(_callback) {
+function toggle(callback) {
 	if ($.widget.visible) {
-		hide(_callback);
+		hide(callback);
 	} else {
-		show(_callback);
+		show(callback);
 	}
 }
 

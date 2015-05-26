@@ -8,8 +8,8 @@ function init() {
 	uihelper.getImage($.logoImg);
 }
 
-function setParentViews(_view) {
-	$.dob.setParentView(_view);
+function setParentViews(view) {
+	$.dob.setParentView(view);
 }
 
 function moveToNext(e) {
@@ -66,7 +66,7 @@ function didClickNext() {
 	}
 }
 
-function didAuthenticateMobileUser(_result) {
+function didAuthenticateMobileUser(result) {
 	app.navigator.open({
 		ctrl : "createUsername",
 		titleid : "titleCreateUsername",
@@ -77,7 +77,7 @@ function didAuthenticateMobileUser(_result) {
 	});
 }
 
-function didSendOTP(_result) {
+function didSendOTP(result) {
 	app.navigator.open({
 		ctrl : "textToApp",
 		stack : true,

@@ -280,7 +280,7 @@ function didClickDone() {
 
 }
 
-function didAddPrescription(_result) {
+function didAddPrescription(result) {
 	app.navigator.open({
 		ctrl : "orderDetails",
 

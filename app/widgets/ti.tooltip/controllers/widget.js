@@ -27,24 +27,24 @@ var args = arguments[0] || {};
 
 })();
 
-function updateArrow(_direction, _dict) {
+function updateArrow(direction, dict) {
 	var dict = {
-		text : args.iconText || _dict.iconText || "%",
-		font : _dict.font || args.iconFont || {
+		text : args.iconText || dict.iconText || "%",
+		font : dict.font || args.iconFont || {
 			fontSize : 12
 		},
-		color : _dict.color || "#000",
+		color : dict.color || "#000",
 		accessibilityHidden : true
 	};
 	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
 	$.arrowLbl.applyProperties(dict);
-	$.arrowLbl[_direction] = 0;
-	$.contentView[_direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
+	$.arrowLbl[direction] = 0;
+	$.contentView[direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
 }
 
-function applyProperties(_dict) {
+function applyProperties(dict) {
 	$.widget.addEventListener("postlayout", didPostlayout);
-	$.widget.applyProperties(_dict);
+	$.widget.applyProperties(dict);
 }
 
 function didPostlayout(e) {
@@ -56,18 +56,18 @@ function didPostlayout(e) {
 	});
 }
 
-function animate(_dict, _callback) {
-	var animation = Ti.UI.createAnimation(_dict);
+function animate(dict, callback) {
+	var animation = Ti.UI.createAnimation(dict);
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
-		if (_callback) {
-			_callback();
+		if (callback) {
+			callback();
 		}
 	});
 	$.widget.animate(animation);
 }
 
-function show(_callback) {
+function show(callback) {
 	if (!$.widget.visible) {
 		$.widget.applyProperties({
 			visible : true,
@@ -80,15 +80,15 @@ function show(_callback) {
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
-			if (_callback) {
-				_callback();
+			if (callback) {
+				callback();
 			}
 		});
 		$.widget.animate(animation);
 	}
 }
 
-function hide(_callback) {
+function hide(callback) {
 	if ($.widget.visible) {
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,
@@ -101,8 +101,8 @@ function hide(_callback) {
 				visible : false,
 				zIndex : 0
 			});
-			if (_callback) {
-				_callback();
+			if (callback) {
+				callback();
 			}
 		});
 		$.widget.animate(animation);
@@ -120,25 +120,25 @@ function removeAllChildren() {
 	}
 }
 
-function setPadding(_height) {
+function setPadding(height) {
 	$.contentView.add(Ti.UI.createLabel({
-		height : _height,
+		height : height,
 		touchEnabled : false,
 		accessibilityHidden : true
 	}));
 }
 
-function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
+function setText(text, styles, accessibilityLabel, accessibilityHidden) {
 	removeAllChildren();
-	var dict = _styles || args.labelDict || {};
+	var dict = styles || args.labelDict || {};
 	_.extend(dict, {
 		font : _.clone(args.font) || {
 			fontSize : 12
 		},
-		text : _text,
+		text : text,
 		touchEnabled : false,
-		accessibilityHidden : _.isUndefined(_accessibilityHidden) ? false : _accessibilityHidden,
-		accessibilityLabel : _accessibilityHidden !== true && _accessibilityLabel ? _accessibilityLabel : null
+		accessibilityHidden : _.isUndefined(accessibilityHidden) ? false : accessibilityHidden,
+		accessibilityLabel : accessibilityHidden !== true && accessibilityLabel ? accessibilityLabel : null
 	});
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);
@@ -149,13 +149,13 @@ function setText(_text, _styles, _accessibilityLabel, _accessibilityHidden) {
 	}
 }
 
-function setContentView(_view, _styles) {
+function setContentView(view, styles) {
 	removeAllChildren();
-	var dict = _styles || args.labelDict || {};
+	var dict = styles || args.labelDict || {};
 	if (dict.paddingTop) {
 		setPadding(dict.paddingTop);
 	}
-	$.contentView.add(_view);
+	$.contentView.add(view);
 	if (dict.paddingBottom) {
 		setPadding(dict.paddingBottom);
 	}

@@ -8,21 +8,21 @@
 
 /**
  * The Navigation object
- * @param {Object} _args
- * @param {Object} _args.window The parent which this navigation stack will belong
- * @param {Object} _args.device device information form core
- * @param {Object} _args.hamburger hamburger control
+ * @param {Object} args
+ * @param {Object} args.window The parent which this navigation stack will belong
+ * @param {Object} args.device device information form core
+ * @param {Object} args.hamburger hamburger control
  * @constructor
  */
 
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 
-function Navigation(_args) {
+function Navigation(args) {
 
 	var that = this;
 
-	_args = _args || {};
+	args = args || {};
 
 	/**
 	 * Whether or not the navigation module is busy opening/closing a screen
@@ -58,19 +58,19 @@ function Navigation(_args) {
 	 * The device object
 	 * @type {Object}
 	 */
-	this.device = _args.device;
+	this.device = args.device;
 
 	/**
 	 * The hamburger object
 	 * @type {Object}
 	 */
-	this.drawer = _args.drawer;
+	this.drawer = args.drawer;
 
 	/**
 	 * The root window object
 	 * @type {Object}
 	 */
-	this.rootWindow = _args.rootWindow;
+	this.rootWindow = args.rootWindow;
 
 	/**
 	 * Tells whether root window's action bar is hidden or not
@@ -80,28 +80,28 @@ function Navigation(_args) {
 
 	/**
 	 * Open a screen controller
-	 * @param {Object} _params The arguments for the method
-	 * @param {String} _params.ctrl name of the Controller to be opened
-	 * @param {String} _params.title title to be displayed on the title bar
-	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
-	 * @param {String} _params.navBarHidden hides navigation bar when true
-	 * @param {String} _params.gestureEnabled disables gesture when false
-	 * @param {Object} _params.ctrlArguments arguments to be passed to the new controller
+	 * @param {Object} params The arguments for the method
+	 * @param {String} params.ctrl name of the Controller to be opened
+	 * @param {String} params.title title to be displayed on the title bar
+	 * @param {String} params.titleid localized title to be displayed on the title bar, ignored if title is set
+	 * @param {String} params.navBarHidden hides navigation bar when true
+	 * @param {String} params.gestureEnabled disables gesture when false
+	 * @param {Object} params.ctrlArguments arguments to be passed to the new controller
 	 * @return {Controller} Returns the new controller
 	 */
-	this.open = function(_params) {
+	this.open = function(params) {
 
 		if (that.isBusy) {
 			return;
 		}
 
-		if (_params.stack) {
-			return that.push(_params);
+		if (params.stack) {
+			return that.push(params);
 		}
 
 		that.isBusy = true;
 
-		that.currentController = Alloy.createController("hamburger/view", _params);
+		that.currentController = Alloy.createController("hamburger/view", params);
 
 		that.drawer.setCenterWindow(that.currentController.getView());
 
@@ -122,17 +122,17 @@ function Navigation(_args) {
 
 	/**
 	 * Open a detail screen controller
-	 * @param {Object} _params The arguments for the method
-	 * @param {String} _params.ctrl name of the Controller to be opened
-	 * @param {String} _params.title title to be displayed on the title bar
-	 * @param {String} _params.titleid localized title to be displayed on the title bar, ignored if title is set
-	 * @param {String} _params.navBarHidden hides navigation bar when true
-	 * @param {String} _params.gestureEnabled disables gesture when false
-	 * @param {Object} _params.ctrlArguments arguments to be passed to the new controller
-	 * @param {Object} _params.stack should be true always
+	 * @param {Object} params The arguments for the method
+	 * @param {String} params.ctrl name of the Controller to be opened
+	 * @param {String} params.title title to be displayed on the title bar
+	 * @param {String} params.titleid localized title to be displayed on the title bar, ignored if title is set
+	 * @param {String} params.navBarHidden hides navigation bar when true
+	 * @param {String} params.gestureEnabled disables gesture when false
+	 * @param {Object} params.ctrlArguments arguments to be passed to the new controller
+	 * @param {Object} params.stack should be true always
 	 * @return {Controller} Returns the new controller
 	 */
-	this.push = function(_params) {
+	this.push = function(params) {
 
 		if (that.isBusy) {
 			return;
@@ -140,7 +140,7 @@ function Navigation(_args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/window", _params);
+		var controller = Alloy.createController("hamburger/window", params);
 
 		controller.getView().open({
 			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open,
@@ -161,17 +161,17 @@ function Navigation(_args) {
 
 	/**
 	 * closes a controller
-	 * @param {Number} _count No. of pages to close (optional)
-	 * @param {Boolean} _androidback whether back button triggered this action
+	 * @param {Number} count No. of pages to close (optional)
+	 * @param {Boolean} androidback whether back button triggered this action
 	 * @return {Controller} Returns the current controller
 	 */
-	this.close = function(_count, _androidback) {
+	this.close = function(count, androidback) {
 
 		if (that.isBusy) {
 			return;
 		}
 
-		if (_androidback) {
+		if (androidback) {
 			if (that.drawer.isLeftWindowOpen()) {
 				that.drawer.closeLeftWindow();
 				return;
@@ -191,7 +191,7 @@ function Navigation(_args) {
 		that.isBusy = true;
 
 		var len = that.controllers.length,
-		    count = (_count || 1) >= len ? len - 1 : (_count || 1),
+		    count = (count || 1) >= len ? len - 1 : (count || 1),
 		    removeControllers = that.controllers.splice(len - count, count);
 
 		for (var i = 0,
@@ -247,12 +247,12 @@ function Navigation(_args) {
 	 *block ui
 	 * @param {String} message
 	 */
-	this.showLoader = function(_message) {
+	this.showLoader = function(message) {
 
 		if (that.loader == null) {
 
 			that.loader = Alloy.createWidget("ti.loading", "widget", {
-				message : _message || Alloy.Globals.strings.msgPleaseWait
+				message : message || Alloy.Globals.strings.msgPleaseWait
 			});
 		}
 	};
@@ -303,6 +303,6 @@ function Navigation(_args) {
 }
 
 // Calling this module function returns a new navigation instance
-module.exports = function(_args) {
-	return new Navigation(_args);
+module.exports = function(args) {
+	return new Navigation(args);
 };

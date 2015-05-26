@@ -41,20 +41,20 @@ function didClickContinue(e) {
 	}
 }
 
-function didFail(_error, _passthrough) {
+function didFail(error, passthrough) {
 	app.navigator.hideLoader();
 }
 
-function didSuccess(_result, _passthrough) {
-	var isExists = parseInt(_result.data.patients.mobile_exists),
-	    isShared = parseInt(_result.data.patients.is_mobile_shared);
+function didSuccess(result, passthrough) {
+	var isExists = parseInt(result.data.patients.mobile_exists),
+	    isShared = parseInt(result.data.patients.is_mobile_shared);
 	if (isExists) {
 		if (isShared) {
 			app.navigator.hideLoader();
 			app.navigator.open({
 				ctrl : "sharedMobileCheck",
 				stack : true,
-				ctrlArguments : _passthrough
+				ctrlArguments : passthrough
 			});
 		} else {
 			http.request({
@@ -65,11 +65,11 @@ function didSuccess(_result, _passthrough) {
 					}],
 					data : [{
 						patient : {
-							mobile_number : _passthrough.mobileNumber
+							mobile_number : passthrough.mobileNumber
 						}
 					}]
 				},
-				passthrough : _passthrough,
+				passthrough : passthrough,
 				success : didSendOTP
 			});
 		}
@@ -79,16 +79,16 @@ function didSuccess(_result, _passthrough) {
 			ctrl : "fullSignup",
 			titleid : "strSignup",
 			stack : true,
-			ctrlArguments : _passthrough
+			ctrlArguments : passthrough
 		});
 	}
 }
 
-function didSendOTP(_result, _passthrough) {
+function didSendOTP(result, passthrough) {
 	app.navigator.open({
 		ctrl : "textToApp",
 		stack : true,
-		ctrlArguments : _passthrough
+		ctrlArguments : passthrough
 	});
 }
 

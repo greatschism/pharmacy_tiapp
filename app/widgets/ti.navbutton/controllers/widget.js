@@ -14,10 +14,10 @@ function didClick(e) {
 	$.trigger("click", e);
 }
 
-function setMenu(_menu) {
+function setMenu(menu) {
 	$.button = Ti.UI.createButton(args);
 	$.button.addEventListener("click", didClick);
-	$.menuItem = _menu.add({
+	$.menuItem = menu.add({
 		actionView : $.button,
 		visible : false,
 		showAsAction : args.showAsAction || Ti.Android.SHOW_AS_ACTION_ALWAYS

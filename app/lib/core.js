@@ -63,7 +63,7 @@ var App = {
 	 * Sets up the app singleton and all it's child dependencies.
 	 * **NOTE: This should only be fired only once.**
 	 */
-	init : function(_params) {
+	init : function(params) {
 
 		// Get device dimensions
 		App.getDeviceDimensions();
@@ -71,8 +71,8 @@ var App = {
 		// Global system Events
 		Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
-		if (_.has(_params, "type")) {
-			App.setNavigator(_params);
+		if (_.has(params, "type")) {
+			App.setNavigator(params);
 		}
 	},
 
@@ -91,11 +91,11 @@ var App = {
 
 	/**
 	 * initiate the navigator object
-	 * @param {Object} _params type of navigator
+	 * @param {Object} params type of navigator
 	 */
-	setNavigator : function(_params) {
+	setNavigator : function(params) {
 		// Require in the navigation module
-		App.navigator = require(String(_params.type).concat("/navigation"))(_.extend(_params, {
+		App.navigator = require(String(params.type).concat("/navigation"))(_.extend(params, {
 			device : App.device
 		}));
 	},
@@ -103,9 +103,9 @@ var App = {
 	/**
 	 * handles the async update
 	 */
-	update : function(_updateCallback) {
-		if (_.isFunction(_updateCallback)) {
-			App.updateCallback = _updateCallback;
+	update : function(updateCallback) {
+		if (_.isFunction(updateCallback)) {
+			App.updateCallback = updateCallback;
 		}
 		App.canReload = true;
 		require("config").updateResources(App.promptAndReloadConfig);
@@ -133,16 +133,16 @@ var App = {
 
 	/**
 	 * Handle the orientation change event callback
-	 * @param {Object} _event Standard Ti Callback
+	 * @param {Object} event Standard Ti Callback
 	 */
-	orientationChange : function(_event) {
+	orientationChange : function(event) {
 
 		// Ignore face-up, face-down and unknown orientation
-		if (_event.orientation === Titanium.UI.FACE_UP || _event.orientation === Titanium.UI.FACE_DOWN || _event.orientation === Titanium.UI.UNKNOWN) {
+		if (event.orientation === Titanium.UI.FACE_UP || event.orientation === Titanium.UI.FACE_DOWN || event.orientation === Titanium.UI.UNKNOWN) {
 			return;
 		}
 
-		App.device.orientation = _event.source.isLandscape() ? "landscape" : "portrait";
+		App.device.orientation = event.source.isLandscape() ? "landscape" : "portrait";
 
 		// Get device dimensions
 		App.getDeviceDimensions();

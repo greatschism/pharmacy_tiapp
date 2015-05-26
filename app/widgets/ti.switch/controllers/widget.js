@@ -7,7 +7,7 @@ var args = arguments[0] || {};
 	updateForState(true);
 })();
 
-function updateForState(_preventAccessbilityFocus) {
+function updateForState(preventAccessbilityFocus) {
 	if (OS_ANDROID) {
 		if (args.onImage) {
 			$.swt.backgroundImage = $.swt.value ? args.onImage : args.offImage;
@@ -15,14 +15,14 @@ function updateForState(_preventAccessbilityFocus) {
 		if (args.onAccessibilityLabel) {
 			$.swt.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
 		}
-		if (Ti.App.accessibilityEnabled && _preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
+		if (Ti.App.accessibilityEnabled && preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
 			Ti.App.fireSystemEvent(Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.swt);
 		}
 	}
 }
 
-function setValue(_value) {
-	$.swt.value = _value;
+function setValue(value) {
+	$.swt.value = value;
 	updateForState();
 }
 
@@ -30,10 +30,10 @@ function getValue() {
 	return $.swt.value;
 }
 
-function applyProperties(_properties, _extend) {
-	$.swt.applyProperties(_properties);
-	if (_extend !== false) {
-		_.extend(args, _properties);
+function applyProperties(properties, extend) {
+	$.swt.applyProperties(properties);
+	if (extend !== false) {
+		_.extend(args, properties);
 		updateForState();
 	}
 }

@@ -2,7 +2,7 @@ var http = require("requestwrapper");
 
 describe("RequestWrapper Test Suite", function() {
 
-	it("Test Case 1: request", function(_done) {
+	it("Test Case 1: request", function(done) {
 		this.timeout(30000);
 		var showLoader = false,
 		    hideLoader = false;
@@ -31,19 +31,19 @@ describe("RequestWrapper Test Suite", function() {
 			hideLoaderCallback : function() {
 				hideLoader = true;
 			},
-			success : function(_result, _passthrough) {
-				_result.should.be.instanceof(Object);
-				_passthrough.should.be.equal("APPLOAD_GET");
+			success : function(result, passthrough) {
+				result.should.be.instanceof(Object);
+				passthrough.should.be.equal("APPLOAD_GET");
 			},
-			failure : function(_error, _passthrough) {
-				_error.should.be.instanceof(Object);
-				_passthrough.should.be.equal("APPLOAD_GET");
+			failure : function(error, passthrough) {
+				error.should.be.instanceof(Object);
+				passthrough.should.be.equal("APPLOAD_GET");
 			},
-			done : function(_passthrough) {
+			done : function(passthrough) {
 				showLoader.should.be.equal(true);
 				hideLoader.should.be.equal(true);
-				_passthrough.should.be.equal("APPLOAD_GET");
-				_done();
+				passthrough.should.be.equal("APPLOAD_GET");
+				done();
 			}
 		});
 	});

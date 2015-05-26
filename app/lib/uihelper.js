@@ -13,44 +13,44 @@ var Helper = {
 	/**
 	 * force accessibility system to focus a view when there is a major change on UI
 	 * Note : Supported only on custom SDK.
-	 * @param {View} _view to focus
+	 * @param {View} view to focus
 	 */
-	requestViewFocus : function(_view) {
+	requestViewFocus : function(view) {
 		if (Ti.App.accessibilityEnabled) {
-			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, _view);
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITYview_FOCUS_CHANGED, view);
 		}
 	},
 
 	/**
 	 * force accessibility system to focus a view when there is a layout change on window
 	 * Note : Supported only on custom SDK.
-	 * @param {View} _view to focus
+	 * @param {View} view to focus
 	 */
-	requestAccessibilityFocus : function(_view) {
+	requestAccessibilityFocus : function(view) {
 		if (Ti.App.accessibilityEnabled) {
-			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, _view);
+			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, view);
 		}
 	},
 
 	/**
 	 * Accessibility system announcement
-	 * @param {String} _str for announcement
+	 * @param {String} str for announcement
 	 */
-	requestAnnouncement : function(_str) {
+	requestAnnouncement : function(str) {
 		if (Ti.App.accessibilityEnabled) {
-			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, _str);
+			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, str);
 		}
 	},
 
 	/**
 	 * Get current location of user
-	 * @param {Function} _callback
-	 * @param {Boolean} _forceUpdate
+	 * @param {Function} callback
+	 * @param {Boolean} forceUpdate
 	 */
-	getLocation : function(_callback, _forceUpdate) {
+	getLocation : function(callback, forceUpdate) {
 
-		if (_forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp, "minutes") < Alloy.CFG.LOCATION_TIMEOUT) {
-			Helper.fireLocationCallback(_callback, Helper.currentLocation);
+		if (forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp, "minutes") < Alloy.CFG.LOCATION_TIMEOUT) {
+			Helper.fireLocationCallback(callback, Helper.currentLocation);
 			return;
 		}
 
@@ -59,23 +59,23 @@ var Helper = {
 			Helper.showDialog({
 				message : Alloy.Globals.strings.msgGeoAuthorizationDenied
 			});
-			Helper.fireLocationCallback(_callback);
+			Helper.fireLocationCallback(callback);
 		} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
 			Helper.showDialog({
 				message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
 			});
-			Helper.fireLocationCallback(_callback);
+			Helper.fireLocationCallback(callback);
 		} else {
 			Ti.Geolocation.getCurrentPosition(function(e) {
-				Helper.fireLocationCallback(_callback, e.success && !_.isEmpty(e.coords) ? e.coords : {});
+				Helper.fireLocationCallback(callback, e.success && !_.isEmpty(e.coords) ? e.coords : {});
 			});
 		}
 	},
 
-	fireLocationCallback : function(_callback, _coords) {
-		Helper.currentLocation = _coords ? _coords : {};
-		if (_.isFunction(_callback)) {
-			_callback(Helper.currentLocation);
+	fireLocationCallback : function(callback, coords) {
+		Helper.currentLocation = coords ? coords : {};
+		if (_.isFunction(callback)) {
+			callback(Helper.currentLocation);
 		}
 	},
 
@@ -85,21 +85,21 @@ var Helper = {
 	 * @param {String|Object} source address query or latitude and longitude
 	 * @param {String} mode direction mode
 	 */
-	getDirection : function(_destination, _source, _mode) {
+	getDirection : function(destination, source, mode) {
 
-		if (_.isObject(_destination)) {
-			_destination = _destination.latitude + "," + _destination.longitude;
+		if (_.isObject(destination)) {
+			destination = destination.latitude + "," + destination.longitude;
 		}
 
-		if (_.isUndefined(_source)) {
-			_source = _currentLocation;
+		if (_.isUndefined(source)) {
+			source = _currentLocation;
 		}
 
-		if (_.isObject(_source)) {
-			_source = _source.latitude + "," + _source.longitude;
+		if (_.isObject(source)) {
+			source = source.latitude + "," + source.longitude;
 		}
 
-		var params = "?saddr=" + _source + "&daddr=" + _destination + "&directionsmode=" + (_mode || "transit");
+		var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "transit");
 
 		if (OS_IOS) {
 
@@ -135,54 +135,54 @@ var Helper = {
 
 	/**
 	 * Open phone's dialer
-	 * @param {String} _str number to be dialed
+	 * @param {String} str number to be dialed
 	 */
-	showDialer : function(_str) {
-		Ti.Platform.openURL("tel:" + _str);
+	showDialer : function(str) {
+		Ti.Platform.openURL("tel:" + str);
 	},
 
 	/*
 	 * Standard AlertDialog
-	 * @param {Object} _params The arguments for the method
-	 * @param {String} _params.title title of alert box
-	 * @param {String} _params.message message of alert box
-	 * @param {String[]} _params.buttonNames buttonNames of alert box
-	 * @param {String} _params.cancelIndex cancel index of alert box
-	 * @param {String} _params.ok ok text of alert box
-	 * @param {View} _params.androidView androidView of alert box
-	 * @param {Function} _params.success callback, if any button is clicked other than cancel
-	 * @param {Function} _params.cancel callback for cancel button
+	 * @param {Object} params The arguments for the method
+	 * @param {String} params.title title of alert box
+	 * @param {String} params.message message of alert box
+	 * @param {String[]} params.buttonNames buttonNames of alert box
+	 * @param {String} params.cancelIndex cancel index of alert box
+	 * @param {String} params.ok ok text of alert box
+	 * @param {View} params.androidView androidView of alert box
+	 * @param {Function} params.success callback, if any button is clicked other than cancel
+	 * @param {Function} params.cancel callback for cancel button
 	 */
-	showDialog : function(_params) {
+	showDialog : function(params) {
 		var dict = {
-			title : _params.title || Ti.App.name,
-			persistent : _.isUndefined(_params.persistent) ? true : _params.persistent
+			title : params.title || Ti.App.name,
+			persistent : _.isUndefined(params.persistent) ? true : params.persistent
 		};
-		if (_.has(_params, "buttonNames")) {
+		if (_.has(params, "buttonNames")) {
 			_.extend(dict, {
-				buttonNames : _params.buttonNames,
-				cancel : _params.cancelIndex || -1
+				buttonNames : params.buttonNames,
+				cancel : params.cancelIndex || -1
 			});
 		} else {
 			_.extend(dict, {
-				ok : _params.ok || Alloy.Globals.strings.strOK
+				ok : params.ok || Alloy.Globals.strings.strOK
 			});
 		}
-		if (OS_IOS && _.has(_params, "style")) {
-			dict.style = _params.style;
+		if (OS_IOS && _.has(params, "style")) {
+			dict.style = params.style;
 		}
-		if (OS_ANDROID && _.has(_params, "androidView")) {
-			dict.androidView = _params.androidView;
+		if (OS_ANDROID && _.has(params, "androidView")) {
+			dict.androidView = params.androidView;
 		} else {
-			dict.message = ( OS_IOS ? "\n" : "").concat(_params.message || "");
+			dict.message = ( OS_IOS ? "\n" : "").concat(params.message || "");
 		}
 		var dialog = Ti.UI.createAlertDialog(dict);
 		dialog.addEventListener("click", function(e) {
-			var cancel = _params.cancelIndex || -1;
-			if (_params.success && e.index !== cancel) {
-				_params.success(e.index, e);
-			} else if (_params.cancel && e.index === cancel) {
-				_params.cancel();
+			var cancel = params.cancelIndex || -1;
+			if (params.success && e.index !== cancel) {
+				params.success(e.index, e);
+			} else if (params.cancel && e.index === cancel) {
+				params.cancel();
 			}
 		});
 		dialog.show();
@@ -190,22 +190,22 @@ var Helper = {
 
 	/**
 	 * Open email dialog
-	 * @param {Object} _o options
+	 * @param {Object} o options
 	 */
-	showEmailDialog : function(_o) {
-		Ti.UI.createEmailDialog(_o).open();
+	showEmailDialog : function(o) {
+		Ti.UI.createEmailDialog(o).open();
 	},
 
 	/**
 	 * resize image
 	 * @param {Object/ImageView} _o
 	 */
-	getImage : function(_code, _imgView) {
-		if (!Alloy.Images[_code]) {
-			logger.error("invalid image code : " + _code);
+	getImage : function(code, imgView) {
+		if (!Alloy.Images[code]) {
+			logger.error("invalid image code : " + code);
 			return {};
 		}
-		var properties = Alloy.Images[_code][app.device.orientation],
+		var properties = Alloy.Images[code][app.device.orientation],
 		    path = properties.image,
 		    newWidth = properties.width || 0,
 		    newHeight = properties.height || 0;
@@ -233,53 +233,53 @@ var Helper = {
 				height : newHeight
 			});
 			config.updateImageProperties({
-				code : _code,
+				code : code,
 				file : utilities.getFileName(path),
 				orientation : app.device.orientation,
 				properties : newProperties
 			});
 		}
-		if (_imgView) {
-			_imgView.applyProperties(properties);
+		if (imgView) {
+			imgView.applyProperties(properties);
 		}
 		return properties;
 	},
 
 	/**
 	 * create table view section
-	 * @param {Controller} _ctrl controller object
-	 * @param {String} _title section header's title
-	 * @param {View} _footerView (optional)
-	 * @param {View} _customView (optional) - will be added to header view
-	 * @param {Object} _headerProperties (optional) - will be applied on header view
+	 * @param {Controller} ctrl controller object
+	 * @param {String} title section header's title
+	 * @param {View} footerView (optional)
+	 * @param {View} customView (optional) - will be added to header view
+	 * @param {Object} headerProperties (optional) - will be applied on header view
 	 */
-	createTableViewSection : function(_ctrl, _title, _footerView, _customView, _headerProperties) {
+	createTableViewSection : function(ctrl, title, footerView, customView, headerProperties) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict,
-		    headerView = _ctrl.UI.create("View", {
+		    headerView = ctrl.UI.create("View", {
 			apiName : "View",
 			classes : ["section-header-view"]
 		}),
-		    lbl = _ctrl.UI.create("Label", {
+		    lbl = ctrl.UI.create("Label", {
 			apiName : "Label",
 			classes : ["section-header-lbl"]
 		});
-		lbl.text = _title;
+		lbl.text = title;
 		headerView.add(lbl);
-		if (_headerProperties) {
-			headerView.applyProperties(_headerProperties);
+		if (headerProperties) {
+			headerView.applyProperties(headerProperties);
 		}
-		if (_customView) {
-			headerView.add(_customView);
+		if (customView) {
+			headerView.add(customView);
 		}
 		dict = {
 			headerView : headerView
 		};
-		if (_footerView) {
+		if (footerView) {
 			_.extend(dict, {
-				footerView : _footerView
+				footerView : footerView
 			});
 		}
 		return Ti.UI.createTableViewSection(dict);

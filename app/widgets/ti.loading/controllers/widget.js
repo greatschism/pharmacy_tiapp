@@ -26,9 +26,9 @@ function didOpen(e) {
 	}
 }
 
-function setMessage(_message) {
-	$.window.title = _message;
-	$.messageLbl.text = _message;
+function setMessage(message) {
+	$.window.title = message;
+	$.messageLbl.text = message;
 }
 
 function show() {
