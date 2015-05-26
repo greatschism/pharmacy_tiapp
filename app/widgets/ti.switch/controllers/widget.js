@@ -9,12 +9,17 @@ var args = arguments[0] || {};
 
 function updateForState(preventAccessbilityFocus) {
 	if (OS_ANDROID) {
-		if (args.onImage) {
-			$.swt.backgroundImage = $.swt.value ? args.onImage : args.offImage;
+		var dict = {};
+		if (args.onTintColor) {
+			dict.color = $.swt.value ? args.onTintColor : args.tintColor;
+		}
+		if (args.imageOn) {
+			dict.backgroundImage = $.swt.value ? args.imageOn : args.imageOff;
 		}
 		if (args.onAccessibilityLabel) {
-			$.swt.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
+			dict.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
 		}
+		$.swt.applyProperties(dict);
 		if (Ti.App.accessibilityEnabled && preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
 			Ti.App.fireSystemEvent(Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.swt);
 		}

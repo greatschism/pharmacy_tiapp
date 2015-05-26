@@ -68,6 +68,12 @@ module.exports = {
 	".fill-height" : {
 		"height" : "Ti.UI.FILL"
 	},
+	".width-100" : {
+		"width" : "100%"
+	},
+	".height-100" : {
+		"height" : "100%"
+	},
 	".vgroup" : {
 		"layout" : "vertical"
 	},
@@ -113,5 +119,10 @@ module.exports = {
 	},
 	".role-content-view" : {
 		"role" : "contentView"
+	},
+	".swt[platform=android]" : {
+		"titleOn" : "Alloy.CFG.icons.switch_on",
+		"titleOff" : "Alloy.CFG.icons.switch_off",
+		"style" : "Ti.UI.Android.SWITCH_STYLE_TOGGLEBUTTON"
 	}
 };

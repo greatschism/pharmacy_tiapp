@@ -338,15 +338,24 @@ module.exports = {
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
-			".swt" : {
+			".swt[platform=ios]" : {
 				"width" : 56,
 				"height" : 36,
+				"tintColor" : "#A7A7A7",
 				"onTintColor" : "#38E780",
-				"offTintColor" : "#A7A7A7",
+				"backgroundColor" : "#A7A7A7",
+				"borderRadius" : 16
+			},
+			".swt[platform=android]" : {
+				"width" : 56,
+				"height" : 36,
+				"tintColor" : "#A7A7A7",
+				"onTintColor" : "#38E780",
 				"font" : {
 					"fontFamily" : "icon",
-					"fontSize" : 32
-				}
+					"fontSize" : 28
+				},
+				"backgroundColor" : "transparent"
 			},
 			".dropdown" : {
 				"left" : 12,
@@ -540,6 +549,27 @@ module.exports = {
 			".form-group" : {
 				"left" : 12,
 				"right" : 12,
+				"height" : "auto",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "#808083",
+				"borderWidth" : 1,
+				"borderRadius" : 3.4
+			},
+			".form-vgroup" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"layout" : "vertical",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "#808083",
+				"borderWidth" : 1,
+				"borderRadius" : 3.4
+			},
+			".form-hgroup" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"layout" : "horizontal",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808083",
 				"borderWidth" : 1,

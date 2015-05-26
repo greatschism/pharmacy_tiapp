@@ -243,13 +243,11 @@ var Configuration = {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
+				if (!_.has(Alloy.TSS, key)) {
+					key += "_platform_" + require("core").device.platform;
+				}
 				if (dict.queries && dict.queries.formFactor) {
-					var formFactor = "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));
-					if (_.has(Alloy.TSS, (key + formFactor))) {
-						key += formFactor;
-					} else {
-						key += "_platform_" + require("core").device.platform + formFactor;
-					}
+					key += "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));
 				}
 				if (_.has(Alloy.TSS, key)) {
 					var style = dict.style;

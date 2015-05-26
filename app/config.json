@@ -50,7 +50,9 @@
 		"iconPrefix": "thick",
 		"iconNotations": {
 			"switch_on": "0xE001",
-			"switch_off": "0xE002"
+			"switch_off": "0xE002",
+			"sign_in": "0xE004",
+			"sign_out": "0xE005"
 		},
 		"icons": {
 			"thick_prescriptions": "A",

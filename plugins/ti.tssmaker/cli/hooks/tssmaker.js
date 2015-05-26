@@ -119,6 +119,8 @@ exports.init = function(logger, config, cli, appc) {
 				}
 				var appStr = JSON.stringify(atss);
 				appStr = trimDoubleQuotes(appStr, /"Alloy.TSS+/g);
+				appStr = trimDoubleQuotes(appStr, /"Alloy.CFG+/g);
+				appStr = trimDoubleQuotes(appStr, /"Alloy.Globals+/g);
 				appStr = trimDoubleQuotes(appStr, /"Ti.UI+/g);
 				appStr = appStr.substring(1, appStr.length - 1);
 				logger.debug(TAG + " : atss = \n\n " + appStr + "\n\n");
