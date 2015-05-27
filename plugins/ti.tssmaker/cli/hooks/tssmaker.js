@@ -138,7 +138,7 @@ exports.init = function(logger, config, cli, appc) {
 				return done();
 			}
 		});
-	};
+	}
 
 	function processRequest(build, done) {
 		isExists(themeJSPath, function(exists) {
