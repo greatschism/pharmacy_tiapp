@@ -1,6 +1,6 @@
 {
     "global": {
-        "buildDate": "Wed May 27 2015 12:36:28 GMT+0530 (IST)",
+        "buildDate": "Wed May 27 2015 17:43:26 GMT+0530 (IST)",
         "apiPath": {
             "APPLOAD_GET": "appload/get",
             "TERMS_GET": "terms/get",

@@ -39,7 +39,37 @@ exports.init = function(logger, config, cli, appc) {
 
 			//update tiapp.xml
 			var tiappPath = "./tiapp.xml",
-			    tiapp = require("tiapp.xml").load(tiappPath);
+			    tiapp = require("tiapp.xml").load(tiappPath),
+			    children = tiapp.doc.documentElement.childNodes;
+
+			//android properties
+			var android = tiapp.doc.documentElement.getElementsByTagName("android")[0];
+			if (android) {
+				var children = android.getElementsByTagName("manifest"),
+				    manifest = children.length == 0 ? android.appendChild(tiapp.doc.createElement("manifest")) : children[0],
+				    versionCode = cli.argv["versionCode"];
+				if (!versionCode) {
+					versionCode = parseInt(manifest.getAttribute("android:versionCode")) || 0;
+					versionCode += 1;
+				}
+				manifest.setAttribute("android:versionCode", versionCode);
+				var application = android.getElementsByTagName("application")[0];
+				if (application) {
+					var activity = android.getElementsByTagName("activity")[0];
+					if (activity) {
+						var names = (tiapp.name + " Activity").split(" ");
+						for (var i in names) {
+							var name = names[i].toLowerCase();
+							name = (name + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+								return $1.toUpperCase();
+							});
+							names[i] = name;
+						}
+						activity.setAttribute("android:name", "." + names.join(""));
+					}
+				}
+			}
+
 			//update version
 			if (cli.argv["update-version"] != "false") {
 				if (cli.argv["app-version"]) {
