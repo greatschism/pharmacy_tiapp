@@ -26,6 +26,8 @@ function mapTargetToDeployType(target) {
 exports.init = function(logger, config, cli, appc) {
 
 	logger.info(TAG + " : initiated");
+	
+	var projectDir = cli.argv["project-dir"];
 
 	cli.on("build.pre.construct", function(build, done) {
 
@@ -38,7 +40,7 @@ exports.init = function(logger, config, cli, appc) {
 		try {
 
 			//update tiapp.xml
-			var tiappPath = "./tiapp.xml",
+			var tiappPath = projectDir + "/tiapp.xml",
 			    tiapp = require("tiapp.xml").load(tiappPath),
 			    children = tiapp.doc.documentElement.childNodes;
 
@@ -89,7 +91,7 @@ exports.init = function(logger, config, cli, appc) {
 			tiapp.write();
 
 			//update config
-			var configPath = "./app/config.json",
+			var configPath = projectDir + "/app/config.json",
 			    configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
 			configData.global.buildDate = new Date().toString();
 			fs.writeFileSync(configPath, JSON.stringify(configData, null, 4));

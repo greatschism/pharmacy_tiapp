@@ -10,7 +10,8 @@ exports.init = function(logger, config, cli, appc) {
 
 	logger.info(TAG + " : initiated");
 
-	var selectedTheme = "default";
+	var projectDir = cli.argv["project-dir"],
+	    selectedTheme = "default";
 
 	try {
 		var resources = require("./../../../../app/assets/data/resources.js"),
@@ -27,10 +28,10 @@ exports.init = function(logger, config, cli, appc) {
 
 	var CURRENT_TIME = new Date().getTime(),
 	    TEMP_NAME = "theme_" + CURRENT_TIME,
-	    appTSSPath = "./app/styles/app.tss",
-	    themeJSPath = "./app/assets/data/themes/" + selectedTheme + ".js",
-	    tempThemeJSPath = "./plugins/ti.tssmaker/cli/hooks/" + TEMP_NAME + ".js",
-	    defaultJSPath = "./plugins/ti.tssmaker/cli/hooks/defaults.js";
+	    appTSSPath = projectDir + "/app/styles/app.tss",
+	    themeJSPath = projectDir + "/app/assets/data/themes/" + selectedTheme + ".js",
+	    tempThemeJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/" + TEMP_NAME + ".js",
+	    defaultJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/defaults.js";
 
 	function trimDoubleQuotes(str, regExp) {
 		do {
@@ -47,7 +48,7 @@ exports.init = function(logger, config, cli, appc) {
 		return str;
 	}
 
-	function writeAppTss(build, done) {
+	function writeAppTss() {
 
 		var atss = require("./defaults"),
 		    tss = {};
@@ -104,20 +105,7 @@ exports.init = function(logger, config, cli, appc) {
 
 		fs.writeFileSync(appTSSPath, appStr);
 
-		//delete all temp theme files
-		var dir = "./plugins/ti.tssmaker/cli/hooks",
-		    files = fs.readdirSync(dir);
-		for (var i in files) {
-			var file = files[i];
-			if (file.indexOf("theme_") != -1) {
-				fs.unlinkSync(dir + "/" + file);
-			}
-		}
-
 		logger.info(TAG + " : app.tss is ready now!");
-
-		done();
-
 	};
 
 	cli.on("build.pre.construct", function(build, done) {
@@ -148,11 +136,22 @@ exports.init = function(logger, config, cli, appc) {
 
 			if (!appTSSLmd || themeJSLmd > appTSSLmd || defaultJSLmd > appTSSLmd) {
 				logger.info("mofifications found, app.tss should be updated. Processing...");
-				writeAppTss(build, done);
+				writeAppTss();
 			} else {
 				logger.info("app.tss is up to date already.");
-				return done();
 			}
+
+			//delete all temp theme files
+			var dir = projectDir + "/plugins/ti.tssmaker/cli/hooks",
+			    files = fs.readdirSync(dir);
+			for (var i in files) {
+				var file = files[i];
+				if (file.indexOf("theme_") != -1) {
+					fs.unlinkSync(dir + "/" + file);
+				}
+			}
+
+			return done();
 
 		} catch(error) {
 
