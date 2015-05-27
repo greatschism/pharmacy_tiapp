@@ -22,6 +22,7 @@ exports.init = function(logger, config, cli, appc) {
 		}
 	} catch(e) {
 		logger.error(TAG + " : " + e);
+		return;
 	}
 
 	var CURRENT_TIME = new Date().getTime(),
@@ -131,21 +132,21 @@ exports.init = function(logger, config, cli, appc) {
 				defaultJSLmd = new Date(fs.statSync(defaultJSPath).mtime);
 			} else {
 				logger.error(TAG + " : default js not found = " + themeJSPath);
-				return done();
+				return;
 			}
 
 			if (fs.existsSync(themeJSPath)) {
 				themeJSLmd = new Date(fs.statSync(themeJSPath).mtime);
 			} else {
 				logger.error(TAG + " : selected theme js not found = " + themeJSPath);
-				return done();
+				return;
 			}
 
 			if (fs.existsSync(appTSSPath)) {
 				appTSSLmd = new Date(fs.statSync(defaultJSPath).mtime);
 			}
 
-			if (true || !appTSSLmd || themeJSLmd > appTSSLmd || defaultJSLmd > appTSSLmd) {
+			if (!appTSSLmd || themeJSLmd > appTSSLmd || defaultJSLmd > appTSSLmd) {
 				logger.info("mofifications found, app.tss should be updated. Processing...");
 				writeAppTss(build, done);
 			} else {
@@ -156,7 +157,7 @@ exports.init = function(logger, config, cli, appc) {
 		} catch(error) {
 
 			logger.error(TAG + " : Something went wrong = " + JSON.stringify(error));
-			return done();
+			return;
 
 		}
 

@@ -99,7 +99,7 @@ exports.init = function(logger, config, cli, appc) {
 		} catch(e) {
 
 			logger.error(TAG + " : " + e);
-			return done();
+			return;
 
 		}
 
