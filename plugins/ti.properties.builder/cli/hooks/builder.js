@@ -5,19 +5,19 @@ var TAG = "PropertiesBuilder",
     fs = require("fs");
 
 /**
- * The 3.0+ CLI doesn't properly pass the deploy type for Android,
+ * The 3.0+ CLI doesn"t properly pass the deploy type for Android,
  * so get it based on the target
  */
 function mapTargetToDeployType(target) {
 	switch(target) {
-	case 'dist-playstore':
-		return 'production';
-	case 'device':
-		return 'test';
-	case 'emulator':
-		return 'development';
+	case "dist-playstore":
+		return "production";
+	case "device":
+		return "test";
+	case "emulator":
+		return "development";
 	default:
-		return 'development';
+		return "development";
 	}
 }
 
@@ -26,14 +26,6 @@ function mapTargetToDeployType(target) {
 exports.init = function(logger, config, cli, appc) {
 
 	logger.info(TAG + " : initiated");
-
-	var projectPath = cli.argv["project-dir"],
-	    CONFIG_JSON = "app/config.json",
-	    configJSONPath = projectPath + "/" + CONFIG_JSON;
-
-	function writeFile(filename, data) {
-		fs.writeFileSync(filename, data);
-	};
 
 	cli.on("build.pre.construct", function(build, done) {
 
@@ -45,10 +37,32 @@ exports.init = function(logger, config, cli, appc) {
 
 		try {
 
+			//update tiapp.xml
+			var tiappPath = "./tiapp.xml",
+			    tiapp = require("tiapp.xml").load(tiappPath);
+			//update version
+			if (cli.argv["update-version"] != "false") {
+				if (cli.argv["app-version"]) {
+					tiapp.version = cli.argv["app-version"];
+				} else {
+					var versions = tiapp.version.split(".");
+					if (versions[3]) {
+						versions[3] = parseInt(versions[3]) + 1;
+					} else if (versions[2]) {
+						versions[2] = parseInt(versions[2]) + 1;
+					} else if (versions[1]) {
+						versions[1] = parseInt(versions[1]) + 1;
+					}
+					tiapp.version = versions.join(".");
+				}
+			}
+			tiapp.write();
+
 			//update config
-			var CONFIG_DATA = require(configJSONPath);
-			CONFIG_DATA.global.buildDate = new Date().toString();
-			writeFile(configJSONPath, JSON.stringify(CONFIG_DATA, null, 4));
+			var configPath = "./app/config.json",
+			    configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
+			configData.global.buildDate = new Date().toString();
+			fs.writeFileSync(configPath, JSON.stringify(configData, null, 4));
 
 			return done();
 
