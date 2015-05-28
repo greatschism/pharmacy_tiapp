@@ -26,7 +26,7 @@ function mapTargetToDeployType(target) {
 exports.init = function(logger, config, cli, appc) {
 
 	logger.info(TAG + " : initiated");
-	
+
 	var projectDir = cli.argv["project-dir"];
 
 	cli.on("build.pre.construct", function(build, done) {
@@ -41,20 +41,28 @@ exports.init = function(logger, config, cli, appc) {
 
 			//update tiapp.xml
 			var tiappPath = projectDir + "/tiapp.xml",
-			    tiapp = require("tiapp.xml").load(tiappPath),
-			    children = tiapp.doc.documentElement.childNodes;
+			    tiapp = require("tiapp.xml").load(tiappPath);
 
 			//android properties
 			var android = tiapp.doc.documentElement.getElementsByTagName("android")[0];
 			if (android) {
-				var children = android.getElementsByTagName("manifest"),
-				    manifest = children.length == 0 ? android.appendChild(tiapp.doc.createElement("manifest")) : children[0],
+
+				//version code
+				var manifestTags = android.getElementsByTagName("manifest"),
+				    manifest = manifestTags.length == 0 ? android.appendChild(tiapp.doc.createElement("manifest")) : manifestTags[0],
 				    versionCode = cli.argv["versionCode"];
 				if (!versionCode) {
 					versionCode = parseInt(manifest.getAttribute("android:versionCode")) || 0;
 					versionCode += 1;
 				}
 				manifest.setAttribute("android:versionCode", versionCode);
+
+				//minimum SDK version
+				var usesSDKTags = android.getElementsByTagName("uses-sdk"),
+				    usesSDK = usesSDKTags.length == 0 ? manifest.appendChild(tiapp.doc.createElement("uses-sdk")) : usesSDKTags[0];
+				usesSDK.setAttribute("android:minSdkVersion", cli.argv["minSdkVersion"] || "14");
+
+				//launching activity name
 				var application = android.getElementsByTagName("application")[0];
 				if (application) {
 					var activity = android.getElementsByTagName("activity")[0];
@@ -70,6 +78,7 @@ exports.init = function(logger, config, cli, appc) {
 						activity.setAttribute("android:name", "." + names.join(""));
 					}
 				}
+
 			}
 
 			//update version
