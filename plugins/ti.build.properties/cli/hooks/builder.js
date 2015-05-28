@@ -35,7 +35,7 @@ exports.init = function(logger, config, cli, appc) {
 
 		try {
 
-			if (deployType != "production") {
+			if (deployType == "production") {
 
 				//update tiapp.xml
 				var tiappPath = projectDir + "/tiapp.xml",
