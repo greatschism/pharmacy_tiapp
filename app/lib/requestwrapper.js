@@ -9,7 +9,6 @@ var Alloy = require("alloy"),
     http = require("http"),
     localization = require("localization"),
     utilities = require("utilities"),
-    XMLTools = require("XMLTools"),
     encryptionUtil = require("encryptionUtil");
 
 function request(params) {
@@ -39,31 +38,20 @@ function request(params) {
 		}
 	}
 
-	var format = params.format.toLowerCase(),
-	    url;
-	switch(format) {
-	case "json":
-		url = Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[params.method]);
-		_.extend(params.data, {
-			client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
-			version : Alloy.CFG.API_VERSION,
-			session_id : Alloy.Models.user.get("patients").session_id,
-			lang : localization.currentLanguage.id
-		});
-		params.data = JSON.stringify(params.data);
-		break;
-	case "xml":
-		url = Alloy.CFG.BASE_URL_LEGACY.concat(Alloy.CFG.apiPath[params.method]);
-		params.data = XMLTools.toXML(params.data);
-		break;
-	}
+	_.extend(params.data, {
+		client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
+		version : Alloy.CFG.API_VERSION,
+		session_id : Alloy.Models.user.get("patients").session_id,
+		lang : localization.currentLanguage.id
+	});
+	params.data = JSON.stringify(params.data);
 
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
 		params.data = encryptionUtil.encrypt(params.data);
 	}
 
 	http.request({
-		url : url,
+		url : Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[params.method]),
 		type : params.type,
 		format : params.format,
 		timeout : params.timeout,
@@ -80,10 +68,6 @@ function didSuccess(data, passthrough) {
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
 		data = encryptionUtil.decrypt(data);
 	}
-	if (passthrough.format.toLowerCase() == "xml") {
-		data = XMLTools.toJSON(data);
-		data = data[_.keys(data)[0]];
-	}
 	if (data.code != Alloy.CFG.apiCodes.SUCCESS && _.has(data, "error")) {
 		uihelper.showDialog({
 			message : data.message || Alloy.Globals.strings.msgSomethingWentWrong
@@ -97,7 +81,7 @@ function didSuccess(data, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	if (Alloy.CFG.SIMULATE_API_ON_FAILURE) {
+	if (ENV_DEV && Alloy.CFG.SIMULATE_API_ON_FAILURE) {
 		didSuccess({
 			code : Alloy.CFG.apiCodes.SUCCESS,
 			data : {}
