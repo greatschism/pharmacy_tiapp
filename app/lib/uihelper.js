@@ -221,6 +221,10 @@ var Helper = {
 			    imgWidth = imgBlob.width,
 			    imgHeight = imgBlob.height;
 			imgBlob = null;
+			if (OS_ANDROID) {
+				imgWidth /= app.device.logicalDensityFactor;
+				imgHeight /= app.device.logicalDensityFactor;
+			}
 			if (newWidth == 0) {
 				newHeight = utilities.percentageToValue(newHeight, app.device.height);
 				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);

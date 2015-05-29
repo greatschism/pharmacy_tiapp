@@ -81,7 +81,7 @@ function didSuccess(data, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	if (ENV_DEV && Alloy.CFG.SIMULATE_API_ON_FAILURE) {
+	if (!ENV_PROD && Alloy.CFG.SIMULATE_API_ON_FAILURE) {
 		didSuccess({
 			code : Alloy.CFG.apiCodes.SUCCESS,
 			data : {}

@@ -8,17 +8,21 @@ var args = arguments[0] || {},
     keychainAccount;
 
 function init() {
-	uihelper.getImage($.logoImg);
-	updateInputs();
+	uihelper.getImage("logo", $.logoImg);
+	Alloy.Models.user.on("change:account", updateInputs);
+	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
+	var account = encryptionUtil.decrypt(keychainAccount.account);
+	if (account) {
+		Alloy.Models.user.set({
+			account : account,
+			password : encryptionUtil.decrypt(keychainAccount.valueData)
+		});
+	}
 }
 
 function updateInputs() {
-	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
-	$.unameTxt.setValue(encryptionUtil.decrypt(keychainAccount.account));
-	$.passwordTxt.setValue(encryptionUtil.decrypt(keychainAccount.valueData));
-	if (keychainAccount.valueData) {
-		$.keepMeSwt.setValue(true);
-	}
+	$.unameTxt.setValue(Alloy.Models.user.get("account"));
+	$.passwordTxt.setValue(Alloy.Models.user.get("password"));
 }
 
 function moveToNext(e) {
@@ -157,5 +161,9 @@ function didClickSignup(e) {
 	});
 }
 
+function terminate() {
+	Alloy.Models.user.off("change:account", updateInputs);
+}
+
 exports.init = init;
-exports.focus = updateInputs;
+exports.terminate = terminate;

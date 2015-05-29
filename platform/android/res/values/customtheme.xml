@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<style name="Material.EditText" parent="@android:style/Widget.EditText">
+		<item name="android:gravity">center_horizontal|center_vertical</item>
+	</style>
 	<style name="Material.ListView" parent="@android:style/Widget.ListView">
 		<item name="android:dividerHeight">1px</item>
+	</style>
+	<style name="Material.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowCloseOnTouchOutside">false</item>
+		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
 	</style>
 	<style name="Theme.Material" parent="Theme.AppCompat">
 		<item name="colorControlHighlight">#D4D4D4</item>
 		<item name="android:colorEdgeEffect">#D4D4D4</item>
 		<item name="android:textCursorDrawable">@null</item>
 		<item name="android:textAllCaps">false</item>
+		<item name="android:textColorHint">#D4D4D4</item>
 		<item name="android:windowBackground">@android:color/white</item>
+		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
+		<item name="android:dialogTheme">@style/Material.AlertDialog</item>
+		<item name="android:alertDialogTheme">@style/Material.AlertDialog</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
+		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
 	<style name="Theme.Material.Translucent.NoActionBar" parent="Theme.Material.NoActionBar">

@@ -43,6 +43,8 @@ describe("UIHelper Test Suite", function() {
 	});
 
 	it("Test Case 5: getImage with valid image code", function() {
+		//uihelper.getImage only works when device width and height at core are set
+		require("core").getDeviceDimensions();
 		uihelper.getImage("logo").should.be.instanceof(Object).and.have.property("image");
 	});
 

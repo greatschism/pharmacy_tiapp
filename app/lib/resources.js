@@ -36,11 +36,11 @@ var Res = {
 
 	init : function() {
 
-		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || ENV_DEV) {
+		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || !ENV_PROD) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
 			    initialData = require(Res.directoryData + "/" + "resources"),
-			    clearCache = Alloy.CFG.CLEAR_CACHED_RESOURCES && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || ENV_DEV);
+			    clearCache = Alloy.CFG.CLEAR_CACHED_RESOURCES && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PROD);
 
 			for (var i in keys) {
 				Res.set(keys[i], initialData[keys[i]], true, clearCache);
