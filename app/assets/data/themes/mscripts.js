@@ -422,24 +422,29 @@ module.exports = {
 				},
 				"leftIconDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightIconDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"leftButtonDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808083",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
@@ -481,6 +486,7 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808083",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
@@ -511,6 +517,7 @@ module.exports = {
 				},
 				"leftIconDict" : {
 					"color" : "#5b5b5b",
+					"selectedColor" : "#5b5b5b",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -519,14 +526,17 @@ module.exports = {
 				},
 				"rightIconDict" : {
 					"color" : "#5b5b5b",
+					"selectedColor" : "#5b5b5b",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"color" : "#5b5b5b",
+					"selectedColor" : "#5b5b5b",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
@@ -593,25 +603,30 @@ module.exports = {
 					"fontSize" : 12
 				},
 				"leftIconDict" : {
-					"color" : "#FFFFFF",
+					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightIconDict" : {
-					"color" : "#FFFFFF",
+					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"leftButtonDict" : {
-					"color" : "#FFFFFF",
+					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"color" : "#FFFFFF",
+					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
 			".form-txt-small" : {
@@ -633,24 +648,29 @@ module.exports = {
 				},
 				"leftIconDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightIconDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"leftButtonDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
 			".form-dropdown" : {
@@ -684,12 +704,14 @@ module.exports = {
 				"leftButtonDict" : {
 					"left" : 12,
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"left" : 12,
 					"color" : "#808184",
+					"selectedColor" : "#808184",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
