@@ -1,6 +1,8 @@
 module.exports = {
 	"data" : [{
+		"id" : "scrollView",
 		"apiName" : "ScrollView",
+		"classes" : ["hide"],
 		"children" : [{
 			"items" : [{
 				"apiName" : "View",
@@ -9,7 +11,10 @@ module.exports = {
 					"event" : "postlayout",
 					"binders" : [{
 						"id" : "vdivider",
-						"properties" : ["height", "visible"]
+						"properties" : ["height"]
+					}, {
+						"id" : "scrollView",
+						"properties" : ["visible"]
 					}]
 				}],
 				"children" : [{
@@ -189,7 +194,7 @@ module.exports = {
 			}, {
 				"id" : "vdivider",
 				"apiName" : "View",
-				"classes" : ["top", "v-divider", "hide", "touch-disabled"]
+				"classes" : ["top", "v-divider", "touch-disabled"]
 			}]
 		}]
 	}]
