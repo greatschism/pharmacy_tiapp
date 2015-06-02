@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<ImageView id="logoImg" class="margin-top" />
+		<ImageView id="logoImg" class="margin-top margin-bottom" />
 		<Label id="hintLbl" class="margin-top lbl-centered-wrap" />
 		<View class="margin-top form-vgroup">
 			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
