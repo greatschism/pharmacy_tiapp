@@ -7,27 +7,27 @@ var logger = require("logger");
 
 /**
  * Standard HTTP Request
- * @param {Object} params The arguments for the method
- * @param {Number} params.timeout Timeout time, in milliseconds
- * @param {String} params.type Type of request, "GET", "POST", etc
- * @param {String} params.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
- * @param {String} params.url The URL source to call
- * @param {Array} params.headers Array of request headers to send
- * @param {Object|String} params.data The data to send
- * @param {Function} params.failure A function to execute when there is an XHR error
- * @param {Function} params.success A function to execute when when successful
- * @param {Function} params.done A function to execute after the success or failure callback
- * @param {Object} params.passthrough Parameters to pass through to the failure or success callback
+ * @param {Object} args The arguments for the method
+ * @param {Number} args.timeout Timeout time, in milliseconds
+ * @param {String} args.type Type of request, "GET", "POST", etc
+ * @param {String} args.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
+ * @param {String} args.url The URL source to call
+ * @param {Array} args.headers Array of request headers to send
+ * @param {Object|String} args.params The data to send
+ * @param {Function} args.failure A function to execute when there is an XHR error
+ * @param {Function} args.success A function to execute when when successful
+ * @param {Function} args.done A function to execute after the success or failure callback
+ * @param {Object} args.passthrough Parameters to pass through to the failure or success callback
  */
-exports.request = function(params) {
+exports.request = function(args) {
 
-	logger.debug("HTTP.request " + params.url);
+	logger.debug("HTTP.request " + args.url);
 
 	if (Ti.Network.online) {
 
 		var xhr = Ti.Network.createHTTPClient();
 
-		xhr.timeout = params.timeout ? params.timeout : 10000;
+		xhr.timeout = args.timeout ? args.timeout : 10000;
 
 		/**
 		 * Data return
@@ -40,7 +40,7 @@ exports.request = function(params) {
 
 			var data;
 
-			switch((params.format || "").toLowerCase()) {
+			switch((args.format || "").toLowerCase()) {
 			case "data":
 				data = this.responseData || this.responseText || "{}";
 				break;
@@ -55,10 +55,10 @@ exports.request = function(params) {
 				data = this.responseText || "";
 			}
 
-			if (params.success) {
-				params.success(data, params.passthrough || {});
-				if (params.done) {
-					params.done(params.passthrough || {});
+			if (args.success) {
+				args.success(data, args.passthrough || {});
+				if (args.done) {
+					args.done(args.passthrough || {});
 				}
 			} else {
 				return data;
@@ -66,10 +66,10 @@ exports.request = function(params) {
 
 		};
 
-		if (params.ondatastream) {
+		if (args.ondatastream) {
 			xhr.ondatastream = function(event) {
-				if (params.ondatastream) {
-					params.ondatastream(event.progress);
+				if (args.ondatastream) {
+					args.ondatastream(event.progress);
 				}
 			};
 		}
@@ -81,29 +81,29 @@ exports.request = function(params) {
 		 */
 		xhr.onerror = function(event) {
 			logger.error("HTTP.error " + event.code + " - " + event.error);
-			if (params.failure) {
-				params.failure(event, params.passthrough || {});
-				if (params.done) {
-					params.done(params.passthrough || {});
+			if (args.failure) {
+				args.failure(event, args.passthrough || {});
+				if (args.done) {
+					args.done(args.passthrough || {});
 				}
 			}
 		};
 
-		params.type = params.type ? params.type : "GET";
-		params.async = params.async ? params.async : true;
+		args.type = args.type ? args.type : "GET";
+		args.async = args.async ? args.async : true;
 
-		xhr.open(params.type, params.url, params.async);
+		xhr.open(args.type, args.url, args.async);
 
-		_.each(params.headers || [], function(header) {
+		_.each(args.headers || [], function(header) {
 			xhr.setRequestHeader(header.key, header.value);
 		});
 
 		// Overcomes the 'unsupported browser' error sometimes received
 		// xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
-		if (params.data) {
-			logger.debug("HTTP.data " + params.data);
-			xhr.send(params.data);
+		if (args.params) {
+			logger.debug("HTTP.params " + args.params);
+			xhr.send(args.params);
 		} else {
 			xhr.send();
 		}
@@ -112,13 +112,13 @@ exports.request = function(params) {
 
 		logger.debug("No internet connection");
 
-		if (params.failure) {
-			params.failure({
+		if (args.failure) {
+			args.failure({
 				code : 1007,
 				error : "No network connection. No network."
-			}, params.passthrough || {});
-			if (params.done) {
-				params.done(params.passthrough || {});
+			}, args.passthrough || {});
+			if (args.done) {
+				args.done(args.passthrough || {});
 			}
 		}
 	}

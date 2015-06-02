@@ -1,11 +1,12 @@
-var apm = require("apm"),
+var Alloy = require("alloy"),
+    apm = require("apm"),
     utilities = require("utilities");
 
 describe("APM Test Suite", function() {
 
 	it("Test Case 1: init with APM disabled", function(done) {
 		//for android wait for serviceready event
-		this.timeout(30000);
+		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
 		Alloy.CFG.APMenabled = false;
 		apm.init(function(enabled) {
 			enabled.should.be.equal(false);
@@ -15,7 +16,7 @@ describe("APM Test Suite", function() {
 
 	it("Test Case 2: init with APM enabled", function(done) {
 		//for android wait for serviceready event
-		this.timeout(30000);
+		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
 		Alloy.CFG.APMenabled = true;
 		apm.init(function(enabled) {
 			enabled.should.be.equal(true);

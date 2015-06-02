@@ -1,5 +1,5 @@
 /**
- * @param {Object} params The arguments for the method
+ * @param {Object} args The arguments for the method
  */
 
 var Alloy = require("alloy"),
@@ -11,80 +11,83 @@ var Alloy = require("alloy"),
     utilities = require("utilities"),
     encryptionUtil = require("encryptionUtil");
 
-function request(params) {
+function request(args) {
 
-	if (!_.has(params, "type")) {
-		params.type = "POST";
+	if (!_.has(args, "type")) {
+		args.type = "POST";
 	}
 
-	if (!_.has(params, "timeout")) {
-		params.timeout = Alloy.CFG.HTTP_TIMEOUT * 1000;
+	if (!_.has(args, "timeout")) {
+		args.timeout = Alloy.CFG.HTTP_TIMEOUT;
 	}
 
-	if (!_.has(params, "format")) {
-		params.format = "json";
+	if (!_.has(args, "format")) {
+		args.format = "json";
 	}
 
-	if (!_.has(params, "data")) {
-		params.data = {};
+	if (!_.has(args, "params")) {
+		args.params = {};
 	}
 
-	if (params.showLoader !== false) {
+	if (args.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.showLoader(params.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
+			app.navigator.showLoader(args.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
 		}
-		if (params.showLoaderCallback) {
-			params.showLoaderCallback();
+		if (args.showLoaderCallback) {
+			args.showLoaderCallback();
 		}
 	}
 
-	_.extend(params.data, {
-		feature_code : Alloy.CFG.featureCodes[params.method],
+	_.extend(args.params, {
+		feature_code : Alloy.CFG.featureCodes[args.method],
 		client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
 		version : Alloy.CFG.API_VERSION,
 		lang : localization.currentLanguage.id,
 		session_id : Alloy.Models.user.get("patients").session_id
 	});
-	params.data = JSON.stringify(params.data);
+	args.params = JSON.stringify(args.params);
 
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
-		params.data = encryptionUtil.encrypt(params.data);
+		args.params = encryptionUtil.encrypt(args.params);
 	}
 
 	http.request({
-		url : Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[params.method]),
-		type : params.type,
-		format : params.format,
-		timeout : params.timeout,
-		data : params.data,
+		url : Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[args.method]),
+		type : args.type,
+		format : args.format,
+		timeout : args.timeout,
+		params : args.params,
 		success : didSuccess,
 		failure : didFail,
 		done : didComplete,
-		passthrough : params
+		passthrough : args
 	});
 
 }
 
-function didSuccess(data, passthrough) {
+function didSuccess(result, passthrough) {
 	if (Alloy.CFG.ENCRYPTION_ENABLED) {
-		data = encryptionUtil.decrypt(data);
+		result = encryptionUtil.decrypt(result);
 	}
-	if (data.code != Alloy.CFG.apiCodes.SUCCESS && _.has(data, "error")) {
-		uihelper.showDialog({
-			message : data.message || Alloy.Globals.strings.msgSomethingWentWrong
-		});
+	if (result.code != Alloy.CFG.apiCodes.SUCCESS_CODE) {
+		if (passthrough.errorDialogEnabled !== false) {
+			uihelper.showDialog({
+				message : result.message || Alloy.Globals.strings.msgSomethingWentWrong
+			});
+		}
 		if (passthrough.failure) {
-			passthrough.failure(data, passthrough.passthrough);
+			passthrough.failure(result, passthrough.passthrough);
 		}
 	} else if (passthrough.success) {
-		passthrough.success(data, passthrough.passthrough);
+		passthrough.success(result, passthrough.passthrough);
 	}
 }
 
 function didFail(error, passthrough) {
 	if (!ENV_PROD && Alloy.CFG.SIMULATE_API_ON_FAILURE) {
 		didSuccess({
-			code : Alloy.CFG.apiCodes.SUCCESS,
+			code : Alloy.CFG.apiCodes.SUCCESS_CODE,
+			status : Alloy.CFG.apiCodes.SUCCESS_STATUS,
 			data : {}
 		}, passthrough);
 	} else {
@@ -102,6 +105,10 @@ function didFail(error, passthrough) {
 				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
 				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 				success : function() {
+					if (Alloy.CFG.ENCRYPTION_ENABLED) {
+						passthrough.params = encryptionUtil.decrypt(passthrough.params);
+					}
+					passthrough.params = JSON.parse(passthrough.params);
 					request(passthrough);
 				},
 				cancel : function() {

@@ -1,4 +1,5 @@
-var uihelper = require("uihelper");
+var Alloy = require("alloy"),
+    uihelper = require("uihelper");
 
 describe("UIHelper Test Suite", function() {
 
@@ -19,14 +20,14 @@ describe("UIHelper Test Suite", function() {
 
 	it("Test Case 3: getLocation", function(done) {
 		//getting location first time may be delayed
-		this.timeout(30000);
+		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
 		var locationTimeout;
 		//consider as pass when locationServicesAuthorization is AUTHORIZATION_UNKNOWN on iOS
 		if (OS_IOS) {
 			locationTimeout = setTimeout(function() {
 				Titanium.Geolocation.locationServicesAuthorization.should.be.equal(Titanium.Geolocation.AUTHORIZATION_UNKNOWN);
 				done();
-			}, 25000);
+			}, Alloy.CFG.LOCATION_TIMEOUT);
 		}
 		uihelper.getLocation(function(location) {
 			if (locationTimeout) {

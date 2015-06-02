@@ -9,9 +9,9 @@ var app = require("core"),
 function didOpen(e) {
 	http.request({
 		method : "APPLOAD_GET",
-		data : {
+		params : {
 			data : [{
-				appload : [{
+				appload : {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
 					phone_platform : app.device.platform,
@@ -19,7 +19,7 @@ function didOpen(e) {
 					carrier : "x",
 					app_version : Ti.App.version,
 					client_name : Alloy.CFG.CLIENT_NAME
-				}]
+				}
 			}]
 		},
 		success : didSuccess,

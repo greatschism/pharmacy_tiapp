@@ -1,9 +1,10 @@
-var http = require("http");
+var Alloy = require("alloy"),
+    http = require("http");
 
 describe("HTTP Test Suite", function() {
 
 	it("Test Case 1: request", function(done) {
-		this.timeout(30000);
+		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
 		http.request({
 			url : "https://api.github.com/users/mano-mykingdom",
 			type : "GET",

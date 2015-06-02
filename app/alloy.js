@@ -1,10 +1,14 @@
 (function() {
 
+	//convert seconds to milliseconds
+	_.each(["HTTP_TIMEOUT", "LOCATION_TIMEOUT"], function(prop) {
+		Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
+	});
+
 	//icons notation to character
-	var iconNotations = Alloy.CFG.iconNotations;
-	for (var key in iconNotations) {
-		Alloy.CFG.icons[key] = String.fromCharCode(iconNotations[key]);
-	}
+	_.each(Alloy.CFG.iconNotations, function(val, key) {
+		Alloy.CFG.icons[key] = String.fromCharCode(val);
+	});
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");

@@ -1,11 +1,12 @@
-var resources = require("resources"),
+var Alloy = require("alloy"),
+    resources = require("resources"),
     utilities = require("utilities");
 
 describe("Resources Test Suite", function() {
 
 	it("Test Case 1: init", function() {
 		//data manipulation might take time
-		this.timeout(10000);
+		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
 		resources.init();
 		utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false).should.be.equal(Ti.App.version);
 	});

@@ -41,7 +41,8 @@
 			"APPLOAD_GET": "THXXX"
 		},
 		"apiCodes": {
-			"SUCCESS": "200",
+			"SUCCESS_CODE": "200",
+			"SUCCESS_STATUS": "SUCCESS",
 			"DATE_FORMAT": "MM-DD-YYYY",
 			"DATE_TIME_FORMAT": "MM-DD-YYYY hh:mm A",
 			"PRESCRIPTION_GETTING_REFILLED": "INPROCESS",
@@ -123,7 +124,6 @@
 			"filled_success": "+",
 			"edit": "{"
 		},
-		"ANIMATION_DURATION": 300,
 		"LOCATION_TIMEOUT": 900,
 		"HTTP_TIMEOUT": 90,
 		"LOG_LEVEL": "DEBUG",
