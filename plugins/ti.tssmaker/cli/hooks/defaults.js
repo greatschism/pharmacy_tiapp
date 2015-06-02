@@ -121,8 +121,6 @@ module.exports = {
 		"role" : "contentView"
 	},
 	".swt[platform=android]" : {
-		"titleOn" : "Alloy.CFG.icons.switch_on",
-		"titleOff" : "Alloy.CFG.icons.switch_off",
-		"style" : "Ti.UI.Android.SWITCH_STYLE_TOGGLEBUTTON"
+		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	}
 };
