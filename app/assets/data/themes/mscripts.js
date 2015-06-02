@@ -350,12 +350,7 @@ module.exports = {
 				"width" : 56,
 				"height" : 36,
 				"tintColor" : "#A7A7A7",
-				"onTintColor" : "#38E780",
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 28
-				},
-				"backgroundColor" : "transparent"
+				"onTintColor" : "#FF0000"
 			},
 			".dropdown" : {
 				"left" : 12,
