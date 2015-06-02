@@ -8,7 +8,7 @@
 			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done"  onClick="didClickPwd" />
 		</View>
 		<View class="margin-top auto-height">
-			<Label id="keepMeLbl" class="lbl-with-swt" />
+			<Label id="keepMeLbl" class="lbl-with-rswt" />
 			<Widget id="keepMeSwt" src="ti.switch" class="margin-right swt" />
 		</View>
 		<Button id="loginBtn" class="margin-top margin-bottom primary-btn" onClick="didClickLogin" />

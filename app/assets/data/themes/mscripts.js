@@ -409,7 +409,7 @@ module.exports = {
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 24
 				},
 				"buttonFont" : {
 					"fontFamily" : "bold",
@@ -455,7 +455,7 @@ module.exports = {
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 24
 				},
 				"buttonFont" : {
 					"fontFamily" : "bold",
@@ -504,7 +504,7 @@ module.exports = {
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 24
 				},
 				"buttonFont" : {
 					"fontFamily" : "bold",
@@ -591,7 +591,7 @@ module.exports = {
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 24
 				},
 				"buttonFont" : {
 					"fontFamily" : "bold",
@@ -635,7 +635,7 @@ module.exports = {
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 24
 				},
 				"buttonFont" : {
 					"fontFamily" : "bold",
@@ -837,14 +837,14 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-view-with-swt" : {
+			".content-view-with-rswt" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
 				"right" : 80,
 				"height" : "auto"
 			},
-			".content-view-vgroup-with-swt" : {
+			".content-view-vgroup-with-rswt" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
@@ -1739,7 +1739,7 @@ module.exports = {
 				},
 				"color" : "#F7941E"
 			},
-			".lbl-with-swt" : {
+			".lbl-with-rswt" : {
 				"left" : 12,
 				"right" : 80,
 				"height" : 19,
