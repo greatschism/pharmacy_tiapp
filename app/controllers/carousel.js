@@ -25,7 +25,7 @@ function didScrollend(e) {
 
 function didClickSignin(e) {
 	app.navigator.open({
-		"titleid" : "strLogin",
+		"titleid" : "strSignin",
 		"ctrl" : "login"
 	});
 }
