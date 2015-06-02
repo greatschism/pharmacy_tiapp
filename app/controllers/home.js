@@ -85,7 +85,7 @@ function didItemClick(e) {
 		if (navigation.requires_login && !Alloy.Globals.loggedIn) {
 			$.app.navigator.open({
 				ctrl : "login",
-				titleid : "strLogin",
+				titleid : "strSignin",
 				ctrlArguments : {
 					navigation : navigation
 				}
@@ -99,7 +99,7 @@ function didItemClick(e) {
 function didClickRightNav(e) {
 	$.app.navigator.open({
 		ctrl : "login",
-		titleid : "strLogin",
+		titleid : "strSignin",
 	});
 }
 

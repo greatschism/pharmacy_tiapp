@@ -44,7 +44,7 @@ function didDrawerclose(e) {
 				if (ctrlPath != "login") {
 					app.navigator.open({
 						ctrl : "login",
-						titleid : "strLogin",
+						titleid : "strSignin",
 						ctrlArguments : {
 							navigation : itemObj
 						}
