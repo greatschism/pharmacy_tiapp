@@ -1739,6 +1739,20 @@ module.exports = {
 				},
 				"color" : "#F7941E"
 			},
+			".lbl-with-swt" : {
+				"left" : 12,
+				"right" : 80,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false,
+				"touchEnabled": false
+			},
 			".lbl" : {
 				"left" : 12,
 				"right" : 12,

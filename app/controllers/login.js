@@ -141,10 +141,6 @@ function didFail(error, passthrough) {
 	app.navigator.hideLoader();
 }
 
-function handleScroll(e) {
-	$.login.canCancelEvents = e.value;
-}
-
 function didClickPwd(e) {
 	app.navigator.open({
 		ctrl : "loginRecovery",
