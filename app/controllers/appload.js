@@ -1,4 +1,5 @@
-var config = require("config"),
+var app = require("core"),
+    config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
@@ -11,16 +12,13 @@ function didOpen(e) {
 		data : {
 			data : [{
 				appload : [{
-					phone_model : "x",
-					phone_os : "x",
-					phone_platform : "x",
+					phone_model : Ti.Platform.model,
+					phone_os : Ti.Platform.osname,
+					phone_platform : app.device.platform,
 					device_id : "x",
 					carrier : "x",
-					app_version : "x",
-					client_name : "x",
-					client_param_type : "menu",
-					client_param_version : "x",
-					client_param_base_version : "x"
+					app_version : Ti.App.version,
+					client_name : Alloy.CFG.CLIENT_NAME
 				}]
 			}]
 		},

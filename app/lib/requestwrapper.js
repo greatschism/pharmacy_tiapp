@@ -39,10 +39,11 @@ function request(params) {
 	}
 
 	_.extend(params.data, {
+		feature_code : Alloy.CFG.featureCodes[params.method],
 		client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
 		version : Alloy.CFG.API_VERSION,
-		session_id : Alloy.Models.user.get("patients").session_id,
-		lang : localization.currentLanguage.id
+		lang : localization.currentLanguage.id,
+		session_id : Alloy.Models.user.get("patients").session_id
 	});
 	params.data = JSON.stringify(params.data);
 

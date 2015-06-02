@@ -1,28 +1,17 @@
 <Alloy>
-	<!--ScrollView to support multiple form factor-->
 	<ScrollView class="vgroup">
-		<!--ImageView to add the client logo at the top of the login screen -->
 		<ImageView id="logoImg" class="margin-top" />
-		<!-- Label hinting the user to sign in to the application -->
 		<Label id="hintLbl" class="margin-top lbl-centered-wrap" />
-		<!-- Vertical grouping of the textfields (username and password) -->
 		<View class="margin-top form-vgroup">
-			<!-- Username textfield which is designed as a widget -->
 			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
 			<View class="h-divider" />
-			<!-- Password textfield which is designed as a widget. It also has a right button designed with it. this links the user to the Forgot password screen -->
 			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done"  onClick="didClickPwd" />
 		</View>
-		<!-- Vertical grouping of the "keep me signed in" label and switch -->
 		<View class="margin-top auto-height">
-			<!-- "keep me signed in" label -->
 			<Label id="keepMeLbl" class="lbl-with-rswt" />
-			<!-- "keep me signed in" switch designed as a widget -->
 			<Widget id="keepMeSwt" src="ti.switch" class="margin-right swt" />
 		</View>
-		<!-- Sign in button -->
 		<Button id="loginBtn" class="margin-top margin-bottom primary-btn" onClick="didClickLogin" />
-		<!-- Sign up label which links the user to the mobile number entry screen -->
 		<Widget id="signupLbl" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

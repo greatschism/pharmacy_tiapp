@@ -37,6 +37,9 @@
 			"STATES_GET": "states/get",
 			"STORES_ADVANCED_SEARCH": "advsearchpharmacies"
 		},
+		"featureCodes": {
+			"APPLOAD_GET": "THXXX"
+		},
 		"apiCodes": {
 			"SUCCESS": "200",
 			"DATE_FORMAT": "MM-DD-YYYY",
@@ -121,7 +124,7 @@
 			"edit": "{"
 		},
 		"ANIMATION_DURATION": 300,
-		"LOCATION_TIMEOUT": 15,
+		"LOCATION_TIMEOUT": 900,
 		"HTTP_TIMEOUT": 90,
 		"LOG_LEVEL": "DEBUG",
 		"FORCE_UPDATE": false,
@@ -137,30 +140,33 @@
 		"PHARMACY_PHONE_LAST_USED": "phoneLastUpdated"
 	},
 	"env:development": {
-		"BASE_URL": "https://wmdemo.remscripts.com/wmonphonehandler/services/",
+		"BASE_URL": "http://10.10.10.20:8080/mckonphonehandler/services/",
 		"CLIENT_IDENTIFIER": "1",
+		"CLIENT_NAME": "Baylor",
 		"API_VERSION": "1.0",
 		"ENCRYPTION_ENABLED": false,
 		"APM_ENABLED": false,
 		"ANALYTICS_ENABLED": false,
 		"CLEAR_CACHED_RESOURCES": false,
 		"OVERRIDE_REMOTE_RESOURCES": true,
-		"SIMULATE_API_ON_FAILURE": true
+		"SIMULATE_API_ON_FAILURE": false
 	},
 	"env:test": {
-		"BASE_URL": "https://wmdemo.remscripts.com/wmonphonehandler/services/",
+		"BASE_URL": "http://10.10.10.20:8080/mckonphonehandler/services/",
 		"CLIENT_IDENTIFIER": "1",
+		"CLIENT_NAME": "Baylor",
 		"API_VERSION": "1.0",
 		"ENCRYPTION_ENABLED": false,
 		"APM_ENABLED": false,
 		"ANALYTICS_ENABLED": false,
 		"CLEAR_CACHED_RESOURCES": false,
 		"OVERRIDE_REMOTE_RESOURCES": true,
-		"SIMULATE_API_ON_FAILURE": true
+		"SIMULATE_API_ON_FAILURE": false
 	},
 	"env:production": {
-		"BASE_URL": "https://wmdemo.remscripts.com/wmonphonehandler/services/",
+		"BASE_URL": "http://10.10.10.20:8080/mckonphonehandler/services/",
 		"CLIENT_IDENTIFIER": "1",
+		"CLIENT_NAME": "Baylor",
 		"API_VERSION": "1.0",
 		"ENCRYPTION_ENABLED": false,
 		"APM_ENABLED": false,
