@@ -5,10 +5,10 @@
     android:useLevel="false"
     android:visible="true" >
 
-    <corners android:radius="30dp" />
+    <corners android:radius="26dp" />
 
     <size
-        android:height="30dp"
-        android:width="30dp" />
+        android:height="26dp"
+        android:width="26dp" />
 
 </shape>
