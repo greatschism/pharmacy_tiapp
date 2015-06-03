@@ -347,7 +347,7 @@ module.exports = {
 				"borderRadius" : 16
 			},
 			".swt[platform=android]" : {
-				"width" : 64,
+				"width" : 56,
 				"height" : 36,
 				"trackTintColorOn" : "#38E780",
 				"trackTintColorOff" : "#BFA7A7A7",
@@ -843,14 +843,14 @@ module.exports = {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
-				"right" : 88,
+				"right" : 80,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-rswt" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
-				"right" : 88,
+				"right" : 80,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -1743,7 +1743,7 @@ module.exports = {
 			},
 			".lbl-with-rswt" : {
 				"left" : 12,
-				"right" : 88,
+				"right" : 80,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
