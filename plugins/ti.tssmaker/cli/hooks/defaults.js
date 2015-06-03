@@ -121,6 +121,8 @@ module.exports = {
 		"role" : "contentView"
 	},
 	".swt[platform=android]" : {
+		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
+		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	}
 };

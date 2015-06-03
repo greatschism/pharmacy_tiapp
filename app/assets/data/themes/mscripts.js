@@ -347,10 +347,12 @@ module.exports = {
 				"borderRadius" : 16
 			},
 			".swt[platform=android]" : {
-				"width" : 56,
+				"width" : 64,
 				"height" : 36,
-				"tintColor" : "#A7A7A7",
-				"onTintColor" : "#FF0000"
+				"trackTintColorOn" : "#38E780",
+				"trackTintColorOff" : "#BFA7A7A7",
+				"thumbTintColorOn" : "#BF38E780",
+				"thumbTintColorOff" : "#A7A7A7"
 			},
 			".dropdown" : {
 				"left" : 12,
@@ -841,14 +843,14 @@ module.exports = {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
-				"right" : 80,
+				"right" : 88,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-rswt" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
-				"right" : 80,
+				"right" : 88,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -1741,7 +1743,7 @@ module.exports = {
 			},
 			".lbl-with-rswt" : {
 				"left" : 12,
-				"right" : 80,
+				"right" : 88,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
@@ -1751,7 +1753,7 @@ module.exports = {
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false,
-				"touchEnabled": false
+				"touchEnabled" : false
 			},
 			".lbl" : {
 				"left" : 12,

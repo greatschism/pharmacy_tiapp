@@ -25,7 +25,7 @@ describe("UIHelper Test Suite", function() {
 		//consider as pass when locationServicesAuthorization is AUTHORIZATION_UNKNOWN on iOS
 		if (OS_IOS) {
 			locationTimeout = setTimeout(function() {
-				Titanium.Geolocation.locationServicesAuthorization.should.be.equal(Titanium.Geolocation.AUTHORIZATION_UNKNOWN);
+				Ti.Geolocation.locationServicesAuthorization.should.be.equal(Ti.Geolocation.AUTHORIZATION_UNKNOWN);
 				done();
 			}, Alloy.CFG.LOCATION_TIMEOUT);
 		}

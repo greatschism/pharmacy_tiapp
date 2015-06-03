@@ -9,13 +9,13 @@ function init() {
 		Scule.db.classes.StorageEngine.call(this, configuration);
 
 		if (!this.configuration.path) {
-			this.configuration.path = Titanium.Filesystem.applicationDataDirectory;
+			this.configuration.path = Ti.Filesystem.applicationDataDirectory;
 		}
 
 		this.setConfiguration = function(configuration) {
 			this.configuration = configuration;
 			if (!this.configuration.path) {
-				this.configuration.path = Titanium.Filesystem.applicationDataDirectory;
+				this.configuration.path = Ti.Filesystem.applicationDataDirectory;
 			}
 		};
 
@@ -28,7 +28,7 @@ function init() {
 		 * @returns {Void}
 		 */
 		this.write = function(name, object, callback) {
-			var file = Titanium.Filesystem.getFile(this.configuration.path, name);
+			var file = Ti.Filesystem.getFile(this.configuration.path, name);
 			file.write(encryptionUtil.encrypt(JSON.stringify(object)));
 			if (OS_IOS) {
 				file.setRemoteBackup(false);
@@ -47,7 +47,7 @@ function init() {
 		 * @returns {Object}
 		 */
 		this.read = function(name, callback) {
-			var file = Titanium.Filesystem.getFile(this.configuration.path, name);
+			var file = Ti.Filesystem.getFile(this.configuration.path, name);
 			if (file.exists()) {
 				var o = JSON.parse(encryptionUtil.decrypt(file.read().text) || "{}");
 				if (callback) {

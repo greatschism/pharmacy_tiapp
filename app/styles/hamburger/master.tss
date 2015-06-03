@@ -31,10 +31,8 @@
 "#drawer[formFactor=tablet]":{
 	orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
 },
-"#rootWindow":{
-	backgroundColor: "#FFFFFF"
-},
 "#rootWindow[platform=ios]":{
+	backgroundColor: "#FFFFFF",
 	navBarHidden: true
 },
 "#centerView[platform=android]":{

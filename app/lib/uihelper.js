@@ -54,13 +54,13 @@ var Helper = {
 			return;
 		}
 
-		var authorization = Titanium.Geolocation.locationServicesAuthorization || "";
-		if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
+		var authorization = Ti.Geolocation.locationServicesAuthorization || "";
+		if (authorization == Ti.Geolocation.AUTHORIZATION_DENIED) {
 			Helper.showDialog({
 				message : Alloy.Globals.strings.msgGeoAuthorizationDenied
 			});
 			Helper.fireLocationCallback(callback);
-		} else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
+		} else if (authorization == Ti.Geolocation.AUTHORIZATION_RESTRICTED) {
 			Helper.showDialog({
 				message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
 			});

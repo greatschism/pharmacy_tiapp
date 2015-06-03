@@ -1,6 +1,0 @@
-"#window[formFactor=handheld]":{
-	orientationModes: [Titanium.UI.PORTRAIT]
-},
-"#window[formFactor=tablet]":{
-	orientationModes: [Titanium.UI.PORTRAIT, Titanium.UI.UPSIDE_PORTRAIT]
-}

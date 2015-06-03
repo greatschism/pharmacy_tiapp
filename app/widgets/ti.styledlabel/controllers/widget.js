@@ -59,7 +59,7 @@ function setHtml(data) {
 				switch(item.name) {
 				case "b":
 					attributes.push({
-						type : Titanium.UI.ATTRIBUTE_FONT,
+						type : Ti.UI.ATTRIBUTE_FONT,
 						value : secondaryFont,
 						range : [text.length, strings[j].length]
 					});
@@ -67,14 +67,14 @@ function setHtml(data) {
 				case "font":
 					if (item.attributes.face) {
 						attributes.push({
-							type : Titanium.UI.ATTRIBUTE_FONT,
+							type : Ti.UI.ATTRIBUTE_FONT,
 							value : secondaryFont,
 							range : [text.length, strings[j].length]
 						});
 					}
 					if (item.attributes.color) {
 						attributes.push({
-							type : Titanium.UI.ATTRIBUTE_FOREGROUND_COLOR,
+							type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
 							value : secondaryColor,
 							range : [text.length, strings[j].length]
 						});
@@ -82,8 +82,8 @@ function setHtml(data) {
 					break;
 				case "u":
 					attributes.push({
-						type : Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE,
-						value : Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE | Titanium.UI.ATTRIBUTE_UNDERLINE_PATTERN_SOLID,
+						type : Ti.UI.ATTRIBUTE_UNDERLINES_STYLE,
+						value : Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE | Ti.UI.ATTRIBUTE_UNDERLINE_PATTERN_SOLID,
 						range : [text.length, strings[j].length]
 					});
 					break;

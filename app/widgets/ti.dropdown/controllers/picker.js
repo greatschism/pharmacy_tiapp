@@ -77,7 +77,7 @@ function init() {
 function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
-		selectionStyle : OS_IOS ? Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE : false,
+		selectionStyle : OS_IOS ? Ti.UI.iPhone.TableViewCellSelectionStyle.NONE : false,
 		accessibilityLabel : data.title,
 		accessibilityValue : data.iconText ? args.selectedAccessibilityValue || "Selected" : null
 	}),

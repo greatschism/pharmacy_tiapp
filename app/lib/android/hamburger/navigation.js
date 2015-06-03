@@ -143,8 +143,8 @@ function Navigation(args) {
 		var controller = Alloy.createController("hamburger/window", params);
 
 		controller.getView().open({
-			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open,
-			activityExitAnimation : Titanium.App.Android.R.anim.acitivty_close,
+			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open,
+			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close,
 			animated : true
 		});
 
@@ -202,8 +202,8 @@ function Navigation(args) {
 		}
 
 		that.currentController.getView().close({
-			activityEnterAnimation : Titanium.App.Android.R.anim.acitivty_open_back,
-			activityExitAnimation : Titanium.App.Android.R.anim.acitivty_close_back,
+			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
+			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
 			animated : true
 		});
 

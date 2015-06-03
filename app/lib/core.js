@@ -138,7 +138,7 @@ var App = {
 	orientationChange : function(event) {
 
 		// Ignore face-up, face-down and unknown orientation
-		if (event.orientation === Titanium.UI.FACE_UP || event.orientation === Titanium.UI.FACE_DOWN || event.orientation === Titanium.UI.UNKNOWN) {
+		if (event.orientation === Ti.UI.FACE_UP || event.orientation === Ti.UI.FACE_DOWN || event.orientation === Ti.UI.UNKNOWN) {
 			return;
 		}
 
