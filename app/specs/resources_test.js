@@ -6,9 +6,9 @@ describe("Resources Test Suite", function() {
 
 	it("Test Case 1: init", function() {
 		//data manipulation might take time
-		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
+		this.timeout(Alloy.CFG.http_timeout);
 		resources.init();
-		utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false).should.be.equal(Ti.App.version);
+		utilities.getProperty(Alloy.CFG.resources_updated_on, "", "string", false).should.be.equal(Ti.App.version);
 	});
 
 	it("Test Case 2: getCollection for theme", function() {

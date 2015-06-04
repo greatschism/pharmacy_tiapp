@@ -17,7 +17,7 @@ function didClickContinue() {
 		return;
 	}
 	http.request({
-		method : "PATIENTS_VALIDATE",
+		method : "patients_validate",
 		data : {
 			filter : [{
 				type : "mobile_otp"
@@ -26,7 +26,7 @@ function didClickContinue() {
 				patient : {
 					mobile_number : args.mobileNumber,
 					first_name : args.fname || null,
-					birth_date : args.dob ? moment(args.dob).format(Alloy.CFG.apiCodes.DATE_FORMAT) : null,
+					birth_date : args.dob ? moment(args.dob).format(Alloy.CFG.apiCodes.date_format) : null,
 					token : code
 				}
 			}]

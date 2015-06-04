@@ -1,15 +1,15 @@
 module.exports = {
 	"styles" : {
 		"config" : {
-			"NAVIGATOR" : "hamburger",
-			"LEFT_DRAWER_WIDTH" : 270,
-			"DATE_FORMAT" : "MM/DD/YYYY",
-			"DATE_TIME_FORMAT" : "MM/DD/YYYY hh:mm a",
-			"PRESCRIPTION_AUTO_HIDE_AT" : 60,
-			"PRESCRIPTION_TOOLTIP_REMINDER_AT" : 5,
-			"PRESCRIPTION_CRITICAL_REMINDER_AT" : 3,
-			"RX_NUMBER_PREFIX" : "Rx# ",
-			"RX_NUMBER" : {
+			"navigator" : "hamburger",
+			"left_drawer_width" : 270,
+			"date_format" : "MM/DD/YYYY",
+			"date_time_format" : "MM/DD/YYYY hh:mm a",
+			"prescription_auto_hide_at" : 60,
+			"prescription_tooltip_reminder_at" : 5,
+			"prescription_critical_reminder_at" : 3,
+			"rx_number" : {
+				"prefix" : "Rx# ",
 				"format" : " (xxxx-xxxxxxx)",
 				"length" : 12,
 				"validator" : "^[0-9]{4}-[0-9]{7}$",
@@ -23,7 +23,7 @@ module.exports = {
 					"value" : "$1-$2"
 				}]
 			},
-			"SUPPORT" : {
+			"support" : {
 				"call" : "1234567890",
 				"email" : "support@mscripts.com"
 			}

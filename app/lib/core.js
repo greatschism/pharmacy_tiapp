@@ -114,9 +114,9 @@ var App = {
 	promptAndReloadConfig : function() {
 		require("uihelper").showDialog({
 			title : Alloy.Globals.strings.titleUpdates,
-			message : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
-			buttonNames : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
-			cancelIndex : Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE ? -1 : 1,
+			message : Alloy.CFG.force_reload_after_update ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
+			buttonNames : Alloy.CFG.force_reload_after_update ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
+			cancelIndex : Alloy.CFG.force_reload_after_update ? -1 : 1,
 			success : App.reloadConfig
 		});
 	},

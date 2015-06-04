@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     utilities = require("utilities");
 
 function init() {
-	utilities.setProperty(Alloy.CFG.FIRST_LAUNCH, false, "bool", false);
+	utilities.setProperty(Alloy.CFG.first_launch, false, "bool", false);
 	uihelper.getImage("logo", $.logoImg);
 	uihelper.getImage("prescription_list", $.prescriptionListImg);
 	uihelper.getImage("helpful_medication", $.helpfulMedicationImg);

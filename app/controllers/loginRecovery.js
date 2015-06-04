@@ -8,7 +8,7 @@ function didClickSend(e) {
 	var email = $.emailTxt.getValue();
 	if (utilities.validateEmail(email)) {
 		http.request({
-			method : "PATIENTS_FORGOT_PASSWORD",
+			method : "patients_forgot_password",
 			data : {
 				data : [{
 					patient : {
@@ -46,12 +46,12 @@ function didClickCantRemember(e) {
 		buttonNames : (isiPhone) ? [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail, Alloy.Globals.strings.strCancel] : [Alloy.Globals.strings.btnGiveUsCall, Alloy.Globals.strings.btnSendUsEmail],
 		success : function(index) {
 			if (index == 0) {
-				Ti.Platform.openURL("tel:" + Alloy.CFG.SUPPORT.call);
+				Ti.Platform.openURL("tel:" + Alloy.CFG.support.call);
 			} else if (index == 1) {
 				Ti.UI.createEmailDialog({
 					subject : Alloy.Globals.strings.strEmailSubjectLoginRecovery,
 					messageBody : Alloy.Globals.strings.strEmailBodyLoginRecovery,
-					toRecipients : [Alloy.CFG.SUPPORT.email]
+					toRecipients : [Alloy.CFG.support.email]
 				}).open();
 			}
 		}

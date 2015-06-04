@@ -49,7 +49,7 @@ var Helper = {
 	 */
 	getLocation : function(callback, forceUpdate) {
 
-		if (forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp) < Alloy.CFG.LOCATION_TIMEOUT) {
+		if (forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp) < Alloy.CFG.location_timeout) {
 			Helper.fireLocationCallback(callback, Helper.currentLocation);
 			return;
 		}

@@ -9,12 +9,12 @@ var Res = {
 	/**
 	 * storage engine & path to scule collection
 	 */
-	pathThemes : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("themes"),
-	pathTemplates : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("templates"),
-	pathMenus : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("menus"),
-	pathLanguages : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("languages"),
-	pathFonts : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("fonts"),
-	pathImages : Alloy.CFG.STORAGE_ENGINE + "://" + Ti.Utils.md5HexDigest("images"),
+	pathThemes : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("themes"),
+	pathTemplates : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("templates"),
+	pathMenus : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("menus"),
+	pathLanguages : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("languages"),
+	pathFonts : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("fonts"),
+	pathImages : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("images"),
 
 	/**
 	 * directories used for storing files
@@ -36,21 +36,21 @@ var Res = {
 
 	init : function() {
 
-		if (utilities.getProperty(Alloy.CFG.RESOURCES_UPDATED_ON, "", "string", false) != Ti.App.version || !ENV_PROD) {
+		if (utilities.getProperty(Alloy.CFG.resources_updated_on, "", "string", false) != Ti.App.version || !ENV_PROD) {
 
 			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
 			    initialData = require(Res.directoryData + "/" + "resources"),
-			    clearCache = Alloy.CFG.CLEAR_CACHED_RESOURCES && (utilities.getProperty(Alloy.CFG.RESOURCES_CLEARED_ON, "", "string", false) != Ti.App.version || !ENV_PROD);
+			    clearCache = Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD);
 
 			for (var i in keys) {
 				Res.set(keys[i], initialData[keys[i]], true, clearCache);
 			}
 
 			if (clearCache) {
-				utilities.setProperty(Alloy.CFG.RESOURCES_CLEARED_ON, Ti.App.version, "string", false);
+				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
 			}
 
-			utilities.setProperty(Alloy.CFG.RESOURCES_UPDATED_ON, Ti.App.version, "string", false);
+			utilities.setProperty(Alloy.CFG.resources_updated_on, Ti.App.version, "string", false);
 
 		}
 	},

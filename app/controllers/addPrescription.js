@@ -28,7 +28,7 @@ function init() {
 	patientName = args.patientName;
 
 	http.request({
-		method : "PRESCRIPTIONS_LIST",
+		method : "prescriptions_list",
 		success : didSuccess,
 
 	});
@@ -246,7 +246,7 @@ function didToggle(e) {
 function didClickDone() {
 
 	http.request({
-		method : "PRESCRIPTIONS_ADD",
+		method : "prescriptions_add",
 
 		data : {
 			filter : null,

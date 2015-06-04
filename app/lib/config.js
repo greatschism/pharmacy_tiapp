@@ -11,7 +11,7 @@ var Configuration = {
 		 * initialization
 		 */
 		//for debugging purpose only, should be false on test / production
-		if (Alloy.CFG.OVERRIDE_REMOTE_RESOURCES === true) {
+		if (Alloy.CFG.override_remote_resources === true) {
 			return [];
 		}
 
@@ -213,7 +213,7 @@ var Configuration = {
 		/**
 		 * delete unused resources
 		 */
-		if (Alloy.CFG.DELETE_UNUSED_RESOURCES) {
+		if (Alloy.CFG.delete_unused_resources) {
 			resources.deleteUnusedResources();
 		}
 

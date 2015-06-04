@@ -9,8 +9,8 @@ var args = arguments[0] || {},
 function init() {
 	console.log("init trigg");
 	if ((OS_IOS || OS_ANDROID) && (cached != 0 || cached != "" )) {
-		//utilities.setProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, $.mobileTxt.getValue(), "string", false);
-		prepopulated_number = utilities.getProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, cached, "string", false);
+		//utilities.setProperty(Alloy.CFG.pharmacy_phone_last_used, $.mobileTxt.getValue(), "string", false);
+		prepopulated_number = utilities.getProperty(Alloy.CFG.pharmacy_phone_last_used, cached, "string", false);
 		$.mobileTxt.setValue(prepopulated_number);
 		console.log("prepopulated_number" + prepopulated_number);
 	}
@@ -27,7 +27,7 @@ function didChange(e) {
 
 function didClickContinue(e) {
 	var mob = $.mobileTxt.getValue();
-	cached = utilities.setProperty(Alloy.CFG.PHARMACY_PHONE_LAST_USED, mob, "string", false);
+	cached = utilities.setProperty(Alloy.CFG.pharmacy_phone_last_used, mob, "string", false);
 	console.log("cached" + (cached));
 	if (isNaN(mob) == true && mob.length == 14) {
 		if (args.isScan == 1) {

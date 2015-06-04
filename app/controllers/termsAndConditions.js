@@ -4,7 +4,7 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		method : "TERMS_GET",
+		method : "terms_get",
 		data : {
 			data : [{
 				terms : ""

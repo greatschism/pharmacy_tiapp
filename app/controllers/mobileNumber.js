@@ -19,7 +19,7 @@ function didClickContinue(e) {
 	var mobileNumber = utilities.validateMobileNumber($.mobileTxt.getValue());
 	if (mobileNumber) {
 		http.request({
-			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
+			method : "patients_mobile_exists_or_shared",
 			data : {
 				data : [{
 					patient : {
@@ -58,7 +58,7 @@ function didSuccess(result, passthrough) {
 			});
 		} else {
 			http.request({
-				method : "PATIENTS_MOBILE_GENERATE_OTP",
+				method : "patients_mobile_generate_otp",
 				data : {
 					filter : [{
 						type : "mobile_otp"

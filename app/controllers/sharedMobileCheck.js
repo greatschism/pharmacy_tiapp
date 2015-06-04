@@ -33,13 +33,13 @@ function didClickNext() {
 	}
 	if (args.orgin == "login") {
 		http.request({
-			method : "PATIENTS_AUTHENTICATE",
+			method : "patients_authenticate",
 			data : {
 				data : [{
 					patient : {
 						mobile_number : args.mobileNumber,
 						first_name : fname,
-						birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT),
+						birth_date : moment(dob).format(Alloy.CFG.apiCodes.date_format),
 						password : args.password
 					}
 				}]
@@ -48,7 +48,7 @@ function didClickNext() {
 		});
 	} else {
 		http.request({
-			method : "PATIENTS_MOBILE_GENERATE_OTP",
+			method : "patients_mobile_generate_otp",
 			data : {
 				filter : [{
 					type : "mobile_otp"
@@ -57,7 +57,7 @@ function didClickNext() {
 					patient : {
 						mobile_number : args.mobileNumber,
 						first_name : fname,
-						birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT)
+						birth_date : moment(dob).format(Alloy.CFG.apiCodes.date_format)
 					}
 				}]
 			},

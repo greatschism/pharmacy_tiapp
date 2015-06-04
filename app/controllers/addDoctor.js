@@ -82,7 +82,7 @@ function didClickSave(e) {
 
 		if (args.edit == "false") {
 			http.request({
-				method : "DOCTORS_ADD",
+				method : "doctors_add",
 				data : {
 					filter : [{
 						type : ""
@@ -112,7 +112,7 @@ function didClickSave(e) {
 
 		} else {
 			http.request({
-				method : "DOCTORS_UPDATE",
+				method : "doctors_update",
 				data : {
 					data : [{
 						doctors : {
@@ -209,7 +209,7 @@ function didSuccessUpdate(result) {
 function didClickRemove() {
 
 	http.request({
-		method : "DOCTORS_REMOVE",
+		method : "doctors_remove",
 		data : {
 			filter : [{
 				type : ""
@@ -343,7 +343,7 @@ function init() {
 	// $.stateTxt.setSelectedIndex(selectedIndex);
 
 	http.request({
-		method : "STATES_GET",
+		method : "states_get",
 		success : didLoadStates
 	});
 

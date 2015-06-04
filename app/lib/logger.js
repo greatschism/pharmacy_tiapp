@@ -3,42 +3,42 @@ var Alloy = require("alloy"),
     utilities = require("utilities");
 
 var TiLog = {
-	LOG_LEVEL_NONE : -1,
-	LOG_LEVEL_ERROR : 0,
-	LOG_LEVEL_WARNING : 1,
-	LOG_LEVEL_INFO : 2,
-	LOG_LEVEL_DEBUG : 3,
-	LOG_LEVEL_TRACE : 4,
+	none : -1,
+	error : 0,
+	warn : 1,
+	info : 2,
+	debug : 3,
+	trace : 4,
 	getConfig : function() {
-		return TiLog["LOG_LEVEL_" + Alloy.CFG.LOG_LEVEL];
+		return TiLog[Alloy.CFG.log_level];
 	},
 	trace : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_TRACE) {
+		if (TiLog.getConfig() >= TiLog.trace) {
 			Ti.API.trace(TiLog.format(arguments));
 		}
 	},
 	debug : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_DEBUG) {
+		if (TiLog.getConfig() >= TiLog.debug) {
 			Ti.API.debug(TiLog.format(arguments));
 		}
 	},
 	info : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_INFO) {
+		if (TiLog.getConfig() >= TiLog.info) {
 			Ti.API.info(TiLog.format(arguments));
 		}
 	},
 	warn : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_WARNING) {
+		if (TiLog.getConfig() >= TiLog.warn) {
 			Ti.API.warn(TiLog.format(arguments));
 		}
 	},
 	error : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_ERROR) {
+		if (TiLog.getConfig() >= TiLog.error) {
 			Ti.API.error(TiLog.format(arguments));
 		}
 	},
 	timestamp : function() {
-		if (TiLog.getConfig() >= TiLog.LOG_LEVEL_ERROR) {
+		if (TiLog.getConfig() >= TiLog.error) {
 			Ti.API.timestamp(TiLog.format(arguments));
 		}
 	},
@@ -46,15 +46,15 @@ var TiLog = {
 		var func = TiLog[arguments[0]];
 		(func || TiLog.info)(_.toArray(arguments).slice( func ? 1 : 0));
 	},
-	format : function(arguments) {
+	format : function(args) {
 		var str = "";
 		try {
-			for (var i in arguments) {
-				if (_.isString(arguments[i])) {
-					str += arguments[i];
-				} else if (_.isArray(arguments[i])) {
-					str += arguments[i].join(" ");
-				} else if (utilities.isError(arguments[i])) {
+			_.each(args, function(val, key) {
+				if (_.isString(val)) {
+					str += val;
+				} else if (_.isArray(val)) {
+					str += val.join(" ");
+				} else if (utilities.isError(val)) {
 					str += "{Errror:{";
 					if (_.has(error, "name")) {
 						str += "name: " + error.name;
@@ -66,10 +66,12 @@ var TiLog = {
 						str += "lineNumber: " + error.lineNumber;
 					}
 					str += "}}";
-				} else if (_.isObject(arguments[i])) {
-					str += JSON.stringify(arguments[i]);
+				} else if (_.isObject(val)) {
+					str += JSON.stringify(val, null, 4);
+				} else {
+					str += ( typeof val) + " type is unknown";
 				}
-			}
+			});
 		} catch(error) {
 			str = "Logger: unable to parse with message " + (utilities.isError(error) ? error.message : "none");
 		}

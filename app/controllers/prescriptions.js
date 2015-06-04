@@ -4,10 +4,10 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    RX_NUMBER_PREFIX = Alloy.CFG.RX_NUMBER_PREFIX,
-    PRESCRIPTION_AUTO_HIDE_AT = Alloy.CFG.PRESCRIPTION_AUTO_HIDE_AT,
-    PRESCRIPTION_TOOLTIP_REMINDER_AT = Alloy.CFG.PRESCRIPTION_TOOLTIP_REMINDER_AT,
-    PRESCRIPTION_CRITICAL_REMINDER_AT = Alloy.CFG.PRESCRIPTION_CRITICAL_REMINDER_AT,
+    rx_number_prefix = Alloy.CFG.rx_number.prefix,
+    prescription_auto_hide_at = Alloy.CFG.prescription_auto_hide_at,
+    prescription_tooltip_reminder_at = Alloy.CFG.prescription_tooltip_reminder_at,
+    prescription_critical_reminder_at = Alloy.CFG.prescription_critical_reminder_at,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     strings = Alloy.Globals.strings,
@@ -37,7 +37,7 @@ Ti.App.addEventListener("reload", init);
 function init() {
 
 	http.request({
-		method : "PRESCRIPTIONS_LIST",
+		method : "prescriptions_list",
 		data : {
 			data : [{
 				prescriptions : {
@@ -66,38 +66,38 @@ function didGetPrescriptionList(result, passthrough) {
 	_.map(result.data.prescriptions, function(prescription) {
 		i++;
 		var status = prescription.refill_status,
-		    refillDate = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.DATE_FORMAT) : moment().add(i, "days");
+		    refillDate = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format) : moment().add(i, "days");
 		prescription.is_overdue = parseInt(prescription.is_overdue);
 		prescription.refill_in_days = Math.abs(currentDate.diff(refillDate, "days"));
-		prescription.rx_number_formated = RX_NUMBER_PREFIX.concat(prescription.rx_number);
+		prescription.rx_number_formated = rx_number_prefix.concat(prescription.rx_number);
 		prescription.presc_name = utilities.ucword(prescription.presc_name);
 		switch(status) {
-		case apiCodes.PRESCRIPTION_READY_FOR_PICKUP:
-			prescription.days_after_promised_date = currentDate.diff(moment(prescription.latest_refill_promised_date, apiCodes.DATE_FORMAT), "days");
+		case apiCodes.prescription_ready_for_pickup:
+			prescription.days_after_promised_date = currentDate.diff(moment(prescription.latest_refill_promised_date, apiCodes.date_format), "days");
 			prescription.days_remaining_for_pickup = prescription.restockperiod - prescription.days_after_promised_date;
-			if (prescription.days_remaining_for_pickup <= PRESCRIPTION_TOOLTIP_REMINDER_AT) {
+			if (prescription.days_remaining_for_pickup <= prescription_tooltip_reminder_at) {
 				tooltipLblStyle.html = String.format(strings.msgPickup, prescription.days_remaining_for_pickup);
-				prescription.tooltip_style = prescription.days_remaining_for_pickup <= PRESCRIPTION_CRITICAL_REMINDER_AT ? criticalTooltipStyle : tooltipStyle;
+				prescription.tooltip_style = prescription.days_remaining_for_pickup <= prescription_critical_reminder_at ? criticalTooltipStyle : tooltipStyle;
 				prescription.tooltip_lbl_style = tooltipLblStyle;
 			}
 			prescription.info = strings.msgYourOrderIsReady;
 			prescription.property = "readyForPickup";
 			break;
-		case apiCodes.PRESCRIPTION_GETTING_REFILLED:
-			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.DATE_TIME_FORMAT),
-			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.DATE_TIME_FORMAT),
+		case apiCodes.prescription_getting_refilled:
+			var refillRequestDate = moment(prescription.latest_refill_requested_date, apiCodes.date_time_format),
+			    promisedDate = moment(prescription.latest_refill_promised_date, apiCodes.date_time_format),
 			    timeSpent = currentDate.diff(refillRequestDate, "seconds"),
 			    timeTake = promisedDate.diff(refillRequestDate, "seconds");
 			prescription.progress = Math.floor((timeSpent / timeTake) * 100) + "%";
 			prescription.info = String.format(strings.msgOrderPlacedReadyBy, promisedDate.format("dddd"));
 			prescription.property = "gettingRefilled";
 			break;
-		case apiCodes.PRESCRIPTION_READY_FOR_REFILL:
-		case apiCodes.PRESCRIPTION_TO_BE_REFILLED:
+		case apiCodes.prescription_ready_for_refill:
+		case apiCodes.prescription_to_be_refilled:
 			if (prescription.is_overdue) {
 				prescription.info_style = overDueInfoStyle;
 				prescription.detail_style = overDueDetailStyle;
-				if (prescription.refill_in_days >= PRESCRIPTION_AUTO_HIDE_AT) {
+				if (prescription.refill_in_days >= prescription_auto_hide_at) {
 					prescription.info = strings.msgOverdueBy + " " + prescription.refill_in_days + " " + (prescription.refill_in_days == 1 ? strings.strDay : strings.strDays);
 					prescription.detail = strings.lblSwipeLeftToHide;
 				} else {
@@ -110,9 +110,9 @@ function didGetPrescriptionList(result, passthrough) {
 			}
 			prescription.property = "readyForRefill";
 			break;
-		case apiCodes.PRESCRIPTION_OTHERS:
+		case apiCodes.prescription_others:
 			prescription.info = strings.msgDueFoRefillOn;
-			prescription.detail = refillDate.format(Alloy.CFG.DATE_FORMAT);
+			prescription.detail = refillDate.format(Alloy.CFG.date_format);
 			prescription.property = "otherPrescriptions";
 			break;
 		}
@@ -172,7 +172,7 @@ function didChangeSearch(e) {
 
 function didItemClick(e) {
 	http.request({
-		method : "PRESCRIPTIONS_GET",
+		method : "prescriptions_get",
 		data : {
 			data : [{
 				prescriptions : {
@@ -225,7 +225,7 @@ function didClickOptionItem(e) {
 
 function unhide() {
 	http.request({
-		method : "PRESCRIPTIONS_LIST",
+		method : "prescriptions_list",
 		data : {
 			data : [{
 				prescriptions : {
@@ -301,7 +301,7 @@ function didClickSort(e) {
 
 function getSortPreferences() {
 	http.request({
-		method : "CODE_VALUES_GET",
+		method : "code_values_get",
 		success : updateSortPreferences
 	});
 }
@@ -327,7 +327,7 @@ function didClickCloseBtn(e) {
 function didClickUnhideBtn(e) {
 	$.unhideMenu.hide();
 	http.request({
-		method : "PRESCRIPTIONS_UNHIDE",
+		method : "prescriptions_unhide",
 		data : {
 			data : [{
 				prescriptions : $.unhideMenu.getSelectedItems()

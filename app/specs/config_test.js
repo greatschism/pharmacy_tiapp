@@ -11,7 +11,7 @@ describe("Config Test Suite", function() {
 				"url" : "https://staging.remscripts.com/nativemia/newTheme.json"
 			}
 		});
-		if (Alloy.CFG.OVERRIDE_REMOTE_RESOURCES) {
+		if (Alloy.CFG.override_remote_resources) {
 			result.should.be.an.instanceof(Array);
 		} else {
 			result.should.be.an.instanceof(Array).and.have.lengthOf(1);

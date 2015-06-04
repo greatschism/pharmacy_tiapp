@@ -48,7 +48,7 @@ function didClickOrderRefill(e) {
 
 	if (mob !== "") {
 		http.request({
-			method : "PRESCRIPTIONS_REFILL",
+			method : "prescriptions_refill",
 			data : {
 
 				"client_identifier" : "x",

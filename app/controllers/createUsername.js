@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     http = require("requestwrapper"),
     encryptionUtil = require("encryptionUtil"),
-    keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.USER_ACCOUNT);
+    keychainAccount = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account);
 
 function init() {
 	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
@@ -52,7 +52,7 @@ function didClickDone(e) {
 		return;
 	}
 	http.request({
-		method : "PATIENTS_STORE_TO_APP_CONVERSION",
+		method : "patients_store_to_app_conversion",
 		data : {
 			filter : [{
 				type : "mobile_otp"

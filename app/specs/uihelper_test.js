@@ -20,14 +20,14 @@ describe("UIHelper Test Suite", function() {
 
 	it("Test Case 3: getLocation", function(done) {
 		//getting location first time may be delayed
-		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
+		this.timeout(Alloy.CFG.http_timeout);
 		var locationTimeout;
 		//consider as pass when locationServicesAuthorization is AUTHORIZATION_UNKNOWN on iOS
 		if (OS_IOS) {
 			locationTimeout = setTimeout(function() {
 				Ti.Geolocation.locationServicesAuthorization.should.be.equal(Ti.Geolocation.AUTHORIZATION_UNKNOWN);
 				done();
-			}, Alloy.CFG.LOCATION_TIMEOUT);
+			}, Alloy.CFG.location_timeout);
 		}
 		uihelper.getLocation(function(location) {
 			if (locationTimeout) {

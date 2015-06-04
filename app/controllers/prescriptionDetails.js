@@ -33,7 +33,7 @@ function init() {
 	doctorId = args.doctorId || "";
 	console.log(doctorId);
 	http.request({
-		method : "DOCTORS_GET",
+		method : "doctors_get",
 		data : {
 			data : [{
 				doctors : {
@@ -46,11 +46,11 @@ function init() {
 }
 
 function didGetDoctor(result) {
-	doctor = _.isEmpty(result) ? require("data/stubs").DOCTORS_LIST.data.doctors[0] : result.data.doctors;
+	doctor = _.isEmpty(result) ? require("data/stubs").doctors_list.data.doctors[0] : result.data.doctors;
 	$.prescriptionNameLbl.text = prescription.presc_name;
 	$.refillLeftInfoLbl.text = prescription.refill_remaining_preferences || 1;
-	$.dueForRefillInfoLbl.text = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.DATE_FORMAT).format(Alloy.CFG.DATE_FORMAT) : moment().add(30, "days").format(Alloy.CFG.DATE_FORMAT);
-	$.lastRefillInfoLbl.text = moment(prescription.latest_refill_completed_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.DATE_TIME_FORMAT).format(Alloy.CFG.DATE_FORMAT);
+	$.dueForRefillInfoLbl.text = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : moment().add(30, "days").format(Alloy.CFG.date_format);
+	$.lastRefillInfoLbl.text = moment(prescription.latest_refill_completed_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format);
 	$.autoRefillSwt.setValue(true);
 	$.remindMeToRefillSwt.setValue(true);
 	$.setTimeSwt.setValue(true);
@@ -155,7 +155,7 @@ function createDetailsView() {
 	});
 
 	prescriptionNoDetails.text = prescription.rx_number;
-	expirationDateDetails.text = (prescription.expiration_date ? moment(prescription.expiration_date, Alloy.CFG.apiCodes.DATE_FORMAT) : moment().add(100, "days")).format(Alloy.CFG.DATE_FORMAT);
+	expirationDateDetails.text = (prescription.expiration_date ? moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format) : moment().add(100, "days")).format(Alloy.CFG.date_format);
 	doctorNameDetails.text = "Dr. " + (doctor.last_name || "Hareesh");
 	pharmacyDetails.text = "Walmart Pharmacy #3030";
 
@@ -180,7 +180,7 @@ function createDetailsView() {
 
 function didClickHidePrescription() {
 	http.request({
-		method : "PRESCRIPTIONS_HIDE",
+		method : "prescriptions_hide",
 		data : {
 			data : [{
 				prescriptions : [prescription]

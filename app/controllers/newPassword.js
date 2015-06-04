@@ -23,7 +23,7 @@ function didClickDone(e) {
 		return;
 	}
 	http.request({
-		method : "PATIENTS_NEW_PASSWORD",
+		method : "patients_new_password",
 		data : {
 			data : [{
 				patient : {

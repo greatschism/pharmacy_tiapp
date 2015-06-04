@@ -23,10 +23,10 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		method : "PATIENTS_AUTHENTICATE",
+		method : "patients_authenticate",
 		success : didSuccessAuthenticate
 	}), http.request({
-		method : "PRESCRIPTIONS_REFILL",
+		method : "prescriptions_refill",
 		success : didSuccessRefill
 	});
 }

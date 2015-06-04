@@ -20,7 +20,7 @@ function didOpen(e) {
 		$.drawer.leftWindow.accessibilityHidden = false;
 	}
 	if (OS_ANDROID) {
-		$.rootWindow = Alloy.CFG.DRAWER_LAYOUT ? e.source : this;
+		$.rootWindow = Alloy.CFG.drawer_layout ? e.source : this;
 		$.rootWindow.addEventListener("close", didClose);
 		$.rootWindow.addEventListener("androidback", didAndoridBack);
 	}

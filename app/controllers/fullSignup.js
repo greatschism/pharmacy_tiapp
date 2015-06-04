@@ -4,9 +4,9 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    rxNoLength = Alloy.CFG.RX_NUMBER.length,
-    rxNoValidator = new RegExp(Alloy.CFG.RX_NUMBER.validator),
-    rxNoFormatters = Alloy.CFG.RX_NUMBER.formatters,
+    rxNoLength = Alloy.CFG.rx_number.length,
+    rxNoValidator = new RegExp(Alloy.CFG.rx_number.validator),
+    rxNoFormatters = Alloy.CFG.rx_number.formatters,
     userContainerViewFromTop = 0,
     modalWindow,
     rxContainerViewFromTop = 0;
@@ -31,8 +31,8 @@ function init() {
 	$.passwordTxt.tooltip = "passwordTooltip";
 	$.rxNoTxt.tooltip = "rxNoTooltip";
 	$.rxNoTxt.applyProperties({
-		maxLength : Alloy.CFG.RX_NUMBER.length,
-		hintText : Alloy.Globals.strings.hintRxNo.concat(Alloy.CFG.RX_NUMBER.format),
+		maxLength : Alloy.CFG.rx_number.length,
+		hintText : Alloy.Globals.strings.hintRxNo.concat(Alloy.CFG.rx_number.format),
 	});
 	Alloy.Models.store.clear();
 	Alloy.Models.store.on("change", didChangeStore);
@@ -246,7 +246,7 @@ function didClickCreateAccount(e) {
 		}
 	}
 	http.request({
-		method : "PATIENTS_REGISTER",
+		method : "patients_register",
 		data : {
 			filter : [{
 				type : "mobile_otp"
@@ -255,7 +255,7 @@ function didClickCreateAccount(e) {
 				patient : {
 					first_name : fname,
 					last_name : lname,
-					birth_date : moment(dob).format(Alloy.CFG.apiCodes.DATE_FORMAT),
+					birth_date : moment(dob).format(Alloy.CFG.apiCodes.date_format),
 					email_address : email,
 					user_name : uname,
 					password : password,

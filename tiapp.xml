@@ -14,7 +14,7 @@
     <guid>a566ecb5-c841-45d2-a34b-fc00717d6b63</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
-        <min-ios-ver>7.0</min-ios-ver>
+        <min-ios-ver>7.1</min-ios-ver>
         <plist>
             <dict>
                 <key>NSLocationWhenInUseUsageDescription</key>
@@ -79,7 +79,7 @@
                 </activity>
                 <service android:enabled="true" android:exported="false" android:name="com.soasta.android.touchtest.TouchTestService"/>
                 <meta-data
-                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBEAiCLk1IbiENX-x2Vdp-J5AzEJB9uZEY"/>
+                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCeFz_2UhldYEOtdL6KG08MR3r01m-uNEA"/>
             </application>
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
             <uses-permission android:name="android.permission.INTERNET"/>

@@ -21,7 +21,7 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		method : "PRESCRIPTIONS_REFILL",
+		method : "prescriptions_refill",
 		success : didSuccessRefill
 	});
 }
@@ -51,7 +51,7 @@ function didSuccessRefill(result) {
 	for ( i = 0; i < refillPrescriptions.length; i++) {
 		var data = [];
 		http.request({
-			method : "PRESCRIPTIONS_GET",
+			method : "prescriptions_get",
 			data : {
 				filter : null,
 				get_type : "",

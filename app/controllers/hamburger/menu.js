@@ -9,7 +9,7 @@ var args = arguments[0] || {},
 
 function init(navigation) {
 	if (OS_ANDROID) {
-		app.navigator.drawer.addEventListener(Alloy.CFG.DRAWER_LAYOUT ? "drawerclose" : "windowDidClose", didDrawerclose);
+		app.navigator.drawer.addEventListener(Alloy.CFG.drawer_layout ? "drawerclose" : "windowDidClose", didDrawerclose);
 	}
 	landingPage = _.findWhere(Alloy.Collections.menuItems.toJSON(), {
 		landing_page : true
@@ -63,7 +63,7 @@ function didDrawerclose(e) {
 				cancelIndex : 1,
 				success : function() {
 					http.request({
-						method : "PATIENTS_LOGOUT",
+						method : "patients_logout",
 						success : function(result) {
 							Alloy.Models.user.set({
 								logged_in : false,
@@ -98,7 +98,7 @@ function didItemClick(e) {
 
 function terminate() {
 	if (OS_ANDROID) {
-		app.navigator.drawer.removeEventListener(Alloy.CFG.DRAWER_LAYOUT ? "drawerclose" : "windowDidClose", didDrawerclose);
+		app.navigator.drawer.removeEventListener(Alloy.CFG.drawer_layout ? "drawerclose" : "windowDidClose", didDrawerclose);
 	}
 	$.destroy();
 }

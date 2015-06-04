@@ -204,7 +204,7 @@ function setParentViews(view) {
 
 function didClickOrderRefill(e) {
 	http.request({
-		method : "PRESCRIPTIONS_REFILL",
+		method : "prescriptions_refill",
 		data : {
 			data : [{
 				prescriptions : {

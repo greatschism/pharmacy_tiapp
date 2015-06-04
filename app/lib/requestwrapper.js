@@ -18,7 +18,7 @@ function request(args) {
 	}
 
 	if (!_.has(args, "timeout")) {
-		args.timeout = Alloy.CFG.HTTP_TIMEOUT;
+		args.timeout = Alloy.CFG.http_timeout;
 	}
 
 	if (!_.has(args, "format")) {
@@ -40,19 +40,19 @@ function request(args) {
 
 	_.extend(args.params, {
 		feature_code : Alloy.CFG.featureCodes[args.method],
-		client_identifier : Alloy.CFG.CLIENT_IDENTIFIER,
-		version : Alloy.CFG.API_VERSION,
+		client_identifier : Alloy.CFG.client_identifier,
+		version : Alloy.CFG.api_version,
 		lang : localization.currentLanguage.id,
 		session_id : Alloy.Models.user.get("patients").session_id
 	});
-	args.params = JSON.stringify(args.params);
+	args.params = JSON.stringify(args.params, null, 4);
 
-	if (Alloy.CFG.ENCRYPTION_ENABLED) {
+	if (Alloy.CFG.encryption_enabled) {
 		args.params = encryptionUtil.encrypt(args.params);
 	}
 
 	http.request({
-		url : Alloy.CFG.BASE_URL.concat(Alloy.CFG.apiPath[args.method]),
+		url : Alloy.CFG.base_url.concat(Alloy.CFG.apiPath[args.method]),
 		type : args.type,
 		format : args.format,
 		timeout : args.timeout,
@@ -66,10 +66,10 @@ function request(args) {
 }
 
 function didSuccess(result, passthrough) {
-	if (Alloy.CFG.ENCRYPTION_ENABLED) {
+	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result);
 	}
-	if (result.code != Alloy.CFG.apiCodes.SUCCESS_CODE) {
+	if (result.code != Alloy.CFG.apiCodes.success_code) {
 		if (passthrough.errorDialogEnabled !== false) {
 			uihelper.showDialog({
 				message : result.message || Alloy.Globals.strings.msgSomethingWentWrong
@@ -84,10 +84,10 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	if (!ENV_PROD && Alloy.CFG.SIMULATE_API_ON_FAILURE) {
+	if (!ENV_PROD && Alloy.CFG.simulate_api_on_failure) {
 		didSuccess({
-			code : Alloy.CFG.apiCodes.SUCCESS_CODE,
-			status : Alloy.CFG.apiCodes.SUCCESS_STATUS,
+			code : Alloy.CFG.apiCodes.success_code,
+			status : Alloy.CFG.apiCodes.success_status,
 			data : {}
 		}, passthrough);
 	} else {
@@ -105,7 +105,7 @@ function didFail(error, passthrough) {
 				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
 				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 				success : function() {
-					if (Alloy.CFG.ENCRYPTION_ENABLED) {
+					if (Alloy.CFG.encryption_enabled) {
 						passthrough.params = encryptionUtil.decrypt(passthrough.params);
 					}
 					passthrough.params = JSON.parse(passthrough.params);

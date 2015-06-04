@@ -1,7 +1,7 @@
 (function() {
 
 	//convert seconds to milliseconds
-	_.each(["HTTP_TIMEOUT", "LOCATION_TIMEOUT"], function(prop) {
+	_.each(["http_timeout", "location_timeout"], function(prop) {
 		Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
 	});
 
@@ -13,6 +13,7 @@
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.loggedIn = false;
+	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)

@@ -22,7 +22,7 @@ function didReturn(e) {
 
 function didSearch(currentLocation) {
 	http.request({
-		method : "STORES_ADVANCED_SEARCH",
+		method : "stores_advanced_search",
 		data : {
 			request : {
 				advsearchpharmacy : {

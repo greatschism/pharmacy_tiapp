@@ -77,14 +77,14 @@ function setParentViews(view) {
 
 function didClickSave(e) {
 	dateDetails = $.dateLbl.getValue();
-	appointmentDate = moment(dateDetails).format(Alloy.CFG.apiCodes.DATE_FORMAT);
+	appointmentDate = moment(dateDetails).format(Alloy.CFG.apiCodes.date_format);
 
 	timeDetails = $.timeLbl.getValue();
 	appointmentTime = moment1(timeDetails).format("hh:mm A");
 
 	if (editFlag) {
 		http.request({
-			method : "APPOINTMENTS_UPDATE",
+			method : "appointments_update",
 			data : {
 				filter : [{
 					type : ""
@@ -114,7 +114,7 @@ function didClickSave(e) {
 	} else {
 
 		http.request({
-			method : "APPOINTMENTS_ADD",
+			method : "appointments_add",
 			data : {
 				filter : [{
 					type : ""
@@ -233,7 +233,7 @@ function didClickEditButton(e) {
 function didClickDelete(e) {
 
 	http.request({
-		method : "APPOINTMENTS_DELETE",
+		method : "appointments_delete",
 		data : {
 			filter : [{
 				type : ""

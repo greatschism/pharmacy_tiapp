@@ -26,7 +26,7 @@ function init() {
 
 function invokeAPI() {
 	http.request({
-		method : "DOCTORS_LIST",
+		method : "doctors_list",
 		data : {
 			data : [{
 				doctors : {
@@ -42,7 +42,7 @@ function getPrescriptions(result) {
 	doctors = result.data.doctors || [];
 	//console.log(doctors);
 	http.request({
-		method : "PRESCRIPTIONS_LIST",
+		method : "prescriptions_list",
 		data : {
 			data : [{
 				prescriptions : {

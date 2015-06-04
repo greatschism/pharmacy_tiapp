@@ -112,7 +112,7 @@ function didClickSignup(e) {
 		return;
 	}
 	http.request({
-		method : "PATIENTS_STORE_TO_APP_CONVERSION",
+		method : "patients_store_to_app_conversion",
 		data : {
 			filter : [{
 				type : "mobile_otp"

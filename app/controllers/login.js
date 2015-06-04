@@ -6,14 +6,11 @@ var args = arguments[0] || {},
     encryptionUtil = require("encryptionUtil"),
     keychainModule = require("com.obscure.keychain"),
     keychainAccount;
-/**
- * Initialization function
- * Triggered on loading the screen
- */
+
 function init() {
 	uihelper.getImage("logo", $.logoImg);
 	Alloy.Models.user.on("change:account", updateInputs);
-	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.USER_ACCOUNT);
+	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.user_account);
 	var account = encryptionUtil.decrypt(keychainAccount.account);
 	if (account) {
 		Alloy.Models.user.set({
@@ -27,16 +24,12 @@ function updateInputs() {
 	$.unameTxt.setValue(Alloy.Models.user.get("account"));
 	$.passwordTxt.setValue(Alloy.Models.user.get("password"));
 }
-/**
- * Keyboard "next" function to move to the next item on the screen
- */
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	nextItem ? $[nextItem] && $[nextItem].focus() : didClickLogin();
 }
-/**
- * Function triggered on click of Sign in button. Validations, Authenticate API 
- */
+
 function didClickLogin(e) {
 	var uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
@@ -60,8 +53,8 @@ function didClickLogin(e) {
 	}
 	if (utilities.isMobileNumber(uname)) {
 		http.request({
-			method : "PATIENTS_MOBILE_EXISTS_OR_SHARED",
-			data : {
+			method : "patients_mobile_exists_or_shared",
+			params : {
 				data : [{
 					patient : {
 						mobile_number : uname
@@ -74,8 +67,8 @@ function didClickLogin(e) {
 		});
 	} else {
 		http.request({
-			method : "PATIENTS_AUTHENTICATE",
-			data : {
+			method : "patient_authenticate",
+			params : {
 				data : [{
 					patient : {
 						user_name : uname,
@@ -87,9 +80,7 @@ function didClickLogin(e) {
 		});
 	}
 }
-/**
- * Function triggered on successful authenticate request 
- */
+
 function didAuthenticate(result) {
 	Alloy.Models.user.set({
 		logged_in : true,
@@ -104,9 +95,7 @@ function didAuthenticate(result) {
 	landing_page: true
 	})[0].toJSON());
 }
-/**
- * Function triggered if the authenticated user is a store/ mobile number user 
- */
+
 function didSharedMobileCheck(result) {
 	var isExists = parseInt(result.data.patients.mobile_exists),
 	    isShared = parseInt(result.data.patients.is_mobile_shared);
@@ -123,7 +112,7 @@ function didSharedMobileCheck(result) {
 		});
 	} else {
 		http.request({
-			method : "PATIENTS_AUTHENTICATE",
+			method : "patients_authenticate",
 			data : {
 				data : [{
 					patient : {
@@ -147,15 +136,11 @@ function didAuthenticateMobileUser(result) {
 		}
 	});
 }
-/**
- * Function triggered if the response fails 
- */
+
 function didFail(error, passthrough) {
 	app.navigator.hideLoader();
 }
-/**
- * Function triggered on click of the right button on password textfield.
- */
+
 function didClickPwd(e) {
 	app.navigator.open({
 		ctrl : "loginRecovery",
@@ -163,9 +148,7 @@ function didClickPwd(e) {
 		stack : true
 	});
 }
-/**
- * Function triggered on click of "need to create a new account" button
- */
+
 function didClickSignup(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",

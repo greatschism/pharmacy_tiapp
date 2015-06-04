@@ -5,11 +5,11 @@ var Alloy = require("alloy"),
 describe("RequestWrapper Test Suite", function() {
 
 	it("Test Case 1: request", function(done) {
-		this.timeout(Alloy.CFG.HTTP_TIMEOUT);
+		this.timeout(Alloy.CFG.http_timeout);
 		var showLoader = false,
 		    hideLoader = false;
 		http.request({
-			method : "APPLOAD_GET",
+			method : "appload_get",
 			params : {
 				data : [{
 					appload : {
@@ -19,14 +19,14 @@ describe("RequestWrapper Test Suite", function() {
 						device_id : "x",
 						carrier : "x",
 						app_version : Ti.App.version,
-						client_name : Alloy.CFG.CLIENT_NAME
+						client_name : Alloy.CFG.client_name
 					}
 				}]
 			},
 			forceRetry : false,
 			retry : false,
 			errorDialogEnabled : false,
-			passthrough : "APPLOAD_GET",
+			passthrough : "appload_get",
 			showLoaderCallback : function() {
 				showLoader = true;
 			},
@@ -35,16 +35,16 @@ describe("RequestWrapper Test Suite", function() {
 			},
 			success : function(result, passthrough) {
 				result.should.be.instanceof(Object);
-				passthrough.should.be.equal("APPLOAD_GET");
+				passthrough.should.be.equal("appload_get");
 			},
 			failure : function(error, passthrough) {
 				error.should.be.instanceof(Object);
-				passthrough.should.be.equal("APPLOAD_GET");
+				passthrough.should.be.equal("appload_get");
 			},
 			done : function(passthrough) {
 				showLoader.should.be.equal(true);
 				hideLoader.should.be.equal(true);
-				passthrough.should.be.equal("APPLOAD_GET");
+				passthrough.should.be.equal("appload_get");
 				done();
 			}
 		});

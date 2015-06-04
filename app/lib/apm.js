@@ -5,7 +5,7 @@ var Alloy = require("alloy"),
 
 var TiPerformance = {
 	init : function(callback, appId, config) {
-		if (Alloy.CFG.APM_ENABLED && !PerformanceModule) {
+		if (Alloy.CFG.apm_enabled && !PerformanceModule) {
 			var Module = require("com.appcelerator.apm"),
 			    didServiceready = function() {
 				PerformanceModule = Module;

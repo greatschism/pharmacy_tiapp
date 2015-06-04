@@ -18,7 +18,7 @@ var args = arguments[0] || {},
 
 function init() {
 	http.request({
-		method : "PRESCRIPTIONS_LIST",
+		method : "prescriptions_list",
 		success : didSuccess
 	});
 

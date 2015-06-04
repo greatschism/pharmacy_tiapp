@@ -1,4 +1,5 @@
 var app = require("core"),
+    notificationHandler = require("notificationHandler"),
     config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
@@ -7,18 +8,22 @@ var app = require("core"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
+	notificationHandler.init(deviceReady);
+}
+
+function deviceReady(deviceToken) {
 	http.request({
-		method : "APPLOAD_GET",
+		method : "appload_get",
 		params : {
 			data : [{
 				appload : {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
 					phone_platform : app.device.platform,
-					device_id : "x",
+					device_id : deviceToken,
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,
-					client_name : Alloy.CFG.CLIENT_NAME
+					client_name : Alloy.CFG.client_name
 				}
 			}]
 		},
@@ -36,17 +41,13 @@ function didSuccess(result) {
 		silent : true
 	});
 	var clientConfig = appload.client_json || {};
-	if (_.has(clientConfig, "force_update")) {
-		Alloy.CFG.FORCE_UPDATE = clientConfig.force_update;
-	}
-	if (_.has(clientConfig, "async_update")) {
-		Alloy.CFG.ASYNC_UPDATE = clientConfig.async_update;
-	}
-	if (_.has(clientConfig, "force_reload_after_update")) {
-		Alloy.CFG.FORCE_RELOAD_AFTER_UPDATE = clientConfig.force_reload_after_update;
-	}
+	_.each(["force_update", "force_reload_after_update", "async_update"], function(key) {
+		if (_.has(clientConfig, key)) {
+			Alloy.CFG[key] = clientConfig[key];
+		}
+	});
 	if (config.init(clientConfig).length) {
-		if (Alloy.CFG.FORCE_UPDATE) {
+		if (Alloy.CFG.force_update) {
 			startUpdate();
 		} else {
 			$.loading.hide();
@@ -69,7 +70,7 @@ function confirmUpdate() {
 }
 
 function startUpdate() {
-	if (Alloy.CFG.ASYNC_UPDATE) {
+	if (Alloy.CFG.async_update) {
 		triggerAsyncUpdate = true;
 		loadConfig();
 	} else {
@@ -87,8 +88,8 @@ function loadConfig() {
 }
 
 function didLoadConfig() {
-	var ctrl = Alloy.createController(Alloy.CFG.NAVIGATOR + "/master", {
-		navigation : utilities.getProperty(Alloy.CFG.FIRST_LAUNCH, true, "bool", false) ? {
+	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
+		navigation : utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
 			navBarHidden : true,
