@@ -26,12 +26,12 @@ var Locale = {
 
 	/**
 	 * change selected language
-	 * @param {String} id The language id to enable
+	 * @param {String} code The language code to enable
 	 */
-	setLanguage : function(id) {
+	setLanguage : function(code) {
 		var resources = require("resources"),
 		    toSelect = resources.get("languages",{
-		id : id
+		code : code
 		})[0] || {};
 		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
 			toSelect.selected = true;
@@ -66,7 +66,7 @@ var Locale = {
 	applyLanguage : function(language) {
 		Locale.currentLanguage = language;
 		Alloy.Globals.strings = language.strings;
-		require("logger").info("language selected : " + Locale.currentLanguage.id);
+		require("logger").info("language selected : " + Locale.currentLanguage.code);
 	}
 };
 

@@ -104,13 +104,12 @@ var Configuration = {
 		 * Ti.App.unregisterFont - is a method available only with custom SDK
 		 */
 		var lastUpdate = require("alloy/moment")().unix();
-		for (var i in fonts) {
-			var font = fonts[i],
-			    fontExists = _.findWhere(Alloy.RegFonts, {
+		_.each(fonts, function(font) {
+			var fontExists = _.findWhere(Alloy.RegFonts, {
 				id : font.id
 			});
 			if (_.isUndefined(fontExists)) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
@@ -121,38 +120,38 @@ var Configuration = {
 						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
 					}
 					//on android, registered font can be just replaced with new value
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
 				}
 				_.extend(fontExists, {
 					lastUpdate : lastUpdate
 				});
 			}
-			Alloy.Fonts[font.code] = font.id;
-		}
+			Alloy.Fonts[font.code] = font.name;
+		});
 		//remove unwanted fonts from memory
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.id);
+				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
 			}
 			return flag;
 		});
 
 		//images
 		Alloy.Images = {};
-		for (var i in images) {
-			var code = images[i].code,
-			    orientations = images[i].orientation;
+		_.each(images, function(image) {
+			var code = image.code,
+			    orientations = image.orientation;
 			if (!_.has(Alloy.Images, code)) {
 				Alloy.Images[code] = {};
 			}
 			for (var orientation in orientations) {
 				Alloy.Images[code][orientation] = {
-					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + images[i].file).nativePath
+					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + image.file).nativePath
 				};
-				_.extend(Alloy.Images[code][orientation], _.isObject(images[i].properties) && _.isObject(images[i].properties[orientation]) ? images[i].properties[orientation] : orientations[orientation]);
+				_.extend(Alloy.Images[code][orientation], _.isObject(image.properties) && _.isObject(image.properties[orientation]) ? image.properties[orientation] : orientations[orientation]);
 			}
-		}
+		});
 
 		//theme
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.styles.config, ["ios", "android"])));

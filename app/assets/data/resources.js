@@ -1,121 +1,146 @@
 module.exports = {
 	"themes" : [{
-		"id" : "mscripts",
+		"id" : 1,
 		"version" : 1,
-		"url" : "url_to_download",
+		"code" : "mscripts",
+		"url" : "",
 		"selected" : true
 	}],
 	"templates" : [{
-		"id" : "list",
+		"id" : 1,
 		"version" : 1,
-		"url" : "url_to_download",
+		"code" : "list",
+		"url" : "",
 		"selected" : false
 	}, {
-		"id" : "grid",
+		"id" : 2,
 		"version" : 1,
-		"url" : "url_to_download",
+		"code" : "grid",
+		"url" : "",
+		"selected" : false
+	}, {
+		"id" : 3,
+		"version" : 1,
+		"code" : "spread",
+		"url" : "",
 		"selected" : true
 	}],
 	"menus" : [{
-		"id" : "hamburger",
+		"id" : 1,
 		"version" : 1,
-		"url" : "url_to_download",
+		"code" : "hamburger",
+		"url" : "",
 		"selected" : true
 	}],
 	"languages" : [{
-		"id" : "en",
+		"id" : 1,
 		"version" : 1,
+		"code" : "en",
 		"titleid" : "lngEnglish",
-		"url" : "url_to_download",
+		"url" : "",
 		"selected" : true
 	}, {
-		"id" : "es",
+		"id" : 2,
 		"version" : 1,
+		"code" : "es",
 		"titleid" : "lngSpanish",
-		"url" : "url_to_download",
+		"url" : "",
 		"selected" : false
 	}, {
-		"id" : "ja",
+		"id" : 3,
 		"version" : 1,
+		"code" : "ja",
 		"titleid" : "lngJapanese",
-		"url" : "url_to_download",
+		"url" : "",
 		"selected" : false
 	}, {
-		"id" : "zh",
+		"id" : 4,
 		"version" : 1,
+		"code" : "zh",
 		"titleid" : "lngChinese",
-		"url" : "url_to_download",
+		"url" : "",
 		"selected" : false
 	}],
 	"fonts" : [{
-		"id" : "mscripts",
+		"id" : 1,
 		"version" : 1,
+		"name" : "mscripts",
 		"code" : "icon",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/mscripts.ttf",
+		"url" : "",
 		"platform" : ["ios", "android"]
 	}, {
-		"id" : "Lato-Light",
+		"id" : 2,
 		"version" : 1,
+		"name" : "Lato-Light",
 		"code" : "light",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Lato-Light.ttf",
+		"url" : "",
 		"platform" : ["ios"]
 	}, {
-		"id" : "Lato-Regular",
+		"id" : 3,
 		"version" : 1,
+		"name" : "Lato-Regular",
 		"code" : "regular",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Lato-Regular.ttf",
+		"url" : "",
 		"platform" : ["ios"]
 	}, {
-		"id" : "Lato-Bold",
+		"id" : 4,
 		"version" : 1,
+		"name" : "Lato-Bold",
 		"code" : "medium",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Lato-Bold.ttf",
+		"url" : "",
 		"platform" : ["ios"]
 	}, {
-		"id" : "Lato-Black",
+		"id" : 5,
 		"version" : 1,
+		"name" : "Lato-Black",
 		"code" : "bold",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Lato-Black.ttf",
+		"url" : "",
 		"platform" : ["ios"]
 	}, {
-		"id" : "Roboto-Light",
+		"id" : 6,
 		"version" : 1,
+		"name" : "Roboto-Light",
 		"code" : "light",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Roboto-Light.ttf",
+		"url" : "",
 		"platform" : ["android"]
 	}, {
-		"id" : "Roboto-Regular",
+		"id" : 7,
 		"version" : 1,
+		"name" : "Roboto-Regular",
 		"code" : "regular",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Roboto-Regular.ttf",
+		"url" : "",
 		"platform" : ["android"]
 	}, {
-		"id" : "Roboto-Medium",
+		"id" : 8,
 		"version" : 1,
+		"name" : "Roboto-Medium",
 		"code" : "medium",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Roboto-Medium.ttf",
+		"url" : "",
 		"platform" : ["android"]
 	}, {
-		"id" : "Roboto-Bold",
+		"id" : 9,
 		"version" : 1,
+		"name" : "Roboto-Bold",
 		"code" : "bold",
 		"format" : "ttf",
-		"url" : "https://staging.remscripts.com/nativemia/Roboto-Bold.ttf",
+		"url" : "",
 		"platform" : ["android"]
 	}],
 	"images" : [{
+		"id" : 1,
 		"version" : 1,
-		"id" : "logo_pl",
+		"name" : "logo",
 		"code" : "logo",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"right" : 100,
@@ -125,13 +150,14 @@ module.exports = {
 				"right" : 100,
 				"left" : 100
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/logo.png"
+		}
 	}, {
+		"id" : 2,
 		"version" : 1,
-		"id" : "logo_white_pl",
+		"name" : "logo_white",
 		"code" : "logo_white",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"top" : 40,
@@ -141,13 +167,14 @@ module.exports = {
 				"top" : 40,
 				"height" : 30
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/logo.png"
+		}
 	}, {
+		"id" : 3,
 		"version" : 1,
-		"id" : "prescription_list_pl",
+		"name" : "prescription_list",
 		"code" : "prescription_list",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"right" : 100,
@@ -157,13 +184,14 @@ module.exports = {
 				"right" : 100,
 				"left" : 100
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/prescription_list.png"
+		}
 	}, {
+		"id" : 4,
 		"version" : 1,
-		"id" : "helpful_medication_pl",
+		"name" : "helpful_medication",
 		"code" : "helpful_medication",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"right" : 100,
@@ -173,13 +201,14 @@ module.exports = {
 				"right" : 100,
 				"left" : 100
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/helpful_medication.png"
+		}
 	}, {
+		"id" : 5,
 		"version" : 1,
-		"id" : "store_locator_pl",
+		"name" : "store_locator",
 		"code" : "store_locator",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"right" : 100,
@@ -189,41 +218,14 @@ module.exports = {
 				"right" : 100,
 				"left" : 100
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/store_locator.png"
+		}
 	}, {
+		"id" : 6,
 		"version" : 1,
-		"id" : "toggle_btn_off_pl",
-		"code" : "toggle_btn_off",
-		"format" : "png",
-		"orientation" : {
-			"portrait" : {
-				"width" : 66
-			},
-			"landscape" : {
-				"width" : 66
-			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_off.png"
-	}, {
-		"version" : 1,
-		"id" : "toggle_btn_on_pl",
-		"code" : "toggle_btn_on",
-		"format" : "png",
-		"orientation" : {
-			"portrait" : {
-				"width" : 66
-			},
-			"landscape" : {
-				"width" : 66
-			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"
-	}, {
-		"version" : 1,
-		"id" : "map_pin_pl",
+		"name" : "map_pin",
 		"code" : "map_pin",
 		"format" : "png",
+		"url" : "",
 		"orientation" : {
 			"portrait" : {
 				"width" : 30
@@ -231,7 +233,6 @@ module.exports = {
 			"landscape" : {
 				"width" : 30
 			}
-		},
-		"url" : "https://staging.remscripts.com/nativemia/toggle_btn_on.png"
+		}
 	}]
 };

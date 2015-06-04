@@ -104,7 +104,7 @@ var Res = {
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					styles : require(Res.directoryThemes + "/" + item.id).styles
+					styles : require(Res.directoryThemes + "/" + item.code).styles
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -168,7 +168,7 @@ var Res = {
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					data : require(Res.directoryTemplates + "/" + item.id).data
+					data : require(Res.directoryTemplates + "/" + item.code).data
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -232,7 +232,7 @@ var Res = {
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					items : require(Res.directoryMenus + "/" + item.id).items
+					items : require(Res.directoryMenus + "/" + item.code).items
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -296,7 +296,7 @@ var Res = {
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					strings : require(Res.directoryLanguages + "/" + item.id).strings
+					strings : require(Res.directoryLanguages + "/" + item.code).strings
 				});
 			}
 			if (_.isEmpty(model)) {
@@ -365,8 +365,8 @@ var Res = {
 				id: item.id
 				})[0] || {};
 				if (useLocalResources) {
-					var file = item.id + "_" + item.version + "." + item.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + item.id), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
+					var file = item.name + "_" + item.version + "." + item.format;
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + item.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
 					_.extend(item, {
 						file : file
 					});
@@ -405,8 +405,8 @@ var Res = {
 			id: item.id
 			})[0] || {};
 			if (useLocalResources) {
-				var file = item.id + "_" + item.version + "." + item.format;
-				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + item.id + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
+				var file = item.name + "_" + item.version + "." + item.format;
+				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + item.name + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
 				_.extend(item, {
 					file : file
 				});
@@ -602,7 +602,7 @@ var Res = {
 					},
 					code : model.code
 				});
-				var file = model.id + "_" + model.version + "." + model.format;
+				var file = model.name + "_" + model.version + "." + model.format;
 				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), data, false);
 				_.extend(model, {
 					file : file,
@@ -631,7 +631,7 @@ var Res = {
 						$in : unusedImgIds
 					}
 				});
-				var file = model.id + "_" + model.version + "." + model.format;
+				var file = model.name + "_" + model.version + "." + model.format;
 				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), data, false);
 				_.extend(model, {
 					file : file,

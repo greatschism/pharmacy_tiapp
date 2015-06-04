@@ -18,7 +18,7 @@ exports.init = function(logger, config, cli, appc) {
 		    themes = (resources || {}).themes || [];
 		for (var i in themes) {
 			if (themes[i].selected) {
-				selectedTheme = themes[i].id;
+				selectedTheme = themes[i].code;
 			}
 		}
 	} catch(e) {
