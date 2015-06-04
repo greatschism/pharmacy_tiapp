@@ -28,7 +28,7 @@ function updateInputs() {
 	$.passwordTxt.setValue(Alloy.Models.user.get("password"));
 }
 /**
- * Keyboard "next" function to move to the next item on th screen
+ * Keyboard "next" function to move to the next item on the screen
  */
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
