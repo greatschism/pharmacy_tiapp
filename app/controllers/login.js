@@ -6,7 +6,10 @@ var args = arguments[0] || {},
     encryptionUtil = require("encryptionUtil"),
     keychainModule = require("com.obscure.keychain"),
     keychainAccount;
-
+/**
+ * Initialization function
+ * Triggered on loading the screen
+ */
 function init() {
 	uihelper.getImage("logo", $.logoImg);
 	Alloy.Models.user.on("change:account", updateInputs);
@@ -24,12 +27,16 @@ function updateInputs() {
 	$.unameTxt.setValue(Alloy.Models.user.get("account"));
 	$.passwordTxt.setValue(Alloy.Models.user.get("password"));
 }
-
+/**
+ * Keyboard "next" function to move to the next item on th screen
+ */
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	nextItem ? $[nextItem] && $[nextItem].focus() : didClickLogin();
 }
-
+/**
+ * Function triggered on click of Sign in button. Validations, Authenticate API 
+ */
 function didClickLogin(e) {
 	var uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
@@ -80,7 +87,9 @@ function didClickLogin(e) {
 		});
 	}
 }
-
+/**
+ * Function triggered on successful authenticate request 
+ */
 function didAuthenticate(result) {
 	Alloy.Models.user.set({
 		logged_in : true,
@@ -95,7 +104,9 @@ function didAuthenticate(result) {
 	landing_page: true
 	})[0].toJSON());
 }
-
+/**
+ * Function triggered if the authenticated user is a store/ mobile number user 
+ */
 function didSharedMobileCheck(result) {
 	var isExists = parseInt(result.data.patients.mobile_exists),
 	    isShared = parseInt(result.data.patients.is_mobile_shared);
@@ -136,11 +147,15 @@ function didAuthenticateMobileUser(result) {
 		}
 	});
 }
-
+/**
+ * Function triggered if the response fails 
+ */
 function didFail(error, passthrough) {
 	app.navigator.hideLoader();
 }
-
+/**
+ * Function triggered on click of the right button on password textfield.
+ */
 function didClickPwd(e) {
 	app.navigator.open({
 		ctrl : "loginRecovery",
@@ -148,7 +163,9 @@ function didClickPwd(e) {
 		stack : true
 	});
 }
-
+/**
+ * Function triggered on click of "need to create a new account" button
+ */
 function didClickSignup(e) {
 	app.navigator.open({
 		ctrl : "mobileNumber",
