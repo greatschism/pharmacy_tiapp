@@ -17,6 +17,7 @@ function init() {
 			account : account,
 			password : encryptionUtil.decrypt(keychainAccount.valueData)
 		});
+		$.keepMeSwt.setValue(true);
 	}
 }
 
