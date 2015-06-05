@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <id>com.mscripts.appcelerator</id>
+    <id>com.mscripts.mypharmacy</id>
     <name>my Pharmacy</name>
     <version>7.0.11</version>
     <publisher>mscripts</publisher>
@@ -51,7 +51,7 @@
                         <key>CFBundleTypeRole</key>
                         <string>Editor</string>
                         <key>CFBundleURLName</key>
-                        <string>com.mscripts.appcelerator</string>
+                        <string>com.mscripts.mypharmacy</string>
                         <key>CFBundleURLSchemes</key>
                         <array>
                             <string>mscripts-app</string>
