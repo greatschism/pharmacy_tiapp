@@ -2,7 +2,7 @@
 	text: Alloy.Globals.strings.lblSigninToMobilePharmacy
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.strings.hintUsername,
+	hintText: Alloy.Globals.strings.hintEmailAddress,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
