@@ -141,7 +141,7 @@
 		"pharmacy_phone_last_used": "phoneLastUpdated"
 	},
 	"env:development": {
-		"base_url": "http://10.10.10.20:8080/mckonphonehandler/services/",
+		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
@@ -153,7 +153,7 @@
 		"simulate_api_on_failure": false
 	},
 	"env:test": {
-		"base_url": "http://10.10.10.20:8080/mckonphonehandler/services/",
+		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
@@ -165,7 +165,7 @@
 		"simulate_api_on_failure": false
 	},
 	"env:production": {
-		"base_url": "http://10.10.10.20:8080/mckonphonehandler/services/",
+		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
