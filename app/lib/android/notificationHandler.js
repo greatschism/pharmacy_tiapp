@@ -1,4 +1,4 @@
-var TAG = "notificationHandler",
+/*var TAG = "notificationHandler",
     CloudPush = require("ti.cloudpush"),
     logger = require("logger"),
     isBusy = false,
@@ -74,4 +74,4 @@ Object.defineProperty(module.exports, "deviceToken", {
 	}
 });
 
-exports.init = init;
+exports.init = init;*/

@@ -7,7 +7,7 @@ describe("APM Test Suite", function() {
 	it("Test Case 1: init with APM disabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(Alloy.CFG.http_timeout);
-		Alloy.CFG.APMenabled = false;
+		Alloy.CFG.apm_enabled = false;
 		apm.init(function(enabled) {
 			enabled.should.be.equal(false);
 			done();
@@ -17,7 +17,7 @@ describe("APM Test Suite", function() {
 	it("Test Case 2: init with APM enabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(Alloy.CFG.http_timeout);
-		Alloy.CFG.APMenabled = true;
+		Alloy.CFG.apm_enabled = true;
 		apm.init(function(enabled) {
 			enabled.should.be.equal(true);
 			done();
@@ -31,11 +31,8 @@ describe("APM Test Suite", function() {
 		apm.didCrashOnLastAppLoad().should.be.equal(require("com.appcelerator.apm").didCrashOnLastAppLoad());
 	});
 
-	it("Test Case 4: getUUID", function(done) {
-		if (OS_ANDROID) {
-			apm.getUUID().should.be.type("string");
-		}
-		done();
+	it("Test Case 4: getUUID", function() {
+		apm.getUUID().should.be.ok;
 	});
 
 	it("Test Case 5: setUsername", function(done) {
@@ -63,15 +60,8 @@ describe("APM Test Suite", function() {
 		done();
 	});
 
-	it("Test Case 10: logHandledException with Error Object", function() {
+	it("Test Case 10: logHandledException", function() {
 		apm.logHandledException(new Error("unit test logHandledException")).should.be.equal(true);
-	});
-
-	it("Test Case 11: logHandledException with JSON Object", function() {
-		apm.logHandledException({
-			name : "Error",
-			message : "unit test logHandledException"
-		}).should.be.equal(true);
 	});
 
 });

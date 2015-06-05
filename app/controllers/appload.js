@@ -8,7 +8,8 @@ var app = require("core"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
-	notificationHandler.init(deviceReady);
+	//notificationHandler.init(deviceReady);
+	deviceReady("x");
 }
 
 function deviceReady(deviceToken) {

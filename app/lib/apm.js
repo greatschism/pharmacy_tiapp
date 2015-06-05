@@ -62,12 +62,8 @@ var TiPerformance = {
 		}
 	},
 	logHandledException : function(error) {
-		if (PerformanceModule && (_.isObject(error) || utilities.isError(error))) {
-			PerformanceModule.logHandledException({
-				name : error.name || "Error",
-				message : error.message || "",
-				line : error.lineNumber || ""
-			});
+		if (PerformanceModule && utilities.isError(error)) {
+			PerformanceModule.logHandledException(error);
 			return true;
 		}
 		return false;

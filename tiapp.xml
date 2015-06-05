@@ -13,6 +13,9 @@
     <analytics>true</analytics>
     <guid>a566ecb5-c841-45d2-a34b-fc00717d6b63</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="appc-org-id" type="number">100000377</property>
+    <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
+    <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
     <ios>
         <min-ios-ver>7.1</min-ios-ver>
         <plist>
@@ -48,11 +51,10 @@
                         <key>CFBundleTypeRole</key>
                         <string>Editor</string>
                         <key>CFBundleURLName</key>
-                        <string>com.mcripts.appcelerator</string>
+                        <string>com.mscripts.appcelerator</string>
                         <key>CFBundleURLSchemes</key>
                         <array>
                             <string>mscripts-app</string>
-                            <string>touchtest-7e67a214-293f-47eb-9578-169c7e35af8d</string>
                         </array>
                     </dict>
                 </array>
@@ -71,42 +73,18 @@
                         <category android:name="android.intent.category.LAUNCHER"/>
                     </intent-filter>
                     <intent-filter>
-                        <data android:scheme="touchtest-7e67a214-293f-47eb-9578-169c7e35af8d"/>
                         <action android:name="android.intent.action.VIEW"/>
-                        <category android:name="android.intent.category.BROWSABLE"/>
                         <category android:name="android.intent.category.DEFAULT"/>
+                        <category android:name="android.intent.category.BROWSABLE"/>
+                        <data android:scheme="mscripts-app" />
                     </intent-filter>
                 </activity>
-                <service android:enabled="true" android:exported="false" android:name="com.soasta.android.touchtest.TouchTestService"/>
                 <meta-data
                     android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCeFz_2UhldYEOtdL6KG08MR3r01m-uNEA"/>
             </application>
-            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-            <uses-permission android:name="android.permission.INTERNET"/>
-            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-            <uses-permission android:name="android.permission.BLUETOOTH"/>
-            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-            <uses-permission android:name="android.permission.GET_TASKS"/>
-            <uses-permission android:name="android.permission.CAMERA"/>
-            <!-- Allows the API to cache data -->
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-            <!-- Use GPS for device location -->
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-            <!-- Use Wi-Fi or mobile connection for device location -->
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-            <!-- Allows the API to access Google web-based services -->
-            <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-            <!-- Specify OpenGL ES 2.0 as a requirement -->
-            <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-            <!-- Replace com.domain.appid with your application ID -->
-            <uses-permission android:name="com.mcripts.appcelerator.permission.MAPS_RECEIVE"/>
-            <permission
-                android:name="com.mcripts.appcelerator.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
         </manifest>
     </android>
     <modules>
-        <module platform="commonjs">ti.cloud</module>
-        <module platform="android">ti.cloudpush</module>
         <module platform="iphone">com.appcelerator.apm</module>
         <module platform="android">com.appcelerator.apm</module>
         <module platform="iphone">ti.map</module>
@@ -118,10 +96,6 @@
         <module platform="android">com.obscure.keychain</module>
         <module platform="iphone">com.mfogg.barcode</module>
         <module platform="android">ti.barcode</module>
-        <module deploy-type="development" platform="iphone" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="development" platform="android" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="test" platform="android" version="1.0">com.soasta.touchtest</module>
-        <module deploy-type="test" platform="iphone" version="1.0">com.soasta.touchtest</module>
     </modules>
     <deployment-targets>
         <target device="iphone">true</target>
@@ -134,28 +108,5 @@
         <plugin version="1.0">ti.alloy</plugin>
         <plugin>ti.build.properties</plugin>
         <plugin>ti.tssmaker</plugin>
-        <plugin>com.soasta.touchtest.android</plugin>
     </plugins>
-    <property name="acs-api-key-production" type="string">QuHVfamomVmVwt0v20DUM78tQP4Uehol</property>
-    <property name="acs-authbase-url" type="string">https://secure-identity.cloud.appcelerator.com</property>
-    <property name="acs-base-url" type="string">https://api.cloud.appcelerator.com</property>
-    <property name="acs-api-key-development" type="string">cquuqXpnxTtaTrnWQrneEJJ6H7bN8eHe</property>
-    <property name="acs-authbase-url-development" type="string">https://secure-identity.cloud.appcelerator.com</property>
-    <property name="acs-base-url-development" type="string">https://api.cloud.appcelerator.com</property>
-    <property name="acs-oauth-secret-development" type="string">6Lg4brViaM4Csi78s6iGSGnfaY4Ai9wP</property>
-    <property name="acs-oauth-key-development" type="string">1aco2t0ZMztuiD6KjtYOtAtQxqwZIhRn</property>
-    <property name="acs-username-development" type="string">appc_app_user_dev</property>
-    <property name="acs-password-development" type="string">qg8dxEOg7fuQAymGxt</property>
-    <property name="acs-authbase-url-production" type="string">https://secure-identity.cloud.appcelerator.com</property>
-    <property name="acs-base-url-production" type="string">https://api.cloud.appcelerator.com</property>
-    <property name="acs-oauth-secret-production" type="string">fhGQyoWQIE9RTLBkdF1QQdrPovMmLx1d</property>
-    <property name="acs-oauth-key-production" type="string">H7Da8VpbCkVzFvQ0sbAwCzJ9z1W1XMtN</property>
-    <property name="acs-username-production" type="string">appc_app_user</property>
-    <property name="acs-password-production" type="string">PF1TaO2Cmekz9DyMka</property>
-    <property name="appc-org-id" type="number">100000377</property>
-    <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
-    <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
-    <property name="com-soasta-touchtest-version" type="string">7732.313</property>
-    <property name="com-soasta-touchtest-ios-appId" type="string">347008</property>
-    <property name="com-soasta-touchtest-android-appId" type="string">285585</property>
 </ti:app>

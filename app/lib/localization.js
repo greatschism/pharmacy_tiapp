@@ -26,12 +26,16 @@ var Locale = {
 
 	/**
 	 * change selected language
-	 * @param {String} code The language code to enable
+	 * @param {Number|String} id|code of the language to enable
 	 */
-	setLanguage : function(code) {
+	setLanguage : function(value) {
 		var resources = require("resources"),
 		    toSelect = resources.get("languages",{
-		code : code
+				$or : [{
+					id : value
+				}, {
+					code : value
+				}]
 		})[0] || {};
 		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
 			toSelect.selected = true;
@@ -61,7 +65,7 @@ var Locale = {
 
 	/**
 	 * get languages
-	 * @param {Object} _language The current language
+	 * @param {Object} language The current language
 	 */
 	applyLanguage : function(language) {
 		Locale.currentLanguage = language;
