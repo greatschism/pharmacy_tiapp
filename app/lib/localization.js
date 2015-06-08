@@ -31,11 +31,11 @@ var Locale = {
 	setLanguage : function(value) {
 		var resources = require("resources"),
 		    toSelect = resources.get("languages",{
-				$or : [{
-					id : value
-				}, {
-					code : value
-				}]
+		$or : [{
+		id : value
+		}, {
+		code : value
+		}]
 		})[0] || {};
 		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
 			toSelect.selected = true;
@@ -60,7 +60,7 @@ var Locale = {
 	 * @param {String} _key The key to fetch
 	 */
 	getString : function(key) {
-		return Locale.currentLanguage.strings[key] || "";
+		return Locale.currentLanguage.data[key] || "";
 	},
 
 	/**
@@ -69,7 +69,7 @@ var Locale = {
 	 */
 	applyLanguage : function(language) {
 		Locale.currentLanguage = language;
-		Alloy.Globals.strings = language.strings;
+		Alloy.Globals.strings = language.data;
 		require("logger").info("language selected : " + Locale.currentLanguage.code);
 	}
 };

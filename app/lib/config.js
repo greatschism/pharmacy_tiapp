@@ -10,50 +10,25 @@ var Configuration = {
 		/**
 		 * initialization
 		 */
-		//for debugging purpose only, should be false on test / production
 		if (Alloy.CFG.override_remote_resources === true) {
 			return [];
 		}
 
 		var items = {
-			"theme" : {
-				"key" : "themes",
-				"extend" : {
-					"selected" : true
-				}
-			},
-			"template" : {
-				"key" : "templates",
-				"extend" : {
-					"selected" : true
-				}
-			},
-			"menu" : {
-				"key" : "menus",
-				"extend" : {
-					"selected" : true
-				}
-			},
-			"language" : {
-				"key" : "languages",
-				"extend" : {
-					"selected" : true
-				}
-			},
-			"fonts" : {
-				"key" : "fonts"
-			},
-			"images" : {
-				"key" : "images"
-			}
+			"theme" : "themes",
+			"template" : "templates",
+			"menu" : "menus",
+			"language" : "languages",
+			"fonts" : "fonts",
+			"images" : "images"
 		};
-		_.each(items, function(item) {
-			if (_.has(config, i)) {
-				var obj = config[i];
-				if (_.has(item, "extend")) {
-					_.extend(obj, item.extend);
-				}
-				resources.set(item.key, _.isArray(obj) ? obj : [obj]);
+		_.each(items, function(val, key) {
+			if (_.has(config, key)) {
+				var obj = config[key];
+				_.extend(obj, {
+					selected : true
+				});
+				resources.set(val, _.isArray(obj) ? obj : [obj]);
 			}
 		});
 
@@ -73,19 +48,11 @@ var Configuration = {
 		    theme = resources.get("themes", {selected : true})[0],
 		    template = resources.get("templates", {selected : true})[0],
 		    menu = resources.get("menus", {selected : true})[0],
-		    fonts = resources.get("fonts", {
-			file : {
-				$exists : true
-			}
-		}),
-		    images = resources.get("images", {
-			file : {
-				$exists : true
-			}
-		});
+		    fonts = resources.get("fonts", {selected : true})[0].data,
+		    images = resources.get("images", {selected : true})[0].data;
 
 		//menu
-		Alloy.Collections.menuItems.reset(utilities.clone(menu.items));
+		Alloy.Collections.menuItems.reset(utilities.clone(menu.data));
 
 		//template
 		Alloy.Models.template.set(utilities.clone(template));
@@ -154,10 +121,10 @@ var Configuration = {
 		});
 
 		//theme
-		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.styles.config, ["ios", "android"])));
+		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
 		var platform = require("core").device.platform;
-		if (_.isObject(theme.styles.config[platform])) {
-			_.extend(Alloy.CFG, utilities.clone(theme.styles.config[platform]));
+		if (_.isObject(theme.data.config[platform])) {
+			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
 		}
 		Alloy.TSS = {
 			Theme : {
@@ -165,7 +132,7 @@ var Configuration = {
 				version : theme.version
 			}
 		};
-		var tss = utilities.clone(theme.styles.tss),
+		var tss = utilities.clone(theme.data.tss),
 		    constants = {
 			"auto" : Ti.UI.SIZE,
 			"fill" : Ti.UI.FILL

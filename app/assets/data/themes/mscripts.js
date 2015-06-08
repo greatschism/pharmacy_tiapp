@@ -1,5 +1,5 @@
 module.exports = {
-	"styles" : {
+	"data" : {
 		"config" : {
 			"navigator" : "hamburger",
 			"left_drawer_width" : 270,

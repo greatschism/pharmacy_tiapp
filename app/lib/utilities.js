@@ -138,8 +138,9 @@ var Utility = {
 	copyFile : function(sFile, dFile, remoteBackup) {
 		if (sFile.exists()) {
 			if (OS_IOS) {
-				var flag = dFile.write(sFile.read());
-				if (remoteBackup === false) {
+				dFile.write(sFile.read());
+				var flag = dFile.exists();
+				if (flag && remoteBackup === false) {
 					dFile.setRemoteBackup(false);
 				}
 				return flag;
@@ -159,8 +160,9 @@ var Utility = {
 	 * @param {Boolean} remoteBackup whether or not to backup on iCloud (ios only)
 	 */
 	writeFile : function(dFile, blob, remoteBackup, append) {
-		var flag = dFile.write(blob, append || false);
-		if (OS_IOS && remoteBackup === false) {
+		dFile.write(blob, append || false);
+		var flag = dFile.exists();
+		if (OS_IOS && flag && remoteBackup === false) {
 			dFile.setRemoteBackup(false);
 		}
 		return flag;

@@ -61,7 +61,7 @@ exports.init = function(logger, config, cli, appc) {
 
 		logger.debug(TAG + " : temp theme js is created and ready to use = " + tempThemeJSPath);
 
-		tss = require("./" + TEMP_NAME).styles.tss;
+		tss = require("./" + TEMP_NAME).data.tss;
 
 		for (var ts in tss) {
 

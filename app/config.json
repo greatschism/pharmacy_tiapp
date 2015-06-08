@@ -3,6 +3,7 @@
 		"buildDate": "Thu Jun 04 2015 15:22:12 GMT+0530 (IST)",
 		"apiPath": {
 			"appload_get": "appload/get",
+			"appload_clientjson": "appload/clientjson",
 			"patient_authenticate": "patient/authenticate",
 			"terms_get": "terms/get",
 			"code_values_get": "codevalues/get",
@@ -39,6 +40,7 @@
 		},
 		"featureCodes": {
 			"appload_get": "THXXX",
+			"appload_clientjson": "THXXX",
 			"patient_authenticate": "THXXX"
 		},
 		"apiCodes": {
@@ -141,7 +143,7 @@
 		"pharmacy_phone_last_used": "phoneLastUpdated"
 	},
 	"env:development": {
-		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
+		"base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
@@ -154,7 +156,7 @@
 		"simulate_api_on_failure": false
 	},
 	"env:test": {
-		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
+		"base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
@@ -163,11 +165,11 @@
 		"apm_enabled": false,
 		"analytics_enabled": false,
 		"clear_cached_resources": false,
-		"override_remote_resources": true,
+		"override_remote_resources": false,
 		"simulate_api_on_failure": false
 	},
 	"env:production": {
-		"base_url": "http://10.10.10.20:8080/mck_on_phone_handler/services/",
+		"base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",
 		"client_identifier": "1",
 		"client_name": "Baylor",
 		"api_version": "1.0",
@@ -176,7 +178,7 @@
 		"apm_enabled": false,
 		"analytics_enabled": false,
 		"clear_cached_resources": false,
-		"override_remote_resources": true,
+		"override_remote_resources": false,
 		"simulate_api_on_failure": false
 	},
 	"os:android": {

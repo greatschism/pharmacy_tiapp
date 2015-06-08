@@ -1,5 +1,5 @@
 module.exports = {
-	"items" : [{
+	"data" : [{
 		"titleid" : "titleHome",
 		"ctrl" : "home",
 		"icon" : "home",

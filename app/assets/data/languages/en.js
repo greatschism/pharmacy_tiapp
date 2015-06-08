@@ -1,5 +1,5 @@
 module.exports = {
-	"strings" : {
+	"data" : {
 		"lngEnglish" : "English",
 		"lngJapanese" : "Japanese",
 		"lngSpanish" : "Spanish",

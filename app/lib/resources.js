@@ -38,13 +38,12 @@ var Res = {
 
 		if (utilities.getProperty(Alloy.CFG.resources_updated_on, "", "string", false) != Ti.App.version || !ENV_PROD) {
 
-			var keys = ["themes", "templates", "menus", "languages", "fonts", "images"],
-			    initialData = require(Res.directoryData + "/" + "resources"),
+			var initialData = require(Res.directoryData + "/" + "resources"),
 			    clearCache = Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD);
 
-			for (var i in keys) {
-				Res.set(keys[i], initialData[keys[i]], true, clearCache);
-			}
+			_.each(["themes", "templates", "menus", "languages", "fonts", "images"], function(val) {
+				Res.set(val, initialData[val], true, clearCache);
+			});
 
 			if (clearCache) {
 				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
@@ -97,26 +96,25 @@ var Res = {
 		if (clearCache) {
 			coll.clear();
 		}
-		for (var i in items) {
-			var item = items[i],
-			    model = coll.find({
+		_.each(items, function(item) {
+			var model = coll.find({
 			id: item.id
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					styles : require(Res.directoryThemes + "/" + item.code).styles
+					data : require(Res.directoryThemes + "/" + item.code).data
 				});
 			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					update : !_.has(item, "styles"),
-					revert : item.selected && !_.has(item, "styles"),
-					selected : !_.has(item, "styles") ? false : item.selected
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
 				});
 				coll.save(item);
 				logger.debug("theme added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "styles") && !_.has(model, "styles"));
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
@@ -128,7 +126,7 @@ var Res = {
 			if (item.revert) {
 				revertId = item.id;
 			}
-		}
+		});
 		if (selectedId) {
 			coll.update({
 				id : {
@@ -161,9 +159,8 @@ var Res = {
 		if (clearCache) {
 			coll.clear();
 		}
-		for (var i in items) {
-			var item = items[i],
-			    model = coll.find({
+		_.each(items, function(item) {
+			var model = coll.find({
 			id: item.id
 			})[0] || {};
 			if (useLocalResources) {
@@ -192,7 +189,7 @@ var Res = {
 			if (item.revert) {
 				revertId = item.id;
 			}
-		}
+		});
 		if (selectedId) {
 			coll.update({
 				id : {
@@ -225,26 +222,25 @@ var Res = {
 		if (clearCache) {
 			coll.clear();
 		}
-		for (var i in items) {
-			var item = items[i],
-			    model = coll.find({
+		_.each(items, function(item) {
+			var model = coll.find({
 			id: item.id
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					items : require(Res.directoryMenus + "/" + item.code).items
+					data : require(Res.directoryMenus + "/" + item.code).data
 				});
 			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					update : !_.has(item, "items"),
-					revert : item.selected && !_.has(item, "items"),
-					selected : !_.has(item, "items") ? false : item.selected
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
 				});
 				coll.save(item);
 				logger.debug("menu added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "items") && !_.has(model, "items"));
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
@@ -256,7 +252,7 @@ var Res = {
 			if (item.revert) {
 				revertId = item.id;
 			}
-		}
+		});
 		if (selectedId) {
 			coll.update({
 				id : {
@@ -289,26 +285,25 @@ var Res = {
 		if (clearCache) {
 			coll.clear();
 		}
-		for (var i in items) {
-			var item = items[i],
-			    model = coll.find({
+		_.each(items, function(item) {
+			var model = coll.find({
 			id: item.id
 			})[0] || {};
 			if (useLocalResources) {
 				_.extend(item, {
-					strings : require(Res.directoryLanguages + "/" + item.code).strings
+					data : require(Res.directoryLanguages + "/" + item.code).data
 				});
 			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
-					update : !_.has(item, "strings"),
-					revert : item.selected && !_.has(item, "strings"),
-					selected : !_.has(item, "strings") ? false : item.selected
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
 				});
 				coll.save(item);
 				logger.debug("language added : " + item.id);
 			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "strings") && !_.has(model, "strings"));
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
 				item.revert = item.selected && item.update && selectedId != item.id;
 				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
@@ -320,7 +315,7 @@ var Res = {
 			if (item.revert) {
 				revertId = item.id;
 			}
-		}
+		});
 		if (selectedId) {
 			coll.update({
 				id : {
@@ -346,6 +341,10 @@ var Res = {
 
 	setFonts : function(items, useLocalResources, clearCache) {
 		var coll = Res.getCollection("fonts"),
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
+		    revertId = false,
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
 		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts);
 		if (clearCache) {
@@ -358,36 +357,84 @@ var Res = {
 			fontsDir.createDirectory();
 		}
 		var platform = require("core").device.platform;
-		for (var i in items) {
-			var item = items[i];
-			if (_.indexOf(item.platform, platform) >= 0) {
-				var model = coll.find({
-				id: item.id
-				})[0] || {};
+		_.each(items, function(item) {
+			var model = coll.find({
+			id: item.id
+			})[0] || {};
+			item.data = _.filter(item.data, function(font) {
+				if (_.has(font, "platform") && _.indexOf(font.platform, platform) == -1) {
+					return false;
+				}
+				delete font.platform;
+				var fontDoc = _.findWhere(model.data, {
+					id : font.id
+				}) || {};
+				if (!_.isEmpty(fontDoc)) {
+					_.extend(font, _.pick(fontDoc, ["file", "update"]));
+				}
 				if (useLocalResources) {
-					var file = item.name + "_" + item.version + "." + item.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + item.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
-					_.extend(item, {
+					var file = font.name + "_" + font.version + "." + font.format;
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + font.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
+					_.extend(font, {
 						file : file
 					});
 				}
-				_.extend(item, {
-					update : !_.has(item, "file")
+				_.extend(font, {
+					update : !_.has(font, "file")
 				});
-				if (_.isEmpty(model)) {
-					coll.save(item);
-					logger.debug("font added : " + item.id);
-				} else if (item.version != model.version || useLocalResources) {
-					_.extend(model, item);
-					logger.debug("font updated : " + item.id);
-				}
+				return true;
+			});
+			if (_.isEmpty(model)) {
+				_.extend(item, {
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
+				});
+				coll.save(item);
+				logger.debug("fonts coll added : " + item.id);
+			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
+				_.extend(model, item);
+				logger.debug("fonts coll updated : " + item.id);
 			}
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.revert) {
+				revertId = item.id;
+			}
+		});
+		if (selectedId) {
+			coll.update({
+				id : {
+					$ne : selectedId
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
 	setImages : function(items, useLocalResources, clearCache) {
 		var coll = Res.getCollection("images"),
+		    selectedId = (coll.find({
+		selected: true
+		})[0] || {}).id,
+		    revertId = false,
 		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
 		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages);
 		if (clearCache) {
@@ -399,83 +446,91 @@ var Res = {
 		if (!imagesDir.exists()) {
 			imagesDir.createDirectory();
 		}
-		for (var i in items) {
-			var item = items[i],
-			    model = coll.find({
+		_.each(items, function(item) {
+			var model = coll.find({
 			id: item.id
 			})[0] || {};
-			if (useLocalResources) {
-				var file = item.name + "_" + item.version + "." + item.format;
-				utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + item.name + "." + item.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
-				_.extend(item, {
-					file : file
+			_.each(item.data, function(image) {
+				var imgDoc = _.findWhere(model.data, {
+					id : image.id
+				}) || {};
+				if (!_.isEmpty(imgDoc)) {
+					_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
+				}
+				if (useLocalResources) {
+					var file = image.name + "_" + image.version + "." + image.format;
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + image.name + "." + image.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
+					_.extend(image, {
+						file : file
+					});
+				}
+				_.extend(image, {
+					update : !_.has(image, "file")
 				});
-			}
-			_.extend(item, {
-				update : !_.has(item, "file")
 			});
 			if (_.isEmpty(model)) {
+				_.extend(item, {
+					update : !_.has(item, "data"),
+					revert : item.selected && !_.has(item, "data"),
+					selected : !_.has(item, "data") ? false : item.selected
+				});
 				coll.save(item);
-				logger.debug("image added : " + item.id);
-			} else if (item.version != model.version || useLocalResources) {
+				logger.debug("images coll added : " + item.id);
+			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
+				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
+				item.revert = item.selected && item.update && selectedId != item.id;
+				item.selected = item.revert ? false : item.selected;
 				_.extend(model, item);
-				logger.debug("image updated : " + item.id);
+				logger.debug("images coll updated : " + item.id);
 			}
+			if (item.selected) {
+				selectedId = item.id;
+			}
+			if (item.revert) {
+				revertId = item.id;
+			}
+		});
+		if (selectedId) {
+			coll.update({
+				id : {
+					$ne : selectedId
+				}
+			}, {
+				$set : {
+					selected : false
+				}
+			}, {}, true);
 		}
+		coll.update({
+			id : {
+				$ne : revertId
+			}
+		}, {
+			$set : {
+				revert : false
+			}
+		}, {}, true);
 		coll.commit();
 	},
 
 	checkForUpdates : function() {
 		//update all where update flag is true
-		var keys = {
-			"themes" : {
-				$or : [{
-					"selected" : true
-				}, {
-					"revert" : true
-				}],
-				"update" : true
-			},
-			"templates" : {
-				$or : [{
-					"selected" : true
-				}, {
-					"revert" : true
-				}],
-				"update" : true
-			},
-			"menus" : {
-				$or : [{
-					"selected" : true
-				}, {
-					"revert" : true
-				}],
-				"update" : true
-			},
-			"languages" : {
-				$or : [{
-					"selected" : true
-				}, {
-					"revert" : true
-				}],
-				"update" : true
-			},
-			"fonts" : {
-				"update" : true
-			},
-			"images" : {
-				"update" : true
-			}
+		var where = {
+			$or : [{
+				"selected" : true
+			}, {
+				"revert" : true
+			}],
+			"update" : true
 		};
-		for (var key in keys) {
-			var toUpdate = Res.get(key, keys[key]);
-			for (var i in toUpdate) {
+		_.each(["themes", "templates", "menus", "languages", "fonts", "images"], function(val) {
+			_.each(Res.get(val, where), function(updateObj) {
 				Res.updateQueue.push({
 					key : key,
-					data : _.omit(toUpdate[i], ["_id", "styles", "data", "items", "strings"])
+					data : _.omit(updateObj, ["_id", "data"])
 				});
-			}
-		}
+			});
+		});
 		return Res.updateQueue;
 	},
 
@@ -656,12 +711,12 @@ var Res = {
 
 	deleteUnusedResources : function() {
 		//delete unused fonts
-		var unusedFonts = _.difference(utilities.getFiles(Res.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.get("fonts"), "file"));
+		var unusedFonts = _.difference(utilities.getFiles(Res.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck((Res.get("fonts", {selected : true})[0] || {}).data, "file"));
 		for (var i in unusedFonts) {
 			utilities.deleteFile(Res.directoryFonts + "/" + unusedFonts[i]);
 		}
 		//delete unused images
-		var unusedImages = _.difference(utilities.getFiles(Res.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.get("images"), "file"));
+		var unusedImages = _.difference(utilities.getFiles(Res.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck((Res.get("images", {selected : true})[0] || {}).data, "file"));
 		for (var i in unusedImages) {
 			utilities.deleteFile(Res.directoryImages + "/" + unusedImages[i]);
 		}
@@ -669,10 +724,12 @@ var Res = {
 
 	updateImageProperties : function(item) {
 		var coll = Res.getCollection("images"),
-		    imageDoc = coll.find({
-		code : item.code,
-		file : item.file
-		})[0] || {};
+		    imageDoc = _.findWhere((coll.find({
+		selected : true
+		})[0] || {}).data, {
+			code : item.code,
+			file : item.file
+		}) || {};
 		if (!_.has(imageDoc, "properties")) {
 			imageDoc.properties = {};
 		}
