@@ -76,7 +76,7 @@
                         <action android:name="android.intent.action.VIEW"/>
                         <category android:name="android.intent.category.DEFAULT"/>
                         <category android:name="android.intent.category.BROWSABLE"/>
-                        <data android:scheme="mscripts-app" />
+                        <data android:scheme="mscripts-app"/>
                     </intent-filter>
                 </activity>
                 <meta-data
@@ -89,6 +89,7 @@
         <module platform="android">com.appcelerator.apm</module>
         <module platform="iphone">ti.map</module>
         <module platform="android">ti.map</module>
+        <module platform="android">ti.push</module>
         <module platform="iphone">dk.napp.drawer</module>
         <module platform="android">dk.napp.drawer</module>
         <module platform="android">com.tripvi.drawerlayout</module>

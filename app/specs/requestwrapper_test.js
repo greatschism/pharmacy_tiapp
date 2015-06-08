@@ -17,7 +17,7 @@ describe("RequestWrapper Test Suite", function() {
 						phone_os : Ti.Platform.osname,
 						phone_platform : app.device.platform,
 						device_id : "x",
-						carrier : "x",
+						carrier : Ti.Platform.carrier,
 						app_version : Ti.App.version,
 						client_name : Alloy.CFG.client_name
 					}

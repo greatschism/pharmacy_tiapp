@@ -1,12 +1,13 @@
-/*var TAG = "notificationHandler",
-    CloudPush = require("ti.cloudpush"),
+var TAG = "notificationHandler",
+    Alloy = require("alloy"),
+    TiPush = require("ti.push"),
     logger = require("logger"),
     isBusy = false,
     deviceTokenCallback,
     deviceToken;
 
-CloudPush.singleCallback = false;
-CloudPush.addEventListener("callback", didReceivePush);
+//TiPush.singleCallback = false;
+//TiPush.addEventListener("callback", didReceivePush);
 
 function init(callback) {
 	if (isBusy) {
@@ -17,30 +18,32 @@ function init(callback) {
 	}
 	isBusy = true;
 	deviceTokenCallback = callback;
-	CloudPush.retrieveDeviceToken({
+	TiPush.retrieveDeviceToken({
+		senderId : Alloy.CFG.gcm_sender_id,
 		success : didSuccess,
 		error : didFailure
 	});
 }
 
 function isGooglePlayServicesAvailable() {
-	var isAvailable = CloudPush.isGooglePlayServicesAvailable(),
+	var isAvailable = TiPush.isGooglePlayServicesAvailable(),
 	    success = false;
 	switch(isAvailable) {
-	case CloudPush.SERVICE_DISABLED:
+	case TiPush.SUCCESS:
+		success = true;
+		break;
+	case TiPush.SERVICE_DISABLED:
 		logger.error(TAG, "Google Play Service is disabled");
 		break;
-	case CloudPush.SERVICE_INVALID:
+	case TiPush.SERVICE_INVALID:
 		logger.error(TAG, "Google Play Service is invalid");
 		break;
-	case CloudPush.SERVICE_MISSING:
+	case TiPush.SERVICE_MISSING:
 		logger.error(TAG, "Google Play Service is missing");
 		break;
-	case CloudPush.SERVICE_VERSION_UPDATE_REQUIRED:
+	case TiPush.SERVICE_VERSION_UPDATE_REQUIRED:
 		logger.error(TAG, "Google Play Service requires an update");
 		break;
-	default:
-		success = true;
 	}
 	return success;
 }
@@ -74,4 +77,4 @@ Object.defineProperty(module.exports, "deviceToken", {
 	}
 });
 
-exports.init = init;*/
+exports.init = init;
