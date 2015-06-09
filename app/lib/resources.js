@@ -790,18 +790,21 @@ var Res = {
 			});
 			break;
 		}
-		coll.commit();
 		logger.debug("downloaded asset from " + passthrough.val + " with id " + assetId);
 		passthrough.data.queue = _.reject(passthrough.data.queue, function(obj) {
 			return obj.id == assetId;
 		});
-		if (!passthrough.data.queue.length) {
+		model.update = passthrough.data.queue.length != 0;
+		coll.commit();
+		if (!model.update) {
 			Res.didComplete(passthrough);
 		}
 	},
 
 	didFail : function(error, passthrough) {
 		logger.error("unable to download ", passthrough, " with error : ", error);
+		//to keep system working, leave the errors it can be downloaded on next appload
+		didComplete(passthrough.assetDetail || passthrough);
 	},
 
 	didComplete : function(passthrough) {
