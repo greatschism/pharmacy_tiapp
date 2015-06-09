@@ -12,6 +12,9 @@ function didOpen(e) {
 }
 
 function deviceReady(deviceToken) {
+	/**
+	 * device_id - passing this parameter on android fails, database issue
+	 */
 	http.request({
 		method : "appload_get",
 		params : {
@@ -20,7 +23,7 @@ function deviceReady(deviceToken) {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
 					phone_platform : app.device.platform,
-					device_id : deviceToken,
+					//device_id : deviceToken,
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,
 					client_name : Alloy.CFG.client_name

@@ -18,8 +18,7 @@
 	window: {
 		barColor: Alloy.TSS.Window.barColor,
 		statusBarColor: Alloy.TSS.Window.statusBarColor,
-		titleAttributes: Alloy.TSS.Window.titleAttributes,
-		backgroundColor: Alloy.TSS.menu_view.backgroundColor
+		titleAttributes: Alloy.TSS.Window.titleAttributes
 	},
 	hamburgerIcon: true,
 	arrowAnimation: true,

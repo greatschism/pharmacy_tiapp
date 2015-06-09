@@ -72,11 +72,15 @@ var Configuration = {
 		 */
 		var lastUpdate = require("alloy/moment")().unix();
 		_.each(fonts, function(font) {
+			//ignore if font doesn't have a valid file property
+			if (!font.file) {
+				return false;
+			}
 			var fontExists = _.findWhere(Alloy.RegFonts, {
 				id : font.id
 			});
 			if (_.isUndefined(fontExists)) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
@@ -84,22 +88,22 @@ var Configuration = {
 				if (fontExists.file != font.file) {
 					if (OS_IOS) {
 						//ios will not allow to update a font, has to be unregistered and registered back
-						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.id);
+						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.postscript);
 					}
 					//on android, registered font can be just replaced with new value
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
 				}
 				_.extend(fontExists, {
 					lastUpdate : lastUpdate
 				});
 			}
-			Alloy.Fonts[font.code] = font.name;
+			Alloy.Fonts[font.code] = font.postscript;
 		});
 		//remove unwanted fonts from memory
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.name);
+				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
 			}
 			return flag;
 		});
@@ -107,6 +111,10 @@ var Configuration = {
 		//images
 		Alloy.Images = {};
 		_.each(images, function(image) {
+			//ignore if image doesn't have a valid file property
+			if (!image.file) {
+				return false;
+			}
 			var code = image.code,
 			    orientations = image.orientation;
 			if (!_.has(Alloy.Images, code)) {

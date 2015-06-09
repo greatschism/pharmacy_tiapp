@@ -1,7 +1,9 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
+    app = require("core"),
     logger = require("logger"),
     scule = require("com.scule"),
+    http = require("requestwrapper"),
     utilities = require("utilities");
 
 var Res = {
@@ -370,17 +372,18 @@ var Res = {
 					id : font.id
 				}) || {};
 				if (!_.isEmpty(fontDoc)) {
-					_.extend(font, _.pick(fontDoc, ["file", "update"]));
+					_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
 				}
 				if (useLocalResources) {
 					var file = font.name + "_" + font.version + "." + font.format;
 					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + font.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
 					_.extend(font, {
+						postscript : font.name,
 						file : file
 					});
 				}
 				_.extend(font, {
-					update : !_.has(font, "file")
+					update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
 				});
 				return true;
 			});
@@ -465,7 +468,7 @@ var Res = {
 					});
 				}
 				_.extend(image, {
-					update : !_.has(image, "file")
+					update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
 				});
 			});
 			if (_.isEmpty(model)) {
@@ -522,11 +525,20 @@ var Res = {
 				"revert" : true
 			}],
 			"update" : true
+		},
+		    items = {
+			"theme" : "themes",
+			"template" : "templates",
+			"menu" : "menus",
+			"language" : "languages",
+			"fonts" : "fonts",
+			"images" : "images"
 		};
-		_.each(["themes", "templates", "menus", "languages", "fonts", "images"], function(val) {
+		_.each(items, function(val, key) {
 			_.each(Res.get(val, where), function(updateObj) {
 				Res.updateQueue.push({
 					key : key,
+					val : val,
 					data : _.omit(updateObj, ["_id", "data"])
 				});
 			});
@@ -536,39 +548,46 @@ var Res = {
 
 	update : function(callback) {
 		if (!Res.successCallback) {
-			var http = require("http"),
-			    updateQueue = Res.updateQueue;
+			updateQueue = Res.updateQueue;
 			if (updateQueue.length) {
 				Res.successCallback = callback;
-				for (var i in updateQueue) {
-					var queue = updateQueue[i];
+				_.each(updateQueue, function(queue) {
 					http.request({
-						url : queue.data.url,
-						type : "GET",
-						format : queue.key == "fonts" || queue.key == "images" ? "data" : "json",
+						method : "appload_clientjson",
+						params : {
+							data : [{
+								appload : {
+									client_param_type : queue.key,
+									client_param_version : queue.data.version,
+									client_param_base_version : "1",
+									app_version : Ti.App.version,
+									client_name : Alloy.CFG.client_name
+								}
+							}]
+						},
 						passthrough : queue,
+						errorDialogEnabled : false,
 						success : Res.didUpdate,
 						failure : Res.didUpdate
 					});
-					logger.debug("downloading " + queue.key + " - " + queue.data.id + " from " + queue.data.url);
-				}
+					logger.debug("downloading " + queue.value + " - " + queue.data.version);
+				});
 			} else if (callback) {
 				callback();
 			}
 		}
 	},
 
-	didUpdate : function(data, _passthrough) {
-		if (data) {
-			var key = _passthrough.key,
-			    coll = Res.getCollection(key),
+	didUpdate : function(result, passthrough) {
+		if (result) {
+			var coll = Res.getCollection(passthrough.val),
 			    model = coll.find({
-			id : _passthrough.data.id
+			id : passthrough.data.id
 			})[0] || {};
-			switch(key) {
+			switch(passthrough.val) {
 			case "themes":
 				_.extend(model, {
-					styles : data,
+					data : result.data.appload.theme.data,
 					update : false
 				});
 				if (model.revert) {
@@ -589,7 +608,7 @@ var Res = {
 				break;
 			case "templates":
 				_.extend(model, {
-					data : data,
+					data : result.data.appload.template.data,
 					update : false
 				});
 				if (model.revert) {
@@ -610,7 +629,7 @@ var Res = {
 				break;
 			case "menus":
 				_.extend(model, {
-					items : data,
+					data : result.data.appload.menu.data,
 					update : false
 				});
 				if (model.revert) {
@@ -631,7 +650,9 @@ var Res = {
 				break;
 			case "languages":
 				_.extend(model, {
-					strings : data,
+					code : result.data.appload.language.code,
+					titleid : result.data.appload.language.titleid,
+					data : result.data.appload.language.data,
 					update : false
 				});
 				if (model.revert) {
@@ -651,61 +672,65 @@ var Res = {
 				}
 				break;
 			case "fonts":
-				coll.remove({
-					id : {
-						$ne : model.id
-					},
-					code : model.code
-				});
-				var file = model.name + "_" + model.version + "." + model.format;
-				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), data, false);
-				_.extend(model, {
-					file : file,
-					update : false
+				model.data = _.filter(result.data.appload.fonts.data, function(font) {
+					if (_.has(font, "platform") && _.indexOf(font.platform, app.device.platform) == -1) {
+						return false;
+					}
+					delete font.platform;
+					var fontDoc = _.findWhere(model.data, {
+						id : font.id
+					}) || {};
+					if (!_.isEmpty(fontDoc)) {
+						_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
+					}
+					_.extend(font, {
+						update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
+					});
+					return true;
 				});
 				break;
 			case "images":
-				var unusedImgIds = [],
-				    supportedOrientations = _.keys(model.orientation),
-				    imagesWithSameCode = coll.find({
-					id : {
-						$ne : model.id
-					},
-					code : model.code
-				});
-				imagesWithSameCode.forEach(function(imgDoc) {
-					for (var i in supportedOrientations) {
-						if (_.has(imgDoc.orientation, supportedOrientations[i])) {
-							unusedImgIds.push(imgDoc.id);
-							break;
-						}
+				model.data = _.filter(result.data.appload.images.data, function(image) {
+					var imgDoc = _.findWhere(model.data, {
+						id : image.id
+					}) || {};
+					if (!_.isEmpty(imgDoc)) {
+						_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
 					}
-				});
-				coll.remove({
-					id : {
-						$in : unusedImgIds
-					}
-				});
-				var file = model.name + "_" + model.version + "." + model.format;
-				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), data, false);
-				_.extend(model, {
-					file : file,
-					update : false,
-					properties : {}
+					_.extend(image, {
+						update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
+					});
+					return true;
 				});
 				break;
 			}
 			coll.commit();
-			logger.debug("downloaded " + key + " - " + _passthrough.data.id + " from " + _passthrough.data.url);
-			Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
-				return _.isEqual(obj, _passthrough);
-			});
-			if (Res.updateQueue.length == 0 && Res.successCallback) {
-				Res.successCallback();
-				Res.successCallback = null;
+			logger.debug("downloaded " + passthrough.val + " - " + passthrough.data.version);
+			if (passthrough.val == "fonts" || passthrough.val == "images") {
+				Res["download" + utilities.ucfirst(passthrough.val)](passthrough);
+			} else {
+				Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
+					return _.isEqual(obj, passthrough);
+				});
+				Res.didComplete();
 			}
 		} else {
-			logger.error("unable to download " + key + " from " + _passthrough.data.url);
+			logger.error("unable to download " + passthrough.val + " - " + passthrough.data.version);
+		}
+	},
+
+	downloadFonts : function(passthrough) {
+
+	},
+
+	downloadImages : function(passthrough) {
+
+	},
+
+	didComplete : function() {
+		if (Res.updateQueue.length == 0 && Res.successCallback) {
+			Res.successCallback();
+			Res.successCallback = null;
 		}
 	},
 

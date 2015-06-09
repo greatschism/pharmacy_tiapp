@@ -30,11 +30,15 @@ exports.init = function(logger, config, cli, appc) {
 
 		try {
 
-			if (isProd) {
+			//get tiapp.xml
+			var tiappPath = projectDir + "/tiapp.xml",
+			    tiapp = require("tiapp.xml").load(tiappPath);
 
-				//update tiapp.xml
-				var tiappPath = projectDir + "/tiapp.xml",
-				    tiapp = require("tiapp.xml").load(tiappPath);
+			//get config
+			var configPath = projectDir + "/app/config.json",
+			    configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
+
+			if (isProd) {
 
 				//ios properties
 				if (cli.argv["platform"] === "ios") {
@@ -110,17 +114,39 @@ exports.init = function(logger, config, cli, appc) {
 					}
 				}
 
-				tiapp.write();
-
-				//update config
-				var configPath = projectDir + "/app/config.json",
-				    configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
+				//update build date
 				configData.global.buildDate = new Date().toString();
-				fs.writeFileSync(configPath, JSON.stringify(configData, null, 4));
-
 			}
 
-			return done();
+			//add / remove modules
+			if (cli.argv["platform"] === "android") {
+				if (configData["os:android"].hasOwnProperty("drawer_layout") && configData["os:android"]["drawer_layout"] === true) {
+					tiapp.removeModule("dk.napp.drawer", "android");
+					tiapp.setModule("com.tripvi.drawerlayout", {
+						platform : "android"
+					});
+				} else {
+					tiapp.removeModule("com.tripvi.drawerlayout", "android");
+					tiapp.setModule("dk.napp.drawer", {
+						platform : "android"
+					});
+				}
+			}
+
+			//write config
+			fs.writeFileSync(configPath, JSON.stringify(configData, null, 4));
+
+			//write tiapp
+			tiapp.write();
+
+			//clean build on prod
+			if (isProd) {
+				return appc.subprocess.run("ti", ["clean", "--project-dir", projectDir], function() {
+					return done();
+				});
+			} else {
+				return done();
+			}
 
 		} catch(e) {
 
