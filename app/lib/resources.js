@@ -568,7 +568,7 @@ var Res = {
 						passthrough : queue,
 						errorDialogEnabled : false,
 						success : Res.didUpdate,
-						failure : Res.didUpdate
+						failure : Res.didFail
 					});
 					logger.debug("downloading " + queue.value + " - " + queue.data.version);
 				});
@@ -579,155 +579,231 @@ var Res = {
 	},
 
 	didUpdate : function(result, passthrough) {
-		if (result) {
-			var coll = Res.getCollection(passthrough.val),
-			    model = coll.find({
-			id : passthrough.data.id
-			})[0] || {};
-			switch(passthrough.val) {
-			case "themes":
+		var coll = Res.getCollection(passthrough.val),
+		    model = coll.find({
+		id : passthrough.data.id
+		})[0] || {};
+		switch(passthrough.val) {
+		case "themes":
+			_.extend(model, {
+				data : result.data.appload.theme.data,
+				update : false
+			});
+			if (model.revert) {
 				_.extend(model, {
-					data : result.data.appload.theme.data,
-					update : false
+					selected : true,
+					revert : false
 				});
-				if (model.revert) {
-					_.extend(model, {
-						selected : true,
-						revert : false
-					});
-					coll.update({
-						id : {
-							$ne : model.id
-						}
-					}, {
-						$set : {
-							selected : false
-						}
-					}, {}, true);
-				}
-				break;
-			case "templates":
-				_.extend(model, {
-					data : result.data.appload.template.data,
-					update : false
-				});
-				if (model.revert) {
-					_.extend(model, {
-						selected : true,
-						revert : false
-					});
-					coll.update({
-						id : {
-							$ne : model.id
-						}
-					}, {
-						$set : {
-							selected : false
-						}
-					}, {}, true);
-				}
-				break;
-			case "menus":
-				_.extend(model, {
-					data : result.data.appload.menu.data,
-					update : false
-				});
-				if (model.revert) {
-					_.extend(model, {
-						selected : true,
-						revert : false
-					});
-					coll.update({
-						id : {
-							$ne : model.id
-						}
-					}, {
-						$set : {
-							selected : false
-						}
-					}, {}, true);
-				}
-				break;
-			case "languages":
-				_.extend(model, {
-					code : result.data.appload.language.code,
-					titleid : result.data.appload.language.titleid,
-					data : result.data.appload.language.data,
-					update : false
-				});
-				if (model.revert) {
-					_.extend(model, {
-						selected : true,
-						revert : false
-					});
-					coll.update({
-						id : {
-							$ne : model.id
-						}
-					}, {
-						$set : {
-							selected : false
-						}
-					}, {}, true);
-				}
-				break;
-			case "fonts":
-				model.data = _.filter(result.data.appload.fonts.data, function(font) {
-					if (_.has(font, "platform") && _.indexOf(font.platform, app.device.platform) == -1) {
-						return false;
+				coll.update({
+					id : {
+						$ne : model.id
 					}
-					delete font.platform;
-					var fontDoc = _.findWhere(model.data, {
-						id : font.id
-					}) || {};
-					if (!_.isEmpty(fontDoc)) {
-						_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
+				}, {
+					$set : {
+						selected : false
 					}
-					_.extend(font, {
-						update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
-					});
-					return true;
-				});
-				break;
-			case "images":
-				model.data = _.filter(result.data.appload.images.data, function(image) {
-					var imgDoc = _.findWhere(model.data, {
-						id : image.id
-					}) || {};
-					if (!_.isEmpty(imgDoc)) {
-						_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
-					}
-					_.extend(image, {
-						update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
-					});
-					return true;
-				});
-				break;
+				}, {}, true);
 			}
-			coll.commit();
-			logger.debug("downloaded " + passthrough.val + " - " + passthrough.data.version);
-			if (passthrough.val == "fonts" || passthrough.val == "images") {
-				Res["download" + utilities.ucfirst(passthrough.val)](passthrough);
-			} else {
-				Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
-					return _.isEqual(obj, passthrough);
+			break;
+		case "templates":
+			_.extend(model, {
+				data : result.data.appload.template.data,
+				update : false
+			});
+			if (model.revert) {
+				_.extend(model, {
+					selected : true,
+					revert : false
 				});
-				Res.didComplete();
+				coll.update({
+					id : {
+						$ne : model.id
+					}
+				}, {
+					$set : {
+						selected : false
+					}
+				}, {}, true);
 			}
+			break;
+		case "menus":
+			_.extend(model, {
+				data : result.data.appload.menu.data,
+				update : false
+			});
+			if (model.revert) {
+				_.extend(model, {
+					selected : true,
+					revert : false
+				});
+				coll.update({
+					id : {
+						$ne : model.id
+					}
+				}, {
+					$set : {
+						selected : false
+					}
+				}, {}, true);
+			}
+			break;
+		case "languages":
+			_.extend(model, {
+				code : result.data.appload.language.code,
+				titleid : result.data.appload.language.titleid,
+				data : result.data.appload.language.data,
+				update : false
+			});
+			if (model.revert) {
+				_.extend(model, {
+					selected : true,
+					revert : false
+				});
+				coll.update({
+					id : {
+						$ne : model.id
+					}
+				}, {
+					$set : {
+						selected : false
+					}
+				}, {}, true);
+			}
+			break;
+		case "fonts":
+			model.data = _.filter(result.data.appload.fonts.data, function(font) {
+				if (_.has(font, "platform") && _.indexOf(font.platform, app.device.platform) == -1) {
+					return false;
+				}
+				delete font.platform;
+				var fontDoc = _.findWhere(model.data, {
+					id : font.id
+				}) || {};
+				if (!_.isEmpty(fontDoc)) {
+					_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
+				}
+				_.extend(font, {
+					update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
+				});
+				return true;
+			});
+			break;
+		case "images":
+			model.data = _.filter(result.data.appload.images.data, function(image) {
+				var imgDoc = _.findWhere(model.data, {
+					id : image.id
+				}) || {};
+				if (!_.isEmpty(imgDoc)) {
+					_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
+				}
+				_.extend(image, {
+					update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
+				});
+				return true;
+			});
+			break;
+		}
+		coll.commit();
+		logger.debug("downloaded " + passthrough.val + " - " + passthrough.data.version);
+		if (passthrough.val == "fonts" || passthrough.val == "images") {
+			passthrough.data.queue = model.data;
+			Res.downloadAssets(passthrough);
 		} else {
-			logger.error("unable to download " + passthrough.val + " - " + passthrough.data.version);
+			Res.didComplete(passthrough);
 		}
 	},
 
-	downloadFonts : function(passthrough) {
-
+	downloadAssets : function(passthrough) {
+		var httpClient = require("http");
+		_.each(passthrough.data.queue, function(asset) {
+			httpClient.request({
+				url : asset.url,
+				type : "data",
+				passthrough : {
+					assetId : asset.id,
+					assetDetail : passthrough
+				},
+				success : Res.didDownloadAsset,
+				failure : Res.didFail
+			});
+		});
 	},
 
-	downloadImages : function(passthrough) {
-
+	didDownloadAsset : function(result, passthrough) {
+		var assetId = assetId;
+		passthrough = passthrough.assetDetail;
+		var coll = Res.getCollection(passthrough.val),
+		    model = coll.find({
+		id : passthrough.data.id
+		})[0] || {},
+		    asset = _.findWhere(model.data, {
+			id : assetId
+		}) || {},
+		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData);
+		if (!dataDir.exists()) {
+			dataDir.createDirectory();
+		}
+		var file = asset.name + "_" + asset.version + "." + asset.format;
+		switch(passthrough.val) {
+		case "fonts":
+			var fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts);
+			if (!fontsDir.exists()) {
+				fontsDir.createDirectory();
+			}
+			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), data, false);
+			_.extend(asset, {
+				postscript : asset.name,
+				file : file,
+				update : false
+			});
+			break;
+		case "images":
+			var imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages);
+			if (!imagesDir.exists()) {
+				imagesDir.createDirectory();
+			}
+			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), data, false);
+			_.extend(asset, {
+				file : file,
+				update : false,
+				properties : {}
+			});
+			var unusedImgIds = [],
+			    supportedOrientations = _.keys(asset.orientation),
+			    imagesWithSameCode = _.filer(model.data, function(image) {
+				return image.id != asset.id && image.code == asset.code;
+			});
+			_.each(imagesWithSameCode, function(imgDoc) {
+				for (var i in supportedOrientations) {
+					if (_.has(imgDoc.orientation, supportedOrientations[i])) {
+						unusedImgIds.push(imgDoc.id);
+						break;
+					}
+				}
+			});
+			model.data = _.filter(model.data, function(image) {
+				return _.indexOf(unusedImgIds, image.id) == -1;
+			});
+			break;
+		}
+		coll.commit();
+		logger.debug("downloaded asset from " + passthrough.val + " with id " + assetId);
+		passthrough.data.queue = _.reject(passthrough.data.queue, function(obj) {
+			return obj.id == assetId;
+		});
+		if (!passthrough.data.queue.length) {
+			Res.didComplete(passthrough);
+		}
 	},
 
-	didComplete : function() {
+	didFail : function(error, passthrough) {
+		logger.error("unable to download " + passthrough.val + " - " + passthrough.data.version + " with error : ", error);
+	},
+
+	didComplete : function(passthrough) {
+		Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
+			return _.isEqual(obj, passthrough);
+		});
 		if (Res.updateQueue.length == 0 && Res.successCallback) {
 			Res.successCallback();
 			Res.successCallback = null;
@@ -749,18 +825,18 @@ var Res = {
 
 	updateImageProperties : function(item) {
 		var coll = Res.getCollection("images"),
-		    imageDoc = _.findWhere((coll.find({
+		    imgDoc = _.findWhere((coll.find({
 		selected : true
 		})[0] || {}).data, {
 			code : item.code,
 			file : item.file
 		}) || {};
-		if (!_.has(imageDoc, "properties")) {
-			imageDoc.properties = {};
+		if (!_.has(imgDoc, "properties")) {
+			imgDoc.properties = {};
 		}
-		imageDoc.properties[item.orientation] = item.properties || {};
+		imgDoc.properties[item.orientation] = item.properties || {};
 		coll.commit();
-		return imageDoc.properties[item.orientation];
+		return imgDoc.properties[item.orientation];
 	}
 };
 
