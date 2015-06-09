@@ -570,7 +570,7 @@ var Res = {
 						success : Res.didUpdate,
 						failure : Res.didFail
 					});
-					logger.debug("downloading " + queue.value + " - " + queue.data.version);
+					logger.debug("downloading " + queue.val + " - " + queue.data.version);
 				});
 			} else if (callback) {
 				callback();

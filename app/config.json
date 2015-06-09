@@ -152,7 +152,7 @@
         "apm_enabled": false,
         "analytics_enabled": false,
         "clear_cached_resources": false,
-        "override_remote_resources": true,
+        "override_remote_resources": false,
         "simulate_api_on_failure": false
     },
     "env:test": {

@@ -1,15 +1,15 @@
 module.exports = {
 	"themes" : [{
-		"id" : 1,
+		"id" : 7,
 		"version" : 1,
 		"code" : "mscripts",
 		"selected" : true
 	}],
 	"templates" : [{
-		"id" : 1,
+		"id" : 6,
 		"version" : 1,
 		"code" : "list",
-		"selected" : false
+		"selected" : true
 	}, {
 		"id" : 2,
 		"version" : 1,
@@ -19,34 +19,34 @@ module.exports = {
 		"id" : 3,
 		"version" : 1,
 		"code" : "spread",
-		"selected" : true
+		"selected" : false
 	}],
 	"menus" : [{
-		"id" : 1,
+		"id" : 5,
 		"version" : 1,
 		"code" : "hamburger",
 		"selected" : true
 	}],
 	"languages" : [{
-		"id" : 1,
+		"id" : 8,
 		"version" : 1,
 		"code" : "en",
 		"titleid" : "lngEnglish",
 		"selected" : true
 	}, {
-		"id" : 2,
+		"id" : 9,
 		"version" : 1,
 		"code" : "es",
 		"titleid" : "lngSpanish",
 		"selected" : false
 	}, {
-		"id" : 3,
+		"id" : 10,
 		"version" : 1,
 		"code" : "ja",
 		"titleid" : "lngJapanese",
 		"selected" : false
 	}, {
-		"id" : 4,
+		"id" : 11,
 		"version" : 1,
 		"code" : "zh",
 		"titleid" : "lngChinese",
@@ -131,7 +131,7 @@ module.exports = {
 		}]
 	}],
 	"images" : [{
-		"id" : 1,
+		"id" : 4,
 		"version" : 1,
 		"selected" : true,
 		"data" : [{

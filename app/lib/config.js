@@ -18,7 +18,7 @@ var Configuration = {
 			"theme" : "themes",
 			"template" : "templates",
 			"menu" : "menus",
-			"language" : "languages",
+			//"language" : "languages",
 			"fonts" : "fonts",
 			"images" : "images"
 		};
