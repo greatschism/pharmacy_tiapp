@@ -363,30 +363,32 @@ var Res = {
 			var model = coll.find({
 			id: item.id
 			})[0] || {};
-			item.data = _.filter(item.data, function(font) {
-				if (_.has(font, "platform") && _.indexOf(font.platform, platform) == -1) {
-					return false;
-				}
-				delete font.platform;
-				var fontDoc = _.findWhere(model.data, {
-					id : font.id
-				}) || {};
-				if (!_.isEmpty(fontDoc)) {
-					_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
-				}
-				if (useLocalResources) {
-					var file = font.name + "_" + font.version + "." + font.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + font.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
+			if (_.has(item, "data")) {
+				item.data = _.filter(item.data, function(font) {
+					if (_.has(font, "platform") && _.indexOf(font.platform, platform) == -1) {
+						return false;
+					}
+					delete font.platform;
+					var fontDoc = _.findWhere(model.data, {
+						id : font.id
+					}) || {};
+					if (!_.isEmpty(fontDoc)) {
+						_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
+					}
+					if (useLocalResources) {
+						var file = font.name + "_" + font.version + "." + font.format;
+						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + font.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
+						_.extend(font, {
+							postscript : font.name,
+							file : file
+						});
+					}
 					_.extend(font, {
-						postscript : font.name,
-						file : file
+						update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
 					});
-				}
-				_.extend(font, {
-					update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
+					return true;
 				});
-				return true;
-			});
+			}
 			if (_.isEmpty(model)) {
 				_.extend(item, {
 					update : !_.has(item, "data"),
@@ -706,7 +708,9 @@ var Res = {
 		coll.commit();
 		logger.debug("downloaded " + passthrough.val + " - " + passthrough.data.version);
 		if (passthrough.val == "fonts" || passthrough.val == "images") {
-			passthrough.data.queue = model.data;
+			passthrough.data.queue = _.filter(model.data, function(asset) {
+				return asset.update;
+			});
 			Res.downloadAssets(passthrough);
 		} else {
 			Res.didComplete(passthrough);
@@ -718,7 +722,7 @@ var Res = {
 		_.each(passthrough.data.queue, function(asset) {
 			httpClient.request({
 				url : asset.url,
-				type : "data",
+				format : "data",
 				passthrough : {
 					assetId : asset.id,
 					assetDetail : passthrough
@@ -730,7 +734,7 @@ var Res = {
 	},
 
 	didDownloadAsset : function(result, passthrough) {
-		var assetId = assetId;
+		var assetId = passthrough.assetId;
 		passthrough = passthrough.assetDetail;
 		var coll = Res.getCollection(passthrough.val),
 		    model = coll.find({
@@ -750,7 +754,7 @@ var Res = {
 			if (!fontsDir.exists()) {
 				fontsDir.createDirectory();
 			}
-			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), data, false);
+			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), result, false);
 			_.extend(asset, {
 				postscript : asset.name,
 				file : file,
@@ -762,7 +766,7 @@ var Res = {
 			if (!imagesDir.exists()) {
 				imagesDir.createDirectory();
 			}
-			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), data, false);
+			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), result, false);
 			_.extend(asset, {
 				file : file,
 				update : false,
@@ -770,7 +774,7 @@ var Res = {
 			});
 			var unusedImgIds = [],
 			    supportedOrientations = _.keys(asset.orientation),
-			    imagesWithSameCode = _.filer(model.data, function(image) {
+			    imagesWithSameCode = _.filter(model.data, function(image) {
 				return image.id != asset.id && image.code == asset.code;
 			});
 			_.each(imagesWithSameCode, function(imgDoc) {
@@ -797,7 +801,7 @@ var Res = {
 	},
 
 	didFail : function(error, passthrough) {
-		logger.error("unable to download " + passthrough.val + " - " + passthrough.data.version + " with error : ", error);
+		logger.error("unable to download ", passthrough, " with error : ", error);
 	},
 
 	didComplete : function(passthrough) {

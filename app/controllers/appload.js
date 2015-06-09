@@ -28,9 +28,26 @@ function deviceReady(deviceToken) {
 			}]
 		},
 		success : didSuccess,
-		showLoaderCallback : $.loading.show,
-		hideLoaderCallback : $.loading.hide
+		showLoaderCallback : showLoader,
+		hideLoaderCallback : hideLoader
 	});
+}
+
+function showLoader() {
+	if (!$.loader) {
+		$.loader = Alloy.createWidget("ti.loading", "widget", {
+			message : Alloy.Globals.strings.msgPleaseWait,
+			visible : false
+		});
+	}
+	$.loader.show();
+}
+
+function hideLoader() {
+	if ($.loader) {
+		$.loader.hide();
+		$.loader = false;
+	}
 }
 
 function didSuccess(result) {
@@ -50,7 +67,6 @@ function didSuccess(result) {
 		if (Alloy.CFG.force_update) {
 			startUpdate();
 		} else {
-			$.loading.hide();
 			confirmUpdate();
 		}
 	} else {
@@ -74,7 +90,7 @@ function startUpdate() {
 		triggerAsyncUpdate = true;
 		loadConfig();
 	} else {
-		$.loading.show();
+		showLoader();
 		syncUpdate();
 	}
 }
@@ -88,6 +104,7 @@ function loadConfig() {
 }
 
 function didLoadConfig() {
+	hideLoader();
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) ? {
 			ctrl : "carousel",
