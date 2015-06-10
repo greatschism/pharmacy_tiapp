@@ -1,0 +1,6 @@
+"#progressIndicator":{
+	cancelable: false,
+	canceledOnTouchOutside: false,
+	location: Ti.UI.Android.PROGRESS_INDICATOR_DIALOG,
+	type: Ti.UI.Android.PROGRESS_INDICATOR_INDETERMINANT
+}

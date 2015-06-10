@@ -46,7 +46,7 @@ function showLoader() {
 function hideLoader() {
 	if ($.loader) {
 		$.loader.hide();
-		$.loader = false;
+		$.loader = null;
 	}
 }
 

@@ -87,13 +87,12 @@ function didFail(error, passthrough) {
 	if (!ENV_PROD && Alloy.CFG.simulate_api_on_failure) {
 		didSuccess({
 			code : Alloy.CFG.apiCodes.success_code,
-			status : Alloy.CFG.apiCodes.success_status,
 			data : {}
 		}, passthrough);
 	} else {
 		var forceRetry = passthrough.forceRetry !== false,
 		    retry = forceRetry || passthrough.retry !== false;
-		if (forceRetry || retry || passthrough.prompt !== false) {
+		if (forceRetry || retry || passthrough.errorDialogEnabled !== false) {
 			if (_.isEmpty(app.navigator) === false) {
 				app.navigator.hideLoader();
 			}

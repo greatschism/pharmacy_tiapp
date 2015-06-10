@@ -45,7 +45,6 @@
         },
         "apiCodes": {
             "success_code": "200",
-            "success_status": "SUCCESS",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "prescription_getting_refilled": "INPROCESS",

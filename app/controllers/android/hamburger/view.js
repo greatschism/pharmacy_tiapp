@@ -18,7 +18,9 @@ var args = arguments[0] || {},
 
 	$.window.title = title;
 
-	$.actionBar.setTitle(title);
+	$.actionBar.setTitleAttributes(_.extend({
+		title : title
+	}, Alloy.TSS.Window.titleAttributes));
 
 	var hasRightNavButton = false;
 

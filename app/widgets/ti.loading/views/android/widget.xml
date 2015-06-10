@@ -1,0 +1,3 @@
+<Alloy>
+	<ProgressIndicator id="progressIndicator" ns="Ti.UI.Android" />
+</Alloy>

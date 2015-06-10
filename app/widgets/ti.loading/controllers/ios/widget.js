@@ -27,7 +27,6 @@ function didOpen(e) {
 }
 
 function setMessage(message) {
-	$.window.title = message;
 	$.messageLbl.text = message;
 }
 
@@ -45,10 +44,6 @@ function hide() {
 			animated : false
 		});
 	}
-}
-
-function didAndroidback() {
-	return false;
 }
 
 exports.show = show;
