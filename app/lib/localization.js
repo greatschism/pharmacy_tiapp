@@ -5,7 +5,8 @@
  * * get all languages
  * * get value of key pair
  */
-var Alloy = require("alloy"),
+var TAG = "localization",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 
 var Locale = {
@@ -19,58 +20,68 @@ var Locale = {
 	 * initialize localization
 	 */
 	init : function() {
-		Locale.applyLanguage(require("resources").get("languages",{
+		Locale.currentLanguage = require("resources").collection.find({
+		param_type : "language",
 		selected : true
-		})[0]);
+		})[0];
+		Alloy.Globals.strings = Locale.currentLanguage.data;
+		require("logger").debug(TAG, "language selected", Locale.currentLanguage.code);
 	},
 
 	/**
 	 * change selected language
-	 * @param {Number|String} id|code of the language to enable
+	 * @param {String} code of the language to enable
+	 * @param {Number} version of the language to enable
 	 */
-	setLanguage : function(value) {
-		var resources = require("resources"),
-		    toSelect = resources.get("languages",{
-		$or : [{
-		id : value
-		}, {
-		code : value
-		}]
+	setLanguage : function(code, version) {
+		var collection = require("resources").collection,
+		    document = collection.find({
+		param_type : "language",
+		selected : false,
+		code : code,
+		param_version : version
 		})[0] || {};
-		if (!_.isEmpty(toSelect) && toSelect.selected === false) {
-			toSelect.selected = true;
-			resources.set("languages", [toSelect]);
-			Locale.applyLanguage(toSelect);
-			return true;
-		} else {
-			return false;
+		if (!_.isEmpty(document)) {
+			document.selected = true;
+			collection.update({
+				param_type : "language",
+				selected : true,
+				$or : [{
+					code : {
+						$ne : code
+					}
+				}, {
+					param_version : {
+						$ne : version
+					}
+				}]
+			}, {
+				$set : {
+					selected : false,
+					revert : false
+				}
+			});
+			collection.commit();
+			Locale.init();
 		}
 	},
 
 	/**
 	 * get languages
-	 * return {Array} languages The supported languages
+	 * return {Array} languages available languages stored in the local db
 	 */
 	getLanguages : function() {
-		return require("resources").get("languages");
+		return require("resources").collection.find({
+			param_type : "language"
+		});
 	},
 
 	/**
 	 * get value of key
-	 * @param {String} _key The key to fetch
+	 * @param {String} key The key to fetch
 	 */
 	getString : function(key) {
 		return Locale.currentLanguage.data[key] || "";
-	},
-
-	/**
-	 * get languages
-	 * @param {Object} language The current language
-	 */
-	applyLanguage : function(language) {
-		Locale.currentLanguage = language;
-		Alloy.Globals.strings = language.data;
-		require("logger").info("language selected : " + Locale.currentLanguage.code);
 	}
 };
 

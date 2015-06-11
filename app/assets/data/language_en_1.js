@@ -1,9 +1,5 @@
 module.exports = {
 	"data" : {
-		"lngEnglish" : "English",
-		"lngJapanese" : "Japanese",
-		"lngSpanish" : "Spanish",
-		"lngChinese" : "Chinese",
 		"titleFamilyMembers" : "Manage family members",
 		"titleVisionCenter" : "Vision centers",
 		"titleCareClinics" : "Care clinics",
@@ -233,8 +229,7 @@ module.exports = {
 		"valCodeRequired" : "Please enter the OTP you have received",
 		"valFaxNumber" : "Please enter a valid fax number",
 		"valZipCode" : "Please enter a valid zip code",
-
-		"msgAgeRestriction" : "This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
+		"msgAgeRestriction" : "This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child's behalf by choosing I Agree.",
 		"msgUnableToFindYourGEO" : "Unable to find your location, please check your settings",
 		"msgPleaseWait" : "Processing. Please wait",
 		"msgFailedToRetrieve" : "Failed to retrieve",
@@ -267,7 +262,7 @@ module.exports = {
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",
 		"msgPickup" : "You have <b><font color=\"boldColor\">%d days</font></b> left to pick this up!",
-		"msgUserNameTips" : "Your username must be between 3 – 20 characters and contain only letters and numbers",
+		"msgUserNameTips" : "Your username must be between 3 - 20 characters and contain only letters and numbers",
 		"msgRxNoTips" : "The Rx number can be found on the label of your prescription bottle. You can use any prescription.",
 		"msgAccountCreated" : "Your account has been created",
 		"msgSignUpToReceiveText" : "Sign up now to receive a text message when your prescription is ready!",
@@ -289,7 +284,6 @@ module.exports = {
 		"msgDoctorDeleted" : "The doctor has been removed from your list",
 		"msgPrescriptionsUnhidden" : "Precriptions unhiddden sucessfully",
 		"msgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
-
 		"menuSearch" : "Search",
 		"menuSort" : "Sort",
 		"menuUnhidePrescriptions" : "Unhide prescriptions",
@@ -335,7 +329,6 @@ module.exports = {
 		"btnSendEmail" : "Send Email",
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
-
 		"strWelcomeNote" : "Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
 		"strHi" : "Hi %s,",
 		"strRefillNow" : "Refill now",

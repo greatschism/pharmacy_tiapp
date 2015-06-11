@@ -58,7 +58,7 @@ function didSuccess(result) {
 		silent : true
 	});
 	var clientConfig = appload.client_json || {};
-	_.each(["force_update", "force_reload_after_update", "async_update"], function(key) {
+	_.each(["force_update", "force_reload_after_update", "async_update", "clear_cached_resources"], function(key) {
 		if (_.has(clientConfig, key)) {
 			Alloy.CFG[key] = clientConfig[key];
 		}

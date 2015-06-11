@@ -1,4 +1,5 @@
-var Alloy = require("alloy"),
+var TAG = "uihelper",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),
     config = require("config"),
@@ -202,7 +203,7 @@ var Helper = {
 	 */
 	getImage : function(code, imgView) {
 		if (!Alloy.Images[code]) {
-			logger.error("invalid image code : " + code);
+			logger.error(TAG, "invalid image code", code);
 			return {};
 		}
 		var properties = Alloy.Images[code][app.device.orientation],
@@ -238,7 +239,7 @@ var Helper = {
 			});
 			config.updateImageProperties({
 				code : code,
-				file : utilities.getFileName(path),
+				data : utilities.getFileName(path),
 				orientation : app.device.orientation,
 				properties : newProperties
 			});

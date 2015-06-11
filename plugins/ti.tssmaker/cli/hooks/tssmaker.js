@@ -11,14 +11,15 @@ exports.init = function(logger, config, cli, appc) {
 	logger.info(TAG + " : initiated");
 
 	var projectDir = cli.argv["project-dir"],
-	    selectedTheme = "default";
+	    selectedThemeVersion = "default";
 
 	try {
-		var resources = require("./../../../../app/assets/data/resources.js"),
-		    themes = (resources || {}).themes || [];
-		for (var i in themes) {
-			if (themes[i].selected) {
-				selectedTheme = themes[i].code;
+		var resources = require("./../../../../app/assets/data/resources"),
+		    data = (resources || {}).data || [];
+		for (var i in data) {
+			if (data[i].param_type == "theme" && data[i].selected) {
+				selectedThemeVersion = themes[i].version;
+				break;
 			}
 		}
 	} catch(e) {
@@ -29,7 +30,7 @@ exports.init = function(logger, config, cli, appc) {
 	var CURRENT_TIME = new Date().getTime(),
 	    TEMP_NAME = "theme_" + CURRENT_TIME,
 	    appTSSPath = projectDir + "/app/styles/app.tss",
-	    themeJSPath = projectDir + "/app/assets/data/themes/" + selectedTheme + ".js",
+	    themeJSPath = projectDir + "/app/assets/data/theme_" + selectedThemeVersion + ".js",
 	    tempThemeJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/" + TEMP_NAME + ".js",
 	    defaultJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/defaults.js";
 

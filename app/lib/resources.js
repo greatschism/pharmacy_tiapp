@@ -1,4 +1,5 @@
-var Alloy = require("alloy"),
+var TAG = "Resources",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),
     logger = require("logger"),
@@ -9,542 +10,168 @@ var Alloy = require("alloy"),
 var Res = {
 
 	/**
-	 * storage engine & path to scule collection
+	 * scule collection
 	 */
-	pathThemes : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("themes"),
-	pathTemplates : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("templates"),
-	pathMenus : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("menus"),
-	pathLanguages : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("languages"),
-	pathFonts : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("fonts"),
-	pathImages : Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("images"),
+	collection : scule.factoryCollection("scule+" + Alloy.CFG.storage_engine + "://" + Ti.Utils.md5HexDigest("resources")),
 
 	/**
 	 * directories used for storing files
 	 */
-	directoryData : "data",
-	directoryThemes : "data/themes",
-	directoryTemplates : "data/templates",
-	directoryMenus : "data/menus",
-	directoryLanguages : "data/languages",
-	directoryFonts : "data/fonts",
-	directoryImages : "data/images",
+	dataDirectory : "data",
 
 	/**
 	 * items to be updated
 	 */
 	updateQueue : [],
 
-	successCallback : null,
+	/**
+	 * callback after update
+	 */
+	updateCallback : null,
 
 	init : function() {
 
 		if (utilities.getProperty(Alloy.CFG.resources_updated_on, "", "string", false) != Ti.App.version || !ENV_PROD) {
 
-			var initialData = require(Res.directoryData + "/" + "resources"),
-			    clearCache = Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD);
-
-			_.each(["themes", "templates", "menus", "languages", "fonts", "images"], function(val) {
-				Res.set(val, initialData[val], true, clearCache);
-			});
-
-			if (clearCache) {
-				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
-			}
-
 			utilities.setProperty(Alloy.CFG.resources_updated_on, Ti.App.version, "string", false);
 
+			var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory);
+			if (!dataDir.exists()) {
+				dataDir.createDirectory();
+			}
+
+			if (Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD)) {
+				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
+				Res.collection.clear();
+				Res.deleteUnusedResources();
+			}
+
+			Res.setData(require(Res.dataDirectory + "/" + "resources").data, true);
+
 		}
 	},
 
-	getCollection : function(key) {
-		var path;
-		switch(key) {
-		case "themes":
-			path = Res.pathThemes;
-			break;
-		case "templates":
-			path = Res.pathTemplates;
-			break;
-		case "menus":
-			path = Res.pathMenus;
-			break;
-		case "languages":
-			path = Res.pathLanguages;
-			break;
-		case "fonts":
-			path = Res.pathFonts;
-			break;
-		case "images":
-			path = Res.pathImages;
-			break;
-		}
-		return scule.factoryCollection(path);
-	},
+	setData : function(data, useLocalResources) {
 
-	get : function(key, where, conditions) {
-		return Res.getCollection(key).find(where || {}, conditions || {});
-	},
+		_.each(data, function(obj) {
 
-	set : function(key, data, useLocalResources, clearCache) {
-		Res["set" + utilities.ucfirst(key)](data, useLocalResources, clearCache);
-	},
+			if (_.has(obj, "platform") && _.indexOf(obj.platform, app.device.platform) == -1) {
+				return false;
+			}
+			delete obj.platform;
 
-	setThemes : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("themes"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false;
-		if (clearCache) {
-			coll.clear();
-		}
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			if (useLocalResources) {
-				_.extend(item, {
-					data : require(Res.directoryThemes + "/" + item.code).data
-				});
-			}
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
-				});
-				coll.save(item);
-				logger.debug("theme added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("theme updated : " + item.id);
-			}
-			if (item.selected) {
-				selectedId = item.id;
-			}
-			if (item.revert) {
-				revertId = item.id;
-			}
-		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
-				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
-			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
-	},
+			/**
+			 *  primary indexes
+			 *  	theme - param_version
+			 * 		menu - param_version
+			 *  	template - param_version
+			 *  	language - param_version & code
+			 *  	fonts - param_version & code
+			 *  	images - param_version & name (since same code will present for different orientation)
+			 */
+			var document = Res.collection.find(_.pick(obj, ["param_type", "param_version", "param_base_version", "code", "name"]))[0] || {};
 
-	setTemplates : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("templates"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false;
-		if (clearCache) {
-			coll.clear();
-		}
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			if (useLocalResources) {
-				_.extend(item, {
-					data : require(Res.directoryTemplates + "/" + item.code).data
-				});
-			}
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
-				});
-				coll.save(item);
-				logger.debug("template added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("template updated : " + item.id);
-			}
-			if (item.selected) {
-				selectedId = item.id;
-			}
-			if (item.revert) {
-				revertId = item.id;
-			}
-		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
-				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
-			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
-	},
-
-	setMenus : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("menus"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false;
-		if (clearCache) {
-			coll.clear();
-		}
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			if (useLocalResources) {
-				_.extend(item, {
-					data : require(Res.directoryMenus + "/" + item.code).data
-				});
-			}
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
-				});
-				coll.save(item);
-				logger.debug("menu added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("menus updated : " + item.id);
-			}
-			if (item.selected) {
-				selectedId = item.id;
-			}
-			if (item.revert) {
-				revertId = item.id;
-			}
-		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
-				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
-			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
-	},
-
-	setLanguages : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("languages"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false;
-		if (clearCache) {
-			coll.clear();
-		}
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			if (useLocalResources) {
-				_.extend(item, {
-					data : require(Res.directoryLanguages + "/" + item.code).data
-				});
-			}
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
-				});
-				coll.save(item);
-				logger.debug("language added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("language updated : " + item.id);
-			}
-			if (item.selected) {
-				selectedId = item.id;
-			}
-			if (item.revert) {
-				revertId = item.id;
-			}
-		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
-				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
-			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
-	},
-
-	setFonts : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("fonts"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false,
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
-		    fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts);
-		if (clearCache) {
-			coll.clear();
-		}
-		if (!dataDir.exists()) {
-			dataDir.createDirectory();
-		}
-		if (!fontsDir.exists()) {
-			fontsDir.createDirectory();
-		}
-		var platform = require("core").device.platform;
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			if (_.has(item, "data")) {
-				item.data = _.filter(item.data, function(font) {
-					if (_.has(font, "platform") && _.indexOf(font.platform, platform) == -1) {
-						return false;
+			if (obj.param_type != "fonts" && obj.param_type != "images" && useLocalResources) {
+				if (obj.param_type == "font" || obj.param_type == "image") {
+					var srcFile = obj.param_type + "_" + (obj.name || obj.code) + "_" + obj.param_version,
+					    desFile = srcFile + "." + obj.format;
+					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
+					obj.data = desFile;
+				} else {
+					var baseName = Res.dataDirectory + "/" + obj.param_type + "_";
+					if (obj.param_type == "language") {
+						baseName += obj.code + "_";
 					}
-					delete font.platform;
-					var fontDoc = _.findWhere(model.data, {
-						id : font.id
-					}) || {};
-					if (!_.isEmpty(fontDoc)) {
-						_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
-					}
-					if (useLocalResources) {
-						var file = font.name + "_" + font.version + "." + font.format;
-						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryFonts + "/" + font.name), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), false);
-						_.extend(font, {
-							postscript : font.name,
-							file : file
-						});
-					}
-					_.extend(font, {
-						update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
-					});
-					return true;
-				});
-			}
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
-				});
-				coll.save(item);
-				logger.debug("fonts coll added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("fonts coll updated : " + item.id);
-			}
-			if (item.selected) {
-				selectedId = item.id;
-			}
-			if (item.revert) {
-				revertId = item.id;
-			}
-		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
+					obj.data = require(baseName + obj.param_version).data;
 				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
 			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
-	},
 
-	setImages : function(items, useLocalResources, clearCache) {
-		var coll = Res.getCollection("images"),
-		    selectedId = (coll.find({
-		selected: true
-		})[0] || {}).id,
-		    revertId = false,
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData),
-		    imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages);
-		if (clearCache) {
-			coll.clear();
-		}
-		if (!dataDir.exists()) {
-			dataDir.createDirectory();
-		}
-		if (!imagesDir.exists()) {
-			imagesDir.createDirectory();
-		}
-		_.each(items, function(item) {
-			var model = coll.find({
-			id: item.id
-			})[0] || {};
-			_.each(item.data, function(image) {
-				var imgDoc = _.findWhere(model.data, {
-					id : image.id
-				}) || {};
-				if (!_.isEmpty(imgDoc)) {
-					_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
-				}
-				if (useLocalResources) {
-					var file = image.name + "_" + image.version + "." + image.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.directoryImages + "/" + image.name + "." + image.format), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), false);
-					_.extend(image, {
-						file : file
-					});
-				}
-				_.extend(image, {
-					update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
+			if (_.isEmpty(document)) {
+				_.extend(obj, {
+					update : !useLocalResources,
+					revert : obj.selected && !useLocalResources,
+					selected : !useLocalResources ? false : obj.selected
 				});
-			});
-			if (_.isEmpty(model)) {
-				_.extend(item, {
-					update : !_.has(item, "data"),
-					revert : item.selected && !_.has(item, "data"),
-					selected : !_.has(item, "data") ? false : item.selected
+				Res.collection.save(obj);
+				logger.debug(TAG, "added", obj);
+			} else if (obj.version != document.version || obj.selected != document.selected || useLocalResources) {
+				obj.update = obj.version != document.version && !useLocalResources;
+				obj.revert = !document.selected && obj.update;
+				obj.selected = obj.revert ? false : obj.selected;
+				_.extend(document, obj);
+				logger.debug(TAG, "updated", model);
+			}
+
+			if (document.selected) {
+				var queryObj = {
+					param_type : document.param_type,
+					selected : true,
+					$or : []
+				};
+				_.each(["code", "name", "param_version"], function(val) {
+					if (_.has(document, val)) {
+						var obj = {};
+						obj[val] = {
+							$ne : document[val]
+						};
+						queryObj["$or"].push(obj);
+					}
 				});
-				coll.save(item);
-				logger.debug("images coll added : " + item.id);
-			} else if (item.version != model.version || item.selected != model.selected || useLocalResources) {
-				item.update = item.version != model.version || (!_.has(item, "data") && !_.has(model, "data"));
-				item.revert = item.selected && item.update && selectedId != item.id;
-				item.selected = item.revert ? false : item.selected;
-				_.extend(model, item);
-				logger.debug("images coll updated : " + item.id);
+				Res.collection.update(queryObj, {
+					$set : {
+						selected : false
+					}
+				});
 			}
-			if (item.selected) {
-				selectedId = item.id;
+
+			if (document.revert) {
+				var queryObj = {
+					param_type : document.param_type,
+					revert : true,
+					$or : []
+				};
+				_.each(["code", "name", "param_version"], function(val) {
+					if (_.has(document, val)) {
+						var obj = {};
+						obj[val] = {
+							$ne : document[val]
+						};
+						queryObj["$or"].push(obj);
+					}
+				});
+				Res.collection.update(queryObj, {
+					$set : {
+						revert : false
+					}
+				});
 			}
-			if (item.revert) {
-				revertId = item.id;
-			}
+
 		});
-		if (selectedId) {
-			coll.update({
-				id : {
-					$ne : selectedId
-				}
-			}, {
-				$set : {
-					selected : false
-				}
-			}, {}, true);
-		}
-		coll.update({
-			id : {
-				$ne : revertId
-			}
-		}, {
-			$set : {
-				revert : false
-			}
-		}, {}, true);
-		coll.commit();
+
+		Res.collection.commit();
 	},
 
 	checkForUpdates : function() {
+
+		if (Res.updateCallback) {
+			return false;
+		}
+
+		//reset queue
+		Res.updateQueue = [];
+
 		//update all where update flag is true
-		var where = {
+		_.each(Res.collection.find({
 			$or : [{
-				"selected" : true
+				selected : true
 			}, {
-				"revert" : true
+				revert : true
 			}],
-			"update" : true
-		},
-		    items = {
-			"theme" : "themes",
-			"template" : "templates",
-			"menu" : "menus",
-			"language" : "languages",
-			"fonts" : "fonts",
-			"images" : "images"
-		};
-		_.each(items, function(val, key) {
-			_.each(Res.get(val, where), function(updateObj) {
-				Res.updateQueue.push({
-					key : key,
-					val : val,
-					data : _.omit(updateObj, ["_id", "data"])
-				});
-			});
+			update : true
+		}), function(obj, key) {
+			Res.updateQueue.push(_.omit(obj, ["_id", "data"]));
 		});
+
 		return Res.updateQueue;
 	},
 
@@ -819,31 +446,40 @@ var Res = {
 
 	deleteUnusedResources : function() {
 		//delete unused fonts
-		var unusedFonts = _.difference(utilities.getFiles(Res.directoryFonts, Ti.Filesystem.applicationDataDirectory), _.pluck((Res.get("fonts", {selected : true})[0] || {}).data, "file"));
-		for (var i in unusedFonts) {
-			utilities.deleteFile(Res.directoryFonts + "/" + unusedFonts[i]);
-		}
-		//delete unused images
-		var unusedImages = _.difference(utilities.getFiles(Res.directoryImages, Ti.Filesystem.applicationDataDirectory), _.pluck((Res.get("images", {selected : true})[0] || {}).data, "file"));
-		for (var i in unusedImages) {
-			utilities.deleteFile(Res.directoryImages + "/" + unusedImages[i]);
-		}
+		var unusedFonts = _.difference(utilities.getFiles(Res.dataDirectory, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.collection.find({
+			$or : [{
+				param_type : "font",
+			}, {
+				param_type : "image",
+			}],
+			selected : false,
+			update : false,
+			revert : false
+		}), "data"));
+		_.each(unusedFonts, function(data) {
+			utilities.deleteFile(Res.dataDirectory + "/" + data);
+		});
+		Res.collection.remove({
+			selected : false,
+			update : false,
+			revert : false
+		});
+		Res.collection.commit();
 	},
 
-	updateImageProperties : function(item) {
-		var coll = Res.getCollection("images"),
-		    imgDoc = _.findWhere((coll.find({
-		selected : true
-		})[0] || {}).data, {
-			code : item.code,
-			file : item.file
-		}) || {};
+	updateImageProperties : function(obj) {
+		var imgDoc = Res.collection.find({
+		param_type : "image",
+		selected : true,
+		code : obj.code,
+		data : obj.data
+		})[0] || {};
 		if (!_.has(imgDoc, "properties")) {
 			imgDoc.properties = {};
 		}
-		imgDoc.properties[item.orientation] = item.properties || {};
-		coll.commit();
-		return imgDoc.properties[item.orientation];
+		imgDoc.properties[obj.orientation] = obj.properties || {};
+		Res.collection.commit();
+		return imgDoc.properties[obj.orientation];
 	}
 };
 

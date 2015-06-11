@@ -3,7 +3,8 @@
  *
  * @class http
  */
-var logger = require("logger");
+var TAG = "http",
+    logger = require("logger");
 
 /**
  * Standard HTTP Request
@@ -21,7 +22,7 @@ var logger = require("logger");
  */
 exports.request = function(args) {
 
-	logger.debug("HTTP.request " + args.url);
+	logger.debug(TAG, "request", args.url);
 
 	if (Ti.Network.online) {
 
@@ -36,7 +37,7 @@ exports.request = function(args) {
 		 */
 		xhr.onload = function(response) {
 
-			logger.debug("HTTP.response " + (this.responseText || "No response or unable to parse the response"));
+			logger.debug(TAG, "response", (this.responseText || "No response or unable to parse the response"));
 
 			var data;
 
@@ -80,7 +81,7 @@ exports.request = function(args) {
 		 * @ignore
 		 */
 		xhr.onerror = function(event) {
-			logger.error("HTTP.error " + event.code + " - " + event.error);
+			logger.error(TAG, "error", event.code, event.error);
 			if (args.failure) {
 				args.failure(event, args.passthrough || {});
 				if (args.done) {
@@ -102,7 +103,7 @@ exports.request = function(args) {
 		// xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
 		if (args.params) {
-			logger.debug("HTTP.params " + args.params);
+			logger.debug(TAG, "params", args.params);
 			xhr.send(args.params);
 		} else {
 			xhr.send();
@@ -110,7 +111,7 @@ exports.request = function(args) {
 
 	} else {
 
-		logger.debug("No internet connection");
+		logger.debug(TAG, "No internet connection");
 
 		if (args.failure) {
 			args.failure({

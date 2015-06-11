@@ -9,6 +9,7 @@ var TiLog = {
 	info : 2,
 	debug : 3,
 	trace : 4,
+	separator : ":",
 	getConfig : function() {
 		return TiLog[Alloy.CFG.log_level];
 	},
@@ -50,6 +51,9 @@ var TiLog = {
 		var str = "";
 		try {
 			_.each(args, function(val, key) {
+				if (str) {
+					str += TiLog.separator;
+				}
 				if (_.isString(val)) {
 					str += val;
 				} else if (_.isArray(val)) {
@@ -73,7 +77,7 @@ var TiLog = {
 				}
 			});
 		} catch(error) {
-			str = "Logger: unable to parse with message " + (utilities.isError(error) ? error.message : "none");
+			str = TiLog.format("Logger", "unable to parse with error", error);
 		}
 		return str;
 	}

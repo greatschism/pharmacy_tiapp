@@ -1,6 +1,5 @@
 module.exports = {
 	"Theme" : {
-		"id" : "Alloy.TSS.Theme.id",
 		"version" : "Alloy.TSS.Theme.version"
 	},
 	"Window[formFactor=handheld]" : {

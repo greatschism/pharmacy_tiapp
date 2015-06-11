@@ -46,6 +46,6 @@
 		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
 	});
 
-	require("com.scule.encrypted").init();
+	require("com.scule.tiencrypted");
 
 })();

@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    logger = require("logger"),
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons;
 

@@ -15,7 +15,8 @@
  * @constructor
  */
 
-var Alloy = require("alloy"),
+var TAG = "navigation",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 
 function Navigation(args) {
@@ -268,9 +269,9 @@ function Navigation(args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		logger.info(JSON.stringify(stack));
+		logger.debug(TAG, JSON.stringify(stack));
 
-		logger.info("stack length: " + that.controllers.length);
+		logger.debug(TAG, "stack length", that.controllers.length);
 	};
 }
 

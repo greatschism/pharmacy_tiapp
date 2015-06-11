@@ -34,9 +34,9 @@ describe("Config Test Suite", function() {
 
 	it("Test Case 5: updateTSS", function() {
 		var indexTSS = require("alloy/styles/appload");
-		indexTSS[0].style.id = "ToSomethingElse";
+		indexTSS[0].style.version = 0.1;
 		config.updateTSS("appload");
-		indexTSS[0].style.id.should.be.equal(Alloy.TSS.Theme.id);
+		indexTSS[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 	});
 
 });

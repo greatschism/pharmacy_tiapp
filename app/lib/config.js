@@ -14,23 +14,15 @@ var Configuration = {
 			return [];
 		}
 
-		var items = {
-			"theme" : "themes",
-			"template" : "templates",
-			"menu" : "menus",
-			//"language" : "languages",
-			"fonts" : "fonts",
-			"images" : "images"
-		};
-		_.each(items, function(val, key) {
+		var items = [];
+		_.each(["theme", "template", "menu", "language", "fonts", "images"], function(val, key) {
 			if (_.has(config, key)) {
-				var obj = config[key];
-				_.extend(obj, {
+				items.push(_.extend(config[key], {
 					selected : true
-				});
-				resources.set(val, _.isArray(obj) ? obj : [obj]);
+				}));
 			}
 		});
+		resources.setData(items);
 
 		/***
 		 * no. of items to be updated
@@ -43,13 +35,30 @@ var Configuration = {
 		/**
 		 * load into memory
 		 */
-		var resources = require("resources"),
+		var queryObj = {
+			selected : true,
+			data : {
+				$exists : true
+			}
+		},
 		    utilities = require("utilities"),
-		    theme = resources.get("themes", {selected : true})[0],
-		    template = resources.get("templates", {selected : true})[0],
-		    menu = resources.get("menus", {selected : true})[0],
-		    fonts = resources.get("fonts", {selected : true})[0].data,
-		    images = resources.get("images", {selected : true})[0].data;
+		    resources = require("resources"),
+		    collection = resources.collection;
+
+		queryObj.param_type = "theme";
+		var theme = collection.find(queryObj)[0];
+
+		queryObj.param_type = "template";
+		template = collection.find(queryObj)[0];
+
+		queryObj.param_type = "menu";
+		var menu = collection.find(queryObj)[0];
+
+		queryObj.param_type = "font";
+		var fonts = collection.find(queryObj);
+
+		queryObj.param_type = "image";
+		var images = collection.find(queryObj);
 
 		//menu
 		Alloy.Collections.menuItems.reset(utilities.clone(menu.data));
@@ -72,30 +81,24 @@ var Configuration = {
 		 */
 		var lastUpdate = require("alloy/moment")().unix();
 		_.each(fonts, function(font) {
-			//ignore if font doesn't have a valid file property
-			if (!font.file) {
-				return false;
-			}
 			var fontExists = _.findWhere(Alloy.RegFonts, {
-				id : font.id
-			});
-			if (_.isUndefined(fontExists)) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
+				code : font.code
+			}) || {};
+			if (_.isEmpty(fontExists)) {
+				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
 			} else {
-				if (fontExists.file != font.file) {
+				if (fontExists.data != font.data) {
 					if (OS_IOS) {
 						//ios will not allow to update a font, has to be unregistered and registered back
-						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + fontExists.file), fontExists.postscript);
+						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + fontExists.data), fontExists.postscript);
 					}
 					//on android, registered font can be just replaced with new value
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
+					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				}
-				_.extend(fontExists, {
-					lastUpdate : lastUpdate
-				});
+				fontExists.lastUpdate = lastUpdate;
 			}
 			Alloy.Fonts[font.code] = font.postscript;
 		});
@@ -103,7 +106,7 @@ var Configuration = {
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryFonts + "/" + font.file), font.postscript);
+				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 			}
 			return flag;
 		});
@@ -111,10 +114,6 @@ var Configuration = {
 		//images
 		Alloy.Images = {};
 		_.each(images, function(image) {
-			//ignore if image doesn't have a valid file property
-			if (!image.file) {
-				return false;
-			}
 			var code = image.code,
 			    orientations = image.orientation;
 			if (!_.has(Alloy.Images, code)) {
@@ -122,7 +121,7 @@ var Configuration = {
 			}
 			for (var orientation in orientations) {
 				Alloy.Images[code][orientation] = {
-					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.directoryImages + "/" + image.file).nativePath
+					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + image.data).nativePath
 				};
 				_.extend(Alloy.Images[code][orientation], _.isObject(image.properties) && _.isObject(image.properties[orientation]) ? image.properties[orientation] : orientations[orientation]);
 			}
@@ -136,8 +135,7 @@ var Configuration = {
 		}
 		Alloy.TSS = {
 			Theme : {
-				id : theme.id,
-				version : theme.version
+				version : theme.param_version
 			}
 		};
 		var tss = utilities.clone(theme.data.tss),
@@ -213,7 +211,7 @@ var Configuration = {
 	updateTSS : function(name) {
 		var dicts = require("alloy/styles/" + name),
 		    theme = dicts[0];
-		if (theme.style.id != Alloy.TSS.Theme.id || theme.style.version != Alloy.TSS.Theme.version) {
+		if (theme.style.version != Alloy.TSS.Theme.version) {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
