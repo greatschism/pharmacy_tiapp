@@ -350,9 +350,10 @@ module.exports = {
 				"width" : 56,
 				"height" : 36,
 				"trackTintColorOn" : "#38E780",
-				"trackTintColorOff" : "#BFA7A7A7",
-				"thumbTintColorOn" : "#BF38E780",
-				"thumbTintColorOff" : "#A7A7A7"
+				"trackTintColorOff" : "#A7A7A7",
+				"thumbTintColorOn" : "#004c00",
+				"thumbTintColorOff" : "#424242",
+				"backgroundSelectedColor" : "transparent"
 			},
 			".dropdown" : {
 				"left" : 12,
