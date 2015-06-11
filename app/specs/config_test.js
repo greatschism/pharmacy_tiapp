@@ -5,10 +5,9 @@ describe("Config Test Suite", function() {
 
 	it("Test Case 1: init", function() {
 		var result = config.init({
-			"theme" : {
-				"id" : "newTheme",
-				"version" : 1,
-				"url" : "https://staging.remscripts.com/nativemia/newTheme.json"
+			theme : {
+				param_version : 100,
+				base_version : 1
 			}
 		});
 		if (Alloy.CFG.override_remote_resources) {
