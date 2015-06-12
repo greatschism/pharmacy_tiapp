@@ -17,8 +17,8 @@ exports.init = function(logger, config, cli, appc) {
 		var resources = require("./../../../../app/assets/data/resources"),
 		    data = (resources || {}).data || [];
 		for (var i in data) {
-			if (data[i].param_type == "theme" && data[i].selected) {
-				selectedThemeVersion = data[i].param_version;
+			if (data[i].type == "theme" && data[i].selected) {
+				selectedThemeVersion = data[i].version;
 				break;
 			}
 		}

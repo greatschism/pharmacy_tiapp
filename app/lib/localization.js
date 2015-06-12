@@ -21,7 +21,7 @@ var Locale = {
 	 */
 	init : function() {
 		Locale.currentLanguage = require("resources").collection.find({
-		param_type : "language",
+		type : "language",
 		selected : true
 		})[0];
 		Alloy.Globals.strings = Locale.currentLanguage.data;
@@ -36,22 +36,22 @@ var Locale = {
 	setLanguage : function(code, version) {
 		var collection = require("resources").collection,
 		    document = collection.find({
-		param_type : "language",
+		type : "language",
 		selected : false,
 		code : code,
-		param_version : version
+		version : version
 		})[0] || {};
 		if (!_.isEmpty(document)) {
 			document.selected = true;
 			collection.update({
-				param_type : "language",
+				type : "language",
 				selected : true,
 				$or : [{
 					code : {
 						$ne : code
 					}
 				}, {
-					param_version : {
+					version : {
 						$ne : version
 					}
 				}]
@@ -73,7 +73,7 @@ var Locale = {
 	 */
 	getLanguages : function(where) {
 		return require("resources").collection.find(_.extend(where || {}, {
-			param_type : "language"
+			type : "language"
 		}));
 	},
 

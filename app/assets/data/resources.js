@@ -1,40 +1,40 @@
 module.exports = {
 	"data" : [{
-		"param_type" : "theme",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "theme",
+		"version" : 1,
+		"base_version" : 1,
 		"selected" : true
 	}, {
-		"param_type" : "template",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "template",
+		"version" : 1,
+		"base_version" : 1,
 		"selected" : true
 	}, {
-		"param_type" : "menu",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "menu",
+		"version" : 1,
+		"base_version" : 1,
 		"selected" : true
 	}, {
-		"param_type" : "language",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "language",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "en",
 		"selected" : true
 	}, {
-		"param_type" : "language",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "language",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "es",
 		"selected" : false
 	}, {
-		"param_type" : "fonts",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "fonts",
+		"version" : 1,
+		"base_version" : 1,
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "icon",
 		"postscript" : "mscripts",
 		"format" : "ttf",
@@ -42,9 +42,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/mscripts.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "light",
 		"postscript" : "Lato-Light",
 		"format" : "ttf",
@@ -52,9 +52,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Light.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "regular",
 		"postscript" : "Lato-Regular",
 		"format" : "ttf",
@@ -62,9 +62,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Regular.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "medium",
 		"postscript" : "Lato-Bold",
 		"format" : "ttf",
@@ -72,9 +72,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Bold.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "bold",
 		"postscript" : "Lato-Black",
 		"format" : "ttf",
@@ -82,9 +82,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Black.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "light",
 		"postscript" : "Roboto-Light",
 		"format" : "ttf",
@@ -92,9 +92,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Light.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "regular",
 		"postscript" : "Roboto-Regular",
 		"format" : "ttf",
@@ -102,9 +102,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Regular.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "medium",
 		"postscript" : "Roboto-Medium",
 		"format" : "ttf",
@@ -112,9 +112,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Medium.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "font",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "font",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "bold",
 		"postscript" : "Roboto-Bold",
 		"format" : "ttf",
@@ -122,14 +122,14 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Bold.ttf",
 		"selected" : true
 	}, {
-		"param_type" : "images",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "images",
+		"version" : 1,
+		"base_version" : 1,
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "logo_pl",
 		"name" : "logo",
 		"format" : "png",
@@ -146,9 +146,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo.png",
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "logo_white_pl",
 		"name" : "logo_white",
 		"format" : "png",
@@ -165,9 +165,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo_white.png",
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "prescription_list_pl",
 		"name" : "prescription_list",
 		"format" : "png",
@@ -184,9 +184,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/prescription_list.png",
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "helpful_medication_pl",
 		"name" : "helpful_medication",
 		"format" : "png",
@@ -203,9 +203,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/helpful_medication.png",
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "store_locator_pl",
 		"name" : "store_locator",
 		"format" : "png",
@@ -222,9 +222,9 @@ module.exports = {
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
 		"selected" : true
 	}, {
-		"param_type" : "image",
-		"param_version" : 1,
-		"param_base_version" : 1,
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "map_pin_pl",
 		"name" : "map_pin",
 		"format" : "png",

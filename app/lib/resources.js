@@ -62,41 +62,41 @@ var Res = {
 
 			/**
 			 *  primary indexes
-			 *  	theme - param_version
-			 * 		menu - param_version
-			 *  	template - param_version
-			 *  	language - param_version & code
-			 *  	fonts - param_version & code
-			 *  	images - param_version & code
+			 *  	theme - version
+			 * 		menu - version
+			 *  	template - version
+			 *  	language - version & code
+			 *  	fonts - version & code
+			 *  	images - version & code
 			 */
-			var document = Res.collection.find(_.pick(obj, ["param_type", "param_version", "param_base_version", "code"]))[0] || {};
+			var document = Res.collection.find(_.pick(obj, ["type", "version", "base_version", "code"]))[0] || {};
 
-			if (obj.param_type != "fonts" && obj.param_type != "images" && useLocalResources) {
-				if (obj.param_type == "font" || obj.param_type == "image") {
-					var srcFile = obj.param_type + "_" + obj.code + "_" + obj.param_version,
+			if (useLocalResources) {
+				if (obj.type == "fonts" || obj.type == "images") {
+					obj.data = "updated";
+				} else if (obj.type == "font" || obj.type == "image") {
+					var srcFile = obj.type + "_" + obj.code + "_" + obj.version,
 					    desFile = srcFile + "." + obj.format;
 					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
 					obj.data = desFile;
 				} else {
-					var baseName = Res.dataDirectory + "/" + obj.param_type + "_";
-					if (obj.param_type == "language") {
+					var baseName = Res.dataDirectory + "/" + obj.type + "_";
+					if (obj.type == "language") {
 						baseName += obj.code + "_";
 					}
-					obj.data = require(baseName + obj.param_version).data;
+					obj.data = require(baseName + obj.version).data;
 				}
 			}
 
 			if (_.isEmpty(document)) {
-				_.extend(obj, {
-					update : !useLocalResources,
-					revert : obj.selected && !useLocalResources,
-					selected : !useLocalResources ? false : obj.selected
-				});
+				obj.update = !_.has(obj, "data");
+				obj.revert = obj.selected && obj.update;
+				obj.selected = obj.revert ? false : obj.selected;
 				Res.collection.save(obj);
 				logger.debug(TAG, "added", obj);
-			} else if (obj.version != document.version || obj.selected != document.selected || useLocalResources) {
-				obj.update = obj.version != document.version && !useLocalResources;
-				obj.revert = !document.selected && obj.update;
+			} else if (obj.selected != document.selected || _.has(obj, "data")) {
+				obj.update = !_.has(obj, "data") && !_.has(document, "data");
+				obj.revert = obj.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				_.extend(document, obj);
 				logger.debug(TAG, "updated", document);
@@ -104,27 +104,27 @@ var Res = {
 
 			if (obj.selected || obj.revert) {
 				var queryObj;
-				switch(obj.param_type) {
+				switch(obj.type) {
 				case "theme":
 				case "template":
 				case "menu":
 				case "fonts":
 				case "images":
 					queryObj = {
-						param_type : obj.param_type,
+						type : obj.type,
 						selected : true,
-						param_version : {
-							$ne : obj.param_version
+						version : {
+							$ne : obj.version
 						},
 					};
 					break;
 				case "language":
 					queryObj = {
-						param_type : obj.param_type,
+						type : obj.type,
 						selected : true,
 						$or : [{
-							param_version : {
-								$ne : obj.param_version
+							version : {
+								$ne : obj.version
 							}
 						}, {
 							code : {
@@ -136,11 +136,11 @@ var Res = {
 				case "font":
 				case "image":
 					queryObj = {
-						param_type : obj.param_type,
+						type : obj.type,
 						selected : true,
 						code : obj.code,
-						param_version : {
-							$ne : obj.param_version
+						version : {
+							$ne : obj.version
 						}
 					};
 					break;
@@ -152,13 +152,11 @@ var Res = {
 						}
 					});
 				}
-				if (obj.revert) {
-					Res.collection.update(queryObj, {
-						$set : {
-							revert : false
-						}
-					});
-				}
+				Res.collection.update(queryObj, {
+					$set : {
+						revert : false
+					}
+				});
 			}
 
 		});
@@ -184,7 +182,7 @@ var Res = {
 			}],
 			update : true
 		}), function(obj, key) {
-			Res.updateQueue.push(_.pick(obj, ["param_type", "param_version", "param_base_version", "code"]));
+			Res.updateQueue.push(_.pick(obj, ["type", "version", "base_version", "code"]));
 		});
 
 		return Res.updateQueue;
@@ -201,9 +199,10 @@ var Res = {
 						params : {
 							data : [{
 								appload : {
-									client_param_type : queue.param_type,
-									client_param_version : queue.param_version,
-									client_param_base_version : queue.param_base_version,
+									client_param_type : queue.type,
+									client_param_version : queue.version,
+									client_param_base_version : queue.base_version,
+									client_param_lang_code : queue.code,
 									app_version : Ti.App.version,
 									client_name : Alloy.CFG.client_name
 								}
@@ -214,7 +213,7 @@ var Res = {
 						success : Res.didUpdate,
 						failure : Res.didFail
 					});
-					logger.debug("downloading " + queue.param_type + " - " + queue.param_version);
+					logger.debug("downloading " + queue.type + " - " + queue.version);
 				});
 			} else if (callback) {
 				callback();
@@ -463,9 +462,9 @@ var Res = {
 		//delete unused fonts
 		var unusedFonts = _.difference(utilities.getFiles(Res.dataDirectory, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.collection.find({
 			$or : [{
-				param_type : "font",
+				type : "font",
 			}, {
-				param_type : "image",
+				type : "image",
 			}],
 			selected : false,
 			revert : false
@@ -482,7 +481,7 @@ var Res = {
 
 	updateImageProperties : function(obj) {
 		var imgDoc = Res.collection.find({
-		param_type : "image",
+		type : "image",
 		selected : true,
 		name : obj.name,
 		data : obj.data

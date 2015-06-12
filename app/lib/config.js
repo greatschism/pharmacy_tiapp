@@ -16,10 +16,18 @@ var Configuration = {
 
 		var data = [];
 		_.each(["theme", "template", "menu", "language", "fonts", "images"], function(val, key) {
-			if (_.has(config, key)) {
-				data.push(_.extend(config[key], {
+			if (_.has(config, val)) {
+				var obj = config[val];
+				_.extend(obj, {
+					type : val,
 					selected : true
-				}));
+				});
+				if (val == "language") {
+					obj.code = require("localization").currentLanguage.code;
+				}
+				delete obj.id;
+				delete obj.lang_code;
+				data.push(obj);
 			}
 		});
 		resources.setData(data);
@@ -45,19 +53,19 @@ var Configuration = {
 		    resources = require("resources"),
 		    collection = resources.collection;
 
-		queryObj.param_type = "theme";
+		queryObj.type = "theme";
 		var theme = collection.find(queryObj)[0];
 
-		queryObj.param_type = "template";
+		queryObj.type = "template";
 		template = collection.find(queryObj)[0];
 
-		queryObj.param_type = "menu";
+		queryObj.type = "menu";
 		var menu = collection.find(queryObj)[0];
 
-		queryObj.param_type = "font";
+		queryObj.type = "font";
 		var fonts = collection.find(queryObj);
 
-		queryObj.param_type = "image";
+		queryObj.type = "image";
 		var images = collection.find(queryObj);
 
 		//menu
@@ -135,7 +143,7 @@ var Configuration = {
 		}
 		Alloy.TSS = {
 			Theme : {
-				param_version : theme.param_version
+				version : theme.version
 			}
 		};
 		var tss = utilities.clone(theme.data.tss),
@@ -211,7 +219,7 @@ var Configuration = {
 	updateTSS : function(name) {
 		var dicts = require("alloy/styles/" + name),
 		    theme = dicts[0];
-		if (theme.style.param_version != Alloy.TSS.Theme.param_version) {
+		if (theme.style.version != Alloy.TSS.Theme.version) {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");

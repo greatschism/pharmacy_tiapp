@@ -13,49 +13,49 @@ describe("Resources Test Suite", function() {
 
 	it("Test Case 2: verify for theme", function() {
 		resources.collection.find({
-			param_type : "theme",
+			type : "theme",
 			selected : true
 		}).should.be.instanceof(Array).and.have.lengthOf(1);
 	});
 
 	it("Test Case 3: verify for template", function() {
 		resources.collection.find({
-			param_type : "template",
+			type : "template",
 			selected : true
 		}).should.be.instanceof(Array).and.have.lengthOf(1);
 	});
 
 	it("Test Case 4: verify for menu", function() {
 		resources.collection.find({
-			param_type : "menu",
+			type : "menu",
 			selected : true
 		}).should.be.instanceof(Array).and.have.lengthOf(1);
 	});
 
 	it("Test Case 5: verify for fonts", function() {
 		resources.collection.find({
-			param_type : "fonts",
+			type : "fonts",
 			selected : true
 		}).should.be.instanceof(Array).and.have.lengthOf(1);
 	});
 
 	it("Test Case 6: verify for font", function() {
 		resources.collection.find({
-			param_type : "font",
+			type : "font",
 			selected : true
 		}).should.be.instanceof(Array);
 	});
 
 	it("Test Case 7: verify for images", function() {
 		resources.collection.find({
-			param_type : "images",
+			type : "images",
 			selected : true
 		}).should.be.instanceof(Array).and.have.lengthOf(1);
 	});
 
 	it("Test Case 8: verify for image", function() {
 		resources.collection.find({
-			param_type : "image",
+			type : "image",
 			selected : true
 		}).should.be.instanceof(Array);
 	});

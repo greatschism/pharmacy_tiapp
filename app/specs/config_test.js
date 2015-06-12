@@ -4,17 +4,12 @@ var config = require("config"),
 describe("Config Test Suite", function() {
 
 	it("Test Case 1: init", function() {
-		var result = config.init({
+		config.init({
 			theme : {
-				param_version : 100,
+				version : 100,
 				base_version : 1
 			}
-		});
-		if (Alloy.CFG.override_remote_resources) {
-			result.should.be.an.instanceof(Array);
-		} else {
-			result.should.be.an.instanceof(Array).and.have.lengthOf(1);
-		}
+		}).should.be.an.instanceof(Array);
 	});
 
 	it("Test Case 2: check Alloy.TSS before calling load", function() {
@@ -33,9 +28,9 @@ describe("Config Test Suite", function() {
 
 	it("Test Case 5: updateTSS", function() {
 		var indexTSS = require("alloy/styles/appload");
-		indexTSS[0].style.param_version = 0.1;
+		indexTSS[0].style.version = 0.1;
 		config.updateTSS("appload");
-		indexTSS[0].style.param_version.should.be.equal(Alloy.TSS.Theme.param_version);
+		indexTSS[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 	});
 
 });
