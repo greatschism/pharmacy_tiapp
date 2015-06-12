@@ -1742,6 +1742,19 @@ module.exports = {
 				},
 				"color" : "#F7941E"
 			},
+			".lbl" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
 			".lbl-with-rswt" : {
 				"left" : 12,
 				"right" : 80,
@@ -1755,19 +1768,6 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false,
 				"touchEnabled" : false
-			},
-			".lbl" : {
-				"left" : 12,
-				"right" : 12,
-				"height" : 19,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"color" : "#000000",
-				"textAlign" : "left",
-				"ellipsize" : true,
-				"wordWrap" : false
 			},
 			".lbl-wrap" : {
 				"left" : 12,
@@ -1811,6 +1811,24 @@ module.exports = {
 			".attributed" : {
 				"left" : 12,
 				"right" : 12,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"secondaryFont" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"secondaryColor" : "#0095ff",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".attributed-with-rswt" : {
+				"left" : 12,
+				"right" : 80,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
