@@ -18,7 +18,7 @@ exports.init = function(logger, config, cli, appc) {
 		    data = (resources || {}).data || [];
 		for (var i in data) {
 			if (data[i].param_type == "theme" && data[i].selected) {
-				selectedThemeVersion = themes[i].version;
+				selectedThemeVersion = data[i].param_version;
 				break;
 			}
 		}

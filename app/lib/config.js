@@ -135,7 +135,7 @@ var Configuration = {
 		}
 		Alloy.TSS = {
 			Theme : {
-				version : theme.param_version
+				param_version : theme.param_version
 			}
 		};
 		var tss = utilities.clone(theme.data.tss),
@@ -211,7 +211,7 @@ var Configuration = {
 	updateTSS : function(name) {
 		var dicts = require("alloy/styles/" + name),
 		    theme = dicts[0];
-		if (theme.style.version != Alloy.TSS.Theme.version) {
+		if (theme.style.param_version != Alloy.TSS.Theme.param_version) {
 			for (var i in dicts) {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");

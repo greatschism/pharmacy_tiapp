@@ -1,6 +1,6 @@
 module.exports = {
 	"Theme" : {
-		"version" : "Alloy.TSS.Theme.version"
+		"param_version" : "Alloy.TSS.Theme.param_version"
 	},
 	"Window[formFactor=handheld]" : {
 		"orientationModes" : ["Ti.UI.PORTRAIT"]
