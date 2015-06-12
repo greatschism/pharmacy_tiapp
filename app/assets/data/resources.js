@@ -130,8 +130,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "logo_pl",
 		"name" : "logo",
-		"code" : "logo",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -149,8 +149,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "logo_white_pl",
 		"name" : "logo_white",
-		"code" : "logo_white",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -168,8 +168,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "prescription_list_pl",
 		"name" : "prescription_list",
-		"code" : "prescription_list",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -187,8 +187,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "helpful_medication_pl",
 		"name" : "helpful_medication",
-		"code" : "helpful_medication",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -206,8 +206,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "store_locator_pl",
 		"name" : "store_locator",
-		"code" : "store_locator",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -225,8 +225,8 @@ module.exports = {
 		"param_type" : "image",
 		"param_version" : 1,
 		"param_base_version" : 1,
+		"code" : "map_pin_pl",
 		"name" : "map_pin",
-		"code" : "map_pin",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {

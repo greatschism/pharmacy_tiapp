@@ -14,18 +14,18 @@ var Configuration = {
 			return [];
 		}
 
-		var items = [];
+		var data = [];
 		_.each(["theme", "template", "menu", "language", "fonts", "images"], function(val, key) {
 			if (_.has(config, key)) {
-				items.push(_.extend(config[key], {
+				data.push(_.extend(config[key], {
 					selected : true
 				}));
 			}
 		});
-		resources.setData(items);
+		resources.setData(data);
 
 		/***
-		 * no. of items to be updated
+		 * no. of objects to be updated
 		 */
 		return resources.checkForUpdates();
 	},
@@ -114,16 +114,16 @@ var Configuration = {
 		//images
 		Alloy.Images = {};
 		_.each(images, function(image) {
-			var code = image.code,
+			var name = image.name,
 			    orientations = image.orientation;
-			if (!_.has(Alloy.Images, code)) {
-				Alloy.Images[code] = {};
+			if (!_.has(Alloy.Images, name)) {
+				Alloy.Images[name] = {};
 			}
 			for (var orientation in orientations) {
-				Alloy.Images[code][orientation] = {
+				Alloy.Images[name][orientation] = {
 					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + image.data).nativePath
 				};
-				_.extend(Alloy.Images[code][orientation], _.isObject(image.properties) && _.isObject(image.properties[orientation]) ? image.properties[orientation] : orientations[orientation]);
+				_.extend(Alloy.Images[name][orientation], _.isObject(image.properties) && _.isObject(image.properties[orientation]) ? image.properties[orientation] : orientations[orientation]);
 			}
 		});
 
@@ -194,8 +194,8 @@ var Configuration = {
 		}
 	},
 
-	updateImageProperties : function(item) {
-		_.extend(Alloy.Images[item.code][item.orientation], require("resources").updateImageProperties(item));
+	updateImageProperties : function(obj) {
+		_.extend(Alloy.Images[obj.name][obj.orientation], require("resources").updateImageProperties(obj));
 	},
 
 	updateResources : function(callback) {

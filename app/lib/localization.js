@@ -7,8 +7,7 @@
  */
 var TAG = "localization",
     Alloy = require("alloy"),
-    _ = require("alloy/underscore")._,
-    resouces = require("resources");
+    _ = require("alloy/underscore")._;
 
 var Locale = {
 
@@ -21,7 +20,7 @@ var Locale = {
 	 * initialize localization
 	 */
 	init : function() {
-		Locale.currentLanguage = resouces.collection.find({
+		Locale.currentLanguage = require("resources").collection.find({
 		param_type : "language",
 		selected : true
 		})[0];
@@ -35,7 +34,7 @@ var Locale = {
 	 * @param {Number} version of the language to enable
 	 */
 	setLanguage : function(code, version) {
-		var collection = resouces.collection,
+		var collection = require("resources").collection,
 		    document = collection.find({
 		param_type : "language",
 		selected : false,
@@ -73,7 +72,7 @@ var Locale = {
 	 * return {Array} languages available languages stored in the local db
 	 */
 	getLanguages : function(where) {
-		return resouces.collection.find(_.extend(where || {}, {
+		return require("resources").collection.find(_.extend(where || {}, {
 			param_type : "language"
 		}));
 	},

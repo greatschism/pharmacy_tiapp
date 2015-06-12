@@ -42,8 +42,8 @@ var Res = {
 
 			if (Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD)) {
 				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
-				Res.collection.clear();
 				Res.deleteUnusedResources();
+				Res.collection.clear();
 			}
 
 			Res.setData(require(Res.dataDirectory + "/" + "resources").data, true);
@@ -67,13 +67,13 @@ var Res = {
 			 *  	template - param_version
 			 *  	language - param_version & code
 			 *  	fonts - param_version & code
-			 *  	images - param_version & name (since same code will present for different orientation)
+			 *  	images - param_version & code
 			 */
-			var document = Res.collection.find(_.pick(obj, ["param_type", "param_version", "param_base_version", "code", "name"]))[0] || {};
+			var document = Res.collection.find(_.pick(obj, ["param_type", "param_version", "param_base_version", "code"]))[0] || {};
 
 			if (obj.param_type != "fonts" && obj.param_type != "images" && useLocalResources) {
 				if (obj.param_type == "font" || obj.param_type == "image") {
-					var srcFile = obj.param_type + "_" + (obj.name || obj.code) + "_" + obj.param_version,
+					var srcFile = obj.param_type + "_" + obj.code + "_" + obj.param_version,
 					    desFile = srcFile + "." + obj.format;
 					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
 					obj.data = desFile;
@@ -99,51 +99,66 @@ var Res = {
 				obj.revert = !document.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				_.extend(document, obj);
-				logger.debug(TAG, "updated", model);
+				logger.debug(TAG, "updated", document);
 			}
 
-			if (document.selected) {
-				var queryObj = {
-					param_type : document.param_type,
-					selected : true,
-					$or : []
-				};
-				_.each(["code", "name", "param_version"], function(val) {
-					if (_.has(document, val)) {
-						var obj = {};
-						obj[val] = {
-							$ne : document[val]
-						};
-						queryObj["$or"].push(obj);
-					}
-				});
-				Res.collection.update(queryObj, {
-					$set : {
-						selected : false
-					}
-				});
-			}
-
-			if (document.revert) {
-				var queryObj = {
-					param_type : document.param_type,
-					revert : true,
-					$or : []
-				};
-				_.each(["code", "name", "param_version"], function(val) {
-					if (_.has(document, val)) {
-						var obj = {};
-						obj[val] = {
-							$ne : document[val]
-						};
-						queryObj["$or"].push(obj);
-					}
-				});
-				Res.collection.update(queryObj, {
-					$set : {
-						revert : false
-					}
-				});
+			if (obj.selected || obj.revert) {
+				var queryObj;
+				switch(obj.param_type) {
+				case "theme":
+				case "template":
+				case "menu":
+				case "fonts":
+				case "images":
+					queryObj = {
+						param_type : obj.param_type,
+						selected : true,
+						param_version : {
+							$ne : obj.param_version
+						},
+					};
+					break;
+				case "language":
+					queryObj = {
+						param_type : obj.param_type,
+						selected : true,
+						$or : [{
+							param_version : {
+								$ne : obj.param_version
+							}
+						}, {
+							code : {
+								$ne : obj.code
+							}
+						}]
+					};
+					break;
+				case "font":
+				case "image":
+					queryObj = {
+						param_type : obj.param_type,
+						selected : true,
+						code : obj.code,
+						param_version : {
+							$ne : obj.param_version
+						}
+					};
+					break;
+				}
+				if (obj.selected) {
+					Res.collection.update(queryObj, {
+						$set : {
+							selected : false
+						}
+					});
+				}
+				if (obj.revert) {
+					Res.collection.update(queryObj, {
+						$set : {
+							revert : false
+						}
+					});
+				}
 			}
 
 		});
@@ -169,7 +184,7 @@ var Res = {
 			}],
 			update : true
 		}), function(obj, key) {
-			Res.updateQueue.push(_.omit(obj, ["_id", "data"]));
+			Res.updateQueue.push(_.pick(obj, ["param_type", "param_version", "param_base_version", "code"]));
 		});
 
 		return Res.updateQueue;
@@ -186,9 +201,9 @@ var Res = {
 						params : {
 							data : [{
 								appload : {
-									client_param_type : queue.key,
-									client_param_version : queue.data.version,
-									client_param_base_version : "1",
+									client_param_type : queue.param_type,
+									client_param_version : queue.param_version,
+									client_param_base_version : queue.param_base_version,
 									app_version : Ti.App.version,
 									client_name : Alloy.CFG.client_name
 								}
@@ -199,7 +214,7 @@ var Res = {
 						success : Res.didUpdate,
 						failure : Res.didFail
 					});
-					logger.debug("downloading " + queue.val + " - " + queue.data.version);
+					logger.debug("downloading " + queue.param_type + " - " + queue.param_version);
 				});
 			} else if (callback) {
 				callback();
@@ -453,7 +468,6 @@ var Res = {
 				param_type : "image",
 			}],
 			selected : false,
-			update : false,
 			revert : false
 		}), "data"));
 		_.each(unusedFonts, function(data) {
@@ -461,7 +475,6 @@ var Res = {
 		});
 		Res.collection.remove({
 			selected : false,
-			update : false,
 			revert : false
 		});
 		Res.collection.commit();
@@ -471,7 +484,7 @@ var Res = {
 		var imgDoc = Res.collection.find({
 		param_type : "image",
 		selected : true,
-		code : obj.code,
+		name : obj.name,
 		data : obj.data
 		})[0] || {};
 		if (!_.has(imgDoc, "properties")) {

@@ -198,15 +198,16 @@ var Helper = {
 	},
 
 	/**
-	 * resize image
-	 * @param {Object/ImageView} _o
+	 * get aspect ratio of image
+	 * @param {String} name
+	 * @param {ImageView} where image to be applied (optional)
 	 */
-	getImage : function(code, imgView) {
-		if (!Alloy.Images[code]) {
-			logger.error(TAG, "invalid image code", code);
+	getImage : function(name, imgView) {
+		if (!Alloy.Images[name]) {
+			logger.error(TAG, "invalid image name", name);
 			return {};
 		}
-		var properties = Alloy.Images[code][app.device.orientation],
+		var properties = Alloy.Images[name][app.device.orientation],
 		    path = properties.image,
 		    newWidth = properties.width || 0,
 		    newHeight = properties.height || 0;
@@ -238,7 +239,7 @@ var Helper = {
 				height : newHeight
 			});
 			config.updateImageProperties({
-				code : code,
+				name : name,
 				data : utilities.getFileName(path),
 				orientation : app.device.orientation,
 				properties : newProperties

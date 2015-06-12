@@ -43,13 +43,13 @@ describe("UIHelper Test Suite", function() {
 		uihelper.currentLocation.should.be.instanceof(Object);
 	});
 
-	it("Test Case 5: getImage with valid image code", function() {
+	it("Test Case 5: getImage with valid image name", function() {
 		//uihelper.getImage only works when device width and height at core are set
 		require("core").getDeviceDimensions();
 		uihelper.getImage("logo").should.be.instanceof(Object).and.have.property("image");
 	});
 
-	it("Test Case 6: getImage with invalid image code", function() {
+	it("Test Case 6: getImage with invalid image name", function() {
 		uihelper.getImage("invalid").should.be.instanceof(Object).and.not.have.property("image");
 	});
 
