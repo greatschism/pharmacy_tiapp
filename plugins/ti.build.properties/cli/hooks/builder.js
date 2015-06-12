@@ -4,18 +4,6 @@ exports.cliVersion = ">=3.X";
 var TAG = "PropertiesBuilder",
     fs = require("fs");
 
-function checkIfProduction(target) {
-	switch(target) {
-	case "production":
-	case "dist-adhoc":
-	case "dist-appstore":
-	case "dist-playstore":
-		return true;
-	default:
-		return false;
-	}
-}
-
 // Main entry point for the hook;
 // it is the version of Titanium that introduced and allow the hook js script to function.
 exports.init = function(logger, config, cli, appc) {
@@ -26,7 +14,7 @@ exports.init = function(logger, config, cli, appc) {
 
 	cli.on("build.pre.construct", function(build, done) {
 
-		var isProd = checkIfProduction(cli.argv["target"]);
+		var isProd = cli.argv["deploy-type"] == "production";
 
 		try {
 
@@ -141,7 +129,10 @@ exports.init = function(logger, config, cli, appc) {
 
 			//clean build on prod
 			if (isProd) {
-				return appc.subprocess.run("ti", ["clean", "--project-dir", projectDir], function() {
+				return appc.subprocess.run("ti", ["clean", "--project-dir", projectDir], function(err, res) {
+					if (err) {
+						logger.debug(TAG + " : " + err);
+					}
 					return done();
 				});
 			} else {
