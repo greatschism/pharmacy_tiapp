@@ -42,7 +42,7 @@ function request(args) {
 		feature_code : Alloy.CFG.featureCodes[args.method],
 		client_identifier : Alloy.CFG.client_identifier,
 		version : Alloy.CFG.api_version,
-		lang : localization.currentLanguage.id,
+		lang : localization.currentLanguage.code,
 		session_id : Alloy.Models.user.get("patients").session_id
 	});
 	args.params = JSON.stringify(args.params, null, 4);
