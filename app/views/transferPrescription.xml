@@ -1,0 +1,33 @@
+<Alloy>
+	<TableView>
+		<HeaderView>
+			<View class="auto-height">
+				<View id="contentView" class="content-view-vgroup">
+					<Label id="prescriptionNameLbl" class="content-title"/>
+					<Button id="rightButton" class="right" height="10" width="10" onClick="expandCollapseView"/>
+					<View id="expandCollapseView" class="top content-view-vgroup">
+						<View class="content-group margin-top">
+							<Label id="prescriptionNoPmt" class="content-group-prompt"/>
+							<Label id="prescriptionNoPmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="expirationDatePmt" class="content-group-prompt"/>
+							<Label id="expirationDatePmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="doctorNamePmt" class="content-group-prompt"/>
+							<Label id="doctorNamePmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="pharmacyNamePmt" class="content-group-prompt"/>
+							<Label id="pharmacyNamePmtValue" class="content-group-reply"/>
+						</View>
+					</View>
+					<View id="hdivider" class="h-divider"/>
+				</View>
+				
+				
+			</View>
+		</HeaderView>
+	</TableView>
+</Alloy>
