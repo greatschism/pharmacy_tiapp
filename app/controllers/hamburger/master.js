@@ -24,7 +24,7 @@ function didOpen(e) {
 		$.rootWindow.addEventListener("close", didClose);
 		$.rootWindow.addEventListener("androidback", didAndoridBack);
 	}
-	$.trigger("open");
+	$.trigger("init");
 	if (!_.isEmpty(app.navigator)) {
 		app.terminate();
 	}
@@ -41,10 +41,10 @@ function didOpen(e) {
 }
 
 function updateCallback() {
-	app.navigator.open(_.findWhere(Alloy.Collections.menuItems.toJSON(), {
-		landing_page : true
-	}));
-	Alloy.Collections.menuItems.trigger("reset");
+	if (OS_ANDROID) {
+		$.rootWindow.setExitOnClose(false);
+	}
+	Alloy.createController("appload");
 }
 
 function didAndoridBack(e) {
@@ -52,9 +52,7 @@ function didAndoridBack(e) {
 }
 
 function didLeftWindowOpen(e) {
-	if (OS_IOS) {
-		uihelper.requestViewFocus($.menuCtrl.getView());
-	}
+	uihelper.requestViewFocus($.menuCtrl.getView());
 }
 
 function didClose(e) {

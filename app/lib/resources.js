@@ -195,9 +195,9 @@ var Res = {
 	},
 
 	update : function(callback) {
-		if (!Res.successCallback) {
+		if (!Res.updateCallback) {
 			if (Res.updateQueue.length) {
-				Res.successCallback = callback;
+				Res.updateCallback = callback;
 				_.each(Res.updateQueue, function(obj) {
 					if (obj.type == "font" || obj.type == "image") {
 						Res.downloadAsset(obj);
@@ -301,9 +301,9 @@ var Res = {
 		Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
 			return _.isEqual(obj, passthrough);
 		});
-		if (Res.updateQueue.length == 0 && Res.successCallback) {
-			Res.successCallback(Res.errorQueue);
-			Res.successCallback = null;
+		if (Res.updateQueue.length == 0 && Res.updateCallback) {
+			Res.updateCallback(Res.errorQueue);
+			Res.updateCallback = null;
 		}
 	},
 

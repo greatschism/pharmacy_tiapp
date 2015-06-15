@@ -24,7 +24,7 @@ var App = {
 	/**
 	 * callback to be called after app update
 	 */
-	updateCallback : {},
+	updateCallback : null,
 
 	/**
 	 * Device information, some come from the Ti API calls and can be referenced
@@ -122,11 +122,13 @@ var App = {
 	},
 
 	reloadConfig : function() {
-		if (App.canReload && _.isFunction(App.updateCallback)) {
+		if (App.canReload) {
 			App.canReload = false;
 			require("config").load(function() {
-				App.updateCallback();
-				App.updateCallback = {};
+				if (_.isFunction(App.updateCallback)) {
+					App.updateCallback();
+					App.updateCallback = null;
+				}
 			});
 		}
 	},

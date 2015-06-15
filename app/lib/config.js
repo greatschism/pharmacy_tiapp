@@ -90,7 +90,7 @@ var Configuration = {
 		var lastUpdate = require("alloy/moment")().unix();
 		_.each(fonts, function(font) {
 			var fontExists = _.findWhere(Alloy.RegFonts, {
-				code : font.code
+				postscript : font.postscript
 			}) || {};
 			if (_.isEmpty(fontExists)) {
 				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);

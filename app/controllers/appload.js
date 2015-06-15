@@ -1,5 +1,7 @@
 var app = require("core"),
+    apm = require("apm"),
     notificationHandler = require("notificationHandler"),
+    resources = require("resources"),
     config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
@@ -9,6 +11,9 @@ var app = require("core"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
+	apm.init();
+	resources.init();
+	config.load();
 	notificationHandler.init(deviceReady);
 }
 
@@ -129,16 +134,16 @@ function didLoadConfig() {
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});
-	ctrl.on("open", didOpenMastWindow);
+	ctrl.on("init", didInitMastWindow);
 	ctrl.init();
 }
 
-function didOpenMastWindow(e) {
+function didInitMastWindow(e) {
+	$.window.setExitOnClose(false);
 	$.window.close();
 }
 
 function didAndroidback(e) {
-	$.window.setExitOnClose(true);
 	$.window.close();
 }
 

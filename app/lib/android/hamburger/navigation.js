@@ -241,6 +241,8 @@ function Navigation(args) {
 		}
 
 		that.closeToRoot();
+		that.controllers.pop().terminate();
+		that.controllers = [];
 		that.drawer.close();
 	};
 

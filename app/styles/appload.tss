@@ -1,4 +1,4 @@
 "#window[platform=android]":{
-	exitOnClose: false,
+	exitOnClose: true,
 	theme: "Theme.Material.NoActionBar"
 }
