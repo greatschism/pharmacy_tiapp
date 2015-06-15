@@ -73,7 +73,7 @@ function didSuccess(result) {
 			confirmUpdate();
 		}
 	} else {
-		loadConfig();
+		initMasterWindow();
 	}
 }
 
@@ -84,21 +84,21 @@ function confirmUpdate() {
 		buttonNames : [strings.btnYes, strings.btnNo],
 		cancelIndex : 1,
 		success : startUpdate,
-		cancel : loadConfig
+		cancel : initMasterWindow
 	});
 }
 
 function startUpdate() {
 	if (Alloy.CFG.async_update) {
 		triggerAsyncUpdate = true;
-		loadConfig();
+		initMasterWindow();
 	} else {
-		showLoader();
 		syncUpdate();
 	}
 }
 
 function syncUpdate() {
+	showLoader();
 	config.updateResources(loadConfig);
 }
 
@@ -109,17 +109,14 @@ function loadConfig(errorQueue) {
 			title : strings.titleUpdates,
 			message : strings.msgErrorWhileUpdate,
 			buttonNames : [strings.btnContinue],
-			success : function() {
-				showLoader();
-				didLoadConfig();
-			}
+			success : initMasterWindow
 		});
 	} else {
-		config.load(didLoadConfig);
+		config.load(initMasterWindow);
 	}
 }
 
-function didLoadConfig() {
+function initMasterWindow() {
 	hideLoader();
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) ? {
@@ -129,11 +126,11 @@ function didLoadConfig() {
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});
-	ctrl.on("init", didInitMastWindow);
+	ctrl.on("init", didInitMasterWindow);
 	ctrl.init();
 }
 
-function didInitMastWindow(e) {
+function didInitMasterWindow(e) {
 	$.window.setExitOnClose(false);
 	$.window.close();
 }
