@@ -3,8 +3,6 @@ module.exports = {
 		"config" : {
 			"navigator" : "hamburger",
 			"left_drawer_width" : 270,
-			"date_format" : "MM/DD/YYYY",
-			"date_time_format" : "MM/DD/YYYY hh:mm a",
 			"prescription_auto_hide_at" : 60,
 			"prescription_tooltip_reminder_at" : 5,
 			"prescription_critical_reminder_at" : 3,
