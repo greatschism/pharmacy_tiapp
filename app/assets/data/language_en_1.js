@@ -258,6 +258,7 @@ module.exports = {
 		"msgYourOrderIsReady" : "Your order is ready to be picked up!",
 		"msgNotFilledYet" : "Not filled yet",
 		"msgAppUpdateFound" : "There is a update, do you want to download now?",
+		"msgErrorWhileUpdate" : "We are unable to download the updates at the moment. Please try again later.",
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgUnderConstruction" : "Under construction",

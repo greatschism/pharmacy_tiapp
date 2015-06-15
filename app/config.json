@@ -135,7 +135,6 @@
         "clear_cached_resources": false,
         "delete_unused_resources": false,
         "override_remote_resources": false,
-        "simulate_api_on_failure": false,
         "storage_engine": "tiencrypted",
         "first_launch": "firstLaunch",
         "user_account": "account",

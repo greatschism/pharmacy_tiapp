@@ -25,6 +25,11 @@ var Res = {
 	updateQueue : [],
 
 	/**
+	 * items caused error while update
+	 */
+	errorQueue : [],
+
+	/**
 	 * callback after update
 	 */
 	updateCallback : null,
@@ -112,7 +117,6 @@ var Res = {
 				case "images":
 					queryObj = {
 						type : obj.type,
-						selected : true,
 						version : {
 							$ne : obj.version
 						},
@@ -121,7 +125,6 @@ var Res = {
 				case "language":
 					queryObj = {
 						type : obj.type,
-						selected : true,
 						$or : [{
 							version : {
 								$ne : obj.version
@@ -137,7 +140,6 @@ var Res = {
 				case "image":
 					queryObj = {
 						type : obj.type,
-						selected : true,
 						code : obj.code,
 						version : {
 							$ne : obj.version
@@ -146,12 +148,15 @@ var Res = {
 					break;
 				}
 				if (obj.selected) {
+					queryObj.selected = true;
 					Res.collection.update(queryObj, {
 						$set : {
 							selected : false
 						}
 					});
 				}
+				delete queryObj.selected;
+				queryObj.revert = true;
 				Res.collection.update(queryObj, {
 					$set : {
 						revert : false
@@ -172,6 +177,7 @@ var Res = {
 
 		//reset queue
 		Res.updateQueue = [];
+		Res.errorQueue = [];
 
 		//update all where update flag is true
 		_.each(Res.collection.find({
@@ -181,8 +187,8 @@ var Res = {
 				revert : true
 			}],
 			update : true
-		}), function(obj, key) {
-			Res.updateQueue.push(_.pick(obj, ["type", "version", "base_version", "code"]));
+		}), function(obj) {
+			Res.updateQueue.push(_.pick(obj, ["type", "version", "base_version", "code", "url"]));
 		});
 
 		return Res.updateQueue;
@@ -190,30 +196,33 @@ var Res = {
 
 	update : function(callback) {
 		if (!Res.successCallback) {
-			updateQueue = Res.updateQueue;
-			if (updateQueue.length) {
+			if (Res.updateQueue.length) {
 				Res.successCallback = callback;
-				_.each(updateQueue, function(queue) {
-					http.request({
-						method : "appload_clientjson",
-						params : {
-							data : [{
-								appload : {
-									client_param_type : queue.type,
-									client_param_version : queue.version,
-									client_param_base_version : queue.base_version,
-									client_param_lang_code : queue.code,
-									app_version : Ti.App.version,
-									client_name : Alloy.CFG.client_name
-								}
-							}]
-						},
-						passthrough : queue,
-						errorDialogEnabled : false,
-						success : Res.didUpdate,
-						failure : Res.didFail
-					});
-					logger.debug("downloading " + queue.type + " - " + queue.version);
+				_.each(Res.updateQueue, function(obj) {
+					if (obj.type == "font" || obj.type == "image") {
+						Res.downloadAsset(obj);
+					} else {
+						http.request({
+							method : "appload_clientjson",
+							params : {
+								data : [{
+									appload : {
+										client_param_type : obj.type,
+										client_param_version : obj.version,
+										client_param_base_version : obj.base_version,
+										client_param_lang_code : obj.code,
+										app_version : Ti.App.version,
+										client_name : Alloy.CFG.client_name
+									}
+								}]
+							},
+							passthrough : obj,
+							errorDialogEnabled : false,
+							success : Res.didUpdate,
+							failure : Res.didUpdate
+						});
+					}
+					logger.debug(TAG, "downloading", obj);
 				});
 			} else if (callback) {
 				callback();
@@ -222,254 +231,100 @@ var Res = {
 	},
 
 	didUpdate : function(result, passthrough) {
-		var coll = Res.getCollection(passthrough.val),
-		    model = coll.find({
-		id : passthrough.data.id
-		})[0] || {};
-		switch(passthrough.val) {
-		case "themes":
-			_.extend(model, {
-				data : result.data.appload.theme.data,
-				update : false
-			});
-			if (model.revert) {
-				_.extend(model, {
-					selected : true,
-					revert : false
-				});
-				coll.update({
-					id : {
-						$ne : model.id
-					}
-				}, {
-					$set : {
-						selected : false
-					}
-				}, {}, true);
-			}
-			break;
-		case "templates":
-			_.extend(model, {
-				data : result.data.appload.template.data,
-				update : false
-			});
-			if (model.revert) {
-				_.extend(model, {
-					selected : true,
-					revert : false
-				});
-				coll.update({
-					id : {
-						$ne : model.id
-					}
-				}, {
-					$set : {
-						selected : false
-					}
-				}, {}, true);
-			}
-			break;
-		case "menus":
-			_.extend(model, {
-				data : result.data.appload.menu.data,
-				update : false
-			});
-			if (model.revert) {
-				_.extend(model, {
-					selected : true,
-					revert : false
-				});
-				coll.update({
-					id : {
-						$ne : model.id
-					}
-				}, {
-					$set : {
-						selected : false
-					}
-				}, {}, true);
-			}
-			break;
-		case "languages":
-			_.extend(model, {
-				code : result.data.appload.language.code,
-				titleid : result.data.appload.language.titleid,
-				data : result.data.appload.language.data,
-				update : false
-			});
-			if (model.revert) {
-				_.extend(model, {
-					selected : true,
-					revert : false
-				});
-				coll.update({
-					id : {
-						$ne : model.id
-					}
-				}, {
-					$set : {
-						selected : false
-					}
-				}, {}, true);
-			}
-			break;
-		case "fonts":
-			model.data = _.filter(result.data.appload.fonts.data, function(font) {
-				if (_.has(font, "platform") && _.indexOf(font.platform, app.device.platform) == -1) {
-					return false;
-				}
-				delete font.platform;
-				var fontDoc = _.findWhere(model.data, {
-					id : font.id
-				}) || {};
-				if (!_.isEmpty(fontDoc)) {
-					_.extend(font, _.pick(fontDoc, ["postscript", "file", "update"]));
-				}
-				_.extend(font, {
-					update : !_.has(font, "file") || (!_.isEmpty(fontDoc) && fontDoc.version != font.version)
-				});
-				return true;
-			});
-			break;
-		case "images":
-			model.data = _.filter(result.data.appload.images.data, function(image) {
-				var imgDoc = _.findWhere(model.data, {
-					id : image.id
-				}) || {};
-				if (!_.isEmpty(imgDoc)) {
-					_.extend(image, _.pick(imgDoc, ["properties", "file", "update"]));
-				}
-				_.extend(image, {
-					update : !_.has(image, "file") || (!_.isEmpty(imgDoc) && imgDoc.version != image.version)
-				});
-				return true;
-			});
-			break;
-		}
-		coll.commit();
-		logger.debug("downloaded " + passthrough.val + " - " + passthrough.data.version);
-		if (passthrough.val == "fonts" || passthrough.val == "images") {
-			passthrough.data.queue = _.filter(model.data, function(asset) {
-				return asset.update;
-			});
-			Res.downloadAssets(passthrough);
+		if ((_.has(result, "code") && result.code != Alloy.CFG.apiCodes.success_code) || (_.has(result, "success") && result.success === false)) {
+			passthrough.error = true;
+			logger.error(TAG, "unable to download", passthrough, "with error", result);
 		} else {
-			Res.didComplete(passthrough);
+			passthrough.error = false;
+			logger.debug(TAG, "downloaded successfully", passthrough);
+			var isAsset = passthrough.type == "fonts" || passthrough.type == "images",
+			    item = _.pick(passthrough, ["type", "version", "base_version"]);
+			_.extend(item, {
+				data : isAsset ? "updated" : result.data.appload[passthrough.type],
+				selected : true
+			});
+			if (passthrough.type == "language") {
+				item.code = passthrough.code;
+			}
+			Res.setData([item]);
+			if (isAsset) {
+				var assets = result.data.appload[passthrough.type];
+				_.each(assets, function(asset) {
+					asset.selected = true;
+				});
+				Res.setData(assets);
+				_.each(assets, function(asset) {
+					if (asset.update == true) {
+						var obj = _.pick(asset, ["type", "version", "base_version", "code", "url", "format"]);
+						Res.updateQueue.push(obj);
+						Res.downloadAsset(obj);
+					}
+				});
+			}
 		}
+		Res.didComplete(passthrough);
 	},
 
-	downloadAssets : function(passthrough) {
-		var httpClient = require("http");
-		_.each(passthrough.data.queue, function(asset) {
-			httpClient.request({
-				url : asset.url,
-				format : "data",
-				passthrough : {
-					assetId : asset.id,
-					assetDetail : passthrough
-				},
-				success : Res.didDownloadAsset,
-				failure : Res.didFail
-			});
+	downloadAsset : function(passthrough) {
+		require("http").request({
+			url : passthrough.url,
+			format : "data",
+			passthrough : passthrough,
+			success : Res.didDownloadAsset,
+			failure : Res.didDownloadAsset
 		});
 	},
 
 	didDownloadAsset : function(result, passthrough) {
-		var assetId = passthrough.assetId;
-		passthrough = passthrough.assetDetail;
-		var coll = Res.getCollection(passthrough.val),
-		    model = coll.find({
-		id : passthrough.data.id
-		})[0] || {},
-		    asset = _.findWhere(model.data, {
-			id : assetId
-		}) || {},
-		    dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryData);
-		if (!dataDir.exists()) {
-			dataDir.createDirectory();
+		if (_.isObject(result) && _.has(result, "success") && result.success === false) {
+			passthrough.error = true;
+			logger.error(TAG, "unable to download", passthrough, "with error", result);
+		} else {
+			passthrough.error = false;
+			logger.debug(TAG, "downloaded successfully", passthrough);
+			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + "." + passthrough.format;
+			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
+			var item = _.pick(passthrough, ["type", "version", "base_version", "code"]);
+			_.extend(item, {
+				data : desFile,
+				selected : true
+			});
+			Res.setData([item]);
 		}
-		var file = asset.name + "_" + asset.version + "." + asset.format;
-		switch(passthrough.val) {
-		case "fonts":
-			var fontsDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts);
-			if (!fontsDir.exists()) {
-				fontsDir.createDirectory();
-			}
-			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryFonts + "/" + file), result, false);
-			_.extend(asset, {
-				postscript : asset.name,
-				file : file,
-				update : false
-			});
-			break;
-		case "images":
-			var imagesDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages);
-			if (!imagesDir.exists()) {
-				imagesDir.createDirectory();
-			}
-			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.directoryImages + "/" + file), result, false);
-			_.extend(asset, {
-				file : file,
-				update : false,
-				properties : {}
-			});
-			var unusedImgIds = [],
-			    supportedOrientations = _.keys(asset.orientation),
-			    imagesWithSameCode = _.filter(model.data, function(image) {
-				return image.id != asset.id && image.code == asset.code;
-			});
-			_.each(imagesWithSameCode, function(imgDoc) {
-				for (var i in supportedOrientations) {
-					if (_.has(imgDoc.orientation, supportedOrientations[i])) {
-						unusedImgIds.push(imgDoc.id);
-						break;
-					}
-				}
-			});
-			model.data = _.filter(model.data, function(image) {
-				return _.indexOf(unusedImgIds, image.id) == -1;
-			});
-			break;
-		}
-		logger.debug("downloaded asset from " + passthrough.val + " with id " + assetId);
-		passthrough.data.queue = _.reject(passthrough.data.queue, function(obj) {
-			return obj.id == assetId;
-		});
-		model.update = passthrough.data.queue.length != 0;
-		coll.commit();
-		if (!model.update) {
-			Res.didComplete(passthrough);
-		}
-	},
-
-	didFail : function(error, passthrough) {
-		logger.error("unable to download ", passthrough, " with error : ", error);
-		//to keep system working, leave the errors it can be downloaded on next appload
-		didComplete(passthrough.assetDetail || passthrough);
+		Res.didComplete(passthrough);
 	},
 
 	didComplete : function(passthrough) {
+		Res.errorQueue = _.filter(Res.updateQueue, function(obj) {
+			return _.isEqual(obj, passthrough) && passthrough.error === true;
+		});
 		Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
 			return _.isEqual(obj, passthrough);
 		});
 		if (Res.updateQueue.length == 0 && Res.successCallback) {
-			Res.successCallback();
+			Res.successCallback(Res.errorQueue);
 			Res.successCallback = null;
 		}
 	},
 
 	deleteUnusedResources : function() {
 		//delete unused fonts
-		var unusedFonts = _.difference(utilities.getFiles(Res.dataDirectory, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.collection.find({
+		var unusedAssets = _.difference(utilities.getFiles(Res.dataDirectory, Ti.Filesystem.applicationDataDirectory), _.pluck(Res.collection.find({
 			$or : [{
 				type : "font",
+				selected : true
+			}, {
+				type : "font",
+				revert : true
 			}, {
 				type : "image",
-			}],
-			selected : false,
-			revert : false
+				selected : true
+			}, {
+				type : "image",
+				revert : true
+			}]
 		}), "data"));
-		_.each(unusedFonts, function(data) {
+		_.each(unusedAssets, function(data) {
 			utilities.deleteFile(Res.dataDirectory + "/" + data);
 		});
 		Res.collection.remove({

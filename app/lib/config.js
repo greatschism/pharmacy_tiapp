@@ -3,7 +3,7 @@ var Alloy = require("alloy"),
 
 var Configuration = {
 
-	init : function(config, callback) {
+	init : function(config) {
 
 		var resources = require("resources");
 
@@ -23,7 +23,7 @@ var Configuration = {
 					selected : true
 				});
 				if (val == "language") {
-					obj.code = require("localization").currentLanguage.code;
+					obj.code = obj.lang_code;
 				}
 				delete obj.id;
 				delete obj.lang_code;

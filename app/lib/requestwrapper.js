@@ -84,41 +84,34 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	if (!ENV_PROD && Alloy.CFG.simulate_api_on_failure) {
-		didSuccess({
-			code : Alloy.CFG.apiCodes.success_code,
-			data : {}
-		}, passthrough);
-	} else {
-		var forceRetry = passthrough.forceRetry !== false,
-		    retry = forceRetry || passthrough.retry !== false;
-		if (forceRetry || retry || passthrough.errorDialogEnabled !== false) {
-			if (_.isEmpty(app.navigator) === false) {
-				app.navigator.hideLoader();
-			}
-			if (passthrough.hideLoaderCallback) {
-				passthrough.hideLoaderCallback();
-			}
-			uihelper.showDialog({
-				message : passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
-				buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
-				cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
-				success : function() {
-					if (Alloy.CFG.encryption_enabled) {
-						passthrough.params = encryptionUtil.decrypt(passthrough.params);
-					}
-					passthrough.params = JSON.parse(passthrough.params);
-					request(passthrough);
-				},
-				cancel : function() {
-					if (passthrough.failure) {
-						passthrough.failure(error, passthrough.passthrough);
-					}
-				}
-			});
-		} else if (passthrough.failure) {
-			passthrough.failure(error, passthrough.passthrough);
+	var forceRetry = passthrough.forceRetry !== false,
+	    retry = forceRetry || passthrough.retry !== false;
+	if (passthrough.errorDialogEnabled !== false && (forceRetry || retry)) {
+		if (_.isEmpty(app.navigator) === false) {
+			app.navigator.hideLoader();
 		}
+		if (passthrough.hideLoaderCallback) {
+			passthrough.hideLoaderCallback();
+		}
+		uihelper.showDialog({
+			message : passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
+			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
+			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
+			success : function() {
+				if (Alloy.CFG.encryption_enabled) {
+					passthrough.params = encryptionUtil.decrypt(passthrough.params);
+				}
+				passthrough.params = JSON.parse(passthrough.params);
+				request(passthrough);
+			},
+			cancel : function() {
+				if (passthrough.failure) {
+					passthrough.failure(error, passthrough.passthrough);
+				}
+			}
+		});
+	} else if (passthrough.failure) {
+		passthrough.failure(error, passthrough.passthrough);
 	}
 }
 

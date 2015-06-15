@@ -4,6 +4,7 @@ var app = require("core"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
+    localization = require("localization"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -23,7 +24,8 @@ function deviceReady(deviceToken) {
 					device_id : deviceToken,
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,
-					client_name : Alloy.CFG.client_name
+					client_name : Alloy.CFG.client_name,
+					client_param_lang_code : localization.currentLanguage.code
 				}
 			}]
 		},
@@ -58,7 +60,7 @@ function didSuccess(result) {
 		silent : true
 	});
 	var clientConfig = appload.client_json || {};
-	_.each(["force_update", "force_reload_after_update", "async_update", "clear_cached_resources"], function(key) {
+	_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
 		if (_.has(clientConfig, key)) {
 			Alloy.CFG[key] = clientConfig[key];
 		}
@@ -99,8 +101,21 @@ function syncUpdate() {
 	config.updateResources(loadConfig);
 }
 
-function loadConfig() {
-	config.load(didLoadConfig);
+function loadConfig(errorQueue) {
+	if (_.isArray(errorQueue) && errorQueue.length) {
+		hideLoader();
+		uihelper.showDialog({
+			title : strings.titleUpdates,
+			message : strings.msgErrorWhileUpdate,
+			buttonNames : [strings.btnContinue],
+			success : function() {
+				showLoader();
+				config.load(didLoadConfig);
+			}
+		});
+	} else {
+		config.load(didLoadConfig);
+	}
 }
 
 function didLoadConfig() {
