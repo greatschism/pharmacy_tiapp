@@ -108,7 +108,19 @@ var App = {
 			App.updateCallback = updateCallback;
 		}
 		App.canReload = true;
-		require("config").updateResources(App.promptAndReloadConfig);
+		require("config").updateResources(App.didUpdate);
+	},
+
+	didUpdate : function(errorQueue) {
+		if (_.isArray(errorQueue) && errorQueue.length) {
+			require("uihelper").showDialog({
+				title : Alloy.Globals.strings.titleUpdates,
+				message : Alloy.Globals.strings.msgErrorWhileUpdate,
+				buttonNames : [Alloy.Globals.strings.btnContinue]
+			});
+		} else {
+			App.promptAndReloadConfig();
+		}
 	},
 
 	promptAndReloadConfig : function() {

@@ -51,7 +51,27 @@ var Res = {
 				Res.collection.clear();
 			}
 
-			Res.setData(require(Res.dataDirectory + "/" + "resources").data, true);
+			var data = require(Res.dataDirectory + "/" + "resources").data;
+
+			//set default language as device language during first launch
+			if (utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) || !ENV_PROD) {
+				var defaultLang = _.findWhere(data, {
+					type : "language",
+					selected : true
+				}),
+				    deviceLan = _.findWhere(data, {
+					type : "language",
+					code : Ti.Locale.currentLanguage
+				});
+				logger.debug(TAG, "client default language", defaultLang.code);
+				if (_.isObject(deviceLan) && defaultLang.code != deviceLan.code) {
+					logger.debug(TAG, "switch to device's default language", deviceLan.code);
+					defaultLang.selected = false;
+					deviceLan.selected = true;
+				}
+			}
+
+			Res.setData(data, true);
 
 		}
 	},

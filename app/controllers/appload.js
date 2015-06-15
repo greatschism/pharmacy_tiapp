@@ -1,7 +1,5 @@
 var app = require("core"),
-    apm = require("apm"),
     notificationHandler = require("notificationHandler"),
-    resources = require("resources"),
     config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
@@ -11,8 +9,6 @@ var app = require("core"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
-	apm.init();
-	resources.init();
 	config.load();
 	notificationHandler.init(deviceReady);
 }
@@ -115,7 +111,7 @@ function loadConfig(errorQueue) {
 			buttonNames : [strings.btnContinue],
 			success : function() {
 				showLoader();
-				config.load(didLoadConfig);
+				didLoadConfig();
 			}
 		});
 	} else {
@@ -129,8 +125,7 @@ function didLoadConfig() {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
-			navBarHidden : true,
-			gestureEnabled : false
+			navBarHidden : true
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});

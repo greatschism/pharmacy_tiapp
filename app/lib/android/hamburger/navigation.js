@@ -86,7 +86,6 @@ function Navigation(args) {
 	 * @param {String} params.title title to be displayed on the title bar
 	 * @param {String} params.titleid localized title to be displayed on the title bar, ignored if title is set
 	 * @param {String} params.navBarHidden hides navigation bar when true
-	 * @param {String} params.gestureEnabled disables gesture when false
 	 * @param {Object} params.ctrlArguments arguments to be passed to the new controller
 	 * @return {Controller} Returns the new controller
 	 */
@@ -128,7 +127,6 @@ function Navigation(args) {
 	 * @param {String} params.title title to be displayed on the title bar
 	 * @param {String} params.titleid localized title to be displayed on the title bar, ignored if title is set
 	 * @param {String} params.navBarHidden hides navigation bar when true
-	 * @param {String} params.gestureEnabled disables gesture when false
 	 * @param {Object} params.ctrlArguments arguments to be passed to the new controller
 	 * @param {Object} params.stack should be true always
 	 * @return {Controller} Returns the new controller

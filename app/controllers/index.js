@@ -8,5 +8,9 @@
 })();
 
 function init() {
+	//initialization
+	require("apm").init();
+	require("resources").init();
+	require("config").load();
 	Alloy.createController("appload");
 }

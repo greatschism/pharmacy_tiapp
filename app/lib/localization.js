@@ -25,7 +25,7 @@ var Locale = {
 		selected : true
 		})[0];
 		Alloy.Globals.strings = Locale.currentLanguage.data;
-		require("logger").debug(TAG, "language selected", Locale.currentLanguage.code);
+		require("logger").debug(TAG, "selected", Locale.currentLanguage.code);
 	},
 
 	/**
@@ -35,12 +35,22 @@ var Locale = {
 	 */
 	setLanguage : function(code, version) {
 		var collection = require("resources").collection,
-		    document = collection.find({
-		type : "language",
-		selected : false,
-		code : code,
-		version : version
-		})[0] || {};
+		    queryObj = {
+			type : "language",
+			selected : false,
+			code : code
+		},
+		    conditionObj = {};
+		if (_.isUndefined(version)) {
+			conditionObj = {
+				$sort : {
+					version : -1
+				}
+			};
+		} else {
+			queryObj.version = version;
+		}
+		var document = collection.find(queryObj, conditionObj)[0] || {};
 		if (!_.isEmpty(document)) {
 			document.selected = true;
 			collection.update({
