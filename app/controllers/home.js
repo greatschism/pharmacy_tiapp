@@ -33,17 +33,39 @@ function init() {
 }
 
 function didSuccess(result, passthrough) {
-	var banners = result.data.banners.banner;
+	var banners = _.sortBy(result.data.banners.banner, "priority");
 	Alloy.Models.user.set("banners", banners);
 	loadBanners(banners);
 }
 
 function loadBanners(banners) {
 	if (_.isArray(banners) && banners.length) {
-		_.each(banners, function(banner) {
-
+		$.bannerScrollableView = $.UI.create("ScrollableView", {
+			apiName : "ScrollableView",
+			height : Alloy.CFG.banner_max_height
 		});
+		_.each(banners, function(banner) {
+			$.bannerScrollableView.addView(Alloy.createController("itemTemplates/banner", banner).getView());
+		});
+		$.bannerScrollableView.addEventListener("scrollend", didScrollend);
+		$.bannerView.add($.bannerScrollableView);
+		$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
+			classes : ["margin-bottom"]
+		}), {
+			currentPage : 1,
+			length : banners.length
+		}));
+		$.pagingControl.on("change", didChangePager);
+		$.bannerView.add($.pagingControl.getView());
 	}
+}
+
+function didChangePager(e) {
+	$.bannerScrollableView.setCurrentPage(e.currentPage);
+}
+
+function didScrollend(e) {
+	$.pagingControl.setCurrentPage(e.currentPage);
 }
 
 function create(dict) {
