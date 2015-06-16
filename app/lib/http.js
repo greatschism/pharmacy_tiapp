@@ -51,7 +51,6 @@ exports.request = function(args) {
 			case "json":
 				data = JSON.parse(this.responseText || "{}");
 				break;
-			case "text":
 			default:
 				data = this.responseText || "";
 			}

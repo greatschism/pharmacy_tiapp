@@ -3,43 +3,46 @@ var Alloy = require("alloy"),
     utilities = require("utilities");
 
 var TiLog = {
-	none : -1,
-	error : 0,
-	warn : 1,
-	info : 2,
-	debug : 3,
-	trace : 4,
-	separator : ":",
+	level : {
+		none : -1,
+		error : 1,
+		warn : 2,
+		info : 3,
+		debug : 4,
+		trace : 5,
+		timestamp : 6
+	},
+	separator : Alloy.CFG.log_separator || ":",
 	getConfig : function() {
-		return TiLog[Alloy.CFG.log_level];
+		return TiLog.level[Alloy.CFG.log_level] || -1;
 	},
 	trace : function() {
-		if (TiLog.getConfig() >= TiLog.trace) {
+		if (TiLog.getConfig() >= TiLog.level.trace) {
 			Ti.API.trace(TiLog.format(arguments));
 		}
 	},
 	debug : function() {
-		if (TiLog.getConfig() >= TiLog.debug) {
+		if (TiLog.getConfig() >= TiLog.level.debug) {
 			Ti.API.debug(TiLog.format(arguments));
 		}
 	},
 	info : function() {
-		if (TiLog.getConfig() >= TiLog.info) {
+		if (TiLog.getConfig() >= TiLog.level.info) {
 			Ti.API.info(TiLog.format(arguments));
 		}
 	},
 	warn : function() {
-		if (TiLog.getConfig() >= TiLog.warn) {
+		if (TiLog.getConfig() >= TiLog.level.warn) {
 			Ti.API.warn(TiLog.format(arguments));
 		}
 	},
 	error : function() {
-		if (TiLog.getConfig() >= TiLog.error) {
+		if (TiLog.getConfig() >= TiLog.level.error) {
 			Ti.API.error(TiLog.format(arguments));
 		}
 	},
 	timestamp : function() {
-		if (TiLog.getConfig() >= TiLog.error) {
+		if (TiLog.getConfig() >= TiLog.level.timestamp) {
 			Ti.API.timestamp(TiLog.format(arguments));
 		}
 	},

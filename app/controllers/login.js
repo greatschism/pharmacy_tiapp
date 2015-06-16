@@ -28,7 +28,11 @@ function updateInputs() {
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
-	nextItem ? $[nextItem] && $[nextItem].focus() : didClickLogin();
+	if (nextItem && $[nextItem]) {
+		$[nextItem].focus();
+	} else {
+		didClickLogin();
+	}
 }
 
 function didClickLogin(e) {
@@ -46,7 +50,7 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if ($.keepMeSwt.getValue() == true) {
+	if ($.keepMeSwt.getValue() === true) {
 		keychainAccount.account = encryptionUtil.encrypt(uname);
 		keychainAccount.valueData = encryptionUtil.encrypt(password);
 	} else {

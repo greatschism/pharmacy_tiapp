@@ -1,5 +1,5 @@
 var addToObject = function(obj, key, value) {
-	if (obj[key] == null) {
+	if (obj[key] === null) {
 		obj[key] = value;
 	} else if (!(obj[key] instanceof Array)) {
 		var tmp = obj[key];
@@ -17,7 +17,7 @@ var traverseTree = function(node) {
 	if (node.hasChildNodes()) {
 		for (var chindex = 0; chindex < node.childNodes.length; chindex++) {
 			var ch = node.childNodes.item(chindex);
-			if (ch.nodeName == '#text' && ch.textContent.replace(/\n/g, '').replace(/ /g, '') == "")
+			if (ch.nodeName === '#text' && ch.textContent.replace(/\n/g, '').replace(/ /g, '') === "")
 				continue;
 			//skip blank text element
 			if (ch.nodeType === 3 || ch.nodeType === ch.CDATA_SECTIONnode) {//Text Node
@@ -60,13 +60,13 @@ var traverseObject = function(v, name, ind) {
 		}
 		xml += hasChild ? ">" : "/>";
 		if (hasChild) {
-			for (var m in v) {
-				if (m == "#text")
-					xml += v[m];
-				else if (m == "#cdata")
-					xml += "<![CDATA[" + v[m] + "]]>";
-				else if (m.charAt(0) != "@")
-					xml += traverseObject(v[m], m, ind + "\t");
+			for (var k in v) {
+				if (k == "#text")
+					xml += v[k];
+				else if (k == "#cdata")
+					xml += "<![CDATA[" + v[k] + "]]>";
+				else if (k.charAt(0) != "@")
+					xml += traverseObject(v[k], k, ind + "\t");
 			}
 			xml += (xml.charAt(xml.length - 1) == "\n" ? ind : "") + "</" + name + ">";
 		}
@@ -90,7 +90,7 @@ XMLTools.prototype.getDocument = function() {
 };
 
 XMLTools.prototype.toObject = function() {
-	if (this.doc == null) {
+	if (this.doc === null) {
 		return null;
 	}
 	this.obj = traverseTree(this.doc);
@@ -98,10 +98,10 @@ XMLTools.prototype.toObject = function() {
 };
 
 XMLTools.prototype.toJSON = function() {
-	if (this.doc == null) {
+	if (this.doc === null) {
 		return null;
 	}
-	if (this.obj == null) {
+	if (this.obj === null) {
 		this.obj = traverseTree(this.doc);
 	}
 	return (JSON.stringify(this.obj));

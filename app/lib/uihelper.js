@@ -211,7 +211,7 @@ var Helper = {
 		    path = properties.image,
 		    newWidth = properties.width || 0,
 		    newHeight = properties.height || 0;
-		if (newWidth == 0 || newHeight == 0) {
+		if (newWidth === 0 || newHeight === 0) {
 			var newProperties = _.pick(properties, ["top", "bottom", "left", "right", "width", "height"]);
 			if (_.has(newProperties, "left") && _.has(newProperties, "right")) {
 				newProperties.left = utilities.percentageToValue(properties.left, app.device.width);
@@ -227,10 +227,10 @@ var Helper = {
 				imgWidth /= app.device.logicalDensityFactor;
 				imgHeight /= app.device.logicalDensityFactor;
 			}
-			if (newWidth == 0) {
+			if (newWidth === 0) {
 				newHeight = utilities.percentageToValue(newHeight, app.device.height);
 				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-			} else if (newHeight == 0) {
+			} else if (newHeight === 0) {
 				newWidth = utilities.percentageToValue(newWidth, app.device.width);
 				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
 			}

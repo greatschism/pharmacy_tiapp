@@ -274,7 +274,7 @@ var Res = {
 				});
 				Res.setData(assets);
 				_.each(assets, function(asset) {
-					if (asset.update == true) {
+					if (asset.update === true) {
 						var obj = _.pick(asset, ["type", "version", "base_version", "code", "url", "format"]);
 						Res.updateQueue.push(obj);
 						Res.downloadAsset(obj);
@@ -321,7 +321,7 @@ var Res = {
 		Res.updateQueue = _.reject(Res.updateQueue, function(obj) {
 			return _.isEqual(obj, passthrough);
 		});
-		if (Res.updateQueue.length == 0 && Res.updateCallback) {
+		if (Res.updateQueue.length === 0 && Res.updateCallback) {
 			Res.updateCallback(Res.errorQueue);
 			Res.updateCallback = null;
 		}

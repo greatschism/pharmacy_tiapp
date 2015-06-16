@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+excluded=//com.scule.js
+included=app/controllers/*.js\:app/lib/*.js\:app/spec/*.js\:plugins/*.js
