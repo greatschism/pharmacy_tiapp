@@ -15,7 +15,7 @@ describe("RequestWrapper Test Suite", function() {
 					appload : {
 						phone_model : Ti.Platform.model,
 						phone_os : Ti.Platform.osname,
-						phone_platform : app.device.platform,
+						phone_platform : app.device.platformCode,
 						device_id : "x",
 						carrier : Ti.Platform.carrier,
 						app_version : Ti.App.version,

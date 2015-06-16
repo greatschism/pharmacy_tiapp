@@ -43,6 +43,7 @@ var App = {
 	 */
 	device : {
 		platform : OS_IOS ? "ios" : "android",
+		platformCode : OS_IOS ? "IP" : "AD", // used with API requests
 		version : Ti.Platform.version,
 		versionMajor : parseInt(Ti.Platform.version.split(".")[0], 10),
 		versionMinor : parseInt(Ti.Platform.version.split(".")[1], 10),
