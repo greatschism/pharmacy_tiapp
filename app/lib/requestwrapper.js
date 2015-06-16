@@ -43,6 +43,7 @@ function request(args) {
 		client_identifier : Alloy.CFG.client_identifier,
 		version : Alloy.CFG.api_version,
 		lang : localization.currentLanguage.code,
+		msi_log_id : Alloy.Models.user.get("appload").msi_log_id,
 		session_id : Alloy.Models.user.get("patients").session_id
 	});
 	args.params = JSON.stringify(args.params, null, 4);

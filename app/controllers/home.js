@@ -11,7 +11,38 @@ function init() {
 		$.contentView.add(create(item));
 	});
 	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView) {
+		var banners = Alloy.Models.user.get("banners");
+		if (banners) {
+			loadBanners(banners);
+		} else {
+			$.http.request({
+				method : "appload_getbanners",
+				params : {
+					data : [{
+						banners : {
+							platform : $.app.device.platformCode
+						}
+					}]
+				},
+				showLoader : false,
+				errorDialogEnabled : false,
+				success : didSuccess
+			});
+		}
+	}
+}
 
+function didSuccess(result, passthrough) {
+	var banners = result.data.banners.banner;
+	Alloy.Models.user.set("banners", banners);
+	loadBanners(banners);
+}
+
+function loadBanners(banners) {
+	if (_.isArray(banners) && banners.length) {
+		_.each(banners, function(banner) {
+
+		});
 	}
 }
 
