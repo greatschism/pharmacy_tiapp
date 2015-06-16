@@ -171,7 +171,7 @@ module.exports = {
 		"lblTourNotesStoreLocator" : "You can set a home pharmacy for prescription refills in one step",
 		"lblTurnOnPush" : "Turn on Push",
 		"lblDocument" : "Document",
-		"lblDosageInstruction" : "Dosage instruction",
+		"lblDosageInstruction" : "Dosage instructions",
 		"lblNewPassword" : "Please create a new password. Password should be alphanumeric, needs to have at least 2 numbers and be at least 6 characters long.",
 		"lblRemindMeAppointment" : "Remind me",
 		"lblRefilled" : "Refilled",
