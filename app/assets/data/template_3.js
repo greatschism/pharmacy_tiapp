@@ -5,6 +5,10 @@ module.exports = {
 		"classes" : ["width-100", "vgroup"],
 		"children" : [{
 			"items" : [{
+				"id" : "bannerView",
+				"apiName" : "View",
+				"classes" : ["auto-height"]
+			}, {
 				"apiName" : "View",
 				"classes" : ["auto-height", "hgroup-no-wrap"],
 				"children" : [{

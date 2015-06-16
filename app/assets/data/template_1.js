@@ -2,6 +2,13 @@ module.exports = {
 	"data" : [{
 		"apiName" : "TableView",
 		"children" : [{
+			"addChild" : "setHeaderView",
+			"items" : [{
+				"id" : "bannerView",
+				"apiName" : "View",
+				"classes" : ["auto-height"]
+			}]
+		}, {
 			"addChild" : "setFooterView",
 			"items" : [{
 				"apiName" : "View",

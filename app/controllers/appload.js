@@ -30,6 +30,7 @@ function deviceReady(deviceToken) {
 				}
 			}]
 		},
+		forceRetry : true,
 		success : didSuccess,
 		showLoaderCallback : showLoader,
 		hideLoaderCallback : hideLoader

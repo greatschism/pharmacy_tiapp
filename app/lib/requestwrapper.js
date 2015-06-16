@@ -69,8 +69,12 @@ function didSuccess(result, passthrough) {
 	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result);
 	}
-	if (result.code != Alloy.CFG.apiCodes.success_code) {
+	if (result.code !== Alloy.CFG.apiCodes.success_code) {
 		if (passthrough.errorDialogEnabled !== false) {
+			if (passthrough.forceRetry === true) {
+				passthrough.failureMessage = result.message || Alloy.Globals.strings.msgSomethingWentWrong;
+				return didFail(result, passthrough);
+			}
 			uihelper.showDialog({
 				message : result.message || Alloy.Globals.strings.msgSomethingWentWrong
 			});
@@ -84,7 +88,7 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	var forceRetry = passthrough.forceRetry !== false,
+	var forceRetry = passthrough.forceRetry === true,
 	    retry = forceRetry || passthrough.retry !== false;
 	if (passthrough.errorDialogEnabled !== false && (forceRetry || retry)) {
 		if (_.isEmpty(app.navigator) === false) {

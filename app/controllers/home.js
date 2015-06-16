@@ -10,6 +10,9 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
+	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView) {
+
+	}
 }
 
 function create(dict) {

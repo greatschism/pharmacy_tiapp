@@ -19,6 +19,10 @@ module.exports = {
 				}],
 				"children" : [{
 					"items" : [{
+						"id" : "bannerView",
+						"apiName" : "View",
+						"classes" : ["auto-height"]
+					}, {
 						"apiName" : "View",
 						"classes" : ["auto-height"],
 						"children" : [{
