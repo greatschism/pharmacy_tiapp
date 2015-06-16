@@ -1,5 +1,5 @@
 var addToObject = function(obj, key, value) {
-	if (obj[key] === null) {
+	if (!obj[key]) {
 		obj[key] = value;
 	} else if (!(obj[key] instanceof Array)) {
 		var tmp = obj[key];
@@ -90,7 +90,7 @@ XMLTools.prototype.getDocument = function() {
 };
 
 XMLTools.prototype.toObject = function() {
-	if (this.doc === null) {
+	if (!this.doc) {
 		return null;
 	}
 	this.obj = traverseTree(this.doc);
@@ -98,10 +98,10 @@ XMLTools.prototype.toObject = function() {
 };
 
 XMLTools.prototype.toJSON = function() {
-	if (this.doc === null) {
+	if (!this.doc) {
 		return null;
 	}
-	if (this.obj === null) {
+	if (!this.obj) {
 		this.obj = traverseTree(this.doc);
 	}
 	return (JSON.stringify(this.obj));
