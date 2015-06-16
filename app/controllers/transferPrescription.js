@@ -33,7 +33,7 @@ function didGetPrescriptionDetail(_result) {
 	$.refillsLeftLblValue.title=prescriptionsData[0].refill_left;
 	$.lastFilledLblValue.title=prescriptionsData[0].presc_last_filled_date ?moment(prescriptionsData[0].presc_last_filled_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format): "NA";
 	$.dueForRefillLblValue.title= prescriptionsData[0].anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : "NA";
-	$.remindeMeMedicationSwt.setValue(true);
+	$.remindeMeMedicationSwt.setValue(false);
 	$.setMedicationSwt.setValue(true);
 }
 
