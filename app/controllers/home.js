@@ -1,6 +1,8 @@
 var args = arguments[0] || {},
     iconPrefix = Alloy.CFG.iconPrefix,
-    icons = Alloy.CFG.icons;
+    icons = Alloy.CFG.icons,
+    banners,
+    spanTimeoutId;
 
 function init() {
 	var items = Alloy.Models.template.get("data");
@@ -11,10 +13,7 @@ function init() {
 		$.contentView.add(create(item));
 	});
 	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView) {
-		var banners = Alloy.Models.user.get("banners");
-		if (banners) {
-			loadBanners(banners);
-		} else {
+		if (!loadBanners(Alloy.Models.user.get("banners"))) {
 			$.http.request({
 				method : "appload_getbanners",
 				params : {
@@ -33,13 +32,13 @@ function init() {
 }
 
 function didSuccess(result, passthrough) {
-	var banners = _.sortBy(result.data.banners.banner, "priority");
-	Alloy.Models.user.set("banners", banners);
-	loadBanners(banners);
+	Alloy.Models.user.set("banners", _.sortBy(result.data.banners.banner, "priority"));
+	loadBanners(Alloy.Models.user.get("banners"));
 }
 
-function loadBanners(banners) {
-	if (_.isArray(banners) && banners.length) {
+function loadBanners(items) {
+	if (_.isArray(items) && items.length) {
+		banners = items;
 		$.bannerScrollableView = $.UI.create("ScrollableView", {
 			apiName : "ScrollableView",
 			height : Alloy.CFG.banner_max_height
@@ -52,20 +51,44 @@ function loadBanners(banners) {
 		$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
 			classes : ["margin-bottom"]
 		}), {
-			currentPage : 1,
+			currentPage : 0,
 			length : banners.length
 		}));
 		$.pagingControl.on("change", didChangePager);
 		$.bannerView.add($.pagingControl.getView());
+		startSpanTime(banners[0].spanTime);
+		return true;
 	}
+	return false;
+}
+
+function startSpanTime(seconds) {
+	if (spanTimeoutId) {
+		clearTimeout(spanTimeoutId);
+	}
+	spanTimeoutId = setTimeout(didSpanTimeout, seconds * 1000);
+}
+
+function didSpanTimeout() {
+	var nextPage = $.bannerScrollableView.currentPage + 1;
+	if (banners.length === nextPage) {
+		nextPage = 0;
+	}
+	$.bannerScrollableView.scrollToView(nextPage);
+	$.pagingControl.setCurrentPage(nextPage);
+	startSpanTime(banners[nextPage].spanTime);
 }
 
 function didChangePager(e) {
-	$.bannerScrollableView.setCurrentPage(e.currentPage);
+	var currentPage = e.currentPage;
+	$.bannerScrollableView.scrollToView(currentPage);
+	startSpanTime(banners[currentPage].spanTime);
 }
 
 function didScrollend(e) {
-	$.pagingControl.setCurrentPage(e.currentPage);
+	var currentPage = e.currentPage;
+	$.pagingControl.setCurrentPage(currentPage);
+	startSpanTime(banners[currentPage].spanTime);
 }
 
 function create(dict) {
@@ -176,4 +199,11 @@ function didPostlayout(e) {
 	});
 }
 
+function terminate() {
+	if (spanTimeoutId) {
+		clearTimeout(spanTimeoutId);
+	}
+}
+
 exports.init = init;
+exports.terminate = terminate;
