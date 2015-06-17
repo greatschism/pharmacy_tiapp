@@ -489,6 +489,7 @@ module.exports = {
 			},
 			".search-bar" : {
 				"width" : "fill",
+				"height" : 46,
 				"backgroundColor" : "#EEEEF3"
 			},
 			".search-txt" : {

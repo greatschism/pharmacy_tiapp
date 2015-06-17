@@ -1,12 +1,6 @@
 ".light-icon":{
 	text: Alloy.CFG.icons.light
 },
-"#scrollableView":{
-	top: Alloy.CFG.navBarTop,
-	bottom: 48,
-	showPagingControl: false,
-	disableBounce: true
-},
 "#pagingControl":{
 	length: 4
 },
@@ -41,7 +35,6 @@
 	text: Alloy.Globals.strings.titleTourHelpfulMedication
 },
 "#pushLbl":{
-	right: 60,
 	text: Alloy.Globals.strings.lblTurnOnPush
 },
 "#storeLocatorLbl":{

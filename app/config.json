@@ -43,12 +43,15 @@
             "appload_get": "THXXX",
             "appload_getbanners": "THXXX",
             "appload_clientjson": "THXXX",
-            "patient_authenticate": "THXXX"
+            "patient_authenticate": "THXXX",
+            "prescriptions_list": "THXXX"
         },
         "apiCodes": {
             "success_code": "200",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
+            "prescription_display_status_active": "active",
+            "prescription_display_status_hideen": "hidden",
             "prescription_getting_refilled": "INPROCESS",
             "prescription_ready_for_refill": "READYFORREFILL",
             "prescription_to_be_refilled": "TOBEREFILLED",

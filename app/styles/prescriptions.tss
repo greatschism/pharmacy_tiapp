@@ -6,7 +6,7 @@
 	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh, Alloy.Globals.strings.strCancel],
 	cancel: 4
 },
-"#searchbar":{
+"#searchTxt":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
 },
 "#unhideMenu":{
