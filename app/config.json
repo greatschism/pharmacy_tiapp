@@ -130,6 +130,7 @@
         },
         "location_timeout": 900,
         "http_timeout": 90,
+        "banner_max_width": "100%",
         "banner_max_height": 140,
         "log_level": "debug",
         "force_update": false,

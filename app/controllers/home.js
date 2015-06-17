@@ -32,6 +32,12 @@ function init() {
 }
 
 function didSuccess(result, passthrough) {
+	if (_.has(result.data.banners, "width")) {
+		Alloy.CFG.banner_max_width = result.data.banners.width;
+	}
+	if (_.has(result.data.banners, "height")) {
+		Alloy.CFG.banner_max_height = result.data.banners.height;
+	}
 	Alloy.Models.user.set("banners", _.sortBy(result.data.banners.banner, "priority"));
 	loadBanners(Alloy.Models.user.get("banners"));
 }
@@ -41,6 +47,7 @@ function loadBanners(items) {
 		banners = items;
 		$.bannerScrollableView = $.UI.create("ScrollableView", {
 			apiName : "ScrollableView",
+			width : Alloy.CFG.banner_max_width,
 			height : Alloy.CFG.banner_max_height
 		});
 		_.each(banners, function(banner) {

@@ -23,11 +23,6 @@
 		Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
 	});
 
-	//icons notation to character
-	_.each(Alloy.CFG.iconNotations, function(val, key) {
-		Alloy.CFG.icons[key] = String.fromCharCode(val);
-	});
-
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.loggedIn = false;

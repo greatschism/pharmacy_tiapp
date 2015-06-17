@@ -7,7 +7,7 @@ module.exports = {
 			"items" : [{
 				"id" : "bannerView",
 				"apiName" : "View",
-				"classes" : ["auto-height"]
+				"classes" : ["auto-width", "auto-height"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["auto-height", "hgroup-no-wrap"],

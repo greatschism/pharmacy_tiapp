@@ -141,6 +141,11 @@ var Configuration = {
 		if (_.isObject(theme.data.config[platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
 		}
+		//icons notation to character
+		_.each(Alloy.CFG.iconNotations, function(val, key) {
+			Alloy.CFG.icons[key] = String.fromCharCode(val);
+		});
+		//load TSS values from theme
 		Alloy.TSS = {
 			Theme : {
 				version : theme.version
