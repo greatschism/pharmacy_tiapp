@@ -1,3 +1,7 @@
 <Alloy>
-	<ScrollableView></ScrollableView>
+	<ScrollableView>
+		<View>
+			<Label>Carousel page is under construction, swipe right to get access to the menu for navigating to home screen</Label>
+		</View>
+	</ScrollableView>
 </Alloy> 
