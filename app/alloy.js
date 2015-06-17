@@ -15,7 +15,7 @@
 		dateFormat[key] = val;
 	});
 	Alloy.CFG.date_format = dateFormat.join("/");
-	Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "hh:mm a" : "HH:mm";
+	Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
 	Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
 
 	//convert seconds to milliseconds
