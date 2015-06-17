@@ -3,9 +3,9 @@
 		<ImageView id="logoImg" class="margin-top" />
 		<Label id="hintLbl" class="margin-top lbl-centered-wrap" />
 		<View class="margin-top form-vgroup">
-			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next"  />
+			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done"  onClick="didClickPwd" />
+			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
 		</View>
 		<View class="margin-top auto-height">
 			<Label id="keepMeLbl" class="lbl-with-rswt" />

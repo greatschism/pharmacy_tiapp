@@ -94,7 +94,7 @@ function didAuthenticate(result) {
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
 		action : "signout",
-		icon : "remove"
+		icon : "sign_out"
 	});
 	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
 	landing_page: true
