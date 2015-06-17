@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
     banners,
-    spanTimeoutId;
+    spanTimeId;
 
 function init() {
 	var items = Alloy.Models.template.get("data");
@@ -63,10 +63,10 @@ function loadBanners(items) {
 }
 
 function startSpanTime(seconds) {
-	if (spanTimeoutId) {
-		clearTimeout(spanTimeoutId);
+	if (spanTimeId) {
+		clearTimeout(spanTimeId);
 	}
-	spanTimeoutId = setTimeout(didSpanTimeout, seconds * 1000);
+	spanTimeId = setTimeout(didSpanTimeout, seconds * 1000);
 }
 
 function didSpanTimeout() {
@@ -200,8 +200,8 @@ function didPostlayout(e) {
 }
 
 function terminate() {
-	if (spanTimeoutId) {
-		clearTimeout(spanTimeoutId);
+	if (spanTimeId) {
+		clearTimeout(spanTimeId);
 	}
 }
 
