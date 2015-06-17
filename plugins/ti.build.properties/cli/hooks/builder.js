@@ -104,6 +104,9 @@ exports.init = function(logger, config, cli, appc) {
 
 				//update build date
 				configData.global.buildDate = new Date().toString();
+
+				//update flags
+				configData.global.override_remote_resources = false;
 			}
 
 			//add / remove modules

@@ -138,7 +138,7 @@
         "async_update": true,
         "clear_cached_resources": false,
         "delete_unused_resources": false,
-        "override_remote_resources": false,
+        "override_remote_resources": true,
         "storage_engine": "tiencrypted",
         "first_launch": "firstLaunch",
         "user_account": "account",
