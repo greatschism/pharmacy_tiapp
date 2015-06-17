@@ -12,22 +12,20 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView) {
-		if (!loadBanners(Alloy.Models.user.get("banners"))) {
-			$.http.request({
-				method : "appload_getbanners",
-				params : {
-					data : [{
-						banners : {
-							platform : $.app.device.platformCode
-						}
-					}]
-				},
-				showLoader : false,
-				errorDialogEnabled : false,
-				success : didSuccess
-			});
-		}
+	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView && !loadBanners(Alloy.Models.user.get("banners"))) {
+		$.http.request({
+			method : "appload_getbanners",
+			params : {
+				data : [{
+					banners : {
+						platform : $.app.device.platformCode
+					}
+				}]
+			},
+			showLoader : false,
+			errorDialogEnabled : false,
+			success : didSuccess
+		});
 	}
 }
 
