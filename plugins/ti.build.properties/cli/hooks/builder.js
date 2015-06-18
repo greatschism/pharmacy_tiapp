@@ -14,7 +14,7 @@ exports.init = function(logger, config, cli, appc) {
 
 	cli.on("build.pre.construct", function(build, done) {
 
-		var isProd = cli.argv["deploy-type"] == "production";
+		var isProd = cli.argv["deploy-type"] || cli.argv["deployment-type"] === "production";
 
 		try {
 
