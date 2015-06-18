@@ -49,7 +49,7 @@ function loadBanners(items) {
 			height : Alloy.CFG.banner_max_height
 		});
 		_.each(banners, function(banner) {
-			$.bannerScrollableView.addView(Alloy.createController("itemTemplates/banner", banner).getView());
+			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 		});
 		$.bannerScrollableView.addEventListener("scrollend", didScrollend);
 		$.bannerView.add($.bannerScrollableView);

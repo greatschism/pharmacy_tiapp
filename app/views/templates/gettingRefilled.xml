@@ -1,0 +1,12 @@
+<Alloy>
+	<TableViewRow id="row" class="auto-height">
+		<View class="list-item-view vgroup">
+			<Label id="titleLbl" class="left list-item-title-lbl text-left" />
+			<Label id="subtitleLbl" class="left list-item-subtitle-lbl text-left" />
+			<View class="padding-top padding-bottom auto-height">
+				<View class="width-100 progressbar-bg" />
+				<View id="progressView" class="left progressbar-fg" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

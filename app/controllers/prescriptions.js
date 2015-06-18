@@ -30,11 +30,9 @@ function didGetPrescriptionList(result, passthrough) {
 		rows = [];
 	}
 	//process data from server
-	Alloy.Collections.prescriptions.reset(_.sortBy(result.data.prescriptions, function(obj) {
-		return -parseInt(obj.is_overdue);
-	}));
+	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//loop data for rows
-	Alloy.Collections.prescriptions.map(function(prescription) {
+	Alloy.Collections.prescriptions.each(function(prescription) {
 
 	});
 }

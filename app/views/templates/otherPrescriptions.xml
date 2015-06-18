@@ -1,0 +1,14 @@
+<Alloy>
+	<TableViewRow id="row" class="auto-height">
+		<View class="list-item-view">
+			<View class="left width-65 auto-height vgroup">
+				<Label id="titleLbl" class="left list-item-title-lbl text-left" />
+				<Label id="subtitleLbl" class="left list-item-subtitle-lbl text-left" />
+			</View>
+			<View class="right width-30 auto-height vgroup">
+				<Label id="infoLbl" class="right h2 text-right" />
+				<Label id="detailLbl" class="right h2 text-right" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

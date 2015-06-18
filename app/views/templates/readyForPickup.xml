@@ -1,0 +1,13 @@
+<Alloy>
+	<TableViewRow id="row" class="auto-height">
+		<View id="rowView" class="auto-height">
+			<View class="list-item-view vgroup">
+				<Label id="titleLbl" class="left list-item-title-lbl text-left" />
+				<View class="padding-top hgroup no-hwrap auto-height">
+					<Label id="iconLbl" class="left small-icon success-color accessibility-disabled" />
+					<Label id="subtitleLbl" class="small-icon-margin-left list-item-subtitle-lbl text-left" />
+				</View>
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>
