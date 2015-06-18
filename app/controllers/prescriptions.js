@@ -1,10 +1,12 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    currentDate = moment(),
     apiCodes = Alloy.CFG.apiCodes,
     sectionIds = ["readyForPickup", "gettingRefilled", "readyForRefill", "otherPrescriptions"],
     sections = {},
     rows = [];
+
+//temp session_id for development
+Alloy.Models.user.get("patients").session_id = "4JBSv4ViJYiBiNwHYYiJY4VicYABYHvS";
 
 function init() {
 	$.http.request({
@@ -24,20 +26,24 @@ function init() {
 }
 
 function didGetPrescriptionList(result, passthrough) {
-	//reset table and rows
+	//reset sections and rows
 	if (rows.length) {
-		resetTable();
+		resetSections();
 		rows = [];
 	}
 	//process data from server
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//loop data for rows
+	var currentDate = moment.utc();
+	console.error(currentDate.zone());
 	Alloy.Collections.prescriptions.each(function(prescription) {
-
+		var refillStatus = prescription.refill_status,
+		    anticipatedRefillDate = moment.utc(prescription.anticipated_refill_date || moment.utc().format(apiCodes.date_format), apiCodes.date_format),
+		    dueInDays = currentDate.diff(anticipatedRefillDate, "days", true);
 	});
 }
 
-function resetTable() {
+function resetSections() {
 	//remove all sections from table
 	$.tableView.setData([], {
 		animated : true

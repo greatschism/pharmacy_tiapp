@@ -66,9 +66,9 @@ function didClickLogin(e) {
 					}
 				}]
 			},
+			keepLoader : true,
 			success : didSharedMobileCheck,
-			failure : didFail,
-			keepLoader : true
+			failure : didFailRequest
 		});
 	} else {
 		http.request({
@@ -81,7 +81,9 @@ function didClickLogin(e) {
 					}
 				}]
 			},
-			success : didAuthenticate
+			keepLoader : true,
+			success : didAuthenticate,
+			failure : didFailRequest
 		});
 	}
 }
@@ -95,6 +97,22 @@ function didAuthenticate(result) {
 		titleid : "strSignout",
 		action : "signout",
 		icon : "sign_out"
+	});
+	http.request({
+		method : "patient_get",
+		params : {
+			data : [{
+				patient : {}
+			}]
+		},
+		forceRetry : true,
+		success : didGetUserDetails
+	});
+}
+
+function didGetUserDetails(result) {
+	Alloy.Models.user.set({
+		patients : _.extend(Alloy.Models.user.get("patients"), results.data.patients)
 	});
 	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
 	landing_page: true
@@ -142,7 +160,7 @@ function didAuthenticateMobileUser(result) {
 	});
 }
 
-function didFail(error, passthrough) {
+function didFailRequest(error, passthrough) {
 	app.navigator.hideLoader();
 }
 

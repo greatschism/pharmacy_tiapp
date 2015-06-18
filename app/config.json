@@ -6,6 +6,7 @@
             "appload_getbanners": "appload/getbanners",
             "appload_clientjson": "appload/clientjson",
             "patient_authenticate": "patient/authenticate",
+            "patient_get": "patient/get",
             "terms_get": "terms/get",
             "code_values_get": "codevalues/get",
             "patients_logout": "patients/logout",
@@ -16,7 +17,6 @@
             "patients_register": "patients/register",
             "patients_new_password": "patients/newpassword",
             "patients_forgot_password": "patients/forgotpassword",
-            "patients_get": "patients/get",
             "doctors_get": "doctors/get",
             "doctors_list": "doctors/list",
             "doctors_add": "doctors/add",
@@ -44,6 +44,7 @@
             "appload_getbanners": "THXXX",
             "appload_clientjson": "THXXX",
             "patient_authenticate": "THXXX",
+            "patient_get": "THXXX",
             "prescriptions_list": "THXXX"
         },
         "apiCodes": {
@@ -52,11 +53,9 @@
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "prescription_display_status_active": "active",
             "prescription_display_status_hideen": "hidden",
-            "prescription_getting_refilled": "INPROCESS",
-            "prescription_ready_for_refill": "READYFORREFILL",
-            "prescription_to_be_refilled": "TOBEREFILLED",
-            "prescription_ready_for_pickup": "READYFORPICKUP",
-            "prescription_others": "OTHERS"
+            "refill_status_in_process": "In Process",
+            "refill_status_ready": "Ready",
+            "refill_status_sold": "Sold"
         },
         "iconPrefix": "thick",
         "iconNotations": {
