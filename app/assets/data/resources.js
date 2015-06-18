@@ -8,7 +8,7 @@ module.exports = {
 		"type" : "template",
 		"version" : 1,
 		"base_version" : 1,
-		"selected" : false
+		"selected" : true
 	}, {
 		"type" : "menu",
 		"version" : 1,
