@@ -1,0 +1,15 @@
+<Alloy>
+	<TableViewRow id="row">
+		<Label id="selectionLbl" class="content-left-icon" />
+		<View id="contentView" class="content-view-vgroup-with-licon">
+			<View class="content-master-view-70">
+				<Label id="titleLbl" class="content-title" />
+				<Label id="subtitleLbl" class="content-subtitle" />
+			</View>
+			<View class="content-detail-view-30">
+				<Label id="detailTitleLbl" />
+				<Label id="detailSubtitleLbl" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

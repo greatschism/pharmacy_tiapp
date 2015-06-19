@@ -14,7 +14,7 @@ function init() {
 	$.titleLbl.text = store.addressline1;
 	$.subtitleLbl.text = store.subtitle;
 
-	if (Alloy.Globals.loggedIn) {
+	if (Alloy.Globals.isLoggedIn) {
 		$.favoriteIconLbl.text = store.favorite;
 		if (store.favorite) {
 			$.favoriteBtn.title = Alloy.Globals.strings.btnRemoveFromFavorites;

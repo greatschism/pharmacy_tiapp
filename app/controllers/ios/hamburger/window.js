@@ -17,6 +17,7 @@ var args = arguments[0] || {},
 	if (args.stack) {
 		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_NONE");
 		$.leftNavBtn = $.UI.create("Button", {
+			apiName : "Button",
 			classes : ["nav-icon-btn"],
 			title : Alloy.CFG.icons.back,
 			accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
@@ -24,6 +25,7 @@ var args = arguments[0] || {},
 	} else {
 		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_ALL");
 		$.leftNavBtn = $.UI.create("Button", {
+			apiName : "Button",
 			classes : ["nav-icon-btn"],
 			title : Alloy.CFG.icons.hamburger,
 			accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu

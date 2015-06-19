@@ -51,7 +51,7 @@ module.exports = {
 			"Button" : {
 				"height" : 50,
 				"font" : {
-					"fontFamily" : "medium ",
+					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
 				"textAlign" : "center",
@@ -133,7 +133,7 @@ module.exports = {
 				"right" : 16,
 				"height" : 50,
 				"font" : {
-					"fontFamily" : "medium ",
+					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
 				"color" : "#FFFFFF",
@@ -146,7 +146,7 @@ module.exports = {
 				"width" : "48%",
 				"height" : 50,
 				"font" : {
-					"fontFamily" : "medium ",
+					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
 				"color" : "#FFFFFF",
@@ -754,75 +754,103 @@ module.exports = {
 				"height" : "auto"
 			},
 			".swipe-view" : {
-				"right" : 48,
-				"width" : "auto",
+				"width" : "100%",
 				"height" : "auto"
 			},
 			".swipe-content-view" : {
-				"left" : 48,
-				"width" : "auto",
-				"height" : "auto",
-				"layout" : "horizontal"
+				"left" : 30,
+				"right" : 0,
+				"height" : "auto"
 			},
-			".swipe-view-btn-40" : {
-				"left" : 0,
+			".swipe-content-btn-40" : {
 				"width" : "40%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#808285",
 				"backgroundSelectedColor" : "#808285",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
-			".swipe-view-btn-30" : {
-				"left" : 0,
+			".swipe-content-btn-30" : {
 				"width" : "30%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#808285",
 				"backgroundSelectedColor" : "#808285",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
-			".swipe-view-positive-btn-40" : {
-				"left" : 0,
+			".swipe-content-positive-btn-40" : {
 				"width" : "40%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#009245",
 				"backgroundSelectedColor" : "#009245",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
-			".swipe-view-positive-btn-30" : {
-				"left" : 0,
+			".swipe-content-positive-btn-30" : {
 				"width" : "30%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#009245",
 				"backgroundSelectedColor" : "#009245",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
-			".swipe-view-negative-btn-40" : {
-				"left" : 0,
+			".swipe-content-negative-btn-40" : {
 				"width" : "40%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#ED1C24",
 				"backgroundSelectedColor" : "#ED1C24",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
-			".swipe-view-negative-btn-30" : {
-				"left" : 0,
+			".swipe-content-negative-btn-30" : {
 				"width" : "30%",
 				"height" : 65,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#ED1C24",
 				"backgroundSelectedColor" : "#ED1C24",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
 			".content-view" : {
 				"top" : 12,

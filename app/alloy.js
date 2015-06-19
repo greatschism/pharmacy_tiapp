@@ -25,7 +25,8 @@
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");
-	Alloy.Globals.loggedIn = false;
+	Alloy.Globals.isLoggedIn = false;
+	Alloy.Globals.isSwipeViewVisible = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 
 	/**
@@ -56,9 +57,12 @@
 
 	//events
 	Alloy.Models.user.on("change:patients", function didLoginChange() {
-		Alloy.Globals.loggedIn = Alloy.Models.user.get("logged_in");
+		Alloy.Globals.isLoggedIn = Alloy.Models.user.get("logged_in");
 	});
 
+	//initialize scule tiencrypted storage engine
 	require("com.scule.tiencrypted");
+	//initialize moment-timezone
+	require("alloy/moment-timezone");
 
 })();

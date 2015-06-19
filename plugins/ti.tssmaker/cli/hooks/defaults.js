@@ -123,5 +123,8 @@ module.exports = {
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".search-txt" : {
+		"leftIconText" : "Alloy.CFG.icons.search"
 	}
 };

@@ -8,7 +8,7 @@
 			<View id="mapView" ns="Alloy.Globals.Map" class="hide" onClick="didAnnotationClick" />
 			<TableView id="tableView" class="secondary-bg-color show" dataCollection="stores" onClick="didItemClick">
 				<TableViewRow class="auto-height" rowId="{storeid}" className="store">
-					<Label class="list-item-left-icon" if="Alloy.Globals.loggedIn" text="{favorite}" />
+					<Label class="list-item-left-icon" if="Alloy.Globals.isLoggedIn" text="{favorite}" />
 					<View class="list-item-view-with-icon">
 						<View class="left width-60 auto-height vgroup">
 							<Label class="left list-item-title-lbl" text="{addressline1}" />

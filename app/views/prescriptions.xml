@@ -5,6 +5,7 @@
 		<Widget id="searchTxt" src="ti.textfield"  class="top returnkey-done search-txt" />
 	</View>
 	<TableView id="tableView" class="top">
+		<Require src="itemTemplates/masterDetail"></Require>
 		<FooterView>
 			<View class="auto-height" platform="ios" />
 		</FooterView>

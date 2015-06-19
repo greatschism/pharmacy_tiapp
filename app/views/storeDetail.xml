@@ -3,7 +3,7 @@
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<View class="margin-top margin-left margin-right auto-height no-hwrap">
-					<Label id="favoriteIconLbl" class="top list-item-left-icon" if="Alloy.Globals.loggedIn" />
+					<Label id="favoriteIconLbl" class="top list-item-left-icon" if="Alloy.Globals.isLoggedIn" />
 					<View class="list-item-view-with-icon">
 						<View class="left width-60 auto-height vgroup">
 							<Label id="titleLbl" class="left list-item-title-lbl" />
@@ -17,9 +17,9 @@
 						<Button id="directionBtn" class="bottom right width-35 thirtiary-btn-small" onClick="didClickDirection" />
 					</View>
 				</View>
-				<Button id="refillBtn" class="margin-bottom primary-btn" onClick="didClickRefill" if="!Alloy.Globals.loggedIn" />
-				<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" if="Alloy.Globals.loggedIn" />
-				<View class="margin-top margin-bottom margin-left margin-right auto-height" if="Alloy.Globals.loggedIn">
+				<Button id="refillBtn" class="margin-bottom primary-btn" onClick="didClickRefill" if="!Alloy.Globals.isLoggedIn" />
+				<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" if="Alloy.Globals.isLoggedIn" />
+				<View class="margin-top margin-bottom margin-left margin-right auto-height" if="Alloy.Globals.isLoggedIn">
 					<Button id="favoriteBtn" class="left width-65 secondary-btn-small" onClick="didClickFavorite" />
 					<Button id="homeBtn" class="right width-30 nav-icon-btn" onClick="didClickHome" />
 				</View>

@@ -165,7 +165,7 @@ function didItemClick(e) {
 	var navigation = e.source.navigation;
 	if (!_.isEmpty(navigation) && _.has(navigation, "ctrl")) {
 		navigation = Alloy.Collections.menuItems.where(navigation)[0].toJSON();
-		if (navigation.requires_login && !Alloy.Globals.loggedIn) {
+		if (navigation.requires_login && !Alloy.Globals.isLoggedIn) {
 			$.app.navigator.open({
 				ctrl : "login",
 				titleid : "strSignin",

@@ -40,7 +40,7 @@ function didDrawerclose(e) {
 	if (itemObj.ctrl) {
 		var ctrlPath = app.navigator.currentController.ctrlPath;
 		if (itemObj.ctrl != ctrlPath) {
-			if (itemObj.requires_login && !Alloy.Globals.loggedIn) {
+			if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 				if (ctrlPath != "login") {
 					app.navigator.open({
 						ctrl : "login",

@@ -35,7 +35,6 @@ function didGetPrescriptionList(result, passthrough) {
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//loop data for rows
 	var currentDate = moment.utc();
-	console.error(currentDate.zone());
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		var refillStatus = prescription.refill_status,
 		    anticipatedRefillDate = moment.utc(prescription.anticipated_refill_date || moment.utc().format(apiCodes.date_format), apiCodes.date_format),
