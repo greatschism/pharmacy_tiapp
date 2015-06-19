@@ -78,6 +78,8 @@ var Res = {
 
 	setData : function(data, useLocalResources) {
 
+		var mightRequireReload = false;
+
 		_.each(data, function(obj) {
 
 			if (_.has(obj, "platform") && _.indexOf(obj.platform, app.device.platform) == -1) {
@@ -174,6 +176,7 @@ var Res = {
 							selected : false
 						}
 					});
+					mightRequireReload = true;
 				}
 				delete queryObj.selected;
 				queryObj.revert = true;
@@ -187,6 +190,8 @@ var Res = {
 		});
 
 		Res.collection.commit();
+
+		return mightRequireReload;
 	},
 
 	checkForUpdates : function() {

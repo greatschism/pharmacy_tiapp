@@ -30,12 +30,23 @@ var Configuration = {
 				data.push(obj);
 			}
 		});
-		resources.setData(data);
+
+		/**
+		 *  mightRequireReload - will be true when there is a change in selected flag
+		 *  When mightRequireReload is true and objectsToUpdate.length == 0 then it is considered as a revert on server side
+		 *  Configuration.load() should be called at this moment
+		 */
+		var mightRequireReload = resources.setData(data),
+		    objectsToUpdate = resources.checkForUpdates();
+
+		if (objectsToUpdate.length === 0 && mightRequireReload) {
+			Configuration.load();
+		}
 
 		/***
 		 * no. of objects to be updated
 		 */
-		return resources.checkForUpdates();
+		return objectsToUpdate;
 	},
 
 	load : function(callback) {
