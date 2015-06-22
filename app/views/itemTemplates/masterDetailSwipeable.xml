@@ -1,0 +1,18 @@
+<Alloy>
+	<TableViewRow id="row">
+		<View id="containerView" class="container-view">
+			<View id="contentView" class="content-view-vgroup">
+				<View class="content-master-view-70">
+					<Label id="titleLbl" class="content-title" />
+					<Label id="subtitleLbl" class="content-subtitle" />
+				</View>
+				<View class="content-detail-view-30">
+					<Label id="detailTitleLbl" />
+					<Label id="detailSubtitleLbl" />
+				</View>
+			</View>
+			<View id="swipeView" class="swipe-view" onTouchend="didTouchend" />
+			<View id="dragView" class="drag-area" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
+		</View>
+	</TableViewRow>
+</Alloy>

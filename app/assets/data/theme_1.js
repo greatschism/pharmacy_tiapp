@@ -753,17 +753,14 @@ module.exports = {
 				"width" : "100%",
 				"height" : "auto"
 			},
+			".drag-area" : {
+				"width" : 48
+			},
 			".swipe-view" : {
 				"width" : "100%",
-				"height" : "auto"
+				"height" : 65
 			},
-			".swipe-content-view" : {
-				"left" : 30,
-				"right" : 0,
-				"height" : "auto"
-			},
-			".swipe-content-btn-40" : {
-				"width" : "40%",
+			".swipe-view-btn" : {
 				"height" : 65,
 				"font" : {
 					"fontFamily" : "medium",
@@ -777,23 +774,7 @@ module.exports = {
 				"borderRadius" : 0,
 				"borderWidth" : 0
 			},
-			".swipe-content-btn-30" : {
-				"width" : "30%",
-				"height" : 65,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 17
-				},
-				"color" : "#FFFFFF",
-				"selectedColor" : "#FFFFFF",
-				"backgroundColor" : "#808285",
-				"backgroundSelectedColor" : "#808285",
-				"borderColor" : "transparent",
-				"borderRadius" : 0,
-				"borderWidth" : 0
-			},
-			".swipe-content-positive-btn-40" : {
-				"width" : "40%",
+			".swipe-view-positive-btn" : {
 				"height" : 65,
 				"font" : {
 					"fontFamily" : "medium",
@@ -807,38 +788,7 @@ module.exports = {
 				"borderRadius" : 0,
 				"borderWidth" : 0
 			},
-			".swipe-content-positive-btn-30" : {
-				"width" : "30%",
-				"height" : 65,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 17
-				},
-				"color" : "#FFFFFF",
-				"selectedColor" : "#FFFFFF",
-				"backgroundColor" : "#009245",
-				"backgroundSelectedColor" : "#009245",
-				"borderColor" : "transparent",
-				"borderRadius" : 0,
-				"borderWidth" : 0
-			},
-			".swipe-content-negative-btn-40" : {
-				"width" : "40%",
-				"height" : 65,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 17
-				},
-				"color" : "#FFFFFF",
-				"selectedColor" : "#FFFFFF",
-				"backgroundColor" : "#ED1C24",
-				"backgroundSelectedColor" : "#ED1C24",
-				"borderColor" : "transparent",
-				"borderRadius" : 0,
-				"borderWidth" : 0
-			},
-			".swipe-content-negative-btn-30" : {
-				"width" : "30%",
+			".swipe-view-negative-btn" : {
 				"height" : 65,
 				"font" : {
 					"fontFamily" : "medium",

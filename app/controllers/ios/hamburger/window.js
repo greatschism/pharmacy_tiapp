@@ -6,6 +6,7 @@ var args = arguments[0] || {},
 (function() {
 
 	var dict = {};
+
 	if (args.navBarHidden) {
 		dict.navBarHidden = true;
 	}
@@ -14,27 +15,22 @@ var args = arguments[0] || {},
 
 	$.leftNavView = Ti.UI.createView();
 
-	if (args.stack) {
-		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_NONE");
-		$.leftNavBtn = $.UI.create("Button", {
-			apiName : "Button",
-			classes : ["nav-icon-btn"],
-			title : Alloy.CFG.icons.back,
-			accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
-		});
-	} else {
-		app.navigator.drawer.setOpenDrawerGestureMode("OPEN_MODE_ALL");
-		$.leftNavBtn = $.UI.create("Button", {
-			apiName : "Button",
-			classes : ["nav-icon-btn"],
-			title : Alloy.CFG.icons.hamburger,
-			accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
-		});
-	}
-
-	$.leftNavView.addEventListener("click", didClickLeftNavView);
+	var leftBtnDict = {
+		apiName : "Button",
+		classes : ["nav-icon-btn"]
+	};
+	_.extend(leftBtnDict, args.stack ? {
+		title : Alloy.CFG.icons.back,
+		accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
+	} : {
+		title : Alloy.CFG.icons.hamburger,
+		accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
+	})
+	$.leftNavBtn = $.UI.create("Button", leftBtnDict);
 
 	$.leftNavView.add($.leftNavBtn);
+
+	$.leftNavView.addEventListener("click", didClickLeftNavView);
 
 	dict.leftNavButton = $.leftNavView;
 

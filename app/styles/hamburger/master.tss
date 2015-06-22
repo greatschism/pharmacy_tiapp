@@ -3,13 +3,13 @@
 },
 "#drawer[platform=ios]":{
 	accessibilityLabel: Ti.App.name,
-	openDrawerGestureMode: "OPEN_MODE_ALL",
+	openDrawerGestureMode: "OPEN_MODE_NONE",
 	closeDrawerGestureMode: "CLOSE_MODE_ALL",
 	showShadow: true,
 	shouldStretchDrawer: false
 },
 "#drawer[platform=android]":{
-	openDrawerGestureMode: "OPEN_MODE_MARGIN",
+	openDrawerGestureMode: "OPEN_MODE_NONE",
 	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
 	animationMode: "ANIMATION_NONE",
 	shadowWidth: 20,

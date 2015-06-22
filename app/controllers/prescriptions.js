@@ -9,6 +9,7 @@ var args = arguments[0] || {},
 Alloy.Models.user.get("patients").session_id = "4JBSv4ViJYiBiNwHYYiJY4VicYABYHvS";
 
 function init() {
+	Alloy.Globals.swipeableTable = $.tableView;
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
@@ -111,7 +112,8 @@ function toggleSearch() {
 }
 
 function terminate() {
-
+	Alloy.Globals.isSwiped = false;
+	Alloy.Globals.swipeableTable = null;
 }
 
 exports.init = init;

@@ -26,7 +26,7 @@
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.isLoggedIn = false;
-	Alloy.Globals.isSwipeViewVisible = false;
+	Alloy.Globals.isSwiped = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 
 	/**
