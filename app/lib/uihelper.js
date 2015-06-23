@@ -252,36 +252,60 @@ var Helper = {
 	},
 
 	/**
-	 * create table view section
-	 * @param {Controller} ctrl controller object
+	 * create header view
+	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
-	 * @param {View} footerView (optional)
-	 * @param {View} customView (optional) - will be added to header view
-	 * @param {Object} headerProperties (optional) - will be applied on header view
+	 * @param {Boolean} isAttributed whether text is attributed
+	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {String} rightIcon icon on right
 	 */
-	createTableViewSection : function(ctrl, title, footerView, customView, headerProperties) {
+	createHeaderView : function($, title, isAttributed, isWrap, rightIcon) {
+		var vClassName = "content-header-view",
+		    tClassName = "content-header-lbl";
+		if (isAttributed) {
+			tClassName.replace("lbl", "attributed");
+		}
+		if (isWrap) {
+			vClassName += "-wrap";
+			tClassName += "-wrap";
+		}
+		if (rightIcon) {
+			tClassName += "-with-ricon-btn";
+		}
+		var headerView = $.UI.create("View", {
+			apiName : "View",
+			classes : vClassName
+		});
+		if (rightIcon) {
+			headerView.add($.UI.create("Button", {
+				apiName : "Button",
+				classes : ["content-header-right-icon-btn"],
+				title : rightIcon
+			}));
+		}
+		headerView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : tClassName,
+			text : title
+		}));
+		return headerView;
+	},
+
+	/**
+	 * create table view section
+	 * @param {Controller} $ controller object
+	 * @param {String} title section header's title
+	 * @param {Boolean} isAttributed whether text is attributed
+	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {String} rightIcon icon on right
+	 * @param {View} footerView footer view for section
+	 */
+	createTableViewSection : function($, title, isAttributed, isWrap, rightIcon, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
-		var dict,
-		    headerView = ctrl.UI.create("View", {
-			apiName : "View",
-			classes : ["section-header-view"]
-		}),
-		    lbl = ctrl.UI.create("Label", {
-			apiName : "Label",
-			classes : ["section-header-lbl"]
-		});
-		lbl.text = title;
-		headerView.add(lbl);
-		if (headerProperties) {
-			headerView.applyProperties(headerProperties);
-		}
-		if (customView) {
-			headerView.add(customView);
-		}
-		dict = {
-			headerView : headerView
+		var dict = {
+			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightIcon)
 		};
 		if (footerView) {
 			_.extend(dict, {

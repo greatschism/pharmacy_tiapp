@@ -1,6 +1,6 @@
 <Alloy>
 	<TableViewRow>
-		<View class="content-view">
+		<View class="content-view-vgroup">
 			<Label id="titleLbl" class="content-title" />
 			<Label id="subtitleLbl" class="content-subtitle-wrap" />
 			<View class="content-view-progressbar">

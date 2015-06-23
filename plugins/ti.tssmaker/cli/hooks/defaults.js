@@ -83,6 +83,12 @@ module.exports = {
 		"layout" : "horizontal",
 		"horizontalWrap" : false
 	},
+	".row-selection-disabled" : {
+		"selectedBackgroundColor" : null
+	},
+	".selection-disabled" : {
+		"backgroundSelectedColor" : null
+	},
 	".touch-disabled" : {
 		"touchEnabled" : false
 	},
@@ -125,6 +131,21 @@ module.exports = {
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
 	".search-txt" : {
-		"leftIconText" : "Alloy.CFG.icons.search"
+		"leftIconText" : "Alloy.CFG.icons.search",
+		"clearIconText" : "Alloy.CFG.icons.remove"
+	},
+	".tooltip-down" : {
+		"direction" : "down",
+		"iconText" : "Alloy.CFG.icons.filled_arrow_down"
+	},
+	".tooltip-left" : {
+		"direction" : "left",
+		"iconText" : "Alloy.CFG.icons.filled_arrow_left"
+	},
+	".icn-spot" : {
+		"text" : "Alloy.CFG.icons.spot"
+	},
+	".icn-filled-success" : {
+		"text" : "Alloy.CFG.icons.filled_success"
 	}
 };

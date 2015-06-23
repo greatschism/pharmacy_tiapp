@@ -2,7 +2,7 @@
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon-btn" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
 	<View id="searchbar" class="top search-bar fade-out">
-		<Widget id="searchTxt" src="ti.textfield"  class="top returnkey-done search-txt" />
+		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
 	<TableView id="tableView" class="top">
 		<FooterView platform="ios">

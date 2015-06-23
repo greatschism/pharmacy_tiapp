@@ -1,12 +1,12 @@
 <Alloy>
-	<TableViewRow id="row">
+	<TableViewRow id="row" class="row-selection-disabled">
 		<View id="containerView" class="container-view">
-			<View id="contentView" class="content-view-vgroup">
-				<View class="content-master-view-70">
+			<View id="contentView" class="content-view">
+				<View id="masterView" class="content-master-view-60">
 					<Label id="titleLbl" class="content-title" />
 					<Label id="subtitleLbl" class="content-subtitle" />
 				</View>
-				<View class="content-detail-view-30">
+				<View id="detailView" class="content-detail-view-40">
 					<Label id="detailTitleLbl" />
 					<Label id="detailSubtitleLbl" />
 				</View>

@@ -1,12 +1,12 @@
 <Alloy>
-	<TableViewRow id="row">
-		<Label id="selectionLbl" class="content-left-icon" />
-		<View id="contentView" class="content-view-vgroup-with-licon">
-			<View class="content-master-view-70">
+	<TableViewRow id="row" class="row-selection-disabled">
+		<Label id="selectionLbl" class="content-inactive-left-icon icn-spot" onClick="didClickChecked" />
+		<View id="contentView" class="content-view-with-licon">
+			<View id="masterView" class="content-master-view-60">
 				<Label id="titleLbl" class="content-title" />
 				<Label id="subtitleLbl" class="content-subtitle" />
 			</View>
-			<View class="content-detail-view-30">
+			<View id="detailView" class="content-detail-view-40">
 				<Label id="detailTitleLbl" />
 				<Label id="detailSubtitleLbl" />
 			</View>

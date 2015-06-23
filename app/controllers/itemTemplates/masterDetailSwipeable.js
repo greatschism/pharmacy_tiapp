@@ -26,16 +26,14 @@ CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
 	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : ""),
-	    options = args.options || [{
-		title : "Opt 1",
-		type : "positive"
-	}, {
-		title : "Opt 2",
-		type : "negative"
-	}, {
-		title : "Opt 3"
-	}],
+	    options = args.options || [],
 	    len = options.length;
+	if (args.masterWidth) {
+		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
+	}
+	if (args.detailWidth) {
+		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
+	}
 	$.containerView.height = CONSTS.height;
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
@@ -121,3 +119,9 @@ function didTouchend(e) {
 	});
 	$.swipeView.animate(anim);
 }
+
+function getParams() {
+	return args;
+}
+
+exports.getParams = getParams;

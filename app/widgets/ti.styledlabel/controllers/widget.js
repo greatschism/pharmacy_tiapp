@@ -16,8 +16,9 @@ var args = arguments[0] || {},
 	};
 	secondaryColor = args.secondaryColor || "#000";
 
-	if (_.has(args, "html")) {
-		setHtml(args.html);
+	var value = args.html || args.text;
+	if (value) {
+		setHtml(value);
 	}
 
 })();
@@ -56,29 +57,21 @@ function setHtml(data) {
 			var lastIndex = len - 1;
 			for ( i = 0; i < len; i++) {
 				var item = dom[i];
+				console.log(item.name);
 				switch(item.name) {
-				case "b":
+				case "secondaryfont":
 					attributes.push({
 						type : Ti.UI.ATTRIBUTE_FONT,
 						value : secondaryFont,
 						range : [text.length, strings[j].length]
 					});
 					break;
-				case "font":
-					if (item.attributes.face) {
-						attributes.push({
-							type : Ti.UI.ATTRIBUTE_FONT,
-							value : secondaryFont,
-							range : [text.length, strings[j].length]
-						});
-					}
-					if (item.attributes.color) {
-						attributes.push({
-							type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-							value : secondaryColor,
-							range : [text.length, strings[j].length]
-						});
-					}
+				case "secondarycolor":
+					attributes.push({
+						type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+						value : secondaryColor,
+						range : [text.length, strings[j].length]
+					});
 					break;
 				case "u":
 					attributes.push({
@@ -115,4 +108,6 @@ function didClick(e) {
 
 exports.setHtml = setHtml;
 exports.getHtml = getHtml;
+exports.setText = setHtml;
+exports.getText = getHtml;
 

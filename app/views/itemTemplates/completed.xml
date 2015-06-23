@@ -1,0 +1,13 @@
+<Alloy>
+	<TableViewRow>
+		<View id="contentView" class="content-view">
+			<View class="auto-height vgroup">
+				<Label id="titleLbl" class="content-title" />
+				<View class="content-subtitle-view">
+					<Label class="content-subtitle-positive-icon icn-filled-success" />
+					<Label id="subtitleLbl" class="content-subtitle-icon-description" />
+				</View>
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

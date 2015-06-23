@@ -40,7 +40,7 @@ var args = arguments[0] || {},
 
 	controller.uihelper = require("uihelper");
 
-	controller.uihelper = require("analytics");
+	controller.analytics = require("analytics");
 
 	controller.apm = require("apm");
 

@@ -3,9 +3,10 @@ module.exports = {
 		"config" : {
 			"navigator" : "hamburger",
 			"left_drawer_width" : 270,
-			"prescription_auto_hide_at" : 60,
-			"prescription_tooltip_reminder_at" : 5,
-			"prescription_critical_reminder_at" : 3,
+			"prescription_ready_for_refill_in_days" : 7,
+			"prescription_auto_hide_in_days" : -60,
+			"prescription_tooltip_reminder_in_days" : 5,
+			"prescription_negative_tooltip_reminder_in_days" : 3,
 			"rx_number" : {
 				"prefix" : "Rx# ",
 				"format" : " (xxxx-xxxxxxx)",
@@ -500,6 +501,7 @@ module.exports = {
 				"paddingLeft" : 8,
 				"paddingRight" : 8,
 				"height" : 30,
+				"enableClearButton" : true,
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
@@ -758,10 +760,10 @@ module.exports = {
 			},
 			".swipe-view" : {
 				"width" : "100%",
-				"height" : 65
+				"height" : "fill"
 			},
 			".swipe-view-btn" : {
-				"height" : 65,
+				"height" : "fill",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 17
@@ -775,7 +777,7 @@ module.exports = {
 				"borderWidth" : 0
 			},
 			".swipe-view-positive-btn" : {
-				"height" : 65,
+				"height" : "fill",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 17
@@ -1215,6 +1217,7 @@ module.exports = {
 			},
 			".content-subtitle-view" : {
 				"top" : 12,
+				"left" : 0,
 				"width" : "auto",
 				"height" : "auto",
 				"layout" : "horizontal"
@@ -1223,13 +1226,13 @@ module.exports = {
 				"left" : 0,
 				"font" : {
 					"fontFamily" : "icon",
-					"fontSize" : 12
+					"fontSize" : 16
 				},
 				"color" : "#009344",
 				"accessibilityHidden" : true
 			},
-			".content-subtitle-positive-icon-description" : {
-				"left" : 0,
+			".content-subtitle-icon-description" : {
+				"left" : 4,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
@@ -1240,7 +1243,7 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".content-subtitle-positive-icon-description-wrap" : {
+			".content-subtitle-icon-description-wrap" : {
 				"left" : 0,
 				"height" : "auto",
 				"font" : {
@@ -1329,77 +1332,83 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-title" : {
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
 				"color" : "#000000",
-				"textAlign" : "left",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
 			".content-detail-subtitle" : {
 				"top" : 12,
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#5b5b5b",
-				"textAlign" : "left",
+				"color" : "#000000",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
 			".content-detail-positive-title" : {
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
-				"color" : "#000000",
-				"textAlign" : "left",
+				"color" : "#5b5b5b",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
 			".content-detail-positive-subtitle" : {
 				"top" : 12,
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
 				"color" : "#5b5b5b",
-				"textAlign" : "left",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
 			".content-detail-negative-title" : {
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
-				"color" : "#000000",
-				"textAlign" : "left",
+				"color" : "#ED1C24",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
 			".content-detail-negative-subtitle" : {
 				"top" : 12,
-				"left" : 16,
+				"left" : 8,
+				"right" : 0,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#5b5b5b",
-				"textAlign" : "left",
+				"color" : "#ED1C24",
+				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
@@ -1664,8 +1673,7 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".tooltip-down" : {
-				"direction" : "down",
+			".tooltip" : {
 				"arrowDict" : {
 					"color" : "#808184"
 				},
@@ -1688,8 +1696,32 @@ module.exports = {
 				"color" : "#FFFFFF",
 				"backgroundColor" : "#6D6E70"
 			},
-			".negative-tooltip-left" : {
-				"direction" : "left",
+			".content-tooltip" : {
+				"width" : 140,
+				"arrowDict" : {
+					"color" : "#ED1C24"
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"labelDict" : {
+					"paddingTop" : 12,
+					"paddingBottom" : 12,
+					"left" : 12,
+					"right" : 12,
+					"textAlign" : "center",
+					"color" : "#FFFFFF"
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#FFFFFF",
+				"backgroundColor" : "#6D6E70"
+			},
+			".content-negative-tooltip" : {
+				"width" : 140,
 				"arrowDict" : {
 					"color" : "#ED1C24"
 				},
