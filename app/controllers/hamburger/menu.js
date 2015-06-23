@@ -37,7 +37,7 @@ function didDrawerclose(e) {
 	}
 	var model = Alloy.Collections.menuItems.at(currentIndex),
 	    itemObj = model.toJSON();
-	if (itemObj.ctrl) {
+	if (_.has(itemObj, "ctrl")) {
 		var ctrlPath = app.navigator.currentController.ctrlPath;
 		if (itemObj.ctrl != ctrlPath) {
 			if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
@@ -54,7 +54,13 @@ function didDrawerclose(e) {
 				app.navigator.open(itemObj);
 			}
 		}
-	} else if (itemObj.action) {
+	} else if (_.has(itemObj, "url")) {
+		var url = itemObj.url;
+		if (OS_IOS && _.has(itemObj, "alternate_url") && Ti.Platform.canOpenURL(url) === false) {
+			url = itemObj.alternate_url;
+		}
+		Ti.Platform.openURL(url);
+	} else if (_.has(itemObj, "action")) {
 		switch(itemObj.action) {
 		case "signout":
 			uihelper.showDialog({
@@ -65,10 +71,7 @@ function didDrawerclose(e) {
 					http.request({
 						method : "patients_logout",
 						success : function(result) {
-							Alloy.Models.user.set({
-								logged_in : false,
-								patients : {}
-							});
+							Alloy.Models.patient.clear();
 							Alloy.Collections.menuItems.remove(model);
 							app.navigator.open(landingPage);
 							uihelper.showDialog({

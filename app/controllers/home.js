@@ -12,7 +12,7 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	if (Alloy.Models.user.get("appload").features.is_banners_enabled && $.bannerView && !loadBanners(Alloy.Models.user.get("banners"))) {
+	if (Alloy.Models.appload.get("features").is_banners_enabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",
 			params : {
@@ -36,8 +36,9 @@ function didSuccess(result, passthrough) {
 	if (_.has(result.data.banners, "height")) {
 		Alloy.CFG.banner_max_height = result.data.banners.height;
 	}
-	Alloy.Models.user.set("banners", _.sortBy(result.data.banners.banner, "priority"));
-	loadBanners(Alloy.Models.user.get("banners"));
+	result = _.sortBy(result.data.banners.banner, "priority");
+	Alloy.Collections.banners.reset(result);
+	loadBanners(result);
 }
 
 function loadBanners(items) {
@@ -106,6 +107,9 @@ function create(dict) {
 			classes : dict.classes || []
 		});
 	}
+	if (dict.apiName === "ImageView") {
+		$.uihelper.getImage(dict.image, element);
+	}
 	if (_.has(dict, "properties")) {
 		var properties = dict.properties;
 		if (_.has(properties, "icon")) {
@@ -162,9 +166,10 @@ function getListener(event) {
 }
 
 function didItemClick(e) {
-	var navigation = e.source.navigation;
-	if (!_.isEmpty(navigation) && _.has(navigation, "ctrl")) {
-		navigation = Alloy.Collections.menuItems.where(navigation)[0].toJSON();
+	var navigation = e.source.navigation || {};
+	if (_.has(navigation, "ctrl")) {
+		var menuItem = Alloy.Collections.menuItems.findWhere(navigation);
+		navigation = menuItem ? menuItem.toJSON() : navigation;
 		if (navigation.requires_login && !Alloy.Globals.isLoggedIn) {
 			$.app.navigator.open({
 				ctrl : "login",
@@ -176,6 +181,12 @@ function didItemClick(e) {
 		} else {
 			$.app.navigator.open(navigation);
 		}
+	} else if (_.has(navigation, "url")) {
+		var url = navigation.url;
+		if (OS_IOS && _.has(navigation, "alternate_url") && Ti.Platform.canOpenURL(url) === false) {
+			url = navigation.alternate_url;
+		}
+		Ti.Platform.openURL(url);
 	}
 }
 

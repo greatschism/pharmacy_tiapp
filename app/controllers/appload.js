@@ -56,11 +56,7 @@ function hideLoader() {
 
 function didSuccess(result) {
 	var appload = result.data.appload || {};
-	Alloy.Models.user.set({
-		appload : appload
-	}, {
-		silent : true
-	});
+	Alloy.Models.appload.set(appload);
 	var clientConfig = appload.client_json || {};
 	_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
 		if (_.has(clientConfig, key)) {

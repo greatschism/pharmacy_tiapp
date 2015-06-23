@@ -4,10 +4,10 @@ var args = arguments[0] || {},
     IS_RADIO_BUTTON = args.radioButton || false,
     items = [],
     template = args.template || false,
-    unSelectedIconText = args.unSelectedIconText || "x",
+    iconText = args.iconText || "x",
     selectedIconText = args.selectedIconText || "+",
-    unSelectedIconColor = args.unSelectedIconColor || "x",
-    selectedIconColor = args.selectedIconColor || "+",
+    iconColor = args.iconColor || "gray",
+    selectedIconColor = args.selectedIconColor || "green",
     titleProperty = args.titleProperty || "title",
     paddingLeft = args.paddingLeft || 12,
     optionPadding = {
@@ -136,12 +136,12 @@ function getRow(data) {
 	}),
 	    rowView = Ti.UI.createView(optionPadding);
 	rowView.add(Ti.UI.createLabel({
-		text : data.selected ? selectedIconText : unSelectedIconText,
+		text : data.selected ? selectedIconText : iconText,
 		left : 0,
 		font : args.iconFont || {
 			fontSize : 12
 		},
-		color : data.selected ? selectedIconColor : unSelectedIconColor,
+		color : data.selected ? selectedIconColor : iconColor,
 		touchEnabled : false,
 		accessibilityHidden : true
 	}));
@@ -195,32 +195,39 @@ function create(dict, data) {
 	return element;
 }
 
-function setItems(items, template) {
-	items = items;
+function setItems(pItems, template) {
+	items = pItems;
 	if (template) {
 		template = template;
 	}
 	var data = [];
-	for (var i in items) {
-		var item = items[i];
-		if (_.has(item, "selected")) {
+	_.each(items, function(item) {
+		if (!_.has(item, "selected")) {
 			item.selected = false;
 		}
 		data.push(getRow(item));
-	}
+	});
 	$.tableView.setData(data);
 	if (!template && !_.has(args, "height")) {
-		var height = items.length * (optioDict.height + optionPadding.top + optionPadding.bottom),
+		var height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length),
 		    headerView = $.tableView.getHeaderView(),
 		    footerView = $.tableView.getFooterView();
 		if (headerView) {
-			height += (headerView.size.height || 50);
+			height += (parseInt(headerView.height) || calculateHeight(headerView));
 		}
 		if (footerView) {
-			height += (footerView.size.height || 50);
+			height += (parseInt(footerView.height) || calculateHeight(footerView));
 		}
 		$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
 	}
+}
+
+function calculateHeight(view) {
+	var height = 0;
+	_.each(view.children, function(child) {
+		height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+	});
+	return height;
 }
 
 function getItems() {
@@ -266,7 +273,7 @@ function show(callback) {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
 			if (Ti.App.accessibilityEnabled) {
-				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITYview_FOCUS_CHANGED, $.tableView);
+				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
 			}
 			if (callback) {
 				callback();

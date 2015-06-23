@@ -35,29 +35,18 @@
 	 */
 	//collections
 	Alloy.Collections.menuItems = new Backbone.Collection();
-	Alloy.Collections.termsAndConditions = new Backbone.Collection();
+	Alloy.Collections.banners = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
-	Alloy.Collections.sortPreferences = new Backbone.Collection();
-	Alloy.Collections.stores = new Backbone.Collection();
-	Alloy.Collections.doctors = new Backbone.Collection();
 
 	//models
-	Alloy.Models.user = new Backbone.Model({
-		logged_in : false,
-		patients : {},
-		appload : {}
-	});
-	Alloy.Models.doctor = new Backbone.Model({
-		doctor_add : {},
-		doctor_remove : {},
-		doctor_update : {},
-	});
+	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
-	Alloy.Models.store = new Backbone.Model();
+	Alloy.Models.patient = new Backbone.Model();
+	Alloy.Models.sortOrderPreferences = new Backbone.Model();
 
 	//events
-	Alloy.Models.user.on("change:patients", function didLoginChange() {
-		Alloy.Globals.isLoggedIn = Alloy.Models.user.get("logged_in");
+	Alloy.Models.patient.on("change:logged_in", function didLoginChange() {
+		Alloy.Globals.isLoggedIn = Alloy.Models.patient.get("logged_in") === true;
 	});
 
 	//initialize scule tiencrypted storage engine

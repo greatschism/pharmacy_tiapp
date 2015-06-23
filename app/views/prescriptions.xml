@@ -1,6 +1,11 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon-btn" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
+	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="getPrescriptionList">
+		<View class="auto-height role-footer-view">
+			<Button id="sortCancelBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortCancel" />
+		</View>
+	</Widget>
 	<View id="searchbar" class="top search-bar fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>

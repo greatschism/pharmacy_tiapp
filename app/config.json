@@ -1,14 +1,14 @@
 {
     "global": {
-        "buildDate": "Tue Jun 16 2015 17:24:30 GMT+0530 (IST)",
+        "buildDate": "Tue Jun 23 2015 11:24:15 GMT+0530 (IST)",
         "apiPath": {
             "appload_get": "appload/get",
             "appload_getbanners": "appload/getbanners",
             "appload_clientjson": "appload/clientjson",
             "patient_authenticate": "patient/authenticate",
             "patient_get": "patient/get",
+            "codes_get": "codes/get",
             "terms_get": "terms/get",
-            "code_values_get": "codevalues/get",
             "patients_logout": "patients/logout",
             "patients_mobile_exists_or_shared": "patients/mobileexistsorshared",
             "patients_mobile_generate_otp": "patients/generatetoken",
@@ -45,6 +45,7 @@
             "appload_clientjson": "THXXX",
             "patient_authenticate": "THXXX",
             "patient_get": "THXXX",
+            "codes_get": "THXXX",
             "prescriptions_list": "THXXX"
         },
         "apiCodes": {
@@ -55,7 +56,8 @@
             "prescription_display_status_hideen": "hidden",
             "refill_status_in_process": "In Process",
             "refill_status_ready": "Ready",
-            "refill_status_sold": "Sold"
+            "refill_status_sold": "Sold",
+            "sort_order_preference": "Sort Order Preference"
         },
         "iconPrefix": "thick",
         "iconNotations": {

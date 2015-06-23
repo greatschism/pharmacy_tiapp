@@ -14,10 +14,14 @@ var args = arguments[0] || {},
 }];
 
 //temp session_id for development
-Alloy.Models.user.get("patients").session_id = "4JBSv4ViJYiBiNwHYYiJY4VicYABYHvS";
+Alloy.Models.patient.set("session_id", "4JBSv4ViJYiBiNwHYYiJY4VicYABYHvS");
 
 function init() {
 	Alloy.Globals.swipeableTable = $.tableView;
+	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
+	if (codes) {
+		$.sortPicker.setItems(codes);
+	}
 	getPrescriptionList();
 }
 
@@ -28,7 +32,7 @@ function getPrescriptionList() {
 		params : {
 			data : [{
 				prescriptions : {
-					sort_order_preferences : (_.findWhere(Alloy.Collections.sortPreferences.toJSON(), {
+					sort_order_preferences : (_.findWhere(Alloy.Models.sortOrderPreferences.get("code_values"), {
 						selected : true
 					}) || {}).code_value || null,
 					prescription_display_status : apiCodes.prescription_display_status_active
@@ -86,7 +90,7 @@ function didGetPrescriptionList(result, passthrough) {
 			});
 			break;
 		default:
-			var isAnticipatedRefillDate = prescription.get("anticipated_refill_date") != "",
+			var isAnticipatedRefillDate = prescription.get("anticipated_refill_date") !== "",
 			    anticipatedRefillDate = isAnticipatedRefillDate ? moment(prescription.get("anticipated_refill_date"), apiCodes.date_format) : null,
 			    dueInDays = isAnticipatedRefillDate ? anticipatedRefillDate.diff(currentDate, "days") : 0,
 			    section = isAnticipatedRefillDate && dueInDays <= Alloy.CFG.prescription_ready_for_refill_in_days ? "readyForRefill" : "otherPrescriptions";
@@ -123,13 +127,26 @@ function didGetPrescriptionList(result, passthrough) {
 			}
 		}
 		prescription.set("searchableText", _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase());
-		var section = prescription.get("section");
-		if (!sections[section]) {
-			sections[section] = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(section, false))]);
+		var sectionId = prescription.get("section");
+		if (!sections[sectionId]) {
+			sections[sectionId] = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(sectionId, false))]);
 		}
 		var row = Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON());
-		sections[section].add(row.getView());
+		sections[sectionId].add(row.getView());
 		rows.push(row);
+	});
+	updateTable();
+}
+
+function didChangeSearch(e) {
+	resetTable();
+	var searchBy = ($.searchTxt.getValue()).toLowerCase();
+	//add rows those which passes search key
+	_.each(rows, function(row) {
+		var params = row.getParams();
+		if (params.searchableText.indexOf(searchBy) >= 0) {
+			sections[params.section].add(row.getView());
+		}
 	});
 	updateTable();
 }
@@ -165,19 +182,6 @@ function resetTable() {
 	});
 }
 
-function didChangeSearch(e) {
-	resetTable();
-	var searchBy = ($.searchTxt.getValue()).toLowerCase();
-	//add rows those which passes search key
-	_.each(rows, function(row) {
-		var params = row.getParams();
-		if (params.searchableText.indexOf(searchBy) >= 0) {
-			sections[params.section].add(row.getView());
-		}
-	});
-	updateTable();
-}
-
 function didClickRightNavBtn(e) {
 	$.optionsMenu.show();
 }
@@ -188,7 +192,7 @@ function didClickOptionMenu(e) {
 		toggleSearch();
 		break;
 	case 1:
-		//sort;
+		sort();
 		break;
 	case 2:
 		//unhide;
@@ -227,6 +231,42 @@ function toggleSearch() {
 		}
 	});
 	$.tableView.animate(tAnim);
+}
+
+function didClickSortCancel(e) {
+	$.sortPicker.hide();
+}
+
+function sort() {
+	if (!Alloy.Models.sortOrderPreferences.get("code_values")) {
+		return getSortOrderPreferences();
+	}
+	$.sortPicker.show();
+}
+
+function getSortOrderPreferences() {
+	$.http.request({
+		method : "codes_get",
+		params : {
+			data : [{
+				codes : [{
+					code_name : apiCodes.sort_order_preference
+				}]
+			}]
+		},
+		success : didGetSortOrderPreferences
+	});
+}
+
+function didGetSortOrderPreferences(result) {
+	Alloy.Models.sortOrderPreferences.set(result.data.codes[0]);
+	var codes = Alloy.Models.sortOrderPreferences.get("code_values"),
+	    defaultVal = Alloy.Models.sortOrderPreferences.get("default_value");
+	_.each(codes, function(code) {
+		code.selected = code.code_value === defaultVal;
+	});
+	$.sortPicker.setItems(codes);
+	sort();
 }
 
 function terminate() {

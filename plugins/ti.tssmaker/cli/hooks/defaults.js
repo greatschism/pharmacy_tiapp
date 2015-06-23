@@ -125,10 +125,20 @@ module.exports = {
 	".role-content-view" : {
 		"role" : "contentView"
 	},
+	".role-header-view" : {
+		"role" : "headerView"
+	},
+	".role-footer-view" : {
+		"role" : "footerView"
+	},
 	".swt[platform=android]" : {
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".optionpicker" : {
+		"iconText" : "Alloy.CFG.icons.spot",
+		"selectedIconText" : "Alloy.CFG.icons.filled_success"
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",

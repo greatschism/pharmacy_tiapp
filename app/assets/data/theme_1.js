@@ -354,6 +354,28 @@ module.exports = {
 				"thumbTintColorOff" : "#424242",
 				"backgroundSelectedColor" : "transparent"
 			},
+			".optionpicker" : {
+				"left" : 12,
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
+				"paddingLeft" : 12,
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"iconColor" : "#808285",
+				"selectedIconColor" : "#009245"
+			},
 			".dropdown" : {
 				"left" : 12,
 				"right" : 12,
@@ -377,8 +399,8 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
-				"iconColor" : "#D4D4D4",
-				"selectedIconColor" : "#D4D4D4",
+				"iconColor" : "#808285",
+				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
 					"backgroundColor" : "transparent"

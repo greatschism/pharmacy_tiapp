@@ -9,11 +9,11 @@ var args = arguments[0] || {},
 
 function init() {
 	uihelper.getImage("logo", $.logoImg);
-	Alloy.Models.user.on("change:account", updateInputs);
+	Alloy.Models.patient.on("change:account", updateInputs);
 	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.user_account);
 	var account = encryptionUtil.decrypt(keychainAccount.account);
 	if (account) {
-		Alloy.Models.user.set({
+		Alloy.Models.patient.set({
 			account : account,
 			password : encryptionUtil.decrypt(keychainAccount.valueData)
 		});
@@ -22,8 +22,8 @@ function init() {
 }
 
 function updateInputs() {
-	$.unameTxt.setValue(Alloy.Models.user.get("account"));
-	$.passwordTxt.setValue(Alloy.Models.user.get("password"));
+	$.unameTxt.setValue(Alloy.Models.patient.get("account"));
+	$.passwordTxt.setValue(Alloy.Models.patient.get("password"));
 }
 
 function moveToNext(e) {
@@ -89,10 +89,10 @@ function didClickLogin(e) {
 }
 
 function didAuthenticate(result) {
-	Alloy.Models.user.set({
-		logged_in : true,
-		patients : result.data.patients
+	_.extend(result.data.patients, {
+		logged_in : true
 	});
+	Alloy.Models.patient.set(result.data.patients);
 	Alloy.Collections.menuItems.add({
 		titleid : "strSignout",
 		action : "signout",
@@ -111,12 +111,10 @@ function didAuthenticate(result) {
 }
 
 function didGetUserDetails(result) {
-	Alloy.Models.user.set({
-		patients : _.extend(Alloy.Models.user.get("patients"), result.data.patients)
-	});
-	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
-	landing_page: true
-	})[0].toJSON());
+	Alloy.Models.patient.set(result.data.patients);
+	app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 function didSharedMobileCheck(result) {
@@ -181,7 +179,7 @@ function didClickSignup(e) {
 }
 
 function terminate() {
-	Alloy.Models.user.off("change:account", updateInputs);
+	Alloy.Models.patient.off("change:account", updateInputs);
 }
 
 exports.init = init;

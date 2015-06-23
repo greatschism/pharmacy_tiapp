@@ -6,6 +6,14 @@
 	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh, Alloy.Globals.strings.strCancel],
 	cancel: 4
 },
+"#sortPicker":{
+	autoHide: true,
+	radioButton: true,
+	titleProperty : "code_display"
+},
+"#sortCancelBtn":{
+	title: Alloy.Globals.strings.strCancel
+},
 "#searchTxt":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
 },
