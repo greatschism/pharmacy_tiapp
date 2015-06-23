@@ -254,7 +254,7 @@ module.exports = {
 		"msgOrderPlacedReadyBy" : "Order processed: ready by %s",
 		"msgOverdueBy" : "overdue by",
 		"msgRefillIn" : "refill in",
-		"msgDueOn" : "Due on",
+		"msgDueOn" : "due on",
 		"msgGeoAuthorizationDenied" : "Your have disallowed app from running geolocation services. Please check your settings.",
 		"msgGeoAuthorizationRestricted" : "Location service is turned off. Please check your settings.",
 		"msgGeoPurpose" : "Help you to locate the nearest pharmacies.",
