@@ -6,11 +6,15 @@ require("config").updateTSS($.__controllerPath);
 (function() {
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
-	$.progressbarView.width = args.progress + "%";
+	if (args.progress < 100) {
+		$.fillView.width = args.progress + "%";
+	} else {
+		$.contentView.remove($.progressbarView);
+	}
 })();
 
 function getParams() {
 	return args;
 }
 
-exports.getParams = getParams; 
+exports.getParams = getParams;
