@@ -11,7 +11,7 @@ module.exports = {
 		"titlePharmacyRewards" : "Savings Catcher",
 		"titleCoupons" : "Coupons",
 		"titleFamilyAccounts" : "Family accounts",
-		"titleTransferPrescription" : "Transfer a prescription",
+		"titleTransferPrescription" : "Transfer Rx",
 		"titleDoctors" : "Doctors",
 		"titleStores" : "Find a store",
 		"titleAccount" : "Account",

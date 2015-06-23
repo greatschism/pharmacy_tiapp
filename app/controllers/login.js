@@ -112,7 +112,7 @@ function didAuthenticate(result) {
 
 function didGetUserDetails(result) {
 	Alloy.Models.user.set({
-		patients : _.extend(Alloy.Models.user.get("patients"), results.data.patients)
+		patients : _.extend(Alloy.Models.user.get("patients"), result.data.patients)
 	});
 	app.navigator.open(args.navigation || Alloy.Collections.menuItems.where({
 	landing_page: true
