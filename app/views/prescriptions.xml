@@ -3,7 +3,7 @@
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
 	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="getPrescriptionList">
 		<View class="auto-height role-footer-view">
-			<Button id="sortCancelBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortCancel" />
+			<Button id="sortCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortClose" />
 		</View>
 	</Widget>
 	<View id="searchbar" class="top search-bar fade-out">

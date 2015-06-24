@@ -233,7 +233,7 @@ function toggleSearch() {
 	$.tableView.animate(tAnim);
 }
 
-function didClickSortCancel(e) {
+function didClickSortClose(e) {
 	$.sortPicker.hide();
 }
 

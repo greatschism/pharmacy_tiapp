@@ -11,8 +11,8 @@
 	radioButton: true,
 	titleProperty : "code_display"
 },
-"#sortCancelBtn":{
-	title: Alloy.Globals.strings.strCancel
+"#sortCloseBtn":{
+	title: Alloy.Globals.strings.btnClose
 },
 "#searchTxt":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName

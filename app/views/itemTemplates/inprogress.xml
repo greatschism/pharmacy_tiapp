@@ -1,11 +1,11 @@
 <Alloy>
 	<TableViewRow>
-		<View id="contentView" class="content-view-vgroup">
+		<View class="content-view-vgroup">
 			<Label id="titleLbl" class="content-title" />
 			<Label id="subtitleLbl" class="content-subtitle-wrap" />
-			<View id="progressbarView" class="content-view-progressbar">
-				<View id="unfillView" class="content-view-progressbar-unfill" />
-				<View id="fillView" class="content-view-progressbar-fill" />
+			<View class="content-view-progressbar">
+				<View class="content-view-progressbar-unfill" />
+				<View id="progressbar" class="content-view-progressbar-fill" />
 			</View>
 		</View>
 	</TableViewRow>
