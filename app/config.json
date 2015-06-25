@@ -172,7 +172,7 @@
         "analytics_enabled": false
     },
     "env:production": {
-        "base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",
+        "base_url": "http://54.235.202.221:9200/mckonphonehandler/services/",
         "client_identifier": "1",
         "client_name": "Baylor",
         "api_version": "1.0",
