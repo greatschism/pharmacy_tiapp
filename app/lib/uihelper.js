@@ -258,8 +258,9 @@ var Helper = {
 	 * @param {Boolean} isAttributed whether text is attributed
 	 * @param {Boolean} isWrap whether text should ellipsize
 	 * @param {String} rightIcon icon on right
+	 * @param {String} filterText used only when it is  call from createTableViewSection
 	 */
-	createHeaderView : function($, title, isAttributed, isWrap, rightIcon) {
+	createHeaderView : function($, title, isAttributed, isWrap, rightIcon, filterText) {
 		var vClassName = "content-header-view",
 		    tClassName = "content-header-lbl";
 		if (isAttributed) {
@@ -274,7 +275,8 @@ var Helper = {
 		}
 		var headerView = $.UI.create("View", {
 			apiName : "View",
-			classes : vClassName
+			classes : vClassName,
+			title : filterText
 		});
 		if (rightIcon) {
 			headerView.add($.UI.create("Button", {
@@ -295,17 +297,18 @@ var Helper = {
 	 * create table view section
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
+	 * @param {String} filterText for the section
 	 * @param {Boolean} isAttributed whether text is attributed
 	 * @param {Boolean} isWrap whether text should ellipsize
 	 * @param {String} rightIcon icon on right
 	 * @param {View} footerView footer view for section
 	 */
-	createTableViewSection : function($, title, isAttributed, isWrap, rightIcon, footerView) {
+	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightIcon, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict = {
-			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightIcon)
+			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightIcon, filterText)
 		};
 		if (footerView) {
 			_.extend(dict, {

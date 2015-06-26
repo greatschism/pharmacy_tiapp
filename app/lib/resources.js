@@ -230,6 +230,7 @@ var Res = {
 						http.request({
 							method : "appload_clientjson",
 							params : {
+								feature_code : "THXXX",
 								data : [{
 									appload : {
 										client_param_type : obj.type,

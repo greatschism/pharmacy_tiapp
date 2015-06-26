@@ -1,5 +1,5 @@
 <Alloy>
-	<TableViewRow>
+	<TableViewRow id="row">
 		<View id="contentView" class="content-view">
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="content-title" />

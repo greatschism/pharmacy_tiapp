@@ -4,6 +4,9 @@ var args = arguments[0] || {};
 require("config").updateTSS($.__controllerPath);
 
 (function() {
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
 	if (args.tooltip) {

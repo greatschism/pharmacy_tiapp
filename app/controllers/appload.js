@@ -17,6 +17,7 @@ function deviceReady(deviceToken) {
 	http.request({
 		method : "appload_get",
 		params : {
+			feature_code : "THXXX",
 			data : [{
 				appload : {
 					phone_model : Ti.Platform.model,

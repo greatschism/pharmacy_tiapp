@@ -1,14 +1,10 @@
 var args = arguments[0] || {},
-    app = require("core"),
-    uihelper = require("uihelper"),
-    utilities = require("utilities"),
-    http = require("requestwrapper"),
     encryptionUtil = require("encryptionUtil"),
     keychainModule = require("com.obscure.keychain"),
     keychainAccount;
 
 function init() {
-	uihelper.getImage("logo", $.logoImg);
+	$.uihelper.getImage("logo", $.logoImg);
 	Alloy.Models.patient.on("change:account", updateInputs);
 	keychainAccount = keychainModule.createKeychainItem(Alloy.CFG.user_account);
 	var account = encryptionUtil.decrypt(keychainAccount.account);
@@ -39,13 +35,13 @@ function didClickLogin(e) {
 	var uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
 	if (!uname) {
-		uihelper.showDialog({
+		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.valUsernameRequired
 		});
 		return;
 	}
 	if (!password) {
-		uihelper.showDialog({
+		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.valPasswordRequired
 		});
 		return;
@@ -56,10 +52,11 @@ function didClickLogin(e) {
 	} else {
 		keychainAccount.reset();
 	}
-	if (utilities.isMobileNumber(uname)) {
-		http.request({
+	if ($.utilities.isMobileNumber(uname)) {
+		$.http.request({
 			method : "patients_mobile_exists_or_shared",
 			params : {
+				feature_code : "THXXX",
 				data : [{
 					patient : {
 						mobile_number : uname
@@ -71,9 +68,10 @@ function didClickLogin(e) {
 			failure : didFailRequest
 		});
 	} else {
-		http.request({
+		$.http.request({
 			method : "patient_authenticate",
 			params : {
+				feature_code : "THXXX",
 				data : [{
 					patient : {
 						user_name : uname,
@@ -98,9 +96,10 @@ function didAuthenticate(result) {
 		action : "signout",
 		icon : "sign_out"
 	});
-	http.request({
+	$.http.request({
 		method : "patient_get",
 		params : {
+			feature_code : "THXXX",
 			data : [{
 				patient : {}
 			}]
@@ -112,7 +111,7 @@ function didAuthenticate(result) {
 
 function didGetUserDetails(result) {
 	Alloy.Models.patient.set(result.data.patients);
-	app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+	$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());
 }
@@ -121,8 +120,8 @@ function didSharedMobileCheck(result) {
 	var isExists = parseInt(result.data.patients.mobile_exists),
 	    isShared = parseInt(result.data.patients.is_mobile_shared);
 	if (isExists && isShared) {
-		app.navigator.hideLoader();
-		app.navigator.open({
+		$.app.navigator.hideLoader();
+		$.app.navigator.open({
 			ctrl : "sharedMobileCheck",
 			stack : true,
 			ctrlArguments : {
@@ -132,9 +131,10 @@ function didSharedMobileCheck(result) {
 			}
 		});
 	} else {
-		http.request({
+		$.http.request({
 			method : "patients_authenticate",
-			data : {
+			params : {
+				feature_code : "THXXX",
 				data : [{
 					patient : {
 						user_name : $.unameTxt.getValue(),
@@ -148,7 +148,7 @@ function didSharedMobileCheck(result) {
 }
 
 function didAuthenticateMobileUser(result) {
-	app.navigator.open({
+	$.app.navigator.open({
 		ctrl : "createUsername",
 		titleid : "titleCreateUsername",
 		stack : true,
@@ -159,11 +159,11 @@ function didAuthenticateMobileUser(result) {
 }
 
 function didFailRequest(error, passthrough) {
-	app.navigator.hideLoader();
+	$.app.navigator.hideLoader();
 }
 
 function didClickPwd(e) {
-	app.navigator.open({
+	$.app.navigator.open({
 		ctrl : "loginRecovery",
 		titleid : "titleLoginRecovery",
 		stack : true
@@ -171,7 +171,7 @@ function didClickPwd(e) {
 }
 
 function didClickSignup(e) {
-	app.navigator.open({
+	$.app.navigator.open({
 		ctrl : "mobileNumber",
 		titleid : "strWelcome",
 		stack : true

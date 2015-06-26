@@ -17,19 +17,11 @@ module.exports = {
 	"ListView" : {
 		"footerDividersEnabled" : true
 	},
-	"ListView[platform=ios]" : {
-		"separatorInsets" : {
-			"top" : 0,
-			"left" : 0,
-			"right" : 0
-		}
+	"TableView[platform=android]" : {
+		"filterAttribute" : "title"
 	},
 	"TableView[platform=ios]" : {
-		"separatorInsets" : {
-			"top" : 0,
-			"left" : 0,
-			"right" : 0
-		}
+		"filterAttribute" : "filterableText"
 	},
 	"TableViewRow" : {
 		"height" : "Ti.UI.SIZE"

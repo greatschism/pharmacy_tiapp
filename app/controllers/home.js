@@ -16,6 +16,7 @@ function init() {
 		$.http.request({
 			method : "appload_getbanners",
 			params : {
+				feature_code : "THXXX",
 				data : [{
 					banners : {
 						platform : $.app.device.platformCode

@@ -25,6 +25,7 @@
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");
+	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 	Alloy.Globals.isLoggedIn = false;
 	Alloy.Globals.isSwiped = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;

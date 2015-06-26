@@ -9,7 +9,7 @@ module.exports = {
 		"titleid" : "strPrescriptions",
 		"ctrl" : "prescriptions",
 		"icon" : "prescriptions",
-		"requires_login" : false
+		"requires_login" : true
 	}, {
 		"titleid" : "strReminders",
 		"action" : "reminders",

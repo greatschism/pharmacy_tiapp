@@ -39,7 +39,6 @@ function request(args) {
 	}
 
 	_.extend(args.params, {
-		feature_code : Alloy.CFG.featureCodes[args.method],
 		client_identifier : Alloy.CFG.client_identifier,
 		version : Alloy.CFG.api_version,
 		lang : localization.currentLanguage.code,

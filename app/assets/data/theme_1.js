@@ -94,6 +94,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF"
 			},
 			"TableView[platform=ios]" : {
+				"keepSectionsWithNoRowsInSearch" : false,
 				"separatorInsets" : {
 					"top" : 0,
 					"bottom" : 0,
@@ -1112,17 +1113,17 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-view-progressbar" : {
+			".content-progressbar" : {
 				"top" : 12,
 				"width" : "fill",
 				"height" : 10
 			},
-			".content-view-progressbar-unfill" : {
+			".content-progressbar-unfill" : {
 				"width" : "fill",
 				"height" : "fill",
 				"backgroundColor" : "#C4C4C4"
 			},
-			".content-view-progressbar-fill" : {
+			".content-progressbar-fill" : {
 				"top" : 1,
 				"bottom" : 1,
 				"left" : 1,

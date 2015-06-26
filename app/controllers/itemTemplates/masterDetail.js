@@ -20,6 +20,9 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
 	$.row.height = CONSTS.height;
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
@@ -37,4 +40,4 @@ function getParams() {
 	return args;
 }
 
-exports.getParams = getParams; 
+exports.getParams = getParams;

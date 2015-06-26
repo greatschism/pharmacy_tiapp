@@ -1,9 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
-    sectionIds = ["readyForPickup", "gettingRefilled", "readyForRefill", "otherPrescriptions"],
-    sections = {},
-    rows = [],
     swipeOptions = [{
 	action : 1,
 	title : Alloy.Globals.strings.lblHideFromList
@@ -12,9 +9,6 @@ var args = arguments[0] || {},
 	title : Alloy.Globals.strings.strRefillNow,
 	type : "positive"
 }];
-
-//temp session_id for development
-Alloy.Models.patient.set("session_id", "4JBSv4ViJYiBiNwHYYiJY4VicYABYHvS");
 
 function init() {
 	Alloy.Globals.swipeableTable = $.tableView;
@@ -30,6 +24,7 @@ function getPrescriptionList() {
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
+			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
 					sort_order_preferences : (_.findWhere(Alloy.Models.sortOrderPreferences.get("code_values"), {
@@ -44,15 +39,22 @@ function getPrescriptionList() {
 }
 
 function didGetPrescriptionList(result, passthrough) {
-	//reset sections and rows
-	if (rows.length) {
-		resetTable();
-		rows = [];
-	}
 	//process data from server
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//loop data for rows
-	var currentDate = moment();
+	var currentDate = moment(),
+	    filters = {
+		readyForPickup : "",
+		gettingRefilled : "",
+		readyForRefill : "",
+		otherPrescriptions : ""
+	},
+	    sections = {
+		readyForPickup : [],
+		gettingRefilled : [],
+		readyForRefill : [],
+		otherPrescriptions : []
+	};
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		//process only status that are mentioned in filter if passed
 		if (_.has(args, "filter") && _.indexOf(args.filter, prescription.get("refill_status")) == -1) {
@@ -98,13 +100,11 @@ function didGetPrescriptionList(result, passthrough) {
 				due_in_days : dueInDays,
 				subtitle : Alloy.CFG.rx_number.prefix.concat(prescription.get("rx_number")),
 				section : section,
-				itemTemplate : !args.orgin ? "masterDetailSwipeable" : "masterDetail"
+				itemTemplate : !args.orgin ? "masterDetailSwipeable" : "masterDetail",
+				options : !args.orgin ? swipeOptions : []
 			});
 			if (section == "readyForRefill") {
-				prescription.set({
-					detailType : dueInDays < 0 ? "negative" : "",
-					options : args.orgin ? [] : swipeOptions
-				});
+				prescription.set("detailType", dueInDays < 0 ? "negative" : "");
 				var dueInDaysAbs = Math.abs(dueInDays);
 				if (dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
 					prescription.set({
@@ -126,60 +126,27 @@ function didGetPrescriptionList(result, passthrough) {
 				});
 			}
 		}
-		prescription.set("searchableText", _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase());
-		var sectionId = prescription.get("section");
-		if (!sections[sectionId]) {
-			sections[sectionId] = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(sectionId, false))]);
-		}
-		var row = Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON());
-		sections[sectionId].add(row.getView());
-		rows.push(row);
+		var sectionId = prescription.get("section"),
+		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		prescription.set("filterText", filterText);
+		filters[sectionId] += filterText;
+		sections[sectionId].push(Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON()).getView());
 	});
-	updateTable();
+	var data = [];
+	_.each(sections, function(rows, name) {
+		if (rows.length) {
+			var tvSection = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(name, false))], filters[name]);
+			_.each(rows, function(row) {
+				tvSection.add(row);
+			});
+			data.push(tvSection);
+		}
+	});
+	$.tableView.setData(data);
 }
 
 function didChangeSearch(e) {
-	resetTable();
-	var searchBy = ($.searchTxt.getValue()).toLowerCase();
-	//add rows those which passes search key
-	_.each(rows, function(row) {
-		var params = row.getParams();
-		if (params.searchableText.indexOf(searchBy) >= 0) {
-			sections[params.section].add(row.getView());
-		}
-	});
-	updateTable();
-}
-
-function updateTable() {
-	//add valid sections to table
-	var data = [];
-	_.each(sectionIds, function(sectionId) {
-		var section = sections[sectionId];
-		if (section && section.rows.length) {
-			data.push(section);
-		}
-	});
-	$.tableView.setData(data, {
-		animated : true
-	});
-}
-
-function resetTable() {
-	//remove all sections from table
-	$.tableView.setData([], {
-		animated : true
-	});
-	//remove all rows from sections
-	_.each(sectionIds, function(sectionId) {
-		var section = sections[sectionId];
-		if (section) {
-			var srows = section.rows;
-			_.each(srows, function(srow) {
-				section.remove(srow);
-			});
-		}
-	});
+	$.tableView.filterText = $.searchTxt.getValue();
 }
 
 function didClickRightNavBtn(e) {
@@ -248,6 +215,7 @@ function getSortOrderPreferences() {
 	$.http.request({
 		method : "codes_get",
 		params : {
+			feature_code : "THXXX",
 			data : [{
 				codes : [{
 					code_name : apiCodes.sort_order_preference
