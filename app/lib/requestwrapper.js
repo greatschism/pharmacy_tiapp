@@ -79,11 +79,15 @@ function didSuccess(result, passthrough) {
 				message : result.message || Alloy.Globals.strings.msgSomethingWentWrong
 			});
 		}
+		hideLoader(passthrough);
 		if (passthrough.failure) {
 			passthrough.failure(result, passthrough.passthrough);
 		}
-	} else if (passthrough.success) {
-		passthrough.success(result, passthrough.passthrough);
+	} else {
+		hideLoader(passthrough);
+		if (passthrough.success) {
+			passthrough.success(result, passthrough.passthrough);
+		}
 	}
 }
 
@@ -109,17 +113,21 @@ function didFail(error, passthrough) {
 				request(passthrough);
 			},
 			cancel : function() {
+				hideLoader(passthrough);
 				if (passthrough.failure) {
 					passthrough.failure(error, passthrough.passthrough);
 				}
 			}
 		});
-	} else if (passthrough.failure) {
-		passthrough.failure(error, passthrough.passthrough);
+	} else {
+		hideLoader(passthrough);
+		if (passthrough.failure) {
+			passthrough.failure(error, passthrough.passthrough);
+		}
 	}
 }
 
-function didComplete(passthrough) {
+function hideLoader(passthrough) {
 	if (passthrough.keepLoader !== true) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
@@ -128,6 +136,9 @@ function didComplete(passthrough) {
 			passthrough.hideLoaderCallback();
 		}
 	}
+}
+
+function didComplete(passthrough) {
 	if (passthrough.done) {
 		passthrough.done(passthrough.passthrough);
 	}

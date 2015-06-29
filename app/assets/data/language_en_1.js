@@ -57,6 +57,7 @@ module.exports = {
 		"titleFamilyMember" : "Add family member",
 		"titleDobCheck" : "Add a family member",
 
+		"sectionSort" : "Sort",
 		"sectionStoreHours" : "Store hours",
 		"sectionStoreServices" : "Store services",
 		"sectionUpcomingAppointments" : "Upcoming appointments",

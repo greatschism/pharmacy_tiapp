@@ -6,7 +6,7 @@
 					<Label id="orderLbl" class="content-header-lbl" />
 				</View>
 			</HeaderView>
-			<TableViewRow id="prescriptionRow" />
+			<TableViewRow id="prescriptionRow" color="#000" />
 			<FooterView>
 				<View class="content-footer-view">
 					<Button id="addIconBtn" class="content-footer-left-icon-btn icn-filled-add" />

@@ -11,6 +11,9 @@
 	radioButton: true,
 	titleProperty : "code_display"
 },
+"#sortLbl":{
+	text: Alloy.Globals.strings.sectionSort
+},
 "#sortCloseBtn":{
 	title: Alloy.Globals.strings.btnClose
 },
