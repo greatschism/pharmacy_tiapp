@@ -29,6 +29,12 @@
 	Alloy.Globals.isLoggedIn = false;
 	Alloy.Globals.isSwiped = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
+	Alloy.Globals.spinnerImages = [];
+
+	//load spinner images
+	for (var i = 1; i <= 81; i++) {
+		Alloy.Globals.spinnerImages.push("/images/activityindicator/layer_" + i + ".png");
+	}
 
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)

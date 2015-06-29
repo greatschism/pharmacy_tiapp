@@ -2,7 +2,7 @@
 	zIndex: 0,
 	opacity: 0,
 	visible: false,
-	backgroundColor: "#50000000"
+	backgroundColor: "#80000000"
 },
 "#contentView":{
 	height: Ti.UI.SIZE

@@ -1,16 +1,19 @@
 "#window":{
-	backgroundColor: "#50000000"
+	backgroundColor: "#80000000"
 },
 "#contentView":{
 	width: "90%",
-	height: 90,
+	height: 74,
 	layout: "horizontal",
-	backgroundColor: "#000000",
-	borderRadius: 4
+	backgroundColor: "#FFFFFF",
+	borderRadius: 4,
+	accessibilityHidden: true
 },
-"#activityIndicator":{
+"#activityIndicatorImg":{
 	left: 15,
-	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+	width: 50,
+	height: 50,
+	duration: 40
 },
 "#messageView":{
 	left: 10,
@@ -25,5 +28,5 @@
 		fontSize: 13
 	},
 	textAlign: "left",
-	color: "#FFFFFF"
+	color: "#000000"
 }

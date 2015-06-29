@@ -1,5 +1,5 @@
 "#picker": {
-	backgroundColor: "#50000000",
+	backgroundColor: "#80000000",
 	opacity: 0,
 	zIndex: 10
 },

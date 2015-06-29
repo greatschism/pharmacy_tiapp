@@ -749,7 +749,7 @@ module.exports = {
 			},
 			".menu-row" : {
 				"backgroundColor" : "transparent",
-				"selectedBackgroundColor" : "#50D3D4D3"
+				"selectedBackgroundColor" : "#80D3D4D3"
 			},
 			".menu-item-view" : {
 				"top" : 12,
