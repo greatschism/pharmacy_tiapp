@@ -7,8 +7,10 @@ module.exports = {
 			"prescription_auto_hide_in_days" : -60,
 			"prescription_tooltip_reminder_in_days" : 5,
 			"prescription_negative_tooltip_reminder_in_days" : 3,
+			"prescription_progress_x_hours" : 2,
+			"prescription_progress_after_x_hours" : 60,
+			"prescription_progress_before_x_hours" : 15,
 			"rx_number" : {
-				"prefix" : "Rx# ",
 				"format" : " (xxxx-xxxxxxx)",
 				"length" : 12,
 				"validator" : "^[0-9]{4}-[0-9]{7}$",
@@ -1313,6 +1315,16 @@ module.exports = {
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
+			},
+			".content-master-view-100" : {
+				"left" : 0,
+				"width" : "100%",
+				"layout" : "vertical"
+			},
+			".content-detail-view-0" : {
+				"right" : 0,
+				"width" : "0%",
+				"layout" : "vertical"
 			},
 			".content-master-view-75" : {
 				"left" : 0,

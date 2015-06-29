@@ -10,6 +10,7 @@ require("config").updateTSS($.__controllerPath);
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
 	if (args.tooltip) {
+		$.row.className = "completedTooltip";
 		$.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
 			classes : ["show", "right", "tooltip-left", "content-" + (args.tooltipType ? args.tooltipType + "-" : "") + "tooltip"]
 		}));
@@ -19,6 +20,8 @@ require("config").updateTSS($.__controllerPath);
 		}));
 		$.tooltip.setContentView($.tooltipLbl.getView());
 		$.contentView.add($.tooltip.getView());
+	} else {
+		$.row.className = "completed";
 	}
 })();
 

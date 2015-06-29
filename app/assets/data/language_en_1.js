@@ -338,6 +338,7 @@ module.exports = {
 		"optionFindPictureOnMyPhone" : "Find a picture on my phone",
 		"optionTakePhoto" : "Take photo",
 
+		"strRxPrefix" : "Rx# ",
 		"strNotApplicable" : "Not applicable",
 		"strWelcomeNote" : "Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
 		"strHi" : "Hi %s,",

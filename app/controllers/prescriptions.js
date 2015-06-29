@@ -1,12 +1,13 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    strings = Alloy.Globals.strings,
     swipeOptions = [{
 	action : 1,
-	title : Alloy.Globals.strings.lblHideFromList
+	title : strings.lblHideFromList
 }, {
 	action : 2,
-	title : Alloy.Globals.strings.strRefillNow,
+	title : strings.strRefillNow,
 	type : "positive"
 }],
     sections;
@@ -70,12 +71,21 @@ function didGetPrescriptionList(result, passthrough) {
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:
 			var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
-			    promisedDate = prescription.get("latest_refill_promised_date") ? moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format) : currentDate,
-			    totalTime = promisedDate.diff(requestedDate, "seconds", true),
-			    timeSpent = currentDate.diff(requestedDate, "seconds", true);
+			    progress = 0,
+			    subtitle;
+			if (prescription.get("latest_refill_promised_date")) {
+				var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
+				    totalTime = promisedDate.diff(requestedDate, "seconds", true),
+				    timeSpent = currentDate.diff(requestedDate, "seconds", true);
+				subtitle = String.format(strings.msgOrderPlacedReadyBy, promisedDate.format(Alloy.CFG.date_time_format));
+				progress = Math.floor((timeSpent / totalTime) * 100);
+			} else {
+				subtitle = strings.strRxPrefix.concat(prescription.get("rx_number"));
+				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_after_x_hours : Alloy.CFG.prescription_progress_before_x_hours;
+			}
 			prescription.set({
-				subtitle : String.format(Alloy.Globals.strings.msgOrderPlacedReadyBy, prescription.get("latest_refill_promised_date") ? promisedDate.format(Alloy.CFG.date_time_format) : Alloy.Globals.strings.strNotApplicable),
-				progress : Math.floor((timeSpent / totalTime) * 100),
+				subtitle : subtitle,
+				progress : progress,
 				section : "gettingRefilled",
 				itemTemplate : "inprogress"
 			});
@@ -86,36 +96,41 @@ function didGetPrescriptionList(result, passthrough) {
 				    daysLeft = expirationDate.diff(currentDate, "days");
 				if (daysLeft > 0 && daysLeft <= Alloy.CFG.prescription_tooltip_reminder_in_days) {
 					prescription.set({
-						tooltip : String.format(Alloy.Globals.strings.msgPickup, daysLeft),
+						tooltip : String.format(strings.msgPickup, daysLeft),
 						tooltipType : daysLeft <= Alloy.CFG.prescription_negative_tooltip_reminder_in_days ? "negative" : null
 					});
 				}
 			}
 			prescription.set({
-				subtitle : Alloy.Globals.strings.sectionReadyForPickup,
+				subtitle : strings.sectionReadyForPickup,
 				section : "readyForPickup",
 				itemTemplate : "completed"
 			});
 			break;
 		default:
 			var isAnticipatedRefillDate = prescription.get("anticipated_refill_date") !== "",
-			    anticipatedRefillDate = isAnticipatedRefillDate ? moment(prescription.get("anticipated_refill_date"), apiCodes.date_format) : null,
-			    dueInDays = isAnticipatedRefillDate ? anticipatedRefillDate.diff(currentDate, "days") : 0,
-			    section = isAnticipatedRefillDate && dueInDays <= Alloy.CFG.prescription_ready_for_refill_in_days ? "readyForRefill" : "otherPrescriptions";
+			    dueInDays = 0,
+			    section = "otherPrescriptions";
+			if (isAnticipatedRefillDate) {
+				dueInDays = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format).diff(currentDate, "days");
+				if (dueInDays <= Alloy.CFG.prescription_ready_for_refill_in_days) {
+					section = "readyForRefill";
+				}
+			}
 			prescription.set({
-				due_in_days : dueInDays,
-				subtitle : Alloy.CFG.rx_number.prefix.concat(prescription.get("rx_number")),
 				section : section,
-				itemTemplate : !args.orgin ? "masterDetailSwipeable" : "masterDetail",
-				options : !args.orgin ? swipeOptions : []
+				due_in_days : dueInDays,
+				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number")),
+				itemTemplate : args.selectable ? "masterDetailSelectable" : "masterDetailSwipeable",
+				options : swipeOptions
 			});
 			if (section == "readyForRefill") {
 				prescription.set("detailType", dueInDays < 0 ? "negative" : "");
 				var dueInDaysAbs = Math.abs(dueInDays);
 				if (dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
 					prescription.set({
-						detailTitle : Alloy.Globals.strings.msgOverdueBy + " " + dueInDaysAbs + " " + Alloy.Globals.strings.strDays,
-						detailSubtitle : Alloy.Globals.strings.lblSwipeLeftToHide,
+						detailTitle : strings.msgOverdueBy + " " + dueInDaysAbs + " " + strings.strDays,
+						detailSubtitle : strings.lblSwipeLeftToHide,
 						masterWidth : 50,
 						detailWidth : 50
 					});
@@ -125,10 +140,15 @@ function didGetPrescriptionList(result, passthrough) {
 						detailSubtitle : dueInDaysAbs + " " + Alloy.Globals.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"],
 					});
 				}
+			} else if (isAnticipatedRefillDate) {
+				prescription.set({
+					detailTitle : strings.msgDueOn,
+					detailSubtitle : anticipatedRefillDate.format(Alloy.CFG.date_format)
+				});
 			} else {
 				prescription.set({
-					detailTitle : Alloy.Globals.strings.msgDueOn,
-					detailSubtitle : isAnticipatedRefillDate ? anticipatedRefillDate.format(Alloy.CFG.date_format) : Alloy.Globals.strings.strNotApplicable
+					masterWidth : 100,
+					detailWidth : 0
 				});
 			}
 		}
