@@ -5,7 +5,7 @@
 		<View class="margin-top form-vgroup">
 			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
+			<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-ricon-help returnkey-done" onReturn="moveToNext" onClick="didClickPwd" />
 		</View>
 		<View class="margin-top auto-height">
 			<Label id="keepMeLbl" class="lbl-with-rswt" />

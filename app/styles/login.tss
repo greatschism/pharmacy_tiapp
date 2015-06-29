@@ -7,10 +7,6 @@
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.hintPassword,
-	rightIconText: Alloy.CFG.icons.help,
-	rightIconAccessibility:{
-		accessibilityLabel: Alloy.Globals.strings.accessibilityLblHelp
-	},
 	passwordMask: true
 },
 "#keepMeLbl":{

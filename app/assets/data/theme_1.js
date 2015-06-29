@@ -1592,6 +1592,38 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".content-footer-view" : {
+				"width" : "fill",
+				"height" : 40,
+				"backgroundColor" : "#EEEEF3"
+			},
+			".content-footer-left-icon-btn" : {
+				"left" : 12,
+				"width" : 40,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"color" : "#599DFF",
+				"selectedColor" : "#599DFF",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent",
+				"accessibilityHidden" : true
+			},
+			".content-footer-lbl-with-licon-btn" : {
+				"left" : 56,
+				"right" : 12,
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 15
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
 			".content-group" : {
 				"width" : "fill",
 				"height" : "auto",

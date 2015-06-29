@@ -134,7 +134,13 @@ module.exports = {
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",
-		"clearIconText" : "Alloy.CFG.icons.remove"
+		"clearIconText" : "Alloy.CFG.icons.cancel"
+	},
+	".txt-ricon-help" : {
+		"rightIconText" : "Alloy.CFG.icons.help",
+		"rightIconAccessibility" : {
+			"accessibilityLabel" : "Alloy.Globals.strings.accessibilityLblHelp"
+		}
 	},
 	".tooltip-down" : {
 		"direction" : "down",
@@ -145,9 +151,15 @@ module.exports = {
 		"iconText" : "Alloy.CFG.icons.filled_arrow_left"
 	},
 	".icn-spot" : {
+		"title" : "Alloy.CFG.icons.spot",
 		"text" : "Alloy.CFG.icons.spot"
 	},
 	".icn-filled-success" : {
+		"title" : "Alloy.CFG.icons.filled_success",
 		"text" : "Alloy.CFG.icons.filled_success"
+	},
+	".icn-filled-add" : {
+		"title" : "Alloy.CFG.icons.filled_add",
+		"text" : "Alloy.CFG.icons.filled_add"
 	}
 };

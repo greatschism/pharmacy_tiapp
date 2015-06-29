@@ -1,195 +1,50 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment"),
-    app = require("core"),
-    uihelper = require("uihelper"),
+    prescriptionsData,
+    strings = Alloy.Globals.strings,
     http = require("requestwrapper"),
     utilities = require("utilities"),
-    icons = Alloy.CFG.icons,
-    strings = Alloy.Globals.strings,
-    prescription,
-    patientName,
-    doctor,
-    doctorId,
-    clicks = 0,
-    dosageInstructionClicks = 0,
-    contentView,
-    presriptionView,
-    expirationView,
-    doctorView,
-    pharmacyView,
-    prescriptionNoLbl,
-    prescriptionNoDetails,
-    expirationDateLbl,
-    expirationDateDetails,
-    doctorNameLbl,
-    doctorNameDetails,
-    pharmacyLbl,
-    pharmacyDetails,
-    detailsView;
+    moment = require("alloy/moment"),
+    prescriptionsData;
 
 function init() {
-	prescription = args.prescription || {};
-	patientName = args.patientName || "";
-	doctorId = args.doctorId || "";
-	console.log(doctorId);
 	http.request({
-		method : "doctors_get",
-		data : {
+		method : "prescriptions_get",
+		params : {
+			feature_code : "THXXX",
 			data : [{
-				doctors : {
-					id : doctorId,
+				prescriptions : {
+					id : args.id
 				}
 			}]
 		},
-		success : didGetDoctor
+		success : didGetPrescriptionDetail
 	});
 }
 
-function didGetDoctor(result) {
-	doctor = _.isEmpty(result) ? require("data/stubs").doctors_list.data.doctors[0] : result.data.doctors;
-	$.prescriptionNameLbl.text = prescription.presc_name;
-	$.refillLeftInfoLbl.text = prescription.refill_remaining_preferences || 1;
-	$.dueForRefillInfoLbl.text = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : moment().add(30, "days").format(Alloy.CFG.date_format);
-	$.lastRefillInfoLbl.text = moment(prescription.latest_refill_completed_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format);
-	$.autoRefillSwt.setValue(true);
-	$.remindMeToRefillSwt.setValue(true);
-	$.setTimeSwt.setValue(true);
-	createDetailsView();
+function didGetPrescriptionDetail(_result) {
+	prescriptionsData = _result.data.prescriptions;
+	$.prescriptionNameLbl.text = utilities.ucfirst(prescriptionsData[0].presc_name);
+	$.prescriptionNoPmtValue.text = prescriptionsData[0].rx_number;
+	$.expirationDatePmtValue.text = moment(prescriptionsData[0].expiration_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format);
+	$.doctorNamePmtValue.text = prescriptionsData[0].doctor_id;
+	$.pharmacyNamePmtValue.text = prescriptionsData[0].primary_store_id;
+	$.refillsLeftLblValue.title = prescriptionsData[0].refill_left;
+	$.lastFilledLblValue.title = prescriptionsData[0].presc_last_filled_date ? moment(prescriptionsData[0].presc_last_filled_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : "NA";
+	$.dueForRefillLblValue.title = prescriptionsData[0].anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : "NA";
+	$.remindeMeMedicationSwt.setValue(false);
+	$.setMedicationSwt.setValue(true);
 }
 
-function didClickRefillHistory() {
-	app.navigator.open({
-		ctrl : "refillHistory",
-		titleid : "titleRefillHistory",
-		ctrlArguments : {
-			prescription : prescription.presc_name
-		},
-		stack : true
-	});
+function expandCollapseView() {
+	$.expandCollapseView.height == "SIZE" ? $.expandCollapseView.height = 0 : $.expandCollapseView.height = "SIZE";
 }
 
-function didClickRefillPrescription() {
-	app.navigator.open({
-		ctrl : "orderDetails",
+function didClickRefill(e) {
+	$.app.navigator.open({
 		titleid : "titleOrderDetails",
-		ctrlArguments : {
-			prescription : prescription,
-			patientName : patientName
-		},
+		ctrl : "orderDetails",
+		ctrlArguments : args,
 		stack : true
-	});
-
-}
-
-function didClickExpand() {
-
-	if (clicks % 2 == 0) {
-
-		createDetailsView();
-		$.detailsView.add(contentView);
-		clicks++;
-	} else {
-
-		clicks++;
-		$.detailsView.remove(contentView);
-	}
-
-}
-
-function createDetailsView() {
-	contentView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto-height", "paddingTop", "vgroup", "padding-left", "#000"]
-	}),
-	presriptionView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto-height", "hgroup"]
-	}),
-	expirationView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto-height", "hgroup", "padding-top"]
-	}),
-	doctorView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto-height", "hgroup", "padding-top"]
-	}),
-	pharmacyView = $.UI.create("View", {
-		apiName : "View",
-		classes : ["auto-height", "hgroup", "padding-top", "padding-bottom"]
-	}),
-	prescriptionNoLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s3", "left"],
-		text : strings.lblPrescriptionNumber
-	}),
-	expirationDateLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s3", "left"],
-		text : strings.lblExpirationDate
-	}),
-	doctorNameLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s3", "left"],
-		text : strings.lblDoctor
-	}),
-	pharmacyLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s3", "left"],
-		text : strings.lblPharmacy
-	}),
-	prescriptionNoDetails = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s7"]
-	}),
-	expirationDateDetails = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s7"]
-	}),
-	doctorNameDetails = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s7"]
-	}),
-	pharmacyDetails = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["s13"]
-	});
-
-	prescriptionNoDetails.text = prescription.rx_number;
-	expirationDateDetails.text = (prescription.expiration_date ? moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format) : moment().add(100, "days")).format(Alloy.CFG.date_format);
-	doctorNameDetails.text = "Dr. " + (doctor.last_name || "Hareesh");
-	pharmacyDetails.text = "Walmart Pharmacy #3030";
-
-	presriptionView.add(prescriptionNoLbl);
-	presriptionView.add(prescriptionNoDetails);
-
-	expirationView.add(expirationDateLbl);
-	expirationView.add(expirationDateDetails);
-
-	doctorView.add(doctorNameLbl);
-	doctorView.add(doctorNameDetails);
-
-	pharmacyView.add(pharmacyLbl);
-	pharmacyView.add(pharmacyDetails);
-
-	contentView.add(presriptionView);
-	contentView.add(expirationView);
-	contentView.add(doctorView);
-	contentView.add(pharmacyView);
-
-}
-
-function didClickHidePrescription() {
-	http.request({
-		method : "prescriptions_hide",
-		data : {
-			data : [{
-				prescriptions : [prescription]
-			}]
-		},
-		success : function() {
-			Ti.App.fireEvent("reload");
-			app.navigator.close();
-		},
 	});
 }
 

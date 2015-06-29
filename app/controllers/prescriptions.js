@@ -8,7 +8,8 @@ var args = arguments[0] || {},
 	action : 2,
 	title : Alloy.Globals.strings.strRefillNow,
 	type : "positive"
-}];
+}],
+    sections;
 
 function init() {
 	Alloy.Globals.swipeableTable = $.tableView;
@@ -34,7 +35,9 @@ function getPrescriptionList() {
 				}
 			}]
 		},
-		success : didGetPrescriptionList
+		keepLoader : true,
+		success : didGetPrescriptionList,
+		failure : hideLoader
 	});
 }
 
@@ -48,8 +51,8 @@ function didGetPrescriptionList(result, passthrough) {
 		gettingRefilled : "",
 		readyForRefill : "",
 		otherPrescriptions : ""
-	},
-	    sections = {
+	};
+	sections = {
 		readyForPickup : [],
 		gettingRefilled : [],
 		readyForRefill : [],
@@ -130,19 +133,24 @@ function didGetPrescriptionList(result, passthrough) {
 		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		prescription.set("filterText", filterText);
 		filters[sectionId] += filterText;
-		sections[sectionId].push(Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON()).getView());
+		sections[sectionId].push(Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON()));
 	});
 	var data = [];
 	_.each(sections, function(rows, name) {
 		if (rows.length) {
 			var tvSection = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(name, false))], filters[name]);
 			_.each(rows, function(row) {
-				tvSection.add(row);
+				tvSection.add(row.getView());
 			});
 			data.push(tvSection);
 		}
 	});
 	$.tableView.setData(data);
+	hideLoader();
+}
+
+function hideLoader(e) {
+	$.app.navigator.hideLoader();
 }
 
 function didChangeSearch(e) {
@@ -235,6 +243,27 @@ function didGetSortOrderPreferences(result) {
 	});
 	$.sortPicker.setItems(codes);
 	sort();
+}
+
+function didClickTableView(e) {
+	var index = e.index,
+	    count = 0,
+	    row;
+	_.each(sections, function(section) {
+		count += section.length;
+		if (!row && count > index) {
+			row = section[index - (count - section.length)];
+		}
+	});
+	if (row) {
+		var rargs = row.getParams();
+		$.app.navigator.open({
+			title : rargs.title,
+			ctrl : "prescriptionDetails",
+			ctrlArguments : rargs,
+			stack : true
+		});
+	}
 }
 
 function terminate() {

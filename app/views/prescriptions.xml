@@ -9,7 +9,7 @@
 	<View id="searchbar" class="top search-bar fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
-	<TableView id="tableView" class="top">
+	<TableView id="tableView" class="top" onSingletap="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>

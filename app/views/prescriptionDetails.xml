@@ -1,108 +1,89 @@
 <Alloy>
 	<TableView>
-		<TableViewSection>
-			<TableViewRow>
-				<View id="detailsView" class="auto-height vgroup">
-					<View id="nameView" class= "padding-bottom auto-height"  >
-					<Label id="prescriptionNameLbl" class="s1 padding-left" />
-					<Label id="filledArrowIconLbl" class="padding-right filledArrowIcon" onClick="didClickExpand" />
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<View id="contentView" class="content-view-vgroup">
+					<Label id="prescriptionNameLbl" class="content-title"/>
+					<Button id="rightButton" class="right" height="10" width="10" onClick="expandCollapseView"/>
+					<View id="expandCollapseView" class="top content-view-vgroup">
+						<View class="content-group margin-top">
+							<Label id="prescriptionNoPmt" class="content-group-prompt"/>
+							<Label id="prescriptionNoPmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="expirationDatePmt" class="content-group-prompt"/>
+							<Label id="expirationDatePmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="doctorNamePmt" class="content-group-prompt"/>
+							<Label id="doctorNamePmtValue" class="content-group-reply"/>
+						</View>
+						<View class="content-group margin-top">
+							<Label id="pharmacyNamePmt" class="content-group-prompt"/>
+							<Label id="pharmacyNamePmtValue" class="content-group-reply"/>
+						</View>
 					</View>
+					<View id="hdivider" class="h-divider"/>
+					<View class="hgroup margin-top" height="130">
+						<View class="info-view-30">
+							<Label id="refillsLeftLbl" class="info-view-title"/>
+							<Button id="refillsLeftLblValue" class="info-btn"/>
+						</View>
+						<View class="info-view-35">
+							<Label id="dueForRefillLbl" class="info-view-title"/>
+							<Button id="dueForRefillLblValue" class="info-btn"/>
+						</View>
+						<View class="info-view-30">
+							<Label id="lastFilledLbl" class="info-view-title"/>
+							<Button id="lastFilledLblValue" class="info-btn"/>
+						</View>
+						<Button id="refillBtn" class="primary-btn margin-top" onClick="didClickRefill" />
+					</View>
+				</View>
+			</View>
+		</HeaderView>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="remindersHeaderLbl" class="content-header-lbl"/>
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="margin-top margin-bottom auto-height">
+					<Widget id="remindMeMedicationLbl" src="ti.styledlabel" class="attributed-with-rswt" />
+					<Widget id="remindeMeMedicationSwt" src="ti.switch" class="margin-right swt" />
 				</View>
 			</TableViewRow>
 			<TableViewRow>
-				<View class="list-item-view vgroup">
-				
-					<View class="auto-height">
-						<View class="left width-20 auto-height vgroup">
-							<Label id="refillsLeftLbl" class="s12" />
-							<View class="padding-top auto-width info-view">
-								<Label id="refillLeftInfoLbl" class="info-lbl" />
-							</View>
-						</View>
-						<View class="width-35 auto-height vgroup">
-							<Label id="dueForRefillLbl" class="s12" />
-							<View class="padding-top auto-width info-view">
-								<Label id="dueForRefillInfoLbl" class="info-lbl" />
-							</View>
-						</View>
-						<View class="right width-35 auto-height vgroup">
-							<Label id="lastRefillLbl" class="s12" />
-							<View class="padding-top auto-width info-view">
-								<Label id="lastRefillInfoLbl" class="info-lbl" />
-							</View>
-						</View>
-					</View>
-					<View class="padding-top auto-height">
-						<Label id="autoRefillLbl" class="left list-item-lbl" />
-						<Widget id="autoRefillSwt" src="ti.switch" class="right swt" />
-					</View>
-					<Button id="refillBtn" class="padding-top primary-btn" onClick="didClickRefillPrescription"/>
+				<View class="margin-top margin-bottom auto-height">
+					<Widget id="setMedicationLbl" src="ti.styledlabel" class="attributed-with-rswt" />
+					<Widget id="setMedicationSwt" src="ti.switch" class="margin-right swt" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="section-header-view">
-					<Label id="remindersLbl" class="section-header-lbl"/>
+				<View class="content-header-view">
+					<Label id="informationHeaderLbl" class="content-header-lbl"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View class="list-item-view">
-					<Widget id="remindMeToRefillLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="remindMeToRefillSwt" src="ti.switch" class="right swt" />
+				<View class="content-view-with-ricon">
+					<Label id="refillHistoryLbl" class="attributed" />
+						<Label class="content-child-icon"/>
 				</View>
+			
 			</TableViewRow>
 			<TableViewRow>
-				<View class="list-item-view">
-					<Widget id="setTimeLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="setTimeSwt" src="ti.switch" class="right swt" />
+				<View class="content-view-with-ricon">
+					<Label id="dosageInstructionsLbl" class="attributed" />
 				</View>
+				<Label class="content-down-icon"/>
 			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="informationLbl" class="section-header-lbl" />
-				</View>
-			</HeaderView>
-			<TableViewRow onClick="didClickRefillHistory">
-				<View class="list-item-view-with-child">
-					<Label id="refillHistoryLbl" class="left list-item-lbl" />
-				</View>
-				<Label class="list-item-child" />
-			</TableViewRow>
-			<TableViewRow>
-				<View id="dosageInstructionsRow" class="list-item-view-with-child auto-height" >
-					<Label id="dosageInstructionLbl" class="left list-item-lbl"  />
-					<Label id="dosageInstructionLblValue" class="left list-item-title-lbl" />
-					
-				</View>
-				
-				
-			</TableViewRow>
-			<!-- <TableViewRow id ="tabView">
-				<View id="moreHelpView" class="list-item-view ">
-					<Label id="moreHelpLbl" class="left list-item-lbl"/>
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View id="configItemView" class="list-item-view-with-child ">
-					<Label id="configReadLbl" class="left list-item-lbl"/>
-				</View>
-				<Label id="readLbl" class="margin-right"/>
-				<Label class="list-item-child" />
-			</TableViewRow>
-			<TableViewRow>
-				<View id="adherenceView" class="left vgroup list-item-view-with-child ">
-					<Label id="iconLbl" height="70" width="70" class="left"/>
-				</View>
-				<Label id="configAdherLbl" class="multi-line"/>
-				<Label class="list-item-child" />
-			</TableViewRow> -->
 		</TableViewSection>
 		<FooterView>
-			<View class="auto">
-				<Button id="hideBtn" class="padding-top padding-bottom secondary-btn" onClick="didClickHidePrescription" />
+			<View>
+				<Button id="hidePrescriptionBtn" class="secondary-btn margin-top"/>
 			</View>
 		</FooterView>
 	</TableView>

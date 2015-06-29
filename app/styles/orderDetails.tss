@@ -1,58 +1,12 @@
-
-"#tableView":{
-	top: 0,
-	bottom: 96
+"#orderLbl":{
+	text: Alloy.Globals.strings.sectionYourOrder
 },
-
-"#footerView":{
-	height: 96
+"#addLbl":{
+	text: Alloy.Globals.strings.btnAddAnotherPrescription
 },
-"#submitBtn":{
-	title: Alloy.Globals.strings.btnSubmit
+"#pickupLbl":{
+	text: Alloy.Globals.strings.sectionPickupDetails
 },
-".additionIcon":{
-	font:{
-		fontSize:28
-	},
-	text:Alloy.CFG.icons.plus,
-	color:"#599DFF"
-},
-".deleteIcon":{
-	font:{
-		fontSize:28
-	},
-	text:Alloy.CFG.icons.minus_with_circle,
-	color:"#ED1C24"
-},
-".editIcon":{
-	font:{
-		fontSize:30
-	},
-	text:Alloy.CFG.icons.edit,
-	color:"#599DFF"
-},
-".h1":{
-color:"#000000",
-font:{
-	fontSize: 17,
-	fontFamily:"bold"
-}	
-},
-".h2":{
-color:"#6D6E71",
-font:{
-	fontSize: 17,
-	fontFamily:"regular"
-}	
-},
-".h3":{
-color:"#808285",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}	
+"#orderRefillBtn":{
+	title: Alloy.Globals.strings.btnOrderRefill
 }
-
-
-
-

@@ -57,7 +57,6 @@ function setHtml(data) {
 			var lastIndex = len - 1;
 			for ( i = 0; i < len; i++) {
 				var item = dom[i];
-				console.log(item.name);
 				switch(item.name) {
 				case "secondaryfont":
 					attributes.push({

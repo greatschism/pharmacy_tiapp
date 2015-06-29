@@ -68,7 +68,7 @@ module.exports = {
 		"sectionPrescriptionDetails" : "Prescription details",
 		"sectionPrescriptionRefilled" : "Prescription refilled:",
 		"sectionDrugInstructions" : "Drug instructions",
-		"sectionYourOrder" : "Your order details",
+		"sectionYourOrder" : "Your order",
 		"sectionPickupDetails" : "Pickup details",
 		"sectionInformation" : "Information",
 		"sectionAddAll" : "add all",

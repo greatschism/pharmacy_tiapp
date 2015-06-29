@@ -1,175 +1,45 @@
-"#detailsLbl":{
-	text: Alloy.Globals.strings.sectionPrescriptionDetails
+"#prescriptionNoPmt":{
+	text:Alloy.Globals.strings.lblPrescriptionNumber
 },
+"#expirationDatePmt":{
+	text:Alloy.Globals.strings.lblExpirationDate
+},
+"#doctorNamePmt":{
+	text:Alloy.Globals.strings.lblDoctor
+},
+"#pharmacyNamePmt":{
+	text:Alloy.Globals.strings.lblPharmacy
+}
 "#refillsLeftLbl":{
-	text: Alloy.Globals.strings.strRefillsLeft
+	text:Alloy.Globals.strings.strRefillsLeft
 },
 "#dueForRefillLbl":{
-	text: Alloy.Globals.strings.strDueForRefill
+	text:Alloy.Globals.strings.strDueForRefill
 },
-"#lastRefillLbl":{
-	text: Alloy.Globals.strings.strLastFilled
-},
-"#autoRefillLbl":{
-	right: 60,
-	text: Alloy.Globals.strings.strAutoRefill
+"#lastFilledLbl":{
+	text:Alloy.Globals.strings.strLastFilled
 },
 "#refillBtn":{
-	left: 0,
-	right: 0,
-	title: Alloy.Globals.strings.lblRefill
+	title:Alloy.Globals.strings.lblRefill
 },
-"#remindersLbl":{
-	text: Alloy.Globals.strings.strReminders
+"#remindersHeaderLbl":{
+	text:Alloy.Globals.strings.strReminders
 },
-"#remindMeToRefillLbl":{
-	right: 60,
-	font :{
-		fontSize : 14
-	},
-	html: Alloy.Globals.strings.lblRemindMeRefillMedication
+"#informationHeaderLbl":{
+	text:Alloy.Globals.strings.sectionInformation
 },
-"#setTimeLbl":{
-	right: 60,
-	font :{
-		fontSize : 14
-	},
-	html: Alloy.Globals.strings.lblSetTimeToTakeMedication
+"#remindMeMedicationLbl":{
+	html:Alloy.Globals.strings.lblRemindMeRefillMedication
 },
-"#informationLbl":{
-	text: Alloy.Globals.strings.sectionInformation
-},
+"#setMedicationLbl":{
+	html:Alloy.Globals.strings.lblSetTimeToTakeMedication
+}
 "#refillHistoryLbl":{
-	font :{
-		fontSize : 14
-	},
-	text: Alloy.Globals.strings.strRefillHistory
+	text:Alloy.Globals.strings.strRefillHistory
 },
-
-"#dosageInstructionLbl":{
-	text:Alloy.Globals.strings.lblDosageInstruction,
-	font:{
-		fontSize: 14,
-		fontFamily: "bold"
-	},
-	right: 60,
-	bottom: 15
-}
-"#dosageInstructionLblValue":{
-	text:"Take twice a day with plenty of water.",
-	font:{
-		fontSize: 12,
-		fontFamily: "bold"
-	},
-
-	top: 20,
-	width: 400
-}
-"#hideBtn":{
-	title: Alloy.Globals.strings.btnHideThisPrescription
+"#dosageInstructionsLbl":{
+	text:Alloy.Globals.strings.lblDosageInstruction
 },
-"#tabView":{
-	backgroundColor: "#EFFBFB",
-	width: Ti.FILL_WIDTH,
-	height: 50
-},
-"#moreHelpLbl":{
-	text: "More help for your configurable condition",
-	color: "#000000",
-	font:{
-		fontSize: 14
-	}
-},
-"#configReadLbl":{
-	font :{
-		fontSize : 14
-	},
-	text: "Configurable text item"
-},
-"#configAdherLbl":{
-
-	font:{
-		fontSize: 16
-	},
-	left: 80,
-	text: "Configurable adherance item with image."
-},
-"#readLbl":{
-	font:{
-		fontSize: 12
-	},
-	right: 40,
-	text: "Read",
-	color: "#BDBDBD"
-},
-"#iconLbl":{
-	font:{
-		fontSize: 70,
-		fontFamily: "mscripts"
-	},
-	left: 0,
-	color: "#F6931E",
-	text: Alloy.CFG.icons.user
-},
-".s1":{
-color:"#000000",
-font:{
-	fontSize: 17,
-	fontFamily:"bold"
-}},
-".s3":{
-color:"#808285",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}	
-},
-".s13":{
-color:"#0095ff",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}	
-},
-".s6":{
-color:"#000000",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}},
-".s21":{
-color:"#c4c4c4",
-font:{
-	fontSize: 14,
-	fontFamily:"regular"
-}	
-},
-".s7":{
-color:"#000000",
-font:{
-	fontSize: 14,
-	fontFamily:"bold"
-}	
-},
-".s12":{
-color:"#5b5b5b",
-font:{
-	fontSize: 12,
-	fontFamily:"regular"
-}	
-},
-".s17":{
-color:"#000000",
-font:{
-	fontSize: 12,
-	fontFamily:"regular"
-}	
-},
-".filledArrowIcon":{
-	font:{
-		fontSize:28,
-		fontFamily : "mscripts",
-	},
-	text:Alloy.CFG.icons.filled_arrow_down,
-	color:"#808285"
+"#hidePrescriptionBtn":{
+	title:Alloy.Globals.strings.btnHideThisPrescription
 }
