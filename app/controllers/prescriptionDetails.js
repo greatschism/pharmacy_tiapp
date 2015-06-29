@@ -43,7 +43,9 @@ function didClickRefill(e) {
 	$.app.navigator.open({
 		titleid : "titleOrderDetails",
 		ctrl : "orderDetails",
-		ctrlArguments : args,
+		ctrlArguments : {
+			prescriptions : [args]
+		},
 		stack : true
 	});
 }

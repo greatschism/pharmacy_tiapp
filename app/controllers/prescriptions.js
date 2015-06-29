@@ -35,9 +35,7 @@ function getPrescriptionList() {
 				}
 			}]
 		},
-		keepLoader : true,
-		success : didGetPrescriptionList,
-		failure : hideLoader
+		success : didGetPrescriptionList
 	});
 }
 
@@ -58,9 +56,14 @@ function didGetPrescriptionList(result, passthrough) {
 		readyForRefill : [],
 		otherPrescriptions : []
 	};
+	var statuses = (args.filter || {}).refill_status || [],
+	    ids = (args.filter || {}).ids || [];
 	Alloy.Collections.prescriptions.each(function(prescription) {
-		//process only status that are mentioned in filter if passed
-		if (_.has(args, "filter") && _.indexOf(args.filter, prescription.get("refill_status")) == -1) {
+		/**
+		 *	Exclude refill_status that are not present in filter
+		 * 	Exclude id that is present in filter
+		 */
+		if (_.has(args, "filter") && (_.indexOf(statuses, prescription.get("refill_status")) == -1 || _.indexOf(ids, prescription.get("id")) != -1)) {
 			return false;
 		}
 		prescription.set("title", $.utilities.ucword(prescription.get("presc_name")));
@@ -146,11 +149,6 @@ function didGetPrescriptionList(result, passthrough) {
 		}
 	});
 	$.tableView.setData(data);
-	hideLoader();
-}
-
-function hideLoader(e) {
-	$.app.navigator.hideLoader();
 }
 
 function didChangeSearch(e) {

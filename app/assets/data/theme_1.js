@@ -1594,8 +1594,7 @@ module.exports = {
 			},
 			".content-footer-view" : {
 				"width" : "fill",
-				"height" : 40,
-				"backgroundColor" : "#EEEEF3"
+				"height" : 40
 			},
 			".content-footer-left-icon-btn" : {
 				"left" : 12,
