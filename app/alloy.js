@@ -32,7 +32,7 @@
 	Alloy.Globals.spinnerImages = [];
 
 	//load spinner images
-	for (var i = 1; i <= 81; i++) {
+	for (var i = 1; i <= 161; i++) {
 		Alloy.Globals.spinnerImages.push("/images/activityindicator/layer_" + i + ".png");
 	}
 
