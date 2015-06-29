@@ -180,6 +180,10 @@ function didClickSignup(e) {
 
 function terminate() {
 	Alloy.Models.patient.off("change:account", updateInputs);
+	Alloy.Models.patient.set({
+		account : null,
+		password : null
+	});
 }
 
 exports.init = init;

@@ -57,7 +57,7 @@ var TiLog = {
 				if (str) {
 					str += TiLog.separator;
 				}
-				if (_.isString(val)) {
+				if (_.isString(val) || _.isNumber(val)) {
 					str += val;
 				} else if (_.isArray(val)) {
 					str += val.join(" ");

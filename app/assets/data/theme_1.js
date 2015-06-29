@@ -3,6 +3,8 @@ module.exports = {
 		"config" : {
 			"navigator" : "hamburger",
 			"left_drawer_width" : 270,
+			"banner_max_width" : "100%",
+			"banner_max_height" : 140,
 			"prescription_ready_for_refill_in_days" : 7,
 			"prescription_auto_hide_in_days" : -60,
 			"prescription_tooltip_reminder_in_days" : 5,

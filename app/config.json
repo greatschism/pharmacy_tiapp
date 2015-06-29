@@ -125,8 +125,6 @@
         },
         "location_timeout": 900,
         "http_timeout": 90,
-        "banner_max_width": "100%",
-        "banner_max_height": 140,
         "log_level": "debug",
         "force_update": false,
         "force_reload_after_update": false,
@@ -188,7 +186,8 @@
         "ti.optiondialog": "1.0",
         "ti.textarea": "1.0",
         "ti.optionpicker": "1.0",
-        "ti.navbutton": "1.0"
+        "ti.navbutton": "1.0",
+        "ti.remoteimage": "1.0"
     },
     "backbone": "1.1.2"
 }

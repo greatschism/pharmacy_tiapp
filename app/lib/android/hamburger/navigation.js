@@ -297,8 +297,6 @@ function Navigation(args) {
 			stack.push(that.controllers[i].getView());
 		}
 
-		logger.debug(TAG, JSON.stringify(stack));
-
 		logger.debug(TAG, "stack length", that.controllers.length);
 	};
 }

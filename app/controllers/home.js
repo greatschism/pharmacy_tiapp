@@ -12,7 +12,7 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	if (Alloy.Models.appload.get("features").is_banners_enabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
+	if ($.bannerView && Alloy.Models.appload.get("features").is_banners_enabled && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",
 			params : {
@@ -31,12 +31,6 @@ function init() {
 }
 
 function didSuccess(result, passthrough) {
-	if (_.has(result.data.banners, "width")) {
-		Alloy.CFG.banner_max_width = result.data.banners.width;
-	}
-	if (_.has(result.data.banners, "height")) {
-		Alloy.CFG.banner_max_height = result.data.banners.height;
-	}
 	result = _.sortBy(result.data.banners.banner, "priority");
 	Alloy.Collections.banners.reset(result);
 	loadBanners(result);
@@ -46,9 +40,7 @@ function loadBanners(items) {
 	if (_.isArray(items) && items.length) {
 		banners = items;
 		$.bannerScrollableView = $.UI.create("ScrollableView", {
-			apiName : "ScrollableView",
-			width : Alloy.CFG.banner_max_width,
-			height : Alloy.CFG.banner_max_height
+			apiName : "ScrollableView"
 		});
 		_.each(banners, function(banner) {
 			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
@@ -155,6 +147,12 @@ function create(dict) {
 	}
 	if (_.has(dict, "id")) {
 		$[dict.id] = element;
+		if (dict.id == "bannerView" && Alloy.Models.appload.get("features").is_banners_enabled) {
+			$.bannerView.applyProperties({
+				width : Alloy.CFG.banner_max_width,
+				height : Alloy.CFG.banner_max_height
+			});
+		}
 	}
 	return element;
 }

@@ -2,14 +2,16 @@
  * @param {Object} args The arguments for the method
  */
 
-var Alloy = require("alloy"),
+var TAG = "RequestWrapper",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("http"),
     localization = require("localization"),
     utilities = require("utilities"),
-    encryptionUtil = require("encryptionUtil");
+    encryptionUtil = require("encryptionUtil"),
+    logger = require("logger");
 
 function request(args) {
 
@@ -66,6 +68,7 @@ function request(args) {
 }
 
 function didSuccess(result, passthrough) {
+	logger.debug(TAG, "response", result.code, result.message);
 	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result);
 	}

@@ -120,13 +120,13 @@ var Res = {
 				obj.revert = obj.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				Res.collection.save(obj);
-				logger.debug(TAG, "added", obj);
+				logger.debug(TAG, "added", obj.type, obj.version, obj.code || "");
 			} else if (obj.selected != document.selected || _.has(obj, "data")) {
 				obj.update = !_.has(obj, "data") && !_.has(document, "data");
 				obj.revert = obj.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				_.extend(document, obj);
-				logger.debug(TAG, "updated", document);
+				logger.debug(TAG, "updated", document.type, document.version, document.code || "");
 			}
 
 			if (obj.selected || obj.revert) {
@@ -248,7 +248,7 @@ var Res = {
 							failure : Res.didUpdate
 						});
 					}
-					logger.debug(TAG, "downloading", obj);
+					logger.debug(TAG, "downloading", obj.type, obj.version, obj.code || "");
 				});
 			} else if (callback) {
 				callback();
@@ -262,7 +262,7 @@ var Res = {
 			logger.error(TAG, "unable to download", passthrough, "with error", result);
 		} else {
 			passthrough.error = false;
-			logger.debug(TAG, "downloaded successfully", passthrough);
+			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
 			var isAsset = passthrough.type == "fonts" || passthrough.type == "images",
 			    item = _.pick(passthrough, ["type", "version", "base_version"]);
 			_.extend(item, {
@@ -307,7 +307,7 @@ var Res = {
 			logger.error(TAG, "unable to download", passthrough, "with error", result);
 		} else {
 			passthrough.error = false;
-			logger.debug(TAG, "downloaded successfully", passthrough);
+			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
 			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + "." + passthrough.format;
 			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
 			var item = _.pick(passthrough, ["type", "version", "base_version", "code"]);

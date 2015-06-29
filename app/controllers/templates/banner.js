@@ -1,12 +1,12 @@
 var args = arguments[0] || {},
-    TAG = "itemTemplates/banner";
+    TAG = "banner";
 
 //reload tss of this controller in memory
 require("config").updateTSS($.__controllerPath);
 
 (function() {
 	$.descriptionLbl.text = args.description;
-	$.bannerImg.image = args.image_url;
+	$.bannerImg.setImage(args.image_url);
 })();
 
 function didClick(e) {

@@ -1,6 +1,6 @@
 <Alloy>
 	<View onClick="didClick">
-		<ImageView id="bannerImg" class="width-100 touch-disabled" onError="didError" onLoad="didLoad" />
+		<Widget id="bannerImg" src="ti.remoteimage" class="width-100 touch-disabled" onError="didError" onLoad="didLoad" />
 		<Label id="descriptionLbl" class="lbl-centered-wrap touch-disabled" />
 	</View>
 </Alloy>

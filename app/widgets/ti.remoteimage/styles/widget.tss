@@ -1,0 +1,11 @@
+"#widget": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE
+},
+"#widget[platform=android]": {
+	decodeRetries: 1,
+	enableZoomControls: false
+},
+"#widget[platform=ios]": {
+	preventDefaultImage: true
+}

@@ -37,7 +37,7 @@ exports.request = function(args) {
 		 */
 		xhr.onload = function(response) {
 
-			logger.debug(TAG, "response", (this.responseText || "No response or unable to parse the response"));
+			logger.debug(TAG, "onload");
 
 			var data;
 
