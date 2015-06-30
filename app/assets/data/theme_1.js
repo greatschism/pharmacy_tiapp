@@ -272,7 +272,7 @@ module.exports = {
 				"backgroundSelectedColor" : "transparent",
 				"borderColor" : "transparent"
 			},
-			".nav-icon-btn" : {
+			".nav-icon" : {
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
@@ -353,10 +353,10 @@ module.exports = {
 			".swt[platform=android]" : {
 				"width" : 56,
 				"height" : 36,
-				"trackTintColorOn" : "#38E780",
+				"trackTintColorOn" : "#4BD763",
 				"trackTintColorOff" : "#A7A7A7",
-				"thumbTintColorOn" : "#004c00",
-				"thumbTintColorOff" : "#424242",
+				"thumbTintColorOn" : "#FFFFFF",
+				"thumbTintColorOff" : "#FFFFFF",
 				"backgroundSelectedColor" : "transparent"
 			},
 			".optionpicker" : {
@@ -517,7 +517,7 @@ module.exports = {
 			},
 			".search-bar" : {
 				"width" : "fill",
-				"height" : 46,
+				"height" : 56,
 				"backgroundColor" : "#EEEEF3"
 			},
 			".search-txt" : {
@@ -527,7 +527,7 @@ module.exports = {
 				"right" : 8,
 				"paddingLeft" : 8,
 				"paddingRight" : 8,
-				"height" : 30,
+				"height" : 40,
 				"enableClearButton" : true,
 				"font" : {
 					"fontFamily" : "medium",
@@ -830,6 +830,17 @@ module.exports = {
 				"borderColor" : "transparent",
 				"borderRadius" : 0,
 				"borderWidth" : 0
+			},
+			".async-view" : {
+				"width" : "fill"
+			},
+			".async-view-auto" : {
+				"width" : "fill",
+				"height" : "auto",
+				"indicatorDict" : {
+					"top" : 12,
+					"bottom" : 12
+				}
 			},
 			".content-view" : {
 				"top" : 12,
@@ -1539,7 +1550,7 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".content-header-right-icon-btn" : {
+			".content-header-right-icon" : {
 				"right" : 4,
 				"width" : 40,
 				"font" : {
@@ -1553,7 +1564,7 @@ module.exports = {
 				"borderColor" : "transparent",
 				"accessibilityHidden" : true
 			},
-			".content-header-lbl-with-ricon-btn" : {
+			".content-header-lbl-with-ricon" : {
 				"left" : 12,
 				"right" : 48,
 				"height" : 22,
@@ -1605,37 +1616,6 @@ module.exports = {
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
-			},
-			".content-footer-view" : {
-				"width" : "fill",
-				"height" : 40
-			},
-			".content-footer-left-icon-btn" : {
-				"left" : 12,
-				"width" : 40,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 24
-				},
-				"color" : "#599DFF",
-				"selectedColor" : "#599DFF",
-				"backgroundColor" : "transparent",
-				"backgroundSelectedColor" : "transparent",
-				"borderColor" : "transparent",
-				"accessibilityHidden" : true
-			},
-			".content-footer-lbl-with-licon-btn" : {
-				"left" : 56,
-				"right" : 12,
-				"height" : 22,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 15
-				},
-				"color" : "#000000",
-				"textAlign" : "left",
-				"ellipsize" : true,
-				"wordWrap" : false
 			},
 			".content-group" : {
 				"width" : "fill",

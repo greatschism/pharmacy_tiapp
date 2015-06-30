@@ -5,24 +5,26 @@
 				<View id="contentView" class="content-view-vgroup">
 					<Label id="prescriptionNameLbl" class="content-title"/>
 					<Button id="rightButton" class="right" height="10" width="10" onClick="expandCollapseView"/>
-					<View id="expandCollapseView" class="top content-view-vgroup">
-						<View class="content-group margin-top">
-							<Label id="prescriptionNoPmt" class="content-group-prompt"/>
-							<Label id="prescriptionNoPmtValue" class="content-group-reply"/>
+					<Widget id="asyncView" src="ti.asyncview" class="async-view-auto">
+						<View id="expandCollapseView" class="top content-view-vgroup">
+							<View class="content-group margin-top">
+								<Label id="prescriptionNoPmt" class="content-group-prompt"/>
+								<Label id="prescriptionNoPmtValue" class="content-group-reply"/>
+							</View>
+							<View class="content-group margin-top">
+								<Label id="expirationDatePmt" class="content-group-prompt"/>
+								<Label id="expirationDatePmtValue" class="content-group-reply"/>
+							</View>
+							<View class="content-group margin-top">
+								<Label id="doctorNamePmt" class="content-group-prompt"/>
+								<Label id="doctorNamePmtValue" class="content-group-reply"/>
+							</View>
+							<View class="content-group margin-top">
+								<Label id="pharmacyNamePmt" class="content-group-prompt"/>
+								<Label id="pharmacyNamePmtValue" class="content-group-reply"/>
+							</View>
 						</View>
-						<View class="content-group margin-top">
-							<Label id="expirationDatePmt" class="content-group-prompt"/>
-							<Label id="expirationDatePmtValue" class="content-group-reply"/>
-						</View>
-						<View class="content-group margin-top">
-							<Label id="doctorNamePmt" class="content-group-prompt"/>
-							<Label id="doctorNamePmtValue" class="content-group-reply"/>
-						</View>
-						<View class="content-group margin-top">
-							<Label id="pharmacyNamePmt" class="content-group-prompt"/>
-							<Label id="pharmacyNamePmtValue" class="content-group-reply"/>
-						</View>
-					</View>
+					</Widget>
 					<View id="hdivider" class="h-divider"/>
 					<View class="hgroup margin-top" height="130">
 						<View class="info-view-30">
@@ -70,9 +72,8 @@
 			<TableViewRow>
 				<View class="content-view-with-ricon">
 					<Label id="refillHistoryLbl" class="attributed" />
-						<Label class="content-child-icon"/>
+					<Label class="content-child-icon"/>
 				</View>
-			
 			</TableViewRow>
 			<TableViewRow>
 				<View class="content-view-with-ricon">

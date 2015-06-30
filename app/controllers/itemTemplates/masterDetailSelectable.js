@@ -46,7 +46,7 @@ function didClickChecked(e) {
 }
 
 function resetSelectionState() {
-	$.resetClass($.selectionLbl, args.selected ? ["content-positive-left-icon", "icn-filled-success"] : ["content-inactive-left-icon", "icn-spot"]);
+	$.resetClass($.selectionLbl, args.selected ? ["content-positive-left-icon", "icon-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
 }
 
 function getParams() {

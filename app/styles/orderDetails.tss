@@ -1,9 +1,6 @@
 "#orderLbl":{
 	text: Alloy.Globals.strings.sectionYourOrder
 },
-"#addLbl":{
-	text: Alloy.Globals.strings.btnAddAnotherPrescription
-},
 "#pickupLbl":{
 	text: Alloy.Globals.strings.sectionPickupDetails
 },

@@ -3,16 +3,11 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">
-					<Label id="orderLbl" class="content-header-lbl" />
+					<Label id="orderLbl" class="content-header-lbl-with-ricon" />
+					<Button id="addBtn" class="content-header-right-icon icon-add" />
 				</View>
 			</HeaderView>
 			<TableViewRow id="prescriptionRow" color="#000" />
-			<FooterView>
-				<View class="content-footer-view">
-					<Button id="addIconBtn" class="content-footer-left-icon-btn icn-filled-add" />
-					<Label id="addLbl" class="content-footer-lbl-with-licon-btn" />
-				</View>
-			</FooterView>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>

@@ -17,6 +17,8 @@ function init() {
 				}
 			}]
 		},
+		showLoader : false,
+		errorDialogEnabled : false,
 		success : didGetPrescriptionDetail
 	});
 }

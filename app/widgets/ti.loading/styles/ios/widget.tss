@@ -2,7 +2,7 @@
 	backgroundColor: "#80000000"
 },
 "#contentView":{
-	width: "90%",
+	width: "85%",
 	height: 74,
 	layout: "horizontal",
 	backgroundColor: "#FFFFFF",

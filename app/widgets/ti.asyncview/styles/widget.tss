@@ -1,0 +1,9 @@
+"#widget": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE
+},
+"#activityIndicatorImg":{
+	width: 50,
+	height: 50,
+	duration: 40
+}

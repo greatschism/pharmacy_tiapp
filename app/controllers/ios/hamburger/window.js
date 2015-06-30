@@ -17,7 +17,7 @@ var args = arguments[0] || {},
 
 	var leftBtnDict = {
 		apiName : "Button",
-		classes : ["nav-icon-btn"]
+		classes : ["nav-icon"]
 	};
 	_.extend(leftBtnDict, args.stack ? {
 		title : Alloy.CFG.icons.back,
