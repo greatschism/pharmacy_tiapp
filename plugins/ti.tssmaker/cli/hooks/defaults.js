@@ -150,15 +150,19 @@ module.exports = {
 		"direction" : "left",
 		"iconText" : "Alloy.CFG.icons.filled_arrow_left"
 	},
-	".icn-spot" : {
+	".icon-spot" : {
 		"title" : "Alloy.CFG.icons.spot",
 		"text" : "Alloy.CFG.icons.spot"
 	},
-	".icn-filled-success" : {
+	".icon-add" : {
+		"title" : "Alloy.CFG.icons.add",
+		"text" : "Alloy.CFG.icons.add"
+	},
+	".icon-filled-success" : {
 		"title" : "Alloy.CFG.icons.filled_success",
 		"text" : "Alloy.CFG.icons.filled_success"
 	},
-	".icn-filled-add" : {
+	".icon-filled-add" : {
 		"title" : "Alloy.CFG.icons.filled_add",
 		"text" : "Alloy.CFG.icons.filled_add"
 	}
