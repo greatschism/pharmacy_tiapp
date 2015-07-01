@@ -75,7 +75,7 @@ var Helper = {
 
 	fireLocationCallback : function(callback, coords) {
 		Helper.currentLocation = coords ? coords : {};
-		if (_.isFunction(callback)) {
+		if (callback) {
 			callback(Helper.currentLocation);
 		}
 	},
@@ -316,6 +316,31 @@ var Helper = {
 			});
 		}
 		return Ti.UI.createTableViewSection(dict);
+	},
+
+	/**
+	 * Calculates the height of the view by calulating the height of it's children (with fixed height)
+	 * @param {Object} view
+	 */
+	getHeightFromChildren : function(view) {
+		var height = 0;
+		_.each(view.children, function(child) {
+			height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+		});
+		return height;
+	},
+
+	/**
+	 * Calculates the height of the view by calulating the height of it's children (with fixed height)
+	 * includes top and bottom padding of the view
+	 * @param {Object} view
+	 */
+	getHeightFromChildrenWithPadding : function(view) {
+		var height = (view.top || 0) + (view.bottom || 0);
+		_.each(view.children, function(child) {
+			height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+		});
+		return height;
 	}
 };
 

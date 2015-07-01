@@ -25,7 +25,7 @@ var args = arguments[0] || {},
 	} : {
 		title : Alloy.CFG.icons.hamburger,
 		accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
-	})
+	});
 	$.leftNavBtn = $.UI.create("Button", leftBtnDict);
 
 	$.leftNavView.add($.leftNavBtn);
@@ -40,13 +40,17 @@ var args = arguments[0] || {},
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		if (child.__controllerPath) {
+		var role = child.role;
+		if (child.__iamalloy) {
 			child = child.getView();
 		}
 		if (!child) {
 			return;
 		}
-		switch(child.role) {
+		if (!role) {
+			role = child.role;
+		}
+		switch(role) {
 		case "rightNavButton":
 			setRightNavButton(child);
 			break;
@@ -81,27 +85,27 @@ var args = arguments[0] || {},
 
 	controller.hideNavBar = hideNavBar;
 
-	_.isFunction(controller.init) && controller.init();
+	controller.init && controller.init();
 
-	_.isFunction(controller.setParentViews) && controller.setParentViews($.window);
+	controller.setParentViews && controller.setParentViews($.window);
 
 })();
 
 function didOpen(e) {
-	_.isFunction(controller.focus) && controller.focus();
+	controller.focus && controller.focus();
 }
 
 function didBlur(e) {
-	_.isFunction(controller.blur) && controller.blur();
+	controller.blur && controller.blur();
 }
 
 function didClose(e) {
-	_.isFunction(controller.terminate) && controller.terminate();
+	controller.terminate && controller.terminate();
 }
 
 function didClickLeftNavView(e) {
 	if (args.stack) {
-		if (_.isFunction(controller.backButtonHandler) && controller.backButtonHandler()) {
+		if (controller.backButtonHandler && controller.backButtonHandler()) {
 			return;
 		}
 		app.navigator.close();

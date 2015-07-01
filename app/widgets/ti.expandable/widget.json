@@ -1,0 +1,13 @@
+{
+	"id": "ti.expandable",
+	"name": "ti.expandable",
+	"description": "collapsible view",
+	"author": "Manoj Kumar",
+	"version": "1.0",
+	"copyright": "Copyright (c) 2015",
+	"license": "Public Domain",
+	"min-alloy-version": "1.0",
+	"min-titanium-version": "2.1",
+	"tags": "expandable, collapsible",
+	"platforms": "ios,android"
+}

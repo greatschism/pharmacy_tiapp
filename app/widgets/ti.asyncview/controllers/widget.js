@@ -2,6 +2,10 @@ var args = arguments[0] || {};
 
 (function() {
 
+	if (_.has(args, "role")) {
+		$.widget.role = $.role = args.role;
+	}
+
 	var options = _.pick(args, ["top", "bottom", "left", "right", "width", "height", "layout", "backgroundColor", "backgroundImage", "borderColor", "borderRadius", "borderWidth"]);
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
@@ -43,11 +47,11 @@ function hide(children) {
 	}
 	children = children || args.children;
 	_.each(children, function(child) {
+		if (child.__iamalloy) {
+			child = child.getView();
+		}
 		if (!child) {
 			return;
-		}
-		if (child.__controllerPath) {
-			child = child.getView();
 		}
 		$.widget.add(child);
 	});

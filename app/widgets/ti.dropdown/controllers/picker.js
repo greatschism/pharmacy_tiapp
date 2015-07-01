@@ -114,7 +114,7 @@ function terminate(callback) {
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
 		parent.remove($.picker);
-		if (_.isFunction(callback)) {
+		if (callback) {
 			callback();
 		}
 		$.trigger("terminate", {

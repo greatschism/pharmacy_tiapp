@@ -1674,12 +1674,22 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".h-divider" : {
+			".h-divider[platform=ios]" : {
+				"width" : "fill",
+				"height" : 0.5,
+				"backgroundColor" : "#D4D4D4"
+			},
+			".h-divider[platform=android]" : {
 				"width" : "fill",
 				"height" : 1,
 				"backgroundColor" : "#D4D4D4"
 			},
-			".v-divider" : {
+			".v-divider[platform=ios]" : {
+				"width" : 0.5,
+				"height" : "fill",
+				"backgroundColor" : "#D4D4D4"
+			},
+			".v-divider[platform=android]" : {
 				"width" : 1,
 				"height" : "fill",
 				"backgroundColor" : "#D4D4D4"

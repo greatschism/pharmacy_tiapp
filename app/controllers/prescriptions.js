@@ -17,7 +17,41 @@ function init() {
 	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
 	if (codes) {
 		$.sortPicker.setItems(codes);
+		getPrescriptionList();
+	} else {
+		getSortOrderPreferences();
 	}
+}
+
+function getSortOrderPreferences() {
+	$.http.request({
+		method : "codes_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				codes : [{
+					code_name : apiCodes.code_sort_order_preference
+				}]
+			}]
+		},
+		keepLoader : true,
+		success : didGetSortOrderPreferences
+	});
+}
+
+function didGetSortOrderPreferences(result) {
+	Alloy.Models.sortOrderPreferences.set(result.data.codes[0]);
+	var codes = Alloy.Models.sortOrderPreferences.get("code_values"),
+	    defaultVal = Alloy.Models.sortOrderPreferences.get("default_value");
+	_.each(codes, function(code) {
+		if (code.code_value === defaultVal) {
+			Alloy.Models.sortOrderPreferences.set("selected_code_value", defaultVal);
+			code.selected = true;
+		} else {
+			code.selected = false;
+		}
+	});
+	$.sortPicker.setItems(codes);
 	getPrescriptionList();
 }
 
@@ -29,9 +63,7 @@ function getPrescriptionList() {
 			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
-					sort_order_preferences : (_.findWhere(Alloy.Models.sortOrderPreferences.get("code_values"), {
-						selected : true
-					}) || {}).code_value || null,
+					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
 					prescription_display_status : apiCodes.prescription_display_status_active
 				}
 			}]
@@ -176,6 +208,9 @@ function didChangeSearch(e) {
 }
 
 function didClickRightNavBtn(e) {
+	if ($.sortPicker.getVisible()) {
+		return $.sortPicker.hide();
+	}
 	$.optionsMenu.show();
 }
 
@@ -185,7 +220,7 @@ function didClickOptionMenu(e) {
 		toggleSearch();
 		break;
 	case 1:
-		sort();
+		$.sortPicker.show();
 		break;
 	case 2:
 		//unhide;
@@ -226,41 +261,13 @@ function toggleSearch() {
 	$.tableView.animate(tAnim);
 }
 
+function didClickSortPicker(e) {
+	Alloy.Models.sortOrderPreferences.set("selected_code_value", $.sortPicker.getSelectedItems()[0].code_value);
+	getPrescriptionList();
+}
+
 function didClickSortClose(e) {
 	$.sortPicker.hide();
-}
-
-function sort() {
-	if (!Alloy.Models.sortOrderPreferences.get("code_values")) {
-		return getSortOrderPreferences();
-	}
-	$.sortPicker.show();
-}
-
-function getSortOrderPreferences() {
-	$.http.request({
-		method : "codes_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				codes : [{
-					code_name : apiCodes.sort_order_preference
-				}]
-			}]
-		},
-		success : didGetSortOrderPreferences
-	});
-}
-
-function didGetSortOrderPreferences(result) {
-	Alloy.Models.sortOrderPreferences.set(result.data.codes[0]);
-	var codes = Alloy.Models.sortOrderPreferences.get("code_values"),
-	    defaultVal = Alloy.Models.sortOrderPreferences.get("default_value");
-	_.each(codes, function(code) {
-		code.selected = code.code_value === defaultVal;
-	});
-	$.sortPicker.setItems(codes);
-	sort();
 }
 
 function didClickTableView(e) {

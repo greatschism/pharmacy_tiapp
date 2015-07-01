@@ -9,7 +9,7 @@ var TiPerformance = {
 			var Module = require("com.appcelerator.apm"),
 			    didServiceready = function() {
 				PerformanceModule = Module;
-				if (_.isFunction(callback)) {
+				if (callback) {
 					callback(true);
 				}
 			};
@@ -24,7 +24,7 @@ var TiPerformance = {
 				didServiceready();
 			}
 		} else {
-			if (_.isFunction(callback)) {
+			if (callback) {
 				callback(false);
 			}
 		}

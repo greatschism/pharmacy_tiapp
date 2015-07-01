@@ -1,91 +1,17 @@
 <Alloy>
-	<TableView>
-		<HeaderView>
-			<View class="auto-height vgroup">
-				<View id="contentView" class="content-view-vgroup">
-					<Label id="prescriptionNameLbl" class="content-title"/>
-					<Button id="rightButton" class="right" height="10" width="10" onClick="expandCollapseView"/>
-					<Widget id="asyncView" src="ti.asyncview" class="async-view-auto">
-						<View id="expandCollapseView" class="top content-view-vgroup">
-							<View class="content-group margin-top">
-								<Label id="prescriptionNoPmt" class="content-group-prompt"/>
-								<Label id="prescriptionNoPmtValue" class="content-group-reply"/>
-							</View>
-							<View class="content-group margin-top">
-								<Label id="expirationDatePmt" class="content-group-prompt"/>
-								<Label id="expirationDatePmtValue" class="content-group-reply"/>
-							</View>
-							<View class="content-group margin-top">
-								<Label id="doctorNamePmt" class="content-group-prompt"/>
-								<Label id="doctorNamePmtValue" class="content-group-reply"/>
-							</View>
-							<View class="content-group margin-top">
-								<Label id="pharmacyNamePmt" class="content-group-prompt"/>
-								<Label id="pharmacyNamePmtValue" class="content-group-reply"/>
-							</View>
-						</View>
-					</Widget>
-					<View id="hdivider" class="h-divider"/>
-					<View class="hgroup margin-top" height="130">
-						<View class="info-view-30">
-							<Label id="refillsLeftLbl" class="info-view-title"/>
-							<Button id="refillsLeftLblValue" class="info-btn"/>
-						</View>
-						<View class="info-view-35">
-							<Label id="dueForRefillLbl" class="info-view-title"/>
-							<Button id="dueForRefillLblValue" class="info-btn"/>
-						</View>
-						<View class="info-view-30">
-							<Label id="lastFilledLbl" class="info-view-title"/>
-							<Button id="lastFilledLblValue" class="info-btn"/>
-						</View>
-						<Button id="refillBtn" class="primary-btn margin-top" onClick="didClickRefill" />
-					</View>
+	<ScrollView class="vgroup">
+		<Widget id="instructionExp" src="ti.expandable">
+			<View class="auto-height role-master-view" onClick="toggleInstruction">
+				<View id="instructionContentView" class="content-view-with-child">
+					<Label id="instructionLbl" class="content-lbl" />
 				</View>
+				<Label id="arrowLbl" class="content-down-icon" />
 			</View>
-		</HeaderView>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="remindersHeaderLbl" class="content-header-lbl"/>
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="margin-top margin-bottom auto-height">
-					<Widget id="remindMeMedicationLbl" src="ti.styledlabel" class="attributed-with-rswt" />
-					<Widget id="remindeMeMedicationSwt" src="ti.switch" class="margin-right swt" />
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View class="margin-top margin-bottom auto-height">
-					<Widget id="setMedicationLbl" src="ti.styledlabel" class="attributed-with-rswt" />
-					<Widget id="setMedicationSwt" src="ti.switch" class="margin-right swt" />
-				</View>
-			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="informationHeaderLbl" class="content-header-lbl"/>
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="content-view-with-ricon">
-					<Label id="refillHistoryLbl" class="attributed" />
-					<Label class="content-child-icon"/>
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View class="content-view-with-ricon">
-					<Label id="dosageInstructionsLbl" class="attributed" />
-				</View>
-				<Label class="content-down-icon"/>
-			</TableViewRow>
-		</TableViewSection>
-		<FooterView>
-			<View>
-				<Button id="hidePrescriptionBtn" class="secondary-btn margin-top"/>
-			</View>
-		</FooterView>
-	</TableView>
+			<Widget id="instructionAsyncView" src="ti.asyncview" class="content-view role-detail-view">
+				<Label id="prescInstructionLbl" class="lbl-wrap" />
+			</Widget>
+		</Widget>
+		<View class="h-divider" />
+		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" />
+	</ScrollView>
 </Alloy>

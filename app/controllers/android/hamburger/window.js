@@ -13,13 +13,17 @@ var args = arguments[0] || {},
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		if (child.__controllerPath && !child.role) {
+		var role = child.role;
+		if (child.__iamalloy) {
 			child = child.getView();
 		}
 		if (!child) {
 			return;
 		}
-		switch(child.role) {
+		if (!role) {
+			role = child.role;
+		}
+		switch(role) {
 		case "rightNavButton":
 			rightNavItem = child;
 			break;
@@ -52,9 +56,9 @@ var args = arguments[0] || {},
 
 	controller.hideNavBar = hideNavBar;
 
-	_.isFunction(controller.init) && controller.init();
+	controller.init && controller.init();
 
-	_.isFunction(controller.setParentViews) && controller.setParentViews($.window);
+	controller.setParentViews && controller.setParentViews($.window);
 
 })();
 
@@ -74,19 +78,19 @@ function didOpen(e) {
 }
 
 function focus(e) {
-	_.isFunction(controller.focus) && controller.focus();
+	controller.focus && controller.focus();
 }
 
 function blur(e) {
-	_.isFunction(controller.blur) && controller.blur();
+	controller.blur && controller.blur();
 }
 
 function didClose(e) {
-	_.isFunction(controller.terminate) && controller.terminate();
+	controller.terminate && controller.terminate();
 }
 
 function didClickLeftNavView(e) {
-	if (_.isFunction(controller.backButtonHandler) && controller.backButtonHandler()) {
+	if (controller.backButtonHandler && controller.backButtonHandler()) {
 		return;
 	}
 	app.navigator.close(1, e && e.source == $.window);
@@ -105,7 +109,7 @@ function setRightNavButton(widget) {
 	activity.onCreateOptionsMenu = function(e) {
 		var menu = e.menu;
 		menu.clear();
-		if (widget && widget.__controllerPath) {
+		if (widget && widget.__iamalloy) {
 			widget.setMenu(menu);
 		}
 	};

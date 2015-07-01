@@ -1,44 +1,61 @@
-var args = arguments[0] || {},
-    prescriptionsData,
-    strings = Alloy.Globals.strings,
-    http = require("requestwrapper"),
-    utilities = require("utilities"),
-    moment = require("alloy/moment"),
-    prescriptionsData;
+var args = arguments[0] || {};
 
 function init() {
-	http.request({
-		method : "prescriptions_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				prescriptions : {
-					id : args.id
-				}
-			}]
-		},
-		showLoader : false,
-		errorDialogEnabled : false,
-		success : didGetPrescriptionDetail
+	$.instructionExp.applyProperties({
+		height : $.uihelper.getHeightFromChildrenWithPadding($.instructionContentView)
 	});
+	if (!_.has(args, "doctor")) {
+		$.http.request({
+			method : "prescriptions_get",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					prescriptions : {
+						id : args.id,
+						sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
+						prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
+					}
+				}]
+			},
+			showLoader : false,
+			errorDialogEnabled : false,
+			success : didGetPrescription
+		});
+	} else {
+		loadData();
+	}
 }
 
-function didGetPrescriptionDetail(_result) {
-	prescriptionsData = _result.data.prescriptions;
-	$.prescriptionNameLbl.text = utilities.ucfirst(prescriptionsData[0].presc_name);
-	$.prescriptionNoPmtValue.text = prescriptionsData[0].rx_number;
-	$.expirationDatePmtValue.text = moment(prescriptionsData[0].expiration_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format);
-	$.doctorNamePmtValue.text = prescriptionsData[0].doctor_id;
-	$.pharmacyNamePmtValue.text = prescriptionsData[0].primary_store_id;
-	$.refillsLeftLblValue.title = prescriptionsData[0].refill_left;
-	$.lastFilledLblValue.title = prescriptionsData[0].presc_last_filled_date ? moment(prescriptionsData[0].presc_last_filled_date || "03-21-2015 11:30 AM", Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : "NA";
-	$.dueForRefillLblValue.title = prescriptionsData[0].anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : "NA";
-	$.remindeMeMedicationSwt.setValue(false);
-	$.setMedicationSwt.setValue(true);
+function didGetPrescription(result, passthrough) {
+	_.extend(args, result.data.prescriptions[0]);
+	args.dosage_instruction_message = $.utilities.ucfirst(args.dosage_instruction_message || Alloy.Globals.strings.strNotAvailable);
+	loadData();
+	/*$.http.request({
+	 method : "doctors_get",
+	 params : {
+	 feature_code : "THXXX",
+	 data : [{
+	 doctors : {
+	 id : args.doctor_id,
+	 }
+	 }]
+	 },
+	 showLoader : false,
+	 errorDialogEnabled : false,
+	 success : didGetDoctor
+	 });*/
 }
 
-function expandCollapseView() {
-	$.expandCollapseView.height == "SIZE" ? $.expandCollapseView.height = 0 : $.expandCollapseView.height = "SIZE";
+function didGetDoctor(result, passthrough) {
+	args.doctor = {};
+	_.extend(args.doctor, result.data.doctors);
+	loadData();
+}
+
+function loadData() {
+	$.instructionAsyncView.hide();
+	$.instructionExp.setStopListening(true);
+	$.prescInstructionLbl.text = args.dosage_instruction_message;
 }
 
 function didClickRefill(e) {
@@ -50,6 +67,21 @@ function didClickRefill(e) {
 		},
 		stack : true
 	});
+}
+
+function toggleInstruction(e) {
+	var icon,
+	    result;
+	if ($.instructionExp.isExpanded()) {
+		icon = Alloy.CFG.icons.arrow_down;
+		result = $.instructionExp.collapse();
+	} else {
+		icon = Alloy.CFG.icons.arrow_up;
+		result = $.instructionExp.expand();
+	}
+	if (result) {
+		$.arrowLbl.text = icon;
+	}
 }
 
 exports.init = init;

@@ -175,7 +175,7 @@ function Navigation(args) {
 				that.drawer.closeLeftWindow();
 				return;
 			}
-			if (_.isFunction(that.currentController.backButtonHandler) && that.currentController.backButtonHandler()) {
+			if (that.currentController.backButtonHandler && that.currentController.backButtonHandler()) {
 				return;
 			}
 			if (that.controllers.length == 1) {

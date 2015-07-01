@@ -1,6 +1,6 @@
 "#widget": {
-	height: Ti.UI.SIZE,
-	width: Ti.UI.SIZE
+	role: "",
+	height: Ti.UI.SIZE
 },
 "#activityIndicatorImg":{
 	width: 50,

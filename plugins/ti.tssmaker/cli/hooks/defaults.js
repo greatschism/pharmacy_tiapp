@@ -123,10 +123,22 @@ module.exports = {
 	".role-footer-view" : {
 		"role" : "footerView"
 	},
+	".role-master-view" : {
+		"role" : "masterView"
+	},
+	".role-detail-view" : {
+		"role" : "detailView"
+	},
 	".swt[platform=android]" : {
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".content-child-icon" : {
+		"text" : "Alloy.CFG.icons.arrow_right"
+	},
+	".content-down-icon" : {
+		"text" : "Alloy.CFG.icons.arrow_down"
 	},
 	".optionpicker" : {
 		"iconText" : "Alloy.CFG.icons.spot",

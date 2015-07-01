@@ -1,7 +1,7 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
-	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="getPrescriptionList">
+	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickSortPicker">
 		<View class="content-header-view role-header-view">
 			<Label id="sortLbl" class="content-header-lbl" />
 		</View>

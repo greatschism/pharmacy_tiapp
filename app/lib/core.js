@@ -105,7 +105,7 @@ var App = {
 	 * handles the async update
 	 */
 	update : function(updateCallback) {
-		if (_.isFunction(updateCallback)) {
+		if (updateCallback) {
 			App.updateCallback = updateCallback;
 		}
 		App.canReload = true;
@@ -138,7 +138,7 @@ var App = {
 		if (App.canReload) {
 			App.canReload = false;
 			require("config").load(function() {
-				if (_.isFunction(App.updateCallback)) {
+				if (App.updateCallback) {
 					App.updateCallback();
 					App.updateCallback = null;
 				}

@@ -19,7 +19,10 @@ function init(callback) {
 		return logger.warn(TAG, "ignored initialization as one is already in progress");
 	}
 	if (deviceToken || Alloy.Globals.isVirtualDevice) {
-		return callback(deviceToken);
+		if (callback) {
+			callback(deviceToken);
+		}
+		return true;
 	}
 	isBusy = true;
 	deviceTokenCallback = callback;
@@ -60,9 +63,9 @@ function didFailure(e) {
 }
 
 function triggerCallback() {
-	if (_.isFunction(deviceTokenCallback)) {
+	if (deviceTokenCallback) {
 		deviceTokenCallback(deviceToken);
-		deviceTokenCallback = false;
+		deviceTokenCallback = null;
 	}
 }
 

@@ -17,8 +17,8 @@
             "patients_register": "patients/register",
             "patients_new_password": "patients/newpassword",
             "patients_forgot_password": "patients/forgotpassword",
-            "doctors_get": "doctors/get",
             "doctors_list": "doctors/list",
+            "doctors_get": "doctors/get",
             "doctors_add": "doctors/add",
             "doctors_update": "doctors/update",
             "doctors_remove": "doctors/remove",
@@ -48,7 +48,7 @@
             "refill_status_in_process": "In Process",
             "refill_status_ready": "Ready",
             "refill_status_sold": "Sold",
-            "sort_order_preference": "Sort Order Preference"
+            "code_sort_order_preference": "Sort Order Preference"
         },
         "iconPrefix": "thick",
         "iconNotations": {
@@ -112,6 +112,7 @@
             "user": "W",
             "users_list": "w",
             "arrow_right": "?",
+            "arrow_up": "^",
             "arrow_down": "[",
             "filled_arrow_up": ")",
             "filled_arrow_down": "%",
@@ -188,7 +189,8 @@
         "ti.optionpicker": "1.0",
         "ti.navbutton": "1.0",
         "ti.remoteimage": "1.0",
-        "ti.asyncview": "1.0"
+        "ti.asyncview": "1.0",
+        "ti.expandable": "1.0"
     },
     "backbone": "1.1.2"
 }

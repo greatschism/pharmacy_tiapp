@@ -13,8 +13,11 @@ function init(callback) {
 	if (isBusy) {
 		return logger.warn(TAG, "ignored initialization as one is already in progress");
 	}
-	if ((deviceToken || !isGooglePlayServicesAvailable() || Alloy.Globals.isVirtualDevice) && _.isFunction(callback)) {
-		return callback(deviceToken);
+	if (deviceToken || !isGooglePlayServicesAvailable() || Alloy.Globals.isVirtualDevice) {
+		if (callback) {
+			callback(deviceToken);
+		}
+		return true;
 	}
 	isBusy = true;
 	deviceTokenCallback = callback;
@@ -61,9 +64,9 @@ function didFailure(e) {
 }
 
 function triggerCallback() {
-	if (_.isFunction(deviceTokenCallback)) {
+	if (deviceTokenCallback) {
 		deviceTokenCallback(deviceToken);
-		deviceTokenCallback = false;
+		deviceTokenCallback = null;
 	}
 }
 
