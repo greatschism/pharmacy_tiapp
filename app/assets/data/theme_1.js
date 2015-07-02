@@ -783,9 +783,10 @@ module.exports = {
 				"height" : "auto"
 			},
 			".swipe-view" : {
-				"paddingLeft" : 60,
 				"width" : 0,
 				"height" : "fill",
+				"paddingLeft" : 60,
+				"paddingRight" : 12,
 				"bubbleParent" : false
 			},
 			".swipe-view-btn" : {
@@ -1137,14 +1138,13 @@ module.exports = {
 			},
 			".content-progressbar-unfill" : {
 				"width" : "fill",
-				"height" : "fill",
+				"height" : 8,
 				"backgroundColor" : "#C4C4C4"
 			},
 			".content-progressbar-fill" : {
-				"top" : 1,
-				"bottom" : 1,
-				"left" : 1,
-				"right" : 1,
+				"left" : 0,
+				"width" : "fill",
+				"height" : "fill",
 				"backgroundColor" : "#1C75BB"
 			},
 			".content-lbl" : {
@@ -1339,6 +1339,7 @@ module.exports = {
 			".content-detail-view-0" : {
 				"right" : 0,
 				"width" : "0%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-75" : {
@@ -1349,6 +1350,7 @@ module.exports = {
 			".content-detail-view-25" : {
 				"right" : 0,
 				"width" : "25%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-70" : {
@@ -1359,6 +1361,18 @@ module.exports = {
 			".content-detail-view-30" : {
 				"right" : 0,
 				"width" : "30%",
+				"height" : "auto",
+				"layout" : "vertical"
+			},
+			".content-master-view-65" : {
+				"left" : 0,
+				"width" : "65%",
+				"layout" : "vertical"
+			},
+			".content-detail-view-35" : {
+				"right" : 0,
+				"width" : "35%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-60" : {
@@ -1369,6 +1383,18 @@ module.exports = {
 			".content-detail-view-40" : {
 				"right" : 0,
 				"width" : "40%",
+				"height" : "auto",
+				"layout" : "vertical"
+			},
+			".content-master-view-55" : {
+				"left" : 0,
+				"width" : "55%",
+				"layout" : "vertical"
+			},
+			".content-detail-view-45" : {
+				"right" : 0,
+				"width" : "45%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-50" : {
@@ -1379,6 +1405,7 @@ module.exports = {
 			".content-detail-view-50" : {
 				"right" : 0,
 				"width" : "50%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-title" : {
@@ -1387,7 +1414,7 @@ module.exports = {
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"textAlign" : "right",
@@ -1395,7 +1422,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-detail-subtitle" : {
-				"top" : 12,
+				"top" : 0,
 				"left" : 8,
 				"right" : 0,
 				"height" : 19,
@@ -1414,7 +1441,7 @@ module.exports = {
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#5b5b5b",
 				"textAlign" : "right",
@@ -1422,7 +1449,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-detail-positive-subtitle" : {
-				"top" : 12,
+				"top" : 0,
 				"left" : 8,
 				"right" : 0,
 				"height" : 19,
@@ -1441,7 +1468,7 @@ module.exports = {
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#ED1C24",
 				"textAlign" : "right",
@@ -1449,7 +1476,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-detail-negative-subtitle" : {
-				"top" : 12,
+				"top" : 0,
 				"left" : 8,
 				"right" : 0,
 				"height" : 19,

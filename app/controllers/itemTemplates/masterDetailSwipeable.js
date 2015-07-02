@@ -4,6 +4,7 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
+    firstMove = true,
     touchX = 0,
     currentX = 0;
 
@@ -13,12 +14,12 @@ require("config").updateTSS($.__controllerPath);
 if (!Alloy.TSS[CONSTS]) {
 	var paddingLeft = $.swipeView.paddingLeft,
 	    availableWidth = app.device.width - paddingLeft,
-	    endOffset = app.device.width + paddingLeft;
+	    endOffset = app.device.width + $.swipeView.paddingRight;
 	Alloy.TSS[CONSTS] = {
 		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildrenWithPadding($.masterView),
 		availableWidth : availableWidth,
 		startOffset : paddingLeft,
-		decisionOffset : endOffset / 2,
+		decisionOffset : endOffset - (endOffset / 3),
 		endOffset : endOffset
 	};
 }
@@ -90,7 +91,6 @@ function didClickOption(e) {
 function didTouchstart(e) {
 	if (!Alloy.Globals.swipeInProgress) {
 		Alloy.Globals.swipeInProgress = touchInProgress = true;
-		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = false;
 		startX = touchX = e.x;
 		currentX = $.swipeView.left;
 	}
@@ -98,6 +98,9 @@ function didTouchstart(e) {
 
 function didTouchmove(e) {
 	if (touchInProgress) {
+		if (firstMove) {
+			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
+		}
 		currentX -= touchX - e.x;
 		touchX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
@@ -130,7 +133,7 @@ function touchEnd(x) {
 			Alloy.Globals.currentRow = null;
 		}
 		currentX = touchX = 0;
-		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = true;
+		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
 	$.swipeView.animate(anim);
 }

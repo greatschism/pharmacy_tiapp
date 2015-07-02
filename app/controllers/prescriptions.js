@@ -140,14 +140,39 @@ function didGetPrescriptionList(result, passthrough) {
 			});
 			break;
 		default:
-			var isAnticipatedRefillDate = prescription.get("anticipated_refill_date") !== "",
-			    dueInDays = 0,
+			var dueInDays = 0,
 			    section = "otherPrescriptions";
-			if (isAnticipatedRefillDate) {
-				dueInDays = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format).diff(currentDate, "days");
+			if (prescription.get("anticipated_refill_date")) {
+				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
+				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
 				if (dueInDays <= Alloy.CFG.prescription_ready_for_refill_in_days) {
 					section = "readyForRefill";
+					prescription.set("detailType", dueInDays < 0 ? "negative" : "");
+					var dueInDaysAbs = Math.abs(dueInDays);
+					if (dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
+						prescription.set({
+							detailTitle : strings.msgOverdueBy + " " + dueInDaysAbs + " " + strings.strDays,
+							detailSubtitle : strings.lblSwipeLeftToHide,
+							masterWidth : 55,
+							detailWidth : 45
+						});
+					} else {
+						prescription.set({
+							detailTitle : strings[dueInDays < 0 ? "msgOverdueBy" : "msgRefillIn"],
+							detailSubtitle : dueInDaysAbs + " " + strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
+						});
+					}
+				} else {
+					prescription.set({
+						detailTitle : strings.msgDueOn,
+						detailSubtitle : anticipatedRefillDate.format(Alloy.CFG.date_format)
+					});
 				}
+			} else {
+				prescription.set({
+					masterWidth : 100,
+					detailWidth : 0
+				});
 			}
 			prescription.set({
 				section : section,
@@ -156,33 +181,6 @@ function didGetPrescriptionList(result, passthrough) {
 				itemTemplate : args.selectable ? "masterDetailSelectable" : "masterDetailSwipeable",
 				options : swipeOptions
 			});
-			if (section == "readyForRefill") {
-				prescription.set("detailType", dueInDays < 0 ? "negative" : "");
-				var dueInDaysAbs = Math.abs(dueInDays);
-				if (dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
-					prescription.set({
-						detailTitle : strings.msgOverdueBy + " " + dueInDaysAbs + " " + strings.strDays,
-						detailSubtitle : strings.lblSwipeLeftToHide,
-						masterWidth : 50,
-						detailWidth : 50
-					});
-				} else {
-					prescription.set({
-						detailTitle : strings[dueInDays < 0 ? "msgOverdueBy" : "msgRefillIn"],
-						detailSubtitle : dueInDaysAbs + " " + strings[dueInDaysAbs > 1 ? "strDays" : "strDay"],
-					});
-				}
-			} else if (isAnticipatedRefillDate) {
-				prescription.set({
-					detailTitle : strings.msgDueOn,
-					detailSubtitle : anticipatedRefillDate.format(Alloy.CFG.date_format)
-				});
-			} else {
-				prescription.set({
-					masterWidth : 100,
-					detailWidth : 0
-				});
-			}
 		}
 		var sectionId = prescription.get("section"),
 		    itemTemplate = prescription.get("itemTemplate"),

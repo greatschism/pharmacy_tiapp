@@ -2,11 +2,11 @@
 	<TableViewRow id="row" class="row-selection-disabled">
 		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
 			<View id="contentView" class="content-view">
-				<View id="masterView" class="content-master-view-60">
+				<View id="masterView" class="content-master-view-65">
 					<Label id="titleLbl" class="content-title" />
 					<Label id="subtitleLbl" class="content-subtitle" />
 				</View>
-				<View id="detailView" class="content-detail-view-40">
+				<View id="detailView" class="content-detail-view-35">
 					<Label id="detailTitleLbl" />
 					<Label id="detailSubtitleLbl" />
 				</View>
