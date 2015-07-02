@@ -41,10 +41,16 @@ if (OS_ANDROID) {
 
 	options = _.pick(args, ["headerView", "footerView", "backgroundColor", "separatorInsets"]);
 	if (_.has(args, "children")) {
-		var children = args.children;
-		for (var i in children) {
-			options[children[i].role] = children[i];
-		}
+		_.each(args.children, function(child) {
+			if (child.__iamalloy) {
+				child = child.getView();
+			}
+			if (!child) {
+				return;
+			}
+			options[child.role] = child;
+		});
+		delete args.children;
 	}
 	if (!_.isEmpty(options)) {
 		$.tableView.applyProperties(options);
@@ -101,14 +107,14 @@ function updateItem(e) {
 				var selectedItem,
 				    i;
 				for (i in items) {
-					if (items[i].selected === true) {
+					if (i != itemIndex && items[i].selected === true) {
 						selectedItem = items[i];
 						break;
 					}
 				}
 				if (selectedItem) {
 					selectedItem.selected = false;
-					$.tableView.updateRow( OS_IOS ? i : e.row, getRow(selectedItem));
+					$.tableView.updateRow( OS_IOS ? i : $.tableView.sections[0].rows[i], getRow(selectedItem));
 				}
 			}
 			data.selected = !data.selected;
@@ -132,6 +138,7 @@ function applyProperties(dict) {
 function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
+		selectedBackgroundColor : "transparent",
 		accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null
 	}),
 	    rowView = Ti.UI.createView(optionPadding);

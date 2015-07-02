@@ -782,12 +782,11 @@ module.exports = {
 				"width" : "100%",
 				"height" : "auto"
 			},
-			".drag-area" : {
-				"width" : 48
-			},
 			".swipe-view" : {
-				"width" : "100%",
-				"height" : "fill"
+				"paddingLeft" : 60,
+				"width" : 0,
+				"height" : "fill",
+				"bubbleParent" : false
 			},
 			".swipe-view-btn" : {
 				"height" : "fill",
@@ -801,7 +800,8 @@ module.exports = {
 				"backgroundSelectedColor" : "#808285",
 				"borderColor" : "transparent",
 				"borderRadius" : 0,
-				"borderWidth" : 0
+				"borderWidth" : 0,
+				"bubbleParent" : false
 			},
 			".swipe-view-positive-btn" : {
 				"height" : "fill",
@@ -815,10 +815,11 @@ module.exports = {
 				"backgroundSelectedColor" : "#009245",
 				"borderColor" : "transparent",
 				"borderRadius" : 0,
-				"borderWidth" : 0
+				"borderWidth" : 0,
+				"bubbleParent" : false
 			},
 			".swipe-view-negative-btn" : {
-				"height" : 65,
+				"height" : "fill",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 17
@@ -829,7 +830,8 @@ module.exports = {
 				"backgroundSelectedColor" : "#ED1C24",
 				"borderColor" : "transparent",
 				"borderRadius" : 0,
-				"borderWidth" : 0
+				"borderWidth" : 0,
+				"bubbleParent" : false
 			},
 			".async-view" : {
 				"width" : "fill"
@@ -1677,22 +1679,30 @@ module.exports = {
 			".h-divider[platform=ios]" : {
 				"width" : "fill",
 				"height" : 0.5,
-				"backgroundColor" : "#D4D4D4"
+				"backgroundColor" : "#D4D4D4",
+				"bubbleParent" : false,
+				"touchEnabled" : false
 			},
 			".h-divider[platform=android]" : {
 				"width" : "fill",
 				"height" : 1,
-				"backgroundColor" : "#D4D4D4"
+				"backgroundColor" : "#D4D4D4",
+				"bubbleParent" : false,
+				"touchEnabled" : false
 			},
 			".v-divider[platform=ios]" : {
 				"width" : 0.5,
 				"height" : "fill",
-				"backgroundColor" : "#D4D4D4"
+				"backgroundColor" : "#D4D4D4",
+				"bubbleParent" : false,
+				"touchEnabled" : false
 			},
 			".v-divider[platform=android]" : {
 				"width" : 1,
 				"height" : "fill",
-				"backgroundColor" : "#D4D4D4"
+				"backgroundColor" : "#D4D4D4",
+				"bubbleParent" : false,
+				"touchEnabled" : false
 			},
 			".option-divider-view" : {
 				"left" : 12,

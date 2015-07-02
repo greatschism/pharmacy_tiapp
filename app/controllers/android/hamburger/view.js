@@ -30,17 +30,13 @@ var args = arguments[0] || {},
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		var role = child.role;
 		if (child.__iamalloy) {
 			child = child.getView();
 		}
 		if (!child) {
 			return;
 		}
-		if (!role) {
-			role = child.role;
-		}
-		switch(role) {
+		switch(child.role) {
 		case "rightNavButton":
 			hasRightNavButton = true;
 			setRightNavButton(child);
@@ -117,13 +113,20 @@ function hideNavBar() {
 	app.navigator.rootNavBarHidden = true;
 }
 
-function setRightNavButton(widget) {
+function setRightNavButton(view) {
 	var activity = $.window.getActivity();
 	activity.onCreateOptionsMenu = function(e) {
 		var menu = e.menu;
 		menu.clear();
-		if (widget && widget.__iamalloy) {
-			widget.setMenu(menu);
+		if (view) {
+			$.menuItem = menu.add({
+				actionView : view,
+				visible : false,
+				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
+			});
+			setTimeout(function() {
+				$.menuItem.setVisible(true);
+			}, 150);
 		}
 	};
 	activity.invalidateOptionsMenu();

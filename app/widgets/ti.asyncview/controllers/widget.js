@@ -3,7 +3,7 @@ var args = arguments[0] || {};
 (function() {
 
 	if (_.has(args, "role")) {
-		$.widget.role = $.role = args.role;
+		$.widget.role = args.role;
 	}
 
 	var options = _.pick(args, ["top", "bottom", "left", "right", "width", "height", "layout", "backgroundColor", "backgroundImage", "borderColor", "borderRadius", "borderWidth"]);

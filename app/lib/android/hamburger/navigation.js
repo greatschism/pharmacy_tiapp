@@ -139,9 +139,15 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/window", params);
+		var controller = Alloy.createController("hamburger/window", params),
+		    window = controller.getView();
 
-		controller.getView().open({
+		window.addEventListener("open", function didOpen(e) {
+			window.removeEventListener("open", didOpen);
+			that.isBusy = false;
+		});
+
+		window.open({
 			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open,
 			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close,
 			animated : true
@@ -152,8 +158,6 @@ function Navigation(args) {
 		that.controllers.push(controller);
 
 		that.currentController = controller;
-
-		that.isBusy = false;
 
 		return that.currentController;
 	};
@@ -200,7 +204,14 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		that.currentController.getView().close({
+		var window = that.currentController.getView();
+
+		window.addEventListener("close", function didClose(e) {
+			window.removeEventListener("close", didClose);
+			that.isBusy = false;
+		});
+
+		window.close({
 			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
 			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
 			animated : true
@@ -211,8 +222,6 @@ function Navigation(args) {
 		that.currentController.focus();
 
 		//that.testOutput();
-
-		that.isBusy = false;
 
 		return that.currentController;
 	};

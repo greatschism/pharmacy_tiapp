@@ -1,6 +1,6 @@
 <Alloy>
 	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="containerView" class="container-view">
+		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
 			<View id="contentView" class="content-view">
 				<View id="masterView" class="content-master-view-60">
 					<Label id="titleLbl" class="content-title" />
@@ -11,8 +11,7 @@
 					<Label id="detailSubtitleLbl" />
 				</View>
 			</View>
-			<View id="swipeView" class="swipe-view" onTouchend="didTouchend" />
-			<View id="dragView" class="drag-area" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
+			<View id="swipeView" class="swipe-view" />
 		</View>
 	</TableViewRow>
 </Alloy>

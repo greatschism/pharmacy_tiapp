@@ -40,17 +40,13 @@ var args = arguments[0] || {},
 	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
 
 	_.each(controller.getTopLevelViews(), function(child) {
-		var role = child.role;
 		if (child.__iamalloy) {
 			child = child.getView();
 		}
 		if (!child) {
 			return;
 		}
-		if (!role) {
-			role = child.role;
-		}
-		switch(role) {
+		switch(child.role) {
 		case "rightNavButton":
 			setRightNavButton(child);
 			break;

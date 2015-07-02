@@ -14,17 +14,13 @@ var args = arguments[0] || {},
 
 	if (args.children) {
 		_.each(args.children, function(child) {
-			var role = child.role;
 			if (child.__iamalloy) {
 				child = child.getView();
 			}
 			if (!child) {
 				return;
 			}
-			if (!role) {
-				role = child.role;
-			}
-			switch(role) {
+			switch(child.role) {
 			case "masterView":
 				masterView = child;
 				break;

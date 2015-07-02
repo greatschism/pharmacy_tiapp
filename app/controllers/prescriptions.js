@@ -13,7 +13,7 @@ var args = arguments[0] || {},
     sections;
 
 function init() {
-	Alloy.Globals.swipeableTable = $.tableView;
+	Alloy.Globals.currentTable = $.tableView;
 	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
 	if (codes) {
 		$.sortPicker.setItems(codes);
@@ -168,8 +168,8 @@ function didGetPrescriptionList(result, passthrough) {
 					});
 				} else {
 					prescription.set({
-						detailTitle : Alloy.Globals.strings[dueInDays < 0 ? "msgOverdueBy" : "msgRefillIn"],
-						detailSubtitle : dueInDaysAbs + " " + Alloy.Globals.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"],
+						detailTitle : strings[dueInDays < 0 ? "msgOverdueBy" : "msgRefillIn"],
+						detailSubtitle : dueInDaysAbs + " " + strings[dueInDaysAbs > 1 ? "strDays" : "strDay"],
 					});
 				}
 			} else if (isAnticipatedRefillDate) {
@@ -185,15 +185,22 @@ function didGetPrescriptionList(result, passthrough) {
 			}
 		}
 		var sectionId = prescription.get("section"),
+		    itemTemplate = prescription.get("itemTemplate"),
 		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		prescription.set("filterText", filterText);
 		filters[sectionId] += filterText;
-		sections[sectionId].push(Alloy.createController("itemTemplates/".concat(prescription.get("itemTemplate")), prescription.toJSON()));
+		var row = Alloy.createController("itemTemplates/".concat(itemTemplate), prescription.toJSON());
+		switch(itemTemplate) {
+		case "masterDetailSwipeable":
+			row.on("clickoption", didClickoption);
+			break;
+		}
+		sections[sectionId].push(row);
 	});
 	var data = [];
 	_.each(sections, function(rows, name) {
 		if (rows.length) {
-			var tvSection = $.uihelper.createTableViewSection($, Alloy.Globals.strings["section".concat($.utilities.ucfirst(name, false))], filters[name]);
+			var tvSection = $.uihelper.createTableViewSection($, strings["section".concat($.utilities.ucfirst(name, false))], filters[name]);
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});
@@ -262,7 +269,7 @@ function toggleSearch() {
 }
 
 function didClickSortPicker(e) {
-	Alloy.Models.sortOrderPreferences.set("selected_code_value", $.sortPicker.getSelectedItems()[0].code_value);
+	Alloy.Models.sortOrderPreferences.set("selected_code_value", e.data.code_value);
 	getPrescriptionList();
 }
 
@@ -270,7 +277,14 @@ function didClickSortClose(e) {
 	$.sortPicker.hide();
 }
 
+function didClickoption(e) {
+	Alloy.Globals.currentRow.touchEnd();
+}
+
 function didClickTableView(e) {
+	if (Alloy.Globals.currentRow) {
+		return Alloy.Globals.currentRow.touchEnd();
+	}
 	var index = e.index,
 	    count = 0,
 	    row;
@@ -292,8 +306,9 @@ function didClickTableView(e) {
 }
 
 function terminate() {
-	Alloy.Globals.isSwiped = false;
-	Alloy.Globals.swipeableTable = null;
+	Alloy.Globals.currentRow = null;
+	Alloy.Globals.currentTable = null;
+	Alloy.Globals.swipeInProgress = false;
 }
 
 exports.init = init;

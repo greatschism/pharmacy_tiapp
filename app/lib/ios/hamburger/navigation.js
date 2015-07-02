@@ -137,17 +137,21 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/window", params);
+		var controller = Alloy.createController("hamburger/window", params),
+		    window = controller.getView();
 
-		that.navigationWindow.openWindow(controller.getView());
+		window.addEventListener("open", function didOpen(e) {
+			window.removeEventListener("open", didOpen);
+			that.isBusy = false;
+		});
+
+		that.navigationWindow.openWindow(window);
 
 		that.currentController.getView().fireEvent("blur");
 
 		that.controllers.push(controller);
 
 		that.currentController = controller;
-
-		that.isBusy = false;
 
 		return that.currentController;
 	};
@@ -176,15 +180,20 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		that.navigationWindow.closeWindow(that.currentController.getView());
+		var window = that.currentController.getView();
+
+		window.addEventListener("close", function didClose(e) {
+			window.removeEventListener("close", didClose);
+			that.isBusy = false;
+		});
+
+		that.navigationWindow.closeWindow(window);
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
 		that.currentController.getView().fireEvent("focus");
 
 		//that.testOutput();
-
-		that.isBusy = false;
 
 		return that.currentController;
 	};
