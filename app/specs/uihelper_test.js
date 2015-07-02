@@ -53,5 +53,25 @@ describe("UIHelper Test Suite", function() {
 		uihelper.getImage("invalid").should.be.instanceof(Object).and.not.have.property("image");
 	});
 
+	it("Test Case 7: getHeightFromChildren", function() {
+		var view = Ti.UI.createView({
+			top : 10,
+			bottom : 10,
+			height : Ti.UI.SIZE,
+			layout : "vertical"
+		});
+		for (var i = 1; i <= 2; i++) {
+			view.add(Ti.UI.createButton({
+				top : 10,
+				height : 50
+			}));
+		}
+		uihelper.getHeightFromChildren(view).should.be.equal(120);
+		uihelper.getHeightFromChildren(view, true).should.be.equal(140);
+		view.layout = "horizontal";
+		uihelper.getHeightFromChildren(view).should.be.equal(60);
+		uihelper.getHeightFromChildren(view, true).should.be.equal(80);
+	});
+
 });
 

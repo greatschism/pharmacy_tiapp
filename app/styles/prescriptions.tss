@@ -2,6 +2,9 @@
 	title: Alloy.CFG.icons.options,
 	accessibilityLabel: Alloy.Globals.strings.accessibilityLblOptions
 },
+"#searchTxt":{
+	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
+},
 "#optionsMenu":{
 	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh, Alloy.Globals.strings.strCancel],
 	cancel: 4
@@ -17,12 +20,6 @@
 "#sortCloseBtn":{
 	title: Alloy.Globals.strings.btnClose
 },
-"#searchTxt":{
-	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
-},
-"#unhideMenu":{
-	titleProperty: "presc_name"
-},
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.btnSelectNone
 },
@@ -32,6 +29,6 @@
 "#unhideBtn":{
 	title: Alloy.Globals.strings.btnUnhide
 },
-"#closeBtn":{
+".close":{
 	title: Alloy.Globals.strings.btnClose
 }

@@ -16,7 +16,7 @@ if (!Alloy.TSS[CONSTS]) {
 	    availableWidth = app.device.width - paddingLeft,
 	    endOffset = app.device.width + $.swipeView.paddingRight;
 	Alloy.TSS[CONSTS] = {
-		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildrenWithPadding($.masterView),
+		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true),
 		availableWidth : availableWidth,
 		startOffset : paddingLeft,
 		decisionOffset : endOffset - (endOffset / 3),

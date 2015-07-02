@@ -14,6 +14,7 @@ var args = arguments[0] || {},
 
 function init() {
 	Alloy.Globals.currentTable = $.tableView;
+	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
 	if (codes) {
 		$.sortPicker.setItems(codes);
@@ -55,7 +56,7 @@ function didGetSortOrderPreferences(result) {
 	getPrescriptionList();
 }
 
-function getPrescriptionList() {
+function getPrescriptionList(status, callback) {
 	$.searchTxt.setValue("");
 	$.http.request({
 		method : "prescriptions_list",
@@ -64,11 +65,11 @@ function getPrescriptionList() {
 			data : [{
 				prescriptions : {
 					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-					prescription_display_status : apiCodes.prescription_display_status_active
+					prescription_display_status : status || apiCodes.prescription_display_status_active
 				}
 			}]
 		},
-		success : didGetPrescriptionList
+		success : callback || didGetPrescriptionList
 	});
 }
 
@@ -216,6 +217,9 @@ function didClickRightNavBtn(e) {
 	if ($.sortPicker.getVisible()) {
 		return $.sortPicker.hide();
 	}
+	if ($.unhidePicker.getVisible()) {
+		return $.unhidePicker.hide();
+	}
 	$.optionsMenu.show();
 }
 
@@ -228,7 +232,7 @@ function didClickOptionMenu(e) {
 		$.sortPicker.show();
 		break;
 	case 2:
-		//unhide;
+		getPrescriptionList(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
 		break;
 	case 3:
 		getPrescriptionList();
@@ -264,6 +268,34 @@ function toggleSearch() {
 		}
 	});
 	$.tableView.animate(tAnim);
+}
+
+function didGetHiddenPrescriptions(result, passthrough) {
+	var hPrescriptions = result.data.prescriptions;
+	_.each(hPrescriptions, function(prescription) {
+		_.extend(prescription, {
+			title : $.utilities.ucword(prescription.presc_name),
+			subtitle : strings.strRxPrefix.concat(prescription.rx_number)
+		});
+	});
+	$.unhidePicker.setItems(hPrescriptions);
+	$.unhidePicker.show();
+}
+
+function toggleUnhideSelection(e) {
+	$.unhidePicker.setSelectedItems({}, e.source == $.selectAllBtn);
+}
+
+function didClickHide(e) {
+	$.unhidePicker.hide();
+	var selectedItems = $.unhidePicker.getSelectedItems();
+	if (selectedItems.length) {
+		console.log(selectedItems);
+	}
+}
+
+function didClickUnhideClose(e) {
+	$.unhidePicker.hide();
 }
 
 function didClickSortPicker(e) {

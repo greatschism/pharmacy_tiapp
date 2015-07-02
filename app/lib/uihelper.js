@@ -321,25 +321,23 @@ var Helper = {
 	/**
 	 * Calculates the height of the view by calulating the height of it's children (with fixed height)
 	 * @param {Object} view
+	 * @param {Boolean} withPadding
 	 */
-	getHeightFromChildren : function(view) {
+	getHeightFromChildren : function(view, withPadding) {
 		var height = 0;
-		_.each(view.children, function(child) {
-			height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
-		});
-		return height;
-	},
-
-	/**
-	 * Calculates the height of the view by calulating the height of it's children (with fixed height)
-	 * includes top and bottom padding of the view
-	 * @param {Object} view
-	 */
-	getHeightFromChildrenWithPadding : function(view) {
-		var height = (view.top || 0) + (view.bottom || 0);
-		_.each(view.children, function(child) {
-			height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
-		});
+		if (withPadding) {
+			height = (view.top || 0) + (view.bottom || 0);
+		}
+		if (view.layout == "vertical") {
+			_.each(view.children, function(child) {
+				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+			});
+		} else {
+			var child = view.children[0];
+			if (child) {
+				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+			}
+		}
 		return height;
 	}
 };

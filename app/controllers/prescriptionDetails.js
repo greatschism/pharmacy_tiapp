@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 
 function init() {
 	$.instructionExp.applyProperties({
-		height : $.uihelper.getHeightFromChildrenWithPadding($.instructionContentView)
+		height : $.uihelper.getHeightFromChildren($.instructionContentView, true)
 	});
 	if (!_.has(args, "doctor")) {
 		$.http.request({

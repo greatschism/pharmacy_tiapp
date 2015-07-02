@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath;
 
 //reload tss of this controller in memory
@@ -6,7 +7,7 @@ require("config").updateTSS($.__controllerPath);
 
 if (!Alloy.TSS[CONSTS]) {
 	Alloy.TSS[CONSTS] = {
-		height : $.contentView.top + $.contentView.bottom + $.titleLbl.height + $.subtitleLbl.top + $.subtitleLbl.height
+		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true),
 	};
 }
 

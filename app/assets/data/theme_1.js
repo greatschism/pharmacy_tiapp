@@ -188,7 +188,7 @@ module.exports = {
 				"backgroundSelectedColor" : "#FFFFFF",
 				"borderColor" : "#F7941E"
 			},
-			".thirriary-btn" : {
+			".tertiary-btn" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,
@@ -202,8 +202,21 @@ module.exports = {
 				"backgroundSelectedColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
-			".thirriary-btn-small" : {
+			".tertiary-btn-small" : {
 				"width" : "48%",
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#599DFF",
+				"selectedColor" : "#599DFF",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF",
+				"borderColor" : "transparent"
+			},
+			".tertiary-btn-50" : {
+				"width" : "50%",
 				"height" : 50,
 				"font" : {
 					"fontFamily" : "medium",
@@ -1719,14 +1732,14 @@ module.exports = {
 			},
 			".v-divider[platform=ios]" : {
 				"width" : 0.5,
-				"height" : "fill",
+				"height" : 0,
 				"backgroundColor" : "#D4D4D4",
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
 			".v-divider[platform=android]" : {
 				"width" : 1,
-				"height" : "fill",
+				"height" : 0,
 				"backgroundColor" : "#D4D4D4",
 				"bubbleParent" : false,
 				"touchEnabled" : false

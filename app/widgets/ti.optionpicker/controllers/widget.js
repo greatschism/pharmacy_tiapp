@@ -216,25 +216,19 @@ function setItems(pItems, template) {
 	});
 	$.tableView.setData(data);
 	if (!template && !_.has(args, "height")) {
-		var height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length),
+		//uihelper - is a helper class, should be there in your lib
+		var uihelper = require("uihelper"),
+		    height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length),
 		    headerView = $.tableView.getHeaderView(),
 		    footerView = $.tableView.getFooterView();
 		if (headerView) {
-			height += (parseInt(headerView.height) || calculateHeight(headerView));
+			height += (parseInt(headerView.height) || uihelper.getHeightFromChildren(headerView, true));
 		}
 		if (footerView) {
-			height += (parseInt(footerView.height) || calculateHeight(footerView));
+			height += (parseInt(footerView.height) || uihelper.getHeightFromChildren(footerView, true));
 		}
 		$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
 	}
-}
-
-function calculateHeight(view) {
-	var height = 0;
-	_.each(view.children, function(child) {
-		height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
-	});
-	return height;
 }
 
 function getItems() {
