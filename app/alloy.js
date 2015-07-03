@@ -44,6 +44,7 @@
 	Alloy.Collections.menuItems = new Backbone.Collection();
 	Alloy.Collections.banners = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
+	Alloy.Collections.stores = new Backbone.Collection();
 
 	//models
 	Alloy.Models.appload = new Backbone.Model();
