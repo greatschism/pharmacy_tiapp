@@ -25,10 +25,24 @@ CONSTS = Alloy.TSS[CONSTS];
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
 	$.row.height = CONSTS.height;
-	if (!_.has(args, "selected")) {
-		args.selected = false;
+	if (_.isBoolean(args.selected)) {
+		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+	} else {
+		var classes = ["content-" + (args.iconType ? args.iconType + "-" : "") + "left-icon"];
+		if (args.iconClass) {
+			classes.push(args.iconClass);
+		}
+		var dict = $.createStyle({
+			classes : classes
+		});
+		if (args.iconText) {
+			dict.text = args.iconText;
+		}
+		if (args.iconAccessibilityLabel) {
+			dict.accessibilityLabel = args.iconAccessibilityLabel;
+		}
+		$.leftIconLbl.applyProperties(dict);
 	}
-	resetSelectionState();
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
 	$.detailTitleLbl.applyProperties($.createStyle({
@@ -40,15 +54,6 @@ CONSTS = Alloy.TSS[CONSTS];
 		text : args.detailSubtitle
 	}));
 })();
-
-function didClickChecked(e) {
-	args.selected = !args.selected;
-	resetSelectionState();
-}
-
-function resetSelectionState() {
-	$.resetClass($.selectionLbl, args.selected ? ["content-positive-left-icon", "icon-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
-}
 
 function getParams() {
 	return args;

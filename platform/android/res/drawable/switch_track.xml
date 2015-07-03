@@ -3,12 +3,12 @@
     android:dither="true"
     android:shape="rectangle"
     android:useLevel="false"
-    android:visible="true" >
+    android:visible="true">
 
-    <corners android:radius="14dp" />
+    <corners android:radius="15dp" />
 
     <size
-        android:height="28dp"
+        android:height="30dp"
         android:width="50dp" />
         
     <solid 

@@ -76,7 +76,7 @@ module.exports = {
 		"horizontalWrap" : false
 	},
 	".row-selection-disabled" : {
-		"selectedBackgroundColor" : null
+		"selectedBackgroundColor" : "transparent"
 	},
 	".selection-disabled" : {
 		"backgroundSelectedColor" : null

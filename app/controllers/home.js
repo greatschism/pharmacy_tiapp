@@ -46,7 +46,6 @@ function loadBanners(items) {
 			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 		});
 		$.bannerScrollableView.addEventListener("scrollend", didScrollend);
-		$.bannerView.add($.bannerScrollableView);
 		$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
 			classes : ["margin-bottom"]
 		}), {
@@ -54,7 +53,12 @@ function loadBanners(items) {
 			length : banners.length
 		}));
 		$.pagingControl.on("change", didChangePager);
-		$.bannerView.add($.pagingControl.getView());
+		if ($.asyncView) {
+			$.asyncView.hide([$.bannerScrollableView, $.pagingControl.getView()]);
+		} else {
+			$.bannerView.add($.bannerScrollableView);
+			$.bannerView.add($.pagingControl.getView());
+		}
 		startSpanTime(banners[0].spanTime);
 		return true;
 	}
@@ -152,6 +156,10 @@ function create(dict) {
 				width : Alloy.CFG.banner_max_width,
 				height : Alloy.CFG.banner_max_height
 			});
+			if (!Alloy.Collections.banners.length) {
+				$.asyncView = Alloy.createWidget("ti.asyncview", "widget");
+				$.bannerView.add($.asyncView.getView());
+			}
 		}
 	}
 	return element;

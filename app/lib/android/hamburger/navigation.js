@@ -144,6 +144,9 @@ function Navigation(args) {
 
 		window.addEventListener("open", function didOpen(e) {
 			window.removeEventListener("open", didOpen);
+			that.currentController.blur();
+			that.controllers.push(controller);
+			that.currentController = controller;
 			that.isBusy = false;
 		});
 
@@ -153,13 +156,7 @@ function Navigation(args) {
 			animated : true
 		});
 
-		that.currentController.blur();
-
-		that.controllers.push(controller);
-
-		that.currentController = controller;
-
-		return that.currentController;
+		return controller;
 	};
 
 	/**
@@ -206,8 +203,11 @@ function Navigation(args) {
 
 		var window = that.currentController.getView();
 
+		that.currentController = that.controllers[that.controllers.length - 1];
+
 		window.addEventListener("close", function didClose(e) {
 			window.removeEventListener("close", didClose);
+			that.currentController.focus();
 			that.isBusy = false;
 		});
 
@@ -216,10 +216,6 @@ function Navigation(args) {
 			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
 			animated : true
 		});
-
-		that.currentController = that.controllers[that.controllers.length - 1];
-
-		that.currentController.focus();
 
 		//that.testOutput();
 

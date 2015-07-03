@@ -142,18 +142,15 @@ function Navigation(args) {
 
 		window.addEventListener("open", function didOpen(e) {
 			window.removeEventListener("open", didOpen);
+			that.currentController.getView().fireEvent("blur");
+			that.controllers.push(controller);
+			that.currentController = controller;
 			that.isBusy = false;
 		});
 
 		that.navigationWindow.openWindow(window);
 
-		that.currentController.getView().fireEvent("blur");
-
-		that.controllers.push(controller);
-
-		that.currentController = controller;
-
-		return that.currentController;
+		return controller;
 	};
 
 	/**
@@ -182,16 +179,15 @@ function Navigation(args) {
 
 		var window = that.currentController.getView();
 
+		that.currentController = that.controllers[that.controllers.length - 1];
+
 		window.addEventListener("close", function didClose(e) {
 			window.removeEventListener("close", didClose);
+			that.currentController.getView().fireEvent("focus");
 			that.isBusy = false;
 		});
 
 		that.navigationWindow.closeWindow(window);
-
-		that.currentController = that.controllers[that.controllers.length - 1];
-
-		that.currentController.getView().fireEvent("focus");
 
 		//that.testOutput();
 

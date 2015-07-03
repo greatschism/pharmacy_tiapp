@@ -103,6 +103,10 @@ function terminate(e) {
 	controller.terminate && controller.terminate();
 }
 
+function backButtonHandler(e) {
+	return controller.backButtonHandler && controller.backButtonHandler();
+}
+
 function showNavBar() {
 	$.actionBar.show();
 	app.navigator.rootNavBarHidden = false;
@@ -132,7 +136,8 @@ function setRightNavButton(view) {
 	activity.invalidateOptionsMenu();
 }
 
-exports.focus = focus;
 exports.blur = blur;
+exports.focus = focus;
 exports.terminate = terminate;
-exports.ctrlPath = controller ? controller.__controllerPath : "";
+exports.backButtonHandler = backButtonHandler;
+exports.ctrlPath = controller.__controllerPath;

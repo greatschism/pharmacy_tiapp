@@ -81,6 +81,10 @@ function blur(e) {
 	controller.blur && controller.blur();
 }
 
+function backButtonHandler(e) {
+	return controller.backButtonHandler && controller.backButtonHandler();
+}
+
 function didClose(e) {
 	controller.terminate && controller.terminate();
 }
@@ -119,6 +123,7 @@ function setRightNavButton(view) {
 	activity.invalidateOptionsMenu();
 }
 
-exports.focus = focus;
 exports.blur = blur;
-exports.ctrlPath = controller ? controller.__controllerPath : "";
+exports.focus = focus;
+exports.backButtonHandler = backButtonHandler;
+exports.ctrlPath = controller.__controllerPath;

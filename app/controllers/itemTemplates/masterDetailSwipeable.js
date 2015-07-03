@@ -64,7 +64,8 @@ CONSTS = Alloy.TSS[CONSTS];
 				classes : [optionClassPrefix + (option.type ? option.type + "-" : "") + "btn"],
 				width : width,
 				left : fromLeft,
-				title : option.title
+				title : option.title,
+				action : option.action
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
@@ -82,10 +83,12 @@ CONSTS = Alloy.TSS[CONSTS];
 })();
 
 function didClickOption(e) {
-	$.trigger("clickoption", _.findWhere(args.options, {
-		title : e.source.title,
+	var source = e.source;
+	$.trigger("clickoption", {
+		title : source.title,
+		action : source.action,
 		data : args
-	}) || {});
+	});
 }
 
 function didTouchstart(e) {

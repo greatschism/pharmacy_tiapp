@@ -126,4 +126,4 @@ function setRightNavButton(view) {
 	$.window.setRightNavButton( view ? view : Ti.UI.createView());
 }
 
-exports.ctrlPath = controller ? controller.__controllerPath : "";
+exports.ctrlPath = controller.__controllerPath;

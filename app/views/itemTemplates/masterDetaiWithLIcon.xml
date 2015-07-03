@@ -1,12 +1,12 @@
 <Alloy>
 	<TableViewRow id="row" class="row-selection-disabled">
-		<Label id="selectionLbl" class="content-inactive-left-icon icon-spot" onClick="didClickChecked" />
+		<Label id="leftIconLbl" />
 		<View id="contentView" class="content-view-with-licon">
-			<View id="masterView" class="content-master-view-60">
+			<View id="masterView" class="content-master-view-65">
 				<Label id="titleLbl" class="content-title" />
 				<Label id="subtitleLbl" class="content-subtitle" />
 			</View>
-			<View id="detailView" class="content-detail-view-40">
+			<View id="detailView" class="content-detail-view-35">
 				<Label id="detailTitleLbl" />
 				<Label id="detailSubtitleLbl" />
 			</View>

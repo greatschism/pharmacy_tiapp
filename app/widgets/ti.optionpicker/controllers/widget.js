@@ -136,76 +136,40 @@ function applyProperties(dict) {
 }
 
 function getRow(data) {
-	var row = Ti.UI.createTableViewRow({
-		height : Ti.UI.SIZE,
-		selectedBackgroundColor : "transparent",
-		accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null
-	}),
-	    rowView = Ti.UI.createView(optionPadding);
-	rowView.add(Ti.UI.createLabel({
-		text : data.selected ? selectedIconText : iconText,
-		left : 0,
-		font : args.iconFont || {
-			fontSize : 12
-		},
-		color : data.selected ? selectedIconColor : iconColor,
-		touchEnabled : false,
-		accessibilityHidden : true
-	}));
+	var row;
 	if (template) {
-		var contentView = Ti.UI.createView({
-			left : paddingLeft,
-			height : Ti.UI.SIZE,
-			touchEnabled : false
-		});
-		for (var i in template) {
-			contentView.add(create(template[i], data));
-		}
-		rowView.add(contentView);
+		row = Alloy.createController(template, data).getView();
 	} else {
+		row = Ti.UI.createTableViewRow({
+			height : Ti.UI.SIZE,
+			selectedBackgroundColor : "transparent",
+			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null
+		}),
+		rowView = Ti.UI.createView(optionPadding);
+		rowView.add(Ti.UI.createLabel({
+			text : data.selected ? selectedIconText : iconText,
+			left : 0,
+			font : args.iconFont || {
+				fontSize : 12
+			},
+			color : data.selected ? selectedIconColor : iconColor,
+			touchEnabled : false,
+			accessibilityHidden : true
+		}));
 		rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
 			text : data[titleProperty],
 			left : paddingLeft,
 			touchEnabled : false
 		})));
+		row.add(rowView);
 	}
-	row.add(rowView);
 	return row;
 }
 
-function create(dict, data) {
-	var element = $.UI.create(dict.apiName, dict.properties || {});
-	element.touchEnabled = false;
-	if (_.has(dict, "text")) {
-		element.text = data[dict.text];
-	}
-	if (_.has(dict, "children")) {
-		var children = dict.children;
-		for (var i in children) {
-			var cItems = children[i].items,
-			    addChild = children[i].addChild || "add",
-			    asArray = children[i].asArray,
-			    cElemnts = [];
-			for (var i in cItems) {
-				var childItem = cItems[i];
-				if (asArray) {
-					cElemnts.push(create(childItem, data));
-				} else {
-					element[addChild](create(childItem, data));
-				}
-			}
-			if (asArray) {
-				element[addChild](cElemnts);
-			}
-		}
-	}
-	return element;
-}
-
-function setItems(pItems, template) {
+function setItems(pItems, tTemplate) {
 	items = pItems;
-	if (template) {
-		template = template;
+	if (tTemplate) {
+		template = tTemplate;
 	}
 	var data = [];
 	_.each(items, function(item) {
@@ -215,12 +179,20 @@ function setItems(pItems, template) {
 		data.push(getRow(item));
 	});
 	$.tableView.setData(data);
-	if (!template && !_.has(args, "height")) {
+	if (!_.has(args, "height")) {
 		//uihelper - is a helper class, should be there in your lib
 		var uihelper = require("uihelper"),
-		    height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length),
 		    headerView = $.tableView.getHeaderView(),
-		    footerView = $.tableView.getFooterView();
+		    footerView = $.tableView.getFooterView(),
+		    height = 0;
+		if (template) {
+			var len = data.length;
+			if (len) {
+				height = data[0].height * len;
+			}
+		} else {
+			height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length);
+		}
 		if (headerView) {
 			height += (parseInt(headerView.height) || uihelper.getHeightFromChildren(headerView, true));
 		}

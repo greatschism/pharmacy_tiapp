@@ -84,4 +84,23 @@ function toggleInstruction(e) {
 	}
 }
 
+function didClickHide(e) {
+	$.http.request({
+		method : "prescriptions_hide",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				prescriptions : [{
+					id : args.id
+				}]
+			}]
+		},
+		success : function() {
+			//triggers a reload when prescription list is focused
+			args.hidden = true;
+			$.app.navigator.close();
+		}
+	});
+}
+
 exports.init = init;

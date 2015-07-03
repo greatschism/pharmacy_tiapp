@@ -12,6 +12,6 @@
 			</Widget>
 		</Widget>
 		<View class="h-divider" />
-		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" />
+		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" if="$.args.canHide" onClick="didClickHide" />
 	</ScrollView>
 </Alloy>

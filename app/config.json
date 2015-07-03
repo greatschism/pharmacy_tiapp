@@ -32,12 +32,10 @@
             "prescriptions_get": "prescriptions/get",
             "prescriptions_add": "prescriptions/add",
             "prescriptions_hide": "prescriptions/hide",
+            "prescriptions_unhide": "prescriptions/unhide",
             "prescriptions_refill": "prescriptions/refill",
             "prescriptions_sort_name": "prescriptions/sort/name",
-            "prescriptions_refill_history": "prescriptions/refillhistory",
-            "prescriptions_unhide": "prescriptions/unhide",
-            "states_get": "states/get",
-            "stores_advanced_search": "advsearchpharmacies"
+            "prescriptions_refill_history": "prescriptions/refillhistory"
         },
         "apiCodes": {
             "success_code": "200",

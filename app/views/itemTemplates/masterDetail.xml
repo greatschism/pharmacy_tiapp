@@ -1,11 +1,11 @@
 <Alloy>
 	<TableViewRow id="row">
 		<View id="contentView" class="content-view">
-			<View id="masterView" class="content-master-view-60">
+			<View id="masterView" class="content-master-view-65">
 				<Label id="titleLbl" class="content-title" />
 				<Label id="subtitleLbl" class="content-subtitle" />
 			</View>
-			<View id="detailView" class="content-detail-view-40">
+			<View id="detailView" class="content-detail-view-35">
 				<Label id="detailTitleLbl" />
 				<Label id="detailSubtitleLbl" />
 			</View>

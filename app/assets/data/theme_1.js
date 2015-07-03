@@ -377,7 +377,7 @@ module.exports = {
 				"right" : 12,
 				"font" : {
 					"fontFamily" : "medium",
-					"fontSize" : 14
+					"fontSize" : 17
 				},
 				"color" : "#000000",
 				"optionPadding" : {

@@ -10,7 +10,8 @@ var args = arguments[0] || {},
 	title : strings.strRefillNow,
 	type : "positive"
 }],
-    sections;
+    sections,
+    currentPrescription;
 
 function init() {
 	Alloy.Globals.currentTable = $.tableView;
@@ -57,7 +58,12 @@ function didGetSortOrderPreferences(result) {
 }
 
 function getPrescriptionList(status, callback) {
-	$.searchTxt.setValue("");
+	//reset filters if any
+	if ($.searchTxt.getValue()) {
+		$.searchTxt.setValue("");
+		$.tableView.filterText = "";
+	}
+	//get data
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
@@ -76,21 +82,22 @@ function getPrescriptionList(status, callback) {
 function didGetPrescriptionList(result, passthrough) {
 	//process data from server
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
-	//loop data for rows
-	var currentDate = moment(),
-	    filters = {
-		readyForPickup : "",
-		gettingRefilled : "",
-		readyForRefill : "",
-		otherPrescriptions : ""
-	};
+	//reset section / row data
 	sections = {
 		readyForPickup : [],
 		gettingRefilled : [],
 		readyForRefill : [],
 		otherPrescriptions : []
 	};
-	var statuses = (args.filter || {}).refill_status || [],
+	//loop data for rows
+	var filters = {
+		readyForPickup : "",
+		gettingRefilled : "",
+		readyForRefill : "",
+		otherPrescriptions : ""
+	},
+	    currentDate = moment(),
+	    statuses = (args.filter || {}).refill_status || [],
 	    ids = (args.filter || {}).ids || [];
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
@@ -117,6 +124,7 @@ function didGetPrescriptionList(result, passthrough) {
 				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_after_x_hours : Alloy.CFG.prescription_progress_before_x_hours;
 			}
 			prescription.set({
+				canHide : false,
 				subtitle : subtitle,
 				progress : progress,
 				section : "gettingRefilled",
@@ -135,6 +143,7 @@ function didGetPrescriptionList(result, passthrough) {
 				}
 			}
 			prescription.set({
+				canHide : false,
 				subtitle : strings.sectionReadyForPickup,
 				section : "readyForPickup",
 				itemTemplate : "completed"
@@ -150,7 +159,8 @@ function didGetPrescriptionList(result, passthrough) {
 					section = "readyForRefill";
 					prescription.set("detailType", dueInDays < 0 ? "negative" : "");
 					var dueInDaysAbs = Math.abs(dueInDays);
-					if (dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
+					//prevent swipe options when args.selectable is true
+					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
 						prescription.set({
 							detailTitle : strings.msgOverdueBy + " " + dueInDaysAbs + " " + strings.strDays,
 							detailSubtitle : strings.lblSwipeLeftToHide,
@@ -176,10 +186,11 @@ function didGetPrescriptionList(result, passthrough) {
 				});
 			}
 			prescription.set({
+				canHide : true,
 				section : section,
 				due_in_days : dueInDays,
 				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number")),
-				itemTemplate : args.selectable ? "masterDetailSelectable" : "masterDetailSwipeable",
+				itemTemplate : args.selectable ? "masterDetaiWithLIcon" : "masterDetailSwipeable",
 				options : swipeOptions
 			});
 		}
@@ -187,19 +198,17 @@ function didGetPrescriptionList(result, passthrough) {
 		    itemTemplate = prescription.get("itemTemplate"),
 		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		prescription.set("filterText", filterText);
-		filters[sectionId] += filterText;
 		var row = Alloy.createController("itemTemplates/".concat(itemTemplate), prescription.toJSON());
-		switch(itemTemplate) {
-		case "masterDetailSwipeable":
-			row.on("clickoption", didClickoption);
-			break;
+		if (itemTemplate == "masterDetailSwipeable") {
+			row.on("clickoption", didClickSwipeOption);
 		}
+		filters[sectionId] += filterText;
 		sections[sectionId].push(row);
 	});
 	var data = [];
-	_.each(sections, function(rows, name) {
+	_.each(sections, function(rows, key) {
 		if (rows.length) {
-			var tvSection = $.uihelper.createTableViewSection($, strings["section".concat($.utilities.ucfirst(name, false))], filters[name]);
+			var tvSection = $.uihelper.createTableViewSection($, strings["section".concat($.utilities.ucfirst(key, false))], filters[key]);
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});
@@ -214,13 +223,9 @@ function didChangeSearch(e) {
 }
 
 function didClickRightNavBtn(e) {
-	if ($.sortPicker.getVisible()) {
-		return $.sortPicker.hide();
+	if (!hideAllPopups()) {
+		$.optionsMenu.show();
 	}
-	if ($.unhidePicker.getVisible()) {
-		return $.unhidePicker.hide();
-	}
-	$.optionsMenu.show();
 }
 
 function didClickOptionMenu(e) {
@@ -286,11 +291,29 @@ function toggleUnhideSelection(e) {
 	$.unhidePicker.setSelectedItems({}, e.source == $.selectAllBtn);
 }
 
-function didClickHide(e) {
+function didClickUnhide(e) {
 	$.unhidePicker.hide();
-	var selectedItems = $.unhidePicker.getSelectedItems();
-	if (selectedItems.length) {
-		console.log(selectedItems);
+	var prescriptions = [];
+	_.each($.unhidePicker.getSelectedItems(), function(item) {
+		prescriptions.push({
+			id : item.id
+		});
+	});
+	if (prescriptions.length) {
+		$.http.request({
+			method : "prescriptions_unhide",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					prescriptions : prescriptions
+				}]
+			},
+			keepLoader : true,
+			success : function() {
+				//refresh list
+				getPrescriptionList();
+			}
+		});
 	}
 }
 
@@ -307,8 +330,38 @@ function didClickSortClose(e) {
 	$.sortPicker.hide();
 }
 
-function didClickoption(e) {
+function didClickSwipeOption(e) {
 	Alloy.Globals.currentRow.touchEnd();
+	switch (e.action) {
+	case 1:
+		$.http.request({
+			method : "prescriptions_hide",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					prescriptions : [{
+						id : e.data.id
+					}]
+				}]
+			},
+			keepLoader : true,
+			success : function() {
+				//refresh list
+				getPrescriptionList();
+			}
+		});
+		break;
+	case 2:
+		$.app.navigator.open({
+			titleid : "titleOrderDetails",
+			ctrl : "orderDetails",
+			ctrlArguments : {
+				prescriptions : [e.data]
+			},
+			stack : true
+		});
+		break;
+	}
 }
 
 function didClickTableView(e) {
@@ -318,20 +371,37 @@ function didClickTableView(e) {
 	var index = e.index,
 	    count = 0,
 	    row;
-	_.each(sections, function(section) {
-		count += section.length;
+	_.each(sections, function(rows) {
+		count += rows.length;
 		if (!row && count > index) {
-			row = section[index - (count - section.length)];
+			row = rows[index - (count - rows.length)];
 		}
 	});
 	if (row) {
-		var rargs = row.getParams();
+		currentPrescription = row.getParams();
 		$.app.navigator.open({
-			title : rargs.title,
+			title : currentPrescription.title,
 			ctrl : "prescriptionDetails",
-			ctrlArguments : rargs,
+			ctrlArguments : currentPrescription,
 			stack : true
 		});
+	}
+}
+
+function hideAllPopups() {
+	if ($.sortPicker.getVisible()) {
+		return $.sortPicker.hide();
+	}
+	if ($.unhidePicker.getVisible()) {
+		return $.unhidePicker.hide();
+	}
+	return false;
+}
+
+function focus() {
+	if (currentPrescription && currentPrescription.hidden) {
+		currentPrescription = null;
+		getPrescriptionList();
 	}
 }
 
@@ -342,4 +412,6 @@ function terminate() {
 }
 
 exports.init = init;
+exports.focus = focus;
 exports.terminate = terminate;
+exports.backButtonHandler = hideAllPopups;
