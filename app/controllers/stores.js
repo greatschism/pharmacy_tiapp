@@ -4,11 +4,83 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
-    icons = Alloy.CFG.icons;
+    icons = Alloy.CFG.icons,
+    rows = [];
 
 function init() {
 	//app.navigator.showLoader(Alloy.Globals.strings.msgPleaseWait);
 	//uihelper.getLocation(didSearch);
+
+	//temp fix until API is available
+	result = '{"status":"Success","code":"200","message":"x","description":"x","data":{"stores":[{"id":"1234","store_identifier":"12345","store_ncpdp_id":"12345","store_name":"TEST STORE 1","addressline1":"TEST1","addressline2":"TEST1","state":"CA","city":"SF","zip":"04003","email_address":"x","phone":"6172837737","fax":"6172837737","latitude":"37.774929","longitude":"-122.419416","timezone":"US/Central","distance":"234.23","searchdistance":"234.234","isbookmarked":"0","ishomepharmacy":"1"},{"id":"1235","store_identifier":"12346","store_ncpdp_id":"12346","store_name":"TEST STORE 2","addressline1":"TEST2","addressline2":"TEST2","state":"CA","city":"SF","zip":"04003","email_address":"x","phone":"6172837737","fax":"6172837737","latitude":"34.052234","longitude":"-118.243685","timezone":"US/Central","distance":"234.23","searchdistance":"234.234","isbookmarked":"1","ishomepharmacy":"0"}]}}';
+	didGetAllStores(JSON.parse(result));
+	//getStoresList();
+}
+
+function getStoresList() {
+	$.searchbar.setValue("");
+	$.http.request({
+		method : "stores_list",
+		data : {
+			filter : [{
+				"sort_order" : "asc",
+				"sort_by" : "userDistance"
+			}],
+			data : [{
+				"stores" : {
+					"search_criteria" : "x"
+				}
+			}]
+		},
+		success : didGetAllStores
+	});
+	//todo - check if location services is enabled. If yes, send the 'sort-by' accordingly
+}
+
+function didGetAllStores(result) {
+	//reset all the rows
+	if (rows.length) {
+		resetTable();
+		rows = [];
+	}
+
+	//process data from server
+	Alloy.Collections.stores.reset(result.data.stores);
+
+	//loop data for rows
+	Alloy.Collections.stores.each(function(store) {
+		store.set({
+			title : store.get("addressline1"),
+			subtitle : store.get("addressline2"),
+		    detailTitle : store.get("searchdistance") + " mi",
+		    iconClass : Number(store.get("ishomepharmacy")) ? "icon-favorite" : Number(store.get("isbookmarked")) ? "content-positive-left-icon" : ""
+		});  
+		var row = Alloy.createController("itemTemplates/masterDetaiWithLIcon", store.toJSON()).getView();	
+		rows.push(row);
+	});
+
+	updateTable();
+	uihelper.getLocation(loadMap);	
+}
+
+function updateTable() {
+	//add valid rows to table
+	/*var data = [];
+	_.each(rows, function(row)
+	{
+		data.push(row);
+	});*/
+	
+	$.tableView.setData(rows, {
+		animated : true
+	});
+}
+
+function resetTable() {
+	//remove all rows from table
+	$.tableView.setData([], {
+		animated : true
+	});
 }
 
 function didReturn(e) {
@@ -67,6 +139,10 @@ function didGetStores(result, currentLocation) {
 	loadMap(distanceEnabled);
 }
 
+function didClickRightNavBtn() {
+	uihelper.getLocation(loadMap);	
+}
+
 function loadMap(directionEnabled) {
 
 	var Map = Alloy.Globals.Map,
@@ -78,11 +154,9 @@ function loadMap(directionEnabled) {
 	    maxLati = null;
 
 	Alloy.Collections.stores.map(function(model) {
-
 		var data = model.toJSON(),
 		    latitude = Number(data.latitude),
 		    longitude = Number(data.longitude);
-
 		if (minLati == null || minLati > latitude) {
 			minLati = latitude;
 		} else if (maxLati == null || maxLati < latitude) {
@@ -96,9 +170,7 @@ function loadMap(directionEnabled) {
 		}
 
 		var properties = {
-			image : uihelper.getImage({
-				code : "map_pin"
-			}).image,
+			image : uihelper.getImage("map_pin").image,
 			storeId : data.storeid,
 			title : data.addressline1,
 			subtitle : data.subtitle,
@@ -131,7 +203,6 @@ function loadMap(directionEnabled) {
 	});
 
 	$.mapView.annotations = annotations;
-
 	var ltDiff = (maxLati || minLati) - minLati,
 	    lgDiff = (maxLongi || minLongi) - minLongi,
 	    delta = ltDiff > lgDiff ? ltDiff : lgDiff;
@@ -164,6 +235,7 @@ function didToggle(e) {
 	$.tableView.visible = !lVisible;
 	$.mapView.visible = lVisible;
 	$.toggleBtn.title = lVisible ? icons.list : icons.map;
+	
 }
 
 function didAnnotationClick(e) {

@@ -1,25 +1,16 @@
 <Alloy>
-	<Button id="toggleBtn" class="role-right-nav-btn nav-icon-btn" onClick="didToggle" />
+	<Widget id="toggleBtn" src="ti.navbutton" class="nav-icon" onClick="didToggle" />
 	<View class="vgroup">
-		<View id="searchView" class="top search-view">
+		<View id="searchView" class="top search-bar">
 			<Widget id="searchbar" src="ti.textfield"  class="top returnkey-search search-txt" onReturn="didSearch" onClear="didSearch" />
-		</View>
+		</View> 
+		<TableView id="tableView" class="secondary-bg-color show" onClick="didItemClick">
+			<FooterView platform="ios">
+				<View class="auto-height" />
+			</FooterView>
+		</TableView>
 		<View>
-			<View id="mapView" ns="Alloy.Globals.Map" class="hide" onClick="didAnnotationClick" />
-			<TableView id="tableView" class="secondary-bg-color show" dataCollection="stores" onClick="didItemClick">
-				<TableViewRow class="auto-height" rowId="{storeid}" className="store">
-					<Label class="list-item-left-icon" if="Alloy.Globals.isLoggedIn" text="{favorite}" />
-					<View class="list-item-view-with-icon">
-						<View class="left width-60 auto-height vgroup">
-							<Label class="left list-item-title-lbl" text="{addressline1}" />
-							<Label class="left list-item-subtitle-lbl" text="{subtitle}" />
-						</View>
-						<View class="right width-35 auto-height vgroup" visible="{distance_enabled}">
-							<Label class="right list-item-info-lbl" text="{distance}" />
-						</View>
-					</View>
-				</TableViewRow>
-			</TableView>
+			<View id="mapView" ns="Alloy.Globals.Map" class="hide" onClick="didAnnotationClick" regionFit="true" userLocation="true" />			
 		</View>
 	</View>
 </Alloy> 
