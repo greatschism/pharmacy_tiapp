@@ -26,11 +26,11 @@ CONSTS = Alloy.TSS[CONSTS];
 	}
 	$.row.height = CONSTS.height;
 	if (_.isBoolean(args.selected)) {
-		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
 	} else {
 		var classes = ["content-" + (args.iconType ? args.iconType + "-" : "") + "left-icon"];
-		if (args.iconClass) {
-			classes.push(args.iconClass);
+		if (args.iconClasses) {
+			classes.concat(args.iconClasses)
 		}
 		var dict = $.createStyle({
 			classes : classes

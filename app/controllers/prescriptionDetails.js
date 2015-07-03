@@ -70,17 +70,17 @@ function didClickRefill(e) {
 }
 
 function toggleInstruction(e) {
-	var icon,
+	var classes,
 	    result;
 	if ($.instructionExp.isExpanded()) {
-		icon = Alloy.CFG.icons.arrow_down;
+		classes = ["content-down-icon"];
 		result = $.instructionExp.collapse();
 	} else {
-		icon = Alloy.CFG.icons.arrow_up;
+		classes = ["content-up-icon"];
 		result = $.instructionExp.expand();
 	}
 	if (result) {
-		$.arrowLbl.text = icon;
+		$.resetClass($.arrowLbl, classes);
 	}
 }
 

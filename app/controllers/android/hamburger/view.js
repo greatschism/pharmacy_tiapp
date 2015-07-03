@@ -47,7 +47,6 @@ var args = arguments[0] || {},
 		default:
 			if (!$.contentView) {
 				$.contentView = $.UI.create("View", {
-					apiName : "View",
 					id : "contentView"
 				});
 			}

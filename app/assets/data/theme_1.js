@@ -45,42 +45,6 @@ module.exports = {
 				"navTintColor" : "#FFFFFF",
 				"backgroundColor" : "#FFFFFF"
 			},
-			"Label" : {
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 17
-				},
-				"textAlign" : "left",
-				"color" : "#000000"
-			},
-			"Button" : {
-				"height" : 50,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 17
-				},
-				"textAlign" : "center",
-				"color" : "#FFFFFF",
-				"selectedColor" : "#F7941E",
-				"backgroundColor" : "#F7941E",
-				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "#F7941E",
-				"borderRadius" : 3.4,
-				"borderWidth" : 1
-			},
-			"TextField" : {
-				"height" : 50,
-				"font" : {
-					"fontFamily" : "medium",
-					"fontSize" : 14
-				},
-				"textAlign" : "left",
-				"color" : "#808285",
-				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
-				"borderRadius" : 3.4,
-				"borderWidth" : 1
-			},
 			"ListView" : {
 				"separatorColor" : "#D3D4D3",
 				"backgroundColor" : "#FFFFFF"
@@ -146,7 +110,9 @@ module.exports = {
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#F7941E",
 				"backgroundSelectedColor" : "#F7941E",
-				"borderColor" : "#F7941E"
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".primary-btn-small" : {
 				"width" : "48%",
@@ -159,7 +125,9 @@ module.exports = {
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#F7941E",
 				"backgroundSelectedColor" : "#F7941E",
-				"borderColor" : "#F7941E"
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".secondary-btn" : {
 				"left" : 16,
@@ -173,7 +141,9 @@ module.exports = {
 				"selectedColor" : "#F7941E",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "#F7941E"
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".secondary-btn-small" : {
 				"width" : "48%",
@@ -186,7 +156,9 @@ module.exports = {
 				"selectedColor" : "#F7941E",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "#F7941E"
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".tertiary-btn" : {
 				"left" : 16,
@@ -200,7 +172,9 @@ module.exports = {
 				"selectedColor" : "#599DFF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".tertiary-btn-small" : {
 				"width" : "48%",
@@ -213,7 +187,9 @@ module.exports = {
 				"selectedColor" : "#599DFF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".tertiary-btn-50" : {
 				"width" : "50%",
@@ -226,14 +202,18 @@ module.exports = {
 				"selectedColor" : "#599DFF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".btn-view" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".btn-left-icon" : {
 				"left" : 0,
@@ -283,7 +263,9 @@ module.exports = {
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "transparent",
 				"backgroundSelectedColor" : "transparent",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".nav-icon" : {
 				"font" : {
@@ -294,7 +276,9 @@ module.exports = {
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "transparent",
 				"backgroundSelectedColor" : "transparent",
-				"borderColor" : "transparent"
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".info-view-30" : {
 				"left" : 0,
@@ -889,6 +873,15 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-child-icon" : {
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 12
+				},
+				"color" : "#808082",
+				"accessibilityHidden" : true
+			},
+			".content-up-icon" : {
 				"right" : 12,
 				"font" : {
 					"fontFamily" : "icon",

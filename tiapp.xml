@@ -91,8 +91,8 @@
     <module platform="android">ti.push</module>
     <module platform="iphone">com.obscure.keychain</module>
     <module platform="android">com.obscure.keychain</module>
-    <module platform="iphone">com.mfogg.barcode</module>
-    <module platform="android">ti.barcode</module>
+    <!--<module platform="iphone">com.mfogg.barcode</module>
+    <module platform="android">ti.barcode</module>-->
     <module platform="iphone">dk.napp.drawer</module>
     <module platform="android">com.tripvi.drawerlayout</module>
   </modules>

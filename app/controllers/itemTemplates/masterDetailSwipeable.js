@@ -60,7 +60,6 @@ CONSTS = Alloy.TSS[CONSTS];
 		_.each(options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
-				apiName : "Button",
 				classes : [optionClassPrefix + (option.type ? option.type + "-" : "") + "btn"],
 				width : width,
 				left : fromLeft,
@@ -69,7 +68,6 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					apiName : "View",
 					classes : ["v-divider"],
 					left : fromLeft,
 					height : btn.height,

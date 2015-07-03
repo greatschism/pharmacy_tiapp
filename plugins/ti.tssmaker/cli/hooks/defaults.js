@@ -135,14 +135,17 @@ module.exports = {
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
 	".content-child-icon" : {
-		"text" : "Alloy.CFG.icons.arrow_right"
+		"text" : "Alloy.CFG.icons.thin_arrow_right"
 	},
 	".content-down-icon" : {
-		"text" : "Alloy.CFG.icons.arrow_down"
+		"text" : "Alloy.CFG.icons.thin_arrow_up"
+	},
+	".content-down-icon" : {
+		"text" : "Alloy.CFG.icons.thin_arrow_down"
 	},
 	".optionpicker" : {
 		"iconText" : "Alloy.CFG.icons.spot",
-		"selectedIconText" : "Alloy.CFG.icons.filled_success"
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",
@@ -161,21 +164,5 @@ module.exports = {
 	".tooltip-left" : {
 		"direction" : "left",
 		"iconText" : "Alloy.CFG.icons.filled_arrow_left"
-	},
-	".icon-spot" : {
-		"title" : "Alloy.CFG.icons.spot",
-		"text" : "Alloy.CFG.icons.spot"
-	},
-	".icon-add" : {
-		"title" : "Alloy.CFG.icons.add",
-		"text" : "Alloy.CFG.icons.add"
-	},
-	".icon-filled-success" : {
-		"title" : "Alloy.CFG.icons.filled_success",
-		"text" : "Alloy.CFG.icons.filled_success"
-	},
-	".icon-filled-add" : {
-		"title" : "Alloy.CFG.icons.filled_add",
-		"text" : "Alloy.CFG.icons.filled_add"
 	}
 };

@@ -2,14 +2,13 @@ var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
-    iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
     currentIndex = -1,
     landingPage;
 
 function init(navigation) {
 	if (OS_ANDROID) {
-		app.navigator.drawer.addEventListener(Alloy.CFG.drawer_layout ? "drawerclose" : "windowDidClose", didDrawerclose);
+		app.navigator.drawer.addEventListener("drawerclose", didDrawerclose);
 	}
 	landingPage = _.findWhere(Alloy.Collections.menuItems.toJSON(), {
 		landing_page : true
@@ -26,7 +25,7 @@ function filterFunction(collection) {
 
 function transformFunction(model) {
 	var transform = model.toJSON();
-	transform.icon = icons[iconPrefix + "_" + transform.icon] || icons[transform.icon];
+	transform.icon = icons[transform.icon];
 	transform.title = Alloy.Globals.strings[transform.titleid];
 	return transform;
 }
@@ -101,7 +100,7 @@ function didItemClick(e) {
 
 function terminate() {
 	if (OS_ANDROID) {
-		app.navigator.drawer.removeEventListener(Alloy.CFG.drawer_layout ? "drawerclose" : "windowDidClose", didDrawerclose);
+		app.navigator.drawer.removeEventListener("drawerclose", didDrawerclose);
 	}
 	$.destroy();
 }

@@ -23,7 +23,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "prescriptions"
+									"icon" : "thick_prescription"
 								}
 							}, {
 								"apiName" : "Label",
@@ -71,7 +71,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "pharmacies"
+									"icon" : "thick_pharmacy"
 								}
 							}, {
 								"apiName" : "Label",
@@ -101,7 +101,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "transfer"
+									"icon" : "thick_transfer"
 								}
 							}, {
 								"apiName" : "Label",
@@ -125,7 +125,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "doctors"
+									"icon" : "thick_doctor"
 								}
 							}, {
 								"apiName" : "Label",
@@ -149,7 +149,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "account"
+									"icon" : "thick_account"
 								}
 							}, {
 								"apiName" : "Label",

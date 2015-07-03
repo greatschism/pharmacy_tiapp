@@ -8,12 +8,12 @@ module.exports = {
 	}, {
 		"titleid" : "strPrescriptions",
 		"ctrl" : "prescriptions",
-		"icon" : "prescriptions",
+		"icon" : "thick_prescription",
 		"requires_login" : true
 	}, {
 		"titleid" : "strReminders",
 		"action" : "reminders",
-		"icon" : "reminder",
+		"icon" : "thick_reminder",
 		"requires_login" : true
 	}, {
 		"titleid" : "titlePharmacyRewards",
@@ -23,22 +23,22 @@ module.exports = {
 	}, {
 		"titleid" : "titleCoupons",
 		"action" : "coupons",
-		"icon" : "coupon",
+		"icon" : "thick_coupon",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleFamilyAccounts",
 		"action" : "familyAccounts",
-		"icon" : "users_list",
+		"icon" : "users",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleTransferPrescription",
 		"action" : "transferPrescription",
-		"icon" : "transfer",
+		"icon" : "thick_transfer",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
-		"icon" : "doctors",
+		"icon" : "thick_doctor",
 		"requires_login" : false
 	}, {
 		"titleid" : "strRefillNow",
@@ -49,17 +49,17 @@ module.exports = {
 	}, {
 		"titleid" : "titleStores",
 		"ctrl" : "stores",
-		"icon" : "pharmacies",
+		"icon" : "thick_pharmacy",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
-		"icon" : "account",
+		"icon" : "thick_account",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleDrugInformation",
 		"ctrl" : "druginfo",
-		"icon" : "prescriptions",
+		"icon" : "thick_prescription",
 		"requires_login" : false
 	}]
 };

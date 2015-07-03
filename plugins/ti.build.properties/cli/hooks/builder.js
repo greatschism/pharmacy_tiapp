@@ -28,6 +28,10 @@ exports.init = function(logger, config, cli, appc) {
 
 			if (isProd) {
 
+				/**
+				 *  for prod
+				 */
+
 				//ios properties
 				if (cli.argv["platform"] === "ios") {
 					var iosTags = tiapp.doc.documentElement.getElementsByTagName("ios"),
@@ -107,21 +111,13 @@ exports.init = function(logger, config, cli, appc) {
 
 				//update flags
 				configData.global.override_remote_resources = false;
-			}
 
-			//add / remove modules
-			if (cli.argv["platform"] === "android") {
-				if (configData["os:android"].hasOwnProperty("drawer_layout") && configData["os:android"]["drawer_layout"] === true) {
-					tiapp.removeModule("dk.napp.drawer", "android");
-					tiapp.setModule("com.tripvi.drawerlayout", {
-						platform : "android"
-					});
-				} else {
-					tiapp.removeModule("com.tripvi.drawerlayout", "android");
-					tiapp.setModule("dk.napp.drawer", {
-						platform : "android"
-					});
-				}
+			} else {
+
+				/**
+				 *  for development / test
+				 */
+
 			}
 
 			//write config

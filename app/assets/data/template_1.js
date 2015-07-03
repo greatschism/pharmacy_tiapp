@@ -25,7 +25,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "prescriptions"
+							"icon" : "thick_prescription"
 						}
 					}, {
 						"apiName" : "View",
@@ -77,7 +77,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "reminder"
+							"icon" : "thick_reminder"
 						}
 					}, {
 						"apiName" : "View",
@@ -103,7 +103,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "users_list"
+							"icon" : "users"
 						}
 					}, {
 						"apiName" : "View",
@@ -126,7 +126,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "pharmacies"
+							"icon" : "thick_pharmacy"
 						}
 					}, {
 						"apiName" : "View",
@@ -152,7 +152,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "transfer"
+							"icon" : "thick_transfer"
 						}
 					}, {
 						"apiName" : "View",
@@ -178,7 +178,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "doctors"
+							"icon" : "thick_doctor"
 						}
 					}, {
 						"apiName" : "View",
@@ -204,7 +204,7 @@ module.exports = {
 						"apiName" : "Label",
 						"classes" : ["content-left-icon", "touch-disabled"],
 						"properties" : {
-							"icon" : "account"
+							"icon" : "thick_account"
 						}
 					}, {
 						"apiName" : "View",

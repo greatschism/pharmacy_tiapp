@@ -274,19 +274,16 @@ var Helper = {
 			tClassName += "-with-ricon-btn";
 		}
 		var headerView = $.UI.create("View", {
-			apiName : "View",
 			classes : vClassName,
 			title : filterText
 		});
 		if (rightIcon) {
 			headerView.add($.UI.create("Button", {
-				apiName : "Button",
 				classes : ["content-header-right-icon-btn"],
 				title : rightIcon
 			}));
 		}
 		headerView.add($.UI.create("Label", {
-			apiName : "Label",
 			classes : tClassName,
 			text : title
 		}));

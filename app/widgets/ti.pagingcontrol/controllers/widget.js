@@ -55,7 +55,6 @@ function setLength(len) {
 	}
 
 	$.contentView = $.UI.create("View", {
-		apiName : "View",
 		id : "contentView"
 	});
 	$.widget.add($.contentView);

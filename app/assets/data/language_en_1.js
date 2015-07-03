@@ -382,12 +382,10 @@ module.exports = {
 		"strConfirmAuthorization" : "Great! You are almost done.\n\nSince you've added an adult, we will send an email asking permission from the added member on your behalf.\n\nPlease confirm the email address of the family member you just added.",
 		"strAuthorizationTip" : "You will be able to view prescriptions for the added family member only after the permission is granted.",
 
-		"accessibilityLblMenu" : "Menu",
+		"accessibilityLblHamburger" : "Hamburger",
 		"accessibilityLblBack" : "Back",
+		"accessibilityLblOptionsMenu" : "Options menu",
 		"accessibilityLblHelp" : "Help",
-		"accessibilityLblOptions" : "Options",
-		"accessibilityLblNavigateMenu" : "Navigate menu",
-		"accessibilityLblNavigateBack" : "Navigate back",
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off"
 	}

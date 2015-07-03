@@ -15,20 +15,9 @@ var args = arguments[0] || {},
 
 	$.leftNavView = Ti.UI.createView();
 
-	var leftBtnDict = {
-		apiName : "Button",
-		classes : ["nav-icon"]
-	};
-	_.extend(leftBtnDict, args.stack ? {
-		title : Alloy.CFG.icons.back,
-		accessibilityLabel : Alloy.Globals.strings.accessibilityLblBack
-	} : {
-		title : Alloy.CFG.icons.hamburger,
-		accessibilityLabel : Alloy.Globals.strings.accessibilityLblMenu
-	});
-	$.leftNavBtn = $.UI.create("Button", leftBtnDict);
-
-	$.leftNavView.add($.leftNavBtn);
+	$.leftNavView.add($.UI.create("Button", {
+		classes : ["nav-icon", (args.stack ? "icon-back" : "icon-hamburger")]
+	}));
 
 	$.leftNavView.addEventListener("click", didClickLeftNavView);
 

@@ -9,12 +9,12 @@
 	shouldStretchDrawer: false
 },
 "#drawer[platform=android]":{
+	shadowWidth: 20,
+	drawerLayout: true,
+	exitOnClose: true,
+	animationMode: "ANIMATION_NONE",
 	openDrawerGestureMode: "OPEN_MODE_NONE",
 	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
-	animationMode: "ANIMATION_NONE",
-	shadowWidth: 20,
-	drawerLayout: Alloy.CFG.drawer_layout,
-	exitOnClose: true,
 	window: {
 		barColor: Alloy.TSS.Window.barColor,
 		statusBarColor: Alloy.TSS.Window.statusBarColor,

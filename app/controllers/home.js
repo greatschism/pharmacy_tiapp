@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    iconPrefix = Alloy.CFG.iconPrefix,
     icons = Alloy.CFG.icons,
     banners,
     spanTimeId;
@@ -39,9 +38,7 @@ function didSuccess(result, passthrough) {
 function loadBanners(items) {
 	if (_.isArray(items) && items.length) {
 		banners = items;
-		$.bannerScrollableView = $.UI.create("ScrollableView", {
-			apiName : "ScrollableView"
-		});
+		$.bannerScrollableView = Ti.UI.createScrollableView();
 		_.each(banners, function(banner) {
 			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 		});
@@ -110,7 +107,7 @@ function create(dict) {
 	if (_.has(dict, "properties")) {
 		var properties = dict.properties;
 		if (_.has(properties, "icon")) {
-			properties.text = icons[iconPrefix + "_" + properties.icon] || icons[properties.icon];
+			properties.text = icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
 			properties.text = Alloy.Globals.strings[properties.textid];
 		} else if (_.has(properties, "titleid")) {

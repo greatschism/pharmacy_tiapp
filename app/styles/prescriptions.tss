@@ -1,7 +1,3 @@
-"#rightNavBtn":{
-	title: Alloy.CFG.icons.options,
-	accessibilityLabel: Alloy.Globals.strings.accessibilityLblOptions
-},
 "#searchTxt":{
 	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
 },
