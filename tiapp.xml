@@ -3,7 +3,7 @@
   xmlns:ti="http://ti.appcelerator.org">
   <id>com.mscripts.mypharmacy</id>
   <name>my Pharmacy</name>
-  <version>7.0.11</version>
+  <version>7.0.0</version>
   <publisher>mscripts</publisher>
   <url>http://www.mscripts.com</url>
   <description>mscripts mobile pharmacy</description>
@@ -91,8 +91,7 @@
     <module platform="android">ti.push</module>
     <module platform="iphone">com.obscure.keychain</module>
     <module platform="android">com.obscure.keychain</module>
-    <!--<module platform="iphone">com.mfogg.barcode</module>
-    <module platform="android">ti.barcode</module>-->
+    <!--<module platform="iphone">com.mfogg.barcode</module><module platform="android">ti.barcode</module>-->
     <module platform="iphone">dk.napp.drawer</module>
     <module platform="android">com.tripvi.drawerlayout</module>
   </modules>
