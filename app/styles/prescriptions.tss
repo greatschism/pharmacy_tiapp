@@ -17,7 +17,7 @@
 	title: Alloy.Globals.strings.btnClose
 },
 "#unhidePicker":{
-	template: "itemTemplates/masterDetailWithIcon"
+	template: "itemTemplates/masterDetailWithLIcon"
 },
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.btnSelectNone

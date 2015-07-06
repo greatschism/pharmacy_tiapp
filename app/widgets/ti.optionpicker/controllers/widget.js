@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
+    uihelper = require("uihelper"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,
     IS_RADIO_BUTTON = args.radioButton || false,
-    items = [],
     template = args.template || false,
     iconText = args.iconText || "x",
     selectedIconText = args.selectedIconText || "+",
@@ -10,6 +10,7 @@ var args = arguments[0] || {},
     selectedIconColor = args.selectedIconColor || "green",
     titleProperty = args.titleProperty || "title",
     paddingLeft = args.paddingLeft || 12,
+    items = [],
     optionPadding = {
 	top : 12,
 	bottom : 12,
@@ -30,16 +31,13 @@ var args = arguments[0] || {},
 
 if (OS_ANDROID) {
 	MAX_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
-}
+}(function() {
 
-(function() {
-
-	var options = _.pick(args, ["top", "width", "height", "bottom", "left", "right", "borderColor", "borderWidth", "borderRadius"]);
+	var options = _.pick(args, ["top", "width", "height", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
 
-	options = _.pick(args, ["headerView", "footerView", "backgroundColor", "separatorInsets"]);
 	if (_.has(args, "children")) {
 		_.each(args.children, function(child) {
 			if (child.__iamalloy) {
@@ -48,12 +46,42 @@ if (OS_ANDROID) {
 			if (!child) {
 				return;
 			}
-			options[child.role] = child;
+			//isAttached - whether to attach with tableview
+			switch(child.role) {
+			case "headerView":
+				$.headerView = child;
+				break;
+			case "footerView":
+				$.footerView = child;
+				break;
+			}
 		});
 		delete args.children;
 	}
-	if (!_.isEmpty(options)) {
-		$.tableView.applyProperties(options);
+
+	if ($.headerView) {
+		if (args.isAttached === true) {
+			$.tableView.headerView = $.headerView;
+		} else {
+			$.headerView.top = 0;
+			$.contentView.add($.headerView);
+		}
+	}
+
+	$.tableView = $.UI.create("TableView", _.extend({
+		apiName : "TableView",
+		id : "tableView"
+	}, _.pick(args, ["separatorInsets"])));
+	$.tableView.addEventListener("click", updateItem);
+	$.contentView.add($.tableView);
+
+	if ($.footerView) {
+		if (args.isAttached === true) {
+			$.tableView.footerView = $.footerView;
+		} else {
+			$.footerView.bottom = 0;
+			$.contentView.add($.footerView);
+		}
 	}
 
 	_.extend(optioDict, _.pick(args, ["color", "font"]));
@@ -166,8 +194,8 @@ function getRow(data) {
 	return row;
 }
 
-function setItems(pItems, tTemplate) {
-	items = pItems;
+function setItems(tItems, tTemplate) {
+	items = tItems;
 	if (tTemplate) {
 		template = tTemplate;
 	}
@@ -179,12 +207,10 @@ function setItems(pItems, tTemplate) {
 		data.push(getRow(item));
 	});
 	$.tableView.setData(data);
-	if (!_.has(args, "height")) {
-		//uihelper - is a helper class, should be there in your lib
-		var uihelper = require("uihelper"),
-		    headerView = $.tableView.getHeaderView(),
-		    footerView = $.tableView.getFooterView(),
-		    height = 0;
+	var top = 0,
+	    bottom = 0,
+	    height = args.height;
+	if (!args.height) {
 		if (template) {
 			var len = data.length;
 			if (len) {
@@ -193,26 +219,24 @@ function setItems(pItems, tTemplate) {
 		} else {
 			height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length);
 		}
-		if (headerView) {
-			height += (parseInt(headerView.height) || uihelper.getHeightFromChildren(headerView, true));
-		}
-		if (footerView) {
-			height += (parseInt(footerView.height) || uihelper.getHeightFromChildren(footerView, true));
-		}
-		$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
 	}
+	if ($.headerView) {
+		top = (parseInt($.headerView.height) || uihelper.getHeightFromChildren($.headerView, true));
+		height += top;
+	}
+	if ($.footerView) {
+		bottom = (parseInt($.footerView.height) || uihelper.getHeightFromChildren($.footerView, true));
+		height += bottom;
+	}
+	$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
+	$.tableView.applyProperties({
+		top : top,
+		bottom : bottom
+	});
 }
 
 function getItems() {
 	return items;
-}
-
-function setHeaderView(view) {
-	$.tableView.headerView = view;
-}
-
-function setFooterView(view) {
-	$.tableView.footerView = view;
 }
 
 function animate(dict, callback) {
@@ -306,8 +330,6 @@ exports.animate = animate;
 exports.setItems = setItems;
 exports.getItems = getItems;
 exports.getVisible = getVisible;
-exports.setHeaderView = setHeaderView;
-exports.setFooterView = setFooterView;
 exports.applyProperties = applyProperties;
 exports.setSelectedItems = setSelectedItems;
 exports.getSelectedItems = getSelectedItems;

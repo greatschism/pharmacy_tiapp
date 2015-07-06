@@ -12,6 +12,7 @@ module.exports = {
 			"prescription_progress_x_hours" : 2,
 			"prescription_progress_after_x_hours" : 60,
 			"prescription_progress_before_x_hours" : 15,
+			"prescription_negative_refills_left" : 1,
 			"rx_number" : {
 				"format" : " (xxxx-xxxxxxx)",
 				"length" : 12,
@@ -320,7 +321,7 @@ module.exports = {
 				"backgroundSelectedColor" : "#EEEEF3",
 				"borderColor" : "#EEEEF3",
 				"borderWidth" : 1,
-				"borderRadius" : 3.4
+				"borderRadius" : 15
 			},
 			".info-negative-btn" : {
 				"top" : 8,
@@ -337,7 +338,7 @@ module.exports = {
 				"backgroundSelectedColor" : "#ED1C24",
 				"borderColor" : "#ED1C24",
 				"borderWidth" : 1,
-				"borderRadius" : 3.4
+				"borderRadius" : 15
 			},
 			".swt[platform=ios]" : {
 				"width" : 56,
@@ -857,6 +858,25 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
+			".content-right-swt[platform=ios]" : {
+				"right" : 12,
+				"width" : 56,
+				"height" : 36,
+				"tintColor" : "#A7A7A7",
+				"onTintColor" : "#38E780",
+				"backgroundColor" : "#A7A7A7",
+				"borderRadius" : 16
+			},
+			".content-right-swt[platform=android]" : {
+				"right" : 12,
+				"width" : 56,
+				"height" : 36,
+				"trackTintColorOn" : "#4BD763",
+				"trackTintColorOff" : "#A7A7A7",
+				"thumbTintColorOn" : "#FFFFFF",
+				"thumbTintColorOff" : "#FFFFFF",
+				"backgroundSelectedColor" : "transparent"
+			},
 			".content-view-with-rswt" : {
 				"top" : 12,
 				"bottom" : 12,
@@ -1043,6 +1063,36 @@ module.exports = {
 				"bottom" : 12,
 				"left" : 48,
 				"right" : 48,
+				"height" : "auto",
+				"layout" : "vertical"
+			},
+			".content-right-btn" : {
+				"top" : 12,
+				"right" : 4,
+				"width" : 140,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 12
+				},
+				"textAlign" : "right",
+				"color" : "#599cff",
+				"selectedColor" : "#599cff",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent"
+			},
+			".content-view-with-rbtn" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"right" : 148,
+				"height" : "auto"
+			},
+			".content-view-vgroup-with-rbtn" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"right" : 164,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -1612,6 +1662,34 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
+			".content-header-right-btn" : {
+				"right" : 4,
+				"width" : 140,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 12
+				},
+				"textAlign" : "right",
+				"color" : "#599cff",
+				"selectedColor" : "#599cff",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent"
+			},
+			".content-header-lbl-with-rbtn" : {
+				"top" : 12,
+				"left" : 12,
+				"right" : 148,
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "bold",
+					"fontSize" : 15
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
 			".content-header-view-wrap" : {
 				"width" : "fill",
 				"height" : "auto",
@@ -1655,7 +1733,8 @@ module.exports = {
 			".content-group" : {
 				"width" : "fill",
 				"height" : "auto",
-				"layout" : "horizontal"
+				"layout" : "horizontal",
+				"horizontalWrap" : false
 			},
 			".content-group-prompt" : {
 				"left" : 0,

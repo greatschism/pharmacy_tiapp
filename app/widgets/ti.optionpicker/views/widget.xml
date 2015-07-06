@@ -1,7 +1,5 @@
 <Alloy>
 	<View>
-		<View id="contentView">
-			<TableView id="tableView" onClick="updateItem" />
-		</View>
+		<View id="contentView" />
 	</View>
 </Alloy>

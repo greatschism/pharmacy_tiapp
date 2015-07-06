@@ -190,7 +190,7 @@ function didGetPrescriptionList(result, passthrough) {
 				section : section,
 				due_in_days : dueInDays,
 				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number")),
-				itemTemplate : args.selectable ? "masterDetailWithIcon" : "masterDetailSwipeable",
+				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable",
 				options : swipeOptions
 			});
 		}
@@ -279,6 +279,8 @@ function didGetHiddenPrescriptions(result, passthrough) {
 	var hPrescriptions = result.data.prescriptions;
 	_.each(hPrescriptions, function(prescription) {
 		_.extend(prescription, {
+			masterWidth : 100,
+			detailWidth : 0,
 			title : $.utilities.ucword(prescription.presc_name),
 			subtitle : strings.strRxPrefix.concat(prescription.rx_number)
 		});
@@ -380,7 +382,7 @@ function didClickTableView(e) {
 	if (row) {
 		currentPrescription = row.getParams();
 		$.app.navigator.open({
-			title : currentPrescription.title,
+			titleid : "titleDrugDetails",
 			ctrl : "prescriptionDetails",
 			ctrlArguments : currentPrescription,
 			stack : true

@@ -55,7 +55,7 @@ function didGetAllStores(result) {
 		    detailTitle : store.get("searchdistance") + " mi",
 		    iconClass : Number(store.get("ishomepharmacy")) ? "icon-favorite" : Number(store.get("isbookmarked")) ? "content-positive-left-icon" : ""
 		});  
-		var row = Alloy.createController("itemTemplates/masterDetailWithIcon", store.toJSON()).getView();	
+		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON()).getView();	
 		rows.push(row);
 	});
 

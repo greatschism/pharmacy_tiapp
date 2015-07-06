@@ -4,9 +4,7 @@ var args = arguments[0] || {},
 
 (function() {
 
-	if (Alloy.Globals.spinnerImages) {
-		$.activityIndicatorImg.images = Alloy.Globals.spinnerImages;
-	}
+	$.activityIndicatorImg.images = args.images || Alloy.Globals.spinnerImages || [];
 
 	var options = _.pick(args, ["font", "color", "textAlign", "text"]);
 	if (!_.isEmpty(options)) {

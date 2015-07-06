@@ -1,5 +1,74 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<Widget id="prescExp" src="ti.expandable">
+			<View class="auto-height role-master-view" onClick="togglePrescription">
+				<View id="prescContentView" class="content-view-vgroup-with-rbtn">
+					<Label id="titleLbl" class="content-title-wrap" />
+				</View>
+				<Button id="toggleBtn" class="content-right-btn" />
+			</View>
+			<Widget id="prescAsyncView" src="ti.asyncview" class="content-view role-detail-view">
+				<View class="content-view-vgroup">
+					<View class="content-group">
+						<Label id="noPromptLbl" class="content-group-prompt" />
+						<Label id="noReplyLbl" class="content-group-reply" />
+					</View>
+					<View class="content-group">
+						<Label id="expiryPromptLbl" class="content-group-prompt" />
+						<Label id="expiryReplyLbl" class="content-group-reply" />
+					</View>
+					<View class="content-group">
+						<Label id="doctorPromptLbl" class="content-group-prompt" />
+						<Label id="doctorReplyLbl" class="content-group-reply" />
+					</View>
+					<View class="content-group">
+						<Label id="storePromptLbl" class="content-group-prompt" />
+						<Label id="storeReplyLbl" class="content-group-reply-link" />
+					</View>
+				</View>
+			</Widget>
+		</Widget>
+		<View class="auto-height margin-left margin-right hgroup-no-wrap">
+			<View class="info-view-30">
+				<Label id="refillsLeftLbl" class="info-view-title" />
+				<Button id="refillsLeftBtn" class="info-btn" />
+			</View>
+			<View class="info-view-35">
+				<Label id="dueLbl" class="info-view-title" />
+				<Button id="dueBtn" class="info-btn" />
+			</View>
+			<View class="info-view-35">
+				<Label id="lastRefillLbl" class="info-view-title" />
+				<Button id="lastRefillBtn" class="info-btn" />
+			</View>
+		</View>
+		<Button id="refillBtn" class="margin-top primary-btn" onClick="didClickRefill" />
+		<View class="margin-top content-header-view">
+			<Label id="remindersLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height">
+			<View class="content-view-with-rswt">
+				<Widget id="remindMeLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+			</View>
+			<Widget id="remindMeSwt" src="ti.switch" class="content-right-swt" />
+		</View>
+		<View class="h-divider" />
+		<View class="auto-height">
+			<View class="content-view-with-rswt">
+				<Widget id="timeLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+			</View>
+			<Widget id="timeSwt" src="ti.switch" class="content-right-swt" />
+		</View>
+		<View class="content-header-view">
+			<Label id="informationLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height">
+			<View class="content-view-with-child">
+				<Label id="historyLbl" class="content-lbl" />
+			</View>
+			<Label class="content-child-icon" />
+		</View>
+		<View class="h-divider" />
 		<Widget id="instructionExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="toggleInstruction">
 				<View id="instructionContentView" class="content-view-with-child">

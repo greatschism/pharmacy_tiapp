@@ -49,7 +49,9 @@
 	//models
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
-	Alloy.Models.patient = new Backbone.Model();
+	Alloy.Models.patient = new Backbone.Model({
+		"session_id" : "dbvgbr2hkkhxdgbErdWWv1gAEW0bdb0k"
+	});
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();
 
 	//events

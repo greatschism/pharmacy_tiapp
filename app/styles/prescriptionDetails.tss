@@ -1,8 +1,26 @@
+"#toggleBtn":{
+	title: Alloy.Globals.strings.btnShowMore
+},
+"#refillsLeftLbl":{
+	text: Alloy.Globals.strings.strRefillsLeft
+},
+"#dueLbl":{
+	text: Alloy.Globals.strings.strDueForRefill
+},
+"#lastRefillLbl":{
+	text: Alloy.Globals.strings.lblLastRefilled
+},
 "#refillBtn":{
-	title: Alloy.Globals.strings.strRefill
+	title: Alloy.Globals.strings.btnRefillPrescription
 },
 "#remindersLbl":{
-	text: Alloy.Globals.strings.strReminders
+	text: Alloy.Globals.strings.sectionReminders
+},
+"#remindMeLbl":{
+	html: Alloy.Globals.strings.lblRemindMeRefillMedication
+},
+"#timeLbl":{
+	html: Alloy.Globals.strings.lblSetTimeToTakeMedication
 },
 "#informationLbl":{
 	text: Alloy.Globals.strings.sectionInformation

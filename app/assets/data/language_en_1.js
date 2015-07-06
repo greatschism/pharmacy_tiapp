@@ -70,6 +70,7 @@ module.exports = {
 		"sectionYourOrder" : "Your order",
 		"sectionPickupDetails" : "Pickup details",
 		"sectionInformation" : "Information",
+		"sectionReminders" : "Reminders",
 		"sectionAddAll" : "add all",
 		"sectionDoctors" : "Doctors",
 		"sectionHasPrescribedYou" : "Has prescribed you",
@@ -130,7 +131,6 @@ module.exports = {
 		"lblEnterYourDoctorsInformation" : "Enter your doctor's information. First and last name are required, <secondaryfont><secondarycolor>all other fields optional.</secondarycolor></secondaryfont>",
 		"lblWhichDoctorYouHaveAppointment" : "Which doctor do you have an appointment with?",
 		"lblMore" : "More",
-		"lblShowMore" : "Show More",
 		"lblWhenIsYourAppointment" : "When is your appointment?",
 		"lblOnThisDate" : "On this date",
 		"lblAtThisTime" : "At this time",
@@ -293,6 +293,7 @@ module.exports = {
 		"menuRefresh" : "Refresh",
 
 		"btnChoose" : "Choose",
+		"btnShowMore" : "Show More",
 		"btnYes" : "Yes",
 		"btnNo" : "No",
 		"btnRetry" : "Retry",
