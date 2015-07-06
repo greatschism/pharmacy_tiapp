@@ -55,22 +55,31 @@ var Helper = {
 			return;
 		}
 
-		var authorization = Ti.Geolocation.locationServicesAuthorization || "";
-		if (authorization == Ti.Geolocation.AUTHORIZATION_DENIED) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgGeoAuthorizationDenied
-			});
-			Helper.fireLocationCallback(callback);
-		} else if (authorization == Ti.Geolocation.AUTHORIZATION_RESTRICTED) {
+		if (!Ti.Geolocation.locationServicesEnabled) {
 			Helper.showDialog({
 				message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
 			});
-			Helper.fireLocationCallback(callback);
-		} else {
-			Ti.Geolocation.getCurrentPosition(function(e) {
-				Helper.fireLocationCallback(callback, e.success && !_.isEmpty(e.coords) ? e.coords : {});
-			});
+			return Helper.fireLocationCallback(callback);
 		}
+
+		if (OS_IOS) {
+			var authorization = Ti.Geolocation.locationServicesAuthorization || "";
+			if (authorization == Ti.Geolocation.AUTHORIZATION_DENIED) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgGeoAuthorizationDenied
+				});
+				return Helper.fireLocationCallback(callback);
+			} else if (authorization == Ti.Geolocation.AUTHORIZATION_RESTRICTED) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
+				});
+				return Helper.fireLocationCallback(callback);
+			}
+		}
+
+		Ti.Geolocation.getCurrentPosition(function(e) {
+			Helper.fireLocationCallback(callback, e.success && !_.isEmpty(e.coords) ? e.coords : {});
+		});
 	},
 
 	fireLocationCallback : function(callback, coords) {
@@ -94,8 +103,10 @@ var Helper = {
 
 		if (_.isUndefined(source)) {
 			if (_.isEmpty(Helper.currentLocation)) {
-				return Helper.getLocation(function() {
-					Helper.getDirection(destination);
+				return Helper.getLocation(function(currentLocation) {
+					if (!_.isEmpty(currentLocation)) {
+						Helper.getDirection(destination, currentLocation);
+					}
 				});
 			}
 			source = Helper.currentLocation;
