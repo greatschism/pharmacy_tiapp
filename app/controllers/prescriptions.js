@@ -190,7 +190,7 @@ function didGetPrescriptionList(result, passthrough) {
 				section : section,
 				due_in_days : dueInDays,
 				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number")),
-				itemTemplate : args.selectable ? "masterDetaiWithLIcon" : "masterDetailSwipeable",
+				itemTemplate : args.selectable ? "masterDetailWithIcon" : "masterDetailSwipeable",
 				options : swipeOptions
 			});
 		}
