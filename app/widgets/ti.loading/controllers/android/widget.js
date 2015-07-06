@@ -3,17 +3,20 @@ var args = arguments[0] || {},
     isCloseRequested = false;
 
 (function() {
-
-	var options = _.pick(args, ["font", "color", "message"]);
-	if (!_.isEmpty(options)) {
-		$.progressIndicator.applyProperties(options);
-	}
-
+	applyProperties(args);
 	if (args.visible !== false) {
 		show();
 	}
-
 })();
+
+function applyProperties(dict) {
+	if (_.has(dict, "indicatorDict")) {
+		$.progressIndicator.applyProperties(dict.indicatorDict);
+	}
+	if (_.has(dict, "message")) {
+		setMessage(dict.message);
+	}
+}
 
 function setMessage(message) {
 	$.progressIndicator.message = message;
@@ -30,3 +33,4 @@ function hide() {
 exports.show = show;
 exports.hide = hide;
 exports.setMessage = setMessage;
+exports.applyProperties = applyProperties;

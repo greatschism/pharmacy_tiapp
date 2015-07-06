@@ -13,6 +13,21 @@
 "#refillBtn":{
 	title: Alloy.Globals.strings.btnRefillPrescription
 },
+"#prescAsyncContentView":{
+	top: 0
+},
+"#noPromptLbl":{
+	text: Alloy.Globals.strings.lblPrescriptionNumber
+},
+"#expiryPromptLbl":{
+	text: Alloy.Globals.strings.lblExpirationDate
+},
+"#doctorPromptLbl":{
+	text: Alloy.Globals.strings.lblDoctor
+},
+"#storePromptLbl":{
+	text: Alloy.Globals.strings.lblPharmacy
+},
 "#remindersLbl":{
 	text: Alloy.Globals.strings.sectionReminders
 },

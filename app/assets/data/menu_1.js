@@ -3,13 +3,13 @@ module.exports = {
 		"titleid" : "titleHome",
 		"ctrl" : "home",
 		"icon" : "home",
-		"requires_login" : false
+		"requires_login" : false,
+		"landing_page" : true
 	}, {
 		"titleid" : "strPrescriptions",
 		"ctrl" : "prescriptions",
 		"icon" : "thick_prescription",
-		"requires_login" : false,
-		"landing_page" : true
+		"requires_login" : true
 	}, {
 		"titleid" : "strReminders",
 		"action" : "reminders",

@@ -3,28 +3,24 @@ var args = arguments[0] || {},
     isCloseRequested = false;
 
 (function() {
-
-	$.activityIndicatorImg.images = args.images || Alloy.Globals.spinnerImages || [];
-
-	var options = _.pick(args, ["font", "color", "textAlign", "text"]);
-	if (!_.isEmpty(options)) {
-		$.messageLbl.applyProperties(options);
-	}
-
-	options = _.pick(args, ["images", "accessibilityHidden", "accessibilityLabel", "accessibilityValue", "accessibilityValueHint"]);
-	if (!_.isEmpty(options)) {
-		$.activityIndicatorImg.applyProperties(options);
-	}
-
-	if (_.has(args, "message")) {
-		setMessage(args.message);
-	}
-
+	applyProperties(args);
 	if (args.visible !== false) {
-		show();
+		show(args.spinnerImages || Alloy.Globals.spinnerImages || []);
 	}
-
 })();
+
+function applyProperties(dict) {
+	var options = _.pick(dict, ["top", "bottom", "left", "right", "width", "height", "layout", "backgroundColor", "backgroundImage", "borderColor", "borderRadius", "borderWidth"]);
+	if (!_.isEmpty(options)) {
+		$.widget.applyProperties(options);
+	}
+	if (_.has(dict, "indicatorDict")) {
+		$.activityIndicatorImg.applyProperties(dict.indicatorDict);
+	}
+	if (_.has(dict, "message")) {
+		setMessage(dict.message);
+	}
+}
 
 function didOpen(e) {
 	isOpened = true;
@@ -37,17 +33,29 @@ function setMessage(message) {
 	$.messageLbl.text = message;
 }
 
-function show() {
-	$.activityIndicatorImg.start();
+function show(images) {
+	if ($.activityIndicatorImg && images) {
+		$.activityIndicatorImg.addEventListener("load", didLoad);
+		$.activityIndicatorImg.images = images;
+	}
 	$.window.open({
 		animated : false
 	});
 }
 
+function didLoad() {
+	if ($.activityIndicatorImg) {
+		$.activityIndicatorImg.start();
+		$.activityIndicatorImg.removeEventListener("load", didLoad);
+	}
+}
+
 function hide() {
 	isCloseRequested = true;
 	if (isOpened) {
-		$.activityIndicatorImg.stop();
+		if ($.activityIndicatorImg) {
+			$.activityIndicatorImg.stop();
+		}
 		$.window.close({
 			animated : false
 		});
@@ -57,3 +65,4 @@ function hide() {
 exports.show = show;
 exports.hide = hide;
 exports.setMessage = setMessage;
+exports.applyProperties = applyProperties;

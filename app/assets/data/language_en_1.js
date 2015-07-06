@@ -293,7 +293,8 @@ module.exports = {
 		"menuRefresh" : "Refresh",
 
 		"btnChoose" : "Choose",
-		"btnShowMore" : "Show More",
+		"btnShowMore" : "Show more",
+		"btnShowLess" : "Show less",
 		"btnYes" : "Yes",
 		"btnNo" : "No",
 		"btnRetry" : "Retry",
@@ -337,9 +338,11 @@ module.exports = {
 		"optionTakePhoto" : "Take photo",
 
 		"strRxPrefix" : "Rx# ",
+		"strDoctorPrefix" : "Dr. ",
 		"strRefill" : "Refill",
 		"strNotApplicable" : "Not applicable",
 		"strNotAvailable" : "Not available",
+		"strNil" : "-",
 		"strWelcomeNote" : "Thank you for downloading the my Pharmacy application.\n\n This release is full of new features & functions.\n\n",
 		"strHi" : "Hi %s,",
 		"strRefillNow" : "Refill now",

@@ -1,0 +1,9 @@
+"#embedded":{
+	height: Ti.UI.FILL,
+	backgroundColor: "#FFFFFF"
+},
+"#activityIndicatorImg":{
+	width: 50,
+	height: 50,
+	duration: 40
+}

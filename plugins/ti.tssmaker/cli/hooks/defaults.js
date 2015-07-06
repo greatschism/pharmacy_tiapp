@@ -129,7 +129,17 @@ module.exports = {
 	".role-detail-view" : {
 		"role" : "detailView"
 	},
+	".loader-embedded" : {
+		"indicatorDict" : {
+			"accessibilityLabel" : "Alloy.Globals.strings.msgPleaseWait"
+		}
+	},
 	".swt[platform=android]" : {
+		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
+		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
+		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".content-right-swt[platform=android]" : {
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
@@ -137,7 +147,7 @@ module.exports = {
 	".content-child-icon" : {
 		"text" : "Alloy.CFG.icons.thin_arrow_right"
 	},
-	".content-down-icon" : {
+	".content-up-icon" : {
 		"text" : "Alloy.CFG.icons.thin_arrow_up"
 	},
 	".content-down-icon" : {

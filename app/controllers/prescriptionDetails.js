@@ -3,29 +3,13 @@ var args = arguments[0] || {},
 
 function init() {
 	$.titleLbl.text = args.title;
-	var lastRefillDate = args.latest_refill_completed_date || args.latest_refill_promised_date || args.latest_refill_requested_date;
-	if (lastRefillDate) {
-		$.lastRefillBtn.title = moment(lastRefillDate, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format);
-	} else {
-		$.lastRefillBtn.hide();
-	}
-	if (args.anticipated_refill_date) {
-		$.dueBtn.title = moment(args.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
-	} else {
-		$.dueBtn.hide();
-	}
 	var refillsLeft = parseInt(args.refill_left || 0);
-	if (refillsLeft <= Alloy.CFG.prescription_negative_refills_left) {
-		$.resetClass($.refillsLeftBtn, ["info-negative-btn"]);
-	}
-	$.refillsLeftBtn.title = refillsLeft;
-	$.prescExp.applyProperties({
-		height : $.uihelper.getHeightFromChildren($.prescContentView, true)
+	$.addClass($.refillsLeftBtn, [refillsLeft <= Alloy.CFG.prescription_negative_refills_left ? "info-negative-btn" : "info-btn"], {
+		title : refillsLeft
 	});
-	$.instructionExp.applyProperties({
-		height : $.uihelper.getHeightFromChildren($.instructionContentView, true)
-	});
-	if (!_.has(args, "doctor")) {
+	$.dueBtn.title = args.anticipated_refill_date ? moment(args.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : Alloy.Globals.strings.strNil;
+	$.lastRefillBtn.title = args.latest_sold_date ? moment(args.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : Alloy.Globals.strings.strNil;
+	if (!_.has(args, "store")) {
 		$.http.request({
 			method : "prescriptions_get",
 			params : {
@@ -45,7 +29,13 @@ function init() {
 	} else {
 		loadPresecription();
 		loadDoctor();
+		loadStore();
 	}
+	setTimeout(hideLoader, 1000);
+}
+
+function hideLoader() {
+	$.loader.hide();
 }
 
 function didGetPrescription(result, passthrough) {
@@ -71,7 +61,32 @@ function didGetPrescription(result, passthrough) {
 function didGetDoctor(result, passthrough) {
 	args.doctor = {};
 	_.extend(args.doctor, result.data.doctors);
+	args.doctor.title = Alloy.Globals.strings.strDoctorPrefix.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
 	loadDoctor();
+	$.http.request({
+		method : "stores_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				stores : {
+					id : args.original_store_id,
+				}
+			}]
+		},
+		showLoader : false,
+		errorDialogEnabled : false,
+		success : didGetStore
+	});
+}
+
+function didGetStore(result, passthrough) {
+	args.store = {};
+	_.extend(args.store, result.data.stores);
+	_.extend(args.store, {
+		title : $.utilities.ucword(args.store.addressline1),
+		subtitle : $.utilities.ucword(args.store.city) + ", " + args.store.state + ", " + $.utilities.ucword(args.store.zip)
+	});
+	loadStore();
 }
 
 function loadPresecription() {
@@ -81,11 +96,37 @@ function loadPresecription() {
 }
 
 function loadDoctor() {
+	$.noReplyLbl.text = args.rx_number;
+	$.expiryReplyLbl.text = moment(args.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
+	$.doctorReplyLbl.text = args.doctor.title;
+}
 
+function loadStore() {
+	$.prescAsyncView.hide();
+	$.prescExp.setStopListening(true);
+	$.storeReplyLbl.text = args.store.title + "\n" + args.store.subtitle;
+}
+
+function didClickStore(e) {
+	$.uihelper.getDirection({
+		latitude : args.store.latitude,
+		longitude : args.store.longitude
+	});
 }
 
 function togglePrescription(e) {
-
+	var title,
+	    result;
+	if ($.prescExp.isExpanded()) {
+		title = "btnShowMore";
+		result = $.prescExp.collapse();
+	} else {
+		title = "btnShowLess";
+		result = $.prescExp.expand();
+	}
+	if (result) {
+		$.toggleBtn.title = Alloy.Globals.strings[title];
+	}
 }
 
 function toggleInstruction(e) {

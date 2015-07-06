@@ -10,6 +10,11 @@ var app = require("core"),
 
 function didOpen(e) {
 	config.load();
+	$.loader.applyProperties({
+		indicatorDict : {
+			accessibilityLabel : Alloy.Globals.strings.msgPleaseWait
+		}
+	});
 	notificationHandler.init(deviceReady);
 }
 
@@ -39,20 +44,11 @@ function deviceReady(deviceToken) {
 }
 
 function showLoader() {
-	if (!$.loader) {
-		$.loader = Alloy.createWidget("ti.loading", "widget", {
-			message : Alloy.Globals.strings.msgPleaseWait,
-			visible : false
-		});
-	}
-	$.loader.show();
+	$.loader.show(Alloy.Globals.spinnerImages);
 }
 
 function hideLoader() {
-	if ($.loader) {
-		$.loader.hide();
-		$.loader = null;
-	}
+	$.loader.hide(false);
 }
 
 function didSuccess(result) {

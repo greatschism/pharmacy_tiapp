@@ -93,7 +93,12 @@ var Helper = {
 		}
 
 		if (_.isUndefined(source)) {
-			source = _currentLocation;
+			if (_.isEmpty(Helper.currentLocation)) {
+				return Helper.getLocation(function() {
+					Helper.getDirection(destination);
+				});
+			}
+			source = Helper.currentLocation;
 		}
 
 		if (_.isObject(source)) {

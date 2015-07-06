@@ -1,9 +1,8 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    isOpened = false,
+    isCloseRequested = false;
 
 (function() {
-	if (_.has(args, "role")) {
-		$.widget.role = args.role;
-	}
 	applyProperties(args);
 	if (args.visible !== false) {
 		show(args.spinnerImages || Alloy.Globals.spinnerImages || []);
@@ -13,7 +12,7 @@ var args = arguments[0] || {};
 function applyProperties(dict) {
 	var options = _.pick(dict, ["top", "bottom", "left", "right", "width", "height", "layout", "backgroundColor", "backgroundImage", "borderColor", "borderRadius", "borderWidth"]);
 	if (!_.isEmpty(options)) {
-		$.widget.applyProperties(options);
+		$.embedded.applyProperties(options);
 	}
 	if (_.has(dict, "indicatorDict")) {
 		$.activityIndicatorImg.applyProperties(dict.indicatorDict);
@@ -34,24 +33,10 @@ function didLoad() {
 	}
 }
 
-function hide(children) {
-	if ($.activityIndicatorImg) {
-		$.activityIndicatorImg.stop();
-		$.widget.remove($.activityIndicatorImg);
-		$.activityIndicatorImg = null;
-	}
-	children = children || args.children;
-	_.each(children, function(child) {
-		if (child.__iamalloy) {
-			child = child.getView();
-		}
-		if (!child) {
-			return;
-		}
-		$.widget.add(child);
-	});
-	if (args.children) {
-		delete args.children;
+function hide(remove) {
+	$.activityIndicatorImg.stop();
+	if (remove !== false) {
+		$.embedded.getParent().remove($.embedded);
 	}
 }
 

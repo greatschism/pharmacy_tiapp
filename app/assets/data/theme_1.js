@@ -323,7 +323,7 @@ module.exports = {
 				"borderWidth" : 1,
 				"borderRadius" : 15
 			},
-			".info-negative-btn" : {
+			".info-negative-btn[platform=ios]" : {
 				"top" : 8,
 				"left" : 4,
 				"right" : 4,
@@ -338,6 +338,23 @@ module.exports = {
 				"backgroundSelectedColor" : "#ED1C24",
 				"borderColor" : "#ED1C24",
 				"borderWidth" : 1,
+				"borderRadius" : 15
+			},
+			".info-negative-btn[platform=android]" : {
+				"top" : 8,
+				"left" : 4,
+				"right" : 4,
+				"height" : 30,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 12
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#ED1C24",
+				"backgroundSelectedColor" : "#ED1C24",
+				"borderColor" : "transparent",
+				"borderWidth" : 0,
 				"borderRadius" : 15
 			},
 			".swt[platform=ios]" : {
@@ -858,6 +875,14 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
+			".content-view-vgroup-with-padding" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 24,
+				"right" : 24,
+				"height" : "auto",
+				"layout" : "vertical"
+			},
 			".content-right-swt[platform=ios]" : {
 				"right" : 12,
 				"width" : 56,
@@ -1067,9 +1092,10 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-right-btn" : {
-				"top" : 12,
-				"right" : 4,
-				"width" : 140,
+				"top" : 0,
+				"right" : 12,
+				"width" : 136,
+				"height" : 48,
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 12
@@ -1737,6 +1763,7 @@ module.exports = {
 				"horizontalWrap" : false
 			},
 			".content-group-prompt" : {
+				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "auto",
@@ -1750,6 +1777,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-reply" : {
+				"top" : 0,
 				"left" : 4,
 				"height" : "auto",
 				"width" : "auto",
@@ -1763,6 +1791,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-reply-link" : {
+				"top" : 0,
 				"left" : 4,
 				"height" : "auto",
 				"width" : "auto",
@@ -1775,7 +1804,8 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-reply-with-margin" : {
+			".content-group-reply-with-padding" : {
+				"top" : 0,
 				"left" : 16,
 				"height" : "auto",
 				"width" : "auto",
