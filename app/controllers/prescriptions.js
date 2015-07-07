@@ -75,11 +75,27 @@ function getPrescriptionList(status, callback) {
 				}
 			}]
 		},
-		success : callback || didGetPrescriptionList
+		success : callback || didGetPrescriptionList,
+		failure : callback || didGetPrescriptionList
 	});
 }
 
 function didGetPrescriptionList(result, passthrough) {
+	/**
+	 * check whether it is a success call
+	 * since no prescriptions found is considered as a error and data is null
+	 * set prescriptions node to empty array in order to reset the list view
+	 */
+	if (!result.data) {
+		//ignore when list is already empty
+		if (!Alloy.Collections.prescriptions.length) {
+			return false;
+		}
+		//this resets the list populated already
+		result.data = {
+			prescriptions : []
+		};
+	}
 	//process data from server
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//reset section / row data
@@ -164,12 +180,22 @@ function didGetPrescriptionList(result, passthrough) {
 			var dueInDays = 0,
 			    section = "others",
 			    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
+			/**
+			 * keep the swipe options out (masterDetailWithLIcon - is picked)
+			 * when selectable is true
+			 */
 			if (prescription.get("anticipated_refill_date")) {
+				/**
+				 * if  anticipated_refill_date is <= Alloy.CFG.prescription_ready_for_refill - move to ready for refill
+				 * */
 				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
 				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
 				if (dueInDays <= Alloy.CFG.prescription_ready_for_refill) {
 					section = "readyRefill";
-					//prevent any actions when args.selectable is true
+					/**
+					 * prevent any actions on list when selectable is true, use masterDetailWithLIcon only
+					 * show auto hide button when anticipated_refill_date - current date  <= Alloy.CFG.prescription_auto_hide
+					 */
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
 						template = "masterDetailBtn";
 						prescription.set({
@@ -177,6 +203,7 @@ function didGetPrescriptionList(result, passthrough) {
 						});
 					} else {
 						var dueInDaysAbs = Math.abs(dueInDays);
+						//if over due use negative classes
 						prescription.set({
 							detailType : dueInDays < 0 ? "negative" : "",
 							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : "prescReadyRefillLblRefillIn"],
@@ -224,8 +251,8 @@ function didGetPrescriptionList(result, passthrough) {
 		if (rows.length) {
 			var tvSection;
 			/**
-			 * otherPrescriptions - will be the last item in sections list, if data length == 0
-			 * the section header should ignored
+			 * others section - will be the last section in sections list, if data length == 0
+			 * the section header should be ignored for the same
 			 */
 			if (key == "others" && data.length === 0) {
 				tvSection = Ti.UI.createTableViewSection();
@@ -299,6 +326,16 @@ function toggleSearch() {
 }
 
 function didGetHiddenPrescriptions(result, passthrough) {
+	/**
+	 * same callback is used for both success and failure
+	 * ignore when data is null
+	 */
+	if (!result.data) {
+		return false;
+	}
+	/**
+	 * wrap required properties to prescription object
+	 */
 	var hPrescriptions = result.data.prescriptions;
 	_.each(hPrescriptions, function(prescription) {
 		_.extend(prescription, {
