@@ -318,12 +318,11 @@ module.exports = {
 				"color" : "#000000",
 				"selectedColor" : "#000000",
 				"backgroundColor" : "#EEEEF3",
-				"backgroundSelectedColor" : "#EEEEF3",
 				"borderColor" : "#EEEEF3",
 				"borderWidth" : 1,
 				"borderRadius" : 15
 			},
-			".info-negative-btn[platform=ios]" : {
+			".info-negative-btn" : {
 				"top" : 8,
 				"left" : 4,
 				"right" : 4,
@@ -335,26 +334,7 @@ module.exports = {
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "#ED1C24",
-				"backgroundSelectedColor" : "#ED1C24",
 				"borderColor" : "#ED1C24",
-				"borderWidth" : 1,
-				"borderRadius" : 15
-			},
-			".info-negative-btn[platform=android]" : {
-				"top" : 8,
-				"left" : 4,
-				"right" : 4,
-				"height" : 30,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 12
-				},
-				"color" : "#FFFFFF",
-				"selectedColor" : "#FFFFFF",
-				"backgroundColor" : "#ED1C24",
-				"backgroundSelectedColor" : "#ED1C24",
-				"borderColor" : "transparent",
-				"borderWidth" : 0,
 				"borderRadius" : 15
 			},
 			".swt[platform=ios]" : {
@@ -883,24 +863,8 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-right-swt[platform=ios]" : {
-				"right" : 12,
-				"width" : 56,
-				"height" : 36,
-				"tintColor" : "#A7A7A7",
-				"onTintColor" : "#38E780",
-				"backgroundColor" : "#A7A7A7",
-				"borderRadius" : 16
-			},
-			".content-right-swt[platform=android]" : {
-				"right" : 12,
-				"width" : 56,
-				"height" : 36,
-				"trackTintColorOn" : "#4BD763",
-				"trackTintColorOff" : "#A7A7A7",
-				"thumbTintColorOn" : "#FFFFFF",
-				"thumbTintColorOff" : "#FFFFFF",
-				"backgroundSelectedColor" : "transparent"
+			".content-right-swt" : {
+				"right" : 12
 			},
 			".content-view-with-rswt" : {
 				"top" : 12,
@@ -1489,6 +1453,25 @@ module.exports = {
 				"width" : "50%",
 				"height" : "auto",
 				"layout" : "vertical"
+			},
+			".content-detail-btn" : {
+				"maxWidth" : 90
+			},
+			".content-detail-secondary-btn" : {
+				"right" : 0,
+				"height" : 40,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#F7941E",
+				"selectedColor" : "#F7941E",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF",
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1,
+				"bubbleParent" : false
 			},
 			".content-detail-title" : {
 				"left" : 8,

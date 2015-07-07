@@ -51,14 +51,14 @@
 			<View class="content-view-with-rswt">
 				<Widget id="remindMeLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="remindMeSwt" src="ti.switch" class="content-right-swt" />
+			<Widget id="remindMeSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
 		<View class="h-divider" />
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
 				<Widget id="timeLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="timeSwt" src="ti.switch" class="content-right-swt" />
+			<Widget id="timeSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
 		<View class="content-header-view">
 			<Label id="informationLbl" class="content-header-lbl" />

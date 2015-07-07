@@ -1,0 +1,13 @@
+<Alloy>
+	<TableViewRow id="row" class="row-selection-disabled">
+		<View id="contentView" class="content-view">
+			<View id="masterView" class="content-master-view-55">
+				<Label id="titleLbl" class="content-title" />
+				<Label id="subtitleLbl" class="content-subtitle" />
+			</View>
+			<View id="detailView" class="content-detail-view-45">
+				<Button id="detailBtn" class="content-detail-btn" onClick="didClickDetail" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

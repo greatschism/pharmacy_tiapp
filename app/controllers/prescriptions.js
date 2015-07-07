@@ -151,24 +151,23 @@ function didGetPrescriptionList(result, passthrough) {
 			break;
 		default:
 			var dueInDays = 0,
-			    section = "otherPrescriptions";
+			    section = "otherPrescriptions",
+			    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
 			if (prescription.get("anticipated_refill_date")) {
 				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
 				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
 				if (dueInDays <= Alloy.CFG.prescription_ready_for_refill_in_days) {
 					section = "readyForRefill";
-					prescription.set("detailType", dueInDays < 0 ? "negative" : "");
-					var dueInDaysAbs = Math.abs(dueInDays);
-					//prevent swipe options when args.selectable is true
+					//prevent any actions when args.selectable is true
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide_in_days) {
+						template = "masterDetailBtn";
 						prescription.set({
-							detailTitle : strings.msgOverdueBy + " " + dueInDaysAbs + " " + strings.strDays,
-							detailSubtitle : strings.lblSwipeLeftToHide,
-							masterWidth : 55,
-							detailWidth : 45
+							detailTitle : strings.lblHide
 						});
 					} else {
+						var dueInDaysAbs = Math.abs(dueInDays);
 						prescription.set({
+							detailType : dueInDays < 0 ? "negative" : "",
 							detailTitle : strings[dueInDays < 0 ? "msgOverdueBy" : "msgRefillIn"],
 							detailSubtitle : dueInDaysAbs + " " + strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
 						});
@@ -189,9 +188,9 @@ function didGetPrescriptionList(result, passthrough) {
 				canHide : true,
 				section : section,
 				due_in_days : dueInDays,
-				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number")),
-				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable",
-				options : swipeOptions
+				options : swipeOptions,
+				itemTemplate : template,
+				subtitle : strings.strRxPrefix.concat(prescription.get("rx_number"))
 			});
 		}
 		var sectionId = prescription.get("section"),
@@ -199,8 +198,13 @@ function didGetPrescriptionList(result, passthrough) {
 		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		prescription.set("filterText", filterText);
 		var row = Alloy.createController("itemTemplates/".concat(itemTemplate), prescription.toJSON());
-		if (itemTemplate == "masterDetailSwipeable") {
+		switch(itemTemplate) {
+		case "masterDetailSwipeable":
 			row.on("clickoption", didClickSwipeOption);
+			break;
+		case "masterDetailBtn":
+			row.on("clickdetail", hidePrescription);
+			break;
 		}
 		filters[sectionId] += filterText;
 		sections[sectionId].push(row);
@@ -208,7 +212,16 @@ function didGetPrescriptionList(result, passthrough) {
 	var data = [];
 	_.each(sections, function(rows, key) {
 		if (rows.length) {
-			var tvSection = $.uihelper.createTableViewSection($, strings["section".concat($.utilities.ucfirst(key, false))], filters[key]);
+			var tvSection;
+			/**
+			 * otherPrescriptions - will be the last item in sections list, if data length == 0
+			 * the section header should ignored
+			 */
+			if (key == "otherPrescriptions" && data.length == 0) {
+				tvSection = Ti.UI.createTableViewSection();
+			} else {
+				tvSection = $.uihelper.createTableViewSection($, strings["section".concat($.utilities.ucfirst(key, false))], filters[key]);
+			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});
@@ -333,25 +346,12 @@ function didClickSortClose(e) {
 }
 
 function didClickSwipeOption(e) {
-	Alloy.Globals.currentRow.touchEnd();
+	if (Alloy.Globals.currentRow) {
+		Alloy.Globals.currentRow.touchEnd();
+	}
 	switch (e.action) {
 	case 1:
-		$.http.request({
-			method : "prescriptions_hide",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					prescriptions : [{
-						id : e.data.id
-					}]
-				}]
-			},
-			keepLoader : true,
-			success : function() {
-				//refresh list
-				getPrescriptionList();
-			}
-		});
+		hidePrescription(e);
 		break;
 	case 2:
 		$.app.navigator.open({
@@ -364,6 +364,25 @@ function didClickSwipeOption(e) {
 		});
 		break;
 	}
+}
+
+function hidePrescription(e) {
+	$.http.request({
+		method : "prescriptions_hide",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				prescriptions : [{
+					id : e.data.id
+				}]
+			}]
+		},
+		keepLoader : true,
+		success : function() {
+			//refresh list
+			getPrescriptionList();
+		}
+	});
 }
 
 function didClickTableView(e) {

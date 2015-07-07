@@ -55,10 +55,30 @@ function didPostlayout(e) {
 		if (stopListening) {
 			view.removeEventListener("postlayout", didPostlayout);
 			if (isExpanded()) {
-				$.widget.height = masterHeight + detailHeight;
+				$.widget.addEventListener("postlayout", didPostlayoutWidget);
+				$.widget.height = Ti.UI.SIZE;
 			}
 		}
 	}
+}
+
+function didPostlayoutWidget(e) {
+	var height = $.widget.rect.height;
+	/**
+	 * On Android - postlayout may not have right height
+	 * when detail / content height is async view, still loading and height is more than master view's height
+	 */
+	if (!height || OS_ANDROID) {
+		var blob = $.widget.toImage();
+		height = blob.height;
+		blob = null;
+		if (OS_ANDROID) {
+			height /= Ti.Platform.displayCaps.logicalDensityFactor;
+		}
+	}
+	$.widget.removeEventListener("postlayout", didPostlayoutWidget);
+	detailHeight = height - masterHeight;
+	$.widget.height = height;
 }
 
 function applyProperties(dict) {

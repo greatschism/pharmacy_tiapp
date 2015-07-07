@@ -139,11 +139,6 @@ module.exports = {
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
-	".content-right-swt[platform=android]" : {
-		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
-		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
-		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
-	},
 	".content-child-icon" : {
 		"text" : "Alloy.CFG.icons.thin_arrow_right"
 	},
@@ -159,7 +154,7 @@ module.exports = {
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",
-		"clearIconText" : "Alloy.CFG.icons.cancel"
+		"clearIconText" : "Alloy.CFG.icons.filled_cancel"
 	},
 	".txt-ricon-help" : {
 		"rightIconText" : "Alloy.CFG.icons.help",
