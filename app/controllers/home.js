@@ -109,9 +109,9 @@ function create(dict) {
 		if (_.has(properties, "icon")) {
 			properties.text = icons[properties.icon];
 		} else if (_.has(properties, "textid")) {
-			properties.text = Alloy.Globals.strings[properties.textid];
+			properties.text = $.strings[properties.textid];
 		} else if (_.has(properties, "titleid")) {
-			properties.title = Alloy.Globals.strings[properties.titleid];
+			properties.title = $.strings[properties.titleid];
 		}
 		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
 	}
@@ -177,7 +177,7 @@ function didItemClick(e) {
 		if (navigation.requires_login && !Alloy.Globals.isLoggedIn) {
 			$.app.navigator.open({
 				ctrl : "login",
-				titleid : "strSignin",
+				titleid : "titleLogin",
 				ctrlArguments : {
 					navigation : navigation
 				}
@@ -197,7 +197,7 @@ function didItemClick(e) {
 function didClickRightNav(e) {
 	$.app.navigator.open({
 		ctrl : "login",
-		titleid : "strSignin",
+		titleid : "titleLogin",
 	});
 }
 

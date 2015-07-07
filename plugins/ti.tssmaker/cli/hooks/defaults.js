@@ -131,7 +131,7 @@ module.exports = {
 	},
 	".loader-embedded" : {
 		"indicatorDict" : {
-			"accessibilityLabel" : "Alloy.Globals.strings.msgPleaseWait"
+			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
 		}
 	},
 	".swt[platform=android]" : {
@@ -159,7 +159,7 @@ module.exports = {
 	".txt-ricon-help" : {
 		"rightIconText" : "Alloy.CFG.icons.help",
 		"rightIconAccessibility" : {
-			"accessibilityLabel" : "Alloy.Globals.strings.accessibilityLblHelp"
+			"accessibilityLabel" : "Alloy.Globals.strings.iconAccessibilityLblHelp"
 		}
 	},
 	".tooltip-down" : {

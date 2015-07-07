@@ -7,8 +7,8 @@ function init() {
 	$.addClass($.refillsLeftBtn, [refillsLeft > Alloy.CFG.prescription_negative_refills_left ? "info-btn" : "info-negative-btn"], {
 		title : refillsLeft
 	});
-	$.dueBtn.title = args.anticipated_refill_date ? moment(args.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : Alloy.Globals.strings.strNil;
-	$.lastRefillBtn.title = args.latest_sold_date ? moment(args.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : Alloy.Globals.strings.strNil;
+	$.dueBtn.title = args.anticipated_refill_date ? moment(args.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	$.lastRefillBtn.title = args.latest_sold_date ? moment(args.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	if (!_.has(args, "store")) {
 		$.http.request({
 			method : "prescriptions_get",
@@ -31,6 +31,10 @@ function init() {
 		loadDoctor();
 		loadStore();
 	}
+	/**
+	 * height has to be calculated and applied for expanable views only once the page is rendered
+	 * this may cause jerk on screen, avoid it by showing a loader on init
+	 */
 	setTimeout(hideLoader, 1000);
 }
 
@@ -40,7 +44,7 @@ function hideLoader() {
 
 function didGetPrescription(result, passthrough) {
 	_.extend(args, result.data.prescriptions[0]);
-	args.dosage_instruction_message = $.utilities.ucfirst(args.dosage_instruction_message || Alloy.Globals.strings.strNotAvailable);
+	args.dosage_instruction_message = $.utilities.ucfirst(args.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
 	$.http.request({
 		method : "doctors_get",
@@ -61,7 +65,7 @@ function didGetPrescription(result, passthrough) {
 function didGetDoctor(result, passthrough) {
 	args.doctor = {};
 	_.extend(args.doctor, result.data.doctors);
-	args.doctor.title = Alloy.Globals.strings.strDoctorPrefix.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
+	args.doctor.title = $.strings.strDoctorPrefix.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
 	loadDoctor();
 	$.http.request({
 		method : "stores_get",
@@ -118,14 +122,14 @@ function togglePrescription(e) {
 	var title,
 	    result;
 	if ($.prescExp.isExpanded()) {
-		title = "btnShowMore";
+		title = "prescDetExpand";
 		result = $.prescExp.collapse();
 	} else {
-		title = "btnShowLess";
+		title = "prescDetCollapse";
 		result = $.prescExp.expand();
 	}
 	if (result) {
-		$.toggleBtn.title = Alloy.Globals.strings[title];
+		$.toggleBtn.title = $.strings[title];
 	}
 }
 

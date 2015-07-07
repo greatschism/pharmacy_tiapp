@@ -228,7 +228,7 @@ function Navigation(args) {
 		if (that.loader == null) {
 
 			that.loader = Alloy.createWidget("ti.loading", "widget", {
-				message : message || Alloy.Globals.strings.msgPleaseWait
+				message : message || Alloy.Globals.strings.msgLoading
 			});
 		}
 	};

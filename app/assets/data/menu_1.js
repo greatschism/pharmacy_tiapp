@@ -6,18 +6,18 @@ module.exports = {
 		"requires_login" : false,
 		"landing_page" : true
 	}, {
-		"titleid" : "strPrescriptions",
+		"titleid" : "titlePrescriptions",
 		"ctrl" : "prescriptions",
 		"icon" : "thick_prescription",
 		"requires_login" : true
 	}, {
-		"titleid" : "strReminders",
+		"titleid" : "titleReminders",
 		"action" : "reminders",
 		"icon" : "thick_reminder",
 		"requires_login" : true
 	}, {
-		"titleid" : "titlePharmacyRewards",
-		"action" : "pharmacyRewards",
+		"titleid" : "titleRewards",
+		"action" : "rewards",
 		"icon" : "reward",
 		"requires_login" : true
 	}, {
@@ -39,11 +39,10 @@ module.exports = {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
 		"icon" : "thick_doctor",
-		"requires_login" : false
+		"requires_login" : true
 	}, {
-		"titleid" : "strRefillNow",
-		"action" : "refillViaCamera",
-		"ctrl" : "refill",
+		"titleid" : "titleQuickRefill",
+		"action" : "quickRefill",
 		"icon" : "refill_camera",
 		"requires_login" : false
 	}, {
@@ -55,11 +54,6 @@ module.exports = {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
 		"icon" : "thick_account",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleDrugInformation",
-		"ctrl" : "druginfo",
-		"icon" : "thick_prescription",
 		"requires_login" : false
 	}]
 };

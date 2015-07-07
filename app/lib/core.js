@@ -115,9 +115,9 @@ var App = {
 	didUpdate : function(errorQueue) {
 		if (_.isArray(errorQueue) && errorQueue.length) {
 			require("uihelper").showDialog({
-				title : Alloy.Globals.strings.titleUpdates,
-				message : Alloy.Globals.strings.msgErrorWhileUpdate,
-				buttonNames : [Alloy.Globals.strings.btnContinue]
+				title : Alloy.Globals.strings.dialogTitleUpdates,
+				message : Alloy.Globals.strings.msgAppUpdateFailed,
+				buttonNames : [Alloy.Globals.strings.dialogBtnContinue]
 			});
 		} else {
 			App.promptAndReloadConfig();
@@ -126,9 +126,9 @@ var App = {
 
 	promptAndReloadConfig : function() {
 		require("uihelper").showDialog({
-			title : Alloy.Globals.strings.titleUpdates,
+			title : Alloy.Globals.strings.dialogTitleUpdates,
 			message : Alloy.CFG.force_reload_after_update ? Alloy.Globals.strings.msgAppUpdatedForceReload : Alloy.Globals.strings.msgAppUpdatedReload,
-			buttonNames : Alloy.CFG.force_reload_after_update ? [Alloy.Globals.strings.strOK] : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
+			buttonNames : Alloy.CFG.force_reload_after_update ? [Alloy.Globals.strings.dialogBtnOK] : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 			cancelIndex : Alloy.CFG.force_reload_after_update ? -1 : 1,
 			success : App.reloadConfig
 		});

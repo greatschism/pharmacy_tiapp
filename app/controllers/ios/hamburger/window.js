@@ -5,13 +5,14 @@ var args = arguments[0] || {},
 
 (function() {
 
-	var dict = {};
+	var dict = {},
+	    strings = Alloy.Globals.strings;
 
 	if (args.navBarHidden) {
 		dict.navBarHidden = true;
 	}
 
-	dict.title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+	dict.title = args.title || strings[args.titleid || ""] || "";
 
 	$.leftNavView = Ti.UI.createView();
 
@@ -46,29 +47,21 @@ var args = arguments[0] || {},
 
 	$.window.applyProperties(dict);
 
-	controller.app = app;
-
-	controller.logger = logger;
-
-	controller.http = require("requestwrapper");
-
-	controller.httpclient = require("http");
-
-	controller.utilities = require("utilities");
-
-	controller.uihelper = require("uihelper");
-
-	controller.analytics = require("analytics");
-
-	controller.apm = require("apm");
-
-	controller.window = $.window;
-
-	controller.setRightNavButton = setRightNavButton;
-
-	controller.showNavBar = showNavBar;
-
-	controller.hideNavBar = hideNavBar;
+	_.extend(controller, {
+		app : app,
+		strings : strings,
+		logger : require("logger"),
+		http : require("requestwrapper"),
+		httpclient : require("http"),
+		utilities : require("utilities"),
+		uihelper : require("uihelper"),
+		analytics : require("analytics"),
+		apm : require("apm"),
+		window : $.window,
+		showNavBar : showNavBar,
+		hideNavBar : hideNavBar,
+		setRightNavButton : setRightNavButton,
+	});
 
 	controller.init && controller.init();
 

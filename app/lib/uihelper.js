@@ -121,7 +121,7 @@ var Helper = {
 		if (OS_IOS) {
 
 			var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
-				options : [Alloy.Globals.strings.strGoogle, Alloy.Globals.strings.strApple, Alloy.Globals.strings.strCancel],
+				options : [Alloy.Globals.strings.strGoogleMaps, Alloy.Globals.strings.strAppleMaps, Alloy.Globals.strings.dialogBtnCancel],
 				cancel : 2
 			});
 			optDialog.on("click", function didClick(evt) {
@@ -182,7 +182,7 @@ var Helper = {
 			});
 		} else {
 			_.extend(dict, {
-				ok : params.ok || Alloy.Globals.strings.strOK
+				ok : params.ok || Alloy.Globals.strings.dialogBtnOK
 			});
 		}
 		if (OS_IOS && _.has(params, "style")) {

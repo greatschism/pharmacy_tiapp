@@ -6,7 +6,7 @@
 			<Label id="sortLbl" class="content-header-lbl" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="sortCloseBtn" class="margin-top margin-bottom secondary-btn close" onClick="didClickSortClose" />
+			<Button id="sortCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortClose" />
 		</View>
 	</Widget>
 	<Widget id="unhidePicker" src="ti.optionpicker" class="optionpicker">
@@ -19,7 +19,7 @@
 		</View>
 		<View class="auto-height vgroup role-footer-view">
 			<Button id="unhideBtn" class="margin-top primary-btn"onClick="didClickUnhide"  />
-			<Button id="unhideCloseBtn" class="margin-top margin-bottom secondary-btn close" onClick="didClickUnhideClose" />
+			<Button id="unhideCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
 	<View id="searchbar" class="top search-bar fade-out">

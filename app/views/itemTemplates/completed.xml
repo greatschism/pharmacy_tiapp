@@ -4,7 +4,7 @@
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="content-title" />
 				<View class="content-subtitle-view">
-					<Label class="content-subtitle-positive-icon icon-filled-success" />
+					<Label class="content-subtitle-positive-icon icon-thin-filled-success" />
 					<Label id="subtitleLbl" class="content-subtitle-icon-description" />
 				</View>
 			</View>

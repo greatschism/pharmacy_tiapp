@@ -4,6 +4,8 @@ var args = arguments[0] || {},
 
 (function() {
 
+	var strings = Alloy.Globals.strings;
+
 	$.window = app.navigator.rootWindow;
 
 	$.actionBar = $.window.getActivity().actionBar;
@@ -14,7 +16,7 @@ var args = arguments[0] || {},
 		showNavBar();
 	}
 
-	var title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+	var title = args.title || strings[args.titleid || ""] || "";
 
 	$.window.title = title;
 
@@ -60,29 +62,21 @@ var args = arguments[0] || {},
 		setRightNavButton();
 	}
 
-	controller.app = app;
-
-	controller.logger = require("logger");
-
-	controller.http = require("requestwrapper");
-
-	controller.httpclient = require("http");
-
-	controller.utilities = require("utilities");
-
-	controller.uihelper = require("uihelper");
-
-	controller.analytics = require("analytics");
-
-	controller.apm = require("apm");
-
-	controller.window = $.window;
-
-	controller.setRightNavButton = setRightNavButton;
-
-	controller.showNavBar = showNavBar;
-
-	controller.hideNavBar = hideNavBar;
+	_.extend(controller, {
+		app : app,
+		strings : strings,
+		logger : require("logger"),
+		http : require("requestwrapper"),
+		httpclient : require("http"),
+		utilities : require("utilities"),
+		uihelper : require("uihelper"),
+		analytics : require("analytics"),
+		apm : require("apm"),
+		window : $.window,
+		showNavBar : showNavBar,
+		hideNavBar : hideNavBar,
+		setRightNavButton : setRightNavButton,
+	});
 
 	controller.init && controller.init();
 

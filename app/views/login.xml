@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<ImageView id="logoImg" class="margin-top" />
-		<Label id="hintLbl" class="margin-top lbl-centered-wrap" />
+		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
 		<View class="margin-top form-vgroup">
 			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
@@ -12,6 +12,6 @@
 			<Widget id="keepMeSwt" src="ti.switch" class="margin-right swt" />
 		</View>
 		<Button id="loginBtn" class="margin-top margin-bottom primary-btn" onClick="didClickLogin" />
-		<Widget id="signupLbl" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickSignup" />
+		<Widget id="createAccountLbl" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

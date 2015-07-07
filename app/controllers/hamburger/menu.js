@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
+    strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentIndex = -1,
     landingPage;
@@ -26,7 +27,7 @@ function filterFunction(collection) {
 function transformFunction(model) {
 	var transform = model.toJSON();
 	transform.icon = icons[transform.icon];
-	transform.title = Alloy.Globals.strings[transform.titleid];
+	transform.title = strings[transform.menuTitleid || transform.titleid];
 	return transform;
 }
 
@@ -43,7 +44,7 @@ function didDrawerclose(e) {
 				if (ctrlPath != "login") {
 					app.navigator.open({
 						ctrl : "login",
-						titleid : "strSignin",
+						titleid : "titleLogin",
 						ctrlArguments : {
 							navigation : itemObj
 						}
@@ -61,10 +62,10 @@ function didDrawerclose(e) {
 		Ti.Platform.openURL(url);
 	} else if (_.has(itemObj, "action")) {
 		switch(itemObj.action) {
-		case "signout":
+		case "logout":
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgSignout,
-				buttonNames : [Alloy.Globals.strings.btnYes, Alloy.Globals.strings.btnNo],
+				message : strings.msgConfirmLogout,
+				buttonNames : [strings.dialogBtnYes, strings.dialogBtnNo],
 				cancelIndex : 1,
 				success : function() {
 					http.request({
@@ -74,17 +75,13 @@ function didDrawerclose(e) {
 							Alloy.Collections.menuItems.remove(model);
 							app.navigator.open(landingPage);
 							uihelper.showDialog({
-								message : Alloy.Globals.strings.msgSignedoutSuccessfully
+								message : strings.msgLoggedout
 							});
 						}
 					});
 				}
 			});
 			break;
-		default:
-			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgUnderConstruction
-			});
 		}
 	}
 	currentIndex = -1;

@@ -35,8 +35,8 @@
             "switch_on": "0xE001",
             "switch_off": "0xE002",
             "health_care": "0xE003",
-            "sign_in": "0xE004",
-            "sign_out": "0xE005"
+            "login": "0xE004",
+            "logout": "0xE005"
         },
         "icons": {
             "numeric_zero": "0",

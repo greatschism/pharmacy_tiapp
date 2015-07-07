@@ -1,9 +1,9 @@
-"#orderLbl":{
-	text: Alloy.Globals.strings.sectionYourOrder
+"#orderListLbl":{
+	text: Alloy.Globals.strings.orderDetSectionList
 },
 "#pickupLbl":{
-	text: Alloy.Globals.strings.sectionPickupDetails
+	text: Alloy.Globals.strings.orderDetSectionPickup
 },
 "#orderRefillBtn":{
-	title: Alloy.Globals.strings.btnOrderRefill
+	title: Alloy.Globals.strings.orderDetBtnRefill
 }

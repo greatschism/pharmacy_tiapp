@@ -1,8 +1,8 @@
 "#searchTxt":{
-	hintText:Alloy.Globals.strings.hintSearchByPrescriptionName
+	hintText:Alloy.Globals.strings.prescHintSearch
 },
 "#optionsMenu":{
-	options: [Alloy.Globals.strings.menuSearch, Alloy.Globals.strings.menuSort, Alloy.Globals.strings.menuUnhidePrescriptions, Alloy.Globals.strings.menuRefresh, Alloy.Globals.strings.strCancel],
+	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuSort, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.prescOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 4
 },
 "#sortPicker":{
@@ -11,23 +11,23 @@
 	titleProperty : "code_display"
 },
 "#sortLbl":{
-	text: Alloy.Globals.strings.sectionSort
+	text: Alloy.Globals.strings.prescPopupSectionSort
 },
 "#sortCloseBtn":{
-	title: Alloy.Globals.strings.btnClose
+	title: Alloy.Globals.strings.prescPopupSortBtnClose
 },
 "#unhidePicker":{
 	template: "itemTemplates/masterDetailWithLIcon"
 },
 "#selectNoneBtn":{
-	title: Alloy.Globals.strings.btnSelectNone
+	title: Alloy.Globals.strings.prescPopupUnhideBtnNone
 },
 "#selectAllBtn":{
-	title: Alloy.Globals.strings.lblSelectAll
+	title: Alloy.Globals.strings.prescPopupUnhideBtnAll
 },
 "#unhideBtn":{
-	title: Alloy.Globals.strings.btnUnhide
+	title: Alloy.Globals.strings.prescPopupUnhideBtnUnhide
 },
-".close":{
-	title: Alloy.Globals.strings.btnClose
+"#unhideCloseBtn":{
+	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
 }

@@ -69,10 +69,10 @@ exports.init = function(logger, config, cli, appc) {
 	 * 	examples
 	 * 	  icon name - thick_doctor
 	 *    	class name will be - .icon-thick-doctor
-	 *    	accessibility key in language string should be - accessibilityLblThickDoctor or accessibilityLblDoctor (considered only if accessibilityLblThickDoctor is not found)
+	 *    	accessibility key in language string should be - iconAccessibilityLblThickDoctor or iconAccessibilityLblDoctor (considered only if iconAccessibilityLblThickDoctor is not found)
 	 * 	  icon name - thin_unfilled_success
 	 *    	class name will be - .icon-thin-unfilled-success
-	 *    	accessibility key in language string should be - accessibilityLblThinUnfilledSuccess or accessibilityLblUnfilledSuccess or accessibilityLblSuccess
+	 *    	accessibility key in language string should be - iconAccessibilityLblThinUnfilledSuccess or iconAccessibilityLblUnfilledSuccess or iconAccessibilityLblSuccess
 	 */
 	function processIcons(desObj, icons, strings) {
 		for (var icn in icons) {
@@ -86,7 +86,7 @@ exports.init = function(logger, config, cli, appc) {
 				return $1.toUpperCase();
 			}),
 			    prefix = "Alloy.Globals.strings.",
-			    accessiblityKey = "accessibilityLbl" + name;
+			    accessiblityKey = "iconAccessibilityLbl" + name;
 			if (strings[accessiblityKey]) {
 				desObj[className].accessibilityLabel = prefix + accessiblityKey;
 			} else {

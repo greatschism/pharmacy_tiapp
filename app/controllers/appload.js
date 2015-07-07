@@ -1,10 +1,10 @@
 var app = require("core"),
-    notificationHandler = require("notificationHandler"),
     config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     localization = require("localization"),
+    notificationHandler = require("notificationHandler"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -12,7 +12,7 @@ function didOpen(e) {
 	config.load();
 	$.loader.applyProperties({
 		indicatorDict : {
-			accessibilityLabel : Alloy.Globals.strings.msgPleaseWait
+			accessibilityLabel : strings.msgLoading
 		}
 	});
 	notificationHandler.init(deviceReady);
@@ -73,9 +73,9 @@ function didSuccess(result) {
 
 function confirmUpdate() {
 	uihelper.showDialog({
-		title : strings.titleUpdates,
+		title : strings.dialogTitleUpdates,
 		message : strings.msgAppUpdateFound,
-		buttonNames : [strings.btnYes, strings.btnNo],
+		buttonNames : [strings.dialogBtnYes, strings.dialogBtnNo],
 		cancelIndex : 1,
 		success : startUpdate,
 		cancel : initMasterWindow
@@ -100,9 +100,9 @@ function loadConfig(errorQueue) {
 	if (_.isArray(errorQueue) && errorQueue.length) {
 		hideLoader();
 		uihelper.showDialog({
-			title : strings.titleUpdates,
-			message : strings.msgErrorWhileUpdate,
-			buttonNames : [strings.btnContinue],
+			title : strings.dialogTitleUpdates,
+			message : strings.msgAppUpdateFailed,
+			buttonNames : [strings.dialogBtnContinue],
 			success : initMasterWindow
 		});
 	} else {

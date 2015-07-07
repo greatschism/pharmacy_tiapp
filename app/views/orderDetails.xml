@@ -3,7 +3,7 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">
-					<Label id="orderLbl" class="content-header-lbl-with-ricon" />
+					<Label id="orderListLbl" class="content-header-lbl-with-ricon" />
 					<Button id="addBtn" class="content-header-right-icon icon-add" />
 				</View>
 			</HeaderView>

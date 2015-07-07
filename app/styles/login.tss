@@ -1,8 +1,8 @@
-"#hintLbl":{
-	text: Alloy.Globals.strings.lblSigninToMobilePharmacy
+"#titleLbl":{
+	text: Alloy.Globals.strings.loginLblTitle
 },
 "#unameTxt":{
-	hintText: Alloy.Globals.strings.hintEmailAddress,
+	hintText: Alloy.Globals.strings.loginHintUsername,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
@@ -11,13 +11,13 @@
 },
 "#keepMeLbl":{
 	right: 60,
-	text: Alloy.Globals.strings.lblKeepMeLoggedIn
+	text: Alloy.Globals.strings.loginLblRememberMe
 },
 "#loginBtn":{
-	title: Alloy.Globals.strings.strSignin
+	title: Alloy.Globals.strings.loginBtnLogin
 },
-"#signupLbl":{
-	html: Alloy.Globals.strings.lblNeedToCreateAccount
+"#createAccountLbl":{
+	html: Alloy.Globals.strings.loginLnkCreateAccount
 },
 "#keepMeSwt[platform=android]":{
 	accessibilityLabelOn: Alloy.Globals.strings.accessibilityLblSwitchOn,

@@ -36,13 +36,13 @@ function didClickLogin(e) {
 	    password = $.passwordTxt.getValue();
 	if (!uname) {
 		$.uihelper.showDialog({
-			message : Alloy.Globals.strings.valUsernameRequired
+			message : $.strings.loginValUsername
 		});
 		return;
 	}
 	if (!password) {
 		$.uihelper.showDialog({
-			message : Alloy.Globals.strings.valPasswordRequired
+			message : $.strings.loginValPassword
 		});
 		return;
 	}
@@ -92,9 +92,9 @@ function didAuthenticate(result) {
 	});
 	Alloy.Models.patient.set(result.data.patients);
 	Alloy.Collections.menuItems.add({
-		titleid : "strSignout",
-		action : "signout",
-		icon : "sign_out"
+		titleid : "titleLogout",
+		action : "logout",
+		icon : "logout"
 	});
 	$.http.request({
 		method : "patient_get",

@@ -29,7 +29,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
 								"properties" : {
-									"textid" : "strPrescriptions"
+									"textid" : "titlePrescriptions"
 								}
 							}]
 						}],
@@ -53,7 +53,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
 								"properties" : {
-									"textid" : "strRefillNow"
+									"textid" : "titleQuickRefill"
 								}
 							}]
 						}],

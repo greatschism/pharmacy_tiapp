@@ -35,7 +35,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"textid" : "strPrescriptions"
+									"textid" : "titlePrescriptions"
 								}
 							}]
 						}]
@@ -61,7 +61,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"textid" : "strRefillNow"
+									"textid" : "titleQuickRefill"
 								}
 							}]
 						}]
@@ -87,7 +87,7 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"textid" : "strReminders"
+									"textid" : "titleReminders"
 								}
 							}]
 						}]

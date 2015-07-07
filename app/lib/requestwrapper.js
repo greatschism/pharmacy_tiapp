@@ -33,7 +33,7 @@ function request(args) {
 
 	if (args.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.showLoader(args.loaderMessage || Alloy.Globals.strings.msgPleaseWait);
+			app.navigator.showLoader(args.loaderMessage || Alloy.Globals.strings.msgLoading);
 		}
 		if (args.showLoaderCallback) {
 			args.showLoaderCallback();
@@ -75,11 +75,11 @@ function didSuccess(result, passthrough) {
 	if (result.code !== Alloy.CFG.apiCodes.success_code) {
 		if (passthrough.errorDialogEnabled !== false) {
 			if (passthrough.forceRetry === true) {
-				passthrough.failureMessage = result.message || Alloy.Globals.strings.msgSomethingWentWrong;
+				passthrough.failureMessage = result.message || Alloy.Globals.strings.msgUnknownError;
 				return didFail(result, passthrough);
 			}
 			uihelper.showDialog({
-				message : result.message || Alloy.Globals.strings.msgSomethingWentWrong
+				message : result.message || Alloy.Globals.strings.msgUnknownError
 			});
 		}
 		hideLoader(passthrough);
@@ -105,8 +105,8 @@ function didFail(error, passthrough) {
 			passthrough.hideLoaderCallback();
 		}
 		uihelper.showDialog({
-			message : passthrough.failureMessage || Alloy.Globals.strings.msgFailedToRetrieve,
-			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.btnRetry] : [Alloy.Globals.strings.btnRetry, Alloy.Globals.strings.strCancel]) : [Alloy.Globals.strings.strOK],
+			message : passthrough.failureMessage || Alloy.Globals.strings.msgNetworkError,
+			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
 				if (Alloy.CFG.encryption_enabled) {

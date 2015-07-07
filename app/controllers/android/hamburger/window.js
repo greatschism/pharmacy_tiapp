@@ -5,7 +5,9 @@ var args = arguments[0] || {},
 
 (function() {
 
-	$.window.title = args.title || Alloy.Globals.strings[args.titleid || ""] || "";
+	var strings = Alloy.Globals.strings;
+
+	$.window.title = args.title || strings[args.titleid || ""] || "";
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
@@ -28,29 +30,21 @@ var args = arguments[0] || {},
 		}
 	});
 
-	controller.app = app;
-
-	controller.logger = require("logger");
-
-	controller.http = require("requestwrapper");
-
-	controller.httpclient = require("http");
-
-	controller.utilities = require("utilities");
-
-	controller.uihelper = require("uihelper");
-
-	controller.analytics = require("analytics");
-
-	controller.apm = require("apm");
-
-	controller.window = $.window;
-
-	controller.setRightNavButton = setRightNavButton;
-
-	controller.showNavBar = showNavBar;
-
-	controller.hideNavBar = hideNavBar;
+	_.extend(controller, {
+		app : app,
+		strings : strings,
+		logger : require("logger"),
+		http : require("requestwrapper"),
+		httpclient : require("http"),
+		utilities : require("utilities"),
+		uihelper : require("uihelper"),
+		analytics : require("analytics"),
+		apm : require("apm"),
+		window : $.window,
+		showNavBar : showNavBar,
+		hideNavBar : hideNavBar,
+		setRightNavButton : setRightNavButton,
+	});
 
 	controller.init && controller.init();
 

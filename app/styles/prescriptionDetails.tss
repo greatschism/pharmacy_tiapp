@@ -1,50 +1,50 @@
 "#toggleBtn":{
-	title: Alloy.Globals.strings.btnShowMore
+	title: Alloy.Globals.strings.prescDetExpand
 },
 "#refillsLeftLbl":{
-	text: Alloy.Globals.strings.strRefillsLeft
+	text: Alloy.Globals.strings.prescDetInfoRefillsLeft
 },
 "#dueLbl":{
-	text: Alloy.Globals.strings.strDueForRefill
+	text: Alloy.Globals.strings.prescDetInfoDueOn
 },
 "#lastRefillLbl":{
-	text: Alloy.Globals.strings.lblLastRefilled
+	text: Alloy.Globals.strings.prescDetInfoLastRefilled
 },
 "#refillBtn":{
-	title: Alloy.Globals.strings.btnRefillPrescription
+	title: Alloy.Globals.strings.prescDetBtnRefill
 },
 "#prescAsyncContentView":{
 	top: 0
 },
 "#noPromptLbl":{
-	text: Alloy.Globals.strings.lblPrescriptionNumber
+	text: Alloy.Globals.strings.prescDetPromptRxNumber
 },
 "#expiryPromptLbl":{
-	text: Alloy.Globals.strings.lblExpirationDate
+	text: Alloy.Globals.strings.prescDetPromptExpirationDate
 },
 "#doctorPromptLbl":{
-	text: Alloy.Globals.strings.lblDoctor
+	text: Alloy.Globals.strings.prescDetPromptDoctor
 },
 "#storePromptLbl":{
-	text: Alloy.Globals.strings.lblPharmacy
+	text: Alloy.Globals.strings.prescDetPromptStore
 },
 "#remindersLbl":{
-	text: Alloy.Globals.strings.sectionReminders
+	text: Alloy.Globals.strings.prescDetSectionReminders
 },
 "#remindMeLbl":{
-	html: Alloy.Globals.strings.lblRemindMeRefillMedication
+	html: Alloy.Globals.strings.prescDetLblRemindMeRefill
 },
 "#timeLbl":{
-	html: Alloy.Globals.strings.lblSetTimeToTakeMedication
+	html: Alloy.Globals.strings.prescDetLblRemindMeTake
 },
 "#informationLbl":{
-	text: Alloy.Globals.strings.sectionInformation
+	text: Alloy.Globals.strings.prescDetSectionInformation
 },
 "#historyLbl":{
-	text: Alloy.Globals.strings.strRefillHistory
+	text: Alloy.Globals.strings.prescDetLblHistory
 },
 "#instructionLbl":{
-	text: Alloy.Globals.strings.lblDosageInstruction
+	text: Alloy.Globals.strings.prescDetLblInstruction
 },
 "#instructionAsyncView":{
 	top: 0
@@ -54,5 +54,5 @@
 	right: 0
 },
 "#hideBtn":{
-	title: Alloy.Globals.strings.btnHideThisPrescription
+	title: Alloy.Globals.strings.prescDetBtnHide
 }
