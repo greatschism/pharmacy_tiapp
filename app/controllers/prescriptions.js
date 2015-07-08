@@ -58,7 +58,7 @@ function didGetSortOrderPreferences(result) {
 }
 
 function getPrescriptionList(status, callback) {
-	//reset filters if any
+	//reset search if any
 	if ($.searchTxt.getValue()) {
 		$.searchTxt.setValue("");
 		$.tableView.filterText = "";
@@ -106,21 +106,35 @@ function didGetPrescriptionList(result, passthrough) {
 		others : []
 	};
 	//loop data for rows
-	var filters = {
+	var sectionHeaders = {
 		readyPickup : "",
 		inProgress : "",
 		readyRefill : "",
 		others : ""
 	},
 	    currentDate = moment(),
-	    statuses = (args.filter || {}).refill_status || [],
-	    ids = (args.filter || {}).ids || [];
+	    filters = (args.filters || {});
+	/**
+	 * we keep all the returned prescriptions in collection
+	 * filters are applied to determine whether it has to be displayed on screen
+	 * still the prescription object that doesn't pass the filter validation will be available in the collection
+	 */
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
-		 *	Exclude refill_status that are not present in filter
-		 * 	Exclude id that is present in filter
+		 *	exclude anything that matches with filter
+		 *  example
+		 * 		filters:{
+		 * 			id: [1,2],
+		 * 			refill_status: ["Ready","In Process"]
+		 * 		}
 		 */
-		if (_.has(args, "filter") && (_.indexOf(statuses, prescription.get("refill_status")) == -1 || _.indexOf(ids, prescription.get("id")) != -1)) {
+		var proceed = true;
+		_.each(filters, function(filter, key) {
+			if (_.indexOf(filter, prescription.get(key)) !== -1) {
+				proceed = false;
+			}
+		});
+		if (!proceed) {
 			return false;
 		}
 		/**
@@ -151,7 +165,7 @@ function didGetPrescriptionList(result, passthrough) {
 				subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
 				progress = Math.floor((timeSpent / totalTime) * 100);
 			} else {
-				subtitle = $.strings.strRxPrefix.concat(prescription.get("rx_number"));
+				subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
 				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_after_x_hours : Alloy.CFG.prescription_progress_before_x_hours;
 			}
 			prescription.set({
@@ -227,7 +241,7 @@ function didGetPrescriptionList(result, passthrough) {
 				section : section,
 				options : swipeOptions,
 				itemTemplate : template,
-				subtitle : $.strings.strRxPrefix.concat(prescription.get("rx_number"))
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number"))
 			});
 		}
 		var sectionId = prescription.get("section"),
@@ -243,7 +257,7 @@ function didGetPrescriptionList(result, passthrough) {
 			row.on("clickdetail", hidePrescription);
 			break;
 		}
-		filters[sectionId] += filterText;
+		sectionHeaders[sectionId] += filterText;
 		sections[sectionId].push(row);
 	});
 	var data = [];
@@ -257,7 +271,7 @@ function didGetPrescriptionList(result, passthrough) {
 			if (key == "others" && data.length === 0) {
 				tvSection = Ti.UI.createTableViewSection();
 			} else {
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], filters[key]);
+				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key]);
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -266,6 +280,13 @@ function didGetPrescriptionList(result, passthrough) {
 		}
 	});
 	$.tableView.setData(data);
+	/*
+	 *  reset the swipe flag
+	 *  once a fresh list is loaded
+	 *  not resetting this block further swipe actions
+	 */
+	Alloy.Globals.swipeInProgress = false;
+	Alloy.Globals.currentRow = null;
 }
 
 function didChangeSearch(e) {
@@ -299,8 +320,9 @@ function toggleSearch() {
 	var top = 0,
 	    opacity = 0;
 	if ($.tableView.top == top) {
-		top = $.searchbar.size.height;
 		opacity = 1;
+		top = $.searchbar.size.height;
+		$.searchbar.visible = true;
 	}
 	var sAnim = Ti.UI.createAnimation({
 		opacity : opacity,
@@ -309,6 +331,9 @@ function toggleSearch() {
 	sAnim.addEventListener("complete", function onComplete() {
 		sAnim.removeEventListener("complete", onComplete);
 		$.searchbar.opacity = opacity;
+		if (!opacity) {
+			$.searchbar.visible = false;
+		}
 	});
 	$.searchbar.animate(sAnim);
 	var tAnim = Ti.UI.createAnimation({
@@ -342,7 +367,7 @@ function didGetHiddenPrescriptions(result, passthrough) {
 			masterWidth : 100,
 			detailWidth : 0,
 			title : $.utilities.ucword(prescription.presc_name),
-			subtitle : $.strings.strRxPrefix.concat(prescription.rx_number)
+			subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
 		});
 	});
 	$.unhidePicker.setItems(hPrescriptions);

@@ -1,12 +1,3 @@
-"#toggleBtn":{
-	title: Alloy.CFG.icons.map
-},
-"#searchbar":{
-	hintText: Alloy.Globals.strings.hintSearchByZipCityOrState
-},
-"#mapView":{
-	animate: true,
-	regionFit: true,
-	userLocation: true,
-	fragmentOnly: true
+"#searchTxt":{
+	hintText: Alloy.Globals.strings.storeHintSearch
 }

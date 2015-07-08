@@ -65,7 +65,7 @@ function didGetPrescription(result, passthrough) {
 function didGetDoctor(result, passthrough) {
 	args.doctor = {};
 	_.extend(args.doctor, result.data.doctors);
-	args.doctor.title = $.strings.strDoctorPrefix.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
+	args.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
 	loadDoctor();
 	$.http.request({
 		method : "stores_get",
@@ -137,14 +137,16 @@ function toggleInstruction(e) {
 	var classes,
 	    result;
 	if ($.instructionExp.isExpanded()) {
-		classes = ["content-down-icon"];
+		classes = ["icon-thin-arrow-down"];
 		result = $.instructionExp.collapse();
 	} else {
-		classes = ["content-up-icon"];
+		classes = ["icon-thin-arrow-up"];
 		result = $.instructionExp.expand();
 	}
 	if (result) {
-		$.resetClass($.arrowLbl, classes);
+		$.arrowLbl.applyProperties($.createStyle({
+			classes : classes
+		}));
 	}
 }
 

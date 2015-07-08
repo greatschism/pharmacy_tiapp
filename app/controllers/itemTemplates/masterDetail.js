@@ -14,27 +14,25 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	$.row.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	if (args.filterText) {
-		$.row[Alloy.Globals.filterAttribute] = args.filterText;
-	}
-	$.row.height = CONSTS.height;
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
-	$.detailTitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "title"],
+	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
+	$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
 		text : args.detailTitle
-	}));
-	$.detailSubtitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "subtitle"],
+	});
+	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
 		text : args.detailSubtitle
-	}));
+	});
 })();
 
 function getParams() {

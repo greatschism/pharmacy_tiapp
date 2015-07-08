@@ -14,45 +14,61 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
+	var rDict = {};
+	if (_.isBoolean(args.selected)) {
+		//to disable the selection b
+		rDict = $.createStyle({
+			classes : ["row-selection-disabled"]
+		});
+		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+	} else {
+		/*
+		 *  Note: Javascript objects passed by reference
+		 *  creating new array for this icon class
+		 *  to avoid same reference being used in another instance of this template
+		 */
+		var classes = [];
+		if (args.iconType) {
+			classes.push("content-" + args.iconType + "-left-icon");
+		}
+		if (args.iconClasses) {
+			classes = _.union(classes, args.iconClasses)
+		}
+		var iDict = $.createStyle({
+			classes : classes
+		});
+		if (args.iconText) {
+			iDict.text = args.iconText;
+		}
+		if (args.iconAccessibilityLabel) {
+			iDict.accessibilityLabel = args.iconAccessibilityLabel;
+		}
+		$.leftIconLbl.applyProperties(iDict);
+	}
+	if (args.filterText) {
+		rDict[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	rDict.height = CONSTS.height;
+	$.row.applyProperties(rDict);
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	if (args.filterText) {
-		$.row[Alloy.Globals.filterAttribute] = args.filterText;
-	}
-	$.row.height = CONSTS.height;
-	if (_.isBoolean(args.selected)) {
-		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
-	} else {
-		var classes = ["content-" + (args.iconType ? args.iconType + "-" : "") + "left-icon"];
-		if (args.iconClasses) {
-			classes.concat(args.iconClasses);
-		}
-		var dict = $.createStyle({
-			classes : classes
-		});
-		if (args.iconText) {
-			dict.text = args.iconText;
-		}
-		if (args.iconAccessibilityLabel) {
-			dict.accessibilityLabel = args.iconAccessibilityLabel;
-		}
-		$.leftIconLbl.applyProperties(dict);
-	}
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
-	$.detailTitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "title"],
-		text : args.detailTitle
-	}));
-	$.detailSubtitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "subtitle"],
+	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
+	if (args.detailTitle) {
+		$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
+			text : args.detailTitle
+		});
+	} else {
+		$.detailTitleLbl.height = 0;
+	}
+	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
 		text : args.detailSubtitle
-	}));
+	});
 })();
 
 function getParams() {

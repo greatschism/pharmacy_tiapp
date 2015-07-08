@@ -27,37 +27,34 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : ""),
-	    options = args.options || [],
-	    len = options.length;
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	$.containerView.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	if (args.filterText) {
-		$.row[Alloy.Globals.filterAttribute] = args.filterText;
-	}
+	$.titleLbl.text = args.title;
+	$.subtitleLbl.text = args.subtitle;
+	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
+	$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
+		text : args.detailTitle
+	});
+	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
+		text : args.detailSubtitle
+	});
 	$.swipeView.applyProperties({
 		left : CONSTS.endOffset,
 		width : CONSTS.availableWidth
 	});
-	$.containerView.height = CONSTS.height;
-	$.titleLbl.text = args.title;
-	$.subtitleLbl.text = args.subtitle;
-	$.detailTitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "title"],
-		text : args.detailTitle
-	}));
-	$.detailSubtitleLbl.applyProperties($.createStyle({
-		classes : [detailClassPrefix + "subtitle"],
-		text : args.detailSubtitle
-	}));
-	if (len) {
-		var width = CONSTS.availableWidth / len,
+	if (args.options) {
+		var len = args.options.length,
+		    width = CONSTS.availableWidth / len,
 		    optionClassPrefix = "swipe-view-";
-		_.each(options, function(option, index) {
+		_.each(args.options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
 				classes : [optionClassPrefix + (option.type ? option.type + "-" : "") + "btn"],

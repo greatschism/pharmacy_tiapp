@@ -98,6 +98,11 @@ module.exports = {
 			".between-margin-right" : {
 				"right" : 12
 			},
+			".map-view" : {
+				"animate" : true,
+				"regionFit" : true,
+				"userLocation" : true
+			},
 			".primary-btn" : {
 				"left" : 16,
 				"right" : 16,
@@ -889,24 +894,6 @@ module.exports = {
 				"color" : "#808082",
 				"accessibilityHidden" : true
 			},
-			".content-up-icon" : {
-				"right" : 12,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 12
-				},
-				"color" : "#808082",
-				"accessibilityHidden" : true
-			},
-			".content-down-icon" : {
-				"right" : 12,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 12
-				},
-				"color" : "#808082",
-				"accessibilityHidden" : true
-			},
 			".content-view-with-child" : {
 				"top" : 12,
 				"bottom" : 12,
@@ -1493,6 +1480,33 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"color" : "#000000",
+				"textAlign" : "right",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".content-detail-inactive-title" : {
+				"left" : 8,
+				"right" : 0,
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#A6A8AB",
+				"textAlign" : "right",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".content-detail-inactive-subtitle" : {
+				"top" : 0,
+				"left" : 8,
+				"right" : 0,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#A6A8AB",
 				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false

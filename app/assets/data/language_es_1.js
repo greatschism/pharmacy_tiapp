@@ -2,10 +2,12 @@ module.exports = {
 
 	"data" : {
 
+		"strPrefixDoctor" : "es-Dr. ",
+		"strPrefixRx" : "es-#Rx ",
+		"strSuffixDistance" : "es- mi",
+
 		"strNil" : "es--",
 		"strNotAvailable" : "es-Not available",
-		"strDoctorPrefix" : "es-Dr. ",
-		"strRxPrefix" : "es-#Rx ",
 		"strDays" : "es-days",
 		"strDay" : "es-day",
 		"strAppleMaps" : "es-Apple",
@@ -50,7 +52,7 @@ module.exports = {
 		"titleStores" : "es-Find a store",
 		"titleDoctors" : "es-Doctors",
 		"titleAccount" : "es-Account",
-		"titleStoreDetails" : "es-Find a store",
+		"titleStoreDetails" : "es-Store details",
 		"titlePrescriptionDetails" : "es-Drug details",
 		"titleOrderDetails" : "es-Order details",
 		"titleLogin" : "es-Sign in",

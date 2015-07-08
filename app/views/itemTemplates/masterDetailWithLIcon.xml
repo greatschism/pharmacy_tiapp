@@ -1,5 +1,5 @@
 <Alloy>
-	<TableViewRow id="row" class="row-selection-disabled">
+	<TableViewRow id="row">
 		<Label id="leftIconLbl" />
 		<View id="contentView" class="content-view-with-licon">
 			<View id="masterView" class="content-master-view-65">

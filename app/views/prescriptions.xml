@@ -22,7 +22,7 @@
 			<Button id="unhideCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
-	<View id="searchbar" class="top search-bar fade-out">
+	<View id="searchbar" class="top search-bar hide fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
 	<TableView id="tableView" class="top" onSingletap="didClickTableView">

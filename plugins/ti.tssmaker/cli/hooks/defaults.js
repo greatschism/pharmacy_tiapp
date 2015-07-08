@@ -139,15 +139,6 @@ module.exports = {
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
-	".content-child-icon" : {
-		"text" : "Alloy.CFG.icons.thin_arrow_right"
-	},
-	".content-up-icon" : {
-		"text" : "Alloy.CFG.icons.thin_arrow_up"
-	},
-	".content-down-icon" : {
-		"text" : "Alloy.CFG.icons.thin_arrow_down"
-	},
 	".optionpicker" : {
 		"iconText" : "Alloy.CFG.icons.spot",
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"

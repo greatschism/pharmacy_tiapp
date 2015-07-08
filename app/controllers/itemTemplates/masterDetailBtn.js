@@ -18,16 +18,16 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	$.row.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	if (args.filterText) {
-		$.row[Alloy.Globals.filterAttribute] = args.filterText;
-	}
-	$.row.height = CONSTS.height;
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
 	var btnDict = {

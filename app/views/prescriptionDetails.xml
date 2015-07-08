@@ -67,7 +67,7 @@
 			<View class="content-view-with-child">
 				<Label id="historyLbl" class="content-lbl" />
 			</View>
-			<Label class="content-child-icon" />
+			<Label class="content-child-icon icon-thin-arrow-right" />
 		</View>
 		<View class="h-divider" />
 		<Widget id="instructionExp" src="ti.expandable">
@@ -75,7 +75,7 @@
 				<View id="instructionContentView" class="content-view-with-child">
 					<Label id="instructionLbl" class="content-lbl" />
 				</View>
-				<Label id="arrowLbl" class="content-down-icon" />
+				<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-down" />
 			</View>
 			<Widget id="instructionAsyncView" src="ti.asyncview" class="content-view loader-embedded role-detail-view">
 				<Label id="prescInstructionLbl" class="lbl-wrap" />

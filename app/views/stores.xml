@@ -1,16 +1,14 @@
 <Alloy>
-	<Widget id="toggleBtn" src="ti.navbutton" class="nav-icon" onClick="didToggle" />
-	<View class="vgroup">
-		<View id="searchView" class="top search-bar">
-			<Widget id="searchbar" src="ti.textfield"  class="top returnkey-search search-txt" onReturn="didSearch" onClear="didSearch" />
-		</View> 
-		<TableView id="tableView" class="secondary-bg-color show" onClick="didItemClick">
+	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-map" onClick="didClickRightNavBtn" />
+	<View id="searchbar" class="top search-bar">
+		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-search search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
+	</View>
+	<View id="containerView">
+		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" />
+		<TableView id="tableView" class="show" onClick="didClickTableView">
 			<FooterView platform="ios">
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
-		<View>
-			<View id="mapView" ns="Alloy.Globals.Map" class="hide" onClick="didAnnotationClick" regionFit="true" userLocation="true" />			
-		</View>
 	</View>
 </Alloy> 
