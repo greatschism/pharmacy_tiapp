@@ -1453,10 +1453,8 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-detail-btn" : {
-				"maxWidth" : 90
-			},
 			".content-detail-secondary-btn" : {
+				"maxWidth" : 90,
 				"right" : 0,
 				"height" : 40,
 				"font" : {

@@ -30,12 +30,16 @@ CONSTS = Alloy.TSS[CONSTS];
 	$.row.height = CONSTS.height;
 	$.titleLbl.text = args.title;
 	$.subtitleLbl.text = args.subtitle;
-	//keep secondary button as default
-	$.detailBtn.applyProperties($.createStyle({
-		classes : ["content-detail-" + (args.detailType ? args.detailType + "-" : "secondary-") + "btn"],
+	var btnDict = {
 		title : args.detailTitle,
 		width : CONSTS.detailBtnWidth
-	}));
+	};
+	if (args.detailType) {
+		_.extend(btnDict, $.createStyle({
+			classes : ["content-detail-" + args.detailType + "-" + "btn"],
+		}));
+	}
+	$.detailBtn.applyProperties(btnDict);
 })();
 
 function didClickDetail(e) {
