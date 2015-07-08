@@ -7,7 +7,7 @@ module.exports = {
 			"banner_max_height" : 140,
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
-			"prescription_pickup_reminder" : 5,
+			"prescription_pickup_reminder" : 3,
 			"prescription_progress_x_hours" : 2,
 			"prescription_progress_after_x_hours" : 60,
 			"prescription_progress_before_x_hours" : 15,
