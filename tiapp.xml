@@ -101,7 +101,7 @@
     <target device="android">true</target>
     <target device="mobileweb">false</target>
   </deployment-targets>
-  <sdk-version>4.1.0.Beta</sdk-version>
+  <sdk-version>4.1.0.GA</sdk-version>
   <plugins>
     <plugin version="1.0">ti.alloy</plugin>
     <plugin>ti.build.properties</plugin>

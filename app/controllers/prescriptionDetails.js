@@ -1,22 +1,23 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    prescription = args.prescription;
 
 function init() {
-	$.titleLbl.text = args.title;
-	var refillsLeft = parseInt(args.refill_left || 0);
+	$.titleLbl.text = prescription.title;
+	var refillsLeft = parseInt(prescription.refill_left || 0);
 	$.addClass($.refillsLeftBtn, [refillsLeft > Alloy.CFG.prescription_negative_refills_left ? "info-btn" : "info-negative-btn"], {
 		title : refillsLeft
 	});
-	$.dueBtn.title = args.anticipated_refill_date ? moment(args.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	$.lastRefillBtn.title = args.latest_sold_date ? moment(args.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	if (!_.has(args, "store")) {
+	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	if (!_.has(prescription, "store")) {
 		$.http.request({
 			method : "prescriptions_get",
 			params : {
 				feature_code : "THXXX",
 				data : [{
 					prescriptions : {
-						id : args.id,
+						id : prescription.id,
 						sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
 						prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
 					}
@@ -43,8 +44,12 @@ function hideLoader() {
 }
 
 function didGetPrescription(result, passthrough) {
-	_.extend(args, result.data.prescriptions[0]);
-	args.dosage_instruction_message = $.utilities.ucfirst(args.dosage_instruction_message || $.strings.strNotAvailable);
+	/*
+	 * prescriptions should be a object not array
+	 * must to be fixed from server side
+	 */
+	_.extend(prescription, result.data.prescriptions[0]);
+	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
 	$.http.request({
 		method : "doctors_get",
@@ -52,7 +57,7 @@ function didGetPrescription(result, passthrough) {
 			feature_code : "THXXX",
 			data : [{
 				doctors : {
-					id : args.doctor_id,
+					id : prescription.doctor_id,
 				}
 			}]
 		},
@@ -63,9 +68,9 @@ function didGetPrescription(result, passthrough) {
 }
 
 function didGetDoctor(result, passthrough) {
-	args.doctor = {};
-	_.extend(args.doctor, result.data.doctors);
-	args.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(args.doctor.first_name) + " " + $.utilities.ucword(args.doctor.last_name));
+	prescription.doctor = {};
+	_.extend(prescription.doctor, result.data.doctors);
+	prescription.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(prescription.doctor.first_name) + " " + $.utilities.ucword(prescription.doctor.last_name));
 	loadDoctor();
 	$.http.request({
 		method : "stores_get",
@@ -73,7 +78,7 @@ function didGetDoctor(result, passthrough) {
 			feature_code : "THXXX",
 			data : [{
 				stores : {
-					id : args.original_store_id,
+					id : prescription.original_store_id,
 				}
 			}]
 		},
@@ -84,11 +89,11 @@ function didGetDoctor(result, passthrough) {
 }
 
 function didGetStore(result, passthrough) {
-	args.store = {};
-	_.extend(args.store, result.data.stores);
-	_.extend(args.store, {
-		title : $.utilities.ucword(args.store.addressline1),
-		subtitle : $.utilities.ucword(args.store.city) + ", " + args.store.state + ", " + $.utilities.ucword(args.store.zip)
+	prescription.store = {};
+	_.extend(prescription.store, result.data.stores);
+	_.extend(prescription.store, {
+		title : $.utilities.ucword(prescription.store.addressline1),
+		subtitle : $.utilities.ucword(prescription.store.city) + ", " + prescription.store.state + ", " + $.utilities.ucword(prescription.store.zip)
 	});
 	loadStore();
 }
@@ -96,25 +101,25 @@ function didGetStore(result, passthrough) {
 function loadPresecription() {
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
-	$.prescInstructionLbl.text = args.dosage_instruction_message;
+	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
 }
 
 function loadDoctor() {
-	$.noReplyLbl.text = args.rx_number;
-	$.expiryReplyLbl.text = moment(args.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
-	$.doctorReplyLbl.text = args.doctor.title;
+	$.noReplyLbl.text = prescription.rx_number;
+	$.expiryReplyLbl.text = moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
+	$.doctorReplyLbl.text = prescription.doctor.title;
 }
 
 function loadStore() {
 	$.prescAsyncView.hide();
 	$.prescExp.setStopListening(true);
-	$.storeReplyLbl.text = args.store.title + "\n" + args.store.subtitle;
+	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
 }
 
 function didClickStore(e) {
 	$.uihelper.getDirection({
-		latitude : args.store.latitude,
-		longitude : args.store.longitude
+		latitude : prescription.store.latitude,
+		longitude : prescription.store.longitude
 	});
 }
 
@@ -155,7 +160,7 @@ function didClickRefill(e) {
 		titleid : "titleOrderDetails",
 		ctrl : "orderDetails",
 		ctrlArguments : {
-			prescriptions : [args]
+			prescriptions : [prescription]
 		},
 		stack : true
 	});
@@ -168,13 +173,13 @@ function didClickHide(e) {
 			feature_code : "THXXX",
 			data : [{
 				prescriptions : [{
-					id : args.id
+					id : prescription.id
 				}]
 			}]
 		},
 		success : function() {
 			//triggers a reload when prescription list is focused
-			args.hidden = true;
+			prescription.hidden = true;
 			$.app.navigator.close();
 		}
 	});

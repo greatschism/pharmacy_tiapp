@@ -22,7 +22,7 @@ module.exports = {
 		"msgAppUpdatedForceReload" : "es-The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgGeoAuthorizationRestricted" : "es-Location service is turned off. Please check your settings.",
 		"msgGeoAuthorizationDenied" : "es-Your have disallowed app from running geolocation services. Please check your settings.",
-		"msgConfirmLogout" : "es-Are you sure you wish to signout and return to the home screen?",
+		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have signed out successfully.",
 
 		"dialogTitleUpdates" : "es-Updates",

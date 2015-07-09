@@ -52,7 +52,7 @@ function didClickLogin(e) {
 	} else {
 		keychainAccount.reset();
 	}
-	if ($.utilities.isMobileNumber(uname)) {
+	if ($.utilities.isPhoneNumber(uname)) {
 		$.http.request({
 			method : "patients_mobile_exists_or_shared",
 			params : {

@@ -475,7 +475,10 @@ function didClickTableView(e) {
 		$.app.navigator.open({
 			titleid : "titlePrescriptionDetails",
 			ctrl : "prescriptionDetails",
-			ctrlArguments : currentPrescription,
+			ctrlArguments : {
+				prescription : currentPrescription,
+				canHide : currentPrescription.canHide
+			},
 			stack : true
 		});
 	}

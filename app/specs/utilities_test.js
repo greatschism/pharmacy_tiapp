@@ -93,8 +93,8 @@ describe("Utility Test Suite", function() {
 		utilities.formatNumber(1250000).should.be.equal("1,250,000");
 	});
 
-	it("Test Case 20: formatMobileNumber", function() {
-		utilities.formatMobileNumber(1234567890).should.be.equal("(123) 456-7890");
+	it("Test Case 20: formatPhoneNumber", function() {
+		utilities.formatPhoneNumber(1234567890).should.be.equal("(123) 456-7890");
 	});
 
 	it("Test Case 21: ucword", function() {
@@ -165,20 +165,20 @@ describe("Utility Test Suite", function() {
 		utilities.validatePassword("easypassword").should.be.equal(false);
 	});
 
-	it("Test Case 35: validateMobileNumber with valid mobile number", function() {
-		utilities.validateMobileNumber("(123) 456-7890").should.be.equal("1234567890");
+	it("Test Case 35: validatePhoneNumber with valid phone number", function() {
+		utilities.validatePhoneNumber("(123) 456-7890").should.be.equal("1234567890");
 	});
 
-	it("Test Case 36: validateMobileNumber with invalid mobile number", function() {
-		utilities.validateMobileNumber("(123) 456-789").should.be.equal(false);
+	it("Test Case 36: validatePhoneNumber with invalid phone number", function() {
+		utilities.validatePhoneNumber("(123) 456-789").should.be.equal(false);
 	});
 
-	it("Test Case 37: isMobileNumber with valid mobile number", function() {
-		utilities.isMobileNumber("1234567890").should.be.equal(true);
+	it("Test Case 37: isPhoneNumber with valid phone number", function() {
+		utilities.isPhoneNumber("1234567890").should.be.equal(true);
 	});
 
-	it("Test Case 38: isMobileNumber with invalid mobile number", function() {
-		utilities.isMobileNumber("123456a").should.be.equal(false);
+	it("Test Case 38: isPhoneNumber with invalid phone number", function() {
+		utilities.isPhoneNumber("123456a").should.be.equal(false);
 	});
 
 	it("Test Case 39: isError with valid Error Object", function() {

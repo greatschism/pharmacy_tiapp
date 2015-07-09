@@ -26,8 +26,8 @@ describe("Localization Test Suite", function() {
 		localization.currentLanguage.code.should.be.equal("en");
 	});
 
-	it("Test Case 5: getString with valid code", function() {
-		localization.getString("strOK").should.be.equal("OK");
+	it("Test Case 5: getString with strPrefixRx code", function() {
+		localization.getString("strNil").should.be.equal("-");
 	});
 
 	it("Test Case 6: getString with invalid code", function() {

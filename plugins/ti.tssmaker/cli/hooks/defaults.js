@@ -75,18 +75,6 @@ module.exports = {
 		"layout" : "horizontal",
 		"horizontalWrap" : false
 	},
-	".row-selection-disabled" : {
-		"selectedBackgroundColor" : "transparent"
-	},
-	".selection-disabled" : {
-		"backgroundSelectedColor" : null
-	},
-	".touch-disabled" : {
-		"touchEnabled" : false
-	},
-	".accessibility-disabled" : {
-		"accessibilityHidden" : true
-	},
 	".show" : {
 		"visible" : true
 	},
@@ -98,6 +86,12 @@ module.exports = {
 	},
 	".fade-out" : {
 		"opacity" : 0
+	},
+	".touch-disabled" : {
+		"touchEnabled" : false
+	},
+	".accessibility-disabled" : {
+		"accessibilityHidden" : true
 	},
 	".returnkey-previous" : {
 		"returnKeyType" : "Ti.UI.RETURNKEY_PREVIOUS"
@@ -129,15 +123,37 @@ module.exports = {
 	".role-detail-view" : {
 		"role" : "detailView"
 	},
-	".loader-embedded" : {
-		"indicatorDict" : {
-			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
-		}
-	},
 	".swt[platform=android]" : {
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".table-separator-disabled" : {
+		"separatorColor" : "transparent"
+	},
+	".row-selection-disabled" : {
+		"selectedBackgroundColor" : "transparent"
+	},
+	".async-view" : {
+		"indicatorDict" : {
+			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
+		}
+	},
+	".loader-embedded-auto" : {
+		"height" : "auto",
+		"indicatorDict" : {
+			"top" : 12,
+			"bottom" : 12,
+			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
+		}
+	},
+	".loader-embedded-fill" : {
+		"indicatorDict" : {
+			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
+		}
+	},
+	".selection-disabled" : {
+		"backgroundSelectedColor" : null
 	},
 	".optionpicker" : {
 		"iconText" : "Alloy.CFG.icons.spot",

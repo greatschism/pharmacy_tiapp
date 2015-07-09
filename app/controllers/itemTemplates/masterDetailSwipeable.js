@@ -1,7 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
     utilities = require("utilities"),
-    uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
@@ -16,7 +15,6 @@ if (!Alloy.TSS[CONSTS]) {
 	    availableWidth = app.device.width - paddingLeft,
 	    endOffset = app.device.width + $.swipeView.paddingRight;
 	Alloy.TSS[CONSTS] = {
-		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true),
 		availableWidth : availableWidth,
 		startOffset : paddingLeft,
 		decisionOffset : endOffset - (endOffset / 3),
@@ -30,21 +28,20 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.containerView.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	$.titleLbl.text = args.title;
-	$.subtitleLbl.text = args.subtitle;
+	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
 	$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
-		text : args.detailTitle
+		text : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
 	});
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
-		text : args.detailSubtitle
+		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 	$.swipeView.applyProperties({
 		left : CONSTS.endOffset,
@@ -75,7 +72,15 @@ CONSTS = Alloy.TSS[CONSTS];
 			$.swipeView.add(btn);
 		});
 	}
+	$.containerView.addEventListener("postlayout", didPostlayout);
 })();
+
+function didPostlayout(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayout);
+	var height = e.source.rect.height;
+	$.containerView.height = height;
+	$.swipeView.height = height;
+}
 
 function didClickOption(e) {
 	var source = e.source;

@@ -4,15 +4,8 @@ var args = arguments[0] || {},
     isMapPrepared = false,
     rows = [];
 
-/**
- *  complete UI operations before loading view / init
- *  Note: May fail if use searchbar doesn't have a static height
- */
-(function() {
-	$.containerView.top = $.searchbar.height;
-})();
-
 function init() {
+	$.containerView.top = $.searchbar.height;
 	$.uihelper.getLocation(didGetLocation);
 }
 
@@ -34,9 +27,12 @@ function getStores(searchStr) {
 	//check whether it is a search
 	if (searchStr) {
 		isSearch = true;
-	} else if ($.searchTxt.getValue()) {
+	} else {
+		isSearch = false;
 		//reset search if any
-		$.searchTxt.setValue("");
+		if ($.searchTxt.getValue()) {
+			$.searchTxt.setValue("");
+		}
 	}
 	/*
 	 *  we are making a new api call
@@ -52,45 +48,45 @@ function getStores(searchStr) {
 		"description" : "x",
 		"data" : {
 			"stores" : [{
-				"id" : "1234",
-				"store_identifier" : "12345",
-				"store_ncpdp_id" : "12345",
-				"store_name" : "TEST STORE 1",
-				"addressline1" : "TEST1",
-				"addressline2" : "TEST1",
-				"state" : "CA",
-				"city" : "SF",
-				"zip" : "04003",
-				"email_address" : "x",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
-				"latitude" : "37.774929",
-				"longitude" : "-122.419416",
+				"id" : "1",
+				"store_identifier" : "01",
+				"store_ncpdp_id" : "4517100",
+				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
+				"addressline1" : "3600 GASTON AVENUE, SUITE 109",
+				"addressline2" : "3600 GASTON AVENUE, SUITE 109",
+				"state" : "TX",
+				"city" : "DALLAS",
+				"zip" : "75246",
+				"email_address" : null,
+				"phone" : "2148203451",
+				"fax" : "2148204088",
+				"latitude" : "32.791002",
+				"longitude" : "-96.779725",
 				"timezone" : "US/Central",
-				"distance" : "234.23",
-				"searchdistance" : "234.234",
-				"isbookmarked" : "0",
+				"distance" : null,
+				"searchdistance" : null,
+				"isbookmarked" : "1",
 				"ishomepharmacy" : "1"
 			}, {
-				"id" : "1235",
-				"store_identifier" : "12346",
-				"store_ncpdp_id" : "12346",
-				"store_name" : "TEST STORE 2",
-				"addressline1" : "TEST2",
-				"addressline2" : "TEST2",
-				"state" : "CA",
-				"city" : "SF",
-				"zip" : "04003",
-				"email_address" : "x",
-				"phone" : "6172837737",
-				"fax" : "6172837737",
-				"latitude" : "34.052234",
-				"longitude" : "-118.243685",
+				"id" : "1",
+				"store_identifier" : "01",
+				"store_ncpdp_id" : "4517100",
+				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
+				"addressline1" : "3600 GASTON AVENUE, SUITE 109",
+				"addressline2" : "3600 GASTON AVENUE, SUITE 109",
+				"state" : "TX",
+				"city" : "DALLAS",
+				"zip" : "75246",
+				"email_address" : null,
+				"phone" : "2148203451",
+				"fax" : "2148204088",
+				"latitude" : "32.791002",
+				"longitude" : "-96.779725",
 				"timezone" : "US/Central",
-				"distance" : "234.23",
-				"searchdistance" : "234.234",
+				"distance" : null,
+				"searchdistance" : null,
 				"isbookmarked" : "1",
-				"ishomepharmacy" : "0"
+				"ishomepharmacy" : "1"
 			}]
 		}
 	});
@@ -119,11 +115,13 @@ function didGetStores(result, passthrough) {
 		/*
 		 * distance key may have to be changed once api is ready
 		 * with condition whether it is a text search or near by
+		 * with a if avoid null on distance
 		 */
+		var distance = store[ isSearch ? "searchdistance" : "distance"];
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
-			detailSubtitle : store[ isSearch ? "searchdistance" : "distance"] + $.strings.strSuffixDistance,
+			detailSubtitle : distance ? distance + $.strings.strSuffixDistance : "",
 			detailType : "inactive",
 			iconClasses : iconClasses
 		});
@@ -179,11 +177,18 @@ function handleNavigation(params) {
 		$.app.navigator.close();
 		return true;
 	}
+	//whether user location is available
+	var userLocation = !_.isEmpty($.uihelper.currentLocation);
 	//open detail screen
 	$.app.navigator.open({
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
-		ctrlArguments : params,
+		ctrlArguments : {
+			store : params,
+			isSearch : isSearch,
+			userLocation : userLocation,
+			direction : isSearch || userLocation
+		},
 		stack : true
 	});
 }

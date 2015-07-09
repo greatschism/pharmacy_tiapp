@@ -27,11 +27,14 @@ var args = arguments[0] || {},
 	},
 	ellipsize : true,
 	wordWrap : false
-};
+},
+    templateHeight = 0;
 
 if (OS_ANDROID) {
 	MAX_HEIGHT /= Ti.Platform.displayCaps.logicalDensityFactor;
-}(function() {
+}
+
+(function() {
 
 	var options = _.pick(args, ["top", "width", "height", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
@@ -166,7 +169,11 @@ function applyProperties(dict) {
 function getRow(data) {
 	var row;
 	if (template) {
-		row = Alloy.createController(template, data).getView();
+		var rCtrl = Alloy.createController(template, data);
+		if (!templateHeight) {
+			templateHeight = rCtrl.getHeight();
+		}
+		row = rCtrl.getView();
 	} else {
 		row = Ti.UI.createTableViewRow({
 			height : Ti.UI.SIZE,
@@ -212,10 +219,7 @@ function setItems(tItems, tTemplate) {
 	    height = args.height;
 	if (!args.height) {
 		if (template) {
-			var len = data.length;
-			if (len) {
-				height = data[0].height * len;
-			}
+			height = templateHeight * items.length;
 		} else {
 			height = optionPadding.top + ((optioDict.height + optionPadding.top + optionPadding.bottom) * items.length);
 		}

@@ -7,9 +7,13 @@ require("config").updateTSS($.__controllerPath);
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	$.progressbar.width = args.progress + "%";
+	if (args.lblClasses) {
+		$.resetClass($.lbl, [args.lblClasses], {
+			text : args.value || (args.data ? args.data[args.valueProperty] : "")
+		});
+	} else {
+		$.lbl.text = args.value || (args.data ? args.data[args.valueProperty] : "");
+	}
 })();
 
 function getParams() {

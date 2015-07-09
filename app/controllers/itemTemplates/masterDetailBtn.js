@@ -1,45 +1,31 @@
-var args = arguments[0] || {},
-    app = require("core"),
-    uihelper = require("uihelper"),
-    CONSTS = "CONST_" + $.__controllerPath + "_" + (args.detailWidth || 45);
+var args = arguments[0] || {};
 
 //reload tss of this controller in memory
 require("config").updateTSS($.__controllerPath);
-
-if (!Alloy.TSS[CONSTS]) {
-	var detailBtnWidth = ((app.device.width - ($.contentView.left || 0) - ($.contentView.right || 0)) / 100) * (args.detailWidth || 45),
-	    maxWidth = $.detailBtn.maxWidth;
-	Alloy.TSS[CONSTS] = {
-		detailBtnWidth : detailBtnWidth > maxWidth ? maxWidth : detailBtnWidth,
-		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true),
-	};
-}
-
-CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.row.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	$.titleLbl.text = args.title;
-	$.subtitleLbl.text = args.subtitle;
-	var btnDict = {
-		title : args.detailTitle,
-		width : CONSTS.detailBtnWidth
-	};
+	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.detailType) {
+		var btnDict = {
+			title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
+		};
 		_.extend(btnDict, $.createStyle({
 			classes : ["content-detail-" + args.detailType + "-" + "btn"],
 		}));
+		$.detailBtn.applyProperties(btnDict);
+	} else {
+		$.detailBtn.title = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
 	}
-	$.detailBtn.applyProperties(btnDict);
 })();
 
 function didClickDetail(e) {

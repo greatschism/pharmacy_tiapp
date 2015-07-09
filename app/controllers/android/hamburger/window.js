@@ -12,7 +12,13 @@ var args = arguments[0] || {},
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
 
-	controller = Alloy.createController(args.ctrl, args.ctrlArguments || {});
+	/**
+	 *  let the new controller know where it is coming from
+	 *  through the origin parameter
+	 */
+	var ctrlArguments = args.ctrlArguments || {};
+	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
+	controller = Alloy.createController(args.ctrl, ctrlArguments);
 
 	_.each(controller.getTopLevelViews(), function(child) {
 		if (child.__iamalloy) {

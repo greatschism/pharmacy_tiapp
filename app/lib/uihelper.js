@@ -121,7 +121,7 @@ var Helper = {
 		if (OS_IOS) {
 
 			var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
-				options : [Alloy.Globals.strings.strGoogleMaps, Alloy.Globals.strings.strAppleMaps, Alloy.Globals.strings.dialogBtnCancel],
+				options : [Alloy.Globals.strings.strAppleMaps, Alloy.Globals.strings.strGoogleMaps, Alloy.Globals.strings.dialogBtnCancel],
 				cancel : 2
 			});
 			optDialog.on("click", function didClick(evt) {
@@ -129,10 +129,10 @@ var Helper = {
 					var baseUrl;
 					switch(evt.index) {
 					case 0:
-						baseUrl = Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://" : "http://maps.google.com/maps";
+						baseUrl = "http://maps.apple.com/";
 						break;
 					case 1:
-						baseUrl = "http://maps.apple.com/";
+						baseUrl = Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://" : "http://maps.google.com/maps";
 						break;
 					}
 					Ti.Platform.openURL(baseUrl + params);
@@ -151,11 +151,80 @@ var Helper = {
 	},
 
 	/**
-	 * Open phone's dialer
-	 * @param {String} str number to be dialed
+	 *  Open option dialog for phone number
+	 *  @param {Object} Titanium.Contacts.Person dictionary for creating contact
+	 *  @param {String} phone actual phone number to be sent for dialer
 	 */
-	showDialer : function(str) {
-		Ti.Platform.openURL("tel:" + str);
+	getDialer : function(contactObj, phone) {
+		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
+			options : [Alloy.Globals.strings.strPhone, Alloy.Globals.strings.strContactAdd, Alloy.Globals.strings.dialogBtnCancel],
+			cancel : 2
+		});
+		optDialog.on("click", function didClick(evt) {
+			if (!evt.cancel) {
+				switch(evt.index) {
+				case 0:
+					Helper.showDialer(phone);
+					break;
+				case 1:
+					Helper.addContact(contactObj);
+					break;
+				}
+			}
+			optDialog.off("click", didClick);
+			optDialog.destroy();
+			optDialog = null;
+		});
+		optDialog.show();
+	},
+
+	/**
+	 * Add phone number to contacts
+	 * @param {Object} Titanium.Contacts.Person dictionary for creating contact
+	 * @param {Boolean} requestAccess whether to request for access
+	 * @param {Boolean} preventDialog whether to prevent success dialog
+	 */
+	addContact : function(contactObj, requestAccess, preventDialog) {
+		switch(Ti.Contacts.contactsAuthorization) {
+		case Ti.Contacts.AUTHORIZATION_AUTHORIZED:
+			Ti.Contacts.createPerson(contactObj);
+			if (preventDialog !== false) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgContactAdded
+				});
+			}
+			break;
+		case Ti.Contacts.AUTHORIZATION_DENIED:
+			Helper.showDialog({
+				message : Alloy.Globals.strings.msgContactsAuthorizationDenied
+			});
+			break;
+		case Ti.Contacts.AUTHORIZATION_RESTRICTED:
+			Helper.showDialog({
+				message : Alloy.Globals.strings.msgContactAuthorizationRestricted
+			});
+			break;
+		default:
+			if (requestAccess !== false) {
+				Ti.Contacts.requestAuthorization(function(e) {
+					if (e.success) {
+						Helper.addContact(contactObj, false, preventDialog);
+					} else {
+						Helper.showDialog({
+							message : Alloy.Globals.strings.msgContactsAuthorizationDenied
+						});
+					}
+				});
+			}
+		}
+	},
+
+	/**
+	 * Open phone's dialer
+	 * @param {String} phone number to be dialed
+	 */
+	showDialer : function(phone) {
+		Ti.Platform.openURL("tel:" + phone);
 	},
 
 	/*

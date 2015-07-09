@@ -64,7 +64,7 @@ function didDrawerclose(e) {
 		switch(itemObj.action) {
 		case "logout":
 			uihelper.showDialog({
-				message : strings.msgConfirmLogout,
+				message : strings.msgLogoutConfirm,
 				buttonNames : [strings.dialogBtnYes, strings.dialogBtnNo],
 				cancelIndex : 1,
 				success : function() {

@@ -147,11 +147,37 @@ var Configuration = {
 		});
 
 		//theme
+		/**
+		 *  load date format from device
+		 *  can be update form theme too
+		 */
+		var dateFormat = Ti.Platform.dateFormat.split("/");
+		//match date format with momentjs
+		_.each(dateFormat, function(val, key) {
+			if (val.indexOf("d") != -1) {
+				val = val.toUpperCase();
+			}
+			if (val.indexOf("y") != -1) {
+				val = val.toUpperCase();
+				if (val.length == 1) {
+					val = "YYYY";
+				}
+			}
+			dateFormat[key] = val;
+		});
+		Alloy.CFG.date_format = dateFormat.join("/");
+		Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
+		Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
+		//extend configuration
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
 		var platform = require("core").device.platform;
 		if (_.isObject(theme.data.config[platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
 		}
+		//convert seconds to milliseconds
+		_.each(["http_timeout", "location_timeout"], function(prop) {
+			Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
+		});
 		//icons notation to character
 		_.each(Alloy.CFG.iconNotations, function(val, key) {
 			Alloy.CFG.icons[key] = String.fromCharCode(val);

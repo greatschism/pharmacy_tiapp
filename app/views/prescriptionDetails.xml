@@ -7,7 +7,7 @@
 				</View>
 				<Button id="toggleBtn" class="content-right-btn" />
 			</View>
-			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup loader-embedded role-detail-view">
+			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup async-view role-detail-view">
 				<View id="prescAsyncContentView" class="content-view-vgroup-with-padding">
 					<View class="content-group">
 						<Label id="noPromptLbl" class="content-group-prompt" />
@@ -77,12 +77,12 @@
 				</View>
 				<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-down" />
 			</View>
-			<Widget id="instructionAsyncView" src="ti.asyncview" class="content-view loader-embedded role-detail-view">
+			<Widget id="instructionAsyncView" src="ti.asyncview" class="content-view async-view role-detail-view">
 				<Label id="prescInstructionLbl" class="lbl-wrap" />
 			</Widget>
 		</Widget>
 		<View class="h-divider" />
 		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" if="$.args.canHide" onClick="didClickHide" />
 	</ScrollView>
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

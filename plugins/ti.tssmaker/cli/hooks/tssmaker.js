@@ -44,8 +44,7 @@ exports.init = function(logger, config, cli, appc) {
 	    tempThemeJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/" + TEMP_THEME_NAME + ".js",
 	    languageJSPath = projectDir + "/app/assets/data/language_" + lang + "_" + selectedThemeVersion + ".js",
 	    tempLanguageJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/" + TEMP_LANGUAGE_NAME + ".js",
-	    defaultJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/defaults.js",
-	    configPath = projectDir + "/app/config.json";
+	    defaultJSPath = projectDir + "/plugins/ti.tssmaker/cli/hooks/defaults.js";
 
 	function trimDoubleQuotes(str, regExp) {
 		do {
@@ -106,29 +105,14 @@ exports.init = function(logger, config, cli, appc) {
 	function writeAppTss() {
 
 		var atss = require("./defaults"),
-		    configData = JSON.parse(fs.readFileSync(configPath, "utf8")),
 		    tss = {},
-		    language = {};
+		    themeData = {},
+		    languageData = {};
 
 		//delete old app.tss
 		if (fs.existsSync(appTSSPath)) {
 			fs.unlinkSync(appTSSPath);
 		}
-
-		/**
-		 *  copying the actual language file to a temporary location to avoid node caches on require statement
-		 * 	require.cache can be used (yet to be tested), but this work around helps for now (tested)
-		 */
-
-		fs.writeFileSync(tempLanguageJSPath, fs.readFileSync(languageJSPath, "utf-8"));
-
-		logger.debug(TAG + " : temporary language js is created and ready to use = " + tempLanguageJSPath);
-
-		language = require("./" + TEMP_LANGUAGE_NAME).data;
-
-		//add classes for icons
-		processIcons(atss, configData.global.icons, language);
-		processIcons(atss, configData.global.iconNotations, language);
 
 		/**
 		 *  copying the actual theme file to a temporary location to avoid node caches on require statement
@@ -138,8 +122,24 @@ exports.init = function(logger, config, cli, appc) {
 
 		logger.debug(TAG + " : temporary theme js is created and ready to use = " + tempThemeJSPath);
 
-		tss = require("./" + TEMP_THEME_NAME).data.tss;
+		themeData = require("./" + TEMP_THEME_NAME).data;
 
+		/**
+		 *  copying the actual language file to a temporary location to avoid node caches on require statement
+		 * 	require.cache can be used (yet to be tested), but this work around helps for now (tested)
+		 */
+		fs.writeFileSync(tempLanguageJSPath, fs.readFileSync(languageJSPath, "utf-8"));
+
+		logger.debug(TAG + " : temporary language js is created and ready to use = " + tempLanguageJSPath);
+
+		languageData = require("./" + TEMP_LANGUAGE_NAME).data;
+
+		//add classes for icons
+		processIcons(atss, themeData.config.icons, languageData);
+		processIcons(atss, themeData.config.iconNotations, languageData);
+
+		//process the acutal classes in themes
+		tss = themeData.tss;
 		for (var ts in tss) {
 
 			if (!atss[ts]) {
@@ -191,8 +191,7 @@ exports.init = function(logger, config, cli, appc) {
 			var appTSSLmd,
 			    themeJSLmd,
 			    languageJSMd,
-			    defaultJSLmd,
-			    configLmd;
+			    defaultJSLmd;
 
 			if (fs.existsSync(appTSSPath)) {
 				appTSSLmd = new Date(fs.statSync(appTSSPath).mtime);
@@ -219,14 +218,7 @@ exports.init = function(logger, config, cli, appc) {
 				return;
 			}
 
-			if (fs.existsSync(configPath)) {
-				configLmd = new Date(fs.statSync(configPath).mtime);
-			} else {
-				logger.error(TAG + " : config json not found = " + configPath);
-				return;
-			}
-
-			if (!appTSSLmd || themeJSLmd > appTSSLmd || languageJSMd > appTSSLmd || defaultJSLmd > appTSSLmd || configLmd > appTSSLmd) {
+			if (!appTSSLmd || themeJSLmd > appTSSLmd || languageJSMd > appTSSLmd || defaultJSLmd > appTSSLmd) {
 				logger.info("mofifications found, app.tss should be updated. Processing...");
 				writeAppTss();
 			} else {

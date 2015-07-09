@@ -1,0 +1,12 @@
+"#storeContentView[if=Alloy.Globals.isLoggedIn]":{
+	bottom: null
+},
+"#phonePromptLbl":{
+	text: Alloy.Globals.strings.storeDetPromptPhone
+},
+"#directionBtn":{
+	title: Alloy.Globals.strings.storeDetBtnDirection
+},
+"#refillBtn":{
+	title: Alloy.Globals.strings.storeDetBtnRefill
+}

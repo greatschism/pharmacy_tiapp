@@ -11,7 +11,10 @@ module.exports = {
 		"strDays" : "days",
 		"strDay" : "day",
 		"strAppleMaps" : "Apple",
+		"strAppleMaps" : "Apple",
 		"strGoogleMaps" : "Google",
+		"strPhone" : "Call",
+		"strContactAdd" : "Add to contacts",
 
 		"msgLoading" : "Processing. Please wait",
 		"msgNetworkError" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -22,7 +25,10 @@ module.exports = {
 		"msgAppUpdatedForceReload" : "The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgGeoAuthorizationRestricted" : "Location service is turned off. Please check your settings.",
 		"msgGeoAuthorizationDenied" : "Your have disallowed app from running geolocation services. Please check your settings.",
-		"msgConfirmLogout" : "Are you sure you wish to signout and return to the home screen?",
+		"msgContactsAuthorizationRestricted" : "You have restricted the access for your contacts. Please check your settings.",
+		"msgContactsAuthorizationDenied" : "Your have disallowed app from accessing contacts. Please check your settings.",
+		"msgContactAdded" : "Contact added successfully.",
+		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have signed out successfully.",
 
 		"dialogTitleUpdates" : "Updates",
@@ -70,6 +76,16 @@ module.exports = {
 		"loginBtnLogin" : "Sign in",
 
 		"storeHintSearch" : "Search by zip, city or state",
+
+		"storeDetPromptPhone" : "Call:",
+		"storeDetLblOpen" : "Open till %s",
+		"storeDetLblClose" : "Closed at %s",
+		"storeDetBtnDirection" : "Direction",
+		"storeDetBtnRefill" : "Refill at this location",
+		"storeDetBtnFavouriteAdd" : "Add to favourite",
+		"storeDetBtnFavouriteRemove" : "Remove from favourite",
+		"storeDetSectionHours" : "Store hours",
+		"storeDetSectionServices" : "Store Services",
 
 		"prescHintSearch" : "Search by prescription name or rx number",
 		"prescOptMenuSearch" : "Search",

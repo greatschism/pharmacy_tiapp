@@ -211,10 +211,10 @@ var Utility = {
 	},
 
 	/**
-	 * Adds brackets and hyphens to the mobile number (U.S.A)
-	 * @param {Srting} str The mobile number
+	 * Adds brackets and hyphens to the phone number (U.S.A)
+	 * @param {Srting} str The phone number
 	 */
-	formatMobileNumber : function(str) {
+	formatPhoneNumber : function(str) {
 		if (!_.isString(str)) {
 			str += "";
 		}
@@ -377,20 +377,20 @@ var Utility = {
 	},
 
 	/**
-	 * Check whether given string is a valid mobile number
+	 * Check whether given string is a valid phone number
 	 * @param {String} str
-	 * returns {Boolean/String} plain mobile number XXXXXXXXXX if it passes US mobile validation (XXX)XXX-XXXX
+	 * returns {Boolean/String} plain phone number XXXXXXXXXX if it passes US phone validation (XXX)XXX-XXXX
 	 */
-	validateMobileNumber : function(str) {
+	validatePhoneNumber : function(str) {
 		return /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(str) ? str.replace(/\D+/g, "") : false;
 	},
 
 	/**
-	 * Check whether given string is a 10 digit mobile number
+	 * Check whether given string is a 10 digit phone number
 	 * @param {String} str
 	 * returns {Boolean}
 	 */
-	isMobileNumber : function(str) {
+	isPhoneNumber : function(str) {
 		return /^[0-9]{10}$/.test(str);
 	},
 

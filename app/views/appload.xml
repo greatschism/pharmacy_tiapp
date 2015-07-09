@@ -1,5 +1,5 @@
 <Alloy>
 	<Window id="window" onOpen="didOpen" onAndroidback="didAndroidback">
-		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
+		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 	</Window>
 </Alloy>

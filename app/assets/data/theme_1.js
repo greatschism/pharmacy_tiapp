@@ -29,6 +29,109 @@ module.exports = {
 			"support" : {
 				"call" : "1234567890",
 				"email" : "support@mscripts.com"
+			},
+			"location_timeout" : 900,
+			"http_timeout" : 90,
+			"iconNotations" : {
+				"switch_on" : "0xE001",
+				"switch_off" : "0xE002",
+				"health_care" : "0xE003",
+				"login" : "0xE004",
+				"logout" : "0xE005"
+			},
+			"icons" : {
+				"numeric_zero" : "0",
+				"numeric_one" : "1",
+				"numeric_two" : "2",
+				"numeric_three" : "3",
+				"numeric_four" : "4",
+				"numeric_five" : "5",
+				"numeric_six" : "6",
+				"numeric_seven" : "7",
+				"numeric_eight" : "8",
+				"numeric_nine" : "9",
+				"thin_pharmacy" : "c",
+				"thick_pharmacy" : "C",
+				"thin_prescription" : "a",
+				"thick_prescription" : "A",
+				"thin_doctor" : "e",
+				"thick_doctor" : "E",
+				"thin_refill" : "b",
+				"thick_refill" : "B",
+				"thin_transfer" : "d",
+				"thick_transfer" : "D",
+				"thin_reminder" : "f",
+				"thick_reminder" : "F",
+				"thin_coupon" : "g",
+				"thick_coupon" : "G",
+				"thin_account" : "h",
+				"thick_account" : "H",
+				"thin_feedback" : "i",
+				"thick_feedback" : "I",
+				"thin_notification" : "y",
+				"thick_notification" : "Y",
+				"thin_camera" : "$",
+				"thick_camera" : "<",
+				"thin_arrow_down" : "[",
+				"thick_arrow_down" : "\"",
+				"filled_arrow_down" : "%",
+				"thin_arrow_up" : "^",
+				"thick_arrow_up" : "|",
+				"filled_arrow_up" : ")",
+				"thin_arrow_left" : "]",
+				"thick_arrow_left" : "#",
+				"filled_arrow_left" : "'",
+				"thin_arrow_right" : "?",
+				"thick_arrow_right" : "u",
+				"filled_arrow_right" : "(",
+				"thick_location_pin" : "n",
+				"thin_location_pin" : "V",
+				"add" : ",",
+				"unfilled_add" : "k",
+				"filled_add" : "/",
+				"thin_filled_success" : "+",
+				"thin_unfilled_success" : "m",
+				"thick_unfilled_success" : ";",
+				"cancel" : "J",
+				"filled_cancel" : "*",
+				"remove" : "-",
+				"filled_remove" : "}",
+				"unfilled_remove" : ":",
+				"star" : "P",
+				"filled_star" : "p",
+				"refill_camera" : "&",
+				"pills" : "N",
+				"reward" : ">",
+				"hamburger" : "R",
+				"back" : "!",
+				"options_menu" : "U",
+				"sort" : "X",
+				"home" : "s",
+				"search" : "Q",
+				"refresh" : ".",
+				"help" : "`",
+				"checkbox" : "j",
+				"close" : "v",
+				"phone" : "q",
+				"print" : "z",
+				"alarm" : "O",
+				"clock" : "L",
+				"calendar" : "M",
+				"map" : "t",
+				"direction" : "l",
+				"spot" : "x",
+				"slide" : "_",
+				"list" : "r",
+				"rx_pin" : "T",
+				"badge_star" : "K",
+				"info" : "Z",
+				"vitamin" : "o",
+				"tip" : "=",
+				"edit" : "{",
+				"user" : "W",
+				"users" : "w",
+				"error" : "@",
+				"injection" : "S"
 			}
 		},
 		"tss" : {
@@ -92,16 +195,66 @@ module.exports = {
 			".margin-right" : {
 				"right" : 12
 			},
-			".between-margin-left" : {
+			".edge-margin-left" : {
 				"left" : 12
 			},
-			".between-margin-right" : {
+			".edge-margin-right" : {
 				"right" : 12
 			},
 			".map-view" : {
 				"animate" : true,
 				"regionFit" : true,
 				"userLocation" : true
+			},
+			".primary-icon-btn" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"color" : "#F7941E",
+				"selectedColor" : "#F7941E",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
+			".inactive-icon-btn" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"color" : "#A6A8AB",
+				"selectedColor" : "#A6A8AB",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
+			".secondary-btn-view" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : "auto",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
+			".secondary-btn-lbl" : {
+				"top" : 8,
+				"bottom" : 8,
+				"left" : 8,
+				"right" : 8,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#F7941E",
+				"textAlign" : "center",
+				"ellipsize" : false,
+				"wordWrap" : true
 			},
 			".primary-btn" : {
 				"left" : 16,
@@ -119,7 +272,7 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
-			".primary-btn-small" : {
+			".primary-btn-48" : {
 				"width" : "48%",
 				"height" : 50,
 				"font" : {
@@ -150,7 +303,7 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
-			".secondary-btn-small" : {
+			".secondary-btn-48" : {
 				"width" : "48%",
 				"height" : 50,
 				"font" : {
@@ -181,7 +334,7 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
-			".tertiary-btn-small" : {
+			".tertiary-btn-48" : {
 				"width" : "48%",
 				"height" : 50,
 				"font" : {
@@ -783,7 +936,7 @@ module.exports = {
 			},
 			".swipe-view" : {
 				"width" : 0,
-				"height" : "fill",
+				"height" : 0,
 				"paddingLeft" : 60,
 				"paddingRight" : 12,
 				"bubbleParent" : false
@@ -1366,6 +1519,7 @@ module.exports = {
 			".content-master-view-100" : {
 				"left" : 0,
 				"width" : "100%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-0" : {
@@ -1377,6 +1531,7 @@ module.exports = {
 			".content-master-view-75" : {
 				"left" : 0,
 				"width" : "75%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-25" : {
@@ -1388,6 +1543,7 @@ module.exports = {
 			".content-master-view-70" : {
 				"left" : 0,
 				"width" : "70%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-30" : {
@@ -1399,6 +1555,7 @@ module.exports = {
 			".content-master-view-65" : {
 				"left" : 0,
 				"width" : "65%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-35" : {
@@ -1410,6 +1567,7 @@ module.exports = {
 			".content-master-view-60" : {
 				"left" : 0,
 				"width" : "60%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-40" : {
@@ -1421,6 +1579,7 @@ module.exports = {
 			".content-master-view-55" : {
 				"left" : 0,
 				"width" : "55%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-45" : {
@@ -1432,6 +1591,7 @@ module.exports = {
 			".content-master-view-50" : {
 				"left" : 0,
 				"width" : "50%",
+				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-50" : {
@@ -1441,9 +1601,9 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-secondary-btn" : {
-				"maxWidth" : 90,
 				"right" : 0,
 				"height" : 40,
+				"width" : 90,
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 17
@@ -1592,7 +1752,7 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-detail-nagative-icon" : {
+			".content-detail-negative-icon" : {
 				"left" : 0,
 				"font" : {
 					"fontFamily" : "icon",
@@ -1756,6 +1916,34 @@ module.exports = {
 				"layout" : "horizontal",
 				"horizontalWrap" : false
 			},
+			".content-group-prompt-40" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "40%",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-reply-60" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "60%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".content-group-prompt" : {
 				"top" : 0,
 				"left" : 0,
@@ -1794,20 +1982,6 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"color" : "#0095ff",
-				"textAlign" : "left",
-				"ellipsize" : false,
-				"wordWrap" : true
-			},
-			".content-group-reply-with-padding" : {
-				"top" : 0,
-				"left" : 16,
-				"height" : "auto",
-				"width" : "auto",
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"color" : "#000000",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -1947,13 +2121,6 @@ module.exports = {
 				},
 				"color" : "#FFFFFF",
 				"backgroundColor" : "#ED1C24"
-			},
-			".primary-icon-large" : {
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 34
-				},
-				"color" : "#F7941E"
 			},
 			".lbl" : {
 				"left" : 12,

@@ -9,8 +9,12 @@
 
 function init() {
 	//initialization
-	require("apm").init();
 	require("resources").init();
 	require("config").load();
+	/**
+	 *  initialize apm only when configurations are ready
+	 *  so can be disabled from server through theme
+	 */
+	require("apm").init();
 	Alloy.createController("appload");
 }

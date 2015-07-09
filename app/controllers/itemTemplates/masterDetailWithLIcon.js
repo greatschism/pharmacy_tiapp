@@ -1,17 +1,7 @@
-var args = arguments[0] || {},
-    uihelper = require("uihelper"),
-    CONSTS = "CONST_" + $.__controllerPath;
+var args = arguments[0] || {};
 
 //reload tss of this controller in memory
 require("config").updateTSS($.__controllerPath);
-
-if (!Alloy.TSS[CONSTS]) {
-	Alloy.TSS[CONSTS] = {
-		height : ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true),
-	};
-}
-
-CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
 	var rDict = {};
@@ -32,7 +22,7 @@ CONSTS = Alloy.TSS[CONSTS];
 			classes.push("content-" + args.iconType + "-left-icon");
 		}
 		if (args.iconClasses) {
-			classes = _.union(classes, args.iconClasses)
+			classes = _.union(classes, args.iconClasses);
 		}
 		var iDict = $.createStyle({
 			classes : classes
@@ -48,26 +38,28 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.filterText) {
 		rDict[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	rDict.height = CONSTS.height;
-	$.row.applyProperties(rDict);
+	if (!_.isEmpty(rDict)) {
+		$.row.applyProperties(rDict);
+	}
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
 	}
-	$.titleLbl.text = args.title;
-	$.subtitleLbl.text = args.subtitle;
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
-	if (args.detailTitle) {
+	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : ""),
+	    detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
+	if (detailTitle) {
 		$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
-			text : args.detailTitle
+			text : detailTitle
 		});
 	} else {
 		$.detailTitleLbl.height = 0;
 	}
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
-		text : args.detailSubtitle
+		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 })();
 
@@ -75,4 +67,9 @@ function getParams() {
 	return args;
 }
 
+function getHeight() {
+	return ($.contentView.top || 0) + ($.contentView.bottom || 0) + require("uihelper").getHeightFromChildren($.masterView, true);
+}
+
+exports.getHeight = getHeight;
 exports.getParams = getParams;

@@ -1,3 +1,55 @@
 <Alloy>
-	<TableView id="tableView"></TableView>
+	<TableView id="tableView">
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<View class="auto-height">
+					<Label id="favouriteIconLbl" class="margin-top content-left-icon" />
+					<View id="storeContentView" class="content-view-vgroup-with-licon">
+						<View class="auto-height">
+							<View class="content-master-view-55 auto-height">
+								<Label id="titleLbl" class="content-title-wrap" />
+								<Label id="subtitleLbl" class="content-subtitle" />
+							</View>
+							<View id="clockDetailView" class="content-detail-view-45 auto-height hide">
+								<View class="content-detail-icon-view">
+									<Label id="clockIconLbl" class="icon-clock" />
+									<Label id="clockLbl" />
+								</View>
+							</View>
+						</View>
+						<View class="auto-height">
+							<View class="content-master-view-50 auto-height">
+								<View class="content-group" onClick="didClickPhone">
+									<Label id="phonePromptLbl" class="content-group-prompt" />
+									<Label id="phoneReplyLbl" class="content-group-reply-link" />
+								</View>
+							</View>
+							<View class="content-detail-view-50 auto-height" if="$.args.direction">
+								<Button id="directionBtn" class="tertiary-btn" onClick="didClickDirection" />
+							</View>
+						</View>
+					</View>
+				</View>
+				<View class="content-view-vgroup" if="Alloy.Globals.isLoggedIn">
+					<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" />
+					<View class="margin-top auto-height">
+						<View class="content-master-view-70 auto-height">
+							<View class="secondary-btn-view" onClick="didClickFavourite">
+								<Label id="favouriteLbl" class="secondary-btn-lbl" />
+							</View>
+						</View>
+						<View class="content-detail-view-30 auto-height">
+							<Button id="homeIconBtn" class="icon-home" onClick="didClickHome" />
+						</View>
+					</View>
+				</View>
+			</View>
+		</HeaderView>
+		<TableViewRow>
+			<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-auto" />
+		</TableViewRow>
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
 </Alloy>

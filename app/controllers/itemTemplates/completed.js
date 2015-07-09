@@ -7,8 +7,8 @@ require("config").updateTSS($.__controllerPath);
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.titleLbl.text = args.title;
-	$.subtitleLbl.text = args.subtitle;
+	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.tooltip) {
 		$.row.className = "completedTooltip";
 		$.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
