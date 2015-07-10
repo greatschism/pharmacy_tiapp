@@ -68,7 +68,7 @@ function getStores(searchStr) {
 				"isbookmarked" : "1",
 				"ishomepharmacy" : "1"
 			}, {
-				"id" : "1",
+				"id" : "2",
 				"store_identifier" : "01",
 				"store_ncpdp_id" : "4517100",
 				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
@@ -85,8 +85,8 @@ function getStores(searchStr) {
 				"timezone" : "US/Central",
 				"distance" : null,
 				"searchdistance" : null,
-				"isbookmarked" : "1",
-				"ishomepharmacy" : "1"
+				"isbookmarked" : "0",
+				"ishomepharmacy" : "0"
 			}]
 		}
 	});
@@ -146,6 +146,7 @@ function prepareList() {
 	rows = [];
 	var data = [];
 	Alloy.Collections.stores.each(function(store) {
+		console.log(store.toJSON());
 		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON());
 		data.push(row.getView());
 		rows.push(row);
