@@ -141,11 +141,22 @@ function didClickRefill(e) {
 }
 
 function didClickFavourite(e) {
-
+	store.isbookmarked = !store.isbookmarked;
+	$.favouriteIconLbl.applyProperties($.createStyle({
+		classes : [store.isbookmarked ? "icon-filled-star" : "icon-star"]
+	}));
+	
+	$.favouriteLbl.text = $.strings[store.isbookmarked ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
+	//todo - call addToFav() API
 }
 
 function didClickHome(e) {
-
+	store.ishomepharmacy = !store.ishomepharmacy;
+	$.homeIconBtn.applyProperties($.createStyle({
+		classes : [store.ishomepharmacy ? "primary-icon-btn" : "inactive-icon-btn"]
+	}));
+	
+	//todo - call addToHome() API
 }
 
 exports.init = init;
