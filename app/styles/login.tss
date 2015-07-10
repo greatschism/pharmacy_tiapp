@@ -6,7 +6,7 @@
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	hintText: Alloy.Globals.strings.hintPassword,
+	hintText: Alloy.Globals.strings.loginHintPassword,
 	passwordMask: true
 },
 "#keepMeLbl":{

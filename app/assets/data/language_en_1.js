@@ -66,10 +66,10 @@ module.exports = {
 
 		"homeNavBtnLogin" : "Sign in",
 
+		"loginLblTitle" : "Sign in to the mscripts mobile pharmacy",
 		"loginHintUsername" : "Username",
 		"loginHintPassword" : "Password",
 		"loginLblRememberMe" : "Keep me logged in",
-		"loginLblTitle" : "Sign in to the mscripts mobile pharmacy",
 		"loginLnkCreateAccount" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",

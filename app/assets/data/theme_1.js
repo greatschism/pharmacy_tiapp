@@ -242,8 +242,8 @@ module.exports = {
 				"borderWidth" : 1
 			},
 			".secondary-btn-lbl" : {
-				"top" : 8,
-				"bottom" : 8,
+				"top" : 16,
+				"bottom" : 16,
 				"left" : 8,
 				"right" : 8,
 				"height" : "auto",
@@ -1391,7 +1391,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-title" : {
-				"left" : 0,
+				"width" : "100%",
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "regular",
@@ -1403,7 +1403,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-title-wrap" : {
-				"left" : 0,
+				"width" : "100%",
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
@@ -1416,7 +1416,7 @@ module.exports = {
 			},
 			".content-subtitle" : {
 				"top" : 12,
-				"left" : 0,
+				"width" : "100%",
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
@@ -1429,7 +1429,7 @@ module.exports = {
 			},
 			".content-subtitle-wrap" : {
 				"top" : 12,
-				"left" : 0,
+				"width" : "100%",
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
@@ -1442,10 +1442,8 @@ module.exports = {
 			},
 			".content-subtitle-view" : {
 				"top" : 12,
-				"left" : 0,
-				"width" : "auto",
-				"height" : "auto",
-				"layout" : "horizontal"
+				"width" : "100%",
+				"height" : "auto"
 			},
 			".content-subtitle-positive-icon" : {
 				"left" : 0,
@@ -1457,7 +1455,8 @@ module.exports = {
 				"accessibilityHidden" : true
 			},
 			".content-subtitle-icon-description" : {
-				"left" : 4,
+				"left" : 20,
+				"right" : 0,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
@@ -1469,7 +1468,8 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-subtitle-icon-description-wrap" : {
-				"left" : 0,
+				"left" : 20,
+				"right" : 0,
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
@@ -1726,10 +1726,9 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-detail-icon-view" : {
-				"left" : 16,
-				"width" : "auto",
-				"height" : "auto",
-				"layout" : "horizontal"
+				"left" : 8,
+				"right" : 0,
+				"height" : "auto"
 			},
 			".content-detail-positive-icon" : {
 				"left" : 0,
@@ -1741,7 +1740,8 @@ module.exports = {
 				"accessibilityHidden" : true
 			},
 			".content-detail-positive-icon-description" : {
-				"left" : 4,
+				"left" : 16,
+				"right" : 0,
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
@@ -1762,7 +1762,8 @@ module.exports = {
 				"accessibilityHidden" : true
 			},
 			".content-detail-negative-icon-description" : {
-				"left" : 4,
+				"left" : 16,
+				"right" : 0,
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
@@ -2032,6 +2033,7 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"textAlign" : "center",
 				"backgroundColor" : "#FFFFFF"
 			},
 			".tooltip-attributed-lbl-wrap" : {

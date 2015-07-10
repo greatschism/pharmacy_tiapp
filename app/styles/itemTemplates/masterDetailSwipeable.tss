@@ -1,3 +1,8 @@
-"#row":{
-	className: "masterDetailSwipeable"	
-}
+/**
+*  className improves performance on android
+*  but here dyanmic height with swipe view
+*  is used, postlayout event will not be triggered more than once
+*/
+/*"#row":{
+	className: "masterDetailSwipeable"
+}*/

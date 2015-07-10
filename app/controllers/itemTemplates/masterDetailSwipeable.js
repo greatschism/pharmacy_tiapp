@@ -78,6 +78,13 @@ CONSTS = Alloy.TSS[CONSTS];
 function didPostlayout(e) {
 	$.containerView.removeEventListener("postlayout", didPostlayout);
 	var height = e.source.rect.height;
+	/**
+	 * this avoids a know flickering issue with apple
+	 * with dynamic row height
+	 */
+	if (OS_IOS) {
+		height += 0.5;
+	}
 	$.containerView.height = height;
 	$.swipeView.height = height;
 }
