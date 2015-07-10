@@ -17,7 +17,7 @@
 								</View>
 							</View>
 						</View>
-						<View class="auto-height">
+						<View id="locationView" class="auto-height">
 							<View class="content-master-view-50 auto-height">
 								<View class="content-group" onClick="didClickPhone">
 									<Label id="phonePromptLbl" class="content-group-prompt" />

@@ -206,7 +206,66 @@ module.exports = {
 				"regionFit" : true,
 				"userLocation" : true
 			},
+			".annotation-icon-btn[platform=ios]" : {
+				"width" : 50,
+				"height" : 60,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#F7941E",
+				"backgroundSelectedColor" : "#F7941E"
+			},
+			".annotation-icon-btn[platform=android]" : {
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"textAlignment" : "right",
+				"color" : "#F7941E",
+				"selectedColor" : "#F7941E",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
+			".annotation-child-icon-btn[platform=ios]" : {
+				"width" : 20,
+				"height" : 58,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 14
+				},
+				"color" : "#808082",
+				"selectedColor" : "#808082",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
+			".annotation-child-icon-btn[platform=android]" : {
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 14
+				},
+				"textAlignment" : "right",
+				"color" : "#808082",
+				"selectedColor" : "#808082",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
 			".primary-icon-btn" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 34
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#F7941E",
+				"backgroundSelectedColor" : "#F7941E"
+			},
+			".secondary-icon-btn" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,

@@ -22,3 +22,9 @@ var args = arguments[0] || {};
 function didClick(e) {
 	$.trigger("click", e);
 }
+
+function getNavButton() {
+	return $.button;
+}
+
+exports.getNavButton = getNavButton;

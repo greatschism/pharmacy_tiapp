@@ -1,10 +1,29 @@
 var args = arguments[0] || {},
+    Map = Alloy.Globals.Map,
     isSearch = false,
     isListPrepared = false,
     isMapPrepared = false,
-    rows = [];
+    rows = [],
+    pinImg,
+    leftBtnDict,
+    rightBtnDict,
+    listIconDict,
+    mapIconDict;
 
 function init() {
+	pinImg = $.uihelper.getImage("map_pin").image;
+	leftBtnDict = $.createStyle({
+		classes : ["annotation-icon-btn", "icon-direction"]
+	});
+	rightBtnDict = $.createStyle({
+		classes : ["annotation-child-icon-btn", "icon-thin-arrow-right"]
+	});
+	listIconDict = $.createStyle({
+		classes : ["icon-list"]
+	});
+	mapIconDict = $.createStyle({
+		classes : ["icon-map"]
+	});
 	$.containerView.top = $.searchbar.height;
 	$.uihelper.getLocation(didGetLocation);
 }
@@ -34,12 +53,6 @@ function getStores(searchStr) {
 			$.searchTxt.setValue("");
 		}
 	}
-	/*
-	 *  we are making a new api call
-	 *  the data of this api call should sync when switching between list and map
-	 */
-	isListPrepared = false;
-	isMapPrepared = false;
 	//till api is ready
 	didGetStores({
 		"status" : "Success",
@@ -72,16 +85,16 @@ function getStores(searchStr) {
 				"store_identifier" : "01",
 				"store_ncpdp_id" : "4517100",
 				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
-				"addressline1" : "3600 GASTON AVENUE, SUITE 109",
-				"addressline2" : "3600 GASTON AVENUE, SUITE 109",
+				"addressline1" : "3700 GASTON AVENUE, SUITE 109",
+				"addressline2" : "3700 GASTON AVENUE, SUITE 109",
 				"state" : "TX",
 				"city" : "DALLAS",
 				"zip" : "75246",
 				"email_address" : null,
 				"phone" : "2148203451",
 				"fax" : "2148204088",
-				"latitude" : "32.791002",
-				"longitude" : "-96.779725",
+				"latitude" : "34.791002",
+				"longitude" : "-95.779725",
 				"timezone" : "US/Central",
 				"distance" : null,
 				"searchdistance" : null,
@@ -103,6 +116,12 @@ function didGetStores(result, passthrough) {
 			stores : []
 		};
 	}
+	/*
+	 *  we are making a new api call
+	 *  the data of this api call should sync when switching between list and map
+	 */
+	isListPrepared = false;
+	isMapPrepared = false;
 	//common parsing logics
 	var loggedIn = Alloy.Globals.isLoggedIn;
 	_.each(result.data.stores, function(store) {
@@ -139,14 +158,14 @@ function prepareList() {
 	 *  check whether list and map is already in sync
 	 *  since this function can called when switching between list and map
 	 */
-	if (isMapPrepared) {
+	if (isListPrepared) {
 		return false;
 	}
+	isListPrepared = true;
 	//reset rows
 	rows = [];
 	var data = [];
 	Alloy.Collections.stores.each(function(store) {
-		console.log(store.toJSON());
 		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON());
 		data.push(row.getView());
 		rows.push(row);
@@ -155,9 +174,28 @@ function prepareList() {
 }
 
 function prepareMap() {
-	if (isListPrepared) {
+	/**
+	 *  check whether list and map is already in sync
+	 *  since this function can called when switching between list and map
+	 */
+	if (isMapPrepared) {
 		return false;
 	}
+	isMapPrepared = true;
+	var data = [];
+	Alloy.Collections.stores.each(function(store) {
+		data.push(Map.createAnnotation({
+			storeId : store.get("id"),
+			title : store.get("title"),
+			subtitle : store.get("subtitle"),
+			latitude : store.get("latitude"),
+			longitude : store.get("longitude"),
+			leftView : Ti.UI.createButton(leftBtnDict),
+			rightView : Ti.UI.createButton(rightBtnDict),
+			image : pinImg
+		}));
+	});
+	$.mapView.annotations = data;
 }
 
 function didChangeSearch(e) {
@@ -209,9 +247,11 @@ function didClickRightNavBtn(e) {
 		anim.removeEventListener("complete", onComplete);
 		$.tableView.opacity = opacity;
 		if (opacity) {
+			$.rightNavBtn.getNavButton().applyProperties(mapIconDict);
 			//to keep map and list in sync
 			prepareList();
 		} else {
+			$.rightNavBtn.getNavButton().applyProperties(listIconDict);
 			$.tableView.visible = false;
 			//to keep list and map in sync
 			prepareMap();

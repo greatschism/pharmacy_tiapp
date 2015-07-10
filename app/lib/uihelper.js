@@ -152,10 +152,10 @@ var Helper = {
 
 	/**
 	 *  Open option dialog for phone number
-	 *  @param {Object} Titanium.Contacts.Person dictionary for creating contact
+	 *  @param {Object} personObj Titanium.Contacts.Person dictionary for creating contact
 	 *  @param {String} phone actual phone number to be sent for dialer
 	 */
-	getDialer : function(contactObj, phone) {
+	getPhone : function(personObj, phone) {
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
 			options : [Alloy.Globals.strings.strPhone, Alloy.Globals.strings.strContactAdd, Alloy.Globals.strings.dialogBtnCancel],
 			cancel : 2
@@ -167,7 +167,7 @@ var Helper = {
 					Helper.showDialer(phone);
 					break;
 				case 1:
-					Helper.addContact(contactObj);
+					Helper.addContact(personObj);
 					break;
 				}
 			}
@@ -180,14 +180,14 @@ var Helper = {
 
 	/**
 	 * Add phone number to contacts
-	 * @param {Object} Titanium.Contacts.Person dictionary for creating contact
+	 * @param {Object} personObj Titanium.Contacts.Person dictionary for creating contact
 	 * @param {Boolean} requestAccess whether to request for access
 	 * @param {Boolean} preventDialog whether to prevent success dialog
 	 */
-	addContact : function(contactObj, requestAccess, preventDialog) {
+	addContact : function(personObj, requestAccess, preventDialog) {
 		switch(Ti.Contacts.contactsAuthorization) {
 		case Ti.Contacts.AUTHORIZATION_AUTHORIZED:
-			Ti.Contacts.createPerson(contactObj);
+			Ti.Contacts.createPerson(personObj);
 			if (preventDialog !== false) {
 				Helper.showDialog({
 					message : Alloy.Globals.strings.msgContactAdded
@@ -208,7 +208,7 @@ var Helper = {
 			if (requestAccess !== false) {
 				Ti.Contacts.requestAuthorization(function(e) {
 					if (e.success) {
-						Helper.addContact(contactObj, false, preventDialog);
+						Helper.addContact(personObj, false, preventDialog);
 					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgContactsAuthorizationDenied

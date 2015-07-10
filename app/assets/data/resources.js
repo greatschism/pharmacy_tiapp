@@ -143,6 +143,7 @@ module.exports = {
 				"left" : 100
 			}
 		},
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo.png",
 		"selected" : true
 	}, {
@@ -162,6 +163,7 @@ module.exports = {
 				"height" : 30
 			}
 		},
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo_white.png",
 		"selected" : true
 	}, {
@@ -181,6 +183,7 @@ module.exports = {
 				"left" : 100
 			}
 		},
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/prescription_list.png",
 		"selected" : true
 	}, {
@@ -200,6 +203,7 @@ module.exports = {
 				"left" : 100
 			}
 		},
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/helpful_medication.png",
 		"selected" : true
 	}, {
@@ -219,6 +223,7 @@ module.exports = {
 				"left" : 100
 			}
 		},
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
 		"selected" : true
 	}, {
@@ -230,12 +235,31 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"width" : 30
+				"width" : 40
 			},
 			"landscape" : {
-				"width" : 30
+				"width" : 40
 			}
 		},
+		"platform" : ["ios"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "map_pin_pl",
+		"name" : "map_pin",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 80
+			},
+			"landscape" : {
+				"width" : 80
+			}
+		},
+		"platform" : ["android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
 		"selected" : true
 	}]

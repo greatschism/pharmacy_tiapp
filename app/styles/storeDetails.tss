@@ -1,6 +1,9 @@
 "#storeContentView[if=Alloy.Globals.isLoggedIn]":{
 	bottom: null
 },
+"#locationView[if=!$.args.direction]":{
+	top: Alloy.TSS.margin_top.top
+},
 "#phonePromptLbl":{
 	text: Alloy.Globals.strings.storeDetPromptPhone
 },

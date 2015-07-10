@@ -79,7 +79,7 @@
             <data android:scheme="mscripts-app"/>
           </intent-filter>
         </activity>
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCeFz_2UhldYEOtdL6KG08MR3r01m-uNEA"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBEAiCLk1IbiENX-x2Vdp-J5AzEJB9uZEY"/>
       </application>
     </manifest>
   </android>
@@ -91,7 +91,8 @@
     <module platform="android">ti.push</module>
     <module platform="iphone">com.obscure.keychain</module>
     <module platform="android">com.obscure.keychain</module>
-    <!--<module platform="iphone">com.mfogg.barcode</module><module platform="android">ti.barcode</module>-->
+    <module platform="iphone">ti.barcode</module>
+    <module platform="android">ti.barcode</module>
     <module platform="iphone">dk.napp.drawer</module>
     <module platform="android">com.tripvi.drawerlayout</module>
   </modules>
