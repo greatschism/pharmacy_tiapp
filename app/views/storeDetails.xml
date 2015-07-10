@@ -10,7 +10,7 @@
 								<Label id="titleLbl" class="content-title-wrap" />
 								<Label id="subtitleLbl" class="content-subtitle" />
 							</View>
-							<View id="clockDetailView" class="content-detail-view-45 auto-height hide">
+							<View id="clockDetailView" class="content-detail-view-45 auto-height">
 								<View class="content-detail-icon-view">
 									<Label id="clockIconLbl" class="icon-clock" />
 									<Label id="clockLbl" />
@@ -45,11 +45,9 @@
 				</View>
 			</View>
 		</HeaderView>
-		<TableViewRow>
-			<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-auto" />
-		</TableViewRow>
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

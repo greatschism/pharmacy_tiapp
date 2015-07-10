@@ -2,16 +2,6 @@ var args = arguments[0] || {},
     store = args.store;
 
 function init() {
-	$.titleLbl.text = store.title;
-	$.subtitleLbl.text = store.subtitle;
-	if (!store.phone_formatted) {
-		store.phone_formatted = $.utilities.formatPhoneNumber(store.phone);
-	}
-	$.phoneReplyLbl.text = store.phone_formatted;
-	if (Alloy.Globals.isLoggedIn) {
-		updateHome();
-		updateFavourite();
-	}
 	if (!_.has(store, "hours")) {
 		$.http.request({
 			method : "stores_get",
@@ -28,7 +18,7 @@ function init() {
 			success : didGetStore
 		});
 	} else {
-		loadStore();
+		setTimeout(loadStore, 1000);
 	}
 }
 
@@ -38,6 +28,16 @@ function didGetStore(result, passthrough) {
 }
 
 function loadStore() {
+	$.titleLbl.text = store.title;
+	$.subtitleLbl.text = store.subtitle;
+	if (!store.phone_formatted) {
+		store.phone_formatted = $.utilities.formatPhoneNumber(store.phone);
+	}
+	$.phoneReplyLbl.text = store.phone_formatted;
+	if (Alloy.Globals.isLoggedIn) {
+		updateHome();
+		updateFavourite();
+	}
 	/**
 	 *  store is_open property yet to be exposed
 	 *  in order to show the open or close time
@@ -61,7 +61,6 @@ function loadStore() {
 	$.addClass($.clockLbl, [lblClass], {
 		text : String.format($.strings[lKey], hours.length ? hours[0].hours.split("- ")[1] : "")
 	});
-	$.clockDetailView.visible = true;
 	if (hours.length) {
 		var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
 		_.each(hours, function(hour) {
@@ -94,6 +93,7 @@ function loadStore() {
 		data.push(servicesSection);
 	}
 	$.tableView.setData(data);
+	$.loader.hide();
 }
 
 function updateHome() {
