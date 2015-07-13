@@ -15,6 +15,7 @@ module.exports = {
 		"strGoogleMaps" : "Google",
 		"strPhone" : "Call",
 		"strContactAdd" : "Add to contacts",
+		"strOr" : "Or",
 
 		"msgLoading" : "Processing. Please wait",
 		"msgNetworkError" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -134,13 +135,11 @@ module.exports = {
 		"orderDetSectionList" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetBtnRefill" : "Order refill",
-		
-		"QRLblScanMyPrescription":"Scan my prescription",
-		"QRLblTypeMyPrescription":"Type my prescription details",
-		"QRLblOr":"Or",
-		"QRLblRefillNowMobileNumberTitle":"Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
-		"QRHintRefillNowMobileNumber":"Mobile number",
-		"QRBtnRefillNowContinue":"Continue",
-		
+
+		"qrBtnScan" : "Scan my prescription",
+		"qrBtnType" : "Type my prescription details",
+		"qrScanLblMobileNumber" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"qrScanHintMobileNumber" : "Mobile number",
+		"qrScanBtnContinue" : "Continue"
 	}
 };
