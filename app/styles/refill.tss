@@ -1,13 +1,13 @@
 "#scanPrescription":
 {
 	top:100,
-	title: Alloy.Globals.strings.lblScanMyPrescription
+	title: Alloy.Globals.strings.QRLblScanMyPrescription
 }
 "#typePrescription":
 {
-	title: Alloy.Globals.strings.lblTypeMyPrescription
+	title: Alloy.Globals.strings.QRLblTypeMyPrescription
 	
 }
 "#orLbl":{
-	text: Alloy.Globals.strings.lblOr
+	text: Alloy.Globals.strings.QRLblOr
 },

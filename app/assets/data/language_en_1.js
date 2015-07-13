@@ -133,6 +133,14 @@ module.exports = {
 
 		"orderDetSectionList" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
-		"orderDetBtnRefill" : "Order refill"
+		"orderDetBtnRefill" : "Order refill",
+		
+		"QRLblScanMyPrescription":"Scan my prescription",
+		"QRLblTypeMyPrescription":"Type my prescription details",
+		"QRLblOr":"Or",
+		"QRLblRefillNowMobileNumberTitle":"Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"QRHintRefillNowMobileNumber":"Mobile number",
+		"QRBtnRefillNowContinue":"Continue",
+		
 	}
 };

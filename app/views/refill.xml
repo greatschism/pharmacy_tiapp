@@ -1,15 +1,10 @@
 <Alloy>
-	<ScrollView class="vgroup bg-primary">
-
-		<!--<Label id="hintPara" class="styled-title multi-line" />
-		<Label id="hintParaOne" class="styled-title multi-line" />-->
-
-		<Button id="scanPrescription" class="padding-top secondary-btn padding-bottom " onClick="didClickScan" />
-		<View class="margin-left margin-right default-height">
-			<View class="hseparator"/>
-			<Label id="orLbl" class="or-lbl" />
+	<ScrollView class="vgroup">
+		<Button id="scanPrescription" class="secondary-btn" onClick="didClickScan" />
+		<View class="option-divider-view">
+			<View class="option-divider-line"/>
+			<Label id="orLbl"class="option-divider-lbl" />
 		</View>
-		<Button id="typePrescription" class="padding-top secondary-btn" onClick="didClickType" />
-
+		<Button id="typePrescription" class="secondary-btn" onClick="didClickType" />
 	</ScrollView>
 </Alloy>

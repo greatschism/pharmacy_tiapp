@@ -1,0 +1,10 @@
+<Alloy>
+	
+	<ScrollView id="refillSelectMainNavWin" class="vgroup">
+		<Label id="titleLbl" class="title-centered-wrap" />
+		<Label id="hintLbl" class="lbl-centered-wrap margin-top margin-bottom" />		
+		<Widget id="mobileTxt" src="ti.textfield" class="txt returnkey-done margin-top margin-bottom " onChange="didChange" onReturn="didClickContinue" />
+		<Button id="continueBtn" class="primary-btn" onClick="didClickContinue" />
+	</ScrollView>
+</Alloy>
+

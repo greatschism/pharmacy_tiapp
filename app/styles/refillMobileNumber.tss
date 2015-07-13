@@ -1,0 +1,19 @@
+"#hintLbl":{
+	text: Alloy.Globals.strings.QRLblRefillNowMobileNumberTitle,
+	font : {
+					fontWeight : 'regular',
+					fontSize : 14
+				},
+},
+"#mobileTxt":{
+	hintText: Alloy.Globals.strings.QRHintRefillNowMobileNumber,
+	keyboardType: Ti.UI.KEYBOARD_PHONE_PAD,
+	font : {
+					fontWeight : 'bold',
+					fontSize : 15
+				},
+	maxLength : 14
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.QRBtnRefillNowContinue
+}
