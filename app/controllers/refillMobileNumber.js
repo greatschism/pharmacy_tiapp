@@ -126,8 +126,8 @@ function didClickContinue(e) {
 			fontWeight : 'bold',
 			fontSize : 16
 		},
-		width : 300,
-		height : 60,
+		width : 200,
+		height : 100,
 		top : 40
 	});
 	overlay.add(cameraTitleMessage);
@@ -159,7 +159,7 @@ function didClickContinue(e) {
 		if (!scannedBarcodes['' + e.result]) {
 			scannedBarcodes[e.result] = true;
 			scannedBarcodesCount += 1;
-			cancelButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
+			backButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
 
 		}
 	});
