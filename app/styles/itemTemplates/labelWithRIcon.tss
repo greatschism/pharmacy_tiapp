@@ -1,0 +1,6 @@
+"#row":{
+	className: "labelWithRIcon"
+},
+"#rightIconLbl":{
+	actionIdentifier: "rightIcon"
+}

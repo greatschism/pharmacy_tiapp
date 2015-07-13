@@ -14,6 +14,21 @@ require("config").updateTSS($.__controllerPath);
 	} else {
 		$.lbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 	}
+	var iDict = {};
+	if (args.iconClasses) {
+		iDict = $.createStyle({
+			classes : args.iconClasses
+		});
+	}
+	if (args.iconText) {
+		iDict.text = args.iconText;
+	}
+	if (args.iconAccessibilityLabel) {
+		iDict.accessibilityLabel = args.iconAccessibilityLabel;
+	}
+	if (!_.isEmpty(iDict)) {
+		$.rightIconLbl.applyProperties(iDict);
+	}
 })();
 
 function getParams() {

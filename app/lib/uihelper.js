@@ -342,10 +342,10 @@ var Helper = {
 	 * @param {String} title section header's title
 	 * @param {Boolean} isAttributed whether text is attributed
 	 * @param {Boolean} isWrap whether text should ellipsize
-	 * @param {String} rightIcon icon on right
+	 * @param {Object} rightItem content on right
 	 * @param {String} filterText used only when it is  call from createTableViewSection
 	 */
-	createHeaderView : function($, title, isAttributed, isWrap, rightIcon, filterText) {
+	createHeaderView : function($, title, isAttributed, isWrap, rightItem, filterText) {
 		var vClassName = "content-header-view",
 		    tClassName = "content-header-lbl";
 		if (isAttributed) {
@@ -355,21 +355,18 @@ var Helper = {
 			vClassName += "-wrap";
 			tClassName += "-wrap";
 		}
-		if (rightIcon) {
-			tClassName += "-with-ricon-btn";
+		if (rightItem) {
+			tClassName += "-with-r" + (rightItem.isIcon ? "icon" : "btn");
 		}
 		var headerView = $.UI.create("View", {
 			classes : vClassName,
 			title : filterText
 		});
-		if (rightIcon) {
-			headerView.add($.UI.create("Button", {
-				classes : ["content-header-right-icon-btn"],
-				title : rightIcon
-			}));
+		if (rightItem) {
+			headerView.add(Ti.UI.createButton(rightItem));
 		}
 		headerView.add($.UI.create("Label", {
-			classes : tClassName,
+			classes : [tClassName],
 			text : title
 		}));
 		return headerView;
@@ -382,15 +379,15 @@ var Helper = {
 	 * @param {String} filterText for the section
 	 * @param {Boolean} isAttributed whether text is attributed
 	 * @param {Boolean} isWrap whether text should ellipsize
-	 * @param {String} rightIcon icon on right
+	 * @param {Object} rightItem content on right
 	 * @param {View} footerView footer view for section
 	 */
-	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightIcon, footerView) {
+	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightItem, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict = {
-			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightIcon, filterText)
+			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightItem, filterText)
 		};
 		if (footerView) {
 			_.extend(dict, {

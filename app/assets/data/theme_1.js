@@ -206,7 +206,7 @@ module.exports = {
 				"regionFit" : true,
 				"userLocation" : true
 			},
-			".annotation-icon-btn[platform=ios]" : {
+			".annotation-icon[platform=ios]" : {
 				"width" : 50,
 				"height" : 60,
 				"font" : {
@@ -218,7 +218,7 @@ module.exports = {
 				"backgroundColor" : "#F7941E",
 				"backgroundSelectedColor" : "#F7941E"
 			},
-			".annotation-icon-btn[platform=android]" : {
+			".annotation-icon[platform=android]" : {
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 34
@@ -229,7 +229,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
-			".annotation-child-icon-btn[platform=ios]" : {
+			".annotation-child-icon[platform=ios]" : {
 				"width" : 44,
 				"height" : 58,
 				"font" : {
@@ -241,7 +241,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
-			".annotation-child-icon-btn[platform=android]" : {
+			".annotation-child-icon[platform=android]" : {
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 14
@@ -252,7 +252,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
-			".primary-icon-btn" : {
+			".primary-icon" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,
@@ -265,7 +265,7 @@ module.exports = {
 				"backgroundColor" : "#F7941E",
 				"backgroundSelectedColor" : "#F7941E"
 			},
-			".secondary-icon-btn" : {
+			".secondary-icon" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,
@@ -278,7 +278,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
-			".inactive-icon-btn" : {
+			".inactive-icon" : {
 				"left" : 16,
 				"right" : 16,
 				"height" : 50,
@@ -1206,7 +1206,7 @@ module.exports = {
 				"accessibilityHidden" : true
 			},
 			".content-negative-right-icon" : {
-				"left" : 12,
+				"right" : 12,
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 24
@@ -1215,7 +1215,7 @@ module.exports = {
 				"accessibilityHidden" : true
 			},
 			".content-help-right-icon" : {
-				"left" : 12,
+				"right" : 12,
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 24

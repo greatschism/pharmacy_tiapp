@@ -1,21 +1,5 @@
 <Alloy>
-	<TableView>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="orderListLbl" class="content-header-lbl-with-ricon" />
-					<Button id="addBtn" class="content-header-right-icon icon-add" />
-				</View>
-			</HeaderView>
-			<TableViewRow id="prescriptionRow" color="#000" />
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="pickupLbl" class="content-header-lbl" />
-				</View>
-			</HeaderView>
-		</TableViewSection>
+	<TableView id="tableView">
 		<FooterView>
 			<View class="auto-height">
 				<Button id="orderRefillBtn" class="margin-top margin-bottom primary-btn" />

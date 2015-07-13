@@ -121,6 +121,21 @@ function didGetPrescriptionList(result, passthrough) {
 	 */
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
+		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
+		 * then it is returned to the "Ready for refill" list.
+		 */
+		var daysLeft;
+		if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
+			daysLeft = Alloy.Models.appload.get("restocking_period") - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
+			if (daysLeft < 0) {
+				/**
+				 * update the status from Ready to Sold
+				 * as mentioned above
+				 *  */
+				prescription.set("refill_status", apiCodes.refill_status_sold);
+			}
+		}
+		/**
 		 *	exclude anything that matches with filter
 		 *  example
 		 * 		filters:{
@@ -138,20 +153,8 @@ function didGetPrescriptionList(result, passthrough) {
 			return false;
 		}
 		/**
-		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
-		 * then it is returned to the "Ready for refill" list.
+		 * process sections
 		 */
-		var daysLeft;
-		if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
-			daysLeft = Alloy.Models.appload.get("restocking_period") - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
-			if (daysLeft < 0) {
-				/**
-				 * update the status from Ready to Sold
-				 * as mentioned above
-				 *  */
-				prescription.set("refill_status", apiCodes.refill_status_sold);
-			}
-		}
 		prescription.set("title", $.utilities.ucword(prescription.get("presc_name")));
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:

@@ -12,21 +12,12 @@ require("config").updateTSS($.__controllerPath);
 		});
 		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
 	} else {
-		/*
-		 *  Note: Javascript objects passed by reference
-		 *  creating new array for this icon class
-		 *  to avoid same reference being used in another instance of this template
-		 */
-		var classes = [];
-		if (args.iconType) {
-			classes.push("content-" + args.iconType + "-left-icon");
-		}
+		var iDict = {};
 		if (args.iconClasses) {
-			classes = _.union(classes, args.iconClasses);
+			iDict = $.createStyle({
+				classes : args.iconClasses
+			});
 		}
-		var iDict = $.createStyle({
-			classes : classes
-		});
 		if (args.iconText) {
 			iDict.text = args.iconText;
 		}

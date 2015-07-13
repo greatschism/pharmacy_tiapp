@@ -13,10 +13,10 @@ var args = arguments[0] || {},
 function init() {
 	pinImg = $.uihelper.getImage("map_pin").image;
 	leftBtnDict = $.createStyle({
-		classes : ["annotation-icon-btn", "icon-direction"]
+		classes : ["annotation-icon", "icon-direction"]
 	});
 	rightBtnDict = $.createStyle({
-		classes : ["annotation-child-icon-btn", "icon-thin-arrow-right"]
+		classes : ["annotation-child-icon", "icon-thin-arrow-right"]
 	});
 	listIconDict = $.createStyle({
 		classes : ["icon-list"]

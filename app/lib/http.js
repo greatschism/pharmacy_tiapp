@@ -4,6 +4,7 @@
  * @class http
  */
 var TAG = "http",
+    _ = require("alloy/underscore")._,
     logger = require("logger");
 
 /**

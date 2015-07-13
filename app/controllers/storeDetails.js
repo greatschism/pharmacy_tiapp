@@ -87,7 +87,7 @@ function loadStore() {
 			 */
 			val = _.keys(val)[0];
 			servicesSection.add(Alloy.createController("itemTemplates/label", {
-				value : val
+				title : val
 			}).getView());
 		});
 		data.push(servicesSection);
@@ -98,7 +98,7 @@ function loadStore() {
 
 function updateHome() {
 	$.homeIconBtn.applyProperties($.createStyle({
-		classes : [store.ishomepharmacy ? "secondary-icon-btn" : "inactive-icon-btn"]
+		classes : [store.ishomepharmacy ? "secondary-icon" : "inactive-icon"]
 	}));
 }
 

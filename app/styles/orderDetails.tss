@@ -1,9 +1,3 @@
-"#orderListLbl":{
-	text: Alloy.Globals.strings.orderDetSectionList
-},
-"#pickupLbl":{
-	text: Alloy.Globals.strings.orderDetSectionPickup
-},
 "#orderRefillBtn":{
 	title: Alloy.Globals.strings.orderDetBtnRefill
 }
