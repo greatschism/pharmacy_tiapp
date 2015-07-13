@@ -230,11 +230,11 @@ module.exports = {
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
 			".annotation-child-icon-btn[platform=ios]" : {
-				"width" : 20,
+				"width" : 44,
 				"height" : 58,
 				"font" : {
 					"fontFamily" : "icon",
-					"fontSize" : 14
+					"fontSize" : 22
 				},
 				"color" : "#808082",
 				"selectedColor" : "#808082",

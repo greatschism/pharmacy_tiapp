@@ -1,112 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ti:app 
-  xmlns:ti="http://ti.appcelerator.org">
-  <id>com.mscripts.mypharmacy</id>
-  <name>my Pharmacy</name>
-  <version>7.0.0</version>
-  <publisher>mscripts</publisher>
-  <url>http://www.mscripts.com</url>
-  <description>mscripts mobile pharmacy</description>
-  <copyright>2014 by mscripts</copyright>
-  <icon>appicon.png</icon>
-  <fullscreen>false</fullscreen>
-  <navbar-hidden>false</navbar-hidden>
-  <analytics>true</analytics>
-  <guid>a566ecb5-c841-45d2-a34b-fc00717d6b63</guid>
-  <property name="ti.ui.defaultunit" type="string">dp</property>
-  <property name="appc-org-id" type="number">100000377</property>
-  <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
-  <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
-  <property name="android.javac.maxMemory" type="string">1024M</property>
-  <ios>
-    <min-ios-ver>7.1</min-ios-ver>
-    <plist>
-      <dict>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Help you to locate the nearest pharmacies.</string>
-      </dict>
-      <dict>
-        <key>UISupportedInterfaceOrientations~iphone</key>
-        <array>
-          <string>UIInterfaceOrientationPortrait</string>
-        </array>
-        <key>UISupportedInterfaceOrientations~ipad</key>
-        <array>
-          <string>UIInterfaceOrientationPortrait</string>
-          <string>UIInterfaceOrientationPortraitUpsideDown</string>
-          <string>UIInterfaceOrientationLandscapeLeft</string>
-          <string>UIInterfaceOrientationLandscapeRight</string>
-        </array>
-        <key>UIRequiresPersistentWiFi</key>
-        <false/>
-        <key>UIPrerenderedIcon</key>
-        <false/>
-        <key>UIStatusBarHidden</key>
-        <false/>
-        <key>UIStatusBarStyle</key>
-        <string>UIStatusBarStyleLightContent</string>
-        <key>UIViewControllerBasedStatusBarAppearance</key>
-        <false/>
-        <key>CFBundleURLTypes</key>
-        <array>
-          <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>com.mscripts.mypharmacy</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-              <string>mscripts-app</string>
-            </array>
-          </dict>
-        </array>
-      </dict>
-    </plist>
-  </ios>
-  <android 
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <manifest android:versionCode="1">
-      <uses-sdk android:minSdkVersion="14"/>
-      <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
-        <activity android:configChanges="keyboardHidden|orientation" android:name=".MyPharmacyActivity" android:theme="@style/Theme.Material.Splash">
-          <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-          </intent-filter>
-          <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:scheme="mscripts-app"/>
-          </intent-filter>
-        </activity>
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBEAiCLk1IbiENX-x2Vdp-J5AzEJB9uZEY"/>
-      </application>
-    </manifest>
-  </android>
-  <modules>
-    <module platform="iphone">com.appcelerator.apm</module>
-    <module platform="android">com.appcelerator.apm</module>
-    <module platform="iphone">ti.map</module>
-    <module platform="android">ti.map</module>
-    <module platform="android">ti.push</module>
-    <module platform="iphone">com.obscure.keychain</module>
-    <module platform="android">com.obscure.keychain</module>
-    <module platform="iphone">ti.barcode</module>
-    <module platform="android">ti.barcode</module>
-    <module platform="iphone">dk.napp.drawer</module>
-    <module platform="android">com.tripvi.drawerlayout</module>
-  </modules>
-  <deployment-targets>
-    <target device="iphone">true</target>
-    <target device="ipad">true</target>
-    <target device="android">true</target>
-    <target device="mobileweb">false</target>
-  </deployment-targets>
-  <sdk-version>4.1.0</sdk-version>
-  <plugins>
-    <plugin version="1.0">ti.alloy</plugin>
-    <plugin>ti.build.properties</plugin>
-    <plugin>ti.tssmaker</plugin>
-  </plugins>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <id>com.mscripts.mypharmacy</id>
+    <name>my Pharmacy</name>
+    <version>7.0.0</version>
+    <publisher>mscripts</publisher>
+    <url>http://www.mscripts.com</url>
+    <description>mscripts mobile pharmacy</description>
+    <copyright>2014 by mscripts</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>a566ecb5-c841-45d2-a34b-fc00717d6b63</guid>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="appc-org-id" type="number">100000377</property>
+    <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
+    <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
+    <property name="android.javac.maxMemory" type="string">1024M</property>
+    <ios>
+        <min-ios-ver>7.1</min-ios-ver>
+        <plist>
+            <dict>
+                <key>NSLocationWhenInUseUsageDescription</key>
+                <string>Help you to locate the nearest pharmacies.</string>
+            </dict>
+            <dict>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                    <string>UIInterfaceOrientationLandscapeLeft</string>
+                    <string>UIInterfaceOrientationLandscapeRight</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleLightContent</string>
+                <key>UIViewControllerBasedStatusBarAppearance</key>
+                <false/>
+                <key>CFBundleURLTypes</key>
+                <array>
+                    <dict>
+                        <key>CFBundleTypeRole</key>
+                        <string>Editor</string>
+                        <key>CFBundleURLName</key>
+                        <string>com.mscripts.mypharmacy</string>
+                        <key>CFBundleURLSchemes</key>
+                        <array>
+                            <string>mscripts-app</string>
+                        </array>
+                    </dict>
+                </array>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest android:versionCode="1">
+            <uses-sdk android:minSdkVersion="14"/>
+            <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
+                <activity
+                    android:configChanges="keyboardHidden|orientation"
+                    android:name=".MyPharmacyActivity" android:theme="@style/Theme.Material.Splash">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN"/>
+                        <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+                    <intent-filter>
+                        <action android:name="android.intent.action.VIEW"/>
+                        <category android:name="android.intent.category.DEFAULT"/>
+                        <category android:name="android.intent.category.BROWSABLE"/>
+                        <data android:scheme="mscripts-app"/>
+                    </intent-filter>
+                </activity>
+                <meta-data
+                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBEAiCLk1IbiENX-x2Vdp-J5AzEJB9uZEY"/>
+            </application>
+        </manifest>
+    </android>
+    <modules>
+        <module platform="iphone">com.appcelerator.apm</module>
+        <module platform="android">com.appcelerator.apm</module>
+        <module platform="iphone" version="2.2.2">ti.map</module>
+        <module platform="android">ti.map</module>
+        <module platform="android">ti.push</module>
+        <module platform="iphone">com.obscure.keychain</module>
+        <module platform="android">com.obscure.keychain</module>
+        <module platform="iphone">ti.barcode</module>
+        <module platform="android">ti.barcode</module>
+        <module platform="iphone">dk.napp.drawer</module>
+        <module platform="android">com.tripvi.drawerlayout</module>
+    </modules>
+    <deployment-targets>
+        <target device="iphone">true</target>
+        <target device="ipad">true</target>
+        <target device="android">true</target>
+        <target device="mobileweb">false</target>
+    </deployment-targets>
+    <sdk-version>4.1.0.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+        <plugin>ti.build.properties</plugin>
+        <plugin>ti.tssmaker</plugin>
+    </plugins>
 </ti:app>

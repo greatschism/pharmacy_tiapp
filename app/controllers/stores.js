@@ -184,16 +184,32 @@ function prepareMap() {
 	isMapPrepared = true;
 	var data = [];
 	Alloy.Collections.stores.each(function(store) {
-		data.push(Map.createAnnotation({
-			storeId : store.get("id"),
+		var storeId = store.get("id"),
+		    leftBtn = Ti.UI.createButton(leftBtnDict),
+		    rightBtn = Ti.UI.createButton(rightBtnDict),
+		    annotation = Map.createAnnotation({
+			storeId : storeId,
 			title : store.get("title"),
 			subtitle : store.get("subtitle"),
 			latitude : store.get("latitude"),
 			longitude : store.get("longitude"),
-			leftView : Ti.UI.createButton(leftBtnDict),
-			rightView : Ti.UI.createButton(rightBtnDict),
+			leftView : leftBtn,
+			rightView : rightBtn,
 			image : pinImg
-		}));
+		});
+		if (OS_IOS) {
+			leftBtn.applyProperties({
+				clicksource : "leftPane",
+				storeId : storeId
+			});
+			rightBtn.applyProperties({
+				clicksource : "rightPane",
+				storeId : storeId
+			});
+			leftBtn.addEventListener("click", didClickMap);
+			rightBtn.addEventListener("click", didClickMap);
+		}
+		data.push(annotation);
 	});
 	$.mapView.annotations = data;
 }
@@ -213,6 +229,10 @@ function didClickMap(e) {
 	var annotation = e.annotation,
 	    clicksource = e.clicksource,
 	    store;
+	if (OS_IOS && !clicksource) {
+		annotation = e.source;
+		clicksource = annotation.clicksource;
+	}
 	if (clicksource && annotation) {
 		store = Alloy.Collections.stores.findWhere({
 			id : annotation.storeId
