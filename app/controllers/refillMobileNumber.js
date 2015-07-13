@@ -126,9 +126,9 @@ function didClickContinue(e) {
 			fontWeight : 'bold',
 			fontSize : 16
 		},
-		width : 200,
-		height : 300,
-		top : 25
+		width : 300,
+		height : 'auto',
+		top : 40
 	});
 	overlay.add(cameraTitleMessage);
 	// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
