@@ -18,6 +18,7 @@
   <property name="appc-creator-user-id" type="string">954bb385-16fa-43db-bfb2-3331e0351a0d</property>
   <property name="com-appcelerator-apm-id" type="string">54056f332523881187000080</property>
   <property name="android.javac.maxMemory" type="string">1024M</property>
+  <property name="android.dx.maxMemory" type="string">2048M</property>
   <ios>
     <min-ios-ver>7.1</min-ios-ver>
     <plist>
