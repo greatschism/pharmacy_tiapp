@@ -4,9 +4,9 @@
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
 	Alloy.Globals.isLoggedIn = false;
-	Alloy.Globals.swipeInProgress = false;
-	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
+	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
+	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 
 	//load spinner images
 	for (var i = 1; i <= 161; i++) {

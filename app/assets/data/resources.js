@@ -170,6 +170,42 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "map_pin_pl",
+		"name" : "map_pin",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 40
+			},
+			"landscape" : {
+				"width" : 40
+			}
+		},
+		"platform" : ["ios"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "map_pin_pl",
+		"name" : "map_pin",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 80
+			},
+			"landscape" : {
+				"width" : 80
+			}
+		},
+		"platform" : ["android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "prescription_list_pl",
 		"name" : "prescription_list",
 		"format" : "png",
@@ -225,42 +261,6 @@ module.exports = {
 		},
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "map_pin_pl",
-		"name" : "map_pin",
-		"format" : "png",
-		"orientation" : {
-			"portrait" : {
-				"width" : 40
-			},
-			"landscape" : {
-				"width" : 40
-			}
-		},
-		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "map_pin_pl",
-		"name" : "map_pin",
-		"format" : "png",
-		"orientation" : {
-			"portrait" : {
-				"width" : 80
-			},
-			"landscape" : {
-				"width" : 80
-			}
-		},
-		"platform" : ["android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
 		"selected" : true
 	}]
 };

@@ -285,7 +285,7 @@ function didGetPrescriptionList(result, passthrough) {
 	 *  once a fresh list is loaded
 	 *  not resetting this block further swipe actions
 	 */
-	Alloy.Globals.swipeInProgress = false;
+	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.currentRow = null;
 }
 
@@ -504,7 +504,7 @@ function focus() {
 function terminate() {
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.currentTable = null;
-	Alloy.Globals.swipeInProgress = false;
+	Alloy.Globals.isSwipeInProgress = false;
 }
 
 exports.init = init;

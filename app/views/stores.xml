@@ -4,7 +4,7 @@
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-search search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
 	<View id="containerView">
-		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" />
+		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" onClick="didClickMap" />
 		<TableView id="tableView" class="show" onClick="didClickTableView">
 			<FooterView platform="ios">
 				<View class="auto-height" />

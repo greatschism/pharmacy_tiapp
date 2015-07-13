@@ -223,7 +223,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 34
 				},
-				"textAlignment" : "right",
+				"textAlign" : "left",
 				"color" : "#F7941E",
 				"selectedColor" : "#F7941E",
 				"backgroundColor" : "#FFFFFF",
@@ -246,7 +246,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 14
 				},
-				"textAlignment" : "right",
+				"textAlign" : "right",
 				"color" : "#808082",
 				"selectedColor" : "#808082",
 				"backgroundColor" : "#FFFFFF",

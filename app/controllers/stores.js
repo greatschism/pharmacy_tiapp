@@ -209,6 +209,37 @@ function didClickTableView(e) {
 	}
 }
 
+function didClickMap(e) {
+	var annotation = e.annotation,
+	    clicksource = e.clicksource,
+	    store;
+	if (clicksource && annotation) {
+		store = Alloy.Collections.stores.findWhere({
+			id : annotation.storeId
+		});
+		if (store) {
+			switch(clicksource) {
+			case "title":
+			case "subtitle":
+			case "rightPane":
+			case "infoWindow":
+				handleNavigation(store.toJSON());
+				break;
+			case "leftPane":
+				/**
+				 * if isSearch true then
+				 * may have to pass source as the search location
+				 */
+				$.uihelper.getDirection({
+					latitude : store.get("latitude"),
+					longitude : store.get("longitude")
+				});
+				break;
+			}
+		}
+	}
+}
+
 function handleNavigation(params) {
 	//store module opened for selecting a store
 	if (args.selectable) {

@@ -99,8 +99,8 @@ function didClickOption(e) {
 }
 
 function didTouchstart(e) {
-	if (!Alloy.Globals.swipeInProgress) {
-		Alloy.Globals.swipeInProgress = touchInProgress = true;
+	if (!Alloy.Globals.isSwipeInProgress) {
+		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
 		startX = touchX = e.x;
 		currentX = $.swipeView.left;
 	}
@@ -139,7 +139,7 @@ function touchEnd(x) {
 		if (x === CONSTS.startOffset) {
 			Alloy.Globals.currentRow = $;
 		} else {
-			Alloy.Globals.swipeInProgress = touchInProgress = false;
+			Alloy.Globals.isSwipeInProgress = touchInProgress = false;
 			Alloy.Globals.currentRow = null;
 		}
 		currentX = touchX = 0;
