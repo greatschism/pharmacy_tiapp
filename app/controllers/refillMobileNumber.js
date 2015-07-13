@@ -29,7 +29,7 @@ function didClickContinue(e) {
 
 	var mob = $.mobileTxt.getValue();
 	console.log("mob" + mob);
-	cached = utilities.setProperty(Alloy.CFG.pharmacy_phone_last_used, mob, "string", false);
+	cached = utilities.setProperty(Alloy.CFG.latest_phone_used, mob, "string", false);
 	console.log("cached" + (cached));
 
 var Barcode = require('ti.barcode');
