@@ -108,7 +108,7 @@ function didClickContinue(e) {
 			fontWeight : 'bold',
 			fontSize : 16
 		},
-		width : 100,
+		width : 200,
 		height : 30,
 		top : 20
 	});
@@ -118,7 +118,7 @@ function didClickContinue(e) {
 	overlay.add(backButton);
 
 	var cameraTitleMessage = Ti.UI.createButton({
-		title : 'Center the barcode inside the box to scan',
+		title : 'Center the barcode inside the\nbox to scan',
 		textAlign : 'left',
 		color : '#FFF',
 		style : 0,
@@ -127,8 +127,8 @@ function didClickContinue(e) {
 			fontSize : 16
 		},
 		width : 200,
-		height : 100,
-		top : 40
+		height : 300,
+		top : 25
 	});
 	overlay.add(cameraTitleMessage);
 	// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
