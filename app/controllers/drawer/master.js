@@ -29,7 +29,7 @@ function didOpen(e) {
 		app.terminate();
 	}
 	app.init({
-		type : "hamburger",
+		type : "drawer",
 		drawer : $.drawer,
 		navigationWindow : $.navigationWindow || null,
 		rootWindow : $.rootWindow

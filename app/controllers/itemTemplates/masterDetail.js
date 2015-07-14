@@ -7,6 +7,10 @@ require("config").updateTSS($.__controllerPath);
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
+	/**
+	 *  keep different class names for different layouts
+	 */
+	$.row.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "Btn";
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}

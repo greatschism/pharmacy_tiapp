@@ -5,7 +5,8 @@ var args = arguments[0] || {},
     detailBtnClasses,
     swipeOptions,
     sections,
-    currentPrescription;
+    currentPrescription,
+    isWindowOpen;
 
 function init() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
@@ -25,14 +26,6 @@ function init() {
 			title : $.strings.prescSwipeOptRefill,
 			type : "positive"
 		}];
-		Alloy.Globals.currentTable = $.tableView;
-	}
-	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
-	if (codes) {
-		$.sortPicker.setItems(codes);
-		getPrescriptionList();
-	} else {
-		getSortOrderPreferences();
 	}
 }
 
@@ -91,24 +84,30 @@ function getPrescriptionList(status, callback) {
 	});
 }
 
-function didGetPrescriptionList(result, passthrough) {
+function didGetPrescriptionList(result, passthrough, useCache) {
 	/**
-	 * check whether it is a success call
-	 * since no prescriptions found is considered as a error and data is null
-	 * set prescriptions node to empty array in order to reset the list view
+	 * useCacahe could be true when it is add prescription screen
+	 * prescriptions might have loaded already, so reuse that data
 	 */
-	if (!result.data) {
-		//ignore when list is already empty
-		if (!Alloy.Collections.prescriptions.length) {
-			return false;
+	if (useCache !== true) {
+		/**
+		 * check whether it is a success call
+		 * since no prescriptions found is considered as a error and data is null
+		 * set prescriptions node to empty array in order to reset the list view
+		 */
+		if (!result.data) {
+			//ignore when list is already empty
+			if (!Alloy.Collections.prescriptions.length) {
+				return false;
+			}
+			//this resets the list populated already
+			result.data = {
+				prescriptions : []
+			};
 		}
-		//this resets the list populated already
-		result.data = {
-			prescriptions : []
-		};
+		//process data from server
+		Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	}
-	//process data from server
-	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//reset section / row data
 	sections = {
 		readyPickup : [],
@@ -594,7 +593,36 @@ function focus() {
 	 * used this global variable in it's life span
 	 */
 	Alloy.Globals.currentTable = $.tableView;
-	if (currentPrescription && currentPrescription.hidden) {
+	/**
+	 * focus will be called whenever window gets focus / brought to front (closing a window)
+	 * identify the first focus with a flag isWindowOpen
+	 * Note: Moving this api call to init can show dialog on previous window on android
+	 * as activities are created once window is opened
+	 */
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		var codes = Alloy.Models.sortOrderPreferences.get("code_values");
+		if (args.selectable && Alloy.Collections.prescriptions.length) {
+			/**
+			 * when prescriptions is already there in collection
+			 * sort order preferences should also be there in place
+			 * need not to get them again from api
+			 * if not available (length is 0) then calling api in else
+			 */
+			$.sortPicker.setItems(codes);
+			didGetPrescriptionList(null, null, true);
+		} else {
+			if (codes) {
+				$.sortPicker.setItems(codes);
+				getPrescriptionList();
+			} else {
+				getSortOrderPreferences();
+			}
+		}
+	} else if (currentPrescription && currentPrescription.shouldUpdate) {
+		/**
+		 * checking whether any updates made from prescription details / any other detail screen
+		 */
 		currentPrescription = null;
 		getPrescriptionList();
 	}
@@ -605,11 +633,9 @@ function terminate() {
 	 * reset only when required
 	 * only when it is a list screen not selectable
 	 */
-	if (!args.selectable) {
-		Alloy.Globals.currentRow = null;
-		Alloy.Globals.currentTable = null;
-		Alloy.Globals.isSwipeInProgress = false;
-	}
+	Alloy.Globals.currentRow = null;
+	Alloy.Globals.currentTable = null;
+	Alloy.Globals.isSwipeInProgress = false;
 }
 
 exports.init = init;

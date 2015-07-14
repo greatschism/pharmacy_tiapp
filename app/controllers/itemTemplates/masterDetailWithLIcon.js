@@ -29,9 +29,11 @@ require("config").updateTSS($.__controllerPath);
 	if (args.filterText) {
 		rDict[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	if (!_.isEmpty(rDict)) {
-		$.row.applyProperties(rDict);
-	}
+	/**
+	 *  keep different class names for different layouts
+	 */
+	rDict.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "withLIcon";
+	$.row.applyProperties(rDict);
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
