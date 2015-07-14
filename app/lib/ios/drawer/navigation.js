@@ -10,8 +10,7 @@
  * The Navigation object
  * @param {Object} args
  * @param {Object} args.window The parent which this navigation stack will belong
- * @param {Object} args.device device information form core
- * @param {Object} args.hamburger hamburger control
+ * @param {Object} args.drawer drawer control
  * @constructor
  */
 
@@ -35,7 +34,7 @@ function Navigation(args) {
 	 * name of the navigator
 	 * @type {String}
 	 */
-	this.name = "hamburger";
+	this.name = "drawer";
 
 	/**
 	 * The controller stack
@@ -62,22 +61,22 @@ function Navigation(args) {
 	this.device = args.device;
 
 	/**
-	 * The hamburger object
+	 * The drawer object
 	 * @type {Object}
 	 */
 	this.drawer = args.drawer;
+
+	/**
+	 * The navigation window object
+	 * @type {Object}
+	 */
+	this.navigationWindow = args.navigationWindow;
 
 	/**
 	 * The root window object
 	 * @type {Object}
 	 */
 	this.rootWindow = args.rootWindow;
-
-	/**
-	 * Tells whether root window's action bar is hidden or not
-	 * @type {Boolean}
-	 */
-	this.rootNavBarHidden = false;
 
 	/**
 	 * Open a screen controller
@@ -95,23 +94,21 @@ function Navigation(args) {
 			return;
 		}
 
-		if (params.stack) {
+		if (params.stack && that.navigationWindow) {
 			return that.push(params);
 		}
 
 		that.isBusy = true;
 
-		that.currentController = Alloy.createController("hamburger/view", params);
+		that.controllers = [];
 
-		that.drawer.setCenterWindow(that.currentController.getView());
+		that.currentController = Alloy.createController("drawer/window", params);
 
-		that.currentController.focus();
+		that.navigationWindow = Ti.UI.iOS.createNavigationWindow({
+			window : that.currentController.getView()
+		});
 
-		if (that.controllers.length) {
-			that.closeToRoot();
-			that.controllers.pop().terminate();
-			that.controllers = [];
-		}
+		that.drawer.setCenterWindow(that.navigationWindow);
 
 		that.controllers.push(that.currentController);
 
@@ -139,22 +136,18 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("hamburger/window", params),
+		var controller = Alloy.createController("drawer/window", params),
 		    window = controller.getView();
 
 		window.addEventListener("open", function didOpen(e) {
 			window.removeEventListener("open", didOpen);
-			that.currentController.blur();
+			that.currentController.getView().fireEvent("blur");
 			that.controllers.push(controller);
 			that.currentController = controller;
 			that.isBusy = false;
 		});
 
-		window.open({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close,
-			animated : true
-		});
+		that.navigationWindow.openWindow(window);
 
 		return controller;
 	};
@@ -162,29 +155,11 @@ function Navigation(args) {
 	/**
 	 * closes a controller
 	 * @param {Number} count No. of pages to close (optional)
-	 * @param {Boolean} androidback whether back button triggered this action
 	 * @return {Controller} Returns the current controller
 	 */
-	this.close = function(count, androidback) {
+	this.close = function(count) {
 
-		if (that.isBusy) {
-			return;
-		}
-
-		if (androidback) {
-			if (that.drawer.isLeftWindowOpen()) {
-				that.drawer.closeLeftWindow();
-				return;
-			}
-			if (that.currentController.backButtonHandler && that.currentController.backButtonHandler()) {
-				return;
-			}
-			if (that.controllers.length == 1) {
-				return that.terminate();
-			}
-		}
-
-		if (that.controllers.length == 1) {
+		if (that.isBusy || that.controllers.length == 1) {
 			return;
 		}
 
@@ -207,15 +182,11 @@ function Navigation(args) {
 
 		window.addEventListener("close", function didClose(e) {
 			window.removeEventListener("close", didClose);
-			that.currentController.focus();
+			that.currentController.getView().fireEvent("focus");
 			that.isBusy = false;
 		});
 
-		window.close({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
-			animated : true
-		});
+		that.navigationWindow.closeWindow(window);
 
 		//that.testOutput();
 
@@ -244,8 +215,6 @@ function Navigation(args) {
 		}
 
 		that.closeToRoot();
-		that.controllers.pop().terminate();
-		that.controllers = [];
 		that.drawer.close();
 	};
 
@@ -292,17 +261,14 @@ function Navigation(args) {
 	 */
 	this.testOutput = function() {
 
-		var logger = require("logger"),
-		    stack = [];
-
-		for (var i = 0,
-
-		    x = that.controllers.length; i < x; i++) {
-
-			stack.push(that.controllers[i].getView());
-		}
+		var logger = require("logger");
 
 		logger.debug(TAG, "stack length", that.controllers.length);
+
+		for (var i = 0,
+		    x = that.controllers.length; i < x; i++) {
+			logger.debug(TAG, "stack index", i, that.controllers[i].__controllerPath);
+		}
 	};
 }
 

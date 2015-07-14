@@ -96,9 +96,7 @@ var App = {
 	 */
 	setNavigator : function(params) {
 		// Require in the navigation module
-		App.navigator = require(String(params.type).concat("/navigation"))(_.extend(params, {
-			device : App.device
-		}));
+		App.navigator = require(String(params.type).concat("/navigation"))(params);
 	},
 
 	/**
