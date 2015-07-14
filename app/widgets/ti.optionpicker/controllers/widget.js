@@ -178,7 +178,8 @@ function getRow(data) {
 		row = Ti.UI.createTableViewRow({
 			height : Ti.UI.SIZE,
 			selectedBackgroundColor : "transparent",
-			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null
+			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null,
+			className : "optionPicker",
 		}),
 		rowView = Ti.UI.createView(optionPadding);
 		rowView.add(Ti.UI.createLabel({
