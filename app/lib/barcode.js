@@ -49,6 +49,17 @@ function BarcodeReader(args) {
 	var error = function(evt) {
 		if (errorCallback) {
 			errorCallback(evt);
+		} else {
+			/**
+			 * clear everything when there is no error callback
+			 */
+			that.cancel();
+			/**
+			 * show the error message to user
+			 */
+			require("uihelper").showDialog({
+				message : evt.message
+			});
 		}
 	};
 
@@ -58,7 +69,7 @@ function BarcodeReader(args) {
 	var cancel = function(evt) {
 		/**
 		 *  occurs when not cancelled through this instance
-		 * but cancelled through module or any other interruption
+		 * but cancelled through module or any other interruption like android back button
 		 */
 		Barcode.removeEventListener("success", success);
 		Barcode.removeEventListener("cancel", cancel);
