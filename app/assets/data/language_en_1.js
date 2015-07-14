@@ -64,6 +64,7 @@ module.exports = {
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
 		"titleAddPrescriptions" : "Add prescriptions",
+		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
 

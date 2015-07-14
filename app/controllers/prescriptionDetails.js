@@ -185,4 +185,15 @@ function didClickHide(e) {
 	});
 }
 
+function didClickLastRefill(e) {
+	$.app.navigator.open({
+		titleid : "titleRefillHistory",
+		ctrl : "refillHistory",
+		ctrlArguments : {
+			prescription : prescription
+		},
+		stack : true
+	});
+}
+
 exports.init = init;

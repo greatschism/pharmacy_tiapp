@@ -1,4 +1,4 @@
 <Alloy>
-	<TableView id="tableView"/>
-			
+	<TableView id="tableView" />
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

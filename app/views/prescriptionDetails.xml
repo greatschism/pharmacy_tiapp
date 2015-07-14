@@ -38,7 +38,7 @@
 				<Label id="dueLbl" class="info-view-title" />
 				<Button id="dueBtn" class="info-btn" />
 			</View>
-			<View class="info-view-35">
+			<View class="info-view-35" onClick="didClickLastRefill">
 				<Label id="lastRefillLbl" class="info-view-title" />
 				<Button id="lastRefillBtn" class="info-btn" />
 			</View>
