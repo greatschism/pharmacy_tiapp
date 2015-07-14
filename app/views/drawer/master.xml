@@ -1,13 +1,13 @@
 <Alloy>
 	<Widget id="drawer" src="nl.fokkezb.drawer">
 		<Window id="leftWindow" platform="ios" role="leftWindow">
-			<Require id="menuCtrl" src="hamburger/menu" />
+			<Require id="menuCtrl" src="drawer/menu" />
 		</Window>
 		<NavigationWindow id="navigationWindow" platform="ios" role="centerWindow">
 			<Window id="rootWindow" />
 		</NavigationWindow>
 		<View id="leftWindow" platform="android" role="leftWindow">
-			<Require id="menuCtrl" src="hamburger/menu" />
+			<Require id="menuCtrl" src="drawer/menu" />
 		</View>
 		<View id="centerView" platform="android" role="centerWindow" />
 	</Widget>
