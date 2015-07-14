@@ -1,6 +1,0 @@
-"#row":{
-	className: "masterDetailWithLIcon"
-},
-"#leftIconLbl":{
-	actionIdentifier: "leftIcon"
-}
