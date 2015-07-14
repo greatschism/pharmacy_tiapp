@@ -31,6 +31,7 @@ module.exports = {
 		"msgContactAdded" : "Contact added successfully.",
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have signed out successfully.",
+		"msgPrescriptionsAddEmptyList" : "No more prescriptions found for refill.",
 
 		"dialogTitleUpdates" : "Updates",
 		"dialogBtnOK" : "OK",
@@ -62,6 +63,7 @@ module.exports = {
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
+		"titleAddPrescriptions" : "Add prescriptions",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
 
@@ -113,6 +115,8 @@ module.exports = {
 		"prescPopupUnhideBtnNone" : "Select none",
 		"prescPopupUnhideBtnUnhide" : "Unhide",
 		"prescPopupUnhideBtnClose" : "Close",
+		"prescBtnDone" : "Done",
+		"prescAddSectionBtnAll" : "Select all",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",

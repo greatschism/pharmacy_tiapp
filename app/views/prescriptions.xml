@@ -25,9 +25,10 @@
 	<View id="searchbar" class="top search-bar hide fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
-	<TableView id="tableView" class="top" onSingletap="didClickTableView">
+	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
+	<Button id="doneBtn" class="margin-bottom primary-btn" if="$.args.selectable" onClick="didClickDone" />
 </Alloy> 

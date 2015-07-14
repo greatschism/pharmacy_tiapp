@@ -1214,15 +1214,6 @@ module.exports = {
 				"color" : "#ED1C24",
 				"accessibilityHidden" : true
 			},
-			".content-help-right-icon" : {
-				"right" : 12,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 24
-				},
-				"color" : "#599DFF",
-				"accessibilityHidden" : true
-			},
 			".content-view-with-ricon" : {
 				"top" : 12,
 				"bottom" : 12,
@@ -1659,6 +1650,21 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
+			".content-detail-negative-icon" : {
+				"right" : 0,
+				"height" : 40,
+				"width" : 40,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 28
+				},
+				"textAlign" : "right",
+				"color" : "#ED1C24",
+				"selectedColor" : "#ED1C24",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF",
+				"bubbleParent" : false
+			},
 			".content-detail-secondary-btn" : {
 				"right" : 0,
 				"height" : 40,
@@ -1789,7 +1795,7 @@ module.exports = {
 				"right" : 0,
 				"height" : "auto"
 			},
-			".content-detail-positive-icon" : {
+			".icon-view-positive-icon" : {
 				"left" : 0,
 				"font" : {
 					"fontFamily" : "icon",
@@ -1798,7 +1804,7 @@ module.exports = {
 				"color" : "#009344",
 				"accessibilityHidden" : true
 			},
-			".content-detail-positive-icon-description" : {
+			".icon-view-positive-icon-description" : {
 				"left" : 16,
 				"right" : 0,
 				"height" : "auto",
@@ -1811,7 +1817,7 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-detail-negative-icon" : {
+			".icon-view-negative-icon" : {
 				"left" : 0,
 				"font" : {
 					"fontFamily" : "icon",
@@ -1820,7 +1826,7 @@ module.exports = {
 				"color" : "#ED1C24",
 				"accessibilityHidden" : true
 			},
-			".content-detail-negative-icon-description" : {
+			".icon-view-negative-icon-description" : {
 				"left" : 16,
 				"right" : 0,
 				"height" : "auto",
@@ -1876,6 +1882,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-header-right-icon" : {
+				"top" : 2,
 				"right" : 4,
 				"width" : 40,
 				"font" : {
@@ -1903,11 +1910,12 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-header-right-btn" : {
+				"top" : 10,
 				"right" : 4,
 				"width" : 140,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 12
+					"fontSize" : 14
 				},
 				"textAlign" : "right",
 				"color" : "#599cff",

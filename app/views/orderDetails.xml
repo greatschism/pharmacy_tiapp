@@ -1,9 +1,8 @@
 <Alloy>
-	<TableView id="tableView">
-		<FooterView>
-			<View class="auto-height">
-				<Button id="orderRefillBtn" class="margin-top margin-bottom primary-btn" />
-			</View>
+	<TableView id="tableView" class="margin-bottom">
+		<FooterView platform="ios">
+			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
+	<Button id="orderRefillBtn" class="margin-bottom primary-btn" />
 </Alloy> 

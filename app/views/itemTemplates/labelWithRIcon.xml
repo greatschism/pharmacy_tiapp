@@ -1,8 +1,0 @@
-<Alloy>
-	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="contentView" class="content-view-with-ricon">
-			<Label id="lbl" class="content-lbl-wrap" />
-		</View>
-		<Label id="rightIconLbl" />
-	</TableViewRow>
-</Alloy>

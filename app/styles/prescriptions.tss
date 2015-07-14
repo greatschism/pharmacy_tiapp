@@ -30,4 +30,10 @@
 },
 "#unhideCloseBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
+},
+"#tableView[if=!$.args.selectable]":{
+	bottom: null
+},
+"#doneBtn":{
+	title: Alloy.Globals.strings.prescBtnDone
 }

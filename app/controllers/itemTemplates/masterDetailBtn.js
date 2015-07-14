@@ -15,22 +15,34 @@ require("config").updateTSS($.__controllerPath);
 	}
 	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	if (args.detailType) {
-		var btnDict = {
-			title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
-		};
+	var btnDict = {
+		title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
+	};
+	if (args.btnClasses) {
 		_.extend(btnDict, $.createStyle({
-			classes : ["content-detail-" + args.detailType + "-" + "btn"],
+			classes : args.btnClasses
 		}));
-		$.detailBtn.applyProperties(btnDict);
-	} else {
-		$.detailBtn.title = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
 	}
+	if (args.btnDict) {
+		_.extend(btnDict, args.btnDict);
+	}
+	/**
+	 * if only title is applied and no other styles are assigned
+	 * assuming it should not be there in UI, so disable touch and visible
+	 */
+	if (_.keys(btnDict).length <= 1) {
+		_.extend(btnDict, {
+			touchEnabled : false,
+			visible : false
+		});
+	}
+	$.detailBtn.applyProperties(btnDict);
 })();
 
 function didClickDetail(e) {
 	var source = e.source;
 	$.trigger("clickdetail", {
+		source : $,
 		title : source.title,
 		data : args
 	});

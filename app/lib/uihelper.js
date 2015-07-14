@@ -363,7 +363,16 @@ var Helper = {
 			title : filterText
 		});
 		if (rightItem) {
-			headerView.add(Ti.UI.createButton(rightItem));
+			var callback;
+			if (_.has(rightItem, "callback")) {
+				callback = rightItem.callback;
+				delete rightItem.callback;
+			}
+			var rightBtn = Ti.UI.createButton(rightItem);
+			if (callback) {
+				rightBtn.addEventListener("click", callback);
+			}
+			headerView.add(rightBtn);
 		}
 		headerView.add($.UI.create("Label", {
 			classes : [tClassName],

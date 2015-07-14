@@ -1,21 +1,32 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    headerBtnDict,
+    detailBtnClasses,
     swipeOptions,
     sections,
     currentPrescription;
 
 function init() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
-	swipeOptions = [{
-		action : 1,
-		title : $.strings.prescSwipeOptHide
-	}, {
-		action : 2,
-		title : $.strings.prescSwipeOptRefill,
-		type : "positive"
-	}];
-	Alloy.Globals.currentTable = $.tableView;
+	if (args.selectable) {
+		$.tableView.bottom = $.tableView.bottom + $.doneBtn.height + $.doneBtn.bottom;
+		headerBtnDict = $.createStyle({
+			classes : ["content-header-right-btn"],
+			title : $.strings.prescAddSectionBtnAll
+		});
+	} else {
+		detailBtnClasses = ["content-detail-secondary-btn"];
+		swipeOptions = [{
+			action : 1,
+			title : $.strings.prescSwipeOptHide
+		}, {
+			action : 2,
+			title : $.strings.prescSwipeOptRefill,
+			type : "positive"
+		}];
+		Alloy.Globals.currentTable = $.tableView;
+	}
 	var codes = Alloy.Models.sortOrderPreferences.get("code_values");
 	if (codes) {
 		$.sortPicker.setItems(codes);
@@ -216,6 +227,7 @@ function didGetPrescriptionList(result, passthrough) {
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
 						template = "masterDetailBtn";
 						prescription.set({
+							btnClasses : detailBtnClasses,
 							detailTitle : $.strings.prescReadyRefillBtnHide
 						});
 					} else {
@@ -244,7 +256,8 @@ function didGetPrescriptionList(result, passthrough) {
 				section : section,
 				options : swipeOptions,
 				itemTemplate : template,
-				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number"))
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+				selected : false
 			});
 		}
 		var sectionId = prescription.get("section"),
@@ -274,7 +287,18 @@ function didGetPrescriptionList(result, passthrough) {
 			if (key == "others" && data.length === 0) {
 				tvSection = Ti.UI.createTableViewSection();
 			} else {
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key]);
+				if (headerBtnDict) {
+					/**
+					 * section id is different for each section
+					 * and callback property will be set to button and removed
+					 * from object before applying it by uihelper
+					 */
+					_.extend(headerBtnDict, {
+						sectionId : key,
+						callback : didClickSelectAll
+					});
+				}
+				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, false, headerBtnDict);
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -288,8 +312,45 @@ function didGetPrescriptionList(result, passthrough) {
 	 *  once a fresh list is loaded
 	 *  not resetting this block further swipe actions
 	 */
-	Alloy.Globals.isSwipeInProgress = false;
-	Alloy.Globals.currentRow = null;
+	if (!args.selectable) {
+		Alloy.Globals.isSwipeInProgress = false;
+		Alloy.Globals.currentRow = null;
+	} else if (Alloy.Collections.prescriptions.length && !data.length) {
+		/**
+		 * alert user saying no prescriptions to select
+		 * occurs when all available prescriptions are already selected
+		 */
+		$.uihelper.showDialog({
+			message : $.strings.msgPrescriptionsAddEmptyList
+		});
+	}
+}
+
+function didClickSelectAll(e) {
+	/**
+	 * select all under this section prescriptions
+	 */
+	var sectionId = e.source.sectionId,
+	    count = 0;
+	_.each(sections, function(rows, skey) {
+		if (skey === sectionId) {
+			/**
+			 * index till previous section
+			 */
+			var index = count - 1;
+			_.each(rows, function(row, rkey) {
+				/**
+				 * index for this row
+				 */
+				index++;
+				var params = row.getParams();
+				params.selected = true;
+				rows[rkey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", params);
+				$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[rkey].getView());
+			});
+		}
+		count += rows.length;
+	});
 }
 
 function didChangeSearch(e) {
@@ -466,24 +527,35 @@ function didClickTableView(e) {
 	}
 	var index = e.index,
 	    count = 0,
+	    sectionKey,
+	    rowKey,
 	    row;
-	_.each(sections, function(rows) {
+	_.each(sections, function(rows, skey) {
 		count += rows.length;
 		if (!row && count > index) {
-			row = rows[index - (count - rows.length)];
+			sectionKey = skey;
+			rowKey = index - (count - rows.length);
+			row = rows[rowKey];
 		}
 	});
 	if (row) {
 		currentPrescription = row.getParams();
-		$.app.navigator.open({
-			titleid : "titlePrescriptionDetails",
-			ctrl : "prescriptionDetails",
-			ctrlArguments : {
-				prescription : currentPrescription,
-				canHide : currentPrescription.canHide
-			},
-			stack : true
-		});
+		if (args.selectable) {
+			currentPrescription.selected = !currentPrescription.selected;
+			sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", currentPrescription);
+			$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
+			currentPrescription = null;
+		} else {
+			$.app.navigator.open({
+				titleid : "titlePrescriptionDetails",
+				ctrl : "prescriptionDetails",
+				ctrlArguments : {
+					prescription : currentPrescription,
+					canHide : currentPrescription.canHide
+				},
+				stack : true
+			});
+		}
 	}
 }
 
@@ -497,7 +569,31 @@ function hideAllPopups() {
 	return false;
 }
 
+function didClickDone(e) {
+	/**
+	 * send selected prescriptions
+	 * through the controller arguments
+	 */
+	if (args.prescriptions) {
+		var prescriptions = args.prescriptions;
+		_.each(sections, function(rows) {
+			_.each(rows, function(row) {
+				var prescription = row.getParams();
+				if (prescription.selected) {
+					prescriptions.push(prescription);
+				}
+			});
+		});
+	}
+	$.app.navigator.close();
+}
+
 function focus() {
+	/*
+	 * avoid null pointer if another controller or another instance of this controller
+	 * used this global variable in it's life span
+	 */
+	Alloy.Globals.currentTable = $.tableView;
 	if (currentPrescription && currentPrescription.hidden) {
 		currentPrescription = null;
 		getPrescriptionList();
@@ -505,9 +601,15 @@ function focus() {
 }
 
 function terminate() {
-	Alloy.Globals.currentRow = null;
-	Alloy.Globals.currentTable = null;
-	Alloy.Globals.isSwipeInProgress = false;
+	/**
+	 * reset only when required
+	 * only when it is a list screen not selectable
+	 */
+	if (!args.selectable) {
+		Alloy.Globals.currentRow = null;
+		Alloy.Globals.currentTable = null;
+		Alloy.Globals.isSwipeInProgress = false;
+	}
 }
 
 exports.init = init;

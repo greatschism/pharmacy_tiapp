@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 function init() {
 	$.titleLbl.text = prescription.title;
 	var refillsLeft = parseInt(prescription.refill_left || 0);
-	$.addClass($.refillsLeftBtn, [refillsLeft > Alloy.CFG.prescription_negative_refills_left ? "info-btn" : "info-negative-btn"], {
+	$.addClass($.refillsLeftBtn, [refillsLeft > Alloy.CFG.prescription_refills_left_info_negative ? "info-btn" : "info-negative-btn"], {
 		title : refillsLeft
 	});
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;

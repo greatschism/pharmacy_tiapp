@@ -50,12 +50,12 @@ function loadStore() {
 	    lblClass;
 	if (store.is_open) {
 		lKey = "storeDetLblOpen";
-		iconClass = "content-detail-positive-icon";
-		lblClass = "content-detail-positive-icon-description";
+		iconClass = "icon-view-positive-icon";
+		lblClass = "icon-view-positive-icon-description";
 	} else {
 		lKey = "storeDetLblClose";
-		iconClass = "content-detail-negative-icon";
-		lblClass = "content-detail-negative-icon-description";
+		iconClass = "icon-view-negative-icon";
+		lblClass = "icon-view-negative-icon-description";
 	}
 	$.addClass($.clockIconLbl, [iconClass]);
 	$.addClass($.clockLbl, [lblClass], {
