@@ -1,7 +1,7 @@
 module.exports = {
 	"data" : {
 		"config" : {
-			"navigator" : "hamburger",
+			"navigator" : "drawer",
 			"left_drawer_width" : 270,
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
@@ -200,6 +200,56 @@ module.exports = {
 			},
 			".edge-margin-right" : {
 				"right" : 12
+			},
+			".barcode-navbar[platform=ios]" : {
+				"width" : "100%",
+				"height" : 68,
+				"backgroundColor" : "#F7941E"
+			},
+			".barcode-navbar[platform=android]" : {
+				"width" : "100%",
+				"height" : 48,
+				"backgroundColor" : "#F7941E"
+			},
+			".barcode-navbar-icon" : {
+				"left" : 12,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
+			".barcode-title[platform=ios]" : {
+				"top" : 88,
+				"width" : "100%",
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"color" : "#80000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".barcode-title[platform=android]" : {
+				"top" : 68,
+				"width" : "100%",
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"color" : "#80000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
 			},
 			".map-view" : {
 				"animate" : true,
@@ -1909,10 +1959,25 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".content-header-right-btn" : {
+			".content-header-right-btn[platform=ios]" : {
 				"top" : 10,
 				"right" : 4,
 				"width" : 140,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"textAlign" : "right",
+				"color" : "#599cff",
+				"selectedColor" : "#599cff",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent"
+			},
+			".content-header-right-btn[platform=android]" : {
+				"right" : 4,
+				"width" : 140,
+				"height" : "fill",
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
