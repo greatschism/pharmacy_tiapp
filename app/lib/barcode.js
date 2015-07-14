@@ -15,22 +15,30 @@ function BarcodeReader(args) {
 	 * success event listener
 	 */
 	var success = function(evt) {
-		if (evt.contentType == Barcode.TEXT && _.indexOf(that.values, event.result) == -1) {
-			that.values.push(event.result);
-		}
-		if (!keepOpen) {
+		if (keepOpen) {
+			/**
+			 * if keepOpen is true store the codes and don't invoke success callback
+			 *
+			 * if contentType is Barcode.TEXT || Barcode.URL,
+			 * then check for duplicates and add the result to array
+			 * else add data to array
+			 */
+			if ((evt.contentType == Barcode.TEXT || evt.contentType == Barcode.URL) && _.indexOf(that.values, event.result) == -1) {
+				that.values.push(event.result);
+			} else {
+				that.values.push(event.data);
+			}
+		} else {
 			Barcode.removeEventListener("success", success);
 			Barcode.removeEventListener("cancel", cancel);
 			Barcode.removeEventListener("error", error);
-		}
-		/**
-		 * should invoke callback after removing event listeners
-		 * to prevent any redundant events callbacks
-		 */
-		if (successCallback) {
-			successCallback(evt);
-		}
-		if (!keepOpen) {
+			/**
+			 * should invoke callback after removing event listeners
+			 * to prevent any redundant events callback
+			 */
+			if (successCallback) {
+				successCallback(evt);
+			}
 			cancelCallback = errorCallback = successCallback = cancel = error = success = null;
 		}
 	};
@@ -57,7 +65,7 @@ function BarcodeReader(args) {
 		Barcode.removeEventListener("error", error);
 		/**
 		 * should invoke callback after removing event listeners
-		 * to prevent any redundant events callbacks
+		 * to prevent any redundant events callback
 		 */
 		if (cancelCallback) {
 			cancelCallback(evt);
@@ -66,9 +74,8 @@ function BarcodeReader(args) {
 	};
 
 	/**
-	 * captured codes with no duplicates
-	 * only result with content type Barcode.TEXT is stored
-	 * any other items should be
+	 * captured codes are stored in this array
+	 * when keepOpen is true
 	 */
 	this.values = [];
 
@@ -106,6 +113,10 @@ function BarcodeReader(args) {
 			Barcode.addEventListener("cancel", cancel);
 			Barcode.addEventListener("error", error);
 			options = options || {};
+			/**
+			 * show default overlay when no overlay is passed
+			 * and overlayEnabled is not false
+			 */
 			if (!options.overlay && $ && options.overlayEnabled !== false) {
 				var overlayView = Ti.UI.createView({
 					top : 0,
@@ -133,14 +144,14 @@ function BarcodeReader(args) {
 				/**
 				 * accepted formats will be a array of strings
 				 * eg: ["FORMAT_QR_CODE", "FORMAT_DATA_MATRIX"]
-				 * has to be converted to actual constant
+				 * transformed to actual constant
 				 */
 				_.each(options.acceptedFormats, function(val, key) {
 					options.acceptedFormats[key] = Barcode[val];
 				});
 			}
 			/**
-			 * keepOpen is false by default
+			 * keepOpen is false by default with ti.barcode
 			 * if set explicitly store the value in a variable for later use
 			 */
 			if (_.has(options, "keepOpen")) {
