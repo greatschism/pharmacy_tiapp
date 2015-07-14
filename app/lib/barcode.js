@@ -6,7 +6,7 @@ var TAG = "barcode",
 function BarcodeReader(args) {
 
 	var that = this,
-	    keepOpen = true,
+	    keepOpen = false,
 	    successCallback,
 	    errorCallback,
 	    cancelCallback;
@@ -141,11 +141,9 @@ function BarcodeReader(args) {
 			}
 			/**
 			 * keepOpen is false by default
-			 * we keep it true if it is not set explicitly
+			 * if set explicitly store the value in a variable for later use
 			 */
-			if (!_.has(options, "keepOpen")) {
-				options.keepOpen = keepOpen;
-			} else {
+			if (_.has(options, "keepOpen")) {
 				keepOpen = options.keepOpen;
 			}
 			/**
