@@ -32,6 +32,7 @@ module.exports = {
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have signed out successfully.",
 		"msgPrescriptionsAddEmptyList" : "No more prescriptions found for refill.",
+		"msgBarcode" : "Center the barcode inside the box to scan",
 
 		"dialogTitleUpdates" : "Updates",
 		"dialogBtnOK" : "OK",
@@ -79,7 +80,7 @@ module.exports = {
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
 
-		"storeHintSearch" : "Search by zip, city or state",
+		"storeHintSearch" : "Search",
 
 		"storeDetPromptPhone" : "Call:",
 		"storeDetLblOpen" : "Open till %s",
@@ -91,7 +92,7 @@ module.exports = {
 		"storeDetSectionHours" : "Store hours",
 		"storeDetSectionServices" : "Store Services",
 
-		"prescHintSearch" : "Search by prescription name or rx number",
+		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",
 		"prescOptMenuSort" : "Sort",
 		"prescOptMenuRefresh" : "Refresh",
