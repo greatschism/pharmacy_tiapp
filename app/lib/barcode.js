@@ -21,7 +21,7 @@ var BarcodeReader = {
 		});
 	},
 
-	capture : function(options) {
+	capture : function(options, $) {
 
 		if (isBusy) {
 			logger.error(TAG, "barcode capture is already in progress");
@@ -33,31 +33,14 @@ var BarcodeReader = {
 		options = options || {};
 
 		/**
-		 * reset values from previous capture
-		 */
-		BarcodeReader.values = [];
-
-		if (_.has(options, "success")) {
-			successCallback = options.success;
-		}
-
-		if (_.has(options, "error")) {
-			errorCallback = options.success;
-		}
-
-		if (_.has(options, "cancel")) {
-			cancelCallback = options.cancel;
-		}
-
-		BarcodeModule.addEventListener("success", BarcodeReader.successEvt);
-		BarcodeModule.addEventListener("cancel", BarcodeReader.cancelEvt);
-		BarcodeModule.addEventListener("error", BarcodeReader.errorEvt);
-
-		/**
 		 * show default overlay when no overlay is passed
 		 * and overlayEnabled is not false
 		 */
-		if (!options.overlay && $ && options.overlayEnabled !== false) {
+		if (!options.overlay && options.overlayEnabled !== false) {
+			if (!$) {
+				logger.error(TAG, "controller reference should be passed to create default overlay");
+				return false;
+			}
 			var overlayView = Ti.UI.createView({
 				top : 0,
 				right : 0,
@@ -98,6 +81,30 @@ var BarcodeReader = {
 		 * if set explicitly store the value in a variable for later use
 		 */
 		keepOpen = options.keepOpen || false;
+
+		/**
+		 * reset values from previous capture
+		 */
+		BarcodeReader.values = [];
+
+		if (_.has(options, "success")) {
+			successCallback = options.success;
+			delete options.success;
+		}
+
+		if (_.has(options, "error")) {
+			errorCallback = options.error;
+			delete options.error;
+		}
+
+		if (_.has(options, "cancel")) {
+			cancelCallback = options.cancel;
+			delete options.cancel;
+		}
+
+		BarcodeModule.addEventListener("success", BarcodeReader.successEvt);
+		BarcodeModule.addEventListener("cancel", BarcodeReader.cancelEvt);
+		BarcodeModule.addEventListener("error", BarcodeReader.errorEvt);
 
 		/**
 		 * start scanning
