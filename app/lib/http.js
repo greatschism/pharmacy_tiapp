@@ -25,9 +25,11 @@ exports.request = function(args) {
 
 	logger.debug(TAG, "request", args.url);
 
+	var xhr;
+
 	if (Ti.Network.online) {
 
-		var xhr = Ti.Network.createHTTPClient();
+		xhr = Ti.Network.createHTTPClient();
 
 		xhr.timeout = args.timeout ? args.timeout : 10000;
 
@@ -58,13 +60,10 @@ exports.request = function(args) {
 
 			if (args.success) {
 				args.success(data, args.passthrough || {});
-				if (args.done) {
-					args.done(args.passthrough || {});
-				}
-			} else {
-				return data;
 			}
-
+			if (args.done) {
+				args.done(args.passthrough || {});
+			}
 		};
 
 		if (args.ondatastream) {
@@ -84,16 +83,13 @@ exports.request = function(args) {
 			logger.error(TAG, "error", event.code, event.error);
 			if (args.failure) {
 				args.failure(event, args.passthrough || {});
-				if (args.done) {
-					args.done(args.passthrough || {});
-				}
+			}
+			if (args.done) {
+				args.done(args.passthrough || {});
 			}
 		};
 
-		args.type = args.type ? args.type : "GET";
-		args.async = args.async ? args.async : true;
-
-		xhr.open(args.type, args.url, args.async);
+		xhr.open(args.type || "GET", args.url, true);
 
 		_.each(args.headers || [], function(header) {
 			xhr.setRequestHeader(header.key, header.value);
@@ -112,15 +108,20 @@ exports.request = function(args) {
 	} else {
 
 		logger.debug(TAG, "No internet connection");
-
 		if (args.failure) {
 			args.failure({
 				code : 1007,
 				error : "No network connection. No network."
 			}, args.passthrough || {});
-			if (args.done) {
-				args.done(args.passthrough || {});
-			}
 		}
+		if (args.done) {
+			args.done(args.passthrough || {});
+		}
+
 	}
+
+	/**
+	 *  return xhr object
+	 */
+	return xhr;
 };

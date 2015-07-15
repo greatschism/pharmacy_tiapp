@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    images = args.spinnerImages || Alloy.Globals.spinnerImages || null;
 
 (function() {
 	if (_.has(args, "role")) {
@@ -6,7 +7,7 @@ var args = arguments[0] || {};
 	}
 	applyProperties(args);
 	if (args.visible !== false) {
-		show(args.spinnerImages || Alloy.Globals.spinnerImages || []);
+		show();
 	}
 })();
 
@@ -20,7 +21,10 @@ function applyProperties(dict) {
 	}
 }
 
-function show(images) {
+function show(imgs) {
+	if (imgs) {
+		images = imgs;
+	}
 	if ($.activityIndicatorImg && images) {
 		$.activityIndicatorImg.addEventListener("load", didLoad);
 		$.activityIndicatorImg.images = images;

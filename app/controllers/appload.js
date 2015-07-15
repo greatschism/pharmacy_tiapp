@@ -44,7 +44,7 @@ function deviceReady(deviceToken) {
 }
 
 function showLoader() {
-	$.loader.show(Alloy.Globals.spinnerImages);
+	$.loader.show();
 }
 
 function hideLoader() {

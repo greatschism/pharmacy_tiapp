@@ -1,11 +1,12 @@
 var args = arguments[0] || {},
     isOpened = false,
-    isCloseRequested = false;
+    isCloseRequested = false,
+    images = args.spinnerImages || Alloy.Globals.spinnerImages || null;
 
 (function() {
 	applyProperties(args);
 	if (args.visible !== false) {
-		show(args.spinnerImages || Alloy.Globals.spinnerImages || []);
+		show();
 	}
 })();
 
@@ -33,8 +34,11 @@ function setMessage(message) {
 	$.messageLbl.text = message;
 }
 
-function show(images) {
-	if ($.activityIndicatorImg && images) {
+function show(imgs) {
+	if (imgs) {
+		images = imgs;
+	}
+	if (images) {
 		$.activityIndicatorImg.addEventListener("load", didLoad);
 		$.activityIndicatorImg.images = images;
 	}
@@ -44,18 +48,14 @@ function show(images) {
 }
 
 function didLoad() {
-	if ($.activityIndicatorImg) {
-		$.activityIndicatorImg.start();
-		$.activityIndicatorImg.removeEventListener("load", didLoad);
-	}
+	$.activityIndicatorImg.start();
+	$.activityIndicatorImg.removeEventListener("load", didLoad);
 }
 
 function hide() {
 	isCloseRequested = true;
 	if (isOpened) {
-		if ($.activityIndicatorImg) {
-			$.activityIndicatorImg.stop();
-		}
+		$.activityIndicatorImg.stop();
 		$.window.close({
 			animated : false
 		});

@@ -1,14 +1,19 @@
 var args = arguments[0] || {},
     Map = Alloy.Globals.Map,
-    isSearch = false,
+    searchTypeList = Alloy.CFG.apiCodes.store_search_type_list,
+    searchTypeMap = Alloy.CFG.apiCodes.store_search_type_map,
+    minSearchLength = Alloy.CFG.store_search_min_length,
     isListPrepared = false,
     isMapPrepared = false,
-    rows = [],
+    storeRows = [],
+    searchRows = [],
     pinImg,
     leftBtnDict,
     rightBtnDict,
     listIconDict,
-    mapIconDict;
+    mapIconDict,
+    geoHttpClient,
+    storeHttpClient;
 
 function init() {
 	pinImg = $.uihelper.getImage("map_pin").image;
@@ -31,7 +36,7 @@ function init() {
 function didGetLocation(currentLocation) {
 	/**
 	 *  case 1:
-	 * 		when location service is turned off and user logged in call api for listing home and favourite stores
+	 * 		when location service is turned off and user logged in call api for listing home and  book marked stores
 	 *  case 2:
 	 * 		when location service is turned off and user is not logged in do nothing
 	 *  note : iOS simulator may fail to give location often
@@ -42,70 +47,92 @@ function didGetLocation(currentLocation) {
 	}
 }
 
-function getStores(searchStr) {
-	//check whether it is a search
-	if (searchStr) {
-		isSearch = true;
+/**
+ *  default location will be current location
+ *  default type will be LIST
+ */
+function getStores(key, location, type) {
+
+	/**
+	 * if search is on map let's don't block ui
+	 */
+	$.loader.show(null, {
+		height : type == searchTypeMap ? Ti.UI.SIZE : Ti.UI.FILL
+	});
+
+	/**
+	 * abort any pending http requests
+	 */
+	if (geoHttpClient) {
+		geoHttpClient.abort();
+	}
+	if (storeHttpClient) {
+		storeHttpClient.abort();
+	}
+
+	var reqStoreObj = {
+		view_type : type || searchTypeList
+	};
+
+	/*
+	 * check whether it is a search
+	 */
+	if (key || location) {
+
+		if (key) {
+			reqStoreObj.search_criteria = key;
+		} else {
+			_.extend(reqStoreObj, {
+				user_lat : location.latitude,
+				user_long : location.longitude
+			});
+		}
+
 	} else {
-		isSearch = false;
-		//reset search if any
+
+		_.extend(reqStoreObj, {
+			user_lat : $.uihelper.currentLocation.latitude,
+			user_long : $.uihelper.currentLocation.longitude
+		});
+
+		/*
+		 * if not reset search if any
+		 */
+
 		if ($.searchTxt.getValue()) {
 			$.searchTxt.setValue("");
 		}
-	}
-	//till api is ready
-	didGetStores({
-		"status" : "Success",
-		"code" : "200",
-		"message" : "x",
-		"description" : "x",
-		"data" : {
-			"stores" : [{
-				"id" : "1",
-				"store_identifier" : "01",
-				"store_ncpdp_id" : "4517100",
-				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
-				"addressline1" : "3600 GASTON AVENUE, SUITE 109",
-				"addressline2" : "3600 GASTON AVENUE, SUITE 109",
-				"state" : "TX",
-				"city" : "DALLAS",
-				"zip" : "75246",
-				"email_address" : null,
-				"phone" : "2148203451",
-				"fax" : "2148204088",
-				"latitude" : "32.791002",
-				"longitude" : "-96.779725",
-				"timezone" : "US/Central",
-				"distance" : null,
-				"searchdistance" : null,
-				"isbookmarked" : "1",
-				"ishomepharmacy" : "1"
-			}, {
-				"id" : "2",
-				"store_identifier" : "01",
-				"store_ncpdp_id" : "4517100",
-				"store_name" : "BAYLOR MEDICAL PLAZA PHARMACY",
-				"addressline1" : "3700 GASTON AVENUE, SUITE 109",
-				"addressline2" : "3700 GASTON AVENUE, SUITE 109",
-				"state" : "TX",
-				"city" : "DALLAS",
-				"zip" : "75246",
-				"email_address" : null,
-				"phone" : "2148203451",
-				"fax" : "2148204088",
-				"latitude" : "34.791002",
-				"longitude" : "-95.779725",
-				"timezone" : "US/Central",
-				"distance" : null,
-				"searchdistance" : null,
-				"isbookmarked" : "0",
-				"ishomepharmacy" : "0"
-			}]
+
+		if (searchRows.length) {
+			searchRows = [];
+			$.searchTableView.setData([]);
 		}
+	}
+
+	$.http.request({
+		method : "stores_list",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				stores : reqStoreObj
+			}]
+		},
+		showLoader : false,
+		success : didGetStores,
+		failure : didGetStores
 	});
 }
 
 function didGetStores(result, passthrough) {
+
+	/*
+	 * hide loader
+	 */
+	$.loader.hide(false);
+
+	/*
+	 * handle failure cases
+	 */
 	if (!result.data) {
 		//ignore when list is already empty
 		if (!Alloy.Collections.stores.length) {
@@ -136,7 +163,7 @@ function didGetStores(result, passthrough) {
 		 * with condition whether it is a text search or near by
 		 * with a if avoid null on distance
 		 */
-		var distance = store[ isSearch ? "searchdistance" : "distance"];
+		var distance = store.searchdistance || store.distance;
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
@@ -146,7 +173,7 @@ function didGetStores(result, passthrough) {
 		});
 	});
 	Alloy.Collections.stores.reset(result.data.stores);
-	if ($.tableView.visible) {
+	if ($.storeTableView.visible) {
 		prepareList();
 	} else {
 		prepareMap();
@@ -162,15 +189,37 @@ function prepareList() {
 		return false;
 	}
 	isListPrepared = true;
+	/**
+	 * if isMapPrepared is true it should be data from map
+	 * should sort for showing home and book marked on top of the list
+	 */
+	if (isMapPrepared) {
+		/**
+		 * stores are already sorted by distance with api
+		 */
+		Alloy.Collections.stores.sortBy(function(model) {
+			//keep home at top
+			if (model.get("ishomepharmacy")) {
+				return 1;
+			}
+			//followed by book marked
+			if (model.get("isbookmarked")) {
+				return 2;
+			}
+			//followed by others
+			return 3;
+		});
+	}
 	//reset rows
-	rows = [];
+	storeRows = [];
+	//process data
 	var data = [];
 	Alloy.Collections.stores.each(function(store) {
 		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON());
 		data.push(row.getView());
-		rows.push(row);
+		storeRows.push(row);
 	});
-	$.tableView.setData(data);
+	$.storeTableView.setData(data);
 }
 
 function prepareMap() {
@@ -215,13 +264,107 @@ function prepareMap() {
 }
 
 function didChangeSearch(e) {
-
+	/**
+	 * cancel any existing request
+	 */
+	if (httpClient) {
+		httpClient.abort();
+	}
+	var value = e.value || e.source.getValue();
+	if (value.length >= minSearchLength) {
+		httpClient = $.httpClient.request({
+			url : Alloy.CFG.geocode_url.concat(value),
+			format : "JSON",
+			success : didGetGEOCode,
+			failure : didGetGEOCode
+		});
+	} else if (searchRows.length) {
+		searchRows = [];
+		$.searchTableView.setData([]);
+	}
 }
 
-function didClickTableView(e) {
-	var row = rows[e.index];
+function didGetGEOCode(result, passthrough) {
+	httpClient = null;
+	//check if success
+	if (result.status == "OK" && result.results.length) {
+		searchRows = [];
+		if ($.searchTableView.touchEnabled) {
+			var data = [];
+			_.each(result.results, function(geoObj) {
+				var row = Alloy.createController("itemTemplates/label", {
+					title : geoObj.formatted_address,
+					latitude : geoObj.geometry.location.lat,
+					longitude : geoObj.geometry.location.lng
+				});
+				data.push(row.getView());
+				searchRows.push(row);
+			});
+			//debug, after enter searchTable is not visible for second search
+			console.log(JSON.stringify($.searchTableView));
+			$.searchTableView.setData(data);
+		} else {
+			//reset table
+			$.searchTableView.setData([]);
+			var location = result.results[0].geometry.location;
+			getStores({
+				latitude : location.lat,
+				longitude : location.lng
+			});
+		}
+	}
+}
+
+function didFocusSearch(e) {
+	toggleSearchTable(1);
+}
+
+function didBlurSearch(e) {
+	toggleSearchTable(0);
+}
+
+function toggleSearchTable(opacity) {
+	if ($.searchTableView.visible) {
+		$.searchTableView.touchEnabled = false;
+		opacity = 0;
+	} else {
+		$.searchTableView.applyProperties({
+			visible : true,
+			touchEnabled : true
+		});
+	}
+	var anim = Ti.UI.createAnimation({
+		opacity : opacity,
+		duration : 200
+	});
+	anim.addEventListener("complete", function onComplete() {
+		anim.removeEventListener("complete", onComplete);
+		$.searchTableView.opacity = opacity;
+		if (!opacity) {
+			$.searchTableView.visible = false;
+		}
+	});
+	$.searchTableView.animate(anim);
+}
+
+function didClickStoreTable(e) {
+	var row = storeRows[e.index];
 	if (row) {
 		handleNavigation(row.getParams());
+	}
+}
+
+function didClickSearchTable(e) {
+	var row = searchRows[e.index];
+	if (row) {
+		preventGEOSearch = true;
+		var params = row.getParams();
+		$.searchTxt.setValue(params.title);
+		$.searchTxt.blur();
+		getStores({
+			latitude : params.latitude,
+			longitude : params.longitude
+		});
 	}
 }
 
@@ -285,10 +428,10 @@ function handleNavigation(params) {
 
 function didClickRightNavBtn(e) {
 	var opacity = 1;
-	if ($.tableView.visible) {
+	if ($.storeTableView.visible) {
 		opacity = 0;
 	} else {
-		$.tableView.visible = true;
+		$.storeTableView.visible = true;
 	}
 	var anim = Ti.UI.createAnimation({
 		opacity : opacity,
@@ -296,19 +439,19 @@ function didClickRightNavBtn(e) {
 	});
 	anim.addEventListener("complete", function onComplete() {
 		anim.removeEventListener("complete", onComplete);
-		$.tableView.opacity = opacity;
+		$.storeTableView.opacity = opacity;
 		if (opacity) {
 			$.rightNavBtn.getNavButton().applyProperties(mapIconDict);
 			//to keep map and list in sync
 			prepareList();
 		} else {
 			$.rightNavBtn.getNavButton().applyProperties(listIconDict);
-			$.tableView.visible = false;
+			$.storeTableView.visible = false;
 			//to keep list and map in sync
 			prepareMap();
 		}
 	});
-	$.tableView.animate(anim);
+	$.storeTableView.animate(anim);
 }
 
 exports.init = init;

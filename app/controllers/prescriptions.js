@@ -259,12 +259,10 @@ function didGetPrescriptionList(result, passthrough, useCache) {
 				selected : false
 			});
 		}
-		var sectionId = prescription.get("section"),
-		    itemTemplate = prescription.get("itemTemplate"),
-		    filterText = _.values(_.pick(prescription.toJSON(), ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-		prescription.set("filterText", filterText);
-		var row = Alloy.createController("itemTemplates/".concat(itemTemplate), prescription.toJSON());
-		switch(itemTemplate) {
+		var rowParams = prescription.toJSON();
+		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		var row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		switch(rowParams.itemTemplate) {
 		case "masterDetailSwipeable":
 			row.on("clickoption", didClickSwipeOption);
 			break;
@@ -272,8 +270,8 @@ function didGetPrescriptionList(result, passthrough, useCache) {
 			row.on("clickdetail", hidePrescription);
 			break;
 		}
-		sectionHeaders[sectionId] += filterText;
-		sections[sectionId].push(row);
+		sectionHeaders[rowParams.section] += rowParams.filterText;
+		sections[rowParams.section].push(row);
 	});
 	var data = [];
 	_.each(sections, function(rows, key) {
@@ -353,7 +351,7 @@ function didClickSelectAll(e) {
 }
 
 function didChangeSearch(e) {
-	$.tableView.filterText = $.searchTxt.getValue();
+	$.tableView.filterText = e.value || e.source.getValue();
 }
 
 function didClickRightNavBtn(e) {

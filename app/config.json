@@ -24,6 +24,8 @@
             "success_code": "200",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
+            "store_search_type_list": "LIST",
+            "store_search_type_map": "MAP",
             "prescription_display_status_active": "active",
             "prescription_display_status_hideen": "hidden",
             "refill_status_in_process": "In Process",
@@ -31,6 +33,7 @@
             "refill_status_sold": "Sold",
             "code_sort_order_preference": "Sort Order Preference"
         },
+        "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=",
         "log_level": "debug",
         "force_update": false,
         "force_reload_after_update": false,

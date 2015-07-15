@@ -53,7 +53,11 @@ function request(args) {
 		args.params = encryptionUtil.encrypt(args.params);
 	}
 
-	http.request({
+	/**
+	 *  returns the actual http client object
+	 */
+
+	return http.request({
 		url : Alloy.CFG.base_url.concat(Alloy.CFG.apiPath[args.method]),
 		type : args.type,
 		format : args.format,

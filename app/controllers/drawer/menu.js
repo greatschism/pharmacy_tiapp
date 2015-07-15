@@ -11,9 +11,9 @@ function init(navigation) {
 	if (OS_ANDROID) {
 		app.navigator.drawer.addEventListener("drawerclose", didDrawerclose);
 	}
-	landingPage = _.findWhere(Alloy.Collections.menuItems.toJSON(), {
+	landingPage = Alloy.Collections.menuItems.findWhere({
 		landing_page : true
-	});
+	}).toJSON();
 	Alloy.Collections.menuItems.trigger("reset");
 	app.navigator.open(navigation || landingPage);
 }

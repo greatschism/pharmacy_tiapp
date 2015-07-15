@@ -1,6 +1,7 @@
 "#embedded":{
 	height: Ti.UI.FILL,
-	backgroundColor: "#FFFFFF"
+	backgroundColor: "#FFFFFF",
+	visible: false
 },
 "#activityIndicatorImg":{
 	width: 50,

@@ -5,6 +5,7 @@ module.exports = {
 			"left_drawer_width" : 270,
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
+			"store_search_min_length" : 4,
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,

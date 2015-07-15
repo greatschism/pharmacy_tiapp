@@ -44,11 +44,7 @@ function hideLoader() {
 }
 
 function didGetPrescription(result, passthrough) {
-	/*
-	 * prescriptions should be a object not array
-	 * must to be fixed from server side
-	 */
-	_.extend(prescription, result.data.prescriptions[0]);
+	_.extend(prescription, result.data.prescriptions);
 	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
 	$.http.request({
@@ -179,7 +175,7 @@ function didClickHide(e) {
 		},
 		success : function() {
 			//triggers a reload when prescription list is focused
-			prescription.hidden = true;
+			prescription.shouldUpdate = true;
 			$.app.navigator.close();
 		}
 	});

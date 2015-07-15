@@ -93,6 +93,9 @@ module.exports = {
 	".accessibility-disabled" : {
 		"accessibilityHidden" : true
 	},
+	".transparent" : {
+		"backgroundColor" : "transparent"
+	},
 	".returnkey-previous" : {
 		"returnKeyType" : "Ti.UI.RETURNKEY_PREVIOUS"
 	},
