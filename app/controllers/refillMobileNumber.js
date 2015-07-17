@@ -65,7 +65,7 @@ function didClickContinue(e) {
 
 }
 
-function didRefill() {
+function didSuccessRefill() {
 	app.navigator.open({
 		ctrl : "refillSuccess",
 		titleid : "titleQuickRefill",
