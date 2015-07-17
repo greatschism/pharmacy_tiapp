@@ -1,0 +1,11 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<Label id="lblRefillFailure" class="lbl-centered-wrap margin-top margin-bottom"/>
+		<Button id="btnTypePrescription" class="secondary-btn" />
+		<View class="option-divider-view">
+			<View class="option-divider-line"/>
+			<Label id="orLbl"class="option-divider-lbl" />
+		</View>
+		<Button id="btnCallPharmacy" class="secondary-btn" onClick="didClickCall" />
+	</ScrollView>
+</Alloy>

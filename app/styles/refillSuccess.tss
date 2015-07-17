@@ -1,35 +1,21 @@
-"#toggleBtn":{
-	text: Alloy.CFG.icons.options,
-	font:Alloy.TSS.small_icon.font,
-	color: "#FFFFFF"
+"#lblRefillStatusTitle":{
+	text:Alloy.Globals.strings.qrSuccessLblStatus
 },
-"#tableView":{
-	top: 0
+"#lblRefillContact":{
+	text:Alloy.Globals.strings.qrSuccessLblContact
 },
-".success-icon":{
-	text: Alloy.CFG.icons.success
+"#lblRefillPlaced":{
+	text:Alloy.Globals.strings.qrSuccessSectionStore
 },
-".lbl-signup":{
-	title: Alloy.Globals.strings.strSignup
-}
-"#signup":
-{
-
-	title: Alloy.Globals.strings.strSignup
-}
-"#hintParaOne":
-{
-
-	text: Alloy.Globals.strings.msgSignUpToReceiveText
-}
-"#done":
-{
-	title: Alloy.Globals.strings.btnDone
+"#lblPrescriptionTransfered":{
+	text:Alloy.Globals.strings.qrSuccessSectionPresc
 },
-".h2":{
-	color: "#0095ff",
-	font:{
-		fontSize: 15,
-		fontFamily: "regular"
-	}
+"#lblRefillSignUp":{
+	text:Alloy.Globals.strings.qrSuccessLblSignUp
+},
+"#btnSignUp":{
+	title:Alloy.Globals.strings.qrSuccessBtnSignUp
+},
+"#btnDone":{
+	title:Alloy.Globals.strings.qrSuccessBtnDone
 }

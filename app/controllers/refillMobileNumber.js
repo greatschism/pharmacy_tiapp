@@ -32,138 +32,52 @@ function didClickContinue(e) {
 	cached = utilities.setProperty(Alloy.CFG.latest_phone_used, mob, "string", false);
 	console.log("cached" + (cached));
 
-	var Barcode = require('ti.barcode');
-	Barcode.allowRotation = true;
-	Barcode.displayedMessage = '';
-	Barcode.useLED = true;
+	require("barcode").capture({
+		success : function(event) {
+			console.log(event.result);
+			$.http.request({
+				method : "prescriptions_refill",
+				params : {
+					feature_code : "THXXX",
 
-	var window = Ti.UI.createWindow({
-		backgroundColor : 'white'
-	});
+					filter : {
+						refill_type : "scan"
+					},
+					data : [{
+						prescriptions : [{
+							id : "x",
+							rx_number : "x",
+							store_id : "x",
+							mobile_number : mob,
+							pickup_time_group : "x",
+							pickup_mode : "instore",
+							barcode_data : event.result,
+							barcode_format : "code-128"
+						}]
+					}]
+				},
+				success : didSuccessRefill,
+				failure : didFailRefill
 
-	/**
-	 * Create a chrome for the barcode scanner.
-	 */
-	var overlay = Ti.UI.createView({
-		backgroundColor : 'transparent',
-		top : 0,
-		right : 0,
-		bottom : 0,
-		left : 0
-	});
-	var switchButton = Ti.UI.createButton({
-		title : Barcode.useFrontCamera ? 'Back Camera' : 'Front Camera',
-		textAlign : 'center',
-		color : '#000',
-		backgroundColor : '#fff',
-		style : 0,
-		font : {
-			fontWeight : 'bold',
-			fontSize : 16
-		},
-		borderColor : '#000',
-		borderRadius : 10,
-		borderWidth : 1,
-		opacity : 0.5,
-		width : 220,
-		height : 30,
-		bottom : 10
-	});
-	switchButton.addEventListener('click', function() {
-		Barcode.useFrontCamera = !Barcode.useFrontCamera;
-		switchButton.title = Barcode.useFrontCamera ? 'Back Camera' : 'Front Camera';
-	});
-	overlay.add(switchButton);
-
-	var toggleLEDButton = Ti.UI.createButton({
-		title : Barcode.useLED ? 'LED is On' : 'LED is Off',
-		textAlign : 'center',
-		color : '#000',
-		backgroundColor : '#fff',
-		style : 0,
-		font : {
-			fontWeight : 'bold',
-			fontSize : 16
-		},
-		borderColor : '#000',
-		borderRadius : 10,
-		borderWidth : 1,
-		opacity : 0.5,
-		width : 220,
-		height : 30,
-		bottom : 40
-	});
-	toggleLEDButton.addEventListener('click', function() {
-		Barcode.useLED = !Barcode.useLED;
-		toggleLEDButton.title = Barcode.useLED ? 'LED is On' : 'LED is Off';
-	});
-	overlay.add(toggleLEDButton);
-
-	var backButton = Ti.UI.createButton({
-		title : ' <- Back',
-		textAlign : 'left',
-		color : '#FFF',
-		style : 0,
-		font : {
-			fontWeight : 'bold',
-			fontSize : 16
-		},
-		width : 200,
-		height : 30,
-		top : 20
-	});
-	backButton.addEventListener('click', function() {
-		Barcode.cancel();
-	});
-	overlay.add(backButton);
-
-	var cameraTitleMessage = Ti.UI.createButton({
-		title : 'Center the barcode inside the\nbox to scan',
-		textAlign : 'left',
-		color : '#FFF',
-		style : 0,
-		font : {
-			fontWeight : 'bold',
-			fontSize : 16
-		},
-		width : 300,
-		height : 'auto',
-		top : 40
-	});
-	overlay.add(cameraTitleMessage);
-	// Note: while the simulator will NOT show a camera stream in the simulator, you may still call "Barcode.capture"
-	// to test your barcode scanning overlay.
-	Barcode.capture({
-		animate : true,
-		overlay : overlay,
-		showCancel : false,
-		showRectangle : true,
-		keepOpen : true,
-		acceptedFormats : [Barcode.FORMAT_CODE_128]
-	});
-
-	/**
-	 * Now listen for various events from the Barcode module. This is the module's way of communicating with us.
-	 */
-	var scannedBarcodes = {},
-	    scannedBarcodesCount = 0;
-
-	Barcode.addEventListener('error', function(e) {
-		Ti.API.info('error called with barcode: ' + e.message);
-	});
-	Barcode.addEventListener('cancel', function(e) {
-		Ti.API.info('Cancel received');
-	});
-	Barcode.addEventListener('success', function(e) {
-		Ti.API.info('Success called with barcode: ' + e.result);
-		if (!scannedBarcodes['' + e.result]) {
-			scannedBarcodes[e.result] = true;
-			scannedBarcodesCount += 1;
-			backButton.title = 'Finished (' + scannedBarcodesCount + ' Scanned)';
-
+			});
 		}
-	});
+	}, $);
 
 }
 
+function didRefill() {
+	app.navigator.open({
+		ctrl : "refillSuccess",
+		titleid : "titleQuickRefill",
+		stack : true,
+	});
+
+}
+function didFailRefill(){
+	app.navigator.open({
+		ctrl : "refillFailure",
+		titleid : "titleRefillFailure",
+		stack : true,
+	});
+}
 exports.init = init;

@@ -1,0 +1,10 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<Button id="scanPrescription" class="secondary-btn" onClick="didClickScan" />
+		<View class="option-divider-view">
+			<View class="option-divider-line"/>
+			<Label id="orLbl"class="option-divider-lbl" />
+		</View>
+		<Button id="typePrescription" class="secondary-btn" onClick="didClickType" />
+	</ScrollView>
+</Alloy>

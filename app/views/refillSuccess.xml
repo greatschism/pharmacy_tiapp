@@ -1,14 +1,36 @@
 <Alloy>
-
-	<TableView id="tableView" >
-	<FooterView id="mainFooter" >
-		<View id="fview" class="vgroup">
-		<Label id="hintParaOne" class="padding-top styled-title multi-line" />
-		<Button id="signup" class="padding-top primary-btn padding-bottom " onClick="didSignUp" />
-		<Button id="done" class="secondary-btn padding-bottom" onClick="didClickDone" />
-		
-		</View>
-	</FooterView>
+	<TableView>
+		<TableViewSection>
+			<TableViewRow>
+				<View class="content-view-vgroup">
+					<Label id="lblRefillStatusTitle" class="title-centered"/>
+					<ImageView id="imgRefillStatus"/>
+					<Label id="lblRefillContact" class="content-title-wrap"/>
+				</View>
+			</TableViewRow>
+		</TableViewSection>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="lblRefillPlaced" class="content-header-lbl"></Label>
+				</View>
+			</HeaderView>
+			<TableViewRow></TableViewRow>
+		</TableViewSection>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="lblPrescriptionTransfered" class="content-header-lbl"></Label>
+				</View>
+			</HeaderView>
+			<TableViewRow></TableViewRow>
+		</TableViewSection>
+		<FooterView>
+			<View class="auto-height vgroup">
+				<Label id="lblRefillSignUp" class="content-title-wrap margin-left"/>
+				<Button id="btnSignUp" class="primary-btn margin-top margin-bottom"/>
+				<Button id="btnDone" class="secondary-btn  margin-top margin-bottom"/>			
+			</View>
+		</FooterView>
 	</TableView>
-
 </Alloy>
