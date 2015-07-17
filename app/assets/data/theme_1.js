@@ -5,7 +5,7 @@ module.exports = {
 			"left_drawer_width" : 270,
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
-			"store_search_min_length" : 4,
+			"geo_search_min_length" : 5,
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,
@@ -254,7 +254,6 @@ module.exports = {
 			},
 			".map-view" : {
 				"animate" : true,
-				"regionFit" : true,
 				"userLocation" : true
 			},
 			".annotation-icon[platform=ios]" : {
@@ -1933,9 +1932,9 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-header-right-icon" : {
-				"top" : 2,
-				"right" : 4,
-				"width" : 40,
+				"right" : 0,
+				"width" : 44,
+				"height" : "fill",
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 24
@@ -1960,30 +1959,14 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".content-header-right-btn[platform=ios]" : {
-				"top" : 10,
-				"right" : 4,
-				"width" : 140,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"textAlign" : "right",
-				"color" : "#599cff",
-				"selectedColor" : "#599cff",
-				"backgroundColor" : "transparent",
-				"backgroundSelectedColor" : "transparent",
-				"borderColor" : "transparent"
-			},
-			".content-header-right-btn[platform=android]" : {
-				"right" : 4,
-				"width" : 140,
+			".content-header-right-btn" : {
+				"right" : 0,
+				"width" : 80,
 				"height" : "fill",
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"textAlign" : "right",
 				"color" : "#599cff",
 				"selectedColor" : "#599cff",
 				"backgroundColor" : "transparent",
@@ -1991,9 +1974,8 @@ module.exports = {
 				"borderColor" : "transparent"
 			},
 			".content-header-lbl-with-rbtn" : {
-				"top" : 12,
 				"left" : 12,
-				"right" : 148,
+				"right" : 84,
 				"height" : 22,
 				"font" : {
 					"fontFamily" : "bold",

@@ -93,6 +93,9 @@ module.exports = {
 	".accessibility-disabled" : {
 		"accessibilityHidden" : true
 	},
+	".cancel-bubble" : {
+		"bubbleParent" : false
+	},
 	".transparent" : {
 		"backgroundColor" : "transparent"
 	},
@@ -143,7 +146,8 @@ module.exports = {
 		}
 	},
 	".loader-embedded-auto" : {
-		"height" : "auto",
+		"width" : "Ti.UI.SIZE",
+		"height" : "Ti.UI.SIZE",
 		"indicatorDict" : {
 			"top" : 12,
 			"bottom" : 12,
@@ -151,6 +155,8 @@ module.exports = {
 		}
 	},
 	".loader-embedded-fill" : {
+		"width" : "Ti.UI.FILL",
+		"height" : "Ti.UI.FILL",
 		"indicatorDict" : {
 			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
 		}

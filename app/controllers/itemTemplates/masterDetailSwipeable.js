@@ -1,6 +1,4 @@
 var args = arguments[0] || {},
-    app = require("core"),
-    utilities = require("utilities"),
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
@@ -11,10 +9,23 @@ var args = arguments[0] || {},
 require("config").updateTSS($.__controllerPath);
 
 if (!Alloy.TSS[CONSTS]) {
-	var paddingLeft = $.swipeView.paddingLeft,
+	var app = require("core"),
+	    paddingLeft = $.swipeView.paddingLeft,
 	    availableWidth = app.device.width - paddingLeft,
 	    endOffset = app.device.width + $.swipeView.paddingRight;
+	/**
+	 * This template is used with
+	 * prescriptions list where labels has static height
+	 * prescriptions has a local search / filterText options too
+	 * dynamic rows, with swipe options can't be used along with search / filterText
+	 * this is a limitation with iOS
+	 * dynamic rows, with swipe options has no issues without search / filterText
+	 *
+	 * Also if postlayout is used, className should not be assigned on android
+	 * which may prevent postlayout being fired for differet rows of same className
+	 */
 	Alloy.TSS[CONSTS] = {
+		height : $.contentView.top + $.contentView.bottom + require("uihelper").getHeightFromChildren($.masterView, true),
 		availableWidth : availableWidth,
 		startOffset : paddingLeft,
 		decisionOffset : endOffset - (endOffset / 3),
@@ -28,6 +39,11 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
+	/**
+	 *  keep different class names for different layouts
+	 */
+	$.row.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "Swipeable";
+	$.containerView.height = CONSTS.height;
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
 	}
@@ -45,7 +61,8 @@ CONSTS = Alloy.TSS[CONSTS];
 	});
 	$.swipeView.applyProperties({
 		left : CONSTS.endOffset,
-		width : CONSTS.availableWidth
+		width : CONSTS.availableWidth,
+		height : CONSTS.height
 	});
 	if (args.options) {
 		var len = args.options.length,
@@ -72,22 +89,7 @@ CONSTS = Alloy.TSS[CONSTS];
 			$.swipeView.add(btn);
 		});
 	}
-	$.containerView.addEventListener("postlayout", didPostlayout);
 })();
-
-function didPostlayout(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayout);
-	var height = e.source.rect.height;
-	/**
-	 * this avoids a know flickering issue with apple
-	 * with dynamic row height
-	 */
-	if (OS_IOS) {
-		height += 0.5;
-	}
-	$.containerView.height = height;
-	$.swipeView.height = height;
-}
 
 function didClickOption(e) {
 	var source = e.source;

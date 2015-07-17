@@ -213,7 +213,7 @@ function didGetPrescriptionList(result, passthrough, useCache) {
 			 */
 			if (prescription.get("anticipated_refill_date")) {
 				/**
-				 * if  anticipated_refill_date is <= Alloy.CFG.prescription_ready_for_refill - move to ready for refill
+				 * if  anticipated_refill_date is <= prescription_ready_for_refill - move to ready for refill
 				 * */
 				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
 				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
@@ -221,7 +221,7 @@ function didGetPrescriptionList(result, passthrough, useCache) {
 					section = "readyRefill";
 					/**
 					 * prevent any actions on list when selectable is true, use masterDetailWithLIcon only
-					 * show auto hide button when anticipated_refill_date - current date  <= Alloy.CFG.prescription_auto_hide
+					 * show auto hide button when anticipated_refill_date - current date  <= prescription_auto_hide
 					 */
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
 						template = "masterDetailBtn";

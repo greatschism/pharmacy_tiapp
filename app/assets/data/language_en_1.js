@@ -81,6 +81,7 @@ module.exports = {
 		"loginBtnLogin" : "Sign in",
 
 		"storeHintSearch" : "Search",
+		"storeGEOZeroResults" : "No matches found!",
 
 		"storeDetPromptPhone" : "Call:",
 		"storeDetLblOpen" : "Open till %s",

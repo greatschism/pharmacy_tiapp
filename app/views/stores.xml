@@ -1,7 +1,7 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-map" onClick="didClickRightNavBtn" />
 	<View id="searchbar" class="top search-bar">
-		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-search search-txt" onChange="didChangeSearch" onClear="didChangeSearch" onReturn="didChangeSearch" />
+		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-search search-txt" onFocus="didFocusSearch" onChange="didChangeSearch" onClear="didClearSearch" onReturn="didReturnSearch" />
 	</View>
 	<View id="containerView">
 		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" onClick="didClickMap" />
@@ -10,11 +10,11 @@
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
-		<TableView id="searchTableView" class="touch-disabled hide" onClick="didClickSearchTable">
+		<TableView id="geoTableView" class="hide" onClick="didClickGEOTable">
 			<FooterView platform="ios">
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
 	</View>
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill hide transparent" />
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-auto hide transparent" />
 </Alloy> 

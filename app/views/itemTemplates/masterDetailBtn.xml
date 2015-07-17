@@ -6,7 +6,7 @@
 				<Label id="subtitleLbl" class="content-subtitle" />
 			</View>
 			<View id="detailView" class="content-detail-view-45">
-				<Button id="detailBtn" onClick="didClickDetail" />
+				<Button id="detailBtn" class="cancel-bubble" onClick="didClickDetail" />
 			</View>
 		</View>
 	</TableViewRow>

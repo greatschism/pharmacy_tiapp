@@ -1,3 +1,3 @@
 <Alloy>
-	<View platform="ios" onClick="didClick" />
+	<View onClick="didClick" platform="ios" />
 </Alloy>

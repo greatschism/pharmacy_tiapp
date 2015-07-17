@@ -37,6 +37,7 @@ var BarcodeReader = {
 		 * and overlayEnabled is not false
 		 */
 		if (!options.overlay && options.overlayEnabled !== false) {
+			$ = $ || options["$"];
 			if (!$) {
 				logger.error(TAG, "controller reference should be passed to create default overlay");
 				return false;
@@ -58,7 +59,7 @@ var BarcodeReader = {
 				classes : ["barcode-title"],
 				text : Alloy.Globals.strings.msgBarcode
 			});
-			navIconBtn.addEventListener("click", that.cancel);
+			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			navbarView.add(navIconBtn);
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
