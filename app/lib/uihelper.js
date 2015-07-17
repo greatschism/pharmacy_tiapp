@@ -47,8 +47,9 @@ var Helper = {
 	 * Get current location of user
 	 * @param {Function} callback
 	 * @param {Boolean} forceUpdate
+	 * @param {Boolean} errorDialogEnabled
 	 */
-	getLocation : function(callback, forceUpdate) {
+	getLocation : function(callback, forceUpdate, errorDialogEnabled) {
 
 		if (forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp) < Alloy.CFG.location_timeout) {
 			Helper.fireLocationCallback(callback, Helper.currentLocation);
@@ -56,23 +57,29 @@ var Helper = {
 		}
 
 		if (!Ti.Geolocation.locationServicesEnabled) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
-			});
+			if (errorDialogEnabled !== false) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
+				});
+			}
 			return Helper.fireLocationCallback(callback);
 		}
 
 		if (OS_IOS) {
 			var authorization = Ti.Geolocation.locationServicesAuthorization || "";
 			if (authorization == Ti.Geolocation.AUTHORIZATION_DENIED) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgGeoAuthorizationDenied
-				});
+				if (errorDialogEnabled !== false) {
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgGeoAuthorizationDenied
+					});
+				}
 				return Helper.fireLocationCallback(callback);
 			} else if (authorization == Ti.Geolocation.AUTHORIZATION_RESTRICTED) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
-				});
+				if (errorDialogEnabled !== false) {
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
+					});
+				}
 				return Helper.fireLocationCallback(callback);
 			}
 		}

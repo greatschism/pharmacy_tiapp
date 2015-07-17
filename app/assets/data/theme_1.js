@@ -6,6 +6,12 @@ module.exports = {
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
 			"geo_search_min_length" : 5,
+			"store_map_default_region" : {
+				"latitude" : 37.09024,
+				"longitude" : -95.712891,
+				"latitudeDelta" : 0.5,
+				"longitudeDelta" : 0.5
+			},
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,
@@ -26,10 +32,6 @@ module.exports = {
 					"modifiters" : "",
 					"value" : "$1-$2"
 				}]
-			},
-			"support" : {
-				"call" : "1234567890",
-				"email" : "support@mscripts.com"
 			},
 			"location_timeout" : 900,
 			"http_timeout" : 90,
@@ -1624,7 +1626,7 @@ module.exports = {
 			},
 			".content-detail-view-0" : {
 				"right" : 0,
-				"width" : "0%",
+				"width" : 0,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -1635,6 +1637,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-25" : {
+				"left" : "75%",
 				"right" : 0,
 				"width" : "25%",
 				"height" : "auto",
@@ -1647,6 +1650,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-30" : {
+				"left" : "70%",
 				"right" : 0,
 				"width" : "30%",
 				"height" : "auto",
@@ -1659,6 +1663,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-35" : {
+				"left" : "65%",
 				"right" : 0,
 				"width" : "35%",
 				"height" : "auto",
@@ -1671,6 +1676,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-40" : {
+				"left" : "60%",
 				"right" : 0,
 				"width" : "40%",
 				"height" : "auto",
@@ -1683,6 +1689,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-45" : {
+				"left" : "55%",
 				"right" : 0,
 				"width" : "45%",
 				"height" : "auto",
@@ -1695,6 +1702,7 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-detail-view-50" : {
+				"left" : "50%",
 				"right" : 0,
 				"width" : "50%",
 				"height" : "auto",

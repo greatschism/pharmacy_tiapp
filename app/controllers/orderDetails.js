@@ -14,15 +14,22 @@ var args = arguments[0] || {},
 };
 
 function init() {
-	$.tableView.bottom = $.tableView.bottom + $.orderRefillBtn.height + $.orderRefillBtn.bottom;
+	$.tableView.bottom = $.tableView.bottom + $.orderBtn.height + $.orderBtn.bottom;
 	//prescriptions section
-	var iconDict = $.createStyle({
-		classes : ["content-header-right-icon", "icon-add"]
-	});
-	_.extend(iconDict, {
-		isIcon : true,
-		callback : didClickAdd
-	});
+	var iconDict;
+	/*
+	 * only allow add prescriptions
+	 * if it is not from prescriptions add screen
+	 */
+	if (args.origin !== "prescriptions") {
+		iconDict = $.createStyle({
+			classes : ["content-header-right-icon", "icon-add"]
+		});
+		_.extend(iconDict, {
+			isIcon : true,
+			callback : didClickAdd
+		});
+	}
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionList, null, false, false, iconDict);
 	//if more than one prescription is there add right icon to remove a prescription
 	var isRemovable = prescriptions.length > 1;

@@ -1,5 +1,4 @@
 module.exports = {
-
 	"data" : {
 
 		"strPrefixDoctor" : "es-Dr. ",
@@ -12,6 +11,9 @@ module.exports = {
 		"strDay" : "es-day",
 		"strAppleMaps" : "es-Apple",
 		"strGoogleMaps" : "es-Google",
+		"strPhone" : "es-Call",
+		"strContactAdd" : "es-Add to contacts",
+		"strOr" : "es-Or",
 
 		"msgLoading" : "es-Processing. Please wait",
 		"msgNetworkError" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -22,8 +24,12 @@ module.exports = {
 		"msgAppUpdatedForceReload" : "es-The updates has been downloaded, the app will restart now in order to apply the updates.",
 		"msgGeoAuthorizationRestricted" : "es-Location service is turned off. Please check your settings.",
 		"msgGeoAuthorizationDenied" : "es-Your have disallowed app from running geolocation services. Please check your settings.",
+		"msgContactsAuthorizationRestricted" : "es-You have restricted the access for your contacts. Please check your settings.",
+		"msgContactsAuthorizationDenied" : "es-Your have disallowed app from accessing contacts. Please check your settings.",
+		"msgContactAdded" : "es-Contact added successfully.",
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have signed out successfully.",
+		"msgBarcode" : "es-Center the barcode inside the box to scan",
 
 		"dialogTitleUpdates" : "es-Updates",
 		"dialogBtnOK" : "es-OK",
@@ -55,23 +61,36 @@ module.exports = {
 		"titleStoreDetails" : "es-Store details",
 		"titlePrescriptionDetails" : "es-Drug details",
 		"titleOrderDetails" : "es-Order details",
+		"titleAddPrescriptions" : "es-Add prescriptions",
+		"titleRefillHistory" : "es-Refill history",
 		"titleLogin" : "es-Sign in",
 		"titleLogout" : "es-Logout",
 
 		"homeNavBtnLogin" : "es-Sign in",
 
+		"loginLblTitle" : "es-Sign in to the mscripts mobile pharmacy",
 		"loginHintUsername" : "es-Username",
 		"loginHintPassword" : "es-Password",
 		"loginLblRememberMe" : "es-Keep me logged in",
-		"loginLblTitle" : "es-Sign in to the mscripts mobile pharmacy",
 		"loginLnkCreateAccount" : "es-Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "es-Please enter your username",
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
 
-		"storeHintSearch" : "es-Search by zip, city or state",
+		"storeHintSearch" : "es-Search",
+		"storeGEOZeroResults" : "es-No matches found!",
 
-		"prescHintSearch" : "es-Search by prescription name or rx number",
+		"storeDetPromptPhone" : "es-Call:",
+		"storeDetLblOpen" : "es-Open till %s",
+		"storeDetLblClose" : "es-Closed at %s",
+		"storeDetBtnDirection" : "es-Direction",
+		"storeDetBtnRefill" : "es-Refill at this location",
+		"storeDetBtnFavouriteAdd" : "es-Add to favourite",
+		"storeDetBtnFavouriteRemove" : "es-Remove from favourite",
+		"storeDetSectionHours" : "es-Store hours",
+		"storeDetSectionServices" : "es-Store Services",
+
+		"prescHintSearch" : "es-Search",
 		"prescOptMenuSearch" : "es-Search",
 		"prescOptMenuSort" : "es-Sort",
 		"prescOptMenuRefresh" : "es-Refresh",
@@ -96,6 +115,10 @@ module.exports = {
 		"prescPopupUnhideBtnNone" : "es-Select none",
 		"prescPopupUnhideBtnUnhide" : "es-Unhide",
 		"prescPopupUnhideBtnClose" : "es-Close",
+		"prescBtnDone" : "es-Done",
+		"prescAddSectionBtnAll" : "es-Select all",
+		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
+		"prescAddMsgNoneSelected" : "es-No prescriptions selected.",
 
 		"prescDetExpand" : "es-Show more",
 		"prescDetCollapse" : "es-Show less",
@@ -117,6 +140,25 @@ module.exports = {
 
 		"orderDetSectionList" : "es-Your order",
 		"orderDetSectionPickup" : "es-Pickup details",
-		"orderDetBtnRefill" : "es-Order refill"
+		"orderDetBtnRefill" : "es-Order refill",
+
+		"qrBtnScan" : "es-Scan my prescription",
+		"qrBtnType" : "es-Type my prescription details",
+
+		"qrScanLblMobileNumber" : "es-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"qrScanHintMobileNumber" : "es-Mobile number",
+		"qrScanBtnContinue" : "es-Continue",
+
+		"qrSuccessLblStatus" : "es-Your refill is on the way!",
+		"qrSuccessLblContact" : "es-Please contact your pharmacy if you have any questions.",
+		"qrSuccessSectionStore" : "es-Your refill has been placed at:",
+		"qrSuccessSectionPresc" : "es-Prescription transfered:",
+		"qrSuccessLblSignUp" : "es-Sign up now to receive a text message when your prescription is ready.",
+		"qrSuccessBtnSignUp" : "es-Sign up",
+		"qrSuccessBtnDone" : "es-Done",
+
+		"qrFailureBtnPhone" : "es-Call my pharmacy",
+		"qrFailureLblStatus" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
+
 	}
 };

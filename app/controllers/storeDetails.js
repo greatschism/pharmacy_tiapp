@@ -1,9 +1,14 @@
 var args = arguments[0] || {},
-    store = args.store;
+    store = args.store,
+    httpClient;
 
 function init() {
+	/**
+	 * check whether to call api
+	 * or use cached data
+	 */
 	if (!_.has(store, "hours")) {
-		$.http.request({
+		httpClient = $.http.request({
 			method : "stores_get",
 			params : {
 				feature_code : "THXXX",
@@ -14,20 +19,18 @@ function init() {
 				}]
 			},
 			showLoader : false,
-			errorDialogEnabled : false,
 			success : didGetStore
 		});
 	} else {
-		setTimeout(loadStore, 1000);
+		setTimeout(didGetStore, 1000);
 	}
 }
 
 function didGetStore(result, passthrough) {
-	_.extend(store, _.pick(result.data.stores, ["hours", "services"]));
-	loadStore();
-}
-
-function loadStore() {
+	httpClient = null;
+	if (result && result.data) {
+		_.extend(store, result.data.stores);
+	}
 	$.titleLbl.text = store.title;
 	$.subtitleLbl.text = store.subtitle;
 	if (!store.phone_formatted) {
@@ -38,10 +41,6 @@ function loadStore() {
 		updateHome();
 		updateFavourite();
 	}
-	/**
-	 *  store is_open property yet to be exposed
-	 *  in order to show the open or close time
-	 */
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
@@ -72,20 +71,9 @@ function loadStore() {
 		});
 		data.push(hoursSection);
 	}
-	/*
-	 * services is a object in response
-	 * must to be fixed from server side
-	 */
-	if (_.isObject(services)) {
-		services = [services];
-	}
 	if (services.length) {
 		var servicesSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionServices);
 		_.each(services, function(val) {
-			/**
-			 *  should be modified once api is fixed
-			 */
-			val = _.keys(val)[0];
 			servicesSection.add(Alloy.createController("itemTemplates/label", {
 				title : val
 			}).getView());
@@ -119,25 +107,49 @@ function didClickPhone(e) {
 }
 
 function didClickDirection(e) {
-	/**
-	 * if args.isSearch true then
-	 * may have to pass source as the search location
-	 */
 	$.uihelper.getDirection({
 		latitude : store.latitude,
 		longitude : store.longitude
-	});
+	}, args.currentLocation);
 }
 
 function didClickRefill(e) {
-	$.app.navigator.open({
-		titleid : "titleOrderDetails",
-		ctrl : "orderDetails",
-		ctrlArguments : {
-			store : store
-		},
-		stack : true
-	});
+	var navigation;
+	if (Alloy.Globals.loggedIn) {
+		navigation = {
+			titleid : "titleTypeRx",
+			ctrl : "typeRx",
+			ctrlArguments : {
+				store : store
+			},
+			stack : true
+		};
+	} else {
+		/**
+		 * add prescriptions
+		 * and then to order details
+		 */
+		navigation = {
+			titleid : "titleAddPrescriptions",
+			ctrl : "prescriptions",
+			ctrlArguments : {
+				filters : {
+					refill_status : [Alloy.CFG.apiCodes.refill_status_in_process, Alloy.CFG.apiCodes.refill_status_ready]
+				},
+				selectable : true,
+				navigation : {
+					titleid : "titleOrderDetails",
+					ctrl : "orderDetails",
+					ctrlArguments : {
+						store : store
+					},
+					stack : true
+				}
+			},
+			stack : true
+		};
+	}
+	$.app.navigator.open(navigation);
 }
 
 function didClickFavourite(e) {
@@ -148,4 +160,11 @@ function didClickHome(e) {
 
 }
 
+function terminate() {
+	if (httpClient) {
+		httpClient.abort();
+	}
+}
+
 exports.init = init;
+exports.terminate = terminate;

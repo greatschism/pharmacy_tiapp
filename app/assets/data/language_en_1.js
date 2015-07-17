@@ -1,5 +1,4 @@
 module.exports = {
-
 	"data" : {
 
 		"strPrefixDoctor" : "Dr. ",
@@ -10,7 +9,6 @@ module.exports = {
 		"strNotAvailable" : "Not available",
 		"strDays" : "days",
 		"strDay" : "day",
-		"strAppleMaps" : "Apple",
 		"strAppleMaps" : "Apple",
 		"strGoogleMaps" : "Google",
 		"strPhone" : "Call",
@@ -31,7 +29,6 @@ module.exports = {
 		"msgContactAdded" : "Contact added successfully.",
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have signed out successfully.",
-		"msgPrescriptionsAddEmptyList" : "No more prescriptions found for refill.",
 		"msgBarcode" : "Center the barcode inside the box to scan",
 
 		"dialogTitleUpdates" : "Updates",
@@ -68,7 +65,6 @@ module.exports = {
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
-		"titleRefillFailure":"We're sorry",
 
 		"homeNavBtnLogin" : "Sign in",
 
@@ -121,6 +117,8 @@ module.exports = {
 		"prescPopupUnhideBtnClose" : "Close",
 		"prescBtnDone" : "Done",
 		"prescAddSectionBtnAll" : "Select all",
+		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
+		"prescAddMsgNoneSelected" : "No prescriptions selected.",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
@@ -146,18 +144,21 @@ module.exports = {
 
 		"qrBtnScan" : "Scan my prescription",
 		"qrBtnType" : "Type my prescription details",
+
 		"qrScanLblMobileNumber" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
 		"qrScanHintMobileNumber" : "Mobile number",
 		"qrScanBtnContinue" : "Continue",
-		"qrSuccessLblStatus":"Your refill is on the way!",
-		"qrSuccessLblContact":"Please contact your pharmacy if you have any questions.",
-		"qrSuccessSectionStore":"Your refill has been placed at:",
-		"qrSuccessSectionPresc":"Prescription transfered:",
-		"qrSuccessLblSignUp":"Sign up now to receive a text message when your prescription is ready.",
-		"qrSuccessBtnSignUp":"Sign up",
-		"qrSuccessBtnDone":"Done",
+
+		"qrSuccessLblStatus" : "Your refill is on the way!",
+		"qrSuccessLblContact" : "Please contact your pharmacy if you have any questions.",
+		"qrSuccessSectionStore" : "Your refill has been placed at:",
+		"qrSuccessSectionPresc" : "Prescription transfered:",
+		"qrSuccessLblSignUp" : "Sign up now to receive a text message when your prescription is ready.",
+		"qrSuccessBtnSignUp" : "Sign up",
+		"qrSuccessBtnDone" : "Done",
+
+		"qrFailureBtnPhone" : "Call my pharmacy",
+		"qrFailureLblStatus" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
 		
-		"qrFailureBtnPhone":"Call my pharmacy",
-		"qrFailureLblStatus":"We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
 	}
 };

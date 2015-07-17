@@ -1,4 +1,8 @@
 <Alloy>
-	<TableView id="tableView" />
+	<TableView id="tableView" onClick="didClickTableView">
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
 	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

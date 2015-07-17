@@ -1,7 +1,0 @@
-
-".container" : {
-  
-}
-"#continueBtn":{
-	title: Alloy.Globals.strings.btnContinue
-}

@@ -84,12 +84,14 @@ function getPrescriptionList(status, callback) {
 	});
 }
 
-function didGetPrescriptionList(result, passthrough, useCache) {
+function didGetPrescriptionList(result, passthrough) {
 	/**
-	 * useCacahe could be true when it is add prescription screen
-	 * prescriptions might have loaded already, so reuse that data
+	 * if it is a callback from request wrapper
+	 * should have valid result / error object
+	 * otherwise use the cached one -
+	 * when add prescriptions from order details
 	 */
-	if (useCache !== true) {
+	if (result) {
 		/**
 		 * check whether it is a success call
 		 * since no prescriptions found is considered as a error and data is null
@@ -318,7 +320,7 @@ function didGetPrescriptionList(result, passthrough, useCache) {
 		 * occurs when all available prescriptions are already selected
 		 */
 		$.uihelper.showDialog({
-			message : $.strings.msgPrescriptionsAddEmptyList
+			message : $.strings.prescAddMsgEmptyList
 		});
 	}
 }
@@ -570,19 +572,42 @@ function didClickDone(e) {
 	/**
 	 * send selected prescriptions
 	 * through the controller arguments
+	 * if it is from store details to order details
+	 *
+	 * send selected prescriptions back
+	 * on the controller arguments
+	 * to the previous screen order details
 	 */
-	if (args.prescriptions) {
-		var prescriptions = args.prescriptions;
-		_.each(sections, function(rows) {
-			_.each(rows, function(row) {
-				var prescription = row.getParams();
-				if (prescription.selected) {
-					prescriptions.push(prescription);
-				}
-			});
-		});
+	var prescriptions;
+	if (args.navigation) {
+		prescriptions = [];
+	} else if (args.prescriptions) {
+		prescriptions = args.prescriptions;
 	}
-	$.app.navigator.close();
+	_.each(sections, function(rows) {
+		_.each(rows, function(row) {
+			var prescription = row.getParams();
+			if (prescription.selected) {
+				prescriptions.push(prescription);
+			}
+		});
+	});
+	if (args.navigation) {
+		if (prescriptions.length) {
+			var ctrlArguments = args.navigation.ctrlArguments || {};
+			ctrlArguments.prescriptions = prescriptions;
+			$.app.navigator.open(args.navigation);
+		} else {
+			/**
+			 *need at least one prescription to move forward
+			 */
+			$.uihelper.showDialog({
+				message : $.strings.prescAddMsgNoneSelected
+			});
+		}
+	} else if (args.prescriptions) {
+		$.app.navigator.close();
+	}
 }
 
 function focus() {
@@ -608,7 +633,7 @@ function focus() {
 			 * if not available (length is 0) then calling api in else
 			 */
 			$.sortPicker.setItems(codes);
-			didGetPrescriptionList(null, null, true);
+			didGetPrescriptionList();
 		} else {
 			if (codes) {
 				$.sortPicker.setItems(codes);

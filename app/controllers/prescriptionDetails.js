@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    prescription = args.prescription;
+    prescription = args.prescription,
+    httpClient;
 
 function init() {
 	$.titleLbl.text = prescription.title;
@@ -11,7 +12,7 @@ function init() {
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	if (!_.has(prescription, "store")) {
-		$.http.request({
+		httpClient = $.http.request({
 			method : "prescriptions_get",
 			params : {
 				feature_code : "THXXX",
@@ -24,7 +25,6 @@ function init() {
 				}]
 			},
 			showLoader : false,
-			errorDialogEnabled : false,
 			success : didGetPrescription
 		});
 	} else {
@@ -47,7 +47,7 @@ function didGetPrescription(result, passthrough) {
 	_.extend(prescription, result.data.prescriptions);
 	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
-	$.http.request({
+	httpClient = $.http.request({
 		method : "doctors_get",
 		params : {
 			feature_code : "THXXX",
@@ -58,7 +58,6 @@ function didGetPrescription(result, passthrough) {
 			}]
 		},
 		showLoader : false,
-		errorDialogEnabled : false,
 		success : didGetDoctor
 	});
 }
@@ -68,7 +67,7 @@ function didGetDoctor(result, passthrough) {
 	_.extend(prescription.doctor, result.data.doctors);
 	prescription.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(prescription.doctor.first_name) + " " + $.utilities.ucword(prescription.doctor.last_name));
 	loadDoctor();
-	$.http.request({
+	httpClient = $.http.request({
 		method : "stores_get",
 		params : {
 			feature_code : "THXXX",
@@ -79,7 +78,6 @@ function didGetDoctor(result, passthrough) {
 			}]
 		},
 		showLoader : false,
-		errorDialogEnabled : false,
 		success : didGetStore
 	});
 }
@@ -181,7 +179,7 @@ function didClickHide(e) {
 	});
 }
 
-function didClickLastRefill(e) {
+function showHistory(e) {
 	$.app.navigator.open({
 		titleid : "titleRefillHistory",
 		ctrl : "refillHistory",
@@ -192,4 +190,11 @@ function didClickLastRefill(e) {
 	});
 }
 
+function terminate() {
+	if (httpClient) {
+		httpClient.abort();
+	}
+}
+
 exports.init = init;
+exports.terminate = terminate;

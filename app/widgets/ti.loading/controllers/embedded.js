@@ -1,12 +1,11 @@
 var args = arguments[0] || {},
     isOpened = false,
-    isCloseRequested = false,
-    images = args.spinnerImages || Alloy.Globals.spinnerImages || null;
+    isCloseRequested = false;
 
 (function() {
 	applyProperties(args);
 	if (args.visible !== false) {
-		show();
+		show(args.spinnerImages || Alloy.Globals.spinnerImages || null);
 	}
 })();
 
@@ -20,19 +19,18 @@ function applyProperties(dict) {
 	}
 }
 
-function show(imgs, dict) {
-	if (imgs) {
-		images = imgs;
+function show(images, dict) {
+	if (dict) {
+		dict.visible = true;
+		$.embedded.applyProperties(dict);
+	} else {
+		$.embedded.visible = true;
 	}
 	if (images) {
-		if (dict) {
-			dict.visible = true;
-			$.embedded.applyProperties(dict);
-		} else {
-			$.embedded.visible = true;
-		}
 		$.activityIndicatorImg.addEventListener("load", didLoad);
 		$.activityIndicatorImg.images = images;
+	} else {
+		$.activityIndicatorImg.start();
 	}
 }
 

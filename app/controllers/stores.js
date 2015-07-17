@@ -7,6 +7,8 @@ var args = arguments[0] || {},
     isListPrepared = false,
     isMapPrepared = false,
     isSearchFocused = false,
+    shouldIgnoreRegion = true,
+    currentLocation = {},
     storeRows = [],
     geoRows = [],
     pinImg,
@@ -35,7 +37,7 @@ function init() {
 	$.uihelper.getLocation(didGetLocation);
 }
 
-function didGetLocation(currentLocation) {
+function didGetLocation(userLocation) {
 	/**
 	 *  case 1:
 	 * 		when location service is turned off and user logged in call api for listing home and  book marked stores
@@ -44,12 +46,28 @@ function didGetLocation(currentLocation) {
 	 *  note : iOS simulator may fail to give location often
 	 *  just updating the location in simulator settings would help
 	 */
-	if (Alloy.Globals.isLoggedIn || !_.isEmpty(currentLocation)) {
-		getStores();
+	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
+		getStores(null, false);
+	} else {
+		/**
+		 * if above fails and
+		 * if view type is list show empty list (if not empty already)
+		 * if view type is map show the default region
+		 */
+		if (currentViewType == viewTypeList && storeRows.length) {
+			storeRows = [];
+			$.storeTableView.setData([]);
+		} else if (currentViewType == viewTypeMap) {
+			shouldIgnoreRegion = true;
+			$.mapView.applyProperties({
+				annotations : [],
+				region : Alloy.CFG.store_map_default_region
+			});
+		}
 	}
 }
 
-function getStores(param) {
+function getStores(param, errorDialogEnabled) {
 
 	/**
 	 * abort any pending http requests
@@ -79,8 +97,8 @@ function getStores(param) {
 			reqStoreObj.search_criteria = param;
 		} else {
 			_.extend(reqStoreObj, {
-				user_lat : param.latitude,
-				user_long : param.longitude
+				search_lat : param.latitude,
+				search_long : param.longitude
 			});
 		}
 
@@ -114,6 +132,7 @@ function getStores(param) {
 			}]
 		},
 		showLoader : false,
+		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
 		success : didGetStores,
 		failure : didGetStores
 	});
@@ -136,7 +155,9 @@ function didGetStores(result, passthrough) {
 		}
 		//this resets the list populated already
 		result.data = {
-			stores : []
+			stores : {
+				stores_list : []
+			}
 		};
 	}
 
@@ -148,11 +169,12 @@ function didGetStores(result, passthrough) {
 	isMapPrepared = false;
 
 	//common parsing logics
+	currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	var loggedIn = Alloy.Globals.isLoggedIn;
-	_.each(result.data.stores, function(store) {
+	_.each(result.data.stores.stores_list, function(store) {
 		var iconClasses;
-		store.ishomepharmacy = parseInt(store.ishomepharmacy);
-		store.isbookmarked = parseInt(store.isbookmarked);
+		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
+		store.isbookmarked = parseInt(store.isbookmarked) || 0;
 		if (loggedIn && (store.ishomepharmacy || store.isbookmarked)) {
 			iconClasses = ["content-left-icon", (store.ishomepharmacy ? "icon-home" : "icon-filled-star")];
 		}
@@ -161,7 +183,7 @@ function didGetStores(result, passthrough) {
 		 * with condition whether it is a text search or near by
 		 * with a if avoid null on distance
 		 */
-		var distance = store.searchdistance || store.distance;
+		var distance = store.searchdistance || store.userdistance;
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
@@ -170,7 +192,7 @@ function didGetStores(result, passthrough) {
 			iconClasses : iconClasses
 		});
 	});
-	Alloy.Collections.stores.reset(result.data.stores);
+	Alloy.Collections.stores.reset(result.data.stores.stores_list);
 
 	/**
 	 *  load list or map based on the view type
@@ -234,43 +256,6 @@ function prepareList() {
 	$.storeTableView.setData(data);
 }
 
-function getRegion() {
-	// cache the answers
-	var region = {
-		lat : {
-			min : json[0].lat,
-			max : json[0].lat
-		},
-		lon : {
-			min : json[0].lon,
-			max : json[0].lon
-		},
-	};
-	// loop the data
-	// can be done in your existing loop
-	// intItems = number of items in the array
-	for ( intItem = 0; intItem < intItems; intItem = intItem + 1) {
-		item = json[intItem];
-		region.lat.min = Math.min(item.lat, region.lat.min);
-		region.lat.max = Math.max(item.lat, region.lat.max);
-		region.lon.min = Math.min(item.lon, region.lon.min);
-		region.lon.max = Math.max(item.lon, region.lon.max);
-	}
-	// work out the difference
-	region.lat.diff = region.lat.max - region.lat.min;
-	region.lon.diff = region.lon.max - region.lon.min;
-	// account for single entries
-	if (intItems > 1) {
-		region.diff = Math.max(region.lat.diff, region.lon.diff);
-	} else {
-		region.diff = 0.05;
-	}
-	// values you use with the map
-
-	// latitudeDelta: region.diff
-	// longitudeDelta: region.diff
-}
-
 function prepareMap() {
 
 	/**
@@ -285,35 +270,89 @@ function prepareMap() {
 
 	//process data
 	var data = [];
-	Alloy.Collections.stores.each(function(store) {
-		var storeId = store.get("id"),
-		    leftBtn = Ti.UI.createButton(leftBtnDict),
-		    rightBtn = Ti.UI.createButton(rightBtnDict),
-		    annotation = Map.createAnnotation({
-			storeId : storeId,
-			title : store.get("title"),
-			subtitle : store.get("subtitle"),
-			latitude : store.get("latitude"),
-			longitude : store.get("longitude"),
-			leftView : leftBtn,
-			rightView : rightBtn,
-			image : pinImg
+	/**
+	 * cache lat and lon for finding region
+	 */
+	var region;
+	if (Alloy.Collections.stores.length) {
+		region = {
+			latitude : {
+				min : Alloy.Collections.stores.at(0).get("latitude"),
+				max : Alloy.Collections.stores.at(0).get("latitude")
+			},
+			longitude : {
+				min : Alloy.Collections.stores.at(0).get("longitude"),
+				max : Alloy.Collections.stores.at(0).get("longitude")
+			}
+		};
+		Alloy.Collections.stores.each(function(store) {
+			/**
+			 * geo calculation
+			 * for find region
+			 */
+			region.latitude.min = Math.min(store.get("latitude"), region.latitude.min);
+			region.latitude.max = Math.max(store.get("latitude"), region.latitude.max);
+			region.longitude.min = Math.min(store.get("longitude"), region.longitude.min);
+			region.longitude.max = Math.max(store.get("longitude"), region.longitude.max);
+			//process annotations
+			var storeId = store.get("id"),
+			    leftBtn = Ti.UI.createButton(leftBtnDict),
+			    rightBtn = Ti.UI.createButton(rightBtnDict),
+			    annotation = Map.createAnnotation({
+				storeId : storeId,
+				title : store.get("title"),
+				subtitle : store.get("subtitle"),
+				latitude : store.get("latitude"),
+				longitude : store.get("longitude"),
+				leftView : leftBtn,
+				rightView : rightBtn,
+				image : pinImg
+			});
+			if (OS_IOS) {
+				leftBtn.applyProperties({
+					clicksource : "leftPane",
+					storeId : storeId
+				});
+				rightBtn.applyProperties({
+					clicksource : "rightPane",
+					storeId : storeId
+				});
+				leftBtn.addEventListener("click", didClickMap);
+				rightBtn.addEventListener("click", didClickMap);
+			}
+			data.push(annotation);
 		});
-		if (OS_IOS) {
-			leftBtn.applyProperties({
-				clicksource : "leftPane",
-				storeId : storeId
-			});
-			rightBtn.applyProperties({
-				clicksource : "rightPane",
-				storeId : storeId
-			});
-			leftBtn.addEventListener("click", didClickMap);
-			rightBtn.addEventListener("click", didClickMap);
+		if (data.length > 1) {
+			region.latitude.delta = region.latitude.max - region.latitude.min;
+			region.longitude.delta = region.longitude.max - region.longitude.min;
+			region.delta = Math.max(region.latitude.delta, region.longitude.delta);
+		} else {
+			region.delta = 0.05;
 		}
-		data.push(annotation);
+		/**
+		 * ignores the region change event
+		 * that would cause by the programmatic
+		 * region change below
+		 */
+		shouldIgnoreRegion = true;
+		region = {
+			latitude : (region.latitude.min + region.latitude.max) / 2,
+			longitude : (region.longitude.min + region.longitude.max) / 2,
+			latitudeDelta : region.delta,
+			longitudeDelta : region.delta
+		};
+	} else {
+		region = {
+			latitude : currentLocation.latitude,
+			longitude : currentLocation.longitude,
+			latitudeDelta : 0.5,
+			longitudeDelta : 0.5
+		};
+	}
+	$.mapView.applyProperties({
+		annotations : data,
+		region : region
 	});
-	$.mapView.annotations = data;
 }
 
 /**
@@ -339,18 +378,7 @@ function triggerSearchForFirst() {
 	}
 }
 
-function didFocusSearch(e) {
-	isSearchFocused = true;
-	/**
-	 * show previous search hisotry
-	 * if any
-	 */
-	if (geoRows.length) {
-		setVisibleForSearchTable(true);
-	}
-}
-
-function didClearSearch(e) {
+function clearLastGEOSearch() {
 	/**
 	 * when search box is cleared
 	 * clear all geo results and hide it
@@ -360,6 +388,25 @@ function didClearSearch(e) {
 		geoRows = [];
 		$.geoTableView.setData([]);
 	}
+}
+
+function didFocusSearch(e) {
+	isSearchFocused = true;
+	/**
+	 * show last geo search
+	 * if any
+	 */
+	if (geoRows.length) {
+		setVisibleForSearchTable(true);
+	}
+}
+
+function didClearSearch(e) {
+	clearLastGEOSearch();
+	/**
+	 * disable error dialog and force updates
+	 */
+	$.uihelper.getLocation(didGetLocation, false, false);
 }
 
 function didChangeSearch(e) {
@@ -384,10 +431,10 @@ function didChangeSearch(e) {
 		});
 	} else {
 		/**
-		 * clear previous search
+		 * clear last geo search
 		 * went down from minimum search chars
 		 */
-		didClearSearch();
+		clearLastGEOSearch();
 	}
 }
 
@@ -403,7 +450,7 @@ function didReturnSearch(e) {
 	if (value.length < minSearchLength) {
 		getStores(value);
 		//clear geo search results if any
-		didClearSearch();
+		clearLastGEOSearch();
 	} else if (!geoHttpClient && geoRows.length == 1) {
 		triggerSearchForFirst();
 	}
@@ -546,7 +593,9 @@ function handleNavigation(params) {
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
-			store : params
+			store : params,
+			currentLocation : currentLocation,
+			direction : !_.isEmpty(currentLocation)
 		},
 		stack : true
 	});
@@ -561,9 +610,13 @@ function didClickRightNavBtn(e) {
 	if ($.storeTableView.visible) {
 		opacity = 0;
 		currentViewType = viewTypeMap;
+		//to keep list and map in sync
+		prepareMap();
 	} else {
 		$.storeTableView.visible = true;
 		currentViewType = viewTypeList;
+		//to keep map and list in sync
+		prepareList();
 	}
 	var anim = Ti.UI.createAnimation({
 		opacity : opacity,
@@ -574,16 +627,33 @@ function didClickRightNavBtn(e) {
 		$.storeTableView.opacity = opacity;
 		if (opacity) {
 			$.rightNavBtn.getNavButton().applyProperties(mapIconDict);
-			//to keep map and list in sync
-			prepareList();
 		} else {
 			$.rightNavBtn.getNavButton().applyProperties(listIconDict);
 			$.storeTableView.visible = false;
-			//to keep list and map in sync
-			prepareMap();
 		}
 	});
 	$.storeTableView.animate(anim);
 }
 
+function didRegionchanged(e) {
+	if (shouldIgnoreRegion) {
+		shouldIgnoreRegion = false;
+		return false;
+	}
+	getStores({
+		latitude : e.latitude,
+		longitude : e.longitude
+	}, false);
+}
+
+function terminate() {
+	if (geoHttpClient) {
+		geoHttpClient.abort();
+	}
+	if (storeHttpClient) {
+		storeHttpClient.abort();
+	}
+}
+
 exports.init = init;
+exports.terminate = terminate;

@@ -1,12 +1,11 @@
 var args = arguments[0] || {},
     isOpened = false,
-    isCloseRequested = false,
-    images = args.spinnerImages || Alloy.Globals.spinnerImages || null;
+    isCloseRequested = false;
 
 (function() {
 	applyProperties(args);
 	if (args.visible !== false) {
-		show();
+		show(args.spinnerImages || Alloy.Globals.spinnerImages || null);
 	}
 })();
 
@@ -34,10 +33,7 @@ function setMessage(message) {
 	$.messageLbl.text = message;
 }
 
-function show(imgs) {
-	if (imgs) {
-		images = imgs;
-	}
+function show(images) {
 	if (images) {
 		$.activityIndicatorImg.addEventListener("load", didLoad);
 		$.activityIndicatorImg.images = images;

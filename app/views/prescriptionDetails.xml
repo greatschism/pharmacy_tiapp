@@ -38,7 +38,7 @@
 				<Label id="dueLbl" class="info-view-title" />
 				<Button id="dueBtn" class="info-btn" />
 			</View>
-			<View class="info-view-35" onClick="didClickLastRefill">
+			<View class="info-view-35" onClick="showHistory">
 				<Label id="lastRefillLbl" class="info-view-title" />
 				<Button id="lastRefillBtn" class="info-btn" />
 			</View>
@@ -63,7 +63,7 @@
 		<View class="content-header-view">
 			<Label id="informationLbl" class="content-header-lbl" />
 		</View>
-		<View class="auto-height">
+		<View class="auto-height" onClick="showHistory">
 			<View class="content-view-with-child">
 				<Label id="historyLbl" class="content-lbl" />
 			</View>

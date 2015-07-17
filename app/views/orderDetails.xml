@@ -4,5 +4,5 @@
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="orderRefillBtn" class="margin-bottom primary-btn" />
+	<Button id="orderBtn" class="margin-bottom primary-btn" />
 </Alloy> 

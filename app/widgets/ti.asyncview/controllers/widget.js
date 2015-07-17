@@ -1,5 +1,4 @@
-var args = arguments[0] || {},
-    images = args.spinnerImages || Alloy.Globals.spinnerImages || null;
+var args = arguments[0] || {};
 
 (function() {
 	if (_.has(args, "role")) {
@@ -7,7 +6,7 @@ var args = arguments[0] || {},
 	}
 	applyProperties(args);
 	if (args.visible !== false) {
-		show();
+		show(args.spinnerImages || Alloy.Globals.spinnerImages || null);
 	}
 })();
 
@@ -21,13 +20,14 @@ function applyProperties(dict) {
 	}
 }
 
-function show(imgs) {
-	if (imgs) {
-		images = imgs;
-	}
-	if ($.activityIndicatorImg && images) {
-		$.activityIndicatorImg.addEventListener("load", didLoad);
-		$.activityIndicatorImg.images = images;
+function show(images) {
+	if ($.activityIndicatorImg) {
+		if (images) {
+			$.activityIndicatorImg.addEventListener("load", didLoad);
+			$.activityIndicatorImg.images = images;
+		} else {
+			$.activityIndicatorImg.start();
+		}
 	}
 }
 
