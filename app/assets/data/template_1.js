@@ -68,7 +68,7 @@ module.exports = {
 					}]
 				}],
 				"navigation" : {
-					"ctrl" : "refill"
+					"ctrl" : "quickRefill"
 				}
 			}, {
 				"apiName" : "TableViewRow",

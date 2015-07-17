@@ -58,7 +58,7 @@ module.exports = {
 							}]
 						}],
 						"navigation" : {
-							"action" : "refillViaCamera"
+							"ctrl" : "quickRefill"
 						}
 					}, {
 						"apiName" : "View",

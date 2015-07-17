@@ -42,7 +42,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleQuickRefill",
-		"action" : "quickRefill",
+		"ctrl" : "quickRefill",
 		"icon" : "refill_camera",
 		"requires_login" : false
 	}, {
