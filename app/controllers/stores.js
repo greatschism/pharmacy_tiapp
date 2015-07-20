@@ -292,7 +292,7 @@ function prepareList() {
 		/**
 		 * stores are already sorted by distance with api
 		 */
-		Alloy.Collections.stores.sortBy(function(model) {
+		Alloy.Collections.stores.reset(Alloy.Collections.stores.sortBy(function(model) {
 			//keep home at top
 			if (model.get("ishomepharmacy")) {
 				return 1;
@@ -303,7 +303,7 @@ function prepareList() {
 			}
 			//followed by others
 			return 3;
-		});
+		}));
 	}
 
 	//reset rows
