@@ -441,6 +441,9 @@ function didClickOrder(e) {
 		method : "prescriptions_refill",
 		params : {
 			feature_code : "THXXX",
+			filter : {
+				refill_type : apiCodes.refill_type_text
+			},
 			data : [{
 				prescriptions : data
 			}]
