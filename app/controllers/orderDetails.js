@@ -4,6 +4,7 @@
  * should not affect the previous screen
  */
 var args = arguments[0] || {},
+    apiCodes = Alloy.CFG.apiCodes,
     rows = [],
     store = _.clone(args.store || {}),
     prescriptions = args.prescriptions || [],
@@ -54,6 +55,23 @@ function init() {
 	if (len === 0 || len > 1) {
 		var title;
 		if (len) {
+			/**
+			 * check if a prefered pickup mode
+			 * is sent with arguments
+			 * Note: need to check only when
+			 * more than one option is available
+			 */
+			var preferedPickupMode = args.pickupMode;
+			if (preferedPickupMode) {
+				_.each(codes, function(code) {
+					if (code.code_value == preferedPickupMode) {
+						Alloy.Models.pickupModes.set("selected_code_value", code.code_value);
+						code.selected = true;
+					} else {
+						code.selected = false;
+					}
+				});
+			}
 			$.pickupModePicker.setItems(codes);
 			title = _.findWhere(codes, {
 				selected : true
@@ -81,7 +99,7 @@ function didClickAdd(e) {
 		ctrlArguments : {
 			filters : {
 				id : _.pluck(prescriptions, "id"),
-				refill_status : [Alloy.CFG.apiCodes.refill_status_in_process, Alloy.CFG.apiCodes.refill_status_ready]
+				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready]
 			},
 			prescriptions : selectedPrescriptions,
 			selectable : true
@@ -155,7 +173,7 @@ function focus(e) {
 		 * reset the update flag
 		 */
 		store.shouldUpdate = false;
-		updatePickpOptionRow();
+		updatePickupOptionRow();
 	} else if (selectedPrescriptions.length) {
 		/**
 		 * make existing first row removable
@@ -202,7 +220,7 @@ function getPickupModes() {
 			feature_code : "THXXX",
 			data : [{
 				codes : [{
-					code_name : Alloy.CFG.apiCodes.code_pickup_modes
+					code_name : apiCodes.code_pickup_modes
 				}]
 			}]
 		},
@@ -213,9 +231,17 @@ function getPickupModes() {
 }
 
 function didGetPickupModes(result) {
+	/**
+	 * args.pickupMode is prefered pickup mode
+	 * for this transaction
+	 * Ex: if we reach this screen from store details
+	 * then prefered pickup mode will be pickup_mode_instore
+	 * if default is mail order then we have to
+	 * give first pererence for args.pickupMode
+	 */
 	Alloy.Models.pickupModes.set(result.data.codes[0]);
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	    defaultVal = Alloy.Models.pickupModes.get("default_value"),
+	    defaultVal = args.pickupMode || Alloy.Models.pickupModes.get("default_value"),
 	    selectedCode;
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {
@@ -235,7 +261,7 @@ function didGetPickupModes(result) {
 		$.pickupModePicker.setItems(codes);
 		updatePickupModeRow({
 			data : selectedCode
-		});
+		}, true);
 	} else {
 		$.tableView.deleteRow($.pickupModeRow.getView());
 		$.pickupModeRow = null;
@@ -274,7 +300,7 @@ function getPrescriptionOrStore() {
 						prescriptions : {
 							id : prescription.id,
 							sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-							prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
+							prescription_display_status : apiCodes.prescription_display_status_active
 						}
 					}]
 				},
@@ -289,7 +315,7 @@ function getPrescriptionOrStore() {
 		 * store information and pickup modes are already available
 		 * update pickup option row
 		 */
-		updatePickpOptionRow();
+		updatePickupOptionRow();
 	}
 }
 
@@ -321,10 +347,10 @@ function didGetStore(result, passthrough) {
 		title : $.utilities.ucword(store.addressline1),
 		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
 	});
-	updatePickpOptionRow();
+	updatePickupOptionRow();
 }
 
-function updatePickupModeRow(e) {
+function updatePickupModeRow(e, ignoreOptionUpdate) {
 	Alloy.Models.pickupModes.set("selected_code_value", e.data.code_value);
 	var row = OS_IOS ? $.prescSection.rowCount : $.pickupModeRow.getView();
 	//nullify last instance
@@ -336,25 +362,22 @@ function updatePickupModeRow(e) {
 	$.tableView.updateRow(row, $.pickupModeRow.getView());
 	/**
 	 * update the option
-	 * should wait for store to be populated
+	 * if it is called from widget
+	 * at selection event
+	 * otherwise leave it, will be again
+	 * called form getPrescriptionOrStore
 	 */
-	if (!_.isEmpty(store)) {
-		updatePickpOptionRow();
+	if (ignoreOptionUpdate !== true) {
+		updatePickupOptionRow();
 	}
 }
 
-function updatePickpOptionRow() {
+function updatePickupOptionRow() {
 	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
 	//nullify last instance
 	$.pickupOptionRow = null;
 	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
-	case "mailorder":
-		//point to new instance
-		$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
-			title : $.strings.orderDetLblMailOrderAddress
-		});
-		break;
-	case "instore":
+	case apiCodes.pickup_mode_instore:
 		//point to new instance
 		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
 			masterWidth : 70,
@@ -364,6 +387,12 @@ function updatePickpOptionRow() {
 			btnClasses : detailBtnClasses
 		});
 		$.pickupOptionRow.on("clickdetail", didClickStoreChange);
+		break;
+	case apiCodes.pickup_mode_mail_order:
+		//point to new instance
+		$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
+			title : $.strings.orderDetLblMailOrderAddress
+		});
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
@@ -391,25 +420,29 @@ function didClickStoreChange(e) {
 }
 
 function didClickOrder(e) {
-	//need clarification with api to integrate
+	/**
+	 * if pickup mode is pickup_mode_mail_order
+	 *  then set the store id to mail_order_store_id from appload
+	 *  this is specific to client
+	 */
+	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
+	    storeId = pickupMode == apiCodes.pickup_mode_instore ? store.id : Alloy.Models.appload.get("mail_order_store_id"),
+	    data = [];
+	_.each(prescriptions, function(prescription) {
+		data.push({
+			id : prescription.id,
+			rx_number : prescription.rx_number,
+			store_id : storeId,
+			pickup_mode : pickupMode,
+			pickup_time_group : apiCodes.pickup_time_group_asap
+		});
+	});
 	$.http.request({
 		method : "prescriptions_refill",
 		params : {
 			feature_code : "THXXX",
-			"filter" : {
-				"refill_type" : "quick/scan/text"
-			},
 			data : [{
-				prescriptions : [{
-					"id" : "x",
-					"rx_number" : "x",
-					"store_id" : "x",
-					"mobile_number" : "xx",
-					"pickup_time_group" : "xx",
-					"pickup_mode" : " xxinstore /mailorder",
-					"barcode_data" : "x",
-					"barcode_format" : "x"
-				}]
+				prescriptions : data
 			}]
 		},
 		success : didOrderRefill
@@ -418,6 +451,7 @@ function didClickOrder(e) {
 
 function didOrderRefill(result, passthrough) {
 	//validate data for success screen
+	console.warn(result);
 }
 
 function terminate(e) {

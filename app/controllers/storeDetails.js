@@ -194,6 +194,9 @@ function didClickRefill(e) {
 		/**
 		 * add prescriptions
 		 * and then to order details
+		 *
+		 * Note: when it is from store details
+		 * force pickupMode to pickup_mode_instore
 		 */
 		navigation = {
 			titleid : "titleAddPrescriptions",
@@ -208,7 +211,8 @@ function didClickRefill(e) {
 					ctrl : "orderDetails",
 					ctrlArguments : {
 						store : store,
-						canAdd : false
+						canAdd : false,
+						pickupMode : Alloy.CFG.apiCodes.pickup_mode_instore
 					},
 					stack : true
 				}
