@@ -458,6 +458,22 @@ function prepareMap(shouldUpdateRegion) {
 				longitudeDelta : region.delta
 			};
 		}
+	} else if (shouldUpdateRegion) {
+		/**
+		 * should show the current location's or default region
+		 * when no stores found with shouldUpdateRegion true
+		 */
+		shouldIgnoreRegion = true;
+		if (_.isEmpty(currentLocation)) {
+			region = Alloy.CFG.store_map_default_region;
+		} else {
+			region = {
+				latitude : currentLocation.latitude,
+				longitude : currentLocation.longitude,
+				latitudeDelta : 0.05,
+				longitudeDelta : 0.05
+			};
+		}
 	}
 	$.mapView.applyProperties({
 		annotations : data,
