@@ -1,13 +1,8 @@
-"#scanPrescription":
-{
-	top:100,
-	title: Alloy.Globals.strings.qrBtnScan
-}
-"#typePrescription":
-{
-	title: Alloy.Globals.strings.qrBtnType
-	
-}
-"#orLbl":{
-	text: Alloy.Globals.strings.strOr
+"#scanBtn":{
+	title: Alloy.Globals.strings.qrBtnScan,
+	type: Alloy.CFG.apiCodes.refill_type_scan
 },
+"#typeBtn":{
+	title: Alloy.Globals.strings.qrBtnType,
+	type: Alloy.CFG.apiCodes.refill_type_quick
+}

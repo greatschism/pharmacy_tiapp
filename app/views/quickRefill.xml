@@ -1,10 +1,7 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<Button id="scanPrescription" class="secondary-btn" onClick="didClickScan" />
-		<View class="option-divider-view">
-			<View class="option-divider-line"/>
-			<Label id="orLbl"class="option-divider-lbl" />
-		</View>
-		<Button id="typePrescription" class="secondary-btn" onClick="didClickType" />
-	</ScrollView>
+	<View class="auto-height vgroup">
+		<Button id="scanBtn" class="secondary-btn" onClick="didClick" />
+		<Require src="templates/optionDivider" />
+		<Button id="typeBtn" class="margin-top secondary-btn" onClick="didClick" />
+	</View>
 </Alloy>

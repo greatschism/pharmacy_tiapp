@@ -1,28 +1,12 @@
-var args = arguments[0] || {},
-    app = require("core");
+var args = arguments[0] || {};
 
-function didClickScan(e) {
-	var scan = 1;
-	app.navigator.open({
+function didClick(e) {
+	$.app.navigator.open({
 		ctrl : "refillPhone",
 		titleid : "titleQuickRefill",
 		stack : true,
 		ctrlArguments : {
-			isScan : scan,
+			type : e.source.type
 		}
 	});
-}
-
-function didClickType(e) {
-	var type = 1;
-	app.navigator.open({
-		ctrl : "refillPhone",
-		titleid : "titleQuickRefill",
-		stack : true,
-		ctrlArguments : {
-			isTyped : type,
-		}
-
-	});
-
 }

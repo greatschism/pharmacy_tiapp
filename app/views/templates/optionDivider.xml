@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="margin-top option-divider-view">
+		<View class="option-divider-line"/>
+		<Label id="orLbl"class="option-divider-lbl" />
+	</View>
+</Alloy>

@@ -154,9 +154,11 @@ module.exports = {
 		"qrBtnScan" : "Scan my prescription",
 		"qrBtnType" : "Type my prescription details",
 
-		"refillPhoneTitle" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"refillPhoneLblTitle" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
 		"refillPhoneHintPhone" : "Mobile number",
 		"refillPhoneBtnContinue" : "Continue",
+		"refillPhoneValPhone" : "Please enter your mobile number to continue.",
+		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
 		"refillSuccessLblStatus" : "Your refill is on the way!",
 		"refillSuccessLblContact" : "Please contact your pharmacy if you have any questions.",

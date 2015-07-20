@@ -2149,7 +2149,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
-				"color" : "#000000",
+				"color" : "#F7941E",
 				"textAlign" : "center",
 				"backgroundColor" : "#FFFFFF"
 			},
