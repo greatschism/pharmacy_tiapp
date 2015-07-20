@@ -51,7 +51,7 @@ function init() {
 	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPickup);
 	var codes = Alloy.Models.pickupModes.get("code_values") || [],
 	    len = codes.length;
-	if (len == 0 || len > 1) {
+	if (len === 0 || len > 1) {
 		var title;
 		if (len) {
 			$.pickupModePicker.setItems(codes);
@@ -212,14 +212,7 @@ function didGetPickupModes(result) {
 	    defaultVal = Alloy.Models.pickupModes.get("default_value"),
 	    selectedCode;
 	_.each(codes, function(code) {
-		/**
-		 * api should be fixed
-		 * it gives code_display as default value now
-		 * then it can be just
-		 * code.code_value === defaultVal
-		 * code.code_display === defaultVal - should be removed
-		 */
-		if (code.code_value === defaultVal || code.code_display === defaultVal) {
+		if (code.code_value === defaultVal) {
 			selectedCode = code;
 			code.selected = true;
 		} else {
