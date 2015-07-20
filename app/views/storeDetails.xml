@@ -34,7 +34,7 @@
 					<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" />
 					<View class="margin-top auto-height" if="Alloy.Globals.isLoggedIn">
 						<View class="content-master-view-70 auto-height">
-							<View class="secondary-btn-view" onClick="didClickFavourite">
+							<View id="favouriteView" class="secondary-btn-view" onClick="didClickFavourite">
 								<Label id="favouriteLbl" class="secondary-btn-lbl" />
 							</View>
 						</View>

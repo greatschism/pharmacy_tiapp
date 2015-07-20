@@ -43,7 +43,7 @@
 				<Button id="lastRefillBtn" class="info-btn" />
 			</View>
 		</View>
-		<Button id="refillBtn" class="margin-top primary-btn" onClick="didClickRefill" />
+		<Button id="refillBtn" class="margin-top primary-btn" if="$.args.canHide" onClick="didClickRefill" />
 		<View class="margin-top content-header-view">
 			<Label id="remindersLbl" class="content-header-lbl" />
 		</View>

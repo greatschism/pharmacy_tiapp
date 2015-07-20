@@ -1,3 +1,14 @@
+"#pickupModePicker":{
+	autoHide: true,
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#pickupModeLbl":{
+	text: Alloy.Globals.strings.orderDetPopupSectionPickupMode
+},
+"#pickupModeCloseBtn":{
+	title: Alloy.Globals.strings.orderDetPopupPickupModeBtnClose
+},
 "#orderBtn":{
 	title: Alloy.Globals.strings.orderDetBtnRefill
 }

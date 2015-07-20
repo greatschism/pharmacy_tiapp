@@ -51,7 +51,7 @@ function didGetSortOrderPreferences(result) {
 	    defaultVal = Alloy.Models.sortOrderPreferences.get("default_value");
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {
-			Alloy.Models.sortOrderPreferences.set("selected_code_value", defaultVal);
+			Alloy.Models.sortOrderPreferences.set("selected_code_value", code.code_value);
 			code.selected = true;
 		} else {
 			code.selected = false;
@@ -156,10 +156,17 @@ function didGetPrescriptionList(result, passthrough) {
 		 * 		}
 		 */
 		var proceed = true;
-		_.each(filters, function(filter, key) {
+		/**
+		 * _.some is used to break the loop
+		 * when proceed is false
+		 */
+		_.some(filters, function(filter, key) {
 			if (_.indexOf(filter, prescription.get(key)) !== -1) {
 				proceed = false;
+				//breaks the loop
+				return true;
 			}
+			return false;
 		});
 		if (!proceed) {
 			return false;
@@ -486,7 +493,14 @@ function didClickSwipeOption(e) {
 	}
 	switch (e.action) {
 	case 1:
-		hidePrescription(e);
+		$.uihelper.showDialog({
+			message : String.format($.strings.prescMsgHideConfirm, e.data.title),
+			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : function() {
+				hidePrescription(e);
+			}
+		});
 		break;
 	case 2:
 		$.app.navigator.open({
@@ -529,13 +543,18 @@ function didClickTableView(e) {
 	    sectionKey,
 	    rowKey,
 	    row;
-	_.each(sections, function(rows, skey) {
+	_.some(sections, function(rows, skey) {
 		count += rows.length;
-		if (!row && count > index) {
+		if (count > index) {
 			sectionKey = skey;
 			rowKey = index - (count - rows.length);
+			/**
+			 *breaks the loop once row is assigned
+			 */
 			row = rows[rowKey];
+			return true;
 		}
+		return false;
 	});
 	if (row) {
 		currentPrescription = row.getParams();

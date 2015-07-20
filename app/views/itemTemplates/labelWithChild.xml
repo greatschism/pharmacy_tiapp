@@ -1,0 +1,8 @@
+<Alloy>
+	<TableViewRow id="row">
+		<View id="contentView" class="content-view-with-child">
+			<Label id="lbl" class="content-lbl-wrap" />
+		</View>
+		<Label class="content-child-icon icon-thin-arrow-right" />
+	</TableViewRow>
+</Alloy>

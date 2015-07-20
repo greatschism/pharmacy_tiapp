@@ -1,3 +1,3 @@
 "#searchTxt":{
-	hintText: Alloy.Globals.strings.storeHintSearch
+	hintText: Alloy.Globals.strings.storesHintSearch
 }

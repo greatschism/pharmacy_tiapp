@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    CONSTS = "CONST_" + $.__controllerPath,
     store = args.store,
     httpClient;
 
@@ -30,6 +31,8 @@ function didGetStore(result, passthrough) {
 	httpClient = null;
 	if (result && result.data) {
 		_.extend(store, result.data.stores);
+		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
+		store.isbookmarked = parseInt(store.isbookmarked) || 0;
 	}
 	$.titleLbl.text = store.title;
 	$.subtitleLbl.text = store.subtitle;
@@ -44,21 +47,22 @@ function didGetStore(result, passthrough) {
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
-	    lKey,
+	    tillTime = (hours[0] || "").hours.split("- ")[1] || "",
+	    clockLbl,
 	    iconClass,
 	    lblClass;
-	if (store.is_open) {
-		lKey = "storeDetLblOpen";
+	if (tillTime && store.is_open) {
+		clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
 		iconClass = "icon-view-positive-icon";
 		lblClass = "icon-view-positive-icon-description";
 	} else {
-		lKey = "storeDetLblClose";
+		clockLbl = tillTime ? String.format($.strings.storeDetLblClose, tillTime) : $.strings.storeDetLblClosed;
 		iconClass = "icon-view-negative-icon";
 		lblClass = "icon-view-negative-icon-description";
 	}
 	$.addClass($.clockIconLbl, [iconClass]);
 	$.addClass($.clockLbl, [lblClass], {
-		text : String.format($.strings[lKey], hours.length ? hours[0].hours.split("- ")[1] : "")
+		text : clockLbl
 	});
 	if (hours.length) {
 		var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
@@ -91,10 +95,62 @@ function updateHome() {
 }
 
 function updateFavourite() {
-	$.favouriteLbl.text = $.strings[store.isbookmarked || store.ishomepharmacy ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
+	var isFavourite = store.isbookmarked || store.ishomepharmacy,
+	    text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"],
+	    dict;
+	if (isFavourite && !Alloy.TSS[CONSTS]) {
+		$.favouriteView.addEventListener("postlayout", didPostlayout);
+	} else {
+		if (Alloy.TSS[CONSTS].shouldUpdate) {
+			dict = isFavourite ? {
+				top : $.favouriteLbl.minTop,
+				bottom : $.favouriteLbl.minBottom,
+				text : text
+			} : {
+				top : $.favouriteLbl.maxTop,
+				bottom : $.favouriteLbl.maxBottom,
+				text : text
+			};
+		}
+	}
+	if (dict) {
+		$.favouriteLbl.applyProperties(dict);
+	} else {
+		$.favouriteLbl.text = text;
+	}
 	$.favouriteIconLbl.applyProperties($.createStyle({
 		classes : [store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"]
 	}));
+}
+
+/**
+ * ui fix: multi-line button is a hack of view with label
+ * to control padding top and bottom
+ * check this
+ */
+function didPostlayout(e) {
+	var source = e.source,
+	    child = source.children[0],
+	    height = source.rect.height;
+	source.removeEventListener("postlayout", didPostlayout);
+	if (!height) {
+		var blob = source.toImage();
+		height = blob.height;
+		blob = null;
+		if (OS_ANDROID) {
+			height /= $.app.logicalDensityFactor;
+		}
+	}
+	Alloy.TSS[CONSTS] = {};
+	if (source.maxHeight < height) {
+		Alloy.TSS[CONSTS].shouldUpdate = true;
+		child.applyProperties({
+			top : child.minTop,
+			bottom : child.minBottom
+		});
+	} else {
+		Alloy.TSS[CONSTS].shouldUpdate = false;
+	}
 }
 
 function didClickPhone(e) {
@@ -141,7 +197,8 @@ function didClickRefill(e) {
 					titleid : "titleOrderDetails",
 					ctrl : "orderDetails",
 					ctrlArguments : {
-						store : store
+						store : store,
+						canAdd : false
 					},
 					stack : true
 				}
@@ -152,12 +209,85 @@ function didClickRefill(e) {
 	$.app.navigator.open(navigation);
 }
 
-function didClickFavourite(e) {
+function updateStatus(isFavourite, isHome) {
+	var storeObj,
+	    method;
+	if (isFavourite || isHome) {
+		method = store.isbookmarked ? "stores_bookmark_update" : "stores_bookmark_add";
+		storeObj = {
+			is_primary : isHome,
+			fav_alias : isFavourite
+		};
+	} else {
+		method = "stores_bookmark_delete";
+		storeObj = {
+			id : store.id
+		};
+	}
+	httpClient = $.http.request({
+		method : method,
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				stores : storeObj
+			}]
+		},
+		passthrough : {
+			ishomepharmacy : isHome,
+			isbookmarked : isFavourite
+		},
+		success : didUpdateBookmark,
+		failure : didUpdateBookmark
+	});
+}
 
+function didUpdateBookmark(result, passthrough) {
+	httpClient = null;
+	if (result && result.code == Alloy.CFG.apiCodes.success_code) {
+		_.extend(store, passthrough);
+		/*
+		 * update ui
+		 */
+		updateHome();
+		updateFavourite();
+		/**
+		 * update the store item on list view
+		 * in stores list
+		 */
+		store.shouldUpdate = true;
+	}
+}
+
+function didClickFavourite(e) {
+	if (store.ishomepharmacy) {
+		$.uihelper.showDialog({
+			message : $.strings.storeDetMsgCantUpdateHome
+		});
+		return false;
+	}
+	/**
+	 * if already favourite, remove it
+	 * else add it
+	 * Note: only be called when it is not home store,
+	 * so home flag is always passed as 0
+	 */
+	updateStatus(store.isbookmarked ? 0 : 1, 0);
 }
 
 function didClickHome(e) {
-
+	if (store.ishomepharmacy) {
+		$.uihelper.showDialog({
+			message : $.strings.storeDetMsgCantUpdateHome
+		});
+		return false;
+	}
+	/**
+	 * home store can't be removed from favourite
+	 * can only mark another store as home
+	 * at that case the current home
+	 * will become just favourite
+	 */
+	updateStatus(1, 1);
 }
 
 function terminate() {

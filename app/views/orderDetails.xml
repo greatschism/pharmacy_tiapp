@@ -1,8 +1,16 @@
 <Alloy>
-	<TableView id="tableView" class="margin-bottom">
+	<Widget id="pickupModePicker" src="ti.optionpicker" class="optionpicker" onClick="updatePickupModeRow">
+		<View class="content-header-view role-header-view">
+			<Label id="pickupModeLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="pickupModeCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickPickupModeClose" />
+		</View>
+	</Widget>
+	<TableView id="tableView" class="margin-bottom" onClick="didClickTableView">
 		<FooterView platform="ios">
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="orderBtn" class="margin-bottom primary-btn" />
+	<Button id="orderBtn" class="margin-bottom primary-btn" onClick="didClickOrder" />
 </Alloy> 

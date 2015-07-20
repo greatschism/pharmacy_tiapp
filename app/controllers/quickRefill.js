@@ -1,28 +1,28 @@
 var args = arguments[0] || {},
     app = require("core");
-    
+
 function didClickScan(e) {
-	var scan=1;
+	var scan = 1;
 	app.navigator.open({
-		ctrl : "refillMobileNumber",
-		titleid: "titleQuickRefill",
+		ctrl : "refillPhone",
+		titleid : "titleQuickRefill",
 		stack : true,
 		ctrlArguments : {
-				isScan:scan,
-			}
+			isScan : scan,
+		}
 	});
 }
 
 function didClickType(e) {
-	var type=1;
-	 app.navigator.open({
-	 	ctrl : "refillMobileNumber",
-		titleid: "titleQuickRefill",
+	var type = 1;
+	app.navigator.open({
+		ctrl : "refillPhone",
+		titleid : "titleQuickRefill",
 		stack : true,
 		ctrlArguments : {
-				isTyped:type,
-			}
-		 
+			isTyped : type,
+		}
+
 	});
-	
+
 }

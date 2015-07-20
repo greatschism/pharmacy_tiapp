@@ -63,14 +63,14 @@ function didGetHistory(result, passthrough) {
 function didClickTableView(e) {
 	var row = rows[e.index];
 	if (row) {
-		$.uihelper.getLocation(function didGetLocation(currentLocation) {
+		$.uihelper.getLocation(function didGetLocation(userLocation) {
 			$.app.navigator.open({
 				titleid : "titleStoreDetails",
 				ctrl : "storeDetails",
 				ctrlArguments : {
 					store : row.getParams(),
-					currentLocation : currentLocation,
-					direction : !_.isEmpty(currentLocation)
+					currentLocation : userLocation,
+					direction : !_.isEmpty(userLocation)
 				},
 				stack : true
 			});

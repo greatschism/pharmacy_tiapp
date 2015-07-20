@@ -10,11 +10,11 @@
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
-		<TableView id="geoTableView" class="hide" onClick="didClickGEOTable">
+		<TableView id="geoTableView" class="hide" onClick="didClickGeoTable">
 			<FooterView platform="ios">
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
+		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
 	</View>
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-auto hide transparent" />
 </Alloy> 

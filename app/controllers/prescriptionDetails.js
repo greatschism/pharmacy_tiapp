@@ -83,6 +83,7 @@ function didGetDoctor(result, passthrough) {
 }
 
 function didGetStore(result, passthrough) {
+	httpClient = null;
 	prescription.store = {};
 	_.extend(prescription.store, result.data.stores);
 	_.extend(prescription.store, {
@@ -161,7 +162,16 @@ function didClickRefill(e) {
 }
 
 function didClickHide(e) {
-	$.http.request({
+	$.uihelper.showDialog({
+		message : String.format($.strings.prescDetMsgHideConfirm, prescription.title),
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+		cancelIndex : 1,
+		success : didConfirmHide
+	});
+}
+
+function didConfirmHide() {
+	httpClient = $.http.request({
 		method : "prescriptions_hide",
 		params : {
 			feature_code : "THXXX",
@@ -172,6 +182,7 @@ function didClickHide(e) {
 			}]
 		},
 		success : function() {
+			httpClient = null;
 			//triggers a reload when prescription list is focused
 			prescription.shouldUpdate = true;
 			$.app.navigator.close();
