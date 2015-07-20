@@ -190,6 +190,12 @@ function didFail(result, passthrough) {
 }
 
 function getPickupModes() {
+	/**
+	 * if we don't have stoe information already
+	 *  _.isEmpty(store) = true then keepLoader will be true
+	 * as there will be subsequent api call for prescription and store
+	 * otherwise it will be just pickup mode
+	 */
 	$.http.request({
 		method : "codes_get",
 		params : {
@@ -200,7 +206,7 @@ function getPickupModes() {
 				}]
 			}]
 		},
-		keepLoader : true,
+		keepLoader : _.isEmpty(store),
 		success : didGetPickupModes,
 		failure : didFail
 	});
@@ -242,7 +248,7 @@ function getPrescriptionOrStore() {
 	 * update screen for pickup modes
 	 * and store
 	 */
-	if (_.isEmpty(store) && prescriptions.length) {
+	if (_.isEmpty(store)) {
 		/**
 		 * check for original store id of the first
 		 * prescription sent to this screen
@@ -277,6 +283,13 @@ function getPrescriptionOrStore() {
 				failure : didFail
 			});
 		}
+	} else {
+
+		/**
+		 * store information and pickup modes are already available
+		 * update pickup option row
+		 */
+		updatePickpOptionRow();
 	}
 }
 
@@ -383,11 +396,20 @@ function didClickOrder(e) {
 		method : "prescriptions_refill",
 		params : {
 			feature_code : "THXXX",
-			filter : {
-				refill_type : "x"
+			"filter" : {
+				"refill_type" : "quick/scan/text"
 			},
 			data : [{
-				prescriptions : []
+				prescriptions : [{
+					"id" : "x",
+					"rx_number" : "x",
+					"store_id" : "x",
+					"mobile_number" : "xx",
+					"pickup_time_group" : "xx",
+					"pickup_mode" : " xxinstore /mailorder",
+					"barcode_data" : "x",
+					"barcode_format" : "x"
+				}]
 			}]
 		},
 		success : didOrderRefill

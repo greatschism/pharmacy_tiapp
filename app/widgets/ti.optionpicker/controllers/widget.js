@@ -127,6 +127,12 @@ function updateItem(e) {
 	    selectedItems = _.where(items, {
 		selected : true
 	});
+	/**
+	 *  should be less than selection limit or
+	 * should be a action of unselection (see below data.selected = !data.selected)
+	 *  (data.selected || selectedItems.length < SELECTION_LIMIT)
+	 *
+	 */
 	if (data && (IS_RADIO_BUTTON || SELECTION_LIMIT == 0 || (data.selected || selectedItems.length < SELECTION_LIMIT))) {
 		if (e.force) {
 			if (e.selected != data.selected) {
@@ -143,10 +149,16 @@ function updateItem(e) {
 						break;
 					}
 				}
-				if (selectedItem) {
-					selectedItem.selected = false;
-					$.tableView.updateRow( OS_IOS ? i : $.tableView.sections[0].rows[i], getRow(selectedItem));
+				/**
+				 * user has clicked on the item that is already selected
+				 * and radio button is true
+				 * so stop further processes
+				 */
+				if (!selectedItem) {
+					return false;
 				}
+				selectedItem.selected = false;
+				$.tableView.updateRow( OS_IOS ? i : $.tableView.sections[0].rows[i], getRow(selectedItem));
 			}
 			data.selected = !data.selected;
 			$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
