@@ -98,20 +98,30 @@ function updateFavourite() {
 	var isFavourite = store.isbookmarked || store.ishomepharmacy,
 	    text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"],
 	    dict;
+	/**
+	 * if it is favourite
+	 * the text remove from favourite has no enough space
+	 * and occurs in multiple lines
+	 *
+	 * to remove extra padding when it is favourite
+	 * and vice versa follow this
+	 */
 	if (isFavourite && !Alloy.TSS[CONSTS]) {
 		$.favouriteView.addEventListener("postlayout", didPostlayout);
-	} else {
-		if (Alloy.TSS[CONSTS].shouldUpdate) {
-			dict = isFavourite ? {
-				top : $.favouriteLbl.minTop,
-				bottom : $.favouriteLbl.minBottom,
-				text : text
-			} : {
-				top : $.favouriteLbl.maxTop,
-				bottom : $.favouriteLbl.maxBottom,
-				text : text
-			};
-		}
+	}
+	/**
+	 * whether we should update the padding
+	 */
+	if (Alloy.TSS[CONSTS] && Alloy.TSS[CONSTS].shouldUpdate) {
+		dict = isFavourite ? {
+			top : $.favouriteLbl.minTop,
+			bottom : $.favouriteLbl.minBottom,
+			text : text
+		} : {
+			top : $.favouriteLbl.maxTop,
+			bottom : $.favouriteLbl.maxBottom,
+			text : text
+		};
 	}
 	if (dict) {
 		$.favouriteLbl.applyProperties(dict);
@@ -210,19 +220,18 @@ function didClickRefill(e) {
 }
 
 function updateStatus(isFavourite, isHome) {
-	var storeObj,
+	var storeObj = {
+		id : store.id
+	},
 	    method;
 	if (isFavourite || isHome) {
 		method = store.isbookmarked ? "stores_bookmark_update" : "stores_bookmark_add";
-		storeObj = {
+		_.extend(storeObj, {
 			is_primary : isHome,
 			fav_alias : isFavourite
-		};
+		});
 	} else {
 		method = "stores_bookmark_delete";
-		storeObj = {
-			id : store.id
-		};
 	}
 	httpClient = $.http.request({
 		method : method,
