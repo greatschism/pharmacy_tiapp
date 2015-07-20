@@ -86,7 +86,7 @@ function didSuccess(result, passthrough) {
 				message : result.message || Alloy.Globals.strings.msgUnknownError
 			});
 		}
-		hideLoader(passthrough);
+		hideLoader(passthrough, true);
 		if (passthrough.failure) {
 			passthrough.failure(result, passthrough.passthrough);
 		}
@@ -102,12 +102,7 @@ function didFail(error, passthrough) {
 	var forceRetry = passthrough.forceRetry === true,
 	    retry = forceRetry || passthrough.retry !== false;
 	if (passthrough.errorDialogEnabled !== false && (forceRetry || retry)) {
-		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.hideLoader();
-		}
-		if (passthrough.hideLoaderCallback) {
-			passthrough.hideLoaderCallback();
-		}
+		hideLoader(passthrough, true);
 		uihelper.showDialog({
 			message : passthrough.failureMessage || Alloy.Globals.strings.msgNetworkError,
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
@@ -120,22 +115,36 @@ function didFail(error, passthrough) {
 				request(passthrough);
 			},
 			cancel : function() {
-				hideLoader(passthrough);
+				/**
+				 * loader is already hidden
+				 * from the code above
+				 * for the convenience of showing
+				 * error dialogs
+				 */
 				if (passthrough.failure) {
 					passthrough.failure(error, passthrough.passthrough);
 				}
 			}
 		});
 	} else {
-		hideLoader(passthrough);
+		hideLoader(passthrough, true);
 		if (passthrough.failure) {
 			passthrough.failure(error, passthrough.passthrough);
 		}
 	}
 }
 
-function hideLoader(passthrough) {
-	if (passthrough.keepLoader !== true) {
+function hideLoader(passthrough, isFailure) {
+	/**
+	 * if the api call failed
+	 * hide the loader even
+	 * when keepLoader is true
+	 * Note: most of the times failure callback
+	 * may not be used, in such cases
+	 * keppLoader may fail to remove loader
+	 * at all
+	 */
+	if (isFailure || passthrough.keepLoader !== true) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}

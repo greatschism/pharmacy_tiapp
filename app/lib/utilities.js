@@ -191,34 +191,34 @@ var Utility = {
 	},
 
 	/**
-	 * Adds thousands separators to a number
-	 * @param {Number} number The number to perform the action on
+	 * get distance between 2 lat & long
+	 * @param {Object} source
+	 * @param {Object} destination
+	 * @param {String} unit mi (default) | km | nm
+	 * @param {Number} decimal how many decimal points the result should have (default is 2)
+	 * @return {Number} distance (in mi | km | nm)
 	 */
-	formatNumber : function(number) {
-		number = number + "";
-
-		x = number.split(".");
-		x1 = x[0];
-		x2 = x.length > 1 ? "." + x[1] : "";
-
-		var expression = /(\d+)(\d{3})/;
-
-		while (expression.test(x1)) {
-			x1 = x1.replace(expression, "$1" + "," + "$2");
+	getDistance : function(source, destination, unit, decimal) {
+		var srcRadLat = Math.PI * source.latitude / 180,
+		    desRadLat = Math.PI * destination.latitude / 180,
+		    theta = source.longitude - destination.longitude,
+		    radTheta = Math.PI * theta / 180,
+		    dist = Math.sin(srcRadLat) * Math.sin(desRadLat) + Math.cos(srcRadLat) * Math.cos(desRadLat) * Math.cos(radTheta);
+		dist = Math.acos(dist);
+		dist = dist * 180 / Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit) {
+			unit = (unit || "").toLowerCase();
+			switch(unit) {
+			case "km":
+				dist = dist * 1.609344;
+				break;
+			case "nm":
+				dist = dist * 0.8684;
+				break;
+			}
 		}
-
-		return x1 + x2;
-	},
-
-	/**
-	 * Adds brackets and hyphens to the phone number (U.S.A)
-	 * @param {Srting} str The phone number
-	 */
-	formatPhoneNumber : function(str) {
-		if (!_.isString(str)) {
-			str += "";
-		}
-		return str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
+		return dist.toFixed(decimal || 2);
 	},
 
 	/**
@@ -341,6 +341,45 @@ var Utility = {
 	},
 
 	/**
+	 * check if object is instanceof Error
+	 * Current underscore version 1.6.0 from Alloy 1.6 doesn't support _.isError (Was introduced in underscore 1.8.0)
+	 */
+	isError : function(obj) {
+		return Object.prototype.toString.call(obj) === "[object Error]";
+	},
+
+	/**
+	 * Adds thousands separators to a number
+	 * @param {Number} number The number to perform the action on
+	 */
+	formatNumber : function(number) {
+		number = number + "";
+
+		x = number.split(".");
+		x1 = x[0];
+		x2 = x.length > 1 ? "." + x[1] : "";
+
+		var expression = /(\d+)(\d{3})/;
+
+		while (expression.test(x1)) {
+			x1 = x1.replace(expression, "$1" + "," + "$2");
+		}
+
+		return x1 + x2;
+	},
+
+	/**
+	 * Adds brackets and hyphens to the phone number (U.S.A)
+	 * @param {Srting} str The phone number
+	 */
+	formatPhoneNumber : function(str) {
+		if (!_.isString(str)) {
+			str += "";
+		}
+		return str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
+	},
+
+	/**
 	 * Check if name is valid
 	 * @param {String} str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40
 	 * returns {Boolean}
@@ -392,14 +431,6 @@ var Utility = {
 	 */
 	isPhoneNumber : function(str) {
 		return /^[0-9]{10}$/.test(str);
-	},
-
-	/**
-	 * check if object is instanceof Error
-	 * Current underscore version 1.6.0 from Alloy 1.6 doesn't support _.isError (Was introduced in underscore 1.8.0)
-	 */
-	isError : function(obj) {
-		return Object.prototype.toString.call(obj) === "[object Error]";
 	}
 };
 

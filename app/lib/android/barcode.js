@@ -1,3 +1,8 @@
+/**
+ * android uses ti.barcode module
+ * A zxing barcode reader
+ */
+
 var TAG = "barcode",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
@@ -8,6 +13,15 @@ var TAG = "barcode",
     successCallback,
     errorCallback,
     cancelCallback;
+
+/**
+ *  set default properties
+ *  can be overridden with applyProperties
+ *  of BarcodeReader object
+ */
+BarcodeModule.allowRotation = true;
+BarcodeModule.displayedMessage = "";
+BarcodeModule.allowInstructions = false;
 
 var BarcodeReader = {
 
@@ -43,10 +57,6 @@ var BarcodeReader = {
 				return false;
 			}
 			var overlayView = Ti.UI.createView({
-				top : 0,
-				right : 0,
-				bottom : 0,
-				left : 0,
 				backgroundColor : "transparent"
 			}),
 			    navbarView = $.UI.create("View", {
@@ -63,7 +73,11 @@ var BarcodeReader = {
 			navbarView.add(navIconBtn);
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
-			options.overlay = overlayView;
+			_.extend(options, {
+				animate : true,
+				showCancel : false,
+				overlay : overlayView
+			});
 		}
 
 		if (options.acceptedFormats) {
@@ -143,10 +157,10 @@ var BarcodeReader = {
 			 * then check for duplicates and add the result to array
 			 * else add data to array
 			 */
-			if ((evt.contentType == BarcodeModule.TEXT || evt.contentType == BarcodeModule.URL) && _.indexOf(BarcodeReader.values, event.result) == -1) {
-				BarcodeReader.values.push(event.result);
+			if ((evt.contentType == BarcodeModule.TEXT || evt.contentType == BarcodeModule.URL) && _.indexOf(BarcodeReader.values, evt.result) == -1) {
+				BarcodeReader.values.push(evt.result);
 			} else {
-				BarcodeReader.values.push(event.data);
+				BarcodeReader.values.push(evt.data);
 			}
 		} else {
 

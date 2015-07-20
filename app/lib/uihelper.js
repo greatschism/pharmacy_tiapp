@@ -9,7 +9,7 @@ var TAG = "uihelper",
 
 var Helper = {
 
-	currentLocation : {},
+	userLocation : {},
 
 	/**
 	 * force accessibility system to focus a view when there is a major change on UI
@@ -51,8 +51,8 @@ var Helper = {
 	 */
 	getLocation : function(callback, forceUpdate, errorDialogEnabled) {
 
-		if (forceUpdate !== true && !_.isEmpty(Helper.currentLocation) && moment().diff(Helper.currentLocation.timestamp) < Alloy.CFG.location_timeout) {
-			Helper.fireLocationCallback(callback, Helper.currentLocation);
+		if (forceUpdate !== true && !_.isEmpty(Helper.userLocation) && moment().diff(Helper.userLocation.timestamp) < Alloy.CFG.location_timeout) {
+			Helper.fireLocationCallback(callback, Helper.userLocation);
 			return;
 		}
 
@@ -90,9 +90,9 @@ var Helper = {
 	},
 
 	fireLocationCallback : function(callback, coords) {
-		Helper.currentLocation = coords ? coords : {};
+		Helper.userLocation = coords ? coords : {};
 		if (callback) {
-			callback(Helper.currentLocation);
+			callback(Helper.userLocation);
 		}
 	},
 
@@ -109,14 +109,14 @@ var Helper = {
 		}
 
 		if (_.isUndefined(source)) {
-			if (_.isEmpty(Helper.currentLocation)) {
-				return Helper.getLocation(function(currentLocation) {
-					if (!_.isEmpty(currentLocation)) {
-						Helper.getDirection(destination, currentLocation);
+			if (_.isEmpty(Helper.userLocation)) {
+				return Helper.getLocation(function(userLocation) {
+					if (!_.isEmpty(userLocation)) {
+						Helper.getDirection(destination, userLocation);
 					}
 				});
 			}
-			source = Helper.currentLocation;
+			source = Helper.userLocation;
 		}
 
 		if (_.isObject(source)) {
