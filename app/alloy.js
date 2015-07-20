@@ -28,6 +28,7 @@
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.patient = new Backbone.Model();
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();
+	Alloy.Models.pickupModes = new Backbone.Model();
 
 	//events
 	Alloy.Models.patient.on("change:logged_in", function didLoginChange() {

@@ -11,6 +11,9 @@
 			"patients_logout": "patients/logout",
 			"stores_list": "stores/list",
 			"stores_get": "stores/get",
+			"stores_bookmark_add": "stores/bookmark/add",
+			"stores_bookmark_update": "stores/bookmark/update",
+			"stores_bookmark_delete": "stores/bookmark/delete",
 			"doctors_list": "doctors/list",
 			"doctors_get": "doctors/get",
 			"prescriptions_list": "prescriptions/list",
@@ -31,7 +34,8 @@
 			"refill_status_in_process": "In Process",
 			"refill_status_ready": "Ready",
 			"refill_status_sold": "Sold",
-			"code_sort_order_preference": "Sort Order Preference"
+			"code_sort_order_preference": "Sort Order Preference",
+			"code_pickup_modes": "Pickup Mode"
 		},
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=",
 		"log_level": "debug",

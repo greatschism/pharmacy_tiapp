@@ -12,6 +12,7 @@ module.exports = {
 				"latitudeDelta" : 0.5,
 				"longitudeDelta" : 0.5
 			},
+			"store_map_max_radius" : 75,
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,
@@ -205,17 +206,22 @@ module.exports = {
 				"right" : 12
 			},
 			".barcode-navbar[platform=ios]" : {
-				"width" : "100%",
+				"top" : 0,
+				"width" : "fill",
 				"height" : 68,
 				"backgroundColor" : "#F7941E"
 			},
 			".barcode-navbar[platform=android]" : {
-				"width" : "100%",
+				"top" : 0,
+				"width" : "fill",
 				"height" : 48,
 				"backgroundColor" : "#F7941E"
 			},
-			".barcode-navbar-icon" : {
-				"left" : 12,
+			".barcode-navbar-icon[platform=ios]" : {
+				"top" : 20,
+				"left" : 0,
+				"width" : 50,
+				"height" : 48,
 				"font" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
@@ -223,36 +229,58 @@ module.exports = {
 				"color" : "#FFFFFF",
 				"selectedColor" : "#FFFFFF",
 				"backgroundColor" : "transparent",
-				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
+			".barcode-navbar-icon[platform=android]" : {
+				"left" : 0,
+				"width" : 50,
+				"height" : "fill",
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "transparent",
 				"borderColor" : "transparent",
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
 			".barcode-title[platform=ios]" : {
-				"top" : 88,
-				"width" : "100%",
-				"height" : "auto",
+				"top" : 78,
+				"left" : 12,
+				"right" : 12,
 				"font" : {
-					"fontFamily" : "regular",
+					"fontFamily" : "bold",
 					"fontSize" : 17
 				},
-				"color" : "#80000000",
-				"textAlign" : "left",
+				"color" : "#D4D4D4",
+				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
 			".barcode-title[platform=android]" : {
-				"top" : 68,
-				"width" : "100%",
-				"height" : "auto",
+				"bottom" : 30,
+				"left" : 12,
+				"right" : 12,
 				"font" : {
-					"fontFamily" : "regular",
+					"fontFamily" : "bold",
 					"fontSize" : 17
 				},
-				"color" : "#80000000",
-				"textAlign" : "left",
+				"color" : "#D4D4D4",
+				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
+			},
+			".barcode-rect[platform=ios]" : {
+				"top" : 140,
+				"left" : 12,
+				"right" : 12,
+				"height" : 180,
+				"borderColor" : "#ED1C24",
+				"borderWidth" : 2
 			},
 			".map-view" : {
 				"animate" : true,
@@ -347,16 +375,21 @@ module.exports = {
 				"left" : 16,
 				"right" : 16,
 				"height" : "auto",
+				"maxHeight" : 50,
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#F7941E",
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
 			".secondary-btn-lbl" : {
-				"top" : 16,
-				"bottom" : 16,
+				"top" : 14,
+				"bottom" : 14,
 				"left" : 8,
 				"right" : 8,
+				"maxTop" : 14,
+				"maxBottom" : 14,
+				"minTop" : 4,
+				"minBottom" : 4,
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "medium",
@@ -474,54 +507,6 @@ module.exports = {
 				"borderColor" : "transparent",
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
-			},
-			".btn-view" : {
-				"left" : 16,
-				"right" : 16,
-				"height" : 50,
-				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "transparent",
-				"borderRadius" : 3.4,
-				"borderWidth" : 1
-			},
-			".btn-left-icon" : {
-				"left" : 0,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 24
-				},
-				"color" : "#599DFF",
-				"touchEnabled" : false,
-				"accessibilityHidden" : true
-			},
-			".btn-lbl-with-licon" : {
-				"left" : 36,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 17
-				},
-				"color" : "#000000",
-				"touchEnabled" : false
-			},
-			".btn-right-icon" : {
-				"right" : 0,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 24
-				},
-				"color" : "#599DFF",
-				"touchEnabled" : false,
-				"accessibilityHidden" : true
-			},
-			".btn-lbl-with-ricon" : {
-				"left" : 0,
-				"right" : 36,
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 17
-				},
-				"color" : "#000000",
-				"touchEnabled" : false
 			},
 			".nav-btn" : {
 				"font" : {
@@ -1632,79 +1617,73 @@ module.exports = {
 			},
 			".content-master-view-75" : {
 				"left" : 0,
-				"width" : "75%",
+				"right" : "25%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-25" : {
 				"left" : "75%",
 				"right" : 0,
-				"width" : "25%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-70" : {
 				"left" : 0,
-				"width" : "70%",
+				"right" : "30%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-30" : {
 				"left" : "70%",
 				"right" : 0,
-				"width" : "30%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-65" : {
 				"left" : 0,
-				"width" : "65%",
+				"right" : "35%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-35" : {
 				"left" : "65%",
 				"right" : 0,
-				"width" : "35%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-60" : {
 				"left" : 0,
-				"width" : "60%",
+				"right" : "40%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-40" : {
 				"left" : "60%",
 				"right" : 0,
-				"width" : "40%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-55" : {
 				"left" : 0,
-				"width" : "55%",
+				"right" : "45%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-45" : {
 				"left" : "55%",
 				"right" : 0,
-				"width" : "45%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-master-view-50" : {
 				"left" : 0,
-				"width" : "50%",
+				"right" : "50%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-detail-view-50" : {
 				"left" : "50%",
 				"right" : 0,
-				"width" : "50%",
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -1719,6 +1698,21 @@ module.exports = {
 				"textAlign" : "right",
 				"color" : "#ED1C24",
 				"selectedColor" : "#ED1C24",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF",
+				"bubbleParent" : false
+			},
+			".content-detail-tertiary-icon" : {
+				"right" : 0,
+				"height" : 40,
+				"width" : 40,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 28
+				},
+				"textAlign" : "right",
+				"color" : "#599DFF",
+				"selectedColor" : "#599DFF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
 				"bubbleParent" : false
@@ -1870,7 +1864,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#797979",
+				"color" : "#009344",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true

@@ -39,7 +39,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "thick_prescription"
 												}
@@ -63,7 +63,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "refill_camera"
 												}
@@ -96,7 +96,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "thick_pharmacy"
 												}
@@ -120,7 +120,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "thick_transfer"
 												}
@@ -153,7 +153,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "thick_doctor"
 												}
@@ -177,7 +177,7 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top", "primary-icon-large", "touch-disabled", "accessibility-disabled"],
+												"classes" : ["margin-top", "secondary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
 													"icon" : "thick_account"
 												}

@@ -3,6 +3,7 @@ module.exports = {
 
 		"strPrefixDoctor" : "Dr. ",
 		"strPrefixRx" : "#Rx ",
+
 		"strSuffixDistance" : " mi",
 
 		"strNil" : "-",
@@ -14,6 +15,7 @@ module.exports = {
 		"strPhone" : "Call",
 		"strContactAdd" : "Add to contacts",
 		"strOr" : "Or",
+		"strLoading" : "Processing...",
 
 		"msgLoading" : "Processing. Please wait",
 		"msgNetworkError" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -77,18 +79,20 @@ module.exports = {
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
 
-		"storeHintSearch" : "Search",
-		"storeGEOZeroResults" : "No matches found!",
+		"storesHintSearch" : "Search",
+		"storesGeoZeroResults" : "No matches found!",
 
 		"storeDetPromptPhone" : "Call:",
 		"storeDetLblOpen" : "Open till %s",
 		"storeDetLblClose" : "Closed at %s",
+		"storeDetLblClosed" : "Closed",
 		"storeDetBtnDirection" : "Direction",
 		"storeDetBtnRefill" : "Refill at this location",
 		"storeDetBtnFavouriteAdd" : "Add to favourite",
 		"storeDetBtnFavouriteRemove" : "Remove from favourite",
 		"storeDetSectionHours" : "Store hours",
 		"storeDetSectionServices" : "Store Services",
+		"storeDetMsgCantUpdateHome" : "You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
 
 		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",
@@ -116,6 +120,7 @@ module.exports = {
 		"prescPopupUnhideBtnUnhide" : "Unhide",
 		"prescPopupUnhideBtnClose" : "Close",
 		"prescBtnDone" : "Done",
+		"prescMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddSectionBtnAll" : "Select all",
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
 		"prescAddMsgNoneSelected" : "No prescriptions selected.",
@@ -137,28 +142,32 @@ module.exports = {
 		"prescDetLblHistory" : "Refill history",
 		"prescDetLblInstruction" : "Dosage instructions",
 		"prescDetBtnHide" : "Hide this prescription",
+		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 
 		"orderDetSectionList" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
-		"orderDetBtnRefill" : "Order refill",
+		"orderDetPopupSectionPickupMode" : "Pickup Modes",
+		"orderDetPopupPickupModeBtnClose" : "Close",
+		"orderDetBtnRefill" : "Submit",
+		"orderDetLblMailOrderAddress" : "All orders will be mailed to the address your pharmacy has on file.",
 
 		"qrBtnScan" : "Scan my prescription",
 		"qrBtnType" : "Type my prescription details",
 
-		"qrScanLblMobileNumber" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
-		"qrScanHintMobileNumber" : "Mobile number",
-		"qrScanBtnContinue" : "Continue",
+		"refillPhoneTitle" : "Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"refillPhoneHintPhone" : "Mobile number",
+		"refillPhoneBtnContinue" : "Continue",
 
-		"qrSuccessLblStatus" : "Your refill is on the way!",
-		"qrSuccessLblContact" : "Please contact your pharmacy if you have any questions.",
-		"qrSuccessSectionStore" : "Your refill has been placed at:",
-		"qrSuccessSectionPresc" : "Prescription transfered:",
-		"qrSuccessLblSignUp" : "Sign up now to receive a text message when your prescription is ready.",
-		"qrSuccessBtnSignUp" : "Sign up",
-		"qrSuccessBtnDone" : "Done",
+		"refillSuccessLblStatus" : "Your refill is on the way!",
+		"refillSuccessLblContact" : "Please contact your pharmacy if you have any questions.",
+		"refillSuccessSectionStore" : "Your refill has been placed at:",
+		"refillSuccessSectionPresc" : "Prescription transfered:",
+		"refillSuccessLblSignUp" : "Sign up now to receive a text message when your prescription is ready.",
+		"refillSuccessBtnSignUp" : "Sign up",
+		"refillSuccessBtnDone" : "Done",
 
-		"qrFailureBtnPhone" : "Call my pharmacy",
-		"qrFailureLblStatus" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
-		
+		"refillFailureBtnPhone" : "Call my pharmacy",
+		"refillFailureLblStatus" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
+
 	}
 };

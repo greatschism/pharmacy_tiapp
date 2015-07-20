@@ -21,13 +21,9 @@ function applyProperties(dict) {
 }
 
 function show(images) {
-	if ($.activityIndicatorImg) {
-		if (images) {
-			$.activityIndicatorImg.addEventListener("load", didLoad);
-			$.activityIndicatorImg.images = images;
-		} else {
-			$.activityIndicatorImg.start();
-		}
+	if ($.activityIndicatorImg && images) {
+		$.activityIndicatorImg.addEventListener("load", didLoad);
+		$.activityIndicatorImg.images = images;
 	}
 }
 

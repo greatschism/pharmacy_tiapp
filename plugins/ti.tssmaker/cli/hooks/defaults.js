@@ -9,7 +9,7 @@ module.exports = {
 		"orientationModes" : ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
 	},
 	"Window[platform=android]" : {
-		"windowSoftInputMode" : "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN"
+		"windowSoftInputMode" : "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
 	},
 	"TableView" : {
 		"footerDividersEnabled" : true
@@ -93,11 +93,17 @@ module.exports = {
 	".accessibility-disabled" : {
 		"accessibilityHidden" : true
 	},
-	".cancel-bubble" : {
+	".bubble-disabled" : {
 		"bubbleParent" : false
 	},
-	".transparent" : {
+	".background-disabled" : {
 		"backgroundColor" : "transparent"
+	},
+	".table-separator-disabled" : {
+		"separatorColor" : "transparent"
+	},
+	".row-selection-disabled" : {
+		"selectedBackgroundColor" : "transparent"
 	},
 	".returnkey-previous" : {
 		"returnKeyType" : "Ti.UI.RETURNKEY_PREVIOUS"
@@ -134,20 +140,15 @@ module.exports = {
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
-	".table-separator-disabled" : {
-		"separatorColor" : "transparent"
-	},
-	".row-selection-disabled" : {
-		"selectedBackgroundColor" : "transparent"
-	},
 	".async-view" : {
 		"indicatorDict" : {
 			"accessibilityLabel" : "Alloy.Globals.strings.msgLoading"
 		}
 	},
-	".loader-embedded-auto" : {
+	".loader-embedded" : {
 		"width" : "Ti.UI.SIZE",
 		"height" : "Ti.UI.SIZE",
+		"backgroundColor" : "transparent",
 		"indicatorDict" : {
 			"top" : 12,
 			"bottom" : 12,

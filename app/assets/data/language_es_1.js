@@ -3,6 +3,7 @@ module.exports = {
 
 		"strPrefixDoctor" : "es-Dr. ",
 		"strPrefixRx" : "es-#Rx ",
+
 		"strSuffixDistance" : "es- mi",
 
 		"strNil" : "es--",
@@ -77,12 +78,13 @@ module.exports = {
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
 
-		"storeHintSearch" : "es-Search",
-		"storeGEOZeroResults" : "es-No matches found!",
+		"storesHintSearch" : "es-Search",
+		"storesGeoZeroResults" : "es-No matches found!",
 
 		"storeDetPromptPhone" : "es-Call:",
 		"storeDetLblOpen" : "es-Open till %s",
 		"storeDetLblClose" : "es-Closed at %s",
+		"storeDetLblClosed" : "es-Closed",
 		"storeDetBtnDirection" : "es-Direction",
 		"storeDetBtnRefill" : "es-Refill at this location",
 		"storeDetBtnFavouriteAdd" : "es-Add to favourite",
@@ -145,20 +147,20 @@ module.exports = {
 		"qrBtnScan" : "es-Scan my prescription",
 		"qrBtnType" : "es-Type my prescription details",
 
-		"qrScanLblMobileNumber" : "es-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
-		"qrScanHintMobileNumber" : "es-Mobile number",
-		"qrScanBtnContinue" : "es-Continue",
+		"refillPhoneTitle" : "es-Please enter your mobile phone number just in case we need to contact you regarding your prescription.",
+		"refillPhoneHintPhone" : "es-Mobile number",
+		"refillPhoneBtnContinue" : "es-Continue",
 
-		"qrSuccessLblStatus" : "es-Your refill is on the way!",
-		"qrSuccessLblContact" : "es-Please contact your pharmacy if you have any questions.",
-		"qrSuccessSectionStore" : "es-Your refill has been placed at:",
-		"qrSuccessSectionPresc" : "es-Prescription transfered:",
-		"qrSuccessLblSignUp" : "es-Sign up now to receive a text message when your prescription is ready.",
-		"qrSuccessBtnSignUp" : "es-Sign up",
-		"qrSuccessBtnDone" : "es-Done",
+		"refillSuccessLblStatus" : "es-Your refill is on the way!",
+		"refillSuccessLblContact" : "es-Please contact your pharmacy if you have any questions.",
+		"refillSuccessSectionStore" : "es-Your refill has been placed at:",
+		"refillSuccessSectionPresc" : "es-Prescription transfered:",
+		"refillSuccessLblSignUp" : "es-Sign up now to receive a text message when your prescription is ready.",
+		"refillSuccessBtnSignUp" : "es-Sign up",
+		"refillSuccessBtnDone" : "es-Done",
 
-		"qrFailureBtnPhone" : "es-Call my pharmacy",
-		"qrFailureLblStatus" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
+		"refillFailureBtnPhone" : "es-Call my pharmacy",
+		"refillFailureLblStatus" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
 
 	}
 };

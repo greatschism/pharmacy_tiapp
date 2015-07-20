@@ -14,8 +14,8 @@ describe("UIHelper Test Suite", function() {
 		consts.should.be.instanceof(Array);
 	});
 
-	it("Test Case 2: currentLocation before calling getLocation", function() {
-		uihelper.currentLocation.should.be.instanceof(Object);
+	it("Test Case 2: userLocation before calling getLocation", function() {
+		uihelper.userLocation.should.be.instanceof(Object);
 	});
 
 	it("Test Case 3: getLocation", function(done) {
@@ -39,8 +39,8 @@ describe("UIHelper Test Suite", function() {
 		});
 	});
 
-	it("Test Case 4: currentLocation after calling getLocation", function() {
-		uihelper.currentLocation.should.be.instanceof(Object);
+	it("Test Case 4: userLocation after calling getLocation", function() {
+		uihelper.userLocation.should.be.instanceof(Object);
 	});
 
 	it("Test Case 5: getImage with valid image name", function() {
