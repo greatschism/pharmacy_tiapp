@@ -70,7 +70,7 @@ function didDrawerclose(e) {
 				success : function() {
 					http.request({
 						method : "patients_logout",
-						success : function(result) {
+						success : function(result, passthrough) {
 							Alloy.Models.patient.clear();
 							Alloy.Collections.menuItems.remove(model);
 							app.navigator.open(landingPage);

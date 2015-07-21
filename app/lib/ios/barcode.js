@@ -24,9 +24,16 @@ var BarcodeReader = {
 			return false;
 		}
 
-		isBusy = true;
-
 		options = options || {};
+
+		$ = $ || options["$"];
+
+		if (!$) {
+			logger.error(TAG, "controller reference should be passed to create default scan rectangle and overlay");
+			return false;
+		}
+
+		isBusy = true;
 
 		/**
 		 * keepOpen is false by default with ti.barcode
@@ -58,13 +65,6 @@ var BarcodeReader = {
 		BarcodeReader.__cameraView.addEventListener("success", BarcodeReader.successEvt);
 
 		BarcodeReader.__window.add(BarcodeReader.__cameraView);
-
-		$ = $ || options["$"];
-
-		if (!$) {
-			logger.error(TAG, "controller reference should be passed to create default scan rectangle and overlay");
-			return false;
-		}
 
 		/**
 		 * show default overlay when no overlay is passed

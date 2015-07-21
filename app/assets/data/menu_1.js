@@ -41,8 +41,8 @@ module.exports = {
 		"icon" : "thick_doctor",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleQuickRefill",
-		"ctrl" : "quickRefill",
+		"titleid" : "titleRefill",
+		"ctrl" : "refill",
 		"icon" : "refill_camera",
 		"requires_login" : false
 	}, {

@@ -42,54 +42,16 @@ var BarcodeReader = {
 			return false;
 		}
 
-		isBusy = true;
-
 		options = options || {};
 
-		/**
-		 * show default overlay when no overlay is passed
-		 * and overlayEnabled is not false
-		 */
-		if (!options.overlay && options.overlayEnabled !== false) {
-			$ = $ || options["$"];
-			if (!$) {
-				logger.error(TAG, "controller reference should be passed to create default overlay");
-				return false;
-			}
-			var overlayView = Ti.UI.createView({
-				backgroundColor : "transparent"
-			}),
-			    navbarView = $.UI.create("View", {
-				classes : ["barcode-navbar"]
-			}),
-			    navIconBtn = $.UI.create("Button", {
-				classes : ["barcode-navbar-icon", "icon-back"]
-			}),
-			    titleLbl = $.UI.create("Label", {
-				classes : ["barcode-title"],
-				text : Alloy.Globals.strings.msgBarcode
-			});
-			navIconBtn.addEventListener("click", BarcodeReader.cancel);
-			navbarView.add(navIconBtn);
-			overlayView.add(titleLbl);
-			overlayView.add(navbarView);
-			_.extend(options, {
-				animate : true,
-				showCancel : false,
-				overlay : overlayView
-			});
+		$ = $ || options["$"];
+
+		if (!$) {
+			logger.error(TAG, "controller reference should be passed to create default overlay");
+			return false;
 		}
 
-		if (options.acceptedFormats) {
-			/**
-			 * accepted formats will be a array of strings
-			 * eg: ["FORMAT_QR_CODE", "FORMAT_DATA_MATRIX"]
-			 * transformed to actual constant
-			 */
-			_.each(options.acceptedFormats, function(val, key) {
-				options.acceptedFormats[key] = BarcodeModule[val];
-			});
-		}
+		isBusy = true;
 
 		/**
 		 * keepOpen is false by default with ti.barcode
@@ -117,14 +79,60 @@ var BarcodeReader = {
 			delete options.cancel;
 		}
 
+		if (options.acceptedFormats) {
+			/**
+			 * accepted formats will be a array of strings
+			 * eg: ["FORMAT_QR_CODE", "FORMAT_DATA_MATRIX"]
+			 * transformed to actual constant
+			 */
+			_.each(options.acceptedFormats, function(val, key) {
+				options.acceptedFormats[key] = BarcodeModule[val];
+			});
+		}
+
 		BarcodeModule.addEventListener("success", BarcodeReader.successEvt);
 		BarcodeModule.addEventListener("cancel", BarcodeReader.cancelEvt);
 		BarcodeModule.addEventListener("error", BarcodeReader.errorEvt);
 
 		/**
+		 * show default overlay when no overlay is passed
+		 * and overlayEnabled is not false
+		 */
+		if (!options.overlay && options.overlayEnabled !== false) {
+			var overlayView = Ti.UI.createView({
+				backgroundColor : "transparent"
+			}),
+			    navbarView = $.UI.create("View", {
+				classes : ["barcode-navbar"]
+			}),
+			    navIconBtn = $.UI.create("Button", {
+				classes : ["barcode-navbar-icon", "icon-back"]
+			}),
+			    titleLbl = $.UI.create("Label", {
+				classes : ["barcode-title"],
+				text : Alloy.Globals.strings.msgBarcode
+			});
+			navIconBtn.addEventListener("click", BarcodeReader.cancel);
+			navbarView.add(navIconBtn);
+			overlayView.add(titleLbl);
+			overlayView.add(navbarView);
+			_.extend(options, {
+				animate : true,
+				showCancel : false,
+				overlay : overlayView
+			});
+		}
+
+		/**
 		 * start scanning
 		 */
 		BarcodeModule.capture(options);
+	},
+
+	removeEventListeners : function() {
+		BarcodeModule.removeEventListener("success", BarcodeReader.successEvt);
+		BarcodeModule.removeEventListener("cancel", BarcodeReader.cancelEvt);
+		BarcodeModule.removeEventListener("error", BarcodeReader.errorEvt);
 	},
 
 	cancel : function() {
@@ -134,9 +142,7 @@ var BarcodeReader = {
 			return false;
 		}
 
-		BarcodeModule.removeEventListener("success", BarcodeReader.successEvt);
-		BarcodeModule.removeEventListener("cancel", BarcodeReader.cancelEvt);
-		BarcodeModule.removeEventListener("error", BarcodeReader.errorEvt);
+		BarcodeReader.removeEventListeners();
 
 		isBusy = false;
 		/**
@@ -164,9 +170,7 @@ var BarcodeReader = {
 			}
 		} else {
 
-			BarcodeModule.removeEventListener("success", BarcodeReader.successEvt);
-			BarcodeModule.removeEventListener("cancel", BarcodeReader.cancelEvt);
-			BarcodeModule.removeEventListener("error", BarcodeReader.errorEvt);
+			BarcodeReader.removeEventListeners();
 
 			isBusy = false;
 
@@ -183,9 +187,7 @@ var BarcodeReader = {
 	 */
 	cancelEvt : function(evt) {
 
-		BarcodeModule.removeEventListener("success", BarcodeReader.successEvt);
-		BarcodeModule.removeEventListener("cancel", BarcodeReader.cancelEvt);
-		BarcodeModule.removeEventListener("error", BarcodeReader.errorEvt);
+		BarcodeReader.removeEventListeners();
 
 		isBusy = false;
 

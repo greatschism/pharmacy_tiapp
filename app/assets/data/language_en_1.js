@@ -10,8 +10,8 @@ module.exports = {
 		"strNotAvailable" : "Not available",
 		"strDays" : "days",
 		"strDay" : "day",
-		"strAppleMaps" : "Apple Maps",
-		"strGoogleMaps" : "Google Maps",
+		"strAppleMaps" : "Apple Map",
+		"strGoogleMaps" : "Google Map",
 		"strPhone" : "Call",
 		"strContactAdd" : "Add to contacts",
 		"strOr" : "Or",
@@ -56,7 +56,7 @@ module.exports = {
 		"titleCoupons" : "Coupons",
 		"titleFamilyAccounts" : "Family accounts",
 		"titleTransferPrescription" : "Transfer Rx",
-		"titleQuickRefill" : "Refill now",
+		"titleRefill" : "Refill now",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
 		"titleAccount" : "Account",
@@ -67,6 +67,9 @@ module.exports = {
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
+		"titleRefillQuick" : "Quick Refill",
+		"titleRefillSuccess" : "Success",
+		"titleRefillFailure" : "We're sorry",
 
 		"homeNavBtnLogin" : "Sign in",
 
@@ -93,6 +96,8 @@ module.exports = {
 		"storeDetSectionHours" : "Store hours",
 		"storeDetSectionServices" : "Store Services",
 		"storeDetMsgCantUpdateHome" : "You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
+		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
+		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
 		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",

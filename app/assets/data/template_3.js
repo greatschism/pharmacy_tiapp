@@ -53,12 +53,12 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
 								"properties" : {
-									"textid" : "titleQuickRefill"
+									"textid" : "titleRefill"
 								}
 							}]
 						}],
 						"navigation" : {
-							"ctrl" : "quickRefill"
+							"ctrl" : "refill"
 						}
 					}, {
 						"apiName" : "View",

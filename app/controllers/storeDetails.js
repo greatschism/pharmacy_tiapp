@@ -288,18 +288,28 @@ function didClickFavourite(e) {
 }
 
 function didClickHome(e) {
-	if (store.ishomepharmacy) {
-		$.uihelper.showDialog({
-			message : $.strings.storeDetMsgCantUpdateHome
-		});
-		return false;
-	}
 	/**
 	 * home store can't be removed from favourite
 	 * can only mark another store as home
 	 * at that case the current home
 	 * will become just favourite
 	 */
+	if (store.ishomepharmacy) {
+		$.uihelper.showDialog({
+			message : $.strings.storeDetMsgCantUpdateHome
+		});
+		return false;
+	}
+	$.uihelper.showDialog({
+		title : $.strings.storeDetDialogTitleHomeConfirm,
+		message : String.format($.strings.storeDetMsgHomeConfirm, store.title),
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnCancel],
+		cancelIndex : 1,
+		success : didConfirmHome
+	});
+}
+
+function didConfirmHome() {
 	updateStatus(1, 1);
 }
 

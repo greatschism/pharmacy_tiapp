@@ -1,18 +1,24 @@
 module.exports = {
 	"data" : {
 		"config" : {
+			"ios" : {
+				"accepted_barcode_formats" : ["CODE128"]
+			},
+			"android" : {
+				"accepted_barcode_formats" : ["FORMAT_CODE_128"]
+			},
 			"navigator" : "drawer",
 			"left_drawer_width" : 270,
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
-			"geo_search_min_length" : 5,
+			"geo_search_min_length" : 4,
+			"store_map_max_radius" : 75,
 			"store_map_default_region" : {
 				"latitude" : 37.09024,
 				"longitude" : -95.712891,
 				"latitudeDelta" : 0.5,
 				"longitudeDelta" : 0.5
 			},
-			"store_map_max_radius" : 75,
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,

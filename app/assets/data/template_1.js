@@ -61,14 +61,14 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"textid" : "titleQuickRefill"
+									"textid" : "titleRefill"
 								}
 							}]
 						}]
 					}]
 				}],
 				"navigation" : {
-					"ctrl" : "quickRefill"
+					"ctrl" : "refill"
 				}
 			}, {
 				"apiName" : "TableViewRow",

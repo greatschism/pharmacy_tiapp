@@ -112,9 +112,13 @@ function loadStore() {
 }
 
 function didClickStore(e) {
-	$.uihelper.getDirection({
-		latitude : prescription.store.latitude,
-		longitude : prescription.store.longitude
+	$.app.navigator.open({
+		titleid : "titleStoreDetails",
+		ctrl : "storeDetails",
+		ctrlArguments : {
+			store : prescription.store
+		},
+		stack : true
 	});
 }
 
