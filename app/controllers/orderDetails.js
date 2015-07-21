@@ -22,18 +22,19 @@ var args = arguments[0] || {},
     detailBtnClasses = ["content-detail-tertiary-icon", "icon-edit"],
     isWindowOpen;
 
-/**
- *  if any bookmark operation
- *  was performed on this store
- *  at details screen shouldUpdate will be true
- *  when user reaches this screen.
- *  So just set it to false
- *  by default
- */
-store.shouldUpdate = false;
-
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.orderBtn.height + $.orderBtn.bottom;
+	/**
+	 *  if any bookmark operation
+	 *  was performed on this store
+	 *  at details screen shouldUpdate will be true
+	 *  when user reaches this screen.
+	 *  So just set it to false
+	 *  by default
+	 */
+	if (store.shouldUpdate) {
+		store.shouldUpdate = false;
+	}
 	//prescriptions section
 	var iconDict;
 	/*
@@ -355,7 +356,7 @@ function didGetStore(result, passthrough) {
 	store = result.data.stores;
 	_.extend(store, {
 		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 	});
 	updatePickupOptionRow();
 }
@@ -466,7 +467,7 @@ function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions,
 	    isPartial = false;
 	_.some(refilledPrescs, function(presc) {
-		if (prescription.refill_is_error !== "true") {
+		if (presc.refill_is_error !== "true") {
 			isPartial = true;
 			return true;
 		}
@@ -477,7 +478,8 @@ function didRefill(result, passthrough) {
 		ctrl : "refillSuccess",
 		ctrlArguments : {
 			prescriptions : refilledPrescs,
-			isPartial : isPartial
+			isPartial : isPartial,
+			store : _.clone(store)
 		}
 	});
 }
