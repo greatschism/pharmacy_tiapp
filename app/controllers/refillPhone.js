@@ -75,9 +75,8 @@ function didGetBarcode(e) {
 function didRefill(result, passthrough) {
 	/**
 	 *  will have only one prescription for scan
-	 *  Note: API should be fixed - should always return array
 	 */
-	var prescription = result.data.prescriptions[0] || result.data.prescriptions,
+	var prescription = result.data.prescriptions,
 	    navigation;
 	if (prescription.refill_is_error === "true") {
 		//failure

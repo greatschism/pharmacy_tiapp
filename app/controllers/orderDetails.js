@@ -465,12 +465,6 @@ function didClickOrder(e) {
 function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions,
 	    isPartial = false;
-	/**
-	 * Note: API should be fixed - should always return array
-	 */
-	if (_.isObject(refilledPrescs)) {
-		refilledPrescs = [refilledPrescs];
-	}
 	_.some(refilledPrescs, function(presc) {
 		if (prescription.refill_is_error !== "true") {
 			isPartial = true;
