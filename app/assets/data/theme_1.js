@@ -14,10 +14,10 @@ module.exports = {
 			"geo_search_min_length" : 4,
 			"store_map_max_radius" : 75,
 			"store_map_default_region" : {
-				"latitude" : 37.09024,
-				"longitude" : -95.712891,
-				"latitudeDelta" : 0.5,
-				"longitudeDelta" : 0.5
+				"latitude" : 21.69756,
+				"longitude" : -85.37515,
+				"latitudeDelta" : 119.56,
+				"longitudeDelta" : 112.42
 			},
 			"prescription_auto_hide" : -60,
 			"prescription_ready_for_refill" : 7,
