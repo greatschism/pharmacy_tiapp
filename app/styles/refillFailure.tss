@@ -1,14 +1,9 @@
-"#btnTypePrescription":
-{
-	title: Alloy.Globals.strings.qrBtnType
-	
+"#titleLbl":{
+	text: Alloy.Globals.strings.refillFailureLblTitle
 },
-"#btnCallPharmacy":{
-	title:Alloy.Globals.strings.qrFailureBtnPhone
+"#refillQuickLbl":{
+	text: Alloy.Globals.strings.refillFailureBtnRefillQuick
+},
+"#phoneLbl":{
+	text: Alloy.Globals.strings.refillFailureBtnPhone
 }
-"#lblRefillFailure":{
-	text:Alloy.Globals.strings.qrFailureLblStatus
-},
-"#orLbl":{
-	text: Alloy.Globals.strings.strOr
-},

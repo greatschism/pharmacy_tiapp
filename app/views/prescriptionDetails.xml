@@ -5,7 +5,7 @@
 				<View id="prescContentView" class="content-view-vgroup-with-rbtn">
 					<Label id="titleLbl" class="content-title-wrap" />
 				</View>
-				<Button id="toggleBtn" class="content-right-btn" />
+				<Button id="toggleBtn" class="content-right-tertiary-btn" />
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup async-view role-detail-view">
 				<View id="prescAsyncContentView" class="content-view-vgroup-with-padding">

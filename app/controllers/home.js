@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     icons = Alloy.CFG.icons,
+    isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     banners,
     spanTimeId;
 
@@ -11,7 +12,7 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	if ($.bannerView && Alloy.Models.appload.get("features").is_banners_enabled && !loadBanners(Alloy.Collections.banners.toJSON())) {
+	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",
 			params : {
@@ -148,7 +149,7 @@ function create(dict) {
 	}
 	if (_.has(dict, "id")) {
 		$[dict.id] = element;
-		if (dict.id == "bannerView" && Alloy.Models.appload.get("features").is_banners_enabled) {
+		if (dict.id == "bannerView" && isBannerEnabled) {
 			$.bannerView.applyProperties({
 				width : Alloy.CFG.banner_max_width,
 				height : Alloy.CFG.banner_max_height

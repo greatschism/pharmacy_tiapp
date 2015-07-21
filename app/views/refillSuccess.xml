@@ -1,35 +1,17 @@
 <Alloy>
 	<TableView>
-		<TableViewSection>
-			<TableViewRow>
-				<View class="content-view-vgroup">
-					<Label id="lblRefillStatusTitle" class="title-centered"/>
-					<ImageView id="imgRefillStatus"/>
-					<Label id="lblRefillContact" class="content-title-wrap"/>
-				</View>
-			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="lblRefillPlaced" class="content-header-lbl"></Label>
-				</View>
-			</HeaderView>
-			<TableViewRow></TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="lblPrescriptionTransfered" class="content-header-lbl"></Label>
-				</View>
-			</HeaderView>
-			<TableViewRow></TableViewRow>
-		</TableViewSection>
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<Label id="titleLbl" class="margin-top title-centered-wrap" />
+				<ImageView id="successImg" class="margin-top margin-bottom" />
+				<Label id="partialLbl" class="margin-top margin-bottom lbl-wrap" if="$.isPartial" />
+			</View>
+		</HeaderView>
+		<!--moving if="Alloy.Globals.isLoggedIn" to footerView tag will throw null pointer on android(considered as value passed but null)-->
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Label id="lblRefillSignUp" class="content-title-wrap margin-left"/>
-				<Button id="btnSignUp" class="primary-btn margin-top margin-bottom"/>
-				<Button id="btnDone" class="secondary-btn  margin-top margin-bottom"/>			
+				<Label id="signupLbl" class="margin-top lbl-wrap" if="Alloy.Globals.isLoggedIn" />
+				<Button id="signupBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignup" if="Alloy.Globals.isLoggedIn" />
 			</View>
 		</FooterView>
 	</TableView>

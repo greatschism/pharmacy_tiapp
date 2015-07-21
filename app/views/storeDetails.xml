@@ -35,7 +35,7 @@
 					<View class="margin-top auto-height" if="Alloy.Globals.isLoggedIn">
 						<View class="content-master-view-70 auto-height">
 							<View id="favouriteView" class="secondary-btn-view" onClick="didClickFavourite">
-								<Label id="favouriteLbl" class="secondary-btn-lbl" />
+								<Label id="favouriteLbl" class="secondary-btn-lbl-wrap" />
 							</View>
 						</View>
 						<View class="content-detail-view-30 auto-height">

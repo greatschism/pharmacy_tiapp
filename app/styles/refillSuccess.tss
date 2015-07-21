@@ -1,21 +1,15 @@
-"#lblRefillStatusTitle":{
-	text:Alloy.Globals.strings.qrSuccessLblStatus
+"#titleLbl":{
+	text: Alloy.Globals.strings.refillSuccessLblTitle
 },
-"#lblRefillContact":{
-	text:Alloy.Globals.strings.qrSuccessLblContact
+"#successImg[if=$.isPartial]":{
+	bottom: null
 },
-"#lblRefillPlaced":{
-	text:Alloy.Globals.strings.qrSuccessSectionStore
+"#partialLbl":{
+	text: Alloy.Globals.strings.refillSuccessLblPartial
 },
-"#lblPrescriptionTransfered":{
-	text:Alloy.Globals.strings.qrSuccessSectionPresc
+"#signupLbl":{
+	text: Alloy.Globals.strings.refillSuccessLblSignup
 },
-"#lblRefillSignUp":{
-	text:Alloy.Globals.strings.qrSuccessLblSignUp
-},
-"#btnSignUp":{
-	title:Alloy.Globals.strings.qrSuccessBtnSignUp
-},
-"#btnDone":{
-	title:Alloy.Globals.strings.qrSuccessBtnDone
+"#signupBtn":{
+	title: Alloy.Globals.strings.refillSuccessBtnSignup
 }

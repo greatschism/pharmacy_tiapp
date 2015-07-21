@@ -94,17 +94,70 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		that.currentController = Alloy.createController("drawer/view", params);
+		/**
+		 * on android keyboard will not be hidden
+		 * if it is opened, hide it
+		 */
+		if (Ti.App.keyboardVisible) {
+			Ti.App.hideKeyboard();
+		}
 
-		that.drawer.setCenterWindow(that.currentController.getView());
+		var controller = Alloy.createController("drawer/view", params);
 
-		that.currentController.focus();
+		that.drawer.setCenterWindow(controller.getView());
 
-		if (that.controllers.length) {
-			that.closeToRoot();
-			that.controllers.pop().terminate();
+		controller.focus();
+
+		var len = that.controllers.length;
+		if (len) {
+
+			if (len > 1) {
+				/**
+				 * remove all controllers from stack
+				 */
+				var count = len - 1,
+				    removeControllers = that.controllers.splice(len - count, count);
+				for (var i = 0,
+				    x = removeControllers.length - 1; i < x; i++) {
+					/**
+					 * close one by one from last controller - 2 to first / master controller
+					 */
+					removeControllers[i].getView().close();
+				}
+				/**
+				 * close the last / visible controller
+				 * so it will not directly show the first controller
+				 */
+				that.currentController.getView().close({
+					activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
+					activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
+					animated : true
+				});
+				/**
+				 * store first / master controller reference
+				 * that.controllers.length - 1 should be 0 here
+				 */
+				that.currentController = that.controllers[that.controllers.length - 1];
+			}
+
+			/**
+			 * terminate first / master controller controller
+			 * Note: remember android/drawer/view.js will only have terminate method
+			 */
+			that.currentController.terminate();
+
+			/**
+			 *re-initate the stack
+			 */
 			that.controllers = [];
 		}
+
+		/**
+		 * assign currentController only after closeToRoot
+		 * that.currentController reference is used in
+		 * that.close method
+		 */
+		that.currentController = controller;
 
 		that.controllers.push(that.currentController);
 
@@ -238,7 +291,6 @@ function Navigation(args) {
 
 		that.closeToRoot();
 		that.controllers.pop().terminate();
-		that.controllers = [];
 		that.drawer.close();
 	};
 

@@ -70,6 +70,7 @@ module.exports = {
 		"titleRefillQuick" : "Quick Refill",
 		"titleRefillSuccess" : "Success",
 		"titleRefillFailure" : "We're sorry",
+		"titleSignup" : "Sign up",
 
 		"homeNavBtnLogin" : "Sign in",
 
@@ -91,8 +92,8 @@ module.exports = {
 		"storeDetLblClosed" : "Closed",
 		"storeDetBtnDirection" : "Directions",
 		"storeDetBtnRefill" : "Refill at this location",
-		"storeDetBtnFavouriteAdd" : "Add to favorite",
-		"storeDetBtnFavouriteRemove" : "Remove from favorite",
+		"storeDetBtnFavouriteAdd" : "Add to favorites",
+		"storeDetBtnFavouriteRemove" : "Remove from favorites",
 		"storeDetSectionHours" : "Store hours",
 		"storeDetSectionServices" : "Store Services",
 		"storeDetMsgCantUpdateHome" : "You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
@@ -165,16 +166,16 @@ module.exports = {
 		"refillPhoneValPhone" : "Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
-		"refillSuccessLblStatus" : "Your refill is on the way!",
-		"refillSuccessLblContact" : "Please contact your pharmacy if you have any questions.",
+		"refillSuccessLblTitle" : "Your refill is on the way!",
+		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
 		"refillSuccessSectionStore" : "Your refill has been placed at:",
 		"refillSuccessSectionPresc" : "Prescription transfered:",
-		"refillSuccessLblSignUp" : "Sign up now to receive a text message when your prescription is ready.",
-		"refillSuccessBtnSignUp" : "Sign up",
-		"refillSuccessBtnDone" : "Done",
+		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
+		"refillSuccessBtnSignup" : "Sign up",
 
-		"refillFailureBtnPhone" : "Call my pharmacy",
-		"refillFailureLblStatus" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
+		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
+		"refillFailureBtnRefillQuick" : "Type prescription details",
+		"refillFailureBtnPhone" : "Call my pharmacy"
 
 	}
 };

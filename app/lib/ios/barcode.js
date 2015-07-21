@@ -17,16 +17,12 @@ var BarcodeReader = {
 
 	values : [],
 
-	capture : function(options, $) {
+	capture : function($, options) {
 
 		if (isBusy) {
 			logger.error(TAG, "barcode capture is already in progress");
 			return false;
 		}
-
-		options = options || {};
-
-		$ = $ || options["$"];
 
 		if (!$) {
 			logger.error(TAG, "controller reference should be passed to create default scan rectangle and overlay");
@@ -34,6 +30,8 @@ var BarcodeReader = {
 		}
 
 		isBusy = true;
+
+		options = options || {};
 
 		/**
 		 * keepOpen is false by default with ti.barcode

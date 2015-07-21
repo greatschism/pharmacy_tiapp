@@ -395,6 +395,21 @@ module.exports = {
 				"bottom" : 14,
 				"left" : 8,
 				"right" : 8,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#F7941E",
+				"textAlign" : "center",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".secondary-btn-lbl-wrap" : {
+				"top" : 14,
+				"bottom" : 14,
+				"left" : 8,
+				"right" : 8,
 				"maxTop" : 14,
 				"maxBottom" : 14,
 				"minTop" : 4,
@@ -408,6 +423,31 @@ module.exports = {
 				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
+			},
+			".secondary-btn-icon" : {
+				"left" : 0,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"color" : "#F7941E",
+				"touchEnabled" : false,
+				"accessibilityHidden" : true
+			},
+			".secondary-btn-lbl-with-licon" : {
+				"top" : 14,
+				"bottom" : 14,
+				"left" : 36,
+				"width" : "auto",
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#F7941E",
+				"textAlign" : "center",
+				"ellipsize" : true,
+				"wordWrap" : false
 			},
 			".primary-btn" : {
 				"left" : 16,
@@ -1290,7 +1330,7 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-right-btn" : {
+			".content-right-tertiary-btn" : {
 				"top" : 0,
 				"right" : 12,
 				"width" : 136,

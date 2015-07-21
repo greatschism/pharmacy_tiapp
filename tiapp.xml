@@ -23,7 +23,7 @@
     <plist>
       <dict>
         <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Help you to locate the nearest pharmacies.</string>
+        <string>Would you like to share your location so we can show you pharmacies nearby?</string>
       </dict>
       <dict>
         <key>UISupportedInterfaceOrientations~iphone</key>

@@ -1,11 +1,18 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="lblRefillFailure" class="lbl-centered-wrap margin-top margin-bottom"/>
-		<Button id="btnTypePrescription" class="secondary-btn" />
-		<View class="option-divider-view">
-			<View class="option-divider-line"/>
-			<Label id="orLbl"class="option-divider-lbl" />
+		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
+		<View class="margin-top secondary-btn-view" onClick="didClickRefillQuick">
+			<View class="auto-width auto-height">
+				<Label class="secondary-btn-icon icon-list" />
+				<Label id="refillQuickLbl" class="secondary-btn-lbl-with-licon" />
+			</View>
 		</View>
-		<Button id="btnCallPharmacy" class="secondary-btn" onClick="didClickCall" />
+		<Require src="templates/optionDivider" />
+		<View class="margin-top margin-bottom secondary-btn-view" onClick="didClickPhone">
+			<View class="auto-width auto-height">
+				<Label class="secondary-btn-icon icon-phone" />
+				<Label id="phoneLbl" class="secondary-btn-lbl-with-licon" />
+			</View>
+		</View>
 	</ScrollView>
 </Alloy>

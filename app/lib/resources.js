@@ -36,19 +36,20 @@ var Res = {
 
 	init : function() {
 
-		if (utilities.getProperty(Alloy.CFG.resources_updated_on, "", "string", false) != Ti.App.version || !ENV_PROD) {
-
-			utilities.setProperty(Alloy.CFG.resources_updated_on, Ti.App.version, "string", false);
+		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != Ti.App.version || !ENV_PROD) {
 
 			var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory);
 			if (!dataDir.exists()) {
 				dataDir.createDirectory();
 			}
 
-			if (Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on, "", "string", false) != Ti.App.version || !ENV_PROD)) {
-				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version, "string", false);
+			if (Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on) != Ti.App.version || !ENV_PROD)) {
 				Res.deleteUnusedResources();
 				Res.collection.clear();
+				/**
+				 *  update flag once data is flushed
+				 */
+				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version);
 			}
 
 			var data = require(Res.dataDirectory + "/" + "resources").data;
@@ -73,6 +74,10 @@ var Res = {
 
 			Res.setData(data, true);
 
+			/**
+			 *  update flag once data set is done
+			 */
+			utilities.setProperty(Alloy.CFG.resources_updated_on, Ti.App.version);
 		}
 	},
 

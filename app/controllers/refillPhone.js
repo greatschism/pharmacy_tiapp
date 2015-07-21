@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    apiCodes = Alloy.CFG.apiCodes,
     phone = "";
 
 function init() {
@@ -32,10 +33,9 @@ function didClickContinue(e) {
 		});
 		return;
 	}
-	if (args.type == Alloy.CFG.apiCodes.refill_type_scan) {
+	if (args.type == apiCodes.refill_type_scan) {
 		//scan
-		require("barcode").capture({
-			$ : $,
+		require("barcode").capture($, {
 			acceptedFormats : Alloy.CFG.accepted_barcode_formats,
 			success : didGetBarcode
 		});
@@ -45,7 +45,8 @@ function didClickContinue(e) {
 			ctrl : "refillQuick",
 			ctrlArguments : {
 				phone : phone
-			}
+			},
+			stack : true
 		});
 	}
 }
@@ -61,32 +62,43 @@ function didGetBarcode(e) {
 			data : [{
 				prescriptions : [{
 					mobile_number : phone,
-					pickup_mode : Alloy.CFG.apiCodes.pickup_mode_instore,
+					pickup_mode : apiCodes.pickup_mode_instore,
 					pickup_time_group : apiCodes.pickup_time_group_asap,
 					barcode_data : e.result
 				}]
 			}]
 		},
-		success : didRefill,
-		failure : didFail
+		success : didRefill
 	});
 }
 
 function didRefill(result, passthrough) {
-	$.app.navigator.open({
-		titleid : "titleRefillSuccess",
-		ctrl : "refillSuccess",
-		ctrlArguments : {
-			prescriptions : result.data.prescriptions
-		}
-	});
-}
-
-function didFail(result, passthrough) {
-	$.app.navigator.open({
-		titleid : "titleRefillFailure",
-		ctrl : "refillFailure"
-	});
+	/**
+	 *  will have only one prescription for scan
+	 *  Note: API should be fixed - should always return array
+	 */
+	var prescription = result.data.prescriptions[0] || result.data.prescriptions,
+	    navigation;
+	if (prescription.refill_is_error === "true") {
+		//failure
+		navigation = {
+			titleid : "titleRefillFailure",
+			ctrl : "refillFailure",
+			ctrlArguments : {
+				phone : phone
+			}
+		};
+	} else {
+		//success
+		navigation = {
+			titleid : "titleRefillSuccess",
+			ctrl : "refillSuccess",
+			ctrlArguments : {
+				prescriptions : [prescription]
+			}
+		};
+	}
+	$.app.navigator.open(navigation);
 }
 
 exports.init = init;
