@@ -22,6 +22,16 @@ var args = arguments[0] || {},
     detailBtnClasses = ["content-detail-tertiary-icon", "icon-edit"],
     isWindowOpen;
 
+/**
+ *  if any bookmark operation
+ *  was performed on this store
+ *  at details screen shouldUpdate will be true
+ *  when user reaches this screen.
+ *  So just set it to false
+ *  by default
+ */
+store.shouldUpdate = false;
+
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.orderBtn.height + $.orderBtn.bottom;
 	//prescriptions section
