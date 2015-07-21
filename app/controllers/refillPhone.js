@@ -76,7 +76,7 @@ function didRefill(result, passthrough) {
 	/**
 	 *  will have only one prescription for scan
 	 */
-	var prescription = result.data.prescriptions,
+	var prescription = result.data.prescriptions[0],
 	    navigation;
 	if (prescription.refill_is_error === "true") {
 		//failure

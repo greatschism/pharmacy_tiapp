@@ -467,7 +467,7 @@ function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions,
 	    isPartial = false;
 	_.some(refilledPrescs, function(presc) {
-		if (presc.refill_is_error !== "true") {
+		if (presc.refill_is_error === "true") {
 			isPartial = true;
 			return true;
 		}
