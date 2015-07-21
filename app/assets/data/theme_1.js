@@ -187,6 +187,9 @@ module.exports = {
 				"selectedBackgroundColor" : "#D3D4D3",
 				"selectionAsOverlay" : true
 			},
+			".phone" : {
+				"maxLength" : 14
+			},
 			".margin-top" : {
 				"top" : 12
 			},

@@ -105,6 +105,15 @@ module.exports = {
 	".row-selection-disabled" : {
 		"selectedBackgroundColor" : "transparent"
 	},
+	".keyboard-email" : {
+		"keyboardType" : "Ti.UI.KEYBOARD_EMAIL"
+	},
+	".keyboard-number" : {
+		"keyboardType" : "Ti.UI.KEYBOARD_NUMBER_PAD"
+	},
+	".keyboard-phone" : {
+		"keyboardType" : "Ti.UI.KEYBOARD_PHONE_PAD"
+	},
 	".returnkey-previous" : {
 		"returnKeyType" : "Ti.UI.RETURNKEY_PREVIOUS"
 	},
