@@ -466,12 +466,15 @@ function didClickOrder(e) {
 function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions,
 	    isPartial = false;
-	_.some(refilledPrescs, function(presc) {
-		if (presc.refill_is_error === "true") {
+	/**
+	 * ensure the api returns the result in the same order
+	 * of prescriptions client sent, otherwise this can break
+	 */
+	_.each(refilledPrescs, function(presc, index) {
+		if (!isPartial && presc.refill_is_error === "true") {
 			isPartial = true;
-			return true;
 		}
-		return false;
+		_.extend(presc, prescriptions[index]);
 	});
 	$.app.navigator.open({
 		titleid : "titleRefillSuccess",
