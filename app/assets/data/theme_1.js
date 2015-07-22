@@ -27,7 +27,6 @@ module.exports = {
 			"prescription_progress_before_x_hours" : 15,
 			"prescription_refills_left_info_negative" : 1,
 			"rx_number" : {
-				"format" : " (xxxx-xxxxxxx)",
 				"length" : 12,
 				"validator" : "^[0-9]{4}-[0-9]{7}$",
 				"formatters" : [{
@@ -195,6 +194,9 @@ module.exports = {
 			},
 			".phone" : {
 				"maxLength" : 14
+			},
+			".rx-number" : {
+				"maxLength" : 12
 			},
 			".margin-top" : {
 				"top" : 12
@@ -384,7 +386,7 @@ module.exports = {
 				"left" : 16,
 				"right" : 16,
 				"height" : "auto",
-				"maxHeight" : 50,
+				"maxHeight" : 51,
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#F7941E",
 				"borderRadius" : 3.4,
@@ -811,6 +813,12 @@ module.exports = {
 				"borderColor" : "#808083",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
+			},
+			".txt-negative-right-icon" : {
+				"color" : "#ED1C24",
+				"selectedColor" : "#ED1C24",
+				"backgroundColor" : "transparent",
+				"borderColor" : "transparent"
 			},
 			".search-bar" : {
 				"width" : "fill",
@@ -1330,7 +1338,7 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
-			".content-right-tertiary-btn" : {
+			".content-tertiary-right-btn" : {
 				"top" : 0,
 				"right" : 12,
 				"width" : 136,

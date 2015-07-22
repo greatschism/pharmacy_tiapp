@@ -369,6 +369,24 @@ var Utility = {
 	},
 
 	/**
+	 * Adds brackets and hyphens to the rx number
+	 * @param {Srting} str The rx number
+	 */
+	formatRxNumber : function(str) {
+		if (!_.isString(str)) {
+			str += "";
+		}
+		/**
+		 *  reg exp configurable from theme
+		 *  as it depends on client
+		 */
+		_.each(Alloy.CFG.rx_number.formatters, function(formatter) {
+			str = str.replace(formatter.exp, formatter.value);
+		});
+		return str.slice(0, Alloy.CFG.rx_number.length);
+	},
+
+	/**
 	 * Adds brackets and hyphens to the phone number (U.S.A)
 	 * @param {Srting} str The phone number
 	 */
@@ -377,6 +395,19 @@ var Utility = {
 			str += "";
 		}
 		return str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
+	},
+
+	/**
+	 * Check whether given string valid rx number
+	 * @param {String} str
+	 * returns {Boolean}
+	 */
+	validateRxNumber : function(str) {
+		/**
+		 *  reg exp configurable from theme
+		 *  as it depends on client
+		 */
+		return Alloy.CFG.rx_number.validator.test(str) ? str.replace(/\D+/g, "") : false;
 	},
 
 	/**

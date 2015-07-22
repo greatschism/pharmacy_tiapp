@@ -31,10 +31,10 @@ module.exports = {
 		"icon" : "users",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleTransferPrescription",
-		"action" : "transferPrescription",
+		"titleid" : "titleTransferRx",
+		"action" : "transferRx",
 		"icon" : "thick_transfer",
-		"requires_login" : true
+		"requires_login" : false
 	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",

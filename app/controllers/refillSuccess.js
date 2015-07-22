@@ -4,6 +4,13 @@ var args = arguments[0] || {},
 
 function init() {
 	$.uihelper.getImage("success", $.successImg);
+	/**
+	 * this is a successful refill
+	 * so store phone number if available
+	 */
+	if (args.phone) {
+		$.utilities.setProperty(Alloy.CFG.latest_phone_used, phone);
+	}
 }
 
 function focus() {
@@ -39,14 +46,14 @@ function didGetStore(result, passthrough) {
 function updateTable() {
 	console.log(store);
 	console.log(prescriptions);
-	$.storeSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionStore);
+	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
 	/*_.each(prescriptions, function(prescription) {
-		$.prescSection.add(Alloy.createController("itemTemplates/masterDetailWithLIcon", {
-			title : $.strings.strPrefixRx.concat(prescription.rx_number_id)
-		}).getView());
-	});*/
-	$.tableView.setData([$.storeSection, $.prescSection]);
+	 $.prescSection.add(Alloy.createController("itemTemplates/masterDetailWithLIcon", {
+	 title : $.strings.strPrefixRx.concat(prescription.rx_number_id)
+	 }).getView());
+	 });*/
+	$.tableView.setData([$.pickupSection, $.prescSection]);
 }
 
 function didClickSignup(e) {

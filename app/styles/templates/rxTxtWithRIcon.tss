@@ -1,0 +1,8 @@
+/**
+* 	rightIconText should be initiated
+*  for easy updates of it's styles later
+*/
+"#txt":{
+	rightIconText: " ",
+	hintText: Alloy.Globals.strings.tempRxTxtHintRx
+}

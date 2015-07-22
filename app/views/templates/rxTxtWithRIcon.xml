@@ -1,0 +1,3 @@
+<Alloy>
+	<Widget id="txt" src="ti.textfield" class="margin-top txt rx-number keyboard-number returnkey-done" onChange="didChange" onClick="didClick" />
+</Alloy>

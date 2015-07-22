@@ -55,7 +55,7 @@ module.exports = {
 		"titleRewards" : "es-Savings Catcher",
 		"titleCoupons" : "es-Coupons",
 		"titleFamilyAccounts" : "es-Family accounts",
-		"titleTransferPrescription" : "es-Transfer Rx",
+		"titleTransferRx" : "es-Transfer Rx",
 		"titleRefill" : "es-Refill now",
 		"titleStores" : "es-Find a store",
 		"titleDoctors" : "es-Doctors",
@@ -70,6 +70,7 @@ module.exports = {
 		"titleRefillQuick" : "es-Quick Refill",
 		"titleRefillSuccess" : "es-Success",
 		"titleRefillFailure" : "es-We're sorry",
+		"titleSignup" : "es-Sign up",
 
 		"homeNavBtnLogin" : "es-Sign in",
 
@@ -91,8 +92,8 @@ module.exports = {
 		"storeDetLblClosed" : "es-Closed",
 		"storeDetBtnDirection" : "es-Directions",
 		"storeDetBtnRefill" : "es-Refill at this location",
-		"storeDetBtnFavouriteAdd" : "es-Add to favorite",
-		"storeDetBtnFavouriteRemove" : "es-Remove from favorite",
+		"storeDetBtnFavouriteAdd" : "es-Add to favorites",
+		"storeDetBtnFavouriteRemove" : "es-Remove from favorites",
 		"storeDetSectionHours" : "es-Store hours",
 		"storeDetSectionServices" : "es-Store Services",
 		"storeDetMsgCantUpdateHome" : "es-You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
@@ -149,7 +150,7 @@ module.exports = {
 		"prescDetBtnHide" : "es-Hide this prescription",
 		"prescDetMsgHideConfirm" : "es-Are you sure you want to hide %s?",
 
-		"orderDetSectionList" : "es-Your order",
+		"orderDetSectionPresc" : "es-Your order",
 		"orderDetSectionPickup" : "es-Pickup details",
 		"orderDetPopupSectionPickupMode" : "es-Pickup Modes",
 		"orderDetPopupPickupModeBtnClose" : "es-Close",
@@ -165,16 +166,20 @@ module.exports = {
 		"refillPhoneValPhone" : "es-Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
-		"refillSuccessLblStatus" : "es-Your refill is on the way!",
-		"refillSuccessLblContact" : "es-Please contact your pharmacy if you have any questions.",
-		"refillSuccessSectionStore" : "es-Your refill has been placed at:",
-		"refillSuccessSectionPresc" : "es-Prescription transfered:",
-		"refillSuccessLblSignUp" : "es-Sign up now to receive a text message when your prescription is ready.",
-		"refillSuccessBtnSignUp" : "es-Sign up",
-		"refillSuccessBtnDone" : "es-Done",
+		"refillQuickSectionPresc" : "es-Your order",
+		"refillQuickSectionPickup" : "es-Pharmacy where you filled at last:",
+		"refillQuickBtnOrder" : "es-Order refill",
 
-		"refillFailureBtnPhone" : "es-Call my pharmacy",
-		"refillFailureLblStatus" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help."
+		"refillSuccessLblTitle" : "es-Your refill is on the way!",
+		"refillSuccessLblPartial" : "es-We processed your order, but some prescriptions could not be filled.",
+		"refillSuccessSectionPresc" : "es-Prescription transfered:",
+		"refillSuccessSectionPickup" : "es-Your refill has been placed at:",
+		"refillSuccessLblSignup" : "es-Sign up now to receive a text message when your prescription is ready.",
+		"refillSuccessBtnSignup" : "es-Sign up",
+
+		"refillFailureLblTitle" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
+		"refillFailureBtnRefillQuick" : "es-Type prescription details",
+		"refillFailureBtnPhone" : "es-Call my pharmacy"
 
 	}
 };

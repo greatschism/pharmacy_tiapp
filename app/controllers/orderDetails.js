@@ -50,7 +50,7 @@ function init() {
 			callback : didClickAdd
 		});
 	}
-	$.prescSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionList, null, false, false, iconDict);
+	$.prescSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPresc, null, false, false, iconDict);
 	//if more than one prescription is there add right icon to remove a prescription
 	var isRemovable = prescriptions.length > 1;
 	_.each(prescriptions, function(prescription) {

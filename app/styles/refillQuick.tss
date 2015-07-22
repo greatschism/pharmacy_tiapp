@@ -1,0 +1,9 @@
+"#prescLbl":{
+	text: Alloy.Globals.strings.refillQuickSectionPresc
+},
+"#pickupLbl":{
+	text: Alloy.Globals.strings.refillQuickSectionPickup
+},
+"#orderBtn":{
+	title: Alloy.Globals.strings.refillQuickBtnOrder
+}

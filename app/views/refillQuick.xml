@@ -1,3 +1,15 @@
 <Alloy>
-	<View />
+	<ScrollView id="scrollView" class="vgroup">
+		<View class="content-header-view">
+			<Label id="prescLbl" class="content-header-lbl-with-ricon" />
+			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+		</View>
+		<View id="containerView" class="top margin-bottom auto-height vgroup">
+			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickRemove" />
+		</View>
+		<View class="content-header-view">
+			<Label id="pickupLbl" class="content-header-lbl" />
+		</View>
+		<Button id="orderBtn" class="margin-top margin-bottom primary-btn" onClick="didClickOrder" />
+	</ScrollView>
 </Alloy>

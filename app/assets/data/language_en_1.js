@@ -55,7 +55,7 @@ module.exports = {
 		"titleRewards" : "Savings Catcher",
 		"titleCoupons" : "Coupons",
 		"titleFamilyAccounts" : "Family accounts",
-		"titleTransferPrescription" : "Transfer Rx",
+		"titleTransferRx" : "Transfer Rx",
 		"titleRefill" : "Refill now",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
@@ -71,6 +71,8 @@ module.exports = {
 		"titleRefillSuccess" : "Success",
 		"titleRefillFailure" : "We're sorry",
 		"titleSignup" : "Sign up",
+
+		"tempRxTxtHintRx" : "Enter your prescription number",
 
 		"homeNavBtnLogin" : "Sign in",
 
@@ -150,7 +152,7 @@ module.exports = {
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 
-		"orderDetSectionList" : "Your order",
+		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",
 		"orderDetPopupPickupModeBtnClose" : "Close",
@@ -166,10 +168,15 @@ module.exports = {
 		"refillPhoneValPhone" : "Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
+		"refillQuickSectionPresc" : "Your order",
+		"refillQuickSectionPickup" : "Pickup details",
+		"refillQuickMsgRxInvalid" : "One or more prescription number you have entered seem invalid.",
+		"refillQuickBtnOrder" : "Submit",
+
 		"refillSuccessLblTitle" : "Your refill is on the way!",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessSectionStore" : "Your refill has been placed at:",
 		"refillSuccessSectionPresc" : "Prescription transfered:",
+		"refillSuccessSectionPickup" : "Your refill has been placed at:",
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 

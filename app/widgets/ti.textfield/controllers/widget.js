@@ -22,11 +22,25 @@ var args = arguments[0] || {},
 })();
 
 function setIcon(iconText, direction, iconDict, accessibility, padding) {
+	var iconBtn = direction + "IconBtn";
+	if ($[iconBtn]) {
+		var dict = {
+			title : iconText
+		};
+		if (iconDict) {
+			_.extend(dict, iconDict);
+		}
+		if (accessibility) {
+			_.extend(dict, accessibility);
+		}
+		$[iconBtn].applyProperties(dict);
+		return true;
+	}
 	var font = args.iconFont || {
 		fontSize : 12
 	},
 	    isClearButton = enableClearButton && direction == "right";
-	$.txt[direction] = $.txt[direction] + (iconDict[direction] || 0) + font.fontSize + padding;
+	$.txt[direction] = $.txt[direction] + (iconDict[direction] || 0) + font.fontSize + (padding || 0);
 	iconDict[direction] = 0;
 	_.extend(iconDict, {
 		width : $.txt[direction],
@@ -36,19 +50,33 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 		visible : !isClearButton
 	});
 	_.extend(iconDict, accessibility);
-	var iconBtn = Ti.UI.createButton(iconDict);
-	iconBtn.addEventListener("click", isClearButton ? didClickClearText : didClick);
-	$.widget.add(iconBtn);
-	if (isClearButton) {
-		$.clearBtn = iconBtn;
+	$[iconBtn] = Ti.UI.createButton(iconDict);
+	$[iconBtn].addEventListener("click", isClearButton ? didClickClearText : didClick);
+	$.widget.add($[iconBtn]);
+	if (isClearButton && direction == "right") {
+		$.clearBtn = $[iconBtn];
 	}
 }
 
 function setButton(title, direction, buttonDict, accessibility, padding) {
+	var button = direction + "Btn";
+	if ($[button]) {
+		var dict = {
+			title : title
+		};
+		if (buttonDict) {
+			_.extend(dict, buttonDict);
+		}
+		if (accessibility) {
+			_.extend(dict, accessibility);
+		}
+		$[button].applyProperties(dict);
+		return true;
+	}
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
-	$.txt[direction] = $.txt[direction] + (buttonDict[direction] || 0) + (buttonDict.width || 40) + padding;
+	$.txt[direction] = $.txt[direction] + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
 	buttonDict[direction] = 0;
 	_.extend(buttonDict, {
 		width : $.txt[direction],
@@ -57,9 +85,9 @@ function setButton(title, direction, buttonDict, accessibility, padding) {
 		sourceId : direction + "Button"
 	});
 	_.extend(buttonDict, accessibility);
-	var button = Ti.UI.createButton(buttonDict);
-	button.addEventListener("click", didClick);
-	$.widget.add(button);
+	$[button] = Ti.UI.createButton(buttonDict);
+	$[button].addEventListener("click", didClick);
+	$.widget.add($[button]);
 }
 
 function applyProperties(dict) {

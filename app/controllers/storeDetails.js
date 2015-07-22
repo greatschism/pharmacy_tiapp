@@ -47,7 +47,7 @@ function didGetStore(result, passthrough) {
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
-	    tillTime = (hours[0] || "").hours.split("- ")[1] || "",
+	    tillTime = (hours[0] || {}).hours.split("- ")[1] || "",
 	    clockLbl,
 	    iconClass,
 	    lblClass;
