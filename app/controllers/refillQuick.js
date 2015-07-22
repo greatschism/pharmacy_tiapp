@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
-    isBusy = false,
     rxTxts = [$.rxTxt],
     rightIconText = $.createStyle({
 	classes : ["icon-unfilled-remove"]
@@ -20,44 +19,39 @@ function init() {
 	$.containerView.height = rxTxtHeight;
 }
 
+/**
+ * calculating height to give minimum load to
+ * layout engine
+ */
 function didClickAdd(e) {
-	if (isBusy) {
-		return;
+	var len = rxTxts.length;
+	$.containerView.height = (rxTxtHeight * (len + 1));
+	if (len === 1) {
+		_.extend(rightIconDict, {
+			title : rightIconText,
+			touchEnabled : true
+		});
+		rxTxts[0].setRightIcon("", rightIconDict);
 	}
-	isBusy = true;
-	var len = rxTxts.length,
-	    height = (rxTxtHeight * (len + 1)),
-	    anim = Ti.UI.createAnimation({
-		height : height,
-		duration : 200
-	});
-	anim.addEventListener("complete", function didComplete() {
-		anim.removeEventListener("complete", didComplete);
-		$.containerView.height = height;
-		if (len === 1) {
-			_.extend(rightIconDict, {
-				title : rightIconText,
-				touchEnabled : true
-			});
-			rxTxts[0].setRightIcon("", rightIconDict);
-		}
-		var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
-		ctrl.setRightIcon("", rightIconDict);
-		ctrl.on("click", didClickRemove);
-		/**
-		 *  ctrl.getView() is ti.textfield widget
-		 *  so used ctrl.getView().getView()
-		 */
-		$.containerView.add(ctrl.getView().getView());
-		rxTxts.push(ctrl);
-		isBusy = false;
-	});
-	$.containerView.animate(anim);
+	var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
+	ctrl.setRightIcon("", rightIconDict);
+	ctrl.on("click", didClickRemove);
+	/**
+	 *  ctrl.getView() will be ti.textfield widget
+	 *  so used ctrl.getView().getView()
+	 */
+	$.containerView.add(ctrl.getView().getView());
+	rxTxts.push(ctrl);
 }
 
 function didClickRemove(e) {
-	isBusy = true;
-	var widgetToRemove = e.source.getView();
+	/**
+	 * length after removing one text field
+	 * length - 1
+	 */
+	var len = rxTxts.length - 1,
+	    widgetToRemove = e.source.getView();
+	$.containerView.height = rxTxtHeight * len;
 	rxTxts = _.reject(rxTxts, function(widget) {
 		if (widget.getView().getView() == widgetToRemove) {
 			return true;
@@ -65,25 +59,13 @@ function didClickRemove(e) {
 		return false;
 	});
 	$.containerView.remove(widgetToRemove);
-	if (rxTxts.length == 1) {
+	if (len == 1) {
 		_.extend(rightIconDict, {
 			title : "",
 			touchEnabled : false
 		});
 		rxTxts[0].setRightIcon("", rightIconDict);
 	}
-	var len = rxTxts.length,
-	    height = (rxTxtHeight * len),
-	    anim = Ti.UI.createAnimation({
-		height : height,
-		duration : 200
-	});
-	anim.addEventListener("complete", function didComplete() {
-		anim.removeEventListener("complete", didComplete);
-		$.containerView.height = height;
-		isBusy = false;
-	});
-	$.containerView.animate(anim);
 }
 
 function didClickOrder(e) {
