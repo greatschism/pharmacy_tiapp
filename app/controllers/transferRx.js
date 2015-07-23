@@ -6,7 +6,7 @@ function didTakePhoto() {
 function didTypePrescription() {
 	$.app.navigator.open({
 		titleid : "titleTransferRx",
-		ctrl : "transferTxTypePresc",
+		ctrl : "transferRxTypePresc",
 		stack : true
 	});
 }
