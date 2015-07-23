@@ -1,0 +1,17 @@
+"#transferRxTypeTitle":{
+	text:Alloy.Globals.strings.transferRxTypePrescTitle
+},
+"#pharmacyFromTitle":{
+	text:Alloy.Globals.strings.transferRxTypePharmacyFromTitle
+},
+"#pharmacyTransferFromPicker":{
+	autoHide: true,
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#pharmacyFromLbl":{
+	text: Alloy.Globals.strings.transferRxTypePrescLblFromPharmacy
+},
+"#pharmacyFromBtn":{
+	title: Alloy.Globals.strings.transferRxTypePrescBtnClose
+},
