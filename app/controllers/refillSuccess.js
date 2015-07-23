@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     prescriptions = args.prescriptions || [],
-    store = args.store;
+    store;
 
 function init() {
 	$.uihelper.getImage("success", $.successImg);
@@ -17,45 +17,30 @@ function focus() {
 	/**
 	 *  prescriptions length should not be zero
 	 *  at this screen
+	 *  always call store get as we don't have
+	 *  store's phone number with list api
 	 */
-	var storeId = prescriptions[0].refill_store_id;
-	if (_.isEmpty(store) || store.id != storeId) {
-		$.http.request({
-			method : "stores_get",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					stores : {
-						id : storeId,
-					}
-				}]
-			},
-			success : didGetStore
-		});
-	} else {
-		updateTable();
-	}
+	$.http.request({
+		method : "stores_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				stores : {
+					id : prescriptions[0].refill_store_id,
+				}
+			}]
+		},
+		success : didGetStore
+	});
 }
 
 function didGetStore(result, passthrough) {
 	store = result.data.stores;
-	_.extend(store, {
-		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
-	});
-	updateTable();
-}
-
-function updateTable() {
-	/**
-	 * title and subtitle will be available
-	 * on all the flows of this screen
-	 * update store attributed property
-	 * will not be available
-	 */
 	var phoneFormatted = $.utilities.formatPhoneNumber(store.phone);
 	_.extend(store, {
 		phone_formatted : phoneFormatted,
+		title : $.utilities.ucword(store.addressline1),
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
 		attributed : String.format($.strings.attrPhone, phoneFormatted)
 	});
 	/**
@@ -90,12 +75,18 @@ function updateTable() {
 }
 
 function didClickStorePhone(e) {
-	$.uihelper.getPhone({
-		firstName : store.title,
-		phone : {
-			work : [store.phone_formatted]
-		}
-	}, store.phone);
+	/**
+	 * incase if store get fails
+	 * store object will be undefined
+	 */
+	if (store) {
+		$.uihelper.getPhone({
+			firstName : store.title,
+			phone : {
+				work : [store.phone_formatted]
+			}
+		}, store.phone);
+	}
 }
 
 function didClickSignup(e) {

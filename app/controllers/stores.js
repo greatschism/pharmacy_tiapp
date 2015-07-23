@@ -22,7 +22,8 @@ var args = arguments[0] || {},
     listIconDict,
     mapIconDict,
     httpClient,
-    currentStore;
+    currentStore,
+    isWindowOpen;
 
 function init() {
 	/**
@@ -50,7 +51,6 @@ function init() {
 		classes : ["icon-map"]
 	});
 	$.containerView.top = $.searchbar.height;
-	$.uihelper.getLocation(didGetLocation);
 }
 
 function didPauseApp(e) {
@@ -882,7 +882,10 @@ function didGetAddress(result, passthrough) {
 }
 
 function focus() {
-	if (currentStore && currentStore.shouldUpdate) {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		$.uihelper.getLocation(didGetLocation);
+	} else if (currentStore && currentStore.shouldUpdate) {
 		currentStore = null;
 		getStores(currentLocation, true, false);
 	}

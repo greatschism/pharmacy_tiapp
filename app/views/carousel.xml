@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollableView>
 		<View onClick="didClick">
-			<Label>Carousel page is under construction, click here to home screen</Label>
+			<Label text="Carousel page is under construction, click here to home screen" class="lbl-centered-wrap" />
 		</View>
 	</ScrollableView>
 </Alloy> 

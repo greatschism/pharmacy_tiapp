@@ -140,8 +140,7 @@ function didRefill(result, passthrough) {
 		ctrl : "refillSuccess",
 		ctrlArguments : {
 			prescriptions : prescriptions,
-			isPartial : isPartial,
-			store : _.clone(store)
+			isPartial : isPartial
 		}
 	});
 }
