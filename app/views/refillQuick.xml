@@ -10,6 +10,15 @@
 		<View class="content-header-view">
 			<Label id="pickupLbl" class="content-header-lbl" />
 		</View>
+		<View id="storeView" class="content-view" onClick="didClickEdit">
+			<View class="content-master-view-70">
+				<Label id="storeTitleLbl" class="content-title" />
+				<Label id="storeSubtitleLbl" class="content-subtitle" />
+			</View>
+			<View class="content-detail-view-30">
+				<Button id="editBtn" class="content-detail-tertiary-icon icon-edit" />
+			</View>
+		</View>
 		<Button id="orderBtn" class="margin-top margin-bottom primary-btn" onClick="didClickOrder" />
 	</ScrollView>
 </Alloy>

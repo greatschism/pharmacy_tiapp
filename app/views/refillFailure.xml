@@ -3,14 +3,14 @@
 		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
 		<View class="margin-top secondary-btn-view" onClick="didClickRefillQuick">
 			<View class="auto-width auto-height">
-				<Label class="secondary-btn-icon icon-list" />
+				<Label class="secondary-btn-left-icon icon-list" />
 				<Label id="refillQuickLbl" class="secondary-btn-lbl-with-licon" />
 			</View>
 		</View>
 		<Require src="templates/optionDivider" />
 		<View class="margin-top margin-bottom secondary-btn-view" onClick="didClickPhone">
 			<View class="auto-width auto-height">
-				<Label class="secondary-btn-icon icon-phone" />
+				<Label class="secondary-btn-left-icon icon-phone" />
 				<Label id="phoneLbl" class="secondary-btn-lbl-with-licon" />
 			</View>
 		</View>
