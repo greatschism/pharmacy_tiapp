@@ -187,7 +187,16 @@ module.exports = {
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnRefillQuick" : "Type prescription details",
-		"refillFailureBtnPhone" : "Call my pharmacy"
+		"refillFailureBtnPhone" : "Call my pharmacy",
+		
+		"transferRxOptionsTitle":"You can transfer prescriptions between different <pharmacy>, or transfer from other pharmacy chains.",
+		"transferRxOptionsScan":"Take a photo",
+		"transferRxOptionsType":"Type prescription details",
+		
+		"transferRxTypePrescTitle":"Fill in the following details to transfer your prescriptions.",
+		"transferRxTypePharmacyFromTitle":"What pharmacy is this from?",
+		"transferRxTypePrescLblFromPharmacy":"From pharmacy",
+		"transferRxTypePrescBtnClose":"Close"
 
 	}
 };
