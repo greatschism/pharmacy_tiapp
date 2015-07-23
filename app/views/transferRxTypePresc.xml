@@ -1,0 +1,27 @@
+<Alloy>
+	<View class="vgroup">
+		<View class="content-header-view-wrap vgroup">
+			<Label id="transferRxTypeTitle" class="lbl-wrap"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="prescNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+			<View class="h-divider" />
+			<Widget id="prescNumberTxt" src="ti.textfield" class="form-txt returnkey-next margin-bottom" onReturn="moveToNext"  />
+		</View>
+		<View class="content-header-view vgroup">
+			<Label id="pharmacyFromTitle" class="lbl-wrap margin-top"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="phoneNumberTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+			<View class="h-divider" />
+		</View>
+		<Widget id="pharmacyTransferFromPicker" src="ti.optionpicker" class="optionpicker" onClick="updatePharmacyTransferPicker">
+			<View class="content-header-view role-header-view">
+				<Label id="pharmacyFromLbl" class="content-header-lbl" />
+			</View>
+			<View class="auto-height">
+				<Button id="pharmacyFromBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickPharmacyTransferFromPickerClose" />
+			</View>
+		</Widget>
+	</View>
+</Alloy>
