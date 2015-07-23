@@ -349,16 +349,6 @@ var Utility = {
 	},
 
 	/**
-	 * returns only the rx number from the scanned barcode
-	 * by removing the store id prefix or suffix
-	 * @param {String} str actual barcode data
-	 * @returns rx number
-	 */
-	getRx : function(str) {
-		return str.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index);
-	},
-
-	/**
 	 * Adds thousands separators to a number
 	 * @param {Number} number The number to perform the action on
 	 */

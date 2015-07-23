@@ -8,7 +8,9 @@ var args = arguments[0] || {},
 	classes : ["txt-negative-right-icon"],
 	touchEnabled : true
 }),
-    rxTxtHeight;
+    store = {},
+    rxTxtHeight,
+    isWindowOpen;
 
 function init() {
 	rxTxtHeight = $.createStyle({
@@ -69,8 +71,13 @@ function didClickRemove(e) {
 }
 
 function didClickOrder(e) {
-	var storeId;
 	//process store
+	if (_.isEmpty(store)) {
+		$.uihelper.showDialog({
+			message : $.strings.refillQuickMsgStoreNoneSelected
+		});
+		return false;
+	}
 	//process rx numbers
 	var validRxs = [];
 	_.some(rxTxts, function(rxTxt) {
@@ -78,7 +85,7 @@ function didClickOrder(e) {
 		if (value) {
 			validRxs.push({
 				rx_number : value,
-				store_id : storeId,
+				store_id : store.id,
 				pickup_mode : apiCodes.pickup_mode_instore,
 				pickup_time_group : apiCodes.pickup_time_group_asap
 			});
@@ -96,6 +103,111 @@ function didClickOrder(e) {
 		});
 		return false;
 	}
+	$.http.request({
+		method : "prescriptions_refill",
+		params : {
+			feature_code : "THXXX",
+			filter : {
+				refill_type : apiCodes.refill_type_quick
+			},
+			data : [{
+				prescriptions : validRxs
+			}]
+		},
+		passthrough : validRxs,
+		success : didRefill
+	});
+}
+
+function didRefill(result, passthrough) {
+	/**
+	 * passthrough will have the valid rx numbers
+	 * the same we sent to api
+	 */
+	var prescriptions = result.data.prescriptions,
+	    isPartial = false;
+	_.each(prescriptions, function(prescription, index) {
+		if (!isPartial && prescription.refill_is_error === "true") {
+			isPartial = true;
+		}
+		_.extend(prescription, {
+			title : $.strings.strPrefixRx.concat(passthrough[index].rx_number.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
+			subtitle : prescription.refill_inline_message || prescription.refill_error_message
+		});
+	});
+	$.app.navigator.open({
+		titleid : "titleRefillSuccess",
+		ctrl : "refillSuccess",
+		ctrlArguments : {
+			prescriptions : prescriptions,
+			isPartial : isPartial,
+			store : _.clone(store)
+		}
+	});
+}
+
+function didClickEdit(e) {
+	$.app.navigator.open({
+		titleid : "titleStores",
+		ctrl : "stores",
+		ctrlArguments : {
+			store : store,
+			selectable : true
+		},
+		stack : true
+	});
+}
+
+function focus() {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		//last refilled store
+		var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
+		if (storeId) {
+			$.http.request({
+				method : "stores_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						stores : {
+							id : storeId,
+						}
+					}]
+				},
+				success : didGetStore
+			});
+		} else {
+			$.storeTitleLbl.text = $.strings.refillQuickLblStoreTitle;
+			$.storeSubtitleLbl.text = $.strings.refillQuickLblStoreSubtitle;
+		}
+	} else if (store.shouldUpdate) {
+		/**
+		 * new store has been picked up
+		 * reset the update flag
+		 */
+		store.shouldUpdate = false;
+		updateStore();
+	}
+}
+
+function didGetStore(result, passthrough) {
+	/**
+	 * update properties to object
+	 * don't replace, if then might clear the reference
+	 * when passed through the controllers
+	 */
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		title : $.utilities.ucword(store.addressline1),
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+	});
+	updateStore();
+}
+
+function updateStore() {
+	$.storeTitleLbl.text = store.title;
+	$.storeSubtitleLbl.text = store.subtitle;
 }
 
 exports.init = init;
+exports.focus = focus;

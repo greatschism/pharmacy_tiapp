@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
-    phone,
-    barcode;
+    barcode,
+    phone;
 
 function init() {
 	var lastPhone = $.utilities.getProperty(Alloy.CFG.latest_phone_used);
@@ -82,7 +82,7 @@ function didRefill(result, passthrough) {
 	var prescription = result.data.prescriptions[0],
 	    navigation;
 	_.extend(prescription, {
-		title : $.strings.strPrefixRx.concat($.utilities.getRx(barcode)),
+		title : $.strings.strPrefixRx.concat(barcode.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
 		subtitle : prescription.refill_inline_message || prescription.refill_error_message
 	});
 	if (prescription.refill_is_error === "true") {

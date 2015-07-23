@@ -48,10 +48,16 @@ function didGetStore(result, passthrough) {
 
 function updateTable() {
 	/**
+	 * title and subtitle will be available
+	 * on all the flows of this screen
 	 * update store attributed property
 	 * will not be available
 	 */
-	store.attributed = String.format($.strings.attrPhone, store.phone_formatted || $.utilities.formatPhoneNumber(store.phone));
+	var phoneFormatted = $.utilities.formatPhoneNumber(store.phone);
+	_.extend(store, {
+		phone_formatted : phoneFormatted,
+		attributed : String.format($.strings.attrPhone, phoneFormatted)
+	});
 	/**
 	 * this is a successful refill
 	 * so store last used store id

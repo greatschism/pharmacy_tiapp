@@ -31,9 +31,11 @@ function didGetStore(result, passthrough) {
 	httpClient = null;
 	if (result && result.data) {
 		_.extend(store, result.data.stores);
-		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
-		store.isbookmarked = parseInt(store.isbookmarked) || 0;
-		store.phone_formatted = $.utilities.formatPhoneNumber(store.phone);
+		_.extend(store, {
+			ishomepharmacy : parseInt(store.ishomepharmacy) || 0,
+			isbookmarked : parseInt(store.isbookmarked) || 0,
+			phone_formatted : $.utilities.formatPhoneNumber(store.phone)
+		});
 	}
 	$.titleLbl.text = store.title;
 	$.subtitleLbl.text = store.subtitle;
@@ -88,7 +90,7 @@ function didGetStore(result, passthrough) {
 
 function updateHome() {
 	$.homeIconBtn.applyProperties($.createStyle({
-		classes : [store.ishomepharmacy ? "secondary-icon" : "inactive-icon"]
+		classes : [store.ishomepharmacy ? "primary-icon" : "inactive-icon"]
 	}));
 }
 

@@ -173,6 +173,9 @@ module.exports = {
 		"refillQuickSectionPresc" : "es-Your order",
 		"refillQuickSectionPickup" : "es-Pickup details",
 		"refillQuickMsgRxInvalid" : "es-One or more prescription number you have entered seem invalid.",
+		"refillQuickLblStoreTitle" : "es-No pharmacy selected",
+		"refillQuickLblStoreSubtitle" : "es-Click here to choose one",
+		"refillQuickMsgStoreNoneSelected" : "es-Please choose a pharmacy for pickup",
 		"refillQuickBtnOrder" : "es-Submit",
 
 		"refillSuccessLblTitle" : "es-Your refill is on the way!",

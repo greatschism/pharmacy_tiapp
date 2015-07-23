@@ -169,7 +169,7 @@ module.exports = {
 					}]
 				}],
 				"navigation" : {
-					"ctrl" : "transferRxOptions"
+					"ctrl" : "transferRx"
 				}
 			}, {
 				"apiName" : "TableViewRow",

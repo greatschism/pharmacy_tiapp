@@ -27,15 +27,15 @@ module.exports = {
 			"prescription_progress_before_x_hours" : 15,
 			"prescription_refills_left_info_negative" : 1,
 			"rx_length" : 12,
-			"rx_start_index" : 4,
-			"rx_end_index" : 11,
-			"rx_validator" : "^[0-9]{4}-[0-9]{7}$",
+			"rx_start_index" : 0,
+			"rx_end_index" : 7,
+			"rx_validator" : "^[0-9]{7}-[0-9]{2,3}$",
 			"rx_formatters" : [{
 				"pattern" : "\\D",
 				"modifiters" : "g",
 				"value" : ""
 			}, {
-				"pattern" : "(\\d{4})(\\d)",
+				"pattern" : "(\\d{7})(\\d)",
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
@@ -196,7 +196,7 @@ module.exports = {
 				"maxLength" : 14
 			},
 			".rx-number" : {
-				"maxLength" : 12
+				"maxLength" : 11
 			},
 			".margin-top" : {
 				"top" : 12
@@ -351,19 +351,6 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 34
 				},
-				"color" : "#FFFFFF",
-				"selectedColor" : "#FFFFFF",
-				"backgroundColor" : "#F7941E",
-				"backgroundSelectedColor" : "#F7941E"
-			},
-			".secondary-icon" : {
-				"left" : 16,
-				"right" : 16,
-				"height" : 50,
-				"font" : {
-					"fontFamily" : "icon",
-					"fontSize" : 34
-				},
 				"color" : "#F7941E",
 				"selectedColor" : "#F7941E",
 				"backgroundColor" : "#FFFFFF",
@@ -426,7 +413,7 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".secondary-btn-icon" : {
+			".secondary-btn-left-icon" : {
 				"left" : 0,
 				"font" : {
 					"fontFamily" : "icon",
