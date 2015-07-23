@@ -434,8 +434,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 	var hPrescriptions = result.data.prescriptions;
 	_.each(hPrescriptions, function(prescription) {
 		_.extend(prescription, {
-			masterWidth : 100,
-			detailWidth : 0,
 			title : $.utilities.ucword(prescription.presc_name),
 			subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
 		});

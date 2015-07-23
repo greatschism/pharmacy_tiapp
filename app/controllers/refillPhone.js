@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
-    phone = "";
+    phone,
+    barcode;
 
 function init() {
 	var lastPhone = $.utilities.getProperty(Alloy.CFG.latest_phone_used);
@@ -40,6 +41,7 @@ function didClickContinue(e) {
 			success : didGetBarcode
 		});
 	} else {
+		//type rx
 		$.app.navigator.open({
 			titleid : "titleRefillQuick",
 			ctrl : "refillQuick",
@@ -52,6 +54,7 @@ function didClickContinue(e) {
 }
 
 function didGetBarcode(e) {
+	barcode = e.result;
 	$.http.request({
 		method : "prescriptions_refill",
 		params : {
@@ -64,7 +67,7 @@ function didGetBarcode(e) {
 					mobile_number : phone,
 					pickup_mode : apiCodes.pickup_mode_instore,
 					pickup_time_group : apiCodes.pickup_time_group_asap,
-					barcode_data : e.result
+					barcode_data : barcode
 				}]
 			}]
 		},
@@ -78,6 +81,10 @@ function didRefill(result, passthrough) {
 	 */
 	var prescription = result.data.prescriptions[0],
 	    navigation;
+	_.extend(prescription, {
+		title : $.strings.strPrefixRx.concat($.utilities.getRx(barcode)),
+		subtitle : prescription.refill_inline_message || prescription.refill_error_message
+	});
 	if (prescription.refill_is_error === "true") {
 		//failure
 		navigation = {

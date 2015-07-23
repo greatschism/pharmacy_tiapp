@@ -33,12 +33,10 @@ function didGetStore(result, passthrough) {
 		_.extend(store, result.data.stores);
 		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
 		store.isbookmarked = parseInt(store.isbookmarked) || 0;
+		store.phone_formatted = $.utilities.formatPhoneNumber(store.phone);
 	}
 	$.titleLbl.text = store.title;
 	$.subtitleLbl.text = store.subtitle;
-	if (!store.phone_formatted) {
-		store.phone_formatted = $.utilities.formatPhoneNumber(store.phone);
-	}
 	$.phoneReplyLbl.text = store.phone_formatted;
 	if (Alloy.Globals.isLoggedIn) {
 		updateHome();
@@ -274,7 +272,7 @@ function didUpdateBookmark(result, passthrough) {
 function didClickFavourite(e) {
 	if (store.ishomepharmacy) {
 		$.uihelper.showDialog({
-			message : $.strings.storeDetMsgCantUpdateHome
+			message : $.strings.storeDetMsgHomeCantUpdate
 		});
 		return false;
 	}
@@ -296,7 +294,7 @@ function didClickHome(e) {
 	 */
 	if (store.ishomepharmacy) {
 		$.uihelper.showDialog({
-			message : $.strings.storeDetMsgCantUpdateHome
+			message : $.strings.storeDetMsgHomeCantUpdate
 		});
 		return false;
 	}

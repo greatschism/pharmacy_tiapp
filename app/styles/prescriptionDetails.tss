@@ -16,8 +16,8 @@
 "#prescAsyncContentView":{
 	top: 0
 },
-"#noPromptLbl":{
-	text: Alloy.Globals.strings.prescDetPromptRxNumber
+"#rxPromptLbl":{
+	text: Alloy.Globals.strings.prescDetPromptRx
 },
 "#expiryPromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptExpirationDate

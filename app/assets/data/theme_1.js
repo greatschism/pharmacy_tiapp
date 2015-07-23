@@ -26,19 +26,19 @@ module.exports = {
 			"prescription_progress_after_x_hours" : 60,
 			"prescription_progress_before_x_hours" : 15,
 			"prescription_refills_left_info_negative" : 1,
-			"rx_number" : {
-				"length" : 12,
-				"validator" : "^[0-9]{4}-[0-9]{7}$",
-				"formatters" : [{
-					"pattern" : "\\D",
-					"modifiters" : "g",
-					"value" : ""
-				}, {
-					"pattern" : "(\\d{4})(\\d)",
-					"modifiters" : "",
-					"value" : "$1-$2"
-				}]
-			},
+			"rx_length" : 12,
+			"rx_start_index" : 4,
+			"rx_end_index" : 11,
+			"rx_validator" : "^[0-9]{4}-[0-9]{7}$",
+			"rx_formatters" : [{
+				"pattern" : "\\D",
+				"modifiters" : "g",
+				"value" : ""
+			}, {
+				"pattern" : "(\\d{4})(\\d)",
+				"modifiters" : "",
+				"value" : "$1-$2"
+			}],
 			"location_timeout" : 900,
 			"http_timeout" : 90,
 			"iconNotations" : {

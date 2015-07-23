@@ -10,12 +10,14 @@ module.exports = {
 		"strNotAvailable" : "Not available",
 		"strDays" : "days",
 		"strDay" : "day",
-		"strAppleMaps" : "Apple Map",
-		"strGoogleMaps" : "Google Map",
+		"strAppleMaps" : "Apple maps",
+		"strGoogleMaps" : "Google maps",
 		"strPhone" : "Call",
 		"strContactAdd" : "Add to contacts",
 		"strOr" : "Or",
 		"strLoading" : "Processing...",
+
+		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
 		"msgLoading" : "Processing. Please wait",
 		"msgNetworkError" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -68,11 +70,11 @@ module.exports = {
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
 		"titleRefillQuick" : "Quick Refill",
-		"titleRefillSuccess" : "Success",
+		"titleRefillSuccess" : "Refill ordered!",
 		"titleRefillFailure" : "We're sorry",
 		"titleSignup" : "Sign up",
 
-		"tempRxTxtHintRx" : "Enter your prescription number",
+		"tmplRxTxtHintRx" : "Enter your prescription number",
 
 		"homeNavBtnLogin" : "Sign in",
 
@@ -80,7 +82,7 @@ module.exports = {
 		"loginHintUsername" : "Username",
 		"loginHintPassword" : "Password",
 		"loginLblRememberMe" : "Keep me logged in",
-		"loginLnkCreateAccount" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
+		"loginAttrCreateAccount" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
@@ -98,7 +100,7 @@ module.exports = {
 		"storeDetBtnFavouriteRemove" : "Remove from favorites",
 		"storeDetSectionHours" : "Store hours",
 		"storeDetSectionServices" : "Store Services",
-		"storeDetMsgCantUpdateHome" : "You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
+		"storeDetMsgHomeCantUpdate" : "This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
@@ -139,7 +141,7 @@ module.exports = {
 		"prescDetInfoDueOn" : "Due for refill",
 		"prescDetInfoLastRefilled" : "Last refilled",
 		"prescDetBtnRefill" : "Refill prescription",
-		"prescDetPromptRxNumber" : "Prescription number:",
+		"prescDetPromptRx" : "Prescription number:",
 		"prescDetPromptExpirationDate" : "Expiration date:",
 		"prescDetPromptDoctor" : "Doctor:",
 		"prescDetPromptStore" : "Pharmacy:",
@@ -175,7 +177,7 @@ module.exports = {
 
 		"refillSuccessLblTitle" : "Your refill is on the way!",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessSectionPresc" : "Prescription transfered:",
+		"refillSuccessSectionPresc" : "Prescription refilled:",
 		"refillSuccessSectionPickup" : "Your refill has been placed at:",
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",

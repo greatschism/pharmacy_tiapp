@@ -2,12 +2,13 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
-				<Label id="titleLbl" class="margin-top title-centered-wrap" />
+				<Label id="titleLbl" class="margin-top title-centered-wrap" if="!$.args.isPartial" />
 				<ImageView id="successImg" class="margin-top margin-bottom" />
-				<Label id="partialLbl" class="margin-top margin-bottom lbl-wrap" if="$.isPartial" />
+				<Label id="partialLbl" class="margin-top margin-bottom lbl-wrap" if="$.args.isPartial" />
 			</View>
 		</HeaderView>
-		<!--moving if="Alloy.Globals.isLoggedIn" to footerView tag might throw null pointer on android(considered as value passed but null)-->
+		<!--moving if="Alloy.Globals.isLoggedIn" to footerView tag might 
+		throw null pointer on android(considered as value passed but null)-->
 		<FooterView>
 			<View class="auto-height vgroup">
 				<Label id="signupLbl" class="margin-top lbl-wrap" if="!Alloy.Globals.isLoggedIn" />

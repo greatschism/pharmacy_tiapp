@@ -96,6 +96,9 @@ module.exports = {
 	".bubble-disabled" : {
 		"bubbleParent" : false
 	},
+	".bubble-disabled-widget" : {
+		"bubbleParent" : true
+	},
 	".background-disabled" : {
 		"backgroundColor" : "transparent"
 	},

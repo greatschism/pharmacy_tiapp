@@ -349,6 +349,16 @@ var Utility = {
 	},
 
 	/**
+	 * returns only the rx number from the scanned barcode
+	 * by removing the store id prefix or suffix
+	 * @param {String} str actual barcode data
+	 * @returns rx number
+	 */
+	getRx : function(str) {
+		return str.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index);
+	},
+
+	/**
 	 * Adds thousands separators to a number
 	 * @param {Number} number The number to perform the action on
 	 */
@@ -372,7 +382,7 @@ var Utility = {
 	 * Adds brackets and hyphens to the rx number
 	 * @param {Srting} str The rx number
 	 */
-	formatRxNumber : function(str) {
+	formatRx : function(str) {
 		if (!_.isString(str)) {
 			str += "";
 		}
@@ -380,10 +390,10 @@ var Utility = {
 		 *  reg exp configurable from theme
 		 *  as it depends on client
 		 */
-		_.each(Alloy.CFG.rx_number.formatters, function(formatter) {
+		_.each(Alloy.CFG.rx_formatters, function(formatter) {
 			str = str.replace(formatter.exp, formatter.value);
 		});
-		return str.slice(0, Alloy.CFG.rx_number.length);
+		return str.slice(0, Alloy.CFG.rx_length);
 	},
 
 	/**
@@ -400,14 +410,14 @@ var Utility = {
 	/**
 	 * Check whether given string valid rx number
 	 * @param {String} str
-	 * returns {Boolean}
+	 * returns {String|Boolean}
 	 */
-	validateRxNumber : function(str) {
+	validateRx : function(str) {
 		/**
 		 *  reg exp configurable from theme
 		 *  as it depends on client
 		 */
-		return Alloy.CFG.rx_number.validator.test(str) ? str.replace(/\D+/g, "") : false;
+		return Alloy.CFG.rx_validator.test(str) ? str.replace(/\D+/g, "") : false;
 	},
 
 	/**

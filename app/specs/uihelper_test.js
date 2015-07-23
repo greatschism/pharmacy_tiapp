@@ -36,7 +36,7 @@ describe("UIHelper Test Suite", function() {
 			//object can be empty when location services are not enabled
 			location.should.be.instanceof(Object);
 			done();
-		});
+		}, false, false);
 	});
 
 	it("Test Case 4: userLocation after calling getLocation", function() {

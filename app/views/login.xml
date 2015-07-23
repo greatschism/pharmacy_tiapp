@@ -12,6 +12,6 @@
 			<Widget id="keepMeSwt" src="ti.switch" class="margin-right swt" />
 		</View>
 		<Button id="loginBtn" class="margin-top margin-bottom primary-btn" onClick="didClickLogin" />
-		<Widget id="createAccountLbl" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickSignup" />
+		<Widget id="createAccountAttr" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

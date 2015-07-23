@@ -1,7 +1,7 @@
 "#titleLbl":{
 	text: Alloy.Globals.strings.refillSuccessLblTitle
 },
-"#successImg[if=$.isPartial]":{
+"#successImg[if=$.args.isPartial]":{
 	bottom: null
 },
 "#partialLbl":{

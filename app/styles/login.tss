@@ -16,8 +16,8 @@
 "#loginBtn":{
 	title: Alloy.Globals.strings.loginBtnLogin
 },
-"#createAccountLbl":{
-	html: Alloy.Globals.strings.loginLnkCreateAccount
+"#createAccountAttr":{
+	html: Alloy.Globals.strings.loginAttrCreateAccount
 },
 "#keepMeSwt[platform=android]":{
 	accessibilityLabelOn: Alloy.Globals.strings.accessibilityLblSwitchOn,

@@ -100,7 +100,7 @@ function loadPresecription() {
 }
 
 function loadDoctor() {
-	$.noReplyLbl.text = prescription.rx_number;
+	$.rxReplyLbl.text = prescription.rx_number;
 	$.expiryReplyLbl.text = moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
 	$.doctorReplyLbl.text = prescription.doctor.title;
 }

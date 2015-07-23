@@ -4,24 +4,24 @@ var args = arguments[0] || {},
     secondaryColor;
 
 (function() {
+	applyProperties(args);
+})();
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+function applyProperties(dict) {
+	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-
-	secondaryFont = args.secondaryFont || {
+	secondaryFont = dict.secondaryFont || {
 		fontWeight : "bold",
 		fontSize : 12
 	};
-	secondaryColor = args.secondaryColor || "#000";
-
-	var value = args.html || args.text;
+	secondaryColor = dict.secondaryColor || "#000";
+	var value = dict.html || dict.text;
 	if (value) {
 		setHtml(value);
 	}
-
-})();
+}
 
 function setHtml(data) {
 	html = data;
@@ -109,4 +109,5 @@ exports.setHtml = setHtml;
 exports.getHtml = getHtml;
 exports.setText = setHtml;
 exports.getText = getHtml;
+exports.applyProperties = applyProperties;
 

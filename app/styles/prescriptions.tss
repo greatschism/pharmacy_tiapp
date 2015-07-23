@@ -17,7 +17,7 @@
 	title: Alloy.Globals.strings.prescPopupSortBtnClose
 },
 "#unhidePicker":{
-	template: "itemTemplates/masterDetailWithLIcon"
+	template: "itemTemplates/contentViewWithLIcon"
 },
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnNone

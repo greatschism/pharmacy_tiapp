@@ -182,14 +182,14 @@ var Configuration = {
 		_.each(Alloy.CFG.iconNotations, function(val, key) {
 			Alloy.CFG.icons[key] = String.fromCharCode(val);
 		});
-		//rx number formatter
-		_.each(Alloy.CFG.rx_number.formatters, function(formatter) {
+		//rx formatter
+		_.each(Alloy.CFG.rx_formatters, function(formatter) {
 			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
 			delete formatter.pattern;
 			delete formatter.modifiters;
 		});
-		//rx number validator
-		Alloy.CFG.rx_number.validator = new RegExp(Alloy.CFG.rx_number.validator);
+		//rx validator
+		Alloy.CFG.rx_validator = new RegExp(Alloy.CFG.rx_validator);
 		//load TSS values from theme
 		Alloy.TSS = {
 			Theme : {

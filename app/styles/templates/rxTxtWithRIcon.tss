@@ -4,5 +4,5 @@
 */
 "#txt":{
 	rightIconText: " ",
-	hintText: Alloy.Globals.strings.tempRxTxtHintRx
+	hintText: Alloy.Globals.strings.tmplRxTxtHintRx
 }

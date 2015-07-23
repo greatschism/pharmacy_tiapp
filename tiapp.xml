@@ -2,7 +2,7 @@
 <ti:app 
   xmlns:ti="http://ti.appcelerator.org">
   <id>com.mscripts.mypharmacy</id>
-  <name>my Pharmacy</name>
+  <name>Carbon Pharmacy</name>
   <version>7.0.0</version>
   <publisher>mscripts</publisher>
   <url>http://www.mscripts.com</url>
@@ -68,7 +68,7 @@
     <manifest android:versionCode="1">
       <uses-sdk android:minSdkVersion="14"/>
       <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
-        <activity android:configChanges="keyboardHidden|orientation" android:name=".MyPharmacyActivity" android:theme="@style/Theme.Material.Splash">
+        <activity android:configChanges="keyboardHidden|orientation" android:name=".CarbonPharmacyActivity" android:theme="@style/Theme.Material.Splash">
           <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
             <category android:name="android.intent.category.LAUNCHER"/>

@@ -14,6 +14,10 @@ function init() {
 }
 
 function focus() {
+	/**
+	 *  prescriptions length should not be zero
+	 *  at this screen
+	 */
 	var storeId = prescriptions[0].refill_store_id;
 	if (_.isEmpty(store) || store.id != storeId) {
 		$.http.request({
@@ -37,13 +41,17 @@ function didGetStore(result, passthrough) {
 	store = result.data.stores;
 	_.extend(store, {
 		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
-		phone_formatted : $.utilities.formatPhoneNumber(store.phone)
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 	});
 	updateTable();
 }
 
 function updateTable() {
+	/**
+	 * update store attributed property
+	 * will not be available
+	 */
+	store.attributed = String.format($.strings.attrPhone, store.phone_formatted || $.utilities.formatPhoneNumber(store.phone));
 	/**
 	 * this is a successful refill
 	 * so store last used store id
@@ -53,13 +61,35 @@ function updateTable() {
 	 * process table
 	 */
 	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
+	var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
+	storeRow.on("click", didClickStorePhone);
+	$.pickupSection.add(storeRow.getView());
+	/**
+	 *  tentative case we are contacting your doctor
+	 *  is not handled as api doesn't have a unique
+	 *  identifier yet for that case
+	 */
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
+	var subtitleClasses = ["content-subtitle-wrap"],
+	    successClasses = ["content-positive-left-icon", "icon-checkbox"],
+	    failureClasses = ["content-negative-left-icon", "icon-close"];
 	_.each(prescriptions, function(prescription) {
-		/*$.prescSection.add(Alloy.createController("itemTemplates/masterDetailWithLIcon", {
-		 title : $.strings.strPrefixRx.concat(prescription.rx_number_id)
-		 }).getView());*/
+		_.extend(prescription, {
+			subtitleClasses : subtitleClasses,
+			iconClasses : prescription.refill_is_error === "true" ? failureClasses : successClasses
+		});
+		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
 	});
 	$.tableView.setData([$.pickupSection, $.prescSection]);
+}
+
+function didClickStorePhone(e) {
+	$.uihelper.getPhone({
+		firstName : store.title,
+		phone : {
+			work : [store.phone_formatted]
+		}
+	}, store.phone);
 }
 
 function didClickSignup(e) {

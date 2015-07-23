@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 require("config").updateTSS($.__controllerPath);
 
 function didChange(e) {
-	var value = utilities.formatRxNumber(e.value),
+	var value = utilities.formatRx(e.value),
 	    len = value.length;
 	$.txt.setValue(value);
 	$.txt.setSelection(len, len);
@@ -20,7 +20,7 @@ function setRightIcon(iconText, iconDict) {
 }
 
 function getValue() {
-	return utilities.validateRxNumber($.txt.getValue());
+	return utilities.validateRx($.txt.getValue());
 }
 
 exports.getValue = getValue;

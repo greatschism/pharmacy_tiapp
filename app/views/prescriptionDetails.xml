@@ -10,8 +10,8 @@
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup async-view role-detail-view">
 				<View id="prescAsyncContentView" class="content-view-vgroup-with-padding">
 					<View class="content-group">
-						<Label id="noPromptLbl" class="content-group-prompt" />
-						<Label id="noReplyLbl" class="content-group-reply" />
+						<Label id="rxPromptLbl" class="content-group-prompt" />
+						<Label id="rxReplyLbl" class="content-group-reply" />
 					</View>
 					<View class="margin-top content-group">
 						<Label id="expiryPromptLbl" class="content-group-prompt" />

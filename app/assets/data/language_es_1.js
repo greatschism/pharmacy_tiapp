@@ -10,12 +10,14 @@ module.exports = {
 		"strNotAvailable" : "es-Not available",
 		"strDays" : "es-days",
 		"strDay" : "es-day",
-		"strAppleMaps" : "es-Apple Map",
-		"strGoogleMaps" : "es-Google Map",
+		"strAppleMaps" : "es-Apple maps",
+		"strGoogleMaps" : "es-Google maps",
 		"strPhone" : "es-Call",
 		"strContactAdd" : "es-Add to contacts",
 		"strOr" : "es-Or",
 		"strLoading" : "es-Processing...",
+
+		"attrPhone" : "es-Call: <secondarycolor>%s</secondarycolor>",
 
 		"msgLoading" : "es-Processing. Please wait",
 		"msgNetworkError" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -68,9 +70,11 @@ module.exports = {
 		"titleLogin" : "es-Sign in",
 		"titleLogout" : "es-Logout",
 		"titleRefillQuick" : "es-Quick Refill",
-		"titleRefillSuccess" : "es-Success",
+		"titleRefillSuccess" : "es-Refill ordered!",
 		"titleRefillFailure" : "es-We're sorry",
 		"titleSignup" : "es-Sign up",
+
+		"tmplRxTxtHintRx" : "es-Enter your prescription number",
 
 		"homeNavBtnLogin" : "es-Sign in",
 
@@ -78,7 +82,7 @@ module.exports = {
 		"loginHintUsername" : "es-Username",
 		"loginHintPassword" : "es-Password",
 		"loginLblRememberMe" : "es-Keep me logged in",
-		"loginLnkCreateAccount" : "es-Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
+		"loginAttrCreateAccount" : "es-Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "es-Please enter your username",
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
@@ -96,7 +100,7 @@ module.exports = {
 		"storeDetBtnFavouriteRemove" : "es-Remove from favorites",
 		"storeDetSectionHours" : "es-Store hours",
 		"storeDetSectionServices" : "es-Store Services",
-		"storeDetMsgCantUpdateHome" : "es-You can't delete your home pharmacy. You may set any other pharmacy as home pharmacy",
+		"storeDetMsgHomeCantUpdate" : "es-This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "es-Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "es-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
@@ -137,7 +141,7 @@ module.exports = {
 		"prescDetInfoDueOn" : "es-Due for refill",
 		"prescDetInfoLastRefilled" : "es-Last refilled",
 		"prescDetBtnRefill" : "es-Refill prescription",
-		"prescDetPromptRxNumber" : "es-Prescription number:",
+		"prescDetPromptRx" : "es-Prescription number:",
 		"prescDetPromptExpirationDate" : "es-Expiration date:",
 		"prescDetPromptDoctor" : "es-Doctor:",
 		"prescDetPromptStore" : "es-Pharmacy:",
@@ -167,12 +171,13 @@ module.exports = {
 		"refillPhoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
 		"refillQuickSectionPresc" : "es-Your order",
-		"refillQuickSectionPickup" : "es-Pharmacy where you filled at last:",
-		"refillQuickBtnOrder" : "es-Order refill",
+		"refillQuickSectionPickup" : "es-Pickup details",
+		"refillQuickMsgRxInvalid" : "es-One or more prescription number you have entered seem invalid.",
+		"refillQuickBtnOrder" : "es-Submit",
 
 		"refillSuccessLblTitle" : "es-Your refill is on the way!",
 		"refillSuccessLblPartial" : "es-We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessSectionPresc" : "es-Prescription transfered:",
+		"refillSuccessSectionPresc" : "es-Prescription refilled:",
 		"refillSuccessSectionPickup" : "es-Your refill has been placed at:",
 		"refillSuccessLblSignup" : "es-Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "es-Sign up",
