@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
+    authenticator = require("authenticator"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentIndex = -1,
@@ -67,24 +68,16 @@ function didDrawerclose(e) {
 				message : strings.msgLogoutConfirm,
 				buttonNames : [strings.dialogBtnYes, strings.dialogBtnNo],
 				cancelIndex : 1,
-				success : function() {
-					http.request({
-						method : "patients_logout",
-						success : function(result, passthrough) {
-							Alloy.Models.patient.clear();
-							Alloy.Collections.menuItems.remove(model);
-							app.navigator.open(landingPage);
-							uihelper.showDialog({
-								message : strings.msgLoggedout
-							});
-						}
-					});
-				}
+				success : logout
 			});
 			break;
 		}
 	}
 	currentIndex = -1;
+}
+
+function logout() {
+	authenticator.logout(true);
 }
 
 function didItemClick(e) {

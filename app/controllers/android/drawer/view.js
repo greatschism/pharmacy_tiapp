@@ -79,6 +79,7 @@ var args = arguments[0] || {},
 		analytics : require("analytics"),
 		apm : require("apm"),
 		window : $.window,
+		setTitle : setTitle,
 		showNavBar : showNavBar,
 		hideNavBar : hideNavBar,
 		setRightNavButton : setRightNavButton,
@@ -104,6 +105,11 @@ function terminate(e) {
 
 function backButtonHandler(e) {
 	return controller.backButtonHandler && controller.backButtonHandler();
+}
+
+function setTitle(title) {
+	$.window.title = title;
+	$.actionBar.title = title;
 }
 
 function showNavBar() {

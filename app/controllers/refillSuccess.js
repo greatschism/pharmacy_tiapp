@@ -2,18 +2,35 @@ var args = arguments[0] || {},
     prescriptions = args.prescriptions || [],
     store;
 
-function init() {
+function focus() {
 	$.uihelper.getImage("success", $.successImg);
-	/**
-	 * this is a successful refill
-	 * so store phone number if available
-	 */
-	if (args.phone) {
-		$.utilities.setProperty(Alloy.CFG.latest_phone_used, phone);
+	var isSuccess = _.findWhere(prescriptions, {
+		refill_is_error : "false"
+	}),
+	    isFailure = _.findWhere(prescriptions, {
+		refill_is_error : "true"
+	});
+	var key;
+	if (isSuccess && isFailure) {
+		//partial success
+		key = "refillSuccessLblPartial";
+	} else if (isSuccess) {
+		//complete success
+		key = "refillSuccessLblSuccess";
+	} else {
+		//complete failure
+		key = "refillSuccessLblFailure";
+	}
+	$.lbl.text = $.strings[key];
+	var storeId = prescriptions[0].refill_store_id;
+	if (storeId) {
+		getStore(storeId);
+	} else {
+		updateTable();
 	}
 }
 
-function focus() {
+function getStore(storeId) {
 	/**
 	 *  prescriptions length should not be zero
 	 *  at this screen
@@ -26,7 +43,7 @@ function focus() {
 			feature_code : "THXXX",
 			data : [{
 				stores : {
-					id : prescriptions[0].refill_store_id,
+					id : storeId
 				}
 			}]
 		},
@@ -43,18 +60,27 @@ function didGetStore(result, passthrough) {
 		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
 		attributed : String.format($.strings.attrPhone, phoneFormatted)
 	});
-	/**
-	 * this is a successful refill
-	 * so store last used store id
-	 */
-	$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+	updateTable();
+}
+
+function updateTable() {
 	/**
 	 * process table
 	 */
-	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
-	var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
-	storeRow.on("click", didClickStorePhone);
-	$.pickupSection.add(storeRow.getView());
+	var data = [];
+	if (store) {
+		/**
+		 * this is a successful refill
+		 * so store last used store id
+		 */
+		$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		//add pickup details
+		$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
+		var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
+		storeRow.on("click", didClickStorePhone);
+		$.pickupSection.add(storeRow.getView());
+		data.push($.pickupSection);
+	}
 	/**
 	 *  tentative case we are contacting your doctor
 	 *  is not handled as api doesn't have a unique
@@ -71,22 +97,27 @@ function didGetStore(result, passthrough) {
 		});
 		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
 	});
-	$.tableView.setData([$.pickupSection, $.prescSection]);
+	data.push($.prescSection);
+
+	///update table
+	$.tableView.setData(data);
+
+	/**
+	 * this is a successful refill
+	 * so store phone number if available
+	 */
+	if (args.phone) {
+		$.utilities.setProperty(Alloy.CFG.latest_phone_used, phone);
+	}
 }
 
 function didClickStorePhone(e) {
-	/**
-	 * incase if store get fails
-	 * store object will be undefined
-	 */
-	if (store) {
-		$.uihelper.getPhone({
-			firstName : store.title,
-			phone : {
-				work : [store.phone_formatted]
-			}
-		}, store.phone);
-	}
+	$.uihelper.getPhone({
+		firstName : store.title,
+		phone : {
+			work : [store.phone_formatted]
+		}
+	}, store.phone);
 }
 
 function didClickSignup(e) {
@@ -96,5 +127,4 @@ function didClickSignup(e) {
 	});
 }
 
-exports.init = init;
 exports.focus = focus;

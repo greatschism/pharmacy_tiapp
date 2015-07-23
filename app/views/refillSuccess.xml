@@ -2,9 +2,8 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
-				<Label id="titleLbl" class="margin-top title-centered-wrap" if="!$.args.isPartial" />
-				<ImageView id="successImg" class="margin-top margin-bottom" />
-				<Label id="partialLbl" class="margin-top margin-bottom lbl-wrap" if="$.args.isPartial" />
+				<ImageView id="successImg" class="margin-top" />
+				<Label id="lbl" class="margin-top margin-bottom lbl-wrap" />
 			</View>
 		</HeaderView>
 		<!--moving if="Alloy.Globals.isLoggedIn" to footerView tag might 

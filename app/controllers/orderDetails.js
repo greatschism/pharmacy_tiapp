@@ -464,17 +464,13 @@ function didClickOrder(e) {
 }
 
 function didRefill(result, passthrough) {
-	var refilledPrescs = result.data.prescriptions,
-	    isPartial = false;
+	var refilledPrescs = result.data.prescriptions;
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order
 	 * of prescriptions client sent, otherwise this can break
 	 */
 	_.each(refilledPrescs, function(presc, index) {
-		if (!isPartial && presc.refill_is_error === "true") {
-			isPartial = true;
-		}
 		_.extend(presc, {
 			title : prescriptions[index].title,
 			subtitle : presc.refill_inline_message || presc.refill_error_message
@@ -484,8 +480,7 @@ function didRefill(result, passthrough) {
 		titleid : "titleRefillSuccess",
 		ctrl : "refillSuccess",
 		ctrlArguments : {
-			prescriptions : refilledPrescs,
-			isPartial : isPartial
+			prescriptions : refilledPrescs
 		}
 	});
 }

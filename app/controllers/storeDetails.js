@@ -256,7 +256,7 @@ function updateStatus(isFavourite, isHome) {
 
 function didUpdateBookmark(result, passthrough) {
 	httpClient = null;
-	if (result && result.code == Alloy.CFG.apiCodes.success_code) {
+	if (result && result.code == Alloy.CFG.apiCodes.success) {
 		_.extend(store, passthrough);
 		/*
 		 * update ui

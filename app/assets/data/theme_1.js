@@ -39,8 +39,9 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
-			"location_timeout" : 900,
 			"http_timeout" : 90,
+			"session_timeout" : 90,
+			"location_timeout" : 900,
 			"iconNotations" : {
 				"switch_on" : "0xE001",
 				"switch_off" : "0xE002",

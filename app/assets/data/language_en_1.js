@@ -31,6 +31,7 @@ module.exports = {
 		"msgContactsAuthorizationRestricted" : "You have restricted the access for your contacts. Please check your settings.",
 		"msgContactsAuthorizationDenied" : "Your have disallowed app from accessing contacts. Please check your settings.",
 		"msgContactAdded" : "Contact added successfully.",
+		"msgSeesionTimeout" : "Your session has expired. Please re-login to access the application.",
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have signed out successfully.",
 		"msgBarcode" : "Center the barcode inside the box to scan",
@@ -178,25 +179,25 @@ module.exports = {
 		"refillQuickMsgStoreNoneSelected" : "Please choose a pharmacy for pickup",
 		"refillQuickBtnOrder" : "Submit",
 
-		"refillSuccessLblTitle" : "Your refill is on the way!",
+		"refillSuccessLblSuccess" : "We have processed your order",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessSectionPresc" : "Prescription refilled:",
-		"refillSuccessSectionPickup" : "Your refill has been placed at:",
+		"refillSuccessLblFailure" : "We are sorry, your order could not be processed",
+		"refillSuccessSectionPresc" : "Your order",
+		"refillSuccessSectionPickup" : "Pickup details",
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnRefillQuick" : "Type prescription details",
 		"refillFailureBtnPhone" : "Call my pharmacy",
-		
-		"transferRxOptionsTitle":"You can transfer prescriptions between different <pharmacy>, or transfer from other pharmacy chains.",
-		"transferRxOptionsScan":"Take a photo",
-		"transferRxOptionsType":"Type prescription details",
-		
-		"transferRxTypePrescTitle":"Fill in the following details to transfer your prescriptions.",
-		"transferRxTypePharmacyFromTitle":"What pharmacy is this from?",
-		"transferRxTypePrescLblFromPharmacy":"From pharmacy",
-		"transferRxTypePrescBtnClose":"Close"
 
+		"transferRxOptionsTitle" : "You can transfer prescriptions between different <pharmacy>, or transfer from other pharmacy chains.",
+		"transferRxOptionsScan" : "Take a photo",
+		"transferRxOptionsType" : "Type prescription details",
+
+		"transferRxTypePrescTitle" : "Fill in the following details to transfer your prescriptions.",
+		"transferRxTypePharmacyFromTitle" : "What pharmacy is this from?",
+		"transferRxTypePrescLblFromPharmacy" : "From pharmacy",
+		"transferRxTypePrescBtnClose" : "Close"
 	}
 };

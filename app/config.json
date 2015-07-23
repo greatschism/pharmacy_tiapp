@@ -8,7 +8,7 @@
             "codes_get": "codes/get",
             "patient_authenticate": "patient/authenticate",
             "patient_get": "patient/get",
-            "patients_logout": "patients/logout",
+            "patient_logout": "patient/logout",
             "stores_list": "stores/list",
             "stores_get": "stores/get",
             "stores_bookmark_add": "stores/bookmark/add",
@@ -24,7 +24,8 @@
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory"
         },
         "apiCodes": {
-            "success_code": "200",
+            "success": "200",
+            "session_expired": "ECOH998",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "store_view_type_list": "LIST",

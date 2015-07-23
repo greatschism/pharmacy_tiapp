@@ -124,12 +124,8 @@ function didRefill(result, passthrough) {
 	 * passthrough will have the valid rx numbers
 	 * the same we sent to api
 	 */
-	var prescriptions = result.data.prescriptions,
-	    isPartial = false;
+	var prescriptions = result.data.prescriptions;
 	_.each(prescriptions, function(prescription, index) {
-		if (!isPartial && prescription.refill_is_error === "true") {
-			isPartial = true;
-		}
 		_.extend(prescription, {
 			title : $.strings.strPrefixRx.concat(passthrough[index].rx_number.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
 			subtitle : prescription.refill_inline_message || prescription.refill_error_message
@@ -139,8 +135,7 @@ function didRefill(result, passthrough) {
 		titleid : "titleRefillSuccess",
 		ctrl : "refillSuccess",
 		ctrlArguments : {
-			prescriptions : prescriptions,
-			isPartial : isPartial
+			prescriptions : prescriptions
 		}
 	});
 }

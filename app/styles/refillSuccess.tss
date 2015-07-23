@@ -1,12 +1,3 @@
-"#titleLbl":{
-	text: Alloy.Globals.strings.refillSuccessLblTitle
-},
-"#successImg[if=$.args.isPartial]":{
-	bottom: null
-},
-"#partialLbl":{
-	text: Alloy.Globals.strings.refillSuccessLblPartial
-},
 "#signupLbl":{
 	text: Alloy.Globals.strings.refillSuccessLblSignup
 },

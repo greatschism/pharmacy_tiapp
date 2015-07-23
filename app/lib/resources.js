@@ -262,7 +262,7 @@ var Res = {
 	},
 
 	didUpdate : function(result, passthrough) {
-		if ((_.has(result, "code") && result.code != Alloy.CFG.apiCodes.success_code) || (_.has(result, "success") && result.success === false)) {
+		if ((_.has(result, "code") && result.code != Alloy.CFG.apiCodes.success) || (_.has(result, "success") && result.success === false)) {
 			passthrough.error = true;
 			logger.error(TAG, "unable to download", passthrough, "with error", result);
 		} else {

@@ -47,9 +47,10 @@ var args = arguments[0] || {},
 		analytics : require("analytics"),
 		apm : require("apm"),
 		window : $.window,
+		setTitle : setTitle,
 		showNavBar : showNavBar,
 		hideNavBar : hideNavBar,
-		setRightNavButton : setRightNavButton,
+		setRightNavButton : setRightNavButton
 	});
 
 	controller.init && controller.init();
@@ -94,6 +95,11 @@ function didClickLeftNavView(e) {
 		return;
 	}
 	app.navigator.close(1, e && e.source == $.window);
+}
+
+function setTitle(title) {
+	$.window.title = title;
+	$.actionBar.title = title;
 }
 
 function showNavBar() {

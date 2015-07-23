@@ -64,6 +64,7 @@ var args = arguments[0] || {},
 		analytics : require("analytics"),
 		apm : require("apm"),
 		window : $.window,
+		setTitle : setTitle,
 		showNavBar : showNavBar,
 		hideNavBar : hideNavBar,
 		setRightNavButton : setRightNavButton,
@@ -96,6 +97,10 @@ function didClickLeftNavView(e) {
 	} else {
 		app.navigator.drawer.toggleLeftWindow();
 	}
+}
+
+function setTitle(title) {
+	$.window.title = title;
 }
 
 function showNavBar(animated) {

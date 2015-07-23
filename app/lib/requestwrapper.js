@@ -5,15 +5,28 @@
 var TAG = "RequestWrapper",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
+    moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("http"),
     localization = require("localization"),
     utilities = require("utilities"),
     encryptionUtil = require("encryptionUtil"),
-    logger = require("logger");
+    logger = require("logger"),
+    lastRequest = moment().unix();
 
 function request(args) {
+
+	var sessionId = Alloy.Models.patient.get("session_id");
+
+	//trigger session timeout
+	if (sessionId && (moment().unix() - lastRequest) > Alloy.CFG.session_timeout) {
+		hideLoader(args, true);
+		return sessionTimeout(Alloy.Globals.strings.msgSeesionTimeout);
+	}
+
+	//update time stamp
+	lastRequest = moment().unix();
 
 	if (!_.has(args, "type")) {
 		args.type = "POST";
@@ -45,7 +58,7 @@ function request(args) {
 		version : Alloy.CFG.api_version,
 		lang : localization.currentLanguage.code,
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
-		session_id : Alloy.Models.patient.get("session_id")
+		session_id : sessionId
 	});
 	args.params = JSON.stringify(args.params, null, 4);
 
@@ -76,14 +89,18 @@ function didSuccess(result, passthrough) {
 	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result);
 	}
-	if (result.code !== Alloy.CFG.apiCodes.success_code) {
+	if (result.code !== Alloy.CFG.apiCodes.success) {
+		//handle session timeout
+		if (result.errorCode === Alloy.CFG.apiCodes.session_expired) {
+			hideLoader(passthrough, true);
+			return sessionTimeout(result.message);
+		}
 		if (passthrough.errorDialogEnabled !== false) {
-			if (passthrough.forceRetry === true) {
-				passthrough.failureMessage = result.message || Alloy.Globals.strings.msgUnknownError;
+			if (passthrough.retry !== false || passthrough.forceRetry === true) {
 				return didFail(result, passthrough);
 			}
 			uihelper.showDialog({
-				message : result.message || Alloy.Globals.strings.msgUnknownError
+				message : result.message || getErrorMessage(result.code)
 			});
 		}
 		hideLoader(passthrough, true);
@@ -99,12 +116,12 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	var forceRetry = passthrough.forceRetry === true,
-	    retry = forceRetry || passthrough.retry !== false;
-	if (passthrough.errorDialogEnabled !== false && (forceRetry || retry)) {
+	if (passthrough.errorDialogEnabled !== false) {
+		var forceRetry = passthrough.forceRetry === true,
+		    retry = forceRetry || passthrough.retry !== false;
 		hideLoader(passthrough, true);
 		uihelper.showDialog({
-			message : passthrough.failureMessage || Alloy.Globals.strings.msgNetworkError,
+			message : error.message || getErrorMessage(result.code),
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
@@ -144,7 +161,7 @@ function hideLoader(passthrough, isFailure) {
 	 * keppLoader may fail to remove loader
 	 * at all
 	 */
-	if (isFailure || passthrough.keepLoader !== true) {
+	if (passthrough.keepLoader !== true || isFailure) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}
@@ -158,6 +175,21 @@ function didComplete(passthrough) {
 	if (passthrough.done) {
 		passthrough.done(passthrough.passthrough);
 	}
+}
+
+function getErrorMessage(code) {
+
+}
+
+function sessionTimeout(message) {
+	uihelper.showDialog({
+		message : message,
+		success : didConfirmLogout
+	});
+}
+
+function didConfirmLogout() {
+	require("authenticator").logout();
 }
 
 exports.request = request;
