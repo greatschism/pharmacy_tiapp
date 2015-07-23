@@ -1,0 +1,9 @@
+"#transferRxOptionsTitle":{
+	text:Alloy.Globals.strings.transferRxOptionsTitle
+},
+"#transferRxTakePhotoBtn":{
+	title:Alloy.Globals.strings.transferRxOptionsScan
+},
+"#transferRxTypeBtn":{
+	title:Alloy.Globals.strings.transferRxOptionsType
+}

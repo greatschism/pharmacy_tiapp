@@ -57,7 +57,7 @@ module.exports = {
 		"titleRewards" : "Savings Catcher",
 		"titleCoupons" : "Coupons",
 		"titleFamilyAccounts" : "Family accounts",
-		"titleTransferRx" : "Transfer Rx",
+		"titleTransferRx" : "Transfer prescription",
 		"titleRefill" : "Refill now",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
@@ -184,7 +184,11 @@ module.exports = {
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnRefillQuick" : "Type prescription details",
-		"refillFailureBtnPhone" : "Call my pharmacy"
+		"refillFailureBtnPhone" : "Call my pharmacy",
+		
+		"transferRxOptionsTitle":"You can transfer prescriptions between different <pharmacy>, or transfer from other pharmacy chains.",
+		"transferRxOptionsScan":"Take a photo",
+		"transferRxOptionsType":"Type prescription details"
 
 	}
 };
