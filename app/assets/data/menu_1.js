@@ -32,7 +32,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleTransferRx",
-		"action" : "transferRx",
+		"ctrl" : "transferRx",
 		"icon" : "thick_transfer",
 		"requires_login" : false
 	}, {

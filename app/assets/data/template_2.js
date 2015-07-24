@@ -133,7 +133,7 @@ module.exports = {
 											}]
 										}],
 										"navigation" : {
-											"action" : "transferRx"
+											"ctrl" : "transferRx"
 										}
 									}]
 								}]

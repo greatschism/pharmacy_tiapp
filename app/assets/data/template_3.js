@@ -112,7 +112,7 @@ module.exports = {
 							}]
 						}],
 						"navigation" : {
-							"action" : "transferRx"
+							"ctrl" : "transferRx"
 						}
 					}, {
 						"apiName" : "View",
