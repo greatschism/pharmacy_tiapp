@@ -1,24 +1,19 @@
 <Alloy>
 	<View class="vgroup">
-		<View class="content-header-view-wrap vgroup">
-			<Label id="transferRxTypeTitle" class="lbl-wrap"/>
+		<View class="content-header-view-wrap vgroup ">
+			<Label id="transferRxTypeTitle" class="lbl-wrap margin-top margin-bottom"/>
 		</View>
 		<View class="margin-top form-vgroup">
 			<Widget id="prescNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
-			<View class="h-divider" />
-			<Widget id="prescNumberTxt" src="ti.textfield" class="form-txt returnkey-next margin-bottom" onReturn="moveToNext"  />
+			<View class="h-divider"></View>
+			<Widget id="prescNumberTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 		</View>
-		<View class="content-header-view vgroup">
+		<View class="content-header-view vgroup margin-top margin-bottom">
 			<Label id="pharmacyFromTitle" class="lbl-wrap margin-top"/>
 		</View>
 		<View class="margin-top form-vgroup">
-			<Widget id="phoneNumberTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
-			
+			<Widget id="phoneNumberTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext" onChange="didChange" />
 		</View>
+		<Button id="btnNext" class="primary-btn margin-top" onClick="didClickNext"/>
 	</View>
-	<Widget id="pharmacyTransferFromPicker" src="ti.optionpicker" class="optionpicker" onClick="updatePharmacyTransferPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="pharmacyFromLbl" class="content-header-lbl" />
-		</View>	
-	</Widget>
 </Alloy>

@@ -4,11 +4,17 @@
 "#pharmacyFromTitle":{
 	text:Alloy.Globals.strings.transferRxTypePharmacyFromTitle
 },
-"#pharmacyTransferFromPicker":{
-	
-	radioButton: true,
-	titleProperty: "code_display"
+"#prescNameTxt":{
+	hintText:Alloy.Globals.strings.transferRxTypePrescHintPrescName
 },
-"#pharmacyFromLbl":{
-	text: Alloy.Globals.strings.transferRxTypePrescLblFromPharmacy
+"#prescNumberTxt":{
+	hintText:Alloy.Globals.strings.transferRxTypePrescHintPrescNo
+},
+"#phoneNumberTxt":{
+	hintText:Alloy.Globals.strings.transferRxTypePrescHintPrescPhone
+},
+"#btnNext":{
+	title:Alloy.Globals.strings.transferRxTypePrescBtnNext
 }
+		
+		
