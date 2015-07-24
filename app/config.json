@@ -25,7 +25,7 @@
         },
         "apiCodes": {
             "success": "200",
-            "session_timeout": "ECOH998",
+            "session_expired": "ECOH998",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "store_view_type_list": "LIST",
@@ -42,7 +42,8 @@
             "pickup_mode_mail_order": "mailorder",
             "pickup_time_group_asap": "ASAP",
             "code_sort_order_preference": "Sort Order Preference",
-            "code_pickup_modes": "Pickup Mode"
+            "code_pickup_modes": "Pickup Mode",
+            "code_original_pharmacy": "Original Pharmacy"
         },
         "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=",
         "log_level": "debug",
