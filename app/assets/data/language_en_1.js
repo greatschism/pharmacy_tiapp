@@ -200,6 +200,13 @@ module.exports = {
 		"transferRxTypePrescTitle" : "Fill in the following details to transfer your prescriptions.",
 		"transferRxTypePharmacyFromTitle" : "What pharmacy is this from?",
 		"transferRxTypePrescLblFromPharmacy" : "From pharmacy",
-		"transferRxTypePrescBtnClose" : "Close"
+		"transferRxTypePrescBtnClose" : "Close",
+		"transferRxTypePrescHintPrescName":"Enter your prescription name",
+		"transferRxTypePrescHintPrescNo":"Rx number (optional)",
+		"transferRxTypePrescHintPrescPhone":"Pharmacy phone number",
+		"transferRxTypePrescBtnNext":"Next",
+		"transferRxTypePrescValPrescName":"Please enter the prescription name.",
+		"transferRxTypePrescValPhone":"Please enter the phone number.",
+		"transferRxTypePrescValPhoneInvalid":"The mobile number you have entered is invalid."
 	}
 };
