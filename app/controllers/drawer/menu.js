@@ -43,13 +43,9 @@ function didDrawerclose(e) {
 		if (itemObj.ctrl != ctrlPath) {
 			if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 				if (ctrlPath != "login") {
-					app.navigator.open({
-						ctrl : "login",
-						titleid : "titleLogin",
-						ctrlArguments : {
-							navigation : itemObj
-						}
-					});
+					authenticator.init(function() {
+						app.navigator.open(itemObj);
+					}, itemObj);
 				}
 			} else {
 				app.navigator.open(itemObj);

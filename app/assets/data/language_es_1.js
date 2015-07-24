@@ -20,7 +20,9 @@ module.exports = {
 		"attrPhone" : "es-Call: <secondarycolor>%s</secondarycolor>",
 
 		"msgLoading" : "es-Processing. Please wait",
-		"msgNetworkError" : "es-You need an internet connection to use this app. Please try again once you are connected.",
+		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
+		"msgNetworkTimeout" : "es-It's taking longer than expected, please check your network connection and try again.",
+		"msgServicesDown" : "es-Services are currently down. please try again later.",
 		"msgUnknownError" : "es-Something went wrong! please try again later.",
 		"msgAppUpdateFound" : "es-There is an update, do you want to download now?",
 		"msgAppUpdateFailed" : "es-We are unable to download the updates at the moment. Please try again later.",
@@ -31,6 +33,7 @@ module.exports = {
 		"msgContactsAuthorizationRestricted" : "es-You have restricted the access for your contacts. Please check your settings.",
 		"msgContactsAuthorizationDenied" : "es-Your have disallowed app from accessing contacts. Please check your settings.",
 		"msgContactAdded" : "es-Contact added successfully.",
+		"msgSeesionTimeout" : "es-Your session has expired. Please re-login to access the application.",
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have signed out successfully.",
 		"msgBarcode" : "es-Center the barcode inside the box to scan",
@@ -117,8 +120,8 @@ module.exports = {
 		"prescSwipeOptRefill" : "es-Refill",
 		"prescInProgressLblPromise" : "es-Order processed: ready by %s",
 		"prescReadyPickupLblReady" : "es-Ready for pickup",
-		"prescReadyPickupLblRestock" : "es-You have <secondaryfont><secondarycolor>%d %s</secondarycolor></secondaryfont> left to pick this up!",
-		"prescReadyPickupLblRestockToday" : "es-You have to pick up this prescription <secondaryfont><secondarycolor>today</secondarycolor></secondaryfont>!",
+		"prescReadyPickupAttrRestock" : "es-You have <secondaryfont><secondarycolor>%d %s</secondarycolor></secondaryfont> left to pick this up!",
+		"prescReadyPickupAttrRestockToday" : "es-You have to pick up this prescription <secondaryfont><secondarycolor>today</secondarycolor></secondaryfont>!",
 		"prescReadyRefillBtnHide" : "es-Hide",
 		"prescReadyRefillLblOverdue" : "es-overdue by",
 		"prescReadyRefillLblRefillIn" : "es-refill in",
@@ -146,8 +149,8 @@ module.exports = {
 		"prescDetPromptDoctor" : "es-Doctor:",
 		"prescDetPromptStore" : "es-Pharmacy:",
 		"prescDetSectionReminders" : "es-Reminders",
-		"prescDetLblRemindMeRefill" : "es-Remind me to <secondaryfont>refill</secondaryfont> this medication",
-		"prescDetLblRemindMeTake" : "es-Set a time to <secondaryfont>take</secondaryfont> this medication",
+		"prescDetAttrRemindMeRefill" : "es-Remind me to <secondaryfont>refill</secondaryfont> this medication",
+		"prescDetAttrRemindMeTake" : "es-Set a time to <secondaryfont>take</secondaryfont> this medication",
 		"prescDetSectionInformation" : "es-Information",
 		"prescDetLblHistory" : "es-Refill history",
 		"prescDetLblInstruction" : "es-Dosage instructions",
@@ -178,16 +181,25 @@ module.exports = {
 		"refillQuickMsgStoreNoneSelected" : "es-Please choose a pharmacy for pickup",
 		"refillQuickBtnOrder" : "es-Submit",
 
-		"refillSuccessLblTitle" : "es-Your refill is on the way!",
+		"refillSuccessLblSuccess" : "es-We have processed your order",
 		"refillSuccessLblPartial" : "es-We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessSectionPresc" : "es-Prescription refilled:",
-		"refillSuccessSectionPickup" : "es-Your refill has been placed at:",
+		"refillSuccessLblFailure" : "es-We are sorry, your order could not be processed",
+		"refillSuccessSectionPresc" : "es-Your order",
+		"refillSuccessSectionPickup" : "es-Pickup details",
 		"refillSuccessLblSignup" : "es-Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "es-Sign up",
 
 		"refillFailureLblTitle" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnRefillQuick" : "es-Type prescription details",
-		"refillFailureBtnPhone" : "es-Call my pharmacy"
+		"refillFailureBtnPhone" : "es-Call my pharmacy",
 
+		"transferRxOptionsTitle" : "es-You can transfer prescriptions between different <pharmacy>, or transfer from other pharmacy chains.",
+		"transferRxOptionsScan" : "es-Take a photo",
+		"transferRxOptionsType" : "es-Type prescription details",
+
+		"transferRxTypePrescTitle" : "es-Fill in the following details to transfer your prescriptions.",
+		"transferRxTypePharmacyFromTitle" : "es-What pharmacy is this from?",
+		"transferRxTypePrescLblFromPharmacy" : "es-From pharmacy",
+		"transferRxTypePrescBtnClose" : "es-Close"
 	}
 };

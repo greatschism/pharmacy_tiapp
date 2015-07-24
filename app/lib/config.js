@@ -175,7 +175,7 @@ var Configuration = {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
 		}
 		//convert seconds to milliseconds
-		_.each(["http_timeout", "session_timeout", "location_timeout"], function(prop) {
+		_.each(["http_timeout", "location_timeout"], function(prop) {
 			Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
 		});
 		//icons notation to character

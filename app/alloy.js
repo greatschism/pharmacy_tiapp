@@ -1,5 +1,29 @@
 (function() {
 
+	/**
+	 *  common js modules
+	 *  to prevent empty objects being returned
+	 *  this is recommended
+	 */
+	require("alloy/moment-timezone");
+	require("com.scule");
+	require("utilities");
+	require("encryptionUtil");
+	require("com.scule.tiencrypted");
+	require("core");
+	require("resources");
+	require("config");
+	require("localization");
+	require("uihelper");
+	require("logger");
+	require("http");
+	require("requestwrapper");
+	require("authenticator");
+	require("apm");
+	require("analytics");
+	require("barcode");
+	require("notificationHandler");
+
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
@@ -34,10 +58,5 @@
 	Alloy.Models.patient.on("change:logged_in", function didLoginChange() {
 		Alloy.Globals.isLoggedIn = Alloy.Models.patient.get("logged_in") === true;
 	});
-
-	//initialize scule tiencrypted storage engine
-	require("com.scule.tiencrypted");
-	//initialize moment-timezone
-	require("alloy/moment-timezone");
 
 })();

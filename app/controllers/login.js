@@ -37,17 +37,14 @@ function didClickLogin(e) {
 	if ($.utilities.isPhoneNumber(uname)) {
 		//yet to handle
 	} else {
-		authenticator.init(didAuthenticate, uname, password, $.keepMeSwt.getValue());
+		authenticator.init(didAuthenticate, null, uname, password, $.keepMeSwt.getValue());
 	}
 }
 
 function didAuthenticate() {
-	//ensure we are logged in and have session id
-	if (Alloy.Models.patient.get("session_id")) {
-		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
-			landing_page : true
-		}).toJSON());
-	}
+	$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 function didClickPassword(e) {

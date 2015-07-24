@@ -2,25 +2,34 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     prescription = args.prescription,
     rows = [],
+    isWindowOpen,
     httpClient;
 
 function init() {
-	if (!_.has(prescription, "history")) {
-		httpClient = $.http.request({
-			method : "prescriptions_getrefillhistory",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					prescriptions : [{
-						id : prescription.id
-					}]
-				}]
-			},
-			showLoader : false,
-			success : didGetHistory
-		});
-	} else {
+	if (_.has(prescription, "history")) {
 		setTimeout(didGetHistory, 1000);
+	}
+}
+
+function focus() {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		if (!_.has(prescription, "history")) {
+			isWindowOpen = true;
+			httpClient = $.http.request({
+				method : "prescriptions_getrefillhistory",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						prescriptions : [{
+							id : prescription.id
+						}]
+					}]
+				},
+				showLoader : false,
+				success : didGetHistory
+			});
+		}
 	}
 }
 
@@ -85,4 +94,5 @@ function terminate() {
 }
 
 exports.init = init;
+exports.focus = focus;
 exports.terminate = terminate;

@@ -31,11 +31,11 @@
 "#remindersLbl":{
 	text: Alloy.Globals.strings.prescDetSectionReminders
 },
-"#remindMeLbl":{
-	html: Alloy.Globals.strings.prescDetLblRemindMeRefill
+"#remindRefillAttr":{
+	html: Alloy.Globals.strings.prescDetAttrRemindMeRefill
 },
-"#timeLbl":{
-	html: Alloy.Globals.strings.prescDetLblRemindMeTake
+"#remindTakeAttr":{
+	html: Alloy.Globals.strings.prescDetAttrRemindMeTake
 },
 "#informationLbl":{
 	text: Alloy.Globals.strings.prescDetSectionInformation

@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     prescription = args.prescription,
+    isWindowOpen,
     httpClient;
 
 function init() {
@@ -11,32 +12,39 @@ function init() {
 	});
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	if (!_.has(prescription, "store")) {
-		httpClient = $.http.request({
-			method : "prescriptions_get",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					prescriptions : {
-						id : prescription.id,
-						sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-						prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
-					}
-				}]
-			},
-			showLoader : false,
-			success : didGetPrescription
-		});
-	} else {
-		loadPresecription();
-		loadDoctor();
-		loadStore();
-	}
 	/**
 	 * height has to be calculated and applied for expanable views only once the page is rendered
 	 * this may cause jerk on screen, avoid it by showing a loader on init
 	 */
+	if (_.has(prescription, "store")) {
+		loadPresecription();
+		loadDoctor();
+		loadStore();
+	}
 	setTimeout(hideLoader, 1000);
+}
+
+function focus() {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		if (!_.has(prescription, "store")) {
+			httpClient = $.http.request({
+				method : "prescriptions_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						prescriptions : {
+							id : prescription.id,
+							sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
+							prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
+						}
+					}]
+				},
+				showLoader : false,
+				success : didGetPrescription
+			});
+		}
+	}
 }
 
 function hideLoader() {
@@ -212,4 +220,5 @@ function terminate() {
 }
 
 exports.init = init;
+exports.focus = focus;
 exports.terminate = terminate;

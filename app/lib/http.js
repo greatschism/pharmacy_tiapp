@@ -110,8 +110,8 @@ exports.request = function(args) {
 		logger.debug(TAG, "No internet connection");
 		if (args.failure) {
 			args.failure({
-				code : 1007,
-				error : "No network connection. No network."
+				code : -1004,
+				error : "Could not connect to the server."
 			}, args.passthrough || {});
 		}
 		if (args.done) {

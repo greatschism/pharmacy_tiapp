@@ -7,26 +7,35 @@ var TAG = "RequestWrapper",
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
     app = require("core"),
-    uihelper = require("uihelper"),
     http = require("http"),
     localization = require("localization"),
-    utilities = require("utilities"),
-    encryptionUtil = require("encryptionUtil"),
-    logger = require("logger"),
-    lastRequest = moment().unix();
+    uihelper = require("uihelper"),
+    logger = require("logger");
+
+/**
+ *  initiate last request time
+ *  using this 
+ */
+Alloy.Globals.lastRequest = moment().unix();
 
 function request(args) {
 
 	var sessionId = Alloy.Models.patient.get("session_id");
 
-	//trigger session timeout
-	if (sessionId && (moment().unix() - lastRequest) > Alloy.CFG.session_timeout) {
-		hideLoader(args, true);
+	/**
+	 * trigger session timeout
+	 * if session id is avaibale and time of last api call is more than session_timeout
+	 * and must not be a patient logout
+	 */
+	if (sessionId && (moment().unix() - Alloy.Globals.lastRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
+		/**
+		 *  hide loader is required in case
+		 *  it was created by a previous network call
+		 *  with keep loader set to true
+		 */
+		app.navigator.hideLoader();
 		return sessionTimeout(Alloy.Globals.strings.msgSeesionTimeout);
 	}
-
-	//update time stamp
-	lastRequest = moment().unix();
 
 	if (!_.has(args, "type")) {
 		args.type = "POST";
@@ -34,10 +43,6 @@ function request(args) {
 
 	if (!_.has(args, "timeout")) {
 		args.timeout = Alloy.CFG.http_timeout;
-	}
-
-	if (!_.has(args, "format")) {
-		args.format = "json";
 	}
 
 	if (!_.has(args, "params")) {
@@ -63,13 +68,12 @@ function request(args) {
 	args.params = JSON.stringify(args.params, null, 4);
 
 	if (Alloy.CFG.encryption_enabled) {
-		args.params = encryptionUtil.encrypt(args.params);
+		args.params = require("encryptionUtil").encrypt(args.params);
 	}
 
 	/**
 	 *  returns the actual http client object
 	 */
-
 	return http.request({
 		url : Alloy.CFG.base_url.concat(Alloy.CFG.apiPath[args.method]),
 		type : args.type,
@@ -85,28 +89,31 @@ function request(args) {
 }
 
 function didSuccess(result, passthrough) {
-	logger.debug(TAG, "response", result.code, result.message);
 	if (Alloy.CFG.encryption_enabled) {
-		result = encryptionUtil.decrypt(result);
+		result = require("encryptionUtil").decrypt(result) || "{}";
 	}
+	/**
+	 * should receive data as text from http
+	 * before decrypting it can be converted to json
+	 */
+	result = JSON.parse(result);
+	logger.debug(TAG, "response", result.code, result.message);
 	if (result.code !== Alloy.CFG.apiCodes.success) {
-		//handle session timeout
-		if (result.errorCode === Alloy.CFG.apiCodes.session_expired) {
+		/**
+		 * handle session timeout
+		 * ignore it if logout
+		 */
+		if (result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
 			hideLoader(passthrough, true);
 			return sessionTimeout(result.message);
 		}
-		if (passthrough.errorDialogEnabled !== false) {
-			if (passthrough.retry !== false || passthrough.forceRetry === true) {
-				return didFail(result, passthrough);
-			}
-			uihelper.showDialog({
-				message : result.message || getErrorMessage(result.code)
-			});
-		}
-		hideLoader(passthrough, true);
-		if (passthrough.failure) {
-			passthrough.failure(result, passthrough.passthrough);
-		}
+		/**
+		 * this is a error response by server
+		 * not a actual http error
+		 * so avoid retry alerts
+		 */
+		passthrough.retry = false;
+		return didFail(result, passthrough);
 	} else {
 		hideLoader(passthrough);
 		if (passthrough.success) {
@@ -116,18 +123,22 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
+	hideLoader(passthrough, true);
 	if (passthrough.errorDialogEnabled !== false) {
 		var forceRetry = passthrough.forceRetry === true,
 		    retry = forceRetry || passthrough.retry !== false;
-		hideLoader(passthrough, true);
 		uihelper.showDialog({
 			message : error.message || getErrorMessage(result.code),
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
+				/**
+				 * decrypt string for resending
+				 */
 				if (Alloy.CFG.encryption_enabled) {
-					passthrough.params = encryptionUtil.decrypt(passthrough.params);
+					passthrough.params = require("encryptionUtil").decrypt(passthrough.params);
 				}
+				//convert string back to json object
 				passthrough.params = JSON.parse(passthrough.params);
 				request(passthrough);
 			},
@@ -143,11 +154,8 @@ function didFail(error, passthrough) {
 				}
 			}
 		});
-	} else {
-		hideLoader(passthrough, true);
-		if (passthrough.failure) {
-			passthrough.failure(error, passthrough.passthrough);
-		}
+	} else if (passthrough.failure) {
+		passthrough.failure(error, passthrough.passthrough);
 	}
 }
 
@@ -172,13 +180,31 @@ function hideLoader(passthrough, isFailure) {
 }
 
 function didComplete(passthrough) {
+	//update time stamp
+	Alloy.Globals.lastRequest = moment().unix();
+	//process done
 	if (passthrough.done) {
 		passthrough.done(passthrough.passthrough);
 	}
 }
 
 function getErrorMessage(code) {
-
+	var key;
+	switch(code) {
+	case 404:
+		key = "msgServicesDown";
+		break;
+	case -1001:
+	case -1002:
+		key = "msgNetworkTimeout";
+		break;
+	case -1004:
+		key = "msgNoInternet";
+		break;
+	default:
+		key = "msgUnknownError";
+	}
+	return Alloy.Globals.strings[key];
 }
 
 function sessionTimeout(message) {

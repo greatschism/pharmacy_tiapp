@@ -201,7 +201,7 @@ function didGetPrescriptionList(result, passthrough) {
 		case apiCodes.refill_status_ready:
 			if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
 				prescription.set({
-					tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupLblRestockToday" : "prescReadyPickupLblRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
+					tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
 					tooltipType : "negative"
 				});
 			}

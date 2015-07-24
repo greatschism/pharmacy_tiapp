@@ -1,29 +1,37 @@
 var args = arguments[0] || {},
     CONSTS = "CONST_" + $.__controllerPath,
     store = args.store,
-    httpClient;
+    httpClient,
+    isWindowOpen;
 
 function init() {
 	/**
 	 * check whether to call api
 	 * or use cached data
 	 */
-	if (!_.has(store, "hours")) {
-		httpClient = $.http.request({
-			method : "stores_get",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					stores : {
-						id : store.id
-					}
-				}]
-			},
-			showLoader : false,
-			success : didGetStore
-		});
-	} else {
+	if (_.has(store, "hours")) {
 		setTimeout(didGetStore, 1000);
+	}
+}
+
+function focus() {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		if (!_.has(store, "hours")) {
+			httpClient = $.http.request({
+				method : "stores_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						stores : {
+							id : store.id
+						}
+					}]
+				},
+				showLoader : false,
+				success : didGetStore
+			});
+		}
 	}
 }
 
@@ -320,4 +328,5 @@ function terminate() {
 }
 
 exports.init = init;
+exports.focus = focus;
 exports.terminate = terminate;

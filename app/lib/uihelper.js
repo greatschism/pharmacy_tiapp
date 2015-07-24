@@ -189,17 +189,14 @@ var Helper = {
 	 * Add phone number to contacts
 	 * @param {Object} personObj Titanium.Contacts.Person dictionary for creating contact
 	 * @param {Boolean} requestAccess whether to request for access
-	 * @param {Boolean} preventDialog whether to prevent success dialog
 	 */
-	addContact : function(personObj, requestAccess, preventDialog) {
+	addContact : function(personObj, requestAccess) {
 		switch(Ti.Contacts.contactsAuthorization) {
 		case Ti.Contacts.AUTHORIZATION_AUTHORIZED:
 			Ti.Contacts.createPerson(personObj);
-			if (preventDialog !== false) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgContactAdded
-				});
-			}
+			Helper.showDialog({
+				message : Alloy.Globals.strings.msgContactAdded
+			});
 			break;
 		case Ti.Contacts.AUTHORIZATION_DENIED:
 			Helper.showDialog({
@@ -215,7 +212,7 @@ var Helper = {
 			if (requestAccess !== false) {
 				Ti.Contacts.requestAuthorization(function(e) {
 					if (e.success) {
-						Helper.addContact(personObj, false, preventDialog);
+						Helper.addContact(personObj, false);
 					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgContactsAuthorizationDenied
@@ -250,11 +247,15 @@ var Helper = {
 		var dict = {
 			title : params.title || Ti.App.name,
 			persistent : _.isUndefined(params.persistent) ? true : params.persistent
-		};
+		},
+		    cancel = params.cancelIndex;
+		if (_.isUndefined(cancel)) {
+			cancel = -1;
+		}
 		if (_.has(params, "buttonNames")) {
 			_.extend(dict, {
 				buttonNames : params.buttonNames,
-				cancel : params.cancelIndex || -1
+				cancel : cancel
 			});
 		} else {
 			_.extend(dict, {
@@ -271,7 +272,6 @@ var Helper = {
 		}
 		var dialog = Ti.UI.createAlertDialog(dict);
 		dialog.addEventListener("click", function(e) {
-			var cancel = params.cancelIndex || -1;
 			if (params.success && e.index !== cancel) {
 				params.success(e.index, e);
 			} else if (params.cancel && e.index === cancel) {
