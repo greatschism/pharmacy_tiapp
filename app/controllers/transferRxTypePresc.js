@@ -67,8 +67,21 @@ function didClickNext() {
 		});
 		return;
 	}
-	
-	
+	if (!Alloy.Globals.isLoggedIn) {
+		$.app.navigator.open({
+			ctrl : "transferRxUserDetails",
+			titleid : "titleTransferRx",
+		});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleStores",
+			ctrl : "stores",
+			ctrlArguments : {
+				selectable : true
+			},
+			stack : true
+		});
+	}
 }
 
 function moveToNext(e) {

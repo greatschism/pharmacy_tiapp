@@ -207,6 +207,8 @@ module.exports = {
 		"transferRxTypePrescBtnNext":"Next",
 		"transferRxTypePrescValPrescName":"Please enter the prescription name.",
 		"transferRxTypePrescValPhone":"Please enter the phone number.",
-		"transferRxTypePrescValPhoneInvalid":"The mobile number you have entered is invalid."
+		"transferRxTypePrescValPhoneInvalid":"The mobile number you have entered is invalid.",
+		
+		"transferRxUserDetTitle":"We need some details about you so we can process your transfer."
 	}
 };
