@@ -76,7 +76,7 @@ function logout() {
 	authenticator.logout(true);
 }
 
-function didItemClick(e) {
+function didClickTableView(e) {
 	currentIndex = e.index;
 	app.navigator.drawer.toggleLeftWindow();
 	if (OS_IOS) {

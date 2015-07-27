@@ -13,10 +13,13 @@ var TAG = "RequestWrapper",
     logger = require("logger");
 
 /**
- *  initiate last request time
- *  using this 
+ *  initiate latest request time
+ *  doing this in global name space
+ *  if local name space is used might not be
+ *  updated properly as we go through many callback
+ *  Note: callback keeps variables states
  */
-Alloy.Globals.lastRequest = moment().unix();
+Alloy.Globals.latestRequest = moment().unix();
 
 function request(args) {
 
@@ -24,10 +27,11 @@ function request(args) {
 
 	/**
 	 * trigger session timeout
-	 * if session id is avaibale and time of last api call is more than session_timeout
+	 * if session id is available and time of latest api call is more than session_timeout
 	 * and must not be a patient logout
 	 */
-	if (sessionId && (moment().unix() - Alloy.Globals.lastRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
+	var now = moment().unix();
+	if (sessionId && (now - Alloy.Globals.latestRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
 		/**
 		 *  hide loader is required in case
 		 *  it was created by a previous network call
@@ -36,6 +40,15 @@ function request(args) {
 		app.navigator.hideLoader();
 		return sessionTimeout(Alloy.Globals.strings.msgSeesionTimeout);
 	}
+
+	/**
+	 * update time stamp
+	 * should be updated here
+	 * moving this to any where else or done function
+	 * may result in updating this only after all callback
+	 * are completed, patient get after authenticate will fail
+	 */
+	Alloy.Globals.latestRequest = now;
 
 	if (!_.has(args, "type")) {
 		args.type = "POST";
@@ -128,7 +141,7 @@ function didFail(error, passthrough) {
 		var forceRetry = passthrough.forceRetry === true,
 		    retry = forceRetry || passthrough.retry !== false;
 		uihelper.showDialog({
-			message : error.message || getErrorMessage(result.code),
+			message : error.message || getErrorMessage(error.code),
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
@@ -180,9 +193,6 @@ function hideLoader(passthrough, isFailure) {
 }
 
 function didComplete(passthrough) {
-	//update time stamp
-	Alloy.Globals.lastRequest = moment().unix();
-	//process done
 	if (passthrough.done) {
 		passthrough.done(passthrough.passthrough);
 	}

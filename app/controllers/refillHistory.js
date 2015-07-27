@@ -83,7 +83,7 @@ function didClickTableView(e) {
 				},
 				stack : true
 			});
-		});
+		}, false, false);
 	}
 }
 

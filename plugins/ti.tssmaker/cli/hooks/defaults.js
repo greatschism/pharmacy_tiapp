@@ -12,16 +12,11 @@ module.exports = {
 		"windowSoftInputMode" : "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
 	},
 	"TableView" : {
-		"footerDividersEnabled" : true
+		"footerDividersEnabled" : true,
+		"filterAttribute" : "Alloy.Globals.filterAttribute"
 	},
 	"ListView" : {
 		"footerDividersEnabled" : true
-	},
-	"TableView[platform=android]" : {
-		"filterAttribute" : "title"
-	},
-	"TableView[platform=ios]" : {
-		"filterAttribute" : "filterableText"
 	},
 	"TableViewRow" : {
 		"height" : "Ti.UI.SIZE"
@@ -108,6 +103,9 @@ module.exports = {
 	".row-selection-disabled" : {
 		"selectedBackgroundColor" : "transparent"
 	},
+	".autocaps-sentences" : {
+		"autocapitalization" : "Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES"
+	},
 	".keyboard-email" : {
 		"keyboardType" : "Ti.UI.KEYBOARD_EMAIL"
 	},
@@ -148,6 +146,8 @@ module.exports = {
 		"role" : "detailView"
 	},
 	".swt[platform=android]" : {
+		"accessibilityLabelOn" : "Alloy.Globals.strings.accessibilityLblSwitchOn",
+		"accessibilityLabelOff" : "Alloy.Globals.strings.accessibilityLblSwitchOff",
 		"trackShape" : "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape" : "Ti.App.Android.R.drawable.switch_thumb",
 		"style" : "Ti.UI.Android.SWITCH_STYLE_SWITCH"
@@ -179,6 +179,14 @@ module.exports = {
 	},
 	".optionpicker" : {
 		"iconText" : "Alloy.CFG.icons.spot",
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+	},
+	".dropdown" : {
+		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+	},
+	".form-dropdown" : {
+		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".search-txt" : {

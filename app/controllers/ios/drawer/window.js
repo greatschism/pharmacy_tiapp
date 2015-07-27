@@ -72,7 +72,7 @@ var args = arguments[0] || {},
 
 	controller.init && controller.init();
 
-	controller.setParentViews && controller.setParentViews($.window);
+	controller.setParentView && controller.setParentView($.window);
 
 })();
 

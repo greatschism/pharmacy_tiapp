@@ -30,5 +30,5 @@
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="doneBtn" class="margin-bottom primary-btn" if="$.args.selectable" onClick="didClickDone" />
+	<Button id="submitBtn" class="margin-bottom primary-btn" if="$.args.selectable" onClick="didClickSubmit" />
 </Alloy> 

@@ -1,6 +1,6 @@
 <Alloy>
 	<View>
-		<TableView id="tableView" onClick="didItemClick">
+		<TableView id="tableView" onClick="didClickTableView">
 			<FooterView>
 				<View id="footerView" />
 			</FooterView>

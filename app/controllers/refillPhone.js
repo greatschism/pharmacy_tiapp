@@ -19,7 +19,7 @@ function didChange(e) {
 	$.phoneTxt.setSelection(len, len);
 }
 
-function didClickContinue(e) {
+function didClickSubmit(e) {
 	phone = $.phoneTxt.getValue();
 	if (!phone) {
 		$.uihelper.showDialog({
@@ -41,12 +41,17 @@ function didClickContinue(e) {
 			success : didGetBarcode
 		});
 	} else {
-		//type rx
+		/*
+		 * type rx
+		 * store object might have passed
+		 * through store details
+		 */
 		$.app.navigator.open({
-			titleid : "titleRefillQuick",
-			ctrl : "refillQuick",
+			titleid : "titleRefillType",
+			ctrl : "refillType",
 			ctrlArguments : {
-				phone : phone
+				phone : phone,
+				store : args.store
 			},
 			stack : true
 		});
@@ -85,7 +90,7 @@ function didRefill(result, passthrough) {
 		title : $.strings.strPrefixRx.concat(barcode.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
 		subtitle : prescription.refill_inline_message || prescription.refill_error_message
 	});
-	if (prescription.refill_is_error === "true") {
+	if (prescription.refill_is_error === true) {
 		//failure
 		navigation = {
 			titleid : "titleRefillFailure",
@@ -97,10 +102,10 @@ function didRefill(result, passthrough) {
 	} else {
 		//success
 		navigation = {
-			titleid : "titleRefillSuccess",
 			ctrl : "refillSuccess",
 			ctrlArguments : {
-				prescriptions : [prescription]
+				prescriptions : [prescription],
+				phone : phone
 			}
 		};
 	}

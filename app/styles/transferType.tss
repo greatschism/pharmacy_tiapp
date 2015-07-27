@@ -1,0 +1,25 @@
+"#titleLbl":{
+	text: Alloy.Globals.strings.transferTypeLblTitle
+},
+"#nameTxt":{
+	hintText: Alloy.Globals.strings.transferTypeHintName,
+	nextItem: "rxTxt"
+},
+"#rxTxt":{
+	hintText: Alloy.Globals.strings.transferTypeHintRx,
+	nextItem: "phoneTxt"
+},
+"#fromLbl":{
+	text: Alloy.Globals.strings.transferTypeLblFrom
+},
+"#phoneTxt":{
+	hintText: Alloy.Globals.strings.transferTypeHintPhone,
+	nextItem: "storeOriginalDp"
+},
+"#storeOriginalDp":{
+	hintText: Alloy.Globals.strings.transferTypeHintStoreOriginal,
+	titleProperty: "code_display"
+},
+"#submitBtn":{
+	title: Alloy.Globals.strings.transferTypeBtnSubmit
+}

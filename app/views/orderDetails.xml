@@ -12,5 +12,5 @@
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="orderBtn" class="margin-bottom primary-btn" onClick="didClickOrder" />
+	<Button id="refillBtn" class="margin-bottom primary-btn" onClick="didClickRefill" />
 </Alloy> 

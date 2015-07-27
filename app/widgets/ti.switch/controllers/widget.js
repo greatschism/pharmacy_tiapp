@@ -9,20 +9,21 @@ var args = arguments[0] || {};
 
 function updateForState(preventAccessbilityFocus) {
 	if (OS_ANDROID) {
+		var value = $.swt.value;
 		if (args.style == Ti.UI.Android.SWITCH_STYLE_TOGGLEBUTTON) {
 			var dict = {};
-			if (args.onTintColor) {
-				dict.color = $.swt.value ? args.onTintColor : args.tintColor;
+			if (args.tintColorOn) {
+				dict.color = value ? args.tintColorOn : args.tintColorOff;
 			}
 			if (args.imageOn) {
-				dict.backgroundImage = $.swt.value ? args.imageOn : args.imageOff;
+				dict.backgroundImage = value ? args.imageOn : args.imageOff;
 			}
-			if (args.onAccessibilityLabel) {
-				dict.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
+			if (args.accessibilityLabelOn) {
+				dict.accessibilityLabel = value ? args.accessibilityLabelOn : args.accessibilityLabelOff;
 			}
 			$.swt.applyProperties(dict);
-		} else if (args.onAccessibilityLabel) {
-			$.swt.accessibilityLabel = $.swt.value ? args.onAccessibilityLabel : args.offAccessibilityLabel;
+		} else if (args.accessibilityLabelOn) {
+			$.swt.accessibilityLabel = value ? args.accessibilityLabelOn : args.accessibilityLabelOff;
 		}
 		if (Ti.App.accessibilityEnabled && preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
 			Ti.App.fireSystemEvent(Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.swt);

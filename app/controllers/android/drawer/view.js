@@ -10,21 +10,13 @@ var args = arguments[0] || {},
 
 	$.actionBar = $.window.getActivity().actionBar;
 
+	setTitle(args.title || strings[args.titleid || ""] || "");
+
 	if (args.navBarHidden) {
 		hideNavBar();
 	} else if (app.navigator.rootNavBarHidden) {
 		showNavBar();
 	}
-
-	var title = args.title || strings[args.titleid || ""] || "";
-
-	$.window.title = title;
-
-	$.actionBar.setTitleAttributes(_.extend({
-		title : title
-	}, Alloy.TSS.Window.titleAttributes));
-
-	var hasRightNavButton = false;
 
 	//reload tss of this controller in memory
 	require("config").updateTSS(args.ctrl);
@@ -33,7 +25,8 @@ var args = arguments[0] || {},
 	 *  let the new controller know where it is coming from
 	 *  through the origin parameter
 	 */
-	var ctrlArguments = args.ctrlArguments || {};
+	var hasRightNavButton = false,
+	    ctrlArguments = args.ctrlArguments || {};
 	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
 
@@ -87,7 +80,7 @@ var args = arguments[0] || {},
 
 	controller.init && controller.init();
 
-	controller.setParentViews && controller.setParentViews($.contentView);
+	controller.setParentView && controller.setParentView($.contentView);
 
 })();
 
@@ -109,7 +102,9 @@ function backButtonHandler(e) {
 
 function setTitle(title) {
 	$.window.title = title;
-	$.actionBar.title = title;
+	$.actionBar.setTitleAttributes(_.extend({
+		title : title
+	}, Alloy.TSS.Window.titleAttributes));
 }
 
 function showNavBar() {

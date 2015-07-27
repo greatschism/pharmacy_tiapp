@@ -174,14 +174,6 @@ var Configuration = {
 		if (_.isObject(theme.data.config[platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
 		}
-		//convert seconds to milliseconds
-		_.each(["http_timeout", "location_timeout"], function(prop) {
-			Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
-		});
-		//icons notation to character
-		_.each(Alloy.CFG.iconNotations, function(val, key) {
-			Alloy.CFG.icons[key] = String.fromCharCode(val);
-		});
 		//rx formatter
 		_.each(Alloy.CFG.rx_formatters, function(formatter) {
 			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
@@ -190,6 +182,14 @@ var Configuration = {
 		});
 		//rx validator
 		Alloy.CFG.rx_validator = new RegExp(Alloy.CFG.rx_validator);
+		//convert seconds to milliseconds
+		_.each(["http_timeout", "location_timeout"], function(prop) {
+			Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;
+		});
+		//icons notation to character
+		_.each(Alloy.CFG.iconNotations, function(val, key) {
+			Alloy.CFG.icons[key] = String.fromCharCode(val);
+		});
 		//load TSS values from theme
 		Alloy.TSS = {
 			Theme : {

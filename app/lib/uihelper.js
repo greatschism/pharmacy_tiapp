@@ -66,7 +66,7 @@ var Helper = {
 		}
 
 		if (OS_IOS) {
-			var authorization = Ti.Geolocation.locationServicesAuthorization || "";
+			var authorization = Ti.Geolocation.locationServicesAuthorization;
 			if (authorization == Ti.Geolocation.AUTHORIZATION_DENIED) {
 				if (errorDialogEnabled !== false) {
 					Helper.showDialog({
@@ -128,7 +128,7 @@ var Helper = {
 		if (OS_IOS) {
 
 			var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
-				options : [Alloy.Globals.strings.strAppleMaps, Alloy.Globals.strings.strGoogleMaps, Alloy.Globals.strings.dialogBtnCancel],
+				options : [Alloy.Globals.strings.dialogBtnMapApple, Alloy.Globals.strings.dialogBtnMapGoogle, Alloy.Globals.strings.dialogBtnCancel],
 				cancel : 2
 			});
 			optDialog.on("click", function didClick(evt) {
@@ -164,14 +164,14 @@ var Helper = {
 	 */
 	getPhone : function(personObj, phone) {
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
-			options : [Alloy.Globals.strings.strPhone, Alloy.Globals.strings.strContactAdd, Alloy.Globals.strings.dialogBtnCancel],
+			options : [Alloy.Globals.strings.dialogBtnPhone, Alloy.Globals.strings.dialogBtnContactAdd, Alloy.Globals.strings.dialogBtnCancel],
 			cancel : 2
 		});
 		optDialog.on("click", function didClick(evt) {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.showDialer(phone);
+					Helper.openDialer(phone);
 					break;
 				case 1:
 					Helper.addContact(personObj);
@@ -227,8 +227,205 @@ var Helper = {
 	 * Open phone's dialer
 	 * @param {String} phone number to be dialed
 	 */
-	showDialer : function(phone) {
+	openDialer : function(phone) {
 		Ti.Platform.openURL("tel:" + phone);
+	},
+
+	/**
+	 *  Open option dialog for photo
+	 *  @param callback called upon success
+	 *  @param window through which we can get current activity
+	 *  @param width to resize
+	 *  @param height to resize
+	 */
+	getPhoto : function(callback, window, width, height) {
+		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
+			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
+			cancel : 2
+		});
+		optDialog.on("click", function didClick(evt) {
+			if (!evt.cancel) {
+				switch(evt.index) {
+				case 0:
+					Helper.openCamera(callback, window, width, height);
+					break;
+				case 1:
+					Helper.openGallery(callback, window, width, height);
+					break;
+				}
+			}
+			optDialog.off("click", didClick);
+			optDialog.destroy();
+			optDialog = null;
+		});
+		optDialog.show();
+	},
+
+	/**
+	 * open camera for a photo
+	 * @param callback called upon success
+	 * @param window through which we can get current activity
+	 * @param width to resize
+	 * @param height to resize
+	 */
+	openCamera : function(callback, window, width, height) {
+		if (OS_IOS) {
+			var authorization = Ti.Media.cameraAuthorizationStatus;
+			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgCameraAuthorizationDenied
+				});
+			} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgCameraAuthorizationRestricted
+				});
+			}
+			Ti.Media.showCamera({
+				allowEditing : true,
+				saveToPhotoGallery : false,
+				mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
+				success : function didSuccess(e) {
+					var blob = e.media;
+					if (blob) {
+						blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						callback(blob);
+					}
+				},
+				error : function didFail(e) {
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgCameraError
+					});
+				}
+			});
+		} else {
+			/**
+			 * TiCameraActivity doesn't handle orientations of images
+			 * so just use a intent, this also gives user an option
+			 * to pickup different camera apps he has
+			 */
+			if (!Ti.Filesystem.isExternalStoragePresent()) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgExternalStorageError
+				});
+			}
+			var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempCamera.jpg"),
+			    intent = Ti.Android.createIntent({
+				action : "android.media.action.IMAGE_CAPTURE"
+			});
+			intent.putExtraUri("output", tempFile.nativePath);
+			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
+				var resultCode = e.resultCode;
+				if (resultCode == Ti.Android.RESULT_OK) {
+					console.log(tempFile.nativePath);
+					if (tempFile.exists()) {
+						var blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						tempFile.deleteFile();
+						tempFile = null;
+						callback(blob);
+					} else {
+						/**
+						 * output file was was not written
+						 * by the camera app
+						 */
+						Helper.showDialog({
+							message : Alloy.Globals.strings.msgCameraError
+						});
+					}
+				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
+					/**
+					 *  it is not success and user has not cancelled it
+					 *  so something else went wrong
+					 */
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgCameraError
+					});
+				}
+			});
+		}
+	},
+
+	/**
+	 * open gallery for a photo
+	 * @param callback called upon success
+	 * @param window through which we can get current activity
+	 * @param width to resize
+	 * @param height to resize
+	 */
+	openGallery : function(callback, window, width, height) {
+		if (OS_IOS) {
+			var authorization = Ti.Media.cameraAuthorizationStatus;
+			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgGalleryAuthorizationDenied
+				});
+			} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgGalleryAuthorizationRestricted
+				});
+			}
+			Ti.Media.openPhotoGallery({
+				allowEditing : true,
+				mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
+				success : function didSuccess(e) {
+					var blob = e.media;
+					if (blob) {
+						blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						callback(blob);
+					}
+				},
+				error : function didFail(e) {
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgGalleryError
+					});
+				}
+			});
+		} else {
+			/**
+			 * Ti.Media.openPhotoGallery on android
+			 * also calls a intent for picking up a photo
+			 * but that doesn't add edit / crop flags
+			 * to the intent so making our own
+			 */
+			if (!Ti.Filesystem.isExternalStoragePresent()) {
+				return Helper.showDialog({
+					message : Alloy.Globals.strings.msgExternalStorageError
+				});
+			}
+			var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempGallery.jpg"),
+			    intent = Ti.Android.createIntent({
+				action : Ti.Android.ACTION_PICK,
+				type : "image/*"
+			});
+			intent.putExtraUri("output", tempFile.nativePath);
+			intent.putExtra("crop", "true");
+			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
+				var resultCode = e.resultCode;
+				if (resultCode == Ti.Android.RESULT_OK) {
+					if (tempFile.exists()) {
+						var blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						tempFile.deleteFile();
+						tempFile = null;
+						callback(blob);
+					} else {
+						/**
+						 * output file was was not written
+						 * by the gallery app
+						 */
+						Helper.showDialog({
+							message : Alloy.Globals.strings.msgGalleryError
+						});
+					}
+				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
+					/**
+					 *  it is not success and user has not cancelled it
+					 *  so something else went wrong
+					 */
+					Helper.showDialog({
+						message : Alloy.Globals.strings.msgGalleryError
+					});
+				}
+			});
+		}
 	},
 
 	/*
@@ -236,7 +433,7 @@ var Helper = {
 	 * @param {Object} params The arguments for the method
 	 * @param {String} params.title title of alert box
 	 * @param {String} params.message message of alert box
-	 * @param {String[]} params.buttonNames buttonNames of alert box
+	 * @param {Array} params.buttonNames buttonNames of alert box
 	 * @param {String} params.cancelIndex cancel index of alert box
 	 * @param {String} params.ok ok text of alert box
 	 * @param {View} params.androidView androidView of alert box
@@ -285,7 +482,7 @@ var Helper = {
 	 * Open email dialog
 	 * @param {Object} o options
 	 */
-	showEmailDialog : function(o) {
+	openEmailDialog : function(o) {
 		Ti.UI.createEmailDialog(o).open();
 	},
 

@@ -120,11 +120,22 @@ function loadStore() {
 }
 
 function didClickStore(e) {
+	/**
+	 * location has to be shared with store details
+	 * this should be a parameter as based on the
+	 * direction flag only the direction button will be visible
+	 */
+	$.uihelper.getLocation(didGetLocation, false, false);
+}
+
+function didGetLocation(userLocation) {
 	$.app.navigator.open({
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
-			store : prescription.store
+			store : prescription.store,
+			currentLocation : userLocation,
+			direction : !_.isEmpty(userLocation)
 		},
 		stack : true
 	});

@@ -36,7 +36,7 @@ var args = arguments[0] || {},
 
 	$.downArrowLbl.applyProperties({
 		right : args.iconPaddingRight || 12,
-		text : args.iconText || "\"",
+		text : args.iconText,
 		color : args.iconColor || "#000",
 		font : args.iconFont || {
 			fontSize : 12
@@ -49,7 +49,9 @@ var args = arguments[0] || {},
 
 	if (_.has(args, "choices")) {
 		setChoices(args.choices);
-		if (_.has(args, "selectedIndex")) {
+		if (_.has(args, "selectedItem")) {
+			setSelectedItem(args.selectedItem);
+		} else if (_.has(args, "selectedIndex")) {
 			setSelectedIndex(args.selectedIndex);
 		}
 	}
@@ -80,12 +82,12 @@ function setMinDate(minDate) {
 	args.minDate = minDate;
 }
 
-function showPicker() {
+function show() {
 	Ti.App.hideKeyboard();
 	if (!picker && parent) {
-		if (args.type == Ti.UI.PICKER_TYPEdate || args.type == Ti.UI.PICKER_TYPE_TIME) {
+		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
-				var isDatePicker = args.type == Ti.UI.PICKER_TYPEdate,
+				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
 				    _picker = Ti.UI.createPicker();
 				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
@@ -167,7 +169,7 @@ function didTerminatePicker(e) {
 	}
 }
 
-function hidePicker() {
+function hide() {
 	if (picker) {
 		picker.terminate();
 		return true;
@@ -189,6 +191,16 @@ function removeHint() {
 		isHintText = false;
 		$.lbl.color = args.color || "#000";
 	}
+}
+
+function setSelectedItem(where) {
+	_.some(choices, function(choice, index) {
+		if (_.isEqual(choice, where)) {
+			setSelectedIndex(index);
+			return true;
+		}
+		return false;
+	});
 }
 
 function setSelectedIndex(index) {
@@ -226,17 +238,18 @@ function getValue() {
 	return selectedDate;
 }
 
+exports.show = show;
+exports.focus = show;
+exports.hide = hide;
 exports.setValue = setValue;
 exports.getValue = getValue;
 exports.setMaxDate = setMaxDate;
 exports.setMinDate = setMinDate;
-exports.showPicker = showPicker;
-exports.focus = showPicker;
-exports.hidePicker = hidePicker;
 exports.setChoices = setChoices;
 exports.getChoices = getChoices;
 exports.setParentView = setParentView;
 exports.getParentView = getParentView;
+exports.setSelectedItem = setSelectedItem;
 exports.getSelectedItem = getSelectedItem;
 exports.setSelectedIndex = setSelectedIndex;
 exports.getSelectedIndex = getSelectedIndex;

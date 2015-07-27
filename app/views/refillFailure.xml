@@ -1,10 +1,10 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<View class="margin-top secondary-btn-view" onClick="didClickRefillQuick">
+		<View class="margin-top secondary-btn-view" onClick="didClickType">
 			<View class="auto-width auto-height">
 				<Label class="secondary-btn-left-icon icon-list" />
-				<Label id="refillQuickLbl" class="secondary-btn-lbl-with-licon" />
+				<Label id="typeLbl" class="secondary-btn-lbl-with-licon" />
 			</View>
 		</View>
 		<Require src="templates/optionDivider" />

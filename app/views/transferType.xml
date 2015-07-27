@@ -1,0 +1,21 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="content-header-view-wrap">
+			<Label id="titleLbl" class="content-header-lbl-wrap"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="nameTxt" src="ti.textfield" class="form-txt prescription-name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+			<View class="h-divider" />
+			<Widget id="rxTxt" src="ti.textfield" class="form-txt rx-number keyboard-number returnkey-next" onChange="didChangeRx" onReturn="moveToNext"  />
+		</View>
+		<View class="margin-top content-header-view">
+			<Label id="fromLbl" class="content-header-lbl"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
+			<View class="h-divider" />
+			<Widget id="storeOriginalDp" src="ti.dropdown" class="form-dropdown" />
+		</View>
+		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+	</ScrollView>
+</Alloy>

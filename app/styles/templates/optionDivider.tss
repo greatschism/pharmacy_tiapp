@@ -1,3 +1,3 @@
-"#orLbl":{
-	text: Alloy.Globals.strings.strOr
+"#lbl":{
+	text: Alloy.Globals.strings.tmplOptionDividerLbl
 }

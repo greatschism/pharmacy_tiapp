@@ -11,7 +11,7 @@ var args = arguments[0] || {},
 function init() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	if (args.selectable) {
-		$.tableView.bottom = $.tableView.bottom + $.doneBtn.height + $.doneBtn.bottom;
+		$.tableView.bottom = $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom;
 		headerBtnDict = $.createStyle({
 			classes : ["content-header-right-btn"],
 			title : $.strings.prescAddSectionBtnAll
@@ -276,7 +276,7 @@ function didGetPrescriptionList(result, passthrough) {
 			row.on("clickoption", didClickSwipeOption);
 			break;
 		case "masterDetailBtn":
-			row.on("clickdetail", hidePrescription);
+			row.on("clickdetail", doConfirmHide);
 			break;
 		}
 		sectionHeaders[rowParams.section] += rowParams.filterText;
@@ -491,14 +491,7 @@ function didClickSwipeOption(e) {
 	}
 	switch (e.action) {
 	case 1:
-		$.uihelper.showDialog({
-			message : String.format($.strings.prescMsgHideConfirm, e.data.title),
-			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-			cancelIndex : 1,
-			success : function() {
-				hidePrescription(e);
-			}
-		});
+		doConfirmHide(e);
 		break;
 	case 2:
 		$.app.navigator.open({
@@ -511,6 +504,17 @@ function didClickSwipeOption(e) {
 		});
 		break;
 	}
+}
+
+function doConfirmHide(e) {
+	$.uihelper.showDialog({
+		message : String.format($.strings.prescMsgHideConfirm, e.data.title),
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+		cancelIndex : 1,
+		success : function() {
+			hidePrescription(e);
+		}
+	});
 }
 
 function hidePrescription(e) {
@@ -585,7 +589,7 @@ function hideAllPopups() {
 	return false;
 }
 
-function didClickDone(e) {
+function didClickSubmit(e) {
 	/**
 	 * send selected prescriptions
 	 * through the controller arguments

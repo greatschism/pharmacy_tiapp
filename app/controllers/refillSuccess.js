@@ -3,25 +3,39 @@ var args = arguments[0] || {},
     store;
 
 function focus() {
-	$.uihelper.getImage("success", $.successImg);
 	var isSuccess = _.findWhere(prescriptions, {
-		refill_is_error : "false"
+		refill_is_error : false
 	}),
 	    isFailure = _.findWhere(prescriptions, {
-		refill_is_error : "true"
+		refill_is_error : true
 	});
-	var key;
+	var tKey,
+	    iKey,
+	    lKey;
 	if (isSuccess && isFailure) {
 		//partial success
-		key = "refillSuccessLblPartial";
+		tKey = "titleRefillSuccess";
+		iKey = "success";
+		lKey = "refillSuccessLblPartial";
 	} else if (isSuccess) {
 		//complete success
-		key = "refillSuccessLblSuccess";
+		tKey = "titleRefillSuccess";
+		iKey = "success";
+		lKey = "refillSuccessLblSuccess";
 	} else {
 		//complete failure
-		key = "refillSuccessLblFailure";
+		tKey = "titleRefillFailure";
+		lKey = "refillSuccessLblFailure";
 	}
-	$.lbl.text = $.strings[key];
+	$.setTitle($.strings[tKey]);
+	if (iKey) {
+		var dict = $.createStyle({
+			classes : ["margin-top"]
+		});
+		_.extend(dict, $.uihelper.getImage(iKey));
+		$.successImg.applyProperties(dict);
+	}
+	$.lbl.text = $.strings[lKey];
 	var storeId = prescriptions[0].refill_store_id;
 	if (storeId) {
 		getStore(storeId);
@@ -67,19 +81,27 @@ function updateTable() {
 	/**
 	 * process table
 	 */
-	var data = [];
+	var data = [],
+	    isMailOrder = args.pickupMode && args.pickupMode === Alloy.CFG.apiCodes.pickup_mode_mail_order;
+	if (store || isMailOrder) {
+		//add pickup details
+		$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
+		data.push($.pickupSection);
+	}
 	if (store) {
 		/**
 		 * this is a successful refill
 		 * so store last used store id
 		 */
 		$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
-		//add pickup details
-		$.pickupSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPickup);
 		var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
 		storeRow.on("click", didClickStorePhone);
 		$.pickupSection.add(storeRow.getView());
-		data.push($.pickupSection);
+	}
+	if (isMailOrder) {
+		$.pickupSection.add(Alloy.createController("itemTemplates/label", {
+			title : $.strings.refillSuccessLblMailOrder
+		}).getView());
 	}
 	/**
 	 *  tentative case we are contacting your doctor
@@ -88,12 +110,12 @@ function updateTable() {
 	 */
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
 	var subtitleClasses = ["content-subtitle-wrap"],
-	    successClasses = ["content-positive-left-icon", "icon-checkbox"],
-	    failureClasses = ["content-negative-left-icon", "icon-close"];
+	    successClasses = ["margin-top", "content-positive-left-icon", "icon-checkbox"],
+	    failureClasses = ["margin-top", "content-negative-left-icon", "icon-close"];
 	_.each(prescriptions, function(prescription) {
 		_.extend(prescription, {
 			subtitleClasses : subtitleClasses,
-			iconClasses : prescription.refill_is_error === "true" ? failureClasses : successClasses
+			iconClasses : prescription.refill_is_error === true ? failureClasses : successClasses
 		});
 		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
 	});
@@ -107,7 +129,7 @@ function updateTable() {
 	 * so store phone number if available
 	 */
 	if (args.phone) {
-		$.utilities.setProperty(Alloy.CFG.latest_phone_used, phone);
+		$.utilities.setProperty(Alloy.CFG.latest_phone_used, args.phone);
 	}
 }
 

@@ -1,7 +1,7 @@
 "#titleLbl":{
 	text: Alloy.Globals.strings.loginLblTitle
 },
-"#unameTxt":{
+"#usernameTxt":{
 	hintText: Alloy.Globals.strings.loginHintUsername,
 	nextItem: "passwordTxt"
 },
@@ -9,17 +9,15 @@
 	hintText: Alloy.Globals.strings.loginHintPassword,
 	passwordMask: true
 },
-"#keepMeLbl":{
-	right: 60,
-	text: Alloy.Globals.strings.loginLblRememberMe
+"#togglePasswordLbl":{
+	text: Alloy.Globals.strings.loginLblTogglePassword
+},
+"#autoLoginLbl":{
+	text: Alloy.Globals.strings.loginLblAutoLogin
 },
 "#loginBtn":{
 	title: Alloy.Globals.strings.loginBtnLogin
 },
 "#createAccountAttr":{
 	html: Alloy.Globals.strings.loginAttrCreateAccount
-},
-"#keepMeSwt[platform=android]":{
-	accessibilityLabelOn: Alloy.Globals.strings.accessibilityLblSwitchOn,
-	accessibilityLabelOff: Alloy.Globals.strings.accessibilityLblSwitchOff
 }

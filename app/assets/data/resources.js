@@ -155,11 +155,9 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"top" : 40,
 				"height" : 30
 			},
 			"landscape" : {
-				"top" : 40,
 				"height" : 30
 			}
 		},

@@ -4,10 +4,35 @@ var args = arguments[0] || {},
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
 	Alloy.Models.patient.on("change:account", didChangeAccount);
+	/**
+	 * if auto login is enabled
+	 * then auto populate the username and password
+	 * behaviour can be controlled from theme flags
+	 */
+	if (authenticator.getAutoLoginEnabled()) {
+		var data = authenticator.getData();
+		$.usernameTxt.setValue(data.username);
+		$.passwordTxt.setValue(data.password);
+		$.autoLoginSwt.setValue(true);
+	}
 }
 
 function didChangeAccount() {
-	$.unameTxt.setValue(Alloy.Models.patient.get("account"));
+	$.usernameTxt.setValue(Alloy.Models.patient.get("account"));
+}
+
+function didChangeToggle(e) {
+	$.passwordTxt.setPasswordMask(!e.value);
+}
+
+function didChangeAutoLogin(e) {
+	var value = e.value;
+	authenticator.setAutoLoginEnabled(value);
+	if (value) {
+		$.uihelper.showDialog({
+			message : $.strings.loginMsgAutoLogin
+		});
+	}
 }
 
 function moveToNext(e) {
@@ -20,9 +45,9 @@ function moveToNext(e) {
 }
 
 function didClickLogin(e) {
-	var uname = $.unameTxt.getValue(),
+	var username = $.usernameTxt.getValue(),
 	    password = $.passwordTxt.getValue();
-	if (!uname) {
+	if (!username) {
 		$.uihelper.showDialog({
 			message : $.strings.loginValUsername
 		});
@@ -34,10 +59,10 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if ($.utilities.isPhoneNumber(uname)) {
+	if ($.utilities.isPhoneNumber(username)) {
 		//yet to handle
 	} else {
-		authenticator.init(didAuthenticate, null, uname, password, $.keepMeSwt.getValue());
+		authenticator.init(didAuthenticate, null, username, password);
 	}
 }
 

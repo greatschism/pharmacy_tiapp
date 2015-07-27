@@ -71,6 +71,16 @@ function didGetLocation(userLocation) {
 	 *  just updating the location in simulator settings would help
 	 */
 	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
+		/**
+		 * if the api call fails for current location
+		 * with 201 and zero stores
+		 * the currentLocation object will not be updated and map
+		 * will not zoom in to user's current location as per
+		 * requirement, so be on safer side applying it here
+		 */
+		if (!_.isEmpty(userLocation)) {
+			currentLocation = _.pick(userLocation, ["latitude", "longitude"]);
+		}
 		getStores(null, false);
 	} else {
 		/**
@@ -208,7 +218,7 @@ function didGetStores(result, passthrough) {
 
 	/**
 	 * check whether or not to enable
-	 * direction button
+	 * direction button for this result set
 	 */
 	currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	isDirectionEnabled = !_.isEmpty(currentLocation);
@@ -740,13 +750,18 @@ function didClickMap(e) {
 function handleNavigation(params) {
 	//store module opened for selecting a store
 	if (args.selectable) {
-		_.extend(args.store, params);
-		/**
-		 *  let the caller of this screen know
-		 *  store has been changed
-		 */
-		args.store.shouldUpdate = true;
-		$.app.navigator.close();
+		if (args.navigation) {
+			_.extend(args.navigation.ctrlArguments.store, params);
+			$.app.navigator.open(args.navigation);
+		} else {
+			_.extend(args.store, params);
+			/**
+			 *  let the caller of this screen know
+			 *  store has been changed
+			 */
+			args.store.shouldUpdate = true;
+			$.app.navigator.close();
+		}
 		return true;
 	}
 	/**

@@ -128,12 +128,12 @@ module.exports = {
 												"apiName" : "Label",
 												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
 												"properties" : {
-													"textid" : "titleTransferRx"
+													"textid" : "titleTransfer"
 												}
 											}]
 										}],
 										"navigation" : {
-											"ctrl" : "transferRx"
+											"ctrl" : "transfer"
 										}
 									}]
 								}]

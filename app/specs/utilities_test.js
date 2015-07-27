@@ -141,12 +141,12 @@ describe("Utility Test Suite", function() {
 		utilities.validateName("sabc.jkjk").should.be.equal(false);
 	});
 
-	it("Test Case 29: validateUserName with valid username", function() {
-		utilities.validateUserName("abc123").should.be.equal(true);
+	it("Test Case 29: validateUsername with valid username", function() {
+		utilities.validateUsername("abc123").should.be.equal(true);
 	});
 
-	it("Test Case 30: validateUserName with invalid username", function() {
-		utilities.validateUserName("abc-123").should.be.equal(false);
+	it("Test Case 30: validateUsername with invalid username", function() {
+		utilities.validateUsername("abc-123").should.be.equal(false);
 	});
 
 	it("Test Case 31: validateEmail with valid email", function() {

@@ -4,6 +4,6 @@
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.refillPhoneHintPhone
 },
-"#continueBtn":{
-	title: Alloy.Globals.strings.refillPhoneBtnContinue
+"#submitBtn":{
+	title: Alloy.Globals.strings.refillPhoneBtnSubmit
 }

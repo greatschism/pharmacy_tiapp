@@ -39,6 +39,13 @@ function didGetStore(result, passthrough) {
 	httpClient = null;
 	if (result && result.data) {
 		_.extend(store, result.data.stores);
+	}
+	/**
+	 * phone_formatted will only be available
+	 * at this screen, so check for that whetehr if
+	 * that is already cached if not put it
+	 */
+	if (!_.has(store, "phone_formatted")) {
 		_.extend(store, {
 			ishomepharmacy : parseInt(store.ishomepharmacy) || 0,
 			isbookmarked : parseInt(store.isbookmarked) || 0,
@@ -189,16 +196,7 @@ function didClickDirection(e) {
 
 function didClickRefill(e) {
 	var navigation;
-	if (Alloy.Globals.loggedIn) {
-		navigation = {
-			titleid : "titleTypeRx",
-			ctrl : "typeRx",
-			ctrlArguments : {
-				store : store
-			},
-			stack : true
-		};
-	} else {
+	if (Alloy.Globals.isLoggedIn) {
 		/**
 		 * add prescriptions
 		 * and then to order details
@@ -207,7 +205,7 @@ function didClickRefill(e) {
 		 * force pickupMode to pickup_mode_instore
 		 */
 		navigation = {
-			titleid : "titleAddPrescriptions",
+			titleid : "titlePrescriptionsAdd",
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
@@ -224,6 +222,16 @@ function didClickRefill(e) {
 					},
 					stack : true
 				}
+			},
+			stack : true
+		};
+	} else {
+		navigation = {
+			titleid : "titleRefill",
+			ctrl : "refillPhone",
+			ctrlArguments : {
+				store : store,
+				type : Alloy.CFG.apiCodes.refill_type_quick
 			},
 			stack : true
 		};

@@ -108,7 +108,7 @@ var BarcodeReader = {
 			}),
 			    titleLbl = $.UI.create("Label", {
 				classes : ["barcode-title"],
-				text : Alloy.Globals.strings.msgBarcode
+				text : Alloy.Globals.strings.barcodeLblTitle
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			navbarView.add(navIconBtn);

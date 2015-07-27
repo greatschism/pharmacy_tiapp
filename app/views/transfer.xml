@@ -1,0 +1,10 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="content-header-view-wrap">
+			<Label id="titleLbl" class="content-header-lbl-wrap"/>
+		</View>
+		<Button id="photoBtn" class="margin-top secondary-btn" onClick="didClickPhoto"/>
+		<Require src="templates/optionDivider" />
+		<Button id="typeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickType"/>
+	</ScrollView>
+</Alloy>

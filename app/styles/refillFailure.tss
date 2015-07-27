@@ -1,8 +1,8 @@
 "#titleLbl":{
 	text: Alloy.Globals.strings.refillFailureLblTitle
 },
-"#refillQuickLbl":{
-	text: Alloy.Globals.strings.refillFailureBtnRefillQuick
+"#typeLbl":{
+	text: Alloy.Globals.strings.refillFailureBtnType
 },
 "#phoneLbl":{
 	text: Alloy.Globals.strings.refillFailureBtnPhone

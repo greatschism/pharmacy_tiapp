@@ -1,9 +1,9 @@
 var args = arguments[0] || {};
 
-function didClickRefillQuick(e) {
+function didClickType(e) {
 	$.app.navigator.open({
-		titleid : "titleRefillQuick",
-		ctrl : "refillQuick",
+		titleid : "titleRefillType",
+		ctrl : "refillType",
 		ctrlArguments : {
 			phone : args.phone
 		}
@@ -11,5 +11,5 @@ function didClickRefillQuick(e) {
 }
 
 function didClickPhone(e) {
-	$.uihelper.showDialer(Alloy.Models.appload.get("supportphone"));
+	$.uihelper.openDialer(Alloy.Models.appload.get("supportphone"));
 }

@@ -9,6 +9,6 @@
 "#pickupModeCloseBtn":{
 	title: Alloy.Globals.strings.orderDetPopupPickupModeBtnClose
 },
-"#orderBtn":{
+"#refillBtn":{
 	title: Alloy.Globals.strings.orderDetBtnRefill
 }

@@ -1,0 +1,9 @@
+"#titleLbl":{
+	text:Alloy.Globals.strings.transferLblTitle
+},
+"#photoBtn":{
+	title:Alloy.Globals.strings.transferBtnPhoto
+},
+"#typeBtn":{
+	title:Alloy.Globals.strings.transferBtnType
+}

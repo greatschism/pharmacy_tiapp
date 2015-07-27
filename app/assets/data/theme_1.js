@@ -39,9 +39,14 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
+			"toggle_password_enabled" : true,
+			"auto_populate_username" : true,
+			"auto_populate_password" : true,
+			"session_timeout" : 120,
 			"http_timeout" : 90,
-			"session_timeout" : 90,
 			"location_timeout" : 900,
+			"photo_default_width" : 250,
+			"photo_default_height" : 250,
 			"iconNotations" : {
 				"switch_on" : "0xE001",
 				"switch_off" : "0xE002",
@@ -158,23 +163,9 @@ module.exports = {
 				"navTintColor" : "#FFFFFF",
 				"backgroundColor" : "#FFFFFF"
 			},
-			"ListView" : {
-				"separatorColor" : "#D3D4D3",
-				"backgroundColor" : "#FFFFFF"
-			},
-			"ListView[platform=ios]" : {
-				"separatorInsets" : {
-					"top" : 0,
-					"bottom" : 0,
-					"left" : 0,
-					"right" : 0
-				}
-			},
 			"TableView" : {
 				"separatorColor" : "#D3D4D3",
-				"backgroundColor" : "#FFFFFF"
-			},
-			"TableView[platform=ios]" : {
+				"backgroundColor" : "#FFFFFF",
 				"keepSectionsWithNoRowsInSearch" : false,
 				"separatorInsets" : {
 					"top" : 0,
@@ -183,12 +174,22 @@ module.exports = {
 					"right" : 0
 				}
 			},
-			"ListItem" : {
+			"ListView" : {
+				"separatorColor" : "#D3D4D3",
+				"backgroundColor" : "#FFFFFF",
+				"separatorInsets" : {
+					"top" : 0,
+					"bottom" : 0,
+					"left" : 0,
+					"right" : 0
+				}
+			},
+			"TableViewRow" : {
 				"backgroundColor" : "#FFFFFF",
 				"selectedBackgroundColor" : "#D3D4D3",
 				"selectionAsOverlay" : true
 			},
-			"TableViewRow" : {
+			"ListItem" : {
 				"backgroundColor" : "#FFFFFF",
 				"selectedBackgroundColor" : "#D3D4D3",
 				"selectionAsOverlay" : true
@@ -198,6 +199,9 @@ module.exports = {
 			},
 			".rx-number" : {
 				"maxLength" : 11
+			},
+			".prescription-name" : {
+				"maxLength" : 25
 			},
 			".margin-top" : {
 				"top" : 12
@@ -691,7 +695,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
-				"iconColor" : "#808285",
+				"iconColor" : "#808082",
 				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
@@ -1014,8 +1018,8 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 22
 				},
-				"iconColor" : "#808184",
-				"selectedIconColor" : "#808184",
+				"iconColor" : "#808082",
+				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
 					"backgroundColor" : "#6D6E70"
@@ -1039,6 +1043,10 @@ module.exports = {
 			".menu-view" : {
 				"separatorColor" : "transparent",
 				"backgroundColor" : "#F7941E"
+			},
+			".menu-header-image" : {
+				"top" : 40,
+				"bottom" : 12,
 			},
 			".menu-row" : {
 				"backgroundColor" : "transparent",

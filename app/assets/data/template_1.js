@@ -162,14 +162,14 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
-									"textid" : "titleTransferRx"
+									"textid" : "titleTransfer"
 								}
 							}]
 						}]
 					}]
 				}],
 				"navigation" : {
-					"ctrl" : "transferRx"
+					"ctrl" : "transfer"
 				}
 			}, {
 				"apiName" : "TableViewRow",

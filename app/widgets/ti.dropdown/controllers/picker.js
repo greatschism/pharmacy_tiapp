@@ -61,11 +61,14 @@ function init() {
 	for (var i in choices) {
 		data.push(getRow({
 			title : choices[i][titleProperty],
-			iconText : selectedIndex == i ? choices[i].iconText || args.selectedIconText || "+" : ""
+			iconText : selectedIndex == i ? args.selectedIconText : ""
 		}));
 	}
 	$.tableView.setData(data);
-	var height = choices.length * (choiceDict.height + optionPadding.top + optionPadding.bottom);
+	/**
+	 * +5 is some extra padding to keep it look good
+	 */
+	var height = ((choiceDict.height + optionPadding.top + optionPadding.bottom) * choices.length) + 5;
 	$.tableView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
 	_.each(parent.children, function(child) {
 		child.accessibilityHidden = true;
@@ -143,7 +146,7 @@ function didPostlayout(e) {
 	$.picker.animate(animation);
 }
 
-function didItemClick(e) {
+function didClickTableView(e) {
 	var index = e.index;
 	if (index !== selectedIndex) {
 		if (selectedIndex >= 0) {
@@ -154,7 +157,7 @@ function didItemClick(e) {
 		selectedIndex = index;
 		$.tableView.updateRow( OS_IOS ? index : e.row, getRow({
 			title : choices[selectedIndex][titleProperty],
-			iconText : choices[selectedIndex].iconText || args.selectedIconText || "+"
+			iconText : args.selectedIconText
 		}));
 	}
 	$.trigger("change", {

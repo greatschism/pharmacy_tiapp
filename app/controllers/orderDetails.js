@@ -23,7 +23,7 @@ var args = arguments[0] || {},
     isWindowOpen;
 
 function init() {
-	$.tableView.bottom = $.tableView.bottom + $.orderBtn.height + $.orderBtn.bottom;
+	$.tableView.bottom = $.tableView.bottom + $.refillBtn.height + $.refillBtn.bottom;
 	/**
 	 *  if any bookmark operation
 	 *  was performed on this store
@@ -105,7 +105,7 @@ function init() {
 
 function didClickAdd(e) {
 	$.app.navigator.open({
-		titleid : "titleAddPrescriptions",
+		titleid : "titlePrescriptionsAdd",
 		ctrl : "prescriptions",
 		ctrlArguments : {
 			filters : {
@@ -402,7 +402,7 @@ function updatePickupOptionRow() {
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
 		$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
-			title : $.strings.orderDetLblMailOrderAddress
+			title : $.strings.orderDetLblMailOrder
 		});
 		break;
 	}
@@ -430,7 +430,7 @@ function didClickStoreChange(e) {
 	});
 }
 
-function didClickOrder(e) {
+function didClickRefill(e) {
 	/**
 	 * if pickup mode is pickup_mode_mail_order
 	 *  then set the store id to mail_order_store_id from appload
@@ -477,10 +477,10 @@ function didRefill(result, passthrough) {
 		});
 	});
 	$.app.navigator.open({
-		titleid : "titleRefillSuccess",
 		ctrl : "refillSuccess",
 		ctrlArguments : {
-			prescriptions : refilledPrescs
+			prescriptions : refilledPrescs,
+			pickupMode : Alloy.Models.pickupModes.get("selected_code_value")
 		}
 	});
 }

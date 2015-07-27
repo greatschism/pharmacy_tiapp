@@ -1,5 +1,5 @@
 <Alloy>
-	<View onClick="showPicker">
+	<View onClick="show">
 		<Label id="lbl" />
 		<Label id="downArrowLbl" />
 	</View>

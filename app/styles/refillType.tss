@@ -1,0 +1,18 @@
+"#prescLbl":{
+	text: Alloy.Globals.strings.refillTypeSectionPresc
+},
+"#pickupLbl":{
+	text: Alloy.Globals.strings.refillTypeSectionPickup
+},
+"#refillBtn":{
+	title: Alloy.Globals.strings.refillTypeBtnRefill
+},
+"#storeTitleLbl":{
+	text: Alloy.Globals.strings.strLoading
+},
+/**
+ * 	must be false when used inside table / list view
+ */
+"#editBtn":{
+	bubbleParent: true
+}

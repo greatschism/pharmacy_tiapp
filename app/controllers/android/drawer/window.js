@@ -55,7 +55,7 @@ var args = arguments[0] || {},
 
 	controller.init && controller.init();
 
-	controller.setParentViews && controller.setParentViews($.window);
+	controller.setParentView && controller.setParentView($.window);
 
 })();
 
@@ -99,7 +99,9 @@ function didClickLeftNavView(e) {
 
 function setTitle(title) {
 	$.window.title = title;
-	$.actionBar.title = title;
+	$.actionBar.setTitleAttributes(_.extend({
+		title : title
+	}, Alloy.TSS.Window.titleAttributes));
 }
 
 function showNavBar() {

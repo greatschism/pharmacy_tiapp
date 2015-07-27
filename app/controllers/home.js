@@ -140,7 +140,7 @@ function create(dict) {
 	}
 	if (_.has(dict, "navigation")) {
 		element.navigation = dict.navigation;
-		element.addEventListener("click", didItemClick);
+		element.addEventListener("click", didClickItem);
 	}
 	if (_.has(dict, "actions")) {
 		_.each(dict.actions, function(action) {
@@ -171,7 +171,7 @@ function getListener(event) {
 	}
 }
 
-function didItemClick(e) {
+function didClickItem(e) {
 	var navigation = e.source.navigation || {};
 	if (_.has(navigation, "ctrl")) {
 		var menuItem = Alloy.Collections.menuItems.findWhere(navigation);

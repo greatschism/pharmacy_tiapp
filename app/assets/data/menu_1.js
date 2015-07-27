@@ -31,8 +31,8 @@ module.exports = {
 		"icon" : "users",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleTransferRx",
-		"ctrl" : "transferRx",
+		"titleid" : "titleTransfer",
+		"ctrl" : "transfer",
 		"icon" : "thick_transfer",
 		"requires_login" : false
 	}, {

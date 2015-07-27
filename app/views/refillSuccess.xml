@@ -2,7 +2,7 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">
-				<ImageView id="successImg" class="margin-top" />
+				<ImageView id="successImg" />
 				<Label id="lbl" class="margin-top margin-bottom lbl-wrap" />
 			</View>
 		</HeaderView>

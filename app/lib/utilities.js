@@ -398,7 +398,7 @@ var Utility = {
 	},
 
 	/**
-	 * Check whether given string valid rx number
+	 * Check whether given string is valid rx number
 	 * @param {String} str
 	 * returns {String|Boolean}
 	 */
@@ -408,6 +408,15 @@ var Utility = {
 		 *  as it depends on client
 		 */
 		return Alloy.CFG.rx_validator.test(str) ? str.replace(/\D+/g, "") : false;
+	},
+
+	/**
+	 * Check whether given string is valid prescription name
+	 * @param {String} str
+	 * returns {String|Boolean}
+	 */
+	validatePrescriptionName : function(str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-_\s]{1,25}$/.test(str);
 	},
 
 	/**
@@ -424,7 +433,7 @@ var Utility = {
 	 * @param {String} str Can be Alphanumeric with no special characters and length should be 3-20
 	 * returns {Boolean}
 	 */
-	validateUserName : function(str) {
+	validateUsername : function(str) {
 		return /^(?=.*[a-zA-Z])[0-9a-zA-Z]{3,20}$/.test(str);
 	},
 

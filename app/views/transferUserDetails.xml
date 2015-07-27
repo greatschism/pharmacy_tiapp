@@ -1,0 +1,12 @@
+<Alloy>
+	<View class="vgroup">
+		<View class="content-header-view-wrap vgroup ">
+			<Label id="userDetailsTitle" class="lbl-wrap margin-top margin-bottom"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="firstNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+			<View class="h-divider"></View>
+			<Widget id="lastNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+		</View>
+	</View>
+</Alloy>
