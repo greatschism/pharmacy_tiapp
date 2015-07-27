@@ -1,81 +1,103 @@
 <Alloy>
-	<TableView>
-		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="notificationLbl" class="section-header-lbl" />
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="list-item-view-with-child">
-					<Label id="mobileNumberLbl" class="left list-item-lbl" onClick="didClickmobileNumber"/>
-					<Label id="mobileNumberValue" class="right link-single-line" onClick="didClickmobileNumber"/>
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View class="list-item-view-with-child" onClick="didClickEmailAddress">
-					<Label id="emailLbl" class="left list-item-lbl"/>
-					<Label id="emailValue" class="right list-item-lbl link-single-line"/>
-				</View>
-				<Label class="list-item-child" />
-			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="prescriptionDisplayLbl" class="section-header-lbl" />
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="list-item-view">
-					<Widget id="hideExpiredPrescriptionLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="right swt" />
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View class="list-item-view">
-					<Widget id="hideZeroRefillPrescriptionLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="right swt" />
-				</View>
-			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="locationSettingLbl" class="section-header-lbl" />
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="list-item-view-with-child">
-					<Label id="timeZoneLbl" class="left list-item-lbl"/>
-					<Label id="timeZoneValue" class="right list-item-lbl"/>
-				</View>
-			</TableViewRow>
-			<TableViewRow>
-				<View class="list-item-view-with-child">
-					<Label id="languageLbl" class="left list-item-lbl" />
-					<Label id="languageValue" class="right list-item-lbl" />
-				</View>
-			</TableViewRow>
-		</TableViewSection>
-		<TableViewSection>
-			<HeaderView>
-				<View class="section-header-view">
-					<Label id="loginLbl" class="section-header-lbl" />
-				</View>
-			</HeaderView>
-			<TableViewRow>
-				<View class="list-item-view">
-					<Widget id="keepMeSignedInLbl" src="ti.styledlabel" class="left auto-height list-item-lbl" />
-					<Widget id="keepMeSignedInSwt" src="ti.switch" class="right swt" />
-				</View>
-			</TableViewRow>
-		</TableViewSection>
-		<FooterView>
-			<View class="auto">
-				<Button id="contactSupportBtn" class="padding-top padding-bottom secondary-btn"/>
-				<Button id="viewAgreementBtn" class="padding-top padding-bottom secondary-btn" top="70"/>
-			</View>
-		</FooterView>
-	</TableView>
+	<ScrollView class="vgroup">
+		<TableView>
+			<TableViewSection>
+				<HeaderView>
+					<View class="content-header-view">
+						<Label id="notificationLbl" class="content-header-lbl" />
+						<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didClickEdit" />
+					</View>
+				</HeaderView>
+				<TableViewRow>
+					<View class="auto-height" onClick="didClickmobileNumber">
+						<View class="content-view-with-child">
+							<Label id="mobileNumberLbl" class="left " />
+						</View>
+						<View class="content-view-vgroup-with-lcolor-box">
+							<Label id="mobileNumberValue" class="right"/>  
+						</View>
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="auto-height" onClick="didClickEmailAddress">
+						<View class="content-view-with-child">
+							<Label id="emailLbl" class="left " />
+						</View>
+						<View class="content-view-vgroup-with-lcolor-box">
+							<Label id="emailValue" class="right"/>  
+						</View>
+					</View>
+				</TableViewRow>
+			</TableViewSection>
+			<TableViewSection>
+				<HeaderView>
+					<View class="content-header-view">
+						<Label id="prescriptionDisplayLbl" class="content-header-lbl" />
+					</View>
+				</HeaderView>
+				<TableViewRow>
+					<View class="auto-height">
+						<View class="content-view-with-rswt">
+							<Widget id="hideExpiredPrescriptionLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+						</View>
+						<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="auto-height">
+						<View class="content-view-with-rswt">
+							<Widget id="hideZeroRefillPrescriptionLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+						</View>
+						<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
+					</View>
+				</TableViewRow>
+			</TableViewSection>
+			<TableViewSection>
+				<HeaderView>
+					<View class="content-header-view">
+						<Label id="locationSettingLbl" class="content-header-lbl" />
+					</View>
+				</HeaderView>
+				<TableViewRow>
+					<View class="content-view" onClick="didClickTimeZone">
+						<View class="content-master-view-50 auto-height">
+							<Label id="timeZoneLbl" class="content-title-wrap" />
+						</View>
+						<View class="content-detail-view-45 auto-height">
+							<Label id="timeZoneValue" />
+						</View>
+						<Label class="content-child-icon icon-thin-arrow-right" />
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="content-view" onClick="didClickLanguage">
+						<View class="content-master-view-50 auto-height">
+							<Label id="languageLbl" class="content-title-wrap" />
+						</View>
+						<View class="content-detail-view-35 auto-height">
+							<Label id="languageValue" />
+						</View>
+						<Label class="content-child-icon icon-thin-arrow-right" />
+					</View>
+				</TableViewRow>
+			</TableViewSection>
+			<TableViewSection>
+				<HeaderView>
+					<View class="content-header-view">
+						<Label id="loginLbl" class="content-header-lbl" />
+					</View>
+				</HeaderView>
+				<TableViewRow>
+					<View class="auto-height">
+						<View class="content-view-with-rswt">
+							<Widget id="keepMeSignedInLbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+						</View>
+						<Widget id="keepMeSignedInSwt" src="ti.switch" class="content-right-swt swt" />
+					</View>
+				</TableViewRow>
+			</TableViewSection>
+		</TableView>
+		<Button id="contactSupportBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickContactSupport" />
+		<Button id="viewAgreementBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickViewAgreement" />
+	</ScrollView>
 </Alloy>

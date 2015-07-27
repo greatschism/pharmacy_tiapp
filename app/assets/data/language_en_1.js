@@ -250,7 +250,21 @@ module.exports = {
 		"transferUserDetValLastName" : "Please enter your last name.",
 		"transferUserDetValDob" : "Please enter your Date of birth.",
 		"transferUserDetValPhone" : "Please enter your mobile number.",
-		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid."
+		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid.",
+		
+		"accountsLblNotifications" : "Notifications",
+		"accountsLblPrescriptionDisplay" : "Prescription display",
+		"accountsLblLocationSettings" : "Location settings",
+		"accountsLblSignin" : "Sign-in",
+		"accountsSuccessBtnContactSupport" : "Contact support",
+		"accountsSuccessBtnViewAgreements" : "View my agreements",
+		"accountsLblMobileNumer" : "Mobile number",
+		"accountsLblEmail" : "Email",
+		"accountsLblHideExpPresc" : "Hide expired prescriptions",
+		"accountsLblHideZeroRefPresc" : "Hide zero refill prescriptions",
+		"accountsLblTimeZone" : "Time zone",
+		"accountsLblLanguage" : "Language",
+		"accountsLblKeepMeSignedIn" : "Keep me signed in" 
 
 	}
 };

@@ -1,58 +1,46 @@
 "#notificationLbl":{
-	text: Alloy.Globals.strings.lblNotificationInfo
+	text: Alloy.Globals.strings.accountsLblNotifications
 },
 "#mobileNumberLbl":{
-	text: Alloy.Globals.strings.lblYourMobileNumber
+	text: Alloy.Globals.strings.accountsLblMobileNumer
 },
 "#mobileNumberValue":{
 	color: "#0095ff"
 },
 "#emailLbl":{
-	text: Alloy.Globals.strings.lblYourEmail
+	text: Alloy.Globals.strings.accountsLblEmail
 },
 "#emailValue":{
 	color: "#0095ff"
 },
 "#prescriptionDisplayLbl":{
-	text: Alloy.Globals.strings.lblPrescriptionDisplay
+	text: Alloy.Globals.strings.accountsLblPrescriptionDisplay
 },
 "#hideExpiredPrescriptionLbl":{
-	right: 60,
-	font :{
-		fontSize : 14
-	},
-	html: Alloy.Globals.strings.lblHideExpiredPrescriptions
+	text: Alloy.Globals.strings.accountsLblHideExpPresc
 },
 "#hideZeroRefillPrescriptionLbl":{
-	right: 60,
-	font :{
-		fontSize : 14
-	},
-	html: Alloy.Globals.strings.lblHideZeroRefillPrescriptions
+	text: Alloy.Globals.strings.accountsLblHideZeroRefPresc
 },
 "#locationSettingLbl":{
-	text: Alloy.Globals.strings.lblLocationSettings
+	text: Alloy.Globals.strings.accountsLblLocationSettings
 }
 "#timeZoneLbl": {
-	text: Alloy.Globals.strings.lblTimeZone
+	text: Alloy.Globals.strings.accountsLblTimeZone
 }
 "#languageLbl": {
-	text: Alloy.Globals.strings.hintLanguage
+	text: Alloy.Globals.strings.accountsLblLanguage
 },
 
 "#loginLbl":{
-	text: Alloy.Globals.strings.lblLogin
+	text: Alloy.Globals.strings.accountsLblSignin
 },
 "#keepMeSignedInLbl":{
-	right: 60,
-	font :{
-		fontSize : 14
-	},
-	html: Alloy.Globals.strings.lblKeepMeSignedIn
+	text: Alloy.Globals.strings.accountsLblKeepMeSignedIn
 },
 "#contactSupportBtn":{
-	title: Alloy.Globals.strings.lblContactSupport
+	title: Alloy.Globals.strings.accountsSuccessBtnContactSupport
 },
 "#viewAgreementBtn":{
-	title: Alloy.Globals.strings.lblViewMyAgreements
+	title: Alloy.Globals.strings.accountsSuccessBtnViewAgreements
 }
