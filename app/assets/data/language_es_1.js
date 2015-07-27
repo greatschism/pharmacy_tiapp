@@ -10,6 +10,8 @@ module.exports = {
 		"strNotAvailable" : "es-Not available",
 		"strDays" : "es-days",
 		"strDay" : "es-day",
+		"strAnd" : "es-and",
+		"strMore" : "es-more",
 		"strLoading" : "es-Processing...",
 
 		"attrPhone" : "es-Call: <secondarycolor>%s</secondarycolor>",
@@ -125,6 +127,12 @@ module.exports = {
 		"storeDetDialogTitleHomeConfirm" : "es-Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "es-Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
+		"doctorsSectionDoctors" : "es-Doctors",
+		"doctorsSwipeOptRemove" : "es-Remove",
+		"doctorsMsgRemoveConfirm" : "es-Are you sure you want to remove %s?",
+		"doctorsLblPrescribed" : "es-Has prescribed you %s.",
+		"doctorsLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
+
 		"prescHintSearch" : "es-Search",
 		"prescOptMenuSearch" : "es-Search",
 		"prescOptMenuSort" : "es-Sort",
@@ -195,7 +203,7 @@ module.exports = {
 		"refillTypeSectionPickup" : "es-Pickup details",
 		"refillTypeLblStoreTitle" : "es-No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "es-Click here to choose one",
-		"refillTypeValRx" : "es-One or more prescription number you have entered seem invalid.",
+		"refillTypeValRx" : "es-Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
 		"refillTypeValStore" : "es-Please choose a pharmacy for pickup",
 		"refillTypeBtnRefill" : "es-Submit",
 
@@ -231,7 +239,18 @@ module.exports = {
 		"transferTypeValRxInvalid" : "es-Prescription number you have entered seem invalid.",
 		"transferTypeValStoreOriginal" : "es-Please select the pharmacy this prescription is from.",
 
-		"transferUserDetTitle" : "es-We need some details about you so we can process your transfer."
+		"transferUserDetTitle" : "es-We need some details about you so we can process your transfer.",
+		"transferUserDetHintFirstName" : "es-First name",
+		"transferUserDetHintLastName" : "es-Last name",
+		"transferUserDetHintDob" : "es-Date of birth",
+		"transferUserDetHintPhone" : "es-Mobile number",
+		"transferUserDetBtnNext" : "es-Next",
+		"transferUserDetAttrSignIn" : "es-Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
+		"transferUserDetValFirstName" : "es-Please enter your first name.",
+		"transferUserDetValLastName" : "es-Please enter your last name.",
+		"transferUserDetValDob" : "es-Please enter your Date of birth.",
+		"transferUserDetValPhone" : "es-Please enter your mobile number.",
+		"transferUserDetValPhoneInvalid" : "es-The phone number you have entered is invalid."
 
 	}
 };

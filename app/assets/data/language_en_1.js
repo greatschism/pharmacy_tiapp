@@ -10,6 +10,8 @@ module.exports = {
 		"strNotAvailable" : "Not available",
 		"strDays" : "days",
 		"strDay" : "day",
+		"strAnd" : "and",
+		"strMore" : "more",
 		"strLoading" : "Processing...",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
@@ -126,7 +128,10 @@ module.exports = {
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
 		"doctorsSectionDoctors" : "Doctors",
-		"doctorsSwipeOptDelete" : "Delete",
+		"doctorsSwipeOptRemove" : "Remove",
+		"doctorsMsgRemoveConfirm" : "Are you sure you want to remove %s?",
+		"doctorsLblPrescribed" : "Has prescribed you %s.",
+		"doctorsLblPrescribedNone" : "You have no prescription associated with this doctor.",
 
 		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",
@@ -235,18 +240,17 @@ module.exports = {
 		"transferTypeValStoreOriginal" : "Please select the pharmacy this prescription is from.",
 
 		"transferUserDetTitle" : "We need some details about you so we can process your transfer.",
-		"transferUserDetHintFirstName":"First name",
-		"transferUserDetHintLastName":"Last name",
-		"transferUserDetHintDob":"Date of birth",
-		"transferUserDetHintPhone":"Mobile number",
-		"transferUserDetBtnNext":"Next",
-		"transferUserDetAttrSignIn":"Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
-		"transferUserDetValFirstName":"Please enter your first name.",
-		"transferUserDetValLastName":"Please enter your last name.",
-		"transferUserDetValDob":"Please enter your Date of birth.",
-		"transferUserDetValPhone":"Please enter your mobile number.",
-		"transferUserDetValPhoneInvalid":"The phone number you have entered is invalid."
-		
+		"transferUserDetHintFirstName" : "First name",
+		"transferUserDetHintLastName" : "Last name",
+		"transferUserDetHintDob" : "Date of birth",
+		"transferUserDetHintPhone" : "Mobile number",
+		"transferUserDetBtnNext" : "Next",
+		"transferUserDetAttrSignIn" : "Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
+		"transferUserDetValFirstName" : "Please enter your first name.",
+		"transferUserDetValLastName" : "Please enter your last name.",
+		"transferUserDetValDob" : "Please enter your Date of birth.",
+		"transferUserDetValPhone" : "Please enter your mobile number.",
+		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid."
 
 	}
 };

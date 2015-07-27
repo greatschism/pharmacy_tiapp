@@ -465,7 +465,12 @@ function didClickUnhide(e) {
 			},
 			keepLoader : true,
 			success : function() {
-				//refresh list
+				/**
+				 * refresh list
+				 * don't assign getPrescriptions
+				 * directly to success which may get issues
+				 * as success parameters will be passed to that function
+				 */
 				getPrescriptions();
 			}
 		});
@@ -678,7 +683,6 @@ function terminate() {
 	 * only when it is a list screen not selectable
 	 */
 	Alloy.Globals.currentRow = null;
-	Alloy.Globals.currentTable = null;
 	Alloy.Globals.isSwipeInProgress = false;
 }
 

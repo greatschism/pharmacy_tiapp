@@ -38,6 +38,9 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
+	if (args.leftImage) {
+		$.img.setImage(args.leftImage);
+	}
 	/**
 	 * should not be have class suffix -wrap by default
 	 * may affect selection pop ups
@@ -50,8 +53,7 @@ CONSTS = Alloy.TSS[CONSTS];
 	});
 	$.swipeView.applyProperties({
 		left : CONSTS.endOffset,
-		width : CONSTS.availableWidth,
-		height : CONSTS.height
+		width : CONSTS.availableWidth
 	});
 	if (args.options) {
 		var len = args.options.length,

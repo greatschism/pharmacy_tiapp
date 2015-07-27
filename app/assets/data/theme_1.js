@@ -1087,7 +1087,7 @@ module.exports = {
 			".swipe-view" : {
 				"width" : 0,
 				"height" : 0,
-				"paddingLeft" : 60,
+				"paddingLeft" : 84,
 				"paddingRight" : 12,
 				"bubbleParent" : false
 			},
@@ -1557,7 +1557,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-subtitle" : {
-				"top" : 12,
+				"top" : 4,
 				"width" : "100%",
 				"height" : 19,
 				"font" : {
@@ -1570,7 +1570,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-subtitle-wrap" : {
-				"top" : 12,
+				"top" : 4,
 				"width" : "100%",
 				"height" : "auto",
 				"font" : {
@@ -1583,7 +1583,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-subtitle-view" : {
-				"top" : 12,
+				"top" : 4,
 				"width" : "100%",
 				"height" : "auto"
 			},
@@ -1623,7 +1623,7 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-attributed" : {
-				"top" : 12,
+				"top" : 4,
 				"left" : 0,
 				"height" : 19,
 				"font" : {
@@ -1641,7 +1641,7 @@ module.exports = {
 				"wordWrap" : false
 			},
 			".content-attributed-wrap" : {
-				"top" : 12,
+				"top" : 4,
 				"left" : 0,
 				"height" : "auto",
 				"font" : {
