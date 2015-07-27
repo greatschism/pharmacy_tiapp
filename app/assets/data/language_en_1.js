@@ -234,7 +234,19 @@ module.exports = {
 		"transferTypeValRxInvalid" : "Prescription number you have entered seem invalid.",
 		"transferTypeValStoreOriginal" : "Please select the pharmacy this prescription is from.",
 
-		"transferUserDetTitle" : "We need some details about you so we can process your transfer."
+		"transferUserDetTitle" : "We need some details about you so we can process your transfer.",
+		"transferUserDetHintFirstName":"First name",
+		"transferUserDetHintLastName":"Last name",
+		"transferUserDetHintDob":"Date of birth",
+		"transferUserDetHintPhone":"Mobile number",
+		"transferUserDetBtnNext":"Next",
+		"transferUserDetAttrSignIn":"Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
+		"transferUserDetValFirstName":"Please enter your first name.",
+		"transferUserDetValLastName":"Please enter your last name.",
+		"transferUserDetValDob":"Please enter your Date of birth.",
+		"transferUserDetValPhone":"Please enter your mobile number.",
+		"transferUserDetValPhoneInvalid":"The phone number you have entered is invalid."
+		
 
 	}
 };

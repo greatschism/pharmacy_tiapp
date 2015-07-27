@@ -1,3 +1,24 @@
 "#userDetailsTitle":{
-	text:Alloy.Globals.strings.transferRxUserDetTitle
+	text:Alloy.Globals.strings.transferUserDetTitle
+},
+"#dobDp":{
+	leftTitle: Alloy.Globals.strings.dialogBtnCancel,
+	rightTitle: Alloy.Globals.strings.dialogBtnOK,
+	hintText:Alloy.Globals.strings.transferUserDetHintDob,
+	type: Ti.UI.PICKER_TYPE_DATE
+},
+"#firstNameTxt":{
+	hintText:Alloy.Globals.strings.transferUserDetHintFirstName
+},
+"#lastNameTxt":{
+	hintText:Alloy.Globals.strings.transferUserDetHintLastName
+},
+"#phoneTxt":{
+	hintText:Alloy.Globals.strings.transferUserDetHintPhone
+},
+"#nextBtn":{
+	title:Alloy.Globals.strings.transferUserDetBtnNext
+},
+"#signInLbl":{
+	html:Alloy.Globals.strings.transferUserDetAttrSignIn
 }

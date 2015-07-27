@@ -3,10 +3,19 @@
 		<View class="content-header-view-wrap vgroup ">
 			<Label id="userDetailsTitle" class="lbl-wrap margin-top margin-bottom"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<Widget id="firstNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
-			<View class="h-divider"></View>
-			<Widget id="lastNameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+		<View class="margin-top form-vgroup auto-height">
+			<View id="txtView" class="auto-height">
+				<Widget id="firstNameTxt" src="ti.textfield" class="form-txt-small left" onReturn="moveToNext"/>
+				<View id="vDividerView" class="v-divider"/>
+				<Widget id="lastNameTxt" src="ti.textfield" class="form-txt-small right" onReturn="moveToNext"/>
+			</View>
+			<View class="h-divider"/>
+			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown"/>
 		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
+		</View>
+		<Button id="nextBtn" class="margin-top margin-bottom primary-btn" onClick="submitUserDet"/>
+		<Widget id="signInLbl" src="ti.styledlabel" class="attributed"/>
 	</View>
 </Alloy>
