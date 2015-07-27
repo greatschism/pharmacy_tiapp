@@ -26,10 +26,10 @@ module.exports = {
 			"prescription_progress_after_x_hours" : 60,
 			"prescription_progress_before_x_hours" : 15,
 			"prescription_refills_left_info_negative" : 1,
-			"rx_length" : 12,
+			"rx_length" : 10,
 			"rx_start_index" : 0,
 			"rx_end_index" : 7,
-			"rx_validator" : "^[0-9]{7}-[0-9]{2,3}$",
+			"rx_validator" : "^[0-9]{7}-[0-9]{2}$",
 			"rx_formatters" : [{
 				"pattern" : "\\D",
 				"modifiters" : "g",
@@ -150,6 +150,15 @@ module.exports = {
 			}
 		},
 		"tss" : {
+			".phone" : {
+				"maxLength" : 14
+			},
+			".rx-number" : {
+				"maxLength" : 10
+			},
+			".prescription-name" : {
+				"maxLength" : 25
+			},
 			"Window" : {
 				"barColor" : "#F7941E",
 				"statusBarColor" : "#CC7312",
@@ -193,15 +202,6 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"selectedBackgroundColor" : "#D3D4D3",
 				"selectionAsOverlay" : true
-			},
-			".phone" : {
-				"maxLength" : 14
-			},
-			".rx-number" : {
-				"maxLength" : 11
-			},
-			".prescription-name" : {
-				"maxLength" : 25
 			},
 			".margin-top" : {
 				"top" : 12
