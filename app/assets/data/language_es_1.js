@@ -106,7 +106,7 @@ module.exports = {
 		"loginValUsername" : "es-Please enter your username",
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
-		"loginMsgAutoLogin" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
+		"loginMsgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"storesHintSearch" : "es-Search",
 		"storesGeoZeroResults" : "es-No matches found!",

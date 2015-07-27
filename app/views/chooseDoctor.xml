@@ -1,7 +1,0 @@
-<Alloy>
-	
-	<View class="vgroup"> 
-		<TableView id="tableView" class="auto-height" onClick="didItemClick" />
-	</View>
-	
-</Alloy>

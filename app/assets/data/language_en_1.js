@@ -106,7 +106,7 @@ module.exports = {
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
-		"loginMsgAutoLogin" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
+		"loginMsgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
@@ -124,6 +124,8 @@ module.exports = {
 		"storeDetMsgHomeCantUpdate" : "This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
+
+		"doctorsSwipeOptDelete" : "Delete",
 
 		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",

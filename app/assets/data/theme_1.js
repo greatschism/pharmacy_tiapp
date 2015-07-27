@@ -40,6 +40,7 @@ module.exports = {
 				"value" : "$1-$2"
 			}],
 			"toggle_password_enabled" : true,
+			"auto_login_dialog_enabled" : false,
 			"auto_populate_username" : true,
 			"auto_populate_password" : true,
 			"session_timeout" : 120,
@@ -1366,9 +1367,10 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-left-image" : {
+				"top" : 12,
 				"left" : 12,
 				"width" : 120,
-				"height" : 90
+				"height" : 120
 			},
 			".content-view-with-limage" : {
 				"top" : 12,

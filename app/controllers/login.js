@@ -26,9 +26,7 @@ function didChangeToggle(e) {
 }
 
 function didChangeAutoLogin(e) {
-	var value = e.value;
-	authenticator.setAutoLoginEnabled(value);
-	if (value) {
+	if (Alloy.CFG.auto_login_dialog_enabled && e.value) {
 		$.uihelper.showDialog({
 			message : $.strings.loginMsgAutoLogin
 		});
@@ -62,6 +60,7 @@ function didClickLogin(e) {
 	if ($.utilities.isPhoneNumber(username)) {
 		//yet to handle
 	} else {
+		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
 		authenticator.init(didAuthenticate, null, username, password);
 	}
 }
