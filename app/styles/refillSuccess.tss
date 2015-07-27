@@ -3,4 +3,7 @@
 },
 "#signupBtn":{
 	title: Alloy.Globals.strings.refillSuccessBtnSignup
+},
+"#doneBtn":{
+	title: Alloy.Globals.strings.refillSuccessBtnDone
 }
