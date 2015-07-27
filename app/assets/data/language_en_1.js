@@ -125,6 +125,7 @@ module.exports = {
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
+		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptDelete" : "Delete",
 
 		"prescHintSearch" : "Search",
@@ -197,7 +198,7 @@ module.exports = {
 		"refillTypeSectionPickup" : "Pickup details",
 		"refillTypeLblStoreTitle" : "No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "Click here to choose one",
-		"refillTypeValRx" : "One or more prescription number you have entered seem invalid.",
+		"refillTypeValRx" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
 		"refillTypeValStore" : "Please choose a pharmacy for pickup",
 		"refillTypeBtnRefill" : "Submit",
 

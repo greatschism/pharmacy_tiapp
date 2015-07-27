@@ -78,27 +78,39 @@ function didClickRefill(e) {
 		});
 		return false;
 	}
-	//process rx numbers
-	var validRxs = [];
-	_.some(rxTxts, function(rxTxt) {
+	/**
+	 * process rx numbers
+	 * empty rx fields can be ignored
+	 * need not to show errors
+	 * and should have at least one valid rx
+	 */
+	var isInvalidRx = false,
+	    lastIndex = 0,
+	    validRxs = [];
+	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
-			validRxs.push({
-				rx_number : value,
-				store_id : store.id,
-				pickup_mode : apiCodes.pickup_mode_instore,
-				pickup_time_group : apiCodes.pickup_time_group_asap
-			});
-			return false;
+			value = $.utilities.validateRx(value);
+			if (value) {
+				validRxs.push({
+					rx_number : value,
+					store_id : store.id,
+					pickup_mode : apiCodes.pickup_mode_instore,
+					pickup_time_group : apiCodes.pickup_time_group_asap
+				});
+			} else {
+				lastIndex = index;
+				isInvalidRx = true;
+				return true;
+			}
 		}
-		return true;
+		return false;
 	});
-	var validLen = validRxs.length;
-	if (validLen != rxTxts.length) {
+	if (isInvalidRx || validRxs.length === 0) {
 		$.uihelper.showDialog({
 			message : $.strings.refillTypeValRx,
 			success : function() {
-				rxTxts[validLen].getView().focus();
+				rxTxts[lastIndex].getView().focus();
 			}
 		});
 		return false;

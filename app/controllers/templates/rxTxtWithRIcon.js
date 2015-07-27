@@ -19,9 +19,5 @@ function setRightIcon(iconText, iconDict) {
 	$.txt.setIcon(iconText, "right", iconDict);
 }
 
-function getValue() {
-	return utilities.validateRx($.txt.getValue());
-}
-
-exports.getValue = getValue;
+exports.getValue = $.txt.getValue;
 exports.setRightIcon = setRightIcon;

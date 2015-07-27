@@ -42,9 +42,7 @@ function updateInputs() {
 	if (args.edit) {
 		var prescription = args.prescription;
 		$.nameTxt.setValue(prescription.name);
-		didChangeRx({
-			value : prescription.rx
-		});
+		$.rxTxt.setValue(prescription.rx);
 		didChangePhone({
 			value : prescription.phone
 		});
@@ -59,13 +57,6 @@ function moveToNext(e) {
 	}
 }
 
-function didChangeRx(e) {
-	var value = $.utilities.formatRx(e.value),
-	    len = value.length;
-	$.rxTxt.setValue(value);
-	$.rxTxt.setSelection(len, len);
-}
-
 function didChangePhone(e) {
 	var value = $.utilities.formatPhoneNumber(e.value),
 	    len = value.length;
@@ -76,7 +67,6 @@ function didChangePhone(e) {
 function didClickSubmit(e) {
 	var name,
 	    phone,
-	    rx,
 	    storeOriginal;
 	name = $.nameTxt.getValue();
 	if (!name) {
@@ -92,16 +82,11 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
-	rx = $.rxTxt.getValue();
-	if (rx) {
-		rx = $.utilities.validateRx(rx);
-		if (!rx) {
-			$.uihelper.showDialog({
-				message : $.strings.transferTypeValRxInvalid
-			});
-			return;
-		}
-	}
+	/**
+	 * skipping rx validation
+	 * no validation required for rx
+	 * as it is from different store chain
+	 */
 	phone = $.phoneTxt.getValue();
 	if (!phone) {
 		$.uihelper.showDialog({
@@ -131,7 +116,7 @@ function didClickSubmit(e) {
 	 */
 	var prescription = {
 		name : name,
-		rx : rx,
+		rx : $.rxTxt.getValue(),
 		phone : phone,
 		storeOriginal : storeOriginal
 	};

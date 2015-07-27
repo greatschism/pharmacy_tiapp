@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    TAG = "contentViewSwipeable",
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,

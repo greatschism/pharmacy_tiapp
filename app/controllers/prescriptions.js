@@ -58,10 +58,10 @@ function didGetSortOrderPreferences(result) {
 		}
 	});
 	$.sortPicker.setItems(codes);
-	getPrescriptionList();
+	getPrescriptions();
 }
 
-function getPrescriptionList(status, callback) {
+function getPrescriptions(status, callback) {
 	//reset search if any
 	if ($.searchTxt.getValue()) {
 		$.searchTxt.setValue("");
@@ -79,12 +79,12 @@ function getPrescriptionList(status, callback) {
 				}
 			}]
 		},
-		success : callback || didGetPrescriptionList,
-		failure : callback || didGetPrescriptionList
+		success : callback || didGetPrescriptions,
+		failure : callback || didGetPrescriptions
 	});
 }
 
-function didGetPrescriptionList(result, passthrough) {
+function didGetPrescriptions(result, passthrough) {
 	/**
 	 * if it is a callback from request wrapper
 	 * should have valid result / error object
@@ -378,10 +378,10 @@ function didClickOptionMenu(e) {
 		$.sortPicker.show();
 		break;
 	case 2:
-		getPrescriptionList();
+		getPrescriptions();
 		break;
 	case 3:
-		getPrescriptionList(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
 		break;
 	}
 }
@@ -466,7 +466,7 @@ function didClickUnhide(e) {
 			keepLoader : true,
 			success : function() {
 				//refresh list
-				getPrescriptionList();
+				getPrescriptions();
 			}
 		});
 	}
@@ -478,7 +478,7 @@ function didClickUnhideClose(e) {
 
 function didClickSortPicker(e) {
 	Alloy.Models.sortOrderPreferences.set("selected_code_value", e.data.code_value);
-	getPrescriptionList();
+	getPrescriptions();
 }
 
 function didClickSortClose(e) {
@@ -531,7 +531,7 @@ function hidePrescription(e) {
 		keepLoader : true,
 		success : function() {
 			//refresh list
-			getPrescriptionList();
+			getPrescriptions();
 		}
 	});
 }
@@ -654,11 +654,11 @@ function focus() {
 			 * if not available (length is 0) then calling api in else
 			 */
 			$.sortPicker.setItems(codes);
-			didGetPrescriptionList();
+			didGetPrescriptions();
 		} else {
 			if (codes) {
 				$.sortPicker.setItems(codes);
-				getPrescriptionList();
+				getPrescriptions();
 			} else {
 				getSortOrderPreferences();
 			}
@@ -668,7 +668,7 @@ function focus() {
 		 * checking whether any updates made from prescription details / any other detail screen
 		 */
 		currentPrescription = null;
-		getPrescriptionList();
+		getPrescriptions();
 	}
 }
 

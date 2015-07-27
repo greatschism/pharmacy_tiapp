@@ -1369,20 +1369,20 @@ module.exports = {
 			".content-left-image" : {
 				"top" : 12,
 				"left" : 12,
-				"width" : 120,
-				"height" : 120
+				"width" : 60,
+				"height" : 60
 			},
 			".content-view-with-limage" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 84,
 				"right" : 12,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-limage" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 84,
 				"right" : 12,
 				"height" : "auto",
 				"layout" : "vertical"
@@ -1390,34 +1390,34 @@ module.exports = {
 			".content-view-with-limage-child" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 84,
 				"right" : 36,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-limage-child" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 84,
 				"right" : 36,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
 			".content-left-image-large" : {
 				"left" : 12,
-				"width" : 240,
-				"height" : 180
+				"width" : 120,
+				"height" : 120
 			},
 			".content-view-with-limage-large" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 252,
+				"left" : 144,
 				"right" : 12,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-limage-large" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 252,
+				"left" : 144,
 				"right" : 12,
 				"height" : "auto",
 				"layout" : "vertical"

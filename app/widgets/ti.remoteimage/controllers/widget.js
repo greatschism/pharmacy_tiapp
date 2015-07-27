@@ -8,7 +8,11 @@ var args = arguments[0] || {},
 		$.widget.applyProperties(options);
 	}
 
-	if (_.has(args, "image")) {
+	/**
+	 * ignore if image is sent as null
+	 * or empty ("")
+	 */
+	if (args.image) {
 		setImage(args.image);
 	}
 
