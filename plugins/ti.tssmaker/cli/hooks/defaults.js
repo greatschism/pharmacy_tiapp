@@ -186,11 +186,13 @@ module.exports = {
 	},
 	".dropdown" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success",
+		"format" : "Alloy.CFG.date_format"
 	},
 	".form-dropdown" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success",
+		"format" : "Alloy.CFG.date_format"
 	},
 	".form-dropdown-50" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",

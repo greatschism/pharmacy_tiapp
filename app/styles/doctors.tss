@@ -1,0 +1,3 @@
+"#doctorsLbl":{
+	text: Alloy.Globals.strings.doctorsSectionDoctors
+}

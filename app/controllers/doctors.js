@@ -5,14 +5,11 @@ var args = arguments[0] || {},
     prescriptions,
     rows,
     swipeOptions,
-    headerBtnDict,
     currentDoctor,
     isWindowOpen;
 
 function init() {
-	headerBtnDict = $.createStyle({
-		classes : ["content-header-right-icon", "icon-add"]
-	});
+	$.tableView.top = $.headerView.height;
 	swipeOptions = [{
 		action : 1,
 		title : $.strings.doctorsSwipeOptRemove,
@@ -101,14 +98,13 @@ function didGetDoctors(result, passthrough) {
 function didGetPrescriptions(result, passthrough) {
 	prescriptions = result.data.prescriptions;
 	rows = [];
-	headerBtnDict.callback = didClickAdd;
-	var section = $.uihelper.createTableViewSection($, $.strings.doctorsSectionDoctors, null, false, false, headerBtnDict);
+	var data = [];
 	Alloy.Collections.doctors.each(function(model) {
 		var row = processModel(model);
-		section.add(row.getView());
+		data.push(row.getView());
 		rows.push(row);
 	});
-	$.tableView.setData([section]);
+	$.tableView.setData(data);
 }
 
 function processModel(model) {

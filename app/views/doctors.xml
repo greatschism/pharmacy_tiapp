@@ -1,4 +1,9 @@
 <Alloy>
+	<!--iOS:placing this header view in section header prevents the click of add button table view is scrolled down-->
+	<View id="headerView" class="top content-header-view">
+		<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
+		<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+	</View>
 	<TableView id="tableView" onSingletap="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
