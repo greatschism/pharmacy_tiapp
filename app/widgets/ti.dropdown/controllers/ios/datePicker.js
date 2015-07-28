@@ -60,6 +60,10 @@ function didChange(e) {
 	selectedDate = e.value;
 }
 
+/**
+ * call back can also be event object
+ * as this is used as event listener too
+ */
 function terminate(callback) {
 	_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
@@ -72,7 +76,10 @@ function terminate(callback) {
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
 		parent.remove($.datePicker);
-		if (callback) {
+		/**
+		 * check if function or event object
+		 */
+		if (_.isFunction(callback)) {
 			callback();
 		}
 		$.trigger("terminate", {
