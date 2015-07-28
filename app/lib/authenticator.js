@@ -83,6 +83,7 @@ function didAuthenticate(result, passthrough) {
 		params : {
 			feature_code : "THXXX"
 		},
+		keepLoader : true,
 		forceRetry : true,
 		success : didGetPatient
 	});
@@ -90,6 +91,18 @@ function didAuthenticate(result, passthrough) {
 
 function didGetPatient(result, passthrough) {
 	Alloy.Models.patient.set(result.data.patients);
+	http.request({
+		method : "patient_preferences_get",
+		params : {
+			feature_code : "THXXX"
+		},
+		forceRetry : true,
+		success : didGetPreferences
+	});
+}
+
+function didGetPreferences(result, passthrough) {
+	Alloy.Models.patient.set(result.data.patients.preferences);
 	Alloy.Collections.menuItems.add({
 		titleid : "titleLogout",
 		action : "logout",

@@ -141,6 +141,29 @@ function didGetLocation(userLocation) {
 	});
 }
 
+function didClickDoctor(e) {
+	/**
+	 *  list of prescriptions should be available
+	 *  as the only way for prescription details screen
+	 *  is prescription list
+	 */
+	var doctor = _.clone(prescription.doctor);
+	doctor.prescriptions = [];
+	Alloy.Collections.prescriptions.each(function(model) {
+		if (model.get("doctor_id") == doctor.id) {
+			doctor.prescriptions.push(model.toJSON());
+		}
+	});
+	$.app.navigator.open({
+		titleid : "titleDoctorDetails",
+		ctrl : "doctorDetails",
+		ctrlArguments : {
+			doctor : doctor
+		},
+		stack : true
+	});
+}
+
 function togglePrescription(e) {
 	var title,
 	    result;

@@ -10,19 +10,19 @@
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup async-view role-detail-view">
 				<View id="prescAsyncContentView" class="content-view-vgroup-with-padding">
 					<View class="content-group">
-						<Label id="rxPromptLbl" class="content-group-prompt" />
+						<Label id="rxPromptLbl" class="content-group-inactive-prompt" />
 						<Label id="rxReplyLbl" class="content-group-reply" />
 					</View>
 					<View class="margin-top content-group">
-						<Label id="expiryPromptLbl" class="content-group-prompt" />
+						<Label id="expiryPromptLbl" class="content-group-inactive-prompt" />
 						<Label id="expiryReplyLbl" class="content-group-reply" />
 					</View>
-					<View class="margin-top content-group">
-						<Label id="doctorPromptLbl" class="content-group-prompt" />
-						<Label id="doctorReplyLbl" class="content-group-reply" />
+					<View class="margin-top content-group" onClick="didClickDoctor">
+						<Label id="doctorPromptLbl" class="content-group-inactive-prompt" />
+						<Label id="doctorReplyLbl" class="content-group-reply-link" />
 					</View>
 					<View class="margin-top content-group" onClick="didClickStore">
-						<Label id="storePromptLbl" class="content-group-prompt" />
+						<Label id="storePromptLbl" class="content-group-inactive-prompt" />
 						<Label id="storeReplyLbl" class="content-group-reply-link" />
 					</View>
 				</View>

@@ -10,7 +10,7 @@
 	nextItem: "phoneTxt"
 },
 "#fromLbl":{
-	text: Alloy.Globals.strings.transferTypeLblFrom
+	text: Alloy.Globals.strings.transferTypeSectionFrom
 },
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.transferTypeHintPhone,

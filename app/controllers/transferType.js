@@ -26,10 +26,6 @@ function focus() {
 
 function didGetStoreOriginal(result, passthrough) {
 	Alloy.Models.storeOriginal.set(result.data.codes[0]);
-	var codes = Alloy.Models.storeOriginal.get("code_values");
-	_.each(codes, function(code) {
-		code.selected = false;
-	});
 	updateInputs();
 }
 
@@ -43,9 +39,7 @@ function updateInputs() {
 		var prescription = args.prescription;
 		$.nameTxt.setValue(prescription.name);
 		$.rxTxt.setValue(prescription.rx);
-		didChangePhone({
-			value : prescription.phone
-		});
+		$.phoneTxt.setValue($.utilities.formatPhoneNumber(prescription.phone));
 		$.storeOriginalDp.setSelectedItem(prescription.storeOriginal);
 	}
 }

@@ -1,0 +1,39 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="margin-top form-vgroup">
+			<View id="nameView" class="auto-height">
+				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+				<View id="nameVDividerView" class="v-divider" />
+				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+			</View>
+			<View class="h-divider" />
+			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
+			<View class="h-divider" />
+			<Widget id="faxTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
+		</View>
+		<View class="margin-top content-header-view">
+			<Label id="addressLbl" class="content-header-lbl"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="addressLine1Txt" src="ti.textfield" class="form-txt address autocaps-sentences returnkey-next" onReturn="moveToNext" />
+			<View class="h-divider" />
+			<View class="auto-height">
+				<Widget id="addressLine2Txt" src="ti.textfield" class="left form-txt-50 address autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+				<View id="addressVDividerView"  class="v-divider" />
+				<Widget id="zipTxt" src="ti.textfield" class="right form-txt-50 zip keyboard-number returnkey-next" onReturn="moveToNext"  />
+			</View>
+			<View class="h-divider" />
+			<View class="auto-height">
+				<Widget id="cityTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<View id="locationVDividerView"  class="v-divider" />
+				<Widget id="stateDp" src="ti.dropdown" class="right form-dropdown-50" />
+			</View>
+		</View>
+		<View class="margin-top content-header-view">
+			<Label id="notesLbl" class="content-header-lbl"/>
+		</View>
+		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes returnkey-done" onReturn="didClickSubmit"  />
+		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+		<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemove" if="$.args.isUpdate" />
+	</ScrollView>
+</Alloy>

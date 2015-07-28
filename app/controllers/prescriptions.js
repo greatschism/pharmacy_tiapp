@@ -679,8 +679,10 @@ function focus() {
 
 function terminate() {
 	/**
-	 * reset only when required
-	 * only when it is a list screen not selectable
+	 * not resetting currentTable object
+	 * as there are chance when nullify it here
+	 * may affect the object being set on next
+	 * controllers init / focus method
 	 */
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.isSwipeInProgress = false;

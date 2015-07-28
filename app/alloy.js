@@ -52,6 +52,7 @@
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.patient = new Backbone.Model();
+	Alloy.Models.states = new Backbone.Model();
 	Alloy.Models.storeOriginal = new Backbone.Model();
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();
 	Alloy.Models.pickupModes = new Backbone.Model();

@@ -5,9 +5,9 @@
 		</View>
 		<View class="margin-top form-vgroup auto-height">
 			<View id="txtView" class="auto-height">
-				<Widget id="firstNameTxt" src="ti.textfield" class="form-txt-small left" onReturn="moveToNext"/>
+				<Widget id="firstNameTxt" src="ti.textfield" class="form-txt-50 left" onReturn="moveToNext"/>
 				<View id="vDividerView" class="v-divider"/>
-				<Widget id="lastNameTxt" src="ti.textfield" class="form-txt-small right" onReturn="moveToNext"/>
+				<Widget id="lastNameTxt" src="ti.textfield" class="form-txt-50 right" onReturn="moveToNext"/>
 			</View>
 			<View class="h-divider"/>
 			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown"/>

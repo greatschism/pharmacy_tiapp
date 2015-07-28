@@ -27,6 +27,9 @@ function setImage(img) {
 		if (args.defaultImage) {
 			$.widget.image = args.defaultImage;
 		}
+		/**
+		 * requires http module
+		 */
 		require("http").request({
 			url : image,
 			type : "GET",
@@ -58,7 +61,7 @@ function didFail(error, passthrough) {
 	$.trigger("error", {
 		code : error.code,
 		error : error.error
-	})
+	});
 }
 
 function getExtension(str) {

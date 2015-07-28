@@ -90,7 +90,9 @@ module.exports = {
 		"titleTransferStore" : "es-Transfer to this store",
 		"titleTransferUserDetails" : "es-Your information",
 		"titleTransferOptions" : "es-Transfer prescription",
-		"titleAccountsAgreements" : "es-My agreements",
+		"titleDoctorDetails" : "es-Doctor details",
+		"titleDoctorAdd" : "es-Add a doctor",
+		"titleDoctorUpdate" : "es-Edit doctor",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
@@ -130,9 +132,42 @@ module.exports = {
 
 		"doctorsSectionDoctors" : "es-Doctors",
 		"doctorsSwipeOptRemove" : "es-Remove",
+		"doctorsMsgRemoveRestricted" : "es-%s was added by the system, mapped with your prescription. You will not be able to delete it.",
 		"doctorsMsgRemoveConfirm" : "es-Are you sure you want to remove %s?",
+		"doctorsLblManual" : "es-Manually added by you.",
 		"doctorsLblPrescribed" : "es-Has prescribed you %s.",
 		"doctorsLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
+
+		"doctorDetSectionPrescribed" : "es-Has prescribed you",
+		"doctorDetLblManual" : "es-You manually added this doctor. Associated prescriptions are not available.",
+		"doctorDetLblPhotoNone" : "es-Add a image",
+		"doctorDetLblRefilled" : "es-Refilled: %s",
+		"doctorDetLblRefilledNone" : "es-Not filled yet",
+		"doctorDetLblExpired" : "es-Expired",
+
+		"doctorHintFirstName" : "es-First Name",
+		"doctorHintLastName" : "es-Last Name",
+		"doctorHintPhone" : "es-Phone",
+		"doctorHintFax" : "es-Fax",
+		"doctorSectionAddress" : "es-Address",
+		"doctorHintAddressLine1" : "es-Address line 1",
+		"doctorHintAddressLine2" : "es-Address line 2",
+		"doctorHintZip" : "es-Zip code",
+		"doctorHintCity" : "es-City",
+		"doctorHintState" : "es-State",
+		"doctorSectionNotes" : "es-Description",
+		"doctorHintNotes" : "es-Notes",
+		"doctorValFirstName" : "es-Please enter the doctor's first name.",
+		"doctorValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"doctorValLastName" : "es-Please enter the doctor's last name.",
+		"doctorValLastNameInvalid" : "es-Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"doctorValPhoneInvalid" : "es-The phone number you have entered is invalid.",
+		"doctorValFaxInvalid" : "es-The fax number you have entered is invalid.",
+		"doctorBtnAdd" : "es-Save",
+		"doctorBtnUpdate" : "es-Save",
+		"doctorBtnRemove" : "es-Remove this doctor",
+		"doctorMsgRemoveRestricted" : "es-%s was added by the system, mapped with your prescription. You will not be able to delete it.",
+		"doctorMsgRemoveConfirm" : "es-Are you sure you want to remove %s?",
 
 		"prescHintSearch" : "es-Search",
 		"prescOptMenuSearch" : "es-Search",
@@ -229,7 +264,7 @@ module.exports = {
 		"transferTypeLblTitle" : "es-Fill in the following details to transfer your prescription.",
 		"transferTypeHintName" : "es-Enter your prescription name",
 		"transferTypeHintRx" : "es-Rx number (optional)",
-		"transferTypeLblFrom" : "es-What pharmacy is this from?",
+		"transferTypeSectionFrom" : "es-What pharmacy is this from?",
 		"transferTypeHintPhone" : "es-Pharmacy phone number",
 		"transferTypeHintStoreOriginal" : "es-Pharmacy",
 		"transferTypeBtnSubmit" : "es-Next",
@@ -252,7 +287,7 @@ module.exports = {
 		"transferUserDetValDob" : "es-Please enter your Date of birth.",
 		"transferUserDetValPhone" : "es-Please enter your mobile number.",
 		"transferUserDetValPhoneInvalid" : "es-The phone number you have entered is invalid.",
-		
+
 		"accountsLblNotifications" : "es-Notifications",
 		"accountsLblPrescriptionDisplay" : "es-Prescription display",
 		"accountsLblLocationSettings" : "es-Location settings",
@@ -265,7 +300,7 @@ module.exports = {
 		"accountsLblHideZeroRefPresc" : "es-Hide zero refill prescriptions",
 		"accountsLblTimeZone" : "es-Time zone",
 		"accountsLblLanguage" : "es-Language",
-		"accountsLblKeepMeSignedIn" : "es-Keep me signed in" 
+		"accountsLblKeepMeSignedIn" : "es-Keep me signed in"
 
 	}
 };

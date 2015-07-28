@@ -1,43 +1,36 @@
 <Alloy>
-	<Widget id="photoDialog" src="ti.optiondialog" class="h4" onClick="didClickOption"  />
-	<!--<Button id="editBtn" class="role-right-nav-btn nav-icon-btn" onClick="didClickEdit" />-->
-	<!--<View>-->
-	<TableView id="tableView" height="Ti.UI.FILL" top="0" onClick="didItemClick">
+	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-edit" onClick="didClickRightNav" if="$.args.canUpdate" />
+	<TableView id="tableView">
 		<HeaderView>
-			<View class="auto-height vgroup ">
-
-				<View id="profileNameView" class="auto-height paddingTop paddingBottom paddingLeft">
-					<Label id="nameLbl" class="left multi-line fill-width s1" />
-				</View>
-				<View class="auto-height top">  
-
-					<View id="profileImageView" class="padding-left auto-height auto-width top" >
-						<Label id="profileIconLabel" height="90" width="90" class="left" onClick="didClickProfileImg" />
+			<View class="auto-height vgroup">
+				<Label id="titleLbl" class="margin-top title-wrap" />
+				<View class="margin-top auto-height">
+					<View class="content-left-image-large-bordered" onClick="didClickPhoto">
+						<Widget id="photoImg" src="ti.remoteimage" class="width-100" onError="didError" />
+						<Label id="photoLbl" class="link-centered-wrap hide" />
 					</View>
-					<View class="auto-height top detailsWidth hgroup right" >
-						<View class=" paddingLeft paddingTop auto-height" onClick="phoneDialer">
-							<Label id="phoneIconLbl" class="top left small-icon" />
-							<Label id="phoneLbl" class="after-icon s3 multi-line " />
+					<View id="contentView" class="content-view-vgroup-with-limage-large">
+						<View class="icon-view" onClick="didClickPhone">
+							<Label class="icon icon-phone" />
+							<Label id="phoneLbl" class="icon-description" />
 						</View>
-						<View class="hseparator paddingLeft paddingTop"/>
-						<View class="paddingTop paddingLeft auto-height">
-							<Label id="faxIconLbl" class="top left small-icon" />
-							<Label id="faxLbl" class="after-icon s3 multi-line " />
+						<View class="margin-top h-divider" />
+						<View class="margin-top icon-view">
+							<Label class="icon icon-print" />
+							<Label id="faxLbl" class="icon-description" />
 						</View>
-						<View class="hseparator paddingLeft paddingTop"/>
-						<View class="paddingTop paddingLeft auto-height">
-							<Label id="directionIconLbl" class="top left small-icon"  />
-							<Label id="directionLbl" class="after-icon s13 " onClick="didClickDirections" />
+						<View class="margin-top h-divider" />
+						<View class="margin-top icon-view" onClick="didClickDirection">
+							<Label class="top icon icon-direction" />
+							<Label id="addressLbl" class="icon-description-link" />
 						</View>
 					</View>
 				</View>
-				<Widget id="notesTxta" src="ti.textarea" class="txta paddingTop paddingBottom"/>
+				<Label id="notesLbl" class="margin-top margin-bottom lbl-wrap" />
 			</View>
 		</HeaderView>
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
 	</TableView>
-	<!--</View>
-	<View id="footerView" class="bottom">
-	<Button id="hideDoctorBtn" class="btn-primary" />
-	</View>
-	</View>-->
 </Alloy>

@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     titleClasses = ["content-title-wrap"],
     subtitleClasses = ["content-subtitle-wrap"],
+    prescriptions,
     rows,
     swipeOptions,
     headerBtnDict,
@@ -43,6 +44,40 @@ function focus() {
 			keepLoader : true,
 			success : didGetDoctors
 		});
+	} else if (currentDoctor.method) {
+		var method = currentDoctor.method;
+		/**
+		 * to prevent method property
+		 * added to model / collection
+		 * delete it before adding / processing
+		 */
+		delete currentDoctor.method;
+		switch(method) {
+		case "doctors_add":
+			Alloy.Collections.doctors.add(currentDoctor);
+			var row = processModel(Alloy.Collections.doctors.last());
+			$.tableView.appendRow(row.getView());
+			rows.push(row);
+			break;
+		case "doctors_update":
+			delete currentDoctor.updated;
+			_.some(rows, function(row, index) {
+				if (row.getParams().id == currentDoctor.id) {
+					var model = Alloy.Collections.doctors.at(index);
+					model.set(_.pick(currentDoctor, ["first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"]));
+					var newRow = processModel(model);
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
+					rows[index] = newRow;
+					return true;
+				}
+				return false;
+			});
+			break;
+		case "doctors_remove":
+			didRemoveDoctor(null, currentDoctor);
+			break;
+		}
+		currentDoctor = null;
 	}
 }
 
@@ -64,12 +99,23 @@ function didGetDoctors(result, passthrough) {
 }
 
 function didGetPrescriptions(result, passthrough) {
+	prescriptions = result.data.prescriptions;
 	rows = [];
 	headerBtnDict.callback = didClickAdd;
-	var section = $.uihelper.createTableViewSection($, $.strings.doctorsSectionDoctors, null, false, false, headerBtnDict),
-	    prescriptions = result.data.prescriptions;
+	var section = $.uihelper.createTableViewSection($, $.strings.doctorsSectionDoctors, null, false, false, headerBtnDict);
 	Alloy.Collections.doctors.each(function(model) {
-		var docPrescs = _.where(prescriptions, {
+		var row = processModel(model);
+		section.add(row.getView());
+		rows.push(row);
+	});
+	$.tableView.setData([section]);
+}
+
+function processModel(model) {
+	var docPrescs,
+	    subtitle;
+	if (model.get("doctor_type") != apiCodes.doctor_type_manual) {
+		docPrescs = _.where(prescriptions, {
 			doctor_id : model.get("id")
 		});
 		/* Description format
@@ -79,8 +125,7 @@ function didGetPrescriptions(result, passthrough) {
 		 * 3 drugs has prescribed you [DRUGNAME], [DRUGNAME] and [DRUGNAME].
 		 * 4 or more has prescribed you [DRUGNAME], [DRUGNAME], and [X] more.
 		 */
-		var len = docPrescs.length,
-		    subtitle;
+		var len = docPrescs.length;
 		if (len) {
 			//When len is > 0
 			subtitle = $.utilities.ucword(docPrescs[0].presc_name);
@@ -101,21 +146,26 @@ function didGetPrescriptions(result, passthrough) {
 		} else {
 			subtitle = $.strings.doctorsLblPrescribedNone;
 		}
-		model.set({
-			leftImage : model.get("image_url"),
-			title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
-			subtitle : subtitle,
-			titleClasses : titleClasses,
-			subtitleClasses : subtitleClasses,
-			prescriptions : docPrescs,
-			options : swipeOptions
-		});
-		var row = Alloy.createController("itemTemplates/contentViewSwipeable", model.toJSON());
-		row.on("clickoption", didClickSwipeOption);
-		section.add(row.getView());
-		rows.push(row);
+	} else {
+		subtitle = $.strings.doctorsLblManual;
+	}
+	/**
+	 * api has to be fixed
+	 * returns null as string
+	 */
+	var imageURL = model.get("image_url");
+	model.set({
+		image : imageURL && imageURL != "null" ? imageURL : "",
+		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
+		subtitle : subtitle,
+		titleClasses : titleClasses,
+		subtitleClasses : subtitleClasses,
+		prescriptions : docPrescs,
+		options : swipeOptions
 	});
-	$.tableView.setData([section]);
+	var row = Alloy.createController("itemTemplates/contentViewSwipeable", model.toJSON());
+	row.on("clickoption", didClickSwipeOption);
+	return row;
 }
 
 function didClickSwipeOption(e) {
@@ -126,27 +176,33 @@ function didClickSwipeOption(e) {
 	 * we have only one option now, so no need for any further validation
 	 * just confirm and remove doctor
 	 */
-	$.uihelper.showDialog({
-		message : String.format($.strings.doctorsMsgRemoveConfirm, e.data.title),
-		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-		cancelIndex : 1,
-		success : function() {
-			var data = e.data;
-			$.http.request({
-				method : "doctors_remove",
-				params : {
-					feature_code : "THXXX",
-					data : [{
-						doctors : {
-							id : data.id
-						}
-					}]
-				},
-				passthrough : data,
-				success : didRemoveDoctor
-			});
-		}
-	});
+	var data = e.data;
+	if (data.doctor_type != apiCodes.doctor_type_manual) {
+		$.uihelper.showDialog({
+			message : String.format($.strings.doctorsMsgRemoveRestricted, data.title),
+		});
+	} else {
+		$.uihelper.showDialog({
+			message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : function() {
+				$.http.request({
+					method : "doctors_remove",
+					params : {
+						feature_code : "THXXX",
+						data : [{
+							doctors : {
+								id : data.id
+							}
+						}]
+					},
+					passthrough : data,
+					success : didRemoveDoctor
+				});
+			}
+		});
+	}
 }
 
 function didRemoveDoctor(result, passthrough) {
@@ -165,19 +221,43 @@ function didRemoveDoctor(result, passthrough) {
 }
 
 function didClickAdd(e) {
-
+	currentDoctor = {};
+	$.app.navigator.open({
+		titleid : "titleDoctorAdd",
+		ctrl : "doctor",
+		ctrlArguments : {
+			isUpdate : false,
+			doctor : currentDoctor
+		},
+		stack : true
+	});
 }
 
 function didClickTableView(e) {
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
+	var row = rows[e.index];
+	if (row) {
+		currentDoctor = row.getParams();
+		$.app.navigator.open({
+			titleid : "titleDoctorDetails",
+			ctrl : "doctorDetails",
+			ctrlArguments : {
+				doctor : currentDoctor,
+				canUpdate : true
+			},
+			stack : true
+		});
+	}
 }
 
 function terminate() {
 	/**
-	 * reset only when required
-	 * only when it is a list screen not selectable
+	 * not resetting currentTable object
+	 * as there are chance when nullify it here
+	 * may affect the object being set on next
+	 * controllers init / focus method
 	 */
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.isSwipeInProgress = false;

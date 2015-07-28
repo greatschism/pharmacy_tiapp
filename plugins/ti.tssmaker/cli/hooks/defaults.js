@@ -106,6 +106,9 @@ module.exports = {
 	".autocaps-sentences" : {
 		"autocapitalization" : "Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES"
 	},
+	".autocaps-words" : {
+		"autocapitalization" : "Ti.UI.TEXT_AUTOCAPITALIZATION_WORDS"
+	},
 	".keyboard-email" : {
 		"keyboardType" : "Ti.UI.KEYBOARD_EMAIL"
 	},
@@ -186,6 +189,10 @@ module.exports = {
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".form-dropdown" : {
+		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+	},
+	".form-dropdown-50" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},

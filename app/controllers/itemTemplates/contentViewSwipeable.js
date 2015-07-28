@@ -38,8 +38,8 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
-	if (args.leftImage) {
-		$.img.setImage(args.leftImage);
+	if (args.image) {
+		$.img.setImage(args.image);
 	}
 	/**
 	 * should not be have class suffix -wrap by default
@@ -98,7 +98,7 @@ function didPostlayout(e) {
 }
 
 function didError(e) {
-	require("logger").error(TAG, "unable to load image from url", args.leftImage);
+	require("logger").error(TAG, "unable to load image from url", args.image);
 }
 
 function didClickOption(e) {

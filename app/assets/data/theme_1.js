@@ -151,8 +151,20 @@ module.exports = {
 			}
 		},
 		"tss" : {
+			".name" : {
+				"maxLength" : 40
+			},
+			".address" : {
+				"maxLength" : 100
+			},
+			".zip" : {
+				"maxLength" : 5
+			},
 			".phone" : {
 				"maxLength" : 14
+			},
+			".notes" : {
+				"maxLength" : 250
 			},
 			".rx-number" : {
 				"maxLength" : 10
@@ -765,7 +777,7 @@ module.exports = {
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
-			".txt-small" : {
+			".txt-48" : {
 				"width" : "48%",
 				"height" : 50,
 				"paddingLeft" : 8,
@@ -868,17 +880,18 @@ module.exports = {
 			".txta" : {
 				"left" : 12,
 				"right" : 12,
-				"height" : 144,
+				"height" : 90,
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#808285",
+				"color" : "#000000",
 				"textAlign" : "left",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "#808083",
 				"borderWidth" : 1,
-				"borderRadius" : 3.4
+				"borderRadius" : 3.4,
+				"suppressReturn" : true
 			},
 			".form-group" : {
 				"left" : 12,
@@ -953,7 +966,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
-			".form-txt-small" : {
+			".form-txt-50" : {
 				"width" : "50%",
 				"height" : 50,
 				"paddingLeft" : 8,
@@ -999,6 +1012,50 @@ module.exports = {
 			},
 			".form-dropdown" : {
 				"width" : "fill",
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#1a1a1a",
+				"optionPadding" : {
+					"top" : 12,
+					"bottom" : 12,
+					"left" : 12,
+					"right" : 12
+				},
+				"paddingLeft" : 12,
+				"paddingRight" : 46,
+				"iconPaddingRight" : 12,
+				"hintTextColor" : "#C4C4C4",
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"iconColor" : "#808082",
+				"selectedIconColor" : "#009245",
+				"toolbarDict" : {
+					"height" : 40,
+					"backgroundColor" : "#6D6E70"
+				},
+				"leftButtonDict" : {
+					"left" : 12,
+					"color" : "#808184",
+					"selectedColor" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"rightButtonDict" : {
+					"left" : 12,
+					"color" : "#808184",
+					"selectedColor" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"borderColor" : "transparent"
+			},
+			".form-dropdown-50" : {
+				"width" : "50%",
 				"height" : 50,
 				"font" : {
 					"fontFamily" : "medium",
@@ -1146,6 +1203,44 @@ module.exports = {
 					"top" : 12,
 					"bottom" : 12
 				}
+			},
+			".icon-view" : {
+				"height" : "auto"
+			},
+			".icon" : {
+				"left" : 0,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"color" : "#F7941E",
+				"accessibilityHidden" : true
+			},
+			".icon-description" : {
+				"left" : 36,
+				"right" : 0,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".icon-description-link" : {
+				"left" : 36,
+				"right" : 0,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#0095ff",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
 			},
 			".content-view" : {
 				"top" : 12,
@@ -1368,6 +1463,7 @@ module.exports = {
 			},
 			".content-left-image" : {
 				"top" : 12,
+				"bottom" : 12,
 				"left" : 12,
 				"width" : 60,
 				"height" : 60
@@ -1403,21 +1499,33 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-left-image-large" : {
+				"top" : 12,
+				"bottom" : 12,
 				"left" : 12,
-				"width" : 120,
-				"height" : 120
+				"width" : 90,
+				"height" : 90
+			},
+			".content-left-image-large-bordered" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"width" : 90,
+				"height" : 90,
+				"borderColor" : "#808082",
+				"borderRadius" : 0,
+				"borderWidth" : 1
 			},
 			".content-view-with-limage-large" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 114,
 				"right" : 12,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-limage-large" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 144,
+				"left" : 114,
 				"right" : 12,
 				"height" : "auto",
 				"layout" : "vertical"
@@ -2089,7 +2197,77 @@ module.exports = {
 				"layout" : "horizontal",
 				"horizontalWrap" : false
 			},
+			".content-group-prompt-65" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "65%",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-inactive-prompt-65" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "65%",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-reply-35" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "35%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-inactive-reply-35" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "35%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".content-group-prompt-40" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "40%",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-inactive-prompt-40" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
@@ -2117,7 +2295,35 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".content-group-inactive-reply-60" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "60%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".content-group-prompt" : {
+				"top" : 0,
+				"left" : 0,
+				"height" : "auto",
+				"width" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-inactive-prompt" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
@@ -2475,6 +2681,32 @@ module.exports = {
 				},
 				"color" : "#0095ff",
 				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".link-centered" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#0095ff",
+				"textAlign" : "center",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".link-centered-wrap" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#0095ff",
+				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
 			},

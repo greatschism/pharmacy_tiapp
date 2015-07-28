@@ -80,12 +80,14 @@ function didGetStore(result, passthrough) {
 		text : clockLbl
 	});
 	if (hours.length) {
-		var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
+		var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours),
+		    promptClasses = ["content-group-inactive-prompt-40"];
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
 				data : hour,
 				promptProperty : "day",
-				replyProperty : "hours"
+				replyProperty : "hours",
+				promptClasses : promptClasses
 			}).getView());
 		});
 		data.push(hoursSection);
