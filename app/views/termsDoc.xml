@@ -1,8 +1,7 @@
 <Alloy>
-	<ScrollView id="scrollView" class="disable-bounce">
-		<WebView id="webView" class="disable-bounce" />
-		<View id="footerView" class="bottom auto-height">
-			<Button id="doneBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickDone" />
-		</View>
+	<ScrollView id="scrollView" >
+		<WebView id="webView" />
+		<Button id="emailBtn" class="margin-bottom primary-btn" onClick="didClickEmail" />
+		<Button id="revokeBtn" class="margin-bottom tertiary-btn" onClick="didClickRevoke" />
 	</ScrollView>
 </Alloy> 

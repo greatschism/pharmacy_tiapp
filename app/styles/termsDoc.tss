@@ -5,6 +5,9 @@
 	width: "100%",
 	scalesPageToFit: true
 },
-"#doneBtn":{
-	title: Alloy.Globals.strings.btnDone
+"#emailBtn":{
+	title: Alloy.Globals.strings.accountsSuccessBtnEmail
+},
+"#revokeBtn":{
+	title: Alloy.Globals.strings.accountsFailureBtnRevoke
 }

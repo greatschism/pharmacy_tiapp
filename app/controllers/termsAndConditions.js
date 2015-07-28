@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 function init() {
 	http.request({
 		method : "terms_get",
-		data : {
+		params : {
 			data : [{
 				terms : ""
 			}]
@@ -15,17 +15,28 @@ function init() {
 }
 
 function didSuccess(result) {
-	Alloy.Collections.termsAndConditions.reset(result.data.terms);
+	
+	var terms = result.data,
+		data = [];
+	Alloy.Collections.termsAndConditions.reset(terms);
+	
+	_.each(terms, function(term) {
+		var row = Alloy.createController("itemTemplates/labelWithChild", {
+				title : term.agreement_name
+			});
+		data.push(row.getView());		
+	});
+	$.tableView.setData(data); 
 }
 
 function didClickItem(e) {
 	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
-	app.navigator.open({
+	$.app.navigator.open({
 		ctrl : "termsDoc",
 		title : item.agreement_name,
 		stack : true,
 		ctrlArguments : item
-	});
+	});	
 }
 
 function didClickDone(e) {

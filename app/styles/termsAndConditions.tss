@@ -1,6 +1,0 @@
-"#titleLbl":{
-	text:Alloy.Globals.strings.lblDocument
-},
-"#doneBtn":{
-	title: Alloy.Globals.strings.btnDone
-}

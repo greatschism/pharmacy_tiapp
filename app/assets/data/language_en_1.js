@@ -93,7 +93,8 @@ module.exports = {
 		"titleDoctorDetails" : "Doctor details",
 		"titleDoctorAdd" : "Add a doctor",
 		"titleDoctorUpdate" : "Edit doctor",
-
+		"titleAccountsAgreements" : "My agreements",
+		
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
 		"tmplRxTxtHintRx" : "Enter your prescription number",
@@ -313,7 +314,8 @@ module.exports = {
 		"accountsLblHideZeroRefPresc" : "Hide zero refill prescriptions",
 		"accountsLblTimeZone" : "Time zone",
 		"accountsLblLanguage" : "Language",
-		"accountsLblKeepMeSignedIn" : "Keep me signed in"
-
+		"accountsLblKeepMeSignedIn" : "Keep me signed in",
+		"accountsSuccessBtnEmail" : "E-mail this to me",
+		"accountsFailureBtnRevoke" : "REVOKE"
 	}
 };

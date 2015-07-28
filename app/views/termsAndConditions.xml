@@ -1,20 +1,7 @@
 <Alloy>
-	<TableView dataCollection="termsAndConditions" onClick="didClickItem">
-		<HeaderView>
-			<View class="section-header-view">
-				<Label id="titleLbl" class="section-header-lbl" />
-			</View>
-		</HeaderView>
-		<TableViewRow itemId="{id}">
-			<View class="list-item-view-with-child">
-				<Label class="left list-item-lbl" text="{agreement_name}" />
-			</View>
-			<Label class="list-item-child" />
-		</TableViewRow>
-		<FooterView>
-			<View class="auto-height">
-				<Button id="doneBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickDone" />
-			</View>
+	<TableView id="tableView" onClick="didClickItem">
+		<FooterView platform="ios">
+			<View class="auto-height" />
 		</FooterView>
 	</TableView>
 </Alloy>

@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
-    app = require("core");
+    app = require("core"),
+    strings = Alloy.Globals.strings;
     
 function init() {
 	
@@ -52,7 +53,12 @@ function didClickContactSupport(){
 }
 
 function didClickViewAgreement(){
-	
+	$.app.navigator.open({
+		titleid : "titleAccountsAgreements",
+		ctrl : "termsAndConditions",
+		ctrlArguments : {},
+		stack : true
+	});
 }
 
 function didClickEdit(){
