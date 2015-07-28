@@ -12,8 +12,8 @@ function init() {
 	}
 	var currentDate = moment(),
 	    section = $.uihelper.createTableViewSection($, $.strings.doctorDetSectionPrescribed),
-	    promptClasses = ["content-group-prompt-65"],
-	    replyClasses = ["content-group-right-inactive-reply-35"];
+	    promptClasses = ["content-group-prompt-60"],
+	    replyClasses = ["content-group-right-inactive-reply-40"];
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		_.each(doctor.prescriptions, function(prescription) {
 			var isExpired = moment(prescription.expiration_date, apiCodes.date_format).diff(currentDate, "days") < 0,
@@ -21,7 +21,7 @@ function init() {
 			if (isExpired) {
 				reply = $.strings.doctorDetLblExpired;
 			} else if (prescription.latest_sold_date) {
-				reply = String.format($.strings.doctorDetLblRefilled, moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_time_format));
+				reply = String.format($.strings.doctorDetLblRefilled, moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format));
 			} else {
 				reply = $.strings.doctorDetLblRefilledNone;
 			}

@@ -27,10 +27,15 @@ function focus() {
 					}]
 				},
 				showLoader : false,
-				success : didGetHistory
+				success : didGetHistory,
+				failure : didFail
 			});
 		}
 	}
+}
+
+function didFail(error, passthrough) {
+	$.loader.hide();
 }
 
 function didGetHistory(result, passthrough) {

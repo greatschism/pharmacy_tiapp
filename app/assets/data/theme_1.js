@@ -2197,11 +2197,11 @@ module.exports = {
 				"layout" : "horizontal",
 				"horizontalWrap" : false
 			},
-			".content-group-prompt-65" : {
+			".content-group-prompt-60" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
-				"width" : "65%",
+				"width" : "60%",
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
@@ -2211,11 +2211,11 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-inactive-prompt-65" : {
+			".content-group-inactive-prompt-60" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
-				"width" : "65%",
+				"width" : "60%",
 				"font" : {
 					"fontFamily" : "regular",
 					"fontSize" : 14
@@ -2225,11 +2225,11 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-reply-35" : {
+			".content-group-reply-40" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
-				"width" : "35%",
+				"width" : "40%",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
@@ -2239,11 +2239,11 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-inactive-reply-35" : {
+			".content-group-inactive-reply-40" : {
 				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
-				"width" : "35%",
+				"width" : "40%",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
@@ -2253,11 +2253,11 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-right-reply-35" : {
+			".content-group-right-reply-40" : {
 				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
-				"width" : "35%",
+				"width" : "40%",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
@@ -2267,11 +2267,11 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".content-group-right-inactive-reply-35" : {
+			".content-group-right-inactive-reply-40" : {
 				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
-				"width" : "35%",
+				"width" : "40%",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14
