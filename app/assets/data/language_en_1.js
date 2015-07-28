@@ -70,7 +70,7 @@ module.exports = {
 		"titleRewards" : "Savings Catcher",
 		"titleCoupons" : "Coupons",
 		"titleFamilyAccounts" : "Family accounts",
-		"titleTransfer" : "Transfer Rx",
+		"titleTransfer" : "Transfer prescription",
 		"titleRefill" : "Refill now",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
@@ -287,6 +287,12 @@ module.exports = {
 		"transferUserDetValDob" : "Please enter your Date of birth.",
 		"transferUserDetValPhone" : "Please enter your mobile number.",
 		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid.",
+
+		"transferOptionsTitle":"Just one more step and you're good to go!",
+		"transferOptionsLbl":"Transfer all prescriptions from out pharmacy to app pharmacy",
+		"transferOptionsLblSendTxtMsg":"Send me text messages when my prescriptions are ready",
+		"transferOptionsLblReviewDet":"Review transfer details",
+		"transferOptionsBtnTransfer":"Complete transfer",
 
 		"transferReviewLblPersonalTitle":"Personal details",
 		"transferReviewLblrefillDetTitle":"Your refill has been placed at:",
