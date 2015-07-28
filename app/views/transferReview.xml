@@ -1,0 +1,71 @@
+<Alloy>
+	<TableView>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="personalDetTitleLbl" class="content-header-lbl" />
+					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditPersonalDet"/>
+				</View>
+			</HeaderView>
+		</TableViewSection>
+		<TableViewRow>
+			<View class="content-view">
+				<Label id="userNameLbl" class="lbl"/>
+			</View>
+		</TableViewRow>
+		<TableViewRow>
+			<View class="content-view">
+				<Label id="dobLbl" class="lbl"/>
+			</View>
+		</TableViewRow>
+		<TableViewRow>
+			<View class="content-view">
+				<Label id="phoneLbl" class="lbl"/>
+			</View>
+		</TableViewRow>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="refillDetTitleLbl" class="content-header-lbl"/>
+					<Button id="editBtn" class="content-header-right-icon icon-edit"/>
+				</View>
+			</HeaderView>
+		</TableViewSection>
+		<TableViewRow>
+			<View class="content-view-vgroup">
+				<View class="content-master-view-100 auto-height">
+					<Label id="pharmacyNameLbl" class="content-title"/>
+					<Label id="pharmacyAddress1Lbl" class="content-title margin-top"/>
+					<Label id="pharmacyAddress2Lbl" class="content-subtitle margin-top"/>
+				</View>
+				<View class="content-master-view-50 auto-height vgroup margin-top">
+					<View class="content-group" onClick="didClickPhone">
+						<Label id="pharmacyPhonePromptLbl" class="content-group-prompt"/>
+						<Label id="pharmacyPhoneReplyLbl" class="content-group-reply-link "/>
+					</View>
+				</View>
+			</View>
+		</TableViewRow>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="prescriptionDetTitleLbl" class="content-header-lbl"/>
+					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditPrescriptionDet"/>
+				</View>
+			</HeaderView>
+		</TableViewSection>
+		<TableViewRow>
+			<View class="content-view-vgroup">
+				<View class="content-master-view-100 auto-height">
+					<Label id="prescNameLbl" class="content-title"/>
+					<Label id="prescNumberLbl" class="content-title margin-top"/>
+				</View>
+			</View>
+		</TableViewRow>
+		<FooterView>
+			<View class="auto-height">
+				<Button id="transferBtn" class="margin-top margin-bottom margin-left margin-right primary-btn" onClick="didCompleteTransfer"/>
+			</View>
+		</FooterView>
+	</TableView>
+</Alloy>

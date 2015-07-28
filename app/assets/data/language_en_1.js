@@ -288,6 +288,12 @@ module.exports = {
 		"transferUserDetValPhone" : "Please enter your mobile number.",
 		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid.",
 
+		"transferReviewLblPersonalTitle":"Personal details",
+		"transferReviewLblrefillDetTitle":"Your refill has been placed at:",
+		"transferReviewLblPrescDetTitle":"Prescription transferred",
+		"transferReviewPromptPhone":"Call:",
+		"transferReviewBtnTransfer":"Complete transfer",
+		
 		"accountsLblNotifications" : "Notifications",
 		"accountsLblPrescriptionDisplay" : "Prescription display",
 		"accountsLblLocationSettings" : "Location settings",

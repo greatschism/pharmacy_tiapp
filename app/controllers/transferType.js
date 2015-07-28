@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     isWindowOpen;
-
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
@@ -69,8 +68,8 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
-	name = $.utilities.validatePrescriptionName(name);
-	if (!name) {
+	var prescname = $.utilities.validatePrescriptionName(name);
+	if (!prescname) {
 		$.uihelper.showDialog({
 			message : $.strings.transferTypeValNameInvalid
 		});
@@ -114,6 +113,7 @@ function didClickSubmit(e) {
 		phone : phone,
 		storeOriginal : storeOriginal
 	};
+	
 	if (args.edit) {
 		_.extend(args.prescription, prescription);
 		$.app.navigator.close();

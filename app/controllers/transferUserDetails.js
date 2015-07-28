@@ -1,12 +1,24 @@
 var args = arguments[0] || {};
 
-function init(){
+function focus(){
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
+	$.dobDp.setValue("14-05-2015");
+	updateInputs();
 }
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
-
+function updateInputs(){
+	if (args.edit) {
+		var user = args.user;
+		$.firstNameTxt.setValue(user.fname);
+		$.lastNameTxt.setValue(user.lname);
+		didChangePhone({
+			value : user.phone
+		});
+		
+	}
+}
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
@@ -56,6 +68,10 @@ function submitUserDet(){
 		dob : dob,
 		phone : phone
 	};
+	if (args.edit) {
+		_.extend(args.user, user);
+		$.app.navigator.close();
+	}else{
 	$.app.navigator.open({
 				titleid : "titleTransferStore",
 				ctrl : "stores",
@@ -75,7 +91,7 @@ function submitUserDet(){
 				},
 				stack : true
 			});
-
+}
 }
 function didChangePhone(e) {
 	var value = $.utilities.formatPhoneNumber(e.value),
@@ -83,5 +99,5 @@ function didChangePhone(e) {
 	$.phoneTxt.setValue(value);
 	$.phoneTxt.setSelection(len, len);
 }
-exports.init=init;
+exports.focus=focus;
 exports.setParentView = setParentView; 

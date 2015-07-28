@@ -1,0 +1,15 @@
+"#personalDetTitleLbl":{
+	text:Alloy.Globals.strings.transferReviewLblPersonalTitle
+},
+"#refillDetTitleLbl":{
+	text:Alloy.Globals.strings.transferReviewLblrefillDetTitle
+},
+"#prescriptionDetTitleLbl":{
+	text:Alloy.Globals.strings.transferReviewLblPrescDetTitle
+},
+"#transferBtn":{
+	title:Alloy.Globals.strings.transferReviewBtnTransfer
+}
+"#pharmacyPhonePromptLbl":{
+	text:Alloy.Globals.strings.transferReviewPromptPhone
+}
