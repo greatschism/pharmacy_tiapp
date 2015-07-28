@@ -1,4 +1,40 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<TableView>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="transferTitleLbl" class="content-header-lbl" />
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="auto-height">
+					<View class="content-view-with-rswt">
+						<Widget id="transferAllPrescLbl" src="ti.styledlabel" class="lbl-wrap" />
+					</View>
+					<Widget id="transferAllPrescSwt" src="ti.switch" class="content-right-swt swt" />
+				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View class="auto-height">
+					<View class="content-view-with-rswt">
+						<Widget id="sendTxtMsgLbl" src="ti.styledlabel" class="lbl-wrap" />
+					</View>
+					<Widget id="sendTxtMsgSwt" src="ti.switch" class="content-right-swt swt" />
+				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View class="auto-height">
+					<View class="content-view-with-rswt">
+						<Widget id="reviewLbl" src="ti.styledlabel" class="lbl-wrap" />
+					</View>
+					<Label class="content-child-icon icon-thin-arrow-right" />
+				</View>
+			</TableViewRow>
+		</TableViewSection>
+		<FooterView>
+			<View class="auto-height">
+				<Button id="transferBtn" class="margin-top margin-bottom margin-left margin-right primary-btn" onClick="didCompleteTransfer"/>
+			</View>
+		</FooterView>
+	</TableView>
 </Alloy>

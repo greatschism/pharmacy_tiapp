@@ -1,0 +1,15 @@
+"#transferTitleLbl":{
+	text:Alloy.Globals.strings.transferOptionsTitle
+}
+"#transferAllPrescLbl":{
+	text:Alloy.Globals.strings.transferOptionsLbl
+},
+"#sendTxtMsgLbl":{
+	text:Alloy.Globals.strings.transferOptionsLblSendTxtMsg
+}
+"#reviewLbl":{
+	text:Alloy.Globals.strings.transferOptionsLblReviewDet
+}
+"#transferBtn":{
+	title:Alloy.Globals.strings.transferOptionsBtnTransfer
+}

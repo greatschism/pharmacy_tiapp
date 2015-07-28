@@ -255,6 +255,8 @@ module.exports = {
 		"transferOptionsTitle":"Just one more step and you're good to go!",
 		"transferOptionsLbl":"Transfer all prescriptions from out pharmacy to app pharmacy",
 		"transferOptionsLblSendTxtMsg":"Send me text messages when my prescriptions are ready",
+		"transferOptionsLblReviewDet":"Review transfer details",
+		"transferOptionsBtnTransfer":"Complete transfer",
 		
 		"accountsLblNotifications" : "Notifications",
 		"accountsLblPrescriptionDisplay" : "Prescription display",
