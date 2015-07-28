@@ -24,12 +24,22 @@ function didEditPersonalDet(){
 		stack : true
 	});
 }
+function didEditStoreDet(){
+	$.app.navigator.open({
+		titleid : "titleTransferStore",
+		ctrl : "stores",
+		ctrlArguments : {
+			edit : true,
+			stores : args.stores,
+		},
+		stack : true
+	});
+}
 function didCompleteTransfer() {
 
 }
 
 function focus() {
-	console.log(args);
 	$.userNameLbl.text = args.user.fname + " " + args.user.lname;
 	$.dobLbl.text = args.user.dob;
 	$.phoneLbl.text = $.utilities.formatPhoneNumber(args.user.phone);

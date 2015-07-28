@@ -769,7 +769,12 @@ function handleNavigation(params) {
 	 * to check for changes in focus event
 	 */
 	currentStore = params;
-	//open detail screen
+	//If args.edit is true which means user is coming from edit transfer rx stores screen close the controller, else open detail screen
+	if (args.edit) {
+		_.extend(args.stores, currentStore);
+		$.app.navigator.close();
+	}
+	else{
 	$.app.navigator.open({
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
@@ -780,6 +785,7 @@ function handleNavigation(params) {
 		},
 		stack : true
 	});
+	}
 }
 
 function didClickRightNavBtn(e) {

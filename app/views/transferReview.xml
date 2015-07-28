@@ -27,7 +27,7 @@
 			<HeaderView>
 				<View class="content-header-view">
 					<Label id="refillDetTitleLbl" class="content-header-lbl"/>
-					<Button id="editBtn" class="content-header-right-icon icon-edit"/>
+					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditStoreDet"/>
 				</View>
 			</HeaderView>
 		</TableViewSection>
