@@ -82,7 +82,7 @@ function updateInputs() {
 		if (sliced == ", " || sliced == ",\n") {
 			address = address.slice(0, address.length - 2);
 		}
-		doctor.address = address;
+		doctor.address = address.replace(/[\s\r\n]+/g, "");
 	} else {
 		address = $.strings.strNotAvailable;
 	}
@@ -116,11 +116,11 @@ function didGetPhoto(blob) {
 			}]
 		},
 		forceRetry : true,
-		success : didImageUpload
+		success : didUploadImage
 	});
 }
 
-function didImageUpload(result, passthrough) {
+function didUploadImage(result, passthrough) {
 	var imageURL = result.data;
 	if (imageURL) {
 		$.http.request({
