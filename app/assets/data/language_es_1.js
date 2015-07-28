@@ -90,6 +90,7 @@ module.exports = {
 		"titleTransferStore" : "es-Transfer to this store",
 		"titleTransferUserDetails" : "es-Your information",
 		"titleTransferOptions" : "es-Transfer prescription",
+		"titleAccountsAgreements" : "es-My agreements",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
