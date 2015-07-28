@@ -23,7 +23,8 @@
             "prescriptions_unhide": "prescriptions/unhide",
             "prescriptions_refill": "prescriptions/refill",
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
-            "preferences_get": "patient/preferences/get"
+            "preferences_get": "patient/preferences/get",
+            "terms_get" : "terms/getTermsOfService"
         },
         "apiCodes": {
             "success": "200",
