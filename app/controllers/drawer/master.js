@@ -41,6 +41,18 @@ function didOpen(e) {
 }
 
 function updateCallback() {
+	/**
+	 * logout before reloading the app
+	 */
+	require("authenticator").logout(false, didLogout);
+}
+
+function didLogout() {
+	/**
+	 * make the heavy weight window
+	 * ready for close not exit
+	 * and initate appload again
+	 */
 	if (OS_ANDROID) {
 		$.rootWindow.setExitOnClose(false);
 	}

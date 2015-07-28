@@ -55,6 +55,18 @@ function didGetPrescription(result, passthrough) {
 	_.extend(prescription, result.data.prescriptions);
 	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
+	/**
+	 * docor_id can be null
+	 */
+	if (prescription.doctor_id) {
+		getDoctor();
+	} else {
+		loadDoctor();
+		getStore();
+	}
+}
+
+function getDoctor() {
 	httpClient = $.http.request({
 		method : "doctors_get",
 		params : {
@@ -75,6 +87,10 @@ function didGetDoctor(result, passthrough) {
 	_.extend(prescription.doctor, result.data.doctors);
 	prescription.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(prescription.doctor.first_name) + " " + $.utilities.ucword(prescription.doctor.last_name));
 	loadDoctor();
+	getStore();
+}
+
+function getStore() {
 	httpClient = $.http.request({
 		method : "stores_get",
 		params : {
@@ -110,7 +126,7 @@ function loadPresecription() {
 function loadDoctor() {
 	$.rxReplyLbl.text = prescription.rx_number;
 	$.expiryReplyLbl.text = moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
-	$.doctorReplyLbl.text = prescription.doctor.title;
+	$.doctorReplyLbl.text = prescription.doctor ? prescription.doctor.title : $.strings.strNotAvailable;
 }
 
 function loadStore() {
@@ -147,21 +163,23 @@ function didClickDoctor(e) {
 	 *  as the only way for prescription details screen
 	 *  is prescription list
 	 */
-	var doctor = _.clone(prescription.doctor);
-	doctor.prescriptions = [];
-	Alloy.Collections.prescriptions.each(function(model) {
-		if (model.get("doctor_id") == doctor.id) {
-			doctor.prescriptions.push(model.toJSON());
-		}
-	});
-	$.app.navigator.open({
-		titleid : "titleDoctorDetails",
-		ctrl : "doctorDetails",
-		ctrlArguments : {
-			doctor : doctor
-		},
-		stack : true
-	});
+	if (prescription.doctor) {
+		var doctor = _.clone(prescription.doctor);
+		doctor.prescriptions = [];
+		Alloy.Collections.prescriptions.each(function(model) {
+			if (model.get("doctor_id") == doctor.id) {
+				doctor.prescriptions.push(model.toJSON());
+			}
+		});
+		$.app.navigator.open({
+			titleid : "titleDoctorDetails",
+			ctrl : "doctorDetails",
+			ctrlArguments : {
+				doctor : doctor
+			},
+			stack : true
+		});
+	}
 }
 
 function togglePrescription(e) {

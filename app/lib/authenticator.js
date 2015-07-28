@@ -1,6 +1,7 @@
 var TAG = "Authenticator",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
+    moment = require("alloy/moment"),
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
@@ -103,6 +104,7 @@ function didGetPatient(result, passthrough) {
 
 function didGetPreferences(result, passthrough) {
 	Alloy.Models.patient.set(result.data.patients.preferences);
+	moment.tz.setDefault(Alloy.Models.patient.get("pref_timezone"));
 	Alloy.Collections.menuItems.add({
 		titleid : "titleLogout",
 		action : "logout",
@@ -114,7 +116,7 @@ function didGetPreferences(result, passthrough) {
 	}
 }
 
-function logout(isExplicitLogout) {
+function logout(isExplicitLogout, callback) {
 	/**
 	 * on explicit log out just
 	 * update the flag. user name
@@ -130,7 +132,10 @@ function logout(isExplicitLogout) {
 		params : {
 			feature_code : "THXXX"
 		},
-		passthrough : isExplicitLogout,
+		passthrough : {
+			isExplicitLogout : isExplicitLogout,
+			callback : callback
+		},
 		errorDialogEnabled : false,
 		success : didLogout,
 		failure : didLogout
@@ -138,26 +143,37 @@ function logout(isExplicitLogout) {
 }
 
 function didLogout(result, passthrough) {
+	/**
+	 * reset to device time zone
+	 */
+	moment.tz.setDefault(null);
+	/**
+	 * reset models and collections
+	 */
 	_.each(["patient", "storeOriginal", "sortOrderPreferences", "pickupModes"], function(val) {
 		Alloy.Models[val].clear();
 	});
 	Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
 		action : "logout"
 	}));
-	app.navigator.open(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
-	/**
-	 *  isExplicitLogout from caller
-	 *  then only show the logout dialog
-	 *  otherwise we would have shown the
-	 *  session expired dialog already
-	 *  so no need to show this dialog again
-	 */
-	if (passthrough === true) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.msgLoggedout
-		});
+	if (passthrough.callback) {
+		passthrough.callback();
+	} else {
+		app.navigator.open(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+		/**
+		 *  isExplicitLogout from caller
+		 *  then only show the logout dialog
+		 *  otherwise we would have shown the
+		 *  session expired dialog already
+		 *  so no need to show this dialog again
+		 */
+		if (passthrough.isExplicitLogout === true) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.msgLoggedout
+			});
+		}
 	}
 }
 

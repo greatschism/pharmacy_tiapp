@@ -13,10 +13,10 @@ function init() {
 	var currentDate = moment(),
 	    section = $.uihelper.createTableViewSection($, $.strings.doctorDetSectionPrescribed),
 	    promptClasses = ["content-group-prompt-65"],
-	    replyClasses = ["content-group-inactive-reply-35"];
+	    replyClasses = ["content-group-right-inactive-reply-35"];
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		_.each(doctor.prescriptions, function(prescription) {
-			var isExpired = currentDate.diff(moment(prescription.expiration_date, apiCodes.date_format)) < 0,
+			var isExpired = moment(prescription.expiration_date, apiCodes.date_format).diff(currentDate, "days") < 0,
 			    reply;
 			if (isExpired) {
 				reply = $.strings.doctorDetLblExpired;

@@ -2253,6 +2253,34 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".content-group-right-reply-35" : {
+				"top" : 0,
+				"right" : 0,
+				"height" : "auto",
+				"width" : "35%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "right",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-right-inactive-reply-35" : {
+				"top" : 0,
+				"right" : 0,
+				"height" : "auto",
+				"width" : "35%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "right",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".content-group-prompt-40" : {
 				"top" : 0,
 				"left" : 0,
@@ -2306,6 +2334,34 @@ module.exports = {
 				},
 				"color" : "#5b5b5b",
 				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-right-reply-60" : {
+				"top" : 0,
+				"right" : 0,
+				"height" : "auto",
+				"width" : "60%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "right",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-right-inactive-reply-60" : {
+				"top" : 0,
+				"right" : 0,
+				"height" : "auto",
+				"width" : "60%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#5b5b5b",
+				"textAlign" : "right",
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
