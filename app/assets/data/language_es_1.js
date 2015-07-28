@@ -139,11 +139,12 @@ module.exports = {
 		"doctorsLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
 
 		"doctorDetSectionPrescribed" : "es-Has prescribed you",
-		"doctorDetLblManual" : "es-You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPhotoNone" : "es-Add a image",
+		"doctorDetLblManual" : "es-You manually added this doctor. Associated prescriptions are not available.",
+		"doctorDetLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
+		"doctorDetLblExpired" : "es-Expired",
 		"doctorDetLblRefilled" : "es-Refilled: %s",
 		"doctorDetLblRefilledNone" : "es-Not filled yet",
-		"doctorDetLblExpired" : "es-Expired",
 
 		"doctorHintFirstName" : "es-First Name",
 		"doctorHintLastName" : "es-Last Name",
@@ -287,6 +288,18 @@ module.exports = {
 		"transferUserDetValDob" : "es-Please enter your Date of birth.",
 		"transferUserDetValPhone" : "es-Please enter your mobile number.",
 		"transferUserDetValPhoneInvalid" : "es-The phone number you have entered is invalid.",
+
+		"transferOptionsTitle" : "es-Just one more step and you're good to go!",
+		"transferOptionsLbl" : "es-Transfer all prescriptions from out pharmacy to app pharmacy",
+		"transferOptionsLblSendTxtMsg" : "es-Send me text messages when my prescriptions are ready",
+		"transferOptionsLblReviewDet" : "es-Review transfer details",
+		"transferOptionsBtnTransfer" : "es-Complete transfer",
+
+		"transferReviewLblPersonalTitle" : "es-Personal details",
+		"transferReviewLblrefillDetTitle" : "es-Your refill has been placed at:",
+		"transferReviewLblPrescDetTitle" : "es-Prescription transferred",
+		"transferReviewPromptPhone" : "es-Call:",
+		"transferReviewBtnTransfer" : "es-Complete transfer",
 
 		"accountsLblNotifications" : "es-Notifications",
 		"accountsLblPrescriptionDisplay" : "es-Prescription display",

@@ -15,23 +15,30 @@ function init() {
 	    promptClasses = ["content-group-prompt-60"],
 	    replyClasses = ["content-group-right-inactive-reply-40"];
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
-		_.each(doctor.prescriptions, function(prescription) {
-			var isExpired = moment(prescription.expiration_date, apiCodes.date_format).diff(currentDate, "days") < 0,
-			    reply;
-			if (isExpired) {
-				reply = $.strings.doctorDetLblExpired;
-			} else if (prescription.latest_sold_date) {
-				reply = String.format($.strings.doctorDetLblRefilled, moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format));
-			} else {
-				reply = $.strings.doctorDetLblRefilledNone;
-			}
-			section.add(Alloy.createController("itemTemplates/promptReply", {
-				prompt : $.utilities.ucword(prescription.presc_name),
-				reply : reply,
-				promptClasses : promptClasses,
-				replyClasses : replyClasses
+		if (doctor.prescriptions && doctor.prescriptions.length) {
+			_.each(doctor.prescriptions, function(prescription) {
+				var isExpired = moment(prescription.expiration_date, apiCodes.date_format).diff(currentDate, "days") < 0,
+				    reply;
+				if (isExpired) {
+					reply = $.strings.doctorDetLblExpired;
+				} else if (prescription.latest_sold_date) {
+					reply = String.format($.strings.doctorDetLblRefilled, moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format));
+				} else {
+					reply = $.strings.doctorDetLblRefilledNone;
+				}
+				section.add(Alloy.createController("itemTemplates/promptReply", {
+					prompt : $.utilities.ucword(prescription.presc_name),
+					reply : reply,
+					promptClasses : promptClasses,
+					replyClasses : replyClasses
+				}).getView());
+			});
+		} else {
+			section.add(Alloy.createController("itemTemplates/label", {
+				title : $.strings.doctorDetLblPrescribedNone,
+				lblClasses : ["lbl-wrap"]
 			}).getView());
-		});
+		}
 	} else {
 		section.add(Alloy.createController("itemTemplates/label", {
 			title : $.strings.doctorDetLblManual,
