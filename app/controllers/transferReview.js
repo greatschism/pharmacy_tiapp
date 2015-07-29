@@ -34,54 +34,56 @@ function didEditStoreDet() {
 		},
 		stack : true
 	});
-	console.log(args.stores);
 }
 
 function didCompleteTransfer() {
-	$.http.request({
+	/*$.http.request({
 		method : "stores_transfer",
 		params : {
 			feature_code : "THXXX",
 			data : [{
-
 				transfer : {
-
 					first_name : args.user.fname,
-
 					last_name : args.user.lname,
-
 					birth_date : args.user.dob,
-
 					mobile : args.user.phone,
-
 					email_address : "x",
-
 					image_url : "",
-
 					to_store_id : args.stores.id,
-
 					from_pharmacy_name : args.prescription.storeOriginal.code_display,
-
 					from_pharmacy_phone : args.prescription.phone,
-
 					rx_number :  args.prescription.rx,
-
 					rx_name : args.prescription.name,
-
 					enable_transfer_all_presc_flag : args.transferAllPrescSwtValue,
-
 					enable_txt_msg_flag : args.sendtxtMsgSwtValue
-
 				}
-
 			}]
 		},
-		keepLoader : true,
 		success : didSuccess
+	});*/
+		$.app.navigator.open({
+		ctrl : "transferSuccess",
+		ctrlArguments : {
+			stores : args.stores,
+			prescription: args.prescription
+		},
+		stack : false
 	});
+
 }
 function didSuccess(result){
 	console.log(result);
+		$.uihelper.showDialog({
+			message : result.message
+		});
+		$.app.navigator.open({
+		ctrl : "transferSuccess",
+		ctrlArguments : {
+			stores : args.stores,
+			prescription: args.prescription
+		},
+		stack : false
+	});
 }
 function focus() {
 	$.userNameLbl.text = args.user.fname + " " + args.user.lname;
@@ -111,15 +113,16 @@ function getStore(){
 	});
 }
 function didGetStore(result){
-	$.pharmacyPhoneReplyLbl.text = $.utilities.formatPhoneNumber(result.data.stores.phone);
+	pharmacyPhone=result.data.stores.phone;
+	$.pharmacyPhoneReplyLbl.text = $.utilities.formatPhoneNumber(pharmacyPhone);
 }
 function didClickPhone(e) {
 	$.uihelper.getPhone({
 		firstName : args.stores.store_name,
 		phone : {
-			work : $.utilities.formatPhoneNumber(args.user.phone)
+			work : $.utilities.formatPhoneNumber(pharmacyPhone)
 		}
-	}, args.user.phone);
+	}, pharmacyPhone);
 }
 
 exports.focus = focus;

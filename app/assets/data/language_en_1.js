@@ -301,6 +301,13 @@ module.exports = {
 		"transferReviewLblPrescDetTitle" : "Prescription transferred",
 		"transferReviewPromptPhone" : "Call:",
 		"transferReviewBtnTransfer" : "Complete transfer",
+		
+		"transferSuccessLblHeader":"Your transfer is being processed!",
+		"transferSuccessLblContact":"Please contact your pharmacy if you have any questions",
+		"transferSuccessLblRefillDetTitle":"Your refill has been placed at:",
+		"transferSuccessPromptPhone":"Call:",
+		"transferSuccessLblPrescDetTitle":"Prescription transferred:",
+		"transferSuccessBtnDone":"Done",
 
 		"accountsLblNotifications" : "Notifications",
 		"accountsLblPrescriptionDisplay" : "Prescription display",

@@ -1,0 +1,4 @@
+
+"#doneBtn":{
+	title:Alloy.Globals.strings.transferSuccessBtnDone
+}

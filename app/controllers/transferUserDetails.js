@@ -2,7 +2,6 @@ var args = arguments[0] || {};
 
 function focus(){
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
-	$.dobDp.setValue("14-05-2015");
 	updateInputs();
 }
 function setParentView(view) {
@@ -13,6 +12,7 @@ function updateInputs(){
 		var user = args.user;
 		$.firstNameTxt.setValue(user.fname);
 		$.lastNameTxt.setValue(user.lname);
+		$.dobDp.setValue(user.dob);
 		didChangePhone({
 			value : user.phone
 		});

@@ -1,0 +1,16 @@
+<Alloy>
+	<TableView id="tableView">
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<Label id="lblTransfer" class="margin-top margin-bottom title-centered" />
+				<ImageView id="successImg" />
+				<Label id="lbl" class="margin-top margin-bottom lbl-wrap" />
+			</View>
+		</HeaderView>
+		<FooterView>
+			<View class="auto-height vgroup">
+				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />
+			</View>
+		</FooterView>
+	</TableView>
+</Alloy>
