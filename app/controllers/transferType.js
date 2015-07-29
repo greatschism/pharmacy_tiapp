@@ -113,7 +113,7 @@ function didClickSubmit(e) {
 		phone : phone,
 		storeOriginal : storeOriginal
 	};
-	
+	console.log($.rxTxt.getValue());
 	if (args.edit) {
 		_.extend(args.prescription, prescription);
 		$.app.navigator.close();

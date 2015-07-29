@@ -55,11 +55,14 @@
 			</HeaderView>
 		</TableViewSection>
 		<TableViewRow>
-			<View class="content-view-vgroup">
-				<View class="content-master-view-100 auto-height">
+			<View class="content-view-vgroup auto-height">
+				<View class="content-master-view-50" if="$.args.prescription">
 					<Label id="prescNameLbl" class="content-title"/>
 					<Label id="prescNumberLbl" class="content-title margin-top"/>
 				</View>
+			</View>
+			<View class="content-view-vgroup auto-height" if="!$.args.prescription">
+				<ImageView id="prescImg" class="content-left-image-large"/>
 			</View>
 		</TableViewRow>
 		<FooterView>
