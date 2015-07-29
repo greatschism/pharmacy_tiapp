@@ -33,7 +33,7 @@
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="transferBtn" class="margin-top margin-bottom margin-left margin-right primary-btn" onClick="didCompleteTransfer"/>
+				<Button id="transferBtn" class="margin-top margin-bottom primary-btn" onClick="didCompleteTransfer"/>
 			</View>
 		</FooterView>
 	</TableView>
