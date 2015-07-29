@@ -76,11 +76,11 @@ function didCompleteTransfer() {
 				}
 			}]
 		},
-		success : didSuccess
+		success : didTransferStores
 	});
 }
 
-function didSuccess(result) {
+function didTransferStores(result) {
 	console.log(result);
 	$.uihelper.showDialog({
 		message : result.message
@@ -96,8 +96,9 @@ function didSuccess(result) {
 }
 
 function focus() {
+	var clientDateFormat = Alloy.CFG.date_format;
 	console.log(args.user.dob);
-	console.log(moment(args.user.dob, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format));
+	console.log(moment(args.user.dob).format(clientDateFormat));
 	$.userNameLbl.text = args.user.fname + " " + args.user.lname;
 	$.dobLbl.text = args.user.dob;
 	$.phoneLbl.text = $.utilities.formatPhoneNumber(args.user.phone);
