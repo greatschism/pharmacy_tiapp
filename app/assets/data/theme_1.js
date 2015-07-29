@@ -43,7 +43,7 @@ module.exports = {
 			"auto_login_dialog_enabled" : false,
 			"auto_populate_username" : true,
 			"auto_populate_password" : true,
-			"session_timeout" : 120,
+			"session_timeout" : 300,
 			"http_timeout" : 90,
 			"location_timeout" : 900,
 			"photo_default_width" : 250,
