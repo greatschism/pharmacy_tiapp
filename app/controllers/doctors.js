@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     titleClasses = ["content-title-wrap"],
     subtitleClasses = ["content-subtitle-wrap"],
-    prescriptions,
+    prescriptions = [],
     rows,
     swipeOptions,
     currentDoctor,
@@ -91,12 +91,16 @@ function didGetDoctors(result, passthrough) {
 				}
 			}]
 		},
-		success : didGetPrescriptions
+		errorDialogEnabled : false,
+		success : didGetPrescriptions,
+		failure : didGetPrescriptions
 	});
 }
 
 function didGetPrescriptions(result, passthrough) {
-	prescriptions = result.data.prescriptions;
+	if (result.data && result.data.prescriptions) {
+		prescriptions = result.data.prescriptions;
+	}
 	rows = [];
 	var data = [];
 	Alloy.Collections.doctors.each(function(model) {

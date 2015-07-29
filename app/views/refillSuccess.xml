@@ -10,6 +10,7 @@
 		throw null pointer on android(considered as value passed but null)-->
 		<FooterView>
 			<View class="auto-height vgroup">
+				<View class="h-divider" />
 				<Label id="signupLbl" class="margin-top lbl-wrap" if="!Alloy.Globals.isLoggedIn" />
 				<Button id="signupBtn" class="margin-top primary-btn" onClick="didClickSignup" if="!Alloy.Globals.isLoggedIn" />
 				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />

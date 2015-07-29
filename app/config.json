@@ -37,10 +37,10 @@
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "store_view_type_list": "LIST",
             "store_view_type_map": "MAP",
-            "doctors_sort_type_asc": "asc",
-            "doctors_sort_by_fname": "first_name",
             "doctor_type_auto": "auto",
             "doctor_type_manual": "manual",
+            "doctors_sort_type_asc": "asc",
+            "doctors_sort_by_fname": "first_name",
             "prescriptions_sort_by_name": "By Name",
             "prescription_display_status_active": "active",
             "prescription_display_status_hideen": "hidden",
@@ -56,7 +56,9 @@
             "code_states": "States",
             "code_store_original": "Original Pharmacy",
             "code_sort_order_preference": "Sort Order Preference",
-            "code_pickup_modes": "Pickup Mode"
+            "code_pickup_modes": "Pickup Mode",
+            "code_time_zone": "Time Zone",
+            "code_language": "MultiLanguage"
         },
         "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=",
         "log_level": "debug",

@@ -6,6 +6,13 @@
 	 *  this is recommended
 	 */
 	require("alloy/moment-timezone");
+	/**
+	 * https://github.com/moment/moment-timezone/issues/138
+	 * moment-timezone yet to support determining
+	 * current time zone of device
+	 * till then jstz is good alternative
+	 */
+	require("alloy/jstz");
 	require("com.scule");
 	require("utilities");
 	require("encryptionUtil");
@@ -57,6 +64,8 @@
 	Alloy.Models.storeOriginal = new Backbone.Model();
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();
 	Alloy.Models.pickupModes = new Backbone.Model();
+	Alloy.Models.language = new Backbone.Model();
+	Alloy.Models.timeZone = new Backbone.Model();
 
 	//events
 	Alloy.Models.patient.on("change:session_id", function didChange() {

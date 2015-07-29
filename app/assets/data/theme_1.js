@@ -43,7 +43,7 @@ module.exports = {
 			"auto_login_dialog_enabled" : false,
 			"auto_populate_username" : true,
 			"auto_populate_password" : true,
-			"session_timeout" : 300,
+			"session_timeout" : 600,
 			"http_timeout" : 90,
 			"location_timeout" : 900,
 			"photo_default_width" : 250,
@@ -2361,6 +2361,20 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"color" : "#5b5b5b",
+				"textAlign" : "right",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".content-group-right-reply-link-60" : {
+				"top" : 0,
+				"right" : 0,
+				"height" : "auto",
+				"width" : "60%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#0095ff",
 				"textAlign" : "right",
 				"ellipsize" : false,
 				"wordWrap" : true

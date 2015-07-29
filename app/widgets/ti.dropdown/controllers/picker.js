@@ -112,7 +112,7 @@ function terminate(callback) {
 	});
 	var animation = Ti.UI.createAnimation({
 		opacity : 0,
-		duration : 300
+		duration : 200
 	});
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);
@@ -134,7 +134,7 @@ function didPostlayout(e) {
 	$.picker.removeEventListener("postlayout", didPostlayout);
 	var animation = Ti.UI.createAnimation({
 		opacity : 1,
-		duration : 300
+		duration : 200
 	});
 	animation.addEventListener("complete", function onComplete() {
 		animation.removeEventListener("complete", onComplete);

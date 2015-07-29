@@ -94,7 +94,7 @@ module.exports = {
 		"titleDoctorAdd" : "Add a doctor",
 		"titleDoctorUpdate" : "Edit doctor",
 		"titleAccountsAgreements" : "My agreements",
-		
+
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
 		"tmplRxTxtHintRx" : "Enter your prescription number",
@@ -238,7 +238,7 @@ module.exports = {
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
 		"refillTypeSectionPresc" : "Your order",
-		"refillTypeSectionPickup" : "Pickup details",
+		"refillTypeSectionPickup" : "Pharmacy where you filled this last",
 		"refillTypeLblStoreTitle" : "No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "Click here to choose one",
 		"refillTypeValRx" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
@@ -301,28 +301,33 @@ module.exports = {
 		"transferReviewLblPrescDetTitle" : "Prescription transferred",
 		"transferReviewPromptPhone" : "Call:",
 		"transferReviewBtnTransfer" : "Complete transfer",
-		
-		"transferSuccessLblHeader":"Your transfer is being processed!",
-		"transferSuccessLblContact":"Please contact your pharmacy if you have any questions",
-		"transferSuccessLblRefillDetTitle":"Your refill has been placed at:",
-		"transferSuccessPromptPhone":"Call:",
-		"transferSuccessLblPrescDetTitle":"Prescription transferred:",
-		"transferSuccessBtnDone":"Done",
 
-		"accountsLblNotifications" : "Notifications",
-		"accountsLblPrescriptionDisplay" : "Prescription display",
-		"accountsLblLocationSettings" : "Location settings",
-		"accountsLblSignin" : "Sign-in",
-		"accountsSuccessBtnContactSupport" : "Contact support",
-		"accountsSuccessBtnViewAgreements" : "View my agreements",
-		"accountsLblMobileNumer" : "Mobile number",
-		"accountsLblEmail" : "Email",
-		"accountsLblHideExpPresc" : "Hide expired prescriptions",
-		"accountsLblHideZeroRefPresc" : "Hide zero refill prescriptions",
-		"accountsLblTimeZone" : "Time zone",
-		"accountsLblLanguage" : "Language",
-		"accountsLblKeepMeSignedIn" : "Keep me signed in",
-		"accountsSuccessBtnEmail" : "E-mail this to me",
-		"accountsFailureBtnRevoke" : "REVOKE"
+		"transferSuccessLblHeader" : "Your transfer is being processed!",
+		"transferSuccessLblContact" : "Please contact your pharmacy if you have any questions",
+		"transferSuccessLblRefillDetTitle" : "Your refill has been placed at:",
+		"transferSuccessPromptPhone" : "Call:",
+		"transferSuccessLblPrescDetTitle" : "Prescription transferred:",
+		"transferSuccessBtnDone" : "Done",
+
+		"accountSectionNotifications" : "Notifications",
+		"accountSectionPrescOpts" : "Prescription display",
+		"accountSectionLocationSettings" : "Location settings",
+		"accountSectionLogin" : "Sign-in",
+		"accountBtnContact" : "Contact support",
+		"accountBtnAgreement" : "View my agreements",
+		"accountLblPhone" : "Mobile number",
+		"accountLblEmail" : "Email",
+		"accountLblPrescHideExpired" : "Hide expired prescriptions",
+		"accountLblPrescHideZeroRefill" : "Hide zero refill prescriptions",
+		"accountLblTimeZone" : "Time zone",
+		"accountLblLanguage" : "Language",
+		"accountLblAutoLogin" : "Keep me signed in",
+		"accountPopupSectionTimeZone" : "Choose your time zone",
+		"accountPopupTimeZoneBtnClose" : "Close",
+		"accountPopupSectionLanguage" : "Choose your language",
+		"accountPopupLanguageBtnClose" : "Close",
+		"accountDialogTitleTimeZone" : "Time Zone",
+		"accountMsgTimeZone" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?"
+
 	}
 };

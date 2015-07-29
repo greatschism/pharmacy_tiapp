@@ -110,8 +110,8 @@ function updateTable() {
 	 */
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
 	var subtitleClasses = ["content-subtitle-wrap"],
-	    successClasses = ["margin-top", "content-positive-left-icon", "icon-checkbox"],
-	    failureClasses = ["margin-top", "content-negative-left-icon", "icon-close"];
+	    successClasses = ["content-positive-left-icon", "icon-checkbox"],
+	    failureClasses = ["content-negative-left-icon", "icon-cancel"];
 	_.each(prescriptions, function(prescription) {
 		_.extend(prescription, {
 			subtitleClasses : subtitleClasses,

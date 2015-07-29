@@ -54,6 +54,6 @@ module.exports = {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
 		"icon" : "thick_account",
-		"requires_login" : false
+		"requires_login" : true
 	}]
 };
