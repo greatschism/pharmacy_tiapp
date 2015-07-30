@@ -17,6 +17,7 @@ module.exports = {
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
 		"dialogTitleUpdates" : "Updates",
+		"dialogTitleTimeZone" : "Time Zone",
 
 		"dialogBtnOK" : "OK",
 		"dialogBtnYes" : "Yes",
@@ -55,6 +56,7 @@ module.exports = {
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have logged out successfully.",
 		"msgExternalStorageError" : "You don't have enough space on your device to perform this operation.",
+		"msgTimeZone" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -93,6 +95,7 @@ module.exports = {
 		"titleDoctorDetails" : "Doctor details",
 		"titleDoctorAdd" : "Add a doctor",
 		"titleDoctorUpdate" : "Edit doctor",
+		"titleTransferReview" : "Transfer Prescription",
 		"titleAccountsAgreements" : "My agreements",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
@@ -108,7 +111,7 @@ module.exports = {
 		"loginHintPassword" : "Password",
 		"loginLblTogglePassword" : "Show password",
 		"loginLblAutoLogin" : "Keep me logged in",
-		"loginAttrCreateAccount" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
+		"loginAttrSignup" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
@@ -282,24 +285,28 @@ module.exports = {
 		"transferUserDetHintLastName" : "Last name",
 		"transferUserDetHintDob" : "Date of birth",
 		"transferUserDetHintPhone" : "Mobile number",
-		"transferUserDetBtnNext" : "Next",
-		"transferUserDetAttrSignIn" : "Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
+		"transferUserDetBtnSubmit" : "Next",
+		"transferUserDetAttrLogin" : "Have an account? <secondaryfont><secondarycolor>Sign in</secondarycolor></secondaryfont> to skip this step.",
 		"transferUserDetValFirstName" : "Please enter your first name.",
+		"transferUserDetValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"transferUserDetValLastName" : "Please enter your last name.",
+		"transferUserDetValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"transferUserDetValDob" : "Please enter your Date of birth.",
 		"transferUserDetValPhone" : "Please enter your mobile number.",
 		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid.",
 
-		"transferOptionsTitle" : "Just one more step and you're good to go!",
-		"transferOptionsLbl" : "Transfer all prescriptions from out pharmacy to app pharmacy",
-		"transferOptionsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
-		"transferOptionsLblReviewDet" : "Review transfer details",
-		"transferOptionsBtnTransfer" : "Complete transfer",
+		"transferOptsSectionTitle" : "Just one more step and you're good to go!",
+		"transferOptsLblTransferAllPresc" : "Transfer all prescriptions from %s to Carbon pharmacy",
+		"transferOptsStrStoreNone" : "your present pharmacy",
+		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
+		"transferOptsLblReview" : "Review transfer details",
+		"transferOptsBtnTransfer" : "Complete transfer",
 
-		"transferReviewLblPersonalTitle" : "Personal details",
-		"transferReviewLblrefillDetTitle" : "Your refill has been placed at:",
-		"transferReviewLblPrescDetTitle" : "Prescription transferred",
-		"transferReviewPromptPhone" : "Call:",
+		"transferReviewSectionUser" : "Personal details",
+		"transferReviewSectionStore" : "Your refill has been placed at:",
+		"transferReviewSectionPresc" : "Prescription transferred",
+		"transferReviewLblInstruction" : "Make sure it is easy to see the pharmacy phone number.",
+		"transferReviewLblDob" : "DOB: %s",
 		"transferReviewBtnTransfer" : "Complete transfer",
 
 		"transferSuccessLblHeader" : "Your transfer is being processed!",
@@ -330,7 +337,7 @@ module.exports = {
 		"accountsPopupTimeZoneBtnClose" : "Close",
 		"accountsPopupLanguage" : "Choose your language",
 		"accountsPopupLanguageBtnClose" : "Close",
-		"accountsMsgTimeZone" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
-		"accountsAgreementHIPAA" : "HIPAA" 
+		"accountsAgreementHIPAA" : "HIPAA"
+
 	}
 };
