@@ -1,4 +1,15 @@
-
 "#doneBtn":{
 	title:Alloy.Globals.strings.transferSuccessBtnDone
+}
+"#lblTransfer":{
+	text:Alloy.Globals.strings.transferSuccessLblHeader
+},
+"#lblContact":{
+	text:Alloy.Globals.strings.transferSuccessLblContact
+},
+"#storeLbl":{
+	text:Alloy.Globals.strings.transferSuccessLblRefillDetTitle
+},
+"#prescLbl":{
+	text:Alloy.Globals.strings.transferSuccessLblPrescDetTitle
 }
