@@ -1,74 +1,69 @@
 <Alloy>
-	<TableView>
+	<TableView id="tableView" class="margin-bottom">
+		<TableViewSection if="$.args.user">
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="userLbl" class="content-header-lbl-with-ricon" />
+					<Button class="content-header-right-icon icon-edit" onClick="didClickEditUser"/>
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="content-view">
+					<Label id="userNameLbl" class="content-lbl" />
+				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View class="content-view">
+					<Label id="dobLbl" class="content-lbl" />
+				</View>
+			</TableViewRow>
+			<TableViewRow>
+				<View class="content-view">
+					<Label id="phoneLbl" class="content-lbl" />
+				</View>
+			</TableViewRow>
+		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">
-					<Label id="personalDetTitleLbl" class="content-header-lbl" />
-					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditPersonalDet"/>
+					<Label id="storeLbl" class="content-header-lbl-with-ricon"/>
+					<Button class="content-header-right-icon icon-edit" onClick="didClickEditStore"/>
 				</View>
 			</HeaderView>
+			<TableViewRow>
+				<View id="contentView" class="content-view-vgroup">
+					<Label id="storeNameLbl" class="content-title" />
+					<Label id="storeTitleLbl" class="inbetween-margin-top content-title" />
+					<Label id="storeSubtitleLbl" class="content-subtitle" />
+					<Widget id="storePhoneAttr" src="ti.styledlabel" class="content-attributed" onClick="didClickPhone" />
+				</View>
+			</TableViewRow>
 		</TableViewSection>
-		<TableViewRow>
-			<View class="content-view">
-				<Label id="userNameLbl" class="lbl"/>
-			</View>
-		</TableViewRow>
-		<TableViewRow>
-			<View class="content-view">
-				<Label id="dobLbl" class="lbl"/>
-			</View>
-		</TableViewRow>
-		<TableViewRow>
-			<View class="content-view">
-				<Label id="phoneLbl" class="lbl"/>
-			</View>
-		</TableViewRow>
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">
-					<Label id="refillDetTitleLbl" class="content-header-lbl"/>
-					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditStoreDet"/>
+					<Label id="prescLbl" class="content-header-lbl-with-ricon"/>
+					<Button class="content-header-right-icon icon-edit" onClick="didClickEditPrec" />
 				</View>
 			</HeaderView>
-		</TableViewSection>
-		<TableViewRow>
-			<View class="content-view-vgroup">
-				<View class="content-master-view-100 auto-height">
-					<Label id="pharmacyNameLbl" class="content-title"/>
-					<Label id="pharmacyAddress1Lbl" class="content-title margin-top"/>
-					<Label id="pharmacyAddress2Lbl" class="content-subtitle margin-top"/>
-				</View>
-				<View class="content-master-view-50 auto-height vgroup margin-top">
-					<View class="content-group" onClick="didClickPhone">
-						<Label id="pharmacyPhonePromptLbl" class="content-group-prompt"/>
-						<Label id="pharmacyPhoneReplyLbl" class="content-group-reply-link "/>
-					</View>
-				</View>
-			</View>
-		</TableViewRow>
-		<TableViewSection>
-			<HeaderView>
-				<View class="content-header-view">
-					<Label id="prescriptionDetTitleLbl" class="content-header-lbl"/>
-					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didEditPrescriptionDet"/>
-				</View>
-			</HeaderView>
-		</TableViewSection>
-		<TableViewRow>
-			<View class="content-view-vgroup auto-height">
-				<View class="content-master-view-50" if="$.args.prescription">
+			<TableViewRow if="$.args.prescription">
+				<View class="content-view-vgroup">
 					<Label id="prescNameLbl" class="content-title"/>
-					<Label id="prescNumberLbl" class="content-title margin-top"/>
+					<Label id="rxLbl" class="content-subtitle"/>
 				</View>
-			</View>
-			<View class="content-view-vgroup auto-height" if="!$.args.prescription">
-				<ImageView id="prescImg" class="content-left-image-large"/>
-			</View>
-		</TableViewRow>
+			</TableViewRow>
+			<TableViewRow if="!$.args.prescription">
+				<ImageView id="prescImg" class="content-left-image-large-bordered" />
+				<View class="content-view-with-limage-large">
+					<Label id="instructionLbl" class="top content-lbl-wrap" />
+				</View>
+			</TableViewRow>
+		</TableViewSection>
 		<FooterView>
 			<View class="auto-height">
-				<Button id="transferBtn" class="margin-top margin-bottom margin-left margin-right primary-btn" onClick="didCompleteTransfer"/>
+				<View class="h-divider" platform="android" />
 			</View>
 		</FooterView>
 	</TableView>
+	<Button id="transferBtn" class="margin-bottom primary-btn" onClick="didClickComplete" />
 </Alloy>

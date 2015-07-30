@@ -14,7 +14,7 @@
 		<View class="margin-top form-vgroup">
 			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="storeOriginalDp" src="ti.dropdown" class="form-dropdown" />
+			<Widget id="storeOriginalDp" src="ti.dropdown" class="form-dropdown" onReturn="didClickSubmit" />
 		</View>
 		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
 	</ScrollView>
