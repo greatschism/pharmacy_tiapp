@@ -37,8 +37,6 @@ function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
 		$[nextItem].focus();
-	} else {
-		didClickLogin();
 	}
 }
 
@@ -75,7 +73,7 @@ function didClickPassword(e) {
 
 }
 
-function didClickCreateAccount(e) {
+function didClickSignup(e) {
 
 }
 
