@@ -15,6 +15,7 @@
             "stores_bookmark_add": "stores/bookmark/add",
             "stores_bookmark_update": "stores/bookmark/update",
             "stores_bookmark_delete": "stores/bookmark/delete",
+            "stores_transfer": "stores/transfer",
             "doctors_list": "doctors/list",
             "doctors_get": "doctors/get",
             "doctors_add": "doctors/add",
@@ -27,8 +28,7 @@
             "prescriptions_refill": "prescriptions/refill",
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
             "upload_image": "imageUpload",
-            "terms_get": "terms/getTermsOfService",
-            "stores_transfer": "stores/transfer"
+            "terms_get": "terms/getTermsOfService"
         },
         "apiCodes": {
             "success": "200",
