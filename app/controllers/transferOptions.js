@@ -58,6 +58,9 @@ function transferStore(imageURL) {
 		 * logged in user
 		 */
 		_.extend(data, {
+			first_name : Alloy.Models.patient.get("first_name"),
+			last_name : Alloy.Models.patient.get("last_name"),
+			birth_date : Alloy.Models.patient.get("birth_date"),
 			mobile : Alloy.Models.patient.get("mobile_number"),
 			email_address : Alloy.Models.patient.get("email_address")
 		});
