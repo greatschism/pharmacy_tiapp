@@ -39,6 +39,7 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
+			"time_zone_check_enabled" : false,
 			"toggle_password_enabled" : true,
 			"auto_login_dialog_enabled" : false,
 			"auto_populate_username" : true,
@@ -228,10 +229,16 @@ module.exports = {
 			".margin-right" : {
 				"right" : 12
 			},
-			".edge-margin-left" : {
+			".inbetween-margin-top" : {
+				"top" : 4
+			},
+			".inbetween-margin-bottom" : {
+				"bottom" : 4
+			},
+			".inbetween-margin-left" : {
 				"left" : 12
 			},
-			".edge-margin-right" : {
+			".inbetween-margin-right" : {
 				"right" : 12
 			},
 			".barcode-navbar[platform=ios]" : {
@@ -712,17 +719,19 @@ module.exports = {
 				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
-					"backgroundColor" : "transparent"
+					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#000000",
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"left" : 12,
-					"color" : "#000000",
+					"right" : 12,
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -1036,19 +1045,19 @@ module.exports = {
 				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
-					"backgroundColor" : "#6D6E70"
+					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#808184",
-					"selectedColor" : "#808184",
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"left" : 12,
-					"color" : "#808184",
-					"selectedColor" : "#808184",
+					"right" : 12,
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -1080,19 +1089,19 @@ module.exports = {
 				"selectedIconColor" : "#009245",
 				"toolbarDict" : {
 					"height" : 40,
-					"backgroundColor" : "#6D6E70"
+					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#808184",
-					"selectedColor" : "#808184",
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"left" : 12,
-					"color" : "#808184",
-					"selectedColor" : "#808184",
+					"right" : 12,
+					"color" : "#0095ff",
+					"selectedColor" : "#0095ff",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},

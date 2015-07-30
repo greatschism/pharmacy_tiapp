@@ -115,29 +115,27 @@ function didGetPhoto(blob) {
 				}
 			}]
 		},
-		forceRetry : true,
+		keepLoader : true,
 		success : didUploadImage
 	});
 }
 
 function didUploadImage(result, passthrough) {
 	var imageURL = result.data;
-	if (imageURL) {
-		$.http.request({
-			method : "doctors_update",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					doctors : {
-						id : doctor.id,
-						image_url : imageURL
-					}
-				}]
-			},
-			passthrough : imageURL,
-			success : didSuccessDoctor
-		});
-	}
+	$.http.request({
+		method : "doctors_update",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				doctors : {
+					id : doctor.id,
+					image_url : imageURL
+				}
+			}]
+		},
+		passthrough : imageURL,
+		success : didSuccessDoctor
+	});
 }
 
 function didSuccessDoctor(result, passthrough) {

@@ -2,6 +2,7 @@ var TAG = "Authenticator",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
+    jstz = require("alloy/jstz"),
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
@@ -110,6 +111,35 @@ function didGetPreferences(result, passthrough) {
 		action : "logout",
 		icon : "logout"
 	});
+	/**
+	 * alert if user is on different time zone
+	 * to do: find a better way that suits our
+	 * time zone api's data set
+	 *
+	 * time_zone_check_enabled is a additional flag
+	 * we set, to avoid dialogs during development
+	 * this also helps if client want to disable it
+	 */
+	if (Alloy.CFG.time_zone_check_enabled && moment().format(Alloy.CFG.date_time_format) != moment().tz(jstz.determine().name()).format(Alloy.CFG.date_time_format)) {
+		uihelper.showDialog({
+			title : Alloy.Globals.strings.dialogTitleTimeZone,
+			message : Alloy.Globals.strings.msgTimeZone,
+			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : didConfirmTimeZone,
+			cancel : fireCallback
+		});
+	} else {
+		fireCallback();
+	}
+}
+
+function didConfirmTimeZone() {
+	//to do: handle confirmation
+	fireCallback();
+}
+
+function fireCallback() {
 	if (authenticateCallback) {
 		authenticateCallback();
 		authenticateCallback = null;

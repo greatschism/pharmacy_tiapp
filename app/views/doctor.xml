@@ -2,9 +2,9 @@
 	<ScrollView class="vgroup">
 		<View class="margin-top form-vgroup">
 			<View id="nameView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
 				<View id="nameVDividerView" class="v-divider" />
-				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
 			</View>
 			<View class="h-divider" />
 			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
@@ -26,7 +26,7 @@
 			<View class="auto-height">
 				<Widget id="cityTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
 				<View id="locationVDividerView"  class="v-divider" />
-				<Widget id="stateDp" src="ti.dropdown" class="right form-dropdown-50" />
+				<Widget id="stateDp" src="ti.dropdown" class="right form-dropdown-50" onReturn="moveToNext" />
 			</View>
 		</View>
 		<View class="margin-top content-header-view">

@@ -316,7 +316,6 @@ var Helper = {
 			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
 				var resultCode = e.resultCode;
 				if (resultCode == Ti.Android.RESULT_OK) {
-					console.log(tempFile.nativePath);
 					if (tempFile.exists()) {
 						var blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
 						tempFile.deleteFile();
