@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     isWindowOpen;
+
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
@@ -31,11 +32,12 @@ function didGetStoreOriginal(result, passthrough) {
 function updateInputs() {
 	$.storeOriginalDp.setChoices(Alloy.Models.storeOriginal.get("code_values"));
 	/**
-	 * args.edit - should be true in order to
+	 * args.prescription - is valid
+	 * this is a edit
 	 * populate the values
 	 */
-	if (args.edit) {
-		var prescription = args.prescription;
+	var prescription = args.prescription;
+	if (prescription) {
 		$.nameTxt.setValue(prescription.name);
 		$.rxTxt.setValue(prescription.rx);
 		$.phoneTxt.setValue($.utilities.formatPhoneNumber(prescription.phone));
@@ -68,8 +70,7 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
-	var prescname = $.utilities.validatePrescriptionName(name);
-	if (!prescname) {
+	if (!$.utilities.validatePrescriptionName(name)) {
 		$.uihelper.showDialog({
 			message : $.strings.transferTypeValNameInvalid
 		});
@@ -113,7 +114,6 @@ function didClickSubmit(e) {
 		phone : phone,
 		storeOriginal : storeOriginal
 	};
-	console.log($.rxTxt.getValue());
 	if (args.edit) {
 		_.extend(args.prescription, prescription);
 		$.app.navigator.close();
@@ -123,7 +123,6 @@ function didClickSubmit(e) {
 				titleid : "titleTransferStore",
 				ctrl : "stores",
 				ctrlArguments : {
-					prescription : prescription,
 					navigation : {
 						titleid : "titleTransferOptions",
 						ctrl : "transferOptions",
