@@ -167,8 +167,11 @@ module.exports = {
 			".notes" : {
 				"maxLength" : 250
 			},
-			".rx-number" : {
+			".rx" : {
 				"maxLength" : 10
+			},
+			".external-rx" : {
+				"maxLength" : 15
 			},
 			".prescription-name" : {
 				"maxLength" : 25

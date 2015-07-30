@@ -6,7 +6,8 @@
 		<View class="margin-top form-vgroup">
 			<Widget id="nameTxt" src="ti.textfield" class="form-txt prescription-name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
-			<Widget id="rxTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-next" onReturn="moveToNext"  />
+			<!--we don't validate the external store's rx number so we just allow 15 chars with - enabled-->
+			<Widget id="rxTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext"  />
 		</View>
 		<View class="margin-top content-header-view">
 			<Label id="fromLbl" class="content-header-lbl"/>
