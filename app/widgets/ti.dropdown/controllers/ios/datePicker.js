@@ -68,7 +68,7 @@ function terminate(callback) {
 	_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
 	});
-	var isCancel = callback.source && callback.source == $.leftBtn,
+	var isCancel = callback && callback.source && callback.source == $.leftBtn,
 	    animation = Ti.UI.createAnimation({
 		opacity : 0,
 		duration : 200
