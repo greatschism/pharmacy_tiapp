@@ -144,6 +144,13 @@ function didSuccessDoctor(result, passthrough) {
 		image_url : passthrough
 	});
 	$.photoImg.setImage(passthrough);
+	/**
+	 * hide add photo
+	 * label
+	 */
+	if ($.photoLbl.visible) {
+		$.photoLbl.visible = false;
+	}
 }
 
 function didClickPhone(e) {
