@@ -9,6 +9,9 @@ function didGetPhoto(blob) {
 	 * keeping this blob in memory around the process
 	 * is not a good idea, let's keep it in a file until
 	 * we need this back
+	 *
+	 * image path is used throughout this module
+	 * should not be changed
 	 */
 	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), blob, false);
 	blob = null;
