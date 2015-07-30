@@ -18,6 +18,6 @@
 "#loginBtn":{
 	title: Alloy.Globals.strings.loginBtnLogin
 },
-"#createAccountAttr":{
-	html: Alloy.Globals.strings.loginAttrCreateAccount
+"#signupAttr":{
+	html: Alloy.Globals.strings.loginAttrSignup
 }

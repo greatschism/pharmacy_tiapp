@@ -5,7 +5,7 @@
 		<View class="margin-top form-vgroup">
 			<Widget id="usernameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-ricon-help returnkey-done" onReturn="moveToNext" onClick="didClickPassword" />
+			<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-ricon-help returnkey-done" onReturn="didClickLogin" onClick="didClickPassword" />
 		</View>
 		<View class="margin-top auto-height" if="Alloy.CFG.toggle_password_enabled">
 			<Label id="togglePasswordLbl" class="lbl-with-rswt" />
@@ -15,7 +15,7 @@
 			<Label id="autoLoginLbl" class="lbl-with-rswt" />
 			<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
 		</View>
-		<Button id="loginBtn" class="margin-top margin-bottom primary-btn" onClick="didClickLogin" />
-		<Widget id="createAccountAttr" src="ti.styledlabel" class="margin-left margin-right attributed-wrap" onClick="didClickCreateAccount" />
+		<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
+		<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 
