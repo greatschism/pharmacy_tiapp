@@ -77,7 +77,7 @@ function didClickSubmit(e) {
 		dob : dob,
 		phone : phone
 	};
-	if (args.edit) {
+	if (args.user) {
 		_.extend(args.user, user);
 		$.app.navigator.close();
 	} else {

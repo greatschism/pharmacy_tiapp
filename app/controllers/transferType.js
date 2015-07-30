@@ -103,9 +103,9 @@ function didClickSubmit(e) {
 		return;
 	}
 	/**
-	 * if args.edit is true
+	 * if args.prescription is valid
 	 * then just close this page
-	 * as it would be a reques from review
+	 * as it would be a request from review
 	 * details screen
 	 */
 	var prescription = {
@@ -114,7 +114,7 @@ function didClickSubmit(e) {
 		phone : phone,
 		storeOriginal : storeOriginal
 	};
-	if (args.edit) {
+	if (args.prescription) {
 		_.extend(args.prescription, prescription);
 		$.app.navigator.close();
 	} else {
