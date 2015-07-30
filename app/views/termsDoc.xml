@@ -1,7 +1,8 @@
 <Alloy>
-	<ScrollView id="scrollView" >
-		<WebView id="webView" />
+	<Label id="acceptedOnLbl" class="margin-top link" />
+	<WebView id="webView" class="margin-top" />
+	<View class="auto-height vgroup bottom">
 		<Button id="emailBtn" class="margin-bottom primary-btn" onClick="didClickEmail" />
-		<Button id="revokeBtn" class="margin-bottom tertiary-btn" onClick="didClickRevoke" />
-	</ScrollView>
+		<Button id="revokeBtn" class="margin-bottom secondary-btn" onClick="didClickEmail" if="$.args.agreement_name === 'HIPAA'"/>
+	</View>
 </Alloy> 

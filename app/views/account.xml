@@ -23,36 +23,36 @@
 					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didClickEdit" />
 				</View>
 			</HeaderView>
-			<TableViewRow onClick="didClickPhone">
+			<TableViewRow onClick="didClickmobileNumber">
 				<View class="content-view content-group">
-					<Label id="phonePromptLbl" class="content-group-prompt-40" />
-					<Label id="phoneReplyLbl" class="content-group-right-reply-link-60" />
+					<Label id="mobileNumberLbl" class="content-group-prompt-40" />
+					<Label id="mobileNumberValue" class="content-group-right-reply-link-60" />
 				</View>
 			</TableViewRow>
-			<TableViewRow onClick="didClickEmail">
+			<TableViewRow onClick="didClickEmailAddress">
 				<View class="content-view content-group">
-					<Label id="emailPromptLbl" class="content-group-prompt-40" />
-					<Label id="emailReplyLbl" class="content-group-right-reply-link-60" />
+					<Label id="emailLbl" class="content-group-prompt-40" />
+					<Label id="emailValue" class="content-group-right-reply-link-60" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">
-					<Label id="prescOptsLbl" class="content-header-lbl" />
+					<Label id="prescriptionDisplayLbl" class="content-header-lbl" />
 				</View>
 			</HeaderView>
 			<TableViewRow>
 				<View class="content-view-with-rswt">
-					<Label id="hideExpiredLbl" class="content-lbl-wrap" />
+					<Label id="hideExpiredPrescriptionLbl" class="content-lbl-wrap" />
 				</View>
-				<Widget id="hideExpiredSwt" src="ti.switch" class="content-right-swt swt" />
+				<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
 			</TableViewRow>
 			<TableViewRow>
 				<View class="content-view-with-rswt">
-					<Label id="hideZeroRefillLbl" class="content-lbl-wrap" />
+					<Label id="hideZeroRefillPrescriptionLbl" class="content-lbl-wrap" />
 				</View>
-				<Widget id="hideZeroRefillSwt" src="ti.switch" class="content-right-swt swt" />
+				<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
@@ -84,15 +84,15 @@
 			</HeaderView>
 			<TableViewRow>
 				<View class="content-view-with-rswt">
-					<Label id="autoLoginLbl" class="content-lbl-wrap" />
+					<Label id="keepMeSignedInLbl" class="content-lbl-wrap" />
 				</View>
-				<Widget id="autoLoginSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeAutoLogin" />
+				<Widget id="keepMeSignedInSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeAutoLogin" />
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Button id="contactBtn" class="margin-top secondary-btn" onClick="didClickContact" />
-				<Button id="agreementBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickAgreement" />
+				<Button id="contactSupportBtn" class="margin-top secondary-btn" onClick="didClickContactSupport" />
+				<Button id="viewAgreementBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickViewAgreement" />
 			</View>
 		</FooterView>
 	</TableView>

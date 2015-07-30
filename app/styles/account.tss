@@ -1,55 +1,55 @@
 "#notificationLbl":{
-	text: Alloy.Globals.strings.accountSectionNotifications
+	text: Alloy.Globals.strings.accountsLblNotifications
 },
-"#phonePromptLbl":{
-	text: Alloy.Globals.strings.accountLblPhone
+"#mobileNumberLbl":{
+	text: Alloy.Globals.strings.accountsLblMobileNumer
 },
-"#emailPromptLbl":{
-	text: Alloy.Globals.strings.accountLblEmail
+"#emailLbl":{
+	text: Alloy.Globals.strings.accountsLblEmail
 },
-"#prescOptsLbl":{
-	text: Alloy.Globals.strings.accountSectionPrescOpts
+"#prescriptionDisplayLbl":{
+	text: Alloy.Globals.strings.accountsLblPrescriptionDisplay
 },
-"#hideExpiredLbl":{
-	text: Alloy.Globals.strings.accountLblPrescHideExpired
+"#hideExpiredPrescriptionLbl":{
+	text: Alloy.Globals.strings.accountsLblHideExpiredPrescription
 },
-"#hideZeroRefillLbl":{
-	text: Alloy.Globals.strings.accountLblPrescHideZeroRefill
+"#hideZeroRefillPrescriptionLbl":{
+	text: Alloy.Globals.strings.accountsLblHideZeroRefillPrescription
 },
 "#locationSettingLbl":{
-	text: Alloy.Globals.strings.accountSectionLocationSettings
+	text: Alloy.Globals.strings.accountsLblLocationSettings
 },
 "#timeZonePromptLbl": {
-	text: Alloy.Globals.strings.accountLblTimeZone
+	text: Alloy.Globals.strings.accountsLblTimeZone
 },
 "#languagePromptLbl": {
-	text: Alloy.Globals.strings.accountLblLanguage
+	text: Alloy.Globals.strings.accountsLblLanguage
 },
 "#loginLbl":{
-	text: Alloy.Globals.strings.accountSectionLogin
+	text: Alloy.Globals.strings.accountsLblSignin
 },
-"#autoLoginLbl":{
-	text: Alloy.Globals.strings.accountLblAutoLogin
+"#keepMeSignedInLbl":{
+	text: Alloy.Globals.strings.accountsLblKeepMeSignedIn
 },
-"#contactBtn":{
-	title: Alloy.Globals.strings.accountBtnContact
+"#contactSupportBtn":{
+	title: Alloy.Globals.strings.accountsSuccessBtnContactSupport
 },
-"#agreementBtn":{
-	title: Alloy.Globals.strings.accountBtnAgreement
+"#viewAgreementBtn":{
+	title: Alloy.Globals.strings.accountsSuccessBtnViewAgreements
 },
 ".picker":{
 	radioButton: true,
 	titleProperty: "code_display"
 },
 "#timezoneLbl":{
-	text: Alloy.Globals.strings.accountPopupSectionTimeZone
+	text: Alloy.Globals.strings.accountsPopupTimeZone
 },
 "#timezoneCloseBtn":{
-	title: Alloy.Globals.strings.accountPopupTimeZoneBtnClose
+	title: Alloy.Globals.strings.accountsPopupTimeZoneBtnClose
 },
 "#languageLbl":{
-	text: Alloy.Globals.strings.accountPopupSectionLanguage
+	text: Alloy.Globals.strings.accountsPopupLanguage
 },
 "#languageCloseBtn":{
-	title: Alloy.Globals.strings.accountPopupLanguageBtnClose
+	title: Alloy.Globals.strings.accountsPopupLanguageBtnClose
 }

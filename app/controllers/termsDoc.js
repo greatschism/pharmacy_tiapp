@@ -1,23 +1,19 @@
 var args = arguments[0] || {},
-    app = require("core");
+    moment = require("alloy/moment"),
+    apiCodes = Alloy.CFG.apiCodes,
+    isHIPAA;
 
 function init() {
+	isHIPAA = ($.args.agreement_name === $.strings.accountsAgreementHIPAA ? true : false);
 	$.webView.applyProperties({
-		top : 0,
-		bottom : Alloy.TSS.form_dropdown.optionPadding.top * 3 + Alloy.TSS.primary_btn.height * 2, //twice the size of the button plus thrice the size of padding
+		top : Alloy.TSS.primary_btn.height,
+		bottom : Alloy.TSS.form_dropdown.optionPadding.top * 2 + Alloy.TSS.primary_btn.height + ( isHIPAA ? Alloy.TSS.primary_btn.height + Alloy.TSS.form_dropdown.optionPadding.top : 0), 
 		url : args.agreement_url
 	});
-	
-	$.emailBtn.applyProperties({
-		bottom: Alloy.TSS.form_dropdown.optionPadding.top *2 + Alloy.TSS.primary_btn.height
-	});
+	$.acceptedOnLbl.text = $.strings.accountsLblAcceptedOn + " " + moment(args.agreement_valid_from).format(Alloy.CFG.date_format);
 }
 
-function didClickEmail(e) {
-	
-}
-
-function didClickRevoke(){
+function didClickEmail(){
 	
 }
 

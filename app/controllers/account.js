@@ -1,50 +1,51 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
     isWindowOpen;
 
 function init() {
-	$.phoneReplyLbl.text = Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable;
-	$.emailReplyLbl.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
-	$.hideExpiredSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
-	$.hideZeroRefillSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
+	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable;
+	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
+	$.hideExpiredPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
+	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
 	$.timeZoneReplyLbl.text = Alloy.Models.patient.get("pref_timezone");
 	$.languageReplyLbl.text = Alloy.Models.patient.get("pref_language");
-	$.autoLoginSwt.setValue(authenticator.getAutoLoginEnabled());
+	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 }
 
-function focus() {
-	if (!isWindowOpen) {
-		isWindowOpen = true;
-		/**
-		 * if time zone is available and
-		 * language also should be available
-		 */
-		if (Alloy.Models.timeZone.get("code_values")) {
-			setCodes();
-		} else {
-			getCodes();
-		}
-	}
-}
-
-function getCodes() {
+function getLanguageAndTimeZoneCodes() {
 	$.http.request({
 		method : "codes_get",
 		params : {
 			feature_code : "THXXX",
 			data : [{
 				codes : [{
-					code_name : apiCodes.code_time_zone
-				}, {
 					code_name : apiCodes.code_language
+				},{
+					code_name : apiCodes.code_time_zone
 				}]
 			}]
 		},
 		forceRetry : true,
-		success : didGetCodes
+		success : didgetLanguageAndTimeZoneCodes
 	});
+}
+
+function focus() {
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		/**
+		 * ensure that if time zone is available,
+		 * language also should be available
+		 */
+		if (Alloy.Models.timeZone.get("code_values")) {
+			setCodes();
+		} else {
+			getLanguageAndTimeZoneCodes();
+		}
+	}
 }
 
 function appendFlag(codes, selectedValue) {
@@ -53,11 +54,11 @@ function appendFlag(codes, selectedValue) {
 	});
 }
 
-function didGetCodes(result, passthrough) {
-	Alloy.Models.timeZone.set(result.data.codes[0]);
-	Alloy.Models.language.set(result.data.codes[1]);
+function didgetLanguageAndTimeZoneCodes(result, passthrough) {
+	Alloy.Models.language.set(result.data.codes[0]);
+	Alloy.Models.timeZone.set(result.data.codes[1]);
 	appendFlag(Alloy.Models.timeZone.get("code_values"), Alloy.Models.patient.get("pref_timezone"));
-	appendFlag(Alloy.Models.language.get("code_values"), require("localization").currentLanguage.code);
+	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	setCodes();
 }
 
@@ -72,8 +73,8 @@ function setCodes() {
 	var timezone = require("alloy/jstz").determine().name();
 	if (moment().format(Alloy.CFG.date_time_format) != moment().tz(timezone).format(Alloy.CFG.date_time_format)) {
 		$.uihelper.showDialog({
-			title : $.strings.accountDialogTitleTimeZone,
-			message : $.strings.accountMsgTimeZone,
+			title : $.strings.accountsLblTimeZone,
+			message : $.strings.accountsMsgTimeZone,
 			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
 			cancelIndex : 1,
 			success : didConfirmTimeZone
@@ -82,7 +83,7 @@ function setCodes() {
 }
 
 function didConfirmTimeZone() {
-	/**
+	/** todo
 	 * update time zone
 	 * have to check against available time zones
 	 */
@@ -98,11 +99,11 @@ function didChangeAutoLogin(e) {
 	}
 }
 
-function didClickPhone(e) {
+function didClickmobileNumber(e) {
 
 }
 
-function didClickEmail(e) {
+function didClickEmailAddress(e) {
 
 }
 
@@ -124,11 +125,11 @@ function didClickCloseLanguage(e) {
 	$.languagePicker.hide();
 }
 
-function didClickContact(e) {
+function didClickContactSupport(e) {
 
 }
 
-function didClickAgreement() {
+function didClickViewAgreement() {
 	$.app.navigator.open({
 		titleid : "titleAccountAgreements",
 		ctrl : "termsAndConditions",
