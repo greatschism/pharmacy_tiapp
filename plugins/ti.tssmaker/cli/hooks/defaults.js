@@ -186,17 +186,27 @@ module.exports = {
 	},
 	".dropdown" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success",
-		"format" : "Alloy.CFG.date_format"
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".form-dropdown" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success",
-		"format" : "Alloy.CFG.date_format"
+		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".form-dropdown-50" : {
 		"iconText" : "Alloy.CFG.icons.thin_arrow_down",
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
+	},
+	".date" : {
+		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
+		"format" : "Alloy.CFG.date_format",
+		"type" : "Ti.UI.PICKER_TYPE_DATE"
+	},
+	".time" : {
+		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
+		"format" : "Alloy.CFG.time_format",
+		"type" : "Ti.UI.PICKER_TYPE_TIME"
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",
