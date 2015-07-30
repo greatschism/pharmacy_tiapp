@@ -1,16 +1,136 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment"),
-    apiCodes = Alloy.CFG.apiCodes,
-    image;
+    moment = require("alloy/moment");
 
-function didEditPrescriptionDet() {
+function init() {
+	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
+}
+
+function didClickComplete(e) {
 	if (args.prescription) {
+		transferStore();
+	} else {
+		var base64Str = Ti.Utils.base64encode(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg").read()).text;
+		/**
+		 * TIMOB-9111
+		 */
+		if (OS_IOS) {
+			base64Str = base64Str.replace(/[\r\n]+/g, "");
+		}
+		$.http.request({
+			method : "upload_image",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					patient : {
+						EncodedImageString : base64Str
+					}
+				}]
+			},
+			keepLoader : true,
+			success : didUploadImage
+		});
+	}
+}
+
+function didUploadImage(result, passthrough) {
+	transferStore(result.data);
+}
+
+function transferStore(imageURL) {
+	var data = {
+		enable_transfer_all_presc_flag : args.transferAllPresc,
+		enable_txt_msg_flag : args.sendtxtMsg,
+		to_store_id : args.store.id
+	},
+	    user = args.user,
+	    prescription = args.prescription;
+	if (user) {
+		_.extend(data, {
+			first_name : user.fname,
+			last_name : user.lname,
+			birth_date : moment(user.dob).format(Alloy.CFG.apiCodes.date_format),
+			mobile : user.phone
+		});
+	} else {
+		/**
+		 * check with server team
+		 * and add necessary params for
+		 * logged in user
+		 */
+		_.extend(data, {
+			mobile : Alloy.Models.patient.get("mobile_number"),
+			email_address : Alloy.Models.patient.get("email_address")
+		});
+	}
+	if (prescription) {
+		_.extend(data, {
+			rx_name : prescription.name,
+			rx_number : prescription.rx,
+			from_pharmacy_phone : prescription.phone,
+			from_pharmacy_name : prescription.storeOriginal.code_display
+		});
+	} else {
+		data.image_url = imageURL;
+	}
+	$.http.request({
+		method : "stores_transfer",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				transfer : data
+			}]
+		},
+		success : didSuccess
+	});
+}
+
+function didSuccess(result, passthrough) {
+	/**
+	 * analyse api response
+	 * for right error / success messages
+	 * in success screen
+	 */
+	$.app.navigator.open({
+		titleid : "titleTransferSuccess",
+		ctrl : "transferSuccess",
+		ctrlArguments : {
+			store : args.store,
+			prescription : args.prescription
+		}
+	});
+}
+
+function didClickEditUser(e) {
+	$.app.navigator.open({
+		titleid : "titleTransferUserDetails",
+		ctrl : "transferUserDetails",
+		ctrlArguments : {
+			user : args.user
+		},
+		stack : true
+	});
+}
+
+function didClickEditStore() {
+	$.app.navigator.open({
+		titleid : "titleTransferStore",
+		ctrl : "stores",
+		ctrlArguments : {
+			store : args.store,
+			selectable : true
+		},
+		stack : true
+	});
+}
+
+function didClickEditPrec(e) {
+	var prescription = args.prescription;
+	if (prescription) {
 		$.app.navigator.open({
 			titleid : "titleTransferType",
 			ctrl : "transferType",
 			ctrlArguments : {
-				edit : true,
-				prescription : args.prescription,
+				prescription : prescription
 			},
 			stack : true
 		});
@@ -21,130 +141,97 @@ function didEditPrescriptionDet() {
 
 function didGetPhoto(blob) {
 	/**
-	 * keeping this blob in memory around the process
-	 * is not a good idea, let's keep it in a file until
-	 * we need this back
+	 * android may show the image from cache
+	 * so send the blob
 	 */
-	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), blob, false);
-	blob = null;
-}
-
-function didEditPersonalDet() {
-	$.app.navigator.open({
-		titleid : "titleTransferUserDetails",
-		ctrl : "transferUserDetails",
-		ctrlArguments : {
-			edit : true,
-			user : args.user,
-		},
-		stack : true
-	});
-}
-
-function didEditStoreDet() {
-	$.app.navigator.open({
-		titleid : "titleTransferStore",
-		ctrl : "stores",
-		ctrlArguments : {
-			edit : true,
-			stores : args.stores,
-		},
-		stack : true
-	});
-}
-
-function didCompleteTransfer() {
-	$.http.request({
-		method : "stores_transfer",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				transfer : {
-					first_name : args.user.fname,
-					last_name : args.user.lname,
-					birth_date : args.user.dob,
-					mobile : args.user.phone,
-					email_address : "x",
-					image_url : image ? image : "",
-					to_store_id : args.stores.id,
-					from_pharmacy_name : args.prescription ? args.prescription.storeOriginal.code_display : "",
-					from_pharmacy_phone : args.prescription ? args.prescription.phone : "",
-					rx_number : args.prescription ? args.prescription.rx : "",
-					rx_name : args.prescription ? args.prescription.name : "",
-					enable_transfer_all_presc_flag : args.transferAllPrescSwtValue,
-					enable_txt_msg_flag : args.sendtxtMsgSwtValue
-				}
-			}]
-		},
-		success : didTransferStores
-	});
-}
-
-function didTransferStores(result) {
-	console.log(result);
-	$.uihelper.showDialog({
-		message : result.message
-	});
-	$.app.navigator.open({
-		ctrl : "transferSuccess",
-		ctrlArguments : {
-			stores : args.stores,
-			prescription : args.prescription
-		},
-		stack : false
-	});
+	var imgFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg");
+	$.utilities.writeFile(imgFile, blob, false);
+	$.prescImg.image = blob;
+	blob = imgFile = null;
 }
 
 function focus() {
-	var clientDateFormat = Alloy.CFG.date_format;
-	console.log(args.user.dob);
-	console.log(moment(args.user.dob).format(clientDateFormat));
-	$.userNameLbl.text = args.user.fname + " " + args.user.lname;
-	$.dobLbl.text = args.user.dob;
-	$.phoneLbl.text = $.utilities.formatPhoneNumber(args.user.phone);
-	$.pharmacyNameLbl.text = $.utilities.ucword(args.stores.store_name);
-	$.pharmacyAddress1Lbl.text = args.stores.title;
-	$.pharmacyAddress2Lbl.text = args.stores.subtitle;
-	getStore();
-
-	if (args.prescription) {
-		$.prescNameLbl.text = args.prescription.name;
-		if (args.prescription.rx)
-			$.prescNumberLbl.text = args.prescription.rx;
+	var user = args.user;
+	if (user) {
+		$.userNameLbl.text = user.fname + " " + user.lname;
+		$.dobLbl.text = String.format($.strings.transferReviewLblDob, moment(user.dob).format(Alloy.CFG.date_format));
+		$.phoneLbl.text = $.utilities.formatPhoneNumber(user.phone);
+	}
+	var prescription = args.prescription;
+	if (prescription) {
+		$.prescNameLbl.text = prescription.name;
+		if (prescription.rx) {
+			$.rxLbl.text = prescription.rx;
+		} else {
+			/**
+			 *  to avoid the empty space
+			 * left for
+			 */
+			$.rxLbl.applyProperties({
+				top : 0,
+				height : 0
+			});
+		}
 	} else {
-		image = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "transfer.jpg");
-		$.prescImg.image = image;
+		/**
+		 * image path is used throughout this module
+		 * should not be changed
+		 */
+		$.prescImg.image = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg").read();
+	}
+	/**
+	 * if phone_formatted is undefined
+	 * or if shouldUpdate is true
+	 * call api for further store information
+	 */
+	var store = args.store;
+	if (store.shouldUpdate || !store.phone_formatted) {
+		$.http.request({
+			method : "stores_get",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					stores : {
+						id : store.id,
+					}
+				}]
+			},
+			forceRetry : true,
+			success : didGetStore
+		});
+	} else {
+		updateStore();
 	}
 }
 
-function getStore() {
-	$.http.request({
-		method : "stores_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				stores : {
-					id : args.stores.id,
-				}
-			}]
-		},
-		success : didGetStore
+function didGetStore(result, passthrough) {
+	var store = args.store;
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		storeName : $.utilities.ucword(store.store_name),
+		phone_formatted : $.utilities.formatPhoneNumber(store.phone)
 	});
+	delete store.shouldUpdate;
+	updateStore();
 }
 
-function didGetStore(result) {
-	pharmacyPhone = result.data.stores.phone;
-	$.pharmacyPhoneReplyLbl.text = $.utilities.formatPhoneNumber(pharmacyPhone);
+function updateStore() {
+	var store = args.store;
+	$.storeNameLbl.text = store.storeName;
+	$.storeTitleLbl.text = store.title;
+	$.storeSubtitleLbl.text = store.subtitle;
+	$.storePhoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
 }
 
 function didClickPhone(e) {
+	var store = args.store;
 	$.uihelper.getPhone({
-		firstName : args.stores.store_name,
+		firstName : store.title,
 		phone : {
-			work : $.utilities.formatPhoneNumber(pharmacyPhone)
+			work : [store.phone_formatted]
 		}
-	}, pharmacyPhone);
+	}, store.phone);
 }
 
+exports.init = init;
 exports.focus = focus;
-
