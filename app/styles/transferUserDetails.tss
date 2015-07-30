@@ -1,24 +1,24 @@
-"#userDetailsTitle":{
+"#titleLbl":{
 	text:Alloy.Globals.strings.transferUserDetTitle
 },
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.transferUserDetHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.transferUserDetHintLastName,
+	nextItem: "dobDp"
+},
 "#dobDp":{
-	leftTitle: Alloy.Globals.strings.dialogBtnCancel,
-	rightTitle: Alloy.Globals.strings.dialogBtnOK,
 	hintText:Alloy.Globals.strings.transferUserDetHintDob,
-	type: Ti.UI.PICKER_TYPE_DATE
-},
-"#firstNameTxt":{
-	hintText:Alloy.Globals.strings.transferUserDetHintFirstName
-},
-"#lastNameTxt":{
-	hintText:Alloy.Globals.strings.transferUserDetHintLastName
+	nextItem: "phoneTxt"
 },
 "#phoneTxt":{
 	hintText:Alloy.Globals.strings.transferUserDetHintPhone
 },
-"#nextBtn":{
-	title:Alloy.Globals.strings.transferUserDetBtnNext
+"#submitBtn":{
+	title:Alloy.Globals.strings.transferUserDetBtnSubmit
 },
-"#signInLbl":{
-	html:Alloy.Globals.strings.transferUserDetAttrSignIn
+"#loginAttr":{
+	html:Alloy.Globals.strings.transferUserDetAttrLogin
 }

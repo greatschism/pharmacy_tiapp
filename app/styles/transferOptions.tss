@@ -1,15 +1,12 @@
-"#transferTitleLbl":{
-	text:Alloy.Globals.strings.transferOptionsTitle
-}
-"#transferAllPrescLbl":{
-	text:Alloy.Globals.strings.transferOptionsLbl
+"#titleLbl":{
+	text: Alloy.Globals.strings.transferOptsSectionTitle
 },
 "#sendTxtMsgLbl":{
-	text:Alloy.Globals.strings.transferOptionsLblSendTxtMsg
-}
+	text: Alloy.Globals.strings.transferOptsLblSendTxtMsg
+},
 "#reviewLbl":{
-	text:Alloy.Globals.strings.transferOptionsLblReviewDet
-}
+	text: Alloy.Globals.strings.transferOptsLblReview
+},
 "#transferBtn":{
-	title:Alloy.Globals.strings.transferOptionsBtnTransfer
+	title: Alloy.Globals.strings.transferOptsBtnTransfer
 }

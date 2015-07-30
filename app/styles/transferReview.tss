@@ -1,15 +1,15 @@
-"#personalDetTitleLbl":{
-	text:Alloy.Globals.strings.transferReviewLblPersonalTitle
+"#userLbl":{
+	text:Alloy.Globals.strings.transferReviewSectionUser
 },
-"#refillDetTitleLbl":{
-	text:Alloy.Globals.strings.transferReviewLblrefillDetTitle
+"#storeLbl":{
+	text:Alloy.Globals.strings.transferReviewSectionStore
 },
-"#prescriptionDetTitleLbl":{
-	text:Alloy.Globals.strings.transferReviewLblPrescDetTitle
+"#prescLbl":{
+	text:Alloy.Globals.strings.transferReviewSectionPresc
+},
+"#instructionLbl":{
+	text:Alloy.Globals.strings.transferReviewLblInstruction
 },
 "#transferBtn":{
 	title:Alloy.Globals.strings.transferReviewBtnTransfer
-}
-"#pharmacyPhonePromptLbl":{
-	text:Alloy.Globals.strings.transferReviewPromptPhone
 }
