@@ -65,28 +65,6 @@ function didgetLanguageAndTimeZoneCodes(result, passthrough) {
 function setCodes() {
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
 	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
-	/**
-	 * alert if user is on different time zone
-	 * to do: find a better way that suits our
-	 * time zone api's data set
-	 */
-	var timezone = require("alloy/jstz").determine().name();
-	if (moment().format(Alloy.CFG.date_time_format) != moment().tz(timezone).format(Alloy.CFG.date_time_format)) {
-		$.uihelper.showDialog({
-			title : $.strings.accountsLblTimeZone,
-			message : $.strings.accountsMsgTimeZone,
-			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
-			cancelIndex : 1,
-			success : didConfirmTimeZone
-		});
-	}
-}
-
-function didConfirmTimeZone() {
-	/** todo
-	 * update time zone
-	 * have to check against available time zones
-	 */
 }
 
 function didChangeAutoLogin(e) {
@@ -104,7 +82,11 @@ function didClickmobileNumber(e) {
 }
 
 function didClickEmailAddress(e) {
-
+	$.app.navigator.open({
+		titleid : "titleChangeEmail",
+		ctrl : "email",
+		stack : true
+	});
 }
 
 function didClickTimeZone(e) {

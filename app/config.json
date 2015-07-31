@@ -28,7 +28,7 @@
             "prescriptions_refill": "prescriptions/refill",
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
             "upload_image": "imageUpload",
-            "terms_get": "terms/getTermsOfService"
+            "terms_get": "terms/get"
         },
         "apiCodes": {
             "success": "200",

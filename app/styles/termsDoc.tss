@@ -1,13 +1,10 @@
-".disable-bounce":{
-	disableBounce: true
-},
 "#webView":{
 	width: "100%",
 	scalesPageToFit: true
 },
 "#emailBtn":{
-	title: Alloy.Globals.strings.accountsSuccessBtnEmail
+	title: Alloy.Globals.strings.accountSuccessBtnEmail
 },
 "#revokeBtn":{
-	title: Alloy.Globals.strings.accountsFailureBtnRevoke
+	title: Alloy.Globals.strings.accountFailureBtnRevoke
 }

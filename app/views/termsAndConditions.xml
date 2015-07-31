@@ -2,7 +2,7 @@
 	<TableView id="tableView" onClick="didClickItem">
 		<FooterView platform="ios">
 			<View class="auto-height" >
-				<Button id="doneBtn" class="margin-bottom secondary-btn" onClick="didClickDone" />
+				<Button id="doneBtn" class="margin-bottom margin-top secondary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>
