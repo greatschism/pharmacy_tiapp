@@ -465,6 +465,15 @@ var Utility = {
 	},
 
 	/**
+	 * Check whether given rx number is a schedule to drug
+	 * @param {String} str
+	 * returns {Boolean}
+	 */
+	isRxSchedule2 : function(str) {
+		return Alloy.CFG.rx_schedule_2_validator.test(str);
+	},
+
+	/**
 	 * Check whether given string is a 10 digit phone number
 	 * @param {String} str
 	 * returns {Boolean}

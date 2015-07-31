@@ -499,15 +499,70 @@ function didClickSwipeOption(e) {
 		doConfirmHide(e);
 		break;
 	case 2:
-		$.app.navigator.open({
-			titleid : "titleOrderDetails",
-			ctrl : "orderDetails",
-			ctrlArguments : {
-				prescriptions : [e.data]
-			},
-			stack : true
+		/**
+		 * check whether this
+		 * prescription can be refilled
+		 * eg: Schedule 2 can't be refilled
+		 * through this app
+		 */
+		var prescription = e.data;
+		canRefill(prescription, function didCheck(proceed) {
+			if (proceed) {
+				$.app.navigator.open({
+					titleid : "titleOrderDetails",
+					ctrl : "orderDetails",
+					ctrlArguments : {
+						prescriptions : [prescription]
+					},
+					stack : true
+				});
+			}
 		});
 		break;
+	}
+}
+
+/**
+ * the similar logic below
+ * is there in prescription details
+ */
+function canRefill(prescription, callback) {
+	/**
+	 * PHA-799
+	 */
+	var successCallback = function() {
+		callback(true);
+	},
+	    cancelCallback = function() {
+		callback(false);
+	};
+	if ($.utilities.isRxSchedule2(prescription.rx_number)) {
+		/**
+		 *  PHA-892
+		 */
+		$.uihelper.showDialog({
+			message : $.strings.prescMsgSchedule2,
+			cancelIndex : 0,
+			cancel : cancelCallback
+		});
+	} else if (parseInt(prescription.refill_left || 0) === 0) {
+		$.uihelper.showDialog({
+			message : $.strings.prescMsgRefillLeftNone,
+			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : successCallback,
+			cancel : cancelCallback
+		});
+	} else if (moment(prescription.expiration_date, apiCodes.date_format).diff(moment(), "days") < 0) {
+		$.uihelper.showDialog({
+			message : $.strings.prescMsgExpired,
+			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : successCallback,
+			cancel : cancelCallback
+		});
+	} else {
+		successCallback();
 	}
 }
 
@@ -566,10 +621,32 @@ function didClickTableView(e) {
 	if (row) {
 		currentPrescription = row.getParams();
 		if (args.selectable) {
-			currentPrescription.selected = !currentPrescription.selected;
-			sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", currentPrescription);
-			$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
-			currentPrescription = null;
+			var toggleSelection = function(proceed) {
+				if (proceed !== false) {
+					/**
+					 * update selection flag
+					 */
+					currentPrescription.selected = !currentPrescription.selected;
+					sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", currentPrescription);
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
+				}
+				currentPrescription = null;
+			};
+			/**
+			 * check whether this
+			 * prescription can be refilled
+			 * eg: Schedule 2 can't be refilled
+			 * through this app
+			 *
+			 * !currentPrescription.selected - when it is selected by user
+			 * not when unselected
+			 */
+			if (!currentPrescription.selected) {
+				canRefill(currentPrescription, toggleSelection);
+			} else {
+				toggleSelection();
+			}
+			return false;
 		} else {
 			$.app.navigator.open({
 				titleid : "titlePrescriptionDetails",

@@ -14,7 +14,7 @@ var args = arguments[0] || {},
 
 })();
 
-function setImage(img) {
+function setImage(img, dimg) {
 	image = img;
 	var md5 = Ti.Utils.md5HexDigest(image) + getExtension(image),
 	    savedFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache/" + md5);
@@ -24,8 +24,9 @@ function setImage(img) {
 			image : image
 		});
 	} else {
-		if (args.defaultImage) {
-			$.widget.image = args.defaultImage;
+		dimg = dimg || args.defaultImage;
+		if (dimg) {
+			$.widget.image = dimg;
 		}
 		/**
 		 * requires http module

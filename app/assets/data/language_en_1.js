@@ -143,7 +143,7 @@ module.exports = {
 		"doctorsLblPrescribedNone" : "You have no prescription associated with this doctor.",
 
 		"doctorDetSectionPrescribed" : "Has prescribed you",
-		"doctorDetLblPhotoNone" : "Add a image",
+		"doctorDetBtnPhotoUpdate" : "Change",
 		"doctorDetLblManual" : "You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "You have no prescription associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
@@ -204,6 +204,9 @@ module.exports = {
 		"prescAddSectionBtnAll" : "Select all",
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
 		"prescAddMsgNoneSelected" : "No prescriptions selected.",
+		"prescMsgSchedule2" : "Schedule 2 drugs cannot be filled through this app.",
+		"prescMsgRefillLeftNone" : "We’re contacting your doctor for more refills.",
+		"prescMsgExpired" : "This prescription has expired.",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
@@ -223,6 +226,9 @@ module.exports = {
 		"prescDetLblInstruction" : "Dosage instructions",
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
+		"prescDetMsgSchedule2" : "Schedule 2 drugs cannot be filled through this app.",
+		"prescDetMsgRefillLeftNone" : "We’re contacting your doctor for more refills.",
+		"prescDetMsgExpired" : "This prescription has expired.",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",

@@ -8,7 +8,7 @@ function init() {
 	if (doctor.image) {
 		$.photoImg.setImage(doctor.image);
 	} else {
-		$.photoLbl.visible = true;
+		$.photoImg.getView().image = doctor.defaultImage;
 	}
 	var currentDate = moment(),
 	    section = $.uihelper.createTableViewSection($, $.strings.doctorDetSectionPrescribed),
@@ -144,13 +144,6 @@ function didSuccessDoctor(result, passthrough) {
 		image_url : passthrough
 	});
 	$.photoImg.setImage(passthrough);
-	/**
-	 * hide add photo
-	 * label
-	 */
-	if ($.photoLbl.visible) {
-		$.photoLbl.visible = false;
-	}
 }
 
 function didClickPhone(e) {

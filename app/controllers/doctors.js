@@ -6,10 +6,12 @@ var args = arguments[0] || {},
     rows,
     swipeOptions,
     currentDoctor,
+    defaultImg,
     isWindowOpen;
 
 function init() {
 	$.tableView.top = $.headerView.height;
+	defaultImg = $.uihelper.getImage("default_profile").image;
 	swipeOptions = [{
 		action : 1,
 		title : $.strings.doctorsSwipeOptRemove,
@@ -156,6 +158,7 @@ function processModel(model) {
 	var imageURL = model.get("image_url");
 	model.set({
 		image : imageURL && imageURL != "null" ? imageURL : "",
+		defaultImage : defaultImg,
 		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
 		subtitle : subtitle,
 		titleClasses : titleClasses,

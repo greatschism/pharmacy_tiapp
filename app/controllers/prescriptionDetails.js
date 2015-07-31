@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
     isWindowOpen,
     httpClient;
@@ -10,8 +11,8 @@ function init() {
 	$.addClass($.refillsLeftBtn, [refillsLeft > Alloy.CFG.prescription_refills_left_info_negative ? "info-btn" : "info-negative-btn"], {
 		title : refillsLeft
 	});
-	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, Alloy.CFG.apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	/**
 	 * height has to be calculated and applied for expanable views only once the page is rendered
 	 * this may cause jerk on screen, avoid it by showing a loader on init
@@ -36,7 +37,7 @@ function focus() {
 						prescriptions : {
 							id : prescription.id,
 							sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-							prescription_display_status : Alloy.CFG.apiCodes.prescription_display_status_active
+							prescription_display_status : apiCodes.prescription_display_status_active
 						}
 					}]
 				},
@@ -125,7 +126,7 @@ function loadPresecription() {
 
 function loadDoctor() {
 	$.rxReplyLbl.text = prescription.rx_number;
-	$.expiryReplyLbl.text = moment(prescription.expiration_date, Alloy.CFG.apiCodes.date_format).format(Alloy.CFG.date_format);
+	$.expiryReplyLbl.text = moment(prescription.expiration_date, apiCodes.date_format).format(Alloy.CFG.date_format);
 	$.doctorReplyLbl.text = prescription.doctor ? prescription.doctor.title : $.strings.strNotAvailable;
 }
 
@@ -215,6 +216,39 @@ function toggleInstruction(e) {
 }
 
 function didClickRefill(e) {
+	/**
+	 **
+	 * the similar logic below
+	 * is there in prescription list
+	 *  PHA-892
+	 */
+	if ($.utilities.isRxSchedule2(prescription.rx_number)) {
+		/**
+		 *  PHA-892
+		 */
+		$.uihelper.showDialog({
+			message : $.strings.prescDetMsgSchedule2
+		});
+	} else if (parseInt(prescription.refill_left || 0) === 0) {
+		$.uihelper.showDialog({
+			message : $.strings.prescDetMsgRefillLeftNone,
+			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : didConfirmRefill
+		});
+	} else if (moment(prescription.expiration_date, apiCodes.date_format).diff(moment(), "days") < 0) {
+		$.uihelper.showDialog({
+			message : $.strings.prescDetMsgExpired,
+			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : didConfirmRefill
+		});
+	} else {
+		didConfirmRefill();
+	}
+}
+
+function didConfirmRefill() {
 	$.app.navigator.open({
 		titleid : "titleOrderDetails",
 		ctrl : "orderDetails",

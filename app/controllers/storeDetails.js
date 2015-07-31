@@ -321,7 +321,7 @@ function didClickHome(e) {
 	$.uihelper.showDialog({
 		title : $.strings.storeDetDialogTitleHomeConfirm,
 		message : String.format($.strings.storeDetMsgHomeConfirm, store.title),
-		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnCancel],
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
 		cancelIndex : 1,
 		success : didConfirmHome
 	});

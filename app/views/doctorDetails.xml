@@ -7,7 +7,7 @@
 				<View class="margin-top auto-height">
 					<View class="content-left-image-large-bordered" onClick="didClickPhoto">
 						<Widget id="photoImg" src="ti.remoteimage" class="width-100" onError="didError" />
-						<Label id="photoLbl" class="link-centered-wrap hide" />
+						<Button id="updateBtn" class="bottom quaternary-btn" />
 					</View>
 					<View id="contentView" class="content-view-vgroup-with-limage-large">
 						<View class="icon-view" onClick="didClickPhone">

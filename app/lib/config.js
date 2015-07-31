@@ -182,6 +182,8 @@ var Configuration = {
 		});
 		//rx validator
 		Alloy.CFG.rx_validator = new RegExp(Alloy.CFG.rx_validator);
+		//rx schedule 2 drug
+		Alloy.CFG.rx_schedule_2_validator = new RegExp(Alloy.CFG.rx_schedule_2_validator);
 		//convert seconds to milliseconds
 		_.each(["http_timeout", "location_timeout"], function(prop) {
 			Alloy.CFG[prop] = Alloy.CFG[prop] * 1000;

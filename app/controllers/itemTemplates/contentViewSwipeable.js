@@ -40,6 +40,8 @@ CONSTS = Alloy.TSS[CONSTS];
 (function() {
 	if (args.image) {
 		$.img.setImage(args.image);
+	} else if (args.defaultImage) {
+		$.img.getView().image = args.defaultImage;
 	}
 	/**
 	 * should not be have class suffix -wrap by default

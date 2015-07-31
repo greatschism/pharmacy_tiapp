@@ -1,7 +1,7 @@
 <Alloy>
 	<TableViewRow id="row" class="row-selection-disabled">
 		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
-			<View class="content-left-image">
+			<View class="content-left-image-bordered">
 				<Widget id="img" src="ti.remoteimage" class="width-100" onError="didError" />
 			</View>
 			<View id="contentView" class="content-view-vgroup-with-limage-child">

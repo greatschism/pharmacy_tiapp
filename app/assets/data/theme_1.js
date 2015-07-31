@@ -39,6 +39,7 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
+			"rx_schedule_2_validator" : "^(2).*$",
 			"time_zone_check_enabled" : false,
 			"toggle_password_enabled" : true,
 			"auto_login_dialog_enabled" : false,
@@ -573,6 +574,21 @@ module.exports = {
 				"borderColor" : "transparent",
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
+			},
+			".quaternary-btn" : {
+				"width" : "fill",
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 9
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#80000000",
+				"backgroundSelectedColor" : "#80000000",
+				"borderColor" : "transparent",
+				"borderRadius" : 0,
+				"borderWidth" : 0
 			},
 			".nav-btn" : {
 				"font" : {
@@ -1367,14 +1383,14 @@ module.exports = {
 			".content-view-with-licon" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 48,
+				"left" : 50,
 				"right" : 12,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-licon" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 48,
+				"left" : 50,
 				"right" : 12,
 				"height" : "auto",
 				"layout" : "vertical"
@@ -1382,14 +1398,14 @@ module.exports = {
 			".content-view-with-licon-child" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 48,
+				"left" : 50,
 				"right" : 36,
 				"height" : "auto"
 			},
 			".content-view-vgroup-with-licon-child" : {
 				"top" : 12,
 				"bottom" : 12,
-				"left" : 48,
+				"left" : 50,
 				"right" : 36,
 				"height" : "auto",
 				"layout" : "vertical"
@@ -1480,6 +1496,16 @@ module.exports = {
 				"width" : 60,
 				"height" : 60
 			},
+			".content-left-image-bordered" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"width" : 60,
+				"height" : 60,
+				"borderColor" : "#808082",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
 			".content-view-with-limage" : {
 				"top" : 12,
 				"bottom" : 12,
@@ -1524,7 +1550,7 @@ module.exports = {
 				"width" : 90,
 				"height" : 90,
 				"borderColor" : "#808082",
-				"borderRadius" : 0,
+				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
 			".content-view-with-limage-large" : {

@@ -173,7 +173,7 @@ function didClickSubmit(e) {
 		params : {
 			feature_code : "THXXX",
 			data : [{
-				doctors : _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"])
+				doctors : _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"])
 			}]
 		},
 		success : didSuccessDoctor
