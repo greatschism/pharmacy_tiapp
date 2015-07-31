@@ -339,6 +339,6 @@ module.exports = {
 		"accountPopupLanguage" : "es-Choose your language",
 		"accountPopupLanguageBtnClose" : "es-Close",
 		"accountAgreementHIPAA" : "es-HIPAA",
-		"accountLblEmail" : "es-Please enter your email address"
+		"accountLblPromptEmail" : "es-Please enter your email address"
 	}
 };

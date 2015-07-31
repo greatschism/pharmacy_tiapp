@@ -96,7 +96,7 @@ module.exports = {
 		"titleDoctorAdd" : "Add a doctor",
 		"titleDoctorUpdate" : "Edit doctor",
 		"titleTransferReview" : "Transfer Prescription",
-		"titleAccountsAgreements" : "My agreements",
+		"titleAccountAgreements" : "My agreements",
 		"titleChangeEmail" : "Change email address",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
@@ -345,7 +345,7 @@ module.exports = {
 		"accountPopupLanguage" : "Choose your language",
 		"accountPopupLanguageBtnClose" : "Close",
 		"accountAgreementHIPAA" : "HIPAA",
-		"accountLblEmail" : "Please enter your email address"
+		"accountLblPromptEmail" : "Please enter your email address"
 
 	}
 };

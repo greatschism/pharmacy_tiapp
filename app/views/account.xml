@@ -20,7 +20,6 @@
 			<HeaderView>
 				<View class="content-header-view">
 					<Label id="notificationLbl" class="content-header-lbl" />
-					<Button id="editBtn" class="content-header-right-icon icon-edit" onClick="didClickEdit" />
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickmobileNumber">
