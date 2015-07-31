@@ -309,15 +309,15 @@ module.exports = {
 		"transferOptsBtnTransfer" : "Complete transfer",
 
 		"transferReviewSectionUser" : "Personal details",
-		"transferReviewSectionStore" : "Your refill has been placed at:",
-		"transferReviewSectionPresc" : "Prescription transferred",
+		"transferReviewSectionStore" : "Your transfer has been placed at:",
+		"transferReviewSectionPresc" : "Prescription transferred:",
 		"transferReviewLblInstruction" : "Make sure it is easy to see the pharmacy phone number.",
 		"transferReviewLblDob" : "DOB: %s",
 		"transferReviewBtnTransfer" : "Complete transfer",
 
 		"transferSuccessLblHeader" : "Your transfer is being processed!",
 		"transferSuccessLblContact" : "Please contact your pharmacy if you have any questions",
-		"transferSuccessLblRefillDetTitle" : "Your refill has been placed at:",
+		"transferSuccessLblRefillDetTitle" : "Your transfer has been placed at:",
 		"transferSuccessPromptPhone" : "Call:",
 		"transferSuccessLblPrescDetTitle" : "Prescription transferred:",
 		"transferSuccessBtnDone" : "Done",

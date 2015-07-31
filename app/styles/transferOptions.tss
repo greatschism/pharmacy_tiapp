@@ -1,9 +1,6 @@
 "#titleLbl":{
 	text: Alloy.Globals.strings.transferOptsSectionTitle
 },
-"#sendTxtMsgLbl":{
-	text: Alloy.Globals.strings.transferOptsLblSendTxtMsg
-},
 "#reviewLbl":{
 	text: Alloy.Globals.strings.transferOptsLblReview
 },

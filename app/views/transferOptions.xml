@@ -11,12 +11,12 @@
 			</View>
 			<Widget id="transferAllPrescSwt" src="ti.switch" class="content-right-swt swt" />
 		</TableViewRow>
-		<TableViewRow>
+		<!--<TableViewRow>
 			<View class="content-view-with-rswt">
 				<Label id="sendTxtMsgLbl" class="content-lbl-wrap" />
 			</View>
 			<Widget id="sendTxtMsgSwt" src="ti.switch" class="content-right-swt swt" />
-		</TableViewRow>
+	</TableViewRow>-->
 		<TableViewRow onClick="didClickReview">
 			<View class="content-view-with-child">
 				<Label id="reviewLbl" class="content-lbl-wrap" />

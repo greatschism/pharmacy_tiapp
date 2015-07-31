@@ -39,7 +39,7 @@ function didUploadImage(result, passthrough) {
 function transferStore(imageURL) {
 	var data = {
 		enable_transfer_all_presc_flag : $.transferAllPrescSwt.getValue(),
-		enable_txt_msg_flag : $.sendTxtMsgSwt.getValue(),
+		enable_txt_msg_flag : "",
 		to_store_id : args.store.id
 	},
 	    user = args.user,
@@ -112,7 +112,7 @@ function didClickReview(e) {
 			store : args.store,
 			user : args.user,
 			transferAllPresc : $.transferAllPrescSwt.getValue(),
-			sendTxtMsg : $.sendTxtMsgSwt.getValue()
+			sendTxtMsg : ""
 		},
 		stack : true
 	});
