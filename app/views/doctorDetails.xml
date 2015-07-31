@@ -12,7 +12,7 @@
 					<View id="contentView" class="content-view-vgroup-with-limage-large">
 						<View class="icon-view" onClick="didClickPhone">
 							<Label class="icon icon-phone" />
-							<Label id="phoneLbl" class="icon-description" />
+							<Label id="phoneLbl" class="icon-description-link" />
 						</View>
 						<View class="margin-top h-divider" />
 						<View class="margin-top icon-view">
