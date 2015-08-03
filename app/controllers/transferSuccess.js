@@ -24,31 +24,28 @@ function focus() {
 			success : didGetStore
 		});
 	}
+
 	$.uihelper.getImage("success", $.successImg);
 	prescription = args.prescription;
 	$.storeNameLbl.text = $.utilities.ucword(store.store_name);
 	$.storeTitleLbl.text = store.title;
 	$.storeSubtitleLbl.text = store.subtitle;
+	if(store.phone_formatted){
 	$.storePhoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
+	}
 	if (prescription) {
 		$.prescNameLbl.text = prescription.name;
 		if (prescription.rx) {
 			$.rxLbl.text = prescription.rx;
 		} else {
-			/**
-			 *  to avoid the empty space
-			 * left for
-			 */
+			
 			$.rxLbl.applyProperties({
 				top : 0,
 				height : 0
 			});
 		}
 	} else {
-		/**
-		 * image path is used throughout this module
-		 * should not be changed
-		 */
+	
 		$.prescImg.image = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg").read();
 	}
 

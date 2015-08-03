@@ -39,7 +39,6 @@ function didUploadImage(result, passthrough) {
 function transferStore(imageURL) {
 	var data = {
 		enable_transfer_all_presc_flag : $.transferAllPrescSwt.getValue(),
-		enable_txt_msg_flag : "",
 		to_store_id : args.store.id
 	},
 	    user = args.user,
@@ -93,6 +92,8 @@ function didSuccess(result, passthrough) {
 	 * for right error / success messages
 	 * in success screen
 	 */
+	console.log(args.store);
+	console.log(args.prescription);
 	$.app.navigator.open({
 		titleid : "titleTransferSuccess",
 		ctrl : "transferSuccess",
