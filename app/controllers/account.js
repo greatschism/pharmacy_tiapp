@@ -3,7 +3,8 @@ var args = arguments[0] || {},
     authenticator = require("authenticator"),
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
-    isWindowOpen;
+    isWindowOpen,
+    phone_formatted;
 
 function init() {
 	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable;
@@ -13,58 +14,36 @@ function init() {
 	$.timeZoneReplyLbl.text = Alloy.Models.patient.get("pref_timezone");
 	$.languageReplyLbl.text = Alloy.Models.patient.get("pref_language");
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
-}
-
-function getLanguageAndTimeZoneCodes() {
-	$.http.request({
-		method : "codes_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				codes : [{
-					code_name : apiCodes.code_language
-				},{
-					code_name : apiCodes.code_time_zone
-				}]
-			}]
-		},
-		forceRetry : true,
-		success : didgetLanguageAndTimeZoneCodes
-	});
+	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
+	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
 }
 
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		/**
-		 * ensure that if time zone is available,
-		 * language also should be available
+		 * Get the last refilled store details. This is required to contact the store 
 		 */
-		if (Alloy.Models.timeZone.get("code_values")) {
-			setCodes();
-		} else {
-			getLanguageAndTimeZoneCodes();
+		var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
+		if (storeId) {
+			$.http.request({
+				method : "stores_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						stores : {
+							id : storeId
+						}
+					}]
+				},
+				success : didGetStore
+			});
 		}
 	}
 }
 
-function appendFlag(codes, selectedValue) {
-	_.each(codes, function(code) {
-		code.selected = code.code_value === selectedValue;
-	});
-}
-
-function didgetLanguageAndTimeZoneCodes(result, passthrough) {
-	Alloy.Models.language.set(result.data.codes[0]);
-	Alloy.Models.timeZone.set(result.data.codes[1]);
-	appendFlag(Alloy.Models.timeZone.get("code_values"), Alloy.Models.patient.get("pref_timezone"));
-	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
-	setCodes();
-}
-
-function setCodes() {
-	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
-	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
+function didGetStore(result) {
+	phone_formatted = $.utilities.formatPhoneNumber(result.data.stores.phone);
 }
 
 function didChangeAutoLogin(e) {
@@ -78,7 +57,11 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
-
+	$.app.navigator.open({
+		titleid : "titleChangePhone",
+		ctrl : "phone",
+		stack : true
+	});
 }
 
 function didClickEmailAddress(e) {
@@ -119,10 +102,6 @@ function didClickViewAgreement() {
 	});
 }
 
-function didClickEdit() {
-
-}
-
 function backButtonHandler() {
 	if ($.timeZonePicker.getVisible()) {
 		return $.timeZonePicker.hide();
@@ -135,6 +114,22 @@ function backButtonHandler() {
 	 * and changes will be applied
 	 */
 	return false;
+}
+
+function callhomePharmacy(){
+	/*httpClient = $.http.request({
+		method : "stores_list",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				stores : reqStoreObj
+			}]
+		},
+		passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
+		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
+		showLoader : false,
+		success : didGetStores,
+		failure : didGetStores*/
 }
 
 function didClickcontactOptionsMenu(e){
@@ -150,7 +145,12 @@ function didClickcontactOptionsMenu(e){
 		$.uihelper.openEmailDialog([supportEmail]);
 		break;
 	case 2:
-		//todo - save the last refilled pharmacy phone when refill succeeds
+		if (phone_formatted) {
+			$.uihelper.openDialer(phone_formatted);
+		}
+		else{
+			callhomePharmacy();
+		}
 		break;
 	}
 }

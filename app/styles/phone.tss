@@ -1,15 +1,6 @@
-"#hintLbl":{
-	text: Alloy.Globals.strings.lblLetsSeeIfWeRecogonizeYou
-},
-"#mobileTxt":{
-	maxLength: 14,
-	hintText: Alloy.Globals.strings.hintMobileNumber,
-	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
-	font : {
-					fontWeight : 'bold',
-					fontSize : 15
-				}
+"#titleLbl":{
+	text: Alloy.Globals.strings.accountLblPromptPhone
 },
 "#continueBtn":{
-	title: Alloy.Globals.strings.btnContinue
+	title: Alloy.Globals.strings.accountSuccessBtnContinue
 }

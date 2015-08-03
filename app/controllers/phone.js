@@ -5,18 +5,22 @@ var args = arguments[0] || {},
     uihelper = require("uihelper");
 
 function init() {
-	uihelper.getImage($.logoImg);
+	$.phoneTxt.setValue(Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable);
+	var len = $.phoneTxt.getValue().length;
+	$.phoneTxt.setSelection(0, len);
 }
 
 function didChange(e) {
 	var value = utilities.formatMobileNumber(e.value),
 	    len = value.length;
-	$.mobileTxt.setValue(value);
-	$.mobileTxt.setSelection(len, len);
+	$.phoneTxt.setValue(value);
+	$.phoneTxt.setSelection(len, len);
 }
 
+/* to do - complete this flow after registration flow is complete */
+
 function didClickContinue(e) {
-	var mobileNumber = utilities.validateMobileNumber($.mobileTxt.getValue());
+	var mobileNumber = utilities.validateMobileNumber($.phoneTxt.getValue());
 	if (mobileNumber) {
 		http.request({
 			method : "patients_mobile_exists_or_shared",

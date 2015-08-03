@@ -99,6 +99,7 @@ module.exports = {
 		"titleTransferReview" : "es-Transfer Prescription",
 		"titleAccountAgreements" : "es-My agreements",
 		"titleChangeEmail" : "es-Change email address",
+		"titleChangePhone" : "es-Enter phone number",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
@@ -350,7 +351,10 @@ module.exports = {
 		"accountOptMenuCallCustCare" : "es-Give us a call",
 		"accountOptMenuSendEmail" : "es-Send us an email",
 		"accountOptMenuCallPharmacy" : "es-Call your pharmacy",
-		"accountSectionAcceptedDocs" : "es-You have accepted these documents"
+		"accountSectionAcceptedDocs" : "es-You have accepted these documents",
+		"accountMsgCallPharmacy" : "es-Failed to get the most recently refilled pharmacy number",
+		"accountLblPromptPhone" : "Please enter the mobile number you would like to receive texts",
+		"accountSuccessBtnContinue" : "Continue"
 
 	}
 };
