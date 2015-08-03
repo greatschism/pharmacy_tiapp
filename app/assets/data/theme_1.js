@@ -675,6 +675,7 @@ module.exports = {
 			".swt[platform=ios]" : {
 				"width" : 56,
 				"height" : 36,
+				"value" : false,
 				"tintColor" : "#A7A7A7",
 				"onTintColor" : "#38E780",
 				"backgroundColor" : "#A7A7A7",
@@ -683,6 +684,7 @@ module.exports = {
 			".swt[platform=android]" : {
 				"width" : 56,
 				"height" : 36,
+				"value" : false,
 				"trackTintColorOn" : "#4BD763",
 				"trackTintColorOff" : "#A7A7A7",
 				"thumbTintColorOn" : "#FFFFFF",
