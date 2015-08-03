@@ -108,7 +108,7 @@ function didClickCloseLanguage(e) {
 }
 
 function didClickContactSupport(e) {
-
+	$.contactOptionsMenu.show();
 }
 
 function didClickViewAgreement() {
@@ -135,6 +135,24 @@ function backButtonHandler() {
 	 * and changes will be applied
 	 */
 	return false;
+}
+
+function didClickcontactOptionsMenu(e){
+	switch(e.index) {
+	case 0:
+		var supportPhone = Alloy.Models.appload.get("supportphone");
+		if (supportPhone) {
+			$.uihelper.openDialer(supportPhone);
+		}
+		break;
+	case 1:
+		var supportEmail = Alloy.Models.appload.get("supportemail_to");
+		$.uihelper.openEmailDialog([supportEmail]);
+		break;
+	case 2:
+		//todo - save the last refilled pharmacy phone when refill succeeds
+		break;
+	}
 }
 
 exports.init = init;

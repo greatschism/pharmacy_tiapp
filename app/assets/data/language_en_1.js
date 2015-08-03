@@ -345,7 +345,10 @@ module.exports = {
 		"accountPopupLanguage" : "Choose your language",
 		"accountPopupLanguageBtnClose" : "Close",
 		"accountAgreementHIPAA" : "HIPAA",
-		"accountLblPromptEmail" : "Please enter your email address"
-
+		"accountLblPromptEmail" : "Please enter your email address",
+		"accountOptMenuCallCustCare" : "Give us a call",
+		"accountOptMenuSendEmail" : "Send us an email",
+		"accountOptMenuCallPharmacy" : "Call your pharmacy",
+		"accountSectionAcceptedDocs" : "You have accepted these documents"
 	}
 };

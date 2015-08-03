@@ -50,4 +50,8 @@
 },
 "#languageCloseBtn":{
 	title: Alloy.Globals.strings.accountPopupLanguageBtnClose
-}
+},
+"#contactOptionsMenu":{
+	options: [Alloy.Globals.strings.accountOptMenuCallCustCare, Alloy.Globals.strings.accountOptMenuSendEmail, Alloy.Globals.strings.accountOptMenuCallPharmacy, Alloy.Globals.strings.dialogBtnCancel],
+	cancel: 3
+},
