@@ -42,7 +42,7 @@ module.exports = {
 			"rx_schedule_2_validator" : "^(2).*$",
 			"time_zone_check_enabled" : false,
 			"toggle_password_enabled" : true,
-			"auto_login_dialog_enabled" : false,
+			"auto_login_dialog_enabled" : true,
 			"auto_populate_username" : true,
 			"auto_populate_password" : true,
 			"session_timeout" : 600,
