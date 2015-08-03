@@ -85,8 +85,19 @@ function getDoctor() {
 
 function didGetDoctor(result, passthrough) {
 	prescription.doctor = {};
-	_.extend(prescription.doctor, result.data.doctors);
-	prescription.doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(prescription.doctor.first_name) + " " + $.utilities.ucword(prescription.doctor.last_name));
+	var doctor = prescription.doctor;
+	_.extend(doctor, result.data.doctors);
+	/**
+	 * image and defaultImage
+	 * is required when user goes
+	 * to doctor details from this screen
+	 */
+	var imageURL = doctor.image_url;
+	_.extend(doctor, {
+		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(doctor.first_name) + " " + $.utilities.ucword(doctor.last_name)),
+		image : imageURL && imageURL != "null" ? imageURL : "",
+		defaultImage : $.uihelper.getImage("default_profile").image
+	});
 	loadDoctor();
 	getStore();
 }
@@ -110,10 +121,11 @@ function getStore() {
 function didGetStore(result, passthrough) {
 	httpClient = null;
 	prescription.store = {};
-	_.extend(prescription.store, result.data.stores);
-	_.extend(prescription.store, {
-		title : $.utilities.ucword(prescription.store.addressline1),
-		subtitle : $.utilities.ucword(prescription.store.city) + ", " + prescription.store.state + ", " + $.utilities.ucword(prescription.store.zip)
+	var store = prescription.store;
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		title : $.utilities.ucword(store.addressline1),
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + $.utilities.ucword(store.zip)
 	});
 	loadStore();
 }

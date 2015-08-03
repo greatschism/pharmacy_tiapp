@@ -214,10 +214,10 @@ function appendFlag(codes, selectedValue) {
 	});
 }
 
-function updateTimeZone(timezone) {
+function updateTimeZone(timeZone) {
 	/**
-	 * to do: implement user preferences
-	 * set for time zone
+	 * to do: implement user preferences set
+	 * for time zone. api is not ready yet
 	 */
 	fireCallback();
 }
