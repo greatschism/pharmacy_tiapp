@@ -92,8 +92,6 @@ function didSuccess(result, passthrough) {
 	 * for right error / success messages
 	 * in success screen
 	 */
-	console.log(args.store);
-	console.log(args.prescription);
 	$.app.navigator.open({
 		titleid : "titleTransferSuccess",
 		ctrl : "transferSuccess",
