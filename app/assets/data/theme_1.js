@@ -1624,10 +1624,10 @@ module.exports = {
 			},
 			".content-lbl" : {
 				"left" : 0,
-				"height" : 22,
+				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"textAlign" : "left",
@@ -1639,7 +1639,7 @@ module.exports = {
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"textAlign" : "left",
@@ -1651,11 +1651,11 @@ module.exports = {
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"secondaryFont" : {
 					"fontFamily" : "medium",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"secondaryColor" : "#0095FF",
@@ -1668,11 +1668,11 @@ module.exports = {
 				"height" : "auto",
 				"font" : {
 					"fontFamily" : "regular",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"secondaryFont" : {
 					"fontFamily" : "medium",
-					"fontSize" : 17
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"secondaryColor" : "#0095FF",
