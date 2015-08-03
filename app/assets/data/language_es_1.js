@@ -56,7 +56,8 @@ module.exports = {
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have logged out successfully.",
 		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
-		"msgTimeZone" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
+		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
+		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
@@ -96,7 +97,7 @@ module.exports = {
 		"titleDoctorAdd" : "es-Add a doctor",
 		"titleDoctorUpdate" : "es-Edit doctor",
 		"titleTransferReview" : "es-Transfer Prescription",
-		"titleAccountsAgreements" : "es-My agreements",
+		"titleAccountAgreements" : "es-My agreements",
 		"titleChangeEmail" : "es-Change email address",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
@@ -144,7 +145,7 @@ module.exports = {
 		"doctorsLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
 
 		"doctorDetSectionPrescribed" : "es-Has prescribed you",
-		"doctorDetLblPhotoNone" : "es-Add a image",
+		"doctorDetBtnPhotoUpdate" : "es-Change",
 		"doctorDetLblManual" : "es-You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "es-You have no prescription associated with this doctor.",
 		"doctorDetLblExpired" : "es-Expired",
@@ -205,6 +206,9 @@ module.exports = {
 		"prescAddSectionBtnAll" : "es-Select all",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgNoneSelected" : "es-No prescriptions selected.",
+		"prescMsgSchedule2" : "es-Schedule 2 drugs cannot be filled through this app.",
+		"prescMsgRefillLeftNone" : "es-We’re contacting your doctor for more refills.",
+		"prescMsgExpired" : "es-This prescription has expired.",
 
 		"prescDetExpand" : "es-Show more",
 		"prescDetCollapse" : "es-Show less",
@@ -224,6 +228,9 @@ module.exports = {
 		"prescDetLblInstruction" : "es-Dosage instructions",
 		"prescDetBtnHide" : "es-Hide this prescription",
 		"prescDetMsgHideConfirm" : "es-Are you sure you want to hide %s?",
+		"prescDetMsgSchedule2" : "es-Schedule 2 drugs cannot be filled through this app.",
+		"prescDetMsgRefillLeftNone" : "es-We’re contacting your doctor for more refills.",
+		"prescDetMsgExpired" : "es-This prescription has expired.",
 
 		"orderDetSectionPresc" : "es-Your order",
 		"orderDetSectionPickup" : "es-Pickup details",
@@ -304,15 +311,15 @@ module.exports = {
 		"transferOptsBtnTransfer" : "es-Complete transfer",
 
 		"transferReviewSectionUser" : "es-Personal details",
-		"transferReviewSectionStore" : "es-Your refill has been placed at:",
-		"transferReviewSectionPresc" : "es-Prescription transferred",
+		"transferReviewSectionStore" : "es-Your transfer has been placed at:",
+		"transferReviewSectionPresc" : "es-Prescription transferred:",
 		"transferReviewLblInstruction" : "es-Make sure it is easy to see the pharmacy phone number.",
 		"transferReviewLblDob" : "es-DOB: %s",
 		"transferReviewBtnTransfer" : "es-Complete transfer",
 
 		"transferSuccessLblHeader" : "es-Your transfer is being processed!",
 		"transferSuccessLblContact" : "es-Please contact your pharmacy if you have any questions",
-		"transferSuccessLblRefillDetTitle" : "es-Your refill has been placed at:",
+		"transferSuccessLblRefillDetTitle" : "es-Your transfer has been placed at:",
 		"transferSuccessPromptPhone" : "es-Call:",
 		"transferSuccessLblPrescDetTitle" : "es-Prescription transferred:",
 		"transferSuccessBtnDone" : "es-Done",
@@ -344,5 +351,6 @@ module.exports = {
 		"accountOptMenuSendEmail" : "es-Send us an email",
 		"accountOptMenuCallPharmacy" : "es-Call your pharmacy",
 		"accountSectionAcceptedDocs" : "es-You have accepted these documents"
+
 	}
 };

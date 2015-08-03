@@ -2,12 +2,12 @@ var TAG = "Authenticator",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
-    jstz = require("alloy/jstz"),
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     encryptionUtil = require("encryptionUtil"),
     http = require("requestwrapper"),
+    localization = require("localization"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     authenticateCallback;
 
@@ -98,6 +98,7 @@ function didGetPatient(result, passthrough) {
 		params : {
 			feature_code : "THXXX"
 		},
+		keepLoader : true,
 		forceRetry : true,
 		success : didGetPreferences
 	});
@@ -105,37 +106,119 @@ function didGetPatient(result, passthrough) {
 
 function didGetPreferences(result, passthrough) {
 	Alloy.Models.patient.set(result.data.patients.preferences);
-	moment.tz.setDefault(Alloy.Models.patient.get("pref_timezone"));
+	/**
+	 * code values check
+	 * can be removed from account controller
+	 * as we get it here itself
+	 */
+	http.request({
+		method : "codes_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				codes : [{
+					code_name : Alloy.CFG.apiCodes.code_language
+				}, {
+					code_name : Alloy.CFG.apiCodes.code_time_zone
+				}]
+			}]
+		},
+		forceRetry : true,
+		success : didGetCodeValues
+	});
+}
+
+function didGetCodeValues(result, passthrough) {
+	Alloy.Models.language.set(result.data.codes[0]);
+	Alloy.Models.timeZone.set(result.data.codes[1]);
+	appendFlag(Alloy.Models.timeZone.get("code_values"), Alloy.Models.patient.get("pref_timezone"));
+	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
+	/**
+	 * set prefered time zone
+	 * before that store the user
+	 * device time to validate whether
+	 * there is a mismatch
+	 */
+	var dateObj = new Date(Alloy.CFG.default_date),
+	    dFormat = Alloy.CFG.date_time_format,
+	    dDate = moment(dateObj).format(dFormat);
+	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
+	/**
+	 * add logout menu item
+	 */
 	Alloy.Collections.menuItems.add({
 		titleid : "titleLogout",
 		action : "logout",
 		icon : "logout"
 	});
 	/**
-	 * alert if user is on different time zone
-	 * to do: find a better way that suits our
-	 * time zone api's data set
-	 *
-	 * time_zone_check_enabled is a additional flag
-	 * we set, to avoid dialogs during development
-	 * this also helps if client want to disable it
+	 * check if user is on different time zone
+	 * then one he had chosen
 	 */
-	if (Alloy.CFG.time_zone_check_enabled && moment().format(Alloy.CFG.date_time_format) != moment().tz(jstz.determine().name()).format(Alloy.CFG.date_time_format)) {
-		uihelper.showDialog({
-			title : Alloy.Globals.strings.dialogTitleTimeZone,
-			message : Alloy.Globals.strings.msgTimeZone,
-			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
-			cancelIndex : 1,
-			success : didConfirmTimeZone,
-			cancel : fireCallback
+	if (Alloy.CFG.time_zone_check_enabled && dDate != moment(dateObj).format(dFormat)) {
+		/**
+		 * momentjs or any other library
+		 * doesn't give a proper way
+		 * to detect user's time zone name
+		 * so compare current time with
+		 * all supported time zones
+		 */
+		var currentTZCode;
+		_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
+			if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
+				currentTZCode = code;
+				return true;
+			}
+			return false;
 		});
+		if (currentTZCode) {
+			/**
+			 * user is on a different time zone
+			 * that we support
+			 */
+			uihelper.showDialog({
+				title : Alloy.Globals.strings.dialogTitleTimeZone,
+				message : Alloy.Globals.strings.msgTimeZoneUpdate,
+				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : function didConfirmTimeZone() {
+					updateTimeZone(currentTZCode);
+				},
+				cancel : fireCallback
+			});
+		} else {
+			/**
+			 * user is on a time zone
+			 * that we don't support
+			 */
+			uihelper.showDialog({
+				title : Alloy.Globals.strings.dialogTitleTimeZone,
+				message : Alloy.Globals.strings.msgTimeZoneInvalid,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				cancelIndex : 0,
+				cancel : fireCallback
+			});
+		}
 	} else {
 		fireCallback();
 	}
 }
 
-function didConfirmTimeZone() {
-	//to do: handle confirmation
+/**
+ * adding selected flags
+ * to code values
+ */
+function appendFlag(codes, selectedValue) {
+	_.each(codes, function(code) {
+		code.selected = code.code_value === selectedValue;
+	});
+}
+
+function updateTimeZone(timezone) {
+	/**
+	 * to do: implement user preferences
+	 * set for time zone
+	 */
 	fireCallback();
 }
 
@@ -176,7 +259,7 @@ function didLogout(result, passthrough) {
 	/**
 	 * reset to device time zone
 	 */
-	moment.tz.setDefault(null);
+	setTimeZone(null);
 	/**
 	 * reset models and collections
 	 */
@@ -230,8 +313,18 @@ function getAutoLoginEnabled() {
 	return utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
 }
 
+function setTimeZone(zone) {
+	moment.tz.setDefault(zone);
+	/**
+	 * update the last request time
+	 * as the time zone is updated now
+	 */
+	Alloy.Globals.latestRequest = moment().unix();
+}
+
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
+exports.setTimeZone = setTimeZone;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;

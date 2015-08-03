@@ -56,7 +56,8 @@ module.exports = {
 		"msgLogoutConfirm" : "Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "You have logged out successfully.",
 		"msgExternalStorageError" : "You don't have enough space on your device to perform this operation.",
-		"msgTimeZone" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
+		"msgTimeZoneUpdate" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
+		"msgTimeZoneInvalid" : "We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -350,5 +351,6 @@ module.exports = {
 		"accountOptMenuSendEmail" : "Send us an email",
 		"accountOptMenuCallPharmacy" : "Call your pharmacy",
 		"accountSectionAcceptedDocs" : "You have accepted these documents"
+
 	}
 };

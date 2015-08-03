@@ -40,7 +40,8 @@ module.exports = {
 				"value" : "$1-$2"
 			}],
 			"rx_schedule_2_validator" : "^(2).*$",
-			"time_zone_check_enabled" : false,
+			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
+			"time_zone_check_enabled" : true,
 			"toggle_password_enabled" : true,
 			"auto_login_dialog_enabled" : true,
 			"auto_populate_username" : true,

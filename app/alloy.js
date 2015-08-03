@@ -5,23 +5,18 @@
 	 *  to prevent empty objects being returned
 	 *  this is recommended
 	 */
+	require("alloy/moment");
 	require("alloy/moment-timezone");
-	/**
-	 * https://github.com/moment/moment-timezone/issues/138
-	 * moment-timezone yet to support determining
-	 * current time zone of device
-	 * till then jstz is good alternative
-	 */
-	require("alloy/jstz");
+	require("alloy/underscore");
 	require("com.scule");
 	require("utilities");
 	require("encryptionUtil");
 	require("com.scule.tiencrypted");
+	require("uihelper");
 	require("core");
 	require("resources");
 	require("config");
 	require("localization");
-	require("uihelper");
 	require("logger");
 	require("http");
 	require("requestwrapper");
