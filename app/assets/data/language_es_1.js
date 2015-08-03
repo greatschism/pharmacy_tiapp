@@ -206,9 +206,9 @@ module.exports = {
 		"prescAddSectionBtnAll" : "es-Select all",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgNoneSelected" : "es-No prescriptions selected.",
-		"prescMsgSchedule2" : "es-Schedule 2 drugs cannot be filled through this app.",
-		"prescMsgRefillLeftNone" : "es-We’re contacting your doctor for more refills.",
-		"prescMsgExpired" : "es-This prescription has expired.",
+		"prescMsgSchedule2" : "es-Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
+		"prescMsgRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
+		"prescMsgExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
 
 		"prescDetExpand" : "es-Show more",
 		"prescDetCollapse" : "es-Show less",
