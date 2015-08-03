@@ -110,8 +110,7 @@ function didClickReview(e) {
 			prescription : args.prescription,
 			store : args.store,
 			user : args.user,
-			transferAllPresc : $.transferAllPrescSwt.getValue(),
-			sendTxtMsg : ""
+			transferAllPresc : $.transferAllPrescSwt.getValue()
 		},
 		stack : true
 	});
