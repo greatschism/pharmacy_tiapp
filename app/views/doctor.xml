@@ -3,8 +3,8 @@
 		<View class="margin-top form-vgroup">
 			<View id="nameView" class="auto-height">
 				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
-				<View id="nameVDividerView" class="v-divider" />
 				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<View id="nameVDividerView" class="v-divider" />
 			</View>
 			<View class="h-divider" />
 			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
@@ -19,14 +19,14 @@
 			<View class="h-divider" />
 			<View class="auto-height">
 				<Widget id="addressLine2Txt" src="ti.textfield" class="left form-txt-50 address autocaps-sentences returnkey-next" onReturn="moveToNext"  />
-				<View id="addressVDividerView"  class="v-divider" />
 				<Widget id="zipTxt" src="ti.textfield" class="right form-txt-50 zip keyboard-number returnkey-next" onReturn="moveToNext"  />
+				<View id="addressVDividerView"  class="v-divider" />
 			</View>
 			<View class="h-divider" />
 			<View class="auto-height">
 				<Widget id="cityTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
-				<View id="locationVDividerView"  class="v-divider" />
 				<Widget id="stateDp" src="ti.dropdown" class="right form-dropdown-50" onReturn="moveToNext" />
+				<View id="locationVDividerView"  class="v-divider" />
 			</View>
 		</View>
 		<View class="margin-top content-header-view">

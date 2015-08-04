@@ -192,7 +192,7 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF"
 			},
 			"TableView" : {
-				"separatorColor" : "#D3D4D3",
+				"separatorColor" : "#D5D5D5",
 				"backgroundColor" : "#FFFFFF",
 				"keepSectionsWithNoRowsInSearch" : false,
 				"separatorInsets" : {
@@ -203,7 +203,7 @@ module.exports = {
 				}
 			},
 			"ListView" : {
-				"separatorColor" : "#D3D4D3",
+				"separatorColor" : "#D5D5D5",
 				"backgroundColor" : "#FFFFFF",
 				"separatorInsets" : {
 					"top" : 0,
@@ -214,12 +214,12 @@ module.exports = {
 			},
 			"TableViewRow" : {
 				"backgroundColor" : "#FFFFFF",
-				"selectedBackgroundColor" : "#D3D4D3",
+				"selectedBackgroundColor" : "#D4D4D4",
 				"selectionAsOverlay" : true
 			},
 			"ListItem" : {
 				"backgroundColor" : "#FFFFFF",
-				"selectedBackgroundColor" : "#D3D4D3",
+				"selectedBackgroundColor" : "#D4D4D4",
 				"selectionAsOverlay" : true
 			},
 			".margin-top" : {
@@ -381,6 +381,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 34
 				},
+				"textAlign" : "center",
 				"color" : "#F7941E",
 				"selectedColor" : "#F7941E",
 				"backgroundColor" : "#FFFFFF",
@@ -394,6 +395,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 34
 				},
+				"textAlign" : "center",
 				"color" : "#A6A8AB",
 				"selectedColor" : "#A6A8AB",
 				"backgroundColor" : "#FFFFFF",
@@ -538,8 +540,8 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
-				"color" : "#599DFF",
-				"selectedColor" : "#599DFF",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
 				"borderColor" : "transparent",
@@ -553,8 +555,8 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
-				"color" : "#599DFF",
-				"selectedColor" : "#599DFF",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
 				"borderColor" : "transparent",
@@ -568,8 +570,8 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 17
 				},
-				"color" : "#599DFF",
-				"selectedColor" : "#599DFF",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
 				"borderColor" : "transparent",
@@ -732,7 +734,7 @@ module.exports = {
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
-				"hintTextColor" : "#C4C4C4",
+				"hintTextColor" : "#C7C7CD",
 				"iconFont" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
@@ -745,15 +747,15 @@ module.exports = {
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"right" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -803,8 +805,9 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"hintTextColor" : "#C7C7CD",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -845,8 +848,9 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"hintTextColor" : "#C7C7CD",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -903,6 +907,7 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"hintTextColor" : "#C7C7CD",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent",
 				"borderWidth" : 1,
@@ -917,9 +922,10 @@ module.exports = {
 					"fontSize" : 14
 				},
 				"color" : "#000000",
+				"hintTextColor" : "#C7C7CD",
 				"textAlign" : "left",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4,
 				"suppressReturn" : true
@@ -929,7 +935,7 @@ module.exports = {
 				"right" : 12,
 				"height" : "auto",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -939,7 +945,7 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -949,7 +955,7 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "horizontal",
 				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "#808083",
+				"borderColor" : "#808082",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
 			},
@@ -994,6 +1000,7 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"hintTextColor" : "#C7C7CD",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
@@ -1038,6 +1045,7 @@ module.exports = {
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
+				"hintTextColor" : "#C7C7CD",
 				"backgroundColor" : "#FFFFFF",
 				"borderColor" : "transparent"
 			},
@@ -1058,7 +1066,7 @@ module.exports = {
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
-				"hintTextColor" : "#C4C4C4",
+				"hintTextColor" : "#C7C7CD",
 				"iconFont" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
@@ -1071,15 +1079,15 @@ module.exports = {
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"right" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -1102,7 +1110,7 @@ module.exports = {
 				"paddingLeft" : 12,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
-				"hintTextColor" : "#C4C4C4",
+				"hintTextColor" : "#C7C7CD",
 				"iconFont" : {
 					"fontFamily" : "icon",
 					"fontSize" : 22
@@ -1115,15 +1123,15 @@ module.exports = {
 				},
 				"leftButtonDict" : {
 					"left" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
 					"right" : 12,
-					"color" : "#0095ff",
-					"selectedColor" : "#0095ff",
+					"color" : "#0095FF",
+					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
@@ -1224,6 +1232,13 @@ module.exports = {
 				"borderWidth" : 0,
 				"bubbleParent" : false
 			},
+			".swipe-view-divider" : {
+				"width" : 1,
+				"height" : 0,
+				"backgroundColor" : "#FFFFFF",
+				"bubbleParent" : false,
+				"touchEnabled" : false
+			},
 			".async-view" : {
 				"width" : "fill"
 			},
@@ -1255,7 +1270,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#000000",
+				"color" : "#5B5B5B",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -1268,7 +1283,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -1784,7 +1799,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -1802,7 +1817,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -1915,8 +1930,8 @@ module.exports = {
 					"fontSize" : 28
 				},
 				"textAlign" : "right",
-				"color" : "#599DFF",
-				"selectedColor" : "#599DFF",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF",
 				"bubbleParent" : false
@@ -2145,8 +2160,8 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 24
 				},
-				"color" : "#599cff",
-				"selectedColor" : "#599cff",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "transparent",
 				"backgroundSelectedColor" : "transparent",
 				"borderColor" : "transparent",
@@ -2173,8 +2188,8 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#599cff",
-				"selectedColor" : "#599cff",
+				"color" : "#0095FF",
+				"selectedColor" : "#0095FF",
 				"backgroundColor" : "transparent",
 				"backgroundSelectedColor" : "transparent",
 				"borderColor" : "transparent"
@@ -2226,7 +2241,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"color" : "#000000",
 				"textAlign" : "left",
 				"ellipsize" : false,
@@ -2415,7 +2430,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "right",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -2471,36 +2486,22 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
-			".h-divider[platform=ios]" : {
-				"width" : "fill",
-				"height" : 0.5,
-				"backgroundColor" : "#D4D4D4",
-				"bubbleParent" : false,
-				"touchEnabled" : false
-			},
-			".h-divider[platform=android]" : {
+			".h-divider" : {
 				"width" : "fill",
 				"height" : 1,
-				"backgroundColor" : "#D4D4D4",
+				"backgroundColor" : "#808082",
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
-			".v-divider[platform=ios]" : {
-				"width" : 0.5,
-				"height" : 0,
-				"backgroundColor" : "#D4D4D4",
-				"bubbleParent" : false,
-				"touchEnabled" : false
-			},
-			".v-divider[platform=android]" : {
+			".v-divider" : {
 				"width" : 1,
 				"height" : 0,
-				"backgroundColor" : "#D4D4D4",
+				"backgroundColor" : "#808082",
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
@@ -2512,7 +2513,7 @@ module.exports = {
 			".option-divider-line" : {
 				"width" : "fill",
 				"height" : 1,
-				"backgroundColor" : "#D4D4D4"
+				"backgroundColor" : "#808082"
 			},
 			".option-divider-lbl" : {
 				"width" : 52,
@@ -2521,7 +2522,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 17
 				},
-				"color" : "#F7941E",
+				"color" : "#000000",
 				"textAlign" : "center",
 				"backgroundColor" : "#FFFFFF"
 			},
@@ -2653,6 +2654,19 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".inactive-lbl-wrap" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#5B5B5B",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".lbl-centered" : {
 				"left" : 12,
 				"right" : 12,
@@ -2692,7 +2706,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2710,7 +2724,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2728,7 +2742,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -2746,7 +2760,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "center",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2764,7 +2778,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"secondaryColor" : "#0095ff",
+				"secondaryColor" : "#0095FF",
 				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -2777,7 +2791,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2790,7 +2804,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "left",
 				"ellipsize" : false,
 				"wordWrap" : true
@@ -2803,7 +2817,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "center",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2816,7 +2830,7 @@ module.exports = {
 					"fontFamily" : "medium",
 					"fontSize" : 14
 				},
-				"color" : "#0095ff",
+				"color" : "#0095FF",
 				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true

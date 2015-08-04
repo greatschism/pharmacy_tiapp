@@ -72,7 +72,7 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					classes : ["v-divider"],
+					classes : ["swipe-view-divider"],
 					left : fromLeft,
 					height : btn.height,
 					zIndex : 4

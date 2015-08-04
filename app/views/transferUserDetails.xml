@@ -6,8 +6,8 @@
 		<View class="margin-top form-vgroup">
 			<View id="txtView" class="auto-height">
 				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<View id="vDividerView" class="v-divider"/>
 				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="vDividerView" class="v-divider"/>
 			</View>
 			<View class="h-divider"/>
 			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />

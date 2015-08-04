@@ -96,7 +96,7 @@ function applyProperties(dict) {
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
-	options = _.pick(dict, ["hintText", "value", "font", "color", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	options = _.pick(dict, ["hintText", "value", "font", "color", "hintTextColor", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
 	}
