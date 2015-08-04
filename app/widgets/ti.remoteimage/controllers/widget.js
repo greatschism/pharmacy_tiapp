@@ -14,7 +14,7 @@ var args = arguments[0] || {},
 
 })();
 
-function setImage(img, dimg) {
+function setImage(img, dimg, encodURL) {
 	image = img;
 	var md5 = Ti.Utils.md5HexDigest(image) + getExtension(image),
 	    savedFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache/" + md5);
@@ -30,9 +30,12 @@ function setImage(img, dimg) {
 		}
 		/**
 		 * requires http module
+		 * autoEncodeUrl of HTTPClient is true by default
+		 * in our case we set it to false by default
 		 */
 		require("http").request({
 			url : image,
+			autoEncodeUrl : _.isUndefined(encodURL) ? false : encodURL,
 			type : "GET",
 			format : "data",
 			passthrough : savedFile.nativePath,
@@ -67,8 +70,12 @@ function didFail(error, passthrough) {
 
 function getExtension(str) {
 	var re = /(?:\.([^.]+))?$/,
-	    tmpext = re.exec(str)[1];
-	return ( tmpext ? "." + tmpext : "");
+	    ext = re.exec(str)[1] || "",
+	    n = ext.indexOf("?");
+	if (n != -1) {
+		ext = ext.substring(0, n);
+	}
+	return ( ext ? "." + ext : "");
 }
 
 exports.setImage = setImage;

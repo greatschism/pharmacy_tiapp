@@ -14,6 +14,7 @@ var TAG = "http",
  * @param {String} args.type Type of request, "GET", "POST", etc
  * @param {String} args.format Format of return data, one of "JSON", "TEXT", "XML" or "DATA"
  * @param {String} args.url The URL source to call
+ * @param {Boolean} args.autoEncodeUrl whether or not to encode url (HTTPClient - Android only)
  * @param {Array} args.headers Array of request headers to send
  * @param {Object|String} args.params The data to send
  * @param {Function} args.failure A function to execute when there is an XHR error
@@ -29,7 +30,9 @@ exports.request = function(args) {
 
 	if (Ti.Network.online) {
 
-		xhr = Ti.Network.createHTTPClient();
+		xhr = Ti.Network.createHTTPClient({
+			autoEncodeUrl : _.isUndefined(args.autoEncodeUrl) ? true : args.autoEncodeUrl
+		});
 
 		xhr.timeout = args.timeout ? args.timeout : 10000;
 
@@ -91,12 +94,9 @@ exports.request = function(args) {
 
 		xhr.open(args.type || "GET", args.url, true);
 
-		_.each(args.headers || [], function(header) {
-			xhr.setRequestHeader(header.key, header.value);
+		_.each(args.headers, function(value, key) {
+			xhr.setRequestHeader(key, value);
 		});
-
-		// Overcomes the 'unsupported browser' error sometimes received
-		// xhr.setRequestHeader("User-Agent", "Appcelerator Titanium/" + Ti.version + " (" + Ti.Platform.osname + "/" + Ti.Platform.version + "; " + Ti.Platform.name + "; " + Ti.Locale.currentLocale + ";)");
 
 		if (args.params) {
 			logger.debug(TAG, "params", args.params);
