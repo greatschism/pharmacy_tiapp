@@ -142,7 +142,9 @@ function didClickcontactOptionsMenu(e){
 		break;
 	case 1:
 		var supportEmail = Alloy.Models.appload.get("supportemail_to");
-		$.uihelper.openEmailDialog([supportEmail]);
+		$.uihelper.openEmailDialog({
+			toRecipients: [supportEmail]
+		});
 		break;
 	case 2:
 		if (phone_formatted) {

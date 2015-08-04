@@ -480,17 +480,14 @@ var Helper = {
 	/**
 	 * Open email dialog
 	 * @param {Object} o options
+	 * @param {Array} attachments array of blob or files to attach
 	 */
-	openEmailDialog : function(toRecipients, subject, messageBody, attachFile) {
-		var emailDialog = Ti.UI.createEmailDialog();
-		emailDialog.subject = (!_.isUndefined(subject) ? subject : "");
-		emailDialog.toRecipients = (!_.isEmpty(toRecipients) ? toRecipients : "");
-		emailDialog.messageBody = (!_.isUndefined(messageBody) ? toRecipients : "");
-		if(!_.isUndefined(attachFile)){
-			var f = Ti.Filesystem.getFile(attachFile);
-			emailDialog.addAttachment(f);
-		}
-		emailDialog.open();
+	openEmailDialog : function(o, attachments) {
+		var dialog = Ti.UI.createEmailDialog(o);
+		_.each(attachments, function(attachment) {
+			dialog.addAttachment(attachment);
+		});
+		dialog.open();
 	},
 
 	/**
