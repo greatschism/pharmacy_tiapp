@@ -325,9 +325,12 @@ var Helper = {
 						/**
 						 * output file was was not written
 						 * by the camera app
+						 * Note: some third party applications
+						 * just returns the content-uri (e.intent.data),
+						 * doesn't write the file properly.
 						 */
 						Helper.showDialog({
-							message : Alloy.Globals.strings.msgCameraError
+							message : Alloy.Globals.strings.msgCameraInvalid
 						});
 					}
 				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
@@ -409,9 +412,12 @@ var Helper = {
 						/**
 						 * output file was was not written
 						 * by the gallery app
+						 * Note: some third party applications
+						 * just returns the content-uri (e.intent.data),
+						 * doesn't write the file properly.
 						 */
 						Helper.showDialog({
-							message : Alloy.Globals.strings.msgGalleryError
+							message : Alloy.Globals.strings.msgGalleryInvalid
 						});
 					}
 				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
