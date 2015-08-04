@@ -20,6 +20,7 @@ function didChange(e) {
 /* to do - complete this flow after registration flow is complete */
 
 function didClickContinue(e) {
+	/*
 	var mobileNumber = utilities.validateMobileNumber($.phoneTxt.getValue());
 	if (mobileNumber) {
 		http.request({
@@ -42,7 +43,7 @@ function didClickContinue(e) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.valMobileNumberRequired
 		});
-	}
+	}*/
 }
 
 function didFail(error, passthrough) {

@@ -116,20 +116,55 @@ function backButtonHandler() {
 	return false;
 }
 
-function callhomePharmacy(){
-	/*httpClient = $.http.request({
+function getHomePharmacy(){
+	/**
+	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy, step 4: from the details, get the phone number  
+	 */
+	$.http.request({
 		method : "stores_list",
 		params : {
 			feature_code : "THXXX",
 			data : [{
-				stores : reqStoreObj
+				stores : {
+					search_criteria: "",
+			        user_lat: "",
+			        user_long: "",
+			        search_lat: "",
+			        search_long: "",
+			        view_type: "LIST"
+				}
 			}]
 		},
-		passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
-		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
-		showLoader : false,
-		success : didGetStores,
-		failure : didGetStores*/
+		success : didGetStoreList
+	});
+}
+
+function didGetStoreList(result) {
+	if (result && result.data) {
+		_.each(result.data.stores.stores_list, function(store){
+			if(parseInt(store.ishomepharmacy)){
+				$.http.request({
+					method : "stores_get",
+					params : {
+						feature_code : "THXXX",
+						data : [{
+							stores : {
+								id : store.id
+							}
+						}]
+					},
+					showLoader : false,
+					success : didGetStore
+				});
+			}
+		}); 
+	}
+}
+
+function didGetStore(result) {
+	if (result && result.data) {
+		$.uihelper.openDialer(result.data.stores.phone);
+	}
 }
 
 function didClickcontactOptionsMenu(e){
@@ -151,7 +186,7 @@ function didClickcontactOptionsMenu(e){
 			$.uihelper.openDialer(phone_formatted);
 		}
 		else{
-			callhomePharmacy();
+			getHomePharmacy();
 		}
 		break;
 	}
