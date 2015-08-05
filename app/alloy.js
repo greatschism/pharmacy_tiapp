@@ -32,6 +32,7 @@
 	Alloy.Globals.isLoggedIn = false;
 	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
+	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL > 21;
 	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 
 	//load spinner images

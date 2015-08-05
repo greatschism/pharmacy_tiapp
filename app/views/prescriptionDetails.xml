@@ -26,7 +26,7 @@
 						<Label id="storeReplyLbl" class="content-group-reply-link" />
 					</View>
 				</View>
-				<View class="margin-bottom h-divider" />
+				<View class="margin-bottom h-divider-light" />
 			</Widget>
 		</Widget>
 		<View class="auto-height margin-left margin-right hgroup-no-wrap">
@@ -53,7 +53,7 @@
 			</View>
 			<Widget id="remindRefillSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
-		<View class="h-divider" />
+		<View class="h-divider-light" />
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
 				<Widget id="remindTakeAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
@@ -69,7 +69,7 @@
 			</View>
 			<Label class="content-child-icon icon-thin-arrow-right" />
 		</View>
-		<View class="h-divider" />
+		<View class="h-divider-light" />
 		<Widget id="instructionExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="toggleInstruction">
 				<View id="instructionContentView" class="content-view-with-child">
@@ -81,7 +81,7 @@
 				<Label id="prescInstructionLbl" class="lbl-wrap" />
 			</Widget>
 		</Widget>
-		<View class="h-divider" />
+		<View class="h-divider-light" />
 		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" if="$.args.canHide" onClick="didClickHide" />
 	</ScrollView>
 	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />

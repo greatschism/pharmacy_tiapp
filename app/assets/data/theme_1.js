@@ -2505,6 +2505,34 @@ module.exports = {
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
+			".h-divider-light[platform=ios]" : {
+				"width" : "fill",
+				"height" : 0.5,
+				"backgroundColor" : "#D5D5D5",
+				"bubbleParent" : false,
+				"touchEnabled" : false
+			},
+			".h-divider-light[platform=android]" : {
+				"width" : "fill",
+				"height" : 1,
+				"backgroundColor" : "#D5D5D5",
+				"bubbleParent" : false,
+				"touchEnabled" : false
+			},
+			".v-divider-light[platform=ios]" : {
+				"width" : 0.5,
+				"height" : 0,
+				"backgroundColor" : "#D5D5D5",
+				"bubbleParent" : false,
+				"touchEnabled" : false
+			},
+			".v-divider-light[platform=android]" : {
+				"width" : 1,
+				"height" : 0,
+				"backgroundColor" : "#D5D5D5",
+				"bubbleParent" : false,
+				"touchEnabled" : false
+			},
 			".option-divider-view" : {
 				"left" : 12,
 				"right" : 12,

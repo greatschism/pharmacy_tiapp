@@ -10,7 +10,8 @@
 		throw null pointer on android(considered as value passed but null)-->
 		<FooterView>
 			<View class="auto-height vgroup">
-				<View class="h-divider" />
+				<!--footer separator seems to appear on pre lollipop devices-->
+				<View class="h-divider" if="Alloy.Globals.isLollipop" />
 				<Label id="signupLbl" class="margin-top lbl-wrap" if="!Alloy.Globals.isLoggedIn" />
 				<Button id="signupBtn" class="margin-top primary-btn" onClick="didClickSignup" if="!Alloy.Globals.isLoggedIn" />
 				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />

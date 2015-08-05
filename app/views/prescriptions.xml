@@ -13,9 +13,9 @@
 		<View id="unhideHeaderView" class="auto-height role-header-view">
 			<Button id="selectNoneBtn" class="left tertiary-btn-50" onClick="toggleUnhideSelection" />
 			<Button id="selectAllBtn" class="right tertiary-btn-50" onClick="toggleUnhideSelection" />
-			<View id="vDividerView" class="v-divider" />
-			<View class="top h-divider" />
-			<View class="bottom h-divider" />
+			<View id="vDividerView" class="v-divider-light" />
+			<View class="top h-divider-light" />
+			<View class="bottom h-divider-light" />
 		</View>
 		<View class="auto-height vgroup role-footer-view">
 			<Button id="unhideBtn" class="margin-top primary-btn"onClick="didClickUnhide"  />
