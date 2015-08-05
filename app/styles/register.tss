@@ -1,0 +1,9 @@
+"#registerLbl":{
+	text:Alloy.Globals.strings.registerLbl
+},
+"#meBtn":{
+	title:Alloy.Globals.strings.registerBtnMyself
+},
+"#childBtn":{
+	title:Alloy.Globals.strings.registerBtnChild
+}

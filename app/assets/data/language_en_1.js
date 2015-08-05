@@ -356,7 +356,17 @@ module.exports = {
 		"accountSectionAcceptedDocs" : "You have accepted these documents",
 		"accountMsgCallPharmacy" : "Failed to get the most recently refilled pharmacy number",
 		"accountLblPromptPhone" : "Please enter the mobile number you would like to receive texts",
-		"accountSuccessBtnContinue" : "Continue"
+		"accountSuccessBtnContinue" : "Continue",
+		
+		"registerLbl":"Are you managing prescriptions for yourself or your child?",
+		"registerBtnMyself":"Myself",
+		"registerBtnChild":"My child",
+		
+		"registerChildInfoTitle":"Great! you want to create a family account.",
+		"registerChildInfoLbl":"To manage your child's prescriptions, first we need to create a manager account for you.",
+		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
+		"registerChildInfoBtnContinue":"Continue"
+		
 
 	}
 };

@@ -218,6 +218,25 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_refill_success.png",
 		"selected" : true
+	},
+	{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "info_pl",
+		"name" : "info",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 90
+			},
+			"landscape" : {
+				"width" : 90
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_info.png",
+		"selected" : true
 	}, {
 		"type" : "image",
 		"version" : 1,

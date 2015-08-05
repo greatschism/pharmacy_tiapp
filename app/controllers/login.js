@@ -74,7 +74,10 @@ function didClickPassword(e) {
 }
 
 function didClickSignup(e) {
-
+$.app.navigator.open({
+		ctrl : "register",
+		stack : true
+	});
 }
 
 function terminate() {
