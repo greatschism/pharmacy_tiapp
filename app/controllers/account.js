@@ -7,7 +7,7 @@ var args = arguments[0] || {},
     phone_formatted;
 
 function init() {
-	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable;
+	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.strings.strNotAvailable;
 	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
@@ -57,11 +57,18 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
-	$.app.navigator.open({
-		titleid : "titleChangePhone",
-		ctrl : "phone",
-		stack : true
-	});
+	if(Alloy.Models.patient.get("mobile_number") != "null"){
+		$.app.navigator.open({
+			titleid : "titleChangePhone",
+			ctrl : "phone",
+			stack : true
+		});
+	}
+	else{
+		/**
+		 *to do - take the user to first sign in flow for sign up for texts 
+		 */
+	}
 }
 
 function didClickEmailAddress(e) {

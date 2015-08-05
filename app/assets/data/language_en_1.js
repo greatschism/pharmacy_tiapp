@@ -60,6 +60,7 @@ module.exports = {
 		"msgExternalStorageError" : "You don't have enough space on your device to perform this operation.",
 		"msgTimeZoneUpdate" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
+		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -357,6 +358,7 @@ module.exports = {
 		"accountMsgCallPharmacy" : "Failed to get the most recently refilled pharmacy number",
 		"accountLblPromptPhone" : "Please enter the mobile number you would like to receive texts",
 		"accountSuccessBtnContinue" : "Continue",
+		"accountReplySignUpForText" : "Sign up for texts",
 		
 		"registerLbl":"Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself":"Myself",
@@ -367,6 +369,5 @@ module.exports = {
 		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
 		"registerChildInfoBtnContinue":"Continue"
 		
-
 	}
 };
