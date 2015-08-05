@@ -314,14 +314,15 @@ var Helper = {
 			});
 			intent.putExtraUri("output", tempFile.nativePath);
 			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
-				var resultCode = e.resultCode;
+				var resultCode = e.resultCode,
+				    blob;
 				if (resultCode == Ti.Android.RESULT_OK) {
 					if (tempFile.exists()) {
-						var blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
 						tempFile.deleteFile();
 						tempFile = null;
 						callback(blob);
-					} else {
+					} else if (e.intent && e.intent.data) {
 						/**
 						 * output file was was not written
 						 * by the camera app
@@ -329,6 +330,33 @@ var Helper = {
 						 * just returns the content-uri (e.intent.data),
 						 * doesn't write the file properly.
 						 */
+						intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
+						blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
+						if (blob) {
+							blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+							if (blob) {
+								callback(blob);
+							} else {
+								/**
+								 * something went wrong
+								 * may be not enough memory
+								 * for processing this bitmap
+								 */
+								Helper.showDialog({
+									message : Alloy.Globals.strings.msgCameraInvalid
+								});
+							}
+						} else {
+							/**
+							 * if at all the blob
+							 * is not available then
+							 * show an alert
+							 */
+							Helper.showDialog({
+								message : Alloy.Globals.strings.msgCameraInvalid
+							});
+						}
+					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgCameraInvalid
 						});
@@ -401,14 +429,15 @@ var Helper = {
 			intent.putExtraUri("output", tempFile.nativePath);
 			intent.putExtra("crop", "true");
 			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
-				var resultCode = e.resultCode;
+				var resultCode = e.resultCode,
+				    blob;
 				if (resultCode == Ti.Android.RESULT_OK) {
 					if (tempFile.exists()) {
-						var blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
 						tempFile.deleteFile();
 						tempFile = null;
 						callback(blob);
-					} else {
+					} else if (e.intent && e.intent.data) {
 						/**
 						 * output file was was not written
 						 * by the gallery app
@@ -416,6 +445,33 @@ var Helper = {
 						 * just returns the content-uri (e.intent.data),
 						 * doesn't write the file properly.
 						 */
+						intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
+						blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
+						if (blob) {
+							blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+							if (blob) {
+								callback(blob);
+							} else {
+								/**
+								 * something went wrong
+								 * may be not enough memory
+								 * for processing this bitmap
+								 */
+								Helper.showDialog({
+									message : Alloy.Globals.strings.msgGalleryInvalid
+								});
+							}
+						} else {
+							/**
+							 * if at all the blob
+							 * is not available then
+							 * show an alert
+							 */
+							Helper.showDialog({
+								message : Alloy.Globals.strings.msgGalleryInvalid
+							});
+						}
+					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgGalleryInvalid
 						});
