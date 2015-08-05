@@ -59,7 +59,11 @@ function didClickLogin(e) {
 		//yet to handle
 	} else {
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
-		authenticator.init(didAuthenticate, null, username, password);
+		authenticator.init({
+			username : username,
+			password : password,
+			success : didAuthenticate
+		});
 	}
 }
 
@@ -74,7 +78,7 @@ function didClickPassword(e) {
 }
 
 function didClickSignup(e) {
-$.app.navigator.open({
+	$.app.navigator.open({
 		ctrl : "register",
 		stack : true
 	});

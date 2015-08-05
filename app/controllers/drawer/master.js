@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
-    uihelper = require("uihelper");
+    uihelper = require("uihelper"),
+    authenticator = require("authenticator");
 
 function init() {
 	if (OS_IOS) {
@@ -34,6 +35,27 @@ function didOpen(e) {
 		navigationWindow : $.navigationWindow || null,
 		rootWindow : $.rootWindow
 	});
+	/**
+	 * in both the cases
+	 * landing page should be opened
+	 * and update should be triggered
+	 * the failure callback will also
+	 * prevent authenticator from
+	 * opening login screen
+	 */
+	authenticator.init({
+		success : didAuthenticate,
+		failure : didAuthenticate
+	});
+}
+
+/**
+ * usually this is a async
+ * update, sync updates
+ * will be done on appload
+ * controller itself
+ */
+function didAuthenticate() {
 	$.menuCtrl.init(args.navigation);
 	if (args.triggerUpdate === true) {
 		app.update(updateCallback);
@@ -43,8 +65,12 @@ function didOpen(e) {
 function updateCallback() {
 	/**
 	 * logout before reloading the app
+	 * Note: this is not a explicit logout
 	 */
-	require("authenticator").logout(false, didLogout);
+	authenticator.logout({
+		explicit : false,
+		success : didLogout
+	});
 }
 
 function didLogout() {

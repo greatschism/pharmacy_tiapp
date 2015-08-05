@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    authenticator = require("authenticator"),
     icons = Alloy.CFG.icons,
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     banners,
@@ -177,9 +176,13 @@ function didClickItem(e) {
 		var menuItem = Alloy.Collections.menuItems.findWhere(navigation);
 		navigation = menuItem ? menuItem.toJSON() : navigation;
 		if (navigation.requires_login && !Alloy.Globals.isLoggedIn) {
-			authenticator.init(function() {
-				$.app.navigator.open(navigation);
-			}, navigation);
+			$.app.navigator.open({
+				titleid : "titleLogin",
+				ctrl : "login",
+				ctrlArguments : {
+					navigation : navigation
+				}
+			});
 		} else {
 			$.app.navigator.open(navigation);
 		}
@@ -193,9 +196,9 @@ function didClickItem(e) {
 }
 
 function didClickRightNav(e) {
-	authenticator.init(function() {
-		//unset the right nav button
-		$.setRightNavButton();
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login"
 	});
 }
 

@@ -2,7 +2,6 @@ var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
-    authenticator = require("authenticator"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentIndex = -1,
@@ -43,9 +42,13 @@ function didDrawerclose(e) {
 		if (itemObj.ctrl != ctrlPath) {
 			if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 				if (ctrlPath != "login") {
-					authenticator.init(function() {
-						app.navigator.open(itemObj);
-					}, itemObj);
+					app.navigator.open({
+						titleid : "titleLogin",
+						ctrl : "login",
+						ctrlArguments : {
+							navigation : itemObj
+						}
+					});
 				}
 			} else {
 				app.navigator.open(itemObj);
@@ -73,7 +76,9 @@ function didDrawerclose(e) {
 }
 
 function logout() {
-	authenticator.logout(true);
+	require("authenticator").logout({
+		dialogEnabled : true
+	});
 }
 
 function didClickTableView(e) {

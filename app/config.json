@@ -75,7 +75,7 @@
         "resources_cleared_on": "resourcesCleared",
         "latest_store_refilled": "latestStoreRefilled",
         "latest_phone_used": "latestPhoneUsed",
-        "latest_logout_explicit": "latestLogoutExplicit",
+        "lastest_logout_explicit": "latestLogoutExplicit",
         "auto_login_enabled": "autoLoginEnabled"
     },
     "env:development": {

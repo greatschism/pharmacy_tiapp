@@ -125,12 +125,9 @@ function didClickLogin(e) {
 			},
 			selectable : true
 		}
-	},
-	    authenticator = require("authenticator");
-	if (authenticator.getAutoLoginEnabled()) {
-		authenticator.init(function() {
-			$.app.navigator.open(navigation);
-		}, navigation);
+	};
+	if (Alloy.Globals.isLoggedIn) {
+		$.app.navigator.open(navigation);
 	} else {
 		$.app.navigator.open({
 			titleid : "titleLogin",

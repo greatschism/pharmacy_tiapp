@@ -8,15 +8,19 @@ var TAG = "Authenticator",
     encryptionUtil = require("encryptionUtil"),
     http = require("requestwrapper"),
     localization = require("localization"),
-    keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
-    authenticateCallback;
+    keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account);
 
-function init(callback, navigation, username, password) {
+function init(options) {
+	if (!options) {
+		options = {};
+	}
 	/**
 	 * for auto-login let errorDialogEnabled be false
 	 * any ways on failure we are going to login screen only
 	 */
-	var errorDialogEnabled = false;
+	var username = options.username,
+	    password = options.password,
+	    errorDialogEnabled = false;
 	if (username && password) {
 		/**
 		 * store username and password
@@ -25,40 +29,27 @@ function init(callback, navigation, username, password) {
 		keychain.account = encryptionUtil.encrypt(username);
 		keychain.valueData = encryptionUtil.encrypt(password);
 		/**
-		 * reset latest_logout_explicit flag
-		 * if latest_logout_explicit true
-		 * then the only way for login is login screen
-		 * so reset the last value here
+		 * reset lastest_logout_explicit
+		 * reset the last value here
 		 */
-		utilities.setProperty(Alloy.CFG.latest_logout_explicit, false, "bool", false);
+		utilities.setProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false);
 		/**
 		 * if this request is from login screen
 		 * we will have valid user name and password parameters
 		 * and errorDialogEnabled should be true
 		 */
 		errorDialogEnabled = true;
-	} else if (getAutoLoginEnabled() && !utilities.getProperty(Alloy.CFG.latest_logout_explicit, false, "bool", false)) {
+	} else if (getAutoLoginEnabled() && !utilities.getProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false)) {
 		username = encryptionUtil.decrypt(keychain.account);
 		password = encryptionUtil.decrypt(keychain.valueData);
 	}
-	var navigateToLogin = function() {
-		authenticateCallback = null;
-		if (app.navigator.currentController.ctrlPath != "login") {
-			app.navigator.open({
-				ctrl : "login",
-				titleid : "titleLogin",
-				ctrlArguments : {
-					navigation : navigation
-				}
-			});
-		}
-	};
+	/**
+	 * happens when auto login is turned on
+	 * but there was a explicit logout or session timeout
+	 */
 	if (!username || !password) {
-		navigateToLogin();
+		didFailAuthenticate({}, options);
 		return false;
-	}
-	if (callback) {
-		authenticateCallback = callback;
 	}
 	http.request({
 		method : "patient_authenticate",
@@ -71,11 +62,26 @@ function init(callback, navigation, username, password) {
 				}
 			}]
 		},
+		passthrough : options,
 		keepLoader : true,
 		errorDialogEnabled : errorDialogEnabled,
 		success : didAuthenticate,
-		failure : navigateToLogin
+		failure : didFailAuthenticate
 	});
+}
+
+function didFailAuthenticate(error, passthrough) {
+	if (passthrough.failure) {
+		passthrough.failure();
+	} else if (app.navigator.currentController.ctrlPath != "login") {
+		app.navigator.open({
+			ctrl : "login",
+			titleid : "titleLogin",
+			ctrlArguments : {
+				navigation : passthrough.navigation
+			}
+		});
+	}
 }
 
 function didAuthenticate(result, passthrough) {
@@ -85,6 +91,7 @@ function didAuthenticate(result, passthrough) {
 		params : {
 			feature_code : "THXXX"
 		},
+		passthrough : passthrough,
 		keepLoader : true,
 		forceRetry : true,
 		success : didGetPatient
@@ -98,6 +105,7 @@ function didGetPatient(result, passthrough) {
 		params : {
 			feature_code : "THXXX"
 		},
+		passthrough : passthrough,
 		keepLoader : true,
 		forceRetry : true,
 		success : didGetPreferences
@@ -123,6 +131,7 @@ function didGetPreferences(result, passthrough) {
 				}]
 			}]
 		},
+		passthrough : passthrough,
 		forceRetry : true,
 		success : didGetCodeValues
 	});
@@ -141,7 +150,8 @@ function didGetCodeValues(result, passthrough) {
 	 */
 	var dateObj = new Date(Alloy.CFG.default_date),
 	    dFormat = Alloy.CFG.date_time_format,
-	    dDate = moment(dateObj).format(dFormat);
+	    dDate = moment(dateObj).format(dFormat),
+	    currentTZCode;
 	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
 	/**
 	 * add logout menu item
@@ -151,6 +161,21 @@ function didGetCodeValues(result, passthrough) {
 		action : "logout",
 		icon : "logout"
 	});
+	/**
+	 * execute callback
+	 */
+	var fireCallback = function() {
+		if (passthrough.success) {
+			passthrough.success();
+		}
+	},
+	    updateTimeZone = function() {
+		/**
+		 * to do: implement user preferences set
+		 * for time zone. api is not ready yet
+		 */
+		fireCallback();
+	};
 	/**
 	 * check if user is on different time zone
 	 * then one he had chosen
@@ -163,7 +188,6 @@ function didGetCodeValues(result, passthrough) {
 		 * so compare current time with
 		 * all supported time zones
 		 */
-		var currentTZCode;
 		_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
 			if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
 				currentTZCode = code;
@@ -181,9 +205,7 @@ function didGetCodeValues(result, passthrough) {
 				message : Alloy.Globals.strings.msgTimeZoneUpdate,
 				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 				cancelIndex : 1,
-				success : function didConfirmTimeZone() {
-					updateTimeZone(currentTZCode);
-				},
+				success : updateTimeZone,
 				cancel : fireCallback
 			});
 		} else {
@@ -214,48 +236,34 @@ function appendFlag(codes, selectedValue) {
 	});
 }
 
-function updateTimeZone(timeZone) {
-	/**
-	 * to do: implement user preferences set
-	 * for time zone. api is not ready yet
-	 */
-	fireCallback();
-}
-
-function fireCallback() {
-	if (authenticateCallback) {
-		authenticateCallback();
-		authenticateCallback = null;
+function logout(options) {
+	if (Alloy.Globals.isLoggedIn) {
+		http.request({
+			method : "patient_logout",
+			params : {
+				feature_code : "THXXX"
+			},
+			passthrough : options || {},
+			errorDialogEnabled : false,
+			success : didLogout,
+			failure : didLogout
+		});
+	} else if (options.success) {
+		options.success();
 	}
-}
-
-function logout(isExplicitLogout, callback) {
-	/**
-	 * on explicit log out just
-	 * update the flag. user name
-	 * and password will be auto populated
-	 * based on configuration in login page
-	 * and no auto login will take place
-	 */
-	if (isExplicitLogout) {
-		utilities.setProperty(Alloy.CFG.latest_logout_explicit, true, "bool", false);
-	}
-	http.request({
-		method : "patient_logout",
-		params : {
-			feature_code : "THXXX"
-		},
-		passthrough : {
-			isExplicitLogout : isExplicitLogout,
-			callback : callback
-		},
-		errorDialogEnabled : false,
-		success : didLogout,
-		failure : didLogout
-	});
 }
 
 function didLogout(result, passthrough) {
+	/**
+	 * on explicit log out /
+	 * session timeout
+	 * update this flag,
+	 * so user will be taken to
+	 * login screen
+	 */
+	if (passthrough.explicit !== false) {
+		utilities.setProperty(Alloy.CFG.lastest_logout_explicit, true, "bool", false);
+	}
 	/**
 	 * reset to device time zone
 	 */
@@ -269,20 +277,27 @@ function didLogout(result, passthrough) {
 	Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
 		action : "logout"
 	}));
-	if (passthrough.callback) {
-		passthrough.callback();
+	/**
+	 * success callback
+	 * if any
+	 */
+	if (passthrough.success) {
+		passthrough.success();
 	} else {
 		app.navigator.open(Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
 		/**
-		 *  isExplicitLogout from caller
-		 *  then only show the logout dialog
-		 *  otherwise we would have shown the
-		 *  session expired dialog already
-		 *  so no need to show this dialog again
+		 * show logout dialog
+		 * only if dialogEnabled is true
+		 * examples:
+		 * 1. in case if user clicks on logout
+		 * (a explicit logout) then show this dialog
+		 * dialogEnabled should be set to true
+		 * 2. in case of session timeout we don't
+		 * show this logout dialog here
 		 */
-		if (passthrough.isExplicitLogout === true) {
+		if (passthrough.dialogEnabled) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgLoggedout
 			});
