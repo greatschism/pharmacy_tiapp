@@ -25,7 +25,8 @@
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<View class="h-divider" platform="android" />
+				<!--footer separator seems to appear on pre lollipop devices-->
+				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<Button id="transferBtn" class="margin-top margin-bottom primary-btn" onClick="didClickComplete"/>
 			</View>
 		</FooterView>

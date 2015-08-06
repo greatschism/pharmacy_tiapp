@@ -75,7 +75,7 @@ function didChangeAutoLogin(e) {
 	authenticator.setAutoLoginEnabled(value);
 	if (Alloy.CFG.auto_login_dialog_enabled && value) {
 		$.uihelper.showDialog({
-			message : $.strings.loginMsgAutoLogin
+			message : $.strings.msgAutoLogin
 		});
 	}
 }

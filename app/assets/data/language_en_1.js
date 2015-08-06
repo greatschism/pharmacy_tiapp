@@ -61,6 +61,7 @@ module.exports = {
 		"msgTimeZoneUpdate" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
+		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -103,9 +104,9 @@ module.exports = {
 		"titleAccountAgreements" : "My agreements",
 		"titleChangeEmail" : "Change email address",
 		"titleChangePhone" : "Enter phone number",
-		"titleFamilyCare":"Family care",
-		"titleCreateAccount":"Create an account",
-		"titleMgrAccountExists":"Existing account",
+		"titleFamilyCare" : "Family care",
+		"titleCreateAccount" : "Create an account",
+		"titleMgrAccountExists" : "Existing account",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -124,10 +125,10 @@ module.exports = {
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
-		"loginMsgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
+		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
 
 		"storeDetPromptPhone" : "Call:",
 		"storeDetLblOpen" : "Open till %s",
@@ -363,45 +364,44 @@ module.exports = {
 		"accountLblTextSignupAgreement" : "You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 		"accountSuccessBtnContinue" : "Continue",
 		"accountReplySignUpForText" : "Sign up for texts",
-		
-		"registerLbl":"Are you managing prescriptions for yourself or your child?",
-		"registerBtnMyself":"Myself",
-		"registerBtnChild":"My child",
-		
-		"registerChildInfoTitle":"Great! you want to create a family account.",
-		"registerChildInfoLbl":"To manage your child's prescriptions, first we need to create a manager account for you.",
-		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
-		"registerChildInfoBtnContinue":"Continue",
-		
-		"childAccountTipsLbl":"How do i add family members to my account?",
-		"childAccountTip1Lbl":"Go to Family care page from the app menu",
-		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
-		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
-		"childAccountTipsBtnSignIn":"Sign in",
-		
-		"mgrAccountCreationTitle":"Create a manager account",
-		"mgrAccountCreationSubTitle":"Please enter your(adult) information.",
-		"mgrAccountCreationHintFirstName":"First name",
-		"mgrAccountCreationHintLastName":"Last name",
-		"mgrAccountCreationHintDob":"Date of birth",
-		"mgrAccountCreationHintEmail":"Email address",
-		"mgrAccountCreationHintPassword":"Password",
-		"mgrAccountCreationBtnContinue":"Continue",
-		"mgrAccountCreationAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+
+		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
+		"registerBtnMyself" : "Myself",
+		"registerBtnChild" : "My child",
+
+		"registerChildInfoTitle" : "Great! you want to create a family account.",
+		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
+		"registerChildInfoAttr" : "Click here if you already have an account with Carbon pharmacy.",
+		"registerChildInfoBtnContinue" : "Continue",
+
+		"childAccountTipsLbl" : "How do i add family members to my account?",
+		"childAccountTip1Lbl" : "Go to Family care page from the app menu",
+		"childAccountTip2Lbl" : "Select 'Add family member' & follow instructions",
+		"childAccountTip3Lbl" : "Manage prescriptions for the whole family from one account",
+		"childAccountTipsBtnSignIn" : "Sign in",
+
+		"mgrAccountCreationTitle" : "Create a manager account",
+		"mgrAccountCreationSubTitle" : "Please enter your(adult) information.",
+		"mgrAccountCreationHintFirstName" : "First name",
+		"mgrAccountCreationHintLastName" : "Last name",
+		"mgrAccountCreationHintDob" : "Date of birth",
+		"mgrAccountCreationHintEmail" : "Email address",
+		"mgrAccountCreationHintPassword" : "Password",
+		"mgrAccountCreationBtnContinue" : "Continue",
+		"mgrAccountCreationAttrAgreement" : "By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
 		"mgrAccountCreationValFirstName" : "Please enter your first name.",
 		"mgrAccountCreationValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"mgrAccountCreationValLastName" : "Please enter your last name.",
 		"mgrAccountCreationValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"mgrAccountCreationValDob" : "Please enter your Date of birth.",
-		"mgrAccountCreationValPasssword":"Please enter your password",
-		"mgrAccountCreationValEmail":"Please enter your email address",
-		"mgrAccountCreationValEmailInvalid":"Invalid email address",
-		
-		"mgrSignInLbl":"Please sign in and go to the 'family accounts' section to add a child to your account.",
-		"mgrAddLbl":"You can also add other adults and manage permissions.",
-		"mgrAccountExistsLbl":"It looks like you already have an account with Carbon pharmacy",
-		"mgrAccountExistsBtnSignIn":"Sign in"
-	
-		
+		"mgrAccountCreationValPasssword" : "Please enter your password",
+		"mgrAccountCreationValEmail" : "Please enter your email address",
+		"mgrAccountCreationValEmailInvalid" : "Invalid email address",
+
+		"mgrSignInLbl" : "Please sign in and go to the 'family accounts' section to add a child to your account.",
+		"mgrAddLbl" : "You can also add other adults and manage permissions.",
+		"mgrAccountExistsLbl" : "It looks like you already have an account with Carbon pharmacy",
+		"mgrAccountExistsBtnSignIn" : "Sign in"
+
 	}
 };

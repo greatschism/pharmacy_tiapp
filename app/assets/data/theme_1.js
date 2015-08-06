@@ -46,7 +46,7 @@ module.exports = {
 			"time_zone_check_enabled" : true,
 			"toggle_password_enabled" : true,
 			"auto_login_dialog_enabled" : true,
-			"auto_populate_username" : false,
+			"auto_populate_username" : true,
 			"auto_populate_password" : true,
 			"can_update_email" : true,
 			"session_timeout" : 600,

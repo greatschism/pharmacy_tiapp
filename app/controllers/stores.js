@@ -1,18 +1,22 @@
 var args = arguments[0] || {},
+    TAG = "stores",
+    googleApiSuccess = "OK",
     Map = Alloy.Globals.Map,
     currentViewType = Alloy.CFG.apiCodes.store_view_type_list,
     viewTypeList = Alloy.CFG.apiCodes.store_view_type_list,
     viewTypeMap = Alloy.CFG.apiCodes.store_view_type_map,
-    minSearchLength = Alloy.CFG.geo_search_min_length,
-    maxSearchRadius = Alloy.CFG.store_map_max_radius,
+    searchLenMin = Alloy.CFG.geo_search_length_min,
+    radiusMin = Alloy.CFG.store_map_radius_min,
+    radiusMax = Alloy.CFG.store_map_radius_max,
+    radiusIncrement = Alloy.CFG.store_map_radius_increment,
     isListPrepared = false,
     isMapPrepared = false,
-    isSearchFocused = false,
-    isChangedAfterFocused = false,
+    isFocused = false,
+    isChangedAfterFocus = false,
     isDirectionEnabled = false,
     shouldIgnoreRegion = true,
     currentLocation = {},
-    maxDistance = 0,
+    currentRadiusMax = 0,
     storeRows = [],
     geoRows = [],
     lastRegion,
@@ -51,6 +55,22 @@ function init() {
 		classes : ["icon-map"]
 	});
 	$.containerView.top = $.searchbar.height;
+	/**
+	 * to avoid incorrect alignment on ios
+	 * when keep chaning visibility of this view
+	 */
+	if (OS_IOS) {
+		$.loader.getView().addEventListener("postlayout", didPostlayout);
+	}
+}
+
+function didPostlayout(e) {
+	var view = e.source;
+	view.removeEventListener("postlayout", didPostlayout);
+	view.applyProperties({
+		top : view.rect.y,
+		left : view.rect.x
+	});
 }
 
 function didPauseApp(e) {
@@ -209,12 +229,105 @@ function didGetStores(result, passthrough) {
 		};
 	}
 
-	/*
-	 *  we are making a new api call
-	 *  the data of this api call should sync when switching between list and map
-	 */
-	isListPrepared = false;
-	isMapPrepared = false;
+	var location = _.pick(result.data.stores, ["latitude", "longitude"]),
+	    destinations = "";
+	if (!_.isEmpty(location)) {
+		_.each(result.data.stores.stores_list, function(store) {
+			if (destinations) {
+				destinations += "|";
+			}
+			destinations += store.latitude + "," + store.longitude;
+		});
+	}
+
+	if (destinations) {
+		httpClient = $.httpClient.request({
+			url : String.format(Alloy.CFG.distancematrix_url, (location.latitude + "," + location.longitude), destinations),
+			format : "JSON",
+			passthrough : {
+				result : result,
+				passthrough : passthrough
+			},
+			success : didGetDistance,
+			failure : didGetDistance
+		});
+	} else {
+		prepareData(result, passthrough);
+	}
+}
+
+function didGetDistance(result, passthrough) {
+	if (result.status === googleApiSuccess) {
+		var stores = passthrough.result.data.stores.stores_list,
+		    elements = result.rows[0].elements,
+		    min,
+		    max;
+		min = radiusMax;
+		_.each(stores, function(store, index) {
+			/**
+			 * order of elements and stores
+			 * should be same as per api docs
+			 * but there are chances for api
+			 * to not return a particular element
+			 * due to limitation
+			 */
+			var element = elements[index] || {};
+			if (element.status === googleApiSuccess) {
+				/**
+				 * meters to miles
+				 * conversion
+				 */
+				store.distance = Number((element.distance.value / 1609.34).toFixed(2));
+				min = Math.min(min, store.distance);
+			}
+		});
+		/**
+		 * distance calculation
+		 * ignore items that falls after the selected / most nearest slab
+		 * example:
+		 * actual result:
+		 * 	store1 - 7
+		 * 	store2 - 12
+		 * 	store3 - 18
+		 * min = 7
+		 * max = 15
+		 * remove any store that cross 15 miles radius
+		 */
+		max = 0;
+		for ( max = radiusMin; max <= radiusMax; max + radiusIncrement) {
+			if (min <= max) {
+				break;
+			}
+		}
+		/**
+		 * removing as per
+		 * distance validations explained above
+		 */
+		stores = _.reject(stores, function(store) {
+			if (store.distance <= max || (currentViewType == viewTypeList && (parseInt(store.ishomepharmacy) || 0) && (parseInt(store.isbookmarked) || 0))) {
+				return false;
+			}
+			return true;
+		});
+		/**
+		 * now sort it based on distance
+		 * home pharmacy and bookmarked will
+		 * always be on top
+		 */
+		passthrough.result.data.stores.stores_list = _.sortBy(stores, function(store) {
+			if (parseInt(store.ishomepharmacy) || 0) {
+				return -2;
+			}
+			if (parseInt(store.isbookmarked) || 0) {
+				return -1;
+			}
+			return store.distance;
+		});
+	}
+	prepareData(passthrough.result, passthrough.passthrough);
+}
+
+function prepareData(result, passthrough) {
 
 	/**
 	 * check whether or not to enable
@@ -223,6 +336,13 @@ function didGetStores(result, passthrough) {
 	currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	isDirectionEnabled = !_.isEmpty(currentLocation);
 
+	/*
+	 *  we are making a new api call
+	 *  the data of this api call should sync when switching between list and map
+	 */
+	isListPrepared = false;
+	isMapPrepared = false;
+
 	//common parsing logics
 	var loggedIn = Alloy.Globals.isLoggedIn;
 	/**
@@ -230,7 +350,7 @@ function didGetStores(result, passthrough) {
 	 * based on this distance will trigger api call
 	 * on region change
 	 */
-	maxDistance = 0;
+	currentRadiusMax = 0;
 	_.each(result.data.stores.stores_list, function(store) {
 		var iconClasses;
 		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
@@ -238,29 +358,32 @@ function didGetStores(result, passthrough) {
 		if (loggedIn && (store.ishomepharmacy || store.isbookmarked)) {
 			iconClasses = ["content-left-icon", (store.ishomepharmacy ? "icon-home" : "icon-filled-star")];
 		}
-		/*
-		 * distance key may have to be changed once api is ready
-		 * with condition whether it is a text search or near by
-		 * with a if avoid null on distance
+		/**
+		 * distance
 		 */
-		var distance = store.searchdistance || store.userdistance || 0;
+		var distance = store.distance || 0;
 		/**
 		 * when a sync happens from list to map
 		 * home & favourites pharmacies will also loaded
 		 * no mater how far it is
-		 * ignore them from maxDistance calculation
+		 * ignore them from currentRadiusMax calculation
 		 */
-		if (maxSearchRadius >= distance) {
-			maxDistance = Math.max(maxDistance, distance);
+		if (radiusMax >= distance) {
+			currentRadiusMax = Math.max(currentRadiusMax, distance);
 		}
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
-			detailSubtitle : distance ? distance + $.strings.strSuffixDistance : "",
+			detailSubtitle : distance ? (distance + $.strings.strSuffixDistance) : "",
 			detailType : "inactive",
 			iconClasses : iconClasses
 		});
 	});
+
+	/**
+	 * update collection
+	 * with validated stores
+	 */
 	Alloy.Collections.stores.reset(result.data.stores.stores_list);
 
 	/**
@@ -293,28 +416,6 @@ function prepareList() {
 	}
 
 	isListPrepared = true;
-
-	/**
-	 * if isMapPrepared is true it should be data from map
-	 * should sort for showing home and book marked on top of the list
-	 */
-	if (isMapPrepared) {
-		/**
-		 * stores are already sorted by distance with api
-		 */
-		Alloy.Collections.stores.reset(Alloy.Collections.stores.sortBy(function(model) {
-			//keep home at top
-			if (model.get("ishomepharmacy")) {
-				return 1;
-			}
-			//followed by book marked
-			if (model.get("isbookmarked")) {
-				return 2;
-			}
-			//followed by others
-			return 3;
-		}));
-	}
 
 	//reset rows
 	storeRows = [];
@@ -392,7 +493,7 @@ function prepareMap(shouldUpdateRegion) {
 				 * ignore annotations that exceeds the max radius
 				 */
 				var distance = store.get("searchdistance") || store.get("userdistance") || 0;
-				if (maxSearchRadius >= distance) {
+				if (radiusMax >= distance) {
 					/**
 					 * geo calculation
 					 * for finding region
@@ -528,8 +629,8 @@ function clearLastGeoSearch() {
 }
 
 function didFocusSearch(e) {
-	isSearchFocused = true;
-	isChangedAfterFocused = false;
+	isFocused = true;
+	isChangedAfterFocus = false;
 	/**
 	 * show last geo search
 	 * if any
@@ -545,12 +646,12 @@ function didClearSearch(e) {
 	 * only call api is text box is not focused
 	 * on clear, user may want to type something again now
 	 */
-	if (isSearchFocused) {
+	if (isFocused) {
 		/**
 		 * this call api after return
 		 * event if nothing entered
 		 */
-		isChangedAfterFocused = true;
+		isChangedAfterFocus = true;
 	} else {
 		/**
 		 * disable error dialog and force updates
@@ -570,17 +671,18 @@ function didChangeSearch(e) {
 	 * change event triggered
 	 * after a focus
 	 */
-	isChangedAfterFocused = true;
+	isChangedAfterFocus = true;
 	/**
 	 * if search string length >= geo_search_min_length
 	 * call geo api to show suggestions
 	 * otherwise directly call store api here
 	 */
 	var value = e.value;
-	if (value.length >= minSearchLength) {
+	if (value.length >= searchLenMin) {
 		httpClient = $.httpClient.request({
 			url : Alloy.CFG.geocode_url.concat(value),
 			format : "JSON",
+			passthrough : value,
 			success : didGetGeoCode,
 			failure : didGetGeoCode
 		});
@@ -594,13 +696,13 @@ function didChangeSearch(e) {
 }
 
 function didReturnSearch(e) {
-	isSearchFocused = false;
+	isFocused = false;
 	/**
 	 * no change in search string
 	 * after the last focus
 	 */
 	var value = e.source.getValue();
-	if (!isChangedAfterFocused) {
+	if (!isChangedAfterFocus) {
 		/**
 		 * just hide search table as there is no change
 		 */
@@ -613,12 +715,30 @@ function didReturnSearch(e) {
 	 * change event to show suggestions
 	 * otherwise directly call store api here
 	 */
-	if (value.length < minSearchLength) {
+	if (value.length < searchLenMin) {
 		getStores(value);
 		//clear geo search results if any
 		clearLastGeoSearch();
 	} else if (!httpClient && geoRows.length == 1) {
-		triggerSearchForFirst();
+		/**
+		 * making sure no http client
+		 * is in progress and has only
+		 * one row
+		 */
+		if (geoRows[0].getParams().invalid) {
+			/**
+			 * result set has invalid row
+			 * so trigger search cretiria
+			 */
+			getStores(value);
+			//clear geo search results if any
+			clearLastGeoSearch();
+		} else {
+			/**
+			 * result set has a valid row
+			 */
+			triggerSearchForFirst();
+		}
 	}
 }
 
@@ -631,7 +751,7 @@ function didGetGeoCode(result, passthrough) {
 	 */
 	geoRows = [];
 	var data = [];
-	if (result.status === "OK" && result.results) {
+	if (result.status === googleApiSuccess && result.results) {
 		_.each(result.results, function(geoObj) {
 			var row = Alloy.createController("itemTemplates/label", {
 				title : geoObj.formatted_address,
@@ -641,30 +761,50 @@ function didGetGeoCode(result, passthrough) {
 			data.push(row.getView());
 			geoRows.push(row);
 		});
+		$.geoTableView.setData(data);
 		/*
 		 * if return event is already fired
 		 * search bar not focused now
 		 * and only one result from geo api
 		 * then call api directly
 		 */
-		if (!isSearchFocused && geoRows.length == 1) {
+		if (!isFocused && geoRows.length == 1) {
 			triggerSearchForFirst();
 		} else {
 			setVisibleForSearchTable(true);
 		}
 	} else {
-		/**
-		 * show when zero results
-		 */
-		var row = Alloy.createController("itemTemplates/label", {
-			title : $.strings.storesGeoZeroResults,
-			invalid : true
-		});
-		data.push(row.getView());
-		geoRows.push(row);
-		setVisibleForSearchTable(true);
+		if (isFocused) {
+			/**
+			 * show when zero results
+			 * since text field is still
+			 * focused
+			 */
+			var row = Alloy.createController("itemTemplates/label", {
+				title : $.strings.storesGeoZeroResults,
+				invalid : true
+			});
+			data.push(row.getView());
+			geoRows.push(row);
+			$.geoTableView.setData(data);
+			setVisibleForSearchTable(true);
+		} else {
+			/**
+			 * text field is not focused now
+			 * so trigger a search cretiria
+			 */
+			$.geoTableView.setData(data);
+			setVisibleForSearchTable(false);
+			/**
+			 * use search cretiria
+			 * passthrough will have the
+			 * search string
+			 */
+			getStores(passthrough);
+			//clear geo search results if any
+			clearLastGeoSearch();
+		}
 	}
-	$.geoTableView.setData(data);
 }
 
 function setVisibleForSearchTable(value) {
@@ -829,7 +969,7 @@ function didRegionchanged(e) {
 	 * if then ignore
 	 * else call api
 	 */
-	if (lastRegion && $.utilities.getDistance(lastRegion, e) < maxDistance) {
+	if (lastRegion && $.utilities.getDistance(lastRegion, e) < currentRadiusMax) {
 		return false;
 	}
 	/**
@@ -842,9 +982,15 @@ function didRegionchanged(e) {
 	 * search for actual adress
 	 * to be displayed on search bar
 	 */
+	var latitude = e.latitude,
+	    longitude = e.longitude;
 	httpClient = $.httpClient.request({
-		url : Alloy.CFG.geocode_url.concat((e.latitude + "," + e.longitude)),
+		url : Alloy.CFG.geocode_url.concat((latitude + "," + longitude)),
 		format : "JSON",
+		passthrough : {
+			latitude : latitude,
+			longitude : longitude
+		},
 		success : didGetAddress,
 		failure : didGetAddress
 	});
@@ -858,7 +1004,7 @@ function didGetAddress(result, passthrough) {
 	/**
 	 * check if success
 	 */
-	if (result.status === "OK" && result.results) {
+	if (result.status === googleApiSuccess && result.results) {
 		/**
 		 * clear last geo search
 		 * if any
@@ -885,15 +1031,23 @@ function didGetAddress(result, passthrough) {
 			latitude : geoObj.geometry.location.lat,
 			longitude : geoObj.geometry.location.lng
 		};
+	} else {
+		$.logger.warn(TAG, "geo code api failed");
 		/**
-		 * don't update map region
-		 * after setting search results
+		 * update last region
+		 * when geo coder
+		 * fails, hanlde it
 		 */
-		getStores({
-			latitude : lastRegion.latitude,
-			longitude : lastRegion.longitude
-		}, false, false);
+		lastRegion = passthrough;
 	}
+	/**
+	 * don't update map region
+	 * after setting search results
+	 */
+	getStores({
+		latitude : lastRegion.latitude,
+		longitude : lastRegion.longitude
+	}, false, false);
 }
 
 function focus() {

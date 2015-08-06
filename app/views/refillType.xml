@@ -19,7 +19,7 @@
 				<Button id="editBtn" class="content-detail-tertiary-icon icon-edit" />
 			</View>
 		</View>
-		<View class="h-divider" />
+		<View class="h-divider-light" />
 		<Button id="refillBtn" class="margin-top margin-bottom primary-btn" onClick="didClickRefill" />
 	</ScrollView>
 </Alloy>

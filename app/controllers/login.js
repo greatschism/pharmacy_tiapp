@@ -28,7 +28,7 @@ function didChangeToggle(e) {
 function didChangeAutoLogin(e) {
 	if (Alloy.CFG.auto_login_dialog_enabled && e.value) {
 		$.uihelper.showDialog({
-			message : $.strings.loginMsgAutoLogin
+			message : $.strings.msgAutoLogin
 		});
 	}
 }

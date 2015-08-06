@@ -15,12 +15,16 @@ function init(options) {
 		options = {};
 	}
 	/**
-	 * for auto-login let errorDialogEnabled be false
-	 * any ways on failure we are going to login screen only
+	 * by default
+	 * errorDialogEnabled will be false
+	 */
+	options.errorDialogEnabled = false;
+	/**
+	 * check username
+	 * and password
 	 */
 	var username = options.username,
-	    password = options.password,
-	    errorDialogEnabled = false;
+	    password = options.password;
 	if (username && password) {
 		/**
 		 * store username and password
@@ -34,11 +38,13 @@ function init(options) {
 		 */
 		utilities.setProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false);
 		/**
-		 * if this request is from login screen
-		 * we will have valid user name and password parameters
-		 * and errorDialogEnabled should be true
+		 * errorDialogEnabled is enabled
+		 * when this is a explicit login
+		 * usually happens from login screen
+		 * when options has a valid username
+		 * and password properties
 		 */
-		errorDialogEnabled = true;
+		options.errorDialogEnabled = true;
 	} else if (getAutoLoginEnabled() && !utilities.getProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false)) {
 		username = encryptionUtil.decrypt(keychain.account);
 		password = encryptionUtil.decrypt(keychain.valueData);
@@ -48,7 +54,7 @@ function init(options) {
 	 * but there was a explicit logout or session timeout
 	 */
 	if (!username || !password) {
-		didFailAuthenticate({}, options);
+		didFailPatient({}, options);
 		return false;
 	}
 	http.request({
@@ -64,13 +70,20 @@ function init(options) {
 		},
 		passthrough : options,
 		keepLoader : true,
-		errorDialogEnabled : errorDialogEnabled,
+		errorDialogEnabled : options.errorDialogEnabled,
 		success : didAuthenticate,
-		failure : didFailAuthenticate
+		failure : didFailPatient
 	});
 }
 
-function didFailAuthenticate(error, passthrough) {
+/**
+ * common failure callback
+ * for authenticate and patient get
+ * both services are tightly coupled
+ * with service provider.
+ */
+function didFailPatient(error, passthrough) {
+	Alloy.Models.patient.clear();
 	if (passthrough.failure) {
 		passthrough.failure();
 	} else if (app.navigator.currentController.ctrlPath != "login") {
@@ -93,8 +106,9 @@ function didAuthenticate(result, passthrough) {
 		},
 		passthrough : passthrough,
 		keepLoader : true,
-		forceRetry : true,
-		success : didGetPatient
+		errorDialogEnabled : passthrough.errorDialogEnabled,
+		success : didGetPatient,
+		failure : didFailPatient
 	});
 }
 
@@ -168,13 +182,6 @@ function didGetCodeValues(result, passthrough) {
 		if (passthrough.success) {
 			passthrough.success();
 		}
-	},
-	    updateTimeZone = function() {
-		/**
-		 * to do: implement user preferences set
-		 * for time zone. api is not ready yet
-		 */
-		fireCallback();
 	};
 	/**
 	 * check if user is on different time zone
@@ -205,7 +212,10 @@ function didGetCodeValues(result, passthrough) {
 				message : Alloy.Globals.strings.msgTimeZoneUpdate,
 				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 				cancelIndex : 1,
-				success : updateTimeZone,
+				success : function didConfirm() {
+					passthrough.timeZone = currentTZCode;
+					updateTimeZone(passthrough);
+				},
 				cancel : fireCallback
 			});
 		} else {
@@ -223,6 +233,37 @@ function didGetCodeValues(result, passthrough) {
 		}
 	} else {
 		fireCallback();
+	}
+}
+
+function updateTimeZone(params) {
+	http.request({
+		method : "patient_preferences_update",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				patients : {
+					preferences : {
+						pref_timezone : params.timeZone
+					}
+				}
+			}]
+		},
+		passthrough : params,
+		forceRetry : true,
+		success : didUpdatePreferences
+	});
+}
+
+function didUpdatePreferences(result, passthrough) {
+	/**
+	 * updating local model
+	 * after successful api response
+	 */
+	Alloy.Models.patient.set("pref_timezone", passthrough.timeZone);
+	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
+	if (passthrough.success) {
+		passthrough.success();
 	}
 }
 

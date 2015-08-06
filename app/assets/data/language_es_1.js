@@ -49,17 +49,20 @@ module.exports = {
 		"msgCameraAuthorizationRestricted" : "es-Your have restricted app from accessing your camera. Please check your settings.",
 		"msgCameraAuthorizationDenied" : "es-Your have disallowed app from accessing your camera. Please check your settings.",
 		"msgCameraError" : "es-We are unable to access your camera, please check your settings.",
+		"msgCameraInvalid" : "es-We cannot reach your captured image; please select a image from gallery instead.",
 		"msgGalleryAuthorizationRestricted" : "es-Your have restricted app from accessing your photo gallery. Please check your settings.",
 		"msgGalleryAuthorizationDenied" : "es-Your have disallowed app from accessing your photo gallery. Please check your settings.",
 		"msgGalleryError" : "es-We are unable to access your photo gallery, please check your settings.",
+		"msgGalleryInvalid" : "es-We cannot reach your selected image gallery; please take a photo instead.",
 		"msgSeesionTimeout" : "es-Your session has expired. Please re-login to access the application.",
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have logged out successfully.",
 		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
 		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
-		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
-		
+		"msgAccountEmailVerification" : "es-We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
+		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
+
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -97,10 +100,13 @@ module.exports = {
 		"titleDoctorDetails" : "es-Doctor details",
 		"titleDoctorAdd" : "es-Add a doctor",
 		"titleDoctorUpdate" : "es-Edit doctor",
-		"titleTransferReview" : "es-Transfer Prescription",
+		"titleTransferReview" : "es-Transfer prescription",
 		"titleAccountAgreements" : "es-My agreements",
 		"titleChangeEmail" : "es-Change email address",
 		"titleChangePhone" : "es-Enter phone number",
+		"titleFamilyCare" : "es-Family care",
+		"titleCreateAccount" : "es-Create an account",
+		"titleMgrAccountExists" : "es-Existing account",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
@@ -119,10 +125,10 @@ module.exports = {
 		"loginValUsername" : "es-Please enter your username",
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
-		"loginMsgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"storesHintSearch" : "es-Search",
 		"storesGeoZeroResults" : "es-No matches found!",
+		"storesMsgGoogleApiFailed" : "es-Sorry, we are unable to process your request now. Please try again later.",
 
 		"storeDetPromptPhone" : "es-Call:",
 		"storeDetLblOpen" : "es-Open till %s",
@@ -355,8 +361,47 @@ module.exports = {
 		"accountSectionAcceptedDocs" : "es-You have accepted these documents",
 		"accountMsgCallPharmacy" : "es-Failed to get the most recently refilled pharmacy number",
 		"accountLblPromptPhone" : "es-Please enter the mobile number you would like to receive texts",
+		"accountLblTextSignupAgreement" : "es-You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 		"accountSuccessBtnContinue" : "es-Continue",
 		"accountReplySignUpForText" : "es-Sign up for texts",
-		"accountLblTextSignupAgreement" : "You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
+
+		"registerLbl" : "es-Are you managing prescriptions for yourself or your child?",
+		"registerBtnMyself" : "es-Myself",
+		"registerBtnChild" : "es-My child",
+
+		"registerChildInfoTitle" : "es-Great! you want to create a family account.",
+		"registerChildInfoLbl" : "es-To manage your child's prescriptions, first we need to create a manager account for you.",
+		"registerChildInfoAttr" : "es-Click here if you already have an account with Carbon pharmacy.",
+		"registerChildInfoBtnContinue" : "es-Continue",
+
+		"childAccountTipsLbl" : "es-How do i add family members to my account?",
+		"childAccountTip1Lbl" : "es-Go to Family care page from the app menu",
+		"childAccountTip2Lbl" : "es-Select 'Add family member' & follow instructions",
+		"childAccountTip3Lbl" : "es-Manage prescriptions for the whole family from one account",
+		"childAccountTipsBtnSignIn" : "es-Sign in",
+
+		"mgrAccountCreationTitle" : "es-Create a manager account",
+		"mgrAccountCreationSubTitle" : "es-Please enter your(adult) information.",
+		"mgrAccountCreationHintFirstName" : "es-First name",
+		"mgrAccountCreationHintLastName" : "es-Last name",
+		"mgrAccountCreationHintDob" : "es-Date of birth",
+		"mgrAccountCreationHintEmail" : "es-Email address",
+		"mgrAccountCreationHintPassword" : "es-Password",
+		"mgrAccountCreationBtnContinue" : "es-Continue",
+		"mgrAccountCreationAttrAgreement" : "es-By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"mgrAccountCreationValFirstName" : "es-Please enter your first name.",
+		"mgrAccountCreationValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"mgrAccountCreationValLastName" : "es-Please enter your last name.",
+		"mgrAccountCreationValLastNameInvalid" : "es-Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"mgrAccountCreationValDob" : "es-Please enter your Date of birth.",
+		"mgrAccountCreationValPasssword" : "es-Please enter your password",
+		"mgrAccountCreationValEmail" : "es-Please enter your email address",
+		"mgrAccountCreationValEmailInvalid" : "es-Invalid email address",
+
+		"mgrSignInLbl" : "es-Please sign in and go to the 'family accounts' section to add a child to your account.",
+		"mgrAddLbl" : "es-You can also add other adults and manage permissions.",
+		"mgrAccountExistsLbl" : "es-It looks like you already have an account with Carbon pharmacy",
+		"mgrAccountExistsBtnSignIn" : "es-Sign in"
+
 	}
 };
