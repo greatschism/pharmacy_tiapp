@@ -1,0 +1,25 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="vgroup auto-height">
+			<Label id="childTitle" class="lbl-centered-wrap margin-top margin-bottom"/>
+			<ImageView id="childImg"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<View id="txtView" class="auto-height">
+				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="vDividerView" class="v-divider"/>
+			</View>
+			<View class="h-divider"/>
+			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+			<View class="h-divider" />
+			
+		</View>
+		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom"  />
+		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
+		<Button id="skipBtn" class="margin-top secondary-btn" onClick="didClickSkip"/>
+	</ScrollView>
+</Alloy>

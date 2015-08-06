@@ -113,7 +113,11 @@ function didRegister(result) {
 	$.uihelper.showDialog({
 			message : successMessage
 		});
-	
+	$.app.navigator.open({
+		titleid : "titleChildAdd",
+		ctrl : "childAdd",
+		stack : true
+	});
 }
 
 function moveToNext(e) {

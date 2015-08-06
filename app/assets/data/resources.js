@@ -294,6 +294,24 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "child_add_pl",
+		"name" : "child_add",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 90
+			},
+			"landscape" : {
+				"width" : 90
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
+		"selected" : true
+	},{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "default_profile_pl",
 		"name" : "default_profile",
 		"format" : "png",

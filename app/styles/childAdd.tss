@@ -1,0 +1,28 @@
+"#childTitle":{
+	text:Alloy.Globals.strings.childAddTitle
+},
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.childAddHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.childAddHintLastName,
+	nextItem: "dobDp"
+},
+"#dobDp":{
+	hintText:Alloy.Globals.strings.childAddHintDob,
+	nextItem: "rxNoTxt"
+},
+"#rxNoTxt":{
+	hintText:Alloy.Globals.strings.childAddHintRxNo,
+	
+},
+"#agreementAttr":{
+	html:Alloy.Globals.strings.childAddAttrAgreement
+},
+"#continueBtn":{
+	title:Alloy.Globals.strings.childAddBtnContinue
+},
+"#skipBtn":{
+	title:Alloy.Globals.strings.childAddBtnSkip
+}
