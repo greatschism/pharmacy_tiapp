@@ -407,6 +407,7 @@ module.exports = {
 		"childAddTitle":"Add a child to your account",
 		"childAddHintFirstName":"First name",
 		"childAddHintLastName":"Last name",
+		"childAddHintDob":"Date of birth",
 		"childAddHintRxNo":"Rx number",
 		"childAddBtnContinue":"Continue",
 		"childAddBtnSkip":"Skip & come back later",
