@@ -4,6 +4,6 @@
 		<ImageView id="infoImg" class="margin-top margin-bottom"/>
 		<Label id="childInfoLbl" class="lbl-wrap margin-top margin-bottom"/>
 		<Label id="childInfoAttr" class="link-wrap margin-top margin-bottom" onClick="didClickAccountExists"/>
-		<Button id="continueBtn" class="primary-btn margin-top margin-bottom"/>
+		<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didCreateMgrAccount"/>
 	</View>
 </Alloy>

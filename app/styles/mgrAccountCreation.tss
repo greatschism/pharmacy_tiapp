@@ -1,0 +1,31 @@
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintLastName,
+	nextItem: "dobDp"
+},
+"#dobDp":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintDob,
+	nextItem: "emailTxt"
+},
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintEmail,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintPassword
+},
+"#mgrTitleLbl":{
+	text:Alloy.Globals.strings.mgrAccountCreationTitle
+},
+"#mgrSubTitleLbl":{
+	text:Alloy.Globals.strings.mgrAccountCreationSubTitle
+},
+"#continueBtn":{
+	title:Alloy.Globals.strings.mgrAccountCreationBtnContinue
+},
+"#agreementAttr":{
+	html:Alloy.Globals.strings.mgrAccountCreationAttrAgreement
+}

@@ -104,6 +104,7 @@ module.exports = {
 		"titleChangeEmail" : "Change email address",
 		"titleChangePhone" : "Enter phone number",
 		"titleFamilyCare":"Family care",
+		"titleCreateAccount":"Create an account",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -374,7 +375,28 @@ module.exports = {
 		"childAccountTip1Lbl":"Go to Family care page from the app menu",
 		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
 		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
-		"childAccountTipsBtnSignIn":"Sign in"
+		"childAccountTipsBtnSignIn":"Sign in",
+		
+		"mgrAccountCreationTitle":"Create a manager account",
+		"mgrAccountCreationSubTitle":"Please enter your(adult) information.",
+		"mgrAccountCreationHintFirstName":"First name",
+		"mgrAccountCreationHintLastName":"Last name",
+		"mgrAccountCreationHintDob":"Date of birth",
+		"mgrAccountCreationHintEmail":"Email address",
+		"mgrAccountCreationHintPassword":"Password",
+		"mgrAccountCreationBtnContinue":"Continue",
+		"mgrAccountCreationAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"mgrAccountCreationValFirstName" : "Please enter your first name.",
+		"mgrAccountCreationValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"mgrAccountCreationValLastName" : "Please enter your last name.",
+		"mgrAccountCreationValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"mgrAccountCreationValDob" : "Please enter your Date of birth.",
+		"mgrAccountCreationValPasssword":"Please enter your password",
+		"mgrAccountCreationValEmail":"Please enter your email address",
+		"mgrAccountCreationValEmailInvalid":"Invalid email address"
+		
+		
+	
 		
 	}
 };

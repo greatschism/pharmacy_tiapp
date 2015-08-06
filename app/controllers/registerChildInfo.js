@@ -8,4 +8,11 @@ function didClickAccountExists(){
 		stack : true
 	});
 }
+function didCreateMgrAccount(){
+	$.app.navigator.open({
+		titleid:"titleCreateAccount",
+		ctrl : "mgrAccountCreation",
+		stack : true
+	});
+}
 exports.focus=focus;
