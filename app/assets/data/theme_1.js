@@ -11,8 +11,10 @@ module.exports = {
 			"left_drawer_width" : 270,
 			"banner_max_width" : "100%",
 			"banner_max_height" : 140,
-			"geo_search_min_length" : 4,
-			"store_map_max_radius" : 75,
+			"geo_search_length_min" : 4,
+			"store_map_radius_min" : 15,
+			"store_map_radius_max" : 75,
+			"store_map_radius_increment" : 10,
 			"store_map_default_region" : {
 				"latitude" : 21.69756,
 				"longitude" : -85.37515,
@@ -2505,29 +2507,15 @@ module.exports = {
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
-			".h-divider-light[platform=ios]" : {
+			".h-divider-light" : {
 				"width" : "fill",
 				"height" : 0.5,
 				"backgroundColor" : "#D5D5D5",
 				"bubbleParent" : false,
 				"touchEnabled" : false
 			},
-			".h-divider-light[platform=android]" : {
-				"width" : "fill",
-				"height" : 1,
-				"backgroundColor" : "#D5D5D5",
-				"bubbleParent" : false,
-				"touchEnabled" : false
-			},
-			".v-divider-light[platform=ios]" : {
+			".v-divider-light" : {
 				"width" : 0.5,
-				"height" : 0,
-				"backgroundColor" : "#D5D5D5",
-				"bubbleParent" : false,
-				"touchEnabled" : false
-			},
-			".v-divider-light[platform=android]" : {
-				"width" : 1,
 				"height" : 0,
 				"backgroundColor" : "#D5D5D5",
 				"bubbleParent" : false,
