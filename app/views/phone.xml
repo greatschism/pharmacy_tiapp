@@ -5,5 +5,6 @@
 			<Widget id="phoneTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickContinue"  />
 		</View>
 		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue" />
+		<Label id="agreementLbl" class="margin-top lbl-wrap" />
 	</View>
 </Alloy>

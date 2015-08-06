@@ -42,6 +42,30 @@ function focus() {
 	}
 }
 
+function updateUserPreferences(key, value){
+	/**
+	 * patient model has attributes other than user preferenes. Hence using 'Models.pick' to retieve only those attributes that are required to update the preferences
+	 */
+	var userPrefsKeys = ["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"];
+	var userPrefObject = Alloy.Models.patient.pick(userPrefsKeys);
+	userPrefObject[key] = value;
+	Alloy.Models.patient.set(key, value);
+	
+	$.http.request({
+		method : "patient_preferences_update",
+		params : {
+			feature_code : "THXXX",
+			filter : [],
+			data : [userPrefObject]
+		},
+		success : didUpdatePrefs
+	});
+}
+
+function didUpdatePrefs(){
+	//do nothing
+}
+
 function didGetStore(result) {
 	phone_formatted = $.utilities.formatPhoneNumber(result.data.stores.phone);
 }
@@ -66,12 +90,18 @@ function didClickmobileNumber(e) {
 	}
 	else{
 		/**
-		 *to do - take the user to first sign in flow for sign up for texts 
+		 *to do - take the user to 'first sign in' flow for sign up for texts 
 		 */
 	}
 }
 
 function didClickEmailAddress(e) {
+	/**
+	 * We cant change email address for few clients with private LDAP. So check for the configurable value and stop the user from editing  
+	 */
+	if(!Alloy.CFG.can_update_email){
+		return;
+	}
 	$.app.navigator.open({
 		titleid : "titleChangeEmail",
 		ctrl : "email",
@@ -90,15 +120,25 @@ function didClickLanguage(e) {
 function didClickCloseTimeZone(e) {
 	$.timeZoneReplyLbl.text = $.timeZonePicker.getSelectedItems()[0].code_display;
 	$.timeZonePicker.hide();
+	updateUserPreferences("pref_timezone", $.timeZoneReplyLbl.text);
 }
 
 function didClickCloseLanguage(e) {
 	$.languageReplyLbl.text = $.languagePicker.getSelectedItems()[0].code_display;
 	$.languagePicker.hide();
+	updateUserPreferences("pref_language", $.languageReplyLbl.text);
 }
 
 function didClickContactSupport(e) {
 	$.contactOptionsMenu.show();
+}
+
+function didChangeHideExpPrescription(){
+	updateUserPreferences("hide_expired_prescriptions" , $.hideExpiredPrescriptionSwt.getValue() === true? "1" : "0");
+}
+
+function didChangeHideZeroRefillPrescription(){
+	updateUserPreferences("hide_zero_refill_prescriptions" , $.hideZeroRefillPrescriptionSwt.getValue() === true? "1" : "0");
 }
 
 function didClickViewAgreement() {

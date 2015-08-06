@@ -24,7 +24,7 @@ function didSuccess(result) {
 	
 	_.each(terms, function(term) {
 		section.add(Alloy.createController("itemTemplates/labelWithChild", {
-				title : term.agreement_name
+				title : term.agreement_text
 			}).getView());
 	});
 	$.tableView.setData([section]); 
@@ -34,7 +34,7 @@ function didClickItem(e) {
 	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
 	$.app.navigator.open({
 		ctrl : "termsDoc",
-		title : item.agreement_name,
+		title : item.agreement_text,
 		stack : true,
 		ctrlArguments : item
 	});	

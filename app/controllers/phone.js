@@ -8,6 +8,7 @@ function init() {
 	$.phoneTxt.setValue(Alloy.Models.patient.get("mobile_number") || $.strings.strNotAvailable);
 	var len = $.phoneTxt.getValue().length;
 	$.phoneTxt.setSelection(0, len);
+	$.agreementLbl.text = String.format($.strings.accountLblTextSignupAgreement, Alloy.CFG.client_name);
 }
 
 function didChange(e) {

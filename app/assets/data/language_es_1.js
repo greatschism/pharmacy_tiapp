@@ -354,8 +354,9 @@ module.exports = {
 		"accountOptMenuCallPharmacy" : "es-Call your pharmacy",
 		"accountSectionAcceptedDocs" : "es-You have accepted these documents",
 		"accountMsgCallPharmacy" : "es-Failed to get the most recently refilled pharmacy number",
-		"accountLblPromptPhone" : "Please enter the mobile number you would like to receive texts",
-		"accountSuccessBtnContinue" : "Continue",
-		"accountReplySignUpForText" : "Sign up for texts"
+		"accountLblPromptPhone" : "es-Please enter the mobile number you would like to receive texts",
+		"accountSuccessBtnContinue" : "es-Continue",
+		"accountReplySignUpForText" : "es-Sign up for texts",
+		"accountLblTextSignupAgreement" : "You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 	}
 };

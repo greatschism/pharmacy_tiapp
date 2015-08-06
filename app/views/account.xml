@@ -46,13 +46,13 @@
 				<View class="content-view-with-rswt">
 					<Label id="hideExpiredPrescriptionLbl" class="content-lbl-wrap" />
 				</View>
-				<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
+				<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeHideExpPrescription"/>
 			</TableViewRow>
 			<TableViewRow>
 				<View class="content-view-with-rswt">
 					<Label id="hideZeroRefillPrescriptionLbl" class="content-lbl-wrap" />
 				</View>
-				<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="content-right-swt swt" />
+				<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeHideZeroRefillPrescription"/>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>

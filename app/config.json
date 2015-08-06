@@ -9,6 +9,8 @@
             "patient_authenticate": "patient/authenticate",
             "patient_get": "patient/get",
             "patient_preferences_get": "patient/preferences/get",
+            "patient_preferences_update": "patient/preferences/update",
+            "patient_email_update": "patient/email/update",
             "patient_logout": "patient/logout",
             "stores_list": "stores/list",
             "stores_get": "stores/get",
