@@ -105,6 +105,7 @@ module.exports = {
 		"titleChangePhone" : "Enter phone number",
 		"titleFamilyCare":"Family care",
 		"titleCreateAccount":"Create an account",
+		"titleMgrAccountExists":"Existing account",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -394,9 +395,12 @@ module.exports = {
 		"mgrAccountCreationValDob" : "Please enter your Date of birth.",
 		"mgrAccountCreationValPasssword":"Please enter your password",
 		"mgrAccountCreationValEmail":"Please enter your email address",
-		"mgrAccountCreationValEmailInvalid":"Invalid email address"
+		"mgrAccountCreationValEmailInvalid":"Invalid email address",
 		
-		
+		"mgrSignInLbl":"Please sign in and go to the 'family accounts' section to add a child to your account.",
+		"mgrAddLbl":"You can also add other adults and manage permissions.",
+		"mgrAccountExistsLbl":"It looks like you already have an account with Carbon pharmacy",
+		"mgrAccountExistsBtnSignIn":"Sign in"
 	
 		
 	}

@@ -1,15 +1,17 @@
-function focus(){
-	$.uihelper.getImage("logo",$.logoImg);
+  var moment = require("alloy/moment");
+
+function focus() {
+	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 }
 
-function didClickContinue(){
+function didClickContinue() {
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
-	    password=$.passwordTxt.getValue(),
-	    email=$.emailTxt.getValue(),
-	    dob = $.dobDp.getValue();
-	 
+	    password = $.passwordTxt.getValue(),
+	    email = $.emailTxt.getValue(),
+	    dobValue = $.dobDp.getValue(),
+		dob=moment(dobValue).format(Alloy.CFG.apiCodes.date_format);
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValFirstName
@@ -58,15 +60,72 @@ function didClickContinue(){
 		});
 		return;
 	}
+	$.http.request({
+		method : "patient_register",
+		params : {
+			feature_code : "THXXX",
+			filter : {
+				sort_order : "asc"
+			},
+			data : [{
+				patient : {
+					user_name : email,
+					password : password,
+					first_name : fname,
+					last_name : lname,
+					birth_date : dob,
+					gender : "",
+					address_line1 : "",
+					address_line2 : "",
+					city : "",
+					state : "",
+					zip : "",
+					home_phone : "",
+					mobile : "",
+					email_address : email,
+					rx_number : "",
+					store_id : "",
+					user_type : "PARTIAL",
+					optional : [{
+						key : "",
+						value : ""
+					}, {
+						key : "",
+						value : ""
+					}]
+				}
+			}]
+
+		},
+		success : didRegister,
+		failure: didFail
+	});
 }
+function didFail(){
+	$.app.navigator.open({
+		titleid : "titleMgrAccountExists",
+		ctrl : "mgrAccountExists",
+		stack : true
+	});
+}
+function didRegister(result) {
+	successMessage=result.message;
+	$.uihelper.showDialog({
+			message : successMessage
+		});
+	
+}
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
 		$[nextItem].focus();
 	}
 }
+
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
-exports.setParentView=setParentView;
-exports.focus=focus;
+
+exports.setParentView = setParentView;
+exports.focus = focus; 

@@ -30,7 +30,8 @@
             "prescriptions_refill": "prescriptions/refill",
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
             "upload_image": "imageUpload",
-            "terms_get": "terms/get"
+            "terms_get": "terms/get",
+            "patient_register":"patient/register"
         },
         "apiCodes": {
             "success": "200",
