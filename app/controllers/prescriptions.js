@@ -188,7 +188,7 @@ function didGetPrescriptions(result, passthrough) {
 				progress = Math.floor((timeSpent / totalTime) * 100);
 			} else {
 				subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_after_x_hours : Alloy.CFG.prescription_progress_before_x_hours;
+				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 			}
 			prescription.set({
 				canHide : false,

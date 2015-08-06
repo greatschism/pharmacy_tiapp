@@ -25,8 +25,8 @@ module.exports = {
 			"prescription_ready_for_refill" : 7,
 			"prescription_pickup_reminder" : 3,
 			"prescription_progress_x_hours" : 2,
-			"prescription_progress_after_x_hours" : 60,
-			"prescription_progress_before_x_hours" : 15,
+			"prescription_progress_x_hours_after" : 60,
+			"prescription_progress_x_hours_before" : 15,
 			"prescription_refills_left_info_negative" : 1,
 			"rx_length" : 10,
 			"rx_start_index" : 0,
@@ -1587,6 +1587,24 @@ module.exports = {
 				"right" : 12,
 				"height" : "auto",
 				"layout" : "vertical"
+			},
+			".content-left-image-extra-large" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"width" : "40%"
+			},
+			".content-view-with-limage-extra-large" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : "50%",
+				"right" : 12
+			},
+			".content-view-vgroup-with-limage-extra-large" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : "50%",
+				"right" : 12
 			},
 			".content-left-color-box" : {
 				"top" : 0,
