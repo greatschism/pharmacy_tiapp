@@ -1,0 +1,15 @@
+"#tipLbl":{
+	text:Alloy.Globals.strings.childAccountTipsLbl
+},
+"#tip1Lbl":{
+	text:Alloy.Globals.strings.childAccountTip1Lbl
+},
+"#tip2Lbl":{
+	text:Alloy.Globals.strings.childAccountTip2Lbl
+},
+"#tip3Lbl":{
+	text:Alloy.Globals.strings.childAccountTip3Lbl
+},
+"#signInBtn":{
+	title:Alloy.Globals.strings.childAccountTipsBtnSignIn
+}

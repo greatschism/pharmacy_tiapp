@@ -218,8 +218,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_refill_success.png",
 		"selected" : true
-	},
-	{
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -236,6 +235,60 @@ module.exports = {
 		},
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_info.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "tip1_pl",
+		"name" : "tip1",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 130
+			},
+			"landscape" : {
+				"width" : 130
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip1.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "tip2_pl",
+		"name" : "tip2",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 130
+			},
+			"landscape" : {
+				"width" : 130
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip2.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "tip3_pl",
+		"name" : "tip3",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 130
+			},
+			"landscape" : {
+				"width" : 130
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
 		"selected" : true
 	}, {
 		"type" : "image",

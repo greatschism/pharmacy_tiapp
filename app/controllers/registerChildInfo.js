@@ -3,6 +3,7 @@ function focus(){
 }
 function didClickAccountExists(){
 	$.app.navigator.open({
+		titleid:"titleFamilyCare",
 		ctrl : "childAccountTips",
 		stack : true
 	});

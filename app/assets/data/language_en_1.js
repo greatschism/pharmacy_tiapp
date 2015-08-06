@@ -103,6 +103,7 @@ module.exports = {
 		"titleAccountAgreements" : "My agreements",
 		"titleChangeEmail" : "Change email address",
 		"titleChangePhone" : "Enter phone number",
+		"titleFamilyCare":"Family care",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -367,7 +368,13 @@ module.exports = {
 		"registerChildInfoTitle":"Great! you want to create a family account.",
 		"registerChildInfoLbl":"To manage your child's prescriptions, first we need to create a manager account for you.",
 		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
-		"registerChildInfoBtnContinue":"Continue"
+		"registerChildInfoBtnContinue":"Continue",
+		
+		"childAccountTipsLbl":"How do i add family members to my account?",
+		"childAccountTip1Lbl":"Go to Family care page from the app menu",
+		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
+		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
+		"childAccountTipsBtnSignIn":"Sign in"
 		
 	}
 };
