@@ -153,7 +153,9 @@ module.exports = {
 				"user" : "W",
 				"users" : "w",
 				"error" : "@",
-				"injection" : "S"
+				"injection" : "S",
+				"checkbox_unchecked" : "~",
+				"checkbox_checked" : "\\"
 			}
 		},
 		"tss" : {
