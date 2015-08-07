@@ -1,0 +1,8 @@
+<Alloy>
+	<View class="content-view-vgroup auto-height">
+		<ImageView id="childSuccessImg"/>
+		<Label id="successLbl" class="content-title-wrap margin-top margin-bottom"/>
+		<Button id="childAddBtn" class="primary-btn margin-top margin-bottom" onClick="didClickAddChild"/>
+		<Button id="continueBtn" class="secondary-btn margin-top margin-bottom" onClick="didClickContinue"/>
+	</View>
+</Alloy>

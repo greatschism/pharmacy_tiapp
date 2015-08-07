@@ -15,7 +15,8 @@
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	hintText:Alloy.Globals.strings.mgrAccountCreationHintPassword
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintPassword,
+	passwordMask: true
 },
 "#mgrTitleLbl":{
 	text:Alloy.Globals.strings.mgrAccountCreationTitle

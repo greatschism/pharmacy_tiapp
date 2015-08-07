@@ -1,0 +1,3 @@
+"#consentLbl":{
+	text:Alloy.Globals.strings.childConsentLbl
+},

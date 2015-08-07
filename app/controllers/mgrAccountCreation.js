@@ -36,7 +36,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (!dob) {
+	if (!dobValue) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValDob
 		});

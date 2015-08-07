@@ -16,7 +16,6 @@
 		<View class="margin-top form-vgroup">
 			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 			<View class="h-divider" />
-			
 		</View>
 		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom"  />
 		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>

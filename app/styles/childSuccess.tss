@@ -1,0 +1,9 @@
+"#successLbl":{
+	text:Alloy.Globals.strings.childSuccessLblTitle
+},
+"#childAddBtn":{
+	title:Alloy.Globals.strings.childSuccessBtnAddChild
+},
+"#continueBtn":{
+	title:Alloy.Globals.strings.childSuccessBtnContinue
+}

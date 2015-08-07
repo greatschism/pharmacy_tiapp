@@ -1,0 +1,5 @@
+<Alloy>
+	<View class="vgroup">
+		<Label id="consentLbl" class="lbl-wrap margin-top margin-bottom"/>
+	</View>
+</Alloy>

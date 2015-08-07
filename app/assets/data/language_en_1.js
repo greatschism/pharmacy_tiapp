@@ -77,7 +77,7 @@ module.exports = {
 		"titleReminders" : "Reminders",
 		"titleRewards" : "Savings Catcher",
 		"titleCoupons" : "Coupons",
-		"titleFamilyAccounts" : "Family accounts",
+		"titleFamilyAccounts" : "Family care",
 		"titleTransfer" : "Transfer Rx",
 		"titleRefill" : "Refill now",
 		"titleStores" : "Find a store",
@@ -109,6 +109,8 @@ module.exports = {
 		"titleCreateAccount" : "Create an account",
 		"titleMgrAccountExists" : "Existing account",
 		"titleChildAdd":"Add a child",
+		"titleChildConsent":"Note to your minor",
+		"titleChildSuccess":"Success!",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -387,9 +389,9 @@ module.exports = {
 		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
 		"registerChildInfoBtnContinue":"Continue",
 		
-		"childAccountTipsLbl":"How do i add family members to my account?",
+		"childAccountTipsLbl":"How do I add family members to my account?",
 		"childAccountTip1Lbl":"Go to Family care page from the app menu",
-		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
+		"childAccountTip2Lbl":"Select \"Add family member\" & follow instructions",
 		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
 		"childAccountTipsBtnSignIn":"Sign in",
 		
@@ -411,7 +413,7 @@ module.exports = {
 		"mgrAccountCreationValEmail":"Please enter your email address",
 		"mgrAccountCreationValEmailInvalid":"Invalid email address",
 		
-		"mgrSignInLbl":"Please sign in and go to the 'family accounts' section to add a child to your account.",
+		"mgrSignInLbl":"Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl":"You can also add other adults and manage permissions.",
 		"mgrAccountExistsLbl":"It looks like you already have an account with Carbon pharmacy",
 		"mgrAccountExistsBtnSignIn":"Sign in",
@@ -423,6 +425,22 @@ module.exports = {
 		"childAddHintRxNo":"Rx number",
 		"childAddBtnContinue":"Continue",
 		"childAddBtnSkip":"Skip & come back later",
-		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",		
+		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"childAddValFirstName" : "Please enter your first name.",
+		"childAddValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"childAddValLastName" : "Please enter your last name.",
+		"childAddValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"childAddValDob" : "Please enter your Date of birth.",
+		"childAddValRxNo" : "Please enter your prescription number.",
+		"childAddValRxNoInvalid":"Prescription number you have entered seem invalid.",
+		"childAddAccntInvalid":"This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
+		
+		"childSuccessLblTitle":"You have successfully added a child to your account.",
+		"childSuccessBtnAddChild":"Add another child",
+		"childSuccessBtnContinue":"Continue",
+		
+		"childConsentLbl":"Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account."
+	
+	
 	}
 };
