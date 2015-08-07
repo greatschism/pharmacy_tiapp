@@ -127,7 +127,51 @@ function didGetPatient(result, passthrough) {
 }
 
 function didGetPreferences(result, passthrough) {
+	/**
+	 * setting default values
+	 */
+	var preferences = result.data.patients.preferences;
+	_.extend(preferences, {
+		email_msg_active : 0,
+		text_msg_active : 0
+	});
+	/**
+	 * update model
+	 */
 	Alloy.Models.patient.set(result.data.patients.preferences);
+	/**
+	 * the fields below are not sent as part of response with
+	 * get preferences. But these two fields are mandatory when
+	 * updating preferences.
+	 *
+	 *  email_msg_active
+	 *  text_msg_active
+	 *
+	 *  Value for the above fields has to be calculated based
+	 *
+	 * app_reminder_dlvry_mode
+	 * doctor_reminder_dlvry_mode
+	 * health_info_reminder_dlvry_mode
+	 * med_reminder_dlvry_mode
+	 * refill_reminder_dlvry_mode
+	 * promotion_deals_reminder_flag
+	 *
+	 * if any of these fields has a value TEXT then
+	 * text_msg_active will be 1 otherwise 0
+	 *
+	 * if any of these fields has a value EMAIL then
+	 * email_msg_active will be 1 otherwise 0
+	 */
+	_.each(Alloy.Models.patient.pick(["app_reminder_dlvry_mode", "doctor_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "med_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "promotion_deals_reminder_flag"]), function(value) {
+		switch(value) {
+		case Alloy.CFG.apiCodes.reminder_mode_email:
+			Alloy.Models.patient.set("email_msg_active", 1);
+			break;
+		case Alloy.CFG.apiCodes.reminder_mode_text:
+			Alloy.Models.patient.set("text_msg_active", 1);
+			break;
+		}
+	});
 	/**
 	 * code values check
 	 * can be removed from account controller
@@ -165,7 +209,7 @@ function didGetCodeValues(result, passthrough) {
 	var dateObj = new Date(Alloy.CFG.default_date),
 	    dFormat = Alloy.CFG.date_time_format,
 	    dDate = moment(dateObj).format(dFormat),
-	    currentTZCode;
+	    currentTZ;
 	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
 	/**
 	 * add logout menu item
@@ -197,12 +241,12 @@ function didGetCodeValues(result, passthrough) {
 		 */
 		_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
 			if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
-				currentTZCode = code;
+				currentTZ = code.code_value;
 				return true;
 			}
 			return false;
 		});
-		if (currentTZCode) {
+		if (currentTZ) {
 			/**
 			 * user is on a different time zone
 			 * that we support
@@ -213,7 +257,7 @@ function didGetCodeValues(result, passthrough) {
 				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 				cancelIndex : 1,
 				success : function didConfirm() {
-					passthrough.timeZone = currentTZCode;
+					passthrough.timeZone = currentTZ;
 					updateTimeZone(passthrough);
 				},
 				cancel : fireCallback
@@ -237,17 +281,23 @@ function didGetCodeValues(result, passthrough) {
 }
 
 function updateTimeZone(params) {
+	/**
+	 * api requires all parameters to be sent
+	 * even though the update is required only
+	 * for pref_timezone
+	 */
+	var preferences = Alloy.Models.patient.pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
+	/**
+	 * applying new time zone to local model and moment
+	 * to be on safer side applying the time zone
+	 * only after success response
+	 */
+	preferences.pref_timezone = params.timeZone;
 	http.request({
 		method : "patient_preferences_update",
 		params : {
 			feature_code : "THXXX",
-			data : [{
-				patients : {
-					preferences : {
-						pref_timezone : params.timeZone
-					}
-				}
-			}]
+			data : [preferences]
 		},
 		passthrough : params,
 		forceRetry : true,
@@ -257,7 +307,7 @@ function updateTimeZone(params) {
 
 function didUpdatePreferences(result, passthrough) {
 	/**
-	 * updating local model
+	 * updating local model and moment
 	 * after successful api response
 	 */
 	Alloy.Models.patient.set("pref_timezone", passthrough.timeZone);

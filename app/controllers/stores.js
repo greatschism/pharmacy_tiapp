@@ -91,16 +91,6 @@ function didGetLocation(userLocation) {
 	 *  just updating the location in simulator settings would help
 	 */
 	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
-		/**
-		 * if the api call fails for current location
-		 * with 201 and zero stores
-		 * the currentLocation object will not be updated and map
-		 * will not zoom in to user's current location as per
-		 * requirement, so be on safer side applying it here
-		 */
-		if (!_.isEmpty(userLocation)) {
-			currentLocation = _.pick(userLocation, ["latitude", "longitude"]);
-		}
 		getStores(null, false);
 	} else {
 		/**
@@ -152,8 +142,10 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 	if (param) {
 
 		if (_.isString(param)) {
+			currentLocation = {};
 			reqStoreObj.search_criteria = param;
 		} else {
+			currentLocation = _.pick(param, ["latitude", "longitude"]);
 			_.extend(reqStoreObj, {
 				search_lat : param.latitude,
 				search_long : param.longitude
@@ -162,6 +154,7 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 
 	} else {
 
+		currentLocation = _.pick($.uihelper.userLocation, ["latitude", "longitude"]);
 		_.extend(reqStoreObj, {
 			user_lat : $.uihelper.userLocation.latitude,
 			user_long : $.uihelper.userLocation.longitude
@@ -293,8 +286,7 @@ function didGetDistance(result, passthrough) {
 		 * max = 15
 		 * remove any store that cross 15 miles radius
 		 */
-		max = 0;
-		for ( max = radiusMin; max <= radiusMax; max + radiusIncrement) {
+		for ( max = radiusMin; max <= radiusMax; max += radiusIncrement) {
 			if (min <= max) {
 				break;
 			}
@@ -323,6 +315,8 @@ function didGetDistance(result, passthrough) {
 			}
 			return store.distance;
 		});
+	} else {
+		$.logger.warn(TAG, "direction matrix api failed");
 	}
 	prepareData(passthrough.result, passthrough.passthrough);
 }
@@ -330,10 +324,16 @@ function didGetDistance(result, passthrough) {
 function prepareData(result, passthrough) {
 
 	/**
+	 * need to set here
+	 *  when search criteria is passed
+	 */
+	if (_.isEmpty(currentLocation)) {
+		currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
+	}
+	/**
 	 * check whether or not to enable
 	 * direction button for this result set
 	 */
-	currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	isDirectionEnabled = !_.isEmpty(currentLocation);
 
 	/*
@@ -492,8 +492,7 @@ function prepareMap(shouldUpdateRegion) {
 				/**
 				 * ignore annotations that exceeds the max radius
 				 */
-				var distance = store.get("searchdistance") || store.get("userdistance") || 0;
-				if (radiusMax >= distance) {
+				if (radiusMax >= (store.distance || 0)) {
 					/**
 					 * geo calculation
 					 * for finding region
@@ -791,12 +790,12 @@ function didGetGeoCode(result, passthrough) {
 		} else {
 			/**
 			 * text field is not focused now
-			 * so trigger a search cretiria
+			 * so trigger a search criteria
 			 */
 			$.geoTableView.setData(data);
 			setVisibleForSearchTable(false);
 			/**
-			 * use search cretiria
+			 * use search criteria
 			 * passthrough will have the
 			 * search string
 			 */
@@ -850,6 +849,15 @@ function didClickGeoTable(e) {
 }
 
 function didClickStoreTable(e) {
+	/**
+	 * when httpClient is valid
+	 * a call is in progress
+	 * so let's not allow user
+	 * to do any action on existing list
+	 */
+	if (httpClient) {
+		return false;
+	}
 	var row = storeRows[e.index];
 	if (row) {
 		handleNavigation(row.getParams());
@@ -857,6 +865,15 @@ function didClickStoreTable(e) {
 }
 
 function didClickMap(e) {
+	/**
+	 * when httpClient is valid
+	 * a call is in progress
+	 * so let's not allow user
+	 * to do any action on existing map
+	 */
+	if (httpClient) {
+		return false;
+	}
 	var annotation = e.annotation,
 	    clicksource = e.clicksource,
 	    store;
