@@ -61,6 +61,7 @@ module.exports = {
 		"msgTimeZoneUpdate" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
+		"msgPasswordTips" : "Please create a new password. It must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 
 		"accessibilityLblSwitchOn" : "On",
@@ -126,7 +127,7 @@ module.exports = {
 		"loginValUsername" : "Please enter your username",
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
-
+		
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
@@ -365,10 +366,21 @@ module.exports = {
 		"accountLblTextSignupAgreement" : "You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 		"accountSuccessBtnContinue" : "Continue",
 		"accountReplySignUpForText" : "Sign up for texts",
-
+		
 		"registerLbl":"Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself":"Myself",
 		"registerBtnChild":"My child",
+		"registerHintFirstName" : "First name",
+		"registerHintLastName" : "Last name",
+		"registerHintDOB" : "Date of birth",
+		"registerHintEmail" : "Email address",
+		"registerHintUname" : "Username",
+		"registerHintPassword" : "Password",
+		"registerHintRxFormat" : "Rx number (format)",
+		"registerHintPharmacyLocation" : "Pharmacy location",
+		"registerLblTogglePassword" : "Show password",
+		"registerLblAgreement" : "By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont>.",
+		"registerBtnSignup" : "Create account",
 		
 		"registerChildInfoTitle":"Great! you want to create a family account.",
 		"registerChildInfoLbl":"To manage your child's prescriptions, first we need to create a manager account for you.",
@@ -411,8 +423,6 @@ module.exports = {
 		"childAddHintRxNo":"Rx number",
 		"childAddBtnContinue":"Continue",
 		"childAddBtnSkip":"Skip & come back later",
-		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
-	
-
+		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",		
 	}
 };
