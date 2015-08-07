@@ -250,6 +250,10 @@ function didGetStores(result, passthrough) {
 }
 
 function didGetDistance(result, passthrough) {
+	/**
+	 * reset http client to ensure no pending api
+	 */
+	httpClient = null;
 	if (result.status === googleApiSuccess) {
 		var stores = passthrough.result.data.stores.stores_list,
 		    elements = result.rows[0].elements,
@@ -270,7 +274,11 @@ function didGetDistance(result, passthrough) {
 				 * meters to miles
 				 * conversion
 				 */
-				store.distance = Number((element.distance.value / 1609.34).toFixed(2));
+				var distance = (element.distance.value / 1609.34).toFixed(2);
+				_.extend(store, {
+					distance : Number(distance),
+					detailSubtitle : distance + $.strings.strSuffixDistance
+				});
 				min = Math.min(min, store.distance);
 			}
 		});
@@ -358,9 +366,6 @@ function prepareData(result, passthrough) {
 		if (loggedIn && (store.ishomepharmacy || store.isbookmarked)) {
 			iconClasses = ["content-left-icon", (store.ishomepharmacy ? "icon-home" : "icon-filled-star")];
 		}
-		/**
-		 * distance
-		 */
 		var distance = store.distance || 0;
 		/**
 		 * when a sync happens from list to map
@@ -371,12 +376,19 @@ function prepareData(result, passthrough) {
 		if (radiusMax >= distance) {
 			currentRadiusMax = Math.max(currentRadiusMax, distance);
 		}
+		/**
+		 * latitude and longitude
+		 * is being string some times
+		 * to avoid that, convert them into
+		 * Number
+		 */
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
-			detailSubtitle : distance ? (distance + $.strings.strSuffixDistance) : "",
 			detailType : "inactive",
-			iconClasses : iconClasses
+			iconClasses : iconClasses,
+			latitude : Number(store.latitude),
+			longitude : Number(store.longitude)
 		});
 	});
 
@@ -473,10 +485,10 @@ function prepareMap(shouldUpdateRegion) {
 			region = {
 				latitude : {
 					min : firstLat,
-					max : firstLon
+					max : firstLat
 				},
 				longitude : {
-					min : firstLat,
+					min : firstLon,
 					max : firstLon
 				}
 			};
@@ -492,7 +504,7 @@ function prepareMap(shouldUpdateRegion) {
 				/**
 				 * ignore annotations that exceeds the max radius
 				 */
-				if (radiusMax >= (store.distance || 0)) {
+				if (radiusMax >= (store.get("distance") || 0)) {
 					/**
 					 * geo calculation
 					 * for finding region
