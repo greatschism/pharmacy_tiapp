@@ -206,14 +206,6 @@ function didGetStores(result, passthrough) {
 	 * handle failure cases
 	 */
 	if (!result.data) {
-		//ignore when list is already empty
-		if (!Alloy.Collections.stores.length) {
-			/*
-			 * hide loader
-			 */
-			$.loader.hide(false);
-			return false;
-		}
 		//this resets the list populated already
 		result.data = {
 			stores : {
