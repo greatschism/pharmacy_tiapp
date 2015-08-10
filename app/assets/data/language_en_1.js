@@ -462,7 +462,9 @@ module.exports = {
 		"childSuccessBtnContinue":"Continue",
 		
 		"childConsentLbl":"Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account.",
-	
+		"childConsentLblObtain":"I have obtained consent",
+		"childConsentBtnContinue":"Continue",
+		
 		"HIPAAoptionalMessageLbl" : "We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
 		
 		"textSignupBtnSendMeTexts" : "Send me texts",
