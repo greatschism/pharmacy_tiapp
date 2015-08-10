@@ -42,12 +42,41 @@ function didGetStates(result, passthrough) {
 	updateInputs();
 }
 
+function didClickName(e) {
+	$.uihelper.showDialog({
+		message : String.format($.strings.doctorMsgEditRestricted, doctor.title)
+	});
+}
+
 function updateInputs() {
 	var codes = Alloy.Models.states.get("code_values");
 	$.stateDp.setChoices(codes);
 	if (!_.isEmpty(doctor)) {
-		$.fnameTxt.setValue(doctor.first_name);
-		$.lnameTxt.setValue(doctor.last_name);
+		if (doctor.doctor_type != apiCodes.doctor_type_manual) {
+			/**
+			 * editing first or last name
+			 * of a doctor created by system
+			 * will unlink all it's prescriptions
+			 * Note: this is a limitation on server side
+			 * so to avoid that we disable the edit here
+			 *
+			 * Using ucword because name set by server
+			 * has all caps
+			 */
+			$.fnameTxt.applyProperties({
+				value : $.utilities.ucword(doctor.first_name),
+				editable : false
+			});
+			$.lnameTxt.applyProperties({
+				value : $.utilities.ucword(doctor.last_name),
+				editable : false
+			});
+			$.fnameTxt.getView().addEventListener("click", didClickName);
+			$.lnameTxt.getView().addEventListener("click", didClickName);
+		} else {
+			$.fnameTxt.setValue(doctor.first_name);
+			$.lnameTxt.setValue(doctor.last_name);
+		}
 		$.phoneTxt.setValue($.utilities.formatPhoneNumber(doctor.phone));
 		$.faxTxt.setValue($.utilities.formatPhoneNumber(doctor.fax));
 		$.addressLine1Txt.setValue(doctor.addressline1);
