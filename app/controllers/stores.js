@@ -843,6 +843,11 @@ function didClickGeoTable(e) {
 		if (params.invalid !== true) {
 			$.searchTxt.setValue(params.title);
 			$.searchTxt.blur();
+			/**
+			 * return or blur event 
+			 * might not be trigged
+			 */
+			isFocused = false;
 			setVisibleForSearchTable(false);
 			getStores({
 				latitude : params.latitude,
