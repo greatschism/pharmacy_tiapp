@@ -29,6 +29,7 @@ function didClickConsent(e) {
 		$.inactiveBtn.applyProperties($.createStyle({
 			classes:["inactive-btn"]
 		}));
+		$.inactiveBtn.removeEventListener("click",didClickContinue);
 	}
 }
 exports.focus = focus;
