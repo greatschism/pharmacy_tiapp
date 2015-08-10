@@ -135,12 +135,12 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"right" : 50,
+				"left" : 50
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"right" : 50,
+				"left" : 50
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -308,7 +308,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
 		"selected" : true
-	},{
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
