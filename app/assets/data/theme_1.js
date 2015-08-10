@@ -506,6 +506,37 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
+			".inactive-btn" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#6D6E71",
+				"backgroundSelectedColor" : "#6D6E71",
+				"borderColor" : "#6D6E71",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
+			".inactive-btn-48" : {
+				"width" : "48%",
+				"height" : 50,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#6D6E71",
+				"backgroundSelectedColor" : "#6D6E71",
+				"borderColor" : "#6D6E71",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
 			".secondary-btn" : {
 				"left" : 16,
 				"right" : 16,
