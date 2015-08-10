@@ -845,7 +845,9 @@ function didClickGeoTable(e) {
 			$.searchTxt.blur();
 			/**
 			 * return or blur event 
-			 * might not be trigged
+			 * might not be triggered
+			 * as above is a explicit call to 
+			 * blur
 			 */
 			isFocused = false;
 			setVisibleForSearchTable(false);
