@@ -2923,6 +2923,58 @@ module.exports = {
 				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
+			},
+			".subtitle" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".subtitle-wrap" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".subtitle-centered" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#000000",
+				"textAlign" : "center",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".subtitle-centered-wrap" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#000000",
+				"textAlign" : "center",
+				"ellipsize" : false,
+				"wordWrap" : true
 			}
 		}
 	}
