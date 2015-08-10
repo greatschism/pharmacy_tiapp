@@ -2,7 +2,7 @@
 	width: "100%",
 	scalesPageToFit: true
 },
-"#emailBtn":{
+"#successBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnEmail
 },
 "#revokeBtn":{

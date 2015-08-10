@@ -31,7 +31,8 @@ module.exports = {
 		"dialogBtnContactAdd" : "es-Add to contacts",
 		"dialogBtnCamera" : "es-Take a photo",
 		"dialogBtnGallery" : "es-Choose from gallery",
-
+		"dialogBtnIAgree" : "I agree",
+		
 		"msgLoading" : "es-Processing. Please wait",
 		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
 		"msgNetworkTimeout" : "es-It's taking longer than expected, please check your network connection and try again.",
@@ -60,9 +61,11 @@ module.exports = {
 		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
-		"msgPasswordTips" : "Please create a new password. It must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
+		"msgPasswordTips" : "es-Please create a new password. It must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
-
+		"msgAgeRestriction" : "es-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
+		"msgAccountExists":"It looks like you already have an account with Carbon pharmacy",
+		
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -104,7 +107,10 @@ module.exports = {
 		"titleAccountAgreements" : "es-My agreements",
 		"titleChangeEmail" : "es-Change email address",
 		"titleChangePhone" : "es-Enter phone number",
-
+		"titleTermsAndConditions" : "es-Terms and Conditions",
+		"titleHIPAAauthorization" : "es-HIPAA Authorization",
+		"titleTextBenefits" : "es-Text benefits",
+		
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
 		"tmplRxTxtHintRx" : "es-Enter your prescription number",
@@ -378,6 +384,22 @@ module.exports = {
 		"registerLblTogglePassword" : "es-Show password",
 		"registerLblAgreement" : "es-By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont>.",
 		"registerBtnSignup" : "es-Create account",
+		"registerValFirstName" : "es-Please enter your first name.",
+		"registerValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"registerValLastName" : "es-Please enter your last name.",
+		"registerValLastNameInvalid" : "es-Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"registerValDob" : "es-Please enter your date of birth.",
+		"registerValEmail" : "es-Please enter your email address.",
+		"registerValEmailInvalid" : "es-The email address you have entered is invalid.",
+		"registerValUname" : "es-Please enter your username.",
+		"registerValUnameInvalid" : "es-Username entry is limited to alphanumeric characters. All-number usernames are not allowed. The minimum and maximum amount of characters is 3 and 20",
+		"registerValPassword" : "es-Please enter your password",
+		"registerValPasswordInvalid" : "es-Password must be between 6 and 15 characters and contain at least 2 letters and 2 numbers.",
+		"registerValRxNo" : "es-Please enter Rx number",
+		"registerValRxInvalid" : "es-Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"registerValStore" : "es-Please select a pharmacy",
+		"registerSectionTermsDocuments" : "es-Documents",
+		"registerBtnTermsDone" : "es-Done",
 		
 		"registerChildInfoTitle":"es-Great! you want to create a family account.",
 		"registerChildInfoLbl":"es-To manage your child's prescriptions, first we need to create a manager account for you.",
@@ -411,6 +433,15 @@ module.exports = {
 		"mgrSignInLbl" : "es-Please sign in and go to the 'family accounts' section to add a child to your account.",
 		"mgrAddLbl" : "es-You can also add other adults and manage permissions.",
 		"mgrAccountExistsLbl" : "es-It looks like you already have an account with Carbon pharmacy",
-		"mgrAccountExistsBtnSignIn" : "es-Sign in"
+		"mgrAccountExistsBtnSignIn" : "es-Sign in",
+	
+		"HIPAAoptionalMessageLbl" : "es-We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
+		
+		"textSignupBtnSendMeTexts" : "es-Send me texts",
+		"textSignupBtnSkipSendMeTexts" : "es-Not at this time",
+		"textSignupBenefit1" : "es-Reminders when it's time to refill.", 
+		"textSignupBenefit2" : "es-Instantly order new refills!",
+		"textSignupBenefit3" : "es-Pickup notifications when your prescriptions are ready.",
+		"textSignupBenefit4" : "es-Receive other health care messages."
 	}
 };

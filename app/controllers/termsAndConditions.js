@@ -3,22 +3,36 @@ var args = arguments[0] || {},
     http = require("requestwrapper");
 
 function init() {
-	http.request({
-		method : "terms_get",
-		params : {
-			data : [{
-				terms : ""
-			}]
-		},
-		success : didSuccess
-	});
+	if(args.registrationFlow)
+	{
+		http.request({
+			method : "terms_get_all",
+			params : {
+				data : [{
+					terms : ""
+				}]
+			},
+			success : didSuccess
+		});
+	}
+	else{
+		http.request({
+			method : "terms_get",
+			params : {
+				data : [{
+					terms : ""
+				}]
+			},
+			success : didSuccess
+		});
+	}
 }
 
 function didSuccess(result) {
 	
 	var terms = result.data,
 		data = [],
-		section = $.uihelper.createTableViewSection($, $.strings.accountSectionAcceptedDocs);
+		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs);
 		
 	Alloy.Collections.termsAndConditions.reset(terms);
 	
@@ -36,7 +50,10 @@ function didClickItem(e) {
 		ctrl : "termsDoc",
 		title : item.agreement_text,
 		stack : true,
-		ctrlArguments : item
+		ctrlArguments : {
+			terms : item,
+			registrationFlow : args.registrationFlow
+		}
 	});	
 }
 

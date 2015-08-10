@@ -1,8 +1,8 @@
 <Alloy>
-	<Label id="acceptedOnLbl" class="margin-top link" />
+	<Label id="acceptedOnLbl" class="margin-top link" if="!$.args.registrationFlow"/>
 	<WebView id="webView" class="margin-top" />
 	<View class="auto-height vgroup bottom">
-		<Button id="emailBtn" class="margin-bottom primary-btn" onClick="didClickEmail" />
+		<Button id="successBtn" class="margin-bottom primary-btn" onClick="didClickSuccess" />
 		<Button id="revokeBtn" class="margin-bottom secondary-btn" onClick="didClickEmail" if="$.args.agreement_name === 'HIPAA'"/>
 	</View>
 </Alloy> 

@@ -386,5 +386,25 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
 		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "text_benefits_pl",
+		"name" : "text_benefits",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"right" : 100,
+				"left" : 100
+			},
+			"landscape" : {
+				"right" : 100,
+				"left" : 100
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/text_benefits.png",
+		"selected" : true
 	}]
 };

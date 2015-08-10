@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="vgroup">
+		<Label id="optionalMessageLbl" class="inactive-lbl-wrap margin-top"/>
+		<WebView id="webView" />
+	</View>
+</Alloy>

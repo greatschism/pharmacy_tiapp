@@ -4,89 +4,110 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    rxNoLength = Alloy.CFG.rx_number.length,
-    rxNoValidator = new RegExp(Alloy.CFG.rx_number.validator),
-    rxNoFormatters = Alloy.CFG.rx_number.formatters,
+    rxNoLength = Alloy.CFG.rx_length,
+    //rxNoFormatters = Alloy.CFG.rx_formatters,
     userContainerViewFromTop = 0,
     modalWindow,
-    rxContainerViewFromTop = 0;
+    rxContainerViewFromTop = 0,
+    apiCodes = Alloy.CFG.apiCodes,
+    store;
+
+/**
+ * todo - why do we need rxformatters?
+ * 		  why do we need change listeners on sotre?
+ * 		  test the store selection feature after the stores are implemented
+ * 		  Tool tip
+ * 		  after successful regn, take the user to login page with uname and pwd prepoluated
+ * 	 	  show tool tip on login page
+ */
 
 function init() {
-	uihelper.getImage($.logoImg);
-	if (!_.has(rxNoFormatters[0], "exp")) {
+	$.uihelper.getImage("logo", $.logoImg);
+	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
+	
+	/*if (!_.has(rxNoFormatters[0], "exp")) {
 		for (var i in rxNoFormatters) {
 			var formatter = rxNoFormatters[i];
 			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
 			delete formatter.pattern;
 			delete formatter.modifiters;
 		}
-	}
+	}*/
 	if (args.fname) {
 		$.fnameTxt.setValue(args.fname);
 	}
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
-	$.unameTxt.tooltip = "usernameTooltip";
-	$.passwordTxt.tooltip = "passwordTooltip";
-	$.rxNoTxt.tooltip = "rxNoTooltip";
+	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.applyProperties({
-		maxLength : Alloy.CFG.rx_number.length,
-		hintText : Alloy.Globals.strings.hintRxNo.concat(Alloy.CFG.rx_number.format),
+		maxLength : Alloy.CFG.rx_length
 	});
-	Alloy.Models.store.clear();
-	Alloy.Models.store.on("change", didChangeStore);
-	$.userContainerView.addEventListener("postlayout", didPostlayoutUserContainerView);
-	$.rxContainerView.addEventListener("postlayout", didPostlayoutRxContainerView);
+	// Alloy.Models.store.clear();
+	// Alloy.Models.store.on("change", didChangeStore);
+	$.containerView.addEventListener("postlayout", didPostlayoutUserContainerView);
+	// $.rxContainerView.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
-function setParentViews(view) {
+function focus() {
+	/**
+	 * if shouldUpdate is true
+	 * call api for further store information
+	 */
+	if (store.shouldUpdate) {
+		$.http.request({
+			method : "stores_get",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					stores : {
+						id : store.id,
+					}
+				}]
+			},
+			forceRetry : true,
+			success : didGetStore
+		});
+	}
+}
+
+function didGetStore(result) {
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		storeName : $.utilities.ucword(store.store_name),
+	});
+	delete store.shouldUpdate;
+	
+	$.pharmacyDp.text = store.storeName;
+}
+
+function setParentView(view) {
 	$.dob.setParentView(view);
 }
 
 function didPostlayoutUserContainerView(e) {
-	$.userContainerView.removeEventListener("postlayout", didPostlayoutUserContainerView);
+	$.containerView.removeEventListener("postlayout", didPostlayoutUserContainerView);
 	userContainerViewFromTop = e.source.rect.y;
 }
 
-function didPostlayoutRxContainerView(e) {
-	$.rxContainerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
-	rxContainerViewFromTop = e.source.rect.y;
-}
+// function didPostlayoutRxContainerView(e) {
+	// $.rxContainerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	// rxContainerViewFromTop = e.source.rect.y;
+// }
 
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
 }
 
-function didFocusUsername(e) {;
-	if (_.has($.usernameTooltip, "size")) {
-		$.usernameTooltip.applyProperties({
-			top : (userContainerViewFromTop + $.usernameTooltip.ARROW_PADDING) - $.usernameTooltip.size.height
-		});
-		delete $.usernameTooltip.size;
-	}
-	$.usernameTooltip.show();
-}
-
 function didFocusPassword(e) {
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (userContainerViewFromTop + $.passwordTooltip.ARROW_PADDING + Alloy.TSS.form_txt.height) - $.passwordTooltip.size.height
+			top : (userContainerViewFromTop + Alloy.TSS.form_txt.height) - $.passwordTooltip.size.height
 		});
 		delete $.passwordTooltip.size;
 	}
 	$.passwordTooltip.show();
-}
-
-function didFocusRxNo(e) {
-	if (_.has($.rxNoTooltip, "size")) {
-		$.rxNoTooltip.applyProperties({
-			top : (rxContainerViewFromTop + $.rxNoTooltip.ARROW_PADDING) - $.rxNoTooltip.size.height
-		});
-		delete $.rxNoTooltip.size;
-	}
-	$.rxNoTooltip.show();
 }
 
 function didBlurTxt(e) {
@@ -97,39 +118,28 @@ function didClickTooltip(e) {
 	e.source.hide();
 }
 
-function didChangeRxNo(e) {
-	var value = e.value,
-	    len;
-	for (var i in rxNoFormatters) {
-		value = value.replace(rxNoFormatters[i].exp, rxNoFormatters[i].value);
-	}
-	value = value.slice(0, rxNoLength);
-	len = value.length;
-	$.rxNoTxt.setValue(value);
-	$.rxNoTxt.setSelection(len, len);
-}
-
 function didClickPharmacy(e) {
-	app.navigator.open({
-		ctrl : "stores",
+	$.app.navigator.open({
 		titleid : "titleStores",
-		stack : true,
+		ctrl : "stores",
 		ctrlArguments : {
-			orgin : $.__controllerPath
-		}
+			store : store,
+			selectable : true
+		},
+		stack : true
 	});
 }
 
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	if (nextItem && $[nextItem]) {
-		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : _.isEmpty(Alloy.Models.store.toJSON()) ? $[nextItem].fireEvent("click") : didClickCreateAccount();
+		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : didClickCreateAccount();
 	} else {
 		didClickCreateAccount();
 	}
 }
 
-function didToggle(e) {
+function didToggleShowPassword(e) {
 	$.passwordTxt.setPasswordMask(!e.value);
 }
 
@@ -137,107 +147,118 @@ function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
 
-function didChangeStore() {
-
-}
-
 function didClickAgreement(e) {
 	app.navigator.open({
 		ctrl : "termsAndConditions",
 		titleid : "titleTermsAndConditions",
-		stack : true
+		stack : true,
+		ctrlArguments : {
+			registrationFlow : true
+		}
 	});
 }
 
-function didClickCreateAccount(e) {
+function didClickSignup(e) {
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    dob = $.dob.getValue(),
 	    email = $.emailTxt.getValue(),
 	    uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
-	    rxNo = $.rxNoTxt.getValue(),
-	    pharmacyObj = Alloy.Models.store.toJSON();
+	    rxNo = $.rxNoTxt.getValue();
+	    // pharmacyObj = Alloy.Models.store.toJSON();
 	if (!e.ageValidated) {
 		if (!fname) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valFirstNameRequired
+				message : Alloy.Globals.strings.registerValFirstName
 			});
 			return;
 		}
 		if (!utilities.validateName(fname)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgFirstNameTips
+				message : Alloy.Globals.strings.registerValFirstNameInvalid
 			});
 			return;
 		}
 		if (!lname) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valLastNameRequired
+				message : Alloy.Globals.strings.registerValLastName
 			});
 			return;
 		}
 		if (!utilities.validateName(lname)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgLastNameTips
+				message : Alloy.Globals.strings.registerValLastNameInvalid
 			});
 			return;
 		}
 		if (!dob) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valDOBRequired
+				message : Alloy.Globals.strings.registerValDob
+			});
+			return;
+		}
+		if (!email){
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValEmail
 			});
 			return;
 		}
 		if (!utilities.validateEmail(email)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valEmailRequired
+				message : Alloy.Globals.strings.registerValEmailInvalid
 			});
 			return;
 		}
 		if (!uname) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valUsernameRequired
+				message : Alloy.Globals.strings.registerValUname
 			});
 			return;
 		}
-		if (!utilities.validateUserName(uname)) {
+		if (!utilities.validateUsername(uname)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgUserNameTips
+				message : Alloy.Globals.strings.registerValUnameInvalid
 			});
 			return;
 		}
 		if (!password) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valPasswordRequired
+				message : Alloy.Globals.strings.registerValPassword
 			});
 			return;
 		}
 		if (!utilities.validatePassword(password)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgPasswordTips
+				message : Alloy.Globals.strings.registerValPasswordInvalid
 			});
 			return;
 		}
-		if (!rxNoValidator.test(rxNo)) {
+		if(!rxNo){
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valRxNoRequired
+				message : Alloy.Globals.strings.registerValRxNo
 			});
 			return;
 		}
-		if (_.isEmpty(pharmacyObj)) {
+		if (!$.utilities.validateRx(rxNo)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.valPharmacyRequired
+				message : Alloy.Globals.strings.registerValRxInvalid
+			});
+			return;
+		}
+		if (_.isEmpty(store)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValStore
 			});
 			return;
 		}
 		if (moment().diff(dob, "years", true) < 18) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgAgeRestriction,
-				buttonNames : [Alloy.Globals.strings.btnIAgree, Alloy.Globals.strings.strCancel],
+				buttonNames : [Alloy.Globals.strings.dialogBtnIAgree, Alloy.Globals.strings.dialogBtnCancel],
 				cancelIndex : 1,
 				success : function() {
-					didClickCreateAccount({
+					didClickSignup({
 						ageValidated : true
 					});
 				}
@@ -245,122 +266,78 @@ function didClickCreateAccount(e) {
 			return;
 		}
 	}
-	http.request({
-		method : "patients_register",
-		data : {
-			filter : [{
-				type : "mobile_otp"
-			}],
+	
+	$.http.request({
+		method : "patient_register",
+		params : {
+			feature_code : "THXXX",
+			filter : {
+				sort_order : "asc"
+			},
 			data : [{
 				patient : {
+					user_name : email,
+					password : password,
 					first_name : fname,
 					last_name : lname,
-					birth_date : moment(dob).format(Alloy.CFG.apiCodes.date_format),
+					birth_date : dob,
+					gender : "",
+					address_line1 : "",
+					address_line2 : "",
+					city : "",
+					state : "",
+					zip : "",
+					home_phone : "",
+					mobile : "",
 					email_address : email,
-					user_name : uname,
-					password : password,
-					rx_number : rxNo.replace(/\D+/g, ""),
-					store_id : pharmacyObj.store_id || null,
-					mobile : args.mobileNumber || null
+					rx_number : rxNo,
+					store_id : store.id,
+					user_type : "FULL",
+					optional : [{
+						key : "",
+						value : ""
+					}, {
+						key : "",
+						value : ""
+					}]
 				}
 			}]
+
 		},
-		success : didSuccess
+		success : didRegister,
+		failure: didFail
 	});
 }
 
-function didSuccess(result) {
+function didRegister(result) {
+	app.navigator.closeToRoot();
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login",
+		ctrlArguments : {
+			username : email,
+			password : password 
+		}
+	});
+}
+
+function didFail(){
 	uihelper.showDialog({
-		message : Alloy.Globals.strings.msgAccountCreated,
-		buttonNames : [Alloy.Globals.strings.strOK],
-		success : function() {
-			app.navigator.closeToRoot();
+		message : Alloy.Globals.strings.msgAccountExists
+	});
+	app.navigator.closeToRoot();
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login",
+		ctrlArguments : {
 		}
 	});
 }
 
 function terminate() {
-	Alloy.Models.store.off("change", didChangeStore);
-}
-
-function didShowPickerPopOver(v) {
-
-	modalWindow = Ti.UI.createWindow();
-
-	modalWindow.open({
-		title : 'Select A Date',
-
-	});
-
-	// default date
-	var dateValue = new Date();
-	dateValue.setFullYear(2015);
-	dateValue.setMonth(0);
-	dateValue.setDate(1);
-
-	// lets create a date picker
-	var picker = Ti.UI.createPicker({
-		type : Ti.UI.PICKER_TYPE_DATE,
-		value : dateValue,
-		accessibilityLabel : dateValue,
-		backgroundColor : 'grey'
-
-	});
-	picker.setLocale(Titanium.Platform.locale);
-	picker.selectionIndicator = true;
-	modalWindow.add(picker);
-	var label = Ti.UI.createLabel({
-		text : 'Done',
-		top : 160,
-		width : 'auto',
-		height : 'auto',
-		textAlign : 'right',
-		right : 20,
-		color : 'black',
-
-	});
-	modalWindow.add(label);
-
-	picker.addEventListener('change', function(e) {
-		usePickerDate = true;
-		var pickerdate = e.value;
-
-		var day = pickerdate.getDate();
-		day = day.toString();
-
-		if (day.length < 2) {
-			day = '0' + day;
-
-		}
-
-		var month = pickerdate.getMonth();
-		month = month + 1;
-		month = month.toString();
-
-		if (month.length < 2) {
-			month = '0' + month;
-		}
-
-		var year = pickerdate.getFullYear();
-		searchDate = year + "-" + month + "-" + day;
-		$.dobTxt.setValue(searchDate);
-		// alert(searchDate);
-	});
-
-	label.addEventListener('click', function(e) {
-
-		modalWindow.close();
-
-	});
-	modalWindow.addEventListener('close', close);
-
-};
-
-function close() {
-
-	uihelper.requestViewFocus($.dobTxt);
+	// Alloy.Models.store.off("change", didChangeStore);
 }
 
 exports.init = init;
 exports.terminate = terminate;
-exports.setParentViews = setParentViews;
+exports.setParentView = setParentView;

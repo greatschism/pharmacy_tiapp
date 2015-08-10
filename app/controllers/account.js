@@ -89,9 +89,11 @@ function didClickmobileNumber(e) {
 		});
 	}
 	else{
-		/**
-		 *to do - take the user to 'first sign in' flow for sign up for texts 
-		 */
+		$.app.navigator.open({
+			ctrl : "textBenefits",
+			titleid : "titleTextBenefits",
+			stack : true
+		});
 	}
 }
 

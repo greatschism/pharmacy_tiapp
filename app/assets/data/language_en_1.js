@@ -31,6 +31,7 @@ module.exports = {
 		"dialogBtnContactAdd" : "Add to contacts",
 		"dialogBtnCamera" : "Take a photo",
 		"dialogBtnGallery" : "Choose from gallery",
+		"dialogBtnIAgree" : "I agree",
 
 		"msgLoading" : "Processing. Please wait",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -61,9 +62,11 @@ module.exports = {
 		"msgTimeZoneUpdate" : "We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgAccountEmailVerification" : "We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
-		"msgPasswordTips" : "Please create a new password. It must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
+		"msgPasswordTips" : "Please create a new password. It must be between 6 and 15 characters and contain at least 2 letters and 2 numbers.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
-
+		"msgAgeRestriction" : "This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
+		"msgAccountExists":"It looks like you already have an account with Carbon pharmacy",
+		
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
 
@@ -109,6 +112,9 @@ module.exports = {
 		"titleCreateAccount" : "Create an account",
 		"titleMgrAccountExists" : "Existing account",
 		"titleChildAdd":"Add a child",
+		"titleTermsAndConditions" : "Terms and Conditions",
+		"titleHIPAAauthorization" : "HIPAA Authorization",
+		"titleTextBenefits" : "Text benefits",
 		"titleChildConsent":"Note to your minor",
 		"titleChildSuccess":"Success!",
 
@@ -383,15 +389,31 @@ module.exports = {
 		"registerLblTogglePassword" : "Show password",
 		"registerLblAgreement" : "By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont>.",
 		"registerBtnSignup" : "Create account",
+		"registerValFirstName" : "Please enter your first name.",
+		"registerValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"registerValLastName" : "Please enter your last name.",
+		"registerValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"registerValDob" : "Please enter your date of birth.",
+		"registerValEmail" : "Please enter your email address.",
+		"registerValEmailInvalid" : "The email address you have entered is invalid.",
+		"registerValUname" : "Please enter your username.",
+		"registerValUnameInvalid" : "Username entry is limited to alphanumeric characters. All-number usernames are not allowed. The minimum and maximum amount of characters is 3 and 20",
+		"registerValPassword" : "Please enter your password",
+		"registerValPasswordInvalid" : "Password must be between 6 and 15 characters and contain at least 2 letters and 2 numbers.",
+		"registerValRxNo" : "Please enter Rx number",
+		"registerValRxInvalid" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"registerValStore" : "Please select a pharmacy",
+		"registerSectionTermsDocuments" : "Documents",
+		"registerBtnTermsDone" : "Done",
 		
 		"registerChildInfoTitle":"Great! you want to create a family account.",
 		"registerChildInfoLbl":"To manage your child's prescriptions, first we need to create a manager account for you.",
 		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
 		"registerChildInfoBtnContinue":"Continue",
 		
-		"childAccountTipsLbl":"How do I add family members to my account?",
+		"childAccountTipsLbl":"How do i add family members to my account?",
 		"childAccountTip1Lbl":"Go to Family care page from the app menu",
-		"childAccountTip2Lbl":"Select \"Add family member\" & follow instructions",
+		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
 		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
 		"childAccountTipsBtnSignIn":"Sign in",
 		
@@ -425,7 +447,7 @@ module.exports = {
 		"childAddHintRxNo":"Rx number",
 		"childAddBtnContinue":"Continue",
 		"childAddBtnSkip":"Skip & come back later",
-		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",		
 		"childAddValFirstName" : "Please enter your first name.",
 		"childAddValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"childAddValLastName" : "Please enter your last name.",
@@ -439,8 +461,15 @@ module.exports = {
 		"childSuccessBtnAddChild":"Add another child",
 		"childSuccessBtnContinue":"Continue",
 		
-		"childConsentLbl":"Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account."
+		"childConsentLbl":"Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account.",
 	
-	
+		"HIPAAoptionalMessageLbl" : "We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
+		
+		"textSignupBtnSendMeTexts" : "Send me texts",
+		"textSignupBtnSkipSendMeTexts" : "Not at this time",
+		"textSignupBenefit1" : "Reminders when it's time to refill.", 
+		"textSignupBenefit2" : "Instantly order new refills!",
+		"textSignupBenefit3" : "Pickup notifications when your prescriptions are ready.",
+		"textSignupBenefit4" : "Receive other health care messages."
 	}
 };

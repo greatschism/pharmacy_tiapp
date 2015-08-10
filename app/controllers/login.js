@@ -15,6 +15,19 @@ function init() {
 		$.passwordTxt.setValue(data.password);
 		$.autoLoginSwt.setValue(true);
 	}
+	
+	/**
+	 * after successful registration, 
+	 * auto populate username and password
+	 */
+	/**
+	 * todo - show tooltip as per the requirement
+	 */
+	if(args.username && args.password){
+		$.usernameTxt.setValue(args.username);
+		$.passwordTxt.setValue(args.password);
+		$.autoLoginSwt.setValue(false);
+	}
 }
 
 function didChangeAccount() {
@@ -68,9 +81,17 @@ function didClickLogin(e) {
 }
 
 function didAuthenticate() {
-	$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
+	/**
+	 * todo - remove this portion of the code. it was purely was for testing
+	 */
+	$.app.navigator.open({
+		ctrl : "HIPAA",
+		titleid : "titleHIPAAauthorization",
+		stack : true
+	});
+	// $.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+		// landing_page : true
+	// }).toJSON());
 }
 
 function didClickPassword(e) {

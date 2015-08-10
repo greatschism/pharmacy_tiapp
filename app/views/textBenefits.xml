@@ -1,0 +1,22 @@
+<Alloy>
+	<TableView>
+		<HeaderView>
+			<View class="auto-height vgroup">
+				<ImageView id="textBenefitsImg" />
+				<View class="margin-top form-vgroup">
+					<TableView id="tableView" >
+						<FooterView platform="ios">
+							<View class="auto-height" />
+						</FooterView>
+					</TableView>	
+				</View>
+			</View>
+		</HeaderView>
+		<FooterView>
+			<View class="auto-height vgroup">
+				<Button id="textSignUpBtn" class="margin-top primary-btn" onClick="didClickTextSignup" />
+				<Button id="skipTextSignupBtn" class="margin-top secondary-btn" onClick="didClickSkipTextSignup" />
+			</View>
+		</FooterView>
+	</TableView>
+</Alloy>

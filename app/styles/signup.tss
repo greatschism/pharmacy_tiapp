@@ -1,70 +1,44 @@
 "#fnameTxt":{
-	maxLength: 40,
-	hintText: Alloy.Globals.strings.hintFirstName,
+	hintText:Alloy.Globals.strings.registerHintFirstName,
 	nextItem: "lnameTxt"
 },
 "#lnameTxt":{
-	maxLength: 40,
-	hintText: Alloy.Globals.strings.hintLastName,
+	hintText:Alloy.Globals.strings.registerHintLastName,
 	nextItem: "dob"
 },
 "#dob":{
-	leftTitle: Alloy.Globals.strings.strCancel,
-	rightTitle: Alloy.Globals.strings.btnNext,
-	hintText: Alloy.Globals.strings.hintDOB,
-	type: Ti.UI.PICKER_TYPE_DATE,
-	nextItem: "emailTxt"
-},
-"#dobTxt":{
-	maxLength: 40,
-	hintText: Alloy.Globals.strings.hintDOB,
+	hintText:Alloy.Globals.strings.registerHintDOB,
 	nextItem: "emailTxt"
 },
 "#emailTxt":{
-	hintText: Alloy.Globals.strings.hintEmail,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	hintText:Alloy.Globals.strings.registerHintEmail,
 	nextItem: "unameTxt"
 },
 "#unameTxt":{
-	maxLength: 20,
-	hintText: Alloy.Globals.strings.hintUsername,
+	hintText:Alloy.Globals.strings.registerHintUname,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	maxLength: 50,
-	hintText: Alloy.Globals.strings.hintPassword,
-	passwordMask: true,
+	hintText: Alloy.Globals.strings.registerHintPassword,
 	nextItem: "rxNoTxt"
 },
-"#rxNoTxt":{
-	keyboardType: Ti.UI.KEYBOARD_NUMBER_PAD,
-	nextItem: "pharmacyView"
-},
 "#showPasswordLbl":{
-	right: 60,
-	text: Alloy.Globals.strings.lblShowPassword
+	text: Alloy.Globals.strings.registerLblTogglePassword
 },
-"#pharmacyLbl":{
-	right: 46,
-	color: Alloy.TSS.form_dropdown.hintTextColor,
-	text: Alloy.Globals.strings.hintChoosePharmacy
+"#rxNoTxt":{
+	hintText: Alloy.Globals.strings.registerHintRxFormat,
+	nextItem: "storeDp"
+},
+"#storeDp":{
+	hintText:Alloy.Globals.strings.registerHintPharmacyLocation,
+	nextItem: "signupBtn"
 },
 "#agreementLbl":{
-	html: Alloy.Globals.strings.lblSignupAgreement
+	html: Alloy.Globals.strings.registerLblAgreement
 },
-"#createBtn":{
-	title: Alloy.Globals.strings.btnCreateAccount
-},
-".padding-tooltip":{
-	left: 4,
-	right: 4
-},
-"#usernameTooltip":{
-	text: Alloy.Globals.strings.msgUserNameTips
+"#signupBtn":{
+	title: Alloy.Globals.strings.registerBtnSignup
 },
 "#passwordTooltip":{
 	text: Alloy.Globals.strings.msgPasswordTips
-},
-"#rxNoTooltip":{
-	text: Alloy.Globals.strings.msgRxNoTips
 }

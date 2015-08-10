@@ -1,6 +1,7 @@
 function didClickMyself(){
 	$.app.navigator.open({
-		ctrl : "accountCreation",
+		ctrl : "signup",
+		titleid : "titleCreateAccount",
 		stack : true
 	});
 }
