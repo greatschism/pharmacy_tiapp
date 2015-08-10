@@ -395,12 +395,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "100%"
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "100%"
 			}
 		},
 		"platform" : ["ios", "android"],

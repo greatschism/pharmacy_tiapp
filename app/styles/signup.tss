@@ -29,9 +29,9 @@
 	hintText: Alloy.Globals.strings.registerHintRxFormat,
 	nextItem: "storeDp"
 },
-"#storeDp":{
-	hintText:Alloy.Globals.strings.registerHintPharmacyLocation,
-	nextItem: "signupBtn"
+"#storeTitleLbl":{
+	text : Alloy.Globals.strings.registerHintPharmacyLocation,
+	nextItem : "signupBtn"
 },
 "#agreementLbl":{
 	html: Alloy.Globals.strings.registerLblAgreement

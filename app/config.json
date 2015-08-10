@@ -39,6 +39,7 @@
             "session_timeout": "ECOH998",
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
+            "dob_format" : "YYYY-MM-DD",
             "reminder_mode_email": "EMAIL",
             "reminder_mode_text": "TEXT",
             "reminder_mode_push": "PUSH",

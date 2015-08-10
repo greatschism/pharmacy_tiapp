@@ -82,16 +82,20 @@ function didClickLogin(e) {
 
 function didAuthenticate() {
 	/**
-	 * todo - remove this portion of the code. it was purely was for testing
+	 * First time login flow takes the uesr to HIPAA screen
 	 */
-	$.app.navigator.open({
-		ctrl : "HIPAA",
-		titleid : "titleHIPAAauthorization",
-		stack : true
-	});
-	// $.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
-		// landing_page : true
-	// }).toJSON());
+	if(args.showHIPAA){
+		$.app.navigator.open({
+			ctrl : "HIPAA",
+			titleid : "titleHIPAAauthorization",
+			stack : true
+		});
+	}
+	else{
+		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	}
 }
 
 function didClickPassword(e) {

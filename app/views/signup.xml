@@ -1,35 +1,41 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<ImageView id="logoImg" class="margin-top" />
-		<View class="margin-top form-vgroup">
-			<View id="txtView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<View id="vDividerView" class="v-divider"/>
+	<ScrollView >
+		<View class="vgroup">
+			<ImageView id="logoImg" class="margin-top" />
+			<View class="margin-top form-vgroup">
+				<View id="txtView" class="auto-height">
+					<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+					<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+					<View id="vDividerView" class="v-divider"/>
+				</View>
+				<View class="h-divider"/>
+				<Widget id="dob" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
 			</View>
-			<View class="h-divider"/>
-			<Widget id="dob" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
-		</View>
-		<Widget id="emailTxt" src="ti.textfield" class="margin-top txt keyboard-email returnkey-next" onReturn="moveToNext" />
-		<View id="containerView" class="margin-top form-vgroup" onPostlayout="didPostlayoutUserContainerView">
-			<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
-			<View class="h-divider"/>		
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onReturn="moveToNext" />
-		</View>
-		<View class="margin-top auto-height">
-			<Label id="showPasswordLbl" class="lbl-with-rswt" />
-			<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
-		</View>		
-		<View class="margin-top form-vgroup">
-			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext"  />
-			<View class="h-divider"/>
-			<View class="auto-height role-master-view" onClick="didClickPharmacy">
-				<Widget id="storeDp" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next"/>
-				<Label id="arrowLbl" class="content-child-icon icon-thick-arrow-right" />
+			<Widget id="emailTxt" src="ti.textfield" class="margin-top txt keyboard-email returnkey-next" onReturn="moveToNext" />
+			<View id="containerView" class="margin-top form-vgroup">
+				<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+				<View class="h-divider"/>		
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutUserContainerView"/>
 			</View>
+			<View class="margin-top auto-height">
+				<Label id="showPasswordLbl" class="lbl-with-rswt" />
+				<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
+			</View>		
+			<View class="margin-top form-vgroup">
+				<Widget id="rxNoTxt" src="ti.textfield" class="rx keyboard-number returnkey-next" onChange="didChangeRx" />
+				<View class="h-divider"/>
+				<View id="storeView" class="content-view" onClick="didClickPharmacy">
+					<View class="content-master-view-70">
+						<Label id="storeTitleLbl" class="content-title" />
+					</View>
+					<View class="content-detail-view-30">
+						<Label id="arrowLbl" class="content-child-icon icon-thick-arrow-right" />						
+					</View>
+				</View>
+			</View>
+			<Widget id="agreementLbl" src="ti.styledlabel" class="margin-top attributed-wrap" onClick="didClickAgreement" />
+			<Button id="signupBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignup"/>
 		</View>
-		<Widget id="agreementLbl" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickAgreement" />
-		<Button id="signupBtn" class="margin-top primary-btn" onClick="didClickSignup"/>	
-		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap content-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />	
+		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
 </Alloy>

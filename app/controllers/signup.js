@@ -4,21 +4,12 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    rxNoLength = Alloy.CFG.rx_length,
-    //rxNoFormatters = Alloy.CFG.rx_formatters,
     userContainerViewFromTop = 0,
-    modalWindow,
-    rxContainerViewFromTop = 0,
-    apiCodes = Alloy.CFG.apiCodes,
-    store;
+    store = {};
 
 /**
- * todo - why do we need rxformatters?
- * 		  why do we need change listeners on sotre?
- * 		  test the store selection feature after the stores are implemented
- * 		  Tool tip
+ * todo - rx no. formatting - while typing & max length
  * 		  after successful regn, take the user to login page with uname and pwd prepoluated
- * 	 	  show tool tip on login page
  */
 
 function init() {
@@ -40,13 +31,14 @@ function init() {
 		$.dob.setValue(args.dob);
 	}
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
-	$.rxNoTxt.applyProperties({
-		maxLength : Alloy.CFG.rx_length
-	});
-	// Alloy.Models.store.clear();
-	// Alloy.Models.store.on("change", didChangeStore);
 	$.containerView.addEventListener("postlayout", didPostlayoutUserContainerView);
-	// $.rxContainerView.addEventListener("postlayout", didPostlayoutRxContainerView);
+}
+
+function didChangeRx(e) {
+	var value = utilities.formatRx(e.value),
+	    len = value.length;
+	$.rxNoTxt.setValue(value);
+	$.rxNoTxt.setSelection(len, len);
 }
 
 function focus() {
@@ -54,20 +46,9 @@ function focus() {
 	 * if shouldUpdate is true
 	 * call api for further store information
 	 */
-	if (store.shouldUpdate) {
-		$.http.request({
-			method : "stores_get",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					stores : {
-						id : store.id,
-					}
-				}]
-			},
-			forceRetry : true,
-			success : didGetStore
-		});
+	if (store && store.shouldUpdate) {
+		store.shouldUpdate = false;
+		$.storeTitleLbl.text = store.title;
 	}
 }
 
@@ -90,11 +71,6 @@ function didPostlayoutUserContainerView(e) {
 	userContainerViewFromTop = e.source.rect.y;
 }
 
-// function didPostlayoutRxContainerView(e) {
-	// $.rxContainerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
-	// rxContainerViewFromTop = e.source.rect.y;
-// }
-
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
@@ -103,7 +79,7 @@ function didPostlayoutTooltip(e) {
 function didFocusPassword(e) {
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (userContainerViewFromTop + Alloy.TSS.form_txt.height) - $.passwordTooltip.size.height
+			top : (userContainerViewFromTop + Alloy.TSS.form_txt.height + 6) - $.passwordTooltip.size.height
 		});
 		delete $.passwordTooltip.size;
 	}
@@ -166,7 +142,6 @@ function didClickSignup(e) {
 	    uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue();
-	    // pharmacyObj = Alloy.Models.store.toJSON();
 	if (!e.ageValidated) {
 		if (!fname) {
 			uihelper.showDialog({
@@ -267,6 +242,11 @@ function didClickSignup(e) {
 		}
 	}
 	
+	var userCredentials = {
+		email : email, 
+		password : password
+	};
+	
 	$.http.request({
 		method : "patient_register",
 		params : {
@@ -280,7 +260,7 @@ function didClickSignup(e) {
 					password : password,
 					first_name : fname,
 					last_name : lname,
-					birth_date : dob,
+					birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
 					gender : "",
 					address_line1 : "",
 					address_line2 : "",
@@ -290,8 +270,8 @@ function didClickSignup(e) {
 					home_phone : "",
 					mobile : "",
 					email_address : email,
-					rx_number : rxNo,
-					store_id : store.id,
+					rx_number : rxNo.substring(0,7), /*todo - pick only 1st 7 digits for mck */
+					store_id : 10, /*todo - hardcoding store id 10 (Meg-Lo) until registration works for all other stores*/
 					user_type : "FULL",
 					optional : [{
 						key : "",
@@ -305,39 +285,34 @@ function didClickSignup(e) {
 
 		},
 		success : didRegister,
-		failure: didFail
+		failure: didFail,
+		passthrough : userCredentials
 	});
 }
 
-function didRegister(result) {
-	app.navigator.closeToRoot();
+function didRegister(result, passthrough) {
+	uihelper.showDialog({
+		message : result.message
+	});
 	$.app.navigator.open({
 		titleid : "titleLogin",
 		ctrl : "login",
 		ctrlArguments : {
-			username : email,
-			password : password 
+			username : passthrough.email,
+			password : passthrough.password,
+			showHIPAA : true 
 		}
 	});
 }
 
 function didFail(){
-	uihelper.showDialog({
-		message : Alloy.Globals.strings.msgAccountExists
-	});
 	app.navigator.closeToRoot();
 	$.app.navigator.open({
 		titleid : "titleLogin",
-		ctrl : "login",
-		ctrlArguments : {
-		}
+		ctrl : "login"
 	});
 }
 
-function terminate() {
-	// Alloy.Models.store.off("change", didChangeStore);
-}
-
 exports.init = init;
-exports.terminate = terminate;
 exports.setParentView = setParentView;
+exports.focus = focus;
