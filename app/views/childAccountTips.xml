@@ -3,19 +3,19 @@
 		<Label id="tipLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
 		<View class="auto-height">
 			<ImageView id="tip1Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large">
+			<View class="content-view-with-limage-extra-large-vcentered">
 				<Label id="tip1Lbl" class="content-lbl-wrap"></Label>
 			</View>
 		</View>
 		<View class="auto-height">
 			<ImageView id="tip2Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large">
+			<View class="content-view-with-limage-extra-large-vcentered">
 				<Label id="tip2Lbl" class="content-lbl-wrap"></Label>
 			</View>
 		</View>
 		<View class="auto-height">
 			<ImageView id="tip3Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large">
+			<View class="content-view-with-limage-extra-large-vcentered">
 				<Label id="tip3Lbl" class="content-lbl-wrap"></Label>
 			</View>
 		</View>

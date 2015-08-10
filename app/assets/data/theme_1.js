@@ -1628,6 +1628,11 @@ module.exports = {
 				"left" : 12,
 				"width" : "40%"
 			},
+			".content-view-with-limage-extra-large-vcentered" : {
+				"left" : "50%",
+				"right" : 12,
+				"height" : "auto"
+			},
 			".content-view-with-limage-extra-large" : {
 				"top" : 12,
 				"bottom" : 12,
@@ -1635,12 +1640,19 @@ module.exports = {
 				"right" : 12,
 				"height" : "auto"
 			},
+			".content-view-vgroup-with-limage-extra-large-vcentered" : {
+				"left" : "50%",
+				"right" : 12,
+				"height" : "auto",
+				"layout" : "vertical"
+			},
 			".content-view-vgroup-with-limage-extra-large" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : "50%",
 				"right" : 12,
-				"height" : "auto"
+				"height" : "auto",
+				"layout" : "vertical"
 			},
 			".content-left-color-box" : {
 				"top" : 0,
