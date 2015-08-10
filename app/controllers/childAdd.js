@@ -108,6 +108,14 @@ function didClickContinue(){
 	}
 	
 }
+/**
+ * 
+ * @param {Object} dateString
+ * Get the age of the user
+ * If the user is 18 yrs old, do not let him create the account
+ * If the user is 12-17 yrs old, take him to the consent screen
+ * If the user is less than 12 yrs, successfully create the account
+ */
 function getAge(dateString){
 	var today = new Date();
     var birthDate = new Date(dateString);
