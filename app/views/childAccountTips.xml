@@ -1,26 +1,24 @@
 <Alloy>
-	<ScrollView>
-		<View class="vgroup auto-height">
-			<Label id="tipLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
-			<View class="auto-height">
-				<ImageView id="tip1Img" class="content-left-image-extra-large"/>
-				<View class="vgroup auto-height content-view-with-limage-extra-large">
-					<Label id="tip1Lbl" class="content-lbl-wrap"></Label>
-				</View>
+	<ScrollView class="vgroup">
+		<Label id="tipLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+		<View class="auto-height">
+			<ImageView id="tip1Img" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large">
+				<Label id="tip1Lbl" class="content-lbl-wrap"></Label>
 			</View>
-			<View class="auto-height">
-				<ImageView id="tip2Img" class="content-left-image-extra-large"/>
-				<View class="vgroup auto-height content-view-with-limage-extra-large">
-					<Label id="tip2Lbl" class="content-lbl-wrap"></Label>
-				</View>
-			</View>
-			<View class="auto-height">
-				<ImageView id="tip3Img" class="content-left-image-extra-large"/>
-				<View class="vgroup auto-height content-view-with-limage-extra-large">
-					<Label id="tip3Lbl" class="content-lbl-wrap"></Label>
-				</View>
-			</View>
-			<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn"/>
 		</View>
+		<View class="auto-height">
+			<ImageView id="tip2Img" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large">
+				<Label id="tip2Lbl" class="content-lbl-wrap"></Label>
+			</View>
+		</View>
+		<View class="auto-height">
+			<ImageView id="tip3Img" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large">
+				<Label id="tip3Lbl" class="content-lbl-wrap"></Label>
+			</View>
+		</View>
+		<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn"/>
 	</ScrollView>
 </Alloy>

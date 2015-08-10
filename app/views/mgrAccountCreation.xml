@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="mgrTitleLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
+		<Label id="mgrTitleLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
 		<ImageView id="logoImg" class="margin-top margin-bottom" />
 		<Label id="mgrSubTitleLbl" class="lbl-wrap margin-top margin-bottom"/>
 		<View class="margin-top form-vgroup">
@@ -17,7 +17,7 @@
 			<View class="h-divider" />
 			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" />
 		</View>
-		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom"  />
+		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
 		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
 	</ScrollView>
 </Alloy>

@@ -1,3 +1,9 @@
 "#consentLbl":{
 	text:Alloy.Globals.strings.childConsentLbl
 },
+"#consentObtainLbl":{
+	text:Alloy.Globals.strings.childConsentLblObtain
+},
+"#inactiveBtn":{
+	title:Alloy.Globals.strings.childConsentBtnContinue
+}

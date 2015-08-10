@@ -15,7 +15,10 @@
 },
 "#rxNoTxt":{
 	hintText:Alloy.Globals.strings.childAddHintRxNo,
-	
+	nextItem: "storeDp"
+},
+"#storeDp":{
+	hintText:Alloy.Globals.strings.childAddHintPharmacyLocation,
 },
 "#agreementAttr":{
 	html:Alloy.Globals.strings.childAddAttrAgreement

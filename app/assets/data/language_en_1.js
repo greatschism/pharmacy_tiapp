@@ -411,9 +411,9 @@ module.exports = {
 		"registerChildInfoAttr":"Click here if you already have an account with Carbon pharmacy.",
 		"registerChildInfoBtnContinue":"Continue",
 		
-		"childAccountTipsLbl":"How do i add family members to my account?",
+		"childAccountTipsLbl":"How do I add family members to my account?",
 		"childAccountTip1Lbl":"Go to Family care page from the app menu",
-		"childAccountTip2Lbl":"Select 'Add family member' & follow instructions",
+		"childAccountTip2Lbl":"Select \"Add family member\" & follow the instructions",
 		"childAccountTip3Lbl":"Manage prescriptions for the whole family from one account",
 		"childAccountTipsBtnSignIn":"Sign in",
 		
@@ -445,6 +445,7 @@ module.exports = {
 		"childAddHintLastName":"Last name",
 		"childAddHintDob":"Date of birth",
 		"childAddHintRxNo":"Rx number",
+		"childAddHintPharmacyLocation":"Pharmacy location",
 		"childAddBtnContinue":"Continue",
 		"childAddBtnSkip":"Skip & come back later",
 		"childAddAttrAgreement":"By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",		

@@ -1,8 +1,36 @@
- var moment = require("alloy/moment");
+ var moment = require("alloy/moment"),
+ store;
 function focus(){
 	$.uihelper.getImage("child_add",$.childImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
+	if (store.shouldUpdate) {
+		$.http.request({
+			method : "stores_get",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					stores : {
+						id : store.id,
+					}
+				}]
+			},
+			forceRetry : true,
+			success : didGetStore
+		});
+	}
 }
+
+function didGetStore(result) {
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		storeName : $.utilities.ucword(store.store_name),
+	});
+	delete store.shouldUpdate;
+	
+	$.storeDp.text = store.storeName;
+}
+
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
@@ -101,6 +129,26 @@ function didClickSkip(){
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
-
+function didClickPharmacy(e) {
+	$.app.navigator.open({
+		titleid : "titleStores",
+		ctrl : "stores",
+		ctrlArguments : {
+			store : store,
+			selectable : true
+		},
+		stack : true
+	});
+}
+function didClickAgreement(e) {
+	$.app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : true,
+		ctrlArguments : {
+			registrationFlow : true
+		}
+	});
+}
 exports.setParentView = setParentView;
 exports.focus=focus;
