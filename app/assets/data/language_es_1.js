@@ -64,7 +64,7 @@ module.exports = {
 		"msgAccountEmailVerification" : "es-We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
 		"msgPasswordTips" : "es-Please create a new password. It must be between 6 and 15 characters and contain at least 2 letters and 2 numbers.",
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
-		"msgAgeRestriction" : "es-This service is not directed at users under the age of 12.  If you are under the age of 12, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian.  Please indicate your agreement with the Terms of Service and certify that you are an adult registering on a child’s behalf by choosing I Agree.",
+		"msgAgeRestriction" : "es-This service is not directed at users under the age of 18.  If you are under the age of 18, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Follow the child registration flow.",
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
 
 		"accessibilityLblSwitchOn" : "es-On",
@@ -388,7 +388,7 @@ module.exports = {
 		"registerHintRxFormat" : "es-Rx number (format)",
 		"registerHintPharmacyLocation" : "es-Pharmacy location",
 		"registerLblTogglePassword" : "es-Show password",
-		"registerLblAgreement" : "es-By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont>.",
+		"registerLblAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont>.",
 		"registerBtnSignup" : "es-Create account",
 		"registerValFirstName" : "es-Please enter your first name.",
 		"registerValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",

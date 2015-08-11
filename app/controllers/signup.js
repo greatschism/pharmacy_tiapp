@@ -227,14 +227,14 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-		if (moment().diff(dob, "years", true) < 18) {
+		if (moment().diff(dob, "years", true) < 18) { /* todo - stop the user from proceeding if he is < 18 */
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgAgeRestriction,
-				buttonNames : [Alloy.Globals.strings.dialogBtnIAgree, Alloy.Globals.strings.dialogBtnCancel],
-				cancelIndex : 1,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				cancelIndex : 0,
 				success : function() {
 					didClickSignup({
-						ageValidated : true
+						ageValidated : false
 					});
 				}
 			});
@@ -271,7 +271,7 @@ function didClickSignup(e) {
 					mobile : "",
 					email_address : email,
 					rx_number : rxNo.substring(0,7), /*todo - pick only 1st 7 digits for mck */
-					store_id : 10, /*todo - hardcoding store id 10 (Meg-Lo) until registration works for all other stores*/
+					store_id : store.id,
 					user_type : "FULL",
 					optional : [{
 						key : "",
