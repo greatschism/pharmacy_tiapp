@@ -7,23 +7,10 @@ var args = arguments[0] || {},
     userContainerViewFromTop = 0,
     store = {};
 
-/**
- * todo - rx no. formatting - while typing & max length
- * 		  after successful regn, take the user to login page with uname and pwd prepoluated
- */
-
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	
-	/*if (!_.has(rxNoFormatters[0], "exp")) {
-		for (var i in rxNoFormatters) {
-			var formatter = rxNoFormatters[i];
-			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
-			delete formatter.pattern;
-			delete formatter.modifiters;
-		}
-	}*/
 	if (args.fname) {
 		$.fnameTxt.setValue(args.fname);
 	}
