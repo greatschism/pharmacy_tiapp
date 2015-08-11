@@ -312,6 +312,114 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "reminder_refill_tip_pl",
+		"name" : "reminder_refill_tip",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_med_tip.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "reminder_med_tip_pl",
+		"name" : "reminder_med_tip",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_med_tip.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "reminder_pickup_tip_pl",
+		"name" : "reminder_pickup_tip",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_pickup_tip.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "reminder_refill_guide_pl",
+		"name" : "reminder_refill_guide",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_med_guide.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "reminder_med_guide_pl",
+		"name" : "reminder_med_guide",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_med_guide.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "reminder_pickup_guide_pl",
+		"name" : "reminder_pickup_guide",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "40%"
+			},
+			"landscape" : {
+				"width" : "40%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminder_pickup_guide.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "default_profile_pl",
 		"name" : "default_profile",
 		"format" : "png",
