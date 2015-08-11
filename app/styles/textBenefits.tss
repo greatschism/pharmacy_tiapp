@@ -1,4 +1,21 @@
-
-".container" : {
-  
+"#textBenefitLbl":{
+	text:Alloy.Globals.strings.textSignUpBenefitLbl
+},
+"#textBenefit1":{
+	text:Alloy.Globals.strings.textSignupBenefit1
+},
+"#textBenefit2":{
+	text:Alloy.Globals.strings.textSignupBenefit2
+},
+"#textBenefit3":{
+	text:Alloy.Globals.strings.textSignupBenefit3
+},
+"#textBenefit4":{
+	text:Alloy.Globals.strings.textSignupBenefit4
+},
+"#sendTxtBtn":{
+	title:Alloy.Globals.strings.textSignupBtnSendMeTexts
+},
+"#skipSendTxtBtn":{
+	title:Alloy.Globals.strings.textSignupBtnSkipSendMeTexts
 }

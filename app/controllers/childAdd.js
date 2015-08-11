@@ -1,7 +1,9 @@
  var moment = require("alloy/moment"),
  store;
+ function init(){
+ 	$.uihelper.getImage("child_add",$.childImg);
+ }
 function focus(){
-	$.uihelper.getImage("child_add",$.childImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	if (store.shouldUpdate) {
 		$.http.request({
@@ -160,3 +162,4 @@ function didClickAgreement(e) {
 }
 exports.setParentView = setParentView;
 exports.focus=focus;
+exports.init=init;

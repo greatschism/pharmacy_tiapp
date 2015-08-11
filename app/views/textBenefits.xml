@@ -1,22 +1,28 @@
 <Alloy>
-	<TableView>
-		<HeaderView>
-			<View class="auto-height vgroup">
-				<ImageView id="textBenefitsImg" />
-				<View class="margin-top form-vgroup">
-					<TableView id="tableView" >
-						<FooterView platform="ios">
-							<View class="auto-height" />
-						</FooterView>
-					</TableView>	
-				</View>
+	<ScrollView class="vgroup">
+		<View class="auto-height">
+			<ImageView id="textBenefitsImage" />
+			<Label id="textBenefitLbl" class="image-title"/>
+		</View>
+		<View class="info-view margin-top">
+			<View class="margin-top auto-height">
+				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
+				<Label id="textBenefit1" class="info-lbl" />
 			</View>
-		</HeaderView>
-		<FooterView>
-			<View class="auto-height vgroup">
-				<Button id="textSignUpBtn" class="margin-top primary-btn" onClick="didClickTextSignup" />
-				<Button id="skipTextSignupBtn" class="margin-top secondary-btn" onClick="didClickSkipTextSignup" />
+			<View class="margin-top auto-height">
+				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
+				<Label id="textBenefit2" class="info-lbl" />
 			</View>
-		</FooterView>
-	</TableView>
+			<View class="margin-top auto-height">
+				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
+				<Label id="textBenefit3" class="info-lbl" />
+			</View>
+			<View class="margin-top margin-bottom auto-height">
+				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
+				<Label id="textBenefit4" class="info-lbl" />
+			</View>
+		</View>
+		<Button id="sendTxtBtn" class="primary-btn margin-top" onClick="didClickTextSignup"/>
+		<Button id="skipSendTxtBtn" class="secondary-btn margin-top" onClick="didClickSkipTextSignup"/>
+	</ScrollView>
 </Alloy>

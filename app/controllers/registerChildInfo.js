@@ -1,4 +1,4 @@
-function focus(){
+function init(){
 	$.uihelper.getImage("info", $.infoImg);
 }
 function didClickAccountExists(){
@@ -15,4 +15,4 @@ function didCreateMgrAccount(){
 		stack : true
 	});
 }
-exports.focus=focus;
+exports.init=init;

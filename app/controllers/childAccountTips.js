@@ -1,4 +1,4 @@
-function focus() {
+function init() {
 	$.uihelper.getImage("tip1", $.tip1Img);
 	$.uihelper.getImage("tip2", $.tip2Img);
 	$.uihelper.getImage("tip3", $.tip3Img);
@@ -12,4 +12,4 @@ function didClickSignIn() {
 	});
 }
 
-exports.focus = focus;
+exports.init = init;

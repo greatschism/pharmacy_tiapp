@@ -1,28 +1,20 @@
-var args = arguments[0] || {}; 
+var args = arguments[0] || {};
 
-function init(){
-	$.uihelper.getImage("text_benefits" , $.textBenefitsImg);
-	
-	/**
-	 * Set the data to the table view
-	 */
-	var data = [];
-	var benefits = [$.strings.textSignupBenefit1, $.strings.textSignupBenefit2, $.strings.textSignupBenefit3, $.strings.textSignupBenefit4 ];
-	_.each(benefits, function(benefit){
-		var row = Alloy.createController("itemTemplates/completed", {
-			subtitle : benefit
-		});
-		data.push(row.getView());
+function init() {
+	$.uihelper.getImage("text_benefits", $.textBenefitsImage);
+
+}
+
+function didClickTextSignup() {
+
+}
+
+function didClickSkipTextSignup() {
+	$.app.navigator.open({
+		titleid : "titleHome",
+		ctrl : "home",
+		stack : false
 	});
-	$.tableView.setData(data);
-}
-
-function didClickTextSignup(){
-	
-}
-
-function didClickSkipTextSignup(){
-	
 }
 
 exports.init = init;

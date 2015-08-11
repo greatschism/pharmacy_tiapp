@@ -475,6 +475,7 @@ module.exports = {
 
 		"textSignupBtnSendMeTexts" : "Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "Not at this time",
+		"textSignUpBenefitLbl":"Sign up to receive text benefits",
 		"textSignupBenefit1" : "Reminders when it's time to refill.",
 		"textSignupBenefit2" : "Instantly order new refills!",
 		"textSignupBenefit3" : "Pickup notifications when your prescriptions are ready.",
