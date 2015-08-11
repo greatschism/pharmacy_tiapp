@@ -245,10 +245,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"width" : 130
+				"width" : "40%"
 			},
 			"landscape" : {
-				"width" : 130
+				"width" : "40%"
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -263,10 +263,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"width" : 130
+				"width" : "40%"
 			},
 			"landscape" : {
-				"width" : 130
+				"width" : "40%"
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -281,10 +281,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"width" : 130
+				"width" : "40%"
 			},
 			"landscape" : {
-				"width" : 130
+				"width" : "40%"
 			}
 		},
 		"platform" : ["ios", "android"],
