@@ -37,9 +37,21 @@ function didSuccess(result) {
 	Alloy.Collections.termsAndConditions.reset(terms);
 	
 	_.each(terms, function(term) {
-		section.add(Alloy.createController("itemTemplates/labelWithChild", {
+		/**
+		 * Hide HIPAA from displaying in the list. HIPAA flow is separate (when user logs in for the 1st time)
+		 */
+		if( args.registrationFlow){
+			if(term.agreement_text != $.strings.accountAgreementHIPAA){
+				section.add(Alloy.createController("itemTemplates/labelWithChild", {
+					title : term.agreement_text
+				}).getView());
+			}
+		}
+		else{
+			section.add(Alloy.createController("itemTemplates/labelWithChild", {
 				title : term.agreement_text
 			}).getView());
+		}
 	});
 	$.tableView.setData([section]); 
 }
