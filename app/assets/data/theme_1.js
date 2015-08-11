@@ -660,7 +660,7 @@ module.exports = {
 				"left" : 12,
 				"right" : 12,
 				"height" : "auto",
-				"layout" : "vgroup",
+				"layout" : "vertical",
 				"backgroundColor" : "#EEEEFEF",
 				"borderColor" : "#EEEEFEF",
 				"borderWidth" : 1,
