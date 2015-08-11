@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
-    icons = Alloy.CFG.icons,
+    navigationHandler = require("navigationHandler"),
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
+    icons = Alloy.CFG.icons,
     banners,
     spanTimeId;
 
@@ -171,28 +172,9 @@ function getListener(event) {
 }
 
 function didClickItem(e) {
-	var navigation = e.source.navigation || {};
-	if (_.has(navigation, "ctrl")) {
-		var menuItem = Alloy.Collections.menuItems.findWhere(navigation);
-		navigation = menuItem ? menuItem.toJSON() : navigation;
-		if (navigation.requires_login && !Alloy.Globals.isLoggedIn) {
-			$.app.navigator.open({
-				titleid : "titleLogin",
-				ctrl : "login",
-				ctrlArguments : {
-					navigation : navigation
-				}
-			});
-		} else {
-			$.app.navigator.open(navigation);
-		}
-	} else if (_.has(navigation, "url")) {
-		var url = navigation.url;
-		if (OS_IOS && _.has(navigation, "alternate_url") && Ti.Platform.canOpenURL(url) === false) {
-			url = navigation.alternate_url;
-		}
-		Ti.Platform.openURL(url);
-	}
+	var navigation = e.source.navigation || {},
+	    menuItem = Alloy.Collections.menuItems.findWhere(navigation);
+	navigationHandler.navigate( menuItem ? menuItem.toJSON() : navigation);
 }
 
 function didClickRightNav(e) {

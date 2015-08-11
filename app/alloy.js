@@ -24,6 +24,7 @@
 	require("apm");
 	require("analytics");
 	require("barcode");
+	require("navigationHandler");
 	require("notificationHandler");
 
 	//variables

@@ -12,7 +12,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleReminders",
-		"ctrl" : "reminders",
+		"action" : "reminders",
 		"icon" : "thick_reminder",
 		"requires_login" : true
 	}, {

@@ -1,21 +1,19 @@
 var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
-    http = require("requestwrapper"),
+    navigationHandler = require("navigationHandler"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
-    currentIndex = -1,
-    landingPage;
+    currentIndex = -1;
 
 function init(navigation) {
 	if (OS_ANDROID) {
 		app.navigator.drawer.addEventListener("drawerclose", didDrawerclose);
 	}
-	landingPage = Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON();
 	Alloy.Collections.menuItems.trigger("reset");
-	app.navigator.open(navigation || landingPage);
+	app.navigator.open(navigation || Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 function filterFunction(collection) {
@@ -35,50 +33,8 @@ function didDrawerclose(e) {
 	if (currentIndex == -1) {
 		return false;
 	}
-	var model = Alloy.Collections.menuItems.at(currentIndex),
-	    itemObj = model.toJSON();
-	if (_.has(itemObj, "ctrl")) {
-		var ctrlPath = app.navigator.currentController.ctrlPath;
-		if (itemObj.ctrl != ctrlPath) {
-			if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
-				if (ctrlPath != "login") {
-					app.navigator.open({
-						titleid : "titleLogin",
-						ctrl : "login",
-						ctrlArguments : {
-							navigation : itemObj
-						}
-					});
-				}
-			} else {
-				app.navigator.open(itemObj);
-			}
-		}
-	} else if (_.has(itemObj, "url")) {
-		var url = itemObj.url;
-		if (OS_IOS && _.has(itemObj, "alternate_url") && Ti.Platform.canOpenURL(url) === false) {
-			url = itemObj.alternate_url;
-		}
-		Ti.Platform.openURL(url);
-	} else if (_.has(itemObj, "action")) {
-		switch(itemObj.action) {
-		case "logout":
-			uihelper.showDialog({
-				message : strings.msgLogoutConfirm,
-				buttonNames : [strings.dialogBtnYes, strings.dialogBtnNo],
-				cancelIndex : 1,
-				success : logout
-			});
-			break;
-		}
-	}
+	navigationHandler.navigate(Alloy.Collections.menuItems.at(currentIndex).toJSON());
 	currentIndex = -1;
-}
-
-function logout() {
-	require("authenticator").logout({
-		dialogEnabled : true
-	});
 }
 
 function didClickTableView(e) {

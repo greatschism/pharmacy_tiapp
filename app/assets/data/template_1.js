@@ -94,7 +94,7 @@ module.exports = {
 					}]
 				}],
 				"navigation" : {
-					"ctrl" : "reminders"
+					"action" : "reminders"
 				}
 			}, {
 				"apiName" : "TableViewRow",
