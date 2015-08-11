@@ -275,25 +275,46 @@ function didGetDistance(result, passthrough) {
 			}
 		});
 		/**
-		 * distance calculation
-		 * ignore items that falls after the selected / most nearest slab
-		 * example:
-		 * actual result:
-		 * 	store1 - 7
-		 * 	store2 - 12
-		 * 	store3 - 18
-		 * min = 7
-		 * max = 15
-		 * remove any store that cross 15 miles radius
+		 * as per requirements
+		 * zoom rules are applied
+		 * only for MAP
 		 */
-		for ( max = radiusMin; max <= radiusMax; max += radiusIncrement) {
-			if (min <= max) {
-				break;
+		if (currentViewType == viewTypeMap) {
+			/**
+			 * distance calculation
+			 * ignore items that falls after the selected / most nearest slab
+			 * example:
+			 * actual result:
+			 * 	store1 - 7
+			 * 	store2 - 12
+			 * 	store3 - 18
+			 * min = 7
+			 * max = 15
+			 * remove any store that cross 15 miles radius
+			 */
+			for ( max = radiusMin; max <= radiusMax; max += radiusIncrement) {
+				if (min <= max) {
+					break;
+				}
 			}
+		} else {
+			/**
+			 * for list view max radius
+			 * is radiusMax, no need to restrict
+			 * with radiusMin - radiusMax stepper
+			 * Note: this is required in case
+			 * a store that is not home or favourite
+			 * and distance > radiusMax with direction maxrix
+			 * should be removed
+			 */
+			max = radiusMax;
 		}
 		/**
 		 * removing as per
 		 * distance validations explained above
+		 * Note: if currentViewType === viewTypeList, no mater
+		 * if distance is > max home and favourite
+		 * will remain on the list
 		 */
 		stores = _.reject(stores, function(store) {
 			if (store.distance <= max || (currentViewType == viewTypeList && (parseInt(store.ishomepharmacy) || 0) && (parseInt(store.isbookmarked) || 0))) {
@@ -844,9 +865,9 @@ function didClickGeoTable(e) {
 			$.searchTxt.setValue(params.title);
 			$.searchTxt.blur();
 			/**
-			 * return or blur event 
+			 * return or blur event
 			 * might not be triggered
-			 * as above is a explicit call to 
+			 * as above is a explicit call to
 			 * blur
 			 */
 			isFocused = false;

@@ -26,6 +26,9 @@ exports.init = function(logger, config, cli, appc) {
 			var configPath = projectDir + "/app/config.json",
 			    configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
 
+			//catch base url argument
+			var baseURL = cli.argv["base_url"];
+
 			if (isProd) {
 
 				/**
@@ -112,12 +115,20 @@ exports.init = function(logger, config, cli, appc) {
 				//update flags
 				configData.global.override_remote_resources = false;
 
+				//updating base url for production
+				if (baseURL) {
+					configData["env:production"].base_url = baseURL;
+				}
+
 			} else {
 
 				/**
 				 *  for development / test
 				 */
-
+				//updating base url for dev / test
+				if (baseURL) {
+					configData["env:development"].base_url = configData["env:test"].base_url = baseURL;
+				}
 			}
 
 			//write config
