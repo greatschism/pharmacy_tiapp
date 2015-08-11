@@ -656,6 +656,34 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
+			".info-view" : {
+				"left" : 12,
+				"right" : 12,
+				"height" : "auto",
+				"layout" : "vgroup",
+				"backgroundColor" : "#EEEEFEF",
+				"borderColor" : "#EEEEFEF",
+				"borderWidth" : 1,
+				"borderRadius" : 14
+			},
+			".info-positive-icon" : {
+				"left" : 12,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"color" : "#009344",
+				"accessibilityHidden" : true
+			},
+			".info-lbl" : {
+				"left" : 46,
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000"
+			},
 			".info-view-30" : {
 				"left" : 0,
 				"width" : "30%",
@@ -3018,6 +3046,18 @@ module.exports = {
 					"fontSize" : 17
 				},
 				"color" : "#000000",
+				"textAlign" : "center",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
+			".image-title" : {
+				"left" : 12,
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "bold",
+					"fontSize" : 32
+				},
+				"color" : "#FFFFFF",
 				"textAlign" : "center",
 				"ellipsize" : false,
 				"wordWrap" : true
