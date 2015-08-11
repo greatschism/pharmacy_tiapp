@@ -1,6 +1,9 @@
 <Alloy>
 	<ScrollView id="scrollView" class="vgroup">
-		<View class="content-header-view">
+		<Label id="titleLbl" class="margin-top subtitle-centered-wrap" />
+		<ImageView id="successImg" class="margin-top" />
+		<Label id="descLbl" class="margin-top lbl-wrap" />
+		<View class="margin-top content-header-view">
 			<Label id="prescLbl" class="content-header-lbl-with-ricon" />
 			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
 		</View>
@@ -19,7 +22,11 @@
 				<Button id="editBtn" class="content-detail-tertiary-icon icon-edit" />
 			</View>
 		</View>
-		<View class="h-divider-light" />
+		<View class="content-header-view" if="Alloy.CFG.refill_type_phone_enabled">
+			<Label id="phoneLbl" class="content-header-lbl" />
+		</View>
+		<Widget id="phoneTxt" src="ti.textfield" class="margin-top txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickRefill"  if="Alloy.CFG.refill_type_phone_enabled" />
+		<View id="dividerView" class="margin-top h-divider-light" />
 		<Button id="refillBtn" class="margin-top margin-bottom primary-btn" onClick="didClickRefill" />
 	</ScrollView>
 </Alloy>

@@ -267,12 +267,18 @@ module.exports = {
 		"refillPhoneValPhone" : "Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
+		"refillTypeLblTitle" : "Refill prescriptions without an account",
+		"refillTypeLblDesc" : "Please enter the information below so we can process your refill.",
 		"refillTypeSectionPresc" : "Your order",
 		"refillTypeSectionPickup" : "Pharmacy where you filled this last",
+		"refillTypeSectionPhone" : "Your contact number",
+		"refillTypeHintPhone" : "Mobile number",
 		"refillTypeLblStoreTitle" : "No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "Click here to choose one",
 		"refillTypeValRx" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
 		"refillTypeValStore" : "Please choose a pharmacy for pickup",
+		"refillTypeValPhone" : "Please enter your mobile number to continue.",
+		"refillTypeValPhoneInvalid" : "The mobile number you have entered is invalid.",
 		"refillTypeBtnRefill" : "Submit",
 
 		"refillSuccessLblSuccess" : "We have processed your order",

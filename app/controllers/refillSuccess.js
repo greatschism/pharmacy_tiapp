@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     prescriptions = args.prescriptions || [],
     store;
 
-function focus() {
+function init() {
 	var isSuccess = _.findWhere(prescriptions, {
 		refill_is_error : false
 	}),
@@ -36,6 +36,9 @@ function focus() {
 		$.successImg.applyProperties(dict);
 	}
 	$.lbl.text = $.strings[lKey];
+}
+
+function focus() {
 	var storeId = prescriptions[0].refill_store_id;
 	if (storeId) {
 		getStore(storeId);
@@ -155,4 +158,5 @@ function didClickDone(e) {
 	}).toJSON());
 }
 
+exports.init = init;
 exports.focus = focus;

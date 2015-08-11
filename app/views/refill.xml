@@ -1,7 +1,7 @@
 <Alloy>
 	<View class="auto-height vgroup">
-		<Button id="scanBtn" class="secondary-btn" onClick="didClick" />
+		<Button id="scanBtn" class="secondary-btn" onClick="didClickScan" />
 		<Require src="templates/optionDivider" />
-		<Button id="typeBtn" class="margin-top secondary-btn" onClick="didClick" />
+		<Button id="typeBtn" class="margin-top secondary-btn" onClick="didClickType" />
 	</View>
 </Alloy>

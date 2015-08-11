@@ -34,28 +34,10 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
-	if (args.type == apiCodes.refill_type_scan) {
-		//scan
-		require("barcode").capture($, {
-			acceptedFormats : Alloy.CFG.accepted_barcode_formats,
-			success : didGetBarcode
-		});
-	} else {
-		/*
-		 * type rx
-		 * store object might have passed
-		 * through store details
-		 */
-		$.app.navigator.open({
-			titleid : "titleRefillType",
-			ctrl : "refillType",
-			ctrlArguments : {
-				phone : phone,
-				store : args.store
-			},
-			stack : true
-		});
-	}
+	require("barcode").capture($, {
+		acceptedFormats : Alloy.CFG.accepted_barcode_formats,
+		success : didGetBarcode
+	});
 }
 
 function didGetBarcode(e) {

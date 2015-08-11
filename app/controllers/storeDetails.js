@@ -229,11 +229,10 @@ function didClickRefill(e) {
 		};
 	} else {
 		navigation = {
-			titleid : "titleRefill",
-			ctrl : "refillPhone",
+			titleid : "titleRefillType",
+			ctrl : "refillType",
 			ctrlArguments : {
-				store : store,
-				type : Alloy.CFG.apiCodes.refill_type_quick
+				store : store
 			},
 			stack : true
 		};

@@ -10,15 +10,42 @@ var args = arguments[0] || {},
 }),
     store = _.clone(args.store || {}),
     rxTxtHeight,
+    phone,
     isWindowOpen;
 
 function init() {
+	$.uihelper.getImage("success", $.successImg);
 	rxTxtHeight = $.createStyle({
 		classes : ["txt"]
 	}).height + $.createStyle({
 		classes : ["margin-top"]
 	}).top;
 	$.containerView.height = rxTxtHeight;
+	/**
+	 * only when phoneTxt
+	 * is included
+	 * determined by flag refill_type_phone_enabled
+	 * from theme
+	 */
+	if ($.phoneTxt) {
+		/**
+		 * args.phone - phone number entered from
+		 * refillPhone screen reached here
+		 * through refill failure
+		 * if not check for last used phone
+		 */
+		var lastPhone = args.phone || $.utilities.getProperty(Alloy.CFG.latest_phone_used);
+		if (lastPhone) {
+			$.phoneTxt.setValue($.utilities.formatPhoneNumber(lastPhone));
+		}
+	}
+}
+
+function didChange(e) {
+	var value = $.utilities.formatPhoneNumber(e.value),
+	    len = value.length;
+	$.phoneTxt.setValue(value);
+	$.phoneTxt.setSelection(len, len);
 }
 
 /**
@@ -115,6 +142,25 @@ function didClickRefill(e) {
 		});
 		return false;
 	}
+	if ($.phoneTxt) {
+		phone = $.phoneTxt.getValue();
+		if (!phone) {
+			$.uihelper.showDialog({
+				message : $.strings.refillTypeValPhone
+			});
+			return;
+		}
+		phone = $.utilities.validatePhoneNumber(phone);
+		if (!phone) {
+			$.uihelper.showDialog({
+				message : $.strings.refillTypeValPhoneInvalid
+			});
+			return;
+		}
+		_.each(validRxs, function(validRx) {
+			validRx.mobile_number = phone;
+		});
+	}
 	$.http.request({
 		method : "prescriptions_refill",
 		params : {
@@ -147,7 +193,7 @@ function didRefill(result, passthrough) {
 		ctrl : "refillSuccess",
 		ctrlArguments : {
 			prescriptions : prescriptions,
-			phone : args.phone
+			phone : phone
 		}
 	});
 }

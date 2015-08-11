@@ -1,8 +1,20 @@
+"#titleLbl":{
+	text: Alloy.Globals.strings.refillTypeLblTitle
+},
+"#descLbl":{
+	text: Alloy.Globals.strings.refillTypeLblDesc
+},
 "#prescLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPresc
 },
 "#pickupLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPickup
+},
+"#phoneLbl":{
+	text: Alloy.Globals.strings.refillTypeSectionPhone
+},
+"#phoneTxt":{
+	hintText: Alloy.Globals.strings.refillTypeHintPhone
 },
 "#refillBtn":{
 	title: Alloy.Globals.strings.refillTypeBtnRefill
@@ -11,8 +23,16 @@
 	text: Alloy.Globals.strings.strLoading
 },
 /**
- * 	must be false when used inside table / list view
- */
+* 	must be false when used inside table / list view
+*/
 "#editBtn":{
 	bubbleParent: true
+},
+/**
+ * 	remove margin top when
+ *  phone text field is disabled
+ *  padding is already there with store content view
+ */
+"#dividerView[if=!Alloy.CFG.refill_type_phone_enabled]":{
+	top: null
 }

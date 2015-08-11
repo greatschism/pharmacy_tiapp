@@ -1,12 +1,17 @@
 var args = arguments[0] || {};
 
-function didClick(e) {
+function didClickScan(e) {
 	$.app.navigator.open({
 		titleid : "titleRefill",
 		ctrl : "refillPhone",
-		ctrlArguments : {
-			type : e.source.type
-		},
+		stack : true
+	});
+}
+
+function didClickType(e) {
+	$.app.navigator.open({
+		titleid : "titleRefillType",
+		ctrl : "refillType",
 		stack : true
 	});
 }

@@ -1,8 +1,6 @@
 "#scanBtn":{
-	title: Alloy.Globals.strings.refillBtnScan,
-	type: Alloy.CFG.apiCodes.refill_type_scan
+	title: Alloy.Globals.strings.refillBtnScan
 },
 "#typeBtn":{
-	title: Alloy.Globals.strings.refillBtnType,
-	type: Alloy.CFG.apiCodes.refill_type_quick
+	title: Alloy.Globals.strings.refillBtnType
 }
