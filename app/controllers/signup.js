@@ -4,7 +4,8 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    userContainerViewFromTop = 0,
+    passwordContainerViewFromTop = 0,
+    rxContainerViewFromTop = 0,
     store = {};
 
 function init() {
@@ -18,7 +19,9 @@ function init() {
 		$.dob.setValue(args.dob);
 	}
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
-	$.containerView.addEventListener("postlayout", didPostlayoutUserContainerView);
+	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
+	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
 function didChangeRx(e) {
@@ -53,9 +56,14 @@ function setParentView(view) {
 	$.dob.setParentView(view);
 }
 
-function didPostlayoutUserContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutUserContainerView);
-	userContainerViewFromTop = e.source.rect.y;
+function didPostlayoutRxContainerView(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	rxContainerViewFromTop = e.source.rect.y;
+}
+
+function didPostlayoutPasswordContainerView(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
+	passwordContainerViewFromTop = e.source.rect.y;
 }
 
 function didPostlayoutTooltip(e) {
@@ -64,17 +72,31 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
-	if (_.has($.passwordTooltip, "size")) {
+	if (_.has($.passwordTooltip, "size")) {Ti.API.info("$$" + passwordContainerViewFromTop + " " +  Alloy.TSS.form_txt.height + " " +  Alloy.TSS.content_view.top + " " +   $.passwordTooltip.size.height);
 		$.passwordTooltip.applyProperties({
-			top : (userContainerViewFromTop + Alloy.TSS.form_txt.height + 6) - $.passwordTooltip.size.height
+			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
 		});
 		delete $.passwordTooltip.size;
 	}
 	$.passwordTooltip.show();
 }
 
-function didBlurTxt(e) {
-	$[e.source.tooltip].hide();
+function didFocusRx(e){
+	if (_.has($.rxTooltip, "size")) {Ti.API.info("$$" + rxContainerViewFromTop + " " +  Alloy.TSS.form_txt.height + " " +  Alloy.TSS.content_view.top + " " +   $.rxTooltip.size.height);
+		$.rxTooltip.applyProperties({
+			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
+		});
+		delete $.rxTooltip.size;
+	}
+	$.rxTooltip.show();
+}
+
+function didBlurFocusPassword(){
+	$.passwordTooltip.hide();
+}
+
+function didBlurFocusRx(){
+	$.rxTooltip.hide();
 }
 
 function didClickTooltip(e) {
@@ -126,7 +148,6 @@ function didClickSignup(e) {
 	    lname = $.lnameTxt.getValue(),
 	    dob = $.dob.getValue(),
 	    email = $.emailTxt.getValue(),
-	    uname = $.unameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue();
 	if (!e.ageValidated) {
@@ -169,18 +190,6 @@ function didClickSignup(e) {
 		if (!utilities.validateEmail(email)) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValEmailInvalid
-			});
-			return;
-		}
-		if (!uname) {
-			uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValUname
-			});
-			return;
-		}
-		if (!utilities.validateUsername(uname)) {
-			uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValUnameInvalid
 			});
 			return;
 		}

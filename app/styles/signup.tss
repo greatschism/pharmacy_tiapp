@@ -14,10 +14,6 @@
 	hintText:Alloy.Globals.strings.registerHintEmail,
 	nextItem: "unameTxt"
 },
-"#unameTxt":{
-	hintText:Alloy.Globals.strings.registerHintUname,
-	nextItem: "passwordTxt"
-},
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.registerHintPassword,
 	nextItem: "rxNoTxt"
@@ -41,4 +37,7 @@
 },
 "#passwordTooltip":{
 	text: Alloy.Globals.strings.msgPasswordTips
+},
+"#rxTooltip":{
+	text: Alloy.Globals.strings.msgRxNumberTips
 }

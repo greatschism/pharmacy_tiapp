@@ -10,19 +10,18 @@
 				</View>
 				<View class="h-divider"/>
 				<Widget id="dob" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
-			</View>
-			<Widget id="emailTxt" src="ti.textfield" class="margin-top txt keyboard-email returnkey-next" onReturn="moveToNext" />
+			</View>	
 			<View id="containerView" class="margin-top form-vgroup">
-				<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext" />
+				<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-next" onReturn="moveToNext" />
 				<View class="h-divider"/>		
-				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutUserContainerView"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView"/>
 			</View>
 			<View class="margin-top auto-height">
 				<Label id="showPasswordLbl" class="lbl-with-rswt" />
 				<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
 			</View>		
-			<View class="margin-top form-vgroup">
-				<Widget id="rxNoTxt" src="ti.textfield" class="rx keyboard-number returnkey-next" onChange="didChangeRx" />
+			<View id="rxContainer" class="margin-top form-vgroup">
+				<Widget id="rxNoTxt" src="ti.textfield" class="rx keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" />
 				<View class="h-divider"/>
 				<View id="storeView" class="content-view" onClick="didClickPharmacy">
 					<View class="content-master-view-70">
@@ -37,5 +36,6 @@
 			<Button id="signupBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignup"/>
 		</View>
 		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Widget id="rxTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
 </Alloy>
