@@ -391,8 +391,8 @@ function updatePickupOptionRow() {
 	case apiCodes.pickup_mode_instore:
 		//point to new instance
 		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
-			masterWidth : 70,
-			detailWidth : 30,
+			masterWidth : 75,
+			detailWidth : 25,
 			title : store.title,
 			subtitle : store.subtitle,
 			btnClasses : detailBtnClasses
