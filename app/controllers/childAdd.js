@@ -1,37 +1,28 @@
  var args=arguments[0]||{},
  moment = require("alloy/moment"),
- store;
+ store={};
  function init(){
  	$.uihelper.getImage("child_add",$.childImg);
  }
 function focus(){
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
-	if (store.shouldUpdate) {
-		$.http.request({
-			method : "stores_get",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					stores : {
-						id : store.id,
-					}
-				}]
-			},
-			forceRetry : true,
-			success : didGetStore
-		});
+	if (store && store.shouldUpdate) {
+		store.shouldUpdate = false;
+		$.storeTitleLbl.text = store.title;
 	}
 }
-
-function didGetStore(result) {
-	_.extend(store, result.data.stores);
-	_.extend(store, {
-		storeName : $.utilities.ucword(store.store_name),
+function didClickPharmacy(e) {
+	$.app.navigator.open({
+		titleid : "titleStores",
+		ctrl : "stores",
+		ctrlArguments : {
+			store : store,
+			selectable : true
+		},
+		stack : true
 	});
-	delete store.shouldUpdate;
-	
-	$.storeDp.text = store.storeName;
 }
+
 
 
 function moveToNext(e) {
@@ -107,7 +98,7 @@ function didClickContinue(){
 		titleid:"titleChildSuccess",
 		ctrl : "childSuccess",
 		ctrlArguments : {
-			username : args.email,
+			username : args.username,
 			password : args.password,
 		},
 		stack : false

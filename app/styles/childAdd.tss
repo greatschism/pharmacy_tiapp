@@ -17,8 +17,8 @@
 	hintText:Alloy.Globals.strings.childAddHintRxNo,
 	nextItem: "storeDp"
 },
-"#storeDp":{
-	hintText:Alloy.Globals.strings.childAddHintPharmacyLocation,
+"#storeTitleLbl":{
+	text:Alloy.Globals.strings.childAddHintPharmacyLocation,
 },
 "#agreementAttr":{
 	html:Alloy.Globals.strings.childAddAttrAgreement

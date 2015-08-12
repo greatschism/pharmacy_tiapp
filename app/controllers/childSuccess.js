@@ -14,7 +14,7 @@ function didClickContinue(){
 		titleid:"titleLogin",
 		ctrl : "login",
 		ctrlArguments : {
-			username : args.email,
+			username : args.username,
 			password : args.password,
 			showHIPAA : true 
 		},
