@@ -1,7 +1,9 @@
-  var moment = require("alloy/moment");
+var moment = require("alloy/moment");
+function init() {
+	$.uihelper.getImage("logo", $.logoImg);
+}
 
 function focus() {
-	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 }
 
@@ -11,7 +13,7 @@ function didClickContinue() {
 	    password = $.passwordTxt.getValue(),
 	    email = $.emailTxt.getValue(),
 	    dobValue = $.dobDp.getValue(),
-		dob=moment(dobValue).format(Alloy.CFG.apiCodes.date_format);
+	    dob = moment(dobValue).format(Alloy.CFG.apiCodes.date_format);
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValFirstName
@@ -61,58 +63,60 @@ function didClickContinue() {
 		return;
 	}
 	$.http.request({
-		method : "patient_register",
-		params : {
-			feature_code : "THXXX",
-			filter : {
-				sort_order : "asc"
-			},
-			data : [{
-				patient : {
-					user_name : email,
-					password : password,
-					first_name : fname,
-					last_name : lname,
-					birth_date : dob,
-					gender : "",
-					address_line1 : "",
-					address_line2 : "",
-					city : "",
-					state : "",
-					zip : "",
-					home_phone : "",
-					mobile : "",
-					email_address : email,
-					rx_number : "",
-					store_id : "",
-					user_type : "PARTIAL",
-					optional : [{
-						key : "",
-						value : ""
-					}, {
-						key : "",
-						value : ""
-					}]
-				}
-			}]
+	 method : "patient_register",
+	 params : {
+	 feature_code : "THXXX",
+	 filter : {
+	 sort_order : "asc"
+	 },
+	 data : [{
+	 patient : {
+	 user_name : email,
+	 password : password,
+	 first_name : fname,
+	 last_name : lname,
+	 birth_date : dob,
+	 gender : "",
+	 address_line1 : "",
+	 address_line2 : "",
+	 city : "",
+	 state : "",
+	 zip : "",
+	 home_phone : "",
+	 mobile : "",
+	 email_address : email,
+	 rx_number : "",
+	 store_id : "",
+	 user_type : "PARTIAL",
+	 optional : [{
+	 key : "",
+	 value : ""
+	 }, {
+	 key : "",
+	 value : ""
+	 }]
+	 }
+	 }]
 
-		},
-		success : didRegister,
-		failure: didFail
-	});
+	 },
+	 success : didRegister,
+	 failure: didFail
+	 });
 }
-function didFail(){
+
+function didFail() {
 	$.app.navigator.open({
 		titleid : "titleMgrAccountExists",
 		ctrl : "mgrAccountExists",
 		stack : true
 	});
 }
+
 function didRegister(result) {
-	successMessage=result.message;
+	successMessage = result.message;
 	$.uihelper.showDialog({
-			message : successMessage
-		});
+		message : successMessage
+	});
 	$.app.navigator.open({
 		titleid : "titleChildAdd",
 		ctrl : "childAdd",
@@ -131,5 +135,17 @@ function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
 
+function didClickAgreement(e) {
+	$.app.navigator.open({
+		ctrl : "termsAndConditions",
+		titleid : "titleTermsAndConditions",
+		stack : true,
+		ctrlArguments : {
+			registrationFlow : true
+		}
+	});
+}
+
 exports.setParentView = setParentView;
-exports.focus = focus; 
+exports.focus = focus;
+exports.init=init;
