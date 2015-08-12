@@ -1,7 +1,7 @@
 var args = arguments[0] || {};
 
 function init() {
-	$.utilities.setProperty(Alloy.CFG.first_launch, false, "bool", false);
+	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }
 
 function didClick(e) {

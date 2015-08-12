@@ -174,7 +174,15 @@ function getListener(event) {
 function didClickItem(e) {
 	var navigation = e.source.navigation || {},
 	    menuItem = Alloy.Collections.menuItems.findWhere(navigation);
-	navigationHandler.navigate( menuItem ? menuItem.toJSON() : navigation);
+	/**
+	 * toJSON itself gives a copy of object
+	 * so the source object will not be modified
+	 * can be used for next event
+	 * _.clone(navigation) will give a copy of navigation
+	 * to prevent the source object being modified by
+	 * navigationHandler
+	 */
+	navigationHandler.navigate( menuItem ? menuItem.toJSON() : _.clone(navigation));
 }
 
 function didClickRightNav(e) {

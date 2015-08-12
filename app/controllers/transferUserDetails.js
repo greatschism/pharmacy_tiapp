@@ -110,34 +110,29 @@ function didChangePhone(e) {
 }
 
 function didClickLogin(e) {
-	var navigation = {
-		titleid : "titleTransferStore",
-		ctrl : "stores",
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login",
 		ctrlArguments : {
 			navigation : {
-				titleid : "titleTransferOptions",
-				ctrl : "transferOptions",
+				titleid : "titleTransferStore",
+				ctrl : "stores",
 				ctrlArguments : {
-					prescription : args.prescription,
-					store : {}
-				},
-				stack : true
-			},
-			selectable : true
-		}
-	};
-	if (Alloy.Globals.isLoggedIn) {
-		$.app.navigator.open(navigation);
-	} else {
-		$.app.navigator.open({
-			titleid : "titleLogin",
-			ctrl : "login",
-			ctrlArguments : {
-				navigation : navigation
-			},
-			stack : true
-		});
-	}
+					navigation : {
+						titleid : "titleTransferOptions",
+						ctrl : "transferOptions",
+						ctrlArguments : {
+							prescription : args.prescription,
+							store : {}
+						},
+						stack : true
+					},
+					selectable : true
+				}
+			}
+		},
+		stack : true
+	});
 }
 
 function setParentView(view) {

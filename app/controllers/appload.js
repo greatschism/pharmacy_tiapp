@@ -113,7 +113,7 @@ function loadConfig(errorQueue) {
 function initMasterWindow() {
 	hideLoader();
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
-		navigation : utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) ? {
+		navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
 			ctrl : "carousel",
 			titleid : "strWelcome",
 			navBarHidden : true

@@ -55,7 +55,7 @@ var Res = {
 			var data = require(Res.dataDirectory + "/" + "resources").data;
 
 			//set default language as device language during first launch
-			if (utilities.getProperty(Alloy.CFG.first_launch, true, "bool", false) || !ENV_PROD) {
+			if (utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) || !ENV_PROD) {
 				var defaultLang = _.findWhere(data, {
 					type : "language",
 					selected : true
