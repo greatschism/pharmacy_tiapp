@@ -76,7 +76,7 @@
         "force_update": false,
         "force_reload_after_update": false,
         "async_update": true,
-        "clear_cached_resources": false,
+        "clear_cached_resources": true,
         "delete_unused_resources": false,
         "override_remote_resources": true,
         "storage_engine": "tiencrypted",

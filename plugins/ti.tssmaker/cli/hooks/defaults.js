@@ -218,12 +218,29 @@ module.exports = {
 			"accessibilityLabel" : "Alloy.Globals.strings.iconAccessibilityLblHelp"
 		}
 	},
-	".tooltip-down" : {
-		"direction" : "down",
+	".tooltip-unfilled-arrow-up" : {
+		"arrowPadding" : 7,
+		"direction" : "top",
+		"iconText" : "Alloy.CFG.icons.tooltip_arrow_up"
+	},
+	".tooltip-arrow-up" : {
+		"arrowPadding" : 8,
+		"direction" : "top",
+		"iconText" : "Alloy.CFG.icons.filled_arrow_up"
+	},
+	".tooltip-arrow-down" : {
+		"arrowPadding" : 8,
+		"direction" : "bottom",
 		"iconText" : "Alloy.CFG.icons.filled_arrow_down"
 	},
-	".tooltip-left" : {
+	".tooltip-arrow-left" : {
+		"arrowPadding" : 8,
 		"direction" : "left",
 		"iconText" : "Alloy.CFG.icons.filled_arrow_left"
+	},
+	".tooltip-arrow-right" : {
+		"arrowPadding" : 8,
+		"direction" : "right",
+		"iconText" : "Alloy.CFG.icons.filled_arrow_right"
 	}
 };

@@ -447,12 +447,12 @@ var Utility = {
 	},
 
 	/**
-	 * Check whether given string is alphanumeric with at lest 2 numbers and length should be 6-50
+	 * Check whether given string is alphanumeric with at lest 2 numbers and length should be 6-15
 	 * @param {String} str
 	 * returns {Boolean}
 	 */
 	validatePassword : function(str) {
-		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,50}$/.test(str);
+		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,15}$/.test(str);
 	},
 
 	/**

@@ -296,6 +296,14 @@ module.exports = {
 		"refillFailureBtnType" : "Type prescription details",
 		"refillFailureBtnPhone" : "Call my pharmacy",
 
+		"remindersTipsLblRefill" : "Refill Reminders",
+		"remindersTipsLblMed" : "Medication Reminders",
+		"remindersTipsLblSettings" : "Reminder and Notification Settings",
+		"remindersTipsTooltipLblRefill" : "tip: Update your refill reminders & which prescriptions you want to get reminders for here.",
+		"remindersTipsTooltipLblMed" : "tip: Set, modify and bundle medication reminders to never miss a dose again.",
+		"remindersTipsTooltipLblSettings" : "tip: Set reminder delivery methods & Rx appearance for all your notifications.",
+		"remindersTipsTooltipBtnHide" : "Got it!",
+
 		"transferLblTitle" : "You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "Take a photo",
 		"transferBtnType" : "Type prescription details",
@@ -477,16 +485,16 @@ module.exports = {
 
 		"textSignupBtnSendMeTexts" : "Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "Not at this time",
-		"textSignUpBenefitLbl":"Sign up to receive text benefits",
+		"textSignUpBenefitLbl" : "Sign up to receive text benefits",
 		"textSignupBenefit1" : "Reminders when it's time to refill.",
 		"textSignupBenefit2" : "Instantly order new refills!",
 		"textSignupBenefit3" : "Pickup notifications when your prescriptions are ready.",
 		"textSignupBenefit4" : "Receive other health care messages.",
-		
-		"receiveTextChildSectionLbl":"Who would you like to receive texts for?",
-		"receiveTextChildSectionPhoneNum":"Mobile number",
-		"receiveTextChildBtnContinue":"Continue",
-		"receiveTextChildLbl":"By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
-		"receiveTextChildHintPhone":"Mobile number"	
-		}
+
+		"receiveTextChildSectionLbl" : "Who would you like to receive texts for?",
+		"receiveTextChildSectionPhoneNum" : "Mobile number",
+		"receiveTextChildBtnContinue" : "Continue",
+		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
+		"receiveTextChildHintPhone" : "Mobile number"
+	}
 };

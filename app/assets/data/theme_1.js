@@ -56,6 +56,7 @@ module.exports = {
 			"photo_default_width" : 250,
 			"photo_default_height" : 250,
 			"iconNotations" : {
+				"tooltip_arrow_up" : "0xE000",
 				"switch_on" : "0xE001",
 				"switch_off" : "0xE002",
 				"health_care" : "0xE003",
@@ -2654,9 +2655,25 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".tooltip-primary-btn" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : 30,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#FFFFFF",
+				"selectedColor" : "#FFFFFF",
+				"backgroundColor" : "#F7941E",
+				"backgroundSelectedColor" : "#F7941E",
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
+			},
 			".tooltip" : {
 				"arrowDict" : {
-					"color" : "#808184"
+					"color" : "#6D6E70"
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
@@ -2678,9 +2695,9 @@ module.exports = {
 				"backgroundColor" : "#6D6E70"
 			},
 			".content-tooltip" : {
-				"width" : 140,
+				"width" : "50%",
 				"arrowDict" : {
-					"color" : "#ED1C24"
+					"color" : "#6D6E70"
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
@@ -2701,8 +2718,36 @@ module.exports = {
 				"color" : "#FFFFFF",
 				"backgroundColor" : "#6D6E70"
 			},
+			".content-primary-tooltip" : {
+				"width" : "50%",
+				"arrowDict" : {
+					"color" : "#F7941E",
+					"backgroundColor" : "#FFFFFF"
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"labelDict" : {
+					"paddingTop" : 12,
+					"paddingBottom" : 12,
+					"left" : 12,
+					"right" : 12,
+					"textAlign" : "center",
+					"color" : "#FFFFFF"
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "#F7941E",
+				"borderWidth" : 1,
+				"borderRadius" : 3.4
+			},
 			".content-negative-tooltip" : {
-				"width" : 140,
+				"width" : "50%",
 				"arrowDict" : {
 					"color" : "#ED1C24"
 				},

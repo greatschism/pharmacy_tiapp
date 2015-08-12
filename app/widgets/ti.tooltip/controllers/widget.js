@@ -21,23 +21,25 @@ var args = arguments[0] || {};
 			zIndex : args.zIndex || 1
 		});
 	}
+
 	if (!_.isEmpty(options)) {
 		applyProperties(options);
 	}
 
+	if (args.children) {
+		setContentView(args.children[0]);
+		delete args.children;
+	}
 })();
 
 function updateArrow(direction, dict) {
-	var dict = {
-		text : args.iconText || dict.iconText || "%",
-		font : dict.font || args.iconFont || {
-			fontSize : 12
-		},
-		color : dict.color || "#000",
+	var aDict = {
+		text : args.iconText,
+		font : args.iconFont,
 		accessibilityHidden : true
 	};
-	_.extend(dict, _.pick(args, ["borderColor", "borderWidth", "borderRadius"]));
-	$.arrowLbl.applyProperties(dict);
+	_.extend(aDict, dict);
+	$.arrowLbl.applyProperties(aDict);
 	$.arrowLbl[direction] = 0;
 	$.contentView[direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
 }

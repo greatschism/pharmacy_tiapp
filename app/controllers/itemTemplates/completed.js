@@ -12,7 +12,7 @@ require("config").updateTSS($.__controllerPath);
 	if (args.tooltip) {
 		$.row.className = "completedTooltip";
 		$.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
-			classes : ["show", "right", "tooltip-left", "content-" + (args.tooltipType ? args.tooltipType + "-" : "") + "tooltip"]
+			classes : ["show", "right", "tooltip-arrow-left", "content-" + (args.tooltipType ? args.tooltipType + "-" : "") + "tooltip"]
 		}));
 		$.tooltipLbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
 			classes : ["tooltip-attributed-lbl-wrap"],

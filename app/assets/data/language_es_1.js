@@ -296,6 +296,14 @@ module.exports = {
 		"refillFailureBtnType" : "es-Type prescription details",
 		"refillFailureBtnPhone" : "es-Call my pharmacy",
 
+		"remindersTipsLblRefill" : "es-Refill Reminders",
+		"remindersTipsLblMed" : "es-Medication Reminders",
+		"remindersTipsLblSettings" : "es-Reminder and Notification Settings",
+		"remindersTipsTooltipLblRefill" : "es-tip: Update your refill reminders & which prescriptions you want to get reminders for here.",
+		"remindersTipsTooltipLblMed" : "es-tip: Set, modify and bundle medication reminders to never miss a dose again.",
+		"remindersTipsTooltipLblSettings" : "es-tip: Set reminder delivery methods & Rx appearance for all your notifications.",
+		"remindersTipsTooltipBtnHide" : "es-Got it!",
+
 		"transferLblTitle" : "es-You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "es-Take a photo",
 		"transferBtnType" : "es-Type prescription details",
@@ -394,7 +402,7 @@ module.exports = {
 		"registerHintRxFormat" : "es-Rx number (format)",
 		"registerHintPharmacyLocation" : "es-Pharmacy location",
 		"registerLblTogglePassword" : "es-Show password",
-		"registerLblAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondarycolor></secondaryfont> and <secondaryfont><secondarycolor>Privacy Policy</secondarycolor></secondaryfont>.",
+		"registerLblAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
 		"registerBtnSignup" : "es-Create account",
 		"registerValFirstName" : "es-Please enter your first name.",
 		"registerValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
@@ -430,7 +438,7 @@ module.exports = {
 		"mgrAccountCreationHintEmail" : "es-Email address",
 		"mgrAccountCreationHintPassword" : "es-Password",
 		"mgrAccountCreationBtnContinue" : "es-Continue",
-		"mgrAccountCreationAttrAgreement" : "es-By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"mgrAccountCreationAttrAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
 		"mgrAccountCreationValFirstName" : "es-Please enter your first name.",
 		"mgrAccountCreationValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"mgrAccountCreationValLastName" : "es-Please enter your last name.",
@@ -453,7 +461,7 @@ module.exports = {
 		"childAddHintPharmacyLocation" : "es-Pharmacy location",
 		"childAddBtnContinue" : "es-Continue",
 		"childAddBtnSkip" : "es-Skip & come back later",
-		"childAddAttrAgreement" : "es-By signing up for this service I agree to the <secondaryfont><secondarycolor>Privacy Policy</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor>.",
+		"childAddAttrAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
 		"childAddValFirstName" : "es-Please enter your first name.",
 		"childAddValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"childAddValLastName" : "es-Please enter your last name.",
@@ -472,14 +480,21 @@ module.exports = {
 		"childConsentBtnContinue" : "es-Continue",
 
 		"HIPAAoptionalMessageLbl" : "es-We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
-		"HIPAASuccessBtnAccept" : "Accept",
-		"HIPAASuccessBtnDecline" : "Decline & skip",
-		
+		"HIPAASuccessBtnAccept" : "es-Accept",
+		"HIPAASuccessBtnDecline" : "es-Decline & skip",
+
 		"textSignupBtnSendMeTexts" : "es-Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "es-Not at this time",
+		"textSignUpBenefitLbl" : "es-Sign up to receive text benefits",
 		"textSignupBenefit1" : "es-Reminders when it's time to refill.",
 		"textSignupBenefit2" : "es-Instantly order new refills!",
 		"textSignupBenefit3" : "es-Pickup notifications when your prescriptions are ready.",
-		"textSignupBenefit4" : "es-Receive other health care messages."
+		"textSignupBenefit4" : "es-Receive other health care messages.",
+
+		"receiveTextChildSectionLbl" : "es-Who would you like to receive texts for?",
+		"receiveTextChildSectionPhoneNum" : "es-Mobile number",
+		"receiveTextChildBtnContinue" : "es-Continue",
+		"receiveTextChildLbl" : "es-By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
+		"receiveTextChildHintPhone" : "es-Mobile number"
 	}
 };
