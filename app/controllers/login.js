@@ -84,6 +84,10 @@ function didAuthenticate() {
 	/**
 	 * First time login flow takes the uesr to HIPAA screen
 	 */
+	/**
+	 * todo - remove this hardcoding. It was purely for testing
+	 */
+	/*args.showHIPAA=true;*/
 	if(args.showHIPAA){
 		$.app.navigator.open({
 			ctrl : "HIPAA",

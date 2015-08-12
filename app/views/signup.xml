@@ -21,7 +21,7 @@
 				<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
 			</View>		
 			<View id="rxContainer" class="margin-top form-vgroup">
-				<Widget id="rxNoTxt" src="ti.textfield" class="rx txt keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" />
+				<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" />
 				<View class="h-divider"/>
 				<View id="storeView" class="content-view" onClick="didClickPharmacy">
 					<View class="content-master-view-70">

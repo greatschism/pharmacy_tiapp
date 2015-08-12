@@ -9,4 +9,5 @@
 			<Button id="declineBtn" class="margin-bottom secondary-btn" onClick="didClickDecline" />
 		</ScrollView>
 	</View>
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

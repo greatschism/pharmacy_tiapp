@@ -122,13 +122,14 @@ function didClickLanguage(e) {
 function didClickCloseTimeZone(e) {
 	$.timeZoneReplyLbl.text = $.timeZonePicker.getSelectedItems()[0].code_display;
 	$.timeZonePicker.hide();
-	updateUserPreferences("pref_timezone", $.timeZoneReplyLbl.text);
+	updateUserPreferences("pref_timezone", $.timeZonePicker.getSelectedItems()[0].code_value);
+	authenticator.setTimeZone($.timeZoneReplyLbl.text);
 }
 
 function didClickCloseLanguage(e) {
 	$.languageReplyLbl.text = $.languagePicker.getSelectedItems()[0].code_display;
 	$.languagePicker.hide();
-	updateUserPreferences("pref_language", $.languageReplyLbl.text);
+	updateUserPreferences("pref_language", $.languagePicker.getSelectedItems()[0].code_display);
 }
 
 function didClickContactSupport(e) {

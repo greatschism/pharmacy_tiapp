@@ -45,6 +45,7 @@ function didSuccess(result) {
 }
 
 function applyWebViewProperties(url){
+	showLoader();
 	$.webView.applyProperties({ 
 		url : url
 	});
@@ -52,19 +53,17 @@ function applyWebViewProperties(url){
 	$.webView.addEventListener('load', function (e){
 		var actualHeight = 0;
 		if (OS_ANDROID) {
-			actualHeight = Math.max(e.source.evalJS('document.body.scrollHeight;'), 
-									e.source.evalJS('document.body.offsetHeight;'),
-								    e.source.evalJS('document.documentElement.scrollHeight;'),
-								    e.source.evalJS('document.documentElement.clientHeight;'),
-								    e.source.evalJS('document.documentElement.offsetHeight;'));
-								    
+			actualHeight = e.source.evalJS('document.documentElement.scrollHeight;') - e.source.evalJS('document.documentElement.clientHeight;');
 		}
 		else{
 	    	actualHeight = e.source.evalJS('document.height;');
 	   	}
 	    
 	    e.source.height = parseInt(actualHeight);
+	    hideLoader();
     }); 
+    
+    
 }
 
 function didClickAccept(){
@@ -107,6 +106,14 @@ function didAcceptOrDecline(){
 		ctrl : "textBenefits",
 		stack : true
 	});
+}
+
+function showLoader() {
+	$.loader.show();
+}
+
+function hideLoader() {
+	$.loader.hide(false);
 }
 
 exports.init = init;
