@@ -7,18 +7,25 @@ function init() {
 	$.uihelper.getImage("reminders_tips_settings", $.settingsImg);
 }
 
-function getPosition(view) {
-	var childView = view.children[1],
-	    lbl = childView.children[0];
-	return view.rect.y + childView.rect.y + lbl.rect.height;
-}
-
 function didPostlayout(e) {
+	/**
+	 * we need height of
+	 * $.refillLbl so waiting for postlayout
+	 * Note: event listener should be removed
+	 * to avoid redundant event calls
+	 */
+	$.refillLbl.removeEventListener("postlayout", didPostlayout);
 	currentView = $.refillView;
 	$.tooltip.applyProperties({
 		top : getPosition(currentView)
 	});
 	$.tooltip.show();
+}
+
+function getPosition(view) {
+	var childView = view.children[1],
+	    lbl = childView.children[0];
+	return view.rect.y + childView.rect.y + lbl.rect.height;
 }
 
 function didClickHide(e) {
