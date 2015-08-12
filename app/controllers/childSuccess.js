@@ -13,6 +13,11 @@ function didClickContinue(){
 	$.app.navigator.open({
 		titleid:"titleLogin",
 		ctrl : "login",
+		ctrlArguments : {
+			username : args.email,
+			password : args.password,
+			showHIPAA : true 
+		},
 		stack : true
 	});
 }

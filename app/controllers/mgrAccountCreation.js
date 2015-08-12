@@ -112,7 +112,7 @@ function didFail() {
 	});
 }
 
-function didRegister(result) {
+function didRegister(result,passthrough) {
 	successMessage = result.message;
 	$.uihelper.showDialog({
 		message : successMessage
@@ -120,6 +120,10 @@ function didRegister(result) {
 	$.app.navigator.open({
 		titleid : "titleChildAdd",
 		ctrl : "childAdd",
+		ctrlArguments : {
+			username : $.emailTxt.getValue(),
+			password : $.passwordTxt.getValue(),
+		},
 		stack : true
 	});
 }

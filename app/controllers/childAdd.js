@@ -1,4 +1,5 @@
- var moment = require("alloy/moment"),
+ var args=arguments[0]||{},
+ moment = require("alloy/moment"),
  store;
  function init(){
  	$.uihelper.getImage("child_add",$.childImg);
@@ -105,6 +106,10 @@ function didClickContinue(){
 		$.app.navigator.open({
 		titleid:"titleChildSuccess",
 		ctrl : "childSuccess",
+		ctrlArguments : {
+			username : args.email,
+			password : args.password,
+		},
 		stack : false
 	});
 	}
