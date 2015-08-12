@@ -32,7 +32,9 @@
             "prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
             "upload_image": "imageUpload",
             "terms_get": "terms/get",
-            "terms_get_all": "terms/getall"
+            "terms_get_all": "terms/getall",
+            "terms_accept": "terms/accept",
+            "terms_decline": "terms/decline"
         },
         "apiCodes": {
             "success": "200",

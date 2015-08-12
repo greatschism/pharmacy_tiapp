@@ -1,3 +1,9 @@
-"#optionalMessageLbl" : {
-	text : Alloy.Globals.strings.HIPAAoptionalMessageLbl 	 
+"#acceptBtn":{
+	title: Alloy.Globals.strings.HIPAASuccessBtnAccept
+},
+"#declineBtn":{
+	title: Alloy.Globals.strings.HIPAASuccessBtnDecline
+},
+"#optionalMessageSectionLbl":{
+	text: Alloy.Globals.strings.HIPAAoptionalMessageLbl
 }

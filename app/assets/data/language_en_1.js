@@ -472,6 +472,8 @@ module.exports = {
 		"childConsentBtnContinue" : "Continue",
 
 		"HIPAAoptionalMessageLbl" : "We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
+		"HIPAASuccessBtnAccept" : "Accept",
+		"HIPAASuccessBtnDecline" : "Decline & skip",
 
 		"textSignupBtnSendMeTexts" : "Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "Not at this time",

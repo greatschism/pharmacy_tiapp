@@ -34,22 +34,12 @@ function didChangeRx(e) {
 function focus() {
 	/**
 	 * if shouldUpdate is true
-	 * call api for further store information
+	 * fetch the store details from the 'store' variable passed by reference
 	 */
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-}
-
-function didGetStore(result) {
-	_.extend(store, result.data.stores);
-	_.extend(store, {
-		storeName : $.utilities.ucword(store.store_name),
-	});
-	delete store.shouldUpdate;
-	
-	$.pharmacyDp.text = store.storeName;
 }
 
 function setParentView(view) {
@@ -72,7 +62,7 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
-	if (_.has($.passwordTooltip, "size")) {Ti.API.info("$$" + passwordContainerViewFromTop + " " +  Alloy.TSS.form_txt.height + " " +  Alloy.TSS.content_view.top + " " +   $.passwordTooltip.size.height);
+	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
 			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
 		});
@@ -82,7 +72,7 @@ function didFocusPassword(e) {
 }
 
 function didFocusRx(e){
-	if (_.has($.rxTooltip, "size")) {Ti.API.info("$$" + rxContainerViewFromTop + " " +  Alloy.TSS.form_txt.height + " " +  Alloy.TSS.content_view.top + " " +   $.rxTooltip.size.height);
+	if (_.has($.rxTooltip, "size")) {
 		$.rxTooltip.applyProperties({
 			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
 		});

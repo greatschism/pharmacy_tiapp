@@ -1,39 +1,92 @@
 var args = arguments[0] || {},
-	utilities = require("utilities");
+	http = require("requestwrapper"),
+	app = require("core");
 
 function init(){
 	/**
-	 * todo - improve this code if there is a better idea to show accept/ decline buttons within the app rather than HTML
-	 * 		  which API to call for HIPAA accept / decline 
-	 * 		  get styles from umesh for background color of label text
+	 * If the terms and conditions are already fetched once, re-use them
 	 */
-	var resourceInfo = {
-		dataDirectory : "data",
-		dataFile : "HIPAA.html"
-	};
+	if(Alloy.Collections.termsAndConditions.length){
+		Alloy.Collections.termsAndConditions.each(function(term){
+			if(term.get("agreement_text") == $.strings.accountAgreementHIPAA){
+				applyWebViewProperties(term.get("agreement_url"));
+			}
+		});
+	}
+	else{
+		http.request({
+			method : "terms_get_all",
+			params : {
+				data : [{
+					terms : ""
+				}]
+			},
+			success : didSuccess
+		});
+	}
+}
 
-	utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, resourceInfo.dataDirectory + "/" + resourceInfo.dataFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resourceInfo.dataDirectory + "/" + resourceInfo.dataFile), false);
-					
-	var HIPAAhtmlFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resourceInfo.dataDirectory + "/" + resourceInfo.dataFile);
+function didSuccess(result) {
 	
-	Ti.App.addEventListener('app:accept', function(e) {
-	    alert(e.message); 
-	    /**
-	     * todo - call API to record HIPAA-accept & call Text signup screen
-	     */
+	var terms = result.data,
+		url;
+	
+	_.each(terms, function(term) {
+		if(term.agreement_text == $.strings.accountAgreementHIPAA){
+			url = term.agreement_url;
+		}
 	});
 	
-	Ti.App.addEventListener('app:decline', function(e) {
-	    alert(e.message);
-	    /**
-	     * todo - call API to record HIPAA-decline & call Text signup screen
-	     */
-	});
-	
+	applyWebViewProperties(url);
+}
+
+function applyWebViewProperties(url){
 	$.webView.applyProperties({ 
-		url : HIPAAhtmlFile.resolve() 
+		url : url
 	});
+	
+	$.webView.addEventListener('load', function (e){
+	    var actualHeight = e.source.evalJS('document.height;');
+	    e.source.height = parseInt(actualHeight);
+    }); 
+}
 
+function didClickAccept(){
+	http.request({
+		method : "terms_accept",
+		params : {
+			data : [{
+				terms: {
+				   agreement_type: "1",
+				   action: "1",
+				}
+			}]
+		},
+		success : didAcceptOrDecline
+	});
+}
+
+function didClickDecline(){
+	http.request({
+		method : "terms_accept",
+		params : {
+			data : [{
+				terms: {
+				   agreement_type: "1",
+				   action: "0",
+				}
+			}]
+		},
+		success : didAcceptOrDecline
+	});
+}
+
+function didAcceptOrDecline(){
+	app.navigator.open({
+		titleid : "titleTextBenefits",
+		ctrl : "textBenefits",
+		stack : true
+	});
 }
 
 exports.init = init;
