@@ -2,11 +2,14 @@ var args = arguments[0] || {};
 
 function init() {
 	$.uihelper.getImage("text_benefits", $.textBenefitsImage);
-
 }
 
 function didClickTextSignup() {
-
+	$.app.navigator.open({
+		titleid : "titleChangePhone",
+		ctrl : "receiveTextChild",
+		stack : true
+	});
 }
 
 function didClickSkipTextSignup() {

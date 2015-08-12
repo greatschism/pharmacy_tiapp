@@ -481,6 +481,12 @@ module.exports = {
 		"textSignupBenefit1" : "Reminders when it's time to refill.",
 		"textSignupBenefit2" : "Instantly order new refills!",
 		"textSignupBenefit3" : "Pickup notifications when your prescriptions are ready.",
-		"textSignupBenefit4" : "Receive other health care messages."
-	}
+		"textSignupBenefit4" : "Receive other health care messages.",
+		
+		"receiveTextChildSectionLbl":"Who would you like to receive texts for?",
+		"receiveTextChildSectionPhoneNum":"Mobile number",
+		"receiveTextChildBtnContinue":"Continue",
+		"receiveTextChildLbl":"By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
+		"receiveTextChildHintPhone":"Mobile number"	
+		}
 };
