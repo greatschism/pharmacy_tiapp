@@ -1,4 +1,22 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<ScrollView class="vgroup">
+		<View class="auto-height">
+			<ImageView id="refillImg" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large-vcentered">
+				<Label id="refillLbl" class="content-lbl-wrap" />
+			</View>
+		</View>
+		<View class="margin-top auto-height">
+			<ImageView id="medImg" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large-vcentered">
+				<Label id="medLbl" class="content-lbl-wrap" />
+			</View>
+		</View>
+		<View class="margin-top margin-bottom auto-height">
+			<ImageView id="pickupImg" class="content-left-image-extra-large"/>
+			<View class="content-view-with-limage-extra-large-vcentered">
+				<Label id="pickupLbl" class="content-lbl-wrap" />
+			</View>
+		</View>
+	</ScrollView>
 </Alloy>

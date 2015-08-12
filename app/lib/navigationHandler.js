@@ -17,9 +17,12 @@ function navigate(itemObj) {
 	} else if (_.has(itemObj, "action")) {
 		switch(itemObj.action) {
 		case "reminders":
-			if (utilities.getProperty(Alloy.CFG.first_launch_reminders, true, "bool", false)) {
-				itemObj.ctrl = "remindersTips";
-			}
+			/**
+			 * for first time
+			 * remindersTips will be shown
+			 * otherwise reminders list
+			 */
+			itemObj.ctrl = utilities.getProperty(Alloy.CFG.first_launch_reminders, true, "bool", false) ? "remindersTips" : "reminders";
 			loginOrNavigate(itemObj);
 			break;
 		case "logout":
