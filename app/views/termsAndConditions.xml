@@ -1,6 +1,6 @@
 <Alloy>
 	<TableView id="tableView" onClick="didClickItem">
-		<FooterView platform="ios">
+		<FooterView>
 			<View class="auto-height" >
 				<Button id="doneBtn" class="margin-bottom margin-top secondary-btn" onClick="didClickDone" />
 			</View>

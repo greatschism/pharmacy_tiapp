@@ -271,7 +271,6 @@ function didClickSignup(e) {
 
 		},
 		success : didRegister,
-		failure: didFail,
 		passthrough : userCredentials
 	});
 }
@@ -288,14 +287,6 @@ function didRegister(result, passthrough) {
 			password : passthrough.password,
 			showHIPAA : true 
 		}
-	});
-}
-
-function didFail(){
-	app.navigator.closeToRoot();
-	$.app.navigator.open({
-		titleid : "titleLogin",
-		ctrl : "login"
 	});
 }
 

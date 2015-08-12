@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
 	http = require("requestwrapper"),
-	app = require("core");
+	app = require("core"),
+	agreement_type;
 
 function init(){
 	/**
@@ -10,6 +11,7 @@ function init(){
 		Alloy.Collections.termsAndConditions.each(function(term){
 			if(term.get("agreement_text") == $.strings.accountAgreementHIPAA){
 				applyWebViewProperties(term.get("agreement_url"));
+				agreement_type = term.get("agreement_type");
 			}
 		});
 	}
@@ -17,6 +19,7 @@ function init(){
 		http.request({
 			method : "terms_get_all",
 			params : {
+				feature_code : "THXXX",
 				data : [{
 					terms : ""
 				}]
@@ -34,6 +37,7 @@ function didSuccess(result) {
 	_.each(terms, function(term) {
 		if(term.agreement_text == $.strings.accountAgreementHIPAA){
 			url = term.agreement_url;
+			agreement_type = term.agreement_type;
 		}
 	});
 	
@@ -46,7 +50,19 @@ function applyWebViewProperties(url){
 	});
 	
 	$.webView.addEventListener('load', function (e){
-	    var actualHeight = e.source.evalJS('document.height;');
+		var actualHeight = 0;
+		if (OS_ANDROID) {
+			actualHeight = Math.max(e.source.evalJS('document.body.scrollHeight;'), 
+									e.source.evalJS('document.body.offsetHeight;'),
+								    e.source.evalJS('document.documentElement.scrollHeight;'),
+								    e.source.evalJS('document.documentElement.clientHeight;'),
+								    e.source.evalJS('document.documentElement.offsetHeight;'));
+								    
+		}
+		else{
+	    	actualHeight = e.source.evalJS('document.height;');
+	   	}
+	    
 	    e.source.height = parseInt(actualHeight);
     }); 
 }
@@ -55,10 +71,12 @@ function didClickAccept(){
 	http.request({
 		method : "terms_accept",
 		params : {
+			feature_code : "THXXX",
+			filter : [],
 			data : [{
 				terms: {
-				   agreement_type: "1",
-				   action: "1",
+				   agreement_type: agreement_type,
+				   action: "1"
 				}
 			}]
 		},
@@ -68,12 +86,14 @@ function didClickAccept(){
 
 function didClickDecline(){
 	http.request({
-		method : "terms_accept",
+		method : "terms_decline",
 		params : {
+			feature_code : "THXXX",
+			filter : [],
 			data : [{
 				terms: {
-				   agreement_type: "1",
-				   action: "0",
+				   agreement_type: agreement_type,
+				   action: "0"
 				}
 			}]
 		},

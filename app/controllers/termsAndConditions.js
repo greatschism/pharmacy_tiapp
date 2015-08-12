@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
-    http = require("requestwrapper");
+    http = require("requestwrapper"),
+    data = [];
 
 function init() {
 	if(args.registrationFlow)
@@ -31,7 +32,6 @@ function init() {
 function didSuccess(result) {
 	
 	var terms = result.data,
-		data = [],
 		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs);
 		
 	Alloy.Collections.termsAndConditions.reset(terms);
@@ -45,19 +45,23 @@ function didSuccess(result) {
 				section.add(Alloy.createController("itemTemplates/labelWithChild", {
 					title : term.agreement_text
 				}).getView());
+				data.push(term.agreement_text);
 			}
 		}
 		else{
 			section.add(Alloy.createController("itemTemplates/labelWithChild", {
 				title : term.agreement_text
 			}).getView());
+			data.push(term.agreement_text);
 		}
 	});
 	$.tableView.setData([section]); 
 }
 
 function didClickItem(e) {
-	var item = Alloy.Collections.termsAndConditions.at(e.index).toJSON();
+	var item = Alloy.Collections.termsAndConditions.findWhere({
+			agreement_text : data[e.index]
+		}).toJSON();
 	$.app.navigator.open({
 		ctrl : "termsDoc",
 		title : item.agreement_text,
