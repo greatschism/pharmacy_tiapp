@@ -66,4 +66,8 @@ function didClickTableView(e) {
 	}
 }
 
+function didClickContinue(){
+	
+}
+
 exports.init = init;
