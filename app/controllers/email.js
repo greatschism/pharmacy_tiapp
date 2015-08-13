@@ -21,7 +21,7 @@ function didClickDone(){
 		 * to do - call API patient/Update
 		 */
 		$.http.request({
-			method : "patient_email_update",
+			method : "patient_update",
 			params : {
 				feature_code : "THXXX",
 				data : [{

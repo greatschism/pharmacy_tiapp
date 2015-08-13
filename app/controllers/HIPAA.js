@@ -106,7 +106,7 @@ function didAcceptOrDecline(){
 	/**
 	 * remove the entry from the properties so that HIPAA is not displayed to the user next time
 	 */
-	utilities.removeProperty(args.username);
+	utilities.removeProperty(Alloy.Models.patient.get("email_address"));
 	
 	app.navigator.open({
 		titleid : "titleTextBenefits",

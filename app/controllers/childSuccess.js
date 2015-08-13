@@ -9,7 +9,7 @@ function init(){
 	/**
 	 * Set property to indicate family accounts for text signup flow
 	 */
-	utilities.setProperty(args.username, "familyAccounts", "string", true);	
+	utilities.setProperty(args.username + "familyAccounts", true, "bool", true);	
 }
 function didClickAddChild(){
 	$.app.navigator.open({

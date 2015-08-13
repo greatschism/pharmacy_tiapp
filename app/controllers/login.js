@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
-    authenticator = require("authenticator");
+    authenticator = require("authenticator"),
+    utilities = require('utilities');
 
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
@@ -79,18 +80,11 @@ function didAuthenticate() {
 	/**
 	 * First time login flow takes the uesr to HIPAA screen
 	 */
-	/**
-	 * todo - remove this hardcoding. It was purely for testing
-	 */
-	/*args.showHIPAA=true;*/
-	if (args.showHIPAA) {
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
 		$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",
-			stack : true,
-			ctrlArguments : {
-				familyAccounts : args.familyAccounts ? true : false
-			}
+			stack : true
 		});
 	} else {
 		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({

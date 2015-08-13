@@ -8,7 +8,7 @@ function init() {
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
-	if(utilities.getProperty(Alloy.Models.patient.get("email_address")) == "familyAccounts"){
+	if(utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")){
 		updateTable();
 	}
 }
@@ -58,7 +58,7 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	if(utilities.getProperty(Alloy.Models.patient.get("email_address")) == "familyAccounts"){
+	if(utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")){
 		var row = rows[e.index];
 		var params = row.getParams();
 		if (params.selected === true) {

@@ -10,7 +10,7 @@
             "patient_get": "patient/get",
             "patient_preferences_get": "patient/preferences/get",
             "patient_preferences_update": "patient/preferences/update",
-            "patient_email_update": "patient/email/update",
+            "patient_update": "patient/update",
             "patient_logout": "patient/logout",
             "patient_register": "patient/register",
             "stores_list": "stores/list",
