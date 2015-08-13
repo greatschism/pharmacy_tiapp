@@ -452,7 +452,7 @@ var Utility = {
 	 * returns {Boolean}
 	 */
 	validatePassword : function(str) {
-		return /^(?=(.*\d){2})(?=.*[a-zA-Z])[0-9a-zA-Z_*?-]{6,15}$/.test(str);
+		return /^(?=(.*\d){2})(?=.*[a-zA-Z]).{6,15}$/.test(str);
 	},
 
 	/**
