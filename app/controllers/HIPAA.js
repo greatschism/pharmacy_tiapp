@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
 	http = require("requestwrapper"),
 	app = require("core"),
+	utilities = require('utilities'),
 	agreement_type;
 
 function init(){
@@ -101,13 +102,16 @@ function didClickDecline(){
 }
 
 function didAcceptOrDecline(){
+	
+	/**
+	 * remove the entry from the properties so that HIPAA is not displayed to the user next time
+	 */
+	utilities.removeProperty(args.username);
+	
 	app.navigator.open({
 		titleid : "titleTextBenefits",
 		ctrl : "textBenefits",
-		stack : true,
-		ctrlArguments : {
-			familyAccounts : args.familyAccounts ? true : false
-		}
+		stack : true
 	});
 }
 

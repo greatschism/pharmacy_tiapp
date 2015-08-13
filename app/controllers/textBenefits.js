@@ -8,10 +8,7 @@ function didClickTextSignup() {
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
-		stack : true,
-		ctrlArguments : {
-			familyAccounts : args.familyAccounts ? true : false
-		}
+		stack : true
 	});
 }
 

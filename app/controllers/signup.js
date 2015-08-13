@@ -275,13 +275,18 @@ function didRegister(result, passthrough) {
 	uihelper.showDialog({
 		message : result.message
 	});
+	
+	/**
+	 * Set property to display HIPAA during first login flow
+	 */
+	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);	
+	
 	$.app.navigator.open({
 		titleid : "titleLogin",
 		ctrl : "login",
 		ctrlArguments : {
 			username : passthrough.email,
-			password : passthrough.password,
-			showHIPAA : true 
+			password : passthrough.password
 		}
 	});
 }

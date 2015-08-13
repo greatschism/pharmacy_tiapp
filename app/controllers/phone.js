@@ -1,9 +1,14 @@
 var args = arguments[0] || {},
     childProxies,
     childProxy,
+    utilities = require('utilities'),
     rows = [];
+    
 function init() {
-	if(args.familyAccounts){
+	/**
+	 * if it is family accounts flow, show all the child accounts in the table
+	 */
+	if(utilities.getProperty(Alloy.Models.patient.get("email_address")) == "familyAccounts"){
 		updateTable();
 	}
 }
@@ -53,7 +58,7 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	if(args.familyAccounts){
+	if(utilities.getProperty(Alloy.Models.patient.get("email_address")) == "familyAccounts"){
 		var row = rows[e.index];
 		var params = row.getParams();
 		if (params.selected === true) {
