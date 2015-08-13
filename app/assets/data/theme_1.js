@@ -751,7 +751,7 @@ module.exports = {
 				"borderRadius" : 16
 			},
 			".swt[platform=android]" : {
-				"width" : 56,
+				"width" : 60,
 				"height" : 36,
 				"value" : false,
 				"trackTintColorOn" : "#4BD763",
@@ -1380,18 +1380,33 @@ module.exports = {
 			".content-right-swt" : {
 				"right" : 12
 			},
-			".content-view-with-rswt" : {
+			".content-view-with-rswt[platform=ios]" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
 				"right" : 80,
 				"height" : "auto"
 			},
-			".content-view-vgroup-with-rswt" : {
+			".content-view-with-rswt[platform=android]" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"right" : 84,
+				"height" : "auto"
+			},
+			".content-view-vgroup-with-rswt[platform=ios]" : {
 				"top" : 12,
 				"bottom" : 12,
 				"left" : 12,
 				"right" : 80,
+				"height" : "auto",
+				"layout" : "vertical"
+			},
+			".content-view-vgroup-with-rswt[platform=android]" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"right" : 84,
 				"height" : "auto",
 				"layout" : "vertical"
 			},
@@ -2783,9 +2798,23 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".lbl-with-rswt" : {
+			".lbl-with-rswt[platform=ios]" : {
 				"left" : 12,
 				"right" : 80,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false,
+				"touchEnabled" : false
+			},
+			".lbl-with-rswt[platform=android]" : {
+				"left" : 12,
+				"right" : 84,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
@@ -2867,9 +2896,27 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
-			".attributed-with-rswt" : {
+			".attributed-with-rswt[platform=ios]" : {
 				"left" : 12,
 				"right" : 80,
+				"height" : 19,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"secondaryFont" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"secondaryColor" : "#0095FF",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".attributed-with-rswt[platform=android]" : {
+				"left" : 12,
+				"right" : 84,
 				"height" : 19,
 				"font" : {
 					"fontFamily" : "regular",
