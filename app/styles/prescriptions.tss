@@ -31,9 +31,9 @@
 "#unhideCloseBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
 },
+"#headerLbl":{
+	text: Alloy.Globals.strings.prescSectionReminders
+},
 "#tableView[if=!$.args.selectable]":{
 	bottom: null
-},
-"#submitBtn":{
-	title: Alloy.Globals.strings.prescBtnSubmit
 }

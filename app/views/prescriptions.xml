@@ -25,10 +25,14 @@
 	<View id="searchbar" class="top search-bar hide fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
+	<View id="headerView" class="top content-header-view-wrap" onPostlayout="didPostlayout" if="$.args.isMedReminder">
+		<Label id="headerLbl" class="content-header-lbl-wrap" />
+	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
 	<Button id="submitBtn" class="margin-bottom primary-btn" if="$.args.selectable" onClick="didClickSubmit" />
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" if="$.args.isMedReminder" />
 </Alloy> 

@@ -94,6 +94,8 @@ function didGetReminders(result, passthrough) {
 					},
 					stack : true
 				},
+				titleSubmitBtn : $.strings.prescBtnContinue,
+				isMedReminder : true,
 				selectable : true
 			},
 			stack : true

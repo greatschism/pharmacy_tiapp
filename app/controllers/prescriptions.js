@@ -11,7 +11,10 @@ var args = arguments[0] || {},
 function init() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	if (args.selectable) {
-		$.tableView.bottom = $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom;
+		$.submitBtn.title = args.titleSubmitBtn || $.strings.prescBtnSubmit;
+		if (!args.isMedReminder) {
+			$.tableView.bottom = $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom;
+		}
 		headerBtnDict = $.createStyle({
 			classes : ["content-header-right-btn"],
 			title : $.strings.prescAddSectionBtnAll
@@ -27,6 +30,17 @@ function init() {
 			type : "positive"
 		}];
 	}
+}
+
+function didPostlayout(e) {
+	$.headerView.removeEventListener("postlayout", didPostlayout);
+	var top = $.headerView.rect.height;
+	$.searchbar.top = top;
+	$.tableView.applyProperties({
+		top : top,
+		bottom : $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom
+	});
+	$.loader.hide();
 }
 
 function getSortOrderPreferences() {
@@ -195,7 +209,10 @@ function didGetPrescriptions(result, passthrough) {
 				subtitle : subtitle,
 				progress : progress,
 				section : "inProgress",
-				itemTemplate : "inprogress"
+				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "inprogress",
+				masterWidth : 100,
+				detailWidth : 0,
+				selected : false
 			});
 			break;
 		case apiCodes.refill_status_ready:
@@ -209,7 +226,10 @@ function didGetPrescriptions(result, passthrough) {
 				canHide : false,
 				subtitle : $.strings.prescReadyPickupLblReady,
 				section : "readyPickup",
-				itemTemplate : "completed"
+				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "completed",
+				masterWidth : 100,
+				detailWidth : 0,
+				selected : false
 			});
 			break;
 		default:
@@ -334,6 +354,14 @@ function didGetPrescriptions(result, passthrough) {
 
 function didClickSelectAll(e) {
 	/**
+	 * select all can't be
+	 * applied when filter is
+	 * applied
+	 */
+	if ($.tableView.filterText) {
+		return false;
+	}
+	/**
 	 * select all under this section prescriptions
 	 */
 	var sectionId = e.source.sectionId,
@@ -387,11 +415,11 @@ function didClickOptionMenu(e) {
 }
 
 function toggleSearch() {
-	var top = 0,
+	var top = args.isMedReminder ? $.headerView.rect.height : 0,
 	    opacity = 0;
 	if ($.tableView.top == top) {
 		opacity = 1;
-		top = $.searchbar.size.height;
+		top += $.searchbar.rect.height;
 		$.searchbar.visible = true;
 	}
 	var sAnim = Ti.UI.createAnimation({

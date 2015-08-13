@@ -226,6 +226,7 @@ module.exports = {
 		"prescPopupUnhideBtnUnhide" : "Unhide",
 		"prescPopupUnhideBtnClose" : "Close",
 		"prescBtnSubmit" : "Done",
+		"prescBtnContinue" : "Continue",
 		"prescMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddSectionBtnAll" : "Select all",
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
@@ -233,6 +234,7 @@ module.exports = {
 		"prescMsgSchedule2" : "Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
 		"prescMsgRefillLeftNone" : "This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"prescMsgExpired" : "This prescription has expired. We will need to contact your doctor to authorize this refill.",
+		"prescSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
