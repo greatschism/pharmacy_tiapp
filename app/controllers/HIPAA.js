@@ -104,7 +104,10 @@ function didAcceptOrDecline(){
 	app.navigator.open({
 		titleid : "titleTextBenefits",
 		ctrl : "textBenefits",
-		stack : true
+		stack : true,
+		ctrlArguments : {
+			familyAccounts : args.familyAccounts ? true : false
+		}
 	});
 }
 

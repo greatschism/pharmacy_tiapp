@@ -16,7 +16,8 @@ function didClickContinue(){
 		ctrlArguments : {
 			username : args.username,
 			password : args.password,
-			showHIPAA : true 
+			showHIPAA : true,
+			familyAccounts : true
 		},
 		stack : true
 	});

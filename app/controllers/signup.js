@@ -213,16 +213,12 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-		if (moment().diff(dob, "years", true) < 18) { /* todo - stop the user from proceeding if he is < 18 */
+		/**
+		 * If the user is <18, stop him from registration. He shall contact the support for assistance
+		 */
+		if (moment().diff(dob, "years", true) < 18) { 
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgAgeRestriction,
-				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-				cancelIndex : 0,
-				success : function() {
-					didClickSignup({
-						ageValidated : false
-					});
-				}
+				message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
 			});
 			return;
 		}

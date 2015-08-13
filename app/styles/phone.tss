@@ -1,6 +1,12 @@
-"#titleLbl":{
-	text: Alloy.Globals.strings.accountLblPromptPhone
+"#mobileNumberLbl":{
+	text:Alloy.Globals.strings.receiveTextChildSectionPhoneNum
 },
 "#continueBtn":{
-	title: Alloy.Globals.strings.accountSuccessBtnContinue
+	title:Alloy.Globals.strings.receiveTextChildBtnContinue
+},
+"#receiveTextLbl":{
+	text:Alloy.Globals.strings.receiveTextChildLbl
+},
+"#phoneTxt":{
+	hintText:Alloy.Globals.strings.receiveTextChildHintPhone
 }

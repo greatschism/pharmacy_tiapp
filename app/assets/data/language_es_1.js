@@ -65,7 +65,7 @@ module.exports = {
 		"msgPasswordTips" : "es-Your password must be between 6 and 15 characters and contain at least one number.",
 		"msgRxNumberTips" : "es-Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
-		"msgAgeRestriction" : "es-This service is not directed at users under the age of 18.  If you are under the age of 18, you are not permitted to register as a User or use the Service.  If you are aged 12 or over but under the age of 18, you must obtain the consent of your parent or guardian to use the service, and you must use the Service under the supervision of your parent or guardian. Follow the child registration flow.",
+		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
 
 		"accessibilityLblSwitchOn" : "es-On",
@@ -412,7 +412,7 @@ module.exports = {
 		"registerValEmail" : "es-Please enter your email address.",
 		"registerValEmailInvalid" : "es-Please enter a valid email address.",
 		"registerValPassword" : "es-Please enter your password",
-		"registerValPasswordInvalid" : "es-Your password must be between 6 and 15 characters and contain at least 1 number. Please try again.",
+		"registerValPasswordInvalid" : "es-Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number. Please try again.",
 		"registerValRxNo" : "es-Please enter your Rx number",
 		"registerValRxInvalid" : "es-Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
 		"registerValStore" : "es-Please select a pharmacy",

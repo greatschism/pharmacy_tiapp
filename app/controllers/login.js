@@ -92,7 +92,10 @@ function didAuthenticate() {
 		$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",
-			stack : true
+			stack : true,
+			ctrlArguments : {
+				familyAccounts : args.familyAccounts ? true : false
+			}
 		});
 	}
 	else{

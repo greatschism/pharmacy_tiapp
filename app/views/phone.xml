@@ -1,10 +1,16 @@
 <Alloy>
-	<View class="vgroup">
-		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<View class="margin-top form-group">
-			<Widget id="phoneTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickContinue"  />
-		</View>
-		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue" />
-		<Label id="agreementLbl" class="margin-top lbl-wrap" />
-	</View>
+	<TableView id="childTable" onSingletap="didClickTableView">
+		<FooterView platform="ios">
+			<View class="vgroup auto-height">
+				<View class="content-header-view">
+					<Label id="mobileNumberLbl" class="content-header-lbl" />
+				</View>
+				<View class="margin-top form-group">
+					<Widget id="phoneTxt" src="ti.textfield" class="form-txt returnkey-done"  onChange="didChangePhone"/>
+				</View>
+				<Button id="continueBtn" class="primary-btn margin-top margin-bottom"/>
+				<Label id="receiveTextLbl" class="lbl-wrap"/>
+			</View>
+		</FooterView>
+	</TableView>
 </Alloy>
