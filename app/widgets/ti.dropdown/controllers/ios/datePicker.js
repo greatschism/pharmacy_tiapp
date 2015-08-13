@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     font = args.font || {
 	fontSize : 12
 },
@@ -82,9 +83,16 @@ function terminate(callback) {
 		if (_.isFunction(callback)) {
 			callback();
 		}
+		/**
+		 * there are known issues with time zone
+		 * from Apple's end
+		 * to avoid such mismatch on dates
+		 * using toLocaleString of date
+		 * for formatting it properly
+		 */
 		$.trigger("terminate", {
 			soruce : $,
-			value : isCancel ? null : selectedDate,
+			value : isCancel ? null : moment(selectedDate.toLocaleString(), "MMMM DD[,] YYYY [at] hh:mm:ss A ZZ").toDate(),
 			cancel : isCancel,
 			nextItem : args.nextItem || ""
 		});
