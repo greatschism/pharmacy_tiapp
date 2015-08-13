@@ -1,10 +1,8 @@
 var args = arguments[0] || {},
-    authenticator = require("authenticator"),
-    utilities = require('utilities');
+    authenticator = require("authenticator");
 
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
-	Alloy.Models.patient.on("change:account", didChangeAccount);
 	/**
 	 * if auto login is enabled
 	 * then auto populate the username and password
@@ -16,23 +14,19 @@ function init() {
 		$.passwordTxt.setValue(data.password);
 		$.autoLoginSwt.setValue(true);
 	}
-	
+
 	/**
-	 * after successful registration, 
+	 * after successful registration,
 	 * auto populate username and password
 	 */
 	/**
 	 * todo - show tooltip as per the requirement
 	 */
-	if(args.username && args.password){
+	if (args.username && args.password) {
 		$.usernameTxt.setValue(args.username);
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
-}
-
-function didChangeAccount() {
-	$.usernameTxt.setValue(Alloy.Models.patient.get("account"));
 }
 
 function didChangeToggle(e) {
@@ -85,18 +79,20 @@ function didAuthenticate() {
 	/**
 	 * First time login flow takes the uesr to HIPAA screen
 	 */
-	var displayHIPAA = "showHIPAA";
-	if(utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == displayHIPAA){
+	/**
+	 * todo - remove this hardcoding. It was purely for testing
+	 */
+	/*args.showHIPAA=true;*/
+	if (args.showHIPAA) {
 		$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",
 			stack : true,
 			ctrlArguments : {
-				username : $.usernameTxt.getValue()
+				familyAccounts : args.familyAccounts ? true : false
 			}
 		});
-	}
-	else{
+	} else {
 		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
@@ -114,12 +110,4 @@ function didClickSignup(e) {
 	});
 }
 
-function terminate() {
-	Alloy.Models.patient.off("change:account", didChangeAccount);
-	Alloy.Models.patient.set({
-		account : null
-	});
-}
-
 exports.init = init;
-exports.terminate = terminate;

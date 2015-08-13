@@ -61,7 +61,53 @@ function didHide() {
 }
 
 function didClickRefill(e) {
+	$.app.navigator.open({
+		titleid : "titleRemindersRefill",
+		ctrl : "remindersRefill",
+		stack : true
+	});
+}
 
+function didClickMed(e) {
+	//call reminders api
+	didGetReminders();
+}
+
+function didGetReminders(result, passthrough) {
+	var navigation;
+	if (Alloy.Collections.reminders.length) {
+		navigation = {
+			titleid : "titleRemindersMed",
+			ctrl : "remindersMed",
+			stack : true
+		};
+	} else {
+		navigation = {
+			titleid : "titleRemindersMedPrescriptions",
+			ctrl : "prescriptions",
+			ctrlArguments : {
+				navigation : {
+					titleid : "titleRemindersMed",
+					ctrl : "remindersMed",
+					ctrlArguments : {
+						canAdd : false
+					},
+					stack : true
+				},
+				selectable : true
+			},
+			stack : true
+		};
+	}
+	$.app.navigator.open(navigation);
+}
+
+function didClickSettings(e) {
+	$.app.navigator.open({
+		titleid : "titleRemindersSettings",
+		ctrl : "remindersSettings",
+		stack : true
+	});
 }
 
 exports.init = init;

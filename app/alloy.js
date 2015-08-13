@@ -51,6 +51,7 @@
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
+	Alloy.Collections.reminders = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
 
 	//models

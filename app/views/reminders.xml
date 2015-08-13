@@ -8,14 +8,14 @@
 				</View>
 			</View>
 			<View class="h-divider-light" />
-			<View id="medView" class="auto-height">
+			<View id="medView" class="auto-height" onClick="didClickMed">
 				<ImageView id="medImg" class="content-left-image-extra-large"/>
 				<View class="content-view-with-limage-extra-large-vcentered">
 					<Label id="medLbl" class="content-title-wrap" />
 				</View>
 			</View>
 			<View class="h-divider-light" />
-			<View id="settingsView" class="auto-height">
+			<View id="settingsView" class="auto-height" onClick="didClickSettings">
 				<ImageView id="settingsImg" class="content-left-image-extra-large"/>
 				<View class="content-view-with-limage-extra-large-vcentered">
 					<Label id="settingsLbl" class="content-title-wrap" />
