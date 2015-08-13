@@ -16,15 +16,6 @@ function navigate(itemObj) {
 		Ti.Platform.openURL(url);
 	} else if (_.has(itemObj, "action")) {
 		switch(itemObj.action) {
-		case "reminders":
-			/**
-			 * for first time
-			 * remindersTips will be shown
-			 * otherwise reminders list
-			 */
-			itemObj.ctrl = utilities.getProperty(Alloy.CFG.first_launch_reminders, true, "bool", false) ? "remindersTips" : "reminders";
-			loginOrNavigate(itemObj);
-			break;
 		case "logout":
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgLogoutConfirm,

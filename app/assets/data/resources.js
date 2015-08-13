@@ -312,8 +312,8 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "reminders_tips_refill_pl",
-		"name" : "reminders_tips_refill",
+		"code" : "reminders_refill_pl",
+		"name" : "reminders_refill",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -324,14 +324,14 @@ module.exports = {
 			}
 		},
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_tips_refill.png",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill.png",
 		"selected" : true
 	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "reminders_tips_med_pl",
-		"name" : "reminders_tips_med",
+		"code" : "reminders_med_pl",
+		"name" : "reminders_med",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -342,14 +342,14 @@ module.exports = {
 			}
 		},
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_tips_med.png",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_med.png",
 		"selected" : true
 	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "reminders_tips_settings_pl",
-		"name" : "reminders_tips_settings",
+		"code" : "reminders_settings_pl",
+		"name" : "reminders_settings",
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
@@ -360,7 +360,7 @@ module.exports = {
 			}
 		},
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_tips_settings.png",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_settings.png",
 		"selected" : true
 	}, {
 		"type" : "image",
