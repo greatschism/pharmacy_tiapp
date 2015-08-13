@@ -572,6 +572,12 @@ var Helper = {
 				newProperties.left = utilities.percentageToValue(properties.left, app.device.width);
 				newProperties.right = utilities.percentageToValue(properties.right, app.device.width);
 				newWidth = app.device.width - (newProperties.left + newProperties.right);
+				/**
+				 * don't need left and right
+				 * when width is calculated
+				 */
+				delete newProperties.left;
+				delete newProperties.right;
 			}
 			//image's width and height are density independent
 			var imgBlob = Ti.Filesystem.getFile(path).read(),
