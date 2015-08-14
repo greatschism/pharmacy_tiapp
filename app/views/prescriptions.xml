@@ -25,14 +25,20 @@
 	<View id="searchbar" class="top search-bar hide fade-out">
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
-	<View id="headerView" class="top content-header-view-wrap" onPostlayout="didPostlayout" if="$.args.isMedReminder">
-		<Label id="headerLbl" class="content-header-lbl-wrap" />
+	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
+		<!--add account switcher here-->
+		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="submitBtn" class="margin-bottom primary-btn" if="$.args.selectable" onClick="didClickSubmit" />
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" if="$.args.isMedReminder" />
+	<Button id="submitBtn" class="margin-bottom primary-btn" onClick="didClickSubmit" if="$.args.selectable" />
+	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip">
+		<View class="auto-height vgroup">
+			<Label id="tooltipLbl" class="lbl-wrap" />
+			<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />
+		</View>
+	</Widget>
 </Alloy> 

@@ -2686,9 +2686,11 @@ module.exports = {
 				"borderRadius" : 3.4,
 				"borderWidth" : 1
 			},
-			".tooltip" : {
+			".primary-tooltip" : {
+				"left" : 12,
+				"right" : 12,
 				"arrowDict" : {
-					"color" : "#6D6E70"
+					"color" : "#F7941E"
 				},
 				"iconFont" : {
 					"fontFamily" : "icon",
@@ -2706,11 +2708,12 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#FFFFFF",
-				"backgroundColor" : "#6D6E70"
+				"color" : "#000000",
+				"backgroundColor" : "#FFFFFF"
 			},
-			".content-tooltip" : {
-				"width" : "50%",
+			".secondary-tooltip" : {
+				"left" : 12,
+				"right" : 12,
 				"arrowDict" : {
 					"color" : "#6D6E70"
 				},
@@ -2760,6 +2763,30 @@ module.exports = {
 				"borderColor" : "#F7941E",
 				"borderWidth" : 1,
 				"borderRadius" : 3.4
+			},
+			".content-secondary-tooltip" : {
+				"width" : "50%",
+				"arrowDict" : {
+					"color" : "#6D6E70"
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"labelDict" : {
+					"paddingTop" : 12,
+					"paddingBottom" : 12,
+					"left" : 12,
+					"right" : 12,
+					"textAlign" : "center",
+					"color" : "#FFFFFF"
+				},
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#FFFFFF",
+				"backgroundColor" : "#6D6E70"
 			},
 			".content-negative-tooltip" : {
 				"width" : "50%",

@@ -235,6 +235,8 @@ module.exports = {
 		"prescMsgRefillLeftNone" : "This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"prescMsgExpired" : "This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"prescSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
+		"prescTooltipLblReminder" : "tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
+		"prescTooltipBtnHide" : "Got it!",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",

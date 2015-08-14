@@ -12,9 +12,6 @@ function init() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	if (args.selectable) {
 		$.submitBtn.title = args.titleSubmitBtn || $.strings.prescBtnSubmit;
-		if (!args.isMedReminder) {
-			$.tableView.bottom = $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom;
-		}
 		headerBtnDict = $.createStyle({
 			classes : ["content-header-right-btn"],
 			title : $.strings.prescAddSectionBtnAll
@@ -36,11 +33,22 @@ function didPostlayout(e) {
 	$.headerView.removeEventListener("postlayout", didPostlayout);
 	var top = $.headerView.rect.height;
 	$.searchbar.top = top;
+	var margin = $.tableView.bottom;
 	$.tableView.applyProperties({
 		top : top,
-		bottom : $.tableView.bottom + $.submitBtn.height + $.submitBtn.bottom
+		bottom : margin + $.submitBtn.height + $.submitBtn.bottom
 	});
-	$.loader.hide();
+	if (args.isMedReminder && $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false)) {
+		$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
+		$.tooltip.applyProperties({
+			top : top - (margin * 2)
+		});
+		$.tooltip.show();
+	}
+}
+
+function didClickHide(e) {
+	$.tooltip.hide();
 }
 
 function getSortOrderPreferences() {
@@ -415,7 +423,7 @@ function didClickOptionMenu(e) {
 }
 
 function toggleSearch() {
-	var top = args.isMedReminder ? $.headerView.rect.height : 0,
+	var top = $.headerView.rect.height,
 	    opacity = 0;
 	if ($.tableView.top == top) {
 		opacity = 1;

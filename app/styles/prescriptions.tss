@@ -36,4 +36,10 @@
 },
 "#tableView[if=!$.args.selectable]":{
 	bottom: null
+},
+"#tooltipLbl":{
+	text: Alloy.Globals.strings.prescTooltipLblReminder
+},
+"#tooltipHideBtn":{
+	title: Alloy.Globals.strings.prescTooltipBtnHide
 }

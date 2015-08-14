@@ -35,7 +35,7 @@
 			<Widget id="agreementLbl" src="ti.styledlabel" class="margin-top attributed-wrap" onClick="didClickAgreement" />
 			<Button id="signupBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignup"/>
 		</View>
-		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-		<Widget id="rxTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Widget id="rxTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
 </Alloy>

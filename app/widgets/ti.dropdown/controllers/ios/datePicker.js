@@ -89,10 +89,12 @@ function terminate(callback) {
 		 * to avoid such mismatch on dates
 		 * using toLocaleString of date
 		 * for formatting it properly
+		 * Note: don't process the time zone (ZZ)
+		 * with moment
 		 */
 		$.trigger("terminate", {
 			soruce : $,
-			value : isCancel ? null : moment(selectedDate.toLocaleString(), "MMMM DD[,] YYYY [at] hh:mm:ss A ZZ").toDate(),
+			value : isCancel ? null : moment(selectedDate.toLocaleString(), "MMMM DD[,] YYYY [at] hh:mm:ss A").toDate(),
 			cancel : isCancel,
 			nextItem : args.nextItem || ""
 		});
