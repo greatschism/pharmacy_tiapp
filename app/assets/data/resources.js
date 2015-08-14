@@ -290,6 +290,24 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
 		"selected" : true
+	},{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "fail_pl",
+		"name" : "fail",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : 90
+			},
+			"landscape" : {
+				"width" :90
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
+		"selected" : true
 	}, {
 		"type" : "image",
 		"version" : 1,

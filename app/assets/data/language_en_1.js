@@ -123,6 +123,8 @@ module.exports = {
 		"titleTextBenefits" : "Text benefits",
 		"titleChildConsent" : "Note to your minor",
 		"titleChildSuccess" : "Success!",
+		"titleTextHelp":"Text help",
+		"titleTextMsgSignUp":"Sign up for text messaging",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -518,6 +520,28 @@ module.exports = {
 		"receiveTextChildSectionPhoneNum" : "Mobile number",
 		"receiveTextChildBtnContinue" : "Continue",
 		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
-		"receiveTextChildHintPhone" : "Mobile number"
+		"receiveTextChildHintPhone" : "Mobile number",
+		
+		"textMessageTitle":"We just sent you a text message!",
+		"textMessageSignUpTitle":"Are you sure you replied?",
+		"textMessageTextHelpTitle":"Sorry about that.",
+		"textMessageLbl":"We have just sent you a text message, please reply with the three digit code below.",
+		"textMessageSignUpLbl":"You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageTextHelpLbl":"Some phone carriers experience delays when sending text messages.",
+		"textMessageBtn":"I replied to the text message",
+		"textMessageAttrLbl":"<secondaryfont><secondarycolor>Didn't receive the text message?</secondarycolor></secondaryfont>",
+		"textMessageSendTxtBtn":"Send the text again",
+		"textMessageAttrSkip":"Skip",
+		"textMessageAttrNotReceiveText":"<secondaryfont><secondarycolor>Still not receiving the text messages?</secondarycolor></secondaryfont>",
+		"textMessageAttrPhoneNumber":"Did you enter the right phone number?\n<secondaryfont><secondarycolor>Check the phone number</secondarycolor></secondaryfont>",
+		"textMessageDidNotReceiveTextTitle":"Sorry about that",
+		"textMessageReplyTitle":"Are you sure you replied?",
+		"textMessageDidNotReceiveTextLbl":"Some phone carriers experience delays when sending text messages.",
+		"textMessageReplyLbl":"You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageNotReceiveTitle":"I am not getting any text messages.",
+		"textMessageNotReceiveLbl":"If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
+		"textMessageNotReceiveBtn":"How to fix this issue?",
+		"textMessageNotReceiveAttrSkip":"Skip"
+	
 	}
 };
