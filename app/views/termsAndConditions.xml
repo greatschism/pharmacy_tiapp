@@ -1,7 +1,11 @@
 <Alloy>
 	<TableView id="tableView" onClick="didClickItem">
 		<FooterView>
-			<View class="auto-height" >
+			<View class="auto-height vgroup">
+				<!--footer separator seems to appear on pre lollipop devices-->
+				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
+				<!--footer separator seems to disappear on iOS-->
+				<View class="h-divider-light" platform="ios" />
 				<Button id="doneBtn" class="margin-bottom margin-top secondary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>
