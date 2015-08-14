@@ -1,4 +1,3 @@
-
-".container" : {
-  
+"#benefitsLbl":{
+	text: Alloy.Globals.strings.remindersRefillSectionBenefits
 }

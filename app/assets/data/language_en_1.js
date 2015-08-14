@@ -80,6 +80,7 @@ module.exports = {
 		"titlePrescriptions" : "Prescriptions",
 		"titleReminders" : "Reminders",
 		"titleRemindersRefill" : "Refill reminders",
+		"titleRemindersRefillBenefits" : "Refill reminder benefits",
 		"titleRemindersMed" : "Medication reminders",
 		"titleRemindersMedPrescriptions" : "Set up med reminders",
 		"titleRemindersSettings" : "Settings",
@@ -311,6 +312,12 @@ module.exports = {
 		"remindersTooltipLblMed" : "tip: Set, modify and bundle medication reminders to never miss a dose again.",
 		"remindersTooltipLblSettings" : "tip: Set reminder delivery methods & Rx appearance for all your notifications.",
 		"remindersTooltipBtnHide" : "Got it!",
+
+		"remindersRefillSectionBenefits" : "What kind of reminders will I get?",
+
+		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
+		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",
+		"remindersRefillBenefitsLblPickup" : "Reminder when it's time to pick up Rx",
 
 		"remindersSettingsSectionMethods" : "Delivery method",
 		"remindersSettingsSectionRx" : "Rx reminder settings",

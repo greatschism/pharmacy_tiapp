@@ -1,0 +1,9 @@
+"#refillLbl":{
+	text: Alloy.Globals.strings.remindersRefillBenefitsLblRefill
+},
+"#readyLbl":{
+	text: Alloy.Globals.strings.remindersRefillBenefitsLblReady
+},
+"#pickupLbl":{
+	text: Alloy.Globals.strings.remindersRefillBenefitsLblPickup
+}
