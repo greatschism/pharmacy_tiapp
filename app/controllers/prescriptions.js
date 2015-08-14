@@ -31,20 +31,25 @@ function init() {
 
 function didPostlayout(e) {
 	$.headerView.removeEventListener("postlayout", didPostlayout);
-	var top = $.headerView.rect.height;
+	var top = $.headerView.rect.height,
+	    margin = $.tableView.bottom,
+	    bottom;
+	bottom = margin;
+	if (args.selectable) {
+		bottom += $.submitBtn.height + $.submitBtn.bottom;
+		if (args.isMedReminder && $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false)) {
+			$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
+			$.tooltip.applyProperties({
+				top : top - (margin * 2)
+			});
+			$.tooltip.show();
+		}
+	}
 	$.searchbar.top = top;
-	var margin = $.tableView.bottom;
 	$.tableView.applyProperties({
 		top : top,
-		bottom : margin + $.submitBtn.height + $.submitBtn.bottom
+		bottom : bottom
 	});
-	if (args.isMedReminder && $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false)) {
-		$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
-		$.tooltip.applyProperties({
-			top : top - (margin * 2)
-		});
-		$.tooltip.show();
-	}
 }
 
 function didClickHide(e) {
