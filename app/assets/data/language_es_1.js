@@ -62,7 +62,7 @@ module.exports = {
 		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgAccountEmailVerification" : "es-We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
-		"msgPasswordTips" : "es-Your password must be between 6 and 15 characters and contain at least one number.",
+		"msgPasswordTips" : "es-Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgRxNumberTips" : "es-Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",

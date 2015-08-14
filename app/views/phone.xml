@@ -6,7 +6,7 @@
 					<Label id="mobileNumberLbl" class="content-header-lbl" />
 				</View>
 				<View class="margin-top form-group">
-					<Widget id="phoneTxt" src="ti.textfield" class="form-txt returnkey-done"  onChange="didChangePhone"/>
+					<Widget id="phoneTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-done"  onChange="didChangePhone"/>
 				</View>
 				<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didClickContinue"/>
 				<Label id="receiveTextLbl" class="lbl-wrap"/>
