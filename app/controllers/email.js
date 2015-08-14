@@ -26,7 +26,7 @@ function didClickDone(){
 				feature_code : "THXXX",
 				data : [{
 					patient: {
-					 	email_address : $.emailTxt.getValue()
+					 	email : $.emailTxt.getValue()
 					 }
 				}]
 			},
@@ -39,6 +39,7 @@ function didClickDone(){
 }
 
 function didUpdateEmail(){
+	Alloy.Models.patient.set("email_address", $.emailTxt.getValue());
 	$.uihelper.showDialog({
 		message : $.strings.msgAccountEmailVerification,
 		buttonNames : [$.strings.dialogBtnOK],

@@ -40,6 +40,9 @@ function focus() {
 			});
 		}
 	}
+	
+	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.strings.strNotAvailable;
+	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
 }
 
 function updateUserPreferences(key, value){
