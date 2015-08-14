@@ -1,4 +1,21 @@
-
-".container" : {
-  
+"#methodsLbl":{
+	text: Alloy.Globals.strings.remindersSettingsSectionMethods
+},
+"#refillPromptLbl":{
+	text: Alloy.Globals.strings.remindersSettingsLblRefill
+},
+"#medPromptLbl":{
+	text: Alloy.Globals.strings.remindersSettingsLblMed
+},
+"#promotionalPromptLbl":{
+	text: Alloy.Globals.strings.remindersSettingsLblPromotional
+},
+"#storePromptLbl":{
+	text: Alloy.Globals.strings.remindersSettingsLblStore
+},
+"#rxLbl":{
+	text: Alloy.Globals.strings.remindersSettingsSectionRx
+},
+"#showRxLbl":{
+	text: Alloy.Globals.strings.remindersSettingsLblShowRx
 }

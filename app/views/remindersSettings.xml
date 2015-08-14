@@ -1,4 +1,55 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<TableView>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="methodsLbl" class="content-header-lbl" />
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View id="contentView" class="content-group content-view-with-child">
+					<Label id="refillPromptLbl" class="content-group-prompt-60" />
+					<Label id="refillReplyLbl" class="content-group-right-reply-40" />
+				</View>
+				<Label class="content-child-icon icon-thin-arrow-right" />
+			</TableViewRow>
+			<TableViewRow>
+				<View id="contentView" class="content-group content-view-with-child">
+					<Label id="medPromptLbl" class="content-group-prompt-60" />
+					<Label id="medReplyLbl" class="content-group-right-reply-40" />
+				</View>
+				<Label class="content-child-icon icon-thin-arrow-right" />
+			</TableViewRow>
+			<TableViewRow>
+				<View id="contentView" class="content-group content-view-with-child">
+					<Label id="promotionalPromptLbl" class="content-group-prompt-60" />
+					<Label id="promotionalReplyLbl" class="content-group-right-reply-40" />
+				</View>
+				<Label class="content-child-icon icon-thin-arrow-right" />
+			</TableViewRow>
+			<TableViewRow>
+				<View id="contentView" class="content-group content-view-with-child">
+					<Label id="storePromptLbl" class="content-group-prompt-60" />
+					<Label id="storeReplyLbl" class="content-group-right-reply-40" />
+				</View>
+				<Label class="content-child-icon icon-thin-arrow-right" />
+			</TableViewRow>
+		</TableViewSection>
+		<TableViewSection>
+			<HeaderView>
+				<View class="content-header-view">
+					<Label id="rxLbl" class="content-header-lbl" />
+				</View>
+			</HeaderView>
+			<TableViewRow>
+				<View class="content-view-with-rswt">
+					<Label id="showRxLbl" class="content-lbl-wrap" />
+				</View>
+				<Widget id="showRxSwt" src="ti.switch" class="content-right-swt swt" />
+			</TableViewRow>
+		</TableViewSection>
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
 </Alloy>

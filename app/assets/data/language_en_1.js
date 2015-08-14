@@ -312,6 +312,14 @@ module.exports = {
 		"remindersTooltipLblSettings" : "tip: Set reminder delivery methods & Rx appearance for all your notifications.",
 		"remindersTooltipBtnHide" : "Got it!",
 
+		"remindersSettingsSectionMethods" : "Delivery method",
+		"remindersSettingsSectionRx" : "Rx reminder settings",
+		"remindersSettingsLblRefill" : "Refill reminders",
+		"remindersSettingsLblMed" : "Medication reminders",
+		"remindersSettingsLblPromotional" : "Promotional offers",
+		"remindersSettingsLblStore" : "Pharmacy information",
+		"remindersSettingsLblShowRx" : "Show Rx names in notifications",
+
 		"transferLblTitle" : "You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "Take a photo",
 		"transferBtnType" : "Type prescription details",
