@@ -703,15 +703,8 @@ function didChangeSearch(e) {
 	 */
 	var value = e.value;
 	if (value.length >= searchLenMin) {
-		/**
-		 * appending components as US
-		 * will limit the suggestion
-		 * only within US
-		 * Note: appending this from geocode_url
-		 * will affect search on region change
-		 */
 		httpClient = $.httpClient.request({
-			url : Alloy.CFG.geocode_url.concat(value).concat("&components=country:US"),
+			url : Alloy.CFG.geocode_url.concat(value),
 			format : "JSON",
 			passthrough : value,
 			success : didGetGeoCode,
@@ -1035,13 +1028,13 @@ function didRegionchanged(e) {
 		httpClient.abort();
 	}
 	/**
-	 * search for actual adress
+	 * search for actual address
 	 * to be displayed on search bar
 	 */
 	var latitude = e.latitude,
 	    longitude = e.longitude;
 	httpClient = $.httpClient.request({
-		url : Alloy.CFG.geocode_url.concat((latitude + "," + longitude)),
+		url : Alloy.CFG.reverse_geocode_url.concat((latitude + "," + longitude)),
 		format : "JSON",
 		passthrough : {
 			latitude : latitude,
