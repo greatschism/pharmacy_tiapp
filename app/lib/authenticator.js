@@ -311,7 +311,7 @@ function didUpdatePreferences(result, passthrough) {
 	 * after successful api response
 	 */
 	Alloy.Models.patient.set("pref_timezone", passthrough.timeZone);
-	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
+	setTimeZone(Alloy.Models.patient.get("pref_timezone"), true);
 	if (passthrough.success) {
 		passthrough.success();
 	}
@@ -419,7 +419,20 @@ function getAutoLoginEnabled() {
 	return utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
 }
 
-function setTimeZone(zone) {
+function setTimeZone(zone, updateCodeVal) {
+	/**
+	 * update code values
+	 * if updateCodeVal is true
+	 * need to update updateCodeVal
+	 * only when this is a preference update
+	 * during time zone check
+	 */
+	if (updateCodeVal) {
+		appendFlag(Alloy.Models.timeZone.get("code_values"), zone);
+	}
+	/**
+	 * update moment
+	 */
 	moment.tz.setDefault(zone);
 	/**
 	 * update the last request time

@@ -703,8 +703,15 @@ function didChangeSearch(e) {
 	 */
 	var value = e.value;
 	if (value.length >= searchLenMin) {
+		/**
+		 * appending components as US
+		 * will limit the suggestion
+		 * only within US
+		 * Note: appending this from geocode_url
+		 * will affect search on region change
+		 */
 		httpClient = $.httpClient.request({
-			url : Alloy.CFG.geocode_url.concat(value),
+			url : Alloy.CFG.geocode_url.concat(value).concat("&components=country:US"),
 			format : "JSON",
 			passthrough : value,
 			success : didGetGeoCode,

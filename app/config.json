@@ -70,7 +70,7 @@
             "code_time_zone": "Time Zone",
             "code_language": "MultiLanguage"
         },
-        "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
+        "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=",
         "distancematrix_url": "https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=%s&destinations=%s",
         "log_level": "debug",
         "force_update": false,
