@@ -26,6 +26,7 @@
 	require("barcode");
 	require("navigationHandler");
 	require("notificationHandler");
+	require("refillScan");
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");

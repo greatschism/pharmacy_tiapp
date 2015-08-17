@@ -31,6 +31,8 @@ module.exports = {
 			"rx_length" : 10,
 			"rx_start_index" : 0,
 			"rx_end_index" : 7,
+			"rx_store_start_index" : 8,
+			"rx_store_end_index" : 10,
 			"rx_validator" : "^[0-9]{7}-[0-9]{2}$",
 			"rx_formatters" : [{
 				"pattern" : "\\D",
@@ -44,7 +46,8 @@ module.exports = {
 			"rx_schedule_2_validator" : "^(2).*$",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,
-			"refill_type_phone_enabled" : true,
+			"refill_scan_phone_enabled" : false,
+			"refill_type_phone_enabled" : false,
 			"toggle_password_enabled" : true,
 			"auto_login_dialog_enabled" : true,
 			"auto_populate_username" : true,
