@@ -11,11 +11,17 @@ function init() {
 	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
-	$.timeZoneReplyLbl.text = Alloy.Models.patient.get("pref_timezone");
+	$.timeZoneReplyLbl.text = getTimeZone();
 	$.languageReplyLbl.text = Alloy.Models.patient.get("pref_language");
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
 	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
+}
+
+function getTimeZone(){
+	return _.find(Alloy.Models.timeZone.get("code_values"), function(val){
+			return val.code_value == Alloy.Models.patient.get("pref_timezone");
+		}).code_display;
 }
 
 function focus() {

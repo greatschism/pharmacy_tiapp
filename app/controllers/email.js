@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
 	app = require("core"),
-	didChangeEmail = false;
+	didChangeEmailValue = false;
 
 function init() {
 	$.emailTxt.setValue(Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable);
@@ -9,14 +9,27 @@ function init() {
 }
 
 function didChangeEmail(){
-	didChangeEmail = true;
+	didChangeEmailValue = true;
 }
 
 function didClickDone(){
 	/**
 	 * Requirement: If the user presses “Done” without making any changes, they are simply brought back to the Account screen without any action being taken.
 	 */
-	if(didChangeEmail){
+	if(didChangeEmailValue){
+		var email = $.emailTxt.getValue();
+		if (!email){
+			$.uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValEmail
+			});
+			return;
+		}
+		if (!$.utilities.validateEmail(email)) {
+			$.uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValEmailInvalid
+			});
+			return;
+		}
 		/**
 		 * to do - call API patient/Update
 		 */
