@@ -495,6 +495,7 @@ module.exports = {
 		"childAddValRxNo" : "Please enter your prescription number.",
 		"childAddValRxNoInvalid" : "Prescription number you have entered seem invalid.",
 		"childAddAccntInvalid" : "This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
+		"childValStore":"Please select a pharmacy",
 
 		"childSuccessLblTitle" : "You have successfully added a child to your account.",
 		"childSuccessBtnAddChild" : "Add another child",

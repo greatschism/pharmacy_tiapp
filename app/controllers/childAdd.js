@@ -85,7 +85,12 @@ function didClickContinue(){
 		});
 		return;
 	}
-	
+	if (_.isEmpty(store)) {
+			$.uihelper.showDialog({
+				message : $.strings.childValStore
+			});
+			return;
+		}
 	var age=getAge(dob);
 	if(age>=18){
 		$.uihelper.showDialog({
