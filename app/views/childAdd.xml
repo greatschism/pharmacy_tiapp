@@ -14,7 +14,7 @@
 			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
 		</View>
 		<View class="margin-top form-vgroup">
-			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext"  />
+			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext" onChange="didChangeRx" />
 			<View class="h-divider"/>
 			<View id="storeView" class="content-view" onClick="didClickPharmacy">
 				<View class="content-master-view-70">

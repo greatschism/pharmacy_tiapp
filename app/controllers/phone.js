@@ -1,14 +1,16 @@
 var args = arguments[0] || {},
     childProxies,
     childProxy,
+    phone,
+    otp,
     utilities = require('utilities'),
     rows = [];
-    
+
 function init() {
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
-	if(utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")){
+	if (utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")) {
 		updateTable();
 	}
 }
@@ -58,7 +60,7 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	if(utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")){
+	if (utilities.getProperty(Alloy.Models.patient.get("email_address") + "familyAccounts")) {
 		var row = rows[e.index];
 		var params = row.getParams();
 		if (params.selected === true) {
@@ -71,34 +73,71 @@ function didClickTableView(e) {
 	}
 }
 
-function didClickContinue(){
-		$.app.navigator.open({
-		ctrl : "textMessage",
-		stack : true,
-		ctrlArguments : {
-			"txtCode":true,
-			"txtMsgTitle" : true,
-			"txtMsgLbl" : true,
-			"signUpLbl" : false,
-			"signUpTitle" : false,
-			"txtHelpTitle" : false,
-			"txtHelpLbl" : false,
-			"replyTextMsgBtn" : true,
-			"sendMeTextAgainSignUpBtn" : false,
-			"sendMeTextAgainTextHelpBtn":false,
-			"skipSignUpAttr" : false,
-			"skipNoTextMsgAttr" : false,
-			"didNotReceiveTextAttr" : true,
-			"stillReceiveTextAttr" : false,
-			"checkPhoneAttr" : false,
-			"txtNotReceiveTitle":false,
-			"txtNotReceiveLbl":false,
-			"txtNotReceiveBtn":false,
-			"skipTxtNotReceiveAttr":false,
-			"txtSuccessImg":true,
-			"txtFailImg":false
-			
-		}
+function didClickContinue() {
+	phone = $.phoneTxt.getValue();
+	if (!phone) {
+		$.uihelper.showDialog({
+			message : $.strings.phoneValPhone
+		});
+		return;
+	}
+	phone = $.utilities.validatePhoneNumber(phone);
+	if (!phone) {
+		$.uihelper.showDialog({
+			message : $.strings.phoneValPhoneInvalid
+		});
+		return;
+	}
+	$.http.request({
+		method : "mobile_add",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				add : {
+					mobile : "1"+phone,
+					old_mobile : ""
+				}
+			}]
+
+		},
+		success : didCheckMobileNumber,
+		 failure: didFail
+	});
+}
+function didFail(){
+	
+}
+function didCheckMobileNumber(result) {
+	otp=result.data.patient.verification_code;
+	$.app.navigator.open({
+	ctrl : "textMessage",
+	stack : true,
+	ctrlArguments : {
+	"otp":otp,
+	"phone":phone,
+	"txtCode":true,
+	"txtMsgTitle" : true,
+	"txtMsgLbl" : true,
+	"signUpLbl" : false,
+	"signUpTitle" : false,
+	"txtHelpTitle" : false,
+	"txtHelpLbl" : false,
+	"replyTextMsgBtn" : true,
+	"sendMeTextAgainSignUpBtn" : false,
+	"sendMeTextAgainTextHelpBtn":false,
+	"skipSignUpAttr" : false,
+	"skipNoTextMsgAttr" : false,
+	"didNotReceiveTextAttr" : true,
+	"stillReceiveTextAttr" : false,
+	"checkPhoneAttr" : false,
+	"txtNotReceiveTitle":false,
+	"txtNotReceiveLbl":false,
+	"txtNotReceiveBtn":false,
+	"skipTxtNotReceiveAttr":false,
+	"txtSuccessImg":true,
+	"txtFailImg":false
+
+	}
 	});
 }
 

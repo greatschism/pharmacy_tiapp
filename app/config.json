@@ -34,7 +34,8 @@
             "terms_get": "terms/get",
             "terms_get_all": "terms/getall",
             "terms_accept": "terms/accept",
-            "terms_decline": "terms/decline"
+            "terms_decline": "terms/decline",
+            "mobile_add": "patient/mobile/add"
         },
         "apiCodes": {
             "success": "200",

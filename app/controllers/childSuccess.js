@@ -4,12 +4,12 @@ function init(){
 	/**
 	 * Set property to display HIPAA during first login flow
 	 */
-	utilities.setProperty(args.username, "showHIPAA", "string", true);	
+	$.utilities.setProperty(args.username, "showHIPAA", "string", true);	
 	
 	/**
 	 * Set property to indicate family accounts for text signup flow
 	 */
-	utilities.setProperty(args.username + "familyAccounts", true, "bool", true);	
+	$.utilities.setProperty(args.username + "familyAccounts", true, "bool", true);	
 }
 function didClickAddChild(){
 	$.app.navigator.open({

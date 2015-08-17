@@ -11,6 +11,12 @@ function focus(){
 		$.storeTitleLbl.text = store.title;
 	}
 }
+function didChangeRx(e) {
+	var value = $.utilities.formatRx(e.value),
+	    len = value.length;
+	$.rxNoTxt.setValue(value);
+	$.rxNoTxt.setSelection(len, len);
+}
 function didClickPharmacy(e) {
 	$.app.navigator.open({
 		titleid : "titleStores",
@@ -79,6 +85,7 @@ function didClickContinue(){
 		});
 		return;
 	}
+	
 	var age=getAge(dob);
 	if(age>=18){
 		$.uihelper.showDialog({

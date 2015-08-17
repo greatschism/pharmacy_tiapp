@@ -541,7 +541,11 @@ module.exports = {
 		"textMessageNotReceiveTitle":"I am not getting any text messages.",
 		"textMessageNotReceiveLbl":"If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
 		"textMessageNotReceiveBtn":"How to fix this issue?",
-		"textMessageNotReceiveAttrSkip":"Skip"
+		"textMessageNotReceiveAttrSkip":"Skip",
+		"textMessageMobileVerified":"You will now receive text reminders",
+		
+		"phoneValPhone" : "Please enter your mobile number to continue.",
+		"phoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 	
 	}
 };
