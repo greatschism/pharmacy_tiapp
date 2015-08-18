@@ -1,3 +1,14 @@
+"#pickupModePicker":{
+	autoHide: true,
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#pickupModeSectionLbl":{
+	text: Alloy.Globals.strings.refillTypePopupSectionPickupMode
+},
+"#pickupModeCloseBtn":{
+	title: Alloy.Globals.strings.refillTypePopupPickupModeBtnClose
+},
 "#titleLbl":{
 	text: Alloy.Globals.strings.refillTypeLblTitle
 },
@@ -19,8 +30,8 @@
 "#refillBtn":{
 	title: Alloy.Globals.strings.refillTypeBtnRefill
 },
-"#storeTitleLbl":{
-	text: Alloy.Globals.strings.strLoading
+"#mailorderLbl":{
+	text: Alloy.Globals.strings.refillTypeLblMailOrder
 },
 /**
 * 	must be false when used inside table / list view
@@ -29,10 +40,10 @@
 	bubbleParent: true
 },
 /**
- * 	remove margin top when
- *  phone text field is disabled
- *  padding is already there with store content view
- */
+* 	remove margin top when
+*  phone text field is disabled
+*  padding is already there with store content view
+*/
 "#dividerView[if=!Alloy.CFG.refill_type_phone_enabled]":{
 	top: null
 }

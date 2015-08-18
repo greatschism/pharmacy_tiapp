@@ -130,6 +130,9 @@ module.exports = {
 	".returnkey-search" : {
 		"returnKeyType" : "Ti.UI.RETURNKEY_SEARCH"
 	},
+	".role-ignore" : {
+		"role" : "ignore"
+	},
 	".role-right-nav-btn" : {
 		"role" : "rightNavButton"
 	},

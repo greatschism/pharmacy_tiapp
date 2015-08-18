@@ -28,6 +28,9 @@ var args = arguments[0] || {},
 			return;
 		}
 		switch(child.role) {
+		case "ignore":
+			//just ignore
+			break;
 		case "rightNavButton":
 			rightNavItem = child;
 			break;

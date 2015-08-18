@@ -100,6 +100,7 @@ module.exports = {
 		"titleLogin" : "es-Sign in",
 		"titleLogout" : "es-Logout",
 		"titleRefillType" : "es-Quick Refill",
+		"titleRxSample" : "es-Rx Sample",
 		"titleRefillSuccess" : "es-Refill ordered!",
 		"titleRefillFailure" : "es-We're sorry",
 		"titleSignup" : "es-Sign up",
@@ -123,6 +124,8 @@ module.exports = {
 		"titleTextBenefits" : "es-Text benefits",
 		"titleChildConsent" : "es-Note to your minor",
 		"titleChildSuccess" : "es-Success!",
+		"titleTextHelp" : "es-Text help",
+		"titleTextMsgSignUp" : "es-Sign up for text messaging",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
@@ -268,6 +271,8 @@ module.exports = {
 		"orderDetBtnRefill" : "es-Submit",
 		"orderDetLblMailOrder" : "es-All orders will be mailed to the address your pharmacy has on file.",
 
+		"rxSampleLblTitle" : "es-Where is my Rx number?",
+
 		"refillBtnScan" : "es-Scan my prescription",
 		"refillBtnType" : "es-Type my prescription details",
 
@@ -290,6 +295,9 @@ module.exports = {
 		"refillTypeValPhone" : "es-Please enter your mobile number to continue.",
 		"refillTypeValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 		"refillTypeBtnRefill" : "es-Submit",
+		"refillTypePopupSectionPickupMode" : "es-Pickup Modes",
+		"refillTypePopupPickupModeBtnClose" : "es-Close",
+		"refillTypeLblMailOrder" : "es-All orders will be mailed to the address your pharmacy has on file.",
 
 		"refillSuccessLblSuccess" : "es-We have processed your order",
 		"refillSuccessLblPartial" : "es-We processed your order, but some prescriptions could not be filled.",
@@ -493,6 +501,7 @@ module.exports = {
 		"childAddValRxNo" : "es-Please enter your prescription number.",
 		"childAddValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
 		"childAddAccntInvalid" : "es-This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
+		"childValStore" : "es-Please select a pharmacy",
 
 		"childSuccessLblTitle" : "es-You have successfully added a child to your account.",
 		"childSuccessBtnAddChild" : "es-Add another child",
@@ -518,6 +527,32 @@ module.exports = {
 		"receiveTextChildSectionPhoneNum" : "es-Mobile number",
 		"receiveTextChildBtnContinue" : "es-Continue",
 		"receiveTextChildLbl" : "es-By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
-		"receiveTextChildHintPhone" : "es-Mobile number"
+		"receiveTextChildHintPhone" : "es-Mobile number",
+
+		"textMessageTitle" : "es-We just sent you a text message!",
+		"textMessageSignUpTitle" : "es-Are you sure you replied?",
+		"textMessageTextHelpTitle" : "es-Sorry about that.",
+		"textMessageLbl" : "es-We have just sent you a text message, please reply with the three digit code below.",
+		"textMessageSignUpLbl" : "es-You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageTextHelpLbl" : "es-Some phone carriers experience delays when sending text messages.",
+		"textMessageBtn" : "es-I replied to the text message",
+		"textMessageAttrLbl" : "es-<secondaryfont><secondarycolor>Didn't receive the text message?</secondarycolor></secondaryfont>",
+		"textMessageSendTxtBtn" : "es-Send the text again",
+		"textMessageAttrSkip" : "es-Skip",
+		"textMessageAttrNotReceiveText" : "es-<secondaryfont><secondarycolor>Still not receiving the text messages?</secondarycolor></secondaryfont>",
+		"textMessageAttrPhoneNumber" : "es-Did you enter the right phone number?\n<secondaryfont><secondarycolor>Check the phone number</secondarycolor></secondaryfont>",
+		"textMessageDidNotReceiveTextTitle" : "es-Sorry about that",
+		"textMessageReplyTitle" : "es-Are you sure you replied?",
+		"textMessageDidNotReceiveTextLbl" : "es-Some phone carriers experience delays when sending text messages.",
+		"textMessageReplyLbl" : "es-You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageNotReceiveTitle" : "es-I am not getting any text messages.",
+		"textMessageNotReceiveLbl" : "es-If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
+		"textMessageNotReceiveBtn" : "es-How to fix this issue?",
+		"textMessageNotReceiveAttrSkip" : "es-Skip",
+		"textMessageMobileVerified" : "es-You will now receive text reminders",
+
+		"phoneValPhone" : "es-Please enter your mobile number to continue.",
+		"phoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
+
 	}
 };

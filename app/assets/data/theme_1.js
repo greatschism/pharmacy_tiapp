@@ -885,6 +885,49 @@ module.exports = {
 				"height" : 50,
 				"paddingLeft" : 8,
 				"paddingRight" : 8,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"iconFont" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"buttonFont" : {
+					"fontFamily" : "bold",
+					"fontSize" : 12
+				},
+				"leftIconDict" : {
+					"color" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"rightIconDict" : {
+					"color" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"leftButtonDict" : {
+					"color" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"rightButtonDict" : {
+					"color" : "#808184",
+					"backgroundColor" : "transparent",
+					"borderColor" : "transparent"
+				},
+				"hintTextColor" : "#C7C7CD",
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "#808082",
+				"borderWidth" : 1,
+				"borderRadius" : 3.4
+			},
+			".txt-centered-48" : {
+				"width" : "48%",
+				"height" : 50,
+				"paddingLeft" : 8,
+				"paddingRight" : 8,
 				"textAlign" : "center",
 				"font" : {
 					"fontFamily" : "medium",
@@ -1520,6 +1563,15 @@ module.exports = {
 					"fontSize" : 24
 				},
 				"color" : "#F7941E",
+				"accessibilityHidden" : true
+			},
+			".content-tertiary-right-icon" : {
+				"right" : 12,
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"color" : "#599cff",
 				"accessibilityHidden" : true
 			},
 			".content-negative-right-icon" : {

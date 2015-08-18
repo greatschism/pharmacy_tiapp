@@ -135,12 +135,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 50,
-				"left" : 50
+				"width" : "70%"
 			},
 			"landscape" : {
-				"right" : 50,
-				"left" : 50
+				"width" : "70%"
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -199,6 +197,24 @@ module.exports = {
 		},
 		"platform" : ["android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "rx_sample_pl",
+		"name" : "rx_sample",
+		"format" : "png",
+		"orientation" : {
+			"portrait" : {
+				"width" : "90%"
+			},
+			"landscape" : {
+				"width" : "90%"
+			}
+		},
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/rx_sample.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -290,7 +306,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
 		"selected" : true
-	},{
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -302,7 +318,7 @@ module.exports = {
 				"width" : 90
 			},
 			"landscape" : {
-				"width" :90
+				"width" : 90
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -461,12 +477,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -481,12 +495,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			}
 		},
 		"platform" : ["ios", "android"],
@@ -501,12 +513,10 @@ module.exports = {
 		"format" : "png",
 		"orientation" : {
 			"portrait" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			},
 			"landscape" : {
-				"right" : 100,
-				"left" : 100
+				"width" : "90%"
 			}
 		},
 		"platform" : ["ios", "android"],

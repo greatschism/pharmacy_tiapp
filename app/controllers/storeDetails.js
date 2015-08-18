@@ -228,11 +228,16 @@ function didClickRefill(e) {
 			stack : true
 		};
 	} else {
+		/*
+		 * Note: when it is from store details
+		 * force pickupMode to pickup_mode_instore
+		 */
 		navigation = {
 			titleid : "titleRefillType",
 			ctrl : "refillType",
 			ctrlArguments : {
-				store : store
+				store : store,
+				pickupMode : Alloy.CFG.apiCodes.pickup_mode_instore
 			},
 			stack : true
 		};

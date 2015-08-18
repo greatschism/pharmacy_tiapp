@@ -100,6 +100,7 @@ module.exports = {
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Logout",
 		"titleRefillType" : "Quick Refill",
+		"titleRxSample" : "Rx Sample",
 		"titleRefillSuccess" : "Refill ordered!",
 		"titleRefillFailure" : "We're sorry",
 		"titleSignup" : "Sign up",
@@ -123,8 +124,8 @@ module.exports = {
 		"titleTextBenefits" : "Text benefits",
 		"titleChildConsent" : "Note to your minor",
 		"titleChildSuccess" : "Success!",
-		"titleTextHelp":"Text help",
-		"titleTextMsgSignUp":"Sign up for text messaging",
+		"titleTextHelp" : "Text help",
+		"titleTextMsgSignUp" : "Sign up for text messaging",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -270,6 +271,8 @@ module.exports = {
 		"orderDetBtnRefill" : "Submit",
 		"orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 
+		"rxSampleLblTitle" : "Where is my Rx number?",
+
 		"refillBtnScan" : "Scan my prescription",
 		"refillBtnType" : "Type my prescription details",
 
@@ -292,6 +295,9 @@ module.exports = {
 		"refillTypeValPhone" : "Please enter your mobile number to continue.",
 		"refillTypeValPhoneInvalid" : "The mobile number you have entered is invalid.",
 		"refillTypeBtnRefill" : "Submit",
+		"refillTypePopupSectionPickupMode" : "Pickup Modes",
+		"refillTypePopupPickupModeBtnClose" : "Close",
+		"refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 
 		"refillSuccessLblSuccess" : "We have processed your order",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
@@ -495,7 +501,7 @@ module.exports = {
 		"childAddValRxNo" : "Please enter your prescription number.",
 		"childAddValRxNoInvalid" : "Prescription number you have entered seem invalid.",
 		"childAddAccntInvalid" : "This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
-		"childValStore":"Please select a pharmacy",
+		"childValStore" : "Please select a pharmacy",
 
 		"childSuccessLblTitle" : "You have successfully added a child to your account.",
 		"childSuccessBtnAddChild" : "Add another child",
@@ -522,31 +528,31 @@ module.exports = {
 		"receiveTextChildBtnContinue" : "Continue",
 		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
 		"receiveTextChildHintPhone" : "Mobile number",
-		
-		"textMessageTitle":"We just sent you a text message!",
-		"textMessageSignUpTitle":"Are you sure you replied?",
-		"textMessageTextHelpTitle":"Sorry about that.",
-		"textMessageLbl":"We have just sent you a text message, please reply with the three digit code below.",
-		"textMessageSignUpLbl":"You cannot receive text messages until you verify your number by replying with the three digit code below.",
-		"textMessageTextHelpLbl":"Some phone carriers experience delays when sending text messages.",
-		"textMessageBtn":"I replied to the text message",
-		"textMessageAttrLbl":"<secondaryfont><secondarycolor>Didn't receive the text message?</secondarycolor></secondaryfont>",
-		"textMessageSendTxtBtn":"Send the text again",
-		"textMessageAttrSkip":"Skip",
-		"textMessageAttrNotReceiveText":"<secondaryfont><secondarycolor>Still not receiving the text messages?</secondarycolor></secondaryfont>",
-		"textMessageAttrPhoneNumber":"Did you enter the right phone number?\n<secondaryfont><secondarycolor>Check the phone number</secondarycolor></secondaryfont>",
-		"textMessageDidNotReceiveTextTitle":"Sorry about that",
-		"textMessageReplyTitle":"Are you sure you replied?",
-		"textMessageDidNotReceiveTextLbl":"Some phone carriers experience delays when sending text messages.",
-		"textMessageReplyLbl":"You cannot receive text messages until you verify your number by replying with the three digit code below.",
-		"textMessageNotReceiveTitle":"I am not getting any text messages.",
-		"textMessageNotReceiveLbl":"If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
-		"textMessageNotReceiveBtn":"How to fix this issue?",
-		"textMessageNotReceiveAttrSkip":"Skip",
-		"textMessageMobileVerified":"You will now receive text reminders",
-		
+
+		"textMessageTitle" : "We just sent you a text message!",
+		"textMessageSignUpTitle" : "Are you sure you replied?",
+		"textMessageTextHelpTitle" : "Sorry about that.",
+		"textMessageLbl" : "We have just sent you a text message, please reply with the three digit code below.",
+		"textMessageSignUpLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageTextHelpLbl" : "Some phone carriers experience delays when sending text messages.",
+		"textMessageBtn" : "I replied to the text message",
+		"textMessageAttrLbl" : "<secondaryfont><secondarycolor>Didn't receive the text message?</secondarycolor></secondaryfont>",
+		"textMessageSendTxtBtn" : "Send the text again",
+		"textMessageAttrSkip" : "Skip",
+		"textMessageAttrNotReceiveText" : "<secondaryfont><secondarycolor>Still not receiving the text messages?</secondarycolor></secondaryfont>",
+		"textMessageAttrPhoneNumber" : "Did you enter the right phone number?\n<secondaryfont><secondarycolor>Check the phone number</secondarycolor></secondaryfont>",
+		"textMessageDidNotReceiveTextTitle" : "Sorry about that",
+		"textMessageReplyTitle" : "Are you sure you replied?",
+		"textMessageDidNotReceiveTextLbl" : "Some phone carriers experience delays when sending text messages.",
+		"textMessageReplyLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageNotReceiveTitle" : "I am not getting any text messages.",
+		"textMessageNotReceiveLbl" : "If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
+		"textMessageNotReceiveBtn" : "How to fix this issue?",
+		"textMessageNotReceiveAttrSkip" : "Skip",
+		"textMessageMobileVerified" : "You will now receive text reminders",
+
 		"phoneValPhone" : "Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
-	
+
 	}
 };

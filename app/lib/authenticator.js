@@ -360,10 +360,18 @@ function didLogout(result, passthrough) {
 	 */
 	setTimeZone(null);
 	/**
-	 * reset models and collections
+	 * reset collections and models
 	 */
-	_.each(["patient", "storeOriginal", "sortOrderPreferences", "pickupModes"], function(val) {
-		Alloy.Models[val].clear();
+	var igoreKeys = ["menuItems", "banners", "appload", "template"];
+	_.each(Alloy.Collections, function(coll, key) {
+		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
+			coll.reset([]);
+		}
+	});
+	_.each(Alloy.Models, function(model, key) {
+		if (_.isFunction(model.clear) && _.indexOf(igoreKeys, key) === -1) {
+			model.clear();
+		}
 	});
 	Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
 		action : "logout"

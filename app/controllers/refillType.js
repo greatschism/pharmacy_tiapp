@@ -22,6 +22,50 @@ function init() {
 	}).top;
 	$.containerView.height = rxTxtHeight;
 	/**
+	 *  if any bookmark operation
+	 *  was performed on this store
+	 *  at details screen shouldUpdate will be true
+	 *  when user reaches this screen.
+	 *  So just set it to false
+	 *  by default
+	 */
+	if (store.shouldUpdate) {
+		store.shouldUpdate = false;
+	}
+	var codes = Alloy.Models.pickupModes.get("code_values") || [],
+	    len = codes.length;
+	if (len === 0 || len > 1) {
+		var title;
+		if (len) {
+			/**
+			 * check if a prefered pickup mode
+			 * is sent with arguments
+			 * Note: need to check only when
+			 * more than one option is available
+			 */
+			var preferedPickupMode = args.pickupMode;
+			if (preferedPickupMode) {
+				_.each(codes, function(code) {
+					if (code.code_value == preferedPickupMode) {
+						Alloy.Models.pickupModes.set("selected_code_value", code.code_value);
+						code.selected = true;
+					} else {
+						code.selected = false;
+					}
+				});
+			}
+			$.pickupModePicker.setItems(codes);
+			title = _.findWhere(codes, {
+				selected : true
+			}).code_display;
+		} else {
+			title = $.strings.strLoading;
+		}
+		$.pickupModeLbl.text = title;
+		$.pickupView.add($.pickupModeView);
+		$.pickupView.add($.pickupDividerView);
+	}
+	/**
 	 * only when phoneTxt
 	 * is included
 	 * determined by flag refill_type_phone_enabled
@@ -111,7 +155,9 @@ function didClickRefill(e) {
 	 * need not to show errors
 	 * and should have at least one valid rx
 	 */
-	var isInvalidRx = false,
+	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
+	    storeId = pickupMode == apiCodes.pickup_mode_instore ? store.id : Alloy.Models.appload.get("mail_order_store_id"),
+	    isInvalidRx = false,
 	    lastIndex = 0,
 	    validRxs = [];
 	_.some(rxTxts, function(rxTxt, index) {
@@ -121,8 +167,8 @@ function didClickRefill(e) {
 			if (value) {
 				validRxs.push({
 					rx_number : value,
-					store_id : store.id,
-					pickup_mode : apiCodes.pickup_mode_instore,
+					store_id : storeId,
+					pickup_mode : pickupMode,
 					pickup_time_group : apiCodes.pickup_time_group_asap
 				});
 			} else {
@@ -213,32 +259,22 @@ function didClickEdit(e) {
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		if (_.isEmpty(store)) {
-			//last refilled store
-			var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
-			if (storeId) {
-				$.http.request({
-					method : "stores_get",
-					params : {
-						feature_code : "THXXX",
-						data : [{
-							stores : {
-								id : storeId,
-							}
-						}]
-					},
-					success : didGetStore
-				});
-			} else {
-				$.storeTitleLbl.text = $.strings.refillTypeLblStoreTitle;
-				$.storeSubtitleLbl.text = $.strings.refillTypeLblStoreSubtitle;
-			}
+		var codes = Alloy.Models.pickupModes.get("code_values");
+		if (codes) {
+			/**
+			 * codes are already available
+			 * proceed further
+			 *
+			 * if only one pickup option then
+			 * don't show option to change
+			 */
+			getStore();
 		} else {
 			/**
-			 * store exists might have
-			 * passed from store details
+			 * this is the first launch of this screen
+			 * get stores information
 			 */
-			updateStore();
+			getPickupModes();
 		}
 	} else if (store.shouldUpdate) {
 		/**
@@ -246,6 +282,111 @@ function focus() {
 		 * reset the update flag
 		 */
 		store.shouldUpdate = false;
+		updateStore();
+	}
+}
+
+function getPickupModes() {
+	/**
+	 * if we don't have store information already
+	 *  _.isEmpty(store) = true then keepLoader will be true
+	 * as there will be subsequent api call for prescription and store
+	 * otherwise it will be just pickup mode
+	 */
+	$.http.request({
+		method : "codes_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				codes : [{
+					code_name : apiCodes.code_pickup_modes
+				}]
+			}]
+		},
+		keepLoader : _.isEmpty(store),
+		success : didGetPickupModes,
+		failure : didFail
+	});
+}
+
+function didFail(result, passthrough) {
+	/**
+	 * if something goes odd with api
+	 * just close this screen to
+	 * prevent any further actions
+	 */
+	$.app.navigator.close();
+}
+
+function didGetPickupModes(result) {
+	/**
+	 * args.pickupMode is prefered pickup mode
+	 * for this transaction
+	 * Ex: if we reach this screen from store details
+	 * then prefered pickup mode will be pickup_mode_instore
+	 * if default is mail order then we have to
+	 * give first pererence for args.pickupMode
+	 */
+	Alloy.Models.pickupModes.set(result.data.codes[0]);
+	var codes = Alloy.Models.pickupModes.get("code_values"),
+	    defaultVal = args.pickupMode || Alloy.Models.pickupModes.get("default_value"),
+	    selectedCode;
+	_.each(codes, function(code) {
+		if (code.code_value === defaultVal) {
+			selectedCode = code;
+			code.selected = true;
+		} else {
+			code.selected = false;
+		}
+	});
+	/**
+	 * if there are more then one option populate picker
+	 * otherwise just show the default option
+	 * if only one pickup option then
+	 * don't show option to change
+	 */
+	if (codes.length > 1) {
+		$.pickupModePicker.setItems(codes);
+		updatePickupMode({
+			data : selectedCode
+		});
+	} else {
+		$.pickupView.remove($.pickupModeView);
+		$.pickupView.remove($.storeDividerView);
+		$.pickupModeView = null;
+		$.storeDividerView = null;
+	}
+	getStore();
+}
+
+function getStore() {
+	if (_.isEmpty(store)) {
+		//last refilled store
+		var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
+		if (storeId) {
+			$.http.request({
+				method : "stores_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						stores : {
+							id : storeId,
+						}
+					}]
+				},
+				success : didGetStore
+			});
+		} else {
+			$.storeTitleLbl.text = $.strings.refillTypeLblStoreTitle;
+			$.storeSubtitleLbl.text = $.strings.refillTypeLblStoreSubtitle;
+			updatePickupOption();
+			$.app.navigator.hideLoader();
+		}
+	} else {
+		/**
+		 * store exists might have
+		 * passed from store details
+		 */
 		updateStore();
 	}
 }
@@ -267,6 +408,54 @@ function didGetStore(result, passthrough) {
 function updateStore() {
 	$.storeTitleLbl.text = store.title;
 	$.storeSubtitleLbl.text = store.subtitle;
+	updatePickupOption();
+}
+
+function updatePickupMode(e) {
+	Alloy.Models.pickupModes.set("selected_code_value", e.data.code_value);
+	$.pickupModeLbl.text = e.data.code_display;
+	updatePickupOption();
+}
+
+function updatePickupOption() {
+	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
+	case apiCodes.pickup_mode_instore:
+		if ($.mailorderView.visible) {
+			$.pickupView.remove($.mailorderView);
+			$.mailorderView.visible = false;
+		}
+		if (!$.storeView.visible) {
+			$.storeView.visible = true;
+			$.pickupView.add($.storeView);
+		}
+		break;
+	case apiCodes.pickup_mode_mail_order:
+		if ($.storeView.visible) {
+			$.pickupView.remove($.storeView);
+			$.storeView.visible = false;
+		}
+		if (!$.mailorderView.visible) {
+			$.mailorderView.visible = true;
+			$.pickupView.add($.mailorderView);
+		}
+		break;
+	}
+}
+
+function didClickPickupModeClose(e) {
+	$.pickupModePicker.hide();
+}
+
+function didClickPickupMode(e) {
+	$.pickupModePicker.show();
+}
+
+function didClickHelp(e) {
+	$.app.navigator.open({
+		titleid : "titleRxSample",
+		ctrl : "rxSample",
+		stack : true
+	});
 }
 
 exports.init = init;
