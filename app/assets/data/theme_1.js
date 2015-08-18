@@ -885,6 +885,7 @@ module.exports = {
 				"height" : 50,
 				"paddingLeft" : 8,
 				"paddingRight" : 8,
+				"textAlign" : "center",
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 14

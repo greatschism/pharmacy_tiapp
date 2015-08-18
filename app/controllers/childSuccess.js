@@ -10,7 +10,6 @@ function init(){
 	 * Set property to indicate family accounts for text signup flow
 	 */
 	$.utilities.setProperty(args.username + "familyAccounts", true, "bool", true);	
-	console.log(args.username);
 }
 function didClickAddChild(){
 	$.app.navigator.open({
