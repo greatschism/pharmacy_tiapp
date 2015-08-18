@@ -2,7 +2,7 @@
 	<View class="vgroup">
 		<Label id="consentLbl" class="lbl-wrap margin-top"/>
 		<View class="auto-height">
-			<Label id="leftIconLbl" class="content-positive-left-icon icon-checkbox-unchecked" selected="true" onClick="didClickConsent"/>
+			<Label id="leftIconLbl" class="content-inactive-left-icon icon-checkbox-unchecked" selected="true" onClick="didClickConsent"/>
 			<View class="content-view-vgroup-with-licon">
 				<Label id="consentObtainLbl" class="content-title" />
 			</View>

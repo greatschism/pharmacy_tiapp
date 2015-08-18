@@ -7,6 +7,7 @@ var args = arguments[0] || {},
     rows = [];
 
 function init() {
+	console.log(Alloy.Models.patient.get("email_address"));
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */

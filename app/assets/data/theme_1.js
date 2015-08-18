@@ -1452,7 +1452,7 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 24
 				},
-				"color" : "#A6A8AB",
+				"color" : "#6D6E71",
 				"accessibilityHidden" : true
 			},
 			".content-positive-left-icon" : {

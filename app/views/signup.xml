@@ -25,7 +25,7 @@
 				<View class="h-divider"/>
 				<View id="storeView" class="content-view" onClick="didClickPharmacy">
 					<View class="content-master-view-70">
-						<Label id="storeTitleLbl" class="content-title" />
+						<Label id="storeTitleLbl" class="content-subtitle" />
 					</View>
 					<View class="content-detail-view-30">
 						<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-right" />						

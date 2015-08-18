@@ -6,6 +6,7 @@ function init() {
 	$.uihelper.getImage("child_add", $.txtSuccessImg);
 	$.uihelper.getImage("fail", $.txtFailImg);
 	if (args.txtCode === true) {
+		$.txtCode.editable=false;
 		$.txtCode.setValue(args.otp);
 	}
 
@@ -76,7 +77,7 @@ function didFailPatient() {
 
 function didGetPatient(result) {
 	var verified = result.data.patients.is_mobile_verified;
-	if (!parseInt(verified)) {
+	if (parseInt(verified)) {
 		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.textMessageMobileVerified,
 			success : didReplied
@@ -140,9 +141,9 @@ function sendTextSignUpMessage() {
 			"replyTextMsgBtn" : true,
 			"sendMeTextAgainSignUpBtn" : false,
 			"sendMeTextAgainTextHelpBtn" : false,
-			"skipSignUpAttr" : true,
+			"skipSignUpAttr" : false,
 			"skipNoTextMsgAttr" : false,
-			"didNotReceiveTextAttr" : false,
+			"didNotReceiveTextAttr" : true,
 			"stillReceiveTextAttr" : false,
 			"checkPhoneAttr" : false,
 			"txtNotReceiveTitle" : false,
@@ -194,9 +195,9 @@ function didSendTextAgain() {
 			"replyTextMsgBtn" : true,
 			"sendMeTextAgainSignUpBtn" : false,
 			"sendMeTextAgainTextHelpBtn" : false,
-			"skipSignUpAttr" : true,
+			"skipSignUpAttr" : false,
 			"skipNoTextMsgAttr" : false,
-			"didNotReceiveTextAttr" : false,
+			"didNotReceiveTextAttr" : true,
 			"stillReceiveTextAttr" : false,
 			"checkPhoneAttr" : false,
 			"txtNotReceiveTitle" : false,

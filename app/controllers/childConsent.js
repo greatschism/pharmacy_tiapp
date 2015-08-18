@@ -13,7 +13,7 @@ function didClickContinue() {
 function didClickConsent(e) {
 	if (e.source.selected) {
 		$.leftIconLbl.applyProperties($.createStyle({
-			classes : ["icon-checkbox-checked"],
+			classes : ["icon-checkbox-checked","content-positive-left-icon"],
 			selected:false,
 		}));
 		$.inactiveBtn.applyProperties($.createStyle({
@@ -23,7 +23,7 @@ function didClickConsent(e) {
 	}
 	else{
 		$.leftIconLbl.applyProperties($.createStyle({
-			classes : ["icon-checkbox-unchecked"],
+			classes : ["icon-checkbox-unchecked","content-inactive-left-icon"],
 			selected:true
 		}));
 		$.inactiveBtn.applyProperties($.createStyle({
