@@ -1,3 +1,4 @@
+ var args=arguments[0]||{};
 function focus() {
 
 }
@@ -6,6 +7,10 @@ function didClickContinue() {
 	$.app.navigator.open({
 		titleid : "titleChildSuccess",
 		ctrl : "childSuccess",
+		ctrlArguments : {
+			username : args.username,
+			password : args.password,
+		},
 		stack : false
 	});
 }

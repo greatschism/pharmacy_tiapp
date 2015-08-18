@@ -102,6 +102,10 @@ function didClickContinue(){
 		$.app.navigator.open({
 		titleid:"titleChildConsent",
 		ctrl : "childConsent",
+		ctrlArguments : {
+			username : args.username,
+			password : args.password,
+		},
 		stack : true
 	});
 	}
