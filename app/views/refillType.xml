@@ -14,7 +14,7 @@
 			<View class="content-view-with-ricon">
 				<Label id="descLbl" class="content-lbl-wrap" />
 			</View>
-			<Button id="helpBtn" class="content-tertiary-right-icon icon-help" />
+			<Label class="content-tertiary-right-icon icon-help" />
 		</View>
 		<View class="margin-top content-header-view">
 			<Label id="prescLbl" class="content-header-lbl-with-ricon" />

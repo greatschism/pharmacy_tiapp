@@ -239,6 +239,7 @@ function didRefill(result, passthrough) {
 		ctrl : "refillSuccess",
 		ctrlArguments : {
 			prescriptions : prescriptions,
+			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
 			phone : phone
 		}
 	});
