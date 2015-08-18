@@ -131,6 +131,11 @@ function didBlur(e) {
 
 function didChange(e) {
 	if (OS_ANDROID && !triggerChange) {
+		/**
+		 * prevents the change event
+		 * that fired as soon the value property
+		 * is changed
+		 */
 		triggerChange = true;
 		return;
 	}
@@ -170,6 +175,16 @@ function animate(dict, callback) {
 }
 
 function setValue(value) {
+	/**
+	 * triggerChange = false
+	 * will prevent the change event
+	 * that fired as soon the value property
+	 * is changed.
+	 * Note: on iOS change events will be fired
+	 * only when it is a change by user. Which is expected / standard
+	 * On android change events will be fired as soon the value
+	 * property is changed (Once the activity is ready).
+	 */
 	if (OS_ANDROID) {
 		triggerChange = false;
 	}
