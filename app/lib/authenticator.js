@@ -194,6 +194,13 @@ function didGetFamily(result, passthrough) {
 	 */
 	Alloy.Models.patient.set(result.data);
 	/**
+	 * variable used
+	 * with XML - if
+	 * for validating whether user
+	 * has child accounts
+	 */
+	Alloy.Globals.hasChildren = Alloy.Models.patient.get("no_of_child");
+	/**
 	 * code values check
 	 * can be removed from account controller
 	 * as we get it here itself

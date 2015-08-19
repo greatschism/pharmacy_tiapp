@@ -32,6 +32,7 @@
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
 	Alloy.Globals.isLoggedIn = false;
+	Alloy.Globals.hasChildren = false;
 	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;

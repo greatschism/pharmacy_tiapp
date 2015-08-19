@@ -1,0 +1,3 @@
+"#personSwitcher[if=!Alloy.Globals.hasChildren]":{
+	height: 0
+}

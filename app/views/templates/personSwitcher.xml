@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="content-header-view">
+		<Label id="lbl" class="content-header-lbl-with-ricon" />
+		<Button class="content-header-right-icon" />
+	</View>
+</Alloy>
