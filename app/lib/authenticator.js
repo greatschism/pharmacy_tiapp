@@ -173,6 +173,27 @@ function didGetPreferences(result, passthrough) {
 		}
 	});
 	/**
+	 * get family accounts
+	 */
+	http.request({
+		method : "patient_family_get",
+		params : {
+			feature_code : "THXXX"
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		forceRetry : true,
+		success : didGetFamily
+	});
+}
+
+function didGetFamily(result, passthrough) {
+	/**
+	 * update model
+	 * for family accounts information
+	 */
+	Alloy.Models.patient.set(result.data);
+	/**
 	 * code values check
 	 * can be removed from account controller
 	 * as we get it here itself
