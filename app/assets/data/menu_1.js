@@ -16,16 +16,6 @@ module.exports = {
 		"icon" : "thick_reminder",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleRewards",
-		"action" : "rewards",
-		"icon" : "reward",
-		"requires_login" : true
-	}, {
-		"titleid" : "titleCoupons",
-		"action" : "coupons",
-		"icon" : "thick_coupon",
-		"requires_login" : true
-	}, {
 		"titleid" : "titleFamilyAccounts",
 		"action" : "familyAccounts",
 		"icon" : "users",

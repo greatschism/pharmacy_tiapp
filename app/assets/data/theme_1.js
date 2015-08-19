@@ -251,10 +251,10 @@ module.exports = {
 				"bottom" : 4
 			},
 			".inbetween-margin-left" : {
-				"left" : 12
+				"left" : 8
 			},
 			".inbetween-margin-right" : {
-				"right" : 12
+				"right" : 8
 			},
 			".barcode-navbar[platform=ios]" : {
 				"top" : 0,
@@ -800,7 +800,7 @@ module.exports = {
 					"left" : 12,
 					"right" : 12
 				},
-				"paddingLeft" : 12,
+				"paddingLeft" : 8,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
 				"hintTextColor" : "#C7C7CD",
@@ -1176,7 +1176,7 @@ module.exports = {
 					"left" : 12,
 					"right" : 12
 				},
-				"paddingLeft" : 12,
+				"paddingLeft" : 8,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
 				"hintTextColor" : "#C7C7CD",
@@ -1220,7 +1220,7 @@ module.exports = {
 					"left" : 12,
 					"right" : 12
 				},
-				"paddingLeft" : 12,
+				"paddingLeft" : 8,
 				"paddingRight" : 46,
 				"iconPaddingRight" : 12,
 				"hintTextColor" : "#C7C7CD",

@@ -44,7 +44,7 @@ function didGetStates(result, passthrough) {
 
 function didClickName(e) {
 	$.uihelper.showDialog({
-		message : String.format($.strings.doctorMsgEditRestricted, doctor.title)
+		message : $.strings.doctorMsgEditRestricted
 	});
 }
 
@@ -219,7 +219,7 @@ function didSuccessDoctor(result, passthrough) {
 function didClickRemove(e) {
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.doctorMsgRemoveRestricted, doctor.title),
+			message : $.strings.doctorMsgRemoveRestricted
 		});
 	} else {
 		doctor.method = "doctors_remove";

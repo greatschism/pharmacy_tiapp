@@ -182,7 +182,7 @@ function didClickSwipeOption(e) {
 	var data = e.data;
 	if (data.doctor_type != apiCodes.doctor_type_manual) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.doctorsMsgRemoveRestricted, data.title),
+			message : $.strings.doctorsMsgRemoveRestricted
 		});
 	} else {
 		$.uihelper.showDialog({
