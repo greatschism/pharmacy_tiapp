@@ -13,6 +13,7 @@ module.exports = {
 		"strAnd" : "and",
 		"strMore" : "more",
 		"strLoading" : "Processing...",
+		"strManager" : "Account manager",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -163,6 +164,7 @@ module.exports = {
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
+		"doctorsPersonSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",
 		"doctorsMsgRemoveRestricted" : "Sorry, you cannot remove doctors who have prescribed you active prescriptions.",
@@ -204,6 +206,7 @@ module.exports = {
 		"doctorMsgRemoveConfirm" : "Are you sure you want to remove %s?",
 		"doctorMsgEditRestricted" : "Sorry, you cannot edit first or last name of doctor who have prescribed you active prescriptions.",
 
+		"prescPersonSwitcher" : "%s's prescriptions",
 		"prescHintSearch" : "Search",
 		"prescOptMenuSearch" : "Search",
 		"prescOptMenuSort" : "Sort",
@@ -553,10 +556,10 @@ module.exports = {
 
 		"phoneValPhone" : "Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
-		
-		"familyCareLblNoProxy":"Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
-		"familyCareLblAdd":"Want to add family members?",
-		"familyMemberAddLbl":"Great lets add your family members!"
+
+		"familyCareLblNoProxy" : "Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
+		"familyCareLblAdd" : "Want to add family members?",
+		"familyMemberAddLbl" : "Great lets add your family members!"
 
 	}
 };

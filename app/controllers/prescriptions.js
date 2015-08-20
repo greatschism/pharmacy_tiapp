@@ -17,6 +17,7 @@ function init() {
 			title : $.strings.prescAddSectionBtnAll
 		});
 	} else {
+		$.personSwitcher.update("prescPersonSwitcher");
 		detailBtnClasses = ["content-detail-secondary-btn"];
 		swipeOptions = [{
 			action : 1,

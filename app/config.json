@@ -67,6 +67,7 @@
             "pickup_mode_instore": "instore",
             "pickup_mode_mail_order": "mailorder",
             "pickup_time_group_asap": "ASAP",
+            "relationship_manager": "manager",
             "code_states": "States",
             "code_store_original": "Original Pharmacy",
             "code_sort_order_preference": "Sort Order Preference",

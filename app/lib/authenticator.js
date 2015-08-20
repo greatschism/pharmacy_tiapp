@@ -236,19 +236,24 @@ function didGetFamily(result, passthrough) {
 	 * to this collection as
 	 * account manager
 	 */
-	var children = [{
-		first_name : Alloy.Models.patient.get("first_name"),
-		last_name : Alloy.Models.patient.get("last_name"),
+	var relationships = Alloy.Models.relationship.get("code_values"),
+	    tObj = Alloy.Models.patient.pick(["first_name", "last_name", "birth_date", "session_id"]),
+	    children = [_.extend(tObj, {
+		related_by : Alloy.CFG.relationship_manager,
+		relationship : Alloy.Globals.strings.strManager,
 		selected : true
-	}];
-	//console.log(Alloy.Models.patient.toJSON());
-	_.each(result.data.child_proxy, function(child) {
-		children.push({
+	})];
+	_.each(Alloy.Models.patient.get("child_proxy"), function(child) {
+		tObj = _.pick(child, ["first_name", "last_name", "birth_date", "related_by", "session_id"]);
+		_.extend(tObj, {
+			relationship : _.findWhere(relationships, {
+				code_value : child.related_by
+			}).code_display,
 			selected : false
 		});
+		children.push(tObj);
 	});
 	Alloy.Collections.childProxies.reset(children);
-
 	/**
 	 * set prefered time zone
 	 * before that store the user
