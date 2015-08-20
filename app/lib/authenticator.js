@@ -207,16 +207,16 @@ function didGetCodeValues(result, passthrough) {
 	 * get family accounts
 	 */
 	passthrough.callback = didUpdateFamilyAccounts;
-	updateFamilyAccounts(passthrough);
+	getFamilyAccounts(passthrough);
 }
 
-function updateFamilyAccounts(passthrough) {
+function getFamilyAccounts(passthrough) {
 	http.request({
 		method : "patient_family_get",
 		params : {
 			feature_code : "THXXX"
 		},
-		passthrough : passthrough || {},
+		passthrough : passthrough,
 		forceRetry : true,
 		success : didGetFamily
 	});
@@ -517,6 +517,25 @@ function setTimeZone(zone, updateCodeVal) {
 	 * as the time zone is updated now
 	 */
 	Alloy.Globals.latestRequest = moment().unix();
+}
+
+function updateFamilyAccounts(passthrough) {
+	/**
+	 * making sure the session id
+	 * and current user is manager
+	 */
+	var model = Alloy.Collections.childProxies.findWhere({
+		related_by : Alloy.CFG.relationship_manager
+	});
+	if (!model.selected) {
+		var selectedModel = Alloy.Collections.childProxies.findWhere({
+			selected : true
+		});
+		selectedModel.set("selected", false);
+		model.set("selected", true);
+		Alloy.Models.patient.set("session_id", model.get("session_id"));
+	}
+	getFamilyAccounts(passthrough || {});
 }
 
 exports.init = init;
