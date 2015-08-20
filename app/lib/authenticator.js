@@ -206,12 +206,17 @@ function didGetCodeValues(result, passthrough) {
 	/**
 	 * get family accounts
 	 */
+	passthrough.callback = didUpdateFamilyAccounts;
+	updateFamilyAccounts(passthrough);
+}
+
+function updateFamilyAccounts(passthrough) {
 	http.request({
 		method : "patient_family_get",
 		params : {
 			feature_code : "THXXX"
 		},
-		passthrough : passthrough,
+		passthrough : passthrough || {},
 		forceRetry : true,
 		success : didGetFamily
 	});
@@ -254,6 +259,17 @@ function didGetFamily(result, passthrough) {
 		children.push(tObj);
 	});
 	Alloy.Collections.childProxies.reset(children);
+	/**
+	 * fire callback
+	 */
+	var callback = passthrough.callback;
+	delete passthrough.callback;
+	if (callback) {
+		callback(passthrough);
+	}
+}
+
+function didUpdateFamilyAccounts(passthrough) {
 	/**
 	 * set prefered time zone
 	 * before that store the user
@@ -509,3 +525,4 @@ exports.getData = getData;
 exports.setTimeZone = setTimeZone;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
+exports.updateFamilyAccounts = updateFamilyAccounts;
