@@ -7,7 +7,7 @@ var args = arguments[0] || {},
     phone_formatted;
 
 function init() {
-	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.strings.strNotAvailable;
+	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(Alloy.Models.patient.get("mobile_number"));
 	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
@@ -18,17 +18,17 @@ function init() {
 	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
 }
 
-function getTimeZone(){
-	return _.find(Alloy.Models.timeZone.get("code_values"), function(val){
-			return val.code_value == Alloy.Models.patient.get("pref_timezone");
-		}).code_display;
+function getTimeZone() {
+	return _.find(Alloy.Models.timeZone.get("code_values"), function(val) {
+		return val.code_value == Alloy.Models.patient.get("pref_timezone");
+	}).code_display;
 }
 
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		/**
-		 * Get the last refilled store details. This is required to contact the store 
+		 * Get the last refilled store details. This is required to contact the store
 		 */
 		var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
 		if (storeId) {
@@ -46,12 +46,12 @@ function focus() {
 			});
 		}
 	}
-	
-	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.strings.strNotAvailable;
+
+	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(Alloy.Models.patient.get("mobile_number"));
 	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
 }
 
-function updateUserPreferences(key, value){
+function updateUserPreferences(key, value) {
 	/**
 	 * patient model has attributes other than user preferenes. Hence using 'Models.pick' to retieve only those attributes that are required to update the preferences
 	 */
@@ -59,7 +59,7 @@ function updateUserPreferences(key, value){
 	var userPrefObject = Alloy.Models.patient.pick(userPrefsKeys);
 	userPrefObject[key] = value;
 	Alloy.Models.patient.set(key, value);
-	
+
 	$.http.request({
 		method : "patient_preferences_update",
 		params : {
@@ -71,7 +71,7 @@ function updateUserPreferences(key, value){
 	});
 }
 
-function didUpdatePrefs(){
+function didUpdatePrefs() {
 	//do nothing
 }
 
@@ -90,17 +90,19 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
-	if(Alloy.Models.patient.get("mobile_number") != "null"){
+	if (Alloy.Models.patient.get("mobile_number") != "null") {
 		$.app.navigator.open({
 			titleid : "titleChangePhone",
 			ctrl : "phone",
 			stack : true
 		});
-	}
-	else{
+	} else {
 		$.app.navigator.open({
 			ctrl : "textBenefits",
 			titleid : "titleTextBenefits",
+			ctrlArguments : {
+				signup : true
+			},
 			stack : true
 		});
 	}
@@ -108,9 +110,9 @@ function didClickmobileNumber(e) {
 
 function didClickEmailAddress(e) {
 	/**
-	 * We cant change email address for few clients with private LDAP. So check for the configurable value and stop the user from editing  
+	 * We cant change email address for few clients with private LDAP. So check for the configurable value and stop the user from editing
 	 */
-	if(!Alloy.CFG.can_update_email){
+	if (!Alloy.CFG.can_update_email) {
 		return;
 	}
 	$.app.navigator.open({
@@ -145,12 +147,12 @@ function didClickContactSupport(e) {
 	$.contactOptionsMenu.show();
 }
 
-function didChangeHideExpPrescription(){
-	updateUserPreferences("hide_expired_prescriptions" , $.hideExpiredPrescriptionSwt.getValue() === true? "1" : "0");
+function didChangeHideExpPrescription() {
+	updateUserPreferences("hide_expired_prescriptions", $.hideExpiredPrescriptionSwt.getValue() === true ? "1" : "0");
 }
 
-function didChangeHideZeroRefillPrescription(){
-	updateUserPreferences("hide_zero_refill_prescriptions" , $.hideZeroRefillPrescriptionSwt.getValue() === true? "1" : "0");
+function didChangeHideZeroRefillPrescription() {
+	updateUserPreferences("hide_zero_refill_prescriptions", $.hideZeroRefillPrescriptionSwt.getValue() === true ? "1" : "0");
 }
 
 function didClickViewAgreement() {
@@ -175,9 +177,9 @@ function backButtonHandler() {
 	return false;
 }
 
-function getHomePharmacy(){
+function getHomePharmacy() {
 	/**
-	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy, step 4: from the details, get the phone number  
+	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy, step 4: from the details, get the phone number
 	 */
 	$.http.request({
 		method : "stores_list",
@@ -185,12 +187,12 @@ function getHomePharmacy(){
 			feature_code : "THXXX",
 			data : [{
 				stores : {
-					search_criteria: "",
-			        user_lat: "",
-			        user_long: "",
-			        search_lat: "",
-			        search_long: "",
-			        view_type: "LIST"
+					search_criteria : "",
+					user_lat : "",
+					user_long : "",
+					search_lat : "",
+					search_long : "",
+					view_type : "LIST"
 				}
 			}]
 		},
@@ -200,8 +202,8 @@ function getHomePharmacy(){
 
 function didGetStoreList(result) {
 	if (result && result.data) {
-		_.each(result.data.stores.stores_list, function(store){
-			if(parseInt(store.ishomepharmacy)){
+		_.each(result.data.stores.stores_list, function(store) {
+			if (parseInt(store.ishomepharmacy)) {
 				$.http.request({
 					method : "stores_get",
 					params : {
@@ -216,7 +218,7 @@ function didGetStoreList(result) {
 					success : didGetStore
 				});
 			}
-		}); 
+		});
 	}
 }
 
@@ -226,7 +228,7 @@ function didGetStore(result) {
 	}
 }
 
-function didClickcontactOptionsMenu(e){
+function didClickcontactOptionsMenu(e) {
 	switch(e.index) {
 	case 0:
 		var supportPhone = Alloy.Models.appload.get("supportphone");
@@ -237,14 +239,13 @@ function didClickcontactOptionsMenu(e){
 	case 1:
 		var supportEmail = Alloy.Models.appload.get("supportemail_to");
 		$.uihelper.openEmailDialog({
-			toRecipients: [supportEmail]
+			toRecipients : [supportEmail]
 		});
 		break;
 	case 2:
 		if (phone_formatted) {
 			$.uihelper.openDialer(phone_formatted);
-		}
-		else{
+		} else {
 			getHomePharmacy();
 		}
 		break;

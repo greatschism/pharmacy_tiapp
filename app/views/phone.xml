@@ -1,6 +1,6 @@
 <Alloy>
 	<TableView id="childTable" onSingletap="didClickTableView">
-		<FooterView platform="ios">
+		<FooterView>
 			<View class="vgroup auto-height">
 				<View class="content-header-view">
 					<Label id="mobileNumberLbl" class="content-header-lbl" />

@@ -118,14 +118,16 @@ function didRegister(result,passthrough) {
 		message : successMessage
 	});
 	$.app.navigator.open({
-		titleid : "titleChildAdd",
-		ctrl : "childAdd",
-		ctrlArguments : {
-			username : $.emailTxt.getValue(),
-			password : $.passwordTxt.getValue(),
+		titleid : "titleLogin",
+		ctrl : "login",
+		ctrlArguments:{
+			username:$.emailTxt.getValue(),
+			password:$.passwordTxt.getValue(),
+			is_adult_partial:true
 		},
 		stack : true
 	});
+	
 }
 
 function moveToNext(e) {

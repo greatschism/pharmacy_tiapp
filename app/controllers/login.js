@@ -86,6 +86,16 @@ function didAuthenticate() {
 			titleid : "titleHIPAAauthorization",
 			stack : true
 		});
+	} else if (args.is_adult_partial) {
+		$.app.navigator.open({
+			titleid : "titleChildAdd",
+			ctrl : "childAdd",
+			ctrlArguments : {
+				username : args.username,
+				password : args.password,
+			},
+			stack : true
+		});
 	} else {
 		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
 			landing_page : true

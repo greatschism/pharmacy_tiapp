@@ -2,7 +2,7 @@
 	<View class="vgroup">
 		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
 		<View class="margin-top form-group">
-			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickDone"  onChange="didChangeEmail"/>
+			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickDone" />
 		</View>
 		<Button id="doneBtn" class="margin-top primary-btn" onClick="didClickDone" />
 	</View>

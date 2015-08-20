@@ -1,22 +1,25 @@
- var args=arguments[0]||{},
- moment = require("alloy/moment"),
- store={};
- function init(){
- 	$.uihelper.getImage("child_add",$.childImg);
- }
-function focus(){
+var args = arguments[0] || {},
+    moment = require("alloy/moment"),
+    store = {};
+function init() {
+	$.uihelper.getImage("child_add", $.childImg);
+}
+
+function focus() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
 }
+
 function didChangeRx(e) {
 	var value = $.utilities.formatRx(e.value),
 	    len = value.length;
 	$.rxNoTxt.setValue(value);
 	$.rxNoTxt.setSelection(len, len);
 }
+
 function didClickPharmacy(e) {
 	$.app.navigator.open({
 		titleid : "titleStores",
@@ -29,20 +32,19 @@ function didClickPharmacy(e) {
 	});
 }
 
-
-
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
 		$[nextItem].focus();
 	}
 }
-function didClickContinue(){
+
+function didClickContinue() {
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
 	    dob = $.dobDp.getValue();
-	
+
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.childAddValFirstName
@@ -86,71 +88,109 @@ function didClickContinue(){
 		return;
 	}
 	if (_.isEmpty(store)) {
-			$.uihelper.showDialog({
-				message : $.strings.childValStore
-			});
-			return;
-		}
-	var age=getAge(dob);
-	if(age>=18){
 		$.uihelper.showDialog({
-			message:$.strings.childAddAccntInvalid
+			message : $.strings.childValStore
 		});
 		return;
 	}
-	else if(age>=12 && age<=17){
+	var age = getAge(dob);
+	if (age >= 18) {
+		$.uihelper.showDialog({
+			message : $.strings.childAddAccntInvalid
+		});
+		return;
+	} else if (age >= 12 && age <= 17) {
 		$.app.navigator.open({
-		titleid:"titleChildConsent",
-		ctrl : "childConsent",
-		ctrlArguments : {
-			username : args.username,
-			password : args.password,
-		},
-		stack : true
-	});
+			titleid : "titleChildConsent",
+			ctrl : "childConsent",
+			ctrlArguments : {
+				username : args.username,
+				is_adult : false,
+				is_existing_user : false,
+				email : "",
+				mobile : "",
+				related_by : "",
+				user_name : "",
+				password : "",
+				first_name : fname,
+				last_name : lname,
+				birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+				rx_number : rxNo.substring(0, 7),
+				store_id : store.id
+			},
+			stack : true
+		});
+	} else {
+
+		$.http.request({
+			method : "patient_family_add",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					patient : {
+						is_adult : false,
+						is_existing_user : false,
+						email : "",
+						mobile : "",
+						related_by : "",
+						user_name : "",
+						password : "",
+						first_name : fname,
+						last_name : lname,
+						birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+						rx_number : rxNo.substring(0, 7),
+						store_id : store.id
+					}
+				}]
+			},
+			success : didAddChild
+		});
 	}
-	else {
-		$.app.navigator.open({
-		titleid:"titleChildSuccess",
+}
+
+function didAddChild(result) {
+	$.app.navigator.open({
+		titleid : "titleChildSuccess",
 		ctrl : "childSuccess",
 		ctrlArguments : {
-			username : args.username,
-			password : args.password,
+			username : args.username
 		},
 		stack : false
+
 	});
-	}
-	
 }
+
 /**
- * 
+ *
  * @param {Object} dateString
  * Get the age of the user
  * If the user is 18 yrs old, do not let him create the account
  * If the user is 12-17 yrs old, take him to the consent screen
  * If the user is less than 12 yrs, successfully create the account
  */
-function getAge(dateString){
+function getAge(dateString) {
 	var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-   return age;
+	var birthDate = new Date(dateString);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+		age--;
+	}
+	return age;
 }
 
-function didClickSkip(){
+function didClickSkip() {
 	$.app.navigator.open({
-		titleid:"titleFamilyCare",
+		titleid : "titleFamilyCare",
 		ctrl : "childAccountTips",
 		stack : true
 	});
 }
+
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
+
 function didClickPharmacy(e) {
 	$.app.navigator.open({
 		titleid : "titleStores",
@@ -162,6 +202,7 @@ function didClickPharmacy(e) {
 		stack : true
 	});
 }
+
 function didClickAgreement(e) {
 	$.app.navigator.open({
 		ctrl : "termsAndConditions",
@@ -172,6 +213,7 @@ function didClickAgreement(e) {
 		}
 	});
 }
+
 exports.setParentView = setParentView;
-exports.focus=focus;
-exports.init=init;
+exports.focus = focus;
+exports.init = init;
