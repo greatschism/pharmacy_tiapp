@@ -720,6 +720,16 @@ function didChangeSearch(e) {
 }
 
 function didReturnSearch(e) {
+	/**
+	 * force text field to blur
+	 * on android, otherwise
+	 * the focus may still there
+	 * and no further focus events
+	 * will be fired
+	 */
+	if (OS_ANDROID) {
+		$.searchTxt.blur();
+	}
 	isFocused = false;
 	/**
 	 * no change in search string
@@ -864,6 +874,16 @@ function didClickGeoTable(e) {
 		if (params.invalid !== true) {
 			$.searchTxt.setValue(params.title);
 			$.searchTxt.blur();
+			/**
+			 * force text field to blur
+			 * on android, otherwise
+			 * the focus may still there
+			 * and no further focus events
+			 * will be fired
+			 */
+			if (OS_ANDROID) {
+				$.searchTxt.blur();
+			}
 			/**
 			 * return or blur event
 			 * might not be triggered

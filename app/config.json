@@ -72,7 +72,8 @@
             "code_sort_order_preference": "Sort Order Preference",
             "code_pickup_modes": "Pickup Mode",
             "code_time_zone": "Time Zone",
-            "code_language": "MultiLanguage"
+            "code_language": "MultiLanguage",
+            "code_relationship": "Relationship"
         },
         "geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
         "reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=",

@@ -2321,6 +2321,35 @@ module.exports = {
 				"ellipsize" : true,
 				"wordWrap" : false
 			},
+			".content-header-left-icon" : {
+				"left" : 0,
+				"width" : 44,
+				"height" : "fill",
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 24
+				},
+				"textAlign" : "center",
+				"color" : "#5b5b5b",
+				"selectedColor" : "#5b5b5b",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent",
+				"accessibilityHidden" : true
+			},
+			".content-header-lbl-with-licon" : {
+				"left" : 38,
+				"right" : 12,
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "bold",
+					"fontSize" : 15
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
 			".content-header-right-icon" : {
 				"right" : 0,
 				"width" : 44,
@@ -2329,8 +2358,25 @@ module.exports = {
 					"fontFamily" : "icon",
 					"fontSize" : 24
 				},
+				"textAlign" : "center",
 				"color" : "#0095FF",
 				"selectedColor" : "#0095FF",
+				"backgroundColor" : "transparent",
+				"backgroundSelectedColor" : "transparent",
+				"borderColor" : "transparent",
+				"accessibilityHidden" : true
+			},
+			".content-header-child-icon" : {
+				"right" : 0,
+				"width" : 44,
+				"height" : "fill",
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 22
+				},
+				"textAlign" : "center",
+				"color" : "#5b5b5b",
+				"selectedColor" : "#5b5b5b",
 				"backgroundColor" : "transparent",
 				"backgroundSelectedColor" : "transparent",
 				"borderColor" : "transparent",
@@ -2343,6 +2389,19 @@ module.exports = {
 				"font" : {
 					"fontFamily" : "bold",
 					"fontSize" : 15
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
+			".content-header-lbl-with-lricon" : {
+				"left" : 38,
+				"right" : 48,
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
 				},
 				"color" : "#000000",
 				"textAlign" : "left",

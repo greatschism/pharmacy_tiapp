@@ -173,37 +173,7 @@ function didGetPreferences(result, passthrough) {
 		}
 	});
 	/**
-	 * get family accounts
-	 */
-	http.request({
-		method : "patient_family_get",
-		params : {
-			feature_code : "THXXX"
-		},
-		passthrough : passthrough,
-		keepLoader : true,
-		forceRetry : true,
-		success : didGetFamily
-	});
-}
-
-function didGetFamily(result, passthrough) {
-	/**
-	 * update model
-	 * for family accounts information
-	 */
-	Alloy.Models.patient.set(result.data);
-	/**
-	 * variable used
-	 * with XML - if
-	 * for validating whether user
-	 * has child accounts
-	 */
-	Alloy.Globals.hasChildren = Alloy.Models.patient.get("no_of_child");
-	/**
 	 * code values check
-	 * can be removed from account controller
-	 * as we get it here itself
 	 */
 	http.request({
 		method : "codes_get",
@@ -214,10 +184,13 @@ function didGetFamily(result, passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_language
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_time_zone
+				}, {
+					code_name : Alloy.CFG.apiCodes.code_relationship
 				}]
 			}]
 		},
 		passthrough : passthrough,
+		keepLoader : true,
 		forceRetry : true,
 		success : didGetCodeValues
 	});
@@ -226,8 +199,56 @@ function didGetFamily(result, passthrough) {
 function didGetCodeValues(result, passthrough) {
 	Alloy.Models.language.set(result.data.codes[0]);
 	Alloy.Models.timeZone.set(result.data.codes[1]);
+	Alloy.Models.relationship.set(result.data.codes[2]);
 	appendFlag(Alloy.Models.timeZone.get("code_values"), Alloy.Models.patient.get("pref_timezone"));
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
+	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
+	/**
+	 * get family accounts
+	 */
+	http.request({
+		method : "patient_family_get",
+		params : {
+			feature_code : "THXXX"
+		},
+		passthrough : passthrough,
+		forceRetry : true,
+		success : didGetFamily
+	});
+}
+
+function didGetFamily(result, passthrough) {
+	/**
+	 * update patient model
+	 * with orignial data
+	 */
+	Alloy.Models.patient.set(result.data);
+	/**
+	 * variable used
+	 * with XML - if
+	 * for validating whether user
+	 * has child accounts
+	 */
+	Alloy.Globals.hasChildren = Alloy.Models.patient.get("no_of_child") !== 0;
+	/**
+	 * update child proxies collection
+	 * adding patient itself
+	 * to this collection as
+	 * account manager
+	 */
+	var children = [{
+		first_name : Alloy.Models.patient.get("first_name"),
+		last_name : Alloy.Models.patient.get("last_name"),
+		selected : true
+	}];
+	//console.log(Alloy.Models.patient.toJSON());
+	_.each(result.data.child_proxy, function(child) {
+		children.push({
+			selected : false
+		});
+	});
+	Alloy.Collections.childProxies.reset(children);
+
 	/**
 	 * set prefered time zone
 	 * before that store the user

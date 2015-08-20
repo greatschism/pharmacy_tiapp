@@ -1,6 +1,7 @@
 <Alloy>
 	<View class="content-header-view">
-		<Label id="lbl" class="content-header-lbl-with-ricon" />
-		<Button class="content-header-right-icon" />
+		<Label class="content-header-left-icon icon-users" />
+		<Label id="lbl" class="content-header-lbl-with-lricon" />
+		<Button class="content-header-child-icon icon-thin-arrow-down" onClick="show" />
 	</View>
 </Alloy>

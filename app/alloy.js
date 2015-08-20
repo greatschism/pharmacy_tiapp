@@ -55,6 +55,7 @@
 	Alloy.Collections.doctors = new Backbone.Collection();
 	Alloy.Collections.reminders = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
+	Alloy.Collections.childProxies = new Backbone.Collection();
 
 	//models
 	Alloy.Models.appload = new Backbone.Model();
@@ -66,6 +67,7 @@
 	Alloy.Models.pickupModes = new Backbone.Model();
 	Alloy.Models.language = new Backbone.Model();
 	Alloy.Models.timeZone = new Backbone.Model();
+	Alloy.Models.relationship = new Backbone.Model();
 
 	//events
 	Alloy.Models.patient.on("change:session_id", function didChange() {
