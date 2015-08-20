@@ -10,6 +10,9 @@ function didClickAddChild(){
 	$.app.navigator.open({
 		titleid:"titleChildAdd",
 		ctrl : "childAdd",
+		ctrlArguments:{
+			username:args.username
+		},
 		stack : true
 	});
 }

@@ -17,7 +17,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleFamilyAccounts",
-		"action" : "familyAccounts",
+		"ctrl" : "familyCare",
 		"icon" : "users",
 		"requires_login" : true
 	}, {

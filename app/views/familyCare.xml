@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="vgroup">
+		<Label id="familyCareLbl" class="title-centered-wrap"/>
+		<Label id="familyCareAddLbl" class="subtitle-centered-wrap"/>
+	</View>
+</Alloy>

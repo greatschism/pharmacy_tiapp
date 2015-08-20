@@ -28,6 +28,10 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
+	var successMessage = result.message;
+	$.uihelper.showDialog({
+		message : successMessage
+	});
 	$.app.navigator.open({
 		titleid : "titleChildSuccess",
 		ctrl : "childSuccess",

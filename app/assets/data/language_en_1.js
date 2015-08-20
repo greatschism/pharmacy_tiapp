@@ -553,6 +553,10 @@ module.exports = {
 
 		"phoneValPhone" : "Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
+		
+		"familyCareLblNoProxy":"Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
+		"familyCareLblAdd":"Want to add family members?",
+		"familyMemberAddLbl":"Great lets add your family members!"
 
 	}
 };

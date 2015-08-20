@@ -118,7 +118,10 @@ module.exports = {
 							}]
 						}]
 					}]
-				}]
+				}],
+				"navigation" : {
+					"ctrl" : "familyCare"
+				}
 			}, {
 				"apiName" : "TableViewRow",
 				"children" : [{
