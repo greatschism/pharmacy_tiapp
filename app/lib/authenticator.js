@@ -240,12 +240,16 @@ function didGetFamily(result, passthrough) {
 	 * adding patient itself
 	 * to this collection as
 	 * account manager
+	 * Note: manager account can be partial
+	 * but child accounts can't be a partial account
+	 * as per api, for partial accounts id will start with DUMMY
 	 */
 	var relationships = Alloy.Models.relationship.get("code_values"),
 	    tObj = Alloy.Models.patient.pick(["first_name", "last_name", "birth_date", "session_id"]),
 	    children = [_.extend(tObj, {
 		related_by : Alloy.CFG.relationship_manager,
 		relationship : Alloy.Globals.strings.strManager,
+		is_partial : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1,
 		selected : true
 	})];
 	_.each(Alloy.Models.patient.get("child_proxy"), function(child) {
@@ -254,6 +258,7 @@ function didGetFamily(result, passthrough) {
 			relationship : _.findWhere(relationships, {
 				code_value : child.related_by
 			}).code_display,
+			is_partial : false,
 			selected : false
 		});
 		children.push(tObj);
