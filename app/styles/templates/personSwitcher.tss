@@ -1,3 +1,18 @@
 "#personSwitcher[if=!Alloy.Globals.hasChildren]":{
 	height: 0
+},
+/**
+* 	styles set is not configurable here
+*  as it is a standard pop over layout
+*/
+"#popover":{
+	zIndex: 0,
+	opacity: 0,
+	visible: false,
+	backgroundColor: "#80000000"
+},
+"#contentView":{
+	top: 0,
+	backgroundColor: "#FFFFFF",
+	height: Ti.UI.SIZE
 }

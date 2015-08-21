@@ -244,21 +244,28 @@ function didGetFamily(result, passthrough) {
 	 * but child accounts can't be a partial account
 	 * as per api, for partial accounts id will start with DUMMY
 	 */
-	var relationships = Alloy.Models.relationship.get("code_values"),
+	var currentDate = moment(),
+	    relationships = Alloy.Models.relationship.get("code_values"),
 	    tObj = Alloy.Models.patient.pick(["first_name", "last_name", "birth_date", "session_id"]),
 	    children = [_.extend(tObj, {
-		related_by : Alloy.CFG.relationship_manager,
+		title : utilities.ucfirst(tObj.first_name) + " " + utilities.ucfirst(tObj.last_name),
+		related_by : Alloy.CFG.apiCodes.relationship_manager,
 		relationship : Alloy.Globals.strings.strManager,
 		is_partial : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1,
+		is_adult : true,
+		selectable : true,
 		selected : true
 	})];
 	_.each(Alloy.Models.patient.get("child_proxy"), function(child) {
 		tObj = _.pick(child, ["first_name", "last_name", "birth_date", "related_by", "session_id"]);
 		_.extend(tObj, {
+			title : utilities.ucfirst(tObj.first_name) + " " + utilities.ucfirst(tObj.last_name),
 			relationship : _.findWhere(relationships, {
 				code_value : child.related_by
 			}).code_display,
 			is_partial : false,
+			is_adult : currentDate.diff(moment(child.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) < 18,
+			selectable : true,
 			selected : false
 		});
 		children.push(tObj);

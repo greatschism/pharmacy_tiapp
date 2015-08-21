@@ -317,7 +317,7 @@ function didGetDistance(result, passthrough) {
 		 * will remain on the list
 		 */
 		stores = _.reject(stores, function(store) {
-			if (store.distance <= max || (currentViewType == viewTypeList && (parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0))) {
+			if (store.distance <= max || (currentViewType == viewTypeList && ((parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0)))) {
 				return false;
 			}
 			return true;

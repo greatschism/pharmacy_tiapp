@@ -17,6 +17,10 @@ function init() {
 			title : $.strings.prescAddSectionBtnAll
 		});
 	} else {
+		/**
+		 * by default point to a
+		 * non partial account
+		 */
 		$.personSwitcher.update("prescPersonSwitcher");
 		detailBtnClasses = ["content-detail-secondary-btn"];
 		swipeOptions = [{
@@ -41,7 +45,7 @@ function didPostlayout(e) {
 		if (args.isMedReminder && $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false)) {
 			$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
 			$.tooltip.applyProperties({
-				top : top - (margin * 2)
+				top : top - margin
 			});
 			$.tooltip.show();
 		}
@@ -455,7 +459,7 @@ function toggleSearch() {
 	tAnim.addEventListener("complete", function onComplete() {
 		tAnim.removeEventListener("complete", onComplete);
 		$.tableView.top = top;
-		if (top !== 0) {
+		if (top !== $.headerView.rect.height) {
 			$.searchTxt.focus();
 		}
 	});
@@ -796,6 +800,12 @@ function focus() {
 	}
 }
 
+function setParentView(view) {
+	if ($.personSwitcher) {
+		$.personSwitcher.setParentView(view);
+	}
+}
+
 function terminate() {
 	/**
 	 * not resetting currentTable object
@@ -810,4 +820,5 @@ function terminate() {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+exports.setParentView = setParentView;
 exports.backButtonHandler = hideAllPopups;

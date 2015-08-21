@@ -226,7 +226,18 @@ function Navigation(args) {
 				return;
 			}
 			if (that.controllers.length == 1) {
-				return that.terminate();
+				/**
+				 * going back to landing page
+				 * if current master page is not the one
+				 */
+				var landingPage = Alloy.Collections.menuItems.findWhere({
+					landing_page : true
+				});
+				if (landingPage && that.currentController.ctrl != landingPage.get("ctrl")) {
+					return that.open(landingPage.toJSON());
+				} else {
+					return that.terminate();
+				}
 			}
 		}
 

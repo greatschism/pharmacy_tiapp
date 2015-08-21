@@ -1865,6 +1865,18 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".content-inactive-title" : {
+				"width" : "100%",
+				"height" : 22,
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 17
+				},
+				"color" : "#A6A8AB",
+				"textAlign" : "left",
+				"ellipsize" : true,
+				"wordWrap" : false
+			},
 			".content-title" : {
 				"width" : "100%",
 				"height" : 22,
