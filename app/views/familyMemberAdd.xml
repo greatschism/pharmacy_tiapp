@@ -1,5 +1,15 @@
 <Alloy>
 	<View class="vgroup">
-		<Label id="familyMemberAddLbl" class="subtitle-centered-wrap"/>
+		<Label id="familyMemberAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+		<ImageView id="imgFamilyAdd"/>
+		<Label id="familyMemberAddTip" class="lbl margin-top margin-bottom"/>
+		<View class="margin-top form-group">
+		<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" />
+		</View>
+		<Label id="familyMemberRelationTip" class="lbl-wrap margin-top margin-bottom"/>
+		<View class="margin-top form-group">
+			<Widget id="relationshipDp" src="ti.dropdown" class="form-dropdown"/>
+		</View>
+		<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didClickContinue"/>
 	</View>
 </Alloy>

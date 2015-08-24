@@ -127,6 +127,7 @@ module.exports = {
 		"titleChildSuccess" : "Success!",
 		"titleTextHelp" : "Text help",
 		"titleTextMsgSignUp" : "Sign up for text messaging",
+		"titleAddFamily":"Add a family member",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -559,7 +560,37 @@ module.exports = {
 
 		"familyCareLblNoProxy" : "Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
 		"familyCareLblAdd" : "Want to add family members?",
-		"familyMemberAddLbl" : "Great lets add your family members!"
+		
+		"familyMemberAddLbl" : "Great lets add your family members!",
+		"familyMemberAddTip":"Please enter your family member's date of birth.",
+		"familyMemberAddHintDob":"Date of birth",
+		"familyMemberAddHintRelation":"Select",
+		"familyMemberAddRelationTip":"Please enter your relationship to your family member.",
+		"familyMemberAddBtnContinue":"Continue",
+		"familyMemberAddValDob":"Please enter your Date of birth.",
+		"familyMemberAddValRelationship":"Please enter your relationship.",
+		
+		"familyMemberInviteLbl":"What is the best way to send the invitation to your %s",
+		"familyMemberInviteSendTextLbl":"Send text",
+		"familyMemberInviteSendEmailLbl":"Send an email",
+		"familyMemberInviteHintSendText":"Enter number",
+		"familyMemberInviteHintSendEmail":"Enter email address",
+		"familyMemberInviteBtnSend":"Send",
+		"familyMemberInviteBtnCancel":"Cancel",
+		"familyMemberInviteValPhoneInvalid" : "The phone number you have entered is invalid.",
+		"familyMemberInviteValEmailPhone" : "Please enter your email address or/and mobile number.",
+		"familyMemberInviteValEmailInvalid" : "Please enter a valid email address.",
+		
+		"familyMemberInviteSuccessLbl":"Invitation sent!",
+		"familyMemberInviteSuccessMsg":"We just sent an invitation to your %s, they will need to create an account and give you access to their medication profile.\n\nThey will need a prescription in order to complete the registration.",
+		"familyMemberInviteSuccessBtnAdd":"Add another family member",
+		"familyMemberInviteSuccessBtnDone":"Done",
+		
+		"familyMemberAddSuccessLbl":"%s added to family care",
+		"familyMemberAddSuccessMsg":"You can now view your %s's prescriptions by going to your prescription list and clicking the down arrow at the top of the screen.\n\nWhen your %s turns 18, they need to register as an adult.",
+		"familyMemberAddSuccessBtnAdd":"Add another family member",
+		"familyMemberAddSuccessBtnDone":"Done",
+		
 
 	}
 };

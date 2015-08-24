@@ -1,0 +1,19 @@
+"#sendTextLbl":{
+	text:Alloy.Globals.strings.familyMemberInviteSendTextLbl
+},
+"#sendEmailLbl":{
+	text:Alloy.Globals.strings.familyMemberInviteSendEmailLbl
+},
+"#phoneTxt":{
+	hintText:Alloy.Globals.strings.familyMemberInviteHintSendText
+},
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.familyMemberInviteHintSendEmail
+},
+"#sendBtn":{
+	title:Alloy.Globals.strings.familyMemberInviteBtnSend
+},
+"#cancelBtn":{
+	title:Alloy.Globals.strings.familyMemberInviteBtnCancel
+}
+

@@ -1,4 +1,21 @@
 
 "#familyMemberAddLbl" : {
   text:Alloy.Globals.strings.familyMemberAddLbl
-}
+},
+"#familyMemberAddTip" : {
+  text:Alloy.Globals.strings.familyMemberAddTip
+},
+"#dobDp" : {
+  hintText:Alloy.Globals.strings.familyMemberAddHintDob
+},
+"#relationshipDp" : {
+  hintText:Alloy.Globals.strings.familyMemberAddHintRelation,
+  titleProperty: "code_display"
+},
+"#familyMemberRelationTip" : {
+  text:Alloy.Globals.strings.familyMemberAddRelationTip
+},
+"#continueBtn" : {
+  title:Alloy.Globals.strings.familyMemberAddBtnContinue
+},
+

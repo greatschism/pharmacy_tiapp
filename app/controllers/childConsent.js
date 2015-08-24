@@ -1,37 +1,49 @@
 var args = arguments[0] || {},
     selected = false;
 function didClickContinue() {
-	$.http.request({
-		method : "patient_family_add",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				patient : {
-					is_adult : args.is_adult,
-					is_existing_user : args.is_existing_user,
-					email : "",
-					mobile : "",
-					related_by : "",
-					user_name : "",
-					password : "",
-					first_name : args.first_name,
-					last_name : args.last_name,
-					birth_date : args.birth_date,
-					rx_number : args.rx_number,
-					store_id : args.store_id
-				}
-			}]
-		},
-		success : didAddChild
-	});
-
+	var isFamilyMemberFlow=$.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	if (isFamilyMemberFlow) {
+		$.app.navigator.open({
+			titleid : "titleChildAdd",
+			ctrl : "childAdd",
+			ctrlArguments : {
+				dob : args.dob,
+				familyRelationship : args.familyRelationship
+			},
+			stack : true
+		});
+	} else {
+		$.http.request({
+			method : "patient_family_add",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					patient : {
+						is_adult : args.childDetails.is_adult,
+						is_existing_user : args.childDetails.is_existing_user,
+						email : "",
+						mobile : "",
+						related_by : args.childDetails.related_by ? args.childDetails.related_by : "",
+						user_name : "",
+						password : "",
+						first_name : args.childDetails.first_name,
+						last_name : args.childDetails.last_name,
+						birth_date : args.childDetails.birth_date,
+						rx_number : args.childDetails.rx_number,
+						store_id : args.childDetails.store_id
+					}
+				}]
+			},
+			success : didAddChild
+		});
+	}
 }
-
 function didAddChild(result) {
 	var successMessage = result.message;
 	$.uihelper.showDialog({
 		message : successMessage
 	});
+
 	$.app.navigator.open({
 		titleid : "titleChildSuccess",
 		ctrl : "childSuccess",

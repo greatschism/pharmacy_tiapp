@@ -8,6 +8,7 @@ function focus() {
 }
 
 function didClickContinue() {
+	$.utilities.setProperty("familyMemberFlow", false, "bool", true);
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),

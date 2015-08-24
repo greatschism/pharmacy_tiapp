@@ -1,0 +1,15 @@
+<Alloy>
+	<View class="vgroup">
+		<Label id="inviteLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+		<Label id="sendTextLbl" class="lbl margin-top margin-bottom"/>
+		<View class="margin-top form-group">
+			<Widget id="phoneTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-next"  onChange="didChangePhone" onReturn="moveToNext"/>
+		</View>
+		<Label id="sendEmailLbl" class="lbl margin-top margin-bottom"/>
+		<View class="margin-top form-group">
+			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-done"/>
+		</View>
+		<Button id="sendBtn" class="primary-btn margin-top margin-bottom" onClick="didSendInvite"/>
+		<Button id="cancelBtn" class="secondary-btn margin-top margin-bottom"/>
+	</View>
+</Alloy>

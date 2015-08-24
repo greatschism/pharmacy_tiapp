@@ -1,7 +1,11 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    store = {};
+    store = {},
+    isFamilyMemberFlow;
 function init() {
+	if (args.dob) {
+		$.dobDp.setValue(args.dob);
+	}
 	$.uihelper.getImage("child_add", $.childImg);
 }
 
@@ -40,6 +44,7 @@ function moveToNext(e) {
 }
 
 function didClickContinue() {
+isFamilyMemberFlow= $.utilities.getProperty("familyMemberFlow", false, "bool", true);
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
@@ -93,6 +98,20 @@ function didClickContinue() {
 		});
 		return;
 	}
+	var childDetails = {
+		is_adult : false,
+		is_existing_user : false,
+		email : "",
+		mobile : "",
+		related_by : args.familyRelationship ? args.familyRelationship : "",
+		user_name : "",
+		password : "",
+		first_name : fname,
+		last_name : lname,
+		birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+		rx_number : rxNo.substring(0, 7),
+		store_id : store.id
+	};
 	var age = getAge(dob);
 	if (age >= 18) {
 		$.uihelper.showDialog({
@@ -100,26 +119,43 @@ function didClickContinue() {
 		});
 		return;
 	} else if (age >= 12 && age <= 17) {
-		$.app.navigator.open({
-			titleid : "titleChildConsent",
-			ctrl : "childConsent",
-			ctrlArguments : {
-				username : args.username,
-				is_adult : false,
-				is_existing_user : false,
-				email : "",
-				mobile : "",
-				related_by : "",
-				user_name : "",
-				password : "",
-				first_name : fname,
-				last_name : lname,
-				birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
-				rx_number : rxNo.substring(0, 7),
-				store_id : store.id
-			},
-			stack : true
-		});
+		if (isFamilyMemberFlow) {
+			$.http.request({
+				method : "patient_family_add",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						patient : {
+							is_adult : false,
+							is_existing_user : false,
+							email : "",
+							mobile : "",
+							related_by : args.familyRelationship ? args.familyRelationship : "",
+							user_name : "",
+							password : "",
+							first_name : fname,
+							last_name : lname,
+							birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+							rx_number : rxNo.substring(0, 7),
+							store_id : store.id
+						}
+					}]
+				},
+				success : didAddChild
+			});
+
+		} else {
+			$.app.navigator.open({
+				titleid : "titleChildConsent",
+				ctrl : "childConsent",
+				ctrlArguments : {
+					username : args.username,
+					childDetails : childDetails
+				},
+				stack : true
+			});
+		}
+
 	} else {
 
 		$.http.request({
@@ -132,7 +168,7 @@ function didClickContinue() {
 						is_existing_user : false,
 						email : "",
 						mobile : "",
-						related_by : "",
+						related_by : args.familyRelationship ? args.familyRelationship : "",
 						user_name : "",
 						password : "",
 						first_name : fname,
@@ -149,15 +185,27 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
-	$.app.navigator.open({
-		titleid : "titleChildSuccess",
-		ctrl : "childSuccess",
-		ctrlArguments : {
-			username : args.username
-		},
-		stack : false
+	if (isFamilyMemberFlow) {
+		$.app.navigator.open({
+			titleid : "titleTextBenefits",
+			ctrl : "textBenefits",
+			ctrlArguments : {
+				familyRelationship:args.familyRelationship
+			},
+			stack : true
+		});
 
-	});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleChildSuccess",
+			ctrl : "childSuccess",
+			ctrlArguments : {
+				username : args.username
+			},
+			stack : false
+
+		});
+	}
 }
 
 /**

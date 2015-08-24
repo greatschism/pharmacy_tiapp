@@ -4,6 +4,7 @@ function init() {
 }
 
 function didClickTextSignup() {
+
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
@@ -13,14 +14,24 @@ function didClickTextSignup() {
 		},
 		stack : true
 	});
+	
 }
 
 function didClickSkipTextSignup() {
+	var isFamilyMemberFlow=$.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	if (isFamilyMemberFlow) {
+		$.app.navigator.open({
+		titleid : "titleFamilyAccounts",
+		ctrl : "familyMemberInviteAddSuccess",
+		stack : false
+	});
+	}else{
 	$.app.navigator.open({
 		titleid : "titleHome",
 		ctrl : "home",
 		stack : false
 	});
+	}
 }
 
 exports.init = init;

@@ -1,14 +1,15 @@
 var args = arguments[0] || {},
-    childProxies,
+    childProxiesData,
     childProxy,
     phone,
     otp,
     utilities = require('utilities'),
     rows = [];
 isFamilyAccounts = false;
+
 function init() {
 	var lastPhone = $.utilities.getProperty(Alloy.CFG.latest_phone_verified);
-	
+
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
@@ -22,44 +23,35 @@ function init() {
 	 */
 	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Models.patient.get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
 	if (isFamilyAccounts) {
+
 		updateTable();
 	}
 }
 
 function updateTable() {
 	var data = [];
-
-	childProxies = [{
-		title : "Bobby James",
-		subtitle : "My son"
-	}, {
-		title : "Daphie James",
-		subtitle : "My daughter"
-	}, {
-		title : "Kerry James",
-		subtitle : "My daughter"
-	}, {
-		title : "Kathy James",
-		subtitle : "My daughter"
-	}, {
-		title : "Mathew James",
-		subtitle : "My son"
-	}];
 	$.receiveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
 	var subtitleClasses = ["content-subtitle-wrap"],
 	    titleClasses = ["content-title-wrap"],
 	    selected = false;
-	_.each(childProxies, function(childProxy) {
-		_.extend(childProxy, {
-			titleClasses : titleClasses,
-			subtitleClasses : subtitleClasses,
-			selected : selected
-		});
-		var row = Alloy.createController("itemTemplates/contentViewWithLIcon", childProxy);
-		$.receiveTextSection.add(row.getView());
-		rows.push(row);
+	
+	console.log(Alloy.Collections.childProxies.length);
+	if (Alloy.Collections.childProxies.length) {
+		Alloy.Collections.childProxies.each(function(child_proxy) {
+			_.extend(child_proxy, {
+				title : child_proxy.first_name + child_proxy.last_name,
+				subtitle : child_proxy.related_by,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
+				selected : selected
+			});
+			//console.log(childProxy);
+			var row = Alloy.createController("itemTemplates/contentViewWithLIcon", child_proxy);
+			$.receiveTextSection.add(row.getView());
+			rows.push(row);
 
-	});
+		});
+	}
 	$.childTable.setData([$.receiveTextSection]);
 }
 

@@ -1,0 +1,10 @@
+"#addLbl" : {
+  text:Alloy.Globals.strings.familyMemberAddSuccessLbl
+},
+"#addBtn":{
+	title:Alloy.Globals.strings.familyMemberAddSuccessBtnAdd
+},
+"#doneBtn":{
+	title:Alloy.Globals.strings.familyMemberAddSuccessBtnDone
+}
+

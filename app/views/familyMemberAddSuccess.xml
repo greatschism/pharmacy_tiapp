@@ -1,0 +1,11 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="auto-height">
+			<ImageView id="addSuccessImg" />
+			<Label id="addLbl" class="image-title"/>
+		</View>
+		<Label id="addMsg" class="lbl-wrap margin-top margin-bottom"/>
+		<Button id="addBtn" class="primary-btn margin-top margin-bottom" onClick="didAddAnotherMember"/>
+		<Button id="doneBtn" class="secondary-btn margin-top margin-bottom" onClick="didClickDone"/>
+	</ScrollView>
+</Alloy>
