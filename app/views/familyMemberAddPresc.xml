@@ -1,0 +1,30 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<View class="vgroup auto-height">
+			<ImageView id="addPrescImg" class="margin-top margin-bottom"/>
+			<Label id="addPrescTitle" class="lbl-wrap margin-top margin-bottom"/>
+		</View>
+		<View class="margin-top form-vgroup">
+			<View id="txtView" class="auto-height">
+				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="vDividerView" class="v-divider"/>
+			</View>
+			<View class="h-divider"/>
+			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+		</View>
+		<View class="margin-top form-vgroup">
+			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext" onChange="didChangeRx" />
+			<View class="h-divider"/>
+			<View id="storeView" class="content-view" onClick="didClickPharmacy">
+				<View class="content-master-view-70">
+					<Label id="storeTitleLbl" class="content-lbl" />
+				</View>
+				<View class="content-detail-view-30">
+					<Label id="arrowLbl" class="content-child-icon icon-thick-arrow-right" />
+				</View>
+			</View>
+		</View>
+		<Button id="btnUpdateAccount" class="primary-btn margin-top margin-bottom" onClick="addPrescriptions"/>
+		</ScrollView>
+</Alloy>

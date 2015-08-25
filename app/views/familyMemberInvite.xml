@@ -5,6 +5,7 @@
 		<View class="margin-top form-group">
 			<Widget id="phoneTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-next"  onChange="didChangePhone" onReturn="moveToNext"/>
 		</View>
+		<Require src="templates/optionDivider" class="margin-top margin-bottom"/>
 		<Label id="sendEmailLbl" class="lbl margin-top margin-bottom"/>
 		<View class="margin-top form-group">
 			<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-done"/>

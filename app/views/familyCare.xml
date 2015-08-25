@@ -1,7 +1,7 @@
 <Alloy>
 	<View class="vgroup">
 		<Label id="familyCareLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
-		<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-top margin-bottom" onClick="didClickAddFamilyMember"/>
-		<Label id="familyCareAddBtn" onClick="didClickAddFamilyMember"/>
+		<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+		<Label id="familyCareAddBtn" class="icon-add-familycare primary-icon-extra-large" onClick="didClickAddFamilyMember"/>
 	</View>
 </Alloy>

@@ -592,6 +592,22 @@ module.exports = {
 		"familyMemberAddSuccessMsg" : "You can now view your %s's prescriptions by going to your prescription list and clicking the down arrow at the top of the screen.\n\nWhen your %s turns 18, they need to register as an adult.",
 		"familyMemberAddSuccessBtnAdd" : "Add another family member",
 		"familyMemberAddSuccessBtnDone" : "Done",
+		
+		"familyMemberAddPrescTitle":"Please fill in the information below to update your account with Carbon Pharmacy.",
+		"familyMemberAddPrescHintFirstName" : "First name",
+		"familyMemberAddPrescHintLastName" : "Last name",
+		"familyMemberAddPrescHintDob" : "Date of birth",
+		"familyMemberAddPrescHintRxNo" : "Rx number",
+		"familyMemberAddPrescHintPharmacyLocation" : "Pharmacy location",
+		"familyMemberAddPrescBtnUpdate":"Update account",
+		"familyMemberAddPrescValFirstName" : "Please enter your first name.",
+		"familyMemberAddPrescValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"familyMemberAddPrescValLastName" : "Please enter your last name.",
+		"familyMemberAddPrescValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"familyMemberAddPrescValDob" : "Please enter your Date of birth.",
+		"familyMemberAddPrescValRxNo" : "Please enter your prescription number.",
+		"familyMemberAddPrescValRxNoInvalid" : "Prescription number you have entered seem invalid.",
+		"familyMemberAddPrescValStore" : "Please select a pharmacy",
 
 	}
 };

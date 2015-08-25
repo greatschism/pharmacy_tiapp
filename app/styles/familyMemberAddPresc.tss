@@ -1,0 +1,25 @@
+"#addPrescTitle":{
+	text:Alloy.Globals.strings.familyMemberAddPrescTitle
+},
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.familyMemberAddPrescHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.familyMemberAddPrescHintLastName,
+	nextItem: "dobDp"
+},
+"#dobDp":{
+	hintText:Alloy.Globals.strings.familyMemberAddPrescHintDob,
+	nextItem: "rxNoTxt"
+},
+"#rxNoTxt":{
+	hintText:Alloy.Globals.strings.familyMemberAddPrescHintRxNo,
+	nextItem: "storeDp"
+},
+"#storeTitleLbl":{
+	text:Alloy.Globals.strings.familyMemberAddPrescHintPharmacyLocation,
+},
+"#btnUpdateAccount":{
+	title:Alloy.Globals.strings.familyMemberAddPrescBtnUpdate
+}
