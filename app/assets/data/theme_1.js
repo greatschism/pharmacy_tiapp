@@ -401,6 +401,20 @@ module.exports = {
 				"backgroundColor" : "#FFFFFF",
 				"backgroundSelectedColor" : "#FFFFFF"
 			},
+			".primary-icon-extra-large" : {
+				"left" : 16,
+				"right" : 16,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "icon",
+					"fontSize" : 75
+				},
+				"textAlign" : "center",
+				"color" : "#F7941E",
+				"selectedColor" : "#F7941E",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF"
+			},
 			".inactive-icon" : {
 				"left" : 16,
 				"right" : 16,

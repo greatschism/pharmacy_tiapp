@@ -127,6 +127,7 @@ module.exports = {
 		"titleChildSuccess" : "es-Success!",
 		"titleTextHelp" : "es-Text help",
 		"titleTextMsgSignUp" : "es-Sign up for text messaging",
+		"titleAddFamily" : "es-Add a family member",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 
@@ -244,6 +245,8 @@ module.exports = {
 		"prescSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
 		"prescTooltipLblReminder" : "es-tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
 		"prescTooltipBtnHide" : "es-Got it!",
+		"prescPartialLblTitle" : "es-Want to add a prescription?",
+		"prescPartialLblDesc" : "es-It looks like you don't have any prescriptions associated with %'s account.",
 
 		"prescDetExpand" : "es-Show more",
 		"prescDetCollapse" : "es-Show less",
@@ -559,7 +562,36 @@ module.exports = {
 
 		"familyCareLblNoProxy" : "es-Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
 		"familyCareLblAdd" : "es-Want to add family members?",
-		"familyMemberAddLbl" : "es-Great lets add your family members!"
+
+		"familyMemberAddLbl" : "es-Great lets add your family members!",
+		"familyMemberAddTip" : "es-Please enter your family member's date of birth.",
+		"familyMemberAddHintDob" : "es-Date of birth",
+		"familyMemberAddHintRelation" : "es-Select",
+		"familyMemberAddRelationTip" : "es-Please enter your relationship to your family member.",
+		"familyMemberAddBtnContinue" : "es-Continue",
+		"familyMemberAddValDob" : "es-Please enter your Date of birth.",
+		"familyMemberAddValRelationship" : "es-Please enter your relationship.",
+
+		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s",
+		"familyMemberInviteSendTextLbl" : "es-Send text",
+		"familyMemberInviteSendEmailLbl" : "es-Send an email",
+		"familyMemberInviteHintSendText" : "es-Enter number",
+		"familyMemberInviteHintSendEmail" : "es-Enter email address",
+		"familyMemberInviteBtnSend" : "es-Send",
+		"familyMemberInviteBtnCancel" : "es-Cancel",
+		"familyMemberInviteValPhoneInvalid" : "es-The phone number you have entered is invalid.",
+		"familyMemberInviteValEmailPhone" : "es-Please enter your email address or/and mobile number.",
+		"familyMemberInviteValEmailInvalid" : "es-Please enter a valid email address.",
+
+		"familyMemberInviteSuccessLbl" : "es-Invitation sent!",
+		"familyMemberInviteSuccessMsg" : "es-We just sent an invitation to your %s, they will need to create an account and give you access to their medication profile.\n\nThey will need a prescription in order to complete the registration.",
+		"familyMemberInviteSuccessBtnAdd" : "es-Add another family member",
+		"familyMemberInviteSuccessBtnDone" : "es-Done",
+
+		"familyMemberAddSuccessLbl" : "es-%s added to family care",
+		"familyMemberAddSuccessMsg" : "es-You can now view your %s's prescriptions by going to your prescription list and clicking the down arrow at the top of the screen.\n\nWhen your %s turns 18, they need to register as an adult.",
+		"familyMemberAddSuccessBtnAdd" : "es-Add another family member",
+		"familyMemberAddSuccessBtnDone" : "es-Done",
 
 	}
 };
