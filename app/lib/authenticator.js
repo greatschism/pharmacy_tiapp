@@ -99,6 +99,10 @@ function didFailPatient(error, passthrough) {
 
 function didAuthenticate(result, passthrough) {
 	Alloy.Models.patient.set(result.data.patients);
+	getPatient(passthrough);
+}
+
+function getPatient(passthrough) {
 	http.request({
 		method : "patient_get",
 		params : {
@@ -289,8 +293,10 @@ function didGetFamily(result, passthrough) {
 	 * with XML - if
 	 * for validating whether user
 	 * has child accounts
+	 * Note: by default children length will be 1
+	 * with account manager object
 	 */
-	Alloy.Globals.hasChildren = children.length !== 0;
+	Alloy.Globals.hasChildren = children.length > 1;
 	/**
 	 * fire callback
 	 */
@@ -551,7 +557,13 @@ function setTimeZone(zone, updateCodeVal) {
 	Alloy.Globals.latestRequest = moment().unix();
 }
 
-function updateFamilyAccounts(passthrough) {
+function updatePatient(callback) {
+	getPatient({
+		success : callback
+	});
+}
+
+function updateFamilyAccounts(callback) {
 	/**
 	 * making sure the session id
 	 * and current user is manager
@@ -567,13 +579,16 @@ function updateFamilyAccounts(passthrough) {
 		model.set("selected", true);
 		Alloy.Models.patient.set("session_id", model.get("session_id"));
 	}
-	getFamilyAccounts(passthrough || {});
+	getFamilyAccounts({
+		callback : callback
+	});
 }
 
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
 exports.setTimeZone = setTimeZone;
+exports.updatePatient = updatePatient;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;

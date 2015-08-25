@@ -107,6 +107,26 @@ function getPrescriptions(status, callback) {
 		$.searchTxt.setValue("");
 		$.tableView.filterText = "";
 	}
+	/**
+	 * occurs on first launch only when
+	 * no child accounts
+	 * with partial manager account
+	 */
+	if ($.personSwitcher && !Alloy.Globals.hasChildren) {
+		var currentPatient = $.personSwitcher.get();
+		if (currentPatient.get("is_partial")) {
+			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
+			if (!$.addPrescView.visible) {
+				$.addPrescView.visible = true;
+			}
+			/**
+			 * hide navigator
+			 * from sort order preference
+			 */
+			$.app.navigator.hideLoader();
+			return true;
+		}
+	}
 	//get data
 	$.http.request({
 		method : "prescriptions_list",
@@ -472,6 +492,23 @@ function toggleSearch() {
 		}
 	});
 	$.tableView.animate(tAnim);
+	/**
+	 * required when addPrescView view is
+	 * enabled or visible or when switched
+	 * to a partial account
+	 * with search is enabled
+	 */
+	if ($.addPrescView) {
+		var pAnim = Ti.UI.createAnimation({
+			top : top,
+			duration : 200
+		});
+		pAnim.addEventListener("complete", function onComplete() {
+			pAnim.removeEventListener("complete", onComplete);
+			$.addPrescView.top = top;
+		});
+		$.addPrescView.animate(pAnim);
+	}
 }
 
 function didGetHiddenPrescriptions(result, passthrough) {
@@ -790,6 +827,15 @@ function didChangePerson(e) {
 		}
 		getPrescriptions();
 	}
+}
+
+function didClickAddPresc(e) {
+	$.app.navigator.open({
+		titleid : "titlePrescriptionsAdd",
+		ctrl : "familyMemberAddPresc",
+		ctrlArguments : $.personSwitcher.get().pick(["first_name", "last_name", "birth_date"]),
+		stack : true
+	});
 }
 
 function focus() {

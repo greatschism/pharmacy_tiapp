@@ -38,7 +38,7 @@
 	<ScrollView id="addPrescView" class="hide top margin-bottom vgroup" if="!$.args.selectable">
 		<Label id="partialDescLbl" class="margin-top lbl-centered-wrap" />
 		<Label id="partialTitleLbl" class="margin-top title-centered-wrap" />
-		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" />
+		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" onClick="didClickAddPresc" />
 	</ScrollView>
 	<Button id="submitBtn" class="margin-bottom primary-btn" onClick="didClickSubmit" if="$.args.selectable" />
 	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip">

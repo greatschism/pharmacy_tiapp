@@ -13,6 +13,7 @@ var args = arguments[0] || {},
     templateHeight,
     rows,
     parent,
+    sModel,
     isBusy;
 
 if (OS_ANDROID) {
@@ -158,22 +159,22 @@ function didClickTableView(e) {
 			}
 			return false;
 		});
-		updateSelection(params);
+		/**
+		 * update ui and sModel
+		 */
+		Alloy.Collections.childProxies.each(function(model) {
+			if (model.get("selected") && params.session_id !== model.get("session_id")) {
+				model.set("selected", false);
+			} else if (params.session_id === model.get("session_id")) {
+				model.set("selected", true);
+				params.selected = true;
+				sModel = model;
+				updateUI(params);
+				$.trigger("change", params);
+			}
+		});
 	}
 	hide();
-}
-
-function updateSelection(params) {
-	Alloy.Collections.childProxies.each(function(model) {
-		if (model.get("selected") && params.session_id !== model.get("session_id")) {
-			model.set("selected", false);
-		} else if (params.session_id === model.get("session_id")) {
-			model.set("selected", true);
-			params.selected = true;
-			updateUI(params);
-			$.trigger("change", params);
-		}
-	});
 }
 
 function updateUI(params) {
@@ -187,8 +188,12 @@ function updateUI(params) {
 	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], params.first_name) : params.first_name;
 }
 
+/**
+ *  all parameters are optional
+ * tid - String (similar to one passed with navigator)
+ * 	i.e when tid is
+ */
 function set(tid, where, dWhere, cSubtitles, sCallback) {
-	var sModel;
 	titleid = tid;
 	selectionCallback = sCallback;
 	/**
@@ -196,9 +201,9 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	 * passes this where condition
 	 */
 	if (where) {
-		sModel = Alloy.Collections.childProxies.findWhere(_.extend(where, {
+		sModel = Alloy.Collections.childProxies.findWhere(_.extend({
 			selected : true
-		}));
+		}, where));
 		if (sModel) {
 			updateUI(sModel.toJSON());
 		}
@@ -252,6 +257,13 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 		}
 	});
 	/**
+	 * when none matches the where condition
+	 */
+	if (!sModel) {
+		//pointing to account manager
+		sModel = Alloy.Collections.childProxies.at(0);
+	}
+	/**
 	 * destroy existing pop over
 	 * if any, this allows us to
 	 * access set method at any time
@@ -265,11 +277,16 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	return sModel;
 }
 
+function get() {
+	return sModel;
+}
+
 function setParentView(view) {
 	parent = view;
 }
 
 exports.set = set;
+exports.get = get;
 exports.show = show;
 exports.hide = hide;
 exports.setParentView = setParentView;
