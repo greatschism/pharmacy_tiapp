@@ -64,7 +64,11 @@ module.exports = {
 				"switch_off" : "0xE002",
 				"health_care" : "0xE003",
 				"login" : "0xE004",
-				"logout" : "0xE005"
+				"logout" : "0xE005",
+				"add_prescription" : "0xE006",
+				"add_familycare" : "0xE007",
+				"add_doctor" : "0xE008",
+				"add_reminder" : "0xE009"
 			},
 			"icons" : {
 				"numeric_zero" : "0",
