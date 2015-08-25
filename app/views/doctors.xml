@@ -1,8 +1,11 @@
 <Alloy>
-	<!--iOS:placing this header view in section header prevents the click of add button table view is scrolled down-->
-	<View id="headerView" class="top content-header-view">
-		<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
-		<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+	<View id="headerView" class="top auto-height vgroup">
+		<Require id="personSwitcher" src="templates/personSwitcher" onChange="didChangePerson" />
+		<!--iOS:placing this header view in section header prevents the click of add button table view is scrolled down-->
+		<View class="content-header-view">
+			<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
+			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+		</View>
 	</View>
 	<TableView id="tableView" onSingletap="didClickTableView">
 		<FooterView platform="ios">

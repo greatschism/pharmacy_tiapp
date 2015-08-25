@@ -229,13 +229,6 @@ function didGetFamily(result, passthrough) {
 	 */
 	Alloy.Models.patient.set(result.data);
 	/**
-	 * variable used
-	 * with XML - if
-	 * for validating whether user
-	 * has child accounts
-	 */
-	Alloy.Globals.hasChildren = Alloy.Models.patient.get("no_of_child") !== 0;
-	/**
 	 * update child proxies collection
 	 * adding patient itself
 	 * to this collection as
@@ -291,6 +284,13 @@ function didGetFamily(result, passthrough) {
 		children.push(tObj);
 	});
 	Alloy.Collections.childProxies.reset(children);
+	/**
+	 * variable used
+	 * with XML - if
+	 * for validating whether user
+	 * has child accounts
+	 */
+	Alloy.Globals.hasChildren = children.length !== 0;
 	/**
 	 * fire callback
 	 */

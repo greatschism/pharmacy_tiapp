@@ -10,13 +10,23 @@ var args = arguments[0] || {},
     isWindowOpen;
 
 function init() {
-	$.tableView.top = $.headerView.height;
 	defaultImg = $.uihelper.getImage("default_profile").image;
 	swipeOptions = [{
 		action : 1,
 		title : $.strings.doctorsSwipeOptRemove,
 		type : "negative"
 	}];
+	$.personSwitcher.set("prescPersonSwitcher", {
+		is_partial : false
+	});
+	$.tableView.applyProperties({
+		top : $.uihelper.getHeightFromChildren($.headerView),
+		bottom : $.tableView.bottom
+	});
+}
+
+function didChangePerson(e) {
+	getDoctors();
 }
 
 function focus() {
@@ -31,18 +41,7 @@ function focus() {
 	 */
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		$.http.request({
-			method : "doctors_list",
-			params : {
-				feature_code : "THXXX",
-				filter : {
-					sort_type : apiCodes.doctors_sort_type_asc,
-					sort_by : apiCodes.doctors_sort_by_fname
-				}
-			},
-			keepLoader : true,
-			success : didGetDoctors
-		});
+		getDoctors();
 	} else if (currentDoctor.method) {
 		var method = currentDoctor.method;
 		/**
@@ -78,6 +77,21 @@ function focus() {
 		}
 		currentDoctor = null;
 	}
+}
+
+function getDoctors() {
+	$.http.request({
+		method : "doctors_list",
+		params : {
+			feature_code : "THXXX",
+			filter : {
+				sort_type : apiCodes.doctors_sort_type_asc,
+				sort_by : apiCodes.doctors_sort_by_fname
+			}
+		},
+		keepLoader : true,
+		success : didGetDoctors
+	});
 }
 
 function didGetDoctors(result, passthrough) {
@@ -255,6 +269,12 @@ function didClickTableView(e) {
 	}
 }
 
+function setParentView(view) {
+	if ($.personSwitcher) {
+		$.personSwitcher.setParentView(view);
+	}
+}
+
 function terminate() {
 	/**
 	 * not resetting currentTable object
@@ -269,3 +289,4 @@ function terminate() {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+exports.setParentView = setParentView;
