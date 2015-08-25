@@ -7,7 +7,7 @@
 		</View>
 		<Label id="sendEmailLbl" class="lbl margin-top margin-bottom"/>
 		<View class="margin-top form-group">
-			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-done"/>
+			<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-done"/>
 		</View>
 		<Button id="sendBtn" class="primary-btn margin-top margin-bottom" onClick="didSendInvite"/>
 		<Button id="cancelBtn" class="secondary-btn margin-top margin-bottom"/>

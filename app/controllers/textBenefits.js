@@ -14,7 +14,6 @@ function didClickTextSignup() {
 		},
 		stack : true
 	});
-	
 }
 
 function didClickSkipTextSignup() {
@@ -22,7 +21,10 @@ function didClickSkipTextSignup() {
 	if (isFamilyMemberFlow) {
 		$.app.navigator.open({
 		titleid : "titleFamilyAccounts",
-		ctrl : "familyMemberInviteAddSuccess",
+		ctrl : "familyMemberAddSuccess",
+		ctrlArguments : {
+				familyRelationship:args.familyRelationship
+			},
 		stack : false
 	});
 	}else{

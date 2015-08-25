@@ -17,23 +17,22 @@ function didSendInvite() {
 	var email = $.emailTxt.getValue(),
 	    phone = $.phoneTxt.getValue();
 
-	if (!phone) {
-		if (!email) {
-			$.uihelper.showDialog({
-				message : Alloy.Globals.strings.familyMemberInviteValEmailPhone
-			});
-		}
+	if (!email && !phone) {
+		$.uihelper.showDialog({
+			message : Alloy.Globals.strings.familyMemberInviteValEmailPhone
+		});
+
 		return;
 	}
-	phone = $.utilities.validatePhoneNumber(phone);
-	if (!phone) {
+
+	if (phone &&  !$.utilities.validatePhoneNumber(phone)) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhoneInvalid
 		});
 		return;
 	}
 	
-	if (!$.utilities.validateEmail(email)) {
+	if (email && !$.utilities.validateEmail(email)) {
 		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.familyMemberInviteValEmailInvalid
 		});

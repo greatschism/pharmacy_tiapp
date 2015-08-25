@@ -183,7 +183,6 @@ isFamilyMemberFlow= $.utilities.getProperty("familyMemberFlow", false, "bool", t
 		});
 	}
 }
-
 function didAddChild(result) {
 	if (isFamilyMemberFlow) {
 		$.app.navigator.open({
