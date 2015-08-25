@@ -21,7 +21,7 @@ function init() {
 		 * by default point to a
 		 * non partial account
 		 */
-		$.personSwitcher.update("prescPersonSwitcher", {
+		$.personSwitcher.set("prescPersonSwitcher", {
 			is_partial : false
 		});
 		detailBtnClasses = ["content-detail-secondary-btn"];

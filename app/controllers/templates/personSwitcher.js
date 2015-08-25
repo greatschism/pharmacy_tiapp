@@ -134,12 +134,14 @@ function didClickTableView(e) {
 	if (row) {
 		var params = row.getParams();
 		/**
-		 * prevent switch from updating
-		 * selection when selectionCallback returns false
-		 * or
+		 * prevent switcher from updating selection when
 		 * if the row is already selected
+		 * or
+		 * selectionCallback returns false
+		 * or
+		 * params.selectable is false
 		 */
-		if (params.selected || (selectionCallback && !selectionCallback(params))) {
+		if (params.selected || (selectionCallback && !selectionCallback(params)) || !params.selectable) {
 			return hide();
 		}
 		/**
@@ -185,10 +187,22 @@ function updateUI(params) {
 	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], params.first_name) : params.first_name;
 }
 
-function update(tid, where, dWhere, cSubtitles, sCallback) {
+function set(tid, where, dWhere, cSubtitles, sCallback) {
 	var sModel;
 	titleid = tid;
 	selectionCallback = sCallback;
+	/**
+	 * check if previously selected model
+	 * passes this where condition
+	 */
+	if (where) {
+		sModel = Alloy.Collections.childProxies.findWhere(_.extend(where, {
+			selected : true
+		}));
+		if (sModel) {
+			updateUI(sModel.toJSON());
+		}
+	}
 	Alloy.Collections.childProxies.each(function(child) {
 		var obj = child.toJSON();
 		/**
@@ -198,7 +212,7 @@ function update(tid, where, dWhere, cSubtitles, sCallback) {
 		 * Note: this loop is required even when dWhere is not passed
 		 * in order to make items selectable that was unselectable previously
 		 */
-		child.set("selectable", dWhere ? utilities.isMatch(obj, dWhere) : true);
+		child.set("selectable", dWhere ? !utilities.isMatch(obj, dWhere) : true);
 		/**
 		 * unset selected flag
 		 * for selected proxy when
@@ -221,6 +235,8 @@ function update(tid, where, dWhere, cSubtitles, sCallback) {
 				sModel = child;
 				updateUI(obj);
 			}
+		} else if (sModel.get("session_id") !== obj.session_id && obj.selected) {
+			child.set("selected", false);
 		}
 		/**
 		 * cSubtitles - array of
@@ -236,9 +252,9 @@ function update(tid, where, dWhere, cSubtitles, sCallback) {
 		}
 	});
 	/**
-	 * destroy existing popover
+	 * destroy existing pop over
 	 * if any, this allows us to
-	 * access update method at any time
+	 * access set method at any time
 	 * so all the selection criterias
 	 * can be updated
 	 */
@@ -253,6 +269,7 @@ function setParentView(view) {
 	parent = view;
 }
 
+exports.set = set;
 exports.show = show;
-exports.update = update;
+exports.hide = hide;
 exports.setParentView = setParentView;
