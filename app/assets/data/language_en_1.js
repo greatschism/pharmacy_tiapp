@@ -246,7 +246,7 @@ module.exports = {
 		"prescTooltipLblReminder" : "tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
 		"prescTooltipBtnHide" : "Got it!",
 		"prescPartialLblTitle" : "Want to add a prescription?",
-		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with %'s account.",
+		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with %s's account.",
 
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",

@@ -21,7 +21,9 @@ function init() {
 		 * by default point to a
 		 * non partial account
 		 */
-		$.personSwitcher.update("prescPersonSwitcher");
+		$.personSwitcher.update("prescPersonSwitcher", {
+			is_partial : false
+		});
 		detailBtnClasses = ["content-detail-secondary-btn"];
 		swipeOptions = [{
 			action : 1,
@@ -55,6 +57,12 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
+	if ($.addPrescView) {
+		$.addPrescView.applyProperties({
+			top : top,
+			bottom : bottom
+		});
+	}
 }
 
 function didClickHide(e) {
@@ -756,6 +764,31 @@ function didClickSubmit(e) {
 		}
 	} else if (args.prescriptions) {
 		$.app.navigator.close();
+	}
+}
+
+function didChangePerson(e) {
+	if (e.is_partial) {
+		/**
+		 * this will reset the prescription list
+		 */
+		didGetPrescriptions({});
+		/**
+		 * show option for
+		 * add prescription
+		 */
+		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, e.first_name);
+		if (!$.addPrescView.visible) {
+			$.addPrescView.visible = true;
+		}
+	} else {
+		/**
+		 * hide add prescription option
+		 */
+		if ($.addPrescView.visible) {
+			$.addPrescView.visible = false;
+		}
+		getPrescriptions();
 	}
 }
 

@@ -27,7 +27,7 @@
 	</View>
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<!--person switcher should not be allowed when it is selectable mode-->
-		<Require id="personSwitcher" src="templates/personSwitcher" if="!$.args.selectable" />
+		<Require id="personSwitcher" src="templates/personSwitcher" onChange="didChangePerson" if="!$.args.selectable" />
 		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
@@ -35,6 +35,11 @@
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
+	<ScrollView id="addPrescView" class="hide top margin-bottom vgroup" if="!$.args.selectable">
+		<Label id="partialDescLbl" class="margin-top lbl-centered-wrap" />
+		<Label id="partialTitleLbl" class="margin-top title-centered-wrap" />
+		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" />
+	</ScrollView>
 	<Button id="submitBtn" class="margin-bottom primary-btn" onClick="didClickSubmit" if="$.args.selectable" />
 	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip">
 		<View class="auto-height vgroup">

@@ -349,6 +349,24 @@ var Utility = {
 	},
 
 	/**
+	 * _.isMatch
+	 * Current underscore version 1.6.0 from Alloy 1.6 doesn't support _.isMatch (Was introduced in underscore 1.8.0)
+	 */
+	isMatch : function(object, attrs) {
+		var keys = _.keys(attrs),
+		    length = keys.length;
+		if (object === null)
+			return !length;
+		var obj = Object(object);
+		for (var i = 0; i < length; i++) {
+			var key = keys[i];
+			if (attrs[key] !== obj[key] || !( key in obj))
+				return false;
+		}
+		return true;
+	},
+
+	/**
 	 * Adds thousands separators to a number
 	 * @param {Number} number The number to perform the action on
 	 */

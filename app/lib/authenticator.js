@@ -247,8 +247,13 @@ function didGetFamily(result, passthrough) {
 	var currentDate = moment(),
 	    relationships = Alloy.Models.relationship.get("code_values"),
 	    tObj = Alloy.Models.patient.pick(["first_name", "last_name", "birth_date", "session_id"]),
-	    children = [_.extend(tObj, {
-		title : utilities.ucfirst(tObj.first_name) + " " + utilities.ucfirst(tObj.last_name),
+	    children;
+	_.extend(tObj, {
+		first_name : utilities.ucfirst(tObj.first_name),
+		last_name : utilities.ucfirst(tObj.last_name),
+	});
+	children = [_.extend(tObj, {
+		title : tObj.first_name + " " + tObj.last_name,
 		related_by : Alloy.CFG.apiCodes.relationship_manager,
 		relationship : Alloy.Globals.strings.strManager,
 		is_partial : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1,
@@ -257,9 +262,24 @@ function didGetFamily(result, passthrough) {
 		selected : true
 	})];
 	_.each(Alloy.Models.patient.get("child_proxy"), function(child) {
-		tObj = _.pick(child, ["first_name", "last_name", "birth_date", "related_by", "session_id"]);
+		/**
+		 * if child_id is null
+		 * then don't add it
+		 * Note: child_id is only generated
+		 * when user has accepted the invitation
+		 * when child_id is null, link_id
+		 * will be present in the object
+		 */
+		if (!child.child_id) {
+			return false;
+		}
+		tObj = _.pick(child, ["birth_date", "related_by", "session_id"]);
 		_.extend(tObj, {
-			title : utilities.ucfirst(tObj.first_name) + " " + utilities.ucfirst(tObj.last_name),
+			first_name : utilities.ucfirst(child.first_name),
+			last_name : utilities.ucfirst(child.last_name),
+		});
+		_.extend(tObj, {
+			title : tObj.first_name + " " + tObj.last_name,
 			relationship : _.findWhere(relationships, {
 				code_value : child.related_by
 			}).code_display,
@@ -421,7 +441,7 @@ function logout(options) {
 			success : didLogout,
 			failure : didLogout
 		});
-	} else if (options.success) {
+	} else if (options && options.success) {
 		options.success();
 	}
 }

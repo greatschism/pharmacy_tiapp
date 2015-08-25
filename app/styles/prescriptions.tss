@@ -42,4 +42,7 @@
 },
 "#tooltipHideBtn":{
 	title: Alloy.Globals.strings.prescTooltipBtnHide
+},
+"#partialTitleLbl":{
+	text: Alloy.Globals.strings.prescPartialLblTitle
 }

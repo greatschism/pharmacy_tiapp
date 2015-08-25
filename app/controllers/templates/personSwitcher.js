@@ -2,12 +2,29 @@ var args = arguments[0] || {},
     app = require("core"),
     utilities = require("utilities"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 60,
+    arrowDown = $.createStyle({
+	classes : ["icon-thin-arrow-down"]
+}),
+    arrowUp = $.createStyle({
+	classes : ["icon-thin-arrow-up"]
+}),
+    titleid,
+    selectionCallback,
     templateHeight,
     rows,
-    parent;
+    parent,
+    isBusy;
 
 if (OS_ANDROID) {
 	MAX_HEIGHT /= app.device.logicalDensityFactor;
+}
+
+function toggle() {
+	if ($.popover && $.popover.visible) {
+		hide();
+	} else {
+		show();
+	}
 }
 
 function show() {
@@ -21,11 +38,14 @@ function show() {
 		$.popover = $.UI.create("View", {
 			id : "popover"
 		});
+		$.popover.addEventListener("click", hide);
 		$.contentView = $.UI.create("View", {
-			id : "contentView"
+			id : "contentView",
+			bubbleParent : false
 		});
 		$.tableView = $.UI.create("TableView", {
-			apiName : "TableView"
+			apiName : "TableView",
+			bubbleParent : false
 		});
 		$.tableView.addEventListener("click", didClickTableView);
 		$.contentView.add($.tableView);
@@ -49,7 +69,8 @@ function show() {
 		var rect = $.personSwitcher.rect;
 		$.popover.top = rect.y + rect.height;
 	}
-	if (!$.popover.visible) {
+	if (!isBusy && !$.popover.visible) {
+		isBusy = true;
 		_.each(parent.children, function(child) {
 			if (child == $.popover) {
 				return;
@@ -67,9 +88,11 @@ function show() {
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
 			$.popover.opacity = 1;
+			$.arrowBtn.applyProperties(arrowUp);
 			if (Ti.App.accessibilityEnabled) {
 				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
 			}
+			isBusy = false;
 		});
 		$.popover.animate(animation);
 		return true;
@@ -78,7 +101,8 @@ function show() {
 }
 
 function hide() {
-	if ($.popover.visible) {
+	if (!isBusy && $.popover.visible) {
+		isBusy = true;
 		_.each($.popover.getParent().children, function(child) {
 			if (child == $.popover) {
 				return;
@@ -96,6 +120,8 @@ function hide() {
 				visible : false,
 				zIndex : 0
 			});
+			$.arrowBtn.applyProperties(arrowDown);
+			isBusy = false;
 		});
 		$.popover.animate(animation);
 		return true;
@@ -104,11 +130,65 @@ function hide() {
 }
 
 function didClickTableView(e) {
+	var row = rows[e.index];
+	if (row) {
+		var params = row.getParams();
+		/**
+		 * prevent switch from updating
+		 * selection when selectionCallback returns false
+		 * or
+		 * if the row is already selected
+		 */
+		if (params.selected || (selectionCallback && !selectionCallback(params))) {
+			return hide();
+		}
+		/**
+		 * unset selected flag
+		 * for row object
+		 * Note: object inside row and
+		 * model will be different
+		 */
+		_.some(rows, function(row) {
+			var rParams = row.getParams();
+			if (rParams.selected) {
+				rParams.selected = false;
+				return true;
+			}
+			return false;
+		});
+		updateSelection(params);
+	}
 	hide();
 }
 
-function update(titleid, where, dWhere, cSubtitles) {
+function updateSelection(params) {
+	Alloy.Collections.childProxies.each(function(model) {
+		if (model.get("selected") && params.session_id !== model.get("session_id")) {
+			model.set("selected", false);
+		} else if (params.session_id === model.get("session_id")) {
+			model.set("selected", true);
+			params.selected = true;
+			updateUI(params);
+			$.trigger("change", params);
+		}
+	});
+}
+
+function updateUI(params) {
+	/**
+	 * update session id
+	 * so any further api calls
+	 * will be made on behalf of
+	 * this user
+	 */
+	Alloy.Models.patient.set("session_id", params.session_id);
+	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], params.first_name) : params.first_name;
+}
+
+function update(tid, where, dWhere, cSubtitles, sCallback) {
 	var sModel;
+	titleid = tid;
+	selectionCallback = sCallback;
 	Alloy.Collections.childProxies.each(function(child) {
 		var obj = child.toJSON();
 		/**
@@ -118,31 +198,29 @@ function update(titleid, where, dWhere, cSubtitles) {
 		 * Note: this loop is required even when dWhere is not passed
 		 * in order to make items selectable that was unselectable previously
 		 */
-		//to do - underscore version doesn't have isMatch check it
-		child.set("selectable", dWhere ? _.isMatch(obj, dWhere) : true);
+		child.set("selectable", dWhere ? utilities.isMatch(obj, dWhere) : true);
 		/**
 		 * unset selected flag
 		 * for selected proxy when
 		 * where condition is passed
+		 * Note: if sModel is valid
+		 * then don't validate where conditions
+		 * further, only first match should be
+		 * used
 		 */
-		if (where) {
-			console.log(where);
-			console.log(obj);
-			if (_.isMatch(obj, where)) {
-				child.set("selected", true);
-				/**
-				 * update session id
-				 * so any further api calls
-				 * will be made on behalf of
-				 * this user
-				 */
-				Alloy.Models.patient.set("session_id", obj.session_id);
-				sModel = child;
+		if (!sModel) {
+			if (where) {
+				if (utilities.isMatch(obj, where)) {
+					child.set("selected", true);
+					sModel = child;
+					updateUI(obj);
+				} else if (obj.selected) {
+					child.set("selected", false);
+				}
 			} else if (obj.selected) {
-				child.set("selected", false);
+				sModel = child;
+				updateUI(obj);
 			}
-		} else if (obj.selected) {
-			sModel = child;
 		}
 		/**
 		 * cSubtitles - array of
@@ -151,16 +229,18 @@ function update(titleid, where, dWhere, cSubtitles) {
 		 */
 		if (cSubtitles) {
 			_.each(cSubtitles, function(cSubtitle) {
-				child.set("subtitle", _.isMatch(obj, cSubtitle.where) ? cSubtitle.subtitle : obj.relationship);
+				child.set("subtitle", utilities.isMatch(obj, cSubtitle.where) ? cSubtitle.subtitle : obj.relationship);
 			});
 		} else {
 			child.set("subtitle", obj.relationship);
 		}
 	});
-	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], utilities.ucfirst(sModel.get("first_name"))) : utilities.ucfirst(sModel.get("first_name"));
 	/**
 	 * destroy existing popover
-	 * if any
+	 * if any, this allows us to
+	 * access update method at any time
+	 * so all the selection criterias
+	 * can be updated
 	 */
 	if ($.popover) {
 		parent.remove($.popover);
