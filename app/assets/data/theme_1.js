@@ -43,6 +43,31 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
+			"reminders" : [{
+				"id" : "app",
+				"enabled" : true,
+				"col_pref" : "app_reminder_dlvry_mode"
+			}, {
+				"id" : "doctor",
+				"enabled" : true,
+				"col_pref" : "doctor_reminder_dlvry_mode"
+			}, {
+				"id" : "health",
+				"enabled" : true,
+				"col_pref" : "health_info_reminder_dlvry_mode"
+			}, {
+				"id" : "med",
+				"enabled" : true,
+				"col_pref" : "med_reminder_dlvry_mode"
+			}, {
+				"id" : "refill",
+				"enabled" : true,
+				"col_pref" : "refill_reminder_dlvry_mode"
+			}, {
+				"id" : "promotional",
+				"enabled" : true,
+				"col_pref" : "promotion_deals_reminder_flag"
+			}],
 			"rx_schedule_2_validator" : "^(2).*$",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,
@@ -2214,7 +2239,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#5b5b5b",
+				"color" : "#009344",
 				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
@@ -2228,7 +2253,7 @@ module.exports = {
 					"fontFamily" : "regular",
 					"fontSize" : 14
 				},
-				"color" : "#5b5b5b",
+				"color" : "#009344",
 				"textAlign" : "right",
 				"ellipsize" : true,
 				"wordWrap" : false
