@@ -8,31 +8,38 @@ function didClickTextSignup() {
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
-		ctrlArguments:{
-			username:args.username,
-			signup:true
+		ctrlArguments : {
+			username : args.username,
+			signup : true
 		},
 		stack : true
 	});
 }
 
 function didClickSkipTextSignup() {
-	var isFamilyMemberFlow=$.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	var isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", true, "bool", true);
 	if (isFamilyMemberFlow) {
 		$.app.navigator.open({
-		titleid : "titleFamilyAccounts",
-		ctrl : "familyMemberAddSuccess",
-		ctrlArguments : {
-				familyRelationship:args.familyRelationship
+			titleid : "titleFamilyAccounts",
+			ctrl : "familyMemberAddSuccess",
+			ctrlArguments : {
+				familyRelationship : args.familyRelationship
 			},
-		stack : false
-	});
-	}else{
-	$.app.navigator.open({
-		titleid : "titleHome",
-		ctrl : "home",
-		stack : false
-	});
+			stack : false
+		});
+	} else if (isFamilyMemberAddPrescFlow) {
+		$.app.navigator.open({
+			titleid : "titleFamilyCare",
+			ctrl : "familyCare",
+			stack : true
+		});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleHome",
+			ctrl : "home",
+			stack : false
+		});
 	}
 }
 

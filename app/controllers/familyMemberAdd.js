@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-apiCodes = Alloy.CFG.apiCodes;
+    apiCodes = Alloy.CFG.apiCodes;
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
 	if (Alloy.Models.relationship.get("code_values")) {
@@ -37,16 +37,17 @@ function setParentView(view) {
 }
 
 function didClickContinue() {
-	$.utilities.setProperty("familyMemberFlow", true, "bool", true);	
+	$.utilities.setProperty("familyMemberFlow", true, "bool", true);
+	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
-	    relationship = $.relationshipDp.getSelectedItem();
-	  if (!dob) {
+	relationship = $.relationshipDp.getSelectedItem();
+	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValDob
 		});
 		return;
-	}      
+	}
 	if (_.isEmpty(relationship)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValRelationship
@@ -57,9 +58,9 @@ function didClickContinue() {
 		$.app.navigator.open({
 			titleid : "titleChildConsent",
 			ctrl : "childConsent",
-			ctrlArguments:{
-				dob:dob,
-				familyRelationship:relationship.code_value
+			ctrlArguments : {
+				dob : dob,
+				familyRelationship : relationship.code_value
 			},
 			stack : true
 		});
@@ -67,9 +68,9 @@ function didClickContinue() {
 		$.app.navigator.open({
 			titleid : "titleChildAdd",
 			ctrl : "childAdd",
-			ctrlArguments:{
-				dob:dob,
-				familyRelationship:relationship.code_value
+			ctrlArguments : {
+				dob : dob,
+				familyRelationship : relationship.code_value
 			},
 			stack : true
 		});
@@ -77,9 +78,9 @@ function didClickContinue() {
 		$.app.navigator.open({
 			titleid : "titleAddFamily",
 			ctrl : "familyMemberInvite",
-			ctrlArguments:{
-				dob:dob,
-				familyRelationship:relationship.code_value
+			ctrlArguments : {
+				dob : dob,
+				familyRelationship : relationship.code_value
 			},
 			stack : true
 		});

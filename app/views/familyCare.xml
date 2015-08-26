@@ -1,7 +1,12 @@
 <Alloy>
-	<View class="vgroup">
-		<Label id="familyCareLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
-		<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
-		<Label id="familyCareAddBtn" class="icon-add-familycare primary-icon-extra-large" onClick="didClickAddFamilyMember"/>
-	</View>
+	<TableView id="tableView" class="margin-bottom" >
+		<FooterView>
+			<View  class="auto-height vgroup">
+				<Label id="familyCareLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
+				<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+				<Label id="familyCareAddBtn"  onClick="didClickAddFamilyMember"/>
+				<Button id="familyMemberAddBtn" onClick="didClickAddFamilyMember"/>
+			</View>Ï
+		</FooterView>
+	</TableView>
 </Alloy>

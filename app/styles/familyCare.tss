@@ -1,7 +1,0 @@
-
-"#familyCareLbl" : {
-  text:Alloy.Globals.strings.familyCareLblNoProxy
-},
-"#familyCareAddLbl":{
-	text:Alloy.Globals.strings.familyCareLblAdd
-}

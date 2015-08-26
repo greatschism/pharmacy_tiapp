@@ -562,8 +562,14 @@ module.exports = {
 
 		"familyCareLblNoProxy" : "Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
 		"familyCareLblAdd" : "Want to add family members?",
+		"familyCareLblStatusPending":"Pending",
+		"familyCareLblStatusLinked":"Linked",
+		"familyCareRelatedPrefix":"My ",
+		"familyCareLblAcntMgr":"Account Manager",
+		"familyCareSectionChildProxy":"People whose medications you manage",
+		"familyCareMemberBtnAdd":"Add family member",
 
-		"familyMemberAddLbl" : "Great lets add your family members!",
+		"familyMemberAddLbl" : "Great let's add your family members!",
 		"familyMemberAddTip" : "Please enter your family member's date of birth.",
 		"familyMemberAddHintDob" : "Date of birth",
 		"familyMemberAddHintRelation" : "Select",

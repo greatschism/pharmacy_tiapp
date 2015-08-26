@@ -13,8 +13,8 @@ function didClickContinue() {
 	    lname = $.lnameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
 	    email = $.emailTxt.getValue(),
-	    dobValue = $.dobDp.getValue(),
-	    dob = moment(dobValue).format(Alloy.CFG.apiCodes.date_format);
+	    dob = $.dobDp.getValue();
+	  
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValFirstName
@@ -39,7 +39,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (!dobValue) {
+	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValDob
 		});
@@ -76,7 +76,7 @@ function didClickContinue() {
 	 password : password,
 	 first_name : fname,
 	 last_name : lname,
-	 birth_date : dob,
+	 birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
 	 gender : "",
 	 address_line1 : "",
 	 address_line2 : "",

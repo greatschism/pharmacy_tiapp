@@ -11,6 +11,15 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
+	if(Alloy.Models.patient.get("first_name")){
+		$.fnameTxt.setValue(Alloy.Models.patient.get("first_name"));
+	}
+	if(Alloy.Models.patient.get("last_name")){
+		$.lnameTxt.setValue(Alloy.Models.patient.get("last_name"));
+	}
+	if(Alloy.Models.patient.get("birth_date")){
+		$.dobDp.setValue(Alloy.Models.patient.get("birth_date"));
+	}
 }
 
 function moveToNext(e) {
@@ -112,6 +121,8 @@ function addPrescriptions(){
 		});
 }
 function didAddPrescriptions(){
+	$.utilities.setProperty("familyMemberFlow", false, "bool", true);
+	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
 	$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",
