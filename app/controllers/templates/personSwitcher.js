@@ -28,6 +28,9 @@ function toggle() {
 	}
 }
 
+/**
+ * show the dropdown
+ */
 function show() {
 	if (!parent) {
 		parent = $.personSwitcher.getParent();
@@ -101,6 +104,9 @@ function show() {
 	return false;
 }
 
+/**
+ * hide the dropdown
+ */
 function hide() {
 	if (!isBusy && $.popover.visible) {
 		isBusy = true;
@@ -190,8 +196,35 @@ function updateUI(params) {
 
 /**
  *  all parameters are optional
+ *
  * tid - String (similar to one passed with navigator)
- * 	i.e when tid is
+ * 	i.e when tid is "prescPersonSwitcher" then output will be account_holder_name's prescriptions
+ * otherwise just account_holder_name
+ *
+ * where - a where clause says which item should be selected by default
+ *  i.e - if it is required to choose a non partial account by default the condition will be
+ * {
+ * 	 is_partial: false
+ * }
+ *
+ * dWhere - a where clause says which item to be disabled
+ * i.e - if it is required to disable minor account from selection the condition will be
+ * {
+ * 	 is_adult : false
+ * }
+ *
+ * cSubtitles - a array of objects with a where clause and subtitle string
+ * by default the relationship will be used as subtitle
+ * i.e for a custom subtitle that only applied to minor accounts
+ * [
+ * {
+ * 	 where: {
+ * 		is_adult: false
+ *   },
+ * 	 subtitle: "Same as account manager settings"
+ *  }
+ * ]
+ * or if it is required to set a custom subtitle for all accounts pass a string instead array
  */
 function set(tid, where, dWhere, cSubtitles, sCallback) {
 	titleid = tid;
@@ -243,25 +276,38 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 		} else if (sModel.get("session_id") !== obj.session_id && obj.selected) {
 			child.set("selected", false);
 		}
-		/**
-		 * cSubtitles - array of
-		 * where condition and custom subtitle text
-		 * if not passed, defaults to relationship
-		 */
+		//check for custom subtitles
+		var isAssigned;
 		if (cSubtitles) {
-			_.each(cSubtitles, function(cSubtitle) {
-				child.set("subtitle", utilities.isMatch(obj, cSubtitle.where) ? cSubtitle.subtitle : obj.relationship);
-			});
-		} else {
+			if (_.isArray(cSubtitles)) {
+				isAssigned = _.some(cSubtitles, function(cSubtitle) {
+					if (utilities.isMatch(obj, cSubtitle.where)) {
+						child.set("subtitle", cSubtitle.subtitle);
+						return true;
+					}
+					return false;
+				});
+			} else {
+				isAssigned = true;
+				child.set("subtitle", cSubtitles);
+			}
+		}
+		if (!isAssigned) {
 			child.set("subtitle", obj.relationship);
 		}
 	});
 	/**
 	 * when none matches the where condition
+	 * usually occurs when no children
+	 * with partial manager account
 	 */
 	if (!sModel) {
 		//pointing to account manager
 		sModel = Alloy.Collections.childProxies.at(0);
+		//making sure person switcher is visible / valid
+		if (Alloy.Globals.hasChildren) {
+			updateUI(sModel.toJSON());
+		}
 	}
 	/**
 	 * destroy existing pop over
@@ -277,10 +323,17 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	return sModel;
 }
 
+/**
+ * returns the selected model
+ */
 function get() {
 	return sModel;
 }
 
+/**
+ * set the parent view
+ * @param {TiUIView} view
+ */
 function setParentView(view) {
 	parent = view;
 }

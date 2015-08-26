@@ -57,8 +57,8 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
-	if ($.addPrescView) {
-		$.addPrescView.applyProperties({
+	if ($.partialView) {
+		$.partialView.applyProperties({
 			top : top,
 			bottom : bottom
 		});
@@ -116,11 +116,11 @@ function getPrescriptions(status, callback) {
 		var currentPatient = $.personSwitcher.get();
 		if (currentPatient.get("is_partial")) {
 			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
-			if (!$.addPrescView.visible) {
-				$.addPrescView.visible = true;
+			if (!$.partialView.visible) {
+				$.partialView.visible = true;
 			}
 			/**
-			 * hide navigator
+			 * hide loader
 			 * from sort order preference
 			 */
 			$.app.navigator.hideLoader();
@@ -493,21 +493,21 @@ function toggleSearch() {
 	});
 	$.tableView.animate(tAnim);
 	/**
-	 * required when addPrescView view is
+	 * required when partialView view is
 	 * enabled or visible or when switched
 	 * to a partial account
 	 * with search is enabled
 	 */
-	if ($.addPrescView) {
+	if ($.partialView) {
 		var pAnim = Ti.UI.createAnimation({
 			top : top,
 			duration : 200
 		});
 		pAnim.addEventListener("complete", function onComplete() {
 			pAnim.removeEventListener("complete", onComplete);
-			$.addPrescView.top = top;
+			$.partialView.top = top;
 		});
-		$.addPrescView.animate(pAnim);
+		$.partialView.animate(pAnim);
 	}
 }
 
@@ -815,15 +815,15 @@ function didChangePerson(e) {
 		 * add prescription
 		 */
 		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, e.first_name);
-		if (!$.addPrescView.visible) {
-			$.addPrescView.visible = true;
+		if (!$.partialView.visible) {
+			$.partialView.visible = true;
 		}
 	} else {
 		/**
 		 * hide add prescription option
 		 */
-		if ($.addPrescView.visible) {
-			$.addPrescView.visible = false;
+		if ($.partialView.visible) {
+			$.partialView.visible = false;
 		}
 		getPrescriptions();
 	}
