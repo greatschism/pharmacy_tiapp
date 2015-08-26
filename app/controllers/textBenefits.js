@@ -42,5 +42,4 @@ function didClickSkipTextSignup() {
 		});
 	}
 }
-
 exports.init = init;

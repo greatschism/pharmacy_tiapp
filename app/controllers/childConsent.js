@@ -1,7 +1,7 @@
 var args = arguments[0] || {},
-    selected = false;
+    selected = true;
 function didClickContinue() {
-	var isFamilyMemberFlow=$.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	var isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
 	if (isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleChildAdd",
@@ -38,6 +38,7 @@ function didClickContinue() {
 		});
 	}
 }
+
 function didAddChild(result) {
 	var successMessage = result.message;
 	$.uihelper.showDialog({

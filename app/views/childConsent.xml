@@ -4,7 +4,7 @@
 		<View class="auto-height">
 			<Label id="leftIconLbl" class="content-inactive-left-icon icon-checkbox-unchecked" onClick="didClickConsent"/>
 			<View class="content-view-vgroup-with-licon">
-				<Label id="consentObtainLbl" class="content-title" />
+				<Label id="consentObtainLbl" class="content-title" onClick="didClickConsent"/>
 			</View>
 		</View>
 		<Button id="inactiveBtn" class="inactive-btn" visible="true" />
