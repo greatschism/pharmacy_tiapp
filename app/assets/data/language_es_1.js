@@ -562,8 +562,14 @@ module.exports = {
 
 		"familyCareLblNoProxy" : "es-Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
 		"familyCareLblAdd" : "es-Want to add family members?",
+		"familyCareLblStatusPending":"es-Pending",
+		"familyCareLblStatusLinked":"es-Linked",
+		"familyCareRelatedPrefix":"es-My ",
+		"familyCareLblAcntMgr":"es-Account Manager",
+		"familyCareSectionChildProxy":"es-People whose medications you manage",
+		"familyCareMemberBtnAdd":"es-Add family member",
 
-		"familyMemberAddLbl" : "es-Great lets add your family members!",
+		"familyMemberAddLbl" : "es-Great let's add your family members!",
 		"familyMemberAddTip" : "es-Please enter your family member's date of birth.",
 		"familyMemberAddHintDob" : "es-Date of birth",
 		"familyMemberAddHintRelation" : "es-Select",
@@ -592,6 +598,21 @@ module.exports = {
 		"familyMemberAddSuccessMsg" : "es-You can now view your %s's prescriptions by going to your prescription list and clicking the down arrow at the top of the screen.\n\nWhen your %s turns 18, they need to register as an adult.",
 		"familyMemberAddSuccessBtnAdd" : "es-Add another family member",
 		"familyMemberAddSuccessBtnDone" : "es-Done",
-
+		
+		"familyMemberAddPrescTitle":"es-Please fill in the information below to update your account with Carbon Pharmacy.",
+		"familyMemberAddPrescHintFirstName" : "es-First name",
+		"familyMemberAddPrescHintLastName" : "es-Last name",
+		"familyMemberAddPrescHintDob" : "es-Date of birth",
+		"familyMemberAddPrescHintRxNo" : "es-Rx number",
+		"familyMemberAddPrescHintPharmacyLocation" : "es-Pharmacy location",
+		"familyMemberAddPrescBtnUpdate":"es-Update account",
+		"familyMemberAddPrescValFirstName" : "es-Please enter your first name.",
+		"familyMemberAddPrescValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"familyMemberAddPrescValLastName" : "es-Please enter your last name.",
+		"familyMemberAddPrescValLastNameInvalid" : "es-Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"familyMemberAddPrescValDob" : "es-Please enter your Date of birth.",
+		"familyMemberAddPrescValRxNo" : "es-Please enter your prescription number.",
+		"familyMemberAddPrescValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
+		"familyMemberAddPrescValStore" : "es-Please select a pharmacy",
 	}
 };

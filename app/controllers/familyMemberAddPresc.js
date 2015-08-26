@@ -29,7 +29,7 @@ function moveToNext(e) {
 	}
 }
 
-function didClickPharmacy(e) {
+function didClickPharmacy() {
 	$.app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",

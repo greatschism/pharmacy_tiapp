@@ -82,5 +82,11 @@ function didChangePhone(e) {
 	$.phoneTxt.setValue(value);
 	$.phoneTxt.setSelection(len, len);
 }
-
+function didClickCancel(){
+	$.app.navigator.open({
+		titleid : "titleAddFamily",
+		ctrl : "familyMemberAdd",
+		stack : true
+	});
+}
 exports.init = init;

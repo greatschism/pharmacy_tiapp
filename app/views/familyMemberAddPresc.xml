@@ -2,7 +2,7 @@
 	<ScrollView class="vgroup">
 		<View class="vgroup auto-height">
 			<ImageView id="addPrescImg" class="margin-top margin-bottom"/>
-			<Label id="addPrescTitle" class="lbl-wrap margin-top margin-bottom"/>
+			<Label id="addPrescTitle" class="lbl-wrap margin-bottom"/>
 		</View>
 		<View class="margin-top form-vgroup">
 			<View id="txtView" class="auto-height">
@@ -21,7 +21,7 @@
 					<Label id="storeTitleLbl" class="content-lbl" />
 				</View>
 				<View class="content-detail-view-30">
-					<Label id="arrowLbl" class="content-child-icon icon-thick-arrow-right" />
+					<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-right" />
 				</View>
 			</View>
 		</View>
