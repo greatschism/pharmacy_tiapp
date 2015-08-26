@@ -45,28 +45,28 @@ module.exports = {
 			}],
 			"reminders" : [{
 				"id" : "app",
-				"enabled" : true,
-				"col_pref" : "app_reminder_dlvry_mode"
+				"col_pref" : "app_reminder_dlvry_mode",
+				"enabled" : true
 			}, {
 				"id" : "doctor",
-				"enabled" : true,
-				"col_pref" : "doctor_reminder_dlvry_mode"
+				"col_pref" : "doctor_reminder_dlvry_mode",
+				"enabled" : true
 			}, {
 				"id" : "health",
-				"enabled" : true,
-				"col_pref" : "health_info_reminder_dlvry_mode"
+				"col_pref" : "health_info_reminder_dlvry_mode",
+				"enabled" : true
 			}, {
 				"id" : "med",
-				"enabled" : true,
-				"col_pref" : "med_reminder_dlvry_mode"
+				"col_pref" : "med_reminder_dlvry_mode",
+				"enabled" : true
 			}, {
 				"id" : "refill",
-				"enabled" : true,
-				"col_pref" : "refill_reminder_dlvry_mode"
+				"col_pref" : "refill_reminder_dlvry_mode",
+				"enabled" : true
 			}, {
 				"id" : "promotional",
-				"enabled" : true,
-				"col_pref" : "promotion_deals_reminder_flag"
+				"col_pref" : "promotion_deals_reminder_flag",
+				"enabled" : true
 			}],
 			"rx_schedule_2_validator" : "^(2).*$",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
@@ -2164,6 +2164,23 @@ module.exports = {
 				"right" : 0,
 				"height" : 40,
 				"width" : 90,
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 17
+				},
+				"color" : "#F7941E",
+				"selectedColor" : "#F7941E",
+				"backgroundColor" : "#FFFFFF",
+				"backgroundSelectedColor" : "#FFFFFF",
+				"borderColor" : "#F7941E",
+				"borderRadius" : 3.4,
+				"borderWidth" : 1,
+				"bubbleParent" : false
+			},
+			".content-detail-secondary-btn-large" : {
+				"left" : 4,
+				"right" : 4,
+				"height" : 40,
 				"font" : {
 					"fontFamily" : "medium",
 					"fontSize" : 17
