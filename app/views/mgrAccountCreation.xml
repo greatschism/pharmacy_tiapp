@@ -1,23 +1,30 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<Label id="mgrTitleLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
-		<ImageView id="logoImg" class="margin-top margin-bottom" />
-		<Label id="mgrSubTitleLbl" class="lbl-wrap margin-top margin-bottom"/>
-		<View class="margin-top form-vgroup">
-			<View id="txtView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<View id="vDividerView" class="v-divider"/>
+	<ScrollView >
+		<View class="vgroup">
+			<Label id="mgrTitleLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+			<ImageView id="logoImg" class="margin-top margin-bottom" />
+			<Label id="mgrSubTitleLbl" class="lbl-wrap margin-top margin-bottom"/>
+			<View class="margin-top form-vgroup">
+				<View id="txtView" class="auto-height">
+					<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+					<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
+					<View id="vDividerView" class="v-divider"/>
+				</View>
+				<View class="h-divider"/>
+				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
 			</View>
-			<View class="h-divider"/>
-			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+			<View id="containerView" class="margin-top form-vgroup">
+				<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-next" onReturn="moveToNext" />
+				<View class="h-divider"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView"/>
+			</View>
+			<View class="margin-top auto-height">
+				<Label id="showPasswordLbl" class="lbl-with-rswt" />
+				<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
+			</View>
+			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
+			<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
-			<View class="h-divider" />
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" />
-		</View>
-		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
-		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
+		<Widget id="passwordTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
 </Alloy>

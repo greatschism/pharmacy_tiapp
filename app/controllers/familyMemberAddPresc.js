@@ -102,7 +102,7 @@ function addPrescriptions(){
 	}
 	if (_.isEmpty(store)) {
 		$.uihelper.showDialog({
-			message : $.strings.familyMemberAddPrescStore
+			message : $.strings.familyMemberAddPrescValStore
 		});
 		return;
 	}

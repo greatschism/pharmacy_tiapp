@@ -484,6 +484,7 @@ module.exports = {
 		"mgrAccountCreationValPasssword" : "Please enter your password",
 		"mgrAccountCreationValEmail" : "Please enter your email address",
 		"mgrAccountCreationValEmailInvalid" : "Invalid email address",
+		"mgrAccountCreationLblTogglePassword": "Show password",
 
 		"mgrSignInLbl" : "Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "You can also add other adults and manage permissions.",
@@ -568,6 +569,7 @@ module.exports = {
 		"familyCareLblAcntMgr" : "Account Manager",
 		"familyCareSectionChildProxy" : "People whose medications you manage",
 		"familyCareMemberBtnAdd" : "Add family member",
+		"familyCareOptRemove":"Remove",
 
 		"familyMemberAddLbl" : "Great let's add your family members!",
 		"familyMemberAddTip" : "Please enter your family member's date of birth.",

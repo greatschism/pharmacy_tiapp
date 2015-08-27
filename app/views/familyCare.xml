@@ -1,10 +1,10 @@
 <Alloy>
-	<TableView id="tableView" class="margin-bottom" >
+	<TableView id="tableView">
 		<FooterView>
 			<View  class="auto-height vgroup">
 				<Label id="familyCareLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
-				<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
-				<Label id="familyCareAddBtn"  onClick="didClickAddFamilyMember"/>
+				<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-bottom"/>
+				<Label id="familyCareAddBtn" onClick="didClickAddFamilyMember"/>
 				<Button id="familyMemberAddBtn" onClick="didClickAddFamilyMember"/>
 			</View>Ï
 		</FooterView>

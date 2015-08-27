@@ -14,7 +14,7 @@
 			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
 		</View>
 		<View class="margin-top form-vgroup">
-			<Widget id="rxNoTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext" onChange="didChangeRx" />
+			<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt keyboard-number returnkey-next" onReturn="moveToNext" onChange="didChangeRx" onFocus="didFocusRx" onBlur="didBlurFocusRx" onPostlayout="didPostlayoutRxContainerView"/>
 			<View class="h-divider"/>
 			<View id="storeView" class="content-view" onClick="didClickPharmacy">
 				<View class="content-master-view-70">
@@ -27,6 +27,6 @@
 		</View>
 		<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
 		<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
-		<Button id="skipBtn" class="margin-top secondary-btn" onClick="didClickSkip"/>
+		<Button id="skipBtn" onClick="didClickSkip"/>
 	</ScrollView>
 </Alloy>

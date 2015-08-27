@@ -15,6 +15,12 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
+	isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	if (!isFamilyMemberFlow) {
+		$.skipBtn.applyProperties($.createStyle({
+			classes : ["margin-top", "secondary-btn"]
+		}));
+	}
 }
 
 function didChangeRx(e) {
@@ -44,7 +50,7 @@ function moveToNext(e) {
 }
 
 function didClickContinue() {
-isFamilyMemberFlow= $.utilities.getProperty("familyMemberFlow", false, "bool", true);
+	isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
@@ -183,13 +189,14 @@ isFamilyMemberFlow= $.utilities.getProperty("familyMemberFlow", false, "bool", t
 		});
 	}
 }
+
 function didAddChild(result) {
 	if (isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleTextBenefits",
 			ctrl : "textBenefits",
 			ctrlArguments : {
-				familyRelationship:args.familyRelationship
+				familyRelationship : args.familyRelationship
 			},
 			stack : true
 		});
@@ -236,6 +243,25 @@ function didClickSkip() {
 
 function setParentView(view) {
 	$.dobDp.setParentView(view);
+}
+
+function didBlurFocusRx() {
+	$.rxTooltip.hide();
+}
+
+function didPostlayoutRxContainerView(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	rxContainerViewFromTop = e.source.rect.y;
+}
+
+function didFocusRx(e) {
+	if (_.has($.rxTooltip, "size")) {
+		$.rxTooltip.applyProperties({
+			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
+		});
+		delete $.rxTooltip.size;
+	}
+	$.rxTooltip.show();
 }
 
 function didClickPharmacy(e) {

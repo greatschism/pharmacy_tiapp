@@ -18,6 +18,12 @@
 	hintText:Alloy.Globals.strings.mgrAccountCreationHintPassword,
 	passwordMask: true
 },
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+},
+"#showPasswordLbl":{
+	text: Alloy.Globals.strings.mgrAccountCreationLblTogglePassword
+},
 "#mgrTitleLbl":{
 	text:Alloy.Globals.strings.mgrAccountCreationTitle
 },

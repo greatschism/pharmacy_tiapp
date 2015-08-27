@@ -1,6 +1,10 @@
-var moment = require("alloy/moment");
+var moment = require("alloy/moment"),
+    passwordContainerViewFromTop = 0;
+
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
+	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
+	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 }
 
 function focus() {
@@ -14,7 +18,7 @@ function didClickContinue() {
 	    password = $.passwordTxt.getValue(),
 	    email = $.emailTxt.getValue(),
 	    dob = $.dobDp.getValue();
-	  
+
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValFirstName
@@ -63,46 +67,72 @@ function didClickContinue() {
 		});
 		return;
 	}
+	var age = getAge(dob);
+	if (age < 18) {
+		$.uihelper.showDialog({
+			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
+		});
+		return;
+	}
 	$.http.request({
-	 method : "patient_register",
-	 params : {
-	 feature_code : "THXXX",
-	 filter : {
-	 sort_order : "asc"
-	 },
-	 data : [{
-	 patient : {
-	 user_name : email,
-	 password : password,
-	 first_name : fname,
-	 last_name : lname,
-	 birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
-	 gender : "",
-	 address_line1 : "",
-	 address_line2 : "",
-	 city : "",
-	 state : "",
-	 zip : "",
-	 home_phone : "",
-	 mobile : "",
-	 email_address : email,
-	 rx_number : "",
-	 store_id : "",
-	 user_type : "PARTIAL",
-	 optional : [{
-	 key : "",
-	 value : ""
-	 }, {
-	 key : "",
-	 value : ""
-	 }]
-	 }
-	 }]
+		method : "patient_register",
+		params : {
+			feature_code : "THXXX",
+			filter : {
+				sort_order : "asc"
+			},
+			data : [{
+				patient : {
+					user_name : email,
+					password : password,
+					first_name : fname,
+					last_name : lname,
+					birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+					gender : "",
+					address_line1 : "",
+					address_line2 : "",
+					city : "",
+					state : "",
+					zip : "",
+					home_phone : "",
+					mobile : "",
+					email_address : email,
+					rx_number : "",
+					store_id : "",
+					user_type : "PARTIAL",
+					optional : [{
+						key : "",
+						value : ""
+					}, {
+						key : "",
+						value : ""
+					}]
+				}
+			}]
 
-	 },
-	 success : didRegister,
-	 failure: didFail
-	 });
+		},
+		success : didRegister,
+		failure : didFail
+	});
+}
+
+/**
+ *
+ * @param {Object} dateString
+ * Get the age of the user
+ * If the user is 18 yrs old, do not let him create the account
+ * If the user is 12-17 yrs old, take him to the consent screen
+ * If the user is less than 12 yrs, successfully create the account
+ */
+function getAge(dateString) {
+	var today = new Date();
+	var birthDate = new Date(dateString);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+		age--;
+	}
+	return age;
 }
 
 function didFail() {
@@ -113,7 +143,7 @@ function didFail() {
 	});
 }
 
-function didRegister(result,passthrough) {
+function didRegister(result, passthrough) {
 	successMessage = result.message;
 	$.uihelper.showDialog({
 		message : successMessage
@@ -121,14 +151,14 @@ function didRegister(result,passthrough) {
 	$.app.navigator.open({
 		titleid : "titleLogin",
 		ctrl : "login",
-		ctrlArguments:{
-			username:$.emailTxt.getValue(),
-			password:$.passwordTxt.getValue(),
-			is_adult_partial:true
+		ctrlArguments : {
+			username : $.emailTxt.getValue(),
+			password : $.passwordTxt.getValue(),
+			is_adult_partial : true
 		},
 		stack : true
 	});
-	
+
 }
 
 function moveToNext(e) {
@@ -142,6 +172,35 @@ function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
 
+function didToggleShowPassword(e) {
+	$.passwordTxt.setPasswordMask(!e.value);
+}
+
+function didBlurFocusPassword() {
+	$.passwordTooltip.hide();
+}
+
+function didFocusPassword(e) {
+	if (_.has($.passwordTooltip, "size")) {
+		$.passwordTooltip.applyProperties({
+			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
+		});
+		delete $.passwordTooltip.size;
+	}
+	$.passwordTooltip.show();
+}
+
+function didPostlayoutPasswordContainerView(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
+	passwordContainerViewFromTop = e.source.rect.y;
+}
+function didPostlayoutTooltip(e) {
+	e.source.size = e.size;
+	e.source.off("postlayout", didPostlayoutTooltip);
+}
+function didClickTooltip(e) {
+	e.source.hide();
+}
 function didClickAgreement(e) {
 	$.app.navigator.open({
 		ctrl : "termsAndConditions",
@@ -155,4 +214,4 @@ function didClickAgreement(e) {
 
 exports.setParentView = setParentView;
 exports.focus = focus;
-exports.init=init;
+exports.init = init;
