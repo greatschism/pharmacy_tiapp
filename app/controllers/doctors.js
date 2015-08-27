@@ -25,7 +25,7 @@ function init() {
 	});
 }
 
-function didChangePerson(e) {
+function didChangePatient(e) {
 	getDoctors();
 }
 

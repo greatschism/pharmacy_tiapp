@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="headerView" class="top auto-height vgroup">
-		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePerson" />
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
 		<!--iOS:placing this header view in section header prevents the click of add button table view is scrolled down-->
 		<View class="content-header-view">
 			<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />

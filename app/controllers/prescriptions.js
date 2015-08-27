@@ -804,7 +804,7 @@ function didClickSubmit(e) {
 	}
 }
 
-function didChangePerson(e) {
+function didChangePatient(e) {
 	if (e.is_partial) {
 		/**
 		 * this will reset the prescription list

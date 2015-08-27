@@ -27,7 +27,7 @@
 	</View>
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<!--person switcher should not be allowed when it is selectable mode-->
-		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePerson" if="!$.args.selectable" />
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="!$.args.selectable" />
 		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">

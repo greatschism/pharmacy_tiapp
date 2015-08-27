@@ -1,7 +1,11 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-map" onClick="didClickRightNavBtn" />
-	<View id="searchbar" class="top search-bar">
-		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onFocus="didFocusSearch" onClear="didClearSearch" onChange="didChangeSearch" onReturn="didReturnSearch" />
+	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
+		<!--person switcher should not be allowed when it is selectable mode-->
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="!$.args.selectable" />
+		<View id="searchbar" class="top search-bar">
+			<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onFocus="didFocusSearch" onClear="didClearSearch" onChange="didChangeSearch" onReturn="didReturnSearch" />
+		</View>
 	</View>
 	<View id="containerView">
 		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" onClick="didClickMap" onRegionchanged="didRegionchanged" />

@@ -54,19 +54,42 @@ function init() {
 	mapIconDict = $.createStyle({
 		classes : ["icon-map"]
 	});
-	$.containerView.top = $.searchbar.height;
+	/**
+	 * person switcher will not be available
+	 * outside login or when store is opened
+	 * for selection
+	 */
+	if (Alloy.Globals.isLoggedIn && $.patientSwitcher) {
+		/**
+		 * by default point to a
+		 * non partial account
+		 */
+		$.patientSwitcher.set("prescPatientSwitcher", {
+			is_partial : false
+		});
+	}
 	/**
 	 * to avoid incorrect alignment on ios
 	 * when keep chaning visibility of this view
 	 */
 	if (OS_IOS) {
-		$.loader.getView().addEventListener("postlayout", didPostlayout);
+		$.loader.getView().addEventListener("postlayout", didPostlayoutLoader);
 	}
 }
 
 function didPostlayout(e) {
+	$.headerView.removeEventListener("postlayout", didPostlayout);
+	$.containerView.top = $.headerView.rect.height;
+}
+
+function didChangePatient(e) {
+	//execute the same query again
+	getStores(currentLocation, true, false);
+}
+
+function didPostlayoutLoader(e) {
 	var view = e.source;
-	view.removeEventListener("postlayout", didPostlayout);
+	view.removeEventListener("postlayout", didPostlayoutLoader);
 	view.applyProperties({
 		top : view.rect.y,
 		left : view.rect.x
@@ -1129,7 +1152,17 @@ function focus() {
 	}
 }
 
+function setParentView(view) {
+	if (Alloy.Globals.isLoggedIn && $.patientSwitcher) {
+		$.patientSwitcher.setParentView(view);
+	}
+}
+
 function terminate() {
+	//terminate patient switcher
+	if ($.patientSwitcher) {
+		$.patientSwitcher.terminate();
+	}
 	/**
 	 * removing app event listeners
 	 * added on init
@@ -1146,3 +1179,4 @@ function terminate() {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+exports.setParentView = setParentView;
