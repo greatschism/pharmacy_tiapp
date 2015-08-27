@@ -21,7 +21,7 @@ function init() {
 		 * by default point to a
 		 * non partial account
 		 */
-		$.personSwitcher.set("prescPersonSwitcher", {
+		$.patientSwitcher.set("prescPatientSwitcher", {
 			is_partial : false
 		});
 		detailBtnClasses = ["content-detail-secondary-btn"];
@@ -108,12 +108,12 @@ function getPrescriptions(status, callback) {
 		$.tableView.filterText = "";
 	}
 	/**
-	 * occurs on first launch only when
-	 * no child accounts
-	 * with partial manager account
+	 * occurs on first launch
+	 * when no all the patients
+	 * has partial accounts
 	 */
-	if ($.personSwitcher && !Alloy.Globals.hasChildren) {
-		var currentPatient = $.personSwitcher.get();
+	if ($.patientSwitcher) {
+		var currentPatient = $.patientSwitcher.get();
 		if (currentPatient.get("is_partial")) {
 			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
 			if (!$.partialView.visible) {
@@ -833,7 +833,7 @@ function didClickAddPresc(e) {
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
-		ctrlArguments : $.personSwitcher.get().pick(["first_name", "last_name", "birth_date"]),
+		ctrlArguments : $.patientSwitcher.get().pick(["first_name", "last_name", "birth_date"]),
 		stack : true
 	});
 }
@@ -880,12 +880,16 @@ function focus() {
 }
 
 function setParentView(view) {
-	if ($.personSwitcher) {
-		$.personSwitcher.setParentView(view);
+	if ($.patientSwitcher) {
+		$.patientSwitcher.setParentView(view);
 	}
 }
 
 function terminate() {
+	//terminate patient switcher
+	if ($.patientSwitcher) {
+		$.patientSwitcher.terminate();
+	}
 	/**
 	 * not resetting currentTable object
 	 * as there are chance when nullify it here

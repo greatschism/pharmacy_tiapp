@@ -1,11 +1,11 @@
-"#personSwitcher[if=!Alloy.Globals.hasChildren]":{
+"#patientSwitcher[if=!Alloy.Globals.hasPatientSwitcher]":{
 	height: 0
 },
 /**
 * 	styles set is not configurable here
 *  as it is a standard pop over layout
 */
-"#popover":{
+"#popoverView":{
 	zIndex: 0,
 	opacity: 0,
 	visible: false,

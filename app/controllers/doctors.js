@@ -16,7 +16,7 @@ function init() {
 		title : $.strings.doctorsSwipeOptRemove,
 		type : "negative"
 	}];
-	$.personSwitcher.set("prescPersonSwitcher", {
+	$.patientSwitcher.set("prescPatientSwitcher", {
 		is_partial : false
 	});
 	$.tableView.applyProperties({
@@ -270,12 +270,12 @@ function didClickTableView(e) {
 }
 
 function setParentView(view) {
-	if ($.personSwitcher) {
-		$.personSwitcher.setParentView(view);
-	}
+	$.patientSwitcher.setParentView(view);
 }
 
 function terminate() {
+	//terminate patient switcher
+	$.patientSwitcher.terminate();
 	/**
 	 * not resetting currentTable object
 	 * as there are chance when nullify it here

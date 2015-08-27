@@ -2179,7 +2179,7 @@ module.exports = {
 			},
 			".content-detail-secondary-btn-large" : {
 				"left" : 4,
-				"right" : 4,
+				"right" : 0,
 				"height" : 40,
 				"font" : {
 					"fontFamily" : "medium",

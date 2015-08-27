@@ -23,15 +23,13 @@ Alloy.Globals.latestRequest = moment().unix();
 
 function request(args) {
 
-	var sessionId = Alloy.Models.patient.get("session_id");
-
 	/**
 	 * trigger session timeout
 	 * if session id is available and time of latest api call is more than session_timeout
 	 * and must not be a patient logout
 	 */
 	var now = moment().unix();
-	if (sessionId && (now - Alloy.Globals.latestRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
+	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
 		/**
 		 *  hide loader is required in case
 		 *  it was created by a previous network call
@@ -76,7 +74,7 @@ function request(args) {
 		version : Alloy.CFG.api_version,
 		lang : localization.currentLanguage.code,
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
-		session_id : sessionId
+		session_id : Alloy.Globals.sessionId
 	});
 	args.params = JSON.stringify(args.params, null, 4);
 

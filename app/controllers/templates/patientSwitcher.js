@@ -8,41 +8,32 @@ var args = arguments[0] || {},
     arrowUp = $.createStyle({
 	classes : ["icon-thin-arrow-up"]
 }),
+    templateHeight,
+    sModel,
     titleid,
     selectionCallback,
-    templateHeight,
-    rows,
     parent,
-    sModel,
+    rows,
     isBusy;
 
 if (OS_ANDROID) {
 	MAX_HEIGHT /= app.device.logicalDensityFactor;
 }
 
-function toggle() {
-	if ($.popover && $.popover.visible) {
-		hide();
-	} else {
-		show();
-	}
-}
+//listener for collection reset
+Alloy.Collections.patients.on("reset", didReset);
 
-/**
- * show the dropdown
- */
-function show() {
+function buildPopover() {
+	//get parent if not exists
 	if (!parent) {
-		parent = $.personSwitcher.getParent();
+		parent = $.patientSwitcher.getParent();
 	}
-	/**
-	 * create popover if not available already
-	 */
-	if (!$.popover) {
-		$.popover = $.UI.create("View", {
-			id : "popover"
+	if (!$.popoverView) {
+		//popover view
+		$.popoverView = $.UI.create("View", {
+			id : "popoverView"
 		});
-		$.popover.addEventListener("click", hide);
+		$.popoverView.addEventListener("click", hide);
 		$.contentView = $.UI.create("View", {
 			id : "contentView",
 			bubbleParent : false
@@ -53,11 +44,12 @@ function show() {
 		});
 		$.tableView.addEventListener("click", didClickTableView);
 		$.contentView.add($.tableView);
-		$.popover.add($.contentView);
-		parent.add($.popover);
+		$.popoverView.add($.contentView);
+		parent.add($.popoverView);
+		//rows
 		rows = [];
 		var data = [];
-		Alloy.Collections.childProxies.each(function(model) {
+		Alloy.Collections.patients.each(function(model) {
 			var obj = model.toJSON();
 			if (!obj.selectable) {
 				obj.titleClasses = ["content-inactive-title"];
@@ -68,20 +60,57 @@ function show() {
 		});
 		templateHeight = rows[0].getHeight();
 		$.tableView.setData(data);
-		var height = args.height || (templateHeight * rows.length);
+		//alignment
+		var height = args.height || (templateHeight * rows.length),
+		    rect = $.patientSwitcher.rect;
 		$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
-		var rect = $.personSwitcher.rect;
-		$.popover.top = rect.y + rect.height;
+		$.popoverView.top = rect.y + rect.height;
 	}
-	if (!isBusy && !$.popover.visible) {
+}
+
+function destroyPopover() {
+	if ($.popoverView) {
+		parent.remove($.popoverView);
+		$.popoverView = $.contentView = $.tableView = null;
+	}
+}
+
+function hasPopover() {
+	if (Alloy.Globals.hasPatientSwitcher) {
+		buildPopover();
+		return true;
+	} else {
+		destroyPopover();
+		return false;
+	}
+}
+
+function toggle() {
+	if ($.popoverView && $.popoverView.visible) {
+		hide();
+	} else {
+		show();
+	}
+}
+
+/**
+ * show the dropdown
+ */
+function show() {
+	/**
+	 * with update family accounts
+	 * collection might have been updated
+	 * check for it
+	 */
+	if (!isBusy && hasPopover() && !$.popoverView.visible) {
 		isBusy = true;
 		_.each(parent.children, function(child) {
-			if (child == $.popover) {
+			if (child == $.popoverView) {
 				return;
 			}
 			child.accessibilityHidden = true;
 		});
-		$.popover.applyProperties({
+		$.popoverView.applyProperties({
 			visible : true,
 			zIndex : args.zIndex || 10,
 		});
@@ -91,14 +120,14 @@ function show() {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.popover.opacity = 1;
+			$.popoverView.opacity = 1;
 			$.arrowBtn.applyProperties(arrowUp);
 			if (Ti.App.accessibilityEnabled) {
 				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
 			}
 			isBusy = false;
 		});
-		$.popover.animate(animation);
+		$.popoverView.animate(animation);
 		return true;
 	}
 	return false;
@@ -108,10 +137,10 @@ function show() {
  * hide the dropdown
  */
 function hide() {
-	if (!isBusy && $.popover.visible) {
+	if (!isBusy && $.popoverView && $.popoverView.visible) {
 		isBusy = true;
-		_.each($.popover.getParent().children, function(child) {
-			if (child == $.popover) {
+		_.each($.popoverView.getParent().children, function(child) {
+			if (child == $.popoverView) {
 				return;
 			}
 			child.accessibilityHidden = false;
@@ -122,7 +151,7 @@ function hide() {
 		});
 		animation.addEventListener("complete", function onComplete() {
 			animation.removeEventListener("complete", onComplete);
-			$.popover.applyProperties({
+			$.popoverView.applyProperties({
 				opacity : 0,
 				visible : false,
 				zIndex : 0
@@ -130,7 +159,7 @@ function hide() {
 			$.arrowBtn.applyProperties(arrowDown);
 			isBusy = false;
 		});
-		$.popover.animate(animation);
+		$.popoverView.animate(animation);
 		return true;
 	}
 	return false;
@@ -155,7 +184,7 @@ function didClickTableView(e) {
 		 * unset selected flag
 		 * for row object
 		 * Note: object inside row and
-		 * model will be different
+		 * model are not same
 		 */
 		_.some(rows, function(row) {
 			var rParams = row.getParams();
@@ -168,15 +197,15 @@ function didClickTableView(e) {
 		/**
 		 * update ui and sModel
 		 */
-		Alloy.Collections.childProxies.each(function(model) {
-			if (model.get("selected") && params.session_id !== model.get("session_id")) {
-				model.set("selected", false);
-			} else if (params.session_id === model.get("session_id")) {
+		Alloy.Collections.patients.each(function(model) {
+			if (params.session_id === model.get("session_id")) {
 				model.set("selected", true);
 				params.selected = true;
 				sModel = model;
 				updateUI(params);
 				$.trigger("change", params);
+			} else if (model.get("selected")) {
+				model.set("selected", false);
 			}
 		});
 	}
@@ -190,7 +219,7 @@ function updateUI(params) {
 	 * will be made on behalf of
 	 * this user
 	 */
-	Alloy.Models.patient.set("session_id", params.session_id);
+	Alloy.Globals.sessionId = params.session_id;
 	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], params.first_name) : params.first_name;
 }
 
@@ -198,7 +227,7 @@ function updateUI(params) {
  *  all parameters are optional
  *
  * tid - String (similar to one passed with navigator)
- * 	i.e when tid is "prescPersonSwitcher" then output will be account_holder_name's prescriptions
+ * 	i.e when tid is "prescPatientSwitcher" then output will be account_holder_name's prescriptions
  * otherwise just account_holder_name
  *
  * where - a where clause says which item should be selected by default
@@ -234,14 +263,14 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	 * passes this where condition
 	 */
 	if (where) {
-		sModel = Alloy.Collections.childProxies.findWhere(_.extend({
+		sModel = Alloy.Collections.patients.findWhere(_.extend({
 			selected : true
 		}, where));
 		if (sModel) {
 			updateUI(sModel.toJSON());
 		}
 	}
-	Alloy.Collections.childProxies.each(function(child) {
+	Alloy.Collections.patients.each(function(child) {
 		var obj = child.toJSON();
 		/**
 		 * dWhere - a where condition
@@ -303,11 +332,8 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	 */
 	if (!sModel) {
 		//pointing to account manager
-		sModel = Alloy.Collections.childProxies.at(0);
-		//making sure person switcher is visible / valid
-		if (Alloy.Globals.hasChildren) {
-			updateUI(sModel.toJSON());
-		}
+		sModel = Alloy.Collections.patients.at(0);
+		updateUI(sModel.toJSON());
 	}
 	/**
 	 * destroy existing pop over
@@ -316,10 +342,7 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	 * so all the selection criterias
 	 * can be updated
 	 */
-	if ($.popover) {
-		parent.remove($.popover);
-		$.popover = $.contentView = $.tableView = null;
-	}
+	destroyPopover();
 	return sModel;
 }
 
@@ -330,6 +353,23 @@ function get() {
 	return sModel;
 }
 
+function didReset() {
+	/**
+	 * destroy popover view if any
+	 * so rows will be cleared out
+	 */
+	destroyPopover();
+	//update selected model
+	sModel = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	var params = sModel.toJSON();
+	//update ui
+	updateUI(params);
+	//trigger change event
+	$.trigger("change", params);
+}
+
 /**
  * set the parent view
  * @param {TiUIView} view
@@ -338,8 +378,18 @@ function setParentView(view) {
 	parent = view;
 }
 
+/**
+ * terminate the listener
+ * must be called on parent controller's terminate
+ */
+function terminate() {
+	//remove listener for collection reset
+	Alloy.Collections.patients.off("reset", didReset);
+}
+
 exports.set = set;
 exports.get = get;
 exports.show = show;
 exports.hide = hide;
+exports.terminate = terminate;
 exports.setParentView = setParentView;

@@ -31,8 +31,6 @@
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
-	Alloy.Globals.isLoggedIn = false;
-	Alloy.Globals.hasChildren = false;
 	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
@@ -55,12 +53,11 @@
 	Alloy.Collections.doctors = new Backbone.Collection();
 	Alloy.Collections.reminders = new Backbone.Collection();
 	Alloy.Collections.termsAndConditions = new Backbone.Collection();
-	Alloy.Collections.childProxies = new Backbone.Collection();
+	Alloy.Collections.patients = new Backbone.Collection();
 
 	//models
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
-	Alloy.Models.patient = new Backbone.Model();
 	Alloy.Models.states = new Backbone.Model();
 	Alloy.Models.storeOriginal = new Backbone.Model();
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();
@@ -68,11 +65,5 @@
 	Alloy.Models.language = new Backbone.Model();
 	Alloy.Models.timeZone = new Backbone.Model();
 	Alloy.Models.relationship = new Backbone.Model();
-
-	//events
-	Alloy.Models.patient.on("change:session_id", function didChange() {
-		//whether it has a valid session id
-		Alloy.Globals.isLoggedIn = _.isString(Alloy.Models.patient.get("session_id"));
-	});
 
 })();

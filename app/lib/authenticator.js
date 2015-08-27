@@ -10,21 +10,21 @@ var TAG = "Authenticator",
     localization = require("localization"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account);
 
-function init(options) {
-	if (!options) {
-		options = {};
+function init(passthrough) {
+	if (!passthrough) {
+		passthrough = {};
 	}
 	/**
 	 * by default
 	 * errorDialogEnabled will be false
 	 */
-	options.errorDialogEnabled = false;
+	passthrough.errorDialogEnabled = false;
 	/**
 	 * check username
 	 * and password
 	 */
-	var username = options.username,
-	    password = options.password;
+	var username = passthrough.username,
+	    password = passthrough.password;
 	if (username && password) {
 		/**
 		 * store username and password
@@ -41,10 +41,10 @@ function init(options) {
 		 * errorDialogEnabled is enabled
 		 * when this is a explicit login
 		 * usually happens from login screen
-		 * when options has a valid username
+		 * when passthrough has a valid username
 		 * and password properties
 		 */
-		options.errorDialogEnabled = true;
+		passthrough.errorDialogEnabled = true;
 	} else if (getAutoLoginEnabled() && !utilities.getProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false)) {
 		username = encryptionUtil.decrypt(keychain.account);
 		password = encryptionUtil.decrypt(keychain.valueData);
@@ -54,7 +54,7 @@ function init(options) {
 	 * but there was a explicit logout or session timeout
 	 */
 	if (!username || !password) {
-		didFailPatient({}, options);
+		didFail({}, passthrough);
 		return false;
 	}
 	http.request({
@@ -68,22 +68,23 @@ function init(options) {
 				}
 			}]
 		},
-		passthrough : options,
+		passthrough : passthrough,
 		keepLoader : true,
-		errorDialogEnabled : options.errorDialogEnabled,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didAuthenticate,
-		failure : didFailPatient
+		failure : didFail
 	});
 }
 
-/**
- * common failure callback
- * for authenticate and patient get
- * both services are tightly coupled
- * with service provider.
- */
-function didFailPatient(error, passthrough) {
-	Alloy.Models.patient.clear();
+function didFail(error, passthrough) {
+	/**
+	 * keep silent as there will not be any patient switcher
+	 * before successful authenticate
+	 */
+	Alloy.Collections.patients.reset([], {
+		silent : true
+	});
+	delete Alloy.Globals.sessionId;
 	if (passthrough.failure) {
 		passthrough.failure();
 	} else if (app.navigator.currentController.ctrlPath != "login") {
@@ -98,84 +99,7 @@ function didFailPatient(error, passthrough) {
 }
 
 function didAuthenticate(result, passthrough) {
-	Alloy.Models.patient.set(result.data.patients);
-	getPatient(passthrough);
-}
-
-function getPatient(passthrough) {
-	http.request({
-		method : "patient_get",
-		params : {
-			feature_code : "THXXX"
-		},
-		passthrough : passthrough,
-		keepLoader : true,
-		errorDialogEnabled : passthrough.errorDialogEnabled,
-		success : didGetPatient,
-		failure : didFailPatient
-	});
-}
-
-function didGetPatient(result, passthrough) {
-	Alloy.Models.patient.set(result.data.patients);
-	http.request({
-		method : "patient_preferences_get",
-		params : {
-			feature_code : "THXXX"
-		},
-		passthrough : passthrough,
-		keepLoader : true,
-		forceRetry : true,
-		success : didGetPreferences
-	});
-}
-
-function didGetPreferences(result, passthrough) {
-	/**
-	 * setting default values
-	 */
-	var preferences = result.data.patients.preferences;
-	_.extend(preferences, {
-		email_msg_active : 0,
-		text_msg_active : 0
-	});
-	/**
-	 * update model
-	 */
-	Alloy.Models.patient.set(result.data.patients.preferences);
-	/**
-	 * the fields below are not sent as part of response with
-	 * get preferences. But these two fields are mandatory when
-	 * updating preferences.
-	 *
-	 *  email_msg_active
-	 *  text_msg_active
-	 *
-	 *  Value for the above fields has to be calculated based
-	 *
-	 * app_reminder_dlvry_mode
-	 * doctor_reminder_dlvry_mode
-	 * health_info_reminder_dlvry_mode
-	 * med_reminder_dlvry_mode
-	 * refill_reminder_dlvry_mode
-	 * promotion_deals_reminder_flag
-	 *
-	 * if any of these fields has a value TEXT then
-	 * text_msg_active will be 1 otherwise 0
-	 *
-	 * if any of these fields has a value EMAIL then
-	 * email_msg_active will be 1 otherwise 0
-	 */
-	_.each(Alloy.Models.patient.pick(["app_reminder_dlvry_mode", "doctor_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "med_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "promotion_deals_reminder_flag"]), function(value) {
-		switch(value) {
-		case Alloy.CFG.apiCodes.reminder_mode_email:
-			Alloy.Models.patient.set("email_msg_active", 1);
-			break;
-		case Alloy.CFG.apiCodes.reminder_mode_text:
-			Alloy.Models.patient.set("text_msg_active", 1);
-			break;
-		}
-	});
+	Alloy.Globals.sessionId = result.data.patients.session_id;
 	/**
 	 * code values check
 	 */
@@ -195,8 +119,9 @@ function didGetPreferences(result, passthrough) {
 		},
 		passthrough : passthrough,
 		keepLoader : true,
-		forceRetry : true,
-		success : didGetCodeValues
+		errorDialogEnabled : passthrough.errorDialogEnabled,
+		success : didGetCodeValues,
+		failure : didFail
 	});
 }
 
@@ -204,61 +129,57 @@ function didGetCodeValues(result, passthrough) {
 	Alloy.Models.language.set(result.data.codes[0]);
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
-	appendFlag(Alloy.Models.timeZone.get("code_values"), Alloy.Models.patient.get("pref_timezone"));
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
-	/**
-	 * get family accounts
-	 */
-	passthrough.callback = didUpdateFamilyAccounts;
+	//now get family accounts
 	getFamilyAccounts(passthrough);
 }
 
 function getFamilyAccounts(passthrough) {
+	/**
+	 * currentPatientIndex is used with get patient
+	 * we are just initiating it here
+	 */
+	//start from 0 - manager account
+	if (_.isUndefined(passthrough.currentPatientIndex)) {
+		passthrough.currentPatientIndex = 0;
+		/**
+		 * requried when this is a external
+		 * call and not part of authenticate
+		 * during authenticate at this point
+		 * Alloy.Collections.patients.length will be 0
+		 * and Alloy.Globals.sessionId is already pointed to manager account
+		 */
+		if (Alloy.Collections.patients.length) {
+			Alloy.Globals.sessionId = Alloy.Collections.patients.at(passthrough.currentPatientIndex).get("session_id");
+		}
+	}
 	http.request({
 		method : "patient_family_get",
 		params : {
 			feature_code : "THXXX"
 		},
 		passthrough : passthrough,
-		forceRetry : true,
-		success : didGetFamily
+		keepLoader : true,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
+		success : didGetFamilyAccounts,
+		failure : didFail
 	});
 }
 
-function didGetFamily(result, passthrough) {
-	/**
-	 * update patient model
-	 * with orignial data
-	 */
-	Alloy.Models.patient.set(result.data);
-	/**
-	 * update child proxies collection
-	 * adding patient itself
-	 * to this collection as
-	 * account manager
-	 * Note: manager account can be partial
-	 * but child accounts can't be a partial account
-	 * as per api, for partial accounts id will start with DUMMY
-	 */
-	var currentDate = moment(),
+function didGetFamilyAccounts(result, passthrough) {
+	var patient = result.data,
 	    relationships = Alloy.Models.relationship.get("code_values"),
-	    tObj = Alloy.Models.patient.pick(["first_name", "last_name", "birth_date", "session_id"]),
-	    children;
-	_.extend(tObj, {
-		first_name : utilities.ucfirst(tObj.first_name),
-		last_name : utilities.ucfirst(tObj.last_name),
-	});
-	children = [_.extend(tObj, {
-		title : tObj.first_name + " " + tObj.last_name,
+	    patients = [];
+	//manager account
+	patients.push(_.extend(patient, {
+		session_id : Alloy.Globals.sessionId,
 		related_by : Alloy.CFG.apiCodes.relationship_manager,
 		relationship : Alloy.Globals.strings.strManager,
-		is_partial : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1,
-		is_adult : true,
 		selectable : true,
 		selected : true
-	})];
-	_.each(Alloy.Models.patient.get("child_proxy"), function(child) {
+	}));
+	_.each(patient.child_proxy, function(child) {
 		/**
 		 * if child_id is null
 		 * then don't add it
@@ -270,121 +191,236 @@ function didGetFamily(result, passthrough) {
 		if (!child.child_id) {
 			return false;
 		}
-		tObj = _.pick(child, ["birth_date", "related_by", "session_id"]);
-		_.extend(tObj, {
-			first_name : utilities.ucfirst(child.first_name),
-			last_name : utilities.ucfirst(child.last_name),
-		});
-		_.extend(tObj, {
-			title : tObj.first_name + " " + tObj.last_name,
+		patients.push(_.extend(_.pick(child, ["address", "child_id", "link_id", "related_by", "session_id"]), {
 			relationship : _.findWhere(relationships, {
 				code_value : child.related_by
 			}).code_display,
-			is_partial : false,
-			is_adult : currentDate.diff(moment(child.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) < 18,
 			selectable : true,
 			selected : false
-		});
-		children.push(tObj);
+		}));
 	});
-	Alloy.Collections.childProxies.reset(children);
 	/**
-	 * variable used
-	 * with XML - if
-	 * for validating whether user
-	 * has child accounts
-	 * Note: by default children length will be 1
-	 * with account manager object
+	 * update patients collection
+	 * keep silent, so let the patient switcher
+	 * not be updated at this moment
 	 */
-	Alloy.Globals.hasChildren = children.length > 1;
-	/**
-	 * fire callback
-	 */
-	var callback = passthrough.callback;
-	delete passthrough.callback;
-	if (callback) {
-		callback(passthrough);
-	}
+	Alloy.Collections.patients.reset(patients, {
+		silent : true
+	});
+	//get patient for all patients starting from 0 - manager
+	getPatient(passthrough);
 }
 
-function didUpdateFamilyAccounts(passthrough) {
-	/**
-	 * set prefered time zone
-	 * before that store the user
-	 * device time to validate whether
-	 * there is a mismatch
-	 */
-	var dateObj = new Date(Alloy.CFG.default_date),
-	    dFormat = Alloy.CFG.date_time_format,
-	    dDate = moment(dateObj).format(dFormat),
-	    currentTZ;
-	setTimeZone(Alloy.Models.patient.get("pref_timezone"));
-	/**
-	 * add logout menu item
-	 */
-	Alloy.Collections.menuItems.add({
-		titleid : "titleLogout",
-		action : "logout",
-		icon : "logout"
+function getPatient(passthrough) {
+	http.request({
+		method : "patient_get",
+		params : {
+			feature_code : "THXXX"
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
+		success : didGetPatient,
+		failure : didFail
 	});
+}
+
+function didGetPatient(result, passthrough) {
+	var patient = result.data.patients;
 	/**
-	 * execute callback
+	 * Note: manager account can be partial
+	 * but child accounts can't be a partial account
+	 * as per inputs from Server Team, for partial accounts
+	 * id will start with DUMMY
 	 */
-	var fireCallback = function() {
-		if (passthrough.success) {
-			passthrough.success();
-		}
-	};
-	/**
-	 * check if user is on different time zone
-	 * then one he had chosen
-	 */
-	if (Alloy.CFG.time_zone_check_enabled && dDate != moment(dateObj).format(dFormat)) {
+	_.extend(patient, {
+		first_name : utilities.ucfirst(patient.first_name),
+		last_name : utilities.ucfirst(patient.last_name),
+		is_adult : moment().diff(moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) >= 18,
+		is_partial : (patient.patient_id || "").indexOf("DUMMY") !== -1
+	});
+	patient.title = patient.first_name + " " + patient.last_name;
+	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(patient);
+	//get preferences
+	http.request({
+		method : "patient_preferences_get",
+		params : {
+			feature_code : "THXXX"
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
+		success : didGetPreferences,
+		failure : didFail
+	});
+}
+
+function didGetPreferences(result, passthrough) {
+	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
+	//get next patient information
+	passthrough.currentPatientIndex++;
+	//check whether next index is available
+	if (passthrough.currentPatientIndex < Alloy.Collections.patients.length) {
+		//update session id
+		Alloy.Globals.sessionId = Alloy.Collections.patients.at(passthrough.currentPatientIndex).get("session_id");
+		//get patient
+		getPatient(passthrough);
+	} else {
+		//delete the property added - currentPatientIndex
+		delete passthrough.currentPatientIndex;
+		//hide loader
+		app.navigator.hideLoader();
 		/**
-		 * momentjs or any other library
-		 * doesn't give a proper way
-		 * to detect user's time zone name
-		 * so compare current time with
-		 * all supported time zones
+		 * variable used
+		 * with XML - if
+		 * for validating whether user
+		 * has linked any account to his account
+		 * even though if it is on pending state
+		 * Note: by default patients length will be 1
+		 * with manager account object
 		 */
-		_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
-			if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
-				currentTZ = code.code_value;
-				return true;
-			}
-			return false;
-		});
-		if (currentTZ) {
+		Alloy.Globals.hasChildProxies = (Alloy.Collections.patients.at(0).get("child_proxy") || []).length > 0;
+		/**
+		 * variable used
+		 * with XML - if
+		 * for validating whether user
+		 * has child accounts
+		 * Note: by default patients length will be 1
+		 * with manager account object
+		 */
+		Alloy.Globals.hasPatientSwitcher = Alloy.Collections.patients.length > 1;
+		//manager model
+		var mPatient = Alloy.Collections.patients.at(0);
+		/**
+		 * revert the session id
+		 * if any
+		 */
+		if (passthrough.revert) {
 			/**
-			 * user is on a different time zone
-			 * that we support
+			 * if valid, then select it
+			 * if not valid, keep the manager account session id
+			 * the selected flag would have set already during
+			 * family get
 			 */
-			uihelper.showDialog({
-				title : Alloy.Globals.strings.dialogTitleTimeZone,
-				message : Alloy.Globals.strings.msgTimeZoneUpdate,
-				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
-				cancelIndex : 1,
-				success : function didConfirm() {
-					passthrough.timeZone = currentTZ;
-					updateTimeZone(passthrough);
-				},
-				cancel : fireCallback
+			var toSelect = Alloy.Collections.patients.findWhere({
+				child_id : passthrough.revert
 			});
+			if (toSelect) {
+				//valid, unselect manager
+				mPatient.set("selected", false);
+				toSelect.set("selected", true);
+				Alloy.Globals.sessionId = toSelect.get("session_id");
+			} else {
+				//not valid, just point to manager session id which is already selected
+				Alloy.Globals.sessionId = mPatient.get("session_id");
+			}
+		} else {
+			//no revert is passed, just point to manager session id which is already selected
+			Alloy.Globals.sessionId = mPatient.get("session_id");
+		}
+		/**
+		 * fire callback
+		 * if any - occurs when
+		 * this is not part of authenticate
+		 * but a external patient get
+		 */
+		if (passthrough.callback) {
+			//trigger reset for patient switcher
+			Alloy.Collections.patients.trigger("reset");
+			//fire callback
+			var callback = passthrough.callback;
+			delete passthrough.callback;
+			if (callback) {
+				callback(passthrough);
+			}
 		} else {
 			/**
-			 * user is on a time zone
-			 * that we don't support
+			 * now isLoggedIn flag can be set
+			 * as there is no way to go back without logout
+			 * api now
 			 */
-			uihelper.showDialog({
-				title : Alloy.Globals.strings.dialogTitleTimeZone,
-				message : Alloy.Globals.strings.msgTimeZoneInvalid,
-				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-				cancelIndex : 0,
-				cancel : fireCallback
+			Alloy.Globals.isLoggedIn = true;
+			//update default time zone
+			appendFlag(Alloy.Models.timeZone.get("code_values"), mPatient.get("pref_timezone"));
+			/**
+			 * set prefered time zone
+			 * before that store the user
+			 * device time to validate whether
+			 * there is a mismatch
+			 */
+			var dateObj = new Date(Alloy.CFG.default_date),
+			    dFormat = Alloy.CFG.date_time_format,
+			    dDate = moment(dateObj).format(dFormat),
+			    currentTZ;
+			setTimeZone(mPatient.get("pref_timezone"));
+			/**
+			 * add logout menu item
+			 */
+			Alloy.Collections.menuItems.add({
+				titleid : "titleLogout",
+				action : "logout",
+				icon : "logout"
 			});
+			/**
+			 * execute callback
+			 */
+			var fireCallback = function() {
+				if (passthrough.success) {
+					passthrough.success();
+				}
+			};
+			/**
+			 * check if user is on different time zone
+			 * then one he had chosen
+			 */
+			if (Alloy.CFG.time_zone_check_enabled && dDate != moment(dateObj).format(dFormat)) {
+				/**
+				 * momentjs or any other library
+				 * doesn't give a proper way
+				 * to detect user's time zone name
+				 * so compare current time with
+				 * all supported time zones
+				 */
+				_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
+					if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
+						currentTZ = code.code_value;
+						return true;
+					}
+					return false;
+				});
+				if (currentTZ) {
+					/**
+					 * user is on a different time zone
+					 * that we support
+					 */
+					uihelper.showDialog({
+						title : Alloy.Globals.strings.dialogTitleTimeZone,
+						message : Alloy.Globals.strings.msgTimeZoneUpdate,
+						buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+						cancelIndex : 1,
+						success : function didConfirm() {
+							passthrough.timeZone = currentTZ;
+							updateTimeZone(passthrough);
+						},
+						cancel : fireCallback
+					});
+				} else {
+					/**
+					 * user is on a time zone
+					 * that we don't support
+					 */
+					uihelper.showDialog({
+						title : Alloy.Globals.strings.dialogTitleTimeZone,
+						message : Alloy.Globals.strings.msgTimeZoneInvalid,
+						buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+						cancelIndex : 0,
+						cancel : fireCallback
+					});
+				}
+			} else {
+				fireCallback();
+			}
 		}
-	} else {
-		fireCallback();
 	}
 }
 
@@ -393,8 +429,9 @@ function updateTimeZone(params) {
 	 * api requires all parameters to be sent
 	 * even though the update is required only
 	 * for pref_timezone
+	 * Note: time zone update alert is only given for manager account not for proxies / children
 	 */
-	var preferences = Alloy.Models.patient.pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
+	var preferences = Alloy.Collections.patients.at(0).pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
 	/**
 	 * applying new time zone to local model and moment
 	 * to be on safer side applying the time zone
@@ -418,8 +455,8 @@ function didUpdatePreferences(result, passthrough) {
 	 * updating local model and moment
 	 * after successful api response
 	 */
-	Alloy.Models.patient.set("pref_timezone", passthrough.timeZone);
-	setTimeZone(Alloy.Models.patient.get("pref_timezone"), true);
+	Alloy.Collections.patients.at(0).set("pref_timezone", passthrough.timeZone);
+	setTimeZone(passthrough.timeZone, true);
 	if (passthrough.success) {
 		passthrough.success();
 	}
@@ -435,79 +472,121 @@ function appendFlag(codes, selectedValue) {
 	});
 }
 
-function logout(options) {
+function logout(passthrough) {/**
+	 * logout all patients
+	 * linked to this account
+	 */
+	if (!passthrough) {
+		passthrough = {};
+	}
 	if (Alloy.Globals.isLoggedIn) {
-		http.request({
-			method : "patient_logout",
-			params : {
-				feature_code : "THXXX"
-			},
-			passthrough : options || {},
-			errorDialogEnabled : false,
-			success : didLogout,
-			failure : didLogout
-		});
-	} else if (options && options.success) {
-		options.success();
+		//start from 0 - manager account
+		if (_.isUndefined(passthrough.currentPatientIndex)) {
+			passthrough.currentPatientIndex = 0;
+			Alloy.Globals.sessionId = Alloy.Collections.patients.at(passthrough.currentPatientIndex).get("session_id");
+		}
+		doLogout(passthrough);
+	} else if (passthrough.success) {
+		passthrough.success();
 	}
 }
 
+function doLogout(passthrough) {
+	http.request({
+		method : "patient_logout",
+		params : {
+			feature_code : "THXXX"
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		errorDialogEnabled : false,
+		success : didLogout,
+		failure : didLogout
+	});
+}
+
 function didLogout(result, passthrough) {
-	/**
-	 * on explicit log out /
-	 * session timeout
-	 * update this flag,
-	 * so user will be taken to
-	 * login screen
-	 */
-	if (passthrough.explicit !== false) {
-		utilities.setProperty(Alloy.CFG.lastest_logout_explicit, true, "bool", false);
-	}
-	/**
-	 * reset to device time zone
-	 */
-	setTimeZone(null);
-	/**
-	 * reset collections and models
-	 */
-	var igoreKeys = ["menuItems", "banners", "appload", "template"];
-	_.each(Alloy.Collections, function(coll, key) {
-		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
-			coll.reset([]);
-		}
-	});
-	_.each(Alloy.Models, function(model, key) {
-		if (_.isFunction(model.clear) && _.indexOf(igoreKeys, key) === -1) {
-			model.clear();
-		}
-	});
-	Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
-		action : "logout"
-	}));
-	/**
-	 * success callback
-	 * if any
-	 */
-	if (passthrough.success) {
-		passthrough.success();
+	//get next patient information
+	passthrough.currentPatientIndex++;
+	//check whether next index is available
+	if (passthrough.currentPatientIndex < Alloy.Collections.patients.length) {
+		//update session id
+		Alloy.Globals.sessionId = Alloy.Collections.patients.at(passthrough.currentPatientIndex).get("session_id");
+		//logout patient
+		doLogout(passthrough);
 	} else {
-		app.navigator.open(Alloy.Collections.menuItems.findWhere({
-			landing_page : true
-		}).toJSON());
+		//delete the property added - currentPatientIndex
+		delete passthrough.currentPatientIndex;
+		//hide loader
+		app.navigator.hideLoader();
 		/**
-		 * show logout dialog
-		 * only if dialogEnabled is true
-		 * examples:
-		 * 1. in case if user clicks on logout
-		 * (a explicit logout) then show this dialog
-		 * dialogEnabled should be set to true
-		 * 2. in case of session timeout we don't
-		 * show this logout dialog here
+		 * on explicit log out /
+		 * session timeout
+		 * update this flag,
+		 * so user will be taken to
+		 * login screen
 		 */
-		if (passthrough.dialogEnabled) {
-			uihelper.showDialog({
-				message : Alloy.Globals.strings.msgLoggedout
-			});
+		if (passthrough.explicit !== false) {
+			utilities.setProperty(Alloy.CFG.lastest_logout_explicit, true, "bool", false);
+		}
+		/**
+		 * reset to device time zone
+		 */
+		setTimeZone(null);
+		/**
+		 * reset global variables
+		 */
+		_.each(["sessionId", "isLoggedIn", "hasChildProxies", "hasPatientSwitcher"], function(value) {
+			delete Alloy.Globals[value];
+		});
+		/**
+		 * reset collections and models
+		 */
+		var igoreKeys = ["menuItems", "banners", "appload", "template"];
+		_.each(Alloy.Collections, function(coll, key) {
+			if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
+				/**
+				 * keep it silent to prevent updated events now
+				 * any way all views are going to be destroyed after logout
+				 */
+				coll.reset([], {
+					silent : true
+				});
+			}
+		});
+		_.each(Alloy.Models, function(model, key) {
+			if (_.isFunction(model.clear) && _.indexOf(igoreKeys, key) === -1) {
+				model.clear();
+			}
+		});
+		Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
+			action : "logout"
+		}));
+		/**
+		 * success callback
+		 * if any
+		 */
+		if (passthrough.success) {
+			passthrough.success();
+		} else {
+			app.navigator.open(Alloy.Collections.menuItems.findWhere({
+				landing_page : true
+			}).toJSON());
+			/**
+			 * show logout dialog
+			 * only if dialogEnabled is true
+			 * examples:
+			 * 1. in case if user clicks on logout
+			 * (a explicit logout) then show this dialog
+			 * dialogEnabled should be set to true
+			 * 2. in case of session timeout we don't
+			 * show this logout dialog here
+			 */
+			if (passthrough.dialogEnabled) {
+				uihelper.showDialog({
+					message : Alloy.Globals.strings.msgLoggedout
+				});
+			}
 		}
 	}
 }
@@ -557,29 +636,11 @@ function setTimeZone(zone, updateCodeVal) {
 	Alloy.Globals.latestRequest = moment().unix();
 }
 
-function updatePatient(callback) {
-	getPatient({
-		success : callback
-	});
-}
-
 function updateFamilyAccounts(callback) {
-	/**
-	 * making sure the session id
-	 * and current user is manager
-	 */
-	var model = Alloy.Collections.childProxies.findWhere({
-		related_by : Alloy.CFG.relationship_manager
-	});
-	if (!model.selected) {
-		var selectedModel = Alloy.Collections.childProxies.findWhere({
-			selected : true
-		});
-		selectedModel.set("selected", false);
-		model.set("selected", true);
-		Alloy.Models.patient.set("session_id", model.get("session_id"));
-	}
 	getFamilyAccounts({
+		revert : Alloy.Collections.patients.findWhere({
+			selected : true
+		}).get("child_id"),
 		callback : callback
 	});
 }
@@ -588,7 +649,6 @@ exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
 exports.setTimeZone = setTimeZone;
-exports.updatePatient = updatePatient;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
