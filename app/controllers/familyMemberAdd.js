@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
-    apiCodes = Alloy.CFG.apiCodes;
+    apiCodes = Alloy.CFG.apiCodes,
+    relationship;
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
 	if (Alloy.Models.relationship.get("code_values")) {
@@ -29,6 +30,7 @@ function didGetRelationships(result, passthrough) {
 
 function updateInputs() {
 	$.relationshipDp.setChoices(Alloy.Models.relationship.get("code_values"));
+	$.relationshipDp.setSelectedItem(relationship);
 }
 
 function setParentView(view) {
@@ -42,6 +44,7 @@ function didClickContinue() {
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
 	relationship = $.relationshipDp.getSelectedItem();
+
 	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValDob

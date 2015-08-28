@@ -569,6 +569,7 @@ module.exports = {
 		"familyCareRelatedPrefix" : "My ",
 		"familyCareLblAcntMgr" : "Account Manager",
 		"familyCareSectionChildProxy" : "People whose medications you manage",
+		"familyCareSectionParentProxy":"People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "Add family member",
 		"familyCareOptRemove" : "Remove",
 
@@ -580,6 +581,7 @@ module.exports = {
 		"familyMemberAddBtnContinue" : "Continue",
 		"familyMemberAddValDob" : "Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
+		"familyMemberAddHintOther":"Other",
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s",
 		"familyMemberInviteSendTextLbl" : "Send text",

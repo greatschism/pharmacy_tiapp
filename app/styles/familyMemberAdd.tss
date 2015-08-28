@@ -18,4 +18,7 @@
 "#continueBtn" : {
   title:Alloy.Globals.strings.familyMemberAddBtnContinue
 },
+"#otherRelationTxt":{
+	hintText:Alloy.Globals.strings.familyMemberAddHintOther
+}
 

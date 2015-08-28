@@ -22,4 +22,7 @@
 },
 "#btnUpdateAccount":{
 	title:Alloy.Globals.strings.familyMemberAddPrescBtnUpdate
+},
+"#rxTooltip":{
+	text: Alloy.Globals.strings.msgRxNumberTips
 }

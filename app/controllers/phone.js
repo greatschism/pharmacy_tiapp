@@ -21,7 +21,7 @@ function init() {
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
-	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Models.patient.get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
+	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
 	if (isFamilyAccounts) {
 
 		updateTable();
@@ -34,9 +34,10 @@ function updateTable() {
 	var subtitleClasses = ["content-subtitle-wrap"],
 	    titleClasses = ["content-title-wrap"],
 	    selected = false;
-	
-	console.log(Alloy.Collections.childProxies.length);
-	if (Alloy.Collections.childProxies.length) {
+
+
+			console.log(JSON.stringify(Alloy.Collections.patients.at(0)));
+/*	if (Alloy.Collections.childProxies.length) {
 		Alloy.Collections.childProxies.each(function(child_proxy) {
 			_.extend(child_proxy, {
 				title : child_proxy.first_name + child_proxy.last_name,
@@ -52,7 +53,7 @@ function updateTable() {
 
 		});
 	}
-	$.childTable.setData([$.receiveTextSection]);
+	$.childTable.setData([$.receiveTextSection]);*/
 }
 
 function didChangePhone(e) {

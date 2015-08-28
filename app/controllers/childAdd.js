@@ -21,7 +21,8 @@ function focus() {
 	isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
 	if (!isFamilyMemberFlow) {
 		$.skipBtn.applyProperties($.createStyle({
-			classes : ["margin-top", "secondary-btn"]
+			classes : ["margin-top", "secondary-btn"],
+			title:$.strings.childAddBtnSkip
 		}));
 	}
 }

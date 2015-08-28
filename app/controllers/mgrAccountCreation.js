@@ -55,7 +55,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (!utilities.validatePassword(password)) {
+	if (!$.utilities.validatePassword(password)) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValPasswordInvalid
 			});

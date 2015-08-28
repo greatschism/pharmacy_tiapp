@@ -14,7 +14,7 @@ function didClickDone(){
 	$.app.navigator.open({
 			titleid : "titleFamilyCare",
 			ctrl : "familyCare",
-			stack : true
+			stack : false
 		});
 }
 exports.init=init;

@@ -1,9 +1,12 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    rxContainerViewFromTop = 0,
     store = {};
 
 function init(){
 	$.uihelper.getImage("child_add",$.addPrescImg);
+	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 function focus() {
 	/**
@@ -21,14 +24,13 @@ function focus() {
 	if(mgrData.get("last_name")){
 		$.lnameTxt.setValue(mgrData.get("last_name"));
 	}
-	var dob=moment(mgrData.get("birth_date"),'MM/DD/YY').toDate();
+	var dob=moment(mgrData.get("birth_date"),'MM/DD/YYYY').toDate();
 	
 	console.log(dob);
 	if(mgrData.get("birth_date")){
 		$.dobDp.setValue(dob);
 	}
 }
-
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
@@ -135,6 +137,30 @@ function didAddPrescriptions(){
 			titleid : "titleHIPAAauthorization",
 			stack : false
 		});
+}
+function didClickTooltip(e) {
+	e.source.hide();
+}
+function didPostlayoutTooltip(e) {
+	e.source.size = e.size;
+	e.source.off("postlayout", didPostlayoutTooltip);
+}
+
+function didBlurFocusRx() {
+	$.rxTooltip.hide();
+}
+
+function didPostlayoutRxContainerView(e) {
+	rxContainerViewFromTop = e.source.rect.y;
+}
+function didFocusRx(e) {
+	if (_.has($.rxTooltip, "size")) {
+		$.rxTooltip.applyProperties({
+			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
+		});
+		delete $.rxTooltip.size;
+	}
+	$.rxTooltip.show();
 }
 exports.setParentView = setParentView;
 exports.init = init;

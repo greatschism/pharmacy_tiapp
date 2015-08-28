@@ -64,7 +64,7 @@ function replyTextMessage() {
 }
 
 function didReplied() {
-	Alloy.Models.patient.set("mobile_number", $.utilities.formatPhoneNumber(phone));
+	Alloy.Collections.patients.at(0).set("mobile_number", $.utilities.formatPhoneNumber(phone));
 	$.utilities.setProperty(Alloy.CFG.latest_phone_verified, $.utilities.formatPhoneNumber(phone));
 	$.app.navigator.open({
 		titleid : "titleHome",
