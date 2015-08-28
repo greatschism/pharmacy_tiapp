@@ -1,12 +1,15 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
+    rxContainerViewFromTop = 0,
     isFamilyMemberFlow;
 function init() {
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
 	}
 	$.uihelper.getImage("child_add", $.childImg);
+	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
 function focus() {
@@ -244,13 +247,19 @@ function didClickSkip() {
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
+function didClickTooltip(e) {
+	e.source.hide();
+}
+function didPostlayoutTooltip(e) {
+	e.source.size = e.size;
+	e.source.off("postlayout", didPostlayoutTooltip);
+}
 
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
 }
 
 function didPostlayoutRxContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
 	rxContainerViewFromTop = e.source.rect.y;
 }
 

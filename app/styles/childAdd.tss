@@ -28,4 +28,7 @@
 },
 "#skipBtn":{
 	title:Alloy.Globals.strings.childAddBtnSkip
+},
+"#rxTooltip":{
+	text: Alloy.Globals.strings.msgRxNumberTips
 }

@@ -6,7 +6,7 @@ var args = arguments[0] || {},
     rows = [];
 
 function focus() {
-	$.http.request({
+		$.http.request({
 		method : "patient_family_get",
 		params : {
 			feature_code : "THXXX"
@@ -22,7 +22,12 @@ function focus() {
 	}];
 }
 
-function didGetPatient(result) {
+function didGetPatient(result) {	
+	
+	/**
+	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
+	 */
+	var mgrData=Alloy.Collections.patients.at(0);
 	parentData = result.data.parent_proxy;
 	childData = result.data.child_proxy;
 	if (!childData || childData === "null") {
@@ -32,16 +37,17 @@ function didGetPatient(result) {
 			classes : ["icon-add-familycare", "primary-icon-extra-large"]
 		}));
 	} else {
+		
 		parentProxyData = [];
 		$.parentProxySection = Ti.UI.createTableViewSection();
 		var detailBtnClasses = ["content-detail-secondary-btn-large"];
 		parentProxy = {
-			title : $.utilities.ucword(Alloy.Models.patient.get("first_name")) || $.utilities.ucword(Alloy.Models.patient.get("last_name")) ? $.utilities.ucword(Alloy.Models.patient.get("first_name")) + " " + $.utilities.ucword(Alloy.Models.patient.get("last_name")) : Alloy.Models.patient.get("email_address"),
+			title :  mgrData.get("title")? mgrData.get("title"): mgrData.get("email_address"),
 			subtitle : $.strings.familyCareLblAcntMgr,
-			btnClasses : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1 ? detailBtnClasses : "",
+			btnClasses : mgrData.get("patient_id").indexOf("DUMMY") !== -1 ? detailBtnClasses : "",
 			masterWidth : 50,
 			detailWidth : 50,
-			detailTitle : Alloy.Models.patient.get("patient_id").indexOf("DUMMY") !== -1 ? $.strings.titlePrescriptionsAdd : ""
+			detailTitle : mgrData.get("patient_id").indexOf("DUMMY") !== -1 ? $.strings.titlePrescriptionsAdd : ""
 		};
 		parentProxyData.push(parentProxy);
 		var mgrRow = Alloy.createController("itemTemplates/masterDetailBtn", parentProxy);

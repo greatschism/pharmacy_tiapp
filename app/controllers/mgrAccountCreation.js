@@ -55,6 +55,12 @@ function didClickContinue() {
 		});
 		return;
 	}
+	if (!utilities.validatePassword(password)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValPasswordInvalid
+			});
+			return;
+		}
 	if (!email) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValEmail

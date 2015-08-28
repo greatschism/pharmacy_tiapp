@@ -2,7 +2,7 @@ var args = arguments[0] || {};
 function init(){
 	$.uihelper.getImage("text_benefits",$.addSuccessImg);
 	$.addMsg.text = String.format(Alloy.Globals.strings.familyMemberAddSuccessMsg, args.familyRelationship, args.familyRelationship);
-	$.addLbl.text=String.format(Alloy.Globals.strings.familyMemberAddSuccessLbl, args.familyRelationship);
+	$.addLbl.text=String.format($.utilities.ucword(Alloy.Globals.strings.familyMemberAddSuccessLbl), args.familyRelationship);
 }
 function didAddAnotherMember(){
 	$.app.navigator.open({

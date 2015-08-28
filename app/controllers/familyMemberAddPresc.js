@@ -6,19 +6,26 @@ function init(){
 	$.uihelper.getImage("child_add",$.addPrescImg);
 }
 function focus() {
+	/**
+	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
+	 */
+	var mgrData=Alloy.Collections.patients.at(0);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	if(Alloy.Models.patient.get("first_name")){
-		$.fnameTxt.setValue(Alloy.Models.patient.get("first_name"));
+	if(mgrData.get("first_name")){
+		$.fnameTxt.setValue(mgrData.get("first_name"));
 	}
-	if(Alloy.Models.patient.get("last_name")){
-		$.lnameTxt.setValue(Alloy.Models.patient.get("last_name"));
+	if(mgrData.get("last_name")){
+		$.lnameTxt.setValue(mgrData.get("last_name"));
 	}
-	if(Alloy.Models.patient.get("birth_date")){
-		$.dobDp.setValue(Alloy.Models.patient.get("birth_date"));
+	var dob=moment(mgrData.get("birth_date"),'MM/DD/YY').toDate();
+	
+	console.log(dob);
+	if(mgrData.get("birth_date")){
+		$.dobDp.setValue(dob);
 	}
 }
 
