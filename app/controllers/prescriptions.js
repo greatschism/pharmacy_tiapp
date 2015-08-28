@@ -116,18 +116,20 @@ function getPrescriptions(status, callback) {
 	 * when no all the patients
 	 * has partial accounts
 	 */
-	var currentPatient = $.patientSwitcher.get();
-	if (currentPatient.get("is_partial")) {
-		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
-		if (!$.partialView.visible) {
-			$.partialView.visible = true;
+	if ($.partialView) {
+		var currentPatient = $.patientSwitcher.get();
+		if (currentPatient.get("is_partial")) {
+			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
+			if (!$.partialView.visible) {
+				$.partialView.visible = true;
+			}
+			/**
+			 * hide loader
+			 * from sort order preference
+			 */
+			$.app.navigator.hideLoader();
+			return true;
 		}
-		/**
-		 * hide loader
-		 * from sort order preference
-		 */
-		$.app.navigator.hideLoader();
-		return true;
 	}
 	//get data
 	$.http.request({
