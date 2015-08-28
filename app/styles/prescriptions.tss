@@ -1,5 +1,19 @@
+/**
+ * 	this is when prescription opened
+ * for selection from order details
+ * to add multiple
+ */
 "#patientSwitcher[if=$.args.selectable]":{
 	disabled: true
+},
+/**
+ * 	this is when it is opened
+ * from stores / reminders
+ * so they have to choose a prescription 
+ * and go through this
+ */
+"#patientSwitcher[if=$.args.navigation]":{
+	disabled: false
 },
 "#searchTxt":{
 	hintText:Alloy.Globals.strings.prescHintSearch

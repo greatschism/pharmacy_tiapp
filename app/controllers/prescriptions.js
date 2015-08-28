@@ -33,8 +33,9 @@ function init() {
 	 * if args.selectable is false
 	 */
 	$.patientSwitcher.set({
+		revert : args.selectable && args.navigation,
 		title : $.strings.prescPatientSwitcher,
-		where : args.selectable ? null : {
+		where : args.selectable && !args.navigation ? null : {
 			is_partial : false
 		}
 	});
@@ -61,12 +62,10 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
-	if ($.partialView) {
-		$.partialView.applyProperties({
-			top : top,
-			bottom : bottom
-		});
-	}
+	$.partialView.applyProperties({
+		top : top,
+		bottom : bottom
+	});
 }
 
 function didClickHide(e) {
@@ -116,20 +115,18 @@ function getPrescriptions(status, callback) {
 	 * when no all the patients
 	 * has partial accounts
 	 */
-	if ($.partialView) {
-		var currentPatient = $.patientSwitcher.get();
-		if (currentPatient.get("is_partial")) {
-			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
-			if (!$.partialView.visible) {
-				$.partialView.visible = true;
-			}
-			/**
-			 * hide loader
-			 * from sort order preference
-			 */
-			$.app.navigator.hideLoader();
-			return true;
+	var currentPatient = $.patientSwitcher.get();
+	if (currentPatient.get("is_partial")) {
+		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
+		if (!$.partialView.visible) {
+			$.partialView.visible = true;
 		}
+		/**
+		 * hide loader
+		 * from sort order preference
+		 */
+		$.app.navigator.hideLoader();
+		return true;
 	}
 	//get data
 	$.http.request({
@@ -502,17 +499,15 @@ function toggleSearch() {
 	 * to a partial account
 	 * with search is enabled
 	 */
-	if ($.partialView) {
-		var pAnim = Ti.UI.createAnimation({
-			top : top,
-			duration : 200
-		});
-		pAnim.addEventListener("complete", function onComplete() {
-			pAnim.removeEventListener("complete", onComplete);
-			$.partialView.top = top;
-		});
-		$.partialView.animate(pAnim);
-	}
+	var pAnim = Ti.UI.createAnimation({
+		top : top,
+		duration : 200
+	});
+	pAnim.addEventListener("complete", function onComplete() {
+		pAnim.removeEventListener("complete", onComplete);
+		$.partialView.top = top;
+	});
+	$.partialView.animate(pAnim);
 }
 
 function didGetHiddenPrescriptions(result, passthrough) {
@@ -857,7 +852,15 @@ function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		var codes = Alloy.Models.sortOrderPreferences.get("code_values");
-		if (args.selectable && Alloy.Collections.prescriptions.length) {
+		/**
+		 * when args.navigation is valid
+		 * switcher drop down will be available
+		 * so don't risk by using cached prescriptions
+		 * if args.navigation is not valid
+		 * we make sure that the prescriptions belog to the
+		 * selected user only
+		 */
+		if (args.selectable && !args.navigation && Alloy.Collections.prescriptions.length) {
 			/**
 			 * when prescriptions is already there in collection
 			 * sort order preferences should also be there in place
