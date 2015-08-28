@@ -90,11 +90,12 @@ function terminate(callback) {
 		 * using toLocaleString of date
 		 * for formatting it properly
 		 * Note: don't process the time zone (ZZ)
-		 * with moment
+		 * with moment. deviceFormat will have the device region's
+		 * short date format
 		 */
 		$.trigger("terminate", {
 			soruce : $,
-			value : isCancel ? null : moment(selectedDate.toLocaleString(), "MMMM DD[,] YYYY [at] hh:mm:ss A").toDate(),
+			value : isCancel ? null : moment(selectedDate.toLocaleString("short"), args.deviceFormat).toDate(),
 			cancel : isCancel,
 			nextItem : args.nextItem || ""
 		});
