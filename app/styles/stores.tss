@@ -1,3 +1,6 @@
+"#patientSwitcher[if=$.args.selectable]":{
+	disabled: true
+},
 "#searchTxt":{
 	hintText: Alloy.Globals.strings.storesHintSearch
 }

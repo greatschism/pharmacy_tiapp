@@ -54,20 +54,7 @@ function init() {
 	mapIconDict = $.createStyle({
 		classes : ["icon-map"]
 	});
-	/**
-	 * person switcher will not be available
-	 * outside login or when store is opened
-	 * for selection
-	 */
-	if (Alloy.Globals.isLoggedIn && $.patientSwitcher) {
-		/**
-		 * by default point to a
-		 * non partial account
-		 */
-		$.patientSwitcher.set("prescPatientSwitcher", {
-			is_partial : false
-		});
-	}
+	setPatientSwitcher();
 	/**
 	 * to avoid incorrect alignment on ios
 	 * when keep chaning visibility of this view
@@ -80,6 +67,38 @@ function init() {
 function didPostlayout(e) {
 	$.headerView.removeEventListener("postlayout", didPostlayout);
 	$.containerView.top = $.headerView.rect.height;
+}
+
+function setPatientSwitcher() {
+	//set conditions
+	if ($.patientSwitcher) {
+		/**
+		 * store uses same settings as manager for minor accounts
+		 * so if minor then switch to manager account
+		 */
+		var cPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		}),
+		    revert = args.selectable && !cPatient.get("is_adult");
+		$.patientSwitcher.set({
+			revert : revert,
+			where : revert ? {
+				related_by : Alloy.CFG.apiCodes.relationship_manager
+			} : {
+				is_adult : true,
+				is_partial : false
+			},
+			selectable : {
+				is_adult : true
+			},
+			subtitles : [{
+				where : {
+					is_adult : false
+				},
+				subtitle : $.strings.storesPatientSwitcherSubtitleMinor
+			}]
+		});
+	}
 }
 
 function didChangePatient(e) {
@@ -984,6 +1003,13 @@ function handleNavigation(params) {
 	if (args.selectable) {
 		if (args.navigation) {
 			_.extend(args.navigation.ctrlArguments.store, params);
+			/**
+			 * this controller will not be terminated until this process is completed
+			 * so reverPatient here
+			 */
+			if ($.patientSwitcher) {
+				$.patientSwitcher.revertPatient();
+			}
 			$.app.navigator.open(args.navigation);
 		} else {
 			_.extend(args.store, params);
@@ -1149,11 +1175,21 @@ function focus() {
 	} else if (currentStore && currentStore.shouldUpdate) {
 		currentStore = null;
 		getStores(currentLocation, true, false);
+	} else if (args.selectable && args.navigation) {
+		/**
+		 * store was opened for selection
+		 * with navigation object. When it moved to
+		 * next screen revertPatient was called.
+		 * Now user has pressed back button to choose
+		 * a different store, so set the confitions
+		 * again
+		 */
+		setPatientSwitcher();
 	}
 }
 
 function setParentView(view) {
-	if (Alloy.Globals.isLoggedIn && $.patientSwitcher) {
+	if ($.patientSwitcher) {
 		$.patientSwitcher.setParentView(view);
 	}
 }

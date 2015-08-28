@@ -150,6 +150,7 @@ module.exports = {
 		"storesHintSearch" : "es-Search",
 		"storesGeoZeroResults" : "es-No matches found!",
 		"storesMsgGoogleApiFailed" : "es-Sorry, we are unable to process your request now. Please try again later.",
+		"storesPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
 
 		"storeDetPromptPhone" : "es-Call:",
 		"storeDetLblOpen" : "es-Open till %s",
@@ -484,6 +485,7 @@ module.exports = {
 		"mgrAccountCreationValPasssword" : "es-Please enter your password",
 		"mgrAccountCreationValEmail" : "es-Please enter your email address",
 		"mgrAccountCreationValEmailInvalid" : "es-Invalid email address",
+		"mgrAccountCreationLblTogglePassword" : "es-Show password",
 
 		"mgrSignInLbl" : "es-Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "es-You can also add other adults and manage permissions.",
@@ -568,6 +570,7 @@ module.exports = {
 		"familyCareLblAcntMgr" : "es-Account Manager",
 		"familyCareSectionChildProxy" : "es-People whose medications you manage",
 		"familyCareMemberBtnAdd" : "es-Add family member",
+		"familyCareOptRemove" : "es-Remove",
 
 		"familyMemberAddLbl" : "es-Great let's add your family members!",
 		"familyMemberAddTip" : "es-Please enter your family member's date of birth.",

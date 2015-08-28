@@ -2,6 +2,6 @@
 	<View class="content-header-view">
 		<Label class="content-header-left-icon icon-users" />
 		<Label id="lbl" class="content-header-lbl-with-lricon" />
-		<Button id="arrowBtn" class="content-header-child-icon icon-thin-arrow-down" onClick="toggle" />
+		<Button id="arrowBtn" class="content-header-child-icon icon-thin-arrow-down" onClick="toggle" if="!$.args.disabled" />
 	</View>
 </Alloy>

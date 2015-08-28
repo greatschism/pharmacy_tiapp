@@ -16,8 +16,11 @@ function init() {
 		title : $.strings.doctorsSwipeOptRemove,
 		type : "negative"
 	}];
-	$.patientSwitcher.set("prescPatientSwitcher", {
-		is_partial : false
+	$.patientSwitcher.set({
+		title : $.strings.prescPatientSwitcher,
+		where : {
+			is_partial : false
+		}
 	});
 	$.tableView.applyProperties({
 		top : $.uihelper.getHeightFromChildren($.headerView),

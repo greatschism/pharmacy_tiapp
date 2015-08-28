@@ -9,9 +9,8 @@ var args = arguments[0] || {},
 	classes : ["icon-thin-arrow-up"]
 }),
     templateHeight,
+    rModel,
     sModel,
-    titleid,
-    selectionCallback,
     parent,
     rows,
     isBusy;
@@ -86,7 +85,7 @@ function hasPopover() {
 }
 
 function toggle() {
-	if ($.popoverView && $.popoverView.visible) {
+	if (hasPopover() && $.popoverView.visible) {
 		hide();
 	} else {
 		show();
@@ -137,7 +136,7 @@ function show() {
  * hide the dropdown
  */
 function hide() {
-	if (!isBusy && $.popoverView && $.popoverView.visible) {
+	if (!isBusy && hasPopover() && $.popoverView.visible) {
 		isBusy = true;
 		_.each($.popoverView.getParent().children, function(child) {
 			if (child == $.popoverView) {
@@ -173,11 +172,11 @@ function didClickTableView(e) {
 		 * prevent switcher from updating selection when
 		 * if the row is already selected
 		 * or
-		 * selectionCallback returns false
+		 * args.callback returns false
 		 * or
 		 * params.selectable is false
 		 */
-		if (params.selected || (selectionCallback && !selectionCallback(params)) || !params.selectable) {
+		if (params.selected || (args.callback && !args.callback(params)) || !params.selectable) {
 			return hide();
 		}
 		/**
@@ -220,14 +219,18 @@ function updateUI(params) {
 	 * this user
 	 */
 	Alloy.Globals.sessionId = params.session_id;
-	$.lbl.text = titleid ? String.format(Alloy.Globals.strings[titleid], params.first_name) : params.first_name;
+	$.lbl.text = args.title ? String.format(args.title, params.first_name) : params.first_name;
 }
 
 /**
- *  all parameters are optional
+ * {Object} options
  *
- * tid - String (similar to one passed with navigator)
- * 	i.e when tid is "prescPatientSwitcher" then output will be account_holder_name's prescriptions
+ * all properties are optional
+ *
+ * revert - Boolean whether or not to revert to the model that is selected at the moment
+ *
+ * title - String
+ * 	i.e when title is "'s Prescription (prescPatientSwitcher)" then output will be account_holder_name's prescriptions
  * otherwise just account_holder_name
  *
  * where - a where clause says which item should be selected by default
@@ -236,13 +239,13 @@ function updateUI(params) {
  * 	 is_partial: false
  * }
  *
- * dWhere - a where clause says which item to be disabled
+ * selectable - a where clause says which item should be selectable
  * i.e - if it is required to disable minor account from selection the condition will be
  * {
  * 	 is_adult : false
  * }
  *
- * cSubtitles - a array of objects with a where clause and subtitle string
+ * subtitles - a array of objects with a where clause and subtitle string
  * by default the relationship will be used as subtitle
  * i.e for a custom subtitle that only applied to minor accounts
  * [
@@ -253,33 +256,51 @@ function updateUI(params) {
  * 	 subtitle: "Same as account manager settings"
  *  }
  * ]
- * or if it is required to set a custom subtitle for all accounts pass a string instead array
+ *
+ * subtitle - String to be displayed as subtitle, applied for all objects
+ *
+ * callback - a function that should called upon selection
  */
-function set(tid, where, dWhere, cSubtitles, sCallback) {
-	titleid = tid;
-	selectionCallback = sCallback;
+function set(options) {
+
+	args = options || {};
+
+	//reset model
+	sModel = null;
+
+	//model to revert
+	if (args.revert) {
+		rModel = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
+	}
+
 	/**
 	 * check if previously selected model
-	 * passes this where condition
+	 * passes this args.where condition
 	 */
-	if (where) {
+	if (args.where) {
 		sModel = Alloy.Collections.patients.findWhere(_.extend({
 			selected : true
-		}, where));
+		}, args.where));
 		if (sModel) {
 			updateUI(sModel.toJSON());
 		}
 	}
+
 	Alloy.Collections.patients.each(function(child) {
+
 		var obj = child.toJSON();
+
 		/**
-		 * dWhere - a where condition
+		 * selectable - a where condition
 		 * to disable specific items
 		 * from selection
-		 * Note: this loop is required even when dWhere is not passed
+		 * Note: this is required even when selectable is not passed
 		 * in order to make items selectable that was unselectable previously
 		 */
-		child.set("selectable", dWhere ? !utilities.isMatch(obj, dWhere) : true);
+		child.set("selectable", args.selectable ? utilities.isMatch(obj, args.selectable) : true);
+
 		/**
 		 * unset selected flag
 		 * for selected proxy when
@@ -290,8 +311,8 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 		 * used
 		 */
 		if (!sModel) {
-			if (where) {
-				if (utilities.isMatch(obj, where)) {
+			if (args.where) {
+				if (utilities.isMatch(obj, args.where)) {
 					child.set("selected", true);
 					sModel = child;
 					updateUI(obj);
@@ -305,26 +326,29 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 		} else if (sModel.get("session_id") !== obj.session_id && obj.selected) {
 			child.set("selected", false);
 		}
+
 		//check for custom subtitles
-		var isAssigned;
-		if (cSubtitles) {
-			if (_.isArray(cSubtitles)) {
-				isAssigned = _.some(cSubtitles, function(cSubtitle) {
-					if (utilities.isMatch(obj, cSubtitle.where)) {
-						child.set("subtitle", cSubtitle.subtitle);
-						return true;
-					}
-					return false;
-				});
-			} else {
+		var subtitles = args.subtitles,
+		    isAssigned;
+		if (subtitles) {
+			isAssigned = _.some(subtitles, function(subObj) {
+				if (utilities.isMatch(obj, subObj.where)) {
+					child.set("subtitle", subObj.subtitle);
+					return true;
+				}
+				return false;
+			});
+			if (!isAssigned && args.subtitle) {
 				isAssigned = true;
-				child.set("subtitle", cSubtitles);
+				child.set("subtitle", args.subtitle);
 			}
 		}
 		if (!isAssigned) {
 			child.set("subtitle", obj.relationship);
 		}
+
 	});
+
 	/**
 	 * when none matches the where condition
 	 * usually occurs when no children
@@ -333,8 +357,10 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	if (!sModel) {
 		//pointing to account manager
 		sModel = Alloy.Collections.patients.at(0);
+		sModel.set("selected", true);
 		updateUI(sModel.toJSON());
 	}
+
 	/**
 	 * destroy existing pop over
 	 * if any, this allows us to
@@ -343,6 +369,7 @@ function set(tid, where, dWhere, cSubtitles, sCallback) {
 	 * can be updated
 	 */
 	destroyPopover();
+
 	return sModel;
 }
 
@@ -354,20 +381,8 @@ function get() {
 }
 
 function didReset() {
-	/**
-	 * destroy popover view if any
-	 * so rows will be cleared out
-	 */
-	destroyPopover();
-	//update selected model
-	sModel = Alloy.Collections.patients.findWhere({
-		selected : true
-	});
-	var params = sModel.toJSON();
-	//update ui
-	updateUI(params);
 	//trigger change event
-	$.trigger("change", params);
+	$.trigger("change", set(args).toJSON());
 }
 
 /**
@@ -378,11 +393,23 @@ function setParentView(view) {
 	parent = view;
 }
 
+function revertPatient() {
+	if (rModel && !rModel.get("selected")) {
+		Alloy.Collections.patients.findWhere({
+			selected : true
+		}).set("selected", false);
+		rModel.set("selected", true);
+		Alloy.Globals.sessionId = rModel.get("session_id");
+	}
+}
+
 /**
  * terminate the listener
  * must be called on parent controller's terminate
  */
 function terminate() {
+	//revert selection
+	revertPatient();
 	//remove listener for collection reset
 	Alloy.Collections.patients.off("reset", didReset);
 }
@@ -391,5 +418,7 @@ exports.set = set;
 exports.get = get;
 exports.show = show;
 exports.hide = hide;
+exports.toggle = toggle;
 exports.terminate = terminate;
 exports.setParentView = setParentView;
+exports.revertPatient = revertPatient;

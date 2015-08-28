@@ -17,13 +17,6 @@ function init() {
 			title : $.strings.prescAddSectionBtnAll
 		});
 	} else {
-		/**
-		 * by default point to a
-		 * non partial account
-		 */
-		$.patientSwitcher.set("prescPatientSwitcher", {
-			is_partial : false
-		});
 		detailBtnClasses = ["content-detail-secondary-btn"];
 		swipeOptions = [{
 			action : 1,
@@ -34,6 +27,17 @@ function init() {
 			type : "positive"
 		}];
 	}
+	/**
+	 * by default point to a
+	 * non partial account
+	 * if args.selectable is false
+	 */
+	$.patientSwitcher.set({
+		title : $.strings.prescPatientSwitcher,
+		where : args.selectable ? null : {
+			is_partial : false
+		}
+	});
 }
 
 function didPostlayout(e) {
@@ -112,20 +116,18 @@ function getPrescriptions(status, callback) {
 	 * when no all the patients
 	 * has partial accounts
 	 */
-	if ($.patientSwitcher) {
-		var currentPatient = $.patientSwitcher.get();
-		if (currentPatient.get("is_partial")) {
-			$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
-			if (!$.partialView.visible) {
-				$.partialView.visible = true;
-			}
-			/**
-			 * hide loader
-			 * from sort order preference
-			 */
-			$.app.navigator.hideLoader();
-			return true;
+	var currentPatient = $.patientSwitcher.get();
+	if (currentPatient.get("is_partial")) {
+		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
+		if (!$.partialView.visible) {
+			$.partialView.visible = true;
 		}
+		/**
+		 * hide loader
+		 * from sort order preference
+		 */
+		$.app.navigator.hideLoader();
+		return true;
 	}
 	//get data
 	$.http.request({
@@ -880,16 +882,12 @@ function focus() {
 }
 
 function setParentView(view) {
-	if ($.patientSwitcher) {
-		$.patientSwitcher.setParentView(view);
-	}
+	$.patientSwitcher.setParentView(view);
 }
 
 function terminate() {
 	//terminate patient switcher
-	if ($.patientSwitcher) {
-		$.patientSwitcher.terminate();
-	}
+	$.patientSwitcher.terminate();
 	/**
 	 * not resetting currentTable object
 	 * as there are chance when nullify it here
