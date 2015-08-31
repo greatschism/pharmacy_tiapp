@@ -32,7 +32,7 @@ function didSendInvite() {
 		return;
 	}
 	var mobile=$.utilities.validatePhoneNumber(phone);
-	console.log(mobile);
+
 	$.http.request({
 		method : "patient_family_add",
 		params : {
@@ -42,7 +42,7 @@ function didSendInvite() {
 					is_adult : true,
 					is_existing_user : false,
 					email : email,
-					mobile : phone,
+					mobile : mobile,
 					related_by : args.familyRelationship,
 					user_name : "",
 					password : "",
