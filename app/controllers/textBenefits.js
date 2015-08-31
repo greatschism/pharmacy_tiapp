@@ -30,7 +30,7 @@ function didClickSkipTextSignup() {
 		$.app.navigator.open({
 			titleid : "titleFamilyCare",
 			ctrl : "familyCare",
-			stack : true
+			stack : false
 		});
 	} else {
 		$.app.navigator.open({
