@@ -35,25 +35,28 @@ function updateTable() {
 	    titleClasses = ["content-title-wrap"],
 	    selected = false;
 
+	var cPatient = Alloy.Collections.patients.findWhere({
+		is_adult : false
+	});
+	console.log(JSON.stringify(cPatient));
+	console.log(cPatient);
+	/*	if (Alloy.Collections.childProxies.length) {
+	 Alloy.Collections.childProxies.each(function(child_proxy) {
+	 _.extend(child_proxy, {
+	 title : child_proxy.first_name + child_proxy.last_name,
+	 subtitle : child_proxy.related_by,
+	 titleClasses : titleClasses,
+	 subtitleClasses : subtitleClasses,
+	 selected : selected
+	 });
+	 //console.log(childProxy);
+	 var row = Alloy.createController("itemTemplates/contentViewWithLIcon", child_proxy);
+	 $.receiveTextSection.add(row.getView());
+	 rows.push(row);
 
-			console.log(JSON.stringify(Alloy.Collections.patients.at(0)));
-/*	if (Alloy.Collections.childProxies.length) {
-		Alloy.Collections.childProxies.each(function(child_proxy) {
-			_.extend(child_proxy, {
-				title : child_proxy.first_name + child_proxy.last_name,
-				subtitle : child_proxy.related_by,
-				titleClasses : titleClasses,
-				subtitleClasses : subtitleClasses,
-				selected : selected
-			});
-			//console.log(childProxy);
-			var row = Alloy.createController("itemTemplates/contentViewWithLIcon", child_proxy);
-			$.receiveTextSection.add(row.getView());
-			rows.push(row);
-
-		});
-	}
-	$.childTable.setData([$.receiveTextSection]);*/
+	 });
+	 }
+	 $.childTable.setData([$.receiveTextSection]);*/
 }
 
 function didChangePhone(e) {

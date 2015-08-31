@@ -72,7 +72,6 @@ function didClickContinue() {
 		});
 		return;
 	}
-	
 	if (moment().diff(dob, "years", true) < 18) { 
 		$.uihelper.showDialog({
 			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
