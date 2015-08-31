@@ -31,7 +31,8 @@ function didSendInvite() {
 		});
 		return;
 	}
-	
+	var mobile=$.utilities.validatePhoneNumber(phone);
+	console.log(mobile);
 	$.http.request({
 		method : "patient_family_add",
 		params : {

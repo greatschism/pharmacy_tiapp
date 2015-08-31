@@ -35,14 +35,14 @@ function didChangeRelationship() {
 			hintText : $.strings.familyMemberAddHintOther
 		}));
 		$.otherTxtView.add($.otherTxt.getView());
-	} else {
+	} else if ($.otherTxt) {
 		$.otherTxtView.remove($.otherTxt.getView());
 	}
 }
 
 function updateInputs() {
 	$.relationshipDp.setChoices(Alloy.Models.relationship.get("code_values"));
-	$.relationshipDp.setSelectedItem(relationship);
+	$.relationshipDp.setSelectedItem($.otherTxt ? $.otherTxt.getValue() : relationship);
 }
 
 function setParentView(view) {
@@ -55,8 +55,7 @@ function didClickContinue() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
-	relationship = $.relationshipDp.getSelectedItem();
-
+	relationship = $.otherTxt ? $.otherTxt.getValue() : $.relationshipDp.getSelectedItem();
 	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValDob
@@ -69,14 +68,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if ($.otherTxt) {
-		if (!$.otherTxt.getValue()) {
-			$.uihelper.showDialog({
-				message : $.strings.familyMemberAddValOtherRelationship
-			});
-			return;
-		}
-	}
+
 	if (age >= 12 && age <= 17) {
 		$.app.navigator.open({
 			titleid : "titleChildConsent",
