@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
     rxContainerViewFromTop = 0;
+    console.log(args.familyRelationship);
 function init() {
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);

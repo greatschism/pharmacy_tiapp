@@ -8,11 +8,11 @@
 		</View>
 		<Label id="familyMemberRelationTip" class="lbl-wrap margin-top margin-bottom"/>
 		<View class="margin-top form-group">
-			<Widget id="relationshipDp" src="ti.dropdown" class="form-dropdown"/>
+			<Widget id="relationshipDp" src="ti.dropdown" class="form-dropdown" onReturn="didChangeRelationship"/>
 		</View>
-		<!--<View id="otherTxtView" class="margin-top form-group" class="hide">
-			<Widget id="otherRelationTxt" src="ti.textfield" class="form-txt returnkey-done"/>
-	</View>-->
+		<View id="otherTxtView" class="margin-top form-group" >
+			
+		</View>
 		<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didClickContinue"/>
 	</View>
 </Alloy>

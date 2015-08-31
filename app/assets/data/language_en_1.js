@@ -582,6 +582,7 @@ module.exports = {
 		"familyMemberAddValDob" : "Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
 		"familyMemberAddHintOther":"Other",
+		"familyMemberAddValOtherRelationship":"Please enter your other relationship",
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s",
 		"familyMemberInviteSendTextLbl" : "Send text",

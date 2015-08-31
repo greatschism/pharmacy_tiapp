@@ -6,13 +6,6 @@ function init() {
 	$.inviteLbl.text = String.format(Alloy.Globals.strings.familyMemberInviteLbl, args.familyRelationship);
 }
 
-function moveToNext(e) {
-	var nextItem = e.nextItem || false;
-	if (nextItem && $[nextItem]) {
-		$[nextItem].focus();
-	}
-}
-
 function didSendInvite() {
 	var email = $.emailTxt.getValue(),
 	    phone = $.phoneTxt.getValue();
@@ -38,7 +31,7 @@ function didSendInvite() {
 		});
 		return;
 	}
-
+	
 	$.http.request({
 		method : "patient_family_add",
 		params : {
