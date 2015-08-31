@@ -41,6 +41,18 @@ function init() {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
 	}
+	//update margin
+	$.containerView.top = $.uihelper.getHeightFromChildren($.headerView);
+	/**
+	 * to avoid incorrect alignment on ios
+	 * when keep chaning visibility of this view
+	 */
+	if (OS_IOS) {
+		$.loader.getView().addEventListener("postlayout", didPostlayoutLoader);
+	}
+	//set patient switcher
+	setPatientSwitcher();
+	//update classes
 	pinImg = $.uihelper.getImage("map_pin").image;
 	leftBtnDict = $.createStyle({
 		classes : ["annotation-icon", "icon-direction"]
@@ -54,19 +66,23 @@ function init() {
 	mapIconDict = $.createStyle({
 		classes : ["icon-map"]
 	});
-	setPatientSwitcher();
-	/**
-	 * to avoid incorrect alignment on ios
-	 * when keep chaning visibility of this view
-	 */
-	if (OS_IOS) {
-		$.loader.getView().addEventListener("postlayout", didPostlayoutLoader);
-	}
 }
 
-function didPostlayout(e) {
-	$.headerView.removeEventListener("postlayout", didPostlayout);
-	$.containerView.top = $.headerView.rect.height;
+function didPostlayoutLoader(e) {
+	var view = e.source;
+	view.removeEventListener("postlayout", didPostlayoutLoader);
+	view.applyProperties({
+		top : view.rect.y,
+		left : view.rect.x
+	});
+}
+
+function didPauseApp(e) {
+	$.mapView.removeEventListener("regionchanged", didRegionchanged);
+}
+
+function didResumedApp(e) {
+	$.mapView.addEventListener("regionchanged", didRegionchanged);
 }
 
 function setPatientSwitcher() {
@@ -104,23 +120,6 @@ function setPatientSwitcher() {
 function didChangePatient(e) {
 	//execute the same query again
 	getStores(currentLocation, true, false);
-}
-
-function didPostlayoutLoader(e) {
-	var view = e.source;
-	view.removeEventListener("postlayout", didPostlayoutLoader);
-	view.applyProperties({
-		top : view.rect.y,
-		left : view.rect.x
-	});
-}
-
-function didPauseApp(e) {
-	$.mapView.removeEventListener("regionchanged", didRegionchanged);
-}
-
-function didResumedApp(e) {
-	$.mapView.addEventListener("regionchanged", didRegionchanged);
 }
 
 function didGetLocation(userLocation) {

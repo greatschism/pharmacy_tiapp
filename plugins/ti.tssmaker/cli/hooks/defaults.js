@@ -203,14 +203,14 @@ module.exports = {
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.date_format",
-		"deviceFormat" : "Alloy.CFG.date_time_format",
+		"formatLong" : "Alloy.CFG.date_format_long",
 		"type" : "Ti.UI.PICKER_TYPE_DATE"
 	},
 	".time" : {
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.time_format",
-		"deviceFormat" : "Alloy.CFG.date_time_format",
+		"formatLong" : "Alloy.CFG.date_format_long",
 		"type" : "Ti.UI.PICKER_TYPE_TIME"
 	},
 	".search-txt" : {

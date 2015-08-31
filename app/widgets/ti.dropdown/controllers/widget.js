@@ -106,7 +106,7 @@ function show() {
 					}
 				});
 			} else if (OS_IOS) {
-				var pickerDict = _.pick(args, ["type", "deviceFormat", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftButtonDict", "rightButtonDict", "containerPaddingTop"]);
+				var pickerDict = _.pick(args, ["type", "formatLong", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftButtonDict", "rightButtonDict", "containerPaddingTop"]);
 				_.extend(pickerDict, {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),

@@ -87,15 +87,15 @@ function terminate(callback) {
 		 * there are known issues with time zone
 		 * from Apple's end
 		 * to avoid such mismatch on dates
-		 * using toLocaleString of date
+		 * using toLocaleString("long") of date
 		 * for formatting it properly
 		 * Note: don't process the time zone (ZZ)
-		 * with moment. deviceFormat will have the device region's
-		 * short date format
+		 * with moment. formatLong will have the device region's
+		 * long date format
 		 */
 		$.trigger("terminate", {
 			soruce : $,
-			value : isCancel ? null : moment(selectedDate.toLocaleString("short"), args.deviceFormat).toDate(),
+			value : isCancel ? null : moment(selectedDate.toLocaleString("long"), args.formatLong).toDate(),
 			cancel : isCancel,
 			nextItem : args.nextItem || ""
 		});

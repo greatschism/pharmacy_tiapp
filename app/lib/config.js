@@ -155,19 +155,33 @@ var Configuration = {
 		//match date format with momentjs
 		_.each(dateFormat, function(val, key) {
 			if (val.indexOf("d") != -1) {
+				/**
+				 * moment requires capitalized (D)
+				 * not lower case (d)
+				 */
 				val = val.toUpperCase();
-			}
-			if (val.indexOf("y") != -1) {
-				val = val.toUpperCase();
-				if (val.length == 1) {
-					val = "YYYY";
-				}
+			} else if (val.indexOf("y") != -1) {
+				/**
+				 * let years always be in full format (YYYY)
+				 * keeping it in 2 digits brings issues
+				 * when it is less than computer year (1970)
+				 * i.e 12/12/12 - December 12, 1912 turns to December 12, 2012
+				 */
+				val = "YYYY";
 			}
 			dateFormat[key] = val;
 		});
 		Alloy.CFG.date_format = dateFormat.join("/");
 		Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
 		Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
+		//match Date format long
+		_.each(dateFormat, function(val, key) {
+			if (val.indexOf("M") != -1) {
+				//long format will always have month name
+				dateFormat[key] = "MMMM";
+			}
+		});
+		Alloy.CFG.date_format_long = dateFormat.join(" ") + " " + Alloy.CFG.time_format;
 		//extend configuration
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
 		var platform = require("core").device.platform;

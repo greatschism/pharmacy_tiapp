@@ -8,7 +8,7 @@ require("config").updateTSS($.__controllerPath);
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
 	if (args.lblClasses) {
-		$.resetClass($.lbl, [args.lblClasses], {
+		$.resetClass($.lbl, args.lblClasses, {
 			text : args.title || (args.data ? args.data[args.titleProperty] : "")
 		});
 	} else {

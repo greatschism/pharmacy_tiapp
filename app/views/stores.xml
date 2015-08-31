@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-map" onClick="didClickRightNavBtn" />
-	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
+	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="Alloy.Globals.isLoggedIn" />
 		<View id="searchbar" class="top search-bar">
 			<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onFocus="didFocusSearch" onClear="didClearSearch" onChange="didChangeSearch" onReturn="didReturnSearch" />

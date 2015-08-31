@@ -1,0 +1,11 @@
+<Alloy>
+	<TableViewRow id="row">
+		<View id="contentView" class="content-view-with-child">
+			<View class="margin-top auto-height">
+				<Widget id="lbl" src="ti.styledlabel" class="lbl-with-rswt" if="$.args.styledlabel" />
+				<Label id="lbl" class="lbl-with-rswt" if="!$.args.styledlabel" />
+				<Widget id="swt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle" />
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

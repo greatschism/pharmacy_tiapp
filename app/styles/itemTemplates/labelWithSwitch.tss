@@ -1,0 +1,6 @@
+"#row[if=$.args.styledlabel]":{
+	className: "styledlabelWithSwitch"
+},
+"#row[if=!$.args.styledlabel]":{
+	className: "labelWithSwitch"
+}
