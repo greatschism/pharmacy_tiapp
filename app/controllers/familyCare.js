@@ -73,7 +73,7 @@ function didGetPatient(result) {
 					childProxy = {
 						child_id : childProxy.child_id,
 						link_id : childProxy.link_id,
-						title : $.utilities.ucword(childProxy.first_name) || $.utilities.ucword(childProxy.last_name) ? $.utilities.ucword(childProxy.first_name) + " " + $.utilities.ucword(childProxy.last_name) : $.utilities.formatPhoneNumber(childProxy.address),
+						title : $.utilities.ucword(childProxy.first_name) || $.utilities.ucword(childProxy.last_name) ? $.utilities.ucword(childProxy.first_name) + " " + $.utilities.ucword(childProxy.last_name) : childProxy.address,
 						subtitle : $.strings.familyCareRelatedPrefix + childProxy.related_by,
 						detailType : childProxy.link_id ? "negative" : "positive",
 						options : swipeOptions,
