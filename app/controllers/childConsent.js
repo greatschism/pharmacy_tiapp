@@ -1,14 +1,14 @@
 var args = arguments[0] || {},
     selected = true;
 function didClickContinue() {
-	var isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
-	if (isFamilyMemberFlow) {
+	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleChildAdd",
 			ctrl : "childAdd",
 			ctrlArguments : {
 				dob : args.dob,
-				familyRelationship : args.familyRelationship
+				familyRelationship : args.familyRelationship,
+					isFamilyMemberFlow:true
 			},
 			stack : true
 		});
@@ -49,7 +49,8 @@ function didAddChild(result) {
 		titleid : "titleChildSuccess",
 		ctrl : "childSuccess",
 		ctrlArguments : {
-			username : args.username
+			username : args.username,
+				isFamilyMemberFlow:false
 		},
 		stack : false
 	});

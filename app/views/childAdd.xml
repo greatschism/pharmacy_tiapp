@@ -28,7 +28,7 @@
 			</View>
 			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
 			<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
-			<Button id="skipBtn" onClick="didClickSkip"/>
+			<Button id="skipBtn" class="margin-top secondary-btn" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
 		</View>
 		<Widget id="rxTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>

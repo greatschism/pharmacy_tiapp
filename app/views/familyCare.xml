@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView id="tableView">
 		<FooterView>
-			<View  class="auto-height vgroup">
+			<View id="familyCareView" class="auto-height vgroup">
 				<View class="h-divider-light" platform="ios" />
 				<Label id="familyCareLbl" class="lbl-centered-wrap margin-top margin-bottom"/>
 				<Label id="familyCareAddLbl" class="subtitle-centered-wrap margin-bottom"/>

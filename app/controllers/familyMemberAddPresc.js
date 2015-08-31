@@ -130,7 +130,6 @@ function addPrescriptions(){
 		});
 }
 function didAddPrescriptions(){
-	$.utilities.setProperty("familyMemberFlow", false, "bool", true);
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
 	$.app.navigator.open({
 			ctrl : "HIPAA",

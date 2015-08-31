@@ -93,6 +93,7 @@ function didAuthenticate() {
 			ctrlArguments : {
 				username : args.username,
 				password : args.password,
+				isFamilyMemberFlow:false
 			},
 			stack : true
 		});

@@ -39,10 +39,10 @@ function setParentView(view) {
 }
 
 function didClickContinue() {
-	$.utilities.setProperty("familyMemberFlow", true, "bool", true);
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
+	    console.log(age);
 	relationship = $.relationshipDp.getSelectedItem();
 
 	if (!dob) {
@@ -63,7 +63,8 @@ function didClickContinue() {
 			ctrl : "childConsent",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : relationship.code_value
+				familyRelationship : relationship.code_value,
+				isFamilyMemberFlow:true
 			},
 			stack : true
 		});
@@ -73,7 +74,8 @@ function didClickContinue() {
 			ctrl : "childAdd",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : relationship.code_value
+				familyRelationship : relationship.code_value,
+				isFamilyMemberFlow:true
 			},
 			stack : true
 		});
@@ -83,7 +85,8 @@ function didClickContinue() {
 			ctrl : "familyMemberInvite",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : relationship.code_value
+				familyRelationship : relationship.code_value,
+				isFamilyMemberFlow:true
 			},
 			stack : true
 		});

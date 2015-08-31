@@ -4,7 +4,6 @@ function init() {
 }
 
 function didClickTextSignup() {
-
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
@@ -17,9 +16,8 @@ function didClickTextSignup() {
 }
 
 function didClickSkipTextSignup() {
-	var isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
 	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", true, "bool", true);
-	if (isFamilyMemberFlow) {
+	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleFamilyAccounts",
 			ctrl : "familyMemberAddSuccess",

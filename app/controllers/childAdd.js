@@ -1,8 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
-    rxContainerViewFromTop = 0,
-    isFamilyMemberFlow;
+    rxContainerViewFromTop = 0;
 function init() {
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
@@ -18,13 +17,7 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
-	if (!isFamilyMemberFlow) {
-		$.skipBtn.applyProperties($.createStyle({
-			classes : ["margin-top", "secondary-btn"],
-			title:$.strings.childAddBtnSkip
-		}));
-	}
+	   console.log(args.isFamilyMemberFlow);
 }
 
 function didChangeRx(e) {
@@ -54,7 +47,7 @@ function moveToNext(e) {
 }
 
 function didClickContinue() {
-	isFamilyMemberFlow = $.utilities.getProperty("familyMemberFlow", false, "bool", true);
+
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
@@ -129,7 +122,7 @@ function didClickContinue() {
 		});
 		return;
 	} else if (age >= 12 && age <= 17) {
-		if (isFamilyMemberFlow) {
+		if (args.isFamilyMemberFlow) {
 			$.http.request({
 				method : "patient_family_add",
 				params : {
@@ -160,7 +153,8 @@ function didClickContinue() {
 				ctrl : "childConsent",
 				ctrlArguments : {
 					username : args.username,
-					childDetails : childDetails
+					childDetails : childDetails,
+						isFamilyMemberFlow:false
 				},
 				stack : true
 			});
@@ -195,12 +189,13 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
-	if (isFamilyMemberFlow) {
+	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleTextBenefits",
 			ctrl : "textBenefits",
 			ctrlArguments : {
-				familyRelationship : args.familyRelationship
+				familyRelationship : args.familyRelationship,
+				isFamilyMemberFlow:true
 			},
 			stack : true
 		});
@@ -210,7 +205,8 @@ function didAddChild(result) {
 			titleid : "titleChildSuccess",
 			ctrl : "childSuccess",
 			ctrlArguments : {
-				username : args.username
+				username : args.username,
+				isFamilyMemberFlow:false
 			},
 			stack : false
 

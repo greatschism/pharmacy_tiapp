@@ -11,7 +11,8 @@ function didClickAddChild(){
 		titleid:"titleChildAdd",
 		ctrl : "childAdd",
 		ctrlArguments:{
-			username:args.username
+			username:args.username,
+			isFamilyMemberFlow:false
 		},
 		stack : true
 	});
@@ -21,7 +22,8 @@ function didClickContinue(){
 		titleid:"titleTextBenefits",
 		ctrl : "textBenefits",
 		ctrlArguments:{
-			username:args.username
+			username:args.username,
+			isFamilyMemberFlow:false
 		},
 		stack : true
 	});

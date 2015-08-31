@@ -12,7 +12,6 @@ function focus() {
 }
 
 function didClickContinue() {
-	$.utilities.setProperty("familyMemberFlow", false, "bool", true);
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
@@ -73,8 +72,8 @@ function didClickContinue() {
 		});
 		return;
 	}
-	var age = getAge(dob);
-	if (age < 18) {
+	
+	if (moment().diff(dob, "years", true) < 18) { 
 		$.uihelper.showDialog({
 			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
 		});
@@ -120,25 +119,6 @@ function didClickContinue() {
 		success : didRegister,
 		failure : didFail
 	});
-}
-
-/**
- *
- * @param {Object} dateString
- * Get the age of the user
- * If the user is 18 yrs old, do not let him create the account
- * If the user is 12-17 yrs old, take him to the consent screen
- * If the user is less than 12 yrs, successfully create the account
- */
-function getAge(dateString) {
-	var today = new Date();
-	var birthDate = new Date(dateString);
-	var age = today.getFullYear() - birthDate.getFullYear();
-	var m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		age--;
-	}
-	return age;
 }
 
 function didFail() {

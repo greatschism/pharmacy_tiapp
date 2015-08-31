@@ -30,12 +30,19 @@ function didGetPatient(result) {
 	var accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = result.data.parent_proxy;
 	childData = result.data.child_proxy;
+	
+	/**
+	 * If there are no children proxies or no parent proxies, 
+	 * do not show any sections, set the tableview data to null.
+	 */
 	if (!childData && !parentData) {
 		$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 		$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 		$.familyCareAddBtn.applyProperties($.createStyle({
 			classes : ["icon-add-familycare", "primary-icon-extra-large"]
 		}));
+		$.tableView.setData([]);
+		$.familyCareView.remove($.familyMemberAddBtn);
 	} else {
 
 		mgrData = [];
@@ -166,6 +173,16 @@ function didRemoveParent(result, passthrough) {
 		}
 		return true;
 	});
+	if (!params.count) {
+		$.http.request({
+			method : "patient_family_get",
+			params : {
+				feature_code : "THXXX"
+			},
+			forceRetry : true,
+			success : didGetPatient
+		});
+	}
 }
 
 function didRemoveChild(result, passthrough) {
@@ -182,6 +199,16 @@ function didRemoveChild(result, passthrough) {
 		}
 		return true;
 	});
+	if (!params.count) {
+		$.http.request({
+			method : "patient_family_get",
+			params : {
+				feature_code : "THXXX"
+			},
+			forceRetry : true,
+			success : didGetPatient
+		});
+	}
 }
 
 function addPrescriptions() {
