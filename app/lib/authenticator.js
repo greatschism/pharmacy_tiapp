@@ -399,8 +399,10 @@ function didGetPreferences(result, passthrough) {
 						buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 						cancelIndex : 1,
 						success : function didConfirm() {
-							passthrough.timeZone = currentTZ;
-							updateTimeZone(passthrough);
+							passthrough.params = {
+								pref_timezone : currentTZ
+							};
+							updatePreferences(passthrough);
 						},
 						cancel : fireCallback
 					});
@@ -424,27 +426,22 @@ function didGetPreferences(result, passthrough) {
 	}
 }
 
-function updateTimeZone(params) {
+function updatePreferences(passthrough) {
 	/**
 	 * api requires all parameters to be sent
-	 * even though the update is required only
-	 * for pref_timezone
-	 * Note: time zone update alert is only given for manager account not for proxies / children
 	 */
-	var preferences = Alloy.Collections.patients.at(0).pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
-	/**
-	 * applying new time zone to local model and moment
-	 * to be on safer side applying the time zone
-	 * only after success response
-	 */
-	preferences.pref_timezone = params.timeZone;
+	var preferences = Alloy.Collections.patients.findWhere({
+		selected : true
+	}).pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
+	//extend updated values
+	_.extend(preferences, passthrough.params);
 	http.request({
 		method : "patient_preferences_update",
 		params : {
 			feature_code : "THXXX",
 			data : [preferences]
 		},
-		passthrough : params,
+		passthrough : passthrough,
 		forceRetry : true,
 		success : didUpdatePreferences
 	});
@@ -453,12 +450,24 @@ function updateTimeZone(params) {
 function didUpdatePreferences(result, passthrough) {
 	/**
 	 * updating local model and moment
-	 * after successful api response
+	 * if required
 	 */
-	Alloy.Collections.patients.at(0).set("pref_timezone", passthrough.timeZone);
-	setTimeZone(passthrough.timeZone, true);
-	if (passthrough.success) {
-		passthrough.success();
+	var sModel = Alloy.Collections.patients.findWhere({
+		selected : true
+	}),
+	    params = passthrough.params;
+	/**
+	 * if manager & pref_timezone
+	 * then call setTimeZone
+	 * to update local time zone
+	 */
+	if (params.pref_timezone && sModel.get("related_by") === Alloy.CFG.apiCodes.relationship_manager) {
+		setTimeZone(params.pref_timezone, true);
+	}
+	sModel.set(params);
+	var callback = passthrough.success || passthrough.callback;
+	if (callback) {
+		callback();
 	}
 }
 
@@ -636,6 +645,11 @@ function setTimeZone(zone, updateCodeVal) {
 	Alloy.Globals.latestRequest = moment().unix();
 }
 
+/**
+ * update family account (patients) collection
+ * with get/family api
+ * @param {Functions} callback
+ */
 function updateFamilyAccounts(callback) {
 	getFamilyAccounts({
 		revert : Alloy.Collections.patients.findWhere({
@@ -649,6 +663,7 @@ exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
 exports.setTimeZone = setTimeZone;
+exports.updatePreferences = updatePreferences;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
