@@ -134,8 +134,10 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	hideLoader(passthrough, true);
 	if (passthrough.errorDialogEnabled !== false) {
+		//hide loader before processing error dialogs
+		hideLoader(passthrough, true);
+		//process error dialogs
 		var forceRetry = passthrough.forceRetry === true,
 		    retry = forceRetry || passthrough.retry !== false;
 		uihelper.showDialog({
@@ -166,11 +168,22 @@ function didFail(error, passthrough) {
 			}
 		});
 	} else if (passthrough.failure) {
+		/**
+		 * hide loader when failure callback is passed
+		 * leave it if keepLoader is true
+		 */
+		hideLoader(passthrough);
 		passthrough.failure(error, passthrough.passthrough);
+	} else {
+		/**
+		 * hide loader when no failure callback is passed
+		 * even if keepLoader is true
+		 */
+		hideLoader(passthrough, true);
 	}
 }
 
-function hideLoader(passthrough, isFailure) {
+function hideLoader(passthrough, forceHide) {
 	/**
 	 * if the api call failed
 	 * hide the loader even
@@ -178,9 +191,10 @@ function hideLoader(passthrough, isFailure) {
 	 * Note: most of the times failure callback
 	 * may not be used, in such cases
 	 * keppLoader may fail to remove loader
-	 * at all
+	 * at all. forceHide flag let us know
+	 * whether failure callback is applied or not
 	 */
-	if (passthrough.keepLoader !== true || isFailure) {
+	if (passthrough.keepLoader !== true || forceHide) {
 		if (_.isEmpty(app.navigator) === false) {
 			app.navigator.hideLoader();
 		}

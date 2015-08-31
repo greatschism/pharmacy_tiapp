@@ -19,8 +19,13 @@ if (OS_ANDROID) {
 	MAX_HEIGHT /= app.device.logicalDensityFactor;
 }
 
-//listener for collection reset
-Alloy.Collections.patients.on("reset", didReset);
+(function() {
+	if (!args.disabled) {
+		$.patientSwitcher.addEventListener("click", toggle);
+	}
+	//listener for collection reset
+	Alloy.Collections.patients.on("reset", didReset);
+})();
 
 function buildPopover() {
 	//get parent if not exists

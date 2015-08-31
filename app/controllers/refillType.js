@@ -316,6 +316,7 @@ function didFail(result, passthrough) {
 	 * just close this screen to
 	 * prevent any further actions
 	 */
+	$.app.navigator.hideLoader();
 	$.app.navigator.close();
 }
 

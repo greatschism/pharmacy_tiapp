@@ -78,6 +78,13 @@ function init(passthrough) {
 
 function didFail(error, passthrough) {
 	/**
+	 * hide loader is called here
+	 * as keepLoader is set true here
+	 * for simultaneous api calls
+	 * with failure callback
+	 */
+	app.navigator.hideLoader();
+	/**
 	 * keep silent as there will not be any patient switcher
 	 * before successful authenticate
 	 */
