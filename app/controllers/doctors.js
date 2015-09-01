@@ -17,7 +17,7 @@ function init() {
 		type : "negative"
 	}];
 	$.patientSwitcher.set({
-		title : $.strings.prescPatientSwitcher,
+		title : $.strings.doctorsPatientSwitcher,
 		where : {
 			is_partial : false
 		}
