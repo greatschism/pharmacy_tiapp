@@ -165,7 +165,7 @@ var Configuration = {
 				 * let years always be in full format (YYYY)
 				 * keeping it in 2 digits brings issues
 				 * when it is less than computer year (1970)
-				 * i.e 12/12/12 - December 12, 1912 turns to December 12, 2012
+				 * i.e December 12, 1912 turns to December 12, 2012
 				 */
 				val = "YYYY";
 			}
@@ -174,14 +174,24 @@ var Configuration = {
 		Alloy.CFG.date_format = dateFormat.join("/");
 		Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
 		Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
-		//match Date format long
-		_.each(dateFormat, function(val, key) {
-			if (val.indexOf("M") != -1) {
-				//long format will always have month name
-				dateFormat[key] = "MMMM";
-			}
-		});
-		Alloy.CFG.date_format_long = dateFormat.join(" ") + " " + Alloy.CFG.time_format;
+		if (OS_IOS) {
+			/**
+			 * match Date format long
+			 * NSDateFormatterLongStyle
+			 */
+			_.some(dateFormat, function(val, key) {
+				if (val.indexOf("M") != -1) {
+					//long format will always have month name
+					dateFormat[key] = "MMMM";
+					return true;
+				}
+				return false;
+			});
+			Alloy.CFG.date_format_long = dateFormat.join(" ") + " " + Alloy.CFG.time_format;
+		} else if (OS_ANDROID) {
+			//default format in Titanium Android
+			Alloy.CFG.date_format_long = "ddd MMM DD YYYY HH:mm:ss";
+		}
 		//extend configuration
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
 		var platform = require("core").device.platform;

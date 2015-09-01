@@ -233,7 +233,7 @@ function Navigation(args) {
 				var landingPage = Alloy.Collections.menuItems.findWhere({
 					landing_page : true
 				});
-				if (landingPage && that.currentController.ctrl != landingPage.get("ctrl")) {
+				if (landingPage && landingPage.get("ctrl") != that.currentController.ctrlPath) {
 					return that.open(landingPage.toJSON());
 				} else {
 					return that.terminate();

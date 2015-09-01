@@ -94,12 +94,23 @@ function show() {
 					okButtonTitle : args.okButtonTitle || "Set",
 					value : selectedDate || new Date(),
 					callback : function(e) {
-						if (!e.cancel) {
-							setValue(e.value);
+						var value = e.value;
+						if (value) {
+							/**
+							 * using toLocaleString() of date
+							 * for formatting date properly
+							 * which helps to avoid time zone
+							 * issues
+							 * Note: don't process the time zone (ZZ)
+							 * with moment. formatLong will have the default
+							 * format used in Titanium Android
+							 */
+							value = moment(value.toLocaleString(), args.formatLong).toDate();
+							setValue(value);
 						}
 						$.trigger("return", {
 							source : $,
-							value : !e.cancel ? e.value : null,
+							value : value,
 							cancel : e.cancel,
 							nextItem : args.nextItem || ""
 						});
