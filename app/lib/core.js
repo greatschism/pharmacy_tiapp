@@ -151,11 +151,12 @@ var App = {
 	orientationChange : function(event) {
 
 		// Ignore face-up, face-down and unknown orientation
-		if (event.orientation === Ti.UI.FACE_UP || event.orientation === Ti.UI.FACE_DOWN || event.orientation === Ti.UI.UNKNOWN) {
+		var orientation = Ti.Gesture.orientation;
+		if (orientation === Ti.UI.FACE_UP || orientation === Ti.UI.FACE_DOWN || orientation === Ti.UI.UNKNOWN) {
 			return;
 		}
 
-		App.device.orientation = event.source.isLandscape() ? "landscape" : "portrait";
+		App.device.orientation = Ti.Gesture.isLandscape() ? "landscape" : "portrait";
 
 		// Get device dimensions
 		App.getDeviceDimensions();
@@ -199,5 +200,8 @@ var App = {
 		};
 	}
 };
+
+// keep device dimensions ready
+App.getDeviceDimensions();
 
 module.exports = App;

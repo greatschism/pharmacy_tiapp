@@ -558,53 +558,10 @@ var Helper = {
 	 * @param {ImageView} where image to be applied (optional)
 	 */
 	getImage : function(name, imgView) {
-		if (!Alloy.Images[name]) {
+		var properties = Alloy.Images[name];
+		if (!properties) {
 			logger.error(TAG, "invalid image name", name);
 			return {};
-		}
-		var properties = Alloy.Images[name][app.device.orientation],
-		    path = properties.image,
-		    newWidth = properties.width || 0,
-		    newHeight = properties.height || 0;
-		if (newWidth === 0 || newHeight === 0) {
-			var newProperties = _.pick(properties, ["top", "bottom", "left", "right", "width", "height"]);
-			if (_.has(newProperties, "left") && _.has(newProperties, "right")) {
-				newProperties.left = utilities.percentageToValue(properties.left, app.device.width);
-				newProperties.right = utilities.percentageToValue(properties.right, app.device.width);
-				newWidth = app.device.width - (newProperties.left + newProperties.right);
-				/**
-				 * don't need left and right
-				 * when width is calculated
-				 */
-				delete newProperties.left;
-				delete newProperties.right;
-			}
-			//image's width and height are density independent
-			var imgBlob = Ti.Filesystem.getFile(path).read(),
-			    imgWidth = imgBlob.width,
-			    imgHeight = imgBlob.height;
-			imgBlob = null;
-			if (OS_ANDROID) {
-				imgWidth /= app.device.logicalDensityFactor;
-				imgHeight /= app.device.logicalDensityFactor;
-			}
-			if (newWidth === 0) {
-				newHeight = utilities.percentageToValue(newHeight, app.device.height);
-				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-			} else if (newHeight === 0) {
-				newWidth = utilities.percentageToValue(newWidth, app.device.width);
-				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
-			}
-			_.extend(newProperties, {
-				width : newWidth,
-				height : newHeight
-			});
-			config.updateImageProperties({
-				name : name,
-				data : utilities.getFileName(path),
-				orientation : app.device.orientation,
-				properties : newProperties
-			});
 		}
 		if (imgView) {
 			imgView.applyProperties(properties);

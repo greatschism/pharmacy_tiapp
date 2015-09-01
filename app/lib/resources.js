@@ -109,7 +109,13 @@ var Res = {
 				} else if (obj.type == "font" || obj.type == "image") {
 					var srcFile = obj.type + "_" + obj.code + "_" + obj.version,
 					    desFile = srcFile + "." + obj.format;
-					utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
+					if (obj.type == "font") {
+						//font
+						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
+					} else {
+						//image
+						Res.resizeImage(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile).read(), obj.properties);
+					}
 					obj.data = desFile;
 				} else {
 					var baseName = Res.dataDirectory + "/" + obj.type + "_";
@@ -286,7 +292,7 @@ var Res = {
 				Res.setData(assets);
 				_.each(assets, function(asset) {
 					if (asset.update === true) {
-						var obj = _.pick(asset, ["type", "version", "base_version", "code", "url", "format"]);
+						var obj = _.pick(asset, ["type", "version", "base_version", "code", "url", "format", "properties"]);
 						Res.updateQueue.push(obj);
 						Res.downloadAsset(obj);
 					}
@@ -314,8 +320,14 @@ var Res = {
 			passthrough.error = false;
 			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
 			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + "." + passthrough.format;
-			utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
-			var item = _.pick(passthrough, ["type", "version", "base_version", "code"]);
+			if (passthrough.type == "fonts") {
+				//fonts
+				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
+			} else {
+				//images
+				Res.resizeImage(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result, passthrough.properties);
+			}
+			var item = _.pick(passthrough, ["type", "version", "base_version", "code", "properties"]);
 			_.extend(item, {
 				data : desFile,
 				selected : true
@@ -365,19 +377,58 @@ var Res = {
 		Res.collection.commit();
 	},
 
-	updateImageProperties : function(obj) {
-		var imgDoc = Res.collection.find({
-		type : "image",
-		selected : true,
-		name : obj.name,
-		data : obj.data
-		})[0] || {};
-		if (!_.has(imgDoc, "properties")) {
-			imgDoc.properties = {};
+	resizeImage : function(desFile, blob, properties) {
+		if (_.has(properties, "left") && _.has(properties, "right")) {
+			properties.width = app.device.width - (utilities.percentageToValue(properties.left, app.device.width) + utilities.percentageToValue(properties.right, app.device.width));
+			delete properties.left;
+			delete properties.right;
 		}
-		imgDoc.properties[obj.orientation] = obj.properties || {};
-		Res.collection.commit();
-		return imgDoc.properties[obj.orientation];
+		if (_.has(properties, "top") && _.has(properties, "bottom")) {
+			properties.height = app.device.height - (utilities.percentageToValue(properties.top, app.device.height) + utilities.percentageToValue(properties.bottom, app.device.height));
+			delete properties.top;
+			delete properties.bottom;
+		}
+		var newWidth = properties.width || 0,
+		    newHeight = properties.height || 0;
+		if (newWidth === 0 || newHeight === 0) {
+			var imgWidth = blob.width,
+			    imgHeight = blob.height;
+			/**
+			 * px to dp
+			 * Note: Android returns
+			 * height in px
+			 */
+			if (OS_ANDROID) {
+				imgWidth /= app.device.logicalDensityFactor;
+				imgHeight /= app.device.logicalDensityFactor;
+			}
+			if (newWidth === 0) {
+				newHeight = utilities.percentageToValue(newHeight, app.device.height);
+				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
+			} else if (newHeight === 0) {
+				newWidth = utilities.percentageToValue(newWidth, app.device.width);
+				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
+			}
+			/**
+			 * dp based values
+			 * may be applied to ImageView
+			 */
+			_.extend(properties, {
+				width : newWidth,
+				height : newHeight
+			});
+		}
+		/**
+		 * converting dp to px
+		 * for imageAsResized
+		 * Note: done for both platforms
+		 * as px from android converted to
+		 * dp above
+		 */
+		newWidth *= app.device.logicalDensityFactor;
+		newHeight *= app.device.logicalDensityFactor;
+		//write resized image
+		utilities.writeFile(desFile, blob.imageAsResized(newWidth, newHeight), false);
 	}
 };
 

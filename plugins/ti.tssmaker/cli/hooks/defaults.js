@@ -27,6 +27,10 @@ module.exports = {
 	"Button[platform=ios]" : {
 		"style" : "Ti.UI.iPhone.SystemButtonStyle.PLAIN"
 	},
+	"ImageView" : {
+		"width" : "Ti.UI.SIZE",
+		"height" : "Ti.UI.SIZE"
+	},
 	"ImageView[platform=ios]" : {
 		"preventDefaultImage" : true
 	},

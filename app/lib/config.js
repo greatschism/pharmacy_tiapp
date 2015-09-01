@@ -133,17 +133,9 @@ var Configuration = {
 		//images
 		Alloy.Images = {};
 		_.each(images, function(image) {
-			var name = image.name,
-			    orientations = image.orientation;
-			if (!_.has(Alloy.Images, name)) {
-				Alloy.Images[name] = {};
-			}
-			for (var orientation in orientations) {
-				Alloy.Images[name][orientation] = {
-					image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + image.data).nativePath
-				};
-				_.extend(Alloy.Images[name][orientation], _.isObject(image.properties) && _.isObject(image.properties[orientation]) ? image.properties[orientation] : orientations[orientation]);
-			}
+			Alloy.Images[image.name] = _.extend(_.clone(image.properties), {
+				image : Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + image.data).nativePath
+			});
 		});
 
 		//theme
@@ -276,10 +268,6 @@ var Configuration = {
 		if (callback) {
 			callback();
 		}
-	},
-
-	updateImageProperties : function(obj) {
-		_.extend(Alloy.Images[obj.name][obj.orientation], require("resources").updateImageProperties(obj));
 	},
 
 	updateResources : function(callback) {
