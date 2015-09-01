@@ -1,7 +1,8 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
-    rxContainerViewFromTop = 0;
+    rxContainerViewFromTop = 0,
+    authenticator = require("authenticator");
     console.log(args.familyRelationship);
 function init() {
 	if (args.dob) {
@@ -190,6 +191,7 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
+	authenticator.updateFamilyAccounts();
 	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleTextBenefits",

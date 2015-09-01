@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     utilities = require("utilities"),
+    authenticator = require("authenticator"),
     moment = require("alloy/moment");
 
 function init() {
@@ -60,6 +61,7 @@ function didSendInvite() {
 }
 
 function didAddChild() {
+authenticator.updateFamilyAccounts();
 	$.app.navigator.open({
 		titleid : "titleFamilyAccounts",
 		ctrl : "familyMemberInviteSuccess",

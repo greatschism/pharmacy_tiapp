@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+     authenticator = require("authenticator"),
     rxContainerViewFromTop = 0,
     store = {};
 
@@ -24,10 +25,9 @@ function focus() {
 	if(mgrData.get("last_name")){
 		$.lnameTxt.setValue(mgrData.get("last_name"));
 	}
-	var dob=moment(mgrData.get("birth_date"),'MM/DD/YYYY').toDate();
 	
-	console.log(dob);
 	if(mgrData.get("birth_date")){
+		var dob=moment(mgrData.get("birth_date"),Alloy.CFG.apiCodes.dob_format).toDate();
 		$.dobDp.setValue(dob);
 	}
 }
@@ -131,6 +131,7 @@ function addPrescriptions(){
 }
 function didAddPrescriptions(){
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
+	authenticator.updateFamilyAccounts();
 	$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",

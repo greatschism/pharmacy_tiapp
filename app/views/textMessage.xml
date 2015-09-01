@@ -10,7 +10,7 @@
 		<Label id="signUpMsgLbl" class="lbl-wrap margin-top" if="$.args.signUpLbl"/>
 		<Label id="txtHelpMsgLbl" class="lbl-wrap margin-top" if="$.args.txtHelpLbl"/>
 		<Label id="txtNotReceiveLbl" class="lbl-wrap margin-top" if="$.args.txtNotReceiveLbl"/>
-		<Widget id="txtCode"   src="ti.textfield" class="txt-centered-48 returnkey-done margin-top margin-bottom" if="$.args.txtCode"/>
+		<Widget id="txtCode"   src="ti.textfield" class="txt-centered-48 returnkey-done margin-top margin-bottom" if="$.args.txtCode" editable="false"/>
 		<Button id="txtMsgBtn" class="primary-btn margin-top margin-bottom" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
 		<Button id="txtNotReceiveBtn" class="primary-btn margin-top margin-bottom" if="$.args.txtNotReceiveBtn"/>
 		<Button id="sendTxtSignUpBtn" class="secondary-btn margin-top margin-bottom" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>

@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
-    childProxiesData,
-    childProxy,
+    childProxyData = [],
+    child_proxy = [],
+    selectedChildProxy,
     phone,
     otp,
     utilities = require('utilities'),
@@ -22,41 +23,40 @@ function init() {
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
 	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
-	if (isFamilyAccounts) {
+	//if (isFamilyAccounts) {
 
-		updateTable();
-	}
+	updateTable();
+	//}
 }
 
 function updateTable() {
-	var data = [];
 	$.receiveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
 	var subtitleClasses = ["content-subtitle-wrap"],
 	    titleClasses = ["content-title-wrap"],
 	    selected = false;
 
-	var cPatient = Alloy.Collections.patients.findWhere({
+	var cPatient = Alloy.Collections.patients.where({
 		is_adult : false
 	});
-	console.log(JSON.stringify(cPatient));
-	console.log(cPatient);
-	/*	if (Alloy.Collections.childProxies.length) {
-	 Alloy.Collections.childProxies.each(function(child_proxy) {
-	 _.extend(child_proxy, {
-	 title : child_proxy.first_name + child_proxy.last_name,
-	 subtitle : child_proxy.related_by,
-	 titleClasses : titleClasses,
-	 subtitleClasses : subtitleClasses,
-	 selected : selected
-	 });
-	 //console.log(childProxy);
-	 var row = Alloy.createController("itemTemplates/contentViewWithLIcon", child_proxy);
-	 $.receiveTextSection.add(row.getView());
-	 rows.push(row);
+	if (cPatient.length) {
+		_.each(cPatient, function(child_proxy) {
+			child_proxy = {
+				title : child_proxy.get("title"),
+				subtitle : child_proxy.get("relationship"),
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
+				selected : selected,
+				id : child_proxy.get("child_id")
+			};
 
-	 });
-	 }
-	 $.childTable.setData([$.receiveTextSection]);*/
+			childProxyData.push(child_proxy);
+			var row = Alloy.createController("itemTemplates/contentViewWithLIcon", child_proxy);
+			$.receiveTextSection.add(row.getView());
+			rows.push(row);
+		});
+
+	}
+	$.childTable.setData([$.receiveTextSection]);
 }
 
 function didChangePhone(e) {
@@ -67,23 +67,27 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	if (isFamilyAccounts) {
-		var row = rows[e.index];
+	//if (isFamilyAccounts) {
+	var row = rows[e.index];
 
-		var params = row.getParams();
-		if (params.selected) {
-			params.selected = false;
-		} else {
-			params.selected = true;
-		}
-		rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
-		$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
-
+	var params = row.getParams();
+	if (params.selected) {
+		params.selected = false;
+	} else {
+		params.selected = true;
 	}
+	rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
+	$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
+	selectedChildProxy = _.reject(childProxyData, function(selected) {
+		return childProxyData.selected === 0;
+	});
+	//}
 }
 
 function didClickContinue() {
 	phone = $.phoneTxt.getValue();
+console.log(selectedChildProxy);
+	var childProxy = _.pluck(selectedChildProxy, "id");
 	if (!phone) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhone
@@ -104,7 +108,8 @@ function didClickContinue() {
 			data : [{
 				add : {
 					mobile : "1" + phone,
-					old_mobile : ""
+					old_mobile : "",
+					childIds : childProxy
 				}
 			}]
 

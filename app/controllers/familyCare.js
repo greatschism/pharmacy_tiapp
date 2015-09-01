@@ -44,7 +44,6 @@ function didGetPatient(result) {
 		$.tableView.setData([]);
 		$.familyCareView.remove($.familyMemberAddBtn);
 	} else {
-
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
 		var detailBtnClasses = ["content-detail-secondary-btn-large"];
@@ -225,7 +224,6 @@ function didClickAddFamilyMember() {
 		ctrl : "familyMemberAdd",
 		stack : true
 	});
-
 }
 
 exports.focus = focus;

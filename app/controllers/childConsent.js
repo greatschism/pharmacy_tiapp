@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+authenticator = require("authenticator"),
     selected = true;
 function didClickContinue() {
 	if (args.isFamilyMemberFlow) {
@@ -40,6 +41,7 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
+authenticator.updateFamilyAccounts();
 	var successMessage = result.message;
 	$.uihelper.showDialog({
 		message : successMessage
