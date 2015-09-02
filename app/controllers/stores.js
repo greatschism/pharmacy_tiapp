@@ -98,6 +98,7 @@ function setPatientSwitcher() {
 		    revert = args.selectable && !cPatient.get("is_adult");
 		$.patientSwitcher.set({
 			revert : revert,
+			title : $.strings.storesPatientSwitcher,
 			where : revert ? {
 				related_by : Alloy.CFG.apiCodes.relationship_manager
 			} : {

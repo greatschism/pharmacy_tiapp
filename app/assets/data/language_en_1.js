@@ -147,10 +147,11 @@ module.exports = {
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
 
+		"storesPatientSwitcher" : "%s's stores",
+		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
-		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 
 		"storeDetPromptPhone" : "Call:",
 		"storeDetLblOpen" : "Open till %s",
@@ -569,7 +570,7 @@ module.exports = {
 		"familyCareRelatedPrefix" : "My ",
 		"familyCareLblAcntMgr" : "Account Manager",
 		"familyCareSectionChildProxy" : "People whose medications you manage",
-		"familyCareSectionParentProxy":"People who can manage your prescriptions",
+		"familyCareSectionParentProxy" : "People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "Add family member",
 		"familyCareOptRemove" : "Remove",
 
@@ -581,7 +582,7 @@ module.exports = {
 		"familyMemberAddBtnContinue" : "Continue",
 		"familyMemberAddValDob" : "Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
-		"familyMemberAddHintOther":"Other",
+		"familyMemberAddHintOther" : "Other",
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s",
 		"familyMemberInviteSendTextLbl" : "Send text",
@@ -619,6 +620,7 @@ module.exports = {
 		"familyMemberAddPrescValRxNo" : "Please enter your prescription number.",
 		"familyMemberAddPrescValRxNoInvalid" : "Prescription number you have entered seem invalid.",
 		"familyMemberAddPrescValStore" : "Please select a pharmacy",
-
+		
+		
 	}
 };
