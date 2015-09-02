@@ -211,17 +211,17 @@ function didComplete(passthrough) {
 }
 
 function getErrorMessage(code) {
+	/**
+	 * to do: define error code for
+	 * timeout and show "msgNetworkTimeout"
+	 */
 	var key;
 	switch(code) {
+	case 0:
+		key = "msgNoInternet";
+		break;
 	case 404:
 		key = "msgServicesDown";
-		break;
-	case -1001:
-	case -1002:
-		key = "msgNetworkTimeout";
-		break;
-	case -1004:
-		key = "msgNoInternet";
 		break;
 	default:
 		key = "msgUnknownError";
