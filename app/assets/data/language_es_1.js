@@ -335,12 +335,16 @@ module.exports = {
 		"remindersRefillBenefitsLblReady" : "es-Reminder when Rx is ready",
 		"remindersRefillBenefitsLblPickup" : "es-Reminder when it's time to pick up Rx",
 
-		"remindersSettingsSectionMethods" : "es-Delivery method",
+		"remindersSettingsPatientSwitcher" : "es-%s's reminder settings",
+		"remindersSettingsPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
+		"remindersSettingsSectionMode" : "es-Delivery method",
 		"remindersSettingsSectionRx" : "es-Rx reminder settings",
-		"remindersSettingsLblRefill" : "es-Refill reminders",
-		"remindersSettingsLblMed" : "es-Medication reminders",
-		"remindersSettingsLblPromotional" : "es-Promotional offers",
-		"remindersSettingsLblStore" : "es-Pharmacy information",
+		"remindersSettingsLblTypeApp" : "es-Application reminders",
+		"remindersSettingsLblTypeDoctor" : "es-Doctor appointment reminders",
+		"remindersSettingsLblTypeHealth" : "es-Health reminders",
+		"remindersSettingsLblTypeMed" : "es-Medication reminders",
+		"remindersSettingsLblTypeRefill" : "es-Refill reminders",
+		"remindersSettingsLblTypePromotional" : "es-Promotional offers",
 		"remindersSettingsLblShowRx" : "es-Show Rx names in notifications",
 
 		"transferLblTitle" : "es-You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
@@ -620,7 +624,6 @@ module.exports = {
 		"familyMemberAddPrescValRxNo" : "es-Please enter your prescription number.",
 		"familyMemberAddPrescValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
 		"familyMemberAddPrescValStore" : "es-Please select a pharmacy",
-		
-		
+
 	}
 };

@@ -46,15 +46,15 @@ module.exports = {
 			"reminders" : [{
 				"id" : "app",
 				"col_pref" : "app_reminder_dlvry_mode",
-				"enabled" : true
+				"enabled" : false
 			}, {
 				"id" : "doctor",
 				"col_pref" : "doctor_reminder_dlvry_mode",
-				"enabled" : true
+				"enabled" : false
 			}, {
 				"id" : "health",
 				"col_pref" : "health_info_reminder_dlvry_mode",
-				"enabled" : true
+				"enabled" : false
 			}, {
 				"id" : "med",
 				"col_pref" : "med_reminder_dlvry_mode",
