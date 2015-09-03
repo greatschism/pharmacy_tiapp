@@ -74,7 +74,7 @@ function focus() {
 				return false;
 			});
 			break;
-		case "doctors_remove":
+		case "doctors_delete":
 			didRemoveDoctor(null, currentDoctor);
 			break;
 		}
@@ -208,7 +208,7 @@ function didClickSwipeOption(e) {
 			cancelIndex : 1,
 			success : function() {
 				$.http.request({
-					method : "doctors_remove",
+					method : "doctors_delete",
 					params : {
 						feature_code : "THXXX",
 						data : [{

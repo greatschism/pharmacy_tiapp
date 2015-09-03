@@ -347,6 +347,11 @@ module.exports = {
 		"remindersSettingsLblTypePromotional" : "Promotional offers",
 		"remindersSettingsLblShowRx" : "Show Rx names in notifications",
 
+		"remindersMedPatientSwitcher" : "%s's medication reminders",
+		"remindersMedPatientSwitcherSubtitlePartial" : "Add a prescription to access reminders.",
+		"remindersMedAddLblTitle" : "Want to add a medication reminder?",
+		"remindersMedAddLblDesc" : "It looks like you don't have any reminders set up yet.",
+
 		"transferLblTitle" : "You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "Take a photo",
 		"transferBtnType" : "Type prescription details",

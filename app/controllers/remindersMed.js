@@ -1,14 +1,22 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    httpClient,
+    isWindowOpen;
 
 function init() {
 	$.patientSwitcher.set({
-		title : $.strings.doctorsPatientSwitcher,
+		title : $.strings.remindersMedPatientSwitcher,
 		where : {
 			is_partial : false
 		},
 		selectable : {
 			is_partial : false
-		}
+		},
+		subtitles : [{
+			where : {
+				is_partial : true
+			},
+			subtitle : $.strings.remindersMedPatientSwitcherSubtitlePartial
+		}]
 	});
 	var top = $.uihelper.getHeightFromChildren($.headerView);
 	$.tableView.top = top;
@@ -21,6 +29,28 @@ function focus() {
 	 * used this global variable in it's life span
 	 */
 	Alloy.Globals.currentTable = $.tableView;
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		getMedReminders();
+	}
+}
+
+function getMedReminders() {
+	$.http.request({
+		method : "prescriptions_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				prescriptions : {
+					id : prescription.id,
+					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
+					prescription_display_status : apiCodes.prescription_display_status_active
+				}
+			}]
+		},
+		showLoader : false,
+		success : didGetPrescription
+	});
 }
 
 function didChangePatient(e) {

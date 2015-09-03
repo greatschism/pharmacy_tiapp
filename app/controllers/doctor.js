@@ -222,7 +222,7 @@ function didClickRemove(e) {
 			message : $.strings.doctorMsgRemoveRestricted
 		});
 	} else {
-		doctor.method = "doctors_remove";
+		doctor.method = "doctors_delete";
 		$.uihelper.showDialog({
 			message : String.format($.strings.doctorMsgRemoveConfirm, doctor.title),
 			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],

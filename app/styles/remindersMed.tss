@@ -1,0 +1,6 @@
+"#addDescLbl":{
+	text: Alloy.Globals.strings.remindersMedAddLblDesc
+},
+"#addTitleLbl":{
+	text: Alloy.Globals.strings.remindersMedAddLblTitle
+}
