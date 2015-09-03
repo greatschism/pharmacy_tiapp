@@ -198,10 +198,20 @@ function didGetFamilyAccounts(result, passthrough) {
 		if (!child.child_id) {
 			return false;
 		}
+		/**
+		 * Note: With family care module
+		 * if related_by is chosen as
+		 * others, then client app makes
+		 * a way to user to enter his own
+		 * value and that value is being
+		 * passed to server. So it might not match
+		 * with any code_value / code_display
+		 */
+		var childRelationship = _.findWhere(relationships, {
+			code_value : child.related_by
+		});
 		patients.push(_.extend(_.pick(child, ["address", "child_id", "link_id", "related_by", "session_id"]), {
-			relationship : _.findWhere(relationships, {
-				code_value : child.related_by
-			}).code_display,
+			relationship : childRelationship ? childRelationship.code_display : child.related_by,
 			selectable : true,
 			selected : false
 		}));
@@ -439,7 +449,7 @@ function updatePreferences(passthrough) {
 	 */
 	var preferences = Alloy.Collections.patients.findWhere({
 		selected : true
-	}).pick(["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"]);
+	}).pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
 	//extend updated values
 	_.extend(preferences, passthrough.params);
 	http.request({

@@ -1,0 +1,19 @@
+<Alloy>
+	<View id="headerView" class="top auto-height vgroup">
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+		<View class="hide content-header-view">
+			<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
+			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+		</View>
+	</View>
+	<TableView id="tableView" onSingletap="didClickTableView">
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
+	<ScrollView id="addView" class="hide top margin-bottom vgroup">
+		<Label id="addDescLbl" class="margin-top lbl-centered-wrap" />
+		<Label id="addTitleLbl" class="margin-top title-centered-wrap" />
+		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" onClick="didClickAdd" />
+	</ScrollView>
+</Alloy>

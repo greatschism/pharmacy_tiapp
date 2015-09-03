@@ -69,39 +69,11 @@ function didClickRefill(e) {
 }
 
 function didClickMed(e) {
-	//call reminders api
-	didGetReminders();
-}
-
-function didGetReminders(result, passthrough) {
-	var navigation;
-	if (Alloy.Collections.reminders.length) {
-		navigation = {
-			titleid : "titleRemindersMed",
-			ctrl : "remindersMed",
-			stack : true
-		};
-	} else {
-		navigation = {
-			titleid : "titleRemindersMedPrescriptions",
-			ctrl : "prescriptions",
-			ctrlArguments : {
-				navigation : {
-					titleid : "titleRemindersMed",
-					ctrl : "remindersMed",
-					ctrlArguments : {
-						canAdd : false
-					},
-					stack : true
-				},
-				titleSubmitBtn : $.strings.prescBtnContinue,
-				isMedReminder : true,
-				selectable : true
-			},
-			stack : true
-		};
-	}
-	$.app.navigator.open(navigation);
+	$.app.navigator.open({
+		titleid : "titleRemindersMed",
+		ctrl : "remindersMed",
+		stack : true
+	});
 }
 
 function didClickSettings(e) {
