@@ -409,8 +409,11 @@ function revertPatient() {
 }
 
 /**
- * terminate the listener
- * must be called on parent controller's terminate
+ * Important: This method
+ * must be called on parent
+ * controller's terminate to
+ * avoid memory leaks due to collection
+ * binding
  */
 function terminate() {
 	//revert selection

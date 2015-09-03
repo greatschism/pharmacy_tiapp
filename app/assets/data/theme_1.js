@@ -65,7 +65,7 @@ module.exports = {
 				"enabled" : true
 			}, {
 				"id" : "promotional",
-				"col_pref" : "promotion_deals_reminder_flag",
+				"col_pref" : "promotion_deals_reminder_mode",
 				"enabled" : true
 			}],
 			"rx_schedule_2_validator" : "^(2).*$",
