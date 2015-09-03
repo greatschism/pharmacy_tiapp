@@ -52,4 +52,15 @@ function didChangePatient(e) {
 
 }
 
+function setParentView(view) {
+	$.patientSwitcher.setParentView(view);
+}
+
+function terminate() {
+	//terminate patient switcher
+	$.patientSwitcher.terminate();
+}
+
 exports.init = init;
+exports.terminate = terminate;
+exports.setParentView = setParentView;
