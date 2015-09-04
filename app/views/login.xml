@@ -1,21 +1,23 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<ImageView id="logoImg" class="margin-top" />
-		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<View class="margin-top form-vgroup">
-			<Widget id="usernameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
-			<View class="h-divider" />
-			<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-ricon-help returnkey-done" onReturn="didClickLogin" onClick="didClickPassword" />
+	<ScrollView id="scrollView">
+		<View class="vgroup">
+			<ImageView id="logoImg" class="margin-top" />
+			<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
+			<View class="margin-top form-vgroup">
+				<Widget id="usernameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+				<View class="h-divider" />
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-ricon-help returnkey-done" onReturn="didClickLogin" onClick="didClickPassword" />
+			</View>
+			<View class="margin-top auto-height" if="Alloy.CFG.toggle_password_enabled">
+				<Label id="togglePasswordLbl" class="lbl-with-rswt" />
+				<Widget id="togglePasswordSwt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle"/>
+			</View>
+			<View id="autoLoginView" class="margin-top auto-height" >
+				<Label id="autoLoginLbl" class="lbl-with-rswt" onPostlayout="didPostlayout" />
+				<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt"/>
+			</View>
+			<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
+			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
 		</View>
-		<View class="margin-top auto-height" if="Alloy.CFG.toggle_password_enabled">
-			<Label id="togglePasswordLbl" class="lbl-with-rswt" />
-			<Widget id="togglePasswordSwt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle" />
-		</View>
-		<View class="margin-top auto-height">
-			<Label id="autoLoginLbl" class="lbl-with-rswt" />
-			<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
-		</View>
-		<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
-		<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy> 

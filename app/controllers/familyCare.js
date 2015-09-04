@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     parentData = [],
     childData = [],
+    authenticator = require("authenticator"),
     childRow,
     swipeOptions,
     rows = [];
@@ -30,9 +31,9 @@ function didGetPatient(result) {
 	var accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = result.data.parent_proxy;
 	childData = result.data.child_proxy;
-	
+	console.log(accntMgrData.get("patient_id"));
 	/**
-	 * If there are no children proxies or no parent proxies, 
+	 * If there are no children proxies or no parent proxies,
 	 * do not show any sections, set the tableview data to null.
 	 */
 	if (!childData && !parentData) {
@@ -86,7 +87,6 @@ function didGetPatient(result) {
 				});
 			}
 			if (parentData) {
-				console.log(parentData);
 				parentProxyData = [];
 				$.parentProxySection = $.uihelper.createTableViewSection($, $.strings.familyCareSectionParentProxy);
 				_.each(result.data.parent_proxy, function(parentProxy) {
@@ -120,21 +120,28 @@ function didClickChildSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
-	$.http.request({
-		method : "patient_family_delete",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				patient : {
-					child_id : data.child_id,
-					link_id : data.link_id
-				}
-			}]
+	$.uihelper.showDialog({
+		message : Alloy.Globals.strings.familyCareMsgChildRemove,
+		success : function() {
 
-		},
-		passthrough : data,
-		success : didRemoveChild
+			$.http.request({
+				method : "patient_family_delete",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						patient : {
+							child_id : data.child_id,
+							link_id : data.link_id
+						}
+					}]
+
+				},
+				passthrough : data,
+				success : didRemoveChild
+			});
+		}
 	});
+
 }
 
 function didClickMgrSwipeOption(e) {
@@ -142,19 +149,24 @@ function didClickMgrSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
-	$.http.request({
-		method : "patient_family_delete",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				patient : {
-					parent_id : data.parent_id,
-				}
-			}]
+	$.uihelper.showDialog({
+		message : Alloy.Globals.strings.familyCareMsgParentRemove,
+		success : function() {
+			$.http.request({
+				method : "patient_family_delete",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						patient : {
+							parent_id : data.parent_id,
+						}
+					}]
 
-		},
-		passthrough : data,
-		success : didRemoveParent
+				},
+				passthrough : data,
+				success : didRemoveParent
+			});
+		}
 	});
 }
 
@@ -168,20 +180,12 @@ function didRemoveParent(result, passthrough) {
 	rows = _.reject(rows, function(row) {
 		if (row.getParams().parent_id === params.parent_id) {
 			$.tableView.deleteRow(row.getView());
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	});
-	if (!params.count) {
-		$.http.request({
-			method : "patient_family_get",
-			params : {
-				feature_code : "THXXX"
-			},
-			forceRetry : true,
-			success : didGetPatient
-		});
-	}
+	authenticator.updateFamilyAccounts();
+
 }
 
 function didRemoveChild(result, passthrough) {
@@ -192,22 +196,24 @@ function didRemoveChild(result, passthrough) {
 	 */
 	var params = passthrough;
 	rows = _.reject(rows, function(row) {
-		if (row.getParams().link_id === params.link_id) {
-			$.tableView.deleteRow(row.getView());
+		if (params.link_id) {
+			if (row.getParams().link_id === params.link_id) {
+				$.tableView.deleteRow(row.getView());
+				return true;
+			}
 			return false;
+
+		} else if (params.child_id) {
+			if (row.getParams().child_id === params.child_id) {
+				$.tableView.deleteRow(row.getView());
+				return true;
+			}
+			return false;
+
 		}
-		return true;
 	});
-	if (!params.count) {
-		$.http.request({
-			method : "patient_family_get",
-			params : {
-				feature_code : "THXXX"
-			},
-			forceRetry : true,
-			success : didGetPatient
-		});
-	}
+	authenticator.updateFamilyAccounts();
+
 }
 
 function addPrescriptions() {

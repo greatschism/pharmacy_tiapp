@@ -1,5 +1,36 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+authenticator = require("authenticator");
+function init() {
+	if ($.patientSwitcher) {
+		$.patientSwitcher.set({
+			title : $.strings.transferSwitcher,
+			where : {
+				is_partial : false
+			}
+		});
+	}
+}
 
+function setParentView(view) {
+	if ($.patientSwitcher) {
+		$.patientSwitcher.setParentView(view);
+	}
+}
+
+function terminate() {
+	//terminate patient switcher
+	if ($.patientSwitcher) {
+		$.patientSwitcher.terminate();
+	}
+}
+function didChangePatient(e) {
+	console.log(e);
+
+	Alloy.Globals.sessionId =e.session_id;
+	
+	//Alloy.Globals.sessionId = Alloy.Collections.patients.at(0).get("session_id");
+	console.log(Alloy.Globals.sessionId);
+}
 function didClickPhoto(e) {
 	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
@@ -48,3 +79,7 @@ function didClickType(e) {
 		stack : true
 	});
 }
+
+exports.init = init;
+exports.terminate = terminate;
+exports.setParentView = setParentView; 

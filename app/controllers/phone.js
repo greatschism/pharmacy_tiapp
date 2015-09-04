@@ -14,7 +14,7 @@ function init() {
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
-	if (!args.signup) {
+	if (args.signup) {
 		didChangePhone({
 			value : lastPhone
 		});

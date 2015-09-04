@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     store = {},
     rxContainerViewFromTop = 0,
     authenticator = require("authenticator");
-    console.log(args.familyRelationship);
+
 function init() {
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
