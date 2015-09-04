@@ -199,7 +199,7 @@ function didClickSubmit(e) {
 	} else {
 		_.extend(data, {
 			method : "doctors_add",
-			doctor_type : "manual"
+			doctor_type : apiCodes.doctor_type_manual
 		});
 	}
 	$.http.request({
@@ -216,6 +216,13 @@ function didClickSubmit(e) {
 }
 
 function didSuccessDoctor(result, passthrough) {
+	/**
+	 * add doctor id if not available
+	 * happens while add
+	 */
+	if (!doctor.id) {
+		doctor.id = result.data.doctors.id;
+	}
 	/**
 	 * extend the source object
 	 */

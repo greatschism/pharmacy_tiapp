@@ -56,6 +56,7 @@
             "reminder_mode_text": "text",
             "reminder_mode_push": "push",
             "reminder_mode_none": "",
+            "reminder_type_dosage": "dosage",
             "store_view_type_list": "LIST",
             "store_view_type_map": "MAP",
             "doctor_type_auto": "auto",

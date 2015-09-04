@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    httpClient,
+    apiCodes = Alloy.CFG.apiCodes,
     isWindowOpen;
 
 function init() {
@@ -36,7 +36,23 @@ function focus() {
 }
 
 function getMedReminders() {
+	$.http.request({
+		method : "reminders_med_list",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				reminders : {
+					type : apiCodes.reminder_type_dosage
+				}
+			}]
+		},
+		keepLoader : true,
+		success : didGetReminders
+	});
+}
 
+function didGetReminders(result, passthrough) {
+	console.log(result);
 }
 
 function getPrescriptions(status) {
