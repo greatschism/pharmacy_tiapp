@@ -315,7 +315,7 @@ function didGetPreferences(result, passthrough) {
 		 * revert the session id
 		 * if any
 		 */
-		if (passthrough.revert) {
+		if (passthrough.child_id) {
 			/**
 			 * if valid, then select it
 			 * if not valid, keep the manager account session id
@@ -323,7 +323,7 @@ function didGetPreferences(result, passthrough) {
 			 * family get
 			 */
 			var toSelect = Alloy.Collections.patients.findWhere({
-				child_id : passthrough.revert
+				child_id : passthrough.child_id
 			});
 			if (toSelect) {
 				//valid, unselect manager
@@ -339,19 +339,26 @@ function didGetPreferences(result, passthrough) {
 			Alloy.Globals.sessionId = mPatient.get("session_id");
 		}
 		/**
-		 * fire callback
-		 * if any - occurs when
-		 * this is not part of authenticate
-		 * but a external patient get
+		 * check whether this is a
+		 * explicit request from other
+		 * controllers just because of
+		 * a change in family care
+		 * i.e account add / delete / update
+		 * Note: checking just for callback
+		 * will fail when no callback is passed
+		 * to updateFamilyAccounts. So
+		 * we need explicit property
 		 */
-		if (passthrough.callback) {
+		if (passthrough.explicit) {
 			//trigger reset for patient switcher
 			Alloy.Collections.patients.trigger("reset");
-			//fire callback
+			/**
+			 * fire callback
+			 * if any
+			 */
 			var callback = passthrough.callback;
-			delete passthrough.callback;
 			if (callback) {
-				callback(passthrough);
+				callback();
 			}
 		} else {
 			/**
@@ -360,8 +367,6 @@ function didGetPreferences(result, passthrough) {
 			 * api now
 			 */
 			Alloy.Globals.isLoggedIn = true;
-			//update default time zone
-			appendFlag(Alloy.Models.timeZone.get("code_values"), mPatient.get("pref_timezone"));
 			/**
 			 * set prefered time zone
 			 * before that store the user
@@ -372,7 +377,7 @@ function didGetPreferences(result, passthrough) {
 			    dFormat = Alloy.CFG.date_time_format,
 			    dDate = moment(dateObj).format(dFormat),
 			    currentTZ;
-			setTimeZone(mPatient.get("pref_timezone"));
+			setTimeZone(mPatient.get("pref_timezone"), true);
 			/**
 			 * add logout menu item
 			 */
@@ -419,10 +424,9 @@ function didGetPreferences(result, passthrough) {
 						buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 						cancelIndex : 1,
 						success : function didConfirm() {
-							passthrough.params = {
+							updatePreferences({
 								pref_timezone : currentTZ
-							};
-							updatePreferences(passthrough);
+							}, passthrough.success);
 						},
 						cancel : fireCallback
 					});
@@ -444,9 +448,10 @@ function didGetPreferences(result, passthrough) {
 			}
 		}
 	}
+
 }
 
-function updatePreferences(passthrough) {
+function updatePreferences(params, callback) {
 	/**
 	 * api requires all parameters to be sent
 	 */
@@ -454,14 +459,17 @@ function updatePreferences(passthrough) {
 		selected : true
 	}).pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
 	//extend updated values
-	_.extend(preferences, passthrough.params);
+	_.extend(preferences, params);
 	http.request({
 		method : "patient_preferences_update",
 		params : {
 			feature_code : "THXXX",
 			data : [preferences]
 		},
-		passthrough : passthrough,
+		passthrough : {
+			params : params,
+			callback : callback
+		},
 		forceRetry : true,
 		success : didUpdatePreferences
 	});
@@ -485,7 +493,7 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
-	var callback = passthrough.success || passthrough.callback;
+	var callback = passthrough.callback;
 	if (callback) {
 		callback();
 	}
@@ -643,6 +651,11 @@ function getAutoLoginEnabled() {
 	return utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
 }
 
+/**
+ * @zone {String} - code value for time zone
+ * @updateCodeVal {Boolean} - whether or not to update the selection flag
+ * in code values
+ */
 function setTimeZone(zone, updateCodeVal) {
 	/**
 	 * update code values
@@ -651,7 +664,7 @@ function setTimeZone(zone, updateCodeVal) {
 	 * only when this is a preference update
 	 * during time zone check
 	 */
-	if (updateCodeVal) {
+	if (updateCodeVal && zone) {
 		appendFlag(Alloy.Models.timeZone.get("code_values"), zone);
 	}
 	/**
@@ -672,7 +685,8 @@ function setTimeZone(zone, updateCodeVal) {
  */
 function updateFamilyAccounts(callback) {
 	getFamilyAccounts({
-		revert : Alloy.Collections.patients.findWhere({
+		explicit : true,
+		child_id : Alloy.Collections.patients.findWhere({
 			selected : true
 		}).get("child_id"),
 		callback : callback

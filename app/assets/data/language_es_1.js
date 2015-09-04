@@ -349,8 +349,8 @@ module.exports = {
 
 		"remindersMedPatientSwitcher" : "es-%s's medication reminders",
 		"remindersMedPatientSwitcherSubtitlePartial" : "es-Add a prescription to access reminders.",
-		"remindersMedAddLblTitle" : "es-Want to add a medication reminder?",
-		"remindersMedAddLblDesc" : "es-It looks like you don't have any reminders set up yet.",
+		"remindersMedAddLblTitle" : "es-Want to add a\nmedication reminder?",
+		"remindersMedAddLblDesc" : "es-It looks like you don't have\nany reminders set up yet.",
 
 		"transferLblTitle" : "es-You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "es-Take a photo",
