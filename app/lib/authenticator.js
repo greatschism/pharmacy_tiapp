@@ -243,21 +243,24 @@ function getPatient(passthrough) {
 }
 
 function didGetPatient(result, passthrough) {
-	var patient = result.data.patients;
+	var patientModel = Alloy.Collections.patients.at(passthrough.currentPatientIndex),
+	    patient = result.data.patients;
 	/**
 	 * Note: manager account can be partial
 	 * but child accounts can't be a partial account
 	 * as per inputs from Server Team, for partial accounts
 	 * id will start with DUMMY
+	 *
+	 * for pet: is_adult can always be false
 	 */
 	_.extend(patient, {
 		first_name : utilities.ucfirst(patient.first_name),
 		last_name : utilities.ucfirst(patient.last_name),
-		is_adult : moment().diff(moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) >= 18,
+		is_adult : patientModel.get("related_by") != Alloy.CFG.apiCodes.relationship_pet && moment().diff(moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) >= 18,
 		is_partial : (patient.patient_id || "").indexOf("DUMMY") !== -1
 	});
 	patient.title = patient.first_name + " " + patient.last_name;
-	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(patient);
+	patientModel.set(patient);
 	//get preferences
 	http.request({
 		method : "patient_preferences_get",

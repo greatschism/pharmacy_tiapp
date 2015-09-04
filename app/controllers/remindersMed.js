@@ -36,21 +36,23 @@ function focus() {
 }
 
 function getMedReminders() {
-	$.http.request({
-		method : "prescriptions_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				prescriptions : {
-					id : prescription.id,
-					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-					prescription_display_status : apiCodes.prescription_display_status_active
-				}
-			}]
-		},
-		showLoader : false,
-		success : didGetPrescription
-	});
+
+}
+
+function getPrescriptions(status) {
+
+}
+
+function didGetPrescriptions(result, passthrough) {
+
+}
+
+function getHiddenPrescriptions(status) {
+
+}
+
+function didGetHiddenPrescriptions(result, passthrough) {
+
 }
 
 function didChangePatient(e) {

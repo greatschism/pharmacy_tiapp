@@ -291,13 +291,15 @@ function didConfirmHide() {
 				}]
 			}]
 		},
-		success : function() {
-			httpClient = null;
-			//triggers a reload when prescription list is focused
-			prescription.shouldUpdate = true;
-			$.app.navigator.close();
-		}
+		success : didHidePrescription
 	});
+}
+
+function didHidePrescription(result, passthrough) {
+	httpClient = null;
+	//triggers a reload when prescription list is focused
+	prescription.shouldUpdate = true;
+	$.app.navigator.close();
 }
 
 function showHistory(e) {

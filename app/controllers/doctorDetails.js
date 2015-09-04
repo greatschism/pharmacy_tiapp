@@ -49,6 +49,11 @@ function init() {
 }
 
 function focus() {
+	/**
+	 * shouldUpdate flag is used only by this controller
+	 * method field is again used in doctors controller when going back from here
+	 * the same filed will be deleted there, don't use method only as reference here
+	 */
 	if (doctor.method == "doctors_update" && doctor.shouldUpdate) {
 		doctor.title = $.strings.strPrefixDoctor.concat($.utilities.ucword(doctor.first_name || "") + " " + $.utilities.ucword(doctor.last_name || ""));
 		delete doctor.shouldUpdate;

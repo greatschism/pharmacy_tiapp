@@ -173,7 +173,13 @@ function didClickSubmit(e) {
 		}
 	}
 	state = $.stateDp.getSelectedItem();
-	_.extend(doctor, {
+	/**
+	 * keep everything in a
+	 * new object until api call
+	 * returns success
+	 */
+	var data = _.pick(doctor, ["id", "doctor_type", "image_url"]);
+	_.extend(data, {
 		first_name : $.fnameTxt.getValue(),
 		last_name : $.lnameTxt.getValue(),
 		phone : phone,
@@ -185,34 +191,35 @@ function didClickSubmit(e) {
 		state : _.isEmpty(state) ? "" : state.code_value,
 		notes : $.notesTxta.getValue()
 	});
-	var method;
 	if (args.isUpdate) {
-		_.extend(doctor, {
+		_.extend(data, {
 			method : "doctors_update",
 			shouldUpdate : true
 		});
 	} else {
-		_.extend(doctor, {
+		_.extend(data, {
 			method : "doctors_add",
 			doctor_type : "manual"
 		});
 	}
 	$.http.request({
-		method : doctor.method,
+		method : data.method,
 		params : {
 			feature_code : "THXXX",
 			data : [{
-				doctors : _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"])
+				doctors : _.omit(data, ["method", "shouldUpdate"])
 			}]
 		},
+		passthrough : data,
 		success : didSuccessDoctor
 	});
 }
 
 function didSuccessDoctor(result, passthrough) {
-	if (!doctor.id) {
-		doctor.id = result.data.doctors.id;
-	}
+	/**
+	 * extend the source object
+	 */
+	_.extend(doctor, passthrough);
 	$.app.navigator.close();
 }
 
