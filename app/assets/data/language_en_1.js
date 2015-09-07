@@ -375,6 +375,7 @@ module.exports = {
 		"transferTypeValPhoneInvalid" : "The phone number you have entered is invalid.",
 		"transferTypeValRxInvalid" : "Prescription number you have entered seem invalid.",
 		"transferTypeValStoreOriginal" : "Please select the pharmacy this prescription is from.",
+		"transferTypeOther":"Other",
 
 		"transferUserDetTitle" : "We need some details about you so we can process your transfer.",
 		"transferUserDetHintFirstName" : "First name",

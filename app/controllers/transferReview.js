@@ -69,7 +69,7 @@ function transferStore(imageURL) {
 			rx_name : prescription.name,
 			rx_number : prescription.rx,
 			from_pharmacy_phone : prescription.phone,
-			from_pharmacy_name : prescription.storeOriginal.code_display
+			from_pharmacy_name : prescription.storeOther ? prescription.storeOther : prescription.storeOriginal.code_display
 		});
 	} else {
 		data.image_url = imageURL;

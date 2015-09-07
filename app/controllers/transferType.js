@@ -41,7 +41,30 @@ function updateInputs() {
 		$.nameTxt.setValue(prescription.name);
 		$.rxTxt.setValue(prescription.rx);
 		$.phoneTxt.setValue($.utilities.formatPhoneNumber(prescription.phone));
-		$.storeOriginalDp.setSelectedItem(prescription.storeOriginal);
+		if (prescription.storeOriginal.code_display == "Other") {
+			$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
+				classes : ["form-txt"],
+				hintText : $.strings.transferTypeOther
+			}));
+			$.otherTxtView.add($.otherTxt.getView());
+			$.otherTxt.setValue(prescription.storeOther);
+			$.storeOriginalDp.setSelectedItem(prescription.storeOriginal);
+
+		} else {
+			$.storeOriginalDp.setSelectedItem(prescription.storeOriginal);
+		}
+	}
+}
+
+function didChangeStore() {
+	if ($.storeOriginalDp.getSelectedItem().code_display === "Other") {
+		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
+			classes : ["form-txt"],
+			hintText : $.strings.transferTypeOther
+		}));
+		$.otherTxtView.add($.otherTxt.getView());
+	} else if ($.otherTxt) {
+		$.otherTxtView.remove($.otherTxt.getView());
 	}
 }
 
@@ -102,6 +125,11 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
+	if (storeOriginal.code_display == "Other") {
+		storeOtherValue = $.otherTxt.getValue();
+	} else {
+		storeOtherValue = "";
+	}
 	/**
 	 * if args.prescription is valid
 	 * then just close this page
@@ -112,7 +140,8 @@ function didClickSubmit(e) {
 		name : name,
 		rx : $.rxTxt.getValue(),
 		phone : phone,
-		storeOriginal : storeOriginal
+		storeOriginal : storeOriginal,
+		storeOther :storeOtherValue
 	};
 	if (args.prescription) {
 		_.extend(args.prescription, prescription);

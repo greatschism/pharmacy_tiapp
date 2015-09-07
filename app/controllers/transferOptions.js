@@ -1,10 +1,8 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment");
-
-function init() {
-	$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription ? args.prescription.storeOriginal.code_display : $.strings.transferOptsStrStoreNone);
+function focus() {
+	$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther: args.prescription.storeOriginal.code_display);
 }
-
 function didClickComplete(e) {
 	if (args.prescription) {
 		transferStore();
@@ -69,7 +67,7 @@ function transferStore(imageURL) {
 			rx_name : prescription.name,
 			rx_number : prescription.rx,
 			from_pharmacy_phone : prescription.phone,
-			from_pharmacy_name : prescription.storeOriginal.code_display
+			from_pharmacy_name : prescription.storeOther ? prescription.storeOther : prescription.storeOriginal.code_display
 		});
 	} else {
 		data.image_url = imageURL;
@@ -116,4 +114,4 @@ function didClickReview(e) {
 	});
 }
 
-exports.init = init;
+exports.focus = focus;
