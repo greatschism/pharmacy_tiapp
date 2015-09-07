@@ -257,11 +257,11 @@ function didConfirmRemove() {
 				}
 			}]
 		},
-		success : didRemoveDoctor
+		success : didDeleteDoctor
 	});
 }
 
-function didRemoveDoctor(result, passthrough) {
+function didDeleteDoctor(result, passthrough) {
 	$.app.navigator.closeToRoot();
 }
 

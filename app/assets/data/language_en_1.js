@@ -25,6 +25,7 @@ module.exports = {
 		"dialogBtnNo" : "No",
 		"dialogBtnCancel" : "Cancel",
 		"dialogBtnContinue" : "Continue",
+		"dialogBtnClose" : "Close",
 		"dialogBtnRetry" : "Retry",
 		"dialogBtnPhone" : "Call",
 		"dialogBtnMapApple" : "Apple maps",
@@ -147,7 +148,9 @@ module.exports = {
 		"loginValPassword" : "Please enter your password",
 		"loginBtnLogin" : "Sign in",
 		"loginTooltipBtnHide" : "Got it!",
-		"loginTooltipLblAutoSignIn":"tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
+		"loginTooltipLblAutoSignIn" : "tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
+
+		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -350,7 +353,7 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "Show Rx names in notifications",
 
 		"remindersMedPatientSwitcher" : "%s's medication reminders",
-		"remindersMedPatientSwitcherSubtitlePartial" : "Add a prescription to access reminders.",
+		"remindersMedPatientSwitcherSubtitlePartial" : "Please add a prescription to set up reminders.",
 		"remindersMedAddLblTitle" : "Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "It looks like you don't have\nany reminders set up yet.",
 
@@ -585,8 +588,8 @@ module.exports = {
 		"familyCareSectionParentProxy" : "People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "Add family member",
 		"familyCareOptRemove" : "Remove",
-		"familyCareMsgChildRemove":"Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
-		"familyCareMsgParentRemove":"Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
+		"familyCareMsgChildRemove" : "Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
+		"familyCareMsgParentRemove" : "Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
 		"familyMemberAddLbl" : "Great let's add your family members!",
 		"familyMemberAddTip" : "Please enter your family member's date of birth.",

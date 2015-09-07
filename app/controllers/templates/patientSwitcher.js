@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     utilities = require("utilities"),
+    uihelper = require("uihelper"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 60,
     arrowDown = $.createStyle({
 	classes : ["icon-thin-arrow-down"]
@@ -8,6 +9,7 @@ var args = arguments[0] || {},
     arrowUp = $.createStyle({
 	classes : ["icon-thin-arrow-up"]
 }),
+    options = {},
     templateHeight,
     rModel,
     sModel,
@@ -116,7 +118,7 @@ function show() {
 		});
 		$.popoverView.applyProperties({
 			visible : true,
-			zIndex : args.zIndex || 10,
+			zIndex : args.zIndex || 10
 		});
 		var animation = Ti.UI.createAnimation({
 			opacity : 1,
@@ -174,14 +176,68 @@ function didClickTableView(e) {
 	if (row) {
 		var params = row.getParams();
 		/**
+		 * check whether to show invite dialog
+		 */
+		if (params.invite) {
+			//hide popover
+			hide();
+			/**
+			 * show invite dialog
+			 */
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.patientSwitcherMsgChildBecameAdult,
+				buttonNames : [Alloy.Globals.strings.dialogBtnContinue, Alloy.Globals.strings.dialogBtnClose],
+				cancelIndex : 1,
+				success : function didClickContinueInvite() {
+					//update account manager - child_proxy property
+					Alloy.Collections.patients.at(0).set("child_proxy", _.reject(Alloy.Collections.patients.at(0).get("child_proxy"), function(child) {
+						if (params.child_id === child.child_id) {
+							return true;
+						}
+						return false;
+					}));
+					//delete account from collection
+					Alloy.Collections.patients.reset(Alloy.Collections.patients.reject(function(model) {
+						if (params.child_id === model.get("child_id")) {
+							return true;
+						}
+						return false;
+					}));
+					/**
+					 * remove row from rows
+					 * and delete this row
+					 * Note: session_id will never be of this
+					 * account (which has invite flag as true), so just ignore
+					 */
+					rows = _.reject(rows, function(oRow) {
+						if (params.child_id === oRow.getParams().child_id) {
+							$.tableView.deleteRow(oRow.getView());
+							return true;
+						}
+						return false;
+					});
+					//now just navigate to adult invite screen
+					$.app.navigator.open({
+						titleid : "titleAddFamily",
+						ctrl : "familyMemberInvite",
+						ctrlArguments : {
+							dob : moment(params.birth_date, Alloy.CFG.apiCodes.dob_format).toDate(),
+							familyRelationship : params.related_by
+						}
+					});
+				}
+			});
+			return false;
+		}
+		/**
 		 * prevent switcher from updating selection when
 		 * if the row is already selected
 		 * or
-		 * args.callback returns false
+		 * options.callback returns false
 		 * or
 		 * params.selectable is false
 		 */
-		if (params.selected || (args.callback && !args.callback(params)) || !params.selectable) {
+		if (params.selected || (options.callback && !options.callback(params)) || !params.selectable) {
 			return hide();
 		}
 		/**
@@ -190,8 +246,8 @@ function didClickTableView(e) {
 		 * Note: object inside row and
 		 * model are not same
 		 */
-		_.some(rows, function(row) {
-			var rParams = row.getParams();
+		_.some(rows, function(oRow) {
+			var rParams = oRow.getParams();
 			if (rParams.selected) {
 				rParams.selected = false;
 				return true;
@@ -224,11 +280,11 @@ function updateUI(params) {
 	 * this user
 	 */
 	Alloy.Globals.sessionId = params.session_id;
-	$.lbl.text = args.title ? String.format(args.title, params.first_name) : params.first_name;
+	$.lbl.text = options.title ? String.format(options.title, params.first_name) : params.first_name;
 }
 
 /**
- * {Object} options
+ * {Object} opts
  *
  * all properties are optional
  *
@@ -266,28 +322,39 @@ function updateUI(params) {
  *
  * callback - a function that should called upon selection
  */
-function set(options) {
+function set(opts) {
 
-	args = options || {};
+	options = opts || {};
 
 	//reset model
 	sModel = null;
 
 	//model to revert
-	if (args.revert) {
+	if (options.revert) {
 		rModel = Alloy.Collections.patients.findWhere({
 			selected : true
 		});
 	}
 
+	var where = options.where || {},
+	    wSelectable = options.selectable,
+	    subtitles = options.subtitles,
+	    subtitle = options.subtitle,
+	    isAssigned;
+	/**
+	 * invite should always be false
+	 * child who turned 18 should be invited
+	 * again
+	 */
+	where.invite = false;
 	/**
 	 * check if previously selected model
-	 * passes this args.where condition
+	 * passes this where condition
 	 */
-	if (args.where) {
+	if (where) {
 		sModel = Alloy.Collections.patients.findWhere(_.extend({
 			selected : true
-		}, args.where));
+		}, where));
 		if (sModel) {
 			updateUI(sModel.toJSON());
 		}
@@ -302,9 +369,11 @@ function set(options) {
 		 * to disable specific items
 		 * from selection
 		 * Note: this is required even when selectable is not passed
-		 * in order to make items selectable that was unselectable previously
+		 * in order to make items selectable that was unselectable previously.
+		 * When invite is true, selectable should be false. A minor turned to adult,
+		 * should invite him again now.
 		 */
-		child.set("selectable", args.selectable ? utilities.isMatch(obj, args.selectable) : true);
+		child.set("selectable", obj.invite ? false : ( wSelectable ? utilities.isMatch(obj, wSelectable) : true));
 
 		/**
 		 * unset selected flag
@@ -316,8 +385,8 @@ function set(options) {
 		 * used
 		 */
 		if (!sModel) {
-			if (args.where) {
-				if (utilities.isMatch(obj, args.where)) {
+			if (where) {
+				if (utilities.isMatch(obj, where)) {
 					child.set("selected", true);
 					sModel = child;
 					updateUI(obj);
@@ -333,8 +402,7 @@ function set(options) {
 		}
 
 		//check for custom subtitles
-		var subtitles = args.subtitles,
-		    isAssigned;
+		isAssigned = false;
 		if (subtitles) {
 			isAssigned = _.some(subtitles, function(subObj) {
 				if (utilities.isMatch(obj, subObj.where)) {
@@ -343,11 +411,13 @@ function set(options) {
 				}
 				return false;
 			});
-			if (!isAssigned && args.subtitle) {
-				isAssigned = true;
-				child.set("subtitle", args.subtitle);
-			}
 		}
+		//if no subtitles or isAssigned false with valid subtitle
+		if (!isAssigned && subtitle) {
+			isAssigned = true;
+			child.set("subtitle", subtitle);
+		}
+		//if not assigned yet, just use relationship
 		if (!isAssigned) {
 			child.set("subtitle", obj.relationship);
 		}

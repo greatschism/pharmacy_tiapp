@@ -25,6 +25,7 @@ module.exports = {
 		"dialogBtnNo" : "es-No",
 		"dialogBtnCancel" : "es-Cancel",
 		"dialogBtnContinue" : "es-Continue",
+		"dialogBtnClose" : "es-Close",
 		"dialogBtnRetry" : "es-Retry",
 		"dialogBtnPhone" : "es-Call",
 		"dialogBtnMapApple" : "es-Apple maps",
@@ -146,6 +147,10 @@ module.exports = {
 		"loginValUsername" : "es-Please enter your username",
 		"loginValPassword" : "es-Please enter your password",
 		"loginBtnLogin" : "es-Sign in",
+		"loginTooltipBtnHide" : "es-Got it!",
+		"loginTooltipLblAutoSignIn" : "es-tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
+
+		"patientSwitcherMsgChildBecameAdult" : "es-This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"storesPatientSwitcher" : "es-%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
@@ -348,13 +353,14 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "es-Show Rx names in notifications",
 
 		"remindersMedPatientSwitcher" : "es-%s's medication reminders",
-		"remindersMedPatientSwitcherSubtitlePartial" : "es-Add a prescription to access reminders.",
+		"remindersMedPatientSwitcherSubtitlePartial" : "es-Please add a prescription to set up reminders.",
 		"remindersMedAddLblTitle" : "es-Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "es-It looks like you don't have\nany reminders set up yet.",
 
 		"transferLblTitle" : "es-You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
 		"transferBtnPhoto" : "es-Take a photo",
 		"transferBtnType" : "es-Type prescription details",
+		"transferSwitcher" : "es-%s's transfer Rx",
 
 		"transferTypeLblTitle" : "es-Fill in the following details to transfer your prescription.",
 		"transferTypeHintName" : "es-Enter your prescription name",
@@ -582,6 +588,8 @@ module.exports = {
 		"familyCareSectionParentProxy" : "es-People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "es-Add family member",
 		"familyCareOptRemove" : "es-Remove",
+		"familyCareMsgChildRemove" : "es-Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
+		"familyCareMsgParentRemove" : "es-Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
 		"familyMemberAddLbl" : "es-Great let's add your family members!",
 		"familyMemberAddTip" : "es-Please enter your family member's date of birth.",

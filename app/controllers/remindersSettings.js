@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 
 function init() {
 	var patient = $.patientSwitcher.set({
-		title : $.strings.reminderSettingsPatientSwitcher,
+		title : $.strings.remindersSettingsPatientSwitcher,
 		where : {
 			is_adult : true,
 			is_partial : false

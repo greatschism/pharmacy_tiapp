@@ -75,7 +75,7 @@ function focus() {
 			});
 			break;
 		case "doctors_delete":
-			didRemoveDoctor(null, currentDoctor);
+			didDeleteDoctor(null, currentDoctor);
 			break;
 		}
 		currentDoctor = null;
@@ -218,14 +218,14 @@ function didClickSwipeOption(e) {
 						}]
 					},
 					passthrough : data,
-					success : didRemoveDoctor
+					success : didDeleteDoctor
 				});
 			}
 		});
 	}
 }
 
-function didRemoveDoctor(result, passthrough) {
+function didDeleteDoctor(result, passthrough) {
 	/**
 	 * no need to call the list api
 	 * as it is a successful delete

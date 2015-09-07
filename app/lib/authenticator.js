@@ -188,14 +188,11 @@ function didGetFamilyAccounts(result, passthrough) {
 	}));
 	_.each(patient.child_proxy, function(child) {
 		/**
-		 * if child_id is null
-		 * then don't add it
-		 * Note: child_id is only generated
-		 * when user has accepted the invitation
-		 * when child_id is null, link_id
-		 * will be present in the object
+		 * check for the status of the child
+		 * append to patients only if it linked
+		 * ignore if declined / pending
 		 */
-		if (!child.child_id) {
+		if (child.status !== Alloy.CFG.apiCodes.family_account_status_linked) {
 			return false;
 		}
 		/**
@@ -210,9 +207,8 @@ function didGetFamilyAccounts(result, passthrough) {
 		var childRelationship = _.findWhere(relationships, {
 			code_value : child.related_by
 		});
-		patients.push(_.extend(_.pick(child, ["address", "child_id", "link_id", "related_by", "session_id"]), {
+		patients.push(_.extend(_.pick(child, ["child_id", "related_by", "address", "linked_date", "session_id"]), {
 			relationship : childRelationship ? childRelationship.code_display : child.related_by,
-			selectable : true,
 			selected : false
 		}));
 	});
@@ -252,11 +248,32 @@ function didGetPatient(result, passthrough) {
 	 * id will start with DUMMY
 	 *
 	 * for pet: is_adult can always be false
+	 *
+	 * for minor accounts: when child turns 18
+	 * is_adult will be true. Based on the linked_date
+	 * client will get to know whether the adult was
+	 * linked when he was minor. Then invite flag
+	 * is set to true, so the patient switcher
+	 * will throw an invite dialog. selectable flag
+	 * should be also be set to false (simply opposite to invite - !invite).
 	 */
+	var mDob = moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format),
+	    isAdult = patientModel.get("related_by") != Alloy.CFG.apiCodes.relationship_pet && moment().diff(mDob, "years", true) >= 18,
+	    shouldInvite = false;
+	if (isAdult) {
+		/**
+		 * if adult was a minor
+		 * during linked_date then it confirms
+		 * he should be invited again
+		 */
+		shouldInvite = moment(patientModel.get("linked_date"), Alloy.CFG.apiCodes.date_time_format).diff(mDob, "years", true) < 18;
+	}
 	_.extend(patient, {
 		first_name : utilities.ucfirst(patient.first_name),
 		last_name : utilities.ucfirst(patient.last_name),
-		is_adult : patientModel.get("related_by") != Alloy.CFG.apiCodes.relationship_pet && moment().diff(moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format), "years", true) >= 18,
+		is_adult : isAdult,
+		invite : shouldInvite,
+		selectable : !shouldInvite,
 		is_partial : (patient.patient_id || "").indexOf("DUMMY") !== -1
 	});
 	patient.title = patient.first_name + " " + patient.last_name;
