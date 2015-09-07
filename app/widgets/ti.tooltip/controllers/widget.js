@@ -98,7 +98,9 @@ function show(callback) {
 			}
 		});
 		$.widget.animate(animation);
+		return true;
 	}
+	return false;
 }
 
 function hide(callback) {
@@ -119,7 +121,9 @@ function hide(callback) {
 			}
 		});
 		$.widget.animate(animation);
+		return true;
 	}
+	return false;
 }
 
 function getVisible() {
