@@ -20,4 +20,10 @@
 },
 "#signupAttr":{
 	html: Alloy.Globals.strings.loginAttrSignup
+},
+"#tooltipLbl":{
+	text:Alloy.Globals.strings.loginTooltipLblAutoSignIn
+},
+"#tooltipHideBtn":{
+	title:Alloy.Globals.strings.loginTooltipBtnHide
 }

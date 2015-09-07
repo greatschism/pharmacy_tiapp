@@ -119,51 +119,32 @@ function didClickSignup(e) {
 function didPostlayout(e) {
 
 	/**
-	 * set tool tip
+	 * apply properties for the tooltip
 	 *
 	 */
-	$.toolTipWidget = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
-		classes : ["tooltip-unfilled-arrow-up", 'content-primary-tooltip']
-	}));
-	$.toolTipView = Ti.UI.createView();
-	$.toolTipView.applyProperties($.createStyle({
-		classes : ["auot-height", "vgroup"]
-	}));
 
-	$.toolTipLbl = Ti.UI.createLabel();
-	$.toolTipLbl.applyProperties($.createStyle({
-		classes : ["lbl-wrap"],
-		text : $.strings.loginTooltipLblAutoSignIn
-	}));
-	$.toolTipHideBtn = Ti.UI.createButton();
-	$.toolTipHideBtn.applyProperties($.createStyle({
-		classes : ["margin-top", "margin-bottom", "tooltip-primary-btn"],
-		title : $.strings.loginTooltipBtnHide
-	}));
-
-	$.scrollView.add($.toolTipWidget.getView());
-	$.toolTipWidget.setContentView($.toolTipView);
-	$.toolTipView.add($.toolTipLbl);
-	$.toolTipView.add($.toolTipHideBtn);
-	$.toolTipWidget.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginLbl.rect.height,
-		noachDict : {
-			left : 100,
-		},
-		height : $.toolTipLbl.rect.height + 50,
+	$.tooltip.updateArrowPosition({
+		right : 10
+	});
+	$.tooltip.applyProperties($.createStyle({
+		top : $.autoLoginView.rect.y + $.autoLoginLbl.rect.height + 13,
 		width : "90%"
 	}));
+
 	/**
 	 * tool tip will be shown
 	 * only when the username/password is prepopulated.
 	 * As in full account (register.js) and partial account(mgrAccountCreation.js) registration scenarios
 	 */
 	if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
-		$.toolTipWidget.show();
+		$.tooltip.show();
 	}
-	$.toolTipHideBtn.addEventListener("click", function() {
-		$.toolTipWidget.hide();
-	});
+
+}
+
+function didClickHide(e) {
+	$.tooltip.hide();
+	console.log($.tooltip.getVisible());
 }
 
 exports.init = init;
