@@ -14,6 +14,6 @@
 	<ScrollView id="addView" class="hide top margin-bottom vgroup">
 		<Label id="addDescLbl" class="margin-top lbl-centered-wrap" />
 		<Label id="addTitleLbl" class="margin-top title-centered-wrap" />
-		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" onClick="didClickAdd" />
+		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-reminder" onClick="didClickAdd" />
 	</ScrollView>
 </Alloy>

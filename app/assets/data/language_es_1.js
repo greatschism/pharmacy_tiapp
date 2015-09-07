@@ -13,7 +13,11 @@ module.exports = {
 		"strAnd" : "es-and",
 		"strMore" : "es-more",
 		"strLoading" : "es-Processing...",
-		"strManager" : "es-Account manager",
+		"strRelationshipManager" : "es-Account manager",
+		"strDeliveryModePush" : "es-Push",
+		"strDeliveryModeEmail" : "es-Email",
+		"strDeliveryModeText" : "es-Text",
+		"strDeliveryModeNone" : "es-None",
 
 		"attrPhone" : "es-Call: <secondarycolor>%s</secondarycolor>",
 
@@ -351,6 +355,8 @@ module.exports = {
 		"remindersSettingsLblTypeRefill" : "es-Refill reminders",
 		"remindersSettingsLblTypePromotional" : "es-Promotional offers",
 		"remindersSettingsLblShowRx" : "es-Show Rx names in notifications",
+		"remindersSettingsPopupSectionDeliveryModes" : "es-Choose a delivery method",
+		"remindersSettingsPopupBtnClose" : "es-Close",
 
 		"remindersMedPatientSwitcher" : "es-%s's medication reminders",
 		"remindersMedPatientSwitcherSubtitlePartial" : "es-Please add a prescription to set up reminders.",
@@ -375,6 +381,7 @@ module.exports = {
 		"transferTypeValPhoneInvalid" : "es-The phone number you have entered is invalid.",
 		"transferTypeValRxInvalid" : "es-Prescription number you have entered seem invalid.",
 		"transferTypeValStoreOriginal" : "es-Please select the pharmacy this prescription is from.",
+		"transferTypeOther" : "es-Other",
 
 		"transferUserDetTitle" : "es-We need some details about you so we can process your transfer.",
 		"transferUserDetHintFirstName" : "es-First name",

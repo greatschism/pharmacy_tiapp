@@ -94,25 +94,36 @@ if (OS_ANDROID) {
 
 })();
 
+function isMatch(object, attrs) {
+	var keys = _.keys(attrs),
+	    length = keys.length;
+	if (object === null)
+		return !length;
+	var obj = Object(object);
+	for (var i = 0; i < length; i++) {
+		var key = keys[i];
+		if (attrs[key] !== obj[key] || !( key in obj))
+			return false;
+	}
+	return true;
+}
+
 function setSelectedItems(where, selected) {
 	var rows = $.tableView.sections[0].rows;
-	for (var i in items) {
-		var equal = true;
-		for (j in where) {
-			if (!_.isEqual(items[i], where[i])) {
-				equal = false;
-				break;
-			}
-		}
-		if (equal) {
+	_.each(items, function(item, index) {
+		/**
+		 * current version of underscore in Alloy
+		 * 1.6 doesn't have support for isMatch
+		 */
+		if (isMatch(item, where)) {
 			updateItem({
-				index : i,
-				row : rows[i],
+				index : index,
+				row : rows[index],
 				force : true,
 				selected : selected
 			});
 		}
-	}
+	});
 }
 
 function getSelectedItems() {

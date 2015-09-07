@@ -1,8 +1,16 @@
 <Alloy>
+	<Widget id="deliveryModesPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickDeliveryMode">
+		<View class="content-header-view role-header-view">
+			<Label id="deliveryModeLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="closeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickClose" />
+		</View>
+	</Widget>
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
 	</View>
-	<TableView id="tableView">
+	<TableView id="tableView" onClick="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>

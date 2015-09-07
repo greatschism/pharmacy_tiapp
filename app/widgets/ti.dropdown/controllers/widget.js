@@ -204,9 +204,27 @@ function removeHint() {
 	}
 }
 
+function isMatch(object, attrs) {
+	var keys = _.keys(attrs),
+	    length = keys.length;
+	if (object === null)
+		return !length;
+	var obj = Object(object);
+	for (var i = 0; i < length; i++) {
+		var key = keys[i];
+		if (attrs[key] !== obj[key] || !( key in obj))
+			return false;
+	}
+	return true;
+}
+
 function setSelectedItem(where) {
 	_.some(choices, function(choice, index) {
-		if (_.isEqual(choice, where)) {
+		/**
+		 * current version of underscore in Alloy
+		 * 1.6 doesn't have support for isMatch
+		 */
+		if (isMatch(choice, where)) {
 			setSelectedIndex(index);
 			return true;
 		}
