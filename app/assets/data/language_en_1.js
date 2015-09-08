@@ -73,6 +73,7 @@ module.exports = {
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgAgeRestriction" : "You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "It looks like you already have an account with Carbon pharmacy",
+		"msgMgrAccountCreation" : "Your manager account is created! Now please add your child",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -133,6 +134,7 @@ module.exports = {
 		"titleTextHelp" : "Text help",
 		"titleTextMsgSignUp" : "Sign up for text messaging",
 		"titleAddFamily" : "Add a family member",
+		"titleForgotPassword" : "User recovery",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
@@ -155,6 +157,11 @@ module.exports = {
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
 
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
+
+		"userRecoveryLbl" : "Please enter the email address you originally signed up with. We will send you a link to reset your password.",
+		"userRecoveryEmailHint" : "Email address",
+		"userRecoveryLblAttr" : "<secondaryfont><secondarycolor>Can't remember what email you used?</secondaryfont></secondarycolor>",
+		"userRecoveryBtnSend" : "Send",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -363,7 +370,7 @@ module.exports = {
 		"remindersMedAddLblTitle" : "Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "It looks like you don't have\nany reminders set up yet.",
 
-		"transferLblTitle" : "You can transfer prescriptions between different pharmacy, or transfer from other pharmacy chains.",
+		"transferLblTitle" : "You can transfer prescriptions from other pharmacy chains to %s",
 		"transferBtnPhoto" : "Take a photo",
 		"transferBtnType" : "Type prescription details",
 		"transferSwitcher" : "%s's transfer Rx",
@@ -371,7 +378,7 @@ module.exports = {
 		"transferTypeLblTitle" : "Fill in the following details to transfer your prescription.",
 		"transferTypeHintName" : "Enter your prescription name",
 		"transferTypeHintRx" : "Rx number (optional)",
-		"transferTypeSectionFrom" : "What pharmacy is this from?",
+		"transferTypeSectionFrom" : "Which pharmacy is this from?",
 		"transferTypeHintPhone" : "Pharmacy phone number",
 		"transferTypeHintStoreOriginal" : "Pharmacy",
 		"transferTypeBtnSubmit" : "Next",
@@ -480,7 +487,7 @@ module.exports = {
 		"registerSectionTermsDocuments" : "Documents",
 		"registerBtnTermsDone" : "Done",
 
-		"registerChildInfoTitle" : "Great! you want to create a family account.",
+		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
 		"registerChildInfoAttr" : "Click here if you already have an account with Carbon pharmacy.",
 		"registerChildInfoBtnContinue" : "Continue",

@@ -106,7 +106,11 @@ function didAuthenticate() {
 }
 
 function didClickPassword(e) {
-
+	$.app.navigator.open({
+		ctrl : "forgotPassword",
+		titleid : "titleForgotPassword",
+		stack : true
+	});
 }
 
 function didClickSignup(e) {
