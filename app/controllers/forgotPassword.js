@@ -37,9 +37,9 @@ function didClickSend(){
 	});
 }
 
-function didSendEmail(result){
+function didSendEmail(){
 	$.uihelper.showDialog({
-		message : result.message,
+		message : Alloy.Globals.strings.msgUserRecoverySuccess,
 		buttonNames : [$.strings.dialogBtnOK],
 		success : function(){
 			$.app.navigator.close();

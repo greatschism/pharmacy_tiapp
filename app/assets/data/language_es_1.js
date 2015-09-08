@@ -74,7 +74,8 @@ module.exports = {
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child",
-
+		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password",
+		
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -162,7 +163,7 @@ module.exports = {
 		"userRecoveryEmailHint" : "es-Email address",
 		"userRecoveryLblAttr" : "es-<secondaryfont><secondarycolor>Can't remember what email you used?</secondaryfont></secondarycolor>",
 		"userRecoveryBtnSend" : "es-Send",
-
+		
 		"storesPatientSwitcher" : "es-%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
 		"storesHintSearch" : "es-Search",
