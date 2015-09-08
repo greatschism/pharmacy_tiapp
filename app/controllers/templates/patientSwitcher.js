@@ -230,7 +230,7 @@ function didClickTableView(e) {
 		 * or
 		 * params.selectable is false
 		 */
-		if (params.selected || (options.callback && !options.callback(params)) || !params.selectable) {
+		if (params.selected || (options.callback ? !options.callback(params) : !params.selectable)) {
 			return hide();
 		}
 		/**

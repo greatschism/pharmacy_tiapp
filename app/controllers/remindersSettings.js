@@ -103,10 +103,11 @@ function didChoosePatient(patient) {
 	 * Note: bitwise value of updatePreferences is sent to patientSwitcher.
 	 * true will make patient switcher to go head and switch and false
 	 * will prevent the same
+	 * Note: callback's return value will override the selectable flag
 	 */
-	return !(updatePreferences(function didUpdatePreferences() {
+	return patient.selectable ? !(updatePreferences(function didUpdatePreferences() {
 			didChangePatient(setPatient(_.pick(patient, ["child_id"])).toJSON());
-		}));
+		})) : false;
 }
 
 function didChangePatient(patient) {
