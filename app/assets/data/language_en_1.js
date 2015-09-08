@@ -364,6 +364,7 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "Show Rx names in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "Close",
+		"remindersSettingsMsgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
 
 		"remindersMedPatientSwitcher" : "%s's medication reminders",
 		"remindersMedPatientSwitcherSubtitlePartial" : "Please add a prescription to set up reminders.",

@@ -74,7 +74,7 @@ module.exports = {
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child",
-		
+
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -155,12 +155,12 @@ module.exports = {
 		"loginBtnLogin" : "es-Sign in",
 		"loginTooltipBtnHide" : "es-Got it!",
 		"loginTooltipLblAutoSignIn" : "es-tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
-		
+
 		"patientSwitcherMsgChildBecameAdult" : "es-This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "es-Please enter the email address you originally signed up with. We will send you a link to reset your password.",
 		"userRecoveryEmailHint" : "es-Email address",
-		"userRecoveryLblAttr" : "<secondaryfont><secondarycolor>es-Can't remember what email you used?</secondaryfont></secondarycolor>",
+		"userRecoveryLblAttr" : "es-<secondaryfont><secondarycolor>Can't remember what email you used?</secondaryfont></secondarycolor>",
 		"userRecoveryBtnSend" : "es-Send",
 
 		"storesPatientSwitcher" : "es-%s's stores",
@@ -364,6 +364,7 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "es-Show Rx names in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "es-Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "es-Close",
+		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
 
 		"remindersMedPatientSwitcher" : "es-%s's medication reminders",
 		"remindersMedPatientSwitcherSubtitlePartial" : "es-Please add a prescription to set up reminders.",
