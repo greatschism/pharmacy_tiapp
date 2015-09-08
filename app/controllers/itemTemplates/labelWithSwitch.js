@@ -26,6 +26,9 @@ require("config").updateTSS($.__controllerPath);
 			$.lbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 		}
 	}
+	if (args.value) {
+		$.swt.setValue(true);
+	}
 })();
 
 function didChangeToggle(e) {

@@ -200,7 +200,7 @@ function updatePreferences(callback) {
 		 * then it is delivery method section,
 		 * otherwise should be show rx names
 		 */
-		prefObj[params.prefColumn] = _.has(params, "reminderDeliveryMode") ? params.reminderDeliveryMode : parseInt(row.getValue());
+		prefObj[params.prefColumn] = _.has(params, "reminderDeliveryMode") ? params.reminderDeliveryMode : (row.getValue() ? "1" : "0");
 	});
 	/**
 	 * update with api only if preferences update is found

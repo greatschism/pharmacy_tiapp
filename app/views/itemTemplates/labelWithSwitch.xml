@@ -4,6 +4,6 @@
 			<Widget id="lbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" if="$.args.styledlabel" />
 			<Label id="lbl" class="content-lbl-wrap" if="!$.args.styledlabel" />
 		</View>
-		<Widget id="swt" src="ti.switch" class="content-right-swt swt" value="$.args.value" onChange="didChangeToggle" />
+		<Widget id="swt" src="ti.switch" class="content-right-swt swt" onChange="didChangeToggle" />
 	</TableViewRow>
 </Alloy>
