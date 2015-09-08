@@ -77,6 +77,7 @@ module.exports = {
 			"auto_login_dialog_enabled" : true,
 			"auto_populate_username" : true,
 			"auto_populate_password" : true,
+			"show_rx_names_dialog_enabled" : true,
 			"can_update_email" : true,
 			"session_timeout" : 600,
 			"http_timeout" : 90,

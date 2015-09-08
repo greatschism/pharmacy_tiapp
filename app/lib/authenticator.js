@@ -182,7 +182,7 @@ function didGetFamilyAccounts(result, passthrough) {
 	patients.push(_.extend(patient, {
 		session_id : Alloy.Globals.sessionId,
 		related_by : Alloy.CFG.apiCodes.relationship_manager,
-		relationship : Alloy.Globals.strings.strManager,
+		relationship : Alloy.Globals.strings.strRelationshipManager,
 		selectable : true,
 		selected : true
 	}));
@@ -251,11 +251,12 @@ function didGetPatient(result, passthrough) {
 	 *
 	 * for minor accounts: when child turns 18
 	 * is_adult will be true. Based on the linked_date
-	 * client will get to know whether the adult was
+	 * client app will get to know whether the adult was
 	 * linked when he was minor. Then invite flag
 	 * is set to true, so the patient switcher
-	 * will throw an invite dialog. selectable flag
-	 * should be also be set to false (simply opposite to invite - !invite).
+	 * will throw an invite dialog upon selection. is_adult
+	 * will be false if invite is true, to keep considering
+	 * the child as minor.
 	 */
 	var mDob = moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format),
 	    isAdult = patientModel.get("related_by") != Alloy.CFG.apiCodes.relationship_pet && moment().diff(mDob, "years", true) >= 18,
@@ -271,9 +272,9 @@ function didGetPatient(result, passthrough) {
 	_.extend(patient, {
 		first_name : utilities.ucfirst(patient.first_name),
 		last_name : utilities.ucfirst(patient.last_name),
-		is_adult : isAdult,
+		is_adult : isAdult && !shouldInvite,
 		invite : shouldInvite,
-		selectable : !shouldInvite,
+		selectable : true,
 		is_partial : (patient.patient_id || "").indexOf("DUMMY") !== -1
 	});
 	patient.title = patient.first_name + " " + patient.last_name;

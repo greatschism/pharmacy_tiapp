@@ -204,19 +204,12 @@ function didClickTableView(e) {
 						return false;
 					}));
 					/**
-					 * remove row from rows
-					 * and delete this row
-					 * Note: session_id will never be of this
-					 * account (which has invite flag as true), so just ignore
+					 * No need for updating rows / ui
+					 * the above reset will be trigger listener
+					 * and do the same
+					 *
+					 * now just navigate to adult invite screen
 					 */
-					rows = _.reject(rows, function(oRow) {
-						if (params.child_id === oRow.getParams().child_id) {
-							$.tableView.deleteRow(oRow.getView());
-							return true;
-						}
-						return false;
-					});
-					//now just navigate to adult invite screen
 					$.app.navigator.open({
 						titleid : "titleAddFamily",
 						ctrl : "familyMemberInvite",
@@ -341,23 +334,22 @@ function set(opts) {
 	    subtitles = options.subtitles,
 	    subtitle = options.subtitle,
 	    isAssigned;
+
 	/**
-	 * invite should always be false
-	 * child who turned 18 should be invited
-	 * again
+	 * making sure let the patient
+	 * doesn't have invite flag true
 	 */
 	where.invite = false;
+
 	/**
 	 * check if previously selected model
 	 * passes this where condition
 	 */
-	if (where) {
-		sModel = Alloy.Collections.patients.findWhere(_.extend({
-			selected : true
-		}, where));
-		if (sModel) {
-			updateUI(sModel.toJSON());
-		}
+	sModel = Alloy.Collections.patients.findWhere(_.extend({
+		selected : true
+	}, where));
+	if (sModel) {
+		updateUI(sModel.toJSON());
 	}
 
 	Alloy.Collections.patients.each(function(child) {
@@ -367,13 +359,12 @@ function set(opts) {
 		/**
 		 * selectable - a where condition
 		 * to disable specific items
-		 * from selection
-		 * Note: this is required even when selectable is not passed
-		 * in order to make items selectable that was unselectable previously.
-		 * When invite is true, selectable should be false. A minor turned to adult,
-		 * should invite him again now.
+		 * from selection.
+		 *
+		 * by default selectable
+		 * of child will be set to true
 		 */
-		child.set("selectable", obj.invite ? false : ( wSelectable ? utilities.isMatch(obj, wSelectable) : true));
+		child.set("selectable", wSelectable ? utilities.isMatch(obj, wSelectable) : true);
 
 		/**
 		 * unset selected flag
@@ -385,17 +376,12 @@ function set(opts) {
 		 * used
 		 */
 		if (!sModel) {
-			if (where) {
-				if (utilities.isMatch(obj, where)) {
-					child.set("selected", true);
-					sModel = child;
-					updateUI(obj);
-				} else if (obj.selected) {
-					child.set("selected", false);
-				}
-			} else if (obj.selected) {
+			if (utilities.isMatch(obj, where)) {
+				child.set("selected", true);
 				sModel = child;
 				updateUI(obj);
+			} else if (obj.selected) {
+				child.set("selected", false);
 			}
 		} else if (sModel.get("session_id") !== obj.session_id && obj.selected) {
 			child.set("selected", false);
@@ -457,7 +443,7 @@ function get() {
 
 function didReset() {
 	//trigger change event
-	$.trigger("change", set(args).toJSON());
+	$.trigger("change", set(options).toJSON());
 }
 
 /**

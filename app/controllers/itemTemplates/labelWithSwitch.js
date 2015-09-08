@@ -39,4 +39,5 @@ function getParams() {
 }
 
 exports.getParams = getParams;
+exports.setValue = $.swt.setValue;
 exports.getValue = $.swt.getValue;
