@@ -130,8 +130,9 @@ function didPostlayout(e) {
 	$.tooltip.updateArrowPosition({
 		right : 10
 	});
+
 	$.tooltip.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginLbl.rect.height + 13,
+		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height ,
 		width : "90%"
 	}));
 
@@ -140,15 +141,14 @@ function didPostlayout(e) {
 	 * only when the username/password is prepopulated.
 	 * As in full account (register.js) and partial account(mgrAccountCreation.js) registration scenarios
 	 */
-	if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
+	//if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
 		$.tooltip.show();
-	}
+	//}
 
 }
 
 function didClickHide(e) {
 	$.tooltip.hide();
-	console.log($.tooltip.getVisible());
 }
 
 exports.init = init;
