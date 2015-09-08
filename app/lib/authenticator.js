@@ -209,6 +209,7 @@ function didGetFamilyAccounts(result, passthrough) {
 		});
 		patients.push(_.extend(_.pick(child, ["child_id", "related_by", "address", "linked_date", "session_id"]), {
 			relationship : childRelationship ? childRelationship.code_display : child.related_by,
+			selectable : true,
 			selected : false
 		}));
 	});
@@ -254,27 +255,28 @@ function didGetPatient(result, passthrough) {
 	 * client app will get to know whether the adult was
 	 * linked when he was minor. Then invite flag
 	 * is set to true, so the patient switcher
-	 * will throw an invite dialog upon selection. is_adult
-	 * will be false if invite is true, to keep considering
-	 * the child as minor.
+	 * will throw an invite dialog upon selection.
+	 *
+	 * checking for valid linked_date as account manager
+	 * won't have one
 	 */
 	var mDob = moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format),
 	    isAdult = patientModel.get("related_by") != Alloy.CFG.apiCodes.relationship_pet && moment().diff(mDob, "years", true) >= 18,
+	    linkedDate = patientModel.get("linked_date"),
 	    shouldInvite = false;
-	if (isAdult) {
+	if (linkedDate && isAdult) {
 		/**
 		 * if adult was a minor
 		 * during linked_date then it confirms
 		 * he should be invited again
 		 */
-		shouldInvite = moment(patientModel.get("linked_date"), Alloy.CFG.apiCodes.date_time_format).diff(mDob, "years", true) < 18;
+		shouldInvite = moment(linkedDate, Alloy.CFG.apiCodes.date_time_format).diff(mDob, "years", true) < 18;
 	}
 	_.extend(patient, {
 		first_name : utilities.ucfirst(patient.first_name),
 		last_name : utilities.ucfirst(patient.last_name),
-		is_adult : isAdult && !shouldInvite,
-		invite : shouldInvite,
-		selectable : true,
+		is_adult : isAdult,
+		should_invite : shouldInvite,
 		is_partial : (patient.patient_id || "").indexOf("DUMMY") !== -1
 	});
 	patient.title = patient.first_name + " " + patient.last_name;

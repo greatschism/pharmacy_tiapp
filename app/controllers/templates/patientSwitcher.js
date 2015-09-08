@@ -178,7 +178,7 @@ function didClickTableView(e) {
 		/**
 		 * check whether to show invite dialog
 		 */
-		if (params.invite) {
+		if (params.should_invite) {
 			//hide popover
 			hide();
 			/**
@@ -339,7 +339,7 @@ function set(opts) {
 	 * making sure let the patient
 	 * doesn't have invite flag true
 	 */
-	where.invite = false;
+	where.should_invite = false;
 
 	/**
 	 * check if previously selected model
