@@ -129,7 +129,7 @@ function didFail() {
 }
 
 function didRegister(result, passthrough) {
-	successMessage = result.message;
+	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
 	$.uihelper.showDialog({
 		message : successMessage
 	});

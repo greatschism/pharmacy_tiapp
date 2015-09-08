@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
 authenticator = require("authenticator");
 function init() {
+	$.titleLbl.text = String.format(Alloy.Globals.strings.transferLblTitle, Alloy.CFG.client_name);
 	if ($.patientSwitcher) {
 		$.patientSwitcher.set({
 			title : $.strings.transferSwitcher,
