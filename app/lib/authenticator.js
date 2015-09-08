@@ -277,6 +277,19 @@ function didGetPatient(result, passthrough) {
 		 * he should be invited again
 		 */
 		shouldInvite = moment(linkedDate, Alloy.CFG.apiCodes.date_time_format).diff(mDob, "years", true) < 18;
+		/**
+		 * update the same invite flag under
+		 * child_proxy property of account manager model
+		 * so can be reused in family care
+		 *
+		 * Just avoid a loop for setting false value
+		 * by checking if shouldInvite == true
+		 */
+		if (shouldInvite) {
+			_.findWhere(Alloy.Collections.patients(0).get("child_proxy"), {
+				child_id : patientModel.get("child_id")
+			}).should_invite = true;
+		}
 	}
 	_.extend(patient, {
 		first_name : utilities.ucfirst(patient.first_name),
