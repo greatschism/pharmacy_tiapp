@@ -161,6 +161,12 @@ function getFamilyAccounts(passthrough) {
 			Alloy.Globals.sessionId = Alloy.Collections.patients.at(passthrough.currentPatientIndex).get("session_id");
 		}
 	}
+	/**
+	 * when it is a explicit call (from other controller, not part of authenticate)
+	 * assign the failure callback directly if any, so user will not be logged out
+	 * but the failure callback should handle for hiding loader window since
+	 * keepLoader is true, will be auto hidden if no callback is passed in such cases
+	 */
 	http.request({
 		method : "patient_family_get",
 		params : {
@@ -170,7 +176,7 @@ function getFamilyAccounts(passthrough) {
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didGetFamilyAccounts,
-		failure : didFail
+		failure : passthrough.explicit ? passthrough.failure : didFail
 	});
 }
 
@@ -235,7 +241,7 @@ function getPatient(passthrough) {
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didGetPatient,
-		failure : didFail
+		failure : passthrough.explicit ? passthrough.failure : didFail
 	});
 }
 
@@ -291,7 +297,7 @@ function didGetPatient(result, passthrough) {
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didGetPreferences,
-		failure : didFail
+		failure : passthrough.explicit ? passthrough.failure : didFail
 	});
 }
 
@@ -376,9 +382,8 @@ function didGetPreferences(result, passthrough) {
 			 * fire callback
 			 * if any
 			 */
-			var callback = passthrough.callback;
-			if (callback) {
-				callback();
+			if (passthrough.success) {
+				passthrough.success();
 			}
 		} else {
 			/**
@@ -446,7 +451,7 @@ function didGetPreferences(result, passthrough) {
 						success : function didConfirm() {
 							updatePreferences({
 								pref_timezone : currentTZ
-							}, passthrough.success);
+							}, passthrough);
 						},
 						cancel : fireCallback
 					});
@@ -471,7 +476,7 @@ function didGetPreferences(result, passthrough) {
 
 }
 
-function updatePreferences(params, callback) {
+function updatePreferences(params, passthrough) {
 	/**
 	 * api requires all parameters to be sent
 	 */
@@ -488,10 +493,10 @@ function updatePreferences(params, callback) {
 		},
 		passthrough : {
 			params : params,
-			callback : callback
+			success : passthrough.success
 		},
-		forceRetry : true,
-		success : didUpdatePreferences
+		success : didUpdatePreferences,
+		failure : passthrough.failure
 	});
 }
 
@@ -513,9 +518,8 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
-	var callback = passthrough.callback;
-	if (callback) {
-		callback();
+	if (passthrough.success) {
+		passthrough.success();
 	}
 }
 
@@ -701,16 +705,25 @@ function setTimeZone(zone, updateCodeVal) {
 /**
  * update family account (patients) collection
  * with get/family api
- * @param {Functions} callback
+ * @param {Object}
+ * @param.success {Functions} success callback
+ * @param.failure {Functions} failure callback
  */
-function updateFamilyAccounts(callback) {
-	getFamilyAccounts({
+function updateFamilyAccounts(passthrough) {
+	if (!passthrough) {
+		passthrough = {};
+	}
+	/**
+	 * properties required to identify
+	 * this is a explicit call
+	 */
+	_.extend(passthrough, {
 		explicit : true,
 		child_id : Alloy.Collections.patients.findWhere({
 			selected : true
-		}).get("child_id"),
-		callback : callback
+		}).get("child_id")
 	});
+	getFamilyAccounts(passthrough);
 }
 
 exports.init = init;

@@ -34,8 +34,8 @@ function init() {
 			var reminderDeliveryMode = patient.get(reminder.col_pref),
 			    row = Alloy.createController("itemTemplates/promptReply", {
 				reminderId : reminder.id,
-				prefColumn : reminder.col_pref,
 				reminderDeliveryMode : reminderDeliveryMode,
+				prefColumn : reminder.col_pref,
 				prompt : $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)],
 				reply : _.findWhere(options, {
 					value : reminderDeliveryMode
@@ -120,7 +120,7 @@ function didChangePatient(patient) {
 		 */
 		if (_.has(params, "reminderDeliveryMode")) {
 			var newParams = _.clone(params),
-			    reminderDeliveryMode = patient[params.col_pref];
+			    reminderDeliveryMode = patient[params.prefColumn];
 			_.extend(newParams, {
 				reminderDeliveryMode : reminderDeliveryMode,
 				reply : _.findWhere(options, {
@@ -131,7 +131,7 @@ function didChangePatient(patient) {
 			rows[index] = Alloy.createController("itemTemplates/promptReply", newParams);
 			$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
 		} else {
-			row.setValue(parseInt(patient[params.col_pref]) || 0 ? true : false);
+			row.setValue(parseInt(patient[params.prefColumn]) || 0 ? true : false);
 		}
 	});
 }
@@ -208,7 +208,9 @@ function updatePreferences(callback) {
 	 * otherwise just return false
 	 */
 	if (!$.utilities.isMatch($.patientSwitcher.get().toJSON(), prefObj)) {
-		authenticator.updatePreferences(prefObj, callback);
+		authenticator.updatePreferences(prefObj, {
+			success : handleClose
+		});
 		return true;
 	}
 	return false;

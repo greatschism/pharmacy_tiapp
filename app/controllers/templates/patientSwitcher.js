@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
+    authenticator = require("authenticator"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 60,
     arrowDown = $.createStyle({
 	classes : ["icon-thin-arrow-down"]
@@ -56,7 +57,7 @@ function buildPopover() {
 		rows = [];
 		var data = [];
 		Alloy.Collections.patients.each(function(model) {
-			var obj = model.toJSON();
+			var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
 			if (!obj.selectable) {
 				obj.titleClasses = ["content-inactive-title"];
 			}
@@ -171,6 +172,48 @@ function hide() {
 	return false;
 }
 
+function deletePatient(patient) {
+	$.http.request({
+		method : "patient_family_delete",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				patient : {
+					child_id : patient.child_id,
+				}
+			}]
+		},
+		passthrough : patient,
+		keepLoader : true,
+		success : didDeletePatient
+	});
+}
+
+function didDeletePatient(result, passthrough) {
+	/**
+	 * update family accounts now
+	 * just use authenticator for any
+	 * rework of same logics here
+	 * i.e setting flags, update child proxy etc.,
+	 */
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			/**
+			 * now just navigate to adult invite process
+			 * with pre-populated DOB & relationship
+			 */
+			app.navigator.open({
+				titleid : "titleAddFamily",
+				ctrl : "familyMemberInvite",
+				ctrlArguments : {
+					dob : moment(passthrough.birth_date, Alloy.CFG.apiCodes.dob_format).toDate(),
+					familyRelationship : passthrough.related_by
+				}
+			});
+		}
+	});
+}
+
 function didClickTableView(e) {
 	var row = rows[e.index];
 	if (row) {
@@ -189,35 +232,7 @@ function didClickTableView(e) {
 				buttonNames : [Alloy.Globals.strings.dialogBtnContinue, Alloy.Globals.strings.dialogBtnClose],
 				cancelIndex : 1,
 				success : function didClickContinueInvite() {
-					//update account manager - child_proxy property
-					Alloy.Collections.patients.at(0).set("child_proxy", _.reject(Alloy.Collections.patients.at(0).get("child_proxy"), function(child) {
-						if (params.child_id === child.child_id) {
-							return true;
-						}
-						return false;
-					}));
-					//delete account from collection
-					Alloy.Collections.patients.reset(Alloy.Collections.patients.reject(function(model) {
-						if (params.child_id === model.get("child_id")) {
-							return true;
-						}
-						return false;
-					}));
-					/**
-					 * No need for updating rows / ui
-					 * the above reset will be trigger listener
-					 * and do the same
-					 *
-					 * now just navigate to adult invite screen
-					 */
-					$.app.navigator.open({
-						titleid : "titleAddFamily",
-						ctrl : "familyMemberInvite",
-						ctrlArguments : {
-							dob : moment(params.birth_date, Alloy.CFG.apiCodes.dob_format).toDate(),
-							familyRelationship : params.related_by
-						}
-					});
+					deletePatient(params);
 				}
 			});
 			return false;
