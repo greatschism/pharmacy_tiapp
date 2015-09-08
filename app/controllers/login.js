@@ -141,9 +141,9 @@ function didPostlayout(e) {
 	 * only when the username/password is prepopulated.
 	 * As in full account (register.js) and partial account(mgrAccountCreation.js) registration scenarios
 	 */
-	//if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
+	if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
 		$.tooltip.show();
-	//}
+	}
 
 }
 
