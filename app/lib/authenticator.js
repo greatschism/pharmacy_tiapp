@@ -286,7 +286,7 @@ function didGetPatient(result, passthrough) {
 		 * by checking if shouldInvite == true
 		 */
 		if (shouldInvite) {
-			_.findWhere(Alloy.Collections.patients(0).get("child_proxy"), {
+			_.findWhere(Alloy.Collections.patients.at(0).get("child_proxy"), {
 				child_id : patientModel.get("child_id")
 			}).should_invite = true;
 		}
