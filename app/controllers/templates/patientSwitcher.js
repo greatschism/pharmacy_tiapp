@@ -95,10 +95,23 @@ function hasPopover() {
 }
 
 function toggle() {
-	if (hasPopover() && $.popoverView.visible) {
-		hide();
+	var isVisible = hasPopover() && $.popoverView.visible;
+	/**
+	 * dropdownHandler can be a callback
+	 * that will be helpful for the operations
+	 * to be completed before showing the dropdown
+	 * take a boolean parameter that will let
+	 * the callback know the current visible
+	 * status. Callback should handle further
+	 */
+	if (options.dropdownHandler) {
+		options.dropdownHandler(isVisible);
 	} else {
-		show();
+		if (isVisible) {
+			hide();
+		} else {
+			show();
+		}
 	}
 }
 
@@ -330,7 +343,9 @@ function updateUI(params) {
  *
  * subtitle - String to be displayed as subtitle, applied for all objects
  *
- * callback - a function that should called upon selection
+ * callback - a function that should be called upon selection
+ *
+ * dropdownHandler - a function that should be called upon click of the dropdown
  */
 function set(opts) {
 

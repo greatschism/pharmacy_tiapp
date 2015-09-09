@@ -859,14 +859,18 @@ module.exports = {
 					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
-					"left" : 12,
+					"left" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"right" : 12,
+					"right" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
@@ -1235,14 +1239,18 @@ module.exports = {
 					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
-					"left" : 12,
+					"left" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"right" : 12,
+					"right" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
@@ -1279,14 +1287,18 @@ module.exports = {
 					"backgroundColor" : "#F2F2F2"
 				},
 				"leftButtonDict" : {
-					"left" : 12,
+					"left" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",
 					"borderColor" : "transparent"
 				},
 				"rightButtonDict" : {
-					"right" : 12,
+					"right" : 0,
+					"width" : 90,
+					"height" : "fill",
 					"color" : "#0095FF",
 					"selectedColor" : "#0095FF",
 					"backgroundColor" : "transparent",

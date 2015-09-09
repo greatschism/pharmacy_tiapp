@@ -25,8 +25,29 @@ function init() {
 		value : apiCodes.reminder_delivery_mode_none,
 		selected : false
 	}];
-	//set patient switcher
-	var patient = setPatient();
+	/**
+	 * set patient switcher
+	 * dropdownHandler should be used here
+	 * rather than using a callback (upon selection)
+	 * which may be affect by a invite dialog
+	 */
+	var patient = $.patientSwitcher.set({
+		title : $.strings.remindersSettingsPatientSwitcher,
+		where : {
+			is_adult : true,
+			is_partial : false
+		},
+		selectable : {
+			is_adult : true
+		},
+		subtitles : [{
+			where : {
+				is_adult : false
+			},
+			subtitle : $.strings.remindersSettingsPatientSwitcherSubtitleMinor
+		}],
+		dropdownHandler : patientDropdownHandler
+	});
 	//Reminders section - dynamic & configurable
 	$.deliveryModesSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionMode);
 	_.each(Alloy.CFG.reminders, function(reminder) {
@@ -65,26 +86,6 @@ function init() {
 	});
 }
 
-function setPatient(where) {
-	return $.patientSwitcher.set({
-		title : $.strings.remindersSettingsPatientSwitcher,
-		where : where || {
-			is_adult : true,
-			is_partial : false
-		},
-		selectable : {
-			is_adult : true
-		},
-		subtitles : [{
-			where : {
-				is_adult : false
-			},
-			subtitle : $.strings.remindersSettingsPatientSwitcherSubtitleMinor
-		}],
-		callback : didChoosePatient
-	});
-}
-
 function didChangeShowRxNames(e) {
 	if (Alloy.CFG.show_rx_names_dialog_enabled && e.value) {
 		$.uihelper.showDialog({
@@ -93,21 +94,17 @@ function didChangeShowRxNames(e) {
 	}
 }
 
-function didChoosePatient(patient) {
-	/**
-	 * returns true / false
-	 * when true - the current patient preferences should be updated,
-	 * then call set in didUpdatePreferences which is called upon successful
-	 * api call
-	 * when false - no changes made for current patient, just move to the next patient
-	 * Note: bitwise value of updatePreferences is sent to patientSwitcher.
-	 * true will make patient switcher to go head and switch and false
-	 * will prevent the same
-	 * Note: callback's return value will override the selectable flag
-	 */
-	return patient.selectable ? !(updatePreferences(function didUpdatePreferences() {
-			didChangePatient(setPatient(_.pick(patient, ["child_id"])).toJSON());
-		})) : false;
+function patientDropdownHandler(isVisible) {
+	var shouldUpdate = updatePreferences(function didUpdatePreferences() {
+		togglePatientDropdown(isVisible);
+	});
+	if (!shouldUpdate) {
+		togglePatientDropdown(isVisible);
+	}
+}
+
+function togglePatientDropdown(isVisible) {
+	$.patientSwitcher[isVisible ? "hide" : "show"]();
 }
 
 function didChangePatient(patient) {
@@ -209,7 +206,7 @@ function updatePreferences(callback) {
 	 */
 	if (!$.utilities.isMatch($.patientSwitcher.get().toJSON(), prefObj)) {
 		authenticator.updatePreferences(prefObj, {
-			success : handleClose
+			success : callback
 		});
 		return true;
 	}
