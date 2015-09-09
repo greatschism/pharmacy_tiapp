@@ -1,7 +1,7 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-options-menu" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
-	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickSortPicker">
+	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickSortPicker" if="!$.args.showHiddenPrescriptions">
 		<View class="content-header-view role-header-view">
 			<Label id="sortLbl" class="content-header-lbl" />
 		</View>
@@ -9,7 +9,7 @@
 			<Button id="sortCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortClose" />
 		</View>
 	</Widget>
-	<Widget id="unhidePicker" src="ti.optionpicker" class="optionpicker">
+	<Widget id="unhidePicker" src="ti.optionpicker" class="optionpicker" if="!$.args.showHiddenPrescriptions">
 		<View id="unhideHeaderView" class="auto-height role-header-view">
 			<Button id="selectNoneBtn" class="left tertiary-btn-50" onClick="toggleUnhideSelection" />
 			<Button id="selectAllBtn" class="right tertiary-btn-50" onClick="toggleUnhideSelection" />
@@ -26,7 +26,7 @@
 		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
 	</View>
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
-		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
 		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
@@ -40,7 +40,8 @@
 		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" onClick="didClickAddPresc" />
 	</ScrollView>
 	<Button id="submitBtn" class="margin-bottom primary-btn" onClick="didClickSubmit" if="$.args.selectable" />
-	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip">
+	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->
+	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip" if="$.args.showMedReminderTooltip">
 		<View class="auto-height vgroup">
 			<Label id="tooltipLbl" class="lbl-wrap" />
 			<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />

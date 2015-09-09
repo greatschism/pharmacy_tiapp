@@ -42,7 +42,7 @@ function getMedReminders() {
 			feature_code : "THXXX",
 			data : [{
 				reminders : {
-					type : apiCodes.reminder_type_dosage
+					type : apiCodes.reminder_type_med
 				}
 			}]
 		},
@@ -101,7 +101,7 @@ function didGetReminders(result, passthrough) {
 	}
 }
 
-function getPrescriptions(status, callback) {
+function getPrescriptions() {
 
 }
 
@@ -110,10 +110,10 @@ function didGetPrescriptions(result, passthrough) {
 }
 
 function getHiddenPrescriptions() {
-	getPrescriptions(apiCodes.prescription_display_status_hideen);
+	//apiCodes.prescription_display_status_hideen
 }
 
-function didChangePatient(e) {
+function didGetHiddenPrescriptions(result, passthrough) {
 
 }
 

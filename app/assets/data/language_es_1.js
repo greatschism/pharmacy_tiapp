@@ -61,7 +61,7 @@ module.exports = {
 		"msgGalleryAuthorizationDenied" : "es-Your have disallowed app from accessing your photo gallery. Please check your settings.",
 		"msgGalleryError" : "es-We are unable to access your photo gallery, please check your settings.",
 		"msgGalleryInvalid" : "es-We cannot reach your selected image gallery; please take a photo instead.",
-		"msgSeesionTimeout" : "es-Your session has expired. Please re-login to access the application.",
+		"msgSessionTimeout" : "es-Your session has expired. Please re-login to access the application.",
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have logged out successfully.",
 		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
@@ -75,7 +75,10 @@ module.exports = {
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password",
-		
+		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
+		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
+		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
+
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -163,7 +166,7 @@ module.exports = {
 		"userRecoveryEmailHint" : "es-Email address",
 		"userRecoveryLblAttr" : "es-<secondaryfont><secondarycolor>Can't remember what email you used?</secondaryfont></secondarycolor>",
 		"userRecoveryBtnSend" : "es-Send",
-		
+
 		"storesPatientSwitcher" : "es-%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
 		"storesHintSearch" : "es-Search",
@@ -258,9 +261,6 @@ module.exports = {
 		"prescAddSectionBtnAll" : "es-Select all",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgNoneSelected" : "es-No prescriptions selected.",
-		"prescMsgSchedule2" : "es-Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
-		"prescMsgRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
-		"prescMsgExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"prescSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
 		"prescTooltipLblReminder" : "es-tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
 		"prescTooltipBtnHide" : "es-Got it!",
@@ -285,9 +285,6 @@ module.exports = {
 		"prescDetLblInstruction" : "es-Dosage instructions",
 		"prescDetBtnHide" : "es-Hide this prescription",
 		"prescDetMsgHideConfirm" : "es-Are you sure you want to hide %s?",
-		"prescDetMsgSchedule2" : "es-Schedule 2 drugs cannot be filled through this app.",
-		"prescDetMsgRefillLeftNone" : "es-We’re contacting your doctor for more refills.",
-		"prescDetMsgExpired" : "es-This prescription has expired.",
 
 		"orderDetSectionPresc" : "es-Your order",
 		"orderDetSectionPickup" : "es-Pickup details",

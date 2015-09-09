@@ -36,7 +36,7 @@ function request(args) {
 		 *  with keep loader set to true
 		 */
 		app.navigator.hideLoader();
-		return sessionTimeout(Alloy.Globals.strings.msgSeesionTimeout);
+		return sessionTimeout(Alloy.Globals.strings.msgSessionTimeout);
 	}
 
 	/**

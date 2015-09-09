@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    refillHandler = require("refillHandler"),
     apiCodes = Alloy.CFG.apiCodes,
     headerBtnDict,
     detailBtnClasses,
@@ -9,9 +10,10 @@ var args = arguments[0] || {},
     isWindowOpen;
 
 function init() {
-	$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
+	if ($.unhideHeaderView) {
+		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
+	}
 	if (args.selectable) {
-		$.submitBtn.title = args.titleSubmitBtn || $.strings.prescBtnSubmit;
 		headerBtnDict = $.createStyle({
 			classes : ["content-header-right-btn"],
 			title : $.strings.prescAddSectionBtnAll
@@ -28,6 +30,13 @@ function init() {
 		}];
 	}
 	/**
+	 * may not be available when
+	 *  showHiddenPrescriptions is true
+	 */
+	if ($.sortPicker) {
+		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
+	}
+	/**
 	 * by default point to a
 	 * non partial account
 	 * if args.selectable is false
@@ -41,70 +50,49 @@ function init() {
 	});
 }
 
-function didPostlayout(e) {
-	$.headerView.removeEventListener("postlayout", didPostlayout);
-	var top = $.headerView.rect.height,
-	    margin = $.tableView.bottom,
-	    bottom;
-	bottom = margin;
-	if (args.selectable) {
-		bottom += $.submitBtn.height + $.submitBtn.bottom;
-		if (args.isMedReminder && $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false)) {
-			$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
-			$.tooltip.applyProperties({
-				top : top - margin
-			});
-			$.tooltip.show();
-		}
-	}
-	$.searchbar.top = top;
-	$.tableView.applyProperties({
-		top : top,
-		bottom : bottom
-	});
-	$.partialView.applyProperties({
-		top : top,
-		bottom : bottom
-	});
-}
-
-function didClickHide(e) {
-	$.tooltip.hide();
-}
-
-function getSortOrderPreferences() {
-	$.http.request({
-		method : "codes_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				codes : [{
-					code_name : apiCodes.code_sort_order_preference
-				}]
-			}]
-		},
-		keepLoader : true,
-		success : didGetSortOrderPreferences
-	});
-}
-
-function didGetSortOrderPreferences(result) {
-	Alloy.Models.sortOrderPreferences.set(result.data.codes[0]);
-	var codes = Alloy.Models.sortOrderPreferences.get("code_values"),
-	    defaultVal = Alloy.Models.sortOrderPreferences.get("default_value");
-	_.each(codes, function(code) {
-		if (code.code_value === defaultVal) {
-			Alloy.Models.sortOrderPreferences.set("selected_code_value", code.code_value);
-			code.selected = true;
+function focus() {
+	/*
+	 * avoid null pointer if another controller or another instance of this controller
+	 * used this global variable in it's life span
+	 */
+	Alloy.Globals.currentTable = $.tableView;
+	/**
+	 * focus will be called whenever window gets focus / brought to front (closing a window)
+	 * identify the first focus with a flag isWindowOpen
+	 * Note: Moving this api call to init can show dialog on previous window on android
+	 * as activities are created once window is opened
+	 */
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		/**
+		 * when args.navigation is valid
+		 * switcher drop down will be available
+		 * so don't risk by using cached prescriptions
+		 * if args.navigation is not valid
+		 * we make sure that the prescriptions belog to the
+		 * selected user only
+		 */
+		if (!args.navigation && args.selectable && Alloy.Collections.prescriptions.length) {
+			/**
+			 * when prescriptions is already there in collection
+			 * sort order preferences should also be there in place
+			 * need not to get them again from api
+			 * if not available (length is 0) then calling api in else
+			 */
+			prepareList();
 		} else {
-			code.selected = false;
+			prepareData();
 		}
-	});
-	$.sortPicker.setItems(codes);
-	getPrescriptions();
+	} else if (currentPrescription && currentPrescription.shouldUpdate) {
+		/**
+		 * checking whether any updates made from prescription details / any other detail screen
+		 */
+		currentPrescription = null;
+		prepareData();
+	}
 }
 
-function getPrescriptions(status, callback) {
+function prepareData() {
 	//reset search if any
 	if ($.searchTxt.getValue()) {
 		$.searchTxt.setValue("");
@@ -112,65 +100,96 @@ function getPrescriptions(status, callback) {
 	}
 	/**
 	 * occurs on first launch
-	 * when no all the patients
-	 * has partial accounts
+	 * when all accounts
+	 * are partial
 	 */
 	var currentPatient = $.patientSwitcher.get();
 	if (currentPatient.get("is_partial")) {
+		/**
+		 * reset table if any
+		 */
+		if (Alloy.Collections.prescriptions.length) {
+			Alloy.Collections.prescriptions.reset([]);
+			prepareList();
+		}
+		//update strings and show
 		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 		}
-		/**
-		 * hide loader
-		 * from sort order preference
-		 */
-		$.app.navigator.hideLoader();
-		return true;
+	} else {
+		//hide if any
+		if ($.partialView.visible) {
+			$.partialView.visible = false;
+		}
+		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions);
 	}
-	//get data
+}
+
+function getPrescriptions(status, callback) {
+	/**
+	 * get data
+	 * use selected sort option
+	 * or
+	 * one from account manager preferences
+	 * (not current patient, which may mismatch when sort picker is shown)
+	 */
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
 			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
-					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value"),
-					prescription_display_status : status || apiCodes.prescription_display_status_active
+					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value") || Alloy.Collections.patients.at(0).get("pref_prescription_sort_order"),
+					prescription_display_status : status
 				}
 			}]
 		},
-		success : callback || didGetPrescriptions,
-		failure : callback || didGetPrescriptions
+		success : callback,
+		failure : callback
 	});
 }
 
 function didGetPrescriptions(result, passthrough) {
 	/**
-	 * if it is a callback from request wrapper
-	 * should have valid result / error object
-	 * otherwise use the cached one -
-	 * when add prescriptions from order details
+	 * check whether it is a success call
+	 * since no prescriptions found is considered as a error and data is null
+	 * set prescriptions node to empty array in order to reset the list view
 	 */
-	if (result) {
-		/**
-		 * check whether it is a success call
-		 * since no prescriptions found is considered as a error and data is null
-		 * set prescriptions node to empty array in order to reset the list view
-		 */
-		if (!result.data) {
-			//ignore when list is already empty
-			if (!Alloy.Collections.prescriptions.length) {
-				return false;
-			}
-			//this resets the list populated already
-			result.data = {
-				prescriptions : []
-			};
-		}
-		//process data from server
-		Alloy.Collections.prescriptions.reset(result.data.prescriptions);
+	if (!result.data) {
+		//this resets the list populated already
+		result.data = {
+			prescriptions : []
+		};
 	}
+	//process data from server
+	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
+	//check whether to show hidden prescriptions too
+	if (args.showHiddenPrescriptions) {
+		getPrescriptions(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
+	} else {
+		prepareList();
+	}
+}
+
+function didGetHiddenPrescriptions(result, passthrough) {
+	if (!result.data) {
+		//this resets the list populated already
+		result.data = {
+			prescriptions : []
+		};
+	}
+	//append to existing prescriptions
+	Alloy.Collections.prescriptions.add(result.data.prescriptions);
+	//just sort it alphabetically
+	Alloy.Collections.prescriptions.reset(Alloy.Collections.prescriptions.sortBy(function(model) {
+		return model.get("presc_name").toLowerCase();
+	}));
+	//prepare table
+	prepareList();
+}
+
+function prepareList() {
 	//reset section / row data
 	sections = {
 		readyPickup : [],
@@ -186,7 +205,8 @@ function didGetPrescriptions(result, passthrough) {
 		others : ""
 	},
 	    currentDate = moment(),
-	    filters = (args.filters || {});
+	    filters = args.filters || {},
+	    selectedItems = args.selectedItems || [];
 	/**
 	 * we keep all the returned prescriptions in collection
 	 * filters are applied to determine whether it has to be displayed on screen
@@ -233,9 +253,17 @@ function didGetPrescriptions(result, passthrough) {
 			return false;
 		}
 		/**
-		 * process sections
+		 * append title and
+		 * selected flag
+		 *
+		 * selected flag may be decided
+		 * based on selected items array
 		 */
-		prescription.set("title", $.utilities.ucword(prescription.get("presc_name")));
+		prescription.set({
+			title : $.utilities.ucword(prescription.get("presc_name")),
+			selected : _.indexOf(selectedItems, prescription.get("id")) !== -1
+		});
+		//process sections
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:
 			var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
@@ -252,14 +280,13 @@ function didGetPrescriptions(result, passthrough) {
 				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 			}
 			prescription.set({
-				canHide : false,
-				subtitle : subtitle,
-				progress : progress,
 				section : "inProgress",
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "inprogress",
 				masterWidth : 100,
 				detailWidth : 0,
-				selected : false
+				subtitle : subtitle,
+				progress : progress,
+				canHide : false
 			});
 			break;
 		case apiCodes.refill_status_ready:
@@ -270,13 +297,12 @@ function didGetPrescriptions(result, passthrough) {
 				});
 			}
 			prescription.set({
-				canHide : false,
-				subtitle : $.strings.prescReadyPickupLblReady,
 				section : "readyPickup",
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "completed",
 				masterWidth : 100,
 				detailWidth : 0,
-				selected : false
+				subtitle : $.strings.prescReadyPickupLblReady,
+				canHide : false
 			});
 			break;
 		default:
@@ -327,17 +353,17 @@ function didGetPrescriptions(result, passthrough) {
 				});
 			}
 			prescription.set({
-				canHide : true,
 				section : section,
-				options : swipeOptions,
 				itemTemplate : template,
+				options : swipeOptions,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-				selected : false
+				canHide : true
 			});
 		}
-		var rowParams = prescription.toJSON();
+		var rowParams = prescription.toJSON(),
+		    row;
 		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-		var row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 		switch(rowParams.itemTemplate) {
 		case "masterDetailSwipeable":
 			row.on("clickoption", didClickSwipeOption);
@@ -380,12 +406,13 @@ function didGetPrescriptions(result, passthrough) {
 		}
 	});
 	$.tableView.setData(data);
-	/*
-	 *  reset the swipe flag
-	 *  once a fresh list is loaded
-	 *  not resetting this block further swipe actions
-	 */
+	//further resets
 	if (!args.selectable) {
+		/*
+		 *  reset the swipe flag
+		 *  once a fresh list is loaded
+		 *  not resetting this block further swipe actions
+		 */
 		Alloy.Globals.isSwipeInProgress = false;
 		Alloy.Globals.currentRow = null;
 	} else if (Alloy.Collections.prescriptions.length && !data.length) {
@@ -445,18 +472,26 @@ function didClickRightNavBtn(e) {
 }
 
 function didClickOptionMenu(e) {
+	/**
+	 * cancel index may vary,
+	 * based on arguments, so check
+	 * the cancel flag before proceed
+	 */
+	if (e.cancel) {
+		return false;
+	}
 	switch(e.index) {
 	case 0:
 		toggleSearch();
 		break;
 	case 1:
-		$.sortPicker.show();
+		prepareData();
 		break;
 	case 2:
-		getPrescriptions();
+		$.sortPicker.show();
 		break;
 	case 3:
-		getPrescriptions(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_hideen, prepareUnhidePicker);
 		break;
 	}
 }
@@ -510,7 +545,7 @@ function toggleSearch() {
 	$.partialView.animate(pAnim);
 }
 
-function didGetHiddenPrescriptions(result, passthrough) {
+function prepareUnhidePicker(result, passthrough) {
 	/**
 	 * same callback is used for both success and failure
 	 * ignore when data is null
@@ -554,15 +589,7 @@ function didClickUnhide(e) {
 				}]
 			},
 			keepLoader : true,
-			success : function() {
-				/**
-				 * refresh list
-				 * don't assign getPrescriptions
-				 * directly to success which may get issues
-				 * as success parameters will be passed to that function
-				 */
-				getPrescriptions();
-			}
+			success : prepareData
 		});
 	}
 }
@@ -573,7 +600,7 @@ function didClickUnhideClose(e) {
 
 function didClickSortPicker(e) {
 	Alloy.Models.sortOrderPreferences.set("selected_code_value", e.data.code_value);
-	getPrescriptions();
+	prepareData();
 }
 
 function didClickSortClose(e) {
@@ -596,17 +623,15 @@ function didClickSwipeOption(e) {
 		 * through this app
 		 */
 		var prescription = e.data;
-		canRefill(prescription, function didCheck(proceed) {
-			if (proceed) {
-				$.app.navigator.open({
-					titleid : "titleOrderDetails",
-					ctrl : "orderDetails",
-					ctrlArguments : {
-						prescriptions : [prescription]
-					},
-					stack : true
-				});
-			}
+		refillHandler.canRefill(prescription, function didCheck() {
+			$.app.navigator.open({
+				titleid : "titleOrderDetails",
+				ctrl : "orderDetails",
+				ctrlArguments : {
+					prescriptions : [prescription]
+				},
+				stack : true
+			});
 		});
 		break;
 	}
@@ -681,7 +706,7 @@ function hidePrescription(e) {
 		keepLoader : true,
 		success : function() {
 			//refresh list
-			getPrescriptions();
+			prepareData();
 		}
 	});
 }
@@ -709,35 +734,38 @@ function didClickTableView(e) {
 		return false;
 	});
 	if (row) {
-		currentPrescription = row.getParams();
 		if (args.selectable) {
-			var toggleSelection = function(proceed) {
-				if (proceed !== false) {
-					/**
-					 * update selection flag
-					 */
-					currentPrescription.selected = !currentPrescription.selected;
-					sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", currentPrescription);
-					$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
-				}
-				currentPrescription = null;
+			var prescription = row.getParams(),
+			    toggleSelection = function() {
+				/**
+				 * update selection flag
+				 */
+				prescription.selected = !prescription.selected;
+				sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
+				$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
 			};
 			/**
+			 * args.preventRefillValidation
+			 * a boolean flag that would say
+			 * whether or not to validate
+			 * against refill during selection
+			 *
 			 * check whether this
 			 * prescription can be refilled
-			 * eg: Schedule 2 can't be refilled
+			 * ie: Schedule 2 can't be refilled
 			 * through this app
 			 *
-			 * !currentPrescription.selected - when it is selected by user
-			 * not when unselected
+			 * should be validate only if prescription.selected is false
+			 * when it is selected by user, not when unselected
 			 */
-			if (!currentPrescription.selected) {
-				canRefill(currentPrescription, toggleSelection);
-			} else {
+			if (prescription.selected || args.preventRefillValidation) {
 				toggleSelection();
+			} else {
+				refillHandler.canRefill(prescription, toggleSelection);
 			}
 			return false;
 		} else {
+			currentPrescription = row.getParams();
 			$.app.navigator.open({
 				titleid : "titlePrescriptionDetails",
 				ctrl : "prescriptionDetails",
@@ -752,10 +780,10 @@ function didClickTableView(e) {
 }
 
 function hideAllPopups() {
-	if ($.sortPicker.getVisible()) {
+	if ($.sortPicker && $.sortPicker.getVisible()) {
 		return $.sortPicker.hide();
 	}
-	if ($.unhidePicker.getVisible()) {
+	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
 	return false;
@@ -803,31 +831,6 @@ function didClickSubmit(e) {
 	}
 }
 
-function didChangePatient(e) {
-	if (e.is_partial) {
-		/**
-		 * this will reset the prescription list
-		 */
-		didGetPrescriptions({});
-		/**
-		 * show option for
-		 * add prescription
-		 */
-		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, e.first_name);
-		if (!$.partialView.visible) {
-			$.partialView.visible = true;
-		}
-	} else {
-		/**
-		 * hide add prescription option
-		 */
-		if ($.partialView.visible) {
-			$.partialView.visible = false;
-		}
-		getPrescriptions();
-	}
-}
-
 function didClickAddPresc(e) {
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
@@ -837,53 +840,34 @@ function didClickAddPresc(e) {
 	});
 }
 
-function focus() {
-	/*
-	 * avoid null pointer if another controller or another instance of this controller
-	 * used this global variable in it's life span
-	 */
-	Alloy.Globals.currentTable = $.tableView;
-	/**
-	 * focus will be called whenever window gets focus / brought to front (closing a window)
-	 * identify the first focus with a flag isWindowOpen
-	 * Note: Moving this api call to init can show dialog on previous window on android
-	 * as activities are created once window is opened
-	 */
-	if (!isWindowOpen) {
-		isWindowOpen = true;
-		var codes = Alloy.Models.sortOrderPreferences.get("code_values");
-		/**
-		 * when args.navigation is valid
-		 * switcher drop down will be available
-		 * so don't risk by using cached prescriptions
-		 * if args.navigation is not valid
-		 * we make sure that the prescriptions belog to the
-		 * selected user only
-		 */
-		if (args.selectable && !args.navigation && Alloy.Collections.prescriptions.length) {
-			/**
-			 * when prescriptions is already there in collection
-			 * sort order preferences should also be there in place
-			 * need not to get them again from api
-			 * if not available (length is 0) then calling api in else
-			 */
-			$.sortPicker.setItems(codes);
-			didGetPrescriptions();
-		} else {
-			if (codes) {
-				$.sortPicker.setItems(codes);
-				getPrescriptions();
-			} else {
-				getSortOrderPreferences();
-			}
+function didPostlayout(e) {
+	$.headerView.removeEventListener("postlayout", didPostlayout);
+	var top = $.headerView.rect.height,
+	    margin = $.tableView.bottom,
+	    bottom;
+	bottom = margin;
+	if (args.selectable) {
+		bottom += $.submitBtn.height + $.submitBtn.bottom;
+		if ($.tooltip) {
+			$.tooltip.applyProperties({
+				top : top - margin
+			});
+			$.tooltip.show();
 		}
-	} else if (currentPrescription && currentPrescription.shouldUpdate) {
-		/**
-		 * checking whether any updates made from prescription details / any other detail screen
-		 */
-		currentPrescription = null;
-		getPrescriptions();
 	}
+	$.searchbar.top = top;
+	$.tableView.applyProperties({
+		top : top,
+		bottom : bottom
+	});
+	$.partialView.applyProperties({
+		top : top,
+		bottom : bottom
+	});
+}
+
+function didClickHide(e) {
+	$.tooltip.hide();
 }
 
 function setParentView(view) {

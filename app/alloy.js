@@ -27,6 +27,7 @@
 	require("navigationHandler");
 	require("notificationHandler");
 	require("refillScan");
+	require("refillHandler");
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");
@@ -58,6 +59,7 @@
 	//models
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
+	Alloy.Models.remindersRefill = new Backbone.Model();
 	Alloy.Models.states = new Backbone.Model();
 	Alloy.Models.storeOriginal = new Backbone.Model();
 	Alloy.Models.sortOrderPreferences = new Backbone.Model();

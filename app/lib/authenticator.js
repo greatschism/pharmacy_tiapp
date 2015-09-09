@@ -121,6 +121,8 @@ function didAuthenticate(result, passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_time_zone
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_relationship
+				}, {
+					code_name : Alloy.CFG.apiCodes.code_sort_order_preference
 				}]
 			}]
 		},
@@ -136,6 +138,7 @@ function didGetCodeValues(result, passthrough) {
 	Alloy.Models.language.set(result.data.codes[0]);
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
+	Alloy.Models.sortOrderPreferences.set(result.data.codes[3]);
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
 	//now get family accounts
@@ -405,6 +408,10 @@ function didGetPreferences(result, passthrough) {
 			 * api now
 			 */
 			Alloy.Globals.isLoggedIn = true;
+			/**
+			 * update default sort preferences
+			 */
+			appendFlag(Alloy.Models.sortOrderPreferences.get("code_values"), mPatient.get("pref_prescription_sort_order"));
 			/**
 			 * set prefered time zone
 			 * before that store the user

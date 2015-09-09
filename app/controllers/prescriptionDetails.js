@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    refillHandler = require("refillHandler"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
     isWindowOpen,
@@ -228,36 +229,7 @@ function toggleInstruction(e) {
 }
 
 function didClickRefill(e) {
-	/**
-	 **
-	 * the similar logic below
-	 * is there in prescription list
-	 *  PHA-892
-	 */
-	if ($.utilities.isRxSchedule2(prescription.rx_number)) {
-		/**
-		 *  PHA-892
-		 */
-		$.uihelper.showDialog({
-			message : $.strings.prescDetMsgSchedule2
-		});
-	} else if (parseInt(prescription.refill_left || 0) === 0) {
-		$.uihelper.showDialog({
-			message : $.strings.prescDetMsgRefillLeftNone,
-			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : didConfirmRefill
-		});
-	} else if (moment(prescription.expiration_date, apiCodes.date_format).diff(moment(), "days") < 0) {
-		$.uihelper.showDialog({
-			message : $.strings.prescDetMsgExpired,
-			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : didConfirmRefill
-		});
-	} else {
-		didConfirmRefill();
-	}
+	refillHandler.canRefill(prescription, didConfirmRefill);
 }
 
 function didConfirmRefill() {

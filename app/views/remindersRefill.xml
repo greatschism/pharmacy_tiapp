@@ -1,11 +1,12 @@
 <Alloy>
-	<TableView>
-		<HeaderView>
-			<View class="content-header-view">
-				<Label id="benefitsLbl" class="content-header-lbl-with-ricon" />
-				<Button class="content-header-right-icon icon-help" onClick="didClickBenefits" />
-			</View>
-		</HeaderView>
+	<View id="headerView" class="top auto-height vgroup">
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+		<View class="content-header-view">
+			<Label id="benefitsLbl" class="content-header-lbl-with-ricon" />
+			<Button class="content-header-right-icon icon-help" onClick="didClickBenefits" />
+		</View>
+	</View>
+	<TableView id="tableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
