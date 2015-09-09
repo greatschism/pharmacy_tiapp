@@ -1,7 +1,9 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper"),
+    http = require("requestwrapper"),
     authenticator = require("authenticator"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 60,
     arrowDown = $.createStyle({
@@ -173,7 +175,7 @@ function hide() {
 }
 
 function deletePatient(patient) {
-	$.http.request({
+	http.request({
 		method : "patient_family_delete",
 		params : {
 			feature_code : "THXXX",
