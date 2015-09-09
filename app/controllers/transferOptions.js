@@ -1,8 +1,9 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment");
 function focus() {
-	$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther: args.prescription.storeOriginal.code_display);
+	$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther : args.prescription.storeOriginal.code_display);
 }
+
 function didClickComplete(e) {
 	if (args.prescription) {
 		transferStore();
@@ -54,12 +55,15 @@ function transferStore(imageURL) {
 		 * and add necessary params for
 		 * logged in user
 		 */
+		var currentPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
 		_.extend(data, {
-			first_name : Alloy.Models.patient.get("first_name"),
-			last_name : Alloy.Models.patient.get("last_name"),
-			birth_date : Alloy.Models.patient.get("birth_date"),
-			mobile : Alloy.Models.patient.get("mobile_number"),
-			email_address : Alloy.Models.patient.get("email_address")
+			first_name : currentPatient.get("first_name"),
+			last_name : currentPatient.get("last_name"),
+			birth_date : currentPatient.get("birth_date"),
+			mobile : currentPatient.get("mobile_number"),
+			email_address : currentPatient.get("email_address")
 		});
 	}
 	if (prescription) {

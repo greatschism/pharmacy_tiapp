@@ -25,13 +25,13 @@ function terminate() {
 	}
 }
 function didChangePatient(e) {
-	console.log(e);
-
-	Alloy.Globals.sessionId =e.session_id;
-	
-	//Alloy.Globals.sessionId = Alloy.Collections.patients.at(0).get("session_id");
-	console.log(Alloy.Globals.sessionId);
+	/**
+	 * No actions here since it is just a static page. 
+	 * Only thing to be passed is the right session_id and
+	 * that is taken care by the patient switcher by itself.
+	 */
 }
+
 function didClickPhoto(e) {
 	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
