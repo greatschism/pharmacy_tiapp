@@ -605,12 +605,14 @@ module.exports = {
 		"familyCareLblAdd" : "Want to add family members?",
 		"familyCareLblStatusPending" : "Pending",
 		"familyCareLblStatusLinked" : "Linked",
+		"familyCareLblStatusDeclined" : "Declined",
 		"familyCareRelatedPrefix" : "My ",
 		"familyCareLblAcntMgr" : "Account Manager",
 		"familyCareSectionChildProxy" : "People whose medications you manage",
 		"familyCareSectionParentProxy" : "People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "Add family member",
 		"familyCareOptRemove" : "Remove",
+		"familyCareOptResend" : "Resend",
 		"familyCareMsgChildRemove" : "Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
 		"familyCareMsgParentRemove" : "Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
@@ -626,6 +628,8 @@ module.exports = {
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s",
 		"familyMemberInviteSendTextLbl" : "Send text",
+		"familyMemberInviteModeEmail" : "email",
+		"familyMemberInviteModeText" : "text",
 		"familyMemberInviteSendEmailLbl" : "Send an email",
 		"familyMemberInviteHintSendText" : "Enter number",
 		"familyMemberInviteHintSendEmail" : "Enter email address",

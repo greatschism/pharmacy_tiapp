@@ -16,6 +16,7 @@
             "patient_family_get": "patient/family/get",
             "patient_family_add": "patient/family/add",
             "patient_family_delete": "patient/family/delete",
+            "patient_family_invite_resend": "patient/family/invite/resend",
             "patient_family_add_fullacount": "patient/addfullaccount",
             "patient_forgotpassword": "patient/forgotpassword",
             "stores_list": "stores/listnew",
@@ -50,7 +51,8 @@
             "terms_accept": "terms/accept",
             "terms_decline": "terms/decline",
             "terms_revoke": "terms/revoke",
-            "mobile_add": "patient/mobile/add"
+            "mobile_add": "patient/mobile/add",
+            "mobile_resend": "patient/mobile/resend"
         },
         "apiCodes": {
             "success": "200",

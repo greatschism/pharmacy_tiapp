@@ -12,7 +12,7 @@
 				<Label id="togglePasswordLbl" class="lbl-with-rswt" />
 				<Widget id="togglePasswordSwt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle"/>
 			</View>
-			<View id="autoLoginView" class="margin-top auto-height" >
+			<View id="autoLoginView" class="margin-top auto-height margin-bottom" >
 				<Label id="autoLoginLbl" class="lbl-with-rswt" onPostlayout="didPostlayout" />
 				<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt"/>
 			</View>

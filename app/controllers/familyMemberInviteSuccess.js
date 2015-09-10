@@ -1,20 +1,23 @@
 var args = arguments[0] || {};
-function init(){
-	$.uihelper.getImage("text_benefits",$.inviteSuccessImg);
+function init() {
+	$.uihelper.getImage("text_benefits", $.inviteSuccessImg);
 	$.inviteMsg.text = String.format(Alloy.Globals.strings.familyMemberInviteSuccessMsg, args.familyRelationship);
 }
-function didAddAnotherMember(){
+
+function didAddAnotherMember() {
 	$.app.navigator.open({
-			titleid : "titleAddFamily",
-			ctrl : "familyMemberAdd",
-			stack : true
-		});
+		titleid : "titleAddFamily",
+		ctrl : "familyMemberAdd",
+		stack : true
+	});
 }
-function didClickDone(){
+
+function didClickDone() {
 	$.app.navigator.open({
-			titleid : "titleFamilyCare",
-			ctrl : "familyCare",
-			stack : false
-		});
+		titleid : "titleFamilyCare",
+		ctrl : "familyCare",
+		stack : false
+	});
 }
-exports.init=init;
+
+exports.init = init;

@@ -149,6 +149,18 @@ function didGetPatient(result) {
 
 
 function sendTextSignUpMessage() {
+		$.http.request({
+		method : "mobile_resend",
+		params : {
+			feature_code : "THXXX",
+			filter : []
+		},
+		success : didSendAgainFromTextSignUp,
+		failure : didFail
+	});
+}
+
+function didSendAgainFromTextSignUp(){
 	$.app.navigator.open({
 		ctrl : "textMessage",
 		stack : true,
@@ -182,18 +194,12 @@ function sendTextSignUpMessage() {
 
 function sendTextTextHelpMessage() {
 	$.http.request({
-		method : "mobile_add",
+		method : "mobile_resend",
 		params : {
 			feature_code : "THXXX",
-			data : [{
-				add : {
-					mobile : "1" + phone,
-					old_mobile : ""
-				}
-			}]
-
+			filter : []
 		},
-		success : didSendTextAgain,
+		success : didSendAgainFromTextHelp,
 		failure : didFail
 	});
 
@@ -202,7 +208,7 @@ function sendTextTextHelpMessage() {
 function didFail() {
 }
 
-function didSendTextAgain() {
+function didSendAgainFromTextHelp() {
 	$.app.navigator.open({
 		ctrl : "textMessage",
 		stack : true,

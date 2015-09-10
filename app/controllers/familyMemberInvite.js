@@ -1,6 +1,9 @@
 var args = arguments[0] || {},
     utilities = require("utilities"),
     authenticator = require("authenticator"),
+    email,
+    phone,
+    mobile,
     moment = require("alloy/moment");
 
 function init() {
@@ -8,8 +11,8 @@ function init() {
 }
 
 function didSendInvite() {
-	var email = $.emailTxt.getValue(),
-	    phone = $.phoneTxt.getValue();
+	email = $.emailTxt.getValue();
+	phone = $.phoneTxt.getValue();
 
 	if (!email && !phone) {
 		$.uihelper.showDialog({
@@ -19,20 +22,20 @@ function didSendInvite() {
 		return;
 	}
 
-	if (phone &&  !$.utilities.validatePhoneNumber(phone)) {
+	if (phone && !$.utilities.validatePhoneNumber(phone)) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhoneInvalid
 		});
 		return;
 	}
-	
+
 	if (email && !$.utilities.validateEmail(email)) {
 		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.familyMemberInviteValEmailInvalid
 		});
 		return;
 	}
-	var mobile=$.utilities.validatePhoneNumber(phone);
+	mobile = $.utilities.validatePhoneNumber(phone);
 
 	$.http.request({
 		method : "patient_family_add",
@@ -61,12 +64,12 @@ function didSendInvite() {
 }
 
 function didAddChild() {
-authenticator.updateFamilyAccounts();
+	authenticator.updateFamilyAccounts();
 	$.app.navigator.open({
 		titleid : "titleFamilyAccounts",
 		ctrl : "familyMemberInviteSuccess",
 		ctrlArguments : {
-			familyRelationship : args.familyRelationship
+			familyRelationship : args.familyRelationship,
 		},
 		stack : false
 	});
@@ -78,11 +81,13 @@ function didChangePhone(e) {
 	$.phoneTxt.setValue(value);
 	$.phoneTxt.setSelection(len, len);
 }
-function didClickCancel(){
+
+function didClickCancel() {
 	$.app.navigator.open({
 		titleid : "titleAddFamily",
 		ctrl : "familyMemberAdd",
 		stack : true
 	});
 }
+
 exports.init = init;

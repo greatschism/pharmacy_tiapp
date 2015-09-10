@@ -86,7 +86,6 @@ function didClickTableView(e) {
 
 function didClickContinue() {
 	phone = $.phoneTxt.getValue();
-console.log(selectedChildProxy);
 	var childProxy = _.pluck(selectedChildProxy, "id");
 	if (!phone) {
 		$.uihelper.showDialog({

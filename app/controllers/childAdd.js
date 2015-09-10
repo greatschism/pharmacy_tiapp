@@ -19,7 +19,6 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	   console.log(args.isFamilyMemberFlow);
 }
 
 function didChangeRx(e) {
