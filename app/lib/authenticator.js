@@ -336,12 +336,25 @@ function didGetPreferences(result, passthrough) {
 		 * variable used
 		 * with XML - if
 		 * for validating whether user
-		 * has linked any account to his account
-		 * even though if it is on pending state
-		 * Note: by default patients length will be 1
-		 * with manager account object
+		 * has any parent proxies
+		 * can be at any state
+		 */
+		Alloy.Globals.hasParentProxies = (Alloy.Collections.patients.at(0).get("parent_proxy") || []).length > 0;
+		/**
+		 * variable used
+		 * with XML - if
+		 * for validating whether user
+		 * has any child proxies
+		 * can be at any state
 		 */
 		Alloy.Globals.hasChildProxies = (Alloy.Collections.patients.at(0).get("child_proxy") || []).length > 0;
+		/**
+		 * variable used
+		 * with XML - if
+		 * for validating whether user
+		 * has child or parent proxy
+		 */
+		Alloy.Globals.hasProxies = Alloy.Globals.hasParentProxies || Alloy.Globals.hasChildProxies;
 		/**
 		 * variable used
 		 * with XML - if
@@ -617,7 +630,7 @@ function didLogout(result, passthrough) {
 		/**
 		 * reset global variables
 		 */
-		_.each(["sessionId", "isLoggedIn", "hasChildProxies", "hasPatientSwitcher"], function(value) {
+		_.each(["sessionId", "isLoggedIn", "hasProxies", "hasParentProxies", "hasChildProxies", "hasPatientSwitcher"], function(value) {
 			delete Alloy.Globals[value];
 		});
 		/**
