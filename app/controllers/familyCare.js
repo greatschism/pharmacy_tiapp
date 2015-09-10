@@ -149,7 +149,6 @@ function didGetPatient() {
 				parentProxy = {
 					parent_id : parentProxy.parent_id,
 					title : $.utilities.ucword(parentProxy.first_name) || $.utilities.ucword(parentProxy.last_name) ? $.utilities.ucword(parentProxy.first_name) + " " + $.utilities.ucword(parentProxy.last_name) : parentProxy.address,
-					subtitle : $.strings.familyCareRelatedPrefix + parentProxy.related_by,
 					detailType : colorCode,
 					options : parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
 					detailSubtitle : status
@@ -242,7 +241,6 @@ function didResendInvite(result) {
 		message : result.message
 	});
 }
-
 function didClickMgrSwipeOption(e) {
 	if (Alloy.Globals.currentRow) {
 		Alloy.Globals.currentRow.touchEnd();
@@ -375,11 +373,19 @@ function addPrescriptions() {
 }
 
 function didClickAddFamilyMember() {
+	if (Alloy.Globals.currentRow) {
+		 Alloy.Globals.currentRow.touchEnd();
+	}
 	$.app.navigator.open({
 		titleid : "titleAddFamily",
 		ctrl : "familyMemberAdd",
 		stack : true
 	});
+}
+function didClickTableView(e){
+	if (Alloy.Globals.currentRow) {
+		return Alloy.Globals.currentRow.touchEnd();
+	}
 }
 
 exports.focus = focus;

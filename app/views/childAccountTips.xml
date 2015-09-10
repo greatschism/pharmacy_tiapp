@@ -19,6 +19,6 @@
 				<Label id="tip3Lbl" class="content-lbl-wrap"></Label>
 			</View>
 		</View>
-		<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn"/>
+		<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn" if="!Alloy.Globals.isLoggedIn"/>
 	</ScrollView>
 </Alloy>
