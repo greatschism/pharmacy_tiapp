@@ -3,8 +3,11 @@ var args = arguments[0] || {},
 	uihelper = require("uihelper"),
 	utilities = require("utilities");
 
-function didClickForgotEmail(){
-	/*to do - not sure about the behaviour: PHA-1047*/
+function didClickContactSupport(){
+	var supportPhone = Alloy.Models.appload.get("supportphone");
+	if (supportPhone) {
+		$.uihelper.openDialer(supportPhone);
+	}
 }
 
 function didClickSend(){

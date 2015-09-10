@@ -73,7 +73,7 @@ module.exports = {
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "es-It looks like you already have an account with Carbon pharmacy",
-		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child",
+		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password",
 		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
 		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
@@ -164,7 +164,7 @@ module.exports = {
 
 		"userRecoveryLbl" : "es-Please enter the email address you originally signed up with. We will send you a link to reset your password.",
 		"userRecoveryEmailHint" : "es-Email address",
-		"userRecoveryLblAttr" : "es-<secondaryfont><secondarycolor>Can't remember what email you used?</secondaryfont></secondarycolor>",
+		"userRecoveryBtnContactSupport" : "es-Contact support",
 		"userRecoveryBtnSend" : "es-Send",
 
 		"storesPatientSwitcher" : "es-%s's stores",
@@ -369,7 +369,7 @@ module.exports = {
 		"remindersMedAddLblTitle" : "es-Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "es-It looks like you don't have\nany reminders set up yet.",
 
-		"transferLblTitle" : "es-You can transfer prescriptions from other pharmacy chains to %s",
+		"transferLblTitle" : "es-You can transfer prescriptions from other pharmacy chains to %s using this feature",
 		"transferBtnPhoto" : "es-Take a photo",
 		"transferBtnType" : "es-Type prescription details",
 		"transferSwitcher" : "es-%s's transfer Rx",
@@ -457,7 +457,9 @@ module.exports = {
 		"accountLblTextSignupAgreement" : "es-You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 		"accountSuccessBtnContinue" : "es-Continue",
 		"accountReplySignUpForText" : "es-Sign up for texts",
-
+		"accountSwitcher" : "es-%s's account settings",
+		"accountPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
+		
 		"registerLbl" : "es-Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "es-Myself",
 		"registerBtnChild" : "es-My child",

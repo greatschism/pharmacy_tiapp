@@ -128,7 +128,7 @@ function didFail() {
 	});
 }
 
-function didRegister(result, passthrough) {
+function didRegister() {
 	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
 	$.uihelper.showDialog({
 		message : successMessage
