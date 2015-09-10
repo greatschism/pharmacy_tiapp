@@ -239,7 +239,7 @@ function didClickSkip() {
 	$.app.navigator.open({
 		titleid : "titleFamilyCare",
 		ctrl : "childAccountTips",
-		stack : true
+		stack : false
 	});
 }
 
