@@ -352,6 +352,7 @@ module.exports = {
 		"remindersRefillLblRemindAt" : "At this time",
 		"remindersRefillLblRemindRepeat" : "If I forget, remind me",
 		"remindersRefillLblPrescriptions" : "Remind me to refill",
+		"remindersRefillLblManagePrescriptions" : "Click to view",
 
 		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",
@@ -466,7 +467,7 @@ module.exports = {
 		"accountSuccessBtnContinue" : "Continue",
 		"accountReplySignUpForText" : "Sign up for texts",
 		"accountSwitcher" : "%s's account settings",
-		
+
 		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "Myself",
 		"registerBtnChild" : "My child",

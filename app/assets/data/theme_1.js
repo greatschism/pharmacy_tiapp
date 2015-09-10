@@ -2567,7 +2567,6 @@ module.exports = {
 				"horizontalWrap" : false
 			},
 			".content-group-prompt-60" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2581,7 +2580,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-inactive-prompt-60" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2595,7 +2593,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-reply-40" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2609,7 +2606,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-inactive-reply-40" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2623,7 +2619,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-right-reply-40" : {
-				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2637,7 +2632,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-right-inactive-reply-40" : {
-				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2650,8 +2644,20 @@ module.exports = {
 				"ellipsize" : false,
 				"wordWrap" : true
 			},
+			".content-group-right-reply-link-40" : {
+				"right" : 0,
+				"height" : "auto",
+				"width" : "40%",
+				"font" : {
+					"fontFamily" : "medium",
+					"fontSize" : 14
+				},
+				"color" : "#0095FF",
+				"textAlign" : "right",
+				"ellipsize" : false,
+				"wordWrap" : true
+			},
 			".content-group-prompt-40" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2665,7 +2671,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-inactive-prompt-40" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "40%",
@@ -2679,7 +2684,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-reply-60" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2693,7 +2697,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-inactive-reply-60" : {
-				"top" : 0,
 				"left" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2707,7 +2710,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-right-reply-60" : {
-				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2721,7 +2723,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-right-inactive-reply-60" : {
-				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
 				"width" : "60%",
@@ -2735,7 +2736,6 @@ module.exports = {
 				"wordWrap" : true
 			},
 			".content-group-right-reply-link-60" : {
-				"top" : 0,
 				"right" : 0,
 				"height" : "auto",
 				"width" : "60%",

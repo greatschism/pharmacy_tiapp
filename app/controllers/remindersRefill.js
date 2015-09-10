@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
+    replyLinkClasses = ["content-group-right-reply-link-40"],
     isWindowOpen;
 
 function init() {
@@ -16,7 +17,7 @@ function init() {
 		},
 		subtitles : [{
 			where : {
-				is_partial : false
+				is_partial : true
 			},
 			subtitle : $.strings.remindersRefillPatientSwitcherSubtitlePartial
 		}],
@@ -90,8 +91,9 @@ function prepareTable() {
 	});
 	$.prescriptionsRow = Alloy.createController("itemTemplates/promptReply", {
 		prompt : $.strings.remindersRefillLblPrescriptions,
+		reply : $.strings.remindersRefillLblManagePrescriptions,
 		promptClasses : promptClasses,
-		replyClasses : replyClasses,
+		replyClasses : replyLinkClasses,
 		hasChild : true
 	});
 	$.tableView.setData([$.remindOnRow.getView(), $.remindAtRow.getView(), $.remindRepeatRow.getView(), $.prescriptionsRow.getView()]);
