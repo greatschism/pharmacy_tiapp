@@ -110,7 +110,7 @@ function didGetPrescriptions(result, passthrough) {
 }
 
 function getHiddenPrescriptions() {
-	//apiCodes.prescription_display_status_hideen
+	//apiCodes.prescription_display_status_hidden
 }
 
 function didGetHiddenPrescriptions(result, passthrough) {

@@ -73,7 +73,7 @@
             "doctors_sort_by_fname": "first_name",
             "prescriptions_sort_by_name": "By Name",
             "prescription_display_status_active": "active",
-            "prescription_display_status_hideen": "hidden",
+            "prescription_display_status_hidden": "hidden",
             "refill_status_in_process": "In Process",
             "refill_status_ready": "Ready",
             "refill_status_sold": "Sold",

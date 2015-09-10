@@ -10,6 +10,10 @@ var args = arguments[0] || {},
     isWindowOpen;
 
 function init() {
+	/**
+	 * may not be available when
+	 *  showHiddenPrescriptions is true
+	 */
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
@@ -122,17 +126,24 @@ function prepareData() {
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
 		}
-		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions);
 	}
 }
 
-function getPrescriptions(status, callback) {
+function getPrescriptions(status, callback, keepLoader) {
 	/**
 	 * get data
 	 * use selected sort option
 	 * or
 	 * one from account manager preferences
 	 * (not current patient, which may mismatch when sort picker is shown)
+	 *
+	 * keepLoader is true when status is active and args.showHiddenPrescriptions
+	 * is true as there will be a next call for hidden prescriptions
+	 *
+	 * errorDialogEnabled should be false when keepLoader is true
+	 * even if there are no active prescriptions, hidden prescriptions may
+	 * return something
 	 */
 	$.http.request({
 		method : "prescriptions_list",
@@ -145,6 +156,8 @@ function getPrescriptions(status, callback) {
 				}
 			}]
 		},
+		keepLoader : keepLoader,
+		errorDialogEnabled : !keepLoader,
 		success : callback,
 		failure : callback
 	});
@@ -166,7 +179,7 @@ function didGetPrescriptions(result, passthrough) {
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	//check whether to show hidden prescriptions too
 	if (args.showHiddenPrescriptions) {
-		getPrescriptions(apiCodes.prescription_display_status_hideen, didGetHiddenPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions);
 	} else {
 		prepareList();
 	}
@@ -491,7 +504,7 @@ function didClickOptionMenu(e) {
 		$.sortPicker.show();
 		break;
 	case 3:
-		getPrescriptions(apiCodes.prescription_display_status_hideen, prepareUnhidePicker);
+		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker);
 		break;
 	}
 }

@@ -345,11 +345,22 @@ module.exports = {
 		"remindersTooltipLblSettings" : "tip: Set reminder delivery methods & Rx appearance for all your notifications.",
 		"remindersTooltipBtnHide" : "Got it!",
 
+		"remindersRefillPatientSwitcher" : "%s's refill reminder settings",
 		"remindersRefillSectionBenefits" : "What kind of reminders will I get?",
+		"remindersRefillPatientSwitcherSubtitlePartial" : "Please add a prescription to set up reminders.",
+		"remindersRefillLblRemindOn" : "Remind me this many days before my refill is due",
+		"remindersRefillLblRemindAt" : "At this time",
+		"remindersRefillLblRemindRepeat" : "If I forget, remind me",
+		"remindersRefillLblPrescriptions" : "Remind me to refill",
 
 		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",
 		"remindersRefillBenefitsLblPickup" : "Reminder when it's time to pick up Rx",
+
+		"remindersMedPatientSwitcher" : "%s's medication reminders",
+		"remindersMedPatientSwitcherSubtitlePartial" : "Please add a prescription to set up reminders.",
+		"remindersMedAddLblTitle" : "Want to add a\nmedication reminder?",
+		"remindersMedAddLblDesc" : "It looks like you don't have\nany reminders set up yet.",
 
 		"remindersSettingsPatientSwitcher" : "%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -365,11 +376,6 @@ module.exports = {
 		"remindersSettingsPopupSectionDeliveryModes" : "Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "Close",
 		"remindersSettingsMsgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
-
-		"remindersMedPatientSwitcher" : "%s's medication reminders",
-		"remindersMedPatientSwitcherSubtitlePartial" : "Please add a prescription to set up reminders.",
-		"remindersMedAddLblTitle" : "Want to add a\nmedication reminder?",
-		"remindersMedAddLblDesc" : "It looks like you don't have\nany reminders set up yet.",
 
 		"transferLblTitle" : "You can transfer prescriptions from other pharmacy chains to %s using this feature",
 		"transferBtnPhoto" : "Take a photo",
