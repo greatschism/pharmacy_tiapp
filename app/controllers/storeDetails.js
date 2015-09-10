@@ -214,6 +214,7 @@ function didClickRefill(e) {
 					refill_status : [Alloy.CFG.apiCodes.refill_status_in_process, Alloy.CFG.apiCodes.refill_status_ready]
 				},
 				selectable : true,
+				useCache : false,
 				navigation : {
 					titleid : "titleOrderDetails",
 					ctrl : "orderDetails",

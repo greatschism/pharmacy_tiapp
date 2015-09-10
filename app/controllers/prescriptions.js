@@ -70,15 +70,13 @@ function focus() {
 		isWindowOpen = true;
 		/**
 		 * use existing data set
-		 * only when patient switcher is disabled,
+		 * only when useCache is true
+		 * mostly used when
+		 * patientSwitcherDisabled and selectable
+		 * are true
+		 * i.e - order details to prescriptions
 		 */
-		if (args.patientSwitcherDisabled && Alloy.Collections.prescriptions.length) {
-			/**
-			 * when prescriptions is already there in collection
-			 * sort order preferences should also be there in place
-			 * need not to get them again from api
-			 * if not available (length is 0) then calling api in else
-			 */
+		if (args.useCache && Alloy.Collections.prescriptions.length) {
 			prepareList();
 		} else {
 			prepareData();
@@ -122,11 +120,11 @@ function prepareData() {
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
 		}
-		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}
 }
 
-function getPrescriptions(status, callback, keepLoader) {
+function getPrescriptions(status, callback, keepLoader, errorDialogEnabled) {
 	/**
 	 * get data
 	 * use selected sort option
@@ -153,7 +151,7 @@ function getPrescriptions(status, callback, keepLoader) {
 			}]
 		},
 		keepLoader : keepLoader,
-		errorDialogEnabled : !keepLoader,
+		errorDialogEnabled : errorDialogEnabled,
 		success : callback,
 		failure : callback
 	});
@@ -173,9 +171,12 @@ function didGetPrescriptions(result, passthrough) {
 	}
 	//process data from server
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
-	//check whether to show hidden prescriptions too
+	/**
+	 * check whether to show hidden prescriptions too
+	 * no error dialog when active prescriptions are already there
+	 */
 	if (args.showHiddenPrescriptions) {
-		getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions);
+		getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions, false, Alloy.Collections.prescriptions.length === 0);
 	} else {
 		prepareList();
 	}
@@ -500,7 +501,7 @@ function didClickOptionMenu(e) {
 		$.sortPicker.show();
 		break;
 	case 3:
-		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker);
+		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker, false, true);
 		break;
 	}
 }

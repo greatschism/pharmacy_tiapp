@@ -353,6 +353,8 @@ module.exports = {
 		"remindersRefillLblRemindRepeat" : "es-If I forget, remind me",
 		"remindersRefillLblPrescriptions" : "es-Remind me to refill",
 		"remindersRefillLblManagePrescriptions" : "es-Click to view",
+		"remindersRefillLblManagePrescriptionsNone" : "es-No prescriptions",
+		"remindersRefillLblManagePrescriptionsAll" : "es-All prescriptions",
 
 		"remindersRefillBenefitsLblRefill" : "es-Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "es-Reminder when Rx is ready",
@@ -605,12 +607,14 @@ module.exports = {
 		"familyCareLblAdd" : "es-Want to add family members?",
 		"familyCareLblStatusPending" : "es-Pending",
 		"familyCareLblStatusLinked" : "es-Linked",
+		"familyCareLblStatusDeclined" : "es-Declined",
 		"familyCareRelatedPrefix" : "es-My ",
 		"familyCareLblAcntMgr" : "es-Account Manager",
 		"familyCareSectionChildProxy" : "es-People whose medications you manage",
 		"familyCareSectionParentProxy" : "es-People who can manage your prescriptions",
 		"familyCareMemberBtnAdd" : "es-Add family member",
 		"familyCareOptRemove" : "es-Remove",
+		"familyCareOptResend" : "es-Resend",
 		"familyCareMsgChildRemove" : "es-Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
 		"familyCareMsgParentRemove" : "es-Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
@@ -626,6 +630,8 @@ module.exports = {
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s",
 		"familyMemberInviteSendTextLbl" : "es-Send text",
+		"familyMemberInviteModeEmail" : "es-email",
+		"familyMemberInviteModeText" : "es-text",
 		"familyMemberInviteSendEmailLbl" : "es-Send an email",
 		"familyMemberInviteHintSendText" : "es-Enter number",
 		"familyMemberInviteHintSendEmail" : "es-Enter email address",

@@ -353,6 +353,8 @@ module.exports = {
 		"remindersRefillLblRemindRepeat" : "If I forget, remind me",
 		"remindersRefillLblPrescriptions" : "Remind me to refill",
 		"remindersRefillLblManagePrescriptions" : "Click to view",
+		"remindersRefillLblManagePrescriptionsNone" : "No prescriptions",
+		"remindersRefillLblManagePrescriptionsAll" : "All prescriptions",
 
 		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",

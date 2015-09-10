@@ -6,7 +6,7 @@
 			<Button class="content-header-right-icon icon-help" onClick="didClickBenefits" />
 		</View>
 	</View>
-	<TableView id="tableView">
+	<TableView id="tableView" onClick="didClickTableView">
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>

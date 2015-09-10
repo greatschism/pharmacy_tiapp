@@ -279,7 +279,7 @@ function didGetPatient(result, passthrough) {
 		 * during linked_date then it confirms
 		 * he should be invited again
 		 */
-		shouldInvite = moment(linkedDate, Alloy.CFG.apiCodes.date_time_format).diff(mDob, "years", true) < 18;
+		shouldInvite = moment(linkedDate, Alloy.CFG.apiCodes.date_format).diff(mDob, "years", true) < 18;
 		/**
 		 * update the same invite flag under
 		 * child_proxy property of account manager model

@@ -3,4 +3,7 @@
 },
 "#row[if=!$.args.styledlabel]":{
 	className: "labelWithSwt"
+},
+"#swt[if=$.args.value]":{
+	value: true
 }

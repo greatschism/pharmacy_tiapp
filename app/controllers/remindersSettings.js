@@ -109,27 +109,44 @@ function togglePatientDropdown(isVisible) {
 
 function didChangePatient(patient) {
 	_.each(rows, function(row, index) {
-		var params = row.getParams();
+		var params = _.clone(row.getParams()),
+		    value = $.patientSwitcher.get().get(params.prefColumn);
 		/**
 		 * if has reminderDeliveryMode property
 		 * then it is delivery method section,
 		 * otherwise should be show rx names
 		 */
 		if (_.has(params, "reminderDeliveryMode")) {
-			var newParams = _.clone(params),
-			    reminderDeliveryMode = patient[params.prefColumn];
-			_.extend(newParams, {
-				reminderDeliveryMode : reminderDeliveryMode,
+			//update params
+			_.extend(params, {
+				reminderDeliveryMode : value,
 				reply : _.findWhere(options, {
-					value : reminderDeliveryMode
+					value : value
 				}).title
 			});
-			//create new row and update
-			rows[index] = Alloy.createController("itemTemplates/promptReply", newParams);
-			$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
+			/**
+			 * create new row
+			 */
+			rows[index] = Alloy.createController("itemTemplates/promptReply", params);
 		} else {
-			row.setValue(parseInt(patient[params.prefColumn]) || 0 ? true : false);
+			/**
+			 * better to remove listenr for existing row
+			 */
+			row.off("change", didChangeShowRxNames);
+			//update params
+			params.value = parseInt(value) || 0 ? true : false;
+			/**
+			 * create new row
+			 * just updating switch with
+			 * setValue method may not be good idea here
+			 * as it is listening for change event and throws
+			 * dialog when true
+			 */
+			rows[index] = Alloy.createController("itemTemplates/labelWithSwitch", params);
+			rows[index].on("change", didChangeShowRxNames);
 		}
+		//update row
+		$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
 	});
 }
 

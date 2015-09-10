@@ -114,6 +114,7 @@ function didClickAdd(e) {
 			},
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
+			useCache : true,
 			selectable : true
 		},
 		stack : true
