@@ -2,13 +2,13 @@
  * created to avoid duplication code / logic
  * PHA-799 | PHA-892
  */
-var TAG = "refillHandler",
+var TAG = "refillValidator",
     Alloy = require("alloy"),
     moment = require("alloy/moment"),
     utilities = require("utilities"),
     uihelper = require("uihelper");
 
-function canRefill(prescription, success, cancel) {
+function validate(prescription, success, cancel) {
 	if (utilities.isRxSchedule2(prescription.rx_number)) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPrescriptionSchedule2,
@@ -36,4 +36,4 @@ function canRefill(prescription, success, cancel) {
 	}
 }
 
-exports.canRefill = canRefill;
+exports.validate = validate;

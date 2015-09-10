@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    refillHandler = require("refillHandler"),
+    refillValidator = require("refillValidator"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
     isWindowOpen,
@@ -229,7 +229,7 @@ function toggleInstruction(e) {
 }
 
 function didClickRefill(e) {
-	refillHandler.canRefill(prescription, didConfirmRefill);
+	refillValidator.validate(prescription, didConfirmRefill);
 }
 
 function didConfirmRefill() {

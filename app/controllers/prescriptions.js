@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    refillHandler = require("refillHandler"),
+    refillValidator = require("refillValidator"),
     apiCodes = Alloy.CFG.apiCodes,
     headerBtnDict,
     detailBtnClasses,
@@ -43,12 +43,12 @@ function init() {
 	/**
 	 * by default point to a
 	 * non partial account
-	 * if args.selectable is false
+	 * only if patientSwitcherDisabled is false
 	 */
 	$.patientSwitcher.set({
-		revert : args.selectable && args.navigation,
+		revert : args.selectable && !args.patientSwitcherDisabled,
 		title : $.strings.prescPatientSwitcher,
-		where : args.selectable && !args.navigation ? null : {
+		where : args.patientSwitcherDisabled ? null : {
 			is_partial : false
 		}
 	});
@@ -69,14 +69,10 @@ function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		/**
-		 * when args.navigation is valid
-		 * switcher drop down will be available
-		 * so don't risk by using cached prescriptions
-		 * if args.navigation is not valid
-		 * we make sure that the prescriptions belog to the
-		 * selected user only
+		 * use existing data set
+		 * only when patient switcher is disabled,
 		 */
-		if (!args.navigation && args.selectable && Alloy.Collections.prescriptions.length) {
+		if (args.patientSwitcherDisabled && Alloy.Collections.prescriptions.length) {
 			/**
 			 * when prescriptions is already there in collection
 			 * sort order preferences should also be there in place
@@ -636,7 +632,7 @@ function didClickSwipeOption(e) {
 		 * through this app
 		 */
 		var prescription = e.data;
-		refillHandler.canRefill(prescription, function didCheck() {
+		refillValidator.validate(prescription, function didValidate() {
 			$.app.navigator.open({
 				titleid : "titleOrderDetails",
 				ctrl : "orderDetails",
@@ -647,50 +643,6 @@ function didClickSwipeOption(e) {
 			});
 		});
 		break;
-	}
-}
-
-/**
- * the similar logic below
- * is there in prescription details
- */
-function canRefill(prescription, callback) {
-	/**
-	 * PHA-799
-	 */
-	var successCallback = function() {
-		callback(true);
-	},
-	    cancelCallback = function() {
-		callback(false);
-	};
-	if ($.utilities.isRxSchedule2(prescription.rx_number)) {
-		/**
-		 *  PHA-892
-		 */
-		$.uihelper.showDialog({
-			message : $.strings.prescMsgSchedule2,
-			cancelIndex : 0,
-			cancel : cancelCallback
-		});
-	} else if (parseInt(prescription.refill_left || 0) === 0) {
-		$.uihelper.showDialog({
-			message : $.strings.prescMsgRefillLeftNone,
-			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : successCallback,
-			cancel : cancelCallback
-		});
-	} else if (moment(prescription.expiration_date, apiCodes.date_format).diff(moment(), "days") < 0) {
-		$.uihelper.showDialog({
-			message : $.strings.prescMsgExpired,
-			buttonNames : [$.strings.dialogBtnContinue, $.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : successCallback,
-			cancel : cancelCallback
-		});
-	} else {
-		successCallback();
 	}
 }
 
@@ -774,7 +726,7 @@ function didClickTableView(e) {
 			if (prescription.selected || args.preventRefillValidation) {
 				toggleSelection();
 			} else {
-				refillHandler.canRefill(prescription, toggleSelection);
+				refillValidator.validate(prescription, toggleSelection);
 			}
 			return false;
 		} else {

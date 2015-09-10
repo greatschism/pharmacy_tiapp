@@ -113,6 +113,7 @@ function didClickAdd(e) {
 				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_ready]
 			},
 			prescriptions : selectedPrescriptions,
+			patientSwitcherDisabled : true,
 			selectable : true
 		},
 		stack : true

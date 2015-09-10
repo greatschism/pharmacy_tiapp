@@ -27,7 +27,7 @@
 	require("navigationHandler");
 	require("notificationHandler");
 	require("refillScan");
-	require("refillHandler");
+	require("refillValidator");
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");

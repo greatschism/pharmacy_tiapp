@@ -18,7 +18,7 @@
 			<View class="bottom h-divider-light" />
 		</View>
 		<View class="auto-height vgroup role-footer-view">
-			<Button id="unhideBtn" class="margin-top primary-btn"onClick="didClickUnhide"  />
+			<Button id="unhideBtn" class="margin-top primary-btn" onClick="didClickUnhide"  />
 			<Button id="unhideCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
