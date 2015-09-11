@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="headerView" class="top auto-height vgroup">
-		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
 		<View class="content-header-view">
 			<Label id="benefitsLbl" class="content-header-lbl-with-ricon" />
 			<Button class="content-header-right-icon icon-help" onClick="didClickBenefits" />

@@ -1,8 +1,10 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
     replyLinkClasses = ["content-group-right-reply-link-40"],
+    dropdownArgs,
     currentData,
     isWindowOpen;
 
@@ -95,6 +97,9 @@ function getRefillReminder() {
 }
 
 function didGetRefillReminder(result, passthrough) {
+	var data = [];
+	//clear existing data
+	Alloy.Models.remindersRefill.clear();
 	/**
 	 * if success
 	 * or
@@ -102,8 +107,6 @@ function didGetRefillReminder(result, passthrough) {
 	 * set earlier - first time
 	 */
 	if (result.data || result.errorCode === apiCodes.no_refill_reminders) {
-		//clear existing data
-		Alloy.Models.remindersRefill.clear();
 		//udpate new data set
 		if (result.data) {
 			currentData = result.data.reminders;
@@ -133,18 +136,22 @@ function didGetRefillReminder(result, passthrough) {
 			replyClasses : replyClasses,
 			hasChild : true
 		});
+		data.push($.remindOnRow.getView());
 		$.remindAtRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblRemindAt,
+			reply : moment(currentData.reminder_hour + ":" + currentData.reminder_minute + " " + currentData.reminder_meridiem, "h:m A").format(Alloy.CFG.time_format),
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		});
+		data.push($.remindAtRow.getView());
 		$.remindRepeatRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblRemindRepeat,
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		});
+		data.push($.remindRepeatRow.getView());
 		var remindPrescLen = currentData.prescriptions.length,
 		    lKey = "remindersRefillLblManagePrescriptions";
 		if (remindPrescLen === 0) {
@@ -159,8 +166,9 @@ function didGetRefillReminder(result, passthrough) {
 			replyClasses : replyLinkClasses,
 			hasChild : true
 		});
-		$.tableView.setData([$.remindOnRow.getView(), $.remindAtRow.getView(), $.remindRepeatRow.getView(), $.prescriptionsRow.getView()]);
+		data.push($.prescriptionsRow.getView());
 	}
+	$.tableView.setData(data);
 	$.app.navigator.hideLoader();
 }
 
@@ -177,13 +185,92 @@ function togglePatientDropdown(isVisible) {
 	$.patientSwitcher[isVisible ? "hide" : "show"]();
 }
 
-function didChangePatient(patient) {
+function showTimePicker() {
+	/**
+	 * directly used date object
+	 * using moment may bring
+	 * time zone issues as it
+	 * will start calculating
+	 * the date with user prefered time zone
+	 * not device time zone where as
+	 * date picker works with device timezone
+	 */
+	var date = new Date(),
+	    meridiem = currentData.reminder_meridiem,
+	    hours = parseInt(currentData.reminder_hour),
+	    minutes = parseInt(currentData.reminder_minute);
+	if (meridiem == "PM" && hours < 12) {
+		hours += 12;
+	} else if (meridiem == "AM" && hours == 12) {
+		hours -= 12;
+	}
+	date.setHours(hours);
+	date.setMinutes(minutes);
+	dropdownArgs.value = date;
+	if (OS_ANDROID) {
+		var dPicker = Ti.UI.createPicker();
+		dPicker.showTimePickerDialog({
+			title : dropdownArgs.title,
+			okButtonTitle : dropdownArgs.rightTitle,
+			value : dropdownArgs.value,
+			callback : function(e) {
+				var value = e.value;
+				if (value) {
+					/**
+					 * using toLocaleString() of date
+					 * for formatting date properly
+					 * which helps to avoid time zone
+					 * issues
+					 * Note: don't process the time zone (ZZ)
+					 * with moment. formatLong will have the default
+					 * format used in Titanium Android
+					 */
+					updateRemindAtRow(moment(value.toLocaleString(), dropdownArgs.formatLong).toDate());
+				}
+			}
+		});
+	} else if (OS_IOS) {
+		$.timePicker = Alloy.createWidget("ti.dropdown", "datePicker", dropdownArgs);
+		$.timePicker.on("terminate", didTerminateTimePicker);
+		$.timePicker.init();
+	}
+}
 
+function didTerminateTimePicker(e) {
+	if ($.timePicker) {
+		$.timePicker.off("terminate", didTerminateTimePicker);
+		if (e.value) {
+			updateRemindAtRow(e.value);
+		}
+		$.timePicker = null;
+	}
+}
+
+function updateRemindAtRow(value) {
+	var selectedMoment = moment(value),
+	    params = _.clone($.remindAtRow.getParams()),
+	    newRow;
+	params.reply = selectedMoment.format(Alloy.CFG.time_format);
+	//new row
+	newRow = Alloy.createController("itemTemplates/promptReply", params);
+	//update row
+	$.tableView.updateRow( OS_IOS ? 1 : $.remindAtRow.getView(), newRow.getView());
+	//update reference
+	$.remindAtRow = newRow;
+	//extend actual object
+	_.extend(currentData, {
+		reminder_hour : selectedMoment.format("h"),
+		reminder_minute : selectedMoment.format("m"),
+		reminder_meridiem : selectedMoment.format("A")
+	});
 }
 
 function didClickTableView(e) {
 	var index = e.index;
 	switch(index) {
+	case 1:
+		showTimePicker();
+		break;
 	case 3:
 		//prescriptions
 		$.app.navigator.open({
@@ -209,6 +296,10 @@ function updateReminder(callback) {
 }
 
 function setParentView(view) {
+	dropdownArgs = $.createStyle({
+		classes : ["dropdown", "time"]
+	});
+	dropdownArgs.parent = view;
 	$.patientSwitcher.setParentView(view);
 }
 

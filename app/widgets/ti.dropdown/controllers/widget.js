@@ -88,10 +88,10 @@ function show() {
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
 				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
-				    _picker = Ti.UI.createPicker();
-				_picker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
+				    dPicker = Ti.UI.createPicker();
+				dPicker[isDatePicker ? "showDatePickerDialog" : "showTimePickerDialog"]({
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
-					okButtonTitle : args.okButtonTitle || "Set",
+					okButtonTitle : args.rightTitle || "Set",
 					value : selectedDate || new Date(),
 					callback : function(e) {
 						var value = e.value;

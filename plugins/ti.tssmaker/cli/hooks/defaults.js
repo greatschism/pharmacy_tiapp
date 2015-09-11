@@ -204,6 +204,7 @@ module.exports = {
 		"selectedIconText" : "Alloy.CFG.icons.thin_filled_success"
 	},
 	".date" : {
+		"title" : "Alloy.Globals.strings.dialogTitleDatePicker",
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.date_format",
@@ -211,6 +212,7 @@ module.exports = {
 		"type" : "Ti.UI.PICKER_TYPE_DATE"
 	},
 	".time" : {
+		"title" : "Alloy.Globals.strings.dialogTitleTimePicker",
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.time_format",
