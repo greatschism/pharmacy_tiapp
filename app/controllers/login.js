@@ -105,7 +105,7 @@ function didAuthenticate() {
 	}
 }
 
-function didClickPassword(e) {
+function didClickForgotPassword(e) {
 	$.app.navigator.open({
 		ctrl : "forgotPassword",
 		titleid : "titleForgotPassword",

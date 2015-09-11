@@ -161,7 +161,8 @@ module.exports = {
 		"loginBtnLogin" : "Sign in",
 		"loginTooltipBtnHide" : "Got it!",
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
-
+		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
+		
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "Please enter the email address you originally signed up with. We will send you a link to reset your password.",
@@ -469,7 +470,8 @@ module.exports = {
 		"accountSuccessBtnContinue" : "Continue",
 		"accountReplySignUpForText" : "Sign up for texts",
 		"accountSwitcher" : "%s's account settings",
-
+		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
+		
 		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "Myself",
 		"registerBtnChild" : "My child",

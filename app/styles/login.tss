@@ -21,6 +21,9 @@
 "#signupAttr":{
 	html: Alloy.Globals.strings.loginAttrSignup
 },
+"#forgotPwdAttr":{
+	html: Alloy.Globals.strings.loginAttrForgotPassword
+},
 "#tooltipLbl":{
 	text:Alloy.Globals.strings.loginTooltipLblAutoSignIn
 },
