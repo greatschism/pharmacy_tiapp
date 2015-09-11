@@ -184,6 +184,7 @@ function didClickChildSwipeOption(e) {
 			link_id : data.link_id
 		});
 	}
+	
 	/**
 	 * Check the dob and show different deletion
 	 * messages for child and adult
