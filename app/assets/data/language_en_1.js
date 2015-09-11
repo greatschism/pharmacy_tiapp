@@ -453,7 +453,7 @@ module.exports = {
 		"accountLblLanguage" : "Language",
 		"accountLblKeepMeSignedIn" : "Keep me signed in",
 		"accountSuccessBtnEmail" : "E-mail this to me",
-		"accountFailureBtnRevoke" : "REVOKE",
+		"accountFailureBtnRevoke" : "Revoke",
 		"accountLblAcceptedOn" : "You accepted this on",
 		"accountSuccessBtnDone" : "Done",
 		"accountPopupTimeZone" : "Choose your time zone",
@@ -473,6 +473,7 @@ module.exports = {
 		"accountReplySignUpForText" : "Sign up for texts",
 		"accountSwitcher" : "%s's account settings",
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
+		"accountsAgreementHIPAA": "HIPAA",
 
 		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "Myself",

@@ -55,3 +55,6 @@
 	options: [Alloy.Globals.strings.accountOptMenuCallCustCare, Alloy.Globals.strings.accountOptMenuSendEmail, Alloy.Globals.strings.accountOptMenuCallPharmacy, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 3
 },
+"#loginLbl":{
+	text : Alloy.Globals.strings.accountSectionSignin
+}

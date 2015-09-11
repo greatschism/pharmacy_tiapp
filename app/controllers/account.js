@@ -4,8 +4,7 @@ var args = arguments[0] || {},
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
     isWindowOpen,
-    phone_formatted,
-    currentPatient;
+    phone_formatted;
 
 function init() {
 	$.patientSwitcher.set({
@@ -24,12 +23,15 @@ function init() {
 			subtitle : $.strings.accountPatientSwitcherSubtitleMinor
 		}]
 	});
-	currentPatient = $.patientSwitcher.get();
+	
 	setAccountValues();
 }
 
 function setAccountValues(){	
-	console.log(currentPatient.get("email_address"));
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	
 	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
 	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_expired_prescriptions")) || 0) ? true : false);
@@ -70,6 +72,10 @@ function focus() {
 			});
 		}
 	}
+	
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
 	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
 	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
 }
@@ -126,6 +132,10 @@ function didClickEmailAddress(e) {
 	if (!Alloy.CFG.can_update_email) {
 		return;
 	}
+	
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
 	$.app.navigator.open({
 		titleid : "titleChangeEmail",
 		ctrl : "email",
@@ -280,7 +290,6 @@ function didPostlayout(e) {
 }
 
 function didChangePatient(e){
-	//currentPatient = e;
 	setAccountValues();
 }
 

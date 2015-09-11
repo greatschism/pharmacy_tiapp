@@ -6,7 +6,7 @@ var args = arguments[0] || {},
     isHIPAA;
 
 function init() {
-	isHIPAA = ($.args.terms.agreement_name === $.strings.accountsAgreementHIPAA ? true : false);
+	isHIPAA = ($.args.terms.agreement_text === $.strings.accountsAgreementHIPAA ? true : false);
 	$.webView.applyProperties({
 		top : $.args.registrationFlow === true ? 0 : Alloy.TSS.primary_btn.height,
 		bottom : Alloy.TSS.form_dropdown.optionPadding.top * 2 + Alloy.TSS.primary_btn.height + ( isHIPAA ? Alloy.TSS.primary_btn.height + Alloy.TSS.form_dropdown.optionPadding.top : 0), 
@@ -18,6 +18,10 @@ function init() {
 	else{
 		$.successBtn.title = $.strings.registerBtnTermsDone;
 	}
+	
+	if(isHIPAA){
+		$.revokeBtn.show();
+	}	
 }
 
 function didClickSuccess(){
@@ -49,8 +53,12 @@ function didClickRevoke(){
 
 function didRevoke(result){
 	$.uihelper.showDialog({
-		message : result.message
-	});
+		message : result.message,
+		buttonNames : [$.strings.dialogBtnOK],
+		success : function(){
+			$.app.navigator.close();
+		}
+	});	
 }
 
 exports.init = init;

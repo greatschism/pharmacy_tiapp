@@ -17,16 +17,24 @@ function init() {
 		});
 	}
 	else{
-		http.request({
-			method : "terms_get",
-			params : {
-				data : [{
-					terms : ""
-				}]
-			},
-			success : didSuccess
-		});
+		getTerms();
 	}
+}
+
+function focus(){
+	getTerms();
+}
+
+function getTerms(){
+	http.request({
+		method : "terms_get",
+		params : {
+			data : [{
+				terms : ""
+			}]
+		},
+		success : didSuccess
+	});
 }
 
 function didSuccess(result) {
@@ -82,4 +90,5 @@ function terminate() {
 }
 
 exports.init = init;
+exports.focus = focus;
 exports.terminate = terminate;
