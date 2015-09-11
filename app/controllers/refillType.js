@@ -460,5 +460,13 @@ function didClickHelp(e) {
 	});
 }
 
+function hideAllPopups() {
+	if ($.pickupModePicker && $.pickupModePicker.getVisible()) {
+		return $.pickupModePicker.hide();
+	}
+	return false;
+}
+
 exports.init = init;
 exports.focus = focus;
+exports.backButtonHandler = hideAllPopups;

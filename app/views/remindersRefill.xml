@@ -1,4 +1,20 @@
 <Alloy>
+	<Widget id="remindFromPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickRemindFromPicker">
+		<View class="content-header-view role-header-view">
+			<Label id="remindFromLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="remindFromCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemindFromClose" />
+		</View>
+	</Widget>
+	<Widget id="remindRepeatPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickRemindRepeatPicker">
+		<View class="content-header-view role-header-view">
+			<Label id="remindRepeatLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="remindRepeatCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemindRepeatClose" />
+		</View>
+	</Widget>
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
 		<View class="content-header-view">

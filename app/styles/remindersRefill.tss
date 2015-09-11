@@ -1,3 +1,15 @@
 "#benefitsLbl":{
 	text: Alloy.Globals.strings.remindersRefillSectionBenefits
+},
+"#remindFromLbl":{
+	text: Alloy.Globals.strings.remindersRefillPopupSectionRemindFrom
+},
+"#remindFromCloseBtn":{
+	title: Alloy.Globals.strings.remindersRefillPopupRemindFromBtnClose
+},
+"#remindRepeatLbl":{
+	text: Alloy.Globals.strings.remindersRefillPopupSectionRemindRepeat
+},
+"#remindRepeatCloseBtn":{
+	title: Alloy.Globals.strings.remindersRefillPopupRemindRepeatBtnClose
 }

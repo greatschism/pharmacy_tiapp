@@ -231,6 +231,9 @@ function updatePreferences(callback) {
 }
 
 function backButtonHandler() {
+	if ($.deliveryModesPicker && $.deliveryModesPicker.getVisible()) {
+		return $.deliveryModesPicker.hide();
+	}
 	return updatePreferences(handleClose);
 }
 

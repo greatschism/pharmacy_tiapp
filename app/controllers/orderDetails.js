@@ -488,6 +488,13 @@ function didRefill(result, passthrough) {
 	});
 }
 
+function hideAllPopups() {
+	if ($.pickupModePicker && $.pickupModePicker.getVisible()) {
+		return $.pickupModePicker.hide();
+	}
+	return false;
+}
+
 function terminate(e) {
 	//destroy prescriptions array
 	prescriptions = selectedPrescriptions = null;
@@ -496,3 +503,4 @@ function terminate(e) {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+exports.backButtonHandler = hideAllPopups;

@@ -6,6 +6,7 @@ var args = arguments[0] || {},
     replyLinkClasses = ["content-group-right-reply-link-40"],
     dropdownArgs,
     currentData,
+    selectedPrescriptions = [],
     isWindowOpen;
 
 function init() {
@@ -32,6 +33,25 @@ function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		getAllPrescriptions();
+	} else if (selectedPrescriptions.length) {
+		//update data
+		var prescriptions = [],
+		    params = _.clone($.prescriptionsRow.getParams()),
+		    newRow;
+		_.each(selectedPrescriptions, function(prescription) {
+			prescriptions.push(_.pick(prescription, ["id"]));
+		});
+		currentData.prescriptions = prescriptions;
+		//update params
+		params.reply = getPrescriptionRowTitle();
+		//new row
+		newRow = Alloy.createController("itemTemplates/promptReply", params);
+		//update row
+		$.tableView.updateRow( OS_IOS ? 3 : $.prescriptionsRow.getView(), newRow.getView());
+		//update reference
+		$.prescriptionsRow = newRow;
+		//unset
+		selectedPrescriptions = [];
 	}
 }
 
@@ -76,10 +96,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 	Alloy.Collections.prescriptions.reset(Alloy.Collections.prescriptions.sortBy(function(model) {
 		return model.get("presc_name").toLowerCase();
 	}));
-	getRefillReminder();
-}
-
-function getRefillReminder() {
 	$.http.request({
 		method : "reminders_refill_get",
 		params : {
@@ -130,13 +146,13 @@ function didGetRefillReminder(result, passthrough) {
 				prescriptions : prescriptions
 			};
 		}
-		$.remindOnRow = Alloy.createController("itemTemplates/promptReply", {
-			prompt : $.strings.remindersRefillLblRemindOn,
+		$.remindFrom = Alloy.createController("itemTemplates/promptReply", {
+			prompt : $.strings.remindersRefillLblRemindFrom,
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		});
-		data.push($.remindOnRow.getView());
+		data.push($.remindFrom.getView());
 		$.remindAtRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblRemindAt,
 			reply : moment(currentData.reminder_hour + ":" + currentData.reminder_minute + " " + currentData.reminder_meridiem, "h:m A").format(Alloy.CFG.time_format),
@@ -152,16 +168,9 @@ function didGetRefillReminder(result, passthrough) {
 			hasChild : true
 		});
 		data.push($.remindRepeatRow.getView());
-		var remindPrescLen = currentData.prescriptions.length,
-		    lKey = "remindersRefillLblManagePrescriptions";
-		if (remindPrescLen === 0) {
-			lKey += "None";
-		} else if (remindPrescLen === Alloy.Collections.prescriptions.length) {
-			lKey += "All";
-		}
 		$.prescriptionsRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblPrescriptions,
-			reply : $.strings[lKey],
+			reply : getPrescriptionRowTitle(),
 			promptClasses : promptClasses,
 			replyClasses : replyLinkClasses,
 			hasChild : true
@@ -246,6 +255,17 @@ function didTerminateTimePicker(e) {
 	}
 }
 
+function getPrescriptionRowTitle() {
+	var remindPrescLen = currentData.prescriptions.length,
+	    lKey = "remindersRefillLblManagePrescriptions";
+	if (remindPrescLen === 0) {
+		lKey += "None";
+	} else if (remindPrescLen === Alloy.Collections.prescriptions.length) {
+		lKey += "All";
+	}
+	return $.strings[lKey];
+}
+
 function updateRemindAtRow(value) {
 	var selectedMoment = moment(value),
 	    params = _.clone($.remindAtRow.getParams()),
@@ -268,8 +288,14 @@ function updateRemindAtRow(value) {
 function didClickTableView(e) {
 	var index = e.index;
 	switch(index) {
+	case 0:
+		$.remindFromPicker.show();
+		break;
 	case 1:
 		showTimePicker();
+		break;
+	case 2:
+		$.remindRepeatPicker.show();
 		break;
 	case 3:
 		//prescriptions
@@ -283,12 +309,28 @@ function didClickTableView(e) {
 				useCache : true,
 				selectable : true,
 				selectedItems : _.pluck(currentData.prescriptions, "id"),
-				prescriptions : currentData.prescriptions
+				prescriptions : selectedPrescriptions
 			},
 			stack : true
 		});
 		break;
 	}
+}
+
+function didClickRemindFromPicker(e) {
+
+}
+
+function didClickRemindFromClose(e) {
+	$.remindFromPicker.hide();
+}
+
+function didClickRemindRepeatPicker(e) {
+
+}
+
+function didClickRemindRepeatClose(e) {
+	$.remindRepeatPicker.hide();
 }
 
 function updateReminder(callback) {
@@ -311,8 +353,18 @@ function didClickBenefits(e) {
 	});
 }
 
+function hideAllPopups() {
+	if ($.remindFromPicker && $.remindFromPicker.getVisible()) {
+		return $.remindFromPicker.hide();
+	}
+	if ($.remindRepeatPicker && $.remindRepeatPicker.getVisible()) {
+		return $.remindRepeatPicker.hide();
+	}
+	return false;
+}
+
 function backButtonHandler() {
-	return updateReminder(handleClose);
+	return hideAllPopups() || updateReminder(handleClose);
 }
 
 function handleClose() {

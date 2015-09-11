@@ -351,13 +351,17 @@ module.exports = {
 		"remindersRefillPatientSwitcher" : "es-%s's refill reminder settings",
 		"remindersRefillSectionBenefits" : "es-What kind of reminders will I get?",
 		"remindersRefillPatientSwitcherSubtitlePartial" : "es-Please add a prescription to set up reminders.",
-		"remindersRefillLblRemindOn" : "es-Remind me this many days before my refill is due",
+		"remindersRefillLblRemindFrom" : "es-Remind me this many days before my refill is due",
 		"remindersRefillLblRemindAt" : "es-At this time",
 		"remindersRefillLblRemindRepeat" : "es-If I forget, remind me",
 		"remindersRefillLblPrescriptions" : "es-Remind me to refill",
 		"remindersRefillLblManagePrescriptions" : "es-Click to view",
 		"remindersRefillLblManagePrescriptionsNone" : "es-No prescriptions",
 		"remindersRefillLblManagePrescriptionsAll" : "es-All prescriptions",
+		"remindersRefillPopupSectionRemindFrom" : "es-Remind me before",
+		"remindersRefillPopupRemindFromBtnClose" : "es-Close",
+		"remindersRefillPopupSectionRemindRepeat" : "es-If I forget, remind me",
+		"remindersRefillPopupRemindRepeatBtnClose" : "es-Close",
 
 		"remindersRefillBenefitsLblRefill" : "es-Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "es-Reminder when Rx is ready",
@@ -473,7 +477,8 @@ module.exports = {
 		"accountReplySignUpForText" : "es-Sign up for texts",
 		"accountSwitcher" : "es-%s's account settings",
 		"accountPatientSwitcherSubtitleMinor" : "es-Same settings as account manager",
-		
+		"accountsAgreementHIPAA" : "es-HIPAA",
+
 		"registerLbl" : "es-Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "es-Myself",
 		"registerBtnChild" : "es-My child",
@@ -620,6 +625,7 @@ module.exports = {
 		"familyCareOptRemove" : "es-Remove",
 		"familyCareOptResend" : "es-Resend",
 		"familyCareMsgChildRemove" : "es-Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
+		"familyCareMsgAdultRemove" : "es-Are you sure you want to remove this family member from your account? You will no longer be able to access their prescriptions.",
 		"familyCareMsgParentRemove" : "es-Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
 		"familyMemberAddLbl" : "es-Great let's add your family members!",
