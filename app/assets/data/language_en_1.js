@@ -620,6 +620,7 @@ module.exports = {
 		"familyCareOptRemove" : "Remove",
 		"familyCareOptResend" : "Resend",
 		"familyCareMsgChildRemove" : "Removing this child will completely delete this child’s record from the app. Are you sure you want to remove and delete this record?",
+		"familyCareMsgAdultRemove" : "Are you sure you want to remove this family member from your account? You will no longer be able to access their prescriptions.",
 		"familyCareMsgParentRemove" : "Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
 		"familyMemberAddLbl" : "Great let's add your family members!",

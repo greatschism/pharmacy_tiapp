@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     parentData = [],
     childData = [],
+    moment = require("alloy/moment"),
     accntMgrData = [],
     authenticator = require("authenticator"),
     childRow,
@@ -101,7 +102,7 @@ function didGetPatient() {
 				switch(childProxy.status) {
 				case "0":
 					status = $.strings.familyCareLblStatusPending;
-					colorCode = "negative";
+					colorCode = "positive";
 					break;
 				case "1":
 					status = $.strings.familyCareLblStatusLinked;
@@ -109,7 +110,7 @@ function didGetPatient() {
 					break;
 				case "2":
 					status = $.strings.familyCareLblStatusDeclined;
-					colorCode = "positive";
+					colorCode = "negative";
 					break;
 				}
 				childProxy = {
@@ -151,7 +152,7 @@ function didGetPatient() {
 					title : $.utilities.ucword(parentProxy.first_name) || $.utilities.ucword(parentProxy.last_name) ? $.utilities.ucword(parentProxy.first_name) + " " + $.utilities.ucword(parentProxy.last_name) : parentProxy.address,
 					detailType : colorCode,
 					options : parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
-					detailSubtitle : status
+					detailTitle : status
 				};
 				parentProxyData.push(parentProxy);
 				parentRow = Alloy.createController("itemTemplates/masterDetailSwipeable", parentProxy);
@@ -174,6 +175,24 @@ function didClickChildSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
+	if (data.child_id) {
+		childPatient = Alloy.Collections.patients.findWhere({
+			child_id : data.child_id
+		});
+	} else {
+		childPatient = Alloy.Collections.patients.findWhere({
+			link_id : data.link_id
+		});
+	}
+	/**
+	 * Check the dob and show different deletion
+	 * messages for child and adult
+	 */
+	if (moment().diff(childPatient.get("birth_date"), "years", true) < 18) {
+		familyMemberDeleteMessage = Alloy.Globals.strings.familyCareMsgChildRemove;
+	} else {
+		familyMemberDeleteMessage = Alloy.Globals.strings.familyCareMsgAdultRemove;
+	}
 	var phone = $.utilities.validatePhoneNumber(data.title);
 	if (phone) {
 		mode = $.strings.familyMemberInviteModeText;
@@ -189,7 +208,7 @@ function didClickChildSwipeOption(e) {
 	 */
 	case 0:
 		$.uihelper.showDialog({
-			message : Alloy.Globals.strings.familyCareMsgChildRemove,
+			message : familyMemberDeleteMessage,
 			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnCancel],
 			cancelIndex : 1,
 			success : function() {
@@ -234,6 +253,7 @@ function didClickChildSwipeOption(e) {
 		});
 		break;
 	}
+
 }
 
 function didResendInvite(result) {
