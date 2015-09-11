@@ -267,7 +267,7 @@ module.exports = {
 		"prescMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddSectionBtnAll" : "Select all",
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
-		"prescAddMsgNoneSelected" : "No prescriptions selected.",
+		"prescAddMsgSelectMore" : "You must select at least %d prescription(s) to continue.",
 		"prescSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
 		"prescTooltipLblReminder" : "tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
 		"prescTooltipBtnHide" : "Got it!",

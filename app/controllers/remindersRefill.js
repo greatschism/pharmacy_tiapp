@@ -352,8 +352,9 @@ function didClickTableView(e) {
 				patientSwitcherDisabled : true,
 				showHiddenPrescriptions : true,
 				preventRefillValidation : true,
-				useCache : true,
 				selectable : true,
+				minLength : 1,
+				useCache : true,
 				selectedItems : _.pluck(currentData.prescriptions, "id"),
 				prescriptions : selectedPrescriptions
 			},

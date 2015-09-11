@@ -779,21 +779,21 @@ function didClickSubmit(e) {
 			}
 		});
 	});
-	if (args.navigation) {
-		if (prescriptions.length) {
+	if (!_.has(args, "minLength") || args.minLength <= prescriptions.length) {
+		if (args.navigation) {
 			var ctrlArguments = args.navigation.ctrlArguments || {};
 			ctrlArguments.prescriptions = prescriptions;
 			$.app.navigator.open(args.navigation);
-		} else {
-			/**
-			 *need at least one prescription to move forward
-			 */
-			$.uihelper.showDialog({
-				message : $.strings.prescAddMsgNoneSelected
-			});
+		} else if (args.prescriptions) {
+			$.app.navigator.close();
 		}
-	} else if (args.prescriptions) {
-		$.app.navigator.close();
+	} else {
+		/**
+		 * need at least one prescription to move forward
+		 */
+		$.uihelper.showDialog({
+			message : String.format($.strings.prescAddMsgSelectMore, args.minLength)
+		});
 	}
 }
 
