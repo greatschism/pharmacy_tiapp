@@ -4,9 +4,11 @@ var args = arguments[0] || {},
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
     replyLinkClasses = ["content-group-right-reply-link-40"],
-    dropdownArgs,
-    currentData,
+    remindFromOptions = [],
+    remindRepeatOptions = [],
     selectedPrescriptions = [],
+    currentData = {},
+    dropdownArgs,
     isWindowOpen;
 
 function init() {
@@ -27,6 +29,28 @@ function init() {
 		}],
 		dropdownHandler : patientDropdownHandler
 	});
+	//remind from
+	var i;
+	for ( i = Alloy.CFG.remind_before_in_days_min; i <= Alloy.CFG.remind_before_in_days_max; i++) {
+		remindFromOptions.push({
+			title : i + " " + $.strings[i > 1 ? "strDays" : "strDay"],
+			value : i,
+			selected : false
+		});
+	}
+	//remind repeat
+	for ( i = 1; i <= Alloy.CFG.no_of_reminders_max; i++) {
+		remindRepeatOptions.push({
+			title : i + " " + $.strings[i > 1 ? "strTimes" : "strTime"],
+			value : i,
+			selected : false
+		});
+	}
+	remindRepeatOptions.push({
+		title : $.strings.remindersRefillOptRepeatUntilRefilled,
+		value : 0,
+		selected : false
+	});
 }
 
 function focus() {
@@ -36,7 +60,7 @@ function focus() {
 	} else if (selectedPrescriptions.length) {
 		//update data
 		var prescriptions = [],
-		    params = _.clone($.prescriptionsRow.getParams()),
+		    params = $.prescriptionsRow.getParams(),
 		    newRow;
 		_.each(selectedPrescriptions, function(prescription) {
 			prescriptions.push(_.pick(prescription, ["id"]));
@@ -126,7 +150,7 @@ function didGetRefillReminder(result, passthrough) {
 		//udpate new data set
 		if (result.data) {
 			currentData = result.data.reminders;
-			Alloy.Models.remindersRefill.set(data);
+			Alloy.Models.remindersRefill.set(currentData);
 		} else {
 			/**
 			 * defaults
@@ -146,13 +170,26 @@ function didGetRefillReminder(result, passthrough) {
 				prescriptions : prescriptions
 			};
 		}
-		$.remindFrom = Alloy.createController("itemTemplates/promptReply", {
-			prompt : $.strings.remindersRefillLblRemindFrom,
-			promptClasses : promptClasses,
-			replyClasses : replyClasses,
-			hasChild : true
+		/**
+		 * update pickers &
+		 * get rows
+		 */
+		//remind from
+		_.each(remindFromOptions, function(obj) {
+			obj.selected = obj.value === parseInt(currentData.remind_before_in_days);
+			if (obj.selected) {
+				$.remindFromRow = Alloy.createController("itemTemplates/promptReply", {
+					prompt : $.strings.remindersRefillLblRemindFrom,
+					reply : obj.title,
+					promptClasses : promptClasses,
+					replyClasses : replyClasses,
+					hasChild : true
+				});
+				data.push($.remindFromRow.getView());
+			}
 		});
-		data.push($.remindFrom.getView());
+		$.remindFromPicker.setItems(remindFromOptions);
+		//remind at
 		$.remindAtRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblRemindAt,
 			reply : moment(currentData.reminder_hour + ":" + currentData.reminder_minute + " " + currentData.reminder_meridiem, "h:m A").format(Alloy.CFG.time_format),
@@ -161,13 +198,22 @@ function didGetRefillReminder(result, passthrough) {
 			hasChild : true
 		});
 		data.push($.remindAtRow.getView());
-		$.remindRepeatRow = Alloy.createController("itemTemplates/promptReply", {
-			prompt : $.strings.remindersRefillLblRemindRepeat,
-			promptClasses : promptClasses,
-			replyClasses : replyClasses,
-			hasChild : true
+		//remind repeat
+		_.each(remindRepeatOptions, function(obj) {
+			obj.selected = obj.value === parseInt(currentData.no_of_reminders);
+			if (obj.selected) {
+				$.remindRepeatRow = Alloy.createController("itemTemplates/promptReply", {
+					prompt : $.strings.remindersRefillLblRemindRepeat,
+					reply : obj.title,
+					promptClasses : promptClasses,
+					replyClasses : replyClasses,
+					hasChild : true
+				});
+				data.push($.remindRepeatRow.getView());
+			}
 		});
-		data.push($.remindRepeatRow.getView());
+		$.remindRepeatPicker.setItems(remindRepeatOptions);
+		//prescriptions
 		$.prescriptionsRow = Alloy.createController("itemTemplates/promptReply", {
 			prompt : $.strings.remindersRefillLblPrescriptions,
 			reply : getPrescriptionRowTitle(),
@@ -268,7 +314,7 @@ function getPrescriptionRowTitle() {
 
 function updateRemindAtRow(value) {
 	var selectedMoment = moment(value),
-	    params = _.clone($.remindAtRow.getParams()),
+	    params = $.remindAtRow.getParams(),
 	    newRow;
 	params.reply = selectedMoment.format(Alloy.CFG.time_format);
 	//new row
@@ -318,7 +364,18 @@ function didClickTableView(e) {
 }
 
 function didClickRemindFromPicker(e) {
-
+	var params = $.remindFromRow.getParams(),
+	    newRow;
+	//update data
+	currentData.remind_before_in_days = e.data.value;
+	//extend object
+	params.reply = e.data.title;
+	//new row
+	newRow = Alloy.createController("itemTemplates/promptReply", params);
+	//update row
+	$.tableView.updateRow( OS_IOS ? 0 : $.remindFromRow.getView(), newRow.getView());
+	//update references
+	$.remindFromRow = newRow;
 }
 
 function didClickRemindFromClose(e) {
@@ -326,7 +383,18 @@ function didClickRemindFromClose(e) {
 }
 
 function didClickRemindRepeatPicker(e) {
-
+	var params = $.remindRepeatRow.getParams(),
+	    newRow;
+	//update data
+	currentData.no_of_reminders = e.data.value;
+	//extend object
+	params.reply = e.data.title;
+	//new row
+	newRow = Alloy.createController("itemTemplates/promptReply", params);
+	//update row
+	$.tableView.updateRow( OS_IOS ? 2 : $.remindRepeatRow.getView(), newRow.getView());
+	//update references
+	$.remindRepeatRow = newRow;
 }
 
 function didClickRemindRepeatClose(e) {
@@ -334,6 +402,28 @@ function didClickRemindRepeatClose(e) {
 }
 
 function updateReminder(callback) {
+	var modelData = Alloy.Models.remindersRefill.toJSON();
+	if (!$.utilities.isMatch(modelData, currentData)) {
+		$.http.request({
+			method : _.isEmpty(modelData) ? "reminders_refill_add" : "reminders_refill_update",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
+						type : apiCodes.reminder_type_refill,
+						reminder_enabled : 1,
+					})
+				}]
+			},
+			success : function didSuccess(result, passthrough) {
+				Alloy.Models.remindersRefill.set(currentData);
+				if (callback) {
+					callback();
+				}
+			}
+		});
+		return true;
+	}
 	return false;
 }
 

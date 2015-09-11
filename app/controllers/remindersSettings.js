@@ -109,7 +109,7 @@ function togglePatientDropdown(isVisible) {
 
 function didChangePatient(patient) {
 	_.each(rows, function(row, index) {
-		var params = _.clone(row.getParams()),
+		var params = row.getParams(),
 		    value = $.patientSwitcher.get().get(params.prefColumn);
 		/**
 		 * if has reminderDeliveryMode property
@@ -180,7 +180,7 @@ function didClickDeliveryMode(e) {
 	//get current value
 	var index = $.deliveryModesPicker.currentIndex,
 	    row = rows[index],
-	    params = _.clone(row.getParams()),
+	    params = row.getParams(),
 	    data = e.data;
 	/**
 	 * update new values

@@ -68,6 +68,9 @@ module.exports = {
 				"col_pref" : "promotion_deals_reminder_mode",
 				"enabled" : true
 			}],
+			"remind_before_in_days_min" : 1,
+			"remind_before_in_days_max" : 3,
+			"no_of_reminders_max" : 5,
 			"rx_schedule_2_validator" : "^(2).*$",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,

@@ -8,8 +8,10 @@ module.exports = {
 
 		"strNil" : "-",
 		"strNotAvailable" : "Not available",
-		"strDays" : "days",
+		"strTime" : "time",
+		"strTimes" : "times",
 		"strDay" : "day",
+		"strDays" : "days",
 		"strAnd" : "and",
 		"strMore" : "more",
 		"strLoading" : "Processing...",
@@ -362,6 +364,7 @@ module.exports = {
 		"remindersRefillPopupRemindFromBtnClose" : "Close",
 		"remindersRefillPopupSectionRemindRepeat" : "If I forget, remind me",
 		"remindersRefillPopupRemindRepeatBtnClose" : "Close",
+		"remindersRefillOptRepeatUntilRefilled" : "Until refilled",
 
 		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",
@@ -477,7 +480,7 @@ module.exports = {
 		"accountReplySignUpForText" : "Sign up for texts",
 		"accountSwitcher" : "%s's account settings",
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
-		"accountsAgreementHIPAA": "HIPAA",
+		"accountsAgreementHIPAA" : "HIPAA",
 
 		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "Myself",

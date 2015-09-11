@@ -8,8 +8,10 @@ module.exports = {
 
 		"strNil" : "es--",
 		"strNotAvailable" : "es-Not available",
-		"strDays" : "es-days",
+		"strTime" : "es-time",
+		"strTimes" : "es-times",
 		"strDay" : "es-day",
+		"strDays" : "es-days",
 		"strAnd" : "es-and",
 		"strMore" : "es-more",
 		"strLoading" : "es-Processing...",
@@ -362,6 +364,7 @@ module.exports = {
 		"remindersRefillPopupRemindFromBtnClose" : "es-Close",
 		"remindersRefillPopupSectionRemindRepeat" : "es-If I forget, remind me",
 		"remindersRefillPopupRemindRepeatBtnClose" : "es-Close",
+		"remindersRefillOptRepeatUntilRefilled" : "es-Until refilled",
 
 		"remindersRefillBenefitsLblRefill" : "es-Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "es-Reminder when Rx is ready",
