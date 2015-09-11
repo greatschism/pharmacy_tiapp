@@ -135,7 +135,7 @@ function didGetPatient() {
 				switch(parentProxy.status) {
 				case "0":
 					status = $.strings.familyCareLblStatusPending;
-					colorCode = "negative";
+					colorCode = "positive";
 					break;
 				case "1":
 					status = $.strings.familyCareLblStatusLinked;
@@ -143,7 +143,7 @@ function didGetPatient() {
 					break;
 				case "2":
 					status = $.strings.familyCareLblStatusDeclined;
-					colorCode = "positive";
+					colorCode = "negative";
 					break;
 				}
 				parentProxy = {
@@ -237,10 +237,15 @@ function didClickChildSwipeOption(e) {
 }
 
 function didResendInvite(result) {
-	$.uihelper.showDialog({
-		message : result.message
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.uihelper.showDialog({
+				message : result.message
+			});
+		}
 	});
 }
+
 function didClickMgrSwipeOption(e) {
 	if (Alloy.Globals.currentRow) {
 		Alloy.Globals.currentRow.touchEnd();
@@ -374,7 +379,7 @@ function addPrescriptions() {
 
 function didClickAddFamilyMember() {
 	if (Alloy.Globals.currentRow) {
-		 Alloy.Globals.currentRow.touchEnd();
+		Alloy.Globals.currentRow.touchEnd();
 	}
 	$.app.navigator.open({
 		titleid : "titleAddFamily",
@@ -382,7 +387,8 @@ function didClickAddFamilyMember() {
 		stack : true
 	});
 }
-function didClickTableView(e){
+
+function didClickTableView(e) {
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}

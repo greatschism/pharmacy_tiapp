@@ -4,7 +4,7 @@ function init(){
 	/**
 	 * Set property to indicate family accounts for text signup flow
 	 */
-	$.utilities.setProperty(args.username + "-familyAccounts", true, "bool", true);	
+	$.utilities.setProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), true, "bool", true);	
 }
 function didClickAddChild(){
 	$.app.navigator.open({

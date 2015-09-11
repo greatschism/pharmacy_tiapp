@@ -11,13 +11,15 @@ var args = arguments[0] || {},
     rows = [];
 isFamilyAccounts = false;
 
-function init() {
+function focus() {
 	var lastPhone = $.utilities.getProperty(Alloy.CFG.latest_phone_verified);
-
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
-	if (args.signup) {
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	if (currentPatient.get("is_mobile_verified") === "1") {
 		didChangePhone({
 			value : lastPhone
 		});
@@ -26,14 +28,14 @@ function init() {
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
 	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
-	//if (isFamilyAccounts) {
+	if (isFamilyAccounts) {
 
-	updateTable();
-	//}
+		updateTable();
+	}
 }
 
 function updateTable() {
-$.recieveTextSection =$.uihelper.createTableViewSection($,$.strings.receiveTextChildSectionLbl);
+	$.recieveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
 	var subtitleClasses = ["content-subtitle-wrap"],
 	    titleClasses = ["content-title-wrap"],
 	    selected = false;
@@ -41,7 +43,7 @@ $.recieveTextSection =$.uihelper.createTableViewSection($,$.strings.receiveTextC
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");
 	childData = Alloy.Collections.patients.at(0).get("child_proxy");
 	if (accntMgrData) {
-		mgrData = [];		
+		mgrData = [];
 		mgr = {
 			title : accntMgrData.get("title") ? accntMgrData.get("title") : accntMgrData.get("email_address"),
 			subtitle : accntMgrData.get("relationship"),
@@ -101,21 +103,21 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	//if (isFamilyAccounts) {
-	var row = rows[e.index];
+	if (isFamilyAccounts) {
+		var row = rows[e.index];
 
-	var params = row.getParams();
-	if (params.selected) {
-		params.selected = false;
-	} else {
-		params.selected = true;
+		var params = row.getParams();
+		if (params.selected) {
+			params.selected = false;
+		} else {
+			params.selected = true;
+		}
+		rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
+		$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
+		selectedChildProxy = _.reject(childProxyData, function(selected) {
+			return childProxyData.selected === 0;
+		});
 	}
-	rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
-	$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
-	selectedChildProxy = _.reject(childProxyData, function(selected) {
-		return childProxyData.selected === 0;
-	});
-	//}
 }
 
 function didClickContinue() {
@@ -190,4 +192,4 @@ function didCheckMobileNumber(result) {
 	});
 }
 
-exports.init = init;
+exports.focus = focus;

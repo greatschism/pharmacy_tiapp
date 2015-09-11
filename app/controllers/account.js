@@ -48,6 +48,7 @@ function getTimeZone(currentPatient) {
 }
 
 function focus() {
+	$.utilities.setProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);	
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		/**
@@ -100,6 +101,9 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
 	if (currentPatient.get("mobile_number") != "null") {
 		$.app.navigator.open({
 			titleid : "titleChangePhone",
@@ -110,9 +114,6 @@ function didClickmobileNumber(e) {
 		$.app.navigator.open({
 			ctrl : "textBenefits",
 			titleid : "titleTextBenefits",
-			ctrlArguments : {
-				signup : true
-			},
 			stack : true
 		});
 	}

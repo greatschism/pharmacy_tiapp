@@ -8,8 +8,7 @@ function didClickTextSignup() {
 		titleid : "titleChangePhone",
 		ctrl : "phone",
 		ctrlArguments : {
-			username : args.username,
-			signup : true
+			username : args.username
 		},
 		stack : true
 	});

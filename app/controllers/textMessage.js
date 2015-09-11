@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+ authenticator = require("authenticator");
     phone = args.phone;
 otp = args.otp;
 
@@ -6,7 +7,7 @@ function init() {
 	$.uihelper.getImage("child_add", $.txtSuccessImg);
 	$.uihelper.getImage("fail", $.txtFailImg);
 	if (args.txtCode === true) {
-		$.txtCode.editable=false;
+		$.txtCode.editable = false;
 		$.txtCode.setValue(args.otp);
 	}
 
@@ -64,46 +65,49 @@ function replyTextMessage() {
 }
 
 function didReplied() {
-	Alloy.Collections.patients.at(0).set("mobile_number", $.utilities.formatPhoneNumber(phone));
 	$.utilities.setProperty(Alloy.CFG.latest_phone_verified, $.utilities.formatPhoneNumber(phone));
-	$.app.navigator.open({
-		titleid : "titleHome",
-		ctrl : "home",
-		stack : false
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.app.navigator.open({
+				titleid : "titleHome",
+				ctrl : "home",
+				stack : false
+			});
+		}
 	});
 }
 
 function didFailPatient() {
-$.app.navigator.open({
-			titleid : "titleTextMsgSignUp",
-			ctrl : "textMessage",
-			stack : true,
-			ctrlArguments : {
-				"phone" : phone,
-				"otp" : otp,
-				"txtCode" : true,
-				"txtMsgTitle" : false,
-				"txtMsgLbl" : false,
-				"signUpLbl" : true,
-				"signUpTitle" : true,
-				"txtHelpTitle" : false,
-				"txtHelpLbl" : false,
-				"replyTextMsgBtn" : true,
-				"sendMeTextAgainSignUpBtn" : true,
-				"sendMeTextAgainTextHelpBtn" : false,
-				"skipSignUpAttr" : true,
-				"skipNoTextMsgAttr" : false,
-				"didNotReceiveTextAttr" : false,
-				"stillReceiveTextAttr" : false,
-				"checkPhoneAttr" : false,
-				"txtNotReceiveTitle" : false,
-				"txtNotReceiveLbl" : false,
-				"txtNotReceiveBtn" : false,
-				"skipTxtNotReceiveAttr" : false,
-				"txtSuccessImg" : false,
-				"txtFailImg" : true
-			},
-		});
+	$.app.navigator.open({
+		titleid : "titleTextMsgSignUp",
+		ctrl : "textMessage",
+		stack : true,
+		ctrlArguments : {
+			"phone" : phone,
+			"otp" : otp,
+			"txtCode" : true,
+			"txtMsgTitle" : false,
+			"txtMsgLbl" : false,
+			"signUpLbl" : true,
+			"signUpTitle" : true,
+			"txtHelpTitle" : false,
+			"txtHelpLbl" : false,
+			"replyTextMsgBtn" : true,
+			"sendMeTextAgainSignUpBtn" : true,
+			"sendMeTextAgainTextHelpBtn" : false,
+			"skipSignUpAttr" : true,
+			"skipNoTextMsgAttr" : false,
+			"didNotReceiveTextAttr" : false,
+			"stillReceiveTextAttr" : false,
+			"checkPhoneAttr" : false,
+			"txtNotReceiveTitle" : false,
+			"txtNotReceiveLbl" : false,
+			"txtNotReceiveBtn" : false,
+			"skipTxtNotReceiveAttr" : false,
+			"txtSuccessImg" : false,
+			"txtFailImg" : true
+		},
+	});
 }
 
 function didGetPatient(result) {
@@ -147,9 +151,8 @@ function didGetPatient(result) {
 	}
 }
 
-
 function sendTextSignUpMessage() {
-		$.http.request({
+	$.http.request({
 		method : "mobile_resend",
 		params : {
 			feature_code : "THXXX",
@@ -160,7 +163,7 @@ function sendTextSignUpMessage() {
 	});
 }
 
-function didSendAgainFromTextSignUp(){
+function didSendAgainFromTextSignUp() {
 	$.app.navigator.open({
 		ctrl : "textMessage",
 		stack : true,
