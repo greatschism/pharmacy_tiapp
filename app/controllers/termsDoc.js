@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     app = require("core"),
+    http = require("requestwrapper"),
     isHIPAA;
 
 function init() {
@@ -28,6 +29,28 @@ function didClickSuccess(){
 		 * todo - call send email API
 		 */
 	}
+}
+
+function didClickRevoke(){
+	http.request({
+		method : "terms_revoke",
+		params : {
+			feature_code : "THXXX",
+			filter:null,
+			data:[{
+				terms: {
+			   		agreement_type: $.args.terms.agreement_type		   
+			   	}
+			 }]
+		},
+		success : didRevoke
+	});
+}
+
+function didRevoke(result){
+	$.uihelper.showDialog({
+		message : result.message
+	});
 }
 
 exports.init = init;

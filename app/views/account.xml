@@ -16,7 +16,10 @@
 			<Button id="languageCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickCloseLanguage" />
 		</View>
 	</Widget>
-	<TableView>
+	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+	</View>
+	<TableView id="tableView">
 		<TableViewSection>
 			<HeaderView>
 				<View class="content-header-view">

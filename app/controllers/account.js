@@ -4,23 +4,46 @@ var args = arguments[0] || {},
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
     isWindowOpen,
-    phone_formatted;
+    phone_formatted,
+    currentPatient;
 
 function init() {
-	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(Alloy.Models.patient.get("mobile_number"));
-	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
-	$.hideExpiredPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_expired_prescriptions")) || 0) ? true : false);
-	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(Alloy.Models.patient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
-	$.timeZoneReplyLbl.text = getTimeZone();
-	$.languageReplyLbl.text = Alloy.Models.patient.get("pref_language");
+	$.patientSwitcher.set({
+		title : $.strings.accountSwitcher,
+		where : {
+			is_adult : true,
+			is_partial : true
+		},
+		selectable : {
+			is_adult : true
+		},
+		subtitles : [{
+			where : {
+				is_adult : false
+			},
+			subtitle : $.strings.accountPatientSwitcherSubtitleMinor
+		}]
+	});
+	currentPatient = $.patientSwitcher.get();
+	setAccountValues();
+}
+
+function setAccountValues(){	
+	console.log(currentPatient.get("email_address"));
+	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
+	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
+	$.hideExpiredPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_expired_prescriptions")) || 0) ? true : false);
+	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
+	$.timeZoneReplyLbl.text = getTimeZone(currentPatient);
+	$.languageReplyLbl.text = currentPatient.get("pref_language");
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
 	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
 }
 
-function getTimeZone() {
+function getTimeZone(currentPatient) {
 	return _.find(Alloy.Models.timeZone.get("code_values"), function(val) {
-		return val.code_value == Alloy.Models.patient.get("pref_timezone");
+		return val.code_value == currentPatient.get("pref_timezone");
 	}).code_display;
 }
 
@@ -46,28 +69,15 @@ function focus() {
 			});
 		}
 	}
-
-	$.mobileNumberValue.text = Alloy.Models.patient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(Alloy.Models.patient.get("mobile_number"));
-	$.emailValue.text = Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable;
+	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
+	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
 }
 
 function updateUserPreferences(key, value) {
-	/**
-	 * patient model has attributes other than user preferenes. Hence using 'Models.pick' to retieve only those attributes that are required to update the preferences
-	 */
-	var userPrefsKeys = ["show_rx_names_flag", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "pref_timezone", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "refill_reminder_flag", "email_msg_active", "text_msg_active"];
-	var userPrefObject = Alloy.Models.patient.pick(userPrefsKeys);
-	userPrefObject[key] = value;
-	Alloy.Models.patient.set(key, value);
-
-	$.http.request({
-		method : "patient_preferences_update",
-		params : {
-			feature_code : "THXXX",
-			filter : [],
-			data : [userPrefObject]
-		},
-		success : didUpdatePrefs
+	var prefObj = {};
+	prefObj[key] = value;
+	authenticator.updatePreferences(prefObj, {
+		success: function(){}
 	});
 }
 
@@ -90,7 +100,7 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
-	if (Alloy.Models.patient.get("mobile_number") != "null") {
+	if (currentPatient.get("mobile_number") != "null") {
 		$.app.navigator.open({
 			titleid : "titleChangePhone",
 			ctrl : "phone",
@@ -118,6 +128,9 @@ function didClickEmailAddress(e) {
 	$.app.navigator.open({
 		titleid : "titleChangeEmail",
 		ctrl : "email",
+		ctrlArguments : {
+			email : currentPatient.get("email_address")
+		},
 		stack : true
 	});
 }
@@ -252,6 +265,37 @@ function didClickcontactOptionsMenu(e) {
 	}
 }
 
+function didPostlayout(e) {
+	$.headerView.removeEventListener("postlayout", didPostlayout);
+	var top = $.headerView.rect.height,
+	    margin = $.tableView.bottom,
+	    bottom;
+	bottom = margin;
+	
+	$.tableView.applyProperties({
+		top : top,
+		bottom : bottom
+	});
+}
+
+function didChangePatient(e){
+	//currentPatient = e;
+	setAccountValues();
+}
+
+function setParentView(view) {
+	$.patientSwitcher.setParentView(view);
+}
+
+function terminate() {
+	//terminate patient switcher
+	if ($.patientSwitcher) {
+		$.patientSwitcher.terminate();
+	}
+}
+
 exports.init = init;
 exports.focus = focus;
 exports.backButtonHandler = backButtonHandler;
+exports.terminate = terminate;
+exports.setParentView = setParentView;

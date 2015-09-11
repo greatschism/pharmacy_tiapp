@@ -1,8 +1,10 @@
 var args = arguments[0] || {},
-    app = require("core");
+    app = require("core"),
+    authenticator = require("authenticator");
+
 
 function init() {
-	$.emailTxt.setValue(Alloy.Models.patient.get("email_address") || $.strings.strNotAvailable);
+	$.emailTxt.setValue(args.email || $.strings.strNotAvailable);
 	var len = $.emailTxt.getValue().length;
 	$.emailTxt.setSelection(0, len);
 }
@@ -39,7 +41,12 @@ function didClickDone() {
 }
 
 function didUpdateEmail() {
-	Alloy.Models.patient.set("email_address", $.emailTxt.getValue());
+	authenticator.updatePreferences({"email_address":$.emailTxt.getValue()}, {
+		success : handleClose
+	});
+}
+
+function handleClose(){
 	$.uihelper.showDialog({
 		message : $.strings.msgAccountEmailVerification,
 		buttonNames : [$.strings.dialogBtnOK],

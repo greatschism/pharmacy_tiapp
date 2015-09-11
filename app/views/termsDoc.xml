@@ -3,6 +3,6 @@
 	<WebView id="webView" class="margin-top" />
 	<View class="auto-height vgroup bottom">
 		<Button id="successBtn" class="margin-bottom primary-btn" onClick="didClickSuccess" />
-		<Button id="revokeBtn" class="margin-bottom secondary-btn" onClick="didClickEmail" if="$.args.agreement_name === 'HIPAA'"/>
+		<Button id="revokeBtn" class="margin-bottom secondary-btn" onClick="didClickRevoke" if="$.args.agreement_name === 'HIPAA'"/>
 	</View>
 </Alloy> 
