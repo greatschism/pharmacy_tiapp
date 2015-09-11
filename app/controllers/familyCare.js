@@ -5,6 +5,7 @@ var args = arguments[0] || {},
     accntMgrData = [],
     authenticator = require("authenticator"),
     childRow,
+
     mode,
     address,
     swipeRemoveOptions,
@@ -175,25 +176,7 @@ function didClickChildSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
-	if (data.child_id) {
-		childPatient = Alloy.Collections.patients.findWhere({
-			child_id : data.child_id
-		});
-	} else {
-		childPatient = Alloy.Collections.patients.findWhere({
-			link_id : data.link_id
-		});
-	}
-	
-	/**
-	 * Check the dob and show different deletion
-	 * messages for child and adult
-	 */
-	if (moment().diff(childPatient.get("birth_date"), "years", true) < 18) {
-		familyMemberDeleteMessage = Alloy.Globals.strings.familyCareMsgChildRemove;
-	} else {
-		familyMemberDeleteMessage = Alloy.Globals.strings.familyCareMsgAdultRemove;
-	}
+
 	var phone = $.utilities.validatePhoneNumber(data.title);
 	if (phone) {
 		mode = $.strings.familyMemberInviteModeText;
@@ -209,7 +192,7 @@ function didClickChildSwipeOption(e) {
 	 */
 	case 0:
 		$.uihelper.showDialog({
-			message : familyMemberDeleteMessage,
+			message : $.strings.familyCareMsgAdultRemove,
 			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnCancel],
 			cancelIndex : 1,
 			success : function() {
