@@ -373,6 +373,8 @@ module.exports = {
 
 		"remindersMedPatientSwitcher" : "es-%s's medication reminders",
 		"remindersMedPatientSwitcherSubtitlePartial" : "es-Please add a prescription to set up reminders.",
+		"remindersMedSwipeOptRemove" : "es-Remove",
+		"remindersMedMsgRemoveConfirm" : "es-Are you sure you want to remove this reminder?",
 		"remindersMedAddLblTitle" : "es-Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "es-It looks like you don't have\nany reminders set up yet.",
 

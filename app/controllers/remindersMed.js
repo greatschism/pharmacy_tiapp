@@ -14,7 +14,7 @@ function init() {
 	//swipe
 	swipeOptions = [{
 		action : 1,
-		title : $.strings.doctorsSwipeOptRemove,
+		title : $.strings.remindersMedSwipeOptRemove,
 		type : "negative"
 	}];
 	//patient switcher
@@ -119,12 +119,12 @@ function didGetReminders(result, passthrough) {
 		};
 	}
 	//update collections
-	Alloy.Collections.reminders.reset(result.data.reminders);
+	Alloy.Collections.remindersMed.reset(result.data.reminders);
 	/**
 	 * reminders get api should be called
 	 * to fulfill the requirement of the screen
 	 */
-	if (Alloy.Collections.reminders.length) {
+	if (Alloy.Collections.remindersMed.length) {
 		//starting from 1st index
 		getReminder(0);
 	} else {
@@ -140,7 +140,7 @@ function getReminder(index) {
 			data : [{
 				reminders : {
 					type : apiCodes.reminder_type_med,
-					id : Alloy.Collections.reminders.at(index).get("reminderID")
+					id : Alloy.Collections.remindersMed.at(index).get("reminderID")
 				}
 			}]
 		},
@@ -159,13 +159,13 @@ function didGetReminder(result, passthrough) {
 	 * for safer side
 	 */
 	if (result.data) {
-		Alloy.Collections.reminders.at(passthrough).set(result.data);
+		Alloy.Collections.remindersMed.at(passthrough).set(result.data);
 	} else {
-		Alloy.Collections.reminders.remove(Alloy.Collections.reminders.at(passthrough));
+		Alloy.Collections.remindersMed.remove(Alloy.Collections.remindersMed.at(passthrough));
 	}
 	//try next index if any
 	passthrough++;
-	if (passthrough < Alloy.Collections.reminders.length) {
+	if (passthrough < Alloy.Collections.remindersMed.length) {
 		getReminder(passthrough);
 	} else {
 		processList();
@@ -181,14 +181,14 @@ function processList() {
 	 */
 	rows = [];
 	var data = [];
-	if (Alloy.Collections.reminders.length) {
+	if (Alloy.Collections.remindersMed.length) {
 		if ($.addView.visible) {
 			$.addView.visible = false;
 		}
 		if (!$.contentHeaderView.visible) {
 			$.contentHeaderView.visible = true;
 		}
-		Alloy.Collections.doctors.each(function(model) {
+		Alloy.Collections.remindersMed.each(function(model) {
 			var row = processModel(model);
 			data.push(row.getView());
 			rows.push(row);
@@ -269,25 +269,29 @@ function didClickSwipeOption(e) {
 	 */
 	var data = e.data;
 	$.uihelper.showDialog({
-		message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+		message : $.strings.remindersMedMsgRemoveConfirm,
 		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
 		cancelIndex : 1,
 		success : function() {
 			$.http.request({
-				method : "doctors_delete",
+				method : "reminders_med_delete",
 				params : {
 					feature_code : "THXXX",
 					data : [{
-						doctors : {
+						reminders : {
 							id : data.id
 						}
 					}]
 				},
 				passthrough : data,
-				success : didDeleteDoctor
+				success : didDeleteReminder
 			});
 		}
 	});
+}
+
+function didDeleteReminder(result, passthrough) {
+
 }
 
 function didClickTableView(e) {
@@ -303,7 +307,7 @@ function didClickAdd(e) {
 		ctrl : "remindersMedSettings",
 		ctrlArguments : {
 			isUpdate : false,
-			doctor : currentReminder
+			reminder : currentReminder
 		},
 		stack : true
 	});
