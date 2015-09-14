@@ -85,8 +85,8 @@ module.exports = {
 			"session_timeout" : 600,
 			"http_timeout" : 90,
 			"location_timeout" : 900,
-			"photo_default_width" : 250,
-			"photo_default_height" : 250,
+			"photo_default_width" : 800,
+			"photo_default_height" : 800,
 			"iconNotations" : {
 				"tooltip_arrow_up" : "0xE000",
 				"switch_on" : "0xE001",
