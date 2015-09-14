@@ -22,6 +22,9 @@ function focus() {
 }
 
 function didGetPatient() {
+	$.parentProxySection=[];
+	$.childProxySection=[];
+	$.mgrSection=[];
 	swipeRemoveOptions = [{
 		action : 0,
 		title : $.strings.familyCareOptRemove,
@@ -39,7 +42,6 @@ function didGetPatient() {
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
-
 	accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");
 	childData = Alloy.Collections.patients.at(0).get("child_proxy");
@@ -173,7 +175,6 @@ function didGetPatient() {
 			$.familyCareView.add($.familyMemberAddBtn);
 			$.familyMemberAddBtn.addEventListener("click", didClickAddFamilyMember);
 		}
-
 		$.tableView.setData([$.mgrSection, $.childProxySection, $.parentProxySection]);
 	}
 }
@@ -337,6 +338,7 @@ function didRemoveParent(result, passthrough) {
 		}
 		return false;
 	});
+
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
 			if (!Alloy.Collections.patients.at(0).get("parent_proxy")) {

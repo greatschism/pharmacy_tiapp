@@ -55,11 +55,11 @@ function didClickContinue() {
 		return;
 	}
 	if (!$.utilities.validatePassword(password)) {
-			$.uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValPasswordInvalid
-			});
-			return;
-		}
+		$.uihelper.showDialog({
+			message : Alloy.Globals.strings.registerValPasswordInvalid
+		});
+		return;
+	}
 	if (!email) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValEmail
@@ -72,7 +72,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (moment().diff(dob, "years", true) < 18) { 
+	if (moment().diff(dob, "years", true) < 18) {
 		$.uihelper.showDialog({
 			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
 		});
@@ -131,17 +131,20 @@ function didFail() {
 function didRegister() {
 	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
 	$.uihelper.showDialog({
-		message : successMessage
-	});
-	$.app.navigator.open({
-		titleid : "titleLogin",
-		ctrl : "login",
-		ctrlArguments : {
-			username : $.emailTxt.getValue(),
-			password : $.passwordTxt.getValue(),
-			is_adult_partial : true
-		},
-		stack : true
+		message : successMessage,
+		buttonNames : [$.strings.dialogBtnOK],
+		success : function() {
+			$.app.navigator.open({
+				titleid : "titleLogin",
+				ctrl : "login",
+				ctrlArguments : {
+					username : $.emailTxt.getValue(),
+					password : $.passwordTxt.getValue(),
+					is_adult_partial : true
+				},
+				stack : true
+			});
+		}
 	});
 
 }
@@ -179,13 +182,16 @@ function didPostlayoutPasswordContainerView(e) {
 	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
 	passwordContainerViewFromTop = e.source.rect.y;
 }
+
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
 }
+
 function didClickTooltip(e) {
 	e.source.hide();
 }
+
 function didClickAgreement(e) {
 	$.app.navigator.open({
 		ctrl : "termsAndConditions",

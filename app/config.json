@@ -118,8 +118,7 @@
         "latest_store_refilled": "latestStoreRefilled",
         "latest_phone_used": "latestPhoneUsed",
         "lastest_logout_explicit": "latestLogoutExplicit",
-        "auto_login_enabled": "autoLoginEnabled",
-        "latest_phone_verified": "latestPhoneVerified"
+        "auto_login_enabled": "autoLoginEnabled"
     },
     "env:development": {
         "base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",
