@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
- authenticator = require("authenticator");
-    phone = args.phone;
+    authenticator = require("authenticator");
+phone = args.phone;
 otp = args.otp;
 
 function init() {
@@ -65,7 +65,6 @@ function replyTextMessage() {
 }
 
 function didReplied() {
-	$.utilities.setProperty(Alloy.CFG.latest_phone_verified, $.utilities.formatPhoneNumber(phone));
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
 			$.app.navigator.open({
@@ -244,10 +243,13 @@ function didSendAgainFromTextHelp() {
 }
 
 function checkPhoneNumberClicked() {
-	$.utilities.setProperty(Alloy.CFG.latest_phone_verified, $.utilities.formatPhoneNumber(phone));
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
+		ctrlArguments : {
+			"phone" : phone,
+			"checkPhone": true
+		},
 		stack : true
 	});
 }

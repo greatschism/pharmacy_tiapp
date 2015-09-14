@@ -73,7 +73,9 @@ function didGetPatient() {
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
 		}
 		$.tableView.setData([]);
-		$.familyCareView.remove($.familyMemberAddBtn);
+		if ($.familyMemberAddBtn) {
+			$.familyCareView.remove($.familyMemberAddBtn);
+		}
 	} else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
@@ -162,11 +164,16 @@ function didGetPatient() {
 				rows.push(parentRow);
 			});
 		}
+		if (!$.familyMemberAddBtn) {
+			$.familyMemberAddBtn = Ti.UI.createButton();
+			$.familyMemberAddBtn.applyProperties($.createStyle({
+				classes : ["primary-btn", "margin-top", "margin-bottom"],
+				title : $.strings.familyCareMemberBtnAdd
+			}));
+			$.familyCareView.add($.familyMemberAddBtn);
+			$.familyMemberAddBtn.addEventListener("click", didClickAddFamilyMember);
+		}
 
-		$.familyMemberAddBtn.applyProperties($.createStyle({
-			classes : ["primary-btn"],
-			title : $.strings.familyCareMemberBtnAdd
-		}));
 		$.tableView.setData([$.mgrSection, $.childProxySection, $.parentProxySection]);
 	}
 }

@@ -12,18 +12,24 @@ var args = arguments[0] || {},
 isFamilyAccounts = false;
 
 function focus() {
-	var lastPhone = $.utilities.getProperty(Alloy.CFG.latest_phone_verified);
-	/**
-	 * To populate the phone number in this page, if the mobile number is already verified
-	 */
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
-	if (currentPatient.get("is_mobile_verified") === "1") {
+	if(args.phone && args.checkPhone){
+		didChangePhone({
+			value : args.phone
+		});
+	}
+	/**
+	 * To populate the phone number in this page, if the mobile number is already verified
+	 */
+	if(currentPatient.get("mobile_number")!==null){
+		lastPhone=currentPatient.get("mobile_number");
 		didChangePhone({
 			value : lastPhone
 		});
 	}
+	
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */

@@ -3,7 +3,6 @@
 		<FooterView>
 			<View id="familyCareView" class="auto-height vgroup">
 				<View class="h-divider-light" platform="ios" />
-				<Button id="familyMemberAddBtn" onClick="didClickAddFamilyMember"  class="margin-top margin-bottom" if="Alloy.Globals.hasProxies"/>
 			</View>Ï
 		</FooterView>
 	</TableView>
