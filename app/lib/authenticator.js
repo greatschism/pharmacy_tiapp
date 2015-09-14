@@ -266,7 +266,7 @@ function didGetPatient(result, passthrough) {
 	 * is set to true, so the patient switcher
 	 * will throw an invite dialog upon selection.
 	 *
-	 * checking for valid linked_date as account manager
+	 * checking for valid linked_date as manager account
 	 * won't have one
 	 */
 	var mDob = moment(patient.birth_date, Alloy.CFG.apiCodes.dob_format),
@@ -282,7 +282,7 @@ function didGetPatient(result, passthrough) {
 		shouldInvite = moment(linkedDate, Alloy.CFG.apiCodes.date_format).diff(mDob, "years", true) < 18;
 		/**
 		 * update the same invite flag under
-		 * child_proxy property of account manager model
+		 * child_proxy property of manager account model
 		 * so can be reused in family care
 		 *
 		 * Just avoid a loop for setting false value
@@ -736,6 +736,31 @@ function setTimeZone(zone, updateCodeVal) {
 }
 
 /**
+ * switches to manager account
+ * Note: should not be used when
+ * a patient switcher (template/patientSwitcher)
+ * is active in memory / stack
+ * suitable for family care, where no
+ * patient switcher is used throughout the module
+ */
+function asManager() {
+	var sModel = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	if (sModel.get("related_by") !== Alloy.CFG.apiCodes.relationship_manager) {
+		//unselect previous model
+		sModel.set("selected", false);
+		//manager account
+		sModel = Alloy.Collections.patients.at(0);
+		//select manager model
+		sModel.set("selected", true);
+		//update session id
+		Alloy.Globals.sessionId = sModel.get("session_id");
+	}
+	return sModel;
+}
+
+/**
  * update family account (patients) collection
  * with get/family api
  * @param {Object}
@@ -762,6 +787,7 @@ function updateFamilyAccounts(passthrough) {
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
+exports.asManager = asManager;
 exports.setTimeZone = setTimeZone;
 exports.updatePreferences = updatePreferences;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
