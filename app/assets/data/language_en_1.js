@@ -426,7 +426,7 @@ module.exports = {
 		"transferUserDetValPhoneInvalid" : "The phone number you have entered is invalid.",
 
 		"transferOptsSectionTitle" : "Just one more step and you're good to go!",
-		"transferOptsLblTransferAllPresc" : "Transfer all prescriptions from %s to Carbon pharmacy",
+		"transferOptsLblTransferAllPresc" : "Transfer all prescriptions from %s to %s",
 		"transferOptsStrStoreNone" : "your present pharmacy",
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",

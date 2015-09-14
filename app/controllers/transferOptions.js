@@ -1,7 +1,11 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment");
 function focus() {
-	$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther : args.prescription.storeOriginal.code_display);
+	if (args.prescription) {
+		$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther : args.prescription.storeOriginal.code_display, Alloy.CFG.client_name);
+	} else {
+		$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, $.strings.transferOptsStrStoreNone, Alloy.CFG.client_name);
+	}
 }
 
 function didClickComplete(e) {
