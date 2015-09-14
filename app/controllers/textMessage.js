@@ -243,14 +243,14 @@ function didSendAgainFromTextHelp() {
 }
 
 function checkPhoneNumberClicked() {
-	$.app.navigator.open({
-		titleid : "titleChangePhone",
-		ctrl : "phone",
-		ctrlArguments : {
-			"phone" : phone,
-			"checkPhone": true
-		},
-		stack : true
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.app.navigator.open({
+				titleid : "titleChangePhone",
+				ctrl : "phone",
+				stack : true
+			});
+		}
 	});
 }
 

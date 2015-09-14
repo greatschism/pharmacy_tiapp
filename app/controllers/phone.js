@@ -15,21 +15,16 @@ function focus() {
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
-	if(args.phone && args.checkPhone){
-		didChangePhone({
-			value : args.phone
-		});
-	}
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
-	if(currentPatient.get("mobile_number")!==null){
-		lastPhone=currentPatient.get("mobile_number");
+	if (currentPatient.get("mobile_number") !== null) {
+		lastPhone = currentPatient.get("mobile_number");
 		didChangePhone({
 			value : lastPhone
 		});
 	}
-	
+
 	/**
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
