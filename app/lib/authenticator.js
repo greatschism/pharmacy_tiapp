@@ -737,6 +737,7 @@ function setTimeZone(zone, updateCodeVal) {
 
 /**
  * switches to manager account
+ * return the previously selected model
  * Note: should not be used when
  * a patient switcher (template/patientSwitcher)
  * is active in memory / stack
@@ -751,13 +752,40 @@ function asManager() {
 		//unselect previous model
 		sModel.set("selected", false);
 		//manager account
-		sModel = Alloy.Collections.patients.at(0);
+		var mPatient = Alloy.Collections.patients.at(0);
 		//select manager model
-		sModel.set("selected", true);
+		mPatient.set("selected", true);
 		//update session id
-		Alloy.Globals.sessionId = sModel.get("session_id");
+		Alloy.Globals.sessionId = mPatient.get("session_id");
 	}
 	return sModel;
+}
+
+/**
+ * switches to proxy account
+ * which matches the given condition
+ * @where {Object} where condition
+ * Note: better to not use when
+ * a patient switcher (template/patientSwitcher)
+ * is active in memory / stack
+ * suitable for family care, where no
+ * patient switcher is used throughout the module
+ */
+function asProxy(where) {
+	var pModel = Alloy.Collections.patients.findWhere(where);
+	if (pModel && !pModel.get("selected")) {
+		//current selected model
+		var sModel = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
+		//unselect previous model
+		sModel.set("selected", false);
+		//select given model
+		pModel.set("selected", true);
+		//update session id
+		Alloy.Globals.sessionId = pModel.get("session_id");
+	}
+	return pModel;
 }
 
 /**
@@ -787,6 +815,7 @@ function updateFamilyAccounts(passthrough) {
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
+exports.asProxy = asProxy;
 exports.asManager = asManager;
 exports.setTimeZone = setTimeZone;
 exports.updatePreferences = updatePreferences;
