@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-authenticator = require("authenticator"),
+    authenticator = require("authenticator"),
     selected = true;
 function didClickContinue() {
 	if (args.isFamilyMemberFlow) {
@@ -9,7 +9,7 @@ function didClickContinue() {
 			ctrlArguments : {
 				dob : args.dob,
 				familyRelationship : args.familyRelationship,
-					isFamilyMemberFlow:true
+				isFamilyMemberFlow : true
 			},
 			stack : true
 		});
@@ -41,20 +41,25 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
-authenticator.updateFamilyAccounts();
-	var successMessage = result.message;
-	$.uihelper.showDialog({
-		message : successMessage
-	});
-
-	$.app.navigator.open({
-		titleid : "titleChildSuccess",
-		ctrl : "childSuccess",
-		ctrlArguments : {
-			username : args.username,
-				isFamilyMemberFlow:false
-		},
-		stack : false
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			var successMessage = result.message;
+			$.uihelper.showDialog({
+				message : successMessage,
+				buttonNames : [$.strings.dialogBtnOK],
+				success : function() {
+					$.app.navigator.open({
+						titleid : "titleChildSuccess",
+						ctrl : "childSuccess",
+						ctrlArguments : {
+							username : args.username,
+							isFamilyMemberFlow : false
+						},
+						stack : false
+					});
+				}
+			});
+		}
 	});
 }
 

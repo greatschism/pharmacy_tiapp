@@ -31,7 +31,11 @@ function didClickSkipTextSignup() {
 			ctrl : "familyCare",
 			stack : false
 		});
-	} else {
+	} 
+	else if (args.isAccountFlow){
+		$.app.navigator.close();
+	}
+	else {
 		$.app.navigator.open({
 			titleid : "titleHome",
 			ctrl : "home",

@@ -5,6 +5,7 @@ var args = arguments[0] || {},
     accntMgrData,
     parentData,
     childData,
+    currentPatient,
     phone,
     otp,
     utilities = require('utilities'),
@@ -12,7 +13,7 @@ var args = arguments[0] || {},
 isFamilyAccounts = false;
 
 function focus() {
-	var currentPatient = Alloy.Collections.patients.findWhere({
+	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
 	/**
@@ -130,6 +131,12 @@ function didClickContinue() {
 		});
 		return;
 	}
+	if ($.utilities.formatPhoneNumber(currentPatient.get("mobile_number")) === phone && currentPatient.get("is_mobile_verified") === "1") {
+		$.uihelper.showDialog({
+			message : $.strings.receiveTextPhoneExists
+		});
+		return;
+	}
 	phone = $.utilities.validatePhoneNumber(phone);
 	if (!phone) {
 		$.uihelper.showDialog({
@@ -137,6 +144,7 @@ function didClickContinue() {
 		});
 		return;
 	}
+
 	$.http.request({
 		method : "mobile_add",
 		params : {

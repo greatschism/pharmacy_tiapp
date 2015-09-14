@@ -107,6 +107,10 @@ function didChangeAutoLogin(e) {
 }
 
 function didClickmobileNumber(e) {
+	/**
+	 *Making this flag false so that the flow is taken care off 
+	 */
+	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
@@ -120,6 +124,9 @@ function didClickmobileNumber(e) {
 		$.app.navigator.open({
 			ctrl : "textBenefits",
 			titleid : "titleTextBenefits",
+			ctrlArguments : {
+				isAccountFlow : true
+			},
 			stack : true
 		});
 	}

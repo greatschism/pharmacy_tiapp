@@ -589,6 +589,7 @@ module.exports = {
 		"receiveTextChildBtnContinue" : "Continue",
 		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
 		"receiveTextChildHintPhone" : "Mobile number",
+		"receiveTextPhoneExists":"Mobile number already exists",
 
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",

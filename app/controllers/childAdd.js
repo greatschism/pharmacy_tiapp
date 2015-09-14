@@ -155,7 +155,7 @@ function didClickContinue() {
 				ctrlArguments : {
 					username : args.username,
 					childDetails : childDetails,
-						isFamilyMemberFlow:false
+					isFamilyMemberFlow : false
 				},
 				stack : true
 			});
@@ -190,30 +190,33 @@ function didClickContinue() {
 }
 
 function didAddChild(result) {
-	authenticator.updateFamilyAccounts();
-	if (args.isFamilyMemberFlow) {
-		$.app.navigator.open({
-			titleid : "titleTextBenefits",
-			ctrl : "textBenefits",
-			ctrlArguments : {
-				familyRelationship : args.familyRelationship,
-				isFamilyMemberFlow:true
-			},
-			stack : true
-		});
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			if (args.isFamilyMemberFlow) {
+				$.app.navigator.open({
+					titleid : "titleTextBenefits",
+					ctrl : "textBenefits",
+					ctrlArguments : {
+						familyRelationship : args.familyRelationship,
+						isFamilyMemberFlow : true
+					},
+					stack : true
+				});
 
-	} else {
-		$.app.navigator.open({
-			titleid : "titleChildSuccess",
-			ctrl : "childSuccess",
-			ctrlArguments : {
-				username : args.username,
-				isFamilyMemberFlow:false
-			},
-			stack : false
+			} else {
+				$.app.navigator.open({
+					titleid : "titleChildSuccess",
+					ctrl : "childSuccess",
+					ctrlArguments : {
+						username : args.username,
+						isFamilyMemberFlow : false
+					},
+					stack : false
 
-		});
-	}
+				});
+			}
+		}
+	});
 }
 
 /**
@@ -246,9 +249,11 @@ function didClickSkip() {
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
+
 function didClickTooltip(e) {
 	e.source.hide();
 }
+
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);

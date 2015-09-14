@@ -1,36 +1,38 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-     authenticator = require("authenticator"),
+    authenticator = require("authenticator"),
     rxContainerViewFromTop = 0,
     store = {};
 
-function init(){
-	$.uihelper.getImage("child_add",$.addPrescImg);
+function init() {
+	$.uihelper.getImage("child_add", $.addPrescImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
+
 function focus() {
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
-	var mgrData=Alloy.Collections.patients.at(0);
+	var mgrData = Alloy.Collections.patients.at(0);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	if(mgrData.get("first_name")){
+	if (mgrData.get("first_name")) {
 		$.fnameTxt.setValue(mgrData.get("first_name"));
 	}
-	if(mgrData.get("last_name")){
+	if (mgrData.get("last_name")) {
 		$.lnameTxt.setValue(mgrData.get("last_name"));
 	}
-	
-	if(mgrData.get("birth_date")){
-		var dob=moment(mgrData.get("birth_date"),Alloy.CFG.apiCodes.dob_format).toDate();
+
+	if (mgrData.get("birth_date")) {
+		var dob = moment(mgrData.get("birth_date"), Alloy.CFG.apiCodes.dob_format).toDate();
 		$.dobDp.setValue(dob);
 	}
 }
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
@@ -50,18 +52,19 @@ function didClickPharmacy() {
 	});
 }
 
-
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
+
 function didChangeRx(e) {
 	var value = $.utilities.formatRx(e.value),
 	    len = value.length;
 	$.rxNoTxt.setValue(value);
 	$.rxNoTxt.setSelection(len, len);
 }
-function addPrescriptions(){
-	
+
+function addPrescriptions() {
+
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
@@ -116,31 +119,37 @@ function addPrescriptions(){
 		return;
 	}
 	$.http.request({
-			method : "patient_family_add_fullacount",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					patient : {
-						rx_number : rxNo.substring(0, 7),
-						store_id : store.id
-					}
-				}]
-			},
-			success : didAddPrescriptions
-		});
+		method : "patient_family_add_fullacount",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				patient : {
+					rx_number : rxNo.substring(0, 7),
+					store_id : store.id
+				}
+			}]
+		},
+		success : didAddPrescriptions
+	});
 }
-function didAddPrescriptions(){
+
+function didAddPrescriptions() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
-	authenticator.updateFamilyAccounts();
-	$.app.navigator.open({
-			ctrl : "HIPAA",
-			titleid : "titleHIPAAauthorization",
-			stack : false
-		});
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.app.navigator.open({
+				ctrl : "HIPAA",
+				titleid : "titleHIPAAauthorization",
+				stack : false
+			});
+		}
+	});
 }
+
 function didClickTooltip(e) {
 	e.source.hide();
 }
+
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
@@ -153,6 +162,7 @@ function didBlurFocusRx() {
 function didPostlayoutRxContainerView(e) {
 	rxContainerViewFromTop = e.source.rect.y;
 }
+
 function didFocusRx(e) {
 	if (_.has($.rxTooltip, "size")) {
 		$.rxTooltip.applyProperties({
@@ -162,6 +172,7 @@ function didFocusRx(e) {
 	}
 	$.rxTooltip.show();
 }
+
 exports.setParentView = setParentView;
 exports.init = init;
-exports.focus = focus;
+exports.focus = focus; 

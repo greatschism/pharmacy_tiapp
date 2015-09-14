@@ -64,14 +64,17 @@ function didSendInvite() {
 }
 
 function didAddChild() {
-	authenticator.updateFamilyAccounts();
-	$.app.navigator.open({
-		titleid : "titleFamilyAccounts",
-		ctrl : "familyMemberInviteSuccess",
-		ctrlArguments : {
-			familyRelationship : args.familyRelationship,
-		},
-		stack : false
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.app.navigator.open({
+				titleid : "titleFamilyAccounts",
+				ctrl : "familyMemberInviteSuccess",
+				ctrlArguments : {
+					familyRelationship : args.familyRelationship,
+				},
+				stack : false
+			});
+		}
 	});
 }
 
