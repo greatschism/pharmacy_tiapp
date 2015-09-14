@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    TAG = "contentViewSwipeable",
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
@@ -38,11 +37,6 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
-	if (args.image) {
-		$.img.setImage(args.image);
-	} else if (args.defaultImage) {
-		$.img.getView().image = args.defaultImage;
-	}
 	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
 		text : args.title || (args.data ? args.data[args.titleProperty] : "")
 	});
@@ -93,10 +87,17 @@ function didPostlayout(e) {
 	}
 	$.containerView.height = height;
 	$.swipeView.height = height;
-}
-
-function didError(e) {
-	require("logger").error(TAG, "unable to load image from url", args.image);
+	/**
+	 * required since
+	 * color view has auto height
+	 * get the color also here so it
+	 * will be just a single call to the
+	 * kroll bridge
+	 */
+	$.colorView.applyProperties({
+		height : height,
+		backgroundColor : args.color || (args.data ? args.data[args.colorProperty] : "transparent")
+	});
 }
 
 function didClickOption(e) {

@@ -33,8 +33,8 @@ require("config").updateTSS($.__controllerPath);
 		$.row.applyProperties(rDict);
 	}
 	/**
-	 * should not be have class suffix -wrap by default
-	 * may affect selection pop ups
+	 * should not have class suffix like -wrap
+	 * which may affect selection pop ups (ti.optionpicker)
 	 */
 	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
 		text : args.title || (args.data ? args.data[args.titleProperty] : "")

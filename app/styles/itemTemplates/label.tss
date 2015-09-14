@@ -1,3 +1,6 @@
-"#row":{
+"#row[if=$.args.hasChild]":{
+	className: "labelWithChild"
+},
+"#row[if=!$.args.hasChild]":{
 	className: "label"
 }

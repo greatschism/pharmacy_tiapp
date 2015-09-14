@@ -93,7 +93,7 @@ function getPrescriptions(status, callback) {
 			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
-					sort_order_preferences : Alloy.Collections.patients.at(0).get("pref_prescription_sort_order"),
+					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
 					prescription_display_status : status
 				}
 			}]
@@ -224,7 +224,6 @@ function didGetRefillReminder(result, passthrough) {
 		data.push($.prescriptionsRow.getView());
 	}
 	$.tableView.setData(data);
-	$.app.navigator.hideLoader();
 }
 
 function patientDropdownHandler(isVisible) {

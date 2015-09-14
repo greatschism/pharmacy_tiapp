@@ -1,8 +1,23 @@
 var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
+    titleClasses = ["content-title-wrap"],
+    subtitleClasses = ["content-subtitle-wrap"],
+    rows,
+    currentReminder,
     isWindowOpen;
 
 function init() {
+	//table top
+	var top = $.uihelper.getHeightFromChildren($.headerView);
+	$.tableView.top = top;
+	$.addView.top = top;
+	//swipe
+	swipeOptions = [{
+		action : 1,
+		title : $.strings.doctorsSwipeOptRemove,
+		type : "negative"
+	}];
+	//patient switcher
 	$.patientSwitcher.set({
 		title : $.strings.remindersMedPatientSwitcher,
 		where : {
@@ -18,9 +33,6 @@ function init() {
 			subtitle : $.strings.remindersMedPatientSwitcherSubtitlePartial
 		}]
 	});
-	var top = $.uihelper.getHeightFromChildren($.headerView);
-	$.tableView.top = top;
-	$.addView.top = top;
 }
 
 function focus() {
@@ -31,11 +43,52 @@ function focus() {
 	Alloy.Globals.currentTable = $.tableView;
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		getMedReminders();
+		getAllPrescriptions();
 	}
 }
 
-function getMedReminders() {
+function getAllPrescriptions() {
+	//clear existing prescriptions
+	Alloy.Collections.prescriptions.reset([]);
+	//process prescriptions
+	getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions);
+}
+
+function getPrescriptions(status, callback) {
+	$.http.request({
+		method : "prescriptions_list",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				prescriptions : {
+					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
+					prescription_display_status : status
+				}
+			}]
+		},
+		keepLoader : true,
+		errorDialogEnabled : false,
+		success : callback,
+		failure : callback
+	});
+}
+
+function didGetPrescriptions(result, passthrough) {
+	if (result.data) {
+		Alloy.Collections.prescriptions.add(result.data.prescriptions);
+	}
+	getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions);
+}
+
+function didGetHiddenPrescriptions(result, passthrough) {
+	if (result.data) {
+		Alloy.Collections.prescriptions.add(result.data.prescriptions);
+	}
+	//just sort it alphabetically as in prescriptions list
+	Alloy.Collections.prescriptions.reset(Alloy.Collections.prescriptions.sortBy(function(model) {
+		return model.get("presc_name").toLowerCase();
+	}));
+	//get reminders
 	$.http.request({
 		method : "reminders_med_list",
 		params : {
@@ -54,26 +107,80 @@ function getMedReminders() {
 }
 
 function didGetReminders(result, passthrough) {
-	if (result) {
-		/**
-		 * check whether it is a success call
-		 * since no reminders found is considered as a error and data is null
-		 * set reminders node to empty array in order to reset the collection and list
-		 */
-		if (!result.data) {
-			//keep object structure
-			result.data = {
-				reminders : []
-			};
-		}
-		//update collections
-		Alloy.Collections.reminders.reset(result.data.reminders);
-		Alloy.Collections.prescriptions.reset([]);
+	/**
+	 * check whether it is a success call
+	 * since no reminders found is considered as a error and data is null
+	 * set reminders node to empty array in order to reset the collection and list
+	 */
+	if (!result.data) {
+		//keep object structure
+		result.data = {
+			reminders : []
+		};
 	}
+	//update collections
+	Alloy.Collections.reminders.reset(result.data.reminders);
+	/**
+	 * reminders get api should be called
+	 * to fulfill the requirement of the screen
+	 */
+	if (Alloy.Collections.reminders.length) {
+		//starting from 1st index
+		getReminder(0);
+	} else {
+		processList();
+	}
+}
+
+function getReminder(index) {
+	$.http.request({
+		method : "reminders_med_list",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				reminders : {
+					type : apiCodes.reminder_type_med,
+					id : Alloy.Collections.reminders.at(index).get("reminderID")
+				}
+			}]
+		},
+		passthrough : index,
+		keepLoader : true,
+		errorDialogEnabled : false,
+		success : didGetReminders,
+		failure : didGetReminders
+	});
+}
+
+function didGetReminder(result, passthrough) {
+	/**
+	 * may be a failure, better check it
+	 * if failure, remove that model
+	 * for safer side
+	 */
+	if (result.data) {
+		Alloy.Collections.reminders.at(passthrough).set(result.data);
+	} else {
+		Alloy.Collections.reminders.remove(Alloy.Collections.reminders.at(passthrough));
+	}
+	//try next index if any
+	passthrough++;
+	if (passthrough < Alloy.Collections.reminders.length) {
+		getReminder(passthrough);
+	} else {
+		processList();
+	}
+}
+
+function processList() {
+	//hide loader here
+	$.app.navigator.hideLoader();
 	/**
 	 * toggle add view & content header view
 	 * if no reminders
 	 */
+	rows = [];
+	var data = [];
 	if (Alloy.Collections.reminders.length) {
 		if ($.addView.visible) {
 			$.addView.visible = false;
@@ -81,16 +188,12 @@ function didGetReminders(result, passthrough) {
 		if (!$.contentHeaderView.visible) {
 			$.contentHeaderView.visible = true;
 		}
-		/**
-		 * need to get both hidden and active
-		 * prescriptions
-		 */
-		getPrescriptions(apiCodes.prescription_display_status_active);
+		Alloy.Collections.doctors.each(function(model) {
+			var row = processModel(model);
+			data.push(row.getView());
+			rows.push(row);
+		});
 	} else {
-		//hide loader
-		$.app.navigator.hideLoader();
-		//reset table
-		$.tableView.setData([]);
 		//toggle views
 		if ($.contentHeaderView.visible) {
 			$.contentHeaderView.visible = false;
@@ -99,30 +202,111 @@ function didGetReminders(result, passthrough) {
 			$.addView.visible = true;
 		}
 	}
+	//reset table
+	$.tableView.setData(data);
+	/*
+	 *  reset the swipe flag
+	 *  once a fresh list is loaded
+	 *  not resetting this block further swipe actions
+	 */
+	Alloy.Globals.isSwipeInProgress = false;
+	Alloy.Globals.currentRow = null;
 }
 
-function getPrescriptions() {
-
+function processModel(model) {
+	/* Description format
+	 * 1 drug [DRUGNAME].
+	 * 2 drugs [DRUGNAME] and [DRUGNAME].
+	 * 3 drugs [DRUGNAME], [DRUGNAME] and [DRUGNAME].
+	 * 4 or more [DRUGNAME], [DRUGNAME], and [X] more.
+	 * Note: length can't be 0
+	 */
+	var reminderPrescs = model.get("prescriptions"),
+	    len = reminderPrescs.length,
+	    subtitle = $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+		id : reminderPrescs[0].prescriptionID
+	}).get("presc_name"));
+	if (len > 1) {
+		//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
+		switch(len) {
+		case 2:
+			subtitle += " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+				id : reminderPrescs[1].prescriptionID
+			}).get("presc_name"));
+			break;
+		case 3:
+			subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+				id : reminderPrescs[1].prescriptionID
+			}).get("presc_name")) + " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+				id : reminderPrescs[2].prescriptionID
+			}).get("presc_name"));
+			break;
+		default:
+			subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+				id : reminderPrescs[1].prescriptionID
+			}).get("presc_name")) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
+		}
+	}
+	model.set({
+		color : model.get("color_code"),
+		subtitle : subtitle,
+		titleClasses : titleClasses,
+		subtitleClasses : subtitleClasses,
+		swipeOptions : swipeOptions
+	});
+	var row = Alloy.createController("itemTemplates/contentViewWithLColorBox", model.toJSON());
+	row.on("clickoption", didClickSwipeOption);
+	return row;
 }
 
-function didGetPrescriptions(result, passthrough) {
-
-}
-
-function getHiddenPrescriptions() {
-	//apiCodes.prescription_display_status_hidden
-}
-
-function didGetHiddenPrescriptions(result, passthrough) {
-
+function didClickSwipeOption(e) {
+	if (Alloy.Globals.currentRow) {
+		Alloy.Globals.currentRow.touchEnd();
+	}
+	/**
+	 * we have only one option now, so no need for any further validation
+	 * just confirm and remove reminder
+	 */
+	var data = e.data;
+	$.uihelper.showDialog({
+		message : String.format($.strings.doctorsMsgRemoveConfirm, data.title),
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+		cancelIndex : 1,
+		success : function() {
+			$.http.request({
+				method : "doctors_delete",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						doctors : {
+							id : data.id
+						}
+					}]
+				},
+				passthrough : data,
+				success : didDeleteDoctor
+			});
+		}
+	});
 }
 
 function didClickTableView(e) {
-
+	if (Alloy.Globals.currentRow) {
+		return Alloy.Globals.currentRow.touchEnd();
+	}
 }
 
 function didClickAdd(e) {
-
+	currentReminder = {};
+	$.app.navigator.open({
+		titleid : "titleRemindersMedSettings",
+		ctrl : "remindersMedSettings",
+		ctrlArguments : {
+			isUpdate : false,
+			doctor : currentReminder
+		},
+		stack : true
+	});
 }
 
 function setParentView(view) {

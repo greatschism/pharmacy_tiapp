@@ -128,6 +128,13 @@ function didGetPrescriptions(result, passthrough) {
 		rows.push(row);
 	});
 	$.tableView.setData(data);
+	/*
+	 *  reset the swipe flag
+	 *  once a fresh list is loaded
+	 *  not resetting this block further swipe actions
+	 */
+	Alloy.Globals.isSwipeInProgress = false;
+	Alloy.Globals.currentRow = null;
 }
 
 function processModel(model) {
@@ -158,7 +165,7 @@ function processModel(model) {
 					subtitle += ", " + $.utilities.ucword(docPrescs[1].presc_name) + " " + $.strings.strAnd + " " + $.utilities.ucword(docPrescs[2].presc_name);
 					break;
 				default:
-					subtitle += ", " + $.utilities.ucword(prescriptions[1].presc_name) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
+					subtitle += ", " + $.utilities.ucword(docPrescs[1].presc_name) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
 				}
 			}
 			subtitle = String.format($.strings.doctorsLblPrescribed, subtitle);

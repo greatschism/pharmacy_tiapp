@@ -99,6 +99,7 @@ module.exports = {
 		"titleRemindersRefill" : "es-Refill reminders",
 		"titleRemindersRefillBenefits" : "es-Refill reminder benefits",
 		"titleRemindersMed" : "es-Medication reminders",
+		"titleRemindersMedSettings" : "es-Set reminder",
 		"titleRemindersMedPrescriptions" : "es-Set up med reminders",
 		"titleRemindersSettings" : "es-Settings",
 		"titleRewards" : "es-Savings Catcher",
@@ -426,7 +427,7 @@ module.exports = {
 		"transferUserDetValPhoneInvalid" : "es-The phone number you have entered is invalid.",
 
 		"transferOptsSectionTitle" : "es-Just one more step and you're good to go!",
-		"transferOptsLblTransferAllPresc" : "es-Transfer all prescriptions from %s to Carbon pharmacy",
+		"transferOptsLblTransferAllPresc" : "es-Transfer all prescriptions from %s to %s",
 		"transferOptsStrStoreNone" : "es-your present pharmacy",
 		"transferOptsLblSendTxtMsg" : "es-Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "es-Review transfer details",
@@ -589,7 +590,7 @@ module.exports = {
 		"receiveTextChildBtnContinue" : "es-Continue",
 		"receiveTextChildLbl" : "es-By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
 		"receiveTextChildHintPhone" : "es-Mobile number",
-		"receiveTextPhoneExists":"es-Mobile number already exists",
+		"receiveTextPhoneExists" : "es-Mobile number already exists",
 
 		"textMessageTitle" : "es-We just sent you a text message!",
 		"textMessageSignUpTitle" : "es-Are you sure you replied?",

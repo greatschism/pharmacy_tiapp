@@ -90,8 +90,9 @@ function init() {
 		} else {
 			title = $.strings.strLoading;
 		}
-		$.pickupModeRow = Alloy.createController("itemTemplates/labelWithChild", {
-			title : title
+		$.pickupModeRow = Alloy.createController("itemTemplates/label", {
+			title : title,
+			hasChild : true
 		});
 		$.pickupSection.add($.pickupModeRow.getView());
 	}
@@ -370,8 +371,9 @@ function updatePickupModeRow(e, ignoreOptionUpdate) {
 	//nullify last instance
 	$.pickupModeRow = null;
 	//point to new instance
-	$.pickupModeRow = Alloy.createController("itemTemplates/labelWithChild", {
-		title : e.data.code_display
+	$.pickupModeRow = Alloy.createController("itemTemplates/label", {
+		title : e.data.code_display,
+		hasChild : true
 	});
 	$.tableView.updateRow(row, $.pickupModeRow.getView());
 	/**

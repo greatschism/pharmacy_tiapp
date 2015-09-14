@@ -15,7 +15,7 @@ require("config").updateTSS($.__controllerPath);
 		classes : args.replyClasses || ["content-group-reply-60"],
 		text : args.reply || (args.data ? args.data[args.replyProperty] : "")
 	});
-	$.row.className = "promptReply" + parseInt(pDict.width) + parseInt(rDict.width);
+	$.row.className = "promptReply" + parseInt(pDict.width) + parseInt(rDict.height) + (args.hasChild && "WithChild" || "");
 	$.promptLbl.applyProperties(pDict);
 	$.replyLbl.applyProperties(rDict);
 })();

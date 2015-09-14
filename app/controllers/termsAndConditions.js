@@ -50,15 +50,17 @@ function didSuccess(result) {
 		 */
 		if( args.registrationFlow){
 			if(term.agreement_text != $.strings.accountAgreementHIPAA){
-				section.add(Alloy.createController("itemTemplates/labelWithChild", {
-					title : term.agreement_text
+				section.add(Alloy.createController("itemTemplates/label", {
+					title : term.agreement_text,
+					hasChild : true
 				}).getView());
 				data.push(term.agreement_text);
 			}
 		}
 		else{
-			section.add(Alloy.createController("itemTemplates/labelWithChild", {
-				title : term.agreement_text
+			section.add(Alloy.createController("itemTemplates/label", {
+				title : term.agreement_text,
+				hasChild : true
 			}).getView());
 			data.push(term.agreement_text);
 		}
