@@ -7,6 +7,8 @@ var args = arguments[0] || {},
     rows = [];
 
 function init() {
+	//tableview form top
+	$.tableView.top = $.uihelper.getHeightFromChildren($.headerView);
 	//get options array ready
 	options = [{
 		title : $.strings.strDeliveryModePush,
@@ -80,10 +82,7 @@ function init() {
 	$.rxSection.add(showRxRow.getView());
 	rows.push(showRxRow);
 	//set data
-	$.tableView.applyProperties({
-		top : $.uihelper.getHeightFromChildren($.headerView),
-		data : [$.deliveryModesSection, $.rxSection]
-	});
+	$.tableView.setData([$.deliveryModesSection, $.rxSection]);
 }
 
 function didChangeShowRxNames(e) {
