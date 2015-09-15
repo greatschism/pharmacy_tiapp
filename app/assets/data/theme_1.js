@@ -71,6 +71,27 @@ module.exports = {
 			"remind_before_in_days_min" : 1,
 			"remind_before_in_days_max" : 3,
 			"no_of_reminders_max" : 5,
+			"remind_frequencies" : [{
+				"id" : "Daily",
+				"dates_max" : 0,
+				"times_max" : 4
+			}, {
+				"id" : "Weekly",
+				"dates_max" : 0,
+				"times_max" : 1
+			}, {
+				"id" : "Monthly",
+				"dates_max" : 4,
+				"times_max" : 1
+			}, {
+				"id" : "OnADay",
+				"dates_max" : 1,
+				"times_max" : 1
+			}, {
+				"id" : "Period",
+				"dates_max" : 0,
+				"times_max" : 1
+			}],
 			"rx_schedule_2_validator" : "^(2).*$",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,

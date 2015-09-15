@@ -378,6 +378,17 @@ module.exports = {
 		"remindersMedMsgRemoveConfirm" : "Are you sure you want to remove this reminder?",
 		"remindersMedAddLblTitle" : "Want to add a\nmedication reminder?",
 		"remindersMedAddLblDesc" : "It looks like you don't have\nany reminders set up yet.",
+		"remindersMedLblFrequencyDaily" : "Daily",
+		"remindersMedLblFrequencyWeekly" : "Weekly",
+		"remindersMedLblFrequencyMonthly" : "Monthly",
+		"remindersMedLblFrequencyOnADay" : "On a day",
+		"remindersMedLblFrequencyPeriod" : "On a frequency",
+
+		"remindersMedSettingsLblFrequencyDaily" : "Daily",
+		"remindersMedSettingsLblFrequencyWeekly" : "Weekly",
+		"remindersMedSettingsLblFrequencyMonthly" : "Monthly",
+		"remindersMedSettingsLblFrequencyOnADay" : "On a day",
+		"remindersMedSettingsLblFrequencyPeriod" : "On a frequency",
 
 		"remindersSettingsPatientSwitcher" : "%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
