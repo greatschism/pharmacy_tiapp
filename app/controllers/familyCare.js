@@ -383,6 +383,9 @@ function didRemoveChild(result, passthrough) {
 }
 
 function addPrescriptions() {
+	if (Alloy.Globals.currentRow) {
+		return Alloy.Globals.currentRow.touchEnd();
+	}
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
@@ -392,7 +395,7 @@ function addPrescriptions() {
 
 function didClickAddFamilyMember() {
 	if (Alloy.Globals.currentRow) {
-		Alloy.Globals.currentRow.touchEnd();
+		return Alloy.Globals.currentRow.touchEnd();
 	}
 	$.app.navigator.open({
 		titleid : "titleAddFamily",
