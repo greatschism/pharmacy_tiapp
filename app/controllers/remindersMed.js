@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     titleClasses = ["content-title-wrap"],
     subtitleClasses = ["content-subtitle-wrap"],
     rows,
+    swipeOptions,
     currentReminder,
     isWindowOpen;
 
@@ -134,13 +135,13 @@ function didGetReminders(result, passthrough) {
 
 function getReminder(index) {
 	$.http.request({
-		method : "reminders_med_list",
+		method : "reminders_med_get",
 		params : {
 			feature_code : "THXXX",
 			data : [{
 				reminders : {
 					type : apiCodes.reminder_type_med,
-					id : Alloy.Collections.remindersMed.at(index).get("reminderID")
+					id : Alloy.Collections.remindersMed.at(index).get("id")
 				}
 			}]
 		},
@@ -255,7 +256,7 @@ function processModel(model) {
 		subtitle : subtitle,
 		titleClasses : titleClasses,
 		subtitleClasses : subtitleClasses,
-		swipeOptions : swipeOptions
+		options : swipeOptions
 	});
 	var row = Alloy.createController("itemTemplates/contentViewWithLColorBox", model.toJSON());
 	row.on("clickoption", didClickSwipeOption);
@@ -282,7 +283,9 @@ function didClickSwipeOption(e) {
 					feature_code : "THXXX",
 					data : [{
 						reminders : {
-							id : data.id
+							dosage : {
+								reminders_id : data.id
+							}
 						}
 					}]
 				},
@@ -294,7 +297,18 @@ function didClickSwipeOption(e) {
 }
 
 function didDeleteReminder(result, passthrough) {
-
+	/**
+	 * no need to call the list api
+	 * as it is a successful delete
+	 * and api is going to return the same data set
+	 */
+	rows = _.reject(rows, function(row, index) {
+		if (passthrough.id === row.getParams().id) {
+			$.tableView.deleteRow(row.getView());
+			return true;
+		}
+		return false;
+	});
 }
 
 function didClickTableView(e) {

@@ -99,7 +99,7 @@ function didError(e) {
 }
 
 function didClickPhoto(e) {
-	$.uihelper.getPhoto(didGetPhoto, $.window);
+	$.uihelper.getPhoto(didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width, Alloy.CFG.thumbnail_default_height);
 }
 
 function didGetPhoto(blob) {
@@ -126,29 +126,29 @@ function didGetPhoto(blob) {
 }
 
 function didUploadImage(result, passthrough) {
-	var imageURL = result.data;
+	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
+	data.image_url = result.data;
 	$.http.request({
 		method : "doctors_update",
 		params : {
 			feature_code : "THXXX",
 			data : [{
-				doctors : {
-					id : doctor.id,
-					image_url : imageURL
-				}
+				doctors : data
 			}]
 		},
-		passthrough : imageURL,
+		passthrough : data,
 		success : didSuccessDoctor
 	});
 }
 
 function didSuccessDoctor(result, passthrough) {
-	_.extend(doctor, {
-		method : "doctors_update",
-		image_url : passthrough
-	});
-	$.photoImg.setImage(passthrough);
+	/**
+	 * update original object only after
+	 * successful api call
+	 */
+	_.extend(doctor, passthrough);
+	doctor.method = "doctors_update";
+	$.photoImg.setImage(doctor.image_url);
 }
 
 function didClickPhone(e) {
