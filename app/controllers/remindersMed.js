@@ -147,8 +147,8 @@ function getReminder(index) {
 		passthrough : index,
 		keepLoader : true,
 		errorDialogEnabled : false,
-		success : didGetReminders,
-		failure : didGetReminders
+		success : didGetReminder,
+		failure : didGetReminder
 	});
 }
 
@@ -221,30 +221,33 @@ function processModel(model) {
 	 * 4 or more [DRUGNAME], [DRUGNAME], and [X] more.
 	 * Note: length can't be 0
 	 */
-	var reminderPrescs = model.get("prescriptions"),
+	var reminderPrescs = model.get("prescriptions") || [],
 	    len = reminderPrescs.length,
-	    subtitle = $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-		id : reminderPrescs[0].prescriptionID
-	}).get("presc_name"));
-	if (len > 1) {
-		//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
-		switch(len) {
-		case 2:
-			subtitle += " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-				id : reminderPrescs[1].prescriptionID
-			}).get("presc_name"));
-			break;
-		case 3:
-			subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-				id : reminderPrescs[1].prescriptionID
-			}).get("presc_name")) + " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-				id : reminderPrescs[2].prescriptionID
-			}).get("presc_name"));
-			break;
-		default:
-			subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-				id : reminderPrescs[1].prescriptionID
-			}).get("presc_name")) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
+	    subtitle;
+	if (len > 0) {
+		subtitle = $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+			id : reminderPrescs[0].prescriptionID
+		}).get("presc_name"));
+		if (len > 1) {
+			//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
+			switch(len) {
+			case 2:
+				subtitle += " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+					id : reminderPrescs[1].prescriptionID
+				}).get("presc_name"));
+				break;
+			case 3:
+				subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+					id : reminderPrescs[1].prescriptionID
+				}).get("presc_name")) + " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+					id : reminderPrescs[2].prescriptionID
+				}).get("presc_name"));
+				break;
+			default:
+				subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
+					id : reminderPrescs[1].prescriptionID
+				}).get("presc_name")) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
+			}
 		}
 	}
 	model.set({

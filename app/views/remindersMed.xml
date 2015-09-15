@@ -2,7 +2,7 @@
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
 		<View id="contentHeaderView" class="hide content-header-view">
-			<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
+			<Label id="remindersLbl" class="content-header-lbl-with-ricon" />
 			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
 		</View>
 	</View>
