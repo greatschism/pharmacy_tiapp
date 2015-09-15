@@ -41,7 +41,7 @@ function didUploadImage(result, passthrough) {
 
 function transferStore(imageURL) {
 	var data = {
-		enable_transfer_all_presc_flag : $.transferAllPrescSwt.getValue(),
+		enable_transfer_all_presc_flag : $.transferAllPrescSwt.getValue() === true ? "1" : "0",
 		to_store_id : args.store.id
 	},
 	    user = args.user,
