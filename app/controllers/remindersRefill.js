@@ -166,7 +166,7 @@ function didGetRefillReminder(result, passthrough) {
 				reminder_hour : 9,
 				reminder_minute : 0,
 				reminder_meridiem : "AM",
-				no_of_reminders : 0,
+				no_of_reminders : 3,
 				prescriptions : prescriptions
 			};
 		}
