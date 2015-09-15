@@ -121,7 +121,13 @@ function didClickSignup(e) {
 }
 
 function didPostlayout(e) {
-
+	/**
+	 * we need height of
+	 * $.autoLoginLbl so waiting for postlayout
+	 * Note: event listener should be removed
+	 * to avoid redundant event calls
+	 */
+	$.autoLoginLbl.removeEventListener("postlayout", didPostlayout);
 	/**
 	 * apply properties for the tooltip
 	 *
