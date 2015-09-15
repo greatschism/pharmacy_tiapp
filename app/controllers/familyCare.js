@@ -13,6 +13,11 @@ var args = arguments[0] || {},
     rows = [];
 
 function focus() {
+	/**
+	 * Change the session to manager's as there is'no switcher 
+	 * present in this page.
+	 */
+	authenticator.asManager();
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
 			didGetPatient();
