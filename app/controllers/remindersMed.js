@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     titleClasses = ["content-title-wrap"],
     subtitleClasses = ["content-subtitle-wrap"],
@@ -100,7 +101,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 				}
 			}]
 		},
-		keepLoader : true,
 		errorDialogEnabled : false,
 		success : didGetReminders,
 		failure : didGetReminders
@@ -121,61 +121,6 @@ function didGetReminders(result, passthrough) {
 	}
 	//update collections
 	Alloy.Collections.remindersMed.reset(result.data.reminders);
-	/**
-	 * reminders get api should be called
-	 * to fulfill the requirement of the screen
-	 */
-	if (Alloy.Collections.remindersMed.length) {
-		//starting from 1st index
-		getReminder(0);
-	} else {
-		processList();
-	}
-}
-
-function getReminder(index) {
-	$.http.request({
-		method : "reminders_med_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				reminders : {
-					type : apiCodes.reminder_type_med,
-					id : Alloy.Collections.remindersMed.at(index).get("id")
-				}
-			}]
-		},
-		passthrough : index,
-		keepLoader : true,
-		errorDialogEnabled : false,
-		success : didGetReminder,
-		failure : didGetReminder
-	});
-}
-
-function didGetReminder(result, passthrough) {
-	/**
-	 * may be a failure, better check it
-	 * if failure, remove that model
-	 * for safer side
-	 */
-	if (result.data) {
-		Alloy.Collections.remindersMed.at(passthrough).set(result.data);
-	} else {
-		Alloy.Collections.remindersMed.remove(Alloy.Collections.remindersMed.at(passthrough));
-	}
-	//try next index if any
-	passthrough++;
-	if (passthrough < Alloy.Collections.remindersMed.length) {
-		getReminder(passthrough);
-	} else {
-		processList();
-	}
-}
-
-function processList() {
-	//hide loader here
-	$.app.navigator.hideLoader();
 	/**
 	 * toggle add view & content header view
 	 * if no reminders
@@ -215,6 +160,83 @@ function processList() {
 }
 
 function processModel(model) {
+	/**
+	 * timings
+	 */
+	var frequency = model.get("frequency"),
+	    title;
+	switch(frequency) {
+	case apiCodes.remind_frequency_daily:
+		var dailyTimes = model.get("reminder_start_hour"),
+		    dCount = dailyTimes.length - 1,
+		    dLastBefore = dCount - 1,
+		    timesStr = "";
+		_.each(dailyTimes, function(time, index) {
+			timesStr += moment(time.hour + ":" + time.minute, "HH:mm").format(Alloy.CFG.time_format);
+			if (index < dCount) {
+				if (index === dLastBefore) {
+					timesStr += " " + $.strings.strAnd + " ";
+				} else {
+					timesStr += ", ";
+				}
+			}
+		});
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], timesStr);
+		break;
+	case apiCodes.remind_frequency_weekly:
+		var wTime = model.get("reminder_start_hour")[0],
+		    weekdays = model.get("day_of_week"),
+		    wCount = weekdays.length - 1,
+		    wLastBefore = wCount - 1,
+		    weekdayFormat = wCount === 0 ? "dddd" : "dd",
+		    weekdaysStr = "";
+		_.each(weekdays, function(day, index) {
+			weekdaysStr += moment($.utilities.ucfirst(day.weekday), "ddd").format(weekdayFormat);
+			if (index < wCount) {
+				if (index === wLastBefore) {
+					weekdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					weekdaysStr += ", ";
+				}
+			}
+		});
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], weekdaysStr, moment(wTime.hour + ":" + wTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		break;
+	case apiCodes.remind_frequency_monthly:
+		var mTime = model.get("reminder_start_hour")[0],
+		    monthdays = model.get("day_of_month"),
+		    mCount = monthdays.length - 1,
+		    mLastBefore = mCount - 1,
+		    monthdaysStr = "";
+		_.each(monthdays, function(day, index) {
+			monthdaysStr += moment(day.monthday, "d").format("Do");
+			if (index < mCount) {
+				if (index === mLastBefore) {
+					monthdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					monthdaysStr += ", ";
+				}
+			}
+		});
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], monthdaysStr, moment(mTime.hour + ":" + mTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		break;
+	case apiCodes.remind_frequency_onaday:
+		var dTime = model.get("reminder_start_hour")[0];
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], moment(model.get("day_of_year"), apiCodes.dob_format).format("Do MMMM"), moment(dTime.hour + ":" + dTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		break;
+	case apiCodes.remind_frequency_period:
+		var pTime = model.get("reminder_start_hour")[0],
+		    interval = model.get("period"),
+		    formattedInterval;
+		if (interval < 60) {
+			formattedInterval = interval + " " + $.strings.strMinutes;
+		} else {
+			interval /= 60;
+			formattedInterval = interval + " " + $.strings[interval > 1 ? "strHours" : "strHour"];
+		}
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("dosage_reminder_end_date"), apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		break;
+	}
 	/* Description format
 	 * 1 drug [DRUGNAME].
 	 * 2 drugs [DRUGNAME] and [DRUGNAME].
@@ -253,6 +275,7 @@ function processModel(model) {
 	}
 	model.set({
 		color : model.get("color_code"),
+		title : title,
 		subtitle : subtitle,
 		titleClasses : titleClasses,
 		subtitleClasses : subtitleClasses,
@@ -309,6 +332,17 @@ function didDeleteReminder(result, passthrough) {
 		}
 		return false;
 	});
+	/**
+	 * toggle views
+	 * if all rows are deleted
+	 * No need to check for visibility
+	 * as this is a delete, table should be visible
+	 * by now
+	 */
+	if (!rows.length) {
+		$.contentHeaderView.visible = false;
+		$.addView.visible = true;
+	}
 }
 
 function didClickTableView(e) {
