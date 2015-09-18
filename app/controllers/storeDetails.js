@@ -202,9 +202,6 @@ function didClickRefill(e) {
 		/**
 		 * add prescriptions
 		 * and then to order details
-		 *
-		 * Note: when it is from store details
-		 * force pickupMode to pickup_mode_instore
 		 */
 		navigation = {
 			titleid : "titlePrescriptionsAdd",
@@ -221,8 +218,7 @@ function didClickRefill(e) {
 					ctrl : "orderDetails",
 					ctrlArguments : {
 						store : store,
-						canAdd : false,
-						pickupMode : Alloy.CFG.apiCodes.pickup_mode_instore
+						canAdd : false
 					},
 					stack : true
 				}
@@ -230,16 +226,11 @@ function didClickRefill(e) {
 			stack : true
 		};
 	} else {
-		/*
-		 * Note: when it is from store details
-		 * force pickupMode to pickup_mode_instore
-		 */
 		navigation = {
 			titleid : "titleRefillType",
 			ctrl : "refillType",
 			ctrlArguments : {
-				store : store,
-				pickupMode : Alloy.CFG.apiCodes.pickup_mode_instore
+				store : store
 			},
 			stack : true
 		};

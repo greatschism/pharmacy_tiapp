@@ -303,6 +303,9 @@ module.exports = {
 		"orderDetPopupPickupModeBtnClose" : "es-Close",
 		"orderDetBtnRefill" : "es-Submit",
 		"orderDetLblMailOrder" : "es-All orders will be mailed to the address your pharmacy has on file.",
+		"orderDetLblStoreTitle" : "es-No pharmacy selected",
+		"orderDetLblStoreSubtitle" : "es-Click here to choose one",
+		"orderDetValStore" : "es-Please choose a pharmacy for pickup",
 
 		"rxSampleLblTitle" : "es-Where is my Rx number?",
 

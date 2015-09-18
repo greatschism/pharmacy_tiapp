@@ -44,21 +44,34 @@ function loadBanners(items) {
 		_.each(banners, function(banner) {
 			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 		});
-		$.bannerScrollableView.addEventListener("scrollend", didScrollend);
-		$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
-			classes : ["margin-bottom"]
-		}), {
-			currentPage : 0,
-			length : banners.length
-		}));
-		$.pagingControl.on("change", didChangePager);
-		if ($.asyncView) {
-			$.asyncView.hide([$.bannerScrollableView, $.pagingControl.getView()]);
-		} else {
-			$.bannerView.add($.bannerScrollableView);
-			$.bannerView.add($.pagingControl.getView());
+		/**
+		 * only when more than one banner placed
+		 * paging control should be enabled
+		 */
+		var len = banners.length,
+		    pagingControlEnabled = len > 1,
+		    views = [$.bannerScrollableView];
+		if (pagingControlEnabled) {
+			$.bannerScrollableView.addEventListener("scrollend", didScrollend);
+			$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
+				classes : ["pagingcontrol"]
+			}), {
+				currentPage : 0,
+				length : len
+			}));
+			$.pagingControl.on("change", didChangePager);
+			views.push($.pagingControl.getView());
 		}
-		startSpanTime(banners[0].spanTime);
+		if ($.asyncView) {
+			$.asyncView.hide(views);
+		} else {
+			_.each(views, function(view) {
+				$.bannerView.add(view);
+			});
+		}
+		if (pagingControlEnabled) {
+			startSpanTime(banners[0].spanTime);
+		}
 		return true;
 	}
 	return false;
@@ -151,9 +164,18 @@ function create(dict) {
 	if (_.has(dict, "id")) {
 		$[dict.id] = element;
 		if (dict.id == "bannerView" && isBannerEnabled) {
+			/**
+			 * banner will always fill the
+			 * device in width wise
+			 * and height will be maintain
+			 * aspect ratio
+			 * Note: not using Math.floor for height
+			 * as it may bring a minor but noticeable
+			 * white space to banner corners
+			 */
 			$.bannerView.applyProperties({
-				width : Alloy.CFG.banner_max_width,
-				height : Alloy.CFG.banner_max_height
+				width : $.app.device.width,
+				height : (Alloy.CFG.banner_default_height / Alloy.CFG.banner_default_width) * $.app.device.width
 			});
 			if (!Alloy.Collections.banners.length) {
 				$.asyncView = Alloy.createWidget("ti.asyncview", "widget");

@@ -1,5 +1,5 @@
 "#toggleBtn":{
-	title: Alloy.Globals.strings.prescDetExpand
+	title: Alloy.Globals.strings.prescDetCollapse
 },
 "#refillsLeftLbl":{
 	text: Alloy.Globals.strings.prescDetInfoRefillsLeft

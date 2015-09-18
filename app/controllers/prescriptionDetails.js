@@ -14,16 +14,11 @@ function init() {
 	});
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	/**
-	 * height has to be calculated and applied for expanable views only once the page is rendered
-	 * this may cause jerk on screen, avoid it by showing a loader on init
-	 */
 	if (_.has(prescription, "store")) {
 		loadPresecription();
 		loadDoctor();
 		loadStore();
 	}
-	setTimeout(hideLoader, 1000);
 }
 
 function focus() {
@@ -47,10 +42,6 @@ function focus() {
 			});
 		}
 	}
-}
-
-function hideLoader() {
-	$.loader.hide();
 }
 
 function didGetPrescription(result, passthrough) {
@@ -147,6 +138,31 @@ function loadStore() {
 	$.prescAsyncView.hide();
 	$.prescExp.setStopListening(true);
 	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
+	/**
+	 * Keep the expandable view opened
+	 * by default (PHA-1086)
+	 *
+	 * &&
+	 *
+	 * height has to be calculated and applied for expanable views only once the page is rendered
+	 * this may cause jerk on screen, avoid it by showing a loader on init
+	 */
+	setTimeout(didUpdateUI, 1000);
+}
+
+function didUpdateUI() {
+	/**
+	 * PHA-1086 - keep it expanded
+	 * incase to revert:
+	 * 1. Update the toggle
+	 * (show more / less) title in xml
+	 * 2. remove $.prescExp.expand();
+	 * 3. keep only $.loader.hide();
+	 * 4. move this setTimeout(didUpdateUI, 1000);
+	 * to init
+	 */
+	$.prescExp.expand();
+	$.loader.hide();
 }
 
 function didClickStore(e) {

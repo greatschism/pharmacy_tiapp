@@ -21,6 +21,9 @@
 "#pickupLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPickup
 },
+"#pickupModeLbl":{
+	text: Alloy.Globals.strings.strLoading
+},
 "#phoneLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPhone
 },

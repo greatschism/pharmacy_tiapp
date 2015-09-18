@@ -9,9 +9,10 @@ module.exports = {
 			},
 			"navigator" : "drawer",
 			"left_drawer_width" : 270,
-			"banner_max_width" : "100%",
-			"banner_max_height" : 140,
+			"banner_default_width" : 1920,
+			"banner_default_height" : 480,
 			"geo_search_length_min" : 4,
+			"mail_order_store_pickup_enabled" : false,
 			"store_map_radius_min" : 15,
 			"store_map_radius_max" : 75,
 			"store_map_radius_increment" : 10,
@@ -311,6 +312,27 @@ module.exports = {
 			},
 			".inbetween-margin-right" : {
 				"right" : 8
+			},
+			".pagingcontrol" : {
+				"bottom" : 6,
+				"pagerDict" : {
+					"left" : 3,
+					"width" : 6,
+					"height" : 6,
+					"backgroundColor" : "#C4C4C4",
+					"borderColor" : "#FFFFFF",
+					"borderWidth" : 1,
+					"borderRadius" : 3
+				},
+				"selectedPagerDict" : {
+					"left" : 3,
+					"width" : 6,
+					"height" : 6,
+					"backgroundColor" : "#F7941E",
+					"borderColor" : "#FFFFFF",
+					"borderWidth" : 1,
+					"borderRadius" : 3
+				}
 			},
 			".barcode-navbar[platform=ios]" : {
 				"top" : 0,
