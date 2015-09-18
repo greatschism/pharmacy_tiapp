@@ -6,8 +6,7 @@ var TAG = "notificationHandler",
     deviceTokenCallback,
     deviceToken;
 
-//TiPush.singleCallback = false;
-//TiPush.addEventListener("callback", didReceivePush);
+TiPush.addEventListener("callback", didReceivePush);
 
 function init(callback) {
 	if (isBusy) {

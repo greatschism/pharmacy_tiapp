@@ -248,15 +248,17 @@ function getPickupModes() {
 function didGetPickupModes(result) {
 	/**
 	 * args.pickupMode is prefered pickup mode
-	 * for this transaction
-	 * Ex: if we reach this screen from store details
+	 * for this transaction, if nothing set as such
+	 * check for the latest_pickup_mode used in cache,
+	 * incase of first use, set the default
+	 * i.e: if we reach this screen from store details
 	 * then prefered pickup mode will be pickup_mode_instore
 	 * if default is mail order then we have to
 	 * give first pererence for args.pickupMode
 	 */
 	Alloy.Models.pickupModes.set(result.data.codes[0]);
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	    defaultVal = args.pickupMode || Alloy.Models.pickupModes.get("default_value"),
+	    defaultVal = args.pickupMode || $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
 	    selectedCode;
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {

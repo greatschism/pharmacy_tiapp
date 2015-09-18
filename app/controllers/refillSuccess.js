@@ -128,8 +128,14 @@ function updateTable() {
 	$.tableView.setData(data);
 
 	/**
+	 * cache the pickup mode for later use
+	 */
+	if (args.pickupMode) {
+		$.utilities.setProperty(Alloy.CFG.latest_pickup_mode, args.pickupMode);
+	}
+	/**
 	 * this is a successful refill
-	 * so store phone number if available
+	 * so cache phone number if available
 	 */
 	if (args.phone) {
 		$.utilities.setProperty(Alloy.CFG.latest_phone_used, args.phone);
