@@ -158,6 +158,10 @@ module.exports = {
 		"tmplOptionDividerLbl" : "Or",
 
 		"homeNavBtnLogin" : "Sign in",
+		"homeFeedbackkOptMenuTitle":"Do you wish to provide feedback to improve the application?",
+		"homeFeedabackOptMenuRate":"Rate now",
+		"homeFeedbackOptMenuRemind":"Remind me later",
+		"homeFeedbackOptMenuNoThanks":"No, Thanks",
 
 		"loginLblTitle" : "Sign in to the mscripts mobile pharmacy",
 		"loginHintUsername" : "Username",
