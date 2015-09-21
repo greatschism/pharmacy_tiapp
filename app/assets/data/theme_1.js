@@ -1529,6 +1529,22 @@ module.exports = {
 				"height" : "auto",
 				"layout" : "vertical"
 			},
+			".content-right-color-box" : {
+				"right" : 12,
+				"height" : 20,
+				"width" : 20,
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 0
+			},
+			".content-view-with-rcolor-box" : {
+				"top" : 12,
+				"bottom" : 12,
+				"left" : 12,
+				"right" : 44,
+				"height" : "auto"
+			},
 			".content-right-swt" : {
 				"right" : 12
 			},
@@ -3073,29 +3089,6 @@ module.exports = {
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
-			},
-			".right-color-box" : {
-				"right" : 12,
-				"height" : 20,
-				"width" : 20,
-				"backgroundColor" : "#FFFFFF",
-				"borderColor" : "transparent",
-				"borderRadius" : 3.4,
-				"borderWidth" : 0
-			},
-			".lbl-with-rcolor-box-wrap" : {
-				"left" : 12,
-				"right" : 44,
-				"height" : "auto",
-				"font" : {
-					"fontFamily" : "regular",
-					"fontSize" : 14
-				},
-				"color" : "#000000",
-				"textAlign" : "left",
-				"ellipsize" : false,
-				"wordWrap" : true,
-				"touchEnabled" : false
 			},
 			".lbl-with-rswt[platform=ios]" : {
 				"left" : 12,
