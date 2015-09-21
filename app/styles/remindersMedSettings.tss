@@ -1,4 +1,10 @@
-
-".container" : {
-  
+"#submitBtn[if=!$.args.isUpdate]":{
+	title: Alloy.Globals.strings.remindersMedSettingsBtnAdd
+},
+"#submitBtn[if=$.args.isUpdate]":{
+	title: Alloy.Globals.strings.remindersMedSettingsBtnUpdate,
+	bottom: null
+},
+"#removeBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsBtnRemove
 }

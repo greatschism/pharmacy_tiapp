@@ -5,29 +5,9 @@
 	 *  to prevent empty objects being returned
 	 *  this is recommended
 	 */
-	require("alloy/moment");
-	require("alloy/moment-timezone");
-	require("alloy/underscore");
-	require("com.scule");
-	require("utilities");
-	require("encryptionUtil");
-	require("com.scule.tiencrypted");
-	require("uihelper");
-	require("core");
-	require("resources");
-	require("config");
-	require("localization");
-	require("logger");
-	require("http");
-	require("requestwrapper");
-	require("authenticator");
-	require("apm");
-	require("analytics");
-	require("barcode");
-	require("navigationHandler");
-	require("notificationHandler");
-	require("refillScan");
-	require("refillValidator");
+	_.each(["alloy/moment", "alloy/moment", "alloy/moment-timezone", "alloy/underscore", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "requestwrapper", "authenticator", "apm", "analytics", "barcode", "navigationHandler", "notificationHandler", "refillScan", "refillValidator"], function(module) {
+		require(module);
+	});
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");

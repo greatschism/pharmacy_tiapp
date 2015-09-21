@@ -24,6 +24,10 @@
 	<style name="Material.ListView" parent="@android:style/Widget.ListView">
 		<item name="android:dividerHeight">1px</item>
 	</style>
+	<style name="Material.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
+		<item name="spinBars">true</item>
+		<item name="color">@android:color/white</item>
+	</style>
 	<style name="Theme.Material" parent="Theme.AppCompat">
 		<item name="colorControlHighlight">#D4D4D4</item>
 		<item name="android:colorEdgeEffect">#D4D4D4</item>
@@ -39,6 +43,7 @@
 		<!--to apply for progress dialog-->
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
+		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>

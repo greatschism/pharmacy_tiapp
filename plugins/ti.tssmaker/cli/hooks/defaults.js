@@ -2,14 +2,17 @@ module.exports = {
 	"Theme" : {
 		"version" : "Alloy.TSS.Theme.version"
 	},
+	"Window[platform=ios]" : {
+		"statusBarStyle" : "Ti.UI.iPhone.StatusBar.LIGHT_CONTENT"
+	},
+	"Window[platform=android]" : {
+		"windowSoftInputMode" : "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
+	},
 	"Window[formFactor=handheld]" : {
 		"orientationModes" : ["Ti.UI.PORTRAIT"]
 	},
 	"Window[formFactor=tablet]" : {
 		"orientationModes" : ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
-	},
-	"Window[platform=android]" : {
-		"windowSoftInputMode" : "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
 	},
 	"TableView" : {
 		"footerDividersEnabled" : true,

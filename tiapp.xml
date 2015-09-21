@@ -45,8 +45,6 @@
         <false/>
         <key>UIStatusBarStyle</key>
         <string>UIStatusBarStyleLightContent</string>
-        <key>UIViewControllerBasedStatusBarAppearance</key>
-        <false/>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>
@@ -66,7 +64,8 @@
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="1">
-      <uses-sdk android:minSdkVersion="14"/>
+      <!--TIMOB-19422-->
+      <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="22"/>
       <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
         <activity android:configChanges="keyboardHidden|orientation" android:name=".CarbonPharmacyActivity" android:theme="@style/Theme.Material.Splash">
           <intent-filter>
@@ -85,17 +84,17 @@
     </manifest>
   </android>
   <modules>
-    <module platform="iphone">com.appcelerator.apm</module>
-    <module platform="android">com.appcelerator.apm</module>
-    <module platform="iphone" version="2.2.2">ti.map</module>
-    <module platform="android">ti.map</module>
-    <module platform="android">ti.push</module>
-    <module platform="iphone">com.obscure.keychain</module>
-    <module platform="android">com.obscure.keychain</module>
-    <module platform="iphone">com.mfogg.barcode</module>
-    <module platform="android">ti.barcode</module>
-    <module platform="iphone">dk.napp.drawer</module>
-    <module platform="android">com.tripvi.drawerlayout</module>
+    <module platform="iphone" version="1.1.1">com.appcelerator.apm</module>
+    <module platform="android" version="1.1.1">com.appcelerator.apm</module>
+    <module platform="iphone" version="2.4.1">ti.map</module>
+    <module platform="android" version="2.3.3">ti.map</module>
+    <module platform="android" version="1.0">ti.push</module>
+    <module platform="iphone" version="2.1">com.obscure.keychain</module>
+    <module platform="android" version="2.1">com.obscure.keychain</module>
+    <module platform="iphone" version="0.3">com.mfogg.barcode</module>
+    <module platform="android" version="2.3.5">ti.barcode</module>
+    <module platform="iphone" version="1.2.2">dk.napp.drawer</module>
+    <module platform="android" version="1.3.5">com.tripvi.drawerlayout</module>
   </modules>
   <deployment-targets>
     <target device="iphone">true</target>

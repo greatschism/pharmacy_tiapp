@@ -1,4 +1,10 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<TableView id="tableView">
+		<FooterView>
+			<View class="auto-height vgroup">
+				<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmitReminder" />
+				<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
+			</View>
+		</FooterView>
+	</TableView>
 </Alloy>

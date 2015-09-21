@@ -2,6 +2,7 @@
 	leftDrawerWidth: Alloy.CFG.left_drawer_width
 },
 "#drawer[platform=ios]":{
+	statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT,
 	accessibilityLabel: Ti.App.name,
 	openDrawerGestureMode: "OPEN_MODE_NONE",
 	closeDrawerGestureMode: "CLOSE_MODE_ALL",
@@ -20,9 +21,7 @@
 		statusBarColor: Alloy.TSS.Window.statusBarColor,
 		titleAttributes: Alloy.TSS.Window.titleAttributes
 	},
-	hamburgerIcon: true,
-	arrowAnimation: true,
-	hamburgerIconColor: Alloy.TSS.Window.titleAttributes.color
+	hamburgerIcon: true
 },
 "#drawer[formFactor=handheld]":{
 	orientationModes: [Ti.UI.PORTRAIT]

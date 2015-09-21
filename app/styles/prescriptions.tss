@@ -5,21 +5,21 @@
 	disabled: false
 },
 /**
- * 	if showHiddenPrescriptions is true
- *  exclude the options
- *  unhide and sort (sort is removed as client
- * will not be able to sort prescriptions and use
- * alphabetic sort by default)
- */
+* 	if showHiddenPrescriptions is true
+*  exclude the options
+*  unhide and sort (sort is removed as client
+* will not be able to sort prescriptions and use
+* alphabetic sort by default)
+*/
 "#optionsMenu[if=$.args.showHiddenPrescriptions]":{
 	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 2
 },
 /**
- * 	if showHiddenPrescriptions is false
- *  include the options
- *  unhide and sort
- */
+* 	if showHiddenPrescriptions is false
+*  include the options
+*  unhide and sort
+*/
 "#optionsMenu[if=!$.args.showHiddenPrescriptions]":{
 	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.prescOptMenuSort, Alloy.Globals.strings.prescOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 4
@@ -27,7 +27,7 @@
 "#sortPicker":{
 	autoHide: true,
 	radioButton: true,
-	titleProperty : "code_display"
+	titleProperty: "code_display"
 },
 "#sortLbl":{
 	text: Alloy.Globals.strings.prescPopupSectionSort
@@ -54,19 +54,22 @@
 	hintText:Alloy.Globals.strings.prescHintSearch
 },
 "#tooltipLbl":{
-	text: Alloy.Globals.strings.prescTooltipLblReminder
+	text: Alloy.Globals.strings.prescAddTooltipLblReminder
 },
 "#tooltipHideBtn":{
-	title: Alloy.Globals.strings.prescTooltipBtnHide
+	title: Alloy.Globals.strings.prescAddTooltipBtnHide
 },
 "#headerLbl":{
-	text: Alloy.Globals.strings.prescSectionReminders
+	text: Alloy.Globals.strings.prescAddSectionReminders
 },
 "#tableView[if=!$.args.selectable]":{
 	bottom: null
 },
-"#submitBtn":{
-	title: Alloy.Globals.strings.prescBtnSubmit
+"#submitBtn[if=$.args.navigation]":{
+	title: Alloy.Globals.strings.prescAddBtnContinue
+},
+"#submitBtn[if=!$.args.navigation]":{
+	title: Alloy.Globals.strings.prescAddBtnSubmit
 },
 "#partialTitleLbl":{
 	text: Alloy.Globals.strings.prescPartialLblTitle

@@ -66,13 +66,14 @@ module.exports = {
 				"enabled" : true
 			}, {
 				"id" : "promotional",
-				"col_pref" : "promotion_deals_reminder_mode",
+				"col_pref" : "promotion_deals_reminder_dlvry_mode",
 				"enabled" : true
 			}],
 			"remind_before_in_days_min" : 1,
 			"remind_before_in_days_max" : 3,
 			"no_of_reminders_max" : 5,
-			"remind_frequencies" : [{
+			"reminder_med_default_color" : "#F7941E",
+			"reminder_med_frequencies" : [{
 				"id" : "Daily",
 				"dates_max" : 0,
 				"times_max" : 4
@@ -3072,6 +3073,29 @@ module.exports = {
 				"textAlign" : "left",
 				"ellipsize" : true,
 				"wordWrap" : false
+			},
+			".right-color-box" : {
+				"right" : 12,
+				"height" : 20,
+				"width" : 20,
+				"backgroundColor" : "#FFFFFF",
+				"borderColor" : "transparent",
+				"borderRadius" : 3.4,
+				"borderWidth" : 0
+			},
+			".lbl-with-rcolor-box-wrap" : {
+				"left" : 12,
+				"right" : 44,
+				"height" : "auto",
+				"font" : {
+					"fontFamily" : "regular",
+					"fontSize" : 14
+				},
+				"color" : "#000000",
+				"textAlign" : "left",
+				"ellipsize" : false,
+				"wordWrap" : true,
+				"touchEnabled" : false
 			},
 			".lbl-with-rswt[platform=ios]" : {
 				"left" : 12,

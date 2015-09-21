@@ -46,6 +46,50 @@ function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		getAllPrescriptions();
+	} else if (currentReminder.method) {
+		var method = currentReminder.method;
+		/**
+		 * to prevent method property
+		 * added to model / collection
+		 * delete it before adding / processing
+		 */
+		delete currentReminder.method;
+		switch(method) {
+		case "reminders_med_add":
+			/**
+			 * if this is the first row
+			 * then addView will be visible
+			 * hide it and show the table back
+			 */
+			if (!rows.length) {
+				$.addView.visible = false;
+				$.contentHeaderView.visible = true;
+			}
+			//add row
+			Alloy.Collections.remindersMed.add(currentReminder);
+			var row = processModel(Alloy.Collections.remindersMed.last());
+			$.tableView.appendRow(row.getView());
+			rows.push(row);
+			break;
+		case "reminders_med_update":
+			delete currentReminder.updated;
+			_.some(rows, function(row, index) {
+				if (row.getParams().id == currentReminder.id) {
+					var model = Alloy.Collections.remindersMed.at(index);
+					model.set(_.pick(currentReminder, [""]));
+					var newRow = processModel(model);
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
+					rows[index] = newRow;
+					return true;
+				}
+				return false;
+			});
+			break;
+		case "reminders_med_delete":
+			didDeleteReminder(null, currentReminder);
+			break;
+		}
+		currentReminder = null;
 	}
 }
 
@@ -349,16 +393,49 @@ function didClickTableView(e) {
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
+	var row = rows[e.index];
+	if (row) {
+		currentReminder = row.getParams();
+		$.app.navigator.open({
+			titleid : "titleRemindersMedSettings",
+			ctrl : "remindersMedSettings",
+			ctrlArguments : {
+				isUpdate : true,
+				reminder : currentReminder
+			},
+			stack : true
+		});
+	}
 }
 
 function didClickAdd(e) {
 	currentReminder = {};
+	var firstLaunchReminders = $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false);
+	if (firstLaunchReminders) {
+		$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
+	}
 	$.app.navigator.open({
-		titleid : "titleRemindersMedSettings",
-		ctrl : "remindersMedSettings",
+		titleid : "titleRemindersMedPrescriptions",
+		ctrl : "prescriptions",
 		ctrlArguments : {
-			isUpdate : false,
-			reminder : currentReminder
+			navigation : {
+				titleid : "titleRemindersMedSettings",
+				ctrl : "remindersMedSettings",
+				ctrlArguments : {
+					isUpdate : false,
+					canAdd : false,
+					reminder : currentReminder
+				},
+				stack : true
+			},
+			isMedReminder : true,
+			showMedReminderTooltip : firstLaunchReminders,
+			patientSwitcherDisabled : true,
+			showHiddenPrescriptions : true,
+			preventRefillValidation : true,
+			selectable : true,
+			minLength : 1,
+			useCache : true
 		},
 		stack : true
 	});
