@@ -53,7 +53,7 @@ function didClickRevoke(){
 
 function didRevoke(result){
 	$.uihelper.showDialog({
-		message : result.message,
+		message : $.strings.msgAccountHIPAARevoked,
 		buttonNames : [$.strings.dialogBtnOK],
 		success : function(){
 			$.app.navigator.close();
