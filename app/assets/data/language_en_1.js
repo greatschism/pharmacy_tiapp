@@ -407,6 +407,7 @@ module.exports = {
 		"remindersMedSettingsLblFrequencyPeriod" : "On a frequency",
 		"remindersMedSettingsLblReminderColor" : "Choose a color for this reminder",
 		"remindersMedSettingsLblRemindFrequency" : "Remind me",
+		"remindersMedSettingsLblRemindOn" : "Reminder On",
 		"remindersMedSettingsLblRemindAt" : "Reminder time",
 		"remindersMedSettingsSectionPresc" : "Prescriptions",
 		"remindersMedSettingsBtnAdd" : "Save",

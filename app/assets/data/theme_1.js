@@ -76,23 +76,28 @@ module.exports = {
 			"reminder_med_frequencies" : [{
 				"id" : "Daily",
 				"dates_max" : 0,
-				"times_max" : 4
+				"times_max" : 4,
+				"number_of_times_enabled" : true
 			}, {
 				"id" : "Weekly",
 				"dates_max" : 0,
-				"times_max" : 1
+				"times_max" : 1,
+				"number_of_times_enabled" : false
 			}, {
 				"id" : "Monthly",
 				"dates_max" : 4,
-				"times_max" : 1
+				"times_max" : 1,
+				"number_of_times_enabled" : true
 			}, {
 				"id" : "OnADay",
 				"dates_max" : 1,
-				"times_max" : 1
+				"times_max" : 1,
+				"number_of_times_enabled" : false
 			}, {
 				"id" : "Period",
 				"dates_max" : 0,
-				"times_max" : 1
+				"times_max" : 1,
+				"number_of_times_enabled" : false
 			}],
 			"reminder_med_default_frequency" : "Daily",
 			"default_color" : "#F7941E",

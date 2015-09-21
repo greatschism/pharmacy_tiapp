@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rows = [],
     reminder = args.reminder,
@@ -32,7 +33,7 @@ function init() {
 	$.reminderSection.add(frequencyRow.getView());
 	rows.push(frequencyRow);
 	//options for this frequency
-	_.each(getOptionRows(frequencyId), function(row) {
+	_.each(getOptionRows(frequencyId, reminder), function(row) {
 		$.reminderSection.add(row.getView());
 		rows.push(row);
 	});
@@ -104,8 +105,53 @@ function getFrequencyRow(frequencyId) {
 	});
 }
 
-function getOptionRows(frequencyId) {
-
+function getOptionRows(frequencyId, data) {
+	var optionRows = [],
+	    frequencyObj = _.findWhere(frequencyOptions, {
+		id : frequencyId
+	}),
+	    startHours = data.reminder_start_hour || [{
+		hour : moment().hours(),
+		minutes : "00"
+	}],
+	    dates,
+	    inputFormat,
+	    outputFormat;
+	if (frequencyId === apiCodes.reminder_frequency_monthly || frequencyId === apiCodes.reminder_frequency_onaday) {
+		/**
+		 * no_of_times represents the dates
+		 * for frequencies Monthly and On A day
+		 */
+		if (frequencyId === apiCodes.reminder_frequency_monthly) {
+			dates = data.day_of_month || [{
+				monthday : moment().date()
+			}];
+			inputFormat = "DD";
+			outputFormat = "DD";
+		} else {
+			dates = [reminder.day_of_year || moment().format(apiCodes.dob_format)];
+			inputFormat = apiCodes.dob_format;
+			outputFormat = "Do MMM";
+		}
+		_.each(dates, function(date, index) {
+			var mDate = moment(date, inputFormat),
+			    dateRow = Alloy.createController("itemTemplates/promptReply", {
+				frequencyId : frequencyId,
+				pickerType : "date",
+				value : date,
+				inputFormat : inputFormat,
+				outputFormat : outputFormat,
+				prompt : $.strings.remindersMedSettingsLblRemindOn,
+				reply : mDate.format(outputFormat),
+				promptClasses : promptClasses,
+				replyClasses : replyClasses,
+				hasChild : true
+			});
+			optionRows.push(dateRow);
+		});
+		//plus one time picker
+	}
+	return optionRows;
 }
 
 function getPrescRow(prescription) {
@@ -249,10 +295,17 @@ function didClickFrequencyPicker(e) {
 	 * others in the section is now deleted
 	 * with code above
 	 */
-	_.each(getOptionRows(frequencyId), function(row) {
+	_.each(getOptionRows(frequencyId, {}), function(row) {
 		$.tableView.insertRowAfter(startOptionIndex, row.getView());
-		rows.push(row);
+		//increment
 		startOptionIndex++;
+		/**
+		 * new option rows
+		 * should be injected in the middle
+		 * of rows array - right after
+		 * frequency row and before prescription row
+		 */
+		rows.splice(startOptionIndex, 0, row);
 	});
 }
 
