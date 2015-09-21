@@ -2,6 +2,10 @@
 	<TableView id="tableView">
 		<FooterView>
 			<View class="auto-height vgroup">
+				<!--footer separator seems to appear on pre lollipop devices-->
+				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
+				<!--footer separator seems to disappear on iOS after a delete-->
+				<View class="h-divider-light" platform="ios" />
 				<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmitReminder" />
 				<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
 			</View>

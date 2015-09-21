@@ -23,7 +23,7 @@ function init() {
 	$.reminderSection.add(colorRow.getView());
 	rows.push(colorRow);
 	//remind frequency
-	
+
 	//prescriptions section
 	var iconDict;
 	/*
@@ -81,10 +81,10 @@ function focus() {
 	if (selectedPrescriptions.length) {
 		/**
 		 * make existing first row removable
-		 * if $.prescSection.rowCount is already > 1 then it would already be removable
+		 * if prescriptions.length is already > 1 then it would already be removable
 		 */
-		if ($.prescSection.rowCount == 1) {
-			var prescFirstIndex = $.reminderSection.rowCount - 1,
+		if (prescriptions.length == 1) {
+			var prescFirstIndex = $.reminderSection.rowCount,
 			    currentCtrl = rows[prescFirstIndex],
 			    currentRow = currentCtrl.getView(),
 			    currentParams = currentCtrl.getParams();
@@ -135,10 +135,10 @@ function didClickRemovePresc(e) {
 	$.tableView.deleteRow(e.source.getView());
 	/**
 	 *  make existing first row not removable
-	 * if $.prescSection.rowCount === 1
+	 * if prescriptions.length === 1
 	 */
-	if ($.prescSection.rowCount == 1) {
-		var prescFirstIndex = $.reminderSection.rowCount - 1,
+	if (prescriptions.length == 1) {
+		var prescFirstIndex = $.reminderSection.rowCount,
 		    currentCtrl = rows[prescFirstIndex],
 		    currentRow = currentCtrl.getView(),
 		    currentParams = currentCtrl.getParams();
