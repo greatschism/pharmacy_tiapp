@@ -122,6 +122,7 @@ function getOptionRows(frequencyId, data) {
 		 * no_of_times represents the dates
 		 * for frequencies Monthly and On A day
 		 */
+
 		if (frequencyId === apiCodes.reminder_frequency_monthly) {
 			dates = data.day_of_month || [{
 				monthday : moment().date()
@@ -134,7 +135,12 @@ function getOptionRows(frequencyId, data) {
 			outputFormat = "Do MMM";
 		}
 		_.each(dates, function(date, index) {
-			var mDate = moment(date, inputFormat),
+			/**
+			 * for monthly date will
+			 * be object, for on a day
+			 * it is string
+			 */
+			var mDate = moment(_.isObject(date) ? date.monthday : date, inputFormat),
 			    dateRow = Alloy.createController("itemTemplates/promptReply", {
 				frequencyId : frequencyId,
 				pickerType : "date",
