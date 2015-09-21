@@ -1,6 +1,3 @@
-"#addPrescTitle":{
-	text:Alloy.Globals.strings.familyMemberAddPrescTitle
-},
 "#fnameTxt":{
 	hintText:Alloy.Globals.strings.familyMemberAddPrescHintFirstName,
 	nextItem: "lnameTxt"

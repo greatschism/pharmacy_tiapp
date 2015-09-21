@@ -1,9 +1,6 @@
 "#signInBtn":{
 	title:Alloy.Globals.strings.mgrAccountExistsBtnSignIn
 },
-"#mgrAccountExistsLbl":{
-	text:Alloy.Globals.strings.mgrAccountExistsLbl
-},
 "#mgrAddLbl":{
 	text:Alloy.Globals.strings.mgrAddLbl
 },

@@ -1,3 +1,7 @@
 "#rightNavBtn":{
 	title: Alloy.Globals.strings.homeNavBtnLogin
-}
+},
+"#forceUpgradeOptionsMenu":{
+	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.dialogBtnCancel],
+	cancel: 2
+},

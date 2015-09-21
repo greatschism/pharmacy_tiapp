@@ -4,9 +4,6 @@
 "#childInfoLbl":{
 	text:Alloy.Globals.strings.registerChildInfoLbl
 },
-"#childInfoAttr":{
-	text:Alloy.Globals.strings.registerChildInfoAttr
-},
 "#continueBtn":{
 	title:Alloy.Globals.strings.registerChildInfoBtnContinue
 }

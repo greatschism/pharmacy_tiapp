@@ -79,7 +79,7 @@ module.exports = {
 		"msgRxNumberTips" : "Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgAgeRestriction" : "You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
-		"msgAccountExists" : "It looks like you already have an account with Carbon pharmacy",
+		"msgAccountExists" : "It looks like you already have an account with %s",
 		"msgMgrAccountCreation" : "Your manager account is created! Now please add your child.",
 		"msgUserRecoverySuccess" : "We've just sent you an email with a password reset link. You can use it to create a new password",
 		"msgMgrAccountCreation" : "Your manager account is created! Now please add your child",
@@ -540,7 +540,7 @@ module.exports = {
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
-		"registerChildInfoAttr" : "Click here if you already have an account with Carbon pharmacy.",
+		"registerChildInfoAttr" : "Click here if you already have an account with %s.",
 		"registerChildInfoBtnContinue" : "Continue",
 
 		"childAccountTipsLbl" : "How do I add family members to my account?",
@@ -570,7 +570,7 @@ module.exports = {
 
 		"mgrSignInLbl" : "Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "You can also add other adults and manage permissions.",
-		"mgrAccountExistsLbl" : "It looks like you already have an account with Carbon pharmacy",
+		"mgrAccountExistsLbl" : "It looks like you already have an account with %s",
 		"mgrAccountExistsBtnSignIn" : "Sign in",
 
 		"childAddTitle" : "Add a child to your account",
@@ -615,7 +615,7 @@ module.exports = {
 		"receiveTextChildSectionLbl" : "Who would you like to receive texts for?",
 		"receiveTextChildSectionPhoneNum" : "Mobile number",
 		"receiveTextChildBtnContinue" : "Continue",
-		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
+		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from %s or those acting on %s's behalf.",
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
 
@@ -693,7 +693,7 @@ module.exports = {
 		"familyMemberAddSuccessBtnAdd" : "Add another family member",
 		"familyMemberAddSuccessBtnDone" : "Done",
 
-		"familyMemberAddPrescTitle" : "Please fill in the information below to update your account with Carbon Pharmacy.",
+		"familyMemberAddPrescTitle" : "Please fill in the information below to update your account with %s.",
 		"familyMemberAddPrescHintFirstName" : "First name",
 		"familyMemberAddPrescHintLastName" : "Last name",
 		"familyMemberAddPrescHintDob" : "Date of birth",

@@ -1,4 +1,5 @@
 function init(){
+	$.childInfoAttr.text=String.format($.strings.registerChildInfoAttr,Alloy.CFG.client_name);
 	$.uihelper.getImage("info", $.infoImg);
 }
 function didClickAccountExists(){
