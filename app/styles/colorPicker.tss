@@ -1,0 +1,9 @@
+"#lbl":{
+	text: Alloy.Globals.strings.colorPickerLblHint
+},
+"#picker":{
+	height: "65%"
+},
+"#submitBtn":{
+	title: Alloy.Globals.strings.colorPickerBtnSubmit
+}

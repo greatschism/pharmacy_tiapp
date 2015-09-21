@@ -13,13 +13,14 @@ var args = arguments[0] || {},
 	masterWidth : 70,
 	detailWidth : 30,
 	btnClasses : ["content-detail-negative-icon", "icon-unfilled-remove"]
-};
+},
+    selectedColor;
 
 function init() {
 	//reminder section
 	$.reminderSection = Ti.UI.createTableViewSection();
 	//color box row
-	var colorRow = getColorBoxRow(reminder.color_code || Alloy.CFG.reminder_med_default_color);
+	var colorRow = getColorBoxRow(reminder.color_code || Alloy.CFG.default_color);
 	$.reminderSection.add(colorRow.getView());
 	rows.push(colorRow);
 	//remind frequency
@@ -100,6 +101,13 @@ function focus() {
 			rows.push(row);
 		});
 		selectedPrescriptions = [];
+	} else if (selectedColor) {
+		//color picker is always on 0th index
+		if (selectedColor.hex != rows[0].getParams().color) {
+			updateColorBoxRow(selectedColor.hex);
+		}
+		//nullify
+		selectedColor = null;
 	}
 }
 
@@ -118,10 +126,6 @@ function didClickAddPresc(e) {
 		},
 		stack : true
 	});
-}
-
-function didClickColorBox(e) {
-
 }
 
 function didClickRemovePresc(e) {
@@ -146,6 +150,39 @@ function didClickRemovePresc(e) {
 		rows[prescFirstIndex] = getPrescRow(currentParams);
 		$.tableView.updateRow( OS_IOS ? prescFirstIndex : currentRow, rows[prescFirstIndex].getView());
 	}
+}
+
+function didClickTableView(e) {
+	var index = e.index,
+	    row = rows[index];
+	if (row) {
+		switch(row.getView().className) {
+		case "labelWithColorBox":
+			selectedColor = {
+				hex : rows[index].getParams().color
+			};
+			$.app.navigator.open({
+				titleid : "titleRemindersMedColorPicker",
+				ctrl : "colorPicker",
+				ctrlArguments : {
+					color : selectedColor
+				},
+				stack : true
+			});
+			break;
+		}
+	}
+}
+
+function updateColorBoxRow(color) {
+	/**
+	 * color box row will always
+	 * be in 0th index
+	 */
+	var rowIndex = 0,
+	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
+	rows[rowIndex] = getColorBoxRow(color);
+	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
 }
 
 function didClickSubmitReminder(e) {

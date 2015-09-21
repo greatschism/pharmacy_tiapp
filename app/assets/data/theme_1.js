@@ -44,6 +44,7 @@ module.exports = {
 				"modifiters" : "",
 				"value" : "$1-$2"
 			}],
+			"rx_schedule_2_validator" : "^(2).*$",
 			"reminders" : [{
 				"id" : "app",
 				"col_pref" : "app_reminder_dlvry_mode",
@@ -72,7 +73,6 @@ module.exports = {
 			"remind_before_in_days_min" : 1,
 			"remind_before_in_days_max" : 3,
 			"no_of_reminders_max" : 5,
-			"reminder_med_default_color" : "#F7941E",
 			"reminder_med_frequencies" : [{
 				"id" : "Daily",
 				"dates_max" : 0,
@@ -94,7 +94,7 @@ module.exports = {
 				"dates_max" : 0,
 				"times_max" : 1
 			}],
-			"rx_schedule_2_validator" : "^(2).*$",
+			"default_color" : "#F7941E",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,
 			"refill_scan_phone_enabled" : false,

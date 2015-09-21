@@ -13,7 +13,6 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	$.forceUpgradeOptionsMenu.show();
 	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",

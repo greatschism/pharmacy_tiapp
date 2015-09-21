@@ -103,6 +103,7 @@ module.exports = {
 		"titleRemindersRefillBenefits" : "es-Refill reminder benefits",
 		"titleRemindersMed" : "es-Medication reminders",
 		"titleRemindersMedSettings" : "es-Set reminder",
+		"titleRemindersMedColorPicker" : "es-Choose a color for reminder",
 		"titleRemindersMedPrescriptions" : "es-Set up med reminders",
 		"titleRemindersSettings" : "es-Settings",
 		"titleRewards" : "es-Savings Catcher",
@@ -348,6 +349,9 @@ module.exports = {
 		"refillFailureLblTitle" : "es-We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "es-Type prescription details",
 		"refillFailureBtnPhone" : "es-Call my pharmacy",
+
+		"colorPickerLblHint" : "es-Selected color",
+		"colorPickerBtnSubmit" : "es-Done",
 
 		"remindersLblRefill" : "es-Refill Reminders",
 		"remindersLblMed" : "es-Medication Reminders",

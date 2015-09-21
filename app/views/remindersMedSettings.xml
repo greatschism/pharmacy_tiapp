@@ -1,5 +1,5 @@
 <Alloy>
-	<TableView id="tableView">
+	<TableView id="tableView" onClick="didClickTableView">
 		<FooterView>
 			<View class="auto-height vgroup">
 				<!--footer separator seems to appear on pre lollipop devices-->

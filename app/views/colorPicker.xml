@@ -1,0 +1,14 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<Widget id="picker" src="nl.fokkezb.color" onChange="didChange" class="top" />
+		<View class="h-divider-light" />
+		<View class="auto-height">
+			<View class="content-view-with-rcolor-box">
+				<Label id="lbl" class="content-lbl-wrap" />
+			</View>
+			<View id="colorView" class="content-right-color-box" />
+		</View>
+		<View class="h-divider-light" />
+		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+	</ScrollView>
+</Alloy>
