@@ -64,7 +64,7 @@
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="1">
-      <!--TIMOB-19422: android:targetSdkVersion="22" - required with SDK 5.0.0.GA, Jeknis machine's android sdk should also be updated -->
+      <!--TIMOB-19422: android:targetSdkVersion="22" - required with SDK 5.0.0.GA, Jenkins machine's android sdk should also be updated -->
       <uses-sdk android:minSdkVersion="14" />
       <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
         <activity android:configChanges="keyboardHidden|orientation" android:name=".CarbonPharmacyActivity" android:theme="@style/Theme.Material.Splash">
