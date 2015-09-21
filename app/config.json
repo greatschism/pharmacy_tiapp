@@ -51,6 +51,7 @@
             "terms_accept": "terms/accept",
             "terms_decline": "terms/decline",
             "terms_revoke": "terms/revoke",
+            "terms_email": "terms/email",
             "mobile_add": "patient/mobile/add",
             "mobile_resend": "patient/mobile/resend"
         },

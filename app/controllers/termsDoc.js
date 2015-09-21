@@ -29,10 +29,27 @@ function didClickSuccess(){
 		app.navigator.close();
 	}
 	else{
-		/**
-		 * todo - call send email API
-		 */
+		http.request({
+			method : "terms_email",
+			params : {
+				feature_code : "THXXX",
+				filter:null,
+				data:[{
+				 }]
+			},
+			success : didSendEmail
+		});
 	}
+}
+
+function didSendEmail(result){
+	$.uihelper.showDialog({
+		message : result.message,
+		buttonNames : [$.strings.dialogBtnOK],
+		success : function(){
+			$.app.navigator.close();
+		}
+	});	
 }
 
 function didClickRevoke(){
@@ -51,7 +68,7 @@ function didClickRevoke(){
 	});
 }
 
-function didRevoke(result){
+function didRevoke(){
 	$.uihelper.showDialog({
 		message : $.strings.msgAccountHIPAARevoked,
 		buttonNames : [$.strings.dialogBtnOK],
