@@ -182,6 +182,13 @@ function didGetPatient() {
 		}
 		$.tableView.setData([$.mgrSection, $.childProxySection, $.parentProxySection]);
 	}
+	/*
+	 *  reset the swipe flag
+	 *  once a fresh list is loaded
+	 *  not resetting this blocks further swipe actions
+	 */
+	Alloy.Globals.isSwipeInProgress = false;
+	Alloy.Globals.currentRow = null;
 }
 
 function didClickChildSwipeOption(e) {
@@ -414,5 +421,15 @@ function didClickTableView(e) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
 }
-
+function terminate(){
+	/**
+	 * not resetting currentTable object
+	 * as there are chance when nullify it here
+	 * may affect the object being set on next
+	 * controllers init / focus method
+	 */
+	Alloy.Globals.currentRow = null;
+	Alloy.Globals.isSwipeInProgress = false;
+}
 exports.focus = focus;
+exports.terminate=terminate;
