@@ -11,7 +11,7 @@ var args = arguments[0] || {},
     swipeRemoveOptions,
     swipeRemoveResendOptions,
     rows = [];
-
+    
 function focus() {
 	/**
 	 * Change the session to manager's as there is'no switcher 
