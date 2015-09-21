@@ -94,6 +94,7 @@ module.exports = {
 				"dates_max" : 0,
 				"times_max" : 1
 			}],
+			"reminder_med_default_frequency" : "Daily",
 			"default_color" : "#F7941E",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,

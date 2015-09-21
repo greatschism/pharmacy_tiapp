@@ -160,10 +160,10 @@ module.exports = {
 		"tmplOptionDividerLbl" : "Or",
 
 		"homeNavBtnLogin" : "Sign in",
-		"homeFeedbackkOptMenuTitle":"Do you wish to provide feedback to improve the application?",
-		"homeFeedabackOptMenuRate":"Rate now",
-		"homeFeedbackOptMenuRemind":"Remind me later",
-		"homeFeedbackOptMenuNoThanks":"No, Thanks",
+		"homeFeedbackkOptMenuTitle" : "Do you wish to provide feedback to improve the application?",
+		"homeFeedabackOptMenuRate" : "Rate now",
+		"homeFeedbackOptMenuRemind" : "Remind me later",
+		"homeFeedbackOptMenuNoThanks" : "No, Thanks",
 
 		"loginLblTitle" : "Sign in to the mscripts mobile pharmacy",
 		"loginHintUsername" : "Username",
@@ -412,6 +412,8 @@ module.exports = {
 		"remindersMedSettingsBtnAdd" : "Save",
 		"remindersMedSettingsBtnUpdate" : "Save",
 		"remindersMedSettingsBtnRemove" : "Delete this reminder",
+		"remindersMedSettingsPopupSectionFrequency" : "Choose a freequency",
+		"remindersMedSettingsPopupFrequencyBtnClose" : "Choose a freequency",
 
 		"remindersSettingsPatientSwitcher" : "%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "Same settings as account manager.",

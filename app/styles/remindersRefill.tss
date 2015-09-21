@@ -3,7 +3,7 @@
 },
 ".radio-button":{
 	autoHide: true,
-	radioButton: true,
+	radioButton: true
 },
 "#remindFromLbl":{
 	text: Alloy.Globals.strings.remindersRefillPopupSectionRemindFrom

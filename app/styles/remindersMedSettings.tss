@@ -1,3 +1,13 @@
+".radio-button":{
+	autoHide: true,
+	radioButton: true
+},
+"#frequencyLbl":{
+	text: Alloy.Globals.strings.remindersMedSettingsPopupSectionFrequency
+},
+"#frequencyCloseBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsPopupFrequencyBtnClose
+},
 "#submitBtn[if=!$.args.isUpdate]":{
 	title: Alloy.Globals.strings.remindersMedSettingsBtnAdd
 },

@@ -4,6 +4,9 @@ var args = arguments[0] || {},
     reminder = args.reminder,
     prescriptions = args.isUpdate ? reminder.prescriptions : args.prescriptions,
     selectedPrescriptions = [],
+    frequencyOptions = [],
+    promptClasses = ["content-group-prompt-60"],
+    replyClasses = ["content-group-right-inactive-reply-40"],
     nonRemovableDict = {
 	masterWidth : 100,
 	detailWidth : 0,
@@ -24,7 +27,15 @@ function init() {
 	$.reminderSection.add(colorRow.getView());
 	rows.push(colorRow);
 	//remind frequency
-
+	var frequencyId = reminder.frequency || Alloy.CFG.reminder_med_default_frequency,
+	    frequencyRow = getFrequencyRow(frequencyId);
+	$.reminderSection.add(frequencyRow.getView());
+	rows.push(frequencyRow);
+	//options for this frequency
+	_.each(getOptionRows(frequencyId), function(row) {
+		$.reminderSection.add(row.getView());
+		rows.push(row);
+	});
 	//prescriptions section
 	var iconDict;
 	/*
@@ -63,12 +74,16 @@ function init() {
 	});
 	//set data
 	$.tableView.setData([$.reminderSection, $.prescSection]);
-}
-
-function getPrescRow(prescription) {
-	var row = Alloy.createController("itemTemplates/masterDetailBtn", prescription);
-	row.on("clickdetail", didClickRemovePresc);
-	return row;
+	//update frequency picker
+	_.each(Alloy.CFG.reminder_med_frequencies, function(option) {
+		option = _.clone(option);
+		_.extend(option, {
+			title : $.strings["remindersMedSettingsLblFrequency" + option.id],
+			selected : option.id === frequencyId
+		});
+		frequencyOptions.push(option);
+	});
+	$.frequencyPicker.setItems(frequencyOptions);
 }
 
 function getColorBoxRow(color) {
@@ -76,6 +91,27 @@ function getColorBoxRow(color) {
 		title : $.strings.remindersMedSettingsLblReminderColor,
 		color : color
 	});
+}
+
+function getFrequencyRow(frequencyId) {
+	return Alloy.createController("itemTemplates/promptReply", {
+		frequencyId : frequencyId,
+		prompt : $.strings.remindersMedSettingsLblRemindFrequency,
+		reply : $.strings["remindersMedSettingsLblFrequency" + frequencyId],
+		promptClasses : promptClasses,
+		replyClasses : replyClasses,
+		hasChild : true
+	});
+}
+
+function getOptionRows(frequencyId) {
+
+}
+
+function getPrescRow(prescription) {
+	var row = Alloy.createController("itemTemplates/masterDetailBtn", prescription);
+	row.on("clickdetail", didClickRemovePresc);
+	return row;
 }
 
 function focus() {
@@ -156,8 +192,8 @@ function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
 	if (row) {
-		switch(row.getView().className) {
-		case "labelWithColorBox":
+		switch(index) {
+		case 0:
 			selectedColor = {
 				hex : rows[index].getParams().color
 			};
@@ -170,8 +206,54 @@ function didClickTableView(e) {
 				stack : true
 			});
 			break;
+		case 1:
+			$.frequencyPicker.show();
+			break;
 		}
 	}
+}
+
+function didClickFrequencyClose(e) {
+	$.frequencyPicker.hide();
+}
+
+function didClickFrequencyPicker(e) {
+	/**
+	 * frequency row will always
+	 * be in 1st index
+	 */
+	var frequencyId = e.data.id,
+	    rowIndex = 1,
+	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
+	rows[rowIndex] = getFrequencyRow(frequencyId);
+	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
+	/**
+	 * delete all
+	 * existing option rows
+	 * and clean up rows array
+	 */
+	var startOptionIndex = 1,
+	    endOptionIndex = $.reminderSection.rowCount - 1;
+	rows = _.reject(rows, function(row, index) {
+		if (index > startOptionIndex && index < endOptionIndex) {
+			$.tableView.deleteRow(row.getView());
+			return true;
+		}
+		return false;
+	});
+	/**
+	 * add current options
+	 * new index will be 1, as
+	 * 0 for color box
+	 * 1 for frequency
+	 * others in the section is now deleted
+	 * with code above
+	 */
+	_.each(getOptionRows(frequencyId), function(row) {
+		$.tableView.insertRowAfter(startOptionIndex, row.getView());
+		rows.push(row);
+		startOptionIndex++;
+	});
 }
 
 function updateColorBoxRow(color) {
@@ -193,5 +275,13 @@ function didClickRemoveReminder(e) {
 
 }
 
+function hideAllPopups(e) {
+	if ($.frequencyPicker && $.frequencyPicker.getVisible()) {
+		return $.frequencyPicker.hide();
+	}
+	return false;
+}
+
 exports.init = init;
 exports.focus = focus;
+exports.backButtonHandler = hideAllPopups;

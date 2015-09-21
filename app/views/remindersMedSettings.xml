@@ -1,4 +1,12 @@
 <Alloy>
+	<Widget id="frequencyPicker" src="ti.optionpicker" class="optionpicker radio-button" onClick="didClickFrequencyPicker">
+		<View class="content-header-view role-header-view">
+			<Label id="frequencyLbl" class="content-header-lbl" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="frequencyCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickFrequencyClose" />
+		</View>
+	</Widget>
 	<TableView id="tableView" onClick="didClickTableView">
 		<FooterView>
 			<View class="auto-height vgroup">
