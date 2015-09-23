@@ -8,6 +8,30 @@
 "#frequencyCloseBtn":{
 	title: Alloy.Globals.strings.remindersMedSettingsPopupFrequencyBtnClose
 },
+"#dailyLbl":{
+	text: Alloy.Globals.strings.remindersMedSettingsPopupSectionDaily
+},
+"#dailyCloseBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsPopupDailyBtnClose
+},
+"#weekdayLbl":{
+	text: Alloy.Globals.strings.remindersMedSettingsPopupSectionWeekday
+},
+"#weekdayCloseBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsPopupWeekdayBtnClose
+},
+"#monthdayPicker":{
+	selectionLimit: Alloy.CFG.reminder_frequency_monthly_max_limit
+},
+"#monthdayCloseBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsPopupMonthdayBtnClose
+},
+"#periodLbl":{
+	text: Alloy.Globals.strings.remindersMedSettingsPopupSectionPeriod
+},
+"#periodCloseBtn":{
+	title: Alloy.Globals.strings.remindersMedSettingsPopupPeriodBtnClose
+},
 "#submitBtn[if=!$.args.isUpdate]":{
 	title: Alloy.Globals.strings.remindersMedSettingsBtnAdd
 },

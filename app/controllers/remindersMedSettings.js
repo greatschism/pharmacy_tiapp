@@ -6,6 +6,10 @@ var args = arguments[0] || {},
     prescriptions = args.isUpdate ? reminder.prescriptions : args.prescriptions,
     selectedPrescriptions = [],
     frequencyOptions = [],
+    dailyOptions = [],
+    weekdayOptions = [],
+    monthdayOptions = [],
+    periodOptions = [],
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
     nonRemovableDict = {
@@ -18,26 +22,96 @@ var args = arguments[0] || {},
 	detailWidth : 30,
 	btnClasses : ["content-detail-negative-icon", "icon-unfilled-remove"]
 },
+    dateDropdownArgs,
+    timeDropdownArgs,
     selectedColor;
 
 function init() {
-	//reminder section
+	/**
+	 * update pickers
+	 */
+	//frequency
+	var frequencyId = reminder.frequency || Alloy.CFG.reminder_med_default_frequency;
+	_.each(Alloy.CFG.reminder_med_frequencies, function(option) {
+		frequencyOptions.push(_.extend(_.clone(option), {
+			title : $.strings["remindersMedSettingsLblFrequency" + option.id],
+			selected : option.id === frequencyId
+		}));
+	});
+	$.frequencyPicker.setItems(frequencyOptions);
+	//daily
+	for (var i = 1; i <= Alloy.CFG.reminder_frequency_daily_max_limit; i++) {
+		dailyOptions.push({
+			title : i + " " + $.strings[i > 1 ? "strTimes" : "strTime"],
+			value : i,
+			selected : false
+		});
+	}
+	//weekday
+	for (var w = 1; w <= 7; w++) {
+		var weekday = moment().isoWeekday(w);
+		weekdayOptions.push({
+			title : weekday.format("dddd"),
+			weekday : weekday.format("ddd").toLowerCase(),
+			selected : false
+		});
+	}
+	//monthly
+	$.monthdayLbl.text = String.format($.strings.remindersMedSettingsPopupSectionMonthday, Alloy.CFG.reminder_frequency_monthly_max_limit);
+	for (var m = 1; m <= 31; m++) {
+		/**
+		 * Jan has 31 days, so always
+		 * keeping month as 1
+		 */
+		monthdayOptions.push({
+			title : moment(m + "-1", "D[-]M").format("Do"),
+			monthday : m,
+			selected : false
+		});
+	}
+	//period
+	_.each(Alloy.CFG.reminder_med_periods, function(period) {
+		var interval = period.value,
+		    formattedInterval;
+		if (interval < 60) {
+			formattedInterval = interval + " " + $.strings.strMinutes;
+		} else {
+			interval /= 60;
+			formattedInterval = interval + " " + $.strings[interval > 1 ? "strHours" : "strHour"];
+		}
+		periodOptions.push(_.extend(_.clone(period), {
+			title : String.format($.strings.remindersMedSettingsLblRemindInterval, formattedInterval),
+			selected : false
+		}));
+	});
+	/**
+	 * reminder section
+	 */
 	$.reminderSection = Ti.UI.createTableViewSection();
 	//color box row
 	var colorRow = getColorBoxRow(reminder.color_code || Alloy.CFG.default_color);
 	$.reminderSection.add(colorRow.getView());
 	rows.push(colorRow);
 	//remind frequency
-	var frequencyId = reminder.frequency || Alloy.CFG.reminder_med_default_frequency,
-	    frequencyRow = getFrequencyRow(frequencyId);
+	var frequencyRow = getFrequencyRow(frequencyId);
 	$.reminderSection.add(frequencyRow.getView());
 	rows.push(frequencyRow);
+	/**
+	 * options section
+	 * Note: using separate
+	 * section for options
+	 * to avoid conflicts
+	 * while insertRowAfter / insertRowBefore
+	 */
+	$.optionsSection = Ti.UI.createTableViewSection();
 	//options for this frequency
 	_.each(getOptionRows(frequencyId, reminder), function(row) {
-		$.reminderSection.add(row.getView());
+		$.optionsSection.add(row.getView());
 		rows.push(row);
 	});
-	//prescriptions section
+	/**
+	 * prescriptions section
+	 */
 	var iconDict;
 	/*
 	 * only allow add prescriptions
@@ -74,17 +148,7 @@ function init() {
 		rows.push(row);
 	});
 	//set data
-	$.tableView.setData([$.reminderSection, $.prescSection]);
-	//update frequency picker
-	_.each(Alloy.CFG.reminder_med_frequencies, function(option) {
-		option = _.clone(option);
-		_.extend(option, {
-			title : $.strings["remindersMedSettingsLblFrequency" + option.id],
-			selected : option.id === frequencyId
-		});
-		frequencyOptions.push(option);
-	});
-	$.frequencyPicker.setItems(frequencyOptions);
+	$.tableView.setData([$.reminderSection, $.optionsSection, $.prescSection]);
 }
 
 function getColorBoxRow(color) {
@@ -106,47 +170,103 @@ function getFrequencyRow(frequencyId) {
 }
 
 function getOptionRows(frequencyId, data) {
+	/**
+	 * moment().hours() will give the time
+	 * on the user prefered time zone
+	 * so using new Date().getHours()
+	 */
 	var optionRows = [],
 	    frequencyObj = _.findWhere(frequencyOptions, {
 		id : frequencyId
 	}),
-	    startHours = data.reminder_start_hour || [{
-		hour : moment().hours(),
-		minutes : "00"
-	}];
-	/**
-	 * number of times if enabled
-	 * for this frequency
-	 */
-	if (frequencyObj.number_of_times_enabled) {
-		var numberOfTimes = parseInt(data.number_of_times) || 1;
+	    endDate = data.reminder_end_date;
+	switch(frequencyId) {
+	case apiCodes.reminder_frequency_daily:
+		var numberOfTimes = parseInt(data.number_of_times_max) || 1,
+		    selectedDaily;
+		//update daily picker
+		_.each(dailyOptions, function(dailyOpt) {
+			dailyOpt.selected = numberOfTimes === dailyOpt.value;
+			if (dailyOpt.selected) {
+				selectedDaily = dailyOpt;
+			}
+		});
+		$.dailyPicker.setItems(dailyOptions);
+		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			frequencyId : frequencyId,
-			pickerType : "number_of_times",
-			value : numberOfTimes,
+			pickerType : "daily",
+			value : selectedDaily.value,
 			prompt : $.strings.remindersMedSettingsLblRemindTimes,
-			reply : numberOfTimes + " " + $.strings[numberOfTimes > 1 ? "strTimes" : "strTime"],
+			reply : selectedDaily.title,
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-	}
-	switch(frequencyId) {
-	case apiCodes.reminder_frequency_daily:
+		//set a end date if not set already
+		if (!endDate) {
+			endDate = moment().add(1, "week").format(apiCodes.reminder_date_time_format);
+		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
+		var weekdays = data.day_of_week || [{
+			weekday : moment().format("ddd").toLowerCase()
+		}],
+		    wCount = weekdays.length - 1,
+		    wLastBefore = wCount - 1,
+		    weekdayFormat = wCount === 0 ? "dddd" : "dd",
+		    weekdaysStr = "";
+		//update weekly picker
+		_.each(weekdayOptions, function(weekdayOpt) {
+			weekdayOpt.selected = _.findWhere(weekdays, {
+				weekday : weekdayOpt.weekday
+			}) ? true : false;
+		});
+		$.weekdayPicker.setItems(weekdayOptions);
+		//process title
+		_.each(weekdays, function(day, index) {
+			weekdaysStr += moment($.utilities.ucfirst(day.weekday), "ddd").format(weekdayFormat);
+			if (index < wCount) {
+				if (index === wLastBefore) {
+					weekdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					weekdaysStr += ", ";
+				}
+			}
+		});
+		//row
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "weekday",
+			value : weekdays,
+			prompt : $.strings.remindersMedSettingsLblRemindOn,
+			reply : weekdaysStr,
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+		//set a end date if not set already
+		if (!endDate) {
+			endDate = moment().add(1, "month").format(apiCodes.reminder_date_time_format);
+		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
-		var monthdayInputFormat = "DD",
-		    monthdayOutputFormat = "Do",
-		    monthdays = data.day_of_month || [{
+		var monthdays = data.day_of_month || [{
 			monthday : moment().date()
 		}],
 		    mCount = monthdays.length - 1,
 		    mLastBefore = mCount - 1,
 		    monthdaysStr = "";
-		_.each(monthdays, function(obj, index) {
-			monthdaysStr += moment(obj.monthday, monthdayInputFormat).format(monthdayOutputFormat);
+		//update monthly picker
+		_.each(monthdayOptions, function(monthdayOpt) {
+			monthdayOpt.selected = _.findWhere(monthdays, {
+				monthday : monthdayOpt.monthday
+			}) ? true : false;
+		});
+		$.monthdayPicker.setItems(monthdayOptions);
+		//process title
+		_.each(monthdays, function(day, index) {
+			monthdaysStr += moment(day.monthday + "-1", "D[-]M").format("Do");
 			if (index < mCount) {
 				if (index === mLastBefore) {
 					monthdaysStr += " " + $.strings.strAnd + " ";
@@ -155,39 +275,104 @@ function getOptionRows(frequencyId, data) {
 				}
 			}
 		});
+		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			frequencyId : frequencyId,
-			pickerType : "monthdays",
+			pickerType : "monthday",
 			value : monthdays,
-			inputFormat : monthdayInputFormat,
-			outputFormat : monthdayOutputFormat,
 			prompt : $.strings.remindersMedSettingsLblRemindOn,
 			reply : monthdaysStr,
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
+		//set a end date if not set already
+		if (!endDate) {
+			endDate = moment().add(1, "year").format(apiCodes.reminder_date_time_format);
+		}
 		break;
 	case apiCodes.reminder_frequency_onaday:
-		var dayOfYearInputFormat = apiCodes.dob_format,
-		    dayOfYearOutputFormat = "Do MMM",
-		    dayOfYear = reminder.day_of_year || moment().format(apiCodes.dob_format);
+		var dayOfYear = reminder.day_of_year || moment().format(apiCodes.dob_format);
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			frequencyId : frequencyId,
 			pickerType : "date",
 			value : dayOfYear,
-			inputFormat : dayOfYearInputFormat,
-			outputFormat : dayOfYearOutputFormat,
 			prompt : $.strings.remindersMedSettingsLblRemindOn,
-			reply : moment(dayOfYear, dayOfYearInputFormat).format(dayOfYearOutputFormat),
+			reply : moment(dayOfYear, apiCodes.dob_format).format("Do MMM"),
 			promptClasses : promptClasses,
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
+		//set a end date if not set already
+		if (!endDate) {
+			endDate = moment().add(5, "year").format(apiCodes.reminder_date_time_format);
+		}
 		break;
 	case apiCodes.reminder_frequency_period:
+		var period = data.period || periodOptions[0].value,
+		    selectedPeriod;
+		//update period picker
+		_.each(periodOptions, function(periodOpt) {
+			periodOpt.selected = period === periodOpt.value;
+			if (periodOpt.selected) {
+				selectedPeriod = periodOpt;
+			}
+		});
+		$.periodPicker.setItems(periodOptions);
+		//row
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "period",
+			value : selectedPeriod.value,
+			prompt : $.strings.remindersMedSettingsLblRemindPeriod,
+			reply : selectedPeriod.title,
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+		//set a end date if not set already
+		if (!endDate) {
+			endDate = moment().format(apiCodes.reminder_date_time_format);
+		}
 		break;
 	}
+	/**
+	 * all reminders will have
+	 * start_hours
+	 */
+	var startHours = data.reminder_start_hour || [{
+		hour : new Date().getHours(),
+		minutes : "00"
+	}];
+	_.each(startHours, function(time, index) {
+		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"];
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "time",
+			value : time,
+			prompt : prompt,
+			reply : moment(time.hour + ":" + time.minutes, "HH:mm").format(Alloy.CFG.time_format),
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+	});
+	/**
+	 * all reminders have
+	 * reminder_end_date
+	 * but can be enabled based
+	 * on the flag
+	 */
+	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+		frequencyId : frequencyId,
+		pickerType : "date",
+		value : endDate,
+		prompt : $.strings.remindersMedSettingsLblRemindEnd,
+		reply : moment(endDate, apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format),
+		promptClasses : promptClasses,
+		replyClasses : replyClasses,
+		hasChild : frequencyObj.reminder_end_date_enabled
+	}));
 	return optionRows;
 }
 
@@ -204,7 +389,7 @@ function focus() {
 		 * if prescriptions.length is already > 1 then it would already be removable
 		 */
 		if (prescriptions.length == 1) {
-			var prescFirstIndex = $.reminderSection.rowCount,
+			var prescFirstIndex = $.reminderSection.rowCount + $.optionsSection.rowCount,
 			    currentCtrl = rows[prescFirstIndex],
 			    currentRow = currentCtrl.getView(),
 			    currentParams = currentCtrl.getParams();
@@ -261,7 +446,7 @@ function didClickRemovePresc(e) {
 	 * if prescriptions.length === 1
 	 */
 	if (prescriptions.length == 1) {
-		var prescFirstIndex = $.reminderSection.rowCount,
+		var prescFirstIndex = $.reminderSection.rowCount + $.optionsSection.rowCount,
 		    currentCtrl = rows[prescFirstIndex],
 		    currentRow = currentCtrl.getView(),
 		    currentParams = currentCtrl.getParams();
@@ -275,10 +460,10 @@ function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
 	if (row) {
-		switch(index) {
-		case 0:
+		var params = rows[index].getParams();
+		if (index === 0) {
 			selectedColor = {
-				hex : rows[index].getParams().color
+				hex : params.color
 			};
 			$.app.navigator.open({
 				titleid : "titleRemindersMedColorPicker",
@@ -288,16 +473,98 @@ function didClickTableView(e) {
 				},
 				stack : true
 			});
-			break;
-		case 1:
+		} else if (index === 1) {
 			$.frequencyPicker.show();
-			break;
+		} else {
+			var pickerType = params.pickerType;
+			if (pickerType == "date") {
+				showDatePicker(params.value, index);
+			} else if (pickerType == "time") {
+				showTimePicker(params.value, index);
+			} else {
+				var picker = $[pickerType.concat("Picker")];
+				//to identify the row after selection
+				picker.rowIndex = index;
+				picker.show();
+			}
 		}
 	}
 }
 
-function didClickFrequencyClose(e) {
-	$.frequencyPicker.hide();
+function didClickClosePicker(e) {
+	var pickerId = e.source.picker,
+	    picker = $[pickerId],
+	    index = picker.rowIndex,
+	    currentCtrl = rows[index],
+	    currentRow = currentCtrl.getView(),
+	    currentParams = currentCtrl.getParams();
+	/**
+	 * process the values here for monthly
+	 * rest are radio type
+	 * but this allows multiple selections
+	 */
+	if (pickerId === "weekdayPicker") {
+		var weekdays = picker.getSelectedItems(),
+		    wCount = weekdays.length - 1,
+		    wLastBefore = wCount - 1,
+		    weekdayFormat = wCount === 0 ? "dddd" : "dd",
+		    weekdaysStr = "";
+		if (wCount < 0) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValWeekday
+			});
+			return false;
+		}
+		_.each(weekdays, function(day, wIndex) {
+			weekdaysStr += moment($.utilities.ucfirst(day.weekday), "ddd").format(weekdayFormat);
+			if (wIndex < wCount) {
+				if (wIndex === wLastBefore) {
+					weekdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					weekdaysStr += ", ";
+				}
+			}
+		});
+		//update row
+		_.extend(currentParams, {
+			value : weekdays,
+			reply : weekdaysStr
+		});
+		rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
+		$.tableView.updateRow( OS_IOS ? index : currentRow.getView(), rows[index].getView());
+	} else if (pickerId === "monthdayPicker") {
+		var monthdays = picker.getSelectedItems(),
+		    mCount = monthdays.length - 1,
+		    mLastBefore = mCount - 1,
+		    monthdaysStr = "";
+		if (mCount < 0) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValMonthday
+			});
+			return false;
+		}
+		_.each(monthdays, function(day, index) {
+			monthdaysStr += moment(day.monthday + "-1", "D[-]M").format("Do");
+			if (index < mCount) {
+				if (index === mLastBefore) {
+					monthdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					monthdaysStr += ", ";
+				}
+			}
+		});
+		//update row
+		_.extend(currentParams, {
+			value : monthdays,
+			reply : monthdaysStr
+		});
+		rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
+		$.tableView.updateRow( OS_IOS ? index : currentRow.getView(), rows[index].getView());
+	}
+	//delete reference
+	delete $.dailyPicker.rowIndex;
+	//hide
+	picker.hide();
 }
 
 function didClickFrequencyPicker(e) {
@@ -311,39 +578,154 @@ function didClickFrequencyPicker(e) {
 	rows[rowIndex] = getFrequencyRow(frequencyId);
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
 	/**
-	 * delete all
-	 * existing option rows
-	 * and clean up rows array
+	 * update new options
+	 * to the section
 	 */
-	var startOptionIndex = 1,
-	    endOptionIndex = $.reminderSection.rowCount;
-	rows = _.reject(rows, function(row, index) {
-		if (index > startOptionIndex && index < endOptionIndex) {
-			$.tableView.deleteRow(row.getView());
-			return true;
-		}
-		return false;
+	$.optionsSection = Ti.UI.createTableViewSection();
+	var newRows = getOptionRows(frequencyId, reminder);
+	_.each(newRows, function(row) {
+		$.optionsSection.add(row.getView());
+	});
+	$.tableView.updateSection(1, $.optionsSection);
+	/**
+	 * new option rows
+	 * should be injected in the middle
+	 * of rows array - right after
+	 * frequency row and before prescription row
+	 */
+	Array.prototype.splice.apply(rows, [2, 0].concat(newRows));
+}
+
+function didClickDailyPicker(e) {
+	var data = e.data,
+	    index = $.dailyPicker.rowIndex,
+	    currentCtrl = rows[index],
+	    currentRow = currentCtrl.getView(),
+	    currentParams = currentCtrl.getParams(),
+	    currentValue = currentParams.value;
+	//delete reference
+	delete $.dailyPicker.rowIndex;
+	//extend new properties
+	_.extend(currentParams, {
+		value : data.value,
+		reply : data.title
 	});
 	/**
-	 * add current options
-	 * new index will be 1, as
-	 * 0 for color box
-	 * 1 for frequency
-	 * others in the section is now deleted
-	 * with code above
+	 * update row
 	 */
-	_.each(getOptionRows(frequencyId, {}), function(row) {
-		$.tableView.insertRowAfter(startOptionIndex, row.getView());
-		//increment
-		startOptionIndex++;
+	rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
+	$.tableView.updateRow( OS_IOS ? index : currentRow, rows[index].getView());
+	/**
+	 * if reduced the number of items
+	 * delete additional rows
+	 */
+	if (currentValue > data.value) {
+		//delete rows form table
+		var dStartIndex = index + currentValue,
+		    dEndIndex = dStartIndex - (currentValue - data.value);
+		for (var d = dStartIndex; d > dEndIndex; d--) {
+			$.tableView.deleteRow(rows[d].getView());
+		}
+		//update rows array
+		rows = _.reject(rows, function(row, rIndex) {
+			if (rIndex <= dStartIndex && rIndex > dEndIndex) {
+				return true;
+			}
+			return false;
+		});
+	} else {
+		/**
+		 * else count has been increased,
+		 * so insert rows
+		 */
+		var nStartIndex = index,
+		    nEndIndex = nStartIndex + (data.value - currentValue),
+		    newRows = [];
+		for (var n = nStartIndex; n < nEndIndex; n++) {
+			var time = {
+				hour : new Date().getHours(),
+				minutes : "00"
+			},
+			    newRow = Alloy.createController("itemTemplates/promptReply", {
+				frequencyId : apiCodes.reminder_frequency_daily,
+				pickerType : "time",
+				value : time,
+				prompt : $.strings.remindersMedSettingsLblRemindAt,
+				reply : moment(time.hour + ":" + time.minutes, "HH:mm").format(Alloy.CFG.time_format),
+				promptClasses : promptClasses,
+				replyClasses : replyClasses,
+				hasChild : true
+			});
+			$.tableView.insertRowAfter(n, newRow.getView());
+			newRows.push(newRow);
+		}
 		/**
 		 * new option rows
 		 * should be injected in the middle
 		 * of rows array - right after
 		 * frequency row and before prescription row
 		 */
-		rows.splice(startOptionIndex, 0, row);
+		Array.prototype.splice.apply(rows, [nStartIndex + 1, 0].concat(newRows));
+	}
+}
+
+function didClickPeriodPicker(e) {
+	var data = e.data,
+	    index = $.periodPicker.rowIndex,
+	    currentCtrl = rows[index],
+	    currentRow = currentCtrl.getView(),
+	    currentParams = currentCtrl.getParams(),
+	    currentValue = currentParams.value;
+	//delete reference
+	delete $.periodPicker.rowIndex;
+	//extend new properties
+	_.extend(currentParams, {
+		value : data.value,
+		reply : data.title
 	});
+	/**
+	 * update row
+	 */
+	rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
+	$.tableView.updateRow( OS_IOS ? index : currentRow, rows[index].getView());
+}
+
+function showDatePicker(value, rowIndex) {
+
+}
+
+function showTimePicker(value, rowIndex) {
+	var date = new Date();
+	date.setHours(hours);
+	date.setMinutes(minutes);
+	dropdownArgs.value = date;
+	if (OS_ANDROID) {
+		var dPicker = Ti.UI.createPicker();
+		dPicker.showTimePickerDialog({
+			title : dropdownArgs.title,
+			okButtonTitle : dropdownArgs.rightTitle,
+			value : dropdownArgs.value,
+			callback : function(e) {
+				var value = e.value;
+				if (value) {
+					/**
+					 * using toLocaleString() of date
+					 * for formatting date properly
+					 * which helps to avoid time zone
+					 * issues
+					 * Note: don't process the time zone (ZZ)
+					 * with moment. formatLong will have the default
+					 * format used in Titanium Android
+					 */
+					updateRemindAtRow(moment(value.toLocaleString(), dropdownArgs.formatLong).toDate());
+				}
+			}
+		});
+	} else if (OS_IOS) {
+		$.timePicker = Alloy.createWidget("ti.dropdown", "datePicker", dropdownArgs);
+		$.timePicker.on("terminate", didTerminateTimePicker);
+		$.timePicker.init();
+	}
 }
 
 function updateColorBoxRow(color) {
@@ -365,9 +747,40 @@ function didClickRemoveReminder(e) {
 
 }
 
+function setParentView(view) {
+	dateDropdownArgs = $.createStyle({
+		classes : ["dropdown", "date"]
+	});
+	timeDropdownArgs = $.createStyle({
+		classes : ["dropdown", "time"]
+	});
+	dropdownArgs.parent = view;
+}
+
 function hideAllPopups(e) {
 	if ($.frequencyPicker && $.frequencyPicker.getVisible()) {
 		return $.frequencyPicker.hide();
+	}
+	if ($.weekdayPicker && $.weekdayPicker.getVisible()) {
+		/**
+		 * weekday picker has
+		 * it's own logics
+		 * before close
+		 * don't hide here
+		 */
+		return true;
+	}
+	if ($.monthdayPicker && $.monthdayPicker.getVisible()) {
+		/**
+		 * weekday picker has
+		 * it's own logics
+		 * before close
+		 * don't hide here
+		 */
+		return true;
+	}
+	if ($.periodPicker && $.periodPicker.getVisible()) {
+		return $.periodPicker.hide();
 	}
 	return false;
 }

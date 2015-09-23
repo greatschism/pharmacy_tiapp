@@ -210,7 +210,8 @@ function didClickEdit(e) {
 		ctrl : "stores",
 		ctrlArguments : {
 			store : store,
-			selectable : true
+			selectable : true,
+			mailOrderStoreEnabled : false
 		},
 		stack : true
 	});

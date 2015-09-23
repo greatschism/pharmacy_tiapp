@@ -370,7 +370,8 @@ function didClickStoreChange(e) {
 		ctrl : "stores",
 		ctrlArguments : {
 			store : store,
-			selectable : true
+			selectable : true,
+			mailOrderStoreEnabled : false
 		},
 		stack : true
 	});

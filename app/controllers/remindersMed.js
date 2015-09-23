@@ -210,13 +210,13 @@ function processModel(model) {
 	var frequency = model.get("frequency"),
 	    title;
 	switch(frequency) {
-	case apiCodes.remind_frequency_daily:
+	case apiCodes.reminder_frequency_daily:
 		var dailyTimes = model.get("reminder_start_hour"),
 		    dCount = dailyTimes.length - 1,
 		    dLastBefore = dCount - 1,
 		    timesStr = "";
 		_.each(dailyTimes, function(time, index) {
-			timesStr += moment(time.hour + ":" + time.minute, "HH:mm").format(Alloy.CFG.time_format);
+			timesStr += moment(time.hour + ":" + time.minutes, "HH:mm").format(Alloy.CFG.time_format);
 			if (index < dCount) {
 				if (index === dLastBefore) {
 					timesStr += " " + $.strings.strAnd + " ";
@@ -227,7 +227,7 @@ function processModel(model) {
 		});
 		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], timesStr);
 		break;
-	case apiCodes.remind_frequency_weekly:
+	case apiCodes.reminder_frequency_weekly:
 		var wTime = model.get("reminder_start_hour")[0],
 		    weekdays = model.get("day_of_week"),
 		    wCount = weekdays.length - 1,
@@ -244,16 +244,20 @@ function processModel(model) {
 				}
 			}
 		});
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], weekdaysStr, moment(wTime.hour + ":" + wTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], weekdaysStr, moment(wTime.hour + ":" + wTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
-	case apiCodes.remind_frequency_monthly:
+	case apiCodes.reminder_frequency_monthly:
 		var mTime = model.get("reminder_start_hour")[0],
 		    monthdays = model.get("day_of_month"),
 		    mCount = monthdays.length - 1,
 		    mLastBefore = mCount - 1,
 		    monthdaysStr = "";
 		_.each(monthdays, function(day, index) {
-			monthdaysStr += moment(day.monthday, "d").format("Do");
+			/**
+			 * Jan has 31 days, so always
+			 * keeping month as 1
+			 */
+			monthdaysStr += moment(day.monthday + "-1", "D[-]M").format("Do");
 			if (index < mCount) {
 				if (index === mLastBefore) {
 					monthdaysStr += " " + $.strings.strAnd + " ";
@@ -262,13 +266,13 @@ function processModel(model) {
 				}
 			}
 		});
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], monthdaysStr, moment(mTime.hour + ":" + mTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], monthdaysStr, moment(mTime.hour + ":" + mTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
-	case apiCodes.remind_frequency_onaday:
+	case apiCodes.reminder_frequency_onaday:
 		var dTime = model.get("reminder_start_hour")[0];
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], moment(model.get("day_of_year"), apiCodes.dob_format).format("Do MMMM"), moment(dTime.hour + ":" + dTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], moment(model.get("day_of_year"), apiCodes.dob_format).format("Do MMMM"), moment(dTime.hour + ":" + dTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
-	case apiCodes.remind_frequency_period:
+	case apiCodes.reminder_frequency_period:
 		var pTime = model.get("reminder_start_hour")[0],
 		    interval = model.get("period"),
 		    formattedInterval;
@@ -278,7 +282,7 @@ function processModel(model) {
 			interval /= 60;
 			formattedInterval = interval + " " + $.strings[interval > 1 ? "strHours" : "strHour"];
 		}
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("dosage_reminder_end_date"), apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minute, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("reminder_end_date"), apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
 	}
 	/* Description format

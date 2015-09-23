@@ -174,12 +174,13 @@ function updateItem(e) {
 			data.selected = !data.selected;
 			$.tableView.updateRow( OS_IOS ? itemIndex : e.row, getRow(data));
 			if (args.autoHide) {
-				$.trigger("click", {
-					source : $,
-					index : itemIndex,
-					data : data
+				hide(function didHide() {
+					$.trigger("click", {
+						source : $,
+						index : itemIndex,
+						data : data
+					});
 				});
-				hide();
 			}
 		}
 	}

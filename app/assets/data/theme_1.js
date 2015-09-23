@@ -75,31 +75,30 @@ module.exports = {
 			"no_of_reminders_max" : 5,
 			"reminder_med_frequencies" : [{
 				"id" : "Daily",
-				"dates_max" : 0,
-				"times_max" : 4,
-				"number_of_times_enabled" : true
+				"reminder_end_date_enabled" : true
 			}, {
 				"id" : "Weekly",
-				"dates_max" : 0,
-				"times_max" : 1,
-				"number_of_times_enabled" : false
+				"reminder_end_date_enabled" : true
 			}, {
 				"id" : "Monthly",
-				"dates_max" : 4,
-				"times_max" : 1,
-				"number_of_times_enabled" : true
+				"reminder_end_date_enabled" : true
 			}, {
 				"id" : "OnADay",
-				"dates_max" : 1,
-				"times_max" : 1,
-				"number_of_times_enabled" : false
+				"reminder_end_date_enabled" : true
 			}, {
 				"id" : "Period",
-				"dates_max" : 0,
-				"times_max" : 1,
-				"number_of_times_enabled" : false
+				"reminder_end_date_enabled" : false
+			}],
+			"reminder_med_periods" : [{
+				"value" : 30
+			}, {
+				"value" : 60
+			}, {
+				"value" : 120
 			}],
 			"reminder_med_default_frequency" : "Daily",
+			"reminder_frequency_daily_max_limit" : 4,
+			"reminder_frequency_monthly_max_limit" : 4,
 			"default_color" : "#F7941E",
 			"default_date" : "Mon Aug 03 2015 06:30:00 GMT+0530 (IST)",
 			"time_zone_check_enabled" : true,
