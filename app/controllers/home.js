@@ -13,7 +13,6 @@ function init() {
 		}
 		$.contentView.add(create(item));
 	});
-	//$.forceUpgradeOptionsMenu.show();
 	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",
@@ -238,6 +237,18 @@ function terminate() {
 		clearTimeout(spanTimeId);
 	}
 }
-
+function didClickForceUpgradeOptionsMenu(e) {
+	switch(e.index) {
+	case 0:
+		
+		break;
+	case 1:
+	
+		break;
+	case 2:
+		
+		break;
+	}
+}
 exports.init = init;
 exports.terminate = terminate;
