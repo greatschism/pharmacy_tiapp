@@ -105,7 +105,8 @@ function didClickRefill(e) {
 	 * and should have at least one valid rx
 	 */
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    isMailOrder = pickupMode == apiCodes.pickup_mode_mail_order,
+	    storeId = isMailOrder ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
 	    isInvalidRx = false,
 	    lastIndex = 0,
 	    validRxs = [];
@@ -159,8 +160,10 @@ function didClickRefill(e) {
 	/**
 	 * store validated here
 	 * just to follow the same order on UI
+	 * Note: in case of mail order
+	 * store may not be available
 	 */
-	if (_.isEmpty(store)) {
+	if (!isMailOrder && _.isEmpty(store)) {
 		$.uihelper.showDialog({
 			message : $.strings.refillTypeValStore
 		});
