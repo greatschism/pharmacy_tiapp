@@ -125,6 +125,11 @@ function didChangePatient(e) {
 
 function didGetLocation(userLocation) {
 	/**
+	 * check whether or not to enable
+	 * direction button for this result set
+	 */
+	isDirectionEnabled = !_.isEmpty(userLocation);
+	/**
 	 *  case 1:
 	 * 		when location service is turned off and user logged in call api for listing home and  book marked stores
 	 *  case 2:
@@ -132,7 +137,7 @@ function didGetLocation(userLocation) {
 	 *  note : iOS simulator may fail to give location often
 	 *  just updating the location in simulator settings would help
 	 */
-	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
+	if (Alloy.Globals.isLoggedIn || isDirectionEnabled) {
 		getStores(null, false);
 	} else {
 		/**
@@ -398,11 +403,6 @@ function prepareData(result, passthrough) {
 	if (_.isEmpty(currentLocation)) {
 		currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	}
-	/**
-	 * check whether or not to enable
-	 * direction button for this result set
-	 */
-	isDirectionEnabled = !_.isEmpty(currentLocation);
 
 	/*
 	 *  we are making a new api call
@@ -993,10 +993,11 @@ function didClickMap(e) {
 				handleNavigation(store.toJSON());
 				break;
 			case "leftPane":
+				//open direction only using user location - PHA-1084
 				$.uihelper.getDirection({
 					latitude : store.get("latitude"),
 					longitude : store.get("longitude")
-				}, currentLocation);
+				});
 				break;
 			}
 		}
@@ -1032,29 +1033,14 @@ function handleNavigation(params) {
 	 * to check for changes in focus event
 	 */
 	currentStore = params;
-	//open detail using user location - PHA-1084
-	$.uihelper.getLocation(didGetLocationForStoreDetail, false, false);
-	//incase of revert: open detail using current location (one used to query)
-	/*$.app.navigator.open({
-	 titleid : "titleStoreDetails",
-	 ctrl : "storeDetails",
-	 ctrlArguments : {
-	 store : currentStore,
-	 currentLocation : currentLocation,
-	 direction : isDirectionEnabled
-	 },
-	 stack : true
-	 });*/
-}
-
-function didGetLocationForStoreDetail(userLocation) {
+	//open detail only using user location - PHA-1084
 	$.app.navigator.open({
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
 			store : currentStore,
-			currentLocation : userLocation,
-			direction : !_.isEmpty(userLocation)
+			currentLocation : $.uihelper.userLocation,
+			direction : isDirectionEnabled
 		},
 		stack : true
 	});

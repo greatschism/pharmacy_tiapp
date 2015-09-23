@@ -383,16 +383,12 @@ var Helper = {
 	 */
 	openGallery : function(callback, window, width, height) {
 		if (OS_IOS) {
-			var authorization = Ti.Media.cameraAuthorizationStatus;
-			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
-				return Helper.showDialog({
-					message : Alloy.Globals.strings.msgGalleryAuthorizationDenied
-				});
-			} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
-				return Helper.showDialog({
-					message : Alloy.Globals.strings.msgGalleryAuthorizationRestricted
-				});
-			}
+			/**
+			 * authorization status is handled by
+			 * system, the gallery itself
+			 * shows a error message on the
+			 * gallery's modal window
+			 */
 			Ti.Media.openPhotoGallery({
 				allowEditing : true,
 				mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],

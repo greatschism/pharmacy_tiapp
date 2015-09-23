@@ -64,8 +64,6 @@ module.exports = {
 		"msgCameraAuthorizationDenied" : "Your have disallowed app from accessing your camera. Please check your settings.",
 		"msgCameraError" : "We are unable to access your camera, please check your settings.",
 		"msgCameraInvalid" : "We cannot reach your captured image; please select a image from gallery instead.",
-		"msgGalleryAuthorizationRestricted" : "Your have restricted app from accessing your photo gallery. Please check your settings.",
-		"msgGalleryAuthorizationDenied" : "Your have disallowed app from accessing your photo gallery. Please check your settings.",
 		"msgGalleryError" : "We are unable to access your photo gallery, please check your settings.",
 		"msgGalleryInvalid" : "We cannot reach your selected image gallery; please take a photo instead.",
 		"msgSessionTimeout" : "Your session has expired. Please re-login to access the application.",
