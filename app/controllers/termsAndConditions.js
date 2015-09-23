@@ -9,8 +9,9 @@ function init() {
 		http.request({
 			method : "terms_get_all",
 			params : {
+				feature_code: "THXXX",
 				data : [{
-					terms : ""
+					terms : "some"
 				}]
 			},
 			success : didSuccess
@@ -22,13 +23,15 @@ function init() {
 }
 
 function focus(){
-	getTerms();
+	if(!args.registrationFlow)
+		getTerms();
 }
 
 function getTerms(){
 	http.request({
 		method : "terms_get",
 		params : {
+			feature_code: "THXXX",
 			data : [{
 				terms : ""
 			}]
