@@ -274,7 +274,7 @@ module.exports = {
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "You must select at least %d prescription(s) to continue.",
 		"prescAddSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
-		"prescAddTooltipLblReminder" : "tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
+		"prescAddTooltipLblReminder" : "tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
 		"prescAddTooltipBtnHide" : "Got it!",
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with %s's account.",

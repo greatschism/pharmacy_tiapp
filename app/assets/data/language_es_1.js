@@ -158,10 +158,6 @@ module.exports = {
 		"tmplOptionDividerLbl" : "es-Or",
 
 		"homeNavBtnLogin" : "es-Sign in",
-		"homeFeedbackkOptMenuTitle" : "es-Do you wish to provide feedback to improve the application?",
-		"homeFeedabackOptMenuRate" : "es-Rate now",
-		"homeFeedbackOptMenuRemind" : "es-Remind me later",
-		"homeFeedbackOptMenuNoThanks" : "es-No, Thanks",
 
 		"loginLblTitle" : "es-Sign in to the mscripts mobile pharmacy",
 		"loginHintUsername" : "es-Username",
@@ -278,7 +274,7 @@ module.exports = {
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "es-You must select at least %d prescription(s) to continue.",
 		"prescAddSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
-		"prescAddTooltipLblReminder" : "es-tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
+		"prescAddTooltipLblReminder" : "es-tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
 		"prescAddTooltipBtnHide" : "es-Got it!",
 		"prescPartialLblTitle" : "es-Want to add a prescription?",
 		"prescPartialLblDesc" : "es-It looks like you don't have any prescriptions associated with %s's account.",
