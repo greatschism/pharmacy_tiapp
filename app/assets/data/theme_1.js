@@ -12,7 +12,7 @@ module.exports = {
 			"banner_default_width" : 1920,
 			"banner_default_height" : 480,
 			"geo_search_length_min" : 4,
-			"mail_order_store_pickup_enabled" : false,
+			"mail_order_store_pickup_enabled" : true,
 			"store_map_radius_min" : 15,
 			"store_map_radius_max" : 75,
 			"store_map_radius_increment" : 10,

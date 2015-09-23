@@ -113,49 +113,80 @@ function getOptionRows(frequencyId, data) {
 	    startHours = data.reminder_start_hour || [{
 		hour : moment().hours(),
 		minutes : "00"
-	}],
-	    dates,
-	    inputFormat,
-	    outputFormat;
-	if (frequencyId === apiCodes.reminder_frequency_monthly || frequencyId === apiCodes.reminder_frequency_onaday) {
-		/**
-		 * no_of_times represents the dates
-		 * for frequencies Monthly and On A day
-		 */
-
-		if (frequencyId === apiCodes.reminder_frequency_monthly) {
-			dates = data.day_of_month || [{
-				monthday : moment().date()
-			}];
-			inputFormat = "DD";
-			outputFormat = "DD";
-		} else {
-			dates = [reminder.day_of_year || moment().format(apiCodes.dob_format)];
-			inputFormat = apiCodes.dob_format;
-			outputFormat = "Do MMM";
-		}
-		_.each(dates, function(date, index) {
-			/**
-			 * for monthly date will
-			 * be object, for on a day
-			 * it is string
-			 */
-			var mDate = moment(_.isObject(date) ? date.monthday : date, inputFormat),
-			    dateRow = Alloy.createController("itemTemplates/promptReply", {
-				frequencyId : frequencyId,
-				pickerType : "date",
-				value : date,
-				inputFormat : inputFormat,
-				outputFormat : outputFormat,
-				prompt : $.strings.remindersMedSettingsLblRemindOn,
-				reply : mDate.format(outputFormat),
-				promptClasses : promptClasses,
-				replyClasses : replyClasses,
-				hasChild : true
-			});
-			optionRows.push(dateRow);
+	}];
+	/**
+	 * number of times if enabled
+	 * for this frequency
+	 */
+	if (frequencyObj.number_of_times_enabled) {
+		var numberOfTimes = parseInt(data.number_of_times) || 1;
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "number_of_times",
+			value : numberOfTimes,
+			prompt : $.strings.remindersMedSettingsLblRemindTimes,
+			reply : numberOfTimes + " " + $.strings[numberOfTimes > 1 ? "strTimes" : "strTime"],
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+	}
+	switch(frequencyId) {
+	case apiCodes.reminder_frequency_daily:
+		break;
+	case apiCodes.reminder_frequency_weekly:
+		break;
+	case apiCodes.reminder_frequency_monthly:
+		var monthdayInputFormat = "DD",
+		    monthdayOutputFormat = "Do",
+		    monthdays = data.day_of_month || [{
+			monthday : moment().date()
+		}],
+		    mCount = monthdays.length - 1,
+		    mLastBefore = mCount - 1,
+		    monthdaysStr = "";
+		_.each(monthdays, function(obj, index) {
+			monthdaysStr += moment(obj.monthday, monthdayInputFormat).format(monthdayOutputFormat);
+			if (index < mCount) {
+				if (index === mLastBefore) {
+					monthdaysStr += " " + $.strings.strAnd + " ";
+				} else {
+					monthdaysStr += ", ";
+				}
+			}
 		});
-		//plus one time picker
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "monthdays",
+			value : monthdays,
+			inputFormat : monthdayInputFormat,
+			outputFormat : monthdayOutputFormat,
+			prompt : $.strings.remindersMedSettingsLblRemindOn,
+			reply : monthdaysStr,
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+		break;
+	case apiCodes.reminder_frequency_onaday:
+		var dayOfYearInputFormat = apiCodes.dob_format,
+		    dayOfYearOutputFormat = "Do MMM",
+		    dayOfYear = reminder.day_of_year || moment().format(apiCodes.dob_format);
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			frequencyId : frequencyId,
+			pickerType : "date",
+			value : dayOfYear,
+			inputFormat : dayOfYearInputFormat,
+			outputFormat : dayOfYearOutputFormat,
+			prompt : $.strings.remindersMedSettingsLblRemindOn,
+			reply : moment(dayOfYear, dayOfYearInputFormat).format(dayOfYearOutputFormat),
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+		break;
+	case apiCodes.reminder_frequency_period:
+		break;
 	}
 	return optionRows;
 }
@@ -285,7 +316,7 @@ function didClickFrequencyPicker(e) {
 	 * and clean up rows array
 	 */
 	var startOptionIndex = 1,
-	    endOptionIndex = $.reminderSection.rowCount - 1;
+	    endOptionIndex = $.reminderSection.rowCount;
 	rows = _.reject(rows, function(row, index) {
 		if (index > startOptionIndex && index < endOptionIndex) {
 			$.tableView.deleteRow(row.getView());

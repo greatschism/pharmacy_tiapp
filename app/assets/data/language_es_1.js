@@ -79,6 +79,7 @@ module.exports = {
 		"msgRxNumberTips" : "es-Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "es-Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
+		"msgAccountExists" : "es-It looks like you already have an account with %s",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password.",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
@@ -87,8 +88,8 @@ module.exports = {
 		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"msgRegisterSuccessful" : "es-Registration is complete. You can now sign into the app. Enjoy!",
-		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
-		
+		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
+
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
@@ -104,6 +105,7 @@ module.exports = {
 		"titleRemindersRefillBenefits" : "es-Refill reminder benefits",
 		"titleRemindersMed" : "es-Medication reminders",
 		"titleRemindersMedSettings" : "es-Set reminder",
+		"titleRemindersMedColorPicker" : "es-Choose a color for reminder",
 		"titleRemindersMedPrescriptions" : "es-Set up med reminders",
 		"titleRemindersSettings" : "es-Settings",
 		"titleRewards" : "es-Savings Catcher",
@@ -271,15 +273,15 @@ module.exports = {
 		"prescPopupUnhideBtnNone" : "es-Select none",
 		"prescPopupUnhideBtnUnhide" : "es-Unhide",
 		"prescPopupUnhideBtnClose" : "es-Close",
-		"prescBtnSubmit" : "es-Done",
-		"prescBtnContinue" : "es-Continue",
 		"prescMsgHideConfirm" : "es-Are you sure you want to hide %s?",
+		"prescAddBtnSubmit" : "es-Done",
+		"prescAddBtnContinue" : "es-Continue",
 		"prescAddSectionBtnAll" : "es-Select all",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "es-You must select at least %d prescription(s) to continue.",
-		"prescSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
-		"prescTooltipLblReminder" : "es-tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
-		"prescTooltipBtnHide" : "es-Got it!",
+		"prescAddSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
+		"prescAddTooltipLblReminder" : "es-tip: This will setup one reminder. You can add multiple prescriptions to one reminder.",
+		"prescAddTooltipBtnHide" : "es-Got it!",
 		"prescPartialLblTitle" : "es-Want to add a prescription?",
 		"prescPartialLblDesc" : "es-It looks like you don't have any prescriptions associated with %s's account.",
 
@@ -354,6 +356,9 @@ module.exports = {
 		"refillFailureBtnType" : "es-Type prescription details",
 		"refillFailureBtnPhone" : "es-Call my pharmacy",
 
+		"colorPickerLblHint" : "es-Selected color",
+		"colorPickerBtnSubmit" : "es-Done",
+
 		"remindersLblRefill" : "es-Refill Reminders",
 		"remindersLblMed" : "es-Medication Reminders",
 		"remindersLblSettings" : "es-Reminder and Notification Settings",
@@ -400,6 +405,15 @@ module.exports = {
 		"remindersMedSettingsLblFrequencyMonthly" : "es-Monthly",
 		"remindersMedSettingsLblFrequencyOnADay" : "es-On a day",
 		"remindersMedSettingsLblFrequencyPeriod" : "es-On a frequency",
+		"remindersMedSettingsLblReminderColor" : "es-Choose a color for this reminder",
+		"remindersMedSettingsLblRemindFrequency" : "es-Remind me",
+		"remindersMedSettingsLblRemindTimes" : "es-This many times",
+		"remindersMedSettingsLblRemindOn" : "es-Reminder On",
+		"remindersMedSettingsLblRemindAt" : "es-Reminder time",
+		"remindersMedSettingsSectionPresc" : "es-Prescriptions",
+		"remindersMedSettingsBtnAdd" : "es-Save",
+		"remindersMedSettingsBtnUpdate" : "es-Save",
+		"remindersMedSettingsBtnRemove" : "es-Delete this reminder",
 		"remindersMedSettingsPopupSectionFrequency" : "es-Choose a freequency",
 		"remindersMedSettingsPopupFrequencyBtnClose" : "es-Choose a freequency",
 
@@ -436,7 +450,7 @@ module.exports = {
 		"transferTypeValPhoneInvalid" : "es-The phone number you have entered is invalid.",
 		"transferTypeValRxInvalid" : "es-Prescription number you have entered seem invalid.",
 		"transferTypeValStoreOriginal" : "es-Please select the pharmacy this prescription is from.",
-		"transferTypeOther" : "es-Relationship",
+		"transferTypeOther" : "es-Other",
 
 		"transferUserDetTitle" : "es-We need some details about you so we can process your transfer.",
 		"transferUserDetHintFirstName" : "es-First name",
@@ -540,7 +554,7 @@ module.exports = {
 
 		"registerChildInfoTitle" : "es-Great! You want to create a family account.",
 		"registerChildInfoLbl" : "es-To manage your child's prescriptions, first we need to create a manager account for you.",
-		"registerChildInfoAttr" : "es-Click here if you already have an account with Carbon pharmacy.",
+		"registerChildInfoAttr" : "es-Click here if you already have an account with %s.",
 		"registerChildInfoBtnContinue" : "es-Continue",
 
 		"childAccountTipsLbl" : "es-How do I add family members to my account?",
@@ -570,7 +584,7 @@ module.exports = {
 
 		"mgrSignInLbl" : "es-Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "es-You can also add other adults and manage permissions.",
-		"mgrAccountExistsLbl" : "es-It looks like you already have an account with Carbon pharmacy.",
+		"mgrAccountExistsLbl" : "es-It looks like you already have an account with %s",
 		"mgrAccountExistsBtnSignIn" : "es-Sign in",
 
 		"childAddTitle" : "es-Add a child to your account",
@@ -615,7 +629,7 @@ module.exports = {
 		"receiveTextChildSectionLbl" : "es-Who would you like to receive texts for?",
 		"receiveTextChildSectionPhoneNum" : "es-Mobile number",
 		"receiveTextChildBtnContinue" : "es-Continue",
-		"receiveTextChildLbl" : "es-By providing your mobile number, you agree to receive health care text messages via automated technology from Carbon Pharmacy or those acting on Carbon Pharmacy's behalf.",
+		"receiveTextChildLbl" : "es-By providing your mobile number, you agree to receive health care text messages via automated technology from %s or those acting on %s's behalf.",
 		"receiveTextChildHintPhone" : "es-Mobile number",
 		"receiveTextPhoneExists" : "es-Mobile number already exists",
 
@@ -668,7 +682,7 @@ module.exports = {
 		"familyMemberAddBtnContinue" : "es-Continue",
 		"familyMemberAddValDob" : "es-Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "es-Please enter your relationship.",
-		"familyMemberAddHintOther" : "es-Other",
+		"familyMemberAddHintOther" : "es-Relationship",
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s?",
 		"familyMemberInviteSendTextLbl" : "es-Send text",
@@ -693,7 +707,7 @@ module.exports = {
 		"familyMemberAddSuccessBtnAdd" : "es-Add another family member",
 		"familyMemberAddSuccessBtnDone" : "es-Done",
 
-		"familyMemberAddPrescTitle" : "es-Please fill in the information below to update your account with Carbon Pharmacy.",
+		"familyMemberAddPrescTitle" : "es-Please fill in the information below to update your account with %s.",
 		"familyMemberAddPrescHintFirstName" : "es-First name",
 		"familyMemberAddPrescHintLastName" : "es-Last name",
 		"familyMemberAddPrescHintDob" : "es-Date of birth",
