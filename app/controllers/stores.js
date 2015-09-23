@@ -365,11 +365,12 @@ function didGetDistance(result, passthrough) {
 		 *
 		 * Also mail order stores cannot be picked
 		 * from store locator when mail_order_store_pickup_enabled
-		 * is false and selectable is true (PHA-910 - #1)
+		 * and mailOrderStoreEnabled are false
+		 * (mailOrderStoreEnabled's default value is true) (PHA-910 - #1)
 		 */
 		var mailOrderStoreId = Alloy.Models.appload.get("mail_order_store_id");
 		stores = _.reject(stores, function(store) {
-			if ((!args.selectable || Alloy.CFG.mail_order_store_pickup_enabled || store.id != mailOrderStoreId) && (store.distance <= max || (currentViewType == viewTypeList && ((parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0))))) {
+			if ((args.mailOrderStoreEnabled !== false || Alloy.CFG.mail_order_store_pickup_enabled || store.id != mailOrderStoreId) && (store.distance <= max || (currentViewType == viewTypeList && ((parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0))))) {
 				return false;
 			}
 			return true;
