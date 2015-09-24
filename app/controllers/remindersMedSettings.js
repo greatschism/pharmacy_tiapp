@@ -177,10 +177,12 @@ function init() {
 			 * title will not be in collection
 			 * if add prescription screen is not opened yet
 			 */
-			_.extend(prescription, {
-				title : $.utilities.ucword(prescription.presc_name),
-				subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
-			});
+			if (!_.has(prescription, "title")) {
+				_.extend(prescription, {
+					title : $.utilities.ucword(prescription.presc_name),
+					subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
+				});
+			}
 		}
 		_.extend(prescription, isRemovable ? removableDict : nonRemovableDict);
 		var row = getPrescRow(prescription);
@@ -302,7 +304,7 @@ function getOptionRows(frequencyId, data) {
 		break;
 	case apiCodes.reminder_frequency_monthly:
 		var monthdays = data.day_of_month || [{
-			monthday : moment().date()
+			monthday : moment().date().toString()
 		}],
 		    mCount = monthdays.length - 1,
 		    mLastBefore = mCount - 1,

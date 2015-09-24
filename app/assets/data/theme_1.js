@@ -1885,10 +1885,12 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-left-color-box" : {
-				"top" : 0,
+				"top" : 12,
 				"left" : 12,
 				"width" : 24,
-				"height" : "auto"
+				"height" : 24,
+				"borderRadius" : 3.4,
+				"borderWidth" : 1
 			},
 			".content-view-with-lcolor-box" : {
 				"top" : 12,

@@ -37,6 +37,11 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
+	var color = args.color || (args.data ? args.data[args.colorProperty] : "transparent");
+	$.colorView.applyProperties({
+		backgroundColor : color,
+		borderColor : color
+	});
 	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
 		text : args.title || (args.data ? args.data[args.titleProperty] : "")
 	});
@@ -87,17 +92,6 @@ function didPostlayout(e) {
 	}
 	$.containerView.height = height;
 	$.swipeView.height = height;
-	/**
-	 * required since
-	 * color view has auto height
-	 * get the color also here so it
-	 * will be just a single call to the
-	 * kroll bridge
-	 */
-	$.colorView.applyProperties({
-		height : height,
-		backgroundColor : args.color || (args.data ? args.data[args.colorProperty] : "transparent")
-	});
 }
 
 function didClickOption(e) {
