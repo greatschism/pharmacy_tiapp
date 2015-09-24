@@ -442,9 +442,9 @@ function focus() {
 		 * make existing first row removable
 		 * if prescriptions.length is already > 1 then it would already be removable
 		 */
+		var prescFirstIndex = $.reminderSection.rowCount + $.optionsSection.rowCount;
 		if (prescriptions.length == 1) {
-			var prescFirstIndex = $.reminderSection.rowCount + $.optionsSection.rowCount,
-			    currentCtrl = rows[prescFirstIndex],
+			var currentCtrl = rows[prescFirstIndex],
 			    currentRow = currentCtrl.getView(),
 			    currentParams = currentCtrl.getParams();
 			_.extend(currentParams, removableDict);
@@ -454,8 +454,8 @@ function focus() {
 		_.each(selectedPrescriptions, function(prescription) {
 			prescriptions.push(prescription);
 			_.extend(prescription, removableDict);
-			var row = getRow(prescription);
-			$.tableView.insertRowAfter($.prescSection.rowCount - 1, row.getView());
+			var row = getPrescRow(prescription);
+			$.tableView.insertRowAfter((prescFirstIndex + $.prescSection.rowCount) - 1, row.getView());
 			rows.push(row);
 		});
 		selectedPrescriptions = [];
@@ -474,6 +474,9 @@ function didClickAddPresc(e) {
 		titleid : "titleRemindersMedPrescriptions",
 		ctrl : "prescriptions",
 		ctrlArguments : {
+			filters : {
+				id : _.pluck(prescriptions, "id")
+			},
 			isMedReminder : true,
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
@@ -973,7 +976,11 @@ function didClickSubmitReminder(e) {
 		 */
 		var hasDuplicates;
 		_.each(data.reminder_start_hour, function(time) {
-			if (!hasDuplicates && _.findWhere(data.reminder_start_hour, time)) {
+			/**
+			 * should not have more than
+			 * one occurrence
+			 */
+			if (!hasDuplicates && _.where(data.reminder_start_hour, time).length > 1) {
 				hasDuplicates = true;
 			}
 		});
