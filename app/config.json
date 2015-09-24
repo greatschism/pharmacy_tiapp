@@ -53,7 +53,8 @@
             "terms_revoke": "terms/revoke",
             "terms_email": "terms/email",
             "mobile_add": "patient/mobile/add",
-            "mobile_resend": "patient/mobile/resend"
+            "mobile_resend": "patient/mobile/resend",
+            "email_resend": "patient/email/resend"
         },
         "apiCodes": {
             "success": "200",
@@ -126,7 +127,9 @@
         "latest_store_refilled": "latestStoreRefilled",
         "latest_phone_used": "latestPhoneUsed",
         "lastest_logout_explicit": "latestLogoutExplicit",
-        "auto_login_enabled": "autoLoginEnabled"
+        "auto_login_enabled": "autoLoginEnabled",
+        "last_login_timestamp": "lastLoginTimestamp",
+        "last_logged_in_user": "lastLoggedInUser"
     },
     "env:development": {
         "base_url": "http://54.235.202.221:9200/mckonphonehandler_dev/services/",

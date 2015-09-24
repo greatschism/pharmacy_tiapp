@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     childProxyData = [],
     child_proxy = [],
     selectedChildProxy,
+    authenticator = require("authenticator"),
     accntMgrData,
     parentData,
     childData,
@@ -13,7 +14,7 @@ var args = arguments[0] || {},
 isFamilyAccounts = false;
 
 function focus() {
-	$.receiveTextLbl.text= String.format($.strings.receiveTextChildLbl,Alloy.CFG.client_name,Alloy.CFG.client_name);
+	$.receiveTextLbl.text = String.format($.strings.receiveTextChildLbl, Alloy.CFG.client_name, Alloy.CFG.client_name);
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
@@ -167,39 +168,45 @@ function didClickContinue() {
 function didFail() {
 
 }
-
 function didCheckMobileNumber(result) {
 	otp = result.data.patient.verification_code;
-	$.app.navigator.open({
-		ctrl : "textMessage",
-		stack : true,
-		ctrlArguments : {
-			"otp" : otp,
-			"phone" : phone,
-			"txtCode" : true,
-			"txtMsgTitle" : true,
-			"txtMsgLbl" : true,
-			"signUpLbl" : false,
-			"signUpTitle" : false,
-			"txtHelpTitle" : false,
-			"txtHelpLbl" : false,
-			"replyTextMsgBtn" : true,
-			"sendMeTextAgainSignUpBtn" : false,
-			"sendMeTextAgainTextHelpBtn" : false,
-			"skipSignUpAttr" : false,
-			"skipNoTextMsgAttr" : false,
-			"didNotReceiveTextAttr" : true,
-			"stillReceiveTextAttr" : false,
-			"checkPhoneAttr" : false,
-			"txtNotReceiveTitle" : false,
-			"txtNotReceiveLbl" : false,
-			"txtNotReceiveBtn" : false,
-			"skipTxtNotReceiveAttr" : false,
-			"txtSuccessImg" : true,
-			"txtFailImg" : false
+	authenticator.updatePreferences({
+		"mobile_number" : phone
+	}, {
+		success : function() {
+			$.app.navigator.open({
+				ctrl : "textMessage",
+				stack : true,
+				ctrlArguments : {
+					"otp" : otp,
+					"phone" : phone,
+					"txtCode" : true,
+					"txtMsgTitle" : true,
+					"txtMsgLbl" : true,
+					"signUpLbl" : false,
+					"signUpTitle" : false,
+					"txtHelpTitle" : false,
+					"txtHelpLbl" : false,
+					"replyTextMsgBtn" : true,
+					"sendMeTextAgainSignUpBtn" : false,
+					"sendMeTextAgainTextHelpBtn" : false,
+					"skipSignUpAttr" : false,
+					"skipNoTextMsgAttr" : false,
+					"didNotReceiveTextAttr" : true,
+					"stillReceiveTextAttr" : false,
+					"checkPhoneAttr" : false,
+					"txtNotReceiveTitle" : false,
+					"txtNotReceiveLbl" : false,
+					"txtNotReceiveBtn" : false,
+					"skipTxtNotReceiveAttr" : false,
+					"txtSuccessImg" : true,
+					"txtFailImg" : false
 
+				}
+			});
 		}
 	});
+
 }
 
 exports.focus = focus;

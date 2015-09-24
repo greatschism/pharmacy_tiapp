@@ -1,0 +1,13 @@
+"#lblDidNotVerifyEmail":{
+	text:Alloy.Globals.strings.emailVerifyLblEmailVerify
+},
+"#btnContinue":{
+	title:Alloy.Globals.strings.emailVerifyBtnContinue
+},
+"#attrIsntMyEmail":{
+	html:Alloy.Globals.strings.emailVeirfyAttrIsntMyEmail
+},
+"#attrResendEmail":{
+	html:Alloy.Globals.strings.emailVeirfyAttrResendEmail
+}
+

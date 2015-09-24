@@ -45,6 +45,7 @@ module.exports = {
 		"dialogBtnCamera" : "Take a photo",
 		"dialogBtnGallery" : "Choose from gallery",
 		"dialogBtnIAgree" : "I agree",
+		"dialogBtnUpgrade":"Update",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -87,6 +88,7 @@ module.exports = {
 		"msgPrescriptionExpired" : "This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"msgRegisterSuccessful" : "Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
+		"msgForceUpgradeFound":"We've just released a new version of this app with some essential changes. Please update now to continue using it.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -732,6 +734,13 @@ module.exports = {
 		"familyMemberAddPrescValRxNo" : "Please enter your prescription number.",
 		"familyMemberAddPrescValRxNoInvalid" : "Prescription number you have entered seem invalid.",
 		"familyMemberAddPrescValStore" : "Please select a pharmacy",
+		
+		"emailVerifyLblWelcome":"Welcome to %s",
+		"emailVerifyLblEmailVerify":"We noticed you haven't confirmed your email address yet. Some features will not work unless your email is verified.",
+		"emailVerifyBtnContinue":"Continue",
+		"emailVeirfyAttrIsntMyEmail":"<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
+		"emailVeirfyAttrResendEmail":"<secondaryfont><secondarycolor>Resend email</secondarycolor></secondaryfont>",
+		"emailVerifyMsgResendEmail":"We just sent you a new verification email. Please click the link inside to confirm your email address."
 
 	}
 };

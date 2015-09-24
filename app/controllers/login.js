@@ -1,5 +1,7 @@
 var args = arguments[0] || {},
     authenticator = require("authenticator"),
+    moment = require("alloy/moment"),
+    apiCodes = Alloy.CFG.apiCodes,
     utilities = require('utilities');
 
 function init() {
@@ -79,15 +81,33 @@ function didClickLogin(e) {
 
 function didAuthenticate() {
 	/**
+	 * To check if the user has verified the email address
+	 * or not after 24 hours or 2nd login.
+	 */
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	var lastLoggedInTime = $.utilities.getProperty(Alloy.CFG.last_login_timestamp);
+	var lastLoggedInUser = $.utilities.getProperty(Alloy.CFG.last_logged_in_user);
+	var currentLoggedInTime = moment().format(apiCodes.date_time_format);
+	var currentLoggedInUser = currentPatient.get("email_address");
+	$.utilities.setProperty(Alloy.CFG.last_login_timestamp, currentLoggedInTime);
+	$.utilities.setProperty(Alloy.CFG.last_logged_in_user, currentLoggedInUser);
+	/**
 	 * First time login flow takes the uesr to HIPAA screen
 	 */
 	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
 		$.app.navigator.open({
 			ctrl : "HIPAA",
 			titleid : "titleHIPAAauthorization",
-			stack : true
+			stack : false
 		});
-	} else if (args.is_adult_partial) {
+	}
+	/**
+	 * Check if the partial account has been created.
+	 * if so, take the user to log in screen.
+	 */
+	else if (args.is_adult_partial) {
 		$.app.navigator.open({
 			titleid : "titleChildAdd",
 			ctrl : "childAdd",
@@ -97,6 +117,14 @@ function didAuthenticate() {
 				isFamilyMemberFlow : false
 			},
 			stack : true
+		});
+	} else if (moment(currentLoggedInTime, apiCodes.date_time_format).diff(moment(lastLoggedInTime, apiCodes.date_time_format), "days") >= 1 && lastLoggedInUser === currentLoggedInUser && currentPatient.get("is_email_verified")!=="1") {
+		$.app.navigator.open({
+			ctrl : "emailVerify",
+			ctrlArguments : {
+				email : currentLoggedInUser
+			},
+			stack : false
 		});
 	} else {
 		$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
@@ -138,7 +166,7 @@ function didPostlayout(e) {
 	});
 
 	$.tooltip.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height ,
+		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,
 		width : "90%"
 	}));
 
