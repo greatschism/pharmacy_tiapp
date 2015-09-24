@@ -113,28 +113,30 @@ function init() {
 	 * notes section
 	 * Note: using separate
 	 * section for notes
-	 * with no rows and just footer view
+	 * with no rows and just header view
 	 * for match the UI,
 	 * placing this in the previous
-	 * section's footer view
+	 * section's header view
 	 * may be affected when updateSection is
 	 * called
 	 */
-	var txtaStyleDict = $.createStyle({
-		classes : ["margin-top", "margin-bottom", "txta", "reminder-notes"]
+	var txtStyleDict = $.createStyle({
+		classes : ["margin-top", "margin-bottom", "txt", "returnkey-done", "reminder-notes"],
+		hintText : $.strings.remindersMedSettingsHintNotes,
+		value : reminder.additional_message || ""
 	});
-	$.notesTxta = Alloy.createWidget("ti.textarea", "widget", txtaStyleDict);
-	$.footerView = Ti.UI.createView({
-		height : txtaStyleDict.top + txtaStyleDict.bottom + txtaStyleDict.height
+	$.notesTxt = Alloy.createWidget("ti.textfield", "widget", txtStyleDict);
+	$.headerView = Ti.UI.createView({
+		height : txtStyleDict.top + txtStyleDict.bottom + txtStyleDict.height
 	});
 	if (OS_IOS || Alloy.Globals.isLollipop) {
-		$.footerView.add($.UI.create("View", {
+		$.headerView.add($.UI.create("View", {
 			classes : ["top", "h-divider-light"]
 		}));
 	}
-	$.footerView.add($.notesTxta.getView());
+	$.headerView.add($.notesTxt.getView());
 	$.notesSection = Ti.UI.createTableViewSection({
-		footerView : $.footerView
+		headerView : $.headerView
 	});
 	/**
 	 * prescriptions section
@@ -511,7 +513,9 @@ function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
 	//hide keyboard
-	hideKeyboard();
+	if (Ti.App.keyboardVisible) {
+		return Ti.App.hideKeyboard();
+	}
 	//process row
 	if (row) {
 		var params = rows[index].getParams();
@@ -530,7 +534,7 @@ function didClickTableView(e) {
 		} else if (index === 1) {
 			$.frequencyPicker.show();
 		} else {
-			var pickerType = params.pickerType;
+			var pickerType = params.pickerType || "";
 			if (pickerType == "date") {
 				showDatePicker(params.value, params.inputFormat, params.outputFormat, index);
 			} else if (pickerType == "time") {
@@ -869,21 +873,20 @@ function updateColorBoxRow(color) {
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
 }
 
-function hideKeyboard() {
+function didClickSubmitReminder(e) {
+	//hide keyboard
 	if (Ti.App.keyboardVisible) {
 		Ti.App.hideKeyboard();
 	}
-}
-
-function didClickSubmitReminder(e) {
-	//hide keyboard
-	hideKeyboard();
 	//process submit
+
 }
 
 function didClickRemoveReminder(e) {
 	//hide keyboard
-	hideKeyboard();
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
 	//process remove
 }
 

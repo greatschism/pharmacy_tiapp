@@ -425,6 +425,7 @@ module.exports = {
 		"remindersMedSettingsPopupPeriodBtnClose" : "Close",
 		"remindersMedSettingsValWeekday" : "You must choose at least one week day",
 		"remindersMedSettingsValMonthday" : "You must choose at least one month day",
+		"remindersMedSettingsHintNotes" : "Notes",
 
 		"remindersSettingsPatientSwitcher" : "%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
