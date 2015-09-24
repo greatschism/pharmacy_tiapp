@@ -83,6 +83,7 @@ function didAuthenticate() {
 	/**
 	 * To check if the user has verified the email address
 	 * or not after 24 hours or 2nd login.
+	 * Need to change the logic once server starts sending the created_at time
 	 */
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
@@ -118,7 +119,8 @@ function didAuthenticate() {
 			},
 			stack : true
 		});
-	} else if (moment(currentLoggedInTime, apiCodes.date_time_format).diff(moment(lastLoggedInTime, apiCodes.date_time_format), "days") >= 1 && lastLoggedInUser === currentLoggedInUser && currentPatient.get("is_email_verified")!=="1") {
+	} 
+	else if (moment(currentLoggedInTime, apiCodes.date_time_format).diff(moment(lastLoggedInTime, apiCodes.date_time_format), "days") >= 1 && lastLoggedInUser === currentLoggedInUser && currentPatient.get("is_email_verified")!=="1") {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
