@@ -262,7 +262,7 @@ function stillNotReceivingText() {
 		ctrlArguments : {
 			"phone" : phone,
 			"otp" : otp,
-			"txtCode" : false,
+			"txtCode" : true,
 			"txtMsgTitle" : false,
 			"txtMsgLbl" : false,
 			"signUpLbl" : false,
@@ -286,5 +286,46 @@ function stillNotReceivingText() {
 		}
 	});
 }
+function didNotReceiveText(){
+	$.http.request({
+		method : "mobile_resend",
+		params : {
+			feature_code : "THXXX",
+			filter : []
+		},
+		success : function(){
+			$.app.navigator.open({
+				ctrl : "textMessage",
+				stack : true,
+				ctrlArguments : {
+					"otp" : otp,
+					"phone" : phone,
+					"txtCode" : true,
+					"txtMsgTitle" : true,
+					"txtMsgLbl" : true,
+					"signUpLbl" : false,
+					"signUpTitle" : false,
+					"txtHelpTitle" : false,
+					"txtHelpLbl" : false,
+					"replyTextMsgBtn" : true,
+					"sendMeTextAgainSignUpBtn" : false,
+					"sendMeTextAgainTextHelpBtn" : false,
+					"skipSignUpAttr" : false,
+					"skipNoTextMsgAttr" : false,
+					"didNotReceiveTextAttr" : true,
+					"stillReceiveTextAttr" : false,
+					"checkPhoneAttr" : false,
+					"txtNotReceiveTitle" : false,
+					"txtNotReceiveLbl" : false,
+					"txtNotReceiveBtn" : false,
+					"skipTxtNotReceiveAttr" : false,
+					"txtSuccessImg" : true,
+					"txtFailImg" : false
 
+				}
+			});
+		}
+	});
+	
+}
 exports.init = init;

@@ -662,9 +662,9 @@ module.exports = {
 		"textMessageReplyTitle" : "Are you sure you replied?",
 		"textMessageDidNotReceiveTextLbl" : "Some phone carriers experience delays when sending text messages.",
 		"textMessageReplyLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
-		"textMessageNotReceiveTitle" : "I am not getting any text messages.",
-		"textMessageNotReceiveLbl" : "If you tried resending the text messages, but are still not receiving anything from us, it could be the fact that your cell phone carrier is not letting the messages come through.",
-		"textMessageNotReceiveBtn" : "How to fix this issue?",
+		"textMessageNotReceiveTitle" : "Your carrier is blocking your text messages.",
+		"textMessageNotReceiveLbl" : "To fix this please contact your mobile carrier (i.e T-mobile, Sprint) and ask them to unblock the number below.",
+		"textMessageNotReceiveBtn" : "I unblocked the shortcode",
 		"textMessageNotReceiveAttrSkip" : "Skip",
 		"textMessageMobileVerified" : "You will now receive text reminders",
 

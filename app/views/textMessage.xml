@@ -3,7 +3,7 @@
 		<Label id="txtMsgTitle" class="subtitle-centered margin-top" if="$.args.txtMsgTitle"/>
 		<Label id="signUpTitle" class="subtitle-centered margin-top" if="$.args.signUpTitle"/>
 		<Label id="txtHelpTitle" class="subtitle-centered margin-top" if="$.args.txtHelpTitle"/>
-		<Label id="txtNotReceiveTitle" class="subtitle-centered margin-top" if="$.args.txtNotReceiveTitle"/>
+		<Label id="txtNotReceiveTitle" class="subtitle-centered-wrap margin-top" if="$.args.txtNotReceiveTitle"/>
 		<ImageView id="txtSuccessImg" class="margin-top" if="$.args.txtSuccessImg"/>
 		<ImageView id="txtFailImg" class="margin-top" if="$.args.txtFailImg"/>
 		<Label id="txtMsgLbl" class="lbl-wrap margin-top" if="$.args.txtMsgLbl"/>
@@ -12,7 +12,7 @@
 		<Label id="txtNotReceiveLbl" class="lbl-wrap margin-top" if="$.args.txtNotReceiveLbl"/>
 		<Widget id="txtCode"   src="ti.textfield" class="txt-centered-48 returnkey-done margin-top margin-bottom" if="$.args.txtCode" editable="false"/>
 		<Button id="txtMsgBtn" class="primary-btn margin-top margin-bottom" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
-		<Button id="txtNotReceiveBtn" class="primary-btn margin-top margin-bottom" if="$.args.txtNotReceiveBtn"/>
+		<Button id="txtNotReceiveBtn" class="secondary-btn margin-top margin-bottom" onClick="didNotReceiveText" if="$.args.txtNotReceiveBtn"/>
 		<Button id="sendTxtSignUpBtn" class="secondary-btn margin-top margin-bottom" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>
 		<Button id="sendTxtTextHelpBtn" class="secondary-btn margin-top margin-bottom" onClick="sendTextTextHelpMessage" if="$.args.sendMeTextAgainTextHelpBtn" />
 		<Button id="skipSignUpAttr" class="tertiary-btn margin-top margin-bottom" onClick="skipClicked" if="$.args.skipSignUpAttr"/>
