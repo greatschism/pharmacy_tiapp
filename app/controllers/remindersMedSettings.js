@@ -62,10 +62,13 @@ function init() {
 		/**
 		 * Jan has 31 days, so always
 		 * keeping month as 1
+		 * Note: m.toString() is used
+		 * since server values are
+		 * returned as strings
 		 */
 		monthdayOptions.push({
 			title : moment(m + "-1", "D[-]M").format("Do"),
-			monthday : m,
+			monthday : m.toString(),
 			selected : false
 		});
 	}
@@ -216,14 +219,18 @@ function getOptionRows(frequencyId, data) {
 	    frequencyObj = _.findWhere(frequencyOptions, {
 		id : frequencyId
 	}),
+	    startHours = data.reminder_start_hour || [{
+		hour : new Date().getHours(),
+		minutes : "00"
+	}],
 	    endDate = data.reminder_end_date;
 	switch(frequencyId) {
 	case apiCodes.reminder_frequency_daily:
-		var numberOfTimes = parseInt(data.number_of_times_max) || 1,
+		var numberOfTimes = startHours.length,
 		    selectedDaily;
 		//update daily picker
 		_.each(dailyOptions, function(dailyOpt) {
-			dailyOpt.selected = numberOfTimes === dailyOpt.value;
+			dailyOpt.selected = numberOfTimes == dailyOpt.value;
 			if (dailyOpt.selected) {
 				selectedDaily = dailyOpt;
 			}
@@ -394,10 +401,6 @@ function getOptionRows(frequencyId, data) {
 	 * all reminders will have
 	 * start_hours
 	 */
-	var startHours = data.reminder_start_hour || [{
-		hour : new Date().getHours(),
-		minutes : "00"
-	}];
 	_.each(startHours, function(time, index) {
 		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"];
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
