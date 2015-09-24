@@ -20,7 +20,7 @@ function init() {
 				feature_code : "THXXX",
 				data : [{
 					banners : {
-						platform : $.app.device.platformCode
+						platform : OS_IOS ? "IP" : "AD",
 					}
 				}]
 			},
@@ -237,18 +237,20 @@ function terminate() {
 		clearTimeout(spanTimeId);
 	}
 }
+
 function didClickForceUpgradeOptionsMenu(e) {
 	switch(e.index) {
 	case 0:
-		
+
 		break;
 	case 1:
-	
+
 		break;
 	case 2:
-		
+
 		break;
 	}
 }
+
 exports.init = init;
 exports.terminate = terminate;

@@ -8,6 +8,7 @@ var TAG = "Authenticator",
     encryptionUtil = require("encryptionUtil"),
     http = require("requestwrapper"),
     localization = require("localization"),
+    notificationHandler = require("notificationHandler"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account);
 
 function init(passthrough) {
@@ -445,12 +446,12 @@ function didGetPreferences(result, passthrough) {
 				icon : "logout"
 			});
 			/**
-			 * execute callback
+			 * finally set
+			 * device token
+			 * before success
 			 */
-			var fireCallback = function() {
-				if (passthrough.success) {
-					passthrough.success();
-				}
+			var verifyDeviceToken = function() {
+				setDefaultDevice(passthrough);
 			};
 			/**
 			 * check if user is on different time zone
@@ -486,7 +487,7 @@ function didGetPreferences(result, passthrough) {
 								pref_timezone : currentTZ
 							}, passthrough);
 						},
-						cancel : fireCallback
+						cancel : verifyDeviceToken
 					});
 				} else {
 					/**
@@ -498,15 +499,14 @@ function didGetPreferences(result, passthrough) {
 						message : Alloy.Globals.strings.msgTimeZoneInvalid,
 						buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 						cancelIndex : 0,
-						cancel : fireCallback
+						cancel : verifyDeviceToken
 					});
 				}
 			} else {
-				fireCallback();
+				verifyDeviceToken();
 			}
 		}
 	}
-
 }
 
 function updatePreferences(params, passthrough) {
@@ -528,6 +528,7 @@ function updatePreferences(params, passthrough) {
 			params : params,
 			success : passthrough.success
 		},
+		keepLoader : true,
 		success : didUpdatePreferences,
 		failure : passthrough.failure
 	});
@@ -551,9 +552,38 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
-	if (passthrough.success) {
-		passthrough.success();
-	}
+	//set default device
+	setDefaultDevice(passthrough);
+}
+
+function setDefaultDevice(passthrough) {
+	notificationHandler.init(function didReady(deviceToken) {
+		if (deviceToken) {
+			//if valid update it
+			http.request({
+				method : "patient_default_device",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						device : {
+							deviceType : Ti.Platform.osname,
+							deviceId : deviceToken,
+							saveToggle : "0"
+						}
+					}]
+				},
+				success : passthrough.success,
+				failure : passthrough.failure
+			});
+		} else {
+			//remember loader is still visible
+			app.navigator.hideLoader();
+			//if invalid (may be user declined), fire success
+			if (passthrough.success) {
+				passthrough.success();
+			}
+		}
+	});
 }
 
 /**

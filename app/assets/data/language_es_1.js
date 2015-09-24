@@ -427,6 +427,7 @@ module.exports = {
 		"remindersMedSettingsPopupPeriodBtnClose" : "es-Close",
 		"remindersMedSettingsValWeekday" : "es-You must choose at least one week day",
 		"remindersMedSettingsValMonthday" : "es-You must choose at least one month day",
+		"remindersMedSettingsValDailyTime" : "es-You can't set multiple reminders at same time",
 		"remindersMedSettingsHintNotes" : "es-Notes",
 		"remindersMedSettingsMsgRemoveConfirm" : "es-Are you sure you want to remove this reminder?",
 

@@ -4,7 +4,6 @@ var app = require("core"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     localization = require("localization"),
-    notificationHandler = require("notificationHandler"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -15,10 +14,6 @@ function didOpen(e) {
 			accessibilityLabel : strings.msgLoading
 		}
 	});
-	notificationHandler.init(deviceReady);
-}
-
-function deviceReady(deviceToken) {
 	http.request({
 		method : "appload_get",
 		params : {
@@ -27,8 +22,8 @@ function deviceReady(deviceToken) {
 				appload : {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
-					phone_platform : app.device.platformCode,
-					device_id : deviceToken,
+					phone_platform : OS_IOS ? "IP" : "AD",
+					device_id : "x",
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,
 					client_name : Alloy.CFG.client_name,
@@ -75,14 +70,16 @@ function didSuccess(result) {
 	}
 }
 
-function forceUpgrade(){	
+function forceUpgrade() {
 	uihelper.showDialog({
 		message : strings.msgForceUpgradeFound,
 		buttonNames : [strings.dialogBtnUpgrade],
 		success : forceUpgradeSuccess
 	});
 }
-function forceUpgradeSuccess(){
+
+function forceUpgradeSuccess() {
+
 }
 
 function confirmUpdate() {

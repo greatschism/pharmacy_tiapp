@@ -121,7 +121,7 @@ function init() {
 	 * called
 	 */
 	var txtStyleDict = $.createStyle({
-		classes : ["margin-top", "margin-bottom", "txt", "returnkey-done", "reminder-notes"],
+		classes : ["margin-top", "margin-bottom", "txt", "autocaps-sentences", "returnkey-done", "reminder-notes"],
 		hintText : $.strings.remindersMedSettingsHintNotes,
 		value : reminder.additional_message || ""
 	});
@@ -170,6 +170,14 @@ function init() {
 			prescription = Alloy.Collections.prescriptions.findWhere({
 				id : prescription.id
 			}).toJSON();
+			/**
+			 * title will not be in collection
+			 * if add prescription screen is not opened yet
+			 */
+			_.extend(prescription, {
+				title : $.utilities.ucword(prescription.presc_name),
+				subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
+			});
 		}
 		_.extend(prescription, isRemovable ? removableDict : nonRemovableDict);
 		var row = getPrescRow(prescription);
@@ -237,7 +245,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(moment().add(1, "week").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "week").format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
@@ -282,7 +290,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(moment().add(1, "month").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "month").format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
@@ -326,7 +334,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(moment().add(1, "year").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_onaday:
@@ -348,7 +356,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(moment().add(1, "year").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_period:
@@ -356,7 +364,7 @@ function getOptionRows(frequencyId, data) {
 		    selectedPeriod;
 		//update period picker
 		_.each(periodOptions, function(periodOpt) {
-			periodOpt.selected = period === periodOpt.value;
+			periodOpt.selected = period == periodOpt.value;
 			if (periodOpt.selected) {
 				selectedPeriod = periodOpt;
 			}
@@ -378,7 +386,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(moment().toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	}
@@ -746,7 +754,9 @@ function didClickPeriodPicker(e) {
 }
 
 function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
-	var date = moment(dValue, inputFormat).toDate();
+	var mDate = moment(dValue, inputFormat),
+	    date = new Date();
+	date.setFullYear(mDate.year(), mDate.month(), mDate.date());
 	dateDropdownArgs.value = date;
 	if (OS_ANDROID) {
 		var dPicker = Ti.UI.createPicker();
@@ -956,6 +966,23 @@ function didClickSubmitReminder(e) {
 		 * daily
 		 */
 		data.reminder_start_hour = [rows[startHoursIndex].getParams().value];
+	} else {
+		/**
+		 * value time - should not have same time
+		 * required only for daily
+		 */
+		var hasDuplicates;
+		_.each(data.reminder_start_hour, function(time) {
+			if (!hasDuplicates && _.findWhere(data.reminder_start_hour, time)) {
+				hasDuplicates = true;
+			}
+		});
+		if (hasDuplicates) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValDailyTime
+			});
+			return false;
+		}
 	}
 	/**
 	 * reminder end date
@@ -981,13 +1008,13 @@ function didClickSubmitReminder(e) {
 	 * additional defaults
 	 */
 	_.extend(data, {
-		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",
 		type : apiCodes.reminder_type_med,
 		reminder_enabled : 1,
 		reminder_expiration_type : 0
 	});
+	//api request
 	$.http.request({
-		method : data.method,
+		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",
 		params : {
 			feature_code : "THXXX",
 			data : [{
@@ -1005,7 +1032,12 @@ function didSuccessReminder(result, passthrough) {
 	 * happens while add
 	 */
 	if (!reminder.id) {
-		reminder.id = result.data.reminder.id;
+		_.extend(reminder, {
+			id : result.data[0].reminders.id,
+			method : "reminders_med_add"
+		});
+	} else {
+		reminder.method = "reminders_med_update";
 	}
 	/**
 	 * extend the source object
