@@ -76,7 +76,7 @@ function focus() {
 			_.some(rows, function(row, index) {
 				if (row.getParams().id == currentReminder.id) {
 					var model = Alloy.Collections.remindersMed.at(index);
-					model.set(_.pick(currentReminder, [""]));
+					model.set(currentReminder);
 					var newRow = processModel(model);
 					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
 					rows[index] = newRow;
@@ -297,26 +297,26 @@ function processModel(model) {
 	    subtitle;
 	if (len > 0) {
 		subtitle = $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-			id : reminderPrescs[0].prescriptionID
+			id : reminderPrescs[0].id
 		}).get("presc_name"));
 		if (len > 1) {
 			//when > 1 and switch case used for defining when it is == 2, ==3 and > 3
 			switch(len) {
 			case 2:
 				subtitle += " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-					id : reminderPrescs[1].prescriptionID
+					id : reminderPrescs[1].id
 				}).get("presc_name"));
 				break;
 			case 3:
 				subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-					id : reminderPrescs[1].prescriptionID
+					id : reminderPrescs[1].id
 				}).get("presc_name")) + " " + $.strings.strAnd + " " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-					id : reminderPrescs[2].prescriptionID
+					id : reminderPrescs[2].id
 				}).get("presc_name"));
 				break;
 			default:
 				subtitle += ", " + $.utilities.ucword(Alloy.Collections.prescriptions.findWhere({
-					id : reminderPrescs[1].prescriptionID
+					id : reminderPrescs[1].id
 				}).get("presc_name")) + " " + $.strings.strAnd + " [" + (len - 2) + "] " + $.strings.strMore;
 			}
 		}
@@ -354,9 +354,8 @@ function didClickSwipeOption(e) {
 					feature_code : "THXXX",
 					data : [{
 						reminders : {
-							dosage : {
-								reminders_id : data.id
-							}
+							id : data.id,
+							type : apiCodes.reminder_type_med
 						}
 					}]
 				},

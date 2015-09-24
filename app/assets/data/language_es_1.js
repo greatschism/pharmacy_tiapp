@@ -45,7 +45,7 @@ module.exports = {
 		"dialogBtnCamera" : "es-Take a photo",
 		"dialogBtnGallery" : "es-Choose from gallery",
 		"dialogBtnIAgree" : "es-I agree",
-		"dialogBtnUpgrade":"es-Update",
+		"dialogBtnUpgrade" : "es-Update",
 
 		"msgLoading" : "es-Processing. Please wait.",
 		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -88,7 +88,7 @@ module.exports = {
 		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"msgRegisterSuccessful" : "es-Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
-		"msgForceUpgradeFound":"es-We've just released a new version of this app with some essential changes. Please update now to continue using it.",
+		"msgForceUpgradeFound" : "es-We've just released a new version of this app with some essential changes. Please update now to continue using it.",
 
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
@@ -427,6 +427,8 @@ module.exports = {
 		"remindersMedSettingsPopupPeriodBtnClose" : "es-Close",
 		"remindersMedSettingsValWeekday" : "es-You must choose at least one week day",
 		"remindersMedSettingsValMonthday" : "es-You must choose at least one month day",
+		"remindersMedSettingsHintNotes" : "es-Notes",
+		"remindersMedSettingsMsgRemoveConfirm" : "es-Are you sure you want to remove this reminder?",
 
 		"remindersSettingsPatientSwitcher" : "es-%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
@@ -733,12 +735,13 @@ module.exports = {
 		"familyMemberAddPrescValRxNo" : "es-Please enter your prescription number.",
 		"familyMemberAddPrescValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
 		"familyMemberAddPrescValStore" : "es-Please select a pharmacy",
-		
-		"emailVerifyLblWelcome":"es-Welcome to %s",
-		"emailVerifyLblEmailVerify":"es-We noticed you haven't confirmed your email address yet. Some features will not work unless your email is verified.",
-		"emailVerifyBtnContinue":"es-Continue",
-		"emailVeirfyAttrIsntMyEmail":"es-<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
-		"emailVeirfyAttrResendEmail":"es-<secondaryfont><secondarycolor>Resend email</secondarycolor></secondaryfont>",
-		"emailVerifyMsgResendEmail":"es-We just sent you a new verification email. Please click the link inside to confirm your email address."
+
+		"emailVerifyLblWelcome" : "es-Welcome to %s",
+		"emailVerifyLblEmailVerify" : "es-We noticed you haven't confirmed your email address yet. Some features will not work unless your email is verified.",
+		"emailVerifyBtnContinue" : "es-Continue",
+		"emailVeirfyAttrIsntMyEmail" : "es-<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
+		"emailVeirfyAttrResendEmail" : "es-<secondaryfont><secondarycolor>Resend email</secondarycolor></secondaryfont>",
+		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address."
+
 	}
 };

@@ -236,7 +236,6 @@ function didClickRemove(e) {
 			message : $.strings.doctorMsgRemoveRestricted
 		});
 	} else {
-		doctor.method = "doctors_delete";
 		$.uihelper.showDialog({
 			message : String.format($.strings.doctorMsgRemoveConfirm, doctor.title),
 			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
@@ -248,7 +247,7 @@ function didClickRemove(e) {
 
 function didConfirmRemove() {
 	$.http.request({
-		method : doctor.method,
+		method : "doctors_delete",
 		params : {
 			feature_code : "THXXX",
 			data : [{
@@ -262,6 +261,12 @@ function didConfirmRemove() {
 }
 
 function didDeleteDoctor(result, passthrough) {
+	/**
+	 * to update list,
+	 * doing this before success may be a issue on failure api calls
+	 */
+	doctor.method = "doctors_delete";
+	//close
 	$.app.navigator.closeToRoot();
 }
 

@@ -981,11 +981,43 @@ function didClickSubmitReminder(e) {
 	 * additional defaults
 	 */
 	_.extend(data, {
+		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",
 		type : apiCodes.reminder_type_med,
 		reminder_enabled : 1,
 		reminder_expiration_type : 0
 	});
-	console.log(data);
+	$.http.request({
+		method : data.method,
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				reminders : data
+			}]
+		},
+		passthrough : data,
+		success : didSuccessReminder
+	});
+}
+
+function didSuccessReminder(result, passthrough) {
+	/**
+	 * add reminder id if not available
+	 * happens while add
+	 */
+	if (!reminder.id) {
+		reminder.id = result.data.reminder.id;
+	}
+	/**
+	 * extend the source object
+	 */
+	_.extend(reminder, passthrough);
+	/**
+	 * while add the flow
+	 * will be from prescription
+	 * so close both, on update
+	 * it will just this controller
+	 */
+	$.app.navigator.close(args.isUpdate ? 1 : 2);
 }
 
 function didClickRemoveReminder(e) {
@@ -994,6 +1026,38 @@ function didClickRemoveReminder(e) {
 		Ti.App.hideKeyboard();
 	}
 	//process remove
+	$.uihelper.showDialog({
+		message : $.strings.remindersMedSettingsMsgRemoveConfirm,
+		buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+		cancelIndex : 1,
+		success : didConfirmRemove
+	});
+}
+
+function didConfirmRemove(e) {
+	$.http.request({
+		method : "reminders_med_delete",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				reminders : {
+					id : reminder.id,
+					type : apiCodes.reminder_type_med
+				}
+			}]
+		},
+		success : didDeleteReminder
+	});
+}
+
+function didDeleteReminder(result, passthrough) {
+	/**
+	 * to update list,
+	 * doing this before success may be a issue on failure api calls
+	 */
+	reminder.method = "reminders_med_delete";
+	//close
+	$.app.navigator.close();
 }
 
 function setParentView(view) {
