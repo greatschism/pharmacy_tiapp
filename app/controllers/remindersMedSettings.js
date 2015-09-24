@@ -189,7 +189,7 @@ function getColorBoxRow(color) {
 
 function getFrequencyRow(frequencyId) {
 	return Alloy.createController("itemTemplates/promptReply", {
-		frequencyId : frequencyId,
+		value : frequencyId,
 		prompt : $.strings.remindersMedSettingsLblRemindFrequency,
 		reply : $.strings["remindersMedSettingsLblFrequency" + frequencyId],
 		promptClasses : promptClasses,
@@ -223,7 +223,6 @@ function getOptionRows(frequencyId, data) {
 		$.dailyPicker.setItems(dailyOptions);
 		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "daily",
 			value : selectedDaily.value,
 			prompt : $.strings.remindersMedSettingsLblRemindTimes,
@@ -269,7 +268,6 @@ function getOptionRows(frequencyId, data) {
 		});
 		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "weekday",
 			value : weekdays,
 			prompt : $.strings.remindersMedSettingsLblRemindOn,
@@ -314,7 +312,6 @@ function getOptionRows(frequencyId, data) {
 		});
 		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "monthday",
 			value : monthdays,
 			prompt : $.strings.remindersMedSettingsLblRemindOn,
@@ -335,7 +332,6 @@ function getOptionRows(frequencyId, data) {
 	case apiCodes.reminder_frequency_onaday:
 		var dayOfYear = reminder.day_of_year || moment().format(apiCodes.dob_format);
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "date",
 			inputFormat : apiCodes.dob_format,
 			outputFormat : "Do MMM",
@@ -368,7 +364,6 @@ function getOptionRows(frequencyId, data) {
 		$.periodPicker.setItems(periodOptions);
 		//row
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "period",
 			value : selectedPeriod.value,
 			prompt : $.strings.remindersMedSettingsLblRemindPeriod,
@@ -398,7 +393,6 @@ function getOptionRows(frequencyId, data) {
 	_.each(startHours, function(time, index) {
 		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"];
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-			frequencyId : frequencyId,
 			pickerType : "time",
 			value : time,
 			prompt : prompt,
@@ -415,7 +409,6 @@ function getOptionRows(frequencyId, data) {
 	 * on the flag
 	 */
 	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
-		frequencyId : frequencyId,
 		pickerType : frequencyObj.reminder_end_date_enabled ? "date" : "ignore",
 		inputFormat : apiCodes.reminder_date_time_format,
 		outputFormat : Alloy.CFG.date_format,
@@ -460,7 +453,7 @@ function focus() {
 		selectedPrescriptions = [];
 	} else if (selectedColor) {
 		//color picker is always on 0th index
-		if (selectedColor.hex != rows[0].getParams().color) {
+		if (selectedColor.hex != rows[0].getParams().value) {
 			updateColorBoxRow(selectedColor.hex);
 		}
 		//nullify
@@ -635,7 +628,8 @@ function didClickFrequencyPicker(e) {
 	 */
 	var frequencyId = e.data.id,
 	    rowIndex = 1,
-	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
+	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView(),
+	    currentOptionsLen = $.optionsSection.rowCount;
 	rows[rowIndex] = getFrequencyRow(frequencyId);
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
 	/**
@@ -653,8 +647,9 @@ function didClickFrequencyPicker(e) {
 	 * should be injected in the middle
 	 * of rows array - right after
 	 * frequency row and before prescription row
+	 * at the same time old rows should be removed
 	 */
-	Array.prototype.splice.apply(rows, [2, 0].concat(newRows));
+	Array.prototype.splice.apply(rows, [2, currentOptionsLen].concat(newRows));
 }
 
 function didClickDailyPicker(e) {
@@ -699,7 +694,7 @@ function didClickDailyPicker(e) {
 		 * else count has been increased,
 		 * so insert rows
 		 */
-		var nStartIndex = index,
+		var nStartIndex = index + 1,
 		    nEndIndex = nStartIndex + (data.value - currentValue),
 		    newRows = [];
 		for (var n = nStartIndex; n < nEndIndex; n++) {
@@ -708,7 +703,6 @@ function didClickDailyPicker(e) {
 				minutes : "00"
 			},
 			    newRow = Alloy.createController("itemTemplates/promptReply", {
-				frequencyId : apiCodes.reminder_frequency_daily,
 				pickerType : "time",
 				value : time,
 				prompt : $.strings.remindersMedSettingsLblRemindAt,
@@ -717,7 +711,7 @@ function didClickDailyPicker(e) {
 				replyClasses : replyClasses,
 				hasChild : true
 			});
-			$.tableView.insertRowAfter(n, newRow.getView());
+			$.tableView.insertRowAfter(nStartIndex, newRow.getView());
 			newRows.push(newRow);
 		}
 		/**
@@ -726,7 +720,7 @@ function didClickDailyPicker(e) {
 		 * of rows array - right after
 		 * frequency row and before prescription row
 		 */
-		Array.prototype.splice.apply(rows, [nStartIndex + 1, 0].concat(newRows));
+		Array.prototype.splice.apply(rows, [nStartIndex + 1, 0].concat(newRows.reverse()));
 	}
 }
 
@@ -879,7 +873,119 @@ function didClickSubmitReminder(e) {
 		Ti.App.hideKeyboard();
 	}
 	//process submit
-
+	var data = _.pick(reminder, ["id"]);
+	/**
+	 * color code
+	 * will always be in 0th index
+	 */
+	data.color_code = rows[0].getParams().color;
+	/**
+	 * frequency
+	 * will always be in 1st index
+	 */
+	data.frequency = rows[1].getParams().value;
+	/**
+	 * process options
+	 * based on frequency
+	 */
+	var optionsStartIndex = 2,
+	    startHoursIndex = 3,
+	    optionsEndIndex = optionsStartIndex + ($.optionsSection.rowCount - 1);
+	switch(data.frequency) {
+	case apiCodes.reminder_frequency_daily:
+		//start hours
+		var startHours = [];
+		/**
+		 * optionsStartIndex will have
+		 * value of how many times on a day
+		 * startHoursIndex - will be start
+		 * index of time which is optionsStartIndex + 1
+		 */
+		for (var d = startHoursIndex; d < optionsEndIndex; d++) {
+			startHours.push(rows[d].getParams().value);
+		}
+		data.reminder_start_hour = startHours;
+		//number of times
+		data.number_of_times = startHours.length;
+		break;
+	case apiCodes.reminder_frequency_weekly:
+		//week days
+		var weekdays = rows[optionsStartIndex].getParams().value,
+		    dayOfWeek = [];
+		_.each(weekdays, function(weekdayObj) {
+			dayOfWeek.push(_.pick(weekdayObj, ["weekday"]));
+		});
+		data.day_of_week = dayOfWeek;
+		//number of times
+		data.number_of_times = dayOfWeek.length;
+		break;
+	case apiCodes.reminder_frequency_monthly:
+		//month days
+		var monthdays = rows[optionsStartIndex].getParams().value,
+		    dayOfMonth = [];
+		_.each(monthdays, function(monthdayObj) {
+			dayOfMonth.push(_.pick(monthdayObj, ["monthday"]));
+		});
+		data.day_of_month = dayOfMonth;
+		//number of times
+		data.number_of_times = dayOfMonth.length;
+		break;
+	case apiCodes.reminder_frequency_onaday:
+		//day of year
+		data.day_of_year = rows[optionsStartIndex].getParams().value;
+		//number of times
+		data.number_of_times = 1;
+		break;
+	case apiCodes.reminder_frequency_period:
+		//period
+		data.period = rows[optionsStartIndex].getParams().value;
+		//number of times
+		data.number_of_times = 1;
+		break;
+	}
+	/**
+	 * passes when
+	 * frequency is anything
+	 * other than daily
+	 */
+	if (data.frequency != apiCodes.reminder_frequency_daily) {
+		/**
+		 * time will always be in 2nd
+		 * index of options section
+		 * for all frequencies other than
+		 * daily
+		 */
+		data.reminder_start_hour = [rows[startHoursIndex].getParams().value];
+	}
+	/**
+	 * reminder end date
+	 * Note: make sure it is end of the date
+	 */
+	var endDateParams = rows[optionsEndIndex].getParams();
+	data.reminder_end_date = moment(endDateParams.value, endDateParams.inputFormat).hours(23).minutes(59).seconds(59).format(endDateParams.inputFormat);
+	/**
+	 * additional message
+	 */
+	data.additional_message = $.notesTxt.getValue();
+	/**
+	 * prescriptions
+	 */
+	var prescriptions = [],
+	    prescStartIndex = optionsEndIndex + 1,
+	    prescEndIndex = prescStartIndex + $.prescSection.rowCount;
+	for (var p = prescStartIndex; p < prescEndIndex; p++) {
+		prescriptions.push(_.pick(rows[p].getParams(), ["id"]));
+	}
+	data.prescriptions = prescriptions;
+	/**
+	 * additional defaults
+	 */
+	_.extend(data, {
+		type : apiCodes.reminder_type_med,
+		reminder_enabled : 1,
+		reminder_expiration_type : 0
+	});
+	console.log(data);
 }
 
 function didClickRemoveReminder(e) {
