@@ -350,7 +350,8 @@ module.exports = {
 		"refillFailureBtnType" : "Type prescription details",
 		"refillFailureBtnPhone" : "Call my pharmacy",
 
-		"colorPickerLblHint" : "Selected color",
+		"colorPickerLblHint" : "Drag and drop the circle below to update the color",
+		"colorPickerLblColor" : "Selected color",
 		"colorPickerBtnSubmit" : "Done",
 
 		"remindersLblRefill" : "Refill Reminders",

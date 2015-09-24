@@ -1,10 +1,14 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<View class="content-view">
+			<Label id="hintLbl" class="content-lbl-wrap" />
+		</View>
+		<View class="h-divider-light" />
 		<Widget id="picker" src="nl.fokkezb.color" onChange="didChange" class="top" />
 		<View class="h-divider-light" />
 		<View class="auto-height">
 			<View class="content-view-with-rcolor-box">
-				<Label id="lbl" class="content-lbl-wrap" />
+				<Label id="colorLbl" class="content-lbl-wrap" />
 			</View>
 			<View id="colorView" class="content-right-color-box" />
 		</View>

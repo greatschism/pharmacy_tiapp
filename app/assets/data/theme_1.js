@@ -242,6 +242,9 @@ module.exports = {
 			".notes" : {
 				"maxLength" : 250
 			},
+			".reminder-notes" : {
+				"maxLength" : 10
+			},
 			".rx" : {
 				"maxLength" : 10
 			},

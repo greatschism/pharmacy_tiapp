@@ -75,7 +75,7 @@ function getParentView() {
 }
 
 function setMaxDate(maxDate) {
-	args.maxDate = _maxDate;
+	args.maxDate = maxDate;
 }
 
 function setMinDate(minDate) {

@@ -110,6 +110,33 @@ function init() {
 		rows.push(row);
 	});
 	/**
+	 * notes section
+	 * Note: using separate
+	 * section for notes
+	 * with no rows and just footer view
+	 * for match the UI,
+	 * placing this in the previous
+	 * section's footer view
+	 * may be affected when updateSection is
+	 * called
+	 */
+	var txtaStyleDict = $.createStyle({
+		classes : ["margin-top", "margin-bottom", "txta", "reminder-notes"]
+	});
+	$.notesTxta = Alloy.createWidget("ti.textarea", "widget", txtaStyleDict);
+	$.footerView = Ti.UI.createView({
+		height : txtaStyleDict.top + txtaStyleDict.bottom + txtaStyleDict.height
+	});
+	if (OS_IOS || Alloy.Globals.isLollipop) {
+		$.footerView.add($.UI.create("View", {
+			classes : ["top", "h-divider-light"]
+		}));
+	}
+	$.footerView.add($.notesTxta.getView());
+	$.notesSection = Ti.UI.createTableViewSection({
+		footerView : $.footerView
+	});
+	/**
 	 * prescriptions section
 	 */
 	var iconDict;
@@ -148,7 +175,7 @@ function init() {
 		rows.push(row);
 	});
 	//set data
-	$.tableView.setData([$.reminderSection, $.optionsSection, $.prescSection]);
+	$.tableView.setData([$.reminderSection, $.optionsSection, $.notesSection, $.prescSection]);
 }
 
 function getColorBoxRow(color) {
@@ -203,9 +230,13 @@ function getOptionRows(frequencyId, data) {
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-		//set a end date if not set already
+		/**
+		 * set a end date if not set already
+		 * Note: calculate end date directly from
+		 * moment object may bring time zone issues
+		 */
 		if (!endDate) {
-			endDate = moment().add(1, "week").format(apiCodes.reminder_date_time_format);
+			endDate = moment(moment().add(1, "week").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
@@ -245,9 +276,13 @@ function getOptionRows(frequencyId, data) {
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-		//set a end date if not set already
+		/**
+		 * set a end date if not set already
+		 * Note: calculate end date directly from
+		 * moment object may bring time zone issues
+		 */
 		if (!endDate) {
-			endDate = moment().add(1, "month").format(apiCodes.reminder_date_time_format);
+			endDate = moment(moment().add(1, "month").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
@@ -286,9 +321,13 @@ function getOptionRows(frequencyId, data) {
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-		//set a end date if not set already
+		/**
+		 * set a end date if not set already
+		 * Note: calculate end date directly from
+		 * moment object may bring time zone issues
+		 */
 		if (!endDate) {
-			endDate = moment().add(1, "year").format(apiCodes.reminder_date_time_format);
+			endDate = moment(moment().add(1, "year").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_onaday:
@@ -296,6 +335,8 @@ function getOptionRows(frequencyId, data) {
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			frequencyId : frequencyId,
 			pickerType : "date",
+			inputFormat : apiCodes.dob_format,
+			outputFormat : "Do MMM",
 			value : dayOfYear,
 			prompt : $.strings.remindersMedSettingsLblRemindOn,
 			reply : moment(dayOfYear, apiCodes.dob_format).format("Do MMM"),
@@ -303,9 +344,13 @@ function getOptionRows(frequencyId, data) {
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-		//set a end date if not set already
+		/**
+		 * set a end date if not set already
+		 * Note: calculate end date directly from
+		 * moment object may bring time zone issues
+		 */
 		if (!endDate) {
-			endDate = moment().add(5, "year").format(apiCodes.reminder_date_time_format);
+			endDate = moment(moment().add(1, "year").toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_period:
@@ -330,9 +375,13 @@ function getOptionRows(frequencyId, data) {
 			replyClasses : replyClasses,
 			hasChild : true
 		}));
-		//set a end date if not set already
+		/**
+		 * set a end date if not set already
+		 * Note: calculate end date directly from
+		 * moment object may bring time zone issues
+		 */
 		if (!endDate) {
-			endDate = moment().format(apiCodes.reminder_date_time_format);
+			endDate = moment(moment().toDate().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
 		}
 		break;
 	}
@@ -365,7 +414,9 @@ function getOptionRows(frequencyId, data) {
 	 */
 	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 		frequencyId : frequencyId,
-		pickerType : "date",
+		pickerType : frequencyObj.reminder_end_date_enabled ? "date" : "ignore",
+		inputFormat : apiCodes.reminder_date_time_format,
+		outputFormat : Alloy.CFG.date_format,
 		value : endDate,
 		prompt : $.strings.remindersMedSettingsLblRemindEnd,
 		reply : moment(endDate, apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format),
@@ -459,6 +510,9 @@ function didClickRemovePresc(e) {
 function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
+	//hide keyboard
+	hideKeyboard();
+	//process row
 	if (row) {
 		var params = rows[index].getParams();
 		if (index === 0) {
@@ -478,14 +532,17 @@ function didClickTableView(e) {
 		} else {
 			var pickerType = params.pickerType;
 			if (pickerType == "date") {
-				showDatePicker(params.value, index);
+				showDatePicker(params.value, params.inputFormat, params.outputFormat, index);
 			} else if (pickerType == "time") {
 				showTimePicker(params.value, index);
 			} else {
 				var picker = $[pickerType.concat("Picker")];
-				//to identify the row after selection
-				picker.rowIndex = index;
-				picker.show();
+				//verify whether picker is valid (might be invalid when disabled)
+				if (picker) {
+					//to identify the row after selection
+					picker.rowIndex = index;
+					picker.show();
+				}
 			}
 		}
 	}
@@ -496,8 +553,8 @@ function didClickClosePicker(e) {
 	    picker = $[pickerId],
 	    index = picker.rowIndex,
 	    currentCtrl = rows[index],
-	    currentRow = currentCtrl.getView(),
-	    currentParams = currentCtrl.getParams();
+	    currentRow = currentCtrl && currentCtrl.getView(),
+	    currentParams = currentCtrl && currentCtrl.getParams();
 	/**
 	 * process the values here for monthly
 	 * rest are radio type
@@ -690,21 +747,15 @@ function didClickPeriodPicker(e) {
 	$.tableView.updateRow( OS_IOS ? index : currentRow, rows[index].getView());
 }
 
-function showDatePicker(value, rowIndex) {
-
-}
-
-function showTimePicker(value, rowIndex) {
-	var date = new Date();
-	date.setHours(hours);
-	date.setMinutes(minutes);
-	dropdownArgs.value = date;
+function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
+	var date = moment(dValue, inputFormat).toDate();
+	dateDropdownArgs.value = date;
 	if (OS_ANDROID) {
 		var dPicker = Ti.UI.createPicker();
-		dPicker.showTimePickerDialog({
-			title : dropdownArgs.title,
-			okButtonTitle : dropdownArgs.rightTitle,
-			value : dropdownArgs.value,
+		dPicker.showDatePickerDialog({
+			title : dateDropdownArgs.title,
+			okButtonTitle : dateDropdownArgs.rightTitle,
+			value : dateDropdownArgs.value,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
@@ -717,15 +768,94 @@ function showTimePicker(value, rowIndex) {
 					 * with moment. formatLong will have the default
 					 * format used in Titanium Android
 					 */
-					updateRemindAtRow(moment(value.toLocaleString(), dropdownArgs.formatLong).toDate());
+					updateRemindOnRow(moment(value.toLocaleString(), dateDropdownArgs.formatLong).toDate(), inputFormat, outputFormat, rowIndex);
 				}
 			}
 		});
 	} else if (OS_IOS) {
-		$.timePicker = Alloy.createWidget("ti.dropdown", "datePicker", dropdownArgs);
-		$.timePicker.on("terminate", didTerminateTimePicker);
+		$.datePicker = Alloy.createWidget("ti.dropdown", "datePicker", dateDropdownArgs);
+		$.datePicker.on("terminate", function didTerminateDatePicker(e) {
+			if ($.datePicker) {
+				$.datePicker.off("terminate", didTerminateDatePicker);
+				if (e.value) {
+					updateRemindOnRow(e.value, inputFormat, outputFormat, rowIndex);
+				}
+				$.datePicker = null;
+			}
+		});
+		$.datePicker.init();
+	}
+}
+
+function updateRemindOnRow(date, inputFormat, outputFormat, rowIndex) {
+	var selectedMoment = moment(date),
+	    currentCtrl = rows[rowIndex],
+	    currentRow = currentCtrl.getView(),
+	    currentParams = currentCtrl.getParams();
+	_.extend(currentParams, {
+		value : selectedMoment.format(inputFormat),
+		reply : selectedMoment.format(outputFormat)
+	});
+	rows[rowIndex] = Alloy.createController("itemTemplates/promptReply", currentParams);
+	$.tableView.updateRow( OS_IOS ? rowIndex : currentRow, rows[rowIndex].getView());
+}
+
+function showTimePicker(time, rowIndex) {
+	var date = new Date();
+	date.setHours(time.hour);
+	date.setMinutes(time.minutes);
+	timeDropdownArgs.value = date;
+	if (OS_ANDROID) {
+		var dPicker = Ti.UI.createPicker();
+		dPicker.showTimePickerDialog({
+			title : timeDropdownArgs.title,
+			okButtonTitle : timeDropdownArgs.rightTitle,
+			value : timeDropdownArgs.value,
+			callback : function(e) {
+				var value = e.value;
+				if (value) {
+					/**
+					 * using toLocaleString() of date
+					 * for formatting date properly
+					 * which helps to avoid time zone
+					 * issues
+					 * Note: don't process the time zone (ZZ)
+					 * with moment. formatLong will have the default
+					 * format used in Titanium Android
+					 */
+					updateRemindAtRow(moment(value.toLocaleString(), timeDropdownArgs.formatLong).toDate(), rowIndex);
+				}
+			}
+		});
+	} else if (OS_IOS) {
+		$.timePicker = Alloy.createWidget("ti.dropdown", "datePicker", timeDropdownArgs);
+		$.timePicker.on("terminate", function didTerminateTimePicker(e) {
+			if ($.timePicker) {
+				$.timePicker.off("terminate", didTerminateTimePicker);
+				if (e.value) {
+					updateRemindAtRow(e.value, rowIndex);
+				}
+				$.timePicker = null;
+			}
+		});
 		$.timePicker.init();
 	}
+}
+
+function updateRemindAtRow(value, rowIndex) {
+	var selectedMoment = moment(value),
+	    currentCtrl = rows[rowIndex],
+	    currentRow = currentCtrl.getView(),
+	    currentParams = currentCtrl.getParams();
+	_.extend(currentParams, {
+		value : {
+			hour : selectedMoment.format("HH"),
+			minutes : selectedMoment.format("mm")
+		},
+		reply : selectedMoment.format(Alloy.CFG.time_format)
+	});
+	rows[rowIndex] = Alloy.createController("itemTemplates/promptReply", currentParams);
+	$.tableView.updateRow( OS_IOS ? rowIndex : currentRow, rows[rowIndex].getView());
 }
 
 function updateColorBoxRow(color) {
@@ -739,22 +869,36 @@ function updateColorBoxRow(color) {
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
 }
 
-function didClickSubmitReminder(e) {
+function hideKeyboard() {
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
+}
 
+function didClickSubmitReminder(e) {
+	//hide keyboard
+	hideKeyboard();
+	//process submit
 }
 
 function didClickRemoveReminder(e) {
-
+	//hide keyboard
+	hideKeyboard();
+	//process remove
 }
 
 function setParentView(view) {
 	dateDropdownArgs = $.createStyle({
 		classes : ["dropdown", "date"]
 	});
+	_.extend(dateDropdownArgs, {
+		minDate : new Date(),
+		parent : view
+	});
 	timeDropdownArgs = $.createStyle({
 		classes : ["dropdown", "time"]
 	});
-	dropdownArgs.parent = view;
+	timeDropdownArgs.parent = view;
 }
 
 function hideAllPopups(e) {
@@ -787,4 +931,5 @@ function hideAllPopups(e) {
 
 exports.init = init;
 exports.focus = focus;
+exports.setParentView = setParentView;
 exports.backButtonHandler = hideAllPopups;
