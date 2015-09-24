@@ -740,8 +740,8 @@ module.exports = {
 		"emailVerifyLblWelcome" : "Welcome to %s",
 		"emailVerifyLblEmailVerify" : "We noticed you haven't confirmed your email address yet. Some features will not work unless your email is verified.",
 		"emailVerifyBtnContinue" : "Continue",
-		"emailVeirfyAttrIsntMyEmail" : "<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
-		"emailVeirfyAttrResendEmail" : "<secondaryfont><secondarycolor>Resend email</secondarycolor></secondaryfont>",
+		"emailVeirfyBtnIsntMyEmail" : "This isn't my email address.",
+		"emailVeirfyBtnResendEmail" : "Resend email",
 		"emailVerifyMsgResendEmail" : "We just sent you a new verification email. Please click the link inside to confirm your email address."
 
 	}

@@ -4,10 +4,10 @@
 "#btnContinue":{
 	title:Alloy.Globals.strings.emailVerifyBtnContinue
 },
-"#attrIsntMyEmail":{
-	html:Alloy.Globals.strings.emailVeirfyAttrIsntMyEmail
+"#btnIsntMyEmail":{
+	title:Alloy.Globals.strings.emailVeirfyBtnIsntMyEmail
 },
-"#attrResendEmail":{
-	html:Alloy.Globals.strings.emailVeirfyAttrResendEmail
+"#btnResendEmail":{
+	title:Alloy.Globals.strings.emailVeirfyBtnResendEmail
 }
 

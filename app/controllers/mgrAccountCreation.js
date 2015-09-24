@@ -124,6 +124,11 @@ function didFail() {
 	$.app.navigator.open({
 		titleid : "titleMgrAccountExists",
 		ctrl : "mgrAccountExists",
+		ctrlArguments : {
+			username : $.emailTxt.getValue(),
+			password : $.passwordTxt.getValue(),
+			is_adult_partial : true
+		},
 		stack : true
 	});
 }
