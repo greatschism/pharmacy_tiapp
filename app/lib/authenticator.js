@@ -518,6 +518,11 @@ function updatePreferences(params, passthrough) {
 	}).pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "email_msg_active", "text_msg_active", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
 	//extend updated values
 	_.extend(preferences, params);
+	/**
+	 * authenticate is already
+	 * done, so don't let update
+	 * preference fail
+	 */
 	http.request({
 		method : "patient_preferences_update",
 		params : {
@@ -529,8 +534,8 @@ function updatePreferences(params, passthrough) {
 			success : passthrough.success
 		},
 		keepLoader : true,
-		success : didUpdatePreferences,
-		failure : passthrough.failure
+		forceRetry : true,
+		success : didUpdatePreferences
 	});
 }
 
@@ -559,7 +564,12 @@ function didUpdatePreferences(result, passthrough) {
 function setDefaultDevice(passthrough) {
 	notificationHandler.init(function didReady(deviceToken) {
 		if (deviceToken) {
-			//if valid update it
+			/**
+			 * if valid update it
+			 * authenticate is already
+			 * done, so don't let update
+			 * default device fail
+			 */
 			http.request({
 				method : "patient_default_device",
 				params : {
@@ -572,8 +582,8 @@ function setDefaultDevice(passthrough) {
 						}
 					}]
 				},
-				success : passthrough.success,
-				failure : passthrough.failure
+				forceRetry : true,
+				success : passthrough.success
 			});
 		} else {
 			//remember loader is still visible
