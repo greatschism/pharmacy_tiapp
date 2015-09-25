@@ -78,6 +78,8 @@ function init(passthrough) {
 }
 
 function didFail(error, passthrough) {
+	//reset authentication data
+	resetAuthenticationData();
 	/**
 	 * hide loader is called here
 	 * as keepLoader is set true here
@@ -85,14 +87,7 @@ function didFail(error, passthrough) {
 	 * with failure callback
 	 */
 	app.navigator.hideLoader();
-	/**
-	 * keep silent as there will not be any patient switcher
-	 * before successful authenticate
-	 */
-	Alloy.Collections.patients.reset([], {
-		silent : true
-	});
-	delete Alloy.Globals.sessionId;
+	//fire failure if any
 	if (passthrough.failure) {
 		passthrough.failure();
 	} else if (app.navigator.currentController.ctrlPath != "login") {
@@ -331,8 +326,6 @@ function didGetPreferences(result, passthrough) {
 	} else {
 		//delete the property added - currentPatientIndex
 		delete passthrough.currentPatientIndex;
-		//hide loader
-		app.navigator.hideLoader();
 		/**
 		 * variable used
 		 * with XML - if
@@ -406,6 +399,8 @@ function didGetPreferences(result, passthrough) {
 		 * we need explicit property
 		 */
 		if (passthrough.explicit) {
+			//hide loader
+			app.navigator.hideLoader();
 			//trigger reset for patient switcher
 			Alloy.Collections.patients.trigger("reset");
 			/**
@@ -417,95 +412,173 @@ function didGetPreferences(result, passthrough) {
 			}
 		} else {
 			/**
-			 * now isLoggedIn flag can be set
-			 * as there is no way to go back without logout
-			 * api now
+			 * update device token
 			 */
-			Alloy.Globals.isLoggedIn = true;
-			/**
-			 * update default sort preferences
-			 */
-			appendFlag(Alloy.Models.sortOrderPreferences.get("code_values"), mPatient.get("pref_prescription_sort_order"));
-			/**
-			 * set prefered time zone
-			 * before that store the user
-			 * device time to validate whether
-			 * there is a mismatch
-			 */
-			var dateObj = new Date(Alloy.CFG.default_date),
-			    dFormat = Alloy.CFG.date_time_format,
-			    dDate = moment(dateObj).format(dFormat),
-			    currentTZ;
-			setTimeZone(mPatient.get("pref_timezone"), true);
-			/**
-			 * add logout menu item
-			 */
-			Alloy.Collections.menuItems.add({
-				titleid : "titleLogout",
-				action : "logout",
-				icon : "logout"
-			});
-			/**
-			 * finally set
-			 * device token
-			 * before success
-			 */
-			var verifyDeviceToken = function() {
-				setDefaultDevice(passthrough);
-			};
-			/**
-			 * check if user is on different time zone
-			 * then one he had chosen
-			 */
-			if (Alloy.CFG.time_zone_check_enabled && dDate != moment(dateObj).format(dFormat)) {
-				/**
-				 * momentjs or any other library
-				 * doesn't give a proper way
-				 * to detect user's time zone name
-				 * so compare current time with
-				 * all supported time zones
-				 */
-				_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
-					if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
-						currentTZ = code.code_value;
-						return true;
-					}
-					return false;
-				});
-				if (currentTZ) {
-					/**
-					 * user is on a different time zone
-					 * that we support
-					 */
-					uihelper.showDialog({
-						title : Alloy.Globals.strings.dialogTitleTimeZone,
-						message : Alloy.Globals.strings.msgTimeZoneUpdate,
-						buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
-						cancelIndex : 1,
-						success : function didConfirm() {
-							updatePreferences({
-								pref_timezone : currentTZ
-							}, passthrough);
-						},
-						cancel : verifyDeviceToken
-					});
-				} else {
-					/**
-					 * user is on a time zone
-					 * that we don't support
-					 */
-					uihelper.showDialog({
-						title : Alloy.Globals.strings.dialogTitleTimeZone,
-						message : Alloy.Globals.strings.msgTimeZoneInvalid,
-						buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-						cancelIndex : 0,
-						cancel : verifyDeviceToken
-					});
-				}
-			} else {
-				verifyDeviceToken();
-			}
+			setDefaultDevice(passthrough);
 		}
+	}
+}
+
+function setDefaultDevice(passthrough) {
+	notificationHandler.init(function didReady(deviceToken) {
+		if (deviceToken) {
+			/**
+			 * if valid update it
+			 * authenticate is already
+			 * done, so don't let update
+			 * default device fail
+			 */
+			http.request({
+				method : "patient_default_device",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						device : {
+							deviceType : Ti.Platform.osname,
+							deviceId : deviceToken
+						}
+					}]
+				},
+				passthrough : passthrough,
+				success : didSetDefaultDevice,
+				failure : didFail
+			});
+		} else {
+			//hide loader
+			app.navigator.hideLoader();
+			//failure case
+			didNotSetDefaultDevice(passthrough);
+		}
+	});
+}
+
+function getUpdatedReminderDeliveryModes(mode) {
+	var mPatient = Alloy.Collections.patients.at(0),
+	    preferences = {};
+	_.each(["doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"], function(val) {
+		if (mPatient.get(val) === Alloy.CFG.reminder_delivery_mode_push_invalid) {
+			preferences[val] = mode;
+		}
+	});
+	return preferences;
+}
+
+function didSetDefaultDevice(result, passthrough) {
+	/**
+	 * check whether any of the reminder mode
+	 * is invalid to the current platform,
+	 * if then update it to valid one, as set
+	 * default device is success
+	 */
+	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.reminder_delivery_mode_push);
+	initiateTimeZoneCheck(passthrough);
+}
+
+function didNotSetDefaultDevice(passthrough) {
+	/**
+	 * check whether any of the reminder mode
+	 * is invalid to the current platform,
+	 * if then update it to none, as set
+	 * default device is failed
+	 */
+	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.reminder_delivery_mode_none);
+	initiateTimeZoneCheck(passthrough);
+}
+
+function initiateTimeZoneCheck(passthrough) {
+	/**
+	 * manager account
+	 */
+	var mPatient = Alloy.Collections.patients.at(0);
+	/**
+	 * update default sort preferences
+	 */
+	appendFlag(Alloy.Models.sortOrderPreferences.get("code_values"), mPatient.get("pref_prescription_sort_order"));
+	/**
+	 * set prefered time zone
+	 * before that store the user
+	 * device time to validate whether
+	 * there is a mismatch
+	 */
+	var dateObj = new Date(Alloy.CFG.default_date),
+	    dFormat = Alloy.CFG.date_time_format,
+	    dDate = moment(dateObj).format(dFormat),
+	    currentTZ;
+	setTimeZone(mPatient.get("pref_timezone"), true);
+	/**
+	 * callback
+	 */
+	var shouldUpdatePreferences = function(newPref) {
+		var extPref = passthrough.preferences;
+		if (_.isObject(newPref)) {
+			_.extend(extPref, newPref);
+		}
+		if (_.isEmpty(extPref)) {
+			//no need for any preferences update
+			verifyUserIdentify(passthrough);
+		} else {
+			/**
+			 * let update preferences method know
+			 * this is not a external call
+			 * so it will pickup the right failure
+			 * callback
+			 */
+			passthrough.explicit = false;
+			//update preferences
+			updatePreferences(extPref, passthrough);
+		}
+	};
+	/**
+	 * check if user is on different time zone
+	 * then one he had chosen
+	 */
+	if (Alloy.CFG.time_zone_check_enabled && dDate != moment(dateObj).format(dFormat)) {
+		/**
+		 * momentjs or any other library
+		 * doesn't give a proper way
+		 * to detect user's time zone name
+		 * so compare current time with
+		 * all supported time zones
+		 */
+		_.some(Alloy.Models.timeZone.get("code_values"), function(code) {
+			if (dDate === moment(dateObj).tz(code.code_value).format(dFormat)) {
+				currentTZ = code.code_value;
+				return true;
+			}
+			return false;
+		});
+		if (currentTZ) {
+			/**
+			 * user is on a different time zone
+			 * that we support
+			 */
+			uihelper.showDialog({
+				title : Alloy.Globals.strings.dialogTitleTimeZone,
+				message : Alloy.Globals.strings.msgTimeZoneUpdate,
+				buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : function didConfirm() {
+					shouldUpdatePreferences({
+						pref_timezone : currentTZ
+					});
+				},
+				cancel : shouldUpdatePreferences
+			});
+		} else {
+			/**
+			 * user is on a time zone
+			 * that we don't support
+			 */
+			uihelper.showDialog({
+				title : Alloy.Globals.strings.dialogTitleTimeZone,
+				message : Alloy.Globals.strings.msgTimeZoneInvalid,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				cancelIndex : 0,
+				cancel : shouldUpdatePreferences
+			});
+		}
+	} else {
+		shouldUpdatePreferences();
 	}
 }
 
@@ -533,9 +606,8 @@ function updatePreferences(params, passthrough) {
 			params : params,
 			success : passthrough.success
 		},
-		keepLoader : true,
-		forceRetry : true,
-		success : didUpdatePreferences
+		success : didUpdatePreferences,
+		failure : passthrough.explicit !== false ? passthrough.failure : didFail
 	});
 }
 
@@ -557,43 +629,40 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
-	//set default device
-	setDefaultDevice(passthrough);
+	//complete authentication
+	verifyUserIdentify(passthrough);
 }
 
-function setDefaultDevice(passthrough) {
-	notificationHandler.init(function didReady(deviceToken) {
-		if (deviceToken) {
-			/**
-			 * if valid update it
-			 * authenticate is already
-			 * done, so don't let update
-			 * default device fail
-			 */
-			http.request({
-				method : "patient_default_device",
-				params : {
-					feature_code : "THXXX",
-					data : [{
-						device : {
-							deviceType : Ti.Platform.osname,
-							deviceId : deviceToken,
-							saveToggle : "0"
-						}
-					}]
-				},
-				forceRetry : true,
-				success : passthrough.success
-			});
-		} else {
-			//remember loader is still visible
-			app.navigator.hideLoader();
-			//if invalid (may be user declined), fire success
-			if (passthrough.success) {
-				passthrough.success();
-			}
-		}
+function verifyUserIdentify(passthrough) {
+	/**
+	 * check for any
+	 * email / phone
+	 * verification dialogs
+	 * @author: Kavitha
+	 */
+	//at last call this
+	completeAuthentication(passthrough);
+}
+
+function completeAuthentication(passthrough) {
+	/**
+	 * now isLoggedIn flag can be set
+	 * as there is no way to go back without logout
+	 * api now
+	 */
+	Alloy.Globals.isLoggedIn = true;
+	/**
+	 * add logout menu item
+	 */
+	Alloy.Collections.menuItems.add({
+		titleid : "titleLogout",
+		action : "logout",
+		icon : "logout"
 	});
+	//fire success if any
+	if (passthrough.success) {
+		passthrough.success();
+	}
 }
 
 /**
@@ -651,8 +720,6 @@ function didLogout(result, passthrough) {
 	} else {
 		//delete the property added - currentPatientIndex
 		delete passthrough.currentPatientIndex;
-		//hide loader
-		app.navigator.hideLoader();
 		/**
 		 * on explicit log out /
 		 * session timeout
@@ -663,39 +730,10 @@ function didLogout(result, passthrough) {
 		if (passthrough.explicit !== false) {
 			utilities.setProperty(Alloy.CFG.lastest_logout_explicit, true, "bool", false);
 		}
-		/**
-		 * reset to device time zone
-		 */
-		setTimeZone(null);
-		/**
-		 * reset global variables
-		 */
-		_.each(["sessionId", "isLoggedIn", "hasProxies", "hasParentProxies", "hasChildProxies", "hasPatientSwitcher"], function(value) {
-			delete Alloy.Globals[value];
-		});
-		/**
-		 * reset collections and models
-		 */
-		var igoreKeys = ["menuItems", "banners", "appload", "template"];
-		_.each(Alloy.Collections, function(coll, key) {
-			if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
-				/**
-				 * keep it silent to prevent updated events now
-				 * any way all views are going to be destroyed after logout
-				 */
-				coll.reset([], {
-					silent : true
-				});
-			}
-		});
-		_.each(Alloy.Models, function(model, key) {
-			if (_.isFunction(model.clear) && _.indexOf(igoreKeys, key) === -1) {
-				model.clear();
-			}
-		});
-		Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
-			action : "logout"
-		}));
+		//reset authenticate data
+		resetAuthenticationData();
+		//hide loader
+		app.navigator.hideLoader();
 		/**
 		 * success callback
 		 * if any
@@ -723,6 +761,42 @@ function didLogout(result, passthrough) {
 			}
 		}
 	}
+}
+
+function resetAuthenticationData() {
+	/**
+	 * reset to device time zone
+	 */
+	setTimeZone(null);
+	/**
+	 * reset global variables
+	 */
+	_.each(["sessionId", "isLoggedIn", "hasProxies", "hasParentProxies", "hasChildProxies", "hasPatientSwitcher"], function(value) {
+		delete Alloy.Globals[value];
+	});
+	/**
+	 * reset collections and models
+	 */
+	var igoreKeys = ["menuItems", "banners", "appload", "template"];
+	_.each(Alloy.Collections, function(coll, key) {
+		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
+			/**
+			 * keep it silent to prevent updated events now
+			 * any way all views are going to be destroyed after logout
+			 */
+			coll.reset([], {
+				silent : true
+			});
+		}
+	});
+	_.each(Alloy.Models, function(model, key) {
+		if (_.isFunction(model.clear) && _.indexOf(igoreKeys, key) === -1) {
+			model.clear();
+		}
+	});
+	Alloy.Collections.menuItems.remove(Alloy.Collections.menuItems.findWhere({
+		action : "logout"
+	}));
 }
 
 function getData() {

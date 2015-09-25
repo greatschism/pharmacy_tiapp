@@ -258,7 +258,7 @@ function getOptionRows(frequencyId, data) {
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
-		var weekdays = data.day_of_week || [{
+		var weekdays = data.day_of_week && data.day_of_week.length ? data.day_of_week : [{
 			weekday : moment().format("ddd").toLowerCase()
 		}],
 		    wCount = weekdays.length - 1,
@@ -303,7 +303,7 @@ function getOptionRows(frequencyId, data) {
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
-		var monthdays = data.day_of_month || [{
+		var monthdays = data.day_of_month && data.day_of_month.length ? data.day_of_month : [{
 			monthday : moment().date().toString()
 		}],
 		    mCount = monthdays.length - 1,

@@ -1885,7 +1885,6 @@ module.exports = {
 				"layout" : "vertical"
 			},
 			".content-left-color-box" : {
-				"top" : 12,
 				"left" : 12,
 				"width" : 24,
 				"height" : 24,

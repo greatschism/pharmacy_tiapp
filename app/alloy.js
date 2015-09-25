@@ -9,6 +9,14 @@
 		require(module);
 	});
 
+	//CFG
+	/**
+	 * use different key based on the platform
+	 * when reminder mode is push
+	 */
+	Alloy.CFG.reminder_delivery_mode_push = Alloy.CFG["reminder_delivery_mode_push_".concat( OS_IOS ? "ios" : "android")];
+	Alloy.CFG.reminder_delivery_mode_push_invalid = Alloy.CFG["reminder_delivery_mode_push_".concat( OS_ANDROID ? "ios" : "android")];
+
 	//variables
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
