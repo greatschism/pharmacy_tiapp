@@ -3,7 +3,6 @@ var args = arguments[0] || {},
     authenticator = require("authenticator"),
     rxContainerViewFromTop = 0,
     store = {};
-
 function init() {
 	$.uihelper.getImage("child_add", $.addPrescImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
@@ -21,17 +20,10 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	if (mgrData.get("first_name")) {
-		$.fnameTxt.setValue(mgrData.get("first_name"));
-	}
-	if (mgrData.get("last_name")) {
-		$.lnameTxt.setValue(mgrData.get("last_name"));
-	}
-
-	if (mgrData.get("birth_date")) {
-		var dob = moment(mgrData.get("birth_date"), Alloy.CFG.apiCodes.dob_format).toDate();
-		$.dobDp.setValue(dob);
-	}
+		$.fnameTxt.setValue(args.first_name);
+		$.lnameTxt.setValue(args.last_name);
+		var dob = moment(args.birth_date, Alloy.CFG.apiCodes.dob_format);
+		$.dobDp.setValue(dob);	
 }
 
 function moveToNext(e) {

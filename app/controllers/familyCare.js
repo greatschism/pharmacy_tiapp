@@ -397,10 +397,11 @@ function didRemoveChild(result, passthrough) {
 function addPrescriptions() {
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
-	}
+	}	
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
+		ctrlArguments : accntMgrData.pick(["first_name", "last_name", "birth_date"]),
 		stack : false
 	});
 }
