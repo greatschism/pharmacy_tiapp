@@ -5,7 +5,7 @@
 	 *  to prevent empty objects being returned
 	 *  this is recommended
 	 */
-	_.each(["alloy/moment", "alloy/moment", "alloy/moment-timezone", "alloy/underscore", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "requestwrapper", "authenticator", "apm", "analytics", "barcode", "navigationHandler", "notificationHandler", "refillScan", "refillValidator"], function(module) {
+	_.each(["alloy/moment", "alloy/moment", "alloy/moment-timezone", "alloy/underscore", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "requestwrapper", "authenticator", "apm", "analytics", "barcode", "navigationHandler", "notificationHandler", "rx", "refillScan"], function(module) {
 		require(module);
 	});
 

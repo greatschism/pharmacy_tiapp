@@ -2,7 +2,8 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
     rxContainerViewFromTop = 0,
-    authenticator = require("authenticator");
+    authenticator = require("authenticator"),
+    rx = require("rx");
 
 function init() {
 	if (args.dob) {
@@ -22,7 +23,7 @@ function focus() {
 }
 
 function didChangeRx(e) {
-	var value = $.utilities.formatRx(e.value),
+	var value = rx.format(e.value),
 	    len = value.length;
 	$.rxNoTxt.setValue(value);
 	$.rxNoTxt.setSelection(len, len);
@@ -90,7 +91,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (!$.utilities.validateRx(rxNo)) {
+	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
 			message : $.strings.childAddValRxNoInvalid
 		});

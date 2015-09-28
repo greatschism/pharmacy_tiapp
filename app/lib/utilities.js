@@ -387,24 +387,6 @@ var Utility = {
 	},
 
 	/**
-	 * Adds brackets and hyphens to the rx number
-	 * @param {Srting} str The rx number
-	 */
-	formatRx : function(str) {
-		if (!_.isString(str)) {
-			str += "";
-		}
-		/**
-		 *  reg exp configurable from theme
-		 *  as it depends on client
-		 */
-		_.each(Alloy.CFG.rx_formatters, function(formatter) {
-			str = str.replace(formatter.exp, formatter.value);
-		});
-		return str.slice(0, Alloy.CFG.rx_length);
-	},
-
-	/**
 	 * Adds brackets and hyphens to the phone number (U.S.A)
 	 * @param {Srting} str The phone number
 	 */
@@ -413,19 +395,6 @@ var Utility = {
 			str += "";
 		}
 		return str.replace(/\D/g, "").replace(/^(\d\d\d)(\d)/g, "($1) $2").replace(/(\d{3})(\d)/, "$1-$2").slice(0, 14);
-	},
-
-	/**
-	 * Check whether given string is valid rx number
-	 * @param {String} str
-	 * returns {String|Boolean}
-	 */
-	validateRx : function(str) {
-		/**
-		 *  reg exp configurable from theme
-		 *  as it depends on client
-		 */
-		return Alloy.CFG.rx_validator.test(str) ? str.replace(/\D+/g, "") : false;
 	},
 
 	/**
@@ -480,15 +449,6 @@ var Utility = {
 	 */
 	validatePhoneNumber : function(str) {
 		return /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(str) ? str.replace(/\D+/g, "") : false;
-	},
-
-	/**
-	 * Check whether given rx number is a schedule to drug
-	 * @param {String} str
-	 * returns {Boolean}
-	 */
-	isRxSchedule2 : function(str) {
-		return Alloy.CFG.rx_schedule_2_validator.test(str);
 	},
 
 	/**

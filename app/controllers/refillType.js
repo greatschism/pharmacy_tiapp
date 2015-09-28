@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconText = $.createStyle({
@@ -112,7 +113,7 @@ function didClickRefill(e) {
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
-			value = $.utilities.validateRx(value);
+			value = rx.validate(value);
 			if (value) {
 				validRxs.push({
 					rx_number : value,

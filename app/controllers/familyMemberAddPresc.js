@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    rx = require("rx"),
     rxContainerViewFromTop = 0,
     store = {};
 function init() {
@@ -20,10 +21,10 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-		$.fnameTxt.setValue(args.first_name);
-		$.lnameTxt.setValue(args.last_name);
-		var dob = moment(args.birth_date, Alloy.CFG.apiCodes.dob_format);
-		$.dobDp.setValue(dob);	
+	$.fnameTxt.setValue(args.first_name);
+	$.lnameTxt.setValue(args.last_name);
+	var dob = moment(args.birth_date, Alloy.CFG.apiCodes.dob_format);
+	$.dobDp.setValue(dob);
 }
 
 function moveToNext(e) {
@@ -50,7 +51,7 @@ function setParentView(view) {
 }
 
 function didChangeRx(e) {
-	var value = $.utilities.formatRx(e.value),
+	var value = rx.format(e.value),
 	    len = value.length;
 	$.rxNoTxt.setValue(value);
 	$.rxNoTxt.setSelection(len, len);
@@ -99,7 +100,7 @@ function addPrescriptions() {
 		});
 		return;
 	}
-	if (!$.utilities.validateRx(rxNo)) {
+	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddPrescValRxNoInvalid
 		});

@@ -1,11 +1,11 @@
 var args = arguments[0] || {},
-    utilities = require("utilities");
+    rx = require("rx");
 
 //reload tss of this controller in memory
 require("config").updateTSS($.__controllerPath);
 
 function didChange(e) {
-	var value = utilities.formatRx(e.value),
+	var value = rx.format(e.value),
 	    len = value.length;
 	$.txt.setValue(value);
 	$.txt.setSelection(len, len);

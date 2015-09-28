@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
+    rx = require("rx"),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
     passwordContainerViewFromTop = 0,
@@ -11,7 +12,7 @@ var args = arguments[0] || {},
 function init() {
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
-	
+
 	if (args.fname) {
 		$.fnameTxt.setValue(args.fname);
 	}
@@ -25,7 +26,7 @@ function init() {
 }
 
 function didChangeRx(e) {
-	var value = utilities.formatRx(e.value),
+	var value = rx.format(e.value),
 	    len = value.length;
 	$.rxNoTxt.setValue(value);
 	$.rxNoTxt.setSelection(len, len);
@@ -71,7 +72,7 @@ function didFocusPassword(e) {
 	$.passwordTooltip.show();
 }
 
-function didFocusRx(e){
+function didFocusRx(e) {
 	if (_.has($.rxTooltip, "size")) {
 		$.rxTooltip.applyProperties({
 			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
@@ -81,11 +82,11 @@ function didFocusRx(e){
 	$.rxTooltip.show();
 }
 
-function didBlurFocusPassword(){
+function didBlurFocusPassword() {
 	$.passwordTooltip.hide();
 }
 
-function didBlurFocusRx(){
+function didBlurFocusRx() {
 	$.rxTooltip.hide();
 }
 
@@ -171,7 +172,7 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-		if (!email){
+		if (!email) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValEmail
 			});
@@ -195,13 +196,13 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-		if(!rxNo){
+		if (!rxNo) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValRxNo
 			});
 			return;
 		}
-		if (!$.utilities.validateRx(rxNo)) {
+		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValRxInvalid
 			});
@@ -216,19 +217,19 @@ function didClickSignup(e) {
 		/**
 		 * If the user is <18, stop him from registration. He shall contact the support for assistance
 		 */
-		if (moment().diff(dob, "years", true) < 18) { 
+		if (moment().diff(dob, "years", true) < 18) {
 			uihelper.showDialog({
 				message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
 			});
 			return;
 		}
 	}
-	
+
 	var userCredentials = {
-		email : email, 
+		email : email,
 		password : password
 	};
-	
+
 	$.http.request({
 		method : "patient_register",
 		params : {
@@ -252,7 +253,7 @@ function didClickSignup(e) {
 					home_phone : "",
 					mobile : "",
 					email_address : email,
-					rx_number : rxNo.substring(0,7), /*todo - pick only 1st 7 digits for mck */
+					rx_number : rxNo.substring(0, 7), /*todo - pick only 1st 7 digits for mck */
 					store_id : store.id,
 					user_type : "FULL",
 					optional : [{
@@ -275,12 +276,12 @@ function didRegister(result, passthrough) {
 	/**
 	 * Set property to display HIPAA during first login flow
 	 */
-	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);	
-	
+	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
+
 	$.uihelper.showDialog({
 		message : result.message,
 		buttonNames : [$.strings.dialogBtnOK],
-		success : function(){
+		success : function() {
 			$.app.navigator.open({
 				titleid : "titleLogin",
 				ctrl : "login",

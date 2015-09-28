@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
-    refillValidator = require("refillValidator"),
+    rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     headerBtnDict,
     detailBtnClasses,
@@ -633,7 +633,7 @@ function didClickSwipeOption(e) {
 		 * through this app
 		 */
 		var prescription = e.data;
-		refillValidator.validate(prescription, function didValidate() {
+		rx.canRefill(prescription, function didValidate() {
 			$.app.navigator.open({
 				titleid : "titleOrderDetails",
 				ctrl : "orderDetails",
@@ -727,7 +727,7 @@ function didClickTableView(e) {
 			if (prescription.selected || args.preventRefillValidation) {
 				toggleSelection();
 			} else {
-				refillValidator.validate(prescription, toggleSelection);
+				rx.canRefill(prescription, toggleSelection);
 			}
 			return false;
 		} else {
