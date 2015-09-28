@@ -5,7 +5,7 @@
 		<Label id="lblDidNotVerifyEmail" class="lbl-wrap margin-bottom"/>
 		<Label id="lblEmail" class="subtitle-centered margin-bottom margin-top"/>
 		<Button id="btnContinue" class="primary-btn margin-bottom margin-top" onClick="didClickContinue"/>
-		<Button id="btnIsntMyEmail"  class="tertiary-btn margin-bottom" onClick="didClickIsntMyEmail"/>
-		<Button id="btnResendEmail" class="tertiary-btn" onClick="didClickResendEmail"/>
+		<Button id="btnResendEmail" class="secondary-btn margin-bottom" onClick="didClickResendEmail"/>
+		<Widget id="btnIsntMyEmail" src="ti.styledlabel" class="attributed margin-bottom" onClick="didClickIsntMyEmail"/>		
 	</View>
 </Alloy>

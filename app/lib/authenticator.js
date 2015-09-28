@@ -640,6 +640,22 @@ function verifyUserIdentify(passthrough) {
 	 * verification dialogs
 	 * @author: Kavitha
 	 */
+	/**
+	 * To check if the user has verified the email address
+	 * or not after 24 hours or 2nd login (which ever is longer).
+	 *
+	 */
+	var currentPatient = Alloy.Collections.patients.at(0);
+	var userCreatedTime = moment(currentPatient.get("created_at")).format(Alloy.CFG.apiCodes.date_time_format);
+	var currentLoggedInTime = moment().format(Alloy.CFG.apiCodes.date_time_format);
+	if (moment(currentLoggedInTime, Alloy.CFG.apiCodes.date_time_format).diff(moment(userCreatedTime, Alloy.CFG.apiCodes.date_time_format), "days") >= 1 && currentPatient.get("is_email_verified") !== "1") {
+		passthrough.navigation = {
+			ctrl : "emailVerify",
+			ctrlArguments : {
+				email : currentPatient.get("email_address")
+			}
+		};
+	}
 	//at last call this
 	completeAuthentication(passthrough);
 }

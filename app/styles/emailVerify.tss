@@ -5,9 +5,9 @@
 	title:Alloy.Globals.strings.emailVerifyBtnContinue
 },
 "#btnIsntMyEmail":{
-	title:Alloy.Globals.strings.emailVeirfyBtnIsntMyEmail
+	html:Alloy.Globals.strings.emailVerifyBtnIsntMyEmail
 },
 "#btnResendEmail":{
-	title:Alloy.Globals.strings.emailVeirfyBtnResendEmail
+	title:Alloy.Globals.strings.emailVerifyBtnResendEmail
 }
 

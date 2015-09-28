@@ -82,12 +82,10 @@ function didClickLogin(e) {
 function didAuthenticate() {
 	/**
 	 * To check if the user has verified the email address
-	 * or not after 24 hours or 2nd login.
+	 * or not after 24 hours or 2nd login (which ever is longer).
 	 *
 	 */
-	var currentPatient = Alloy.Collections.patients.findWhere({
-		selected : true
-	});
+	var currentPatient = Alloy.Collections.patients.at(0);
 	var userCreatedTime = moment(currentPatient.get("created_at")).format(apiCodes.date_time_format);
 	var currentLoggedInTime = moment().format(apiCodes.date_time_format);
 	/**
