@@ -390,13 +390,15 @@ function getOptionRows(frequencyId, data) {
 			hasChild : true
 		}));
 		/**
-		 * set a end date if not set already
+		 * always set a end date, override
+		 * if already set, periodic reminders
+		 * are valid for only this particular day
+		 * so this will allow user to restart
+		 * the reminder for today
 		 * Note: calculate end date directly from
 		 * moment object may bring time zone issues
 		 */
-		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.ymd_date_time_format);
-		}
+		endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.ymd_date_time_format);
 		break;
 	}
 	/**
@@ -518,13 +520,21 @@ function didClickRemovePresc(e) {
 	}
 }
 
+function hideKeyboard() {
+	/**
+	 * Note: keyboardVisible may not return
+	 * right value always on android
+	 */
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
+}
+
 function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
-	//hide keyboard
-	if (Ti.App.keyboardVisible) {
-		return Ti.App.hideKeyboard();
-	}
+	//hide keyboard if any
+	hideKeyboard();
 	//process row
 	if (row) {
 		var params = rows[index].getParams();
@@ -886,10 +896,8 @@ function updateColorBoxRow(color) {
 }
 
 function didClickSubmitReminder(e) {
-	//hide keyboard
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
-	}
+	//hide keyboard if any
+	hideKeyboard();
 	//process submit
 	var data = _.pick(reminder, ["id"]);
 	/**
@@ -1065,10 +1073,8 @@ function didSuccessReminder(result, passthrough) {
 }
 
 function didClickRemoveReminder(e) {
-	//hide keyboard
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
-	}
+	//hide keyboard if any
+	hideKeyboard();
 	//process remove
 	$.uihelper.showDialog({
 		message : $.strings.remindersMedSettingsMsgRemoveConfirm,
