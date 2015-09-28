@@ -45,8 +45,8 @@ $.convert = require(WPATH('convert'));
  * @property {String} color.bw  Either `white` or `black` depending on contrast.
  */
 Object.defineProperty($, 'color', {
-  get: getColor,
-  set: setColor
+	get : getColor,
+	set : setColor
 });
 
 /**
@@ -77,7 +77,10 @@ $.applyProperties = applyProperties;
  */
 
 // private vars
-var spectrum, rect, unit, color;
+var spectrum,
+    rect,
+    unit,
+    color;
 
 /**
  * Constructor for the widget.
@@ -90,15 +93,15 @@ var spectrum, rect, unit, color;
  */
 (function constuctor(args) {
 
-  if (args.children) {
-    _.each(args.children, function(child) {
-      $.image.add(child);
-    });
-  }
+	if (args.children) {
+		_.each(args.children, function(child) {
+			$.widget.add(child);
+		});
+	}
 
-  args.spectrum = args.spectrum || 'ghsv';
+	args.spectrum = args.spectrum || 'ghsv';
 
-  applyProperties(args);
+	applyProperties(args);
 
 })(arguments[0] || {});
 
@@ -111,197 +114,200 @@ var spectrum, rect, unit, color;
  */
 function applyProperties(prop) {
 
-  if (prop.spectrum) {
-    spectrum = _.isObject(prop.spectrum) ? prop.spectrum : require(WPATH(prop.spectrum));
+	if (prop.spectrum) {
+		spectrum = _.isObject(prop.spectrum) ? prop.spectrum : require(WPATH(prop.spectrum));
 
-    var image = spectrum.image;
+		var image = spectrum.image;
 
-    if (image.substr(0, 1) !== '/') {
-      image = WPATH(image);
-    }
+		if (image.substr(0, 1) !== '/') {
+			image = WPATH(image);
+		}
 
-    prop.backgroundImage = image;
-  }
+		$.image.image = image;
+	}
 
-  var apply = _.omit(prop, 'id', '__parentSymbol', '__itemTemplate', '$model', 'children', 'color', 'spectrum');
+	var apply = _.omit(prop, 'id', '__parentSymbol', '__itemTemplate', '$model', 'children', 'color', 'spectrum');
 
-  if (_.size(apply) > 0) {
-    $.image.applyProperties(apply);
-  }
+	if (_.size(apply) > 0) {
+		$.widget.applyProperties(apply);
+	}
 
-  if (prop.color) {
-    setColor(prop.color);
+	if (prop.color) {
+		setColor(prop.color);
 
-  } else if (prop.spectrum) {
-    setCircle();
-  }
+	} else if (prop.spectrum) {
+		setCircle();
+	}
 }
 
 function setColor(clr) {
-  parseColor(clr);
+	parseColor(clr);
 
-  setCircle();
+	setCircle();
 }
 
 function getColor() {
-  return color;
+	return color;
 }
 
-function onPostlayout(e) { // jshint unused:false
+function onPostlayout(e) {// jshint unused:false
 
-  $.image.removeEventListener('postlayout', onPostlayout);
+	$.widget.removeEventListener('postlayout', onPostlayout);
 
-  rect = $.image.rect;
+	rect = $.widget.rect;
 
-  setCircle();
+	setCircle();
 }
 
 function onColorChange(e) {
-  var x = e.x,
-    y = e.y;
+	var x = e.x,
+	    y = e.y;
 
-  // Android doesn't return these in system unit, but always in px
-  if (OS_ANDROID) {
+	// Android doesn't return these in system unit, but always in px
+	if (OS_ANDROID) {
 
-    var def = getDefaultUnit();
+		var def = getDefaultUnit();
 
-    if (def !== Ti.UI.UNIT_PX) {
-      x = Ti.UI.convertUnits(x.toString() + 'px', def);
-      y = Ti.UI.convertUnits(y.toString() + 'px', def);
-    }
-  }
+		if (def !== Ti.UI.UNIT_PX) {
+			x = Ti.UI.convertUnits(x.toString() + 'px', def);
+			y = Ti.UI.convertUnits(y.toString() + 'px', def);
+		}
+	}
 
-  x = Math.max(0, Math.min(rect.width, x));
-  y = Math.max(0, Math.min(rect.height, y));
+	x = Math.max(0, Math.min(rect.width, x));
+	y = Math.max(0, Math.min(rect.height, y));
 
-  // convert px to pc
-  var pc = {
-    x: (x / rect.width) * 100,
-    y: (y / rect.height) * 100
-  };
+	// convert px to pc
+	var pc = {
+		x : (x / rect.width) * 100,
+		y : (y / rect.height) * 100
+	};
 
-  // convert pc to hsv
-  var hsv = spectrum.pc2hsv(pc);
+	// convert pc to hsv
+	var hsv = spectrum.pc2hsv(pc);
 
-  // convert to other spectrums
-  var rgb = $.convert.hsv2rgb(hsv);
-  var hex = $.convert.rgb2hex(rgb);
-  var bw = $.convert.hsv2bw(hsv);
+	// convert to other spectrums
+	var rgb = $.convert.hsv2rgb(hsv);
+	var hex = $.convert.rgb2hex(rgb);
+	var bw = $.convert.hsv2bw(hsv);
 
-  // save as current color 
-  color = {
-    hsv: hsv,
-    rgb: rgb,
-    hex: hex,
-    bw: bw
-  };
+	// save as current color
+	color = {
+		hsv : hsv,
+		rgb : rgb,
+		hex : hex,
+		bw : bw
+	};
 
-  // position circle
-  $.circle.applyProperties({
-    center: {
-      x: x,
-      y: y
-    },
-    borderColor: bw
-  });
+	// position circle
+	$.circle.applyProperties({
+		center : {
+			x : x,
+			y : y
+		},
+		borderColor : bw
+	});
 
-  $.circle.show();
+	$.circle.show();
 
-  // broadcast change
-  $.trigger('change', color);
+	// broadcast change
+	$.trigger('change', color);
 }
 
 function parseColor(clr) {
-  var hsv, rgb, hex, bw;
+	var hsv,
+	    rgb,
+	    hex,
+	    bw;
 
-  if (_.isObject(clr)) {
+	if (_.isObject(clr)) {
 
-    if (clr.h) {
-      hsv = clr;
-      rgb = $.convert.hsv2rgb(hsv);
-      hex = $.convert.rgb2hex(rgb);
+		if (clr.h) {
+			hsv = clr;
+			rgb = $.convert.hsv2rgb(hsv);
+			hex = $.convert.rgb2hex(rgb);
 
-    } else if (clr.r) {
-      rgb = clr;
-      hex = $.convert.rgb2hex(rgb);
-      hsv = $.convert.rgb2hsv(rgb);
+		} else if (clr.r) {
+			rgb = clr;
+			hex = $.convert.rgb2hex(rgb);
+			hsv = $.convert.rgb2hsv(rgb);
 
-    } else {
-      color = clr;
+		} else {
+			color = clr;
 
-      return;
-    }
+			return;
+		}
 
-  } else if (_.isString(clr)) {
-    hex = clr;
-    rgb = $.convert.hex2rgb(hex);
+	} else if (_.isString(clr)) {
+		hex = clr;
+		rgb = $.convert.hex2rgb(hex);
 
-    if (!rgb) {
-      return;
-    }
+		if (!rgb) {
+			return;
+		}
 
-    hsv = $.convert.rgb2hsv(rgb);
+		hsv = $.convert.rgb2hsv(rgb);
 
-  } else {
-    return;
-  }
+	} else {
+		return;
+	}
 
-  bw = $.convert.hsv2bw(hsv);
+	bw = $.convert.hsv2bw(hsv);
 
-  color = {
-    hsv: hsv,
-    rgb: rgb,
-    hex: hex,
-    bw: bw
-  };
+	color = {
+		hsv : hsv,
+		rgb : rgb,
+		hex : hex,
+		bw : bw
+	};
 }
 
 function setCircle() {
 
-  if (rect && color) {
+	if (rect && color) {
 
-    // convert hsv to pc
-    var pc = spectrum.hsv2pc(color.hsv);
+		// convert hsv to pc
+		var pc = spectrum.hsv2pc(color.hsv);
 
-    // convert pc to px
-    var px = {
-      x: rect.width * (pc.x / 100),
-      y: rect.height * (pc.y / 100)
-    };
+		// convert pc to px
+		var px = {
+			x : rect.width * (pc.x / 100),
+			y : rect.height * (pc.y / 100)
+		};
 
-    $.circle.applyProperties({
-      center: px,
-      borderColor: color.bw
-    });
+		$.circle.applyProperties({
+			center : px,
+			borderColor : color.bw
+		});
 
-    $.circle.show();
+		$.circle.show();
 
-  } else {
-    $.circle.hide();
-  }
+	} else {
+		$.circle.hide();
+	}
 }
 
 function getDefaultUnit() {
 
-  if (!unit) {
+	if (!unit) {
 
-    var defaultUnit = Ti.App.Properties.getString('ti.ui.defaultunit');
+		var defaultUnit = Ti.App.Properties.getString('ti.ui.defaultunit');
 
-    var units = {
-      'dp': Ti.UI.UNIT_DIP,
-      'dip': Ti.UI.UNIT_DIP,
-      'in': Ti.UI.UNIT_IN,
-      'cm': Ti.UI.UNIT_CM,
-      'mm': Ti.UI.UNIT_MM,
-      'px': Ti.UI.UNIT_PX
-    };
+		var units = {
+			'dp' : Ti.UI.UNIT_DIP,
+			'dip' : Ti.UI.UNIT_DIP,
+			'in' : Ti.UI.UNIT_IN,
+			'cm' : Ti.UI.UNIT_CM,
+			'mm' : Ti.UI.UNIT_MM,
+			'px' : Ti.UI.UNIT_PX
+		};
 
-    if (!units[defaultUnit]) {
-      throw 'Unknown ti.ui.defaultunit: ' + defaultUnit;
-    }
+		if (!units[defaultUnit]) {
+			throw 'Unknown ti.ui.defaultunit: ' + defaultUnit;
+		}
 
-    unit = units[defaultUnit];
-  }
+		unit = units[defaultUnit];
+	}
 
-  return unit;
+	return unit;
 }
