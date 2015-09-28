@@ -254,7 +254,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "week").format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "week").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
@@ -299,7 +299,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "month").format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "month").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
@@ -343,7 +343,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_onaday:
@@ -365,7 +365,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_period:
@@ -395,7 +395,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.reminder_date_time_format);
+			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	}
@@ -423,11 +423,11 @@ function getOptionRows(frequencyId, data) {
 	 */
 	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 		pickerType : frequencyObj.reminder_end_date_enabled ? "date" : "ignore",
-		inputFormat : apiCodes.reminder_date_time_format,
+		inputFormat : apiCodes.ymd_date_time_format,
 		outputFormat : Alloy.CFG.date_format,
 		value : endDate,
 		prompt : $.strings.remindersMedSettingsLblRemindEnd,
-		reply : moment(endDate, apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format),
+		reply : moment(endDate, apiCodes.ymd_date_time_format).format(Alloy.CFG.date_format),
 		promptClasses : promptClasses,
 		replyClasses : replyClasses,
 		hasChild : frequencyObj.reminder_end_date_enabled

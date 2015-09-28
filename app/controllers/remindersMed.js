@@ -282,7 +282,7 @@ function processModel(model) {
 			interval /= 60;
 			formattedInterval = interval + " " + $.strings[interval > 1 ? "strHours" : "strHour"];
 		}
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("reminder_end_date"), apiCodes.reminder_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("reminder_end_date"), apiCodes.ymd_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
 	}
 	/* Description format

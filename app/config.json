@@ -64,7 +64,7 @@
             "date_format": "MM-DD-YYYY",
             "date_time_format": "MM-DD-YYYY hh:mm A",
             "dob_format": "YYYY-MM-DD",
-            "reminder_date_time_format": "YYYY-MM-DD HH:mm:ss",
+            "ymd_date_time_format": "YYYY-MM-DD HH:mm:ss",
             "reminder_delivery_mode_push_ios": "iospush",
             "reminder_delivery_mode_push_android": "androidpush",
             "reminder_delivery_mode_push": "push",
