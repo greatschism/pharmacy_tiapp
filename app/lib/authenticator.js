@@ -672,10 +672,9 @@ function completeAuthentication(passthrough) {
 		passthrough.success();
 	}
 }
-
 function isEmailVerified() {
 	/**
-	 * Verify email adress
+	 * Verify email address
 	 * if user has not verified it within 24rs
 	 * after registration taking him to email verification
 	 * screen upon every login

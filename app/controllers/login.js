@@ -81,13 +81,12 @@ function didClickLogin(e) {
 
 function didAuthenticate() {
 	/**
-	 * To check if the user has verified the email address
-	 * or not after 24 hours or 2nd login (which ever is longer).
-	 *
+	 * Verify email address
+	 * if user has not verified it within 24rs
+	 * after registration taking him to email verification
+	 * screen upon every login
 	 */
-	var currentPatient = Alloy.Collections.patients.at(0);
-	var userCreatedTime = moment(currentPatient.get("created_at")).format(apiCodes.date_time_format);
-	var currentLoggedInTime = moment().format(apiCodes.date_time_format);
+	var mPatient = Alloy.Collections.patients.at(0);
 	/**
 	 * First time login flow takes the uesr to HIPAA screen
 	 */
@@ -114,11 +113,11 @@ function didAuthenticate() {
 			stack : true
 		});
 	} 
-	else if (moment(currentLoggedInTime, apiCodes.date_time_format).diff(moment(userCreatedTime, apiCodes.date_time_format), "days") >= 1 && currentPatient.get("is_email_verified")!=="1") {
+	else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
-				email : currentPatient.get("email_address")
+				email : mPatient.get("email_address")
 			},
 			stack : false
 		});
