@@ -399,6 +399,8 @@ function didGetPreferences(result, passthrough) {
 		 * we need explicit property
 		 */
 		if (passthrough.explicit) {
+			//unset flag
+			delete passthrough.explicit;
 			//hide loader
 			app.navigator.hideLoader();
 			//trigger reset for patient switcher
@@ -515,7 +517,7 @@ function initiateTimeZoneCheck(passthrough) {
 		}
 		if (_.isEmpty(extPref)) {
 			//no need for any preferences update
-			verifyUserIdentify(passthrough);
+			completeAuthentication(passthrough);
 		} else {
 			/**
 			 * let update preferences method know
@@ -629,29 +631,22 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
-	//complete authentication
-	verifyUserIdentify(passthrough);
-}
-
-function verifyUserIdentify(passthrough) {
 	/**
-	 * To check if the user has verified the email address
-	 * or not after 24 hours or 2nd login (which ever is longer).
-	 *
+	 * when explicit is false
+	 * then this is a internal request
+	 * within authenticator
 	 */
-	var currentPatient = Alloy.Collections.patients.at(0);
-	var userCreatedTime = moment(currentPatient.get("created_at")).format(Alloy.CFG.apiCodes.date_time_format);
-	var currentLoggedInTime = moment().format(Alloy.CFG.apiCodes.date_time_format);
-	if (moment(currentLoggedInTime, Alloy.CFG.apiCodes.date_time_format).diff(moment(userCreatedTime, Alloy.CFG.apiCodes.date_time_format), "days") >= 1 && currentPatient.get("is_email_verified") !== "1") {
-		passthrough.navigation = {
-			ctrl : "emailVerify",
-			ctrlArguments : {
-				email : currentPatient.get("email_address")
-			}
-		};
+	if (passthrough.explicit !== false) {
+		//explict callback
+		if (passthrough.success) {
+			passthrough.success();
+		}
+	} else {
+		//unset flag
+		delete passthrough.explicit;
+		//complete authentication
+		completeAuthentication(passthrough);
 	}
-	//at last call this
-	completeAuthentication(passthrough);
 }
 
 function completeAuthentication(passthrough) {
@@ -669,10 +664,33 @@ function completeAuthentication(passthrough) {
 		action : "logout",
 		icon : "logout"
 	});
-	//fire success if any
-	if (passthrough.success) {
+	/**
+	 * if email verification is already
+	 * done then fire success if any
+	 */
+	if (isEmailVerified() && passthrough.success) {
 		passthrough.success();
 	}
+}
+
+function isEmailVerified() {
+	/**
+	 * Verify email adress
+	 * if user has not verified it within 24rs
+	 * after registration taking him to email verification
+	 * screen upon every login
+	 */
+	var mPatient = Alloy.Collections.patients.at(0);
+	if (mPatient.get("is_email_verified") !== "1" && moment().diff(moment(mPatient.get("created_at"), Alloy.CFG.apiCodes.date_time_format), "days", true) > 1) {
+		app.navigator.open({
+			ctrl : "emailVerify",
+			ctrlArguments : {
+				email : mPatient.get("email_address")
+			}
+		});
+		return false;
+	}
+	return true;
 }
 
 /**
