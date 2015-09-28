@@ -635,12 +635,6 @@ function didUpdatePreferences(result, passthrough) {
 
 function verifyUserIdentify(passthrough) {
 	/**
-	 * check for any
-	 * email / phone
-	 * verification dialogs
-	 * @author: Kavitha
-	 */
-	/**
 	 * To check if the user has verified the email address
 	 * or not after 24 hours or 2nd login (which ever is longer).
 	 *
