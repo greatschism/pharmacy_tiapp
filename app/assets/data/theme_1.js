@@ -67,7 +67,7 @@ module.exports = {
 				"enabled" : true
 			}, {
 				"id" : "promotional",
-				"col_pref" : "promotion_deals_reminder_dlvry_mode",
+				"col_pref" : "promotion_deals_reminder_mode",
 				"enabled" : true
 			}],
 			"remind_before_in_days_min" : 1,

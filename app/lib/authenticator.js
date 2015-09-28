@@ -458,7 +458,7 @@ function getUpdatedReminderDeliveryModes(mode) {
 	var mPatient = Alloy.Collections.patients.at(0),
 	    preferences = {};
 	_.each(["doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"], function(val) {
-		if (mPatient.get(val) === Alloy.CFG.reminder_delivery_mode_push_invalid) {
+		if (mPatient.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
 			preferences[val] = mode;
 		}
 	});
@@ -472,7 +472,7 @@ function didSetDefaultDevice(result, passthrough) {
 	 * if then update it to valid one, as set
 	 * default device is success
 	 */
-	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.reminder_delivery_mode_push);
+	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.apiCodes.reminder_delivery_mode_push);
 	initiateTimeZoneCheck(passthrough);
 }
 
@@ -483,7 +483,7 @@ function didNotSetDefaultDevice(passthrough) {
 	 * if then update it to none, as set
 	 * default device is failed
 	 */
-	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.reminder_delivery_mode_none);
+	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.apiCodes.reminder_delivery_mode_none);
 	initiateTimeZoneCheck(passthrough);
 }
 
