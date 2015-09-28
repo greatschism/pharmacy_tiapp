@@ -593,21 +593,16 @@ function updatePreferences(params, passthrough) {
 	}).pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "email_msg_active", "text_msg_active", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
 	//extend updated values
 	_.extend(preferences, params);
-	/**
-	 * authenticate is already
-	 * done, so don't let update
-	 * preference fail
-	 */
+	//extend passthrough for params
+	passthrough.params = params;
+	//api call
 	http.request({
 		method : "patient_preferences_update",
 		params : {
 			feature_code : "THXXX",
 			data : [preferences]
 		},
-		passthrough : {
-			params : params,
-			success : passthrough.success
-		},
+		passthrough : passthrough,
 		success : didUpdatePreferences,
 		failure : passthrough.explicit !== false ? passthrough.failure : didFail
 	});
@@ -631,6 +626,8 @@ function didUpdatePreferences(result, passthrough) {
 		setTimeZone(params.pref_timezone, true);
 	}
 	sModel.set(params);
+	//unset params
+	delete passthrough.params;
 	/**
 	 * when explicit is false
 	 * then this is a internal request
@@ -672,9 +669,10 @@ function completeAuthentication(passthrough) {
 		passthrough.success();
 	}
 }
+
 function isEmailVerified() {
 	/**
-	 * Verify email address
+	 * Verify email adress
 	 * if user has not verified it within 24rs
 	 * after registration taking him to email verification
 	 * screen upon every login
