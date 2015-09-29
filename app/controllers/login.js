@@ -36,15 +36,14 @@ function didChangeToggle(e) {
 	$.passwordTxt.setPasswordMask(!e.value);
 }
 
-/*
- function didChangeAutoLogin(e) {
- if (Alloy.CFG.auto_login_dialog_enabled && e.value) {
- $.uihelper.showDialog({
- message : $.strings.msgAutoLogin
- });
- }
- }
- */
+function didChangeAutoLogin(e) {
+	if (Alloy.CFG.auto_login_dialog_enabled && e.value) {
+		$.uihelper.showDialog({
+			message : $.strings.msgAutoLogin
+		});
+	}
+}
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
@@ -112,8 +111,7 @@ function didAuthenticate() {
 			},
 			stack : true
 		});
-	} 
-	else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+	} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
