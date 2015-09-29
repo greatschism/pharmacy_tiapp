@@ -484,11 +484,12 @@ function didClickAddPresc(e) {
 			filters : {
 				id : _.pluck(prescriptions, "id")
 			},
+			reminderId : reminder.id,
 			isMedReminder : true,
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
 			showHiddenPrescriptions : true,
-			preventRefillValidation : true,
+			validator : "medReminder",
 			selectable : true,
 			useCache : true
 		},

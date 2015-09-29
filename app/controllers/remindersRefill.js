@@ -350,7 +350,7 @@ function didClickTableView(e) {
 			ctrlArguments : {
 				patientSwitcherDisabled : true,
 				showHiddenPrescriptions : true,
-				preventRefillValidation : true,
+				validator : "none",
 				selectable : true,
 				minLength : 1,
 				useCache : true,

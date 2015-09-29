@@ -86,6 +86,7 @@ module.exports = {
 		"msgPrescriptionSchedule2" : "Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
 		"msgPrescriptionRefillLeftNone" : "This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionExpired" : "This prescription has expired. We will need to contact your doctor to authorize this refill.",
+		"msgPrescriptionMedReminderExists" : "You have already created a reminder that includes this prescription. Are you sure you want to select it for this reminder too?",
 		"msgRegisterSuccessful" : "Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
 		"msgForceUpgradeFound" : "We've just released a new version of this app with some essential changes. Please update now to continue using it.",

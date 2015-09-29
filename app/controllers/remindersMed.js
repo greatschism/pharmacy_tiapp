@@ -435,7 +435,7 @@ function didClickAdd(e) {
 			showMedReminderTooltip : firstLaunchReminders,
 			patientSwitcherDisabled : true,
 			showHiddenPrescriptions : true,
-			preventRefillValidation : true,
+			validator : "medReminder",
 			selectable : true,
 			minLength : 1,
 			useCache : true

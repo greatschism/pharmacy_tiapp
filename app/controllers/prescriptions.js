@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
+    validator = args.validator,
     headerBtnDict,
     detailBtnClasses,
     swipeOptions,
@@ -173,10 +174,10 @@ function didGetPrescriptions(result, passthrough) {
 	Alloy.Collections.prescriptions.reset(result.data.prescriptions);
 	/**
 	 * check whether to show hidden prescriptions too
-	 * no error dialog when active prescriptions are already there
+	 * error dialog from api end will not be shown
 	 */
 	if (args.showHiddenPrescriptions) {
-		getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions, false, Alloy.Collections.prescriptions.length === 0);
+		getPrescriptions(apiCodes.prescription_display_status_hidden, didGetHiddenPrescriptions, false, false);
 	} else {
 		prepareList();
 	}
@@ -711,22 +712,29 @@ function didClickTableView(e) {
 				$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
 			};
 			/**
-			 * args.preventRefillValidation
-			 * a boolean flag that would say
-			 * whether or not to validate
-			 * against refill during selection
-			 *
-			 * check whether this
-			 * prescription can be refilled
-			 * ie: Schedule 2 can't be refilled
-			 * through this app
+			 * validator
+			 * will say which validation
+			 * has to be done upon selection
 			 *
 			 * should be validate only if prescription.selected is false
 			 * when it is selected by user, not when unselected
 			 */
-			if (prescription.selected || args.preventRefillValidation) {
+			if (prescription.selected || validator === "none") {
+				/**
+				 * no validator
+				 */
 				toggleSelection();
+			} else if (validator === "medReminder") {
+				/**
+				 * used for medication reminders
+				 */
+				rx.medReminderExists(args.reminderId, prescription, toggleSelection);
 			} else {
+				/**
+				 * considered as default
+				 * validator, to prevent any validation
+				 * validator should be "none"
+				 */
 				rx.canRefill(prescription, toggleSelection);
 			}
 			return false;

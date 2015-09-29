@@ -71,7 +71,38 @@ function canRefill(prescription, success, cancel) {
 	}
 }
 
+/**
+ *
+ * @param {Number} reminderId
+ * @param {Object} prescription
+ * @param {Function} success
+ * @param {Function} cancel
+ *
+ * While setting up multiple reminders for
+ * same prescription a alert should be thrown
+ */
+function medReminderExists(reminderId, prescription, success, cancel) {
+	var exists = false,
+	    prescId = prescription.id;
+	Alloy.Collections.remindersMed.some(function(model) {
+		exists = model.get("id") != reminderId && _.indexOf(_.pluck(model.get("prescriptions"), "id"), prescId) != -1;
+		return exists;
+	});
+	if (exists) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.msgPrescriptionMedReminderExists,
+			buttonNames : [Alloy.Globals.strings.dialogBtnContinue, Alloy.Globals.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : success,
+			cancel : cancel
+		});
+	} else if (success) {
+		success();
+	}
+}
+
 exports.format = format;
 exports.validate = validate;
 exports.isSchedule2 = isSchedule2;
 exports.canRefill = canRefill;
+exports.medReminderExists = medReminderExists;
