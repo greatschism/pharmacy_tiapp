@@ -147,7 +147,8 @@ function didClickEmailAddress(e) {
 		titleid : "titleChangeEmail",
 		ctrl : "email",
 		ctrlArguments : {
-			email : currentPatient.get("email_address")
+			email : currentPatient.get("email_address"),
+			emailVerification: false
 		},
 		stack : true
 	});

@@ -2,7 +2,6 @@ var args = arguments[0] || {},
     app = require("core"),
     authenticator = require("authenticator");
 
-
 function init() {
 	$.emailTxt.setValue(args.email || $.strings.strNotAvailable);
 	var len = $.emailTxt.getValue().length;
@@ -41,19 +40,35 @@ function didClickDone() {
 }
 
 function didUpdateEmail() {
-	authenticator.updatePreferences({"email_address":$.emailTxt.getValue()}, {
+	authenticator.updatePreferences({
+		"email_address" : $.emailTxt.getValue()
+	}, {
 		success : handleClose
 	});
 }
 
-function handleClose(){
-	$.uihelper.showDialog({
-		message : $.strings.msgAccountEmailVerification,
-		buttonNames : [$.strings.dialogBtnOK],
-		success : function() {
-			app.navigator.close();
-		}
-	});
+function handleClose() {
+	if (args.emailVerification) {
+		$.uihelper.showDialog({
+			message : $.strings.msgAccountEmailVerification,
+			buttonNames : [$.strings.dialogBtnOK],
+			success : function() {
+				$.app.navigator.open({
+					titleid : "titleHome",
+					ctrl : "home",
+					stack : false
+				});
+			}
+		});
+	} else {
+		$.uihelper.showDialog({
+			message : $.strings.msgAccountEmailVerification,
+			buttonNames : [$.strings.dialogBtnOK],
+			success : function() {
+				app.navigator.close();
+			}
+		});
+	}
 }
 
 exports.init = init;

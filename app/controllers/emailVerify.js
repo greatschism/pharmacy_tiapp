@@ -14,7 +14,8 @@ function didClickIsntMyEmail() {
 		titleid : "titleChangeEmail",
 		ctrl : "email",
 		ctrlArguments : {
-			email : args.email
+			email : args.email,
+			emailVerification: true
 		},
 		stack : true
 	});
