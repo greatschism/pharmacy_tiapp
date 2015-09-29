@@ -81,7 +81,7 @@ function canRefill(prescription, success, cancel) {
  * While setting up multiple reminders for
  * same prescription a alert should be thrown
  */
-function medReminderExists(reminderId, prescription, success, cancel) {
+function hasMedReminder(reminderId, prescription, success, cancel) {
 	var exists = false,
 	    prescId = prescription.id;
 	Alloy.Collections.remindersMed.some(function(model) {
@@ -90,7 +90,7 @@ function medReminderExists(reminderId, prescription, success, cancel) {
 	});
 	if (exists) {
 		uihelper.showDialog({
-			message : Alloy.Globals.strings.msgPrescriptionMedReminderExists,
+			message : Alloy.Globals.strings.msgPrescriptionHasMedReminder,
 			buttonNames : [Alloy.Globals.strings.dialogBtnContinue, Alloy.Globals.strings.dialogBtnCancel],
 			cancelIndex : 1,
 			success : success,
@@ -103,6 +103,5 @@ function medReminderExists(reminderId, prescription, success, cancel) {
 
 exports.format = format;
 exports.validate = validate;
-exports.isSchedule2 = isSchedule2;
 exports.canRefill = canRefill;
-exports.medReminderExists = medReminderExists;
+exports.hasMedReminder = hasMedReminder;

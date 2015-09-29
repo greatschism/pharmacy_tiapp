@@ -728,7 +728,7 @@ function didClickTableView(e) {
 				/**
 				 * used for medication reminders
 				 */
-				rx.medReminderExists(args.reminderId, prescription, toggleSelection);
+				rx.hasMedReminder(args.reminderId, prescription, toggleSelection);
 			} else {
 				/**
 				 * considered as default
