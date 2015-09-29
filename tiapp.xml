@@ -84,8 +84,8 @@
     </manifest>
   </android>
   <modules>
-    <module platform="iphone" version="1.1.1">com.appcelerator.apm</module>
-    <module platform="android" version="1.1.1">com.appcelerator.apm</module>
+    <module platform="iphone" version="1.1.5">com.appcelerator.apm</module>
+    <module platform="android" version="1.1.5">com.appcelerator.apm</module>
     <module platform="iphone" version="2.4.1">ti.map</module>
     <module platform="android" version="2.3.3">ti.map</module>
     <module platform="android" version="1.0">ti.push</module>
