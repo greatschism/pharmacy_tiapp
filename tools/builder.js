@@ -30,10 +30,10 @@ var log4js = require("log4js"),
     APP_MARKETPLACE_ICON = ROOT_DIR + "MarketplaceArtwork.png",
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
-    CLIENT_JSON = ROOT_DIR + "config/client.json",
-    CLIENT_CONFIG_DIR = ROOT_DIR + "config/",
-    BASE_CONFIG_JSON = CLIENT_CONFIG_DIR + "base_config.json",
-    BASE_TIAPP_XML = CLIENT_CONFIG_DIR + "base_tiapp.xml",
+    TOOLS_DIR = ROOT_DIR + "tools/",
+    CLIENT_JSON = TOOLS_DIR + "client.json",
+    BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
+    BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
     CLEINT_RESOURCE_BASE_DIR,
     CLEINT_KEYS_BASE_DIR,
     CLIENT_ENV_JSON,
@@ -80,7 +80,7 @@ var client = _u.findWhere(JSON.parse(fs.readFileSync(CLIENT_JSON, "utf-8")), {
 if (client) {
 
 	//update client resource path
-	CLEINT_RESOURCE_BASE_DIR = CLIENT_CONFIG_DIR + client.client_identifier + "/";
+	CLEINT_RESOURCE_BASE_DIR = TOOLS_DIR + client.client_identifier + "/";
 	CLEINT_KEYS_BASE_DIR = CLEINT_RESOURCE_BASE_DIR + "keys/";
 	CLIENT_ENV_JSON = CLEINT_RESOURCE_BASE_DIR + "env.json";
 	CLIENT_BASE_THEME = CLEINT_RESOURCE_BASE_DIR + "base_theme.js";
