@@ -10,7 +10,7 @@ module.exports = {
 			"navigator" : "drawer",
 			"left_drawer_width" : 270,
 			"banner_default_width" : 1920,
-			"banner_default_height" : 480,
+			"banner_default_height" : 960,
 			"geo_search_length_min" : 4,
 			"mail_order_store_pickup_enabled" : false,
 			"store_map_radius_min" : 15,
