@@ -21,7 +21,7 @@
     <plist>
       <dict>
         <key>NSLocationWhenInUseUsageDescription</key>
-        <string>NS_LOCATION_WHEN_IN_USEUSAGE_DESCRIPTION</string>
+        <string>PLIST_NS_LOCATION_WHEN_IN_USEUSAGE</string>
       </dict>
       <dict>
         <key>UISupportedInterfaceOrientations~iphone</key>
