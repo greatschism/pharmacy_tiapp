@@ -256,7 +256,7 @@ module.exports = {
 			},
 			"Window" : {
 				"barColor" : "#09467E",
-				"statusBarColor" : "#CC7312",
+				"statusBarColor" : "#08355e",
 				"titleAttributes" : {
 					"font" : {
 						"fontFamily" : "medium",
