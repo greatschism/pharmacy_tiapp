@@ -475,7 +475,7 @@ if (program.buildOnly) {
 		appcParams.push(buildKeys.certificate_name);
 
 		//provisioning profile
-		var XCODE_PROVISON_PROFILE = process.env.HOME + "/Library/MobileDevice/Provisioning Profiles/" + buildKeys.provisioning_profile + ".mobileprovision";
+		var XCODE_PROVISON_PROFILE = process.env.HOME + "/Library/MobileDevice/Provisioning Profiles/" + buildKeys.provisioning_profile;
 		logger.debug("Searching for provisioning profile " + buildKeys.provisioning_profile);
 		if (program.force || !fs.existsSync(XCODE_PROVISON_PROFILE)) {
 			if (program.force) {
@@ -483,11 +483,11 @@ if (program.buildOnly) {
 			} else {
 				logger.warn("Provisioning profile " + buildKeys.provisioning_profile + " not found!");
 			}
-			fs.copySync(BRAND_KEYS_BASE_DIR + buildKeys.provisioning_profile + ".mobileprovision", XCODE_PROVISON_PROFILE);
+			fs.copySync(BRAND_KEYS_BASE_DIR + buildKeys.provisioning_profile, XCODE_PROVISON_PROFILE);
 			logger.info("Imported Provisioning profile " + buildKeys.provisioning_profile);
 		}
 		appcParams.push("--pp-uuid");
-		appcParams.push(buildKeys.provisioning_profile);
+		appcParams.push(buildKeys.provisioning_profile.replace(".mobileprovision", ""));
 
 	} else if (program.platform === "android") {
 
@@ -506,6 +506,10 @@ if (program.buildOnly) {
 		//keystore
 		appcParams.push("--keystore");
 		appcParams.push(BRAND_KEYS_BASE_DIR + buildKeys.keystore);
+
+		//keystore alias
+		appcParams.push("--alias");
+		appcParams.push(buildKeys.keystore_alias);
 
 		//keystore password
 		appcParams.push("--store-password");
