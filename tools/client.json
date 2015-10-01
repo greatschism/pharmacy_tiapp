@@ -2,6 +2,10 @@
 	{
 		"client_identifier": "1",
 		"client_name": "Meg-Lo",
-		"description": "Base product"
+		"description": "Base product."
+	}, {
+		"client_identifier": "2",
+		"client_name": "Henry Ford",
+		"description": "MCK based."
 	}
 ]
