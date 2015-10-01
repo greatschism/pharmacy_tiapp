@@ -558,7 +558,7 @@ if (program.buildOnly) {
 		if (code != 0) {
 			logger.error("appc exited with " + code);
 		} else {
-			logger.info("Finished release for " + program.platform + " " + brand.name);
+			logger.info("Finished release on " + program.platform + " for " + brand.name);
 		}
 		process.exit(code);
 	});
