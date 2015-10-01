@@ -28,7 +28,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1443679848043</id>
+			<id>1443690257901</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -37,7 +37,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848044</id>
+			<id>1443690257901</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -46,7 +46,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848045</id>
+			<id>1443690257902</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -55,7 +55,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848045</id>
+			<id>1443690257902</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -64,7 +64,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848049</id>
+			<id>1443690257907</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-platform/android/res/drawable-*</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1443690257903</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -73,7 +82,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848049</id>
+			<id>1443690257904</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -82,7 +91,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848046</id>
+			<id>1443690257904</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -91,7 +100,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848046</id>
+			<id>1443690257905</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -100,7 +109,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848047</id>
+			<id>1443690257906</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -109,7 +118,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1443679848048</id>
+			<id>1443690257907</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
