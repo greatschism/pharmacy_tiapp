@@ -612,7 +612,7 @@ function didClickClosePicker(e) {
 			reply : weekdaysStr
 		});
 		rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
-		$.tableView.updateRow( OS_IOS ? index : currentRow.getView(), rows[index].getView());
+		$.tableView.updateRow( OS_IOS ? index : currentRow, rows[index].getView());
 	} else if (pickerId === "monthdayPicker") {
 		var monthdays = picker.getSelectedItems(),
 		    mCount = monthdays.length - 1,
@@ -640,7 +640,7 @@ function didClickClosePicker(e) {
 			reply : monthdaysStr
 		});
 		rows[index] = Alloy.createController("itemTemplates/promptReply", currentParams);
-		$.tableView.updateRow( OS_IOS ? index : currentRow.getView(), rows[index].getView());
+		$.tableView.updateRow( OS_IOS ? index : currentRow, rows[index].getView());
 	}
 	//delete reference
 	delete $.dailyPicker.rowIndex;
