@@ -11,7 +11,7 @@
   <icon>appicon.png</icon>
   <fullscreen>false</fullscreen>
   <navbar-hidden>false</navbar-hidden>
-  <analytics>ANALYTICS_ENABLED</analytics>
+  <analytics>TI_ANALYTICS_ENABLED</analytics>
   <guid>APP_GUID</guid>
   <property name="ti.ui.defaultunit" type="string">dp</property>
   <property name="com-appcelerator-apm-id" type="string">APM_ID</property>
