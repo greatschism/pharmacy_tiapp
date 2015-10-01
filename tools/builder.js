@@ -237,9 +237,9 @@ if (build) {
 		//tiapp.xml
 		var tiappData = fs.readFileSync(BASE_TIAPP_XML, "utf-8");
 		_u.each(envData.tiapp, function(val, key) {
-			tiappData = tiappData.replace(new RegExp(key, "g"), val);
+			tiappData = tiappData.replace(new RegExp("{" + key + "}", "g"), val);
 		});
-		tiappData = tiappData.replace(new RegExp("BUILD_NUMBER", "g"), program.buildNumber);
+		tiappData = tiappData.replace(new RegExp("{BUILD_NUMBER}", "g"), program.buildNumber);
 		fs.writeFileSync(APP_TIAPP_XML, tiappData);
 
 		/**
