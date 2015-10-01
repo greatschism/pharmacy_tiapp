@@ -59,7 +59,7 @@
   </ios>
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <manifest android:versionCode="VERSION_CODE">
+    <manifest android:versionCode="BUILD_NUMBER">
       <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21" />
       <application android:hardwareAccelerated="true" android:theme="@style/Theme.Material">
         <activity android:configChanges="keyboardHidden|orientation" android:name="LAUNCHER_ACTIVITY_NAME" android:theme="@style/Theme.Material.Splash">

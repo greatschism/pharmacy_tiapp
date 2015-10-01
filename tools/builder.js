@@ -11,11 +11,11 @@ var log4js = require("log4js"),
     DEFAULT_USERNAME = "mkumar@mscripts.com",
     DEFAULT_USER_PASSWORD = "mscripts08*",
     DEFAULT_ORGANIZATION_ID = "100000377",
-    DEFAULT_CLIENT_IDENTIFIER = "1",
+    DEFAULT_BRAND_ID = "1",
     DEFAULT_ENVIRONMENT = "dev",
     DEFAULT_SDK_VERSION = "4.1.0.GA",
     DEFAULT_APP_VERSION = "7.0.0",
-    DEFAULT_APP_VERSION_CODE = "1",
+    DEFAULT_BUILD_NUMBER = "1",
     DEFAULT_PLATFORM = "ios",
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
@@ -38,27 +38,27 @@ var log4js = require("log4js"),
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
-    CLIENT_JSON = TOOLS_DIR + "client.json",
+    BRANDS_JSON = TOOLS_DIR + "brands.json",
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
-    CLEINT_RESOURCE_BASE_DIR,
-    CLEINT_KEYS_BASE_DIR,
-    CLIENT_ENV_JSON,
-    CLIENT_BASE_THEME,
+    BRAND_RESOURCE_BASE_DIR,
+    BRAND_KEYS_BASE_DIR,
+    BRAND_ENV_JSON,
+    BRAND_BASE_THEME,
     logger;
 
 /**
  * build program
  * interface
  */
-program.option("-c, --client-identifier <client-identifier>", "Client identifier to build with; should match with any one defined in client.json", DEFAULT_CLIENT_IDENTIFIER);
+program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json", DEFAULT_BRAND_ID);
 program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase, DEFAULT_ENVIRONMENT);
 program.option("-s, --sdk <version>", "Titanium SDK version to build with. Defaults to " + DEFAULT_SDK_VERSION + ".", DEFAULT_SDK_VERSION);
 program.option("-u --username <USERNAME>", "Username for authentication.", DEFAULT_USERNAME);
 program.option("-P --password <USER_PASSWORD>", "Password for authentication.", DEFAULT_USER_PASSWORD);
 program.option("--org-id <ORGANIZATION_ID>", "Specify the organization.", DEFAULT_ORGANIZATION_ID);
 program.option("-v, --version <value>", "App version", DEFAULT_APP_VERSION);
-program.option("-i, --version-code <value>", "Version code (android only).", DEFAULT_APP_VERSION_CODE);
+program.option("-i, --build-number <value>", "Build number.", DEFAULT_BUILD_NUMBER);
 program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, DEFAULT_PLATFORM);
 program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, DEFAULT_TARGET);
 program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR);
@@ -82,28 +82,28 @@ log4js.setGlobalLogLevel(program.logLevel);
 logger = log4js.getLogger("Builder");
 
 /**
- * client info
+ * brand info
  */
-var client = _u.findWhere(JSON.parse(fs.readFileSync(CLIENT_JSON, "utf-8")), {
-	client_identifier : program.clientIdentifier
+var brand = _u.findWhere(JSON.parse(fs.readFileSync(BRANDS_JSON, "utf-8")), {
+	id : program.brandId
 });
 
 /**
- * exit if client is invalid
+ * exit if brand is invalid
  * if cleanOnly is true then
  * allow process to clean project
  */
-if (client) {
+if (brand) {
 
-	//update client resource path
-	CLEINT_RESOURCE_BASE_DIR = TOOLS_DIR + client.client_identifier + "/";
-	CLEINT_KEYS_BASE_DIR = CLEINT_RESOURCE_BASE_DIR + "keys/";
-	CLIENT_ENV_JSON = CLEINT_RESOURCE_BASE_DIR + "env.json";
-	CLIENT_BASE_THEME = CLEINT_RESOURCE_BASE_DIR + "base_theme.js";
+	//update brand resource path
+	BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
+	BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
+	BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
+	BRAND_BASE_THEME = BRAND_RESOURCE_BASE_DIR + "base_theme.js";
 
 } else if (!program.cleanOnly) {
 
-	logger.error("invalid client-identifier: " + program.clientIdentifier);
+	logger.error("invalid brand-id: " + program.brandId);
 	process.exit(1);
 
 }
@@ -112,11 +112,11 @@ if (client) {
  * cleanup existing resources
  * and copy new resources
  * only when
- * 1. if the client identifier is different from old one
+ * 1. if the brand-id is different from old one
  * 2. or force is true
  * 3. or clean-only is true
  */
-var build = program.cleanOnly || program.force || (fs.existsSync(APP_CONFIG_JSON) ? JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8")).global.client_identifier !== client.client_identifier : true);
+var build = program.cleanOnly || program.force || (fs.existsSync(APP_CONFIG_JSON) ? JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8")).global.brandId !== brand.id : true);
 if (build) {
 
 	/**
@@ -144,84 +144,87 @@ if (build) {
 		process.exit(0);
 	} else {
 
-		logger.info("Project is being branded for " + client.client_name);
+		logger.info("Project is being branded for " + brand.name);
 
-		//copy client resources
-		var CLIENT_ASSETS_IPHONE_DIR = CLEINT_RESOURCE_BASE_DIR + "assets/iphone",
-		    CLIENT_ASSETS_ANDROID_DIR = CLEINT_RESOURCE_BASE_DIR + "assets/android",
-		    CLIENT_ASSETS_DATA_DIR = CLEINT_RESOURCE_BASE_DIR + "assets/data",
-		    CLIENT_ASSETS_IMAGES_DIR = CLEINT_RESOURCE_BASE_DIR + "assets/images",
-		    CLIENT_DEFAULT_ICON = CLEINT_RESOURCE_BASE_DIR + "images/DefaultIcon.png",
-		    CLIENT_ITUNES_ICON = CLEINT_RESOURCE_BASE_DIR + "images/iTunesConnect.png",
-		    CLIENT_MARKETPLACE_ICON = CLEINT_RESOURCE_BASE_DIR + "images/MarketplaceArtwork.png",
-		    CLIENT_MARKETPLACE_FEATURE_IMG = CLEINT_RESOURCE_BASE_DIR + "images/MarketplaceArtworkFeature.png",
-		    CLIENT_ANDROID_RES_BASE_DIR = CLEINT_RESOURCE_BASE_DIR + "platform/android/res/",
-		    CLIENT_ANDROID_DRAWABLE_LDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-ldpi",
-		    CLIENT_ANDROID_DRAWABLE_MDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-mdpi",
-		    CLIENT_ANDROID_DRAWABLE_HDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-hdpi",
-		    CLIENT_ANDROID_DRAWABLE_XHDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-xhdpi",
-		    CLIENT_ANDROID_DRAWABLE_XXHDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
-		    CLIENT_ANDROID_DRAWABLE_XXXHDPI = CLIENT_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
+		//copy brand resources
+		var BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
+		    BRAND_ASSETS_ANDROID_DIR = BRAND_RESOURCE_BASE_DIR + "assets/android",
+		    BRAND_ASSETS_DATA_DIR = BRAND_RESOURCE_BASE_DIR + "assets/data",
+		    BRAND_ASSETS_IMAGES_DIR = BRAND_RESOURCE_BASE_DIR + "assets/images",
+		    BRAND_DEFAULT_ICON = BRAND_RESOURCE_BASE_DIR + "images/DefaultIcon.png",
+		    BRAND_ITUNES_ICON = BRAND_RESOURCE_BASE_DIR + "images/iTunesConnect.png",
+		    BRAND_MARKETPLACE_ICON = BRAND_RESOURCE_BASE_DIR + "images/MarketplaceArtwork.png",
+		    BRAND_MARKETPLACE_FEATURE_IMG = BRAND_RESOURCE_BASE_DIR + "images/MarketplaceArtworkFeature.png",
+		    BRAND_ANDROID_RES_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "platform/android/res/",
+		    BRAND_ANDROID_DRAWABLE_LDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-ldpi",
+		    BRAND_ANDROID_DRAWABLE_MDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-mdpi",
+		    BRAND_ANDROID_DRAWABLE_HDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-hdpi",
+		    BRAND_ANDROID_DRAWABLE_XHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xhdpi",
+		    BRAND_ANDROID_DRAWABLE_XXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
+		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
 
 		//iphone
-		fs.copySync(CLIENT_ASSETS_IPHONE_DIR, APP_ASSETS_IPHONE_DIR);
-		logger.debug("Linked " + CLIENT_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
+		fs.copySync(BRAND_ASSETS_IPHONE_DIR, APP_ASSETS_IPHONE_DIR);
+		logger.debug("Linked " + BRAND_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
 
 		//android
-		fs.copySync(CLIENT_ASSETS_ANDROID_DIR, APP_ASSETS_ANDROID_DIR);
-		logger.debug("Linked " + CLIENT_ASSETS_ANDROID_DIR + " => " + APP_ASSETS_ANDROID_DIR);
+		fs.copySync(BRAND_ASSETS_ANDROID_DIR, APP_ASSETS_ANDROID_DIR);
+		logger.debug("Linked " + BRAND_ASSETS_ANDROID_DIR + " => " + APP_ASSETS_ANDROID_DIR);
 
 		//data
-		fs.copySync(CLIENT_ASSETS_DATA_DIR, APP_ASSETS_DATA_DIR);
-		logger.debug("Linked " + CLIENT_ASSETS_DATA_DIR + " => " + APP_ASSETS_DATA_DIR);
+		fs.copySync(BRAND_ASSETS_DATA_DIR, APP_ASSETS_DATA_DIR);
+		logger.debug("Linked " + BRAND_ASSETS_DATA_DIR + " => " + APP_ASSETS_DATA_DIR);
 
 		//images
-		fs.copySync(CLIENT_ASSETS_IMAGES_DIR, APP_ASSETS_IMAGES_DIR);
-		logger.debug("Linked " + CLIENT_ASSETS_IMAGES_DIR + " => " + APP_ASSETS_IMAGES_DIR);
+		fs.copySync(BRAND_ASSETS_IMAGES_DIR, APP_ASSETS_IMAGES_DIR);
+		logger.debug("Linked " + BRAND_ASSETS_IMAGES_DIR + " => " + APP_ASSETS_IMAGES_DIR);
 
 		//default icon
-		fs.copySync(CLIENT_DEFAULT_ICON, APP_DEFAULT_ICON);
-		logger.debug("Linked " + CLIENT_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
+		fs.copySync(BRAND_DEFAULT_ICON, APP_DEFAULT_ICON);
+		logger.debug("Linked " + BRAND_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
 
 		//itunes icon
-		fs.copySync(CLIENT_ITUNES_ICON, APP_ITUNES_ICON);
-		logger.debug("Linked " + CLIENT_ITUNES_ICON + " => " + APP_ITUNES_ICON);
+		fs.copySync(BRAND_ITUNES_ICON, APP_ITUNES_ICON);
+		logger.debug("Linked " + BRAND_ITUNES_ICON + " => " + APP_ITUNES_ICON);
 
 		//market place icon
-		fs.copySync(CLIENT_MARKETPLACE_ICON, APP_MARKETPLACE_ICON);
-		logger.debug("Linked " + CLIENT_MARKETPLACE_ICON + " => " + APP_MARKETPLACE_ICON);
+		fs.copySync(BRAND_MARKETPLACE_ICON, APP_MARKETPLACE_ICON);
+		logger.debug("Linked " + BRAND_MARKETPLACE_ICON + " => " + APP_MARKETPLACE_ICON);
 
 		//market place feature image
-		fs.copySync(CLIENT_MARKETPLACE_FEATURE_IMG, APP_MARKETPLACE_FEATURE_IMG);
-		logger.debug("Linked " + CLIENT_MARKETPLACE_FEATURE_IMG + " => " + APP_MARKETPLACE_FEATURE_IMG);
+		fs.copySync(BRAND_MARKETPLACE_FEATURE_IMG, APP_MARKETPLACE_FEATURE_IMG);
+		logger.debug("Linked " + BRAND_MARKETPLACE_FEATURE_IMG + " => " + APP_MARKETPLACE_FEATURE_IMG);
 
 		//android res ldpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_LDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_LDPI + " => " + APP_ANDROID_DRAWABLE_LDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_LDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_LDPI + " => " + APP_ANDROID_DRAWABLE_LDPI);
 
 		//android res mdpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_MDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_MDPI + " => " + APP_ANDROID_DRAWABLE_MDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_MDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_MDPI + " => " + APP_ANDROID_DRAWABLE_MDPI);
 
 		//android res hdpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_HDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_HDPI + " => " + APP_ANDROID_DRAWABLE_HDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_HDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_HDPI + " => " + APP_ANDROID_DRAWABLE_HDPI);
 
 		//android res xhdpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XHDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_XHDPI + " => " + APP_ANDROID_DRAWABLE_XHDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XHDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XHDPI + " => " + APP_ANDROID_DRAWABLE_XHDPI);
 
 		//android res xxhdpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXHDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_XXHDPI + " => " + APP_ANDROID_DRAWABLE_XXHDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXHDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXHDPI + " => " + APP_ANDROID_DRAWABLE_XXHDPI);
 
 		//android res xxxhdpi
-		fs.copySync(CLIENT_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI);
-		logger.debug("Linked " + CLIENT_ANDROID_DRAWABLE_XXXHDPI + " => " + APP_ANDROID_DRAWABLE_XXXHDPI);
+		fs.copySync(BRAND_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI);
+		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXXHDPI + " => " + APP_ANDROID_DRAWABLE_XXXHDPI);
 
 		//config.json
 		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8")),
-		    envData = JSON.parse(fs.readFileSync(CLIENT_ENV_JSON, "utf-8"))[program.environment];
+		    envData = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment];
+
+		//update brand id
+		configData.global.brandId = brand.id;
 
 		//extend global properties
 		_u.extend(configData.global, envData.config);
@@ -236,7 +239,7 @@ if (build) {
 		_u.each(envData.tiapp, function(val, key) {
 			tiappData = tiappData.replace(new RegExp(key, "g"), val);
 		});
-		tiappData = tiappData.replace(new RegExp("VERSION_CODE", "g"), program.versionCode);
+		tiappData = tiappData.replace(new RegExp("BUILD_NUMBER", "g"), program.buildNumber);
 		fs.writeFileSync(APP_TIAPP_XML, tiappData);
 
 		/**
@@ -263,7 +266,7 @@ if (build) {
 
 		logger.debug("Created " + APP_TIAPP_XML);
 
-		logger.info("Finished branding for " + client.client_name);
+		logger.info("Finished branding for " + brand.name);
 
 		/**
 		 * initate tss maker
@@ -314,7 +317,7 @@ if (build) {
 
 		var themeData = require("./" + TEMP_THEME_NAME).data,
 		    languageData = require("./" + TEMP_LANGUAGE_NAME).data,
-		    atss = require(CLIENT_BASE_THEME),
+		    atss = require(BRAND_BASE_THEME),
 		    tss = {};
 
 		//add classes for icons
@@ -384,8 +387,16 @@ if (build) {
 
 } else {
 
-	logger.info("No changce found, set up already done for " + client.client_name);
+	logger.info("No changes found, Project is alreadt branded for " + brand.name);
 }
+
+/**
+ * appc clean
+ * should run always
+ * after branding
+ */
+logger.info("Running appc clean");
+exec("appc ti clean --project-dir  " + ROOT_DIR);
 
 /**
  * exit if buildOnly is true
@@ -415,9 +426,6 @@ if (program.buildOnly) {
 
 	logger.info("Release iniated for " + program.platform + " at " + appConfigData.global.buildDate);
 
-	//appc clean
-	exec("appc ti clean --project-dir  " + ROOT_DIR);
-
 	//prepare build params
 	var appcParams = ["run"];
 
@@ -430,10 +438,10 @@ if (program.buildOnly) {
 	appcParams.push("production");
 
 	/**
-	 * read client config
+	 * read brand config
 	 * for build keys
 	 */
-	var buildKeys = JSON.parse(fs.readFileSync(CLIENT_ENV_JSON, "utf-8"))[program.environment].keys;
+	var buildKeys = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment].keys;
 
 	if (program.platform === "ios") {
 
@@ -457,7 +465,7 @@ if (program.buildOnly) {
 			} else {
 				logger.warn("Distribution certificate " + buildKeys.certificate_name + " not found!");
 			}
-			if (exec("security import " + CLEINT_KEYS_BASE_DIR + buildKeys.certificate + " -A -k " + process.env.HOME + "/Library/Keychains/login.keychain -P " + buildKeys.certificate_password).stderr) {
+			if (exec("security import " + BRAND_KEYS_BASE_DIR + buildKeys.certificate + " -A -k " + process.env.HOME + "/Library/Keychains/login.keychain -P " + buildKeys.certificate_password).stderr) {
 				logger.error("Unable to import distribution certificate " + buildKeys.certificate_name);
 				process.exit(1);
 			}
@@ -475,7 +483,7 @@ if (program.buildOnly) {
 			} else {
 				logger.warn("Provisioning profile " + buildKeys.provisioning_profile + " not found!");
 			}
-			fs.copySync(CLEINT_KEYS_BASE_DIR + buildKeys.provisioning_profile + ".mobileprovision", XCODE_PROVISON_PROFILE);
+			fs.copySync(BRAND_KEYS_BASE_DIR + buildKeys.provisioning_profile + ".mobileprovision", XCODE_PROVISON_PROFILE);
 			logger.info("Imported Provisioning profile " + buildKeys.provisioning_profile);
 		}
 		appcParams.push("--pp-uuid");
@@ -497,7 +505,7 @@ if (program.buildOnly) {
 
 		//keystore
 		appcParams.push("--keystore");
-		appcParams.push(CLEINT_KEYS_BASE_DIR + buildKeys.keystore);
+		appcParams.push(BRAND_KEYS_BASE_DIR + buildKeys.keystore);
 
 		//keystore password
 		appcParams.push("--store-password");
@@ -550,7 +558,7 @@ if (program.buildOnly) {
 		if (code != 0) {
 			logger.error("appc exited with " + code);
 		} else {
-			logger.info("Finished release for " + program.platform + " " + client.client_name);
+			logger.info("Finished release for " + program.platform + " " + brand.name);
 		}
 		process.exit(code);
 	});
