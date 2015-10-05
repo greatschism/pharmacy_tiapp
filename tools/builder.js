@@ -64,6 +64,7 @@ program.option("-T, --target <value>", "Target to build for: dist-playstore, dis
 program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR);
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
+program.option("--appc-clean", "Valid only when --build-only is specified; when specified, triggers appc clean right after branding.");
 program.option("--clean-only", "Clean the project by removing all branding information; when specified, does not trigger a build.");
 program.option("-l, --log-level <level>", "Minimum logging level. Supported options are trace, debug, info, warn, and error", toLowerCase, "debug");
 program.parse(process.argv);
@@ -112,11 +113,12 @@ if (brand) {
  * cleanup existing resources
  * and copy new resources
  * only when
- * 1. if the brand-id is different from old one
+ * 1. if the brand-id or environment is different from old one
  * 2. or force is true
  * 3. or clean-only is true
  */
-var build = program.cleanOnly || program.force || (fs.existsSync(APP_CONFIG_JSON) ? JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8")).global.brandId !== brand.id : true);
+var currentAppConfigData = fs.existsSync(APP_CONFIG_JSON) ? JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8")).global : {},
+    build = program.cleanOnly || program.force || currentAppConfigData.brandId !== brand.id || currentAppConfigData.environment !== program.environment;
 if (build) {
 
 	/**
@@ -223,8 +225,17 @@ if (build) {
 		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8")),
 		    envData = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment];
 
-		//update brand id
-		configData.global.brandId = brand.id;
+		/**
+		 * update properties below
+		 * - brand id
+		 * - environment
+		 * - build date
+		 */
+		_u.extend(configData.global, {
+			brandId : brand.id,
+			environment : program.environment,
+			buildDate : new Date().toString()
+		});
 
 		//extend global properties
 		_u.extend(configData.global, envData.config);
@@ -237,9 +248,9 @@ if (build) {
 		//tiapp.xml
 		var tiappData = fs.readFileSync(BASE_TIAPP_XML, "utf-8");
 		_u.each(envData.tiapp, function(val, key) {
-			tiappData = tiappData.replace(new RegExp("{" + key + "}", "g"), val);
+			tiappData = tiappData.replace(new RegExp("\\${" + key + "}", "g"), val);
 		});
-		tiappData = tiappData.replace(new RegExp("{BUILD_NUMBER}", "g"), program.buildNumber);
+		tiappData = tiappData.replace(new RegExp("\\${BUILD_NUMBER}", "g"), program.buildNumber);
 		fs.writeFileSync(APP_TIAPP_XML, tiappData);
 
 		/**
@@ -392,11 +403,14 @@ if (build) {
 
 /**
  * appc clean
- * should run always
- * after branding
+ * clean the project when specified
+ * if build only is specified, initiates a clean
+ * anyways
  */
-logger.info("Running appc clean");
-exec("appc ti clean --project-dir  " + ROOT_DIR);
+if (!program.buildOnly || program.appcClean) {
+	logger.info("Running appc clean");
+	exec("appc ti clean --project-dir  " + ROOT_DIR);
+}
 
 /**
  * exit if buildOnly is true
@@ -411,19 +425,20 @@ if (program.buildOnly) {
 	 */
 	logger = log4js.getLogger("TiRelease");
 
-	/**
-	 * update build date
-	 * so even if there is no
-	 * change in branding
-	 * the release time gets
-	 * updated
-	 */
+	//app config for buildDate
 	var appConfigData = JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8"));
-	appConfigData.global.buildDate = new Date().toString();
-
-	//write config
-	fs.writeFileSync(APP_CONFIG_JSON, JSON.stringify(appConfigData, null, 4));
-
+	/**
+	 * build flag will be false
+	 * when there is no change in branding
+	 * info, so just update the build date
+	 * here, when it is true build date
+	 * would have been udpate already
+	 */
+	if (!build) {
+		appConfigData.global.buildDate = new Date().toString();
+		//write config
+		fs.writeFileSync(APP_CONFIG_JSON, JSON.stringify(appConfigData, null, 4));
+	}
 	logger.info("Release iniated for " + program.platform + " at " + appConfigData.global.buildDate);
 
 	//prepare build params

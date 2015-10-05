@@ -1,7 +1,5 @@
 {
 	"global": {
-		"brandId": "1",
-		"buildDate": "Tue Jun 23 2015 11:24:15 GMT+0530 (IST)",
 		"apiPath": {
 			"appload_get": "appload/get",
 			"appload_getbanners": "appload/getbanners",

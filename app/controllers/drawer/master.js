@@ -7,9 +7,10 @@ function init() {
 	if (OS_IOS) {
 		$.drawer.addEventListener("open", didOpen);
 		$.drawer.addEventListener("close", didClose);
-		$.drawer.addEventListener("windowDidOpen", didLeftWindowOpen);
+		$.drawer.addEventListener("windowDidOpen", iOSDidLeftWinOpen);
 	}
 	if (OS_ANDROID) {
+		$.drawer.addEventListener("draweropen", androidDidLeftWinOpen);
 		$.drawer.getView().addEventListener("open", didOpen);
 	}
 	$.drawer.open();
@@ -54,9 +55,12 @@ function didOpen(e) {
  * update, sync updates
  * will be done on appload
  * controller itself
+ *
+ * navigationHandled - whether or not to
+ * initiate a navigation.
  */
-function didAuthenticate() {
-	$.menuCtrl.init(args.navigation);
+function didAuthenticate(navigationHandled) {
+	$.menuCtrl.init(args.navigation, navigationHandled);
 	if (args.triggerUpdate === true) {
 		app.update(updateCallback);
 	}
@@ -89,8 +93,24 @@ function didAndoridBack(e) {
 	app.navigator.close(1, true);
 }
 
-function didLeftWindowOpen(e) {
+function iOSDidLeftWinOpen(e) {
 	uihelper.requestViewFocus($.menuCtrl.getView());
+}
+
+function androidDidLeftWinOpen(e) {
+	/**
+	 * hide keyboard if any
+	 * PHA-1156 - #3
+	 * Note: for iOS the same below is handled
+	 * in ios/window.js before opening
+	 * the window. iOS itself hides
+	 * the keyboard and showing it back
+	 * after left window animation, so keyboard
+	 * shoul be hidden before open animation.
+	 */
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
 }
 
 function didClose(e) {

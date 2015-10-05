@@ -98,6 +98,13 @@ function didClickLeftNavView(e) {
 		}
 		app.navigator.close();
 	} else {
+		/**
+		 * hide keyboard if any
+		 * PHA-1156 - #3
+		 */
+		if (Ti.App.keyboardVisible) {
+			Ti.App.hideKeyboard();
+		}
 		app.navigator.drawer.toggleLeftWindow();
 	}
 }

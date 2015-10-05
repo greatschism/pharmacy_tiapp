@@ -662,11 +662,18 @@ function completeAuthentication(passthrough) {
 		icon : "logout"
 	});
 	/**
-	 * if email verification is already
-	 * done then fire success if any
+	 * check if email verification is
+	 * already done, if not verified yet
+	 * will open email verification
+	 * screen and return false. Since a screen
+	 * is already opened, navigationHandled
+	 * is passed as true. So the succcess
+	 * callback should not initate another
+	 * navigation
 	 */
-	if (isEmailVerified() && passthrough.success) {
-		passthrough.success();
+	var navigationHandled = !isEmailVerified();
+	if (passthrough.success) {
+		passthrough.success(navigationHandled);
 	}
 }
 

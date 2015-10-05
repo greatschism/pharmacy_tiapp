@@ -21,12 +21,6 @@ module.exports = {
 		"code" : "en",
 		"selected" : true
 	}, {
-		"type" : "language",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "es",
-		"selected" : false
-	}, {
 		"type" : "fonts",
 		"version" : 1,
 		"base_version" : 1,

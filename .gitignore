@@ -1,0 +1,9 @@
+!app/assets/alloy
+/*.png
+tiapp.xml
+app/config.json
+app/assets/*
+app/styles/app.tss
+platform/android/res/drawable-*
+build
+Resources

@@ -8,7 +8,6 @@ var app = require("core"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
-	config.load();
 	$.loader.applyProperties({
 		indicatorDict : {
 			accessibilityLabel : strings.msgLoading

@@ -13,7 +13,7 @@ var TAG = "encryptionUtil",
     STATIC_KEY = generateStaticKey();
 
 function generateStaticKey() {
-	var keys = [48, 51, 57, 54, 91, 55, 82, 50];
+	var keys = Alloy.CFG.static_encryption_key;
 	for (var i in keys) {
 		keys[i] = String.fromCharCode(keys[i]);
 	}

@@ -162,7 +162,7 @@ module.exports = {
 
 		"homeNavBtnLogin" : "Sign in",
 
-		"loginLblTitle" : "Sign in to the mscripts mobile pharmacy",
+		"loginLblTitle" : "Sign in to the Henry Ford mobile pharmacy",
 		"loginHintUsername" : "Username",
 		"loginHintPassword" : "Password",
 		"loginLblTogglePassword" : "Show password",
@@ -445,7 +445,7 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "Show full prescription name in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "Close",
-		"remindersSettingsMsgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
+		"remindersSettingsMsgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the Henry Ford Terms of Service.",
 
 		"transferLblTitle" : "You can transfer prescriptions from other pharmacy chains to %s using this feature.",
 		"transferBtnPhoto" : "Take a photo",
