@@ -662,31 +662,33 @@ function completeAuthentication(passthrough) {
 		icon : "logout"
 	});
 	/**
-	 * check if email verification is
-	 * already done, if not verified yet
-	 * will open email verification
-	 * screen and return false. Since a screen
-	 * is already opened, navigationHandled
-	 * is passed as true. So the succcess
-	 * callback should not initate another
-	 * navigation
+	 * check for mandatory screens
+	 * to be visited after successful login
+	 * i.e HIPAA or email verification etc.,
+	 * if none, pass false to the success callback
+	 * so the callback will initate a navigation
+	 * i.e a module if user initated login screen
+	 * from hamburger or landing page
 	 */
-	var navigationHandled = !isEmailVerified();
+	var navigationHandled = hasMandatoryNavigation();
 	if (passthrough.success) {
 		passthrough.success(navigationHandled);
 	}
 }
 
-function isEmailVerified() {
+function hasMandatoryNavigation(mPatient) {
 	/**
-	 * Verify email adress
-	 * if user has not verified it within 24rs
-	 * after registration taking him to email verification
-	 * screen upon every login
+	 * always the check is made only for
+	 * manager account until a patient model
+	 * is passed. Useful when the same check
+	 * has to be done for other accounts
 	 */
-	var mPatient = Alloy.Collections.patients.at(0);
+	if (!mPatient) {
+		mPatient = Alloy.Collections.patients.at(0);
+	}
 	/**
-	 * created_at will be in UTC
+	 * email verification check
+	 * Note: created_at will be in UTC
 	 * so calculations should happen in UTC
 	 */
 	if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
@@ -696,9 +698,9 @@ function isEmailVerified() {
 				email : mPatient.get("email_address")
 			}
 		});
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 /**
