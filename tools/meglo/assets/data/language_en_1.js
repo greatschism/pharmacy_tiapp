@@ -1,7 +1,8 @@
 module.exports = {
 	"data" : {
-		"strClientName":"Carbon Pharmacy", 
-		
+
+		"strClientName" : "Carbon Pharmacy",
+
 		"strPrefixDoctor" : "Dr. ",
 		"strPrefixRx" : "#Rx ",
 
