@@ -1,6 +1,6 @@
 var args = arguments[0] || {};
 function focus() {
-	$.mgrAccountExistsLbl.text = String.format($.strings.mgrAccountExistsLbl, Alloy.CFG.client_name);
+	$.mgrAccountExistsLbl.text = String.format($.strings.mgrAccountExistsLbl, $.strings.strClientName);
 }
 
 function didClickSignIn() {

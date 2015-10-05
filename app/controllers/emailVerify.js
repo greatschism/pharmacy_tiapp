@@ -5,7 +5,7 @@ function focus() {
 }
 
 function init() {
-	$.lblWelcome.text = String.format(Alloy.Globals.strings.emailVerifyLblWelcome, Alloy.CFG.client_name);
+	$.lblWelcome.text = String.format(Alloy.Globals.strings.emailVerifyLblWelcome, $.strings.strClientName);
 	$.uihelper.getImage("info", $.imgEmailVerify);
 }
 

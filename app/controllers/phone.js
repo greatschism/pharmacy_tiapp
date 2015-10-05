@@ -14,7 +14,7 @@ var args = arguments[0] || {},
 isFamilyAccounts = false;
 
 function focus() {
-	$.receiveTextLbl.text = String.format($.strings.receiveTextChildLbl, Alloy.CFG.client_name, Alloy.CFG.client_name);
+	$.receiveTextLbl.text = String.format($.strings.receiveTextChildLbl, $.strings.strClientName, $.strings.strClientName);
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});

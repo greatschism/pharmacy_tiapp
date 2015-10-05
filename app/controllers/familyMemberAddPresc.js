@@ -11,7 +11,7 @@ function init() {
 }
 
 function focus() {
-	$.addPrescTitle.text = String.format($.strings.familyMemberAddPrescTitle, Alloy.CFG.client_name);
+	$.addPrescTitle.text = String.format($.strings.familyMemberAddPrescTitle, $.strings.strClientName);
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
