@@ -985,11 +985,13 @@ function didClickSubmitReminder(e) {
 		data.reminder_start_hour = [rows[startHoursIndex].getParams().value];
 	} else {
 		/**
-		 * value time - should not have same time
-		 * required only for daily
+		 * time should not have duplicate values
+		 * required only for reminder_frequency_daily
+		 * Also sort time in accending order while checking
+		 * for duplicates (PHA-1196)
 		 */
 		var hasDuplicates;
-		_.each(data.reminder_start_hour, function(time) {
+		data.reminder_start_hour = _.sortBy(data.reminder_start_hour, function(time) {
 			/**
 			 * should not have more than
 			 * one occurrence
@@ -997,6 +999,10 @@ function didClickSubmitReminder(e) {
 			if (!hasDuplicates && _.where(data.reminder_start_hour, time).length > 1) {
 				hasDuplicates = true;
 			}
+			/**
+			 * sort by minute of day (accending)
+			 **/
+			return (parseInt(time.hour) * 60) + parseInt(time.minutes);
 		});
 		if (hasDuplicates) {
 			$.uihelper.showDialog({
