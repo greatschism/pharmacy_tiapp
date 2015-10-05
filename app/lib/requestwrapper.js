@@ -88,7 +88,6 @@ function request(args) {
 	return http.request({
 		url : Alloy.CFG.base_url.concat(Alloy.CFG.apiPath[args.method]),
 		type : args.type,
-		format : args.format,
 		timeout : args.timeout,
 		params : args.params,
 		success : didSuccess,
