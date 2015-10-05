@@ -1,11 +1,9 @@
 [
 	{
-		"id": "1",
-		"name": "Meg-Lo",
+		"id": "meglo",
 		"description": "Carbon base product."
 	}, {
-		"id": "2",
-		"name": "Henry Ford",
+		"id": "henryford",
 		"description": "MCK based."
 	}
 ]
