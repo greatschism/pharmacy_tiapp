@@ -109,9 +109,9 @@ function didClickPharmacy(e) {
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	if (nextItem && $[nextItem]) {
-		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : didClickCreateAccount();
+		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : didClickSignup();
 	} else {
-		didClickCreateAccount();
+		didClickSignup();
 	}
 }
 
@@ -253,7 +253,7 @@ function didClickSignup(e) {
 					home_phone : "",
 					mobile : "",
 					email_address : email,
-					rx_number : rxNo.substring(0, 7), /*todo - pick only 1st 7 digits for mck */
+					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index), 
 					store_id : store.id,
 					user_type : "FULL",
 					optional : [{

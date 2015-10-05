@@ -180,7 +180,7 @@ function didClickContinue() {
 						first_name : fname,
 						last_name : lname,
 						birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
-						rx_number : rxNo.substring(0, 7),
+						rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 						store_id : store.id
 					}
 				}]
