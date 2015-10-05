@@ -402,7 +402,7 @@ function addPrescriptions() {
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
 		ctrlArguments : accntMgrData.pick(["first_name", "last_name", "birth_date"]),
-		stack : false
+		stack : true
 	});
 }
 

@@ -147,7 +147,7 @@ function didRegister() {
 					password : $.passwordTxt.getValue(),
 					is_adult_partial : true
 				},
-				stack : true
+				stack : false
 			});
 		}
 	});
