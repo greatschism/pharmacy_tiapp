@@ -158,6 +158,9 @@ module.exports = {
 	".role-detail-view" : {
 		"role" : "detailView"
 	},
+	".rx" : {
+		"maxLength" : "Alloy.CFG.rx_length"
+	},
 	".swt[platform=android]" : {
 		"accessibilityLabelOn" : "Alloy.Globals.strings.accessibilityLblSwitchOn",
 		"accessibilityLabelOff" : "Alloy.Globals.strings.accessibilityLblSwitchOff",

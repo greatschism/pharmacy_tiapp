@@ -29,12 +29,12 @@ module.exports = {
 			"prescription_progress_x_hours_after" : 60,
 			"prescription_progress_x_hours_before" : 15,
 			"prescription_refills_left_info_negative" : 1,
-			"rx_length" : 10,
+			"rx_length" : 11,
 			"rx_start_index" : 0,
 			"rx_end_index" : 7,
 			"rx_store_start_index" : 8,
-			"rx_store_end_index" : 10,
-			"rx_validator" : "^[0-9]{7}-[0-9]{2}$",
+			"rx_store_end_index" : 11,
+			"rx_validator" : "^[0-9]{7}-[0-9]{3}$",
 			"rx_formatters" : [{
 				"pattern" : "\\D",
 				"modifiters" : "g",
@@ -243,9 +243,6 @@ module.exports = {
 				"maxLength" : 250
 			},
 			".reminder-notes" : {
-				"maxLength" : 10
-			},
-			".rx" : {
 				"maxLength" : 10
 			},
 			".external-rx" : {
