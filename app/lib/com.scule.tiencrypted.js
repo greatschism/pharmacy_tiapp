@@ -1,5 +1,7 @@
 var TAG = "com.scule.tiencrypted",
 
+    logger = require("logger"),
+
     Scule = require("com.scule"),
 
     encryptionUtil = require("encryptionUtil"),
@@ -57,11 +59,21 @@ var TAG = "com.scule.tiencrypted",
 	this.read = function(name, callback) {
 		var file = Ti.Filesystem.getFile(this.configuration.path, name);
 		if (file.exists()) {
-			var o = JSON.parse(encryptionUtil.decrypt(file.read().text) || "{}");
-			if (callback) {
-				callback(o);
+			/**
+			 * Decrypt may return invalid json string
+			 * incase of any change in encryption key.
+			 * (Specifically on android)
+			 */
+			try {
+				var o = JSON.parse(encryptionUtil.decrypt(file.read().text) || "{}");
+				if (callback) {
+					callback(o);
+				}
+				return o;
+			} catch(error) {
+				logger.error(TAG, "Unable to decrypt", error);
+				return false;
 			}
-			return o;
 		}
 		return false;
 	};
