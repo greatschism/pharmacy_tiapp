@@ -537,6 +537,7 @@ module.exports = {
 		"accountLblTextSignupAgreement" : "You’re agreeing to receive health care text messages from %s. You can stop them at any time.",
 		"accountSuccessBtnContinue" : "Continue",
 		"accountReplySignUpForText" : "Sign up for texts",
+		"accountReplyTextVerificationPending" : "Verification pending",
 		"accountSwitcher" : "%s's account settings",
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",

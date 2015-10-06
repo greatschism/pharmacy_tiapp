@@ -32,7 +32,7 @@ function setAccountValues(){
 		selected : true
 	});
 	
-	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
+	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : (currentPatient.get("is_mobile_verified") === "1") ? $.utilities.formatPhoneNumber(currentPatient.get("mobile_number")) : $.strings.accountReplyTextVerificationPending;
 	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
@@ -76,7 +76,7 @@ function focus() {
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
-	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
+	$.mobileNumberValue.text = currentPatient.get("mobile_number") === "null" ? $.strings.accountReplySignUpForText : (currentPatient.get("is_mobile_verified") === "1") ? $.utilities.formatPhoneNumber(currentPatient.get("mobile_number")) : $.strings.accountReplyTextVerificationPending;
 	$.emailValue.text = currentPatient.get("email_address") || $.strings.strNotAvailable;
 }
 
