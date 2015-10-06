@@ -73,6 +73,12 @@ function didReceivePush(e) {
 	var payload = e.data;
 }
 
+Object.defineProperty(module.exports, "deviceId", {
+	get : function() {
+		return Ti.App.installId;
+	}
+});
+
 Object.defineProperty(module.exports, "deviceToken", {
 	get : function() {
 		return deviceToken;

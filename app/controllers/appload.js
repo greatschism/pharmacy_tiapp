@@ -4,6 +4,7 @@ var app = require("core"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     localization = require("localization"),
+    notificationHandler = require("notificationHandler"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -13,6 +14,13 @@ function didOpen(e) {
 			accessibilityLabel : strings.msgLoading
 		}
 	});
+	/**
+	 * appload
+	 *
+	 * device_id
+	 * 	ios - a unique identifier (UUID) for this installation
+	 * 	android - IMEI number of device
+	 */
 	http.request({
 		method : "appload_get",
 		params : {
@@ -22,7 +30,7 @@ function didOpen(e) {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
 					phone_platform : OS_IOS ? "IP" : "AD",
-					device_id : "x",
+					device_id : notificationHandler.devideId,
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,
 					client_name : Alloy.CFG.client_name,

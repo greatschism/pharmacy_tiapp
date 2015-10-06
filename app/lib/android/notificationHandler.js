@@ -21,7 +21,7 @@ function init(callback) {
 	isBusy = true;
 	deviceTokenCallback = callback;
 	TiPush.retrieveDeviceToken({
-		senderId : Alloy.CFG.gcm_sender_id,
+		senderId : Alloy.Models.appload.get("gcmproject_id"),
 		success : didSuccess,
 		error : didFailure
 	});
@@ -72,6 +72,13 @@ function triggerCallback() {
 function didReceivePush(e) {
 	var payload = JSON.parse(e.payload);
 }
+
+Object.defineProperty(module.exports, "deviceId", {
+	get : function() {
+		return "";
+		//TiPush.deviceId;
+	}
+});
 
 Object.defineProperty(module.exports, "deviceToken", {
 	get : function() {
