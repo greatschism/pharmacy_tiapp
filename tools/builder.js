@@ -478,6 +478,15 @@ if (program.buildOnly) {
 		if (program.force || exec("security find-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
 			if (program.force) {
 				logger.info("Updating distribution certificate " + buildKeys.certificate_name);
+				/**
+				 * delete existing certificate if any
+				 * Note: multiple certificates can share same common name which might
+				 * bring conflicts, so delete all when force is specified
+				 */
+				if (exec("security delete-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
+					logger.error("Multiple certificates found with same name " + buildKeys.certificate_name + ". Please delete them manually from keychain and try again.");
+					process.exit(1);
+				}
 			} else {
 				logger.warn("Distribution certificate " + buildKeys.certificate_name + " not found!");
 			}

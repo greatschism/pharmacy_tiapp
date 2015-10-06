@@ -196,10 +196,18 @@ var Configuration = {
 		 * device in width wise
 		 * and height will keep
 		 * aspect ratio
+		 * Note:
+		 * -----
+		 * 1. Using Math.floor banner_height might
+		 * bring white spaces at the corners of image.
+		 * 2. for default banner width and
+		 * height will be in px, not dp.
 		 */
+		Alloy.CFG.banner_default_width /= app.device.logicalDensityFactor;
+		Alloy.CFG.banner_default_height /= app.device.logicalDensityFactor;
 		_.extend(Alloy.CFG, {
 			banner_width : app.device.width,
-			banner_height : Math.floor((Alloy.CFG.banner_default_height / Alloy.CFG.banner_default_width) * app.device.width)
+			banner_height : (Alloy.CFG.banner_default_height / Alloy.CFG.banner_default_width) * app.device.width
 		});
 		//rx formatter
 		_.each(Alloy.CFG.rx_formatters, function(formatter) {

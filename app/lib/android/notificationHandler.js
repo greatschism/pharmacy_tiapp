@@ -75,8 +75,7 @@ function didReceivePush(e) {
 
 Object.defineProperty(module.exports, "deviceId", {
 	get : function() {
-		return "";
-		//TiPush.deviceId;
+		return TiPush.deviceId;
 	}
 });
 
