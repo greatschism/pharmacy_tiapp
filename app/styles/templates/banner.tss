@@ -1,0 +1,6 @@
+"#bannerImg":{
+	size:{
+		width: Alloy.CFG.banner_width,
+		height: Alloy.CFG.banner_height
+	}
+}

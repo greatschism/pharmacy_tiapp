@@ -19,7 +19,19 @@ function setImage(img, dimg, encodURL) {
 	var md5 = Ti.Utils.md5HexDigest(image) + getExtension(image),
 	    savedFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache/" + md5);
 	if (savedFile.exists()) {
-		$.widget.image = image = savedFile.nativePath;
+		//update image
+		image = savedFile.nativePath;
+		//apply properties
+		if (_.has(args, "size")) {
+			$.widget.applyProperties({
+				width : args.size.width,
+				height : args.size.height,
+				image : image
+			});
+		} else {
+			$.widget.image = image;
+		}
+		//trigger load event
 		$.trigger("load", {
 			image : image
 		});
@@ -46,19 +58,42 @@ function setImage(img, dimg, encodURL) {
 	savedFile = null;
 }
 
-function didSuccess(result, passthrough) {
+function didSuccess(blob, passthrough) {
 	var cachedDir = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache");
 	if (!cachedDir.exists()) {
 		cachedDir.createDirectory();
 	}
 	cachedDir = null;
-	var file = Ti.Filesystem.getFile(passthrough);
-	file.write(result, false);
-	file = null;
-	$.widget.image = image = passthrough;
-	$.trigger("load", {
-		image : image
-	});
+	//make sure this is a valid blob
+	if (blob) {
+		var file = Ti.Filesystem.getFile(passthrough);
+		if (_.has(args, "size")) {
+			/**
+			 * converting dp to px
+			 * for imageAsResized
+			 */
+			var logicalDensityFactor = OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : Ti.Platform.displayCaps.dpi / 160;
+			blob = blob.imageAsResized(args.size.width * logicalDensityFactor, args.size.height * logicalDensityFactor);
+		}
+		file.write(blob, false);
+		file = null;
+		//update image
+		image = passthrough;
+		//apply properties
+		if (_.has(args, "size")) {
+			$.widget.applyProperties({
+				width : args.size.width,
+				height : args.size.height,
+				image : image
+			});
+		} else {
+			$.widget.image = image;
+		}
+		//trigger load event
+		$.trigger("load", {
+			image : image
+		});
+	}
 }
 
 function didFail(error, passthrough) {

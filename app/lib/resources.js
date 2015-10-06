@@ -87,7 +87,7 @@ var Res = {
 
 		_.each(data, function(obj) {
 
-			if (_.has(obj, "platform") && _.indexOf(obj.platform, app.device.platform) == -1) {
+			if (_.has(obj, "platform") && _.indexOf(obj.platform, Alloy.CFG.platform) == -1) {
 				return false;
 			}
 			delete obj.platform;

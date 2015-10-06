@@ -186,10 +186,21 @@ var Configuration = {
 		}
 		//extend configuration
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
-		var platform = require("core").device.platform;
-		if (_.isObject(theme.data.config[platform])) {
-			_.extend(Alloy.CFG, utilities.clone(theme.data.config[platform]));
+		if (_.isObject(theme.data.config[Alloy.CFG.platform])) {
+			_.extend(Alloy.CFG, utilities.clone(theme.data.config[Alloy.CFG.platform]));
 		}
+		//banner size
+		var app = require("core");
+		/**
+		 * banner will always fill the
+		 * device in width wise
+		 * and height will keep
+		 * aspect ratio
+		 */
+		_.extend(Alloy.CFG, {
+			banner_width : app.device.width,
+			banner_height : Math.floor((Alloy.CFG.banner_default_height / Alloy.CFG.banner_default_width) * app.device.width)
+		});
 		//rx formatter
 		_.each(Alloy.CFG.rx_formatters, function(formatter) {
 			formatter.exp = new RegExp(formatter.pattern, formatter.modifiters);
@@ -288,7 +299,7 @@ var Configuration = {
 				var dict = dicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
 				if (!_.has(Alloy.TSS, key)) {
-					key += "_platform_" + require("core").device.platform;
+					key += "_platform_" + Alloy.CFG.platform;
 				}
 				if (dict.queries && dict.queries.formFactor) {
 					key += "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));

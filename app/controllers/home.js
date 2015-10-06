@@ -8,11 +8,17 @@ var args = arguments[0] || {},
 function init() {
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
-		if (_.has(item, "platform") && _.indexOf(item.platform, $.app.device.platform) == -1) {
+		if (_.has(item, "platform") && _.indexOf(item.platform, Alloy.CFG.platform) == -1) {
 			return;
 		}
 		$.contentView.add(create(item));
 	});
+	/**
+	 * when banner feature is enabled and
+	 * the current tempalte supports banners
+	 * load banners, if nothing in cache call
+	 * get banners
+	 */
 	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
 			method : "appload_getbanners",
@@ -20,7 +26,7 @@ function init() {
 				feature_code : "THXXX",
 				data : [{
 					banners : {
-						platform : OS_IOS ? "IP" : "AD",
+						platform : Alloy.CFG.platform_code,
 					}
 				}]
 			},
@@ -137,7 +143,7 @@ function create(dict) {
 			    asArray = child.asArray,
 			    cElemnts = [];
 			_.each(items, function(childItem) {
-				if (_.has(childItem, "platform") && _.indexOf(childItem.platform, $.app.device.platform) == -1) {
+				if (_.has(childItem, "platform") && _.indexOf(childItem.platform, Alloy.CFG.platform) == -1) {
 					return;
 				}
 				if (asArray) {
@@ -163,20 +169,20 @@ function create(dict) {
 	}
 	if (_.has(dict, "id")) {
 		$[dict.id] = element;
+		/**
+		 * if the tempalte supports banner
+		 * and banner feature is enabled,
+		 * then apply size bannerView
+		 */
 		if (dict.id == "bannerView" && isBannerEnabled) {
-			/**
-			 * banner will always fill the
-			 * device in width wise
-			 * and height will be maintain
-			 * aspect ratio
-			 * Note: not using Math.floor for height
-			 * as it may bring a minor but noticeable
-			 * white space to banner corners
-			 */
 			$.bannerView.applyProperties({
-				width : $.app.device.width,
-				height : (Alloy.CFG.banner_default_height / Alloy.CFG.banner_default_width) * $.app.device.width
+				width : Alloy.CFG.banner_width,
+				height : Alloy.CFG.banner_height
 			});
+			/**
+			 * when no banner in cache,
+			 * then show a async view
+			 */
 			if (!Alloy.Collections.banners.length) {
 				$.asyncView = Alloy.createWidget("ti.asyncview", "widget");
 				$.bannerView.add($.asyncView.getView());
@@ -241,13 +247,10 @@ function terminate() {
 function didClickForceUpgradeOptionsMenu(e) {
 	switch(e.index) {
 	case 0:
-
 		break;
 	case 1:
-
 		break;
 	case 2:
-
 		break;
 	}
 }

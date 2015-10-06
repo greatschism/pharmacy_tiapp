@@ -29,7 +29,7 @@ function didOpen(e) {
 				appload : {
 					phone_model : Ti.Platform.model,
 					phone_os : Ti.Platform.osname,
-					phone_platform : OS_IOS ? "IP" : "AD",
+					phone_platform : Alloy.CFG.platform_code,
 					device_id : notificationHandler.devideId,
 					carrier : Ti.Platform.carrier,
 					app_version : Ti.App.version,

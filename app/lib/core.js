@@ -42,7 +42,6 @@ var App = {
 	 * @param {String} statusBarOrientation A Ti.UI orientation value
 	 */
 	device : {
-		platform : OS_IOS ? "ios" : "android",
 		version : Ti.Platform.version,
 		versionMajor : parseInt(Ti.Platform.version.split(".")[0], 10),
 		versionMinor : parseInt(Ti.Platform.version.split(".")[1], 10),
