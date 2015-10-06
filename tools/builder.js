@@ -483,7 +483,7 @@ if (program.buildOnly) {
 				 * Note: multiple certificates can share same common name which might
 				 * bring conflicts, so delete all when force is specified
 				 */
-				if (exec("security delete-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
+				if (!exec("security find-certificate -c \"" + buildKeys.certificate_name + "\"").stderr && exec("security delete-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
 					logger.error("Multiple certificates found with same name " + buildKeys.certificate_name + ". Please delete them manually from keychain and try again.");
 					process.exit(1);
 				}
