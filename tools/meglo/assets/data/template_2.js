@@ -8,6 +8,9 @@ module.exports = {
 				"apiName" : "View",
 				"classes" : ["auto-width", "auto-height"]
 			}, {
+				"apiName" : "View",
+				"classes" : ["h-divider-light", "touch-disabled"]
+			}, {
 				"id" : "tilesView",
 				"apiName" : "View",
 				"classes" : ["auto-height", "hide"],
@@ -82,7 +85,7 @@ module.exports = {
 								}]
 							}, {
 								"apiName" : "View",
-								"classes" : ["h-divider", "touch-disabled"]
+								"classes" : ["h-divider-light", "touch-disabled"]
 							}, {
 								"apiName" : "View",
 								"classes" : ["auto-height"],
@@ -139,7 +142,7 @@ module.exports = {
 								}]
 							}, {
 								"apiName" : "View",
-								"classes" : ["h-divider", "touch-disabled"]
+								"classes" : ["h-divider-light", "touch-disabled"]
 							}, {
 								"apiName" : "View",
 								"classes" : ["auto-height"],
@@ -196,13 +199,13 @@ module.exports = {
 								}]
 							}, {
 								"apiName" : "View",
-								"classes" : ["h-divider", "touch-disabled"]
+								"classes" : ["h-divider-light", "touch-disabled"]
 							}]
 						}]
 					}, {
 						"id" : "vdivider",
 						"apiName" : "View",
-						"classes" : ["top", "v-divider", "touch-disabled"]
+						"classes" : ["top", "v-divider-light", "touch-disabled"]
 					}]
 				}]
 			}]

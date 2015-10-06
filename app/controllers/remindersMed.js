@@ -380,6 +380,16 @@ function didDeleteReminder(result, passthrough) {
 		return false;
 	});
 	/**
+	 * update cache in collection
+	 * as that will be reused while
+	 * add / update reminder
+	 * for checking whether reminder exists
+	 * for a prescription
+	 */
+	Alloy.Collections.remindersMed.remove(Alloy.Collections.remindersMed.findWhere({
+		id : passthrough.id
+	}));
+	/**
 	 * toggle views
 	 * if all rows are deleted
 	 * No need to check for visibility
