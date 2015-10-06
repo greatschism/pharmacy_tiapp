@@ -55,12 +55,6 @@ function Navigation(args) {
 	this.loader = null;
 
 	/**
-	 * The device object
-	 * @type {Object}
-	 */
-	this.device = args.device;
-
-	/**
 	 * The drawer object
 	 * @type {Object}
 	 */
