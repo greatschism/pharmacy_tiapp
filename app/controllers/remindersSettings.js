@@ -88,7 +88,7 @@ function init() {
 function didChangeShowRxNames(e) {
 	if (Alloy.CFG.show_rx_names_dialog_enabled && e.value) {
 		$.uihelper.showDialog({
-			message : $.strings.remindersSettingsMsgShowRxNames
+			message : String.format($.strings.remindersSettingsMsgShowRxNames, $.strings.strClientName)
 		});
 	}
 }

@@ -1,6 +1,3 @@
-"#titleLbl":{
-	text: Alloy.Globals.strings.loginLblTitle
-},
 "#usernameTxt":{
 	hintText: Alloy.Globals.strings.loginHintUsername,
 	nextItem: "passwordTxt"

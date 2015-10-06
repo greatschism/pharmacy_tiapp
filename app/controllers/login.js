@@ -5,6 +5,7 @@ var args = arguments[0] || {},
     utilities = require('utilities');
 
 function init() {
+	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
 	$.uihelper.getImage("logo", $.logoImg);
 	/**
 	 * if auto login is enabled

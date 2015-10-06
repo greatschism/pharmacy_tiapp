@@ -62,6 +62,7 @@ program.option("-i, --build-number <value>", "Build number.", DEFAULT_BUILD_NUMB
 program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, DEFAULT_PLATFORM);
 program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, DEFAULT_TARGET);
 program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR);
+program.option("-F, --output-file <file>", "Output file (base) name.");
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
 program.option("--appc-clean", "Valid only when --build-only is specified; when specified, triggers appc clean right after branding.");
@@ -146,7 +147,7 @@ if (build) {
 		process.exit(0);
 	} else {
 
-		logger.info("Project is being branded for " + brand.name);
+		logger.info("Project is being branded for " + brand.id);
 
 		//copy brand resources
 		var BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
@@ -277,7 +278,7 @@ if (build) {
 
 		logger.debug("Created " + APP_TIAPP_XML);
 
-		logger.info("Finished branding for " + brand.name);
+		logger.info("Finished branding for " + brand.id);
 
 		/**
 		 * initate tss maker
@@ -398,7 +399,7 @@ if (build) {
 
 } else {
 
-	logger.info("No changes found, Project is alreadt branded for " + brand.name);
+	logger.info("No changes found, Project is alreadt branded for " + brand.id);
 }
 
 /**
@@ -577,7 +578,25 @@ if (program.buildOnly) {
 		if (code != 0) {
 			logger.error("appc exited with " + code);
 		} else {
-			logger.info("Finished release on " + program.platform + " for " + brand.name);
+			/**
+			 * rename file if required
+			 */
+			var fileName = program.outputFile;
+			if (fileName) {
+				var pExt = program.platform === "ios" ? ".ipa" : ".apk",
+				    fExt = fileName.substr(fileName.lastIndexOf("."));
+				/**
+				 * if the right extention is not set
+				 * then set one
+				 */
+				if (pExt != fExt) {
+					fileName += pExt;
+				}
+				//rename file
+				fs.renameSync(program.outputDir + "/" + require("tiapp.xml").load(APP_TIAPP_XML).name + pExt, program.outputDir + "/" + fileName);
+				logger.info("Copying file to " + program.outputDir + "/" + fileName);
+			}
+			logger.info("Release completed successfully for " + program.platform + " for " + brand.id);
 		}
 		process.exit(code);
 	});

@@ -1,7 +1,7 @@
 module.exports = {
 	"data" : {
 
-		"strClientName" : "es-Carbon Pharmacy",
+		"strClientName" : "es-mscripts",
 
 		"strPrefixDoctor" : "es-Dr. ",
 		"strPrefixRx" : "es-#Rx ",
@@ -164,7 +164,7 @@ module.exports = {
 
 		"homeNavBtnLogin" : "es-Sign in",
 
-		"loginLblTitle" : "es-Sign in to the mscripts mobile pharmacy",
+		"loginLblTitle" : "es-Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "es-Username",
 		"loginHintPassword" : "es-Password",
 		"loginLblTogglePassword" : "es-Show password",
@@ -447,7 +447,7 @@ module.exports = {
 		"remindersSettingsLblShowRx" : "es-Show full prescription name in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "es-Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "es-Close",
-		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the mscripts Terms of Service.",
+		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the %s Terms of Service.",
 
 		"transferLblTitle" : "es-You can transfer prescriptions from other pharmacy chains to %s using this feature.",
 		"transferBtnPhoto" : "es-Take a photo",
