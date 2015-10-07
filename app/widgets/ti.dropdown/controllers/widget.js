@@ -56,12 +56,12 @@ var args = arguments[0] || {},
 		}
 	}
 
-	if (_.has(args, "selectedDate")) {
-		setValue(args.selectedDate);
-	}
-
 	if (_.has(args, "format")) {
 		format = args.format;
+	}
+
+	if (_.has(args, "selectedDate")) {
+		setValue(args.selectedDate);
 	}
 
 })();
