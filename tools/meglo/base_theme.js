@@ -217,6 +217,9 @@ module.exports = {
 		"formatLong" : "Alloy.CFG.date_format_long",
 		"type" : "Ti.UI.PICKER_TYPE_DATE"
 	},
+	".dob" : {
+		"selectedDate" : "Alloy.CFG.dob_default_date"
+	},
 	".time" : {
 		"title" : "Alloy.Globals.strings.dialogTitleTimePicker",
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",

@@ -189,6 +189,10 @@ var Configuration = {
 		if (_.isObject(theme.data.config[Alloy.CFG.platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[Alloy.CFG.platform]));
 		}
+		//get date objects
+		_.each(["default_date", "dob_default_date"], function(val) {
+			Alloy.CFG[val] = new Date(Alloy.CFG[val]);
+		});
 		//banner size
 		var app = require("core");
 		/**

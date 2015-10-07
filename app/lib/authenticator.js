@@ -502,7 +502,7 @@ function initiateTimeZoneCheck(passthrough) {
 	 * device time to validate whether
 	 * there is a mismatch
 	 */
-	var dateObj = new Date(Alloy.CFG.default_date),
+	var dateObj = Alloy.CFG.default_date,
 	    dFormat = Alloy.CFG.date_time_format,
 	    dDate = moment(dateObj).format(dFormat),
 	    currentTZ;

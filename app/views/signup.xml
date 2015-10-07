@@ -9,17 +9,17 @@
 					<View id="vDividerView" class="v-divider"/>
 				</View>
 				<View class="h-divider"/>
-				<Widget id="dob" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
-			</View>	
+				<Widget id="dob" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
+			</View>
 			<View id="containerView" class="margin-top form-vgroup">
 				<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-next" onReturn="moveToNext" />
-				<View class="h-divider"/>		
+				<View class="h-divider"/>
 				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next" passwordMask="true" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView"/>
 			</View>
 			<View class="margin-top auto-height">
 				<Label id="showPasswordLbl" class="lbl-with-rswt" />
 				<Widget id="showPasswordSwt" src="ti.switch" class="margin-right swt" onChange="didToggleShowPassword" />
-			</View>		
+			</View>
 			<View id="rxContainer" class="margin-top form-vgroup">
 				<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" />
 				<View class="h-divider"/>
@@ -28,7 +28,7 @@
 						<Label id="storeTitleLbl" class="content-lbl" />
 					</View>
 					<View class="content-detail-view-30">
-						<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-right" />						
+						<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-right" />
 					</View>
 				</View>
 			</View>
