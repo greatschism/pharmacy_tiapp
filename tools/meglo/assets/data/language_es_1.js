@@ -624,7 +624,7 @@ module.exports = {
 		"childAddValRxNo" : "es-Please enter your prescription number.",
 		"childAddValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
 		"childAddAccntInvalid" : "es-This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
-		"childValStore" : "es-Please select a pharmacy",
+		"childValStore" : "es-Please select a pharmacy.",
 
 		"childSuccessLblTitle" : "es-You have successfully added a child to your account.",
 		"childSuccessBtnAddChild" : "es-Add another child",
@@ -742,7 +742,7 @@ module.exports = {
 		"familyMemberAddPrescValDob" : "es-Please enter your Date of birth.",
 		"familyMemberAddPrescValRxNo" : "es-Please enter your prescription number.",
 		"familyMemberAddPrescValRxNoInvalid" : "es-Prescription number you have entered seem invalid.",
-		"familyMemberAddPrescValStore" : "es-Please select a pharmacy",
+		"familyMemberAddPrescValStore" : "es-Please select a pharmacy.",
 
 		"emailVerifyLblWelcome" : "es-Welcome to %s",
 		"emailVerifyLblEmailVerify" : "es-We noticed you haven't confirmed your email address yet. Some features will not work unless your email is verified.",
