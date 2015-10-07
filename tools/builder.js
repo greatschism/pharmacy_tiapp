@@ -65,6 +65,7 @@ program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR
 program.option("-F, --output-file <file>", "Output file (base) name.");
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
+program.option("--unit-test", "Valid only when --build-only is specified; when specified, executes unit test cases.");
 program.option("--appc-clean", "Valid only when --build-only is specified; when specified, triggers appc clean right after branding.");
 program.option("--clean-only", "Clean the project by removing all branding information; when specified, does not trigger a build.");
 program.option("-l, --log-level <level>", "Minimum logging level. Supported options are trace, debug, info, warn, and error", toLowerCase, "debug");
@@ -240,6 +241,14 @@ if (build) {
 
 		//extend global properties
 		_u.extend(configData.global, envData.config);
+
+		/**
+		 * enable unit test cases
+		 * if specified.
+		 */
+		if (program.buildOnly && program.unitTest) {
+			configData.global.unit_test_enabled = true;
+		}
 
 		//write config
 		fs.writeFileSync(APP_CONFIG_JSON, JSON.stringify(configData, null, 4));
