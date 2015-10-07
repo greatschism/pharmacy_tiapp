@@ -167,7 +167,7 @@ module.exports = {
 		"homeNavBtnLogin" : "es-Sign in",
 
 		"loginLblTitle" : "es-Sign in to the %s mobile pharmacy",
-		"loginHintUsername" : "es-Username",
+		"loginHintUsername" : "es-Email address",
 		"loginHintPassword" : "es-Password",
 		"loginLblTogglePassword" : "es-Show password",
 		"loginLblAutoLogin" : "es-Keep me signed in",
@@ -284,7 +284,7 @@ module.exports = {
 		"prescAddTooltipLblReminder" : "es-tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
 		"prescAddTooltipBtnHide" : "es-Got it!",
 		"prescPartialLblTitle" : "es-Want to add a prescription?",
-		"prescPartialLblDesc" : "es-It looks like you don't have any prescriptions associated with %s's account.",
+		"prescPartialLblDesc" : "es-It looks like you don't have any prescriptions associated with your account.",
 
 		"prescDetExpand" : "es-Show more",
 		"prescDetCollapse" : "es-Show less",

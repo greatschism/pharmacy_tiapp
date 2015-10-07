@@ -112,7 +112,7 @@ function prepareData() {
 			prepareList();
 		}
 		//update strings and show
-		$.partialDescLbl.text = String.format($.strings.prescPartialLblDesc, currentPatient.get("first_name"));
+		$.partialDescLbl.text =$.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 		}
