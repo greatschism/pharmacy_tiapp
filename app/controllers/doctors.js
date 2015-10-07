@@ -245,6 +245,10 @@ function didDeleteDoctor(result, passthrough) {
 		}
 		return false;
 	});
+	//remove model from collection
+	Alloy.Collections.doctors.remove(Alloy.Collections.doctors.findWhere({
+		id : passthrough.id
+	}));
 }
 
 function didClickAdd(e) {

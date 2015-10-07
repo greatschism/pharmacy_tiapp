@@ -65,8 +65,9 @@ function focus() {
 				$.addView.visible = false;
 				$.contentHeaderView.visible = true;
 			}
-			//add row
+			//update collection
 			Alloy.Collections.remindersMed.add(currentReminder);
+			//add row
 			var row = processModel(Alloy.Collections.remindersMed.last());
 			$.tableView.appendRow(row.getView());
 			rows.push(row);
@@ -379,13 +380,7 @@ function didDeleteReminder(result, passthrough) {
 		}
 		return false;
 	});
-	/**
-	 * update cache in collection
-	 * as that will be reused while
-	 * add / update reminder
-	 * for checking whether reminder exists
-	 * for a prescription
-	 */
+	//remove model from collection
 	Alloy.Collections.remindersMed.remove(Alloy.Collections.remindersMed.findWhere({
 		id : passthrough.id
 	}));
