@@ -27,7 +27,7 @@ module.exports = {
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
 									"textid" : "titlePrescriptions"
 								}
@@ -51,7 +51,7 @@ module.exports = {
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleRefill"
 								}
@@ -71,18 +71,18 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
-									"icon" : "thick_pharmacy"
+									"icon" : "thick_reminder"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
-									"textid" : "titleStores"
+									"textid" : "titleReminders"
 								}
 							}]
 						}],
 						"navigation" : {
-							"ctrl" : "stores"
+							"ctrl" : "reminders"
 						}
 					}]
 				}]
@@ -101,11 +101,59 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
 								"properties" : {
+									"icon" : "users"
+								}
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleFamilyAccounts"
+								}
+							}]
+						}],
+						"navigation" : {
+							"ctrl" : "familyCare"
+						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["left", "margin-top", "margin-bottom", "auto-height", "vgroup"],
+						"properties" : {
+							"width" : "33%"
+						},
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
+								"properties" : {
+									"icon" : "thick_pharmacy"
+								}
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleStores"
+								}
+							}]
+						}],
+						"navigation" : {
+							"ctrl" : "stores"
+						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["left", "margin-top", "margin-bottom", "auto-height", "vgroup"],
+						"properties" : {
+							"width" : "33%"
+						},
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
+								"properties" : {
 									"icon" : "thick_transfer"
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleTransfer"
 								}
@@ -114,7 +162,13 @@ module.exports = {
 						"navigation" : {
 							"ctrl" : "transfer"
 						}
-					}, {
+					}]
+				}]
+			}, {
+				"apiName" : "View",
+				"classes" : ["auto-height", "hgroup-no-wrap"],
+				"children" : [{
+					"items" : [{
 						"apiName" : "View",
 						"classes" : ["left", "margin-top", "margin-bottom", "auto-height", "vgroup"],
 						"properties" : {
@@ -129,7 +183,7 @@ module.exports = {
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleDoctors"
 								}
@@ -153,7 +207,7 @@ module.exports = {
 								}
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+								"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleAccount"
 								}

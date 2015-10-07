@@ -48,7 +48,7 @@ module.exports = {
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titlePrescriptions"
 												}
@@ -72,7 +72,7 @@ module.exports = {
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titleRefill"
 												}
@@ -101,11 +101,68 @@ module.exports = {
 												"apiName" : "Label",
 												"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
 												"properties" : {
+													"icon" : "thick_reminder"
+												}
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
+												"properties" : {
+													"textid" : "titleReminders"
+												}
+											}]
+										}],
+										"navigation" : {
+											"ctrl" : "reminders"
+										}
+									}, {
+										"apiName" : "View",
+										"classes" : ["right", "margin-top", "margin-bottom", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
+												"properties" : {
+													"icon" : "users"
+												}
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
+												"properties" : {
+													"textid" : "titleFamilyAccounts"
+												}
+											}]
+										}],
+										"navigation" : {
+											"ctrl" : "familyCare"
+										}
+									}]
+								}]
+							}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+							}, {
+								"apiName" : "View",
+								"classes" : ["auto-height"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "View",
+										"classes" : ["left", "margin-top", "margin-bottom", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top", "primary-icon", "touch-disabled", "accessibility-disabled"],
+												"properties" : {
 													"icon" : "thick_pharmacy"
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titleStores"
 												}
@@ -129,7 +186,7 @@ module.exports = {
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titleTransfer"
 												}
@@ -162,7 +219,7 @@ module.exports = {
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titleDoctors"
 												}
@@ -186,7 +243,7 @@ module.exports = {
 												}
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top", "margin-bottom", "lbl-centered", "touch-disabled"],
+												"classes" : ["margin-top", "margin-bottom", "lbl-centered-wrap", "touch-disabled"],
 												"properties" : {
 													"textid" : "titleAccount"
 												}
