@@ -36,7 +36,7 @@ function didGetBarcode(e) {
 			data : [{
 				prescriptions : [{
 					mobile_number : phone,
-					pickup_mode : barcodeData.substring(Alloy.CFG.rx_store_start_index, Alloy.CFG.rx_store_end_index) === Alloy.Models.appload.get("mail_order_store_id") ? apiCodes.pickup_mode_mail_order : apiCodes.pickup_mode_instore,
+					pickup_mode : barcodeData.substring(Alloy.CFG.rx_store_start_index, Alloy.CFG.rx_store_end_index) === Alloy.Models.appload.get("mail_order_store_identifier") ? apiCodes.pickup_mode_mail_order : apiCodes.pickup_mode_instore,
 					pickup_time_group : apiCodes.pickup_time_group_asap,
 					barcode_data : barcodeData
 				}]
