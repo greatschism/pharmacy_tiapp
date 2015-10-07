@@ -34,6 +34,12 @@ var Res = {
 	 */
 	updateCallback : null,
 
+	/**
+	 * hires suffix
+	 * valid only for iOS
+	 */
+	imgHiresSuffix : OS_IOS ? "@" + app.device.logicalDensityFactor + "x" : "",
+
 	init : function() {
 
 		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != Ti.App.version || !ENV_PROD) {
@@ -107,8 +113,17 @@ var Res = {
 				if (obj.type == "fonts" || obj.type == "images") {
 					obj.data = "updated";
 				} else if (obj.type == "font" || obj.type == "image") {
+					/**
+					 * hires flag is valid only ios
+					 * particularly for image assets
+					 * and not for fonts. When ture it
+					 * will store the images with density
+					 * suffix.
+					 * i.e @2x / @3x. Apple map requires hires
+					 * images otherwise pins will become blurry
+					 */
 					var srcFile = obj.type + "_" + obj.code + "_" + obj.version,
-					    desFile = srcFile + "." + obj.format;
+					    desFile = srcFile + (obj.hires ? Res.imgHiresSuffix : "") + "." + obj.format;
 					if (obj.type == "font") {
 						//font
 						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);

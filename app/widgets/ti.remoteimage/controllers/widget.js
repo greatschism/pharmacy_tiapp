@@ -15,9 +15,9 @@ var args = arguments[0] || {},
 })();
 
 function setImage(img, dimg, encodURL) {
-	image = img;
-	var md5 = Ti.Utils.md5HexDigest(image) + getExtension(image),
+	var md5 = Ti.Utils.md5HexDigest(img) + getExtension(img),
 	    savedFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache/" + md5);
+	image = null;
 	if (savedFile.exists()) {
 		//update image
 		image = savedFile.nativePath;
@@ -31,10 +31,6 @@ function setImage(img, dimg, encodURL) {
 		} else {
 			$.widget.image = image;
 		}
-		//trigger load event
-		$.trigger("load", {
-			image : image
-		});
 	} else {
 		dimg = dimg || args.defaultImage;
 		if (dimg) {
@@ -46,7 +42,7 @@ function setImage(img, dimg, encodURL) {
 		 * in our case we set it to false by default
 		 */
 		require("http").request({
-			url : image,
+			url : img,
 			autoEncodeUrl : _.isUndefined(encodURL) ? false : encodURL,
 			type : "GET",
 			format : "data",
@@ -89,7 +85,15 @@ function didSuccess(blob, passthrough) {
 		} else {
 			$.widget.image = image;
 		}
-		//trigger load event
+	}
+}
+
+function didLoad(e) {
+	/**
+	 * assume actual image is loaded
+	 * when image is valid
+	 */
+	if (image) {
 		$.trigger("load", {
 			image : image
 		});

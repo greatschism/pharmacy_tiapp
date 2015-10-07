@@ -136,6 +136,7 @@ module.exports = {
 		"properties" : {
 			"width" : "70%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo.png",
 		"selected" : true
@@ -149,6 +150,7 @@ module.exports = {
 		"properties" : {
 			"height" : 30
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo_white.png",
 		"selected" : true
@@ -160,22 +162,10 @@ module.exports = {
 		"name" : "map_pin",
 		"format" : "png",
 		"properties" : {
-			"width" : 40
+			"width" : 32
 		},
-		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "map_pin_pl",
-		"name" : "map_pin",
-		"format" : "png",
-		"properties" : {
-			"width" : 80
-		},
-		"platform" : ["android"],
+		"hires" : true,
+		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
 		"selected" : true
 	}, {
@@ -188,6 +178,7 @@ module.exports = {
 		"properties" : {
 			"width" : "90%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/rx_sample.png",
 		"selected" : true
@@ -201,6 +192,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_refill_success.png",
 		"selected" : true
@@ -214,6 +206,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_info.png",
 		"selected" : true
@@ -227,6 +220,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip1.png",
 		"selected" : true
@@ -240,6 +234,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip2.png",
 		"selected" : true
@@ -253,6 +248,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
 		"selected" : true
@@ -266,6 +262,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
 		"selected" : true
@@ -279,6 +276,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
 		"selected" : true
@@ -292,6 +290,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
 		"selected" : true
@@ -305,6 +304,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill.png",
 		"selected" : true
@@ -318,6 +318,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_med.png",
 		"selected" : true
@@ -331,6 +332,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_settings.png",
 		"selected" : true
@@ -344,6 +346,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_refill.png",
 		"selected" : true
@@ -357,6 +360,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_ready.png",
 		"selected" : true
@@ -370,6 +374,7 @@ module.exports = {
 		"properties" : {
 			"width" : "40%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_pickup.png",
 		"selected" : true
@@ -383,6 +388,7 @@ module.exports = {
 		"properties" : {
 			"width" : 90
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/default_profile.png",
 		"selected" : true
@@ -396,6 +402,7 @@ module.exports = {
 		"properties" : {
 			"width" : "90%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/prescription_list.png",
 		"selected" : true
@@ -409,6 +416,7 @@ module.exports = {
 		"properties" : {
 			"width" : "90%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/helpful_medication.png",
 		"selected" : true
@@ -422,6 +430,7 @@ module.exports = {
 		"properties" : {
 			"width" : "90%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
 		"selected" : true
@@ -435,6 +444,7 @@ module.exports = {
 		"properties" : {
 			"width" : "100%"
 		},
+		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/text_benefits.png",
 		"selected" : true
