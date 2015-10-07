@@ -1,10 +1,10 @@
 var args = arguments[0] || {},
     childProxyData = [],
-    child_proxy = [],
     selectedChildProxy,
     authenticator = require("authenticator"),
     accntMgrData,
     parentData,
+    allChildData,
     childData,
     currentPatient,
     phone,
@@ -32,10 +32,10 @@ function focus() {
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
 	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
-	//if (isFamilyAccounts) {
+	if (isFamilyAccounts) {
 
-		updateTable();
-	//}
+	updateTable();
+	}
 }
 
 function updateTable() {
@@ -45,7 +45,10 @@ function updateTable() {
 	    selected = true;
 	accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");
-	childData = Alloy.Collections.patients.at(0).get("child_proxy");
+	allChildData = Alloy.Collections.patients.at(0).get("child_proxy");
+	childData = _.where(allChildData, {
+		status : '1'
+	});
 	if (accntMgrData) {
 		mgrData = [];
 		mgr = {
@@ -61,15 +64,14 @@ function updateTable() {
 		rows.push(mgrRow);
 	}
 	if (childData) {
-		var childProxyData = [];
-		_.each(childData, function(childProxy) {
+		_.each(childData, function(data) {
 			childProxy = {
-				title : $.utilities.ucword(childProxy.first_name) || $.utilities.ucword(childProxy.last_name) ? $.utilities.ucword(childProxy.first_name) + " " + $.utilities.ucword(childProxy.last_name) : childProxy.address,
-				subtitle : $.strings.familyCareRelatedPrefix + childProxy.related_by,
+				title : $.utilities.ucword(data.first_name) || $.utilities.ucword(data.last_name) ? $.utilities.ucword(data.first_name) + " " + $.utilities.ucword(data.last_name) : data.address,
+				subtitle : $.strings.familyCareRelatedPrefix + data.related_by,
 				titleClasses : titleClasses,
 				subtitleClasses : subtitleClasses,
 				selected : selected,
-				id : childProxy.child_id,
+				id : data.child_id,
 
 			};
 			childProxyData.push(childProxy);
@@ -78,24 +80,6 @@ function updateTable() {
 			rows.push(childRow);
 		});
 	}
-	if (parentData) {
-		parentProxyData = [];
-		_.each(parentData, function(parentProxy) {
-			parentProxy = {
-				title : $.utilities.ucword(parentProxy.first_name) || $.utilities.ucword(parentProxy.last_name) ? $.utilities.ucword(parentProxy.first_name) + " " + $.utilities.ucword(parentProxy.last_name) : parentProxy.address,
-				titleClasses : titleClasses,
-				subtitleClasses : subtitleClasses,
-				selected : selected,
-				id : parentProxy.parent_id
-
-			};
-			parentProxyData.push(parentProxy);
-			var parentRow = Alloy.createController("itemTemplates/contentViewWithLIcon", parentProxy);
-			$.recieveTextSection.add(parentRow.getView());
-			rows.push(parentRow);
-		});
-	}
-
 	$.childTable.setData([$.recieveTextSection]);
 }
 
@@ -107,31 +91,36 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	//if (isFamilyAccounts) {
-		var row = rows[e.index];
+	if (isFamilyAccounts) {
+	var row = rows[e.index];
+	if (row) {
 		var params = row.getParams();
 		if (params.selected) {
 			params.selected = false;
 			childProxyData.selected = false;
 		} else {
 			params.selected = true;
-			childProxyData.selected=true;
+			childProxyData.selected = true;
 		}
 		rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
 		$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
-		selectedChildProxy = _.reject(childProxyData, function(selected) {
-			return childProxyData.selected === false;
-		});
-	//}
+	}
+	}
 }
 
 function didClickContinue() {
 	phone = $.phoneTxt.getValue();
-	var childProxy = [];
-	console.log(childProxyData);
-	childProxy=_.pluck(selectedChildProxy, "id");
-	console.log(childProxy);
-		console.log(selectedChildProxy);
+	var childProxy = [],
+	    selectedChildProxy = [];
+	_.each(rows, function(row) {
+		if (row.getParams().selected) {
+			if (row.getParams().id) {
+				selectedChildProxy.push(row.getParams().id);
+			}
+		}
+
+	});
+	childProxy = _.pluck(selectedChildProxy, "id");
 	if (!phone) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhone
@@ -165,7 +154,7 @@ function didClickContinue() {
 				add : {
 					mobile : "1" + phone,
 					old_mobile : "",
-					childIds : childProxy
+					childIds : selectedChildProxy
 				}
 			}]
 
