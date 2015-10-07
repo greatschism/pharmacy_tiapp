@@ -334,13 +334,22 @@ var Res = {
 		} else {
 			passthrough.error = false;
 			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
-			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + "." + passthrough.format;
+			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + (passthrough.hires ? Res.imgHiresSuffix : "") + "." + passthrough.format;
 			if (passthrough.type == "fonts") {
 				//fonts
 				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
 			} else {
 				//images
-				Res.resizeImage(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result, passthrough.properties);
+				/**
+				 * directly resizing the responseData (Blob)
+				 * returns null on android (Samsung Note 2 - Android 4.4.2)
+				 */
+				var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile);
+				utilities.writeFile(file, result, false);
+				//nullify blob
+				result = null;
+				//resize
+				Res.resizeImage(file, file.read(), passthrough.properties);
 			}
 			var item = _.pick(passthrough, ["type", "version", "base_version", "code", "properties"]);
 			_.extend(item, {

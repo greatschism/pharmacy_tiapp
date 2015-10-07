@@ -80,6 +80,10 @@ function didSuccess(result, passthrough) {
 			file.write(blob);
 			blob = null;
 		}
+		//disable remote backups on ios
+		if (OS_IOS) {
+			file.setRemoteBackup(false);
+		}
 		file = null;
 		//update image
 		image = passthrough;
