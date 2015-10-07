@@ -92,6 +92,8 @@ module.exports = {
 		"msgRegisterSuccessful" : "Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
 		"msgForceUpgradeFound" : "We've just released a new version of this app with some essential changes. Please update now to continue using it.",
+		"msgGooglePlayServicesUpdateRequired" : "You must update your Google Play Services in order to use this feature. Do you want to update now?",
+		"msgGooglePlayServicesNotAvailable" : "There is something wrong with your version of Google Play Services. Please check your settings.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -650,7 +652,7 @@ module.exports = {
 		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from %s or those acting on %s's behalf.",
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
-		"receiveTextPhoneNoChild":"Please select at least one person to receive text messages.",
+		"receiveTextPhoneNoChild" : "Please select at least one person to receive text messages.",
 
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",
