@@ -54,24 +54,32 @@ function setImage(img, dimg, encodURL) {
 	savedFile = null;
 }
 
-function didSuccess(blob, passthrough) {
+function didSuccess(result, passthrough) {
 	var cachedDir = Ti.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, "image-cache");
 	if (!cachedDir.exists()) {
 		cachedDir.createDirectory();
 	}
 	cachedDir = null;
 	//make sure this is a valid blob
-	if (blob) {
+	if (result) {
+		//write file
 		var file = Ti.Filesystem.getFile(passthrough);
+		file.write(result);
+		result = null;
+		/**
+		 * directly resizing the responseData (Blob)
+		 * returns null on android (Samsung Note 2 - Android 4.4.2)
+		 */
 		if (_.has(args, "size")) {
 			/**
 			 * converting dp to px
 			 * for imageAsResized
 			 */
-			var logicalDensityFactor = OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : Ti.Platform.displayCaps.dpi / 160;
-			blob = blob.imageAsResized(args.size.width * logicalDensityFactor, args.size.height * logicalDensityFactor);
+			var logicalDensityFactor = OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : Ti.Platform.displayCaps.dpi / 160,
+			    blob = file.read().imageAsResized(args.size.width * logicalDensityFactor, args.size.height * logicalDensityFactor);
+			file.write(blob);
+			blob = null;
 		}
-		file.write(blob, false);
 		file = null;
 		//update image
 		image = passthrough;
