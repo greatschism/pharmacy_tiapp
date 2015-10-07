@@ -650,6 +650,7 @@ module.exports = {
 		"receiveTextChildLbl" : "By providing your mobile number, you agree to receive health care text messages via automated technology from %s or those acting on %s's behalf.",
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
+		"receiveTextPhoneNoChild":"Please select at least one person to receive text messages.",
 
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",

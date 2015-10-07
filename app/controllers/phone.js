@@ -32,17 +32,17 @@ function focus() {
 	 * if it is family accounts flow, show all the child accounts in the table
 	 */
 	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
-	if (isFamilyAccounts) {
+	//if (isFamilyAccounts) {
 
 		updateTable();
-	}
+	//}
 }
 
 function updateTable() {
 	$.recieveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
 	var subtitleClasses = ["content-subtitle-wrap"],
 	    titleClasses = ["content-title-wrap"],
-	    selected = false;
+	    selected = true;
 	accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");
 	childData = Alloy.Collections.patients.at(0).get("child_proxy");
@@ -107,26 +107,31 @@ function didChangePhone(e) {
 }
 
 function didClickTableView(e) {
-	if (isFamilyAccounts) {
+	//if (isFamilyAccounts) {
 		var row = rows[e.index];
-
 		var params = row.getParams();
 		if (params.selected) {
 			params.selected = false;
+			childProxyData.selected = false;
 		} else {
 			params.selected = true;
+			childProxyData.selected=true;
 		}
 		rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
 		$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
 		selectedChildProxy = _.reject(childProxyData, function(selected) {
-			return childProxyData.selected === 0;
+			return childProxyData.selected === false;
 		});
-	}
+	//}
 }
 
 function didClickContinue() {
 	phone = $.phoneTxt.getValue();
-	var childProxy = _.pluck(selectedChildProxy, "id");
+	var childProxy = [];
+	console.log(childProxyData);
+	childProxy=_.pluck(selectedChildProxy, "id");
+	console.log(childProxy);
+		console.log(selectedChildProxy);
 	if (!phone) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhone
@@ -146,7 +151,12 @@ function didClickContinue() {
 		});
 		return;
 	}
-
+	if (!childProxy.length) {
+		$.uihelper.showDialog({
+			message : $.strings.receiveTextPhoneNoChild
+		});
+		return;
+	}
 	$.http.request({
 		method : "mobile_add",
 		params : {
@@ -168,6 +178,7 @@ function didClickContinue() {
 function didFail() {
 
 }
+
 function didCheckMobileNumber(result) {
 	otp = result.data.patient.verification_code;
 	authenticator.updatePreferences({

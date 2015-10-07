@@ -1,6 +1,9 @@
 var args = arguments[0] || {};
 function init() {
 	$.uihelper.getImage("text_benefits", $.textBenefitsImage);
+	if (args.isFamilyMemberFlow) {
+		$.utilities.setProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), true, "bool", true);
+	}
 }
 
 function didClickTextSignup() {
@@ -31,11 +34,9 @@ function didClickSkipTextSignup() {
 			ctrl : "familyCare",
 			stack : false
 		});
-	} 
-	else if (args.isAccountFlow){
+	} else if (args.isAccountFlow) {
 		$.app.navigator.close();
-	}
-	else {
+	} else {
 		$.app.navigator.open({
 			titleid : "titleHome",
 			ctrl : "home",
@@ -43,4 +44,5 @@ function didClickSkipTextSignup() {
 		});
 	}
 }
+
 exports.init = init;
