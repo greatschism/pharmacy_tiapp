@@ -579,18 +579,22 @@ function prepareMap(shouldUpdateRegion) {
 			//process annotations
 			var storeId = store.get("id"),
 			    leftBtn = isDirectionEnabled ? Ti.UI.createButton(leftBtnDict) : null,
-			    rightBtn = Ti.UI.createButton(rightBtnDict),
-			    annotation = Map.createAnnotation({
+			    annotationDict = {
 				storeId : storeId,
 				title : store.get("title"),
 				subtitle : store.get("subtitle"),
 				latitude : store.get("latitude"),
 				longitude : store.get("longitude"),
 				leftView : leftBtn,
-				rightView : rightBtn,
 				image : pinImg
-			});
+			};
 			if (OS_IOS) {
+				/**
+				 * only system right button allows user to click on info window
+				 * right view just allows user to click on the right corner of
+				 * info window
+				 */
+				annotationDict.rightButton = Ti.UI.iPhone.SystemButton.INFO_DARK;
 				/**
 				 * show direction button
 				 * only if current location (which is search / user location)
@@ -603,13 +607,14 @@ function prepareMap(shouldUpdateRegion) {
 					});
 					leftBtn.addEventListener("click", didClickMap);
 				}
-				rightBtn.applyProperties({
-					clicksource : "rightPane",
-					storeId : storeId
-				});
-				rightBtn.addEventListener("click", didClickMap);
+			} else {
+				/**
+				 * android has a separate click source
+				 * for info window
+				 */
+				annotationDict.rightView = Ti.UI.createButton(rightBtnDict);
 			}
-			data.push(annotation);
+			data.push(Map.createAnnotation(annotationDict));
 		});
 		/**
 		 * only update region to
@@ -990,6 +995,7 @@ function didClickMap(e) {
 			case "title":
 			case "subtitle":
 			case "rightPane":
+			case "rightButton":
 			case "infoWindow":
 				handleNavigation(store.toJSON());
 				break;
@@ -1047,7 +1053,45 @@ function handleNavigation(params) {
 	});
 }
 
+function isGooglePlayServicesAvailable() {
+	var isAvailable = Map.isGooglePlayServicesAvailable();
+	if (isAvailable === Map.SUCCESS) {
+		//available
+		return true;
+	} else if (isAvailable === Map.SERVICE_VERSION_UPDATE_REQUIRED) {
+		//update required
+		$.uihelper.showDialog({
+			message : $.strings.msgGooglePlayServicesUpdateRequired,
+			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : didClickUpdate
+		});
+	} else {
+		//any other issues
+		$.uihelper.showDialog({
+			message : $.strings.msgGooglePlayServicesNotAvailable
+		});
+	}
+	return false;
+}
+
+function didClickUpdate() {
+	/**
+	 * ti.push module has a inbuilt method
+	 * to run the update request intent
+	 */
+	require("ti.push").updateGooglePlayServices();
+}
+
 function didClickRightNavBtn(e) {
+	/**
+	 * check for google play services
+	 * app might crash if proceed further
+	 * when services are not available
+	 */
+	if (OS_ANDROID && !isGooglePlayServicesAvailable()) {
+		return false;
+	}
 	/**
 	 * currentViewType determines the
 	 * view_type parameter of store api
