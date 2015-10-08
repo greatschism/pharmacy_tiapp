@@ -50,16 +50,12 @@ function didGetPrescription(result, passthrough) {
 	 * all switches will be off
 	 * by default
 	 */
-	_.extend(prescription, {
-		is_refill_reminder_set : parseInt(prescription.is_refill_reminder_set) || 0,
-		is_dosage_reminder_set : parseInt(prescription.is_dosage_reminder_set) || 0
-	});
 	//refill reminder
-	if (prescription.is_refill_reminder_set) {
+	if (prescription.is_refill_reminder_set === "1") {
 		$.reminderRefillSwt.setValue(true);
 	}
 	//med reminder
-	if (prescription.is_dosage_reminder_set) {
+	if (prescription.is_dosage_reminder_set === "1") {
 		$.reminderMedSwt.setValue(true);
 	}
 	//dosage instruction

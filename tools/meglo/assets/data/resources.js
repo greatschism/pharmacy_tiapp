@@ -6,7 +6,7 @@ module.exports = {
 		"selected" : true
 	}, {
 		"type" : "template",
-		"version" : 3,
+		"version" : 1,
 		"base_version" : 1,
 		"selected" : true
 	}, {
