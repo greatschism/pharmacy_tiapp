@@ -4,7 +4,7 @@
 		<ImageView id="imgFamilyAdd"/>
 		<Label id="familyMemberAddTip" class="lbl margin-top margin-bottom"/>
 		<View class="margin-top form-group">
-			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" />
+			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" />
 		</View>
 		<Label id="familyMemberRelationTip" class="lbl-wrap margin-top margin-bottom"/>
 		<View class="margin-top form-group">

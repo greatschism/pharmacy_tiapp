@@ -1,5 +1,4 @@
 <Alloy>
 	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-btn" onClick="didClickRightNav" if="!Alloy.Globals.isLoggedIn" />
-	<Widget id="forceUpgradeOptionsMenu" src="ti.optiondialog" onClick="didClickForceUpgradeOptionsMenu"/>
 	<View id="contentView" class="role-content-view" />
 </Alloy> 

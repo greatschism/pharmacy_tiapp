@@ -10,7 +10,7 @@
 				<View id="vDividerView" class="v-divider"/>
 			</View>
 			<View class="h-divider"/>
-			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
 		</View>
 		<Widget id="phoneTxt" src="ti.textfield" class="margin-top txt phone keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
 		<Button id="submitBtn" class="margin-top primary-btn" onClick="didClickSubmit"/>

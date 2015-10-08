@@ -11,7 +11,7 @@
 					<View id="vDividerView" class="v-divider"/>
 				</View>
 				<View class="h-divider"/>
-				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
 			</View>
 			<View id="containerView" class="margin-top form-vgroup">
 				<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-next" onReturn="moveToNext" />

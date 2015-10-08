@@ -56,10 +56,6 @@ function hideLoader() {
 function didSuccess(result) {
 	var appload = result.data.appload || {};
 	Alloy.Models.appload.set(appload);
-	/**
-	 * Need to add code once server work is completed.
-	 */
-	//forceUpgrade();
 	var clientConfig = appload.client_json || {};
 	_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
 		if (_.has(clientConfig, key)) {
@@ -75,18 +71,6 @@ function didSuccess(result) {
 	} else {
 		initMasterWindow();
 	}
-}
-
-function forceUpgrade() {
-	uihelper.showDialog({
-		message : strings.msgForceUpgradeFound,
-		buttonNames : [strings.dialogBtnUpgrade],
-		success : forceUpgradeSuccess
-	});
-}
-
-function forceUpgradeSuccess() {
-
 }
 
 function confirmUpdate() {

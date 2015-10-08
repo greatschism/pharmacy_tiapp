@@ -12,7 +12,7 @@
 					<View id="vDividerView" class="v-divider"/>
 				</View>
 				<View class="h-divider"/>
-				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date" onReturn="moveToNext" />
+				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
 			</View>
 			<View id="rxContainer" class="margin-top form-vgroup">
 				<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" />
