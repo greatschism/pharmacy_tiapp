@@ -393,13 +393,13 @@ function getOptionRows(frequencyId, data) {
 		/**
 		 * always set a end date, override
 		 * if already set, periodic reminders
-		 * are valid for only this particular day
-		 * so this will allow user to restart
-		 * the reminder for today
+		 * are valid for only this particular day.
+		 * Take only the time from the last end date
 		 * Note: calculate end date directly from
 		 * moment object may bring time zone issues
 		 */
-		endDate = moment(new Date().toString(), strDateFormat).format(apiCodes.ymd_date_time_format);
+		var endTime = endDate ? moment(endDate, apiCodes.ymd_date_time_format) : moment().hours(23).minutes(0).seconds(0);
+		endDate = moment(new Date().toString(), strDateFormat).hours(endTime.hours()).minutes(endTime.minutes()).seconds(endTime.seconds()).format(apiCodes.ymd_date_time_format);
 		break;
 	}
 	/**
@@ -407,7 +407,7 @@ function getOptionRows(frequencyId, data) {
 	 * start_hours
 	 */
 	_.each(startHours, function(time, index) {
-		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"] + (numberOfTimes > 1 ? " " + (index + 1) : "");
+		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindStartAt" : "remindersMedSettingsLblRemindAt"] + (numberOfTimes > 1 ? " " + (index + 1) : "");
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			pickerType : "time",
 			value : time,
@@ -418,6 +418,25 @@ function getOptionRows(frequencyId, data) {
 			hasChild : true
 		}));
 	});
+	/**
+	 * for periodic reminders
+	 * only end time is valid
+	 */
+	if (frequencyId === apiCodes.reminder_frequency_period) {
+		var mEndTime = moment(endDate, apiCodes.ymd_date_time_format);
+		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
+			pickerType : "time",
+			value : {
+				hour : mEndTime.hours(),
+				minutes : mEndTime.minutes()
+			},
+			prompt : $.strings.remindersMedSettingsLblRemindEndAt,
+			reply : mEndTime.format(Alloy.CFG.time_format),
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		}));
+	}
 	/**
 	 * all reminders have
 	 * reminder_end_date
@@ -1022,11 +1041,38 @@ function didClickSubmitReminder(e) {
 		}
 	}
 	/**
-	 * reminder end date
-	 * Note: make sure it is end of the date
+	 * for periodic reminder
+	 * we have additional field
+	 * end time (part of end date from
+	 * api perspective)
 	 */
 	var endDateParams = rows[optionsEndIndex].getParams();
-	data.reminder_end_date = moment(endDateParams.value, endDateParams.inputFormat).hours(23).minutes(59).seconds(59).format(endDateParams.inputFormat);
+	if (data.frequency == apiCodes.reminder_frequency_period) {
+		/**
+		 * get end time and end date
+		 * then merge it
+		 */
+		var startTimeval = data.reminder_start_hour[0],
+		    endTimeVal = rows[optionsEndIndex - 1].getParams().value,
+		    mStartTime = moment(endDateParams.value, endDateParams.inputFormat).hours(startTimeval.hour).minutes(startTimeval.minutes).seconds(0);
+		mEndDate = moment(endDateParams.value, endDateParams.inputFormat).hours(endTimeVal.hour).minutes(endTimeVal.minutes).seconds(0);
+		/**
+		 * validate start and end time
+		 */
+		if (mEndDate.diff(mStartTime, "minutes", true) < data.period) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValPeriodTime
+			});
+			return false;
+		}
+		data.reminder_end_date = mEndDate.format(endDateParams.inputFormat);
+	} else {
+		/**
+		 * make sure it is end of the date
+		 * also in sync with minutes interval
+		 */
+		data.reminder_end_date = moment(endDateParams.value, endDateParams.inputFormat).hours(23).minutes(60 - Alloy.CFG.reminder_time_picker_interval).seconds(0).format(endDateParams.inputFormat);
+	}
 	/**
 	 * additional message
 	 */

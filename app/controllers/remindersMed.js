@@ -274,7 +274,8 @@ function processModel(model) {
 		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], moment(model.get("day_of_year"), apiCodes.dob_format).format("Do MMMM"), moment(dTime.hour + ":" + dTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
 		break;
 	case apiCodes.reminder_frequency_period:
-		var pTime = model.get("reminder_start_hour")[0],
+		var mEndDate = moment(model.get("reminder_end_date"), apiCodes.ymd_date_time_format),
+		    pTime = model.get("reminder_start_hour")[0],
 		    interval = model.get("period"),
 		    formattedInterval;
 		if (interval < 60) {
@@ -283,7 +284,7 @@ function processModel(model) {
 			interval /= 60;
 			formattedInterval = interval + " " + $.strings[interval > 1 ? "strHours" : "strHour"];
 		}
-		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, moment(model.get("reminder_end_date"), apiCodes.ymd_date_time_format).format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minutes, "HH:mm").format(Alloy.CFG.time_format));
+		title = String.format($.strings["remindersMedLblFrequency".concat(frequency)], formattedInterval, mEndDate.format(Alloy.CFG.date_format), moment(pTime.hour + ":" + pTime.minutes, "HH:mm").format(Alloy.CFG.time_format), mEndDate.format(Alloy.CFG.time_format));
 		break;
 	}
 	/* Description format
