@@ -214,7 +214,6 @@ module.exports = {
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.date_format",
-		"formatLong" : "Alloy.CFG.date_format_long",
 		"type" : "Ti.UI.PICKER_TYPE_DATE"
 	},
 	".dob" : {
@@ -225,8 +224,10 @@ module.exports = {
 		"leftTitle" : "Alloy.Globals.strings.dialogBtnCancel",
 		"rightTitle" : "Alloy.Globals.strings.dialogBtnOK",
 		"format" : "Alloy.CFG.time_format",
-		"formatLong" : "Alloy.CFG.date_format_long",
 		"type" : "Ti.UI.PICKER_TYPE_TIME"
+	},
+	".time-reminder" : {
+		"minuteInterval" : "Alloy.CFG.reminder_time_picker_interval"
 	},
 	".search-txt" : {
 		"leftIconText" : "Alloy.CFG.icons.search",

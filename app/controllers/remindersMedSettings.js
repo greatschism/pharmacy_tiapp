@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     rows = [],
     reminder = args.reminder,
     prescriptions = args.isUpdate ? reminder.prescriptions : args.prescriptions,
@@ -225,11 +226,11 @@ function getOptionRows(frequencyId, data) {
 		hour : new Date().getHours(),
 		minutes : "00"
 	}],
+	    numberOfTimes = startHours.length,
 	    endDate = data.reminder_end_date;
 	switch(frequencyId) {
 	case apiCodes.reminder_frequency_daily:
-		var numberOfTimes = startHours.length,
-		    selectedDaily;
+		var selectedDaily;
 		//update daily picker
 		_.each(dailyOptions, function(dailyOpt) {
 			dailyOpt.selected = numberOfTimes == dailyOpt.value;
@@ -254,7 +255,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "week").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "week").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
@@ -299,7 +300,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "month").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "month").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
@@ -343,7 +344,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_onaday:
@@ -365,7 +366,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).add(1, "year").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_period:
@@ -398,7 +399,7 @@ function getOptionRows(frequencyId, data) {
 		 * Note: calculate end date directly from
 		 * moment object may bring time zone issues
 		 */
-		endDate = moment(new Date().toLocaleString("long"), Alloy.CFG.date_format_long).format(apiCodes.ymd_date_time_format);
+		endDate = moment(new Date().toString(), strDateFormat).format(apiCodes.ymd_date_time_format);
 		break;
 	}
 	/**
@@ -406,7 +407,7 @@ function getOptionRows(frequencyId, data) {
 	 * start_hours
 	 */
 	_.each(startHours, function(time, index) {
-		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"];
+		var prompt = $.strings[frequencyId === apiCodes.reminder_frequency_period ? "remindersMedSettingsLblRemindOnwards" : "remindersMedSettingsLblRemindAt"] + (numberOfTimes > 1 ? " " + (index + 1) : "");
 		optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 			pickerType : "time",
 			value : time,
@@ -786,16 +787,7 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
-					/**
-					 * using toLocaleString() of date
-					 * for formatting date properly
-					 * which helps to avoid time zone
-					 * issues
-					 * Note: don't process the time zone (ZZ)
-					 * with moment. formatLong will have the default
-					 * format used in Titanium Android
-					 */
-					updateRemindOnRow(moment(value.toLocaleString(), dateDropdownArgs.formatLong).toDate(), inputFormat, outputFormat, rowIndex);
+					updateRemindOnRow(value, inputFormat, outputFormat, rowIndex);
 				}
 			}
 		});
@@ -815,7 +807,7 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 }
 
 function updateRemindOnRow(date, inputFormat, outputFormat, rowIndex) {
-	var selectedMoment = moment(date),
+	var selectedMoment = moment(date.toString(), strDateFormat),
 	    currentCtrl = rows[rowIndex],
 	    currentRow = currentCtrl.getView(),
 	    currentParams = currentCtrl.getParams();
@@ -838,19 +830,11 @@ function showTimePicker(time, rowIndex) {
 			title : timeDropdownArgs.title,
 			okButtonTitle : timeDropdownArgs.rightTitle,
 			value : timeDropdownArgs.value,
+			minuteInterval : timeDropdownArgs.minuteInterval,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
-					/**
-					 * using toLocaleString() of date
-					 * for formatting date properly
-					 * which helps to avoid time zone
-					 * issues
-					 * Note: don't process the time zone (ZZ)
-					 * with moment. formatLong will have the default
-					 * format used in Titanium Android
-					 */
-					updateRemindAtRow(moment(value.toLocaleString(), timeDropdownArgs.formatLong).toDate(), rowIndex);
+					updateRemindAtRow(value, rowIndex);
 				}
 			}
 		});
@@ -870,7 +854,7 @@ function showTimePicker(time, rowIndex) {
 }
 
 function updateRemindAtRow(value, rowIndex) {
-	var selectedMoment = moment(value),
+	var selectedMoment = moment(value.toString(), strDateFormat),
 	    currentCtrl = rows[rowIndex],
 	    currentRow = currentCtrl.getView(),
 	    currentParams = currentCtrl.getParams();
@@ -1126,7 +1110,7 @@ function setParentView(view) {
 		parent : view
 	});
 	timeDropdownArgs = $.createStyle({
-		classes : ["dropdown", "time"]
+		classes : ["dropdown", "time", "time-reminder"]
 	});
 	timeDropdownArgs.parent = view;
 }

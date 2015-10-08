@@ -99,6 +99,7 @@ module.exports = {
 			"reminder_med_default_frequency" : "Daily",
 			"reminder_frequency_daily_max_limit" : 4,
 			"reminder_frequency_monthly_max_limit" : 4,
+			"reminder_time_picker_interval" : 5,
 			"default_color" : "#F7941E",
 			"default_date" : "Tue Dec 25 2007 06:30:00",
 			"dob_default_date" : "Tue Jan 01 1980 06:30:00",

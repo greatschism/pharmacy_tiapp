@@ -166,24 +166,6 @@ var Configuration = {
 		Alloy.CFG.date_format = dateFormat.join("/");
 		Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
 		Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
-		if (OS_IOS) {
-			/**
-			 * match Date format long
-			 * NSDateFormatterLongStyle
-			 */
-			_.some(dateFormat, function(val, key) {
-				if (val.indexOf("M") != -1) {
-					//long format will always have month name
-					dateFormat[key] = "MMMM";
-					return true;
-				}
-				return false;
-			});
-			Alloy.CFG.date_format_long = dateFormat.join(" ") + " " + Alloy.CFG.time_format;
-		} else if (OS_ANDROID) {
-			//default format in Titanium Android
-			Alloy.CFG.date_format_long = "ddd MMM DD YYYY HH:mm:ss";
-		}
 		//extend configuration
 		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
 		if (_.isObject(theme.data.config[Alloy.CFG.platform])) {

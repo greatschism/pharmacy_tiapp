@@ -267,19 +267,11 @@ function showTimePicker() {
 			title : dropdownArgs.title,
 			okButtonTitle : dropdownArgs.rightTitle,
 			value : dropdownArgs.value,
+			minuteInterval : dropdownArgs.minuteInterval,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
-					/**
-					 * using toLocaleString() of date
-					 * for formatting date properly
-					 * which helps to avoid time zone
-					 * issues
-					 * Note: don't process the time zone (ZZ)
-					 * with moment. formatLong will have the default
-					 * format used in Titanium Android
-					 */
-					updateRemindAtRow(moment(value.toLocaleString(), dropdownArgs.formatLong).toDate());
+					updateRemindAtRow(value);
 				}
 			}
 		});
@@ -312,7 +304,7 @@ function getPrescriptionRowTitle() {
 }
 
 function updateRemindAtRow(value) {
-	var selectedMoment = moment(value),
+	var selectedMoment = moment(value.toString(), "ddd MMM DD YYYY HH:mm:ss"),
 	    params = $.remindAtRow.getParams(),
 	    newRow;
 	params.reply = selectedMoment.format(Alloy.CFG.time_format);
@@ -429,7 +421,7 @@ function updateReminder(callback) {
 
 function setParentView(view) {
 	dropdownArgs = $.createStyle({
-		classes : ["dropdown", "time"]
+		classes : ["dropdown", "time", "time-reminder"]
 	});
 	dropdownArgs.parent = view;
 	$.patientSwitcher.setParentView(view);

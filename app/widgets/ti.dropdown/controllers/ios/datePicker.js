@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    moment = require("alloy/moment"),
     font = args.font || {
 	fontSize : 12
 },
@@ -42,7 +41,7 @@ var args = arguments[0] || {},
 		setParentView(args.parent);
 	}
 
-	options = _.pick(args, ["type", "minDate", "maxDate", "value"]);
+	options = _.pick(args, ["type", "minuteInterval", "minDate", "maxDate", "value"]);
 	if (!_.isEmpty(options)) {
 		$.picker.applyProperties(options);
 	}
@@ -83,19 +82,9 @@ function terminate(callback) {
 		if (_.isFunction(callback)) {
 			callback();
 		}
-		/**
-		 * there are known issues with time zone
-		 * from Apple's end
-		 * to avoid such mismatch on dates
-		 * using toLocaleString("long") of date
-		 * for formatting it properly
-		 * Note: don't process the time zone (ZZ)
-		 * with moment. formatLong will have the device region's
-		 * long date format
-		 */
 		$.trigger("terminate", {
 			soruce : $,
-			value : isCancel ? null : moment(selectedDate.toLocaleString("long"), args.formatLong).toDate(),
+			value : isCancel ? null : selectedDate,
 			cancel : isCancel,
 			nextItem : args.nextItem || ""
 		});

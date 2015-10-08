@@ -93,19 +93,10 @@ function show() {
 					title : args.title || ("Set " + ( isDatePicker ? "date" : "time")),
 					okButtonTitle : args.rightTitle || "Set",
 					value : selectedDate || new Date(),
+					minuteInterval : args.minuteInterval || 0,
 					callback : function(e) {
 						var value = e.value;
 						if (value) {
-							/**
-							 * using toLocaleString() of date
-							 * for formatting date properly
-							 * which helps to avoid time zone
-							 * issues
-							 * Note: don't process the time zone (ZZ)
-							 * with moment. formatLong will have the default
-							 * format used in Titanium Android
-							 */
-							value = moment(value.toLocaleString(), args.formatLong).toDate();
 							setValue(value);
 						}
 						$.trigger("return", {
@@ -117,7 +108,7 @@ function show() {
 					}
 				});
 			} else if (OS_IOS) {
-				var pickerDict = _.pick(args, ["type", "formatLong", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftButtonDict", "rightButtonDict", "containerPaddingTop"]);
+				var pickerDict = _.pick(args, ["type", "minuteInterval", "font", "color", "backgroundColor", "toolbarDict", "optionPadding", "leftTitle", "rightTitle", "leftButtonDict", "rightButtonDict", "containerPaddingTop"]);
 				_.extend(pickerDict, {
 					minDate : args.minDate || new Date(1900, 0, 1),
 					maxDate : args.maxDate || new Date(),
@@ -258,7 +249,7 @@ function getSelectedItem() {
 function setValue(date) {
 	selectedDate = date;
 	removeHint();
-	var label = moment(selectedDate).format(format);
+	var label = moment(selectedDate.toString(), "ddd MMM DD YYYY HH:mm:ss").format(format);
 	$.widget.accessibilityLabel = label;
 	$.lbl.text = label;
 }
