@@ -14,7 +14,7 @@
 			</View>
 			<View id="autoLoginView" class="margin-top auto-height margin-bottom" >
 				<Label id="autoLoginLbl" class="lbl-with-rswt" onPostlayout="didPostlayout" />
-				<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt"/>
+				<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin"/>
 			</View>
 			<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
 			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-top attributed-wrap" onClick="didClickForgotPassword" />
