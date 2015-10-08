@@ -46,19 +46,6 @@ function focus() {
 
 function didGetPrescription(result, passthrough) {
 	_.extend(prescription, result.data.prescriptions);
-	/**
-	 * all switches will be off
-	 * by default
-	 */
-	//refill reminder
-	if (prescription.is_refill_reminder_set === "1") {
-		$.reminderRefillSwt.setValue(true);
-	}
-	//med reminder
-	if (prescription.is_dosage_reminder_set === "1") {
-		$.reminderMedSwt.setValue(true);
-	}
-	//dosage instruction
 	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
 	/**
@@ -138,6 +125,19 @@ function didGetStore(result, passthrough) {
 function loadPresecription() {
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
+	/**
+	 * all switches will be off
+	 * by default
+	 */
+	//refill reminder
+	if (prescription.is_refill_reminder_set === "1") {
+		$.reminderRefillSwt.setValue(true);
+	}
+	//med reminder
+	if (prescription.is_dosage_reminder_set === "1") {
+		$.reminderMedSwt.setValue(true);
+	}
+	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
 }
 
