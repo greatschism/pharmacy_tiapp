@@ -35,14 +35,25 @@ function didChangeRelationship() {
 			hintText : $.strings.familyMemberAddHintOther
 		}));
 		$.otherTxtView.add($.otherTxt.getView());
-	} else {
+	} else if ($.otherTxt) {
 		$.otherTxtView.remove($.otherTxt.getView());
 	}
 }
 
 function updateInputs() {
 	$.relationshipDp.setChoices(Alloy.Models.relationship.get("code_values"));
-	$.relationshipDp.setSelectedItem($.otherTxt ? $.otherTxt.getValue() : relationship);
+	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
+			$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
+				classes : ["form-txt"],
+				hintText : $.strings.familyMemberAddHintOther
+			}));
+			$.otherTxtView.add($.otherTxt.getView());
+			$.otherTxt.setValue($.otherTxt.getValue());
+			$.relationshipDp.setSelectedItem(relationship);
+
+		} else {
+			$.relationshipDp.setSelectedItem(relationship);
+		}
 }
 
 function setParentView(view) {
@@ -55,8 +66,7 @@ function didClickContinue() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
-	    console.log($.otherTxt);
-	relationship = $.otherTxt ? $.otherTxt.getValue() : $.relationshipDp.getSelectedItem();
+	relationship = $.relationshipDp.getSelectedItem();
 	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValDob
@@ -69,14 +79,23 @@ function didClickContinue() {
 		});
 		return;
 	}
-
+	var otherRelationship = $.relationshipDp.getSelectedItem().code_display;
+	if (otherRelationship === "Other") {
+		if (_.isEmpty($.otherTxt.getValue())) {
+			$.uihelper.showDialog({
+				message : $.strings.familyMemberAddValRelationship
+			});
+			return;
+		}
+	}
+	var relationshipValue = otherRelationship === "Other" ? $.otherTxt.getValue() : relationship.code_value;
 	if (age >= 12 && age <= 17) {
 		$.app.navigator.open({
 			titleid : "titleChildConsent",
 			ctrl : "childConsent",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt ? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : relationshipValue,
 				isFamilyMemberFlow : true
 			},
 			stack : true
@@ -87,7 +106,7 @@ function didClickContinue() {
 			ctrl : "childAdd",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : relationshipValue,
 				isFamilyMemberFlow : true
 			},
 			stack : true
@@ -98,7 +117,7 @@ function didClickContinue() {
 			ctrl : "familyMemberInvite",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : relationshipValue,
 				isFamilyMemberFlow : true
 			},
 			stack : true
