@@ -506,6 +506,7 @@ function didClickAddPresc(e) {
 			},
 			reminderId : reminder.id,
 			isMedReminder : true,
+			sectionHeaderViewDisabled : true,
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
 			showHiddenPrescriptions : true,

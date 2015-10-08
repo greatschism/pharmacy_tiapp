@@ -438,6 +438,7 @@ function didClickAdd(e) {
 				stack : true
 			},
 			isMedReminder : true,
+			sectionHeaderViewDisabled : true,
 			showMedReminderTooltip : firstLaunchReminders,
 			patientSwitcherDisabled : true,
 			showHiddenPrescriptions : true,

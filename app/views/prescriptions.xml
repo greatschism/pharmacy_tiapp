@@ -28,6 +28,7 @@
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
 		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
+		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
 		<FooterView platform="ios">

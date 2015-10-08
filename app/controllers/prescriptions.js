@@ -112,7 +112,7 @@ function prepareData() {
 			prepareList();
 		}
 		//update strings and show
-		$.partialDescLbl.text =$.strings.prescPartialLblDesc;
+		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 		}
@@ -391,10 +391,12 @@ function prepareList() {
 		if (rows.length) {
 			var tvSection;
 			/**
-			 * others section - will be the last section in sections list, if data length == 0
-			 * the section header should be ignored for the same
+			 * Hide section headers when
+			 * sectionHeaderViewDisabled is true (or)
+			 * when other section is only visible
+			 * Note: others section is the last section in sections list
 			 */
-			if (key == "others" && data.length === 0) {
+			if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
 				tvSection = Ti.UI.createTableViewSection();
 			} else {
 				if (headerBtnDict) {
@@ -726,7 +728,9 @@ function didClickTableView(e) {
 				toggleSelection();
 			} else if (validator === "medReminder") {
 				/**
-				 * used for medication reminders
+				 * used for med reminders
+				 * verify whether this prescription
+				 * has a reminder already.
 				 */
 				rx.hasMedReminder(args.reminderId, prescription, toggleSelection);
 			} else {
