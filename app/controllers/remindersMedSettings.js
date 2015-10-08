@@ -722,8 +722,9 @@ function didClickDailyPicker(e) {
 		 * else count has been increased,
 		 * so insert rows
 		 */
-		var nStartIndex = index + 1,
+		var nStartIndex = index + currentValue,
 		    nEndIndex = nStartIndex + (data.value - currentValue),
+		    rtCount = data.value,
 		    newRows = [];
 		for (var n = nStartIndex; n < nEndIndex; n++) {
 			var time = {
@@ -733,7 +734,7 @@ function didClickDailyPicker(e) {
 			    newRow = Alloy.createController("itemTemplates/promptReply", {
 				pickerType : "time",
 				value : time,
-				prompt : $.strings.remindersMedSettingsLblRemindAt,
+				prompt : $.strings.remindersMedSettingsLblRemindAt + " " + rtCount,
 				reply : moment(time.hour + ":" + time.minutes, "HH:mm").format(Alloy.CFG.time_format),
 				promptClasses : promptClasses,
 				replyClasses : replyClasses,
@@ -741,6 +742,12 @@ function didClickDailyPicker(e) {
 			});
 			$.tableView.insertRowAfter(nStartIndex, newRow.getView());
 			newRows.push(newRow);
+			/**
+			 * decrement count
+			 * as it adds the rows in
+			 * descending order
+			 */
+			rtCount--;
 		}
 		/**
 		 * new option rows
@@ -749,6 +756,25 @@ function didClickDailyPicker(e) {
 		 * frequency row and before prescription row
 		 */
 		Array.prototype.splice.apply(rows, [nStartIndex + 1, 0].concat(newRows.reverse()));
+	}
+	/**
+	 * if number of times
+	 * come down to one from multiple
+	 * then remove count from prompt
+	 * or goes upward from one
+	 * then add count to prompt
+	 * for the first row
+	 */
+	if (data.value == 1 || currentValue == 1) {
+		var FRTIndex = index + 1,
+		    currentFRTCtrl = rows[FRTIndex],
+		    currentFRTRow = currentFRTCtrl.getView(),
+		    currentFRTParams = currentFRTCtrl.getParams();
+		_.extend(currentFRTParams, {
+			prompt : $.strings.remindersMedSettingsLblRemindAt + (currentValue == 1 ? " 1" : "")
+		});
+		rows[FRTIndex] = Alloy.createController("itemTemplates/promptReply", currentFRTParams);
+		$.tableView.updateRow( OS_IOS ? FRTIndex : currentFRTRow, rows[FRTIndex].getView());
 	}
 }
 
