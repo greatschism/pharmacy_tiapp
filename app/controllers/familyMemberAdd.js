@@ -55,7 +55,8 @@ function didClickContinue() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
-	relationship = $.otherTxt.getValue() ? $.otherTxt.getValue() : $.relationshipDp.getSelectedItem();
+	    console.log($.otherTxt);
+	relationship = $.otherTxt ? $.otherTxt.getValue() : $.relationshipDp.getSelectedItem();
 	if (!dob) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValDob
@@ -75,7 +76,7 @@ function didClickContinue() {
 			ctrl : "childConsent",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt.getValue() ? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : $.otherTxt ? $.otherTxt.getValue() : relationship.code_value,
 				isFamilyMemberFlow : true
 			},
 			stack : true
@@ -86,7 +87,7 @@ function didClickContinue() {
 			ctrl : "childAdd",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt.getValue() ? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : $.otherTxt? $.otherTxt.getValue() : relationship.code_value,
 				isFamilyMemberFlow : true
 			},
 			stack : true
@@ -97,7 +98,7 @@ function didClickContinue() {
 			ctrl : "familyMemberInvite",
 			ctrlArguments : {
 				dob : dob,
-				familyRelationship : $.otherTxt.getValue() ? $.otherTxt.getValue() : relationship.code_value,
+				familyRelationship : $.otherTxt? $.otherTxt.getValue() : relationship.code_value,
 				isFamilyMemberFlow : true
 			},
 			stack : true
