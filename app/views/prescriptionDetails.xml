@@ -49,16 +49,16 @@
 		</View>
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
-				<Widget id="remindRefillAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+				<Widget id="reminderRefillAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="remindRefillSwt" src="ti.switch" class="content-right-swt swt" />
+			<Widget id="reminderRefillSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
 		<View class="h-divider-light" />
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
-				<Widget id="remindTakeAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="remindTakeSwt" src="ti.switch" class="content-right-swt swt" />
+			<Widget id="reminderMedSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
 		<View class="content-header-view">
 			<Label id="informationLbl" class="content-header-lbl" />

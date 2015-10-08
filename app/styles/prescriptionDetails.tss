@@ -31,11 +31,11 @@
 "#remindersLbl":{
 	text: Alloy.Globals.strings.prescDetSectionReminders
 },
-"#remindRefillAttr":{
-	html: Alloy.Globals.strings.prescDetAttrRemindMeRefill
+"#reminderRefillAttr":{
+	html: Alloy.Globals.strings.prescDetAttrReminderRefill
 },
-"#remindTakeAttr":{
-	html: Alloy.Globals.strings.prescDetAttrRemindMeTake
+"#reminderMedAttr":{
+	html: Alloy.Globals.strings.prescDetAttrReminderMed
 },
 "#informationLbl":{
 	text: Alloy.Globals.strings.prescDetSectionInformation
@@ -46,13 +46,16 @@
 "#instructionLbl":{
 	text: Alloy.Globals.strings.prescDetLblInstruction
 },
+"#hideBtn":{
+	title: Alloy.Globals.strings.prescDetBtnHide
+},
+/**
+ * 	override values
+ */
 "#instructionAsyncView":{
 	top: 0
 },
 "#prescInstructionLbl":{
 	left: 0,
 	right: 0
-},
-"#hideBtn":{
-	title: Alloy.Globals.strings.prescDetBtnHide
 }

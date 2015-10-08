@@ -21,6 +21,8 @@ function setImage(img, dimg, encodURL) {
 	if (savedFile.exists()) {
 		//update image
 		image = savedFile.nativePath;
+		//fire load
+		fireLoad();
 		//apply properties
 		if (_.has(args, "size")) {
 			$.widget.applyProperties({
@@ -87,6 +89,8 @@ function didSuccess(result, passthrough) {
 		file = null;
 		//update image
 		image = passthrough;
+		//fire load
+		fireLoad();
 		//apply properties
 		if (_.has(args, "size")) {
 			$.widget.applyProperties({
@@ -100,16 +104,17 @@ function didSuccess(result, passthrough) {
 	}
 }
 
-function didLoad(e) {
-	/**
-	 * assume actual image is loaded
-	 * when image is valid
-	 */
-	if (image) {
-		$.trigger("load", {
-			image : image
-		});
-	}
+/**
+ * using actual image load
+ * event may not fit here.
+ * i.e when a alt text / loading image
+ * has to be removed on load event, there
+ * will be a slight delay
+ */
+function fireLoad() {
+	$.trigger("load", {
+		image : image
+	});
 }
 
 function didFail(error, passthrough) {

@@ -46,6 +46,23 @@ function focus() {
 
 function didGetPrescription(result, passthrough) {
 	_.extend(prescription, result.data.prescriptions);
+	/**
+	 * all switches will be off
+	 * by default
+	 */
+	_.extend(prescription, {
+		is_refill_reminder_set : parseInt(prescription.is_refill_reminder_set) || 0,
+		is_dosage_reminder_set : parseInt(prescription.is_dosage_reminder_set) || 0
+	});
+	//refill reminder
+	if (prescription.is_refill_reminder_set) {
+		$.reminderRefillSwt.setValue(true);
+	}
+	//med reminder
+	if (prescription.is_dosage_reminder_set) {
+		$.reminderMedSwt.setValue(true);
+	}
+	//dosage instruction
 	prescription.dosage_instruction_message = $.utilities.ucfirst(prescription.dosage_instruction_message || $.strings.strNotAvailable);
 	loadPresecription();
 	/**
