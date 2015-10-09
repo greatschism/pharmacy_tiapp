@@ -131,11 +131,11 @@ function loadPresecription() {
 	 */
 	//refill reminder
 	if (prescription.is_refill_reminder_set === "1") {
-		$.reminderRefillSwt.setValue(true);
+		$.reminderRefillSwt.setValue(true, true);
 	}
 	//med reminder
 	if (prescription.is_dosage_reminder_set === "1") {
-		$.reminderMedSwt.setValue(true);
+		$.reminderMedSwt.setValue(true, true);
 	}
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
@@ -312,6 +312,106 @@ function showHistory(e) {
 		},
 		stack : true
 	});
+}
+
+function didChangeRefill(e) {
+	$.http.request({
+		method : "reminders_refill_get",
+		params : {
+			feature_code : "THXXX",
+			data : [{
+				reminders : {
+					type : apiCodes.reminder_type_refill
+				}
+			}]
+		},
+		passthrough : e.value,
+		keepLoader : true,
+		success : didGetRefillReminder,
+		failure : didGetRefillReminder
+	});
+}
+
+function didGetRefillReminder(result, passthorugh) {
+	/**
+	 * if success
+	 * or
+	 * when no refill reminders
+	 * set earlier - first time
+	 */
+	if (result.data || result.errorCode === apiCodes.no_refill_reminders) {
+		var currentData;
+		if (result.data) {
+			//get existing reminders
+			currentData = result.data.reminders;
+			if (passthorugh) {
+				//add it
+				currentData.prescriptions.push(_.pick(prescription, ["id"]));
+			} else {
+				//remove it
+				var prescId = prescription.id;
+				currentData.prescriptions = _.reject(currentData.prescriptions, function(pObj) {
+					return pObj.id == prescId;
+				});
+			}
+		} else {
+			/**
+			 * handle when no reminders set already
+			 * adding reminder with only this prescription
+			 * Note: switch value (passthorugh) must
+			 * be true here
+			 */
+			currentData = {
+				prescriptions : [_.pick(prescription, ["id"])]
+			};
+			_.extend(currentData, Alloy.CFG.default_refill_reminder);
+		}
+		$.http.request({
+			method : result.data ? "reminders_refill_update" : "reminders_refill_add",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
+						type : apiCodes.reminder_type_refill,
+						reminder_enabled : 1,
+					})
+				}]
+			},
+			passthorugh : passthorugh,
+			success : didSetRefillReminder,
+			failure : didNotSetRefillReminder
+		});
+	} else {
+		$.app.navigator.hideLoader();
+	}
+}
+
+function didSetRefillReminder(result, passthrough) {
+	/**
+	 * update prescription data
+	 * as the api call passed
+	 */
+	prescription.is_refill_reminder_set = passthrough ? "1" : "0";
+}
+
+function didNotSetRefillReminder(result, passthrough) {
+	/**
+	 * revert switch state
+	 * as the api call failed
+	 */
+	$.reminderRefillSwt.setValue(!passthrough, true);
+}
+
+function didChangeMed(e) {
+	if (e.value) {
+		/**
+		 * add to med reminder
+		 */
+	} else {
+		/**
+		 * remove from med reminder
+		 */
+	}
 }
 
 function terminate() {

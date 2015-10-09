@@ -162,13 +162,9 @@ function didGetRefillReminder(result, passthrough) {
 				prescriptions.push(_.pick(prescription, ["id"]));
 			});
 			currentData = {
-				remind_before_in_days : 3,
-				reminder_hour : 9,
-				reminder_minute : 0,
-				reminder_meridiem : "AM",
-				no_of_reminders : 3,
 				prescriptions : prescriptions
 			};
+			_.extend(currentData, Alloy.CFG.default_refill_reminder);
 		}
 		/**
 		 * update pickers &

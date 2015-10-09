@@ -73,6 +73,13 @@ module.exports = {
 			"remind_before_in_days_min" : 1,
 			"remind_before_in_days_max" : 3,
 			"no_of_reminders_max" : 5,
+			"default_refill_reminder" : {
+				"remind_before_in_days" : 3,
+				"reminder_hour" : 9,
+				"reminder_minute" : 0,
+				"reminder_meridiem" : "AM",
+				"no_of_reminders" : 3
+			},
 			"reminder_med_frequencies" : [{
 				"id" : "Daily",
 				"reminder_end_date_enabled" : true

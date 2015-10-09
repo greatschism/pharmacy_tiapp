@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    preventChangeEvt = false;
 
 (function() {
 	if (!_.isEmpty(args)) {
@@ -31,7 +32,19 @@ function updateForState(preventAccessbilityFocus) {
 	}
 }
 
-function setValue(value) {
+/**
+ * @param {Boolean} value
+ * @param {Boolean} prevent (iOS only)
+ * Once view is loaded, change events will be triggered
+ * even if the value is changed programmatically. In
+ * such cases set prevent to true.
+ * Note: if the native viewDidLoad is not fired yet
+ * switch will not trigger a change event
+ */
+function setValue(value, prevent) {
+	if (OS_IOS && prevent) {
+		preventChangeEvt = true;
+	}
 	$.swt.value = value;
 	updateForState();
 }
@@ -49,6 +62,10 @@ function applyProperties(properties, extend) {
 }
 
 function didChange(e) {
+	if (preventChangeEvt) {
+		preventChangeEvt = false;
+		return;
+	}
 	updateForState();
 	$.trigger("change", {
 		value : e.value,

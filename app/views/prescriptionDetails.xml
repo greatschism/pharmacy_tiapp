@@ -51,12 +51,12 @@
 			<View class="content-view-with-rswt">
 				<Widget id="reminderRefillAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="reminderRefillSwt" src="ti.switch" class="content-right-swt swt" />
+			<Widget id="reminderRefillSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeRefill" />
 		</View>
 		<View class="h-divider-light" />
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
-				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
+				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" onChange="didChangeMed" />
 			</View>
 			<Widget id="reminderMedSwt" src="ti.switch" class="content-right-swt swt" />
 		</View>
