@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    authenticator = require("authenticator"),
     apiCodes = Alloy.CFG.apiCodes,
     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     rows = [],
@@ -1127,6 +1128,49 @@ function didSuccessReminder(result, passthrough) {
 	 * extend the source object
 	 */
 	_.extend(reminder, passthrough);
+	/**
+	 * if med reminder delivery mode
+	 * is none, alert user for setting
+	 * it to push.
+	 * Note: we have family switchers here.
+	 * make sure you access the right patient object
+	 */
+	var mPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	}),
+	    colName = _.findWhere(Alloy.CFG.reminders, {
+		id : "med"
+	}).col_pref;
+	if (mPatient.get(colName) === apiCodes.reminder_delivery_mode_none) {
+		$.uihelper.showDialog({
+			message : $.strings.remindersMedSettingsMsgDeliveryModeNoneConfirm,
+			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : function didConfirmPush() {
+				/**
+				 * device token should have been sent
+				 * already at authenticator while login
+				 */
+				var params = {};
+				params[colName] = apiCodes.reminder_delivery_mode_push;
+				updatePreferences(params);
+			},
+			cancel : function didCancel() {
+				goBack();
+			}
+		});
+	} else {
+		goBack();
+	}
+}
+
+function updatePreferences(params) {
+	authenticator.updatePreferences(params, {
+		success : goBack
+	});
+}
+
+function goBack() {
 	/**
 	 * while add the flow
 	 * will be from prescription

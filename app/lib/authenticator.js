@@ -457,7 +457,7 @@ function setDefaultDevice(passthrough) {
 function getUpdatedReminderDeliveryModes(mode) {
 	var mPatient = Alloy.Collections.patients.at(0),
 	    preferences = {};
-	_.each(["doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"], function(val) {
+	_.each(_.pluck(Alloy.CFG.reminders, "col_pref"), function(val) {
 		if (mPatient.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
 			preferences[val] = mode;
 		}

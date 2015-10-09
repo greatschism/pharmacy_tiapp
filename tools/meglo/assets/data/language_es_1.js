@@ -437,6 +437,7 @@ module.exports = {
 		"remindersMedSettingsValPeriodTime" : "es-Invalid start or end time.",
 		"remindersMedSettingsHintNotes" : "es-Notes",
 		"remindersMedSettingsMsgRemoveConfirm" : "es-Are you sure you want to remove this reminder?",
+		"remindersMedSettingsMsgDeliveryModeNoneConfirm" : "es-You haven't set a delivery mode yet. Do you want to use Push Notifications?",
 
 		"remindersSettingsPatientSwitcher" : "es-%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "es-Same settings as account manager.",
