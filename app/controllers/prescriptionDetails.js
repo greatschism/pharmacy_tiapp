@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
+    newMedReminder,
     isWindowOpen,
     httpClient;
 
@@ -15,6 +16,33 @@ function init() {
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	if (_.has(prescription, "store")) {
+		/**
+		 * Use case:
+		 * 1. if prescriptions/get is already
+		 * called for this prescription.
+		 * 2. by that time is_dosage_reminder_set flag was "0".
+		 * 3. now user opens another prescription's detail
+		 * and add a med reminder from there along with
+		 * this prescription.
+		 *
+		 * then is_dosage_reminder_set flag here is out dated.
+		 * check for it
+		 */
+		if (prescription.is_dosage_reminder_set === "0" && Alloy.Collections.remindersMed.length) {
+			Alloy.Collections.remindersMed.some(function(model) {
+				if (_.indexOf(_.pluck(model.get("prescriptions"), "id"), prescription.id) != -1) {
+					/**
+					 * got enough to declare
+					 * this prescription has
+					 * med reminder
+					 */
+					prescription.is_dosage_reminder_set = "1";
+					return true;
+				}
+				return false;
+			});
+		}
+		//load data
 		loadPresecription();
 		loadDoctor();
 		loadStore();
@@ -41,6 +69,25 @@ function focus() {
 				success : didGetPrescription
 			});
 		}
+	} else if (newMedReminder) {
+		/**
+		 * if method is valid then
+		 * user has added the reminder
+		 * successfully
+		 */
+		if (newMedReminder.method) {
+			//update collection (method should be pointing to add)
+			Alloy.Collections.remindersMed.add(newMedReminder);
+			//update flag
+			prescription.is_dosage_reminder_set = "1";
+		} else {
+			/**
+			 * no reminder was added
+			 * revert switch state
+			 */
+			$.reminderMedSwt.setValue(false, true);
+		}
+		newMedReminder = null;
 	}
 }
 
@@ -405,8 +452,45 @@ function didNotSetRefillReminder(result, passthrough) {
 function didChangeMed(e) {
 	if (e.value) {
 		/**
-		 * add to med reminder
+		 * allow user to create a med
+		 * reminder. Take him
+		 * to reminder's prescription
+		 * selection screen with
+		 * this prescription as selected
+		 *
+		 * Note: We also need the
+		 * reminders med list api here,
+		 * as have reminder validation
+		 * on click on check mark in prescription
+		 * selection list. Also remember
+		 * it is not possible to show the hidden
+		 * prescriptions here.
+		 *
+		 * Caution: if we try to call prescription
+		 * list twice (for active and hidden) then store
+		 * it in a collection, it may work for reminders.
+		 * But later then if user goes to refill prescription
+		 * selection screen, he will get to see hidden
+		 * prescription there.
+		 *
+		 * Also using cached reminders list
+		 * may conflict, when prescription is
+		 * removed from reminder
 		 */
+		$.http.request({
+			method : "reminders_med_list",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					reminders : {
+						type : apiCodes.reminder_type_med
+					}
+				}]
+			},
+			errorDialogEnabled : false,
+			success : didGetMedReminders,
+			failure : didGetMedReminders
+		});
 	} else {
 		/**
 		 * remove from med reminder
@@ -426,6 +510,58 @@ function didChangeMed(e) {
 			failure : didNotRemoveMedReminder
 		});
 	}
+}
+
+function didGetMedReminders(result, passthrough) {
+	/**
+	 * check whether it is a success call
+	 * since no reminders found is considered as a error and data is null
+	 * set reminders node to empty array in order to reset the collection and list
+	 */
+	if (!result.data) {
+		//keep object structure
+		result.data = {
+			reminders : []
+		};
+	}
+	//update collections
+	Alloy.Collections.remindersMed.reset(result.data.reminders);
+	/**
+	 * open prescription to add reminder
+	 * same as in remindersMed -> didClickAdd
+	 */
+	newMedReminder = {};
+	var firstLaunchReminders = $.utilities.getProperty(Alloy.CFG.first_launch_med_reminders, true, "bool", false);
+	if (firstLaunchReminders) {
+		$.utilities.setProperty(Alloy.CFG.first_launch_med_reminders, false, "bool", false);
+	}
+	$.app.navigator.open({
+		titleid : "titleRemindersMedPrescriptions",
+		ctrl : "prescriptions",
+		ctrlArguments : {
+			navigation : {
+				titleid : "titleRemindersMedSettings",
+				ctrl : "remindersMedSettings",
+				ctrlArguments : {
+					isUpdate : false,
+					canAdd : false,
+					reminder : newMedReminder
+				},
+				stack : true
+			},
+			isMedReminder : true,
+			sectionHeaderViewDisabled : true,
+			showMedReminderTooltip : firstLaunchReminders,
+			patientSwitcherDisabled : true,
+			showHiddenPrescriptions : true,
+			validator : "medReminder",
+			selectable : true,
+			minLength : 1,
+			useCache : true,
+			selectedItems : [prescription.id]
+		},
+		stack : true
+	});
 }
 
 function didRemoveMedReminder(result, passthrough) {
