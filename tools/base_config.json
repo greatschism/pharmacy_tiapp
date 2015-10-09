@@ -45,6 +45,7 @@
 			"reminders_med_add": "reminders/med/add",
 			"reminders_med_update": "reminders/med/update",
 			"reminders_med_delete": "reminders/med/delete",
+			"reminders_med_delete_prescription": "reminders/med/deleteprescription",
 			"upload_image": "imageUpload",
 			"terms_get": "terms/get",
 			"terms_get_all": "terms/getall",

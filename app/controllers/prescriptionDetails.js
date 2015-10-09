@@ -411,7 +411,41 @@ function didChangeMed(e) {
 		/**
 		 * remove from med reminder
 		 */
+		$.http.request({
+			method : "reminders_med_delete_prescription",
+			params : {
+				feature_code : "THXXX",
+				data : [{
+					reminders : {
+						type : apiCodes.reminder_type_med,
+						prescriptions : _.pick(prescription, ["id"])
+					}
+				}]
+			},
+			success : didRemoveMedReminder,
+			failure : didNotRemoveMedReminder
+		});
 	}
+}
+
+function didRemoveMedReminder(result, passthrough) {
+	/**
+	 * update prescription data
+	 * as the api call passed
+	 * (prescription deleted from
+	 * 	all med reminders)
+	 */
+	prescription.is_dosage_reminder_set = "0";
+}
+
+function didNotRemoveMedReminder(result, passthrough) {
+	/**
+	 * revert switch state
+	 * as the api call failed
+	 * (prescription was not deleted
+	 * 	from med reminders)
+	 */
+	$.reminderMedSwt.setValue(true, true);
 }
 
 function terminate() {

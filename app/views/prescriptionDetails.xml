@@ -56,9 +56,9 @@
 		<View class="h-divider-light" />
 		<View class="auto-height">
 			<View class="content-view-with-rswt">
-				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" onChange="didChangeMed" />
+				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
 			</View>
-			<Widget id="reminderMedSwt" src="ti.switch" class="content-right-swt swt" />
+			<Widget id="reminderMedSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeMed" />
 		</View>
 		<View class="content-header-view">
 			<Label id="informationLbl" class="content-header-lbl" />
