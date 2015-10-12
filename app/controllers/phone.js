@@ -13,6 +13,17 @@ var args = arguments[0] || {},
     rows = [];
 isFamilyAccounts = false;
 
+function init() {
+	/**
+	 * if it is family accounts flow, show all the child accounts in the table
+	 */
+	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
+	if (isFamilyAccounts) {
+
+		updateTable();
+	}
+}
+
 function focus() {
 	$.receiveTextLbl.text = String.format($.strings.receiveTextChildLbl, $.strings.strClientName, $.strings.strClientName);
 	currentPatient = Alloy.Collections.patients.findWhere({
@@ -26,15 +37,6 @@ function focus() {
 		didChangePhone({
 			value : lastPhone
 		});
-	}
-
-	/**
-	 * if it is family accounts flow, show all the child accounts in the table
-	 */
-	isFamilyAccounts = utilities.getProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), false, "bool", true);
-	if (isFamilyAccounts) {
-
-	updateTable();
 	}
 }
 
@@ -92,19 +94,18 @@ function didChangePhone(e) {
 
 function didClickTableView(e) {
 	if (isFamilyAccounts) {
-	var row = rows[e.index];
-	if (row) {
-		var params = row.getParams();
-		if (params.selected) {
-			params.selected = false;
-			childProxyData.selected = false;
-		} else {
-			params.selected = true;
-			childProxyData.selected = true;
+		var row = rows[e.index];
+		if (row) {
+			if (row.getParams().selected) {
+				row.getParams().selected = false;
+				childProxyData.selected = false;
+			} else {
+				row.getParams().selected = true;
+				childProxyData.selected = true;
+			}
+			rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", row.getParams());
+			$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
 		}
-		rows[e.index] = Alloy.createController("itemTemplates/contentViewWithLIcon", params);
-		$.childTable.updateRow( OS_IOS ? e.index : row.getView(), rows[e.index].getView());
-	}
 	}
 }
 
@@ -140,11 +141,13 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (!childProxy.length) {
-		$.uihelper.showDialog({
-			message : $.strings.receiveTextPhoneNoChild
-		});
-		return;
+	if (isFamilyAccounts) {
+		if (!childProxy.length) {
+			$.uihelper.showDialog({
+				message : $.strings.receiveTextPhoneNoChild
+			});
+			return;
+		}
 	}
 	$.http.request({
 		method : "mobile_add",
@@ -210,3 +213,4 @@ function didCheckMobileNumber(result) {
 }
 
 exports.focus = focus;
+exports.init = init;
