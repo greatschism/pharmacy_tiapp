@@ -64,11 +64,12 @@ var App = {
 	 */
 	init : function(params) {
 
-		// Get device dimensions
-		App.getDeviceDimensions();
-
-		// Global system Events
-		Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
+		//Global system Events
+		/**
+		 * Not required since app doesn't support
+		 * language orientation for now
+		 */
+		//Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
 		if (_.has(params, "type")) {
 			App.setNavigator(params);
@@ -81,8 +82,12 @@ var App = {
 	 */
 	terminate : function() {
 
-		// Global system Events
-		Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
+		//Global system Events
+		/**
+		 * Not required since app doesn't support
+		 * language orientation for now
+		 */
+		//Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
 
 		App.navigator.terminate();
 		App.navigator = {};

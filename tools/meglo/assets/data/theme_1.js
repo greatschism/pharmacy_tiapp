@@ -137,7 +137,8 @@ module.exports = {
 				"add_prescription" : "0xE006",
 				"add_familycare" : "0xE007",
 				"add_doctor" : "0xE008",
-				"add_reminder" : "0xE009"
+				"add_reminder" : "0xE009",
+				"download" : "0XE00A"
 			},
 			"icons" : {
 				"numeric_zero" : "0",

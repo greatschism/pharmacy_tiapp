@@ -46,8 +46,6 @@ module.exports = {
 		"dialogBtnContactAdd" : "es-Add to contacts",
 		"dialogBtnCamera" : "es-Take a photo",
 		"dialogBtnGallery" : "es-Choose from gallery",
-		"dialogBtnIAgree" : "es-I agree",
-		"dialogBtnUpgrade" : "es-Update",
 
 		"msgLoading" : "es-Processing. Please wait.",
 		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -91,7 +89,6 @@ module.exports = {
 		"msgPrescriptionHasMedReminder" : "es-You have already created a reminder that includes this prescription. Are you sure you want to select it for this reminder too?",
 		"msgRegisterSuccessful" : "es-Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
-		"msgForceUpgradeFound" : "es-We've just released a new version of this app with some essential changes. Please update now to continue using it.",
 		"msgGooglePlayServicesUpdateRequired" : "es-You must update your Google Play Services in order to use this feature. Do you want to update now?",
 		"msgGooglePlayServicesNotAvailable" : "es-There is something wrong with your version of Google Play Services. Please check your settings.",
 
@@ -157,6 +154,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "es-Sign up for text messaging",
 		"titleAddFamily" : "es-Add a family member",
 		"titleForgotPassword" : "es-User recovery",
+
+		"upgradeBtnSubmit" : "es-Upgrade now",
 
 		"barcodeLblTitle" : "es-Center the barcode inside the box to scan",
 

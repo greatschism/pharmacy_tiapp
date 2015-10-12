@@ -1,0 +1,7 @@
+"#window[platform=android]":{
+	exitOnClose: true,
+	theme: "Theme.Material.NoActionBar"
+},
+"#submitBtn":{
+	title: Alloy.Globals.strings.upgradeBtnSubmit
+}

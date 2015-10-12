@@ -1,0 +1,11 @@
+<Alloy>
+	<Window id="window" onOpen="didOpen" onAndroidback="didAndroidback">
+		<ScrollView class="margin-top">
+			<View class="auto-height vgroup">
+				<Label class="primary-icon-extra-large icon-download" />
+				<Label id="lbl" class="margin-top margin-bottom subtitle-centered-wrap" />
+				<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+			</View>
+		</ScrollView>
+	</Window>
+</Alloy>

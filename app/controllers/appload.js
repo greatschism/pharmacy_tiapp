@@ -56,20 +56,51 @@ function hideLoader() {
 function didSuccess(result) {
 	var appload = result.data.appload || {};
 	Alloy.Models.appload.set(appload);
-	var clientConfig = appload.client_json || {};
-	_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
-		if (_.has(clientConfig, key)) {
-			Alloy.CFG[key] = clientConfig[key];
-		}
-	});
-	if (config.init(clientConfig).length) {
-		if (Alloy.CFG.force_update) {
-			startUpdate();
-		} else {
-			confirmUpdate();
-		}
+	/**
+	 * check for force upgrade
+	 */
+	if (appload.is_upgrade_required === "1") {
+		/**
+		 * open upgrade window
+		 * Note: don't use open listener
+		 * directly, we have to make sure the
+		 * new controller is all setup, ready for use
+		 * and not just opened
+		 */
+		var ctrl = Alloy.createController("upgrade");
+		ctrl.on("init", didInitWin);
+		ctrl.init();
 	} else {
-		initMasterWindow();
+		/**
+		 * if no force upgrade required
+		 * then continue
+		 */
+		var clientConfig = appload.client_json || {};
+		_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
+			if (_.has(clientConfig, key)) {
+				Alloy.CFG[key] = clientConfig[key];
+			}
+		});
+		/**
+		 * check whether client.json is
+		 * updated (theme, language etc.,)
+		 */
+		if (config.init(clientConfig).length) {
+			/**
+			 * check whether it is a force update
+			 */
+			if (Alloy.CFG.force_update) {
+				startUpdate();
+			} else {
+				confirmUpdate();
+			}
+		} else {
+			/**
+			 * if no update found then
+			 * initiate app & navigator
+			 */
+			initMasterWindow();
+		}
 	}
 }
 
@@ -114,6 +145,12 @@ function loadConfig(errorQueue) {
 
 function initMasterWindow() {
 	hideLoader();
+	/**
+	 * Note: don't use open listener
+	 * directly, we have to make sure the
+	 * new controller is all setup, ready for use
+	 * and not just opened
+	 */
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
 			ctrl : "carousel",
@@ -122,11 +159,11 @@ function initMasterWindow() {
 		} : false,
 		triggerUpdate : triggerAsyncUpdate
 	});
-	ctrl.on("init", didInitMasterWindow);
+	ctrl.on("init", didInitWin);
 	ctrl.init();
 }
 
-function didInitMasterWindow(e) {
+function didInitWin(e) {
 	$.window.setExitOnClose(false);
 	$.window.close();
 }
