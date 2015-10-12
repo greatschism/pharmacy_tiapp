@@ -119,6 +119,7 @@ module.exports = {
 			"auto_populate_password" : true,
 			"show_rx_names_dialog_enabled" : true,
 			"can_update_email" : true,
+			"appload_timeout" : 86400,
 			"session_timeout" : 600,
 			"http_timeout" : 90,
 			"location_timeout" : 900,

@@ -32,7 +32,7 @@ function didOpen(e) {
 					phone_platform : Alloy.CFG.platform_code,
 					device_id : notificationHandler.deviceId,
 					carrier : Ti.Platform.carrier,
-					app_version : Ti.App.version,
+					app_version : Alloy.CFG.apiCodes.app_version,
 					client_name : Alloy.CFG.client_name,
 					client_param_lang_code : localization.currentLanguage.code
 				}

@@ -1,10 +1,21 @@
 var args = arguments[0] || {},
+    moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
     authenticator = require("authenticator");
 
 function init() {
 	if (OS_IOS) {
+		/**
+		 * On iOS apps can stay longer in background
+		 * so there are chances for user to lose updates
+		 * from appload. To avoid that if app resumes
+		 * from background after appload_timeout time,
+		 * then reload it
+		 */
+		Ti.App.addEventListener("paused", didAppPaused);
+		Ti.App.addEventListener("resumed", didAppResumed);
+		//drawer window events
 		$.drawer.addEventListener("open", didOpen);
 		$.drawer.addEventListener("close", didClose);
 		$.drawer.addEventListener("windowDidOpen", iOSDidLeftWinOpen);
@@ -14,6 +25,19 @@ function init() {
 		$.drawer.getView().addEventListener("open", didOpen);
 	}
 	$.drawer.open();
+}
+
+function didAppPaused(e) {
+	Alloy.Globals.latestActive = moment().unix();
+}
+
+function didAppResumed(e) {
+	var now = moment().unix();
+	if ((now - Alloy.Globals.latestActive) > Alloy.CFG.appload_timeout) {
+		doLogout();
+	} else {
+		Alloy.Globals.latestActive = now;
+	}
 }
 
 function didOpen(e) {
@@ -62,11 +86,11 @@ function didOpen(e) {
 function didAuthenticate(navigationHandled) {
 	$.menuCtrl.init(args.navigation, navigationHandled);
 	if (args.triggerUpdate === true) {
-		app.update(updateCallback);
+		app.update(doLogout);
 	}
 }
 
-function updateCallback() {
+function doLogout() {
 	/**
 	 * logout before reloading the app
 	 * Note: this is not a explicit logout
@@ -102,11 +126,11 @@ function androidDidLeftWinOpen(e) {
 	 * hide keyboard if any
 	 * PHA-1156 - #3
 	 * Note: for iOS the same below is handled
-	 * in ios/window.js before opening
+	 * in ios/drawer/window.js before opening
 	 * the window. iOS itself hides
 	 * the keyboard and showing it back
 	 * after left window animation, so keyboard
-	 * shoul be hidden before open animation.
+	 * should be hidden before open animation.
 	 */
 	if (Ti.App.keyboardVisible) {
 		Ti.App.hideKeyboard();
@@ -114,6 +138,12 @@ function androidDidLeftWinOpen(e) {
 }
 
 function didClose(e) {
+	//app level ios events
+	if (OS_IOS) {
+		Ti.App.removeEventListener("paused", didAppPaused);
+		Ti.App.removeEventListener("resumed", didAppResumed);
+	}
+	//destroy menu view (data binding)
 	$.menuCtrl.terminate();
 }
 

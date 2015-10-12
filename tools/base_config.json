@@ -58,6 +58,7 @@
 			"email_resend": "patient/email/resend"
 		},
 		"apiCodes": {
+			"app_version": "v1",
 			"success": "200",
 			"session_timeout": "ECOH998",
 			"no_refill_reminders": "ECS023",

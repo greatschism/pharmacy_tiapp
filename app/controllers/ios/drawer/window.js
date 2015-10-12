@@ -101,6 +101,9 @@ function didClickLeftNavView(e) {
 		/**
 		 * hide keyboard if any
 		 * PHA-1156 - #3
+		 * Note: for android the same below
+		 * is handled after drawer is opned,
+		 * in drawer/master.js
 		 */
 		if (Ti.App.keyboardVisible) {
 			Ti.App.hideKeyboard();
