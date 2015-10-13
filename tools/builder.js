@@ -20,10 +20,12 @@ var log4js = require("log4js"),
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
     APP_TSS = ROOT_DIR + "app/styles/app.tss",
-    APP_ASSETS_IPHONE_DIR = ROOT_DIR + "app/assets/iphone",
-    APP_ASSETS_ANDROID_DIR = ROOT_DIR + "app/assets/android",
-    APP_ASSETS_DATA_DIR = ROOT_DIR + "app/assets/data",
-    APP_ASSETS_IMAGES_DIR = ROOT_DIR + "app/assets/images",
+    APP_ASSETS_DIR = ROOT_DIR + "app/assets/",
+    APP_HTTPS_CERT = APP_ASSETS_DIR + "https.cert",
+    APP_ASSETS_IPHONE_DIR = APP_ASSETS_DIR + "iphone",
+    APP_ASSETS_ANDROID_DIR = APP_ASSETS_DIR + "android",
+    APP_ASSETS_DATA_DIR = APP_ASSETS_DIR + "data",
+    APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
     APP_DEFAULT_ICON = ROOT_DIR + "DefaultIcon.png",
     APP_ITUNES_ICON = ROOT_DIR + "iTunesConnect.png",
     APP_MARKETPLACE_ICON = ROOT_DIR + "MarketplaceArtwork.png",
@@ -45,6 +47,7 @@ var log4js = require("log4js"),
     BRAND_KEYS_BASE_DIR,
     BRAND_ENV_JSON,
     BRAND_BASE_THEME,
+    BRAND_ENV_DATA,
     logger;
 
 /**
@@ -104,6 +107,9 @@ if (brand) {
 	BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
 	BRAND_BASE_THEME = BRAND_RESOURCE_BASE_DIR + "base_theme.js";
 
+	//env data
+	BRAND_ENV_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment];
+
 } else if (!program.cleanOnly) {
 
 	logger.error("invalid brand-id: " + program.brandId);
@@ -134,7 +140,7 @@ if (build) {
 	logger.info("Initated cleanup");
 
 	//delete all resources
-	_u.each([APP_TSS, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML], function(path) {
+	_u.each([APP_TSS, APP_HTTPS_CERT, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -166,6 +172,10 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xhdpi",
 		    BRAND_ANDROID_DRAWABLE_XXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
+
+		//https cert
+		fs.copySync(BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate, APP_HTTPS_CERT);
+		logger.debug("Linked " + BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate + " => " + APP_HTTPS_CERT);
 
 		//iphone
 		fs.copySync(BRAND_ASSETS_IPHONE_DIR, APP_ASSETS_IPHONE_DIR);
@@ -224,8 +234,7 @@ if (build) {
 		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXXHDPI + " => " + APP_ANDROID_DRAWABLE_XXXHDPI);
 
 		//config.json
-		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8")),
-		    envData = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment];
+		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8"));
 
 		/**
 		 * update properties below
@@ -240,7 +249,7 @@ if (build) {
 		});
 
 		//extend global properties
-		_u.extend(configData.global, envData.config);
+		_u.extend(configData.global, BRAND_ENV_DATA.config);
 
 		/**
 		 * enable unit test cases
@@ -257,7 +266,7 @@ if (build) {
 
 		//tiapp.xml
 		var tiappData = fs.readFileSync(BASE_TIAPP_XML, "utf-8");
-		_u.each(envData.tiapp, function(val, key) {
+		_u.each(BRAND_ENV_DATA.tiapp, function(val, key) {
 			tiappData = tiappData.replace(new RegExp("\\${" + key + "}", "g"), val);
 		});
 		tiappData = tiappData.replace(new RegExp("\\${BUILD_NUMBER}", "g"), program.buildNumber);
@@ -466,7 +475,7 @@ if (program.buildOnly) {
 	 * read brand config
 	 * for build keys
 	 */
-	var buildKeys = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment].keys;
+	var buildKeys = BRAND_ENV_DATA.keys;
 
 	if (program.platform === "ios") {
 
