@@ -134,6 +134,7 @@ function didFail() {
 }
 
 function didRegister() {
+	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
 	$.uihelper.showDialog({
 		message : successMessage,
