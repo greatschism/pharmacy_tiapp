@@ -167,7 +167,7 @@ var Configuration = {
 		Alloy.CFG.time_format = Ti.Platform.is24HourTimeFormat() ? "HH:mm" : "hh:mm a";
 		Alloy.CFG.date_time_format = Alloy.CFG.date_format + " " + Alloy.CFG.time_format;
 		//extend configuration
-		_.extend(Alloy.CFG, utilities.clone(_.omit(theme.data.config, ["ios", "android"])));
+		_.extend(Alloy.CFG, utilities.clone(theme.data.config.global));
 		if (_.isObject(theme.data.config[Alloy.CFG.platform])) {
 			_.extend(Alloy.CFG, utilities.clone(theme.data.config[Alloy.CFG.platform]));
 		}
@@ -280,33 +280,14 @@ var Configuration = {
 	},
 
 	/**
-	 * https://appcelerator.force.com/portal/500F000000VToZE
-	 * https://jira.appcelerator.org/browse/ALOY-755
-	 * Note: Will support only one platform and one formFactor query, muliple combination should not be used
-	 * @param {String} name
+	 * Inject styles from index
+	 * to given controller
+	 * @param {String} controller path
 	 */
 	updateTSS : function(name) {
-		var dicts = require("alloy/styles/" + name),
-		    theme = dicts[0];
-		if (theme.style.version != Alloy.TSS.Theme.version) {
-			for (var i in dicts) {
-				var dict = dicts[i] || {},
-				    key = (dict.key || "").replace(/-/g, "_");
-				if (!_.has(Alloy.TSS, key)) {
-					key += "_platform_" + Alloy.CFG.platform;
-				}
-				if (dict.queries && dict.queries.formFactor) {
-					key += "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));
-				}
-				if (_.has(Alloy.TSS, key)) {
-					var style = dict.style;
-					for (var prop in style) {
-						if (_.has(Alloy.TSS[key], prop)) {
-							style[prop] = Alloy.TSS[key][prop];
-						}
-					}
-				}
-			}
+		var dicts = require("alloy/styles/" + name);
+		if (dicts.length === 0 || !_.has(dicts[0].style, "version")) {
+			dicts.splice(0, 0, require("alloy/styles/index"));
 		}
 	}
 };
