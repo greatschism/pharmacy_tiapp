@@ -14,28 +14,15 @@ function didClickContinue() {
 			stack : true
 		});
 	} else {
-		$.http.request({
-			method : "patient_family_add",
-			params : {
-				feature_code : "THXXX",
-				data : [{
-					patient : {
-						is_adult : args.childDetails.is_adult,
-						is_existing_user : args.childDetails.is_existing_user,
-						email : "",
-						mobile : "",
-						related_by : args.childDetails.related_by ? args.childDetails.related_by : "",
-						user_name : "",
-						password : "",
-						first_name : args.childDetails.first_name,
-						last_name : args.childDetails.last_name,
-						birth_date : args.childDetails.birth_date,
-						rx_number : args.childDetails.rx_number,
-						store_id : args.childDetails.store_id
-					}
-				}]
+		$.app.navigator.open({
+			titleid : "titleChildSuccess",
+			ctrl : "childSuccess",
+			ctrlArguments : {
+				username : args.username,
+				isFamilyMemberFlow : false
 			},
-			success : didAddChild
+			stack : false
+
 		});
 	}
 }

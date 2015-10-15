@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     store = {},
     rxContainerViewFromTop = 0,
+     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     authenticator = require("authenticator"),
     rx = require("rx");
 
@@ -113,7 +114,7 @@ function didClickContinue() {
 		password : "",
 		first_name : fname,
 		last_name : lname,
-		birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+		birth_date : moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
 		rx_number : rxNo.substring(0, 7),
 		store_id : store.id
 	};
@@ -140,7 +141,7 @@ function didClickContinue() {
 							password : "",
 							first_name : fname,
 							last_name : lname,
-							birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+							birth_date :moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
 							rx_number : rxNo.substring(0, 7),
 							store_id : store.id
 						}
@@ -150,16 +151,30 @@ function didClickContinue() {
 			});
 
 		} else {
-			$.app.navigator.open({
-				titleid : "titleChildConsent",
-				ctrl : "childConsent",
-				ctrlArguments : {
-					username : args.username,
-					childDetails : childDetails,
-					isFamilyMemberFlow : false
+			$.http.request({
+				method : "patient_family_add",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						patient : {
+							is_adult : false,
+							is_existing_user : false,
+							email : "",
+							mobile : "",
+							related_by : args.familyRelationship ? args.familyRelationship : "",
+							user_name : "",
+							password : "",
+							first_name : fname,
+							last_name : lname,
+							birth_date :moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
+							rx_number : rxNo.substring(0, 7),
+							store_id : store.id
+						}
+					}]
 				},
-				stack : true
+				success : didAddChildRegFlow
 			});
+
 		}
 
 	} else {
@@ -179,7 +194,7 @@ function didClickContinue() {
 						password : "",
 						first_name : fname,
 						last_name : lname,
-						birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+						birth_date : moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
 						rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 						store_id : store.id
 					}
@@ -216,6 +231,22 @@ function didAddChild(result) {
 
 				});
 			}
+		}
+	});
+}
+
+function didAddChildRegFlow() {
+	authenticator.updateFamilyAccounts({
+		success : function didUpdateFamilyAccounts() {
+			$.app.navigator.open({
+				titleid : "titleChildConsent",
+				ctrl : "childConsent",
+				ctrlArguments : {
+					username : args.username,
+					isFamilyMemberFlow : false
+				},
+				stack : true
+			});
 		}
 	});
 }
