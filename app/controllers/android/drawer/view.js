@@ -2,6 +2,9 @@ var args = arguments[0] || {},
     app = require("core"),
     controller;
 
+//reload tss of this controller in memory
+require("config").updateTSS($.__controllerPath);
+
 (function() {
 
 	var strings = Alloy.Globals.strings;

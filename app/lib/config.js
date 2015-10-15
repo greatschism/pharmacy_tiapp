@@ -1,5 +1,6 @@
 var Alloy = require("alloy"),
-    _ = require("alloy/underscore")._;
+    _ = require("alloy/underscore")._,
+    baseDicts;
 
 var Configuration = {
 
@@ -264,6 +265,34 @@ var Configuration = {
 		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
 
 		/**
+		 * rewrite cached index.js
+		 * if not cached, cache it
+		 * on first time
+		 */
+		if (!baseDicts) {
+			baseDicts = require("alloy/styles/index");
+		} else if (baseDicts[0].style.version != Alloy.TSS.Theme.version) {
+			for (var i in baseDicts) {
+				var dict = baseDicts[i] || {},
+				    key = (dict.key || "").replace(/-/g, "_");
+				if (!_.has(Alloy.TSS, key)) {
+					key += "_platform_" + Alloy.CFG.platform;
+				}
+				if (dict.queries && dict.queries.formFactor) {
+					key += "_formFactor_" + (dict.queries.formFactor.toLowerCase().replace("is", ""));
+				}
+				if (_.has(Alloy.TSS, key)) {
+					var style = dict.style;
+					for (var prop in style) {
+						if (_.has(Alloy.TSS[key], prop)) {
+							style[prop] = Alloy.TSS[key][prop];
+						}
+					}
+				}
+			}
+		}
+
+		/**
 		 * delete unused resources
 		 */
 		if (Alloy.CFG.delete_unused_resources) {
@@ -287,7 +316,7 @@ var Configuration = {
 	updateTSS : function(name) {
 		var dicts = require("alloy/styles/" + name);
 		if (dicts.length === 0 || !_.has(dicts[0].style, "version")) {
-			dicts.splice(0, 0, require("alloy/styles/index"));
+			dicts.splice(0, 0, baseDicts);
 		}
 	}
 };

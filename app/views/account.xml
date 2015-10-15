@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="contactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
-	<Widget id="timeZonePicker" src="ti.optionpicker" class="optionpicker picker">
+	<Widget id="timeZonePicker" src="ti.optionpicker" class="optionpicker">
 		<View class="content-header-view role-header-view">
 			<Label id="timezoneLbl" class="content-header-lbl" />
 		</View>
@@ -8,7 +8,7 @@
 			<Button id="timezoneCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickCloseTimeZone" />
 		</View>
 	</Widget>
-	<Widget id="languagePicker" src="ti.optionpicker" class="optionpicker picker">
+	<Widget id="languagePicker" src="ti.optionpicker" class="optionpicker">
 		<View class="content-header-view role-header-view">
 			<Label id="languageLbl" class="content-header-lbl" />
 		</View>

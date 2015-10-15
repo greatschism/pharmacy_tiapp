@@ -3,6 +3,9 @@ var args = arguments[0] || {},
     logger = require("logger"),
     controller;
 
+//reload tss of this controller in memory
+require("config").updateTSS($.__controllerPath);
+
 (function() {
 
 	var dict = {},

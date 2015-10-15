@@ -37,7 +37,11 @@
 "#signupBtn":{
 	title: Alloy.Globals.strings.strSignup
 },
-".padding-tooltip":{
+"#usernameTooltip":{
+	left: 4,
+	right: 4
+},
+"#passwordTooltip":{
 	left: 4,
 	right: 4
 },

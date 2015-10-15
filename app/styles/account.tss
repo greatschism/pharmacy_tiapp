@@ -35,7 +35,11 @@
 "#viewAgreementBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnViewAgreements
 },
-".picker":{
+"#timeZonePicker":{
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#languagePicker":{
 	radioButton: true,
 	titleProperty: "code_display"
 },

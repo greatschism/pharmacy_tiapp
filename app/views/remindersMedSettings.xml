@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="frequencyPicker" src="ti.optionpicker" class="optionpicker radio-button" onClick="didClickFrequencyPicker">
+	<Widget id="frequencyPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickFrequencyPicker">
 		<View class="content-header-view role-header-view">
 			<Label id="frequencyLbl" class="content-header-lbl" />
 		</View>
@@ -7,7 +7,7 @@
 			<Button id="frequencyCloseBtn" picker="frequencyPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="dailyPicker" src="ti.optionpicker" class="optionpicker radio-button" onClick="didClickDailyPicker">
+	<Widget id="dailyPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickDailyPicker">
 		<View class="content-header-view role-header-view">
 			<Label id="dailyLbl" class="content-header-lbl" />
 		</View>
@@ -31,7 +31,7 @@
 			<Button id="monthdayCloseBtn" picker="monthdayPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="periodPicker" src="ti.optionpicker" class="optionpicker radio-button" onClick="didClickPeriodPicker">
+	<Widget id="periodPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickPeriodPicker">
 		<View class="content-header-view role-header-view">
 			<Label id="periodLbl" class="content-header-lbl" />
 		</View>

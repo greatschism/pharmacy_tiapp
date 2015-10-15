@@ -1,9 +1,13 @@
-"#benefitsLbl":{
-	text: Alloy.Globals.strings.remindersRefillSectionBenefits
-},
-".radio-button":{
+"#remindFromPicker":{
 	autoHide: true,
 	radioButton: true
+},
+"#remindRepeatPicker":{
+	autoHide: true,
+	radioButton: true
+},
+"#benefitsLbl":{
+	text: Alloy.Globals.strings.remindersRefillSectionBenefits
 },
 "#remindFromLbl":{
 	text: Alloy.Globals.strings.remindersRefillPopupSectionRemindFrom

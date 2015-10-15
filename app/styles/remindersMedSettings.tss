@@ -1,4 +1,12 @@
-".radio-button":{
+"#frequencyPicker":{
+	autoHide: true,
+	radioButton: true
+},
+"#dailyPicker":{
+	autoHide: true,
+	radioButton: true
+},
+"#periodPicker":{
 	autoHide: true,
 	radioButton: true
 },

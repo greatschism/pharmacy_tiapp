@@ -22,8 +22,8 @@
 				<Widget id="agreementLbl" src="ti.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
 				<Button id="signupBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickSignup" />
 			</View>
-			<Widget id="usernameTooltip" src="ti.tooltip" class="padding-tooltip arrow-down secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-			<Widget id="passwordTooltip" src="ti.tooltip" class="padding-tooltip arrow-down secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="usernameTooltip" src="ti.tooltip" class="arrow-down secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+			<Widget id="passwordTooltip" src="ti.tooltip" class="arrow-down secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		</View>
 	</ScrollView>
 </Alloy>
