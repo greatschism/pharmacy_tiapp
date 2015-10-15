@@ -102,5 +102,6 @@
   <sdk-version>${SDK_VERSION}</sdk-version>
   <plugins>
     <plugin version="1.0">ti.alloy</plugin>
+    <plugin version="1.0">ti.tsstrimmer</plugin>
   </plugins>
 </ti:app>

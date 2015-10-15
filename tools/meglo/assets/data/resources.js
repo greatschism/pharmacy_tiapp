@@ -396,48 +396,6 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "prescription_list_pl",
-		"name" : "prescription_list",
-		"format" : "png",
-		"properties" : {
-			"width" : "90%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/prescription_list.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "helpful_medication_pl",
-		"name" : "helpful_medication",
-		"format" : "png",
-		"properties" : {
-			"width" : "90%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/helpful_medication.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "store_locator_pl",
-		"name" : "store_locator",
-		"format" : "png",
-		"properties" : {
-			"width" : "90%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/store_locator.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
 		"code" : "text_benefits_pl",
 		"name" : "text_benefits",
 		"format" : "png",

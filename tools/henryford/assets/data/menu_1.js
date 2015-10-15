@@ -16,11 +16,6 @@ module.exports = {
 		"icon" : "thick_reminder",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleFamilyAccounts",
-		"ctrl" : "familyCare",
-		"icon" : "users",
-		"requires_login" : true
-	}, {
 		"titleid" : "titleTransfer",
 		"ctrl" : "transfer",
 		"icon" : "thick_transfer",

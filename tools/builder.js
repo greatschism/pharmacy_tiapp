@@ -26,6 +26,7 @@ var log4js = require("log4js"),
     APP_ASSETS_ANDROID_DIR = APP_ASSETS_DIR + "android",
     APP_ASSETS_DATA_DIR = APP_ASSETS_DIR + "data",
     APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
+    APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR = APP_ASSETS_IMAGES_DIR + "/activityindicator",
     APP_DEFAULT_ICON = ROOT_DIR + "DefaultIcon.png",
     APP_ITUNES_ICON = ROOT_DIR + "iTunesConnect.png",
     APP_MARKETPLACE_ICON = ROOT_DIR + "MarketplaceArtwork.png",
@@ -43,10 +44,11 @@ var log4js = require("log4js"),
     BRANDS_JSON = TOOLS_DIR + "brands.json",
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
+    BASE_ASSETS_DIR = TOOLS_DIR + "assets/",
+    BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR = BASE_ASSETS_DIR + "images/activityindicator",
     BRAND_RESOURCE_BASE_DIR,
     BRAND_KEYS_BASE_DIR,
     BRAND_ENV_JSON,
-    BRAND_BASE_THEME,
     BRAND_ENV_DATA,
     logger;
 
@@ -105,10 +107,19 @@ if (brand) {
 	BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
 	BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
 	BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
-	BRAND_BASE_THEME = BRAND_RESOURCE_BASE_DIR + "base_theme.js";
 
-	//env data
-	BRAND_ENV_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8"))[program.environment];
+	/**
+	 * actual env data is always inherited
+	 * from default one to avoid duplicate values
+	 */
+	var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
+	    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
+	BRAND_ENV_DATA = BRAND_DATA["default"];
+	_u.each(BRAND_ENV_DATA, function(key, val) {
+		if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
+			_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
+		}
+	});
 
 } else if (!program.cleanOnly) {
 
@@ -190,8 +201,11 @@ if (build) {
 		logger.debug("Linked " + BRAND_ASSETS_DATA_DIR + " => " + APP_ASSETS_DATA_DIR);
 
 		//images
-		fs.copySync(BRAND_ASSETS_IMAGES_DIR, APP_ASSETS_IMAGES_DIR);
-		logger.debug("Linked " + BRAND_ASSETS_IMAGES_DIR + " => " + APP_ASSETS_IMAGES_DIR);
+		fs.copySync(BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR, APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR);
+		if (fs.existsSync(BRAND_ASSETS_IMAGES_DIR)) {
+			fs.copySync(BRAND_ASSETS_IMAGES_DIR, APP_ASSETS_IMAGES_DIR);
+			logger.debug("Linked " + BRAND_ASSETS_IMAGES_DIR + " => " + APP_ASSETS_IMAGES_DIR);
+		}
 
 		//default icon
 		fs.copySync(BRAND_DEFAULT_ICON, APP_DEFAULT_ICON);
@@ -232,6 +246,144 @@ if (build) {
 		//android res xxxhdpi
 		fs.copySync(BRAND_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI);
 		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXXHDPI + " => " + APP_ANDROID_DRAWABLE_XXXHDPI);
+
+		/**
+		 * link common assets
+		 */
+		var RESOURCES_DATA = require(APP_ASSETS_DATA_DIR + "/resources").data;
+
+		/**
+		 * build theme
+		 */
+		//brand theme data
+		var BASE_THEME_DIR = BASE_ASSETS_DIR + "theme/",
+		    BASE_THEME_DATA = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "base.json", "utf-8")),
+		    BASE_THEME_VALUES = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "values.json", "utf-8")),
+		    BRAND_THEME = BRAND_RESOURCE_BASE_DIR + "theme.json";
+
+		if (fs.existsSync(BRAND_THEME)) {
+			var BRAND_THEME_DATA = JSON.parse(fs.readFileSync(BRAND_THEME, "utf-8"));
+			/**
+			 * extend brand theme config data
+			 * to base theme config data
+			 */
+			if (_u.has(BRAND_THEME_DATA, "config")) {
+				if (_u.has(BRAND_THEME_DATA.config, "global")) {
+					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.global);
+				}
+				if (_u.has(BRAND_THEME_DATA.config, "ios")) {
+					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.ios);
+				}
+				if (_u.has(BRAND_THEME_DATA.config, "android")) {
+					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.android);
+				}
+			}
+			/**
+			 * extend brand theme value
+			 * to base theme config data
+			 */
+			if (_u.has(BRAND_THEME_DATA, "values")) {
+				_u.extend(BASE_THEME_VALUES, BRAND_THEME_DATA.values);
+			}
+		}
+
+		/**
+		 * replace constants
+		 */
+		var BASE_THEME_DATA_STR = JSON.stringify(BASE_THEME_DATA, null, 4);
+		_u.each(BASE_THEME_VALUES, function(val, key) {
+			BASE_THEME_DATA_STR = BASE_THEME_DATA_STR.replace(new RegExp("\\${" + key + "}", "g"), val);
+		});
+
+		//now write it as js file
+		var APP_THEME_JS = APP_ASSETS_DATA_DIR + "/theme_" + _u.findWhere(RESOURCES_DATA, {
+			"type" : "theme"
+		}).version + ".js";
+		fs.writeFileSync(APP_THEME_JS, "module.exports = " + BASE_THEME_DATA_STR + ";");
+		logger.debug("Inherited base theme for " + program.brandId);
+
+		/**
+		 * verify template
+		 */
+		var TEMPLATE_JS = "template_" + _u.findWhere(RESOURCES_DATA, {
+			"type" : "template"
+		}).version + ".js",
+		    APP_TEMPLATE_JS = APP_ASSETS_DATA_DIR + "/" + TEMPLATE_JS;
+		if (!fs.existsSync(APP_TEMPLATE_JS)) {
+			var BASE_TEMPLATE_JS = BASE_ASSETS_DIR + TEMPLATE_JS;
+			fs.copySync(BASE_TEMPLATE_JS, APP_TEMPLATE_JS);
+			logger.debug("Linked " + BASE_TEMPLATE_JS + " => " + APP_TEMPLATE_JS);
+		}
+
+		/**
+		 * verify menu
+		 */
+		var MENU_JS = "menu_" + _u.findWhere(RESOURCES_DATA, {
+			"type" : "menu"
+		}).version + ".js",
+		    APP_MENU_JS = APP_ASSETS_DATA_DIR + "/" + MENU_JS;
+		if (!fs.existsSync(APP_MENU_JS)) {
+			var BASE_MENU_JS = BASE_ASSETS_DIR + MENU_JS;
+			fs.copySync(BASE_MENU_JS, APP_MENU_JS);
+			logger.debug("Linked " + BASE_MENU_JS + " => " + APP_MENU_JS);
+		}
+
+		/**
+		 * verify languages
+		 */
+		_u.each(_u.where(RESOURCES_DATA, {
+			"type" : "language"
+		}), function(language) {
+			var APP_LANGUAGE_JS = APP_ASSETS_DATA_DIR + "/language_" + language.code + "_" + language.version + ".js",
+			    BASE_LANGUAGE_DATA = require(BASE_ASSETS_DIR + "/languages/" + language.code + ".js");
+			if (fs.existsSync(APP_LANGUAGE_JS)) {
+				_u.extend(BASE_LANGUAGE_DATA.data, require(APP_LANGUAGE_JS).data);
+			}
+			fs.writeFileSync(APP_LANGUAGE_JS, "module.exports = " + JSON.stringify(BASE_LANGUAGE_DATA, null, 4) + ";");
+			logger.debug("Merged base language strings with branded language strings for " + language.code);
+		});
+
+		/**
+		 * verify fonts
+		 */
+		_u.each(_u.where(RESOURCES_DATA, {
+			"type" : "font"
+		}), function(font) {
+			var APP_FONT = "font_" + font.code + "_" + font.version;
+			/**
+			 * we have only 2 platform now
+			 * ios and android
+			 */
+			if (font.platform.length === 2) {
+				//for both platform
+				APP_FONT = APP_ASSETS_DATA_DIR + "/" + APP_FONT;
+			} else if (_u.indexOf(font.platform, "ios") != -1) {
+				//ios onlly
+				APP_FONT = APP_ASSETS_DIR + "iphone/data/" + APP_FONT;
+			} else if (_u.indexOf(font.platform, "android") != -1) {
+				//android onlly
+				APP_FONT = APP_ASSETS_DIR + "android/data/" + APP_FONT;
+			}
+			if (!fs.existsSync(APP_FONT)) {
+				var BASE_FONT = BASE_ASSETS_DIR + "fonts/" + font.postscript + "." + font.format;
+				fs.copySync(BASE_FONT, APP_FONT);
+				logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+			}
+		});
+
+		/**
+		 * verify images
+		 */
+		_u.each(_u.where(RESOURCES_DATA, {
+			"type" : "image"
+		}), function(image) {
+			var APP_IMAGE = APP_ASSETS_DATA_DIR + "/image_" + image.code + "_" + image.version;
+			if (!fs.existsSync(APP_IMAGE)) {
+				var BASE_IMAGE = BASE_ASSETS_DIR + "images/" + image.code + ".png";
+				fs.copySync(BASE_IMAGE, APP_IMAGE);
+				logger.debug("Linked " + BASE_IMAGE + " => " + APP_IMAGE);
+			}
+		});
 
 		//config.json
 		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8"));
@@ -305,54 +457,34 @@ if (build) {
 
 		logger.info("Initated building app.tss");
 
-		//idenify the version
-		var SELECTED_THEME_VERSION = "1",
-		    SELECTED_LANGUAGE_VERSION = "1",
-		    SELECTED_LANG = "en";
-
-		try {
-			var resources = require("./../app/assets/data/resources"),
-			    data = (resources || {}).data || [];
-			SELECTED_THEME_VERSION = _u.findWhere(data, {
-				type : "theme",
-				selected : true
-			}).version;
-			SELECTED_THEME_VERSION = _u.findWhere(data, {
-				type : "language",
-				selected : true
-			}).version;
-		} catch(e) {
-			logger.error(e);
-			return;
-		}
-
-		var CURRENT_TIME = new Date().getTime(),
-		    TEMP_THEME_NAME = "theme_" + CURRENT_TIME,
-		    TEMP_LANGUAGE_NAME = "language_" + CURRENT_TIME,
-		    APP_THEME_JS = ROOT_DIR + "app/assets/data/theme_" + SELECTED_THEME_VERSION + ".js",
-		    LANGUAGE_JS = ROOT_DIR + "app/assets/data/language_" + SELECTED_LANG + "_" + SELECTED_THEME_VERSION + ".js",
-		    TEMP_THEME_JS = ROOT_DIR + "tools/" + TEMP_THEME_NAME + ".js",
-		    TEMP_LANGUAGE_JS = ROOT_DIR + "tools/" + TEMP_LANGUAGE_NAME + ".js";
+		/**
+		 * identify language file
+		 */
+		var SELECTED_LANGUAGE = _u.findWhere(RESOURCES_DATA, {
+			type : "language",
+			selected : true
+		}),
+		    APP_SELECTED_LANGUAGE_JS = APP_ASSETS_DATA_DIR + "/language_" + SELECTED_LANGUAGE.code + "_" + SELECTED_LANGUAGE.version + ".js";
 
 		logger.debug("Building app.tss based on => " + APP_THEME_JS);
-		logger.debug("Using language file => " + LANGUAGE_JS);
+		logger.debug("Using language file => " + APP_SELECTED_LANGUAGE_JS);
 
-		//temp theme js
-		fs.copySync(APP_THEME_JS, TEMP_THEME_JS);
-		logger.debug("Linked " + APP_THEME_JS + " => " + TEMP_THEME_JS);
+		/**
+		 * clear cache for language strings
+		 * it might load the old one that
+		 * was before extending from base language
+		 */
+		delete require.cache[APP_SELECTED_LANGUAGE_JS];
 
-		//temp language js
-		fs.copySync(LANGUAGE_JS, TEMP_LANGUAGE_JS);
-		logger.debug("Linked " + LANGUAGE_JS + " => " + TEMP_LANGUAGE_JS);
-
-		var themeData = require("./" + TEMP_THEME_NAME).data,
-		    languageData = require("./" + TEMP_LANGUAGE_NAME).data,
-		    atss = require(BRAND_BASE_THEME),
+		//get theme and language data
+		var themeData = JSON.parse(BASE_THEME_DATA_STR).data,
+		    languageData = require(APP_SELECTED_LANGUAGE_JS).data,
+		    atss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
 		    tss = {};
 
 		//add classes for icons
-		processIcons(atss, themeData.config.icons, languageData);
-		processIcons(atss, themeData.config.iconNotations, languageData);
+		processIcons(atss, themeData.config.global.icons, languageData);
+		processIcons(atss, themeData.config.global.iconNotations, languageData);
 
 		//process the acutal classes in themes
 		tss = themeData.tss;
@@ -400,19 +532,6 @@ if (build) {
 		fs.writeFileSync(APP_TSS, appStr);
 
 		logger.info("Created " + APP_TSS);
-
-		//delete all temporary theme and language files
-		var TOOLS_DIR = ROOT_DIR + "tools",
-		    files = fs.readdirSync(TOOLS_DIR);
-		_u.each(files, function(file) {
-			if (file.indexOf("theme_") != -1 || file.indexOf("language_") != -1) {
-				file = TOOLS_DIR + "/" + file;
-				fs.removeSync(file);
-				logger.debug("Unlinked => " + file);
-			}
-		});
-
-		logger.info("Finsied building app.tss");
 	}
 
 } else {
