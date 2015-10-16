@@ -1106,6 +1106,12 @@
                 "borderWidth": 1,
                 "borderRadius": 3.4
             },
+            ".txt-positive-right-icon": {
+                "color": "#009245",
+                "selectedColor": "#009245",
+                "backgroundColor": "transparent",
+                "borderColor": "transparent"
+            },
             ".txt-negative-right-icon": {
                 "color": "#ED1C24",
                 "selectedColor": "#ED1C24",
