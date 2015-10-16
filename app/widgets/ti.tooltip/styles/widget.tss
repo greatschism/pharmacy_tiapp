@@ -1,11 +1,13 @@
-"View":{
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
 "#widget":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
 	opacity: 0,
 	visible: false,
 	zIndex: 1
+},
+"#contentView":{
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
 },
 "#contentView":{
 	layout: "vertical"

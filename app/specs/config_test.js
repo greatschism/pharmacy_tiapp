@@ -27,10 +27,9 @@ describe("Config Test Suite", function() {
 	});
 
 	it("Test Case 5: updateTSS", function() {
-		var indexTSS = require("alloy/styles/appload");
-		indexTSS[0].style.version = 0.1;
-		config.updateTSS("appload");
-		indexTSS[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
+		var tss = require("alloy/styles/appload");
+		config.updateTSS("alloy/styles/appload");
+		tss[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 	});
 
 });

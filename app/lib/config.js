@@ -316,7 +316,7 @@ var Configuration = {
 	updateTSS : function(name) {
 		var dicts = require("alloy/styles/" + name);
 		if (dicts.length === 0 || !_.has(dicts[0].style, "version")) {
-			dicts.splice(0, 0, baseDicts);
+			Array.prototype.splice.apply(dicts, [0, 0].concat(baseDicts));
 		}
 	}
 };

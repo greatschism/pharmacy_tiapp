@@ -17,7 +17,9 @@
 	bottom: 0,
 	height: 50
 },
-"Button":{
+"#leftBtn":{
+	title: "Cancel",
+	left: 0,
 	font:{
 		fontSize: 17
 	},
@@ -26,11 +28,14 @@
 	borderColor: "transparent",
 	borderWidth: 0
 },
-"#leftBtn":{
-	left: 0,
-	title: "Cancel"
-},
 "#rightBtn":{
+	title: "OK",
 	right: 0,
-	title: "OK"
+	font:{
+		fontSize: 17
+	},
+	color: "#000000",
+	backgroundColor: "transparent",
+	borderColor: "transparent",
+	borderWidth: 0
 }
