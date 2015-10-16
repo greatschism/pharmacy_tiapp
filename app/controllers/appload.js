@@ -1,4 +1,5 @@
-var app = require("core"),
+var args = arguments[0] || {},
+    app = require("core"),
     config = require("config"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
