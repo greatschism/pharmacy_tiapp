@@ -17,6 +17,7 @@ var TAG = "http",
  * @param {Boolean} args.autoEncodeUrl whether or not to encode url (HTTPClient - Android only)
  * @param {Array} args.headers Array of request headers to send
  * @param {Object|String} args.params The data to send
+ * @param {SecurityManager} args.securityManager used for certificate pinning
  * @param {Function} args.failure A function to execute when there is an XHR error
  * @param {Function} args.success A function to execute when when successful
  * @param {Function} args.done A function to execute after the success or failure callback
@@ -31,10 +32,10 @@ exports.request = function(args) {
 	if (Ti.Network.online) {
 
 		xhr = Ti.Network.createHTTPClient({
-			autoEncodeUrl : _.isUndefined(args.autoEncodeUrl) ? true : args.autoEncodeUrl
+			timeout : args.timeout || 10000,
+			autoEncodeUrl : _.isUndefined(args.autoEncodeUrl) ? true : args.autoEncodeUrl,
+			securityManager : args.securityManager
 		});
-
-		xhr.timeout = args.timeout ? args.timeout : 10000;
 
 		/**
 		 * Data return

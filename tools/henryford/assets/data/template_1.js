@@ -1,5 +1,6 @@
 /**
- * list view
+ * list view 
+ * without family care
  */
 module.exports = {
 	"data" : [{

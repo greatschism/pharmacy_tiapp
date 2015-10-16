@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     app = require("core"),
     config = require("config"),
+    httpClient = require("http"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     utilities = require("utilities"),
@@ -27,34 +28,9 @@ function didOpen(e) {
 		config.load();
 	}
 	/**
-	 * appload
-	 *
-	 * device_id
-	 * 	ios - a unique identifier (UUID) for this installation
-	 * 	android - IMEI number of device
+	 * appconfig
 	 */
-	http.request({
-		method : "appload_get",
-		params : {
-			feature_code : "THXXX",
-			data : [{
-				appload : {
-					phone_model : Ti.Platform.model,
-					phone_os : Ti.Platform.osname,
-					phone_platform : Alloy.CFG.platform_code,
-					device_id : notificationHandler.deviceId,
-					carrier : Ti.Platform.carrier,
-					app_version : Alloy.CFG.apiCodes.app_version,
-					client_name : Alloy.CFG.client_name,
-					client_param_lang_code : localization.currentLanguage.code
-				}
-			}]
-		},
-		forceRetry : true,
-		success : didSuccess,
-		showLoaderCallback : showLoader,
-		hideLoaderCallback : hideLoader
-	});
+	getAppConfig();
 }
 
 function showLoader() {
@@ -65,7 +41,110 @@ function hideLoader() {
 	$.loader.hide(false);
 }
 
-function didSuccess(result) {
+function getAppConfig() {
+	httpClient.request({
+		url : Alloy.CFG.appconfig_url,
+		type : "POST",
+		format : "JSON",
+		params : JSON.stringify({
+			data : {
+				getappjconfig : {
+					featurecode : "AH001",
+					phoneplatform : Alloy.CFG.platform_code,
+					clientname : Alloy.CFG.client_name,
+					appversion : Alloy.CFG.app_version
+				}
+			}
+		}),
+		success : didGetAppConfig,
+		failure : didFailAppConfig
+	});
+}
+
+function didFailAppConfig(error, passthrough) {
+	uihelper.showDialog({
+		message : http.getNetworkErrorMsg(error.code),
+		buttonNames : [Alloy.Globals.strings.dialogBtnRetry],
+		success : getAppConfig
+	});
+}
+
+function didGetAppConfig(result, passthrough) {
+	var appconfig = result.getappjconfig;
+	if (appconfig) {
+		/**
+		 * update model
+		 */
+		Alloy.Models.appconfig.set(appconfig);
+		/**
+		 * appconfig returns just the
+		 * server url, update the full path
+		 * here
+		 */
+		Alloy.Models.appconfig.set("ophurl", appconfig.ophurl.concat("/services/"));
+		/**
+		 * if required is 1
+		 * then services are down or
+		 * under maintenance
+		 */
+		if (appconfig.require) {
+			/**
+			 * navigate to maintenance screen
+			 */
+		} else {
+			/**
+			 * if certrequired is 1
+			 * then enable certificate pinning
+			 */
+			if (appconfig.certrequired) {
+				/**
+				 * later will be used
+				 * by request wrapper
+				 */
+				Alloy.Globals.securityManager = require("appcelerator.https").createX509CertificatePinningSecurityManager([{
+					url : appconfig.ophurl,
+					serverCertificate : "https.cer"
+				}]);
+			}
+			/**
+			 * appload
+			 *
+			 * device_id
+			 * 	ios - a unique identifier (UUID) for this installation
+			 * 	android - IMEI number of device
+			 */
+			http.request({
+				method : "appload_get",
+				params : {
+					feature_code : "THXXX",
+					data : [{
+						appload : {
+							phone_model : Ti.Platform.model,
+							phone_os : Ti.Platform.osname,
+							phone_platform : Alloy.CFG.platform_code,
+							device_id : notificationHandler.deviceId,
+							carrier : Ti.Platform.carrier,
+							client_name : Alloy.CFG.client_name,
+							client_param_lang_code : localization.currentLanguage.code,
+							app_version : Alloy.CFG.app_version
+						}
+					}]
+				},
+				forceRetry : true,
+				success : didSuccessAppload,
+				showLoaderCallback : showLoader,
+				hideLoaderCallback : hideLoader
+			});
+		}
+	} else {
+		/**
+		 * considered as failure
+		 */
+		didFailAppConfig({});
+	}
+}
+
+function didSuccessAppload(result) {
 	var appload = result.data.appload || {};
 	Alloy.Models.appload.set(appload);
 	/**

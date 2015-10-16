@@ -76,7 +76,7 @@ function request(args) {
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
 		session_id : Alloy.Globals.sessionId
 	});
-	args.params = JSON.stringify(args.params, null, 4);
+	args.params = JSON.stringify(args.params);
 
 	if (Alloy.CFG.encryption_enabled) {
 		args.params = require("encryptionUtil").encrypt(args.params);
@@ -86,14 +86,15 @@ function request(args) {
 	 *  returns the actual http client object
 	 */
 	return http.request({
-		url : Alloy.CFG.base_url.concat(Alloy.CFG.apiPath[args.method]),
+		url : Alloy.Models.appconfig.get("ophurl").concat(Alloy.CFG.apiPath[args.method]),
 		type : args.type,
 		timeout : args.timeout,
 		params : args.params,
 		success : didSuccess,
 		failure : didFail,
 		done : didComplete,
-		passthrough : args
+		passthrough : args,
+		securityManager : Alloy.Globals.securityManager
 	});
 
 }
@@ -140,7 +141,7 @@ function didFail(error, passthrough) {
 		var forceRetry = passthrough.forceRetry === true,
 		    retry = forceRetry || passthrough.retry !== false;
 		uihelper.showDialog({
-			message : error.message || getErrorMessage(error.code),
+			message : error.message || getNetworkErrorMsg(error.code),
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
@@ -209,7 +210,7 @@ function didComplete(passthrough) {
 	}
 }
 
-function getErrorMessage(code) {
+function getNetworkErrorMsg(code) {
 	/**
 	 * to do: define error code for
 	 * timeout and show "msgNetworkTimeout"
@@ -218,9 +219,6 @@ function getErrorMessage(code) {
 	switch(code) {
 	case 0:
 		key = "msgNoInternet";
-		break;
-	case 404:
-		key = "msgServicesDown";
 		break;
 	default:
 		key = "msgUnknownError";
@@ -240,3 +238,4 @@ function didConfirmLogout() {
 }
 
 exports.request = request;
+exports.getNetworkErrorMsg = getNetworkErrorMsg;

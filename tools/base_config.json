@@ -58,7 +58,6 @@
 			"email_resend": "patient/email/resend"
 		},
 		"apiCodes": {
-			"app_version": "v2",
 			"success": "200",
 			"session_timeout": "ECOH998",
 			"no_refill_reminders": "ECS023",
@@ -110,6 +109,7 @@
 			"code_language": "MultiLanguage",
 			"code_relationship": "Relationship"
 		},
+		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
 		"reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=",
 		"distancematrix_url": "https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=%s&destinations=%s",

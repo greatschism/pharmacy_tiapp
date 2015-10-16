@@ -1,3 +1,7 @@
+/**
+ * menu
+ * without family care
+ */
 module.exports = {
 	"data" : [{
 		"titleid" : "titleHome",

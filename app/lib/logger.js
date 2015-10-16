@@ -74,7 +74,7 @@ var TiLog = {
 					}
 					str += "}}";
 				} else if (_.isObject(val)) {
-					str += JSON.stringify(val, null, 4);
+					str += JSON.stringify(val);
 				} else {
 					str += ( typeof val) + " type is unknown";
 				}

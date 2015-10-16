@@ -45,6 +45,7 @@
 	Alloy.Collections.patients = new Backbone.Collection();
 
 	//models
+	Alloy.Models.appconfig = new Backbone.Model();
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
 	Alloy.Models.remindersRefill = new Backbone.Model();
