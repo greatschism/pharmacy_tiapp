@@ -2,7 +2,8 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
-    authenticator = require("authenticator");
+    authenticator = require("authenticator"),
+    reload = false;
 
 function init() {
 	if (OS_IOS) {
@@ -86,8 +87,13 @@ function didOpen(e) {
 function didAuthenticate(navigationHandled) {
 	$.menuCtrl.init(args.navigation, navigationHandled);
 	if (args.triggerUpdate === true) {
-		app.update(doLogout);
+		app.update(didCompleteUpdate);
 	}
+}
+
+function didCompleteUpdate() {
+	reload = ture;
+	doLogout();
 }
 
 function doLogout() {
@@ -110,7 +116,12 @@ function didLogout() {
 	if (OS_ANDROID) {
 		$.rootWindow.setExitOnClose(false);
 	}
-	Alloy.createController("appload");
+	/**
+	 * reload flag reloads the updated
+	 */
+	Alloy.createController("appload", {
+		reload : reload
+	});
 }
 
 function didAndoridBack(e) {

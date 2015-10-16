@@ -15,6 +15,17 @@ function didOpen(e) {
 		}
 	});
 	/**
+	 * reload config data
+	 * when reload is true
+	 * Note: reload will be true
+	 * when master window was closed
+	 * and appload was opened as part
+	 * of update operation
+	 */
+	if (args.reload) {
+		config.load();
+	}
+	/**
 	 * appload
 	 *
 	 * device_id
