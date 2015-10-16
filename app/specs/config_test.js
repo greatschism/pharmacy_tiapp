@@ -28,7 +28,7 @@ describe("Config Test Suite", function() {
 
 	it("Test Case 5: updateTSS", function() {
 		var tss = require("alloy/styles/appload");
-		config.updateTSS("alloy/styles/appload");
+		config.updateTSS("appload");
 		tss[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 	});
 
