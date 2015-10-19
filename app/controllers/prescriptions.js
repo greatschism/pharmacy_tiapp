@@ -219,6 +219,13 @@ function prepareList() {
 	    filters = args.filters || {},
 	    selectedItems = args.selectedItems || [];
 	/**
+	 * current user preferences
+	 * about hide zero refill prescription
+	 * Note: as of now server returns
+	 * the flag as string
+	 */
+	var hideZeroRefillPrescriptions = parseInt($.patientSwitcher.get().get("hide_zero_refill_prescriptions")) || 0;
+	/**
 	 * we keep all the returned prescriptions in collection
 	 * filters are applied to determine whether it has to be displayed on screen
 	 * still the prescription object that doesn't pass the filter validation will be available in the collection
@@ -238,6 +245,18 @@ function prepareList() {
 				 *  */
 				prescription.set("refill_status", apiCodes.refill_status_sold);
 			}
+		}
+		/**
+		 * hide zero refill
+		 * prescriptions if enabled
+		 * Note: zero refill
+		 * prescriptions are not ignored from
+		 * med reminders or when the status
+		 * is getting refilled or ready for pickup
+		 * within prescriptions list
+		 */
+		if (hideZeroRefillPrescriptions && !parseInt(prescription.get("refill_left")) && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
+			return false;
 		}
 		/**
 		 *	exclude anything that matches with filter
