@@ -22,5 +22,5 @@ function init() {
 	 *  so can be disabled from server through theme
 	 */
 	require("apm").init();
-	Alloy.createController("appload");
+	Alloy.createController("appload").init();
 }

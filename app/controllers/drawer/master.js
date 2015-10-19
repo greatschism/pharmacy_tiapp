@@ -111,17 +111,21 @@ function didLogout() {
 	/**
 	 * make the heavy weight window
 	 * ready for close not exit
-	 * and initate appload again
+	 * and initiate appload again
 	 */
 	if (OS_ANDROID) {
 		$.rootWindow.setExitOnClose(false);
 	}
 	/**
 	 * reload flag reloads the updated
+	 * Note: no need to listen for init
+	 * and close this window, navigator
+	 * will be destroyed whenever
+	 * new one is created
 	 */
 	Alloy.createController("appload", {
 		reload : reload
-	});
+	}).init();
 }
 
 function didAndoridBack(e) {

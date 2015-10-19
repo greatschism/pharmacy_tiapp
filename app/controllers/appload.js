@@ -11,11 +11,7 @@ var args = arguments[0] || {},
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
-	$.loader.applyProperties({
-		indicatorDict : {
-			accessibilityLabel : strings.msgLoading
-		}
-	});
+	$.trigger("init");
 	/**
 	 * reload config data
 	 * when reload is true
@@ -87,10 +83,13 @@ function didGetAppConfig(result, passthrough) {
 		 * then services are down or
 		 * under maintenance
 		 */
-		if (appconfig.require) {
+		if (appconfig.required) {
 			/**
 			 * navigate to maintenance screen
 			 */
+			var ctrl = Alloy.createController("maintenance");
+			ctrl.on("init", didInitWin);
+			ctrl.init();
 		} else {
 			/**
 			 * if certrequired is 1
@@ -255,7 +254,9 @@ function initMasterWindow() {
 }
 
 function didInitWin(e) {
-	$.window.setExitOnClose(false);
+	if (OS_ANDROID) {
+		$.window.setExitOnClose(false);
+	}
 	$.window.close();
 }
 
@@ -263,4 +264,14 @@ function didAndroidback(e) {
 	$.window.close();
 }
 
-$.window.open();
+function init() {
+	//loader
+	$.loader.applyProperties({
+		indicatorDict : {
+			accessibilityLabel : strings.msgLoading
+		}
+	});
+	$.window.open();
+}
+
+exports.init = init;

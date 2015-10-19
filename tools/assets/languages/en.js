@@ -26,8 +26,8 @@ module.exports = {
 		"strDeliveryModeEmail" : "Email",
 		"strDeliveryModeText" : "Text",
 		"strDeliveryModeNone" : "None",
-		"strShow":"show",
-		"strHide":"hide",
+		"strShow" : "show",
+		"strHide" : "hide",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -159,6 +159,8 @@ module.exports = {
 		"titleForgotPassword" : "User recovery",
 
 		"upgradeBtnSubmit" : "Upgrade now",
+
+		"maintenanceBtnSubmit" : "Try again",
 
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 
