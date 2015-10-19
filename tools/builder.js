@@ -19,7 +19,9 @@ var log4js = require("log4js"),
     DEFAULT_PLATFORM = "ios",
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
-    APP_TSS = ROOT_DIR + "app/styles/app.tss",
+    STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
+    TSS_DIR = ROOT_DIR + "app/styles",
+    APP_TSS = TSS_DIR + "/app.tss",
     APP_ASSETS_DIR = ROOT_DIR + "app/assets/",
     APP_HTTPS_CER = APP_ASSETS_DIR + "https.cer",
     APP_ASSETS_IPHONE_DIR = APP_ASSETS_DIR + "iphone",
@@ -532,6 +534,32 @@ if (build) {
 		fs.writeFileSync(APP_TSS, appStr);
 
 		logger.info("Created " + APP_TSS);
+
+		/**
+		 * inject style sheets list
+		 * in a lib file. App will
+		 * use the list of files
+		 * and inject the styles
+		 * at run time.
+		 * Note: ignore widgets style
+		 * sheets form this list.
+		 * they are standalone form
+		 * actual app. Also ignore
+		 * platform specific items
+		 */
+		var tiStyleSheets = [];
+		getAllStyleFilesRecursive(TSS_DIR, "index.tss", tiStyleSheets);
+		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), ""));
+		tiStyleSheets = [];
+		for (var i in tempTiStyleSheets) {
+			var tempTiStyleSheet = tempTiStyleSheets[i];
+			if (tempTiStyleSheet.indexOf(program.platform === "ios" ? "android" : "ios") === -1 && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
+				tiStyleSheets.push(tempTiStyleSheet);
+			}
+		}
+		logger.debug("Writing " + STYLE_SHEETS_JS);
+		fs.writeFileSync(STYLE_SHEETS_JS, "module.exports = " + JSON.stringify(tiStyleSheets, null, 4).concat(";"));
+		logger.info("Created " + STYLE_SHEETS_JS);
 	}
 
 } else {
@@ -814,4 +842,21 @@ function trimDoubleQuotes(str, regExp) {
 		}
 	} while (m);
 	return str;
+}
+
+/**
+ * get all tss files
+ * excluding those which matches
+ * exclude param
+ */
+function getAllStyleFilesRecursive(dir, exclude, data) {
+	var files = fs.readdirSync(dir);
+	for (var i in files) {
+		var file = dir + "/" + files[i];
+		if (fs.lstatSync(file).isDirectory()) {
+			getAllStyleFilesRecursive(file, exclude, data);
+		} else if (file.substr(file.lastIndexOf(".")) === ".tss" && (!exclude || file.indexOf(exclude) === -1)) {
+			data.push(file);
+		}
+	}
 }

@@ -40,8 +40,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 		logger.info(TAG + ": initated");
 
 		//styles dir
-		var resPlatformDir = path.normalize(opts.projectDir + "/Resources/" + (opts.platform === "ios" ? "iphone" : "android")),
-		    alloyDir = resPlatformDir + "/alloy";
+		var alloyDir = path.normalize(opts.projectDir + "/Resources/" + (opts.platform === "ios" ? "iphone" : "android")) + "/alloy";
 		/**
 		 * we don't have any UI comp
 		 * on index so it won't have any
@@ -79,21 +78,6 @@ exports.init = function(logger, config, cli, nodeappc) {
 				fs.writeFileSync(tiStyleSheet, "module.exports = [" + tiStyleSheetStr);
 			}
 		}
-
-		/**
-		 * inject style sheets list
-		 * in a lib file. App will
-		 * use the list of files
-		 * and inject the styles
-		 * at run time.
-		 * Note: ignore widgets style
-		 * sheets form this list.
-		 * they are standalone form
-		 * actual app
-		 */
-		var styleSheetsPath = resPlatformDir + "/styleSheets.js";
-		logger.debug("Writing " + styleSheetsPath);
-		fs.writeFileSync(styleSheetsPath, "module.exports = " + JSON.stringify(tiStyleSheets, null, 4).replace(/.js/g, "").replace(new RegExp(resPlatformDir + "/", "g"), "").concat(";"));
 		/**
 		 * trim widgets
 		 * styles
