@@ -31,11 +31,9 @@ exports.request = function(args) {
 
 	if (Ti.Network.online) {
 
-		xhr = Ti.Network.createHTTPClient({
-			timeout : args.timeout || 10000,
-			autoEncodeUrl : _.isUndefined(args.autoEncodeUrl) ? true : args.autoEncodeUrl,
-			securityManager : args.securityManager
-		});
+		xhr = Ti.Network.createHTTPClient(_.pick(args, ["autoEncodeUrl", "securityManager"]));
+
+		xhr.timeout = args.timeout || 10000;
 
 		/**
 		 * Data return

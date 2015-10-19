@@ -74,7 +74,7 @@ if (OS_ANDROID) {
 	$.tableView = $.UI.create("TableView", _.extend({
 		apiName : "TableView",
 		id : "tableView"
-	}, _.pick(args, ["separatorInsets"])));
+	}, _.pick(args, ["separatorInsets", "separatorColor"])));
 	$.tableView.addEventListener("click", updateItem);
 	$.contentView.add($.tableView);
 

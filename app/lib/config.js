@@ -271,7 +271,21 @@ var Configuration = {
 		 */
 		if (!baseDicts) {
 			baseDicts = require("alloy/styles/index");
+			/**
+			 * Inject styles from index
+			 * to all style sheets
+			 */
+			_.each(require("styleSheets"), function(styleSheet) {
+				var styleSheetData = require(styleSheet);
+				Array.prototype.splice.apply(styleSheetData, [0, 0].concat(baseDicts));
+			});
 		} else if (baseDicts[0].style.version != Alloy.TSS.Theme.version) {
+			/**
+			 * all style sheets will get
+			 * updated as we update the base
+			 * objects which is referenced in
+			 * all style sheets
+			 */
 			for (var i in baseDicts) {
 				var dict = baseDicts[i] || {},
 				    key = (dict.key || "").replace(/-/g, "_");
@@ -306,18 +320,6 @@ var Configuration = {
 
 	updateResources : function(callback) {
 		require("resources").update(callback);
-	},
-
-	/**
-	 * Inject styles from index
-	 * to given controller
-	 * @param {String} controller path
-	 */
-	updateTSS : function(name) {
-		var dicts = require("alloy/styles/" + name);
-		if (dicts.length === 0 || !_.has(dicts[0].style, "version")) {
-			Array.prototype.splice.apply(dicts, [0, 0].concat(baseDicts));
-		}
 	}
 };
 

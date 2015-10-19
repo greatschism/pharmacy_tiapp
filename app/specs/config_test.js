@@ -17,19 +17,11 @@ describe("Config Test Suite", function() {
 	});
 
 	it("Test Case 3: load", function(done) {
-		config.load(function() {
+		config.load(function didLoad() {
+			Alloy.TSS.should.be.an.instanceof(Object).and.have.property("Window");
+			require("alloy/styles/appload")[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 			done();
 		});
-	});
-
-	it("Test Case 4: check Alloy.TSS after calling load", function() {
-		Alloy.TSS.should.be.an.instanceof(Object).and.have.property("Window");
-	});
-
-	it("Test Case 5: updateTSS", function() {
-		var tss = require("alloy/styles/appload");
-		config.updateTSS("appload");
-		tss[0].style.version.should.be.equal(Alloy.TSS.Theme.version);
 	});
 
 });

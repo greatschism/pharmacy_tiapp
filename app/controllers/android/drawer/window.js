@@ -9,9 +9,6 @@ var args = arguments[0] || {},
 
 	$.window.title = args.title || strings[args.titleid || ""] || "";
 
-	//reload tss of this controller in memory
-	require("config").updateTSS(args.ctrl);
-
 	/**
 	 *  let the new controller know where it is coming from
 	 *  through the origin parameter

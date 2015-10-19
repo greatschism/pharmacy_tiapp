@@ -1,8 +1,5 @@
 var args = arguments[0] || {};
 
-//reload tss of this controller in memory
-require("config").updateTSS($.__controllerPath);
-
 (function() {
 	var rDict = {};
 	if (_.isBoolean(args.selected)) {

@@ -3,9 +3,6 @@ var args = arguments[0] || {},
     logger = require("logger"),
     controller;
 
-//reload tss of this controller in memory
-require("config").updateTSS($.__controllerPath);
-
 (function() {
 
 	var dict = {},
@@ -26,9 +23,6 @@ require("config").updateTSS($.__controllerPath);
 	$.leftNavView.addEventListener("click", didClickLeftNavView);
 
 	dict.leftNavButton = $.leftNavView;
-
-	//reload tss of this controller in memory
-	require("config").updateTSS(args.ctrl);
 
 	/**
 	 *  let the new controller know where it is coming from

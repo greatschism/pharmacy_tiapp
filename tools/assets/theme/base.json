@@ -770,10 +770,12 @@
                 "borderWidth": 0
             },
             ".nav-btn": {
+            	"right": 12,
                 "font": {
                     "fontFamily": "medium",
                     "fontSize": 17
                 },
+                "textAlign": "right",
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
                 "backgroundColor": "transparent",
@@ -783,10 +785,12 @@
                 "borderWidth": 1
             },
             ".nav-icon": {
+            	"right": 12,
                 "font": {
                     "fontFamily": "icon",
                     "fontSize": 22
                 },
+                "textAlign": "right",
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
                 "backgroundColor": "transparent",
@@ -918,7 +922,8 @@
                     "fontSize": 22
                 },
                 "iconColor": "#808285",
-                "selectedIconColor": "#009245"
+                "selectedIconColor": "#009245",
+                "separatorColor": "#D5D5D5"
             },
             ".dropdown": {
                 "left": 12,

@@ -1,9 +1,6 @@
 var args = arguments[0] || {},
     rx = require("rx");
 
-//reload tss of this controller in memory
-require("config").updateTSS($.__controllerPath);
-
 function didChange(e) {
 	var value = rx.format(e.value),
 	    len = value.length;

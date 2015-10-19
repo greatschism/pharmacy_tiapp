@@ -6,9 +6,6 @@ var args = arguments[0] || {},
     touchX = 0,
     currentX = 0;
 
-//reload tss of this controller in memory
-require("config").updateTSS($.__controllerPath);
-
 if (!Alloy.TSS[CONSTS]) {
 	var app = require("core"),
 	    paddingLeft = $.swipeView.paddingLeft,

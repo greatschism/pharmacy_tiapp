@@ -1,4 +1,4 @@
-var addToObject = function(obj, key, value) {
+function addToObject(obj, key, value) {
 	if (!obj[key]) {
 		obj[key] = value;
 	} else if (!(obj[key] instanceof Array)) {
@@ -11,7 +11,7 @@ var addToObject = function(obj, key, value) {
 	return obj;
 };
 
-var traverseTree = function(node) {
+function traverseTree(node) {
 	var textOnly = true;
 	var part = {};
 	if (node.hasChildNodes()) {
@@ -43,7 +43,7 @@ var traverseTree = function(node) {
 	return part;
 };
 
-var traverseObject = function(v, name, ind) {
+function traverseObject(v, name, ind) {
 	var xml = "";
 	if ( v instanceof Array) {
 		for (var i = 0,
@@ -76,39 +76,13 @@ var traverseObject = function(v, name, ind) {
 	return xml;
 };
 
-var XMLTools = function(inputXml) {
-	if ( typeof inputXml == 'string') {
-		this.doc = Ti.XML.parseString(inputXml).documentElement;
+exports.toJSON = function(inputXml) {
+	if ( typeof inputXml == "object") {
+		inputXml = inputXml.documentElement;
+	} else {
+		inputXml = Ti.XML.parseString(inputXml).documentElement;
 	}
-	if ( typeof inputXml == 'object') {
-		this.doc = inputXml.documentElement;
-	}
-};
-
-XMLTools.prototype.getDocument = function() {
-	return this.doc;
-};
-
-XMLTools.prototype.toObject = function() {
-	if (!this.doc) {
-		return null;
-	}
-	this.obj = traverseTree(this.doc);
-	return this.obj;
-};
-
-XMLTools.prototype.toJSON = function() {
-	if (!this.doc) {
-		return null;
-	}
-	if (!this.obj) {
-		this.obj = traverseTree(this.doc);
-	}
-	return (JSON.stringify(this.obj));
-};
-
-exports.toJSON = function(xmlStr) {
-	return new XMLTools(xmlStr).toObject();
+	return traverseTree(inputXml);
 };
 
 exports.toXML = function(jsonObj) {

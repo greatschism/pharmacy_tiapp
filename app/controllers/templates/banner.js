@@ -1,9 +1,6 @@
 var args = arguments[0] || {},
     TAG = "banner";
 
-//reload tss of this controller in memory
-require("config").updateTSS($.__controllerPath);
-
 (function() {
 	$.descriptionLbl.text = args.description;
 	$.bannerImg.setImage(args.image_url);
