@@ -94,7 +94,7 @@
 			"refill_type_scan": "scan",
 			"refill_type_text": "text",
 			"pickup_mode_instore": "instore",
-			"pickup_mode_mail_order": "mailorder",
+			"pickup_mode_mail_order": "mail",
 			"pickup_time_group_asap": "ASAP",
 			"relationship_manager": "manager",
 			"relationship_pet": "pet",
