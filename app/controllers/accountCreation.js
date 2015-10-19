@@ -4,9 +4,21 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     utilities = require("utilities"),
     moment = require("alloy/moment"),
+      rightButtonDict = $.createStyle({
+	classes : ["txt-positive-right-icon"]
+}),
     containerViewFromTop = 0;
 
 function init() {
+	/**
+	 * Set the right button "show/hide"
+	 * in the password textfield
+	 * with right parameters.
+	 */
+	_.extend(rightButtonDict, {
+		title : $.strings.strShow,
+	});
+	setRightButton("", rightButtonDict);
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
@@ -57,14 +69,23 @@ function didClickTooltip(e) {
 	e.source.hide();
 }
 
-function didToggle(e) {
-	$.passwordTxt.setPasswordMask(!e.value);
+function didToggle() {
+	if ($.passwordTxt.getPasswordMask() === true) {
+		$.passwordTxt.setPasswordMask(false);
+		_.extend(rightButtonDict, {
+			title : $.strings.strHide,
+		});
+	} else {
+		$.passwordTxt.setPasswordMask(true);
+		_.extend(rightButtonDict, {
+			title : $.strings.strShow,
+		});
+	}
+	setRightButton("", rightButtonDict);
 }
-
-function handleScroll(e) {
-	$.scrollView.canCancelEvents = e.value;
+function setRightButton(iconText, iconDict) {
+	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
-
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	$[nextItem] && $[nextItem].focus ? $[nextItem].focus() : didClickSignup();

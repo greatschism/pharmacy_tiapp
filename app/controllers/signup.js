@@ -3,6 +3,9 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     utilities = require("utilities"),
     rx = require("rx"),
+    rightButtonDict = $.createStyle({
+	classes : ["txt-positive-right-icon"]
+}),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
     passwordContainerViewFromTop = 0,
@@ -10,6 +13,15 @@ var args = arguments[0] || {},
     store = {};
 
 function init() {
+	/**
+	 * Set the right button "show/hide"
+	 * in the password textfield
+	 * with right parameters.
+	 */
+	_.extend(rightButtonDict, {
+		title : $.strings.strShow,
+	});
+	setRightButton("", rightButtonDict);
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 
@@ -115,10 +127,23 @@ function moveToNext(e) {
 	}
 }
 
-function didToggleShowPassword(e) {
-	$.passwordTxt.setPasswordMask(!e.value);
+function didToggleShowPassword() {
+	if ($.passwordTxt.getPasswordMask() === true) {
+		$.passwordTxt.setPasswordMask(false);
+		_.extend(rightButtonDict, {
+			title : $.strings.strHide,
+		});
+	} else {
+		$.passwordTxt.setPasswordMask(true);
+		_.extend(rightButtonDict, {
+			title : $.strings.strShow,
+		});
+	}
+	setRightButton("", rightButtonDict);
 }
-
+function setRightButton(iconText, iconDict) {
+	$.passwordTxt.setButton(iconText, "right", iconDict);
+}
 function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
@@ -253,7 +278,7 @@ function didClickSignup(e) {
 					home_phone : "",
 					mobile : "",
 					email_address : email,
-					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index), 
+					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 					store_id : store.id,
 					user_type : "FULL",
 					optional : [{
@@ -278,7 +303,7 @@ function didRegister(result, passthrough) {
 	 */
 	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
 	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	
+
 	$.uihelper.showDialog({
 		message : result.message,
 		buttonNames : [$.strings.dialogBtnOK],

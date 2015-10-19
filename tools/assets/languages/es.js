@@ -26,6 +26,8 @@ module.exports = {
 		"strDeliveryModeEmail" : "es-Email",
 		"strDeliveryModeText" : "es-Text",
 		"strDeliveryModeNone" : "es-None",
+		"strShow":"es-show",
+		"strHide":"es-hide",
 
 		"attrPhone" : "es-Call: <secondarycolor>%s</secondarycolor>",
 

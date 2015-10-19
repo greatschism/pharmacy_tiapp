@@ -2,9 +2,20 @@ var args = arguments[0] || {},
     authenticator = require("authenticator"),
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    rightButtonDict = $.createStyle({
+	classes : ["txt-positive-right-icon"]
+}),
     utilities = require('utilities');
 
 function init() {
+	/**
+	 * Set the right button "show/hide"
+	 * with right parameters.
+	 */
+	_.extend(rightButtonDict, {
+		title : $.strings.strShow,
+	});
+	setRightButton("", rightButtonDict);
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
 	$.uihelper.getImage("logo", $.logoImg);
 	/**
@@ -33,8 +44,23 @@ function init() {
 	}
 }
 
-function didChangeToggle(e) {
-	$.passwordTxt.setPasswordMask(!e.value);
+function didChangeToggle() {
+	if ($.passwordTxt.getPasswordMask() === true) {
+		$.passwordTxt.setPasswordMask(false);
+		_.extend(rightButtonDict, {
+			title : $.strings.strHide,
+		});
+	} else {
+		$.passwordTxt.setPasswordMask(true);
+		_.extend(rightButtonDict, {
+			title : $.strings.strShow,
+		});
+	}
+	setRightButton("", rightButtonDict);
+}
+
+function setRightButton(iconText, iconDict) {
+	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
 
 function didChangeAutoLogin(e) {

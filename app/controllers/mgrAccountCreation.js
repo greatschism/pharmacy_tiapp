@@ -1,7 +1,19 @@
 var moment = require("alloy/moment"),
+  rightButtonDict = $.createStyle({
+	classes : ["txt-positive-right-icon"]
+}),
     passwordContainerViewFromTop = 0;
 
 function init() {
+	/**
+	 * Set the right button of password
+	 * textfield "show/hide"
+	 * with right parameters.
+	 */
+	_.extend(rightButtonDict, {
+		title : $.strings.strShow,
+	});
+	setRightButton("", rightButtonDict);
 	$.uihelper.getImage("logo", $.logoImg);
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
@@ -166,8 +178,23 @@ function setParentView(view) {
 	$.dobDp.setParentView(view);
 }
 
-function didToggleShowPassword(e) {
-	$.passwordTxt.setPasswordMask(!e.value);
+function didToggleShowPassword() {
+if ($.passwordTxt.getPasswordMask() === true) {
+		$.passwordTxt.setPasswordMask(false);
+		_.extend(rightButtonDict, {
+			title : $.strings.strHide,
+		});
+	} else {
+		$.passwordTxt.setPasswordMask(true);
+		_.extend(rightButtonDict, {
+			title : $.strings.strShow,
+		});
+	}
+	setRightButton("", rightButtonDict);
+}
+
+function setRightButton(iconText, iconDict) {
+	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
 
 function didBlurFocusPassword() {

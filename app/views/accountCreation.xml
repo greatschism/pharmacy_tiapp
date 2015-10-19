@@ -13,11 +13,7 @@
 				<View id="containerView" class="padding-top form-group vgroup">
 					<Widget id="unameTxt" src="ti.textfield" class="form-txt returnkey-next" onFocus="didFocusUsername" onBlur="didBlurTxt"  />
 					<View class="hseparator" />
-					<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" onFocus="didFocusPassword" onBlur="didBlurTxt" onReturn="didClickSignup" />
-				</View>
-				<View class="padding-top padding-bottom margin-left margin-right auto-height">
-					<Label id="showPasswordLbl" class="left text-left lbl" />
-					<Widget id="toggleSwt" src="ti.switch" class="right swt" onTouch="handleScroll" onChange="didToggle"  />
+					<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-done" onFocus="didFocusPassword" onBlur="didBlurTxt" onClick="didToggle" onReturn="didClickSignup" />
 				</View>
 				<Widget id="agreementLbl" src="ti.styledlabel" class="margin-left margin-right link-multi-line" onClick="didClickAgreement" />
 				<Button id="signupBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickSignup" />

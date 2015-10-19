@@ -6,11 +6,7 @@
 			<View class="margin-top form-vgroup">
 				<Widget id="usernameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider" />
-				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickLogin" />
-			</View>
-			<View class="margin-top auto-height" if="Alloy.CFG.toggle_password_enabled">
-				<Label id="togglePasswordLbl" class="lbl-with-rswt" />
-				<Widget id="togglePasswordSwt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="didClickLogin" onClick="didChangeToggle"/>
 			</View>
 			<View id="autoLoginView" class="margin-top auto-height margin-bottom" >
 				<Label id="autoLoginLbl" class="lbl-with-rswt" onPostlayout="didPostlayout" />
