@@ -738,7 +738,9 @@ if (program.buildOnly) {
 	appcParams.push(program.logLevel);
 
 	//run app using spwan
-	var appc = spawn("appc", appcParams);
+	var appc = spawn("appc", appcParams, {
+		stdio : [0, "pipe", "pipe"]
+	});
 
 	appc.stdout.on("data", function(data) {
 		console.log(data.toString());
