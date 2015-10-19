@@ -117,7 +117,7 @@ if (brand) {
 	var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
 	    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
 	BRAND_ENV_DATA = BRAND_DATA["default"];
-	_u.each(BRAND_ENV_DATA, function(key, val) {
+	_u.each(BRAND_ENV_DATA, function(val, key) {
 		if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
 			_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
 		}
