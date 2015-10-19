@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>mscripts-app</name>
+	<name>mscripts-application</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -15,51 +15,65 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.eclipsesource.jshint.ui.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>com.appcelerator.titanium.alloy.core.nature</nature>
-		<nature>com.aptana.projects.webnature</nature>
 		<nature>com.appcelerator.titanium.mobile.nature</nature>
+		<nature>com.aptana.projects.webnature</nature>
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1444904133111</id>
+			<id>1443690257901</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-location-matches-false-false-/*.png</arguments>
+				<arguments>1.0-name-matches-true-false-tiapp.xml</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133112</id>
+			<id>1443690257901</id>
+			<name></name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-*.png</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1443690257902</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-dist</arguments>
+				<arguments>1.0-name-matches-true-false-node_modules</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133113</id>
+			<id>1443690257902</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-tools/node_modules</arguments>
+				<arguments>1.0-name-matches-true-false-dist</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133118</id>
+			<id>1443690257907</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-tiapp.xml</arguments>
+				<arguments>1.0-projectRelativePath-matches-false-false-platform/android/res/drawable-*</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133120</id>
+			<id>1443690257903</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -68,7 +82,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133122</id>
+			<id>1443690257904</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -77,16 +91,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133124</id>
-			<name></name>
-			<type>30</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-app/assets/https.cer</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1444904133125</id>
+			<id>1443690257904</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -95,7 +100,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133126</id>
+			<id>1443690257905</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -104,7 +109,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133127</id>
+			<id>1443690257906</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -113,21 +118,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1444904133128</id>
+			<id>1443690257907</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-projectRelativePath-matches-false-false-app/assets/data</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1444904133129</id>
-			<name></name>
-			<type>30</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-platform/android/res/drawable-*</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
