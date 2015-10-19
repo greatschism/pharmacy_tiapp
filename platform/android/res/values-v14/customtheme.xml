@@ -46,6 +46,9 @@
 		<!--to apply for progress dialog-->
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
+		<!--action bar shadow for pre-lollipop-->
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+		<!--action bar shadow for pre-lollipop-->
 		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
