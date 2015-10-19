@@ -15,7 +15,7 @@ function getAllStyleFilesRecursive(dir, exclude, data) {
 		var file = dir + "/" + files[i];
 		if (fs.lstatSync(file).isDirectory()) {
 			getAllStyleFilesRecursive(file, exclude, data);
-		} else if (file.substr(file.lastIndexOf(".")) === ".js" && (!exclude || file.indexOf(exclude) === -1)) {
+		} else if (file.substr(file.lastIndexOf(".")) === ".js" && (!exclude || exclude.indexOf(files[i]) === -1)) {
 			data.push(file);
 		}
 	}
@@ -58,7 +58,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 		 */
 		var exitCode = 0,
 		    tiStyleSheets = [];
-		getAllStyleFilesRecursive(stylesDir, "index.js", tiStyleSheets);
+		getAllStyleFilesRecursive(stylesDir, ["index.js"], tiStyleSheets);
 
 		/**
 		 * process exclusion

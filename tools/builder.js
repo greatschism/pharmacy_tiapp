@@ -548,7 +548,7 @@ if (build) {
 		 * platform specific items
 		 */
 		var tiStyleSheets = [];
-		getAllStyleFilesRecursive(TSS_DIR, "index.tss", tiStyleSheets);
+		getAllStyleFilesRecursive(TSS_DIR, ["app.tss", "index.tss"], tiStyleSheets);
 		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), ""));
 		tiStyleSheets = [];
 		for (var i in tempTiStyleSheets) {
@@ -855,7 +855,7 @@ function getAllStyleFilesRecursive(dir, exclude, data) {
 		var file = dir + "/" + files[i];
 		if (fs.lstatSync(file).isDirectory()) {
 			getAllStyleFilesRecursive(file, exclude, data);
-		} else if (file.substr(file.lastIndexOf(".")) === ".tss" && (!exclude || file.indexOf(exclude) === -1)) {
+		} else if (file.substr(file.lastIndexOf(".")) === ".tss" && (!exclude || exclude.indexOf(files[i]) === -1)) {
 			data.push(file);
 		}
 	}
