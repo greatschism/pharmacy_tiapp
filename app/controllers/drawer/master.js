@@ -19,11 +19,17 @@ function init() {
 		//drawer window events
 		$.drawer.addEventListener("open", didOpen);
 		$.drawer.addEventListener("close", didClose);
-		$.drawer.addEventListener("windowDidOpen", iOSDidLeftWinOpen);
+		$.drawer.addEventListener("windowDidOpen", windowDidOpen);
 	}
 	if (OS_ANDROID) {
-		$.drawer.addEventListener("draweropen", androidDidLeftWinOpen);
-		$.drawer.getView().addEventListener("open", didOpen);
+		$.rootWindow = $.drawer.getView();
+		$.rootWindow.addEventListener("open", didOpen);
+		$.rootWindow.addEventListener("close", didClose);
+		$.rootWindow.addEventListener("androidback", didAndoridBack);
+		/**
+		 * to hide keyboard when drawer slides
+		 */
+		$.drawer.addEventListener("draweropen", hideKeyboard);
 	}
 	$.drawer.open();
 }
@@ -47,9 +53,19 @@ function didOpen(e) {
 		$.drawer.leftWindow.accessibilityHidden = false;
 	}
 	if (OS_ANDROID) {
-		$.rootWindow = e.source;
-		$.rootWindow.addEventListener("close", didClose);
-		$.rootWindow.addEventListener("androidback", didAndoridBack);
+		var actionBar = $.rootWindow.activity.actionBar;
+		if (actionBar) {
+			actionBar.setDisplayHomeAsUp(true);
+			actionBar.setOnHomeIconItemSelected(function() {
+				/**
+				 * hide keyboard when drawer is opened
+				 * fails some time, so do it before
+				 * window is toggled
+				 */
+				hideKeyboard();
+				$.drawer.toggleLeftWindow();
+			});
+		}
 	}
 	$.trigger("init");
 	if (!_.isEmpty(app.navigator)) {
@@ -132,11 +148,11 @@ function didAndoridBack(e) {
 	app.navigator.close(1, true);
 }
 
-function iOSDidLeftWinOpen(e) {
+function windowDidOpen(e) {
 	uihelper.requestViewFocus($.menuCtrl.getView());
 }
 
-function androidDidLeftWinOpen(e) {
+function hideKeyboard(e) {
 	/**
 	 * hide keyboard if any
 	 * PHA-1156 - #3

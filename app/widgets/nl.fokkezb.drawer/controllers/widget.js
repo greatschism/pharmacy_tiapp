@@ -108,7 +108,8 @@ if (mod === 'dk.napp.drawer') {
 	$.addTopLevelView($.window);
 }
 
-if(OS_ANDROID){
+//handled within app
+/*if(OS_ANDROID){
 	$.window.addEventListener('open', function (e) {
 		var actionBar = (mod === 'dk.napp.drawer' ? this : e.source).getActivity().getActionBar();
 	
@@ -119,7 +120,7 @@ if(OS_ANDROID){
 			});
 		}
 	});
-}
+}*/
 
 var props;
 
