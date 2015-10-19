@@ -7,8 +7,6 @@
 },
 "#contentView":{
 	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-"#contentView":{
+	height: Ti.UI.SIZE,
 	layout: "vertical"
 }
