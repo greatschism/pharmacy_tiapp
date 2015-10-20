@@ -14,7 +14,7 @@ function show(payload) {
 	if (active) {
 		uihelper.showDialog({
 			title : Alloy.Globals.strings.dialogTitleNotification,
-			message : payload.message
+			message : payload[ OS_IOS ? "alert" : "message"]
 		});
 	} else {
 		payloads.push(payload);

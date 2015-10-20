@@ -37,6 +37,11 @@ function init() {
 
 function didAppPaused(e) {
 	Alloy.Globals.latestActive = moment().unix();
+	/**
+	 * reset active flag
+	 * for notification panel
+	 */
+	notificationPanel.active = false;
 }
 
 function didAppResumed(e) {
@@ -45,6 +50,11 @@ function didAppResumed(e) {
 		doLogout();
 	} else {
 		Alloy.Globals.latestActive = now;
+		/**
+		 * set active flag
+		 * for notification panel
+		 */
+		notificationPanel.active = true;
 	}
 }
 
@@ -132,6 +142,13 @@ function doLogout() {
 
 function didLogout() {
 	/**
+	 * app level ios events
+	 */
+	if (OS_IOS) {
+		Ti.App.removeEventListener("paused", didAppPaused);
+		Ti.App.removeEventListener("resumed", didAppResumed);
+	}
+	/**
 	 * make the heavy weight window
 	 * ready for close not exit
 	 * and initiate appload again
@@ -181,11 +198,6 @@ function hideKeyboard(e) {
 }
 
 function didClose(e) {
-	//app level ios events
-	if (OS_IOS) {
-		Ti.App.removeEventListener("paused", didAppPaused);
-		Ti.App.removeEventListener("resumed", didAppResumed);
-	}
 	//destroy menu view (data binding)
 	$.menuCtrl.terminate();
 }
