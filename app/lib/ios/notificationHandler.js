@@ -88,3 +88,16 @@ Object.defineProperty(module.exports, "deviceToken", {
 });
 
 exports.init = init;
+
+/**
+ * On android calling init
+ * requires GCM Project Id
+ * which we get only after appload
+ * but the callback can be assigned
+ * without init. For iOS
+ * we don't have any dependency from
+ * server side to get device token
+ * and we can assign callback only
+ * when we register to token
+ */
+init();
