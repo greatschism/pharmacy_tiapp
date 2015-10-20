@@ -1,5 +1,6 @@
 var TAG = "notificationHandler",
     Alloy = require("alloy"),
+    notificationPanel = require("notificationPanel"),
     TiPush = require("ti.push"),
     logger = require("logger"),
     isBusy = false,
@@ -70,7 +71,7 @@ function triggerCallback() {
 }
 
 function didReceivePush(e) {
-	var payload = JSON.parse(e.payload);
+	notificationPanel.show(JSON.parse(e.payload));
 }
 
 Object.defineProperty(module.exports, "deviceId", {

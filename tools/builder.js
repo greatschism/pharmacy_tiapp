@@ -544,16 +544,27 @@ if (build) {
 		 * Note: ignore widgets style
 		 * sheets form this list.
 		 * they are standalone form
-		 * actual app. Also ignore
-		 * platform specific items
+		 * actual app.
 		 */
 		var tiStyleSheets = [];
+		/**
+		 * app.tss will not be there
+		 * after alloy compilation
+		 * index.tss is our source file
+		 * so ignorning both
+		 */
 		getAllStyleFilesRecursive(TSS_DIR, ["app.tss", "index.tss"], tiStyleSheets);
-		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), ""));
+		/**
+		 * remove duplicates
+		 * and items not required
+		 * for this platform
+		 */
+		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), "")),
+		    platformToIgnore = program.platform === "ios" ? "android" : "ios";
 		tiStyleSheets = [];
 		for (var i in tempTiStyleSheets) {
 			var tempTiStyleSheet = tempTiStyleSheets[i];
-			if (tempTiStyleSheet.indexOf(program.platform === "ios" ? "android" : "ios") === -1 && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
+			if (tempTiStyleSheet.indexOf(platformToIgnore) === -1 && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
 				tiStyleSheets.push(tempTiStyleSheet);
 			}
 		}

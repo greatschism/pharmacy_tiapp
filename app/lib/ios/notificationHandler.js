@@ -1,6 +1,8 @@
 var TAG = "notificationHandler",
-    isIOS8 = checkVersion(8),
+    Alloy = require("alloy"),
+    notificationPanel = require("notificationPanel"),
     logger = require("logger"),
+    isIOS8 = checkVersion(8),
     isBusy = false,
     deviceTokenCallback,
     deviceToken;
@@ -70,7 +72,7 @@ function triggerCallback() {
 }
 
 function didReceivePush(e) {
-	var payload = e.data;
+	notificationPanel.show(e.data);
 }
 
 Object.defineProperty(module.exports, "deviceId", {

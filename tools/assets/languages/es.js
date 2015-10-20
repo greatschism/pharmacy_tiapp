@@ -35,6 +35,7 @@ module.exports = {
 		"dialogTitleTimeZone" : "es-Time Zone",
 		"dialogTitleTimePicker" : "es-Choose a time",
 		"dialogTitleDatePicker" : "es-Choose a date",
+		"dialogTitleNotification" : "es-Notification",
 
 		"dialogBtnOK" : "es-OK",
 		"dialogBtnYes" : "es-Yes",

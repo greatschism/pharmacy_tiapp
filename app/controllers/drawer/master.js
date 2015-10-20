@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
+    notificationPanel = require("notificationPanel"),
     authenticator = require("authenticator"),
     reload = false;
 
@@ -92,16 +93,22 @@ function didOpen(e) {
 }
 
 /**
- * usually this is a async
- * update, sync updates
- * will be done on appload
- * controller itself
- *
  * navigationHandled - whether or not to
  * initiate a navigation.
  */
 function didAuthenticate(navigationHandled) {
 	$.menuCtrl.init(args.navigation, navigationHandled);
+	/**
+	 * set active flag
+	 * for notification panel
+	 */
+	notificationPanel.active = true;
+	/**
+	 * usually this is a async
+	 * update, sync updates
+	 * will be done on appload
+	 * controller itself
+	 */
 	if (args.triggerUpdate === true) {
 		app.update(didCompleteUpdate);
 	}
@@ -132,6 +139,11 @@ function didLogout() {
 	if (OS_ANDROID) {
 		$.rootWindow.setExitOnClose(false);
 	}
+	/**
+	 * reset active flag
+	 * for notification panel
+	 */
+	notificationPanel.active = false;
 	/**
 	 * reload flag reloads the updated
 	 * Note: no need to listen for init
