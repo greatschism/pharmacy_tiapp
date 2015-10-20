@@ -222,8 +222,12 @@ function getOptionRows(frequencyId, data) {
 	var optionRows = [],
 	    frequencyObj = _.findWhere(frequencyOptions, {
 		id : frequencyId
-	}),
-	    startHours = data.reminder_start_hour || [{
+	});
+	/**
+	 * making sure startHours can be more than 1
+	 * only if frequency is daily
+	 */
+	var startHours = data.reminder_start_hour ? (frequencyId === apiCodes.reminder_frequency_daily ? data.reminder_start_hour : [data.reminder_start_hour[0]]) : [{
 		hour : new Date().getHours(),
 		minutes : "00"
 	}],
