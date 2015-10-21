@@ -98,6 +98,8 @@ exports.init = init;
  * we don't have any dependency from
  * server side to get device token
  * and we can assign callback only
- * when we register to token
+ * when we call register
  */
-init();
+if (Ti.Network.remoteDeviceUUID) {
+	init();
+}
