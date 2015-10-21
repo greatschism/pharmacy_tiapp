@@ -2,13 +2,24 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
-    rightIconText = $.createStyle({
-	classes : ["icon-unfilled-remove"]
-}).text,
+
+/***PHA-1250***/
+/*rightIconText = $.createStyle({
+ classes : ["icon-unfilled-remove"]
+ }).text,
+ rightIconDict = $.createStyle({
+ classes : ["txt-negative-right-icon"],
+ touchEnabled : true
+ }),*/
     rightIconDict = $.createStyle({
 	classes : ["txt-negative-right-icon"],
+	title : $.createStyle({
+		classes : ["icon-unfilled-remove"]
+	}).text,
 	touchEnabled : true
 }),
+/***PHA-1250***/
+
     store = _.omit(args.store || {}, ["shouldUpdate"]),
     rxTxtHeight,
     phone,
@@ -16,6 +27,15 @@ var args = arguments[0] || {},
 
 function init() {
 	$.uihelper.getImage("success", $.successImg);
+	/***PHA-1250***/
+	$.rxTxt.setRightIcon("", $.createStyle({
+		classes : ["txt-tertiary-right-icon"],
+		title : $.createStyle({
+			classes : ["icon-help"]
+		}).text,
+		touchEnabled : true
+	}));
+	/***PHA-1250***/
 	rxTxtHeight = $.createStyle({
 		classes : ["txt"]
 	}).height + $.createStyle({
@@ -56,13 +76,14 @@ function didChange(e) {
 function didClickAdd(e) {
 	var len = rxTxts.length;
 	$.containerView.height = (rxTxtHeight * (len + 1));
-	if (len === 1) {
-		_.extend(rightIconDict, {
-			title : rightIconText,
-			touchEnabled : true
-		});
-		rxTxts[0].setRightIcon("", rightIconDict);
-	}
+	//PHA-1250
+	/*if (len === 1) {
+	 _.extend(rightIconDict, {
+	 title : rightIconText,
+	 touchEnabled : true
+	 });
+	 rxTxts[0].setRightIcon("", rightIconDict);
+	 }*/
 	var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
 	ctrl.setRightIcon("", rightIconDict);
 	ctrl.on("click", didClickRemove);
@@ -89,13 +110,14 @@ function didClickRemove(e) {
 		return false;
 	});
 	$.containerView.remove(widgetToRemove);
-	if (len == 1) {
-		_.extend(rightIconDict, {
-			title : "",
-			touchEnabled : false
-		});
-		rxTxts[0].setRightIcon("", rightIconDict);
-	}
+	//PHA-1250
+	/*if (len == 1) {
+	 _.extend(rightIconDict, {
+	 title : "",
+	 touchEnabled : false
+	 });
+	 rxTxts[0].setRightIcon("", rightIconDict);
+	 }*/
 }
 
 function didClickRefill(e) {

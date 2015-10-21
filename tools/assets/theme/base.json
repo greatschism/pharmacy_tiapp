@@ -1137,6 +1137,12 @@
                 "backgroundColor": "transparent",
                 "borderColor": "transparent"
             },
+            ".txt-tertiary-right-icon": {
+                "color": "#599cff",
+                "selectedColor": "#599cff",
+                "backgroundColor": "transparent",
+                "borderColor": "transparent"
+            },
             ".search-bar": {
                 "width": "fill",
                 "height": 56,

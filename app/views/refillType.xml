@@ -10,18 +10,24 @@
 	<ScrollView id="scrollView" class="vgroup">
 		<Label id="titleLbl" class="margin-top subtitle-centered-wrap" />
 		<ImageView id="successImg" class="margin-top" />
-		<View class="auto-height" onClick="didClickHelp">
-			<View class="content-view-with-ricon">
-				<Label id="descLbl" class="content-lbl-wrap" />
-			</View>
-			<Label class="content-tertiary-right-icon icon-help" />
+		<!--PHA-1250-->
+		<!--<View class="auto-height" onClick="didClickHelp">
+		<View class="content-view-with-ricon">
+		<Label id="descLbl" class="content-lbl-wrap" />
 		</View>
+		<Label class="content-tertiary-right-icon icon-help" />
+		</View>-->
+		<!--PHA-1250-->
+		<Label id="descLbl" class="margin-top lbl-wrap" />
 		<View class="margin-top content-header-view">
 			<Label id="prescLbl" class="content-header-lbl-with-ricon" />
 			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
 		</View>
 		<View id="containerView" class="top margin-bottom auto-height vgroup">
-			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickRemove" />
+			<!--PHA-1250-->
+			<!--<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickRemove" />-->
+			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickHelp" />
+			<!--PHA-1250-->
 		</View>
 		<View class="content-header-view">
 			<Label id="pickupLbl" class="content-header-lbl" />
