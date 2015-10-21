@@ -10,14 +10,14 @@ var TAG = "notificationHandler",
 TiPush.addEventListener("callback", didReceivePush);
 
 function init(callback) {
-	if (isBusy) {
-		return logger.warn(TAG, "ignored initialization as one is already in progress");
-	}
 	if (deviceToken || !isGooglePlayServicesAvailable() || Alloy.Globals.isVirtualDevice) {
 		if (callback) {
 			callback(deviceToken);
 		}
 		return true;
+	}
+	if (isBusy) {
+		return logger.warn(TAG, "ignored initialization as one is already in progress");
 	}
 	isBusy = true;
 	deviceTokenCallback = callback;
