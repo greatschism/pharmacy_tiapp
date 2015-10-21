@@ -459,6 +459,9 @@ module.exports = {
 		"remindersSettingsPopupSectionDeliveryModes" : "es-Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "es-Close",
 		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the %s Terms of Service.",
+		"remindersSettingsMsgPushDisabled" : "es-You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
+		"remindersSettingsMsgEmailNotVerified" : "es-We just send you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
+		"remindersSettingsMsgPhoneNotVerified" : "es-To receive text message notifications, please confirm your phone number.",
 
 		"transferLblTitle" : "es-You can transfer prescriptions from other pharmacy chains to %s using this feature.",
 		"transferBtnPhoto" : "es-Take a photo",

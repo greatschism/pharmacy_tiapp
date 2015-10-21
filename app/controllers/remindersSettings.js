@@ -195,6 +195,65 @@ function didClickDeliveryMode(e) {
 	$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
 	//delete index
 	delete $.deliveryModesPicker.currentIndex;
+	/**
+	 * check whether delivery mode
+	 * is verified
+	 */
+	var mPatient = $.patientSwitcher.get();
+	switch(data.value) {
+	case apiCodes.reminder_delivery_mode_push:
+		if (!Ti.Network.remoteNotificationsEnabled) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersSettingsMsgPushDisabled
+			});
+		}
+		break;
+	case apiCodes.reminder_delivery_mode_email:
+		if (mPatient.get("is_email_verified") !== "1") {
+			$.http.request({
+				method : "email_resend",
+				params : {
+					feature_code : "THXXX"
+				},
+				success : function(result, passthrough) {
+					$.uihelper.showDialog({
+						message : $.strings.remindersSettingsMsgEmailNotVerified
+					});
+				}
+			});
+		}
+		break;
+	case apiCodes.reminder_delivery_mode_text:
+		/**
+		 * check whether phone number
+		 * is invalid or not verified
+		 */
+		if (!mPatient.get("mobile_number") || mPatient.get("mobile_number") === "null" || mPatient.get("is_mobile_verified") !== "1") {
+			$.uihelper.showDialog({
+				message : $.strings.remindersSettingsMsgPhoneNotVerified,
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnCancel],
+				cancelIndex : 1,
+				success : function didConfirm() {
+					var navigation;
+					if (mPatient.get("mobile_number") != "null") {
+						navigation = {
+							titleid : "titleChangePhone",
+							ctrl : "phone",
+							stack : true
+						};
+					} else {
+						navigation = {
+							ctrl : "textBenefits",
+							titleid : "titleTextBenefits",
+							stack : true
+						};
+					}
+					$.app.navigator.open(navigation);
+				}
+			});
+		}
+		break;
+	}
 }
 
 function didClickClose(e) {
