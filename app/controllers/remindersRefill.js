@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    authenticator = require("authenticator"),
     apiCodes = Alloy.CFG.apiCodes,
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
@@ -405,10 +406,38 @@ function updateReminder(callback) {
 			},
 			success : function didSuccess(result, passthrough) {
 				Alloy.Models.remindersRefill.set(currentData);
-				if (callback) {
+				if (!verifyDeliveryMode(callback) && callback) {
 					callback();
 				}
 			}
+		});
+		return true;
+	}
+	return verifyDeliveryMode(callback);
+}
+
+function verifyDeliveryMode(callback) {
+	var mPatient = $.patientSwitcher.get(),
+	    colName = _.findWhere(Alloy.CFG.reminders, {
+		id : "refill"
+	}).col_pref;
+	if (mPatient.get(colName) === apiCodes.reminder_delivery_mode_none) {
+		$.uihelper.showDialog({
+			message : $.strings.remindersRefillMsgDeliveryModeNoneConfirm,
+			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : function didConfirmPush() {
+				/**
+				 * device token should have been sent
+				 * already at authenticator while login
+				 */
+				var params = {};
+				params[colName] = apiCodes.reminder_delivery_mode_push;
+				authenticator.updatePreferences(params, {
+					success : callback
+				});
+			},
+			cancel : callback
 		});
 		return true;
 	}
