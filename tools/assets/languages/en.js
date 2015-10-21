@@ -389,6 +389,7 @@ module.exports = {
 		"remindersRefillPopupSectionRemindRepeat" : "If I forget, remind me",
 		"remindersRefillPopupRemindRepeatBtnClose" : "Close",
 		"remindersRefillOptRepeatUntilRefilled" : "Until refilled",
+		"remindersRefillMsgDeliveryModeNoneConfirm" : "You haven't set a delivery mode yet. Do you want to use Push Notifications?",
 
 		"remindersRefillBenefitsLblRefill" : "Reminder when it's time to refill",
 		"remindersRefillBenefitsLblReady" : "Reminder when Rx is ready",
