@@ -1,6 +1,7 @@
 var args = arguments[0] || {},
     authenticator = require("authenticator"),
     apiCodes = Alloy.CFG.apiCodes,
+    isEmailSent = false,
     promptClasses = ["content-group-prompt-60"],
     replyClasses = ["content-group-right-inactive-reply-40"],
     options,
@@ -209,13 +210,14 @@ function didClickDeliveryMode(e) {
 		}
 		break;
 	case apiCodes.reminder_delivery_mode_email:
-		if (mPatient.get("is_email_verified") !== "1") {
+		if (!isEmailSent && mPatient.get("is_email_verified") !== "1") {
 			$.http.request({
 				method : "email_resend",
 				params : {
 					feature_code : "THXXX"
 				},
 				success : function(result, passthrough) {
+					isEmailSent = true;
 					$.uihelper.showDialog({
 						message : $.strings.remindersSettingsMsgEmailNotVerified
 					});
