@@ -3,7 +3,7 @@
 		"version": "Alloy.TSS.Theme.version"
 	},
 	"Window[platform=ios]": {
-		"statusBarStyle": "Ti.UI.iPhone.StatusBar.LIGHT_CONTENT"
+		"statusBarStyle": "Ti.UI.iPhone.StatusBar.DEFAULT"
 	},
 	"Window[platform=android]": {
 		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"

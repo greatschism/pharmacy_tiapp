@@ -2,7 +2,6 @@
 	leftDrawerWidth: Alloy.CFG.left_drawer_width
 },
 "#drawer[platform=ios]":{
-	statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT,
 	accessibilityLabel: Ti.App.name,
 	openDrawerGestureMode: "OPEN_MODE_NONE",
 	closeDrawerGestureMode: "CLOSE_MODE_ALL",
@@ -10,18 +9,13 @@
 	shouldStretchDrawer: false
 },
 "#drawer[platform=android]":{
-	shadowWidth: 20,
 	drawerLayout: true,
 	exitOnClose: true,
-	animationMode: "ANIMATION_NONE",
-	openDrawerGestureMode: "OPEN_MODE_NONE",
-	closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
 	window: {
 		barColor: Alloy.TSS.Window.barColor,
 		statusBarColor: Alloy.TSS.Window.statusBarColor,
 		titleAttributes: Alloy.TSS.Window.titleAttributes
-	},
-	hamburgerIcon: true
+	}
 },
 "#drawer[formFactor=handheld]":{
 	orientationModes: [Ti.UI.PORTRAIT]
@@ -29,7 +23,11 @@
 "#drawer[formFactor=tablet]":{
 	orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
 },
+"#leftWindow[platform=ios]":{
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+},
 "#rootWindow[platform=ios]":{
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT,
 	backgroundColor: "#FFFFFF",
 	navBarHidden: true
 },

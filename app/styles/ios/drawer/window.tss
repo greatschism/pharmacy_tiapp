@@ -1,0 +1,3 @@
+"#window": {
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+}

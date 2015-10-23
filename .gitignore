@@ -3,6 +3,7 @@
 tiapp.xml
 app/config.json
 app/assets/*
+app/lib/styleSheets.js
 app/styles/app.tss
 platform/android/res/drawable-*
 dist
