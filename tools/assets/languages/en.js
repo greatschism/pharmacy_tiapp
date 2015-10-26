@@ -36,6 +36,8 @@ module.exports = {
 		"dialogTitleTimePicker" : "Choose a time",
 		"dialogTitleDatePicker" : "Choose a date",
 		"dialogTitleNotification" : "Notification",
+		"dialogTitleFeedback" : "How do you like the app?",
+		"dialogTitleThanku":"Thank you!",
 
 		"dialogBtnOK" : "OK",
 		"dialogBtnYes" : "Yes",
@@ -50,6 +52,11 @@ module.exports = {
 		"dialogBtnContactAdd" : "Add to contacts",
 		"dialogBtnCamera" : "Take a photo",
 		"dialogBtnGallery" : "Choose from gallery",
+		"dialogBtnNeedsImprovement":"It needs improvement",
+		"dialogBtnItsGreat":"It's been great!",
+		"dialogBtnRate":"Rate this app",
+		"dialogBtnRemind":"Remind me later",
+		"dialogBtnNoThanks":"No thanks",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -95,6 +102,8 @@ module.exports = {
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
 		"msgGooglePlayServicesUpdateRequired" : "You must update your Google Play Services in order to use this feature. Do you want to update now?",
 		"msgGooglePlayServicesNotAvailable" : "There is something wrong with your version of Google Play Services. Please check your settings.",
+		"msgThanku":"We're glad you like the app! Will you help us out by rating it in the %@?",
+		"msgFeedback":"We'd love to hear from you.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
