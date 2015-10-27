@@ -188,6 +188,9 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
 
 		_u.each([{
+			source : BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR,
+			dest : APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR
+		}, {
 			source : BRAND_HTTPS_CER,
 			dest : APP_HTTPS_CER
 		}, {
