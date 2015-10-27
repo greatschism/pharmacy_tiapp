@@ -9,7 +9,8 @@ var TAG = "Authenticator",
     http = require("requestwrapper"),
     localization = require("localization"),
     notificationHandler = require("notificationHandler"),
-    keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account);
+    keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
+    logger = require("logger");
 
 function init(passthrough) {
 	if (!passthrough) {
@@ -803,6 +804,10 @@ function didLogout(result, passthrough) {
 }
 
 function resetAuthenticationData() {
+	/**
+	 * clear logs for this session
+	 */
+	logger.collection.clear();
 	/**
 	 * reset to device time zone
 	 */

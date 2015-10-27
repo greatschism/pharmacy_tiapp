@@ -98,7 +98,6 @@ function didSuccess(result, passthrough) {
 	 * before decrypting it can be converted to json
 	 */
 	result = JSON.parse(result);
-	logger.debug(TAG, "response", result.code, result.message);
 	if (result.code !== Alloy.CFG.apiCodes.success) {
 		/**
 		 * handle session timeout

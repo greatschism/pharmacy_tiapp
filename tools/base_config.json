@@ -114,6 +114,7 @@
 		"reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=",
 		"distancematrix_url": "https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=%s&destinations=%s",
 		"log_level": "debug",
+		"log_separator": ":",
 		"force_update": false,
 		"force_reload_after_update": false,
 		"async_update": true,
