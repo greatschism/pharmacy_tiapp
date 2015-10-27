@@ -8,9 +8,6 @@ var log4js = require("log4js"),
     _u = require("underscore"),
     spawn = cp.spawn,
     ROOT_DIR = path.normalize(__dirname + "/..") + "/",
-    DEFAULT_USERNAME = "mkumar@mscripts.com",
-    DEFAULT_USER_PASSWORD = "mscripts08*",
-    DEFAULT_ORGANIZATION_ID = "100000377",
     DEFAULT_BRAND_ID = "meglo",
     DEFAULT_ENVIRONMENT = "dev",
     DEFAULT_SDK_VERSION = "4.1.0.GA",
@@ -43,6 +40,7 @@ var log4js = require("log4js"),
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
+    AUTH_JSON = TOOLS_DIR + "auth.json",
     BRANDS_JSON = TOOLS_DIR + "brands.json",
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
@@ -61,9 +59,10 @@ var log4js = require("log4js"),
 program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json", DEFAULT_BRAND_ID);
 program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase, DEFAULT_ENVIRONMENT);
 program.option("-s, --sdk <version>", "Titanium SDK version to build with. Defaults to " + DEFAULT_SDK_VERSION + ".", DEFAULT_SDK_VERSION);
-program.option("-u --username <USERNAME>", "Username for authentication.", DEFAULT_USERNAME);
-program.option("-P --password <USER_PASSWORD>", "Password for authentication.", DEFAULT_USER_PASSWORD);
-program.option("--org-id <ORGANIZATION_ID>", "Specify the organization.", DEFAULT_ORGANIZATION_ID);
+program.option("-u, --username <USERNAME>", "Username for authentication.");
+program.option("-P, --password <USER_PASSWORD>", "Password for authentication.");
+program.option("-o, --org-id <ORGANIZATION_ID>", "Specify the organization.");
+program.option("-S, --store-auth", "Stores the appcelerator login credentials for future use.");
 program.option("-v, --version <value>", "App version", DEFAULT_APP_VERSION);
 program.option("-i, --build-number <value>", "Build number.", DEFAULT_BUILD_NUMBER);
 program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, DEFAULT_PLATFORM);
@@ -72,10 +71,10 @@ program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR
 program.option("-F, --output-file <file>", "Output file (base) name.");
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
-program.option("--unit-test", "Valid only when --build-only is specified; when specified, executes unit test cases.");
-program.option("--appc-clean", "Valid only when --build-only is specified; when specified, triggers appc clean right after branding.");
-program.option("--clean-only", "Clean the project by removing all branding information; when specified, does not trigger a build.");
-program.option("-l, --log-level <level>", "Minimum logging level. Supported options are trace, debug, info, warn, and error", toLowerCase, "debug");
+program.option("-c, --appc-clean", "Valid only when --build-only is specified; when specified, triggers appc clean right after branding.");
+program.option("-C, --clean-only", "Clean the project by removing all branding information; when specified, does not trigger a build.");
+program.option("-U, --unit-test", "Valid only when --build-only is specified; when specified, executes unit test cases.");
+program.option("-l, --log-level <level>", "Minimum logging level. Supported options are trace, debug, info, warn, and error", toLowerCase, "info");
 program.parse(process.argv);
 
 /**
@@ -90,6 +89,37 @@ log4js.setGlobalLogLevel(program.logLevel);
 
 //logger for Builder
 logger = log4js.getLogger("Builder");
+
+/**
+ * store credentials
+ * if enabled
+ */
+if (program.storeAuth) {
+	fs.writeFileSync(AUTH_JSON, JSON.stringify(_u.pick(program, ["username", "password", "orgId"]), null, 4));
+	logger.debug("Writing " + AUTH_JSON);
+} else if (fs.existsSync(AUTH_JSON)) {
+	logger.debug("Reading " + AUTH_JSON);
+	/**
+	 * get cached credentials
+	 * if exits
+	 */
+	var authData = JSON.parse(fs.readFileSync(AUTH_JSON, "utf-8"));
+	_u.each(authData, function(value, key) {
+		if (!_u.has(program, key)) {
+			program[key] = value;
+		}
+	});
+}
+
+/**
+ * check for required parameters
+ */
+_u.each(["username", "password", "orgId"], function(value) {
+	if (!_u.has(program, value)) {
+		logger.error("username, password or org-id is missing");
+		process.exit(1);
+	}
+});
 
 /**
  * brand info
