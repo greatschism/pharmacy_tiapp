@@ -65,13 +65,18 @@ function replyTextMessage() {
 }
 
 function didReplied() {
+	var isReminderSettings = $.utilities.getProperty("isReminderSettings", true, "bool", true);
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			$.app.navigator.open({
-				titleid : "titleHome",
-				ctrl : "home",
-				stack : false
-			});
+			if (isReminderSettings) {
+				$.app.navigator.close(3);
+			} else {
+				$.app.navigator.open({
+					titleid : "titleHome",
+					ctrl : "home",
+					stack : false
+				});
+			}
 		}
 	});
 }
@@ -286,14 +291,15 @@ function stillNotReceivingText() {
 		}
 	});
 }
-function didNotReceiveText(){
+
+function didNotReceiveText() {
 	$.http.request({
 		method : "mobile_resend",
 		params : {
 			feature_code : "THXXX",
 			filter : []
 		},
-		success : function(){
+		success : function() {
 			$.app.navigator.open({
 				ctrl : "textMessage",
 				stack : true,
@@ -326,6 +332,7 @@ function didNotReceiveText(){
 			});
 		}
 	});
-	
+
 }
+
 exports.init = init;

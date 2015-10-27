@@ -64,6 +64,7 @@ function setParentView(view) {
 
 function didClickContinue() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
+	$.utilities.setProperty("isReminderSettings", false, "bool", true);
 	var dob = $.dobDp.getValue(),
 	    age = getAge(dob);
 	relationship = $.relationshipDp.getSelectedItem();

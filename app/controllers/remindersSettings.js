@@ -244,6 +244,13 @@ function didClickDeliveryMode(e) {
 							stack : true
 						};
 					} else {
+						/**
+						 * Add these flags to identify
+						 * the flows and navigate 
+						 * appropriately.
+						 */
+						$.utilities.setProperty("isReminderSettings", true, "bool", true);
+						$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 						navigation = {
 							ctrl : "textBenefits",
 							titleid : "titleTextBenefits",

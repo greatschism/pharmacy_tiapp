@@ -19,6 +19,7 @@ function didClickTextSignup() {
 
 function didClickSkipTextSignup() {
 	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", true, "bool", true);
+	var isReminderSettings = $.utilities.getProperty("isReminderSettings", true, "bool", true);
 	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleFamilyAccounts",
@@ -34,7 +35,7 @@ function didClickSkipTextSignup() {
 			ctrl : "familyCare",
 			stack : false
 		});
-	} else if (args.isAccountFlow) {
+	} else if (args.isAccountFlow || isReminderSettings) {
 		$.app.navigator.close();
 	} else {
 		$.app.navigator.open({
