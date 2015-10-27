@@ -180,7 +180,7 @@ if (build) {
 		logger.info("Full rebuild has been initiated");
 	}
 
-	logger.info("Initated cleanup");
+	logger.debug("Initated cleanup");
 
 	//delete all resources
 	_u.each([STYLE_SHEETS_JS, APP_TSS, APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML], function(path) {
@@ -197,7 +197,7 @@ if (build) {
 		process.exit(0);
 	} else {
 
-		logger.info("Project is being branded for " + brand.id);
+		logger.debug("Project is being branded for " + brand.id);
 
 		//copy brand resources
 		var BRAND_HTTPS_CER = BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate,
@@ -483,7 +483,7 @@ if (build) {
 		 */
 		logger = log4js.getLogger("TSSMaker");
 
-		logger.info("Initated building app.tss");
+		logger.debug("Initated building app.tss");
 
 		/**
 		 * identify language file
@@ -605,10 +605,14 @@ if (build) {
 }
 
 /**
+ * initate a release
+ */
+logger = log4js.getLogger("TiRelease");
+
+/**
  * appc clean
  * clean the project when specified
- * if build only is specified, initiates a clean
- * anyways
+ * initiates a clean always before release
  */
 if (!program.buildOnly || program.appcClean) {
 	logger.info("Running appc clean");
@@ -622,11 +626,6 @@ if (program.buildOnly) {
 	logger.info("Skipping release");
 	process.exit(0);
 } else {
-
-	/**
-	 * initate a release
-	 */
-	logger = log4js.getLogger("TiRelease");
 
 	//app config for buildDate
 	var appConfigData = JSON.parse(fs.readFileSync(APP_CONFIG_JSON, "utf-8"));
