@@ -8,18 +8,10 @@ var TAG = "RequestWrapper",
     moment = require("alloy/moment"),
     app = require("core"),
     http = require("http"),
+    encryptionUtil = require("encryptionUtil"),
     localization = require("localization"),
     uihelper = require("uihelper"),
     logger = require("logger");
-
-/**
- *  initiate latest request time
- *  doing this in global name space
- *  if local name space is used might not be
- *  updated properly as we go through many callback
- *  Note: callback keeps variables states
- */
-Alloy.Globals.latestRequest = moment().unix();
 
 function request(args) {
 
@@ -41,28 +33,24 @@ function request(args) {
 
 	/**
 	 * update time stamp
-	 * should be updated here
+	 * should be done here
 	 * moving this to any where else or done function
 	 * may result in updating this only after all callback
-	 * are completed, patient get after authenticate will fail
+	 * are completed, request may fail
 	 */
 	Alloy.Globals.latestRequest = now;
 
-	if (!_.has(args, "type")) {
-		args.type = "POST";
-	}
-
-	if (!_.has(args, "timeout")) {
-		args.timeout = Alloy.CFG.http_timeout;
-	}
-
-	if (!_.has(args, "params")) {
-		args.params = {};
-	}
+	//add default values
+	_.defaults(args, {
+		params : {},
+		type : "POST",
+		timeout : Alloy.CFG.http_timeout,
+		loaderMessage : Alloy.Globals.strings.msgLoading
+	});
 
 	if (args.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {
-			app.navigator.showLoader(args.loaderMessage || Alloy.Globals.strings.msgLoading);
+			app.navigator.showLoader(args.loaderMessage);
 		}
 		if (args.showLoaderCallback) {
 			args.showLoaderCallback();
@@ -76,33 +64,35 @@ function request(args) {
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
 		session_id : Alloy.Globals.sessionId
 	});
-	args.params = JSON.stringify(args.params);
 
-	if (Alloy.CFG.encryption_enabled) {
-		args.params = require("encryptionUtil").encrypt(args.params);
-	}
-
-	/**
-	 *  returns the actual http client object
-	 */
-	return http.request({
+	var requestParams = _.pick(args, ["type", "timeout"]);
+	//additional arguments
+	_.extend(requestParams, {
 		url : Alloy.Models.appconfig.get("ophurl").concat(Alloy.CFG.apiPath[args.method]),
-		type : args.type,
-		timeout : args.timeout,
-		params : args.params,
+		passthrough : args,
 		success : didSuccess,
 		failure : didFail,
 		done : didComplete,
-		passthrough : args,
 		securityManager : Alloy.Globals.securityManager
 	});
-
+	logger.debug(TAG, "request", requestParams.url);
+	//put params as string
+	requestParams.params = JSON.stringify(args.params);
+	logger.debug(TAG, "params", requestParams.params);
+	//encrypt if enabled
+	if (Alloy.CFG.encryption_enabled) {
+		requestParams.params = encryptionUtil.encrypt(requestParams.params);
+	}
+	//returns the actual http client object
+	return http.request(requestParams);
 }
 
 function didSuccess(result, passthrough) {
+	//decrypt if encryption is enabled
 	if (Alloy.CFG.encryption_enabled) {
-		result = require("encryptionUtil").decrypt(result) || "{}";
+		result = encryptionUtil.decrypt(result) || "{}";
 	}
+	logger.debug(TAG, "success", result);
 	/**
 	 * should receive data as text from http
 	 * before decrypting it can be converted to json
@@ -134,6 +124,7 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
+	logger.error(TAG, "error", "code", error.code, "errorCode", error.errorCode);
 	if (passthrough.errorDialogEnabled !== false) {
 		//hide loader before processing error dialogs
 		hideLoader(passthrough, true);
@@ -141,18 +132,10 @@ function didFail(error, passthrough) {
 		var forceRetry = passthrough.forceRetry === true,
 		    retry = forceRetry || passthrough.retry !== false;
 		uihelper.showDialog({
-			message : error.message || getNetworkErrorMsg(error.code),
+			message : error.message || getNetworkErrorByCode(error.code),
 			buttonNames : retry ? ( forceRetry ? [Alloy.Globals.strings.dialogBtnRetry] : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel]) : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : retry ? ( forceRetry ? -1 : 1) : 0,
 			success : function() {
-				/**
-				 * decrypt string for resending
-				 */
-				if (Alloy.CFG.encryption_enabled) {
-					passthrough.params = require("encryptionUtil").decrypt(passthrough.params);
-				}
-				//convert string back to json object
-				passthrough.params = JSON.parse(passthrough.params);
 				request(passthrough);
 			},
 			cancel : function() {
@@ -210,7 +193,7 @@ function didComplete(passthrough) {
 	}
 }
 
-function getNetworkErrorMsg(code) {
+function getNetworkErrorByCode(code) {
 	/**
 	 * to do: define error code for
 	 * timeout and show "msgNetworkTimeout"
@@ -238,4 +221,4 @@ function didConfirmLogout() {
 }
 
 exports.request = request;
-exports.getNetworkErrorMsg = getNetworkErrorMsg;
+exports.getNetworkErrorByCode = getNetworkErrorByCode;

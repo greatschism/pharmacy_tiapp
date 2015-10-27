@@ -318,6 +318,7 @@ var Res = {
 	},
 
 	downloadAsset : function(passthrough) {
+		logger.debug(TAG, "download", passthrough.url);
 		require("http").request({
 			url : passthrough.url,
 			format : "data",

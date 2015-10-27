@@ -4,8 +4,7 @@
  * @class http
  */
 var TAG = "http",
-    _ = require("alloy/underscore")._,
-    logger = require("logger");
+    _ = require("alloy/underscore")._;
 
 /**
  * Standard HTTP Request
@@ -25,8 +24,6 @@ var TAG = "http",
  */
 exports.request = function(args) {
 
-	logger.debug(TAG, "request", args.url);
-
 	var xhr;
 
 	if (Ti.Network.online) {
@@ -41,8 +38,6 @@ exports.request = function(args) {
 		 * @ignore
 		 */
 		xhr.onload = function(response) {
-
-			logger.debug(TAG, "onload");
 
 			var data;
 
@@ -82,7 +77,6 @@ exports.request = function(args) {
 		 * @ignore
 		 */
 		xhr.onerror = function(event) {
-			logger.error(TAG, "error", event.code, event.error);
 			if (args.failure) {
 				args.failure(event, args.passthrough || {});
 			}
@@ -98,7 +92,6 @@ exports.request = function(args) {
 		});
 
 		if (args.params) {
-			logger.debug(TAG, "params", args.params);
 			xhr.send(args.params);
 		} else {
 			xhr.send();
@@ -106,7 +99,6 @@ exports.request = function(args) {
 
 	} else {
 
-		logger.debug(TAG, "No internet connection");
 		if (args.failure) {
 			args.failure({
 				code : 0,

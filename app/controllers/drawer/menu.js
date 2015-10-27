@@ -6,16 +6,11 @@ var args = arguments[0] || {},
     icons = Alloy.CFG.icons,
     currentIndex = -1;
 
-function init(navigation, navigationHandled) {
+function init() {
 	if (OS_ANDROID) {
 		app.navigator.drawer.addEventListener("drawerclose", didDrawerclose);
 	}
 	Alloy.Collections.menuItems.trigger("reset");
-	if (!navigationHandled) {
-		app.navigator.open(navigation || Alloy.Collections.menuItems.findWhere({
-			landing_page : true
-		}).toJSON());
-	}
 }
 
 function filterFunction(collection) {

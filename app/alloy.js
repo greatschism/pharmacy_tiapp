@@ -5,7 +5,8 @@
 	 *  to prevent empty objects being returned
 	 *  this is recommended
 	 */
-	_.each(["alloy/moment", "alloy/moment", "alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "requestwrapper", "authenticator", "apm", "analytics", "barcode", "navigationHandler", "notificationHandler", "notificationPanel", "rx", "refillScan"], function(module) {
+	var moment = require("alloy/moment");
+	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "requestwrapper", "authenticator", "apm", "analytics", "barcode", "navigationHandler", "notificationHandler", "notificationPanel", "rx", "refillScan"], function(module) {
 		require(module);
 	});
 
@@ -21,9 +22,10 @@
 	Alloy.Globals.Map = require("ti.map");
 	Alloy.Globals.spinnerImages = [];
 	Alloy.Globals.isSwipeInProgress = false;
+	Alloy.Globals.latestRequest = moment().unix();
+	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
-	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 
 	//load spinner images
 	for (var i = 1; i <= 161; i++) {

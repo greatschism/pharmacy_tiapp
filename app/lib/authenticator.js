@@ -713,7 +713,8 @@ function appendFlag(codes, selectedValue) {
 	});
 }
 
-function logout(passthrough) {/**
+function logout(passthrough) {
+	/**
 	 * logout all patients
 	 * linked to this account
 	 */

@@ -59,7 +59,7 @@ function getAppConfig() {
 
 function didFailAppConfig(error, passthrough) {
 	uihelper.showDialog({
-		message : http.getNetworkErrorMsg(error.code),
+		message : http.getNetworkErrorByCode(error.code),
 		buttonNames : [Alloy.Globals.strings.dialogBtnRetry],
 		success : getAppConfig
 	});

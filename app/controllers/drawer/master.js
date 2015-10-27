@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
+    navigationHandler = require("navigationHandler"),
     notificationPanel = require("notificationPanel"),
     authenticator = require("authenticator"),
     reload = false;
@@ -102,12 +103,18 @@ function didOpen(e) {
 	});
 }
 
-/**
- * navigationHandled - whether or not to
- * initiate a navigation.
- */
 function didAuthenticate(navigationHandled) {
-	$.menuCtrl.init(args.navigation, navigationHandled);
+	//initialize menu controller
+	$.menuCtrl.init();
+	/**
+	 * navigationHandled - whether or not to
+	 * initiate a navigation.
+	 */
+	if (!navigationHandled) {
+		navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	}
 	/**
 	 * set active flag
 	 * for notification panel
