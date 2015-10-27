@@ -170,7 +170,8 @@ if (build) {
 		logger.info("Project is being branded for " + brand.id);
 
 		//copy brand resources
-		var BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
+		var BRAND_HTTPS_CER = BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate,
+		    BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
 		    BRAND_ASSETS_ANDROID_DIR = BRAND_RESOURCE_BASE_DIR + "assets/android",
 		    BRAND_ASSETS_DATA_DIR = BRAND_RESOURCE_BASE_DIR + "assets/data",
 		    BRAND_ASSETS_IMAGES_DIR = BRAND_RESOURCE_BASE_DIR + "assets/images",
@@ -186,68 +187,60 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
 
-		//https cer
-		fs.copySync(BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate, APP_HTTPS_CER);
-		logger.debug("Linked " + BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate + " => " + APP_HTTPS_CER);
-
-		//iphone
-		fs.copySync(BRAND_ASSETS_IPHONE_DIR, APP_ASSETS_IPHONE_DIR);
-		logger.debug("Linked " + BRAND_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
-
-		//android
-		fs.copySync(BRAND_ASSETS_ANDROID_DIR, APP_ASSETS_ANDROID_DIR);
-		logger.debug("Linked " + BRAND_ASSETS_ANDROID_DIR + " => " + APP_ASSETS_ANDROID_DIR);
-
-		//data
-		fs.copySync(BRAND_ASSETS_DATA_DIR, APP_ASSETS_DATA_DIR);
-		logger.debug("Linked " + BRAND_ASSETS_DATA_DIR + " => " + APP_ASSETS_DATA_DIR);
-
-		//images
-		fs.copySync(BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR, APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR);
-		if (fs.existsSync(BRAND_ASSETS_IMAGES_DIR)) {
-			fs.copySync(BRAND_ASSETS_IMAGES_DIR, APP_ASSETS_IMAGES_DIR);
-			logger.debug("Linked " + BRAND_ASSETS_IMAGES_DIR + " => " + APP_ASSETS_IMAGES_DIR);
-		}
-
-		//default icon
-		fs.copySync(BRAND_DEFAULT_ICON, APP_DEFAULT_ICON);
-		logger.debug("Linked " + BRAND_ASSETS_IPHONE_DIR + " => " + APP_ASSETS_IPHONE_DIR);
-
-		//itunes icon
-		fs.copySync(BRAND_ITUNES_ICON, APP_ITUNES_ICON);
-		logger.debug("Linked " + BRAND_ITUNES_ICON + " => " + APP_ITUNES_ICON);
-
-		//market place icon
-		fs.copySync(BRAND_MARKETPLACE_ICON, APP_MARKETPLACE_ICON);
-		logger.debug("Linked " + BRAND_MARKETPLACE_ICON + " => " + APP_MARKETPLACE_ICON);
-
-		//market place feature image
-		fs.copySync(BRAND_MARKETPLACE_FEATURE_IMG, APP_MARKETPLACE_FEATURE_IMG);
-		logger.debug("Linked " + BRAND_MARKETPLACE_FEATURE_IMG + " => " + APP_MARKETPLACE_FEATURE_IMG);
-
-		//android res ldpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_LDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_LDPI + " => " + APP_ANDROID_DRAWABLE_LDPI);
-
-		//android res mdpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_MDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_MDPI + " => " + APP_ANDROID_DRAWABLE_MDPI);
-
-		//android res hdpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_HDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_HDPI + " => " + APP_ANDROID_DRAWABLE_HDPI);
-
-		//android res xhdpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XHDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XHDPI + " => " + APP_ANDROID_DRAWABLE_XHDPI);
-
-		//android res xxhdpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXHDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXHDPI + " => " + APP_ANDROID_DRAWABLE_XXHDPI);
-
-		//android res xxxhdpi
-		fs.copySync(BRAND_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI);
-		logger.debug("Linked " + BRAND_ANDROID_DRAWABLE_XXXHDPI + " => " + APP_ANDROID_DRAWABLE_XXXHDPI);
+		_u.each([{
+			source : BRAND_HTTPS_CER,
+			dest : APP_HTTPS_CER
+		}, {
+			source : BRAND_ASSETS_IPHONE_DIR,
+			dest : APP_ASSETS_IPHONE_DIR
+		}, {
+			source : BRAND_ASSETS_ANDROID_DIR,
+			dest : APP_ASSETS_ANDROID_DIR
+		}, {
+			source : BRAND_ASSETS_DATA_DIR,
+			dest : APP_ASSETS_DATA_DIR
+		}, {
+			source : BRAND_ASSETS_IMAGES_DIR,
+			dest : APP_ASSETS_IMAGES_DIR
+		}, {
+			source : BRAND_DEFAULT_ICON,
+			dest : APP_DEFAULT_ICON
+		}, {
+			source : BRAND_ITUNES_ICON,
+			dest : APP_ITUNES_ICON
+		}, {
+			source : BRAND_MARKETPLACE_ICON,
+			dest : APP_MARKETPLACE_ICON
+		}, {
+			source : BRAND_MARKETPLACE_FEATURE_IMG,
+			dest : APP_MARKETPLACE_FEATURE_IMG
+		}, {
+			source : BRAND_ANDROID_RES_BASE_DIR,
+			dest : APP_ANDROID_RES_BASE_DIR
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_LDPI,
+			dest : APP_ANDROID_DRAWABLE_LDPI
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_MDPI,
+			dest : APP_ANDROID_DRAWABLE_MDPI
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_HDPI,
+			dest : APP_ANDROID_DRAWABLE_HDPI
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_XHDPI,
+			dest : APP_ANDROID_DRAWABLE_XHDPI
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_XXHDPI,
+			dest : APP_ANDROID_DRAWABLE_XXHDPI
+		}, {
+			source : BRAND_ANDROID_DRAWABLE_XXXHDPI,
+			dest : APP_ANDROID_DRAWABLE_XXXHDPI
+		}], function(obj) {
+			if (fs.existsSync(obj.source)) {
+				fs.copySync(obj.source, obj.dest);
+				logger.debug("Linked " + obj.source + " => " + obj.dest);
+			}
+		});
 
 		/**
 		 * link common assets
