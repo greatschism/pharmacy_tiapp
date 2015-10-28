@@ -62,26 +62,25 @@ function didGetStore(result, passthrough) {
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
-	    tillTime = (hours[0] || {}).hours.split("- ")[1] || "",
+	    tillTime,
 	    clockLbl,
 	    iconClass,
 	    lblClass;
-	if (tillTime && store.is_open) {
-		clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
-		iconClass = "icon-view-positive-icon";
-		lblClass = "icon-view-positive-icon-description";
-	} else {
-		clockLbl = tillTime ? String.format($.strings.storeDetLblClose, tillTime) : $.strings.storeDetLblClosed;
-		iconClass = "icon-view-negative-icon";
-		lblClass = "icon-view-negative-icon-description";
-	}
-	$.addClass($.clockIconLbl, [iconClass]);
-	$.addClass($.clockLbl, [lblClass], {
-		text : clockLbl
-	});
+	//store hours
+	var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
 	if (hours.length) {
-		var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours),
-		    promptClasses = ["content-group-inactive-prompt-40"];
+		//0th index will have today's hours
+		tillTime = hours[0].hours.split("- ")[1];
+		if (store.is_open && tillTime) {
+			clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
+			iconClass = "icon-view-positive-icon";
+			lblClass = "icon-view-positive-icon-description";
+		} else {
+			clockLbl = tillTime ? String.format($.strings.storeDetLblClose, tillTime) : $.strings.storeDetLblClosed;
+			iconClass = "icon-view-negative-icon";
+			lblClass = "icon-view-negative-icon-description";
+		}
+		var promptClasses = ["content-group-inactive-prompt-40"];
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
 				data : hour,
@@ -90,8 +89,20 @@ function didGetStore(result, passthrough) {
 				promptClasses : promptClasses
 			}).getView());
 		});
-		data.push(hoursSection);
+	} else {
+		clockLbl = $.strings.storeDetLblNotAvailable;
+		iconClass = "icon-view-negative-icon";
+		lblClass = "icon-view-negative-icon-description";
+		hoursSection.add(Alloy.createController("itemTemplates/label", {
+			title : $.strings.storeDetLblHoursNotAvailable
+		}).getView());
 	}
+	data.push(hoursSection);
+	$.addClass($.clockIconLbl, [iconClass]);
+	$.addClass($.clockLbl, [lblClass], {
+		text : clockLbl
+	});
+	//store services
 	if (services.length) {
 		var servicesSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionServices);
 		_.each(services, function(val) {

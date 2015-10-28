@@ -35,14 +35,12 @@ function init() {
 			});
 		} else {
 			section.add(Alloy.createController("itemTemplates/label", {
-				title : $.strings.doctorDetLblPrescribedNone,
-				lblClasses : ["lbl-wrap"]
+				title : $.strings.doctorDetLblPrescribedNone
 			}).getView());
 		}
 	} else {
 		section.add(Alloy.createController("itemTemplates/label", {
-			title : $.strings.doctorDetLblManual,
-			lblClasses : ["lbl-wrap"]
+			title : $.strings.doctorDetLblManual
 		}).getView());
 	}
 	$.tableView.setData([section]);
