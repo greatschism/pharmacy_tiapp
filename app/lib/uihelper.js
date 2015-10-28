@@ -498,37 +498,24 @@ var Helper = {
 	 * @param {Function} params.cancel callback for cancel button
 	 */
 	showDialog : function(params) {
-		var dict = {
-			title : params.title || Ti.App.name,
-			persistent : _.isUndefined(params.persistent) ? true : params.persistent
-		},
-		    cancel = params.cancelIndex;
-		if (_.isUndefined(cancel)) {
-			cancel = -1;
-		}
-		if (_.has(params, "buttonNames")) {
-			_.extend(dict, {
-				buttonNames : params.buttonNames,
-				cancel : cancel
-			});
-		} else {
-			_.extend(dict, {
-				ok : params.ok || Alloy.Globals.strings.dialogBtnOK
-			});
-		}
-		if (OS_IOS && _.has(params, "style")) {
-			dict.style = params.style;
-		}
-		if (OS_ANDROID && _.has(params, "androidView")) {
-			dict.androidView = params.androidView;
-		} else {
-			dict.message = ( OS_IOS ? "\n" : "").concat(params.message || "");
-		}
+		_.defaults(params, {
+			title : Ti.App.name,
+			cancelIndex : -1,
+			persistent : true,
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK]
+		});
+		var cancel = params.cancelIndex,
+		    dict = _.pick(params, ["title", "buttonNames", "persistent", "style", "androidView"]);
+		_.extend(dict, {
+			cancel : cancel,
+			message : ( OS_IOS ? "\n" : "").concat(params.message || "")
+		});
 		var dialog = Ti.UI.createAlertDialog(dict);
 		dialog.addEventListener("click", function(e) {
-			if (params.success && e.index !== cancel) {
-				params.success(e.index, e);
-			} else if (params.cancel && e.index === cancel) {
+			var index = e.index;
+			if (params.success && index !== cancel) {
+				params.success(index, e);
+			} else if (params.cancel && index === cancel) {
 				params.cancel();
 			}
 		});
