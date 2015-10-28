@@ -2,7 +2,7 @@
  * @param {Object} args The arguments for the method
  */
 
-var TAG = "RequestWrapper",
+var TAG = "requestwrapper",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),

@@ -261,20 +261,25 @@ function didGetStores(result, passthrough) {
 		};
 	}
 
-	var location = _.pick(result.data.stores, ["latitude", "longitude"]),
-	    destinations = "";
-	if (!_.isEmpty(location)) {
+	var latitude = result.data.stores.latitude,
+	    longitude = result.data.stores.longitude;
+	/**
+	 * making sure lat and long has proper values
+	 * not just empty string / null
+	 */
+	if (latitude && longitude) {
+		var destinations = "";
 		_.each(result.data.stores.stores_list, function(store) {
 			if (destinations) {
 				destinations += "|";
 			}
 			destinations += store.latitude + "," + store.longitude;
 		});
-	}
-
-	if (destinations) {
+		//calculate distance matrix
+		var url = String.format(Alloy.CFG.distancematrix_url, (latitude + "," + longitude), destinations);
+		$.logger.debug(TAG, "request", url);
 		httpClient = $.httpClient.request({
-			url : String.format(Alloy.CFG.distancematrix_url, (location.latitude + "," + location.longitude), destinations),
+			url : url,
 			format : "JSON",
 			passthrough : {
 				result : result,
@@ -293,6 +298,7 @@ function didGetDistance(result, passthrough) {
 	 * reset http client to ensure no pending api
 	 */
 	httpClient = null;
+	$.logger.debug(TAG, "response", result);
 	if (result.status === googleApiSuccess) {
 		var stores = passthrough.result.data.stores.stores_list,
 		    elements = result.rows[0].elements,
@@ -399,9 +405,11 @@ function prepareData(result, passthrough) {
 
 	/**
 	 * need to set here
-	 *  when search criteria is passed
+	 * when search criteria is passed
+	 * Note: making sure lat and long has proper values
+	 * not just empty string / null
 	 */
-	if (_.isEmpty(currentLocation)) {
+	if (_.isEmpty(currentLocation) && result.data.stores.latitude && result.data.stores.longitude) {
 		currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	}
 
@@ -756,8 +764,10 @@ function didChangeSearch(e) {
 	 */
 	var value = e.value;
 	if (value.length >= searchLenMin) {
+		var url = Alloy.CFG.geocode_url.concat(value);
+		$.logger.debug(TAG, "request", url);
 		httpClient = $.httpClient.request({
-			url : Alloy.CFG.geocode_url.concat(value),
+			url : url,
 			format : "JSON",
 			passthrough : value,
 			success : didGetGeoCode,
@@ -831,6 +841,7 @@ function didReturnSearch(e) {
 
 function didGetGeoCode(result, passthrough) {
 	httpClient = null;
+	$.logger.debug(TAG, "response", result);
 	/**
 	 * check if success
 	 * zero results are avoided
@@ -1152,9 +1163,11 @@ function didRegionchanged(e) {
 	 * to be displayed on search bar
 	 */
 	var latitude = e.latitude,
-	    longitude = e.longitude;
+	    longitude = e.longitude,
+	    url = Alloy.CFG.reverse_geocode_url.concat((latitude + "," + longitude));
+	$.logger.debug(TAG, "request", url);
 	httpClient = $.httpClient.request({
-		url : Alloy.CFG.reverse_geocode_url.concat((latitude + "," + longitude)),
+		url : url,
 		format : "JSON",
 		passthrough : {
 			latitude : latitude,
@@ -1170,6 +1183,7 @@ function didGetAddress(result, passthrough) {
 	 * reset http
 	 */
 	httpClient = null;
+	$.logger.debug(TAG, "response", result);
 	/**
 	 * check if success
 	 */
