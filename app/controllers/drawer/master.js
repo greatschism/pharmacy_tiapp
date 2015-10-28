@@ -38,25 +38,16 @@ function init() {
 
 function didAppPaused(e) {
 	Alloy.Globals.latestActive = moment().unix();
-	/**
-	 * reset active flag
-	 * for notification panel
-	 */
+	//enable notification panel
 	notificationPanel.active = false;
 }
 
 function didAppResumed(e) {
-	var now = moment().unix();
-	if ((now - Alloy.Globals.latestActive) > Alloy.CFG.appload_timeout) {
-		doLogout();
-	} else {
-		Alloy.Globals.latestActive = now;
-		/**
-		 * set active flag
-		 * for notification panel
-		 */
-		notificationPanel.active = true;
+	if ((moment().unix() - Alloy.Globals.latestActive) > Alloy.CFG.appload_timeout) {
+		return doLogout();
 	}
+	//disable notification panel
+	notificationPanel.active = true;
 }
 
 function didOpen(e) {
@@ -80,9 +71,6 @@ function didOpen(e) {
 		}
 	}
 	$.trigger("init");
-	if (!_.isEmpty(app.navigator)) {
-		app.terminate();
-	}
 	app.init({
 		type : "drawer",
 		drawer : $.drawer,
@@ -180,12 +168,12 @@ function didLogout() {
 	}).init();
 }
 
-function didAndoridBack(e) {
-	app.navigator.close(1, true);
-}
-
 function windowDidOpen(e) {
 	uihelper.requestViewFocus($.menuCtrl.getView());
+}
+
+function didAndoridBack(e) {
+	app.navigator.close(1, true);
 }
 
 function hideKeyboard(e) {

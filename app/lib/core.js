@@ -71,6 +71,15 @@ var App = {
 		 */
 		//Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
+		/**
+		 * reset navigator if there is
+		 * one alive already
+		 */
+		if (!_.isEmpty(App.navigator)) {
+			App.terminate();
+		}
+
+		//create navigator
 		if (_.has(params, "type")) {
 			App.setNavigator(params);
 		}
@@ -78,7 +87,7 @@ var App = {
 
 	/**
 	 * Unset the app singleton and all it's child dependencies.
-	 * **NOTE: This should only be fired only once after init.**
+	 * Note: This should only be fired only once after init.
 	 */
 	terminate : function() {
 
