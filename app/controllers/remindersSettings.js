@@ -203,7 +203,7 @@ function didClickDeliveryMode(e) {
 	var mPatient = $.patientSwitcher.get();
 	switch(data.value) {
 	case apiCodes.reminder_delivery_mode_push:
-		if (!Ti.Network.remoteNotificationsEnabled) {
+		if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
 			$.uihelper.showDialog({
 				message : $.strings.remindersSettingsMsgPushDisabled
 			});

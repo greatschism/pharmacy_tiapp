@@ -22,10 +22,6 @@ var args = arguments[0] || {};
 	}
 })();
 
-function didClick(e) {
-	$.trigger("click", args);
-}
-
 function getParams() {
 	return args;
 }
