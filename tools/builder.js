@@ -112,14 +112,18 @@ if (program.storeAuth) {
 }
 
 /**
- * check for required parameters
+ * check for required parameters,
+ * can be skipped if buildOnly
+ * is specified.
  */
-_u.each(["username", "password", "orgId"], function(value) {
-	if (!_u.has(program, value)) {
-		logger.error("username, password or org-id is missing");
-		process.exit(1);
-	}
-});
+if (!program.buildOnly) {
+	_u.each(["username", "password", "orgId"], function(value) {
+		if (!_u.has(program, value)) {
+			logger.error("username, password or org-id is missing");
+			process.exit(1);
+		}
+	});
+}
 
 /**
  * brand info
