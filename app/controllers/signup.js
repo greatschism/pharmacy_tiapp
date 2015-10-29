@@ -303,7 +303,6 @@ function didRegister(result, passthrough) {
 	 */
 	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
 	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	utilities.setProperty("isReminderSettings", false, "bool", true);
 	$.uihelper.showDialog({
 		message : result.message,
 		buttonNames : [$.strings.dialogBtnOK],

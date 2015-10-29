@@ -129,7 +129,6 @@ function addPrescriptions() {
 
 function didAddPrescriptions() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
-	$.utilities.setProperty("isReminderSettings", false, "bool", true);
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
 			$.app.navigator.open({

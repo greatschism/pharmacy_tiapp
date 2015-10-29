@@ -7,11 +7,17 @@ function init() {
 }
 
 function didClickTextSignup() {
+	if(args.origin === "remindersSettings"){
+		remindersSettings=true;
+	}else{
+		remindersSettings=false;
+	}
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
 		ctrlArguments : {
-			username : args.username
+			username : args.username,
+			"remindersSettings": remindersSettings,
 		},
 		stack : true
 	});
@@ -19,7 +25,6 @@ function didClickTextSignup() {
 
 function didClickSkipTextSignup() {
 	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", true, "bool", true);
-	var isReminderSettings = $.utilities.getProperty("isReminderSettings", true, "bool", true);
 	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleFamilyAccounts",
@@ -35,7 +40,7 @@ function didClickSkipTextSignup() {
 			ctrl : "familyCare",
 			stack : false
 		});
-	} else if (args.isAccountFlow || isReminderSettings) {
+	} else if (args.isAccountFlow || args.origin === "remindersSettings") {
 		$.app.navigator.close();
 	} else {
 		$.app.navigator.open({

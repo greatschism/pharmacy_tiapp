@@ -111,7 +111,6 @@ function didClickmobileNumber(e) {
 	 *Making this flag false so that the flow is taken care off 
 	 */
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	$.utilities.setProperty("isReminderSettings", false, "bool", true);
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});

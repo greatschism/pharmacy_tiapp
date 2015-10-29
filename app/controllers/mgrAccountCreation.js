@@ -147,7 +147,6 @@ function didFail() {
 
 function didRegister() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	$.utilities.setProperty("isReminderSettings", false, "bool", true);
 	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
 	$.uihelper.showDialog({
 		message : successMessage,

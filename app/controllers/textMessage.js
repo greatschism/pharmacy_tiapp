@@ -65,10 +65,9 @@ function replyTextMessage() {
 }
 
 function didReplied() {
-	var isReminderSettings = $.utilities.getProperty("isReminderSettings", true, "bool", true);
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			if (isReminderSettings) {
+			if (args.remindersSettings) {
 				$.app.navigator.close(3);
 			} else {
 				$.app.navigator.open({
