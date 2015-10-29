@@ -18,9 +18,9 @@ function init() {
 	require("resources").init();
 	require("config").load();
 	/**
-	 *  initialize apm only when configurations are ready
+	 *  initialize crashreporter only when configurations are ready
 	 *  so can be disabled from server through theme
 	 */
-	require("apm").init();
+	require("crashreporter").init();
 	Alloy.createController("appload").init();
 }

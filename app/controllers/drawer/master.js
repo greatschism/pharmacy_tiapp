@@ -179,7 +179,6 @@ function didAndoridBack(e) {
 function hideKeyboard(e) {
 	/**
 	 * hide keyboard if any
-	 * PHA-1156 - #3
 	 * Note: for iOS the same below is handled
 	 * in ios/drawer/window.js before opening
 	 * the window. iOS itself hides

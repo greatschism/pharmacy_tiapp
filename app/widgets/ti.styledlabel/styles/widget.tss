@@ -1,16 +1,4 @@
 "#widget":{
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE
-},
-/**
- * bubbleParent should be set on creation on android
- * and it's true by default
- * when it has to be set it to false then only 
- * we would get this parameter as true
- * for the convenience at widget side
- * if we use if=!$.args.bubbleParent then it will 
- * be set to false even if parameter not passed
- */
-"#widget[if=$.args.bubbleParent]":{
-	bubbleParent: false
 }

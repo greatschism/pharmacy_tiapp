@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
+    analytics = require("analytics"),
     controller;
 
 (function() {
@@ -55,6 +56,9 @@ var args = arguments[0] || {},
 		}
 	});
 
+	$.contentView.addEventListener("click", handleEvent);
+	$.contentView.addEventListener("change", handleEvent);
+
 	$.addTopLevelView($.contentView);
 
 	if (!hasRightNavButton) {
@@ -69,8 +73,8 @@ var args = arguments[0] || {},
 		httpClient : require("http"),
 		utilities : require("utilities"),
 		uihelper : require("uihelper"),
-		analytics : require("analytics"),
-		apm : require("apm"),
+		analytics : analytics,
+		crashreporter : require("crashreporter"),
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,
@@ -123,6 +127,7 @@ function setRightNavButton(view) {
 		var menu = e.menu;
 		menu.clear();
 		if (view) {
+			view.addEventListener("click", handleEvent);
 			$.menuItem = menu.add({
 				actionView : view,
 				visible : false,
@@ -134,6 +139,10 @@ function setRightNavButton(view) {
 		}
 	};
 	activity.invalidateOptionsMenu();
+}
+
+function handleEvent(evt) {
+	analytics.handleEvent(evt);
 }
 
 exports.blur = blur;

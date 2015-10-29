@@ -13,6 +13,9 @@ var TiAnalytics = {
 		if (Alloy.CFG.analytics_enabled) {
 			Ti.Analytics.navEvent(from, to, name || "", data || {});
 		}
+	},
+	handleEvent : function(evt) {
+		//console.log(JSON.stringify(evt));
 	}
 };
 

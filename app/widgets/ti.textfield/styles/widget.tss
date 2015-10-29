@@ -9,7 +9,8 @@
 	borderWidth: 0,
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 	autocorrect: false,
-	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	bubbleParent: false
 },
 "#txt[platform=ios]":{
 	paddingLeft: 8,

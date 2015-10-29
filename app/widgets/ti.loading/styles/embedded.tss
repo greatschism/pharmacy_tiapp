@@ -6,5 +6,6 @@
 "#activityIndicatorImg":{
 	width: 50,
 	height: 50,
-	duration: 40
+	duration: 40,
+	bubbleParent: false
 }

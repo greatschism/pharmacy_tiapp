@@ -1,14 +1,14 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     utilities = require("utilities"),
-    PerformanceModule = false;
+    CrashReporterModule = false;
 
-var TiPerformance = {
+var Reporter = {
 	init : function(callback, appId, config) {
-		if (Alloy.CFG.apm_enabled && !PerformanceModule) {
+		if (Alloy.CFG.crashreporter_enabled && !CrashReporterModule) {
 			var Module = require("com.appcelerator.apm"),
 			    didServiceready = function() {
-				PerformanceModule = Module;
+				CrashReporterModule = Module;
 				if (callback) {
 					callback(true);
 				}
@@ -30,44 +30,44 @@ var TiPerformance = {
 		}
 	},
 	didCrashOnLastAppLoad : function() {
-		if (PerformanceModule) {
-			return PerformanceModule.didCrashOnLastAppLoad();
+		if (CrashReporterModule) {
+			return CrashReporterModule.didCrashOnLastAppLoad();
 		}
 		return false;
 	},
 	setUsername : function(username) {
-		if (PerformanceModule) {
-			PerformanceModule.setUsername(username);
+		if (CrashReporterModule) {
+			CrashReporterModule.setUsername(username);
 		}
 	},
 	getUUID : function() {
-		if (PerformanceModule) {
-			return PerformanceModule.getUUID();
+		if (CrashReporterModule) {
+			return CrashReporterModule.getUUID();
 		}
 		return false;
 	},
 	setOptOutStatus : function(status) {
-		if (PerformanceModule) {
-			PerformanceModule.setOptOutStatus(status);
+		if (CrashReporterModule) {
+			CrashReporterModule.setOptOutStatus(status);
 		}
 	},
 	setMetadata : function(key, value) {
-		if (PerformanceModule) {
-			PerformanceModule.setMetadata(key, value);
+		if (CrashReporterModule) {
+			CrashReporterModule.setMetadata(key, value);
 		}
 	},
 	leaveBreadcrumb : function(breadcrumb) {
-		if (PerformanceModule) {
-			PerformanceModule.leaveBreadcrumb(breadcrumb || "");
+		if (CrashReporterModule) {
+			CrashReporterModule.leaveBreadcrumb(breadcrumb || "");
 		}
 	},
 	logHandledException : function(error) {
-		if (PerformanceModule && utilities.isError(error)) {
-			PerformanceModule.logHandledException(error);
+		if (CrashReporterModule && utilities.isError(error)) {
+			CrashReporterModule.logHandledException(error);
 			return true;
 		}
 		return false;
 	}
 };
 
-module.exports = TiPerformance;
+module.exports = Reporter;

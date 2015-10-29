@@ -1,6 +1,6 @@
 var args = arguments[0] || {},
     app = require("core"),
-    logger = require("logger"),
+    analytics = require("analytics"),
     controller;
 
 (function() {
@@ -61,8 +61,8 @@ var args = arguments[0] || {},
 		httpClient : require("http"),
 		utilities : require("utilities"),
 		uihelper : require("uihelper"),
-		analytics : require("analytics"),
-		apm : require("apm"),
+		analytics : analytics,
+		crashreporter : require("crashreporter"),
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,
@@ -97,7 +97,6 @@ function didClickLeftNavView(e) {
 	} else {
 		/**
 		 * hide keyboard if any
-		 * PHA-1156 - #3
 		 * Note: for android the same below
 		 * is handled after drawer is opned,
 		 * in drawer/master.js
@@ -126,7 +125,15 @@ function hideNavBar(animated) {
 }
 
 function setRightNavButton(view) {
-	$.window.setRightNavButton( view ? view : Ti.UI.createView());
+	if (!view) {
+		view = Ti.UI.createView();
+	}
+	view.addEventListener("click", handleEvent);
+	$.window.setRightNavButton(view);
+}
+
+function handleEvent(evt) {
+	analytics.handleEvent(evt);
 }
 
 exports.ctrlPath = controller.__controllerPath;

@@ -12,7 +12,8 @@
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 	autocorrect: false,
 	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-	zIndex: 0
+	zIndex: 0,
+	bubbleParent: false
 },
 "#txta[platform=ios]":{
 	suppressReturn: false

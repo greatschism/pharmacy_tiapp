@@ -1,24 +1,24 @@
 var Alloy = require("alloy"),
-    apm = require("apm"),
+    crashreporter = require("crashreporter"),
     utilities = require("utilities");
 
-describe("APM Test Suite", function() {
+describe("CrashReporter Test Suite", function() {
 
-	it("Test Case 1: init with APM disabled", function(done) {
+	it("Test Case 1: init with CrashReporter disabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(Alloy.CFG.http_timeout);
-		Alloy.CFG.apm_enabled = false;
-		apm.init(function(enabled) {
+		Alloy.CFG.crashreporter_enabled = false;
+		crashreporter.init(function(enabled) {
 			enabled.should.be.equal(false);
 			done();
 		});
 	});
 
-	it("Test Case 2: init with APM enabled", function(done) {
+	it("Test Case 2: init with CrashReporter enabled", function(done) {
 		//for android wait for serviceready event
 		this.timeout(Alloy.CFG.http_timeout);
-		Alloy.CFG.apm_enabled = true;
-		apm.init(function(enabled) {
+		Alloy.CFG.crashreporter_enabled = true;
+		crashreporter.init(function(enabled) {
 			enabled.should.be.equal(true);
 			done();
 		}, utilities.getProperty("com-appcelerator-apm-id", "", "string", false), {
@@ -28,40 +28,40 @@ describe("APM Test Suite", function() {
 	});
 
 	it("Test Case 3: didCrashOnLastAppLoad", function() {
-		apm.didCrashOnLastAppLoad().should.be.equal(require("com.appcelerator.apm").didCrashOnLastAppLoad());
+		crashreporter.didCrashOnLastAppLoad().should.be.equal(require("com.appcelerator.apm").didCrashOnLastAppLoad());
 	});
 
 	it("Test Case 4: getUUID", function() {
-		apm.getUUID().should.be.ok;
+		crashreporter.getUUID().should.be.ok
 	});
 
 	it("Test Case 5: setUsername", function(done) {
-		apm.setUsername("ti-mocha");
+		crashreporter.setUsername("ti-mocha");
 		done();
 	});
 
 	it("Test Case 6: setOptOutStatus with true", function(done) {
-		apm.setOptOutStatus(true);
+		crashreporter.setOptOutStatus(true);
 		done();
 	});
 
 	it("Test Case 7: setOptOutStatus with false", function(done) {
-		apm.setOptOutStatus(false);
+		crashreporter.setOptOutStatus(false);
 		done();
 	});
 
 	it("Test Case 8: setMetadata", function(done) {
-		apm.setMetadata("testKey", "testValue");
+		crashreporter.setMetadata("testKey", "testValue");
 		done();
 	});
 
 	it("Test Case 9: leaveBreadcrumb", function(done) {
-		apm.leaveBreadcrumb("testing leaveBreadcrumb");
+		crashreporter.leaveBreadcrumb("testing leaveBreadcrumb");
 		done();
 	});
 
 	it("Test Case 10: logHandledException", function() {
-		apm.logHandledException(new Error("unit test logHandledException")).should.be.equal(true);
+		crashreporter.logHandledException(new Error("unit test logHandledException")).should.be.equal(true);
 	});
 
 });

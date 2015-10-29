@@ -3,7 +3,7 @@
 		<View id="contentView" class="content-view-vgroup">
 			<Label id="titleLbl" class="content-title" />
 			<Label id="subtitleLbl" class="content-subtitle" />
-			<Widget id="attributedAttr" src="ti.styledlabel" class="content-attributed bubble-disabled-widget" onClick="didClick" />
+			<Widget id="attributedAttr" src="ti.styledlabel" class="content-attributed bubble-disabled" onClick="didClick" />
 		</View>
 	</TableViewRow>
 </Alloy>

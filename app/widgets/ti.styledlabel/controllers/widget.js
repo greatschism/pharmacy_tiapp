@@ -12,6 +12,10 @@ function applyProperties(dict) {
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
+	//AC-201
+	if (_.has(args, "bubbleParent")) {
+		$.widget.setBubbleParent(args.bubbleParent);
+	}
 	secondaryFont = dict.secondaryFont || {
 		fontWeight : "bold",
 		fontSize : 12
