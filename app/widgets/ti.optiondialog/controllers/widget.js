@@ -47,6 +47,13 @@ function didCick(e) {
 }
 
 function show() {
+	/**
+	 * In iOS the action sheet hides
+	 * the keyboard by default
+	 */
+	if (OS_ANDROID && Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
 	$.optionDialog.show();
 }
 

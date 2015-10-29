@@ -281,6 +281,11 @@ function animate(dict, callback) {
 
 function show(callback) {
 	if (!$.widget.visible) {
+		//hide keyboard if any
+		if (Ti.App.keyboardVisible) {
+			Ti.App.hideKeyboard();
+		}
+		//disable accessibility of other elements
 		_.each($.widget.getParent().children, function(child) {
 			if (child == $.widget) {
 				return;
@@ -313,6 +318,7 @@ function show(callback) {
 
 function hide(callback) {
 	if ($.widget.visible) {
+		//enable accessibility back
 		_.each($.widget.getParent().children, function(child) {
 			if (child == $.widget) {
 				return;

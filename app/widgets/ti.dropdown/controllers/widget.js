@@ -83,8 +83,11 @@ function setMinDate(minDate) {
 }
 
 function show() {
-	Ti.App.hideKeyboard();
 	if (!picker && parent) {
+		//hide keyboard if any
+		if (Ti.App.keyboardVisible) {
+			Ti.App.hideKeyboard();
+		}
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {
 				var isDatePicker = args.type == Ti.UI.PICKER_TYPE_DATE,
