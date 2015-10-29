@@ -16,7 +16,9 @@ var log4js = require("log4js"),
     DEFAULT_PLATFORM = "ios",
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
+    CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
     STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
+    CTRL_DIR = ROOT_DIR + "app/controllers",
     TSS_DIR = ROOT_DIR + "app/styles",
     APP_TSS = TSS_DIR + "/app.tss",
     APP_ASSETS_DIR = ROOT_DIR + "app/assets/",
@@ -187,7 +189,7 @@ if (build) {
 	logger.debug("Initated cleanup");
 
 	//delete all resources
-	_u.each([STYLE_SHEETS_JS, APP_TSS, APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML], function(path) {
+	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -421,15 +423,29 @@ if (build) {
 		var configData = JSON.parse(fs.readFileSync(BASE_CONFIG_JSON, "utf-8"));
 
 		/**
+		 * API short code
+		 * this will be part
+		 * of feature code
+		 */
+		var apiShortCode = {};
+		_u.each(configData.global.apiPath, function(apiPath, apiName) {
+			var shortCode = "";
+			apiShortCode[apiName] = shortCode;
+		});
+
+		/**
 		 * update properties below
 		 * - brand id
 		 * - environment
+		 * - build number
 		 * - build date
 		 */
 		_u.extend(configData.global, {
 			brandId : brand.id,
 			environment : program.environment,
-			buildDate : new Date().toString()
+			buildNumber : program.buildNumber,
+			buildDate : new Date().toString(),
+			apiShortCode : apiShortCode
 		});
 
 		//extend global properties
@@ -481,6 +497,68 @@ if (build) {
 		logger.debug("Created " + APP_TIAPP_XML);
 
 		logger.info("Finished branding for " + brand.id);
+
+		/**
+		 * controllers short code
+		 * this will be part of
+		 * feature code
+		 */
+		logger = log4js.getLogger("ControllerShortCode");
+		logger.debug("Writing " + CTRL_SHORT_CODE_JS);
+		/**
+		 * get controllers list
+		 * Note: only top level
+		 * itemTemplates, templates,
+		 * drawer etc., can be ignored.
+		 */
+		var tiCtrlShortCode = {},
+		    allCtrlFile = fs.readdirSync(CTRL_DIR);
+		for (var i in allCtrlFile) {
+			var ctrlFile = allCtrlFile[i];
+			if (ctrlFile.substr(ctrlFile.lastIndexOf(".")) === ".js") {
+				ctrlFile = ctrlFile.replace(/.js/g, "");
+				/**
+				 * use first character of each word
+				 */
+				var charsArr = ctrlFile.split(""),
+				    shortCode = "",
+				    usedIndexes = [];
+				_u.some(charsArr, function(letter, index) {
+					var charCode = letter.charCodeAt(0);
+					if (!shortCode || (charCode >= 65 && charCode <= 90)) {
+						usedIndexes.push(index);
+						//0th char may be in small letter
+						shortCode += letter.toUpperCase();
+					}
+					return shortCode.length === 4;
+				});
+				/**
+				 * now try second character of each word
+				 * if length is not enough
+				 */
+				var requiredLen = 4 - shortCode.length;
+				if (requiredLen > 0) {
+					_u.some(usedIndexes, function(usedIndex) {
+						var newIndex = usedIndex + 1,
+						    newLetter = ctrlFile.charAt(newIndex);
+						if (newLetter) {
+							shortCode = (shortCode.substr(0, newIndex) || "") + newLetter.toUpperCase() + (shortCode.substr(newIndex) || "");
+						}
+						return shortCode.length === 4;
+					});
+				}
+				/**
+				 * if still length is less than or equal to 2
+				 * then use first 4 character
+				 */
+				if (shortCode.length <= 2) {
+					shortCode = ctrlFile.substr(0, 4).toUpperCase();
+				}
+				tiCtrlShortCode[ctrlFile] = shortCode;
+			}
+		}
+		fs.writeFileSync(CTRL_SHORT_CODE_JS, "module.exports = " + JSON.stringify(tiCtrlShortCode, null, 4).concat(";"));
+		logger.info("Created " + CTRL_SHORT_CODE_JS);
 
 		/**
 		 * initate tss maker
@@ -636,12 +714,16 @@ if (program.buildOnly) {
 	/**
 	 * build flag will be false
 	 * when there is no change in branding
-	 * info, so just update the build date
-	 * here, when it is true build date
-	 * would have been udpate already
+	 * info / environment, so just update
+	 * the build and number date here, when it
+	 * is true build date and number would have
+	 * been udpate already
 	 */
 	if (!build) {
-		appConfigData.global.buildDate = new Date().toString();
+		_u.extend(appConfigData.global, {
+			buildNumber : program.buildNumber,
+			buildDate : new Date().toString()
+		});
 		//write config
 		fs.writeFileSync(APP_CONFIG_JSON, JSON.stringify(appConfigData, null, 4));
 	}

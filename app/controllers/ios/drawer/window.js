@@ -132,8 +132,8 @@ function setRightNavButton(view) {
 	$.window.setRightNavButton(view);
 }
 
-function handleEvent(evt) {
-	analytics.handleEvent(evt);
+function handleEvent(e) {
+	analytics.handleEvent(e);
 }
 
 exports.ctrlPath = controller.__controllerPath;

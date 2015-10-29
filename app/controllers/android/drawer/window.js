@@ -133,8 +133,8 @@ function setRightNavButton(view) {
 	activity.invalidateOptionsMenu();
 }
 
-function handleEvent(evt) {
-	analytics.handleEvent(evt);
+function handleEvent(e) {
+	analytics.handleEvent(e);
 }
 
 exports.blur = blur;
