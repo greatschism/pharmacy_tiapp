@@ -44,7 +44,7 @@ function didGetStates(result, passthrough) {
 
 function didClickName(e) {
 	$.uihelper.showDialog({
-		message : $.strings.doctorMsgEditRestricted
+		message : $.strings.doctorSettingsMsgEditRestricted
 	});
 }
 
@@ -129,26 +129,26 @@ function didClickSubmit(e) {
 	fname = $.fnameTxt.getValue();
 	if (!fname) {
 		$.uihelper.showDialog({
-			message : $.strings.doctorValFirstName
+			message : $.strings.doctorSettingsValFirstName
 		});
 		return;
 	}
 	if (!$.utilities.validateName(fname)) {
 		$.uihelper.showDialog({
-			message : $.strings.doctorValFirstNameInvalid
+			message : $.strings.doctorSettingsValFirstNameInvalid
 		});
 		return;
 	}
 	lname = $.lnameTxt.getValue();
 	if (!lname) {
 		$.uihelper.showDialog({
-			message : $.strings.doctorValLastName
+			message : $.strings.doctorSettingsValLastName
 		});
 		return;
 	}
 	if (!$.utilities.validateName(lname)) {
 		$.uihelper.showDialog({
-			message : $.strings.doctorValLastNameInvalid
+			message : $.strings.doctorSettingsValLastNameInvalid
 		});
 		return;
 	}
@@ -157,7 +157,7 @@ function didClickSubmit(e) {
 		phone = $.utilities.validatePhoneNumber(phone);
 		if (!phone) {
 			$.uihelper.showDialog({
-				message : $.strings.doctorValPhoneInvalid
+				message : $.strings.doctorSettingsValPhoneInvalid
 			});
 			return;
 		}
@@ -167,7 +167,7 @@ function didClickSubmit(e) {
 		fax = $.utilities.validatePhoneNumber(fax);
 		if (!fax) {
 			$.uihelper.showDialog({
-				message : $.strings.doctorValFaxInvalid
+				message : $.strings.doctorSettingsValFaxInvalid
 			});
 			return;
 		}
@@ -233,11 +233,11 @@ function didSuccessDoctor(result, passthrough) {
 function didClickRemove(e) {
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		$.uihelper.showDialog({
-			message : $.strings.doctorMsgRemoveRestricted
+			message : $.strings.doctorSettingsMsgRemoveRestricted
 		});
 	} else {
 		$.uihelper.showDialog({
-			message : String.format($.strings.doctorMsgRemoveConfirm, doctor.title),
+			message : String.format($.strings.doctorSettingsMsgRemoveConfirm, doctor.title),
 			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
 			cancelIndex : 1,
 			success : didConfirmRemove

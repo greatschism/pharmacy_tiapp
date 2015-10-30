@@ -170,7 +170,7 @@ function didClickDirection(e) {
 function didClickRightNav(e) {
 	$.app.navigator.open({
 		titleid : "titleDoctorUpdate",
-		ctrl : "doctor",
+		ctrl : "doctorSettings",
 		ctrlArguments : {
 			isUpdate : true,
 			doctor : doctor

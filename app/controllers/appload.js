@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    TAG = "appload",
     app = require("core"),
     config = require("config"),
     httpClient = require("http"),
@@ -7,6 +8,7 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     localization = require("localization"),
     notificationHandler = require("notificationHandler"),
+    logger = require("logger"),
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -38,6 +40,7 @@ function hideLoader() {
 }
 
 function getAppConfig() {
+	logger.debug(TAG, "request", Alloy.CFG.appconfig_url);
 	httpClient.request({
 		url : Alloy.CFG.appconfig_url,
 		type : "POST",
@@ -58,6 +61,7 @@ function getAppConfig() {
 }
 
 function didFailAppConfig(error, passthrough) {
+	logger.debug(TAG, "error", "code", error.code);
 	uihelper.showDialog({
 		message : http.getNetworkErrorByCode(error.code),
 		buttonNames : [Alloy.Globals.strings.dialogBtnRetry],
@@ -67,6 +71,7 @@ function didFailAppConfig(error, passthrough) {
 
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
+	logger.debug(TAG, "success", "response", appconfig);
 	if (appconfig) {
 		/**
 		 * update model

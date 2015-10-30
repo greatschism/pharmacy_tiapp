@@ -17,7 +17,7 @@ function focus() {
 		if (!_.has(prescription, "history")) {
 			isWindowOpen = true;
 			httpClient = $.http.request({
-				method : "prescriptions_getrefillhistory",
+				method : "prescriptions_get_refill_history",
 				params : {
 					feature_code : "THXXX",
 					data : [{

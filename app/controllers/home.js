@@ -21,7 +21,7 @@ function init() {
 	 */
 	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
 		$.http.request({
-			method : "appload_getbanners",
+			method : "appload_get_banners",
 			params : {
 				feature_code : "THXXX",
 				data : [{
@@ -40,29 +40,28 @@ function init() {
 	 * be shown after 5 login's
 	 */
 	/**
-	$.uihelper.showDialog({
-		message : Alloy.Globals.strings.msgFeedback,
-		title : Alloy.Globals.strings.dialogTitleFeedback,
-		buttonNames : [Alloy.Globals.strings.dialogBtnItsGreat, Alloy.Globals.strings.dialogBtnNeedsImprovement, Alloy.Globals.strings.dialogBtnCancel],
-		cancelIndex : 2,
-		success : function(index) {
-			if (index == 0) {
-				showThankyouFeedback();
-			} else if (index == 1) {
+	 $.uihelper.showDialog({
+	 message : Alloy.Globals.strings.msgFeedback,
+	 title : Alloy.Globals.strings.dialogTitleFeedback,
+	 buttonNames : [Alloy.Globals.strings.dialogBtnItsGreat, Alloy.Globals.strings.dialogBtnNeedsImprovement, Alloy.Globals.strings.dialogBtnCancel],
+	 cancelIndex : 2,
+	 success : function(index) {
+	 if (index == 0) {
+	 showThankyouFeedback();
+	 } else if (index == 1) {
 
-			}
+	 }
 
-		}
-	});
-	**/
+	 }
+	 });
+	 **/
 }
 
 function showThankyouFeedback() {
-	if (OS_ANDROID){
-		msgPlatformThanku =String.format(Alloy.Globals.strings.msgThanku, "Google Play");
-	}
-	else{
-		msgPlatformThanku =String.format(Alloy.Globals.strings.msgThanku, "App Store");
+	if (OS_ANDROID) {
+		msgPlatformThanku = String.format(Alloy.Globals.strings.msgThanku, "Google Play");
+	} else {
+		msgPlatformThanku = String.format(Alloy.Globals.strings.msgThanku, "App Store");
 	}
 	$.uihelper.showDialog({
 		message : msgPlatformThanku,

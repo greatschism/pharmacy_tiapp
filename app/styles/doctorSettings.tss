@@ -1,0 +1,57 @@
+"#fnameTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintLastName,
+	nextItem: "phoneTxt"
+},
+"#phoneTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintPhone,
+	nextItem: "faxTxt"
+},
+"#faxTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintFax,
+	nextItem: "addressLine1Txt"
+},
+"#addressLbl":{
+	text: Alloy.Globals.strings.doctorSettingsSectionAddress
+},
+"#addressLine1Txt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintAddressLine1,
+	nextItem: "addressLine2Txt"
+},
+"#addressLine2Txt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintAddressLine2,
+	nextItem: "zipTxt"
+},
+"#zipTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintZip,
+	nextItem: "cityTxt"
+},
+"#cityTxt":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintCity,
+	nextItem: "stateDp"
+},
+"#stateDp":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintState,
+	titleProperty: "code_display",
+	valueProperty: "code_value",
+	nextItem: "notesTxta"
+},
+"#notesLbl":{
+	text: Alloy.Globals.strings.doctorSettingsSectionNotes
+},
+"#notesTxta":{
+	hintText: Alloy.Globals.strings.doctorSettingsHintNotes
+},
+"#submitBtn[if=!$.args.isUpdate]":{
+	title: Alloy.Globals.strings.doctorSettingsBtnAdd
+},
+"#submitBtn[if=$.args.isUpdate]":{
+	title: Alloy.Globals.strings.doctorSettingsBtnUpdate,
+	bottom: null
+},
+"#removeBtn":{
+	title: Alloy.Globals.strings.doctorSettingsBtnRemove
+}

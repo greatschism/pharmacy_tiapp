@@ -255,7 +255,7 @@ function didClickAdd(e) {
 	currentDoctor = {};
 	$.app.navigator.open({
 		titleid : "titleDoctorAdd",
-		ctrl : "doctor",
+		ctrl : "doctorSettings",
 		ctrlArguments : {
 			isUpdate : false,
 			doctor : currentDoctor

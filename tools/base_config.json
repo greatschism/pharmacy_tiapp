@@ -2,7 +2,7 @@
 	"global": {
 		"apiPath": {
 			"appload_get": "appload/get",
-			"appload_getbanners": "appload/getbanners",
+			"appload_get_banners": "appload/getbanners",
 			"appload_clientjson": "appload/clientjson",
 			"codes_get": "codes/get",
 			"patient_authenticate": "patient/authenticate",
@@ -35,7 +35,7 @@
 			"prescriptions_hide": "prescriptions/hide",
 			"prescriptions_unhide": "prescriptions/unhide",
 			"prescriptions_refill": "prescriptions/refill",
-			"prescriptions_getrefillhistory": "prescriptions/getrefillhistory",
+			"prescriptions_get_refill_history": "prescriptions/getrefillhistory",
 			"reminders_refill_get": "reminders/refill/get",
 			"reminders_refill_add": "reminders/refill/add",
 			"reminders_refill_update": "reminders/refill/update",

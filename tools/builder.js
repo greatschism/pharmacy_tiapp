@@ -424,14 +424,54 @@ if (build) {
 
 		/**
 		 * API short code
-		 * this will be part
-		 * of feature code
+		 * this will be used to identify
+		 * a api usage from
+		 * analytics / crash reports / api logs
+		 * Note: the logic and rules are similar
+		 * to controller short code but instead camel
+		 * case, here we use underscore (_) to split
+		 * the words
 		 */
-		var apiShortCode = {};
-		_u.each(configData.global.apiPath, function(apiPath, apiName) {
-			var shortCode = "";
-			apiShortCode[apiName] = shortCode;
-		});
+		var apiShortCode;
+		if (_u.has(configData.global, "apiPath")) {
+			apiShortCode = {};
+			_u.each(configData.global.apiPath, function(apiPath, apiName) {
+				var separatedNames = apiName.split("_"),
+				    nLen = separatedNames.length,
+				    shortCode = "";
+				if (nLen > 1) {
+					_u.some(separatedNames, function(separatedName) {
+						shortCode += separatedName.charAt(0);
+						return shortCode.length === 4;
+					});
+					var requiredLen = 4 - shortCode.length;
+					if (requiredLen > 0) {
+						_u.some(separatedNames, function(separatedName, index) {
+							var newIndex = (index * 2) + 1,
+							    newLetter = separatedName.charAt(1) || "";
+							if (newLetter) {
+								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
+							}
+							return shortCode.length === 4;
+						});
+					}
+				} else {
+					shortCode = apiName.substr(0, 4);
+				}
+				apiShortCode[apiName] = shortCode.toUpperCase();
+			});
+			/**
+			 * check for duplicates
+			 */
+			_u.each(apiShortCode, function(mCode, mKey) {
+				_u.each(apiShortCode, function(cCode, cKey) {
+					if (mKey !== cKey && mCode === cCode) {
+						logger.error("unabel to generate unique short codes for apiPaths. " + mKey + " and " + cKey + " has same short code: " + mCode);
+						process.exit(1);
+					}
+				});
+			});
+		}
 
 		/**
 		 * update properties below
@@ -500,8 +540,9 @@ if (build) {
 
 		/**
 		 * controllers short code
-		 * this will be part of
-		 * feature code
+		 * this will be used to identify
+		 * a controller screen from
+		 * analytics / crash reports / api logs
 		 */
 		logger = log4js.getLogger("ControllerShortCode");
 		logger.debug("Writing " + CTRL_SHORT_CODE_JS);
@@ -510,6 +551,38 @@ if (build) {
 		 * Note: only top level
 		 * itemTemplates, templates,
 		 * drawer etc., can be ignored.
+		 *
+		 * Rules:
+		 *
+		 * 1. Controller names should use
+		 * camel cases (with first letter only
+		 * in lower case), less than
+		 * or equal to 4 words and meaningful.
+		 *
+		 * 2. Any duplicates on short code name
+		 * will throw an error and stop
+		 * compilation process.
+		 *
+		 * Shot code logic:
+		 *
+		 * 1. If a controller name has more than one
+		 * word, first letter of each word will
+		 * be taken.
+		 *
+		 * i.e controllerHasFourWords - CHFW
+		 * i.e weAreThree - WAT
+		 *
+		 * 2. If the above gives less than 4 characters
+		 * then second letter of each word will be taken
+		 * (only till it reaches 4 characters).
+		 *
+		 * i.e weAreThree - WEAT
+		 *
+		 * 3. If the controller has only one word then
+		 * take first 4 characters.
+		 *
+		 * i.e one	 - ONE (controller name only has 3 characters)
+		 * i.e login - LOGI
 		 */
 		var tiCtrlShortCode = {},
 		    allCtrlFile = fs.readdirSync(CTRL_DIR);
@@ -528,7 +601,7 @@ if (build) {
 					if (!shortCode || (charCode >= 65 && charCode <= 90)) {
 						usedIndexes.push(index);
 						//0th char may be in small letter
-						shortCode += letter.toUpperCase();
+						shortCode += letter;
 					}
 					return shortCode.length === 4;
 				});
@@ -538,25 +611,41 @@ if (build) {
 				 */
 				var requiredLen = 4 - shortCode.length;
 				if (requiredLen > 0) {
-					_u.some(usedIndexes, function(usedIndex) {
+					_u.some(usedIndexes, function(usedIndex, index) {
 						var newIndex = usedIndex + 1,
-						    newLetter = ctrlFile.charAt(newIndex);
-						if (newLetter) {
-							shortCode = (shortCode.substr(0, newIndex) || "") + newLetter.toUpperCase() + (shortCode.substr(newIndex) || "");
+						    nextIndex = usedIndexes[index + 1];
+						if (!nextIndex || newIndex < nextIndex) {
+							var newLetter = ctrlFile.charAt(newIndex);
+							if (newLetter) {
+								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
+							}
 						}
 						return shortCode.length === 4;
 					});
 				}
 				/**
 				 * if still length is less than or equal to 2
-				 * then use first 4 character
+				 * then use first 4 character (this happens
+				 * only with one word controller names).
 				 */
 				if (shortCode.length <= 2) {
-					shortCode = ctrlFile.substr(0, 4).toUpperCase();
+					var nLen = ctrlFile.length;
+					shortCode = ctrlFile.substr(0, nLen < 4 ? nLen : 4);
 				}
-				tiCtrlShortCode[ctrlFile] = shortCode;
+				tiCtrlShortCode[ctrlFile] = shortCode.toUpperCase();
 			}
 		}
+		/**
+		 * check for duplicates
+		 */
+		_u.each(tiCtrlShortCode, function(mCode, mKey) {
+			_u.each(tiCtrlShortCode, function(cCode, cKey) {
+				if (mKey !== cKey && mCode === cCode) {
+					logger.error("unabel to generate unique short codes for controllers. " + mKey + " and " + cKey + " has same short code: " + mCode);
+					process.exit(1);
+				}
+			});
+		});
 		fs.writeFileSync(CTRL_SHORT_CODE_JS, "module.exports = " + JSON.stringify(tiCtrlShortCode, null, 4).concat(";"));
 		logger.info("Created " + CTRL_SHORT_CODE_JS);
 
@@ -566,7 +655,6 @@ if (build) {
 		logger = log4js.getLogger("TSSMaker");
 
 		logger.debug("Initated building app.tss");
-
 		/**
 		 * identify language file
 		 */
