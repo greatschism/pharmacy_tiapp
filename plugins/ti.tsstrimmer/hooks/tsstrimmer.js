@@ -2,7 +2,7 @@ exports.cliVersion = ">=3.2";
 
 var TAG = "TSSTrimmer",
     path = require("path"),
-    fs = require("fs-extra");
+    fs = require("nofs");
 
 /**
  * get all js files

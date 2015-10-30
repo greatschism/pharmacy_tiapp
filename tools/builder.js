@@ -1,7 +1,7 @@
 var log4js = require("log4js"),
     program = require("commander"),
     path = require("path"),
-    fs = require("fs-extra"),
+    fs = require("nofs"),
     util = require("util"),
     cp = require("child_process"),
     exec = require("sync-exec"),
@@ -276,7 +276,14 @@ if (build) {
 			dest : APP_ANDROID_DRAWABLE_XXXHDPI
 		}], function(obj) {
 			if (fs.existsSync(obj.source)) {
-				fs.copySync(obj.source, obj.dest);
+				/**
+				 * copy is happening on
+				 * folder level, ignore
+				 * hidden files
+				 */
+				fs.copySync(obj.source, obj.dest, {
+					all : false
+				});
 				logger.debug("Linked " + obj.source + " => " + obj.dest);
 			}
 		});
