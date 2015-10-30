@@ -181,7 +181,7 @@ function didCheckMobileNumber(result) {
 				ctrl : "textMessage",
 				stack : true,
 				ctrlArguments : {
-					"remindersSettings": remindersSettings,
+					"remindersSettings": args.remindersSettings,
 					"otp" : otp,
 					"phone" : phone,
 					"txtCode" : true,
