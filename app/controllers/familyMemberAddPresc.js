@@ -115,7 +115,6 @@ function addPrescriptions() {
 	$.http.request({
 		method : "patient_family_add_fullacount",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					rx_number : rxNo.substring(0, 7),

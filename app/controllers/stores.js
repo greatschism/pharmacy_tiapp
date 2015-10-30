@@ -229,7 +229,6 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 	httpClient = $.http.request({
 		method : "stores_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				stores : reqStoreObj
 			}]

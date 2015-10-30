@@ -143,7 +143,6 @@ function getPrescriptions(status, callback, keepLoader, errorDialogEnabled) {
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
 					sort_order_preferences : Alloy.Models.sortOrderPreferences.get("selected_code_value") || Alloy.Collections.patients.at(0).get("pref_prescription_sort_order"),
@@ -615,7 +614,6 @@ function didClickUnhide(e) {
 		$.http.request({
 			method : "prescriptions_unhide",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					prescriptions : prescriptions
 				}]
@@ -684,7 +682,6 @@ function hidePrescription(e) {
 	$.http.request({
 		method : "prescriptions_hide",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : [{
 					id : e.data.id

@@ -62,7 +62,6 @@ function init(passthrough) {
 	http.request({
 		method : "patient_authenticate",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					user_name : username,
@@ -110,7 +109,6 @@ function didAuthenticate(result, passthrough) {
 	http.request({
 		method : "codes_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				codes : [{
 					code_name : Alloy.CFG.apiCodes.code_language
@@ -169,9 +167,6 @@ function getFamilyAccounts(passthrough) {
 	 */
 	http.request({
 		method : "patient_family_get",
-		params : {
-			feature_code : "THXXX"
-		},
 		passthrough : passthrough,
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
@@ -234,9 +229,6 @@ function didGetFamilyAccounts(result, passthrough) {
 function getPatient(passthrough) {
 	http.request({
 		method : "patient_get",
-		params : {
-			feature_code : "THXXX"
-		},
 		passthrough : passthrough,
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
@@ -303,9 +295,6 @@ function didGetPatient(result, passthrough) {
 	//get preferences
 	http.request({
 		method : "patient_preferences_get",
-		params : {
-			feature_code : "THXXX"
-		},
 		passthrough : passthrough,
 		keepLoader : true,
 		errorDialogEnabled : passthrough.errorDialogEnabled,
@@ -434,7 +423,6 @@ function setDefaultDevice(passthrough) {
 			http.request({
 				method : "patient_default_device",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						device : {
 							deviceType : Ti.Platform.osname,
@@ -600,7 +588,6 @@ function updatePreferences(params, passthrough) {
 	http.request({
 		method : "patient_preferences_update",
 		params : {
-			feature_code : "THXXX",
 			data : [preferences]
 		},
 		passthrough : passthrough,
@@ -737,9 +724,6 @@ function logout(passthrough) {
 function doLogout(passthrough) {
 	http.request({
 		method : "patient_logout",
-		params : {
-			feature_code : "THXXX"
-		},
 		passthrough : passthrough,
 		keepLoader : true,
 		errorDialogEnabled : false,

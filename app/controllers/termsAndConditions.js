@@ -9,7 +9,6 @@ function init() {
 		http.request({
 			method : "terms_get_all",
 			params : {
-				feature_code: "THXXX",
 				data : [{
 					terms : "some"
 				}]
@@ -31,7 +30,6 @@ function getTerms(){
 	http.request({
 		method : "terms_get",
 		params : {
-			feature_code: "THXXX",
 			data : [{
 				terms : ""
 			}]

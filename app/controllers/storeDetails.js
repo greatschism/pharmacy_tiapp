@@ -21,7 +21,6 @@ function focus() {
 			httpClient = $.http.request({
 				method : "stores_get",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						stores : {
 							id : store.id
@@ -266,7 +265,6 @@ function updateStatus(isFavourite, isHome) {
 	httpClient = $.http.request({
 		method : method,
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				stores : storeObj
 			}]

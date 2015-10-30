@@ -111,7 +111,6 @@ function didGetPhoto(blob) {
 	$.http.request({
 		method : "upload_image",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					EncodedImageString : base64Str
@@ -129,7 +128,6 @@ function didUploadImage(result, passthrough) {
 	$.http.request({
 		method : "doctors_update",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				doctors : data
 			}]

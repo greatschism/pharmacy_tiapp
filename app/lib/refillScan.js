@@ -29,7 +29,6 @@ function didGetBarcode(e) {
 	$.http.request({
 		method : "prescriptions_refill",
 		params : {
-			feature_code : "THXXX",
 			filter : {
 				refill_type : apiCodes.refill_type_scan
 			},

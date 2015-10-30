@@ -23,7 +23,6 @@ function init() {
 		$.http.request({
 			method : "appload_get_banners",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					banners : {
 						platform : Alloy.CFG.platform_code,

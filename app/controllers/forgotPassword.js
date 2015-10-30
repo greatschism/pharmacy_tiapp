@@ -27,7 +27,6 @@ function didClickSend(){
 	http.request({
 		method : "patient_forgotpassword",
 		params : {
-			feature_code : "THXXX",
 			data: [
 			        {
 			            forgotPassword: {

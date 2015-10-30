@@ -61,7 +61,6 @@ function focus() {
 			$.http.request({
 				method : "stores_get",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						stores : {
 							id : storeId
@@ -216,7 +215,6 @@ function getHomePharmacy() {
 	$.http.request({
 		method : "stores_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				stores : {
 					search_criteria : "",
@@ -239,7 +237,6 @@ function didGetStoreList(result) {
 				$.http.request({
 					method : "stores_get",
 					params : {
-						feature_code : "THXXX",
 						data : [{
 							stores : {
 								id : store.id

@@ -191,7 +191,6 @@ function deletePatient(patient) {
 	http.request({
 		method : "patient_family_delete",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					child_id : patient.child_id,

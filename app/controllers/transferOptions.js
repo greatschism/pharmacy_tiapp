@@ -22,7 +22,6 @@ function didClickComplete(e) {
 		$.http.request({
 			method : "upload_image",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					patient : {
 						EncodedImageString : base64Str
@@ -83,7 +82,6 @@ function transferStore(imageURL) {
 	$.http.request({
 		method : "stores_transfer",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				transfer : data
 			}]

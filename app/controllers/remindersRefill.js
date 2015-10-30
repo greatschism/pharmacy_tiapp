@@ -91,7 +91,6 @@ function getPrescriptions(status, callback) {
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
 					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
@@ -124,7 +123,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 	$.http.request({
 		method : "reminders_refill_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				reminders : {
 					type : apiCodes.reminder_type_refill
@@ -396,7 +394,6 @@ function updateReminder(callback) {
 		$.http.request({
 			method : _.isEmpty(modelData) ? "reminders_refill_add" : "reminders_refill_update",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
 						type : apiCodes.reminder_type_refill,

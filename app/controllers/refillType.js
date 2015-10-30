@@ -192,7 +192,6 @@ function didClickRefill(e) {
 	$.http.request({
 		method : "prescriptions_refill",
 		params : {
-			feature_code : "THXXX",
 			filter : {
 				refill_type : apiCodes.refill_type_quick
 			},
@@ -270,7 +269,6 @@ function getStore() {
 		$.http.request({
 			method : "stores_get",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					stores : {
 						id : storeId,
@@ -312,7 +310,6 @@ function getPickupModes() {
 	$.http.request({
 		method : "codes_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				codes : [{
 					code_name : apiCodes.code_pickup_modes

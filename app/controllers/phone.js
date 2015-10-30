@@ -152,7 +152,6 @@ function didClickContinue() {
 	$.http.request({
 		method : "mobile_add",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				add : {
 					mobile : "1" + phone,

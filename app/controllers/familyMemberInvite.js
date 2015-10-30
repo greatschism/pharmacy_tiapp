@@ -40,7 +40,6 @@ function didSendInvite() {
 	$.http.request({
 		method : "patient_family_add",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					is_adult : true,

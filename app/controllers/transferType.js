@@ -10,7 +10,6 @@ function focus() {
 			$.http.request({
 				method : "codes_get",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						codes : [{
 							code_name : Alloy.CFG.apiCodes.code_store_original

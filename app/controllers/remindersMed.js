@@ -105,7 +105,6 @@ function getPrescriptions(status, callback) {
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
 					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
@@ -139,7 +138,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 	$.http.request({
 		method : "reminders_med_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				reminders : {
 					type : apiCodes.reminder_type_med
@@ -353,7 +351,6 @@ function didClickSwipeOption(e) {
 			$.http.request({
 				method : "reminders_med_delete",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						reminders : {
 							id : data.id,

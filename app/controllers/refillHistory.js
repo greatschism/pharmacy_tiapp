@@ -19,7 +19,6 @@ function focus() {
 			httpClient = $.http.request({
 				method : "prescriptions_get_refill_history",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						prescriptions : [{
 							id : prescription.id

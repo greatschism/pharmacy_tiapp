@@ -56,7 +56,6 @@ function focus() {
 			httpClient = $.http.request({
 				method : "prescriptions_get",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						prescriptions : {
 							id : prescription.id,
@@ -110,7 +109,6 @@ function getDoctor() {
 	httpClient = $.http.request({
 		method : "doctors_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				doctors : {
 					id : prescription.doctor_id,
@@ -145,7 +143,6 @@ function getStore() {
 	httpClient = $.http.request({
 		method : "stores_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				stores : {
 					id : prescription.original_store_id,
@@ -332,7 +329,6 @@ function didConfirmHide() {
 	httpClient = $.http.request({
 		method : "prescriptions_hide",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : [{
 					id : prescription.id
@@ -365,7 +361,6 @@ function didChangeRefill(e) {
 	$.http.request({
 		method : "reminders_refill_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				reminders : {
 					type : apiCodes.reminder_type_refill
@@ -416,7 +411,6 @@ function didGetRefillReminder(result, passthorugh) {
 		$.http.request({
 			method : result.data ? "reminders_refill_update" : "reminders_refill_add",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
 						type : apiCodes.reminder_type_refill,
@@ -480,7 +474,6 @@ function didChangeMed(e) {
 		$.http.request({
 			method : "reminders_med_list",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					reminders : {
 						type : apiCodes.reminder_type_med
@@ -498,7 +491,6 @@ function didChangeMed(e) {
 		$.http.request({
 			method : "reminders_med_delete_prescription",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					reminders : {
 						type : apiCodes.reminder_type_med,

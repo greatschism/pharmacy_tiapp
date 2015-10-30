@@ -17,7 +17,7 @@ describe("RequestWrapper Test Suite", function() {
 			http.request({
 				method : "appload_get",
 				params : {
-					feature_code : "THXXX",
+					feature_code : Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode.appload_get + "-UNTE",
 					data : [{
 						appload : {
 							phone_model : Ti.Platform.model,

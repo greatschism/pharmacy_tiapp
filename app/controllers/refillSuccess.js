@@ -57,7 +57,6 @@ function getStore(storeId) {
 	$.http.request({
 		method : "stores_get",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				stores : {
 					id : storeId

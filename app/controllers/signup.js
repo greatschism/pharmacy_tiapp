@@ -258,7 +258,6 @@ function didClickSignup(e) {
 	$.http.request({
 		method : "patient_register",
 		params : {
-			feature_code : "THXXX",
 			filter : {
 				sort_order : "asc"
 			},

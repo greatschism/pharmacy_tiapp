@@ -25,7 +25,6 @@ function didClickResendEmail() {
 $.http.request({
 		method : "email_resend",
 		params : {
-			feature_code : "THXXX",
 			filter : []
 		},
 		success : didResendEmail,

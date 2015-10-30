@@ -220,7 +220,6 @@ function didClickChildSwipeOption(e) {
 				$.http.request({
 					method : "patient_family_delete",
 					params : {
-						feature_code : "THXXX",
 						data : [{
 							patient : {
 								child_id : data.child_id,
@@ -243,7 +242,6 @@ function didClickChildSwipeOption(e) {
 		$.http.request({
 			method : "patient_family_invite_resend",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					patient : {
 						mode : mode,
@@ -298,7 +296,6 @@ function didClickMgrSwipeOption(e) {
 				$.http.request({
 					method : "patient_family_delete",
 					params : {
-						feature_code : "THXXX",
 						data : [{
 							patient : {
 								parent_id : data.parent_id,
@@ -320,7 +317,6 @@ function didClickMgrSwipeOption(e) {
 		$.http.request({
 			method : "patient_family_invite_resend",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					patient : {
 						mode : mode,

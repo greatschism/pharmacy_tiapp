@@ -213,9 +213,6 @@ function didClickDeliveryMode(e) {
 		if (!isEmailSent && mPatient.get("is_email_verified") !== "1") {
 			$.http.request({
 				method : "email_resend",
-				params : {
-					feature_code : "THXXX"
-				},
 				success : function(result, passthrough) {
 					isEmailSent = true;
 					$.uihelper.showDialog({

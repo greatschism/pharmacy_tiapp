@@ -86,7 +86,6 @@ function getDoctors() {
 	$.http.request({
 		method : "doctors_list",
 		params : {
-			feature_code : "THXXX",
 			filter : {
 				sort_type : apiCodes.doctors_sort_type_asc,
 				sort_by : apiCodes.doctors_sort_by_fname
@@ -102,7 +101,6 @@ function didGetDoctors(result, passthrough) {
 	$.http.request({
 		method : "prescriptions_list",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				prescriptions : {
 					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
@@ -217,7 +215,6 @@ function didClickSwipeOption(e) {
 				$.http.request({
 					method : "doctors_delete",
 					params : {
-						feature_code : "THXXX",
 						data : [{
 							doctors : {
 								id : data.id

@@ -32,7 +32,6 @@ function didClickSuccess(){
 		http.request({
 			method : "terms_email",
 			params : {
-				feature_code : "THXXX",
 				filter:null,
 				data:[{
 				 }]
@@ -56,7 +55,6 @@ function didClickRevoke(){
 	http.request({
 		method : "terms_revoke",
 		params : {
-			feature_code : "THXXX",
 			filter:null,
 			data:[{
 				terms: {

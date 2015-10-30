@@ -20,7 +20,6 @@ function init(){
 		http.request({
 			method : "terms_get_all",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					terms : ""
 				}]
@@ -71,7 +70,6 @@ function didClickAccept(){
 	http.request({
 		method : "terms_accept",
 		params : {
-			feature_code : "THXXX",
 			filter : [],
 			data : [{
 				terms: {
@@ -88,7 +86,6 @@ function didClickDecline(){
 	http.request({
 		method : "terms_decline",
 		params : {
-			feature_code : "THXXX",
 			filter : [],
 			data : [{
 				terms: {

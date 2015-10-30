@@ -11,6 +11,7 @@ var TAG = "requestwrapper",
     encryptionUtil = require("encryptionUtil"),
     localization = require("localization"),
     uihelper = require("uihelper"),
+    ctrlShortCode = require("ctrlShortCode"),
     logger = require("logger");
 
 function request(args) {
@@ -47,6 +48,17 @@ function request(args) {
 		timeout : Alloy.CFG.http_timeout,
 		loaderMessage : Alloy.Globals.strings.msgLoading
 	});
+
+	/**
+	 * set feature code
+	 * if not set already
+	 * Note: if current controller
+	 * is not available, use GLOB
+	 * as keyword for module
+	 */
+	if (!_.has(args.params, "feature_code")) {
+		args.params.feature_code = Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode[args.method] + "-" + (ctrlShortCode[app.navigator.currentController.ctrlPath] || "GLOB");
+	}
 
 	if (args.showLoader !== false) {
 		if (_.isEmpty(app.navigator) === false) {

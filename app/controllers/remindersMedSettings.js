@@ -1105,7 +1105,6 @@ function didClickSubmitReminder(e) {
 	$.http.request({
 		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				reminders : data
 			}]
@@ -1200,7 +1199,6 @@ function didConfirmRemove(e) {
 	$.http.request({
 		method : "reminders_med_delete",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				reminders : {
 					id : reminder.id,

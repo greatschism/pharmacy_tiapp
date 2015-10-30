@@ -129,7 +129,6 @@ function didClickContinue() {
 			$.http.request({
 				method : "patient_family_add",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						patient : {
 							is_adult : false,
@@ -154,7 +153,6 @@ function didClickContinue() {
 			$.http.request({
 				method : "patient_family_add",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						patient : {
 							is_adult : false,
@@ -182,7 +180,6 @@ function didClickContinue() {
 		$.http.request({
 			method : "patient_family_add",
 			params : {
-				feature_code : "THXXX",
 				data : [{
 					patient : {
 						is_adult : false,

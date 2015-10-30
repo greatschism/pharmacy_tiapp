@@ -56,9 +56,6 @@ function didNotReceiveClicked() {
 function replyTextMessage() {
 	$.http.request({
 		method : "patient_get",
-		params : {
-			feature_code : "THXXX"
-		},
 		success : didGetPatient,
 		failure : didFailPatient
 	});
@@ -158,7 +155,6 @@ function sendTextSignUpMessage() {
 	$.http.request({
 		method : "mobile_resend",
 		params : {
-			feature_code : "THXXX",
 			filter : []
 		},
 		success : didSendAgainFromTextSignUp,
@@ -202,7 +198,6 @@ function sendTextTextHelpMessage() {
 	$.http.request({
 		method : "mobile_resend",
 		params : {
-			feature_code : "THXXX",
 			filter : []
 		},
 		success : didSendAgainFromTextHelp,
@@ -295,7 +290,6 @@ function didNotReceiveText() {
 	$.http.request({
 		method : "mobile_resend",
 		params : {
-			feature_code : "THXXX",
 			filter : []
 		},
 		success : function() {

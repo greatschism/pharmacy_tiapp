@@ -23,7 +23,6 @@ function focus() {
 			$.http.request({
 				method : "codes_get",
 				params : {
-					feature_code : "THXXX",
 					data : [{
 						codes : [{
 							code_name : apiCodes.code_states
@@ -205,7 +204,6 @@ function didClickSubmit(e) {
 	$.http.request({
 		method : data.method,
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				doctors : _.omit(data, ["method", "shouldUpdate"])
 			}]
@@ -249,7 +247,6 @@ function didConfirmRemove() {
 	$.http.request({
 		method : "doctors_delete",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				doctors : {
 					id : doctor.id

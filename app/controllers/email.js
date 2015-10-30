@@ -28,7 +28,6 @@ function didClickDone() {
 	$.http.request({
 		method : "patient_update",
 		params : {
-			feature_code : "THXXX",
 			data : [{
 				patient : {
 					email : $.emailTxt.getValue()

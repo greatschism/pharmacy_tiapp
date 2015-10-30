@@ -2,6 +2,7 @@ var args = arguments[0] || {},
     TAG = "appload",
     app = require("core"),
     config = require("config"),
+    ctrlShortCode = require("ctrlShortCode"),
     httpClient = require("http"),
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
@@ -41,6 +42,7 @@ function hideLoader() {
 
 function getAppConfig() {
 	logger.debug(TAG, "request", Alloy.CFG.appconfig_url);
+	//GAPC - stands for getappjconfig
 	httpClient.request({
 		url : Alloy.CFG.appconfig_url,
 		type : "POST",
@@ -48,7 +50,7 @@ function getAppConfig() {
 		params : JSON.stringify({
 			data : {
 				getappjconfig : {
-					featurecode : "AH001",
+					featurecode : Alloy.CFG.platform_code + "-GAPC-" + ctrlShortCode[$.__controllerPath],
 					phoneplatform : Alloy.CFG.platform_code,
 					clientname : Alloy.CFG.client_name,
 					appversion : Alloy.CFG.app_version
@@ -116,11 +118,15 @@ function didGetAppConfig(result, passthrough) {
 			 * device_id
 			 * 	ios - a unique identifier (UUID) for this installation
 			 * 	android - IMEI number of device
+			 *
+			 * Note: request wrapper can append feature codes
+			 * only when navigator is ready and no feature
+			 * code is passed
 			 */
 			http.request({
 				method : "appload_get",
 				params : {
-					feature_code : "THXXX",
+					feature_code : Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode.appload_get + "-" + ctrlShortCode[$.__controllerPath],
 					data : [{
 						appload : {
 							phone_model : Ti.Platform.model,

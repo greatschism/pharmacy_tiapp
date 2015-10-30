@@ -256,7 +256,7 @@ var Res = {
 						http.request({
 							method : "appload_clientjson",
 							params : {
-								feature_code : "THXXX",
+								feature_code : Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode.appload_get + "-RESO",
 								data : [{
 									appload : {
 										client_param_type : obj.type,
