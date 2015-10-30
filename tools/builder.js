@@ -254,9 +254,6 @@ if (build) {
 			source : BRAND_MARKETPLACE_FEATURE_IMG,
 			dest : APP_MARKETPLACE_FEATURE_IMG
 		}, {
-			source : BRAND_ANDROID_RES_BASE_DIR,
-			dest : APP_ANDROID_RES_BASE_DIR
-		}, {
 			source : BRAND_ANDROID_DRAWABLE_LDPI,
 			dest : APP_ANDROID_DRAWABLE_LDPI
 		}, {
