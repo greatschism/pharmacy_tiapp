@@ -80,7 +80,8 @@ function init() {
 		setTitle : setTitle,
 		showNavBar : showNavBar,
 		hideNavBar : hideNavBar,
-		setRightNavButton : setRightNavButton
+		setRightNavButton : setRightNavButton,
+		ctrlShortCode : $.ctrlShortCode
 	});
 
 	logger.debug(TAG, "init", $.ctrlShortCode);

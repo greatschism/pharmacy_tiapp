@@ -337,6 +337,10 @@ function didConfirmHome() {
 	updateStatus(1, 1);
 }
 
+function handleEvent(e) {
+	$.analytics.handleEvent($.ctrlShortCode, e);
+}
+
 function terminate() {
 	if (httpClient) {
 		httpClient.abort();
