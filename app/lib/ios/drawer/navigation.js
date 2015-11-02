@@ -96,7 +96,7 @@ function Navigation(args) {
 			return;
 		}
 
-		analytics.navEvent(ctrlShortCode[that.currentController.ctrlPath] || TAG, ctrlShortCode[params.ctrl]);
+		analytics.navEvent(that.currentController.shortCode || TAG, ctrlShortCode[params.ctrl]);
 
 		if (params.stack) {
 			return that.push(params);
@@ -211,12 +211,12 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		var from = ctrlShortCode[that.currentController.ctrlPath],
+		var from = that.currentController.shortCode,
 		    window = that.currentController.getView();
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		analytics.navEvent(from, ctrlShortCode[that.currentController.ctrlPath]);
+		analytics.navEvent(from, that.currentController.shortCode);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);

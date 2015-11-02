@@ -31,7 +31,10 @@ function init() {
 	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
 
-	$.ctrlPath = controller.__controllerPath;
+	_.extend($, {
+		ctrlPath : args.ctrl,
+		shortCode : ctrlShortCode[args.ctrl]
+	});
 
 	_.each(controller.getTopLevelViews(), function(child) {
 		if (child.__iamalloy) {
@@ -87,7 +90,7 @@ function init() {
 		setRightNavButton : setRightNavButton
 	});
 
-	logger.debug(TAG, "init", ctrlShortCode[$.ctrlPath]);
+	logger.debug(TAG, "init", $.shortCode);
 
 	controller.init && controller.init();
 
@@ -95,22 +98,22 @@ function init() {
 }
 
 function focus(e) {
-	logger.debug(TAG, "focus", ctrlShortCode[$.ctrlPath]);
+	logger.debug(TAG, "focus", $.shortCode);
 	controller.focus && controller.focus();
 }
 
 function blur(e) {
-	logger.debug(TAG, "blur", ctrlShortCode[$.ctrlPath]);
+	logger.debug(TAG, "blur", $.shortCode);
 	controller.blur && controller.blur();
 }
 
 function terminate(e) {
-	logger.debug(TAG, "terminate", ctrlShortCode[$.ctrlPath]);
+	logger.debug(TAG, "terminate", $.shortCode);
 	controller.terminate && controller.terminate();
 }
 
 function backButtonHandler(e) {
-	logger.debug(TAG, "backButtonHandler", ctrlShortCode[$.ctrlPath]);
+	logger.debug(TAG, "backButtonHandler", $.shortCode);
 	return controller.backButtonHandler && controller.backButtonHandler();
 }
 
