@@ -14,7 +14,7 @@ var EventHandler = {
 	handleEvent : function(from, event) {
 		var source = event.source,
 		    name = source.analyticsId || source.id;
-		if (name) {
+		if (name && name.indexOf("__alloyId") === -1) {
 			if (source.apiName === "Ti.UI.Switch") {
 				name += "-" + source.value;
 			}
