@@ -137,7 +137,7 @@ function setRightNavButton(view) {
 }
 
 function handleEvent(e) {
-	analytics.handleEvent(e);
+	analytics.handleEvent($.ctrlShortCode, e);
 }
 
 _.extend($, {

@@ -133,20 +133,7 @@ function setRightNavButton(view) {
 }
 
 function handleEvent(e) {
-	var view = e.source,
-	    type = e.type;
-	switch(view.apiName) {
-	case "Ti.UI.Button":
-		console.log(view.id);
-		break;
-	case "Ti.UI.View":
-		break;
-	case "Ti.UI.TableViewRow":
-		break;
-	case "Ti.UI.Switch":
-		console.log(view.value);
-		break;
-	}
+	analytics.handleEvent($.ctrlShortCode, e);
 }
 
 _.extend($, {

@@ -1,9 +1,9 @@
 var Alloy = require("alloy");
 
 var EventHandler = {
-	featureEvent : function(name, data) {
+	featureEvent : function(name) {
 		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.featureEvent(name, data);
+			Ti.Analytics.featureEvent(name);
 		}
 	},
 	navEvent : function(from, to, name, data) {
@@ -11,8 +11,15 @@ var EventHandler = {
 			Ti.Analytics.navEvent(from, to, name || "", data || {});
 		}
 	},
-	handleEvent : function(e) {
-		//console.log(JSON.stringify(e));
+	handleEvent : function(from, event) {
+		var source = event.source,
+		    name = source.analyticsId || source.id;
+		if (name) {
+			if (source.apiName === "Ti.UI.Switch") {
+				name += "-" + source.value;
+			}
+			EventHandler.featureEvent(from + "-" + name);
+		}
 	}
 };
 
