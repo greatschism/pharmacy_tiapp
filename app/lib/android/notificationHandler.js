@@ -1,4 +1,4 @@
-var TAG = "notificationHandler",
+var TAG = "NOHA",
     Alloy = require("alloy"),
     notificationPanel = require("notificationPanel"),
     TiPush = require("ti.push"),
@@ -58,7 +58,7 @@ function didSuccess(e) {
 }
 
 function didFailure(e) {
-	logger.error(TAG, e);
+	logger.error(TAG, "unable to get gcm device token");
 	triggerCallback();
 	isBusy = false;
 }

@@ -1,4 +1,4 @@
-var TAG = "uihelper",
+var TAG = "UIHE",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),

@@ -1,5 +1,5 @@
 <Alloy>
-	<TableView dataCollection="menuItems" dataTransform="transformFunction" dataFilter="filterFunction" onClick="didClickTableView">
+	<TableView class="menu-view" dataCollection="menuItems" dataTransform="transformFunction" onClick="didClickTableView">
 		<HeaderView>
 			<View id="headerView" class="auto-height">
 				<ImageView id="logoImg" class="menu-header-image" />

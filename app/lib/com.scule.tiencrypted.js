@@ -1,4 +1,4 @@
-var TAG = "com.scule.tiencrypted",
+var TAG = "SCUL",
 
     logger = require("logger"),
 
@@ -71,7 +71,7 @@ var TAG = "com.scule.tiencrypted",
 				}
 				return o;
 			} catch(error) {
-				logger.error(TAG, "Unable to decrypt", error);
+				logger.error(TAG, "Unable to decrypt");
 				return false;
 			}
 		}

@@ -1,4 +1,4 @@
-var TAG = "Resources",
+var TAG = "RESO",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),
@@ -146,13 +146,13 @@ var Res = {
 				obj.revert = obj.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				Res.collection.save(obj);
-				logger.debug(TAG, "added", obj.type, obj.version, obj.code || "");
+				logger.debug(TAG, "added", "type", obj.type, "version", obj.version, "code", obj.code || "");
 			} else if (obj.selected != document.selected || _.has(obj, "data")) {
 				obj.update = !_.has(obj, "data") && !_.has(document, "data");
 				obj.revert = obj.selected && obj.update;
 				obj.selected = obj.revert ? false : obj.selected;
 				_.extend(document, obj);
-				logger.debug(TAG, "updated", document.type, document.version, document.code || "");
+				logger.debug(TAG, "updated", "type", document.type, "version", document.version, "code", document.code || "");
 			}
 
 			if (obj.selected || obj.revert) {
@@ -253,10 +253,11 @@ var Res = {
 					if (obj.type == "font" || obj.type == "image") {
 						Res.downloadAsset(obj);
 					} else {
+						logger.debug(TAG, "downloading", "type", obj.type, "version", obj.version, "code", obj.code || "");
 						http.request({
 							method : "appload_clientjson",
 							params : {
-								feature_code : Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode.appload_get + "-RESO",
+								feature_code : Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode.appload_get + "-" + TAG,
 								data : [{
 									appload : {
 										client_param_type : obj.type,
@@ -274,7 +275,6 @@ var Res = {
 							failure : Res.didUpdate
 						});
 					}
-					logger.debug(TAG, "downloading", obj.type, obj.version, obj.code || "");
 				});
 			} else if (callback) {
 				callback();
@@ -285,10 +285,8 @@ var Res = {
 	didUpdate : function(result, passthrough) {
 		if ((_.has(result, "code") && result.code != Alloy.CFG.apiCodes.success) || (_.has(result, "success") && result.success === false)) {
 			passthrough.error = true;
-			logger.error(TAG, "unable to download", passthrough, "with error", result);
 		} else {
 			passthrough.error = false;
-			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
 			var isAsset = passthrough.type == "fonts" || passthrough.type == "images",
 			    item = _.pick(passthrough, ["type", "version", "base_version"]);
 			_.extend(item, {
@@ -318,7 +316,7 @@ var Res = {
 	},
 
 	downloadAsset : function(passthrough) {
-		logger.debug(TAG, "download", passthrough.url);
+		logger.debug(TAG, "request", passthrough.url);
 		require("http").request({
 			url : passthrough.url,
 			format : "data",
@@ -331,10 +329,10 @@ var Res = {
 	didDownloadAsset : function(result, passthrough) {
 		if (_.isObject(result) && _.has(result, "success") && result.success === false) {
 			passthrough.error = true;
-			logger.error(TAG, "unable to download", passthrough, "with error", result);
+			logger.error(TAG, "failure", "type", passthrough.type, "version", passthrough.version, "code", passthrough.code || "");
 		} else {
 			passthrough.error = false;
-			logger.debug(TAG, "downloaded successfully", passthrough.type, passthrough.version, passthrough.code || "");
+			logger.debug(TAG, "success", "type", passthrough.type, "version", passthrough.version, "code", passthrough.code || "");
 			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + (passthrough.hires ? Res.imgHiresSuffix : "") + "." + passthrough.format;
 			if (passthrough.type == "fonts") {
 				//fonts

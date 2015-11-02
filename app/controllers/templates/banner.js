@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    TAG = "banner";
+    TAG = "BANN";
 
 (function() {
 	$.descriptionLbl.text = args.description;

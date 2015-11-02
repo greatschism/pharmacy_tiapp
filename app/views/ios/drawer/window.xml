@@ -1,3 +1,9 @@
 <Alloy>
-	<Window onOpen="didOpen" onFocus="didOpen" onBlur="didBlur" onClose="didClose" onClick="handleEvent" onChange="handleEvent" />
+	<Window onOpen="focus" onClose="terminate" onClick="handleEvent" onChange="handleEvent">
+		<LeftNavButton>
+			<View id="leftNavView" onClick="didClickLeftNavView">
+				<Button class="nav-icon icon-back" />
+			</View>
+		</LeftNavButton>
+	</Window>
 </Alloy>

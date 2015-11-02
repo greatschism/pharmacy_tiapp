@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    TAG = "stores",
+    TAG = require("ctrlShortCode")[$.__controllerPath],
     googleApiSuccess = "OK",
     Map = Alloy.Globals.Map,
     currentViewType = Alloy.CFG.apiCodes.store_view_type_list,
@@ -297,7 +297,6 @@ function didGetDistance(result, passthrough) {
 	 * reset http client to ensure no pending api
 	 */
 	httpClient = null;
-	$.logger.debug(TAG, "response", result);
 	if (result.status === googleApiSuccess) {
 		var stores = passthrough.result.data.stores.stores_list,
 		    elements = result.rows[0].elements,
@@ -840,7 +839,6 @@ function didReturnSearch(e) {
 
 function didGetGeoCode(result, passthrough) {
 	httpClient = null;
-	$.logger.debug(TAG, "response", result);
 	/**
 	 * check if success
 	 * zero results are avoided
@@ -1182,7 +1180,6 @@ function didGetAddress(result, passthrough) {
 	 * reset http
 	 */
 	httpClient = null;
-	$.logger.debug(TAG, "response", result);
 	/**
 	 * check if success
 	 */

@@ -1,5 +1,4 @@
 var args = arguments[0] || {},
-    TAG = "appload",
     app = require("core"),
     config = require("config"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -10,6 +9,7 @@ var args = arguments[0] || {},
     localization = require("localization"),
     notificationHandler = require("notificationHandler"),
     logger = require("logger"),
+    TAG = ctrlShortCode[$.__controllerPath],
     strings = Alloy.Globals.strings,
     triggerAsyncUpdate = false;
 
@@ -41,8 +41,8 @@ function hideLoader() {
 }
 
 function getAppConfig() {
-	logger.debug(TAG, "request", Alloy.CFG.appconfig_url);
 	//GAPC - stands for getappjconfig
+	logger.debug(TAG, "request", "GAPC", "client name", Alloy.CFG.client_name, "app version", Alloy.CFG.app_version);
 	httpClient.request({
 		url : Alloy.CFG.appconfig_url,
 		type : "POST",
@@ -50,7 +50,7 @@ function getAppConfig() {
 		params : JSON.stringify({
 			data : {
 				getappjconfig : {
-					featurecode : Alloy.CFG.platform_code + "-GAPC-" + ctrlShortCode[$.__controllerPath],
+					featurecode : Alloy.CFG.platform_code + "-GAPC-" + TAG,
 					phoneplatform : Alloy.CFG.platform_code,
 					clientname : Alloy.CFG.client_name,
 					appversion : Alloy.CFG.app_version
@@ -63,7 +63,7 @@ function getAppConfig() {
 }
 
 function didFailAppConfig(error, passthrough) {
-	logger.debug(TAG, "error", "code", error.code);
+	logger.debug(TAG, "failure", "GAPC", error.code);
 	uihelper.showDialog({
 		message : http.getNetworkErrorByCode(error.code),
 		buttonNames : [Alloy.Globals.strings.dialogBtnRetry],
@@ -73,7 +73,7 @@ function didFailAppConfig(error, passthrough) {
 
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
-	logger.debug(TAG, "success", "response", appconfig);
+	logger.debug(TAG, "success", "GAPC", "certrequired", appconfig.certrequired, "maintenance", appconfig.required);
 	if (appconfig) {
 		/**
 		 * update model

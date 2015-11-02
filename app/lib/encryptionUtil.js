@@ -1,4 +1,4 @@
-var TAG = "encryptionUtil",
+var TAG = "ENUT",
     c = require("crypto/core"),
     aes = require("crypto/aes"),
     logger = require("logger"),
@@ -41,7 +41,7 @@ function decrypt(cipherText) {
 			iv : decryptIV
 		}).toString(c.enc.Utf8);
 	} catch(error) {
-		logger.error(TAG, "Unable to decrypt", error);
+		logger.error(TAG, "Unable to decrypt");
 		return "";
 	}
 }

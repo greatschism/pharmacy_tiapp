@@ -1,7 +1,7 @@
 /**
  * Validations for Rx Number
  */
-var TAG = "rx",
+var TAG = "RX",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),

@@ -5,7 +5,7 @@
  * * get all languages
  * * get value of key pair
  */
-var TAG = "localization",
+var TAG = "LOCA",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 

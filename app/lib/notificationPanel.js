@@ -1,4 +1,4 @@
-var TAG = "notificationPanel",
+var TAG = "NOPA",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     uihelper = require("uihelper"),

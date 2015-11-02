@@ -1,16 +1,18 @@
 var args = arguments[0] || {},
+    TAG = "MAST",
     moment = require("alloy/moment"),
     app = require("core"),
     uihelper = require("uihelper"),
     navigationHandler = require("navigationHandler"),
     notificationPanel = require("notificationPanel"),
     authenticator = require("authenticator"),
+    logger = require("logger"),
     reload = false;
 
 function init() {
 	if (OS_IOS) {
 		/**
-		 * On iOS apps can stay longer in background
+		 * On iOS, apps can stay longer in background
 		 * so there are chances for user to lose updates
 		 * from appload. To avoid that if app resumes
 		 * from background after appload_timeout time,
@@ -19,31 +21,32 @@ function init() {
 		Ti.App.addEventListener("paused", didAppPaused);
 		Ti.App.addEventListener("resumed", didAppResumed);
 		//drawer window events
-		$.drawer.addEventListener("open", didOpen);
-		$.drawer.addEventListener("close", didClose);
-		$.drawer.addEventListener("windowDidOpen", windowDidOpen);
+		$.drawer.on("open", didOpen);
+		$.drawer.on("close", didClose);
+		$.drawer.on("windowDidOpen", windowDidOpen);
 	}
 	if (OS_ANDROID) {
 		$.rootWindow = $.drawer.getView();
 		$.rootWindow.addEventListener("open", didOpen);
 		$.rootWindow.addEventListener("close", didClose);
 		$.rootWindow.addEventListener("androidback", didAndoridBack);
-		/**
-		 * to hide keyboard when drawer slides
-		 */
-		$.drawer.addEventListener("draweropen", hideKeyboard);
+		//to hide keyboard when drawer slides
+		$.drawer.on("draweropen", hideKeyboard);
 	}
 	$.drawer.open();
 }
 
 function didAppPaused(e) {
+	logger.debug(TAG, "app paused");
 	Alloy.Globals.latestActive = moment().unix();
 	//enable notification panel
 	notificationPanel.active = false;
 }
 
 function didAppResumed(e) {
+	logger.debug(TAG, "app resume");
 	if ((moment().unix() - Alloy.Globals.latestActive) > Alloy.CFG.appload_timeout) {
+		logger.debug(TAG, "applog timeout");
 		return doLogout();
 	}
 	//disable notification panel
@@ -51,37 +54,22 @@ function didAppResumed(e) {
 }
 
 function didOpen(e) {
-	if (OS_IOS) {
-		$.drawer.centerWindow.accessibilityHidden = false;
-		$.drawer.leftWindow.accessibilityHidden = false;
-	}
 	if (OS_ANDROID) {
 		var actionBar = $.rootWindow.activity.actionBar;
 		if (actionBar) {
 			actionBar.setDisplayHomeAsUp(true);
-			actionBar.setOnHomeIconItemSelected(function() {
-				/**
-				 * hide keyboard when drawer is opened
-				 * fails some time, so do it before
-				 * window is toggled
-				 */
-				hideKeyboard();
-				$.drawer.toggleLeftWindow();
-			});
+			actionBar.setOnHomeIconItemSelected(didClickLeftNavView);
 		}
 	}
 	$.trigger("init");
 	app.init({
 		type : "drawer",
 		drawer : $.drawer,
-		navigationWindow : $.navigationWindow || null,
+		navigationWindow : $.navigationWindow,
 		rootWindow : $.rootWindow
 	});
 	/**
-	 * in both the cases
-	 * landing page should be opened
-	 * and update should be triggered
-	 * the failure callback will also
+	 * failure callback will
 	 * prevent authenticator from
 	 * opening login screen
 	 */
@@ -115,11 +103,13 @@ function didAuthenticate(navigationHandled) {
 	 * controller itself
 	 */
 	if (args.triggerUpdate === true) {
+		logger.debug(TAG, "triggering async update");
 		app.update(didCompleteUpdate);
 	}
 }
 
 function didCompleteUpdate() {
+	logger.debug(TAG, "completed async update");
 	reload = ture;
 	doLogout();
 }
@@ -176,16 +166,12 @@ function didAndoridBack(e) {
 	app.navigator.close(1, true);
 }
 
+function didClickLeftNavView(e) {
+	hideKeyboard();
+	$.drawer.toggleLeftWindow();
+}
+
 function hideKeyboard(e) {
-	/**
-	 * hide keyboard if any
-	 * Note: for iOS the same below is handled
-	 * in ios/drawer/window.js before opening
-	 * the window. iOS itself hides
-	 * the keyboard and showing it back
-	 * after left window animation, so keyboard
-	 * should be hidden before open animation.
-	 */
 	if (Ti.App.keyboardVisible) {
 		Ti.App.hideKeyboard();
 	}

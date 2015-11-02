@@ -14,7 +14,7 @@
  * @constructor
  */
 
-var TAG = "navigation",
+var TAG = "NAVI",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 
@@ -73,7 +73,13 @@ function Navigation(args) {
 	this.rootWindow = args.rootWindow;
 
 	/**
-	 * Open a screen controller
+	 * Tells whether root window's action bar is hidden or not
+	 * @type {Boolean}
+	 */
+	this.rootNavBarHidden = false;
+
+	/**
+	 * Opens a new top level controller
 	 * @param {Object} params The arguments for the method
 	 * @param {String} params.ctrl name of the Controller to be opened
 	 * @param {String} params.title title to be displayed on the title bar
@@ -88,31 +94,52 @@ function Navigation(args) {
 			return;
 		}
 
-		if (params.stack && that.navigationWindow) {
+		if (params.stack) {
 			return that.push(params);
 		}
 
 		that.isBusy = true;
 
-		that.controllers = [];
+		that.currentController = Alloy.createController("drawer/view", params);
 
-		that.currentController = Alloy.createController("drawer/window", params);
+		that.currentController.init();
 
-		that.navigationWindow = Ti.UI.iOS.createNavigationWindow({
-			window : that.currentController.getView()
-		});
+		that.rootWindow.add(that.currentController.getView());
 
-		that.drawer.setCenterWindow(that.navigationWindow);
+		that.currentController.focus();
+
+		var len = that.controllers.length;
+
+		if (len) {
+
+			if (len > 1) {
+				var count = len - 1,
+				    removeControllers = that.controllers.splice(len - count, count);
+				for (var i = 0,
+				    x = removeControllers.length - 1; i < x; i++) {
+					removeControllers[i].getView().close();
+				}
+				//close last window at top
+				that.navigationWindow.closeWindow(removeControllers.pop().getView());
+			}
+
+			//remove existing views in root window
+			var masterController = that.controllers.pop();
+			masterController.terminate();
+			that.rootWindow.remove(masterController.getView());
+		}
 
 		that.controllers.push(that.currentController);
 
 		that.isBusy = false;
 
+		//that.testOutput();
+
 		return that.currentController;
 	};
 
 	/**
-	 * Open a detail screen controller
+	 * Opens a new detail controller
 	 * @param {Object} params The arguments for the method
 	 * @param {String} params.ctrl name of the Controller to be opened
 	 * @param {String} params.title title to be displayed on the title bar
@@ -130,20 +157,25 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("drawer/window", params),
-		    window = controller.getView();
+		that.currentController = Alloy.createController("drawer/window", params);
 
-		window.addEventListener("open", function didOpen(e) {
-			window.removeEventListener("open", didOpen);
-			that.currentController.getView().fireEvent("blur");
-			that.controllers.push(controller);
-			that.currentController = controller;
+		that.currentController.init();
+
+		that.controllers.push(that.currentController);
+
+		var window = that.currentController.getView();
+
+		window.addEventListener("open", function didOpenWindow(e) {
+			window.removeEventListener("open", didOpenWindow);
+			that.controllers[that.controllers.length - 2].blur();
 			that.isBusy = false;
 		});
 
 		that.navigationWindow.openWindow(window);
 
-		return controller;
+		//that.testOutput();
+
+		return that.currentController;
 	};
 
 	/**
@@ -153,20 +185,25 @@ function Navigation(args) {
 	 */
 	this.close = function(count) {
 
-		if (that.isBusy || that.controllers.length == 1) {
+		var len = that.controllers.length;
+
+		if (that.isBusy || len == 1) {
 			return;
 		}
 
 		that.isBusy = true;
 
-		var len = that.controllers.length,
-		    count = (count || 1) >= len ? len - 1 : (count || 1),
-		    removeControllers = that.controllers.splice(len - count, count);
+		if (!count) {
+			count = 1;
+		}
 
+		if (count >= len) {
+			count = len - 1;
+		}
+
+		var removeControllers = that.controllers.splice(len - count, count);
 		for (var i = 0,
-
 		    x = removeControllers.length - 1; i < x; i++) {
-
 			removeControllers[i].getView().close();
 		}
 
@@ -174,9 +211,9 @@ function Navigation(args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		window.addEventListener("close", function didClose(e) {
-			window.removeEventListener("close", didClose);
-			that.currentController.getView().fireEvent("focus");
+		window.addEventListener("close", function didCloseWindow(e) {
+			window.removeEventListener("close", didCloseWindow);
+			that.currentController.focus();
 			that.isBusy = false;
 		});
 
@@ -209,6 +246,7 @@ function Navigation(args) {
 		}
 
 		that.closeToRoot();
+		that.controllers.pop().terminate();
 		that.drawer.close();
 	};
 
@@ -261,7 +299,7 @@ function Navigation(args) {
 
 		for (var i = 0,
 		    x = that.controllers.length; i < x; i++) {
-			logger.debug(TAG, "stack index", i, that.controllers[i].__controllerPath);
+			logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
 		}
 	};
 }

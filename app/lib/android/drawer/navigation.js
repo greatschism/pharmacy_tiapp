@@ -14,7 +14,7 @@
  * @constructor
  */
 
-var TAG = "navigation",
+var TAG = "NAVI",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._;
 
@@ -73,7 +73,7 @@ function Navigation(args) {
 	this.rootNavBarHidden = false;
 
 	/**
-	 * Open a screen controller
+	 * Opens a new top level controller
 	 * @param {Object} params The arguments for the method
 	 * @param {String} params.ctrl name of the Controller to be opened
 	 * @param {String} params.title title to be displayed on the title bar
@@ -102,72 +102,48 @@ function Navigation(args) {
 			Ti.App.hideKeyboard();
 		}
 
-		var controller = Alloy.createController("drawer/view", params);
+		that.currentController = Alloy.createController("drawer/view", params);
 
-		that.drawer.setCenterWindow(controller.getView());
+		that.currentController.init();
 
-		controller.focus();
+		that.drawer.setCenterWindow(that.currentController.getView());
+
+		that.currentController.focus();
 
 		var len = that.controllers.length;
+
 		if (len) {
 
 			if (len > 1) {
-				/**
-				 * remove all controllers from stack
-				 */
 				var count = len - 1,
 				    removeControllers = that.controllers.splice(len - count, count);
 				for (var i = 0,
 				    x = removeControllers.length - 1; i < x; i++) {
-					/**
-					 * close one by one from last controller - 2 to first / master controller
-					 */
 					removeControllers[i].getView().close();
 				}
-				/**
-				 * close the last / visible controller
-				 * so it will not directly show the first controller
-				 */
-				that.currentController.getView().close({
+				//close last window at top
+				removeControllers.pop().getView().close({
 					activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
 					activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
 					animated : true
 				});
-				/**
-				 * store first / master controller reference
-				 * that.controllers.length - 1 should be 0 here
-				 */
-				that.currentController = that.controllers[that.controllers.length - 1];
 			}
 
-			/**
-			 * terminate first / master controller controller
-			 * Note: remember android/drawer/view.js will only have terminate method
-			 */
-			that.currentController.terminate();
-
-			/**
-			 *re-initate the stack
-			 */
-			that.controllers = [];
+			//terminate top level controller
+			that.controllers.pop().terminate();
 		}
-
-		/**
-		 * assign currentController only after closeToRoot
-		 * that.currentController reference is used in
-		 * that.close method
-		 */
-		that.currentController = controller;
 
 		that.controllers.push(that.currentController);
 
 		that.isBusy = false;
 
+		//that.testOutput();
+
 		return that.currentController;
 	};
 
 	/**
-	 * Open a detail screen controller
+	 * Opens a new detail controller
 	 * @param {Object} params The arguments for the method
 	 * @param {String} params.ctrl name of the Controller to be opened
 	 * @param {String} params.title title to be displayed on the title bar
@@ -185,14 +161,17 @@ function Navigation(args) {
 
 		that.isBusy = true;
 
-		var controller = Alloy.createController("drawer/window", params),
-		    window = controller.getView();
+		that.currentController = Alloy.createController("drawer/window", params);
 
-		window.addEventListener("open", function didOpen(e) {
-			window.removeEventListener("open", didOpen);
-			that.currentController.blur();
-			that.controllers.push(controller);
-			that.currentController = controller;
+		that.currentController.init();
+
+		that.controllers.push(that.currentController);
+
+		var window = that.currentController.getView();
+
+		window.addEventListener("open", function didOpenWindow(e) {
+			window.removeEventListener("open", didOpenWindow);
+			that.controllers[that.controllers.length - 2].blur();
 			that.isBusy = false;
 		});
 
@@ -202,7 +181,9 @@ function Navigation(args) {
 			animated : true
 		});
 
-		return controller;
+		//that.testOutput();
+
+		return that.currentController;
 	};
 
 	/**
@@ -217,18 +198,21 @@ function Navigation(args) {
 			return;
 		}
 
+		var len = that.controllers.length;
 		if (androidback) {
+			//close drawer if opened
 			if (that.drawer.isLeftWindowOpen()) {
 				that.drawer.closeLeftWindow();
 				return;
 			}
-			if (that.currentController.backButtonHandler && that.currentController.backButtonHandler()) {
-				return;
-			}
-			if (that.controllers.length == 1) {
+			if (len == 1) {
+				//back button handler for root window
+				if (that.currentController.backButtonHandler && that.currentController.backButtonHandler()) {
+					return;
+				}
 				/**
 				 * going back to landing page
-				 * if current master page is not the one
+				 * if current top level controller is not the one
 				 */
 				var landingPage = Alloy.Collections.menuItems.findWhere({
 					landing_page : true
@@ -241,20 +225,23 @@ function Navigation(args) {
 			}
 		}
 
-		if (that.controllers.length == 1) {
+		if (len == 1) {
 			return;
 		}
 
 		that.isBusy = true;
 
-		var len = that.controllers.length,
-		    count = (count || 1) >= len ? len - 1 : (count || 1),
-		    removeControllers = that.controllers.splice(len - count, count);
+		if (!count) {
+			count = 1;
+		}
 
+		if (count >= len) {
+			count = len - 1;
+		}
+
+		var removeControllers = that.controllers.splice(len - count, count);
 		for (var i = 0,
-
 		    x = removeControllers.length - 1; i < x; i++) {
-
 			removeControllers[i].getView().close();
 		}
 
@@ -262,8 +249,8 @@ function Navigation(args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		window.addEventListener("close", function didClose(e) {
-			window.removeEventListener("close", didClose);
+		window.addEventListener("close", function didCloseWindow(e) {
+			window.removeEventListener("close", didCloseWindow);
 			that.currentController.focus();
 			that.isBusy = false;
 		});
@@ -354,9 +341,8 @@ function Navigation(args) {
 
 		for (var i = 0,
 		    x = that.controllers.length; i < x; i++) {
-			logger.debug(TAG, "stack index", i, that.controllers[i].__controllerPath);
+			logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
 		}
-
 	};
 }
 

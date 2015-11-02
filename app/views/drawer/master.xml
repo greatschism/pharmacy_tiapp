@@ -4,7 +4,13 @@
 			<Require id="menuCtrl" src="drawer/menu" />
 		</Window>
 		<NavigationWindow id="navigationWindow" platform="ios" role="centerWindow">
-			<Window id="rootWindow" />
+			<Window id="rootWindow">
+				<LeftNavButton>
+					<View id="leftNavView" onClick="didClickLeftNavView">
+						<Button class="nav-icon icon-hamburger" />
+					</View>
+				</LeftNavButton>
+			</Window>
 		</NavigationWindow>
 		<View id="leftWindow" platform="android" role="leftWindow">
 			<Require id="menuCtrl" src="drawer/menu" />

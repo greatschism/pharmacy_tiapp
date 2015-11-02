@@ -3,7 +3,7 @@
  * A zbar barcode reader
  */
 
-var TAG = "barcode",
+var TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     BarcodeModule = require("com.mfogg.barcode"),

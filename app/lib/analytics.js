@@ -1,17 +1,14 @@
 var Alloy = require("alloy");
 
-var TiAnalytics = {
+var EventHandler = {
 	featureEvent : function(name, data) {
 		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.featureEvent(name, data || {});
+			Ti.Analytics.featureEvent(name, data);
 		}
-	},
-	getLastEvent : function() {
-		return Ti.Analytics.lastEvent || {};
 	},
 	navEvent : function(from, to, name, data) {
 		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.navEvent(from, to, name || "", data || {});
+			Ti.Analytics.navEvent(from, to, name, data);
 		}
 	},
 	handleEvent : function(e) {
@@ -19,4 +16,4 @@ var TiAnalytics = {
 	}
 };
 
-module.exports = TiAnalytics;
+module.exports = EventHandler;

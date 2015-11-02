@@ -58,7 +58,7 @@ var Reporter = {
 	},
 	leaveBreadcrumb : function(breadcrumb) {
 		if (CrashReporterModule) {
-			CrashReporterModule.leaveBreadcrumb(breadcrumb || "");
+			CrashReporterModule.leaveBreadcrumb(breadcrumb);
 		}
 	},
 	logHandledException : function(error) {

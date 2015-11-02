@@ -1,4 +1,4 @@
-var TAG = "Authenticator",
+var TAG = "AUTH",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
@@ -9,6 +9,7 @@ var TAG = "Authenticator",
     http = require("requestwrapper"),
     localization = require("localization"),
     notificationHandler = require("notificationHandler"),
+    crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     logger = require("logger");
 
@@ -650,6 +651,11 @@ function completeAuthentication(passthrough) {
 		icon : "logout"
 	});
 	/**
+	 * update crash reporter
+	 * with user username
+	 */
+	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
+	/**
 	 * check for mandatory screens
 	 * to be visited after successful login
 	 * i.e HIPAA or email verification etc.,
@@ -788,10 +794,6 @@ function didLogout(result, passthrough) {
 }
 
 function resetAuthenticationData() {
-	/**
-	 * clear logs for this session
-	 */
-	logger.collection.clear();
 	/**
 	 * reset to device time zone
 	 */

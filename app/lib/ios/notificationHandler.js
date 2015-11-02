@@ -1,4 +1,4 @@
-var TAG = "notificationHandler",
+var TAG = "NOHA",
     Alloy = require("alloy"),
     notificationPanel = require("notificationPanel"),
     logger = require("logger"),
@@ -59,7 +59,7 @@ function didSuccess(e) {
 }
 
 function didFailure(e) {
-	logger.error(TAG, e);
+	logger.error(TAG, "unable to get remove device uuid");
 	triggerCallback();
 	isBusy = false;
 }

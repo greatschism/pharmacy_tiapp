@@ -3,7 +3,7 @@
  *
  * @class http
  */
-var TAG = "http",
+var TAG = "HTTP",
     _ = require("alloy/underscore")._;
 
 /**

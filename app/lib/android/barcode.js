@@ -3,7 +3,7 @@
  * A zxing barcode reader
  */
 
-var TAG = "barcode",
+var TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     BarcodeModule = require("ti.barcode"),

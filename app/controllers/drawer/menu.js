@@ -8,15 +8,10 @@ var args = arguments[0] || {},
 
 function init() {
 	if (OS_ANDROID) {
-		app.navigator.drawer.addEventListener("drawerclose", didDrawerclose);
+		app.navigator.drawer.on("drawerclose", didDrawerclose);
 	}
-	Alloy.Collections.menuItems.trigger("reset");
-}
-
-function filterFunction(collection) {
-	$.menu.applyProperties(Alloy.TSS.menu_view);
 	uihelper.getImage("logo_white", $.logoImg);
-	return collection.models;
+	Alloy.Collections.menuItems.trigger("reset");
 }
 
 function transformFunction(model) {
@@ -44,7 +39,7 @@ function didClickTableView(e) {
 
 function terminate() {
 	if (OS_ANDROID) {
-		app.navigator.drawer.removeEventListener("drawerclose", didDrawerclose);
+		app.navigator.drawer.off("drawerclose", didDrawerclose);
 	}
 	$.destroy();
 }

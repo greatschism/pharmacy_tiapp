@@ -1,4 +1,4 @@
-var TAG = "navigationHandler",
+var TAG = "NAHA",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     app = require("core"),

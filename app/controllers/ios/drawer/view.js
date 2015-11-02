@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    TAG = "DRWC",
+    TAG = "DRVC",
     app = require("core"),
     analytics = require("analytics"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -10,13 +10,22 @@ function init() {
 
 	var strings = Alloy.Globals.strings;
 
+	$.window = app.navigator.rootWindow;
+
 	setTitle(args.title || strings[args.titleid || ""] || "");
+
+	if (args.navBarHidden) {
+		hideNavBar();
+	} else if (app.navigator.rootNavBarHidden) {
+		showNavBar();
+	}
 
 	/**
 	 *  let the new controller know where it is coming from
 	 *  through the origin parameter
 	 */
-	var ctrlArguments = args.ctrlArguments || {};
+	var hasRightNavButton = false,
+	    ctrlArguments = args.ctrlArguments || {};
 	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
 
@@ -34,12 +43,30 @@ function init() {
 			//just ignore
 			break;
 		case "rightNavButton":
+			hasRightNavButton = true;
 			setRightNavButton(child);
 			break;
+		case "contentView":
+			$.contentView = child;
+			break;
 		default:
-			$.window.add(child);
+			if (!$.contentView) {
+				$.contentView = $.UI.create("View", {
+					id : "contentView"
+				});
+			}
+			$.contentView.add(child);
 		}
 	});
+
+	$.contentView.addEventListener("click", handleEvent);
+	$.contentView.addEventListener("change", handleEvent);
+
+	$.addTopLevelView($.contentView);
+
+	if (!hasRightNavButton) {
+		setRightNavButton();
+	}
 
 	_.extend(controller, {
 		app : app,
@@ -62,7 +89,7 @@ function init() {
 
 	controller.init && controller.init();
 
-	controller.setParentView && controller.setParentView($.window);
+	controller.setParentView && controller.setParentView($.contentView);
 }
 
 function focus(e) {
@@ -80,12 +107,6 @@ function terminate(e) {
 	controller.terminate && controller.terminate();
 }
 
-function didClickLeftNavView(e) {
-	if (!controller.backButtonHandler || !controller.backButtonHandler()) {
-		app.navigator.close();
-	}
-}
-
 function setTitle(title) {
 	$.window.title = title;
 }
@@ -94,12 +115,14 @@ function showNavBar(animated) {
 	$.window.showNavBar({
 		animated : _.isUndefined(animated) ? true : false
 	});
+	app.navigator.rootNavBarHidden = false;
 }
 
 function hideNavBar(animated) {
 	$.window.hideNavBar({
 		animated : _.isUndefined(animated) ? true : false
 	});
+	app.navigator.rootNavBarHidden = true;
 }
 
 function setRightNavButton(view) {
@@ -118,5 +141,6 @@ function handleEvent(e) {
 _.extend($, {
 	init : init,
 	blur : blur,
-	focus : focus
+	focus : focus,
+	terminate : terminate
 });

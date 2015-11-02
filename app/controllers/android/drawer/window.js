@@ -1,10 +1,13 @@
 var args = arguments[0] || {},
+    TAG = "DRWC",
     app = require("core"),
     analytics = require("analytics"),
-    controller,
-    rightNavItem;
+    ctrlShortCode = require("ctrlShortCode"),
+    logger = require("logger"),
+    rightNavItem,
+    controller;
 
-(function() {
+function init() {
 
 	var strings = Alloy.Globals.strings;
 
@@ -17,6 +20,8 @@ var args = arguments[0] || {},
 	var ctrlArguments = args.ctrlArguments || {};
 	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
+
+	$.ctrlPath = controller.__controllerPath;
 
 	_.each(controller.getTopLevelViews(), function(child) {
 		if (child.__iamalloy) {
@@ -40,7 +45,7 @@ var args = arguments[0] || {},
 	_.extend(controller, {
 		app : app,
 		strings : strings,
-		logger : require("logger"),
+		logger : logger,
 		http : require("requestwrapper"),
 		httpClient : require("http"),
 		utilities : require("utilities"),
@@ -54,11 +59,12 @@ var args = arguments[0] || {},
 		setRightNavButton : setRightNavButton
 	});
 
+	logger.debug(TAG, "init", ctrlShortCode[$.ctrlPath]);
+
 	controller.init && controller.init();
 
 	controller.setParentView && controller.setParentView($.window);
-
-})();
+}
 
 function didOpen(e) {
 
@@ -76,26 +82,24 @@ function didOpen(e) {
 }
 
 function focus(e) {
+	logger.debug(TAG, "focus", ctrlShortCode[$.ctrlPath]);
 	controller.focus && controller.focus();
 }
 
 function blur(e) {
+	logger.debug(TAG, "blur", ctrlShortCode[$.ctrlPath]);
 	controller.blur && controller.blur();
 }
 
-function backButtonHandler(e) {
-	return controller.backButtonHandler && controller.backButtonHandler();
-}
-
-function didClose(e) {
+function terminate(e) {
+	logger.debug(TAG, "terminate", ctrlShortCode[$.ctrlPath]);
 	controller.terminate && controller.terminate();
 }
 
 function didClickLeftNavView(e) {
-	if (controller.backButtonHandler && controller.backButtonHandler()) {
-		return;
+	if (!controller.backButtonHandler || !controller.backButtonHandler()) {
+		app.navigator.close(1, e && e.source == $.window);
 	}
-	app.navigator.close(1, e && e.source == $.window);
 }
 
 function setTitle(title) {
@@ -137,7 +141,8 @@ function handleEvent(e) {
 	analytics.handleEvent(e);
 }
 
-exports.blur = blur;
-exports.focus = focus;
-exports.backButtonHandler = backButtonHandler;
-exports.ctrlPath = controller.__controllerPath;
+_.extend($, {
+	init : init,
+	blur : blur,
+	focus : focus
+});

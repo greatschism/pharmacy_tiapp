@@ -2,7 +2,7 @@
  * @param {Object} args The arguments for the method
  */
 
-var TAG = "requestwrapper",
+var TAG = "REWR",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
@@ -29,6 +29,7 @@ function request(args) {
 		 *  with keep loader set to true
 		 */
 		app.navigator.hideLoader();
+		logger.warn(TAG, "session time out", "last request", Alloy.Globals.latestRequest, "now", now);
 		return sessionTimeout(Alloy.Globals.strings.msgSessionTimeout);
 	}
 
@@ -57,7 +58,7 @@ function request(args) {
 	 * as keyword for module
 	 */
 	if (!_.has(args.params, "feature_code")) {
-		args.params.feature_code = Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode[args.method] + "-" + (ctrlShortCode[app.navigator.currentController.ctrlPath] || "GLOB");
+		args.params.feature_code = Alloy.CFG.platform_code + "-" + Alloy.CFG.apiShortCode[args.method] + "-" + (ctrlShortCode[app.navigator.currentController.ctrlPath] || TAG);
 	}
 
 	if (args.showLoader !== false) {
@@ -87,10 +88,9 @@ function request(args) {
 		done : didComplete,
 		securityManager : Alloy.Globals.securityManager
 	});
-	logger.debug(TAG, "request", requestParams.url);
+	logger.debug(TAG, "request", args.params.feature_code);
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
-	logger.debug(TAG, "params", requestParams.params);
 	//encrypt if enabled
 	if (Alloy.CFG.encryption_enabled) {
 		requestParams.params = encryptionUtil.encrypt(requestParams.params);
@@ -104,7 +104,6 @@ function didSuccess(result, passthrough) {
 	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result) || "{}";
 	}
-	logger.debug(TAG, "success", result);
 	/**
 	 * should receive data as text from http
 	 * before decrypting it can be converted to json
@@ -117,6 +116,7 @@ function didSuccess(result, passthrough) {
 		 */
 		if (result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
 			hideLoader(passthrough, true);
+			logger.error(TAG, "failure", passthrough.params.feature_code, "session time out");
 			return sessionTimeout(result.message);
 		}
 		/**
@@ -127,6 +127,7 @@ function didSuccess(result, passthrough) {
 		passthrough.retry = false;
 		return didFail(result, passthrough);
 	} else {
+		logger.debug(TAG, "success", passthrough.params.feature_code, "code", result.code);
 		hideLoader(passthrough);
 		if (passthrough.success) {
 			passthrough.success(result, passthrough.passthrough);
@@ -135,7 +136,7 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(error, passthrough) {
-	logger.error(TAG, "error", "code", error.code, "errorCode", error.errorCode);
+	logger.debug(TAG, "failure", passthrough.params.feature_code, "code", error.code, "errorCode", error.errorCode);
 	if (passthrough.errorDialogEnabled !== false) {
 		//hide loader before processing error dialogs
 		hideLoader(passthrough, true);
