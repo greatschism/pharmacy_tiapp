@@ -26,13 +26,8 @@ function init() {
 	 */
 	var hasRightNavButton = false,
 	    ctrlArguments = args.ctrlArguments || {};
-	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
+	ctrlArguments.origin = (app.navigator.controllers[app.navigator.controllers.length - 1] || {}).ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
-
-	_.extend($, {
-		ctrlPath : args.ctrl,
-		shortCode : ctrlShortCode[args.ctrl]
-	});
 
 	_.each(controller.getTopLevelViews(), function(child) {
 		if (child.__iamalloy) {
@@ -88,7 +83,7 @@ function init() {
 		setRightNavButton : setRightNavButton
 	});
 
-	logger.debug(TAG, "init", $.shortCode);
+	logger.debug(TAG, "init", $.ctrlShortCode);
 
 	controller.init && controller.init();
 
@@ -96,17 +91,17 @@ function init() {
 }
 
 function focus(e) {
-	logger.debug(TAG, "focus", $.shortCode);
+	logger.debug(TAG, "focus", $.ctrlShortCode);
 	controller.focus && controller.focus();
 }
 
 function blur(e) {
-	logger.debug(TAG, "blur", $.shortCode);
+	logger.debug(TAG, "blur", $.ctrlShortCode);
 	controller.blur && controller.blur();
 }
 
 function terminate(e) {
-	logger.debug(TAG, "terminate", $.shortCode);
+	logger.debug(TAG, "terminate", $.ctrlShortCode);
 	controller.terminate && controller.terminate();
 }
 
@@ -158,5 +153,7 @@ _.extend($, {
 	init : init,
 	blur : blur,
 	focus : focus,
-	terminate : terminate
+	terminate : terminate,
+	ctrlPath : args.ctrl,
+	ctrlShortCode : ctrlShortCode[args.ctrl]
 });

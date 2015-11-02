@@ -18,13 +18,8 @@ function init() {
 	 *  through the origin parameter
 	 */
 	var ctrlArguments = args.ctrlArguments || {};
-	ctrlArguments.origin = app.navigator.currentController.ctrlPath;
+	ctrlArguments.origin = (app.navigator.controllers[app.navigator.controllers.length - 1] || {}).ctrlPath;
 	controller = Alloy.createController(args.ctrl, ctrlArguments);
-
-	_.extend($, {
-		ctrlPath : args.ctrl,
-		shortCode : ctrlShortCode[args.ctrl]
-	});
 
 	_.each(controller.getTopLevelViews(), function(child) {
 		if (child.__iamalloy) {
@@ -62,7 +57,7 @@ function init() {
 		setRightNavButton : setRightNavButton
 	});
 
-	logger.debug(TAG, "init", $.shortCode);
+	logger.debug(TAG, "init", $.ctrlShortCode);
 
 	controller.init && controller.init();
 
@@ -85,22 +80,22 @@ function didOpen(e) {
 }
 
 function focus(e) {
-	logger.debug(TAG, "focus", $.shortCode);
+	logger.debug(TAG, "focus", $.ctrlShortCode);
 	controller.focus && controller.focus();
 }
 
 function blur(e) {
-	logger.debug(TAG, "blur", $.shortCode);
+	logger.debug(TAG, "blur", $.ctrlShortCode);
 	controller.blur && controller.blur();
 }
 
 function terminate(e) {
-	logger.debug(TAG, "terminate", $.shortCode);
+	logger.debug(TAG, "terminate", $.ctrlShortCode);
 	controller.terminate && controller.terminate();
 }
 
 function didClickLeftNavView(e) {
-	logger.debug(TAG, "backButtonHandler", $.shortCode);
+	logger.debug(TAG, "backButtonHandler", $.ctrlShortCode);
 	if (!controller.backButtonHandler || !controller.backButtonHandler()) {
 		app.navigator.close(1, e && e.source == $.window);
 	}
@@ -148,5 +143,7 @@ function handleEvent(e) {
 _.extend($, {
 	init : init,
 	blur : blur,
-	focus : focus
+	focus : focus,
+	ctrlPath : args.ctrl,
+	ctrlShortCode : ctrlShortCode[args.ctrl]
 });
