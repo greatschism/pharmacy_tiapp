@@ -16,6 +16,7 @@ var log4js = require("log4js"),
     DEFAULT_PLATFORM = "ios",
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
+    SHORT_CODE_MAX_LEN = 4,
     CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
     STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
     CTRL_DIR = ROOT_DIR + "app/controllers",
@@ -444,11 +445,14 @@ if (build) {
 				    nLen = separatedNames.length,
 				    shortCode = "";
 				if (nLen > 1) {
-					_u.some(separatedNames, function(separatedName) {
+					_u.each(separatedNames, function(separatedName) {
 						shortCode += separatedName.charAt(0);
-						return shortCode.length === 4;
 					});
-					var requiredLen = 4 - shortCode.length;
+					var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+					if (requiredLen < 0) {
+						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + SHORT_CODE_MAX_LEN + " words seperated by underscore.");
+						process.exit(1);
+					}
 					if (requiredLen > 0) {
 						_u.some(separatedNames, function(separatedName, index) {
 							var newIndex = (index * 2) + 1,
@@ -456,11 +460,15 @@ if (build) {
 							if (newLetter) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
-							return shortCode.length === 4;
+							return shortCode.length === SHORT_CODE_MAX_LEN;
 						});
 					}
 				} else {
-					shortCode = apiName.substr(0, 4);
+					if (apiName.length < SHORT_CODE_MAX_LEN) {
+						logger.error("api name " + apiName + " is too short");
+						process.exit(1);
+					}
+					shortCode = apiName.substr(0, SHORT_CODE_MAX_LEN);
 				}
 				apiShortCode[apiName] = shortCode.toUpperCase();
 			});
@@ -559,7 +567,7 @@ if (build) {
 		 * Rules:
 		 *
 		 * 1. Controller names should use
-		 * camel cases (with first letter only
+		 * camel case (with first letter only
 		 * in lower case), less than
 		 * or equal to 4 words and meaningful.
 		 *
@@ -600,20 +608,23 @@ if (build) {
 				var charsArr = ctrlFile.split(""),
 				    shortCode = "",
 				    usedIndexes = [];
-				_u.some(charsArr, function(letter, index) {
+				_u.each(charsArr, function(letter, index) {
 					var charCode = letter.charCodeAt(0);
 					if (!shortCode || (charCode >= 65 && charCode <= 90)) {
 						usedIndexes.push(index);
 						//0th char may be in small letter
 						shortCode += letter;
 					}
-					return shortCode.length === 4;
 				});
 				/**
 				 * now try second character of each word
 				 * if length is not enough
 				 */
-				var requiredLen = 4 - shortCode.length;
+				var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+				if (requiredLen < 0) {
+					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + SHORT_CODE_MAX_LEN + " words.");
+					process.exit(1);
+				}
 				if (requiredLen > 0) {
 					_u.some(usedIndexes, function(usedIndex, index) {
 						var newIndex = usedIndex + 1,
@@ -624,17 +635,20 @@ if (build) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
 						}
-						return shortCode.length === 4;
+						return shortCode.length === SHORT_CODE_MAX_LEN;
 					});
 				}
 				/**
-				 * if still length is less than or equal to 2
-				 * then use first 4 character (this happens
+				 * if still length is less than SHORT_CODE_MAX_LEN
+				 * then use first SHORT_CODE_MAX_LEN character (this happens
 				 * only with one word controller names).
 				 */
-				if (shortCode.length <= 2) {
-					var nLen = ctrlFile.length;
-					shortCode = ctrlFile.substr(0, nLen < 4 ? nLen : 4);
+				if (shortCode.length < SHORT_CODE_MAX_LEN) {
+					if (ctrlFile.length < SHORT_CODE_MAX_LEN) {
+						logger.error("controller name " + ctrlFile + " is too short");
+						process.exit(1);
+					}
+					shortCode = ctrlFile.substr(0, SHORT_CODE_MAX_LEN);
 				}
 				tiCtrlShortCode[ctrlFile] = shortCode.toUpperCase();
 			}
