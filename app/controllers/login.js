@@ -118,7 +118,7 @@ function didAuthenticate() {
 	 */
 	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
 		$.app.navigator.open({
-			ctrl : "HIPAA",
+			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
 			stack : false
 		});

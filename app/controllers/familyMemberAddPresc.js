@@ -131,7 +131,7 @@ function didAddPrescriptions() {
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
 			$.app.navigator.open({
-				ctrl : "HIPAA",
+				ctrl : "hipaa",
 				titleid : "titleHIPAAauthorization",
 				stack : false
 			});
