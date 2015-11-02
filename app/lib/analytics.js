@@ -8,7 +8,7 @@ var EventHandler = {
 	},
 	navEvent : function(from, to, name, data) {
 		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.navEvent(from, to, name, data);
+			Ti.Analytics.navEvent(from, to, name || "", data || {});
 		}
 	},
 	handleEvent : function(e) {
