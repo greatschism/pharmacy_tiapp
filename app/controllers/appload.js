@@ -42,7 +42,7 @@ function hideLoader() {
 
 function getAppConfig() {
 	//GAPC - stands for getappjconfig
-	logger.debug(TAG, "request", "GAPC", "client name", Alloy.CFG.client_name, "app version", Alloy.CFG.app_version);
+	logger.debug(TAG, "request", "GAPC", "client_name", Alloy.CFG.client_name, "app_version", Alloy.CFG.app_version);
 	httpClient.request({
 		url : Alloy.CFG.appconfig_url,
 		type : "POST",

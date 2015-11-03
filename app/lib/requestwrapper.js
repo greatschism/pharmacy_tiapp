@@ -85,16 +85,23 @@ function request(args) {
 		passthrough : args,
 		success : didSuccess,
 		failure : didFail,
-		done : didComplete,
-		securityManager : Alloy.Globals.securityManager
+		done : didComplete
 	});
-	logger.debug(TAG, "request", args.params.feature_code);
+	/**
+	 * sending undefined / null values
+	 * to securityManager property of http
+	 * client will throw exception on android
+	 */
+	if (Alloy.Globals.securityManager) {
+		requestParams.securityManager = Alloy.Globals.securityManager;
+	}
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
 	//encrypt if enabled
 	if (Alloy.CFG.encryption_enabled) {
 		requestParams.params = encryptionUtil.encrypt(requestParams.params);
 	}
+	logger.debug(TAG, "request", args.params.feature_code);
 	//returns the actual http client object
 	return http.request(requestParams);
 }
