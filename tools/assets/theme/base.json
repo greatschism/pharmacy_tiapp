@@ -2672,7 +2672,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "left",
@@ -2687,11 +2687,11 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "color": "#000000",
@@ -3154,10 +3154,10 @@
             ".lbl": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "left",
@@ -3167,10 +3167,10 @@
             ".lbl-with-rswt[platform=ios]": {
                 "left": 12,
                 "right": 80,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "left",
@@ -3181,10 +3181,10 @@
             ".lbl-with-rswt[platform=android]": {
                 "left": 12,
                 "right": 84,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "left",
@@ -3198,7 +3198,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "left",
@@ -3211,7 +3211,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#5B5B5B",
                 "textAlign": "left",
@@ -3221,10 +3221,10 @@
             ".lbl-centered": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "center",
@@ -3237,7 +3237,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "textAlign": "center",
@@ -3247,15 +3247,15 @@
             ".attributed": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "left",
@@ -3265,15 +3265,15 @@
             ".attributed-with-rswt[platform=ios]": {
                 "left": 12,
                 "right": 80,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "left",
@@ -3283,15 +3283,15 @@
             ".attributed-with-rswt[platform=android]": {
                 "left": 12,
                 "right": 84,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "left",
@@ -3304,12 +3304,12 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "left",
@@ -3319,15 +3319,15 @@
             ".attributed-centered": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "center",
@@ -3340,12 +3340,12 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "regular",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "secondaryFont": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "secondaryColor": "#0095FF",
                 "textAlign": "center",
@@ -3355,10 +3355,10 @@
             ".link": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "textAlign": "left",
@@ -3371,7 +3371,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "textAlign": "left",
@@ -3381,10 +3381,10 @@
             ".link-centered": {
                 "left": 12,
                 "right": 12,
-                "height": 19,
+                "height": 25,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "textAlign": "center",
@@ -3397,7 +3397,7 @@
                 "height": "auto",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "textAlign": "center",
