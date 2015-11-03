@@ -17,6 +17,7 @@ var log4js = require("log4js"),
     DEFAULT_TARGET = "dist-adhoc",
     DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
     SHORT_CODE_MAX_LEN = 4,
+    MODE_SHORT_CODE_JS = ROOT_DIR + "app/lib/moduleShortCode.js",
     CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
     STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
     CTRL_DIR = ROOT_DIR + "app/controllers",
@@ -163,7 +164,7 @@ if (brand) {
 } else if (!program.cleanOnly) {
 
 	logger.error("invalid brand-id: " + program.brandId);
-	process.exit(1);
+	process.exit(2);
 
 }
 
@@ -451,7 +452,7 @@ if (build) {
 					var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
 					if (requiredLen < 0) {
 						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + SHORT_CODE_MAX_LEN + " words seperated by underscore.");
-						process.exit(1);
+						process.exit(3);
 					}
 					if (requiredLen > 0) {
 						_u.some(separatedNames, function(separatedName, index) {
@@ -466,7 +467,7 @@ if (build) {
 				} else {
 					if (apiName.length < SHORT_CODE_MAX_LEN) {
 						logger.error("api name " + apiName + " is too short");
-						process.exit(1);
+						process.exit(4);
 					}
 					shortCode = apiName.substr(0, SHORT_CODE_MAX_LEN);
 				}
@@ -479,7 +480,7 @@ if (build) {
 				_u.each(apiShortCode, function(cCode, cKey) {
 					if (mKey !== cKey && mCode === cCode) {
 						logger.error("unabel to generate unique short codes for apiPaths. " + mKey + " and " + cKey + " has same short code: " + mCode);
-						process.exit(1);
+						process.exit(5);
 					}
 				});
 			});
@@ -623,7 +624,7 @@ if (build) {
 				var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
 				if (requiredLen < 0) {
 					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + SHORT_CODE_MAX_LEN + " words.");
-					process.exit(1);
+					process.exit(6);
 				}
 				if (requiredLen > 0) {
 					_u.some(usedIndexes, function(usedIndex, index) {
@@ -646,7 +647,7 @@ if (build) {
 				if (shortCode.length < SHORT_CODE_MAX_LEN) {
 					if (ctrlFile.length < SHORT_CODE_MAX_LEN) {
 						logger.error("controller name " + ctrlFile + " is too short");
-						process.exit(1);
+						process.exit(7);
 					}
 					shortCode = ctrlFile.substr(0, SHORT_CODE_MAX_LEN);
 				}
@@ -655,14 +656,21 @@ if (build) {
 		}
 		/**
 		 * check for duplicates
+		 * and verify they have
+		 * module assigned
 		 */
+		var moduleShortCode = require(MODE_SHORT_CODE_JS);
 		_u.each(tiCtrlShortCode, function(mCode, mKey) {
 			_u.each(tiCtrlShortCode, function(cCode, cKey) {
 				if (mKey !== cKey && mCode === cCode) {
 					logger.error("unabel to generate unique short codes for controllers. " + mKey + " and " + cKey + " has same short code: " + mCode);
-					process.exit(1);
+					process.exit(8);
 				}
 			});
+			if (!moduleShortCode[mCode]) {
+				logger.error("module short code not assigned for " + mCode + " or " + mKey);
+				process.exit(9);
+			}
 		});
 		fs.writeFileSync(CTRL_SHORT_CODE_JS, "module.exports = " + JSON.stringify(tiCtrlShortCode, null, 4).concat(";"));
 		logger.info("Created " + CTRL_SHORT_CODE_JS);
@@ -878,14 +886,14 @@ if (program.buildOnly) {
 				 */
 				if (!exec("security find-certificate -c \"" + buildKeys.certificate_name + "\"").stderr && exec("security delete-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
 					logger.error("Multiple certificates found with same name " + buildKeys.certificate_name + ". Please delete them manually from keychain and try again.");
-					process.exit(1);
+					process.exit(10);
 				}
 			} else {
 				logger.warn("Distribution certificate " + buildKeys.certificate_name + " not found!");
 			}
 			if (exec("security import " + BRAND_KEYS_BASE_DIR + buildKeys.certificate + " -A -k " + process.env.HOME + "/Library/Keychains/login.keychain -P " + buildKeys.certificate_password).stderr) {
 				logger.error("Unable to import distribution certificate " + buildKeys.certificate_name);
-				process.exit(1);
+				process.exit(11);
 			}
 			logger.info("Imported distribution certificate " + buildKeys.certificate_name);
 		}
@@ -938,7 +946,7 @@ if (program.buildOnly) {
 		 * exit if paltform is invalid
 		 */
 		logger.error("Invalid platform: " + program.platform);
-		process.exit(1);
+		process.exit(12);
 	}
 
 	//project dir

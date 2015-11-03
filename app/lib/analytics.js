@@ -1,4 +1,5 @@
-var Alloy = require("alloy");
+var Alloy = require("alloy"),
+    moduleShortCode = require("moduleShortCode");
 
 var EventHandler = {
 	featureEvent : function(name) {
@@ -18,7 +19,7 @@ var EventHandler = {
 			if (source.apiName === "Ti.UI.Switch") {
 				name += "-" + source.value;
 			}
-			EventHandler.featureEvent(from + "-" + name);
+			EventHandler.featureEvent(moduleShortCode[from] + "-" + from + "-" + name);
 		}
 	}
 };
