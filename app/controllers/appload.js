@@ -73,8 +73,8 @@ function didFailAppConfig(error, passthrough) {
 
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
-	logger.debug(TAG, "success", "GAPC", "certrequired", appconfig.certrequired, "maintenance", appconfig.required);
 	if (appconfig) {
+		logger.debug(TAG, "success", "GAPC", "certrequired", appconfig.certrequired, "maintenance", appconfig.required);
 		/**
 		 * update model
 		 */
