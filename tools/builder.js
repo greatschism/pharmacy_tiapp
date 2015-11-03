@@ -309,13 +309,13 @@ if (build) {
 			 */
 			if (_u.has(BRAND_THEME_DATA, "config")) {
 				if (_u.has(BRAND_THEME_DATA.config, "global")) {
-					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.global);
+					_u.extend(BASE_THEME_DATA.data.config.global, BRAND_THEME_DATA.config.global);
 				}
 				if (_u.has(BRAND_THEME_DATA.config, "ios")) {
-					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.ios);
+					_u.extend(BASE_THEME_DATA.data.config.ios, BRAND_THEME_DATA.config.ios);
 				}
 				if (_u.has(BRAND_THEME_DATA.config, "android")) {
-					_u.extend(BASE_THEME_DATA, BRAND_THEME_DATA.config.android);
+					_u.extend(BASE_THEME_DATA.data.config.android, BRAND_THEME_DATA.config.android);
 				}
 			}
 			/**
