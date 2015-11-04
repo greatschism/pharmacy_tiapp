@@ -334,7 +334,7 @@ var Res = {
 			passthrough.error = false;
 			logger.debug(TAG, "success", "type", passthrough.type, "version", passthrough.version, "code", passthrough.code || "");
 			var desFile = passthrough.type + "_" + passthrough.code + "_" + passthrough.version + (passthrough.hires ? Res.imgHiresSuffix : "") + "." + passthrough.format;
-			if (passthrough.type == "fonts") {
+			if (passthrough.type == "font") {
 				//fonts
 				utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), result);
 			} else {
