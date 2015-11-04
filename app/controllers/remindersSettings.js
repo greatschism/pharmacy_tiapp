@@ -227,7 +227,7 @@ function didClickDeliveryMode(e) {
 		 * check whether phone number
 		 * is invalid or not verified
 		 */
-		if (!mPatient.get("mobile_number") || mPatient.get("mobile_number") === "null" || mPatient.get("is_mobile_verified") !== "1") {
+		if (mPatient.get("mobile_number") === "null" || mPatient.get("is_mobile_verified") !== "1") {
 			$.uihelper.showDialog({
 				message : $.strings.remindersSettingsMsgPhoneNotVerified,
 				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnCancel],
