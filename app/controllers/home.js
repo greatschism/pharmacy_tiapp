@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     navigationHandler = require("navigationHandler"),
+    ctrlShortCode = require("ctrlShortCode"),
     moduleShortCode = require("moduleShortCode"),
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     icons = Alloy.CFG.icons,
