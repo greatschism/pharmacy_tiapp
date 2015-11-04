@@ -338,7 +338,7 @@ function didConfirmHome() {
 }
 
 function handleEvent(e) {
-	$.analytics.handleEvent($.ctrlShortCode, e);
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 function terminate() {

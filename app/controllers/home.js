@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     navigationHandler = require("navigationHandler"),
+    moduleShortCode = require("moduleShortCode"),
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     icons = Alloy.CFG.icons,
     banners,
@@ -242,7 +243,9 @@ function didClickItem(e) {
 	 * to prevent the source object being modified by
 	 * navigationHandler
 	 */
-	navigationHandler.navigate( menuItem ? menuItem.toJSON() : _.clone(navigation));
+	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
+	navigationHandler.navigate(navigation);
+	$.analyticsHandler.featureEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode + "-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 }
 
 function didClickRightNav(e) {

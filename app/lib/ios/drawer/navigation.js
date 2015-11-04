@@ -17,8 +17,8 @@
 var TAG = "NAVI",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
-    analytics = require("analytics"),
-    ctrlShortCode = require("ctrlShortCode");
+    ctrlShortCode = require("ctrlShortCode"),
+    analyticsHandler = require("analyticsHandler");
 
 function Navigation(args) {
 
@@ -96,7 +96,7 @@ function Navigation(args) {
 			return;
 		}
 
-		analytics.navEvent(that.currentController.ctrlShortCode || TAG, ctrlShortCode[params.ctrl]);
+		analyticsHandler.navEvent(that.currentController.ctrlShortCode || TAG, ctrlShortCode[params.ctrl]);
 
 		if (params.stack) {
 			return that.push(params);
@@ -216,7 +216,7 @@ function Navigation(args) {
 
 		that.currentController = that.controllers[that.controllers.length - 1];
 
-		analytics.navEvent(from, that.currentController.ctrlShortCode);
+		analyticsHandler.navEvent(from, that.currentController.ctrlShortCode);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);

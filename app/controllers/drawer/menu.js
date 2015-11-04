@@ -2,6 +2,8 @@ var args = arguments[0] || {},
     app = require("core"),
     uihelper = require("uihelper"),
     navigationHandler = require("navigationHandler"),
+    ctrlShortCode = require("ctrlShortCode"),
+    analyticsHandler = require("analyticsHandler"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentIndex = -1;
@@ -25,7 +27,9 @@ function didDrawerclose(e) {
 	if (currentIndex == -1) {
 		return false;
 	}
-	navigationHandler.navigate(Alloy.Collections.menuItems.at(currentIndex).toJSON());
+	var navigation = Alloy.Collections.menuItems.at(currentIndex).toJSON();
+	navigationHandler.navigate(navigation);
+	analyticsHandler.featureEvent("DRAW-MENU-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentIndex = -1;
 }
 
