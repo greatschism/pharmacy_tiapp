@@ -4,7 +4,7 @@
 			<HeaderView>
 				<View class="content-header-view" onClick="handleEvent">
 					<Label id="userLbl" class="content-header-lbl-with-ricon" />
-					<Button class="content-header-right-icon icon-edit" onClick="didClickEditUser"/>
+					<Button id="userEditBtn" class="content-header-right-icon icon-edit" onClick="didClickEditUser"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
@@ -27,7 +27,7 @@
 			<HeaderView>
 				<View class="content-header-view" onClick="handleEvent">
 					<Label id="storeLbl" class="content-header-lbl-with-ricon"/>
-					<Button class="content-header-right-icon icon-edit" onClick="didClickEditStore"/>
+					<Button id="storeEditBtn" class="content-header-right-icon icon-edit" onClick="didClickEditStore"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
@@ -43,7 +43,7 @@
 			<HeaderView>
 				<View class="content-header-view" onClick="handleEvent">
 					<Label id="prescLbl" class="content-header-lbl-with-ricon"/>
-					<Button class="content-header-right-icon icon-edit" onClick="didClickEditPrec" />
+					<Button id="prescEditBtn" class="content-header-right-icon icon-edit" onClick="didClickEditPrec" />
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
