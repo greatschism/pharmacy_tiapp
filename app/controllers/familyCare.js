@@ -59,7 +59,8 @@ function didGetPatient() {
 			$.familyCareLbl = Ti.UI.createLabel();
 			$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 			$.familyCareLbl.applyProperties($.createStyle({
-				classes : ["lbl-centered-wrap", "margin-top", "margin-bottom"]
+				classes : ["lbl-centered-wrap", "margin-top", "margin-bottom"],
+				id : "noFamilyMemberLbl"
 			}));
 			$.familyCareView.add($.familyCareLbl);
 		}
@@ -67,14 +68,16 @@ function didGetPatient() {
 			$.familyCareAddLbl = Ti.UI.createLabel();
 			$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 			$.familyCareAddLbl.applyProperties($.createStyle({
-				classes : ["subtitle-centered-wrap", "margin-bottom"]
+				classes : ["subtitle-centered-wrap", "margin-bottom"],
+				id: "familyCareAddLbl"
 			}));
 			$.familyCareView.add($.familyCareAddLbl);
 		}
 		if (!$.familyCareAddBtn) {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
-				classes : ["icon-add-familycare", "primary-icon-extra-large"]
+				classes : ["icon-add-familycare", "primary-icon-extra-large"],
+				id : "familyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -175,7 +178,8 @@ function didGetPatient() {
 			$.familyMemberAddBtn = Ti.UI.createButton();
 			$.familyMemberAddBtn.applyProperties($.createStyle({
 				classes : ["primary-btn", "margin-top", "margin-bottom"],
-				title : $.strings.familyCareMemberBtnAdd
+				title : $.strings.familyCareMemberBtnAdd,
+				id : "familyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyMemberAddBtn);
 			$.familyMemberAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -427,6 +431,9 @@ function terminate(){
 	 */
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.isSwipeInProgress = false;
+}
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 exports.focus = focus;
 exports.terminate=terminate;

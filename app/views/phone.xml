@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView id="childTable" onSingletap="didClickTableView">
 		<FooterView>
-			<View class="vgroup auto-height">
+			<View class="vgroup auto-height" onClick="handleEvent">
 				<View class="content-header-view">
 					<Label id="mobileNumberLbl" class="content-header-lbl" />
 				</View>

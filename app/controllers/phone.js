@@ -23,7 +23,9 @@ function init() {
 		updateTable();
 	}
 }
-
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+}
 function focus() {
 	$.receiveTextLbl.text = String.format($.strings.receiveTextChildLbl, $.strings.strClientName, $.strings.strClientName);
 	currentPatient = Alloy.Collections.patients.findWhere({
