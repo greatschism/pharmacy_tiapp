@@ -46,40 +46,40 @@ module.exports = {
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "light",
-		"postscript" : "Lato-Light",
+		"postscript" : "HelveticaNeue-Light",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Light.ttf",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/HelveticaNeue-Light.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "regular",
-		"postscript" : "Lato-Regular",
+		"postscript" : "HelveticaNeue-Regular",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Regular.ttf",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/HelveticaNeue-Regular.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "medium",
-		"postscript" : "Lato-Bold",
+		"postscript" : "HelveticaNeue-Medium",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Bold.ttf",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/HelveticaNeue-Medium.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "bold",
-		"postscript" : "Lato-Black",
+		"postscript" : "HelveticaNeue-Bold",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Black.ttf",
+		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/HelveticaNeue-Bold.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
