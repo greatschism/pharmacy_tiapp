@@ -21,7 +21,8 @@ function init() {
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
 			classes : ["content-header-right-btn"],
-			title : $.strings.prescAddSectionBtnAll
+			title : $.strings.prescAddSectionBtnAll,
+			id : "prescSelectAllBtn"
 		});
 	} else {
 		detailBtnClasses = ["content-detail-secondary-btn"];

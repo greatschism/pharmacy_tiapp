@@ -16,7 +16,8 @@ var args = arguments[0] || {},
 	title : $.createStyle({
 		classes : ["icon-unfilled-remove"]
 	}).text,
-	touchEnabled : true
+	touchEnabled : true,
+	id : "removeBtn"
 }),
 /***PHA-1250***/
 
@@ -33,7 +34,8 @@ function init() {
 		title : $.createStyle({
 			classes : ["icon-help"]
 		}).text,
-		touchEnabled : true
+		touchEnabled : true,
+		id : "sampleBtn"
 	}));
 	/***PHA-1250***/
 	rxTxtHeight = $.createStyle({
