@@ -1,4 +1,11 @@
 {
+	"config": {
+		"global": {
+			"rx_length": 11,
+			"rx_store_end_index": 11,
+			"rx_validator": "^[0-9]{7}-[0-9]{3}$"
+		}
+	},
 	"values": {
 		"PRIMARY_COLOR": "#DA291C",
 		"PRIMARY_DARK_COLOR": "#4C0E0C"
