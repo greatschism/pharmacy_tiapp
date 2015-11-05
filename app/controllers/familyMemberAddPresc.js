@@ -8,6 +8,12 @@ function init() {
 	$.uihelper.getImage("child_add", $.addPrescImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
+	$.fnameTxt.setValue(args.first_name);
+	$.lnameTxt.setValue(args.last_name);
+	var dob = moment(args.birth_date, Alloy.CFG.apiCodes.dob_format),
+	    date = new Date();
+	date.setFullYear(dob.year(), dob.month(), dob.date());
+	$.dobDp.setValue(date);
 }
 
 function focus() {
@@ -21,10 +27,6 @@ function focus() {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}
-	$.fnameTxt.setValue(args.first_name);
-	$.lnameTxt.setValue(args.last_name);
-	var dob = moment(args.birth_date, Alloy.CFG.apiCodes.dob_format);
-	$.dobDp.setValue(dob);
 }
 
 function moveToNext(e) {
