@@ -1,12 +1,12 @@
 <Alloy>
 	<TableView>
 		<HeaderView>
-			<View class="content-header-view-wrap">
+			<View class="content-header-view-wrap" onClick="handleEvent">
 				<Label id="titleLbl" class="content-header-lbl-wrap" />
 			</View>
 		</HeaderView>
 		<TableViewRow>
-			<View class="content-view-with-rswt">
+			<View class="content-view-with-rswt" onClick="handleEvent">
 				<Label id="transferAllPrescLbl" class="content-lbl-wrap" />
 			</View>
 			<Widget id="transferAllPrescSwt" src="ti.switch" class="content-right-swt swt" />
@@ -18,13 +18,13 @@
 			<Widget id="sendTxtMsgSwt" src="ti.switch" class="content-right-swt swt" />
 	</TableViewRow>-->
 		<TableViewRow onClick="didClickReview">
-			<View class="content-view-with-child">
+			<View class="content-view-with-child" onClick="handleEvent">
 				<Label id="reviewLbl" class="content-lbl-wrap" />
 			</View>
 			<Label class="content-child-icon icon-thin-arrow-right" />
 		</TableViewRow>
 		<FooterView>
-			<View class="auto-height vgroup">
+			<View class="auto-height vgroup" onClick="handleEvent">
 				<!--footer separator seems to appear on pre lollipop devices-->
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<Button id="transferBtn" class="margin-top margin-bottom primary-btn" onClick="didClickComplete"/>

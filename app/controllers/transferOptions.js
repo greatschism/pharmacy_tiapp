@@ -7,7 +7,9 @@ function focus() {
 		$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, $.strings.transferOptsStrStoreNone, $.strings.strClientName);
 	}
 }
-
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+}
 function didClickComplete(e) {
 	if (args.prescription) {
 		transferStore();

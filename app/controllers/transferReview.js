@@ -4,7 +4,9 @@ var args = arguments[0] || {},
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
 }
-
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+}
 function didClickComplete(e) {
 	if (args.prescription) {
 		transferStore();

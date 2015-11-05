@@ -2,36 +2,36 @@
 	<TableView id="tableView" class="margin-bottom">
 		<TableViewSection if="$.args.user">
 			<HeaderView>
-				<View class="content-header-view">
+				<View class="content-header-view" onClick="handleEvent">
 					<Label id="userLbl" class="content-header-lbl-with-ricon" />
 					<Button class="content-header-right-icon icon-edit" onClick="didClickEditUser"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View class="content-view">
+				<View class="content-view" onClick="handleEvent">
 					<Label id="userNameLbl" class="content-lbl" />
 				</View>
 			</TableViewRow>
 			<TableViewRow>
-				<View class="content-view">
+				<View class="content-view" onClick="handleEvent">
 					<Label id="dobLbl" class="content-lbl" />
 				</View>
 			</TableViewRow>
 			<TableViewRow>
-				<View class="content-view">
+				<View class="content-view" onClick="handleEvent">
 					<Label id="phoneLbl" class="content-lbl" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
+				<View class="content-header-view" onClick="handleEvent">
 					<Label id="storeLbl" class="content-header-lbl-with-ricon"/>
 					<Button class="content-header-right-icon icon-edit" onClick="didClickEditStore"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View id="contentView" class="content-view-vgroup">
+				<View id="contentView" class="content-view-vgroup" onClick="handleEvent">
 					<Label id="storeNameLbl" class="content-title" />
 					<Label id="storeTitleLbl" class="inbetween-margin-top content-title" />
 					<Label id="storeSubtitleLbl" class="content-subtitle" />
@@ -41,26 +41,26 @@
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
+				<View class="content-header-view" onClick="handleEvent">
 					<Label id="prescLbl" class="content-header-lbl-with-ricon"/>
 					<Button class="content-header-right-icon icon-edit" onClick="didClickEditPrec" />
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
-				<View class="content-view-vgroup">
+				<View class="content-view-vgroup" onClick="handleEvent">
 					<Label id="prescNameLbl" class="content-title"/>
 					<Label id="rxLbl" class="content-subtitle"/>
 				</View>
 			</TableViewRow>
 			<TableViewRow if="!$.args.prescription">
 				<ImageView id="prescImg" class="content-left-image-large-bordered" />
-				<View class="content-view-with-limage-large">
+				<View class="content-view-with-limage-large" onClick="handleEvent">
 					<Label id="instructionLbl" class="top content-lbl-wrap" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
-			<View class="auto-height">
+			<View class="auto-height" onClick="handleEvent">
 				<!--footer separator seems to appear on pre lollipop devices-->
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 			</View>

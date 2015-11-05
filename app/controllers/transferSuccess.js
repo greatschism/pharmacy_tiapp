@@ -64,5 +64,7 @@ function didClickDone(e) {
 		landing_page : true
 	}).toJSON());
 }
-
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+}
 exports.focus = focus; 

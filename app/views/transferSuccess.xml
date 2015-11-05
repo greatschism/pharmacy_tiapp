@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView id="tableView">
 		<HeaderView>
-			<View class="auto-height vgroup">
+			<View class="auto-height vgroup" onClick="handleEvent">
 				<Label id="lblTransfer" class="margin-top margin-bottom title-centered" />
 				<ImageView id="successImg" />
 				<Label id="lblContact" class="margin-top margin-bottom lbl-wrap" />
@@ -9,12 +9,12 @@
 		</HeaderView>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
+				<View class="content-header-view" onClick="handleEvent">
 					<Label id="storeLbl" class="content-header-lbl"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View id="contentView" class="content-view-vgroup">
+				<View id="contentView" class="content-view-vgroup" onClick="handleEvent">
 					<Label id="storeNameLbl" class="content-title" />
 					<Label id="storeTitleLbl" class="inbetween-margin-top content-title" />
 					<Label id="storeSubtitleLbl" class="content-subtitle" />
@@ -24,13 +24,13 @@
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
+				<View class="content-header-view" onClick="handleEvent">
 					<Label id="prescLbl" class="content-header-lbl"/>
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
 				<Label class="content-positive-left-icon icon-checkbox"/>
-				<View class="content-view-vgroup-with-licon">
+				<View class="content-view-vgroup-with-licon" onClick="handleEvent">
 					<Label id="prescNameLbl" class="content-title"/>
 					<Label id="rxLbl" class="content-subtitle"/>
 				</View>
@@ -40,7 +40,7 @@
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
-			<View class="auto-height vgroup">
+			<View class="auto-height vgroup" onClick="handleEvent">
 				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>
