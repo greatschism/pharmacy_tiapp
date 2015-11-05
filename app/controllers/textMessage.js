@@ -62,10 +62,17 @@ function replyTextMessage() {
 }
 
 function didReplied() {
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			if (args.remindersSettings) {
-				$.app.navigator.close(3);
+			if (args.remindersSettings || args.account) {
+				if (currentPatient.get("mobile_number") !== "null" && currentPatient.get("is_mobile_verified") === "0") {
+					$.app.navigator.close(2);
+				} else {
+					$.app.navigator.close(3);
+				}
 			} else {
 				$.app.navigator.open({
 					titleid : "titleHome",

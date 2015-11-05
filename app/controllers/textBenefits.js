@@ -7,17 +7,23 @@ function init() {
 }
 
 function didClickTextSignup() {
-	if(args.origin === "remindersSettings"){
-		remindersSettings=true;
-	}else{
-		remindersSettings=false;
+	if (args.origin === "remindersSettings") {
+		remindersSettings = true;
+		account = false;
+	} else if (args.origin === "account") {
+		account = true;
+		remindersSettings = false;
+	} else {
+		account = false;
+		remindersSettings = false;
 	}
 	$.app.navigator.open({
 		titleid : "titleChangePhone",
 		ctrl : "phone",
 		ctrlArguments : {
 			username : args.username,
-			"remindersSettings": remindersSettings,
+			"remindersSettings" : remindersSettings,
+			"account" : account
 		},
 		stack : true
 	});
@@ -40,7 +46,7 @@ function didClickSkipTextSignup() {
 			ctrl : "familyCare",
 			stack : false
 		});
-	} else if (args.isAccountFlow || args.origin === "remindersSettings") {
+	} else if (args.origin === "account" || args.origin === "remindersSettings") {
 		$.app.navigator.close();
 	} else {
 		$.app.navigator.open({

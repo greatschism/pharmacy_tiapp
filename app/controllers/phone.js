@@ -173,6 +173,16 @@ function didFail() {
 }
 
 function didCheckMobileNumber(result) {
+	if (args.origin === "remindersSettings" || args.remindersSettings) {
+		remindersSettings = true;
+		account = false;
+	} else if (args.origin === "account" || args.account) {
+		account = true;
+		remindersSettings = false;
+	} else {
+		account = false;
+		remindersSettings = false;
+	}
 	otp = result.data.patient.verification_code;
 	authenticator.updatePreferences({
 		"mobile_number" : phone
@@ -182,7 +192,8 @@ function didCheckMobileNumber(result) {
 				ctrl : "textMessage",
 				stack : true,
 				ctrlArguments : {
-					"remindersSettings": args.remindersSettings,
+					"remindersSettings": remindersSettings,
+					"account":account,
 					"otp" : otp,
 					"phone" : phone,
 					"txtCode" : true,

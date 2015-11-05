@@ -123,9 +123,6 @@ function didClickmobileNumber(e) {
 		$.app.navigator.open({
 			ctrl : "textBenefits",
 			titleid : "titleTextBenefits",
-			ctrlArguments : {
-				isAccountFlow : true
-			},
 			stack : true
 		});
 	}
