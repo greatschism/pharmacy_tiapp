@@ -632,10 +632,10 @@
             ".primary-btn": {
                 "left": 16,
                 "right": 16,
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -647,10 +647,10 @@
             },
             ".primary-btn-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -663,10 +663,10 @@
             ".inactive-btn": {
                 "left": 16,
                 "right": 16,
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -678,10 +678,10 @@
             },
             ".inactive-btn-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -694,10 +694,10 @@
             ".secondary-btn": {
                 "left": 16,
                 "right": 16,
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "${PRIMARY_COLOR}",
                 "selectedColor": "${PRIMARY_COLOR}",
@@ -709,10 +709,10 @@
             },
             ".secondary-btn-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "${PRIMARY_COLOR}",
                 "selectedColor": "${PRIMARY_COLOR}",
@@ -725,10 +725,10 @@
             ".tertiary-btn": {
                 "left": 16,
                 "right": 16,
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "selectedColor": "#0095FF",
@@ -740,10 +740,10 @@
             },
             ".tertiary-btn-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "selectedColor": "#0095FF",
@@ -755,10 +755,10 @@
             },
             ".tertiary-btn-50": {
                 "width": "50%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#0095FF",
                 "selectedColor": "#0095FF",
@@ -921,7 +921,7 @@
                 "right": 12,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "optionPadding": {
@@ -945,7 +945,7 @@
                 "height": 50,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "optionPadding": {
@@ -993,12 +993,12 @@
             ".txt": {
                 "left": 12,
                 "right": 12,
-                "height": 50,
+                "height": 60,
                 "paddingLeft": 8,
                 "paddingRight": 8,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1006,7 +1006,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#808184",
@@ -1040,12 +1040,12 @@
             },
             ".txt-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "paddingLeft": 8,
                 "paddingRight": 8,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1053,7 +1053,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#808184",
@@ -1083,13 +1083,13 @@
             },
             ".txt-centered-48": {
                 "width": "48%",
-                "height": 50,
+                "height": 60,
                 "paddingLeft": 8,
                 "paddingRight": 8,
                 "textAlign": "center",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1097,7 +1097,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#808184",
@@ -1159,7 +1159,7 @@
                 "enableClearButton": true,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1167,7 +1167,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#5b5b5b",
@@ -1202,7 +1202,7 @@
                 "height": 90,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "color": "#000000",
                 "hintTextColor": "#C7C7CD",
@@ -1244,12 +1244,12 @@
             },
             ".form-txt": {
                 "width": "fill",
-                "height": 50,
+                "height": 60,
                 "paddingLeft": 8,
                 "paddingRight": 8,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1257,7 +1257,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#808184",
@@ -1289,12 +1289,12 @@
             },
             ".form-txt-50": {
                 "width": "50%",
-                "height": 50,
+                "height": 60,
                 "paddingLeft": 8,
                 "paddingRight": 8,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "iconFont": {
                     "fontFamily": "icon",
@@ -1302,7 +1302,7 @@
                 },
                 "buttonFont": {
                     "fontFamily": "bold",
-                    "fontSize": 12
+                    "fontSize": 17
                 },
                 "leftIconDict": {
                     "color": "#808184",
@@ -1334,10 +1334,10 @@
             },
             ".form-dropdown": {
                 "width": "fill",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "color": "#1a1a1a",
                 "optionPadding": {
@@ -1382,10 +1382,10 @@
             },
             ".form-dropdown-50": {
                 "width": "50%",
-                "height": 50,
+                "height": 60,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 14
+                    "fontSize": 20
                 },
                 "color": "#1a1a1a",
                 "optionPadding": {
@@ -1482,7 +1482,7 @@
                 "height": "fill",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -1497,7 +1497,7 @@
                 "height": "fill",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
@@ -1512,7 +1512,7 @@
                 "height": "fill",
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "color": "#FFFFFF",
                 "selectedColor": "#FFFFFF",
