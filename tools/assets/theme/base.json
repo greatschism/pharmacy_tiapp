@@ -294,7 +294,7 @@
                 "titleAttributes": {
                     "font": {
                         "fontFamily": "medium",
-                        "fontSize": 17
+                        "fontSize": 20
                     },
                     "color": "#FFFFFF"
                 },
@@ -787,7 +787,7 @@
             	"right": 12,
                 "font": {
                     "fontFamily": "medium",
-                    "fontSize": 17
+                    "fontSize": 20
                 },
                 "textAlign": "right",
                 "color": "#FFFFFF",
@@ -802,7 +802,7 @@
             	"right": 12,
                 "font": {
                     "fontFamily": "icon",
-                    "fontSize": 22
+                    "fontSize": 24
                 },
                 "textAlign": "right",
                 "color": "#FFFFFF",

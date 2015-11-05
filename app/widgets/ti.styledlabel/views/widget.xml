@@ -1,3 +1,3 @@
 <Alloy>
-	<Label onClick="didClick" />
+	<View />
 </Alloy>

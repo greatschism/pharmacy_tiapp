@@ -4,17 +4,28 @@ var args = arguments[0] || {},
     secondaryColor;
 
 (function() {
+	$.lbl = Ti.UI.createLabel({
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		id : args.id || "styledlabel"
+	});
+	$.lbl.addEventListener("click", didClick);
+	$.widget.add($.lbl);
 	applyProperties(args);
 })();
 
 function applyProperties(dict) {
-	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "backgroundColor", "borderColor", "borderWidth", "borderRadius"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
+	options = _.pick(dict, ["font", "color", "textAlign", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	if (!_.isEmpty(options)) {
+		$.lbl.applyProperties(options);
+	}
 	//AC-201
 	if (_.has(args, "bubbleParent")) {
-		$.widget.setBubbleParent(args.bubbleParent);
+		$.lbl.setBubbleParent(args.bubbleParent);
 	}
 	secondaryFont = dict.secondaryFont || {
 		fontWeight : "bold",
@@ -90,7 +101,7 @@ function setHtml(data) {
 				}
 			}
 
-			$.widget.attributedString = Ti.UI.createAttributedString({
+			$.lbl.attributedString = Ti.UI.createAttributedString({
 				text : strings.join(""),
 				attributes : attributes
 			});
