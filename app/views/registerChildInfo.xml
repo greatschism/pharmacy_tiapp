@@ -1,5 +1,5 @@
  <Alloy>
-	<View class="vgroup">
+	<View class="vgroup auto-height top">
 		<Label id="childInfoTitle" class="subtitle-centered-wrap margin-top margin-bottom"/>
 		<ImageView id="infoImg" class="margin-top margin-bottom"/>
 		<Label id="childInfoLbl" class="lbl-wrap margin-top margin-bottom"/>
