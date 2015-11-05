@@ -38,6 +38,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titlePrescriptions"
 								}
 							}]
@@ -64,6 +66,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleRefill"
 								}
 							}]
@@ -90,6 +94,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleReminders"
 								}
 							}]
@@ -116,6 +122,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleFamilyAccounts"
 								}
 							}]
@@ -142,6 +150,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleStores"
 								}
 							}]
@@ -168,6 +178,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleTransfer"
 								}
 							}]
@@ -194,6 +206,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleDoctors"
 								}
 							}]
@@ -220,6 +234,8 @@ module.exports = {
 								"apiName" : "Label",
 								"classes" : ["content-lbl", "touch-disabled"],
 								"properties" : {
+									"top" : 15,
+									"bottom" : 15,
 									"textid" : "titleAccount"
 								}
 							}]

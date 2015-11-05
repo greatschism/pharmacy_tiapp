@@ -163,5 +163,9 @@ function didClickDone(e) {
 	}).toJSON());
 }
 
+function handleEvent(e) {
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+}
+
 exports.init = init;
 exports.focus = focus;

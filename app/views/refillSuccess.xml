@@ -6,10 +6,8 @@
 				<Label id="lbl" class="margin-top margin-bottom lbl-wrap" />
 			</View>
 		</HeaderView>
-		<!--moving if="Alloy.Globals.isLoggedIn" to footerView tag might
-		throw null pointer on android(considered as value passed but null)-->
 		<FooterView>
-			<View class="auto-height vgroup">
+			<View class="auto-height vgroup" onClick="handleEvent">
 				<!--footer separator seems to appear on pre lollipop devices-->
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<!--footer separator seems to disappear on iOS-->
