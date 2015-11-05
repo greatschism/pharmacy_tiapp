@@ -17,6 +17,13 @@ function init() {
 	});
 	setRightButton("", rightButtonDict);
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
+	
+	/*******************************************************************/
+	/*this is temporary. This info will mvoe to the about dialog later*/
+	$.versionLbl.text = String.format($.strings.loginVersionLbl,  Ti.App.version + "." + Alloy.CFG.buildNumber); 
+	
+	/*******************************************************************/
+	
 	$.uihelper.getImage("logo", $.logoImg);
 	/**
 	 * if auto login is enabled

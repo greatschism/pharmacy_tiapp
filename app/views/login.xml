@@ -15,6 +15,9 @@
 			<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
 			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-top attributed-wrap" onClick="didClickForgotPassword" />
 			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
+			<View class="bottom">
+				<Label id="versionLbl" class="margin-bottom" />
+			</View>
 		</View>
 		<Widget id="tooltip" src="ti.tooltip" class="tooltip-unfilled-arrow-up content-primary-tooltip ">
 			<View class="auto-height vgroup">
