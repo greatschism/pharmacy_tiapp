@@ -44,7 +44,7 @@ function didAppPaused(e) {
 }
 
 function didAppResumed(e) {
-	logger.debug(TAG, "app resume");
+	logger.debug(TAG, "app resumed");
 	if ((moment().unix() - Alloy.Globals.latestActive) > Alloy.CFG.appload_timeout) {
 		logger.debug(TAG, "applog timeout");
 		return doLogout();
