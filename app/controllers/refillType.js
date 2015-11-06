@@ -139,8 +139,9 @@ function didClickRefill(e) {
 		if (value) {
 			value = rx.validate(value);
 			if (value) {
+				//PHA-1424
 				validRxs.push({
-					rx_number : value,
+					rx_number : value.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 					store_id : storeId,
 					pickup_mode : pickupMode,
 					pickup_time_group : apiCodes.pickup_time_group_asap
@@ -214,7 +215,7 @@ function didRefill(result, passthrough) {
 	var prescriptions = result.data.prescriptions;
 	_.each(prescriptions, function(prescription, index) {
 		_.extend(prescription, {
-			title : $.strings.strPrefixRx.concat(passthrough[index].rx_number.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
+			title : $.strings.strPrefixRx.concat(passthrough[index].rx_number),
 			subtitle : prescription.refill_inline_message || prescription.refill_error_message
 		});
 	});
