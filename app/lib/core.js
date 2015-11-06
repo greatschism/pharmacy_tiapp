@@ -66,8 +66,8 @@ var App = {
 
 		//Global system Events
 		/**
-		 * Not required since app doesn't support
-		 * language orientation for now
+		 * Not required since app supports
+		 * only portrait
 		 */
 		//Ti.Gesture.addEventListener("orientationchange", App.orientationChange);
 
@@ -93,8 +93,8 @@ var App = {
 
 		//Global system Events
 		/**
-		 * Not required since app doesn't support
-		 * language orientation for now
+		 * Not required since app supports
+		 * only portrait
 		 */
 		//Ti.Gesture.removeEventListener("orientationchange", App.orientationChange);
 
