@@ -18,10 +18,17 @@ var Reporter = {
 					callback(true);
 				}
 			};
+			if (!config) {
+				config = {};
+			}
 			if (OS_ANDROID) {
 				Module.addEventListener("serviceready", onServiceready);
+				_.defaults(config, {
+					notificationTitle : Ti.App.name,
+					shouldCollectLogcat : true
+				});
 			}
-			Module.init(utilities.getProperty("com-appcelerator-apm-id", appId, "string", false), config || {});
+			Module.init(utilities.getProperty("com-appcelerator-apm-id", appId, "string", false), config);
 			if (!OS_ANDROID) {
 				onServiceready();
 			}
