@@ -93,4 +93,13 @@ var Reporter = {
 	}
 };
 
+/**
+ * log uncaught exceptions
+ * Note: crittercism / APM
+ * handles it by default.
+ */
+/*
+ * Ti.App.addEventListener("uncaughtException", Reporter.logHandledException);
+ */
+
 module.exports = Reporter;
