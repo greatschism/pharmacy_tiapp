@@ -253,13 +253,19 @@ function initMasterWindow() {
 	 * and not just opened
 	 */
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
-		navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
-			ctrl : "carousel",
-			titleid : "strWelcome",
-			navBarHidden : true
-		} : false,
+		/*navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
+		 ctrl : "carousel",
+		 titleid : "strWelcome",
+		 navBarHidden : true
+		 } : false,*/
 		triggerUpdate : triggerAsyncUpdate
 	});
+	/**
+	 * disable carousel
+	 */
+	if (utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false)) {
+		utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
+	}
 	ctrl.on("init", didInitWin);
 	ctrl.init();
 }
