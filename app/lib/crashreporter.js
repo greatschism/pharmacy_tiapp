@@ -1,27 +1,29 @@
-var Alloy = require("alloy"),
+var TAG = "CRRE",
+    Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     utilities = require("utilities"),
-    CrashReporterModule = false;
+    Module = require("com.appcelerator.apm"),
+    serviceready = false;
 
 var Reporter = {
 	init : function(callback, appId, config) {
-		if (Alloy.CFG.crashreporter_enabled && !CrashReporterModule) {
-			var Module = require("com.appcelerator.apm"),
-			    didServiceready = function() {
-				CrashReporterModule = Module;
+		if (Alloy.CFG.crashreporter_enabled && !serviceready) {
+			var onServiceready = function() {
+				require("logger").debug(TAG, "initated");
+				serviceready = true;
+				if (OS_ANDROID) {
+					Module.removeEventListener("serviceready", onServiceready);
+				}
 				if (callback) {
 					callback(true);
 				}
 			};
 			if (OS_ANDROID) {
-				Module.addEventListener("serviceready", didServiceready);
+				Module.addEventListener("serviceready", onServiceready);
 			}
-			if (!appId) {
-				appId = utilities.getProperty("com-appcelerator-apm-id", "", "string", false);
-			}
-			Module.init(appId, config || {});
+			Module.init(utilities.getProperty("com-appcelerator-apm-id", appId, "string", false), config || {});
 			if (!OS_ANDROID) {
-				didServiceready();
+				onServiceready();
 			}
 		} else {
 			if (callback) {
@@ -29,41 +31,55 @@ var Reporter = {
 			}
 		}
 	},
+	crash : function() {
+		require("logger").warn(TAG, "simulated crash");
+		if (OS_ANDROID) {
+			require("core").navigator.currentController.getView().add({});
+		} else {
+			Module.crashTheApp();
+		}
+	},
 	didCrashOnLastAppLoad : function() {
-		if (CrashReporterModule) {
-			return CrashReporterModule.didCrashOnLastAppLoad();
+		if (serviceready) {
+			return Module.didCrashOnLastAppLoad();
 		}
 		return false;
 	},
 	setUsername : function(username) {
-		if (CrashReporterModule) {
-			CrashReporterModule.setUsername(username);
+		if (serviceready) {
+			Module.setUsername(username);
 		}
 	},
 	getUUID : function() {
-		if (CrashReporterModule) {
-			return CrashReporterModule.getUUID();
+		if (serviceready) {
+			return Module.getUUID();
 		}
 		return false;
 	},
 	setOptOutStatus : function(status) {
-		if (CrashReporterModule) {
-			CrashReporterModule.setOptOutStatus(status);
+		if (serviceready) {
+			Module.setOptOutStatus(status);
 		}
 	},
+	getOptOutStatus : function(status) {
+		if (serviceready) {
+			return Module.getOptOutStatus(status);
+		}
+		return false;
+	},
 	setMetadata : function(key, value) {
-		if (CrashReporterModule) {
-			CrashReporterModule.setMetadata(key, value);
+		if (serviceready) {
+			Module.setMetadata(key, value);
 		}
 	},
 	leaveBreadcrumb : function(breadcrumb) {
-		if (CrashReporterModule) {
-			CrashReporterModule.leaveBreadcrumb(breadcrumb);
+		if (serviceready) {
+			Module.leaveBreadcrumb(breadcrumb);
 		}
 	},
 	logHandledException : function(error) {
-		if (CrashReporterModule && utilities.isError(error)) {
-			CrashReporterModule.logHandledException(error);
+		if (serviceready && utilities.isError(error)) {
+			Module.logHandledException(error);
 			return true;
 		}
 		return false;

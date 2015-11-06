@@ -45,9 +45,8 @@ describe("CrashReporter Test Suite", function() {
 		done();
 	});
 
-	it("Test Case 7: setOptOutStatus with false", function(done) {
-		crashreporter.setOptOutStatus(false);
-		done();
+	it("Test Case 7: getOptOutStatus should be ture", function(done) {
+		crashreporter.getOptOutStatus().should.be.equal(true);
 	});
 
 	it("Test Case 8: setMetadata", function(done) {
