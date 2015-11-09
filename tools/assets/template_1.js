@@ -26,20 +26,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_prescription"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titlePrescriptions"
 								}
 							}]
@@ -54,20 +52,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "refill_camera"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleRefill"
 								}
 							}]
@@ -82,20 +78,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_reminder"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleReminders"
 								}
 							}]
@@ -110,20 +104,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "users"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleFamilyAccounts"
 								}
 							}]
@@ -138,20 +130,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_pharmacy"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleStores"
 								}
 							}]
@@ -166,20 +156,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_transfer"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleTransfer"
 								}
 							}]
@@ -194,20 +182,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_doctor"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleDoctors"
 								}
 							}]
@@ -222,20 +208,18 @@ module.exports = {
 				"children" : [{
 					"items" : [{
 						"apiName" : "Label",
-						"classes" : ["content-left-icon", "touch-disabled"],
+						"classes" : ["home-list-left-icon", "touch-disabled"],
 						"properties" : {
 							"icon" : "thick_account"
 						}
 					}, {
 						"apiName" : "View",
-						"classes" : ["content-view-with-licon", "touch-disabled"],
+						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["content-lbl", "touch-disabled"],
+								"classes" : ["home-list-content-lbl", "touch-disabled"],
 								"properties" : {
-									"top" : 15,
-									"bottom" : 15,
 									"textid" : "titleAccount"
 								}
 							}]

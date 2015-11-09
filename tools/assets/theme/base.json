@@ -1428,6 +1428,34 @@
                 },
                 "borderColor": "transparent"
             },
+            ".home-list-left-icon": {
+                "left": 12,
+                "font": {
+                    "fontFamily": "icon",
+                    "fontSize": 32
+                },
+                "color": "${PRIMARY_COLOR}",
+                "accessibilityHidden": true
+            },
+            ".home-list-content-view-with-licon": {
+                "top": 24,
+                "bottom": 24,
+                "left": 58,
+                "right": 12,
+                "height": "auto"
+            },
+            ".home-list-content-lbl": {
+                "left": 0,
+                "height": 25,
+                "font": {
+                    "fontFamily": "regular",
+                    "fontSize": 20
+                },
+                "color": "#000000",
+                "textAlign": "left",
+                "ellipsize": true,
+                "wordWrap": false
+            },
             ".menu-view": {
                 "separatorColor": "transparent",
                 "backgroundColor": "${PRIMARY_COLOR}"
