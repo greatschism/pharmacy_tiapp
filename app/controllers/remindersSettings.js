@@ -230,7 +230,7 @@ function didClickDeliveryMode(e) {
 		if (mPatient.get("mobile_number") === "null" || mPatient.get("is_mobile_verified") !== "1") {
 			$.uihelper.showDialog({
 				message : $.strings.remindersSettingsMsgPhoneNotVerified,
-				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnCancel],
+				buttonNames : [$.strings.remindersSettingsDialogBtnPhoneNotVerified, $.strings.dialogBtnCancel],
 				cancelIndex : 1,
 				success : function didConfirm() {
 					var navigation;

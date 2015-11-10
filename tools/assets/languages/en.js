@@ -193,7 +193,7 @@ module.exports = {
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
 		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
 		"loginVersionLbl" : "Version: %s",
-		
+
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "Please enter the email address you originally signed up with. We will send you a link to reset your password.",
@@ -472,8 +472,9 @@ module.exports = {
 		"remindersSettingsPopupBtnClose" : "Close",
 		"remindersSettingsMsgShowRxNames" : "Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the %s Terms of Service.",
 		"remindersSettingsMsgPushDisabled" : "You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
-		"remindersSettingsMsgEmailNotVerified" : "We just send you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
-		"remindersSettingsMsgPhoneNotVerified" : "To receive text message notifications, please confirm your phone number.",
+		"remindersSettingsMsgEmailNotVerified" : "We just sent you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
+		"remindersSettingsMsgPhoneNotVerified" : "Please confirm your mobile number before you can receive text reminders.",
+		"remindersSettingsDialogBtnPhoneNotVerified" : "Confirm number",
 
 		"transferLblTitle" : "You can transfer prescriptions from other pharmacy chains to %s using this feature.",
 		"transferBtnPhoto" : "Take a photo",
