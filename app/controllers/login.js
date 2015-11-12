@@ -17,13 +17,13 @@ function init() {
 	});
 	setRightButton("", rightButtonDict);
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
-	
+
 	/*******************************************************************/
 	/*this is temporary. This info will mvoe to the about dialog later*/
-	$.versionLbl.text = String.format($.strings.loginVersionLbl,  Ti.App.version + "." + Alloy.CFG.buildNumber); 
-	
+	$.versionLbl.text = String.format($.strings.loginVersionLbl, Ti.App.version + "." + Alloy.CFG.buildNumber);
+
 	/*******************************************************************/
-	
+
 	$.uihelper.getImage("logo", $.logoImg);
 	/**
 	 * if auto login is enabled
@@ -114,6 +114,16 @@ function didClickLogin(e) {
 
 function didAuthenticate() {
 	/**
+	 * If the login screen's origin is
+	 * from Transfer Rx user details page,
+	 * set it to true, if not false.
+	 */
+	if (args.origin == "transferUserDetails") {
+		transferUserDetails = true;
+	} else {
+		transferUserDetails = false;
+	}
+	/**
 	 * Verify email address
 	 * if user has not verified it within 24rs
 	 * after registration taking him to email verification
@@ -149,7 +159,24 @@ function didAuthenticate() {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
-				email : mPatient.get("email_address")
+				email : mPatient.get("email_address"),
+				transferUserDetails : transferUserDetails,
+				navigation : {
+					titleid : "titleTransferStore",
+					ctrl : "stores",
+					ctrlArguments : {
+						navigation : {
+							titleid : "titleTransferOptions",
+							ctrl : "transferOptions",
+							ctrlArguments : {
+								prescription : args.navigation.ctrlArguments.navigation.ctrlArguments.prescription,
+								store : {}
+							},
+							stack : true
+						},
+						selectable : true
+					}
+				}
 			},
 			stack : false
 		});

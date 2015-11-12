@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-authenticator = require("authenticator");
+    authenticator = require("authenticator");
 function focus() {
 	$.lblEmail.text = args.email;
 }
@@ -15,14 +15,14 @@ function didClickIsntMyEmail() {
 		ctrl : "email",
 		ctrlArguments : {
 			email : args.email,
-			emailVerification: true
+			emailVerification : true
 		},
 		stack : true
 	});
 }
 
 function didClickResendEmail() {
-$.http.request({
+	$.http.request({
 		method : "email_resend",
 		params : {
 			filter : []
@@ -38,6 +38,7 @@ function didResendEmail() {
 		success : handleClose
 	});
 }
+
 function handleClose() {
 	$.uihelper.showDialog({
 		message : $.strings.emailVerifyMsgResendEmail,
@@ -53,11 +54,22 @@ function handleClose() {
 }
 
 function didClickContinue() {
-	$.app.navigator.open({
-		titleid : "titleHome",
-		ctrl : "home",
-		stack : false
-	});
+	/**
+	 * If the user is logging in midway 
+	 * from Transfer Rx module, take him to 
+	 * stores module and not home screen.
+	 */
+	if (args.transferUserDetails) {
+	$.app.navigator.open(args.navigation || Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	} else {
+		$.app.navigator.open({
+			titleid : "titleHome",
+			ctrl : "home",
+			stack : false
+		});
+	}
 }
 
 exports.init = init;
