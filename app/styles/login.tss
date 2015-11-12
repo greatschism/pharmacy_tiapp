@@ -28,4 +28,7 @@
 },
 "#tooltipHideBtn":{
 	title:Alloy.Globals.strings.loginTooltipBtnHide
-}
+},
+"#aboutAttr":{
+	html: Alloy.Globals.strings.loginAttrAbout
+},

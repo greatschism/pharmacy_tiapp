@@ -18,12 +18,6 @@ function init() {
 	setRightButton("", rightButtonDict);
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
 
-	/*******************************************************************/
-	/*this is temporary. This info will mvoe to the about dialog later*/
-	$.versionLbl.text = String.format($.strings.loginVersionLbl, Ti.App.version + "." + Alloy.CFG.buildNumber);
-
-	/*******************************************************************/
-
 	$.uihelper.getImage("logo", $.logoImg);
 	/**
 	 * if auto login is enabled
@@ -49,6 +43,16 @@ function init() {
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
+}
+
+function didClickAbout(){
+	var version = String.format($.strings.loginVersionLbl,  Ti.App.version);
+	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
+	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);  
+	
+	$.uihelper.showDialog({
+		message : version + "\n" + buildNumber + "\n" + buildDate
+	});
 }
 
 function didChangeToggle() {

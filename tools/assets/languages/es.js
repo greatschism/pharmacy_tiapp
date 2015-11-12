@@ -193,6 +193,9 @@ module.exports = {
 		"loginTooltipLblAutoSignIn" : "es-tip: We have entered your username and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
 		"loginAttrForgotPassword" : "es-<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
 		"loginVersionLbl" : "es-Version: %s",
+		"loginBuildNumber" : "es-Build Number: %s",
+		"loginBuildDate" : "es-Build Date: %s",
+		"loginAttrAbout" : "es-<secondaryfont><secondarycolor>about</secondarycolor></secondaryfont>",
 		
 		"patientSwitcherMsgChildBecameAdult" : "es-This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
