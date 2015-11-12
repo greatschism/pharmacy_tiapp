@@ -1,5 +1,5 @@
 <Alloy>
-	<View class="vgroup">
+	<ScrollView class="vgroup">
 		<Label id="consentLbl" class="lbl-wrap margin-top"/>
 		<View class="auto-height">
 			<Label id="leftIconLbl" class="content-inactive-left-icon icon-checkbox-unchecked" onClick="didClickConsent"/>
@@ -7,6 +7,6 @@
 				<Label id="consentObtainLbl" class="content-title" onClick="didClickConsent"/>
 			</View>
 		</View>
-		<Button id="inactiveBtn" class="inactive-btn" visible="true" />
-	</View>
+		<Button id="inactiveBtn" class="inactive-btn margin-bottom" visible="true" />
+	</ScrollView>
 </Alloy>
