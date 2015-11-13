@@ -17,7 +17,7 @@
 			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
 		</View>
 		<View class="content-detail-view-25 margin-bottom">
-			<Widget id="aboutAttr" src="ti.styledlabel" class="attributed-wrap" onClick="didClickAbout"/>
+			<Label id="aboutAttr" class="icon-description-link" onClick="didClickAbout"/>
 		</View>
 		<Widget id="tooltip" src="ti.tooltip" class="tooltip-unfilled-arrow-up content-primary-tooltip ">
 			<View class="auto-height vgroup">

@@ -195,7 +195,7 @@ module.exports = {
 		"loginVersionLbl" : "Version: %s",
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
-		"loginAttrAbout" : "<secondaryfont><secondarycolor>about</secondarycolor></secondaryfont>",
+		"loginAttrAbout" : "about",
 
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
