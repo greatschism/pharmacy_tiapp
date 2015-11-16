@@ -28,8 +28,10 @@
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
 
 	//load spinner images
+	var imgPrefix = "/images/series/activityindicator/layer_",
+	    imgSuffix = ".png";
 	for (var i = 1; i <= 161; i++) {
-		Alloy.Globals.spinnerImages.push("/images/activityindicator/layer_" + i + ".png");
+		Alloy.Globals.spinnerImages.push(imgPrefix + i + imgSuffix);
 	}
 
 	/**

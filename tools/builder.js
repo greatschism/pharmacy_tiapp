@@ -29,7 +29,7 @@ var log4js = require("log4js"),
     APP_ASSETS_ANDROID_DIR = APP_ASSETS_DIR + "android",
     APP_ASSETS_DATA_DIR = APP_ASSETS_DIR + "data",
     APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
-    APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR = APP_ASSETS_IMAGES_DIR + "/activityindicator",
+    APP_ASSETS_IMAGES_SERIES_DIR = APP_ASSETS_IMAGES_DIR + "/series",
     APP_DEFAULT_ICON = ROOT_DIR + "DefaultIcon.png",
     APP_ITUNES_ICON = ROOT_DIR + "iTunesConnect.png",
     APP_MARKETPLACE_ICON = ROOT_DIR + "MarketplaceArtwork.png",
@@ -49,7 +49,7 @@ var log4js = require("log4js"),
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
     BASE_ASSETS_DIR = TOOLS_DIR + "assets/",
-    BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR = BASE_ASSETS_DIR + "images/activityindicator",
+    BASE_ASSETS_IMAGES_SERIES_DIR = BASE_ASSETS_DIR + "images/series",
     BRAND_RESOURCE_BASE_DIR,
     BRAND_KEYS_BASE_DIR,
     BRAND_ENV_JSON,
@@ -226,8 +226,8 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
 
 		_u.each([{
-			source : BASE_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR,
-			dest : APP_ASSETS_IMAGES_ACTIVITYINDICATOR_DIR
+			source : BASE_ASSETS_IMAGES_SERIES_DIR,
+			dest : APP_ASSETS_IMAGES_SERIES_DIR
 		}, {
 			source : BRAND_HTTPS_CER,
 			dest : APP_HTTPS_CER
