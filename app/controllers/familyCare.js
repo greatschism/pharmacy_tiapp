@@ -200,8 +200,7 @@ function didClickChildSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
-
-	var phone = $.utilities.validatePhoneNumber(data.title);
+	var phone = $.utilities.isPhoneNumber(data.title);
 	if (phone) {
 		mode = $.strings.familyMemberInviteModeText;
 		address = data.title;
@@ -277,7 +276,7 @@ function didClickMgrSwipeOption(e) {
 		Alloy.Globals.currentRow.touchEnd();
 	}
 	var data = e.data;
-	var phone = $.utilities.validatePhoneNumber(data.title);
+	var phone = $.utilities.isPhoneNumber(data.title);
 	if (phone) {
 		mode = $.strings.familyMemberInviteModeText;
 		address = data.title;
