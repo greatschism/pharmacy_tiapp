@@ -1,6 +1,6 @@
 <Alloy>
-	<ScrollView >
-		<View class="vgroup">
+	<ScrollView>
+		<View class="width-100 auto-height vgroup">
 			<ImageView id="logoImg" class="margin-top" />
 			<View class="margin-top form-vgroup">
 				<View id="txtView" class="auto-height">
