@@ -27,7 +27,8 @@ function applyImages(imgView, fld, count) {
 	for (var i = 1; i <= count; i++) {
 		images.push(imgPrefix + i + imgSuffix);
 	}
-	imgView.setImages(images);
+	imgView.addEventListener("load", didLoad);
+	imgView.images = images;
 }
 
 function didLoad(e) {

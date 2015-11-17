@@ -4,23 +4,23 @@
 			<ScrollView id="appView" class="vgroup">
 				<ImageView id="logoImg" class="margin-top" />
 				<Label id="appLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="appImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+				<ImageView id="appImg" class="margin-top width-100 no-repeat bubble-disabled" />
 			</ScrollView>
 			<ScrollView id="prescView" class="vgroup">
 				<Label id="prescLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="prescImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+				<ImageView id="prescImg" class="margin-top width-100 no-repeat bubble-disabled" />
 			</ScrollView>
 			<ScrollView id="refillView" class="vgroup">
 				<Label id="refillLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="refillImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+				<ImageView id="refillImg" class="margin-top width-100 no-repeat bubble-disabled" />
 			</ScrollView>
 			<ScrollView id="remindersView" class="vgroup">
 				<Label id="remindersLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="remindersImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+				<ImageView id="remindersImg" class="margin-top width-100 no-repeat bubble-disabled" />
 			</ScrollView>
 			<ScrollView id="familyCareView" class="vgroup">
 				<Label id="familyCareLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="familyCareImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+				<ImageView id="familyCareImg" class="margin-top width-100 no-repeat bubble-disabled" />
 			</ScrollView>
 		</ScrollableView>
 		<View id="footerView" class="margin-bottom auto-height">
