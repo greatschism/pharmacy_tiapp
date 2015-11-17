@@ -1,7 +1,33 @@
 <Alloy>
-	<ScrollableView>
-		<View onClick="didClick">
-			<Label id="carousel" text="Carousel page is under construction, click here to home screen" class="lbl-centered-wrap" />
+	<View class="role-content-view">
+		<ScrollableView id="scrollableView" onScrollend="didScrollend">
+			<ScrollView id="appView" class="vgroup">
+				<ImageView id="logoImg" class="margin-top" />
+				<Label id="appLbl" class="margin-top subtitle-centered-wrap" />
+				<ImageView id="appImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+			</ScrollView>
+			<ScrollView id="prescView" class="vgroup">
+				<Label id="prescLbl" class="margin-top subtitle-centered-wrap" />
+				<ImageView id="prescImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+			</ScrollView>
+			<ScrollView id="refillView" class="vgroup">
+				<Label id="refillLbl" class="margin-top subtitle-centered-wrap" />
+				<ImageView id="refillImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+			</ScrollView>
+			<ScrollView id="remindersView" class="vgroup">
+				<Label id="remindersLbl" class="margin-top subtitle-centered-wrap" />
+				<ImageView id="remindersImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+			</ScrollView>
+			<ScrollView id="familyCareView" class="vgroup">
+				<Label id="familyCareLbl" class="margin-top subtitle-centered-wrap" />
+				<ImageView id="familyCareImg" class="margin-top width-100 no-repeat bubble-disabled" onLoad="didLoad" />
+			</ScrollView>
+		</ScrollableView>
+		<View id="footerView" class="margin-bottom auto-height">
+			<Button id="submitBtn" class="top tertiary-btn-48" onClick="didClickNext" />
+			<Label id="skipLbl" class="margin-right bottom inactive-lbl-small" onClick="didClickSkip" />
 		</View>
-	</ScrollableView>
+		<Widget id="pagingControl" src="ti.pagingcontrol" class="pagingcontrol" onChange="didChangePager" />
+		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
+	</View>
 </Alloy> 

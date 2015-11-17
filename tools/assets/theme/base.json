@@ -3233,6 +3233,18 @@
                 "ellipsize": false,
                 "wordWrap": true
             },
+            ".inactive-lbl-small": {
+          		"width": "auto",
+                "height": "auto",
+                "font": {
+                    "fontFamily": "regular",
+                    "fontSize": 14
+                },
+                "color": "#5B5B5B",
+                "textAlign": "left",
+                "ellipsize": true,
+                "wordWrap": false
+            },
             ".inactive-lbl-wrap": {
                 "left": 12,
                 "right": 12,

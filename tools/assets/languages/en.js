@@ -178,6 +178,15 @@ module.exports = {
 
 		"tmplOptionDividerLbl" : "Or",
 
+		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
+		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
+		"carouselLblRefill" : "Refill prescriptions instantly",
+		"carouselLblReminders" : "Get refill, pickup and other\nimportant notifications",
+		"carouselLblFamilyCare" : "Manage your families\nprescriptions in one place",
+		"carouselBtnStart" : "Get started",
+		"carouselBtnNext" : "Next",
+		"carouselBtnSkip" : "Skip",
+
 		"homeNavBtnLogin" : "Sign in",
 
 		"loginLblTitle" : "Sign in to the %s mobile pharmacy",

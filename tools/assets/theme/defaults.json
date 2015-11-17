@@ -107,6 +107,9 @@
 	".row-selection-disabled": {
 		"selectedBackgroundColor": "transparent"
 	},
+	".no-repeat": {
+		"repeatCount": 1
+	},
 	".autocaps-sentences": {
 		"autocapitalization": "Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES"
 	},

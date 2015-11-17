@@ -134,16 +134,15 @@ function didSpanTimeout() {
 	startSpanTime(banners[nextPage].spanTime);
 }
 
-function didChangePager(e) {
-	var currentPage = e.currentPage;
-	$.bannerScrollableView.scrollToView(currentPage);
-	startSpanTime(banners[currentPage].spanTime);
-}
-
 function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingControl.setCurrentPage(currentPage);
 	startSpanTime(banners[currentPage].spanTime);
+}
+
+function didChangePager(e) {
+	//scroll end will be triggered as result of this
+	$.bannerScrollableView.scrollToView(e.currentPage);
 }
 
 function create(dict) {

@@ -85,7 +85,7 @@ function updateSelection(currentIndex, previousIndex) {
 }
 
 function setCurrentPage(index) {
-	if (index < length) {
+	if (index < length && index != currentPage) {
 		updateSelection(index, currentPage);
 		currentPage = index;
 	}

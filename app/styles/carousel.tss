@@ -1,0 +1,40 @@
+"#pagingControl":{
+	currentPage: 0,
+	length: 5
+},
+"#appLbl":{
+	text: Alloy.Globals.strings.carouselLblApp
+},
+"#appImg":{
+	duration: 50
+},
+"#prescLbl":{
+	text: Alloy.Globals.strings.carouselLblPrescriptions
+},
+"#prescImg":{
+	duration: 50
+},
+"#refillLbl":{
+	text: Alloy.Globals.strings.carouselLblRefill
+},
+"#refillImg":{
+	duration: 50
+},
+"#remindersLbl":{
+	text: Alloy.Globals.strings.carouselLblReminders
+},
+"#remindersImg":{
+	duration: 50
+},
+"#familyCareLbl":{
+	text: Alloy.Globals.strings.carouselLblFamilyCare
+},
+"#familyCareImg":{
+	duration: 50
+},
+"#submitBtn":{
+	title: Alloy.Globals.strings.carouselBtnNext
+},
+"#skipLbl":{
+	text: Alloy.Globals.strings.carouselBtnSkip
+}
