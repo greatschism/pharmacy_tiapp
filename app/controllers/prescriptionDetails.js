@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     moment = require("alloy/moment"),
+    authenticator = require("authenticator"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
@@ -374,7 +375,7 @@ function didChangeRefill(e) {
 	});
 }
 
-function didGetRefillReminder(result, passthorugh) {
+function didGetRefillReminder(result, passthrough) {
 	/**
 	 * if success
 	 * or
@@ -386,7 +387,7 @@ function didGetRefillReminder(result, passthorugh) {
 		if (result.data) {
 			//get existing reminders
 			currentData = result.data.reminders;
-			if (passthorugh) {
+			if (passthrough) {
 				//add it
 				currentData.prescriptions.push(_.pick(prescription, ["id"]));
 			} else {
@@ -400,7 +401,7 @@ function didGetRefillReminder(result, passthorugh) {
 			/**
 			 * handle when no reminders set already
 			 * adding reminder with only this prescription
-			 * Note: switch value (passthorugh) must
+			 * Note: switch value (passthrough) must
 			 * be true here
 			 */
 			currentData = {
@@ -418,7 +419,7 @@ function didGetRefillReminder(result, passthorugh) {
 					})
 				}]
 			},
-			passthorugh : passthorugh,
+			passthrough : passthrough,
 			success : didSetRefillReminder,
 			failure : didNotSetRefillReminder
 		});
@@ -432,7 +433,36 @@ function didSetRefillReminder(result, passthrough) {
 	 * update prescription data
 	 * as the api call passed
 	 */
-	prescription.is_refill_reminder_set = passthrough ? "1" : "0";
+	if (passthrough) {
+		prescription.is_refill_reminder_set = "1";
+		/**
+		 * verify reminder mode is not null
+		 */
+		var mPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		}),
+		    colName = _.findWhere(Alloy.CFG.reminders, {
+			id : "refill"
+		}).col_pref;
+		if (mPatient.get(colName) === apiCodes.reminder_delivery_mode_none) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersRefillMsgDeliveryModeNoneConfirm,
+				buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],
+				cancelIndex : 1,
+				success : function didConfirmPush() {
+					/**
+					 * device token should have been sent
+					 * already at authenticator while login
+					 */
+					var params = {};
+					params[colName] = apiCodes.reminder_delivery_mode_push;
+					authenticator.updatePreferences(params, {});
+				}
+			});
+		}
+	} else {
+		prescription.is_refill_reminder_set = "0";
+	}
 }
 
 function didNotSetRefillReminder(result, passthrough) {
