@@ -28,6 +28,5 @@
 			<Label id="skipLbl" class="margin-right bottom inactive-lbl-small" onClick="didClickSkip" />
 		</View>
 		<Widget id="pagingControl" src="ti.pagingcontrol" class="pagingcontrol" onChange="didChangePager" />
-		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
 	</View>
 </Alloy> 

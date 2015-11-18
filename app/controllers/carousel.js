@@ -5,49 +5,48 @@ var args = arguments[0] || {},
     viewsCount = 4;
 
 function init() {
-	$.loader.show();
-	var bottom = $.uihelper.getHeightFromChildren($.footerView, true);
-	$.scrollableView.bottom = bottom;
-	$.pagingControl.getView().bottom = bottom + $.createStyle({
+	//logo - align all labels to be in sync with logo
+	var fromTop = $.logoImg.top + $.appLbl.top + $.uihelper.getImage("logo", $.logoImg).height;
+	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
+		$[val].top = fromTop;
+	});
+	//footer view
+	var fromBottom = $.uihelper.getHeightFromChildren($.footerView, true);
+	$.scrollableView.bottom = fromBottom;
+	$.pagingControl.getView().bottom = fromBottom + $.createStyle({
 		classes : ["margin-bottom"]
 	}).bottom;
-	$.uihelper.getImage("logo", $.logoImg);
-	applyImages($.appImg, "app", 81);
-	applyImages($.prescImg, "prescriptions", 130);
-	applyImages($.refillImg, "refill", 195);
-	applyImages($.remindersImg, "reminders", 69);
-	applyImages($.familyCareImg, "family_care", 100);
+	//get images list ready
+	setImages($.appImg, "app", 81);
+	setImages($.prescImg, "prescriptions", 130);
+	setImages($.refillImg, "refill", 195);
+	setImages($.remindersImg, "reminders", 69);
+	setImages($.familyCareImg, "family_care", 100);
+	//load first set of images
+	$[currentId].addEventListener("load", didLoad);
+	$[currentId].images = statusObj[currentId].images;
+	//first launch flag
 	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }
 
-function applyImages(imgView, fld, count) {
+function setImages(imgView, fld, count) {
 	var imgPrefix = "/images/series/" + fld + "/layer_",
 	    imgSuffix = ".png",
 	    images = [];
 	for (var i = 1; i <= count; i++) {
 		images.push(imgPrefix + i + imgSuffix);
 	}
-	imgView.addEventListener("load", didLoad);
-	imgView.images = images;
+	//image set ready
+	statusObj[imgView.id] = {
+		status : 0,
+		images : images
+	};
 }
 
 function didLoad(e) {
-	var source = e.source,
-	    id = source.id;
-	source.removeEventListener("load", didLoad);
-	/**
-	 * start the current animation
-	 * once loaded
-	 */
-	if (id === currentId) {
-		//already started
-		statusObj[id] = 2;
-		$.loader.hide(false);
-		$[currentId].start();
-	} else {
-		//ready to start
-		statusObj[id] = 1;
-	}
+	$[currentId].removeEventListener("load", didLoad);
+	$[currentId].start();
+	statusObj[currentId].status = 1;
 }
 
 function didScrollend(e) {
@@ -62,28 +61,26 @@ function didChangePager(e) {
 }
 
 function startOrStopAnimation(currentPage) {
-	//if already started
-	if (statusObj[currentId] === 2) {
+	var status = statusObj[currentId].status;
+	if (status === 1) {
+		//if already started
 		$[currentId].pause();
-		$[currentId].setImage(_.last($[currentId].getImages()));
-		statusObj[currentId] = 3;
+		$[currentId].image = _.last(statusObj[currentId].images);
+		statusObj[currentId].status = 2;
+	} else if (status === 0) {
+		//if not started yet
+		$[currentId].removeEventListener("load", didLoad);
+		$[currentId].images = null;
 	}
-	currentId = $.scrollableView.getViews()[currentPage].getChildren()[1].id;
-	//if ready to start
-	if (statusObj[currentId] === 1) {
-		//started now
-		statusObj[currentId] = 2;
-		$.loader.hide(false);
-		$[currentId].start();
-	} else if (statusObj[currentId] === 3) {
-		//already completed
-		$.loader.hide(false);
-	} else {
-		//when 0 - not ready yet
-		$.loader.show();
+	currentId = _.last($.scrollableView.getViews()[currentPage].getChildren()).id;
+	status = statusObj[currentId].status;
+	if (status === 0) {
+		//not loaded yet
+		$[currentId].addEventListener("load", didLoad);
+		$[currentId].images = statusObj[currentId].images;
 	}
-	//update title if this is last
 	if (currentPage === viewsCount) {
+		//update title to start if this is last
 		$.submitBtn.title = $.strings.carouselBtnStart;
 	} else if ($.submitBtn.title === $.strings.carouselBtnStart) {
 		//update title back to next
