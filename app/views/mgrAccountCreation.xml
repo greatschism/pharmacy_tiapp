@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView >
-		<View class="vgroup">
+		<View class="width-100 vgroup">
 			<Label id="mgrTitleLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
 			<ImageView id="logoImg" class="margin-top margin-bottom" />
 			<Label id="mgrSubTitleLbl" class="lbl-wrap margin-top margin-bottom"/>
