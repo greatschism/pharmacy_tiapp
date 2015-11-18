@@ -22,11 +22,14 @@ function init() {
 	setImages($.refillImg, "refill", 195);
 	setImages($.remindersImg, "reminders", 69);
 	setImages($.familyCareImg, "family_care", 100);
+	//first launch flag
+	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
+}
+
+function focus() {
 	//load first set of images
 	$[currentId].addEventListener("load", didLoad);
 	$[currentId].images = statusObj[currentId].images;
-	//first launch flag
-	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }
 
 function setImages(imgView, fld, count) {
@@ -108,3 +111,4 @@ function didClickSkip(e) {
 }
 
 exports.init = init;
+exports.focus = focus;

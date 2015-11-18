@@ -11,6 +11,11 @@ module.exports = {
 		"icon" : "thick_prescription",
 		"requires_login" : true
 	}, {
+		"titleid" : "titleRefill",
+		"ctrl" : "refill",
+		"icon" : "refill_camera",
+		"requires_login" : false
+	}, {
 		"titleid" : "titleReminders",
 		"ctrl" : "reminders",
 		"icon" : "thick_reminder",
@@ -21,6 +26,11 @@ module.exports = {
 		"icon" : "users",
 		"requires_login" : true
 	}, {
+		"titleid" : "titleStores",
+		"ctrl" : "stores",
+		"icon" : "thick_pharmacy",
+		"requires_login" : false
+	}, {
 		"titleid" : "titleTransfer",
 		"ctrl" : "transfer",
 		"icon" : "thick_transfer",
@@ -30,16 +40,6 @@ module.exports = {
 		"ctrl" : "doctors",
 		"icon" : "thick_doctor",
 		"requires_login" : true
-	}, {
-		"titleid" : "titleRefill",
-		"ctrl" : "refill",
-		"icon" : "refill_camera",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleStores",
-		"ctrl" : "stores",
-		"icon" : "thick_pharmacy",
-		"requires_login" : false
 	}, {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
