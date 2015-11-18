@@ -173,7 +173,7 @@ function didAuthenticate() {
 							titleid : "titleTransferOptions",
 							ctrl : "transferOptions",
 							ctrlArguments : {
-								prescription : args.navigation.ctrlArguments.navigation.ctrlArguments.prescription,
+								prescription :transferUserDetails ? args.navigation.ctrlArguments.navigation.ctrlArguments.prescription : {},
 								store : {}
 							},
 							stack : true
