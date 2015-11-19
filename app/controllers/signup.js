@@ -100,6 +100,9 @@ function didBlurFocusPassword() {
 
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
 }
 
 function didClickTooltip(e) {
