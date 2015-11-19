@@ -176,11 +176,11 @@ function loadPresecription() {
 	 */
 	//refill reminder
 	if (prescription.is_refill_reminder_set === "1") {
-		$.reminderRefillSwt.setValue(true, true);
+		$.reminderRefillSwt.setValue(true, isWindowOpen);
 	}
 	//med reminder
 	if (prescription.is_dosage_reminder_set === "1") {
-		$.reminderMedSwt.setValue(true, true);
+		$.reminderMedSwt.setValue(true, isWindowOpen);
 	}
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
