@@ -83,9 +83,11 @@ var BarcodeReader = {
 			 * eg: ["FORMAT_QR_CODE", "FORMAT_DATA_MATRIX"]
 			 * transformed to actual constant
 			 */
+			var acceptedFormats = [];
 			_.each(options.acceptedFormats, function(val, key) {
-				options.acceptedFormats[key] = BarcodeModule[val];
+				acceptedFormats.push(BarcodeModule[val]);
 			});
+			options.acceptedFormats = acceptedFormats;
 		}
 
 		BarcodeModule.addEventListener("success", BarcodeReader.successEvt);
