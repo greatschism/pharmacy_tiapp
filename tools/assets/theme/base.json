@@ -27,8 +27,8 @@
                 "rx_length": 10,
                 "rx_start_index": 0,
                 "rx_end_index": 7,
-                "rx_store_start_index": 8,
-                "rx_store_end_index": 10,
+                "rx_store_start_index": 7,
+                "rx_store_end_index": 9,
                 "rx_validator": "^[0-9]{7}-[0-9]{2}$",
                 "rx_formatters": [
                     {

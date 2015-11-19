@@ -237,7 +237,7 @@ function prepareList() {
 		 */
 		var daysLeft;
 		if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
-			daysLeft = Alloy.Models.appload.get("restocking_period") - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
+			daysLeft = parseInt(Alloy.Models.appload.get("restocking_period") || 0) - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
 			if (daysLeft < 0) {
 				/**
 				 * update the status from Ready to Sold

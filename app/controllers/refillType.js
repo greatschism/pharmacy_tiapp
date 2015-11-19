@@ -212,20 +212,31 @@ function didRefill(result, passthrough) {
 	 * passthrough will have the valid rx numbers
 	 * the same we sent to api
 	 */
-	var prescriptions = result.data.prescriptions;
+	var prescriptions = result.data.prescriptions,
+	    hasSuccess = false;
 	_.each(prescriptions, function(prescription, index) {
 		_.extend(prescription, {
 			title : $.strings.strPrefixRx.concat(passthrough[index].rx_number),
 			subtitle : prescription.refill_inline_message || prescription.refill_error_message
 		});
+		if (!hasSuccess && !prescription.refill_is_error) {
+			hasSuccess = true;
+		}
 	});
+	/**
+	 * show signup option
+	 * only if not logged in and
+	 * refill is not failure (success / partial success)
+	 */
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
 		ctrlArguments : {
 			prescriptions : prescriptions,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
+			signupEnabled : !Alloy.Globals.isLoggedIn && hasSuccess,
 			phone : phone
-		}
+		},
+		stack : true
 	});
 }
 

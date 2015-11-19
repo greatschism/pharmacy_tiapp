@@ -61,9 +61,23 @@ function didRefill(result, passthrough) {
 			}
 		};
 	} else {
+		/**
+		 * if store identifier and rx number
+		 * start index are same, then store identifier
+		 * is not considered when user enters it (refill type).
+		 * While scan we can't avoid store identifier, so re-index
+		 * the rx number if required
+		 */
+		var startIndex = Alloy.CFG.rx_start_index,
+		    endIndex = Alloy.CFG.rx_end_index;
+		if (Alloy.CFG.rx_store_start_index === startIndex) {
+			var storeIdentifierLen = Alloy.CFG.rx_store_end_index - Alloy.CFG.rx_store_start_index;
+			startIndex += storeIdentifierLen;
+			endIndex += storeIdentifierLen;
+		}
 		//success
 		_.extend(prescription, {
-			title : $.strings.strPrefixRx.concat(barcodeData.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index)),
+			title : $.strings.strPrefixRx.concat(barcodeData.substring(startIndex, endIndex)),
 			subtitle : prescription.refill_inline_message || prescription.refill_error_message
 		});
 		navigation = {

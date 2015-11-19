@@ -12,8 +12,8 @@
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<!--footer separator seems to disappear on iOS-->
 				<View class="h-divider-light" platform="ios" />
-				<Label id="signupLbl" class="margin-top lbl-wrap" if="!Alloy.Globals.isLoggedIn" />
-				<Button id="signupBtn" class="margin-top primary-btn" onClick="didClickSignup" if="!Alloy.Globals.isLoggedIn" />
+				<Label id="signupLbl" class="margin-top lbl-wrap" if="$.args.signupEnabled" />
+				<Button id="signupBtn" class="margin-top primary-btn" onClick="didClickSignup" if="$.args.signupEnabled" />
 				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />
 			</View>
 		</FooterView>

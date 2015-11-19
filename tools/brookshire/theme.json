@@ -1,9 +1,19 @@
 {
 	"config": {
 		"global": {
-			"rx_length": 11,
-			"rx_store_end_index": 11,
-			"rx_validator": "^[0-9]{7}-[0-9]{3}$"
+			"rx_length": 7,
+			"rx_start_index": 0,
+			"rx_end_index": 7,
+			"rx_store_start_index": 7,
+			"rx_store_end_index": 10,
+			"rx_validator": "^[0-9]{7}$",
+			"rx_formatters": [
+				{
+					"pattern": "\\D",
+					"modifiters": "g",
+					"value": ""
+				}
+			]
 		}
 	},
 	"values": {
