@@ -10,8 +10,7 @@ function init() {
 	$.patientSwitcher.set({
 		title : $.strings.accountSwitcher,
 		where : {
-			is_adult : true,
-			is_partial : true
+			is_adult : true
 		},
 		selectable : {
 			is_adult : true
