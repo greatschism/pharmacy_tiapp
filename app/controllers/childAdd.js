@@ -50,7 +50,6 @@ function moveToNext(e) {
 }
 
 function didClickContinue() {
-
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
@@ -94,7 +93,7 @@ function didClickContinue() {
 	}
 	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
-			message : $.strings.childAddValRxNoInvalid
+			message : String.format(Alloy.Globals.strings.childAddValRxNoInvalid,Alloy.CFG.rx_length)
 		});
 		return;
 	}

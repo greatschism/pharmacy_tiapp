@@ -504,7 +504,7 @@ module.exports = {
 		"transferTypeValNameInvalid" : "The prescription name should be max 25 characters and only number, letters, hyphens and underscores are allowed.",
 		"transferTypeValPhone" : "Please enter your pharmacy's phone number.",
 		"transferTypeValPhoneInvalid" : "The phone number you have entered is invalid.",
-		"transferTypeValRxInvalid" : "Prescription number you have entered seem invalid.",
+		"transferTypeValRxInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
 		"transferTypeValStoreOriginal" : "Please select the pharmacy this prescription is from.",
 		"transferTypeOther" : "Other",
 
@@ -659,7 +659,7 @@ module.exports = {
 		"childAddValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"childAddValDob" : "Please enter your Date of birth.",
 		"childAddValRxNo" : "Please enter your prescription number.",
-		"childAddValRxNoInvalid" : "Prescription number you have entered seem invalid.",
+		"childAddValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
 		"childAddAccntInvalid" : "This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
 		"childValStore" : "Please select a pharmacy.",
 
@@ -716,7 +716,7 @@ module.exports = {
 		"phoneValPhone" : "Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
-		"familyCareLblNoProxy" : "Access your family's prescriptions list, order refills, reminders & more by adding family members to your account.",
+		"familyCareLblNoProxy" : "Access your family's prescription list, order refills, reminders & more by adding family members to your account.",
 		"familyCareLblAdd" : "Want to add family members?",
 		"familyCareLblStatusPending" : "Pending",
 		"familyCareLblStatusLinked" : "Linked",
@@ -778,7 +778,7 @@ module.exports = {
 		"familyMemberAddPrescValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"familyMemberAddPrescValDob" : "Please enter your Date of birth.",
 		"familyMemberAddPrescValRxNo" : "Please enter your prescription number.",
-		"familyMemberAddPrescValRxNoInvalid" : "Prescription number you have entered seem invalid.",
+		"familyMemberAddPrescValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
 		"familyMemberAddPrescValStore" : "Please select a pharmacy.",
 
 		"emailVerifyLblWelcome" : "Welcome to %s",
