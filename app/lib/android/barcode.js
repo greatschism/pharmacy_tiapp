@@ -84,7 +84,7 @@ var BarcodeReader = {
 			 * transformed to actual constant
 			 */
 			var acceptedFormats = [];
-			_.each(options.acceptedFormats, function(val, key) {
+			_.each(options.acceptedFormats, function(val) {
 				acceptedFormats.push(BarcodeModule[val]);
 			});
 			options.acceptedFormats = acceptedFormats;
