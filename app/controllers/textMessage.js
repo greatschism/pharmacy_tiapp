@@ -14,6 +14,14 @@ function init() {
 }
 
 function skipClicked() {
+	/**
+	 * if you skip the verification, set the flag (is_mobile_verified) to 0.
+	 */
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	currentPatient.set("is_mobile_verified", "0");
+	
 	$.app.navigator.open({
 		titleid : "titleHome",
 		ctrl : "home",

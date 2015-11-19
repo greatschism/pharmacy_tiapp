@@ -24,8 +24,7 @@
 	text: Alloy.Globals.strings.registerLblTogglePassword
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.strings.registerHintRxFormat,
-	nextItem: "storeDp"
+	hintText: Alloy.Globals.strings.registerHintRxFormat
 },
 "#storeTitleLbl":{
 	text : Alloy.Globals.strings.registerHintPharmacyLocation,
