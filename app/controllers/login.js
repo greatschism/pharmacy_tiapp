@@ -157,7 +157,7 @@ function didAuthenticate() {
 				password : args.password,
 				isFamilyMemberFlow : false
 			},
-			stack : true
+			stack : false
 		});
 	} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
