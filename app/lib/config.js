@@ -11,7 +11,7 @@ var Configuration = {
 		/**
 		 * initialization
 		 */
-		if (Alloy.CFG.override_remote_resources === true || ENV_DEV) {
+		if (Alloy.CFG.override_remote_resources === true || !ENV_PROD) {
 			return [];
 		}
 
