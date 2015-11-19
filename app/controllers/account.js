@@ -241,14 +241,14 @@ function didGetStoreList(result) {
 						}]
 					},
 					showLoader : false,
-					success : didGetStore
+					success : didGetStoreListResult
 				});
 			}
 		});
 	}
 }
 
-function didGetStore(result) {
+function didGetStoreListResult(result) {
 	if (result && result.data) {
 		$.uihelper.openDialer(result.data.stores.phone);
 	}
