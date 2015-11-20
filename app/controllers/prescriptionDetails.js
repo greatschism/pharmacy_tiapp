@@ -370,6 +370,7 @@ function didChangeRefill(e) {
 		},
 		passthrough : e.value,
 		keepLoader : true,
+		errorDialogEnabled : false,
 		success : didGetRefillReminder,
 		failure : didGetRefillReminder
 	});
