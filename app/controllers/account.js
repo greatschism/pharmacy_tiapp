@@ -254,6 +254,14 @@ function didGetStoreListResult(result) {
 }
 
 function didClickcontactOptionsMenu(e) {
+	/**
+	 * cancel index may vary,
+	 * based on arguments, so check
+	 * the cancel flag before proceed
+	 */
+	if (e.cancel) {
+		return false;
+	}
 	switch(e.index) {
 	case 0:
 		var supportPhone = Alloy.Models.appload.get("supportphone");
