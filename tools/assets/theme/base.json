@@ -1125,6 +1125,13 @@
                 "borderWidth": 1,
                 "borderRadius": 3.4
             },
+            ".txt-positive-right-btn": {
+            	"width": 60,
+                "color": "#009245",
+                "selectedColor": "#009245",
+                "backgroundColor": "transparent",
+                "borderColor": "transparent"
+            },
             ".txt-positive-right-icon": {
                 "color": "#009245",
                 "selectedColor": "#009245",
