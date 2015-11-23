@@ -97,7 +97,8 @@ function didError(e) {
 }
 
 function didClickPhoto(e) {
-	$.uihelper.getPhoto(didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width, Alloy.CFG.thumbnail_default_height);
+	//height is not being set to maintain the aspect ratio
+	$.uihelper.getPhoto(didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width);
 }
 
 function didGetPhoto(blob) {

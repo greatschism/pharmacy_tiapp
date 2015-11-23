@@ -5,7 +5,8 @@ var TAG = "RESO",
     logger = require("logger"),
     scule = require("com.scule"),
     http = require("requestwrapper"),
-    utilities = require("utilities");
+    utilities = require("utilities"),
+    uihelper = require("uihelper");
 
 var Res = {
 
@@ -129,7 +130,7 @@ var Res = {
 						utilities.copyFile(Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile), Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), false);
 					} else {
 						//image
-						Res.resizeImage(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile).read(), obj.properties);
+						Res.imageAsResized(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory + "/" + desFile), Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, Res.dataDirectory + "/" + srcFile).read(), obj.properties);
 					}
 					obj.data = desFile;
 				} else {
@@ -348,7 +349,7 @@ var Res = {
 				//nullify blob
 				result = null;
 				//resize
-				Res.resizeImage(file, file.read(), passthrough.properties);
+				Res.imageAsResized(file, file.read(), passthrough.properties);
 			}
 			var item = _.pick(passthrough, ["type", "version", "base_version", "code", "properties"]);
 			_.extend(item, {
@@ -400,7 +401,7 @@ var Res = {
 		Res.collection.commit();
 	},
 
-	resizeImage : function(desFile, blob, properties) {
+	imageAsResized : function(desFile, blob, properties) {
 		if (_.has(properties, "left") && _.has(properties, "right")) {
 			properties.width = app.device.width - (utilities.percentageToValue(properties.left, app.device.width) + utilities.percentageToValue(properties.right, app.device.width));
 			delete properties.left;
@@ -411,47 +412,11 @@ var Res = {
 			delete properties.top;
 			delete properties.bottom;
 		}
-		var newWidth = properties.width || 0,
-		    newHeight = properties.height || 0;
-		if (newWidth === 0 || newHeight === 0) {
-			var imgWidth = blob.width,
-			    imgHeight = blob.height;
-			/**
-			 * px to dp
-			 * Note: Android returns
-			 * height in px
-			 */
-			if (OS_ANDROID) {
-				imgWidth /= app.device.logicalDensityFactor;
-				imgHeight /= app.device.logicalDensityFactor;
-			}
-			if (newWidth === 0) {
-				newHeight = utilities.percentageToValue(newHeight, app.device.height);
-				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
-			} else if (newHeight === 0) {
-				newWidth = utilities.percentageToValue(newWidth, app.device.width);
-				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
-			}
-			/**
-			 * dp based values
-			 * may be applied to ImageView
-			 */
-			_.extend(properties, {
-				width : newWidth,
-				height : newHeight
-			});
-		}
-		/**
-		 * converting dp to px
-		 * for imageAsResized
-		 * Note: done for both platforms
-		 * as px from android converted to
-		 * dp above
-		 */
-		newWidth *= app.device.logicalDensityFactor;
-		newHeight *= app.device.logicalDensityFactor;
-		//write resized image
-		utilities.writeFile(desFile, blob.imageAsResized(newWidth, newHeight), false);
+		var result = uihelper.imageAsResized(blob, properties.width, properties.height);
+		_.extend(properties, _.pick(result, ["width", "height"]));
+		utilities.writeFile(desFile, result.blob, false);
+		//clear blob from memory
+		result = blob = null;
 	}
 };
 

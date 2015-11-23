@@ -287,7 +287,7 @@ var Helper = {
 				success : function didSuccess(e) {
 					var blob = e.media;
 					if (blob) {
-						blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
 						callback(blob);
 					}
 				},
@@ -318,7 +318,7 @@ var Helper = {
 				    blob;
 				if (resultCode == Ti.Android.RESULT_OK) {
 					if (tempFile.exists()) {
-						blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = Helper.imageAsResized(tempFile.read(), width || Alloy.CFG.photo_default_width, height).blob;
 						tempFile.deleteFile();
 						tempFile = null;
 						callback(blob);
@@ -333,7 +333,7 @@ var Helper = {
 						intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
 						blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
 						if (blob) {
-							blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+							blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
 							if (blob) {
 								callback(blob);
 							} else {
@@ -395,7 +395,7 @@ var Helper = {
 				success : function didSuccess(e) {
 					var blob = e.media;
 					if (blob) {
-						blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
 						callback(blob);
 					}
 				},
@@ -429,7 +429,7 @@ var Helper = {
 				    blob;
 				if (resultCode == Ti.Android.RESULT_OK) {
 					if (tempFile.exists()) {
-						blob = tempFile.read().imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+						blob = Helper.imageAsResized(tempFile.read(), width || Alloy.CFG.photo_default_width, height).blob;
 						tempFile.deleteFile();
 						tempFile = null;
 						callback(blob);
@@ -444,7 +444,7 @@ var Helper = {
 						intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
 						blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
 						if (blob) {
-							blob = blob.imageAsResized(width || Alloy.CFG.photo_default_width, height || Alloy.CFG.photo_default_height);
+							blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
 							if (blob) {
 								callback(blob);
 							} else {
@@ -483,6 +483,45 @@ var Helper = {
 				}
 			});
 		}
+	},
+
+	/**
+	 * resize image with aspect ratio
+	 * @param {Object} TiBlob
+	 * @param {Number} width in dp
+	 * @param {Number} height in dp
+	 * returns {Object} resized blob
+	 */
+	imageAsResized : function(blob, newWidth, newHeight) {
+		if (!newWidth || !newHeight) {
+			var imgWidth = blob.width,
+			    imgHeight = blob.height;
+			/**
+			 * px to dp
+			 * Note: Android returns
+			 * blob's height in px
+			 */
+			if (OS_ANDROID) {
+				imgWidth /= app.device.logicalDensityFactor;
+				imgHeight /= app.device.logicalDensityFactor;
+			}
+			if (!newWidth) {
+				newHeight = utilities.percentageToValue(newHeight, app.device.height);
+				newWidth = Math.floor((imgWidth / imgHeight) * newHeight);
+			} else if (!newHeight) {
+				newWidth = utilities.percentageToValue(newWidth, app.device.width);
+				newHeight = Math.floor((imgHeight / imgWidth) * newWidth);
+			}
+		}
+		/**
+		 * converting dp to px for TiBlob.imageAsResized
+		 * Note: done for both platforms as px from android converted to dp above
+		 */
+		return {
+			width : newWidth,
+			height : newHeight,
+			blob : blob.imageAsResized(newWidth * app.device.logicalDensityFactor, newHeight * app.device.logicalDensityFactor)
+		};
 	},
 
 	/*

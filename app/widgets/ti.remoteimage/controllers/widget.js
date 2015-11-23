@@ -1,4 +1,5 @@
 var args = arguments[0] || {},
+    uihelper = require("uihelper"),
     image;
 
 (function() {
@@ -73,14 +74,10 @@ function didSuccess(result, passthrough) {
 		 * returns null on android (Samsung Note 2 - Android 4.4.2)
 		 */
 		if (_.has(args, "size")) {
-			/**
-			 * converting dp to px
-			 * for imageAsResized
-			 */
-			var logicalDensityFactor = OS_ANDROID ? Ti.Platform.displayCaps.logicalDensityFactor : Ti.Platform.displayCaps.dpi / 160,
-			    blob = file.read().imageAsResized(args.size.width * logicalDensityFactor, args.size.height * logicalDensityFactor);
-			file.write(blob);
-			blob = null;
+			//uihelper should be under lib
+			var result = uihelper.imageAsResized(file.read(), args.size.width, args.size.height);
+			file.write(result.blob);
+			result = blob = null;
 		}
 		//disable remote backups on ios
 		if (OS_IOS) {
