@@ -14,6 +14,8 @@ function init() {
 	});
 	if(!$.args.registrationFlow){
 		$.acceptedOnLbl.text = $.strings.accountLblAcceptedOn + " " + moment(args.terms.agreement_valid_from).format(Alloy.CFG.date_format);
+		if(isHIPAA) 
+			$.successBtn.title = $.strings.accountSuccessBtnDone;
 	}
 	else{
 		$.successBtn.title = $.strings.registerBtnTermsDone;
@@ -29,15 +31,25 @@ function didClickSuccess(){
 		app.navigator.close();
 	}
 	else{
-		http.request({
-			method : "terms_email",
-			params : {
-				filter:null,
-				data:[{
-				 }]
-			},
-			success : didSendEmail
-		});
+		/**
+		 * There is no option for sending HIPAA contents by email. Hence take care of it
+		 */
+		if(isHIPAA) 
+		{
+			app.navigator.close();
+		}
+		else
+		{
+			http.request({
+				method : "terms_email",
+				params : {
+					filter:null,
+					data:[{
+					 }]
+				},
+				success : didSendEmail
+			});
+		}
 	}
 }
 
