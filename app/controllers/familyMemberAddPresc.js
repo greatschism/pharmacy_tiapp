@@ -104,7 +104,7 @@ function addPrescriptions() {
 	}
 	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
-			message : $.strings.familyMemberAddPrescValRxNoInvalid
+			message : String.format($.strings.familyMemberAddPrescValRxNoInvalid, Alloy.CFG.rx_length)
 		});
 		return;
 	}
