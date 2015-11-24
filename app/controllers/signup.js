@@ -4,7 +4,10 @@ var args = arguments[0] || {},
     utilities = require("utilities"),
     rx = require("rx"),
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-icon"]
+	classes : ["txt-tertiary-right-icon"],
+}),
+    rightButtonTitle = $.createStyle({
+	classes : ["icon-help"]
 }),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
@@ -14,14 +17,10 @@ var args = arguments[0] || {},
 
 function init() {
 	/**
-	 * Set the right button "show/hide"
-	 * in the password textfield
-	 * with right parameters.
+	 * PHA-1425 : Add the help image 
+	 * inside the rx number textfield.
 	 */
-	_.extend(rightButtonDict, {
-		title : $.strings.strShow,
-	});
-	setRightButton("", rightButtonDict);
+	setRightButton(rightButtonTitle.text, rightButtonDict);
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 
@@ -35,6 +34,10 @@ function init() {
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
+}
+
+function setRightButton(iconText, iconDict) {
+	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 
 function didChangeRx(e) {
@@ -130,23 +133,6 @@ function moveToNext(e) {
 	}
 }
 
-function didToggleShowPassword() {
-	if ($.passwordTxt.getPasswordMask() === true) {
-		$.passwordTxt.setPasswordMask(false);
-		_.extend(rightButtonDict, {
-			title : $.strings.strHide,
-		});
-	} else {
-		$.passwordTxt.setPasswordMask(true);
-		_.extend(rightButtonDict, {
-			title : $.strings.strShow,
-		});
-	}
-	setRightButton("", rightButtonDict);
-}
-function setRightButton(iconText, iconDict) {
-	$.passwordTxt.setButton(iconText, "right", iconDict);
-}
 function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
@@ -318,6 +304,14 @@ function didRegister(result, passthrough) {
 				}
 			});
 		}
+	});
+}
+
+function didClickHelp(e) {
+	$.app.navigator.open({
+		titleid : "titleRxSample",
+		ctrl : "rxSample",
+		stack : true
 	});
 }
 

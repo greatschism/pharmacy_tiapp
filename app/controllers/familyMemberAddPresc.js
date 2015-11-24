@@ -2,9 +2,20 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
+     rightButtonDict = $.createStyle({
+	classes : ["txt-tertiary-right-icon"],
+}),
+    rightButtonTitle = $.createStyle({
+	classes : ["icon-help"]
+}),
     rxContainerViewFromTop = 0,
     store = {};
 function init() {
+	/**
+	 * PHA-1425 : Add the help image 
+	 * inside the rx number textfield.
+	 */
+	setRightButton(rightButtonTitle.text, rightButtonDict);
 	$.uihelper.getImage("child_add", $.addPrescImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
@@ -15,7 +26,9 @@ function init() {
 	date.setFullYear(dob.year(), dob.month(), dob.date());
 	$.dobDp.setValue(date);
 }
-
+function setRightButton(iconText, iconDict) {
+	$.rxNoTxt.setIcon(iconText, "right", iconDict);
+}
 function focus() {
 	$.addPrescTitle.text = String.format($.strings.familyMemberAddPrescTitle, $.strings.strClientName);
 	/**
@@ -167,7 +180,13 @@ function didFocusRx(e) {
 	}
 	$.rxTooltip.show();
 }
-
+function didClickHelp(e) {
+	$.app.navigator.open({
+		titleid : "titleRxSample",
+		ctrl : "rxSample",
+		stack : true
+	});
+}
 exports.setParentView = setParentView;
 exports.init = init;
 exports.focus = focus;

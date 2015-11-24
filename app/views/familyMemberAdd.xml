@@ -1,5 +1,5 @@
 <Alloy>
-	<View class="vgroup">
+	<ScrollView class="vgroup">
 		<Label id="familyMemberAddLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
 		<ImageView id="imgFamilyAdd"/>
 		<Label id="familyMemberAddTip" class="lbl-wrap margin-top margin-bottom"/>
@@ -14,5 +14,5 @@
 			
 		</View>
 		<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didClickContinue"/>
-	</View>
+	</ScrollView>
 </Alloy>

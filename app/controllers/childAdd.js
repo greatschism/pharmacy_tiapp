@@ -4,9 +4,20 @@ var args = arguments[0] || {},
     rxContainerViewFromTop = 0,
      strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     authenticator = require("authenticator"),
+     rightButtonDict = $.createStyle({
+	classes : ["txt-tertiary-right-icon"],
+}),
+    rightButtonTitle = $.createStyle({
+	classes : ["icon-help"]
+}),
     rx = require("rx");
 
 function init() {
+	/**
+	 * PHA-1425 : Add the help image 
+	 * inside the rx number textfield.
+	 */
+	setRightButton(rightButtonTitle.text, rightButtonDict);
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
 	}
@@ -14,7 +25,9 @@ function init() {
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
-
+function setRightButton(iconText, iconDict) {
+	$.rxNoTxt.setIcon(iconText, "right", iconDict);
+}
 function focus() {
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 	if (store && store.shouldUpdate) {
@@ -327,7 +340,13 @@ function didClickAgreement(e) {
 		}
 	});
 }
-
+function didClickHelp(e) {
+	$.app.navigator.open({
+		titleid : "titleRxSample",
+		ctrl : "rxSample",
+		stack : true
+	});
+}
 exports.setParentView = setParentView;
 exports.focus = focus;
 exports.init = init;
