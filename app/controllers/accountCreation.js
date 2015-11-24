@@ -71,12 +71,12 @@ function didClickTooltip(e) {
 function didToggle() {
 	if (Alloy.CFG.toggle_password_enabled) {
 		if ($.passwordTxt.getPasswordMask()) {
-			$.passwordTxt.setPasswordMask(0);
+			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
 			});
 		} else {
-			$.passwordTxt.setPasswordMask(1);
+			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
 			});

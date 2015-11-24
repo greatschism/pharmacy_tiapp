@@ -328,12 +328,12 @@ function didClickHelp(e) {
 function didToggleShowPassword() {
 	if (Alloy.CFG.toggle_password_enabled) {
 		if ($.passwordTxt.getPasswordMask()) {
-			$.passwordTxt.setPasswordMask(0);
+			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
 			});
 		} else {
-			$.passwordTxt.setPasswordMask(1);
+			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
 			});
