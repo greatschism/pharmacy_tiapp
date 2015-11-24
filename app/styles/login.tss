@@ -5,8 +5,7 @@
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.loginHintPassword,
-	passwordMask: true,
-	rightButtonTitle:Alloy.Globals.strings.strShow
+	passwordMask: true
 },
 "#togglePasswordLbl":{
 	text: Alloy.Globals.strings.loginLblTogglePassword

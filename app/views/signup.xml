@@ -14,7 +14,7 @@
 			<View id="containerView" class="margin-top form-vgroup">
 				<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-next" onReturn="moveToNext" />
 				<View class="h-divider"/>
-				<Widget id="passwordTxt" src="ti.textfield" class="form-txt returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
 			<View id="rxContainer" class="margin-top form-vgroup">
 				<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt  txt-right-btn  keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>

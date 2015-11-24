@@ -9,6 +9,10 @@ var args = arguments[0] || {},
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"]
 }),
+rightPwdButtonDict = $.createStyle({
+	classes : ["txt-positive-right-btn"],
+	title : Alloy.Globals.strings.strShow,
+}),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
     passwordContainerViewFromTop = 0,
@@ -21,6 +25,13 @@ function init() {
 	 * inside the rx number textfield.
 	 */
 	setRightButton(rightButtonTitle.text, rightButtonDict);
+	/**
+	 * Set the right button "show/hide"
+	 * with right parameters.
+	 */
+	if (Alloy.CFG.toggle_password_enabled) {
+		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
+	}
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 
@@ -313,6 +324,26 @@ function didClickHelp(e) {
 		ctrl : "rxSample",
 		stack : true
 	});
+}
+function didToggleShowPassword() {
+	if (Alloy.CFG.toggle_password_enabled) {
+		if ($.passwordTxt.getPasswordMask()) {
+			$.passwordTxt.setPasswordMask(0);
+			_.extend(rightPwdButtonDict, {
+				title : $.strings.strHide,
+			});
+		} else {
+			$.passwordTxt.setPasswordMask(1);
+			_.extend(rightPwdButtonDict, {
+				title : $.strings.strShow,
+			});
+		}
+		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
+	}
+}
+
+function setRightButton(iconText, iconDict) {
+	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
 
 exports.init = init;

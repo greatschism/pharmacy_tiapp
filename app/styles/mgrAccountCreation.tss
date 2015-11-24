@@ -16,8 +16,7 @@
 },
 "#passwordTxt":{
 	hintText:Alloy.Globals.strings.mgrAccountCreationHintPassword,
-	passwordMask: true,
-	rightButtonTitle:Alloy.Globals.strings.strShow
+	passwordMask: true
 },
 "#passwordTooltip":{
 	text: Alloy.Globals.strings.msgPasswordTips

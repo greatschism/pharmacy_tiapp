@@ -3,7 +3,8 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-icon"]
+	classes : ["txt-positive-right-btn"],
+	title : Alloy.Globals.strings.strShow,
 }),
     utilities = require('utilities');
 
@@ -12,10 +13,10 @@ function init() {
 	 * Set the right button "show/hide"
 	 * with right parameters.
 	 */
-	_.extend(rightButtonDict, {
-		title : $.strings.strShow,
-	});
-	setRightButton("", rightButtonDict);
+	if (Alloy.CFG.toggle_password_enabled) {
+		setRightButton(rightButtonDict.title, rightButtonDict);
+	}
+
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
 
 	$.uihelper.getImage("logo", $.logoImg);
@@ -45,29 +46,31 @@ function init() {
 	}
 }
 
-function didClickAbout(){
-	var version = String.format($.strings.loginVersionLbl,  Ti.App.version);
+function didClickAbout() {
+	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
 	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
-	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);  
-	
+	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);
+
 	$.uihelper.showDialog({
 		message : version + "\n" + buildNumber + "\n" + buildDate
 	});
 }
 
 function didChangeToggle() {
-	if ($.passwordTxt.getPasswordMask() === true) {
-		$.passwordTxt.setPasswordMask(false);
-		_.extend(rightButtonDict, {
-			title : $.strings.strHide,
-		});
-	} else {
-		$.passwordTxt.setPasswordMask(true);
-		_.extend(rightButtonDict, {
-			title : $.strings.strShow,
-		});
+	if (Alloy.CFG.toggle_password_enabled) {
+		if ($.passwordTxt.getPasswordMask()) {
+			$.passwordTxt.setPasswordMask(0);
+			_.extend(rightButtonDict, {
+				title : $.strings.strHide,
+			});
+		} else {
+			$.passwordTxt.setPasswordMask(1);
+			_.extend(rightButtonDict, {
+				title : $.strings.strShow,
+			});
+		}
+		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
-	setRightButton("", rightButtonDict);
 }
 
 function setRightButton(iconText, iconDict) {
@@ -173,7 +176,7 @@ function didAuthenticate() {
 							titleid : "titleTransferOptions",
 							ctrl : "transferOptions",
 							ctrlArguments : {
-								prescription :transferUserDetails ? args.navigation.ctrlArguments.navigation.ctrlArguments.prescription : {},
+								prescription : transferUserDetails ? args.navigation.ctrlArguments.navigation.ctrlArguments.prescription : {},
 								store : {}
 							},
 							stack : true

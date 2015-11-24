@@ -17,7 +17,6 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.registerHintPassword,
 	passwordMask: true,
-	rightButtonTitle:Alloy.Globals.strings.strShow,
 	nextItem: "rxNoTxt"
 },
 "#showPasswordLbl":{

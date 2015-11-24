@@ -4,21 +4,20 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     utilities = require("utilities"),
     moment = require("alloy/moment"),
-      rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-icon"]
+    rightButtonDict = $.createStyle({
+	classes : ["txt-positive-right-btn"],
+	title : Alloy.Globals.strings.strShow,
 }),
     containerViewFromTop = 0;
 
 function init() {
 	/**
 	 * Set the right button "show/hide"
-	 * in the password textfield
 	 * with right parameters.
 	 */
-	_.extend(rightButtonDict, {
-		title : $.strings.strShow,
-	});
-	setRightButton("", rightButtonDict);
+	if (Alloy.CFG.toggle_password_enabled) {
+		setRightButton(rightButtonDict.title, rightButtonDict);
+	}
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
@@ -70,22 +69,26 @@ function didClickTooltip(e) {
 }
 
 function didToggle() {
-	if ($.passwordTxt.getPasswordMask() === true) {
-		$.passwordTxt.setPasswordMask(false);
-		_.extend(rightButtonDict, {
-			title : $.strings.strHide,
-		});
-	} else {
-		$.passwordTxt.setPasswordMask(true);
-		_.extend(rightButtonDict, {
-			title : $.strings.strShow,
-		});
+	if (Alloy.CFG.toggle_password_enabled) {
+		if ($.passwordTxt.getPasswordMask()) {
+			$.passwordTxt.setPasswordMask(0);
+			_.extend(rightButtonDict, {
+				title : $.strings.strHide,
+			});
+		} else {
+			$.passwordTxt.setPasswordMask(1);
+			_.extend(rightButtonDict, {
+				title : $.strings.strShow,
+			});
+		}
+		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
-	setRightButton("", rightButtonDict);
 }
+
 function setRightButton(iconText, iconDict) {
 	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	$[nextItem] && $[nextItem].focus ? $[nextItem].focus() : didClickSignup();
