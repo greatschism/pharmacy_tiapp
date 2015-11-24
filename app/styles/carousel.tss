@@ -6,31 +6,31 @@
 	text: Alloy.Globals.strings.carouselLblApp
 },
 "#appImg":{
-	duration: 50
+	duration: 100
 },
 "#prescLbl":{
 	text: Alloy.Globals.strings.carouselLblPrescriptions
 },
 "#prescImg":{
-	duration: 50
+	duration: 100
 },
 "#refillLbl":{
 	text: Alloy.Globals.strings.carouselLblRefill
 },
 "#refillImg":{
-	duration: 50
+	duration: 100
 },
 "#remindersLbl":{
 	text: Alloy.Globals.strings.carouselLblReminders
 },
 "#remindersImg":{
-	duration: 50
+	duration: 100
 },
 "#familyCareLbl":{
 	text: Alloy.Globals.strings.carouselLblFamilyCare
 },
 "#familyCareImg":{
-	duration: 50
+	duration: 100
 },
 "#submitBtn":{
 	title: Alloy.Globals.strings.carouselBtnNext
