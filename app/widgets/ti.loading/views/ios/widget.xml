@@ -1,10 +1,7 @@
 <Alloy>
 	<Window id="window" onOpen="didOpen">
 		<View id="contentView">
-			<ImageView id="activityIndicatorImg" />
-			<View id="messageView">
-				<Label id="messageLbl" />
-			</View>
+			<ActivityIndicator id="activityIndicator" />
 		</View>
 	</Window>
 </Alloy>

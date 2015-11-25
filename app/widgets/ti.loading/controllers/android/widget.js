@@ -30,7 +30,9 @@ function hide() {
 	$.progressIndicator.hide();
 }
 
-exports.show = show;
-exports.hide = hide;
-exports.setMessage = setMessage;
-exports.applyProperties = applyProperties;
+_.extend($, {
+	show : show,
+	hide : hide,
+	setMessage : setMessage,
+	applyProperties : applyProperties
+});

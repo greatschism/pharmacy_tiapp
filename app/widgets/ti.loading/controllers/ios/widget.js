@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 (function() {
 	applyProperties(args);
 	if (args.visible !== false) {
-		show(args.spinnerImages || Alloy.Globals.spinnerImages || null);
+		show();
 	}
 })();
 
@@ -15,7 +15,7 @@ function applyProperties(dict) {
 		$.widget.applyProperties(options);
 	}
 	if (_.has(dict, "indicatorDict")) {
-		$.activityIndicatorImg.applyProperties(dict.indicatorDict);
+		$.activityIndicator.applyProperties(dict.indicatorDict);
 	}
 	if (_.has(dict, "message")) {
 		setMessage(dict.message);
@@ -24,41 +24,35 @@ function applyProperties(dict) {
 
 function didOpen(e) {
 	isOpened = true;
+	$.activityIndicator.show();
 	if (isCloseRequested) {
 		hide();
 	}
 }
 
 function setMessage(message) {
-	$.messageLbl.text = message;
+	$.activityIndicator.message = message;
 }
 
-function show(images) {
-	if (images) {
-		$.activityIndicatorImg.addEventListener("load", didLoad);
-		$.activityIndicatorImg.images = images;
-	}
+function show() {
 	$.window.open({
 		animated : false
 	});
 }
 
-function didLoad() {
-	$.activityIndicatorImg.start();
-	$.activityIndicatorImg.removeEventListener("load", didLoad);
-}
-
 function hide() {
 	isCloseRequested = true;
 	if (isOpened) {
-		$.activityIndicatorImg.stop();
 		$.window.close({
 			animated : false
 		});
+		$.activityIndicator.hide();
 	}
 }
 
-exports.show = show;
-exports.hide = hide;
-exports.setMessage = setMessage;
-exports.applyProperties = applyProperties;
+_.extend($, {
+	show : show,
+	hide : hide,
+	setMessage : setMessage,
+	applyProperties : applyProperties
+});

@@ -7,27 +7,12 @@
 	height: 74,
 	layout: "horizontal",
 	backgroundColor: "#FFFFFF",
-	borderRadius: 4,
-	accessibilityHidden: true
+	borderRadius: 4
 },
-"#activityIndicatorImg":{
-	left: 15,
-	width: 50,
-	height: 50,
-	duration: 40
-},
-"#messageView":{
-	left: 10,
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-},
-"#messageLbl":{
-	right: 15,
-	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
-	font:{
-		fontSize: 13
-	},
-	textAlign: "left",
-	color: "#000000"
+"#activityIndicator":{
+	top: 12,
+	bottom: 12,
+	left: 12,
+	indicatorColor: "#005E00",
+	style: Ti.UI.ActivityIndicatorStyle.BIG
 }

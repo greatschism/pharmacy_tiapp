@@ -5,7 +5,7 @@ var args = arguments[0] || {},
 (function() {
 	applyProperties(args);
 	if (args.visible !== false) {
-		show(args.spinnerImages || Alloy.Globals.spinnerImages || null);
+		show();
 	}
 })();
 
@@ -15,38 +15,25 @@ function applyProperties(dict) {
 		$.embedded.applyProperties(options);
 	}
 	if (_.has(dict, "indicatorDict")) {
-		$.activityIndicatorImg.applyProperties(dict.indicatorDict);
+		$.activityIndicator.applyProperties(dict.indicatorDict);
 	}
 }
 
-function show(images, dict) {
-	if (dict) {
-		dict.visible = true;
-		$.embedded.applyProperties(dict);
-	} else {
-		$.embedded.visible = true;
-	}
-	if (images) {
-		$.activityIndicatorImg.addEventListener("load", didLoad);
-		$.activityIndicatorImg.images = images;
-	} else {
-		$.activityIndicatorImg.start();
-	}
-}
-
-function didLoad() {
-	$.activityIndicatorImg.start();
-	$.activityIndicatorImg.removeEventListener("load", didLoad);
+function show() {
+	$.embedded.visible = true;
+	$.activityIndicator.show();
 }
 
 function hide(remove) {
-	$.activityIndicatorImg.stop();
+	$.activityIndicator.hide();
 	$.embedded.visible = false;
 	if (remove !== false) {
 		$.embedded.getParent().remove($.embedded);
 	}
 }
 
-exports.show = show;
-exports.hide = hide;
-exports.applyProperties = applyProperties;
+_.extend($, {
+	show : show,
+	hide : hide,
+	applyProperties : applyProperties
+});

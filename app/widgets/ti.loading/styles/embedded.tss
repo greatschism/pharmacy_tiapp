@@ -3,9 +3,8 @@
 	backgroundColor: "#FFFFFF",
 	visible: false
 },
-"#activityIndicatorImg":{
-	width: 50,
-	height: 50,
-	duration: 40,
+"#activityIndicator":{
+	indicatorColor: "#005E00",
+	style: Ti.UI.ActivityIndicatorStyle.BIG,
 	bubbleParent: false
 }
