@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="AppcompatAlertDialogTitle">
+	<style name="MaterialAlertDialogTitle">
 		<item name="android:textColor">#000000</item>
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
 	</style>
-	<style name="Appcompat.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Material.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorControlHighlight">#D4D4D4</item>
 		<item name="android:background">#FFFFFF</item>
 		<item name="android:textColorPrimary">#000000</item>
-		<item name="android:windowTitleStyle">@style/AppcompatAlertDialogTitle</item>
+		<item name="android:windowTitleStyle">@style/MaterialAlertDialogTitle</item>
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
 	</style>
-	<style name="ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
-		<!--This makes entire alert dialog transparent on v21-->
+	<style name="Material.ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
 		<item name="android:windowBackground">@android:color/transparent</item>
-		<!--This makes entire alert dialog transparent on v21-->
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
 	</style>
@@ -38,18 +38,16 @@
 		<item name="android:textColorHint">#C7C7CD</item>
 		<item name="android:textCursorDrawable">@null</item>
 		<item name="android:windowBackground">@android:color/white</item>
-		<item name="dialogTheme">@style/Appcompat.AlertDialog</item>
-		<item name="alertDialogTheme">@style/Appcompat.AlertDialog</item>
-		<!--to apply for progress dialog-->
-		<item name="android:dialogTheme">@style/ProgressDialog</item>
-		<item name="android:alertDialogTheme">@style/ProgressDialog</item>
-		<!--to apply for progress dialog-->
-		<!--action bar shadow for pre-lollipop-->
-		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
-		<!--action bar shadow for pre-lollipop-->
+		<item name="dialogTheme">@style/Material.AlertDialog</item>
+		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
+		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
+		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
 		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
+		<!--action bar shadow for pre-lollipop-->
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+		<!--action bar shadow for pre-lollipop-->
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
