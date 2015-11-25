@@ -60,7 +60,7 @@
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="${BUILD_NUMBER}">
-      <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21" />
+      <uses-sdk android:minSdkVersion="14" />
       <application android:largeHeap="true" android:theme="@style/Theme.Material">
         <activity android:configChanges="keyboardHidden|orientation" android:name="${LAUNCHER_ACTIVITY}" android:theme="@style/Theme.Material.Splash">
           <intent-filter>
