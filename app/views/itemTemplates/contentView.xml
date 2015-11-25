@@ -1,6 +1,6 @@
 <Alloy>
 	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="contentView" class="content-view-vgroup">
+		<View id="textView" class="content-view-vgroup">
 			<Label id="titleLbl" class="content-title" />
 			<Label id="subtitleLbl" class="content-subtitle" />
 		</View>
