@@ -2,14 +2,9 @@ var args = arguments[0] || {},
     preventChangeEvt = false;
 
 (function() {
-	$.swt = Ti.UI.createSwitch({
-		width : 56,
-		height : 36,
-		id : args.id || "switch"
-	});
-	$.swt.addEventListener("change", didChange);
-	$.widget.add($.swt);
-	applyProperties(args);
+	if (!_.isEmpty(args)) {
+		applyProperties(args, false);
+	}
 	updateForState(true);
 })();
 
@@ -58,13 +53,10 @@ function getValue() {
 }
 
 function applyProperties(properties, extend) {
-	var options = _.pick(properties, ["top", "bottom", "left", "right"]);
-	if (!_.isEmpty(options)) {
-		$.widget.applyProperties(options);
-	}
-	options = _.omit(properties, ["top", "bottom", "left", "right"]);
-	if (!_.isEmpty(options)) {
-		$.swt.applyProperties(options);
+	$.swt.applyProperties(properties);
+	//TIMOB-14285
+	if (_.has(properties, "id")) {
+		$.swt.id = properties.id;
 	}
 	if (extend !== false) {
 		_.extend(args, properties);
@@ -84,6 +76,8 @@ function didChange(e) {
 	});
 }
 
-exports.setValue = setValue;
-exports.getValue = getValue;
-exports.applyProperties = applyProperties;
+_.extend($, {
+	getValue : getValue,
+	setValue : setValue,
+	applyProperties : applyProperties
+});

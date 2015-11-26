@@ -1,4 +1,4 @@
-"#widget":{
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
+"#swt":{
+	width: 56,
+	height: 36
 }
