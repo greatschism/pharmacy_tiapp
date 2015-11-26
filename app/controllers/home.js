@@ -307,7 +307,7 @@ function didClickCancel(e) {
 	$.feedbackDialog.hide();
 }
 
-function hideAllPopups() {
+function backButtonHandler() {
 	if ($.feedbackDialog) {
 		return $.feedbackDialog.getVisible();
 	}
@@ -323,5 +323,5 @@ function terminate() {
 _.extend($, {
 	init : init,
 	terminate : terminate,
-	backButtonHandler : hideAllPopups
+	backButtonHandler : backButtonHandler
 });
