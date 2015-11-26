@@ -358,13 +358,15 @@ function getVisible() {
 	return $.widget.visible;
 }
 
-exports.show = show;
-exports.hide = hide;
-exports.toggle = toggle;
-exports.animate = animate;
-exports.setItems = setItems;
-exports.getItems = getItems;
-exports.getVisible = getVisible;
-exports.applyProperties = applyProperties;
-exports.setSelectedItems = setSelectedItems;
-exports.getSelectedItems = getSelectedItems;
+_.extend($, {
+	show : show,
+	hide : hide,
+	toggle : toggle,
+	animate : animate,
+	setItems : setItems,
+	getItems : getItems,
+	getVisible : getVisible,
+	applyProperties : applyProperties,
+	setSelectedItems : setSelectedItems,
+	getSelectedItems : getSelectedItems
+});

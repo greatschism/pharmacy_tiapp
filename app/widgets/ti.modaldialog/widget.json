@@ -1,6 +1,6 @@
 {
-	"id": "ti.asyncview",
-	"name": "ti.asyncview",
+	"id": "ti.modaldialog",
+	"name": "ti.modaldialog",
 	"description": "",
 	"author": "Manoj Kumar",
 	"version": "1.0",
@@ -8,6 +8,6 @@
 	"license": "Public Domain",
 	"min-alloy-version": "1.0",
 	"min-titanium-version": "2.1",
-	"tags": "loading,acitvity,indicator",
+	"tags": "popup, modal",
 	"platforms": "ios,android"
 }

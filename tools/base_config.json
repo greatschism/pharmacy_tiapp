@@ -144,22 +144,23 @@
 		"platform_code": "IP"
 	},
 	"dependencies": {
-		"nl.fokkezb.drawer": "1.0",
 		"nl.fokkezb.color": "1.1.0",
-		"ti.textfield": "1.0",
-		"ti.loading": "1.0",
-		"ti.dropdown": "1.0",
-		"ti.pagingcontrol": "1.0",
-		"ti.switch": "1.0",
-		"ti.styledlabel": "1.0",
-		"ti.tooltip": "1.0",
-		"ti.optiondialog": "1.0",
-		"ti.textarea": "1.0",
-		"ti.optionpicker": "1.0",
-		"ti.navbutton": "1.0",
-		"ti.remoteimage": "1.0",
+		"nl.fokkezb.drawer": "1.0",
 		"ti.asyncview": "1.0",
-		"ti.expandable": "1.0"
+		"ti.dropdown": "1.0",
+		"ti.expandable": "1.0",
+		"ti.loading": "1.0",
+		"ti.modaldialog": "1.0",
+		"ti.navbutton": "1.0",
+		"ti.optiondialog": "1.0",
+		"ti.optionpicker": "1.0",
+		"ti.pagingcontrol": "1.0",
+		"ti.remoteimage": "1.0",
+		"ti.styledlabel": "1.0",
+		"ti.switch": "1.0",
+		"ti.textarea": "1.0",
+		"ti.textfield": "1.0",
+		"ti.tooltip": "1.0"
 	},
 	"backbone": "1.1.2"
 }

@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     ctrlShortCode = require("ctrlShortCode"),
     moduleShortCode = require("moduleShortCode"),
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
+    isFeedbackEnabled = parseInt(Alloy.Models.appload.get("features").is_feedback_enabled) || 0,
     icons = Alloy.CFG.icons,
     banners,
     spanTimeId;
@@ -17,7 +18,7 @@ function init() {
 	});
 	/**
 	 * when banner feature is enabled and
-	 * the current tempalte supports banners
+	 * the current template supports banners
 	 * load banners, if nothing in cache call
 	 * get banners
 	 */
@@ -37,38 +38,57 @@ function init() {
 		});
 	}
 	/**
-	 * Feedback popup will
-	 * be shown after 5 login's
+	 * check for feedbacks
 	 */
-	/**
-	 $.uihelper.showDialog({
-	 message : Alloy.Globals.strings.msgFeedback,
-	 title : Alloy.Globals.strings.dialogTitleFeedback,
-	 buttonNames : [Alloy.Globals.strings.dialogBtnItsGreat, Alloy.Globals.strings.dialogBtnNeedsImprovement, Alloy.Globals.strings.dialogBtnCancel],
-	 cancelIndex : 2,
-	 success : function(index) {
-	 if (index == 0) {
-	 showThankyouFeedback();
-	 } else if (index == 1) {
-
-	 }
-
-	 }
-	 });
-	 **/
+	if (isFeedbackEnabled && false) {
+		if (true) {
+			showRateDialog();
+		} else {
+			$.uihelper.showDialog({
+				title : $.strings.homeDialogTitleFeedback,
+				message : $.strings.homeMsgFeedback,
+				buttonNames : [$.strings.homeDialogBtnGreat, $.strings.homeDialogBtnImprove, $.strings.dialogBtnCancel],
+				success : didGetFeedback
+			});
+		}
+	}
 }
 
-function showThankyouFeedback() {
-	if (OS_ANDROID) {
-		msgPlatformThanku = String.format(Alloy.Globals.strings.msgThanku, "Google Play");
-	} else {
-		msgPlatformThanku = String.format(Alloy.Globals.strings.msgThanku, "App Store");
+function didGetFeedback(index) {
+	switch(index) {
+	case 0:
+		//great
+		break;
+	case 1:
+		//improve
+		break;
+	case 2:
+		//cancel
+		break;
 	}
+}
+
+function showRateDialog() {
 	$.uihelper.showDialog({
-		message : msgPlatformThanku,
-		title : Alloy.Globals.strings.dialogTitleThanku,
-		buttonNames : [Alloy.Globals.strings.dialogBtnRate, Alloy.Globals.strings.dialogBtnRemind, Alloy.Globals.strings.dialogBtnNoThanks]
+		title : $.strings.homeDialogTitleRate,
+		message : String.format($.strings.homeMsgRate, $.strings["strStore" + Alloy.CFG.platform_code]),
+		buttonNames : [$.strings.homeDialogBtnRate, $.strings.homeDialogBtnRemind, $.strings.homeDialogBtnCancel],
+		success : didRateApp
 	});
+}
+
+function didRateApp(index) {
+	switch(index) {
+	case 0:
+		//rate now
+		break;
+	case 1:
+		//remind later
+		break;
+	case 2:
+		//cancel
+		break;
+	}
 }
 
 function didSuccess(result, passthrough) {
@@ -273,11 +293,27 @@ function didPostlayout(e) {
 	});
 }
 
+function didClickSubmit(e) {
+	var feedback = $.feedbackTxta.getValue();
+	if (!feedback) {
+		$.uihelper.showDialog({
+			message : $.strings.homePopupValFeedback
+		});
+		return;
+	}
+}
+
+function didClickCancel(e) {
+	$.feedbackDialog.hide();
+}
+
 function terminate() {
 	if (spanTimeId) {
 		clearTimeout(spanTimeId);
 	}
 }
 
-exports.init = init;
-exports.terminate = terminate;
+_.extend($, {
+	init : init,
+	terminate : terminate
+});

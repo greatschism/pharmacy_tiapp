@@ -11,6 +11,8 @@ module.exports = {
 
 		"strNil" : "es--",
 		"strNotAvailable" : "es-Not available",
+		"strStoreIP" : "es-App Store",
+		"strStoreAD" : "es-Google Play",
 		"strTime" : "es-time",
 		"strTimes" : "es-times",
 		"strHour" : "es-hour",
@@ -36,8 +38,6 @@ module.exports = {
 		"dialogTitleTimePicker" : "es-Choose a time",
 		"dialogTitleDatePicker" : "es-Choose a date",
 		"dialogTitleNotification" : "es-Notification",
-		"dialogTitleFeedback" : "es-How do you like the app?",
-		"dialogTitleThanku" : "es-Thank you!",
 
 		"dialogBtnOK" : "es-OK",
 		"dialogBtnYes" : "es-Yes",
@@ -52,11 +52,6 @@ module.exports = {
 		"dialogBtnContactAdd" : "es-Add to contacts",
 		"dialogBtnCamera" : "es-Take a photo",
 		"dialogBtnGallery" : "es-Choose from gallery",
-		"dialogBtnNeedsImprovement" : "es-It needs improvement",
-		"dialogBtnItsGreat" : "es-It's been great!",
-		"dialogBtnRate" : "es-Rate this app",
-		"dialogBtnRemind" : "es-Remind me later",
-		"dialogBtnNoThanks" : "es-No thanks",
 
 		"msgLoading" : "es-Processing. Please wait.",
 		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -102,8 +97,6 @@ module.exports = {
 		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
 		"msgGooglePlayServicesUpdateRequired" : "es-You must update your Google Play Services in order to use this feature. Do you want to update now?",
 		"msgGooglePlayServicesNotAvailable" : "es-There is something wrong with your version of Google Play Services. Please check your settings.",
-		"msgThanku" : "es-We're glad you like the app! Will you help us out by rating it in the %@?",
-		"msgFeedback" : "es-We'd love to hear from you.",
 
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
@@ -178,7 +171,31 @@ module.exports = {
 
 		"tmplOptionDividerLbl" : "es-Or",
 
+		"carouselLblApp" : "es-Manage your prescriptions\nanytime, anywhere.",
+		"carouselLblPrescriptions" : "es-See a complete list of your\nprescriptions",
+		"carouselLblRefill" : "es-Refill prescriptions instantly",
+		"carouselLblReminders" : "es-Get refill, pickup and other\nimportant notifications",
+		"carouselLblFamilyCare" : "es-Manage your families\nprescriptions in one place",
+		"carouselBtnStart" : "es-Get started",
+		"carouselBtnNext" : "es-Next",
+		"carouselBtnSkip" : "es-Skip",
+
 		"homeNavBtnLogin" : "es-Sign in",
+		"homeDialogTitleFeedback" : "es-How do you like the app?",
+		"homeMsgFeedback" : "es-We'd love to hear from you.",
+		"homeDialogBtnGreat" : "es-It's been great!",
+		"homeDialogBtnImprove" : "es-It needs improvement",
+		"homeDialogTitleRate" : "es-Thank you!",
+		"homeMsgRate" : "es-We're glad you like the app!\nWill you help us out by rating it in the %s?",
+		"homeDialogBtnRate" : "es-Rate this app",
+		"homeDialogBtnRemind" : "es-Remind me later",
+		"homeDialogBtnCancel" : "es-No thanks",
+		"homePopupLblTitle" : "es-How can we improve?",
+		"homePopupLblDesc" : "es-We're really sorry that you're not happy! Your feedback helps us improve your experience. Please let us know how we can help.",
+		"homePopupHintFeedback" : "es-Your feedback here",
+		"homePopupBtnSubmit" : "es-Submit",
+		"homePopupBtnCancel" : "es-No Thanks",
+		"homePopupValFeedback" : "es-Please enter your feedback.",
 
 		"loginLblTitle" : "es-Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "es-Email address",
@@ -195,8 +212,8 @@ module.exports = {
 		"loginVersionLbl" : "es-Version: %s",
 		"loginBuildNumber" : "es-Build Number: %s",
 		"loginBuildDate" : "es-Build Date: %s",
-		"loginAttrAbout" : "es-<secondaryfont><secondarycolor>about</secondarycolor></secondaryfont>",
-		
+		"loginAttrAbout" : "es-about",
+
 		"patientSwitcherMsgChildBecameAdult" : "es-This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "es-Please enter the email address you originally signed up with. We will send you a link to reset your password.",
@@ -475,8 +492,9 @@ module.exports = {
 		"remindersSettingsPopupBtnClose" : "es-Close",
 		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the %s Terms of Service.",
 		"remindersSettingsMsgPushDisabled" : "es-You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
-		"remindersSettingsMsgEmailNotVerified" : "es-We just send you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
-		"remindersSettingsMsgPhoneNotVerified" : "es-To receive text message notifications, please confirm your phone number.",
+		"remindersSettingsMsgEmailNotVerified" : "es-We just sent you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
+		"remindersSettingsMsgPhoneNotVerified" : "es-Please confirm your mobile number before you can receive text reminders.",
+		"remindersSettingsDialogBtnPhoneNotVerified" : "es-Confirm number",
 
 		"transferLblTitle" : "es-You can transfer prescriptions from other pharmacy chains to %s using this feature.",
 		"transferBtnPhoto" : "es-Take a photo",

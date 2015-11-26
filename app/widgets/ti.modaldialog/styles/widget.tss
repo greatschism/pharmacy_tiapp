@@ -1,0 +1,10 @@
+"#widget":{
+	zIndex: 0,
+	opacity: 0,
+	visible: false,
+	backgroundColor: "#80000000"
+},
+"#contentView":{
+	backgroundColor: "#FFFFFF",
+	height: Ti.UI.SIZE
+}

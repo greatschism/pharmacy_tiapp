@@ -282,6 +282,9 @@
             ".reminder-notes": {
                 "maxLength": 10
             },
+            ".feedback": {
+                "maxLength": 5000
+            },
             ".external-rx": {
                 "maxLength": 15
             },
