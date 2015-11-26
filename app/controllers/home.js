@@ -307,6 +307,13 @@ function didClickCancel(e) {
 	$.feedbackDialog.hide();
 }
 
+function hideAllPopups() {
+	if ($.feedbackDialog) {
+		return $.feedbackDialog.getVisible();
+	}
+	return false;
+}
+
 function terminate() {
 	if (spanTimeId) {
 		clearTimeout(spanTimeId);
@@ -315,5 +322,6 @@ function terminate() {
 
 _.extend($, {
 	init : init,
-	terminate : terminate
+	terminate : terminate,
+	backButtonHandler : hideAllPopups
 });
