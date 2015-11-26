@@ -20,19 +20,11 @@
 
 	//variables
 	Alloy.Globals.Map = require("ti.map");
-	Alloy.Globals.spinnerImages = [];
 	Alloy.Globals.isSwipeInProgress = false;
 	Alloy.Globals.latestRequest = moment().unix();
 	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
 	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
-
-	//load spinner images
-	var imgPrefix = "/images/series/activityindicator/layer_",
-	    imgSuffix = ".png";
-	for (var i = 1; i <= 161; i++) {
-		Alloy.Globals.spinnerImages.push(imgPrefix + i + imgSuffix);
-	}
 
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)
