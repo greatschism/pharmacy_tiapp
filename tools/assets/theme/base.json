@@ -4,6 +4,9 @@
             "global": {
                 "navigator": "drawer",
                 "left_drawer_width": 270,
+                "app_improved": true,
+                "feedback_action": 1,
+                "feedback_action_count": 5,
                 "banner_default_width": 1920,
                 "banner_default_height": 960,
                 "geo_search_length_min": 4,
