@@ -12,7 +12,13 @@
 "#activityIndicator":{
 	top: 12,
 	bottom: 12,
-	left: 12,
+	left: 12
+},
+"#activityIndicator[platform=ios]":{
 	indicatorColor: "#005E00",
+	//deprecated on 5.1.0.GA
+	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+},
+"#activityIndicator[platform=android]":{
 	style: Ti.UI.ActivityIndicatorStyle.BIG
 }

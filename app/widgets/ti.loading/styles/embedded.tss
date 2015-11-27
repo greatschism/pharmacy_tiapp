@@ -4,7 +4,13 @@
 	visible: false
 },
 "#activityIndicator":{
-	indicatorColor: "#005E00",
-	style: Ti.UI.ActivityIndicatorStyle.BIG,
 	bubbleParent: false
+},
+"#activityIndicator[platform=ios]":{
+	indicatorColor: "#005E00",
+	//deprecated on 5.1.0.GA
+	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+},
+"#activityIndicator[platform=android]":{
+	style: Ti.UI.ActivityIndicatorStyle.BIG
 }
