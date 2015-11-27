@@ -21,8 +21,8 @@ function updateCounter(action) {
 			var count = utilities.getProperty(Alloy.CFG.latest_feedback_action_count, 0, "int", false);
 			//increment
 			count++;
-			if (count === Alloy.CFG.feedback_action_count) {
-				//if reached action count then reset counter
+			if (Alloy.CFG.feedback_action_count < count) {
+				//if counter crossed the limit then reset
 				count = 0;
 				//set enabled flag
 				isEnabled = true;
