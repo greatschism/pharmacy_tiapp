@@ -213,12 +213,9 @@ function didClickDeliveryMode(e) {
 		if (!isEmailSent && mPatient.get("is_email_verified") !== "1") {
 			$.http.request({
 				method : "email_resend",
-				success : function(result, passthrough) {
-					isEmailSent = true;
-					$.uihelper.showDialog({
-						message : $.strings.remindersSettingsMsgEmailNotVerified
-					});
-				}
+				errorDialogEnabled : false,
+				success : didEmailResend,
+				failure : didNotEmailResend
 			});
 		}
 		break;
@@ -252,6 +249,28 @@ function didClickDeliveryMode(e) {
 			});
 		}
 		break;
+	}
+}
+
+function didEmailResend(result, passthrough) {
+	isEmailSent = true;
+	$.uihelper.showDialog({
+		message : $.strings.remindersSettingsMsgEmailNotVerified
+	});
+}
+
+function didNotEmailResend(error, passthrough) {
+	var code = error.code;
+	if (code !== Alloy.CFG.apiCodes.email_verified) {
+		/**
+		 * email was verified already
+		 * update local data now
+		 */
+		$.patientSwitcher.get().set("is_email_verified", "1");
+	} else {
+		$.uihelper.showDialog({
+			message : $.http.getNetworkErrorByCode(code)
+		});
 	}
 }
 

@@ -60,6 +60,7 @@
 		"apiCodes": {
 			"success": "200",
 			"session_timeout": "ECOH998",
+			"email_verified": "ECOH997",
 			"no_refill_reminders": "ECS023",
 			"date_format": "MM-DD-YYYY",
 			"date_time_format": "MM-DD-YYYY hh:mm A",
