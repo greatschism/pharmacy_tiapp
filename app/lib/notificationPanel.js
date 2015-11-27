@@ -21,7 +21,7 @@ function show(payload) {
 	}
 }
 
-Object.defineProperty(module.exports, "active", {
+Object.defineProperty(exports, "active", {
 	set : function(value) {
 		active = value;
 		/**

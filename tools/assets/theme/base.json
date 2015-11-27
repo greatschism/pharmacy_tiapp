@@ -4,7 +4,7 @@
             "global": {
                 "navigator": "drawer",
                 "left_drawer_width": 270,
-                "app_improved": true,
+                "has_improvements": false,
                 "feedback_action": 1,
                 "feedback_action_count": 5,
                 "banner_default_width": 1920,

@@ -1,9 +1,10 @@
 var args = arguments[0] || {},
     navigationHandler = require("navigationHandler"),
+    feedbackHandler = require("feedbackHandler"),
     ctrlShortCode = require("ctrlShortCode"),
     moduleShortCode = require("moduleShortCode"),
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
-    isFeedbackEnabled = parseInt(Alloy.Models.appload.get("features").is_feedback_enabled) || 0,
+    apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     banners,
     spanTimeId;
@@ -40,10 +41,15 @@ function init() {
 	/**
 	 * check for feedbacks
 	 */
-	if (isFeedbackEnabled && false) {
-		if (true) {
+	if (feedbackHandler.isEnabled) {
+		var feedbackOpt = feedbackHandler.option;
+		if (feedbackOpt === apiCodes.feedback_option_remind) {
 			showRateDialog();
 		} else {
+			/**
+			 * should be cancel here, only on these two cases counter
+			 * feedback is enabled
+			 */
 			$.uihelper.showDialog({
 				title : $.strings.homeDialogTitleFeedback,
 				message : $.strings.homeMsgFeedback,
@@ -58,12 +64,18 @@ function didGetFeedback(index) {
 	switch(index) {
 	case 0:
 		//great
+		sendFeatureEvent("feedbackGreat");
+		showRateDialog();
 		break;
 	case 1:
 		//improve
+		sendFeatureEvent("feedbackImprove");
+		$.feedbackDialog.show();
 		break;
 	case 2:
 		//cancel
+		sendFeatureEvent("feedbackCancel");
+		feedbackHandler.option = apiCodes.feedback_option_cancel;
 		break;
 	}
 }
@@ -81,12 +93,19 @@ function didRateApp(index) {
 	switch(index) {
 	case 0:
 		//rate now
+		sendFeatureEvent("feedbackRated");
+		feedbackHandler.option = apiCodes.feedback_option_rated;
+		Ti.Platform.openURL(Alloy.Models.appload.get("feedback_url"));
 		break;
 	case 1:
 		//remind later
+		sendFeatureEvent("feedbackRemind");
+		feedbackHandler.option = apiCodes.feedback_option_remind;
 		break;
 	case 2:
 		//cancel
+		sendFeatureEvent("feedbackNotRated");
+		feedbackHandler.option = apiCodes.feedback_option_not_rated;
 		break;
 	}
 }
@@ -265,7 +284,11 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	$.analyticsHandler.featureEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode + "-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
+	sendFeatureEvent(ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url);
+}
+
+function sendFeatureEvent(name) {
+	$.analyticsHandler.featureEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode + "-" + name);
 }
 
 function didClickRightNav(e) {
@@ -301,9 +324,35 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
+	$.feedbackDialog.hide();
+	$.http.request({
+		method : "appload_feedback",
+		params : {
+			data : [{
+				feedback : {
+					feedBackText : feedback,
+					feedBackStatus : apiCodes.feedback_option_submitted
+				}
+			}]
+		},
+		success : didSubmitFeedback,
+		failure : didNotSubmitFeedback
+	});
+}
+
+function didSubmitFeedback(result, passthrough) {
+	sendFeatureEvent("feedbackSubmitted");
+	feedbackHandler.option = apiCodes.feedback_option_submitted;
+}
+
+function didNotSubmitFeedback(error, passthrough) {
+	sendFeatureEvent("feedbackApiFailed-" + error.code);
+	feedbackHandler.option = apiCodes.feedback_option_not_submitted;
 }
 
 function didClickCancel(e) {
+	sendFeatureEvent("feedbackNotSubmitted");
+	feedbackHandler.option = apiCodes.feedback_option_not_submitted;
 	$.feedbackDialog.hide();
 }
 

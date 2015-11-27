@@ -75,13 +75,13 @@ function didReceivePush(e) {
 	notificationPanel.show(e.data);
 }
 
-Object.defineProperty(module.exports, "deviceId", {
+Object.defineProperty(exports, "deviceId", {
 	get : function() {
 		return Ti.App.installId;
 	}
 });
 
-Object.defineProperty(module.exports, "deviceToken", {
+Object.defineProperty(exports, "deviceToken", {
 	get : function() {
 		return deviceToken;
 	}

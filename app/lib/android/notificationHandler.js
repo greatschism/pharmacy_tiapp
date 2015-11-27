@@ -74,13 +74,13 @@ function didReceivePush(e) {
 	notificationPanel.show(JSON.parse(e.payload));
 }
 
-Object.defineProperty(module.exports, "deviceId", {
+Object.defineProperty(exports, "deviceId", {
 	get : function() {
 		return TiPush.deviceId;
 	}
 });
 
-Object.defineProperty(module.exports, "deviceToken", {
+Object.defineProperty(exports, "deviceToken", {
 	get : function() {
 		return deviceToken;
 	}

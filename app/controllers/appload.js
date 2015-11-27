@@ -7,6 +7,7 @@ var args = arguments[0] || {},
     uihelper = require("uihelper"),
     utilities = require("utilities"),
     localization = require("localization"),
+    feedbackHandler = require("feedbackHandler"),
     notificationHandler = require("notificationHandler"),
     logger = require("logger"),
     TAG = ctrlShortCode[$.__controllerPath],
@@ -246,6 +247,8 @@ function loadConfig(errorQueue) {
 
 function initMasterWindow() {
 	hideLoader();
+	//update feedback counter
+	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_appload);
 	/**
 	 * Note: don't use open listener
 	 * directly, we have to make sure the
