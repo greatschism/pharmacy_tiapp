@@ -87,36 +87,39 @@ if (mod === 'dk.napp.drawer') {
 delete args.id;
 delete args.__parentSymbol;
 delete args.children;
-	
+
 if (mod === 'dk.napp.drawer') {
 
 	_.extend(args, args.window || {});
-	
+
 	// create actual drawer
 	$.instance = $.module.createDrawer(_.omit(args, 'window'));
-	
+
 	$.window = $.instance;
 	$.addTopLevelView($.instance);
 
 } else {
 	// create actual drawer
 	$.instance = $.module.createDrawer(_.omit(args, 'window'));
-	
+
 	$.window = Ti.UI.createWindow(_.extend(_.pick(args, ["orientationModes", "exitOnClose", "backgroundColor"]), args.window || {}));
 	$.window.add($.instance);
 
 	$.addTopLevelView($.window);
 }
 
-//handled within app
-/*if(OS_ANDROID){
+//handled in actual controller
+/*if (OS_ANDROID) {
 	$.window.addEventListener('open', function (e) {
 		var actionBar = (mod === 'dk.napp.drawer' ? this : e.source).getActivity().getActionBar();
-	
+
 		if (actionBar) {
 			actionBar.setDisplayHomeAsUp(true);
 			actionBar.setOnHomeIconItemSelected(function () {
-				$.instance.toggleLeftWindow();
+				if ($.isRightWindowOpen()) {
+					return $.closeRightWindow();
+				}
+				$.toggleLeftWindow();
 			});
 		}
 	});
@@ -229,15 +232,15 @@ if (mod === 'dk.napp.drawer') {
 	$.rightView = $.rightWindow;
 	$.setRightView = $.setRightWindow;
 	$.getRightView = $.getRightWindow;
-	
+
 	$.drawerIndicatorEnabled = $.hamburgerIcon;
 	$.setDrawerIndicatorEnabled = $.setHamburgerIcon;
 	$.getDrawerIndicatorEnabled = $.getHamburgerIcon;
-	
+
 	$.drawerArrowIcon = $.arrowAnimation;
 	$.setDrawerArrowIcon = $.setArrowAnimation;
 	$.getDrawerArrowIcon = $.getArrowAnimation;
-	
+
 	$.drawerArrowIconColor = $.hamburgerIconColor;
 	$.setDrawerArrowIconColor = $.setHamburgerIconColor;
 	$.getDrawerArrowIconColor = $.getHamburgerIconColor;
@@ -275,15 +278,15 @@ if (mod === 'dk.napp.drawer') {
 	$.rightWindow = $.rightView;
 	$.setRightWindow = $.setRightView;
 	$.getRightWindow = $.getRightView;
-	
+
 	$.hamburgerIcon = $.drawerIndicatorEnabled;
 	$.setHamburgerIcon = $.setDrawerIndicatorEnabled;
 	$.getHamburgerIcon = $.getDrawerIndicatorEnabled;
-	
+
 	$.arrowAnimation = $.drawerArrowIcon;
 	$.setArrowAnimation = $.setDrawerArrowIcon;
 	$.getArrowAnimation = $.getDrawerArrowIcon;
-	
+
 	$.hamburgerIconColor = $.drawerArrowIconColor;
 	$.setHamburgerIconColor = $.setDrawerArrowIconColor;
 	$.getHamburgerIconColor = $.getDrawerArrowIconColor;
@@ -291,15 +294,15 @@ if (mod === 'dk.napp.drawer') {
 
 // events
 $.on = function (event, callback, context) {
-	return $.instance.addEventListener(event, callback);
+	return $.instance.addEventListener(translateEvent(event), callback);
 };
 
 $.off = function (event, callback, context) {
-	return $.instance.removeEventListener(event, callback);
+	return $.instance.removeEventListener(translateEvent(event), callback);
 };
 
 $.trigger = function (event, args) {
-	return $.instance.fireEvent(event, args);
+	return $.instance.fireEvent(translateEvent(event), args);
 };
 
 $.addEventListener = $.on;
@@ -343,3 +346,29 @@ _.each(methods, function (fn) {
 		};
 	}
 });
+
+function translateEvent(event) {
+	
+	if (mod === 'dk.napp.drawer') {
+		
+		if (event === 'draweropen') {
+			event = 'windowDidOpen';
+		}
+		
+		if (event === 'drawerclose') {
+			event = 'windowDidClose';
+		}
+		
+	} else {
+		
+		if (event === 'windowDidOpen') {
+			event = 'draweropen';
+		}
+		
+		if (event === 'windowDidClose') {
+			event = 'drawerclose';
+		}
+	}
+	
+	return event;
+}

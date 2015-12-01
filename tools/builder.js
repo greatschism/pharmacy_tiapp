@@ -332,7 +332,13 @@ if (build) {
 		 */
 		var BASE_THEME_DATA_STR = JSON.stringify(BASE_THEME_DATA, null, 4);
 		_u.each(BASE_THEME_VALUES, function(val, key) {
-			BASE_THEME_DATA_STR = BASE_THEME_DATA_STR.replace(new RegExp("\\${" + key + "}", "g"), val);
+			/**
+			 * # if val is not string
+			 * then exclude double quotes too
+			 * # if val is object or array,
+			 * then stringify val before replacing
+			 */
+			BASE_THEME_DATA_STR = BASE_THEME_DATA_STR.replace(new RegExp(_u.isString(val) ? "\\${" + key + "}" : "\"\\${" + key + "}\"", "g"), _u.isObject(val) || _u.isArray(val) ? JSON.stringify(val) : val);
 		});
 
 		//now write it as js file
