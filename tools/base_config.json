@@ -103,6 +103,7 @@
 			"family_account_status_pending": "0",
 			"family_account_status_linked": "1",
 			"family_account_status_declined": "2",
+			"feedback_action_none": 0,
 			"feedback_action_appload": 1,
 			"feedback_action_login": 2,
 			"feedback_option_cancel": 0,
