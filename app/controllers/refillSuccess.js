@@ -27,7 +27,12 @@ function init() {
 		tKey = "titleRefillFailure";
 		lKey = "refillSuccessLblFailure";
 	}
-	$.setTitle($.strings[tKey]);
+	/**
+	 * Note: window is yet to be opened,
+	 * actionBar / setTitle will not be
+	 * available here at init
+	 */
+	$.window.title = $.strings[tKey];
 	if (iKey) {
 		var dict = $.createStyle({
 			classes : ["margin-top"]
