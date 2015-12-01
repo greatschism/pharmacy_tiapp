@@ -106,7 +106,9 @@ function setTitle(title) {
 	$.window.title = title;
 	$.actionBar.setTitleAttributes(_.extend({
 		title : title
-	}, Alloy.TSS.Window.titleAttributes));
+	}, $.createStyle({
+		apiName : "Window"
+	}).titleAttributes));
 }
 
 function showNavBar() {
