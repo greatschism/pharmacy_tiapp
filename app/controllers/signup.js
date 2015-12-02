@@ -291,8 +291,25 @@ function didClickSignup(e) {
 			}]
 
 		},
+		errorDialogEnabled : false,
 		success : didRegister,
+		failure: didFailToRegister,
 		passthrough : userCredentials
+	});
+}
+
+function didFailToRegister(result, passthrough){
+	$.uihelper.showDialog({
+		message : result.message,
+		buttonNames : [$.strings.dialogBtnPhone, $.strings.dialogBtnOK],
+		cancelIndex : 1,
+		success : function(){
+			var supportPhone = Alloy.Models.appload.get("supportphone");
+			if (supportPhone) {
+				$.uihelper.openDialer(supportPhone);
+			}
+		}
+				
 	});
 }
 
