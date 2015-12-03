@@ -6,4 +6,7 @@
 },
 "#childBtn":{
 	title:Alloy.Globals.strings.registerBtnChild
+},
+"#anotherAdultBtn":{
+	title:Alloy.Globals.strings.registerBtnAnotherAdult
 }

@@ -11,3 +11,9 @@ function didClickChild(){
 		stack : true
 	});
 }
+function didClickAddAnotherAdult(){
+	$.app.navigator.open({
+		ctrl : "registerAdultInfo",
+		stack : true
+	});
+}
