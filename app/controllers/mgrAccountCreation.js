@@ -1,5 +1,5 @@
 var moment = require("alloy/moment"),
-rightButtonDict = $.createStyle({
+    rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn"],
 	title : Alloy.Globals.strings.strShow,
 }),

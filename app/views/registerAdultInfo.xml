@@ -1,5 +1,5 @@
 <Alloy>
 	<View class="vgroup">
-		
+		<Button id="continueBtn" class="primary-btn" onClick="didClickContinue"/>
 	</View>
 </Alloy>
