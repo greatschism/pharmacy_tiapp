@@ -712,6 +712,11 @@ if (build) {
 		    atss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
 		    tss = {};
 
+		//add classes for images
+		processImages(atss, _u.where(RESOURCES_DATA, {
+			"type" : "image"
+		}), languageData);
+
 		//add classes for icons
 		processIcons(atss, themeData.config.global.icons, languageData);
 		processIcons(atss, themeData.config.global.iconNotations, languageData);
@@ -1033,6 +1038,38 @@ function toLowerCase(val) {
  ********************************/
 
 /**
+ *  create classes for each image from it's name
+ *  append all available accessibility labels with image class
+ *  the name convention should followed as below
+ * 	examples
+ * 	  image name - logo_white
+ *    	class name will be - .img-logo-white
+ *    	accessibility key in language string should be - imgAccessibilityLblLogoWhite
+ */
+function processImages(desObj, images, strings) {
+	for (var imgKey in images) {
+		var imgName = images[imgKey].name,
+		    imgVal = "Alloy.Images." + imgName,
+		    className = ".img-" + imgName.replace(/_+/g, "-");
+		desObj[className] = {
+			image : imgVal + ".image",
+			width : imgVal + ".width",
+			height : imgVal + ".height",
+		};
+		var name = imgName.replace(/_+/g, " ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+			return $1.toUpperCase();
+		}),
+		    prefix = "Alloy.Globals.strings.",
+		    accessiblityKey = "imgAccessibilityLbl" + name;
+		if (strings[accessiblityKey]) {
+			desObj[className].accessibilityLabel = prefix + accessiblityKey;
+		} else {
+			desObj[className].accessibilityHidden = true;
+		}
+	}
+}
+
+/**
  *  create classes for each icon from it's name
  *  append all available accessibility labels with icon class
  *  the name convention should followed as below
@@ -1069,6 +1106,9 @@ function processIcons(desObj, icons, strings) {
 					desObj[className].accessibilityLabel = prefix + accessiblityKey;
 				}
 			}
+		}
+		if (!desObj[className].accessibilityLabel) {
+			desObj[className].accessibilityHidden = true;
 		}
 	}
 }
