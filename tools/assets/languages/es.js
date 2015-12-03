@@ -52,6 +52,7 @@ module.exports = {
 		"dialogBtnContactAdd" : "es-Add to contacts",
 		"dialogBtnCamera" : "es-Take a photo",
 		"dialogBtnGallery" : "es-Choose from gallery",
+		"dialogBtnEmail":"es-Email",
 
 		"msgLoading" : "es-Processing. Please wait.",
 		"msgNoInternet" : "es-You need an internet connection to use this app. Please try again once you are connected.",
@@ -589,9 +590,10 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "es-Same settings as account manager",
 		"accountsAgreementHIPAA" : "es-HIPAA",
 
-		"registerLbl" : "es-Are you managing prescriptions for yourself or your child?",
+		"registerLbl" : "es-Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "es-Myself",
 		"registerBtnChild" : "es-My child",
+		"registerBtnAnotherAdult":"es-Another adult",
 		"registerHintFirstName" : "es-First name",
 		"registerHintLastName" : "es-Last name",
 		"registerHintDOB" : "es-Date of birth",
