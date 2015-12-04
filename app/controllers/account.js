@@ -266,7 +266,7 @@ function didClickcontactOptionsMenu(e) {
 	case 0:
 		var supportPhone = Alloy.Models.appload.get("supportphone");
 		if (supportPhone) {
-			$.uihelper.openDialer(supportPhone);
+			$.uihelper.openDialer($.utilities.validatePhoneNumber(supportPhone));
 		}
 		break;
 	case 1:
