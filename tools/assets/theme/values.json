@@ -1,4 +1,186 @@
 {
 	"PRIMARY_COLOR": "#F7941E",
-	"PRIMARY_DARK_COLOR": "#CC7312"
+	"PRIMARY_SELECTED_COLOR": "#F7941E",
+	"PRIMARY_DARK_COLOR": "#CC7312",
+	"PRIMARY_LIGHT_COLOR": "#FFFFFF",
+	"PRIMARY_LIGHT_SELECTED_COLOR": "#FFFFFF",
+	"BG_COLOR": "#FFFFFF",
+	"BG_SELECTED_COLOR": "#D4D4D4",
+	"ACTIVE_BG_COLOR": "#0095FF",
+	"ACTIVE_BG_SELECTED_COLOR": "#0095FF",
+	"INACTIVE_BG_COLOR": "#6D6E71",
+	"INACTIVE_BG_SELECTED_COLOR": "#6D6E71",
+	"POSITIVE_BG_COLOR": "#009344",
+	"POSITIVE_BG_SELECTED_COLOR": "#009344",
+	"NEGATIVE_BG_COLOR": "#ED1C24",
+	"NEGATIVE_BG_SELECTED_COLOR": "#ED1C24",
+	"TENTATIVE_BG_COLOR": "#F7941E",
+	"TENTATIVE_BG_SELECTED_COLOR": "#F7941E",
+	"FG_COLOR": "#000000",
+	"FG_SELECTED_COLOR": "#000000",
+	"ACTIVE_FG_COLOR": "#0095FF",
+	"ACTIVE_FG_SELECTED_COLOR": "#0095FF",
+	"INACTIVE_FG_COLOR": "#6D6E71",
+	"INACTIVE_FG_SELECTED_COLOR": "#6D6E71",
+	"POSITIVE_FG_COLOR": "#009344",
+	"POSITIVE_FG_SELECTED_COLOR": "#009344",
+	"NEGATIVE_FG_COLOR": "#ED1C24",
+	"NEGATIVE_FG_SELECTED_COLOR": "#ED1C24",
+	"TENTATIVE_FG_COLOR": "#F7941E",
+	"TENTATIVE_FG_SELECTED_COLOR": "#F7941E",
+	"HINT_TEXT_COLOR": "#C7C7CD",
+	"SEPARATOR_COLOR": "#D5D5D5",
+	"SEPARATOR_INSETS": {
+		"top": 0,
+		"bottom": 0,
+		"left": 0,
+		"right": 0
+	},
+	"BORDER_COLOR": "#808082",
+	"BORDER_COLOR_LIGHT": "#D5D5D5",
+	"BORDER_WIDTH": 1,
+	"BORDER_WIDTH_LIGHT": 0.5,
+	"BORDER_RADIUS": 3.4,
+	"INPUT_HEIGHT": 50,
+	"MARGIN_TOP": 12,
+	"MARGIN_BOTTOM": 12,
+	"MARGIN_LEFT": 12,
+	"MARGIN_RIGHT": 12,
+	"MARGIN_TOP_SMALL": 4,
+	"MARGIN_BOTTOM_SMALL": 4,
+	"MARGIN_LEFT_SMALL": 4,
+	"MARGIN_RIGHT_SMALL": 4,
+	"MARGIN_TOP_MEDIUM": 8,
+	"MARGIN_BOTTOM_MEDIUM": 8,
+	"MARGIN_LEFT_MEDIUM": 8,
+	"MARGIN_RIGHT_MEDIUM": 8,
+	"MARGIN_TOP_LARGE": 16,
+	"MARGIN_BOTTOM_LARGE": 16,
+	"MARGIN_LEFT_LARGE": 16,
+	"MARGIN_RIGHT_LARGE": 16,
+	"MARGIN_TOP_EXTRA_LARGE": 24,
+	"MARGIN_BOTTOM_EXTRA_LARGE": 24,
+	"MARGIN_LEFT_EXTRA_LARGE": 24,
+	"MARGIN_RIGHT_EXTRA_LARGE": 24,
+	"MARGIN_TOP_STATUS_BAR": 40,
+	"H1_PLATFORM_IOS": {
+		"fontFamily": "light",
+		"fontSize": 34
+	},
+	"H1_PLATFORM_ANDROID": {
+		"fontFamily": "light",
+		"fontSize": 34
+	},
+	"H2_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 24
+	},
+	"H2_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 24
+	},
+	"H3_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 20
+	},
+	"H3_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 20
+	},
+	"H4_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 20
+	},
+	"H4_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 20
+	},
+	"H5_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 16
+	},
+	"H5_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 16
+	},
+	"H6_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 16
+	},
+	"H6_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 16
+	},
+	"H7_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 12
+	},
+	"H7_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 12
+	},
+	"H8_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 12
+	},
+	"H8_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 12
+	},
+	"I1_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 75
+	},
+	"I1_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 75
+	},
+	"I2_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 60
+	},
+	"I2_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 60
+	},
+	"I3_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 48
+	},
+	"I3_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 48
+	},
+	"I4_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 34
+	},
+	"I4_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 34
+	},
+	"I5_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 22
+	},
+	"I5_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 22
+	},
+	"I6_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 16
+	},
+	"I6_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 16
+	},
+	"I7_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 12
+	},
+	"I7_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 12
+	}
 }

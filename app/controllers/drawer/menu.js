@@ -1,6 +1,5 @@
 var args = arguments[0] || {},
     app = require("core"),
-    uihelper = require("uihelper"),
     navigationHandler = require("navigationHandler"),
     ctrlShortCode = require("ctrlShortCode"),
     analyticsHandler = require("analyticsHandler"),
@@ -12,8 +11,18 @@ function init() {
 	if (OS_ANDROID) {
 		app.navigator.drawer.on("drawerclose", didDrawerclose);
 	}
-	uihelper.getImage("logo_white", $.logoImg);
 	Alloy.Collections.menuItems.trigger("reset");
+}
+
+function filterFunction(collection) {
+	var fColl = [];
+	collection.each(function(model) {
+		if ((model.has("feature_name") && !parseInt(Alloy.Models.appload.get("features")[model.get("feature_name")])) || (model.has("platform") && _.indexOf(model.get("platform"), Alloy.CFG.platform) === -1)) {
+			return false;
+		}
+		fColl.push(model);
+	});
+	return fColl;
 }
 
 function transformFunction(model) {

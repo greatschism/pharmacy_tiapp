@@ -52,7 +52,7 @@ function init() {
 		default:
 			if (!$.contentView) {
 				$.contentView = $.UI.create("View", {
-					id : "contentView"
+					classes : ["bg-color"]
 				});
 			}
 			$.contentView.add(child);

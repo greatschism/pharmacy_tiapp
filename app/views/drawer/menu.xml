@@ -1,14 +1,14 @@
 <Alloy>
-	<TableView class="menu-view" dataCollection="menuItems" dataTransform="transformFunction" onClick="didClickTableView">
+	<TableView class="primary-bg-color bg-selected-disabled table-separator-disabled" dataCollection="menuItems" dataFilter="filterFunction" dataTransform="transformFunction" onClick="didClickTableView">
 		<HeaderView>
 			<View id="headerView" class="auto-height">
-				<ImageView id="logoImg" class="menu-header-image" />
+				<ImageView id="logoImg" class="margin-top-status-bar margin-bottom-large img-logo-white" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="menu-row">
-			<View class="menu-item-view">
-				<Label text="{icon}" class="menu-item-icon" />
-				<Label text="{title}" class="menu-item-lbl" />
+		<TableViewRow class="primary-bg-color row-selected-bg-light">
+			<View class="margin-top-large margin-bottom-large auto-height hgroup hwrap-disabled touch-disabled">
+				<Label text="{icon}" class="margin-left i4 primary-light-fg-color touch-disabled" />
+				<Label text="{title}" class="margin-left-medium h4 primary-light-fg-color touch-disabled" />
 			</View>
 		</TableViewRow>
 		<FooterView platform="ios">

@@ -1,6 +1,7 @@
 {
 	"values": {
 		"PRIMARY_COLOR": "#09467E",
+		"PRIMARY_SELECTED_COLOR": "#09467E",
 		"PRIMARY_DARK_COLOR": "#053C74"
 	}
 }

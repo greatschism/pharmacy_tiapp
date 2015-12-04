@@ -12,10 +12,10 @@ var args = arguments[0] || {},
 function init() {
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
-		if (_.has(item, "platform") && _.indexOf(item.platform, Alloy.CFG.platform) == -1) {
-			return;
+		var view = create(item);
+		if (view) {
+			$.contentView.add(view);
 		}
-		$.contentView.add(create(item));
 	});
 	/**
 	 * when banner feature is enabled and
@@ -185,6 +185,9 @@ function didChangePager(e) {
 }
 
 function create(dict) {
+	if ((_.has(dict, "feature_name") && !parseInt(Alloy.Models.appload.get("features")[dict.feature_name])) || (_.has(dict, "platform") && _.indexOf(dict.platform, Alloy.CFG.platform) === -1)) {
+		return false;
+	}
 	var element;
 	if (dict.module) {
 		element = require(dict.module)[dict.apiName](dict.properties || {});
@@ -194,19 +197,14 @@ function create(dict) {
 			classes : dict.classes || []
 		});
 	}
-	if (dict.apiName === "ImageView") {
-		$.uihelper.getImage(dict.image, element);
-	}
 	if (_.has(dict, "properties")) {
 		var properties = dict.properties;
-		if (_.has(properties, "icon")) {
-			properties.text = icons[properties.icon];
-		} else if (_.has(properties, "textid")) {
+		if (_.has(properties, "textid")) {
 			properties.text = $.strings[properties.textid];
 		} else if (_.has(properties, "titleid")) {
 			properties.title = $.strings[properties.titleid];
 		}
-		element.applyProperties(_.omit(properties, ["textid", "titleid", "icon"]));
+		element.applyProperties(_.omit(properties, ["textid", "titleid"]));
 	}
 	if (_.has(dict, "children")) {
 		_.each(dict.children, function(child) {
@@ -218,10 +216,13 @@ function create(dict) {
 				if (_.has(childItem, "platform") && _.indexOf(childItem.platform, Alloy.CFG.platform) == -1) {
 					return;
 				}
-				if (asArray) {
-					cElemnts.push(create(childItem));
-				} else {
-					element[addChild](create(childItem));
+				var cElemnt = create(childItem);
+				if (cElemnt) {
+					if (asArray) {
+						cElemnts.push(cElemnt);
+					} else {
+						element[addChild](cElemnt);
+					}
 				}
 			});
 			if (asArray) {

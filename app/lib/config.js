@@ -262,7 +262,9 @@ var Configuration = {
 			}
 			Alloy.TSS[identifier] = tss[ts];
 		}
-		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
+		//update font family for window titleAttributes
+		var winKey = "Window_platform_" + Alloy.CFG.platform;
+		Alloy.TSS[winKey].titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS[winKey].titleAttributes.font.fontFamily];
 
 		/**
 		 * rewrite cached index.js
