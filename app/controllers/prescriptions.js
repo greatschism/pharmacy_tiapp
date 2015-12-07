@@ -517,7 +517,17 @@ function didClickOptionMenu(e) {
 		toggleSearch();
 		break;
 	case 1:
-		prepareData();
+		/**
+		 * Refresh: By default sync happens on server side
+		 * while patient authenticate, here we force
+		 * sync the patient data / prescriptions
+		 * with the dispensing system
+		 */
+		$.http.request({
+			method : "patient_sync",
+			keepLoader : true,
+			success : prepareData
+		});
 		break;
 	case 2:
 		$.sortPicker.show();
@@ -690,10 +700,7 @@ function hidePrescription(e) {
 			}]
 		},
 		keepLoader : true,
-		success : function() {
-			//refresh list
-			prepareData();
-		}
+		success : prepareData
 	});
 }
 
