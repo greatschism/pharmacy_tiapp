@@ -64,6 +64,7 @@
 			"session_timeout": "ECOH998",
 			"email_verified": "ECOH997",
 			"no_refill_reminders": "ECS023",
+			"invalid_combination_for_signup" : "ECOH673",
 			"date_format": "MM-DD-YYYY",
 			"date_time_format": "MM-DD-YYYY hh:mm A",
 			"dob_format": "YYYY-MM-DD",
