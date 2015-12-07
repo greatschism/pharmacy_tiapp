@@ -217,6 +217,15 @@ function didGetRefillReminder(result, passthrough) {
 			hasChild : true
 		});
 		data.push($.prescriptionsRow.getView());
+	} else {
+		/**
+		 * show error dialog when it is an unknown error
+		 * Note: anything other than no_refill_reminders
+		 * will be unknown here
+		 */
+		$.uihelper.showDialog({
+			message : result.message || $.http.getNetworkErrorByCode(result.code)
+		});
 	}
 	$.tableView.setData(data);
 }
