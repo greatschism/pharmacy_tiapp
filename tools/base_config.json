@@ -7,6 +7,7 @@
 			"appload_feedback": "appload/feedback",
 			"codes_get": "codes/get",
 			"patient_authenticate": "patient/authenticate",
+			"patient_sync": "patient/sync",
 			"patient_get": "patient/get",
 			"patient_preferences_get": "patient/preferences/get",
 			"patient_preferences_update": "patient/preferences/update",
