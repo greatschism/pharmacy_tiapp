@@ -309,7 +309,7 @@ function didFailToRegister(result, passthrough){
 			success : function(){
 				var supportPhone = Alloy.Models.appload.get("supportphone");
 				if (supportPhone) {
-					$.uihelper.openDialer(supportPhone);
+					$.uihelper.openDialer($.utilities.validatePhoneNumber(supportPhone));
 				}
 			}				
 		});
