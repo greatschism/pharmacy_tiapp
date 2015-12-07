@@ -3,6 +3,7 @@ var args = arguments[0] || {},
     http = require("requestwrapper"),
     utilities = require("utilities"),
     rx = require("rx"),
+    apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
 	classes : ["txt-tertiary-right-icon"],
 }),
@@ -299,18 +300,25 @@ function didClickSignup(e) {
 }
 
 function didFailToRegister(result, passthrough){
-	$.uihelper.showDialog({
-		message : result.message,
-		buttonNames : [$.strings.dialogBtnPhone, $.strings.dialogBtnOK],
-		cancelIndex : 1,
-		success : function(){
-			var supportPhone = Alloy.Models.appload.get("supportphone");
-			if (supportPhone) {
-				$.uihelper.openDialer(supportPhone);
-			}
-		}
-				
-	});
+	if(result.errorCode === apiCodes.invalid_combination_for_signup)
+	{
+		$.uihelper.showDialog({
+			message : result.message,
+			buttonNames : [$.strings.dialogBtnPhone, $.strings.dialogBtnOK],
+			cancelIndex : 1,
+			success : function(){
+				var supportPhone = Alloy.Models.appload.get("supportphone");
+				if (supportPhone) {
+					$.uihelper.openDialer(supportPhone);
+				}
+			}				
+		});
+	}
+	else{
+		$.uihelper.showDialog({
+			message : result.message
+		});
+	}
 }
 
 function didRegister(result, passthrough) {
