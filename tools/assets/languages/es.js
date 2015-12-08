@@ -88,7 +88,7 @@ module.exports = {
 		"msgAccountExists" : "es-It looks like you already have an account with %s",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password.",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
-		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled through this app. Please contact your doctor for more details.",
+		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled electronically. Contact your pharmacy or doctor for more information.",
 		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionHasMedReminder" : "es-You have already created a reminder that includes this prescription. Are you sure you want to select it for this reminder too?",
