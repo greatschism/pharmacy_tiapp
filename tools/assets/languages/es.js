@@ -679,7 +679,7 @@ module.exports = {
 		"childConsentLblObtain" : "es-I have obtained consent",
 		"childConsentBtnContinue" : "es-Continue",
 
-		"HIPAAoptionalMessageLbl" : "es-We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate.",
+		"HIPAAoptionalMessageLbl" : "es-We would like to improve your experience by sending you tailored offers and educational information. Please accept this optional authorization to participate. You must scroll to the bottom of this document to accept or skip.",
 		"HIPAASuccessBtnAccept" : "es-Accept",
 		"HIPAASuccessBtnDecline" : "es-Decline & skip",
 
