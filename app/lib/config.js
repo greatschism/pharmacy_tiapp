@@ -262,9 +262,12 @@ var Configuration = {
 			}
 			Alloy.TSS[identifier] = tss[ts];
 		}
-		//update font family for window titleAttributes
-		var winKey = "Window_platform_" + Alloy.CFG.platform;
-		Alloy.TSS[winKey].titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS[winKey].titleAttributes.font.fontFamily];
+		//update font family for titleAttributes
+		var keySuffix = "_platform_" + Alloy.CFG.platform;
+		_.each(["Window", "drawer"], function(value) {
+			var key = value.concat(keySuffix);
+			Alloy.TSS[key].titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS[key].titleAttributes.font.fontFamily];
+		});
 
 		/**
 		 * rewrite cached index.js
