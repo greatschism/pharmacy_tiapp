@@ -50,11 +50,13 @@
                     {
                         "id": "app",
                         "col_pref": "app_reminder_dlvry_mode",
+                        "flg_pref": "app_reminder_flag",
                         "enabled": false
                     },
                     {
                         "id": "doctor",
                         "col_pref": "doctor_reminder_dlvry_mode",
+                        "flg_pref": "doctor_appointment_reminder_flag",
                         "enabled": false
                     },
                     {
@@ -65,11 +67,13 @@
                     {
                         "id": "med",
                         "col_pref": "med_reminder_dlvry_mode",
+                        "flg_pref": "med_reminder_flag",
                         "enabled": true
                     },
                     {
                         "id": "refill",
                         "col_pref": "refill_reminder_dlvry_mode",
+                        "flg_pref": "refill_reminder_flag",
                         "enabled": true
                     },
                     {
