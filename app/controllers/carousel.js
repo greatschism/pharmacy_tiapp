@@ -14,7 +14,7 @@ function init() {
 	var fromBottom = $.uihelper.getHeightFromChildren($.footerView, true);
 	$.scrollableView.bottom = fromBottom;
 	$.pagingcontrol.getView().bottom = fromBottom + $.createStyle({
-		classes : ["margin-bottom"]
+		classes : ["margin-bottom-extra-large"]
 	}).bottom;
 	//get images list ready
 	setImages($.appImg, "app", 18);

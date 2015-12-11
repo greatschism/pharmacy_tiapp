@@ -50,7 +50,7 @@ function init() {
 		default:
 			if (!$.contentView) {
 				$.contentView = $.UI.create("View", {
-					classes : ["bg-color"]
+					classes : ["bg-color", "bg-selected-color-disabled"]
 				});
 			}
 			$.contentView.add(child);
