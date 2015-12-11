@@ -709,8 +709,16 @@ if (build) {
 		//get theme and language data
 		var themeData = JSON.parse(BASE_THEME_DATA_STR).data,
 		    languageData = require(APP_SELECTED_LANGUAGE_JS).data,
-		    atss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
+		    dtss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
+		    atss = {},
 		    tss = {};
+
+		/**
+		 * In app.tss elements those which come first
+		 * will get low priority, than the element comes
+		 * second / after, so let default tss elements
+		 * go after images, icons and theme tss elements
+		 */
 
 		//add classes for images
 		processImages(atss, _u.where(RESOURCES_DATA, {
@@ -726,8 +734,7 @@ if (build) {
 		for (var ts in tss) {
 
 			if (!atss[ts]) {
-				atss[ts] = {
-				};
+				atss[ts] = {};
 			}
 
 			/**
@@ -752,6 +759,22 @@ if (build) {
 				atss[ts][key] = identifier + "." + key;
 			}
 
+		}
+
+		/**
+		 * deep extend everything from dtss (default tss) to
+		 * atss (app tss), so dtss elements
+		 * will get high priority as it goes after
+		 * all atss elements
+		 */
+		for (var ts in dtss) {
+			if (!atss[ts]) {
+				atss[ts] = {};
+			}
+			var dict = dtss[ts];
+			for (var key in dict) {
+				atss[ts][key] = dict[key];
+			}
 		}
 
 		//convert to string and trim double quotes

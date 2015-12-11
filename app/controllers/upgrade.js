@@ -5,7 +5,10 @@ function didOpen(e) {
 }
 
 function didClickSubmit(e) {
-	Ti.Platform.openURL(Alloy.Models.appload.get("upgrade_url"));
+	var url = Alloy.Models.appload.get("upgrade_url");
+	if (url) {
+		Ti.Platform.openURL(url);
+	}
 }
 
 function didAndroidback(e) {

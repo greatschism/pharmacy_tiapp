@@ -1,13 +1,4 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="h5 primary-light-fg-color" onClick="didClickRightNav" if="!Alloy.Globals.isLoggedIn" />
-	<Widget id="feedbackDialog" src="ti.modaldialog" class="margin-left margin-right">
-		<ScrollView class="auto-height vgroup">
-			<Label id="titleLbl" class="margin-top h3 txt-center" />
-			<Label id="descLbl" class="margin-top h5" />
-			<Widget id="feedbackTxta" src="ti.textarea" class="margin-top txta feedback returnkey-done" onReturn="didClickSubmit"  />
-			<Button id="submitBtn" class="margin-top" onClick="didClickSubmit" />
-			<Button id="cancelBtn" class="margin-top margin-bottom" onClick="didClickCancel" />
-		</ScrollView>
-	</Widget>
-	<View id="contentView" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right h5 txt-right primary-light-fg-color bg-color-disabled border-disabled" onClick="didClickRightNav" if="!Alloy.Globals.isLoggedIn" />
+	<View id="templateView" />
 </Alloy> 

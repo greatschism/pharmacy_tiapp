@@ -47,8 +47,57 @@
 		"textAlign": "Ti.UI.TEXT_ALIGNMENT_CENTER",
 		"backgroundColor": "transparent"
 	},
+	".drawer": {
+		"leftDrawerWidth": "Alloy.CFG.left_drawer_width"
+	},
+	".drawer[formFactor=handheld]": {
+		"orientationModes": ["Ti.UI.PORTRAIT"]
+	},
+	".drawer[formFactor=tablet]": {
+		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
+	},
+	".rx": {
+		"maxLength": "Alloy.CFG.rx_length"
+	},
+	".date": {
+		"title": "Alloy.Globals.strings.dialogTitleDatePicker",
+		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
+		"format": "Alloy.CFG.date_format",
+		"type": "Ti.UI.PICKER_TYPE_DATE"
+	},
+	".time": {
+		"title": "Alloy.Globals.strings.dialogTitleTimePicker",
+		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
+		"format": "Alloy.CFG.time_format",
+		"type": "Ti.UI.PICKER_TYPE_TIME"
+	},
+	".dob": {
+		"selectedDate": "Alloy.CFG.dob_default_date"
+	},
+	".time-reminder": {
+		"minuteInterval": "Alloy.CFG.reminder_time_picker_interval"
+	},
+	".h-divider": {
+		"width": "Ti.UI.FILL"
+	},
+	".h-divider-light": {
+		"width": "Ti.UI.FILL"
+	},
 	".txt": {
 		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT"
+	},
+	".txta": {
+		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT",
+		"suppressReturn": true
+	},
+	".swt[platform=android]": {
+		"accessibilityLabelOn": "Alloy.Globals.strings.accessibilityLblSwitchOn",
+		"accessibilityLabelOff": "Alloy.Globals.strings.accessibilityLblSwitchOff",
+		"trackShape": "Ti.App.Android.R.drawable.switch_track",
+		"thumbShape": "Ti.App.Android.R.drawable.switch_thumb",
+		"style": "Ti.UI.Android.SWITCH_STYLE_SWITCH"
 	},
 	".top": {
 		"top": 0
@@ -61,6 +110,18 @@
 	},
 	".right": {
 		"right": 0
+	},
+	".top-disabled": {
+		"top": null
+	},
+	".bottom-disabled": {
+		"bottom": null
+	},
+	".left-disabled": {
+		"left": null
+	},
+	".right-disabled": {
+		"right": null
 	},
 	".auto-width": {
 		"width": "Ti.UI.SIZE"
@@ -330,27 +391,30 @@
 	".repeat-disabled": {
 		"repeatCount": 1
 	},
-	".bg-disabled": {
+	".bg-color-disabled": {
 		"backgroundColor": "transparent"
 	},
-	".bg-selected-disabled": {
+	".bg-selected-color-disabled": {
 		"backgroundSelectedColor": null
-	},
-	".border-radius-disabled": {
-		"borderRadius": 0
 	},
 	".border-disabled": {
 		"borderWidth": 0,
 		"borderRadius": 0,
 		"borderColor": "transparent"
 	},
+	".border-radius-disabled": {
+		"borderRadius": 0
+	},
+	".border-color-disabled": {
+		"borderColor": "transparent"
+	},
 	".table-separator-disabled": {
 		"separatorColor": "transparent"
 	},
-	".row-selected-bg-light": {
+	".row-selected-bg-color-light": {
 		"selectedBackgroundColor": "#80D3D4D3"
 	},
-	".row-selected-bg-disabled": {
+	".row-selected-bg-color-disabled": {
 		"selectedBackgroundColor": "transparent"
 	},
 	".autocaps-sentences": {
@@ -380,6 +444,18 @@
 	".returnkey-search": {
 		"returnKeyType": "Ti.UI.RETURNKEY_SEARCH"
 	},
+	".direction-up": {
+		"direction": "top"
+	},
+	".direction-down": {
+		"direction": "bottom"
+	},
+	".direction-left": {
+		"direction": "left"
+	},
+	".direction-right": {
+		"direction": "right"
+	},
 	".role-ignore": {
 		"role": "ignore"
 	},
@@ -400,62 +476,5 @@
 	},
 	".role-detail-view": {
 		"role": "detailView"
-	},
-	".direction-up": {
-		"direction": "top"
-	},
-	".direction-down": {
-		"direction": "bottom"
-	},
-	".direction-left": {
-		"direction": "left"
-	},
-	".direction-right": {
-		"direction": "right"
-	},
-	".rx": {
-		"maxLength": "Alloy.CFG.rx_length"
-	},
-	".dob": {
-		"selectedDate": "Alloy.CFG.dob_default_date"
-	},
-	".time-reminder": {
-		"minuteInterval": "Alloy.CFG.reminder_time_picker_interval"
-	},
-	".drawer": {
-		"leftDrawerWidth": "Alloy.CFG.left_drawer_width"
-	},
-	".drawer[formFactor=handheld]": {
-		"orientationModes": ["Ti.UI.PORTRAIT"]
-	},
-	".drawer[formFactor=tablet]": {
-		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
-	},
-	".h-divider": {
-		"width": "Ti.UI.FILL"
-	},
-	".h-divider-light": {
-		"width": "Ti.UI.FILL"
-	},
-	".swt[platform=android]": {
-		"accessibilityLabelOn": "Alloy.Globals.strings.accessibilityLblSwitchOn",
-		"accessibilityLabelOff": "Alloy.Globals.strings.accessibilityLblSwitchOff",
-		"trackShape": "Ti.App.Android.R.drawable.switch_track",
-		"thumbShape": "Ti.App.Android.R.drawable.switch_thumb",
-		"style": "Ti.UI.Android.SWITCH_STYLE_SWITCH"
-	},
-	".date": {
-		"title": "Alloy.Globals.strings.dialogTitleDatePicker",
-		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
-		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
-		"format": "Alloy.CFG.date_format",
-		"type": "Ti.UI.PICKER_TYPE_DATE"
-	},
-	".time": {
-		"title": "Alloy.Globals.strings.dialogTitleTimePicker",
-		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
-		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
-		"format": "Alloy.CFG.time_format",
-		"type": "Ti.UI.PICKER_TYPE_TIME"
 	}
 }

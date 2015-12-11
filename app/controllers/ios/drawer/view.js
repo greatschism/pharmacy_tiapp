@@ -76,6 +76,7 @@ function init() {
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
 		crashreporter : require("crashreporter"),
+		contentView : $.contentView,
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,

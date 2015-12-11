@@ -361,16 +361,61 @@
             "Label":{
                 "color":"${FG_COLOR}"
             },
+            "Label[platform=ios]":{
+                "font":"${H6_PLATFORM_IOS}"
+            },
+            "Label[platform=android]":{
+                "font":"${H6_PLATFORM_ANDROID}"
+            },
             "Button":{
-                "height":"${INPUT_HEIGHT}"
+                "top":"${MARGIN_TOP}",
+                "left":"${MARGIN_LEFT}",
+                "right":"${MARGIN_RIGHT}",
+                "height":"${INPUT_HEIGHT}",
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}"
+            },
+            "Button[platform=ios]":{
+                "font":"${H3_PLATFORM_IOS}"
+            },
+            "Button[platform=android]":{
+                "font":"${H3_PLATFORM_ANDROID}"
             },
             ".txt":{
+                "top":"${MARGIN_TOP}",
                 "left":"${MARGIN_LEFT}",
                 "right":"${MARGIN_RIGHT}",
                 "paddingLeft":"${MARGIN_LEFT_MEDIUM}",
                 "paddingRight":"${MARGIN_RIGHT_MEDIUM}",
                 "hintTextColor":"${HINT_TEXT_COLOR}",
-                "height":"${INPUT_HEIGHT}"
+                "height":"${INPUT_HEIGHT}",
+                "backgroundColor":"${BG_COLOR}",
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${BORDER_COLOR}"
+            },
+            ".txt[platform=ios]":{
+                "font":"${H4_PLATFORM_IOS}"
+            },
+            ".txt[platform=android]":{
+                "font":"${H4_PLATFORM_ANDROID}"
+            },
+            ".txta":{
+                "top":"${MARGIN_TOP}",
+                "left":"${MARGIN_LEFT}",
+                "right":"${MARGIN_RIGHT}",
+                "hintTextColor":"${HINT_TEXT_COLOR}",
+                "height":"${MULTILINE_INPUT_HEIGHT}",
+                "backgroundColor":"${BG_COLOR}",
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${BORDER_COLOR}"
+            },
+            ".txta[platform=ios]":{
+                "font":"${H4_PLATFORM_IOS}"
+            },
+            ".txta[platform=android]":{
+                "font":"${H4_PLATFORM_ANDROID}"
             },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
@@ -551,6 +596,10 @@
             ".bg-color":{
                 "backgroundColor":"${BG_COLOR}",
                 "backgroundSelectedColor":"${BG_SELECTED_COLOR}"
+            },
+            ".modal-bg-color":{
+                "backgroundColor":"${MODAL_BG_COLOR}",
+                "backgroundSelectedColor":"${MODAL_BG_SELECTED_COLOR}"
             },
             ".primary-bg-color":{
                 "backgroundColor":"${PRIMARY_COLOR}",
