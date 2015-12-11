@@ -6,14 +6,14 @@ var args = arguments[0] || {},
 
 function init() {
 	//logo - align all labels to be in sync with logo
-	var fromTop = $.logoImg.top + $.appLbl.top + $.uihelper.getImage("logo", $.logoImg).height;
+	var fromTop = $.logoImg.top + $.logoImg.height + $.appLbl.top;
 	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
 		$[val].top = fromTop;
 	});
 	//footer view
 	var fromBottom = $.uihelper.getHeightFromChildren($.footerView, true);
 	$.scrollableView.bottom = fromBottom;
-	$.pagingControl.getView().bottom = fromBottom + $.createStyle({
+	$.pagingcontrol.getView().bottom = fromBottom + $.createStyle({
 		classes : ["margin-bottom"]
 	}).bottom;
 	//get images list ready
@@ -54,7 +54,7 @@ function didLoad(e) {
 
 function didScrollend(e) {
 	var currentPage = e.currentPage;
-	$.pagingControl.setCurrentPage(currentPage);
+	$.pagingcontrol.setCurrentPage(currentPage);
 	startOrStopAnimation(currentPage);
 }
 

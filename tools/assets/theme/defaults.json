@@ -381,8 +381,14 @@
 	".accessibility-disabled": {
 		"accessibilityHidden": true
 	},
+	".accessibility-enabled": {
+		"accessibilityHidden": false
+	},
 	".bubble-disabled": {
 		"bubbleParent": false
+	},
+	".bubble-enabled": {
+		"bubbleParent": true
 	},
 	".wrap-disabled": {
 		"wordWrap": false,

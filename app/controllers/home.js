@@ -283,18 +283,18 @@ function loadBanners(items) {
 		 * paging control should be enabled
 		 */
 		var len = banners.length,
-		    pagingControlEnabled = len > 1,
+		    pagingcontrolEnabled = len > 1,
 		    views = [$.bannerScrollableView];
-		if (pagingControlEnabled) {
+		if (pagingcontrolEnabled) {
 			$.bannerScrollableView.addEventListener("scrollend", didScrollend);
-			$.pagingControl = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
-				classes : ["pagingcontrol"]
+			$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
+				classes : ["margin-bottom", "pagingcontrol"]
 			}), {
 				currentPage : 0,
 				length : len
 			}));
-			$.pagingControl.on("change", didChangePager);
-			views.push($.pagingControl.getView());
+			$.pagingcontrol.on("change", didChangePager);
+			views.push($.pagingcontrol.getView());
 		}
 		if ($.asyncView) {
 			$.asyncView.hide(views);
@@ -303,7 +303,7 @@ function loadBanners(items) {
 				$.bannerView.add(view);
 			});
 		}
-		if (pagingControlEnabled) {
+		if (pagingcontrolEnabled) {
 			startSpanTime(banners[0].spanTime);
 		}
 		return true;
@@ -324,13 +324,13 @@ function didSpanTimeout() {
 		nextPage = 0;
 	}
 	$.bannerScrollableView.scrollToView(nextPage);
-	$.pagingControl.setCurrentPage(nextPage);
+	$.pagingcontrol.setCurrentPage(nextPage);
 	startSpanTime(banners[nextPage].spanTime);
 }
 
 function didScrollend(e) {
 	var currentPage = e.currentPage;
-	$.pagingControl.setCurrentPage(currentPage);
+	$.pagingcontrol.setCurrentPage(currentPage);
 	startSpanTime(banners[currentPage].spanTime);
 }
 

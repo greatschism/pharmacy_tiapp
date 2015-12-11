@@ -417,6 +417,11 @@
             ".txta[platform=android]":{
                 "font":"${H4_PLATFORM_ANDROID}"
             },
+            ".pagingcontrol":{
+                "selectedPagerDict":{
+                    "backgroundColor":"${PRIMARY_COLOR}"
+                }
+            },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
             },
@@ -478,7 +483,7 @@
                 "right":"${MARGIN_RIGHT_EXTRA_LARGE}"
             },
             ".margin-top-status-bar":{
-            	"top": "${MARGIN_TOP_STATUS_BAR}"
+                "top":"${MARGIN_TOP_STATUS_BAR}"
             },
             ".h1[platform=ios]":{
                 "font":"${H1_PLATFORM_IOS}"
