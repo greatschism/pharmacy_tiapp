@@ -37,7 +37,7 @@ function updateCounter(action) {
 			 * on previous version and has improvements
 			 * flag is true, ask him for feedbacks again
 			 */
-			if (Alloy.CFG.has_improvements && parseInt(Alloy.CFG.app_version) > utilities.getProperty(Alloy.CFG.latest_feedback_app_verion, 0, "int", false)) {
+			if (Alloy.CFG.has_improvements && (parseInt(Alloy.CFG.app_version.substring(1)) || 0) > utilities.getProperty(Alloy.CFG.latest_feedback_app_version, 0, "int", false)) {
 				//now user will be asked for feedback again once the counter hits limit
 				utilities.setProperty(Alloy.CFG.latest_feedback_option, apiCodes.feedback_option_cancel, "int", false);
 			}
@@ -52,7 +52,7 @@ function setOption(option) {
 		isEnabled = false;
 		//if one of these, then save the app version too
 		if (option === apiCodes.feedback_option_submitted || option === apiCodes.feedback_option_not_submitted) {
-			utilities.setProperty(Alloy.CFG.latest_feedback_app_verion, parseInt(Alloy.CFG.app_version), "int", false);
+			utilities.setProperty(Alloy.CFG.latest_feedback_app_version, parseInt(Alloy.CFG.app_version.substring(1)) || 0, "int", false);
 		}
 		//update option
 		utilities.setProperty(Alloy.CFG.latest_feedback_option, option, "int", false);
