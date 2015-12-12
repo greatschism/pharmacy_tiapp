@@ -424,8 +424,33 @@
                     "backgroundColor":"${PRIMARY_COLOR}"
                 }
             },
+            ".modal-dialog":{
+                "left":"${MARGIN_LEFT_LARGE}",
+                "right":"${MARGIN_RIGHT_LARGE}",
+                "color":"${FG_COLOR}",
+                "optionPadding":{
+                    "top":"${MARGIN_TOP}",
+                    "bottom":"${MARGIN_BOTTOM}",
+                    "left":"${MARGIN_LEFT}",
+                    "right":"${MARGIN_RIGHT}"
+                },
+                "iconColor":"${INACTIVE_COLOR}",
+                "selectedIconColor":"${POSITIVE_COLOR}",
+                "separatorColor":"${SEPARATOR_COLOR}",
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"transparent"
+            },
+            ".modal-dialog[platform=ios]":{
+                "font":"${H4_PLATFORM_IOS}",
+                "iconFont":"${I5_PLATFORM_IOS}"
+            },
+            ".modal-dialog[platform=android]":{
+                "font":"${H4_PLATFORM_ANDROID}",
+                "iconFont":"${I5_PLATFORM_ANDROID}"
+            },
             ".min-height":{
-            	"height": "${MIN_HEIGHT}"
+                "height":"${MIN_HEIGHT}"
             },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"

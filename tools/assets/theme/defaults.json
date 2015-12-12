@@ -14,6 +14,15 @@
 	"Window[formFactor=tablet]": {
 		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
 	},
+	".drawer": {
+		"leftDrawerWidth": "Alloy.CFG.left_drawer_width"
+	},
+	".drawer[formFactor=handheld]": {
+		"orientationModes": ["Ti.UI.PORTRAIT"]
+	},
+	".drawer[formFactor=tablet]": {
+		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
+	},
 	"TableView": {
 		"footerDividersEnabled": true,
 		"filterAttribute": "Alloy.Globals.filterAttribute"
@@ -46,15 +55,6 @@
 	"Button": {
 		"textAlign": "Ti.UI.TEXT_ALIGNMENT_CENTER",
 		"backgroundColor": "transparent"
-	},
-	".drawer": {
-		"leftDrawerWidth": "Alloy.CFG.left_drawer_width"
-	},
-	".drawer[formFactor=handheld]": {
-		"orientationModes": ["Ti.UI.PORTRAIT"]
-	},
-	".drawer[formFactor=tablet]": {
-		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
 	},
 	".rx": {
 		"maxLength": "Alloy.CFG.rx_length"
@@ -98,6 +98,10 @@
 		"trackShape": "Ti.App.Android.R.drawable.switch_track",
 		"thumbShape": "Ti.App.Android.R.drawable.switch_thumb",
 		"style": "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".modal-dialog": {
+		"iconText": "Alloy.CFG.icons.spot",
+		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
 	},
 	".top": {
 		"top": 0

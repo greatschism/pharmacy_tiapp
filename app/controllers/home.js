@@ -84,7 +84,7 @@ function init() {
 				dialogView.add(btn);
 			});
 			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-				classes : ["margin-left-large", "margin-right-large", "border", "border-color-disabled"],
+				classes : ["modal-dialog"],
 				children : [dialogView]
 			}));
 			$.contentView.add($.feedbackDialog.getView());
@@ -143,7 +143,7 @@ function didGetFeedback(event) {
 				dialogView.add(btn);
 			});
 			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-				classes : ["margin-left-large", "margin-right-large", "border", "border-color-disabled"],
+				classes : ["modal-dialog"],
 				children : [dialogView]
 			}));
 			$.contentView.add($.feedbackDialog.getView());
@@ -229,7 +229,7 @@ function showRateDialog() {
 		dialogView.add(btn);
 	});
 	$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-		classes : ["margin-left-large", "margin-right-large", "border", "border-color-disabled"],
+		classes : ["modal-dialog"],
 		children : [dialogView]
 	}));
 	$.contentView.add($.feedbackDialog.getView());
