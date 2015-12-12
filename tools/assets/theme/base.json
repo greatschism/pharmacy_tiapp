@@ -607,33 +607,33 @@
                 "backgroundColor":"${BG_COLOR}",
                 "backgroundSelectedColor":"${BG_COLOR}"
             },
-            ".inactive-light-bg-color":{
-                "backgroundColor":"${INACTIVE_LIGHT_BG_COLOR}",
-                "backgroundSelectedColor":"${INACTIVE_LIGHT_BG_SELECTED_COLOR}"
-            },
             ".primary-bg-color":{
                 "backgroundColor":"${PRIMARY_COLOR}",
                 "backgroundSelectedColor":"${PRIMARY_SELECTED_COLOR}"
             },
             ".active-bg-color":{
-                "backgroundColor":"${ACTIVE_BG_COLOR}",
-                "backgroundSelectedColor":"${ACTIVE_BG_SELECTED_COLOR}"
+                "backgroundColor":"${ACTIVE_COLOR}",
+                "backgroundSelectedColor":"${ACTIVE_SELECTED_COLOR}"
             },
             ".inactive-bg-color":{
-                "backgroundColor":"${INACTIVE_BG_COLOR}",
-                "backgroundSelectedColor":"${INACTIVE_BG_SELECTED_COLOR}"
+                "backgroundColor":"${INACTIVE_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}"
+            },
+            ".inactive-light-bg-color":{
+                "backgroundColor":"${INACTIVE_LIGHT_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_LIGHT_SELECTED_COLOR}"
             },
             ".positive-bg-color":{
-                "backgroundColor":"${POSITIVE_BG_COLOR}",
-                "backgroundSelectedColor":"${POSITIVE_BG_SELECTED_COLOR}"
+                "backgroundColor":"${POSITIVE_COLOR}",
+                "backgroundSelectedColor":"${POSITIVE_SELECTED_COLOR}"
             },
             ".negative-bg-color":{
-                "backgroundColor":"${NEGATIVE_BG_COLOR}",
-                "backgroundSelectedColor":"${NEGATIVE_BG_SELECTED_COLOR}"
+                "backgroundColor":"${NEGATIVE_COLOR}",
+                "backgroundSelectedColor":"${NEGATIVE_SELECTED_COLOR}"
             },
             ".tentative-bg-color":{
-                "backgroundColor":"${TENTATIVE_BG_COLOR}",
-                "backgroundSelectedColor":"${TENTATIVE_BG_SELECTED_COLOR}"
+                "backgroundColor":"${TENTATIVE_COLOR}",
+                "backgroundSelectedColor":"${TENTATIVE_SELECTED_COLOR}"
             },
             ".border":{
                 "borderWidth":"${BORDER_WIDTH}",
@@ -648,27 +648,32 @@
             ".active-border":{
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
-                "borderColor":"${ACTIVE_BG_COLOR}"
+                "borderColor":"${ACTIVE_COLOR}"
             },
             ".inactive-border":{
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
-                "borderColor":"${INACTIVE_BG_COLOR}"
+                "borderColor":"${INACTIVE_COLOR}"
+            },
+            ".inactive-light-border":{
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${INACTIVE_LIGHT_COLOR}"
             },
             ".positive-border":{
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
-                "borderColor":"${POSITIVE_BG_COLOR}"
+                "borderColor":"${POSITIVE_COLOR}"
             },
             ".negative-border":{
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
-                "borderColor":"${NEGATIVE_BG_COLOR}"
+                "borderColor":"${NEGATIVE_COLOR}"
             },
             ".tentative-border":{
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
-                "borderColor":"${TENTATIVE_BG_COLOR}"
+                "borderColor":"${TENTATIVE_COLOR}"
             },
             ".fg-color":{
                 "color":"${FG_COLOR}",
@@ -683,24 +688,28 @@
                 "selectedColor":"${PRIMARY_LIGHT_SELECTED_COLOR}"
             },
             ".active-fg-color":{
-                "color":"${ACTIVE_FG_COLOR}",
-                "selectedColor":"${ACTIVE_FG_SELECTED_COLOR}"
+                "color":"${ACTIVE_COLOR}",
+                "selectedColor":"${ACTIVE_SELECTED_COLOR}"
             },
             ".inactive-fg-color":{
-                "color":"${INACTIVE_FG_COLOR}",
-                "selectedColor":"${INACTIVE_FG_SELECTED_COLOR}"
+                "color":"${INACTIVE_COLOR}",
+                "selectedColor":"${INACTIVE_SELECTED_COLOR}"
+            },
+            ".inactive-light-fg-color":{
+                "color":"${INACTIVE_LIGHT_COLOR}",
+                "selectedColor":"${INACTIVE_LIGHT_SELECTED_COLOR}"
             },
             ".positive-fg-color":{
-                "color":"${POSITIVE_FG_COLOR}",
-                "selectedColor":"${POSITIVE_FG_SELECTED_COLOR}"
+                "color":"${POSITIVE_COLOR}",
+                "selectedColor":"${POSITIVE_SELECTED_COLOR}"
             },
             ".negative-fg-color":{
-                "color":"${NEGATIVE_FG_COLOR}",
-                "selectedColor":"${NEGATIVE_FG_SELECTED_COLOR}"
+                "color":"${NEGATIVE_COLOR}",
+                "selectedColor":"${NEGATIVE_SELECTED_COLOR}"
             },
             ".tentative-fg-color":{
-                "color":"${TENTATIVE_FG_COLOR}",
-                "selectedColor":"${TENTATIVE_FG_SELECTED_COLOR}"
+                "color":"${TENTATIVE_COLOR}",
+                "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
             }
         }
     }
