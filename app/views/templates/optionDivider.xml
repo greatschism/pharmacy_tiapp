@@ -1,6 +1,6 @@
 <Alloy>
-	<View class="margin-top option-divider-view">
-		<View class="option-divider-line"/>
-		<Label id="lbl"class="option-divider-lbl" />
+	<View class="margin-top margin-left-extra-large margin-right-extra-large auto-height">
+		<View class="h-divider" />
+		<Label id="lbl"class="width-15 h4 txt-center bg-color primary-fg-color" />
 	</View>
 </Alloy>

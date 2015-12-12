@@ -23,8 +23,8 @@
 		</ScrollView>
 	</ScrollableView>
 	<View id="footerView" class="margin-bottom auto-height">
-		<Button id="submitBtn" class="top left-disabled right-disabled width-60 bg-color bg-selected-color-disabled active-fg-color border-disabled" onClick="didClickNext" />
-		<Button id="skipBtn" class="bottom left-disabled auto-width auto-height h5 txt-right bg-color bg-selected-color-disabled inactive-fg-color border-disabled" onClick="didClickSkip" />
+		<Button id="submitBtn" class="top left-disabled right-disabled width-60 bg-color active-fg-color border-disabled" onClick="didClickNext" />
+		<Button id="skipBtn" class="bottom left-disabled auto-width auto-height h5 txt-right bg-color inactive-fg-color border-disabled" onClick="didClickSkip" />
 	</View>
 	<Widget id="pagingcontrol" src="ti.pagingcontrol" class="pagingcontrol" onChange="didChangePager" />
 </Alloy> 

@@ -395,10 +395,12 @@
                 "borderColor":"${BORDER_COLOR}"
             },
             ".txt[platform=ios]":{
-                "font":"${H4_PLATFORM_IOS}"
+                "font":"${H4_PLATFORM_IOS}",
+                "iconFont":"${I5_PLATFORM_IOS}"
             },
             ".txt[platform=android]":{
-                "font":"${H4_PLATFORM_ANDROID}"
+                "font":"${H4_PLATFORM_ANDROID}",
+                "iconFont":"${I5_PLATFORM_IOS}"
             },
             ".txta":{
                 "top":"${MARGIN_TOP}",
@@ -421,6 +423,9 @@
                 "selectedPagerDict":{
                     "backgroundColor":"${PRIMARY_COLOR}"
                 }
+            },
+            ".min-height":{
+            	"height": "${MIN_HEIGHT}"
             },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
@@ -600,11 +605,11 @@
             },
             ".bg-color":{
                 "backgroundColor":"${BG_COLOR}",
-                "backgroundSelectedColor":"${BG_SELECTED_COLOR}"
+                "backgroundSelectedColor":"${BG_COLOR}"
             },
-            ".modal-bg-color":{
-                "backgroundColor":"${MODAL_BG_COLOR}",
-                "backgroundSelectedColor":"${MODAL_BG_SELECTED_COLOR}"
+            ".inactive-light-bg-color":{
+                "backgroundColor":"${INACTIVE_LIGHT_BG_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_LIGHT_BG_SELECTED_COLOR}"
             },
             ".primary-bg-color":{
                 "backgroundColor":"${PRIMARY_COLOR}",

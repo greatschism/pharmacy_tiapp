@@ -6,7 +6,7 @@
 		"statusBarStyle": "Ti.UI.iPhone.StatusBar.DEFAULT"
 	},
 	"Window[platform=android]": {
-		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
+		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_RESIZE"
 	},
 	"Window[formFactor=handheld]": {
 		"orientationModes": ["Ti.UI.PORTRAIT"]
@@ -377,6 +377,9 @@
 	},
 	".touch-disabled": {
 		"touchEnabled": false
+	},
+	".touch-enabled": {
+		"touchEnabled": true
 	},
 	".accessibility-disabled": {
 		"accessibilityHidden": true

@@ -8,56 +8,43 @@
 		</View>
 	</Widget>
 	<ScrollView id="scrollView" class="vgroup">
-		<Label id="titleLbl" class="margin-top subtitle-centered-wrap" />
-		<ImageView id="successImg" class="margin-top" />
-		<!--PHA-1250-->
-		<!--<View class="auto-height" onClick="didClickHelp">
-		<View class="content-view-with-ricon">
-		<Label id="descLbl" class="content-lbl-wrap" />
-		</View>
-		<Label class="content-tertiary-right-icon icon-help" />
-		</View>-->
-		<!--PHA-1250-->
-		<Label id="descLbl" class="margin-top lbl-wrap" />
-		<View class="margin-top content-header-view">
-			<Label id="prescLbl" class="content-header-lbl-with-ricon" />
-			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+		<Label id="titleLbl" class="margin-top margin-left margin-right h2 txt-center" />
+		<ImageView id="successImg" class="margin-top-large img-success" />
+		<Label id="descLbl" class="margin-top-large margin-left margin-right h6" />
+		<View class="margin-top min-height inactive-light-bg-color">
+			<Label id="prescLbl" class="margin-left right-25 h5 inactive-fg-color" />
+			<Button id="addBtn" class="top-disabled left-disabled margin-right i5 txt-right active-fg-color bg-color-disabled border-disabled icon-add" onClick="didClickAdd" />
 		</View>
 		<View id="containerView" class="top margin-bottom auto-height vgroup">
-			<!--PHA-1250-->
-			<!--<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickRemove" />-->
 			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickHelp" />
-			<!--PHA-1250-->
 		</View>
-		<View class="content-header-view">
-			<Label id="pickupLbl" class="content-header-lbl" />
+		<View class="min-height inactive-light-bg-color">
+			<Label id="pickupLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View id="pickupView" class="auto-height vgroup">
 			<View id="pickupModeView" class="auto-height" onClick="didClickPickupMode">
-				<View class="content-view-with-child">
-					<Label id="pickupModeLbl" class="content-lbl-wrap" />
-				</View>
-				<Label class="content-child-icon icon-thin-arrow-right" />
+				<Label id="pickupModeLbl" class="margin-top margin-bottom margin-left right-15 h4" />
+				<Label class="margin-right i6 inactive-fg-color icon-thin-arrow-right" />
 			</View>
 			<View id="pickupDividerView" class="h-divider-light" />
 		</View>
-		<View class="content-header-view" if="Alloy.CFG.refill_type_phone_enabled">
-			<Label id="phoneLbl" class="content-header-lbl" />
+		<View class="min-height inactive-light-bg-color" if="Alloy.CFG.refill_type_phone_enabled">
+			<Label id="phoneLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
-		<Widget id="phoneTxt" src="ti.textfield" class="margin-top txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickRefill"  if="Alloy.CFG.refill_type_phone_enabled" />
+		<Widget id="phoneTxt" src="ti.textfield" class="txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickRefill"  if="Alloy.CFG.refill_type_phone_enabled" />
 		<View id="dividerView" class="margin-top h-divider-light" />
-		<Button id="refillBtn" class="margin-top margin-bottom primary-btn" onClick="didClickRefill" />
+		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-border" onClick="didClickRefill" />
 	</ScrollView>
-	<View id="storeView" class="hide content-view role-ignore" onClick="didClickEdit">
-		<View class="content-master-view-75">
-			<Label id="storeTitleLbl" class="content-title" />
-			<Label id="storeSubtitleLbl" class="content-subtitle" />
+	<View id="storeView" class="hide auto-height role-ignore" onClick="didClickEdit">
+		<View class="left width-75 auto-height vgroup">
+			<Label id="storeTitleLbl" class="margin-top margin-left h4" />
+			<Label id="storeSubtitleLbl" class="margin-top margin-bottom margin-left h6 inactive-fg-color" />
 		</View>
-		<View class="content-detail-view-25">
-			<Button id="editBtn" class="content-detail-tertiary-icon icon-edit" />
+		<View class="right width-25 auto-height">
+			<Button id="editBtn" class="top-disabled left-disabled margin-right i4 txt-right active-fg-color icon-edit" />
 		</View>
 	</View>
-	<View id="mailorderView" class="hide content-view role-ignore">
-		<Label id="mailorderLbl" class="content-lbl-wrap" />
+	<View id="mailorderView" class="hide auto-height role-ignore">
+		<Label id="mailorderLbl" class="margin-top margin-bottom margin-left margin-right" />
 	</View>
 </Alloy>
