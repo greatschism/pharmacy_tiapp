@@ -1,7 +1,7 @@
 <Alloy>
-	<View class="content-header-view">
-		<Label class="content-header-left-icon icon-users" />
-		<Label id="lbl" class="content-header-lbl-with-lricon" />
-		<Button id="arrowBtn" class="content-header-child-icon icon-thin-arrow-down" if="!$.args.disabled" />
+	<View class="min-height inactive-light-bg-color">
+		<Label class="margin-left i5 inactive-fg-color icon-users" />
+		<Label id="lbl" class="left-15 right-15 h5 inactive-fg-color wrap-disabled" />
+		<Button id="arrowBtn" class="margin-right i5 active-fg-color icon-thin-arrow-down" if="!$.args.disabled" />
 	</View>
 </Alloy>

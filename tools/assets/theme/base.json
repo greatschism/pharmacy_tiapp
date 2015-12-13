@@ -381,6 +381,11 @@
             "Button[platform=android]":{
                 "font":"${H3_PLATFORM_ANDROID}"
             },
+            ".txt-border-view":{
+            	"height":"${INPUT_HEIGHT}",
+                "borderColor":"${INACTIVE_LIGHT_COLOR}",
+            	"borderWidth":8
+            },
             ".txt":{
                 "top":"${MARGIN_TOP}",
                 "left":"${MARGIN_LEFT}",

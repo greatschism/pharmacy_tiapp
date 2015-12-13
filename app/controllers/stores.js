@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     TAG = require("ctrlShortCode")[$.__controllerPath],
+    lblClasses = ["margin-top", "margin-bottom", "margin-left", "margin-right", "h4", "touch-disabled"],
     googleApiSuccess = "OK",
     Map = Alloy.Globals.Map,
     currentViewType = Alloy.CFG.apiCodes.store_view_type_list,
@@ -41,6 +42,15 @@ function init() {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
 	}
+	//clear button
+	$.searchTxt.setIcon("", "left", $.createStyle({
+		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		id : "searchBtn"
+	}));
+	$.searchTxt.setIcon("", "right", $.createStyle({
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
+		id : "clearBtn"
+	}));
 	//update margin
 	$.containerView.top = $.uihelper.getHeightFromChildren($.headerView);
 	/**
@@ -851,7 +861,8 @@ function didGetGeoCode(result, passthrough) {
 			var row = Alloy.createController("itemTemplates/label", {
 				title : geoObj.formatted_address,
 				latitude : geoObj.geometry.location.lat,
-				longitude : geoObj.geometry.location.lng
+				longitude : geoObj.geometry.location.lng,
+				lblClasses : lblClasses
 			});
 			data.push(row.getView());
 			geoRows.push(row);
@@ -877,7 +888,8 @@ function didGetGeoCode(result, passthrough) {
 			 */
 			var row = Alloy.createController("itemTemplates/label", {
 				title : $.strings.storesGeoZeroResults,
-				invalid : true
+				invalid : true,
+				lblClasses : lblClasses
 			});
 			data.push(row.getView());
 			geoRows.push(row);
@@ -1198,7 +1210,8 @@ function didGetAddress(result, passthrough) {
 		    row = Alloy.createController("itemTemplates/label", {
 			title : geoObj.formatted_address,
 			latitude : geoObj.geometry.location.lat,
-			longitude : geoObj.geometry.location.lng
+			longitude : geoObj.geometry.location.lng,
+			lblClasses : lblClasses
 		});
 		geoRows.push(row);
 		$.geoTableView.setData([row.getView()]);

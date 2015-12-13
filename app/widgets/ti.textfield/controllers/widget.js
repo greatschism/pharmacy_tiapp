@@ -45,7 +45,7 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 	_.extend(iconDict, {
 		width : $.txt[direction],
 		font : font,
-		title : iconText,
+		title : iconDict.title || iconText,
 		sourceId : direction + "Icon",
 		visible : !isClearButton
 	});
@@ -81,7 +81,7 @@ function setButton(title, direction, buttonDict, accessibility, padding) {
 	_.extend(buttonDict, {
 		width : $.txt[direction],
 		font : font,
-		title : title,
+		title : buttonDict.title || title,
 		sourceId : direction + "Button"
 	});
 	_.extend(buttonDict, accessibility);

@@ -2,5 +2,10 @@
 	disabled: true
 },
 "#searchTxt":{
-	hintText: Alloy.Globals.strings.storesHintSearch
+	hintText: Alloy.Globals.strings.storesHintSearch,
+	enableClearButton: true
+},
+"#mapView":{
+	animate: true,
+	userLocation: true
 }
