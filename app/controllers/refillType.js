@@ -3,7 +3,7 @@ var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
-	classes : ["margin-right-medium", "i5", "txt-right", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
+	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
 	id : "removeBtn"
 }),
     store = _.omit(args.store || {}, ["shouldUpdate"]),
@@ -13,7 +13,7 @@ var args = arguments[0] || {},
 
 function init() {
 	$.rxTxt.setRightIcon("", $.createStyle({
-		classes : ["margin-right-medium", "i5", "txt-right", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
+		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
 		id : "sampleBtn"
 	}));
 	rxTxtHeight = $.createStyle({
