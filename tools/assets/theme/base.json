@@ -452,6 +452,12 @@
             ".min-height":{
                 "height":"${MIN_HEIGHT}"
             },
+            ".nav-bar-height[platform=ios]":{
+                "height":"${NAV_BAR_HEIGHT_IOS}"
+            },
+            ".nav-bar-height[platform=android]":{
+                "height":"${NAV_BAR_HEIGHT_ANDROID}"
+            },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
             },

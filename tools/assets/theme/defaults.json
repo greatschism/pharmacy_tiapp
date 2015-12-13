@@ -415,6 +415,9 @@
 		"borderRadius": 0,
 		"borderColor": "transparent"
 	},
+	".thick-border": {
+		"borderWidth": 2
+	},
 	".border-radius-disabled": {
 		"borderRadius": 0
 	},
