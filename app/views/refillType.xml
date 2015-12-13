@@ -4,13 +4,13 @@
 			<Label id="pickupModeSectionLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="pickupModeCloseBtn" class="margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupModeClose" />
+			<Button id="pickupModeCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupModeClose" />
 		</View>
 	</Widget>
 	<ScrollView id="scrollView" class="vgroup">
 		<Label id="titleLbl" class="margin-top margin-left margin-right h2 txt-center" />
 		<ImageView id="successImg" class="margin-top-large img-success" />
-		<Label id="descLbl" class="margin-top-large margin-left margin-right h6" />
+		<Label id="descLbl" class="margin-top-large margin-left margin-right" />
 		<View class="margin-top min-height inactive-light-bg-color">
 			<Label id="prescLbl" class="margin-left right-25 h5 inactive-fg-color" />
 			<Button id="addBtn" class="top-disabled left-disabled margin-right i5 txt-right active-fg-color bg-color-disabled border-disabled icon-add" onClick="didClickAdd" />
@@ -38,11 +38,9 @@
 	<View id="storeView" class="hide auto-height role-ignore" onClick="didClickEdit">
 		<View class="left width-75 auto-height vgroup">
 			<Label id="storeTitleLbl" class="margin-top margin-left h4" />
-			<Label id="storeSubtitleLbl" class="margin-top margin-bottom margin-left h6 inactive-fg-color" />
+			<Label id="storeSubtitleLbl" class="margin-top-small margin-bottom margin-left h6 inactive-fg-color" />
 		</View>
-		<View class="right width-25 auto-height">
-			<Button id="editBtn" class="top-disabled left-disabled margin-right i4 txt-right active-fg-color icon-edit" />
-		</View>
+		<Button id="editBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color icon-edit" />
 	</View>
 	<View id="mailorderView" class="hide auto-height role-ignore">
 		<Label id="mailorderLbl" class="margin-top margin-bottom margin-left margin-right" />

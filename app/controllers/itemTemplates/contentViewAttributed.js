@@ -27,6 +27,14 @@ var args = arguments[0] || {};
 			html : attributed
 		}));
 	} else {
+		$.attributedAttr.applyAttributes({
+			secondaryfont : $.createStyle({
+				classes : ["h5"]
+			}).font,
+			secondarycolor : $.createStyle({
+				classes : ["active-fg-color"]
+			}).color
+		});
 		$.attributedAttr.setHtml(attributed);
 	}
 })();

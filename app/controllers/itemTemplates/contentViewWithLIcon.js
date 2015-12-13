@@ -3,11 +3,11 @@ var args = arguments[0] || {};
 (function() {
 	var rDict = {};
 	if (_.isBoolean(args.selected)) {
-		//to disable the selection b
+		//to disable the selection
 		rDict = $.createStyle({
-			classes : ["row-selection-disabled"]
+			classes : ["row-selected-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
@@ -33,10 +33,10 @@ var args = arguments[0] || {};
 	 * should not have class suffix like -wrap
 	 * which may affect selection pop ups (ti.optionpicker)
 	 */
-	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
+	$.addClass($.titleLbl, args.titleClasses || ["h4"], {
 		text : args.title || (args.data ? args.data[args.titleProperty] : "")
 	});
-	$.addClass($.subtitleLbl, args.subtitleClasses || ["content-subtitle"], {
+	$.addClass($.subtitleLbl, args.subtitleClasses || ["h6", "inactive-fg-color"], {
 		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
 	});
 })();

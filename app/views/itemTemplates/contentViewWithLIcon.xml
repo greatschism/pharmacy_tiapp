@@ -1,9 +1,9 @@
 <Alloy>
 	<TableViewRow id="row">
-		<Label id="leftIconLbl" />
-		<View id="contentView" class="content-view-vgroup-with-licon">
-			<Label id="titleLbl" />
-			<Label id="subtitleLbl" />
+		<Label id="leftIconLbl" class="margin-left i4 width-15" />
+		<View id="contentView" class="margin-top margin-bottom left-15 margin-right auto-height vgroup">
+			<Label id="titleLbl" class="left" />
+			<Label id="subtitleLbl" class="margin-top-small left" />
 		</View>
 	</TableViewRow>
 </Alloy>

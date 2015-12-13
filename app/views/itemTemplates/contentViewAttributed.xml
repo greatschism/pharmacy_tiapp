@@ -1,9 +1,9 @@
 <Alloy>
-	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="contentView" class="content-view-vgroup">
-			<Label id="titleLbl" class="content-title" />
-			<Label id="subtitleLbl" class="content-subtitle" />
-			<Widget id="attributedAttr" src="ti.styledlabel" class="content-attributed bubble-disabled" onClick="didClick" />
+	<TableViewRow id="row" class="row-selected-bg-color-disabled">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height vgroup">
+			<Label id="titleLbl" class="left h4" />
+			<Label id="subtitleLbl" class="margin-top-small left h6 inactive-fg-color" />
+			<Widget id="attributedAttr" src="ti.styledlabel" class="margin-top-small left h6 bubble-disabled" onClick="didClick" />
 		</View>
 	</TableViewRow>
 </Alloy>

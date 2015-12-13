@@ -595,26 +595,26 @@ var Helper = {
 	 * create header view
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {String} filterText used only when it is  call from createTableViewSection
 	 */
-	createHeaderView : function($, title, isAttributed, isWrap, rightItem, filterText) {
-		var vClassName = "content-header-view",
-		    tClassName = "content-header-lbl";
-		if (isAttributed) {
-			tClassName.replace("lbl", "attributed");
-		}
+	createHeaderView : function($, title, isWrap, rightItem, filterText) {
+		var vClasses = ["inactive-light-bg-color"],
+		    tClasses = ["margin-left", "h5", "inactive-fg-color"];
 		if (isWrap) {
-			vClassName += "-wrap";
-			tClassName += "-wrap";
+			vClasses.push("auto-height");
+			tClasses = tClasses.concat(["margin-top", "margin-bottom"]);
+		} else {
+			vClasses.push("min-height");
 		}
 		if (rightItem) {
-			tClassName += "-with-r" + (rightItem.isIcon ? "icon" : "btn");
+			tClasses.push(rightItem.isIcon ? "right-15" : "right-65");
+		} else {
+			tClasses.push("margin-right");
 		}
 		var headerView = $.UI.create("View", {
-			classes : vClassName,
+			classes : vClasses,
 			title : filterText
 		});
 		if (rightItem) {
@@ -630,7 +630,7 @@ var Helper = {
 			headerView.add(rightBtn);
 		}
 		headerView.add($.UI.create("Label", {
-			classes : [tClassName],
+			classes : tClasses,
 			text : title
 		}));
 		return headerView;
@@ -641,17 +641,16 @@ var Helper = {
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
 	 * @param {String} filterText for the section
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {View} footerView footer view for section
 	 */
-	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightItem, footerView) {
+	createTableViewSection : function($, title, filterText, isWrap, rightItem, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict = {
-			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightItem, filterText)
+			headerView : Helper.createHeaderView($, title, isWrap, rightItem, filterText)
 		};
 		if (footerView) {
 			_.extend(dict, {
