@@ -50,10 +50,10 @@
 		"wordWrap": true,
 		"ellipsize": false,
 		"height": "Ti.UI.SIZE",
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT"
+		"textAlign": "left"
 	},
 	"Button": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_CENTER",
+		"textAlign": "center",
 		"backgroundColor": "transparent"
 	},
 	".rx": {
@@ -86,10 +86,10 @@
 		"width": "Ti.UI.FILL"
 	},
 	".txt": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT"
+		"textAlign": "left"
 	},
 	".txta": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT",
+		"textAlign": "left",
 		"suppressReturn": true
 	},
 	".swt[platform=android]": {
@@ -350,13 +350,13 @@
 		"height": "10%"
 	},
 	".txt-left": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_LEFT"
+		"textAlign": "left"
 	},
 	".txt-right": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_RIGHT"
+		"textAlign": "right"
 	},
 	".txt-center": {
-		"textAlign": "Ti.UI.TEXT_ALIGNMENT_CENTER"
+		"textAlign": "center"
 	},
 	".vgroup": {
 		"layout": "vertical"

@@ -458,6 +458,9 @@
             ".nav-bar-height[platform=android]":{
                 "height":"${NAV_BAR_HEIGHT_ANDROID}"
             },
+            ".input-height":{
+            	"height":"${INPUT_HEIGHT}"
+            },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
             },

@@ -1,17 +1,17 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<View class="margin-top secondary-btn-view" onClick="didClickType">
-			<View class="auto-width auto-height">
-				<Label class="secondary-btn-left-icon icon-list" />
-				<Label id="typeLbl" class="secondary-btn-lbl-with-licon" />
+		<Label id="titleLbl" class="margin-top-extra-large margin-left margin-right" />
+		<View class="margin-top-extra-large margin-left margin-right auto-height primary-border" onClick="didClickType">
+			<View class="auto-width input-height hgroup hwrap-disabled">
+				<Label class="left i5 primary-fg-color icon-list" />
+				<Label id="typeLbl" class="margin-left-medium h3 primary-fg-color wrap-disabled" />
 			</View>
 		</View>
 		<Require src="templates/optionDivider" />
-		<View class="margin-top margin-bottom secondary-btn-view" onClick="didClickPhone">
-			<View class="auto-width auto-height">
-				<Label class="secondary-btn-left-icon icon-phone" />
-				<Label id="phoneLbl" class="secondary-btn-lbl-with-licon" />
+		<View class="margin-top margin-bottom margin-left margin-right auto-height primary-border" onClick="didClickPhone">
+			<View class="auto-width input-height hgroup hwrap-disabled">
+				<Label class="left i5 primary-fg-color icon-phone" />
+				<Label id="phoneLbl" class="margin-left-medium h3 primary-fg-color wrap-disabled" />
 			</View>
 		</View>
 	</ScrollView>
