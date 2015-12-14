@@ -3,11 +3,11 @@ var args = arguments[0] || {};
 (function() {
 	var rDict = {};
 	if (_.isBoolean(args.selected)) {
-		//to disable the selection b
+		//to disable the selection
 		rDict = $.createStyle({
-			classes : ["row-selection-disabled"]
+			classes : ["row-selected-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
@@ -32,23 +32,23 @@ var args = arguments[0] || {};
 	rDict.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "withLIcon";
 	$.row.applyProperties(rDict);
 	if (args.masterWidth) {
-		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
+		$.resetClass($.masterView, ["left", "width-" + args.masterWidth, "auto-height", "vgroup"]);
 	}
 	if (args.detailWidth) {
-		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
+		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
 	}
 	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : ""),
+	var detailClassPrefix = args.detailType ? args.detailType + "-" : "",
 	    detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
 	if (detailTitle) {
-		$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
+		$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 			text : detailTitle
 		});
 	} else {
 		$.detailTitleLbl.height = 0;
 	}
-	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
+	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 })();

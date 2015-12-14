@@ -42,11 +42,12 @@ function init() {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
 	}
-	//clear button
+	//search icon
 	$.searchTxt.setIcon("", "left", $.createStyle({
 		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
 		id : "searchBtn"
 	}));
+	//clear button
 	$.searchTxt.setIcon("", "right", $.createStyle({
 		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
 		id : "clearBtn"
@@ -64,11 +65,24 @@ function init() {
 	setPatientSwitcher();
 	//update classes
 	pinImg = $.uihelper.getImage("map_pin").image;
-	leftBtnDict = $.createStyle({
-		classes : ["annotation-icon", "icon-direction"]
-	});
+	/**
+	 * iOS requires fixed width
+	 * and height to display
+	 * custom button
+	 */
+	if (OS_IOS) {
+		leftBtnDict = $.createStyle({
+			classes : ["left", "i4", "primary-bg-color", "primary-light-fg-color", "icon-direction"],
+			width : 50,
+			height : 60
+		});
+	} else {
+		leftBtnDict = $.createStyle({
+			classes : ["left", "i4", "txt-left", "bg-color-disabled", "primary-fg-color", "icon-direction"]
+		});
+	}
 	rightBtnDict = $.createStyle({
-		classes : ["annotation-child-icon", "icon-thin-arrow-right"]
+		classes : ["right", "i6", "txt-right", "bg-color-disabled", "inactive-fg-color", "icon-thin-arrow-right"]
 	});
 	listIconDict = $.createStyle({
 		classes : ["icon-list"]
@@ -441,7 +455,7 @@ function prepareData(result, passthrough) {
 		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
 		store.isbookmarked = parseInt(store.isbookmarked) || 0;
 		if (loggedIn && (store.ishomepharmacy || store.isbookmarked)) {
-			iconClasses = ["content-left-icon", (store.ishomepharmacy ? "icon-home" : "icon-filled-star")];
+			iconClasses = [(store.ishomepharmacy ? "icon-home" : "icon-filled-star"), "primary-fg-color"];
 		}
 		var distance = store.distance || 0;
 		/**

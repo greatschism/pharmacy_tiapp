@@ -18,6 +18,6 @@
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
-		<Widget id="loader" name="embedded" src="ti.loading" class="auto-width auto-height" />
+		<Widget id="loader" name="embedded" src="ti.loading" class="auto-width auto-height bg-color-disabled" />
 	</View>
 </Alloy> 

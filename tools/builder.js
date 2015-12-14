@@ -297,31 +297,9 @@ if (build) {
 		 */
 		//brand theme data
 		var BASE_THEME_DIR = BASE_ASSETS_DIR + "theme/",
-		    BASE_THEME_DATA_STR = fs.readFileSync(BASE_THEME_DIR + "base.json", "utf-8"),
+		    BASE_THEME_DATA = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "base.json", "utf-8")),
 		    BASE_THEME_VALUES = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "values.json", "utf-8")),
 		    BRAND_THEME = BRAND_RESOURCE_BASE_DIR + "theme.json";
-
-		/**
-		 * replace constants
-		 * Note: without replacing constant
-		 * can't execute expressions
-		 */
-		_u.each(BASE_THEME_VALUES, function(val, key) {
-			/**
-			 * # if val is not string
-			 * then exclude double quotes too
-			 * # if val is object or array,
-			 * then stringify val before replacing
-			 */
-			BASE_THEME_DATA_STR = BASE_THEME_DATA_STR.replace(new RegExp(_u.isString(val) ? "\\${" + key + "}" : "\"\\${" + key + "}\"", "g"), _u.isObject(val) || _u.isArray(val) ? JSON.stringify(val) : val);
-		});
-
-		/**
-		 * eval will execute all the expressions
-		 * in the json string
-		 */
-		var EVAL_BASE_THEME_DATA_STR = "var BASE_THEME_DATA = " + BASE_THEME_DATA_STR;
-		eval(EVAL_BASE_THEME_DATA_STR);
 
 		if (fs.existsSync(BRAND_THEME)) {
 			var BRAND_THEME_DATA = JSON.parse(fs.readFileSync(BRAND_THEME, "utf-8"));
@@ -349,8 +327,19 @@ if (build) {
 			}
 		}
 
-		//update new value to base theme data string
-		BASE_THEME_DATA_STR = JSON.stringify(BASE_THEME_DATA);
+		/**
+		 * replace constants
+		 */
+		var BASE_THEME_DATA_STR = JSON.stringify(BASE_THEME_DATA, null, 4);
+		_u.each(BASE_THEME_VALUES, function(val, key) {
+			/**
+			 * # if val is not string
+			 * then exclude double quotes too
+			 * # if val is object or array,
+			 * then stringify val before replacing
+			 */
+			BASE_THEME_DATA_STR = BASE_THEME_DATA_STR.replace(new RegExp(_u.isString(val) ? "\\${" + key + "}" : "\"\\${" + key + "}\"", "g"), _u.isObject(val) || _u.isArray(val) ? JSON.stringify(val) : val);
+		});
 
 		//now write it as js file
 		var APP_THEME_JS = APP_ASSETS_DATA_DIR + "/theme_" + _u.findWhere(RESOURCES_DATA, {
@@ -749,7 +738,7 @@ if (build) {
 			}
 
 			/**
-			 * remove any '#' or '.' character in first place and repalce '-' with '_'
+			 * remove any '#' or '.' character in first place and replace '-' with '_'
 			 * and transform classifiers
 			 * Example
 			 * input: ".some-classname[platform=ios formFactor=handheld]"
