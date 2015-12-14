@@ -1,13 +1,13 @@
 <Alloy>
 	<TableViewRow id="row" if="$.args.hasChild">
-		<View id="contentView" class="content-view-with-child content-group">
+		<View id="contentView" class="margin-top margin-bottom margin-left right-15 hgroup hwrap-disabled">
 			<Label id="promptLbl" />
 			<Label id="replyLbl" />
 		</View>
-		<Label class="content-child-icon icon-thin-arrow-right" />
+		<Label class="margin-right i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 	</TableViewRow>
 	<TableViewRow id="row" if="!$.args.hasChild">
-		<View id="contentView" class="content-view content-group">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right hgroup hwrap-disabled">
 			<Label id="promptLbl" />
 			<Label id="replyLbl" />
 		</View>

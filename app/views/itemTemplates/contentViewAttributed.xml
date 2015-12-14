@@ -2,7 +2,7 @@
 	<TableViewRow id="row" class="row-selected-bg-color-disabled">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height vgroup">
 			<Label id="titleLbl" class="left h4" />
-			<Label id="subtitleLbl" class="margin-top-small left h6 inactive-fg-color" />
+			<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 			<Widget id="attributedAttr" src="ti.styledlabel" class="margin-top-small left h6 bubble-disabled" onClick="didClick" />
 		</View>
 	</TableViewRow>

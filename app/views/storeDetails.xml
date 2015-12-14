@@ -2,52 +2,35 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup" onClick="handleEvent">
-				<View class="auto-height">
-					<Label id="favouriteIconLbl" class="margin-top content-left-icon" />
-					<View id="storeContentView" class="content-view-vgroup-with-licon">
-						<View class="auto-height">
-							<View class="content-master-view-55 auto-height">
-								<Label id="titleLbl" class="content-title-wrap" />
-								<Label id="subtitleLbl" class="content-subtitle-wrap" />
-							</View>
-							<View id="clockDetailView" class="content-detail-view-45 auto-height">
-								<View class="content-detail-icon-view">
-									<Label id="clockIconLbl" class="icon-clock" />
-									<Label id="clockLbl" />
-								</View>
-							</View>
+				<View class="margin-top margin-left margin-right auto-height">
+					<Label id="favouriteIconLbl" class="left i4 width-15 primary-fg-color" if="Alloy.Globals.isLoggedIn" />
+					<View id="storeContentView" class="top left-15 right auto-height vgroup">
+						<Label id="titleLbl" class="left h4" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+						<Widget id="phoneAttr" src="ti.styledlabel" class="margin-top-small left h6" onClick="didClickPhone" />
+						<View id="distanceView" class="margin-top-small auto-height hgroup hwrap-disabled" if="$.args.direction">
+							<Label id="distanceIconLbl" class="left i5 inactive-fg-color icon-thick-location-pin" />
+							<Label id="distanceLbl" class="margin-left-small" />
 						</View>
-						<View id="locationView" class="auto-height">
-							<View class="content-master-view-50 auto-height">
-								<View class="content-group" onClick="didClickPhone">
-									<Label id="phonePromptLbl" class="content-group-prompt" />
-									<Label id="phoneReplyLbl" class="content-group-reply-link" />
-								</View>
-							</View>
-							<View class="content-detail-view-50 auto-height" if="$.args.direction">
-								<Button id="directionBtn" class="tertiary-btn" onClick="didClickDirection" />
-							</View>
+						<View class="margin-top-small auto-height hgroup hwrap-disabled">
+							<Label id="clockIconLbl" class="left i5 icon-clock" />
+							<Label id="clockLbl" class="margin-left-small" />
 						</View>
 					</View>
 				</View>
-				<View class="content-view-vgroup">
-					<Button id="refillBtn" class="primary-btn" onClick="didClickRefill" />
-					<View class="margin-top auto-height" if="Alloy.Globals.isLoggedIn">
-						<View class="content-master-view-70 auto-height">
-							<View id="favouriteView" class="secondary-btn-view" onClick="didClickFavourite">
-								<Label id="favouriteLbl" class="secondary-btn-lbl-wrap" />
-							</View>
-						</View>
-						<View class="content-detail-view-30 auto-height">
-							<Button id="homeIconBtn" class="icon-home" onClick="didClickHome" />
-						</View>
+				<View class="margin-top margin-left margin-right auto-height" if="Alloy.Globals.isLoggedIn">
+					<View class="left width-70 auto-height primary-border" onClick="didClickType">
+						<Label id="favouriteLbl" class="margin-top-medium margin-bottom-medium margin-left-medium margin-right-medium h3 primary-fg-color" />
 					</View>
+					<Button id="homeIconBtn" class="top-disabled left-disabled right width-30 icon-home bg-color-disabled border-disabled" onClick="didClickHome" />
 				</View>
+				<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" />
+				<Button id="directionBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDirection" if="$.args.direction" />
 			</View>
 		</HeaderView>
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
+	<Widget id="loader" name="embedded" src="ti.loading" />
 </Alloy>

@@ -1,11 +1,8 @@
-"#storeContentView[if=Alloy.Globals.isLoggedIn]":{
-	bottom: null
+"#storeContentView[if=!Alloy.Globals.isLoggedIn]":{
+	left: null
 },
-"#locationView[if=!$.args.direction]":{
-	top: Alloy.TSS.margin_top.top
-},
-"#phonePromptLbl":{
-	text: Alloy.Globals.strings.storeDetPromptPhone
+"#refillBtn[if=!$.args.direction]":{
+	bottom: Alloy.TSS.margin_bottom.bottom
 },
 "#directionBtn":{
 	title: Alloy.Globals.strings.storeDetBtnDirection

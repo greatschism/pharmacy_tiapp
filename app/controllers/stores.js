@@ -524,9 +524,10 @@ function prepareList() {
 	storeRows = [];
 
 	//process data
-	var data = [];
+	var data = [],
+	    itemTemplate = "itemTemplates/" + (Alloy.CFG.isLoggedIn ? "masterDetailWithLIcon" : "masterDetail");
 	Alloy.Collections.stores.each(function(store) {
-		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON());
+		var row = Alloy.createController(itemTemplate, store.toJSON());
 		data.push(row.getView());
 		storeRows.push(row);
 	});

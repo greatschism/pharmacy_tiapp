@@ -51,19 +51,18 @@ function didGetStore(result, passthrough) {
 			phone_formatted : $.utilities.formatPhoneNumber(store.phone)
 		});
 	}
-	$.titleLbl.text = store.title;
-	$.subtitleLbl.text = store.subtitle;
-	$.phoneReplyLbl.text = store.phone_formatted;
 	if (Alloy.Globals.isLoggedIn) {
 		updateHome();
 		updateFavourite();
 	}
+	$.titleLbl.text = store.title;
+	$.subtitleLbl.text = store.subtitle;
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
 	    tillTime,
+	    clockType,
 	    clockLbl,
-	    iconClass,
 	    lblClass;
 	//store hours
 	var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
@@ -71,36 +70,50 @@ function didGetStore(result, passthrough) {
 		//0th index will have today's hours
 		tillTime = hours[0].hours.split("- ")[1];
 		if (store.is_open && tillTime) {
+			clockType = "positive";
 			clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
-			iconClass = "icon-view-positive-icon";
-			lblClass = "icon-view-positive-icon-description";
 		} else {
+			clockType = "negative";
 			clockLbl = tillTime ? String.format($.strings.storeDetLblClose, tillTime) : $.strings.storeDetLblClosed;
-			iconClass = "icon-view-negative-icon";
-			lblClass = "icon-view-negative-icon-description";
 		}
-		var promptClasses = ["content-group-inactive-prompt-40"];
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
 				data : hour,
 				promptProperty : "day",
-				replyProperty : "hours",
-				promptClasses : promptClasses
+				replyProperty : "hours"
 			}).getView());
 		});
 	} else {
+		clockType = "negative";
 		clockLbl = $.strings.storeDetLblNotAvailable;
-		iconClass = "icon-view-negative-icon";
-		lblClass = "icon-view-negative-icon-description";
 		hoursSection.add(Alloy.createController("itemTemplates/label", {
 			title : $.strings.storeDetLblHoursNotAvailable
 		}).getView());
 	}
 	data.push(hoursSection);
-	$.addClass($.clockIconLbl, [iconClass]);
-	$.addClass($.clockLbl, [lblClass], {
+	//distance
+	if ($.distanceView) {
+		if (store.distance) {
+			$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance);
+		} else {
+			$.storeContentView.remove($.distanceView);
+		}
+	}
+	//clock / is opened
+	$.clockIconLbl.applyProperties($.createStyle({
+		classes : [clockType + "-fg-color"]
+	}));
+	$.clockLbl.applyProperties($.createStyle({
+		classes : [clockType + "-fg-color"],
 		text : clockLbl
+	}));
+	//call option
+	$.phoneAttr.applyAttributes({
+		secondarycolor : $.createStyle({
+			classes : ["active-fg-color"]
+		}).color
 	});
+	$.phoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
 	//store services
 	if (services.length) {
 		var servicesSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionServices);
@@ -117,77 +130,16 @@ function didGetStore(result, passthrough) {
 
 function updateHome() {
 	$.homeIconBtn.applyProperties($.createStyle({
-		classes : [store.ishomepharmacy ? "primary-icon" : "inactive-icon"]
+		classes : [store.ishomepharmacy ? "primary-fg-color" : "inactive-fg-color"]
 	}));
 }
 
 function updateFavourite() {
-	var isFavourite = store.isbookmarked || store.ishomepharmacy,
-	    text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"],
-	    dict;
-	/**
-	 * if it is favourite
-	 * the text remove from favourite has no enough space
-	 * and occurs in multiple lines
-	 *
-	 * to remove extra padding when it is favourite
-	 * and vice versa follow this
-	 */
-	if (isFavourite && !Alloy.TSS[CONSTS]) {
-		$.favouriteView.addEventListener("postlayout", didPostlayout);
-	}
-	/**
-	 * whether we should update the padding
-	 */
-	if (Alloy.TSS[CONSTS] && Alloy.TSS[CONSTS].shouldUpdate) {
-		dict = isFavourite ? {
-			top : $.favouriteLbl.minTop,
-			bottom : $.favouriteLbl.minBottom,
-			text : text
-		} : {
-			top : $.favouriteLbl.maxTop,
-			bottom : $.favouriteLbl.maxBottom,
-			text : text
-		};
-	}
-	if (dict) {
-		$.favouriteLbl.applyProperties(dict);
-	} else {
-		$.favouriteLbl.text = text;
-	}
+	var isFavourite = store.isbookmarked || store.ishomepharmacy;
+	$.favouriteLbl.text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
 	$.favouriteIconLbl.applyProperties($.createStyle({
 		classes : [store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"]
 	}));
-}
-
-/**
- * ui fix: multi-line button is a hack of view with label
- * to control padding top and bottom
- * check this
- */
-function didPostlayout(e) {
-	var source = e.source,
-	    child = source.children[0],
-	    height = source.rect.height;
-	source.removeEventListener("postlayout", didPostlayout);
-	if (!height) {
-		var blob = source.toImage();
-		height = blob.height;
-		blob = null;
-		if (OS_ANDROID) {
-			height /= $.app.logicalDensityFactor;
-		}
-	}
-	Alloy.TSS[CONSTS] = {};
-	if (source.maxHeight < height) {
-		Alloy.TSS[CONSTS].shouldUpdate = true;
-		child.applyProperties({
-			top : child.minTop,
-			bottom : child.minBottom
-		});
-	} else {
-		Alloy.TSS[CONSTS].shouldUpdate = false;
-	}
 }
 
 function didClickPhone(e) {

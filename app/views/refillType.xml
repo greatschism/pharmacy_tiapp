@@ -38,7 +38,7 @@
 	<View id="storeView" class="hide auto-height role-ignore" onClick="didClickEdit">
 		<View class="left width-75 auto-height vgroup">
 			<Label id="storeTitleLbl" class="margin-top margin-left h4" />
-			<Label id="storeSubtitleLbl" class="margin-top-small margin-bottom margin-left h6 inactive-fg-color" />
+			<Label id="storeSubtitleLbl" class="margin-top-small margin-bottom margin-left inactive-fg-color" />
 		</View>
 		<Button id="editBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit" />
 	</View>

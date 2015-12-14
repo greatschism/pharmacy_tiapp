@@ -5,11 +5,11 @@ var args = arguments[0] || {};
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
 	var pDict = $.createStyle({
-		classes : args.promptClasses || ["content-group-prompt-40"],
+		classes : args.promptClasses || ["left", "width-40", "inactive-fg-color"],
 		text : args.prompt || (args.data ? args.data[args.promptProperty] : "")
 	}),
 	    rDict = $.createStyle({
-		classes : args.replyClasses || ["content-group-reply-60"],
+		classes : args.replyClasses || ["margin-left-medium", "width-60"],
 		text : args.reply || (args.data ? args.data[args.replyProperty] : "")
 	});
 	$.row.className = "promptReply" + parseInt(pDict.width) + parseInt(rDict.height) + (args.hasChild && "WithChild" || "");

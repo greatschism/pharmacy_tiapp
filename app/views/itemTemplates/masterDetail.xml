@@ -1,13 +1,13 @@
 <Alloy>
 	<TableViewRow id="row">
-		<View id="contentView" class="content-view">
-			<View id="masterView" class="content-master-view-65">
-				<Label id="titleLbl" class="content-title" />
-				<Label id="subtitleLbl" class="content-subtitle" />
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
+			<View id="masterView" class="left width-65 auto-height vgroup">
+				<Label id="titleLbl" class="left h4" />
+				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 			</View>
-			<View id="detailView" class="content-detail-view-35">
-				<Label id="detailTitleLbl" />
-				<Label id="detailSubtitleLbl" />
+			<View id="detailView" class="right width-35 auto-height vgroup">
+				<Label id="detailTitleLbl" class="right txt-right" />
+				<Label id="detailSubtitleLbl" class="margin-top-small right txt-right" />
 			</View>
 		</View>
 	</TableViewRow>
