@@ -424,6 +424,21 @@
             ".txta[platform=android]":{
                 "font":"${H4_PLATFORM_ANDROID}"
             },
+           ".swt[platform=ios]": {
+                "width": 56,
+                "tintColor": "${SWITCH_INACTIVE_COLOR}",
+                "onTintColor": "${SWITCH_ACTIVE_COLOR}",
+                "backgroundColor": "${SWITCH_INACTIVE_COLOR}",
+                "borderRadius": 16
+            },
+            ".swt[platform=android]": {
+                "width": 60,
+                "trackTintColorOn": "${SWITCH_ACTIVE_COLOR}",
+                "trackTintColorOff": "${SWITCH_INACTIVE_COLOR}",
+                "thumbTintColorOn": "${SWITCH_THUMB_COLOR}",
+                "thumbTintColorOff": "${SWITCH_THUMB_COLOR}",
+                "backgroundSelectedColor": "transparent"
+            },
             ".pagingcontrol":{
                 "selectedPagerDict":{
                     "backgroundColor":"${PRIMARY_COLOR}"

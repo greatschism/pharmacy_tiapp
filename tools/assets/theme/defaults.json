@@ -92,6 +92,10 @@
 		"textAlign": "left",
 		"suppressReturn": true
 	},
+	".swt": {
+		"height": 36,
+		"value": false
+	},
 	".swt[platform=android]": {
 		"accessibilityLabelOn": "Alloy.Globals.strings.accessibilityLblSwitchOn",
 		"accessibilityLabelOff": "Alloy.Globals.strings.accessibilityLblSwitchOff",
