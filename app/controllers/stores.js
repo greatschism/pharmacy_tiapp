@@ -14,7 +14,6 @@ var args = arguments[0] || {},
     isMapPrepared = false,
     isFocused = false,
     isChangedAfterFocus = false,
-    isDirectionEnabled = false,
     shouldIgnoreRegion = true,
     currentLocation = {},
     currentRadiusMax = 0,
@@ -149,11 +148,6 @@ function didChangePatient(e) {
 
 function didGetLocation(userLocation) {
 	/**
-	 * check whether or not to enable
-	 * direction button for this result set
-	 */
-	isDirectionEnabled = !_.isEmpty(userLocation);
-	/**
 	 *  case 1:
 	 * 		when location service is turned off and user logged in call api for listing home and  book marked stores
 	 *  case 2:
@@ -161,7 +155,7 @@ function didGetLocation(userLocation) {
 	 *  note : iOS simulator may fail to give location often
 	 *  just updating the location in simulator settings would help
 	 */
-	if (Alloy.Globals.isLoggedIn || isDirectionEnabled) {
+	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
 		getStores(null, false);
 	} else {
 		/**
@@ -525,7 +519,7 @@ function prepareList() {
 
 	//process data
 	var data = [],
-	    itemTemplate = "itemTemplates/" + (Alloy.CFG.isLoggedIn ? "masterDetailWithLIcon" : "masterDetail");
+	    itemTemplate = "itemTemplates/" + (Alloy.Globals.isLoggedIn ? "masterDetailWithLIcon" : "masterDetail");
 	Alloy.Collections.stores.each(function(store) {
 		var row = Alloy.createController(itemTemplate, store.toJSON());
 		data.push(row.getView());
@@ -609,7 +603,7 @@ function prepareMap(shouldUpdateRegion) {
 			}
 			//process annotations
 			var storeId = store.get("id"),
-			    leftBtn = isDirectionEnabled ? Ti.UI.createButton(leftBtnDict) : null,
+			    leftBtn = Ti.UI.createButton(leftBtnDict),
 			    annotationDict = {
 				storeId : storeId,
 				title : store.get("title"),
@@ -626,18 +620,11 @@ function prepareMap(shouldUpdateRegion) {
 				 * info window
 				 */
 				annotationDict.rightButton = Ti.UI.iPhone.SystemButton.INFO_DARK;
-				/**
-				 * show direction button
-				 * only if current location (which is search / user location)
-				 *  is available
-				 */
-				if (leftBtn) {
-					leftBtn.applyProperties({
-						clicksource : "leftPane",
-						storeId : storeId
-					});
-					leftBtn.addEventListener("click", didClickMap);
-				}
+				leftBtn.applyProperties({
+					clicksource : "leftPane",
+					storeId : storeId
+				});
+				leftBtn.addEventListener("click", didClickMap);
 			} else {
 				/**
 				 * android has a separate click source
@@ -1080,9 +1067,7 @@ function handleNavigation(params) {
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
-			store : currentStore,
-			currentLocation : $.uihelper.userLocation,
-			direction : isDirectionEnabled
+			store : currentStore
 		},
 		stack : true
 	});

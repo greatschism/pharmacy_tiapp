@@ -91,13 +91,14 @@ function didGetStore(result, passthrough) {
 		}).getView());
 	}
 	data.push(hoursSection);
-	//distance
-	if ($.distanceView) {
-		if (_.isNumber(store.distance)) {
-			$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance.toFixed(2));
-		} else {
-			$.storeContentView.remove($.distanceView);
-		}
+	/**
+	 * distance may not be available
+	 * if it is not via store list
+	 */
+	if (_.isNumber(store.distance)) {
+		$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance.toFixed(2));
+	} else {
+		$.storeContentView.remove($.distanceView);
 	}
 	//clock / is opened
 	$.clockIconLbl.applyProperties($.createStyle({
@@ -155,7 +156,7 @@ function didClickDirection(e) {
 	$.uihelper.getDirection({
 		latitude : store.latitude,
 		longitude : store.longitude
-	}, args.currentLocation);
+	});
 }
 
 function didClickRefill(e) {

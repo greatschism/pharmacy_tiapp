@@ -1,9 +1,6 @@
 "#storeContentView[if=!Alloy.Globals.isLoggedIn]":{
 	left: null
 },
-"#refillBtn[if=!$.args.direction]":{
-	bottom: Alloy.TSS.margin_bottom.bottom
-},
 "#directionBtn":{
 	title: Alloy.Globals.strings.storeDetBtnDirection
 },
