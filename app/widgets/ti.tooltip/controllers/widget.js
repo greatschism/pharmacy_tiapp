@@ -42,7 +42,9 @@ var args = arguments[0] || {};
 function updateArrow(direction, dict) {
 	var aDict = {
 		text : args.iconText,
-		font : args.iconFont,
+		font : args.iconFont || {
+			fontSize : 12
+		},
 		accessibilityHidden : true
 	};
 	_.extend(aDict, dict);

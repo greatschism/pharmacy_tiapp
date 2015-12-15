@@ -199,7 +199,6 @@ module.exports = {
 		"loginLblTitle" : "Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "Email address",
 		"loginHintPassword" : "Password",
-		"loginLblTogglePassword" : "Show password",
 		"loginLblAutoLogin" : "Keep me signed in",
 		"loginAttrSignup" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your username.",
