@@ -43,20 +43,24 @@ var Res = {
 
 	init : function() {
 
-		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != Ti.App.version || !ENV_PROD) {
+		/**
+		 * Note: using just app version without build number
+		 * does not allow resource update on pre-prod
+		 * builds comes with same app version and
+		 * different build numbers
+		 */
+		var currentBuild = Ti.App.version + "_" + Alloy.CFG.buildNumber;
+
+		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != currentBuild || !ENV_PROD) {
 
 			var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory);
 			if (!dataDir.exists()) {
 				dataDir.createDirectory();
 			}
 
-			if (Alloy.CFG.clear_cached_resources && (utilities.getProperty(Alloy.CFG.resources_cleared_on) != Ti.App.version || !ENV_PROD)) {
+			if (Alloy.CFG.clear_cached_resources || !ENV_PROD) {
 				Res.deleteUnusedResources();
 				Res.collection.clear();
-				/**
-				 *  update flag once data is flushed
-				 */
-				utilities.setProperty(Alloy.CFG.resources_cleared_on, Ti.App.version);
 			}
 
 			var data = require(Res.dataDirectory + "/" + "resources").data;
@@ -84,7 +88,7 @@ var Res = {
 			/**
 			 *  update flag once data set is done
 			 */
-			utilities.setProperty(Alloy.CFG.resources_updated_on, Ti.App.version);
+			utilities.setProperty(Alloy.CFG.resources_updated_on, currentBuild);
 		}
 	},
 

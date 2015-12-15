@@ -138,7 +138,6 @@
 		"first_launch_med_reminders": "firstLaunchMedReminders",
 		"user_account": "account",
 		"resources_updated_on": "resourcesUpdated",
-		"resources_cleared_on": "resourcesCleared",
 		"latest_pickup_mode": "latestPickupMode",
 		"latest_store_refilled": "latestStoreRefilled",
 		"latest_phone_used": "latestPhoneUsed",
