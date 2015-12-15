@@ -151,7 +151,7 @@ function didAuthenticate() {
 	 * Check if the partial account has been created.
 	 * if so, take the user to log in screen.
 	 */
-	else if (args.is_adult_partial) {
+	else if (args.is_adult_partial && args.username === mPatient.get("email_address")) {
 		//if (args.origin === "registerChildInfo") {
 			$.app.navigator.open({
 				titleid : "titleChildAdd",
