@@ -226,10 +226,10 @@ module.exports = {
 		"storesGeoZeroResults" : "es-No matches found!",
 		"storesMsgGoogleApiFailed" : "es-Sorry, we are unable to process your request now. Please try again later.",
 
-		"storeDetPromptPhone" : "es-Call:",
 		"storeDetLblOpen" : "es-Open till %s",
 		"storeDetLblClose" : "es-Closed at %s",
 		"storeDetLblClosed" : "es-Closed",
+		"storeDetLblDistance" : "es-%s miles away",
 		"storeDetLblNotAvailable" : "es-Not available",
 		"storeDetBtnDirection" : "es-Directions",
 		"storeDetBtnRefill" : "es-Refill at this location",

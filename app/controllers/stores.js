@@ -1053,7 +1053,7 @@ function handleNavigation(params) {
 			_.extend(args.navigation.ctrlArguments.store, params);
 			/**
 			 * this controller will not be terminated until this process is completed
-			 * so reverPatient here
+			 * so revertPatient here
 			 */
 			if ($.patientSwitcher) {
 				$.patientSwitcher.revertPatient();

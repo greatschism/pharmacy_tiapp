@@ -229,7 +229,7 @@ module.exports = {
 		"storeDetLblOpen" : "Open till %s",
 		"storeDetLblClose" : "Closed at %s",
 		"storeDetLblClosed" : "Closed",
-		"storeDetLblDistance" : "%d mi away",
+		"storeDetLblDistance" : "%s miles away",
 		"storeDetLblNotAvailable" : "Not available",
 		"storeDetBtnDirection" : "Directions",
 		"storeDetBtnRefill" : "Refill at this location",

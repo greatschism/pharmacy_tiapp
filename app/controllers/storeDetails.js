@@ -37,7 +37,7 @@ function focus() {
 function didGetStore(result, passthrough) {
 	httpClient = null;
 	if (result && result.data) {
-		_.extend(store, result.data.stores);
+		_.extend(store, _.omit(result.data.stores, ["distance"]));
 	}
 	/**
 	 * phone_formatted will only be available
@@ -93,8 +93,8 @@ function didGetStore(result, passthrough) {
 	data.push(hoursSection);
 	//distance
 	if ($.distanceView) {
-		if (store.distance) {
-			$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance);
+		if (_.isNumber(store.distance)) {
+			$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance.toFixed(2));
 		} else {
 			$.storeContentView.remove($.distanceView);
 		}
