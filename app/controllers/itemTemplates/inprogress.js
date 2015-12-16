@@ -4,8 +4,12 @@ var args = arguments[0] || {};
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	$.addClass($.titleLbl, args.titleClasses || ["h4"], {
+		text : args.title || (args.data ? args.data[args.titleProperty] : "")
+	});
+	$.addClass($.subtitleLbl, args.subtitleClasses || ["inactive-fg-color"], {
+		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
+	});
 	$.progressbar.width = args.progress + "%";
 })();
 

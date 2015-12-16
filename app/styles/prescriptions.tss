@@ -51,7 +51,8 @@
 	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
 },
 "#searchTxt":{
-	hintText:Alloy.Globals.strings.prescHintSearch
+	hintText:Alloy.Globals.strings.prescHintSearch,
+	enableClearButton: true
 },
 "#tooltipLbl":{
 	text: Alloy.Globals.strings.prescAddTooltipLblReminder

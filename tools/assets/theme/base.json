@@ -478,6 +478,9 @@
             ".nav-bar-height[platform=android]":{
                 "height":"${NAV_BAR_HEIGHT_ANDROID}"
             },
+            ".progress-bar-height":{
+                "height":"${PROGRESS_BAR_HEIGHT}"
+            },
             ".input-height":{
             	"height":"${INPUT_HEIGHT}"
             },

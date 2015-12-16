@@ -13,11 +13,28 @@ var args = arguments[0] || {},
 function init() {
 	/**
 	 * may not be available when
-	 *  showHiddenPrescriptions is true
+	 * showHiddenPrescriptions is true
 	 */
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
+	/**
+	 * may not be available when
+	 * showHiddenPrescriptions is true
+	 */
+	if ($.sortPicker) {
+		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
+	}
+	//search icon
+	$.searchTxt.setIcon("", "left", $.createStyle({
+		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		id : "searchBtn"
+	}));
+	//clear button
+	$.searchTxt.setIcon("", "right", $.createStyle({
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
+		id : "clearBtn"
+	}));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
 			classes : ["top-disabled", "left-disabled", "width-35", "fill-height", "bg-color-disabled", "active-fg-color", "border-disabled"],
@@ -34,13 +51,6 @@ function init() {
 			title : $.strings.prescSwipeOptRefill,
 			type : "positive"
 		}];
-	}
-	/**
-	 * may not be available when
-	 *  showHiddenPrescriptions is true
-	 */
-	if ($.sortPicker) {
-		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
 	}
 	/**
 	 * by default point to a

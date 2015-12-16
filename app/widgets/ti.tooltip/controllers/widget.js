@@ -7,14 +7,7 @@ var args = arguments[0] || {};
 		$.contentView.applyProperties(options);
 	}
 
-	var dict = args.arrowDict || {};
-	/**
-	 * noachDict overrides values
-	 * from arrowDict, screen
-	 * specific noach position
-	 */
-	_.extend(dict, args.noachDict);
-	updateArrow(args.direction || "bottom", dict);
+	updateArrow(args.direction || "bottom", args.arrowDict || {});
 
 	if (_.has(args, "text")) {
 		setText(args.text, null, args.accessibilityLabel, args.accessibilityHidden);

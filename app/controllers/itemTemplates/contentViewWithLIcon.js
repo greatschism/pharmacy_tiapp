@@ -29,10 +29,6 @@ var args = arguments[0] || {};
 	if (!_.isEmpty(rDict)) {
 		$.row.applyProperties(rDict);
 	}
-	/**
-	 * should not have class suffix like -wrap
-	 * which may affect selection pop ups (ti.optionpicker)
-	 */
 	$.addClass($.titleLbl, args.titleClasses || ["h4"], {
 		text : args.title || (args.data ? args.data[args.titleProperty] : "")
 	});
