@@ -10,7 +10,8 @@ function init() {
 	$.webView.applyProperties({
 		top : $.args.registrationFlow === true ? 0 : Alloy.TSS.primary_btn.height,
 		bottom : Alloy.TSS.form_dropdown.optionPadding.top * 2 + Alloy.TSS.primary_btn.height + ( isHIPAA ? Alloy.TSS.primary_btn.height + Alloy.TSS.form_dropdown.optionPadding.top : 0), 
-		url : args.terms.agreement_url
+		url : args.terms.agreement_url,
+		willHandleTouches: false 
 	});
 	if(!$.args.registrationFlow){
 		$.acceptedOnLbl.text = $.strings.accountLblAcceptedOn + " " + moment(args.terms.agreement_valid_from).format(Alloy.CFG.date_format);
