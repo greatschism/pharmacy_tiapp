@@ -1,13 +1,11 @@
 <Alloy>
 	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="contentView" class="content-view">
-			<View id="masterView" class="content-master-view-55">
-				<Label id="titleLbl" class="content-title" />
-				<Label id="subtitleLbl" class="content-subtitle" />
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
+			<View id="masterView" class="left width-50 auto-height vgroup">
+				<Label id="titleLbl" class="left h4" />
+				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 			</View>
-			<View id="detailView" class="content-detail-view-45">
-				<Button id="detailBtn" class="bubble-disabled" onClick="didClickDetail" />
-			</View>
+			<Button id="detailBtn" class="top-disabled left-disabled right width-50 bg-color fg-primary-color primary-border bubble-disabled" onClick="didClickDetail" />
 		</View>
 	</TableViewRow>
 </Alloy>

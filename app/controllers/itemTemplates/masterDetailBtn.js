@@ -9,10 +9,10 @@ var args = arguments[0] || {};
 	 */
 	$.row.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "Btn";
 	if (args.masterWidth) {
-		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
+		$.resetClass($.masterView, ["left", "width-" + args.masterWidth, "auto-height", "vgroup"]);
 	}
 	if (args.detailWidth) {
-		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
+		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
 	}
 	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
@@ -26,16 +26,6 @@ var args = arguments[0] || {};
 	}
 	if (args.btnDict) {
 		_.extend(btnDict, args.btnDict);
-	}
-	/**
-	 * if only title is applied and no other styles are assigned
-	 * assuming it should not be there in UI, so disable touch and visible
-	 */
-	if (_.keys(btnDict).length <= 1) {
-		_.extend(btnDict, {
-			touchEnabled : false,
-			visible : false
-		});
 	}
 	$.detailBtn.applyProperties(btnDict);
 })();

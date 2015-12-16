@@ -20,12 +20,12 @@ function init() {
 	}
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
-			classes : ["content-header-right-btn"],
+			classes : ["top-disabled", "left-disabled", "width-35", "fill-height", "bg-color-disabled", "active-fg-color", "border-disabled"],
 			title : $.strings.prescAddSectionBtnAll,
 			id : "prescSelectAllBtn"
 		});
 	} else {
-		detailBtnClasses = ["content-detail-secondary-btn"];
+		detailBtnClasses = ["top-disabled", "left-50", "margin-right", "min-height", "h5", "bg-color", "primary-fg-color", "primary-border"];
 		swipeOptions = [{
 			action : 1,
 			title : $.strings.prescSwipeOptHide

@@ -592,6 +592,9 @@
             ".h8[platform=android]":{
                 "font":"${H8_PLATFORM_ANDROID}"
             },
+            ".i1[platform=ios]":{
+                "font":"${I1_PLATFORM_IOS}"
+            },
             ".i1[platform=android]":{
                 "font":"${I1_PLATFORM_ANDROID}"
             },

@@ -5,9 +5,9 @@
 	disabled: false
 },
 /**
-* 	if showHiddenPrescriptions is true
-*  exclude the options
-*  unhide and sort (sort is removed as client
+* if showHiddenPrescriptions is true
+* exclude the options
+* unhide and sort (sort is removed as client
 * will not be able to sort prescriptions and use
 * alphabetic sort by default)
 */
@@ -16,7 +16,7 @@
 	cancel: 2
 },
 /**
-* 	if showHiddenPrescriptions is false
+*  if showHiddenPrescriptions is false
 *  include the options
 *  unhide and sort
 */

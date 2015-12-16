@@ -609,7 +609,7 @@ var Helper = {
 			vClasses.push("min-height");
 		}
 		if (rightItem) {
-			tClasses.push(rightItem.isIcon ? "right-15" : "right-65");
+			tClasses.push(rightItem.isIcon ? "right-15" : "right-40");
 		} else {
 			tClasses.push("margin-right");
 		}
