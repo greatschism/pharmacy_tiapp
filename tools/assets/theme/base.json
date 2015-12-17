@@ -675,6 +675,10 @@
                 "backgroundColor":"${ACTIVE_COLOR}",
                 "backgroundSelectedColor":"${ACTIVE_SELECTED_COLOR}"
             },
+            ".active-strong-bg-color":{
+                "backgroundColor":"${ACTIVE_STRONG_COLOR}",
+                "backgroundSelectedColor":"${ACTIVE_STRONG_SELECTED_COLOR}"
+            },
             ".inactive-bg-color":{
                 "backgroundColor":"${INACTIVE_COLOR}",
                 "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}"
@@ -709,6 +713,11 @@
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"${ACTIVE_COLOR}"
+            },
+            ".active-strong-border":{
+             	"borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${ACTIVE_STRONG_COLOR}"
             },
             ".inactive-border":{
                 "borderWidth":"${BORDER_WIDTH}",
@@ -750,6 +759,10 @@
             ".active-fg-color":{
                 "color":"${ACTIVE_COLOR}",
                 "selectedColor":"${ACTIVE_SELECTED_COLOR}"
+            },
+            ".active-strong-fg-color":{
+            	"color":"${ACTIVE_STRONG_COLOR}",
+                "selectedColor":"${ACTIVE_STRONG_SELECTED_COLOR}"
             },
             ".inactive-fg-color":{
                 "color":"${INACTIVE_COLOR}",

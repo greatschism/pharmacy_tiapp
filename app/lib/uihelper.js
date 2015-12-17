@@ -672,12 +672,12 @@ var Helper = {
 		}
 		if (view.layout == "vertical") {
 			_.each(view.children, function(child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			});
 		} else {
 			var child = view.children[0];
 			if (child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			}
 		}
 		return height;

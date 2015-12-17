@@ -1,4 +1,6 @@
 var args = arguments[0] || {},
+    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
@@ -7,9 +9,8 @@ var args = arguments[0] || {},
 
 if (!Alloy.TSS[CONSTS]) {
 	var app = require("core"),
-	    paddingLeft = $.swipeView.paddingLeft,
-	    availableWidth = app.device.width - paddingLeft,
-	    endOffset = app.device.width + $.swipeView.paddingRight;
+	    marginLeft = utilities.percentageToValue("40%", app.device.width),
+	    endOffset = app.device.width - marginLeft;
 	/**
 	 * This template is used with
 	 * prescriptions list where labels has static height
@@ -22,11 +23,11 @@ if (!Alloy.TSS[CONSTS]) {
 	 * which may prevent postlayout being fired for differet rows of same className
 	 */
 	Alloy.TSS[CONSTS] = {
-		height : $.contentView.top + $.contentView.bottom + require("uihelper").getHeightFromChildren($.masterView, true),
-		availableWidth : availableWidth,
-		startOffset : paddingLeft,
-		decisionOffset : endOffset - (endOffset / 3),
-		endOffset : endOffset
+		height : $.marginView.top + $.marginView.bottom + uihelper.getHeightFromChildren($.masterView, true),
+		availableWidth : endOffset,
+		startOffset : 0,
+		endOffset : endOffset,
+		decisionOffset : endOffset - (endOffset / 3)
 	};
 }
 
@@ -57,18 +58,16 @@ CONSTS = Alloy.TSS[CONSTS];
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 	$.swipeView.applyProperties({
-		left : CONSTS.endOffset,
 		width : CONSTS.availableWidth,
 		height : CONSTS.height
 	});
 	if (args.options) {
 		var len = args.options.length,
-		    width = CONSTS.availableWidth / len,
-		    optionClassPrefix = "swipe-view-";
+		    width = CONSTS.availableWidth / len;
 		_.each(args.options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
-				classes : [optionClassPrefix + (option.type ? option.type + "-" : "") + "btn"],
+				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "primary-light-fg-color", "h5", "border-disabled"],
 				width : width,
 				left : fromLeft,
 				title : option.title,
@@ -76,9 +75,8 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					classes : ["swipe-view-divider"],
+					classes : ["top", "v-divider-light", "fill-height", "bg-color"],
 					left : fromLeft,
-					height : btn.height,
 					zIndex : 4
 				}));
 			}
@@ -101,7 +99,7 @@ function didTouchstart(e) {
 	if (!Alloy.Globals.isSwipeInProgress) {
 		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
 		startX = touchX = e.x;
-		currentX = $.swipeView.left;
+		currentX = $.contentView.right;
 	}
 }
 
@@ -110,10 +108,11 @@ function didTouchmove(e) {
 		if (firstMove) {
 			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
 		}
-		currentX -= touchX - e.x;
+		currentX = currentX + (touchX - e.x);
+		console.log(currentX, ":", CONSTS.endOffset, ":", CONSTS.startOffset);
 		touchX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
-			$.swipeView.left = currentX;
+			$.contentView.right = currentX;
 		}
 	}
 }
@@ -129,12 +128,12 @@ function touchEnd(x) {
 		x = CONSTS.endOffset;
 	}
 	var anim = Ti.UI.createAnimation({
-		left : x,
+		right : x,
 		duration : 200
 	});
 	anim.addEventListener("complete", function onComplete() {
 		anim.removeEventListener("complete", onComplete);
-		$.swipeView.left = x;
+		$.contentView.right = x;
 		if (x === CONSTS.startOffset) {
 			Alloy.Globals.currentRow = $;
 		} else {
@@ -144,7 +143,7 @@ function touchEnd(x) {
 		currentX = touchX = 0;
 		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
-	$.swipeView.animate(anim);
+	$.contentView.animate(anim);
 }
 
 function getParams() {

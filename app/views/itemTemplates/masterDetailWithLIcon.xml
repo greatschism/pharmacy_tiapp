@@ -3,12 +3,12 @@
 		<Label id="leftIconLbl" class="margin-left i4 width-15" />
 		<View id="contentView" class="margin-top margin-bottom left-15 margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">
-				<Label id="titleLbl" class="left h4" />
-				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+				<Label id="titleLbl" class="left h4 wrap-disabled" />
+				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color wrap-disabled" />
 			</View>
 			<View id="detailView" class="right width-35 auto-height vgroup">
-				<Label id="detailTitleLbl" class="right txt-right" />
-				<Label id="detailSubtitleLbl" class="margin-top-small right txt-right" />
+				<Label id="detailTitleLbl" class="right txt-right wrap-disabled" />
+				<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled" />
 			</View>
 		</View>
 	</TableViewRow>

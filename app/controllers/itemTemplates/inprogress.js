@@ -10,7 +10,7 @@ var args = arguments[0] || {};
 	$.addClass($.subtitleLbl, args.subtitleClasses || ["inactive-fg-color"], {
 		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
 	});
-	$.progressbar.width = args.progress + "%";
+	$.progressBar.width = args.progress + "%";
 })();
 
 function getParams() {
