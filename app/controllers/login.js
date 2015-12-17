@@ -151,8 +151,8 @@ function didAuthenticate() {
 	 * Check if the partial account has been created.
 	 * if so, take the user to log in screen.
 	 */
-	else if (args.is_adult_partial) {
-		if (args.origin === "registerChildInfo") {
+	else if (args.is_adult_partial && args.username === mPatient.get("email_address")) {
+		//if (args.origin === "registerChildInfo") {
 			$.app.navigator.open({
 				titleid : "titleChildAdd",
 				ctrl : "childAdd",
@@ -163,13 +163,13 @@ function didAuthenticate() {
 				},
 				stack : false
 			});
-		} else {
+	/*} else {
 			$.app.navigator.open({
 				titleid : "titleAddFamily",
 				ctrl : "familyMemberAdd",
 				stack : true
 			});
-		}
+		}*/
 	} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
 			ctrl : "emailVerify",

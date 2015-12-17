@@ -144,7 +144,7 @@
 		"latest_phone_used": "latestPhoneUsed",
 		"latest_feedback_action_count": "latestFeedbackActionCount",
 		"latest_feedback_option": "latestFeedbackOption",
-		"latest_feedback_app_verion": "latestFeedbackAppVersion",
+		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
 		"auto_login_enabled": "autoLoginEnabled"
 	},

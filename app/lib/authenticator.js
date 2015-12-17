@@ -582,6 +582,29 @@ function updatePreferences(params, passthrough) {
 	var preferences = Alloy.Collections.patients.findWhere({
 		selected : true
 	}).pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "email_msg_active", "text_msg_active", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
+	//update flags used by reminder jobs - PHA-1584
+	_.each(Alloy.CFG.reminders, function(reminder, index) {
+		/**
+		 * only 4 of 6 reminder types are supported by back-end.
+		 * only othese 4 has flags used by jobs
+		 */
+		if (_.has(reminder, "flg_pref")) {
+			/**
+			 * pickup delivery mode from given settings,
+			 * if not available there from existing preferecnes
+			 */
+			var deliveryMode = _.has(params, reminder.col_pref) ? params[reminder.col_pref] : preferences[reminder.col_pref];
+			/**
+			 * when delivery mode is null (none), reminder flag should "0"
+			 * otherwise "1"
+			 */
+			if (deliveryMode === null && preferences[reminder.flg_pref] === "1") {
+				params[reminder.flg_pref] = "0";
+			} else if (deliveryMode !== null && preferences[reminder.flg_pref] === "0") {
+				params[reminder.flg_pref] = "1";
+			}
+		}
+	});
 	//extend updated values
 	_.extend(preferences, params);
 	//extend passthrough for params

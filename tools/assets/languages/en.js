@@ -588,7 +588,8 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 
-		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
+		//"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
+		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
 		"registerBtnMyself" : "Myself",
 		"registerBtnChild" : "My child",
 		"registerBtnAnotherAdult" : "Another adult",
