@@ -78,9 +78,8 @@ function didGetStore(result, passthrough) {
 		}
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
-				data : hour,
-				promptProperty : "day",
-				replyProperty : "hours"
+				prompt : hour.day + ":",
+				reply : hour.hours
 			}).getView());
 		});
 	} else {

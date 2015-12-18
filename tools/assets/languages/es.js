@@ -235,7 +235,7 @@ module.exports = {
 		"storeDetBtnFavouriteAdd" : "es-Add to favorites",
 		"storeDetBtnFavouriteRemove" : "es-Remove from favorites",
 		"storeDetSectionHours" : "es-Store hours",
-		"storeDetSectionServices" : "es-Store Services",
+		"storeDetSectionServices" : "es-Store services",
 		"storeDetLblHoursNotAvailable" : "es-Store hours are not available.",
 		"storeDetMsgHomeCantUpdate" : "es-This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "es-Change home pharmacy",
