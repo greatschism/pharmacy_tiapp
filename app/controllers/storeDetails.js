@@ -82,9 +82,8 @@ function didGetStore(result, passthrough) {
 		var promptClasses = ["content-group-inactive-prompt-40"];
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
-				data : hour,
-				promptProperty : "day",
-				replyProperty : "hours",
+				prompt : hour.day + ":",
+				reply : hour.hours,
 				promptClasses : promptClasses
 			}).getView());
 		});
