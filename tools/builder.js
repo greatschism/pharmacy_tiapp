@@ -351,14 +351,16 @@ if (build) {
 		/**
 		 * verify template
 		 */
-		var TEMPLATE_JS = "template_" + _u.findWhere(RESOURCES_DATA, {
+		var TEMPLATE_JS = "template_" + (_u.findWhere(RESOURCES_DATA, {
 			"type" : "template"
-		}).version + ".js",
+		}) || {}).version + ".js",
 		    APP_TEMPLATE_JS = APP_ASSETS_DATA_DIR + "/" + TEMPLATE_JS;
 		if (!fs.existsSync(APP_TEMPLATE_JS)) {
 			var BASE_TEMPLATE_JS = BASE_ASSETS_DIR + TEMPLATE_JS;
-			fs.copySync(BASE_TEMPLATE_JS, APP_TEMPLATE_JS);
-			logger.debug("Linked " + BASE_TEMPLATE_JS + " => " + APP_TEMPLATE_JS);
+			if (fs.existsSync(BASE_TEMPLATE_JS)) {
+				fs.copySync(BASE_TEMPLATE_JS, APP_TEMPLATE_JS);
+				logger.debug("Linked " + BASE_TEMPLATE_JS + " => " + APP_TEMPLATE_JS);
+			}
 		}
 
 		/**
