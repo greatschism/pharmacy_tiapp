@@ -663,6 +663,9 @@
                 "bubbleParent":false,
                 "touchEnabled":false
             },
+			".row-selected-bg-color-light": {
+				"selectedBackgroundColor": "${BG_LIGHT_COLOR_SELECTED}"
+			},
             ".bg-color":{
                 "backgroundColor":"${BG_COLOR}",
                 "backgroundSelectedColor":"${BG_COLOR}"

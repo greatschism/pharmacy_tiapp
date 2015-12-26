@@ -90,7 +90,7 @@
 	},
 	".txta": {
 		"textAlign": "left",
-		"suppressReturn": true
+		"suppressReturn": false
 	},
 	".swt": {
 		"height": 36,
@@ -430,9 +430,6 @@
 	},
 	".table-separator-disabled": {
 		"separatorColor": "transparent"
-	},
-	".row-selected-bg-color-light": {
-		"selectedBackgroundColor": "#80D3D4D3"
 	},
 	".row-selected-bg-color-disabled": {
 		"selectedBackgroundColor": "transparent"
