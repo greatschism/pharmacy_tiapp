@@ -159,6 +159,7 @@
 		"platform_code": "IP"
 	},
 	"dependencies": {
+		"ti.tsstrimmer": "1.0",
 		"nl.fokkezb.color": "1.1.0",
 		"nl.fokkezb.drawer": "1.0",
 		"ti.asyncview": "1.0",

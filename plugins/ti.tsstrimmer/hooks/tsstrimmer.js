@@ -82,12 +82,12 @@ exports.init = function(logger, config, cli, nodeappc) {
 		 * trim widgets
 		 * styles
 		 *
-		 * nl.fokkezb.drawer doesn't
+		 * ti.tsstrimmer doesn't
 		 * have any ui comp, so it
 		 * won't have any styles but
 		 * just process app.tss
 		 */
-		var defaultWidget = "nl.fokkezb.drawer",
+		var defaultWidget = "ti.tsstrimmer",
 		    widgets = JSON.parse(fs.readFileSync(path.normalize(opts.projectDir + "/app/config.json")), "utf-8").dependencies;
 		if (widgets[defaultWidget]) {
 			/**
@@ -95,7 +95,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 			 */
 			var startDelimeter = "module.exports = [",
 			    endDelimeter = "];";
-			strToExclude = fs.readFileSync(alloyDir + "/widgets/nl.fokkezb.drawer/styles/widget.js", "utf-8");
+			strToExclude = fs.readFileSync(alloyDir + "/widgets/" + defaultWidget + "/styles/widget.js", "utf-8");
 			var subStartIndex = strToExclude.lastIndexOf(startDelimeter) + startDelimeter.length;
 			strToExclude = strToExclude.substr(subStartIndex, ((strToExclude.lastIndexOf(endDelimeter) - endDelimeter.length) - subStartIndex) + 1);
 			/**
