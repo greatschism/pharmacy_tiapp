@@ -127,8 +127,8 @@ function Navigation(args) {
 				}
 				//close last window at top
 				removeControllers.pop().getView().close({
-					activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
-					activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
+					activityEnterAnimation : Ti.App.Android.R.anim.activity_open_back,
+					activityExitAnimation : Ti.App.Android.R.anim.activity_close_back,
 					animated : true
 				});
 			}
@@ -180,8 +180,8 @@ function Navigation(args) {
 		});
 
 		window.open({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close,
+			activityEnterAnimation : Ti.App.Android.R.anim.activity_open,
+			activityExitAnimation : Ti.App.Android.R.anim.activity_close,
 			animated : true
 		});
 
@@ -263,8 +263,8 @@ function Navigation(args) {
 		});
 
 		window.close({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
+			activityEnterAnimation : Ti.App.Android.R.anim.activity_open_back,
+			activityExitAnimation : Ti.App.Android.R.anim.activity_close_back,
 			animated : true
 		});
 
