@@ -222,10 +222,18 @@ function getHomePharmacy() {
 				}
 			}]
 		},
-		success : didGetStoreList
+		errorDialogEnabled : false,
+		success : didGetStoreList,
+		failure : didGetNoStore
 	});
 }
 
+function didGetNoStore(){	
+	var supportPhone = Alloy.Models.appload.get("supportphone");
+		if (supportPhone) {
+			$.uihelper.openDialer($.utilities.validatePhoneNumber(supportPhone));
+		}
+}
 function didGetStoreList(result) {
 	if (result && result.data) {
 		_.each(result.data.stores.stores_list, function(store) {
