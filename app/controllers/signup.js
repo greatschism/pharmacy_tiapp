@@ -230,7 +230,7 @@ function didClickSignup(e) {
 		}
 		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValRxInvalid
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid,Alloy.CFG.rx_length)
 			});
 			return;
 		}
