@@ -159,8 +159,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "es-Sign up for text messaging",
 		"titleAddFamily" : "es-Add a family member",
 		"titleForgotPassword" : "es-User recovery",
-		"titleManageAdult":"es-Manage an adult",
-		"titleAddAnAdult":"es-Add an adult",
+		"titleManageAdult" : "es-Manage an adult",
+		"titleAddAnAdult" : "es-Add an adult",
 
 		"upgradeBtnSubmit" : "es-Upgrade now",
 
@@ -796,15 +796,16 @@ module.exports = {
 		"emailVerifyBtnIsntMyEmail" : "es-<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
 		"emailVerifyBtnResendEmail" : "es-Resend email",
 		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address.",
-			
-		"registerAdultInfoLblTitle":"es-In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
-		"registerAdultInfoLblSubTitle":"es-We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
-		"registerAdultInfoBtnContinue":"es-Continue",
-		
-		"addAnotherAdultLblTitle":"es-It's time to invite your family member.",
-		"addAnotherAdultLblSubTitle":"es-First, tell us who they are:",
-		"addAnotherAdultBtnContinue":"es-Continue",
-		"addAnotherAdultAddRelationTip":"es-Tap to choose..."
+
+		"registerAdultInfoLblTitle" : "es-In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
+		"registerAdultInfoLblSubTitle" : "es-We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
+		"registerAdultInfoBtnContinue" : "es-Continue",
+
+		"addAnotherAdultLblTitle" : "es-It's time to invite your family member.",
+		"addAnotherAdultLblSubTitle" : "es-First, tell us who they are:",
+		"addAnotherAdultBtnContinue" : "es-Continue",
+		"addAnotherAdultAddRelationTip" : "es-Tap to choose..."
+
 	}
 
 };
