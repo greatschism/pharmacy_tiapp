@@ -27,6 +27,7 @@ var log4js = require("log4js"),
     APP_HTTPS_CER = APP_ASSETS_DIR + "https.cer",
     APP_ASSETS_IPHONE_DIR = APP_ASSETS_DIR + "iphone",
     APP_ASSETS_ANDROID_DIR = APP_ASSETS_DIR + "android",
+    APP_ASSETS_MOBILEWEB_DIR = APP_ASSETS_DIR + "mobileweb",
     APP_ASSETS_DATA_DIR = APP_ASSETS_DIR + "data",
     APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
     APP_ASSETS_IMAGES_SERIES_DIR = APP_ASSETS_IMAGES_DIR + "/series",
@@ -120,7 +121,7 @@ if (program.storeAuth) {
  * can be skipped if buildOnly
  * is specified.
  */
-if (!program.buildOnly) {
+if (!program.buildOnly && !program.cleanOnly) {
 	_u.each(["username", "password", "orgId"], function(value) {
 		if (!_u.has(program, value)) {
 			logger.error("username, password or org-id is missing");
@@ -191,7 +192,7 @@ if (build) {
 	logger.debug("Initated cleanup");
 
 	//delete all resources
-	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
+	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -211,6 +212,7 @@ if (build) {
 		var BRAND_HTTPS_CER = BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate,
 		    BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
 		    BRAND_ASSETS_ANDROID_DIR = BRAND_RESOURCE_BASE_DIR + "assets/android",
+		    BRAND_ASSETS_MOBILEWEB_DIR = BRAND_RESOURCE_BASE_DIR + "assets/mobileweb",
 		    BRAND_ASSETS_DATA_DIR = BRAND_RESOURCE_BASE_DIR + "assets/data",
 		    BRAND_ASSETS_IMAGES_DIR = BRAND_RESOURCE_BASE_DIR + "assets/images",
 		    BRAND_DEFAULT_ICON = BRAND_RESOURCE_BASE_DIR + "images/DefaultIcon.png",
@@ -237,6 +239,9 @@ if (build) {
 		}, {
 			source : BRAND_ASSETS_ANDROID_DIR,
 			dest : APP_ASSETS_ANDROID_DIR
+		}, {
+			source : BRAND_ASSETS_MOBILEWEB_DIR,
+			dest : APP_ASSETS_MOBILEWEB_DIR
 		}, {
 			source : BRAND_ASSETS_DATA_DIR,
 			dest : APP_ASSETS_DATA_DIR
@@ -397,25 +402,46 @@ if (build) {
 		_u.each(_u.where(RESOURCES_DATA, {
 			"type" : "font"
 		}), function(font) {
-			var APP_FONT = "font_" + font.code + "_" + font.version;
+			var BASE_FONT = BASE_ASSETS_DIR + "fonts/" + font.postscript + "." + font.format,
+			    APP_FONT_NAME = "font_" + font.code + "_" + font.version,
+			    APP_FONT;
 			/**
-			 * we have only 2 platform now
-			 * ios and android
+			 * we have 3 platform now
+			 * ios, android and mobileweb
 			 */
-			if (font.platform.length === 2) {
-				//for both platform
-				APP_FONT = APP_ASSETS_DATA_DIR + "/" + APP_FONT;
-			} else if (_u.indexOf(font.platform, "ios") != -1) {
-				//ios onlly
-				APP_FONT = APP_ASSETS_DIR + "iphone/data/" + APP_FONT;
-			} else if (_u.indexOf(font.platform, "android") != -1) {
-				//android onlly
-				APP_FONT = APP_ASSETS_DIR + "android/data/" + APP_FONT;
-			}
-			if (!fs.existsSync(APP_FONT)) {
-				var BASE_FONT = BASE_ASSETS_DIR + "fonts/" + font.postscript + "." + font.format;
-				fs.copySync(BASE_FONT, APP_FONT);
-				logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+			if (font.platform.length === 3) {
+				//for all platforms
+				APP_FONT = APP_ASSETS_DATA_DIR + "/" + APP_FONT_NAME;
+				if (!fs.existsSync(APP_FONT)) {
+					fs.copySync(BASE_FONT, APP_FONT);
+					logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+				}
+			} else {
+				//individual platforms
+				if (_u.indexOf(font.platform, "ios") != -1) {
+					//ios onlly
+					APP_FONT = APP_ASSETS_DIR + "iphone/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
+				if (_u.indexOf(font.platform, "android") != -1) {
+					//android onlly
+					APP_FONT = APP_ASSETS_DIR + "android/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
+				if (_u.indexOf(font.platform, "mobileweb") != -1) {
+					//android onlly
+					APP_FONT = APP_ASSETS_DIR + "mobileweb/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
 			}
 		});
 
@@ -541,7 +567,7 @@ if (build) {
 		tiapp.sdkVersion = program.sdk;
 		tiapp.version = program.version;
 
-		//android launcher acitivty name
+		//android launcher activity name
 		var names = (tiapp.name + " Activity").split(" ");
 		for (var i in names) {
 			var name = names[i].toLowerCase();
@@ -818,11 +844,18 @@ if (build) {
 		 * for this platform
 		 */
 		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), "")),
-		    platformToIgnore = program.platform === "ios" ? "android" : "ios";
+		    platformsToIgnore = _u.without(["ios", "android", "mobileweb"], program.platform);
 		tiStyleSheets = [];
 		for (var i in tempTiStyleSheets) {
-			var tempTiStyleSheet = tempTiStyleSheets[i];
-			if (tempTiStyleSheet.indexOf(platformToIgnore) === -1 && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
+			var tempTiStyleSheet = tempTiStyleSheets[i],
+			    shouldContinue = true;
+			_u.some(platformsToIgnore, function(platformToIgnore) {
+				if (tempTiStyleSheet.indexOf(platformToIgnore) != -1) {
+					shouldContinue = false;
+				}
+				return !shouldContinue;
+			});
+			if (shouldContinue && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
 				tiStyleSheets.push(tempTiStyleSheet);
 			}
 		}
@@ -896,8 +929,8 @@ if (program.buildOnly) {
 	 */
 	var buildKeys = BRAND_ENV_DATA.keys;
 
-	if (program.platform === "ios") {
-
+	switch(program.platform) {
+	case "ios":
 		/**
 		 * build params for ios
 		 */
@@ -950,9 +983,8 @@ if (program.buildOnly) {
 		}
 		appcParams.push("--pp-uuid");
 		appcParams.push(buildKeys.provisioning_profile.replace(".mobileprovision", ""));
-
-	} else if (program.platform === "android") {
-
+		break;
+	case "android":
 		/**
 		 * build params for android
 		 */
@@ -976,8 +1008,21 @@ if (program.buildOnly) {
 		//keystore password
 		appcParams.push("--store-password");
 		appcParams.push(buildKeys.keystore_password);
+		break;
+	case "mobileweb":
+		/**
+		 * build params for mobileweb
+		 */
 
-	} else {
+		//target
+		/**
+		 * for andorid there is only
+		 * one target
+		 */
+		appcParams.push("--target");
+		appcParams.push("web");
+		break;
+	default:
 		/**
 		 * exit if paltform is invalid
 		 */

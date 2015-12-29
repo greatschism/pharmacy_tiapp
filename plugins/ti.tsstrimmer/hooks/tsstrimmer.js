@@ -23,7 +23,8 @@ function getAllStyleFilesRecursive(dir, exclude, data) {
 
 exports.init = function(logger, config, cli, nodeappc) {
 
-	var opts = config.appc.opts;
+	var opts = config.appc.opts,
+	    alloyPlatformDir = opts.platform === "ios" ? "iphone" : opts.platform;
 
 	cli.on("build.pre.compile", function(data, done) {
 		/**
@@ -40,7 +41,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 		logger.info(TAG + ": initated");
 
 		//styles dir
-		var alloyDir = path.normalize(opts.projectDir + "/Resources/" + (opts.platform === "ios" ? "iphone" : "android")) + "/alloy";
+		var alloyDir = path.normalize(opts.projectDir + "/Resources/" + alloyPlatformDir) + "/alloy";
 		/**
 		 * we don't have any UI comp
 		 * on index so it won't have any
