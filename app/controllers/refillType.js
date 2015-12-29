@@ -156,7 +156,7 @@ function didClickRefill(e) {
 	});
 	if (isInvalidRx || validRxs.length === 0) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.refillTypeValRx,Alloy.CFG.rx_length),
+			message : String.format($.strings.refillTypeValRx, Alloy.CFG.rx_length),
 			success : function() {
 				rxTxts[lastIndex].getView().focus();
 			}

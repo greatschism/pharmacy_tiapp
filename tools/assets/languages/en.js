@@ -159,8 +159,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "Sign up for text messaging",
 		"titleAddFamily" : "Add a family member",
 		"titleForgotPassword" : "User recovery",
-		"titleManageAdult":"Manage an adult",
-		"titleAddAnAdult":"Add an adult",
+		"titleManageAdult" : "Manage an adult",
+		"titleAddAnAdult" : "Add an adult",
 
 		"upgradeBtnSubmit" : "Upgrade now",
 
@@ -797,16 +797,16 @@ module.exports = {
 		"emailVerifyBtnIsntMyEmail" : "<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
 		"emailVerifyBtnResendEmail" : "Resend email",
 		"emailVerifyMsgResendEmail" : "We just sent you a new verification email. Please click the link inside to confirm your email address.",
-		
-		"registerAdultInfoLblTitle":"In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
-		"registerAdultInfoLblSubTitle":"We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
-		"registerAdultInfoBtnContinue":"Continue",
-		
-		"addAnotherAdultLblTitle":"It's time to invite your family member.",
-		"addAnotherAdultLblSubTitle":"First, tell us who they are:",
-		"addAnotherAdultBtnContinue":"Continue",
-		"addAnotherAdultAddRelationTip":"Tap to choose..."
-		
+
+		"registerAdultInfoLblTitle" : "In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
+		"registerAdultInfoLblSubTitle" : "We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
+		"registerAdultInfoBtnContinue" : "Continue",
+
+		"addAnotherAdultLblTitle" : "It's time to invite your family member.",
+		"addAnotherAdultLblSubTitle" : "First, tell us who they are:",
+		"addAnotherAdultBtnContinue" : "Continue",
+		"addAnotherAdultAddRelationTip" : "Tap to choose..."
+
 	}
 
 };
