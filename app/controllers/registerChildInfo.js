@@ -1,6 +1,6 @@
 function init(){
 	$.childInfoAttr.text=String.format($.strings.registerChildInfoAttr,$.strings.strClientName);
-	$.uihelper.getImage("info", $.infoImg);
+	$.uihelper.getImage("child", $.infoImg);
 }
 function didClickAccountExists(){
 	$.app.navigator.open({

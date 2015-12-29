@@ -159,6 +159,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "es-Sign up for text messaging",
 		"titleAddFamily" : "es-Add a family member",
 		"titleForgotPassword" : "es-User recovery",
+		"titleManageAdult":"es-Manage an adult",
+		"titleAddAnAdult":"es-Add an adult",
 
 		"upgradeBtnSubmit" : "es-Upgrade now",
 
@@ -588,8 +590,7 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "es-Same settings as account manager",
 		"accountsAgreementHIPAA" : "es-HIPAA",
 
-		//"registerLbl" : "es-Are you managing prescriptions for yourself, your child, or another adult?",
-		"registerLbl" : "es-Are you managing prescriptions for yourself or your child?",
+		"registerLbl" : "es-Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "es-Myself",
 		"registerBtnChild" : "es-My child",
 		"registerBtnAnotherAdult" : "es-Another adult",
@@ -752,12 +753,12 @@ module.exports = {
 		"familyMemberAddHintOther" : "es-Relationship",
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s?",
-		"familyMemberInviteSendTextLbl" : "es-Send text",
+		"familyMemberInviteSendTextLbl" : "es-Send a text message",
 		"familyMemberInviteModeEmail" : "es-email",
 		"familyMemberInviteModeText" : "es-text",
 		"familyMemberInviteSendEmailLbl" : "es-Send an email",
-		"familyMemberInviteHintSendText" : "es-Enter number",
-		"familyMemberInviteHintSendEmail" : "es-Enter email address",
+		"familyMemberInviteHintSendText" : "es-Enter their mobile number",
+		"familyMemberInviteHintSendEmail" : "es-Enter their email address",
 		"familyMemberInviteBtnSend" : "es-Send",
 		"familyMemberInviteBtnCancel" : "es-Cancel",
 		"familyMemberInviteValPhoneInvalid" : "es-The phone number you have entered is invalid.",
@@ -795,7 +796,16 @@ module.exports = {
 		"emailVerifyBtnContinue" : "es-Continue",
 		"emailVerifyBtnIsntMyEmail" : "es-<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
 		"emailVerifyBtnResendEmail" : "es-Resend email",
-		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address."
+		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address.",
+			
+		"registerAdultInfoLblTitle":"es-In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
+		"registerAdultInfoLblSubTitle":"es-We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
+		"registerAdultInfoBtnContinue":"es-Continue",
+		
+		"addAnotherAdultLblTitle":"es-It's time to invite your family member.",
+		"addAnotherAdultLblSubTitle":"es-First, tell us who they are:",
+		"addAnotherAdultBtnContinue":"es-Continue",
+		"addAnotherAdultAddRelationTip":"es-Tap to choose..."
 	}
 
 };
