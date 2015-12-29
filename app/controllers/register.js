@@ -14,6 +14,7 @@ function didClickChild(){
 function didClickAddAnotherAdult(){
 	$.app.navigator.open({
 		ctrl : "registerAdultInfo",
+		titleid : "titleManageAdult",
 		stack : true
 	});
 }

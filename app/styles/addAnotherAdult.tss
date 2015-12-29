@@ -1,0 +1,13 @@
+"#addAnotherAdultTitle" : {
+  text:Alloy.Globals.strings.addAnotherAdultLblTitle
+},
+"#addAnotherAdultSubTitle" : {
+  text:Alloy.Globals.strings.addAnotherAdultLblSubTitle
+},
+"#continueBtn":{
+	title:Alloy.Globals.strings.addAnotherAdultBtnContinue
+},
+"#relationshipDp" : {
+  hintText:Alloy.Globals.strings.addAnotherAdultAddRelationTip,
+  titleProperty: "code_display"
+},

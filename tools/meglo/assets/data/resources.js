@@ -406,5 +406,34 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/text_benefits.png",
 		"selected" : true
+	},{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "adult_pl",
+		"name" : "adult",
+		"format" : "png",
+		"properties" : {
+			"width" : "60%"
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/adult.png",
+		"selected" : true
+	},
+	{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "child_pl",
+		"name" : "child",
+		"format" : "png",
+		"properties" : {
+			"width" : "60%"
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://54.235.202.221:9200/nativemia/assets/images/child.png",
+		"selected" : true
 	}]
 };
