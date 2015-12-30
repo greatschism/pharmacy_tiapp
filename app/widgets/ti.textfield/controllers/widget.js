@@ -27,12 +27,8 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 		var dict = {
 			title : iconText
 		};
-		if (iconDict) {
-			_.extend(dict, iconDict);
-		}
-		if (accessibility) {
-			_.extend(dict, accessibility);
-		}
+		_.extend(dict, iconDict);
+		_.extend(dict, accessibility);
 		$[iconBtn].applyProperties(dict);
 		return true;
 	}
@@ -40,12 +36,12 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 		fontSize : 12
 	},
 	    isClearButton = enableClearButton && direction == "right";
-	$.txt[direction] = $.txt[direction] + (iconDict[direction] || 0) + font.fontSize + (padding || 0);
+	$.txt[direction] = ($.txt[direction] || 0) + (iconDict[direction] || 0) + (iconDict.width || font.fontSize || 0) + (padding || 0);
 	iconDict[direction] = 0;
-	_.extend(iconDict, {
+	_.defaults(iconDict, {
 		width : $.txt[direction],
 		font : font,
-		title : iconDict.title || iconText,
+		title : iconText,
 		sourceId : direction + "Icon",
 		visible : !isClearButton
 	});
@@ -64,24 +60,20 @@ function setButton(title, direction, buttonDict, accessibility, padding) {
 		var dict = {
 			title : title
 		};
-		if (buttonDict) {
-			_.extend(dict, buttonDict);
-		}
-		if (accessibility) {
-			_.extend(dict, accessibility);
-		}
+		_.extend(dict, buttonDict);
+		_.extend(dict, accessibility);
 		$[button].applyProperties(dict);
 		return true;
 	}
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
-	$.txt[direction] = $.txt[direction] + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
+	$.txt[direction] = ($.txt[direction] || 0) + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
 	buttonDict[direction] = 0;
-	_.extend(buttonDict, {
+	_.defaults(buttonDict, {
 		width : $.txt[direction],
 		font : font,
-		title : buttonDict.title || title,
+		title : title,
 		sourceId : direction + "Button"
 	});
 	_.extend(buttonDict, accessibility);

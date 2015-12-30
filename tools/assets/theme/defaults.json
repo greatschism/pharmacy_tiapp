@@ -434,6 +434,9 @@
 	".row-selected-bg-color-disabled": {
 		"selectedBackgroundColor": "transparent"
 	},
+	".password": {
+		"passwordMask": true
+	},
 	".autocaps-sentences": {
 		"autocapitalization": "Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES"
 	},
