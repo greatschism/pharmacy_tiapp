@@ -74,10 +74,6 @@ function didOpen(e) {
 		setRightNavButton(rightNavItem);
 	}
 
-	if (args.navBarHidden) {
-		hideNavBar();
-	}
-
 	focus();
 }
 

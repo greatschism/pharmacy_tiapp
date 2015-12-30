@@ -1,0 +1,3 @@
+"#window[if=$.args.navBarHidden]":{
+	theme: "Theme.Material.NoActionBar"
+}
