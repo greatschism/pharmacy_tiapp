@@ -1,3 +1,9 @@
 "#continueBtn":{
-	title:Alloy.Globals.strings.mgrAccountCreationBtnContinue
+	title:Alloy.Globals.strings.registerAdultInfoBtnContinue
+},
+"#registerAdultTitle":{
+	text:Alloy.Globals.strings.registerAdultInfoLblTitle
+},
+"#registerAdultSubTitle":{
+	text:Alloy.Globals.strings.registerAdultInfoLblSubTitle
 }
