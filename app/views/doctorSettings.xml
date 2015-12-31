@@ -32,7 +32,7 @@
 		<View class="margin-top content-header-view">
 			<Label id="notesLbl" class="content-header-lbl"/>
 		</View>
-		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes returnkey-done" onReturn="didClickSubmit"  />
+		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes" />
 		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
 		<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemove" if="$.args.isUpdate" />
 	</ScrollView>
