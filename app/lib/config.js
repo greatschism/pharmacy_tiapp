@@ -212,7 +212,12 @@ var Configuration = {
 		});
 		//icons notation to character
 		_.each(Alloy.CFG.iconNotations, function(val, key) {
-			Alloy.CFG.icons[key] = String.fromCharCode(val);
+			if (val > 0xFFFF) {
+				val -= 0x10000;
+				Alloy.CFG.icons[key] = String.fromCharCode(0xD800 + (val >> 10), 0xDC00 + (val & 0x3FF));
+			} else {
+				Alloy.CFG.icons[key] = String.fromCharCode(val);
+			}
 		});
 		//load TSS values from theme
 		Alloy.TSS = {
