@@ -681,6 +681,18 @@ var Helper = {
 			}
 		}
 		return height;
+	},
+
+	/**
+	 * Handle height of label when wrap is disabled
+	 * Required for iOS at least
+	 */
+	disableWrap : function(label) {
+		/**
+		 * 5 - is a extra padding around label
+		 * which makes it look better
+		 */
+		label.height = label.font.fontSize + 5;
 	}
 };
 

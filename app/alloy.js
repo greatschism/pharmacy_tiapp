@@ -24,7 +24,10 @@
 	Alloy.Globals.latestRequest = moment().unix();
 	Alloy.Globals.filterAttribute = OS_IOS ? "filterableText" : "title";
 	Alloy.Globals.isVirtualDevice = Ti.Platform.model === "Simulator" || Ti.Platform.model.indexOf("sdk") !== -1;
-	Alloy.Globals.isLollipop = OS_ANDROID && Ti.Platform.Android.API_LEVEL >= 21;
+	if (OS_ANDROID) {
+		Alloy.Globals.isLollipop = Ti.Platform.Android.API_LEVEL >= 21;
+		Alloy.Globals.softInputAdjustPan = Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN;
+	}
 
 	/**
 	 * Alloy.createModel / Alloy.createCollection can be used only when we need to get / set data in persistent storage (sqlite)

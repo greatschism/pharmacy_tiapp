@@ -1,3 +1,6 @@
 "#window[if=$.args.navBarHidden]":{
 	theme: "Theme.Material.NoActionBar"
+},
+"#window[if=$.args.softInputAdjustPan]":{
+	windowSoftInputMode: Alloy.Globals.softInputAdjustPan
 }
