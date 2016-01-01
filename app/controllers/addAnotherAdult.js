@@ -5,7 +5,6 @@ function focus() {
 	if (Alloy.Models.relationship.get("code_values")) {
 		updateInputs();
 	} else {
-		console.log("hello");
 		$.http.request({
 			method : "codes_get",
 			params : {
@@ -40,7 +39,6 @@ function didChangeRelationship() {
 }
 
 function updateInputs() {
-	console.log(relationship);
 	$.relationshipDp.setChoices(Alloy.Models.relationship.get("code_values"));
 	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
 		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
