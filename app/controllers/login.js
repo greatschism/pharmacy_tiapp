@@ -152,7 +152,7 @@ function didAuthenticate() {
 	 * if so, take the user to log in screen.
 	 */
 	else if (args.is_adult_partial && args.username === mPatient.get("email_address")) {
-		if (args.origin === "registerChildInfo") {
+		if (args.parent === "registerChildInfo") {
 			$.app.navigator.open({
 				titleid : "titleChildAdd",
 				ctrl : "childAdd",
