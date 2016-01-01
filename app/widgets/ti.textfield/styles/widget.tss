@@ -2,6 +2,8 @@
 	height: 50
 },
 "#txt":{
+	left: 0,
+	right: 0,
 	height: Ti.UI.FILL,
 	color: "#000",
 	backgroundColor: "transparent",
@@ -15,8 +17,4 @@
 "#txt[platform=ios]":{
 	paddingLeft: 8,
 	paddingRight: 8
-},
-"#txt[platform=ios,android]":{
-	left: 0,
-	right: 0
 }
