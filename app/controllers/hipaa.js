@@ -108,7 +108,7 @@ function didAcceptOrDecline(){
 	app.navigator.open({
 		titleid : "titleTextBenefits",
 		ctrl : "textBenefits",
-		stack : true
+		stack : false
 	});
 }
 

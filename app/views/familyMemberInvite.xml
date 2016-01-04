@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<ImageView id="adultImg" class="margin-top" />
 		<Label id="inviteLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
 		<Label id="sendTextLbl" class="lbl margin-top margin-bottom"/>
 		<View class="margin-top form-group">

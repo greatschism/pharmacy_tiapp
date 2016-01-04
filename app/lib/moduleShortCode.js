@@ -55,6 +55,7 @@ module.exports = {
 	"FMAS" : "FACA",
 	"FAMI" : "FACA",
 	"FMIS" : "FACA",
+	"ADAA" : "FACA",
 	/**
 	 * stores
 	 */

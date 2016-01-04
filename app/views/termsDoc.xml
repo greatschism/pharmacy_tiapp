@@ -1,5 +1,5 @@
 <Alloy>
-	<Label id="acceptedOnLbl" class="margin-top link" if="!$.args.registrationFlow"/>
+	<Label id="acceptedOnLbl" class="margin-top link-wrap" if="!$.args.registrationFlow"/>
 	<WebView id="webView" class="margin-top" />
 	<View class="auto-height vgroup bottom">
 		<Button id="revokeBtn" class="margin-top secondary-btn hide" onClick="didClickRevoke" />

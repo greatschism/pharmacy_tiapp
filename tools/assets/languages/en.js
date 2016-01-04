@@ -159,6 +159,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "Sign up for text messaging",
 		"titleAddFamily" : "Add a family member",
 		"titleForgotPassword" : "User recovery",
+		"titleManageAdult" : "Manage an adult",
+		"titleAddAnAdult" : "Add an adult",
 
 		"upgradeBtnSubmit" : "Upgrade now",
 
@@ -370,7 +372,7 @@ module.exports = {
 		"refillTypeHintPhone" : "Mobile number",
 		"refillTypeLblStoreTitle" : "No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "Click here to choose one",
-		"refillTypeValRx" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"refillTypeValRx" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"refillTypeValStore" : "Please choose a pharmacy for pickup",
 		"refillTypeValPhone" : "Please enter your mobile number to continue.",
 		"refillTypeValPhoneInvalid" : "The mobile number you have entered is invalid.",
@@ -588,8 +590,7 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 
-		//"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
-		"registerLbl" : "Are you managing prescriptions for yourself or your child?",
+		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",
 		"registerBtnChild" : "My child",
 		"registerBtnAnotherAdult" : "Another adult",
@@ -613,7 +614,7 @@ module.exports = {
 		"registerValPassword" : "Please enter your password.",
 		"registerValPasswordInvalid" : "Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number. Please try again.",
 		"registerValRxNo" : "Please enter your Rx number.",
-		"registerValRxInvalid" : "Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"registerValRxInvalid" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"registerValStore" : "Please select a pharmacy.",
 		"registerSectionTermsDocuments" : "Documents",
 		"registerBtnTermsDone" : "Done",
@@ -752,12 +753,12 @@ module.exports = {
 		"familyMemberAddHintOther" : "Relationship",
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s?",
-		"familyMemberInviteSendTextLbl" : "Send text",
+		"familyMemberInviteSendTextLbl" : "Send a text message",
 		"familyMemberInviteModeEmail" : "email",
 		"familyMemberInviteModeText" : "text",
 		"familyMemberInviteSendEmailLbl" : "Send an email",
-		"familyMemberInviteHintSendText" : "Enter number",
-		"familyMemberInviteHintSendEmail" : "Enter email address",
+		"familyMemberInviteHintSendText" : "Enter their mobile number",
+		"familyMemberInviteHintSendEmail" : "Enter their email address",
 		"familyMemberInviteBtnSend" : "Send",
 		"familyMemberInviteBtnCancel" : "Cancel",
 		"familyMemberInviteValPhoneInvalid" : "The phone number you have entered is invalid.",
@@ -795,7 +796,17 @@ module.exports = {
 		"emailVerifyBtnContinue" : "Continue",
 		"emailVerifyBtnIsntMyEmail" : "<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
 		"emailVerifyBtnResendEmail" : "Resend email",
-		"emailVerifyMsgResendEmail" : "We just sent you a new verification email. Please click the link inside to confirm your email address."
+		"emailVerifyMsgResendEmail" : "We just sent you a new verification email. Please click the link inside to confirm your email address.",
+
+		"registerAdultInfoLblTitle" : "In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
+		"registerAdultInfoLblSubTitle" : "We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
+		"registerAdultInfoBtnContinue" : "Continue",
+
+		"addAnotherAdultLblTitle" : "It's time to invite your family member.",
+		"addAnotherAdultLblSubTitle" : "First, tell us who they are:",
+		"addAnotherAdultBtnContinue" : "Continue",
+		"addAnotherAdultAddRelationTip" : "Tap to choose..."
+
 	}
 
 };

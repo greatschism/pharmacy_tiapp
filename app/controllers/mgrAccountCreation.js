@@ -4,6 +4,7 @@ var moment = require("alloy/moment"),
 	title : Alloy.Globals.strings.strShow,
 }),
     passwordContainerViewFromTop = 0;
+    var args= arguments[0]||{};
 
 function init() {
 	/**
@@ -156,7 +157,8 @@ function didRegister() {
 				ctrlArguments : {
 					username : $.emailTxt.getValue(),
 					password : $.passwordTxt.getValue(),
-					is_adult_partial : true
+					is_adult_partial : true,
+					parent: args.origin === "registerChildInfo" ? "registerChildInfo"  : "registerAdultInfo"
 				},
 				stack : false
 			});
