@@ -379,6 +379,8 @@ function didGetPreferences(result, passthrough) {
 			//no revert is passed, just point to manager session id which is already selected
 			Alloy.Globals.sessionId = mPatient.get("session_id");
 		}
+		//hide loader
+		app.navigator.hideLoader();
 		/**
 		 * check whether this is a
 		 * explicit request from other
@@ -393,8 +395,6 @@ function didGetPreferences(result, passthrough) {
 		if (passthrough.explicit) {
 			//unset flag
 			delete passthrough.explicit;
-			//hide loader
-			app.navigator.hideLoader();
 			//trigger reset for patient switcher
 			Alloy.Collections.patients.trigger("reset");
 			/**
@@ -408,52 +408,65 @@ function didGetPreferences(result, passthrough) {
 			/**
 			 * update device token
 			 */
-			setDefaultDevice(passthrough);
+			notificationHandler.init(function didReady(deviceToken) {
+				/**
+				 * ask user if he wants to update device token,
+				 * receive push notifications on this new device
+				 */
+				if (!Alloy.Globals.isVirtualDevice && mPatient.get("device_token") !== deviceToken) {
+					uihelper.showDialog({
+						message : Alloy.Globals.strings.msgUpdateDeviceConfirm,
+						buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+						cancelIndex : 1,
+						success : function didConfirmDevice() {
+							setDefaultDevice(passthrough);
+						},
+						cancel : function didNotConfirmDevice() {
+							initiateTimeZoneCheck(passthrough);
+						}
+					});
+				} else {
+					//if it is same device, proceed further
+					initiateTimeZoneCheck(passthrough);
+				}
+			});
 		}
 	}
 }
 
 function setDefaultDevice(passthrough) {
-	notificationHandler.init(function didReady(deviceToken) {
-		if (deviceToken) {
-			/**
-			 * if valid update it
-			 * authenticate is already
-			 * done, so don't let update
-			 * default device fail
-			 */
-			http.request({
-				method : "patient_default_device",
-				params : {
-					data : [{
-						device : {
-							deviceType : Ti.Platform.osname,
-							deviceId : deviceToken
-						}
-					}]
-				},
-				passthrough : passthrough,
-				success : didSetDefaultDevice,
-				failure : didFail
-			});
-		} else {
-			//hide loader
-			app.navigator.hideLoader();
-			//failure case
-			didNotSetDefaultDevice(passthrough);
-		}
-	});
-}
-
-function getUpdatedReminderDeliveryModes(mode) {
-	var mPatient = Alloy.Collections.patients.at(0),
-	    preferences = {};
-	_.each(_.pluck(Alloy.CFG.reminders, "col_pref"), function(val) {
-		if (mPatient.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
-			preferences[val] = mode;
-		}
-	});
-	return preferences;
+	/**
+	 * on iOS if user declined for push permission,
+	 * it won't have the device id
+	 */
+	if (OS_IOS && !notificationHandler.deviceToken) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
+			buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
+			cancelIndex : 1,
+			success : function didConfirmDevice() {
+				setDefaultDevice(passthrough);
+			},
+			cancel : function didNotConfirmDevice() {
+				initiateTimeZoneCheck(passthrough);
+			}
+		});
+	} else {
+		http.request({
+			method : "patient_default_device",
+			params : {
+				data : [{
+					device : {
+						deviceType : Ti.Platform.osname,
+						deviceId : notificationHandler.deviceToken
+					}
+				}]
+			},
+			passthrough : passthrough,
+			success : didSetDefaultDevice,
+			failure : didFail
+		});
+	}
 }
 
 function didSetDefaultDevice(result, passthrough) {
@@ -463,18 +476,14 @@ function didSetDefaultDevice(result, passthrough) {
 	 * if then update it to valid one, as set
 	 * default device is success
 	 */
-	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.apiCodes.reminder_delivery_mode_push);
-	initiateTimeZoneCheck(passthrough);
-}
-
-function didNotSetDefaultDevice(passthrough) {
-	/**
-	 * check whether any of the reminder mode
-	 * is invalid to the current platform,
-	 * if then update it to none, as set
-	 * default device is failed
-	 */
-	passthrough.preferences = getUpdatedReminderDeliveryModes(Alloy.CFG.apiCodes.reminder_delivery_mode_none);
+	var mPatient = Alloy.Collections.patients.at(0),
+	    preferences = {};
+	_.each(_.pluck(Alloy.CFG.reminders, "col_pref"), function(val) {
+		if (mPatient.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
+			preferences[val] = mode;
+		}
+	});
+	passthrough.preferences = preferences;
 	initiateTimeZoneCheck(passthrough);
 }
 
