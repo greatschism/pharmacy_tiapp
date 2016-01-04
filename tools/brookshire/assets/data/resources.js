@@ -406,7 +406,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/text_benefits.png",
 		"selected" : true
-	},{
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -420,7 +420,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://54.235.202.221:9200/nativemia/assets/images/adult.png",
 		"selected" : true
-	},{
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
