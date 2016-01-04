@@ -51,18 +51,24 @@ var Helper = {
 	 */
 	getLocation : function(callback, forceUpdate, errorDialogEnabled) {
 
-		if (forceUpdate !== true && !_.isEmpty(Helper.userLocation) && moment().diff(Helper.userLocation.timestamp) < Alloy.CFG.location_timeout) {
-			Helper.fireLocationCallback(callback, Helper.userLocation);
-			return;
-		}
-
+		//must check whether service is enabled
 		if (!Ti.Geolocation.locationServicesEnabled) {
+			/**
+			 * clear cached location when
+			 * location service is turned off
+			 */
+			Helper.userLocation = {};
 			if (errorDialogEnabled !== false) {
 				Helper.showDialog({
 					message : Alloy.Globals.strings.msgGeoAuthorizationRestricted
 				});
 			}
 			return Helper.fireLocationCallback(callback);
+		}
+
+		if (forceUpdate !== true && !_.isEmpty(Helper.userLocation) && moment().diff(Helper.userLocation.timestamp) < Alloy.CFG.location_timeout) {
+			Helper.fireLocationCallback(callback, Helper.userLocation);
+			return;
 		}
 
 		if (OS_IOS) {
