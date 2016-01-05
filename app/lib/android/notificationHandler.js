@@ -3,6 +3,7 @@ var TAG = "NOHA",
     notificationPanel = require("notificationPanel"),
     TiPush = require("ti.push"),
     logger = require("logger"),
+    isVirtualDevice = Ti.Platform.model.indexOf("sdk") !== -1,
     isBusy = false,
     deviceTokenCallback,
     deviceToken;
@@ -10,7 +11,7 @@ var TAG = "NOHA",
 TiPush.addEventListener("callback", didReceivePush);
 
 function init(callback) {
-	if (deviceToken || !isGooglePlayServicesAvailable() || Alloy.Globals.isVirtualDevice) {
+	if (deviceToken || !isGooglePlayServicesAvailable() || isVirtualDevice) {
 		if (callback) {
 			callback(deviceToken);
 		}
@@ -82,7 +83,7 @@ Object.defineProperty(exports, "deviceId", {
 
 Object.defineProperty(exports, "deviceToken", {
 	get : function() {
-		return deviceToken;
+		return isVirtualDevice ? "VIRTUAL_DEVICE" : deviceToken;
 	}
 });
 
