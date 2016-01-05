@@ -1,6 +1,6 @@
 <Alloy>
 	<View class="vgroup">
-		<Label id="addAnotherAdultTitle" class="lbl-centered margin-top margin-bottom"/>
+		<Label id="addAnotherAdultTitle" class="lbl-centered-wrap margin-top margin-bottom"/>
 		<Label id="addAnotherAdultSubTitle" class="lbl-centered margin-top margin-bottom"/>
 		<View class="margin-top form-group">
 			<Widget id="relationshipDp" src="ti.dropdown" class="form-dropdown" onReturn="didChangeRelationship"/>
