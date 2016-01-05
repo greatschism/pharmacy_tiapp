@@ -6,16 +6,15 @@ var Configuration = {
 
 	init : function(config) {
 
-		var resources = require("resources");
+		if (!ENV_PROD) {
+			return [];
+		}
 
 		/**
 		 * initialization
 		 */
-		if (Alloy.CFG.override_remote_resources === true || !ENV_PROD) {
-			return [];
-		}
-
-		var data = [];
+		var resources = require("resources"),
+		    data = [];
 		_.each(["theme", "template", "menu", "language", "fonts", "images"], function(val, key) {
 			if (_.has(config, val)) {
 				var obj = config[val];

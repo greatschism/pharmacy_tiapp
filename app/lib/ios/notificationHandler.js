@@ -2,6 +2,7 @@ var TAG = "NOHA",
     Alloy = require("alloy"),
     notificationPanel = require("notificationPanel"),
     logger = require("logger"),
+    isVirtualDevice = Ti.Platform.model === "Simulator",
     isIOS8 = checkVersion(8),
     isBusy = false,
     deviceTokenCallback,
@@ -17,7 +18,7 @@ function checkVersion(thatVersion) {
 }
 
 function init(callback) {
-	if (deviceToken || Alloy.Globals.isVirtualDevice) {
+	if (deviceToken || isVirtualDevice) {
 		if (callback) {
 			callback(deviceToken);
 		}
@@ -83,7 +84,7 @@ Object.defineProperty(exports, "deviceId", {
 
 Object.defineProperty(exports, "deviceToken", {
 	get : function() {
-		return deviceToken;
+		return isVirtualDevice ? "VIRTUAL_DEVICE" : deviceToken;
 	}
 });
 
