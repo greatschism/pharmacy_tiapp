@@ -119,9 +119,12 @@ function didSuccess(result, passthrough) {
 	if (result.code !== Alloy.CFG.apiCodes.success) {
 		/**
 		 * handle session timeout
-		 * ignore it if logout
+		 * ignore if method is logout
+		 * Note: check for isLoggedIn flag
+		 * to avoid session timeout dialog while
+		 * authenticator is in progress
 		 */
-		if (result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
+		if (Alloy.Globals.isLoggedIn && result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
 			hideLoader(passthrough, true);
 			logger.error(TAG, "failure", passthrough.params.feature_code, "session time out");
 			return sessionTimeout(result.message);
