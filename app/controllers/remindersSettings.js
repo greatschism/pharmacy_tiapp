@@ -202,13 +202,11 @@ function didClickDeliveryMode(e) {
 	 */
 	var mPatient = $.patientSwitcher.get();
 	switch(data.value) {
-	case apiCodes.reminder_delivery_mode_push:
-		if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
-			$.uihelper.showDialog({
-				message : $.strings.remindersSettingsMsgPushDisabled
-			});
-		}
-		break;
+	/**
+	 * reminder_delivery_mode_push
+	 * device push settings are validated as
+	 * part of update preferences
+	 */
 	case apiCodes.reminder_delivery_mode_email:
 		if (!isEmailSent && mPatient.get("is_email_verified") !== "1") {
 			$.http.request({
