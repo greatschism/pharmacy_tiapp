@@ -417,31 +417,7 @@ function didGetPreferences(result, passthrough) {
 				var deliveryMode = mPatient.get(val);
 				return deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push || deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid;
 			})) {
-				//if push is enabled then verify device token
-				notificationHandler.init(function didReady(deviceToken) {
-					/**
-					 * ask user if he wants to update device token,
-					 * receive push notifications on this new device
-					 */
-					if (mPatient.get("device_token") !== deviceToken) {
-						//hide loader
-						app.navigator.hideLoader();
-						//prompt now
-						uihelper.showDialog({
-							message : Alloy.Globals.strings.msgUpdateDeviceConfirm,
-							buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
-							cancelIndex : 1,
-							success : function didConfirmDevice() {
-								setDefaultDeviceForManager(passthrough);
-							},
-							cancel : function didNotConfirmDevice() {
-								initiateTimeZoneCheck(passthrough);
-							}
-						});
-					} else {
-						initiateTimeZoneCheck(passthrough);
-					}
-				});
+				setDefaultDeviceForManager(passthrough);
 			} else {
 				//if push is not enabled, then move further
 				initiateTimeZoneCheck(passthrough);
@@ -452,10 +428,15 @@ function didGetPreferences(result, passthrough) {
 
 function setDefaultDeviceForManager(passthrough) {
 	/**
-	 * on iOS if user declined for push permission,
-	 * it won't have the device id
+	 * when the below statement is true,
+	 * (remote notifications are disabled)
+	 * notification register callback will
+	 * never be fired.
 	 */
-	if (OS_IOS && !notificationHandler.deviceToken) {
+	if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
+		//hide loader
+		app.navigator.hideLoader();
+		//prompt
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
 			buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
@@ -468,20 +449,45 @@ function setDefaultDeviceForManager(passthrough) {
 			}
 		});
 	} else {
-		http.request({
-			method : "patient_default_device",
-			params : {
-				data : [{
-					device : {
-						deviceType : Ti.Platform.osname,
-						deviceId : notificationHandler.deviceToken
+		//if push is enabled then verify device token
+		notificationHandler.init(function didReady(deviceToken) {
+			/**
+			 * ask user if he wants to update device token,
+			 * receive push notifications on this new device
+			 */
+			var oldDeviceToken = Alloy.Collections.patients.at(0).get("device_token");
+			if (oldDeviceToken !== deviceToken) {
+				//hide loader
+				app.navigator.hideLoader();
+				//prompt
+				uihelper.showDialog({
+					message : Alloy.Globals.strings[ oldDeviceToken ? "msgUpdateDeviceConfirm" : "msgAddDeviceConfirm"],
+					buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+					cancelIndex : 1,
+					success : function didConfirmDevice() {
+						http.request({
+							method : "patient_default_device",
+							params : {
+								data : [{
+									device : {
+										deviceType : Ti.Platform.osname,
+										deviceId : deviceToken
+									}
+								}]
+							},
+							passthrough : passthrough,
+							keepLoader : true,
+							success : didSetDefaultDeviceForManager,
+							failure : didFail
+						});
+					},
+					cancel : function didNotConfirmDevice() {
+						initiateTimeZoneCheck(passthrough);
 					}
-				}]
-			},
-			passthrough : passthrough,
-			keepLoader : true,
-			success : didSetDefaultDeviceForManager,
-			failure : didFail
+				});
+			} else {
+				initiateTimeZoneCheck(passthrough);
+			}
 		});
 	}
 }
@@ -616,10 +622,10 @@ function updatePreferences(params, passthrough) {
 	 */
 	var isTextActive = false,
 	    isPushEnabled = false,
-	    currentPatient = Alloy.Collections.patients.findWhere({
+	    sModel = Alloy.Collections.patients.findWhere({
 		selected : true
 	}),
-	    preferences = currentPatient.pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "email_msg_active", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
+	    preferences = sModel.pick(["doctor_appointment_reminder_flag", "med_reminder_flag", "app_reminder_flag", "onphone_reminder_duration_in_days", "rx_refill_duration_in_days", "refill_reminder_flag", "show_rx_names_flag", "pref_timezone", "pref_language", "pref_prescription_sort_order", "hide_expired_prescriptions", "hide_zero_refill_prescriptions", "email_msg_active", "doctor_reminder_dlvry_mode", "med_reminder_dlvry_mode", "app_reminder_dlvry_mode", "refill_reminder_dlvry_mode", "health_info_reminder_dlvry_mode", "promotion_deals_reminder_mode"]);
 	//update flags used by reminder jobs - PHA-1584
 	_.each(Alloy.CFG.reminders, function(reminder, index) {
 		/**
@@ -645,7 +651,13 @@ function updatePreferences(params, passthrough) {
 		//PHA-1791
 		if (deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_text) {
 			isTextActive = true;
-		} else if (deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push || deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
+		}
+		/**
+		 * verify device token only if the update
+		 * request has the push mode enabled for
+		 * any of the reminder
+		 */
+		if (params[reminder.col_pref] === Alloy.CFG.apiCodes.reminder_delivery_mode_push || params[reminder.col_pref] === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
 			/**
 			 * it can be invalid push mode if current platform
 			 * is different form previous one
@@ -658,42 +670,26 @@ function updatePreferences(params, passthrough) {
 	//extend updated values
 	_.extend(preferences, params);
 	//extend passthrough for params
-	passthrough.params = params;
+	_.extend(passthrough, {
+		params : params,
+		preferences : preferences
+	});
 	/**
 	 * verify whether server has right device token
+	 * only when this is a external call, when internal
+	 * it would have been checked for manager account
+	 * before time zone check
 	 */
-	if (isPushEnabled) {
-		notificationHandler.init(function didReady(deviceToken) {
-			/**
-			 * ask user if he wants to update device token,
-			 * receive push notifications on this new device
-			 * Note: here device_token verified for current patient,
-			 * while login it is only for manager account
-			 */
-			if (currentPatient.get("device_token") !== deviceToken) {
-				//prompt now
-				uihelper.showDialog({
-					message : Alloy.Globals.strings.msgUpdateDeviceConfirm,
-					buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
-					cancelIndex : 1,
-					success : function didConfirmDevice() {
-						passthrough.preferences = preferences;
-						setDefaultDevice(passthrough);
-					},
-					cancel : function didNotConfirmDevice() {
-						updatePreferencesApi(preferences, passthrough);
-					}
-				});
-			} else {
-				updatePreferencesApi(preferences, passthrough);
-			}
-		});
+	if (passthrough.explicit !== false && isPushEnabled) {
+		setDefaultDevice(passthrough);
 	} else {
-		updatePreferencesApi(preferences, passthrough);
+		updatePreferencesApi(passthrough);
 	}
 }
 
-function updatePreferencesApi(preferences, passthrough) {
+function updatePreferencesApi(passthrough) {
+	var preferences = passthrough.preferences;
+	delete passthrough.preferences;
 	//api call
 	http.request({
 		method : "patient_preferences_update",
@@ -782,11 +778,7 @@ function completeAuthentication(passthrough) {
 }
 
 function setDefaultDevice(passthrough) {
-	/**
-	 * on iOS if user declined for push permission,
-	 * it won't have the device id
-	 */
-	if (OS_IOS && !notificationHandler.deviceToken) {
+	if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
 			buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
@@ -795,36 +787,60 @@ function setDefaultDevice(passthrough) {
 				setDefaultDevice(passthrough);
 			},
 			cancel : function didNotConfirmDevice() {
-				var preferences = passthrough.preferences;
-				delete passthrough.preferences;
-				updatePreferencesApi(preferences, passthrough);
+				updatePreferencesApi(passthrough);
 			}
 		});
 	} else {
-		http.request({
-			method : "patient_default_device",
-			params : {
-				data : [{
-					device : {
-						deviceType : Ti.Platform.osname,
-						deviceId : notificationHandler.deviceToken
+		notificationHandler.init(function didReady(deviceToken) {
+			/**
+			 * ask user if he wants to update device token,
+			 * receive push notifications on this new device
+			 * Note: here device_token verified for current patient,
+			 * while login it is only for manager account
+			 */
+			var oldDeviceToken = Alloy.Collections.patients.findWhere({
+				selected : true
+			}).get("device_token");
+			if (oldDeviceToken !== deviceToken) {
+				//prompt now
+				uihelper.showDialog({
+					message : Alloy.Globals.strings[ oldDeviceToken ? "msgUpdateDeviceConfirm" : "msgAddDeviceConfirm"],
+					buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+					cancelIndex : 1,
+					success : function didConfirmDevice() {
+						http.request({
+							method : "patient_default_device",
+							params : {
+								data : [{
+									device : {
+										deviceType : Ti.Platform.osname,
+										deviceId : deviceToken
+									}
+								}]
+							},
+							passthrough : passthrough,
+							keepLoader : true,
+							success : didSetDefaultDevice,
+							failure : passthrough.explicit !== false ? passthrough.failure : didFail
+						});
+					},
+					cancel : function didNotConfirmDevice() {
+						updatePreferencesApi(passthrough);
 					}
-				}]
-			},
-			passthrough : passthrough,
-			keepLoader : true,
-			success : didSetDefaultDevice,
-			failure : passthrough.explicit !== false ? passthrough.failure : didFail
+				});
+			} else {
+				updatePreferencesApi(passthrough);
+			}
 		});
 	}
 }
 
 function didSetDefaultDevice(result, passthrough) {
-	var currentPatient = Alloy.Collections.patients.findWhere({
+	var sModel = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
 	//update local cache
-	currentPatient.set("device_token", notificationHandler.deviceToken);
+	sModel.set("device_token", notificationHandler.deviceToken);
 	/**
 	 * check whether any of the reminder mode
 	 * is invalid to the current platform,
@@ -837,14 +853,13 @@ function didSetDefaultDevice(result, passthrough) {
 	 */
 	var params = passthrough.params,
 	    preferences = passthrough.preferences;
-	delete passthrough.preferences;
 	_.each(_.pluck(Alloy.CFG.reminders, "col_pref"), function(val) {
-		if (currentPatient.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
+		if (sModel.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
 			params[val] = preferences[val] = Alloy.CFG.apiCodes.reminder_delivery_mode_push;
 		}
 	});
 	//call api
-	updatePreferencesApi(preferences, passthrough);
+	updatePreferencesApi(passthrough);
 }
 
 function hasMandatoryNavigation(mPatient) {
