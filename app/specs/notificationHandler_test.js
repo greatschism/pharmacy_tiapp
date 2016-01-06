@@ -12,9 +12,7 @@ describe("NotificationHandler Test Suite", function() {
 		 */
 		Alloy.Models.appload.set("gcmproject_id", "756245245050");
 		notificationHandler.init(function(deviceToken) {
-			if (!Alloy.Globals.isVirtualDevice) {
-				deviceToken.should.be.an.instanceof(String);
-			}
+			deviceToken.should.be.an.instanceof(String);
 			done();
 		});
 	});
