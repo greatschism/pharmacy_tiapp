@@ -488,7 +488,7 @@ function setDefaultDeviceForManagerApi(passthrough) {
 			data : [{
 				device : {
 					deviceType : Ti.Platform.osname,
-					deviceId : deviceToken
+					deviceId : notificationHandler.deviceToken
 				}
 			}]
 		},
@@ -838,7 +838,7 @@ function setDefaultDeviceApi(passthrough) {
 			data : [{
 				device : {
 					deviceType : Ti.Platform.osname,
-					deviceId : deviceToken
+					deviceId : notificationHandler.deviceToken
 				}
 			}]
 		},
