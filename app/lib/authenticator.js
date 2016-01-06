@@ -456,30 +456,19 @@ function setDefaultDeviceForManager(passthrough) {
 			 * receive push notifications on this new device
 			 */
 			var oldDeviceToken = Alloy.Collections.patients.at(0).get("device_token");
-			if (oldDeviceToken !== deviceToken) {
+			//if no device is set already, proceed without alert
+			if (!oldDeviceToken) {
+				setDefaultDeviceForManagerApi(passthrough);
+			} else if (oldDeviceToken !== deviceToken) {
 				//hide loader
 				app.navigator.hideLoader();
 				//prompt
 				uihelper.showDialog({
-					message : Alloy.Globals.strings[ oldDeviceToken ? "msgUpdateDeviceConfirm" : "msgAddDeviceConfirm"],
+					message : Alloy.Globals.strings.msgUpdateDeviceConfirm,
 					buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 					cancelIndex : 1,
 					success : function didConfirmDevice() {
-						http.request({
-							method : "patient_default_device",
-							params : {
-								data : [{
-									device : {
-										deviceType : Ti.Platform.osname,
-										deviceId : deviceToken
-									}
-								}]
-							},
-							passthrough : passthrough,
-							keepLoader : true,
-							success : didSetDefaultDeviceForManager,
-							failure : didFail
-						});
+						setDefaultDeviceForManagerApi(passthrough);
 					},
 					cancel : function didNotConfirmDevice() {
 						initiateTimeZoneCheck(passthrough);
@@ -490,6 +479,24 @@ function setDefaultDeviceForManager(passthrough) {
 			}
 		});
 	}
+}
+
+function setDefaultDeviceForManagerApi(passthrough) {
+	http.request({
+		method : "patient_default_device",
+		params : {
+			data : [{
+				device : {
+					deviceType : Ti.Platform.osname,
+					deviceId : deviceToken
+				}
+			}]
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		success : didSetDefaultDeviceForManager,
+		failure : didFail
+	});
 }
 
 function didSetDefaultDeviceForManager(result, passthrough) {
@@ -767,8 +774,8 @@ function completeAuthentication(passthrough) {
 	 * to be visited after successful login
 	 * i.e HIPAA or email verification etc.,
 	 * if none, pass false to the success callback
-	 * so the callback will initate a navigation
-	 * i.e a module if user initated login screen
+	 * so the callback will initiate a navigation
+	 * i.e a module if user initiated login screen
 	 * from hamburger or landing page
 	 */
 	var navigationHandled = hasMandatoryNavigation();
@@ -801,28 +808,17 @@ function setDefaultDevice(passthrough) {
 			var oldDeviceToken = Alloy.Collections.patients.findWhere({
 				selected : true
 			}).get("device_token");
-			if (oldDeviceToken !== deviceToken) {
+			//if no device is set already, proceed without alert
+			if (!oldDeviceToken) {
+				setDefaultDeviceApi(passthrough);
+			} else if (oldDeviceToken !== deviceToken) {
 				//prompt now
 				uihelper.showDialog({
-					message : Alloy.Globals.strings[ oldDeviceToken ? "msgUpdateDeviceConfirm" : "msgAddDeviceConfirm"],
+					message : Alloy.Globals.strings.msgUpdateDeviceConfirm,
 					buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
 					cancelIndex : 1,
 					success : function didConfirmDevice() {
-						http.request({
-							method : "patient_default_device",
-							params : {
-								data : [{
-									device : {
-										deviceType : Ti.Platform.osname,
-										deviceId : deviceToken
-									}
-								}]
-							},
-							passthrough : passthrough,
-							keepLoader : true,
-							success : didSetDefaultDevice,
-							failure : passthrough.explicit !== false ? passthrough.failure : didFail
-						});
+						setDefaultDeviceApi(passthrough);
 					},
 					cancel : function didNotConfirmDevice() {
 						updatePreferencesApi(passthrough);
@@ -833,6 +829,24 @@ function setDefaultDevice(passthrough) {
 			}
 		});
 	}
+}
+
+function setDefaultDeviceApi(passthrough) {
+	http.request({
+		method : "patient_default_device",
+		params : {
+			data : [{
+				device : {
+					deviceType : Ti.Platform.osname,
+					deviceId : deviceToken
+				}
+			}]
+		},
+		passthrough : passthrough,
+		keepLoader : true,
+		success : didSetDefaultDevice,
+		failure : passthrough.explicit !== false ? passthrough.failure : didFail
+	});
 }
 
 function didSetDefaultDevice(result, passthrough) {
