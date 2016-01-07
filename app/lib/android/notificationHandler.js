@@ -5,8 +5,13 @@ var TAG = "NOHA",
     logger = require("logger"),
     isVirtualDevice = Ti.Platform.model.indexOf("sdk") !== -1,
     isBusy = false,
-    deviceTokenCallback,
-    deviceToken;
+    deviceToken,
+    deviceTokenCallback;
+
+//return a default token on virutal device
+if (isVirtualDevice) {
+	deviceToken = "dpaQ1cP16SQ:APA91bGx1dD9KvAcafGKg5BaTNYg3m0iTyNj6C95LX8nJvLC2OgSE7rRmbRVC9FbqPl7IF4ExFgxWwWcNBWSYYy6CaMWVDRalU-ifmHs6Ma1qJosTvfL8Ubwou0CsIVpK0HRxNm8Fufk";
+}
 
 TiPush.addEventListener("callback", didReceivePush);
 
@@ -83,7 +88,7 @@ Object.defineProperty(exports, "deviceId", {
 
 Object.defineProperty(exports, "deviceToken", {
 	get : function() {
-		return isVirtualDevice ? "VIRTUAL_DEVICE" : deviceToken;
+		return deviceToken;
 	}
 });
 

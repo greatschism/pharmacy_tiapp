@@ -13,7 +13,7 @@ function init() {
 	//get options array ready
 	options = [{
 		title : $.strings.strDeliveryModePush,
-		value : apiCodes.reminder_delivery_mode_push,
+		value : authenticator.getPushModeForDeviceToken(),
 		selected : false
 	}, {
 		title : $.strings.strDeliveryModeEmail,

@@ -446,7 +446,7 @@ function didSetRefillReminder(result, passthrough) {
 					 * already at authenticator while login
 					 */
 					var params = {};
-					params[colName] = apiCodes.reminder_delivery_mode_push;
+					params[colName] = authenticator.getPushModeForDeviceToken();
 					authenticator.updatePreferences(params, {});
 				}
 			});
