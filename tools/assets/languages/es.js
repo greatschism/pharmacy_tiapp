@@ -76,7 +76,7 @@ module.exports = {
 		"msgGalleryInvalid" : "es-We cannot reach your selected image gallery; please take a photo instead.",
 		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
 		"msgPushNotificationsAuthorizationDenied" : "es-You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
-		"msgUpdateDeviceConfirm" : "es-We've noticed you're signing into a different device than you normally do. Would you like us to make this new one your primary device? This means you'll receive all your push notifications here instead of your old device.",
+		"msgUpdateDeviceConfirm" : "es-We've noticed you're using a different device than you normally do. Would you like us to make this new one your primary device? This means you'll receive all your push notifications here instead of your old device.",
 		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
 		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgSessionTimeout" : "es-Your session has expired. Please re-login to access the application.",

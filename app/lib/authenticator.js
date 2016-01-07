@@ -868,12 +868,28 @@ function didSetDefaultDevice(result, passthrough) {
 	var params = passthrough.params,
 	    preferences = passthrough.preferences;
 	_.each(_.pluck(Alloy.CFG.reminders, "col_pref"), function(val) {
-		if (sModel.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
+		if (params[val] === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid || sModel.get(val) === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid) {
 			params[val] = preferences[val] = Alloy.CFG.apiCodes.reminder_delivery_mode_push;
 		}
 	});
 	//call api
 	updatePreferencesApi(passthrough);
+}
+
+function getPushModeForDeviceToken() {
+	var deviceToken = Alloy.Collections.patients.findWhere({
+		selected : true
+	}).get("device_token");
+	if (!deviceToken) {
+		//if device token on server is null, then set it to current paltform
+		return Alloy.CFG.apiCodes.reminder_delivery_mode_push;
+	} else if (deviceToken.length === 64) {
+		//if valid and 64 chars length, set it to iospush
+		return Alloy.CFG.apiCodes.reminder_delivery_mode_push_ios;
+	} else {
+		//if none above it should be android
+		return Alloy.CFG.apiCodes.reminder_delivery_mode_push_android;
+	}
 }
 
 function hasMandatoryNavigation(mPatient) {
@@ -1172,3 +1188,4 @@ exports.updatePreferences = updatePreferences;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
+exports.getPushModeForDeviceToken = getPushModeForDeviceToken;

@@ -5,8 +5,13 @@ var TAG = "NOHA",
     isVirtualDevice = Ti.Platform.model === "Simulator",
     isIOS8 = checkVersion(8),
     isBusy = false,
-    deviceTokenCallback,
-    deviceToken;
+    deviceToken,
+    deviceTokenCallback;
+
+//return a default token on virutal device
+if (isVirtualDevice) {
+	deviceToken = "89bf96e7496498742cce9c45dd994c7e61e10df87169564590e10060078f5136";
+}
 
 function checkVersion(thatVersion) {
 	var version = Ti.Platform.version.split("."),
@@ -84,7 +89,7 @@ Object.defineProperty(exports, "deviceId", {
 
 Object.defineProperty(exports, "deviceToken", {
 	get : function() {
-		return isVirtualDevice ? "VIRTUAL_DEVICE" : deviceToken;
+		return deviceToken;
 	}
 });
 
