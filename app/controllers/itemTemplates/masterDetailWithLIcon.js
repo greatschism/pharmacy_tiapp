@@ -23,6 +23,9 @@ var args = arguments[0] || {};
 		}
 		$.leftIconLbl.applyProperties(iDict);
 	}
+	$.contentView.left = $.leftIconLbl.left + $.leftIconLbl.font.fontSize + $.createStyle({
+		classes : ["margin-left-medium"]
+	}).left;
 	if (args.filterText) {
 		rDict[Alloy.Globals.filterAttribute] = args.filterText;
 	}

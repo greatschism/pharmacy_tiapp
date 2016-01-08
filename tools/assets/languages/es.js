@@ -199,6 +199,7 @@ module.exports = {
 		"homeDialogBtnSubmit" : "es-Submit",
 		"homeDialogBtnCancel" : "es-No Thanks",
 		"homeDialogValFeedback" : "es-Please enter your feedback.",
+		"homeMsgFeedbackSubmitted" : "es-Thanks you! Your feedback is extremely valuable to us and we will use it to improve the app.",
 
 		"loginLblTitle" : "es-Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "es-Email address",
@@ -365,7 +366,7 @@ module.exports = {
 		"refillPhoneValPhone" : "es-Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
-		"refillTypeLblTitle" : "es-Refill prescriptions without an account",
+		"refillTypeLblTitle" : "es-Refill prescriptions\nwithout an account",
 		"refillTypeLblDesc" : "es-Please enter the information below so we can process your refill.",
 		"refillTypeSectionPresc" : "es-Your order",
 		"refillTypeSectionPickup" : "es-Pharmacy where you filled this last",

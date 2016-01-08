@@ -199,6 +199,7 @@ module.exports = {
 		"homeDialogBtnSubmit" : "Submit",
 		"homeDialogBtnCancel" : "No Thanks",
 		"homeDialogValFeedback" : "Please enter your feedback.",
+		"homeMsgFeedbackSubmitted" : "Thanks you! Your feedback is extremely valuable to us and we will use it to improve the app.",
 
 		"loginLblTitle" : "Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "Email address",

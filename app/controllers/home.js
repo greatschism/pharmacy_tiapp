@@ -56,7 +56,7 @@ function init() {
 			});
 			dialogView.add($.UI.create("Label", {
 				apiName : "Label",
-				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
 				text : $.strings.homeDialogTitleFeedback
 			}));
 			dialogView.add($.UI.create("Label", {
@@ -122,7 +122,7 @@ function didGetFeedback(event) {
 				text : $.strings.homeMsgImprove
 			}));
 			$.feedbackTxta = Alloy.createWidget("ti.textarea", "widget", $.createStyle({
-				classes : ["margin-left-extra-large", "margin-right-extra-large", "txta", "returnkey-done", "feedback"],
+				classes : ["margin-left-extra-large", "margin-right-extra-large", "txta", "feedback"],
 				hintText : $.strings.homeDialogHintFeedback
 			}));
 			dialogView.add($.feedbackTxta.getView());
@@ -159,6 +159,12 @@ function didGetFeedback(event) {
 }
 
 function didGetComments(event) {
+	/**
+	 * hide keyboard, on android it might stay on window
+	 * even after removing text area from window
+	 */
+	Ti.App.hideKeyboard();
+	//identify button and process
 	var index = event.source.index;
 	switch(index) {
 	case 0:
@@ -201,7 +207,7 @@ function showRateDialog() {
 	});
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
-		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
 		text : $.strings.homeDialogTitleRate
 	}));
 	dialogView.add($.UI.create("Label", {
@@ -475,6 +481,9 @@ function didPostlayout(e) {
 function didSubmitFeedback(result, passthrough) {
 	sendFeatureEvent("feedbackSubmitted");
 	feedbackHandler.option = apiCodes.feedback_option_submitted;
+	$.uihelper.showDialog({
+		message : $.strings.homeMsgFeedbackSubmitted
+	});
 }
 
 function didNotSubmitFeedback(error, passthrough) {
