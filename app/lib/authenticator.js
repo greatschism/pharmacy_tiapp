@@ -494,6 +494,7 @@ function setDefaultDeviceForManagerApi(passthrough) {
 		},
 		passthrough : passthrough,
 		keepLoader : true,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didSetDefaultDeviceForManager,
 		failure : didFail
 	});
@@ -704,6 +705,7 @@ function updatePreferencesApi(passthrough) {
 			data : [preferences]
 		},
 		passthrough : passthrough,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didUpdatePreferences,
 		failure : passthrough.explicit !== false ? passthrough.failure : didFail
 	});
@@ -844,6 +846,7 @@ function setDefaultDeviceApi(passthrough) {
 		},
 		passthrough : passthrough,
 		keepLoader : true,
+		errorDialogEnabled : passthrough.errorDialogEnabled,
 		success : didSetDefaultDevice,
 		failure : passthrough.explicit !== false ? passthrough.failure : didFail
 	});
