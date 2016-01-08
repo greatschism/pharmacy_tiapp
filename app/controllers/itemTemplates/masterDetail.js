@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -22,6 +23,9 @@ var args = arguments[0] || {};
 	});
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
+	});
+	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
+		uihelper.disableWrap($[val]);
 	});
 })();
 

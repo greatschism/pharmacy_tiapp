@@ -57,6 +57,9 @@ CONSTS = Alloy.TSS[CONSTS];
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
+	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
+		uihelper.disableWrap($[val]);
+	});
 	$.swipeView.applyProperties({
 		width : CONSTS.availableWidth,
 		height : CONSTS.height

@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	var rDict = {};
@@ -48,11 +49,15 @@ var args = arguments[0] || {};
 		$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 			text : detailTitle
 		});
+		uihelper.disableWrap($.detailTitleLbl);
 	} else {
 		$.detailTitleLbl.height = 0;
 	}
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
+	});
+	_.each(["titleLbl", "subtitleLbl", "detailSubtitleLbl"], function(val) {
+		uihelper.disableWrap($[val]);
 	});
 })();
 

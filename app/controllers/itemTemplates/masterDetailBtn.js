@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -28,6 +29,9 @@ var args = arguments[0] || {};
 		_.extend(btnDict, args.btnDict);
 	}
 	$.detailBtn.applyProperties(btnDict);
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.disableWrap($[val]);
+	});
 })();
 
 function didClickDetail(e) {
