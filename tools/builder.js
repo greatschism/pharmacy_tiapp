@@ -693,21 +693,23 @@ if (build) {
 		 * and verify they have
 		 * module assigned
 		 */
-		var moduleShortCode = require(MODE_SHORT_CODE_JS);
-		_u.each(tiCtrlShortCode, function(mCode, mKey) {
-			_u.each(tiCtrlShortCode, function(cCode, cKey) {
-				if (mKey !== cKey && mCode === cCode) {
-					logger.error("unabel to generate unique short codes for controllers. " + mKey + " and " + cKey + " has same short code: " + mCode);
-					process.exit(8);
+		if (fs.existsSync(MODE_SHORT_CODE_JS)) {
+			var moduleShortCode = require(MODE_SHORT_CODE_JS);
+			_u.each(tiCtrlShortCode, function(mCode, mKey) {
+				_u.each(tiCtrlShortCode, function(cCode, cKey) {
+					if (mKey !== cKey && mCode === cCode) {
+						logger.error("unabel to generate unique short codes for controllers. " + mKey + " and " + cKey + " has same short code: " + mCode);
+						process.exit(8);
+					}
+				});
+				if (!moduleShortCode[mCode]) {
+					logger.error("module short code not assigned for " + mCode + " or " + mKey);
+					process.exit(9);
 				}
 			});
-			if (!moduleShortCode[mCode]) {
-				logger.error("module short code not assigned for " + mCode + " or " + mKey);
-				process.exit(9);
-			}
-		});
-		fs.writeFileSync(CTRL_SHORT_CODE_JS, "module.exports = " + JSON.stringify(tiCtrlShortCode, null, 4).concat(";"));
-		logger.info("Created " + CTRL_SHORT_CODE_JS);
+			fs.writeFileSync(CTRL_SHORT_CODE_JS, "module.exports = " + JSON.stringify(tiCtrlShortCode, null, 4).concat(";"));
+			logger.info("Created " + CTRL_SHORT_CODE_JS);
+		}
 
 		/**
 		 * initate tss maker
