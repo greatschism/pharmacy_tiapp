@@ -42,7 +42,7 @@ function init() {
 			id : "prescSelectAllBtn"
 		});
 	} else {
-		detailBtnClasses = ["top-disabled", "left-50", "margin-right", "min-height", "h5", "bg-color", "primary-fg-color", "primary-border"];
+		detailBtnClasses = ["top-disabled", "right", "width-35", "min-height", "h5", "bg-color", "primary-fg-color", "primary-border"];
 		swipeOptions = [{
 			action : 1,
 			title : $.strings.prescSwipeOptHide
@@ -368,6 +368,8 @@ function prepareList() {
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
 						template = "masterDetailBtn";
 						prescription.set({
+							masterWidth : 65,
+							detailWidth : 35,
 							btnClasses : detailBtnClasses,
 							detailTitle : $.strings.prescReadyRefillBtnHide
 						});

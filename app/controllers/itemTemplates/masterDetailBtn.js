@@ -12,9 +12,6 @@ var args = arguments[0] || {},
 	if (args.masterWidth) {
 		$.resetClass($.masterView, ["left", "width-" + args.masterWidth, "auto-height", "vgroup"]);
 	}
-	if (args.detailWidth) {
-		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
-	}
 	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
 	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	var btnDict = {
