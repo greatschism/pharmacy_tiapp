@@ -9,8 +9,9 @@ var args = arguments[0] || {},
 
 if (!Alloy.TSS[CONSTS]) {
 	var app = require("core"),
-	    marginLeft = utilities.percentageToValue("40%", app.device.width),
-	    endOffset = app.device.width - marginLeft;
+	    margin = utilities.percentageToValue("30%", app.device.width),
+	    availableWidth = app.device.width - margin,
+	    endOffset = app.device.width + $.contentView.left;
 	/**
 	 * This template is used with
 	 * prescriptions list where labels has static height
@@ -23,11 +24,11 @@ if (!Alloy.TSS[CONSTS]) {
 	 * which may prevent postlayout being fired for differet rows of same className
 	 */
 	Alloy.TSS[CONSTS] = {
-		height : $.marginView.top + $.marginView.bottom + uihelper.getHeightFromChildren($.masterView, true),
-		availableWidth : endOffset,
-		startOffset : 0,
-		endOffset : endOffset,
-		decisionOffset : endOffset - (endOffset / 3)
+		height : $.contentView.top + $.contentView.bottom + require("uihelper").getHeightFromChildren($.masterView, true),
+		availableWidth : availableWidth,
+		startOffset : margin,
+		decisionOffset : endOffset - (endOffset / 3),
+		endOffset : endOffset
 	};
 }
 
@@ -61,6 +62,7 @@ CONSTS = Alloy.TSS[CONSTS];
 		uihelper.disableWrap($[val]);
 	});
 	$.swipeView.applyProperties({
+		left : CONSTS.endOffset,
 		width : CONSTS.availableWidth,
 		height : CONSTS.height
 	});
@@ -102,7 +104,7 @@ function didTouchstart(e) {
 	if (!Alloy.Globals.isSwipeInProgress) {
 		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
 		startX = touchX = e.x;
-		currentX = $.contentView.right;
+		currentX = $.swipeView.left;
 	}
 }
 
@@ -111,11 +113,10 @@ function didTouchmove(e) {
 		if (firstMove) {
 			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
 		}
-		currentX = currentX + (touchX - e.x);
-		console.log(currentX, ":", CONSTS.endOffset, ":", CONSTS.startOffset);
+		currentX -= touchX - e.x;
 		touchX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
-			$.contentView.right = currentX;
+			$.swipeView.left = currentX;
 		}
 	}
 }
@@ -131,12 +132,12 @@ function touchEnd(x) {
 		x = CONSTS.endOffset;
 	}
 	var anim = Ti.UI.createAnimation({
-		right : x,
+		left : x,
 		duration : 200
 	});
 	anim.addEventListener("complete", function onComplete() {
 		anim.removeEventListener("complete", onComplete);
-		$.contentView.right = x;
+		$.swipeView.left = x;
 		if (x === CONSTS.startOffset) {
 			Alloy.Globals.currentRow = $;
 		} else {
@@ -146,7 +147,7 @@ function touchEnd(x) {
 		currentX = touchX = 0;
 		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
-	$.contentView.animate(anim);
+	$.swipeView.animate(anim);
 }
 
 function getParams() {
