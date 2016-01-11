@@ -4,7 +4,7 @@ var args = arguments[0] || {},
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
-    previousX = 0,
+    touchX = 0,
     currentX = 0;
 
 if (!Alloy.TSS[CONSTS]) {
@@ -102,7 +102,7 @@ function didTouchstart(e) {
 	if (!Alloy.Globals.isSwipeInProgress) {
 		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
 	}
-	previousX = e.x;
+	touchX = e.x;
 	currentX = $.contentView.right;
 }
 
@@ -111,8 +111,8 @@ function didTouchmove(e) {
 		if (firstMove) {
 			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
 		}
-		currentX += previousX - e.x;
-		previousX = e.x;
+		currentX += touchX - e.x;
+		touchX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
 			$.contentView.right = currentX;
 		}
@@ -120,7 +120,7 @@ function didTouchmove(e) {
 }
 
 function didTouchend(e) {
-	if (touchInProgress && currentX != 0) {
+	if (touchInProgress && !firstMove) {
 		touchEnd(currentX <= CONSTS.decisionOffset ? CONSTS.startOffset : CONSTS.endOffset);
 	}
 }
@@ -142,6 +142,7 @@ function touchEnd(x) {
 		} else {
 			Alloy.Globals.currentRow = $;
 		}
+		currentX = 0;
 		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
 	$.contentView.animate(anim);
