@@ -4,14 +4,13 @@ var args = arguments[0] || {},
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
-    touchX = 0,
+    previousX = 0,
     currentX = 0;
 
 if (!Alloy.TSS[CONSTS]) {
 	var app = require("core"),
 	    margin = utilities.percentageToValue("30%", app.device.width),
-	    availableWidth = app.device.width - margin,
-	    endOffset = app.device.width + $.contentView.left;
+	    endOffset = Math.round(app.device.width - margin);
 	/**
 	 * This template is used with
 	 * prescriptions list where labels has static height
@@ -24,11 +23,11 @@ if (!Alloy.TSS[CONSTS]) {
 	 * which may prevent postlayout being fired for differet rows of same className
 	 */
 	Alloy.TSS[CONSTS] = {
-		height : $.contentView.top + $.contentView.bottom + require("uihelper").getHeightFromChildren($.masterView, true),
-		availableWidth : availableWidth,
-		startOffset : margin,
-		decisionOffset : endOffset - (endOffset / 3),
-		endOffset : endOffset
+		startOffset : 0,
+		endOffset : endOffset,
+		decisionOffset : Math.round(endOffset - (endOffset / 1.85)),
+		width : endOffset,
+		height : $.marginView.top + $.marginView.bottom + require("uihelper").getHeightFromChildren($.masterView, true)
 	};
 }
 
@@ -62,17 +61,16 @@ CONSTS = Alloy.TSS[CONSTS];
 		uihelper.disableWrap($[val]);
 	});
 	$.swipeView.applyProperties({
-		left : CONSTS.endOffset,
-		width : CONSTS.availableWidth,
+		width : CONSTS.width,
 		height : CONSTS.height
 	});
 	if (args.options) {
 		var len = args.options.length,
-		    width = CONSTS.availableWidth / len;
+		    width = CONSTS.width / len;
 		_.each(args.options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
-				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "primary-light-fg-color", "h5", "border-disabled"],
+				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "primary-light-fg-color", "h6", "border-disabled", "bubble-disabled"],
 				width : width,
 				left : fromLeft,
 				title : option.title,
@@ -80,7 +78,7 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					classes : ["top", "v-divider-light", "fill-height", "bg-color"],
+					classes : ["top", "v-divider-light", "fill-height", "bg-color", "bubble-disabled"],
 					left : fromLeft,
 					zIndex : 4
 				}));
@@ -103,9 +101,9 @@ function didClickOption(e) {
 function didTouchstart(e) {
 	if (!Alloy.Globals.isSwipeInProgress) {
 		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
-		startX = touchX = e.x;
-		currentX = $.swipeView.left;
 	}
+	previousX = e.x;
+	currentX = $.contentView.right;
 }
 
 function didTouchmove(e) {
@@ -113,10 +111,10 @@ function didTouchmove(e) {
 		if (firstMove) {
 			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
 		}
-		currentX -= touchX - e.x;
-		touchX = e.x;
+		currentX += previousX - e.x;
+		previousX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
-			$.swipeView.left = currentX;
+			$.contentView.right = currentX;
 		}
 	}
 }
@@ -129,25 +127,24 @@ function didTouchend(e) {
 
 function touchEnd(x) {
 	if (!x) {
-		x = CONSTS.endOffset;
+		x = CONSTS.startOffset;
 	}
 	var anim = Ti.UI.createAnimation({
-		left : x,
+		right : x,
 		duration : 200
 	});
 	anim.addEventListener("complete", function onComplete() {
 		anim.removeEventListener("complete", onComplete);
-		$.swipeView.left = x;
+		$.dragView.right = $.contentView.right = x;
 		if (x === CONSTS.startOffset) {
-			Alloy.Globals.currentRow = $;
-		} else {
 			Alloy.Globals.isSwipeInProgress = touchInProgress = false;
 			Alloy.Globals.currentRow = null;
+		} else {
+			Alloy.Globals.currentRow = $;
 		}
-		currentX = touchX = 0;
 		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
-	$.swipeView.animate(anim);
+	$.contentView.animate(anim);
 }
 
 function getParams() {
