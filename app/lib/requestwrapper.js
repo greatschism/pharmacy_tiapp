@@ -97,6 +97,9 @@ function request(args) {
 	}
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
+	if (!ENV_PROD) {
+		Ti.API.debug(TAG + "-DEV-ONLY:request-data:" + requestParams.params);
+	}
 	//encrypt if enabled
 	if (Alloy.CFG.encryption_enabled) {
 		requestParams.params = encryptionUtil.encrypt(requestParams.params);
@@ -111,6 +114,9 @@ function didSuccess(result, passthrough) {
 	if (Alloy.CFG.encryption_enabled) {
 		result = encryptionUtil.decrypt(result) || "{}";
 	}
+	if (!ENV_PROD) {
+		Ti.API.debug(TAG + "-DEV-ONLY:response-data:" + result);
+	}
 	/**
 	 * should receive data as text from http
 	 * before decrypting it can be converted to json
@@ -119,9 +125,12 @@ function didSuccess(result, passthrough) {
 	if (result.code !== Alloy.CFG.apiCodes.success) {
 		/**
 		 * handle session timeout
-		 * ignore it if logout
+		 * ignore if method is logout
+		 * Note: check for isLoggedIn flag
+		 * to avoid session timeout dialog while
+		 * authenticator is in progress
 		 */
-		if (result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
+		if (Alloy.Globals.isLoggedIn && result.errorCode === Alloy.CFG.apiCodes.session_timeout && passthrough.method != "patient_logout") {
 			hideLoader(passthrough, true);
 			logger.error(TAG, "failure", passthrough.params.feature_code, "session time out");
 			return sessionTimeout(result.message);

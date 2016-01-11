@@ -438,7 +438,7 @@ function verifyDeliveryMode(callback) {
 				 * already at authenticator while login
 				 */
 				var params = {};
-				params[colName] = apiCodes.reminder_delivery_mode_push;
+				params[colName] = authenticator.getPushModeForDeviceToken();
 				authenticator.updatePreferences(params, {
 					success : callback
 				});
