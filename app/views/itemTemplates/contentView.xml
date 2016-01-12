@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selection-disabled">
 		<View id="textView" class="content-view-vgroup">
 			<Label id="titleLbl" class="content-title" />

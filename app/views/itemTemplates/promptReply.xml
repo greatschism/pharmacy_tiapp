@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row" if="$.args.hasChild">
 		<View id="contentView" class="margin-top margin-bottom margin-left right-15 auto-height hgroup hwrap-disabled">
 			<Label id="promptLbl" />

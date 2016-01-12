@@ -473,6 +473,9 @@
 	".hwrap-disabled": {
 		"horizontalWrap": false
 	},
+	".hwrap-enabled": {
+		"horizontalWrap": true
+	},
 	".show": {
 		"visible": true
 	},
@@ -506,6 +509,10 @@
 	".wrap-disabled": {
 		"wordWrap": false,
 		"ellipsize": true
+	},
+	".wrap-enabled": {
+		"wordWrap": true,
+		"ellipsize": false
 	},
 	".repeat-disabled": {
 		"repeatCount": 1

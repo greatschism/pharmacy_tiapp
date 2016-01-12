@@ -29,7 +29,7 @@ if (OS_ANDROID) {
 		$.patientSwitcher.addEventListener("click", toggle);
 	}
 	//set wrap height
-	uihelper.disableWrap($.lbl);
+	uihelper.wrapText($.lbl);
 	//listener for collection reset
 	Alloy.Collections.patients.on("reset", didReset);
 })();

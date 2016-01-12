@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row">
 		<View class="content-view-with-rswt">
 			<Widget id="lbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" if="$.args.styledlabel" />

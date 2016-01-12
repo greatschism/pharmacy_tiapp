@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<!--swipeable-->
 	<TableViewRow id="row" class="row-selection-disabled" if="$.args.hasChild">
 		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">

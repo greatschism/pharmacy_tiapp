@@ -693,12 +693,12 @@ var Helper = {
 	 * Handle height of label when wrap is disabled
 	 * Required for iOS at least
 	 */
-	disableWrap : function(label) {
+	wrapText : function(label) {
 		/**
 		 * 5 - is a extra padding around label
 		 * which makes it look better
 		 */
-		label.height = label.font.fontSize + 5;
+		label.height = label.ellipsize ? label.font.fontSize + 5 : Ti.UI.SIZE;
 	}
 };
 

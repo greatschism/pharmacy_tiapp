@@ -25,7 +25,7 @@ var args = arguments[0] || {},
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
-		uihelper.disableWrap($[val]);
+		uihelper.wrapText($[val]);
 	});
 })();
 

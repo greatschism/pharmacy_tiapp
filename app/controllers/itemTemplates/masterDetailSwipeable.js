@@ -58,7 +58,7 @@ CONSTS = Alloy.TSS[CONSTS];
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
-		uihelper.disableWrap($[val]);
+		uihelper.wrapText($[val]);
 	});
 	$.swipeView.applyProperties({
 		width : CONSTS.width,

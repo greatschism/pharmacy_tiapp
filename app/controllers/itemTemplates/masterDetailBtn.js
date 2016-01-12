@@ -27,7 +27,7 @@ var args = arguments[0] || {},
 	}
 	$.detailBtn.applyProperties(btnDict);
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
-		uihelper.disableWrap($[val]);
+		uihelper.wrapText($[val]);
 	});
 })();
 

@@ -1,11 +1,12 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	var rDict = {};
 	if (_.isBoolean(args.selected)) {
 		//to disable the selection
 		rDict = $.createStyle({
-			classes : ["row-selected-color-disabled"]
+			classes : ["row-selected-bg-color-disabled"]
 		});
 		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 	} else {
@@ -37,6 +38,9 @@ var args = arguments[0] || {};
 	});
 	$.addClass($.subtitleLbl, args.subtitleClasses || ["inactive-fg-color"], {
 		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
+	});
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
 	});
 })();
 

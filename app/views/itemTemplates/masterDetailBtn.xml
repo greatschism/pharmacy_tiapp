@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selection-disabled">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">

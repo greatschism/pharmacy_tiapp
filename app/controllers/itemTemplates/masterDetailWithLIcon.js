@@ -6,7 +6,7 @@ var args = arguments[0] || {},
 	if (_.isBoolean(args.selected)) {
 		//to disable the selection
 		rDict = $.createStyle({
-			classes : ["row-selected-color-disabled"]
+			classes : ["row-selected-bg-color-disabled"]
 		});
 		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 	} else {
@@ -49,7 +49,7 @@ var args = arguments[0] || {},
 		$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 			text : detailTitle
 		});
-		uihelper.disableWrap($.detailTitleLbl);
+		uihelper.wrapText($.detailTitleLbl);
 	} else {
 		$.detailTitleLbl.height = 0;
 	}
@@ -57,7 +57,7 @@ var args = arguments[0] || {},
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
 	_.each(["titleLbl", "subtitleLbl", "detailSubtitleLbl"], function(val) {
-		uihelper.disableWrap($[val]);
+		uihelper.wrapText($[val]);
 	});
 })();
 

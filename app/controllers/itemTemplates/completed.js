@@ -12,7 +12,7 @@ var args = arguments[0] || {},
 		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
 	});
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
-		uihelper.disableWrap($[val]);
+		uihelper.wrapText($[val]);
 	});
 	if (args.tooltip) {
 		$.row.className = "completedTooltip";

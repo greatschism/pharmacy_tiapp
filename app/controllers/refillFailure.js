@@ -4,7 +4,7 @@ var args = arguments[0] || {},
 
 function init() {
 	_.each(["typeLbl", "phoneLbl"], function(val) {
-		$.uihelper.disableWrap($[val]);
+		$.uihelper.wrapText($[val]);
 	});
 }
 

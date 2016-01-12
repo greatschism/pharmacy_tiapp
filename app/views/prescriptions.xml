@@ -9,16 +9,16 @@
 			<Button id="sortCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickSortClose" />
 		</View>
 	</Widget>
-	<Widget id="unhidePicker" src="ti.optionpicker" class="optionpicker" if="!$.args.showHiddenPrescriptions">
+	<Widget id="unhidePicker" src="ti.optionpicker" class="modal-dialog" if="!$.args.showHiddenPrescriptions">
 		<View id="unhideHeaderView" class="auto-height role-header-view">
-			<Button id="selectNoneBtn" class="top left right-50 bg-color active-fg-color border-disabled" onClick="toggleUnhideSelection" />
-			<Button id="selectAllBtn" class="top left-50 right bg-color active-fg-color border-disabled" onClick="toggleUnhideSelection" />
+			<Button id="selectNoneBtn" class="top left right-50 bg-color h5 active-fg-color border-disabled" onClick="toggleUnhideSelection" />
+			<Button id="selectAllBtn" class="top left-50 right bg-color h5 active-fg-color border-disabled" onClick="toggleUnhideSelection" />
 			<View id="vDividerView" class="v-divider-light" />
 			<View class="top h-divider-light" />
 			<View class="bottom h-divider-light" />
 		</View>
 		<View class="auto-height vgroup role-footer-view">
-			<Button id="unhideBtn" class="top margin-bottom margin-left-extra-large margin-right-extra-large primary-bg-color primary-light-fg-color primary-border" onClick="didClickUnhide"  />
+			<Button id="unhideBtn" class="margin-left-extra-large margin-right-extra-large primary-bg-color primary-light-fg-color primary-border" onClick="didClickUnhide"  />
 			<Button id="unhideCloseBtn" class="margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>

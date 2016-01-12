@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selected-bg-color-disabled">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height vgroup">
 			<Label id="titleLbl" class="left h4" />
