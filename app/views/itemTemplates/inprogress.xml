@@ -3,7 +3,7 @@
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height vgroup">
 			<Label id="titleLbl" class="left" />
 			<Label id="subtitleLbl" class="margin-top-small left" />
-			<View class="margin-top-small progress-bar-height touch-disabled">
+			<View class="margin-top-medium progress-bar-height touch-disabled">
 				<View id="inactiveBar" class="inactive-light-bg-color touch-disabled" />
 				<View id="progressBar" class="left auto-width progress-bar-height active-strong-bg-color touch-disabled" />
 			</View>

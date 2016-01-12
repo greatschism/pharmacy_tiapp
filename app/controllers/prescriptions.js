@@ -560,12 +560,6 @@ function toggleSearch() {
 		opacity = 1;
 		top += $.searchbar.rect.height;
 		$.searchbar.visible = true;
-	} else {
-		/**
-		 * make sure keyboard is hidden
-		 * before hiding search bar
-		 */
-		Ti.App.hideKeyboard();
 	}
 	var sAnim = Ti.UI.createAnimation({
 		opacity : opacity,
