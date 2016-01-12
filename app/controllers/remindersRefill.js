@@ -405,8 +405,9 @@ function updateReminder(callback) {
 			params : {
 				data : [{
 					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
+						refill_all_prescriptions : currentData.prescriptions.length === Alloy.Collections.prescriptions.length ? 1 : 0,
 						type : apiCodes.reminder_type_refill,
-						reminder_enabled : 1,
+						reminder_enabled : 1
 					})
 				}]
 			},

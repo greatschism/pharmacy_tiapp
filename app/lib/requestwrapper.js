@@ -98,7 +98,7 @@ function request(args) {
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
 	if (!ENV_PROD) {
-		Ti.API.debug(TAG + "-DEV-ONLY:request-data:" + requestParams.params);
+		Ti.API.debug(TAG + ":DEV-ONLY:request-data:" + requestParams.params);
 	}
 	//encrypt if enabled
 	if (Alloy.CFG.encryption_enabled) {
@@ -115,7 +115,7 @@ function didSuccess(result, passthrough) {
 		result = encryptionUtil.decrypt(result) || "{}";
 	}
 	if (!ENV_PROD) {
-		Ti.API.debug(TAG + "-DEV-ONLY:response-data:" + result);
+		Ti.API.debug(TAG + ":DEV-ONLY:response-data:" + result);
 	}
 	/**
 	 * should receive data as text from http
