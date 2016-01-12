@@ -3,6 +3,8 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
+    titleClasses = ["h4", "wrap-disabled"],
+    subtitleClasses = ["inactive-fg-color", "wrap-disabled"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -322,6 +324,8 @@ function prepareList() {
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "inprogress",
 				masterWidth : 100,
 				detailWidth : 0,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
 				subtitle : subtitle,
 				progress : progress,
 				canHide : false
@@ -339,6 +343,8 @@ function prepareList() {
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "completed",
 				masterWidth : 100,
 				detailWidth : 0,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
@@ -393,6 +399,8 @@ function prepareList() {
 				section : section,
 				itemTemplate : template,
 				options : swipeOptions,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
 				canHide : true
 			});
@@ -614,6 +622,8 @@ function prepareUnhidePicker(result, passthrough) {
 	var hPrescriptions = result.data.prescriptions;
 	_.each(hPrescriptions, function(prescription) {
 		_.extend(prescription, {
+			titleClasses : titleClasses,
+			subtitleClasses : subtitleClasses,
 			title : $.utilities.ucword(prescription.presc_name),
 			subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
 		});

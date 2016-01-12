@@ -49,7 +49,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return require("uihelper").getHeightFromChildren($.contentView, true);
+	return uihelper.getHeightFromChildren($.contentView, true);
 }
 
 exports.getHeight = getHeight;

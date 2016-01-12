@@ -66,7 +66,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return ($.contentView.top || 0) + ($.contentView.bottom || 0) + require("uihelper").getHeightFromChildren($.masterView, true);
+	return ($.contentView.top || 0) + ($.contentView.bottom || 0) + uihelper.getHeightFromChildren($.masterView, true);
 }
 
 exports.getHeight = getHeight;

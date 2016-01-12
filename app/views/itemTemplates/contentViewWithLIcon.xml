@@ -2,8 +2,8 @@
 	<TableViewRow id="row">
 		<Label id="leftIconLbl" class="margin-left i5 width-15" />
 		<View id="contentView" class="margin-top margin-bottom margin-right auto-height vgroup">
-			<Label id="titleLbl" class="left wrap-disabled" />
-			<Label id="subtitleLbl" class="margin-top-small left wrap-disabled" />
+			<Label id="titleLbl" class="left" />
+			<Label id="subtitleLbl" class="margin-top-small left" />
 		</View>
 	</TableViewRow>
 </Alloy>
