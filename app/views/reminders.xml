@@ -1,33 +1,21 @@
 <Alloy>
-	<ScrollView>
+	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
-			<View id="refillView" class="auto-height" onClick="didClickRefill">
-				<ImageView id="refillImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="refillLbl" class="content-title-wrap" onPostlayout="didPostlayout" />
-				</View>
+			<View id="refillView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickRefill">
+				<ImageView id="refillImg" class="top left img-reminders-refill"/>
+				<Label id="refillLbl" class="margin-left-medium h4" onPostlayout="didPostlayout" />
 			</View>
 			<View class="h-divider-light" />
-			<View id="medView" class="auto-height" onClick="didClickMed">
-				<ImageView id="medImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="medLbl" class="content-title-wrap" />
-				</View>
+			<View id="medView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickMed">
+				<ImageView id="medImg" class="top left img-reminders-med"/>
+				<Label id="medLbl" class="margin-left-medium h4" />
 			</View>
 			<View class="h-divider-light" />
-			<View id="settingsView" class="auto-height" onClick="didClickSettings">
-				<ImageView id="settingsImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="settingsLbl" class="content-title-wrap" />
-				</View>
+			<View id="settingsView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickSettings">
+				<ImageView id="settingsImg" class="top left img-reminders-settings"/>
+				<Label id="settingsLbl" class="margin-left-medium h4" />
 			</View>
 			<View class="margin-bottom h-divider-light" />
 		</View>
-		<Widget id="tooltip" src="ti.tooltip" class="margin-right tooltip-unfilled-arrow-up content-primary-tooltip">
-			<View class="auto-height vgroup">
-				<Label id="tooltipLbl" class="lbl-wrap" />
-				<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />
-			</View>
-		</Widget>
 	</ScrollView>
 </Alloy>

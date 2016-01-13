@@ -6,10 +6,4 @@
 },
 "#settingsLbl":{
 	text: Alloy.Globals.strings.remindersLblSettings
-},
-"#tooltipLbl":{
-	text: Alloy.Globals.strings.remindersTooltipLblRefill
-},
-"#tooltipHideBtn":{
-	title: Alloy.Globals.strings.remindersTooltipBtnHide
 }

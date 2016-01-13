@@ -1,12 +1,6 @@
 var args = arguments[0] || {},
     currentView;
 
-function init() {
-	$.uihelper.getImage("reminders_refill", $.refillImg);
-	$.uihelper.getImage("reminders_med", $.medImg);
-	$.uihelper.getImage("reminders_settings", $.settingsImg);
-}
-
 function didPostlayout(e) {
 	/**
 	 * we need height of
@@ -28,16 +22,37 @@ function didPostlayout(e) {
 	 * refill
 	 */
 	currentView = $.refillView;
-	$.tooltip.applyProperties({
+	$.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
+		classes : ["show", "margin-right", "width-50", "direction-up", "bg-color", "primary-border"],
+		arrowDict : $.createStyle({
+			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
+		}),
+		arrowPadding : 6.5,
 		top : getPosition(currentView)
+	}));
+	$.contentView = $.UI.create("View", {
+		classes : ["auto-height", "vgroup"]
 	});
-	$.tooltip.show();
+	$.tooltipLbl = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top", "margin-left", "margin-right"],
+		text : $.strings.remindersTooltipLblRefill
+	});
+	$.contentView.add($.tooltipLbl);
+	$.tooltipHideBtn = $.UI.create("Button", {
+		apiName : "Button",
+		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-light-fg-color", "primary-border"],
+		title : $.strings.remindersTooltipBtnHide
+	});
+	$.tooltipHideBtn.addEventListener("click", didClickHide);
+	$.contentView.add($.tooltipHideBtn);
+	$.tooltip.setContentView($.contentView);
+	$.scrollView.add($.tooltip.getView());
 }
 
 function getPosition(view) {
-	var childView = view.children[1],
-	    lbl = childView.children[0];
-	return view.rect.y + childView.rect.y + lbl.rect.height;
+	var lbl = view.children[1];
+	return view.rect.y + lbl.rect.y + lbl.rect.height;
 }
 
 function didClickHide(e) {
@@ -83,5 +98,3 @@ function didClickSettings(e) {
 		stack : true
 	});
 }
-
-exports.init = init;
