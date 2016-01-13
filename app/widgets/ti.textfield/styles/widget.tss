@@ -1,5 +1,6 @@
 "#widget": {
-	height: 50
+	height: 50,
+	bubbleParent: false
 },
 "#txt":{
 	left: 0,
@@ -11,8 +12,7 @@
 	borderWidth: 0,
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 	autocorrect: false,
-	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-	bubbleParent: false
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
 "#txt[platform=ios]":{
 	paddingLeft: 8,

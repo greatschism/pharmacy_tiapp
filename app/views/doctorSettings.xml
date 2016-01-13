@@ -1,39 +1,39 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<View class="margin-top form-vgroup">
+		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 			<View id="nameView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
-				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="lnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
 				<View id="nameVDividerView" class="v-divider" />
 			</View>
 			<View class="h-divider" />
-			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
+			<Widget id="phoneTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="faxTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
+			<Widget id="faxTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-next" onChange="didChange" onReturn="moveToNext" />
 		</View>
-		<View class="margin-top content-header-view">
-			<Label id="addressLbl" class="content-header-lbl"/>
+		<View class="margin-top min-height inactive-light-bg-color">
+			<Label id="addressLbl" class="margin-left margin-right h5 inactive-fg-color wrap-disabled"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<Widget id="addressLine1Txt" src="ti.textfield" class="form-txt address autocaps-sentences returnkey-next" onReturn="moveToNext" />
+		<View class="margin-top margin-left margin-right auto-height vgroup border">
+			<Widget id="addressLine1Txt" src="ti.textfield" class="top left right txt border-disabled address autocaps-sentences returnkey-next" onReturn="moveToNext" />
 			<View class="h-divider" />
 			<View class="auto-height">
-				<Widget id="addressLine2Txt" src="ti.textfield" class="left form-txt-50 address autocaps-sentences returnkey-next" onReturn="moveToNext"  />
-				<Widget id="zipTxt" src="ti.textfield" class="right form-txt-50 zip keyboard-number returnkey-next" onReturn="moveToNext"  />
+				<Widget id="addressLine2Txt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled address autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+				<Widget id="zipTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled zip keyboard-number returnkey-next" onReturn="moveToNext"  />
 				<View id="addressVDividerView"  class="v-divider" />
 			</View>
 			<View class="h-divider" />
 			<View class="auto-height">
-				<Widget id="cityTxt" src="ti.textfield" class="left form-txt-50 name autocaps-words returnkey-next" onReturn="moveToNext"  />
-				<Widget id="stateDp" src="ti.dropdown" class="right form-dropdown-50" onReturn="moveToNext" />
+				<Widget id="cityTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="stateDp" src="ti.dropdown" class="top left-disabled right width-50 dropdown border-disabled" onReturn="moveToNext" />
 				<View id="locationVDividerView"  class="v-divider" />
 			</View>
 		</View>
-		<View class="margin-top content-header-view">
-			<Label id="notesLbl" class="content-header-lbl"/>
+		<View class="margin-top min-height inactive-light-bg-color">
+			<Label id="notesLbl" class="margin-left margin-right h5 inactive-fg-color wrap-disabled"/>
 		</View>
-		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes returnkey-done" onReturn="didClickSubmit"  />
-		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
-		<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemove" if="$.args.isUpdate" />
+		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes" />
+		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
+		<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemove" if="$.args.isUpdate" />
 	</ScrollView>
 </Alloy>

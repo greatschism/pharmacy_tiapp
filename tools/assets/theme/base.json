@@ -401,10 +401,11 @@
                 "top":"${MARGIN_TOP}",
                 "left":"${MARGIN_LEFT}",
                 "right":"${MARGIN_RIGHT}",
+                "height":"${INPUT_HEIGHT}",
                 "paddingLeft":"${MARGIN_LEFT_MEDIUM}",
                 "paddingRight":"${MARGIN_RIGHT_MEDIUM}",
                 "hintTextColor":"${HINT_TEXT_COLOR}",
-                "height":"${INPUT_HEIGHT}",
+                "color":"${FG_COLOR}",
                 "backgroundColor":"${BG_COLOR}",
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
@@ -422,8 +423,9 @@
                 "top":"${MARGIN_TOP}",
                 "left":"${MARGIN_LEFT}",
                 "right":"${MARGIN_RIGHT}",
-                "hintTextColor":"${HINT_TEXT_COLOR}",
                 "height":"${MULTILINE_INPUT_HEIGHT}",
+                "hintTextColor":"${HINT_TEXT_COLOR}",
+                "color":"${FG_COLOR}",
                 "backgroundColor":"${BG_COLOR}",
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
@@ -434,6 +436,59 @@
             },
             ".txta[platform=android]":{
                 "font":"${H4_PLATFORM_ANDROID}"
+            },
+            ".dropdown":{
+                "top":"${MARGIN_TOP}",
+                "left":"${MARGIN_LEFT}",
+                "right":"${MARGIN_RIGHT}",
+                "height":"${INPUT_HEIGHT}",
+                "hintTextColor":"${HINT_TEXT_COLOR}",
+                "color":"${FG_COLOR}",
+                "optionPadding":{
+                    "top":"${MARGIN_TOP}",
+                    "bottom":"${MARGIN_BOTTOM}",
+                    "left":"${MARGIN_LEFT}",
+                    "right":"${MARGIN_RIGHT}"
+                },
+                "paddingLeft":"${MARGIN_LEFT_MEDIUM}",
+                "paddingRight":"${MARGIN_RIGHT_MEDIUM}",
+                "iconPaddingRight":"${MARGIN_RIGHT_MEDIUM}",
+                "iconColor":"${INACTIVE_COLOR}",
+                "selectedIconColor":"${POSITIVE_COLOR}",
+                "toolbarDict":{
+                    "height":"${MIN_HEIGHT}",
+                    "backgroundColor":"${INACTIVE_LIGHT_COLOR}"
+                },
+                "leftButtonDict":{
+                    "left":0,
+                    "width":90,
+                    "height":"fill",
+                    "color":"${ACTIVE_COLOR}",
+                    "selectedColor":"${ACTIVE_COLOR}",
+                    "backgroundColor":"transparent",
+                    "borderColor":"transparent"
+                },
+                "rightButtonDict":{
+                    "right":0,
+                    "width":90,
+                    "height":"fill",
+                    "color":"${ACTIVE_COLOR}",
+                    "selectedColor":"${ACTIVE_COLOR}",
+                    "backgroundColor":"transparent",
+                    "borderColor":"transparent"
+                },
+                "backgroundColor":"${BG_COLOR}",
+                "borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${BORDER_COLOR}"
+            },
+            ".dropdown[platform=ios]":{
+                "font":"${H4_PLATFORM_IOS}",
+                "iconFont":"${I5_PLATFORM_IOS}"
+            },
+            ".dropdown[platform=android]":{
+                "font":"${H4_PLATFORM_ANDROID}",
+                "iconFont":"${I5_PLATFORM_IOS}"
             },
             ".swt[platform=ios]":{
                 "width":56,
@@ -459,12 +514,6 @@
                 "left":"${MARGIN_LEFT_LARGE}",
                 "right":"${MARGIN_RIGHT_LARGE}",
                 "color":"${FG_COLOR}",
-                "optionPadding":{
-                    "top":"${MARGIN_TOP}",
-                    "bottom":"${MARGIN_BOTTOM}",
-                    "left":"${MARGIN_LEFT}",
-                    "right":"${MARGIN_RIGHT}"
-                },
                 "iconColor":"${INACTIVE_COLOR}",
                 "selectedIconColor":"${POSITIVE_COLOR}",
                 "separatorColor":"${SEPARATOR_COLOR}",

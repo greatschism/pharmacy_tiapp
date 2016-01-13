@@ -133,8 +133,12 @@ function didTouchmove(e) {
 }
 
 function didTouchend(e) {
-	if (touchInProgress && !firstMove) {
-		touchEnd(currentX <= CONSTS.decisionOffset ? CONSTS.startOffset : CONSTS.endOffset);
+	if (touchInProgress) {
+		if (firstMove) {
+			Alloy.Globals.isSwipeInProgress = touchInProgress = false;
+		} else {
+			touchEnd(currentX <= CONSTS.decisionOffset ? CONSTS.startOffset : CONSTS.endOffset);
+		}
 	}
 }
 
