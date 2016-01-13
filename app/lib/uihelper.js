@@ -613,9 +613,16 @@ var Helper = {
 			tClasses = tClasses.concat(["margin-top", "margin-bottom"]);
 		} else {
 			vClasses.push("min-height");
+			tClasses.push("wrap-disabled");
 		}
 		if (rightItem) {
-			tClasses.push(rightItem.isIcon ? "right-15" : "right-40");
+			if (rightItem.title.length === 1) {
+				rightItem.width = "15%";
+				tClasses.push("right-15");
+			} else {
+				rightItem.width = "40%";
+				tClasses.push("right-40");
+			}
 		} else {
 			tClasses.push("margin-right");
 		}
@@ -635,10 +642,14 @@ var Helper = {
 			}
 			headerView.add(rightBtn);
 		}
-		headerView.add($.UI.create("Label", {
+		var lbl = $.UI.create("Label", {
 			classes : tClasses,
 			text : title
-		}));
+		});
+		if (!isWrap) {
+			Helper.wrapText(lbl);
+		}
+		headerView.add(lbl);
 		return headerView;
 	},
 

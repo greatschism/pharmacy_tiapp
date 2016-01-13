@@ -40,7 +40,7 @@
 		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h4 txt-center" />
 		<Label class="margin-top-large margin-bottom-large i1 primary-fg-color icon-add-prescription" onClick="didClickAddPresc" />
 	</ScrollView>
-	<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
+	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->
 	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip" if="$.args.showMedReminderTooltip">
 		<View class="auto-height vgroup">

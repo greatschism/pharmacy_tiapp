@@ -28,16 +28,24 @@ var args = arguments[0] || {},
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
-	var btnDict = {
-		title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
-	};
-	if (args.btnClasses) {
-		_.extend(btnDict, $.createStyle({
-			classes : args.btnClasses
-		}));
-	}
-	if (args.btnDict) {
-		_.extend(btnDict, args.btnDict);
+	var btnDict;
+	if (args.detailWidth === 0) {
+		btnDict = {
+			width : 0,
+			height : 0
+		};
+	} else {
+		btnDict = {
+			title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
+		};
+		if (args.btnClasses) {
+			_.extend(btnDict, $.createStyle({
+				classes : args.btnClasses
+			}));
+		}
+		if (args.btnDict) {
+			_.extend(btnDict, args.btnDict);
+		}
 	}
 	$.detailBtn.applyProperties(btnDict);
 	_.each(["titleLbl", "subtitleLbl"], function(val) {

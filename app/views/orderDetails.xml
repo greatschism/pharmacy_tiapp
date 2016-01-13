@@ -1,10 +1,10 @@
 <Alloy>
-	<Widget id="pickupModePicker" src="ti.optionpicker" class="optionpicker" onClick="updatePickupModeRow">
-		<View class="content-header-view role-header-view">
-			<Label id="pickupModeLbl" class="content-header-lbl" />
+	<Widget id="pickupModePicker" src="ti.optionpicker" class="modal-dialog" onClick="updatePickupModeRow">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="pickupModeLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="pickupModeCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickPickupModeClose" />
+			<Button id="pickupModeCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupModeClose" />
 		</View>
 	</Widget>
 	<TableView id="tableView" class="margin-bottom" onClick="didClickTableView">
@@ -12,5 +12,5 @@
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="refillBtn" class="margin-bottom primary-btn" onClick="didClickRefill" />
+	<Button id="refillBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" />
 </Alloy> 

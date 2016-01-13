@@ -1,5 +1,5 @@
 <Alloy autoStyle="true">
-	<TableViewRow id="row" class="row-selection-disabled">
+	<TableViewRow id="row" class="row-selected-bg-color-disabled">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">
 				<Label id="titleLbl" class="left h4 wrap-disabled" />
