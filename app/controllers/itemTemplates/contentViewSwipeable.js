@@ -95,7 +95,7 @@ function didPostlayout(e) {
 	if (OS_IOS) {
 		height += 0.5;
 	}
-	$.containerView.height = $.swipeView.height = height;
+	$.containerView.height = $.swipeView.height = $.dragView.height = height;
 }
 
 function didError(e) {

@@ -1,7 +1,5 @@
 var args = arguments[0] || {},
     apiCodes = Alloy.CFG.apiCodes,
-    titleClasses = ["content-title-wrap"],
-    subtitleClasses = ["content-subtitle-wrap"],
     prescriptions = [],
     rows,
     swipeOptions,
@@ -183,8 +181,6 @@ function processModel(model) {
 		defaultImage : defaultImg,
 		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
 		subtitle : subtitle,
-		titleClasses : titleClasses,
-		subtitleClasses : subtitleClasses,
 		prescriptions : docPrescs,
 		options : swipeOptions
 	});

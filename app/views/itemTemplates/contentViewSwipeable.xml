@@ -1,10 +1,10 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selected-bg-color-disabled">
 		<View id="containerView" class="auto-height">
-			<View id="swipeView" class="right bg-color auto-height bubble-disabled" />
+			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
 				<View class="margin-top margin-bottom margin-left right-15 auto-height hgroup hwrap-disabled">
-					<Widget id="img" src="ti.remoteimage" class="left width-20 inactive-border" onError="didError" />
+					<Widget id="img" src="ti.remoteimage" class="top left width-20 inactive-border" onError="didError" />
 					<View class="margin-left-medium auto-height vgroup">
 						<Label id="titleLbl" class="left h4" />
 						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
