@@ -616,6 +616,7 @@ var Helper = {
 			tClasses.push("wrap-disabled");
 		}
 		if (rightItem) {
+			//if length is 1, it will be a icon
 			if (rightItem.title.length === 1) {
 				rightItem.width = "15%";
 				tClasses.push("right-15");
