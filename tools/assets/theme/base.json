@@ -685,6 +685,10 @@
                 "backgroundColor":"${BG_COLOR}",
                 "backgroundSelectedColor":"${BG_COLOR}"
             },
+            ".shadow-bg-color":{
+                "backgroundColor":"${SHADOW_BG_COLOR}",
+                "backgroundSelectedColor":"${SHADOW_BG_COLOR}"
+            },
             ".primary-bg-color":{
                 "backgroundColor":"${PRIMARY_COLOR}",
                 "backgroundSelectedColor":"${PRIMARY_SELECTED_COLOR}"

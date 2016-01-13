@@ -12,8 +12,8 @@ function init() {
 	}
 	var currentDate = moment(),
 	    section = $.uihelper.createTableViewSection($, $.strings.doctorDetSectionPrescribed),
-	    promptClasses = ["content-group-prompt-60"],
-	    replyClasses = ["content-group-right-inactive-reply-40"];
+	    promptClasses = ["top", "left", "width-65"],
+	    replyClasses = ["top", "right", "width-35", "txt-right", "inactive-fg-color"];
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		if (doctor.prescriptions && doctor.prescriptions.length) {
 			_.each(doctor.prescriptions, function(prescription) {
