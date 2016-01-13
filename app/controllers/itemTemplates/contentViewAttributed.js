@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -6,7 +7,7 @@ var args = arguments[0] || {};
 	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
-		$.addClass($.titleLbl, args.titleClasses, {
+		$.resetClass($.titleLbl, args.titleClasses, {
 			text : title
 		});
 	} else {
@@ -14,29 +15,30 @@ var args = arguments[0] || {};
 	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.subtitleClasses) {
-		$.addClass($.subtitleLbl, args.subtitleClasses, {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
 			text : subtitle
 		});
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
-	var attributed = args.attributed || (args.data ? args.data[args.attributedProperty] : "");
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
+	});
 	if (args.attributedClasses) {
 		$.attributedAttr.applyProperties($.createStyle({
-			classes : args.attributedClasses,
-			html : attributed
+			classes : args.attributedClasses
 		}));
-	} else {
-		$.attributedAttr.applyAttributes({
-			secondaryfont : $.createStyle({
-				classes : ["h5"]
-			}).font,
-			secondarycolor : $.createStyle({
-				classes : ["active-fg-color"]
-			}).color
-		});
-		$.attributedAttr.setHtml(attributed);
 	}
+	$.attributedAttr.applyAttributes(args.attributes || {
+		secondaryfont : $.createStyle({
+			classes : ["h5"]
+		}).font,
+		secondarycolor : $.createStyle({
+			classes : ["active-fg-color"]
+		}).color
+	});
+	$.attributedAttr.setHtml(args.attributed || (args.data ? args.data[args.attributedProperty] : ""));
+	uihelper.wrapText($.attributedAttr.getView());
 })();
 
 function didClick(e) {

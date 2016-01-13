@@ -1,17 +1,31 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
+	var title = args.title || (args.data ? args.data[args.titleProperty] : ""),
+	    right = $.colorBoxView.right + $.colorBoxView.width + $.createStyle({
+		classes : ["margin-right-medium"]
+	}).right;
 	if (args.lblClasses) {
 		$.resetClass($.lbl, args.lblClasses, {
-			text : args.title || (args.data ? args.data[args.titleProperty] : "")
+			right : right,
+			text : title
 		});
 	} else {
-		$.lbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+		$.lbl.applyProperties({
+			right : right,
+			text : title
+		});
 	}
-	$.colorView.backgroundColor = args.color;
+	uihelper.wrapText($.lbl);
+	var color = args.color || "transparent";
+	$.colorBoxView.applyProperties({
+		backgroundColor : color,
+		borderColor : color
+	});
 })();
 
 function getParams() {

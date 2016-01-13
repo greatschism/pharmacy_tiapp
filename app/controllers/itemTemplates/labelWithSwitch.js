@@ -4,24 +4,41 @@ var args = arguments[0] || {};
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
+	var swt = $.swt.getView(),
+	    right = swt.right + swt.width + +$.createStyle({
+		classes : ["margin-right-medium"]
+	}).right,
+	    title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.styledlabel) {
-		if (args.lblClasses) {
-			$.lbl.applyProperties(_.extend({
-				text : args.title || (args.data ? args.data[args.titleProperty] : "")
-			}, $.createStyle({
-				classes : args.lblClasses
-			})));
-		} else {
-			$.lbl.setText(args.title || (args.data ? args.data[args.titleProperty] : ""));
-		}
+		$.attributedAttr.applyProperties(args.lblClasses ? $.createStyle({
+			classes : args.lblClasses,
+			right : right
+		}) : {
+			right : right
+		});
+		$.attributedAttr.applyAttributes(args.attributes || {
+			secondaryfont : $.createStyle({
+				classes : ["h5"]
+			}).font,
+			secondarycolor : $.createStyle({
+				classes : ["active-fg-color"]
+			}).color
+		});
+		$.attributedAttr.setHtml(title);
+		uihelper.wrapText($.attributedAttr.getView());
 	} else {
 		if (args.lblClasses) {
 			$.resetClass($.lbl, args.lblClasses, {
-				text : args.title || (args.data ? args.data[args.titleProperty] : "")
+				right : right,
+				text : title
 			});
 		} else {
-			$.lbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
+			$.lbl.applyProperties({
+				right : right,
+				text : title
+			});
 		}
+		uihelper.wrapText($.lbl);
 	}
 })();
 

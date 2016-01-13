@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -15,6 +16,9 @@ var args = arguments[0] || {};
 	$.row.className = "promptReply" + parseInt(pDict.width) + parseInt(rDict.height) + (args.hasChild && "WithChild" || "");
 	$.promptLbl.applyProperties(pDict);
 	$.replyLbl.applyProperties(rDict);
+	_.each(["promptLbl", "replyLbl"], function(val) {
+		uihelper.wrapText($[val]);
+	});
 })();
 
 function getParams() {

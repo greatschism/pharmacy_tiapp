@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {},
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -6,7 +7,7 @@ var args = arguments[0] || {};
 	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
-		$.addClass($.titleLbl, args.titleClasses, {
+		$.resetClass($.titleLbl, args.titleClasses, {
 			text : title
 		});
 	} else {
@@ -14,12 +15,15 @@ var args = arguments[0] || {};
 	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.subtitleClasses) {
-		$.addClass($.subtitleLbl, args.subtitleClasses, {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
 			text : subtitle
 		});
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
+	});
 })();
 
 function getParams() {
@@ -27,7 +31,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return require("uihelper").getHeightFromChildren($.textView, true);
+	return uihelper.getHeightFromChildren($.textView, true);
 }
 
 exports.getParams = getParams;

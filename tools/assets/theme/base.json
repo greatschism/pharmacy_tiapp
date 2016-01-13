@@ -469,6 +469,10 @@
                 "font":"${H4_PLATFORM_ANDROID}",
                 "iconFont":"${I5_PLATFORM_ANDROID}"
             },
+            ".color-box":{
+            	"height": 20,
+                "width": 20
+            },
             ".min-height":{
                 "height":"${MIN_HEIGHT}"
             },

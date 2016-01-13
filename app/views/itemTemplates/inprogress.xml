@@ -1,8 +1,8 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height vgroup">
-			<Label id="titleLbl" class="left" />
-			<Label id="subtitleLbl" class="margin-top-small left" />
+			<Label id="titleLbl" class="left h4" />
+			<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 			<View class="margin-top-medium progress-bar-height touch-disabled">
 				<View id="inactiveBar" class="inactive-light-bg-color touch-disabled" />
 				<View id="progressBar" class="left auto-width progress-bar-height active-strong-bg-color touch-disabled" />

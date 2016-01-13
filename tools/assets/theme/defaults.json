@@ -86,7 +86,8 @@
 		"width": "Ti.UI.FILL"
 	},
 	".txt": {
-		"textAlign": "left"
+		"textAlign": "left",
+		"ellipsize": true
 	},
 	".txta": {
 		"textAlign": "left",

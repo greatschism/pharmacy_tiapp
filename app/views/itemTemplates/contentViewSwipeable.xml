@@ -1,15 +1,18 @@
 <Alloy autoStyle="true">
-	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
-			<View class="content-left-image-bordered">
-				<Widget id="img" src="ti.remoteimage" class="width-100" onError="didError" />
+	<TableViewRow id="row" class="row-selected-bg-color-disabled">
+		<View id="containerView" class="auto-height">
+			<View id="swipeView" class="right bg-color auto-height bubble-disabled" />
+			<View id="contentView" class="right width-100 auto-height bg-color">
+				<View class="margin-top margin-bottom margin-left right-15 auto-height hgroup hwrap-disabled">
+					<Widget id="img" src="ti.remoteimage" class="left width-20 inactive-border" onError="didError" />
+					<View class="margin-left-medium auto-height vgroup">
+						<Label id="titleLbl" class="left h4" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+					</View>
+				</View>
+				<Label class="margin-right i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 			</View>
-			<View id="contentView" class="content-view-vgroup-with-limage-child">
-				<Label id="titleLbl" />
-				<Label id="subtitleLbl" />
-			</View>
-			<Label class="content-child-icon icon-thin-arrow-right" />
-			<View id="swipeView" class="swipe-view" />
+			<View id="dragView" class="right width-100 auto-height" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
 		</View>
 	</TableViewRow>
 </Alloy>

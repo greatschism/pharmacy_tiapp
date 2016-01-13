@@ -3,8 +3,8 @@
 		<HeaderView>
 			<View class="auto-height vgroup" onClick="handleEvent">
 				<View class="margin-top margin-left margin-right auto-height">
-					<Label id="favouriteIconLbl" class="top left i4 width-15 primary-fg-color" if="Alloy.Globals.isLoggedIn" />
-					<View id="storeContentView" class="top left-15 right auto-height vgroup">
+					<Label id="favouriteIconLbl" class="top left i5 width-15 primary-fg-color" if="Alloy.Globals.isLoggedIn" />
+					<View id="storeContentView" class="top left-10 right auto-height vgroup">
 						<Label id="titleLbl" class="left h4" />
 						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 						<Widget id="phoneAttr" src="ti.styledlabel" class="margin-top-small left h6" onClick="didClickPhone" />

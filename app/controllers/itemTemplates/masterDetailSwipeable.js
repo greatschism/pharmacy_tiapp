@@ -27,7 +27,7 @@ if (!Alloy.TSS[CONSTS]) {
 		endOffset : endOffset,
 		decisionOffset : Math.round(endOffset - (endOffset / 1.85)),
 		width : endOffset,
-		height : $.marginView.top + $.marginView.bottom + require("uihelper").getHeightFromChildren($.masterView, true)
+		height : $.marginView.top + $.marginView.bottom + uihelper.getHeightFromChildren($.masterView, true)
 	};
 }
 
@@ -48,8 +48,22 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
 	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "";
 	$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")

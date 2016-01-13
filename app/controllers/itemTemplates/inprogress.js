@@ -5,12 +5,22 @@ var args = arguments[0] || {},
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	$.addClass($.titleLbl, args.titleClasses || ["h4"], {
-		text : args.title || (args.data ? args.data[args.titleProperty] : "")
-	});
-	$.addClass($.subtitleLbl, args.subtitleClasses || ["inactive-fg-color"], {
-		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
-	});
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

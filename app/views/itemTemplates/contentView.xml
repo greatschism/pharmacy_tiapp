@@ -1,8 +1,8 @@
 <Alloy autoStyle="true">
-	<TableViewRow id="row" class="row-selection-disabled">
-		<View id="textView" class="content-view-vgroup">
-			<Label id="titleLbl" class="content-title" />
-			<Label id="subtitleLbl" class="content-subtitle" />
+	<TableViewRow id="row">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right vgroup">
+			<Label id="titleLbl" class="left h4" />
+			<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 		</View>
 	</TableViewRow>
 </Alloy>

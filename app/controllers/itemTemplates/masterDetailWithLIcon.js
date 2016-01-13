@@ -41,8 +41,22 @@ var args = arguments[0] || {},
 	if (args.detailWidth) {
 		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
 	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "",
 	    detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
 	if (detailTitle) {

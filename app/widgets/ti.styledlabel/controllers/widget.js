@@ -6,7 +6,7 @@ var args = arguments[0] || {},
 })();
 
 function applyProperties(dict) {
-	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "ellipsize", "wordWrap", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
