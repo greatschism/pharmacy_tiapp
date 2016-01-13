@@ -29,14 +29,9 @@ var args = arguments[0] || {},
 			classes : args.attributedClasses
 		}));
 	}
-	$.attributedAttr.applyAttributes(args.attributes || {
-		secondaryfont : $.createStyle({
-			classes : ["h5"]
-		}).font,
-		secondarycolor : $.createStyle({
-			classes : ["active-fg-color"]
-		}).color
-	});
+	if (args.attributes) {
+		$.attributedAttr.applyAttributes(args.attributes);
+	}
 	$.attributedAttr.setHtml(args.attributed || (args.data ? args.data[args.attributedProperty] : ""));
 	uihelper.wrapText($.attributedAttr.getView());
 })();

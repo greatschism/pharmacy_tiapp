@@ -13,9 +13,6 @@
 "#refillBtn":{
 	title: Alloy.Globals.strings.prescDetBtnRefill
 },
-"#prescAsyncContentView":{
-	top: 0
-},
 "#rxPromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptRx
 },
@@ -48,14 +45,4 @@
 },
 "#hideBtn":{
 	title: Alloy.Globals.strings.prescDetBtnHide
-},
-/**
- * 	override values
- */
-"#instructionAsyncView":{
-	top: 0
-},
-"#prescInstructionLbl":{
-	left: 0,
-	right: 0
 }

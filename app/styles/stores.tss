@@ -3,7 +3,7 @@
 },
 "#searchTxt":{
 	hintText: Alloy.Globals.strings.storesHintSearch,
-	enableClearButton: true
+	clearButtonEnabled: true
 },
 "#mapView":{
 	animate: true,

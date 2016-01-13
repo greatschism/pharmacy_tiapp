@@ -34,12 +34,12 @@ var args = arguments[0] || {},
 			}),
 		}));
 		$.tooltipLbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
-			classes : ["margin-top", "margin-bottom", "margin-left", "margin-right", "h6", "txt-center", "primary-light-fg-color"],
+			classes : ["margin-top", "margin-bottom", "margin-left", "margin-right", "h6", "txt-center", "light-fg-color"],
 			secondaryfont : $.createStyle({
 				classes : ["h5"]
 			}).font,
 			secondarycolor : $.createStyle({
-				classes : ["primary-light-fg-color"]
+				classes : ["light-fg-color"]
 			}).font,
 			text : args.tooltip
 		}));

@@ -699,6 +699,15 @@ var Helper = {
 		 * which makes it look better
 		 */
 		label.height = label.ellipsize ? label.font.fontSize + 5 : Ti.UI.SIZE;
+	},
+
+	/**
+	 * @param {Object} view
+	 * set border radius to 1/2 of view's height
+	 * for rounded corners
+	 */
+	roundedCorners : function(view) {
+		view.borderRadius = view.height / 2;
 	}
 };
 

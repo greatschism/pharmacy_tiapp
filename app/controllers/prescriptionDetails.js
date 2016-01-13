@@ -11,12 +11,33 @@ var args = arguments[0] || {},
 function init() {
 	$.titleLbl.text = prescription.title;
 	var refillsLeft = parseInt(prescription.refill_left),
-	    refillsLeftIsNaN = _.isNaN(refillsLeft);
-	$.addClass($.refillsLeftBtn, [refillsLeftIsNaN || refillsLeft > Alloy.CFG.prescription_refills_left_info_negative ? "info-btn" : "info-negative-btn"], {
-		title : refillsLeftIsNaN ? prescription.refill_left : refillsLeft
-	});
+	    refillsLeftIsNaN = _.isNaN(refillsLeft),
+	    refillsLeftTitle = refillsLeftIsNaN ? prescription.refill_left : refillsLeft;
+	if (!refillsLeftIsNaN && refillsLeft <= Alloy.CFG.prescription_refills_left_negative) {
+		$.refillsLeftBtn.applyProperties($.createStyle({
+			classes : ["negative-bg-color", "light-fg-color", "negative-border"],
+			title : refillsLeftTitle
+		}));
+	} else {
+		$.refillsLeftBtn.title = refillsLeftTitle;
+	}
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	_.each(["refillsLeftLbl", "dueLbl", "lastRefillLbl"], function(val) {
+		$.uihelper.wrapText($[val]);
+	});
+	_.each(["refillsLeftBtn", "dueBtn", "lastRefillBtn"], function(val) {
+		$.uihelper.roundedCorners($[val]);
+	});
+	var swt = $.reminderRefillSwt.getView(),
+	    right = swt.right + swt.width + +$.createStyle({
+		classes : ["margin-right-medium"]
+	}).right;
+	_.each(["reminderRefillAttr", "reminderMedAttr"], function(val) {
+		$[val].applyProperties({
+			right : right
+		});
+	});
 	if (_.has(prescription, "store")) {
 		/**
 		 * Use case:

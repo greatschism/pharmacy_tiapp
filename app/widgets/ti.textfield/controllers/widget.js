@@ -1,5 +1,5 @@
 var args = arguments[0] || {},
-    enableClearButton = false,
+    clearButtonEnabled = false,
     triggerChange = true;
 
 (function() {
@@ -13,8 +13,8 @@ var args = arguments[0] || {},
 
 	if (_.has(args, "rightIconText")) {
 		setIcon(args.rightIconText, "right", args.rightIconDict || {}, args.rightIconAccessibility || {}, args.paddingRight || 0);
-	} else if (args.enableClearButton) {
-		enableClearButton = true;
+	} else if (args.clearButtonEnabled) {
+		clearButtonEnabled = true;
 		setIcon(args.clearIconText, "right", args.clearIconDict || args.rightIconDict || {}, args.clearIconAccessibility || {}, args.paddingRight || 0);
 	} else if (_.has(args, "rightButtonTitle")) {
 		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.rightButtonAccessibility || {}, args.paddingRight || 0);
@@ -35,7 +35,7 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 	var font = args.iconFont || {
 		fontSize : 12
 	},
-	    isClearButton = enableClearButton && direction == "right";
+	    isClearButton = clearButtonEnabled && direction == "right";
 	$.txt[direction] = ($.txt[direction] || 0) + (iconDict[direction] || 0) + (iconDict.width || font.fontSize || 0) + (padding || 0);
 	iconDict[direction] = 0;
 	_.defaults(iconDict, {
@@ -131,7 +131,7 @@ function didChange(e) {
 		triggerChange = true;
 		return;
 	}
-	if (enableClearButton) {
+	if (clearButtonEnabled) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
 	$.trigger("change", {
@@ -181,7 +181,7 @@ function setValue(value) {
 		triggerChange = false;
 	}
 	$.txt.value = value;
-	if (enableClearButton) {
+	if (clearButtonEnabled) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
 }

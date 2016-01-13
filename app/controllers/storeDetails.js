@@ -107,12 +107,6 @@ function didGetStore(result, passthrough) {
 		classes : [clockType + "-fg-color"],
 		text : clockLbl
 	}));
-	//call option
-	$.phoneAttr.applyAttributes({
-		secondarycolor : $.createStyle({
-			classes : ["active-fg-color"]
-		}).color
-	});
 	$.phoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
 	//store services
 	if (services.length) {

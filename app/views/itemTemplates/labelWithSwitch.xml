@@ -1,7 +1,7 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
 		<Widget id="lbl" src="ti.styledlabel" class="margin-top margin-bottom margin-left" if="$.args.styledlabel" />
-		<Label id="lbl" class="margin-top margin-bottom margin-left" if="!$.args.styledlabel" />
+		<Label id="lbl" class="margin-top margin-bottom margin-left attributed" if="!$.args.styledlabel" />
 		<Widget id="swt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle" />
 	</TableViewRow>
 </Alloy>

@@ -2,87 +2,77 @@
 	<ScrollView class="vgroup">
 		<Widget id="prescExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="togglePrescription">
-				<View id="prescContentView" class="content-view-vgroup-with-rbtn">
-					<Label id="titleLbl" class="content-title-wrap" />
-				</View>
-				<Button id="toggleBtn" class="content-tertiary-right-btn" />
+				<Label id="titleLbl" class="margin-top margin-left right-35 h4" />
+				<Button id="toggleBtn" class="left-disabled margin-right width-30 txt-right h8 active-fg-color border-disabled" />
 			</View>
-			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup async-view role-detail-view">
-				<View id="prescAsyncContentView" class="content-view-vgroup-with-padding">
-					<View class="content-group">
-						<Label id="rxPromptLbl" class="content-group-inactive-prompt" />
-						<Label id="rxReplyLbl" class="content-group-reply" />
+			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
+				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
+					<View class="margin-top-medium auto-height hgroup hwrap-disabled">
+						<Label id="rxPromptLbl" class="top left inactive-fg-color" />
+						<Label id="rxReplyLbl" class="top margin-left-medium" />
 					</View>
-					<View class="margin-top content-group">
-						<Label id="expiryPromptLbl" class="content-group-inactive-prompt" />
-						<Label id="expiryReplyLbl" class="content-group-reply" />
+					<View class="margin-top auto-height hgroup hwrap-disabled">
+						<Label id="expiryPromptLbl" class="top left inactive-fg-color" />
+						<Label id="expiryReplyLbl" class="top margin-left-medium" />
 					</View>
-					<View class="margin-top content-group" onClick="didClickDoctor">
-						<Label id="doctorPromptLbl" class="content-group-inactive-prompt" />
-						<Label id="doctorReplyLbl" class="content-group-reply-link" />
+					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickDoctor">
+						<Label id="doctorPromptLbl" class="top left inactive-fg-color" />
+						<Label id="doctorReplyLbl" class="top margin-left-medium active-fg-color" />
 					</View>
-					<View class="margin-top content-group" onClick="didClickStore">
-						<Label id="storePromptLbl" class="content-group-inactive-prompt" />
-						<Label id="storeReplyLbl" class="content-group-reply-link" />
+					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickStore">
+						<Label id="storePromptLbl" class="top left inactive-fg-color" />
+						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color" />
 					</View>
 				</View>
-				<View class="margin-bottom h-divider-light" />
+				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
 			</Widget>
 		</Widget>
-		<View class="auto-height margin-left margin-right hgroup-no-wrap">
-			<View class="info-view-30">
-				<Label id="refillsLeftLbl" class="info-view-title" />
-				<Button id="refillsLeftBtn" />
+		<View class="margin-top margin-left margin-right auto-height hgroup hwrap-disabled">
+			<View class="top width-30 auto-height vgroup">
+				<Label id="refillsLeftLbl" class="margin-left-small margin-right-small h8 txt-center inactive-fg-color wrap-disabled" />
+				<Button id="refillsLeftBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
-			<View class="info-view-35">
-				<Label id="dueLbl" class="info-view-title" />
-				<Button id="dueBtn" class="info-btn" />
+			<View class="top width-35 auto-height vgroup">
+				<Label id="dueLbl" class="margin-left-small margin-right-small h8 txt-center inactive-fg-color wrap-disabled" />
+				<Button id="dueBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
-			<View class="info-view-35" onClick="showHistory">
-				<Label id="lastRefillLbl" class="info-view-title" />
-				<Button id="lastRefillBtn" class="info-btn" />
+			<View class="top width-35 auto-height vgroup" onClick="showHistory">
+				<Label id="lastRefillLbl" class="margin-left-small margin-right-small min-height h8 txt-center inactive-fg-color wrap-disabled" />
+				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
 		</View>
-		<Button id="refillBtn" class="margin-top primary-btn" if="$.args.canHide" onClick="didClickRefill" />
-		<View class="margin-top content-header-view">
-			<Label id="remindersLbl" class="content-header-lbl" />
+		<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
+		<View class="margin-top min-height inactive-light-bg-color role-header-view">
+			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height">
-			<View class="content-view-with-rswt">
-				<Widget id="reminderRefillAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
-			</View>
-			<Widget id="reminderRefillSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeRefill" />
+			<Widget id="reminderRefillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
+			<Widget id="reminderRefillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeRefill" />
 		</View>
 		<View class="h-divider-light" />
 		<View class="auto-height">
-			<View class="content-view-with-rswt">
-				<Widget id="reminderMedAttr" src="ti.styledlabel" class="content-lbl-attributed-wrap" />
-			</View>
-			<Widget id="reminderMedSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeMed" />
+			<Widget id="reminderMedAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
+			<Widget id="reminderMedSwt" src="ti.switch" class="margin-right swt" onChange="didChangeMed" />
 		</View>
-		<View class="content-header-view">
-			<Label id="informationLbl" class="content-header-lbl" />
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="informationLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height" onClick="showHistory">
-			<View class="content-view-with-child">
-				<Label id="historyLbl" class="content-lbl" />
-			</View>
-			<Label class="content-child-icon icon-thin-arrow-right" />
+			<Label id="historyLbl" class="margin-top margin-bottom margin-left right-15" />
+			<Label class="margin-right i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 		</View>
 		<View class="h-divider-light" />
 		<Widget id="instructionExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="toggleInstruction">
-				<View id="instructionContentView" class="content-view-with-child">
-					<Label id="instructionLbl" class="content-lbl" />
-				</View>
-				<Label id="arrowLbl" class="content-child-icon icon-thin-arrow-down" />
+				<Label id="instructionLbl" class="margin-top margin-bottom margin-left right-15" />
+				<Label id="arrowLbl"  class="margin-right i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 			</View>
-			<Widget id="instructionAsyncView" src="ti.asyncview" class="content-view async-view role-detail-view">
-				<Label id="prescInstructionLbl" class="lbl-wrap" />
+			<Widget id="instructionAsyncView" src="ti.asyncview" class="auto-height role-detail-view">
+				<Label id="prescInstructionLbl" class="margin-bottom margin-left margin-right" />
 			</Widget>
 		</Widget>
 		<View class="h-divider-light" />
-		<Button id="hideBtn" class="margin-top margin-bottom secondary-btn" if="$.args.canHide" onClick="didClickHide" />
+		<Button id="hideBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickHide" if="$.args.canHide" />
 	</ScrollView>
 	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
 </Alloy>

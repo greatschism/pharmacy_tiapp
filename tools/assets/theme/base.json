@@ -26,7 +26,7 @@
                 "prescription_progress_x_hours":2,
                 "prescription_progress_x_hours_after":60,
                 "prescription_progress_x_hours_before":15,
-                "prescription_refills_left_info_negative":1,
+                "prescription_refills_left_negative":1,
                 "rx_length":10,
                 "rx_start_index":0,
                 "rx_end_index":7,
@@ -381,10 +381,21 @@
             "Button[platform=android]":{
                 "font":"${H3_PLATFORM_ANDROID}"
             },
+            ".attributed":{
+                "secondarycolor":"${ACTIVE_COLOR}"
+            },
+            ".attributed[platform=ios]":{
+                "font":"${H6_PLATFORM_IOS}",
+                "secondaryfont":"${H5_PLATFORM_IOS}"
+            },
+            ".attributed[platform=android]":{
+                "font":"${H6_PLATFORM_ANDROID}",
+                "secondaryfont":"${H5_PLATFORM_ANDROID}"
+            },
             ".txt-border-view":{
-            	"height":"${INPUT_HEIGHT}",
+                "height":"${INPUT_HEIGHT}",
                 "borderColor":"${INACTIVE_LIGHT_COLOR}",
-            	"borderWidth":8
+                "borderWidth":8
             },
             ".txt":{
                 "top":"${MARGIN_TOP}",
@@ -424,20 +435,20 @@
             ".txta[platform=android]":{
                 "font":"${H4_PLATFORM_ANDROID}"
             },
-           ".swt[platform=ios]": {
-                "width": 56,
-                "tintColor": "${SWITCH_INACTIVE_COLOR}",
-                "onTintColor": "${SWITCH_ACTIVE_COLOR}",
-                "backgroundColor": "${SWITCH_INACTIVE_COLOR}",
-                "borderRadius": 16
+            ".swt[platform=ios]":{
+                "width":56,
+                "tintColor":"${SWITCH_INACTIVE_COLOR}",
+                "onTintColor":"${SWITCH_ACTIVE_COLOR}",
+                "backgroundColor":"${SWITCH_INACTIVE_COLOR}",
+                "borderRadius":16
             },
-            ".swt[platform=android]": {
-                "width": 60,
-                "trackTintColorOn": "${SWITCH_ACTIVE_COLOR}",
-                "trackTintColorOff": "${SWITCH_INACTIVE_COLOR}",
-                "thumbTintColorOn": "${SWITCH_THUMB_COLOR}",
-                "thumbTintColorOff": "${SWITCH_THUMB_COLOR}",
-                "backgroundSelectedColor": "transparent"
+            ".swt[platform=android]":{
+                "width":60,
+                "trackTintColorOn":"${SWITCH_ACTIVE_COLOR}",
+                "trackTintColorOff":"${SWITCH_INACTIVE_COLOR}",
+                "thumbTintColorOn":"${SWITCH_THUMB_COLOR}",
+                "thumbTintColorOff":"${SWITCH_THUMB_COLOR}",
+                "backgroundSelectedColor":"transparent"
             },
             ".pagingcontrol":{
                 "selectedPagerDict":{
@@ -470,8 +481,8 @@
                 "iconFont":"${I5_PLATFORM_ANDROID}"
             },
             ".color-box":{
-            	"height": 20,
-                "width": 20
+                "height":20,
+                "width":20
             },
             ".min-height":{
                 "height":"${MIN_HEIGHT}"
@@ -486,7 +497,7 @@
                 "height":"${PROGRESS_BAR_HEIGHT}"
             },
             ".input-height":{
-            	"height":"${INPUT_HEIGHT}"
+                "height":"${INPUT_HEIGHT}"
             },
             ".margin-top":{
                 "top":"${MARGIN_TOP}"
@@ -667,9 +678,9 @@
                 "bubbleParent":false,
                 "touchEnabled":false
             },
-			".row-selected-bg-color-light": {
-				"selectedBackgroundColor": "${BG_LIGHT_COLOR_SELECTED}"
-			},
+            ".row-selected-bg-color-light":{
+                "selectedBackgroundColor":"${LIGHT_BG_SELECTED_COLOR}"
+            },
             ".bg-color":{
                 "backgroundColor":"${BG_COLOR}",
                 "backgroundSelectedColor":"${BG_COLOR}"
@@ -731,7 +742,7 @@
                 "borderColor":"${ACTIVE_COLOR}"
             },
             ".active-strong-border":{
-             	"borderWidth":"${BORDER_WIDTH}",
+                "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"${ACTIVE_STRONG_COLOR}"
             },
@@ -764,6 +775,10 @@
                 "color":"${FG_COLOR}",
                 "selectedColor":"${FG_SELECTED_COLOR}"
             },
+            ".light-fg-color":{
+                "color":"${LIGHT_FG_COLOR}",
+                "selectedColor":"${LIGHT_FG_SELECTED_COLOR}"
+            },
             ".primary-fg-color":{
                 "color":"${PRIMARY_COLOR}",
                 "selectedColor":"${PRIMARY_SELECTED_COLOR}"
@@ -781,7 +796,7 @@
                 "selectedColor":"${ACTIVE_SELECTED_COLOR}"
             },
             ".active-strong-fg-color":{
-            	"color":"${ACTIVE_STRONG_COLOR}",
+                "color":"${ACTIVE_STRONG_COLOR}",
                 "selectedColor":"${ACTIVE_STRONG_SELECTED_COLOR}"
             },
             ".inactive-fg-color":{

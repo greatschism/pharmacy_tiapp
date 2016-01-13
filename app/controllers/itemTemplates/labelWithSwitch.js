@@ -16,14 +16,9 @@ var args = arguments[0] || {};
 		}) : {
 			right : right
 		});
-		$.attributedAttr.applyAttributes(args.attributes || {
-			secondaryfont : $.createStyle({
-				classes : ["h5"]
-			}).font,
-			secondarycolor : $.createStyle({
-				classes : ["active-fg-color"]
-			}).color
-		});
+		if (args.attributes) {
+			$.attributedAttr.applyAttributes(args.attributes);
+		}
 		$.attributedAttr.setHtml(title);
 		uihelper.wrapText($.attributedAttr.getView());
 	} else {

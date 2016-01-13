@@ -52,7 +52,7 @@
 },
 "#searchTxt":{
 	hintText:Alloy.Globals.strings.prescHintSearch,
-	enableClearButton: true
+	clearButtonEnabled: true
 },
 "#tooltipLbl":{
 	text: Alloy.Globals.strings.prescAddTooltipLblReminder

@@ -7,7 +7,7 @@
 					<View id="storeContentView" class="top left-10 right auto-height vgroup">
 						<Label id="titleLbl" class="left h4" />
 						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
-						<Widget id="phoneAttr" src="ti.styledlabel" class="margin-top-small left h6" onClick="didClickPhone" />
+						<Widget id="phoneAttr" src="ti.styledlabel" class="margin-top-small left attributed" onClick="didClickPhone" />
 						<View id="distanceView" class="margin-top-small auto-height hgroup hwrap-disabled">
 							<Label id="distanceIconLbl" class="left i5 inactive-fg-color icon-thick-location-pin" />
 							<Label id="distanceLbl" class="margin-left-small" />

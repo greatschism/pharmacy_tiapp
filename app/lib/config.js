@@ -245,8 +245,8 @@ var Configuration = {
 			if (_.has(tss[ts], "iconFont")) {
 				tss[ts].iconFont.fontFamily = Alloy.Fonts[tss[ts].iconFont.fontFamily];
 			}
-			if (_.has(tss[ts], "secondaryFont")) {
-				tss[ts].secondaryFont.fontFamily = Alloy.Fonts[tss[ts].secondaryFont.fontFamily];
+			if (_.has(tss[ts], "secondaryfont")) {
+				tss[ts].secondaryfont.fontFamily = Alloy.Fonts[tss[ts].secondaryfont.fontFamily];
 			}
 			/**
 			 * remove any '#' or '.' character in first place and repalce '-' with '_'
