@@ -31,7 +31,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return uihelper.getHeightFromChildren($.textView, true);
+	return uihelper.getHeightFromChildren($.contentView, true);
 }
 
 exports.getParams = getParams;

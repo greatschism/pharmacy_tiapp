@@ -1,7 +1,8 @@
 <Alloy>
-	<View class="top min-height inactive-light-bg-color">
-		<Label class="left icon-width i5 inactive-fg-color icon-users" />
-		<Label id="lbl" class="margin-left-icon margin-right-icon h5 inactive-fg-color wrap-disabled" />
+	<View class="top min-height bg-color">
+		<Button class="top-disabled left right-disabled icon-width i5 bg-color-disabled inactive-fg-color border-disabled icon-users" />
+		<Label id="lbl" class="margin-left-icon margin-right-icon h5 fg-color wrap-disabled" />
 		<Button id="arrowBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-thin-arrow-down" if="!$.args.disabled" />
+		<View class="bottom h-divider-light" />
 	</View>
 </Alloy>

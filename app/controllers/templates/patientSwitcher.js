@@ -12,6 +12,9 @@ var args = arguments[0] || {},
     arrowUp = $.createStyle({
 	classes : ["icon-thin-arrow-up"]
 }),
+    titleClasses = ["left", "h4", "wrap-disabled"],
+    inactiveTitleClasses = ["left", "h4", "inactive-fg-color", "wrap-disabled"],
+    subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     options = {},
     templateHeight,
     rModel,
@@ -62,9 +65,10 @@ function buildPopover() {
 		var data = [];
 		Alloy.Collections.patients.each(function(model) {
 			var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
-			if (!obj.selectable) {
-				obj.titleClasses = ["left", "h4", "inactive-fg-color"];
-			}
+			_.extend(obj, {
+				titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
+				subtitleClasses : subtitleClasses
+			});
 			var row = Alloy.createController("itemTemplates/contentView", obj);
 			data.push(row.getView());
 			rows.push(row);
