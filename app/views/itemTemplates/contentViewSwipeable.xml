@@ -1,5 +1,5 @@
 <Alloy autoStyle="true">
-	<TableViewRow id="row" class="row-selected-bg-color-disabled">
+	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="$.args.hasChild">
 		<View id="containerView" class="auto-height">
 			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
@@ -11,6 +11,21 @@
 					</View>
 				</View>
 				<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+			</View>
+			<View id="dragView" class="right width-100 auto-height" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
+		</View>
+	</TableViewRow>
+	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="!$.args.hasChild">
+		<View id="containerView" class="auto-height">
+			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
+			<View id="contentView" class="right width-100 auto-height bg-color">
+				<View class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled">
+					<Widget id="img" src="ti.remoteimage" class="top left width-20 inactive-border" onError="didError" />
+					<View class="margin-left-medium auto-height vgroup">
+						<Label id="titleLbl" class="left h4" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+					</View>
+				</View>
 			</View>
 			<View id="dragView" class="right width-100 auto-height" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
 		</View>

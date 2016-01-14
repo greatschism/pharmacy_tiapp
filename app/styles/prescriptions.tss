@@ -54,6 +54,9 @@
 	hintText:Alloy.Globals.strings.prescHintSearch,
 	clearButtonEnabled: true
 },
+"#tooltip":{
+	arrowPadding: 6.5
+},
 "#tooltipLbl":{
 	text: Alloy.Globals.strings.prescAddTooltipLblReminder
 },

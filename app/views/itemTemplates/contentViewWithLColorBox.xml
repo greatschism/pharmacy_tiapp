@@ -17,7 +17,7 @@
 	</TableViewRow>
 	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="!$.args.hasChild">
 		<View id="containerView" class="auto-height">
-			<View id="swipeView" class="right bg-color auto-height bubble-disabled" />
+			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
 				<View class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled">
 					<View id="colorBoxView" class="left color-box border" />

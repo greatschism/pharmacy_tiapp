@@ -36,16 +36,16 @@
 		</FooterView>
 	</TableView>
 	<ScrollView id="partialView" class="hide top margin-bottom vgroup">
-		<Label id="partialDescLbl" class="margin-top-large margin-left margin-right h5 txt-center" />
-		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h4 txt-center" />
-		<Label class="margin-top-large margin-bottom-large i1 primary-fg-color icon-add-prescription" onClick="didClickAddPresc" />
+		<Label id="partialDescLbl" class="margin-top-medium margin-left margin-right txt-center" />
+		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center" />
+		<Button class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription" onClick="didClickAddPresc" />
 	</ScrollView>
 	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->
-	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip" if="$.args.showMedReminderTooltip">
+	<Widget id="tooltip" src="ti.tooltip" class="margin-right width-50 bg-color primary-border show" if="$.args.showMedReminderTooltip">
 		<View class="auto-height vgroup">
-			<Label id="tooltipLbl" class="margin-left margin-right" />
-			<Button id="tooltipHideBtn" class="margin-bottom min-height h5 primary-bg-color primary-light-fg-color primary-border" onClick="didClickHide" />
+			<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
+			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHide" />
 		</View>
 	</Widget>
 </Alloy> 

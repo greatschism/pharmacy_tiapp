@@ -23,7 +23,7 @@ function didPostlayout(e) {
 	 */
 	currentView = $.refillView;
 	$.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
-		classes : ["show", "margin-right", "width-50", "direction-up", "bg-color", "primary-border"],
+		classes : ["margin-right", "width-50", "direction-up", "bg-color", "primary-border", "show"],
 		arrowDict : $.createStyle({
 			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
 		}),

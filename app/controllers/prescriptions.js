@@ -19,6 +19,13 @@ function init() {
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
+	if ($.tooltip) {
+		$.tooltip.updateArrow($.createStyle({
+			classes : ["direction-up"]
+		}).direction, $.createStyle({
+			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
+		}));
+	}
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true

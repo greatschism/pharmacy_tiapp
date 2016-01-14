@@ -230,9 +230,10 @@ function didPostlayout(e) {
 	 *
 	 */
 
-	$.tooltip.updateArrowPosition({
+	//use updateArrow instead
+	/*$.tooltip.updateArrowPosition({
 		right : 10
-	});
+	});*/
 
 	$.tooltip.applyProperties($.createStyle({
 		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,

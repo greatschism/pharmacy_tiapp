@@ -46,10 +46,6 @@ function updateArrow(direction, dict) {
 	$.contentView[direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
 }
 
-function updateArrowPosition(dict) {
-	$.arrowLbl.applyProperties(dict);
-}
-
 function applyProperties(dict) {
 	$.widget.addEventListener("postlayout", didPostlayout);
 	$.widget.applyProperties(dict);
@@ -184,6 +180,6 @@ exports.hide = hide;
 exports.animate = animate;
 exports.setText = setText;
 exports.getVisible = getVisible;
+exports.updateArrow = updateArrow;
 exports.setContentView = setContentView;
 exports.applyProperties = applyProperties;
-exports.updateArrowPosition = updateArrowPosition;
