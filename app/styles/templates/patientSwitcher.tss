@@ -1,18 +1,3 @@
 "#patientSwitcher[if=!Alloy.Globals.hasPatientSwitcher]":{
 	height: 0
-},
-/**
-* 	styles set is not configurable here
-*  as it is a standard pop over layout
-*/
-"#popoverView":{
-	zIndex: 0,
-	opacity: 0,
-	visible: false,
-	backgroundColor: "#80000000"
-},
-"#contentView":{
-	top: 0,
-	backgroundColor: "#FFFFFF",
-	height: Ti.UI.SIZE
 }

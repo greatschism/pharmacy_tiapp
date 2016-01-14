@@ -42,12 +42,12 @@ function buildPopover() {
 	if (!$.popoverView) {
 		//popover view
 		$.popoverView = $.UI.create("View", {
-			id : "popoverView"
+			classes : ["fade-out", "hide", "shadow-bg-color"],
+			zIndex : 0
 		});
 		$.popoverView.addEventListener("click", hide);
 		$.contentView = $.UI.create("View", {
-			id : "contentView",
-			bubbleParent : false
+			classes : ["top", "auto-height", "bg-color", "bubble-disabled"]
 		});
 		$.tableView = $.UI.create("TableView", {
 			apiName : "TableView",
@@ -63,7 +63,7 @@ function buildPopover() {
 		Alloy.Collections.patients.each(function(model) {
 			var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
 			if (!obj.selectable) {
-				obj.titleClasses = ["content-inactive-title"];
+				obj.titleClasses = ["left", "h4", "inactive-fg-color"];
 			}
 			var row = Alloy.createController("itemTemplates/contentView", obj);
 			data.push(row.getView());
