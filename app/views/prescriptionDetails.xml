@@ -58,14 +58,14 @@
 			<Label id="informationLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height" onClick="showHistory">
-			<Label id="historyLbl" class="margin-top margin-bottom margin-left right-15" />
-			<Label class="margin-right i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+			<Label id="historyLbl" class="margin-top margin-bottom margin-left" />
+			<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 		</View>
 		<View class="h-divider-light" />
 		<Widget id="instructionExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="toggleInstruction">
-				<Label id="instructionLbl" class="margin-top margin-bottom margin-left right-15" />
-				<Label id="arrowLbl"  class="margin-right i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
+				<Label id="instructionLbl" class="margin-top margin-bottom margin-left" />
+				<Label id="arrowLbl"  class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 			</View>
 			<Widget id="instructionAsyncView" src="ti.asyncview" class="auto-height role-detail-view">
 				<Label id="prescInstructionLbl" class="margin-bottom margin-left margin-right" />

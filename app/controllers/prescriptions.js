@@ -38,9 +38,9 @@ function init() {
 	}));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
-			classes : ["top-disabled", "left-disabled", "width-35", "fill-height", "bg-color-disabled", "active-fg-color", "border-disabled"],
-			title : $.strings.prescAddSectionBtnAll,
-			id : "prescSelectAllBtn"
+			classes : ["right", "fill-height", "h5", "bg-color-disabled", "active-fg-color", "border-disabled"],
+			id : "prescSelectAllBtn",
+			title : $.strings.prescAddSectionBtnAll
 		});
 	} else {
 		swipeOptions = [{
@@ -444,7 +444,7 @@ function prepareList() {
 						callback : didClickSelectAll
 					});
 				}
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, false, headerBtnDict);
+				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());

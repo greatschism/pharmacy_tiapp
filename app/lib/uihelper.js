@@ -618,11 +618,15 @@ var Helper = {
 		if (rightItem) {
 			//if length is 1, it will be a icon
 			if (rightItem.title.length === 1) {
-				rightItem.width = "15%";
-				tClasses.push("right-15");
+				_.extend(rightItem, $.createStyle({
+					classes : ["icon-width"]
+				}));
+				tClasses.push("margin-right-icon");
 			} else {
-				rightItem.width = "40%";
-				tClasses.push("right-40");
+				_.extend(rightItem, $.createStyle({
+					classes : ["title-width"]
+				}));
+				tClasses.push("margin-right-title");
 			}
 		} else {
 			tClasses.push("margin-right");

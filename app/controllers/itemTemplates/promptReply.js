@@ -5,6 +5,11 @@ var args = arguments[0] || {},
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
+	if (args.hasChild) {
+		$.contentView.right = $.childLbl.right + $.childLbl.font.fontSize + $.createStyle({
+			classes : ["margin-right-small"]
+		}).right;
+	}
 	var pDict = $.createStyle({
 		classes : args.promptClasses || ["left", "width-40", "inactive-fg-color"],
 		text : args.prompt || (args.data ? args.data[args.promptProperty] : "")

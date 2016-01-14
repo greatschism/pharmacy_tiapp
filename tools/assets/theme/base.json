@@ -460,7 +460,9 @@
                     "backgroundColor":"${INACTIVE_LIGHT_COLOR}"
                 },
                 "leftButtonDict":{
+                	"top":0,
                     "left":0,
+                    "right":null,
                     "width":90,
                     "height":"fill",
                     "color":"${ACTIVE_COLOR}",
@@ -469,6 +471,8 @@
                     "borderColor":"transparent"
                 },
                 "rightButtonDict":{
+                	"top":0,
+                    "left":null,
                     "right":0,
                     "width":90,
                     "height":"fill",
@@ -532,6 +536,24 @@
             ".color-box":{
                 "height":20,
                 "width":20
+            },
+            ".icon-width":{
+                "width":44
+            },
+            ".title-width":{
+                "width":90
+            },
+            ".margin-left-icon":{
+            	"left":48
+            },
+            ".margin-left-title":{
+            	"left":94
+            },
+            ".margin-right-icon":{
+            	"right":48
+            },
+            ".margin-right-title":{
+            	"right":94
             },
             ".min-height":{
                 "height":"${MIN_HEIGHT}"

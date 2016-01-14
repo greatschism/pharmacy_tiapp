@@ -34,6 +34,11 @@ if (!Alloy.TSS[CONSTS]) {
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
+	if (args.hasChild) {
+		$.masterView.right = $.childLbl.right + $.childLbl.font.fontSize + $.createStyle({
+			classes : ["margin-right-small"]
+		}).right;
+	}
 	var color = args.color || (args.data ? args.data[args.colorProperty] : "transparent");
 	$.colorBoxView.applyProperties({
 		backgroundColor : color,

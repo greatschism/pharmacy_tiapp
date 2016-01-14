@@ -38,6 +38,9 @@ function init() {
 			right : right
 		});
 	});
+	$.instructionLbl.right = $.historyLbl.right = $.childLbl.right + $.childLbl.font.fontSize + $.createStyle({
+		classes : ["margin-right-small"]
+	}).right;
 	if (_.has(prescription, "store")) {
 		/**
 		 * Use case:

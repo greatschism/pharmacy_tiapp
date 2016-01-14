@@ -22,6 +22,9 @@ function init() {
 		classes : ["margin-top"]
 	}).top;
 	$.containerView.height = rxTxtHeight;
+	$.pickupModeLbl.right = $.childLbl.right + $.childLbl.font.fontSize + $.createStyle({
+		classes : ["margin-right-small"]
+	}).right;
 	/**
 	 * only when phoneTxt
 	 * is included

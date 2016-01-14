@@ -1,25 +1,25 @@
 <Alloy>
-	<Widget id="remindFromPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickRemindFromPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="remindFromLbl" class="content-header-lbl" />
+	<Widget id="remindFromPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickRemindFromPicker">
+		<View class="top min-height inactive-light-bg-color role-header-view">
+			<Label id="remindFromLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="remindFromCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemindFromClose" />
+			<Button id="remindFromCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemindFromClose" />
 		</View>
 	</Widget>
-	<Widget id="remindRepeatPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickRemindRepeatPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="remindRepeatLbl" class="content-header-lbl" />
+	<Widget id="remindRepeatPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickRemindRepeatPicker">
+		<View class="top min-height inactive-light-bg-color role-header-view">
+			<Label id="remindRepeatLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="remindRepeatCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemindRepeatClose" />
+			<Button id="remindRepeatCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemindRepeatClose" />
 		</View>
 	</Widget>
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
-		<View class="content-header-view">
-			<Label id="benefitsLbl" class="content-header-lbl-with-ricon" />
-			<Button class="content-header-right-icon icon-help" onClick="didClickBenefits" />
+		<View class="top min-height inactive-light-bg-color">
+			<Label id="benefitsLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled" />
+			<Button class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-help" onClick="didClickBenefits" />
 		</View>
 	</View>
 	<TableView id="tableView" onClick="didClickTableView">

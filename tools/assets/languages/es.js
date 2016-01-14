@@ -318,6 +318,7 @@ module.exports = {
 		"prescAddBtnSubmit" : "es-Done",
 		"prescAddBtnContinue" : "es-Continue",
 		"prescAddSectionBtnAll" : "es-Select all",
+		"prescAddSectionBtnNone" : "es-Select none",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "es-You must select at least %d prescription(s) to continue.",
 		"prescAddSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
