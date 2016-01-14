@@ -373,6 +373,37 @@ function showHistory(e) {
 }
 
 function didChangeRefill(e) {
+	/**
+	 * in order to set refill_all_prescriptions flag
+	 * while add / update reminder, we need both active
+	 * and hidden prescriptions count
+	 * Note: prescription details screen will be available only
+	 * from prescriptions list / prescription module where
+	 * active prescriptions are only listed, so just get hidden
+	 * and add it's length with Alloy.Collections.prescriptions.length
+	 */
+	$.http.request({
+		method : "prescriptions_list",
+		params : {
+			data : [{
+				prescriptions : {
+					sort_order_preferences : apiCodes.prescriptions_sort_by_name,
+					prescription_display_status : apiCodes.prescription_display_status_hidden
+				}
+			}]
+		},
+		passthrough : {
+			value : e.value
+		},
+		keepLoader : true,
+		errorDialogEnabled : false,
+		success : didGetPrescriptions,
+		failure : didGetPrescriptions
+	});
+}
+
+function didGetPrescriptions(result, passthrough) {
+	passthrough.hiddenPrescriptionsLength = result.data && result.data.prescriptions.length || 0;
 	$.http.request({
 		method : "reminders_refill_get",
 		params : {
@@ -382,7 +413,7 @@ function didChangeRefill(e) {
 				}
 			}]
 		},
-		passthrough : e.value,
+		passthrough : passthrough,
 		keepLoader : true,
 		errorDialogEnabled : false,
 		success : didGetRefillReminder,
@@ -402,7 +433,7 @@ function didGetRefillReminder(result, passthrough) {
 		if (result.data) {
 			//get existing reminders
 			currentData = result.data.reminders;
-			if (passthrough) {
+			if (passthrough.value) {
 				//add it
 				currentData.prescriptions.push(_.pick(prescription, ["id"]));
 			} else {
@@ -416,7 +447,7 @@ function didGetRefillReminder(result, passthrough) {
 			/**
 			 * handle when no reminders set already
 			 * adding reminder with only this prescription
-			 * Note: switch value (passthrough) must
+			 * Note: switch value (passthrough.value) must
 			 * be true here
 			 */
 			currentData = {
@@ -429,8 +460,9 @@ function didGetRefillReminder(result, passthrough) {
 			params : {
 				data : [{
 					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
+						refill_all_prescriptions : currentData.prescriptions.length === (Alloy.Collections.prescriptions.length + passthrough.hiddenPrescriptionsLength) ? 1 : 0,
 						type : apiCodes.reminder_type_refill,
-						reminder_enabled : 1,
+						reminder_enabled : 1
 					})
 				}]
 			},
@@ -448,7 +480,7 @@ function didSetRefillReminder(result, passthrough) {
 	 * update prescription data
 	 * as the api call passed
 	 */
-	if (passthrough) {
+	if (passthrough.value) {
 		prescription.is_refill_reminder_set = "1";
 		/**
 		 * verify reminder mode is not null
@@ -485,7 +517,7 @@ function didNotSetRefillReminder(result, passthrough) {
 	 * revert switch state
 	 * as the api call failed
 	 */
-	$.reminderRefillSwt.setValue(!passthrough, true);
+	$.reminderRefillSwt.setValue(!passthrough.value, true);
 }
 
 function didChangeMed(e) {
