@@ -723,7 +723,8 @@ module.exports = {
 		"textMessageNotReceiveBtn" : "es-I unblocked the shortcode",
 		"textMessageNotReceiveAttrSkip" : "es-Skip",
 		"textMessageMobileVerified" : "es-You will now receive text reminders",
-
+		"textMessagePhoneNumberNotUpdatedWarningMsg" : "es-You have not clicked on ‘I replied to the text message’ button. if you have already verified your number by sending the OTP, it will reflect when you login the next time",
+		
 		"phoneValPhone" : "es-Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
