@@ -13,6 +13,15 @@ function init() {
 
 }
 
+function backButtonHandler() {
+	if(args.replyTextMsgBtn === true)
+	{
+		$.uihelper.showDialog({
+			message : $.strings.textMessagePhoneNumberNotUpdatedWarningMsg
+		});
+	}
+}
+
 function skipClicked() {
 	/**
 	 * if you skip the verification, set the flag (is_mobile_verified) to 0.
@@ -344,3 +353,4 @@ function didNotReceiveText() {
 }
 
 exports.init = init;
+exports.backButtonHandler = backButtonHandler;
