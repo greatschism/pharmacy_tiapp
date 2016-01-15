@@ -21,6 +21,7 @@ var args = arguments[0] || {},
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	uihelper.wrapViews($.masterView);
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

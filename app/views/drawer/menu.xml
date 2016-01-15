@@ -6,9 +6,9 @@
 			</View>
 		</HeaderView>
 		<TableViewRow class="primary-bg-color row-selected-bg-color-light">
-			<View class="margin-top-large margin-bottom-large auto-height hgroup hwrap-disabled touch-disabled">
-				<Label text="{icon}" class="margin-left i4 primary-light-fg-color touch-disabled" />
-				<Label text="{title}" class="margin-left-medium h4 primary-light-fg-color touch-disabled" />
+			<View class="margin-top-large margin-left margin-right margin-bottom-large auto-height touch-disabled">
+				<Label text="{icon}" class="left i4 primary-light-fg-color touch-disabled" />
+				<Label text="{title}" left="{left}" class="h4 primary-light-fg-color touch-disabled" />
 			</View>
 		</TableViewRow>
 		<FooterView platform="ios">

@@ -1,21 +1,21 @@
 <Alloy>
 	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
-			<View id="refillView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickRefill">
+			<View id="refillView" class="margin-top margin-left margin-right auto-height" onClick="didClickRefill">
 				<ImageView id="refillImg" class="top left img-reminders-refill"/>
 				<Label id="refillLbl" class="margin-left-medium h4" onPostlayout="didPostlayout" />
 			</View>
-			<View class="h-divider-light" />
-			<View id="medView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickMed">
+			<View class="margin-top h-divider-light" />
+			<View id="medView" class="margin-top margin-left margin-right auto-height" onClick="didClickMed">
 				<ImageView id="medImg" class="top left img-reminders-med"/>
 				<Label id="medLbl" class="margin-left-medium h4" />
 			</View>
-			<View class="h-divider-light" />
-			<View id="settingsView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled" onClick="didClickSettings">
+			<View class="margin-top h-divider-light" />
+			<View id="settingsView" class="margin-top margin-left margin-right auto-height" onClick="didClickSettings">
 				<ImageView id="settingsImg" class="top left img-reminders-settings"/>
 				<Label id="settingsLbl" class="margin-left-medium h4" />
 			</View>
-			<View class="margin-bottom h-divider-light" />
+			<View class="margin-top margin-bottom h-divider-light" />
 		</View>
 	</ScrollView>
 </Alloy>

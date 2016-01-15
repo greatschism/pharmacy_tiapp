@@ -5,12 +5,18 @@ var args = arguments[0] || {},
     analyticsHandler = require("analyticsHandler"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
-    currentIndex = -1;
+    currentIndex = -1,
+    marginLeft;
 
 function init() {
 	if (OS_ANDROID) {
 		app.navigator.drawer.on("drawerclose", didDrawerclose);
 	}
+	marginLeft = +$.createStyle({
+		classes : ["i4"]
+	}).font.fontSize + $.createStyle({
+		classes : ["margin-left-medium"]
+	}).left;
 	Alloy.Collections.menuItems.trigger("reset");
 }
 
@@ -27,8 +33,11 @@ function filterFunction(collection) {
 
 function transformFunction(model) {
 	var transform = model.toJSON();
-	transform.icon = icons[transform.icon];
-	transform.title = strings[transform.menuTitleid || transform.titleid];
+	_.extend(transform, {
+		left : marginLeft,
+		icon : icons[transform.icon],
+		title : strings[transform.menuTitleid || transform.titleid]
+	});
 	return transform;
 }
 

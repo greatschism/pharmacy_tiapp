@@ -724,6 +724,21 @@ var Helper = {
 	 */
 	roundedCorners : function(view) {
 		view.borderRadius = view.height / 2;
+	},
+
+	/**
+	 * wrap elements on horizontal direction
+	 * Note: using horizontal layout has issues
+	 * with android platform, APPC JIRA refs -
+	 * TIMOB-19536, TIMOB-16367, TIMOB-12577
+	 */
+	wrapViews : function(view) {
+		var left = 0;
+		_.each(view.children, function(child, index) {
+			left += child.left || 0;
+			child.left = left;
+			left += child.width || child.font && child.font.fontSize || 0;
+		});
 	}
 };
 

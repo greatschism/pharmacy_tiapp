@@ -1,6 +1,12 @@
 var args = arguments[0] || {},
     currentView;
 
+function init(e) {
+	_.each(["refillView", "medView", "settingsView"], function(val) {
+		$.uihelper.wrapViews($[val]);
+	});
+}
+
 function didPostlayout(e) {
 	/**
 	 * we need height of
@@ -98,3 +104,5 @@ function didClickSettings(e) {
 		stack : true
 	});
 }
+
+exports.init = init;
