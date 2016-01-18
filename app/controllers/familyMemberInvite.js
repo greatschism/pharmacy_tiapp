@@ -7,6 +7,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment");
 
 function init() {
+	$.uihelper.getImage("adult", $.adultImg);
 	$.inviteLbl.text = String.format(Alloy.Globals.strings.familyMemberInviteLbl, args.familyRelationship);
 }
 

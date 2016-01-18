@@ -1,5 +1,8 @@
 <Alloy>
 	<View class="vgroup">
-		<Button id="continueBtn" class="primary-btn" onClick="didClickContinue"/>
+		<ImageView id="adultImg" class="margin-top" />
+		<Label id="registerAdultTitle" class="lbl-centered-wrap margin-top margin-bottom"/>
+		<Label id="registerAdultSubTitle" class="lbl-centered-wrap margin-top margin-bottom"/>
+		<Button id="continueBtn" class="primary-btn margin-top" onClick="didClickContinue"/>
 	</View>
 </Alloy>

@@ -405,8 +405,9 @@ function updateReminder(callback) {
 			params : {
 				data : [{
 					reminders : _.extend(_.omit(currentData, ["recurring", "additional_reminder_date"]), {
+						refill_all_prescriptions : currentData.prescriptions.length === Alloy.Collections.prescriptions.length ? 1 : 0,
 						type : apiCodes.reminder_type_refill,
-						reminder_enabled : 1,
+						reminder_enabled : 1
 					})
 				}]
 			},
@@ -438,7 +439,7 @@ function verifyDeliveryMode(callback) {
 				 * already at authenticator while login
 				 */
 				var params = {};
-				params[colName] = apiCodes.reminder_delivery_mode_push;
+				params[colName] = authenticator.getPushModeForDeviceToken();
 				authenticator.updatePreferences(params, {
 					success : callback
 				});

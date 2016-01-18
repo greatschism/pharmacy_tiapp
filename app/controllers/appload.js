@@ -178,7 +178,7 @@ function didSuccessAppload(result) {
 		 * then continue
 		 */
 		var clientConfig = appload.client_json || {};
-		_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources", "override_remote_resources"], function(key) {
+		_.each(["force_update", "force_reload_after_update", "async_update", "delete_unused_resources"], function(key) {
 			if (_.has(clientConfig, key)) {
 				Alloy.CFG[key] = clientConfig[key];
 			}

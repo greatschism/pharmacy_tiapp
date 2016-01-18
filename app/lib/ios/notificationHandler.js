@@ -2,10 +2,16 @@ var TAG = "NOHA",
     Alloy = require("alloy"),
     notificationPanel = require("notificationPanel"),
     logger = require("logger"),
+    isVirtualDevice = Ti.Platform.model === "Simulator",
     isIOS8 = checkVersion(8),
     isBusy = false,
-    deviceTokenCallback,
-    deviceToken;
+    deviceToken,
+    deviceTokenCallback;
+
+//return a default token on virutal device
+if (isVirtualDevice) {
+	deviceToken = "89bf96e7496498742cce9c45dd994c7e61e10df87169564590e10060078f5136";
+}
 
 function checkVersion(thatVersion) {
 	var version = Ti.Platform.version.split("."),
@@ -17,7 +23,7 @@ function checkVersion(thatVersion) {
 }
 
 function init(callback) {
-	if (deviceToken || Alloy.Globals.isVirtualDevice) {
+	if (deviceToken || isVirtualDevice) {
 		if (callback) {
 			callback(deviceToken);
 		}

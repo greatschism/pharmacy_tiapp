@@ -8,5 +8,7 @@
 	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
 },
 "#activityIndicator[platform=android]":{
+	width: 50,
+	height: 50,
 	style: Ti.UI.ActivityIndicatorStyle.BIG
 }

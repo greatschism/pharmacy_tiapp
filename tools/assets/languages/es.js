@@ -74,12 +74,20 @@ module.exports = {
 		"msgCameraInvalid" : "es-We cannot reach your captured image; please select a image from gallery instead.",
 		"msgGalleryError" : "es-We are unable to access your photo gallery, please check your settings.",
 		"msgGalleryInvalid" : "es-We cannot reach your selected image gallery; please take a photo instead.",
+		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
+		"msgPushNotificationsAuthorizationDenied" : "es-You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
+		"msgUpdateDeviceConfirm" : "es-We've noticed you're using a different device than you normally do. Would you like us to make this new one your primary device? This means you'll receive all your push notifications here instead of your old device.",
+		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
+		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
 		"msgSessionTimeout" : "es-Your session has expired. Please re-login to access the application.",
 		"msgLogoutConfirm" : "es-Are you sure you wish to signout and return to the home screen?",
 		"msgLoggedout" : "es-You have logged out successfully.",
-		"msgExternalStorageError" : "es-You don't have enough space on your device to perform this operation.",
-		"msgTimeZoneUpdate" : "es-We noticed you're in a different time zone than you have set in this app. Would you like to change it?",
-		"msgTimeZoneInvalid" : "es-We noticed you're in a different time zone than you have set in this app. This app doesn't support your current time zone. We will keep sending you the reminders in your default time zone.",
+		"msgGooglePlayServicesUpdateRequired" : "es-You must update your Google Play Services in order to use this feature. Do you want to update now?",
+		"msgGooglePlayServicesNotAvailable" : "es-There is something wrong with your version of Google Play Services. Please check your settings.",
+		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled electronically. Contact your pharmacy or doctor for more information.",
+		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
+		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
+		"msgPrescriptionHasMedReminder" : "es-You have already created a reminder that includes this prescription. Are you sure you want to select it for this reminder too?",
 		"msgAccountEmailVerification" : "es-We just sent you an email to confirm we have the correct address. You will not receive any notifications until you’ve clicked the link in the email.",
 		"msgPasswordTips" : "es-Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgRxNumberTips" : "es-Your Rx number can be found on your prescription bottle. You can use any prescription.",
@@ -88,14 +96,8 @@ module.exports = {
 		"msgAccountExists" : "es-It looks like you already have an account with %s",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password.",
 		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
-		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled electronically. Contact your pharmacy or doctor for more information.",
-		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
-		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
-		"msgPrescriptionHasMedReminder" : "es-You have already created a reminder that includes this prescription. Are you sure you want to select it for this reminder too?",
 		"msgRegisterSuccessful" : "es-Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
-		"msgGooglePlayServicesUpdateRequired" : "es-You must update your Google Play Services in order to use this feature. Do you want to update now?",
-		"msgGooglePlayServicesNotAvailable" : "es-There is something wrong with your version of Google Play Services. Please check your settings.",
 
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
@@ -159,6 +161,8 @@ module.exports = {
 		"titleTextMsgSignUp" : "es-Sign up for text messaging",
 		"titleAddFamily" : "es-Add a family member",
 		"titleForgotPassword" : "es-User recovery",
+		"titleManageAdult" : "es-Manage an adult",
+		"titleAddAnAdult" : "es-Add an adult",
 
 		"upgradeBtnSubmit" : "es-Upgrade now",
 
@@ -236,7 +240,7 @@ module.exports = {
 		"storeDetBtnFavouriteAdd" : "es-Add to favorites",
 		"storeDetBtnFavouriteRemove" : "es-Remove from favorites",
 		"storeDetSectionHours" : "es-Store hours",
-		"storeDetSectionServices" : "es-Store Services",
+		"storeDetSectionServices" : "es-Store services",
 		"storeDetLblHoursNotAvailable" : "es-Store hours are not available.",
 		"storeDetMsgHomeCantUpdate" : "es-This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "es-Change home pharmacy",
@@ -370,7 +374,7 @@ module.exports = {
 		"refillTypeHintPhone" : "es-Mobile number",
 		"refillTypeLblStoreTitle" : "es-No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "es-Click here to choose one",
-		"refillTypeValRx" : "es-Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"refillTypeValRx" : "es-Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"refillTypeValStore" : "es-Please choose a pharmacy for pickup",
 		"refillTypeValPhone" : "es-Please enter your mobile number to continue.",
 		"refillTypeValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
@@ -490,7 +494,6 @@ module.exports = {
 		"remindersSettingsPopupSectionDeliveryModes" : "es-Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "es-Close",
 		"remindersSettingsMsgShowRxNames" : "es-Changing this preference will send your full prescription name in any text, email, or push notification that you have enabled. This information will be sent over an unencrypted channel and will display on your phone when you get a notification. By changing this preference you accept the risk of sending your health information through an unencrypted channel, and the %s Terms of Service.",
-		"remindersSettingsMsgPushDisabled" : "es-You declined permission for this application to send push notifications. Please go into the device settings on your iPhone and grant permission for this app to send you push notifications.",
 		"remindersSettingsMsgEmailNotVerified" : "es-We just sent you an email with a link to confirm your email address. Once you do this, you will begin to receive email notifications.",
 		"remindersSettingsMsgPhoneNotVerified" : "es-Please confirm your mobile number before you can receive text reminders.",
 		"remindersSettingsDialogBtnPhoneNotVerified" : "es-Confirm number",
@@ -612,7 +615,7 @@ module.exports = {
 		"registerValPassword" : "es-Please enter your password.",
 		"registerValPasswordInvalid" : "es-Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number. Please try again.",
 		"registerValRxNo" : "es-Please enter your Rx number.",
-		"registerValRxInvalid" : "es-Your Rx number is incorrect, please enter the [X] digit prescription number found on your prescription bottle.",
+		"registerValRxInvalid" : "es-Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"registerValStore" : "es-Please select a pharmacy.",
 		"registerSectionTermsDocuments" : "es-Documents",
 		"registerBtnTermsDone" : "es-Done",
@@ -720,7 +723,8 @@ module.exports = {
 		"textMessageNotReceiveBtn" : "es-I unblocked the shortcode",
 		"textMessageNotReceiveAttrSkip" : "es-Skip",
 		"textMessageMobileVerified" : "es-You will now receive text reminders",
-
+		"textMessagePhoneNumberNotUpdatedWarningMsg" : "es-You have not clicked on ‘I replied to the text message’ button. if you have already verified your number by sending the OTP, it will reflect when you login the next time",
+		
 		"phoneValPhone" : "es-Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
@@ -751,12 +755,12 @@ module.exports = {
 		"familyMemberAddHintOther" : "es-Relationship",
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s?",
-		"familyMemberInviteSendTextLbl" : "es-Send text",
+		"familyMemberInviteSendTextLbl" : "es-Send a text message",
 		"familyMemberInviteModeEmail" : "es-email",
 		"familyMemberInviteModeText" : "es-text",
 		"familyMemberInviteSendEmailLbl" : "es-Send an email",
-		"familyMemberInviteHintSendText" : "es-Enter number",
-		"familyMemberInviteHintSendEmail" : "es-Enter email address",
+		"familyMemberInviteHintSendText" : "es-Enter their mobile number",
+		"familyMemberInviteHintSendEmail" : "es-Enter their email address",
 		"familyMemberInviteBtnSend" : "es-Send",
 		"familyMemberInviteBtnCancel" : "es-Cancel",
 		"familyMemberInviteValPhoneInvalid" : "es-The phone number you have entered is invalid.",
@@ -794,7 +798,17 @@ module.exports = {
 		"emailVerifyBtnContinue" : "es-Continue",
 		"emailVerifyBtnIsntMyEmail" : "es-<secondaryfont><secondarycolor>This isn't my email address.</secondarycolor></secondaryfont>",
 		"emailVerifyBtnResendEmail" : "es-Resend email",
-		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address."
+		"emailVerifyMsgResendEmail" : "es-We just sent you a new verification email. Please click the link inside to confirm your email address.",
+
+		"registerAdultInfoLblTitle" : "es-In order to protect the privacy and security of your family, anyone 18 or older must be invited to create their own account.",
+		"registerAdultInfoLblSubTitle" : "es-We'll start by creating a manager account for you, and then you'll have the opportunity to invite your adult family member.",
+		"registerAdultInfoBtnContinue" : "es-Continue",
+
+		"addAnotherAdultLblTitle" : "es-It's time to invite your family member.",
+		"addAnotherAdultLblSubTitle" : "es-First, tell us who they are:",
+		"addAnotherAdultBtnContinue" : "es-Continue",
+		"addAnotherAdultAddRelationTip" : "es-Tap to choose..."
+
 	}
 
 };

@@ -50,11 +50,13 @@
                     {
                         "id": "app",
                         "col_pref": "app_reminder_dlvry_mode",
+                        "flg_pref": "app_reminder_flag",
                         "enabled": false
                     },
                     {
                         "id": "doctor",
                         "col_pref": "doctor_reminder_dlvry_mode",
+                        "flg_pref": "doctor_appointment_reminder_flag",
                         "enabled": false
                     },
                     {
@@ -65,11 +67,13 @@
                     {
                         "id": "med",
                         "col_pref": "med_reminder_dlvry_mode",
+                        "flg_pref": "med_reminder_flag",
                         "enabled": true
                     },
                     {
                         "id": "refill",
                         "col_pref": "refill_reminder_dlvry_mode",
+                        "flg_pref": "refill_reminder_flag",
                         "enabled": true
                     },
                     {
@@ -86,7 +90,7 @@
                     "reminder_hour": 9,
                     "reminder_minute": 0,
                     "reminder_meridiem": "AM",
-                    "no_of_reminders": 3
+                    "no_of_reminders": 2
                 },
                 "reminder_med_frequencies": [
                     {
@@ -1224,7 +1228,7 @@
                 "borderColor": "#808082",
                 "borderWidth": 1,
                 "borderRadius": 3.4,
-                "suppressReturn": true
+                "suppressReturn": false
             },
             ".form-group": {
                 "left": 12,

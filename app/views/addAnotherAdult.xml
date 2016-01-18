@@ -1,0 +1,11 @@
+<Alloy>
+	<View class="vgroup">
+		<Label id="addAnotherAdultTitle" class="lbl-centered-wrap margin-top margin-bottom"/>
+		<Label id="addAnotherAdultSubTitle" class="lbl-centered margin-top margin-bottom"/>
+		<View class="margin-top form-group">
+			<Widget id="relationshipDp" src="ti.dropdown" class="form-dropdown" onReturn="didChangeRelationship"/>
+		</View>
+		<View id="otherTxtView" class="margin-top form-group"/>
+		<Button id="continueBtn" class="primary-btn margin-top" onClick="didClickContinue"/>
+	</View>
+</Alloy>
