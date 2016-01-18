@@ -7,9 +7,13 @@
 	bubbleParent: false
 },
 "#activityIndicator[platform=ios]":{
+	/**
+	 * 	indicatorColor is available only from 5.0.0.GA
+	 *  iPhone.ActivityIndicatorStyle.DARK deprecated from 5.1.0
+	 * use ActivityIndicatorStyle.BIG
+	 */
 	indicatorColor: "#005E00",
-	//deprecated on 5.1.0.GA
-	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+	style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 },
 "#activityIndicator[platform=android]":{
 	width: 50,
