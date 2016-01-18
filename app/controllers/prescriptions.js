@@ -350,7 +350,7 @@ function prepareList() {
 				masterWidth : 100,
 				detailWidth : 0,
 				titleClasses : titleClasses,
-				subtitleClasses : subtitleClasses,
+				subtitleClasses : args.selectable && subtitleClasses,
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
