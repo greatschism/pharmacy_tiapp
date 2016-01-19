@@ -103,7 +103,14 @@ function didPostlayout(e) {
 		height += 0.5;
 	}
 	$.containerView.height = $.dragView.height = height;
-	$.swipeView.height = Ti.UI.FILL;
+	/**
+	 * to keep the swipe view completely
+	 * hidden from content view
+	 */
+	if (OS_ANDROID) {
+		height -= 0.5;
+	}
+	$.swipeView.height = height;
 }
 
 function didError(e) {
