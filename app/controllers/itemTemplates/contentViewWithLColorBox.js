@@ -37,6 +37,7 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.hasChild) {
 		uihelper.wrapViews($.contentView, "right");
 	}
+	uihelper.wrapViews($.masterView);
 	var color = args.color || (args.data ? args.data[args.colorProperty] : "transparent");
 	$.colorBoxView.applyProperties({
 		backgroundColor : color,
@@ -98,7 +99,8 @@ function didPostlayout(e) {
 	if (OS_IOS) {
 		height += 0.5;
 	}
-	$.containerView.height = $.swipeView.height = $.dragView.height = height;
+	$.containerView.height = $.dragView.height = height;
+	$.swipeView.height = Ti.UI.FILL;
 }
 
 function didClickOption(e) {

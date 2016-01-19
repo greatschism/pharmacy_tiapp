@@ -27,7 +27,8 @@ if (!Alloy.TSS[CONSTS]) {
 		startOffset : 0,
 		endOffset : endOffset,
 		decisionOffset : Math.round(endOffset - (endOffset / 1.85)),
-		width : endOffset
+		width : endOffset,
+		imageWidth : utilities.percentageToValue("20%", app.device.width - ($.masterView.left + $.masterView.right))
 	};
 }
 
@@ -37,10 +38,13 @@ CONSTS = Alloy.TSS[CONSTS];
 	if (args.hasChild) {
 		uihelper.wrapViews($.contentView, "right");
 	}
+	var imageView = $.img.getView();
+	imageView.width = CONSTS.imageWidth;
+	uihelper.wrapViews($.masterView);
 	if (args.image) {
 		$.img.setImage(args.image);
 	} else if (args.defaultImage) {
-		$.img.getView().image = args.defaultImage;
+		imageView.image = args.defaultImage;
 	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
@@ -98,7 +102,8 @@ function didPostlayout(e) {
 	if (OS_IOS) {
 		height += 0.5;
 	}
-	$.containerView.height = $.swipeView.height = $.dragView.height = height;
+	$.containerView.height = $.dragView.height = height;
+	$.swipeView.height = Ti.UI.FILL;
 }
 
 function didError(e) {
