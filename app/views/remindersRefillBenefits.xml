@@ -1,17 +1,17 @@
 <Alloy>
 	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
-			<View id="refillView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled">
+			<View id="refillView" class="margin-top margin-bottom margin-left margin-right auto-height">
 				<ImageView id="refillImg" class="top left img-reminders-refill-benefits-refill"/>
 				<Label id="refillLbl" class="margin-left-medium h4" />
 			</View>
 			<View class="h-divider-light" />
-			<View id="medView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled">
+			<View id="readyView" class="margin-top margin-bottom margin-left margin-right auto-height">
 				<ImageView id="readyImg" class="top left img-reminders-refill-benefits-ready"/>
 				<Label id="readyLbl" class="margin-left-medium h4" />
 			</View>
 			<View class="h-divider-light" />
-			<View id="settingsView" class="margin-top margin-bottom margin-left margin-right auto-height hgroup hwrap-disabled">
+			<View id="pickupView" class="margin-top margin-bottom margin-left margin-right auto-height">
 				<ImageView id="pickupImg" class="top left img-reminders-refill-benefits-pickup"/>
 				<Label id="pickupLbl" class="margin-left-medium h4" />
 			</View>
