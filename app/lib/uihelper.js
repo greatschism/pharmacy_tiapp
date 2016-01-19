@@ -714,7 +714,20 @@ var Helper = {
 		 * 5 - is a extra padding around label
 		 * which makes it look better
 		 */
-		label.height = label.ellipsize ? label.font.fontSize + 5 : Ti.UI.SIZE;
+		if (label.ellipsize) {
+			/**
+			 * Width should be Ti.UI.FILL
+			 * for making ellipsize effective
+			 * APPC JIRA refs -
+			 * TIMOB-14256,TIMOB-13220,TIMOB-13895
+			 */
+			label.applyProperties({
+				width : Ti.UI.FILL,
+				height : label.font.fontSize + 5
+			});
+		} else {
+			label.height = Ti.UI.SIZE;
+		}
 	},
 
 	/**
