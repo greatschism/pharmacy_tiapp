@@ -3,6 +3,9 @@ var args = arguments[0] || {},
     isWindowOpen;
 
 function init() {
+	_.each(["typeView", "phoneView"], function(val) {
+		$.uihelper.wrapViews($[val]);
+	});
 	_.each(["typeLbl", "phoneLbl"], function(val) {
 		$.uihelper.wrapText($[val]);
 	});

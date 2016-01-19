@@ -2,14 +2,14 @@
 	<ScrollView class="vgroup">
 		<Label id="titleLbl" class="margin-top-extra-large margin-left margin-right" />
 		<View class="margin-top-extra-large margin-left margin-right auto-height primary-border" onClick="didClickType">
-			<View class="auto-width input-height hgroup hwrap-disabled">
+			<View id="typeView" class="auto-width input-height">
 				<Label class="left i5 primary-fg-color icon-list" />
 				<Label id="typeLbl" class="margin-left-medium h3 primary-fg-color wrap-disabled" />
 			</View>
 		</View>
 		<Require src="templates/optionDivider" />
 		<View class="margin-top margin-bottom margin-left margin-right auto-height primary-border" onClick="didClickPhone">
-			<View class="auto-width input-height hgroup hwrap-disabled">
+			<View id="phoneView" class="auto-width input-height">
 				<Label class="left i5 primary-fg-color icon-phone" />
 				<Label id="phoneLbl" class="margin-left-medium h3 primary-fg-color wrap-disabled" />
 			</View>
