@@ -160,7 +160,10 @@
                     "add_familycare":"0xE007",
                     "add_doctor":"0xE008",
                     "add_reminder":"0xE009",
-                    "download":"0XE00A"
+                    "download":"0XE00A",
+                    "filled_torchlight":"0xE00B",
+                    "filled_settings":"0xE00C",
+                    "filled_refresh":"0XE00D"
                 },
                 "icons":{
                     "numeric_zero":"0",
