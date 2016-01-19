@@ -9,19 +9,19 @@
 				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
 					<View class="margin-top-medium auto-height hgroup hwrap-disabled">
 						<Label id="rxPromptLbl" class="top left inactive-fg-color" />
-						<Label id="rxReplyLbl" class="top margin-left-medium" />
+						<Label id="rxReplyLbl" class="top margin-left-medium fill-width" />
 					</View>
 					<View class="margin-top auto-height hgroup hwrap-disabled">
 						<Label id="expiryPromptLbl" class="top left inactive-fg-color" />
-						<Label id="expiryReplyLbl" class="top margin-left-medium" />
+						<Label id="expiryReplyLbl" class="top margin-left-medium fill-width" />
 					</View>
 					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickDoctor">
 						<Label id="doctorPromptLbl" class="top left inactive-fg-color" />
-						<Label id="doctorReplyLbl" class="top margin-left-medium active-fg-color" />
+						<Label id="doctorReplyLbl" class="top margin-left-medium fill-width active-fg-color" />
 					</View>
 					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickStore">
 						<Label id="storePromptLbl" class="top left inactive-fg-color" />
-						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color" />
+						<Label id="storeReplyLbl" class="top margin-left-medium fill-width active-fg-color" />
 					</View>
 				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
@@ -45,12 +45,12 @@
 		<View class="margin-top min-height inactive-light-bg-color">
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
-		<View class="auto-height">
+		<View id="reminderRefillView" class="auto-height">
 			<Widget id="reminderRefillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
 			<Widget id="reminderRefillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeRefill" />
 		</View>
 		<View class="h-divider-light" />
-		<View class="auto-height">
+		<View id="reminderMedView" class="auto-height">
 			<Widget id="reminderMedAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
 			<Widget id="reminderMedSwt" src="ti.switch" class="margin-right swt" onChange="didChangeMed" />
 		</View>

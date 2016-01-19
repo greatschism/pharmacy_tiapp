@@ -29,17 +29,9 @@ function init() {
 	_.each(["refillsLeftBtn", "dueBtn", "lastRefillBtn"], function(val) {
 		$.uihelper.roundedCorners($[val]);
 	});
-	var swt = $.reminderRefillSwt.getView(),
-	    right = swt.right + swt.width + +$.createStyle({
-		classes : ["margin-right-medium"]
-	}).right;
-	_.each(["reminderRefillAttr", "reminderMedAttr"], function(val) {
-		$[val].applyProperties({
-			right : right
-		});
+	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView"], function(val) {
+		$.uihelper.wrapViews($[val], "right");
 	});
-	$.uihelper.wrapViews($.historyView, "right");
-	$.uihelper.wrapViews($.instructionView, "right");
 	if (_.has(prescription, "store")) {
 		/**
 		 * Use case:
