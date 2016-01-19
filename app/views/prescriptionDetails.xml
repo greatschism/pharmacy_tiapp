@@ -7,21 +7,21 @@
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
 				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
-					<View class="margin-top-medium auto-height hgroup hwrap-disabled">
-						<Label id="rxPromptLbl" class="top left inactive-fg-color" />
-						<Label id="rxReplyLbl" class="top margin-left-medium fill-width" />
+					<View class="margin-top-medium auto-height">
+						<Label id="rxPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="rxReplyLbl" class="top margin-left-medium hide" />
 					</View>
-					<View class="margin-top auto-height hgroup hwrap-disabled">
-						<Label id="expiryPromptLbl" class="top left inactive-fg-color" />
-						<Label id="expiryReplyLbl" class="top margin-left-medium fill-width" />
+					<View class="margin-top auto-height">
+						<Label id="expiryPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="expiryReplyLbl" class="top margin-left-medium hide" />
 					</View>
-					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickDoctor">
-						<Label id="doctorPromptLbl" class="top left inactive-fg-color" />
-						<Label id="doctorReplyLbl" class="top margin-left-medium fill-width active-fg-color" />
+					<View class="margin-top auto-height" onClick="didClickDoctor">
+						<Label id="doctorPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="doctorReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
-					<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickStore">
-						<Label id="storePromptLbl" class="top left inactive-fg-color" />
-						<Label id="storeReplyLbl" class="top margin-left-medium fill-width active-fg-color" />
+					<View class="margin-top auto-height" onClick="didClickStore">
+						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
 				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />

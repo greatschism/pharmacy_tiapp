@@ -4,6 +4,7 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
+    postlayoutCount = 0,
     newMedReminder,
     isWindowOpen,
     httpClient;
@@ -210,7 +211,6 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.prescExp.setStopListening(true);
 	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
@@ -237,6 +237,20 @@ function didUpdateUI() {
 	 */
 	$.prescExp.expand();
 	$.loader.hide();
+}
+
+function didPostlayoutPrompt(e) {
+	var source = e.source,
+	    children = source.getParent().children;
+	source.removeEventListener("postlayout", didPostlayoutPrompt);
+	children[1].applyProperties({
+		left : children[1].left + children[0].rect.width,
+		visible : true
+	});
+	postlayoutCount++;
+	if (postlayoutCount === 4) {
+		$.prescExp.setStopListening(true);
+	}
 }
 
 function didClickStore(e) {
