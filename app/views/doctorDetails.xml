@@ -4,23 +4,23 @@
 		<HeaderView>
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="margin-top margin-left margin-right h4" />
-				<View class="margin-top margin-left margin-right auto-height hgroup hwrap-disabled">
-					<View class="top left width-30 auto-height border" onClick="didClickPhoto">
+				<View id="containerView" class="margin-top margin-left margin-right auto-height">
+					<View id="photoView" class="top left auto-width auto-height border" onClick="didClickPhoto">
 						<Widget id="photoImg" src="ti.remoteimage" class="width-100" onError="didError" />
 						<Button id="updateBtn" class="top-disabled bottom left right h8 shadow-bg-color light-fg-color border-disabled" />
 					</View>
 					<View id="contentView" class="top margin-left-medium vgroup auto-height">
-						<View class="auto-height hgroup hwrap-disabled" onClick="didClickPhone">
+						<View id="phoneView" class="auto-height" onClick="didClickPhone">
 							<Label class="top left i5 primary-fg-color icon-phone" />
 							<Label id="phoneLbl" class="margin-left-medium h6 active-fg-color" />
 						</View>
 						<View class="margin-top h-divider-light" />
-						<View class="margin-top auto-height hgroup hwrap-disabled">
+						<View id="faxView" class="margin-top auto-height">
 							<Label class="top left i5 primary-fg-color icon-print" />
 							<Label id="faxLbl" class="margin-left-medium h6 inactive-fg-color" />
 						</View>
 						<View class="margin-top h-divider-light" />
-						<View class="margin-top auto-height hgroup hwrap-disabled" onClick="didClickDirection">
+						<View id="addressView" class="margin-top auto-height" onClick="didClickDirection">
 							<Label class="top left i5 primary-fg-color icon-direction" />
 							<Label id="addressLbl" class="margin-left-medium h6 active-fg-color" />
 						</View>

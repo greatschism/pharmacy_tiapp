@@ -4,6 +4,10 @@ var args = arguments[0] || {},
     doctor = args.doctor;
 
 function init() {
+	$.photoView.width = $.utilities.percentageToValue("30%", $.app.device.width - ($.containerView.left + $.containerView.right));
+	_.each(["containerView", "phoneView", "faxView", "addressView"], function(val) {
+		$.uihelper.wrapViews($[val]);
+	});
 	updateInputs();
 	if (doctor.image) {
 		$.photoImg.setImage(doctor.image);
