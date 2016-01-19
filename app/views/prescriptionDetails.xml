@@ -3,7 +3,7 @@
 		<Widget id="prescExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="togglePrescription">
 				<Label id="titleLbl" class="margin-top margin-left right-35 h4" />
-				<Button id="toggleBtn" class="left-disabled margin-right width-30 txt-right h8 active-fg-color border-disabled" />
+				<Button id="toggleBtn" class="top left-disabled margin-right width-30 txt-right h6 active-fg-color border-disabled" />
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
 				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
@@ -57,13 +57,13 @@
 		<View class="min-height inactive-light-bg-color">
 			<Label id="informationLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
-		<View class="auto-height" onClick="showHistory">
-			<Label id="historyLbl" class="margin-top margin-bottom margin-left" />
+		<View id="historyView" class="auto-height" onClick="showHistory">
+			<Label id="historyLbl" class="margin-top margin-bottom margin-left margin-right-small" />
 			<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 		</View>
 		<View class="h-divider-light" />
 		<Widget id="instructionExp" src="ti.expandable">
-			<View class="auto-height role-master-view" onClick="toggleInstruction">
+			<View id="instructionView" class="auto-height role-master-view" onClick="toggleInstruction">
 				<Label id="instructionLbl" class="margin-top margin-bottom margin-left" />
 				<Label id="arrowLbl"  class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 			</View>

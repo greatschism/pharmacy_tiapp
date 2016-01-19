@@ -1,6 +1,6 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row" if="$.args.hasChild">
-		<Label id="lbl" class="margin-top margin-bottom margin-left" />
+		<Label id="lbl" class="margin-top margin-bottom margin-left margin-right-small" />
 		<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 	</TableViewRow>
 	<TableViewRow id="row" if="!$.args.hasChild">

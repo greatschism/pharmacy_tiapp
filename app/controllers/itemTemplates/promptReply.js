@@ -6,9 +6,7 @@ var args = arguments[0] || {},
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
 	if (args.hasChild) {
-		$.contentView.right = $.childLbl.right + $.childLbl.font.fontSize + $.createStyle({
-			classes : ["margin-right-small"]
-		}).right;
+		uihelper.wrapViews($.row, "right");
 	}
 	var pDict = $.createStyle({
 		classes : args.promptClasses || ["left", "width-40", "inactive-fg-color"],

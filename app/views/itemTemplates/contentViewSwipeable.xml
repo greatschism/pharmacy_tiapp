@@ -3,7 +3,7 @@
 		<View id="containerView" class="auto-height">
 			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
-				<View id="masterView" class="margin-top margin-bottom margin-left auto-height hgroup hwrap-disabled">
+				<View id="masterView" class="margin-top margin-bottom margin-left margin-right-small auto-height hgroup hwrap-disabled">
 					<Widget id="img" src="ti.remoteimage" class="top left width-20 inactive-border" onError="didError" />
 					<View class="margin-left-medium auto-height vgroup">
 						<Label id="titleLbl" class="left h4" />

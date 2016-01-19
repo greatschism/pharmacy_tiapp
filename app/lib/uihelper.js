@@ -745,12 +745,18 @@ var Helper = {
 	 * with android platform, APPC JIRA refs -
 	 * TIMOB-19536, TIMOB-16367, TIMOB-12577
 	 */
-	wrapViews : function(view) {
-		var left = 0;
-		_.each(view.children, function(child, index) {
-			left += child.left || 0;
-			child.left = left;
-			left += child.width || child.font && child.font.fontSize || 0;
+	wrapViews : function(view, direction) {
+		var children = view.children,
+		    value = 0;
+		if (!direction) {
+			direction = "left";
+		} else if (direction === "right") {
+			children = children.reverse();
+		}
+		_.each(children, function(child, index) {
+			value += child[direction] || 0;
+			child[direction] = value;
+			value += child.width || child.font && child.font.fontSize || 0;
 		});
 	}
 };

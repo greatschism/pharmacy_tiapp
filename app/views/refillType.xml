@@ -23,7 +23,7 @@
 		</View>
 		<View id="pickupView" class="auto-height vgroup">
 			<View id="pickupModeView" class="auto-height" onClick="didClickPickupMode">
-				<Label id="pickupModeLbl" class="margin-top margin-bottom margin-left h4" />
+				<Label id="pickupModeLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
 				<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 			</View>
 			<View id="pickupDividerView" class="h-divider-light" />
