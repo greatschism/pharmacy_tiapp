@@ -8,11 +8,11 @@
 						<Label id="titleLbl" class="left h4" />
 						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
 						<Widget id="phoneAttr" src="ti.styledlabel" class="margin-top-small left attributed" onClick="didClickPhone" />
-						<View id="distanceView" class="margin-top-small auto-height hgroup hwrap-disabled">
+						<View id="distanceView" class="margin-top-small auto-height">
 							<Label id="distanceIconLbl" class="left i5 inactive-fg-color icon-thick-location-pin" />
 							<Label id="distanceLbl" class="margin-left-small" />
 						</View>
-						<View class="margin-top-small auto-height hgroup hwrap-disabled">
+						<View id="clockView" class="margin-top-small auto-height">
 							<Label id="clockIconLbl" class="left i5 icon-clock" />
 							<Label id="clockLbl" class="margin-left-small" />
 						</View>

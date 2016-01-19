@@ -95,11 +95,13 @@ function didGetStore(result, passthrough) {
 	 * if it is not via store list
 	 */
 	if (_.isNumber(store.distance)) {
+		$.uihelper.wrapViews($.distanceView);
 		$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance.toFixed(2));
 	} else {
 		$.storeContentView.remove($.distanceView);
 	}
 	//clock / is opened
+	$.uihelper.wrapViews($.clockView);
 	$.clockIconLbl.applyProperties($.createStyle({
 		classes : [clockType + "-fg-color"]
 	}));
