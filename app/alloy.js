@@ -32,7 +32,6 @@
 	 */
 	//collections
 	Alloy.Collections.menuItems = new Backbone.Collection();
-	Alloy.Collections.banners = new Backbone.Collection();
 	Alloy.Collections.stores = new Backbone.Collection();
 	Alloy.Collections.prescriptions = new Backbone.Collection();
 	Alloy.Collections.doctors = new Backbone.Collection();
@@ -44,6 +43,7 @@
 	Alloy.Models.appconfig = new Backbone.Model();
 	Alloy.Models.appload = new Backbone.Model();
 	Alloy.Models.template = new Backbone.Model();
+	Alloy.Models.banner = new Backbone.Model();
 	Alloy.Models.remindersRefill = new Backbone.Model();
 	Alloy.Models.states = new Backbone.Model();
 	Alloy.Models.storeOriginal = new Backbone.Model();

@@ -6,7 +6,7 @@ var args = arguments[0] || {},
     isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
-    banners,
+    bannerItems = Alloy.Models.banner.get("items"),
     spanTimeId;
 
 function init() {
@@ -23,7 +23,7 @@ function init() {
 	 * load banners, if nothing in cache call
 	 * get banners
 	 */
-	if (isBannerEnabled && $.bannerView && !loadBanners(Alloy.Collections.banners.toJSON())) {
+	if (isBannerEnabled && $.bannerView && !loadBanners()) {
 		$.http.request({
 			method : "appload_get_banners",
 			params : {
@@ -35,7 +35,8 @@ function init() {
 			},
 			showLoader : false,
 			errorDialogEnabled : false,
-			success : didSuccess
+			success : didSuccess,
+			failure : didSuccess
 		});
 	}
 	/**
@@ -272,45 +273,58 @@ function didRateApp(event) {
 }
 
 function didSuccess(result, passthrough) {
-	result = _.sortBy(result.data.banners.banner, "priority");
-	Alloy.Collections.banners.reset(result);
-	loadBanners(result);
+	//to verify this is not a failure callback
+	bannerItems = result.data && _.isArray(result.data.banners.banner) && _.sortBy(result.data.banners.banner, "priority") || [];
+	Alloy.Models.banner.set({
+		items : bannerItems,
+		count : bannerItems.length
+	});
+	loadBanners();
 }
 
-function loadBanners(items) {
-	if (_.isArray(items) && items.length) {
-		banners = items;
-		$.bannerScrollableView = Ti.UI.createScrollableView();
-		_.each(banners, function(banner) {
-			$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
-		});
-		/**
-		 * only when more than one banner placed
-		 * paging control should be enabled
-		 */
-		var len = banners.length,
-		    pagingcontrolEnabled = len > 1,
-		    views = [$.bannerScrollableView];
-		if (pagingcontrolEnabled) {
-			$.bannerScrollableView.addEventListener("scrollend", didScrollend);
-			$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
-				classes : ["margin-bottom", "pagingcontrol"]
-			}), {
-				currentPage : 0,
-				length : len
-			}));
-			$.pagingcontrol.on("change", didChangePager);
-			views.push($.pagingcontrol.getView());
-		}
-		if ($.asyncView) {
-			$.asyncView.hide(views);
-		} else {
-			_.each(views, function(view) {
-				$.bannerView.add(view);
+function loadBanners() {
+	if (bannerItems) {
+		if (bannerItems.length) {
+			$.bannerScrollableView = Ti.UI.createScrollableView();
+			_.each(bannerItems, function(banner) {
+				$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 			});
-		}
-		if (pagingcontrolEnabled) {
-			startSpanTime(banners[0].spanTime);
+			/**
+			 * only when more than one banner placed
+			 * paging control should be enabled
+			 */
+			var len = bannerItems.length,
+			    pagingcontrolEnabled = len > 1,
+			    views = [$.bannerScrollableView];
+			if (pagingcontrolEnabled) {
+				$.bannerScrollableView.addEventListener("scrollend", didScrollend);
+				$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
+					classes : ["margin-bottom", "pagingcontrol"]
+				}), {
+					currentPage : 0,
+					length : len
+				}));
+				$.pagingcontrol.on("change", didChangePager);
+				views.push($.pagingcontrol.getView());
+			}
+			if ($.asyncView) {
+				$.asyncView.hide(views);
+			} else {
+				_.each(views, function(view) {
+					$.bannerView.add(view);
+				});
+			}
+			if (pagingcontrolEnabled) {
+				startSpanTime(bannerItems[0].spanTime);
+			}
+		} else {
+			if ($.asyncView) {
+				$.bannerView.remove($.asyncView.getView());
+			}
+			$.bannerView.applyProperties({
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE
+			});
 		}
 		return true;
 	}
@@ -326,18 +340,18 @@ function startSpanTime(seconds) {
 
 function didSpanTimeout() {
 	var nextPage = $.bannerScrollableView.currentPage + 1;
-	if (banners.length === nextPage) {
+	if (bannerItems.length === nextPage) {
 		nextPage = 0;
 	}
 	$.bannerScrollableView.scrollToView(nextPage);
 	$.pagingcontrol.setCurrentPage(nextPage);
-	startSpanTime(banners[nextPage].spanTime);
+	startSpanTime(bannerItems[nextPage].spanTime);
 }
 
 function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
-	startSpanTime(banners[currentPage].spanTime);
+	startSpanTime(bannerItems[currentPage].spanTime);
 }
 
 function didChangePager(e) {
@@ -409,15 +423,21 @@ function create(dict) {
 		 * then apply size bannerView
 		 */
 		if (dict.id == "bannerView" && isBannerEnabled) {
-			$.bannerView.applyProperties({
-				width : Alloy.CFG.banner_width,
-				height : Alloy.CFG.banner_height
-			});
 			/**
-			 * when no banner in cache,
+			 * when there are banners in cache (length > 0)
+			 * or not cached yet
+			 */
+			if (!bannerItems || (bannerItems && bannerItems.length)) {
+				$.bannerView.applyProperties({
+					width : Alloy.CFG.banner_width,
+					height : Alloy.CFG.banner_height
+				});
+			}
+			/**
+			 * when banner is not cached,
 			 * then show a async view
 			 */
-			if (!Alloy.Collections.banners.length) {
+			if (!bannerItems) {
 				$.asyncView = Alloy.createWidget("ti.asyncview", "widget");
 				$.bannerView.add($.asyncView.getView());
 			}
