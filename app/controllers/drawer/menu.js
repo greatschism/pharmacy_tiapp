@@ -12,7 +12,7 @@ function init() {
 	if (OS_ANDROID) {
 		app.navigator.drawer.on("drawerclose", didDrawerclose);
 	}
-	marginLeft = +$.createStyle({
+	marginLeft = $.createStyle({
 		classes : ["i4"]
 	}).font.fontSize + $.createStyle({
 		classes : ["margin-left-medium"]
