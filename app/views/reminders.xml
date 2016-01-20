@@ -2,18 +2,27 @@
 	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
 			<View id="refillView" class="margin-top margin-left margin-right auto-height" onClick="didClickRefill">
-				<ImageView id="refillImg" class="top left img-reminders-refill"/>
-				<Label id="refillLbl" class="margin-left-medium h4" onPostlayout="didPostlayout" />
+				<Label class="left i4 active-fg-color icon-filled-refresh"/>
+				<View class="margin-left auto-height vgroup" onPostlayout="didPostlayout">
+					<Label id="refillTitleLbl" class="left h4" />
+					<Label id="refillDescLbl" class="left inactive-fg-color" />
+				</View>
 			</View>
 			<View class="margin-top h-divider-light" />
 			<View id="medView" class="margin-top margin-left margin-right auto-height" onClick="didClickMed">
-				<ImageView id="medImg" class="top left img-reminders-med"/>
-				<Label id="medLbl" class="margin-left-medium h4" />
+				<Label class="left i4 positive-fg-color icon-filled-torchlight"/>
+				<View class="margin-left auto-height vgroup">
+					<Label id="medTitleLbl" class="left h4" />
+					<Label id="medDescLbl" class="left inactive-fg-color" />
+				</View>
 			</View>
 			<View class="margin-top h-divider-light" />
 			<View id="settingsView" class="margin-top margin-left margin-right auto-height" onClick="didClickSettings">
-				<ImageView id="settingsImg" class="top left img-reminders-settings"/>
-				<Label id="settingsLbl" class="margin-left-medium h4" />
+				<Label class="left i4 tentative-fg-color icon-filled-settings"/>
+				<View class="margin-left auto-height vgroup">
+					<Label id="settingsTitleLbl" class="left h4" />
+					<Label id="settingsDescLbl" class="left inactive-fg-color" />
+				</View>
 			</View>
 			<View class="margin-top margin-bottom h-divider-light" />
 		</View>

@@ -298,48 +298,6 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "reminders_refill_pl",
-		"name" : "reminders_refill",
-		"format" : "png",
-		"properties" : {
-			"width" : "40%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "reminders_med_pl",
-		"name" : "reminders_med",
-		"format" : "png",
-		"properties" : {
-			"width" : "40%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_med.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "reminders_settings_pl",
-		"name" : "reminders_settings",
-		"format" : "png",
-		"properties" : {
-			"width" : "40%"
-		},
-		"hires" : false,
-		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_settings.png",
-		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
 		"code" : "reminders_refill_benefits_refill_pl",
 		"name" : "reminders_refill_benefits_refill",
 		"format" : "png",

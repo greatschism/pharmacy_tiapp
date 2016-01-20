@@ -10,11 +10,12 @@ function init(e) {
 function didPostlayout(e) {
 	/**
 	 * we need height of
-	 * $.refillLbl so waiting for postlayout
+	 * $.refillView and it's content
+	 * so waiting for postlayout
 	 * Note: event listener should be removed
 	 * to avoid redundant event calls
 	 */
-	$.refillLbl.removeEventListener("postlayout", didPostlayout);
+	e.source.removeEventListener("postlayout", didPostlayout);
 	/**
 	 * tool tip will be shown
 	 * only for the first time
@@ -57,8 +58,8 @@ function didPostlayout(e) {
 }
 
 function getPosition(view) {
-	var lbl = view.children[1];
-	return view.rect.y + lbl.rect.y + lbl.rect.height;
+	var contentView = view.children[1];
+	return view.rect.y + contentView.rect.y + contentView.rect.height;
 }
 
 function didClickHide(e) {
