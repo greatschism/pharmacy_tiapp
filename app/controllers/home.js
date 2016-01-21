@@ -81,7 +81,7 @@ function init() {
 					title : obj.title,
 					index : index
 				});
-				btn.addEventListener("click", didGetFeedback);
+				$.addListener(btn, "click", didGetFeedback);
 				dialogView.add(btn);
 			});
 			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
@@ -140,7 +140,7 @@ function didGetFeedback(event) {
 					title : obj.title,
 					index : index
 				});
-				btn.addEventListener("click", didGetComments);
+				$.addListener(btn, "click", didGetComments);
 				dialogView.add(btn);
 			});
 			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
@@ -232,7 +232,7 @@ function showRateDialog() {
 			title : obj.title,
 			index : index
 		});
-		btn.addEventListener("click", didRateApp);
+		$.addListener(btn, "click", didRateApp);
 		dialogView.add(btn);
 	});
 	$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
@@ -297,7 +297,7 @@ function loadBanners() {
 			    pagingcontrolEnabled = len > 1,
 			    views = [$.bannerScrollableView];
 			if (pagingcontrolEnabled) {
-				$.bannerScrollableView.addEventListener("scrollend", didScrollend);
+				$.addListener($.bannerScrollableView, "scrollend", didScrollend);
 				$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
 					classes : ["margin-bottom", "pagingcontrol"]
 				}), {
@@ -406,8 +406,8 @@ function create(dict) {
 		});
 	}
 	if (_.has(dict, "navigation")) {
+		$.addListener(element, "click", didClickItem);
 		element.navigation = dict.navigation;
-		element.addEventListener("click", didClickItem);
 	}
 	if (_.has(dict, "actions")) {
 		_.each(dict.actions, function(action) {
@@ -418,7 +418,7 @@ function create(dict) {
 	if (_.has(dict, "id")) {
 		$[dict.id] = element;
 		/**
-		 * if the tempalte supports banner
+		 * if the template supports banner
 		 * and banner feature is enabled,
 		 * then apply size bannerView
 		 */
@@ -442,6 +442,14 @@ function create(dict) {
 				$.bannerView.add($.asyncView.getView());
 			}
 		}
+	}
+	switch(element.apiName) {
+	case "View":
+		element.wrapViews && $.uihelper.wrapViews(element, element.direction);
+		break;
+	case "Label":
+		element.ellipsize && $.uihelper.wrapText(element);
+		break;
 	}
 	return element;
 }
