@@ -25,10 +25,10 @@ module.exports = {
 							"event" : "postlayout",
 							"binders" : [{
 								"id" : "vdivider",
-								"properties" : ["height"]
+								"pick" : ["height"]
 							}, {
 								"id" : "tilesView",
-								"properties" : ["visible"]
+								"pick" : ["visible"]
 							}]
 						}],
 						"children" : [{

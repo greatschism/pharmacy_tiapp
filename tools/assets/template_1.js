@@ -8,13 +8,12 @@ module.exports = {
 			"items" : [{
 				"id" : "bannerView",
 				"apiName" : "View",
-				"classes" : ["top", "auto-width", "auto-height", "show"],
+				"classes" : ["top", "auto-width", "auto-height"],
 				"actions" : [{
 					"event" : "postlayout",
 					"keepAlive" : true,
 					"binders" : [{
 						"id" : "tableView",
-						"properties" : ["visible"],
 						"transform" : [{
 							"from" : "height",
 							"to" : "top"
@@ -24,7 +23,6 @@ module.exports = {
 			}, {
 				"id" : "tableView",
 				"apiName" : "TableView",
-				"classes" : ["hide"],
 				"children" : [{
 					"addChild" : "setFooterView",
 					"items" : [{

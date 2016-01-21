@@ -498,7 +498,16 @@ function didPostlayout(e) {
 		$.removeListener(source, "postlayout", didPostlayout);
 	}
 	_.each(binders, function(binder) {
-		var properties = _.pick(source, binder.properties);
+		/**
+		 * pick - pick properties from source and apply
+		 * to binded object
+		 * transform - pick properties from source
+		 * as apply to binded object as destination
+		 * properties - additional properties to be
+		 * applied to binded object
+		 */
+		var properties = _.pick(source, binder.pick);
+		_.extend(properties, binder.properties);
 		if (_.has(properties, "width")) {
 			properties.width = source.rect.width;
 		}
