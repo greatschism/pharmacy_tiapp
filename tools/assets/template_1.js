@@ -8,7 +8,7 @@ module.exports = {
 			"items" : [{
 				"id" : "bannerView",
 				"apiName" : "View",
-				"classes" : ["auto-width", "auto-height", "show"],
+				"classes" : ["top", "auto-width", "auto-height", "show"],
 				"actions" : [{
 					"event" : "postlayout",
 					"keepAlive" : true,
