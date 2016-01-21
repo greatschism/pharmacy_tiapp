@@ -1,12 +1,12 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="consentLbl" class="lbl-wrap margin-top"/>
+		<Label id="consentLbl" class="margin-top margin-left margin-right h4 txt-left"/>
 		<View class="auto-height">
-			<Label id="leftIconLbl" class="content-inactive-left-icon icon-checkbox-unchecked" onClick="didClickConsent"/>
-			<View class="content-view-vgroup-with-licon">
-				<Label id="consentObtainLbl" class="content-title" onClick="didClickConsent"/>
-			</View>
+			<Label id="leftIconLbl" class="top-disabled margin-left i4 txt-right active-fg-color icon-checkbox-unchecked inactive-fg-color border-disabled" onClick="didClickConsent"/>
+			
+				<Label id="consentObtainLbl" class="margin-top margin-bottom h2" onClick="didClickConsent"/>
+		
 		</View>
-		<Button id="inactiveBtn" class="inactive-btn margin-bottom" visible="true" />
+		<Button id="inactiveBtn" class="margin-bottom inactive-bg-color inactive-border" visible="true" />
 	</ScrollView>
 </Alloy>

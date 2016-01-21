@@ -1,11 +1,11 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<View class="auto-height">
-			<ImageView id="inviteSuccessImg" />
-			<Label id="inviteLbl" class="image-title"/>
+			<ImageView id="inviteSuccessImg"/>
+			<Label id="inviteLbl"  class=" margin-left margin-right h1 txt-center primary-light-color"/>
 		</View>
-		<Label id="inviteMsg" class="lbl-wrap margin-top margin-bottom"/>
-		<Button id="addBtn" class="primary-btn margin-top margin-bottom" onClick="didAddAnotherMember"/>
-		<Button id="doneBtn" class="secondary-btn margin-top margin-bottom" onClick="didClickDone"/>
+		<Label id="inviteMsg" class="margin-top margin-bottom margin-left margin-right h4 txt-left"/>
+		<Button id="addBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didAddAnotherMember"/>
+		<Button id="doneBtn" class="bg-color primary-fg-color primary-border" onClick="didClickDone"/>
 	</ScrollView>
 </Alloy>

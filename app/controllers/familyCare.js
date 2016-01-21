@@ -44,6 +44,7 @@ function didGetPatient() {
 		title : $.strings.familyCareOptResend,
 		type : "positive"
 	}];
+	
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
@@ -59,7 +60,7 @@ function didGetPatient() {
 			$.familyCareLbl = Ti.UI.createLabel();
 			$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 			$.familyCareLbl.applyProperties($.createStyle({
-				classes : ["lbl-centered-wrap", "margin-top", "margin-bottom"],
+				classes : ["margin-top", "margin-left" ,"margin-right", "h4", "txt-center"],
 				id : "noFamilyMemberLbl"
 			}));
 			$.familyCareView.add($.familyCareLbl);
@@ -68,7 +69,7 @@ function didGetPatient() {
 			$.familyCareAddLbl = Ti.UI.createLabel();
 			$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 			$.familyCareAddLbl.applyProperties($.createStyle({
-				classes : ["subtitle-centered-wrap", "margin-bottom"],
+				classes :  ["margin-top", "margin-left" ,"margin-right", "h4", "txt-center"],
 				id: "familyCareAddLbl"
 			}));
 			$.familyCareView.add($.familyCareAddLbl);
@@ -76,7 +77,7 @@ function didGetPatient() {
 		if (!$.familyCareAddBtn) {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
-				classes : ["icon-add-familycare", "primary-icon-extra-large"],
+				classes : ["icon-add-familycare", "i1","margin-top-small" ,"margin-bottom" ,"auto-height", "bg-color-disabled" ,"primary-fg-color" ,"border-disabled"],
 				id : "familyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
@@ -89,7 +90,7 @@ function didGetPatient() {
 	} else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
-		var detailBtnClasses = ["content-detail-secondary-btn-large"];
+		var detailBtnClasses = ["margin-top-small" ,"margin-bottom" ,"auto-height", "bg-color-disabled" ,"primary-fg-color" ,"border-disabled"];
 		mgr = {
 			title : accntMgrData.get("title") ? accntMgrData.get("title") : accntMgrData.get("email_address"),
 			subtitle : $.strings.familyCareLblAcntMgr,
@@ -177,7 +178,7 @@ function didGetPatient() {
 		if (!$.familyMemberAddBtn) {
 			$.familyMemberAddBtn = Ti.UI.createButton();
 			$.familyMemberAddBtn.applyProperties($.createStyle({
-				classes : ["primary-btn", "margin-top", "margin-bottom"],
+				classes : ["margin-bottom" ,"primary-bg-color" ,"primary-light-fg-color", "primary-border"],
 				title : $.strings.familyCareMemberBtnAdd,
 				id : "familyCareAddBtn"
 			}));

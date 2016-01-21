@@ -31,7 +31,7 @@
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
-				<Label class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-checkbox"/>
+				<Label class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-checkbox positive-fg-color"/>
 				<View class="left width-75 auto-height vgroup">
 					<Label id="prescNameLbl" class="margin-top margin-bottom margin-left margin-right"/>
 					<Label id="rxLbl" class=" margin-bottom margin-left margin-right"/>
