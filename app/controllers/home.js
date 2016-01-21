@@ -411,7 +411,7 @@ function create(dict) {
 	}
 	if (_.has(dict, "actions")) {
 		_.each(dict.actions, function(action) {
-			element.addEventListener(action.event, getListener(action.event));
+			$.addListener(element, action.event, getListener(action.event));
 		});
 		element.actions = dict.actions;
 	}
@@ -482,10 +482,13 @@ function didClickRightNav(e) {
 
 function didPostlayout(e) {
 	var source = e.source,
-	    binders = (_.findWhere(source.actions, {
+	    action = _.findWhere(source.actions, {
 		event : "postlayout"
-	}) || {}).binders || [];
-	source.removeEventListener("postlayout", didPostlayout);
+	}) || {},
+	    binders = action.binders || [];
+	if (!action.keepAlive) {
+		$.removeListener(source, "postlayout", didPostlayout);
+	}
 	_.each(binders, function(binder) {
 		var properties = _.pick(source, binder.properties);
 		if (_.has(properties, "width")) {
@@ -494,6 +497,9 @@ function didPostlayout(e) {
 		if (_.has(properties, "height")) {
 			properties.height = source.rect.height;
 		}
+		_.each(binder.transform, function(transformer) {
+			properties[transformer.to] = transformer.from === "width" || transformer.from === "height" ? source.rect[transformer.from] : source[transformer.from];
+		});
 		$[binder.id].applyProperties(properties);
 	});
 }
@@ -522,6 +528,7 @@ function terminate() {
 	if (spanTimeId) {
 		clearTimeout(spanTimeId);
 	}
+	$.removeListener();
 }
 
 _.extend($, {

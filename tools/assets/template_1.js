@@ -3,214 +3,230 @@
  */
 module.exports = {
 	"data" : [{
-		"apiName" : "TableView",
+		"apiName" : "View",
 		"children" : [{
-			"addChild" : "setHeaderView",
 			"items" : [{
 				"id" : "bannerView",
 				"apiName" : "View",
-				"classes" : ["auto-width", "auto-height"]
-			}]
-		}, {
-			"addChild" : "setFooterView",
-			"items" : [{
-				"apiName" : "View",
-				"platform" : ["ios"],
-				"classes" : ["auto-height"]
-			}]
-		}, {
-			"addChild" : "setData",
-			"asArray" : true,
-			"items" : [{
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
-						"children" : [{
-							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titlePrescriptions"
-								}
-							}]
+				"classes" : ["auto-width", "auto-height", "show"],
+				"actions" : [{
+					"event" : "postlayout",
+					"keepAlive" : true,
+					"binders" : [{
+						"id" : "tableView",
+						"properties" : ["visible"],
+						"transform" : [{
+							"from" : "height",
+							"to" : "top"
 						}]
 					}]
 				}],
-				"navigation" : {
-					"ctrl" : "prescriptions"
-				}
 			}, {
-				"apiName" : "TableViewRow",
+				"id" : "tableView",
+				"apiName" : "TableView",
+				"classes" : ["hide"],
 				"children" : [{
+					"addChild" : "setFooterView",
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
-						"children" : [{
-							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleRefill"
-								}
-							}]
-						}]
+						"platform" : ["ios"],
+						"classes" : ["auto-height"]
 					}]
-				}],
-				"feature_name" : "is_quick_refill_enabled",
-				"navigation" : {
-					"ctrl" : "refill"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
+				}, {
+					"addChild" : "setData",
+					"asArray" : true,
 					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleReminders"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titlePrescriptions"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"feature_name" : "is_reminders_enabled",
-				"navigation" : {
-					"ctrl" : "reminders"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						}],
+						"navigation" : {
+							"ctrl" : "prescriptions"
+						}
+					}, {
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleFamilyAccounts"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleRefill"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"feature_name" : "is_proxy_enabled",
-				"navigation" : {
-					"ctrl" : "familyCare"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						}],
+						"feature_name" : "is_quick_refill_enabled",
+						"navigation" : {
+							"ctrl" : "refill"
+						}
+					}, {
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleStores"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleReminders"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"feature_name" : "is_storelocator_enabled",
-				"navigation" : {
-					"ctrl" : "stores"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						}],
+						"feature_name" : "is_reminders_enabled",
+						"navigation" : {
+							"ctrl" : "reminders"
+						}
+					}, {
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleTransfer"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleFamilyAccounts"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"feature_name" : "is_transferrx_enabled",
-				"navigation" : {
-					"ctrl" : "transfer"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						}],
+						"feature_name" : "is_proxy_enabled",
+						"navigation" : {
+							"ctrl" : "familyCare"
+						}
+					}, {
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleDoctors"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleStores"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"feature_name" : "is_doctors_enabled",
-				"navigation" : {
-					"ctrl" : "doctors"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						}],
+						"feature_name" : "is_storelocator_enabled",
+						"navigation" : {
+							"ctrl" : "stores"
+						}
+					}, {
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"],
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleAccount"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleTransfer"
+										}
+									}]
+								}]
 							}]
-						}]
+						}],
+						"feature_name" : "is_transferrx_enabled",
+						"navigation" : {
+							"ctrl" : "transfer"
+						}
+					}, {
+						"apiName" : "TableViewRow",
+						"children" : [{
+							"items" : [{
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleDoctors"
+										}
+									}]
+								}]
+							}]
+						}],
+						"feature_name" : "is_doctors_enabled",
+						"navigation" : {
+							"ctrl" : "doctors"
+						}
+					}, {
+						"apiName" : "TableViewRow",
+						"children" : [{
+							"items" : [{
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleAccount"
+										}
+									}]
+								}]
+							}]
+						}],
+						"navigation" : {
+							"ctrl" : "account"
+						}
 					}]
-				}],
-				"navigation" : {
-					"ctrl" : "account"
-				}
+				}]
 			}]
 		}]
 	}]
