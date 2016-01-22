@@ -178,7 +178,7 @@ module.exports = {
 		"carouselLblPrescriptions" : "es-See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "es-Refill prescriptions instantly",
 		"carouselLblReminders" : "es-Get refill, pickup and other\nimportant notifications",
-		"carouselLblFamilyCare" : "es-Manage your families\nprescriptions in one place",
+		"carouselLblFamilyCare" : "es-Manage your family's\nprescriptions in one place",
 		"carouselBtnStart" : "es-Get started",
 		"carouselBtnNext" : "es-Next",
 		"carouselBtnSkip" : "es-Skip",
