@@ -44,8 +44,8 @@ function focus() {
 
 function updateTable() {
 	$.recieveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
-	var subtitleClasses = ["content-subtitle-wrap"],
-	    titleClasses = ["content-title-wrap"],
+	var subtitleClasses = ["margin-top-small", "margin-bottom", "margin-left", "inactive-fg-color"],
+	    titleClasses = ["margin-top", "margin-left","h4"],
 	    selected = true;
 	accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");

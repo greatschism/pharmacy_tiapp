@@ -26,7 +26,7 @@ function init() {
 		$.rxTooltip.updateArrow($.createStyle({
 			classes : ["direction-down"]
 		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
 		}));
 	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
@@ -316,10 +316,9 @@ function didPostlayoutRxContainerView(e) {
 }
 
 function didFocusRx(e) {
+
 	var top = $.rxContainer.rect.height,
-	    margin = $.rxContainer.rect.y,
-	    bottom;
-	bottom = margin;
+	    margin = $.rxContainer.bottom;
 	$.rxTooltip.applyProperties({
 				top : top - margin
 			});

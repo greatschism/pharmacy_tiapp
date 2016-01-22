@@ -178,7 +178,7 @@ function didGetPatient() {
 		if (!$.familyMemberAddBtn) {
 			$.familyMemberAddBtn = Ti.UI.createButton();
 			$.familyMemberAddBtn.applyProperties($.createStyle({
-				classes : ["margin-bottom" ,"primary-bg-color" ,"primary-light-fg-color", "primary-border"],
+				classes : ["margin-bottom", "primary-bg-color", "primary-light-fg-color" ,"primary-border"],
 				title : $.strings.familyCareMemberBtnAdd,
 				id : "familyCareAddBtn"
 			}));
