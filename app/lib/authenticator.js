@@ -462,7 +462,7 @@ function setDefaultDeviceForManager(passthrough) {
 			//prompt
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
-				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
+				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnContinue],
 				cancelIndex : 1,
 				success : function didConfirmDevice() {
 					setDefaultDeviceForManager(passthrough);
@@ -814,7 +814,7 @@ function setDefaultDevice(passthrough) {
 		} else {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
-				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
+				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnContinue],
 				cancelIndex : 1,
 				success : function didConfirmDevice() {
 					setDefaultDevice(passthrough);
