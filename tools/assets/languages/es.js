@@ -178,7 +178,7 @@ module.exports = {
 		"carouselLblPrescriptions" : "es-See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "es-Refill prescriptions instantly",
 		"carouselLblReminders" : "es-Get refill, pickup and other\nimportant notifications",
-		"carouselLblFamilyCare" : "es-Manage your families\nprescriptions in one place",
+		"carouselLblFamilyCare" : "es-Manage your family's\nprescriptions in one place",
 		"carouselBtnStart" : "es-Get started",
 		"carouselBtnNext" : "es-Next",
 		"carouselBtnSkip" : "es-Skip",
@@ -724,7 +724,7 @@ module.exports = {
 		"textMessageNotReceiveAttrSkip" : "es-Skip",
 		"textMessageMobileVerified" : "es-You will now receive text reminders",
 		"textMessagePhoneNumberNotUpdatedWarningMsg" : "es-You have not clicked on ‘I replied to the text message’ button. if you have already verified your number by sending the OTP, it will reflect when you login the next time",
-		
+
 		"phoneValPhone" : "es-Please enter your mobile number to continue.",
 		"phoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
