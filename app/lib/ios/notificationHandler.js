@@ -49,12 +49,18 @@ function init(callback) {
 	}
 }
 
-function didUsernotificationsettings() {
-	Ti.Network.registerForPushNotifications({
-		success : didSuccess,
-		error : didFailure,
-		callback : didReceivePush
-	});
+function didUsernotificationsettings(e) {
+	if (e.types.length) {
+		Ti.Network.registerForPushNotifications({
+			success : didSuccess,
+			error : didFailure,
+			callback : didReceivePush
+		});
+	} else {
+		logger.error(TAG, "user declined permission for push notification");
+		triggerCallback();
+		isBusy = false;
+	}
 	Ti.App.iOS.removeEventListener("usernotificationsettings", didUsernotificationsettings);
 }
 
