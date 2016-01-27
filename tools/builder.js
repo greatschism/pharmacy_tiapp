@@ -293,9 +293,43 @@ if (build) {
 		});
 
 		/**
-		 * link common assets
+		 * merge base resource with brand resource if any
 		 */
-		var RESOURCES_DATA = require(APP_ASSETS_DATA_DIR + "/resources").data;
+		var BASE_RESOURCES_JS = require(BASE_ASSETS_DIR + "/resources"),
+		    RESOURCES_DATA = BASE_RESOURCES_JS.data;
+		if (fs.existsSync(BRAND_ASSETS_DATA_DIR + "/resources.js")) {
+			_u.each(require(APP_ASSETS_DATA_DIR + "/resources").data, function(source) {
+				var ignore = source.ignore;
+				delete source.ignore;
+				if (ignore) {
+					RESOURCES_DATA = _u.reject(RESOURCES_DATA, function(resource) {
+						return _u.isEqual(resource, source);
+					});
+				} else {
+					var destinations = _u.where(RESOURCES_DATA, _u.pick(source, ["type", "version", "code", "name"]));
+					if (!destinations.length || !_u.some(destinations, function(destination) {
+						if (_u.isEqual(destination.platform, source.platform)) {
+							_u.extend(destination, source);
+							return true;
+						}
+					})) {
+						RESOURCES_DATA = _u.reject(RESOURCES_DATA, function(resource) {
+							return _u.some(destinations, function(destination) {
+								return _u.isEqual(resource, destination);
+							});
+						});
+						RESOURCES_DATA.push(source);
+					}
+				}
+			});
+			/**
+			 * Note: reject will return a new instance of array,
+			 * so BASE_RESOURCES_JS.data could be different from
+			 * RESOURCES_DATA here
+			 */
+			BASE_RESOURCES_JS.data = RESOURCES_DATA;
+		}
+		fs.writeFileSync(APP_ASSETS_DATA_DIR + "/resources.js", "module.exports = " + JSON.stringify(BASE_RESOURCES_JS, null, 4) + ";");
 
 		/**
 		 * build theme

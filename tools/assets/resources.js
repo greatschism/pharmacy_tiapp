@@ -21,6 +21,12 @@ module.exports = {
 		"code" : "en",
 		"selected" : true
 	}, {
+		"type" : "language",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "es",
+		"selected" : false
+	}, {
 		"type" : "fonts",
 		"version" : 1,
 		"base_version" : 1,
@@ -33,47 +39,47 @@ module.exports = {
 		"postscript" : "mscripts",
 		"format" : "ttf",
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/mscripts.ttf",
+		"url" : "http://example.com/mscripts.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "light",
-		"postscript" : "Lato-Light",
+		"postscript" : "HelveticaNeue-Light",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Light.ttf",
+		"url" : "http://example.com/HelveticaNeue-Light.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "regular",
-		"postscript" : "Lato-Regular",
+		"postscript" : "HelveticaNeue-Regular",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Regular.ttf",
+		"url" : "http://example.com/HelveticaNeue-Regular.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "medium",
-		"postscript" : "Lato-Bold",
+		"postscript" : "HelveticaNeue-Medium",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Bold.ttf",
+		"url" : "http://example.com/HelveticaNeue-Medium.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "bold",
-		"postscript" : "Lato-Black",
+		"postscript" : "HelveticaNeue-Bold",
 		"format" : "ttf",
 		"platform" : ["ios"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Lato-Black.ttf",
+		"url" : "http://example.com/HelveticaNeue-Bold.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
@@ -83,7 +89,7 @@ module.exports = {
 		"postscript" : "Roboto-Light",
 		"format" : "ttf",
 		"platform" : ["android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Light.ttf",
+		"url" : "http://example.com/Roboto-Light.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
@@ -93,7 +99,7 @@ module.exports = {
 		"postscript" : "Roboto-Regular",
 		"format" : "ttf",
 		"platform" : ["android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Regular.ttf",
+		"url" : "http://example.com/Roboto-Regular.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
@@ -103,7 +109,7 @@ module.exports = {
 		"postscript" : "Roboto-Medium",
 		"format" : "ttf",
 		"platform" : ["android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Medium.ttf",
+		"url" : "http://example.com/Roboto-Medium.ttf",
 		"selected" : true
 	}, {
 		"type" : "font",
@@ -113,7 +119,7 @@ module.exports = {
 		"postscript" : "Roboto-Bold",
 		"format" : "ttf",
 		"platform" : ["android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/fonts/Roboto-Bold.ttf",
+		"url" : "http://example.com/Roboto-Bold.ttf",
 		"selected" : true
 	}, {
 		"type" : "images",
@@ -132,7 +138,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo.png",
+		"url" : "http://example.com/logo.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -146,7 +152,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/logo_white.png",
+		"url" : "http://example.com/logo_white.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -160,7 +166,7 @@ module.exports = {
 		},
 		"hires" : true,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/map_pin.png",
+		"url" : "http://example.com/map_pin.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -174,7 +180,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/rx_sample.png",
+		"url" : "http://example.com/rx_sample.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -188,7 +194,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_refill_success.png",
+		"url" : "http://example.com/image_refill_success.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -202,7 +208,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_info.png",
+		"url" : "http://example.com/image_info.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -216,7 +222,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip1.png",
+		"url" : "http://example.com/image_tip1.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -230,7 +236,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip2.png",
+		"url" : "http://example.com/image_tip2.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -244,7 +250,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
+		"url" : "http://example.com/image_tip3.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -258,7 +264,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_tip3.png",
+		"url" : "http://example.com/image_tip3.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -272,7 +278,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
+		"url" : "http://example.com/image_child_add.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -286,7 +292,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/image_child_add.png",
+		"url" : "http://example.com/image_child_add.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -300,7 +306,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_refill.png",
+		"url" : "http://example.com/reminders_refill_benefits_refill.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -314,7 +320,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_ready.png",
+		"url" : "http://example.com/reminders_refill_benefits_ready.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -328,7 +334,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/reminders_refill_benefits_pickup.png",
+		"url" : "http://example.com/reminders_refill_benefits_pickup.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -342,7 +348,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/default_profile.png",
+		"url" : "http://example.com/default_profile.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -356,7 +362,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/text_benefits.png",
+		"url" : "http://example.com/text_benefits.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -370,7 +376,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/adult.png",
+		"url" : "http://example.com/adult.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -384,7 +390,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/child.png",
+		"url" : "http://example.com/child.png",
 		"selected" : true
 	}]
 };
