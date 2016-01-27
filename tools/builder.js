@@ -8,14 +8,6 @@ var log4js = require("log4js"),
     _u = require("underscore"),
     spawn = cp.spawn,
     ROOT_DIR = path.normalize(__dirname + "/..") + "/",
-    DEFAULT_BRAND_ID = "meglo",
-    DEFAULT_ENVIRONMENT = "dev",
-    DEFAULT_SDK_VERSION = "4.1.0.GA",
-    DEFAULT_APP_VERSION = "7.0.0",
-    DEFAULT_BUILD_NUMBER = "1",
-    DEFAULT_PLATFORM = "ios",
-    DEFAULT_TARGET = "dist-adhoc",
-    DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
     SHORT_CODE_MAX_LEN = 4,
     MODE_SHORT_CODE_JS = ROOT_DIR + "app/lib/moduleShortCode.js",
     CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
@@ -45,7 +37,7 @@ var log4js = require("log4js"),
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
-    AUTH_JSON = TOOLS_DIR + "auth.json",
+    DEFAULTS_JSON = TOOLS_DIR + "defaults.json",
     BRANDS_JSON = TOOLS_DIR + "brands.json",
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
@@ -61,18 +53,18 @@ var log4js = require("log4js"),
  * build program
  * interface
  */
-program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json", DEFAULT_BRAND_ID);
-program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase, DEFAULT_ENVIRONMENT);
-program.option("-s, --sdk <version>", "Titanium SDK version to build with. Defaults to " + DEFAULT_SDK_VERSION + ".", DEFAULT_SDK_VERSION);
+program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json");
+program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase);
+program.option("-s, --sdk <version>", "Titanium SDK version to build with.");
 program.option("-u, --username <USERNAME>", "Username for authentication.");
 program.option("-P, --password <USER_PASSWORD>", "Password for authentication.");
 program.option("-o, --org-id <ORGANIZATION_ID>", "Specify the organization.");
-program.option("-S, --store-auth", "Stores the appcelerator login credentials for future use.");
-program.option("-v, --version <value>", "App version", DEFAULT_APP_VERSION);
-program.option("-i, --build-number <value>", "Build number.", DEFAULT_BUILD_NUMBER);
-program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, DEFAULT_PLATFORM);
-program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, DEFAULT_TARGET);
-program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR);
+program.option("-d, --defaults", "Set given arguments as defaults (limited as brand-id, environment, sdk, username, password, org-id, version, build-number and log-level).");
+program.option("-v, --version <value>", "App version");
+program.option("-i, --build-number <value>", "Build number.");
+program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, "ios");
+program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, "dist-adhoc");
+program.option("-O, --output-dir <dir>", "Output directory.", ROOT_DIR + "dist");
 program.option("-F, --output-file <file>", "Output file (base) name.");
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
@@ -95,21 +87,25 @@ log4js.setGlobalLogLevel(program.logLevel);
 //logger for Builder
 logger = log4js.getLogger("Builder");
 
-/**
- * store credentials
- * if enabled
- */
-if (program.storeAuth) {
-	fs.writeFileSync(AUTH_JSON, JSON.stringify(_u.pick(program, ["username", "password", "orgId"]), null, 4));
-	logger.debug("Writing " + AUTH_JSON);
-} else if (fs.existsSync(AUTH_JSON)) {
-	logger.debug("Reading " + AUTH_JSON);
-	/**
-	 * get cached credentials
-	 * if exits
-	 */
-	var authData = JSON.parse(fs.readFileSync(AUTH_JSON, "utf-8"));
-	_u.each(authData, function(value, key) {
+//store defaults if requested
+if (program.defaults) {
+	var programData = _u.pick(program, ["brandId", "environment", "sdk", "username", "password", "orgId", "version", "buildNumber", "logLevel"]);
+	//take missing keys from existing defaults set
+	if (fs.existsSync(DEFAULTS_JSON)) {
+		var currentData = JSON.parse(fs.readFileSync(DEFAULTS_JSON, "utf-8"));
+		_u.each(currentData, function(value, key) {
+			if (!_u.has(programData, key)) {
+				programData[key] = value;
+			}
+		});
+	}
+	fs.writeFileSync(DEFAULTS_JSON, JSON.stringify(programData, null, 4));
+	logger.debug("Writing " + DEFAULTS_JSON);
+} else if (fs.existsSync(DEFAULTS_JSON)) {
+	logger.debug("Reading " + DEFAULTS_JSON);
+	//get cached arguments if exits, but don't overwrite from cache
+	var defaultData = JSON.parse(fs.readFileSync(DEFAULTS_JSON, "utf-8"));
+	_u.each(defaultData, function(value, key) {
 		if (!_u.has(program, key)) {
 			program[key] = value;
 		}

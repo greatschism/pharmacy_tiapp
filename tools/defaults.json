@@ -1,0 +1,8 @@
+{
+	"brandId": "meglo",
+	"environment": "dev",
+	"sdk": "4.1.0.GA",
+	"version": "7.0.0",
+	"buildNumber": "1",
+	"logLevel": "info"
+}

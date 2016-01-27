@@ -8,7 +8,6 @@ app/lib/styleSheets.js
 app/styles/app.tss
 platform/android/res/drawable-*
 dist
-tools/auth.json
 .settings
 build
 Resources
