@@ -8,7 +8,6 @@ var log4js = require("log4js"),
     _u = require("underscore"),
     spawn = cp.spawn,
     ROOT_DIR = path.normalize(__dirname + "/..") + "/",
-    SHORT_CODE_MAX_LEN = 4,
     MODE_SHORT_CODE_JS = ROOT_DIR + "app/lib/moduleShortCode.js",
     CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
     STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
@@ -55,6 +54,7 @@ var log4js = require("log4js"),
  */
 program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json");
 program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase);
+program.option("--shortcode-length <shortcode>", "Short length for Controllers or APIs.", parseInt, 4);
 program.option("-s, --sdk <version>", "Titanium SDK version to build with.");
 program.option("-u, --username <USERNAME>", "Username for authentication.");
 program.option("-P, --password <USER_PASSWORD>", "Password for authentication.");
@@ -513,9 +513,9 @@ if (build) {
 					_u.each(separatedNames, function(separatedName) {
 						shortCode += separatedName.charAt(0);
 					});
-					var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+					var requiredLen = program.shortcodeLength - shortCode.length;
 					if (requiredLen < 0) {
-						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + SHORT_CODE_MAX_LEN + " words seperated by underscore.");
+						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + program.shortcodeLength + " words seperated by underscore.");
 						process.exit(3);
 					}
 					if (requiredLen > 0) {
@@ -525,15 +525,15 @@ if (build) {
 							if (newLetter) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
-							return shortCode.length === SHORT_CODE_MAX_LEN;
+							return shortCode.length === program.shortcodeLength;
 						});
 					}
 				} else {
-					if (apiName.length < SHORT_CODE_MAX_LEN) {
+					if (apiName.length < program.shortcodeLength) {
 						logger.error("api name " + apiName + " is too short");
 						process.exit(4);
 					}
-					shortCode = apiName.substr(0, SHORT_CODE_MAX_LEN);
+					shortCode = apiName.substr(0, program.shortcodeLength);
 				}
 				apiShortCode[apiName] = shortCode.toUpperCase();
 			});
@@ -685,9 +685,9 @@ if (build) {
 				 * now try second character of each word
 				 * if length is not enough
 				 */
-				var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+				var requiredLen = program.shortcodeLength - shortCode.length;
 				if (requiredLen < 0) {
-					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + SHORT_CODE_MAX_LEN + " words.");
+					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + program.shortcodeLength + " words.");
 					process.exit(6);
 				}
 				if (requiredLen > 0) {
@@ -700,20 +700,20 @@ if (build) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
 						}
-						return shortCode.length === SHORT_CODE_MAX_LEN;
+						return shortCode.length === program.shortcodeLength;
 					});
 				}
 				/**
-				 * if still length is less than SHORT_CODE_MAX_LEN
-				 * then use first SHORT_CODE_MAX_LEN character (this happens
+				 * if still length is less than program.shortcodeLength
+				 * then use first program.shortcodeLength character (this happens
 				 * only with one word controller names).
 				 */
-				if (shortCode.length < SHORT_CODE_MAX_LEN) {
-					if (ctrlFile.length < SHORT_CODE_MAX_LEN) {
+				if (shortCode.length < program.shortcodeLength) {
+					if (ctrlFile.length < program.shortcodeLength) {
 						logger.error("controller name " + ctrlFile + " is too short");
 						process.exit(7);
 					}
-					shortCode = ctrlFile.substr(0, SHORT_CODE_MAX_LEN);
+					shortCode = ctrlFile.substr(0, program.shortcodeLength);
 				}
 				tiCtrlShortCode[ctrlFile] = shortCode.toUpperCase();
 			}
