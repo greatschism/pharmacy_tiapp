@@ -1,16 +1,16 @@
 <Alloy>
 	<Widget id="contactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
 	<Widget id="timeZonePicker" src="ti.optionpicker" class="optionpicker">
-		<View class="content-header-view role-header-view">
-			<Label id="timezoneLbl" class="content-header-lbl" />
+		<View class="margin-top min-height inactive-light-bg-color">
+			<Label id="timezoneLbl" class="margin-left right-25 h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
 			<Button id="timezoneCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickCloseTimeZone" />
 		</View>
 	</Widget>
 	<Widget id="languagePicker" src="ti.optionpicker" class="optionpicker">
-		<View class="content-header-view role-header-view">
-			<Label id="languageLbl" class="content-header-lbl" />
+		<View class="margin-top min-height inactive-light-bg-color">
+			<Label id="languageLbl" class="margin-left right-25 h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
 			<Button id="languageCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickCloseLanguage" />
@@ -22,67 +22,67 @@
 	<TableView id="tableView">
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
-					<Label id="notificationLbl" class="content-header-lbl" />
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="notificationLbl" class="margin-left right-25 h5 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickmobileNumber">
-				<View class="content-view content-group">
-					<Label id="mobileNumberLbl" class="content-group-prompt-40" />
-					<Label id="mobileNumberValue" class="content-group-right-reply-link-60" />
+				<View class="auto-height">
+					<Label id="mobileNumberLbl" class="margin-top margin-bottom margin-left attributed" />
+					<Label id="mobileNumberValue" class="margin-right" />
 				</View>
 			</TableViewRow>
 			<TableViewRow onClick="didClickEmailAddress">
-				<View class="content-view content-group">
-					<Label id="emailLbl" class="content-group-prompt-40" />
-					<Label id="emailValue" class="content-group-right-reply-link-60" />
+				<View class="auto-height">
+					<Label id="emailLbl" class="margin-top margin-bottom margin-left attributed" />
+					<Label id="emailValue" class="margin-right" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
-					<Label id="prescriptionDisplayLbl" class="content-header-lbl" />
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="prescriptionDisplayLbl" class="margin-left right-25 h5 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View class="content-view-with-rswt">
-					<Label id="hideExpiredPrescriptionLbl" class="content-lbl-wrap" />
+				<View class="auto-height">
+					<Label id="hideExpiredPrescriptionLbl" class="margin-top margin-bottom margin-left" />
+					<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideExpPrescription"/>
 				</View>
-				<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeHideExpPrescription"/>
 			</TableViewRow>
 			<TableViewRow>
-				<View class="content-view-with-rswt">
-					<Label id="hideZeroRefillPrescriptionLbl" class="content-lbl-wrap" />
+				<View class="auto-height">
+					<Label id="hideZeroRefillPrescriptionLbl" class="margin-top margin-bottom margin-left" />
+					<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideZeroRefillPrescription"/>
 				</View>
-				<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="content-right-swt swt" onChange="didChangeHideZeroRefillPrescription"/>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
-					<Label id="locationSettingLbl" class="content-header-lbl" />
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="locationSettingLbl" class="margin-left right-25 h5 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickTimeZone">
-				<View class="content-view-with-child content-group">
-					<Label id="timeZonePromptLbl" class="content-group-prompt-40" />
-					<Label id="timeZoneReplyLbl" class="content-group-right-reply-60" />
+				<View class="auto-height">
+					<Label id="timeZonePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
+					<Label id="timeZoneReplyLbl" class="margin-right" />
+					<Label class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
-				<Label class="content-child-icon icon-thin-arrow-down" />
 			</TableViewRow>
 			<TableViewRow onClick="didClickLanguage">
-				<View class="content-view-with-child content-group">
-					<Label id="languagePromptLbl" class="content-group-prompt-40" />
-					<Label id="languageReplyLbl" class="content-group-right-reply-60" />
+				<View class="auto-height">
+					<Label id="languagePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
+					<Label id="languageReplyLbl" class="margin-right" />
+					<Label class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
-				<Label class="content-child-icon icon-thin-arrow-down" />
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view">
-					<Label id="loginLbl" class="content-header-lbl" />
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="loginLbl" class="margin-left right-25 h5 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow>
