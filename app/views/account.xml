@@ -29,13 +29,13 @@
 			<TableViewRow onClick="didClickmobileNumber">
 				<View class="auto-height">
 					<Label id="mobileNumberLbl" class="margin-top margin-bottom margin-left attributed" />
-					<Label id="mobileNumberValue" class="margin-right attributed" />
+					<Label id="mobileNumberValue" class="margin-right attributed active-fg-color" />
 				</View>
 			</TableViewRow>
 			<TableViewRow onClick="didClickEmailAddress">
 				<View class="auto-height">
 					<Label id="emailLbl" class="margin-top margin-bottom margin-left attributed" />
-					<Label id="emailValue" class="margin-right attributed"/>
+					<Label id="emailValue" class="margin-right attributed active-fg-color"/>
 				</View>
 			</TableViewRow>
 		</TableViewSection>
@@ -67,15 +67,15 @@
 			<TableViewRow onClick="didClickTimeZone">
 				<View class="auto-height">
 					<Label id="timeZonePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
-					<Label id="timeZoneReplyLbl" class="margin-right" />
-					<Label class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
+					<Label id="timeZoneReplyLbl" class="margin-right-extra-large" />
+					<Label class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
 			</TableViewRow>
 			<TableViewRow onClick="didClickLanguage">
 				<View class="auto-height">
 					<Label id="languagePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
-					<Label id="languageReplyLbl" class="margin-right" />
-					<Label class="margin-right-small i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
+					<Label id="languageReplyLbl" class="margin-right-extra-large" />
+					<Label class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
