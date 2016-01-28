@@ -1,9 +1,9 @@
 <Alloy>
 	<View class="vgroup">
 		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<View class="margin-top form-group">
-			<Widget id="emailTxt" src="ti.textfield" class="form-txt returnkey-done" onReturn="didClickDone" />
+		<View class="margin-top margin-left margin-right auto-height vgroup border">
+			<Widget id="emailTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-email returnkey-done" onReturn="didClickDone" />
 		</View>
-		<Button id="doneBtn" class="margin-top primary-btn" onClick="didClickDone" />
+		<Button id="doneBtn" class="margin-top primary-bg-color primary-light-fg-color primary-border" onClick="didClickDone" />
 	</View>
 </Alloy>

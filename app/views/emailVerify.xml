@@ -4,8 +4,8 @@
 		<ImageView id="imgEmailVerify" class="margin-top margin-bottom"/>
 		<Label id="lblDidNotVerifyEmail" class="lbl-wrap margin-bottom"/>
 		<Label id="lblEmail" class="subtitle-centered margin-bottom margin-top"/>
-		<Button id="btnContinue" class="primary-btn margin-bottom margin-top" onClick="didClickContinue"/>
-		<Button id="btnResendEmail" class="secondary-btn margin-bottom" onClick="didClickResendEmail"/>
+		<Button id="btnContinue" class="primary-bg-color primary-light-fg-color primary-border margin-bottom margin-top" onClick="didClickContinue"/>
+		<Button id="btnResendEmail" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickResendEmail"/>
 		<Widget id="btnIsntMyEmail" src="ti.styledlabel" class="attributed margin-bottom" onClick="didClickIsntMyEmail"/>		
 	</View>
 </Alloy>
