@@ -129,7 +129,7 @@ var Helper = {
 			source = source.latitude + "," + source.longitude;
 		}
 
-		var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "transit");
+		var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "driving");
 
 		if (OS_IOS) {
 

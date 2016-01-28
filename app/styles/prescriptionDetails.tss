@@ -1,5 +1,5 @@
-"#toggleBtn":{
-	title: Alloy.Globals.strings.prescDetCollapse
+"#toggleLbl":{
+	text: Alloy.Globals.strings.prescDetCollapse
 },
 "#refillsLeftLbl":{
 	text: Alloy.Globals.strings.prescDetInfoRefillsLeft
@@ -33,6 +33,9 @@
 },
 "#reminderMedAttr":{
 	html: Alloy.Globals.strings.prescDetAttrReminderMed
+},
+"#informationView[if=Alloy.CFG.is_reminders_enabled]":{
+	top: 0
 },
 "#informationLbl":{
 	text: Alloy.Globals.strings.prescDetSectionInformation

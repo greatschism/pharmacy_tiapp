@@ -3,7 +3,7 @@
 		<Widget id="prescExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="togglePrescription">
 				<Label id="titleLbl" class="margin-top margin-left right-35 h4" />
-				<Button id="toggleBtn" class="top left-disabled margin-right width-30 txt-right h7 active-fg-color border-disabled" />
+				<Label id="toggleLbl" class="margin-top-large margin-right width-30 txt-right h7 active-fg-color" />
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
 				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
@@ -15,7 +15,13 @@
 						<Label id="expiryPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="expiryReplyLbl" class="top margin-left-medium hide" />
 					</View>
-					<View class="margin-top auto-height" onClick="didClickDoctor">
+					<!--show doctor name as link if doctor module is enabled-->
+					<View class="margin-top auto-height" if="!Alloy.CFG.is_doctors_enabled">
+						<Label id="doctorPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="doctorReplyLbl" class="top margin-left-medium hide" />
+					</View>
+					<!--show doctor name as text if doctor module is not enabled-->
+					<View class="margin-top auto-height" onClick="didClickDoctor" if="Alloy.CFG.is_doctors_enabled">
 						<Label id="doctorPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="doctorReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
@@ -42,19 +48,19 @@
 			</View>
 		</View>
 		<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
-		<View class="margin-top min-height inactive-light-bg-color">
+		<View class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_reminders_enabled">
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
-		<View id="reminderRefillView" class="auto-height">
+		<View id="reminderRefillView" class="auto-height" if="Alloy.CFG.is_reminders_enabled">
 			<Widget id="reminderRefillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
 			<Widget id="reminderRefillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeRefill" />
 		</View>
-		<View class="h-divider-light" />
-		<View id="reminderMedView" class="auto-height">
+		<View class="h-divider-light" if="Alloy.CFG.is_reminders_enabled" />
+		<View id="reminderMedView" class="auto-height" if="Alloy.CFG.is_reminders_enabled">
 			<Widget id="reminderMedAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
 			<Widget id="reminderMedSwt" src="ti.switch" class="margin-right swt" onChange="didChangeMed" />
 		</View>
-		<View class="min-height inactive-light-bg-color">
+		<View id="informationView" class="margin-top min-height inactive-light-bg-color">
 			<Label id="informationLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View id="historyView" class="auto-height" onClick="showHistory">

@@ -159,6 +159,13 @@ function didSuccessAppload(result) {
 	var appload = result.data.appload || {};
 	Alloy.Models.appload.set(appload);
 	/**
+	 * extend feature flags to CFG
+	 * to keep it accessible through XML
+	 */
+	_.each(appload.features, function(val, key) {
+		Alloy.CFG[key] = val === "1";
+	});
+	/**
 	 * check for force upgrade
 	 */
 	if (appload.is_upgrade_required === "1") {

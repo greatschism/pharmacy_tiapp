@@ -1,6 +1,5 @@
 "#pagingcontrol":{
-	currentPage: 0,
-	length: 5
+	currentPage: 0
 },
 "#appLbl":{
 	text: Alloy.Globals.strings.carouselLblApp

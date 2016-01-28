@@ -3,7 +3,6 @@ var args = arguments[0] || {},
     feedbackHandler = require("feedbackHandler"),
     ctrlShortCode = require("ctrlShortCode"),
     moduleShortCode = require("moduleShortCode"),
-    isBannerEnabled = parseInt(Alloy.Models.appload.get("features").is_banners_enabled) || 0,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
@@ -23,7 +22,7 @@ function init() {
 	 * load banners, if nothing in cache call
 	 * get banners
 	 */
-	if (isBannerEnabled && $.bannerView && !loadBanners()) {
+	if (Alloy.CFG.is_banners_enabled && $.bannerView && !loadBanners()) {
 		$.http.request({
 			method : "appload_get_banners",
 			params : {
@@ -360,7 +359,7 @@ function didChangePager(e) {
 }
 
 function create(dict) {
-	if ((_.has(dict, "feature_name") && !parseInt(Alloy.Models.appload.get("features")[dict.feature_name])) || (_.has(dict, "platform") && _.indexOf(dict.platform, Alloy.CFG.platform) === -1)) {
+	if ((_.has(dict, "feature_name") && !Alloy.CFG[dict.feature_name]) || (_.has(dict, "platform") && _.indexOf(dict.platform, Alloy.CFG.platform) === -1)) {
 		return false;
 	}
 	var element;
@@ -422,7 +421,7 @@ function create(dict) {
 		 * and banner feature is enabled,
 		 * then apply size bannerView
 		 */
-		if (dict.id == "bannerView" && isBannerEnabled) {
+		if (dict.id == "bannerView" && Alloy.CFG.is_banners_enabled) {
 			/**
 			 * when there are banners in cache (length > 0)
 			 * or not cached yet
