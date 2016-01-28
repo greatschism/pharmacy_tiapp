@@ -75,16 +75,6 @@ module.exports = {
 		"type" : "font",
 		"version" : 1,
 		"base_version" : 1,
-		"code" : "bold",
-		"postscript" : "HelveticaNeue-Bold",
-		"format" : "ttf",
-		"platform" : ["ios"],
-		"url" : "http://example.com/HelveticaNeue-Bold.ttf",
-		"selected" : true
-	}, {
-		"type" : "font",
-		"version" : 1,
-		"base_version" : 1,
 		"code" : "light",
 		"postscript" : "Roboto-Light",
 		"format" : "ttf",
@@ -110,16 +100,6 @@ module.exports = {
 		"format" : "ttf",
 		"platform" : ["android"],
 		"url" : "http://example.com/Roboto-Medium.ttf",
-		"selected" : true
-	}, {
-		"type" : "font",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "bold",
-		"postscript" : "Roboto-Bold",
-		"format" : "ttf",
-		"platform" : ["android"],
-		"url" : "http://example.com/Roboto-Bold.ttf",
 		"selected" : true
 	}, {
 		"type" : "images",
