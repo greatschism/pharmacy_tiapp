@@ -5,7 +5,7 @@ var args = arguments[0] || {},
     analyticsHandler = require("analyticsHandler"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
-    currentIndex = -1,
+    currentItem,
     marginLeft;
 
 function init() {
@@ -23,7 +23,7 @@ function init() {
 function filterFunction(collection) {
 	var fColl = [];
 	collection.each(function(model) {
-		if ((model.has("feature_name") && !parseInt(Alloy.Models.appload.get("features")[model.get("feature_name")])) || (model.has("platform") && _.indexOf(model.get("platform"), Alloy.CFG.platform) === -1)) {
+		if ((model.has("feature_name") && !Alloy.CFG[model.get("feature_name")]) || (model.has("platform") && _.indexOf(model.get("platform"), Alloy.CFG.platform) === -1)) {
 			return false;
 		}
 		fColl.push(model);
@@ -42,17 +42,22 @@ function transformFunction(model) {
 }
 
 function didDrawerclose(e) {
-	if (currentIndex == -1) {
+	if (!currentItem) {
 		return false;
 	}
-	var navigation = Alloy.Collections.menuItems.at(currentIndex).toJSON();
+	var navigation = Alloy.Collections.menuItems.findWhere({
+		ctrl : currentItem
+	}).toJSON();
 	navigationHandler.navigate(navigation);
 	analyticsHandler.featureEvent("DRAW-MENU-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
-	currentIndex = -1;
+	currentItem = null;
 }
 
 function didClickTableView(e) {
-	currentIndex = e.index;
+	var row = e.row;
+	if (row) {
+		currentItem = row.ctrl;
+	}
 	app.navigator.drawer.toggleLeftWindow();
 	if (OS_IOS) {
 		didDrawerclose();
