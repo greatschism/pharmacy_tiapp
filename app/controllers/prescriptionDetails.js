@@ -188,16 +188,22 @@ function loadPresecription() {
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
 	/**
-	 * all switches will be off
-	 * by default
+	 * make sure reminders
+	 * module is enabled
 	 */
-	//refill reminder
-	if (prescription.is_refill_reminder_set === "1") {
-		$.reminderRefillSwt.setValue(true, isWindowOpen);
-	}
-	//med reminder
-	if (prescription.is_dosage_reminder_set === "1") {
-		$.reminderMedSwt.setValue(true, isWindowOpen);
+	if (Alloy.CFG.is_reminders_enabled) {
+		/**
+		 * all switches will be off
+		 * by default
+		 */
+		//refill reminder
+		if (prescription.is_refill_reminder_set === "1") {
+			$.reminderRefillSwt.setValue(true, isWindowOpen);
+		}
+		//med reminder
+		if (prescription.is_dosage_reminder_set === "1") {
+			$.reminderMedSwt.setValue(true, isWindowOpen);
+		}
 	}
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
