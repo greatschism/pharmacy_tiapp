@@ -31,7 +31,9 @@ function init() {
 		$.uihelper.roundedCorners($[val]);
 	});
 	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView"], function(val) {
-		$.uihelper.wrapViews($[val], "right");
+		if ($[val]) {
+			$.uihelper.wrapViews($[val], "right");
+		}
 	});
 	if (_.has(prescription, "store")) {
 		/**
@@ -306,7 +308,7 @@ function togglePrescription(e) {
 		result = $.prescExp.expand();
 	}
 	if (result) {
-		$.toggleBtn.title = $.strings[title];
+		$.toggleLbl.text = $.strings[title];
 	}
 }
 
