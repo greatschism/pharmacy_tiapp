@@ -2,27 +2,27 @@
 	<ScrollView class="vgroup">
 		<View class="auto-height">
 			<ImageView id="textBenefitsImage"/>
-			<Label id="textBenefitLbl" class="margin-top margin-left margin-right h1 txt-center light-fg-color"/>
+			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
 		</View>
 		<View class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup inactive-light-border">
-			<View class="auto-height ">
+			<View class="auto-height hgroup ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
-				<Label id="textBenefit1" class="margin-top margin-bottom h4" />
+				<Label id="textBenefit1" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
-			<View class="auto-height">
+			<View class="auto-height hgroup">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
-				<Label id="textBenefit2" class="margin-top margin-bottom h4" />
+				<Label id="textBenefit2" class="margin-top margin-bottom h4 margin-left margin-right " />
 			</View>
-			<View class="auto-height">
+			<View class="auto-height hgroup">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
-				<Label id="textBenefit3" class="margin-top margin-bottom h4" />
+				<Label id="textBenefit3" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
-			<View class="auto-height">
+			<View class="auto-height hgroup">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
-				<Label id="textBenefit4" class="margin-top margin-bottom h4" />
+				<Label id="textBenefit4" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
 		</View>
 		<Button id="sendTxtBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickTextSignup"/>
-		<Button id="skipSendTxtBtn" class="bg-color primary-fg-color primary-border" onClick="didClickSkipTextSignup"/>
+		<Button id="skipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipTextSignup"/>
 	</ScrollView>
 </Alloy>
