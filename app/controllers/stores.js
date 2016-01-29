@@ -101,11 +101,11 @@ function didPostlayoutLoader(e) {
 }
 
 function didPauseApp(e) {
-	$.mapView && $.mapView.removeEventListener("regionchanged", didRegionchanged);
+	$.mapView && $.removeListener($.mapView, "regionchanged", didRegionchanged);
 }
 
 function didResumedApp(e) {
-	$.mapView && $.mapView.addEventListener("regionchanged", didRegionchanged);
+	$.mapView && $.addListener($.mapView, "regionchanged", didRegionchanged);
 }
 
 function setPatientSwitcher() {
