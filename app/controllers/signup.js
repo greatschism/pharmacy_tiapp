@@ -11,7 +11,7 @@ var args = arguments[0] || {},
 	classes : ["icon-help"]
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn"],
+	classes : ["txt margin-right-small inactive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
 }),
     uihelper = require("uihelper"),
@@ -44,6 +44,19 @@ function init() {
 	}
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+	
+	$.passwordTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+	}));
+	
+	$.rxTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+	}));
+	
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
@@ -90,22 +103,24 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
-	if (_.has($.passwordTooltip, "size")) {
-		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
-		});
-		delete $.passwordTooltip.size;
-	}
+	var top = $.containerView.rect.height,
+	    margin = $.containerView.rect.y,
+	    bottom = margin;
+	
+	$.passwordTooltip.applyProperties({
+		top : top - margin
+	});
 	$.passwordTooltip.show();
 }
 
 function didFocusRx(e) {
-	if (_.has($.rxTooltip, "size")) {
-		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
-		});
-		delete $.rxTooltip.size;
-	}
+	var top = $.rxContainer.rect.height,
+	    margin = $.rxContainer.rect.y,
+	    bottom = margin;
+	
+	$.rxTooltip.applyProperties({
+		top : top - margin
+	});
 	$.rxTooltip.show();
 }
 
