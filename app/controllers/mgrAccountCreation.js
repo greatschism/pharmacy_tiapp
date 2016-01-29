@@ -20,8 +20,8 @@ function init() {
 }
 
 function focus() {
-	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
-}
+var height = $.uihelper.getHeightFromChildren($.nameView);
+	$.nameVDividerView.height = height;}
 
 function didClickContinue() {
 	var fname = $.fnameTxt.getValue(),

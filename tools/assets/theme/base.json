@@ -636,6 +636,12 @@
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"
             },
+            ".hl[platform=ios]":{
+                "font":"${HL_PLATFORM_IOS}"
+            },
+            ".hl[platform=android]":{
+                "font":"${HL_PLATFORM_ANDROID}"
+            },
             ".h1[platform=ios]":{
                 "font":"${H1_PLATFORM_IOS}"
             },

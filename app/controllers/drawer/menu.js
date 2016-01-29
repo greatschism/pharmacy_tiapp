@@ -45,9 +45,13 @@ function didDrawerclose(e) {
 	if (!currentItem) {
 		return false;
 	}
-	var navigation = Alloy.Collections.menuItems.findWhere({
-		ctrl : currentItem
-	}).toJSON();
+	var navigation;
+	Alloy.Collections.menuItems.some(function(model) {
+		if (model.get("ctrl") === currentItem || model.get("url") === currentItem || model.get("action") === currentItem) {
+			navigation = model.toJSON();
+			return true;
+		}
+	});
 	navigationHandler.navigate(navigation);
 	analyticsHandler.featureEvent("DRAW-MENU-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentItem = null;
@@ -56,7 +60,7 @@ function didDrawerclose(e) {
 function didClickTableView(e) {
 	var row = e.row;
 	if (row) {
-		currentItem = row.ctrl;
+		currentItem = row.ctrl || row.url || row.action;
 	}
 	app.navigator.drawer.toggleLeftWindow();
 	if (OS_IOS) {

@@ -1,10 +1,10 @@
 <Alloy>
 	<View class="vgroup">
-		<Label id="registerLbl" class="subtitle-centered-wrap margin-top"/>
-		<Button id="meBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickMyself"/>
+		<Label id="registerLbl" class="margin-top margin-left margin-right h3 txt-left"/>
+		<Button id="meBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickMyself"/>
 		<Require src="templates/optionDivider" />
-		<Button id="childBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickChild"/>
+		<Button id="childBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickChild"/>
 		<Require src="templates/optionDivider" />		
-		<Button id="anotherAdultBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickAddAnotherAdult"/>
+		<Button id="anotherAdultBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickAddAnotherAdult"/>
 	</View>
 </Alloy>
