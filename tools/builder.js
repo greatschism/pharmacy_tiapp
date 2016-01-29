@@ -669,7 +669,7 @@ if (build) {
 		 * i.e login - LOGI
 		 */
 		var tiCtrlShortCode = {},
-		    allCtrlFile = fs.readdirSync(CTRL_DIR);
+		    allCtrlFile = fs.readdirSync(CTRL_DIR).concat(fs.readdirSync(CTRL_DIR + "/" + program.platform));
 		for (var i in allCtrlFile) {
 			var ctrlFile = allCtrlFile[i];
 			if (ctrlFile.substr(ctrlFile.lastIndexOf(".")) === ".js") {
