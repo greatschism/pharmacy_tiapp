@@ -103,24 +103,24 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
-	var top = $.containerView.rect.height,
-	    margin = $.containerView.rect.y,
-	    bottom = margin;
-	
+	var top = $.rxContainer.rect.height,
+	    margin = $.rxContainer.rect.bottom;
 	$.passwordTooltip.applyProperties({
-		top : top - margin
+		top : top - margin - top / 3
 	});
+	var val = top - margin;
+	console.log("$$pwd:" + val);
 	$.passwordTooltip.show();
 }
 
 function didFocusRx(e) {
 	var top = $.rxContainer.rect.height,
-	    margin = $.rxContainer.rect.y,
-	    bottom = margin;
-	
+	    margin = $.rxContainer.rect.bottom;
 	$.rxTooltip.applyProperties({
 		top : top - margin
 	});
+	var val = top - margin;
+	console.log("$$rx:" + val);
 	$.rxTooltip.show();
 }
 

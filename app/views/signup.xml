@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<ImageView id="logoImg" class="margin-top" />
-		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+		<View id="nameView" class="margin-top-large margin-left margin-right auto-height vgroup border">
 			<View id="txtView" class="auto-height" >
 				<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
 				<Widget id="lnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
