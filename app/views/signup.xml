@@ -20,7 +20,7 @@
 			<View class="h-divider"/>
 			<View id="storeView" class="auto-height" onClick="didClickPharmacy">
 				<Label id="storeTitleLbl" class="margin-top margin-bottom margin-left margin-right-small" />
-				<Label id="arrowLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+				<Label id="arrowLbl" class="margin-right-large i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 			</View>
 		</View>
 		<Widget id="agreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />

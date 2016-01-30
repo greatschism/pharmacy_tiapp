@@ -5,13 +5,13 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-tertiary-right-icon"],
+	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled"],
 }),
     rightButtonTitle = $.createStyle({
-	classes : ["icon-help"]
+	classes : ["icon-help"],
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["txt margin-right-small inactive-fg-color"],
+	classes : ["txt", "margin-right-small", "active-fg-color"],
 	title : Alloy.Globals.strings.strShow,
 }),
     uihelper = require("uihelper"),
@@ -25,7 +25,7 @@ function init() {
 	 * PHA-1425 : Add the help image 
 	 * inside the rx number textfield.
 	 */
-	setRightButton(rightButtonTitle.text, rightButtonDict);
+	setRightButtonForRx(rightButtonTitle.text, rightButtonDict);
 	/**
 	 * Set the right button "show/hide"
 	 * with right parameters.
@@ -61,7 +61,8 @@ function init() {
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
-function setRightButton(iconText, iconDict) {
+function setRightButtonForRx(iconText, iconDict) {
+	console.log("inside rx");
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 
@@ -109,7 +110,6 @@ function didFocusPassword(e) {
 		top : top - margin - top / 3
 	});
 	var val = top - margin;
-	console.log("$$pwd:" + val);
 	$.passwordTooltip.show();
 }
 
@@ -120,7 +120,6 @@ function didFocusRx(e) {
 		top : top - margin
 	});
 	var val = top - margin;
-	console.log("$$rx:" + val);
 	$.rxTooltip.show();
 }
 
@@ -383,6 +382,7 @@ function didToggleShowPassword() {
 }
 
 function setRightButton(iconText, iconDict) {
+	console.log("inside pwd");
 	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
 
