@@ -112,15 +112,22 @@ if (program.defaults) {
 	});
 }
 
+//check for required parameters
+_u.each(["brandId", "version", "buildNumber", "sdk"], function(value) {
+	if (!_u.has(program, value)) {
+		logger.error(value + " is missing");
+		process.exit(1);
+	}
+});
 /**
- * check for required parameters,
+ * username, password and org-id
  * can be skipped if buildOnly
  * is specified.
  */
 if (!program.buildOnly && !program.cleanOnly) {
 	_u.each(["username", "password", "orgId"], function(value) {
 		if (!_u.has(program, value)) {
-			logger.error("username, password or org-id is missing");
+			logger.error(value + " is missing");
 			process.exit(1);
 		}
 	});
@@ -662,7 +669,7 @@ if (build) {
 		 * i.e login - LOGI
 		 */
 		var tiCtrlShortCode = {},
-		    allCtrlFile = fs.readdirSync(CTRL_DIR);
+		    allCtrlFile = fs.readdirSync(CTRL_DIR).concat(fs.readdirSync(CTRL_DIR + "/" + program.platform));
 		for (var i in allCtrlFile) {
 			var ctrlFile = allCtrlFile[i];
 			if (ctrlFile.substr(ctrlFile.lastIndexOf(".")) === ".js") {
