@@ -36,7 +36,7 @@ if (OS_ANDROID) {
 	choiceDict.height = choiceDict.font.fontSize + 5;
 
 	if (_.has(args, "tableViewDict")) {
-		$.tableView.applyProperties(tableViewDict);
+		$.tableView.applyProperties(args.tableViewDict);
 	}
 
 	if (_.has(args, "optionPadding")) {
