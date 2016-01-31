@@ -11,7 +11,8 @@ var args = arguments[0] || {},
 	classes : ["icon-help"],
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["txt", "margin-right-small", "active-fg-color"],
+	classes : ["txt i6 margin-right-small active-fg-color"],
+	//classes : ["right", "i6", "txt", "bg-color-disabled", "active-fg-color"],
 	title : Alloy.Globals.strings.strShow,
 }),
     uihelper = require("uihelper"),
@@ -62,7 +63,6 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
-	console.log("inside rx");
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 
@@ -382,7 +382,6 @@ function didToggleShowPassword() {
 }
 
 function setRightButton(iconText, iconDict) {
-	console.log("inside pwd");
 	$.passwordTxt.setButton(iconText, "right", iconDict);
 }
 
