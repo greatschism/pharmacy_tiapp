@@ -338,6 +338,14 @@ if (build) {
 			 */
 			BASE_RESOURCES_JS.data = RESOURCES_DATA;
 		}
+		/**
+		 * create data directory if not exists
+		 * happens when the brand doesn't have
+		 * any brand specific data
+		 */
+		if (!fs.existsSync(APP_ASSETS_DATA_DIR)) {
+			fs.mkdirSync(APP_ASSETS_DATA_DIR);
+		}
 		fs.writeFileSync(APP_ASSETS_DATA_DIR + "/resources.js", "module.exports = " + JSON.stringify(BASE_RESOURCES_JS, null, 4) + ";");
 
 		/**
