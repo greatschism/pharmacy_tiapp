@@ -24,7 +24,7 @@
 					</View>
 					<Button id="homeIconBtn" class="top-disabled left-disabled right width-30 i4 icon-home bg-color-disabled border-disabled" onClick="didClickHome" />
 				</View>
-				<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" />
+				<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" if="Alloy.Globals.isLoggedIn || Alloy.CFG.is_quick_refill_enabled" />
 				<Button id="directionBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDirection" />
 			</View>
 		</HeaderView>
