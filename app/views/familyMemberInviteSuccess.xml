@@ -2,7 +2,7 @@
 	<ScrollView class="vgroup">
 		<View class="auto-height">
 			<ImageView id="inviteSuccessImg"/>
-			<Label id="inviteLbl"  class="margin-top-large margin-left margin-right h3 txt-center light-fg-color"/>
+			<Label id="inviteLbl"  class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
 		</View>
 		<Label id="inviteMsg" class="margin-top margin-bottom margin-left margin-right h4 txt-left"/>
 		<Button id="addBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didAddAnotherMember"/>

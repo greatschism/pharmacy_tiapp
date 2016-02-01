@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView >
-		<View class="width-100 vgroup">
+		<View id="parentView" class="width-100 vgroup">
 			<Label id="mgrTitleLbl" class="margin-top margin-left margin-right h2 txt-center"/>
 			<ImageView id="logoImg" class="margin-top margin-bottom" />
 			<Label id="mgrSubTitleLbl" class="margin-top-large margin-left margin-right margin-bottom"/>
@@ -8,14 +8,14 @@
 				<View id="nameView" class="auto-height">
 					<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
 					<Widget id="lnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
-					<View id="nameVDividerView" class="v-divider" />
+					<View id="nameVDividerView" class="v-divider"></View>
 				</View>
-				<View class="h-divider"/>
+				<View class="h-divider"></View>
 				<Widget id="dobDp" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 			</View>
 			<View id="containerView"  class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled returnkey-next keyboard-email" onReturn="moveToNext" />
-				<View class="h-divider"/>
+				<View class="h-divider"></View>
 				<Widget id="passwordTxt" src="ti.textfield" class="txt-right-btn top left margin-right txt border-disabled returnkey-next" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
 			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />

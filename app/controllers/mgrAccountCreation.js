@@ -2,6 +2,7 @@ var moment = require("alloy/moment"),
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn"],
 	title : Alloy.Globals.strings.strShow,
+	width : 50
 }),
     passwordContainerViewFromTop = 0;
     var args= arguments[0]||{};
@@ -184,11 +185,13 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
+				width: 50
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
+				width: 50
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
@@ -204,9 +207,15 @@ function didBlurFocusPassword() {
 }
 
 function didFocusPassword(e) {
+		$.passwordTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
+			top : (passwordContainerViewFromTop + $.containerView.top ) 
 		});
 		delete $.passwordTooltip.size;
 	}
