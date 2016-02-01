@@ -11,8 +11,7 @@ var args = arguments[0] || {},
 	classes : ["icon-help"],
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["txt i6 margin-right-small active-fg-color"],
-	//classes : ["right", "i6", "txt", "bg-color-disabled", "active-fg-color"],
+	classes : ["margin-right-large", "active-fg-color", "bg-color-disabled", "touch-enabled"],
 	title : Alloy.Globals.strings.strShow,
 }),
     uihelper = require("uihelper"),
@@ -109,7 +108,6 @@ function didFocusPassword(e) {
 	$.passwordTooltip.applyProperties({
 		top : top - margin - top / 3
 	});
-	var val = top - margin;
 	$.passwordTooltip.show();
 }
 
@@ -119,7 +117,6 @@ function didFocusRx(e) {
 	$.rxTooltip.applyProperties({
 		top : top - margin
 	});
-	var val = top - margin;
 	$.rxTooltip.show();
 }
 
