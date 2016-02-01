@@ -12,9 +12,8 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleRefill",
-		"ctrl" : "refill",
+		"action" : "refill",
 		"icon" : "refill_camera",
-		"feature_name" : "is_quick_refill_enabled",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleReminders",
