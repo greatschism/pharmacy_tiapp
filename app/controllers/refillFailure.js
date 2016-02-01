@@ -4,10 +4,14 @@ var args = arguments[0] || {},
 
 function init() {
 	_.each(["typeView", "phoneView"], function(val) {
-		$.uihelper.wrapViews($[val]);
+		if ($[val]) {
+			$.uihelper.wrapViews($[val]);
+		}
 	});
 	_.each(["typeLbl", "phoneLbl"], function(val) {
-		$.uihelper.wrapText($[val]);
+		if ($[val]) {
+			$.uihelper.wrapText($[val]);
+		}
 	});
 }
 
