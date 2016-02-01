@@ -3,8 +3,9 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn"],
+	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	width: "20%"
 }),
     utilities = require('utilities');
 
@@ -62,11 +63,13 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
+				width: "20%"
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
+				width: "20%"
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
@@ -230,10 +233,11 @@ function didPostlayout(e) {
 	 *
 	 */
 
-	//use updateArrow instead
-	/*$.tooltip.updateArrowPosition({
-		right : 10
-	});*/
+		$.tooltip.updateArrow($.createStyle({
+			classes : ["direction-up"]
+		}).direction, $.createStyle({
+			classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
+		}));
 
 	$.tooltip.applyProperties($.createStyle({
 		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,

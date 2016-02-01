@@ -1,10 +1,10 @@
 <Alloy>
 	<View class="vgroup">
-		<View class="content-header-view-wrap">
-			<Label id="mgrAccountExistsLbl" class="content-header-lbl-wrap"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="mgrAccountExistsLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
-		<Label id="mgrSignInLbl" class="lbl-wrap margin-top margin-bottom"/>
-		<Label id="mgrAddLbl" class="lbl-wrap margin-top margin-bottom"/>
-		<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn"/>
+		<Label id="mgrSignInLbl" class="margin-left margin-right"/>
+		<Label id="mgrAddLbl" class="margin-top margin-left margin-right"/>
+		<Button id="signInBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignIn"/>
 	</View>
 </Alloy>
