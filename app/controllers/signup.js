@@ -11,8 +11,9 @@ var args = arguments[0] || {},
 	classes : ["icon-help"],
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["margin-right-large", "active-fg-color", "bg-color-disabled", "touch-enabled"],
+	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	width : "20%"
 }),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
@@ -103,20 +104,34 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
-	var top = $.rxContainer.rect.height,
-	    margin = $.rxContainer.rect.bottom;
-	$.passwordTooltip.applyProperties({
-		top : top - margin - top / 3
-	});
+	$.passwordTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+		
+	if (_.has($.passwordTooltip, "size")) {
+		$.passwordTooltip.applyProperties({
+			top : (passwordContainerViewFromTop + $.containerView.top ) 
+		});
+		delete $.passwordTooltip.size;
+	}
 	$.passwordTooltip.show();
 }
 
 function didFocusRx(e) {
-	var top = $.rxContainer.rect.height,
-	    margin = $.rxContainer.rect.bottom;
-	$.rxTooltip.applyProperties({
-		top : top - margin
-	});
+	$.rxTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
+	if (_.has($.rxTooltip, "size")) {
+		$.rxTooltip.applyProperties({
+			top : (rxContainerViewFromTop - $.rxContainer.top * 2) 
+		});
+		delete $.rxTooltip.size;
+	}
 	$.rxTooltip.show();
 }
 
@@ -367,11 +382,13 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
+				width: "20%"
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
+				width: "20%"
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);

@@ -16,7 +16,7 @@
 			<View id="containerView"  class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled returnkey-next keyboard-email" onReturn="moveToNext" />
 				<View class="h-divider"></View>
-				<Widget id="passwordTxt" src="ti.textfield" class="txt-right-btn top left margin-right txt border-disabled returnkey-next" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
 			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
 			<Button id="continueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
