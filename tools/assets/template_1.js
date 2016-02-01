@@ -76,9 +76,8 @@ module.exports = {
 								}]
 							}]
 						}],
-						"feature_name" : "is_quick_refill_enabled",
 						"navigation" : {
-							"ctrl" : "refill"
+							"action" : "refill"
 						}
 					}, {
 						"apiName" : "TableViewRow",

@@ -84,6 +84,7 @@ module.exports = {
 		"msgLoggedout" : "You have logged out successfully.",
 		"msgGooglePlayServicesUpdateRequired" : "You must update your Google Play Services in order to use this feature. Do you want to update now?",
 		"msgGooglePlayServicesNotAvailable" : "There is something wrong with your version of Google Play Services. Please check your settings.",
+		"msgFeatureNotAvailable" : "Service is temporarily unavailable, please try again later.",
 		"msgPrescriptionSchedule2" : "Schedule 2 drugs cannot be refilled electronically. Contact your pharmacy or doctor for more information.",
 		"msgPrescriptionRefillLeftNone" : "This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionExpired" : "This prescription has expired. We will need to contact your doctor to authorize this refill.",
