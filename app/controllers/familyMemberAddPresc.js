@@ -2,7 +2,7 @@ var args = arguments[0] || {},
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
-     rightButtonDict = $.createStyle({
+    rightButtonDict = $.createStyle({
 	classes : ["txt-tertiary-right-icon"],
 }),
     rightButtonTitle = $.createStyle({
@@ -12,12 +12,18 @@ var args = arguments[0] || {},
     store = {};
 function init() {
 	/**
-	 * PHA-1425 : Add the help image 
+	 * PHA-1425 : Add the help image
 	 * inside the rx number textfield.
 	 */
 	setRightButton(rightButtonTitle.text, rightButtonDict);
 	$.uihelper.getImage("child_add", $.addPrescImg);
-	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+		$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+		$.rxTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 	$.fnameTxt.setValue(args.first_name);
 	$.lnameTxt.setValue(args.last_name);
@@ -26,16 +32,19 @@ function init() {
 	date.setFullYear(dob.year(), dob.month(), dob.date());
 	$.dobDp.setValue(date);
 }
+
 function setRightButton(iconText, iconDict) {
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
+
 function focus() {
 	$.addPrescTitle.text = String.format($.strings.familyMemberAddPrescTitle, $.strings.strClientName);
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
 	var mgrData = Alloy.Collections.patients.at(0);
-	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
+	var height = $.uihelper.getHeightFromChildren($.nameView);
+	$.nameVDividerView.height = height;;
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
@@ -172,14 +181,14 @@ function didPostlayoutRxContainerView(e) {
 }
 
 function didFocusRx(e) {
-	if (_.has($.rxTooltip, "size")) {
-		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
-		});
-		delete $.rxTooltip.size;
-	}
+	var top = $.rxContainer.rect.height,
+	    margin = $.rxContainer.bottom;
+	$.rxTooltip.applyProperties({
+		top : top - margin
+	});
 	$.rxTooltip.show();
 }
+
 function didClickHelp(e) {
 	$.app.navigator.open({
 		titleid : "titleRxSample",
@@ -187,6 +196,7 @@ function didClickHelp(e) {
 		stack : true
 	});
 }
+
 exports.setParentView = setParentView;
 exports.init = init;
 exports.focus = focus;

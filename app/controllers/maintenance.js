@@ -1,5 +1,4 @@
-var args = arguments[0] || {},
-    uihelper = require("uihelper");
+var args = arguments[0] || {};
 
 function didOpen(e) {
 	$.trigger("init");
@@ -23,7 +22,6 @@ function didAndroidback(e) {
 }
 
 function init() {
-	uihelper.getImage("logo", $.logoImg);
 	$.lbl.text = Alloy.Models.appconfig.get("inlinemessage");
 	$.window.open();
 }

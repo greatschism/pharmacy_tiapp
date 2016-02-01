@@ -1,13 +1,13 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-map" onClick="didClickRightNavBtn" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-light-fg-color bg-color-disabled border-disabled icon-map" onClick="didClickRightNavBtn" if="Alloy.CFG.is_maps_enabled" />
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="Alloy.Globals.isLoggedIn" />
-		<View id="searchbar" class="top search-bar">
-			<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onFocus="didFocusSearch" onClear="didClearSearch" onChange="didChangeSearch" onReturn="didReturnSearch" />
+		<View class="top txt-border-view">
+			<Widget id="searchTxt" src="ti.textfield" class="top margin-left margin-right-small txt returnkey-done border-disabled" onFocus="didFocusSearch" onClear="didClearSearch" onChange="didChangeSearch" onReturn="didReturnSearch" />
 		</View>
 	</View>
 	<View id="containerView">
-		<View id="mapView" ns="Alloy.Globals.Map" class="map-view" onClick="didClickMap" onRegionchanged="didRegionchanged" />
+		<View id="mapView" ns="Alloy.Globals.Map" onClick="didClickMap" onRegionchanged="didRegionchanged" if="Alloy.CFG.is_maps_enabled" />
 		<TableView id="storeTableView" class="show" onClick="didClickStoreTable">
 			<FooterView platform="ios">
 				<View class="auto-height" />
@@ -18,6 +18,6 @@
 				<View class="auto-height" />
 			</FooterView>
 		</TableView>
-		<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded" />
+		<Widget id="loader" name="embedded" src="ti.loading" class="auto-width auto-height bg-color-disabled" />
 	</View>
 </Alloy> 

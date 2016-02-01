@@ -1,24 +1,18 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="tipLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
+		<Label id="tipLbl" class="margin-top margin-bottom margin-left margin-right h2 txt-center"/>
 		<View class="auto-height">
-			<ImageView id="tip1Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="tip1Lbl" class="content-lbl-wrap"></Label>
-			</View>
+			<ImageView id="tip1Img" class="width-70 margin-top margin-bottom top-disabled margin-left i4  active-fg-color inactive-fg-color border-disabled"/>
+			<Label id="tip1Lbl" class="width-50 margin-top margin-bottom h3 margin-right"></Label>
 		</View>
 		<View class="auto-height">
-			<ImageView id="tip2Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="tip2Lbl" class="content-lbl-wrap"></Label>
-			</View>
+			<ImageView id="tip2Img" class="width-70 margin-top-large margin-bottom top-disabled margin-left i4 active-fg-color inactive-fg-color border-disabled"/>
+			<Label id="tip2Lbl" class="width-50 margin-top-large margin-bottom h3 margin-right"></Label>
 		</View>
 		<View class="auto-height">
-			<ImageView id="tip3Img" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="tip3Lbl" class="content-lbl-wrap"></Label>
-			</View>
+			<ImageView id="tip3Img" class="width-70 margin-top-large margin-bottom top-disabled margin-left i4  active-fg-color inactive-fg-color border-disabled"/>
+			<Label id="tip3Lbl" class="width-50 margin-top-large margin-bottom h3 margin-right"></Label>
 		</View>
-		<Button id="signInBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSignIn" if="!Alloy.Globals.isLoggedIn"/>
+		<Button id="signInBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignIn" if="!Alloy.Globals.isLoggedIn"/>
 	</ScrollView>
 </Alloy>

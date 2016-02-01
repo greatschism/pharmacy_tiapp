@@ -1,7 +1,10 @@
 "#widget": {
-	height: 50
+	height: 50,
+	bubbleParent: false
 },
 "#txt":{
+	left: 0,
+	right: 0,
 	height: Ti.UI.FILL,
 	color: "#000",
 	backgroundColor: "transparent",
@@ -9,14 +12,9 @@
 	borderWidth: 0,
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 	autocorrect: false,
-	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-	bubbleParent: false
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
 "#txt[platform=ios]":{
 	paddingLeft: 8,
 	paddingRight: 8
-},
-"#txt[platform=ios,android]":{
-	left: 0,
-	right: 0
 }

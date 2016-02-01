@@ -1,10 +1,10 @@
 <Alloy>
-	<Widget id="deliveryModesPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickDeliveryMode">
-		<View class="content-header-view role-header-view">
-			<Label id="deliveryModeLbl" class="content-header-lbl" />
+	<Widget id="deliveryModesPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickDeliveryMode">
+		<View class="top min-height inactive-light-bg-color role-header-view">
+			<Label id="deliveryModeLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="closeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickClose" />
+			<Button id="closeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickClose" />
 		</View>
 	</Widget>
 	<View id="headerView" class="top auto-height vgroup">

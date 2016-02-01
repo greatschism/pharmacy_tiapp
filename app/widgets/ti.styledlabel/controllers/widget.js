@@ -1,14 +1,12 @@
 var args = arguments[0] || {},
-    html,
-    secondaryFont,
-    secondaryColor;
+    html;
 
 (function() {
 	applyProperties(args);
 })();
 
 function applyProperties(dict) {
-	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
+	var options = _.pick(dict, ["width", "height", "top", "bottom", "left", "right", "font", "color", "textAlign", "ellipsize", "wordWrap", "backgroundColor", "borderColor", "borderWidth", "borderRadius", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
@@ -20,15 +18,14 @@ function applyProperties(dict) {
 	if (_.has(dict, "bubbleParent")) {
 		$.widget.setBubbleParent(dict.bubbleParent);
 	}
-	secondaryFont = dict.secondaryFont || {
-		fontWeight : "bold",
-		fontSize : 12
-	};
-	secondaryColor = dict.secondaryColor || "#000";
 	var value = dict.html || dict.text;
 	if (value) {
 		setHtml(value);
 	}
+}
+
+function applyAttributes(dict) {
+	_.extend(args, dict);
 }
 
 function setHtml(data) {
@@ -64,36 +61,36 @@ function setHtml(data) {
 			j = 0;
 			var lastIndex = len - 1;
 			for ( i = 0; i < len; i++) {
-				var item = dom[i];
-				switch(item.name) {
-				case "secondaryfont":
-					attributes.push({
-						type : Ti.UI.ATTRIBUTE_FONT,
-						value : secondaryFont,
-						range : [text.length, strings[j].length]
-					});
-					break;
-				case "secondarycolor":
-					attributes.push({
-						type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-						value : secondaryColor,
-						range : [text.length, strings[j].length]
-					});
-					break;
-				case "u":
+				var item = dom[i],
+				    name = item.name || "";
+				if (name.indexOf("font") != -1) {
+					if (args[name]) {
+						attributes.push({
+							type : Ti.UI.ATTRIBUTE_FONT,
+							value : args[name],
+							range : [text.length, strings[j].length]
+						});
+					}
+				} else if (name.indexOf("color") != -1) {
+					if (args[name]) {
+						attributes.push({
+							type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+							value : args[name],
+							range : [text.length, strings[j].length]
+						});
+					}
+				} else if (name === "u") {
 					attributes.push({
 						type : Ti.UI.ATTRIBUTE_UNDERLINES_STYLE,
 						value : Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE | Ti.UI.ATTRIBUTE_UNDERLINE_PATTERN_SOLID,
 						range : [text.length, strings[j].length]
 					});
-					break;
 				}
 				if (item.data || (dom[i + 1] && !dom[i + 1].previous)) {
 					text += strings[j];
 					j += 1;
 				}
 			}
-
 			$.widget.attributedString = Ti.UI.createAttributedString({
 				text : strings.join(""),
 				attributes : attributes
@@ -118,6 +115,7 @@ _.extend($, {
 	getHtml : getHtml,
 	setText : setHtml,
 	getText : getHtml,
+	applyAttributes : applyAttributes,
 	applyProperties : applyProperties
 });
 

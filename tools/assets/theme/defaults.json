@@ -6,12 +6,21 @@
 		"statusBarStyle": "Ti.UI.iPhone.StatusBar.DEFAULT"
 	},
 	"Window[platform=android]": {
-		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN"
+		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_RESIZE"
 	},
 	"Window[formFactor=handheld]": {
 		"orientationModes": ["Ti.UI.PORTRAIT"]
 	},
 	"Window[formFactor=tablet]": {
+		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
+	},
+	".drawer": {
+		"leftDrawerWidth": "Alloy.CFG.left_drawer_width"
+	},
+	".drawer[formFactor=handheld]": {
+		"orientationModes": ["Ti.UI.PORTRAIT"]
+	},
+	".drawer[formFactor=tablet]": {
 		"orientationModes": ["Ti.UI.PORTRAIT", "Ti.UI.UPSIDE_PORTRAIT"]
 	},
 	"TableView": {
@@ -37,6 +46,72 @@
 	"ImageView[platform=ios]": {
 		"preventDefaultImage": true
 	},
+	"Label": {
+		"wordWrap": true,
+		"ellipsize": false,
+		"height": "Ti.UI.SIZE",
+		"textAlign": "left"
+	},
+	"Button": {
+		"textAlign": "center",
+		"backgroundColor": "transparent"
+	},
+	".rx": {
+		"maxLength": "Alloy.CFG.rx_length"
+	},
+	".date": {
+		"title": "Alloy.Globals.strings.dialogTitleDatePicker",
+		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
+		"format": "Alloy.CFG.date_format",
+		"type": "Ti.UI.PICKER_TYPE_DATE"
+	},
+	".time": {
+		"title": "Alloy.Globals.strings.dialogTitleTimePicker",
+		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
+		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
+		"format": "Alloy.CFG.time_format",
+		"type": "Ti.UI.PICKER_TYPE_TIME"
+	},
+	".dob": {
+		"selectedDate": "Alloy.CFG.dob_default_date"
+	},
+	".time-reminder": {
+		"minuteInterval": "Alloy.CFG.reminder_time_picker_interval"
+	},
+	".h-divider": {
+		"width": "Ti.UI.FILL"
+	},
+	".h-divider-light": {
+		"width": "Ti.UI.FILL"
+	},
+	".txt": {
+		"textAlign": "left",
+		"ellipsize": true
+	},
+	".txta": {
+		"textAlign": "left",
+		"suppressReturn": false
+	},
+	".swt": {
+		"height": 36,
+		"value": false
+	},
+	".swt[platform=android]": {
+		"accessibilityLabelOn": "Alloy.Globals.strings.accessibilityLblSwitchOn",
+		"accessibilityLabelOff": "Alloy.Globals.strings.accessibilityLblSwitchOff",
+		"trackShape": "Ti.App.Android.R.drawable.switch_track",
+		"thumbShape": "Ti.App.Android.R.drawable.switch_thumb",
+		"style": "Ti.UI.Android.SWITCH_STYLE_SWITCH"
+	},
+	".dropdown": {
+		"iconText": "Alloy.CFG.icons.thin_arrow_down",
+		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
+	},
+	".modal-dialog": {
+		"iconText": "Alloy.CFG.icons.spot",
+		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
+	},
 	".top": {
 		"top": 0
 	},
@@ -48,6 +123,18 @@
 	},
 	".right": {
 		"right": 0
+	},
+	".top-disabled": {
+		"top": null
+	},
+	".bottom-disabled": {
+		"bottom": null
+	},
+	".left-disabled": {
+		"left": null
+	},
+	".right-disabled": {
+		"right": null
 	},
 	".auto-width": {
 		"width": "Ti.UI.SIZE"
@@ -61,11 +148,326 @@
 	".fill-height": {
 		"height": "Ti.UI.FILL"
 	},
+	".top-10": {
+		"top": "10%"
+	},
+	".top-15": {
+		"top": "15%"
+	},
+	".top-20": {
+		"top": "20%"
+	},
+	".top-25": {
+		"top": "25%"
+	},
+	".top-30": {
+		"top": "30%"
+	},
+	".top-35": {
+		"top": "35%"
+	},
+	".top-40": {
+		"top": "40%"
+	},
+	".top-45": {
+		"top": "45%"
+	},
+	".top-50": {
+		"top": "50%"
+	},
+	".top-55": {
+		"top": "55%"
+	},
+	".top-60": {
+		"top": "60%"
+	},
+	".top-65": {
+		"top": "65%"
+	},
+	".top-70": {
+		"top": "70%"
+	},
+	".top-75": {
+		"top": "75%"
+	},
+	".top-80": {
+		"top": "80%"
+	},
+	".top-85": {
+		"top": "85%"
+	},
+	".top-90": {
+		"top": "90%"
+	},
+	".bottom-10": {
+		"bottom": "10%"
+	},
+	".bottom-15": {
+		"bottom": "15%"
+	},
+	".bottom-20": {
+		"bottom": "20%"
+	},
+	".bottom-25": {
+		"bottom": "25%"
+	},
+	".bottom-30": {
+		"bottom": "30%"
+	},
+	".bottom-35": {
+		"bottom": "35%"
+	},
+	".bottom-40": {
+		"bottom": "40%"
+	},
+	".bottom-45": {
+		"bottom": "45%"
+	},
+	".bottom-50": {
+		"bottom": "50%"
+	},
+	".bottom-55": {
+		"bottom": "55%"
+	},
+	".bottom-60": {
+		"bottom": "60%"
+	},
+	".bottom-65": {
+		"bottom": "65%"
+	},
+	".bottom-70": {
+		"bottom": "70%"
+	},
+	".bottom-75": {
+		"bottom": "75%"
+	},
+	".bottom-80": {
+		"bottom": "80%"
+	},
+	".bottom-85": {
+		"bottom": "85%"
+	},
+	".bottom-90": {
+		"bottom": "90%"
+	},
+	".left-10": {
+		"left": "10%"
+	},
+	".left-15": {
+		"left": "15%"
+	},
+	".left-20": {
+		"left": "20%"
+	},
+	".left-25": {
+		"left": "25%"
+	},
+	".left-30": {
+		"left": "30%"
+	},
+	".left-35": {
+		"left": "35%"
+	},
+	".left-40": {
+		"left": "40%"
+	},
+	".left-45": {
+		"left": "45%"
+	},
+	".left-50": {
+		"left": "50%"
+	},
+	".left-55": {
+		"left": "55%"
+	},
+	".left-60": {
+		"left": "60%"
+	},
+	".left-65": {
+		"left": "65%"
+	},
+	".left-70": {
+		"left": "70%"
+	},
+	".left-75": {
+		"left": "75%"
+	},
+	".left-80": {
+		"left": "80%"
+	},
+	".left-85": {
+		"left": "85%"
+	},
+	".left-90": {
+		"left": "90%"
+	},
+	".right-10": {
+		"right": "10%"
+	},
+	".right-15": {
+		"right": "15%"
+	},
+	".right-20": {
+		"right": "20%"
+	},
+	".right-25": {
+		"right": "25%"
+	},
+	".right-30": {
+		"right": "30%"
+	},
+	".right-35": {
+		"right": "35%"
+	},
+	".right-40": {
+		"right": "40%"
+	},
+	".right-45": {
+		"right": "45%"
+	},
+	".right-50": {
+		"right": "50%"
+	},
+	".right-55": {
+		"right": "55%"
+	},
+	".right-60": {
+		"right": "60%"
+	},
+	".right-65": {
+		"right": "65%"
+	},
+	".right-70": {
+		"right": "70%"
+	},
+	".right-75": {
+		"right": "75%"
+	},
+	".right-80": {
+		"right": "80%"
+	},
+	".right-85": {
+		"right": "85%"
+	},
+	".right-90": {
+		"right": "90%"
+	},
 	".width-100": {
 		"width": "100%"
 	},
+	".width-90": {
+		"width": "90%"
+	},
+	".width-85": {
+		"width": "85%"
+	},
+	".width-80": {
+		"width": "80%"
+	},
+	".width-75": {
+		"width": "75%"
+	},
+	".width-70": {
+		"width": "70%"
+	},
+	".width-65": {
+		"width": "65%"
+	},
+	".width-60": {
+		"width": "60%"
+	},
+	".width-55": {
+		"width": "55%"
+	},
+	".width-50": {
+		"width": "50%"
+	},
+	".width-45": {
+		"width": "45%"
+	},
+	".width-40": {
+		"width": "40%"
+	},
+	".width-35": {
+		"width": "35%"
+	},
+	".width-30": {
+		"width": "30%"
+	},
+	".width-25": {
+		"width": "25%"
+	},
+	".width-20": {
+		"width": "20%"
+	},
+	".width-15": {
+		"width": "15%"
+	},
+	".width-10": {
+		"width": "10%"
+	},
 	".height-100": {
 		"height": "100%"
+	},
+	".height-90": {
+		"height": "90%"
+	},
+	".height-85": {
+		"height": "85%"
+	},
+	".height-80": {
+		"height": "80%"
+	},
+	".height-75": {
+		"height": "75%"
+	},
+	".height-70": {
+		"height": "70%"
+	},
+	".height-65": {
+		"height": "65%"
+	},
+	".height-60": {
+		"height": "60%"
+	},
+	".height-55": {
+		"height": "55%"
+	},
+	".height-50": {
+		"height": "50%"
+	},
+	".height-45": {
+		"height": "45%"
+	},
+	".height-40": {
+		"height": "40%"
+	},
+	".height-35": {
+		"height": "35%"
+	},
+	".height-30": {
+		"height": "30%"
+	},
+	".height-25": {
+		"height": "25%"
+	},
+	".height-20": {
+		"height": "20%"
+	},
+	".height-15": {
+		"height": "15%"
+	},
+	".height-10": {
+		"height": "10%"
+	},
+	".txt-left": {
+		"textAlign": "left"
+	},
+	".txt-right": {
+		"textAlign": "right"
+	},
+	".txt-center": {
+		"textAlign": "center"
 	},
 	".vgroup": {
 		"layout": "vertical"
@@ -73,9 +475,11 @@
 	".hgroup": {
 		"layout": "horizontal"
 	},
-	".hgroup-no-wrap": {
-		"layout": "horizontal",
+	".hwrap-disabled": {
 		"horizontalWrap": false
+	},
+	".hwrap-enabled": {
+		"horizontalWrap": true
 	},
 	".show": {
 		"visible": true
@@ -92,23 +496,60 @@
 	".touch-disabled": {
 		"touchEnabled": false
 	},
+	".touch-enabled": {
+		"touchEnabled": true
+	},
 	".accessibility-disabled": {
 		"accessibilityHidden": true
+	},
+	".accessibility-enabled": {
+		"accessibilityHidden": false
 	},
 	".bubble-disabled": {
 		"bubbleParent": false
 	},
-	".background-disabled": {
+	".bubble-enabled": {
+		"bubbleParent": true
+	},
+	".wrap-disabled": {
+		"wordWrap": false,
+		"ellipsize": true
+	},
+	".wrap-enabled": {
+		"wordWrap": true,
+		"ellipsize": false
+	},
+	".repeat-disabled": {
+		"repeatCount": 1
+	},
+	".bg-color-disabled": {
 		"backgroundColor": "transparent"
+	},
+	".bg-selected-color-disabled": {
+		"backgroundSelectedColor": null
+	},
+	".border-disabled": {
+		"borderWidth": 0,
+		"borderRadius": 0,
+		"borderColor": "transparent"
+	},
+	".thick-border": {
+		"borderWidth": 2
+	},
+	".border-radius-disabled": {
+		"borderRadius": 0
+	},
+	".border-color-disabled": {
+		"borderColor": "transparent"
 	},
 	".table-separator-disabled": {
 		"separatorColor": "transparent"
 	},
-	".row-selection-disabled": {
+	".row-selected-bg-color-disabled": {
 		"selectedBackgroundColor": "transparent"
 	},
-	".no-repeat": {
-		"repeatCount": 1
+	".password": {
+		"passwordMask": true
 	},
 	".autocaps-sentences": {
 		"autocapitalization": "Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES"
@@ -137,6 +578,18 @@
 	".returnkey-search": {
 		"returnKeyType": "Ti.UI.RETURNKEY_SEARCH"
 	},
+	".direction-up": {
+		"direction": "top"
+	},
+	".direction-down": {
+		"direction": "bottom"
+	},
+	".direction-left": {
+		"direction": "left"
+	},
+	".direction-right": {
+		"direction": "right"
+	},
 	".role-ignore": {
 		"role": "ignore"
 	},
@@ -157,106 +610,5 @@
 	},
 	".role-detail-view": {
 		"role": "detailView"
-	},
-	".rx": {
-		"maxLength": "Alloy.CFG.rx_length"
-	},
-	".swt[platform=android]": {
-		"accessibilityLabelOn": "Alloy.Globals.strings.accessibilityLblSwitchOn",
-		"accessibilityLabelOff": "Alloy.Globals.strings.accessibilityLblSwitchOff",
-		"trackShape": "Ti.App.Android.R.drawable.switch_track",
-		"thumbShape": "Ti.App.Android.R.drawable.switch_thumb",
-		"style": "Ti.UI.Android.SWITCH_STYLE_SWITCH"
-	},
-	".async-view": {
-		"indicatorDict": {
-			"accessibilityLabel": "Alloy.Globals.strings.msgLoading"
-		}
-	},
-	".loader-embedded": {
-		"width": "Ti.UI.SIZE",
-		"height": "Ti.UI.SIZE",
-		"backgroundColor": "transparent",
-		"indicatorDict": {
-			"top": 12,
-			"bottom": 12,
-			"accessibilityLabel": "Alloy.Globals.strings.msgLoading"
-		}
-	},
-	".loader-embedded-fill": {
-		"width": "Ti.UI.FILL",
-		"height": "Ti.UI.FILL",
-		"indicatorDict": {
-			"accessibilityLabel": "Alloy.Globals.strings.msgLoading"
-		}
-	},
-	".selection-disabled": {
-		"backgroundSelectedColor": null
-	},
-	".optionpicker": {
-		"iconText": "Alloy.CFG.icons.spot",
-		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
-	},
-	".dropdown": {
-		"iconText": "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
-	},
-	".form-dropdown": {
-		"iconText": "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
-	},
-	".form-dropdown-50": {
-		"iconText": "Alloy.CFG.icons.thin_arrow_down",
-		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
-	},
-	".date": {
-		"title": "Alloy.Globals.strings.dialogTitleDatePicker",
-		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
-		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
-		"format": "Alloy.CFG.date_format",
-		"type": "Ti.UI.PICKER_TYPE_DATE"
-	},
-	".dob": {
-		"selectedDate": "Alloy.CFG.dob_default_date"
-	},
-	".time": {
-		"title": "Alloy.Globals.strings.dialogTitleTimePicker",
-		"leftTitle": "Alloy.Globals.strings.dialogBtnCancel",
-		"rightTitle": "Alloy.Globals.strings.dialogBtnOK",
-		"format": "Alloy.CFG.time_format",
-		"type": "Ti.UI.PICKER_TYPE_TIME"
-	},
-	".time-reminder": {
-		"minuteInterval": "Alloy.CFG.reminder_time_picker_interval"
-	},
-	".search-txt": {
-		"leftIconText": "Alloy.CFG.icons.search",
-		"clearIconText": "Alloy.CFG.icons.filled_cancel"
-	},
-	".txt-ricon-help": {
-		"rightIconText": "Alloy.CFG.icons.help",
-		"rightIconAccessibility": {
-			"accessibilityLabel": "Alloy.Globals.strings.iconAccessibilityLblHelp"
-		}
-	},
-	".tooltip-unfilled-arrow-up": {
-		"direction": "top",
-		"iconText": "Alloy.CFG.icons.tooltip_arrow_up"
-	},
-	".tooltip-arrow-up": {
-		"direction": "top",
-		"iconText": "Alloy.CFG.icons.filled_arrow_up"
-	},
-	".tooltip-arrow-down": {
-		"direction": "bottom",
-		"iconText": "Alloy.CFG.icons.filled_arrow_down"
-	},
-	".tooltip-arrow-left": {
-		"direction": "left",
-		"iconText": "Alloy.CFG.icons.filled_arrow_left"
-	},
-	".tooltip-arrow-right": {
-		"direction": "right",
-		"iconText": "Alloy.CFG.icons.filled_arrow_right"
 	}
 }

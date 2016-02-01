@@ -1,9 +1,9 @@
  <Alloy>
 	<View class="vgroup auto-height top">
-		<Label id="childInfoTitle" class="subtitle-centered-wrap margin-top margin-bottom"/>
-		<ImageView id="infoImg" class="margin-top margin-bottom"/>
-		<Label id="childInfoLbl" class="lbl-wrap margin-top margin-bottom"/>
-		<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didCreateMgrAccount"/>
-		<Label id="childInfoAttr" class="link-wrap margin-top margin-bottom" onClick="didClickAccountExists"/>
+		<Label id="childInfoTitle" class="margin-top margin-left margin-right h2 txt-center"/>
+		<ImageView id="infoImg" class="margin-top"/>
+		<Label id="childInfoLbl" class="margin-top margin-left margin-right margin-bottom"/>
+		<Button id="continueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didCreateMgrAccount"/>
+		<Label id="childInfoAttr" class="margin-left margin-right active-color active-fg-color border-disabled" onClick="didClickAccountExists"/>
 	</View>
 </Alloy>

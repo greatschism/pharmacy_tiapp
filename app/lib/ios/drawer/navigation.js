@@ -211,15 +211,14 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		var from = that.currentController.ctrlShortCode,
+		var currentController = that.controllers[that.controllers.length - 1],
 		    window = that.currentController.getView();
 
-		that.currentController = that.controllers[that.controllers.length - 1];
-
-		analyticsHandler.navEvent(from, that.currentController.ctrlShortCode);
+		analyticsHandler.navEvent(that.currentController.ctrlShortCode, currentController.ctrlShortCode);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);
+			that.currentController = currentController;
 			that.currentController.focus();
 			that.isBusy = false;
 		});
@@ -228,7 +227,7 @@ function Navigation(args) {
 
 		//that.testOutput();
 
-		return that.currentController;
+		return currentController;
 	};
 
 	/**
