@@ -489,6 +489,13 @@
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"${BORDER_COLOR}"
             },
+            ".dropdown[formFactor=tablet]": {
+				"tableViewDict": {
+					"left": null,
+					"right": null,
+					"width": "70%"
+				}
+			},
             ".dropdown[platform=ios]":{
                 "font":"${H4_PLATFORM_IOS}",
                 "iconFont":"${I5_PLATFORM_IOS}"
@@ -518,8 +525,6 @@
                 }
             },
             ".modal-dialog":{
-                "left":"${MARGIN_LEFT_LARGE}",
-                "right":"${MARGIN_RIGHT_LARGE}",
                 "color":"${FG_COLOR}",
                 "iconColor":"${INACTIVE_COLOR}",
                 "selectedIconColor":"${POSITIVE_COLOR}",
@@ -527,7 +532,14 @@
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"transparent"
-            },
+            },			
+            ".modal-dialog[formFactor=handheld]": {
+				"left": "${MARGIN_LEFT_LARGE}",
+				"right": "${MARGIN_RIGHT_LARGE}"
+			},
+			".modal-dialog[formFactor=tablet]": {
+				"width": "75%"
+			},
             ".modal-dialog[platform=ios]":{
                 "font":"${H4_PLATFORM_IOS}",
                 "iconFont":"${I5_PLATFORM_IOS}"

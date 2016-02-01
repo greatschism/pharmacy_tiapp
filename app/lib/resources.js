@@ -39,7 +39,7 @@ var Res = {
 	 * hires suffix
 	 * valid only for iOS
 	 */
-	imgHiresSuffix : OS_IOS ? "@" + app.device.logicalDensityFactor + "x" : "",
+	imgHiresSuffix : OS_IOS ? ("@" + Ti.Platform.displayCaps.logicalDensityFactor + "x") : "",
 
 	init : function() {
 

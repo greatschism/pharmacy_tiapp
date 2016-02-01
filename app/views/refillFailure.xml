@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<Label id="titleLbl" class="margin-top-extra-large margin-left margin-right" />
-		<View class="margin-top-extra-large margin-left margin-right auto-height primary-border" onClick="didClickType">
+		<View class="margin-top-extra-large margin-left margin-right auto-height primary-border" onClick="didClickType" if="Alloy.CFG.is_quick_refill_enabled">
 			<View id="typeView" class="auto-width input-height">
 				<Label class="left i5 primary-fg-color icon-list" />
 				<Label id="typeLbl" class="margin-left-medium h3 primary-fg-color wrap-disabled" />

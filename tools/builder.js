@@ -112,64 +112,70 @@ if (program.defaults) {
 	});
 }
 
-//check for required parameters
-_u.each(["brandId", "version", "buildNumber", "sdk"], function(value) {
-	if (!_u.has(program, value)) {
-		logger.error(value + " is missing");
-		process.exit(1);
-	}
-});
+var brand;
 /**
- * username, password and org-id
- * can be skipped if buildOnly
- * is specified.
+ * check for required parameters
  */
-if (!program.buildOnly && !program.cleanOnly) {
-	_u.each(["username", "password", "orgId"], function(value) {
+if (!program.cleanOnly) {
+
+	_u.each(["brandId", "version", "buildNumber", "sdk"], function(value) {
 		if (!_u.has(program, value)) {
 			logger.error(value + " is missing");
 			process.exit(1);
 		}
 	});
-}
-
-/**
- * brand info
- */
-var brand = _u.findWhere(JSON.parse(fs.readFileSync(BRANDS_JSON, "utf-8")), {
-	id : program.brandId
-});
-
-/**
- * exit if brand is invalid
- * if cleanOnly is true then
- * allow process to clean project
- */
-if (brand) {
-
-	//update brand resource path
-	BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
-	BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
-	BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
 
 	/**
-	 * actual env data is always inherited
-	 * from default one to avoid duplicate values
+	 * username, password and org-id
+	 * can be skipped if buildOnly
+	 * is specified.
 	 */
-	var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
-	    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
-	BRAND_ENV_DATA = BRAND_DATA["default"];
-	_u.each(BRAND_ENV_DATA, function(val, key) {
-		if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
-			_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
-		}
+	if (!program.buildOnly) {
+		_u.each(["username", "password", "orgId"], function(value) {
+			if (!_u.has(program, value)) {
+				logger.error(value + " is missing");
+				process.exit(1);
+			}
+		});
+	}
+
+	/**
+	 * brand info
+	 */
+	brand = _u.findWhere(JSON.parse(fs.readFileSync(BRANDS_JSON, "utf-8")), {
+		id : program.brandId
 	});
+	/**
+	 * exit if brand is invalid
+	 * if cleanOnly is true then
+	 * allow process to clean project
+	 */
+	if (brand) {
 
-} else if (!program.cleanOnly) {
+		//update brand resource path
+		BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
+		BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
+		BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
 
-	logger.error("invalid brand-id: " + program.brandId);
-	process.exit(2);
+		/**
+		 * actual env data is always inherited
+		 * from default one to avoid duplicate values
+		 */
+		var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
+		    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
+		BRAND_ENV_DATA = BRAND_DATA["default"];
+		_u.each(BRAND_ENV_DATA, function(val, key) {
+			if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
+				_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
+			}
+		});
 
+	} else if (!program.cleanOnly) {
+
+		logger.error("invalid brand-id: " + program.brandId);
+		process.exit(2);
+
+	}
 }
 
 /**
@@ -301,7 +307,7 @@ if (build) {
 		var BASE_RESOURCES_JS = require(BASE_ASSETS_DIR + "/resources"),
 		    RESOURCES_DATA = BASE_RESOURCES_JS.data;
 		if (fs.existsSync(BRAND_ASSETS_DATA_DIR + "/resources.js")) {
-			_u.each(require(APP_ASSETS_DATA_DIR + "/resources").data, function(source) {
+			_u.each(require(BRAND_ASSETS_DATA_DIR + "/resources").data, function(source) {
 				var ignore = source.ignore;
 				delete source.ignore;
 				if (ignore) {
@@ -331,6 +337,14 @@ if (build) {
 			 * RESOURCES_DATA here
 			 */
 			BASE_RESOURCES_JS.data = RESOURCES_DATA;
+		}
+		/**
+		 * create data directory if not exists
+		 * happens when the brand doesn't have
+		 * any brand specific data
+		 */
+		if (!fs.existsSync(APP_ASSETS_DATA_DIR)) {
+			fs.mkdirSync(APP_ASSETS_DATA_DIR);
 		}
 		fs.writeFileSync(APP_ASSETS_DATA_DIR + "/resources.js", "module.exports = " + JSON.stringify(BASE_RESOURCES_JS, null, 4) + ";");
 
