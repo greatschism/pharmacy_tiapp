@@ -1,33 +1,33 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="nav-icon icon-options-menu" onClick="didClickRightNavBtn" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-light-fg-color bg-color-disabled border-disabled icon-options-menu" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
-	<Widget id="sortPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickSortPicker" if="!$.args.showHiddenPrescriptions">
-		<View class="content-header-view role-header-view">
-			<Label id="sortLbl" class="content-header-lbl" />
+	<Widget id="sortPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickSortPicker" if="!$.args.showHiddenPrescriptions">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="sortLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="sortCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickSortClose" />
+			<Button id="sortCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickSortClose" />
 		</View>
 	</Widget>
-	<Widget id="unhidePicker" src="ti.optionpicker" class="optionpicker" if="!$.args.showHiddenPrescriptions">
+	<Widget id="unhidePicker" src="ti.optionpicker" class="modal-dialog" if="!$.args.showHiddenPrescriptions">
 		<View id="unhideHeaderView" class="auto-height role-header-view">
-			<Button id="selectNoneBtn" class="left tertiary-btn-50" onClick="toggleUnhideSelection" />
-			<Button id="selectAllBtn" class="right tertiary-btn-50" onClick="toggleUnhideSelection" />
+			<Button id="selectNoneBtn" class="top left right-50 bg-color h5 active-fg-color border-disabled" onClick="toggleUnhideSelection" />
+			<Button id="selectAllBtn" class="top left-50 right bg-color h5 active-fg-color border-disabled" onClick="toggleUnhideSelection" />
 			<View id="vDividerView" class="v-divider-light" />
 			<View class="top h-divider-light" />
 			<View class="bottom h-divider-light" />
 		</View>
 		<View class="auto-height vgroup role-footer-view">
-			<Button id="unhideBtn" class="margin-top primary-btn" onClick="didClickUnhide"  />
-			<Button id="unhideCloseBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickUnhideClose" />
+			<Button id="unhideBtn" class="margin-left-extra-large margin-right-extra-large primary-bg-color primary-light-fg-color primary-border" onClick="didClickUnhide"  />
+			<Button id="unhideCloseBtn" class="margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
-	<View id="searchbar" class="top search-bar hide fade-out">
-		<Widget id="searchTxt" src="ti.textfield" class="top returnkey-done search-txt" onChange="didChangeSearch" onClear="didChangeSearch"  />
+	<View id="searchbar" class="top txt-border-view">
+		<Widget id="searchTxt" src="ti.textfield" class="top margin-left margin-right-small txt returnkey-done border-disabled" onChange="didChangeSearch" onClear="didChangeSearch" />
 	</View>
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
-		<Label id="headerLbl" class="margin-top margin-bottom content-header-lbl-wrap" if="$.args.isMedReminder" />
+		<Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" />
 		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
 	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
@@ -36,16 +36,16 @@
 		</FooterView>
 	</TableView>
 	<ScrollView id="partialView" class="hide top margin-bottom vgroup">
-		<Label id="partialDescLbl" class="margin-top lbl-centered-wrap" />
-		<Label id="partialTitleLbl" class="margin-top title-centered-wrap" />
-		<Button class="margin-top margin-bottom primary-icon-extra-large icon-add-prescription" onClick="didClickAddPresc" />
+		<Label id="partialDescLbl" class="margin-top-medium margin-left margin-right txt-center" />
+		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center" />
+		<Button class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription" onClick="didClickAddPresc" />
 	</ScrollView>
-	<Button id="submitBtn" class="margin-bottom primary-btn" onClick="didClickSubmit" if="$.args.selectable" />
+	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->
-	<Widget id="tooltip" src="ti.tooltip" class="margin-left tooltip-unfilled-arrow-up content-primary-tooltip" if="$.args.showMedReminderTooltip">
+	<Widget id="tooltip" src="ti.tooltip" class="margin-right width-50 bg-color primary-border show" if="$.args.showMedReminderTooltip">
 		<View class="auto-height vgroup">
-			<Label id="tooltipLbl" class="lbl-wrap" />
-			<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />
+			<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
+			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHide" />
 		</View>
 	</Widget>
 </Alloy> 

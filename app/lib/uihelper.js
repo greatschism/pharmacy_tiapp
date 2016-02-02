@@ -601,26 +601,38 @@ var Helper = {
 	 * create header view
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {String} filterText used only when it is  call from createTableViewSection
 	 */
-	createHeaderView : function($, title, isAttributed, isWrap, rightItem, filterText) {
-		var vClassName = "content-header-view",
-		    tClassName = "content-header-lbl";
-		if (isAttributed) {
-			tClassName.replace("lbl", "attributed");
-		}
+	createHeaderView : function($, title, isWrap, rightItem, filterText) {
+		var vClasses = ["inactive-light-bg-color"],
+		    tClasses = ["margin-left", "h5", "inactive-fg-color"];
 		if (isWrap) {
-			vClassName += "-wrap";
-			tClassName += "-wrap";
+			vClasses.push("auto-height");
+			tClasses = tClasses.concat(["margin-top", "margin-bottom"]);
+		} else {
+			vClasses.push("min-height");
+			tClasses.push("wrap-disabled");
 		}
 		if (rightItem) {
-			tClassName += "-with-r" + (rightItem.isIcon ? "icon" : "btn");
+			//if length is 1, it will be a icon
+			if (rightItem.title.length === 1) {
+				_.extend(rightItem, $.createStyle({
+					classes : ["icon-width"]
+				}));
+				tClasses.push("margin-right-icon");
+			} else {
+				_.extend(rightItem, $.createStyle({
+					classes : ["title-width"]
+				}));
+				tClasses.push("margin-right-title");
+			}
+		} else {
+			tClasses.push("margin-right");
 		}
 		var headerView = $.UI.create("View", {
-			classes : vClassName,
+			classes : vClasses,
 			title : filterText
 		});
 		if (rightItem) {
@@ -635,10 +647,14 @@ var Helper = {
 			}
 			headerView.add(rightBtn);
 		}
-		headerView.add($.UI.create("Label", {
-			classes : [tClassName],
+		var lbl = $.UI.create("Label", {
+			classes : tClasses,
 			text : title
-		}));
+		});
+		if (!isWrap) {
+			Helper.wrapText(lbl);
+		}
+		headerView.add(lbl);
 		return headerView;
 	},
 
@@ -647,17 +663,16 @@ var Helper = {
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
 	 * @param {String} filterText for the section
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {View} footerView footer view for section
 	 */
-	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightItem, footerView) {
+	createTableViewSection : function($, title, filterText, isWrap, rightItem, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict = {
-			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightItem, filterText)
+			headerView : Helper.createHeaderView($, title, isWrap, rightItem, filterText)
 		};
 		if (footerView) {
 			_.extend(dict, {
@@ -679,15 +694,70 @@ var Helper = {
 		}
 		if (view.layout == "vertical") {
 			_.each(view.children, function(child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			});
 		} else {
 			var child = view.children[0];
 			if (child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			}
 		}
 		return height;
+	},
+
+	/**
+	 * Handle height of label when wrap is disabled
+	 * Required for iOS at least
+	 */
+	wrapText : function(label) {
+		/**
+		 * 5 - is a extra padding around label
+		 * which makes it look better
+		 */
+		if (label.ellipsize) {
+			/**
+			 * Width should be Ti.UI.FILL
+			 * for making ellipsize effective
+			 * APPC JIRA refs -
+			 * TIMOB-14256,TIMOB-13220,TIMOB-13895
+			 */
+			label.applyProperties({
+				width : Ti.UI.FILL,
+				height : label.font.fontSize + 5
+			});
+		} else {
+			label.height = Ti.UI.SIZE;
+		}
+	},
+
+	/**
+	 * @param {Object} view
+	 * set border radius to 1/2 of view's height
+	 * for rounded corners
+	 */
+	roundedCorners : function(view) {
+		view.borderRadius = view.height / 2;
+	},
+
+	/**
+	 * wrap elements on horizontal direction
+	 * Note: using horizontal layout has issues
+	 * with android platform, APPC JIRA refs -
+	 * TIMOB-19536, TIMOB-16367, TIMOB-12577
+	 */
+	wrapViews : function(view, direction) {
+		var children = view.children,
+		    value = 0;
+		if (!direction) {
+			direction = "left";
+		} else if (direction === "right") {
+			children = children.reverse();
+		}
+		_.each(children, function(child, index) {
+			value += child[direction] || 0;
+			child[direction] = value;
+			value += child.width || child.font && child.font.fontSize || 0;
+		});
 	}
 };
 

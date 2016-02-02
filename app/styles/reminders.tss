@@ -1,15 +1,18 @@
-"#refillLbl":{
-	text: Alloy.Globals.strings.remindersLblRefill
+"#refillTitleLbl":{
+	text: Alloy.Globals.strings.remindersLblRefillTitle
 },
-"#medLbl":{
-	text: Alloy.Globals.strings.remindersLblMed
+"#refillDescLbl":{
+	text: Alloy.Globals.strings.remindersLblRefillDesc
 },
-"#settingsLbl":{
-	text: Alloy.Globals.strings.remindersLblSettings
+"#medTitleLbl":{
+	text: Alloy.Globals.strings.remindersLblMedTitle
 },
-"#tooltipLbl":{
-	text: Alloy.Globals.strings.remindersTooltipLblRefill
+"#medDescLbl":{
+	text: Alloy.Globals.strings.remindersLblMedDesc
 },
-"#tooltipHideBtn":{
-	title: Alloy.Globals.strings.remindersTooltipBtnHide
+"#settingsTitleLbl":{
+	text: Alloy.Globals.strings.remindersLblSettingsTitle
+},
+"#settingsDescLbl":{
+	text: Alloy.Globals.strings.remindersLblSettingsDesc
 }

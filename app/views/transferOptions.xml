@@ -1,15 +1,13 @@
 <Alloy>
 	<TableView>
 		<HeaderView>
-			<View class="content-header-view-wrap" onClick="handleEvent">
-				<Label id="titleLbl" class="content-header-lbl-wrap" />
+			<View class="auto-height inactive-light-bg-color role-header-view margin-bottom" onClick="handleEvent">
+				<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color" />
 			</View>
 		</HeaderView>
-		<TableViewRow>
-			<View class="content-view-with-rswt" onClick="handleEvent">
-				<Label id="transferAllPrescLbl" class="content-lbl-wrap" />
-			</View>
-			<Widget id="transferAllPrescSwt" src="ti.switch" class="content-right-swt swt" />
+		<TableViewRow onClick="handleEvent">
+			<Label id="transferAllPrescLbl" class="margin-top margin-bottom margin-left width-70" />		
+			<Widget id="transferAllPrescSwt" src="ti.switch" class="margin-right swt" />
 		</TableViewRow>
 		<!--<TableViewRow>
 			<View class="content-view-with-rswt">
@@ -18,16 +16,14 @@
 			<Widget id="sendTxtMsgSwt" src="ti.switch" class="content-right-swt swt" />
 	</TableViewRow>-->
 		<TableViewRow onClick="didClickReview">
-			<View class="content-view-with-child" onClick="handleEvent">
-				<Label id="reviewLbl" class="content-lbl-wrap" />
-			</View>
-			<Label class="content-child-icon icon-thin-arrow-right" />
+				<Label id="reviewLbl" class="margin-top margin-bottom margin-left" />
+				<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 		</TableViewRow>
 		<FooterView>
 			<View class="auto-height vgroup" onClick="handleEvent">
 				<!--footer separator seems to appear on pre lollipop devices-->
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
-				<Button id="transferBtn" class="margin-top margin-bottom primary-btn" onClick="didClickComplete"/>
+				<Button id="transferBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickComplete"/>
 			</View>
 		</FooterView>
 	</TableView>

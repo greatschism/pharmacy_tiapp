@@ -1,8 +1,8 @@
+"#scrollView":{
+	disableBounce: true
+},
 "#hintLbl":{
 	text: Alloy.Globals.strings.colorPickerLblHint
-},
-"#picker":{
-	height: "65%"
 },
 "#colorLbl":{
 	text: Alloy.Globals.strings.colorPickerLblColor

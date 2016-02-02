@@ -2,6 +2,19 @@ var args = arguments[0] || {},
     store,
     isWindowOpen;
 
+function init() {
+	_.each(["typeView", "phoneView"], function(val) {
+		if ($[val]) {
+			$.uihelper.wrapViews($[val]);
+		}
+	});
+	_.each(["typeLbl", "phoneLbl"], function(val) {
+		if ($[val]) {
+			$.uihelper.wrapText($[val]);
+		}
+	});
+}
+
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
@@ -47,4 +60,5 @@ function didClickPhone(e) {
 	}
 }
 
+exports.init = init;
 exports.focus = focus;

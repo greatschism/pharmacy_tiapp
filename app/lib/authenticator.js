@@ -1026,7 +1026,7 @@ function resetAuthenticationData() {
 	/**
 	 * reset collections and models
 	 */
-	var igoreKeys = ["appconfig", "appload", "banners", "menuItems", "template"];
+	var igoreKeys = ["appconfig", "appload", "menuItems", "template", "banner"];
 	_.each(Alloy.Collections, function(coll, key) {
 		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
 			/**

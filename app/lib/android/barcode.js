@@ -103,13 +103,13 @@ var BarcodeReader = {
 				backgroundColor : "transparent"
 			}),
 			    navbarView = $.UI.create("View", {
-				classes : ["barcode-navbar"]
+				classes : ["top", "nav-bar-height", "primary-bg-color"]
 			}),
 			    navIconBtn = $.UI.create("Button", {
-				classes : ["barcode-navbar-icon", "icon-back"]
+				classes : ["margin-left", "top-disabled", "right-disabled", "i5", "txt-left", "primary-light-fg-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
 			    titleLbl = $.UI.create("Label", {
-				classes : ["barcode-title"],
+				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);

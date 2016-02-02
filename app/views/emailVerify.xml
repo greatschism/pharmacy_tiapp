@@ -1,11 +1,11 @@
 <Alloy>
 	<View class="vgroup">
-		<Label id="lblWelcome" class="subtitle-centered margin-top"/>
+		<Label id="lblWelcome" class="margin-top margin-left margin-right h2 txt-center"/>
 		<ImageView id="imgEmailVerify" class="margin-top margin-bottom"/>
-		<Label id="lblDidNotVerifyEmail" class="lbl-wrap margin-bottom"/>
-		<Label id="lblEmail" class="subtitle-centered margin-bottom margin-top"/>
-		<Button id="btnContinue" class="primary-btn margin-bottom margin-top" onClick="didClickContinue"/>
-		<Button id="btnResendEmail" class="secondary-btn margin-bottom" onClick="didClickResendEmail"/>
-		<Widget id="btnIsntMyEmail" src="ti.styledlabel" class="attributed margin-bottom" onClick="didClickIsntMyEmail"/>		
+		<Label id="lblDidNotVerifyEmail" class="margin-top-large h4 margin-left margin-right margin-bottom"/>
+		<Label id="lblEmail" class="margin-top margin-bottom  h2 txt-center"/>
+		<Button id="btnContinue" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+		<Button id="btnResendEmail" class="bg-color primary-fg-color primary-border" onClick="didClickResendEmail"/>
+		<Widget id="btnIsntMyEmail" src="ti.styledlabel" class="attributed margin-bottom margin-top" onClick="didClickIsntMyEmail"/>		
 	</View>
 </Alloy>

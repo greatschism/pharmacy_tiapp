@@ -2,46 +2,48 @@
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup" onClick="handleEvent">
-				<Label id="lblTransfer" class="margin-top margin-bottom title-centered" />
-				<ImageView id="successImg" />
-				<Label id="lblContact" class="margin-top margin-bottom lbl-wrap" />
+				<Label id="lblTransfer" class="margin-top margin-left margin-right h2 txt-center" />
+				<ImageView id="successImg" class="margin-top-large img-success"/>
+				<Label id="lblContact" class="margin-top-large margin-left margin-right margin-bottom" />
 			</View>
 		</HeaderView>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view" onClick="handleEvent">
-					<Label id="storeLbl" class="content-header-lbl"/>
+				<View class="margin-top min-height inactive-light-bg-color" onClick="handleEvent">
+					<Label id="storeLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
-				<View id="contentView" class="content-view-vgroup" onClick="handleEvent">
-					<Label id="storeNameLbl" class="content-title" />
-					<Label id="storeTitleLbl" class="inbetween-margin-top content-title" />
-					<Label id="storeSubtitleLbl" class="content-subtitle" />
-					<Widget id="storePhoneAttr" src="ti.styledlabel" class="content-attributed" onClick="didClickPhone" />
+				<View id="contentView" class="auto-height">
+					<View class="left width-75 auto-height vgroup">
+						<Label id="storeNameLbl" class="margin-top margin-bottom margin-left margin-right" />
+						<Label id="storeTitleLbl" class="margin-bottom margin-left margin-right" />
+						<Label id="storeSubtitleLbl" class="margin-bottom margin-left inactive-fg-color" />
+						<Widget id="storePhoneAttr" src="ti.styledlabel" class="attributed margin-left margin-bottom" onClick="didClickPhone" />
+					</View>
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<TableViewSection>
 			<HeaderView>
-				<View class="content-header-view" onClick="handleEvent">
-					<Label id="prescLbl" class="content-header-lbl"/>
+				<View class="margin-top min-height inactive-light-bg-color" onClick="handleEvent">
+					<Label id="prescLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled"/>
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
-				<Label class="content-positive-left-icon icon-checkbox"/>
-				<View class="content-view-vgroup-with-licon" onClick="handleEvent">
-					<Label id="prescNameLbl" class="content-title"/>
-					<Label id="rxLbl" class="content-subtitle"/>
+				<Label class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-checkbox positive-fg-color"/>
+				<View class="left width-75 auto-height vgroup">
+					<Label id="prescNameLbl" class="margin-top margin-bottom margin-left margin-right"/>
+					<Label id="rxLbl" class=" margin-bottom margin-left margin-right"/>
 				</View>
 			</TableViewRow>
 			<TableViewRow if="!$.args.prescription">
-				<ImageView id="prescImg" class="content-left-image-large-bordered" />
+				<ImageView id="prescImg" class="top left" />
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup" onClick="handleEvent">
-				<Button id="doneBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickDone" />
+				<Button id="doneBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>

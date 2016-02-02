@@ -2,10 +2,10 @@ var args = arguments[0] || {},
     authenticator = require("authenticator"),
     apiCodes = Alloy.CFG.apiCodes,
     isEmailSent = false,
-    promptClasses = ["content-group-prompt-60"],
-    replyClasses = ["content-group-right-inactive-reply-40"],
-    options,
-    rows = [];
+    promptClasses = ["left", "width-60"],
+    replyClasses = ["right", "width-40", "txt-right", "inactive-fg-color"],
+    rows = [],
+    options;
 
 function init() {
 	//tableview form top

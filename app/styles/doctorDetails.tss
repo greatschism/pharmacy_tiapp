@@ -1,3 +1,4 @@
 "#updateBtn":{
-	title: Alloy.Globals.strings.doctorDetBtnPhotoUpdate
+	title: Alloy.Globals.strings.doctorDetBtnPhotoUpdate,
+	height: 24
 }

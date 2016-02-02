@@ -49,9 +49,9 @@ var BarcodeReader = {
 			delete options.success;
 		}
 
-		BarcodeReader.__window = Ti.UI.createWindow({
-			orientationModes : options.orientationModes || [Ti.UI.PORTRAIT],
-			backgroundColor : options.backgroundColor || "#FFFFFF"
+		BarcodeReader.__window = $.UI.create("Window", {
+			apiName : "Window",
+			statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 		});
 
 		BarcodeReader.__cameraView = BarcodeModule.createView({
@@ -73,13 +73,13 @@ var BarcodeReader = {
 				backgroundColor : "transparent"
 			}),
 			    navbarView = $.UI.create("View", {
-				classes : ["barcode-navbar"]
+				classes : ["top", "nav-bar-height", "primary-bg-color"]
 			}),
 			    navIconBtn = $.UI.create("Button", {
-				classes : ["barcode-navbar-icon", "icon-back"]
+				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-light-fg-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
 			    titleLbl = $.UI.create("Label", {
-				classes : ["barcode-title"],
+				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
@@ -94,7 +94,7 @@ var BarcodeReader = {
 		 */
 		if (options.showRectangle !== false) {
 			BarcodeReader.__window.add($.UI.create("View", {
-				classes : ["barcode-rect"]
+				classes : ["width-85", "height-40", "negative-border", "thick-border", "border-radius-disabled"]
 			}));
 		}
 

@@ -1,25 +1,21 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<View id="refillView" class="auto-height">
-			<ImageView id="refillImg" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="refillLbl" class="content-title-wrap" />
+	<ScrollView id="scrollView">
+		<View class="top auto-height vgroup">
+			<View id="refillView" class="margin-top margin-bottom margin-left margin-right auto-height">
+				<ImageView id="refillImg" class="top left img-reminders-refill-benefits-refill"/>
+				<Label id="refillLbl" class="margin-left-medium h4" />
 			</View>
-		</View>
-		<View class="h-divider-light" />
-		<View id="readyView" class="auto-height">
-			<ImageView id="readyImg" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="readyLbl" class="content-title-wrap" />
+			<View class="h-divider-light" />
+			<View id="readyView" class="margin-top margin-bottom margin-left margin-right auto-height">
+				<ImageView id="readyImg" class="top left img-reminders-refill-benefits-ready"/>
+				<Label id="readyLbl" class="margin-left-medium h4" />
 			</View>
-		</View>
-		<View class="h-divider-light" />
-		<View id="pickupView" class="auto-height">
-			<ImageView id="pickupImg" class="content-left-image-extra-large"/>
-			<View class="content-view-with-limage-extra-large-vcentered">
-				<Label id="pickupLbl" class="content-title-wrap" />
+			<View class="h-divider-light" />
+			<View id="pickupView" class="margin-top margin-bottom margin-left margin-right auto-height">
+				<ImageView id="pickupImg" class="top left img-reminders-refill-benefits-pickup"/>
+				<Label id="pickupLbl" class="margin-left-medium h4" />
 			</View>
+			<View class="margin-bottom h-divider-light" />
 		</View>
-		<View class="margin-bottom h-divider-light" />
 	</ScrollView>
 </Alloy>

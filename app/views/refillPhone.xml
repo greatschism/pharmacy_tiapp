@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-		<Widget id="phoneTxt" src="ti.textfield" class="margin-top txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickSubmit" />
-		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+		<Label id="titleLbl" class="margin-top-extra-large margin-left margin-right" />
+		<Widget id="phoneTxt" src="ti.textfield" class="margin-top-extra-large txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickSubmit" />
+		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-border" onClick="didClickSubmit" />
 	</ScrollView>
 </Alloy>

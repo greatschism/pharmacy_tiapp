@@ -7,14 +7,7 @@ var args = arguments[0] || {};
 		$.contentView.applyProperties(options);
 	}
 
-	var dict = args.arrowDict || {};
-	/**
-	 * noachDict overrides values
-	 * from arrowDict, screen
-	 * specific noach position
-	 */
-	_.extend(dict, args.noachDict);
-	updateArrow(args.direction || "bottom", dict);
+	updateArrow(args.direction || "bottom", args.arrowDict || {});
 
 	if (_.has(args, "text")) {
 		setText(args.text, null, args.accessibilityLabel, args.accessibilityHidden);
@@ -42,17 +35,15 @@ var args = arguments[0] || {};
 function updateArrow(direction, dict) {
 	var aDict = {
 		text : args.iconText,
-		font : args.iconFont,
+		font : args.iconFont || {
+			fontSize : 12
+		},
 		accessibilityHidden : true
 	};
 	_.extend(aDict, dict);
 	$.arrowLbl.applyProperties(aDict);
 	$.arrowLbl[direction] = 0;
 	$.contentView[direction] = $.arrowLbl.font.fontSize - (args.arrowPadding || 8);
-}
-
-function updateArrowPosition(dict) {
-	$.arrowLbl.applyProperties(dict);
 }
 
 function applyProperties(dict) {
@@ -189,6 +180,6 @@ exports.hide = hide;
 exports.animate = animate;
 exports.setText = setText;
 exports.getVisible = getVisible;
+exports.updateArrow = updateArrow;
 exports.setContentView = setContentView;
 exports.applyProperties = applyProperties;
-exports.updateArrowPosition = updateArrowPosition;

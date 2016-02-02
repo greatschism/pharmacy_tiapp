@@ -211,7 +211,12 @@ var Configuration = {
 		});
 		//icons notation to character
 		_.each(Alloy.CFG.iconNotations, function(val, key) {
-			Alloy.CFG.icons[key] = String.fromCharCode(val);
+			if (val > 0xFFFF) {
+				val -= 0x10000;
+				Alloy.CFG.icons[key] = String.fromCharCode(0xD800 + (val >> 10), 0xDC00 + (val & 0x3FF));
+			} else {
+				Alloy.CFG.icons[key] = String.fromCharCode(val);
+			}
 		});
 		//load TSS values from theme
 		Alloy.TSS = {
@@ -240,8 +245,8 @@ var Configuration = {
 			if (_.has(tss[ts], "iconFont")) {
 				tss[ts].iconFont.fontFamily = Alloy.Fonts[tss[ts].iconFont.fontFamily];
 			}
-			if (_.has(tss[ts], "secondaryFont")) {
-				tss[ts].secondaryFont.fontFamily = Alloy.Fonts[tss[ts].secondaryFont.fontFamily];
+			if (_.has(tss[ts], "secondaryfont")) {
+				tss[ts].secondaryfont.fontFamily = Alloy.Fonts[tss[ts].secondaryfont.fontFamily];
 			}
 			/**
 			 * remove any '#' or '.' character in first place and repalce '-' with '_'
@@ -261,7 +266,12 @@ var Configuration = {
 			}
 			Alloy.TSS[identifier] = tss[ts];
 		}
-		Alloy.TSS.Window.titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS.Window.titleAttributes.font.fontFamily];
+		//update font family for titleAttributes
+		var keySuffix = "_platform_" + Alloy.CFG.platform;
+		_.each(["Window", "drawer"], function(value) {
+			var key = value.concat(keySuffix);
+			Alloy.TSS[key].titleAttributes.font.fontFamily = Alloy.Fonts[Alloy.TSS[key].titleAttributes.font.fontFamily];
+		});
 
 		/**
 		 * rewrite cached index.js

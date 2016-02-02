@@ -2,34 +2,32 @@
 	<ScrollView>
 		<View class="vgroup">
 			<View class="vgroup auto-height">
-				<Label id="childTitle" class="subtitle-centered-wrap margin-top margin-bottom"/>
-				<ImageView id="childImg"/>
+				<Label id="childTitle" class="margin-top margin-left margin-right h2 txt-center"/>
+				<ImageView id="childImg" class="margin-top-large"/>
 			</View>
-			<View class="margin-top form-vgroup">
-				<View id="txtView" class="auto-height">
-					<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-					<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-					<View id="vDividerView" class="v-divider"/>
+			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+				<View id="nameView" class="auto-height">
+					<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+					<Widget id="lnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+					<View id="nameVDividerView" class="v-divider" />
 				</View>
 				<View class="h-divider"/>
-				<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
+				<Widget id="dobDp" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 			</View>
-			<View id="rxContainer" class="margin-top form-vgroup">
-				<Widget id="rxNoTxt" src="ti.textfield" class="rx form-txt keyboard-number returnkey-next txt-right-btn" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
+			<View id="rxContainer" class="margin-top margin-left margin-right auto-height vgroup border">
+				<Widget id="rxNoTxt" src="ti.textfield"class="txt-right-btn top left margin-right txt border-disabled returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
 				<View class="h-divider"/>
-				<View id="storeView" class="content-view" onClick="didClickPharmacy">
-					<View class="content-master-view-70">
-						<Label id="storeTitleLbl" class="content-lbl" />
+				<View id="storeView" class="auto-height" onClick="didClickPharmacy">
+					<View class="left width-75 auto-height vgroup margin-bottom">
+						<Label id="storeTitleLbl" class="margin-top margin-left h4" />
 					</View>
-					<View class="content-detail-view-30">
-						<Label id="arrowLbl" class="content-child-icon icon-thick-arrow-right" />
-					</View>
+					<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 				</View>
 			</View>
-			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didClickAgreement" />
-			<Button id="continueBtn" class="margin-top primary-btn" onClick="didClickContinue"/>
-			<Button id="skipBtn" class="margin-top secondary-btn" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
+			<Widget id="agreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
+			<Button id="continueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+			<Button id="skipBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
 		</View>
-		<Widget id="rxTooltip" src="ti.tooltip" class="hide tooltip-attributed-lbl-wrap secondary-tooltip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Widget id="rxTooltip" src="ti.tooltip" class="margin-left margin-right inactive-bg-color inactive-border hide" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
 </Alloy>
