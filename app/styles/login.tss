@@ -7,9 +7,6 @@
 	hintText: Alloy.Globals.strings.loginHintPassword,
 	passwordMask: true
 },
-"#togglePasswordLbl":{
-	text: Alloy.Globals.strings.loginLblTogglePassword
-},
 "#autoLoginLbl":{
 	text: Alloy.Globals.strings.loginLblAutoLogin
 },

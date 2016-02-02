@@ -1,17 +1,17 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<ImageView id="adultImg" class="margin-top" />
-		<Label id="inviteLbl" class="subtitle-centered-wrap margin-top margin-bottom"/>
-		<Label id="sendTextLbl" class="lbl margin-top margin-bottom"/>
-		<View class="margin-top form-group">
-			<Widget id="phoneTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-done"  onChange="didChangePhone"/>
+		<ImageView id="adultImg" class="margin-top-large"/>
+		<Label id="inviteLbl" class="margin-top-large h4 margin-left margin-right txt-center"/>
+		<Label id="sendTextLbl" class="margin-top-large h4 margin-left margin-right"/>
+		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<Widget id="phoneTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done"  onChange="didChangePhone"/>
 		</View>
-		<Require src="templates/optionDivider" class="margin-top margin-bottom"/>
-		<Label id="sendEmailLbl" class="lbl margin-top margin-bottom"/>
-		<View class="margin-top form-group">
-			<Widget id="emailTxt" src="ti.textfield" class="form-txt keyboard-email returnkey-done"/>
+		<Require src="templates/optionDivider"/>
+		<Label id="sendEmailLbl" class="margin-top-large h4 margin-left margin-right"/>
+		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<Widget id="emailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done keyboard-email"/>
 		</View>
-		<Button id="sendBtn" class="primary-btn margin-top margin-bottom" onClick="didSendInvite"/>
-		<Button id="cancelBtn" class="secondary-btn margin-bottom" onClick="didClickCancel"/>
+		<Button id="sendBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didSendInvite"/>
+		<Button id="cancelBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickCancel"/>
 	</ScrollView>
 </Alloy>

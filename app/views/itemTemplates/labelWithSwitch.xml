@@ -1,9 +1,7 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<View class="content-view-with-rswt">
-			<Widget id="lbl" src="ti.styledlabel" class="content-lbl-attributed-wrap" if="$.args.styledlabel" />
-			<Label id="lbl" class="content-lbl-wrap" if="!$.args.styledlabel" />
-		</View>
-		<Widget id="swt" src="ti.switch" class="content-right-swt swt" onChange="didChangeToggle" />
+		<Widget id="lbl" src="ti.styledlabel" class="margin-top margin-bottom margin-left" if="$.args.styledlabel" />
+		<Label id="lbl" class="margin-top margin-bottom margin-left attributed" if="!$.args.styledlabel" />
+		<Widget id="swt" src="ti.switch" class="margin-right swt" onChange="didChangeToggle" />
 	</TableViewRow>
 </Alloy>

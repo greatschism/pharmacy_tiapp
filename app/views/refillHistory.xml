@@ -4,5 +4,5 @@
 			<View class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
+	<Widget id="loader" name="embedded" src="ti.loading" />
 </Alloy>

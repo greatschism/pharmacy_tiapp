@@ -16,6 +16,37 @@ function navigate(itemObj) {
 		Ti.Platform.openURL(url);
 	} else if (_.has(itemObj, "action")) {
 		switch(itemObj.action) {
+		case "refill":
+			if (Alloy.CFG.is_quick_refill_enabled && Alloy.CFG.is_refill_by_scan_enabled) {
+				app.navigator.open({
+					titleid : "titleRefill",
+					ctrl : "refill"
+				});
+			} else if (Alloy.CFG.is_quick_refill_enabled) {
+				app.navigator.open({
+					titleid : "titleRefillType",
+					ctrl : "refillType"
+				});
+			} else if (Alloy.CFG.is_refill_by_scan_enabled) {
+				/**
+				 * open barcode scanner directly
+				 * when phone number is disabled
+				 */
+				if (Alloy.CFG.refill_scan_phone_enabled) {
+					app.navigator.open({
+						titleid : "titleRefill",
+						ctrl : "refillPhone"
+					});
+				} else {
+					require("refillScan").init(app.navigator.currentController);
+				}
+			} else {
+				uihelper.showDialog({
+					message : Alloy.Globals.strings.msgFeatureNotAvailable,
+					buttonNames : [Alloy.Globals.strings.dialogBtnOK]
+				});
+			}
+			break;
 		case "logout":
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.msgLogoutConfirm,

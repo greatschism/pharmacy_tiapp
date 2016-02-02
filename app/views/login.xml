@@ -1,28 +1,26 @@
 <Alloy>
 	<ScrollView id="scrollView">
 		<View class="vgroup">
-			<ImageView id="logoImg" class="margin-top" />
-			<Label id="titleLbl" class="margin-top lbl-centered-wrap" />
-			<View class="margin-top form-vgroup">
-				<Widget id="usernameTxt" src="ti.textfield" class="form-txt returnkey-next" onReturn="moveToNext"  />
+			<ImageView id="logoImg" class="margin-top-large img-logo" />
+			<Label id="titleLbl" class="margin-top-large margin-left margin-right" />
+			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+				<Widget id="usernameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider" />
-				<Widget id="passwordTxt" src="ti.textfield" class="form-txt txt-right-btn returnkey-done" onReturn="didClickLogin" onClick="didChangeToggle"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickLogin" onClick="didChangeToggle"/>
 			</View>
-			<View id="autoLoginView" class="margin-top auto-height margin-bottom" >
-				<Label id="autoLoginLbl" class="lbl-with-rswt" onPostlayout="didPostlayout" />
-				<Widget id="autoLoginSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin"/>
+			<View id="autoLoginView" class="margin-top margin-left margin-right auto-height margin-bottom" >
+				<Label id="autoLoginLbl" class="left right-40" onPostlayout="didPostlayout" />
+				<Widget id="autoLoginSwt" src="ti.switch" class="right swt" onChange="didChangeAutoLogin"/>
 			</View>
-			<Button id="loginBtn" class="margin-top primary-btn" onClick="didClickLogin" />
-			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-top attributed-wrap" onClick="didClickForgotPassword" />
-			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickSignup" />
+			<Button id="loginBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickLogin" />
+			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-top attributed" onClick="didClickForgotPassword" />
+			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickSignup" />
 		</View>
-		<View class="content-detail-view-25 margin-bottom">
-			<Label id="aboutAttr" class="icon-description-link" onClick="didClickAbout"/>
-		</View>
-		<Widget id="tooltip" src="ti.tooltip" class="tooltip-unfilled-arrow-up content-primary-tooltip ">
+		<Label id="aboutAttr" class="margin-right bottom margin-bottom active-fg-color" onClick="didClickAbout"/>
+		<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
 			<View class="auto-height vgroup">
-				<Label id="tooltipLbl" class="lbl-wrap" />
-				<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />
+				<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
+				<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHide" />
 			</View>
 		</Widget>
 	</ScrollView>

@@ -1,11 +1,11 @@
 <Alloy>
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="Alloy.Globals.isLoggedIn"/>
-		<View class="content-header-view-wrap">
-			<Label id="titleLbl" class="content-header-lbl-wrap"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
-		<Button id="photoBtn" class="margin-top secondary-btn" onClick="didClickPhoto"/>
+		<Button id="photoBtn" class="top-disabled bg-color margin-top primary-fg-color primary-border" onClick="didClickPhoto"/>
 		<Require src="templates/optionDivider" />
-		<Button id="typeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickType"/>
+		<Button id="typeBtn" class="bg-color primary-fg-color primary-border" onClick="didClickType"/>
 	</View>
 </Alloy>

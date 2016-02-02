@@ -127,8 +127,8 @@ function Navigation(args) {
 				}
 				//close last window at top
 				removeControllers.pop().getView().close({
-					activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
-					activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
+					activityEnterAnimation : Ti.App.Android.R.anim.activity_open_back,
+					activityExitAnimation : Ti.App.Android.R.anim.activity_close_back,
 					animated : true
 				});
 			}
@@ -180,8 +180,8 @@ function Navigation(args) {
 		});
 
 		window.open({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close,
+			activityEnterAnimation : Ti.App.Android.R.anim.activity_open,
+			activityExitAnimation : Ti.App.Android.R.anim.activity_close,
 			animated : true
 		});
 
@@ -249,28 +249,27 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		var from = that.currentController.ctrlShortCode,
+		var currentController = that.controllers[that.controllers.length - 1],
 		    window = that.currentController.getView();
 
-		that.currentController = that.controllers[that.controllers.length - 1];
-
-		analyticsHandler.navEvent(from, that.currentController.ctrlShortCode);
+		analyticsHandler.navEvent(that.currentController.ctrlShortCode, currentController.ctrlShortCode);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);
+			that.currentController = currentController;
 			that.currentController.focus();
 			that.isBusy = false;
 		});
 
 		window.close({
-			activityEnterAnimation : Ti.App.Android.R.anim.acitivty_open_back,
-			activityExitAnimation : Ti.App.Android.R.anim.acitivty_close_back,
+			activityEnterAnimation : Ti.App.Android.R.anim.activity_open_back,
+			activityExitAnimation : Ti.App.Android.R.anim.activity_close_back,
 			animated : true
 		});
 
 		//that.testOutput();
 
-		return that.currentController;
+		return currentController;
 	};
 
 	/**

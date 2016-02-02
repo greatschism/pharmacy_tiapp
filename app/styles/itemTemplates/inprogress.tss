@@ -1,3 +1,7 @@
 "#row":{
-	className: "inprogress"	
+	className: "inprogress"
+},
+"#inactiveBar":{
+	top: 1,
+	bottom: 1
 }

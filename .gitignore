@@ -7,8 +7,8 @@ app/lib/ctrlShortCode.js
 app/lib/styleSheets.js
 app/styles/app.tss
 platform/android/res/drawable-*
+tools/defaults.json
 dist
-tools/auth.json
 .settings
 build
 Resources

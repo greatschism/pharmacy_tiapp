@@ -1,24 +1,33 @@
-<Alloy>
-	<!--swipeable-->
-	<TableViewRow id="row" class="row-selection-disabled" if="$.args.hasChild">
-		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
-			<View id="colorView" class="content-left-color-box" />
-			<View id="contentView" class="content-view-vgroup-with-lcolor-box-child">
-				<Label id="titleLbl" />
-				<Label id="subtitleLbl" />
+<Alloy autoStyle="true">
+	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="$.args.hasChild">
+		<View id="containerView" class="auto-height">
+			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
+			<View id="contentView" class="right width-100 auto-height bg-color">
+				<View id="masterView" class="margin-top margin-bottom margin-left margin-right-small auto-height">
+					<View id="colorBoxView" class="left color-box border" />
+					<View class="margin-left-medium auto-height vgroup">
+						<Label id="titleLbl" class="left h4" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+					</View>
+				</View>
+				<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 			</View>
-			<Label class="content-child-icon icon-thin-arrow-right" />
-			<View id="swipeView" class="swipe-view" />
+			<View id="dragView" class="right width-100 auto-height" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
 		</View>
 	</TableViewRow>
-	<TableViewRow id="row" class="row-selection-disabled" if="!$.args.hasChild">
-		<View id="containerView" class="container-view" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend">
-			<View id="colorView" class="content-left-color-box" />
-			<View id="contentView" class="content-view-vgroup-with-lcolor-box">
-				<Label id="titleLbl" />
-				<Label id="subtitleLbl" />
+	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="!$.args.hasChild">
+		<View id="containerView" class="auto-height">
+			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
+			<View id="contentView" class="right width-100 auto-height bg-color">
+				<View id="masterView" class="margin-top margin-bottom margin-left margin-right auto-height">
+					<View id="colorBoxView" class="left color-box border" />
+					<View class="margin-left-medium auto-height vgroup">
+						<Label id="titleLbl" class="left h4" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+					</View>
+				</View>
 			</View>
-			<View id="swipeView" class="swipe-view" />
+			<View id="dragView" class="right width-100 auto-height" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
 		</View>
 	</TableViewRow>
 </Alloy>

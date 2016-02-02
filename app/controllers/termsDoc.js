@@ -8,8 +8,8 @@ var args = arguments[0] || {},
 function init() {
 	isHIPAA = ($.args.terms.agreement_text === $.strings.accountsAgreementHIPAA ? true : false);
 	$.webView.applyProperties({
-		top : $.args.registrationFlow === true ? 0 : Alloy.TSS.primary_btn.height,
-		bottom : Alloy.TSS.form_dropdown.optionPadding.top * 2 + Alloy.TSS.primary_btn.height + ( isHIPAA ? Alloy.TSS.primary_btn.height + Alloy.TSS.form_dropdown.optionPadding.top : 0), 
+		top : $.args.registrationFlow === true ? 0 : "10%",
+		bottom : isHIPAA ? "25%" : "15%",
 		url : args.terms.agreement_url,
 		willHandleTouches: false 
 	});

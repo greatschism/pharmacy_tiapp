@@ -1,4 +1,201 @@
 {
 	"PRIMARY_COLOR": "#F7941E",
-	"PRIMARY_DARK_COLOR": "#CC7312"
+	"PRIMARY_SELECTED_COLOR": "#F7941E",
+	"PRIMARY_DARK_COLOR": "#CC7312",
+	"PRIMARY_DARK_SELECTED_COLOR": "#CC7312",
+	"PRIMARY_LIGHT_COLOR": "#FFFFFF",
+	"PRIMARY_LIGHT_SELECTED_COLOR": "#FFFFFF",
+	"BG_COLOR": "#FFFFFF",
+	"SHADOW_BG_COLOR": "#80000000",
+	"BG_SELECTED_COLOR": "#D4D4D4",
+	"LIGHT_BG_SELECTED_COLOR": "#80D4D4D4",
+	"FG_COLOR": "#000000",
+	"FG_SELECTED_COLOR": "#000000",
+	"LIGHT_FG_COLOR": "#FFFFFF",
+	"LIGHT_FG_SELECTED_COLOR": "#FFFFFF",
+	"ACTIVE_COLOR": "#0095FF",
+	"ACTIVE_SELECTED_COLOR": "#0095FF",
+	"ACTIVE_STRONG_COLOR": "#0077B7",
+	"ACTIVE_STRONG_SELECTED_COLOR": "#0077B7",
+	"INACTIVE_COLOR": "#6D6E71",
+	"INACTIVE_SELECTED_COLOR": "#6D6E71",
+	"INACTIVE_LIGHT_COLOR": "#EDEDED",
+	"INACTIVE_LIGHT_SELECTED_COLOR": "#EDEDED",
+	"POSITIVE_COLOR": "#009344",
+	"POSITIVE_SELECTED_COLOR": "#009344",
+	"NEGATIVE_COLOR": "#ED1C24",
+	"NEGATIVE_SELECTED_COLOR": "#ED1C24",
+	"TENTATIVE_COLOR": "#F7941E",
+	"TENTATIVE_SELECTED_COLOR": "#F7941E",
+	"SWITCH_ACTIVE_COLOR": "#38E780",
+	"SWITCH_INACTIVE_COLOR": "#A7A7A7",
+	"SWITCH_THUMB_COLOR": "#FFFFFF",
+	"HINT_TEXT_COLOR": "#C7C7CD",
+	"SEPARATOR_COLOR": "#D5D5D5",
+	"SEPARATOR_INSETS": {
+		"top": 0,
+		"bottom": 0,
+		"left": 0,
+		"right": 0
+	},
+	"BORDER_COLOR": "#808082",
+	"BORDER_COLOR_LIGHT": "#D5D5D5",
+	"BORDER_WIDTH": 1,
+	"BORDER_WIDTH_LIGHT": 0.5,
+	"BORDER_RADIUS": 3.4,
+	"MIN_HEIGHT": 40,
+	"NAV_BAR_HEIGHT_IOS": 68,
+	"NAV_BAR_HEIGHT_ANDROID": 48,
+	"PROGRESS_BAR_HEIGHT": 10,
+	"INPUT_HEIGHT": 50,
+	"MULTILINE_INPUT_HEIGHT": 120,
+	"MARGIN_TOP": 12,
+	"MARGIN_BOTTOM": 12,
+	"MARGIN_LEFT": 12,
+	"MARGIN_RIGHT": 12,
+	"MARGIN_TOP_SMALL": 4,
+	"MARGIN_BOTTOM_SMALL": 4,
+	"MARGIN_LEFT_SMALL": 4,
+	"MARGIN_RIGHT_SMALL": 4,
+	"MARGIN_TOP_MEDIUM": 8,
+	"MARGIN_BOTTOM_MEDIUM": 8,
+	"MARGIN_LEFT_MEDIUM": 8,
+	"MARGIN_RIGHT_MEDIUM": 8,
+	"MARGIN_TOP_LARGE": 16,
+	"MARGIN_BOTTOM_LARGE": 16,
+	"MARGIN_LEFT_LARGE": 16,
+	"MARGIN_RIGHT_LARGE": 16,
+	"MARGIN_TOP_EXTRA_LARGE": 24,
+	"MARGIN_BOTTOM_EXTRA_LARGE": 24,
+	"MARGIN_LEFT_EXTRA_LARGE": 24,
+	"MARGIN_RIGHT_EXTRA_LARGE": 24,
+	"MARGIN_TOP_STATUS_BAR": 40,
+	"HL_PLATFORM_IOS": {
+		"fontFamily": "light",
+		"fontSize": 34
+	},
+	"HL_PLATFORM_ANDROID": {
+		"fontFamily": "light",
+		"fontSize": 34
+	},
+	"H1_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 34
+	},
+	"H1_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 34
+	},
+	"H2_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 24
+	},
+	"H2_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 24
+	},
+	"H3_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 20
+	},
+	"H3_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 20
+	},
+	"H4_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 20
+	},
+	"H4_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 20
+	},
+	"H5_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 16
+	},
+	"H5_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 16
+	},
+	"H6_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 16
+	},
+	"H6_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 16
+	},
+	"H7_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 12
+	},
+	"H7_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 12
+	},
+	"H8_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 12
+	},
+	"H8_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 12
+	},
+	"I1_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 75
+	},
+	"I1_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 75
+	},
+	"I2_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 60
+	},
+	"I2_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 60
+	},
+	"I3_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 48
+	},
+	"I3_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 48
+	},
+	"I4_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 34
+	},
+	"I4_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 34
+	},
+	"I5_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 22
+	},
+	"I5_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 22
+	},
+	"I6_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 16
+	},
+	"I6_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 16
+	},
+	"I7_PLATFORM_IOS": {
+		"fontFamily": "icon",
+		"fontSize": 12
+	},
+	"I7_PLATFORM_ANDROID": {
+		"fontFamily": "icon",
+		"fontSize": 12
+	}
 }

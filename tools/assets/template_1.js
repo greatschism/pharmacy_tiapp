@@ -3,232 +3,227 @@
  */
 module.exports = {
 	"data" : [{
-		"apiName" : "TableView",
+		"apiName" : "View",
 		"children" : [{
-			"addChild" : "setHeaderView",
 			"items" : [{
 				"id" : "bannerView",
 				"apiName" : "View",
-				"classes" : ["auto-width", "auto-height"]
-			}]
-		}, {
-			"addChild" : "setFooterView",
-			"items" : [{
-				"apiName" : "View",
-				"platform" : ["ios"],
-				"classes" : ["auto-height"]
-			}]
-		}, {
-			"addChild" : "setData",
-			"asArray" : true,
-			"items" : [{
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_prescription"
-						}
-					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
-						"children" : [{
-							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titlePrescriptions"
-								}
-							}]
+				"classes" : ["top", "auto-width", "auto-height"],
+				"actions" : [{
+					"event" : "postlayout",
+					"keepAlive" : true,
+					"binders" : [{
+						"id" : "tableView",
+						"transform" : [{
+							"from" : "height",
+							"to" : "top"
 						}]
 					}]
 				}],
-				"navigation" : {
-					"ctrl" : "prescriptions"
-				}
 			}, {
-				"apiName" : "TableViewRow",
+				"id" : "tableView",
+				"apiName" : "TableView",
 				"children" : [{
+					"addChild" : "setFooterView",
 					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "refill_camera"
-						}
-					}, {
 						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"platform" : ["ios"],
+						"classes" : ["auto-height"]
+					}]
+				}, {
+					"addChild" : "setData",
+					"asArray" : true,
+					"items" : [{
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleRefill"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titlePrescriptions"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "refill"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_reminder"
+						}],
+						"navigation" : {
+							"ctrl" : "prescriptions"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleReminders"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleRefill"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "reminders"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "users"
+						}],
+						"navigation" : {
+							"action" : "refill"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleFamilyAccounts"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleReminders"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "familyCare"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_pharmacy"
+						}],
+						"feature_name" : "is_reminders_enabled",
+						"navigation" : {
+							"ctrl" : "reminders"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleStores"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleFamilyAccounts"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "stores"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_transfer"
+						}],
+						"feature_name" : "is_proxy_enabled",
+						"navigation" : {
+							"ctrl" : "familyCare"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleTransfer"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleStores"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "transfer"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_doctor"
+						}],
+						"feature_name" : "is_storelocator_enabled",
+						"navigation" : {
+							"ctrl" : "stores"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleDoctors"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleTransfer"
+										}
+									}]
+								}]
 							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "doctors"
-				}
-			}, {
-				"apiName" : "TableViewRow",
-				"children" : [{
-					"items" : [{
-						"apiName" : "Label",
-						"classes" : ["home-list-left-icon", "touch-disabled"],
-						"properties" : {
-							"icon" : "thick_account"
+						}],
+						"feature_name" : "is_transferrx_enabled",
+						"navigation" : {
+							"ctrl" : "transfer"
 						}
 					}, {
-						"apiName" : "View",
-						"classes" : ["home-list-content-view-with-licon", "touch-disabled"],
+						"apiName" : "TableViewRow",
 						"children" : [{
 							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["home-list-content-lbl", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleAccount"
-								}
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleDoctors"
+										}
+									}]
+								}]
 							}]
-						}]
+						}],
+						"feature_name" : "is_doctors_enabled",
+						"navigation" : {
+							"ctrl" : "doctors"
+						}
+					}, {
+						"apiName" : "TableViewRow",
+						"children" : [{
+							"items" : [{
+								"apiName" : "View",
+								"classes" : ["margin-top-large", "margin-bottom-large", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "Label",
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"],
+									}, {
+										"apiName" : "Label",
+										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+										"properties" : {
+											"textid" : "titleAccount"
+										}
+									}]
+								}]
+							}]
+						}],
+						"navigation" : {
+							"ctrl" : "account"
+						}
 					}]
-				}],
-				"navigation" : {
-					"ctrl" : "account"
-				}
+				}]
 			}]
 		}]
 	}]

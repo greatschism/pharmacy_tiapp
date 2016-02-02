@@ -1,5 +1,6 @@
 var args = arguments[0] || {},
     TAG = require("ctrlShortCode")[$.__controllerPath],
+    lblClasses = ["margin-top", "margin-bottom", "margin-left", "margin-right", "h4", "touch-disabled"],
     googleApiSuccess = "OK",
     Map = Alloy.Globals.Map,
     currentViewType = Alloy.CFG.apiCodes.store_view_type_list,
@@ -13,7 +14,6 @@ var args = arguments[0] || {},
     isMapPrepared = false,
     isFocused = false,
     isChangedAfterFocus = false,
-    isDirectionEnabled = false,
     shouldIgnoreRegion = true,
     currentLocation = {},
     currentRadiusMax = 0,
@@ -41,6 +41,16 @@ function init() {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
 	}
+	//search icon
+	$.searchTxt.setIcon("", "left", $.createStyle({
+		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		id : "searchBtn"
+	}));
+	//clear button
+	$.searchTxt.setIcon("", "right", $.createStyle({
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
+		id : "clearBtn"
+	}));
 	//update margin
 	$.containerView.top = $.uihelper.getHeightFromChildren($.headerView);
 	/**
@@ -54,11 +64,24 @@ function init() {
 	setPatientSwitcher();
 	//update classes
 	pinImg = $.uihelper.getImage("map_pin").image;
-	leftBtnDict = $.createStyle({
-		classes : ["annotation-icon", "icon-direction"]
-	});
+	/**
+	 * iOS requires fixed width
+	 * and height to display
+	 * custom button
+	 */
+	if (OS_IOS) {
+		leftBtnDict = $.createStyle({
+			classes : ["left", "i4", "primary-bg-color", "primary-light-fg-color", "icon-direction"],
+			width : 50,
+			height : 60
+		});
+	} else {
+		leftBtnDict = $.createStyle({
+			classes : ["left", "i4", "txt-left", "bg-color-disabled", "primary-fg-color", "icon-direction"]
+		});
+	}
 	rightBtnDict = $.createStyle({
-		classes : ["annotation-child-icon", "icon-thin-arrow-right"]
+		classes : ["right", "i6", "txt-right", "bg-color-disabled", "inactive-fg-color", "icon-thin-arrow-right"]
 	});
 	listIconDict = $.createStyle({
 		classes : ["icon-list"]
@@ -78,11 +101,11 @@ function didPostlayoutLoader(e) {
 }
 
 function didPauseApp(e) {
-	$.mapView.removeEventListener("regionchanged", didRegionchanged);
+	$.mapView && $.removeListener($.mapView, "regionchanged", didRegionchanged);
 }
 
 function didResumedApp(e) {
-	$.mapView.addEventListener("regionchanged", didRegionchanged);
+	$.mapView && $.addListener($.mapView, "regionchanged", didRegionchanged);
 }
 
 function setPatientSwitcher() {
@@ -125,11 +148,6 @@ function didChangePatient(e) {
 
 function didGetLocation(userLocation) {
 	/**
-	 * check whether or not to enable
-	 * direction button for this result set
-	 */
-	isDirectionEnabled = !_.isEmpty(userLocation);
-	/**
 	 *  case 1:
 	 * 		when location service is turned off and user logged in call api for listing home and  book marked stores
 	 *  case 2:
@@ -137,7 +155,7 @@ function didGetLocation(userLocation) {
 	 *  note : iOS simulator may fail to give location often
 	 *  just updating the location in simulator settings would help
 	 */
-	if (Alloy.Globals.isLoggedIn || isDirectionEnabled) {
+	if (Alloy.Globals.isLoggedIn || !_.isEmpty(userLocation)) {
 		getStores(null, false);
 	} else {
 		/**
@@ -431,7 +449,7 @@ function prepareData(result, passthrough) {
 		store.ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
 		store.isbookmarked = parseInt(store.isbookmarked) || 0;
 		if (loggedIn && (store.ishomepharmacy || store.isbookmarked)) {
-			iconClasses = ["content-left-icon", (store.ishomepharmacy ? "icon-home" : "icon-filled-star")];
+			iconClasses = [(store.ishomepharmacy ? "icon-home" : "icon-filled-star"), "primary-fg-color"];
 		}
 		var distance = store.distance || 0;
 		/**
@@ -500,9 +518,10 @@ function prepareList() {
 	storeRows = [];
 
 	//process data
-	var data = [];
+	var data = [],
+	    itemTemplate = "itemTemplates/" + (Alloy.Globals.isLoggedIn ? "masterDetailWithLIcon" : "masterDetail");
 	Alloy.Collections.stores.each(function(store) {
-		var row = Alloy.createController("itemTemplates/masterDetailWithLIcon", store.toJSON());
+		var row = Alloy.createController(itemTemplate, store.toJSON());
 		data.push(row.getView());
 		storeRows.push(row);
 	});
@@ -584,7 +603,7 @@ function prepareMap(shouldUpdateRegion) {
 			}
 			//process annotations
 			var storeId = store.get("id"),
-			    leftBtn = isDirectionEnabled ? Ti.UI.createButton(leftBtnDict) : null,
+			    leftBtn = Ti.UI.createButton(leftBtnDict),
 			    annotationDict = {
 				storeId : storeId,
 				title : store.get("title"),
@@ -601,18 +620,11 @@ function prepareMap(shouldUpdateRegion) {
 				 * info window
 				 */
 				annotationDict.rightButton = Ti.UI.iPhone.SystemButton.INFO_DARK;
-				/**
-				 * show direction button
-				 * only if current location (which is search / user location)
-				 *  is available
-				 */
-				if (leftBtn) {
-					leftBtn.applyProperties({
-						clicksource : "leftPane",
-						storeId : storeId
-					});
-					leftBtn.addEventListener("click", didClickMap);
-				}
+				leftBtn.applyProperties({
+					clicksource : "leftPane",
+					storeId : storeId
+				});
+				leftBtn.addEventListener("click", didClickMap);
 			} else {
 				/**
 				 * android has a separate click source
@@ -851,7 +863,8 @@ function didGetGeoCode(result, passthrough) {
 			var row = Alloy.createController("itemTemplates/label", {
 				title : geoObj.formatted_address,
 				latitude : geoObj.geometry.location.lat,
-				longitude : geoObj.geometry.location.lng
+				longitude : geoObj.geometry.location.lng,
+				lblClasses : lblClasses
 			});
 			data.push(row.getView());
 			geoRows.push(row);
@@ -877,7 +890,8 @@ function didGetGeoCode(result, passthrough) {
 			 */
 			var row = Alloy.createController("itemTemplates/label", {
 				title : $.strings.storesGeoZeroResults,
-				invalid : true
+				invalid : true,
+				lblClasses : lblClasses
 			});
 			data.push(row.getView());
 			geoRows.push(row);
@@ -1026,7 +1040,7 @@ function handleNavigation(params) {
 			_.extend(args.navigation.ctrlArguments.store, params);
 			/**
 			 * this controller will not be terminated until this process is completed
-			 * so reverPatient here
+			 * so revertPatient here
 			 */
 			if ($.patientSwitcher) {
 				$.patientSwitcher.revertPatient();
@@ -1053,9 +1067,7 @@ function handleNavigation(params) {
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
-			store : currentStore,
-			currentLocation : $.uihelper.userLocation,
-			direction : isDirectionEnabled
+			store : currentStore
 		},
 		stack : true
 	});
@@ -1198,7 +1210,8 @@ function didGetAddress(result, passthrough) {
 		    row = Alloy.createController("itemTemplates/label", {
 			title : geoObj.formatted_address,
 			latitude : geoObj.geometry.location.lat,
-			longitude : geoObj.geometry.location.lng
+			longitude : geoObj.geometry.location.lng,
+			lblClasses : lblClasses
 		});
 		geoRows.push(row);
 		$.geoTableView.setData([row.getView()]);

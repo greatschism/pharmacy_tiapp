@@ -1,6 +1,5 @@
-"#pagingControl":{
-	currentPage: 0,
-	length: 5
+"#pagingcontrol":{
+	currentPage: 0
 },
 "#appLbl":{
 	text: Alloy.Globals.strings.carouselLblApp
@@ -35,6 +34,6 @@
 "#submitBtn":{
 	title: Alloy.Globals.strings.carouselBtnNext
 },
-"#skipLbl":{
-	text: Alloy.Globals.strings.carouselBtnSkip
+"#skipBtn":{
+	title: Alloy.Globals.strings.carouselBtnSkip
 }

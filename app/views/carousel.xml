@@ -1,32 +1,30 @@
 <Alloy>
-	<View class="role-content-view">
-		<ScrollableView id="scrollableView" onScrollend="didScrollend">
-			<ScrollView id="appView" class="vgroup">
-				<ImageView id="logoImg" class="margin-top" />
-				<Label id="appLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="appImg" class="margin-top width-100 no-repeat bubble-disabled" />
-			</ScrollView>
-			<ScrollView id="prescView" class="vgroup">
-				<Label id="prescLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="prescImg" class="margin-top width-100 no-repeat bubble-disabled" />
-			</ScrollView>
-			<ScrollView id="refillView" class="vgroup">
-				<Label id="refillLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="refillImg" class="margin-top width-100 no-repeat bubble-disabled" />
-			</ScrollView>
-			<ScrollView id="remindersView" class="vgroup">
-				<Label id="remindersLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="remindersImg" class="margin-top width-100 no-repeat bubble-disabled" />
-			</ScrollView>
-			<ScrollView id="familyCareView" class="vgroup">
-				<Label id="familyCareLbl" class="margin-top subtitle-centered-wrap" />
-				<ImageView id="familyCareImg" class="margin-top width-100 no-repeat bubble-disabled" />
-			</ScrollView>
-		</ScrollableView>
-		<View id="footerView" class="margin-bottom auto-height">
-			<Button id="submitBtn" class="top tertiary-btn-48" onClick="didClickNext" />
-			<Label id="skipLbl" class="margin-right bottom inactive-lbl-small" onClick="didClickSkip" />
-		</View>
-		<Widget id="pagingControl" src="ti.pagingcontrol" class="pagingcontrol" onChange="didChangePager" />
+	<ScrollableView id="scrollableView" onScrollend="didScrollend">
+		<ScrollView id="appView" class="vgroup">
+			<ImageView id="logoImg" class="margin-top img-logo" />
+			<Label id="appLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
+			<ImageView id="appImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+		</ScrollView>
+		<ScrollView id="prescView" class="vgroup">
+			<Label id="prescLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
+			<ImageView id="prescImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+		</ScrollView>
+		<ScrollView id="refillView" class="vgroup" if="Alloy.CFG.is_quick_refill_enabled">
+			<Label id="refillLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
+			<ImageView id="refillImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+		</ScrollView>
+		<ScrollView id="remindersView" class="vgroup" if="Alloy.CFG.is_reminders_enabled">
+			<Label id="remindersLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
+			<ImageView id="remindersImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+		</ScrollView>
+		<ScrollView id="familyCareView" class="vgroup" if="Alloy.CFG.is_proxy_enabled">
+			<Label id="familyCareLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
+			<ImageView id="familyCareImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+		</ScrollView>
+	</ScrollableView>
+	<View id="footerView" class="margin-bottom auto-height">
+		<Button id="submitBtn" class="top left-disabled right-disabled width-60 bg-color active-fg-color border-disabled" onClick="didClickNext" />
+		<Button id="skipBtn" class="bottom left-disabled auto-width auto-height h5 txt-right bg-color inactive-fg-color border-disabled" onClick="didClickSkip" />
 	</View>
+	<Widget id="pagingcontrol" src="ti.pagingcontrol" class="pagingcontrol" onChange="didChangePager" />
 </Alloy> 

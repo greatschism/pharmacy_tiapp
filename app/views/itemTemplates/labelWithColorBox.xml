@@ -1,8 +1,6 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<View class="content-view-with-rcolor-box">
-			<Label id="lbl" class="content-lbl-wrap" />
-		</View>
-		<View id="colorView" class="content-right-color-box" />
+		<Label id="lbl" class="margin-top margin-bottom margin-left" />
+		<View id="colorBoxView" class="margin-right color-box border" />
 	</TableViewRow>
 </Alloy>

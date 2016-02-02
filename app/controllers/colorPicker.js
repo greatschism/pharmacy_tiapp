@@ -4,11 +4,21 @@ var args = arguments[0] || {},
 function init() {
 	var hex = color.hex || Alloy.CFG.default_color;
 	$.picker.color = hex;
-	$.colorView.backgroundColor = hex;
+	$.colorBoxView.applyProperties({
+		backgroundColor : hex,
+		borderColor : hex
+	});
+	$.colorLbl.right = $.colorBoxView.right + $.colorBoxView.width + $.createStyle({
+		classes : ["margin-right-medium"]
+	}).right;
 }
 
 function didChange(e) {
-	$.colorView.backgroundColor = e.hex;
+	var hex = e.hex;
+	$.colorBoxView.applyProperties({
+		backgroundColor : hex,
+		borderColor : hex
+	});
 }
 
 function didClickSubmit(e) {

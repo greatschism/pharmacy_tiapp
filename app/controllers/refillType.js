@@ -2,48 +2,27 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
-
-/***PHA-1250***/
-/*rightIconText = $.createStyle({
- classes : ["icon-unfilled-remove"]
- }).text,
- rightIconDict = $.createStyle({
- classes : ["txt-negative-right-icon"],
- touchEnabled : true
- }),*/
     rightIconDict = $.createStyle({
-	classes : ["txt-negative-right-icon"],
-	title : $.createStyle({
-		classes : ["icon-unfilled-remove"]
-	}).text,
-	touchEnabled : true,
+	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
 	id : "removeBtn"
 }),
-/***PHA-1250***/
-
     store = _.omit(args.store || {}, ["shouldUpdate"]),
     rxTxtHeight,
     phone,
     isWindowOpen;
 
 function init() {
-	$.uihelper.getImage("success", $.successImg);
-	/***PHA-1250***/
 	$.rxTxt.setRightIcon("", $.createStyle({
-		classes : ["txt-tertiary-right-icon"],
-		title : $.createStyle({
-			classes : ["icon-help"]
-		}).text,
-		touchEnabled : true,
+		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
 		id : "sampleBtn"
 	}));
-	/***PHA-1250***/
 	rxTxtHeight = $.createStyle({
 		classes : ["txt"]
 	}).height + $.createStyle({
 		classes : ["margin-top"]
 	}).top;
 	$.containerView.height = rxTxtHeight;
+	$.uihelper.wrapViews($.pickupModeView, "right");
 	/**
 	 * only when phoneTxt
 	 * is included
@@ -78,14 +57,6 @@ function didChange(e) {
 function didClickAdd(e) {
 	var len = rxTxts.length;
 	$.containerView.height = (rxTxtHeight * (len + 1));
-	//PHA-1250
-	/*if (len === 1) {
-	 _.extend(rightIconDict, {
-	 title : rightIconText,
-	 touchEnabled : true
-	 });
-	 rxTxts[0].setRightIcon("", rightIconDict);
-	 }*/
 	var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
 	ctrl.setRightIcon("", rightIconDict);
 	ctrl.on("click", didClickRemove);
@@ -112,14 +83,6 @@ function didClickRemove(e) {
 		return false;
 	});
 	$.containerView.remove(widgetToRemove);
-	//PHA-1250
-	/*if (len == 1) {
-	 _.extend(rightIconDict, {
-	 title : "",
-	 touchEnabled : false
-	 });
-	 rxTxts[0].setRightIcon("", rightIconDict);
-	 }*/
 }
 
 function didClickRefill(e) {

@@ -1,0 +1,6 @@
+"#window[if=$.args.navBarHidden]":{
+	theme: "Theme.Material.NoActionBar"
+},
+"#window[if=$.args.softInputAdjustPan]":{
+	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN
+}

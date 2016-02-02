@@ -3,8 +3,9 @@ var args = arguments[0] || {},
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
+    titleClasses = ["left", "h4", "wrap-disabled"],
+    subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     headerBtnDict,
-    detailBtnClasses,
     swipeOptions,
     sections,
     currentPrescription,
@@ -13,19 +14,41 @@ var args = arguments[0] || {},
 function init() {
 	/**
 	 * may not be available when
-	 *  showHiddenPrescriptions is true
+	 * showHiddenPrescriptions is true
 	 */
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
+	if ($.tooltip) {
+		$.tooltip.updateArrow($.createStyle({
+			classes : ["direction-up"]
+		}).direction, $.createStyle({
+			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
+		}));
+	}
+	/**
+	 * may not be available when
+	 * showHiddenPrescriptions is true
+	 */
+	if ($.sortPicker) {
+		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
+	}
+	//search icon
+	$.searchTxt.setIcon("", "left", $.createStyle({
+		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		id : "searchBtn"
+	}));
+	//clear button
+	$.searchTxt.setIcon("", "right", $.createStyle({
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
+		id : "clearBtn"
+	}));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
-			classes : ["content-header-right-btn"],
-			title : $.strings.prescAddSectionBtnAll,
+			classes : ["right", "fill-height", "h5", "bg-color-disabled", "active-fg-color", "border-disabled"],
 			id : "prescSelectAllBtn"
 		});
 	} else {
-		detailBtnClasses = ["content-detail-secondary-btn"];
 		swipeOptions = [{
 			action : 1,
 			title : $.strings.prescSwipeOptHide
@@ -34,13 +57,6 @@ function init() {
 			title : $.strings.prescSwipeOptRefill,
 			type : "positive"
 		}];
-	}
-	/**
-	 * may not be available when
-	 *  showHiddenPrescriptions is true
-	 */
-	if ($.sortPicker) {
-		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
 	}
 	/**
 	 * by default point to a
@@ -314,6 +330,8 @@ function prepareList() {
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "inprogress",
 				masterWidth : 100,
 				detailWidth : 0,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
 				subtitle : subtitle,
 				progress : progress,
 				canHide : false
@@ -331,6 +349,8 @@ function prepareList() {
 				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "completed",
 				masterWidth : 100,
 				detailWidth : 0,
+				titleClasses : titleClasses,
+				subtitleClasses : args.selectable && subtitleClasses,
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
@@ -358,7 +378,6 @@ function prepareList() {
 					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
 						template = "masterDetailBtn";
 						prescription.set({
-							btnClasses : detailBtnClasses,
 							detailTitle : $.strings.prescReadyRefillBtnHide
 						});
 					} else {
@@ -386,6 +405,8 @@ function prepareList() {
 				section : section,
 				itemTemplate : template,
 				options : swipeOptions,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
 				canHide : true
 			});
@@ -419,6 +440,17 @@ function prepareList() {
 				tvSection = Ti.UI.createTableViewSection();
 			} else {
 				if (headerBtnDict) {
+					/***
+					 * determine whether it should be
+					 * select all / none
+					 */
+					var selected = false;
+					_.some(rows, function(row) {
+						if (!row.getParams().selected) {
+							selected = true;
+							return true;
+						}
+					});
 					/**
 					 * section id is different for each section
 					 * and callback property will be set to button and removed
@@ -426,10 +458,12 @@ function prepareList() {
 					 */
 					_.extend(headerBtnDict, {
 						sectionId : key,
-						callback : didClickSelectAll
+						selected : selected,
+						callback : didClickSelectAll,
+						title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
 					});
 				}
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, false, headerBtnDict);
+				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -461,7 +495,7 @@ function prepareList() {
 function didClickSelectAll(e) {
 	/**
 	 * select all can't be
-	 * applied when filter is
+	 * performed when filter is
 	 * applied
 	 */
 	if ($.tableView.filterText) {
@@ -470,24 +504,29 @@ function didClickSelectAll(e) {
 	/**
 	 * select all under this section prescriptions
 	 */
-	var sectionId = e.source.sectionId,
-	    count = 0;
-	_.each(sections, function(rows, skey) {
-		if (skey === sectionId) {
+	var count = 0,
+	    headerBtn = e.source,
+	    sectionId = headerBtn.sectionId;
+	_.some(sections, function(rows, sid) {
+		if (sid === sectionId) {
 			/**
 			 * index till previous section
 			 */
-			var index = count - 1;
-			_.each(rows, function(row, rkey) {
+			var index = count - 1,
+			    selected = headerBtn.selected;
+			_.each(rows, function(row, rid) {
 				/**
 				 * index for this row
 				 */
 				index++;
 				var params = row.getParams();
-				params.selected = true;
-				rows[rkey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", params);
-				$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[rkey].getView());
+				params.selected = selected;
+				rows[rid] = Alloy.createController("itemTemplates/masterDetailWithLIcon", params);
+				$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[rid].getView());
 			});
+			headerBtn.selected = !headerBtn.selected;
+			headerBtn.title = $.strings[headerBtn.selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"];
+			return true;
 		}
 		count += rows.length;
 	});
@@ -601,6 +640,8 @@ function prepareUnhidePicker(result, passthrough) {
 	var hPrescriptions = result.data.prescriptions;
 	_.each(hPrescriptions, function(prescription) {
 		_.extend(prescription, {
+			titleClasses : titleClasses,
+			subtitleClasses : subtitleClasses,
 			title : $.utilities.ucword(prescription.presc_name),
 			subtitle : $.strings.strPrefixRx.concat(prescription.rx_number)
 		});
@@ -710,18 +751,18 @@ function didClickTableView(e) {
 	}
 	var index = e.index,
 	    count = 0,
-	    sectionKey,
-	    rowKey,
+	    sectionId,
+	    rowId,
 	    row;
-	_.some(sections, function(rows, skey) {
+	_.some(sections, function(rows, sid) {
 		count += rows.length;
 		if (count > index) {
-			sectionKey = skey;
-			rowKey = index - (count - rows.length);
+			sectionId = sid;
+			rowId = index - (count - rows.length);
 			/**
 			 *breaks the loop once row is assigned
 			 */
-			row = rows[rowKey];
+			row = rows[rowId];
 			return true;
 		}
 		return false;
@@ -734,8 +775,33 @@ function didClickTableView(e) {
 				 * update selection flag
 				 */
 				prescription.selected = !prescription.selected;
-				sections[sectionKey][rowKey] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
-				$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionKey][rowKey].getView());
+				sections[sectionId][rowId] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
+				$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionId][rowId].getView());
+				/**
+				 * verify & update header button's
+				 * title and flag
+				 */
+				var headerBtn;
+				_.some($.tableView.data, function(tvSection) {
+					var btn = tvSection.headerView && tvSection.headerView.children[0];
+					if (btn && btn.sectionId === sectionId) {
+						headerBtn = btn;
+						return true;
+					}
+				});
+				if (headerBtn && headerBtn.selected === prescription.selected) {
+					var selected = false;
+					_.some(sections[sectionId], function(srow) {
+						if (!srow.getParams().selected) {
+							selected = true;
+							return true;
+						}
+					});
+					if (selected !== headerBtn.selected) {
+						headerBtn.selected = selected;
+						headerBtn.title = $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"];
+					}
+				}
 			};
 			/**
 			 * validator

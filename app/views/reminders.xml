@@ -1,33 +1,30 @@
 <Alloy>
-	<ScrollView>
+	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
-			<View id="refillView" class="auto-height" onClick="didClickRefill">
-				<ImageView id="refillImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="refillLbl" class="content-title-wrap" onPostlayout="didPostlayout" />
+			<View id="refillView" class="margin-top margin-left margin-right auto-height" onClick="didClickRefill">
+				<Label class="left i4 active-fg-color icon-filled-refresh"/>
+				<View class="margin-left auto-height vgroup" onPostlayout="didPostlayout">
+					<Label id="refillTitleLbl" class="left h4" />
+					<Label id="refillDescLbl" class="left inactive-fg-color" />
 				</View>
 			</View>
-			<View class="h-divider-light" />
-			<View id="medView" class="auto-height" onClick="didClickMed">
-				<ImageView id="medImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="medLbl" class="content-title-wrap" />
+			<View class="margin-top h-divider-light" />
+			<View id="medView" class="margin-top margin-left margin-right auto-height" onClick="didClickMed">
+				<Label class="left i4 positive-fg-color icon-filled-torchlight"/>
+				<View class="margin-left auto-height vgroup">
+					<Label id="medTitleLbl" class="left h4" />
+					<Label id="medDescLbl" class="left inactive-fg-color" />
 				</View>
 			</View>
-			<View class="h-divider-light" />
-			<View id="settingsView" class="auto-height" onClick="didClickSettings">
-				<ImageView id="settingsImg" class="content-left-image-extra-large"/>
-				<View class="content-view-with-limage-extra-large-vcentered">
-					<Label id="settingsLbl" class="content-title-wrap" />
+			<View class="margin-top h-divider-light" />
+			<View id="settingsView" class="margin-top margin-left margin-right auto-height" onClick="didClickSettings">
+				<Label class="left i4 tentative-fg-color icon-filled-settings"/>
+				<View class="margin-left auto-height vgroup">
+					<Label id="settingsTitleLbl" class="left h4" />
+					<Label id="settingsDescLbl" class="left inactive-fg-color" />
 				</View>
 			</View>
-			<View class="margin-bottom h-divider-light" />
+			<View class="margin-top margin-bottom h-divider-light" />
 		</View>
-		<Widget id="tooltip" src="ti.tooltip" class="margin-right tooltip-unfilled-arrow-up content-primary-tooltip">
-			<View class="auto-height vgroup">
-				<Label id="tooltipLbl" class="lbl-wrap" />
-				<Button id="tooltipHideBtn" class="margin-top margin-bottom tooltip-primary-btn" onClick="didClickHide" />
-			</View>
-		</Widget>
 	</ScrollView>
 </Alloy>

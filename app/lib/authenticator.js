@@ -427,30 +427,9 @@ function didGetPreferences(result, passthrough) {
 }
 
 function setDefaultDeviceForManager(passthrough) {
-	/**
-	 * when the below statement is true,
-	 * (remote notifications are disabled)
-	 * notification register callback will
-	 * never be fired.
-	 */
-	if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
-		//hide loader
-		app.navigator.hideLoader();
-		//prompt
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
-			buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : function didConfirmDevice() {
-				setDefaultDeviceForManager(passthrough);
-			},
-			cancel : function didNotConfirmDevice() {
-				initiateTimeZoneCheck(passthrough);
-			}
-		});
-	} else {
-		//if push is enabled then verify device token
-		notificationHandler.init(function didReady(deviceToken) {
+	//if push is enabled then verify device token
+	notificationHandler.init(function didReady(deviceToken) {
+		if (deviceToken) {
 			/**
 			 * ask user if he wants to update device token,
 			 * receive push notifications on this new device
@@ -477,8 +456,23 @@ function setDefaultDeviceForManager(passthrough) {
 			} else {
 				initiateTimeZoneCheck(passthrough);
 			}
-		});
-	}
+		} else {
+			//hide loader
+			app.navigator.hideLoader();
+			//prompt
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
+				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnContinue],
+				cancelIndex : 1,
+				success : function didConfirmDevice() {
+					setDefaultDeviceForManager(passthrough);
+				},
+				cancel : function didNotConfirmDevice() {
+					initiateTimeZoneCheck(passthrough);
+				}
+			});
+		}
+	});
 }
 
 function setDefaultDeviceForManagerApi(passthrough) {
@@ -787,20 +781,8 @@ function completeAuthentication(passthrough) {
 }
 
 function setDefaultDevice(passthrough) {
-	if (OS_IOS && !Alloy.Globals.isVirtualDevice && !Ti.Network.remoteNotificationsEnabled) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
-			buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnCancel],
-			cancelIndex : 1,
-			success : function didConfirmDevice() {
-				setDefaultDevice(passthrough);
-			},
-			cancel : function didNotConfirmDevice() {
-				updatePreferencesApi(passthrough);
-			}
-		});
-	} else {
-		notificationHandler.init(function didReady(deviceToken) {
+	notificationHandler.init(function didReady(deviceToken) {
+		if (deviceToken) {
 			/**
 			 * ask user if he wants to update device token,
 			 * receive push notifications on this new device
@@ -829,8 +811,20 @@ function setDefaultDevice(passthrough) {
 			} else {
 				updatePreferencesApi(passthrough);
 			}
-		});
-	}
+		} else {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.msgPushNotificationsAuthorizationDenied,
+				buttonNames : [Alloy.Globals.strings.dialogBtnRetry, Alloy.Globals.strings.dialogBtnContinue],
+				cancelIndex : 1,
+				success : function didConfirmDevice() {
+					setDefaultDevice(passthrough);
+				},
+				cancel : function didNotConfirmDevice() {
+					updatePreferencesApi(passthrough);
+				}
+			});
+		}
+	});
 }
 
 function setDefaultDeviceApi(passthrough) {
@@ -1032,7 +1026,7 @@ function resetAuthenticationData() {
 	/**
 	 * reset collections and models
 	 */
-	var igoreKeys = ["appconfig", "appload", "banners", "menuItems", "template"];
+	var igoreKeys = ["appconfig", "appload", "menuItems", "template", "banner"];
 	_.each(Alloy.Collections, function(coll, key) {
 		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
 			/**
