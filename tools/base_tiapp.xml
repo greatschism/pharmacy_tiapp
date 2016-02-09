@@ -11,7 +11,7 @@
   <icon>appicon.png</icon>
   <fullscreen>false</fullscreen>
   <navbar-hidden>false</navbar-hidden>
-  <analytics>${TI_ANALYTICS_ENABLED}</analytics>
+  <analytics>false</analytics>
   <guid>${APP_GUID}</guid>
   <property name="ti.ui.defaultunit" type="string">dp</property>
   <property name="com-appcelerator-apm-id" type="string">${APM_ID}</property>
@@ -83,6 +83,8 @@
     <module platform="android" version="1.1.5">com.appcelerator.apm</module>
     <module platform="iphone" version="1.0.0">appcelerator.https</module>
     <module platform="android" version="1.0.0">appcelerator.https</module>
+    <module platform="iphone" version="2.0.0">ti.ga</module>
+    <module platform="android" version="2.0.0">ti.ga</module>
     <module platform="iphone" version="2.4.1">ti.map</module>
     <module platform="android" version="2.3.3">ti.map</module>
     <module platform="android" version="1.0">ti.push</module>
