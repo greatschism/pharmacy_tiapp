@@ -1,25 +1,45 @@
 var Alloy = require("alloy"),
+    _ = require("alloy/underscore")._,
     moduleShortCode = require("moduleShortCode");
 
+if (Alloy.CFG.analytics_enabled && _.has(Alloy.CFG, "ga_tracking_id")) {
+	var GA = require("ti.ga");
+	//enable debugging when it is not prod
+	var debug = !ENV_PROD;
+	GA.setDebug(debug);
+	var Tracker = GA.createTracker({
+		trackingId : Alloy.CFG.ga_tracking_id,
+		useSecure : true,
+		debug : debug
+	});
+}
+
 var EventHandler = {
-	featureEvent : function(name) {
-		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.featureEvent(name);
-		}
+	startSession : function() {
+		Tracker && Tracker.startSession();
 	},
-	navEvent : function(from, to, name, data) {
-		if (Alloy.CFG.analytics_enabled) {
-			Ti.Analytics.navEvent(from, to, name || "", data || {});
-		}
+	endSession : function() {
+		Tracker && Tracker.endSession();
+	},
+	trackEvent : function(category, action, label, value) {
+		Tracker && Tracker.addEvent({
+			category : category,
+			action : action,
+			label : label,
+			value : value || 1
+		});
+	},
+	trackScreen : function(screenName) {
+		Tracker && Tracker.addScreenView(screenName);
 	},
 	handleEvent : function(from, event) {
 		var source = event.source,
-		    name = source.analyticsId || source.id;
-		if (name && name.indexOf("__alloyId") === -1) {
+		    label = source.analyticsId || source.id;
+		if (label && label.indexOf("__alloyId") === -1) {
 			if (source.apiName === "Ti.UI.Switch") {
-				name += "-" + source.value;
+				label += "-" + (source.value ? "On" : "Off");
 			}
-			EventHandler.featureEvent(moduleShortCode[from] + "-" + from + "-" + name);
+			EventHandler.trackEvent(moduleShortCode[from] + "-" + from, event.type, label);
 		}
 	}
 };

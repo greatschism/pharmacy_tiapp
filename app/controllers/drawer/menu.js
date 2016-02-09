@@ -53,7 +53,7 @@ function didDrawerclose(e) {
 		}
 	});
 	navigationHandler.navigate(navigation);
-	analyticsHandler.featureEvent("DRAW-MENU-" + (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
+	analyticsHandler.trackEvent("DRAW-MENU", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentItem = null;
 }
 
