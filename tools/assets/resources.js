@@ -384,7 +384,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/adult.png",
+		"url" : "http://example.com/adult.png",
 		"selected" : true
 	}, {
 		"type" : "image",
@@ -398,7 +398,7 @@ module.exports = {
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
-		"url" : "http://54.235.202.221:9200/nativemia/assets/images/child.png",
+		"url" : "http://example.com/child.png",
 		"selected" : true
 	}]
 };

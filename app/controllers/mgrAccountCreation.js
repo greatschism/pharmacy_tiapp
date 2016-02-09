@@ -147,7 +147,11 @@ function didFail() {
 
 function didRegister() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
+	if (args.origin === "registerChildInfo") {
+		successMessage = Alloy.Globals.strings.msgMgrChildAccountCreation;
+	} else {
+		successMessage = Alloy.Globals.strings.msgMgrAdultAccountCreation;
+	}
 	$.uihelper.showDialog({
 		message : successMessage,
 		buttonNames : [$.strings.dialogBtnOK],
