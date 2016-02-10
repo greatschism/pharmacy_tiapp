@@ -33,7 +33,7 @@ var EventHandler = {
 		Tracker && Tracker.addScreenView(screenName);
 	},
 	handleEvent : function(from, event) {
-		var source = event.source,
+		var source = event.section && event.section.getParent() || event.source,
 		    label = source.analyticsId || source.id;
 		if (label && label.indexOf("__alloyId") === -1) {
 			if (source.apiName === "Ti.UI.Switch") {
