@@ -5,6 +5,12 @@
 	hintText: Alloy.Globals.strings.storesHintSearch,
 	clearButtonEnabled: true
 },
+"#storeTableView":{
+	analyticsId: "StoresList"
+},
+"#geoTableView":{
+	analyticsId: "LocationList"
+},
 "#mapView":{
 	animate: true,
 	userLocation: true

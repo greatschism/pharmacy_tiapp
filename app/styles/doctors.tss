@@ -1,3 +1,6 @@
 "#doctorsLbl":{
 	text: Alloy.Globals.strings.doctorsSectionDoctors
+},
+"#tableView":{
+	analyticsId: "DoctorsList"
 }
