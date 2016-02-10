@@ -13,7 +13,7 @@
 		<Label id="descLbl" class="margin-top-large margin-left margin-right" />
 		<View class="margin-top min-height inactive-light-bg-color">
 			<Label id="prescLbl" class="margin-left right-25 h5 inactive-fg-color" />
-			<Button id="addBtn" class="top-disabled left-disabled margin-right i5 txt-right active-fg-color bg-color-disabled border-disabled icon-add" onClick="didClickAdd" />
+			<Button id="addBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-add" onClick="didClickAdd" />
 		</View>
 		<View id="containerView" class="top margin-bottom auto-height vgroup">
 			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickHelp" />
