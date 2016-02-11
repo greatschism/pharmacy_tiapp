@@ -30,7 +30,8 @@ function didChangeRelationship() {
 	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
 		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
 			classes : ["form-txt"],
-			hintText : $.strings.familyMemberAddHintOther
+			hintText : $.strings.familyMemberAddHintOther,
+			analyticsId : "OtherTxt"
 		}));
 		$.otherTxtView.add($.otherTxt.getView());
 	} else if ($.otherTxt) {
@@ -43,7 +44,8 @@ function updateInputs() {
 	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
 		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
 			classes : ["form-txt"],
-			hintText : $.strings.familyMemberAddHintOther
+			hintText : $.strings.familyMemberAddHintOther,
+			analyticsId : "OtherTxt"
 		}));
 		$.otherTxtView.add($.otherTxt.getView());
 		$.otherTxt.setValue($.otherTxt.getValue());

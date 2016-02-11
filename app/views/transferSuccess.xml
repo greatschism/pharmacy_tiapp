@@ -1,5 +1,5 @@
 <Alloy>
-	<TableView id="tableView">
+	<TableView id="tableView" analyticsId="TableView">
 		<HeaderView>
 			<View class="auto-height vgroup" onClick="handleEvent">
 				<Label id="lblTransfer" class="margin-top margin-left margin-right h2 txt-center" />
@@ -19,7 +19,7 @@
 						<Label id="storeNameLbl" class="margin-top margin-bottom margin-left margin-right" />
 						<Label id="storeTitleLbl" class="margin-bottom margin-left margin-right" />
 						<Label id="storeSubtitleLbl" class="margin-bottom margin-left inactive-fg-color" />
-						<Widget id="storePhoneAttr" src="ti.styledlabel" class="attributed margin-left margin-bottom" onClick="didClickPhone" />
+						<Widget id="storePhoneAttr" analyticsId="StorePhoneAttr" src="ti.styledlabel" class="attributed margin-left margin-bottom" onClick="didClickPhone" />
 					</View>
 				</View>
 			</TableViewRow>
@@ -43,7 +43,7 @@
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup" onClick="handleEvent">
-				<Button id="doneBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickDone" />
+				<Button id="doneBtn" analyticsId="DoneBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>

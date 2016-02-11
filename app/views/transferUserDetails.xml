@@ -5,18 +5,18 @@
 		</View>
 		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 			<View id="nameView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
-				<Widget id="lnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+				<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
 				<View id="nameVDividerView" class="v-divider" />
 			</View>
 			<View class="h-divider" />
-			<Widget id="dobDp" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
+			<Widget id="dobDp" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="phoneTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
+			<Widget id="phoneTxt" analyticsId="DobDropDwn" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
 		</View>
-		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit"/>
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit"/>
 		<!--bring the login button on edit might bring additional efforts,
 		not required as user has already chosen to enter his information-->
-		<Widget id="loginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickLogin" if="!$.args.user" />
+		<Widget id="loginAttr" analyticsId="LoginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickLogin" if="!$.args.user" />
 	</ScrollView>
 </Alloy>

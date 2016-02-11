@@ -78,7 +78,8 @@ function didGetPatient() {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
 				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled"],
-				id : "familyCareAddBtn"
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -179,7 +180,8 @@ function didGetPatient() {
 			familyMemberAddDict = $.createStyle({
 				classes : ["margin-bottom", "margin-top", "primary-bg-color", "primary-light-fg-color", "primary-border","width-90","height-30", "h3"],
 				title : $.strings.familyCareMemberBtnAdd,
-				id : "familyCareAddBtn"
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
 			});
 			$.familyMemberAddBtn = Ti.UI.createButton(familyMemberAddDict);
 			$.familyCareView.add($.familyMemberAddBtn);

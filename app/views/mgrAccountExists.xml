@@ -5,6 +5,6 @@
 		</View>
 		<Label id="mgrSignInLbl" class="margin-left margin-right"/>
 		<Label id="mgrAddLbl" class="margin-top margin-left margin-right"/>
-		<Button id="signInBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignIn"/>
+		<Button id="signInBtn" analyticsId="SignInBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignIn"/>
 	</View>
 </Alloy>
