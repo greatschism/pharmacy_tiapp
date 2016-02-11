@@ -6,4 +6,7 @@
 },
 "#addTitleLbl":{
 	text: Alloy.Globals.strings.remindersMedAddLblTitle
+},
+"#tableView":{
+	analyticsId: "RemindersMedList"
 }

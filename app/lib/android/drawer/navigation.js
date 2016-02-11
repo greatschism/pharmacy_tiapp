@@ -90,7 +90,7 @@ function Navigation(args) {
 			return;
 		}
 
-		analyticsHandler.navEvent(that.currentController.ctrlShortCode || TAG, ctrlShortCode[params.ctrl]);
+		analyticsHandler.trackScreen(ctrlShortCode[params.ctrl]);
 
 		if (params.stack) {
 			return that.push(params);
@@ -252,7 +252,7 @@ function Navigation(args) {
 		var currentController = that.controllers[that.controllers.length - 1],
 		    window = that.currentController.getView();
 
-		analyticsHandler.navEvent(that.currentController.ctrlShortCode, currentController.ctrlShortCode);
+		analyticsHandler.trackScreen(currentController.ctrlShortCode);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);
