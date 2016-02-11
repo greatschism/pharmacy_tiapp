@@ -13,8 +13,8 @@
 				<Widget id="autoLoginSwt" src="ti.switch" class="right swt" onChange="didChangeAutoLogin"/>
 			</View>
 			<Button id="loginBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickLogin" />
-			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-top attributed" onClick="didClickForgotPassword" />
-			<Widget id="signupAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickSignup" />
+			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed" onClick="didClickForgotPassword" />
+			<Widget id="signupAttr" src="ti.styledlabel" class="margin-left margin-top margin-bottom attributed" onClick="didClickSignup" />
 		</View>
 		<Label id="aboutAttr" class="margin-right bottom margin-bottom active-fg-color" onClick="didClickAbout"/>
 		<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
