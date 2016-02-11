@@ -695,9 +695,21 @@ function didClickSwipeOption(e) {
 	}
 	switch (e.action) {
 	case 1:
+		$.analyticsHandler.handleEvent($.ctrlShortCode, {
+			type : "swipe",
+			source : {
+				analyticsId : "HidePrescription"
+			}
+		});
 		doConfirmHide(e);
 		break;
 	case 2:
+		$.analyticsHandler.handleEvent($.ctrlShortCode, {
+			type : "swipe",
+			source : {
+				analyticsId : "RefillPrescription"
+			}
+		});
 		/**
 		 * check whether this
 		 * prescription can be refilled

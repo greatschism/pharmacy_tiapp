@@ -384,15 +384,9 @@ function didGetDistance(result, passthrough) {
 		 * Note: if currentViewType === viewTypeList, no mater
 		 * if distance is > max home and favourite
 		 * will remain on the list
-		 *
-		 * Also mail order stores cannot be picked
-		 * from store locator when mail_order_store_pickup_enabled
-		 * and mailOrderStoreEnabled are false
-		 * (mailOrderStoreEnabled's default value is true) (PHA-910 - #1)
 		 */
-		var mailOrderStoreId = Alloy.Models.appload.get("mail_order_store_id");
 		stores = _.reject(stores, function(store) {
-			if ((args.mailOrderStoreEnabled !== false || Alloy.CFG.mail_order_store_pickup_enabled || store.id != mailOrderStoreId) && (store.distance <= max || (currentViewType == viewTypeList && ((parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0))))) {
+			if (store.distance <= max || (currentViewType == viewTypeList && ((parseInt(store.ishomepharmacy) || 0) || (parseInt(store.isbookmarked) || 0)))) {
 				return false;
 			}
 			return true;
@@ -418,7 +412,19 @@ function didGetDistance(result, passthrough) {
 }
 
 function prepareData(result, passthrough) {
-
+	/**
+	 * Mail order stores cannot be picked
+	 * from store locator when mail_order_store_pickup_enabled
+	 * and mailOrderStoreEnabled are false
+	 * (mailOrderStoreEnabled's default value is true) (PHA-910 - #1)
+	 */
+	var mailOrderStoreId = Alloy.Models.appload.get("mail_order_store_id");
+	result.data.stores.stores_list = _.reject(result.data.stores.stores_list, function(store) {
+		if (args.mailOrderStoreEnabled !== false || Alloy.CFG.mail_order_store_pickup_enabled || store.id != mailOrderStoreId) {
+			return false;
+		}
+		return true;
+	});
 	/**
 	 * need to set here
 	 * when search criteria is passed
@@ -428,14 +434,12 @@ function prepareData(result, passthrough) {
 	if (_.isEmpty(currentLocation) && result.data.stores.latitude && result.data.stores.longitude) {
 		currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
 	}
-
 	/*
 	 *  we are making a new api call
 	 *  the data of this api call should sync when switching between list and map
 	 */
 	isListPrepared = false;
 	isMapPrepared = false;
-
 	//common parsing logics
 	var loggedIn = Alloy.Globals.isLoggedIn;
 	/**
@@ -476,13 +480,11 @@ function prepareData(result, passthrough) {
 			longitude : Number(store.longitude)
 		});
 	});
-
 	/**
 	 * update collection
 	 * with validated stores
 	 */
 	Alloy.Collections.stores.reset(result.data.stores.stores_list);
-
 	/**
 	 *  load list or map based on the view type
 	 */
@@ -495,7 +497,6 @@ function prepareData(result, passthrough) {
 		 */
 		prepareMap(passthrough);
 	}
-
 	/*
 	 * hide loader
 	 */

@@ -66,6 +66,9 @@
 "#headerLbl":{
 	text: Alloy.Globals.strings.prescAddSectionReminders
 },
+"#tableView":{
+	analyticsId: "PrescriptionList"
+},
 "#tableView[if=!$.args.selectable]":{
 	bottom: null
 },

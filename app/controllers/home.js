@@ -101,12 +101,12 @@ function didGetFeedback(event) {
 		switch(index) {
 		case 0:
 			//great
-			sendFeatureEvent("feedbackGreat");
+			trackEvent("click", "FeedbackGreat");
 			showRateDialog();
 			break;
 		case 1:
 			//improve
-			sendFeatureEvent("feedbackImprove");
+			trackEvent("click", "FeedbackImprove");
 			var dialogView = $.UI.create("ScrollView", {
 				apiName : "ScrollView",
 				classes : ["top", "auto-height", "vgroup"]
@@ -151,7 +151,7 @@ function didGetFeedback(event) {
 			break;
 		case 2:
 			//cancel
-			sendFeatureEvent("feedbackCancel");
+			trackEvent("click", "FeedbackCancel");
 			feedbackHandler.option = apiCodes.feedback_option_cancel;
 			break;
 		}
@@ -190,7 +190,7 @@ function didGetComments(event) {
 		});
 		break;
 	case 1:
-		sendFeatureEvent("feedbackNotSubmitted");
+		trackEvent("click", "FeedbackNotSubmitted");
 		feedbackHandler.option = apiCodes.feedback_option_not_submitted;
 		break;
 	}
@@ -251,7 +251,7 @@ function didRateApp(event) {
 	switch(index) {
 	case 0:
 		//rate now
-		sendFeatureEvent("feedbackRated");
+		trackEvent("click", "FeedbackRated");
 		feedbackHandler.option = apiCodes.feedback_option_rated;
 		var url = Alloy.Models.appload.get("feedback_url");
 		if (url) {
@@ -260,12 +260,12 @@ function didRateApp(event) {
 		break;
 	case 1:
 		//remind later
-		sendFeatureEvent("feedbackRemind");
+		trackEvent("click", "FeedbackRemind");
 		feedbackHandler.option = apiCodes.feedback_option_remind;
 		break;
 	case 2:
 		//cancel
-		sendFeatureEvent("feedbackNotRated");
+		trackEvent("click", "FeedbackNotRated");
 		feedbackHandler.option = apiCodes.feedback_option_not_rated;
 		break;
 	}
@@ -473,11 +473,11 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	sendFeatureEvent(ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url);
+	trackEvent("navigate", ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url);
 }
 
-function sendFeatureEvent(name) {
-	$.analyticsHandler.featureEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode + "-" + name);
+function trackEvent(action, label) {
+	$.analyticsHandler.trackEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode, action, label);
 }
 
 function didClickRightNav(e) {
@@ -521,7 +521,7 @@ function didPostlayout(e) {
 }
 
 function didSubmitFeedback(result, passthrough) {
-	sendFeatureEvent("feedbackSubmitted");
+	trackEvent("click", "FeedbackSubmitted");
 	feedbackHandler.option = apiCodes.feedback_option_submitted;
 	$.uihelper.showDialog({
 		message : $.strings.homeMsgFeedbackSubmitted
@@ -529,7 +529,7 @@ function didSubmitFeedback(result, passthrough) {
 }
 
 function didNotSubmitFeedback(error, passthrough) {
-	sendFeatureEvent("feedbackApiFailed-" + error.code);
+	trackEvent("api", "FeedbackApiFailedWithCode" + error.code);
 	feedbackHandler.option = apiCodes.feedback_option_not_submitted;
 }
 

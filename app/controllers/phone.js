@@ -8,6 +8,7 @@ var args = arguments[0] || {},
     childData,
     currentPatient,
     phone,
+    lastPhone,
     otp,
     utilities = require('utilities'),
     rows = [];
@@ -34,11 +35,13 @@ function focus() {
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
-	if (currentPatient.get("mobile_number") !== null) {
-		lastPhone = currentPatient.get("mobile_number");
+	if (currentPatient.get("mobile_number") != null && currentPatient.get("mobile_number") != 'null') {
+		lastPhone = $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
 		didChangePhone({
 			value : lastPhone
 		});
+	} else {
+		lastPhone = $.phoneTxt.getValue();
 	}
 }
 
@@ -157,7 +160,7 @@ function didClickContinue() {
 			data : [{
 				add : {
 					mobile : "1" + phone,
-					old_mobile : "",
+					old_mobile : "1" + lastPhone,
 					childIds : selectedChildProxy
 				}
 			}]
