@@ -2,6 +2,8 @@ var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moduleShortCode = require("moduleShortCode");
 
+//disabling until SDK is updated
+Alloy.CFG.analytics_enabled = false;
 if (Alloy.CFG.analytics_enabled && _.has(Alloy.CFG, "ga_tracking_id")) {
 	var GA = require("ti.ga");
 	//enable debugging when it is not prod
