@@ -1,9 +1,8 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
+    utilities = require("utilities"),
     moduleShortCode = require("moduleShortCode");
 
-//disabling until SDK is updated
-Alloy.CFG.analytics_enabled = false;
 if (Alloy.CFG.analytics_enabled && _.has(Alloy.CFG, "ga_tracking_id")) {
 	var GA = require("ti.ga");
 	//enable debugging when it is not prod
@@ -36,7 +35,7 @@ var EventHandler = {
 	},
 	handleEvent : function(from, event) {
 		var source = event.section && event.section.getParent() || event.source,
-		    label = source.analyticsId || source.id;
+		    label = source.analyticsId || utilities.ucfirst(source.id);
 		if (label && label.indexOf("__alloyId") === -1) {
 			if (source.apiName === "Ti.UI.Switch") {
 				label += "-" + (source.value ? "On" : "Off");
