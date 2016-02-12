@@ -9,9 +9,11 @@ var args = arguments[0] || {},
     swipeOptions,
     sections,
     currentPrescription,
-    isWindowOpen;
+    isWindowOpen,
+    analyticsCategory;
 
 function init() {
+	analyticsCategory = require("moduleShortCode")[$.ctrlShortCode] + "-" + $.ctrlShortCode;
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true
@@ -553,9 +555,11 @@ function didClickOptionMenu(e) {
 	}
 	switch(e.index) {
 	case 0:
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "ToggleSearchOptionDialog");
 		toggleSearch();
 		break;
 	case 1:
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "PatientSyncOptionDialog");
 		/**
 		 * Refresh: By default sync happens on server side
 		 * while patient authenticate, here we force
@@ -569,9 +573,11 @@ function didClickOptionMenu(e) {
 		});
 		break;
 	case 2:
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "SortOptionDialog");
 		$.sortPicker.show();
 		break;
 	case 3:
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "UnhidePrescriptionsOptionDialog");
 		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker, false, true);
 		break;
 	}
