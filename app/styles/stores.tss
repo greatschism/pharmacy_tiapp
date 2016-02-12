@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "ToggleListMapBtn"
+},
 "#patientSwitcher[if=$.args.selectable]":{
 	disabled: true
 },

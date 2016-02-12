@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "OptionsBtn"
+},
 "#patientSwitcher[if=$.args.patientSwitcherDisabled]":{
 	disabled: true
 },
