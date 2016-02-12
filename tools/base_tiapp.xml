@@ -41,6 +41,10 @@
         <false/>
         <key>UIStatusBarStyle</key>
         <string>${STATUS_BAR_STYLE}</string>
+        <key>LSApplicationQueriesSchemes</key>
+		<array>
+		    <string>comgooglemaps</string>
+		</array>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>

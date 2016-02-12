@@ -35,7 +35,7 @@ var EventHandler = {
 	},
 	handleEvent : function(from, event) {
 		var source = event.section && event.section.getParent() || event.source,
-		    label = source.analyticsId || utilities.ucfirst(source.id);
+		    label = source.analyticsId || utilities.ucfirst(source.id || "", false);
 		if (label && label.indexOf("__alloyId") === -1) {
 			if (source.apiName === "Ti.UI.Switch") {
 				label += "-" + (source.value ? "On" : "Off");

@@ -3,6 +3,8 @@ var args = arguments[0] || {};
 (function() {
 
 	var dict = {
+		id : args.id || "rightNavBtn",
+		analyticsId : args.analyticsId || "RightNavBtn",
 		role : args.role || "rightNavButton"
 	};
 	if (OS_ANDROID) {

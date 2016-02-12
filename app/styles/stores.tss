@@ -9,7 +9,7 @@
 	analyticsId: "StoresList"
 },
 "#geoTableView":{
-	analyticsId: "LocationList"
+	analyticsId: "LocationsList"
 },
 "#mapView":{
 	animate: true,
