@@ -60,7 +60,7 @@ function didGetPatient() {
 			$.familyCareLbl = Ti.UI.createLabel();
 			$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 			$.familyCareLbl.applyProperties($.createStyle({
-				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center"],
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
 				id : "noFamilyMemberLbl"
 			}));
 			$.familyCareView.add($.familyCareLbl);
@@ -69,7 +69,7 @@ function didGetPatient() {
 			$.familyCareAddLbl = Ti.UI.createLabel();
 			$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 			$.familyCareAddLbl.applyProperties($.createStyle({
-				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center"],
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
 				id : "familyCareAddLbl"
 			}));
 			$.familyCareView.add($.familyCareAddLbl);
