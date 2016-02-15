@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "OptionsBtn"
+},
 "#patientSwitcher[if=$.args.patientSwitcherDisabled]":{
 	disabled: true
 },
@@ -27,7 +30,8 @@
 "#sortPicker":{
 	autoHide: true,
 	radioButton: true,
-	titleProperty: "code_display"
+	titleProperty: "code_display",
+	analyticsId: "SortOptionPicker"
 },
 "#sortLbl":{
 	text: Alloy.Globals.strings.prescPopupSectionSort
@@ -36,7 +40,8 @@
 	title: Alloy.Globals.strings.prescPopupSortBtnClose
 },
 "#unhidePicker":{
-	template: "itemTemplates/contentViewWithLIcon"
+	template: "itemTemplates/contentViewWithLIcon",
+	analyticsId: "UnhidePrescriptionsOptionPicker"
 },
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnNone
@@ -67,7 +72,7 @@
 	text: Alloy.Globals.strings.prescAddSectionReminders
 },
 "#tableView":{
-	analyticsId: "PrescriptionList"
+	analyticsId: "PrescriptionsList"
 },
 "#tableView[if=!$.args.selectable]":{
 	bottom: null

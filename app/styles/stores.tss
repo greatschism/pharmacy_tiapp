@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "ToggleListMapBtn"
+},
 "#patientSwitcher[if=$.args.selectable]":{
 	disabled: true
 },
@@ -9,7 +12,7 @@
 	analyticsId: "StoresList"
 },
 "#geoTableView":{
-	analyticsId: "LocationList"
+	analyticsId: "LocationsList"
 },
 "#mapView":{
 	animate: true,

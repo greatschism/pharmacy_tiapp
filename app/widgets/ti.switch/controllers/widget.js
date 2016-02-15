@@ -58,6 +58,9 @@ function applyProperties(properties, extend) {
 	if (_.has(properties, "id")) {
 		$.swt.id = properties.id;
 	}
+	if (_.has(properties, "analyticsId")) {
+		$.swt.analyticsId = properties.analyticsId;
+	}
 	if (extend !== false) {
 		_.extend(args, properties);
 		updateForState();

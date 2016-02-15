@@ -1,3 +1,4 @@
 "#rightNavBtn":{
-	title: Alloy.Globals.strings.homeNavBtnLogin
+	title: Alloy.Globals.strings.homeNavBtnLogin,
+	analyticsId: "LoginBtn"
 }
