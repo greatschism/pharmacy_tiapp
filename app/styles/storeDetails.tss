@@ -1,6 +1,9 @@
 "#storeContentView[if=!Alloy.Globals.isLoggedIn]":{
 	left: null
 },
+"#phoneAttr":{
+	analyticsId: "StorePhoneBtn"
+},
 "#directionBtn":{
 	title: Alloy.Globals.strings.storeDetBtnDirection
 },
