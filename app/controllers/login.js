@@ -5,7 +5,7 @@ var args = arguments[0] || {},
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
-	width: "20%"
+	width: "25%"
 }),
     utilities = require('utilities');
 
@@ -63,13 +63,13 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
-				width: "20%"
+				width: "25%"
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
-				width: "20%"
+				width: "25%"
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
