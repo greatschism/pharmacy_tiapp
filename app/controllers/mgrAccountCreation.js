@@ -2,7 +2,8 @@ var moment = require("alloy/moment"),
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
-	width : "20%"
+	width: "25%",
+	backgroundColor: 'transparent'
 }),
     passwordContainerViewFromTop = 0;
     var args= arguments[0]||{};
@@ -189,13 +190,15 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
-				width: "20%"
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
-				width: "20%"
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
