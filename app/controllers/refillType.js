@@ -9,9 +9,11 @@ var args = arguments[0] || {},
     store = _.omit(args.store || {}, ["shouldUpdate"]),
     rxTxtHeight,
     phone,
-    isWindowOpen;
+    isWindowOpen,
+    analyticsCategory;
 
 function init() {
+	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	$.rxTxt.setRightIcon("", $.createStyle({
 		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
 		id : "sampleBtn"
@@ -69,6 +71,7 @@ function didClickAdd(e) {
 }
 
 function didClickRemove(e) {
+	$.analyticsHandler.trackEvent(analyticsCategory, "click", "RemoveBtn");
 	/**
 	 * length after removing one text field
 	 * length - 1
@@ -401,6 +404,7 @@ function didClickPickupMode(e) {
 }
 
 function didClickHelp(e) {
+	$.analyticsHandler.trackEvent(analyticsCategory, "click", "HelpBtn");
 	$.app.navigator.open({
 		titleid : "titleRxSample",
 		ctrl : "rxSample",
