@@ -1,8 +1,8 @@
 var args = arguments[0] || {},
     navigationHandler = require("navigationHandler"),
     feedbackHandler = require("feedbackHandler"),
-    ctrlShortCode = require("ctrlShortCode"),
-    moduleShortCode = require("moduleShortCode"),
+    moduleNames = require("moduleNames"),
+    ctrlNames = require("ctrlNames"),
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
@@ -473,11 +473,11 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	trackEvent("navigate", ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url);
+	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url);
 }
 
 function trackEvent(action, label) {
-	$.analyticsHandler.trackEvent(moduleShortCode[$.ctrlShortCode] + "-" + $.ctrlShortCode, action, label);
+	$.analyticsHandler.trackEvent(moduleNames[$.ctrlShortCode] + "-" + ctrlNames[$.ctrlShortCode], action, label);
 }
 
 function didClickRightNav(e) {

@@ -13,7 +13,7 @@ var args = arguments[0] || {},
     analyticsCategory;
 
 function init() {
-	analyticsCategory = require("moduleShortCode")[$.ctrlShortCode] + "-" + $.ctrlShortCode;
+	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true

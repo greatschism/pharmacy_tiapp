@@ -1,7 +1,8 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     utilities = require("utilities"),
-    moduleShortCode = require("moduleShortCode");
+    moduleNames = require("moduleNames"),
+    ctrlNames = require("ctrlNames");
 
 if (Alloy.CFG.analytics_enabled && _.has(Alloy.CFG, "ga_tracking_id")) {
 	var GA = require("ti.ga");
@@ -40,7 +41,7 @@ var EventHandler = {
 			if (source.apiName === "Ti.UI.Switch") {
 				label += "-" + (source.value ? "On" : "Off");
 			}
-			EventHandler.trackEvent(moduleShortCode[from] + "-" + from, event.type, label);
+			EventHandler.trackEvent(moduleNames[from] + "-" + ctrlNames[from], event.type, label);
 		}
 	}
 };
