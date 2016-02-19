@@ -5,6 +5,7 @@ var args = arguments[0] || {},
     validator = args.validator,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
+    subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -314,45 +315,63 @@ function prepareList() {
 		//process sections
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:
-			var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
-			    progress = 0,
-			    subtitle;
-			if (prescription.get("latest_refill_promised_date")) {
-				var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
-				    totalTime = promisedDate.diff(requestedDate, "seconds", true),
-				    timeSpent = currentDate.diff(requestedDate, "seconds", true);
-				subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
-				progress = Math.floor((timeSpent / totalTime) * 100);
+			if (args.selectable) {
+				prescription.set({
+					itemTemplate : "masterDetailWithLIcon",
+					masterWidth : 100,
+					detailWidth : 0,
+					subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+					subtitleClasses : subtitleClasses
+				});
 			} else {
-				subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-				progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
+				var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
+				    progress = 0,
+				    subtitle;
+				if (prescription.get("latest_refill_promised_date")) {
+					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
+					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
+					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
+					subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+					progress = Math.floor((timeSpent / totalTime) * 100);
+				} else {
+					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
+					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
+				}
+				prescription.set({
+					itemTemplate : "inprogress",
+					subtitle : subtitle,
+					progress : progress,
+					subtitleClasses : subtitleWrapClasses
+				});
 			}
 			prescription.set({
 				section : "inProgress",
-				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "inprogress",
-				masterWidth : 100,
-				detailWidth : 0,
 				titleClasses : titleClasses,
-				subtitleClasses : subtitleClasses,
-				subtitle : subtitle,
-				progress : progress,
 				canHide : false
 			});
 			break;
 		case apiCodes.refill_status_ready:
-			if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
+			if (args.selectable) {
 				prescription.set({
-					tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
-					tooltipType : "negative"
+					itemTemplate : "masterDetailWithLIcon",
+					masterWidth : 100,
+					detailWidth : 0,
+					subtitleClasses : subtitleClasses
+				});
+			} else {
+				if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
+					prescription.set({
+						tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
+						tooltipType : "negative"
+					});
+				}
+				prescription.set({
+					itemTemplate : "completed"
 				});
 			}
 			prescription.set({
 				section : "readyPickup",
-				itemTemplate : args.selectable ? "masterDetailWithLIcon" : "completed",
-				masterWidth : 100,
-				detailWidth : 0,
 				titleClasses : titleClasses,
-				subtitleClasses : args.selectable && subtitleClasses,
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
