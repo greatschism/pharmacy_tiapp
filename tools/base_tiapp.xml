@@ -18,6 +18,9 @@
   <property name="android.javac.maxmemory" type="string">1024M</property>
   <ios>
     <min-ios-ver>7.1</min-ios-ver>
+   	<use-auto-layout>true</use-auto-layout>
+   	<use-app-thinning>true</use-app-thinning>
+   	<enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
     <plist>
       <dict>
       	<key>CFBundleVersion</key>
