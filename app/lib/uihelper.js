@@ -276,7 +276,7 @@ var Helper = {
 	 */
 	openCamera : function(callback, window, width, height) {
 		if (OS_IOS) {
-			var authorization = Ti.Media.cameraAuthorizationStatus;
+			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
 				return Helper.showDialog({
 					message : Alloy.Globals.strings.msgCameraAuthorizationDenied
