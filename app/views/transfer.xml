@@ -4,8 +4,8 @@
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
-		<Button id="photoBtn" class="top-disabled bg-color margin-top primary-fg-color primary-border" onClick="didClickPhoto"/>
+		<Button id="photoBtn" analyticsId="PhotoBtn" class="top-disabled bg-color margin-top primary-fg-color primary-border" onClick="didClickPhoto"/>
 		<Require src="templates/optionDivider" />
-		<Button id="typeBtn" class="bg-color primary-fg-color primary-border" onClick="didClickType"/>
+		<Button id="typeBtn" analyticsId="TypeBtn" class="bg-color primary-fg-color primary-border" onClick="didClickType"/>
 	</View>
 </Alloy>

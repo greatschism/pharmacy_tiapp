@@ -1,25 +1,25 @@
 <Alloy>
-	<Widget id="contactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
-	<Widget id="timeZonePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="contactOptionsMenu" analyticsId="ContactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
+	<Widget id="timeZonePicker" analyticsId="TimeZonePicker" src="ti.optionpicker" class="modal-dialog">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="timezoneLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="timezoneCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseTimeZone" />
+			<Button id="timezoneCloseBtn" analyticsId="TimezoneCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseTimeZone" />
 		</View>
 	</Widget>
-	<Widget id="languagePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="languagePicker" analyticsId="LanguagePicker" src="ti.optionpicker" class="modal-dialog">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="languageLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="languageCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseLanguage" />
+			<Button id="languageCloseBtn" analyticsId="LanguageCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseLanguage" />
 		</View>
 	</Widget>
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
-		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
+		<Require id="patientSwitcher" analyticsId="PatientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
 	</View>
-	<TableView id="tableView">
+	<TableView id="tableView" analyticsId="TableView" >
 		<TableViewSection>
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
@@ -48,13 +48,13 @@
 			<TableViewRow>
 				<View class="auto-height">
 					<Label id="hideExpiredPrescriptionLbl" class="margin-top margin-bottom margin-left" />
-					<Widget id="hideExpiredPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideExpPrescription"/>
+					<Widget id="hideExpiredPrescriptionSwt" analyticsId="HideExpiredPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideExpPrescription"/>
 				</View>
 			</TableViewRow>
 			<TableViewRow>
 				<View class="auto-height">
 					<Label id="hideZeroRefillPrescriptionLbl" class="margin-top margin-bottom margin-left" />
-					<Widget id="hideZeroRefillPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideZeroRefillPrescription"/>
+					<Widget id="hideZeroRefillPrescriptionSwt" analyticsId="HideZeroRefillPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideZeroRefillPrescription"/>
 				</View>
 			</TableViewRow>
 		</TableViewSection>
@@ -88,14 +88,14 @@
 			<TableViewRow>
 				<View class="auto-height">
 					<Label id="keepMeSignedInLbl" class="margin-top margin-bottom margin-left" />
-					<Widget id="keepMeSignedInSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
+					<Widget id="keepMeSignedInSwt" analyticsId="KeepMeSignedInSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
 				</View>
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Button id="contactSupportBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickContactSupport" />
-				<Button id="viewAgreementBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickViewAgreement" />
+				<Button id="contactSupportBtn" analyticsId="ContactSupportBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickContactSupport" />
+				<Button id="viewAgreementBtn" analyticsId="ViewAgreementBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickViewAgreement" />
 			</View>
 		</FooterView>
 	</TableView>

@@ -72,8 +72,8 @@ function init() {
 	if (OS_IOS) {
 		leftBtnDict = $.createStyle({
 			classes : ["left", "i4", "primary-bg-color", "primary-light-fg-color", "icon-direction"],
-			width : 50,
-			height : 60
+			width : 54,
+			height : 54
 		});
 	} else {
 		leftBtnDict = $.createStyle({

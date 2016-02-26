@@ -5,8 +5,8 @@
 		</View>
 		<ScrollView id="scrollView" class="vgroup">
 			<WebView id="webView" />
-			<Button id="acceptBtn" class="margin-bottom primary-btn" onClick="didClickAccept" />
-			<Button id="declineBtn" class="margin-bottom secondary-btn" onClick="didClickDecline" />
+			<Button id="acceptBtn" analyticsId="AcceptBtn" class="margin-bottom primary-btn" onClick="didClickAccept" />
+			<Button id="declineBtn" analyticsId="DeclineBtn" class="margin-bottom secondary-btn" onClick="didClickDecline" />
 		</ScrollView>
 	</View>
 	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />

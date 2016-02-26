@@ -1,10 +1,10 @@
 <Alloy>
-	<TableView id="tableView">
+	<TableView id="tableView" analyticsId="TableView">
 		<TableViewSection if="$.args.user">
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color" onClick="handleEvent">
 					<Label id="userLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled" />
-					<Button id="userEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditUser"/>
+					<Button id="userEditBtn" analyticsId="UserEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditUser"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
@@ -21,7 +21,7 @@
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color" onClick="handleEvent">
 					<Label id="storeLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled"/>
-					<Button id="storeEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditStore"/>
+					<Button id="storeEditBtn" analyticsId="StoreEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditStore"/>
 				</View>
 			</HeaderView>
 			<TableViewRow>
@@ -30,7 +30,7 @@
 						<Label id="storeNameLbl" class="margin-top margin-bottom margin-left margin-right" />
 						<Label id="storeTitleLbl" class="margin-bottom margin-left margin-right" />
 						<Label id="storeSubtitleLbl" class="margin-bottom margin-left inactive-fg-color" />
-						<Widget id="storePhoneAttr" src="ti.styledlabel" class="attributed margin-left margin-bottom" onClick="didClickPhone" />
+						<Widget id="storePhoneAttr" analyticsId="StorePhoneAttr" src="ti.styledlabel" class="attributed margin-left margin-bottom" onClick="didClickPhone" />
 					</View>
 				</View>
 			</TableViewRow>
@@ -39,7 +39,7 @@
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color" onClick="handleEvent">
 					<Label id="prescLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled"/>
-					<Button id="prescEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditPrec" />
+					<Button id="prescEditBtn" analyticsId="PrescEditBtn" class="top-disabled left-75 margin-right i4 txt-right active-fg-color border-disabled icon-edit margin-top" onClick="didClickEditPrec" />
 				</View>
 			</HeaderView>
 			<TableViewRow if="$.args.prescription">
@@ -49,7 +49,7 @@
 				</View>
 			</TableViewRow>
 			<TableViewRow if="!$.args.prescription">
-				<ImageView id="prescImg" class="top left" />
+				<ImageView id="prescImg" class="top left right fill-width" />
 				<Label id="instructionLbl" class="margin-top margin-left h4" />
 			</TableViewRow>
 		</TableViewSection>
@@ -57,7 +57,7 @@
 			<View class="auto-height" onClick="handleEvent">
 				<!--footer separator seems to appear on pre lollipop devices-->
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
-				<Button id="transferBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickComplete" />
+				<Button id="transferBtn" analyticsId="TransferBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickComplete" />
 			</View>
 		</FooterView>
 	</TableView>

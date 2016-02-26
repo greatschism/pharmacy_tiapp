@@ -3,6 +3,6 @@
 		<ImageView id="adultImg" class="margin-top-large" />
 		<Label id="registerAdultTitle" class="margin-top margin-left margin-right txt-center"/>
 		<Label id="registerAdultSubTitle" class="margin-top-large margin-left margin-right txt-center"/>
-		<Button id="continueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
 	</View>
 </Alloy>

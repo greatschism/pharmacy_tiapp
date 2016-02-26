@@ -14,6 +14,9 @@ function applyProperties(dict) {
 	if (_.has(dict, "id")) {
 		$.widget.id = dict.id;
 	}
+	if (_.has(dict, "analyticsId")) {
+		$.widget.analyticsId = dict.analyticsId;
+	}
 	//AC-201
 	if (_.has(dict, "bubbleParent")) {
 		$.widget.setBubbleParent(dict.bubbleParent);

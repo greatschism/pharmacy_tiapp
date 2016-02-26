@@ -4,19 +4,19 @@
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
 		<View class="margin-top margin-bottom margin-left margin-right auto-height vgroup border">
-			<Widget id="nameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
+			<Widget id="nameTxt" analyticsId="NameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="rxTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
+			<Widget id="rxTxt" analyticsId="RxTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
 		</View>
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
 			<Label id="fromLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
 		<View class="margin-top margin-left margin-right auto-height vgroup border">
-			<Widget id="phoneTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next keyboard-phone" onChange="didChangePhone" onReturn="moveToNext" />
+			<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next keyboard-phone" onChange="didChangePhone" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="storeOriginalDp" src="ti.dropdown" class="top left-disabled left dropdown border-disabled" onReturn="didChangeStore"/>
+			<Widget id="storeOriginalDp" analyticsId="StoreOriginalDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled" onReturn="didChangeStore"/>
 		</View>
 		<View id="otherTxtView" class="margin-top margin-left margin-right auto-height vgroup border"></View>
-		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
 	</ScrollView>
 </Alloy>

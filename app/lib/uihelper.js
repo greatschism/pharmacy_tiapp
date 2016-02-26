@@ -129,7 +129,7 @@ var Helper = {
 			source = source.latitude + "," + source.longitude;
 		}
 
-		var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "driving");
+		var params = "?saddr=" + source + "&daddr=" + destination + "&dirflg=" + (mode || "d");
 
 		if (OS_IOS) {
 
@@ -276,7 +276,7 @@ var Helper = {
 	 */
 	openCamera : function(callback, window, width, height) {
 		if (OS_IOS) {
-			var authorization = Ti.Media.cameraAuthorizationStatus;
+			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
 				return Helper.showDialog({
 					message : Alloy.Globals.strings.msgCameraAuthorizationDenied

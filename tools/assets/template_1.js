@@ -19,7 +19,7 @@ module.exports = {
 							"to" : "top"
 						}]
 					}]
-				}],
+				}]
 			}, {
 				"id" : "tableView",
 				"apiName" : "TableView",
@@ -42,7 +42,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -65,7 +65,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -88,7 +88,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -112,7 +112,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -136,7 +136,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -160,7 +160,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -184,7 +184,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
@@ -208,7 +208,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "Label",
-										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"],
+										"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
 									}, {
 										"apiName" : "Label",
 										"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],

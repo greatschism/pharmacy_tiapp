@@ -13,7 +13,8 @@ var args = arguments[0] || {},
 rightPwdButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
-	width : "20%"
+	width : "25%",
+	backgroundColor: 'transparent'
 }),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
@@ -382,13 +383,15 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
-				width: "20%"
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
-				width: "20%"
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);

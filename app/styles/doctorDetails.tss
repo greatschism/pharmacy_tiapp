@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "EditBtn"
+},
 "#updateBtn":{
 	title: Alloy.Globals.strings.doctorDetBtnPhotoUpdate,
 	height: 24

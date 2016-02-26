@@ -60,7 +60,7 @@ function didGetPatient() {
 			$.familyCareLbl = Ti.UI.createLabel();
 			$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 			$.familyCareLbl.applyProperties($.createStyle({
-				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center"],
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
 				id : "noFamilyMemberLbl"
 			}));
 			$.familyCareView.add($.familyCareLbl);
@@ -69,7 +69,7 @@ function didGetPatient() {
 			$.familyCareAddLbl = Ti.UI.createLabel();
 			$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 			$.familyCareAddLbl.applyProperties($.createStyle({
-				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center"],
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
 				id : "familyCareAddLbl"
 			}));
 			$.familyCareView.add($.familyCareAddLbl);
@@ -78,7 +78,8 @@ function didGetPatient() {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
 				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled"],
-				id : "familyCareAddBtn"
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -179,7 +180,8 @@ function didGetPatient() {
 			familyMemberAddDict = $.createStyle({
 				classes : ["margin-bottom", "margin-top", "primary-bg-color", "primary-light-fg-color", "primary-border","width-90","height-30", "h3"],
 				title : $.strings.familyCareMemberBtnAdd,
-				id : "familyCareAddBtn"
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
 			});
 			$.familyMemberAddBtn = Ti.UI.createButton(familyMemberAddDict);
 			$.familyCareView.add($.familyMemberAddBtn);
