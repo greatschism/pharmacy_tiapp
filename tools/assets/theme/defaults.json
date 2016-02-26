@@ -558,16 +558,16 @@
 		"autocapitalization": "Ti.UI.TEXT_AUTOCAPITALIZATION_WORDS"
 	},
 	".keyboard-email": {
-		"keyboardType": "Ti.UI.KEYBOARD_EMAIL"
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_EMAIL"
+	},
+	".keyboard-url": {
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_URL"
 	},
 	".keyboard-number": {
-		"keyboardType": "Ti.UI.KEYBOARD_NUMBER_PAD"
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_NUMBER_PAD"
 	},
 	".keyboard-phone": {
-		"keyboardType": "Ti.UI.KEYBOARD_PHONE_PAD"
-	},
-	".returnkey-previous": {
-		"returnKeyType": "Ti.UI.RETURNKEY_PREVIOUS"
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_PHONE_PAD"
 	},
 	".returnkey-next": {
 		"returnKeyType": "Ti.UI.RETURNKEY_NEXT"

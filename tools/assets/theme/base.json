@@ -343,13 +343,13 @@
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
                 "separatorColor":"${SEPARATOR_COLOR}",
-                "separatorInsets":"${SEPARATOR_INSETS}",
+                "tableSeparatorInsets":"${TABLE_SEPARATOR_INSETS}",
                 "keepSectionsWithNoRowsInSearch":false
             },
             "ListView":{
                 "backgroundColor":"${BG_COLOR}",
                 "separatorColor":"${SEPARATOR_COLOR}",
-                "separatorInsets":"${SEPARATOR_INSETS}"
+                "tableSeparatorInsets":"${TABLE_SEPARATOR_INSETS}"
             },
             "TableViewRow":{
                 "backgroundColor":"${BG_COLOR}",

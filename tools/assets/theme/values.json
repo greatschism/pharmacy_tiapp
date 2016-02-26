@@ -32,7 +32,7 @@
 	"SWITCH_THUMB_COLOR": "#FFFFFF",
 	"HINT_TEXT_COLOR": "#C7C7CD",
 	"SEPARATOR_COLOR": "#D5D5D5",
-	"SEPARATOR_INSETS": {
+	"TABLE_SEPARATOR_INSETS": {
 		"top": 0,
 		"bottom": 0,
 		"left": 0,
