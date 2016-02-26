@@ -75,7 +75,7 @@ if (OS_ANDROID) {
 		apiName : "TableView",
 		id : args.id || "tableView",
 		analyticsId : args.analyticsId || "OptionPicker",
-	}, _.pick(args, ["separatorInsets", "separatorColor"])));
+	}, _.pick(args, ["tableSeparatorInsets", "separatorColor"])));
 	$.tableView.addEventListener("click", updateItem);
 	$.contentView.add($.tableView);
 
