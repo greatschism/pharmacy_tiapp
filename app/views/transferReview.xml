@@ -49,7 +49,7 @@
 				</View>
 			</TableViewRow>
 			<TableViewRow if="!$.args.prescription">
-				<ImageView id="prescImg" class="top left" />
+				<ImageView id="prescImg" class="top left right fill-width" />
 				<Label id="instructionLbl" class="margin-top margin-left h4" />
 			</TableViewRow>
 		</TableViewSection>
