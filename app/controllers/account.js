@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     localization = require("localization"),

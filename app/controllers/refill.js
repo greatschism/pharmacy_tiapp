@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     refillScan = require("refillScan");
 
 function didClickScan(e) {

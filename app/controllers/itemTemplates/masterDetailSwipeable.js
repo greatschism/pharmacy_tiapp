@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     utilities = require("utilities"),
     uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath,

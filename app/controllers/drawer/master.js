@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "MAST",
     moment = require("alloy/moment"),
     app = require("core"),

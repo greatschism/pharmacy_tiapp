@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     uihelper = require("uihelper"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,

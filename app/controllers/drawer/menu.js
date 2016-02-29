@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     app = require("core"),
     navigationHandler = require("navigationHandler"),
     ctrlShortCode = require("ctrlShortCode"),

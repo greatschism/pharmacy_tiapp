@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     optionPadding = {
 	top : 12,

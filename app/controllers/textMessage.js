@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     authenticator = require("authenticator");
 phone = args.phone;
 otp = args.otp;
