@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     font = args.font || {
 	fontSize : 12
 },

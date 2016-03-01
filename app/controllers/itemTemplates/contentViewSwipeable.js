@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "COVS",
     utilities = require("utilities"),
     uihelper = require("uihelper"),

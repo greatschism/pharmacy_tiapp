@@ -1,4 +1,4 @@
-var args = arguments[0] || {};
+var args = $.args;
 
 function init(e) {
 	_.each(["refillView", "readyView", "pickupView"], function(val) {

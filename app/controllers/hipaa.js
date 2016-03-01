@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
 	http = require("requestwrapper"),
 	app = require("core"),
 	utilities = require('utilities'),

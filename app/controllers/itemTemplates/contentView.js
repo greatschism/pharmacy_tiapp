@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     uihelper = require("uihelper");
 
 (function() {
@@ -31,7 +31,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return uihelper.getHeightFromChildren($.contentView, true);
+	return uihelper.getHeightFromChildren($.containerView, true);
 }
 
 exports.getParams = getParams;
