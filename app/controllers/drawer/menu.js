@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     app = require("core"),
     navigationHandler = require("navigationHandler"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -53,7 +53,7 @@ function didDrawerclose(e) {
 		}
 	});
 	navigationHandler.navigate(navigation);
-	analyticsHandler.trackEvent("DrawerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
+	analyticsHandler.trackEvent("HamburgerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentItem = null;
 }
 

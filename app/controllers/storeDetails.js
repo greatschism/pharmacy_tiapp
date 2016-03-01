@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     CONSTS = "CONST_" + $.__controllerPath,
     store = args.store,
     httpClient,

@@ -3,7 +3,7 @@
  * updating this store object later
  * should not affect the previous screen
  */
-var args = arguments[0] || {},
+var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     rows = [],
     store = _.omit(args.store || {}, ["shouldUpdate"]),

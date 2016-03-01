@@ -10,7 +10,7 @@
 },
 "#tableView[platform=ios]":{
 	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-	separatorInsets: {
+	tableSeparatorInsets: {
 		top: 0,
 		left: 0
 	}

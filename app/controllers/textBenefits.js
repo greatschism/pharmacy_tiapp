@@ -1,4 +1,4 @@
-var args = arguments[0] || {};
+var args = $.args;
 function init() {
 	$.uihelper.getImage("text_benefits", $.textBenefitsImage);
 	if (args.isFamilyMemberFlow) {

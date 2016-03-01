@@ -56,6 +56,9 @@
 		"textAlign": "center",
 		"backgroundColor": "transparent"
 	},
+	"ScrollView": {
+		"disableBounce ": true
+	},
 	".rx": {
 		"maxLength": "Alloy.CFG.rx_length"
 	},

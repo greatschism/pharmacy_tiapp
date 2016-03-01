@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     navigationHandler = require("navigationHandler"),
     feedbackHandler = require("feedbackHandler"),
     moduleNames = require("moduleNames"),

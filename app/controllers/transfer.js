@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
 authenticator = require("authenticator");
 function init() {
 	$.titleLbl.text = String.format(Alloy.Globals.strings.transferLblTitle, $.strings.strClientName);

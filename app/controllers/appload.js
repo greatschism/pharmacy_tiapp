@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     app = require("core"),
     config = require("config"),
     ctrlShortCode = require("ctrlShortCode"),

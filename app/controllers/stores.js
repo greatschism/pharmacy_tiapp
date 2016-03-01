@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = require("ctrlShortCode")[$.__controllerPath],
     lblClasses = ["margin-top", "margin-bottom", "margin-left", "margin-right", "h4", "touch-disabled"],
     googleApiSuccess = "OK",
