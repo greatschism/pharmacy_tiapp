@@ -178,7 +178,7 @@ function didGetPatient() {
 		}
 		if (!$.familyMemberAddBtn) {
 			familyMemberAddDict = $.createStyle({
-				classes : ["margin-bottom", "margin-top", "primary-bg-color", "primary-light-fg-color", "primary-border","width-90","height-30", "h3"],
+				classes : ["margin-bottom", "margin-top", "primary-bg-color", "primary-light-fg-color", "primary-border","width-90","auto-height", "h3"],
 				title : $.strings.familyCareMemberBtnAdd,
 				id : "familyCareAddBtn",
 				analyticsId : "FamilyCareAddBtn"
