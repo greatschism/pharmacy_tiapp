@@ -20,6 +20,7 @@
     <min-ios-ver>7.1</min-ios-ver>
    	<use-auto-layout>true</use-auto-layout>
    	<use-app-thinning>true</use-app-thinning>
+   	<default-background-color>#FFFFFF</default-background-color>
    	<enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
     <plist>
       <dict>
