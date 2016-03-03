@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView class="disable-bounce">
+	<ScrollView class="bounce-disabled">
 		<View id="parentView" class="width-100 vgroup">
 			<ImageView id="logoImg" class="margin-top" />
 			<View id="nameView" class="margin-top-large margin-left margin-right auto-height vgroup border">
@@ -26,7 +26,7 @@
 			</View>
 			<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
 			<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignup"/>
-		</View>	
+		</View>
 		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="margin-left margin-right inactive-bg-color inactive-border hide" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="margin-left margin-right inactive-bg-color inactive-border hide" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>

@@ -114,22 +114,11 @@ var Helper = {
 			destination = destination.latitude + "," + destination.longitude;
 		}
 
-		if (_.isUndefined(source)) {
-			if (_.isEmpty(Helper.userLocation)) {
-				return Helper.getLocation(function(userLocation) {
-					if (!_.isEmpty(userLocation)) {
-						Helper.getDirection(destination, userLocation);
-					}
-				});
-			}
-			source = Helper.userLocation;
-		}
-
 		if (_.isObject(source)) {
 			source = source.latitude + "," + source.longitude;
 		}
 
-		var params = "?saddr=" + source + "&daddr=" + destination + "&dirflg=" + (mode || "d");
+		var params = "&daddr=" + destination + "&dirflg=" + (mode || "d");
 
 		if (OS_IOS) {
 
@@ -142,10 +131,10 @@ var Helper = {
 					var baseUrl;
 					switch(evt.index) {
 					case 0:
-						baseUrl = "http://maps.apple.com/";
+						baseUrl = "http://maps.apple.com/maps?saddr=" + (source || "Current%20Location");
 						break;
 					case 1:
-						baseUrl = Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://" : "http://maps.google.com/maps";
+						baseUrl = (Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://?saddr=" : "http://maps.google.com/maps?saddr=") + (source || "");
 						break;
 					}
 					Ti.Platform.openURL(baseUrl + params);
@@ -158,7 +147,7 @@ var Helper = {
 
 		} else {
 
-			Ti.Platform.openURL("http://maps.google.com/maps" + params);
+			Ti.Platform.openURL("http://maps.google.com/maps?saddr=" + (source || "") + params);
 
 		}
 	},

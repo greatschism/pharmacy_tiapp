@@ -524,9 +524,6 @@
                     "backgroundColor":"${PRIMARY_COLOR}"
                 }
             },
-            ".disable-bounce":{
-		    	"disableBounce" : true
-		    },
             ".modal-dialog":{
                 "color":"${FG_COLOR}",
                 "iconColor":"${INACTIVE_COLOR}",
