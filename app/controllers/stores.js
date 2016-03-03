@@ -1024,10 +1024,7 @@ function didClickMap(e) {
 				break;
 			case "leftPane":
 				//open direction only using user location - PHA-1084
-				$.uihelper.getDirection({
-					latitude : store.get("latitude"),
-					longitude : store.get("longitude")
-				});
+				$.uihelper.getDirection(store.pick(["latitude", "longitude"]));
 				break;
 			}
 		}

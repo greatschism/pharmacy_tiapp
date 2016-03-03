@@ -148,10 +148,7 @@ function didClickPhone(e) {
 }
 
 function didClickDirection(e) {
-	$.uihelper.getDirection({
-		latitude : store.latitude,
-		longitude : store.longitude
-	});
+	$.uihelper.getDirection(_.pick(store, ["latitude", "longitude"]));
 }
 
 function didClickRefill(e) {
