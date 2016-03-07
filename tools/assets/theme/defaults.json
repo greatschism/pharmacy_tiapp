@@ -56,9 +56,6 @@
 		"textAlign": "center",
 		"backgroundColor": "transparent"
 	},
-	"ScrollView": {
-		"disableBounce ": true
-	},
 	".rx": {
 		"maxLength": "Alloy.CFG.rx_length"
 	},
@@ -483,6 +480,24 @@
 	},
 	".hwrap-enabled": {
 		"horizontalWrap": true
+	},
+	".bounce-disabled": {
+		"disableBounce": true
+	},
+	".vbounce-disabled": {
+		"verticalBounce": false
+	},
+	".hbounce-disabled": {
+		"horizontalBounce": false
+	},
+	".bounce-enabled": {
+		"disableBounce": false
+	},
+	".vbounce-enabled": {
+		"verticalBounce": true
+	},
+	".hbounce-enabled": {
+		"horizontalBounce": true
 	},
 	".show": {
 		"visible": true
