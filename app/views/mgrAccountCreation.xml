@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView class="bounce-disabled">
+	<ScrollView class="disable-bounce">
 		<View id="parentView" class="width-100 vgroup">
 			<Label id="mgrTitleLbl" class="margin-top margin-left margin-right h2 txt-center"/>
 			<ImageView id="logoImg" class="margin-top margin-bottom" />
