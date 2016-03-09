@@ -3,7 +3,7 @@
  */
 module.exports = {
 	"data" : [{
-		"apiName" : "View",
+		"apiName" : "ScrollView",
 		"children" : [{
 			"items" : [{
 				"id" : "bannerView",
@@ -23,6 +23,7 @@ module.exports = {
 			}, {
 				"id" : "tableView",
 				"apiName" : "TableView",
+				"classes" : ["disable-scroll"],
 				"children" : [{
 					"addChild" : "setFooterView",
 					"items" : [{

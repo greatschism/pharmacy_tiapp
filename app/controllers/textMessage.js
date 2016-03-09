@@ -14,12 +14,6 @@ function init() {
 }
 
 function backButtonHandler() {
-	if(args.replyTextMsgBtn === true)
-	{
-		$.uihelper.showDialog({
-			message : $.strings.textMessagePhoneNumberNotUpdatedWarningMsg
-		});
-	}
 }
 
 function skipClicked() {

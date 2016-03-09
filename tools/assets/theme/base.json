@@ -374,7 +374,7 @@
                 "top":"${MARGIN_TOP}",
                 "left":"${MARGIN_LEFT}",
                 "right":"${MARGIN_RIGHT}",
-                "height":"${INPUT_HEIGHT}",
+                "height":"${BUTTON_HEIGHT}",
                 "borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}"
             },
@@ -394,6 +394,17 @@
             ".attributed[platform=android]":{
                 "font":"${H6_PLATFORM_ANDROID}",
                 "secondaryfont":"${H5_PLATFORM_ANDROID}"
+            },
+            ".attributed-17":{
+                "secondarycolor":"${ACTIVE_COLOR}"
+            },
+            ".attributed-17[platform=ios]":{
+                "font":"${FONT_SIZE_REGULAR_17}",
+                "secondaryfont":"${FONT_SIZE_MEDIUM_17}"
+            },
+            ".attributed-17[platform=android]":{
+                "font":"${FONT_SIZE_REGULAR_17}",
+                "secondaryfont":"${FONT_SIZE_MEDIUM_17}"
             },
             ".txt-border-view":{
                 "height":"${INPUT_HEIGHT}",
@@ -524,6 +535,9 @@
                     "backgroundColor":"${PRIMARY_COLOR}"
                 }
             },
+            ".disable-bounce":{
+		    	"disableBounce" : true
+		    },
             ".modal-dialog":{
                 "color":"${FG_COLOR}",
                 "iconColor":"${INACTIVE_COLOR}",
@@ -743,6 +757,15 @@
             },
             ".i7[platform=android]":{
                 "font":"${I7_PLATFORM_ANDROID}"
+            },
+            ".fsr13":{
+            	"font":"${FONT_SIZE_REGULAR_13}"
+            },
+            ".fsr17":{
+            	"font":"${FONT_SIZE_REGULAR_17}"
+            },
+            ".fsm17":{
+            	"font":"${FONT_SIZE_MEDIUM_17}"
             },
             ".h-divider":{
                 "height":"${BORDER_WIDTH}",
