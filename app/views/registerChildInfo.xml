@@ -2,7 +2,7 @@
 	<View class="vgroup auto-height top">
 		<Label id="childInfoTitle" class="margin-top margin-left margin-right h2 txt-center"/>
 		<ImageView id="infoImg" class="margin-top"/>
-		<Label id="childInfoLbl" class="margin-top margin-left margin-right margin-bottom"/>
+		<Label id="childInfoLbl" class="margin-top margin-left margin-right margin-bottom fsr17"/>
 		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didCreateMgrAccount"/>
 		<Label id="childInfoAttr" analyticsId="ChildInfoAttr" class="margin-left margin-right active-color active-fg-color border-disabled" onClick="didClickAccountExists"/>
 	</View>

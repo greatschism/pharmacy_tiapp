@@ -48,6 +48,7 @@
 	"NAV_BAR_HEIGHT_ANDROID": 48,
 	"PROGRESS_BAR_HEIGHT": 10,
 	"INPUT_HEIGHT": 50,
+	"BUTTON_HEIGHT": 60,
 	"MULTILINE_INPUT_HEIGHT": 120,
 	"MARGIN_TOP": 12,
 	"MARGIN_BOTTOM": 12,
@@ -197,5 +198,17 @@
 	"I7_PLATFORM_ANDROID": {
 		"fontFamily": "icon",
 		"fontSize": 12
+	},
+	"FONT_SIZE_REGULAR_17": {
+		"fontFamily": "regular",
+		"fontSize": 17
+	},
+	"FONT_SIZE_MEDIUM_17": {
+		"fontFamily": "medium",
+		"fontSize": 17
+	},
+	"FONT_SIZE_REGULAR_13": {
+		"fontFamily": "regular",
+		"fontSize": 13
 	}
 }

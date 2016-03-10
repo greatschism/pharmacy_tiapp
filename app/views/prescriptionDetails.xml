@@ -35,15 +35,15 @@
 		</Widget>
 		<View class="margin-top margin-left margin-right auto-height hgroup hwrap-disabled">
 			<View class="top width-30 auto-height vgroup">
-				<Label id="refillsLeftLbl" class="margin-left-small margin-right-small h8 txt-center inactive-fg-color wrap-disabled" />
+				<Label id="refillsLeftLbl" class="margin-left-small margin-right-small fsr13 txt-center inactive-fg-color wrap-disabled" />
 				<Button id="refillsLeftBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
 			<View class="top width-35 auto-height vgroup">
-				<Label id="dueLbl" class="margin-left-small margin-right-small h8 txt-center inactive-fg-color wrap-disabled" />
+				<Label id="dueLbl" class="margin-left-small margin-right-small fsr13 txt-center inactive-fg-color wrap-disabled" />
 				<Button id="dueBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
 			<View class="top width-35 auto-height vgroup" onClick="showHistory">
-				<Label id="lastRefillLbl" class="margin-left-small margin-right-small min-height h8 txt-center inactive-fg-color wrap-disabled" />
+				<Label id="lastRefillLbl" class="margin-left-small margin-right-small min-height fsr13 txt-center inactive-fg-color wrap-disabled" />
 				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h7 inactive-light-bg-color fg-color inactive-light-border" />
 			</View>
 		</View>
