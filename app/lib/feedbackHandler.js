@@ -8,7 +8,7 @@ function updateCounter(action) {
 	 * check whether feedback feature is enabled
 	 * and current action matches feedback action trigger
 	 */
-	if (Alloy.CFG.is_feedback_enabled && Alloy.CFG.feedback_action === action && !isEnabled) {
+	if (Alloy.CFG.feedback_action === action && !isEnabled) {
 		/**
 		 * when option is cancel / remind
 		 * continue based on counter value
