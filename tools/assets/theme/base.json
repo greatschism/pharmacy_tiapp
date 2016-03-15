@@ -406,6 +406,17 @@
                 "font":"${FONT_SIZE_REGULAR_17}",
                 "secondaryfont":"${FONT_SIZE_MEDIUM_17}"
             },
+            ".attributed-20":{
+                "secondarycolor":"${ACTIVE_COLOR}"
+            },
+            ".attributed-20[platform=ios]":{
+                "font":"${H4_PLATFORM_IOS}",
+                "secondaryfont":"${H3_PLATFORM_IOS}"
+            },
+            ".attributed-20[platform=android]":{
+               "font":"${H4_PLATFORM_ANDROID}",
+                "secondaryfont":"${H3_PLATFORM_ANDROID}"
+            },
             ".txt-border-view":{
                 "height":"${INPUT_HEIGHT}",
                 "borderColor":"${INACTIVE_LIGHT_COLOR}",

@@ -1,7 +1,7 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
-			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
+			<Label id="titleLbl" class="margin-left margin-top margin-bottom h3 inactive-fg-color"/>
 		</View>
 		<View class="margin-top margin-bottom margin-left margin-right auto-height vgroup border">
 			<Widget id="nameTxt" analyticsId="NameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
