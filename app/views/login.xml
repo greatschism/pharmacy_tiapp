@@ -2,7 +2,7 @@
 	<ScrollView id="scrollView">
 		<View class="vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
-			<Label id="titleLbl" class="margin-top-large margin-left margin-right h4 txt-center" />
+			<Label id="titleLbl" class="margin-top-large margin-left margin-right h4" />
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="usernameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider" />
