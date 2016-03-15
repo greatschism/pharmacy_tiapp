@@ -23,7 +23,7 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
-					<Label id="notificationLbl" class="margin-left right-25 fsm17 inactive-fg-color" />
+					<Label id="notificationLbl" class="margin-left right-25 h3 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickmobileNumber">
@@ -42,7 +42,7 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
-					<Label id="prescriptionDisplayLbl" class="margin-left right-25 fsm17 inactive-fg-color" />
+					<Label id="prescriptionDisplayLbl" class="margin-left right-25 h3 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow>
@@ -61,7 +61,7 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
-					<Label id="locationSettingLbl" class="margin-left right-25 fsm17 inactive-fg-color" />
+					<Label id="locationSettingLbl" class="margin-left right-25 h3 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickTimeZone">
@@ -82,7 +82,7 @@
 		<TableViewSection>
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
-					<Label id="loginLbl" class="margin-left right-25 fsm17 inactive-fg-color" />
+					<Label id="loginLbl" class="margin-left right-25 h3 inactive-fg-color" />
 				</View>
 			</HeaderView>
 			<TableViewRow>

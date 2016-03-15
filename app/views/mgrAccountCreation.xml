@@ -3,7 +3,7 @@
 		<View id="parentView" class="width-100 vgroup">
 			<Label id="mgrTitleLbl" class="margin-top margin-left margin-right h2 txt-center"/>
 			<ImageView id="logoImg" class="margin-top margin-bottom" />
-			<Label id="mgrSubTitleLbl" class="margin-top-large margin-left margin-right margin-bottom fsr17"/>
+			<Label id="mgrSubTitleLbl" class="margin-top-large margin-left margin-right margin-bottom h4"/>
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<View id="nameView" class="auto-height">
 					<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
