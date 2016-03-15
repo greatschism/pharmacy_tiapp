@@ -48,9 +48,9 @@
 					<Label id="rxLbl" class=" margin-bottom margin-left margin-right"/>
 				</View>
 			</TableViewRow>
-			<TableViewRow if="!$.args.prescription">
+			<TableViewRow if="!$.args.prescription" class="vgroup">
+				<Label id="instructionLbl" class="margin-top txt-center h4" />
 				<ImageView id="prescImg" class="top left right fill-width" />
-				<Label id="instructionLbl" class="margin-top margin-left h4" />
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
