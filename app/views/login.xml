@@ -2,19 +2,19 @@
 	<ScrollView id="scrollView">
 		<View class="vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
-			<Label id="titleLbl" class="margin-top-large margin-left margin-right fsr17" />
+			<Label id="titleLbl" class="margin-top-large margin-left margin-right h4" />
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="usernameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider" />
 				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickLogin" onClick="didChangeToggle"/>
 			</View>
 			<View id="autoLoginView" class="margin-top margin-left margin-right auto-height margin-bottom" >
-				<Label id="autoLoginLbl" class="left right-40 fsr17" onPostlayout="didPostlayout" />
+				<Label id="autoLoginLbl" class="left right-40 h4" onPostlayout="didPostlayout" />
 				<Widget id="autoLoginSwt" src="ti.switch" class="right swt" onChange="didChangeAutoLogin"/>
 			</View>
 			<Button id="loginBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickLogin" />
-			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed-17" onClick="didClickForgotPassword" />
-			<Widget id="signupAttr" src="ti.styledlabel" class="margin-left margin-top margin-bottom attributed-17" onClick="didClickSignup" />
+			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed-20" onClick="didClickForgotPassword" />
+			<Widget id="signupAttr" src="ti.styledlabel" class="margin-left margin-top margin-bottom attributed-20" onClick="didClickSignup" />
 		</View>
 		<Label id="aboutAttr" class="margin-right bottom margin-bottom active-fg-color" onClick="didClickAbout"/>
 		<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
