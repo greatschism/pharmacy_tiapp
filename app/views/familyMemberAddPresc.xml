@@ -26,7 +26,7 @@
 			</View>
 		<Button id="btnUpdateAccount" analyticsId="UpdateAccountBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="addPrescriptions"/>
 		</View>
-		<Widget id="rxTooltip" analyticsId="RxToolTp" src="ti.tooltip" class="margin-left margin-right inactive-bg-color inactive-border hide" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Widget id="rxTooltip" analyticsId="RxToolTp" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 
 	</ScrollView>
 </Alloy>
