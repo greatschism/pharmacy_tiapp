@@ -948,6 +948,28 @@
             ".tentative-fg-color":{
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
+            },
+            ".txt-tool-tip[platform=ios]":{
+            	"left":"${MARGIN_LEFT}",
+            	"right":"${MARGIN_RIGHT}",
+            	"backgroundColor":"${INACTIVE_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}",
+            	"borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${INACTIVE_COLOR}",
+                "visible": false,
+                "font":"${H4_PLATFORM_IOS}"
+            },
+            ".txt-tool-tip[platform=android]":{
+            	"left":"${MARGIN_LEFT}",
+            	"right":"${MARGIN_RIGHT}",
+            	"backgroundColor":"${INACTIVE_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}",
+            	"borderWidth":"${BORDER_WIDTH}",
+                "borderRadius":"${BORDER_RADIUS}",
+                "borderColor":"${INACTIVE_COLOR}",
+                "visible": false,
+                "font":"${H4_PLATFORM_ANDROID}"
             }
         }
     }

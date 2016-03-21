@@ -2,26 +2,27 @@
 	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
 			<View id="refillView" class="margin-top margin-left margin-right auto-height" onClick="didClickRefill">
-				<Label class="left i4 active-fg-color icon-filled-refresh"/>
-				<View class="margin-left auto-height vgroup" onPostlayout="didPostlayout">
-					<Label id="refillTitleLbl" class="left h4" />
-					<Label id="refillDescLbl" class="left inactive-fg-color" />
+				<Label class="margin-left-large i4 active-fg-color icon-filled-refresh"/>
+				<View class="auto-height vgroup" onPostlayout="didPostlayout">
+					<Label id="refillTitleLbl" class="left-10 h4" />
+					<Label id="refillDescLbl" class="left-10 inactive-fg-color" />
 				</View>
 			</View>
 			<View class="margin-top h-divider-light" />
 			<View id="medView" class="margin-top margin-left margin-right auto-height" onClick="didClickMed">
-				<Label class="left i4 positive-fg-color icon-filled-torchlight"/>
-				<View class="margin-left auto-height vgroup">
-					<Label id="medTitleLbl" class="left h4" />
-					<Label id="medDescLbl" class="left inactive-fg-color" />
+				<Label class="margin-left-large i4 positive-fg-color icon-filled-torchlight"/>
+				<View class="auto-height vgroup">
+					<Label id="medTitleLbl" class="left-10 h4" />
+					<Label id="medDescLbl" class="left-10 inactive-fg-color" />
 				</View>
 			</View>
 			<View class="margin-top h-divider-light" />
+			<View class="top-10 h-divider-light" />
 			<View id="settingsView" class="margin-top margin-left margin-right auto-height" onClick="didClickSettings">
-				<Label class="left i4 tentative-fg-color icon-filled-settings"/>
-				<View class="margin-left auto-height vgroup">
-					<Label id="settingsTitleLbl" class="left h4" />
-					<Label id="settingsDescLbl" class="left inactive-fg-color" />
+				<Label class="margin-left-large i4 tentative-fg-color icon-filled-settings"/>
+				<View class="auto-height vgroup">
+					<Label id="settingsTitleLbl" class="left-10 h4" />
+					<Label id="settingsDescLbl" class="left-10 inactive-fg-color" />
 				</View>
 			</View>
 			<View class="margin-top margin-bottom h-divider-light" />
