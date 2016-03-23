@@ -82,7 +82,8 @@ function didReceivePush(e) {
 
 Object.defineProperty(exports, "deviceId", {
 	get : function() {
-		return TiPush.deviceId;
+		var tiDeviceId = Titanium.Platform.getId();
+		return tiDeviceId;
 	}
 });
 
