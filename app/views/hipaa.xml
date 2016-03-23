@@ -1,12 +1,12 @@
 <Alloy>
 	<View class="vgroup">
-		<View class="content-header-view-wrap" >
-			<Label id="optionalMessageSectionLbl" class="content-header-lbl-wrap"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="optionalMessageSectionLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
 		<ScrollView id="scrollView" class="vgroup">
 			<WebView id="webView" />
-			<Button id="acceptBtn" analyticsId="AcceptBtn" class="margin-bottom primary-btn" onClick="didClickAccept" />
-			<Button id="declineBtn" analyticsId="DeclineBtn" class="margin-bottom secondary-btn" onClick="didClickDecline" />
+			<Button id="acceptBtn" analyticsId="AcceptBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickAccept" />
+			<Button id="declineBtn" analyticsId="DeclineBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDecline" />
 		</ScrollView>
 	</View>
 	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
