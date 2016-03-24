@@ -20,11 +20,11 @@ module.exports = {
 				}]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["margin-top-medium", "bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
@@ -42,9 +42,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "prescriptions"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -66,9 +69,12 @@ module.exports = {
 				"navigation" : {
 					"action" : "refill"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -91,9 +97,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "reminders"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -116,9 +125,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "familyCare"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -141,9 +153,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "stores"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -166,9 +181,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "transfer"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -191,9 +209,12 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "doctors"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -215,6 +236,9 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "account"
 				}
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "h-divider-light"]
 			}]
 		}]
 	}]

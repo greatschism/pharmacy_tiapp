@@ -143,6 +143,18 @@ function setText(text, styles, accessibilityLabel, accessibilityHidden) {
 		font : _.clone(args.font) || {
 			fontSize : 12
 		},
+		color : _.clone(args.color) || {
+			color : '#000'
+		},
+		textAlign : _.clone(args.textAlign) || {
+			textAlign : Titanium.UI.TEXT_ALIGNMENT_LEFT
+		},
+		left : _.clone(args.left) || {
+			left : 0
+		},
+		right : _.clone(args.right) || {
+			right : 0
+		},
 		text : text,
 		touchEnabled : false,
 		accessibilityHidden : _.isUndefined(accessibilityHidden) ? false : accessibilityHidden,

@@ -231,7 +231,7 @@ function didFocusPassword(e) {
 
 function didPostlayoutPasswordContainerView(e) {
 	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y;
+	passwordContainerViewFromTop = e.source.rect.y - 15;
 }
 
 function didPostlayoutTooltip(e) {
