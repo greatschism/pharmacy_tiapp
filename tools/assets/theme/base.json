@@ -769,8 +769,11 @@
             ".i7[platform=android]":{
                 "font":"${I7_PLATFORM_ANDROID}"
             },
-            ".fsr13":{
-            	"font":"${FONT_SIZE_REGULAR_13}"
+            ".fsr14":{
+            	"font":"${FONT_SIZE_REGULAR_14}"
+            },
+            ".fsm14":{
+            	"font":"${FONT_SIZE_MEDIUM_14}"
             },
             ".fsr17":{
             	"font":"${FONT_SIZE_REGULAR_17}"
@@ -952,24 +955,32 @@
             ".txt-tool-tip[platform=ios]":{
             	"left":"${MARGIN_LEFT}",
             	"right":"${MARGIN_RIGHT}",
+            	"top":"${MARGIN_TOP_SMALL}",
+            	"bottom":"${MARGIN_BOTTOM_SMALL}",
             	"backgroundColor":"${INACTIVE_COLOR}",
                 "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}",
             	"borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"${INACTIVE_COLOR}",
                 "visible": false,
-                "font":"${H4_PLATFORM_IOS}"
+                "font":"${FONT_SIZE_MEDIUM_14}",
+                "color":"${LIGHT_FG_COLOR}",
+                "textAlign": "center"
             },
             ".txt-tool-tip[platform=android]":{
             	"left":"${MARGIN_LEFT}",
             	"right":"${MARGIN_RIGHT}",
+            	"top":"${MARGIN_TOP_SMALL}",
+            	"bottom":"${MARGIN_BOTTOM_SMALL}",
             	"backgroundColor":"${INACTIVE_COLOR}",
                 "backgroundSelectedColor":"${INACTIVE_SELECTED_COLOR}",
             	"borderWidth":"${BORDER_WIDTH}",
                 "borderRadius":"${BORDER_RADIUS}",
                 "borderColor":"${INACTIVE_COLOR}",
                 "visible": false,
-                "font":"${H4_PLATFORM_ANDROID}"
+                "font":"${FONT_SIZE_MEDIUM_14}",
+                "color":"${LIGHT_FG_COLOR}",
+                "textAlign": "center"
             }
         }
     }

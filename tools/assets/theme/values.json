@@ -207,8 +207,12 @@
 		"fontFamily": "medium",
 		"fontSize": 17
 	},
-	"FONT_SIZE_REGULAR_13": {
+	"FONT_SIZE_REGULAR_14": {
 		"fontFamily": "regular",
-		"fontSize": 13
+		"fontSize": 14
+	},
+	"FONT_SIZE_MEDIUM_14": {
+		"fontFamily": "medium",
+		"fontSize": 14
 	}
 }
