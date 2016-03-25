@@ -2,6 +2,7 @@ var args = $.args,
     childProxyData = [],
     selectedChildProxy,
     authenticator = require("authenticator"),
+    moment = require("alloy/moment"),
     accntMgrData,
     parentData,
     allChildData,
@@ -154,6 +155,22 @@ function didClickContinue() {
 			return;
 		}
 	}
+	
+	/**
+	 * Check if the person has a minor account linked.
+	 * If yes, send his ID as part of the mobile/add API call
+	 */
+	var minorAccount = 0;
+	var linked_data = Alloy.Collections.patients.at(0).get("child_proxy");
+	_.each(linked_data, function(child_data){
+		var mDob = moment(child_data.birth_date, Alloy.CFG.apiCodes.dob_format);
+		minorAccount = moment().diff(mDob, "years", true) >= 18 ? 0 : child_data.child_id;
+	});
+	
+	if(minorAccount){
+		selectedChildProxy.push(minorAccount);
+	}
+	
 	$.http.request({
 		method : "mobile_add",
 		params : {
