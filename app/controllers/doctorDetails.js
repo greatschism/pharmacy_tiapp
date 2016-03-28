@@ -153,6 +153,20 @@ function didSuccessDoctor(result, passthrough) {
 }
 
 function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(!result.success) {
+				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+			} else {
+				contactsHandler();
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	if (doctor.phone) {
 		$.uihelper.getPhone({
 			firstName : $.utilities.ucword(doctor.first_name || ""),

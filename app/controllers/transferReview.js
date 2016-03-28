@@ -228,6 +228,20 @@ function updateStore() {
 }
 
 function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(!result.success) {
+				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+			} else {
+				contactsHandler();
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	var store = args.store;
 	$.uihelper.getPhone({
 		firstName : store.title,

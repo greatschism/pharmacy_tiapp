@@ -147,6 +147,20 @@ function updateTable() {
 }
 
 function didClickStorePhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(!result.success) {
+				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+			} else {
+				contactsHandler();
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	$.uihelper.getPhone({
 		firstName : store.title,
 		phone : {

@@ -42,7 +42,7 @@ var Helper = {
 			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, str);
 		}
 	},
-
+	
 	/**
 	 * Get current location of user
 	 * @param {Function} callback
@@ -99,6 +99,22 @@ var Helper = {
 		Helper.userLocation = coords ? coords : {};
 		if (callback) {
 			callback(Helper.userLocation);
+		}
+	},
+	
+	checkLocationPermission : function (callback, forceUpdate, errorDialogEnabled, loader) {
+	  if(!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
+			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result){
+				if(!result.success) {
+					alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+					if (loader) 
+						loader.hide(false);
+				} else {
+					Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
+				}
+			});
+		} else {
+			Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
 		}
 	},
 
@@ -242,7 +258,17 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.openCamera(callback, window, width, height);
+					if(!Titanium.Media.hasCameraPermissions()){
+						Titanium.Media.requestCameraPermissions(function(result){
+							if(!result.success) {
+								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+							} else {
+								Helper.openCamera(callback, window, width, height);
+							}
+						});
+					} else {
+						Helper.openCamera(callback, window, width, height);
+					}
 					break;
 				case 1:
 					Helper.openGallery(callback, window, width, height);
