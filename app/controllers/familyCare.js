@@ -211,6 +211,24 @@ function didClickChildSwipeOption(e) {
 		mode = $.strings.familyMemberInviteModeEmail;
 		address = data.title;
 	}
+	/**
+	 * Check if the linked person that 
+	 * you are deleting is a minor
+	 * If he is a minor, send the is_minor flag = 1
+	 * else send is_minor flag = 0
+	 */
+	var isMinor = 0;
+	var linked_data = Alloy.Collections.patients.at(0).get("child_proxy");
+	_.each(linked_data, function(child_data){
+		if(data.child_id !== null && child_data.child_id === data.child_id){
+			var mDob = moment(child_data.birth_date, Alloy.CFG.apiCodes.dob_format);
+			isMinor = moment().diff(mDob, "years", true) >= 18 ? 0 : 1;
+		}
+	});
+	_.extend(data, {
+		is_minor : isMinor
+	});
+	
 	switch(e.action) {
 	/**
 	 * Index 0: Remove button pressed
@@ -229,7 +247,8 @@ function didClickChildSwipeOption(e) {
 						data : [{
 							patient : {
 								child_id : data.child_id,
-								link_id : data.link_id
+								link_id : data.link_id,
+								is_minor : data.is_minor
 							}
 						}]
 
