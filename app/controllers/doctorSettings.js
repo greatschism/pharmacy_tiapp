@@ -211,6 +211,15 @@ function didClickSubmit(e) {
 		passthrough : data,
 		success : didSuccessDoctor
 	});
+	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
+		/**
+		 * 
+		 * APP-222: This is a temporary fix to track the usage of
+		 * people who are trying to edit a doctor created by system 
+		 */
+		$.analyticsHandler.trackEvent("Doctors-DoctorSettings-SystemDoctor", "click", "SaveBtn");
+		$.analyticsHandler.trackScreen("Doctors-DoctorSettings-SystemDoctor");
+	}
 }
 
 function didSuccessDoctor(result, passthrough) {
