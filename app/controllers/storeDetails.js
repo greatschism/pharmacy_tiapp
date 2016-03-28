@@ -138,13 +138,27 @@ function updateFavourite() {
 	}));
 }
 
-function didClickPhone(e) {
+function contactsHandler() {
 	$.uihelper.getPhone({
 		firstName : store.title,
 		phone : {
 			work : [store.phone_formatted]
 		}
 	}, store.phone);
+}
+
+function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(!result.success) {
+				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+			} else {
+				contactsHandler();
+			}
+		});
+	} else {
+		contactsHandler();
+	}
 }
 
 function didClickDirection(e) {

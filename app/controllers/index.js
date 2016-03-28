@@ -15,6 +15,40 @@
 
 function init() {
 	//initialization
+	getStoragePermissions();
+}
+
+function getStoragePermissions() {
+	if(!OS_IOS && !Titanium.Filesystem.hasStoragePermissions()){
+		Titanium.Filesystem.requestStoragePermissions(function(result){
+			if(!result.success) {
+				var dialog = Ti.UI.createAlertDialog({
+					message : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
+					buttonNames : ["Retry", "Cancel"],
+				});
+				dialog.addEventListener("click", function(e) {
+					var index = e.index;
+					if (index == 0) {
+						getStoragePermissions();
+					} else {
+						if (!OS_IOS) {
+							var activity = Titanium.Android.currentActivity;
+ 							activity.finish();						
+						};
+					}
+				});
+				dialog.show();
+				
+			} else {
+				loadAppConifg();
+			}
+		});
+	} else {
+		loadAppConifg();
+	}
+}
+
+function loadAppConifg() {
 	require("resources").init();
 	require("config").load();
 	/**

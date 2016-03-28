@@ -37,6 +37,7 @@ function init() {
 	 * remove region change event on pause
 	 * and add back on reumed event
 	 */
+	
 	if (OS_IOS) {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
@@ -752,7 +753,7 @@ function didClearSearch(e) {
 		/**
 		 * disable error dialog and force updates
 		 */
-		$.uihelper.getLocation(didGetLocation, false, false);
+		$.uihelper.checkLocationPermission(didGetLocation, false, false);
 	}
 }
 
@@ -1243,7 +1244,7 @@ function didGetAddress(result, passthrough) {
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		$.uihelper.getLocation(didGetLocation);
+		$.uihelper.checkLocationPermission(didGetLocation, false, true, $.loader);
 	} else if (currentStore && currentStore.shouldUpdate) {
 		currentStore = null;
 		getStores(currentLocation, true, false);

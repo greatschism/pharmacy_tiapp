@@ -6,6 +6,22 @@ function didClickScan(e) {
 	 * open barcode scanner directly
 	 * when phone number is disabled
 	 */
+	
+	if(!Titanium.Media.hasCameraPermissions()){
+		Titanium.Media.requestCameraPermissions(function(result){
+			if(!result.success) {
+				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+			} else {
+				callScanner();
+			}
+		});
+	} else {
+		callScanner();
+	}
+	
+}
+
+function callScanner(){
 	if (Alloy.CFG.refill_scan_phone_enabled) {
 		$.app.navigator.open({
 			titleid : "titleRefill",
