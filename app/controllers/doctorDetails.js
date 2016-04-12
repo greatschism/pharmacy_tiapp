@@ -155,10 +155,11 @@ function didSuccessDoctor(result, passthrough) {
 function didClickPhone(e) {
 	if(!Titanium.Contacts.hasContactsPermissions()) {
 		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(!result.success) {
-				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
-			} else {
+			if(result.success) {
 				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("Doctors-DoctorDetails", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {

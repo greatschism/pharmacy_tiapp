@@ -813,8 +813,11 @@ module.exports = {
 		"addAnotherAdultLblTitle" : "es-It's time to invite your family member.",
 		"addAnotherAdultLblSubTitle" : "es-First, tell us who they are:",
 		"addAnotherAdultBtnContinue" : "es-Continue",
-		"addAnotherAdultAddRelationTip" : "es-Tap to choose..."
-
+		"addAnotherAdultAddRelationTip" : "es-Tap to choose...",
+		
+		"msgTryAgainStoragePermission" : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
+		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
+		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature."
 	}
 
 };

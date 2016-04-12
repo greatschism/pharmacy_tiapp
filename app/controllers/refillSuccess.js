@@ -149,10 +149,11 @@ function updateTable() {
 function didClickStorePhone(e) {
 	if(!Titanium.Contacts.hasContactsPermissions()) {
 		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(!result.success) {
-				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
-			} else {
+			if(result.success) {
 				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("QuickRefill-RefillSuccess", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {

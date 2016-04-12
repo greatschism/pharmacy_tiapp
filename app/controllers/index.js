@@ -15,11 +15,15 @@
 
 function init() {
 	//initialization
-	getStoragePermissions();
+	loadAppConifg();
 }
 
 function getStoragePermissions() {
-	if(!OS_IOS && !Titanium.Filesystem.hasStoragePermissions()){
+	/**
+	 * The following section has been commented, but we need to retain this
+	 * peice of code in case Android-M does not work as per expectations
+	 */
+	/*if(!OS_IOS && !Titanium.Filesystem.hasStoragePermissions()){
 		Titanium.Filesystem.requestStoragePermissions(function(result){
 			if(!result.success) {
 				var dialog = Ti.UI.createAlertDialog({
@@ -45,7 +49,7 @@ function getStoragePermissions() {
 		});
 	} else {
 		loadAppConifg();
-	}
+	}*/
 }
 
 function loadAppConifg() {
