@@ -10,7 +10,10 @@ function didClickScan(e) {
 	if(!Titanium.Media.hasCameraPermissions()){
 		Titanium.Media.requestCameraPermissions(function(result){
 			if(!result.success) {
-				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+				$.uihelper.showDialog({
+					message : $.strings.msgDenyFeaturePermission
+				});
+				$.analyticsHandler.trackEvent("RefillByScan", "click", "DeniedCameraPermission");
 			} else {
 				callScanner();
 			}

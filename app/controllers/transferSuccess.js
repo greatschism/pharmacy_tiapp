@@ -53,10 +53,11 @@ function focus() {
 function didClickPhone(e) {
 	if(!Titanium.Contacts.hasContactsPermissions()) {
 		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(!result.success) {
-				alert(Alloy.Globals.strings.msgDenyFeaturePermission);
-			} else {
+			if(result.success) {
 				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("TransferRx-TransferSuccess", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {

@@ -5,6 +5,7 @@ var TAG = "UIHE",
     config = require("config"),
     utilities = require("utilities"),
     logger = require("logger"),
+    analyticsHandler = require("analyticsHandler"),
     moment = require("alloy/moment");
 
 var Helper = {
@@ -106,7 +107,7 @@ var Helper = {
 	  if(!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
 			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result){
 				if(!result.success) {
-					alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+					analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
 					if (loader) 
 						loader.hide(false);
 				} else {
@@ -261,6 +262,7 @@ var Helper = {
 					if(!Titanium.Media.hasCameraPermissions()){
 						Titanium.Media.requestCameraPermissions(function(result){
 							if(!result.success) {
+								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							} else {
 								Helper.openCamera(callback, window, width, height);
