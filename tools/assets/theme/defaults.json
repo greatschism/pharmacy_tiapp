@@ -564,10 +564,10 @@
 		"keyboardType": "Ti.UI.KEYBOARD_TYPE_URL"
 	},
 	".keyboard-number": {
-		"keyboardType": "Ti.UI.KEYBOARD_TYPE_NUMBER_PAD"
+		"keyboardType": "Titanium.UI.KEYBOARD_NUMBER_PAD"
 	},
 	".keyboard-phone": {
-		"keyboardType": "Ti.UI.KEYBOARD_TYPE_PHONE_PAD"
+		"keyboardType": "Titanium.UI.KEYBOARD_NUMBER_PAD"
 	},
 	".returnkey-next": {
 		"returnKeyType": "Ti.UI.RETURNKEY_NEXT"

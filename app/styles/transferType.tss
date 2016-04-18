@@ -7,6 +7,7 @@
 },
 "#rxTxt":{
 	hintText: Alloy.Globals.strings.transferTypeHintRx,
+	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
 	nextItem: "phoneTxt"
 },
 "#fromLbl":{
@@ -14,6 +15,7 @@
 },
 "#phoneTxt":{
 	hintText: Alloy.Globals.strings.transferTypeHintPhone,
+	keyboardType: Titanium.UI.KEYBOARD_PHONE_PAD,
 	nextItem: "storeOriginalDp"
 },
 "#storeOriginalDp":{
