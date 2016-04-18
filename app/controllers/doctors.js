@@ -176,6 +176,21 @@ function processModel(model) {
 	 * returns null as string
 	 */
 	var imageURL = model.get("image_url");
+	
+	var decodedImageURL = '';
+	if(imageURL != null && imageURL != '' && typeof(imageURL) !== 'undefined')
+	{
+		decodedImageURL = decodeURIComponent(imageURL);
+		if(decodedImageURL.indexOf('?') != -1)
+		{
+			imageURL = decodedImageURL.split('?')[0];
+		}
+		else
+		{
+			imageURL = decodedImageURL;
+		}
+	}
+		
 	model.set({
 		image : imageURL && imageURL != "null" ? imageURL : "",
 		defaultImage : defaultImg,

@@ -149,7 +149,24 @@ function didSuccessDoctor(result, passthrough) {
 	 */
 	_.extend(doctor, passthrough);
 	doctor.method = "doctors_update";
-	$.photoImg.setImage(doctor.image_url);
+	
+	
+	var decodedImageURL = '';
+	var imageURL = '';
+	if(doctor.image_url != null && doctor.image_url != '' && typeof(doctor.image_url) !== 'undefined')
+	{
+		decodedImageURL = decodeURIComponent(doctor.image_url);
+		if(decodedImageURL.indexOf('?') != -1)
+		{
+			imageURL = decodedImageURL.split('?')[0];
+		}
+		else
+		{
+			imageURL = decodedImageURL;
+		}
+	}
+	
+	$.photoImg.setImage(imageURL);
 }
 
 function didClickPhone(e) {
