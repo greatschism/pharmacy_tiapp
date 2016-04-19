@@ -152,7 +152,7 @@ function didClickRefill(e) {
 	 * store validated here
 	 * just to follow the same order on UI
 	 */
-	if ((pickupMode !== apiCodes.pickup_mode_mail_order) && !storeId) {
+	if (!storeId) {
 		$.uihelper.showDialog({
 			message : $.strings.refillTypeValStore
 		});
