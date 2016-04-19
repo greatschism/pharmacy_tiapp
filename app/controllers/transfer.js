@@ -45,8 +45,21 @@ function didGetPhoto(blob) {
 	 * image path is used throughout this module
 	 * should not be changed
 	 */
-	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), blob, false);
+	
+	var smallBlob = null;
+	if(OS_ANDROID)
+	{
+		 smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
+	}
+	else 
+	{
+		smallBlob = blob;
+	}
+	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
+	
 	blob = null;
+	smallBlob = null;
+
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
 			titleid : "titleTransferStore",
