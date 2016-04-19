@@ -145,8 +145,8 @@
                 "session_timeout":600,
                 "http_timeout":90,
                 "location_timeout":900,
-                "photo_default_width":500,
-                "photo_default_height":500,
+                "photo_default_width":600,
+                "photo_default_height":600,
                 "thumbnail_default_width":250,
                 "thumbnail_default_height":250,
                 "iconNotations":{
