@@ -5,6 +5,7 @@ var TAG = "UIHE",
     config = require("config"),
     utilities = require("utilities"),
     logger = require("logger"),
+    analyticsHandler = require("analyticsHandler"),
     moment = require("alloy/moment");
 
 var Helper = {
@@ -42,7 +43,7 @@ var Helper = {
 			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, str);
 		}
 	},
-
+	
 	/**
 	 * Get current location of user
 	 * @param {Function} callback
@@ -101,6 +102,22 @@ var Helper = {
 			callback(Helper.userLocation);
 		}
 	},
+	
+	checkLocationPermission : function (callback, forceUpdate, errorDialogEnabled, loader) {
+	  if(!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
+			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result){
+				if(!result.success) {
+					analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
+					if (loader) 
+						loader.hide(false);
+				} else {
+					Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
+				}
+			});
+		} else {
+			Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
+		}
+	},
 
 	/**
 	 * Open maps for direction
@@ -114,22 +131,11 @@ var Helper = {
 			destination = destination.latitude + "," + destination.longitude;
 		}
 
-		if (_.isUndefined(source)) {
-			if (_.isEmpty(Helper.userLocation)) {
-				return Helper.getLocation(function(userLocation) {
-					if (!_.isEmpty(userLocation)) {
-						Helper.getDirection(destination, userLocation);
-					}
-				});
-			}
-			source = Helper.userLocation;
-		}
-
 		if (_.isObject(source)) {
 			source = source.latitude + "," + source.longitude;
 		}
 
-		var params = "?saddr=" + source + "&daddr=" + destination + "&directionsmode=" + (mode || "transit");
+		var params = "&daddr=" + destination + "&dirflg=" + (mode || "d");
 
 		if (OS_IOS) {
 
@@ -142,10 +148,10 @@ var Helper = {
 					var baseUrl;
 					switch(evt.index) {
 					case 0:
-						baseUrl = "http://maps.apple.com/";
+						baseUrl = "http://maps.apple.com/maps?saddr=" + (source || "Current%20Location");
 						break;
 					case 1:
-						baseUrl = Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://" : "http://maps.google.com/maps";
+						baseUrl = (Ti.Platform.canOpenURL("comgooglemaps://") ? "comgooglemaps://?saddr=" : "http://maps.google.com/maps?saddr=") + (source || "");
 						break;
 					}
 					Ti.Platform.openURL(baseUrl + params);
@@ -158,7 +164,7 @@ var Helper = {
 
 		} else {
 
-			Ti.Platform.openURL("http://maps.google.com/maps" + params);
+			Ti.Platform.openURL("http://maps.google.com/maps?saddr=" + (source || "") + params);
 
 		}
 	},
@@ -253,7 +259,18 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.openCamera(callback, window, width, height);
+					if(!Titanium.Media.hasCameraPermissions()){
+						Titanium.Media.requestCameraPermissions(function(result){
+							if(!result.success) {
+								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
+								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+							} else {
+								Helper.openCamera(callback, window, width, height);
+							}
+						});
+					} else {
+						Helper.openCamera(callback, window, width, height);
+					}
 					break;
 				case 1:
 					Helper.openGallery(callback, window, width, height);
@@ -276,7 +293,7 @@ var Helper = {
 	 */
 	openCamera : function(callback, window, width, height) {
 		if (OS_IOS) {
-			var authorization = Ti.Media.cameraAuthorizationStatus;
+			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
 				return Helper.showDialog({
 					message : Alloy.Globals.strings.msgCameraAuthorizationDenied
@@ -601,26 +618,38 @@ var Helper = {
 	 * create header view
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {String} filterText used only when it is  call from createTableViewSection
 	 */
-	createHeaderView : function($, title, isAttributed, isWrap, rightItem, filterText) {
-		var vClassName = "content-header-view",
-		    tClassName = "content-header-lbl";
-		if (isAttributed) {
-			tClassName.replace("lbl", "attributed");
-		}
+	createHeaderView : function($, title, isWrap, rightItem, filterText) {
+		var vClasses = ["inactive-light-bg-color"],
+		    tClasses = ["margin-left", "h5", "inactive-fg-color"];
 		if (isWrap) {
-			vClassName += "-wrap";
-			tClassName += "-wrap";
+			vClasses.push("auto-height");
+			tClasses = tClasses.concat(["margin-top", "margin-bottom"]);
+		} else {
+			vClasses.push("min-height");
+			tClasses.push("wrap-disabled");
 		}
 		if (rightItem) {
-			tClassName += "-with-r" + (rightItem.isIcon ? "icon" : "btn");
+			//if length is 1, it will be a icon
+			if (rightItem.title.length === 1) {
+				_.extend(rightItem, $.createStyle({
+					classes : ["icon-width"]
+				}));
+				tClasses.push("margin-right-icon");
+			} else {
+				_.extend(rightItem, $.createStyle({
+					classes : ["title-width"]
+				}));
+				tClasses.push("margin-right-title");
+			}
+		} else {
+			tClasses.push("margin-right");
 		}
 		var headerView = $.UI.create("View", {
-			classes : vClassName,
+			classes : vClasses,
 			title : filterText
 		});
 		if (rightItem) {
@@ -635,10 +664,14 @@ var Helper = {
 			}
 			headerView.add(rightBtn);
 		}
-		headerView.add($.UI.create("Label", {
-			classes : [tClassName],
+		var lbl = $.UI.create("Label", {
+			classes : tClasses,
 			text : title
-		}));
+		});
+		if (!isWrap) {
+			Helper.wrapText(lbl);
+		}
+		headerView.add(lbl);
 		return headerView;
 	},
 
@@ -647,17 +680,16 @@ var Helper = {
 	 * @param {Controller} $ controller object
 	 * @param {String} title section header's title
 	 * @param {String} filterText for the section
-	 * @param {Boolean} isAttributed whether text is attributed
-	 * @param {Boolean} isWrap whether text should ellipsize
+	 * @param {Boolean} isWrap whether text should wrap
 	 * @param {Object} rightItem content on right
 	 * @param {View} footerView footer view for section
 	 */
-	createTableViewSection : function($, title, filterText, isAttributed, isWrap, rightItem, footerView) {
+	createTableViewSection : function($, title, filterText, isWrap, rightItem, footerView) {
 		/**
 		 * http://developer.appcelerator.com/question/145117/wrong-height-in-the-headerview-of-a-tableviewsection
 		 */
 		var dict = {
-			headerView : Helper.createHeaderView($, title, isAttributed, isWrap, rightItem, filterText)
+			headerView : Helper.createHeaderView($, title, isWrap, rightItem, filterText)
 		};
 		if (footerView) {
 			_.extend(dict, {
@@ -679,15 +711,70 @@ var Helper = {
 		}
 		if (view.layout == "vertical") {
 			_.each(view.children, function(child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			});
 		} else {
 			var child = view.children[0];
 			if (child) {
-				height += (child.top || 0) + (child.bottom || 0) + (child.height || 0);
+				height += (child.top || 0) + (child.bottom || 0) + (Number(child.height) || child.font && (child.font.fontSize + 5) || 0);
 			}
 		}
 		return height;
+	},
+
+	/**
+	 * Handle height of label when wrap is disabled
+	 * Required for iOS at least
+	 */
+	wrapText : function(label) {
+		/**
+		 * 5 - is a extra padding around label
+		 * which makes it look better
+		 */
+		if (label.ellipsize) {
+			/**
+			 * Width should be Ti.UI.FILL
+			 * for making ellipsize effective
+			 * APPC JIRA refs -
+			 * TIMOB-14256,TIMOB-13220,TIMOB-13895
+			 */
+			label.applyProperties({
+				width : Ti.UI.FILL,
+				height : label.font.fontSize + 5
+			});
+		} else {
+			label.height = Ti.UI.SIZE;
+		}
+	},
+
+	/**
+	 * @param {Object} view
+	 * set border radius to 1/2 of view's height
+	 * for rounded corners
+	 */
+	roundedCorners : function(view) {
+		view.borderRadius = view.height / 2;
+	},
+
+	/**
+	 * wrap elements on horizontal direction
+	 * Note: using horizontal layout has issues
+	 * with android platform, APPC JIRA refs -
+	 * TIMOB-19536, TIMOB-16367, TIMOB-12577
+	 */
+	wrapViews : function(view, direction) {
+		var children = view.children,
+		    value = 0;
+		if (!direction) {
+			direction = "left";
+		} else if (direction === "right") {
+			children = children.reverse();
+		}
+		_.each(children, function(child, index) {
+			value += child[direction] || 0;
+			child[direction] = value;
+			value += child.width || child.font && child.font.fontSize || 0;
+		});
 	}
 };
 

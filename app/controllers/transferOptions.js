@@ -1,6 +1,10 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment");
 function focus() {
+	var swt = $.transferAllPrescSwt.getView(),
+	    right = swt.right + swt.width + +$.createStyle({
+		classes : ["margin-right-medium"]
+	}).right;
 	if (args.prescription) {
 		$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, args.prescription.storeOther ? args.prescription.storeOther : args.prescription.storeOriginal.code_display, $.strings.strClientName);
 	} else {

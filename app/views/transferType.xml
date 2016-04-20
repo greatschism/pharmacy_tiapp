@@ -1,25 +1,22 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<View class="content-header-view-wrap">
-			<Label id="titleLbl" class="content-header-lbl-wrap"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="titleLbl" class="margin-left margin-top margin-bottom h3 inactive-fg-color"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<Widget id="nameTxt" src="ti.textfield" class="form-txt prescription-name autocaps-sentences returnkey-next" onReturn="moveToNext"  />
+		<View class="margin-top margin-bottom margin-left margin-right auto-height vgroup border">
+			<Widget id="nameTxt" analyticsId="NameTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<!--we don't validate the external store's rx number so we just allow 15 chars with - enabled-->
-			<Widget id="rxTxt" src="ti.textfield" class="form-txt external-rx returnkey-next" onReturn="moveToNext"  />
+			<Widget id="rxTxt" analyticsId="RxTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
 		</View>
-		<View class="margin-top content-header-view">
-			<Label id="fromLbl" class="content-header-lbl"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="fromLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<Widget id="phoneTxt" src="ti.textfield" class="form-txt phone keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
+		<View class="margin-top margin-left margin-right auto-height vgroup border">
+			<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next keyboard-phone" onChange="didChangePhone" onReturn="moveToNext" />
 			<View class="h-divider" />
-			<Widget id="storeOriginalDp" src="ti.dropdown" class="form-dropdown" onReturn="didChangeStore"/>
+			<Widget id="storeOriginalDp" analyticsId="StoreOriginalDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled" onReturn="didChangeStore"/>
 		</View>
-		<View id="otherTxtView" class="margin-top form-group" >
-			
-		</View>
-		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+		<View id="otherTxtView" class="margin-top margin-left margin-right auto-height vgroup border"></View>
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
 	</ScrollView>
 </Alloy>

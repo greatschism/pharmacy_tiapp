@@ -28,7 +28,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1452157292182</id>
+			<id>1453885209546</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -37,7 +37,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292183</id>
+			<id>1453885209547</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -46,7 +46,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292184</id>
+			<id>1453885209549</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -55,7 +55,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292185</id>
+			<id>1453885209552</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -64,7 +64,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292186</id>
+			<id>1453885209554</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -73,7 +73,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292187</id>
+			<id>1453885209555</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -82,16 +82,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292188</id>
+			<id>1453885209558</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-true-false-tools/auth.json</arguments>
+				<arguments>1.0-projectRelativePath-matches-true-false-tools/defaults.json</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292189</id>
+			<id>1453885209560</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -100,7 +100,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292190</id>
+			<id>1453885209563</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -109,7 +109,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292191</id>
+			<id>1453885209565</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -118,7 +118,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292192</id>
+			<id>1453885209567</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -127,7 +127,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292193</id>
+			<id>1453885209568</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -136,7 +136,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292194</id>
+			<id>1453885209570</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -145,7 +145,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292195</id>
+			<id>1453885209572</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -154,7 +154,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292196</id>
+			<id>1453885209574</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -163,7 +163,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292197</id>
+			<id>1453885209576</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -172,7 +172,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1452157292198</id>
+			<id>1453885209578</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

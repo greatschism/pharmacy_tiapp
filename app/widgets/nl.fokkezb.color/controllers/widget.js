@@ -103,7 +103,7 @@ var spectrum,
 
 	applyProperties(args);
 
-})(arguments[0] || {});
+})($.args);
 
 /**
  * Set properties for the widget.

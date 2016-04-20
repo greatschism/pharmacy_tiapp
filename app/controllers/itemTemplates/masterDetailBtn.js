@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = $.args,
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -9,35 +10,47 @@ var args = arguments[0] || {};
 	 */
 	$.row.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "Btn";
 	if (args.masterWidth) {
-		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
+		$.resetClass($.masterView, ["left", "width-" + args.masterWidth, "auto-height", "vgroup"]);
 	}
-	if (args.detailWidth) {
-		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
-	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	var btnDict = {
-		title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
-	};
-	if (args.btnClasses) {
-		_.extend(btnDict, $.createStyle({
-			classes : args.btnClasses
-		}));
-	}
-	if (args.btnDict) {
-		_.extend(btnDict, args.btnDict);
-	}
-	/**
-	 * if only title is applied and no other styles are assigned
-	 * assuming it should not be there in UI, so disable touch and visible
-	 */
-	if (_.keys(btnDict).length <= 1) {
-		_.extend(btnDict, {
-			touchEnabled : false,
-			visible : false
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
 		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
+	var btnDict;
+	if (args.detailWidth === 0) {
+		btnDict = {
+			width : 0,
+			height : 0
+		};
+	} else {
+		btnDict = {
+			title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
+		};
+		if (args.btnClasses) {
+			_.extend(btnDict, $.createStyle({
+				classes : args.btnClasses
+			}));
+		}
+		if (args.btnDict) {
+			_.extend(btnDict, args.btnDict);
+		}
 	}
 	$.detailBtn.applyProperties(btnDict);
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
+	});
 })();
 
 function didClickDetail(e) {

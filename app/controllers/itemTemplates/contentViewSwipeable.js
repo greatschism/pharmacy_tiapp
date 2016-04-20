@@ -1,5 +1,7 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "COVS",
+    utilities = require("utilities"),
+    uihelper = require("uihelper"),
     CONSTS = "CONST_" + $.__controllerPath,
     touchInProgress = false,
     firstMove = true,
@@ -8,56 +10,69 @@ var args = arguments[0] || {},
 
 if (!Alloy.TSS[CONSTS]) {
 	var app = require("core"),
-	    paddingLeft = $.swipeView.paddingLeft,
-	    availableWidth = app.device.width - paddingLeft,
-	    endOffset = app.device.width + $.swipeView.paddingRight;
+	    margin = utilities.percentageToValue("30%", app.device.width),
+	    endOffset = Math.round(app.device.width - margin);
 	/**
-	 * this row should not be used in combination with
-	 * filterText as this row height is determined only
-	 * when it is rendered on screen, this will throw errors
-	 * on ios as apple is not happy with dynamic row height
+	 * This template is used with
+	 * prescriptions list where labels has static height
+	 * prescriptions has a local search / filterText options too
+	 * dynamic rows, with swipe options can't be used along with search / filterText
+	 * this is a limitation with iOS
+	 * dynamic rows, with swipe options has no issues without search / filterText
 	 *
-	 * if postlayout is used, className should not be assigned on android
+	 * Also if postlayout is used, className should not be assigned on android
 	 * which may prevent postlayout being fired for differet rows of same className
-	 *
-	 * The alternative could be use the apple's default swipe features
-	 * but it is supported only on iOS 8 and above. if  we make sure we use only
-	 * delete in swipe we can use native swipe options that is available from iOS 6
 	 */
 	Alloy.TSS[CONSTS] = {
-		availableWidth : availableWidth,
-		startOffset : paddingLeft,
-		decisionOffset : endOffset - (endOffset / 3),
-		endOffset : endOffset
+		startOffset : 0,
+		endOffset : endOffset,
+		decisionOffset : Math.round(endOffset - (endOffset / 1.85)),
+		width : endOffset,
+		imageWidth : utilities.percentageToValue("20%", app.device.width - ($.masterView.left + $.masterView.right))
 	};
 }
 
 CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
+	if (args.hasChild) {
+		uihelper.wrapViews($.contentView, "right");
+	}
+	var imageView = $.img.getView();
+	imageView.width = CONSTS.imageWidth;
+	uihelper.wrapViews($.masterView);
 	if (args.image) {
 		$.img.setImage(args.image);
 	} else if (args.defaultImage) {
-		$.img.getView().image = args.defaultImage;
+		imageView.image = args.defaultImage;
 	}
-	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
-		text : args.title || (args.data ? args.data[args.titleProperty] : "")
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
 	});
-	$.addClass($.subtitleLbl, args.subtitleClasses || ["content-subtitle"], {
-		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
-	});
-	$.swipeView.applyProperties({
-		left : CONSTS.endOffset,
-		width : CONSTS.availableWidth
-	});
+	$.swipeView.width = CONSTS.width;
 	if (args.options) {
 		var len = args.options.length,
-		    width = CONSTS.availableWidth / len,
-		    optionClassPrefix = "swipe-view-";
+		    width = CONSTS.width / len;
 		_.each(args.options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
-				classes : [optionClassPrefix + (option.type ? option.type + "-" : "") + "btn"],
+				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "light-fg-color", "h6", "border-disabled", "bubble-disabled"],
 				width : width,
 				left : fromLeft,
 				title : option.title,
@@ -65,9 +80,8 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					classes : ["swipe-view-divider"],
+					classes : ["top", "v-divider-light", "fill-height", "bg-color", "bubble-disabled"],
 					left : fromLeft,
-					height : btn.height,
 					zIndex : 4
 				}));
 			}
@@ -88,7 +102,14 @@ function didPostlayout(e) {
 	if (OS_IOS) {
 		height += 0.5;
 	}
-	$.containerView.height = height;
+	$.containerView.height = $.dragView.height = height;
+	/**
+	 * to keep the swipe view completely
+	 * hidden from content view
+	 */
+	if (OS_ANDROID) {
+		height -= 0.5;
+	}
 	$.swipeView.height = height;
 }
 
@@ -108,9 +129,9 @@ function didClickOption(e) {
 function didTouchstart(e) {
 	if (!Alloy.Globals.isSwipeInProgress) {
 		Alloy.Globals.isSwipeInProgress = touchInProgress = true;
-		startX = touchX = e.x;
-		currentX = $.swipeView.left;
 	}
+	touchX = e.x;
+	currentX = $.contentView.right;
 }
 
 function didTouchmove(e) {
@@ -118,41 +139,45 @@ function didTouchmove(e) {
 		if (firstMove) {
 			Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = false;
 		}
-		currentX -= touchX - e.x;
+		currentX += touchX - e.x;
 		touchX = e.x;
 		if (currentX > CONSTS.startOffset && currentX < CONSTS.endOffset) {
-			$.swipeView.left = currentX;
+			$.contentView.right = currentX;
 		}
 	}
 }
 
 function didTouchend(e) {
-	if (touchInProgress && currentX != 0) {
-		touchEnd(currentX <= CONSTS.decisionOffset ? CONSTS.startOffset : CONSTS.endOffset);
+	if (touchInProgress) {
+		if (firstMove) {
+			Alloy.Globals.isSwipeInProgress = touchInProgress = false;
+		} else {
+			touchEnd(currentX <= CONSTS.decisionOffset ? CONSTS.startOffset : CONSTS.endOffset);
+		}
 	}
 }
 
 function touchEnd(x) {
 	if (!x) {
-		x = CONSTS.endOffset;
+		x = CONSTS.startOffset;
 	}
 	var anim = Ti.UI.createAnimation({
-		left : x,
+		right : x,
 		duration : 200
 	});
 	anim.addEventListener("complete", function onComplete() {
 		anim.removeEventListener("complete", onComplete);
-		$.swipeView.left = x;
+		$.dragView.right = $.contentView.right = x;
 		if (x === CONSTS.startOffset) {
-			Alloy.Globals.currentRow = $;
-		} else {
 			Alloy.Globals.isSwipeInProgress = touchInProgress = false;
 			Alloy.Globals.currentRow = null;
+		} else {
+			Alloy.Globals.currentRow = $;
 		}
-		currentX = touchX = 0;
+		currentX = 0;
 		Alloy.Globals.currentTable[ OS_IOS ? "scrollable" : "touchEnabled"] = firstMove = true;
 	});
-	$.swipeView.animate(anim);
+	$.contentView.animate(anim);
 }
 
 function getParams() {

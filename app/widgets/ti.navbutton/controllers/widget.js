@@ -1,8 +1,10 @@
-var args = arguments[0] || {};
+var args = $.args;
 
 (function() {
 
 	var dict = {
+		id : args.id || "rightNavBtn",
+		analyticsId : args.analyticsId || "RightNavBtn",
 		role : args.role || "rightNavButton"
 	};
 	if (OS_ANDROID) {
@@ -18,11 +20,12 @@ var args = arguments[0] || {};
 	//actual button
 	if (OS_IOS) {
 		/**
-		 * ios gets some
-		 * padding on right
+		 * ios navigation buttons
+		 * will get decent padding
+		 * on left / right
 		 * by default
 		 */
-		args = _.omit(args, ["right"]);
+		args = _.omit(args, ["left", "right", "textAlign"]);
 	}
 	$.button = Ti.UI.createButton(args);
 	$.widget.add($.button);

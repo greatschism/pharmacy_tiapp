@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     uihelper = require("uihelper"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,
@@ -73,8 +73,9 @@ if (OS_ANDROID) {
 
 	$.tableView = $.UI.create("TableView", _.extend({
 		apiName : "TableView",
-		id : "tableView"
-	}, _.pick(args, ["separatorInsets", "separatorColor"])));
+		id : args.id || "tableView",
+		analyticsId : args.analyticsId || "OptionPicker",
+	}, _.pick(args, ["tableSeparatorInsets", "separatorColor"])));
 	$.tableView.addEventListener("click", updateItem);
 	$.contentView.add($.tableView);
 

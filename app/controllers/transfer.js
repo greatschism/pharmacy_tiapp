@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
 authenticator = require("authenticator");
 function init() {
 	$.titleLbl.text = String.format(Alloy.Globals.strings.transferLblTitle, $.strings.strClientName);
@@ -45,8 +45,13 @@ function didGetPhoto(blob) {
 	 * image path is used throughout this module
 	 * should not be changed
 	 */
-	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), blob, false);
+	
+	var smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
+	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
+	
 	blob = null;
+	smallBlob = null;
+
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
 			titleid : "titleTransferStore",

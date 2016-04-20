@@ -2,11 +2,11 @@
 	<ScrollView class="vgroup">
 		<Label id="appologizeLbl" class="margin-top paragraph-lbl" />
 		<Label id="resendLbl" class="padding-top paragraph-lbl" />
-		<Button id="sendAgainBtn" class="btn-padding-top padding-bottom secondary-btn" onClick="didClickSendAgain" />
+		<Button id="sendAgainBtn" analyticsId="SendAgainBtn" class="btn-padding-top padding-bottom secondary-btn" onClick="didClickSendAgain" />
 		<View class="margin-left margin-right default-height">
 			<View class="hseparator"/>
 			<Label id="orLbl" class="or-lbl" />
 		</View>
-		<Button id="signupBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickSignup" />
+		<Button id="signupBtn" analyticsId="SignupBtn" class="btn-padding-top margin-bottom secondary-btn" onClick="didClickSignup" />
 	</ScrollView>
 </Alloy>

@@ -1,42 +1,42 @@
 <Alloy>
-	<Widget id="frequencyPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickFrequencyPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="frequencyLbl" class="content-header-lbl" />
+	<Widget id="frequencyPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickFrequencyPicker">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="frequencyLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="frequencyCloseBtn" picker="frequencyPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
+			<Button id="frequencyCloseBtn" picker="frequencyPicker" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="dailyPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickDailyPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="dailyLbl" class="content-header-lbl" />
+	<Widget id="dailyPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickDailyPicker">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="dailyLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="dailyCloseBtn" picker="dailyPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
+			<Button id="dailyCloseBtn" picker="dailyPicker" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="weekdayPicker" src="ti.optionpicker" class="optionpicker">
-		<View class="content-header-view role-header-view">
-			<Label id="weekdayLbl" class="content-header-lbl" />
+	<Widget id="weekdayPicker" src="ti.optionpicker" class="modal-dialog">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="weekdayLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="weekdayCloseBtn" picker="weekdayPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
+			<Button id="weekdayCloseBtn" picker="weekdayPicker" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="monthdayPicker" src="ti.optionpicker" class="optionpicker">
-		<View class="content-header-view role-header-view">
-			<Label id="monthdayLbl" class="content-header-lbl" />
+	<Widget id="monthdayPicker" src="ti.optionpicker" class="modal-dialog">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="monthdayLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="monthdayCloseBtn" picker="monthdayPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
+			<Button id="monthdayCloseBtn" picker="monthdayPicker" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
-	<Widget id="periodPicker" src="ti.optionpicker" class="optionpicker" onClick="didClickPeriodPicker">
-		<View class="content-header-view role-header-view">
-			<Label id="periodLbl" class="content-header-lbl" />
+	<Widget id="periodPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickPeriodPicker">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="periodLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View class="auto-height role-footer-view">
-			<Button id="periodCloseBtn" picker="periodPicker" class="margin-top margin-bottom secondary-btn" onClick="didClickClosePicker" />
+			<Button id="periodCloseBtn" picker="periodPicker" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickClosePicker" />
 		</View>
 	</Widget>
 	<TableView id="tableView" onClick="didClickTableView">
@@ -46,8 +46,8 @@
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<!--footer separator seems to disappear on iOS after a delete-->
 				<View class="h-divider-light" platform="ios" />
-				<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmitReminder" />
-				<Button id="removeBtn" class="margin-top margin-bottom secondary-btn" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
+				<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmitReminder" />
+				<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
 			</View>
 		</FooterView>
 	</TableView>

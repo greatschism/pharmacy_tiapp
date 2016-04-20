@@ -1,4 +1,5 @@
-var args = arguments[0] || {};
+var args = $.args,
+    uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
@@ -9,19 +10,36 @@ var args = arguments[0] || {};
 	 */
 	$.row.className = "masterDetail" + (args.masterWidth || "") + (args.detailWidth || "") + "Btn";
 	if (args.masterWidth) {
-		$.resetClass($.masterView, ["content-master-view-" + args.masterWidth]);
+		$.resetClass($.masterView, ["left", "width-" + args.masterWidth, "auto-height", "vgroup"]);
 	}
 	if (args.detailWidth) {
-		$.resetClass($.detailView, ["content-detail-view-" + args.detailWidth]);
+		$.resetClass($.detailView, ["right", "width-" + args.detailWidth, "auto-height", "vgroup"]);
 	}
-	$.titleLbl.text = args.title || (args.data ? args.data[args.titleProperty] : "");
-	$.subtitleLbl.text = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	var detailClassPrefix = "content-detail-" + (args.detailType ? args.detailType + "-" : "");
-	$.addClass($.detailTitleLbl, [detailClassPrefix + "title"], {
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
+	var detailClassPrefix = args.detailType ? args.detailType + "-" : "";
+	$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
 	});
-	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "subtitle"], {
+	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
+	});
+	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
 	});
 })();
 

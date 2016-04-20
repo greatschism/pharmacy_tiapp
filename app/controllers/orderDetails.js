@@ -3,7 +3,7 @@
  * updating this store object later
  * should not affect the previous screen
  */
-var args = arguments[0] || {},
+var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     rows = [],
     store = _.omit(args.store || {}, ["shouldUpdate"]),
@@ -15,11 +15,11 @@ var args = arguments[0] || {},
 	btnClasses : false
 },
     removableDict = {
-	masterWidth : 70,
-	detailWidth : 30,
-	btnClasses : ["content-detail-negative-icon", "icon-unfilled-remove"]
+	masterWidth : 80,
+	detailWidth : 20,
+	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"]
 },
-    detailBtnClasses = ["content-detail-tertiary-icon", "icon-edit"],
+    detailBtnClasses = ["top-disabled", "left-disabled", "right", "width-25", "i4", "txt-right", "bg-color-disabled", "active-fg-color", "border-disabled", "icon-edit"],
     isWindowOpen;
 
 function init() {
@@ -32,14 +32,11 @@ function init() {
 	 */
 	if (args.canAdd !== false) {
 		iconDict = $.createStyle({
-			classes : ["content-header-right-icon", "icon-add"]
-		});
-		_.extend(iconDict, {
-			isIcon : true,
+			classes : ["right", "i5", "bg-color-disabled", "active-fg-color", "border-disabled", "icon-add"],
 			callback : didClickAdd
 		});
 	}
-	$.prescSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPresc, null, false, false, iconDict);
+	$.prescSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPresc, null, false, iconDict);
 	//if more than one prescription is there add right icon to remove a prescription
 	var isRemovable = prescriptions.length > 1;
 	_.each(prescriptions, function(prescription) {

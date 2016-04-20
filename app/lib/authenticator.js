@@ -12,6 +12,7 @@ var TAG = "AUTH",
     notificationHandler = require("notificationHandler"),
     crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
+    analyticsHandler = require("analyticsHandler"),
     logger = require("logger");
 
 function init(passthrough) {
@@ -758,6 +759,8 @@ function completeAuthentication(passthrough) {
 		action : "logout",
 		icon : "logout"
 	});
+	//track new session
+	analyticsHandler.startSession();
 	/**
 	 * update crash reporter
 	 * with user username
@@ -983,6 +986,8 @@ function didLogout(result, passthrough) {
 		resetAuthenticationData();
 		//hide loader
 		app.navigator.hideLoader();
+		//track session ended
+		analyticsHandler.endSession();
 		/**
 		 * success callback
 		 * if any
@@ -1026,7 +1031,7 @@ function resetAuthenticationData() {
 	/**
 	 * reset collections and models
 	 */
-	var igoreKeys = ["appconfig", "appload", "banners", "menuItems", "template"];
+	var igoreKeys = ["appconfig", "appload", "menuItems", "template", "banner"];
 	_.each(Alloy.Collections, function(coll, key) {
 		if (_.isFunction(coll.reset) && _.indexOf(igoreKeys, key) === -1) {
 			/**

@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     app = require("core"),
     utilities = require("utilities"),
@@ -12,6 +12,9 @@ var args = arguments[0] || {},
     arrowUp = $.createStyle({
 	classes : ["icon-thin-arrow-up"]
 }),
+    titleClasses = ["left", "h4", "wrap-disabled"],
+    inactiveTitleClasses = ["left", "h4", "inactive-fg-color", "wrap-disabled"],
+    subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     options = {},
     templateHeight,
     rModel,
@@ -28,6 +31,8 @@ if (OS_ANDROID) {
 	if (!args.disabled) {
 		$.patientSwitcher.addEventListener("click", toggle);
 	}
+	//set wrap height
+	uihelper.wrapText($.lbl);
 	//listener for collection reset
 	Alloy.Collections.patients.on("reset", didReset);
 })();
@@ -40,12 +45,12 @@ function buildPopover() {
 	if (!$.popoverView) {
 		//popover view
 		$.popoverView = $.UI.create("View", {
-			id : "popoverView"
+			classes : ["fade-out", "hide", "shadow-bg-color"],
+			zIndex : 0
 		});
 		$.popoverView.addEventListener("click", hide);
 		$.contentView = $.UI.create("View", {
-			id : "contentView",
-			bubbleParent : false
+			classes : ["top", "auto-height", "bg-color", "bubble-disabled"]
 		});
 		$.tableView = $.UI.create("TableView", {
 			apiName : "TableView",
@@ -60,9 +65,10 @@ function buildPopover() {
 		var data = [];
 		Alloy.Collections.patients.each(function(model) {
 			var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
-			if (!obj.selectable) {
-				obj.titleClasses = ["content-inactive-title"];
-			}
+			_.extend(obj, {
+				titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
+				subtitleClasses : subtitleClasses
+			});
 			var row = Alloy.createController("itemTemplates/contentView", obj);
 			data.push(row.getView());
 			rows.push(row);

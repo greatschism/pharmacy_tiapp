@@ -1,7 +1,5 @@
-var args = arguments[0] || {},
+var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
-    titleClasses = ["content-title-wrap"],
-    subtitleClasses = ["content-subtitle-wrap"],
     prescriptions = [],
     rows,
     swipeOptions,
@@ -178,13 +176,27 @@ function processModel(model) {
 	 * returns null as string
 	 */
 	var imageURL = model.get("image_url");
+	var decodedImageURL = '';
+	if(OS_ANDROID)
+	{
+		if(imageURL != null && imageURL != '' && typeof(imageURL) !== 'undefined')
+		{
+			decodedImageURL = decodeURIComponent(imageURL);
+			if(decodedImageURL.indexOf('?') != -1)
+			{
+				imageURL = decodedImageURL.split('?')[0];
+			}
+			else
+			{
+				imageURL = decodedImageURL;
+			}
+		}
+	}
 	model.set({
 		image : imageURL && imageURL != "null" ? imageURL : "",
 		defaultImage : defaultImg,
 		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
 		subtitle : subtitle,
-		titleClasses : titleClasses,
-		subtitleClasses : subtitleClasses,
 		prescriptions : docPrescs,
 		options : swipeOptions
 	});

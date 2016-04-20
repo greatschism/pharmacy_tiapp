@@ -1,15 +1,15 @@
 <Alloy>
-	<TableView id="childTable" onSingletap="didClickTableView">
+	<TableView id="childTable" analyticsId="ChildTable" onSingletap="didClickTableView">
 		<FooterView>
 			<View class="vgroup auto-height" onClick="handleEvent">
-				<View class="content-header-view">
-					<Label id="mobileNumberLbl" class="content-header-lbl" />
+				<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+					<Label id="mobileNumberLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color" />
 				</View>
-				<View class="margin-top form-group">
-					<Widget id="phoneTxt" src="ti.textfield" class="form-txt keyboard-number returnkey-done"  onChange="didChangePhone"/>
+				<View class="margin-top margin-left margin-right auto-height vgroup border">
+					<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" />
 				</View>
-				<Button id="continueBtn" class="primary-btn margin-top margin-bottom" onClick="didClickContinue"/>
-				<Label id="receiveTextLbl" class="lbl-wrap"/>
+				<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+				<Label id="receiveTextLbl" class="margin-top margin-bottom margin-left margin-right"/>
 			</View>
 		</FooterView>
 	</TableView>

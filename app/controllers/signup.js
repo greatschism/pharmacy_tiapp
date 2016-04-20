@@ -1,18 +1,20 @@
-var args = arguments[0] || {},
+var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-tertiary-right-icon"],
+	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled"],
 }),
     rightButtonTitle = $.createStyle({
-	classes : ["icon-help"]
+	classes : ["icon-help"],
 }),
 rightPwdButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn"],
+	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	width : "25%",
+	backgroundColor: 'transparent'
 }),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
@@ -25,7 +27,7 @@ function init() {
 	 * PHA-1425 : Add the help image 
 	 * inside the rx number textfield.
 	 */
-	setRightButton(rightButtonTitle.text, rightButtonDict);
+	setRightButtonForRx(rightButtonTitle.text, rightButtonDict);
 	/**
 	 * Set the right button "show/hide"
 	 * with right parameters.
@@ -44,11 +46,24 @@ function init() {
 	}
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+	
+	$.passwordTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+	}));
+	
+	$.rxTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+	}));
+	
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 
-function setRightButton(iconText, iconDict) {
+function setRightButtonForRx(iconText, iconDict) {
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 
@@ -81,7 +96,7 @@ function didPostlayoutRxContainerView(e) {
 
 function didPostlayoutPasswordContainerView(e) {
 	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y;
+	passwordContainerViewFromTop = e.source.rect.y - 15;
 }
 
 function didPostlayoutTooltip(e) {
@@ -90,9 +105,15 @@ function didPostlayoutTooltip(e) {
 }
 
 function didFocusPassword(e) {
+	$.passwordTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+		
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
+			top : (passwordContainerViewFromTop + $.containerView.top ) 
 		});
 		delete $.passwordTooltip.size;
 	}
@@ -100,9 +121,15 @@ function didFocusPassword(e) {
 }
 
 function didFocusRx(e) {
+	$.rxTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
 	if (_.has($.rxTooltip, "size")) {
 		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
+			top : (rxContainerViewFromTop - $.rxContainer.top * 2) 
 		});
 		delete $.rxTooltip.size;
 	}
@@ -356,11 +383,15 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);

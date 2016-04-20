@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     CONSTS = "CONST_" + $.__controllerPath,
     store = args.store,
     httpClient,
@@ -37,7 +37,7 @@ function focus() {
 function didGetStore(result, passthrough) {
 	httpClient = null;
 	if (result && result.data) {
-		_.extend(store, result.data.stores);
+		_.extend(store, _.omit(result.data.stores, ["distance"]));
 	}
 	/**
 	 * phone_formatted will only be available
@@ -51,19 +51,18 @@ function didGetStore(result, passthrough) {
 			phone_formatted : $.utilities.formatPhoneNumber(store.phone)
 		});
 	}
-	$.titleLbl.text = store.title;
-	$.subtitleLbl.text = store.subtitle;
-	$.phoneReplyLbl.text = store.phone_formatted;
 	if (Alloy.Globals.isLoggedIn) {
 		updateHome();
 		updateFavourite();
 	}
+	$.titleLbl.text = store.title;
+	$.subtitleLbl.text = store.subtitle;
 	var data = [],
 	    hours = store.hours || [],
 	    services = store.services || [],
 	    tillTime,
+	    clockType,
 	    clockLbl,
-	    iconClass,
 	    lblClass;
 	//store hours
 	var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
@@ -71,35 +70,46 @@ function didGetStore(result, passthrough) {
 		//0th index will have today's hours
 		tillTime = hours[0].hours.split("- ")[1];
 		if (store.is_open && tillTime) {
+			clockType = "positive";
 			clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
-			iconClass = "icon-view-positive-icon";
-			lblClass = "icon-view-positive-icon-description";
 		} else {
+			clockType = "negative";
 			clockLbl = tillTime ? String.format($.strings.storeDetLblClose, tillTime) : $.strings.storeDetLblClosed;
-			iconClass = "icon-view-negative-icon";
-			lblClass = "icon-view-negative-icon-description";
 		}
-		var promptClasses = ["content-group-inactive-prompt-40"];
 		_.each(hours, function(hour) {
 			hoursSection.add(Alloy.createController("itemTemplates/promptReply", {
 				prompt : hour.day + ":",
-				reply : hour.hours,
-				promptClasses : promptClasses
+				reply : hour.hours
 			}).getView());
 		});
 	} else {
+		clockType = "negative";
 		clockLbl = $.strings.storeDetLblNotAvailable;
-		iconClass = "icon-view-negative-icon";
-		lblClass = "icon-view-negative-icon-description";
 		hoursSection.add(Alloy.createController("itemTemplates/label", {
 			title : $.strings.storeDetLblHoursNotAvailable
 		}).getView());
 	}
 	data.push(hoursSection);
-	$.addClass($.clockIconLbl, [iconClass]);
-	$.addClass($.clockLbl, [lblClass], {
+	/**
+	 * distance may not be available
+	 * if it is not via store list
+	 */
+	if (_.isNumber(store.distance)) {
+		$.uihelper.wrapViews($.distanceView);
+		$.distanceLbl.text = String.format($.strings.storeDetLblDistance, store.distance.toFixed(2));
+	} else {
+		$.storeContentView.remove($.distanceView);
+	}
+	//clock / is opened
+	$.uihelper.wrapViews($.clockView);
+	$.clockIconLbl.applyProperties($.createStyle({
+		classes : [clockType + "-fg-color"]
+	}));
+	$.clockLbl.applyProperties($.createStyle({
+		classes : [clockType + "-fg-color"],
 		text : clockLbl
-	});
+	}));
+	$.phoneAttr.setHtml(String.format($.strings.attrPhone, store.phone_formatted));
 	//store services
 	if (services.length) {
 		var servicesSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionServices);
@@ -116,80 +126,19 @@ function didGetStore(result, passthrough) {
 
 function updateHome() {
 	$.homeIconBtn.applyProperties($.createStyle({
-		classes : [store.ishomepharmacy ? "primary-icon" : "inactive-icon"]
+		classes : [store.ishomepharmacy ? "primary-fg-color" : "inactive-fg-color"]
 	}));
 }
 
 function updateFavourite() {
-	var isFavourite = store.isbookmarked || store.ishomepharmacy,
-	    text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"],
-	    dict;
-	/**
-	 * if it is favourite
-	 * the text remove from favourite has no enough space
-	 * and occurs in multiple lines
-	 *
-	 * to remove extra padding when it is favourite
-	 * and vice versa follow this
-	 */
-	if (isFavourite && !Alloy.TSS[CONSTS]) {
-		$.favouriteView.addEventListener("postlayout", didPostlayout);
-	}
-	/**
-	 * whether we should update the padding
-	 */
-	if (Alloy.TSS[CONSTS] && Alloy.TSS[CONSTS].shouldUpdate) {
-		dict = isFavourite ? {
-			top : $.favouriteLbl.minTop,
-			bottom : $.favouriteLbl.minBottom,
-			text : text
-		} : {
-			top : $.favouriteLbl.maxTop,
-			bottom : $.favouriteLbl.maxBottom,
-			text : text
-		};
-	}
-	if (dict) {
-		$.favouriteLbl.applyProperties(dict);
-	} else {
-		$.favouriteLbl.text = text;
-	}
+	var isFavourite = store.isbookmarked || store.ishomepharmacy;
+	$.favouriteLbl.text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
 	$.favouriteIconLbl.applyProperties($.createStyle({
 		classes : [store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"]
 	}));
 }
 
-/**
- * ui fix: multi-line button is a hack of view with label
- * to control padding top and bottom
- * check this
- */
-function didPostlayout(e) {
-	var source = e.source,
-	    child = source.children[0],
-	    height = source.rect.height;
-	source.removeEventListener("postlayout", didPostlayout);
-	if (!height) {
-		var blob = source.toImage();
-		height = blob.height;
-		blob = null;
-		if (OS_ANDROID) {
-			height /= $.app.logicalDensityFactor;
-		}
-	}
-	Alloy.TSS[CONSTS] = {};
-	if (source.maxHeight < height) {
-		Alloy.TSS[CONSTS].shouldUpdate = true;
-		child.applyProperties({
-			top : child.minTop,
-			bottom : child.minBottom
-		});
-	} else {
-		Alloy.TSS[CONSTS].shouldUpdate = false;
-	}
-}
-
-function didClickPhone(e) {
+function contactsHandler() {
 	$.uihelper.getPhone({
 		firstName : store.title,
 		phone : {
@@ -198,11 +147,23 @@ function didClickPhone(e) {
 	}, store.phone);
 }
 
+function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
 function didClickDirection(e) {
-	$.uihelper.getDirection({
-		latitude : store.latitude,
-		longitude : store.longitude
-	}, args.currentLocation);
+	$.uihelper.getDirection(_.pick(store, ["latitude", "longitude"]));
 }
 
 function didClickRefill(e) {

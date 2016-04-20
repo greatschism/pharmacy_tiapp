@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     optionPadding = {
 	top : 12,
@@ -36,7 +36,7 @@ if (OS_ANDROID) {
 	choiceDict.height = choiceDict.font.fontSize + 5;
 
 	if (_.has(args, "tableViewDict")) {
-		$.tableView.applyProperties(tableViewDict);
+		$.tableView.applyProperties(args.tableViewDict);
 	}
 
 	if (_.has(args, "optionPadding")) {

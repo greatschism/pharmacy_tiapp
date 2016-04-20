@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "DRVC",
     app = require("core"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -52,7 +52,7 @@ function init() {
 		default:
 			if (!$.contentView) {
 				$.contentView = $.UI.create("View", {
-					id : "contentView"
+					classes : ["bg-color"]
 				});
 			}
 			$.contentView.add(child);
@@ -78,6 +78,7 @@ function init() {
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
 		crashreporter : require("crashreporter"),
+		contentView : $.contentView,
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,

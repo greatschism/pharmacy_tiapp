@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     app = require("core"),
     config = require("config"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -158,6 +158,13 @@ function didGetAppConfig(result, passthrough) {
 function didSuccessAppload(result) {
 	var appload = result.data.appload || {};
 	Alloy.Models.appload.set(appload);
+	/**
+	 * extend feature flags to CFG
+	 * to keep it accessible through XML
+	 */
+	_.each(appload.features, function(val, key) {
+		Alloy.CFG[key] = val === "1";
+	});
 	/**
 	 * check for force upgrade
 	 */

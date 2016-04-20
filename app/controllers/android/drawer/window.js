@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "DRWC",
     app = require("core"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -50,6 +50,7 @@ function init() {
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
 		crashreporter : require("crashreporter"),
+		contentView : $.window,
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,
@@ -71,10 +72,6 @@ function didOpen(e) {
 
 	if (rightNavItem) {
 		setRightNavButton(rightNavItem);
-	}
-
-	if (args.navBarHidden) {
-		hideNavBar();
 	}
 
 	focus();

@@ -1,8 +1,8 @@
 <Alloy>
-	<Label id="acceptedOnLbl" class="margin-top link-wrap" if="!$.args.registrationFlow"/>
+	<Label id="acceptedOnLbl" class="margin-top active-fg-color" if="!$.args.registrationFlow"/>
 	<WebView id="webView" class="margin-top" />
 	<View class="auto-height vgroup bottom">
-		<Button id="revokeBtn" class="margin-top secondary-btn hide" onClick="didClickRevoke" />
-		<Button id="successBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSuccess" />
+		<Button id="revokeBtn" analyticsId="RevokeBtn" class="margin-top bg-color primary-fg-color primary-border hide" onClick="didClickRevoke" />
+		<Button id="successBtn" analyticsId="SuccessBtn" class="margin-top margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSuccess" />
 	</View>
 </Alloy> 

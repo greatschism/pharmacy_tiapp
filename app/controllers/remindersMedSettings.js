@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     apiCodes = Alloy.CFG.apiCodes,
@@ -12,17 +12,17 @@ var args = arguments[0] || {},
     weekdayOptions = [],
     monthdayOptions = [],
     periodOptions = [],
-    promptClasses = ["content-group-prompt-60"],
-    replyClasses = ["content-group-right-inactive-reply-40"],
+    promptClasses = ["left", "width-60"],
+    replyClasses = ["right", "width-40", "txt-right", "inactive-fg-color"],
     nonRemovableDict = {
 	masterWidth : 100,
 	detailWidth : 0,
 	btnClasses : false
 },
     removableDict = {
-	masterWidth : 70,
-	detailWidth : 30,
-	btnClasses : ["content-detail-negative-icon", "icon-unfilled-remove"]
+	masterWidth : 80,
+	detailWidth : 20,
+	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"]
 },
     dateDropdownArgs,
     timeDropdownArgs,
@@ -126,7 +126,7 @@ function init() {
 	 * called
 	 */
 	var txtStyleDict = $.createStyle({
-		classes : ["margin-top", "margin-bottom", "txt", "autocaps-sentences", "returnkey-done", "reminder-notes"],
+		classes : ["margin-bottom", "txt", "autocaps-sentences", "returnkey-done", "reminder-notes"],
 		hintText : $.strings.remindersMedSettingsHintNotes,
 		value : reminder.additional_message || ""
 	});
@@ -153,14 +153,11 @@ function init() {
 	 */
 	if (args.canAdd !== false) {
 		iconDict = $.createStyle({
-			classes : ["content-header-right-icon", "icon-add"]
-		});
-		_.extend(iconDict, {
-			isIcon : true,
+			classes : ["right", "i5", "bg-color-disabled", "active-fg-color", "border-disabled", "icon-add"],
 			callback : didClickAddPresc
 		});
 	}
-	$.prescSection = $.uihelper.createTableViewSection($, $.strings.remindersMedSettingsSectionPresc, null, false, false, iconDict);
+	$.prescSection = $.uihelper.createTableViewSection($, $.strings.remindersMedSettingsSectionPresc, null, false, iconDict);
 	//if more than one prescription is there add right icon to remove a prescription
 	var isRemovable = prescriptions.length > 1;
 	_.each(prescriptions, function(prescription) {

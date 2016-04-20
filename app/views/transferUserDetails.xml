@@ -1,21 +1,22 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<View class="content-header-view-wrap">
-			<Label id="titleLbl" class="content-header-lbl-wrap"/>
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
-		<View class="margin-top form-vgroup">
-			<View id="txtView" class="auto-height">
-				<Widget id="fnameTxt" src="ti.textfield" class="left form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<Widget id="lnameTxt" src="ti.textfield" class="right form-txt-50 autocaps-words returnkey-next" onReturn="moveToNext" />
-				<View id="vDividerView" class="v-divider"/>
+		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<View id="nameView" class="auto-height">
+				<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="nameVDividerView" class="v-divider" />
 			</View>
-			<View class="h-divider"/>
-			<Widget id="dobDp" src="ti.dropdown" class="form-dropdown date dob" onReturn="moveToNext" />
+			<View class="h-divider" />
+			<Widget id="dobDp" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
+			<View class="h-divider" />
+			<Widget id="phoneTxt" analyticsId="DobDropDwn" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
 		</View>
-		<Widget id="phoneTxt" src="ti.textfield" class="margin-top txt phone keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
-		<Button id="submitBtn" class="margin-top primary-btn" onClick="didClickSubmit"/>
-		<!--bring the login button on edit might bring additional efforts, 
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit"/>
+		<!--bring the login button on edit might bring additional efforts,
 		not required as user has already chosen to enter his information-->
-		<Widget id="loginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed-wrap" onClick="didClickLogin" if="!$.args.user" />
+		<Widget id="loginAttr" analyticsId="LoginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickLogin" if="!$.args.user" />
 	</ScrollView>
 </Alloy>

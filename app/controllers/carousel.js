@@ -1,27 +1,33 @@
-var args = arguments[0] || {},
+var args = $.args,
     navigationHandler = require("navigationHandler"),
     currentId = "appImg",
     statusObj = {},
-    viewsCount = 4;
+    viewsCount;
 
 function init() {
+	//update paging control count
+	var viewLength = $.scrollableView.views.length;
+	viewsCount = viewLength - 1;
+	$.pagingcontrol.setLength(viewLength);
 	//logo - align all labels to be in sync with logo
-	var fromTop = $.logoImg.top + $.appLbl.top + $.uihelper.getImage("logo", $.logoImg).height;
+	var fromTop = $.logoImg.top + $.logoImg.height + $.appLbl.top;
 	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
-		$[val].top = fromTop;
+		if ($[val]) {
+			$[val].top = fromTop;
+		}
 	});
 	//footer view
 	var fromBottom = $.uihelper.getHeightFromChildren($.footerView, true);
 	$.scrollableView.bottom = fromBottom;
-	$.pagingControl.getView().bottom = fromBottom + $.createStyle({
-		classes : ["margin-bottom"]
+	$.pagingcontrol.getView().bottom = fromBottom + $.createStyle({
+		classes : ["margin-bottom-extra-large"]
 	}).bottom;
 	//get images list ready
 	setImages($.appImg, "app", 18);
 	setImages($.prescImg, "prescriptions", 23);
-	setImages($.refillImg, "refill", 28);
-	setImages($.remindersImg, "reminders", 14);
-	setImages($.familyCareImg, "family_care", 23);
+	Alloy.CFG.is_quick_refill_enabled && setImages($.refillImg, "refill", 28);
+	Alloy.CFG.is_reminders_enabled && setImages($.remindersImg, "reminders", 14);
+	Alloy.CFG.is_proxy_enabled && setImages($.familyCareImg, "family_care", 23);
 	//first launch flag
 	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }
@@ -54,7 +60,7 @@ function didLoad(e) {
 
 function didScrollend(e) {
 	var currentPage = e.currentPage;
-	$.pagingControl.setCurrentPage(currentPage);
+	$.pagingcontrol.setCurrentPage(currentPage);
 	startOrStopAnimation(currentPage);
 }
 

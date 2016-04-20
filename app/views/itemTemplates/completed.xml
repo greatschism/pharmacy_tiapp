@@ -1,11 +1,11 @@
-<Alloy>
+<Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<View id="contentView" class="content-view">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View class="auto-height vgroup">
-				<Label id="titleLbl" class="content-title" />
-				<View class="content-subtitle-view">
-					<Label class="content-subtitle-positive-icon icon-thin-filled-success" />
-					<Label id="subtitleLbl" class="content-subtitle-icon-description" />
+				<Label id="titleLbl" class="left h4" />
+				<View id="masterView" class="margin-top-small auto-height">
+					<Label class="left i6 positive-fg-color icon-thin-filled-success" />
+					<Label id="subtitleLbl" class="margin-left-small inactive-fg-color" />
 				</View>
 			</View>
 		</View>

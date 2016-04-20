@@ -37,13 +37,7 @@
 	text: Alloy.Globals.strings.refillTypeLblMailOrder
 },
 /**
-* 	must be false when used inside table / list view
-*/
-"#editBtn":{
-	bubbleParent: true
-},
-/**
-* 	remove margin top when
+*  remove margin top when
 *  phone text field is disabled
 *  padding is already there with store content view
 */

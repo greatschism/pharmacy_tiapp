@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     prescription = args.prescription,
     rows = [],
@@ -76,18 +76,14 @@ function didGetHistory(result, passthrough) {
 function didClickTableView(e) {
 	var row = rows[e.index];
 	if (row) {
-		$.uihelper.getLocation(function didGetLocation(userLocation) {
-			$.app.navigator.open({
-				titleid : "titleStoreDetails",
-				ctrl : "storeDetails",
-				ctrlArguments : {
-					store : row.getParams(),
-					currentLocation : userLocation,
-					direction : !_.isEmpty(userLocation)
-				},
-				stack : true
-			});
-		}, false, false);
+		$.app.navigator.open({
+			titleid : "titleStoreDetails",
+			ctrl : "storeDetails",
+			ctrlArguments : {
+				store : row.getParams()
+			},
+			stack : true
+		});
 	}
 }
 

@@ -10,7 +10,7 @@
 	backgroundColor: "#FFFFFF"
 },
 "#tableView[platform=ios]":{
-	separatorInsets: {
+	tableSeparatorInsets: {
 		top: 0,
 		left: 0
 	}

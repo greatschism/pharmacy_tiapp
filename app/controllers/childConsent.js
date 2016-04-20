@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     authenticator = require("authenticator"),
     selected = true;
 function didClickContinue() {
@@ -53,19 +53,21 @@ function didAddChild(result) {
 function didClickConsent(e) {
 	if (selected) {
 		$.leftIconLbl.applyProperties($.createStyle({
-			classes : ["icon-checkbox-checked", "content-positive-left-icon"],
+			classes : ["top-disabled" ,"margin-left" ,"i4" ,"txt-left" ,"active-fg-color" ,"icon-checkbox-checked" ,"positive-fg-color","border-disabled"],
 		}));
 		$.inactiveBtn.applyProperties($.createStyle({
-			classes : ["primary-btn"]
+			classes : ["primary-bg-color","primary-border"],
+			analyticsId : "InactiveBtn"
 		}));
 		$.inactiveBtn.addEventListener("click", didClickContinue);
 		selected = false;
 	} else {
 		$.leftIconLbl.applyProperties($.createStyle({
-			classes : ["icon-checkbox-unchecked", "content-inactive-left-icon"]
+			classes : ["top-disabled" ,"margin-left" ,"i4" ,"txt-left" ,"active-fg-color"  ,"icon-checkbox-unchecked" ,"inactive-fg-color","border-disabled"]
 		}));
 		$.inactiveBtn.applyProperties($.createStyle({
-			classes : ["inactive-btn"]
+			classes : ["inactive-bg-color","inactive-border"],
+			analyticsId : "InactiveBtn"
 		}));
 		$.inactiveBtn.removeEventListener("click", didClickContinue);
 		selected = true;

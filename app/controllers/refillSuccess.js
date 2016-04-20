@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     prescriptions = args.prescriptions || [],
     store;
 
@@ -15,12 +15,12 @@ function init() {
 	if (isSuccess && isFailure) {
 		//partial success
 		tKey = "titleRefillSuccess";
-		iKey = "success";
+		iKey = "img-success";
 		lKey = "refillSuccessLblPartial";
 	} else if (isSuccess) {
 		//complete success
 		tKey = "titleRefillSuccess";
-		iKey = "success";
+		iKey = "img-success";
 		lKey = "refillSuccessLblSuccess";
 	} else {
 		//complete failure
@@ -34,11 +34,13 @@ function init() {
 	 */
 	$.window.title = $.strings[tKey];
 	if (iKey) {
-		var dict = $.createStyle({
-			classes : ["margin-top"]
-		});
-		_.extend(dict, $.uihelper.getImage(iKey));
-		$.successImg.applyProperties(dict);
+		$.img.applyProperties($.createStyle({
+			classes : ["margin-top-large", "margin-bottom-extra-large", iKey]
+		}));
+	} else {
+		$.img.bottom = $.createStyle({
+			classes : ["margin-bottom-large"]
+		}).bottom;
 	}
 	$.lbl.text = $.strings[lKey];
 }
@@ -116,12 +118,10 @@ function updateTable() {
 	 *  identifier yet for that case
 	 */
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
-	var subtitleClasses = ["content-subtitle-wrap"],
-	    successClasses = ["content-positive-left-icon", "icon-checkbox"],
-	    failureClasses = ["content-negative-left-icon", "icon-cancel"];
+	var successClasses = ["positive-fg-color", "icon-checkbox"],
+	    failureClasses = ["negative-fg-color", "icon-cancel"];
 	_.each(prescriptions, function(prescription) {
 		_.extend(prescription, {
-			subtitleClasses : subtitleClasses,
 			iconClasses : prescription.refill_is_error === true ? failureClasses : successClasses
 		});
 		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
@@ -147,6 +147,21 @@ function updateTable() {
 }
 
 function didClickStorePhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("QuickRefill-RefillSuccess", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	$.uihelper.getPhone({
 		firstName : store.title,
 		phone : {

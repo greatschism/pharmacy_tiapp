@@ -1,7 +1,9 @@
 var moment = require("alloy/moment"),
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn"],
+	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	width: "25%",
+	backgroundColor: 'transparent'
 }),
     passwordContainerViewFromTop = 0;
     var args= arguments[0]||{};
@@ -20,8 +22,8 @@ function init() {
 }
 
 function focus() {
-	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
-}
+var height = $.uihelper.getHeightFromChildren($.nameView);
+	$.nameVDividerView.height = height;}
 
 function didClickContinue() {
 	var fname = $.fnameTxt.getValue(),
@@ -146,7 +148,11 @@ function didFail() {
 
 function didRegister() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	successMessage = Alloy.Globals.strings.msgMgrAccountCreation;
+	if (args.origin === "registerChildInfo") {
+		successMessage = Alloy.Globals.strings.msgMgrChildAccountCreation;
+	} else {
+		successMessage = Alloy.Globals.strings.msgMgrAdultAccountCreation;
+	}
 	$.uihelper.showDialog({
 		message : successMessage,
 		buttonNames : [$.strings.dialogBtnOK],
@@ -184,11 +190,15 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
+				width: "25%",
+				backgroundColor: 'transparent'
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
@@ -204,9 +214,15 @@ function didBlurFocusPassword() {
 }
 
 function didFocusPassword(e) {
+		$.passwordTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + Alloy.TSS.form_txt.height + Alloy.TSS.content_view.top / 2) - $.passwordTooltip.size.height
+			top : (passwordContainerViewFromTop + $.containerView.top ) 
 		});
 		delete $.passwordTooltip.size;
 	}
@@ -215,7 +231,7 @@ function didFocusPassword(e) {
 
 function didPostlayoutPasswordContainerView(e) {
 	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y;
+	passwordContainerViewFromTop = e.source.rect.y - 15;
 }
 
 function didPostlayoutTooltip(e) {

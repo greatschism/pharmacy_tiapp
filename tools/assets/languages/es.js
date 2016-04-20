@@ -84,6 +84,7 @@ module.exports = {
 		"msgLoggedout" : "es-You have logged out successfully.",
 		"msgGooglePlayServicesUpdateRequired" : "es-You must update your Google Play Services in order to use this feature. Do you want to update now?",
 		"msgGooglePlayServicesNotAvailable" : "es-There is something wrong with your version of Google Play Services. Please check your settings.",
+		"msgFeatureNotAvailable" : "es-Service is temporarily unavailable, please try again later.",
 		"msgPrescriptionSchedule2" : "es-Schedule 2 drugs cannot be refilled electronically. Contact your pharmacy or doctor for more information.",
 		"msgPrescriptionRefillLeftNone" : "es-This prescription has zero refills. We will need to contact your doctor to authorize this refill.",
 		"msgPrescriptionExpired" : "es-This prescription has expired. We will need to contact your doctor to authorize this refill.",
@@ -95,7 +96,8 @@ module.exports = {
 		"msgAgeRestriction" : "es-You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "es-It looks like you already have an account with %s",
 		"msgUserRecoverySuccess" : "es-We've just sent you an email with a password reset link. You can use it to create a new password.",
-		"msgMgrAccountCreation" : "es-Your manager account is created! Now please add your child.",
+		"msgMgrChildAccountCreation" : "es-Your manager account is created! Now please add your child.",
+		"msgMgrAdultAccountCreation" : "es-Your manager account is created! Now please add your adult family member.",
 		"msgRegisterSuccessful" : "es-Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "es-Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
 
@@ -193,17 +195,17 @@ module.exports = {
 		"homeDialogBtnRate" : "es-Rate this app",
 		"homeDialogBtnRemind" : "es-Remind me later",
 		"homeDialogBtnCancel" : "es-No thanks",
-		"homePopupLblTitle" : "es-How can we improve?",
-		"homePopupLblDesc" : "es-We're really sorry that you're not happy! Your feedback helps us improve your experience. Please let us know how we can help.",
-		"homePopupHintFeedback" : "es-Your feedback here",
-		"homePopupBtnSubmit" : "es-Submit",
-		"homePopupBtnCancel" : "es-No Thanks",
-		"homePopupValFeedback" : "es-Please enter your feedback.",
+		"homeDialogTitleImprove" : "es-How can we improve?",
+		"homeMsgImprove" : "es-We're really sorry that you're not happy! Your feedback helps us improve your experience. Please let us know how we can help.",
+		"homeDialogHintFeedback" : "es-Your feedback here",
+		"homeDialogBtnSubmit" : "es-Submit",
+		"homeDialogBtnCancel" : "es-No Thanks",
+		"homeDialogValFeedback" : "es-Please enter your feedback.",
+		"homeMsgFeedbackSubmitted" : "es-Thanks you! Your feedback is extremely valuable to us and we will use it to improve the app.",
 
 		"loginLblTitle" : "es-Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "es-Email address",
 		"loginHintPassword" : "es-Password",
-		"loginLblTogglePassword" : "es-Show password",
 		"loginLblAutoLogin" : "es-Keep me signed in",
 		"loginAttrSignup" : "es-Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "es-Please enter your username.",
@@ -230,10 +232,10 @@ module.exports = {
 		"storesGeoZeroResults" : "es-No matches found!",
 		"storesMsgGoogleApiFailed" : "es-Sorry, we are unable to process your request now. Please try again later.",
 
-		"storeDetPromptPhone" : "es-Call:",
 		"storeDetLblOpen" : "es-Open till %s",
 		"storeDetLblClose" : "es-Closed at %s",
 		"storeDetLblClosed" : "es-Closed",
+		"storeDetLblDistance" : "es-%s miles away",
 		"storeDetLblNotAvailable" : "es-Not available",
 		"storeDetBtnDirection" : "es-Directions",
 		"storeDetBtnRefill" : "es-Refill at this location",
@@ -318,6 +320,7 @@ module.exports = {
 		"prescAddBtnSubmit" : "es-Done",
 		"prescAddBtnContinue" : "es-Continue",
 		"prescAddSectionBtnAll" : "es-Select all",
+		"prescAddSectionBtnNone" : "es-Select none",
 		"prescAddMsgEmptyList" : "es-No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "es-You must select at least %d prescription(s) to continue.",
 		"prescAddSectionReminders" : "es-Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
@@ -366,7 +369,7 @@ module.exports = {
 		"refillPhoneValPhone" : "es-Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "es-The mobile number you have entered is invalid.",
 
-		"refillTypeLblTitle" : "es-Refill prescriptions without an account",
+		"refillTypeLblTitle" : "es-Refill prescriptions\nwithout an account",
 		"refillTypeLblDesc" : "es-Please enter the information below so we can process your refill.",
 		"refillTypeSectionPresc" : "es-Your order",
 		"refillTypeSectionPickup" : "es-Pharmacy where you filled this last",
@@ -401,9 +404,12 @@ module.exports = {
 		"colorPickerLblColor" : "es-Selected color",
 		"colorPickerBtnSubmit" : "es-Done",
 
-		"remindersLblRefill" : "es-Refill Reminders",
-		"remindersLblMed" : "es-Medication Reminders",
-		"remindersLblSettings" : "es-Reminder and Notification Settings",
+		"remindersLblRefillTitle" : "es-Refill Reminders",
+		"remindersLblRefillDesc" : "es-Choose which prescription you receive reminder for and when.",
+		"remindersLblMedTitle" : "es-Medication Reminders",
+		"remindersLblMedDesc" : "es-Set reminders to take your medications on time.",
+		"remindersLblSettingsTitle" : "es-Reminder and Notification Settings",
+		"remindersLblSettingsDesc" : "es-How would you like to receive your your reminders?",
 		"remindersTooltipLblRefill" : "es-tip: Update your refill reminders & which prescriptions you want to get reminders for here.",
 		"remindersTooltipLblMed" : "es-tip: Set, modify and bundle medication reminders to never miss a dose again.",
 		"remindersTooltipLblSettings" : "es-tip: Set reminder delivery methods and the appearance of all your notifications.",
@@ -807,8 +813,11 @@ module.exports = {
 		"addAnotherAdultLblTitle" : "es-It's time to invite your family member.",
 		"addAnotherAdultLblSubTitle" : "es-First, tell us who they are:",
 		"addAnotherAdultBtnContinue" : "es-Continue",
-		"addAnotherAdultAddRelationTip" : "es-Tap to choose..."
-
+		"addAnotherAdultAddRelationTip" : "es-Tap to choose...",
+		
+		"msgTryAgainStoragePermission" : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
+		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
+		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature."
 	}
 
 };

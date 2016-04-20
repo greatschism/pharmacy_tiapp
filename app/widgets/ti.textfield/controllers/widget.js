@@ -1,5 +1,5 @@
-var args = arguments[0] || {},
-    enableClearButton = false,
+var args = $.args,
+    clearButtonEnabled = false,
     triggerChange = true;
 
 (function() {
@@ -13,8 +13,8 @@ var args = arguments[0] || {},
 
 	if (_.has(args, "rightIconText")) {
 		setIcon(args.rightIconText, "right", args.rightIconDict || {}, args.rightIconAccessibility || {}, args.paddingRight || 0);
-	} else if (args.enableClearButton) {
-		enableClearButton = true;
+	} else if (args.clearButtonEnabled) {
+		clearButtonEnabled = true;
 		setIcon(args.clearIconText, "right", args.clearIconDict || args.rightIconDict || {}, args.clearIconAccessibility || {}, args.paddingRight || 0);
 	} else if (_.has(args, "rightButtonTitle")) {
 		setButton(args.rightButtonTitle, "right", args.rightButtonDict || {}, args.rightButtonAccessibility || {}, args.paddingRight || 0);
@@ -27,22 +27,18 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 		var dict = {
 			title : iconText
 		};
-		if (iconDict) {
-			_.extend(dict, iconDict);
-		}
-		if (accessibility) {
-			_.extend(dict, accessibility);
-		}
+		_.extend(dict, iconDict);
+		_.extend(dict, accessibility);
 		$[iconBtn].applyProperties(dict);
 		return true;
 	}
 	var font = args.iconFont || {
 		fontSize : 12
 	},
-	    isClearButton = enableClearButton && direction == "right";
-	$.txt[direction] = $.txt[direction] + (iconDict[direction] || 0) + font.fontSize + (padding || 0);
+	    isClearButton = clearButtonEnabled && direction == "right";
+	$.txt[direction] = ($.txt[direction] || 0) + (iconDict[direction] || 0) + (iconDict.width || font.fontSize || 0) + (padding || 0);
 	iconDict[direction] = 0;
-	_.extend(iconDict, {
+	_.defaults(iconDict, {
 		width : $.txt[direction],
 		font : font,
 		title : iconText,
@@ -64,21 +60,17 @@ function setButton(title, direction, buttonDict, accessibility, padding) {
 		var dict = {
 			title : title
 		};
-		if (buttonDict) {
-			_.extend(dict, buttonDict);
-		}
-		if (accessibility) {
-			_.extend(dict, accessibility);
-		}
+		_.extend(dict, buttonDict);
+		_.extend(dict, accessibility);
 		$[button].applyProperties(dict);
 		return true;
 	}
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
-	$.txt[direction] = $.txt[direction] + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
+	$.txt[direction] = ($.txt[direction] || 0) + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
 	buttonDict[direction] = 0;
-	_.extend(buttonDict, {
+	_.defaults(buttonDict, {
 		width : $.txt[direction],
 		font : font,
 		title : title,
@@ -139,7 +131,7 @@ function didChange(e) {
 		triggerChange = true;
 		return;
 	}
-	if (enableClearButton) {
+	if (clearButtonEnabled) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
 	$.trigger("change", {
@@ -189,7 +181,7 @@ function setValue(value) {
 		triggerChange = false;
 	}
 	$.txt.value = value;
-	if (enableClearButton) {
+	if (clearButtonEnabled) {
 		$.clearBtn.visible = $.txt.value != "";
 	}
 }

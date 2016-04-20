@@ -1,28 +1,28 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<View class="auto-height">
-			<ImageView id="textBenefitsImage" />
-			<Label id="textBenefitLbl" class="image-title"/>
+			<ImageView id="textBenefitsImage"/>
+			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
 		</View>
-		<View class="info-view margin-top">
-			<View class="margin-top auto-height">
-				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
-				<Label id="textBenefit1" class="info-lbl" />
+		<View class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup inactive-light-border">
+			<View class="auto-height hgroup ">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="textBenefit1" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
-			<View class="margin-top auto-height">
-				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
-				<Label id="textBenefit2" class="info-lbl" />
+			<View class="auto-height hgroup">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="textBenefit2" class="margin-top margin-bottom h4 margin-left margin-right " />
 			</View>
-			<View class="margin-top auto-height">
-				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
-				<Label id="textBenefit3" class="info-lbl" />
+			<View class="auto-height hgroup">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
+				<Label id="textBenefit3" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
-			<View class="margin-top margin-bottom auto-height">
-				<Label id="leftIconLbl" class="info-positive-icon icon-thin-filled-success"/>
-				<Label id="textBenefit4" class="info-lbl" />
+			<View class="auto-height hgroup">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
+				<Label id="textBenefit4" class="margin-top margin-bottom h4 margin-left margin-right" />
 			</View>
 		</View>
-		<Button id="sendTxtBtn" class="primary-btn margin-top" onClick="didClickTextSignup"/>
-		<Button id="skipSendTxtBtn" class="secondary-btn margin-top" onClick="didClickSkipTextSignup"/>
+		<Button id="sendTxtBtn" analyticsId="SendTxtBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickTextSignup"/>
+		<Button id="skipSendTxtBtn" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipTextSignup"/>
 	</ScrollView>
 </Alloy>

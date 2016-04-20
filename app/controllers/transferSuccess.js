@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
 stores,
 phone_formatted;
 
@@ -51,6 +51,21 @@ function focus() {
 }
 
 function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("TransferRx-TransferSuccess", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	$.uihelper.getPhone({
 		firstName : store.title,
 		phone : {

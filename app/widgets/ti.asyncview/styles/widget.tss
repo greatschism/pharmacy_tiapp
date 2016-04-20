@@ -2,17 +2,13 @@
 	role: "asyncView",
 	height: Ti.UI.SIZE
 },
+"#activityIndicator":{
+	style: Ti.UI.ActivityIndicatorStyle.BIG
+},
 "#activityIndicator[platform=ios]":{
-	/**
-	 * 	indicatorColor is available only from 5.0.0.GA
-	 *  iPhone.ActivityIndicatorStyle.DARK deprecated from 5.1.0
-	 * use ActivityIndicatorStyle.BIG
-	 */
-	indicatorColor: "#005E00",
-	style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+	indicatorColor: "#005E00"
 },
 "#activityIndicator[platform=android]":{
 	width: 50,
-	height: 50,
-	style: Ti.UI.ActivityIndicatorStyle.BIG
+	height: 50
 }

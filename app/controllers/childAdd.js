@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     store = {},
     rxContainerViewFromTop = 0,
@@ -23,13 +23,20 @@ function init() {
 	}
 	$.uihelper.getImage("child_add", $.childImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+		$.rxTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 function setRightButton(iconText, iconDict) {
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 function focus() {
-	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
+		var height = $.uihelper.getHeightFromChildren($.nameView);
+	$.nameVDividerView.height = height;
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
@@ -309,13 +316,13 @@ function didPostlayoutRxContainerView(e) {
 }
 
 function didFocusRx(e) {
-	if (_.has($.rxTooltip, "size")) {
-		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop + Alloy.TSS.content_view.top / 2) - $.rxTooltip.size.height
-		});
-		delete $.rxTooltip.size;
-	}
-	$.rxTooltip.show();
+
+	var top = $.rxContainer.rect.height,
+	    margin = $.rxContainer.bottom;
+	$.rxTooltip.applyProperties({
+				top : top - margin
+			});
+			$.rxTooltip.show();
 }
 
 function didClickPharmacy(e) {

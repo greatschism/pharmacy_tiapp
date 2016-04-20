@@ -1,35 +1,11 @@
-"#drawer":{
-	leftDrawerWidth: Alloy.CFG.left_drawer_width
-},
-"#drawer[platform=ios]":{
-	openDrawerGestureMode: "OPEN_MODE_NONE",
-	closeDrawerGestureMode: "CLOSE_MODE_ALL",
-	shouldStretchDrawer: false,
-	showShadow: true
-},
 "#drawer[platform=android]":{
 	drawerLayout: true,
-	exitOnClose: true,
-	window: {
-		barColor: Alloy.TSS.Window.barColor,
-		statusBarColor: Alloy.TSS.Window.statusBarColor,
-		titleAttributes: Alloy.TSS.Window.titleAttributes
-	}
-},
-"#drawer[formFactor=handheld]":{
-	orientationModes: [Ti.UI.PORTRAIT]
-},
-"#drawer[formFactor=tablet]":{
-	orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+	exitOnClose: true
 },
 "#leftWindow[platform=ios]":{
 	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "#rootWindow[platform=ios]":{
 	title: Ti.App.name,
-	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT,
-	backgroundColor: "#FFFFFF"
-},
-"#centerView[platform=android]":{
-	backgroundColor: "#FFFFFF"
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 }

@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     isWindowOpen;
 
 function focus() {
@@ -43,7 +43,8 @@ function updateInputs() {
 		if (prescription.storeOriginal.code_display == "Other") {
 			$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
 				classes : ["form-txt"],
-				hintText : $.strings.transferTypeOther
+				hintText : $.strings.transferTypeOther,
+				analyticsId : "OtherTxt"
 			}));
 			$.otherTxtView.add($.otherTxt.getView());
 			$.otherTxt.setValue(prescription.storeOther);
@@ -59,7 +60,8 @@ function didChangeStore() {
 	if ($.storeOriginalDp.getSelectedItem().code_display === "Other") {
 		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
 			classes : ["form-txt"],
-			hintText : $.strings.transferTypeOther
+			hintText : $.strings.transferTypeOther,
+			analyticsId : "OtherTxt"
 		}));
 		$.otherTxtView.add($.otherTxt.getView());
 	} else if ($.otherTxt) {

@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     http = require("requestwrapper"),
     uihelper = require("uihelper"),
     utilities = require("utilities");
@@ -6,7 +6,8 @@ var args = arguments[0] || {},
 function didClickContactSupport() {
 	$.contactSupport = Alloy.createWidget("ti.optiondialog", "widget", $.createStyle({
 		options : [Alloy.Globals.strings.dialogBtnPhone, Alloy.Globals.strings.dialogBtnEmail, Alloy.Globals.strings.dialogBtnCancel],
-		cancel : 2
+		cancel : 2,
+		analyticsId : "ContactSupportOptionDlg"
 	}));
 
 	$.contactSupport.on("click", function didClick(evt) {

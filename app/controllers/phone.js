@@ -1,13 +1,15 @@
-var args = arguments[0] || {},
+var args = $.args,
     childProxyData = [],
     selectedChildProxy,
     authenticator = require("authenticator"),
+    moment = require("alloy/moment"),
     accntMgrData,
     parentData,
     allChildData,
     childData,
     currentPatient,
     phone,
+    lastPhone,
     otp,
     utilities = require('utilities'),
     rows = [];
@@ -34,18 +36,20 @@ function focus() {
 	/**
 	 * To populate the phone number in this page, if the mobile number is already verified
 	 */
-	if (currentPatient.get("mobile_number") !== null) {
-		lastPhone = currentPatient.get("mobile_number");
+	if (currentPatient.get("mobile_number") != null && currentPatient.get("mobile_number") != 'null') {
+		lastPhone = $.utilities.formatPhoneNumber(currentPatient.get("mobile_number"));
 		didChangePhone({
 			value : lastPhone
 		});
+	} else {
+		lastPhone = $.phoneTxt.getValue();
 	}
 }
 
 function updateTable() {
 	$.recieveTextSection = $.uihelper.createTableViewSection($, $.strings.receiveTextChildSectionLbl);
-	var subtitleClasses = ["content-subtitle-wrap"],
-	    titleClasses = ["content-title-wrap"],
+	var subtitleClasses = ["margin-top-small", "margin-bottom", "margin-left", "inactive-fg-color"],
+	    titleClasses = ["margin-top", "margin-left","h4"],
 	    selected = true;
 	accntMgrData = Alloy.Collections.patients.at(0);
 	parentData = Alloy.Collections.patients.at(0).get("parent_proxy");
@@ -151,13 +155,29 @@ function didClickContinue() {
 			return;
 		}
 	}
+	
+	/**
+	 * Check if the person has a minor account linked.
+	 * If yes, send his ID as part of the mobile/add API call
+	 */
+	var minorAccount = 0;
+	var linked_data = Alloy.Collections.patients.at(0).get("child_proxy");
+	_.each(linked_data, function(child_data){
+		var mDob = moment(child_data.birth_date, Alloy.CFG.apiCodes.dob_format);
+		minorAccount = moment().diff(mDob, "years", true) >= 18 ? 0 : child_data.child_id;
+	});
+	
+	if(minorAccount){
+		selectedChildProxy.push(minorAccount);
+	}
+	
 	$.http.request({
 		method : "mobile_add",
 		params : {
 			data : [{
 				add : {
 					mobile : "1" + phone,
-					old_mobile : "",
+					old_mobile : "1" + lastPhone,
 					childIds : selectedChildProxy
 				}
 			}]

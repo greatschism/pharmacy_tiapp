@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
 	http = require("requestwrapper"),
 	app = require("core"),
 	utilities = require('utilities'),
@@ -59,7 +59,7 @@ function applyWebViewProperties(url){
 	    	actualHeight = e.source.evalJS('document.height;');
 	   	}
 	    
-	    e.source.height = parseInt(actualHeight);
+	    e.source.height = parseInt(actualHeight) + 50;
 	    hideLoader();
     }); 
     

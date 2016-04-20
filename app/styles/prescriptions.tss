@@ -1,3 +1,6 @@
+"#rightNavBtn":{
+	analyticsId: "OptionsBtn"
+},
 "#patientSwitcher[if=$.args.patientSwitcherDisabled]":{
 	disabled: true
 },
@@ -5,9 +8,9 @@
 	disabled: false
 },
 /**
-* 	if showHiddenPrescriptions is true
-*  exclude the options
-*  unhide and sort (sort is removed as client
+* if showHiddenPrescriptions is true
+* exclude the options
+* unhide and sort (sort is removed as client
 * will not be able to sort prescriptions and use
 * alphabetic sort by default)
 */
@@ -16,7 +19,7 @@
 	cancel: 2
 },
 /**
-* 	if showHiddenPrescriptions is false
+*  if showHiddenPrescriptions is false
 *  include the options
 *  unhide and sort
 */
@@ -27,7 +30,8 @@
 "#sortPicker":{
 	autoHide: true,
 	radioButton: true,
-	titleProperty: "code_display"
+	titleProperty: "code_display",
+	analyticsId: "SortOptionPicker"
 },
 "#sortLbl":{
 	text: Alloy.Globals.strings.prescPopupSectionSort
@@ -36,7 +40,8 @@
 	title: Alloy.Globals.strings.prescPopupSortBtnClose
 },
 "#unhidePicker":{
-	template: "itemTemplates/contentViewWithLIcon"
+	template: "itemTemplates/contentViewWithLIcon",
+	analyticsId: "UnhidePrescriptionsOptionPicker"
 },
 "#selectNoneBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnNone
@@ -51,7 +56,11 @@
 	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
 },
 "#searchTxt":{
-	hintText:Alloy.Globals.strings.prescHintSearch
+	hintText:Alloy.Globals.strings.prescHintSearch,
+	clearButtonEnabled: true
+},
+"#tooltip":{
+	arrowPadding: 6.5
 },
 "#tooltipLbl":{
 	text: Alloy.Globals.strings.prescAddTooltipLblReminder
@@ -61,6 +70,9 @@
 },
 "#headerLbl":{
 	text: Alloy.Globals.strings.prescAddSectionReminders
+},
+"#tableView":{
+	analyticsId: "PrescriptionsList"
 },
 "#tableView[if=!$.args.selectable]":{
 	bottom: null

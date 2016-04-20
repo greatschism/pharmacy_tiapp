@@ -1,9 +1,10 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     prescription = args.prescription,
+    postlayoutCount = 0,
     newMedReminder,
     isWindowOpen,
     httpClient;
@@ -11,12 +12,29 @@ var args = arguments[0] || {},
 function init() {
 	$.titleLbl.text = prescription.title;
 	var refillsLeft = parseInt(prescription.refill_left),
-	    refillsLeftIsNaN = _.isNaN(refillsLeft);
-	$.addClass($.refillsLeftBtn, [refillsLeftIsNaN || refillsLeft > Alloy.CFG.prescription_refills_left_info_negative ? "info-btn" : "info-negative-btn"], {
-		title : refillsLeftIsNaN ? prescription.refill_left : refillsLeft
-	});
+	    refillsLeftIsNaN = _.isNaN(refillsLeft),
+	    refillsLeftTitle = refillsLeftIsNaN ? prescription.refill_left : refillsLeft;
+	if (!refillsLeftIsNaN && refillsLeft <= Alloy.CFG.prescription_refills_left_negative) {
+		$.refillsLeftBtn.applyProperties($.createStyle({
+			classes : ["negative-bg-color", "light-fg-color", "negative-border"],
+			title : refillsLeftTitle
+		}));
+	} else {
+		$.refillsLeftBtn.title = refillsLeftTitle;
+	}
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+	_.each(["refillsLeftLbl", "dueLbl", "lastRefillLbl"], function(val) {
+		$.uihelper.wrapText($[val]);
+	});
+	_.each(["refillsLeftBtn", "dueBtn", "lastRefillBtn"], function(val) {
+		$.uihelper.roundedCorners($[val]);
+	});
+	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView"], function(val) {
+		if ($[val]) {
+			$.uihelper.wrapViews($[val], "right");
+		}
+	});
 	if (_.has(prescription, "store")) {
 		/**
 		 * Use case:
@@ -172,16 +190,22 @@ function loadPresecription() {
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
 	/**
-	 * all switches will be off
-	 * by default
+	 * make sure reminders
+	 * module is enabled
 	 */
-	//refill reminder
-	if (prescription.is_refill_reminder_set === "1") {
-		$.reminderRefillSwt.setValue(true, isWindowOpen);
-	}
-	//med reminder
-	if (prescription.is_dosage_reminder_set === "1") {
-		$.reminderMedSwt.setValue(true, isWindowOpen);
+	if (Alloy.CFG.is_reminders_enabled) {
+		/**
+		 * all switches will be off
+		 * by default
+		 */
+		//refill reminder
+		if (prescription.is_refill_reminder_set === "1") {
+			$.reminderRefillSwt.setValue(true, isWindowOpen);
+		}
+		//med reminder
+		if (prescription.is_dosage_reminder_set === "1") {
+			$.reminderMedSwt.setValue(true, isWindowOpen);
+		}
 	}
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
@@ -195,7 +219,6 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.prescExp.setStopListening(true);
 	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
@@ -224,23 +247,26 @@ function didUpdateUI() {
 	$.loader.hide();
 }
 
-function didClickStore(e) {
-	/**
-	 * location has to be shared with store details
-	 * this should be a parameter as based on the
-	 * direction flag only the direction button will be visible
-	 */
-	$.uihelper.getLocation(didGetLocation, false, false);
+function didPostlayoutPrompt(e) {
+	var source = e.source,
+	    children = source.getParent().children;
+	source.removeEventListener("postlayout", didPostlayoutPrompt);
+	children[1].applyProperties({
+		left : children[1].left + children[0].rect.width,
+		visible : true
+	});
+	postlayoutCount++;
+	if (postlayoutCount === 4) {
+		$.prescExp.setStopListening(true);
+	}
 }
 
-function didGetLocation(userLocation) {
+function didClickStore(e) {
 	$.app.navigator.open({
 		titleid : "titleStoreDetails",
 		ctrl : "storeDetails",
 		ctrlArguments : {
-			store : prescription.store,
-			currentLocation : userLocation,
-			direction : !_.isEmpty(userLocation)
+			store : prescription.store
 		},
 		stack : true
 	});
@@ -282,7 +308,7 @@ function togglePrescription(e) {
 		result = $.prescExp.expand();
 	}
 	if (result) {
-		$.toggleBtn.title = $.strings[title];
+		$.toggleLbl.text = $.strings[title];
 	}
 }
 

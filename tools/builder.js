@@ -8,15 +8,6 @@ var log4js = require("log4js"),
     _u = require("underscore"),
     spawn = cp.spawn,
     ROOT_DIR = path.normalize(__dirname + "/..") + "/",
-    DEFAULT_BRAND_ID = "meglo",
-    DEFAULT_ENVIRONMENT = "dev",
-    DEFAULT_SDK_VERSION = "4.1.0.GA",
-    DEFAULT_APP_VERSION = "7.0.0",
-    DEFAULT_BUILD_NUMBER = "1",
-    DEFAULT_PLATFORM = "ios",
-    DEFAULT_TARGET = "dist-adhoc",
-    DEFAULT_OUTPUT_DIR = ROOT_DIR + "dist",
-    SHORT_CODE_MAX_LEN = 4,
     MODE_SHORT_CODE_JS = ROOT_DIR + "app/lib/moduleShortCode.js",
     CTRL_SHORT_CODE_JS = ROOT_DIR + "app/lib/ctrlShortCode.js",
     STYLE_SHEETS_JS = ROOT_DIR + "app/lib/styleSheets.js",
@@ -27,13 +18,11 @@ var log4js = require("log4js"),
     APP_HTTPS_CER = APP_ASSETS_DIR + "https.cer",
     APP_ASSETS_IPHONE_DIR = APP_ASSETS_DIR + "iphone",
     APP_ASSETS_ANDROID_DIR = APP_ASSETS_DIR + "android",
+    APP_ASSETS_MOBILEWEB_DIR = APP_ASSETS_DIR + "mobileweb",
     APP_ASSETS_DATA_DIR = APP_ASSETS_DIR + "data",
     APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
     APP_ASSETS_IMAGES_SERIES_DIR = APP_ASSETS_IMAGES_DIR + "/series",
     APP_DEFAULT_ICON = ROOT_DIR + "DefaultIcon.png",
-    APP_ITUNES_ICON = ROOT_DIR + "iTunesConnect.png",
-    APP_MARKETPLACE_ICON = ROOT_DIR + "MarketplaceArtwork.png",
-    APP_MARKETPLACE_FEATURE_IMG = ROOT_DIR + "MarketplaceArtworkFeature.png",
     APP_ANDROID_RES_BASE_DIR = ROOT_DIR + "platform/android/res/",
     APP_ANDROID_DRAWABLE_LDPI = APP_ANDROID_RES_BASE_DIR + "drawable-ldpi",
     APP_ANDROID_DRAWABLE_MDPI = APP_ANDROID_RES_BASE_DIR + "drawable-mdpi",
@@ -44,7 +33,7 @@ var log4js = require("log4js"),
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
-    AUTH_JSON = TOOLS_DIR + "auth.json",
+    DEFAULTS_JSON = TOOLS_DIR + "defaults.json",
     BRANDS_JSON = TOOLS_DIR + "brands.json",
     BASE_CONFIG_JSON = TOOLS_DIR + "base_config.json",
     BASE_TIAPP_XML = TOOLS_DIR + "base_tiapp.xml",
@@ -60,18 +49,19 @@ var log4js = require("log4js"),
  * build program
  * interface
  */
-program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json", DEFAULT_BRAND_ID);
-program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase, DEFAULT_ENVIRONMENT);
-program.option("-s, --sdk <version>", "Titanium SDK version to build with. Defaults to " + DEFAULT_SDK_VERSION + ".", DEFAULT_SDK_VERSION);
+program.option("-B, --brand-id <id>", "Brand id to build with; should match with any one defined in brands.json");
+program.option("-e, --environment <environment>", "Environment to build with; should match with any one defined in env.json", toLowerCase);
+program.option("--shortcode-length <shortcode>", "Short length for Controllers or APIs.", parseInt, 4);
+program.option("-s, --sdk <version>", "Titanium SDK version to build with.");
 program.option("-u, --username <USERNAME>", "Username for authentication.");
 program.option("-P, --password <USER_PASSWORD>", "Password for authentication.");
 program.option("-o, --org-id <ORGANIZATION_ID>", "Specify the organization.");
-program.option("-S, --store-auth", "Stores the appcelerator login credentials for future use.");
-program.option("-v, --version <value>", "App version", DEFAULT_APP_VERSION);
-program.option("-i, --build-number <value>", "Build number.", DEFAULT_BUILD_NUMBER);
-program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, DEFAULT_PLATFORM);
-program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, DEFAULT_TARGET);
-program.option("-O, --output-dir <dir>", "Output directory.", DEFAULT_OUTPUT_DIR);
+program.option("-d, --defaults", "Set given arguments as defaults (limited as brand-id, environment, sdk, username, password, org-id, version, build-number and log-level).");
+program.option("-v, --version <value>", "App version");
+program.option("-i, --build-number <value>", "Build number.");
+program.option("-p, --platform <platform>", "Target build platform: Supported values are ios or android.", toLowerCase, "ios");
+program.option("-T, --target <value>", "Target to build for: dist-playstore, dist-appstore or dist-adhoc.", toLowerCase, "dist-adhoc");
+program.option("-O, --output-dir <dir>", "Output directory.", ROOT_DIR + "dist");
 program.option("-F, --output-file <file>", "Output file (base) name.");
 program.option("-f, --force", "Force a full rebuild.");
 program.option("-b, --build-only", "Only brand the project; when specified, does not trigger a release.");
@@ -94,78 +84,95 @@ log4js.setGlobalLogLevel(program.logLevel);
 //logger for Builder
 logger = log4js.getLogger("Builder");
 
-/**
- * store credentials
- * if enabled
- */
-if (program.storeAuth) {
-	fs.writeFileSync(AUTH_JSON, JSON.stringify(_u.pick(program, ["username", "password", "orgId"]), null, 4));
-	logger.debug("Writing " + AUTH_JSON);
-} else if (fs.existsSync(AUTH_JSON)) {
-	logger.debug("Reading " + AUTH_JSON);
-	/**
-	 * get cached credentials
-	 * if exits
-	 */
-	var authData = JSON.parse(fs.readFileSync(AUTH_JSON, "utf-8"));
-	_u.each(authData, function(value, key) {
+//store defaults if requested
+if (program.defaults) {
+	var programData = _u.pick(program, ["brandId", "environment", "sdk", "username", "password", "orgId", "version", "buildNumber", "logLevel"]);
+	//take missing keys from existing defaults set
+	if (fs.existsSync(DEFAULTS_JSON)) {
+		var currentData = JSON.parse(fs.readFileSync(DEFAULTS_JSON, "utf-8"));
+		_u.each(currentData, function(value, key) {
+			if (!_u.has(programData, key)) {
+				programData[key] = value;
+			}
+		});
+	}
+	fs.writeFileSync(DEFAULTS_JSON, JSON.stringify(programData, null, 4));
+	logger.debug("Writing " + DEFAULTS_JSON);
+} else if (fs.existsSync(DEFAULTS_JSON)) {
+	logger.debug("Reading " + DEFAULTS_JSON);
+	//get cached arguments if exits, but don't overwrite from cache
+	var defaultData = JSON.parse(fs.readFileSync(DEFAULTS_JSON, "utf-8"));
+	_u.each(defaultData, function(value, key) {
 		if (!_u.has(program, key)) {
 			program[key] = value;
 		}
 	});
 }
 
+var brand;
 /**
- * check for required parameters,
- * can be skipped if buildOnly
- * is specified.
+ * check for required parameters
  */
-if (!program.buildOnly) {
-	_u.each(["username", "password", "orgId"], function(value) {
+if (!program.cleanOnly) {
+
+	_u.each(["brandId", "version", "buildNumber", "sdk"], function(value) {
 		if (!_u.has(program, value)) {
-			logger.error("username, password or org-id is missing");
+			logger.error(value + " is missing");
 			process.exit(1);
 		}
 	});
-}
-
-/**
- * brand info
- */
-var brand = _u.findWhere(JSON.parse(fs.readFileSync(BRANDS_JSON, "utf-8")), {
-	id : program.brandId
-});
-
-/**
- * exit if brand is invalid
- * if cleanOnly is true then
- * allow process to clean project
- */
-if (brand) {
-
-	//update brand resource path
-	BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
-	BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
-	BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
 
 	/**
-	 * actual env data is always inherited
-	 * from default one to avoid duplicate values
+	 * username, password and org-id
+	 * can be skipped if buildOnly
+	 * is specified.
 	 */
-	var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
-	    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
-	BRAND_ENV_DATA = BRAND_DATA["default"];
-	_u.each(BRAND_ENV_DATA, function(val, key) {
-		if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
-			_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
-		}
+	if (!program.buildOnly) {
+		_u.each(["username", "password", "orgId"], function(value) {
+			if (!_u.has(program, value)) {
+				logger.error(value + " is missing");
+				process.exit(1);
+			}
+		});
+	}
+
+	/**
+	 * brand info
+	 */
+	brand = _u.findWhere(JSON.parse(fs.readFileSync(BRANDS_JSON, "utf-8")), {
+		id : program.brandId
 	});
+	/**
+	 * exit if brand is invalid
+	 * if cleanOnly is true then
+	 * allow process to clean project
+	 */
+	if (brand) {
 
-} else if (!program.cleanOnly) {
+		//update brand resource path
+		BRAND_RESOURCE_BASE_DIR = TOOLS_DIR + brand.id + "/";
+		BRAND_KEYS_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "keys/";
+		BRAND_ENV_JSON = BRAND_RESOURCE_BASE_DIR + "env.json";
 
-	logger.error("invalid brand-id: " + program.brandId);
-	process.exit(2);
+		/**
+		 * actual env data is always inherited
+		 * from default one to avoid duplicate values
+		 */
+		var BRAND_DATA = JSON.parse(fs.readFileSync(BRAND_ENV_JSON, "utf-8")),
+		    BRAND_SELECTED_ENV_DATA = BRAND_DATA[program.environment] || {};
+		BRAND_ENV_DATA = BRAND_DATA["default"];
+		_u.each(BRAND_ENV_DATA, function(val, key) {
+			if (_u.has(BRAND_SELECTED_ENV_DATA, key)) {
+				_u.extend(BRAND_ENV_DATA[key], BRAND_SELECTED_ENV_DATA[key]);
+			}
+		});
 
+	} else if (!program.cleanOnly) {
+
+		logger.error("invalid brand-id: " + program.brandId);
+		process.exit(2);
+
+	}
 }
 
 /**
@@ -191,7 +198,7 @@ if (build) {
 	logger.debug("Initated cleanup");
 
 	//delete all resources
-	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ITUNES_ICON, APP_MARKETPLACE_ICON, APP_MARKETPLACE_FEATURE_IMG, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
+	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -211,12 +218,10 @@ if (build) {
 		var BRAND_HTTPS_CER = BRAND_KEYS_BASE_DIR + BRAND_ENV_DATA.keys.https_certificate,
 		    BRAND_ASSETS_IPHONE_DIR = BRAND_RESOURCE_BASE_DIR + "assets/iphone",
 		    BRAND_ASSETS_ANDROID_DIR = BRAND_RESOURCE_BASE_DIR + "assets/android",
+		    BRAND_ASSETS_MOBILEWEB_DIR = BRAND_RESOURCE_BASE_DIR + "assets/mobileweb",
 		    BRAND_ASSETS_DATA_DIR = BRAND_RESOURCE_BASE_DIR + "assets/data",
 		    BRAND_ASSETS_IMAGES_DIR = BRAND_RESOURCE_BASE_DIR + "assets/images",
 		    BRAND_DEFAULT_ICON = BRAND_RESOURCE_BASE_DIR + "images/DefaultIcon.png",
-		    BRAND_ITUNES_ICON = BRAND_RESOURCE_BASE_DIR + "images/iTunesConnect.png",
-		    BRAND_MARKETPLACE_ICON = BRAND_RESOURCE_BASE_DIR + "images/MarketplaceArtwork.png",
-		    BRAND_MARKETPLACE_FEATURE_IMG = BRAND_RESOURCE_BASE_DIR + "images/MarketplaceArtworkFeature.png",
 		    BRAND_ANDROID_RES_BASE_DIR = BRAND_RESOURCE_BASE_DIR + "platform/android/res/",
 		    BRAND_ANDROID_DRAWABLE_LDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-ldpi",
 		    BRAND_ANDROID_DRAWABLE_MDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-mdpi",
@@ -238,6 +243,9 @@ if (build) {
 			source : BRAND_ASSETS_ANDROID_DIR,
 			dest : APP_ASSETS_ANDROID_DIR
 		}, {
+			source : BRAND_ASSETS_MOBILEWEB_DIR,
+			dest : APP_ASSETS_MOBILEWEB_DIR
+		}, {
 			source : BRAND_ASSETS_DATA_DIR,
 			dest : APP_ASSETS_DATA_DIR
 		}, {
@@ -246,15 +254,6 @@ if (build) {
 		}, {
 			source : BRAND_DEFAULT_ICON,
 			dest : APP_DEFAULT_ICON
-		}, {
-			source : BRAND_ITUNES_ICON,
-			dest : APP_ITUNES_ICON
-		}, {
-			source : BRAND_MARKETPLACE_ICON,
-			dest : APP_MARKETPLACE_ICON
-		}, {
-			source : BRAND_MARKETPLACE_FEATURE_IMG,
-			dest : APP_MARKETPLACE_FEATURE_IMG
 		}, {
 			source : BRAND_ANDROID_DRAWABLE_LDPI,
 			dest : APP_ANDROID_DRAWABLE_LDPI
@@ -288,9 +287,51 @@ if (build) {
 		});
 
 		/**
-		 * link common assets
+		 * merge base resource with brand resource if any
 		 */
-		var RESOURCES_DATA = require(APP_ASSETS_DATA_DIR + "/resources").data;
+		var BASE_RESOURCES_JS = require(BASE_ASSETS_DIR + "/resources"),
+		    RESOURCES_DATA = BASE_RESOURCES_JS.data;
+		if (fs.existsSync(BRAND_ASSETS_DATA_DIR + "/resources.js")) {
+			_u.each(require(BRAND_ASSETS_DATA_DIR + "/resources").data, function(source) {
+				var ignore = source.ignore;
+				delete source.ignore;
+				if (ignore) {
+					RESOURCES_DATA = _u.reject(RESOURCES_DATA, function(resource) {
+						return _u.isEqual(resource, source);
+					});
+				} else {
+					var destinations = _u.where(RESOURCES_DATA, _u.pick(source, ["type", "version", "code", "name"]));
+					if (!destinations.length || !_u.some(destinations, function(destination) {
+						if (_u.isEqual(destination.platform, source.platform)) {
+							_u.extend(destination, source);
+							return true;
+						}
+					})) {
+						RESOURCES_DATA = _u.reject(RESOURCES_DATA, function(resource) {
+							return _u.some(destinations, function(destination) {
+								return _u.isEqual(resource, destination);
+							});
+						});
+						RESOURCES_DATA.push(source);
+					}
+				}
+			});
+			/**
+			 * Note: reject will return a new instance of array,
+			 * so BASE_RESOURCES_JS.data could be different from
+			 * RESOURCES_DATA here
+			 */
+			BASE_RESOURCES_JS.data = RESOURCES_DATA;
+		}
+		/**
+		 * create data directory if not exists
+		 * happens when the brand doesn't have
+		 * any brand specific data
+		 */
+		if (!fs.existsSync(APP_ASSETS_DATA_DIR)) {
+			fs.mkdirSync(APP_ASSETS_DATA_DIR);
+		}
+		fs.writeFileSync(APP_ASSETS_DATA_DIR + "/resources.js", "module.exports = " + JSON.stringify(BASE_RESOURCES_JS, null, 4) + ";");
 
 		/**
 		 * build theme
@@ -351,14 +392,16 @@ if (build) {
 		/**
 		 * verify template
 		 */
-		var TEMPLATE_JS = "template_" + _u.findWhere(RESOURCES_DATA, {
+		var TEMPLATE_JS = "template_" + (_u.findWhere(RESOURCES_DATA, {
 			"type" : "template"
-		}).version + ".js",
+		}) || {}).version + ".js",
 		    APP_TEMPLATE_JS = APP_ASSETS_DATA_DIR + "/" + TEMPLATE_JS;
 		if (!fs.existsSync(APP_TEMPLATE_JS)) {
 			var BASE_TEMPLATE_JS = BASE_ASSETS_DIR + TEMPLATE_JS;
-			fs.copySync(BASE_TEMPLATE_JS, APP_TEMPLATE_JS);
-			logger.debug("Linked " + BASE_TEMPLATE_JS + " => " + APP_TEMPLATE_JS);
+			if (fs.existsSync(BASE_TEMPLATE_JS)) {
+				fs.copySync(BASE_TEMPLATE_JS, APP_TEMPLATE_JS);
+				logger.debug("Linked " + BASE_TEMPLATE_JS + " => " + APP_TEMPLATE_JS);
+			}
 		}
 
 		/**
@@ -395,25 +438,46 @@ if (build) {
 		_u.each(_u.where(RESOURCES_DATA, {
 			"type" : "font"
 		}), function(font) {
-			var APP_FONT = "font_" + font.code + "_" + font.version;
+			var BASE_FONT = BASE_ASSETS_DIR + "fonts/" + font.postscript + "." + font.format,
+			    APP_FONT_NAME = "font_" + font.code + "_" + font.version,
+			    APP_FONT;
 			/**
-			 * we have only 2 platform now
-			 * ios and android
+			 * we have 3 platform now
+			 * ios, android and mobileweb
 			 */
-			if (font.platform.length === 2) {
-				//for both platform
-				APP_FONT = APP_ASSETS_DATA_DIR + "/" + APP_FONT;
-			} else if (_u.indexOf(font.platform, "ios") != -1) {
-				//ios onlly
-				APP_FONT = APP_ASSETS_DIR + "iphone/data/" + APP_FONT;
-			} else if (_u.indexOf(font.platform, "android") != -1) {
-				//android onlly
-				APP_FONT = APP_ASSETS_DIR + "android/data/" + APP_FONT;
-			}
-			if (!fs.existsSync(APP_FONT)) {
-				var BASE_FONT = BASE_ASSETS_DIR + "fonts/" + font.postscript + "." + font.format;
-				fs.copySync(BASE_FONT, APP_FONT);
-				logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+			if (font.platform.length === 3) {
+				//for all platforms
+				APP_FONT = APP_ASSETS_DATA_DIR + "/" + APP_FONT_NAME;
+				if (!fs.existsSync(APP_FONT)) {
+					fs.copySync(BASE_FONT, APP_FONT);
+					logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+				}
+			} else {
+				//individual platforms
+				if (_u.indexOf(font.platform, "ios") != -1) {
+					//ios onlly
+					APP_FONT = APP_ASSETS_DIR + "iphone/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
+				if (_u.indexOf(font.platform, "android") != -1) {
+					//android onlly
+					APP_FONT = APP_ASSETS_DIR + "android/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
+				if (_u.indexOf(font.platform, "mobileweb") != -1) {
+					//android onlly
+					APP_FONT = APP_ASSETS_DIR + "mobileweb/data/" + APP_FONT_NAME;
+					if (!fs.existsSync(APP_FONT)) {
+						fs.copySync(BASE_FONT, APP_FONT);
+						logger.debug("Linked " + BASE_FONT + " => " + APP_FONT);
+					}
+				}
 			}
 		});
 
@@ -455,9 +519,9 @@ if (build) {
 					_u.each(separatedNames, function(separatedName) {
 						shortCode += separatedName.charAt(0);
 					});
-					var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+					var requiredLen = program.shortcodeLength - shortCode.length;
 					if (requiredLen < 0) {
-						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + SHORT_CODE_MAX_LEN + " words seperated by underscore.");
+						logger.error("short code " + shortCode + " is too long. api name " + apiName + " should not exceed " + program.shortcodeLength + " words seperated by underscore.");
 						process.exit(3);
 					}
 					if (requiredLen > 0) {
@@ -467,15 +531,15 @@ if (build) {
 							if (newLetter) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
-							return shortCode.length === SHORT_CODE_MAX_LEN;
+							return shortCode.length === program.shortcodeLength;
 						});
 					}
 				} else {
-					if (apiName.length < SHORT_CODE_MAX_LEN) {
+					if (apiName.length < program.shortcodeLength) {
 						logger.error("api name " + apiName + " is too short");
 						process.exit(4);
 					}
-					shortCode = apiName.substr(0, SHORT_CODE_MAX_LEN);
+					shortCode = apiName.substr(0, program.shortcodeLength);
 				}
 				apiShortCode[apiName] = shortCode.toUpperCase();
 			});
@@ -539,7 +603,7 @@ if (build) {
 		tiapp.sdkVersion = program.sdk;
 		tiapp.version = program.version;
 
-		//android launcher acitivty name
+		//android launcher activity name
 		var names = (tiapp.name + " Activity").split(" ");
 		for (var i in names) {
 			var name = names[i].toLowerCase();
@@ -604,7 +668,7 @@ if (build) {
 		 * i.e login - LOGI
 		 */
 		var tiCtrlShortCode = {},
-		    allCtrlFile = fs.readdirSync(CTRL_DIR);
+		    allCtrlFile = fs.readdirSync(CTRL_DIR).concat(fs.readdirSync(CTRL_DIR + "/" + program.platform));
 		for (var i in allCtrlFile) {
 			var ctrlFile = allCtrlFile[i];
 			if (ctrlFile.substr(ctrlFile.lastIndexOf(".")) === ".js") {
@@ -627,9 +691,9 @@ if (build) {
 				 * now try second character of each word
 				 * if length is not enough
 				 */
-				var requiredLen = SHORT_CODE_MAX_LEN - shortCode.length;
+				var requiredLen = program.shortcodeLength - shortCode.length;
 				if (requiredLen < 0) {
-					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + SHORT_CODE_MAX_LEN + " words.");
+					logger.error("short code " + shortCode + " is too long. controller name " + ctrlFile + " should be in camel case and not exceed " + program.shortcodeLength + " words.");
 					process.exit(6);
 				}
 				if (requiredLen > 0) {
@@ -642,20 +706,20 @@ if (build) {
 								shortCode = (shortCode.substr(0, newIndex) || "") + newLetter + (shortCode.substr(newIndex) || "");
 							}
 						}
-						return shortCode.length === SHORT_CODE_MAX_LEN;
+						return shortCode.length === program.shortcodeLength;
 					});
 				}
 				/**
-				 * if still length is less than SHORT_CODE_MAX_LEN
-				 * then use first SHORT_CODE_MAX_LEN character (this happens
+				 * if still length is less than program.shortcodeLength
+				 * then use first program.shortcodeLength character (this happens
 				 * only with one word controller names).
 				 */
-				if (shortCode.length < SHORT_CODE_MAX_LEN) {
-					if (ctrlFile.length < SHORT_CODE_MAX_LEN) {
+				if (shortCode.length < program.shortcodeLength) {
+					if (ctrlFile.length < program.shortcodeLength) {
 						logger.error("controller name " + ctrlFile + " is too short");
 						process.exit(7);
 					}
-					shortCode = ctrlFile.substr(0, SHORT_CODE_MAX_LEN);
+					shortCode = ctrlFile.substr(0, program.shortcodeLength);
 				}
 				tiCtrlShortCode[ctrlFile] = shortCode.toUpperCase();
 			}
@@ -665,7 +729,10 @@ if (build) {
 		 * and verify they have
 		 * module assigned
 		 */
-		var moduleShortCode = require(MODE_SHORT_CODE_JS);
+		var moduleShortCode;
+		if (fs.existsSync(MODE_SHORT_CODE_JS)) {
+			moduleShortCode = require(MODE_SHORT_CODE_JS);
+		}
 		_u.each(tiCtrlShortCode, function(mCode, mKey) {
 			_u.each(tiCtrlShortCode, function(cCode, cKey) {
 				if (mKey !== cKey && mCode === cCode) {
@@ -673,7 +740,7 @@ if (build) {
 					process.exit(8);
 				}
 			});
-			if (!moduleShortCode[mCode]) {
+			if (moduleShortCode && !moduleShortCode[mCode]) {
 				logger.error("module short code not assigned for " + mCode + " or " + mKey);
 				process.exit(9);
 			}
@@ -709,8 +776,16 @@ if (build) {
 		//get theme and language data
 		var themeData = JSON.parse(BASE_THEME_DATA_STR).data,
 		    languageData = require(APP_SELECTED_LANGUAGE_JS).data,
-		    atss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
+		    dtss = JSON.parse(fs.readFileSync(BASE_THEME_DIR + "defaults.json", "utf-8")),
+		    atss = {},
 		    tss = {};
+
+		/**
+		 * In app.tss elements those which come first
+		 * will get low priority, than the element comes
+		 * second / after, so let default tss elements
+		 * go after images, icons and theme tss elements
+		 */
 
 		//add classes for images
 		processImages(atss, _u.where(RESOURCES_DATA, {
@@ -726,12 +801,11 @@ if (build) {
 		for (var ts in tss) {
 
 			if (!atss[ts]) {
-				atss[ts] = {
-				};
+				atss[ts] = {};
 			}
 
 			/**
-			 * remove any '#' or '.' character in first place and repalce '-' with '_'
+			 * remove any '#' or '.' character in first place and replace '-' with '_'
 			 * and transform classifiers
 			 * Example
 			 * input: ".some-classname[platform=ios formFactor=handheld]"
@@ -752,6 +826,22 @@ if (build) {
 				atss[ts][key] = identifier + "." + key;
 			}
 
+		}
+
+		/**
+		 * deep extend everything from dtss (default tss) to
+		 * atss (app tss), so dtss elements
+		 * will get high priority as it goes after
+		 * all atss elements
+		 */
+		for (var ts in dtss) {
+			if (!atss[ts]) {
+				atss[ts] = {};
+			}
+			var dict = dtss[ts];
+			for (var key in dict) {
+				atss[ts][key] = dict[key];
+			}
 		}
 
 		//convert to string and trim double quotes
@@ -793,11 +883,18 @@ if (build) {
 		 * for this platform
 		 */
 		var tempTiStyleSheets = JSON.parse(JSON.stringify(tiStyleSheets, null, 4).replace(/.tss/g, "").replace(new RegExp(TSS_DIR, "g"), "alloy/styles").replace(new RegExp(program.platform + "/", "g"), "")),
-		    platformToIgnore = program.platform === "ios" ? "android" : "ios";
+		    platformsToIgnore = _u.without(["ios", "android", "mobileweb"], program.platform);
 		tiStyleSheets = [];
 		for (var i in tempTiStyleSheets) {
-			var tempTiStyleSheet = tempTiStyleSheets[i];
-			if (tempTiStyleSheet.indexOf(platformToIgnore) === -1 && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
+			var tempTiStyleSheet = tempTiStyleSheets[i],
+			    shouldContinue = true;
+			_u.some(platformsToIgnore, function(platformToIgnore) {
+				if (tempTiStyleSheet.indexOf(platformToIgnore) != -1) {
+					shouldContinue = false;
+				}
+				return !shouldContinue;
+			});
+			if (shouldContinue && tiStyleSheets.indexOf(tempTiStyleSheet) == -1) {
 				tiStyleSheets.push(tempTiStyleSheet);
 			}
 		}
@@ -871,8 +968,8 @@ if (program.buildOnly) {
 	 */
 	var buildKeys = BRAND_ENV_DATA.keys;
 
-	if (program.platform === "ios") {
-
+	switch(program.platform) {
+	case "ios":
 		/**
 		 * build params for ios
 		 */
@@ -925,9 +1022,8 @@ if (program.buildOnly) {
 		}
 		appcParams.push("--pp-uuid");
 		appcParams.push(buildKeys.provisioning_profile.replace(".mobileprovision", ""));
-
-	} else if (program.platform === "android") {
-
+		break;
+	case "android":
 		/**
 		 * build params for android
 		 */
@@ -951,8 +1047,21 @@ if (program.buildOnly) {
 		//keystore password
 		appcParams.push("--store-password");
 		appcParams.push(buildKeys.keystore_password);
+		break;
+	case "mobileweb":
+		/**
+		 * build params for mobileweb
+		 */
 
-	} else {
+		//target
+		/**
+		 * for andorid there is only
+		 * one target
+		 */
+		appcParams.push("--target");
+		appcParams.push("web");
+		break;
+	default:
 		/**
 		 * exit if paltform is invalid
 		 */

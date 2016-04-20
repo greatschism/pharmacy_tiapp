@@ -1,8 +1,6 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
-    titleClasses = ["content-title-wrap"],
-    subtitleClasses = ["content-subtitle-wrap"],
     rows,
     swipeOptions,
     currentReminder,
@@ -325,8 +323,6 @@ function processModel(model) {
 		color : model.get("color_code"),
 		title : title,
 		subtitle : subtitle,
-		titleClasses : titleClasses,
-		subtitleClasses : subtitleClasses,
 		options : swipeOptions
 	});
 	var row = Alloy.createController("itemTemplates/contentViewWithLColorBox", model.toJSON());

@@ -1,4 +1,4 @@
-var args = arguments[0] || {};
+var args = $.args;
 function init() {
 	$.uihelper.getImage("text_benefits", $.inviteSuccessImg);
 	$.inviteMsg.text = String.format(Alloy.Globals.strings.familyMemberInviteSuccessMsg, args.familyRelationship);

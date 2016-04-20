@@ -1,18 +1,14 @@
 <Alloy>
-	<ScrollView class="vgroup">
-		<View class="content-view">
-			<Label id="hintLbl" class="content-lbl-wrap" />
-		</View>
+	<ScrollView id="scrollView" class="vgroup">
+		<Label id="hintLbl" class="margin-top margin-bottom margin-left margin-right" />
 		<View class="h-divider-light" />
-		<Widget id="picker" src="nl.fokkezb.color" onChange="didChange" class="top" />
+		<Widget id="picker" src="nl.fokkezb.color" onChange="didChange" class="top height-60" />
 		<View class="h-divider-light" />
 		<View class="auto-height">
-			<View class="content-view-with-rcolor-box">
-				<Label id="colorLbl" class="content-lbl-wrap" />
-			</View>
-			<View id="colorView" class="content-right-color-box" />
+			<Label id="colorLbl" class="margin-top margin-bottom margin-left" />
+			<View id="colorBoxView" class="margin-right color-box border" />
 		</View>
 		<View class="h-divider-light" />
-		<Button id="submitBtn" class="margin-top margin-bottom primary-btn" onClick="didClickSubmit" />
+		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
 	</ScrollView>
 </Alloy>

@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     parentData = [],
     childData = [],
     moment = require("alloy/moment"),
@@ -11,10 +11,10 @@ var args = arguments[0] || {},
     swipeRemoveOptions,
     swipeRemoveResendOptions,
     rows = [];
-    
+
 function focus() {
 	/**
-	 * Change the session to manager's as there is'no switcher 
+	 * Change the session to manager's as there is'no switcher
 	 * present in this page.
 	 */
 	authenticator.asManager();
@@ -27,9 +27,9 @@ function focus() {
 }
 
 function didGetPatient() {
-	$.parentProxySection=[];
-	$.childProxySection=[];
-	$.mgrSection=[];
+	$.parentProxySection = [];
+	$.childProxySection = [];
+	$.mgrSection = [];
 	swipeRemoveOptions = [{
 		action : 0,
 		title : $.strings.familyCareOptRemove,
@@ -44,6 +44,7 @@ function didGetPatient() {
 		title : $.strings.familyCareOptResend,
 		type : "positive"
 	}];
+
 	/**
 	 * Alloy.Collections.patients.at(0).get will always return the manager's account.
 	 */
@@ -59,7 +60,7 @@ function didGetPatient() {
 			$.familyCareLbl = Ti.UI.createLabel();
 			$.familyCareLbl.text = Alloy.Globals.strings.familyCareLblNoProxy;
 			$.familyCareLbl.applyProperties($.createStyle({
-				classes : ["lbl-centered-wrap", "margin-top", "margin-bottom"],
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
 				id : "noFamilyMemberLbl"
 			}));
 			$.familyCareView.add($.familyCareLbl);
@@ -68,16 +69,17 @@ function didGetPatient() {
 			$.familyCareAddLbl = Ti.UI.createLabel();
 			$.familyCareAddLbl.text = Alloy.Globals.strings.familyCareLblAdd;
 			$.familyCareAddLbl.applyProperties($.createStyle({
-				classes : ["subtitle-centered-wrap", "margin-bottom"],
-				id: "familyCareAddLbl"
+				classes : ["margin-top", "margin-left", "margin-right", "h4", "txt-center", "fg-color"],
+				id : "familyCareAddLbl"
 			}));
 			$.familyCareView.add($.familyCareAddLbl);
 		}
 		if (!$.familyCareAddBtn) {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
-				classes : ["icon-add-familycare", "primary-icon-extra-large"],
-				id : "familyCareAddBtn"
+				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled"],
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -89,7 +91,7 @@ function didGetPatient() {
 	} else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
-		var detailBtnClasses = ["content-detail-secondary-btn-large"];
+		var detailBtnClasses = ["bg-color", "primary-fg-color", "primary-border", "width-40"];
 		mgr = {
 			title : accntMgrData.get("title") ? accntMgrData.get("title") : accntMgrData.get("email_address"),
 			subtitle : $.strings.familyCareLblAcntMgr,
@@ -175,12 +177,13 @@ function didGetPatient() {
 			});
 		}
 		if (!$.familyMemberAddBtn) {
-			$.familyMemberAddBtn = Ti.UI.createButton();
-			$.familyMemberAddBtn.applyProperties($.createStyle({
-				classes : ["primary-btn", "margin-top", "margin-bottom"],
+			familyMemberAddDict = $.createStyle({
+				classes : ["margin-bottom", "margin-top", "primary-bg-color", "primary-light-fg-color", "primary-border","width-90","auto-height", "h3"],
 				title : $.strings.familyCareMemberBtnAdd,
-				id : "familyCareAddBtn"
-			}));
+				id : "familyCareAddBtn",
+				analyticsId : "FamilyCareAddBtn"
+			});
+			$.familyMemberAddBtn = Ti.UI.createButton(familyMemberAddDict);
 			$.familyCareView.add($.familyMemberAddBtn);
 			$.familyMemberAddBtn.addEventListener("click", didClickAddFamilyMember);
 		}
@@ -208,6 +211,24 @@ function didClickChildSwipeOption(e) {
 		mode = $.strings.familyMemberInviteModeEmail;
 		address = data.title;
 	}
+	/**
+	 * Check if the linked person that 
+	 * you are deleting is a minor
+	 * If he is a minor, send the is_minor flag = 1
+	 * else send is_minor flag = 0
+	 */
+	var isMinor = 0;
+	var linked_data = Alloy.Collections.patients.at(0).get("child_proxy");
+	_.each(linked_data, function(child_data){
+		if(data.child_id !== null && child_data.child_id === data.child_id){
+			var mDob = moment(child_data.birth_date, Alloy.CFG.apiCodes.dob_format);
+			isMinor = moment().diff(mDob, "years", true) >= 18 ? 0 : 1;
+		}
+	});
+	_.extend(data, {
+		is_minor : isMinor
+	});
+	
 	switch(e.action) {
 	/**
 	 * Index 0: Remove button pressed
@@ -226,7 +247,8 @@ function didClickChildSwipeOption(e) {
 						data : [{
 							patient : {
 								child_id : data.child_id,
-								link_id : data.link_id
+								link_id : data.link_id,
+								is_minor : data.is_minor
 							}
 						}]
 
@@ -396,7 +418,7 @@ function didRemoveChild(result, passthrough) {
 function addPrescriptions() {
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
-	}	
+	}
 	$.app.navigator.open({
 		titleid : "titlePrescriptionsAdd",
 		ctrl : "familyMemberAddPresc",
@@ -421,7 +443,8 @@ function didClickTableView(e) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
 }
-function terminate(){
+
+function terminate() {
 	/**
 	 * not resetting currentTable object
 	 * as there are chance when nullify it here
@@ -431,8 +454,10 @@ function terminate(){
 	Alloy.Globals.currentRow = null;
 	Alloy.Globals.isSwipeInProgress = false;
 }
+
 function handleEvent(e) {
 	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
+
 exports.focus = focus;
-exports.terminate=terminate;
+exports.terminate = terminate;

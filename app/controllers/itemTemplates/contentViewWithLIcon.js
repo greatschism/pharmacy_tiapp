@@ -1,13 +1,14 @@
-var args = arguments[0] || {};
+var args = $.args,
+    uihelper = require("uihelper");
 
 (function() {
 	var rDict = {};
 	if (_.isBoolean(args.selected)) {
-		//to disable the selection b
+		//to disable the selection
 		rDict = $.createStyle({
-			classes : ["row-selection-disabled"]
+			classes : ["row-selected-bg-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["content-positive-left-icon", "icon-thin-filled-success"] : ["content-inactive-left-icon", "icon-spot"]);
+		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
@@ -23,21 +24,33 @@ var args = arguments[0] || {};
 		}
 		$.leftIconLbl.applyProperties(iDict);
 	}
+	$.contentView.left = $.leftIconLbl.left + $.leftIconLbl.font.fontSize + $.createStyle({
+		classes : ["margin-left-medium"]
+	}).left;
 	if (args.filterText) {
 		rDict[Alloy.Globals.filterAttribute] = args.filterText;
 	}
 	if (!_.isEmpty(rDict)) {
 		$.row.applyProperties(rDict);
 	}
-	/**
-	 * should not have class suffix like -wrap
-	 * which may affect selection pop ups (ti.optionpicker)
-	 */
-	$.addClass($.titleLbl, args.titleClasses || ["content-title"], {
-		text : args.title || (args.data ? args.data[args.titleProperty] : "")
-	});
-	$.addClass($.subtitleLbl, args.subtitleClasses || ["content-subtitle"], {
-		text : args.subtitle || (args.data ? args.data[args.subtitleProperty] : "")
+	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	if (args.titleClasses) {
+		$.resetClass($.titleLbl, args.titleClasses, {
+			text : title
+		});
+	} else {
+		$.titleLbl.text = title;
+	}
+	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	if (args.subtitleClasses) {
+		$.resetClass($.subtitleLbl, args.subtitleClasses, {
+			text : subtitle
+		});
+	} else {
+		$.subtitleLbl.text = subtitle;
+	}
+	_.each(["titleLbl", "subtitleLbl"], function(val) {
+		uihelper.wrapText($[val]);
 	});
 })();
 
@@ -46,7 +59,7 @@ function getParams() {
 }
 
 function getHeight() {
-	return require("uihelper").getHeightFromChildren($.contentView, true);
+	return uihelper.getHeightFromChildren($.contentView, true);
 }
 
 exports.getHeight = getHeight;

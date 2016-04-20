@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     TAG = "DRWC",
     app = require("core"),
     ctrlShortCode = require("ctrlShortCode"),
@@ -49,6 +49,7 @@ function init() {
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
 		crashreporter : require("crashreporter"),
+		contentView : $.window,
 		window : $.window,
 		setTitle : setTitle,
 		showNavBar : showNavBar,

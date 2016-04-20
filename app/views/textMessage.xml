@@ -1,25 +1,25 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="txtMsgTitle" class="subtitle-centered margin-top" if="$.args.txtMsgTitle"/>
-		<Label id="signUpTitle" class="subtitle-centered margin-top" if="$.args.signUpTitle"/>
-		<Label id="txtHelpTitle" class="subtitle-centered margin-top" if="$.args.txtHelpTitle"/>
-		<Label id="txtNotReceiveTitle" class="subtitle-centered-wrap margin-top" if="$.args.txtNotReceiveTitle"/>
-		<ImageView id="txtSuccessImg" class="margin-top" if="$.args.txtSuccessImg"/>
-		<ImageView id="txtFailImg" class="margin-top" if="$.args.txtFailImg"/>
-		<Label id="txtMsgLbl" class="lbl-wrap margin-top" if="$.args.txtMsgLbl"/>
-		<Label id="signUpMsgLbl" class="lbl-wrap margin-top" if="$.args.signUpLbl"/>
-		<Label id="txtHelpMsgLbl" class="lbl-wrap margin-top" if="$.args.txtHelpLbl"/>
-		<Label id="txtNotReceiveLbl" class="lbl-wrap margin-top" if="$.args.txtNotReceiveLbl"/>
-		<Widget id="txtCode"   src="ti.textfield" class="txt-centered-48 returnkey-done margin-top margin-bottom" if="$.args.txtCode" editable="false"/>
-		<Button id="txtMsgBtn" class="primary-btn margin-top margin-bottom" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
-		<Button id="txtNotReceiveBtn" class="secondary-btn margin-top margin-bottom" onClick="didNotReceiveText" if="$.args.txtNotReceiveBtn"/>
-		<Button id="sendTxtSignUpBtn" class="secondary-btn margin-top margin-bottom" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>
-		<Button id="sendTxtTextHelpBtn" class="secondary-btn margin-top margin-bottom" onClick="sendTextTextHelpMessage" if="$.args.sendMeTextAgainTextHelpBtn" />
-		<Button id="skipSignUpAttr" class="tertiary-btn margin-top margin-bottom" onClick="skipClicked" if="$.args.skipSignUpAttr"/>
-		<Button id="skipNoTextMsgAttr" class="tertiary-btn margin-top margin-bottom" onClick="skipClicked" if="$.args.skipNoTextMsgAttr"/>
-		<Button id="skipTxtNotReceive" class="tertiary-btn margin-top margin-bottom" onClick="skipClicked" if="$.args.skipTxtNotReceiveAttr"/>
-		<Widget id="stillNotReceiveTextAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="stillNotReceivingText" if="$.args.stillReceiveTextAttr"/>
-		<Widget id="phoneNumberAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="checkPhoneNumberClicked" if="$.args.checkPhoneAttr"/>
-		<Widget id="txtMsgAttr" src="ti.styledlabel" class="attributed-wrap margin-top margin-bottom" onClick="didNotReceiveClicked" if="$.args.didNotReceiveTextAttr"/>
+		<Label id="txtMsgTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.txtMsgTitle"/>
+		<Label id="signUpTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.signUpTitle"/>
+		<Label id="txtHelpTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.txtHelpTitle"/>
+		<Label id="txtNotReceiveTitle" class="margin-top-large margin-left margin-right h2 txt-center" if="$.args.txtNotReceiveTitle"/>
+		<ImageView id="txtSuccessImg" class="margin-top-large" if="$.args.txtSuccessImg"/>
+		<ImageView id="txtFailImg" class="margin-top-large" if="$.args.txtFailImg"/>
+		<Label id="txtMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtMsgLbl"/>
+		<Label id="signUpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.signUpLbl"/>
+		<Label id="txtHelpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtHelpLbl"/>
+		<Label id="txtNotReceiveLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtNotReceiveLbl"/>
+		<Widget id="txtCode" analyticsId="TxtCode"  src="ti.textfield" class="top txt-center border-disabled returnkey-done" if="$.args.txtCode" editable="false"/>
+		<Button id="txtMsgBtn" analyticsId="TxtMsgBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
+		<Button id="txtNotReceiveBtn" analyticsId="TxtNotReceiveBtn" class="bg-color primary-fg-color primary-border" onClick="didNotReceiveText" if="$.args.txtNotReceiveBtn"/>
+		<Button id="sendTxtSignUpBtn" analyticsId="SendTxtSignUpBtn" class="bg-color primary-fg-color primary-border" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>
+		<Button id="sendTxtTextHelpBtn" analyticsId="SendTxtTextHelpBtn" class="bg-color primary-fg-color primary-border" onClick="sendTextTextHelpMessage" if="$.args.sendMeTextAgainTextHelpBtn" />
+		<Button id="skipSignUpAttr" analyticsId="SkipSignUpAttr" class="active-color active-fg-color border-disabled" onClick="skipClicked" if="$.args.skipSignUpAttr"/>
+		<Button id="skipNoTextMsgAttr" analyticsId="SkipNoTextMsgAttr" class="active-color active-fg-color border-disabled" onClick="skipClicked" if="$.args.skipNoTextMsgAttr"/>
+		<Button id="skipTxtNotReceive" analyticsId="SkipTxtNotReceive" class="active-color active-fg-color border-disabled" onClick="skipClicked" if="$.args.skipTxtNotReceiveAttr"/>
+		<Widget id="stillNotReceiveTextAttr" analyticsId="StillNotReceiveTextAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom txt-left margin-left" onClick="stillNotReceivingText" if="$.args.stillReceiveTextAttr"/>
+		<Widget id="phoneNumberAttr" analyticsId="PhoneNumberAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom txt-left margin-left" onClick="checkPhoneNumberClicked" if="$.args.checkPhoneAttr"/>
+		<Widget id="txtMsgAttr" analyticsId="TxtMsgAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom txt-left margin-left" onClick="didNotReceiveClicked" if="$.args.didNotReceiveTextAttr"/>
 	</ScrollView>
 </Alloy>

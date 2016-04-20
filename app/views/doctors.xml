@@ -2,9 +2,9 @@
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" />
 		<!--iOS:placing this header view in section header prevents the click of add button table view is scrolled down-->
-		<View class="content-header-view">
-			<Label id="doctorsLbl" class="content-header-lbl-with-ricon" />
-			<Button id="addBtn" class="content-header-right-icon icon-add" onClick="didClickAdd" />
+		<View class="top min-height inactive-light-bg-color">
+			<Label id="doctorsLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled" />
+			<Button id="addBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-add" onClick="didClickAdd" />
 		</View>
 	</View>
 	<TableView id="tableView" onSingletap="didClickTableView">

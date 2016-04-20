@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     isOpened = false,
     isCloseRequested = false;
 
@@ -24,7 +24,6 @@ function applyProperties(dict) {
 
 function didOpen(e) {
 	isOpened = true;
-	$.activityIndicator.show();
 	if (isCloseRequested) {
 		hide();
 	}
@@ -35,6 +34,7 @@ function setMessage(message) {
 }
 
 function show() {
+	$.activityIndicator.show();
 	$.window.open({
 		animated : false
 	});

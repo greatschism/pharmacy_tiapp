@@ -1,4 +1,4 @@
-var args = arguments[0] || {},
+var args = $.args,
     preventChangeEvt = false;
 
 (function() {
@@ -57,6 +57,9 @@ function applyProperties(properties, extend) {
 	//TIMOB-14285
 	if (_.has(properties, "id")) {
 		$.swt.id = properties.id;
+	}
+	if (_.has(properties, "analyticsId")) {
+		$.swt.analyticsId = properties.analyticsId;
 	}
 	if (extend !== false) {
 		_.extend(args, properties);

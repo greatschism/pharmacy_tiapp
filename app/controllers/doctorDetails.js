@@ -1,9 +1,13 @@
-var args = arguments[0] || {},
+var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     doctor = args.doctor;
 
 function init() {
+	$.photoView.width = $.utilities.percentageToValue("30%", $.app.device.width - ($.containerView.left + $.containerView.right));
+	_.each(["containerView", "phoneView", "faxView", "addressView"], function(val) {
+		$.uihelper.wrapViews($[val]);
+	});
 	updateInputs();
 	if (doctor.image) {
 		$.photoImg.setImage(doctor.image);
@@ -12,8 +16,8 @@ function init() {
 	}
 	var currentDate = moment(),
 	    section = $.uihelper.createTableViewSection($, $.strings.doctorDetSectionPrescribed),
-	    promptClasses = ["content-group-prompt-60"],
-	    replyClasses = ["content-group-right-inactive-reply-40"];
+	    promptClasses = ["left", "width-65"],
+	    replyClasses = ["right", "width-35", "txt-right", "inactive-fg-color"];
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		if (doctor.prescriptions && doctor.prescriptions.length) {
 			_.each(doctor.prescriptions, function(prescription) {
@@ -145,10 +149,49 @@ function didSuccessDoctor(result, passthrough) {
 	 */
 	_.extend(doctor, passthrough);
 	doctor.method = "doctors_update";
-	$.photoImg.setImage(doctor.image_url);
+	
+	if(OS_IOS)
+	{
+		$.photoImg.setImage(doctor.image_url);
+	}
+	
+	else
+	{
+		var decodedImageURL = '';
+		var imageURL = '';
+		if(doctor.image_url != null && doctor.image_url != '' && typeof(doctor.image_url) !== 'undefined')
+		{
+			decodedImageURL = decodeURIComponent(doctor.image_url);
+			if(decodedImageURL.indexOf('?') != -1)
+			{
+				imageURL = decodedImageURL.split('?')[0];
+			}
+			else
+			{
+				imageURL = decodedImageURL;
+			}
+		}
+	
+		$.photoImg.setImage(imageURL);
+	}
 }
 
 function didClickPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("Doctors-DoctorDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+
+function contactsHandler() {
 	if (doctor.phone) {
 		$.uihelper.getPhone({
 			firstName : $.utilities.ucword(doctor.first_name || ""),

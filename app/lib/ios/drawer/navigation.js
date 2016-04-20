@@ -17,6 +17,7 @@
 var TAG = "NAVI",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
+    ctrlNames = require("ctrlNames"),
     ctrlShortCode = require("ctrlShortCode"),
     analyticsHandler = require("analyticsHandler");
 
@@ -96,7 +97,7 @@ function Navigation(args) {
 			return;
 		}
 
-		analyticsHandler.navEvent(that.currentController.ctrlShortCode || TAG, ctrlShortCode[params.ctrl]);
+		analyticsHandler.trackScreen(ctrlNames[ctrlShortCode[params.ctrl]]);
 
 		if (params.stack) {
 			return that.push(params);
@@ -211,15 +212,14 @@ function Navigation(args) {
 			removeControllers[i].getView().close();
 		}
 
-		var from = that.currentController.ctrlShortCode,
+		var currentController = that.controllers[that.controllers.length - 1],
 		    window = that.currentController.getView();
 
-		that.currentController = that.controllers[that.controllers.length - 1];
-
-		analyticsHandler.navEvent(from, that.currentController.ctrlShortCode);
+		analyticsHandler.trackScreen(ctrlNames[currentController.ctrlShortCode]);
 
 		window.addEventListener("close", function didCloseWindow(e) {
 			window.removeEventListener("close", didCloseWindow);
+			that.currentController = currentController;
 			that.currentController.focus();
 			that.isBusy = false;
 		});
@@ -228,7 +228,7 @@ function Navigation(args) {
 
 		//that.testOutput();
 
-		return that.currentController;
+		return currentController;
 	};
 
 	/**

@@ -1,6 +1,20 @@
+"#rightNavBtn":{
+	analyticsId: "ToggleListMapBtn"
+},
 "#patientSwitcher[if=$.args.selectable]":{
 	disabled: true
 },
 "#searchTxt":{
-	hintText: Alloy.Globals.strings.storesHintSearch
+	hintText: Alloy.Globals.strings.storesHintSearch,
+	clearButtonEnabled: true
+},
+"#storeTableView":{
+	analyticsId: "StoresList"
+},
+"#geoTableView":{
+	analyticsId: "LocationsList"
+},
+"#mapView":{
+	animate: true,
+	userLocation: true
 }

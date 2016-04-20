@@ -1,18 +1,4 @@
 "#rightNavBtn":{
-	title: Alloy.Globals.strings.homeNavBtnLogin
-},
-"#titleLbl":{
-	text: Alloy.Globals.strings.homePopupLblTitle
-},
-"#descLbl":{
-	text: Alloy.Globals.strings.homePopupLblDesc
-},
-"#feedbackTxta":{
-	hintText: Alloy.Globals.strings.homePopupHintFeedback
-},
-"#submitBtn":{
-	title: Alloy.Globals.strings.homePopupBtnSubmit
-},
-"#cancelBtn":{
-	title: Alloy.Globals.strings.homePopupBtnCancel
+	title: Alloy.Globals.strings.homeNavBtnLogin,
+	analyticsId: "LoginBtn"
 }
