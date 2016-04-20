@@ -46,15 +46,7 @@ function didGetPhoto(blob) {
 	 * should not be changed
 	 */
 	
-	var smallBlob = null;
-	if(OS_ANDROID)
-	{
-		 smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
-	}
-	else 
-	{
-		smallBlob = blob;
-	}
+	var smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
 	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
 	
 	blob = null;
