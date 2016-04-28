@@ -35,7 +35,7 @@ function validate(str) {
 }
 
 /**
- * Check whether given rx number is a schedule to drug
+ * Check whether given rx number is a schedule 2 drug
  * @param {String} str
  * returns {Boolean}
  */
@@ -44,13 +44,19 @@ function isSchedule2(str) {
 }
 
 function canRefill(prescription, success, cancel) {
-	if (isSchedule2(prescription.rx_number)) {
+	/**
+	 * SUS-890: Commenting this peice of code as we dont 
+	 * have to do client side validation for 
+	 * schedule-2 drugs
+	 */
+	/*if (isSchedule2(prescription.rx_number)) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPrescriptionSchedule2,
 			cancelIndex : 0,
 			cancel : cancel
 		});
-	} else if (parseInt(prescription.refill_left || 0) === 0) {
+	} else */
+	if (parseInt(prescription.refill_left || 0) === 0) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.msgPrescriptionRefillLeftNone,
 			buttonNames : [Alloy.Globals.strings.dialogBtnContinue, Alloy.Globals.strings.dialogBtnCancel],

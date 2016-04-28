@@ -88,7 +88,8 @@ function didGetPatient() {
 		if ($.familyMemberAddBtn) {
 			$.familyCareView.remove($.familyMemberAddBtn);
 		}
-	} else {
+	} 
+	else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
 		var detailBtnClasses = ["bg-color", "primary-fg-color", "primary-border", "width-40"];
@@ -97,9 +98,10 @@ function didGetPatient() {
 			subtitle : $.strings.familyCareLblAcntMgr,
 			btnClasses : accntMgrData.get("patient_id").indexOf("DUMMY") !== -1 ? detailBtnClasses : "",
 			masterWidth : 50,
-			detailWidth : 50,
+			detailWidth : accntMgrData.get("patient_id").indexOf("DUMMY") !== -1 ? 50 : 0,
 			detailTitle : accntMgrData.get("patient_id").indexOf("DUMMY") !== -1 ? $.strings.titlePrescriptionsAdd : ""
 		};
+		
 		mgrData.push(mgr);
 		var mgrRow = Alloy.createController("itemTemplates/masterDetailBtn", mgr);
 		mgrRow.on("clickdetail", addPrescriptions);
