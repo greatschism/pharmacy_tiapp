@@ -38,13 +38,13 @@ var args = $.args,
 		btnDict = {
 			title : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : null)
 		};
-		/*
+		
 		if (args.btnClasses) {
 			_.extend(btnDict, $.createStyle({
 				classes : args.btnClasses
 			}));
 		}
-		*/
+		
 		if (args.btnDict) {
 			_.extend(btnDict, args.btnDict);
 		}
