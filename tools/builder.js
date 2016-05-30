@@ -1059,7 +1059,7 @@ if (program.buildOnly) {
 		 * one target
 		 */
 		appcParams.push("--target");
-		appcParams.push("web");
+		appcParams.push(program.target);
 		break;
 	default:
 		/**
