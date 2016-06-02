@@ -670,7 +670,7 @@ module.exports = {
 		"childAddBtnContinue" : "Continue",
 		"childAddBtnSkip" : "Skip & come back later",
 		"childAddAttrAgreement" : "By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
-		"childAddValFirstName" : "Please enter your first name.",
+		"childAddValFirstName" : "Please enter the first name of the family member you are adding.",
 		"childAddValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"childAddValLastName" : "Please enter your last name.",
 		"childAddValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
