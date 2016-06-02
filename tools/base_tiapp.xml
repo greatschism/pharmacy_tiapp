@@ -14,7 +14,7 @@
   <analytics>false</analytics>
   <guid>${APP_GUID}</guid>
   <property name="ti.ui.defaultunit" type="string">dp</property>
-  <property name="com-appcelerator-apm-id" type="string">${APM_ID}</property>
+  <!--property name="com-appcelerator-apm-id" type="string">${APM_ID}</property-->
   <property name="android.javac.maxmemory" type="string">1024M</property>
   <ios>
     <min-ios-ver>7.1</min-ios-ver>
