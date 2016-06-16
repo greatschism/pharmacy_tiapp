@@ -770,7 +770,7 @@ module.exports = {
 		"familyMemberInviteBtnSend" : "es-Send",
 		"familyMemberInviteBtnCancel" : "es-Cancel",
 		"familyMemberInviteValPhoneInvalid" : "es-The phone number you have entered is invalid.",
-		"familyMemberInviteValEmailPhone" : "es-Please enter your email address or/and mobile number.",
+		"familyMemberInviteValEmailPhone" : "es-Please enter your family member's email address or mobile number.",
 		"familyMemberInviteValEmailInvalid" : "es-Please enter a valid email address.",
 
 		"familyMemberInviteSuccessLbl" : "es-Invitation sent!",
