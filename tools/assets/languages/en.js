@@ -130,7 +130,7 @@ module.exports = {
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
-		"titlePrescriptionsAdd" : "Add prescriptions",
+		"titlePrescriptionsAdd" : "Add Rx",
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Sign out",
