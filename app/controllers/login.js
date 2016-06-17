@@ -52,7 +52,11 @@ function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
 	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
 	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);
-	var copyright = String.format($.strings.loginCopyright,  $.strings.strClientName);
+	var copyrightYearHelper = new Date(Date.parse(buildDate)); 
+	var copyrightYearHelperString = $.strings.strClientName + ", " + copyrightYearHelper.getFullYear()
+	var copyright = String.format($.strings.loginCopyright, copyrightYearHelperString);
+
+
 	$.uihelper.showDialog({
 	    message: version + "\n" + buildNumber + "\n" + buildDate + "\n" + copyright
 	});
