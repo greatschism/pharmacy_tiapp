@@ -760,6 +760,8 @@ module.exports = {
 		"familyMemberAddValDob" : "es-Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "es-Please enter your relationship.",
 		"familyMemberAddHintOther" : "es-Relationship",
+		"familyMemberRelationshipTips" : "es-Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
+
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s?",
 		"familyMemberInviteSendTextLbl" : "es-Send a text message",

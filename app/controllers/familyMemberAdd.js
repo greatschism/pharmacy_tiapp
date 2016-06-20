@@ -62,30 +62,30 @@ function setParentView(view) {
 }
 
 function didClickContinue() {
-	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	var dob = $.dobDp.getValue(),
-	    age = getAge(dob);
-	relationship = $.relationshipDp.getSelectedItem();
-	if (!dob) {
-		$.uihelper.showDialog({
-			message : $.strings.familyMemberAddValDob
-		});
-		return;
-	}
+    $.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
+    var dob = $.dobDp.getValue(),
+    	age = getAge(dob);
+    relationship = $.relationshipDp.getSelectedItem();
+    if (!dob) {
+        $.uihelper.showDialog({
+            message: $.strings.familyMemberAddValDob
+        });
+        return;
+    }
 	if (_.isEmpty(relationship)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValRelationship
 		});
 		return;
-	}
+	}	
 	var otherRelationship = $.relationshipDp.getSelectedItem().code_display;
 	if (otherRelationship === "Other") {
-		if (_.isEmpty($.otherTxt.getValue())) {
-			$.uihelper.showDialog({
-				message : $.strings.familyMemberAddValRelationship
-			});
-			return;
-		}
+        if (! $.utilities.validateRelationship($.otherTxt.getValue()) ) {
+            $.uihelper.showDialog({
+                message: $.strings.familyMemberRelationshipTips
+            });
+            return;
+        }
 	}
 	var relationshipValue = otherRelationship === "Other" ? $.otherTxt.getValue() : relationship.code_value;
 	if (age >= 12 && age <= 17) {
