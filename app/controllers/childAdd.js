@@ -20,6 +20,10 @@ function init() {
 	setRightButton(rightButtonTitle.text, rightButtonDict);
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
+	} else {
+		date = new Date();
+		date.setFullYear(date.getFullYear()-1);
+		$.dobDp.setValue(date);
 	}
 	$.uihelper.getImage("child_add", $.childImg);
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
