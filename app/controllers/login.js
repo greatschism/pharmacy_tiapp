@@ -20,8 +20,8 @@ function init() {
 	}
 
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
-
 	$.uihelper.getImage("logo", $.logoImg);
+
 	/**
 	 * if auto login is enabled
 	 * then auto populate the username and password
@@ -46,6 +46,18 @@ function init() {
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
+	var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
+		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
+    } else {
+		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
+    }
+	$.autoLoginSwt.applyProperties(iDict);
+
+	//$.autoLoginSwt.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
+  	//$.autoLoginSwt.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
+  	//$.autoLoginSwt.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
 }
 
 function didClickAbout() {
