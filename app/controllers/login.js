@@ -54,10 +54,6 @@ function init() {
 		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
     }
 	$.autoLoginSwt.applyProperties(iDict);
-
-	//$.autoLoginSwt.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
-  	//$.autoLoginSwt.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
-  	//$.autoLoginSwt.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
 }
 
 function didClickAbout() {
