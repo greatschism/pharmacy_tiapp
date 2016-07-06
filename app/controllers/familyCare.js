@@ -32,7 +32,6 @@ function didGetPatient() {
 	$.mgrSection = [];
 	swipeRemoveOptions = [{
 		action : 0,
-		accessibilityHidden : true,
 		title : $.strings.familyCareOptRemove,
 		type : "negative"
 	}];
