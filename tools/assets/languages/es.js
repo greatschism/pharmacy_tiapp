@@ -108,7 +108,7 @@ module.exports = {
 		"iconAccessibilityLblBack" : "es-Back",
 		"iconAccessibilityLblOptionsMenu" : "es-Options menu",
 		"iconAccessibilityLblHelp" : "es-Help",
-
+		"accessibilityLblRememberUsernameToggle" : "es-Keep me signed in toggle",
 		"titleHome" : "es-Home",
 		"titlePrescriptions" : "es-Prescriptions",
 		"titleReminders" : "es-Message center",
