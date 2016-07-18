@@ -1,5 +1,8 @@
 var args = $.args,
     app = require("core"),
+        // fs = require("nofs"),
+        // path = require("path"),
+
     config = require("config"),
     ctrlShortCode = require("ctrlShortCode"),
     httpClient = require("http"),
@@ -152,7 +155,7 @@ function didGetAppConfig(result, passthrough) {
 							logger.debug("\n\n file to be downloaded\n\n");
 
 						var xhr = Titanium.Network.createHTTPClient({
-							onload: function() {
+							onload: function() {			
 								// first, grab a "handle" to the file where you'll store the downloaded data
 								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional+".cer");
 								f.write(this.responseData); // write to the file
@@ -168,13 +171,15 @@ function didGetAppConfig(result, passthrough) {
 						Ti.App.addEventListener('graphic_downloaded', function(e) {
 							// you don't have to fire an event like this, but perhaps multiple components will
 							// want to know when the image has been downloaded and saved
-							// image.image = e.filepath;
-							logger.debug("\n\n completed download of cer @ ",e.filepath);
-							callAppload();
+							
+							logger.debug("\n\n completed download of cer @ ",e.filepath); //nativepath wont giv anythn
+
 							Alloy.Globals.securityManager = require("appcelerator.https").createX509CertificatePinningSecurityManager([{
 							url : appconfig.ophurl,
-							serverCertificate : fractional+".cer"
+							serverCertificate : (Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional+".cer")).nativePath
 							}]);
+
+							callAppload();
 
 						});
 
