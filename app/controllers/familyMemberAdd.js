@@ -1,6 +1,9 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     relationship;
+
+
+
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
 	if (Alloy.Models.relationship.get("code_values")) {
@@ -57,8 +60,12 @@ function updateInputs() {
 
 function setParentView(view) {
 	$.dobDp.setParentView(view);
-	$.relationshipDp.setParentView(view);
 
+	var iDict = {};
+	iDict.accessibilityValue = "Date of birth dropdown";
+	$.dobDp.__views.widget.applyProperties(iDict);
+
+	$.relationshipDp.setParentView(view);
 }
 
 function didClickContinue() {
