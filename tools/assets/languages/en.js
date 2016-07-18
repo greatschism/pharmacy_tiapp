@@ -104,7 +104,7 @@ module.exports = {
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
 
-		"iconAccessibilityLblHamburger" : "Hamburger",
+		"iconAccessibilityLblHamburger" : "Hamburger menu",
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
