@@ -44,6 +44,10 @@ function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
+	var iDict = {};
+	iDict.accessibilityValue = "Date of birth dropdown";
+	$.dob.__views.widget.applyProperties(iDict);
+
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	
