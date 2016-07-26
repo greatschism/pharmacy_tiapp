@@ -54,6 +54,14 @@ function init() {
 		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
     }
 	$.autoLoginSwt.applyProperties(iDict);
+
+
+	iDict.accessibilityLabel = "password field";
+	$.passwordTxt.applyProperties(iDict);
+
+	iDict.accessibilityLabel = "email address field";
+	$.usernameTxt.applyProperties(iDict);
+
 }
 
 function didClickAbout() {
