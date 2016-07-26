@@ -81,7 +81,7 @@ function didFailAppConfig(error, passthrough) {
 
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
-	if (appconfig) {
+	if (appconfig) {	
 		logger.debug(TAG, "success", "GAPC", "\tcertrequired : ", appconfig.certrequired, "\tmaintenance : ", appconfig.required, "\turl : ", appconfig.maintenanceurl,"\tOPHURL : ", appconfig.ophurl);
 		/**
 		 * update model
@@ -146,20 +146,22 @@ function didGetAppConfig(result, passthrough) {
 
 						logger.debug("\n\nfilepath\t =" , /*Ti.Filesystem.applicationDataDirectory,*/ savedFile.getNativePath());
 
-						// if(savedFile.exists() && savedFile.size >0)
-						// {
-							// logger.debug("\n\n file found\n\n"); 							
-						// }
-						// else
-						// {
+						if(savedFile.exists())
+						{
+							logger.debug("\n\n file found\n\n"); 	
+							callAppload();
+						
+						}
+						else
+						{
 							logger.debug("\n\n file to be downloaded\n\n");
 
 						var xhr = Titanium.Network.createHTTPClient({
 							onload: function() {			
 								// first, grab a "handle" to the file where you'll store the downloaded data
-								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional+".cer");
+								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional+".cer");
 								f.write(this.responseData); // write to the file
-								Ti.App.fireEvent('graphic_downloaded', {filepath:f.nativePath});
+								Ti.App.fireEvent('file_downloaded', {filepath:f.nativePath});
 							},
 						onerror: function(e) {
 						        Ti.API.error(e.error);
@@ -168,9 +170,9 @@ function didGetAppConfig(result, passthrough) {
 						});
 						xhr.open('GET',whole);
 						xhr.send();
-						Ti.App.addEventListener('graphic_downloaded', function(e) {
+						Ti.App.addEventListener('file_downloaded', function(e) {
 							// you don't have to fire an event like this, but perhaps multiple components will
-							// want to know when the image has been downloaded and saved
+							// want to know when the file has been downloaded and saved
 							
 							logger.debug("\n\n completed download of cer @ ",e.filepath); //nativepath wont giv anythn
 
@@ -184,7 +186,7 @@ function didGetAppConfig(result, passthrough) {
 						});
 
 
-						// }
+						}
 			}
 			
 		}
