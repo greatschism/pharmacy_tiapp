@@ -68,6 +68,9 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
+	iconDict.accessibilityValue = "help";
+	iconDict.accessibilityLabel = "";
+	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 
