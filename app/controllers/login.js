@@ -56,10 +56,10 @@ function init() {
 	$.autoLoginSwt.applyProperties(iDict);
 
 
-	iDict.accessibilityLabel = "password field";
+	iDict.accessibilityLabel = $.strings.accessibilityLblPasswordField;
 	$.passwordTxt.applyProperties(iDict);
 
-	iDict.accessibilityLabel = "email address field";
+	iDict.accessibilityLabel = $.strings.accessibilityLblUsernameField;
 	$.usernameTxt.applyProperties(iDict);
 
 }
