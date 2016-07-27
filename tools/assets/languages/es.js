@@ -662,6 +662,8 @@ module.exports = {
 		"mgrAccountExistsLbl" : "es-It looks like you already have an account with %s",
 		"mgrAccountExistsBtnSignIn" : "es-Sign in",
 
+		"dobAccessibilityLbl" : "es-Date of birth dropdown",
+
 		"childAddTitle" : "es-Add a child to your account",
 		"childAddHintFirstName" : "es-First name",
 		"childAddHintLastName" : "es-Last name",

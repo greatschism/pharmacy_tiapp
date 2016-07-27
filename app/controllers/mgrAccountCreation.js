@@ -21,7 +21,7 @@ function init() {
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	
     var iDict = {};
-    iDict.accessibilityValue = "Date of birth dropdown";
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
     $.dobDp.__views.widget.applyProperties(iDict);
 }
 

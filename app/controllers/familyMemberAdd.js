@@ -66,7 +66,7 @@ function setParentView(view) {
 	$.dobDp.setParentView(view);
 
 	var iDict = {};
-	iDict.accessibilityValue = "Date of birth dropdown";
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
 	$.dobDp.__views.widget.applyProperties(iDict);
 
 	$.relationshipDp.setParentView(view);

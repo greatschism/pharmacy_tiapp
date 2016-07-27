@@ -45,7 +45,7 @@ function init() {
 		$.dob.setValue(args.dob);
 	}
 	var iDict = {};
-	iDict.accessibilityValue = "Date of birth dropdown";
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
 	$.dob.__views.widget.applyProperties(iDict);
 
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
@@ -68,7 +68,7 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
-	iconDict.accessibilityValue = "help";
+	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
 	iconDict.accessibilityLabel = "";
 	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);

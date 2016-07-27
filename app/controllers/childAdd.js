@@ -26,7 +26,7 @@ function init() {
 		$.dobDp.setValue(date);
 	}
     var iDict = {};
-    iDict.accessibilityValue = "Date of birth dropdown";
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
     $.dobDp.__views.widget.applyProperties(iDict);
 
 	$.uihelper.getImage("child_add", $.childImg);
@@ -42,7 +42,7 @@ function init() {
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 function setRightButton(iconText, iconDict) {	
-	iconDict.accessibilityValue = "help";
+	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
 	iconDict.accessibilityLabel = "";
 	iconDict.accessibilityHint = "";
 
