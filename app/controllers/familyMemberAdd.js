@@ -6,6 +6,10 @@ var args = $.args,
 
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
+
+	$.__views.imgFamilyAdd.accessibilityHidden  = true;
+
+
 	if (Alloy.Models.relationship.get("code_values")) {
 		updateInputs();
 	} else {
