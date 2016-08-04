@@ -662,6 +662,9 @@ module.exports = {
 		"mgrSignInLbl" : "Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "You can also add other adults and manage permissions.",
 		"mgrAccountExistsLbl" : "It looks like you already have an account with %s",
+
+		"dobAccessibilityLbl" : "Date of birth dropdown",
+
 		"mgrAccountExistsBtnSignIn" : "Sign in",
 
 		"childAddTitle" : "Add a child to your account",

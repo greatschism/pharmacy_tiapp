@@ -44,6 +44,10 @@ function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+	$.dob.__views.widget.applyProperties(iDict);
+
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	
@@ -64,6 +68,9 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
+	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
+	iconDict.accessibilityLabel = "";
+	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 

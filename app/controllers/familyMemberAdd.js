@@ -1,8 +1,15 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     relationship;
+
+
+
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
+
+	$.__views.imgFamilyAdd.accessibilityHidden  = true;
+
+
 	if (Alloy.Models.relationship.get("code_values")) {
 		updateInputs();
 	} else {
@@ -57,8 +64,12 @@ function updateInputs() {
 
 function setParentView(view) {
 	$.dobDp.setParentView(view);
-	$.relationshipDp.setParentView(view);
 
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+	$.dobDp.__views.widget.applyProperties(iDict);
+
+	$.relationshipDp.setParentView(view);
 }
 
 function didClickContinue() {
