@@ -97,9 +97,6 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "reminders"
 				}
-			},{
-				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],

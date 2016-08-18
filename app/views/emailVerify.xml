@@ -1,4 +1,5 @@
 <Alloy>
+	<ScrollView>
 	<View class="vgroup">
 		<Label id="lblWelcome" class="margin-top margin-left margin-right h2 txt-center"/>
 		<ImageView id="imgEmailVerify" class="margin-top margin-bottom"/>
@@ -8,4 +9,5 @@
 		<Button id="btnResendEmail" analyticsId="ResendEmailBtn" class="bg-color primary-fg-color primary-border" onClick="didClickResendEmail"/>
 		<Widget id="btnIsntMyEmail" analyticsId="IsntMyEmailBtn" src="ti.styledlabel" class="attributed margin-bottom margin-top" onClick="didClickIsntMyEmail"/>		
 	</View>
+	</ScrollView>
 </Alloy>

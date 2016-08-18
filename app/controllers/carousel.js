@@ -103,10 +103,21 @@ function didClickNext(e) {
 		currentPage++;
 		//scroll end will be triggered as result of this
 		$.scrollableView.scrollToView(currentPage);
-	} else {
+	} else {		
+		if(Alloy.CFG.is_proxy_enabled)
+		{
 		$.app.navigator.open({
-			ctrl : "register"
+			ctrl : "register",
 		});
+		}
+		
+		else
+		{
+			$.app.navigator.open({
+			ctrl : "signup",
+		titleid : "titleCreateAccount",
+		});
+		}	
 	}
 }
 
