@@ -1,5 +1,8 @@
 var args = $.args,
     app = require("core"),
+        // fs = require("nofs"),
+        // path = require("path"),
+
     config = require("config"),
     ctrlShortCode = require("ctrlShortCode"),
     httpClient = require("http"),
@@ -12,8 +15,10 @@ var args = $.args,
     logger = require("logger"),
     TAG = ctrlShortCode[$.__controllerPath],
     strings = Alloy.Globals.strings,
-    encryptionUtil = require("encryptionUtil"),
- 	resources = require("resources"),
+        encryptionUtil = require("encryptionUtil"),
+        resources = require("resources"),
+
+
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
@@ -73,9 +78,10 @@ function didFailAppConfig(error, passthrough) {
 		success : getAppConfig
 	});
 }
+
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
-	if (appconfig) {
+	if (appconfig) {	
 		logger.debug(TAG, "success", "GAPC", "\tcertrequired : ", appconfig.certrequired, "\tmaintenance : ", appconfig.required, "\turl : ", appconfig.maintenanceurl,"\tOPHURL : ", appconfig.ophurl);
 		/**
 		 * update model
@@ -231,7 +237,6 @@ function callAppload()
 				hideLoaderCallback : hideLoader
 			});
 }
-
 
 function didSuccessAppload(result) {
 	var appload = result.data.appload || {};

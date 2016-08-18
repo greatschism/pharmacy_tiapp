@@ -217,10 +217,22 @@ function didClickForgotPassword(e) {
 }
 
 function didClickSignup(e) {
+	if(Alloy.CFG.is_proxy_enabled)
+	{
 	$.app.navigator.open({
 		ctrl : "register",
 		stack : true
 	});
+	}
+	
+	else
+	{
+		$.app.navigator.open({
+		ctrl : "signup",
+		titleid : "titleCreateAccount",
+		stack : true
+	});
+	}
 }
 
 function didPostlayout(e) {
