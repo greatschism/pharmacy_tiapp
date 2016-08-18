@@ -12,6 +12,8 @@ var args = $.args,
     logger = require("logger"),
     TAG = ctrlShortCode[$.__controllerPath],
     strings = Alloy.Globals.strings,
+    encryptionUtil = require("encryptionUtil"),
+ 	resources = require("resources"),
     triggerAsyncUpdate = false;
 
 function didOpen(e) {
@@ -71,11 +73,10 @@ function didFailAppConfig(error, passthrough) {
 		success : getAppConfig
 	});
 }
-
 function didGetAppConfig(result, passthrough) {
 	var appconfig = result.getappjconfig;
 	if (appconfig) {
-		logger.debug(TAG, "success", "GAPC", "certrequired", appconfig.certrequired, "maintenance", appconfig.required,"OPHURL", appconfig.ophurl);
+		logger.debug(TAG, "success", "GAPC", "\tcertrequired : ", appconfig.certrequired, "\tmaintenance : ", appconfig.required, "\turl : ", appconfig.maintenanceurl,"\tOPHURL : ", appconfig.ophurl);
 		/**
 		 * update model
 		 */
@@ -98,12 +99,20 @@ function didGetAppConfig(result, passthrough) {
 			var ctrl = Alloy.createController("maintenance");
 			ctrl.on("init", didInitWin);
 			ctrl.init();
-		} else {
+		} else
+		 {
 			/**
 			 * if certrequired is 1
 			 * then enable certificate pinning
+			 * if certrequired is 2
+			 * download new cert if not done already
 			 */
-			if (appconfig.certrequired) {
+			if(appconfig.certrequired === 0)
+			{
+				callAppload();
+
+			}
+			else if (appconfig.certrequired === 1) {
 				/**
 				 * later will be used
 				 * by request wrapper
@@ -112,8 +121,83 @@ function didGetAppConfig(result, passthrough) {
 					url : appconfig.ophurl,
 					serverCertificate : "https.cer"
 				}]);
+				
+				callAppload();
+				
 			}
-			/**
+			else if(appconfig.certrequired === 2)
+			{
+				var res = encryptionUtil.decrypt(appconfig.maintenanceurl) || "{}";
+
+				logger.debug("\n\n decrypted URL = " + res);
+							
+				var		parts = res.split('&'),
+						whole = parts[0],
+						fractional = parts[1] || '';
+						// var savedFile= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" +fractional + ".cer");
+						
+						var savedFile= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional+".cer");
+
+						logger.debug("\n\nfilepath\t =" , /*Ti.Filesystem.applicationDataDirectory,*/ savedFile.getNativePath());
+
+						if(savedFile.exists())
+						{
+							logger.debug("\n\n file found\n\n"); 	
+							callAppload();
+						
+						}
+						else
+						{
+							logger.debug("\n\n file to be downloaded\n\n");
+
+						var xhr = Titanium.Network.createHTTPClient({
+							onload: function() {			
+								// first, grab a "handle" to the file where you'll store the downloaded data
+								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional+".cer");
+								f.write(this.responseData); // write to the file
+								Ti.App.fireEvent('file_downloaded', {filepath:f.nativePath});
+							},
+						onerror: function(e) {
+						        Ti.API.error(e.error);
+ 						},
+ 						timeout: 10000
+						});
+						xhr.open('GET',whole);
+						xhr.send();
+						Ti.App.addEventListener('file_downloaded', function(e) {
+							// you don't have to fire an event like this, but perhaps multiple components will
+							// want to know when the file has been downloaded and saved
+							
+							logger.debug("\n\n completed download of cer @ ",e.filepath); //nativepath wont giv anythn
+
+							Alloy.Globals.securityManager = require("appcelerator.https").createX509CertificatePinningSecurityManager([{
+							url : appconfig.ophurl,
+							serverCertificate : (Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional+".cer")).nativePath
+							}]);
+
+							callAppload();
+
+						});
+
+
+						}
+			}
+			
+		}
+		
+	} 
+	else
+	{
+		/**
+		 * considered as failure
+		 */
+		didFailAppConfig({});
+	}
+}
+
+function callAppload()
+{
+	/**
 			 * appload
 			 *
 			 * device_id
@@ -146,14 +230,8 @@ function didGetAppConfig(result, passthrough) {
 				showLoaderCallback : showLoader,
 				hideLoaderCallback : hideLoader
 			});
-		}
-	} else {
-		/**
-		 * considered as failure
-		 */
-		didFailAppConfig({});
-	}
 }
+
 
 function didSuccessAppload(result) {
 	var appload = result.data.appload || {};
