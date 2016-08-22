@@ -35,6 +35,7 @@ function focus() {
 
 function didFail(error, passthrough) {
 	$.loader.hide();
+	handleClose();
 }
 
 function didGetHistory(result, passthrough) {
@@ -91,6 +92,10 @@ function terminate() {
 	if (httpClient) {
 		httpClient.abort();
 	}
+}
+
+function handleClose() {
+	$.app.navigator.close();
 }
 
 exports.init = init;

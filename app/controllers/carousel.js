@@ -103,11 +103,22 @@ function didClickNext(e) {
 		currentPage++;
 		//scroll end will be triggered as result of this
 		$.scrollableView.scrollToView(currentPage);
-	} else {
-		$.app.navigator.open({
-			ctrl : "register"
+	} else {		
+		if(Alloy.CFG.is_proxy_enabled)
+		{
+ 		$.app.navigator.open({
+			ctrl : "register",
+ 		});
+		}		
+		else
+		{
+			$.app.navigator.open({
+			ctrl : "signup",
+		titleid : "titleCreateAccount",
 		});
-	}
+		}	
+ 	}
+
 }
 
 function didClickSkip(e) {
