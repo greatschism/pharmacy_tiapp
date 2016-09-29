@@ -1,4 +1,5 @@
 var args = $.args,
+logger = require("logger"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
@@ -10,7 +11,7 @@ var args = $.args,
     rxTxtHeight,
     phone,
     isWindowOpen,
-    analyticsCategory;
+    analyticsCategory, selectedRxs = [];
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -96,10 +97,16 @@ function didClickRefill(e) {
 	 * and should have at least one valid rx
 	 */
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    // storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    
+	    storeId = store.id,
+
 	    isInvalidRx = false,
 	    lastIndex = 0,
 	    validRxs = [];
+	    
+	    logger.debug("\n\n\n\n selected store id : ", store.id,"\n\n pickupmode : ",pickupMode);
+	    
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
@@ -207,10 +214,52 @@ function didRefill(result, passthrough) {
 }
 
 function didClickEdit(e) {
+	// PHA-2600  -- enhancement - multiple mail order support
+	if(Alloy.Globals.isLoggedIn & Alloy.Globals.isMailOrderService)
+	{
+	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
+	    storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    isInvalidRx = false,
+	    lastIndex = 0,
+	    validRxs = [];
+		_.some(rxTxts, function(rxTxt, index) {
+		var value = rxTxt.getValue();
+		if (value) {
+			value = rx.validate(value);
+			if (value) {
+				//PHA-1424
+				validRxs.push({
+					rx_number : value.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					store_id : storeId,
+					pickup_mode : pickupMode,
+					pickup_time_group : apiCodes.pickup_time_group_asap
+				});
+				
+				selectedRxs = validRxs;
+			} else {
+				lastIndex = index;
+				isInvalidRx = true;
+				return true;
+			}
+		}
+		return false;
+	});
+	if (isInvalidRx || validRxs.length === 0) {
+		$.uihelper.showDialog({
+			message : String.format($.strings.refillTypeValRx, Alloy.CFG.rx_length),
+			success : function() {
+				rxTxts[lastIndex].getView().focus();
+			}
+		});
+		return false;
+	}
+	}
+	
 	$.app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",
 		ctrlArguments : {
+			rx : selectedRxs,
 			store : store,
 			selectable : true,
 			mailOrderStoreEnabled : false
@@ -356,12 +405,19 @@ function updatePickupMode(e) {
 }
 
 function updatePickupOption() {
+	
+	// PHA-2600  -- enhancement - multiple mail order support
+
+
 	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
 	case apiCodes.pickup_mode_instore:
 		/**
 		 * check whether the store supports
 		 * instore pickup
 		 */
+			
+		Alloy.Globals.isMailOrderService = false;
+
 		if (store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
 			store = {};
 		}
@@ -376,16 +432,30 @@ function updatePickupOption() {
 			$.storeView.visible = true;
 			$.pickupView.add($.storeView);
 		}
+		$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionPickup;
 		break;
 	case apiCodes.pickup_mode_mail_order:
-		if ($.storeView.visible) {
-			$.pickupView.remove($.storeView);
-			$.storeView.visible = false;
+		Alloy.Globals.isMailOrderService = true;
+
+		if ($.mailorderView.visible) {
+			$.pickupView.remove($.mailorderView);
+			$.mailorderView.visible = false;
 		}
-		if (!$.mailorderView.visible) {
-			$.mailorderView.visible = true;
-			$.pickupView.add($.mailorderView);
+		if (!$.storeView.visible) {
+			$.storeView.visible = true;
+			$.pickupView.add($.storeView);
 		}
+		
+		$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
+
+		// if ($.storeView.visible) {
+			// $.pickupView.remove($.storeView);
+			// $.storeView.visible = false;
+		// }
+		// if (!$.mailorderView.visible) {
+			// $.mailorderView.visible = true;
+			// $.pickupView.add($.mailorderView);
+		// }
 		break;
 	}
 }
