@@ -10,7 +10,8 @@ var args = $.args,
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"]
 }),
-    rx = require("rx");
+    rx = require("rx"),
+    logger = require("logger");
 
 function init() {
 	/**
@@ -224,17 +225,35 @@ function didClickContinue() {
 function didAddChild(result) {
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			if (args.isFamilyMemberFlow) {
-				$.app.navigator.open({
-					titleid : "titleTextBenefits",
-					ctrl : "textBenefits",
-					ctrlArguments : {
-						familyRelationship : args.familyRelationship,
-						isFamilyMemberFlow : true
-					},
-					stack : true
-				});
-
+					/* 
+			 * snaaga: if parent already has a registered phone number, skip textbenefits screen
+			 */
+			if (args.isFamilyMemberFlow){ 
+				var parent_phone = Alloy.Collections.patients.at(0).get("mobile_number");
+				if($.utilities.isPhoneNumber(parent_phone))
+				{
+					logger.debug("\n\n\n\n child add: skipping textBenefits & moving to familyMemberAddSuccess\n\n\n\n");
+					$.app.navigator.open({
+						titleid : "titleFamilyAccounts",
+						ctrl : "familyMemberAddSuccess",
+						ctrlArguments : {
+							familyRelationship : args.familyRelationship
+						},
+						stack : false
+					});
+				}
+				else {
+					$.app.navigator.open({
+						titleid : "titleTextBenefits",
+						ctrl : "textBenefits",
+						ctrlArguments : {
+							familyRelationship : args.familyRelationship,
+							isFamilyMemberFlow : true
+						},
+						stack : true
+					});
+	
+				}
 			} else {
 				$.app.navigator.open({
 					titleid : "titleChildSuccess",

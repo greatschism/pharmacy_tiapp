@@ -105,7 +105,7 @@ function didClickRefill(e) {
 	    lastIndex = 0,
 	    validRxs = [];
 	    
-	    logger.debug("\n\n\n\n selected store id : ", store.id,"\n\n pickupmode : ",pickupMode);
+	    logger.debug("\n\n\n\n selected store id : ", storeId,"\n\n pickupmode : ",pickupMode);
 	    
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
