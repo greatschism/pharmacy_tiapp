@@ -11,7 +11,7 @@ logger = require("logger"),
     rxTxtHeight,
     phone,
     isWindowOpen,
-    analyticsCategory, selectedRxs = [];
+    analyticsCategory; 
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -214,52 +214,11 @@ function didRefill(result, passthrough) {
 }
 
 function didClickEdit(e) {
-	// PHA-2600  -- enhancement - multiple mail order support
-	if(Alloy.Globals.isLoggedIn & Alloy.Globals.isMailOrderService)
-	{
-	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
-	    isInvalidRx = false,
-	    lastIndex = 0,
-	    validRxs = [];
-		_.some(rxTxts, function(rxTxt, index) {
-		var value = rxTxt.getValue();
-		if (value) {
-			value = rx.validate(value);
-			if (value) {
-				//PHA-1424
-				validRxs.push({
-					rx_number : value.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
-					store_id : storeId,
-					pickup_mode : pickupMode,
-					pickup_time_group : apiCodes.pickup_time_group_asap
-				});
-				
-				selectedRxs = validRxs;
-			} else {
-				lastIndex = index;
-				isInvalidRx = true;
-				return true;
-			}
-		}
-		return false;
-	});
-	if (isInvalidRx || validRxs.length === 0) {
-		$.uihelper.showDialog({
-			message : String.format($.strings.refillTypeValRx, Alloy.CFG.rx_length),
-			success : function() {
-				rxTxts[lastIndex].getView().focus();
-			}
-		});
-		return false;
-	}
-	}
 	
 	$.app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",
 		ctrlArguments : {
-			rx : selectedRxs,
 			store : store,
 			selectable : true,
 			mailOrderStoreEnabled : false
@@ -271,7 +230,22 @@ function didClickEdit(e) {
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		getStore();
+		if ((!(_.isEmpty(store))) && store.id) 
+		{
+			logger.debug("\n\n\n came into refill screen - get store call \n\n\n");
+			logger.debug("\n\n\n selected store details \n\n\n", JSON.stringify(store,null,4));
+
+			getStore();
+
+		}
+
+		else
+		{
+			logger.debug("\n\n\n came into refill screen - getAllPharmacy call \n\n\n");
+
+			getAllPharmacy();
+		}
+
 	} else if (store.shouldUpdate) {
 		/**
 		 * new store has been picked up
@@ -279,6 +253,8 @@ function focus() {
 		 */
 		store.shouldUpdate = false;
 		updateStore();
+		logger.debug("\n\n\n calling update store \n\n\n");
+
 	}
 }
 
@@ -292,15 +268,15 @@ function didFail(result, passthrough) {
 	$.app.navigator.close();
 }
 
+
 function getStore() {
-	var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
-	if (_.isEmpty(store) && storeId) {
+	if (_.isEmpty(store) && store.id) {
 		$.http.request({
 			method : "stores_get",
 			params : {
 				data : [{
 					stores : {
-						id : storeId,
+						id : store.id,
 					}
 				}]
 			},
@@ -313,7 +289,68 @@ function getStore() {
 	}
 }
 
+function getAllPharmacy() {
+	/**
+	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy
+	 */
+	$.http.request({
+		method : "stores_list",
+		params : {
+			data : [{
+				stores : {
+					search_criteria : "",
+					user_lat : "",
+					user_long : "",
+					search_lat : "",
+					search_long : "",
+					view_type : "LIST"
+				}
+			}]
+		},
+		errorDialogEnabled : false,
+		success : getHomePharmacy,
+		failure : didGetNoStore
+	});
+}
+
+function didGetNoStore()
+{
+				getOrSetPickupModes();
+
+}
+
+function getHomePharmacy(result) {
+	// var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
+	// if (_.isEmpty(store) && storeId) {
+		
+		if (Alloy.Globals.isLoggedIn)
+		{
+			_.each(result.data.stores.stores_list, function(store) {
+				if (parseInt(store.ishomepharmacy)) {
+					$.http.request({
+						method : "stores_get",
+						params : {
+							data : [{
+								stores : {
+									id : store.id,
+								}
+							}]
+						},
+						keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
+						success : didGetStore,
+						failure : didFail
+					});
+				}
+			});
+		} 
+		else 
+		{
+			getOrSetPickupModes();
+		}
+}
+
 function didGetStore(result, passthrough) {
+	logger.debug("\n\n\n in didgetstore result", JSON.stringify(result,null,4), "\n\n\n");
 	/**
 	 * update properties to object
 	 * don't replace, if then might clear the reference
@@ -324,6 +361,8 @@ function didGetStore(result, passthrough) {
 		title : $.utilities.ucword(store.addressline1),
 		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 	});
+		logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store,null,4), "\n\n\n");
+
 	getOrSetPickupModes();
 }
 
@@ -416,10 +455,17 @@ function updatePickupOption() {
 		 * instore pickup
 		 */
 			
+			if(Alloy.Globals.isMailOrderService)
+			{
+				store = {};
+				// if inside login, call home pharmacy
+			}
 		Alloy.Globals.isMailOrderService = false;
-
-		if (store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-			store = {};
+		var ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
+		if(ishomepharmacy == 0)
+		// if ( !Alloy.CFG.mail_order_store_pickup_enabled) 
+		{
+			// store = {};
 		}
 		//update store
 		updateStore();
@@ -436,6 +482,21 @@ function updatePickupOption() {
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		Alloy.Globals.isMailOrderService = true;
+		store = {};
+
+
+
+		if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+		{
+				mailOrderCall();
+	
+		}
+		else
+		{
+				updateStore();
+
+		}
+	
 
 		if ($.mailorderView.visible) {
 			$.pickupView.remove($.mailorderView);
@@ -459,6 +520,75 @@ function updatePickupOption() {
 		break;
 	}
 }
+
+
+function mailOrderCall()
+{
+	httpClient = $.http.request({
+				method : "mailorder_stores_get",
+				params : {
+					data : [{
+							rx_info : {
+			       				rx_number: ""
+		     				}
+					}],
+					feature_code : "IP-STLI-STOR"
+				},
+				passthrough : true ,
+				errorDialogEnabled :  true,
+				showLoader : false,
+				success : didGetMailOrderStores,
+				failure : didGetMailOrderStores
+				});
+}
+
+function didGetMailOrderStores(result, passthrough) {
+
+	/**
+	 * reset http client to ensure no pending api
+	 */
+	httpClient = null;
+
+	/*
+	 * handle failure cases
+	 */
+	if (!result.data) {
+		logger.debug("\n\n\ndidgetstores -- results list empty\n\n\n");
+		
+		//this resets the list populated already
+		result.data = {
+			stores : {
+				stores_list : []
+			}
+		};
+	}
+
+	var isLastFilled = parseInt(result.data.isLastFilled) || 0;
+	logger.debug("\n\n\n lastfilled ", isLastFilled);
+
+	if(isLastFilled === 1)
+	{
+		_.extend(store, result.data.stores.stores_list[0]);
+		_.extend(store, {
+			title : $.utilities.ucword(store.addressline1),
+			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+		});
+	
+	
+		// _.each(result.data.stores.stores_list, function(store) {
+			// _.extend(store, {
+			// title : $.utilities.ucword(store.addressline1),
+			// subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+		// });
+	//});
+	logger.debug("\n\n\n store last filled\n ",JSON.stringify(result.data.stores.stores_list[0], null, 4));
+
+	}
+		updateStore();
+		logger.debug("\n\n\n update store for store\n", JSON.stringify(store, null, 4));
+	
+}
+
 
 function updateStore() {
 	$.storeTitleLbl.text = store.title || $.strings.refillTypeLblStoreTitle;

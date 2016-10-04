@@ -202,17 +202,13 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 	
 	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
 	{
-		var srchRx =[];
-		_.each(args.rx, function(srchRx) {
-			 srchRx = args.rx.rx_number;
-		});
 		
 		httpClient = $.http.request({
 		method : "mailorder_stores_get",
 		params : {
 			data : [{
 					rx_info : {
-	       				rx_number: args.rx
+	       				rx_number: ""
      				}
 			}],
 			feature_code : "IP-STLI-STOR"

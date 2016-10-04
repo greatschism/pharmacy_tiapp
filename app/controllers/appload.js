@@ -404,6 +404,8 @@ function initMasterWindow() {
 	 * new controller is all setup, ready for use
 	 * and not just opened
 	 */
+	
+	Alloy.Globals.isMailOrderService = false;
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
 			ctrl : "carousel",

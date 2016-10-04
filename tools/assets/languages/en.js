@@ -356,7 +356,7 @@ module.exports = {
 		"orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 		"orderDetLblStoreTitle" : "No pharmacy selected",
 		"orderDetLblStoreSubtitle" : "Click here to choose one",
-		"orderDetValStore" : "Please choose a pharmacy for pickup",
+		"orderDetValStore" : "Please choose a pharmacy for refill",
 
 		"rxSampleLblTitle" : "Where is my Rx number?",
 
