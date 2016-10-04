@@ -334,6 +334,8 @@ function didClickRefill(e) {
 }
 
 function didConfirmRefill() {
+	Alloy.Globals.isMailOrderService = false;
+
 	$.app.navigator.open({
 		titleid : "titleOrderDetails",
 		ctrl : "orderDetails",
