@@ -232,29 +232,18 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		/*
 		 * check whether it is a search
 		 */
-		if (param) 
-		{
+		if (param) {
 	
-			if (_.isString(param))
-			{
+			if (_.isString(param)) {
 				currentLocation = {};
 				reqStoreObj.search_criteria = param;
 				if(Alloy.Globals.isMailOrderService)
 				{
 					_.extend(reqStoreObj, {
-							mail_order_services : 1
-					});
-				}
-				else
-				{
-					_.extend(reqStoreObj, {
 							mail_order_services : 0
 					});
-
 				}
-			} 
-			else 
-			{
+			} else {
 				currentLocation = _.pick(param, ["latitude", "longitude"]);
 				if(Alloy.Globals.isMailOrderService)
 				{
@@ -267,39 +256,21 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 				else
 				{
 					_.extend(reqStoreObj, {
-						search_lat : param.latitude,
-						search_long : param.longitude,
-						mail_order_services : 0
+					search_lat : param.latitude,
+					search_long : param.longitude
 					});
 				}
 			}
 	
 		}
 		
-		 else 
-		 {
+		 else {
 	
 			currentLocation = _.pick($.uihelper.userLocation, ["latitude", "longitude"]);
-			
-			if(Alloy.Globals.isMailOrderService)
-			{
-				_.extend(reqStoreObj, {
-					user_lat : $.uihelper.userLocation.latitude,
-					user_long : $.uihelper.userLocation.longitude,
-					mail_order_services : 1
-	
-				});
-			}
-			
-			else
-			{
-				_.extend(reqStoreObj, {
-					user_lat : $.uihelper.userLocation.latitude,
-					user_long : $.uihelper.userLocation.longitude,
-					mail_order_services : 1
-	
-				});
-			}
+			_.extend(reqStoreObj, {
+				user_lat : $.uihelper.userLocation.latitude,
+				user_long : $.uihelper.userLocation.longitude
+			});
 	
 			/*
 			 * if not reset search if any
@@ -335,6 +306,7 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		});
 	}
 }
+
 
 function didGetStores(result, passthrough) {
 
