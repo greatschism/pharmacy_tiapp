@@ -258,9 +258,15 @@ function didGetPickupModes(result, passthrough) {
 function setPickupModes() {
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	    // defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	    defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
 	    selectedCode;
 	    
+	if( Alloy.CFG.latest_pickup_mode === "latestPickupMode")
+	{
+		defaultVal = apiCodes.pickup_mode_instore;
+	}
+
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 
 	/**
