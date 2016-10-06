@@ -188,7 +188,7 @@ function didGetLocation(userLocation) {
  * shouldUpdateRegion - whether or not to update region (default to true)
  * errorDialogEnabled - whetehr or not to show error alert (default to true)
  */
-function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
+function getStoresOLD(param, errorDialogEnabled, shouldUpdateRegion) {
 	
 	/**
 	 * abort any pending http requests
@@ -306,6 +306,141 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		});
 	}
 }
+
+
+
+function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
+	
+	/**
+	 * abort any pending http requests
+	 */
+	if (httpClient) {
+		httpClient.abort();
+	}
+
+	$.loader.show();
+	
+	/*
+	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+	{
+		
+		httpClient = $.http.request({
+		method : "mailorder_stores_get",
+		params : {
+			data : [{
+					rx_info : {
+	       				rx_number: ""
+     				}
+			}],
+			feature_code : "IP-STLI-STOR"
+		},
+		passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
+		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
+		showLoader : false,
+		success : didGetStores,
+		failure : didGetStores
+		});
+		
+	}
+
+	
+	else*/
+	{
+		var reqStoreObj = {
+			view_type : currentViewType
+		};
+		
+		/*
+		 * check whether it is a search
+		 */
+		if (param) {
+		logger.debug("\n\n\n param present in search\n\n\n");
+
+			if (_.isString(param)) {
+						logger.debug("\n\n\n param is a string in search\n\n\n");
+
+				currentLocation = {};
+				reqStoreObj.search_criteria = param;
+				if(Alloy.Globals.isMailOrderService)
+				{
+					_.extend(reqStoreObj, {
+							mail_order_services : 1
+					});
+				}
+				else
+				{
+					_.extend(reqStoreObj, {
+							mail_order_services : 0
+					});
+				}
+			} else {
+				logger.debug("\n\n\n param is a a zip in search\n\n\n");
+
+				currentLocation = _.pick(param, ["latitude", "longitude"]);
+				if(Alloy.Globals.isMailOrderService)
+				{
+					_.extend(reqStoreObj, {
+						search_lat : param.latitude,
+						search_long : param.longitude,
+						mail_order_services : 1
+					});
+				}
+				else
+				{
+					_.extend(reqStoreObj, {
+					search_lat : param.latitude,
+					search_long : param.longitude,
+					mail_order_services : 0
+
+					});
+				}
+			}
+	
+		}
+		
+		 else {
+	logger.debug("\n\n\n no param in search\n\n\n");
+			currentLocation = _.pick($.uihelper.userLocation, ["latitude", "longitude"]);
+			_.extend(reqStoreObj, {
+				user_lat : $.uihelper.userLocation.latitude,
+				user_long : $.uihelper.userLocation.longitude
+			});
+	
+			/*
+			 * if not reset search if any
+			 */
+	
+			if ($.searchTxt.getValue()) {
+				$.searchTxt.setValue("");
+			}
+	
+			if (geoRows.length) {
+				geoRows = [];
+				$.geoTableView.setData([]);
+			}
+		}
+	
+		/**
+		 * passthrough can be a boolean|undefined
+		 * if undefined considered as true
+		 * when it is true update region
+		 */
+		httpClient = $.http.request({
+			method : "stores_list",
+			params : {
+				data : [{
+					stores : reqStoreObj
+				}]
+			},
+			passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
+			errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
+			showLoader : false,
+			success : didGetStores,
+			failure : didGetStores
+		});
+	}
+}
+
 
 
 function didGetStores(result, passthrough) {
