@@ -395,17 +395,22 @@ function didGetPickupModes(result, passthrough) {
 }
 
 function setPickupModes() {
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
+
 	var codes = Alloy.Models.pickupModes.get("code_values"),
 	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
 	    selectedCode;
+	    
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
+
 	/**
 	 * if defaultVal in store pickup
 	 * then make sure the given store supports
 	 * the same
 	 */
-	if (defaultVal == apiCodes.pickup_mode_instore && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-		defaultVal = apiCodes.pickup_mode_mail_order;
-	}
+	// if (defaultVal == apiCodes.pickup_mode_instore && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
+		// defaultVal = apiCodes.pickup_mode_mail_order;
+	// }
 	//update selected value
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {
