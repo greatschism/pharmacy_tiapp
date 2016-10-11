@@ -101,8 +101,12 @@ function updateTable() {
 		/**
 		 * this is a successful refill
 		 * so store last used store id
-		 */
-		$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		 
+		if(! Alloy.Globals.isMailOrderService )
+		{
+			$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		}
+		*/
 		var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
 		storeRow.on("click", didClickStorePhone);
 		$.pickupSection.add(storeRow.getView());
@@ -135,7 +139,7 @@ function updateTable() {
 	 * cache the pickup mode for later use
 	 */
 	if (args.pickupMode) {
-		$.utilities.setProperty(Alloy.CFG.latest_pickup_mode, args.pickupMode);
+		// $.utilities.setProperty(Alloy.CFG.latest_pickup_mode, args.pickupMode);
 	}
 	/**
 	 * this is a successful refill

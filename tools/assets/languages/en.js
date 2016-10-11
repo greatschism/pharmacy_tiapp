@@ -356,7 +356,7 @@ module.exports = {
 		"orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 		"orderDetLblStoreTitle" : "No pharmacy selected",
 		"orderDetLblStoreSubtitle" : "Click here to choose one",
-		"orderDetValStore" : "Please choose a pharmacy for pickup",
+		"orderDetValStore" : "Please choose a pharmacy for refill",
 
 		"rxSampleLblTitle" : "Where is my Rx number?",
 
@@ -373,12 +373,13 @@ module.exports = {
 		"refillTypeLblDesc" : "Please enter the information below so we can process your refill.",
 		"refillTypeSectionPresc" : "Your order",
 		"refillTypeSectionPickup" : "Pharmacy where you filled this last",
+		"refillTypeSectionMail" : "Pharmacy where this was shipped from last",
 		"refillTypeSectionPhone" : "Your contact number",
 		"refillTypeHintPhone" : "Mobile number",
 		"refillTypeLblStoreTitle" : "No pharmacy selected",
 		"refillTypeLblStoreSubtitle" : "Click here to choose one",
 		"refillTypeValRx" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
-		"refillTypeValStore" : "Please choose a pharmacy for pickup",
+		"refillTypeValStore" : "Please choose a pharmacy for refill",
 		"refillTypeValPhone" : "Please enter your mobile number to continue.",
 		"refillTypeValPhoneInvalid" : "The mobile number you have entered is invalid.",
 		"refillTypeBtnRefill" : "Submit",

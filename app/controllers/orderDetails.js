@@ -20,7 +20,8 @@ var args = $.args,
 	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"]
 },
     detailBtnClasses = ["top-disabled", "left-disabled", "right", "width-25", "i4", "txt-right", "bg-color-disabled", "active-fg-color", "border-disabled", "icon-edit"],
-    isWindowOpen;
+    isWindowOpen,
+    logger = require("logger");
 
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.refillBtn.height + $.refillBtn.bottom;
@@ -45,6 +46,7 @@ function init() {
 		$.prescSection.add(row.getView());
 		rows.push(row);
 	});
+	
 }
 
 function didClickAdd(e) {
@@ -114,7 +116,8 @@ function focus(e) {
 		 * reset the update flag
 		 */
 		store.shouldUpdate = false;
-		updatePickupOptionRow();
+		// updatePickupOptionRow();
+		updateDisplay();
 	} else if (selectedPrescriptions.length) {
 		/**
 		 * make existing first row removable
@@ -253,17 +256,28 @@ function didGetPickupModes(result, passthrough) {
 }
 
 function setPickupModes() {
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	    // defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	    defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
 	    selectedCode;
+	    
+	if( Alloy.CFG.latest_pickup_mode === "latestPickupMode")
+	{
+		defaultVal = apiCodes.pickup_mode_instore;
+	}
+
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
+
 	/**
 	 * if defaultVal in store pickup
 	 * then make sure the given store supports
 	 * the same
 	 */
-	if (defaultVal == apiCodes.pickup_mode_instore && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-		defaultVal = apiCodes.pickup_mode_mail_order;
-	}
+	// if (defaultVal == apiCodes.pickup_mode_instore  && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
+		// defaultVal = apiCodes.pickup_mode_mail_order;
+		// logger.debug("\n\n\n default mode : ", defaultVal,"\t\t",Alloy.CFG.mail_order_store_pickup_enabled);
+	// }
 	//update selected value
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {
@@ -299,7 +313,8 @@ function setPickupModes() {
 	//set data
 	$.tableView.setData([$.prescSection, $.pickupSection]);
 	//update options row
-	updatePickupOptionRow();
+	// updatePickupOptionRow();
+	updateDisplay();
 }
 
 function updatePickupModeRow(e) {
@@ -317,6 +332,60 @@ function updatePickupModeRow(e) {
 }
 
 function updatePickupOptionRow() {
+	// var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
+	// logger.debug("\n\n\n $.pickupOptionRow.getView --> in updatePickupOptionRow\n\n\n");
+	// //nullify last instance
+	// $.pickupOptionRow = null;
+	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
+	case apiCodes.pickup_mode_instore:
+		/**
+		 * check whether the store supports
+		 * instore pickup
+		 */
+		// if(Alloy.Globals.isMailOrderService)
+		// {
+			// store = {};
+			// // should get home pharmacy for the selected  prescription
+		// }
+		
+		Alloy.Globals.isMailOrderService = false;
+		store = {};
+		
+		getPrescriptionOrStore();
+		
+		// var ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
+		// if(ishomepharmacy == 0){}
+// 		
+		// //point to new instance
+		// updateDisplay();
+		break;
+	case apiCodes.pickup_mode_mail_order:
+		//point to new instance
+		// $.pickupOptionRow = Alloy.createController("itemTemplates/label", {
+			// title : $.strings.orderDetLblMailOrder
+		// });
+		
+		
+		
+		
+					
+		logger.debug("\n\n ");
+		store = {};
+		Alloy.Globals.isMailOrderService = true;
+
+		if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+			mailOrderCall();
+
+		}
+		
+		break;
+	}
+	// $.tableView.updateRow(row, $.pickupOptionRow.getView());
+}
+
+
+
+function updateDisplay() {
 	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
 	//nullify last instance
 	$.pickupOptionRow = null;
@@ -326,9 +395,7 @@ function updatePickupOptionRow() {
 		 * check whether the store supports
 		 * instore pickup
 		 */
-		if (store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-			store = {};
-		}
+	
 		//point to new instance
 		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
 			masterWidth : 75,
@@ -341,13 +408,81 @@ function updatePickupOptionRow() {
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
-		$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
-			title : $.strings.orderDetLblMailOrder
+		
+				
+		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
+			masterWidth : 75,
+			detailWidth : 25,
+			title : store.title || $.strings.orderDetLblStoreTitle,
+			subtitle : store.subtitle || $.strings.orderDetLblStoreSubtitle,
+			btnClasses : detailBtnClasses
 		});
+		$.pickupOptionRow.on("clickdetail", didClickStoreChange);
+		
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
 }
+
+
+function mailOrderCall()
+{
+	httpClient = $.http.request({
+				method : "mailorder_stores_get",
+				params : {
+					data : [{
+							rx_info : {
+			       				rx_number: ""
+		     				}
+					}],
+					feature_code : "IP-STLI-STOR"
+				},
+				passthrough :  true ,
+				errorDialogEnabled :  true ,
+				showLoader : false,
+				success : didGetMailOrderStores,
+				failure : didGetMailOrderStores
+				});
+}
+
+function didGetMailOrderStores(result, passthrough) {
+
+	/**
+	 * reset http client to ensure no pending api
+	 */
+	httpClient = null;
+
+	/*
+	 * handle failure cases
+	 */
+	if (!result.data) {
+		logger.debug("\n\n\norder details - didgetstores -- results list empty\n\n\n");
+		
+		//this resets the list populated already
+		result.data = {
+			stores : {
+				stores_list : []
+			}
+		};
+	}
+
+	var isLastFilled = parseInt(result.data.isLastFilled) || 0;
+	logger.debug("\n\n\norder details - lastfilled ", isLastFilled);
+	if(isLastFilled === 1)
+	{
+		_.extend(store, result.data.stores.stores_list[0]);
+		_.extend(store, {
+			title : $.utilities.ucword(store.addressline1),
+			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+		});
+	
+		logger.debug("\n\n\n order details - store last filled\n ",JSON.stringify(result.data.stores.stores_list[0], null, 4));
+	}
+	
+	updateDisplay();
+}
+
+
 
 function didClickTableView(e) {
 	/**
@@ -378,7 +513,10 @@ function didClickRefill(e) {
 	 *  this is specific to client
 	 */
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    // storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+	    
+	    storeId = store.id,
+
 	    data = [];
 	//check if valid store id
 	if (!storeId) {

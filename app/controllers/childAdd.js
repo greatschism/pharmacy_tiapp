@@ -225,7 +225,7 @@ function didClickContinue() {
 function didAddChild(result) {
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			/* 
+					/* 
 			 * snaaga: if parent already has a registered phone number, skip textbenefits screen
 			 */
 			if (args.isFamilyMemberFlow){ 

@@ -9,6 +9,11 @@ var args = $.args,
     marginLeft;
 
 function init() {
+	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+	{
+		Alloy.Globals.isMailOrderService = false;
+	}
+
 	if (OS_ANDROID) {
 		app.navigator.drawer.on("drawerclose", didDrawerclose);
 	}
@@ -42,6 +47,11 @@ function transformFunction(model) {
 }
 
 function didDrawerclose(e) {
+	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+	{
+		Alloy.Globals.isMailOrderService = false;
+	}
+	
 	if (!currentItem) {
 		return false;
 	}
