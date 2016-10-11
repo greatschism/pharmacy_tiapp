@@ -12,10 +12,7 @@
 		"id": "pricechopper",
 		"description": "Price chopper."
 	}, {
-		"id": "avera",
-		"description": "Avera."
-	}, {
-		"id": "fairview",
-		"description": "Fairview Pharmacy."
+		"id": "intermountain",
+		"description": "Intermountain."
 	}
 ]
