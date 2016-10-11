@@ -3,7 +3,9 @@ var args = $.args,
     prescription = args.prescription,
     rows = [],
     isWindowOpen,
-    httpClient;
+    httpClient,
+    logger = require("logger")
+;
 
 function init() {
 	if (_.has(prescription, "history")) {
@@ -33,7 +35,8 @@ function focus() {
 	}
 }
 
-function didFail(error, passthrough) {
+function didFail(error, passthrough) {			
+	logger.debug('\n\n\nrefill history did fail\n\n\n');
 	$.loader.hide();
 	handleClose();
 }
@@ -101,3 +104,4 @@ function handleClose() {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+

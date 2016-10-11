@@ -163,7 +163,11 @@
                     "download":"0XE00A",
                     "filled_torchlight":"0xE00B",
                     "filled_settings":"0xE00C",
-                    "filled_refresh":"0XE00D"
+                    "filled_refresh":"0XE00D",
+                   	"facebook":"0XE010",
+                    "pharacyspecials":"0XE011",
+                    "twitter":"0XE012",
+                    "youtube":"0XE013"
                 },
                 "icons":{
                     "numeric_zero":"0",

@@ -750,7 +750,7 @@ module.exports = {
 		"familyCareMsgAdultRemove" : "es-Are you sure you want to remove this family member from your account? You will no longer be able to access their prescriptions.",
 		"familyCareMsgParentRemove" : "es-Removing this link means your family member will no longer have access to your prescriptions. Would you like to remove this link?",
 
-		"familyMemberAddLbl" : "es-Great let's add your family members!",
+		"familyMemberAddLbl" : "es-Great, let's add your family members!",
 		"familyMemberAddTip" : "es-Please enter your family member's date of birth.",
 		"familyMemberAddHintDob" : "es-Date of birth",
 		"familyMemberAddHintRelation" : "es-Select",
