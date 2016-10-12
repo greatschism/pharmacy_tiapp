@@ -308,7 +308,6 @@ function getStoresOLD(param, errorDialogEnabled, shouldUpdateRegion) {
 }
 
 
-
 function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 	
 	/**
@@ -342,7 +341,6 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		});
 		
 	}
-
 	
 	else*/
 	{
@@ -440,7 +438,6 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		});
 	}
 }
-
 
 
 function didGetStores(result, passthrough) {
