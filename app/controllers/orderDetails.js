@@ -361,23 +361,35 @@ function updatePickupOptionRow() {
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
-		// $.pickupOptionRow = Alloy.createController("itemTemplates/label", {
-			// title : $.strings.orderDetLblMailOrder
-		// });
 		
-		
-		
-		
-					
-		logger.debug("\n\n ");
-		store = {};
-		Alloy.Globals.isMailOrderService = true;
-
-		if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
-			mailOrderCall();
+		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
+		{
+			var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
+			logger.debug("\n\n\n $.pickupOptionRow.getView --> in updatePickupOptionRow\n\n\n");
+			//nullify last instance
+			$.pickupOptionRow = null;
+	
+			$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
+				title : $.strings.orderDetLblMailOrder
+			});
+			
+			
+			$.tableView.updateRow(row, $.pickupOptionRow.getView());
 
 		}
 		
+		
+		else
+		{			
+			logger.debug("\n\n ");
+			store = {};
+			Alloy.Globals.isMailOrderService = true;
+	
+			if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+				mailOrderCall();
+	
+			}
+		}
 		break;
 	}
 	// $.tableView.updateRow(row, $.pickupOptionRow.getView());
@@ -408,17 +420,24 @@ function updateDisplay() {
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
-		
+		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
+		{
+			$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
+			title : $.strings.orderDetLblMailOrder
+			});
+		}
 				
-		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
-			masterWidth : 75,
-			detailWidth : 25,
-			title : store.title || $.strings.orderDetLblStoreTitle,
-			subtitle : store.subtitle || $.strings.orderDetLblStoreSubtitle,
-			btnClasses : detailBtnClasses
-		});
-		$.pickupOptionRow.on("clickdetail", didClickStoreChange);
-		
+		else
+		{
+			$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
+				masterWidth : 75,
+				detailWidth : 25,
+				title : store.title || $.strings.orderDetLblStoreTitle,
+				subtitle : store.subtitle || $.strings.orderDetLblStoreSubtitle,
+				btnClasses : detailBtnClasses
+			});
+			$.pickupOptionRow.on("clickdetail", didClickStoreChange);
+		}
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
@@ -518,6 +537,12 @@ function didClickRefill(e) {
 	    storeId = store.id,
 
 	    data = [];
+	    
+	    if( (Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order))
+	    {
+	    	storeId = Alloy.Models.appload.get("mail_order_store_id");
+	    }
+	    
 	//check if valid store id
 	if (!storeId) {
 		$.uihelper.showDialog({
