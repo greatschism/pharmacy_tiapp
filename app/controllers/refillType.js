@@ -105,7 +105,13 @@ function didClickRefill(e) {
 	    lastIndex = 0,
 	    validRxs = [];
 	    
+	    
 	    logger.debug("\n\n\n\n selected store id : ", storeId,"\n\n pickupmode : ",pickupMode);
+	    
+	    if( (Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order))
+	    {
+	    	storeId = Alloy.Models.appload.get("mail_order_store_id");
+	    }
 	    
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
@@ -400,7 +406,8 @@ function setPickupModes() {
 	var codes = Alloy.Models.pickupModes.get("code_values"),
 	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
 	    selectedCode;
-	    
+	  	logger.debug("\n\n\n code_values", JSON.stringify(codes),"\n\n\n");
+  
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 
 	/**
@@ -448,6 +455,46 @@ function updatePickupMode(e) {
 	updatePickupOption();
 }
 
+function showHideOptions()
+{
+	// use 		 if (Alloy.Models.appload.get("mail_order_store_id")) 
+
+	var codes = Alloy.Models.pickupModes.get("code_values");
+	
+	logger.debug("\n\n\n code_values", JSON.stringify(codes),"\n\n\n");
+	
+	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
+	case apiCodes.pickup_mode_instore:
+		/**
+		 * check whether the store supports
+		 * instore pickup
+		 */
+		//update correspondent views
+		if ($.mailorderView.visible) {
+			$.pickupView.remove($.mailorderView);
+			$.mailorderView.visible = false;
+		}
+		if (!$.storeView.visible) {
+			$.storeView.visible = true;
+			$.pickupView.add($.storeView);
+		}
+		break;
+	case apiCodes.pickup_mode_mail_order:
+		if ($.storeView.visible) {
+			$.pickupView.remove($.storeView);
+			$.storeView.visible = false;
+		}
+		if (!$.mailorderView.visible) {
+			$.mailorderView.visible = true;
+			$.pickupView.add($.mailorderView);
+		}
+		break;
+	}
+	
+	
+	
+}
+
 function updatePickupOption() {
 	
 	// PHA-2600  -- enhancement - multiple mail order support
@@ -489,39 +536,55 @@ function updatePickupOption() {
 		Alloy.Globals.isMailOrderService = true;
 		store = {};
 
-
-
-		if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
 		{
-				mailOrderCall();
-	
+			if ($.storeView.visible) {
+				$.pickupView.remove($.storeView);
+				$.storeView.visible = false;
+			}
+			if (!$.mailorderView.visible) {
+				$.mailorderView.visible = true;
+				$.pickupView.add($.mailorderView);
+			}
+					
+			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
+
 		}
+
 		else
 		{
-				updateStore();
-
-		}
-	
-
-		if ($.mailorderView.visible) {
-			$.pickupView.remove($.mailorderView);
-			$.mailorderView.visible = false;
-		}
-		if (!$.storeView.visible) {
-			$.storeView.visible = true;
-			$.pickupView.add($.storeView);
-		}
+			if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+			{
+					mailOrderCall();
 		
-		$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
-
-		// if ($.storeView.visible) {
-			// $.pickupView.remove($.storeView);
-			// $.storeView.visible = false;
-		// }
-		// if (!$.mailorderView.visible) {
-			// $.mailorderView.visible = true;
-			// $.pickupView.add($.mailorderView);
-		// }
+			}
+			else
+			{
+					updateStore();
+	
+			}
+		
+	
+			if ($.mailorderView.visible) {
+				$.pickupView.remove($.mailorderView);
+				$.mailorderView.visible = false;
+			}
+			if (!$.storeView.visible) {
+				$.storeView.visible = true;
+				$.pickupView.add($.storeView);
+			}
+			
+			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
+	
+			// if ($.storeView.visible) {
+				// $.pickupView.remove($.storeView);
+				// $.storeView.visible = false;
+			// }
+			// if (!$.mailorderView.visible) {
+				// $.mailorderView.visible = true;
+				// $.pickupView.add($.mailorderView);
+			// }
+		}
 		break;
 	}
 }
