@@ -408,11 +408,11 @@ var Utility = {
 
 	/**
 	 * Check if name is valid
-	 * @param {String} str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40
+	 * @param {String} str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-40 **edit SUS-1137 length: 1-40 any char or non-char
 	 * returns {Boolean}
 	 */
 	validateName : function(str) {
-		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-'\s]{1,40}$/.test(str);
+		return /^(?=.*[a-zA-Z0-9\W])[a-zA-Z0-9\W\s]{1,40}$/.test(str);
 	},
 
 	/**
