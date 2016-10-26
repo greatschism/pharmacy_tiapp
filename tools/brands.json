@@ -17,5 +17,11 @@
 	}, {
 		"id": "fairview",
 		"description": "Fairview Pharmacy."
+	}, {
+		"id": "oxygen_mck",
+		"description": "Oxygen MCK base product."
+	}, {
+		"id": "oxygen_pdx",
+		"description": "Oxygen PDX base product."
 	}
 ]
