@@ -112,9 +112,19 @@ function updateTable() {
 		$.pickupSection.add(storeRow.getView());
 	}
 	if (isMailOrder) {
-		$.pickupSection.add(Alloy.createController("itemTemplates/label", {
-			title : $.strings.refillSuccessLblMailOrder
-		}).getView());
+			var isSuccess = _.findWhere(prescriptions, {
+			refill_is_error : false
+		}),
+		    isFailure = _.findWhere(prescriptions, {
+			refill_is_error : true
+		});
+		
+		if((isSuccess && isFailure) || isSuccess)
+		{
+			$.pickupSection.add(Alloy.createController("itemTemplates/label", {
+				title : $.strings.refillSuccessLblMailOrder
+			}).getView());
+		}
 	}
 	/**
 	 *  tentative case we are contacting your doctor

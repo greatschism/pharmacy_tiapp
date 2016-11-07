@@ -7,5 +7,5 @@ var parts = Alloy.Models.appload.get("sampl_rx_image").split('_'),
 						fractional = parts[1] || '';
 						
 $.img.image = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional).read();
-$.img.width = utilities.percentageToValue("80%", app.device.width);
+$.img.width = utilities.percentageToValue("99%", app.device.width);
 $.img.height = utilities.percentageToValue("50%", app.device.height);
