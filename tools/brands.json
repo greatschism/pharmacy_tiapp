@@ -20,5 +20,8 @@
 	}, {
 		"id": "intermountain",
 		"description": "Intermountain."
+	}, {
+		"id": "baylor",
+		"description": "myBSW Rx."
 	}
 ]
