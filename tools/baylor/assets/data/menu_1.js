@@ -52,17 +52,17 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid" : "titleFacebook",
-		"url" : "http://Facebook.com/BaylorHealth",
+		"url" : "https://www.facebook.com/BSWHealth",
 		"icon" : "facebook",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleTwitter",
-		"url" : "http://Twitter.com/BaylorHealth",
+		"url" : "https://twitter.com/bswhealth",
 		"icon" : "twitter",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleYoutube",
-		"url" : "http://YouTube.com/BaylorHealth",
+		"url" : "https://www.youtube.com/user/baylorhealth",
 		"icon" : "youtube",
 		"requires_login" : false
 	}]
