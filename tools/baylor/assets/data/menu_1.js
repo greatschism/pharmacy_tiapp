@@ -50,20 +50,5 @@ module.exports = {
 		"ctrl" : "account",
 		"icon" : "thick_account",
 		"requires_login" : true
-	}, {
-		"titleid" : "titleFacebook",
-		"url" : "https://www.facebook.com/BSWHealth",
-		"icon" : "facebook",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleTwitter",
-		"url" : "https://twitter.com/bswhealth",
-		"icon" : "twitter",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleYoutube",
-		"url" : "https://www.youtube.com/user/baylorhealth",
-		"icon" : "youtube",
-		"requires_login" : false
 	}]
 };
