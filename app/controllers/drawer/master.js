@@ -110,7 +110,7 @@ function didAuthenticate(navigationHandled) {
 
 function didCompleteUpdate() {
 	logger.debug(TAG, "completed async update");
-	reload = ture;
+	reload = true;
 	doLogout();
 }
 
