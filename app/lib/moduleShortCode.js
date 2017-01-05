@@ -42,6 +42,7 @@ module.exports = {
 	"TEBE" : "LORE",
 	"TEME" : "LORE",
 	"TETA" : "LORE",
+	"MONU" : "MONU",
 	/**
 	 * family care
 	 */

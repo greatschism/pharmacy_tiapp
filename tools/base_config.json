@@ -57,7 +57,8 @@
 			"terms_email": "terms/email",
 			"mobile_add": "patient/mobile/add",
 			"mobile_resend": "patient/mobile/resend",
-			"email_resend": "patient/email/resend"
+			"email_resend": "patient/email/resend",
+			"patient_search": "patient/search"
 		},
 		"apiCodes": {
 			"success": "200",

@@ -661,6 +661,12 @@ module.exports = {
 		"mgrAccountExistsLbl" : "It looks like you already have an account with %s",
 		"mgrAccountExistsBtnSignIn" : "Sign in",
 
+		"mobileNumberWelcome" : "Welcome!",
+		"mobileNumberLbl" : "Please enter your mobile number and we'll check if we recognize you.",
+		"mobileNumberHint" : "Mobile number",
+		"mobileNumberContinue" : "Continue",
+		"mobileNumberSkip" : "Skip to full registration",
+
 		"childAddTitle" : "Add a child to your account",
 		"childAddHintFirstName" : "First name",
 		"childAddHintLastName" : "Last name",

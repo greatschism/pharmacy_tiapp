@@ -1,7 +1,14 @@
 function didClickMyself(){
+	/*
 	$.app.navigator.open({
 		ctrl : "signup",
 		titleid : "titleCreateAccount",
+		stack : true
+	});
+	*/
+	$.app.navigator.open({
+		ctrl : "mobileNumber",
+		titleid : "mobileNumberWelcome",
 		stack : true
 	});
 }

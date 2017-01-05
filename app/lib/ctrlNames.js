@@ -31,6 +31,7 @@ module.exports = {
 	"MAIN" : "maintenance",
 	"MGAC" : "mgrAccountCreation",
 	"MGAE" : "mgrAccountExists",
+	"MONU" : "mobileNumber",
 	"NEPA" : "newPassword",
 	"ORDE" : "OrderDetails",
 	"PHON" : "phone",
