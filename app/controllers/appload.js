@@ -277,10 +277,16 @@ function didSuccessAppload(result) {
 		 * check whether client.json is
 		 * updated (theme, language etc.,)
 		 */
-		if (config.init(clientConfig).length) {
+		logger.debug("\n\n\n clientConfig ", JSON.stringify(clientConfig), "\n\n\n");
+				logger.debug("\n\n\n clientConfig length ", clientConfig.length, "\n\n\n");
+
+	config.init(clientConfig);
+		if (Object.keys(clientConfig).length ) {
 			/**
 			 * check whether it is a force update
 			 */
+					logger.debug("\n\n\n Alloy.CFG.force_update ",Alloy.CFG.force_update, "\n\n\n");
+
 			if (Alloy.CFG.force_update) {
 				startUpdate();
 			} else {
@@ -367,10 +373,16 @@ function confirmUpdate() {
 }
 
 function startUpdate() {
+						logger.debug("\n\n\n Am in start update by force\n\n\n");
+
 	if (Alloy.CFG.async_update) {
+								logger.debug("\n\n\n Am in start update async\n\n\n");
+
 		triggerAsyncUpdate = true;
 		initMasterWindow();
 	} else {
+										logger.debug("\n\n\n Am in start update synchronous\n\n\n");
+
 		syncUpdate();
 	}
 }

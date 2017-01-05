@@ -50,20 +50,5 @@ module.exports = {
 		"ctrl" : "account",
 		"icon" : "thick_account",
 		"requires_login" : true
-	}, {
-		"titleid" : "titleFacebook",
-		"url" : "https://www.facebook.com/Fairview",
-		"icon" : "facebook",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleTwitter",
-		"url" : "https://twitter.com/FairviewHealth",
-		"icon" : "twitter",
-		"requires_login" : false
-	}, {
-		"titleid" : "titleYoutube",
-		"url" : "http://www.youtube.com/Fairviewhealth",
-		"icon" : "youtube",
-		"requires_login" : false
 	}]
 };
