@@ -6,7 +6,4 @@
 },
 "#continueBtn":{
 	title:Alloy.Globals.strings.mobileNumberContinue
-},
-"#skipAttr":{
-	title:Alloy.Globals.strings.mobileNumberSkip
 }

@@ -1,13 +1,5 @@
 var args = $.args;
 
-function didClickSkip(e) {
-	$.app.navigator.open({
-		ctrl : "signup",
-		titleid : "titleCreateAccount",
-		stack : true
-	});
-}
-
 function init(e) {
 	$.skipAttr.text=$.strings.mobileNumberSkip;
 }
