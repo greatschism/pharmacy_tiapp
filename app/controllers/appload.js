@@ -277,10 +277,16 @@ function didSuccessAppload(result) {
 		 * check whether client.json is
 		 * updated (theme, language etc.,)
 		 */
-		if (config.init(clientConfig).length) {
+		logger.debug("\n\n\n clientConfig ", JSON.stringify(clientConfig), "\n\n\n");
+				logger.debug("\n\n\n clientConfig length ", clientConfig.length, "\n\n\n");
+
+	config.init(clientConfig);
+		if (Object.keys(clientConfig).length ) {
 			/**
 			 * check whether it is a force update
 			 */
+					logger.debug("\n\n\n Alloy.CFG.force_update ",Alloy.CFG.force_update, "\n\n\n");
+
 			if (Alloy.CFG.force_update) {
 				startUpdate();
 			} else {
@@ -293,6 +299,65 @@ function didSuccessAppload(result) {
 			 */
 			initMasterWindow();
 		}
+		
+	
+	
+		// 	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
+		if(appload.sampl_rx_image != null && appload.sampl_rx_image != '' && typeof(appload.sampl_rx_image) !== 'undefined')
+		{
+		logger.debug("\n\n help image URL = " + appload.sampl_rx_image);
+							
+				var		parts = appload.sampl_rx_image.split('_'),
+						whole = parts[0],
+						fractional = parts[1] || '';
+						// var savedFile= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" +fractional + ".cer");
+						
+						var savedImage= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional);
+
+						logger.debug("\n\nfilepath\t =" , /*Ti.Filesystem.applicationDataDirectory,*/ savedImage.getNativePath());
+
+						if(savedImage.exists())
+						{
+							logger.debug("\n\n help image file exists \n\n"); 	
+						
+						}
+						else
+						{
+							logger.debug("\n\n file to be downloaded\n\n");
+
+						var xhr = Titanium.Network.createHTTPClient({
+							onload: function() {
+								
+								utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional), this.responseData, false);
+			
+								// first, grab a "handle" to the file where you'll store the downloaded data
+								/*
+								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional);
+								f.write(this.responseData); // write to the file
+								*/
+								Ti.App.fireEvent('file_downloaded', {filepath:(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional)).nativePath});
+							},
+						onerror: function(e) {
+						        Ti.API.error(e.error);
+ 						},
+ 						timeout: 10000
+						});
+						xhr.open('GET',appload.sampl_rx_image);
+						xhr.send();
+						Ti.App.addEventListener('file_downloaded', function(e) {
+							// you don't have to fire an event like this, but perhaps multiple components will
+							// want to know when the file has been downloaded and saved
+							
+							logger.debug("\n\n completed download of cer @ ",e.filepath); //nativepath wont giv anythn
+
+						});
+
+
+						}
+		}
+
+		else 
+			logger.debug("\n\n\n appload sampl_rx_image doesn't exist or has no value\n\n\n");
 	}
 }
 
@@ -308,10 +373,16 @@ function confirmUpdate() {
 }
 
 function startUpdate() {
+						logger.debug("\n\n\n Am in start update by force\n\n\n");
+
 	if (Alloy.CFG.async_update) {
+								logger.debug("\n\n\n Am in start update async\n\n\n");
+
 		triggerAsyncUpdate = true;
 		initMasterWindow();
 	} else {
+										logger.debug("\n\n\n Am in start update synchronous\n\n\n");
+
 		syncUpdate();
 	}
 }
@@ -345,6 +416,8 @@ function initMasterWindow() {
 	 * new controller is all setup, ready for use
 	 * and not just opened
 	 */
+	
+	Alloy.Globals.isMailOrderService = false;
 	var ctrl = Alloy.createController(Alloy.CFG.navigator + "/master", {
 		navigation : utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ? {
 			ctrl : "carousel",

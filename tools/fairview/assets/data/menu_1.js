@@ -65,10 +65,5 @@ module.exports = {
 		"url" : "http://www.youtube.com/Fairviewhealth",
 		"icon" : "youtube",
 		"requires_login" : false
-	}, {
-		"titleid" : "titlePharmacySpecials",
-		"url" : "https://www.fairview.org/Pharmacy/InStoreSpecials/index.htm",
-		"icon" : "pharacyspecials",
-		"requires_login" : false
 	}]
 };

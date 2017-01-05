@@ -36,7 +36,12 @@ function focus() {
 }
 
 function didGetStore(result, passthrough) {
-	store = result.data.stores;
+	/*
+	if(! Alloy.Globals.isMailOrderService )
+	{
+		store = result.data.stores;
+	}
+	*/
 }
 
 function didClickType(e) {

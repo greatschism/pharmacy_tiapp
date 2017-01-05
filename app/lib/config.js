@@ -1,15 +1,18 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
-    baseDicts;
+    baseDicts,
+    logger = require("logger");
 
 var Configuration = {
 
 	init : function(config) {
 
 		if (!ENV_PROD) {
-			return [];
-		}
+			logger.debug("\n\n\nnot prod, but still continue\n\n\n");
 
+			// return [];
+		}
+logger.debug("\n\n\nit's prod env yo\n\n\n");
 		/**
 		 * initialization
 		 */
