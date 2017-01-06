@@ -1,7 +1,6 @@
 var args = $.args;
 
 function init(e) {
-	$.skipAttr.text=$.strings.mobileNumberSkip;
 }
 
 function focus(e) {
