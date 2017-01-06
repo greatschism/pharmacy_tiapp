@@ -1,0 +1,9 @@
+"#moNumberLbl":{
+	text:Alloy.Globals.strings.mobileNumberLbl
+},
+"#moNumberTxt":{
+	hintText:Alloy.Globals.strings.mobileNumberHint
+},
+"#continueBtn":{
+	title:Alloy.Globals.strings.mobileNumberContinue
+}

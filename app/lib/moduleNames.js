@@ -31,6 +31,7 @@ module.exports = {
 	"NEPA" : "LoginAndRegistration",
 	"MGAC" : "LoginAndRegistration",
 	"MGAE" : "LoginAndRegistration",
+	"MONU" : "LoginAndRegistration",
 	"PHON" : "LoginAndRegistration",
 	"REGI" : "LoginAndRegistration",
 	"RECI" : "LoginAndRegistration",

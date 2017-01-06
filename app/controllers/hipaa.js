@@ -2,6 +2,7 @@ var args = $.args,
 	http = require("requestwrapper"),
 	app = require("core"),
 	utilities = require('utilities'),
+	logger = require("logger"),
 	agreement_type;
 
 function init(){
@@ -56,10 +57,26 @@ function applyWebViewProperties(url){
 			actualHeight = e.source.evalJS('document.documentElement.scrollHeight;') - e.source.evalJS('document.documentElement.clientHeight;');
 		}
 		else{
+			if(10 === app.device.versionMajor)
+	    	{
+				actualHeight = e.source.evalJS('document.documentElement.scrollHeight;') - e.source.evalJS('document.documentElement.clientHeight;');
+
+	    	}
+	    	
+	    	else
 	    	actualHeight = e.source.evalJS('document.height;');
 	   	}
-	    
-	    e.source.height = parseInt(actualHeight) + 50;
+	    logger.debug("\n\n\n",app.device.version,"\n\n",app.device.versionMajor,"\n\n", app.device.versionMinor,"\n\n\n");
+	    if(10 === app.device.versionMajor)
+	    {
+	    	logger.debug("\n\n\n I am 10 \n\n\n");
+	    	e.source.height = parseInt(actualHeight) + 1200;
+	    }
+	   
+	    else
+	    {
+	    	e.source.height = parseInt(actualHeight) + 50;
+	    }
 	    hideLoader();
     }); 
     

@@ -12,10 +12,22 @@
 		"id": "pricechopper",
 		"description": "Price chopper."
 	}, {
+		"id": "fairview",
+		"description": "Fairview Pharmacy."
+	}, {
 		"id": "avera",
 		"description": "Avera."
 	}, {
-		"id": "fairview",
-		"description": "Fairview Pharmacy."
+		"id": "intermountain",
+		"description": "Intermountain."
+	}, {
+		"id": "baylor",
+		"description": "myBSW Rx."
+	}, {
+		"id": "oxygen_mck",
+		"description": "Oxygen MCK base product."
+	}, {
+		"id": "oxygen_pdx",
+		"description": "Oxygen PDX base product."
 	}
 ]

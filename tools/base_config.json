@@ -57,7 +57,10 @@
 			"terms_email": "terms/email",
 			"mobile_add": "patient/mobile/add",
 			"mobile_resend": "patient/mobile/resend",
-			"email_resend": "patient/email/resend"
+			"email_resend": "patient/email/resend",
+			"mailorder_stores_get": "stores/getmailorderservice",
+			"patient_search": "patient/search"
+
 		},
 		"apiCodes": {
 			"success": "200",
@@ -127,8 +130,8 @@
 		"reverse_geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=",
 		"distancematrix_url": "https://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&origins=%s&destinations=%s",
 		"force_update": false,
-		"force_reload_after_update": false,
-		"async_update": true,
+		"force_reload_after_update": true,
+		"async_update": false,
 		"clear_cached_resources": true,
 		"delete_unused_resources": false,
 		"storage_engine": "tiencrypted",
