@@ -278,10 +278,10 @@ function didSuccessAppload(result) {
 		 * updated (theme, language etc.,)
 		 */
 		logger.debug("\n\n\n clientConfig ", JSON.stringify(clientConfig), "\n\n\n");
-				logger.debug("\n\n\n clientConfig length ", clientConfig.length, "\n\n\n");
 
-	config.init(clientConfig);
-		if (Object.keys(clientConfig).length ) {
+		var configChanges = config.init(clientConfig);
+		logger.debug("configChanges", JSON.stringify(configChanges), "\n");
+		if (configChanges.length) {
 			/**
 			 * check whether it is a force update
 			 */
