@@ -39,6 +39,7 @@ module.exports = {
 	"SHMC" : "LORE",
 	"SIGN" : "LORE",
 	"SIEU" : "LORE",
+	"SISU" : "LORE",
 	"SEEP" : "LORE",
 	"TEAC" : "LORE",
 	"TEDO" : "LORE",

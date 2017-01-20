@@ -100,20 +100,30 @@ function didClickContinue(e) {
 		mobileNumber = "1" + args.mobile_number;
 	};
 
-	args.fname = fname,
-	args.dob = dob;
-
-/*
+	var patient_info = {
+		fname : fname,
+		dob : dob,
+		mobile_number : args.mobile_number,
+		multiple_records : true
+	};
+	
 	$.http.request({
-		method : "",
+		method : "patient_search",
 		params : {
+			data : [{
+				patient : {
+					mobile : mobileNumber,
+					first_name : fname,
+  					birth_date: moment(dob).format(Alloy.CFG.apiCodes.dob_format)
+				}
+			}]
 
 		},
-		errorDialogEnabled : false,
 		success : didSuccess,
-		failure: didFailed,
-		passthrough : args
-	});*/
+		failure : didFailed,
+		passthrough : patient_info
+	});
+
 }
 
 function didFailed(result, passthrough){
@@ -121,7 +131,47 @@ function didFailed(result, passthrough){
 }
 
 function didSuccess(result, passthrough) {
+	var searchResult = result.data.patients,
+	record_count = parseInt(searchResult.record_count);
+	_.extend(searchResult, passthrough);
 	
+	if(record_count === 1) {
+		isMigratedUser(searchResult);
+	}
+}
+
+function isMigratedUser(e){
+	if (parseInt(e.is_migrated_user) === 1 && parseInt(e.dispensing_account_exists) === 1) {
+		$.app.navigator.open({
+			ctrl : "signupExistingUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else if (parseInt(e.is_migrated_user) === 1 && parseInt(e.dispensing_account_exists) === 0){
+		$.app.navigator.open({
+			ctrl : "signupStoreUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else if (parseInt(e.is_migrated_user) === 0){
+		isStoreUser(e);
+	}
+	
+}
+
+function isStoreUser (e){
+	if (parseInt(e.is_store_user) === 1) {
+		$.app.navigator.open({
+			ctrl : "signupStoreUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else{
+		
+	};
 }
 
 exports.init = init;

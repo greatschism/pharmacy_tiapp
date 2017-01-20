@@ -2,6 +2,7 @@ var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
+    rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
 	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled"],
@@ -18,13 +19,16 @@ rightPwdButtonDict = $.createStyle({
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
     passwordContainerViewFromTop = 0,
+    rxContainerViewFromTop = 0,
     store = {},
     optionalValues = null;
 
 function init() {
-	$.signupExistingUserLbl.text = $.strings.signupExistingUserLbl;
-	$.askInfoLbl.text = $.strings.signupExistingUserAskInfo;
-	
+	/**
+	 * PHA-1425 : Add the help image 
+	 * inside the rx number textfield.
+	 */
+	setRightButtonForRx(rightButtonTitle.text, rightButtonDict);
 	/**
 	 * Set the right button "show/hide"
 	 * with right parameters.
@@ -32,6 +36,8 @@ function init() {
 	if (Alloy.CFG.toggle_password_enabled) {
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
 	}
+	$.uihelper.getImage("logo", $.logoImg);
+	$.askInfoLbl.text = $.strings.signupStoreUserAskInfo;
 
 	if (args.email_address) {
 		$.emailTxt.setValue(args.email_address);
@@ -40,7 +46,6 @@ function init() {
 	if (args.dob && args.multiple_records) {
 		$.dob.setValue(args.dob);
 	}
-
 	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
 		optionalValues = {};
 		if (args.is_migrated_user) {
@@ -55,6 +60,7 @@ function init() {
 	};
 	
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
+	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 	
 	$.passwordTooltip.updateArrow($.createStyle({
 		classes : ["direction-down"]
@@ -62,15 +68,45 @@ function init() {
 		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
 	}));
 	
+	$.rxTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
+	}));
+	
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
+	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
+}
+
+function setRightButtonForRx(iconText, iconDict) {
+	$.rxNoTxt.setIcon(iconText, "right", iconDict);
+}
+
+function didChangeRx(e) {
+	var value = rx.format(e.value),
+	    len = value.length;
+	$.rxNoTxt.setValue(value);
+	$.rxNoTxt.setSelection(len, len);
 }
 
 function focus() {
-	
+	/**
+	 * if shouldUpdate is true
+	 * fetch the store details from the 'store' variable passed by reference
+	 */
+	if (store && store.shouldUpdate) {
+		store.shouldUpdate = false;
+		$.storeTitleLbl.text = store.title;
+	}
 }
 
 function setParentView(view) {
 	$.dob.setParentView(view);
+}
+
+function didPostlayoutRxContainerView(e) {
+	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	rxContainerViewFromTop = e.source.rect.y;
 }
 
 function didPostlayoutPasswordContainerView(e) {
@@ -99,12 +135,47 @@ function didFocusPassword(e) {
 	$.passwordTooltip.show();
 }
 
+function didFocusRx(e) {
+	$.rxTooltip.updateArrow($.createStyle({
+			classes : ["direction-down"]
+		}).direction, $.createStyle({
+			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+		}));
+	
+	if (_.has($.rxTooltip, "size")) {
+		$.rxTooltip.applyProperties({
+			top : (rxContainerViewFromTop - $.rxContainer.top * 2) 
+		});
+		delete $.rxTooltip.size;
+	}
+	$.rxTooltip.show();
+}
+
 function didBlurFocusPassword() {
 	$.passwordTooltip.hide();
 }
 
+function didBlurFocusRx() {
+	$.rxTooltip.hide();
+	if (Ti.App.keyboardVisible) {
+		Ti.App.hideKeyboard();
+	}
+}
+
 function didClickTooltip(e) {
 	e.source.hide();
+}
+
+function didClickPharmacy(e) {
+	$.app.navigator.open({
+		titleid : "titleStores",
+		ctrl : "stores",
+		ctrlArguments : {
+			store : store,
+			selectable : true
+		},
+		stack : true
+	});
 }
 
 function moveToNext(e) {
@@ -134,45 +205,66 @@ function didClickAgreement(e) {
 function didClickContinue(e) {
 	var email = $.emailTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
-	    dob = $.dob.getValue();
-	if (!email) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValEmail
-		});
-		return;
-	}
-	if (!utilities.validateEmail(email)) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValEmailInvalid
-		});
-		return;
-	}
-	if (!password) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValPassword
-		});
-		return;
-	}
-	if (!utilities.validatePassword(password)) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValPasswordInvalid
-		});
-		return;
-	}
-	if (!dob) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValDob
-		});
-		return;
-	}
-	/**
-	 * If the user is <18, stop him from registration. He shall contact the support for assistance
-	 */
-	if (moment().diff(dob, "years", true) < 18) {
-		uihelper.showDialog({
-			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
-		});
-		return;
+	    dob = $.dob.getValue(),
+	    rxNo = $.rxNoTxt.getValue();
+	if (!e.ageValidated) {
+		if (!email) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValEmail
+			});
+			return;
+		}
+		if (!utilities.validateEmail(email)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValEmailInvalid
+			});
+			return;
+		}
+		if (!password) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValPassword
+			});
+			return;
+		}
+		if (!utilities.validatePassword(password)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValPasswordInvalid
+			});
+			return;
+		}
+		if (!dob) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValDob
+			});
+			return;
+		}
+		if (!rxNo) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValRxNo
+			});
+			return;
+		}
+		if (!rx.validate(rxNo)) {
+			uihelper.showDialog({
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid,Alloy.CFG.rx_length)
+			});
+			return;
+		}
+		if (_.isEmpty(store)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValStore
+			});
+			return;
+		}
+		/**
+		 * If the user is <18, stop him from registration. He shall contact the support for assistance
+		 */
+		if (moment().diff(dob, "years", true) < 18) {
+			uihelper.showDialog({
+				message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
+			});
+			return;
+		}
 	}
 	
 	/**
@@ -182,19 +274,18 @@ function didClickContinue(e) {
 	if (args.mobile_number) {
 		mobileNumber = "1" + args.mobile_number;
 	};
-
+	
 	var isEmailEdited = '0';
 	if (args.email_address != email) {
 		isEmailEdited = '1';
 	};
 	optionalValues.is_email_edited = isEmailEdited;
-
+	
 	var userCredentials = {
 		email : email,
-		password : password,
-		dob : dob
+		password : password
 	};
-	
+
 	$.http.request({
 		method : "patient_register",
 		params : {
@@ -217,6 +308,8 @@ function didClickContinue(e) {
 					home_phone : "",
 					mobile : mobileNumber,
 					email_address : email,
+					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					store_id : store.id,
 					user_type : "FULL",
 					optional : optionalValues
 				}
@@ -274,7 +367,13 @@ function didRegister(result, passthrough) {
 	});
 }
 
-
+function didClickHelp(e) {
+	$.app.navigator.open({
+		titleid : "titleRxSample",
+		ctrl : "rxSample",
+		stack : true
+	});
+}
 function didToggleShowPassword() {
 	if (Alloy.CFG.toggle_password_enabled) {
 		if ($.passwordTxt.getPasswordMask()) {

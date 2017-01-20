@@ -56,6 +56,7 @@ module.exports = {
 	"SHMC" : "sharedMobileCheck",
 	"SIGN" : "signup",
 	"SIEU" : "signupExistingUser",
+	"SISU" : "signupStoreUser",
 	"SEEP" : "searchExistingPatient",
 	"STDE" : "StoreDetails",
 	"STOR" : "Stores",

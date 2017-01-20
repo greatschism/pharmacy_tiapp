@@ -831,7 +831,9 @@ module.exports = {
 		
 		"signupExistingUserLbl" : "Great! You've received texts from us before.",
 		"signupExistingUserAskInfo" : "Please create a username and password and confirm your date of birth.",
-		"signupExistingUserContinue" : "Continue"
+		"signupExistingUserContinue" : "Continue",
+		
+		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
 	}
 
 };

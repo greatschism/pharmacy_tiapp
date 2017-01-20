@@ -55,12 +55,7 @@ function didCheckMobileNumber(result, passthrough) {
 			stack : true
 		});
 	} else if(record_count === 1) {
-		$.app.navigator.open({
-			ctrl : "signupExistingUser",
-			titleid : "titleCreateAccount",
-			ctrlArguments : searchResult,
-			stack : false
-		});
+		isMigratedUser(searchResult);
 	} else if(record_count > 1) {
 		$.app.navigator.open({
 			ctrl : "searchExistingPatient",
@@ -73,6 +68,40 @@ function didCheckMobileNumber(result, passthrough) {
 
 function didFail(result, passthrough) {
 	
+}
+
+function isMigratedUser(e){
+	if (parseInt(e.is_migrated_user) === 1 && parseInt(e.dispensing_account_exists) === 1) {
+		$.app.navigator.open({
+			ctrl : "signupExistingUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else if (parseInt(e.is_migrated_user) === 1 && parseInt(e.dispensing_account_exists) === 0){
+		$.app.navigator.open({
+			ctrl : "signupStoreUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else if (parseInt(e.is_migrated_user) === 0){
+		isStoreUser(e);
+	}
+	
+}
+
+function isStoreUser(e){
+	if (parseInt(e.is_store_user) === 1) {
+		$.app.navigator.open({
+			ctrl : "signupStoreUser",
+			titleid : "titleCreateAccount",
+			ctrlArguments : e,
+			stack : false
+		});
+	} else{
+		
+	};
 }
 
 exports.init = init;

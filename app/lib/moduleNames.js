@@ -39,6 +39,7 @@ module.exports = {
 	"SHMC" : "LoginAndRegistration",
 	"SIGN" : "LoginAndRegistration",
 	"SIEU" : "LoginAndRegistration",
+	"SISU" : "LoginAndRegistration",
 	"SEEP" : "LoginAndRegistration",
 	"TEAC" : "LoginAndRegistration",
 	"TEDO" : "LoginAndRegistration",
