@@ -30,8 +30,8 @@ function didClickContinue(e) {
 			data : [{
 				patient : {
 					mobile : "1" + mobileNumber,
-					first_name : "",
-  					birth_date: ""
+					first_name : null,
+  					birth_date: null
 				}
 			}]
 
@@ -45,7 +45,7 @@ function didClickContinue(e) {
 
 function didCheckMobileNumber(result, passthrough) {
 	var searchResult = result.data.patients,
-		record_count = parseInt(searchResult.record_count);
+	record_count = parseInt(searchResult.record_count);
 	searchResult.mobile_number = passthrough;
 	if (record_count === 0) {
 		$.app.navigator.open({
@@ -62,6 +62,12 @@ function didCheckMobileNumber(result, passthrough) {
 			stack : true
 		});
 	} else if(record_count > 1) {
+		$.app.navigator.open({
+			ctrl : "searchExistingPatient",
+			titleid : "titleCreateAccount",
+			ctrlArguments : searchResult,
+			stack : false
+		});
 	}
 }
 
