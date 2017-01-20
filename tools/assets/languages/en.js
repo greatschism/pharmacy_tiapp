@@ -827,7 +827,11 @@ module.exports = {
 		
 		"searchExistingPatientLbl" : "It looks like there is multiple people attached to this phone number.",
 		"searchExistingPatientAskInfo" : "Please let us know who you are.",
-		"searchExistingPatientContinue" : "Continue"
+		"searchExistingPatientContinue" : "Continue",
+		
+		"signupExistingUserLbl" : "Great! You've received texts from us before.",
+		"signupExistingUserAskInfo" : "Please create a username and password and confirm your date of birth.",
+		"signupExistingUserContinue" : "Continue"
 	}
 
 };

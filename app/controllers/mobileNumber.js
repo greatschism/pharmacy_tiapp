@@ -56,10 +56,10 @@ function didCheckMobileNumber(result, passthrough) {
 		});
 	} else if(record_count === 1) {
 		$.app.navigator.open({
-			ctrl : "signup",
+			ctrl : "signupExistingUser",
 			titleid : "titleCreateAccount",
 			ctrlArguments : searchResult,
-			stack : true
+			stack : false
 		});
 	} else if(record_count > 1) {
 		$.app.navigator.open({

@@ -38,6 +38,7 @@ module.exports = {
 	"REAI" : "LORE",
 	"SHMC" : "LORE",
 	"SIGN" : "LORE",
+	"SIEU" : "LORE",
 	"SEEP" : "LORE",
 	"TEAC" : "LORE",
 	"TEDO" : "LORE",

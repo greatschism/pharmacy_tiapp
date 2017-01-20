@@ -55,6 +55,7 @@ module.exports = {
 	"RXSA" : "RxSample",
 	"SHMC" : "sharedMobileCheck",
 	"SIGN" : "signup",
+	"SIEU" : "signupExistingUser",
 	"SEEP" : "searchExistingPatient",
 	"STDE" : "StoreDetails",
 	"STOR" : "Stores",
