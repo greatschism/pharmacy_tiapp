@@ -60,7 +60,7 @@ function applyWebViewProperties(url){
 	    	actualHeight = e.source.evalJS('document.documentElement.scrollHeight;');
 	   	}
 	   	
-    	e.source.height = parseInt(actualHeight) + 50;
+    	e.source.height = parseInt(actualHeight) + 80;
 	    hideLoader();
     }); 
     

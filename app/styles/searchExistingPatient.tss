@@ -1,0 +1,11 @@
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.registerHintFirstName,
+	nextItem: "dob"
+},
+"#dob":{
+	hintText:Alloy.Globals.strings.registerHintDOB,
+	nextItem: "continueBtn"
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.searchExistingPatientContinue
+}

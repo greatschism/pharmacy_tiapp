@@ -1,0 +1,35 @@
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.registerHintEmail,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText: Alloy.Globals.strings.registerHintPassword,
+	passwordMask: true,
+	nextItem: "dob"
+},
+"#dob":{
+	hintText:Alloy.Globals.strings.registerHintDOB,
+	nextItem: "rxNoTxt"
+},
+"#showPasswordLbl":{
+	text: Alloy.Globals.strings.registerLblTogglePassword
+},
+"#rxNoTxt":{
+	hintText: Alloy.Globals.strings.registerHintRxFormat
+},
+"#storeTitleLbl":{
+	text : Alloy.Globals.strings.registerHintPharmacyLocation,
+	nextItem : "continueBtn"
+},
+"#agreementLbl":{
+	html: Alloy.Globals.strings.registerLblAgreement
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.signupExistingUserContinue
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+},
+"#rxTooltip":{
+	text: Alloy.Globals.strings.msgRxNumberTips
+}

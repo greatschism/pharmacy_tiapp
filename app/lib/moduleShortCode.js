@@ -31,18 +31,21 @@ module.exports = {
 	"NEPA" : "LORE",
 	"MGAC" : "LORE",
 	"MGAE" : "LORE",
+	"MONU" : "LORE",
 	"PHON" : "LORE",
 	"REGI" : "LORE",
 	"RECI" : "LORE",
 	"REAI" : "LORE",
 	"SHMC" : "LORE",
 	"SIGN" : "LORE",
+	"SIEU" : "LORE",
+	"SISU" : "LORE",
+	"SEEP" : "LORE",
 	"TEAC" : "LORE",
 	"TEDO" : "LORE",
 	"TEBE" : "LORE",
 	"TEME" : "LORE",
 	"TETA" : "LORE",
-	"MONU" : "MONU",
 	/**
 	 * family care
 	 */

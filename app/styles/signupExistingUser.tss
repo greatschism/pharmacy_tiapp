@@ -1,0 +1,25 @@
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.registerHintEmail,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText: Alloy.Globals.strings.registerHintPassword,
+	passwordMask: true,
+	nextItem: "dob"
+},
+"#dob":{
+	hintText:Alloy.Globals.strings.registerHintDOB,
+	nextItem: "continueBtn"
+},
+"#showPasswordLbl":{
+	text: Alloy.Globals.strings.registerLblTogglePassword
+}
+"#agreementLbl":{
+	html: Alloy.Globals.strings.registerLblAgreement
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.signupExistingUserContinue
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+}
