@@ -3,7 +3,8 @@ var args = $.args,
 	app = require("core"),
 	utilities = require('utilities'),
 	logger = require("logger"),
-	agreement_type;
+	agreement_type,
+	currentPatient;
 
 function init(){
 	/**
@@ -106,11 +107,23 @@ function didAcceptOrDecline(){
 	 */
 	utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
 	
-	app.navigator.open({
-		titleid : "titleTextBenefits",
-		ctrl : "textBenefits",
-		stack : false
+	currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
 	});
+	
+	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+		app.navigator.open({
+			titleid : "titleHome",
+			ctrl : "home",
+			stack : false
+		});
+	} else{
+		app.navigator.open({
+			titleid : "titleTextBenefits",
+			ctrl : "textBenefits",
+			stack : false
+		});
+	};
 }
 
 function showLoader() {
