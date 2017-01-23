@@ -144,24 +144,31 @@ function didGetAppConfig(result, passthrough) {
 						
 						var savedFile= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional+".cer");
 
-						logger.debug("\n\nfilepath\t =" , /*Ti.Filesystem.applicationDataDirectory,*/ savedFile.getNativePath());
+						logger.debug("\n\ncertpath\t =" , /*Ti.Filesystem.applicationDataDirectory,*/ savedFile.getNativePath());
 
 						if(savedFile.exists())
 						{
-							logger.debug("\n\n file found\n\n"); 	
+							logger.debug("\n\n cert found\n\n"); 	
 							callAppload();
 						
 						}
 						else
 						{
-							logger.debug("\n\n file to be downloaded\n\n");
+							logger.debug("\n\n cert to be downloaded\n\n");
 
 						var xhr = Titanium.Network.createHTTPClient({
 							onload: function() {			
 								// first, grab a "handle" to the file where you'll store the downloaded data
 								var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,fractional+".cer");
 								f.write(this.responseData); // write to the file
-								Ti.App.fireEvent('file_downloaded', {filepath:f.nativePath});
+								logger.debug("\n\n completed download of cer @ ",f.nativePath); //nativepath wont giv anythn
+								
+								Alloy.Globals.securityManager = require("appcelerator.https").createX509CertificatePinningSecurityManager([{
+									url : appconfig.ophurl,
+									serverCertificate : f.nativePath
+								}]);
+	
+								callAppload();
 							},
 						onerror: function(e) {
 						        Ti.API.error(e.error);
@@ -170,22 +177,6 @@ function didGetAppConfig(result, passthrough) {
 						});
 						xhr.open('GET',whole);
 						xhr.send();
-						Ti.App.addEventListener('file_downloaded', function(e) {
-							// you don't have to fire an event like this, but perhaps multiple components will
-							// want to know when the file has been downloaded and saved
-							
-							logger.debug("\n\n completed download of cer @ ",e.filepath); //nativepath wont giv anythn
-
-							Alloy.Globals.securityManager = require("appcelerator.https").createX509CertificatePinningSecurityManager([{
-							url : appconfig.ophurl,
-							serverCertificate : (Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fractional+".cer")).nativePath
-							}]);
-
-							callAppload();
-
-						});
-
-
 						}
 			}
 			
@@ -281,13 +272,14 @@ function didSuccessAppload(result) {
 
 		var configChanges = config.init(clientConfig);
 		logger.debug("configChanges", JSON.stringify(configChanges), "\n");
+		logger.debug("Is app first Launch",utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false));
 		if (configChanges.length) {
 			/**
 			 * check whether it is a force update
 			 */
 					logger.debug("\n\n\n Alloy.CFG.force_update ",Alloy.CFG.force_update, "\n\n\n");
 
-			if (Alloy.CFG.force_update) {
+			if (Alloy.CFG.force_update || utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false)) {
 				startUpdate();
 			} else {
 				confirmUpdate();
@@ -375,7 +367,7 @@ function confirmUpdate() {
 function startUpdate() {
 						logger.debug("\n\n\n Am in start update by force\n\n\n");
 
-	if (Alloy.CFG.async_update) {
+	if (Alloy.CFG.async_update && !utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false) ) {
 								logger.debug("\n\n\n Am in start update async\n\n\n");
 
 		triggerAsyncUpdate = true;
