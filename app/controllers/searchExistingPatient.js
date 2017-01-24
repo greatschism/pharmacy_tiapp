@@ -135,7 +135,14 @@ function didSuccess(result, passthrough) {
 	record_count = parseInt(searchResult.record_count);
 	_.extend(searchResult, passthrough);
 	
-	if(record_count === 1) {
+	if (record_count === 0) {
+		$.app.navigator.open({
+			ctrl : "signup",
+			titleid : "titleCreateAccount",
+			ctrlArguments : searchResult,
+			stack : false
+		});
+	} else if(record_count === 1) {
 		isMigratedUser(searchResult);
 	}
 }
@@ -158,7 +165,6 @@ function isMigratedUser(e){
 	} else if (parseInt(e.is_migrated_user) === 0){
 		isStoreUser(e);
 	}
-	
 }
 
 function isStoreUser (e){
@@ -170,7 +176,10 @@ function isStoreUser (e){
 			stack : false
 		});
 	} else{
-		
+		$.app.navigator.open({
+			titleid : "titleLogin",
+			ctrl : "login",
+		});
 	};
 }
 
