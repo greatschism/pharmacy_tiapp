@@ -1,5 +1,5 @@
 /**
- * ios uses com.mfogg.barcode module
+ * ios uses com.mfogg.squarecamera module
  * A zbar barcode reader
  */
 
