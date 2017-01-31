@@ -29,5 +29,8 @@
 	}, {
 		"id": "oxygen_pdx",
 		"description": "Oxygen PDX base product."
+	}, {
+		"id": "meijer",
+		"description": "Meijer Rx."
 	}
 ]
