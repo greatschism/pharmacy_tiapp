@@ -1,5 +1,5 @@
-"#fnameTxt":{
-	hintText:Alloy.Globals.strings.registerHintFirstName,
+"#moNumberTxt":{
+	hintText:Alloy.Globals.strings.mobileNumberHint,
 	nextItem: "dob"
 },
 "#dob":{

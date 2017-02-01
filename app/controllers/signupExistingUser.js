@@ -37,10 +37,6 @@ function init() {
 		$.emailTxt.setValue(args.email_address);
 	};
 
-	if (args.dob && args.multiple_records) {
-		$.dob.setValue(args.dob);
-	}
-
 	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
 		optionalValues = {};
 		if (args.is_migrated_user) {
@@ -67,10 +63,6 @@ function init() {
 
 function focus() {
 	
-}
-
-function setParentView(view) {
-	$.dob.setParentView(view);
 }
 
 function didPostlayoutPasswordContainerView(e) {
@@ -120,21 +112,9 @@ function handleScroll(e) {
 	$.scrollView.canCancelEvents = e.value;
 }
 
-function didClickAgreement(e) {
-	app.navigator.open({
-		ctrl : "termsAndConditions",
-		titleid : "titleTermsAndConditions",
-		stack : true,
-		ctrlArguments : {
-			registrationFlow : true
-		}
-	});
-}
-
 function didClickContinue(e) {
 	var email = $.emailTxt.getValue(),
-	    password = $.passwordTxt.getValue(),
-	    dob = $.dob.getValue();
+	    password = $.passwordTxt.getValue();
 	if (!email) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.registerValEmail
@@ -159,21 +139,6 @@ function didClickContinue(e) {
 		});
 		return;
 	}
-	if (!dob) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValDob
-		});
-		return;
-	}
-	/**
-	 * If the user is <18, stop him from registration. He shall contact the support for assistance
-	 */
-	if (moment().diff(dob, "years", true) < 18) {
-		uihelper.showDialog({
-			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
-		});
-		return;
-	}
 	
 	/**
 	 * 	check for mobile number
@@ -191,8 +156,7 @@ function didClickContinue(e) {
 
 	var userCredentials = {
 		email : email,
-		password : password,
-		dob : dob
+		password : password
 	};
 	
 	$.http.request({
@@ -301,5 +265,4 @@ function setRightButton(iconText, iconDict) {
 }
 
 exports.init = init;
-exports.setParentView = setParentView;
 exports.focus = focus;
