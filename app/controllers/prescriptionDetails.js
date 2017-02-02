@@ -72,6 +72,7 @@ function init() {
 }
 
 function focus() {
+	logger.debug("\n\n\n in focus, so getting prescription detail again, am fucked\n\n\n");
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		if (!_.has(prescription, "store")) {
@@ -678,7 +679,13 @@ function terminate() {
 }
 
 function loadCopay() {
-	logger.debug("copay amount",prescription.copay );
+	logger.debug("\n\n\ncopay amount",prescription.copay );
+	logger.debug("\n\n\nrefill status",prescription.refill_status );
+	logger.debug("\n\n\nprescription", JSON.stringify(prescription) );
+
+
+	if(prescription.refill_status === apiCodes.refill_status_ready )
+	{
     if (_.has(prescription, "copay")) {
     	if( prescription.copay != null){
 	   		$.copayReplyLbl.text = "$"+prescription.copay;
@@ -692,6 +699,12 @@ function loadCopay() {
 			// $.copayView.hide(true);
 			$.copayView.height = 0;
 		}
+	}
+	}
+	else
+	{
+					$.copayView.height = 0;
+
 	}
 }
 exports.init = init;
