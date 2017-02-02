@@ -10,7 +10,6 @@ var TAG = "BARC",
     logger = require("logger"),
     isBusy = false,
     keepOpen = false,
-    isFinished = false,
     supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
     successCallback;
 
@@ -101,9 +100,7 @@ var BarcodeReader = {
 			}));
 		}
 
-		BarcodeReader.__window.open({
-			modal : true
-		});
+		BarcodeReader.__window.open();
 	},
 
 	cancel : function() {
@@ -113,7 +110,7 @@ var BarcodeReader = {
 			return false;
 		}
 
-		BarcodeReader.__cameraView.removeEventListener("success", BarcodeReader.successEvt);
+		BarcodeReader.__cameraView.removeEventListener("code", BarcodeReader.successEvt);
 
 		BarcodeReader.__window.close();
 
@@ -127,29 +124,26 @@ var BarcodeReader = {
 	 * success event listener
 	 */
 	successEvt : function(evt) {
-		if (!isFinished) {
-			isFinished = true;
-			if (keepOpen) {
-				/**
-				 * if keepOpen is true store the codes after duplicate check
-				 * and don't invoke success callback
-				 */
-				if (_.indexOf(BarcodeReader.values, evt.values) == -1) {
-					BarcodeReader.values.push(evt.values);
-				}
-			} else {
-	
-				BarcodeReader.cancel();
-	
-				/**
-				 *  to match android
-				 *  ti.barcode
-				 */
-				if (successCallback) {
-					successCallback({
-						result : evt.value
-					});
-				}
+		if (keepOpen) {
+			/**
+			 * if keepOpen is true store the codes after duplicate check
+			 * and don't invoke success callback
+			 */
+			if (_.indexOf(BarcodeReader.values, evt.values) == -1) {
+				BarcodeReader.values.push(evt.values);
+			}
+		} else {
+
+			BarcodeReader.cancel();
+
+			/**
+			 *  to match android
+			 *  ti.barcode
+			 */
+			if (successCallback) {
+				successCallback({
+					result : evt.value
+				});
 			}
 		}
 	}
