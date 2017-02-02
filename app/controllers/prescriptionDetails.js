@@ -7,7 +7,8 @@ var args = $.args,
     postlayoutCount = 0,
     newMedReminder,
     isWindowOpen,
-    httpClient;
+    httpClient,
+    logger = require("logger");
 
 function init() {
 	$.titleLbl.text = prescription.title;
@@ -66,6 +67,7 @@ function init() {
 		loadPresecription();
 		loadDoctor();
 		loadStore();
+		loadCopay();
 	}
 }
 
@@ -123,6 +125,7 @@ function didGetPrescription(result, passthrough) {
 		loadDoctor();
 		getStore();
 	}
+	loadCopay();
 }
 
 function getDoctor() {
@@ -674,6 +677,23 @@ function terminate() {
 	}
 }
 
+function loadCopay() {
+	logger.debug("copay amount",prescription.copay );
+    if (_.has(prescription, "copay")) {
+    	if( prescription.copay != null){
+	   		$.copayReplyLbl.text = "$"+prescription.copay;
+	   		// $.copayView.hide(false);
+
+	   	}
+		
+		else
+		{
+			logger.debug("copay is null");
+			// $.copayView.hide(true);
+			$.copayView.height = 0;
+		}
+	}
+}
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;

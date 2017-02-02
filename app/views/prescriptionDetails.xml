@@ -15,6 +15,10 @@
 						<Label id="expiryPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="expiryReplyLbl" class="top margin-left-medium hide" />
 					</View>
+					<View id="copayView" class="margin-top auto-height">
+						<Label id="copayPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="copayReplyLbl" class="top margin-left-medium active-fg-color hide" />
+					</View>
 					<!--show doctor name as link if doctor module is enabled-->
 					<View class="margin-top auto-height" if="!Alloy.CFG.is_doctors_enabled">
 						<Label id="doctorPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
@@ -29,6 +33,7 @@
 						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
+					
 				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
 			</Widget>
