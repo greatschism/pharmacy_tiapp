@@ -328,8 +328,7 @@ module.exports = {
 		"prescAddTooltipBtnHide" : "Got it!",
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
-
-		"prescDetPromptCopay" : "Total amount due",
+		"prescDetPromptCopay" : "Payment amount due:",
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
