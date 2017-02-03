@@ -85,7 +85,7 @@ function didFailed(result, passthrough){
 function didSuccess(result, passthrough) {
 	var searchResult = result.data.patients,
 	record_count = parseInt(searchResult.record_count);
-	searchResult.mobile_number = passthrough;
+	_.extend(searchResult, passthrough);
 	if(record_count === 1) {
 		checkUserType(searchResult);
 	} else if (record_count === 0 || record_count > 1) {
@@ -99,7 +99,12 @@ function didSuccess(result, passthrough) {
 }
 
 function checkUserType(e){
-	if (parseInt(e.is_migrated_user) === 1 || parseInt(e.dispensing_account_exists) === 1) {
+	if (parseInt(e.is_migrated_user) === 0 && parseInt(e.is_store_user) === 0 && parseInt(e.dispensing_account_exists) === 1) {
+		$.app.navigator.open({
+			titleid : "titleLogin",
+			ctrl : "login",
+		});
+	} else if (parseInt(e.is_migrated_user) === 1 || parseInt(e.is_store_user) === 1 || parseInt(e.dispensing_account_exists) === 1) {
 		$.app.navigator.open({
 			ctrl : "signupExistingUser",
 			titleid : "titleCreateAccount",

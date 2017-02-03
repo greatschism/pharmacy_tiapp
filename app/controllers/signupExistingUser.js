@@ -33,10 +33,6 @@ function init() {
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
 	}
 
-	if (args.email_address) {
-		$.emailTxt.setValue(args.email_address);
-	};
-
 	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
 		optionalValues = {};
 		if (args.is_migrated_user) {
@@ -114,7 +110,8 @@ function handleScroll(e) {
 
 function didClickContinue(e) {
 	var email = $.emailTxt.getValue(),
-	    password = $.passwordTxt.getValue();
+	    password = $.passwordTxt.getValue(),
+	    dob = args.dob;
 	if (!email) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.registerValEmail
@@ -153,6 +150,7 @@ function didClickContinue(e) {
 		isEmailEdited = '1';
 	};
 	optionalValues.is_email_edited = isEmailEdited;
+	optionalValues.customer_token = args.customer_token;
 
 	var userCredentials = {
 		email : email,
