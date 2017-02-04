@@ -825,12 +825,13 @@ module.exports = {
 		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
 		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature.",
 		
-		"searchExistingPatientLbl" : "It looks like there is multiple people attached to this phone number.",
-		"searchExistingPatientAskInfo" : "Please let us know who you are.",
+		"searchExistingPatientWelcome" : "Welcome!",
+		"searchExistingPatientLbl" : "Please enter your mobile number and we'll check if we recognize you.",
+		"searchExistingPatientMobileHint" : "Mobile number",
 		"searchExistingPatientContinue" : "Continue",
 		
 		"signupExistingUserLbl" : "Great! You've received texts from us before.",
-		"signupExistingUserAskInfo" : "Please create a username and password and confirm your date of birth.",
+		"signupExistingUserAskInfo" : "Please create a username and password.",
 		"signupExistingUserContinue" : "Continue",
 		
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
