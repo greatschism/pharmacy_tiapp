@@ -3,8 +3,7 @@
 	nextItem: "dob"
 },
 "#dob":{
-	hintText:Alloy.Globals.strings.registerHintDOB,
-	nextItem: "continueBtn"
+	hintText:Alloy.Globals.strings.registerHintDOB
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.searchExistingPatientContinue

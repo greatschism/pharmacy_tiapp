@@ -14,11 +14,9 @@ function setParentView(view) {
 }
 
 function moveToNext(e) {
-	var nextItem = e.nextItem || "";
+	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
-		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : didClickContinue();
-	} else {
-		didClickContinue();
+		$[nextItem].focus();
 	}
 }
 
@@ -104,16 +102,9 @@ function checkUserType(e){
 			titleid : "titleLogin",
 			ctrl : "login",
 		});
-	} else if (parseInt(e.is_migrated_user) === 1 || parseInt(e.is_store_user) === 1 || parseInt(e.dispensing_account_exists) === 1) {
-		$.app.navigator.open({
-			ctrl : "signupExistingUser",
-			titleid : "titleCreateAccount",
-			ctrlArguments : e,
-			stack : false
-		});
 	} else {
 		$.app.navigator.open({
-			ctrl : "signup",
+			ctrl : "signupExistingUser",
 			titleid : "titleCreateAccount",
 			ctrlArguments : e,
 			stack : false

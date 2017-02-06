@@ -96,11 +96,9 @@ function didClickTooltip(e) {
 }
 
 function moveToNext(e) {
-	var nextItem = e.nextItem || "";
+	var nextItem = e.nextItem || false;
 	if (nextItem && $[nextItem]) {
-		!$[nextItem].apiName && $[nextItem].focus ? $[nextItem].focus() : didClickContinue();
-	} else {
-		didClickContinue();
+		$[nextItem].focus();
 	}
 }
 
