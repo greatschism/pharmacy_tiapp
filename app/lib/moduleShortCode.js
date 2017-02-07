@@ -27,6 +27,7 @@ module.exports = {
 	"FOPA" : "LORE",
 	"HIPA" : "LORE",
 	"LOGI" : "LORE",
+	"LOIU" : "LORE",
 	"LORE" : "LORE",
 	"NEPA" : "LORE",
 	"MGAC" : "LORE",
