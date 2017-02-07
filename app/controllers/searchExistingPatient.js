@@ -1,4 +1,5 @@
 var args = $.args,
+uihelper = require("uihelper"),
 moment = require("alloy/moment");
     
 function init(e) {
