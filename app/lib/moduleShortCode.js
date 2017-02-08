@@ -115,5 +115,13 @@ module.exports = {
 	/**
 	 * accounts
 	 */
-	"ACCO" : "ACCO"
+	"ACCO" : "ACCO",
+	
+	/**
+	 * Insurance card
+	 */
+	"INSU" : "INSU",
+	"INPR" : "INPR"
+	
+	
 };

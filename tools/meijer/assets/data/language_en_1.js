@@ -12,7 +12,8 @@ module.exports = {
 		"familyMemberAddLbl" : "Great, let's add your family members!",
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
-		"titleYoutube"	:"Youtube"
+		"titleYoutube"	:"Youtube",
+		"titleInsurance" : "Send insurance card"
 	}
 
 };
