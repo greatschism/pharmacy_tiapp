@@ -27,6 +27,7 @@ module.exports = {
 	"HOME" : "Home",
 	"INDE" : "Index",
 	"LOGI" : "login",
+	"LOIU" : "loginInfoUpdate",
 	"LORE" : "loginRecovery",
 	"MAIN" : "maintenance",
 	"MGAC" : "mgrAccountCreation",

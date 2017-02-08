@@ -27,6 +27,7 @@ module.exports = {
 	"FOPA" : "LoginAndRegistration",
 	"HIPA" : "LoginAndRegistration",
 	"LOGI" : "LoginAndRegistration",
+	"LOIU" : "LoginAndRegistration",
 	"LORE" : "LoginAndRegistration",
 	"NEPA" : "LoginAndRegistration",
 	"MGAC" : "LoginAndRegistration",

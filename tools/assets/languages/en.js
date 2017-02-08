@@ -835,6 +835,12 @@ module.exports = {
 		"signupExistingUserContinue" : "Continue",
 		
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
+		
+		"loginInfoUpdateTitle" : "Welcome back!",
+		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
+		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
+		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
+		"loginInfoUpdateContinue" : "Continue"
 	}
 
 };

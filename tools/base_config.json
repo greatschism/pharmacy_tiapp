@@ -32,6 +32,8 @@
 			"doctors_add": "doctors/add",
 			"doctors_update": "doctors/update",
 			"doctors_delete": "doctors/remove",
+			"patient_search": "patient/search",
+			"patient_upgrade_account": "patient/accountUpgrade",
 			"prescriptions_list": "prescriptions/list",
 			"prescriptions_get": "prescriptions/get",
 			"prescriptions_hide": "prescriptions/hide",
@@ -58,9 +60,7 @@
 			"mobile_add": "patient/mobile/add",
 			"mobile_resend": "patient/mobile/resend",
 			"email_resend": "patient/email/resend",
-			"mailorder_stores_get": "stores/getmailorderservice",
-			"patient_search": "patient/search"
-
+			"mailorder_stores_get": "stores/getmailorderservice"
 		},
 		"apiCodes": {
 			"success": "200",

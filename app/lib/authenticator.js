@@ -105,10 +105,34 @@ function didFail(error, passthrough) {
 }
 
 function didAuthenticate(result, passthrough) {
+	passthrough.loginResult = result;
+	passthrough.keychain = keychain;
+	passthrough.logout = doLogout;
 	Alloy.Globals.sessionId = result.data.patients.session_id;
-	/**
-	 * code values check
-	 */
+	
+	if (result.data.patients.is_minor === "0" && result.data.patients.is_account_upgrade_req === "1") {
+		app.navigator.hideLoader();
+		/**
+		 * navigate to maintenance screen
+		 */
+		passthrough.checkCodeValues = checkCodeValues;
+		app.navigator.open({
+			ctrl : "loginInfoUpdate",
+			titleid : "loginInfoUpdateTitle",
+			ctrlArguments : passthrough,
+			stack : true
+		});
+		// var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
+		// ctrl.init();
+	} else {
+		/**
+		 * code values check
+		 */
+		checkCodeValues(passthrough);
+	}
+}
+
+function checkCodeValues(passthrough) {
 	http.request({
 		method : "codes_get",
 		params : {
@@ -779,7 +803,7 @@ function completeAuthentication(passthrough) {
 	 */
 	var navigationHandled = hasMandatoryNavigation();
 	if (passthrough.success) {
-		passthrough.success(navigationHandled);
+		passthrough.success(passthrough, navigationHandled);	
 	}
 }
 
@@ -993,7 +1017,7 @@ function didLogout(result, passthrough) {
 		 * if any
 		 */
 		if (passthrough.success) {
-			passthrough.success();
+			passthrough.success(passthrough);
 		} else {
 			app.navigator.open(Alloy.Collections.menuItems.findWhere({
 				landing_page : true

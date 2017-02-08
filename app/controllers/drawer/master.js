@@ -79,7 +79,7 @@ function didOpen(e) {
 	});
 }
 
-function didAuthenticate(navigationHandled) {
+function didAuthenticate(passthrough, navigationHandled) {	
 	//initialize menu controller
 	$.menuCtrl.init();
 	/**

@@ -1,4 +1,5 @@
 var args = $.args,
+uihelper = require("uihelper"),
 moment = require("alloy/moment");
     
 function init(e) {
@@ -98,9 +99,16 @@ function didSuccess(result, passthrough) {
 
 function checkUserType(e){
 	if (parseInt(e.is_migrated_user) === 0 && parseInt(e.is_store_user) === 0 && parseInt(e.dispensing_account_exists) === 1) {
-		$.app.navigator.open({
-			titleid : "titleLogin",
-			ctrl : "login",
+		uihelper.showDialog({
+			message : String.format(Alloy.Globals.strings.mgrAccountExistsLbl, Alloy.Globals.strings.strClientName),
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			cancelIndex : -1,
+			success : function didOk () {
+				$.app.navigator.open({
+					titleid : "titleLogin",
+					ctrl : "login",
+				});
+			}
 		});
 	} else {
 		$.app.navigator.open({
