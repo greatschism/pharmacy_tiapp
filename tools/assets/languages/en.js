@@ -829,6 +829,7 @@ module.exports = {
 		"searchExistingPatientLbl" : "Please enter your mobile number and we'll check if we recognize you.",
 		"searchExistingPatientMobileHint" : "Mobile number",
 		"searchExistingPatientContinue" : "Continue",
+		"searchExistingPatientAcctExistsMsg" : "It looks like you already have an account with us. Please sign in with your email address and password.",
 		
 		"signupExistingUserLbl" : "Great! You've received texts from us before.",
 		"signupExistingUserAskInfo" : "Please create a username and password.",
