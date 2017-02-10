@@ -45,10 +45,17 @@ module.exports = {
 		"icon" : "thick_doctor",
 		"feature_name" : "is_doctors_enabled",
 		"requires_login" : true
-	}, {
+	},
+	 {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
 		"icon" : "thick_account",
 		"requires_login" : true
+	},{
+		"titleid" : "titleInsurance",
+		"ctrl" : "insurance",
+		"icon" : "reward",
+		"feature_name" : "is_doctors_enabled",
+		"requires_login" : false
 	}]
 };

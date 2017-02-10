@@ -126,6 +126,7 @@ module.exports = {
 		"titleRefill" : "Refill by scan",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
+		// "titleInsurance" : "Send insurance card",
 		"titleAccount" : "Account",
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
@@ -165,7 +166,8 @@ module.exports = {
 		"titleForgotPassword" : "User recovery",
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
-
+		"titleInsuranceCard" : "New insurance card",
+		
 		"upgradeBtnSubmit" : "Upgrade now",
 
 		"maintenanceBtnSubmit" : "Try again",
@@ -834,6 +836,9 @@ module.exports = {
 		"signupExistingUserContinue" : "Continue",
 		
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
+		
+	    "insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
+	    "insuranceCardUpdateInfoLblSubTitle": "Whose profile are we updating today?"
 	}
 
 };

@@ -71,5 +71,7 @@ module.exports = {
 	"TRSU" : "transferSuccess",
 	"TRTY" : "transferType",
 	"TRUD" : "transferUserDetails",
-	"UPGR" : "Upgrade"
+	"UPGR" : "Upgrade",
+	"INSU" : "insuraceCard",
+	"INPR" : "insuranceProfile"
 };
