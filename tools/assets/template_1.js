@@ -183,6 +183,35 @@ module.exports = {
 				}
 			},{
 				"apiName" : "View",
+				"classes" : ["margin-top-medium", "h-divider-light"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"children" : [{
+					"items" : [{
+						"apiName" : "View",
+						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-reward"]
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleInsurance"
+								}
+							}]
+						}]
+					}]
+				}],
+				"navigation" : {
+					"ctrl" : "insurance",
+					"titleid" : "titleInsuranceCard"
+					
+				}
+			},{
+				"apiName" : "View",
 				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 			}, {
 				"apiName" : "View",
@@ -235,35 +264,6 @@ module.exports = {
 				}],
 				"navigation" : {
 					"ctrl" : "account"
-				}
-			},{
-				"apiName" : "View",
-				"classes" : ["margin-top-medium", "h-divider-light"]
-			}, {
-				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
-						"children" : [{
-							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-reward"]
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleInsurance"
-								}
-							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "insurance",
-					"titleid" : "titleInsuranceCard"
-					
 				}
 			}
 			]
