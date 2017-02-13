@@ -83,10 +83,20 @@ function didAuthenticate(passthrough, navigationHandled) {
 	//initialize menu controller
 	$.menuCtrl.init();
 	/**
+	 * Account Upgraded flow takes the uesr to HIPAA screen
+	 */
+	if (Alloy.Globals.isAccountUpgraded) {
+		app.navigator.open({
+			ctrl : "hipaa",
+			titleid : "titleHIPAAauthorization",
+			stack : false
+		});
+	}
+	/**
 	 * navigationHandled - whether or not to
 	 * initiate a navigation.
 	 */
-	if (!navigationHandled) {
+	else if (!navigationHandled) {
 		navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
@@ -105,6 +115,11 @@ function didAuthenticate(passthrough, navigationHandled) {
 	if (args.triggerUpdate === true) {
 		logger.debug(TAG, "triggering async update");
 		app.update(didCompleteUpdate);
+	}
+	if (passthrough && passthrough.callBack) {
+		passthrough.callBack();
+		passthrough = null;
+		delete passthrough;
 	}
 }
 
