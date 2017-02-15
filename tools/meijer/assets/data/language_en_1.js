@@ -13,7 +13,7 @@ module.exports = {
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
-		"titleInsurance" : "Send insurance card"
+		"titleInsurance" : "Update insurance card"
 	}
 
 };

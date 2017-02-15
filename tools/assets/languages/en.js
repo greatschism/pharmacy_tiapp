@@ -166,7 +166,7 @@ module.exports = {
 		"titleForgotPassword" : "User recovery",
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
-		"titleInsuranceCard" : "New insurance card",
+		"titleInsuranceCard" : "Update insurance card",
 		
 		"upgradeBtnSubmit" : "Upgrade now",
 
@@ -838,7 +838,9 @@ module.exports = {
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
 		
 	    "insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
-	    "insuranceCardUpdateInfoLblSubTitle": "Whose profile are we updating today?"
+	    "insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
+	    "insuranceCardUpdateContactLblSubtitle" : "Your contact info",
+	    "insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
+	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>"
 	}
-
 };

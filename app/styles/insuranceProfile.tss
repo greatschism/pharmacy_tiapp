@@ -1,0 +1,29 @@
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.registerHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.registerHintLastName,
+	nextItem: "dob"
+},
+"#dob":{
+	hintText:Alloy.Globals.strings.registerHintDOB
+},
+"#moNumberTxt":{
+	hintText: Alloy.Globals.strings.mobileNumberHint
+},
+"#storeTitleLbl":{
+	text : Alloy.Globals.strings.registerHintPharmacyLocation
+},
+"#titleLbl1":{
+	text : Alloy.Globals.strings.insuranceCardUpdateInfoLblSubTitle
+},
+"#titleLbl2":{
+	text : Alloy.Globals.strings.insuranceCardUpdateContactLblSubtitle
+},
+"#signupBtn":{
+	title: Alloy.Globals.strings.homeDialogBtnSubmit
+},
+"#forgotPwdAttr":{
+	html: Alloy.Globals.strings.insuranceCardUpdateAddFamilyLblSubtitle
+}

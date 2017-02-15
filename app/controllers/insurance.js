@@ -4,7 +4,12 @@ var args = $.args,
 
 
 function didClickPhoto(e) {
-	
+	// $.app.navigator.open({
+			// titleid : "titleInsuranceCard",
+			// ctrl : "insuranceProfile",
+			// stack : true
+		// });
+		// return;
 	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
 
@@ -19,32 +24,15 @@ function didGetPhoto(blob) {
 	 */
 	
 	var smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
-	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
+	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "insurancecard.jpg"), smallBlob, false);
 	
 	blob = null;
 	smallBlob = null;
-	if (Alloy.Globals.isLoggedIn) {
-		$.app.navigator.open({
-			titleid : "titleTransferStore",
-			ctrl : "stores",
-			ctrlArguments : {
-				navigation : {
-					titleid : "titleTransferOptions",
-					ctrl : "transferOptions",
-					ctrlArguments : {
-						store : {}
-					},
-					stack : true
-				},
-				selectable : true
-			},
-			stack : true
-		});
-	} else {
+	
 		$.app.navigator.open({
 			titleid : "titleInsuranceCard",
 			ctrl : "insuranceProfile",
 			stack : true
 		});
-	}
+	
 }

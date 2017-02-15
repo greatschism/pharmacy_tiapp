@@ -121,7 +121,8 @@ module.exports = {
 	 * Insurance card
 	 */
 	"INSU" : "INSU",
-	"INPR" : "INPR"
+	"INPR" : "INPR",
+	"ININ" : "ININ"
 	
 	
 };

@@ -73,5 +73,6 @@ module.exports = {
 	"TRUD" : "transferUserDetails",
 	"UPGR" : "Upgrade",
 	"INSU" : "insuraceCard",
-	"INPR" : "insuranceProfile"
+	"INPR" : "insuranceProfile",
+	"ININ" : "insuranceInput"
 };

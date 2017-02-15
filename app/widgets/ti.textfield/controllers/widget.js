@@ -47,6 +47,7 @@ function setIcon(iconText, direction, iconDict, accessibility, padding) {
 	});
 	_.extend(iconDict, accessibility);
 	$[iconBtn] = Ti.UI.createButton(iconDict);
+	$[iconBtn].right = 20;
 	$[iconBtn].addEventListener("click", isClearButton ? didClickClearText : didClick);
 	$.widget.add($[iconBtn]);
 	if (isClearButton && direction == "right") {
@@ -68,7 +69,7 @@ function setButton(title, direction, buttonDict, accessibility, padding) {
 	var font = _.clone(args.buttonFont) || _.clone(args.font) || {
 		fontSize : 12
 	};
-	$.txt[direction] = ($.txt[direction] || 0) + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (padding || 0);
+	$.txt[direction] = ($.txt[direction] || 0) + (buttonDict[direction] || 0) + (buttonDict.width || 40) + (20 || 0);
 	buttonDict[direction] = 0;
 	_.defaults(buttonDict, {
 		width : $.txt[direction],

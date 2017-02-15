@@ -39,7 +39,7 @@ module.exports = {
 		"icon" : "thick_transfer",
 		"feature_name" : "is_transferrx_enabled",
 		"requires_login" : false
-	}, {
+	},{
 		"titleid" : "titleInsurance",
 		"ctrl" : "insurance",
 		"icon" : "reward",
@@ -51,7 +51,8 @@ module.exports = {
 		"icon" : "thick_doctor",
 		"feature_name" : "is_doctors_enabled",
 		"requires_login" : true
-	}, {
+	},
+	 {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
 		"icon" : "thick_account",

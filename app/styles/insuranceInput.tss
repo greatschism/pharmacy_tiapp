@@ -1,0 +1,12 @@
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.registerHintFirstName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.registerHintLastName,
+	nextItem: "dob"
+},
+"#dobDr":{
+	hintText:Alloy.Globals.strings.registerHintDOB
+}
+"#dobBtn":{}
