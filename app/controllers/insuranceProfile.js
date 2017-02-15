@@ -42,10 +42,15 @@ function init() {
 	 * Set the right button "show/hide"
 	 * with right parameters.
 	 */
-
+/* 
+ * 
+ *jasokan : MCE-196 inside login feature
+ * 
+ 
 	if (Alloy.Globals.isLoggedIn) {
 		getPatientInfo();
 	}
+	*/
 	$.dob.setParentView($.window);
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);

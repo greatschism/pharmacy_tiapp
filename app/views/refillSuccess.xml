@@ -4,7 +4,7 @@
 			<View class="auto-height vgroup">
 				<Label id="lbl" class="margin-top-large margin-left margin-right h2 txt-center" />
 				<ImageView id="img" />
-				<Label id="lblContact" class="margin-top-large margin-left margin-right margin-bottom" />
+				<Label id="lblContact" class="margin-top-large margin-left-large margin-right margin-bottom" textAlign="center" />
 
 			</View>
 		</HeaderView>
