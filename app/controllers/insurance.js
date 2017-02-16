@@ -23,10 +23,10 @@ function didGetPhoto(blob) {
 	blob = null;
 	smallBlob = null;
 	
-		$.app.navigator.open({
-			titleid : "titleInsuranceCard",
-			ctrl : "insuranceProfile",
-			stack : true
-		});
-	
+	$.app.navigator.open({
+		titleid : "titleInsuranceCard",
+		ctrl : "insuranceProfile",
+		stack : true
+	});
+
 }
