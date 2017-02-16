@@ -234,7 +234,7 @@ function didClickSignup(e) {
 		} else {
 			lname.push(lvalue);
 		}
-		var dobFormat = $.contanierViewInfo.children[s].children[2].children[0].getText();
+		var dobFormat = $.contanierViewInfo.children[s].children[2].children[0].getValue();
 
 		dob.push(moment(dobFormat).format(Alloy.CFG.apiCodes.dob_format));
 	}
