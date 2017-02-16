@@ -43,8 +43,6 @@ function init() {
 	 * with right parameters.
 	 */
 
-	
-
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 
@@ -66,15 +64,15 @@ function init() {
 			optionalValues.dispensing_account_exists = args.dispensing_account_exists;
 		}
 	}
-	
+
 	if (Alloy.Globals.isLoggedIn) {
 		var mPatient = Alloy.Collections.patients.at(0);
 		$.fnameTxt.setValue(mPatient.get("first_name"));
 		$.lnameTxt.setValue(mPatient.get("last_name"));
-		$.dob.setValue(moment(mPatient.get("birth_date"),Alloy.CFG.apiCodes.dob_format).toDate());
-		
+		$.dob.setValue(moment(mPatient.get("birth_date"), Alloy.CFG.apiCodes.dob_format).toDate());
+
 		var value = $.utilities.formatPhoneNumber(mPatient.get("mobile_number")),
-		len = value.length;
+		    len = value.length;
 		$.moNumberTxt.setValue(value);
 		$.moNumberTxt.setSelection(len, len);
 		getAllPharmacy();
@@ -87,7 +85,6 @@ function focus() {
 	 * if shouldUpdate is true
 	 * fetch the store details from the 'store' variable passed by reference
 	 */
-
 
 	// alert($.nameView.getRect().height);
 	if (store && store.shouldUpdate) {
@@ -175,7 +172,7 @@ function didGetStore(result, passthrough) {
 		title : $.utilities.ucword(store.addressline1),
 		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 	});
-	
+
 	$.storeTitleLbl.text = store.title;
 	$.app.navigator.hideLoader();
 	logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
@@ -202,6 +199,9 @@ function didClickSignup(e) {
 	/*
 	 * Need to re-write the getValue() logic
 	 */
+	dob = [];
+	fname = [];
+	lname = [];
 
 	var _viewCount = $.contanierViewInfo.children.length;
 	for ( s = 0; s < _viewCount; s++) {
