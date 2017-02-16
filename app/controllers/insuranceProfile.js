@@ -4,10 +4,10 @@ var args = $.args,
     utilities = require("utilities"),
     rx = require("rx"),
     rxTxtHeight = 113,
-     dob = [],
-	 fname = [],
-	 lname = [],
-	 mobileNumber,
+    dob = [],
+    fname = [],
+    lname = [],
+    mobileNumber,
     rightIconDict = $.createStyle({
 	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
 	id : "removeBtn"
@@ -43,10 +43,8 @@ function init() {
 	 * with right parameters.
 	 */
 
-	if (Alloy.Globals.isLoggedIn) {
-		getPatientInfo();
-	}
-	$.dob.setParentView($.window);
+	
+
 	$.uihelper.getImage("logo", $.logoImg);
 	$.vDividerView.height = $.uihelper.getHeightFromChildren($.txtView);
 
@@ -67,25 +65,20 @@ function init() {
 		if (args.dispensing_account_exists) {
 			optionalValues.dispensing_account_exists = args.dispensing_account_exists;
 		}
-	};
-
-}
-
-function getPatientInfo() {
-	$.http.request({
-		method : "patient_get",
-		success : didGetPatient
-	});
-}
-
-function didGetPatient(result) {
-	var verified = result.data.patients.is_mobile_verified;
-	$.fnameTxt.text = result.data.patients.first_name;
-	$.lnameTxt.text = result.data.patients.last_name;
-	$.dob.text = result.data.patients.birth_date;
-	$.moNumberTxt.text = result.data.patients.mobile_number;
+	}
 	
-	logger.debug("________patient info\n\n", JSON.stringify(result), "\n\n\n");
+	if (Alloy.Globals.isLoggedIn) {
+		var mPatient = Alloy.Collections.patients.at(0);
+		$.fnameTxt.setValue(mPatient.get("first_name"));
+		$.lnameTxt.setValue(mPatient.get("last_name"));
+		$.dob.setValue(moment(mPatient.get("birth_date"),Alloy.CFG.apiCodes.dob_format).toDate());
+		
+		var value = $.utilities.formatPhoneNumber(mPatient.get("mobile_number")),
+		len = value.length;
+		$.moNumberTxt.setValue(value);
+		$.moNumberTxt.setSelection(len, len);
+		getAllPharmacy();
+	}
 
 }
 
@@ -94,6 +87,9 @@ function focus() {
 	 * if shouldUpdate is true
 	 * fetch the store details from the 'store' variable passed by reference
 	 */
+
+
+	// alert($.nameView.getRect().height);
 	if (store && store.shouldUpdate) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
@@ -101,17 +97,89 @@ function focus() {
 }
 
 function setParentView(view) {
-
+	$.dob.setParentView(view);
 }
 
 function didPostlayoutRxContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
+	$.contanierViewInfo.removeEventListener("postlayout", didPostlayoutRxContainerView);
 	rxContainerViewFromTop = e.source.rect.y;
 }
 
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
+}
+
+function getAllPharmacy() {
+	/**
+	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy
+	 */
+	$.http.request({
+		method : "stores_list",
+		params : {
+			data : [{
+				stores : {
+					search_criteria : "",
+					user_lat : "",
+					user_long : "",
+					search_lat : "",
+					search_long : "",
+					view_type : "LIST"
+				}
+			}]
+		},
+		errorDialogEnabled : false,
+		success : getHomePharmacy,
+		failure : didGetNoStore
+	});
+}
+
+function didGetNoStore() {
+	// getOrSetPickupModes();
+
+}
+
+function getHomePharmacy(result) {
+
+	if (Alloy.Globals.isLoggedIn) {
+		_.each(result.data.stores.stores_list, function(store) {
+			if (parseInt(store.ishomepharmacy)) {
+				$.http.request({
+					method : "stores_get",
+					params : {
+						data : [{
+							stores : {
+								id : store.id,
+							}
+						}]
+					},
+					keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
+					success : didGetStore,
+					failure : didFail
+				});
+			}
+		});
+	}
+
+}
+
+function didGetStore(result, passthrough) {
+	logger.debug("\n\n\n in didgetstore result", JSON.stringify(result, null, 4), "\n\n\n");
+	/**
+	 * update properties to object
+	 * don't replace, if then might clear the reference
+	 * when passed through the controllers
+	 */
+	_.extend(store, result.data.stores);
+	_.extend(store, {
+		title : $.utilities.ucword(store.addressline1),
+		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+	});
+	
+	$.storeTitleLbl.text = store.title;
+	$.app.navigator.hideLoader();
+	logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
+
 }
 
 function didClickPharmacy(e) {
@@ -131,25 +199,10 @@ function moveToNext(e) {
 }
 
 function didClickSignup(e) {
-
-	// $.app.navigator.open({
-	// ctrl : "refillSuccess",
-	// ctrlArguments : {
-	// prescriptions : null,
-	// pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
-	// signupEnabled : false,
-	// fromInsurance : true,
-	// phone : null
-	// },
-	// stack : true
-	// });
-	//
-	// return;
-
 	/*
 	 * Need to re-write the getValue() logic
 	 */
-	
+
 	var _viewCount = $.contanierViewInfo.children.length;
 	for ( s = 0; s < _viewCount; s++) {
 		var fvalue = $.contanierViewInfo.children[s].children[0].children[0].children[0].getValue();
@@ -185,7 +238,6 @@ function didClickSignup(e) {
 
 		dob.push(moment(dobFormat).format(Alloy.CFG.apiCodes.dob_format));
 	}
-	// alert(dob.join(',') + "---" + fname.join(',') + "-----------" + lname.join(','));
 
 	mobileNumber = $.moNumberTxt.getValue();
 	mobileNumber = $.utilities.validatePhoneNumber(mobileNumber);
@@ -266,57 +318,14 @@ function didSuccess(result, passthrough) {
 
 }
 
-function didFailToRegister(result, passthrough) {
-	if (result.errorCode === apiCodes.invalid_combination_for_signup) {
-		$.uihelper.showDialog({
-			message : result.message,
-			buttonNames : [$.strings.dialogBtnPhone, $.strings.dialogBtnOK],
-			cancelIndex : 1,
-			success : function() {
-				var supportPhone = Alloy.Models.appload.get("supportphone");
-				if (supportPhone) {
-					$.uihelper.openDialer($.utilities.validatePhoneNumber(supportPhone));
-				}
-			}
-		});
-	} else {
-		$.uihelper.showDialog({
-			message : result.message
-		});
-	}
-}
-
-function didRegister(result, passthrough) {
+function didFail(result, passthrough) {
 	/**
-	 * Set property to display HIPAA during first login flow
+	 * if something goes odd with api
+	 * just close this screen to
+	 * prevent any further actions
 	 */
-
-	alert(result);
-	return;
-	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
-	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	$.uihelper.showDialog({
-		message : result.message,
-		buttonNames : [$.strings.dialogBtnOK],
-		success : function() {
-			$.app.navigator.open({
-				titleid : "titleLogin",
-				ctrl : "login",
-				ctrlArguments : {
-					username : passthrough.email,
-					password : passthrough.password
-				}
-			});
-		}
-	});
-}
-
-function didClickHelp(e) {
-	$.app.navigator.open({
-		titleid : "titleRxSample",
-		ctrl : "rxSample",
-		stack : true
-	});
+	$.app.navigator.hideLoader();
+	$.app.navigator.close();
 }
 
 function didChangePhone(e) {

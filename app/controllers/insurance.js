@@ -4,12 +4,6 @@ var args = $.args,
 
 
 function didClickPhoto(e) {
-	// $.app.navigator.open({
-			// titleid : "titleInsuranceCard",
-			// ctrl : "insuranceProfile",
-			// stack : true
-		// });
-		// return;
 	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
 
