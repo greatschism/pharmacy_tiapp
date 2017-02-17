@@ -75,7 +75,8 @@ function didOpen(e) {
 	 */
 	authenticator.init({
 		success : didAuthenticate,
-		failure : didAuthenticate
+		failure : didAuthenticate,
+		force_start : true
 	});
 }
 

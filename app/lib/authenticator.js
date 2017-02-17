@@ -114,12 +114,27 @@ function didAuthenticate(result, passthrough) {
 	if (result.data.patients.is_minor === "0" && result.data.patients.is_account_upgrade_req === "1") {
 		app.navigator.hideLoader();
 		/**
-		 * navigate to maintenance screen
+		 * navigate to loginInfoUpdate screen
 		 */
 		passthrough.checkCodeValues = checkCodeValues;
 		passthrough.title = Alloy.Globals.strings.loginInfoUpdateTitle;
 		var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
 		ctrl.init();
+	} else if (result.data.patients.is_minor === "1" && result.data.patients.is_account_upgrade_req === "1") {
+		app.navigator.hideLoader();
+		/**
+		 * navigate to mgrAccountUpdate screen if coming from login screen
+		 */
+		if (passthrough.force_start) {
+			doLogout(passthrough);
+		} else{
+			app.navigator.open({
+	 			ctrl : "mgrAccountUpdate",
+	 			titleid : "mgrAccountUpdateTitle",
+	 			ctrlArguments : passthrough,
+	 			stack : true
+	 		});			
+		};
 	} else {
 		/**
 		 * code values check
