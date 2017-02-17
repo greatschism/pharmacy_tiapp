@@ -144,9 +144,9 @@ function didAuthenticate(passthrough) {
 	 */
 	var mPatient = Alloy.Collections.patients.at(0);
 	/**
-	 * First time login flow takes the uesr to HIPAA screen
+	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
 		$.app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
@@ -206,10 +206,10 @@ function didAuthenticate(passthrough) {
 			landing_page : true
 		}).toJSON());
 	}
-	if (passthrough.callBack) {
+	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
-	} else {
-		console.log('no callback found!');
+		passthrough = null;
+		delete passthrough;
 	}
 }
 

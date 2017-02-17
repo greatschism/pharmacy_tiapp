@@ -1,9 +1,9 @@
-/*"#window": {
+"#window[platform=ios]": {
 	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 },
 "#window[if=$.args.navBarHidden]":{
 	navBarHidden: true
-}*/
+}
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.loginHintUsername,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,

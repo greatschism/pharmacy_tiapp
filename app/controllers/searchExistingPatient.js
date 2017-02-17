@@ -100,7 +100,7 @@ function didSuccess(result, passthrough) {
 function checkUserType(e){
 	if (parseInt(e.is_migrated_user) === 0 && parseInt(e.is_store_user) === 0 && parseInt(e.dispensing_account_exists) === 1) {
 		uihelper.showDialog({
-			message : String.format(Alloy.Globals.strings.mgrAccountExistsLbl, Alloy.Globals.strings.strClientName),
+			message : Alloy.Globals.strings.searchExistingPatientAcctExistsMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 			cancelIndex : -1,
 			success : function didOk () {

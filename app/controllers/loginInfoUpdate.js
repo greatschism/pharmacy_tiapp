@@ -25,7 +25,12 @@ function init() {
 
 	$.askInfoLbl.text = Alloy.Globals.strings.loginInfoUpdateAskInfo;
 	uihelper.getImage("logo", $.logoImg);
-	// $.window.open();
+	setWindowTitle(OS_IOS ? $.rootwindow : $.window);
+	$.window.open();
+}
+
+function setWindowTitle(windowObj) {
+	windowObj.title = args.title;
 }
 
 function didChangeToggle() {
@@ -128,19 +133,17 @@ function didClickContinue(e) {
 		failure : didFailed,
 		passthrough : upgraded_info
 	});
-	
-	/*
-	var result = {"status":"SUCCESS","code":"200","errorNodeType":null,"error_id":null,"errorCode":null,"message":"Credentials updated successfully.","description":"","data":null};
-	didSuccess(result, upgraded_info);*/
 }
 
 function didSuccess(result, passthrough) {
+	Alloy.Globals.isAccountUpgraded = true;
+	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	uihelper.showDialog({
 		message : result.message,
 		buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 		cancelIndex : -1,
 		success : function didOk () {
-			// args.callBack = didInitWin;
+			args.callBack = didInitWin;
 			args.checkCodeValues(args);
 		}
 	});
@@ -182,12 +185,12 @@ function didInitWin(e) {
 	$.window.close();
 }
 
-function didClickLeftNavView() {
-	didInitWin(args);
+function didClickLeftNavView(e) {
+	didClickCancel(e);
 }
 
 function didAndroidback(e) {
-	didInitWin(args);
+	didClickCancel(e);
 }
 
 exports.init = init;

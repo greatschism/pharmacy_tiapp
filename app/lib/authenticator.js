@@ -62,6 +62,7 @@ function init(passthrough) {
 		didFail({}, passthrough);
 		return false;
 	}
+	Alloy.Globals.isAccountUpgraded = false;
 	http.request({
 		method : "patient_authenticate",
 		params : {
@@ -116,14 +117,9 @@ function didAuthenticate(result, passthrough) {
 		 * navigate to maintenance screen
 		 */
 		passthrough.checkCodeValues = checkCodeValues;
-		app.navigator.open({
-			ctrl : "loginInfoUpdate",
-			titleid : "loginInfoUpdateTitle",
-			ctrlArguments : passthrough,
-			stack : true
-		});
-		// var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
-		// ctrl.init();
+		passthrough.title = Alloy.Globals.strings.loginInfoUpdateTitle;
+		var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
+		ctrl.init();
 	} else {
 		/**
 		 * code values check
