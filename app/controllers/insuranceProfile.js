@@ -66,6 +66,7 @@ function init() {
 	}
 
 	if (Alloy.Globals.isLoggedIn) {
+		getAllPharmacy();
 		var mPatient = Alloy.Collections.patients.at(0);
 		$.fnameTxt.setValue(mPatient.get("first_name"));
 		$.lnameTxt.setValue(mPatient.get("last_name"));
@@ -75,7 +76,7 @@ function init() {
 		    len = value.length;
 		$.moNumberTxt.setValue(value);
 		$.moNumberTxt.setSelection(len, len);
-		getAllPharmacy();
+		
 	}
 
 }
