@@ -66,6 +66,7 @@ function init() {
 	}
 
 	if (Alloy.Globals.isLoggedIn) {
+		getAllPharmacy();
 		var mPatient = Alloy.Collections.patients.at(0);
 		$.fnameTxt.setValue(mPatient.get("first_name"));
 		$.lnameTxt.setValue(mPatient.get("last_name"));
@@ -75,7 +76,6 @@ function init() {
 		    len = value.length;
 		$.moNumberTxt.setValue(value);
 		$.moNumberTxt.setSelection(len, len);
-		getAllPharmacy();
 	}
 
 }
@@ -230,15 +230,18 @@ function didClickSignup(e) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValLastNameInvalid
 			});
-			return;
+			return; 
 		} else {
 			lname.push(lvalue);
 		}
-		var dobFormat = $.contanierViewInfo.children[s].children[2].children[0].getValue();
-
-		dob.push(moment(dobFormat).format(Alloy.CFG.apiCodes.dob_format));
+		/*
+		 * Need to change the logic
+		 */
+		var dobFormat = $.contanierViewInfo.children[s].children[2].children[0].getText().toString();
+		dobFormat = dobFormat.replace('/','-');
+		dobFormat = dobFormat.replace('/','-');
+		dob.push(dobFormat);
 	}
-
 	mobileNumber = $.moNumberTxt.getValue();
 	mobileNumber = $.utilities.validatePhoneNumber(mobileNumber);
 	if (!mobileNumber) {
