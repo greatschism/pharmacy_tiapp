@@ -32,6 +32,7 @@ module.exports = {
 	"NEPA" : "LORE",
 	"MGAC" : "LORE",
 	"MGAE" : "LORE",
+	"MGAU" : "LORE",
 	"MONU" : "LORE",
 	"PHON" : "LORE",
 	"REGI" : "LORE",
