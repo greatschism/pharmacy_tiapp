@@ -2,10 +2,11 @@
 var args = $.args,
     utilities = require('utilities');
 
-var homePharmacy;
+var homePharmacy = {};
 
 function init() {
-	getAllPharmacy();
+	if (Alloy.Globals.isLoggedIn)
+		getAllPharmacy();
 }
 
 function didClickPhoto(e) {
@@ -103,7 +104,7 @@ function getHomePharmacy(result) {
 }
 
 function didGetStore(result, passthrough) {
-	logger.debug("\n\n\n in didgetstore result", JSON.stringify(result, null, 4), "\n\n\n");
+	// logger.debug("\n\n\n in didgetstore result", JSON.stringify(result, null, 4), "\n\n\n");
 	/**
 	 * update properties to object
 	 * don't replace, if then might clear the reference
@@ -112,10 +113,12 @@ function didGetStore(result, passthrough) {
 	_.extend(homePharmacy, result.data.stores);
 	_.extend(homePharmacy, {
 		title : $.utilities.ucword(homePharmacy.addressline1),
-		subtitle : $.utilities.ucword(homePharmacy.city) + ", " + homePharmacy.state + ", " + homePharmacy.zip
+ 		subtitle : $.utilities.ucword(homePharmacy.city) + ", " + homePharmacy.state + ", " + homePharmacy.zip
 	});
 
 	//$.storeTitleLbl.text = store.title;
 	$.app.navigator.hideLoader();
 	//logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
 }
+
+exports.init = init; 

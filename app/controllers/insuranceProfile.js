@@ -76,6 +76,7 @@ function init() {
 		    len = value.length;
 		$.moNumberTxt.setValue(value);
 		$.moNumberTxt.setSelection(len, len);
+		store = args.store;
 
 		if (store) {
 			store.shouldUpdate = false;
