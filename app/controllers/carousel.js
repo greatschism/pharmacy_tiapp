@@ -114,11 +114,10 @@ function didClickNext(e) {
 	
 		if(Alloy.CFG.is_proxy_enabled)
 		{
-		$.app.navigator.open({
+ 		$.app.navigator.open({
 			ctrl : "register",
-		});
-		}
-		
+ 		});
+		}		
 		else
 		{
 			$.app.navigator.open({
@@ -126,7 +125,8 @@ function didClickNext(e) {
 		titleid : "titleCreateAccount",
 		});
 		}	
-	}
+ 	}
+
 }
 
 function didClickSkip(e) {

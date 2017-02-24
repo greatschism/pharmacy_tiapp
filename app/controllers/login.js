@@ -125,7 +125,7 @@ function didClickLogin(e) {
 	}
 }
 
-function didAuthenticate() {
+function didAuthenticate(passthrough) {
 	/**
 	 * If the login screen's origin is
 	 * from Transfer Rx user details page,
@@ -144,9 +144,9 @@ function didAuthenticate() {
 	 */
 	var mPatient = Alloy.Collections.patients.at(0);
 	/**
-	 * First time login flow takes the uesr to HIPAA screen
+	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
 		$.app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
@@ -157,7 +157,7 @@ function didAuthenticate() {
 	 * Check if the partial account has been created.
 	 * if so, take the user to log in screen.
 	 */
-	else if (args.is_adult_partial && args.username === mPatient.get("email_address")) {
+	else if (mPatient && args.is_adult_partial && args.username === mPatient.get("email_address")) {
 		if (args.parent === "registerChildInfo") {
 			$.app.navigator.open({
 				titleid : "titleChildAdd",
@@ -176,7 +176,7 @@ function didAuthenticate() {
 				stack : false
 			});
 		}
-	} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+	} else if (mPatient && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
@@ -206,6 +206,11 @@ function didAuthenticate() {
 			landing_page : true
 		}).toJSON());
 	}
+	if (passthrough && passthrough.callBack) {
+		passthrough.callBack();
+		passthrough = null;
+		delete passthrough;
+	}
 }
 
 function didClickForgotPassword(e) {
@@ -234,6 +239,7 @@ function didClickSignup(e) {
 	});
 	}
 }
+
 
 function didPostlayout(e) {
 	/**

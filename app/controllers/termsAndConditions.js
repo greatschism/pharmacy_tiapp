@@ -1,6 +1,7 @@
 var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
+    logger = require("logger"),
     data = [];
 
 function init() {
@@ -73,6 +74,7 @@ function didClickItem(e) {
 	var item = Alloy.Collections.termsAndConditions.findWhere({
 			agreement_text : data[e.index]
 		}).toJSON();
+		logger.debug("\n\n\n item = ", JSON.stringify(item), "\n\n\n");
 	$.app.navigator.open({
 		ctrl : "termsDoc",
 		title : item.agreement_text,

@@ -72,7 +72,7 @@ function didClickContinue() {
 		});
 		return;
 	}
-	if (_.isEmpty(relationship)) {
+	if (_.isEmpty(relationship.code_value)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValRelationship
 		});

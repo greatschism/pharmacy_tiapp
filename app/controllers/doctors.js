@@ -63,7 +63,7 @@ function focus() {
 			_.some(rows, function(row, index) {
 				if (row.getParams().id == currentDoctor.id) {
 					var model = Alloy.Collections.doctors.at(index);
-					model.set(_.pick(currentDoctor, ["first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"]));
+					model.set(_.pick(currentDoctor, ["first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes", "image_url"]));
 					var newRow = processModel(model);
 					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
 					rows[index] = newRow;

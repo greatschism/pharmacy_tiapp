@@ -101,16 +101,30 @@ function updateTable() {
 		/**
 		 * this is a successful refill
 		 * so store last used store id
-		 */
-		$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		 
+		if(! Alloy.Globals.isMailOrderService )
+		{
+			$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		}
+		*/
 		var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
 		storeRow.on("click", didClickStorePhone);
 		$.pickupSection.add(storeRow.getView());
 	}
 	if (isMailOrder) {
-		$.pickupSection.add(Alloy.createController("itemTemplates/label", {
-			title : $.strings.refillSuccessLblMailOrder
-		}).getView());
+			var isSuccess = _.findWhere(prescriptions, {
+			refill_is_error : false
+		}),
+		    isFailure = _.findWhere(prescriptions, {
+			refill_is_error : true
+		});
+		
+		if((isSuccess && isFailure) || isSuccess)
+		{
+			$.pickupSection.add(Alloy.createController("itemTemplates/label", {
+				title : $.strings.refillSuccessLblMailOrder
+			}).getView());
+		}
 	}
 	/**
 	 *  tentative case we are contacting your doctor
@@ -135,7 +149,7 @@ function updateTable() {
 	 * cache the pickup mode for later use
 	 */
 	if (args.pickupMode) {
-		$.utilities.setProperty(Alloy.CFG.latest_pickup_mode, args.pickupMode);
+		// $.utilities.setProperty(Alloy.CFG.latest_pickup_mode, args.pickupMode);
 	}
 	/**
 	 * this is a successful refill

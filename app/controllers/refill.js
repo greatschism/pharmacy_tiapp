@@ -37,6 +37,8 @@ function callScanner(){
 }
 
 function didClickType(e) {
+	Alloy.Globals.isMailOrderService = false;
+
 	$.app.navigator.open({
 		titleid : "titleRefillType",
 		ctrl : "refillType",

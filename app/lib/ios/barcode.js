@@ -1,16 +1,16 @@
 /**
- * ios uses com.mfogg.barcode module
+ * ios uses com.mfogg.squarecamera module
  * A zbar barcode reader
  */
 
 var TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
-    BarcodeModule = require("com.mfogg.barcode"),
+    BarcodeModule = require("com.mfogg.squarecamera"),
     logger = require("logger"),
     isBusy = false,
     keepOpen = false,
-    supportedFormats = ["EAN2", "EAN5", "EAN8", "UPCE", "ISBN10", "UPCA", "EAN13", "ISBN13", "COMPOSITE", "I25", "DATABAR", "DATABAR_EXP", "CODE39", "PDF417", "CODE93", "CODE128"],
+    supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
     successCallback;
 
 var BarcodeReader = {
@@ -23,6 +23,7 @@ var BarcodeReader = {
 			logger.error(TAG, "barcode capture is already in progress");
 			return false;
 		}
+		isFinished = false;
 
 		if (!$) {
 			logger.error(TAG, "controller reference should be passed to create default scan rectangle and overlay");
@@ -57,10 +58,11 @@ var BarcodeReader = {
 		BarcodeReader.__cameraView = BarcodeModule.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			barcodes : options.acceptedFormats || supportedFormats
+			detectCodes: true,
+			barcodeTypes : options.acceptedFormats || supportedFormats
 		});
 
-		BarcodeReader.__cameraView.addEventListener("success", BarcodeReader.successEvt);
+		BarcodeReader.__cameraView.addEventListener("code", BarcodeReader.successEvt);
 
 		BarcodeReader.__window.add(BarcodeReader.__cameraView);
 
@@ -98,9 +100,7 @@ var BarcodeReader = {
 			}));
 		}
 
-		BarcodeReader.__window.open({
-			modal : true
-		});
+		BarcodeReader.__window.open();
 	},
 
 	cancel : function() {
@@ -110,7 +110,7 @@ var BarcodeReader = {
 			return false;
 		}
 
-		BarcodeReader.__cameraView.removeEventListener("success", BarcodeReader.successEvt);
+		BarcodeReader.__cameraView.removeEventListener("code", BarcodeReader.successEvt);
 
 		BarcodeReader.__window.close();
 
@@ -129,8 +129,8 @@ var BarcodeReader = {
 			 * if keepOpen is true store the codes after duplicate check
 			 * and don't invoke success callback
 			 */
-			if (_.indexOf(BarcodeReader.values, evt.data) == -1) {
-				BarcodeReader.values.push(evt.data);
+			if (_.indexOf(BarcodeReader.values, evt.values) == -1) {
+				BarcodeReader.values.push(evt.values);
 			}
 		} else {
 
@@ -142,7 +142,7 @@ var BarcodeReader = {
 			 */
 			if (successCallback) {
 				successCallback({
-					result : evt.data
+					result : evt.value
 				});
 			}
 		}

@@ -75,18 +75,29 @@ function didOpen(e) {
 	 */
 	authenticator.init({
 		success : didAuthenticate,
-		failure : didAuthenticate
+		failure : didAuthenticate,
+		force_start : true
 	});
 }
 
-function didAuthenticate(navigationHandled) {
+function didAuthenticate(passthrough, navigationHandled) {	
 	//initialize menu controller
 	$.menuCtrl.init();
+	/**
+	 * Account Upgraded flow takes the uesr to HIPAA screen
+	 */
+	if (Alloy.Globals.isAccountUpgraded) {
+		app.navigator.open({
+			ctrl : "hipaa",
+			titleid : "titleHIPAAauthorization",
+			stack : false
+		});
+	}
 	/**
 	 * navigationHandled - whether or not to
 	 * initiate a navigation.
 	 */
-	if (!navigationHandled) {
+	else if (!navigationHandled) {
 		navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
@@ -106,11 +117,16 @@ function didAuthenticate(navigationHandled) {
 		logger.debug(TAG, "triggering async update");
 		app.update(didCompleteUpdate);
 	}
+	if (passthrough && passthrough.callBack) {
+		passthrough.callBack();
+		passthrough = null;
+		delete passthrough;
+	}
 }
 
 function didCompleteUpdate() {
 	logger.debug(TAG, "completed async update");
-	reload = ture;
+	reload = true;
 	doLogout();
 }
 

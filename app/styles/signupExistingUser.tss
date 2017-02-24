@@ -1,0 +1,17 @@
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.registerHintEmail,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText: Alloy.Globals.strings.registerHintPassword,
+	passwordMask: true
+},
+"#showPasswordLbl":{
+	text: Alloy.Globals.strings.registerLblTogglePassword
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.signupExistingUserContinue
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+}

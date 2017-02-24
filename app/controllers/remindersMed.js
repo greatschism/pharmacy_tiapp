@@ -386,6 +386,9 @@ function didDeleteReminder(result, passthrough) {
 	 * by now
 	 */
 	if (!rows.length) {
+		var top = $.uihelper.getHeightFromChildren($.headerView);
+		$.tableView.top = top;
+		$.addView.top = top; 
 		$.contentHeaderView.visible = false;
 		$.addView.visible = true;
 	}

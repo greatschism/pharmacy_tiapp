@@ -8,8 +8,6 @@ function didClickSignIn() {
 		titleid : "titleLogin",
 		ctrl : "login",
 		ctrlArguments : {
-			username : args.username,
-			password : args.password,
 			is_adult_partial : true
 		},
 		stack : true

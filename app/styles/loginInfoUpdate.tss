@@ -1,0 +1,21 @@
+"#window[platform=ios]": {
+	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+},
+"#window[if=$.args.navBarHidden]":{
+	navBarHidden: true
+}
+"#emailTxt":{
+	hintText: Alloy.Globals.strings.loginHintUsername,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText: Alloy.Globals.strings.loginHintPassword,
+	passwordMask: true
+},
+"#continueBtn":{
+	title: Alloy.Globals.strings.searchExistingPatientContinue
+}
+"#loginInfoUpdateLbl":{
+	html : Alloy.Globals.strings.loginInfoUpdateLbl
+}

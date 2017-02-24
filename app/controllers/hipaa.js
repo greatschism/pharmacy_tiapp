@@ -2,7 +2,9 @@ var args = $.args,
 	http = require("requestwrapper"),
 	app = require("core"),
 	utilities = require('utilities'),
-	agreement_type;
+	logger = require("logger"),
+	agreement_type,
+	currentPatient;
 
 function init(){
 	/**
@@ -56,10 +58,10 @@ function applyWebViewProperties(url){
 			actualHeight = e.source.evalJS('document.documentElement.scrollHeight;') - e.source.evalJS('document.documentElement.clientHeight;');
 		}
 		else{
-	    	actualHeight = e.source.evalJS('document.height;');
+	    	actualHeight = e.source.evalJS('document.documentElement.scrollHeight;');
 	   	}
-	    
-	    e.source.height = parseInt(actualHeight) + 50;
+	   	
+    	e.source.height = parseInt(actualHeight) + 80;
 	    hideLoader();
     }); 
     
@@ -105,11 +107,23 @@ function didAcceptOrDecline(){
 	 */
 	utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
 	
-	app.navigator.open({
-		titleid : "titleTextBenefits",
-		ctrl : "textBenefits",
-		stack : false
+	currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
 	});
+	
+	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+		app.navigator.open({
+			titleid : "titleHome",
+			ctrl : "home",
+			stack : false
+		});
+	} else{
+		app.navigator.open({
+			titleid : "titleTextBenefits",
+			ctrl : "textBenefits",
+			stack : false
+		});
+	};
 }
 
 function showLoader() {

@@ -268,12 +268,12 @@
             },
             "ios":{
                 "accepted_barcode_formats":[
-                    "CODE128"
+                    "Code128", "QR"
                 ]
             },
             "android":{
                 "accepted_barcode_formats":[
-                    "FORMAT_CODE_128"
+                    "FORMAT_CODE_128", "FORMAT_QR_CODE"
                 ]
             }
         },
