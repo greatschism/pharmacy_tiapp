@@ -104,10 +104,14 @@ module.exports = {
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
 
-		"iconAccessibilityLblHamburger" : "Hamburger",
+		"iconAccessibilityLblHamburger" : "Navigation menu",
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
+				
+
+
+		"accessibilityLblScreenChange" : "Navigate to next screen",
 
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
