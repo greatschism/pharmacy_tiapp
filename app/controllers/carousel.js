@@ -9,6 +9,7 @@ function init() {
 	var viewLength = $.scrollableView.views.length;
 	viewsCount = viewLength - 1;
 	$.pagingcontrol.setLength(viewLength);
+	
 	//logo - align all labels to be in sync with logo
 	var fromTop = $.logoImg.top + $.logoImg.height + $.appLbl.top;
 	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
@@ -36,6 +37,7 @@ function focus() {
 	//load first set of images
 	$[currentId].addEventListener("load", didLoad);
 	$[currentId].images = statusObj[currentId].images;
+	$.skipBtn.accessibilityValue = $.strings.accessibilityLblScreenChange;
 }
 
 function setImages(imgView, fld, count) {
@@ -61,12 +63,16 @@ function didLoad(e) {
 function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
+	$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
 	startOrStopAnimation(currentPage);
 }
 
 function didChangePager(e) {
 	//scroll end will be triggered as result of this
+	$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
 	$.scrollableView.scrollToView(e.currentPage);
+
+	
 }
 
 function startOrStopAnimation(currentPage) {
@@ -103,7 +109,9 @@ function didClickNext(e) {
 		currentPage++;
 		//scroll end will be triggered as result of this
 		$.scrollableView.scrollToView(currentPage);
-	} else {		
+	} else {	
+		$.submitBtn.accessibilityValue = $.strings.accessibilityLblScreenChange;
+	
 		if(Alloy.CFG.is_proxy_enabled)
 		{
  		$.app.navigator.open({

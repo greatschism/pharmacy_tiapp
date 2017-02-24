@@ -325,6 +325,8 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
+			$.pagingcontrol.accessibilityLabel = "Paging control";
+
 		return true;
 	}
 	return false;
@@ -351,11 +353,14 @@ function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
 	startSpanTime(bannerItems[currentPage].spanTime);
+		$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
+
 }
 
 function didChangePager(e) {
 	//scroll end will be triggered as result of this
 	$.bannerScrollableView.scrollToView(e.currentPage);
+
 }
 
 function create(dict) {
