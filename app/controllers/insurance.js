@@ -5,8 +5,9 @@ var args = $.args,
 var homePharmacy = {};
 
 function init() {
-	if (Alloy.Globals.isLoggedIn)
+	if (Alloy.Globals.isLoggedIn) {
 		getAllPharmacy();
+	}
 }
 
 function didClickPhoto(e) {
@@ -113,7 +114,7 @@ function didGetStore(result, passthrough) {
 	_.extend(homePharmacy, result.data.stores);
 	_.extend(homePharmacy, {
 		title : $.utilities.ucword(homePharmacy.addressline1),
- 		subtitle : $.utilities.ucword(homePharmacy.city) + ", " + homePharmacy.state + ", " + homePharmacy.zip
+		subtitle : $.utilities.ucword(homePharmacy.city) + ", " + homePharmacy.state + ", " + homePharmacy.zip
 	});
 
 	//$.storeTitleLbl.text = store.title;
