@@ -547,14 +547,14 @@ module.exports = {
 		"transferOptsStrStoreNone" : "your present pharmacy",
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",
-		"transferOptsBtnTransfer" : "Complete transfer",
+		"transferOptsBtnTransfer" : "Submit transfer",
 
 		"transferReviewSectionUser" : "Personal details",
-		"transferReviewSectionStore" : "Your transfer has been placed at:",
-		"transferReviewSectionPresc" : "Prescription transferred:",
+		"transferReviewSectionStore" : "Your transfer is being placed at:",
+		"transferReviewSectionPresc" : "prescription to be transferred:",
 		"transferReviewLblInstruction" : "Make sure it is easy to see the pharmacy phone number.",
 		"transferReviewLblDob" : "DOB: %s",
-		"transferReviewBtnTransfer" : "Complete transfer",
+		"transferReviewBtnTransfer" : "Submit transfer",
 
 		"transferSuccessLblHeader" : "Your transfer is being processed!",
 		"transferSuccessLblContact" : "Please contact your pharmacy if you have any questions",

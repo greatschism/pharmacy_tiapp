@@ -66,7 +66,7 @@ function init() {
 	}
 
 	if (Alloy.Globals.isLoggedIn) {
-		getAllPharmacy();
+	//	getAllPharmacy();
 		var mPatient = Alloy.Collections.patients.at(0);
 		$.fnameTxt.setValue(mPatient.get("first_name"));
 		$.lnameTxt.setValue(mPatient.get("last_name"));
@@ -76,6 +76,11 @@ function init() {
 		    len = value.length;
 		$.moNumberTxt.setValue(value);
 		$.moNumberTxt.setSelection(len, len);
+
+		if (store) {
+			store.shouldUpdate = false;
+			$.storeTitleLbl.text = store.title;
+		}
 	}
 
 }
@@ -106,11 +111,11 @@ function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
 }
-
+/*
 function getAllPharmacy() {
 	/**
 	 *step 1: get the stores, step 2: Identify the home pharmacy, step 3: get store details for home pharmacy
-	 */
+	 
 	$.http.request({
 		method : "stores_list",
 		params : {
@@ -166,7 +171,7 @@ function didGetStore(result, passthrough) {
 	 * update properties to object
 	 * don't replace, if then might clear the reference
 	 * when passed through the controllers
-	 */
+	 
 	_.extend(store, result.data.stores);
 	_.extend(store, {
 		title : $.utilities.ucword(store.addressline1),
@@ -178,7 +183,7 @@ function didGetStore(result, passthrough) {
 	logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
 
 }
-
+*/
 function didClickPharmacy(e) {
 	$.app.navigator.open({
 		titleid : "titleStores",
@@ -320,17 +325,17 @@ function didSuccess(result, passthrough) {
 	});
 
 }
-
+/*
 function didFail(result, passthrough) {
 	/**
 	 * if something goes odd with api
 	 * just close this screen to
 	 * prevent any further actions
-	 */
+	 
 	$.app.navigator.hideLoader();
 	$.app.navigator.close();
 }
-
+*/
 function didChangePhone(e) {
 	var value = $.utilities.formatPhoneNumber(e.value),
 	    len = value.length;
