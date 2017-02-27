@@ -50,8 +50,10 @@ function init() {
 	}));
 	//clear button
 	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
-		id : "clearBtn"
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		id : "clearBtn",
+		accessibilityLabel : "clear search"
+
 	}));
 	//update margin
 	$.containerView.top = $.uihelper.getHeightFromChildren($.headerView);
@@ -86,11 +88,14 @@ function init() {
 		classes : ["right", "i6", "txt-right", "bg-color-disabled", "inactive-fg-color", "icon-thin-arrow-right"]
 	});
 	listIconDict = $.createStyle({
-		classes : ["icon-list"]
+		classes : ["icon-list", "accessibility-actionablelements"],
+		accessibilityLabel : "stores list"
 	});
 	mapIconDict = $.createStyle({
-		classes : ["icon-map"]
+		classes : ["icon-map", "accessibility-actionablelements"],
+		accessibilityLabel : "map to locate stores"
 	});
+	
 }
 
 function didPostlayoutLoader(e) {
