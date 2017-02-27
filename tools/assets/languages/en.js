@@ -108,11 +108,16 @@ module.exports = {
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
-				
-
-
+		"iconAccessibilityLblMap" : "Map",
+		"iconAccessibilityLblList" : "List",
+		"iconAccessibilityLblAdd" : "add more",
+		"iconAccessibilityLblCancel" : "cancel",
+		"iconAccessibilityLblRemove" : "remove",
+		"iconAccessibilityLblEdit" : "edit",
+		
+		
 		"accessibilityLblScreenChange" : "Navigate to next screen",
-
+		
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -131,10 +136,12 @@ module.exports = {
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
 		"titleAccount" : "Account",
+		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
 		"titlePrescriptionsAdd" : "Add prescriptions",
+		
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Sign out",

@@ -25,6 +25,7 @@ var args = $.args,
 		uihelper.wrapText($[val]);
 	});
 	$.progressBar.width = args.progress + "%";
+	$.progressBar.accessibilityValue = $.progressBar.width;
 })();
 
 function getParams() {
