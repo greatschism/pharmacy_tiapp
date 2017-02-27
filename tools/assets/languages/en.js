@@ -136,6 +136,7 @@ module.exports = {
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
 		"titleAccount" : "Account",
+		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
