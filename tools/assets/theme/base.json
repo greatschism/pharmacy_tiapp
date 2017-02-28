@@ -421,6 +421,17 @@
                "font":"${H4_PLATFORM_ANDROID}",
                 "secondaryfont":"${H3_PLATFORM_ANDROID}"
             },
+            ".attributed-bold":{
+                "tertiarycolor":"${FG_COLOR}"
+            },
+            ".attributed-bold[platform=ios]":{
+                "font":"${H3_PLATFORM_IOS}",
+                "tertiaryfont":"${H9_PLATFORM_IOS}"
+            },
+            ".attributed-bold[platform=android]":{
+               "font":"${H3_PLATFORM_ANDROID}",
+                "tertiaryfont":"${H9_PLATFORM_ANDROID}"
+            },
             ".txt-border-view":{
                 "height":"${INPUT_HEIGHT}",
                 "borderColor":"${INACTIVE_LIGHT_COLOR}",
