@@ -33,16 +33,11 @@ function didClickContactSupport() {
 }
 
 function didClickSend() {
+	//	As per requirements in Oxygen-7.1.0 user can enter either email or username 
 	var email = $.emailTxt.getValue();
 	if (!email) {
 		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValEmail
-		});
-		return;
-	}
-	if (!utilities.validateEmail(email)) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.registerValEmailInvalid
+			message : Alloy.Globals.strings.userRecoveryValEmail
 		});
 		return;
 	}

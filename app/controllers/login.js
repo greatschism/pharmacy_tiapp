@@ -160,13 +160,8 @@ function didAuthenticate(passthrough) {
 	else if (mPatient && args.is_adult_partial && args.username === mPatient.get("email_address")) {
 		if (args.parent === "registerChildInfo") {
 			$.app.navigator.open({
-				titleid : "titleChildAdd",
-				ctrl : "childAdd",
-				ctrlArguments : {
-					username : args.username,
-					password : args.password,
-					isFamilyMemberFlow : false
-				},
+				titleid : "titleAddFamily",
+				ctrl : "familyMemberAdd",
 				stack : false
 			});
 	} else {

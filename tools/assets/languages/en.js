@@ -173,7 +173,7 @@ module.exports = {
 		"titleTextHelp" : "Text help",
 		"titleTextMsgSignUp" : "Sign up for text messaging",
 		"titleAddFamily" : "Add a family member",
-		"titleForgotPassword" : "User recovery",
+		"titleForgotPassword" : "Password recovery",
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 
@@ -232,8 +232,9 @@ module.exports = {
 
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
-		"userRecoveryLbl" : "Please enter the email address you originally signed up with. We will send you a link to reset your password.",
-		"userRecoveryEmailHint" : "Email address",
+		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
+		"userRecoveryEmailHint" : "Email address or username",
+		"userRecoveryValEmail" : "Please enter your email address or username.",
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
 

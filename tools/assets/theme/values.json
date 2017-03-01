@@ -143,6 +143,14 @@
 		"fontFamily": "regular",
 		"fontSize": 12
 	},
+	"H9_PLATFORM_IOS": {
+		"fontFamily": "bold",
+		"fontSize": 20
+	},
+	"H9_PLATFORM_ANDROID": {
+		"fontFamily": "bold",
+		"fontSize": 20
+	},
 	"I1_PLATFORM_IOS": {
 		"fontFamily": "icon",
 		"fontSize": 75
