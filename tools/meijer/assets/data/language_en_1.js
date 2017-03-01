@@ -4,7 +4,7 @@ module.exports = {
 
 		"strClientName" : "Meijer RX",
 
-		"titlePrescriptions" : "Refill from list",
+		"titlePrescriptions" : "Prescriptions",
 		"titleReminders" : "Reminders",
 		"titleRefill" : "Refill by scan",
 		
@@ -13,7 +13,10 @@ module.exports = {
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
-		"titleInsurance" : "Update insurance card"
+		"titleInsurance" : "Update insurance card",
+
+		"prescSectionInProgress": "In process",
+
 	}
 
 };
