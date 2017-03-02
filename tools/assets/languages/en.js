@@ -551,7 +551,7 @@ module.exports = {
 
 		"transferReviewSectionUser" : "Personal details",
 		"transferReviewSectionStore" : "Your transfer is being placed at:",
-		"transferReviewSectionPresc" : "prescription to be transferred:",
+		"transferReviewSectionPresc" : "Prescription to be transferred:",
 		"transferReviewLblInstruction" : "Make sure it is easy to see the pharmacy phone number.",
 		"transferReviewLblDob" : "DOB: %s",
 		"transferReviewBtnTransfer" : "Submit transfer",
