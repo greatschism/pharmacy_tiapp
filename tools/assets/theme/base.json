@@ -425,11 +425,11 @@
                 "tertiarycolor":"${FG_COLOR}"
             },
             ".attributed-bold[platform=ios]":{
-                "font":"${H3_PLATFORM_IOS}",
+                "font":"${H10_PLATFORM_IOS}",
                 "tertiaryfont":"${H9_PLATFORM_IOS}"
             },
             ".attributed-bold[platform=android]":{
-               "font":"${H3_PLATFORM_ANDROID}",
+               "font":"${H10_PLATFORM_ANDROID}",
                 "tertiaryfont":"${H9_PLATFORM_ANDROID}"
             },
             ".txt-border-view":{
