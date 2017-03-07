@@ -6,6 +6,18 @@
 	hintText:Alloy.Globals.strings.registerHintLastName,
 	nextItem: "dob"
 },
+"#monthTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintMonth,
+	nextItem: "dayTxt"
+},
+"#dayTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintDay,
+	nextItem: "yearTxt"
+},
+"#yearTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintYear,
+	nextItem: "dobDp"
+},
 "#dob":{
 	hintText:Alloy.Globals.strings.registerHintDOB,
 	nextItem: "emailTxt"

@@ -17,6 +17,10 @@ module.exports = {
 
 		"prescSectionInProgress": "In process",
 
+
+        "mgrAccountCreationHintMonth": "mm",
+        "mgrAccountCreationHintDay": "dd",
+        "mgrAccountCreationHintYear": "yyyy",
 	}
 
 };
