@@ -398,6 +398,17 @@ var Utility = {
 	},
 
 	/**
+	 * Adds forward slashes to a date abbreviation (U.S.A)
+	 * @param {Srting} str The DOB
+	 */
+	formatDOBText : function(str) {
+		if (!_.isString(str)) {
+			str += "";
+		}
+		return str.replace(/\D/g, "").replace(/^(\d\d)(\d)/g, "$1 \/ $2").replace(/(\d\d \/ \d\d)(\d)/, "$1 \/ $2").slice(0, 14);
+	},
+
+	/**
 	 * Check whether given string is valid prescription name
 	 * @param {String} str
 	 * returns {String|Boolean}

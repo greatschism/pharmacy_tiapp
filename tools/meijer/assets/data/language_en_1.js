@@ -22,6 +22,7 @@ module.exports = {
         "mgrAccountCreationHintDay": "dd",
         "mgrAccountCreationHintYear": "yyyy",
         "registerHintDOBText": "Date of birth",
+        "registerHintFocusedDOBText": "MM / DD / YYYY",
 	}
 
 };

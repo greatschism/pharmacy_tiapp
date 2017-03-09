@@ -118,6 +118,36 @@ function didPostlayoutTooltip(e) {
 	e.source.off("postlayout", didPostlayoutTooltip);
 }
 
+function didFocusDOBText(e) {
+	$.DOBTxt.applyProperties({
+	  	hintText : Alloy.Globals.strings.registerHintFocusedDOBText
+	});
+	//$.DOBTxt.setHintText("MM / DD / YYYY"/*Alloy.Globals.strings.registerHintFocusedDOBText*/);
+}
+
+function didChangeDOBText(e) {
+	var value = $.utilities.formatDOBText(e.value),
+	len = value.length;
+
+	//Logic below is only rudamenary dynamic validation.  The entry still needs to be validated on Blur,
+	//the entry also needs to update the actual DOB picker on Blur (likewise the DOB picker should update this text field when used)
+		//only allow a 0 or 1 for the first digit
+	if (	((len === 1) && (value > 1)) 
+		//only allow 0 - 3 for the sixth digit
+	|| 		((len === 6) && (value.substr(len-1) > 3))
+		//only allow 1 or 2 for the 11th digit
+	|| 		((len === 11) && ((value.substr(len-1) > 3) || (value.substr(len-1) < 1))) ) {
+		$.DOBTxt.setValue(value.slice(0, len-1));
+		$.DOBTxt.setSelection(len, len-1);
+		return;
+	}
+
+
+	$.DOBTxt.setValue(value);
+	$.DOBTxt.setSelection(len, len);
+}
+
+
 function didFocusPassword(e) {
 	$.passwordTooltip.updateArrow($.createStyle({
 			classes : ["direction-down"]
