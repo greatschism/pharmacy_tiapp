@@ -255,6 +255,37 @@ var Helper = {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
 			cancel : 2
 		});
+
+		var watermarker = function(blob) {
+			var container = Ti.UI.createView();
+
+			var label1 = Ti.UI.createLabel({
+				color : '#fff',
+				font : {
+					fontSize : 24
+				},
+				shadowColor : '#000',
+				shadowOffset : {
+					x : 3,
+					y : 3
+				},
+				shadowRadius : 5,
+				text : 'Patient submitted via mobile app',
+				textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
+				top : 2,
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE
+			});
+			var watermark = Ti.UI.createImageView({
+				image : blob
+			});
+
+			container.add(watermark);
+			container.add(label1);
+			var newBlob = container.toImage();
+			callback(newBlob)
+		};
+
 		optDialog.on("click", function didClick(evt) {
 			if (!evt.cancel) {
 				switch(evt.index) {
@@ -265,15 +296,15 @@ var Helper = {
 								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							} else {
-								Helper.openCamera(callback, window, width, height);
+								Helper.openCamera(watermarker, window, width, height);
 							}
 						});
 					} else {
-						Helper.openCamera(callback, window, width, height);
+						Helper.openCamera(watermarker, window, width, height);
 					}
 					break;
 				case 1:
-					Helper.openGallery(callback, window, width, height);
+					Helper.openGallery(watermarker, window, width, height);
 					break;
 				}
 			}

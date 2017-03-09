@@ -10,11 +10,11 @@ var args = $.args,
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"],
 }),
-rightPwdButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn","positive-fg-color"],
+    rightPwdButtonDict = $.createStyle({
+	classes : ["txt-positive-right-btn", "positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
 	width : "25%",
-	backgroundColor: 'transparent'
+	backgroundColor : 'transparent'
 }),
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
@@ -25,7 +25,7 @@ rightPwdButtonDict = $.createStyle({
 
 function init() {
 	/**
-	 * PHA-1425 : Add the help image 
+	 * PHA-1425 : Add the help image
 	 * inside the rx number textfield.
 	 */
 	setRightButtonForRx(rightButtonTitle.text, rightButtonDict);
@@ -57,22 +57,22 @@ function init() {
 			optionalValues.dispensing_account_exists = args.dispensing_account_exists;
 		}
 	};
-	
+
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
-	
+
 	$.passwordTooltip.updateArrow($.createStyle({
 		classes : ["direction-down"]
 	}).direction, $.createStyle({
 		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
 	}));
-	
+
 	$.rxTooltip.updateArrow($.createStyle({
 		classes : ["direction-down"]
 	}).direction, $.createStyle({
 		classes : ["i5", "inactive-fg-color", "icon-tooltip-arrow-down"]
 	}));
-	
+
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
@@ -120,44 +120,48 @@ function didPostlayoutTooltip(e) {
 
 function didFocusDOBText(e) {
 	$.DOBTxt.applyProperties({
-	  	hintText : Alloy.Globals.strings.registerHintFocusedDOBText
+		hintText : Alloy.Globals.strings.registerHintFocusedDOBText
 	});
 	//$.DOBTxt.setHintText("MM / DD / YYYY"/*Alloy.Globals.strings.registerHintFocusedDOBText*/);
 }
 
 function didChangeDOBText(e) {
 	var value = $.utilities.formatDOBText(e.value),
-	len = value.length;
+	    len = value.length;
 
 	//Logic below is only rudamenary dynamic validation.  The entry still needs to be validated on Blur,
 	//the entry also needs to update the actual DOB picker on Blur (likewise the DOB picker should update this text field when used)
-		//only allow a 0 or 1 for the first digit
-	if (	((len === 1) && (value > 1)) 
-		//only allow 0 - 3 for the sixth digit
-	|| 		((len === 6) && (value.substr(len-1) > 3))
-		//only allow 1 or 2 for the 11th digit
-	|| 		((len === 11) && ((value.substr(len-1) > 3) || (value.substr(len-1) < 1))) ) {
-		$.DOBTxt.setValue(value.slice(0, len-1));
-		$.DOBTxt.setSelection(len, len-1);
+	//only allow a 0 or 1 for the first digit
+	if (((len === 1) && (value > 1))
+	//only allow 0 - 3 for the sixth digit
+	|| ((len === 6) && (value.substr(len - 1) > 3))
+	//only allow 1 or 2 for the 11th digit
+	|| ((len === 11) && ((value.substr(len - 1) > 3) || (value.substr(len - 1) < 1)))) {
+		$.DOBTxt.setValue(value.slice(0, len - 1));
+		$.DOBTxt.setSelection(len, len - 1);
 		return;
 	}
 
-
 	$.DOBTxt.setValue(value);
+
+	if (len == 14) {
+		value = value.replace(/\s+/, "");
+		var dobVal = (moment(value, 'MM/DD/YYYY').format("YYYY-MM-DD"));
+		$.dob.setValue(moment(dobVal, Alloy.CFG.apiCodes.dob_format).toDate());
+	}
 	$.DOBTxt.setSelection(len, len);
 }
 
-
 function didFocusPassword(e) {
 	$.passwordTooltip.updateArrow($.createStyle({
-			classes : ["direction-down"]
-		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
-		}));
-		
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+	}));
+
 	if (_.has($.passwordTooltip, "size")) {
 		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + $.containerView.top ) 
+			top : (passwordContainerViewFromTop + $.containerView.top )
 		});
 		delete $.passwordTooltip.size;
 	}
@@ -166,14 +170,14 @@ function didFocusPassword(e) {
 
 function didFocusRx(e) {
 	$.rxTooltip.updateArrow($.createStyle({
-			classes : ["direction-down"]
-		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
-		}));
-	
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+	}));
+
 	if (_.has($.rxTooltip, "size")) {
 		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop - $.rxContainer.top * 2) 
+			top : (rxContainerViewFromTop - $.rxContainer.top * 2)
 		});
 		delete $.rxTooltip.size;
 	}
@@ -301,7 +305,7 @@ function didClickSignup(e) {
 		}
 		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
-				message : String.format(Alloy.Globals.strings.registerValRxInvalid,Alloy.CFG.rx_length)
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid, Alloy.CFG.rx_length)
 			});
 			return;
 		}
@@ -321,7 +325,7 @@ function didClickSignup(e) {
 			return;
 		}
 	}
-	
+
 	/**
 	 * 	check for mobile number
 	 */
@@ -367,27 +371,25 @@ function didClickSignup(e) {
 		},
 		errorDialogEnabled : false,
 		success : didRegister,
-		failure: didFailToRegister,
+		failure : didFailToRegister,
 		passthrough : userCredentials
 	});
 }
 
-function didFailToRegister(result, passthrough){
-	if(result.errorCode === apiCodes.invalid_combination_for_signup)
-	{
+function didFailToRegister(result, passthrough) {
+	if (result.errorCode === apiCodes.invalid_combination_for_signup) {
 		$.uihelper.showDialog({
 			message : result.message,
 			buttonNames : [$.strings.dialogBtnPhone, $.strings.dialogBtnOK],
 			cancelIndex : 1,
-			success : function(){
+			success : function() {
 				var supportPhone = Alloy.Models.appload.get("supportphone");
 				if (supportPhone) {
 					$.uihelper.openDialer($.utilities.validatePhoneNumber(supportPhone));
 				}
-			}				
+			}
 		});
-	}
-	else{
+	} else {
 		$.uihelper.showDialog({
 			message : result.message
 		});
@@ -423,21 +425,22 @@ function didClickHelp(e) {
 		stack : true
 	});
 }
+
 function didToggleShowPassword() {
 	if (Alloy.CFG.toggle_password_enabled) {
 		if ($.passwordTxt.getPasswordMask()) {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
-				width: "25%",
-				backgroundColor: 'transparent'
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
-				width: "25%",
-				backgroundColor: 'transparent'
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
