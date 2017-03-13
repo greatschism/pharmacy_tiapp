@@ -10,9 +10,11 @@
 				</View>
 			</View>
 			<View id="dobTextPickerView" class="margin-top-large margin-left margin-right auto-height hgroup border">
-				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top right-disabled left  dropdown border-disabled dob date" onReturn="moveToNext" />
+				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top right-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 				<View class="h-divider"/>
-				<Widget id="DOBTxt" analyticsId="MonthTxt" src="ti.textfield" class="top  right-disabled left  txt border-disabled keyboard-number  returnkey-next" onReturn="moveToNext" />
+				<Widget id="monthTxt" analyticsId="MonthTxt" src="ti.textfield" class="top center left-disabled width-30 txt border-disabled keyboard-number  returnkey-next" onReturn="moveToNext" />
+				<Widget id="dayTxt" analyticsId="DayTxt" src="ti.textfield" class="top center left-disabled width-30 txt border-disabled keyboard-number  returnkey-next" onReturn="moveToNext" />
+				<Widget id="yearTxt" analyticsId="YearTxt" src="ti.textfield" class="top center left-disabled width-30 txt border-disabled  keyboard-number  returnkey-next" onReturn="moveToNext" />
 			</View>
 			<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-email returnkey-next" onReturn="moveToNext" />
