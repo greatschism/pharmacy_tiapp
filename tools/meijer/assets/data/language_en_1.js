@@ -17,12 +17,6 @@ module.exports = {
 
 		"prescSectionInProgress": "In process",
 
-
-        "mgrAccountCreationHintMonth": "mm",
-        "mgrAccountCreationHintDay": "dd",
-        "mgrAccountCreationHintYear": "yyyy",
-        "registerHintDOBText": "Date of birth",
-        "registerHintFocusedDOBText": "MM / DD / YYYY",
 	}
 
 };
