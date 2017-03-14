@@ -276,14 +276,33 @@ var Helper = {
 				width : Ti.UI.SIZE,
 				height : Ti.UI.SIZE
 			});
-			var watermark = Ti.UI.createImageView({
-				image : blob
-			});
+			
+			var watermarkMe;
+			
+			if (OS_ANDROID) {
+				var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "notwatermarked.jpg");
+				imageFile.write(blob);
+				var blobOfImage = imageFile.read();
 
-			container.add(watermark);
+
+				watermarkMe = Ti.UI.createImageView({
+					defaultImage : blobOfImage.nativePath,
+				    top : 0,
+				    left : 0,
+					height : 'auto',
+					width : 'auto',
+				});
+			} else {
+
+				watermarkMe = Ti.UI.createImageView({
+					image : blob
+				});
+			}
+		
+			container.add(watermarkMe);
 			container.add(label1);
 			var newBlob = container.toImage();
-			callback(newBlob)
+			callback(newBlob);
 		};
 
 		optDialog.on("click", function didClick(evt) {
