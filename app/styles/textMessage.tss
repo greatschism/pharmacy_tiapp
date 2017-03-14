@@ -7,9 +7,6 @@
 "#txtHelpTitle":{
 	text:Alloy.Globals.strings.textMessageTextHelpTitle
 },
-"#txtMsgLbl":{
-	text:Alloy.Globals.strings.textMessageLbl
-},
 "#signUpMsgLbl":{
 	text:Alloy.Globals.strings.textMessageSignUpLbl
 },

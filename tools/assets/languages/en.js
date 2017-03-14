@@ -719,6 +719,7 @@ module.exports = {
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",
 		"textMessageTextHelpTitle" : "Sorry about that.",
+		"textMessageOtpLbl" : "We just sent you a text. Please reply with the letter %s to complete signup.",
 		"textMessageLbl" : "We have just sent you a text message, please reply with the three digit code below.",
 		"textMessageSignUpLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
 		"textMessageTextHelpLbl" : "Some phone carriers experience delays when sending text messages.",

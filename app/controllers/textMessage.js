@@ -4,13 +4,33 @@ phone = args.phone;
 otp = args.otp;
 
 function init() {
+
+	var text = String.format(Alloy.Globals.strings.textMessageOtpLbl, args.otp);
+	var attributedString = Ti.UI.createAttributedString({
+		text : text,
+		attributes : [{
+			type : Ti.UI.ATTRIBUTE_FONT,
+			value : {
+				fontSize : "18dp"
+			},
+			range : [0, text.length]
+		}, {
+			type : Ti.UI.ATTRIBUTE_FONT,
+			value : {
+				fontFamily : "Bold",
+				fontSize : "20dp"
+			},
+			range : [54, 1]
+		}]
+	});
+
 	$.uihelper.getImage("child_add", $.txtSuccessImg);
 	$.uihelper.getImage("fail", $.txtFailImg);
 	if (args.txtCode === true) {
-		$.txtCode.editable = false;
-		$.txtCode.setValue(args.otp);
+		$.txtMsgLbl.attributedString = attributedString;
+		// $.txtCode.editable = false;
+		// $.txtCode.setValue(args.otp);
 	}
-
 }
 
 function backButtonHandler() {
@@ -24,7 +44,7 @@ function skipClicked() {
 		selected : true
 	});
 	currentPatient.set("is_mobile_verified", "0");
-	
+
 	$.app.navigator.open({
 		titleid : "titleHome",
 		ctrl : "home",
