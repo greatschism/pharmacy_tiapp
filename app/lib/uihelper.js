@@ -262,7 +262,7 @@ var Helper = {
 			var label1 = Ti.UI.createLabel({
 				color : '#fff',
 				font : {
-					fontSize : 26
+					fontSize : 24
 				},
 				shadowColor : '#000',
 				shadowOffset : {
