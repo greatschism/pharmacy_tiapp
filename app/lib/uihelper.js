@@ -262,7 +262,7 @@ var Helper = {
 			var label1 = Ti.UI.createLabel({
 				color : '#fff',
 				font : {
-					fontSize : 24
+					fontSize : 26
 				},
 				shadowColor : '#000',
 				shadowOffset : {
@@ -270,7 +270,7 @@ var Helper = {
 					y : 3
 				},
 				shadowRadius : 5,
-				text : 'Patient submitted via mobile app',
+				text : Alloy.Globals.strings.faxImageMessage,
 				textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
 				top : 2,
 				width : Ti.UI.SIZE,

@@ -715,7 +715,7 @@ module.exports = {
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
 		"receiveTextPhoneNoChild" : "Please select at least one person to receive text messages.",
-
+        "faxImageMessage" : "Image generated via customer mobile app",
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",
 		"textMessageTextHelpTitle" : "Sorry about that.",
