@@ -10,6 +10,9 @@
 "#signUpMsgLbl":{
 	text:Alloy.Globals.strings.textMessageSignUpLbl
 },
+"#txtMsgLbl":{
+	text:Alloy.Globals.strings.textMessageLbl
+},
 "#txtHelpMsgLbl":{
 	text:Alloy.Globals.strings.textMessageTextHelpLbl
 },

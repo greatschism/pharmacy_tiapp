@@ -26,10 +26,10 @@ function init() {
 
 	$.uihelper.getImage("child_add", $.txtSuccessImg);
 	$.uihelper.getImage("fail", $.txtFailImg);
+
 	if (args.txtCode === true) {
-		$.txtMsgLbl.attributedString = attributedString;
-		// $.txtCode.editable = false;
-		// $.txtCode.setValue(args.otp);
+		if ($.args.txtMsgLbl)
+			$.txtMsgLbl.attributedString = attributedString;
 	}
 }
 
