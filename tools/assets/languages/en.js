@@ -229,6 +229,7 @@ module.exports = {
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
 		"loginAttrAbout" : "about",
+		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
