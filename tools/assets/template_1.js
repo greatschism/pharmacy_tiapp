@@ -202,9 +202,6 @@ module.exports = {
 						}]
 					}]
 				}],
-			},{
-				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 				"navigation" : {
 					"ctrl" : "insurance",
 					"titleid" : "titleInsuranceCard"

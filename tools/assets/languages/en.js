@@ -874,7 +874,7 @@ module.exports = {
 	    "insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 	    "insuranceCardUpdateContactLblSubtitle" : "Your contact info",
 	    "insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
-	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>"
+	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
 		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
