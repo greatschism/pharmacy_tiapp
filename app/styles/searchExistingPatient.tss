@@ -1,10 +1,9 @@
-"#fnameTxt":{
-	hintText:Alloy.Globals.strings.registerHintFirstName,
+"#moNumberTxt":{
+	hintText:Alloy.Globals.strings.mobileNumberHint,
 	nextItem: "dob"
 },
 "#dob":{
-	hintText:Alloy.Globals.strings.registerHintDOB,
-	nextItem: "continueBtn"
+	hintText:Alloy.Globals.strings.registerHintDOB
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.searchExistingPatientContinue

@@ -5,7 +5,7 @@ var args = $.args,
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled"],
+	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "rx-hintext"],
 }),
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"],
@@ -79,6 +79,7 @@ function init() {
 
 function setRightButtonForRx(iconText, iconDict) {
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
+	// $.rxNoTxt.accessibilityLabel = "Rx help";
 }
 
 function didChangeRx(e) {

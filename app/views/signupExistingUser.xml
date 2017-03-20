@@ -8,10 +8,6 @@
 				<View class="h-divider"/>
 				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
-			<View id="dobView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
-			</View>
-			<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
 			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
 		</View>
 		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />

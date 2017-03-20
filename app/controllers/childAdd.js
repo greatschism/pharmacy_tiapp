@@ -241,8 +241,7 @@ function didAddChild(result) {
 						},
 						stack : false
 					});
-				}
-				else {
+				} else {
 					$.app.navigator.open({
 						titleid : "titleTextBenefits",
 						ctrl : "textBenefits",

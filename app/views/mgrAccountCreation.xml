@@ -5,6 +5,8 @@
 			<ImageView id="logoImg" class="margin-top margin-bottom" />
 			<Label id="mgrSubTitleLbl" class="margin-top-large margin-left margin-right margin-bottom h4"/>
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+				<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right-disabled txt border-disabled returnkey-next keyboard-phone" onReturn="moveToNext" onChange="didChangePhone" />
+				<View class="h-divider"></View>
 				<View id="nameView" class="auto-height">
 					<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
 					<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
@@ -16,7 +18,7 @@
 			<View id="containerView"  class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled returnkey-next keyboard-email" onReturn="moveToNext" />
 				<View class="h-divider"></View>
-				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
+				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
 			<Widget id="agreementAttr" analyticsId="AgreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
 			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>

@@ -125,7 +125,7 @@ function didClickLogin(e) {
 	}
 }
 
-function didAuthenticate() {
+function didAuthenticate(passthrough) {
 	/**
 	 * If the login screen's origin is
 	 * from Transfer Rx user details page,
@@ -144,9 +144,9 @@ function didAuthenticate() {
 	 */
 	var mPatient = Alloy.Collections.patients.at(0);
 	/**
-	 * First time login flow takes the uesr to HIPAA screen
+	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
 		$.app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
@@ -157,7 +157,7 @@ function didAuthenticate() {
 	 * Check if the partial account has been created.
 	 * if so, take the user to log in screen.
 	 */
-	else if (args.is_adult_partial && args.username === mPatient.get("email_address")) {
+	else if (mPatient && args.is_adult_partial && args.username === mPatient.get("email_address")) {
 		if (args.parent === "registerChildInfo") {
 			$.app.navigator.open({
 				titleid : "titleChildAdd",
@@ -169,14 +169,14 @@ function didAuthenticate() {
 				},
 				stack : false
 			});
-	} else {
+		} else {
 			$.app.navigator.open({
 				titleid : "titleAddAnAdult",
 				ctrl : "addAnotherAdult",
 				stack : false
 			});
 		}
-	} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+	} else if (mPatient && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
@@ -206,6 +206,11 @@ function didAuthenticate() {
 			landing_page : true
 		}).toJSON());
 	}
+	if (passthrough && passthrough.callBack) {
+		passthrough.callBack();
+		passthrough = null;
+		delete passthrough;
+	}
 }
 
 function didClickForgotPassword(e) {
@@ -219,19 +224,16 @@ function didClickForgotPassword(e) {
 function didClickSignup(e) {
 	if(Alloy.CFG.is_proxy_enabled)
 	{
-	$.app.navigator.open({
-		ctrl : "register",
-		stack : true
-	});
-	}
-	
-	else
-	{
 		$.app.navigator.open({
-		ctrl : "signup",
-		titleid : "titleCreateAccount",
-		stack : true
-	});
+			ctrl : "register",
+			stack : true
+		});
+	} else {
+		$.app.navigator.open({
+			ctrl : "signup",
+			titleid : "titleCreateAccount",
+			stack : true
+		});
 	}
 }
 
@@ -249,11 +251,11 @@ function didPostlayout(e) {
 	 *
 	 */
 
-		$.tooltip.updateArrow($.createStyle({
-			classes : ["direction-up"]
-		}).direction, $.createStyle({
-			classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
-		}));
+	$.tooltip.updateArrow($.createStyle({
+		classes : ["direction-up"]
+	}).direction, $.createStyle({
+		classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
+	}));
 
 	$.tooltip.applyProperties($.createStyle({
 		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,

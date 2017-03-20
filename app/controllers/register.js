@@ -7,8 +7,8 @@ function didClickMyself(){
 	});
 	*/
 	$.app.navigator.open({
-		ctrl : "mobileNumber",
-		titleid : "mobileNumberWelcome",
+		ctrl : "searchExistingPatient",
+		titleid : "searchExistingPatientWelcome",
 		stack : true
 	});
 }

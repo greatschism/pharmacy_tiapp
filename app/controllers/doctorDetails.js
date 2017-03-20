@@ -128,7 +128,7 @@ function didGetPhoto(blob) {
 }
 
 function didUploadImage(result, passthrough) {
-	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
+	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
 	data.image_url = result.data;
 	$.http.request({
 		method : "doctors_update",
@@ -153,10 +153,7 @@ function didSuccessDoctor(result, passthrough) {
 	if(OS_IOS)
 	{
 		$.photoImg.setImage(doctor.image_url);
-	}
-	
-	else
-	{
+	} else {
 		var decodedImageURL = '';
 		var imageURL = '';
 		if(doctor.image_url != null && doctor.image_url != '' && typeof(doctor.image_url) !== 'undefined')
@@ -165,9 +162,7 @@ function didSuccessDoctor(result, passthrough) {
 			if(decodedImageURL.indexOf('?') != -1)
 			{
 				imageURL = decodedImageURL.split('?')[0];
-			}
-			else
-			{
+			} else {
 				imageURL = decodedImageURL;
 			}
 		}

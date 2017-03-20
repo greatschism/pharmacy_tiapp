@@ -141,6 +141,9 @@ function addPrescriptions() {
 		params : {
 			data : [{
 				patient : {
+					first_name: fname,
+            		last_name: lname,
+                	birth_date: moment(dob).format(Alloy.CFG.apiCodes.dob_format),
 					rx_number : rxNo.substring(0, 7),
 					store_id : store.id
 				}

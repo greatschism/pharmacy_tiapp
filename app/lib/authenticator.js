@@ -62,6 +62,7 @@ function init(passthrough) {
 		didFail({}, passthrough);
 		return false;
 	}
+	Alloy.Globals.isAccountUpgraded = false;
 	http.request({
 		method : "patient_authenticate",
 		params : {
@@ -105,10 +106,44 @@ function didFail(error, passthrough) {
 }
 
 function didAuthenticate(result, passthrough) {
+	passthrough.loginResult = result;
+	passthrough.keychain = keychain;
+	passthrough.logout = doLogout;
 	Alloy.Globals.sessionId = result.data.patients.session_id;
-	/**
-	 * code values check
-	 */
+	
+	if (result.data.patients.is_minor === "0" && result.data.patients.is_account_upgrade_req === "1") {
+		app.navigator.hideLoader();
+		/**
+		 * navigate to loginInfoUpdate screen
+		 */
+		passthrough.checkCodeValues = checkCodeValues;
+		passthrough.title = Alloy.Globals.strings.loginInfoUpdateTitle;
+		var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
+		ctrl.init();
+	} else if (result.data.patients.is_minor === "1" && result.data.patients.is_account_upgrade_req === "1") {
+		app.navigator.hideLoader();
+		/**
+		 * navigate to mgrAccountUpdate screen if coming from login screen
+		 */
+		if (passthrough.force_start) {
+			doLogout(passthrough);
+		} else {
+			app.navigator.open({
+	 			ctrl : "mgrAccountUpdate",
+	 			titleid : "mgrAccountUpdateTitle",
+	 			ctrlArguments : passthrough,
+	 			stack : true
+	 		});			
+		};
+	} else {
+		/**
+		 * code values check
+		 */
+		checkCodeValues(passthrough);
+	}
+}
+
+function checkCodeValues(passthrough) {
 	http.request({
 		method : "codes_get",
 		params : {
@@ -779,7 +814,7 @@ function completeAuthentication(passthrough) {
 	 */
 	var navigationHandled = hasMandatoryNavigation();
 	if (passthrough.success) {
-		passthrough.success(navigationHandled);
+		passthrough.success(passthrough, navigationHandled);	
 	}
 }
 
@@ -993,7 +1028,7 @@ function didLogout(result, passthrough) {
 		 * if any
 		 */
 		if (passthrough.success) {
-			passthrough.success();
+			passthrough.success(passthrough);
 		} else {
 			app.navigator.open(Alloy.Collections.menuItems.findWhere({
 				landing_page : true

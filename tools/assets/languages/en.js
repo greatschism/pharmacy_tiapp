@@ -104,10 +104,14 @@ module.exports = {
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
 
-		"iconAccessibilityLblHamburger" : "Hamburger",
+		"iconAccessibilityLblHamburger" : "Navigation menu",
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
+				
+
+
+		"accessibilityLblScreenChange" : "Navigate to next screen",
 
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
@@ -645,6 +649,7 @@ module.exports = {
 		"mgrAccountCreationHintFirstName" : "First name",
 		"mgrAccountCreationHintLastName" : "Last name",
 		"mgrAccountCreationHintDob" : "Date of birth",
+		"mgrAccountCreationHintPhone" : "Mobile Number",
 		"mgrAccountCreationHintEmail" : "Email address",
 		"mgrAccountCreationHintPassword" : "Password",
 		"mgrAccountCreationBtnContinue" : "Continue",
@@ -658,6 +663,22 @@ module.exports = {
 		"mgrAccountCreationValEmail" : "Please enter your email address.",
 		"mgrAccountCreationValEmailInvalid" : "Invalid email address.",
 		"mgrAccountCreationLblTogglePassword" : "Show password",
+		
+		"mgrAccountUpdateTitle" : "Welcome back!",
+		"mgrAccountUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
+		"mgrAccountUpdateAskInfo" : "It looks like you're managing a minor. Please create an account for yourself to continue managing your family's prescriptions.",
+		"mgrAccountUpdateYourInfo" : "Your info",
+		"mgrAccountUpdateHintFName" : "First name",
+		"mgrAccountUpdateHintLName" : "Last name",
+		"mgrAccountUpdateHintDOB" : "Date of birth",
+		"mgrAccountUpdateHintPhone" : "Mobile Number",
+		"mgrAccountUpdateHintEmail" : "Email address",
+		"mgrAccountUpdateHintPassword" : "Password",
+		"mgrAccountUpdateValEmailInvalid" : "Please enter a valid email address.",
+		"mgrAccountUpdateContinue" : "Continue",
+		"mgrAccountUpdateLblTogglePassword" : "Show password",
+		"mgrAccountUpdateAttrAgreement" : "By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
+		"mgrAccountUpdateChildAccInfoAttr" : "Click here if you already have an account with %s.",
 
 		"mgrSignInLbl" : "Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "You can also add other adults and manage permissions.",
@@ -828,12 +849,14 @@ module.exports = {
 		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
 		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature.",
 		
-		"searchExistingPatientLbl" : "It looks like there is multiple people attached to this phone number.",
-		"searchExistingPatientAskInfo" : "Please let us know who you are.",
+		"searchExistingPatientWelcome" : "Welcome!",
+		"searchExistingPatientLbl" : "Please enter your mobile number and we'll check if we recognize you.",
+		"searchExistingPatientMobileHint" : "Mobile number",
 		"searchExistingPatientContinue" : "Continue",
+		"searchExistingPatientAcctExistsMsg" : "It looks like you already have an account with us. Please sign in with your email address and password.",
 		
 		"signupExistingUserLbl" : "Great! You've received texts from us before.",
-		"signupExistingUserAskInfo" : "Please create a username and password and confirm your date of birth.",
+		"signupExistingUserAskInfo" : "Please create a username and password.",
 		"signupExistingUserContinue" : "Continue",
 		
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
@@ -843,5 +866,11 @@ module.exports = {
 	    "insuranceCardUpdateContactLblSubtitle" : "Your contact info",
 	    "insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
 	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>"
+
+		"loginInfoUpdateTitle" : "Welcome back!",
+		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
+		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
+		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
+		"loginInfoUpdateContinue" : "Continue"
 	}
 };
