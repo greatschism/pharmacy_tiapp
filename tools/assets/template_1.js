@@ -99,9 +99,6 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
-			}, {
-				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
@@ -113,7 +110,7 @@ module.exports = {
 								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
 								"properties" : {
 									"textid" : "titleFamilyAccounts"
 								}
@@ -205,15 +202,16 @@ module.exports = {
 						}]
 					}]
 				}],
+			},{
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
 				"navigation" : {
 					"ctrl" : "insurance",
 					"titleid" : "titleInsuranceCard"
-
 				}
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top-medium", "h-divider-light"]
-
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],

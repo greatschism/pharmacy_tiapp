@@ -52,9 +52,12 @@ function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
 	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
 	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);
+	var copyrightYearHelper = new Date(Date.parse(buildDate)); 
+	var copyrightYearHelperString = $.strings.strClientName + ", " + copyrightYearHelper.getFullYear();
+	var copyright = String.format($.strings.loginCopyright, copyrightYearHelperString);
 
 	$.uihelper.showDialog({
-		message : version + "\n" + buildNumber + "\n" + buildDate
+		message : version + "\n" + buildNumber + "\n" + buildDate + "\n" + copyright
 	});
 }
 
@@ -160,13 +163,8 @@ function didAuthenticate(passthrough) {
 	else if (mPatient && args.is_adult_partial && args.username === mPatient.get("email_address")) {
 		if (args.parent === "registerChildInfo") {
 			$.app.navigator.open({
-				titleid : "titleChildAdd",
-				ctrl : "childAdd",
-				ctrlArguments : {
-					username : args.username,
-					password : args.password,
-					isFamilyMemberFlow : false
-				},
+				titleid : "titleAddFamily",
+				ctrl : "familyMemberAdd",
 				stack : false
 			});
 		} else {

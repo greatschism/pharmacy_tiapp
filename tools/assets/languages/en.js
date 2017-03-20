@@ -108,11 +108,16 @@ module.exports = {
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
-				
 
-
+		"iconAccessibilityLblMap" : "Map",
+		"iconAccessibilityLblList" : "List",
+		"iconAccessibilityLblAdd" : "add more",
+		"iconAccessibilityLblCancel" : "cancel",
+		"iconAccessibilityLblRemove" : "remove",
+		"iconAccessibilityLblEdit" : "edit",
+		
 		"accessibilityLblScreenChange" : "Navigate to next screen",
-
+		
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -132,10 +137,12 @@ module.exports = {
 		"titleDoctors" : "Doctors",
 		// "titleInsurance" : "Send insurance card",
 		"titleAccount" : "Account",
+		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
 		"titlePrescriptionsAdd" : "Add prescriptions",
+		
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Sign out",
@@ -167,7 +174,7 @@ module.exports = {
 		"titleTextHelp" : "Text help",
 		"titleTextMsgSignUp" : "Sign up for text messaging",
 		"titleAddFamily" : "Add a family member",
-		"titleForgotPassword" : "User recovery",
+		"titleForgotPassword" : "Password recovery",
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 		"titleInsuranceCard" : "Update insurance card",
@@ -224,11 +231,13 @@ module.exports = {
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
 		"loginAttrAbout" : "about",
+		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
-		"userRecoveryLbl" : "Please enter the email address you originally signed up with. We will send you a link to reset your password.",
-		"userRecoveryEmailHint" : "Email address",
+		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
+		"userRecoveryEmailHint" : "Email address or username",
+		"userRecoveryValEmail" : "Please enter your email address or username.",
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
 

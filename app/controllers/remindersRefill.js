@@ -428,7 +428,7 @@ function verifyDeliveryMode(callback) {
 	    colName = _.findWhere(Alloy.CFG.reminders, {
 		id : "refill"
 	}).col_pref;
-	if (mPatient.get(colName) === apiCodes.reminder_delivery_mode_none) {
+	if (mPatient.get(colName) === apiCodes.reminder_delivery_mode_none && mPatient.get("is_adult")) {
 		$.uihelper.showDialog({
 			message : $.strings.remindersRefillMsgDeliveryModeNoneConfirm,
 			buttonNames : [$.strings.dialogBtnYes, $.strings.dialogBtnNo],

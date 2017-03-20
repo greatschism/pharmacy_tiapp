@@ -167,7 +167,8 @@
                    	"facebook":"0XE010",
                     "pharacyspecials":"0XE011",
                     "twitter":"0XE012",
-                    "youtube":"0XE013"
+                    "youtube":"0XE013",
+                    "thick_help":"0xE00E"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -420,6 +421,17 @@
             ".attributed-20[platform=android]":{
                "font":"${H4_PLATFORM_ANDROID}",
                 "secondaryfont":"${H3_PLATFORM_ANDROID}"
+            },
+            ".attributed-bold":{
+                "tertiarycolor":"${FG_COLOR}"
+            },
+            ".attributed-bold[platform=ios]":{
+                "font":"${H10_PLATFORM_IOS}",
+                "tertiaryfont":"${H9_PLATFORM_IOS}"
+            },
+            ".attributed-bold[platform=android]":{
+               "font":"${H10_PLATFORM_ANDROID}",
+                "tertiaryfont":"${H9_PLATFORM_ANDROID}"
             },
             ".txt-border-view":{
                 "height":"${INPUT_HEIGHT}",

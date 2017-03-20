@@ -43,8 +43,9 @@ function init() {
 	}));
 	//clear button
 	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel"],
-		id : "clearBtn"
+		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		id : "clearBtn",
+		accessibilityLabel : "clear search"
 	}));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
@@ -73,6 +74,8 @@ function init() {
 			is_partial : false
 		}
 	});
+	
+	$.searchbar.visible = false;
 }
 
 function focus() {
@@ -109,6 +112,9 @@ function focus() {
 		currentPrescription = null;
 		prepareData();
 	}
+
+	$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblOptionsMenu;
+
 }
 
 function prepareData() {
