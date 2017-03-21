@@ -202,6 +202,7 @@ module.exports = {
 						}]
 					}]
 				}],
+				"feature_name" : "is_insurancecard_enabled",
 				"navigation" : {
 					"ctrl" : "insurance",
 					"titleid" : "titleInsuranceCard"
