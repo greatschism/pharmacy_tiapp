@@ -256,12 +256,6 @@ var Helper = {
 			cancel : 2
 		});
 
-		var labelFontSize;
-		if (OS_ANDROID) {
-			labelFontSize = 24;
-		} else {
-			labelFontSize = 36;
-		}
 
 		var watermarker = function(blob) {
 			var container = Ti.UI.createView();
@@ -269,7 +263,7 @@ var Helper = {
 			var label1 = Ti.UI.createLabel({
 				color : '#fff',
 				font : {
-					fontSize : labelFontSize
+					fontSize : 24
 				},
 				shadowColor : '#000',
 				shadowOffset : {
@@ -302,7 +296,9 @@ var Helper = {
 			} else {
 
 				watermarkMe = Ti.UI.createImageView({
-					image : blob
+					image : blob,
+					width : blob.width/2,
+					height : 'auto'
 				});
 			}
 		
