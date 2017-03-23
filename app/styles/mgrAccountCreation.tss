@@ -1,3 +1,7 @@
+"#phoneTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountCreationHintPhone,
+	nextItem: "fnameTxt"
+},
 "#fnameTxt":{
 	hintText:Alloy.Globals.strings.mgrAccountCreationHintFirstName,
 	nextItem: "lnameTxt"

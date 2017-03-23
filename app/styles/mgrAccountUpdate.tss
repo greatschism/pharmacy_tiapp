@@ -1,0 +1,43 @@
+"#mgrAccountUpdateLbl":{
+	html : Alloy.Globals.strings.mgrAccountUpdateLbl
+},
+"#askInfoLbl":{
+	text : Alloy.Globals.strings.mgrAccountUpdateAskInfo
+},
+"#phoneTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintPhone,
+	nextItem: "fnameTxt"
+},
+"#fnameTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintFName,
+	nextItem: "lnameTxt"
+},
+"#lnameTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintLName,
+	nextItem: "dobDp"
+},
+"#dobDp":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintDOB,
+	nextItem: "emailTxt"
+},
+"#emailTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintEmail,
+	nextItem: "passwordTxt"
+},
+"#passwordTxt":{
+	hintText:Alloy.Globals.strings.mgrAccountUpdateHintPassword,
+	passwordMask: true
+},
+"#passwordTooltip":{
+	text: Alloy.Globals.strings.msgPasswordTips
+},
+"#showPasswordLbl":{
+	text: Alloy.Globals.strings.mgrAccountUpdateLblTogglePassword
+},
+"#agreementAttr":{
+	html:Alloy.Globals.strings.mgrAccountUpdateAttrAgreement
+},
+
+"#continueBtn":{
+	title: Alloy.Globals.strings.mgrAccountUpdateContinue
+},

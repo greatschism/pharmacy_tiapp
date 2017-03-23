@@ -128,7 +128,7 @@ function didGetPhoto(blob) {
 }
 
 function didUploadImage(result, passthrough) {
-	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
+	var data = _.pick(doctor, ["id", "doctor_type", "first_name", "last_name", "doctor_dea", "phone", "fax", "addressline1", "addressline2", "zip", "city", "state", "notes"]);
 	data.image_url = result.data;
 	$.http.request({
 		method : "doctors_update",

@@ -177,7 +177,7 @@ function didClickSubmit(e) {
 	 * new object until api call
 	 * returns success
 	 */
-	var data = _.pick(doctor, ["id", "doctor_type", "image_url"]);
+	var data = _.pick(doctor, ["id", "doctor_type", "doctor_dea", "image_url"]);
 	_.extend(data, {
 		first_name : $.fnameTxt.getValue(),
 		last_name : $.lnameTxt.getValue(),

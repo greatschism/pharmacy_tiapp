@@ -5,7 +5,7 @@ var args = $.args,
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled"],
+	classes : ["margin-right-large", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "rx-hintext"],
 }),
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"],
@@ -20,7 +20,8 @@ rightPwdButtonDict = $.createStyle({
     moment = require("alloy/moment"),
     passwordContainerViewFromTop = 0,
     rxContainerViewFromTop = 0,
-    store = {};
+    store = {},
+    optionalValues = null;
 
 function init() {
 	/**
@@ -48,9 +49,23 @@ function init() {
 	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
 	$.dob.__views.widget.applyProperties(iDict);
 
+	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
+		optionalValues = {};
+		if (args.is_migrated_user) {
+			optionalValues.is_migrated_user = args.is_migrated_user;
+		}
+		if (args.is_store_user) {
+			optionalValues.is_store_user = args.is_store_user;
+		}
+		if (args.dispensing_account_exists) {
+			optionalValues.dispensing_account_exists = args.dispensing_account_exists;
+		}
+	};
+	
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
-	
+	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
+
 	$.passwordTooltip.updateArrow($.createStyle({
 		classes : ["direction-down"]
 	}).direction, $.createStyle({
@@ -72,6 +87,7 @@ function setRightButtonForRx(iconText, iconDict) {
 	iconDict.accessibilityLabel = "";
 	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
+	// $.rxNoTxt.accessibilityLabel = "Rx help";
 }
 
 function didChangeRx(e) {
@@ -284,6 +300,14 @@ function didClickSignup(e) {
 			return;
 		}
 	}
+	
+	/**
+	 * 	check for mobile number
+	 */
+	var mobileNumber = "";
+	if (args.mobile_number) {
+		mobileNumber = "1" + args.mobile_number;
+	};
 
 	var userCredentials = {
 		email : email,
@@ -310,18 +334,12 @@ function didClickSignup(e) {
 					state : "",
 					zip : "",
 					home_phone : "",
-					mobile : "",
+					mobile : mobileNumber,
 					email_address : email,
 					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 					store_id : store.id,
 					user_type : "FULL",
-					optional : [{
-						key : "",
-						value : ""
-					}, {
-						key : "",
-						value : ""
-					}]
+					optional : optionalValues
 				}
 			}]
 

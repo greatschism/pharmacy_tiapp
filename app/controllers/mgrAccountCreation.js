@@ -33,9 +33,17 @@ function didClickContinue() {
 	var fname = $.fnameTxt.getValue(),
 	    lname = $.lnameTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
+	    phone = $.phoneTxt.getValue(),
 	    email = $.emailTxt.getValue(),
 	    dob = $.dobDp.getValue();
+	    phone = $.utilities.validatePhoneNumber(phone);
 
+	if (!phone) {
+		$.uihelper.showDialog({
+			message : $.strings.phoneValPhoneInvalid
+		});
+		return;
+	}
 	if (!fname) {
 		$.uihelper.showDialog({
 			message : $.strings.mgrAccountCreationValFirstName
@@ -116,18 +124,12 @@ function didClickContinue() {
 					state : "",
 					zip : "",
 					home_phone : "",
-					mobile : "",
+					mobile : "1" + phone,
 					email_address : email,
 					rx_number : "",
 					store_id : "",
 					user_type : "PARTIAL",
-					optional : [{
-						key : "",
-						value : ""
-					}, {
-						key : "",
-						value : ""
-					}]
+					optional : null
 				}
 			}]
 
@@ -175,6 +177,13 @@ function didRegister() {
 		}
 	});
 
+}
+
+function didChangePhone(e) {
+	var value = $.utilities.formatPhoneNumber(e.value),
+	    len = value.length;
+	$.phoneTxt.setValue(value);
+	$.phoneTxt.setSelection(len, len);
 }
 
 function moveToNext(e) {

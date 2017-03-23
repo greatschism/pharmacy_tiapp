@@ -77,19 +77,13 @@ function didClickContinue() {
     var dob = $.dobDp.getValue(),
     	age = getAge(dob);
     relationship = $.relationshipDp.getSelectedItem();
-    if (relationship.code_value === "") {
-        $.uihelper.showDialog({
-            message: $.strings.familyMemberRelationshipNotSelected
-        });
-        return;
-    }
     if (!dob) {
         $.uihelper.showDialog({
             message: $.strings.familyMemberAddValDob
         });
         return;
     }
-	if (_.isEmpty(relationship)) {
+	if (_.isEmpty(relationship.code_value)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValRelationship
 		});

@@ -163,7 +163,12 @@
                     "download":"0XE00A",
                     "filled_torchlight":"0xE00B",
                     "filled_settings":"0xE00C",
-                    "filled_refresh":"0XE00D"
+                    "filled_refresh":"0XE00D",
+                   	"facebook":"0XE010",
+                    "pharacyspecials":"0XE011",
+                    "twitter":"0XE012",
+                    "youtube":"0XE013",
+                    "thick_help":"0xE00E"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -264,12 +269,12 @@
             },
             "ios":{
                 "accepted_barcode_formats":[
-                    "CODE128"
+                    "Code128", "QR"
                 ]
             },
             "android":{
                 "accepted_barcode_formats":[
-                    "FORMAT_CODE_128"
+                    "FORMAT_CODE_128", "FORMAT_QR_CODE"
                 ]
             }
         },
@@ -416,6 +421,17 @@
             ".attributed-20[platform=android]":{
                "font":"${H4_PLATFORM_ANDROID}",
                 "secondaryfont":"${H3_PLATFORM_ANDROID}"
+            },
+            ".attributed-bold":{
+                "tertiarycolor":"${FG_COLOR}"
+            },
+            ".attributed-bold[platform=ios]":{
+                "font":"${H10_PLATFORM_IOS}",
+                "tertiaryfont":"${H9_PLATFORM_IOS}"
+            },
+            ".attributed-bold[platform=android]":{
+               "font":"${H10_PLATFORM_ANDROID}",
+                "tertiaryfont":"${H9_PLATFORM_ANDROID}"
             },
             ".txt-border-view":{
                 "height":"${INPUT_HEIGHT}",

@@ -48,7 +48,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titlePrescriptions"
 												}
@@ -69,7 +69,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleRefill"
 												}
@@ -99,7 +99,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleReminders"
 												}
@@ -121,7 +121,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleFamilyAccounts"
 												}
@@ -152,7 +152,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleStores"
 												}
@@ -174,7 +174,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleTransfer"
 												}
@@ -205,7 +205,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleDoctors"
 												}
@@ -227,7 +227,7 @@ module.exports = {
 												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
 											}, {
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
 												"properties" : {
 													"textid" : "titleAccount"
 												}
