@@ -232,6 +232,7 @@ module.exports = {
 		"loginAttrAbout" : "about",
 		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 
+		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
@@ -877,7 +878,10 @@ module.exports = {
 		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
 		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
-		"loginInfoUpdateContinue" : "Continue"
+		"loginInfoUpdateContinue" : "Continue",
+		
+		"optionPickerHintToSelect" : "Double tap to select.",
+		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
 	}
 
 };

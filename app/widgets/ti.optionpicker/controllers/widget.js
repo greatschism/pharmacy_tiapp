@@ -204,6 +204,7 @@ function getRow(data) {
 			height : Ti.UI.SIZE,
 			selectedBackgroundColor : "transparent",
 			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : null,
+			accessibilityHint : data.selected ?  "" : Alloy.Globals.strings.optionPickerHintToSelect,
 			className : "optionPicker",
 		}),
 		rowView = Ti.UI.createView(optionPadding);
