@@ -19,6 +19,10 @@ function init() {
 	$.uihelper.getImage("logo", $.logoImg);
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
+	
+    var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+    $.dobDp.__views.widget.applyProperties(iDict);
 }
 
 function focus() {

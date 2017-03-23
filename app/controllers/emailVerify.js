@@ -7,6 +7,7 @@ function focus() {
 function init() {
 	$.lblWelcome.text = String.format(Alloy.Globals.strings.emailVerifyLblWelcome, $.strings.strClientName);
 	$.uihelper.getImage("info", $.imgEmailVerify);
+	$.__views.imgEmailVerify.accessibilityHidden  = true;
 }
 
 function didClickIsntMyEmail() {

@@ -20,8 +20,8 @@ function init() {
 	}
 
 	$.titleLbl.text = String.format($.strings.loginLblTitle, $.strings.strClientName);
-
 	$.uihelper.getImage("logo", $.logoImg);
+
 	/**
 	 * if auto login is enabled
 	 * then auto populate the username and password
@@ -46,16 +46,36 @@ function init() {
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
+	var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
+		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
+    } else {
+		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
+    }
+	$.autoLoginSwt.applyProperties(iDict);
+
+
+	iDict.accessibilityLabel = $.strings.accessibilityLblPasswordField;
+	$.passwordTxt.applyProperties(iDict);
+
+	iDict.accessibilityLabel = $.strings.accessibilityLblUsernameField;
+	$.usernameTxt.applyProperties(iDict);
+
 }
 
 function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
 	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
 	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);
+	var copyrightYearHelper = new Date(Date.parse(buildDate)); 
+	var copyrightYearHelperString = $.strings.strClientName + ", " + copyrightYearHelper.getFullYear();
+	var copyright = String.format($.strings.loginCopyright, copyrightYearHelperString);
 
 	$.uihelper.showDialog({
-		message : version + "\n" + buildNumber + "\n" + buildDate
+		message : version + "\n" + buildNumber + "\n" + buildDate + "\n" + copyright
 	});
+
 }
 
 function didChangeToggle() {
