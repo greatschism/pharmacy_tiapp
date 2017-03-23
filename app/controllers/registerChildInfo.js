@@ -1,6 +1,7 @@
 function init(){
 	$.childInfoAttr.text=String.format($.strings.registerChildInfoAttr,$.strings.strClientName);
 	$.uihelper.getImage("child", $.infoImg);
+    $.__views.infoImg.accessibilityHidden  = true;
 }
 function didClickAccountExists(){
 	$.app.navigator.open({

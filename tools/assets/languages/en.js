@@ -103,12 +103,14 @@ module.exports = {
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
-
 		"iconAccessibilityLblHamburger" : "Navigation menu",
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
 		"iconAccessibilityLblMap" : "Map",
+    "accessibilityLblRememberUsernameToggle" : "Keep me signed in toggle",
+		"accessibilityLblPasswordField" : "password field",
+		"accessibilityLblUsernameField" : "username field",
 		"iconAccessibilityLblList" : "List",
 		"iconAccessibilityLblAdd" : "add more",
 		"iconAccessibilityLblCancel" : "cancel",
@@ -141,7 +143,6 @@ module.exports = {
 		"titlePrescriptionDetails" : "Drug details",
 		"titleOrderDetails" : "Order details",
 		"titlePrescriptionsAdd" : "Add prescriptions",
-		
 		"titleRefillHistory" : "Refill history",
 		"titleLogin" : "Sign in",
 		"titleLogout" : "Sign out",
@@ -690,6 +691,9 @@ module.exports = {
 		"mgrSignInLbl" : "Please sign in and go to the \"Family care\" section to add a child to your account.",
 		"mgrAddLbl" : "You can also add other adults and manage permissions.",
 		"mgrAccountExistsLbl" : "It looks like you already have an account with %s",
+
+		"dobAccessibilityLbl" : "Date of birth dropdown",
+
 		"mgrAccountExistsBtnSignIn" : "Sign in",
 
 		"mobileNumberWelcome" : "Welcome!",
@@ -706,18 +710,18 @@ module.exports = {
 		"childAddBtnContinue" : "Continue",
 		"childAddBtnSkip" : "Skip & come back later",
 		"childAddAttrAgreement" : "By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
-		"childAddValFirstName" : "Please enter your first name.",
-		"childAddValFirstNameInvalid" : "First name : Please enter minimum 1 character to maximum 40 characters.",
-		"childAddValLastName" : "Please enter your last name.",
-		"childAddValLastNameInvalid" : "Last name : Please enter minimum 1 character to maximum 40 characters.",
-		"childAddValDob" : "Please enter your Date of birth.",
-		"childAddValRxNo" : "Please enter your prescription number.",
-		"childAddValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
-		"childAddAccntInvalid" : "This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
+		"childAddValFirstName" : "Please enter your family member's first name.",
+		"childAddValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"childAddValLastName" :  "Please enter your family member's last name.",
+		"childAddValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
+		"childAddValDob" : "Please enter your family member's date of birth.",
+		"childAddValRxNo" : "Please enter your family member's prescription number.",
+		"childAddValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on the prescription label. It should be %d digits.",
+		"childAddAccntInvalid" : "This person is 18 years or older. You cannot add them as a family member until they create their own adult account.",
 		"childValStore" : "Please select a pharmacy.",
 
-		"childSuccessLblTitle" : "You have successfully added a child to your account.",
-		"childSuccessBtnAddChild" : "Add another child",
+		"childSuccessLblTitle" : "You have successfully added a family member to your account.",
+		"childSuccessBtnAddChild" : "Add another family member",
 		"childSuccessBtnContinue" : "Continue",
 
 		"childConsentLbl" : "Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account.",
@@ -795,6 +799,8 @@ module.exports = {
 		"familyMemberAddValDob" : "Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
 		"familyMemberAddHintOther" : "Relationship",
+		"familyMemberRelationshipTips" : "Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
+		"familyMemberRelationshipNotSelected" : "Please select the relationship of the family member you are adding.",
 
 		"familyMemberInviteLbl" : "What is the best way to send the invitation to your %s?",
 		"familyMemberInviteSendTextLbl" : "Send a text message",

@@ -425,6 +425,15 @@ var Utility = {
 	},
 
 	/**
+	 * Check if name of family member relationship is valid
+	 * @param {String} str Can be Alphanumeric with only hyphens,apostrophes and spaces and length should be 1-25
+	 * returns {Boolean}
+	 */
+	validateRelationship : function(str) {
+		return /^(?=.*[a-zA-Z])[0-9a-zA-Z-'\s]{1,25}$/.test(str);
+	},
+
+	/**
 	 * Check if email is valid
 	 * @param {String} str
 	 * returns {Boolean}

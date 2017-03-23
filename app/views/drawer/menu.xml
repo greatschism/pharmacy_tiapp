@@ -1,7 +1,7 @@
 <Alloy>
 	<TableView class="primary-bg-color bg-selected-color-disabled table-separator-disabled" dataCollection="menuItems" dataFilter="filterFunction" dataTransform="transformFunction" onClick="didClickTableView">
 		<HeaderView>
-			<View id="headerView" class="auto-height">
+			<View id="headerView" class="auto-height accessibility-disabled">
 				<ImageView id="logoImg" class="margin-top-status-bar margin-bottom-large img-logo-white" />
 			</View>
 		</HeaderView>
