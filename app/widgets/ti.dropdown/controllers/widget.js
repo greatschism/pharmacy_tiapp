@@ -6,7 +6,8 @@ var args = $.args,
     selectedDate,
     format = "MM-DD-YYYY",
     picker,
-    parent;
+    parent,
+    parentContainer;
 
 (function() {
 
@@ -68,6 +69,7 @@ var args = $.args,
 
 function setParentView(view) {
 	parent = view;
+	parentContainer = parent.getChildren()[0].getChildren()[0];
 }
 
 function getParentView() {
@@ -82,7 +84,20 @@ function setMinDate(minDate) {
 	args.minDate = minDate;
 }
 
+function disableAccessibilityForParent(){
+	parent.leftNavButton ? parent.leftNavButtons[0].accessibilityHidden = true : "";
+	parent.rightNavButton ? parent.rightNavButton[0].accessibilityHidden = true : "";
+	parentContainer.accessibilityHidden = true;
+}
+
+function enableAccessibilityForParent(){
+	parent.leftNavButton ? parent.leftNavButtons[0].accessibilityHidden = false : "";
+	parent.rightNavButton ? parent.rightNavButton[0].accessibilityHidden = false : "";
+	parentContainer.accessibilityHidden = false;
+}
+
 function show() {
+	disableAccessibilityForParent();
 	if (!picker && parent) {
 		//hide keyboard if any
 		if (Ti.App.keyboardVisible) {
@@ -139,6 +154,7 @@ function show() {
 }
 
 function didTerminateDatePicker(e) {
+	enableAccessibilityForParent();
 	if (picker) {
 		picker.off("terminate", didTerminatePicker);
 		if (e.value) {
@@ -158,6 +174,7 @@ function didTerminateDatePicker(e) {
 }
 
 function didTerminatePicker(e) {
+	enableAccessibilityForParent();
 	if (picker) {
 		picker.off("terminate", didTerminatePicker);
 		setSelectedIndex(e.selectedIndex);
@@ -175,6 +192,7 @@ function didTerminatePicker(e) {
 }
 
 function hide() {
+	enableAccessibilityForParent();
 	if (picker) {
 		picker.terminate();
 		return true;

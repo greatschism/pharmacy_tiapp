@@ -104,11 +104,13 @@ module.exports = {
 		"accessibilityLblSwitchOn" : "es-On",
 		"accessibilityLblSwitchOff" : "es-Off",
 
-		"iconAccessibilityLblHamburger" : "es-Hamburger",
+		"iconAccessibilityLblHamburger" : "es-Hamburger menu",
 		"iconAccessibilityLblBack" : "es-Back",
 		"iconAccessibilityLblOptionsMenu" : "es-Options menu",
 		"iconAccessibilityLblHelp" : "es-Help",
-
+		"accessibilityLblRememberUsernameToggle" : "es-Keep me signed in toggle",
+		"accessibilityLblPasswordField" : "es-password field",
+		"accessibilityLblUsernameField" : "es-username field",
 		"titleHome" : "es-Home",
 		"titlePrescriptions" : "es-Prescriptions",
 		"titleReminders" : "es-Message center",
@@ -130,7 +132,7 @@ module.exports = {
 		"titleStoreDetails" : "es-Store details",
 		"titlePrescriptionDetails" : "es-Drug details",
 		"titleOrderDetails" : "es-Order details",
-		"titlePrescriptionsAdd" : "es-Add prescriptions",
+		"titlePrescriptionsAdd" : "es-Add Rx",
 		"titleRefillHistory" : "es-Refill history",
 		"titleLogin" : "es-Sign in",
 		"titleLogout" : "es-Sign out",
@@ -218,6 +220,7 @@ module.exports = {
 		"loginBuildNumber" : "es-Build Number: %s",
 		"loginBuildDate" : "es-Build Date: %s",
 		"loginAttrAbout" : "es-about",
+		"loginCopyright" : "es-© mscripts, LLC and %s.  All rights reserved.",
 
 		"patientSwitcherMsgChildBecameAdult" : "es-This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
@@ -661,6 +664,8 @@ module.exports = {
 		"mgrAccountExistsLbl" : "es-It looks like you already have an account with %s",
 		"mgrAccountExistsBtnSignIn" : "es-Sign in",
 
+		"dobAccessibilityLbl" : "es-Date of birth dropdown",
+
 		"childAddTitle" : "es-Add a child to your account",
 		"childAddHintFirstName" : "es-First name",
 		"childAddHintLastName" : "es-Last name",
@@ -670,18 +675,18 @@ module.exports = {
 		"childAddBtnContinue" : "es-Continue",
 		"childAddBtnSkip" : "es-Skip & come back later",
 		"childAddAttrAgreement" : "es-By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
-		"childAddValFirstName" : "es-Please enter your first name.",
+		"childAddValFirstName" : "es-Please enter your family member's first name",
 		"childAddValFirstNameInvalid" : "es-First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
-		"childAddValLastName" : "es-Please enter your last name.",
+		"childAddValLastName" : "es-Please enter your family member's last name.",
 		"childAddValLastNameInvalid" : "es-Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
-		"childAddValDob" : "es-Please enter your Date of birth.",
-		"childAddValRxNo" : "es-Please enter your prescription number.",
-		"childAddValRxNoInvalid" : "es-Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
-		"childAddAccntInvalid" : "es-This person is 18 years or older. You cannot add them as a child. They must create their own adult account.",
+		"childAddValDob" : "es-Please enter your family member's date of birth.",
+		"childAddValRxNo" : "es-Please enter your family member's prescription number.",
+		"childAddValRxNoInvalid" : "es-Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on the prescription label. It should be %d digits.",
+		"childAddAccntInvalid" : "es-This person is 18 years or older. You cannot add them as a family member until they create their own adult account.",
 		"childValStore" : "es-Please select a pharmacy.",
 
-		"childSuccessLblTitle" : "es-You have successfully added a child to your account.",
-		"childSuccessBtnAddChild" : "es-Add another child",
+		"childSuccessLblTitle" : "es-You have successfully added a family member to your account.",
+		"childSuccessBtnAddChild" : "es-Add another family member",
 		"childSuccessBtnContinue" : "es-Continue",
 
 		"childConsentLbl" : "es-Your family member is 12-17 years of age. In certain states, minors have the right to consent to certain confidential healthcare services without parental consent (for example, contraception services, treatment for sexually transmitted diseases, and the like).\n\n In many such states, minors also have the right to maintain exclusive control over the uses and disclosures of their medical records pertaining to such services. Accordingly, in such cases, minors have the right to deny a parent, guardian, or others access to their records for such services. Please confirm below that you have obtained consent from the minor family member before the minor family member's account is added to the Family Account.",
@@ -759,6 +764,8 @@ module.exports = {
 		"familyMemberAddValDob" : "es-Please enter your Date of birth.",
 		"familyMemberAddValRelationship" : "es-Please enter your relationship.",
 		"familyMemberAddHintOther" : "es-Relationship",
+		"familyMemberRelationshipTips" : "es-Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
+		"familyMemberRelationshipNotSelected" : "es-Please select the relationship of the family member you are adding.",
 
 		"familyMemberInviteLbl" : "es-What is the best way to send the invitation to your %s?",
 		"familyMemberInviteSendTextLbl" : "es-Send a text message",
@@ -770,7 +777,7 @@ module.exports = {
 		"familyMemberInviteBtnSend" : "es-Send",
 		"familyMemberInviteBtnCancel" : "es-Cancel",
 		"familyMemberInviteValPhoneInvalid" : "es-The phone number you have entered is invalid.",
-		"familyMemberInviteValEmailPhone" : "es-Please enter your email address or/and mobile number.",
+		"familyMemberInviteValEmailPhone" : "es-Please enter your family member's email address or mobile number.",
 		"familyMemberInviteValEmailInvalid" : "es-Please enter a valid email address.",
 
 		"familyMemberInviteSuccessLbl" : "es-Invitation sent!",
