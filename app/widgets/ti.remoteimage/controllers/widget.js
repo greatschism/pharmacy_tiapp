@@ -4,7 +4,7 @@ var args = $.args,
 
 (function() {
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "images", "preventDefaultImage", "decodeRetries", "enableZoomControls", "backgroundColor", "backgroundImage", "borderColor", "borderWidth", "borderRadius"]);
+	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "images", "preventDefaultImage", "decodeRetries", "enableZoomControls", "backgroundColor", "backgroundImage", "borderColor", "borderWidth", "borderRadius", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}
@@ -29,7 +29,7 @@ function setImage(img, dimg, encodURL) {
 			$.widget.applyProperties({
 				width : args.size.width,
 				height : args.size.height,
-				image : image
+				image : image,
 			});
 		} else {
 			$.widget.image = image;

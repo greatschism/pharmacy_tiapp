@@ -114,8 +114,43 @@ module.exports = {
 		"iconAccessibilityLblCancel" : "cancel",
 		"iconAccessibilityLblRemove" : "remove",
 		"iconAccessibilityLblEdit" : "edit",
+		"iconAccessibilityLblAddReminder": "Add Reminder",
 		
+		"iconAccessibilityLblArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblArrowUp" : "Close options",
 		
+		"iconAccessibilityLblThinArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblThinArrowUp" : "Close options",
+
+		"iconAccessibilityLblThickArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblThickArrowUp" : "Close options",
+		
+		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblTooltipArrowUp" : "Close options",
+
+
+		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
+		
+		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
+		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
+
+		"iconAccessibilityLblSuccess" : "Checkbox",
+
+		"iconAccessibilityLblStar" : "Favourite",
+		"iconAccessibilityLblCheckbox" : "Checkbox",
+		"iconAccessibilityLblPhone" : "Phone",
+		"iconAccessibilityLblPrint" : "Print option",
+		"iconAccessibilityLblAlarm" : "Alarm",
+		"iconAccessibilityLblClock" : "Clock",
+		"iconAccessibilityLblCalendar" : "Calendar",
+		"iconAccessibilityLblDirection" : "Direction",
+		"iconAccessibilityLblBadgeStar" : "Badge",
+		"iconAccessibilityLblCheckboxChecked" : "Selected",
+		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
+		"iconAccessibilityLblSpot" : "Deselected",
+
+
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 		
 		"titleHome" : "Home",
@@ -238,6 +273,8 @@ module.exports = {
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
 
+        "patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
+        
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 		"storesHintSearch" : "Search",

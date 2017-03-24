@@ -8,7 +8,7 @@ var args = $.args,
 		rDict = $.createStyle({
 			classes : ["row-selected-bg-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
+		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-enabled"] : ["inactive-fg-color", "icon-spot","accessibility-enabled"]);
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {

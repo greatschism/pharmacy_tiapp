@@ -285,6 +285,7 @@ function loadBanners() {
 	if (bannerItems) {
 		if (bannerItems.length) {
 			$.bannerScrollableView = Ti.UI.createScrollableView();
+			$.bannerScrollableView.accessibilityHidden = false;
 			_.each(bannerItems, function(banner) {
 				$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 			});
@@ -298,7 +299,8 @@ function loadBanners() {
 			if (pagingcontrolEnabled) {
 				$.addListener($.bannerScrollableView, "scrollend", didScrollend);
 				$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
-					classes : ["margin-bottom", "pagingcontrol"]
+					classes : ["margin-bottom", "pagingcontrol", "accessibility-enabled"],
+					accessibilityLabel: "Banner"
 				}), {
 					currentPage : 0,
 					length : len
@@ -434,7 +436,8 @@ function create(dict) {
 			if (!bannerItems || (bannerItems && bannerItems.length)) {
 				$.bannerView.applyProperties({
 					width : Alloy.CFG.banner_width,
-					height : Alloy.CFG.banner_height
+					height : Alloy.CFG.banner_height,
+					accessibilityLabel: "banner"
 				});
 			}
 			/**

@@ -3,5 +3,6 @@
 },
 "#updateBtn":{
 	title: Alloy.Globals.strings.doctorDetBtnPhotoUpdate,
+	accessibilityLabel: "Change Profile Image",
 	height: 24
 }
