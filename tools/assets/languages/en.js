@@ -116,8 +116,43 @@ module.exports = {
 		"iconAccessibilityLblCancel" : "cancel",
 		"iconAccessibilityLblRemove" : "remove",
 		"iconAccessibilityLblEdit" : "edit",
+		"iconAccessibilityLblAddReminder": "Add Reminder",
 		
+		"iconAccessibilityLblArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblArrowUp" : "Close options",
 		
+		"iconAccessibilityLblThinArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblThinArrowUp" : "Close options",
+
+		"iconAccessibilityLblThickArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblThickArrowUp" : "Close options",
+		
+		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
+		"iconAccessibilityLblTooltipArrowUp" : "Close options",
+
+
+		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
+		
+		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
+		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
+
+		"iconAccessibilityLblSuccess" : "Checkbox",
+
+		"iconAccessibilityLblStar" : "Favourite",
+		"iconAccessibilityLblCheckbox" : "Checkbox",
+		"iconAccessibilityLblPhone" : "Phone",
+		"iconAccessibilityLblPrint" : "Print option",
+		"iconAccessibilityLblAlarm" : "Alarm",
+		"iconAccessibilityLblClock" : "Clock",
+		"iconAccessibilityLblCalendar" : "Calendar",
+		"iconAccessibilityLblDirection" : "Direction",
+		"iconAccessibilityLblBadgeStar" : "Badge",
+		"iconAccessibilityLblCheckboxChecked" : "Selected",
+		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
+		"iconAccessibilityLblSpot" : "Deselected",
+
+
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 		
 		"titleHome" : "Home",
@@ -232,6 +267,7 @@ module.exports = {
 		"loginAttrAbout" : "about",
 		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 
+		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
 
 		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
@@ -240,6 +276,8 @@ module.exports = {
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
 
+        "patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
+        
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 		"storesHintSearch" : "Search",
@@ -877,7 +915,10 @@ module.exports = {
 		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
 		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
-		"loginInfoUpdateContinue" : "Continue"
+		"loginInfoUpdateContinue" : "Continue",
+		
+		"optionPickerHintToSelect" : "Double tap to select.",
+		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
 	}
 
 };
