@@ -67,6 +67,20 @@ function init() {
 		loadDoctor();
 		loadStore();
 	}
+	setAccessibilityLabelOnSwitch($.reminderRefillSwt, $.strings.prescDetAccessibilityReminderRefill);
+    setAccessibilityLabelOnSwitch($.reminderMedSwt, $.strings.prescDetAccessibilityReminderMed);
+}
+
+function setAccessibilityLabelOnSwitch(switchObj , strValue) {
+    var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = strValue;
+		iDict.accessibilityLabelOff = strValue;
+    } else {
+		iDict.accessibilityLabel = strValue;
+    }
+    iDict.accessibilityHint = "Double tap to toggle";
+    switchObj.applyProperties(iDict);
 }
 
 function focus() {

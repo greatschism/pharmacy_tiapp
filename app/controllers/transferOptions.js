@@ -10,7 +10,22 @@ function focus() {
 	} else {
 		$.transferAllPrescLbl.text = String.format($.strings.transferOptsLblTransferAllPresc, $.strings.transferOptsStrStoreNone, $.strings.strClientName);
 	}
+	
+	setAccessibilityLabelOnSwitch($.transferAllPrescSwt, $.transferAllPrescLbl.text);
 }
+
+function setAccessibilityLabelOnSwitch(switchObj , strValue) {
+    var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = strValue;
+		iDict.accessibilityLabelOff = strValue;
+    } else {
+		iDict.accessibilityLabel = strValue;
+    }
+    iDict.accessibilityHint = "Double tap to toggle";
+    switchObj.applyProperties(iDict);
+}
+
 function handleEvent(e) {
 	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }

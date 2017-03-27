@@ -27,6 +27,9 @@ function focus() {
 		});
 	}
 
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+	$.dobDp.__views.widget.applyProperties(iDict);
 }
 
 function didGetRelationships(result, passthrough) {
@@ -64,11 +67,6 @@ function updateInputs() {
 
 function setParentView(view) {
 	$.dobDp.setParentView(view);
-
-	var iDict = {};
-	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
-	$.dobDp.__views.widget.applyProperties(iDict);
-
 	$.relationshipDp.setParentView(view);
 }
 
