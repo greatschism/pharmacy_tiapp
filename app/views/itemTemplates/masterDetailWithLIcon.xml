@@ -1,6 +1,6 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<Label id="leftIconLbl" class="margin-left i5" />
+		<Label id="leftIconLbl" class="margin-left i5 accessibility-enabled" />
 		<View id="contentView" class="margin-top margin-bottom margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">
 				<Label id="titleLbl" class="left h4" />

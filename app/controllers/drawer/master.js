@@ -24,6 +24,8 @@ function init() {
 		$.drawer.on("open", didOpen);
 		$.drawer.on("close", didClose);
 		$.drawer.on("windowDidOpen", windowDidOpen);
+		$.drawer.on("windowDidClose", windowDidClose);
+
 	}
 	if (OS_ANDROID) {
 		$.rootWindow = $.drawer.getView();
@@ -174,15 +176,32 @@ function didLogout() {
 	}).init();
 }
 
+
 function windowDidOpen(e) {
+	_.each($.rootWindow.getChildren(), function(child) {
+		child.setAccessibilityHidden(true);
+	});
 	uihelper.requestViewFocus($.menuCtrl.getView());
 }
 
+
+function windowDidClose(e) {
+	var children = $.rootWindow.getChildren();
+	_.each(children, function(child) {
+		child.setAccessibilityHidden(false);
+	});
+	if (children[0]) {
+		uihelper.requestViewFocus(children[0]);
+	}
+}
+
+
 function didAndoridBack(e) {
+
 	app.navigator.close(1, true);
 }
 
-function didClickLeftNavView(e) {
+function didClickLeftNavView(e) {		
 	hideKeyboard();
 	$.drawer.toggleLeftWindow();
 }
@@ -195,6 +214,7 @@ function hideKeyboard(e) {
 
 function didClose(e) {
 	//destroy menu view (data binding)
+
 	$.menuCtrl.terminate();
 }
 

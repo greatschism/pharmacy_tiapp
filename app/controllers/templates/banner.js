@@ -4,6 +4,7 @@ var args = $.args,
 (function() {
 	$.descriptionLbl.text = args.description;
 	$.bannerImg.setImage(args.image_url);
+	$.bannerImg.accessibilityLabel = args.description;
 })();
 
 function didClick(e) {

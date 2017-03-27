@@ -6,8 +6,8 @@
 				<Label id="titleLbl" class="margin-top margin-left margin-right h4" />
 				<View id="containerView" class="margin-top margin-left margin-right auto-height">
 					<View id="photoView" class="top left auto-width auto-height border" onClick="didClickPhoto">
-						<Widget id="photoImg" src="ti.remoteimage" class="width-100" onError="didError" />
-						<Button id="updateBtn" class="top-disabled bottom left right h8 shadow-bg-color light-fg-color border-disabled" />
+						<Widget id="photoImg" src="ti.remoteimage" class="width-100 accessibility-enabled" onError="didError" />
+						<Button id="updateBtn" class="top-disabled bottom left right h8 shadow-bg-color light-fg-color border-disabled accessibility-enabled" />
 					</View>
 					<View id="contentView" class="top margin-left-medium vgroup auto-height">
 						<View id="phoneView" class="auto-height" onClick="didClickPhone">

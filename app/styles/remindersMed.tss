@@ -10,3 +10,6 @@
 "#tableView":{
 	analyticsId: "RemindersMedList"
 }
+"#addIcon":{
+	accessibilityLabel: "Add Reminder"
+}
