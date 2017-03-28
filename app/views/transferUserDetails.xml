@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
+	<View class="vgroup">
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
@@ -18,5 +19,6 @@
 		<!--bring the login button on edit might bring additional efforts,
 		not required as user has already chosen to enter his information-->
 		<Widget id="loginAttr" analyticsId="LoginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickLogin" if="!$.args.user" />
+	</View>
 	</ScrollView>
 </Alloy>

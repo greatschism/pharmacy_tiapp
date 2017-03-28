@@ -36,6 +36,15 @@ var args = $.args,
 		}
 		uihelper.wrapText($.lbl);
 	}
+	
+	var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = $.lbl.text;
+		iDict.accessibilityLabelOff = $.lbl.text;
+    } else {
+		iDict.accessibilityLabel = $.lbl.text;
+    }
+	$.swt.applyProperties(iDict);
 })();
 
 function didChangeToggle(e) {

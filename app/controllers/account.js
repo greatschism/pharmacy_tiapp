@@ -24,6 +24,21 @@ function init() {
 	});
 	
 	setAccountValues();
+    setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
+    setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
+    setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
+}
+
+function setAccessibilityLabelOnSwitch(switchObj , strValue) {
+    var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = strValue;
+		iDict.accessibilityLabelOff = strValue;
+    } else {
+		iDict.accessibilityLabel = strValue;
+    }
+    iDict.accessibilityHint = "Double tap to toggle";
+    switchObj.applyProperties(iDict);
 }
 
 function setAccountValues(){	

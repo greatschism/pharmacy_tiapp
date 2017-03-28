@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<View class="vgroup">
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h3 inactive-fg-color"/>
 		</View>
@@ -18,5 +19,6 @@
 		</View>
 		<View id="otherTxtView" class="margin-top margin-left margin-right auto-height vgroup border"></View>
 		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
+	</View>
 	</ScrollView>
 </Alloy>

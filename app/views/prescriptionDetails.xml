@@ -52,12 +52,12 @@
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View id="reminderRefillView" class="auto-height" if="Alloy.CFG.is_reminders_enabled">
-			<Widget id="reminderRefillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
+			<Widget id="reminderRefillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
 			<Widget id="reminderRefillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeRefill" />
 		</View>
 		<View class="h-divider-light" if="Alloy.CFG.is_reminders_enabled" />
 		<View id="reminderMedView" class="auto-height" if="Alloy.CFG.is_reminders_enabled">
-			<Widget id="reminderMedAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed" />
+			<Widget id="reminderMedAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
 			<Widget id="reminderMedSwt" src="ti.switch" class="margin-right swt" onChange="didChangeMed" />
 		</View>
 		<View id="informationView" class="margin-top min-height inactive-light-bg-color">
