@@ -90,6 +90,15 @@ function init() {
 	controller.init && controller.init();
 
 	controller.setParentView && controller.setParentView($.contentView);
+
+	if (Ti.App.accessibilityEnabled)
+		Ti.App.addEventListener("keyboardframechanged", scrollOnKeyboardEvent);
+}
+
+function scrollOnKeyboardEvent(e){
+	var scroller = controller.getTopLevelViews()[0];
+	scroller.height = parseInt(scroller.rect.height) + "dp";
+	scroller.scrollToBottom();
 }
 
 function focus(e) {
@@ -105,6 +114,8 @@ function blur(e) {
 function terminate(e) {
 	logger.debug(TAG, "terminate", $.ctrlShortCode);
 	controller.terminate && controller.terminate();
+	if (Ti.App.accessibilityEnabled)
+		Ti.App.removeEventListener("keyboardframechanged", scrollOnKeyboardEvent);
 }
 
 function setTitle(title) {
