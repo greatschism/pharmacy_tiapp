@@ -54,7 +54,9 @@ function didPostlayout(e) {
 	$.tooltipHideBtn.addEventListener("click", didClickHide);
 	$.contentView.add($.tooltipHideBtn);
 	$.tooltip.setContentView($.contentView);
-	$.scrollView.add($.tooltip.getView());
+	if (!Ti.App.accessibilityEnabled) {		
+		$.scrollView.add($.tooltip.getView());
+	};
 }
 
 function getPosition(view) {

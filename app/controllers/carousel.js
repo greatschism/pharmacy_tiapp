@@ -103,12 +103,18 @@ function startOrStopAnimation(currentPage) {
 	}
 }
 
+function setAccessibilityFocus(currentPageIndex){
+	var moveAccessibleFocusTo = $.scrollableView.getViews()[currentPageIndex].getChildren()[0];
+	$.uihelper.requestAccessibilityFocus(moveAccessibleFocusTo);
+}
+
 function didClickNext(e) {
 	var currentPage = $.scrollableView.currentPage;
 	if (currentPage < viewsCount) {
 		currentPage++;
 		//scroll end will be triggered as result of this
 		$.scrollableView.scrollToView(currentPage);
+		setAccessibilityFocus(currentPage);
 	} else {	
 		$.submitBtn.accessibilityValue = $.strings.accessibilityLblScreenChange;
 	

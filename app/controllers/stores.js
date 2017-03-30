@@ -96,6 +96,7 @@ function init() {
 		accessibilityLabel : "map to locate stores"
 	});
 	
+	$.mapView.accessibilityHidden = true;
 }
 
 function didPostlayoutLoader(e) {
@@ -1321,11 +1322,13 @@ function didClickRightNavBtn(e) {
 		 * should update region as it is a sync from map
 		 */
 		prepareMap(true);
+		$.mapView.accessibilityHidden = false;
 	} else {
 		$.storeTableView.visible = true;
 		currentViewType = viewTypeList;
 		//to keep map and list in sync
 		prepareList();
+		$.mapView.accessibilityHidden = true;
 	}
 	var anim = Ti.UI.createAnimation({
 		opacity : opacity,

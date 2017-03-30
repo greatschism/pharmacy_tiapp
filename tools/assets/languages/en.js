@@ -108,7 +108,7 @@ module.exports = {
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
 		"iconAccessibilityLblMap" : "Map",
-    "accessibilityLblRememberUsernameToggle" : "Keep me signed in toggle",
+    "accessibilityLblRememberUsernameToggle" : "Keep me signed in",
 		"accessibilityLblPasswordField" : "password field",
 		"accessibilityLblUsernameField" : "username field",
 		"iconAccessibilityLblList" : "List",
@@ -922,7 +922,9 @@ module.exports = {
 		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
-		"prescDetAccessibilityReminderMed" : "Set a time to take this medication"
+		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
+		"accessibilityColorPicker" : "Color picker. This is optional.",
+		"accessibilityAddFamilyIconButton" : "Add family."
 	}
 
 };

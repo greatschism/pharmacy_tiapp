@@ -2,7 +2,7 @@
 	<View class="top min-height bg-color">
 		<Button class="top-disabled left right-disabled icon-width i5 bg-color-disabled inactive-fg-color border-disabled icon-users" />
 		<Label id="lbl" class="margin-left-icon margin-right-icon h5 fg-color wrap-disabled" />
-		<Button id="arrowBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-thin-arrow-down accessibility-enabled" if="!$.args.disabled" />
+		<Button id="arrowBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-thin-arrow-down accessibility-disabled" if="!$.args.disabled" />
 		<View class="bottom h-divider-light" />
 	</View>
 </Alloy>

@@ -9,6 +9,7 @@ var args = $.args,
 			classes : ["row-selected-bg-color-disabled"]
 		});
 		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-enabled"] : ["inactive-fg-color", "icon-spot","accessibility-enabled"]);
+		$.leftIconLbl.accessibilityLabel = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
