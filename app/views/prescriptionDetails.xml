@@ -36,15 +36,15 @@
 		<View class="margin-top margin-left margin-right auto-height hgroup hwrap-disabled">
 			<View class="top width-30 auto-height vgroup">
 				<Label id="refillsLeftLbl" class="margin-left-small margin-right-small h6 txt-center inactive-fg-color wrap-disabled" />
-				<Button id="refillsLeftBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border" />
+				<Button id="refillsLeftBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border accessibility-disabled" />
 			</View>
 			<View class="top width-35 auto-height vgroup">
 				<Label id="dueLbl" class="margin-left-small margin-right-small h6 txt-center inactive-fg-color wrap-disabled" />
-				<Button id="dueBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border" />
+				<Button id="dueBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border accessibility-disabled" />
 			</View>
 			<View class="top width-35 auto-height vgroup" onClick="showHistory">
 				<Label id="lastRefillLbl" class="margin-left-small margin-right-small min-height h6 txt-center inactive-fg-color wrap-disabled" />
-				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border" />
+				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border accessibility-disabled" />
 			</View>
 		</View>
 		<Button id="refillBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" if="$.args.canHide" />

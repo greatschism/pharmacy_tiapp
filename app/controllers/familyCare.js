@@ -77,9 +77,10 @@ function didGetPatient() {
 		if (!$.familyCareAddBtn) {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
-				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled"],
+				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled","accessibility-enabled"],
 				id : "familyCareAddBtn",
-				analyticsId : "FamilyCareAddBtn"
+				analyticsId : "FamilyCareAddBtn",
+				accessibilityLabel : Alloy.Globals.strings.accessibilityAddFamilyIconButton
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);

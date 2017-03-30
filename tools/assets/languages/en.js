@@ -922,7 +922,9 @@ module.exports = {
 		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
-		"prescDetAccessibilityReminderMed" : "Set a time to take this medication"
+		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
+		"accessibilityColorPicker" : "Color picker. This is optional.",
+		"accessibilityAddFamilyIconButton" : "Add family."
 	}
 
 };
