@@ -921,6 +921,7 @@ module.exports = {
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
 		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
+		"accessibilityCheckboxChecked" : "Checkbox Checked",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
