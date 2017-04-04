@@ -965,6 +965,9 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
+	if (Ti.App.accessibilityEnabled) {
+		$.tooltip && $.tooltip.hide();
+	};
 }
 
 function didClickHide(e) {

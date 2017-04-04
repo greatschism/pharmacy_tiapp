@@ -1,7 +1,7 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="$.args.hasChild">
 		<View id="containerView" class="auto-height">
-			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
+			<View id="swipeView" class="right bg-color min-height bubble-disabled accessibility-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
 				<View id="masterView" class="margin-top margin-bottom margin-left margin-right-small auto-height">
 					<View id="colorBoxView" class="left color-box border" />
@@ -17,7 +17,7 @@
 	</TableViewRow>
 	<TableViewRow id="row" class="row-selected-bg-color-disabled" if="!$.args.hasChild">
 		<View id="containerView" class="auto-height">
-			<View id="swipeView" class="right bg-color min-height bubble-disabled" />
+			<View id="swipeView" class="right bg-color min-height bubble-disabled accessibility-disabled" />
 			<View id="contentView" class="right width-100 auto-height bg-color">
 				<View id="masterView" class="margin-top margin-bottom margin-left margin-right auto-height">
 					<View id="colorBoxView" class="left color-box border" />

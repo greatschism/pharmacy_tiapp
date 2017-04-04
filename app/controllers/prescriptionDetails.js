@@ -68,8 +68,11 @@ function init() {
 		loadStore();
 	}
 	
+	$.refillsLeftLbl.accessibilityLabel = $.refillsLeftLbl.text;
 	$.refillsLeftLbl.accessibilityValue = $.refillsLeftBtn.title;
+	$.dueLbl.accessibilityLabel = $.dueLbl.text;
 	$.dueLbl.accessibilityValue = $.dueBtn.title !== $.strings.strNil ? $.dueBtn.title : 0;
+	$.lastRefillLbl.accessibilityLabel = $.lastRefillLbl.text;
 	$.lastRefillLbl.accessibilityValue = $.lastRefillBtn.title !== $.strings.strNil ? $.lastRefillBtn.title : 0;
 	setAccessibilityLabelOnSwitch($.reminderRefillSwt, $.strings.prescDetAccessibilityReminderRefill);
     setAccessibilityLabelOnSwitch($.reminderMedSwt, $.strings.prescDetAccessibilityReminderMed);

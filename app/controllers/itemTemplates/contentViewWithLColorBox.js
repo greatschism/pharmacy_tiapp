@@ -69,7 +69,7 @@ CONSTS = Alloy.TSS[CONSTS];
 		_.each(args.options, function(option, index) {
 			var fromLeft = width * index,
 			    btn = $.UI.create("Button", {
-				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "light-fg-color", "h6", "border-disabled", "bubble-disabled"],
+				classes : ["top", "fill-height", (option.type || "inactive") + "-bg-color", "light-fg-color", "h6", "border-disabled", "bubble-disabled", "accessibility-disabled"],
 				width : width,
 				left : fromLeft,
 				title : option.title,
@@ -77,7 +77,7 @@ CONSTS = Alloy.TSS[CONSTS];
 			});
 			if (index !== 0) {
 				$.swipeView.add($.UI.create("View", {
-					classes : ["top", "v-divider-light", "fill-height", "bg-color", "bubble-disabled"],
+					classes : ["top", "v-divider-light", "fill-height", "bg-color", "bubble-disabled", "accessibility-disabled"],
 					left : fromLeft,
 					zIndex : 4
 				}));
