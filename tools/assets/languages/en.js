@@ -108,7 +108,7 @@ module.exports = {
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
 		"iconAccessibilityLblMap" : "Map",
-    "accessibilityLblRememberUsernameToggle" : "Keep me signed in",
+		"accessibilityLblRememberUsernameToggle" : "Keep me signed in",
 		"accessibilityLblPasswordField" : "password field",
 		"accessibilityLblUsernameField" : "username field",
 		"iconAccessibilityLblList" : "List",
@@ -119,24 +119,17 @@ module.exports = {
 		"iconAccessibilityLblAddReminder": "Add Reminder",
 		
 		"iconAccessibilityLblArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblArrowUp" : "Close options",
-		
+		"iconAccessibilityLblArrowUp" : "Close options",		
 		"iconAccessibilityLblThinArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblThinArrowUp" : "Close options",
-
 		"iconAccessibilityLblThickArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblThickArrowUp" : "Close options",
-		
+		"iconAccessibilityLblThickArrowUp" : "Close options",		
 		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblTooltipArrowUp" : "Close options",
-
-
 		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
-		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
-		
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",		
 		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
 		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
-
 		"iconAccessibilityLblSuccess" : "Checkbox",
 
 		"iconAccessibilityLblStar" : "Favourite",
@@ -214,13 +207,9 @@ module.exports = {
 		"titleAddAnAdult" : "Add an adult",
 
 		"upgradeBtnSubmit" : "Upgrade now",
-
 		"maintenanceBtnSubmit" : "Try again",
-
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
-
 		"tmplRxTxtHintRx" : "Enter your prescription number",
-
 		"tmplOptionDividerLbl" : "Or",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",

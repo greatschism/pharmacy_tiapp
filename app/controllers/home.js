@@ -327,9 +327,9 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
-		if ($.pagingcontrol)
+		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
-
+		}
 		return true;
 	}
 	return false;
