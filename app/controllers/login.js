@@ -184,7 +184,7 @@ function didAuthenticate(passthrough) {
 				ctrl : "familyMemberAdd",
 				stack : false
 			});
-	} else {
+		} else {
 			$.app.navigator.open({
 				titleid : "titleAddAnAdult",
 				ctrl : "addAnotherAdult",
@@ -239,19 +239,16 @@ function didClickForgotPassword(e) {
 function didClickSignup(e) {
 	if(Alloy.CFG.is_proxy_enabled)
 	{
-	$.app.navigator.open({
-		ctrl : "register",
-		stack : true
-	});
-	}
-	
-	else
-	{
 		$.app.navigator.open({
-		ctrl : "signup",
-		titleid : "titleCreateAccount",
-		stack : true
-	});
+			ctrl : "register",
+			stack : true
+		});
+	} else {
+		$.app.navigator.open({
+			ctrl : "signup",
+			titleid : "titleCreateAccount",
+			stack : true
+		});
 	}
 }
 
@@ -269,11 +266,11 @@ function didPostlayout(e) {
 	 *
 	 */
 
-		$.tooltip.updateArrow($.createStyle({
-			classes : ["direction-up"]
-		}).direction, $.createStyle({
-			classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
-		}));
+	$.tooltip.updateArrow($.createStyle({
+		classes : ["direction-up"]
+	}).direction, $.createStyle({
+		classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
+	}));
 
 	$.tooltip.applyProperties($.createStyle({
 		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,

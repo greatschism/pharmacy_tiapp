@@ -107,8 +107,9 @@ module.exports = {
 		"iconAccessibilityLblBack" : "Back",
 		"iconAccessibilityLblOptionsMenu" : "Options menu",
 		"iconAccessibilityLblHelp" : "Help",
+
 		"iconAccessibilityLblMap" : "Map",
-    "accessibilityLblRememberUsernameToggle" : "Keep me signed in",
+		"accessibilityLblRememberUsernameToggle" : "Keep me signed in",
 		"accessibilityLblPasswordField" : "password field",
 		"accessibilityLblUsernameField" : "username field",
 		"iconAccessibilityLblList" : "List",
@@ -119,24 +120,17 @@ module.exports = {
 		"iconAccessibilityLblAddReminder": "Add Reminder",
 		
 		"iconAccessibilityLblArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblArrowUp" : "Close options",
-		
+		"iconAccessibilityLblArrowUp" : "Close options",		
 		"iconAccessibilityLblThinArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblThinArrowUp" : "Close options",
-
 		"iconAccessibilityLblThickArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblThickArrowUp" : "Close options",
-		
+		"iconAccessibilityLblThickArrowUp" : "Close options",		
 		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblTooltipArrowUp" : "Close options",
-
-
 		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
-		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
-		
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",		
 		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
 		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
-
 		"iconAccessibilityLblSuccess" : "Checkbox",
 
 		"iconAccessibilityLblStar" : "Favourite",
@@ -144,13 +138,14 @@ module.exports = {
 		"iconAccessibilityLblPhone" : "Phone",
 		"iconAccessibilityLblPrint" : "Print option",
 		"iconAccessibilityLblAlarm" : "Alarm",
-		"iconAccessibilityLblClock" : "Clock",
+		"iconAccessibilityLblClock" : "Timings",
 		"iconAccessibilityLblCalendar" : "Calendar",
 		"iconAccessibilityLblDirection" : "Direction",
 		"iconAccessibilityLblBadgeStar" : "Badge",
 		"iconAccessibilityLblCheckboxChecked" : "Selected",
 		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
 		"iconAccessibilityLblSpot" : "Deselected",
+		"iconAccessibilityLblHome" : "Home Pharmacy",
 
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
@@ -172,6 +167,7 @@ module.exports = {
 		"titleRefill" : "Refill by scan",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
+		// "titleInsurance" : "Send insurance card",
 		"titleAccount" : "Account",
 		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
@@ -212,15 +208,12 @@ module.exports = {
 		"titleForgotPassword" : "Password recovery",
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
-
+		"titleInsuranceCard" : "Update insurance card",
+		
 		"upgradeBtnSubmit" : "Upgrade now",
-
 		"maintenanceBtnSubmit" : "Try again",
-
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
-
 		"tmplRxTxtHintRx" : "Enter your prescription number",
-
 		"tmplOptionDividerLbl" : "Or",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
@@ -380,7 +373,7 @@ module.exports = {
 		"prescAddTooltipBtnHide" : "Got it!",
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
-
+		"prescDetPromptCopay" : "Payment amount due:",
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
@@ -597,14 +590,14 @@ module.exports = {
 		"transferOptsStrStoreNone" : "your present pharmacy",
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",
-		"transferOptsBtnTransfer" : "Complete transfer",
+		"transferOptsBtnTransfer" : "Submit transfer",
 
 		"transferReviewSectionUser" : "Personal details",
-		"transferReviewSectionStore" : "Your transfer has been placed at:",
-		"transferReviewSectionPresc" : "Prescription transferred:",
+		"transferReviewSectionStore" : "Your transfer is being placed at:",
+		"transferReviewSectionPresc" : "Prescription to be transferred:",
 		"transferReviewLblInstruction" : "Make sure it is easy to see the pharmacy phone number.",
 		"transferReviewLblDob" : "DOB: %s",
-		"transferReviewBtnTransfer" : "Complete transfer",
+		"transferReviewBtnTransfer" : "Submit transfer",
 
 		"transferSuccessLblHeader" : "Your transfer is being processed!",
 		"transferSuccessLblContact" : "Please contact your pharmacy if you have any questions",
@@ -785,12 +778,13 @@ module.exports = {
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
 		"receiveTextPhoneNoChild" : "Please select at least one person to receive text messages.",
-
+        "faxImageMessage" : "Image generated via customer mobile app",
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",
 		"textMessageTextHelpTitle" : "Sorry about that.",
+		"textMessageOtpLbl" : "We just sent you a text. Please reply with the letter %s to complete signup.",
 		"textMessageLbl" : "We have just sent you a text message, please reply with the three digit code below.",
-		"textMessageSignUpLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageSignUpLbl" : "You cannot receive text messages until you verify your number by replying with Y.",
 		"textMessageTextHelpLbl" : "Some phone carriers experience delays when sending text messages.",
 		"textMessageBtn" : "I replied to the text message",
 		"textMessageAttrLbl" : "<secondaryfont><secondarycolor>Didn't receive the text message?</secondarycolor></secondaryfont>",
@@ -801,7 +795,7 @@ module.exports = {
 		"textMessageDidNotReceiveTextTitle" : "Sorry about that",
 		"textMessageReplyTitle" : "Are you sure you replied?",
 		"textMessageDidNotReceiveTextLbl" : "Some phone carriers experience delays when sending text messages.",
-		"textMessageReplyLbl" : "You cannot receive text messages until you verify your number by replying with the three digit code below.",
+		"textMessageReplyLbl" : "You cannot receive text messages until you verify your number by replying with Y.",
 		"textMessageNotReceiveTitle" : "Your carrier is blocking your text messages.",
 		"textMessageNotReceiveLbl" : "To fix this please contact your mobile carrier (i.e T-mobile, Sprint) and ask them to unblock the number below.",
 		"textMessageNotReceiveBtn" : "I unblocked the shortcode",
@@ -911,6 +905,12 @@ module.exports = {
 		
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
 		
+	    "insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
+	    "insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
+	    "insuranceCardUpdateContactLblSubtitle" : "Your contact info",
+	    "insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
+	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
+
 		"loginInfoUpdateTitle" : "Welcome back!",
 		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
 		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
@@ -927,5 +927,4 @@ module.exports = {
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family."
 	}
-
 };

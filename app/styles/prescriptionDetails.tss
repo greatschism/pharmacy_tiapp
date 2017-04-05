@@ -25,6 +25,9 @@
 "#storePromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptStore
 },
+"#copayPromptLbl":{
+	text: Alloy.Globals.strings.prescDetPromptCopay
+},
 "#remindersLbl":{
 	text: Alloy.Globals.strings.prescDetSectionReminders
 },

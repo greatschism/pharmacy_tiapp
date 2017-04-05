@@ -1,16 +1,14 @@
 <Alloy>
 	<ScrollView class="vgroup">
-		<Label id="txtMsgTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.txtMsgTitle"/>
 		<Label id="signUpTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.signUpTitle"/>
 		<Label id="txtHelpTitle" class="margin-top margin-left margin-right h2 txt-center" if="$.args.txtHelpTitle"/>
 		<Label id="txtNotReceiveTitle" class="margin-top-large margin-left margin-right h2 txt-center" if="$.args.txtNotReceiveTitle"/>
 		<ImageView id="txtSuccessImg" class="margin-top-large" if="$.args.txtSuccessImg"/>
 		<ImageView id="txtFailImg" class="margin-top-large" if="$.args.txtFailImg"/>
-		<Label id="txtMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtMsgLbl"/>
+		<Label id="txtMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" textAlign="center" if="$.args.txtMsgLbl"/>
 		<Label id="signUpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.signUpLbl"/>
 		<Label id="txtHelpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtHelpLbl"/>
 		<Label id="txtNotReceiveLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtNotReceiveLbl"/>
-		<Widget id="txtCode" analyticsId="TxtCode"  src="ti.textfield" class="top txt-center border-disabled returnkey-done" if="$.args.txtCode" editable="false"/>
 		<Button id="txtMsgBtn" analyticsId="TxtMsgBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
 		<Button id="txtNotReceiveBtn" analyticsId="TxtNotReceiveBtn" class="bg-color primary-fg-color primary-border" onClick="didNotReceiveText" if="$.args.txtNotReceiveBtn"/>
 		<Button id="sendTxtSignUpBtn" analyticsId="SendTxtSignUpBtn" class="bg-color primary-fg-color primary-border" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>

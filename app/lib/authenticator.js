@@ -127,7 +127,7 @@ function didAuthenticate(result, passthrough) {
 		 */
 		if (passthrough.force_start) {
 			doLogout(passthrough);
-		} else{
+		} else {
 			app.navigator.open({
 	 			ctrl : "mgrAccountUpdate",
 	 			titleid : "mgrAccountUpdateTitle",

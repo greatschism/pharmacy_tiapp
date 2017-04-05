@@ -1,4 +1,5 @@
 var args = $.args,
+	uihelper = require("uihelper"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     optionPadding = {
 	top : 12,
@@ -70,9 +71,12 @@ function init() {
 	 */
 	var height = ((choiceDict.height + optionPadding.top + optionPadding.bottom) * choices.length) + 5;
 	$.tableView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
-	_.each(parent.children, function(child) {
+	/*_.each(parent.children, function(child) {
 		child.accessibilityHidden = true;
 	});
+	*/
+	
+	uihelper.toggleAccessibility(parent, true, true);
 	$.picker.addEventListener("postlayout", didPostlayout);
 	parent.add($.picker);
 }
@@ -107,9 +111,12 @@ function getRow(data) {
 }
 
 function terminate(callback) {
-	_.each(parent.children, function(child) {
+	/*_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
 	});
+	*/
+	
+	uihelper.toggleAccessibility(parent, false, true);
 	var animation = Ti.UI.createAnimation({
 		opacity : 0,
 		duration : 200

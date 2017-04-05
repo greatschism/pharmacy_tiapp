@@ -128,6 +128,7 @@ module.exports = {
 		"titleRefill" : "es-Refill now",
 		"titleStores" : "es-Find a store",
 		"titleDoctors" : "es-Doctors",
+		"titleInsurance" : "es-Send insurance card",
 		"titleAccount" : "es-Account",
 		"titleStoreDetails" : "es-Store details",
 		"titlePrescriptionDetails" : "es-Drug details",
@@ -824,7 +825,9 @@ module.exports = {
 		
 		"msgTryAgainStoragePermission" : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
 		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
-		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature."
+		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature.",
+		"insuranceCardUploadLblSubTitle" : "Updated the insurance? Please take a photo of your new card.",
+	    "insuranceCardUpdateInfoLblSubTitle": "Whose profile are we updating today?"
 	}
 
 };

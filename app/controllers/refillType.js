@@ -1,5 +1,6 @@
 var args = $.args,
-logger = require("logger"),
+	logger = require("logger"),
+	uihelper = require("uihelper"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
@@ -262,6 +263,7 @@ function focus() {
 		logger.debug("\n\n\n calling update store \n\n\n");
 
 	}
+	
 }
 
 function didFail(result, passthrough) {

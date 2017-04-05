@@ -323,7 +323,7 @@ function processModel(model) {
 		color : model.get("color_code"),
 		title : title,
 		subtitle : subtitle,
-		options : swipeOptions
+		options : Ti.App.accessibilityEnabled ? null : swipeOptions
 	});
 	var row = Alloy.createController("itemTemplates/contentViewWithLColorBox", model.toJSON());
 	row.on("clickoption", didClickSwipeOption);

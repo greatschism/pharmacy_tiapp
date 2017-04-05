@@ -176,25 +176,18 @@ function didLogout() {
 	}).init();
 }
 
-
 function windowDidOpen(e) {
-	_.each($.rootWindow.getChildren(), function(child) {
-		child.setAccessibilityHidden(true);
-	});
+	uihelper.toggleAccessibility($.rootWindow, true);
 	uihelper.requestViewFocus($.menuCtrl.getView());
 }
 
-
 function windowDidClose(e) {
 	var children = $.rootWindow.getChildren();
-	_.each(children, function(child) {
-		child.setAccessibilityHidden(false);
-	});
+	uihelper.toggleAccessibility($.rootWindow, false);
 	if (children[0]) {
 		uihelper.requestViewFocus(children[0]);
 	}
 }
-
 
 function didAndoridBack(e) {
 

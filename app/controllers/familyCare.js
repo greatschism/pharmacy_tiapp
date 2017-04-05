@@ -89,8 +89,7 @@ function didGetPatient() {
 		if ($.familyMemberAddBtn) {
 			$.familyCareView.remove($.familyMemberAddBtn);
 		}
-	} 
-	else {
+	} else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
 		var detailBtnClasses = ["bg-color", "primary-fg-color", "primary-border", "width-40"];
@@ -137,7 +136,7 @@ function didGetPatient() {
 					title : $.utilities.ucword(childProxy.first_name) || $.utilities.ucword(childProxy.last_name) ? $.utilities.ucword(childProxy.first_name) + " " + $.utilities.ucword(childProxy.last_name) : childProxy.address,
 					subtitle : $.strings.familyCareRelatedPrefix + childProxy.related_by,
 					detailType : colorCode,
-					options : childProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
+					options : Ti.App.accessibilityEnabled ? null : (childProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions),
 					detailSubtitle : status
 				};
 				childProxyData.push(childProxy);
@@ -169,7 +168,7 @@ function didGetPatient() {
 					parent_id : parentProxy.parent_id,
 					title : $.utilities.ucword(parentProxy.first_name) || $.utilities.ucword(parentProxy.last_name) ? $.utilities.ucword(parentProxy.first_name) + " " + $.utilities.ucword(parentProxy.last_name) : parentProxy.address,
 					detailType : colorCode,
-					options : parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
+					options : Ti.App.accessibilityEnabled ? null : (parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions),
 					detailTitle : status
 				};
 				parentProxyData.push(parentProxy);

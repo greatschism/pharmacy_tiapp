@@ -185,9 +185,7 @@ function processModel(model) {
 			if(decodedImageURL.indexOf('?') != -1)
 			{
 				imageURL = decodedImageURL.split('?')[0];
-			}
-			else
-			{
+			} else {
 				imageURL = decodedImageURL;
 			}
 		}
@@ -198,7 +196,7 @@ function processModel(model) {
 		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
 		subtitle : subtitle,
 		prescriptions : docPrescs,
-		options : swipeOptions
+		options : Ti.App.accessibilityEnabled ? null : swipeOptions
 	});
 	var row = Alloy.createController("itemTemplates/contentViewSwipeable", model.toJSON());
 	row.on("clickoption", didClickSwipeOption);

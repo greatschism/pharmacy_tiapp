@@ -994,7 +994,7 @@ if (program.buildOnly) {
 				 */
 				if (!exec("security find-certificate -c \"" + buildKeys.certificate_name + "\"").stderr && exec("security delete-certificate -c \"" + buildKeys.certificate_name + "\"").stderr) {
 					logger.error("Multiple certificates found with same name " + buildKeys.certificate_name + ". Please delete them manually from keychain and try again.");
-					process.exit(10);
+//					process.exit(10);
 				}
 			} else {
 				logger.warn("Distribution certificate " + buildKeys.certificate_name + " not found!");

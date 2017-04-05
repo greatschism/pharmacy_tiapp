@@ -69,9 +69,9 @@ module.exports = {
 				"navigation" : {
 					"action" : "refill"
 				}
-			},{
+			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
@@ -122,9 +122,9 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "familyCare"
 				}
-			},{
+			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
@@ -150,9 +150,9 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "stores"
 				}
-			},{
+			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
@@ -178,9 +178,38 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "transfer"
 				}
-			},{
+			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"children" : [{
+					"items" : [{
+						"apiName" : "View",
+						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-reward"]
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleInsurance"
+								}
+							}]
+						}]
+					}]
+				}],
+				"feature_name" : "is_insurancecard_enabled",
+				"navigation" : {
+					"ctrl" : "insurance",
+					"titleid" : "titleInsuranceCard"
+				}
+			}, {
+				"apiName" : "View",
+				"classes" : ["margin-top-medium", "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
@@ -206,9 +235,9 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "doctors"
 				}
-			},{
+			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
 			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
@@ -233,7 +262,7 @@ module.exports = {
 				"navigation" : {
 					"ctrl" : "account"
 				}
-			},{
+			}, {
 				"apiName" : "View",
 				"classes" : ["margin-top-medium", "h-divider-light"]
 			}]

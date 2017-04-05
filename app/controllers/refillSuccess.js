@@ -1,8 +1,19 @@
 var args = $.args,
     prescriptions = args.prescriptions || [],
-    store;
+    store,
+    fromInsurance = args.fromInsurance;
 
 function init() {
+
+	if (fromInsurance) {
+		$.lblContact.text = args.resultMessage;
+		$.window.title = "Success";
+		$.lbl.height = 0;
+		$.img.applyProperties($.createStyle({
+			classes : ["margin-top-large", "margin-bottom-extra-large", "img-success"]
+		}));
+		return;
+	}
 	var isSuccess = _.findWhere(prescriptions, {
 		refill_is_error : false
 	}),
@@ -12,6 +23,8 @@ function init() {
 	var tKey,
 	    iKey,
 	    lKey;
+	isSuccess = true;
+	isFailure = false;
 	if (isSuccess && isFailure) {
 		//partial success
 		tKey = "titleRefillSuccess";
@@ -46,11 +59,13 @@ function init() {
 }
 
 function focus() {
-	var storeId = prescriptions[0].refill_store_id;
-	if (storeId) {
-		getStore(storeId);
-	} else {
-		updateTable();
+	if (!fromInsurance) {
+		var storeId = prescriptions[0].refill_store_id;
+		if (storeId) {
+			getStore(storeId);
+		} else {
+			updateTable();
+		}
 	}
 }
 
@@ -101,26 +116,25 @@ function updateTable() {
 		/**
 		 * this is a successful refill
 		 * so store last used store id
-		 
-		if(! Alloy.Globals.isMailOrderService )
-		{
-			$.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
-		}
-		*/
+
+		 if(! Alloy.Globals.isMailOrderService )
+		 {
+		 $.utilities.setProperty(Alloy.CFG.latest_store_refilled, store.id);
+		 }
+		 */
 		var storeRow = Alloy.createController("itemTemplates/contentViewAttributed", store);
 		storeRow.on("click", didClickStorePhone);
 		$.pickupSection.add(storeRow.getView());
 	}
 	if (isMailOrder) {
-			var isSuccess = _.findWhere(prescriptions, {
+		var isSuccess = _.findWhere(prescriptions, {
 			refill_is_error : false
 		}),
 		    isFailure = _.findWhere(prescriptions, {
 			refill_is_error : true
 		});
-		
-		if((isSuccess && isFailure) || isSuccess)
-		{
+
+		if ((isSuccess && isFailure) || isSuccess) {
 			$.pickupSection.add(Alloy.createController("itemTemplates/label", {
 				title : $.strings.refillSuccessLblMailOrder
 			}).getView());
@@ -161,12 +175,11 @@ function updateTable() {
 }
 
 function didClickStorePhone(e) {
-	if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
+	if (!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result) {
+			if (result.success) {
 				contactsHandler();
-			}
-			else{
+			} else {
 				$.analyticsHandler.trackEvent("QuickRefill-RefillSuccess", "click", "DeniedContactsPermission");
 			}
 		});

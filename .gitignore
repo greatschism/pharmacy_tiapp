@@ -12,3 +12,4 @@ dist
 .settings
 build
 Resources
+/i18n
