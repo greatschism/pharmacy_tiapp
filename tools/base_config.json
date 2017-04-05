@@ -28,6 +28,7 @@
 			"stores_bookmark_update": "stores/bookmark/update",
 			"stores_bookmark_delete": "stores/bookmark/delete",
 			"stores_transfer": "stores/transfer",
+			"store_sendInsuranceCard": "stores/sendInsuranceCard",
 			"doctors_list": "doctors/list",
 			"doctors_get": "doctors/get",
 			"doctors_add": "doctors/add",

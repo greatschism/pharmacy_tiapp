@@ -85,7 +85,7 @@ function transferStore(imageURL) {
 		_.extend(data, {
 			first_name : currentPatient.get("first_name"),
 			last_name : currentPatient.get("last_name"),
-			birth_date : currentPatient.get("birth_date"),
+			birth_date :  moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.date_format),
 			mobile : currentPatient.get("mobile_number"),
 			email_address : currentPatient.get("email_address")
 		});

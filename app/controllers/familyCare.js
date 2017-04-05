@@ -89,8 +89,7 @@ function didGetPatient() {
 		if ($.familyMemberAddBtn) {
 			$.familyCareView.remove($.familyMemberAddBtn);
 		}
-	} 
-	else {
+	} else {
 		mgrData = [];
 		$.mgrSection = Ti.UI.createTableViewSection();
 		var detailBtnClasses = ["bg-color", "primary-fg-color", "primary-border", "width-40"];

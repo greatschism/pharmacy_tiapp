@@ -1,0 +1,11 @@
+<Alloy>
+	<View id="nameView" class="margin-top margin-left margin-right auto-height vgroup border">
+		<View id="txtView" class="auto-height" >
+			<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next"  />
+			<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onClick="didClick" />
+			<View id="vDividerView" class="v-divider "/>
+		</View>
+		<View class="h-divider"/>
+		<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" />
+	</View>
+</Alloy>

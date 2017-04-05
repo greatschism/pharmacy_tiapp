@@ -1,0 +1,37 @@
+<Alloy>
+	<ScrollView id="scrollView" class="auto-height disable-bounce ">
+		<View id="view" class="auto-height vgroup">
+		<View id="parentView" class="width-100 vgroup">
+			<View class="auto-height inactive-light-bg-color role-header-view ">
+			<Label id="titleLbl1" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
+		</View>
+		<View id="contanierViewInfo" class = "auto-height vgroup">
+			<View id="nameView" class="margin-top margin-left margin-right auto-height vgroup border">
+				<View id="txtView" class="auto-height" >
+					<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+					<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+					<View id="vDividerView" class="v-divider"/>
+				</View>
+				<View class="h-divider"/>
+				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
+			</View>
+			</View>
+			<View class="auto-height">
+			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed-20" onClick="didClickAdd" />
+		</View>
+			<View class="margin-top auto-height inactive-light-bg-color role-header-view">
+			<Label id="titleLbl2" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
+		</View>
+			<View id="rxContainer" class="margin-top margin-left margin-right auto-height vgroup border">
+				<Widget id="moNumberTxt" analyticsId="RxNoTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-phone returnkey-next" onChange="didChangePhone" />
+				<View class="h-divider"/>
+				<View id="storeView" analyticsId="StoreView" class="auto-height" onClick="didClickPharmacy">
+					<Label id="storeTitleLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
+					<Label id="arrowLbl" class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+				</View>
+			</View>
+			<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignup"/>
+		</View>
+		</View>
+	</ScrollView>
+</Alloy>

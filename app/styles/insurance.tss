@@ -1,0 +1,6 @@
+"#titleLbl":{
+	text:Alloy.Globals.strings.insuranceCardUploadLblSubTitle
+},
+"#photoBtn":{
+	title:Alloy.Globals.strings.transferBtnPhoto
+}

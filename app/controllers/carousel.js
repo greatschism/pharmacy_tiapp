@@ -120,16 +120,14 @@ function didClickNext(e) {
 	
 		if(Alloy.CFG.is_proxy_enabled)
 		{
- 		$.app.navigator.open({
-			ctrl : "register",
- 		});
-		}		
-		else
-		{
+ 			$.app.navigator.open({
+				ctrl : "register",
+ 			});
+		} else {
 			$.app.navigator.open({
-			ctrl : "signup",
-		titleid : "titleCreateAccount",
-		});
+				ctrl : "signup",
+				titleid : "titleCreateAccount",
+			});
 		}	
  	}
 

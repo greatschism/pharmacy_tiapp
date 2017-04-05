@@ -29,6 +29,10 @@
 						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
+					<View id="copayView" class="margin-top auto-height">
+						<Label id="copayPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="copayReplyLbl" class="top margin-left-medium positive-fg-color hide" />
+					</View>
 				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
 			</Widget>
