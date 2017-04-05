@@ -88,11 +88,11 @@ function init() {
 		classes : ["right", "i6", "txt-right", "bg-color-disabled", "inactive-fg-color", "icon-thin-arrow-right"]
 	});
 	listIconDict = $.createStyle({
-		classes : ["icon-list", "accessibility-actionablelements"],
+		classes : ["icon-list"],
 		accessibilityLabel : "stores list"
 	});
 	mapIconDict = $.createStyle({
-		classes : ["icon-map", "accessibility-actionablelements"],
+		classes : ["icon-map"],
 		accessibilityLabel : "map to locate stores"
 	});
 	

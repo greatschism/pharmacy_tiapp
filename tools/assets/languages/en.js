@@ -144,13 +144,15 @@ module.exports = {
 		"iconAccessibilityLblPhone" : "Phone",
 		"iconAccessibilityLblPrint" : "Print option",
 		"iconAccessibilityLblAlarm" : "Alarm",
-		"iconAccessibilityLblClock" : "Clock",
+		"iconAccessibilityLblClock" : "Timings",
 		"iconAccessibilityLblCalendar" : "Calendar",
 		"iconAccessibilityLblDirection" : "Direction",
 		"iconAccessibilityLblBadgeStar" : "Badge",
 		"iconAccessibilityLblCheckboxChecked" : "Selected",
 		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
 		"iconAccessibilityLblSpot" : "Deselected",
+		"iconAccessibilityLblHome" : "Home Pharmacy",
+
 
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",

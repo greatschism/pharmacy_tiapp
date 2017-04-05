@@ -1,4 +1,5 @@
 var args = $.args,
+	uihelper = require("uihelper"),
     font = args.font || {
 	fontSize : 12
 },
@@ -49,9 +50,12 @@ var args = $.args,
 })();
 
 function init() {
-	_.each(parent.children, function(child) {
+	/*_.each(parent.children, function(child) {
 		child.accessibilityHidden = true;
 	});
+	*/
+	
+	uihelper.toggleAccessibility(parent, true, true);
 	$.datePicker.addEventListener("postlayout", didPostlayout);
 	parent.add($.datePicker);
 }
@@ -65,9 +69,12 @@ function didChange(e) {
  * as this is used as event listener too
  */
 function terminate(callback) {
-	_.each(parent.children, function(child) {
+	/*_.each(parent.children, function(child) {
 		child.accessibilityHidden = false;
 	});
+	*/
+	
+	uihelper.toggleAccessibility(parent, false, true);
 	var isCancel = callback && callback.source && callback.source == $.leftBtn,
 	    animation = Ti.UI.createAnimation({
 		opacity : 0,

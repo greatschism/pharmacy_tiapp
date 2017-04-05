@@ -35,6 +35,25 @@ var Helper = {
 	},
 
 	/**
+	 * force accessibility to be hidden / shown based on given input
+	 * @param {View} view to focus
+	 * @param {Boolean} value for `Ti.UI.View.accessibilityHidden`
+	 * @param {Boolean} recursive decides whether or not to apply on all it's individual children
+	 */
+	toggleAccessibility : function(view, value, recursive) {
+		if (Ti.App.accessibilityEnabled) {
+			var children = view.children;
+			_.each(children, function(child) {
+				child.accessibilityHidden = value;
+				console.log(child, child.accessibilityHidden, value);
+				if (recursive && _.has(child, "children")) {
+					Helper.toggleAccessibility(child, value, recursive);
+				}
+			});
+		}
+	},
+
+	/**
 	 * Accessibility system announcement
 	 * @param {String} str for announcement
 	 */
