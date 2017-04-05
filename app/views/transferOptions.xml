@@ -6,7 +6,7 @@
 			</View>
 		</HeaderView>
 		<TableViewRow onClick="handleEvent">
-			<Label id="transferAllPrescLbl" class="margin-top margin-bottom margin-left width-70" />		
+			<Label id="transferAllPrescLbl" class="margin-top margin-bottom margin-left width-70 accessibility-disabled" />		
 			<Widget id="transferAllPrescSwt" analyticsId="TransferAllPrescSwt" src="ti.switch" class="margin-right swt" />
 		</TableViewRow>
 		<!--<TableViewRow>

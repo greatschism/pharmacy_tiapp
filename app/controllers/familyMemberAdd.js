@@ -1,8 +1,15 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     relationship;
+
+
+
 function focus() {
 	$.uihelper.getImage("family_add", $.imgFamilyAdd);
+
+	$.__views.imgFamilyAdd.accessibilityHidden  = true;
+
+
 	if (Alloy.Models.relationship.get("code_values")) {
 		updateInputs();
 	} else {
@@ -20,6 +27,9 @@ function focus() {
 		});
 	}
 
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+	$.dobDp.__views.widget.applyProperties(iDict);
 }
 
 function didGetRelationships(result, passthrough) {
@@ -58,34 +68,33 @@ function updateInputs() {
 function setParentView(view) {
 	$.dobDp.setParentView(view);
 	$.relationshipDp.setParentView(view);
-
 }
 
 function didClickContinue() {
-	$.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
-	var dob = $.dobDp.getValue(),
-	    age = getAge(dob);
-	relationship = $.relationshipDp.getSelectedItem();
-	if (!dob) {
-		$.uihelper.showDialog({
-			message : $.strings.familyMemberAddValDob
-		});
-		return;
-	}
+    $.utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
+    var dob = $.dobDp.getValue(),
+    	age = getAge(dob);
+    relationship = $.relationshipDp.getSelectedItem();
+    if (!dob) {
+        $.uihelper.showDialog({
+            message: $.strings.familyMemberAddValDob
+        });
+        return;
+    }
 	if (_.isEmpty(relationship.code_value)) {
 		$.uihelper.showDialog({
 			message : $.strings.familyMemberAddValRelationship
 		});
 		return;
-	}
+	}	
 	var otherRelationship = $.relationshipDp.getSelectedItem().code_display;
 	if (otherRelationship === "Other") {
-		if (_.isEmpty($.otherTxt.getValue())) {
-			$.uihelper.showDialog({
-				message : $.strings.familyMemberAddValRelationship
-			});
-			return;
-		}
+        if (! $.utilities.validateRelationship($.otherTxt.getValue()) ) {
+            $.uihelper.showDialog({
+                message: $.strings.familyMemberRelationshipTips
+            });
+            return;
+        }
 	}
 	var relationshipValue = otherRelationship === "Other" ? $.otherTxt.getValue() : relationship.code_value;
 	if (age >= 12 && age <= 17) {

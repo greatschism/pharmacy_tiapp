@@ -47,13 +47,13 @@
 			</HeaderView>
 			<TableViewRow>
 				<View class="auto-height">
-					<Label id="hideExpiredPrescriptionLbl" class="margin-top margin-bottom margin-left" />
+					<Label id="hideExpiredPrescriptionLbl" class="margin-top margin-bottom margin-left accessibility-disabled" />
 					<Widget id="hideExpiredPrescriptionSwt" analyticsId="HideExpiredPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideExpPrescription"/>
 				</View>
 			</TableViewRow>
 			<TableViewRow>
 				<View class="auto-height">
-					<Label id="hideZeroRefillPrescriptionLbl" class="margin-top margin-bottom margin-left" />
+					<Label id="hideZeroRefillPrescriptionLbl" class="margin-top margin-bottom margin-left accessibility-disabled" />
 					<Widget id="hideZeroRefillPrescriptionSwt" analyticsId="HideZeroRefillPrescriptionSwt" src="ti.switch" class="margin-right swt" onChange="didChangeHideZeroRefillPrescription"/>
 				</View>
 			</TableViewRow>
@@ -87,7 +87,7 @@
 			</HeaderView>
 			<TableViewRow>
 				<View class="auto-height">
-					<Label id="keepMeSignedInLbl" class="margin-top margin-bottom margin-left" />
+					<Label id="keepMeSignedInLbl" class="margin-top margin-bottom margin-left accessibility-disabled" />
 					<Widget id="keepMeSignedInSwt" analyticsId="KeepMeSignedInSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
 				</View>
 			</TableViewRow>

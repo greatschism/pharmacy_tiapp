@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<View class="vgroup">
 		<ImageView id="logoImg" class="img-padding-top logo-img" />
 		<Label id="hintLbl" class="img-padding-top paragraph-lbl" />
 		<Label id="whoLbl" class="padding-top paragraph-lbl" />
@@ -9,5 +10,6 @@
 			<Widget id="dob" src="ti.dropdown" class="form-dropdown " onReturn="didClickNext" />
 		</View>
 		<Button id="nextBtn" class="btn-padding-top margin-bottom primary-btn" onClick="didClickNext" />
+		</View>
 	</ScrollView>
 </Alloy>

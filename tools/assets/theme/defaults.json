@@ -110,7 +110,8 @@
 	},
 	".modal-dialog": {
 		"iconText": "Alloy.CFG.icons.spot",
-		"selectedIconText": "Alloy.CFG.icons.thin_filled_success"
+		"selectedIconText": "Alloy.CFG.icons.thin_filled_success",
+		"accessibilityHidden": false
 	},
 	".top": {
 		"top": 0

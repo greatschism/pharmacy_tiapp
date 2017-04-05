@@ -4,6 +4,9 @@ moment = require("alloy/moment");
     
 function init(e) {
 	$.searchExistingPatientLbl.text = $.strings.searchExistingPatientLbl;
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+    $.dob.__views.widget.applyProperties(iDict);
 }
 
 function focus(e) {

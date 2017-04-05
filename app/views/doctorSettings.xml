@@ -1,5 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
+		<View class="vgroup">
 		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 			<View id="nameView" class="auto-height">
 				<Widget id="fnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
@@ -35,5 +36,6 @@
 		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes" />
 		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
 		<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemove" if="$.args.isUpdate" />
+		</View>
 	</ScrollView>
 </Alloy>

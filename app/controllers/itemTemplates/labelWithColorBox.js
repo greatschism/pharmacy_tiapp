@@ -17,7 +17,8 @@ var args = $.args,
 	} else {
 		$.lbl.applyProperties({
 			right : right,
-			text : title
+			text : title,
+			accessibilityValue : Alloy.Globals.strings.accessibilityColorPicker
 		});
 	}
 	uihelper.wrapText($.lbl);

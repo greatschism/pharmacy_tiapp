@@ -431,7 +431,7 @@ function prepareList() {
 			prescription.set({
 				section : section,
 				itemTemplate : template,
-				options : swipeOptions,
+				options : Ti.App.accessibilityEnabled ? null : swipeOptions,
 				titleClasses : titleClasses,
 				subtitleClasses : subtitleClasses,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
@@ -965,6 +965,9 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
+	if (Ti.App.accessibilityEnabled) {
+		$.tooltip && $.tooltip.hide();
+	};
 }
 
 function didClickHide(e) {

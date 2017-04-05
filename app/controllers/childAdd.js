@@ -21,8 +21,18 @@ function init() {
 	setRightButton(rightButtonTitle.text, rightButtonDict);
 	if (args.dob) {
 		$.dobDp.setValue(args.dob);
+	} else {
+		date = new Date();
+		date.setFullYear(date.getFullYear()-1);
+		$.dobDp.setValue(date);
 	}
+    var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+    $.dobDp.__views.widget.applyProperties(iDict);
+
 	$.uihelper.getImage("child_add", $.childImg);
+	$.__views.childImg.accessibilityHidden  = true;
+
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 		$.rxTooltip.updateArrow($.createStyle({
 			classes : ["direction-down"]
@@ -32,7 +42,11 @@ function init() {
 	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
-function setRightButton(iconText, iconDict) {
+function setRightButton(iconText, iconDict) {	
+	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
+	iconDict.accessibilityLabel = "";
+	iconDict.accessibilityHint = "";
+
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 function focus() {

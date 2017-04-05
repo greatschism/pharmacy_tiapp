@@ -77,9 +77,10 @@ function didGetPatient() {
 		if (!$.familyCareAddBtn) {
 			$.familyCareAddBtn = Ti.UI.createButton();
 			$.familyCareAddBtn.applyProperties($.createStyle({
-				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled"],
+				classes : ["icon-add-familycare", "i1", "margin-top-small", "margin-bottom", "auto-height", "bg-color-disabled", "primary-fg-color", "border-disabled","accessibility-enabled"],
 				id : "familyCareAddBtn",
-				analyticsId : "FamilyCareAddBtn"
+				analyticsId : "FamilyCareAddBtn",
+				accessibilityLabel : Alloy.Globals.strings.accessibilityAddFamilyIconButton
 			}));
 			$.familyCareView.add($.familyCareAddBtn);
 			$.familyCareAddBtn.addEventListener("click", didClickAddFamilyMember);
@@ -135,7 +136,7 @@ function didGetPatient() {
 					title : $.utilities.ucword(childProxy.first_name) || $.utilities.ucword(childProxy.last_name) ? $.utilities.ucword(childProxy.first_name) + " " + $.utilities.ucword(childProxy.last_name) : childProxy.address,
 					subtitle : $.strings.familyCareRelatedPrefix + childProxy.related_by,
 					detailType : colorCode,
-					options : childProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
+					options : Ti.App.accessibilityEnabled ? null : (childProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions),
 					detailSubtitle : status
 				};
 				childProxyData.push(childProxy);
@@ -167,7 +168,7 @@ function didGetPatient() {
 					parent_id : parentProxy.parent_id,
 					title : $.utilities.ucword(parentProxy.first_name) || $.utilities.ucword(parentProxy.last_name) ? $.utilities.ucword(parentProxy.first_name) + " " + $.utilities.ucword(parentProxy.last_name) : parentProxy.address,
 					detailType : colorCode,
-					options : parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions,
+					options : Ti.App.accessibilityEnabled ? null : (parentProxy.status === "2" ? swipeRemoveResendOptions : swipeRemoveOptions),
 					detailTitle : status
 				};
 				parentProxyData.push(parentProxy);

@@ -2,7 +2,8 @@
 	text:Alloy.Globals.strings.childConsentLbl
 },
 "#consentObtainLbl":{
-	text:Alloy.Globals.strings.childConsentLblObtain
+	text:Alloy.Globals.strings.childConsentLblObtain,
+	accessibilityValue:Alloy.Globals.strings.accessibilityCheckboxSelect
 },
 "#inactiveBtn":{
 	title:Alloy.Globals.strings.childConsentBtnContinue

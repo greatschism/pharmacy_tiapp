@@ -4,8 +4,11 @@
 },
 "#widget[platform=android]": {
 	decodeRetries: 1,
-	enableZoomControls: false
+	enableZoomControls: false,
+	accessibilityHidden: false
+
 },
 "#widget[platform=ios]": {
-	preventDefaultImage: true
+	preventDefaultImage: true,
+	accessibilityHidden: false
 }

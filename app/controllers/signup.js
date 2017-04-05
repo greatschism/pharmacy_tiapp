@@ -45,6 +45,10 @@ function init() {
 	if (args.dob) {
 		$.dob.setValue(args.dob);
 	}
+	var iDict = {};
+	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
+	$.dob.__views.widget.applyProperties(iDict);
+
 	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
 		optionalValues = {};
 		if (args.is_migrated_user) {
@@ -78,6 +82,9 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
+	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
+	iconDict.accessibilityLabel = "";
+	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 	// $.rxNoTxt.accessibilityLabel = "Rx help";
 }

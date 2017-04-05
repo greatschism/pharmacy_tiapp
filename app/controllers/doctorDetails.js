@@ -1,4 +1,4 @@
-var args = $.args,
+	var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     doctor = args.doctor;
@@ -9,6 +9,9 @@ function init() {
 		$.uihelper.wrapViews($[val]);
 	});
 	updateInputs();
+			
+	$.photoImg.accessibilityLabel = "Doctor's image";
+
 	if (doctor.image) {
 		$.photoImg.setImage(doctor.image);
 	} else {

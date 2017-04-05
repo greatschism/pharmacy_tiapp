@@ -6,9 +6,12 @@ var args = $.args,
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentItem,
+        logger = require("logger"),
+
     marginLeft;
 
 function init() {
+
 	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
 	{
 		Alloy.Globals.isMailOrderService = false;
@@ -47,6 +50,8 @@ function transformFunction(model) {
 }
 
 function didDrawerclose(e) {
+
+logger.debug("\n\n\n\n\n\n I close drawer here\n\n\n\n");
 	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
 	{
 		Alloy.Globals.isMailOrderService = false;
@@ -79,6 +84,8 @@ function didClickTableView(e) {
 }
 
 function terminate() {
+		logger.debug("\n\n\n I terminated \n\n\n");
+
 	if (OS_ANDROID) {
 		app.navigator.drawer.off("drawerclose", didDrawerclose);
 	}

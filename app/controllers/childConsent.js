@@ -52,6 +52,7 @@ function didAddChild(result) {
 
 function didClickConsent(e) {
 	if (selected) {
+		$.consentObtainLbl.accessibilityValue =  $.strings.accessibilityCheckboxRemoveSelection;
 		$.leftIconLbl.applyProperties($.createStyle({
 			classes : ["top-disabled" ,"margin-left" ,"i4" ,"txt-left" ,"active-fg-color" ,"icon-checkbox-checked" ,"positive-fg-color","border-disabled"],
 		}));
@@ -62,6 +63,7 @@ function didClickConsent(e) {
 		$.inactiveBtn.addEventListener("click", didClickContinue);
 		selected = false;
 	} else {
+		$.consentObtainLbl.accessibilityValue =  $.strings.accessibilityCheckboxSelect;
 		$.leftIconLbl.applyProperties($.createStyle({
 			classes : ["top-disabled" ,"margin-left" ,"i4" ,"txt-left" ,"active-fg-color"  ,"icon-checkbox-unchecked" ,"inactive-fg-color","border-disabled"]
 		}));
