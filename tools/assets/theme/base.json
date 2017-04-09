@@ -345,6 +345,10 @@
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
+            ".title-control":{
+            	"font":"${H3_PLATFORM_IOS}",
+            	"color":"${PRIMARY_LIGHT_COLOR}"
+            },
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
                 "separatorColor":"${SEPARATOR_COLOR}",

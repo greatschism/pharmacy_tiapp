@@ -10,6 +10,9 @@
 						<Button class="top-disabled left-disabled right-disabled i5 primary-light-fg-color bg-color-disabled border-disabled icon-hamburger" />
 					</View>
 				</LeftNavButton>
+				<TitleControl>
+					<Label id="titleControl" class="title-control" />
+				</TitleControl>
 			</Window>
 		</NavigationWindow>
 		<View id="leftWindow" platform="android" role="leftWindow">
