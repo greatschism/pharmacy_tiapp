@@ -10,7 +10,7 @@ function init() {
 	$.webView.applyProperties({
 		top : $.args.registrationFlow === true ? 0 : "10%",
 		bottom : isHIPAA ? "25%" : "15%",
-		url : args.terms.agreement_url,
+		url : args.terms.agreement_url || args.terms,
 		willHandleTouches: false 
 	});
 	if(!$.args.registrationFlow){
