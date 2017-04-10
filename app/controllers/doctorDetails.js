@@ -156,10 +156,7 @@ function didSuccessDoctor(result, passthrough) {
 	if(OS_IOS)
 	{
 		$.photoImg.setImage(doctor.image_url);
-	}
-	
-	else
-	{
+	} else {
 		var decodedImageURL = '';
 		var imageURL = '';
 		if(doctor.image_url != null && doctor.image_url != '' && typeof(doctor.image_url) !== 'undefined')
@@ -168,9 +165,7 @@ function didSuccessDoctor(result, passthrough) {
 			if(decodedImageURL.indexOf('?') != -1)
 			{
 				imageURL = decodedImageURL.split('?')[0];
-			}
-			else
-			{
+			} else {
 				imageURL = decodedImageURL;
 			}
 		}

@@ -7,7 +7,8 @@ var args = $.args,
     postlayoutCount = 0,
     newMedReminder,
     isWindowOpen,
-    httpClient;
+    httpClient,
+    logger = require("logger");
 
 function init() {
 	$.titleLbl.text = prescription.title;
@@ -66,6 +67,7 @@ function init() {
 		loadPresecription();
 		loadDoctor();
 		loadStore();
+		loadCopay();
 	}
 	
 	$.refillsLeftLbl.accessibilityLabel = $.refillsLeftLbl.text;
@@ -91,6 +93,7 @@ function setAccessibilityLabelOnSwitch(switchObj , strValue) {
 }
 
 function focus() {
+	logger.debug("\n\n\n in focus, so getting prescription detail again, am fucked\n\n\n");
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		if (!_.has(prescription, "store")) {
@@ -144,6 +147,7 @@ function didGetPrescription(result, passthrough) {
 		loadDoctor();
 		getStore();
 	}
+	loadCopay();
 }
 
 function getDoctor() {
@@ -695,6 +699,35 @@ function terminate() {
 	}
 }
 
+function loadCopay() {
+	logger.debug("\n\n\ncopay amount",prescription.copay );
+	logger.debug("\n\n\nrefill status",prescription.refill_status );
+	logger.debug("\n\n\nprescription", JSON.stringify(prescription) );
+
+
+	if(prescription.refill_status === apiCodes.refill_status_ready )
+	{
+    if (_.has(prescription, "copay")) {
+    	if( prescription.copay != null){
+	   		$.copayReplyLbl.text = "$"+prescription.copay;
+	   		// $.copayView.hide(false);
+
+	   	}
+		
+		else
+		{
+			logger.debug("copay is null");
+			// $.copayView.hide(true);
+			$.copayView.height = 0;
+		}
+	}
+	}
+	else
+	{
+					$.copayView.height = 0;
+
+	}
+}
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;

@@ -13,7 +13,8 @@ var TAG = "AUTH",
     crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
-    logger = require("logger");
+    logger = require("logger"),
+    v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : null;
 
 function init(passthrough) {
 	if (!passthrough) {
@@ -28,6 +29,21 @@ function init(passthrough) {
 	 * check username
 	 * and password
 	 */
+	if (OS_ANDROID) {
+		var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_static_encryption_key);
+		var v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_static_encryption_key);
+		if (v6Username !== "" && v6Password !== "") {
+			passthrough.username = v6Username;
+			passthrough.password = v6Password;
+			setAutoLoginEnabled(true);
+			//	update previous values to empty string 
+			v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_static_encryption_key);
+			v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_static_encryption_key);
+		}
+	} else{
+		//	iOS handling is yet to final
+	};
+	
 	var username = passthrough.username,
 	    password = passthrough.password;
 	if (username && password) {
@@ -127,7 +143,7 @@ function didAuthenticate(result, passthrough) {
 		 */
 		if (passthrough.force_start) {
 			doLogout(passthrough);
-		} else{
+		} else {
 			app.navigator.open({
 	 			ctrl : "mgrAccountUpdate",
 	 			titleid : "mgrAccountUpdateTitle",

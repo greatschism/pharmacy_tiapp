@@ -4,9 +4,11 @@ var args = $.args,
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
 }
+
 function handleEvent(e) {
 	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
+
 function didClickComplete(e) {
 	if (args.prescription) {
 		transferStore();
@@ -57,13 +59,15 @@ function transferStore(imageURL) {
 		 * and add necessary params for
 		 * logged in user
 		 */
+
 		var currentPatient = Alloy.Collections.patients.findWhere({
 			selected : true
 		});
+
 		_.extend(data, {
 			first_name : currentPatient.get("first_name"),
 			last_name : currentPatient.get("last_name"),
-			birth_date : currentPatient.get("birth_date"),
+			birth_date : moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.date_format),
 			mobile : currentPatient.get("mobile_number"),
 			email_address : currentPatient.get("email_address")
 		});
@@ -95,7 +99,7 @@ function didSuccess(result, passthrough) {
 	 * for right error / success messages
 	 * in success screen
 	 */
-	$.app.navigator.open({
+	$.app.navigator.open({ 
 		titleid : "titleTransferSuccess",
 		ctrl : "transferSuccess",
 		ctrlArguments : {
@@ -228,12 +232,11 @@ function updateStore() {
 }
 
 function didClickPhone(e) {
-	if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
+	if (!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result) {
+			if (result.success) {
 				contactsHandler();
-			}
-			else{
+			} else {
 				$.analyticsHandler.trackEvent("TransferRx-TransferReview", "click", "DeniedContactsPermission");
 			}
 		});

@@ -185,9 +185,7 @@ function processModel(model) {
 			if(decodedImageURL.indexOf('?') != -1)
 			{
 				imageURL = decodedImageURL.split('?')[0];
-			}
-			else
-			{
+			} else {
 				imageURL = decodedImageURL;
 			}
 		}
