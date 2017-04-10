@@ -679,6 +679,39 @@ var Helper = {
 		});
 		dialog.show();
 	},
+	
+	
+	showDialogWithButton : function(params) {
+		var btnOptions = [Alloy.Globals.strings.dialogBtnOK];
+		_.each(params.btnOptions , function(btnObj) {
+			btnOptions.push(btnObj.title);
+		});
+		
+		_.defaults(params, {
+			title : Ti.App.name,
+			cancelIndex : -1,
+			persistent : true,
+			buttonNames : btnOptions
+		});
+		var cancel = params.cancelIndex,
+		    dict = _.pick(params, ["title", "buttonNames", "persistent", "style", "androidView"]);
+		_.extend(dict, {
+			cancel : cancel,
+			message : ( OS_IOS ? "\n" : "").concat(params.message || "")
+		});
+		var dialog = Ti.UI.createAlertDialog(dict);
+		dialog.addEventListener("click", function(e) {
+			var index = e.index;
+			if(index >= 1) {
+				params.btnOptions[index-1].onClick && params.btnOptions[index-1].onClick();
+			} else if (params.success && index !== cancel) {
+				params.success(index, e);
+			} else if (params.cancel && index === cancel) {
+				params.cancel();
+			}
+		});
+		dialog.show();
+	},
 
 	/**
 	 * Open email dialog

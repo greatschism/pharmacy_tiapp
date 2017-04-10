@@ -95,14 +95,19 @@ function init() {
 		Ti.App.addEventListener("keyboardframechanged", scrollOnKeyboardEvent);
 }
 
-function scrollOnKeyboardEvent(e){
+function scrollOnKeyboardEvent(e) {
 	var scroller = controller.getTopLevelViews()[0];
 	scroller.height = parseInt(scroller.rect.height) + "dp";
 	scroller.scrollToBottom();
 }
 
+function requestTitleControlFocus() {
+	controller.uihelper.requestViewFocus($.window.titleControl);
+}
+
 function focus(e) {
 	logger.debug(TAG, "focus", $.ctrlShortCode);
+	requestTitleControlFocus();
 	controller.focus && controller.focus();
 }
 
@@ -119,7 +124,7 @@ function terminate(e) {
 }
 
 function setTitle(title) {
-	$.window.title = title;
+	$.window.titleControl.text = title;
 }
 
 function showNavBar(animated) {
@@ -155,5 +160,6 @@ _.extend($, {
 	focus : focus,
 	terminate : terminate,
 	ctrlPath : args.ctrl,
+	requestTitleControlFocus : requestTitleControlFocus,
 	ctrlShortCode : ctrlShortCode[args.ctrl]
 });

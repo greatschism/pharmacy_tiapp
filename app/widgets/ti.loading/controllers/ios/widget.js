@@ -1,4 +1,5 @@
 var args = $.args,
+    uihelper = require("uihelper"),
     isOpened = false,
     isCloseRequested = false;
 
@@ -24,6 +25,7 @@ function applyProperties(dict) {
 
 function didOpen(e) {
 	isOpened = true;
+	uihelper.requestViewFocus($.activityIndicator);
 	if (isCloseRequested) {
 		hide();
 	}

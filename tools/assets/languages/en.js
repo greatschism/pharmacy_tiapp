@@ -257,8 +257,10 @@ module.exports = {
 		"loginVersionLbl" : "Version: %s",
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
-		"loginAttrAbout" : "about",
+		"loginAttrAbout" : "about/terms/privacy policy",
 		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
+		"loginAgreementTOS" : "Terms of service",
+		"loginAgreementPrivacy" : "Privacy policy",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",

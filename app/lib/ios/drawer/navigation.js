@@ -281,6 +281,8 @@ function Navigation(args) {
 			that.loader.hide();
 
 			that.loader = null;
+
+			that.currentController.requestTitleControlFocus();
 		}
 	};
 
