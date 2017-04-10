@@ -72,10 +72,43 @@ function didClickAbout() {
 	var copyrightYearHelperString = $.strings.strClientName + ", " + copyrightYearHelper.getFullYear();
 	var copyright = String.format($.strings.loginCopyright, copyrightYearHelperString);
 
-	$.uihelper.showDialog({
-		message : version + "\n" + buildNumber + "\n" + buildDate + "\n" + copyright
+	$.uihelper.showDialogWithButton({
+		message : version + "\n" + buildNumber + "\n" + buildDate + "\n" + copyright,
+		btnOptions : [{
+			title : $.strings.loginAgreementTOS,
+			onClick : showTOS
+		}, {
+			title : $.strings.loginAgreementPrivacy,
+			onClick : showPrivacy
+		}]
 	});
 
+}
+
+function showTOS(){
+	var url = Alloy.Models.appload.get("tos_url");
+	$.app.navigator.open({
+		ctrl : "termsDoc",
+		title : $.strings.loginAgreementTOS,
+		stack : true,
+		ctrlArguments : {
+			terms : url,
+			registrationFlow : true
+		}
+	});
+}
+
+function showPrivacy(){
+	var url = Alloy.Models.appload.get("privacy_policy_url");
+	$.app.navigator.open({
+		ctrl : "termsDoc",
+		title : $.strings.loginAgreementPrivacy,
+		stack : true,
+		ctrlArguments : {
+			terms : url,
+			registrationFlow : true
+		}
+	});
 }
 
 function didChangeToggle() {
