@@ -6,20 +6,16 @@ var args = $.args,
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentItem,
-        logger = require("logger"),
-
+    logger = require("logger"),
     marginLeft;
 
 function init() {
 
-	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
-	{
+	if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
 		Alloy.Globals.isMailOrderService = false;
 	}
 
-	if (OS_ANDROID) {
-		app.navigator.drawer.on("drawerclose", didDrawerclose);
-	}
+	app.navigator.drawer.on("drawerclose", didDrawerclose);
 	marginLeft = $.createStyle({
 		classes : ["i4"]
 	}).font.fontSize + $.createStyle({
@@ -50,13 +46,11 @@ function transformFunction(model) {
 }
 
 function didDrawerclose(e) {
-
-logger.debug("\n\n\n\n\n\n I close drawer here\n\n\n\n");
-	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
-	{
+	logger.debug("\n\n\n\n\n\n I close drawer here\n\n\n\n");
+	if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
 		Alloy.Globals.isMailOrderService = false;
 	}
-	
+
 	if (!currentItem) {
 		return false;
 	}
@@ -78,17 +72,11 @@ function didClickTableView(e) {
 		currentItem = row.ctrl || row.url || row.action;
 	}
 	app.navigator.drawer.toggleLeftWindow();
-	if (OS_IOS) {
-		didDrawerclose();
-	}
 }
 
 function terminate() {
-		logger.debug("\n\n\n I terminated \n\n\n");
-
-	if (OS_ANDROID) {
-		app.navigator.drawer.off("drawerclose", didDrawerclose);
-	}
+	logger.debug("\n\n\n I terminated \n\n\n");
+	app.navigator.drawer.off("drawerclose", didDrawerclose);
 	$.destroy();
 }
 
