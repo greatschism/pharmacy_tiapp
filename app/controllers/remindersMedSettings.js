@@ -445,6 +445,7 @@ function getOptionRows(frequencyId, data) {
 	 * but can be enabled based
 	 * on the flag
 	 */
+	endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 		pickerType : frequencyObj.reminder_end_date_enabled ? "date" : "ignore",
 		inputFormat : apiCodes.ymd_date_time_format,
