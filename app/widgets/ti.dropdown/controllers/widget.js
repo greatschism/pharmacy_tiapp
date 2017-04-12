@@ -143,6 +143,8 @@ function show() {
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
+								selectedAccessibilityValue : args.selectedIconText ? "Selected" : "Deselected",
+
 				parent : parent,
 				nextItem : args.nextItem || ""
 			});

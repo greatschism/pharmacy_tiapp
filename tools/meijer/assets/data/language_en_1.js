@@ -17,6 +17,8 @@ module.exports = {
 
 		"prescSectionInProgress": "In process",
 
+		"prescInProgressLblPromise": "Ready by %s",
+
 	}
 
 };

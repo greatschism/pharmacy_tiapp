@@ -383,6 +383,7 @@ function create(dict) {
 		var properties = dict.properties;
 		if (_.has(properties, "textid")) {
 			properties.text = $.strings[properties.textid];
+			properties.accessibilityLabel = $.strings[properties.textid];
 		} else if (_.has(properties, "titleid")) {
 			properties.title = $.strings[properties.titleid];
 		}
