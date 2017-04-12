@@ -14,7 +14,7 @@ var TAG = "AUTH",
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
-    v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : null;
+    v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : require("com.mscripts.keychainimporter");
 
 function init(passthrough) {
 	if (!passthrough) {
@@ -30,18 +30,50 @@ function init(passthrough) {
 	 * and password
 	 */
 	if (OS_ANDROID) {
-		var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_static_encryption_key);
-		var v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_static_encryption_key);
+		var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_android_static_enc_key);
+		var v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_android_static_enc_key);
 		if (v6Username !== "" && v6Password !== "") {
 			passthrough.username = v6Username;
 			passthrough.password = v6Password;
 			setAutoLoginEnabled(true);
-			//	update previous values to empty string 
-			v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_static_encryption_key);
-			v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_static_encryption_key);
+			/**
+			 * 	update previous values to empty string
+			 */	 
+			v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_android_static_enc_key);
+			v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_android_static_enc_key);
 		}
 	} else{
 		//	iOS handling is yet to final
+		
+		var autologinFlag = v6keychain.getAutologinFlag();
+        console.log("autologinFlag is...:"+JSON.stringify(autologinFlag));
+ 		var keydump = v6keychain.obatainV6KeychainDictWithServiceName({serviceName:Alloy.CFG.v6_service_name});
+        console.log("keydump is...:" + JSON.stringify(keydump));
+        
+		var v6Password = keydump.passwordKey;
+		var v6Username = keydump.usernameKey;
+		if (v6Username !== "" && v6Password !== "") {
+			passthrough.username = v6Username;
+			passthrough.password = v6Password;
+			setAutoLoginEnabled(true);
+			/**
+			 * 	update previous values to empty string
+			 */	 
+			v6keychain.flushV6Keychain({serviceName:Alloy.CFG.v6_service_name});
+		}
+		
+		/*
+		if (autologinFlag.autologinSelected) {
+			var url = Alloy.CFG.v6_ios_static_enc_key;
+			var data = [];
+			for (var i = 0; i < url.length; i++){  
+			    data.push(url.charCodeAt(i));
+			}
+			console.log("byte array is: " + JSON.stringify(data));
+			
+			// keydump.usernameKey
+			// keydump.passwordKey
+		};*/
 	};
 	
 	var username = passthrough.username,

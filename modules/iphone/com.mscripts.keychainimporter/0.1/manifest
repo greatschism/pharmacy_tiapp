@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 0.1
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: module for importing v6 keychain info (user / pass / autlogin flag)
+author: macsolve
+license: in house
+copyright: mscripts LLC 2017
+
+# these should not be edited
+name: Keychain Importer
+moduleid: com.mscripts.keychainimporter
+guid: 83421149-36cf-4fa9-99bc-2713c36e6e22
+platform: iphone
+minsdk: 5.1.2.GA
