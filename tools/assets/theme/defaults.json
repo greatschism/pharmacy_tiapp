@@ -503,8 +503,11 @@
 	".accessibility-disabled": {
 		"accessibilityHidden": true
 	},
-	".accessibility-actionablelements": {
+	".accessibility-actionablelements[platform=ios]": {
 		"accessibilityValue": "button"
+	},
+	".accessibility-actionablelements[platform=android]": {
+		"accessibilityHint": "button"
 	},
 	".accessibility-enabled": {
 		"accessibilityHidden": false

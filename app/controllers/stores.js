@@ -1459,6 +1459,9 @@ function focus() {
 		 */
 		setPatientSwitcher();
 	}
+	
+	$.mapView.accessibilityHidden = true;
+
 }
 
 function setParentView(view) {
