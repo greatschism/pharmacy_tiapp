@@ -257,7 +257,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toString(), strDateFormat).add(1, "week").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_weekly:
@@ -302,7 +302,7 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		if (!endDate) {
-			endDate = moment(new Date().toString(), strDateFormat).add(1, "month").format(apiCodes.ymd_date_time_format);
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 		}
 		break;
 	case apiCodes.reminder_frequency_monthly:
@@ -401,7 +401,9 @@ function getOptionRows(frequencyId, data) {
 		 * moment object may bring time zone issues
 		 */
 		var endTime = endDate ? moment(endDate, apiCodes.ymd_date_time_format) : moment().hours(23).minutes(0).seconds(0);
-		endDate = moment(new Date().toString(), strDateFormat).hours(endTime.hours()).minutes(endTime.minutes()).seconds(endTime.seconds()).format(apiCodes.ymd_date_time_format);
+		if (!endDate) {
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);			
+		};
 		break;
 	}
 	/**
@@ -445,7 +447,6 @@ function getOptionRows(frequencyId, data) {
 	 * but can be enabled based
 	 * on the flag
 	 */
-	endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 	optionRows.push(Alloy.createController("itemTemplates/promptReply", {
 		pickerType : frequencyObj.reminder_end_date_enabled ? "date" : "ignore",
 		inputFormat : apiCodes.ymd_date_time_format,
@@ -828,11 +829,13 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 	date.setFullYear(mDate.year(), mDate.month(), mDate.date());
 	dateDropdownArgs.value = date;
 	if (OS_ANDROID) {
+		var currentDate = new Date(moment());
 		var dPicker = Ti.UI.createPicker();
 		dPicker.showDatePickerDialog({
 			title : dateDropdownArgs.title,
 			okButtonTitle : dateDropdownArgs.rightTitle,
 			value : dateDropdownArgs.value,
+			minDate: currentDate,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
@@ -1099,6 +1102,16 @@ function didClickSubmitReminder(e) {
 		reminder_enabled : 1,
 		reminder_expiration_type : 0
 	});
+	
+	var currentDate = new Date(moment());
+	var isValidDate = moment(currentDate).isAfter(new Date(moment(data.reminder_end_date)));
+	if (isValidDate) {
+		$.uihelper.showDialog({
+			message : $.strings.remindersMedSettingsValDailyDate
+		});
+		return false;
+	};
+	
 	//api request
 	$.http.request({
 		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",

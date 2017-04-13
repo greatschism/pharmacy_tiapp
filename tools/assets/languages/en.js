@@ -533,6 +533,7 @@ module.exports = {
 		"remindersMedSettingsHintNotes" : "Notes",
 		"remindersMedSettingsMsgRemoveConfirm" : "Are you sure you want to remove this reminder?",
 		"remindersMedSettingsMsgDeliveryModeNoneConfirm" : "You haven't set a delivery mode yet. Do you want to use Push Notifications?",
+		"remindersMedSettingsValDailyDate" : "Reminder date should not be an old date.",
 
 		"remindersSettingsPatientSwitcher" : "%s's reminder settings",
 		"remindersSettingsPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
