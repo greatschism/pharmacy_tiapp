@@ -33,7 +33,8 @@ function didChangePatient(e) {
 }
 
 function didClickPhoto(e) {
-	$.uihelper.getPhoto(true, didGetPhoto, $.window);
+	$.app.navigator.showLoader();
+	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
 
 function didGetPhoto(blob) {

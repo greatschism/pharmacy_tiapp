@@ -10,8 +10,9 @@ function init() {
 	}
 }
 
-function didClickPhoto(e) {
-	$.uihelper.getPhoto(true, didGetPhoto, $.window);
+function didClickPhoto(e) {	
+	$.app.navigator.showLoader();
+	$.uihelper.getPhoto(didGetPhoto, $.window);
 }
 
 function didGetPhoto(blob) {
