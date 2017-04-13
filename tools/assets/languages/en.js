@@ -832,6 +832,7 @@ module.exports = {
 		"familyMemberAddRelationTip" : "Please enter your relationship to your family member.",
 		"familyMemberAddBtnContinue" : "Continue",
 		"familyMemberAddValDob" : "Please enter your Date of birth.",
+		"familyMemberAddValFutureDob" : "You can't enter future DOB",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
 		"familyMemberAddHintOther" : "Relationship",
 		"familyMemberRelationshipTips" : "Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
