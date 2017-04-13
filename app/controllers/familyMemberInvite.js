@@ -86,11 +86,7 @@ function didChangePhone(e) {
 }
 
 function didClickCancel() {
-	$.app.navigator.open({
-		titleid : "titleAddFamily",
-		ctrl : "familyMemberAdd",
-		stack : true
-	});
+	$.app.navigator.close();
 }
 
 exports.init = init;
