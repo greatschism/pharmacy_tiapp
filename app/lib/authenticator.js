@@ -982,7 +982,7 @@ function hasMandatoryNavigation(mPatient) {
 	 * Note: created_at will be in UTC
 	 * so calculations should happen in UTC
 	 */
-	if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+	if (!Alloy.Globals.isAccountUpgraded && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {
