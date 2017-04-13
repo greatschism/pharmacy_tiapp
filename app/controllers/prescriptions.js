@@ -337,7 +337,7 @@ function prepareList() {
 					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
 					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
 					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
-					subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+					subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
 					progress = Math.floor((timeSpent / totalTime) * 100);
 				} else {
 					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
