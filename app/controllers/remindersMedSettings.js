@@ -225,7 +225,7 @@ function getOptionRows(frequencyId, data) {
 	 * only if frequency is daily
 	 */
 	var startHours = data.reminder_start_hour ? (frequencyId === apiCodes.reminder_frequency_daily ? data.reminder_start_hour : [data.reminder_start_hour[0]]) : [{
-		hour : new Date().getHours(),
+		hour : (new Date().getHours()).toString(),
 		minutes : "00"
 	}],
 	    numberOfTimes = startHours.length,
@@ -751,8 +751,8 @@ function didClickDailyPicker(e) {
 		    rtCount = data.value,
 		    newRows = [];
 		for (var n = nStartIndex; n < nEndIndex; n++) {
-			var time = {
-				hour : new Date().getHours(),
+			var time = {				
+				hour : (new Date().getHours()).toString(),
 				minutes : "00"
 			},
 			    newRow = Alloy.createController("itemTemplates/promptReply", {
