@@ -141,6 +141,7 @@ function didClickContinue() {
 		return;
 	}
 	phone = $.utilities.validatePhoneNumber(phone);
+	lastPhone = $.utilities.validatePhoneNumber(lastPhone);
 	if (!phone) {
 		$.uihelper.showDialog({
 			message : $.strings.phoneValPhoneInvalid
