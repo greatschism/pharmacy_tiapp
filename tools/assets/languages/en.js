@@ -117,18 +117,18 @@ module.exports = {
 		"iconAccessibilityLblCancel" : "cancel",
 		"iconAccessibilityLblRemove" : "remove",
 		"iconAccessibilityLblEdit" : "edit",
-		"iconAccessibilityLblAddReminder": "Add Reminder",
-		
+		"iconAccessibilityLblAddReminder" : "Add Reminder",
+
 		"iconAccessibilityLblArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblArrowUp" : "Close options",		
+		"iconAccessibilityLblArrowUp" : "Close options",
 		"iconAccessibilityLblThinArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblThinArrowUp" : "Close options",
 		"iconAccessibilityLblThickArrowDown" : "Click/Expand for options",
-		"iconAccessibilityLblThickArrowUp" : "Close options",		
+		"iconAccessibilityLblThickArrowUp" : "Close options",
 		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblTooltipArrowUp" : "Close options",
 		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
-		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",		
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
 		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
 		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
 		"iconAccessibilityLblSuccess" : "Checkbox",
@@ -147,9 +147,8 @@ module.exports = {
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 
-
 		"accessibilityLblScreenChange" : "Navigate to next screen",
-		
+
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -209,7 +208,7 @@ module.exports = {
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 		"titleInsuranceCard" : "Update insurance card",
-		
+
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
@@ -245,7 +244,9 @@ module.exports = {
 
 		"loginLblTitle" : "Sign in to the %s mobile pharmacy",
 		"loginHintUsername" : "Email address",
+		"loginHintEmailOrUsername" : "Email address or username",
 		"loginHintPassword" : "Password",
+		"loginHintNewPassword" : "New Password",
 		"loginLblAutoLogin" : "Keep me signed in",
 		"loginAttrSignup" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your email address.",
@@ -271,8 +272,8 @@ module.exports = {
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
 
-        "patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
-        
+		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
+
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 		"storesHintSearch" : "Search",
@@ -705,7 +706,7 @@ module.exports = {
 		"mgrAccountCreationValEmail" : "Please enter your email address.",
 		"mgrAccountCreationValEmailInvalid" : "Invalid email address.",
 		"mgrAccountCreationLblTogglePassword" : "Show password",
-		
+
 		"mgrAccountUpdateTitle" : "Welcome back!",
 		"mgrAccountUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
 		"mgrAccountUpdateAskInfo" : "It looks like you're managing a minor. Please create an account for yourself to continue managing your family's prescriptions.",
@@ -746,7 +747,7 @@ module.exports = {
 		"childAddAttrAgreement" : "By signing up for this service, I agree to the <secondaryfont><secondarycolor>Terms and Conditions</secondaryfont></secondarycolor> and <secondaryfont><secondarycolor>Privacy Policies</secondaryfont></secondarycolor>.",
 		"childAddValFirstName" : "Please enter your family member's first name.",
 		"childAddValFirstNameInvalid" : "First name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
-		"childAddValLastName" :  "Please enter your family member's last name.",
+		"childAddValLastName" : "Please enter your family member's last name.",
 		"childAddValLastNameInvalid" : "Last name entry is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 40.",
 		"childAddValDob" : "Please enter your family member's date of birth.",
 		"childAddValRxNo" : "Please enter your family member's prescription number.",
@@ -781,7 +782,7 @@ module.exports = {
 		"receiveTextChildHintPhone" : "Mobile number",
 		"receiveTextPhoneExists" : "Mobile number already exists",
 		"receiveTextPhoneNoChild" : "Please select at least one person to receive text messages.",
-        "faxImageMessage" : "Image generated via customer mobile app",
+		"faxImageMessage" : "Image generated via customer mobile app",
 		"textMessageTitle" : "We just sent you a text message!",
 		"textMessageSignUpTitle" : "Are you sure you replied?",
 		"textMessageTextHelpTitle" : "Sorry about that.",
@@ -892,35 +893,35 @@ module.exports = {
 		"addAnotherAdultLblSubTitle" : "First, tell us who they are:",
 		"addAnotherAdultBtnContinue" : "Continue",
 		"addAnotherAdultAddRelationTip" : "Tap to choose...",
-		
+
 		"msgTryAgainStoragePermission" : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
 		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
 		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature.",
-		
+
 		"searchExistingPatientWelcome" : "Welcome!",
 		"searchExistingPatientLbl" : "Please enter your mobile number and we'll check if we recognize you.",
 		"searchExistingPatientMobileHint" : "Mobile number",
 		"searchExistingPatientContinue" : "Continue",
 		"searchExistingPatientAcctExistsMsg" : "It looks like you already have an account with us. Please sign in with your email address and password.",
-		
+
 		"signupExistingUserLbl" : "Great! You've received texts from us before.",
 		"signupExistingUserAskInfo" : "Please create a username and password.",
 		"signupExistingUserContinue" : "Continue",
-		
+
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
-		
-	    "insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
-	    "insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
-	    "insuranceCardUpdateContactLblSubtitle" : "Your contact info",
-	    "insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
-	    "insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
+
+		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
+		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
+		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",
+		"insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
+		"insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
 		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
-		"loginInfoUpdateAskInfo" : "Instead of a username, you will now be able to sign in with your email address. Please provide it below.",
+		"loginInfoUpdateAskInfo" : "Please provide your email address and a new password. You'll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
-		
+
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
 		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",

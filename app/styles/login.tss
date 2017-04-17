@@ -1,5 +1,5 @@
 "#usernameTxt":{
-	hintText: Alloy.Globals.strings.loginHintUsername,
+	hintText: Alloy.Globals.strings.loginHintEmailOrUsername,
 	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "passwordTxt"
 },
