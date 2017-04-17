@@ -216,6 +216,7 @@ function didRegister(result, passthrough) {
 	/**
 	 * Set property to display HIPAA during first login flow
 	 */
+	Alloy.Globals.isAccountUpgraded = true;
 	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
 	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	$.uihelper.showDialog({
