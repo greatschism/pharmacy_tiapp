@@ -278,8 +278,8 @@ function didClickSignup(e) {
 		});
 	} else {
 		$.app.navigator.open({
-			ctrl : "signup",
-			titleid : "titleCreateAccount",
+			ctrl : "searchExistingPatient",
+			titleid : "searchExistingPatientWelcome",
 			stack : true
 		});
 	}
