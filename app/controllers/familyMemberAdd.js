@@ -40,13 +40,16 @@ function didGetRelationships(result, passthrough) {
 
 function didChangeRelationship() {
 	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
-		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
-			classes : ["form-txt"],
-			hintText : $.strings.familyMemberAddHintOther
-		}));
-		$.otherTxtView.add($.otherTxt.getView());
+		if ($.otherTxtView.getChildren().length === 0) {
+			$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
+				classes : ["form-txt"],
+				hintText : $.strings.familyMemberAddHintOther
+			}));
+			$.otherTxtView.add($.otherTxt.getView());
+		}
 	} else if ($.otherTxt) {
-		$.otherTxtView.remove($.otherTxt.getView());
+		if ($.otherTxtView.getChildren().length !== 0)
+			$.otherTxtView.remove($.otherTxt.getView());
 	}
 }
 
