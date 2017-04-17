@@ -1,5 +1,6 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
+    moment = require("alloy/moment"),
     relationship;
 
 
@@ -78,6 +79,14 @@ function didClickContinue() {
     if (!dob) {
         $.uihelper.showDialog({
             message: $.strings.familyMemberAddValDob
+        });
+        return;
+    }
+	var currentDate = new Date(moment());
+	var isInvalidDOB = moment(dob.toString()).isAfter(currentDate);
+    if (isInvalidDOB) {
+        $.uihelper.showDialog({
+            message: $.strings.familyMemberAddValFutureDob
         });
         return;
     }
