@@ -282,35 +282,37 @@ function Navigation(args) {
 
 			that.loader = null;
 
-			that.currentController.requestTitleControlFocus();
+			if (_.has(that.currentController, "requestTitleControlFocus")) {
+				that.currentController.requestTitleControlFocus();
 		}
-	};
+	}
+};
 
-	/**
-	 * set loader message
-	 */
-	this.setLoaderMessage = function(message) {
+/**
+ * set loader message
+ */
+this.setLoaderMessage = function(message) {
 
-		if (that.loader != null) {
+	if (that.loader != null) {
 
-			that.loader.setMessage(message);
-		}
-	};
+		that.loader.setMessage(message);
+	}
+};
 
-	/**
-	 * Spits information about the navigation stack out to console
-	 */
-	this.testOutput = function() {
+/**
+ * Spits information about the navigation stack out to console
+ */
+this.testOutput = function() {
 
-		var logger = require("logger");
+	var logger = require("logger");
 
-		logger.debug(TAG, "stack length", that.controllers.length);
+	logger.debug(TAG, "stack length", that.controllers.length);
 
-		for (var i = 0,
-		    x = that.controllers.length; i < x; i++) {
-			logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
-		}
-	};
+	for (var i = 0,
+	    x = that.controllers.length; i < x; i++) {
+		logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
+	}
+};
 }
 
 // Calling this module function returns a new navigation instance
