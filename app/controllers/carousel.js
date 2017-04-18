@@ -120,13 +120,14 @@ function didClickNext(e) {
 	
 		if(Alloy.CFG.is_proxy_enabled)
 		{
+			Alloy.Globals.carouselFlow = true;
  			$.app.navigator.open({
 				ctrl : "register",
  			});
 		} else {
 			$.app.navigator.open({
-				ctrl : "signup",
-				titleid : "titleCreateAccount",
+				ctrl : "searchExistingPatient",
+				titleid : "searchExistingPatientWelcome",
 			});
 		}	
  	}

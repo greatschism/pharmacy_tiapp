@@ -9,4 +9,7 @@
 },
 "#anotherAdultBtn":{
 	title:Alloy.Globals.strings.registerBtnAnotherAdult
+},
+"#registerInfoAttr[if=Alloy.Globals.carouselFlow]":{
+	html:Alloy.Globals.strings.registerAttrAccountExists
 }

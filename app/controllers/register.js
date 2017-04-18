@@ -1,3 +1,5 @@
+var args = $.args;
+
 function didClickMyself(){
 	/*
 	$.app.navigator.open({
@@ -25,3 +27,16 @@ function didClickAddAnotherAdult(){
 		stack : true
 	});
 }
+
+function didClickAccountExists(){
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login"
+	});
+}
+
+function terminate() {
+	Alloy.Globals.carouselFlow = false;
+}
+
+exports.terminate = terminate;
