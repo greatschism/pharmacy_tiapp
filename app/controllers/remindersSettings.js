@@ -252,7 +252,7 @@ function didClickDeliveryMode(e) {
 						reply : oldReply
 					});
 					rows[index] = Alloy.createController("itemTemplates/promptReply", params);
-					$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
+					$.tableView.updateRow(index , rows[index].getView());
 				}
 			});
 		}
