@@ -38,7 +38,7 @@ function init() {
 	 * remove region change event on pause
 	 * and add back on reumed event
 	 */
-	
+
 	if (OS_IOS) {
 		Ti.App.addEventListener("pause", didPauseApp);
 		Ti.App.addEventListener("resumed", didResumedApp);
@@ -95,8 +95,9 @@ function init() {
 		classes : ["icon-map"],
 		accessibilityLabel : "map to locate stores"
 	});
-	
-	$.mapView.accessibilityHidden = true;
+
+	$.mapView.setVisible(false);
+
 }
 
 function didPostlayoutLoader(e) {
@@ -195,7 +196,7 @@ function didGetLocation(userLocation) {
  * errorDialogEnabled - whetehr or not to show error alert (default to true)
  */
 function getStoresOLD(param, errorDialogEnabled, shouldUpdateRegion) {
-	
+
 	/**
 	 * abort any pending http requests
 	 */
@@ -204,94 +205,82 @@ function getStoresOLD(param, errorDialogEnabled, shouldUpdateRegion) {
 	}
 
 	$.loader.show();
-	
-	
-	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
-	{
-		
-		httpClient = $.http.request({
-		method : "mailorder_stores_get",
-		params : {
-			data : [{
-					rx_info : {
-	       				rx_number: ""
-     				}
-			}],
-			feature_code : "IP-STLI-STOR"
-		},
-		passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
-		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
-		showLoader : false,
-		success : didGetStores,
-		failure : didGetStores
-		});
-		
-	}
 
-	
-	else
-	{
+	if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+
+		httpClient = $.http.request({
+			method : "mailorder_stores_get",
+			params : {
+				data : [{
+					rx_info : {
+						rx_number : ""
+					}
+				}],
+				feature_code : "IP-STLI-STOR"
+			},
+			passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
+			errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
+			showLoader : false,
+			success : didGetStores,
+			failure : didGetStores
+		});
+
+	} else {
 		var reqStoreObj = {
 			view_type : currentViewType
 		};
-		
+
 		/*
 		 * check whether it is a search
 		 */
 		if (param) {
-	
+
 			if (_.isString(param)) {
 				currentLocation = {};
 				reqStoreObj.search_criteria = param;
-				if(Alloy.Globals.isMailOrderService)
-				{
+				if (Alloy.Globals.isMailOrderService) {
 					_.extend(reqStoreObj, {
-							mail_order_services : 0
+						mail_order_services : 0
 					});
 				}
 			} else {
 				currentLocation = _.pick(param, ["latitude", "longitude"]);
-				if(Alloy.Globals.isMailOrderService)
-				{
+				if (Alloy.Globals.isMailOrderService) {
 					_.extend(reqStoreObj, {
 						search_lat : param.latitude,
 						search_long : param.longitude,
 						mail_order_services : 1
 					});
-				}
-				else
-				{
+				} else {
 					_.extend(reqStoreObj, {
-					search_lat : param.latitude,
-					search_long : param.longitude
+						search_lat : param.latitude,
+						search_long : param.longitude
 					});
 				}
 			}
-	
-		}
-		
-		 else {
-	
+
+		} else {
+
 			currentLocation = _.pick($.uihelper.userLocation, ["latitude", "longitude"]);
 			_.extend(reqStoreObj, {
 				user_lat : $.uihelper.userLocation.latitude,
 				user_long : $.uihelper.userLocation.longitude
 			});
-	
+
 			/*
 			 * if not reset search if any
 			 */
-	
+
 			if ($.searchTxt.getValue()) {
 				$.searchTxt.setValue("");
 			}
-	
+
 			if (geoRows.length) {
 				geoRows = [];
 				$.geoTableView.setData([]);
 			}
 		}
-	
+
 		/**
 		 * passthrough can be a boolean|undefined
 		 * if undefined considered as true
@@ -313,9 +302,8 @@ function getStoresOLD(param, errorDialogEnabled, shouldUpdateRegion) {
 	}
 }
 
-
 function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
-	
+
 	/**
 	 * abort any pending http requests
 	 */
@@ -324,106 +312,98 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 	}
 
 	$.loader.show();
-	
+
 	/*
-	if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
-	{
-		
-		httpClient = $.http.request({
-		method : "mailorder_stores_get",
-		params : {
-			data : [{
-					rx_info : {
-	       				rx_number: ""
-     				}
-			}],
-			feature_code : "IP-STLI-STOR"
-		},
-		passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
-		errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
-		showLoader : false,
-		success : didGetStores,
-		failure : didGetStores
-		});
-		
-	}
-	
-	else*/
+	 if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
+	 {
+
+	 httpClient = $.http.request({
+	 method : "mailorder_stores_get",
+	 params : {
+	 data : [{
+	 rx_info : {
+	 rx_number: ""
+	 }
+	 }],
+	 feature_code : "IP-STLI-STOR"
+	 },
+	 passthrough : _.isUndefined(shouldUpdateRegion) ? true : shouldUpdateRegion,
+	 errorDialogEnabled : _.isUndefined(errorDialogEnabled) ? true : errorDialogEnabled,
+	 showLoader : false,
+	 success : didGetStores,
+	 failure : didGetStores
+	 });
+
+	 }
+
+	 else*/
 	{
 		var reqStoreObj = {
 			view_type : currentViewType
 		};
-		
+
 		/*
 		 * check whether it is a search
 		 */
 		if (param) {
-		logger.debug("\n\n\n param present in search\n\n\n");
+			logger.debug("\n\n\n param present in search\n\n\n");
 
 			if (_.isString(param)) {
-						logger.debug("\n\n\n param is a string in search\n\n\n");
+				logger.debug("\n\n\n param is a string in search\n\n\n");
 
 				currentLocation = {};
 				reqStoreObj.search_criteria = param;
-				if(Alloy.Globals.isMailOrderService)
-				{
+				if (Alloy.Globals.isMailOrderService) {
 					_.extend(reqStoreObj, {
-							mail_order_services : 1
+						mail_order_services : 1
 					});
-				}
-				else
-				{
+				} else {
 					_.extend(reqStoreObj, {
-							mail_order_services : 0
+						mail_order_services : 0
 					});
 				}
 			} else {
 				logger.debug("\n\n\n param is a a zip in search\n\n\n");
 
 				currentLocation = _.pick(param, ["latitude", "longitude"]);
-				if(Alloy.Globals.isMailOrderService)
-				{
+				if (Alloy.Globals.isMailOrderService) {
 					_.extend(reqStoreObj, {
 						search_lat : param.latitude,
 						search_long : param.longitude,
 						mail_order_services : 1
 					});
-				}
-				else
-				{
+				} else {
 					_.extend(reqStoreObj, {
-					search_lat : param.latitude,
-					search_long : param.longitude,
-					mail_order_services : 0
+						search_lat : param.latitude,
+						search_long : param.longitude,
+						mail_order_services : 0
 
 					});
 				}
 			}
-	
-		}
-		
-		 else {
-	logger.debug("\n\n\n no param in search\n\n\n");
+
+		} else {
+			logger.debug("\n\n\n no param in search\n\n\n");
 			currentLocation = _.pick($.uihelper.userLocation, ["latitude", "longitude"]);
 			_.extend(reqStoreObj, {
 				user_lat : $.uihelper.userLocation.latitude,
 				user_long : $.uihelper.userLocation.longitude
 			});
-	
+
 			/*
 			 * if not reset search if any
 			 */
-	
+
 			if ($.searchTxt.getValue()) {
 				$.searchTxt.setValue("");
 			}
-	
+
 			if (geoRows.length) {
 				geoRows = [];
 				$.geoTableView.setData([]);
 			}
 		}
-	
+
 		/**
 		 * passthrough can be a boolean|undefined
 		 * if undefined considered as true
@@ -444,7 +424,6 @@ function getStores(param, errorDialogEnabled, shouldUpdateRegion) {
 		});
 	}
 }
-
 
 function didGetStores(result, passthrough) {
 
@@ -458,7 +437,7 @@ function didGetStores(result, passthrough) {
 	 */
 	if (!result.data) {
 		logger.debug("\n\n\ndidgetstores -- results list empty\n\n\n");
-		
+
 		//this resets the list populated already
 		result.data = {
 			stores : {
@@ -494,8 +473,7 @@ function didGetStores(result, passthrough) {
 			success : didGetDistance,
 			failure : didGetDistance
 		});
-	} 
-	else {
+	} else {
 		logger.debug("\n\n\n calling prepare data -- no lat long present in results\n\n\n");
 		prepareData(result, passthrough);
 	}
@@ -610,8 +588,7 @@ function prepareData(result, passthrough) {
 	 * (mailOrderStoreEnabled's default value is true) (PHA-910 - #1)
 	 */
 	var mailOrderStoreId = Alloy.Models.appload.get("mail_order_store_id");
-	if(! Alloy.Globals.isMailOrderService)
-	{
+	if (!Alloy.Globals.isMailOrderService) {
 		result.data.stores.stores_list = _.reject(result.data.stores.stores_list, function(store) {
 			if (args.mailOrderStoreEnabled !== false || Alloy.CFG.mail_order_store_pickup_enabled || store.id != mailOrderStoreId) {
 				return false;
@@ -625,8 +602,8 @@ function prepareData(result, passthrough) {
 	 * Note: making sure lat and long has proper values
 	 * not just empty string / null
 	 */
-	
-		logger.debug("\n\n\nI am in prepare data\n\n\n");
+
+	logger.debug("\n\n\nI am in prepare data\n\n\n");
 
 	if (_.isEmpty(currentLocation) && result.data.stores.latitude && result.data.stores.longitude) {
 		currentLocation = _.pick(result.data.stores, ["latitude", "longitude"]);
@@ -1322,13 +1299,14 @@ function didClickRightNavBtn(e) {
 		 * should update region as it is a sync from map
 		 */
 		prepareMap(true);
-		$.mapView.accessibilityHidden = false;
+		$.mapView.setVisible(true);
 	} else {
 		$.storeTableView.visible = true;
 		currentViewType = viewTypeList;
 		//to keep map and list in sync
 		prepareList();
-		$.mapView.accessibilityHidden = true;
+		$.mapView.setVisible(false);
+
 	}
 	var anim = Ti.UI.createAnimation({
 		opacity : opacity,
@@ -1459,8 +1437,8 @@ function focus() {
 		 */
 		setPatientSwitcher();
 	}
-	
-	$.mapView.accessibilityHidden = true;
+
+	$.mapView.setVisible(false);
 
 }
 

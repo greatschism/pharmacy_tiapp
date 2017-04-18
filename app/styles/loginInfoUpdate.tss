@@ -10,7 +10,7 @@
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
-	hintText: Alloy.Globals.strings.loginHintPassword,
+	hintText: Alloy.Globals.strings.loginHintNewPassword,
 	passwordMask: true
 },
 "#continueBtn":{

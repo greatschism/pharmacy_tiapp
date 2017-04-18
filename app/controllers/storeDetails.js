@@ -28,7 +28,8 @@ function focus() {
 					}]
 				},
 				showLoader : false,
-				success : didGetStore
+				success : didGetStore,
+				failure : didFailed
 			});
 		}
 	}
@@ -121,6 +122,11 @@ function didGetStore(result, passthrough) {
 		data.push(servicesSection);
 	}
 	$.tableView.setData(data);
+	$.loader.hide();
+}
+
+function didFailed(){
+	$.app.navigator.close();
 	$.loader.hide();
 }
 
