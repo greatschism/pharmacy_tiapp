@@ -12,7 +12,7 @@ function init() {
 
 function didClickPhoto(e) {	
 	$.app.navigator.showLoader();
-	$.uihelper.getPhoto(didGetPhoto, $.window);
+	$.uihelper.getPhoto(true, didGetPhoto, $.window);
 }
 
 function didGetPhoto(blob) {
