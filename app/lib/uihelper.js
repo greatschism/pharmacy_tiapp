@@ -62,7 +62,7 @@ var Helper = {
 			Ti.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, str);
 		}
 	},
-	
+
 	/**
 	 * Get current location of user
 	 * @param {Function} callback
@@ -121,13 +121,13 @@ var Helper = {
 			callback(Helper.userLocation);
 		}
 	},
-	
-	checkLocationPermission : function (callback, forceUpdate, errorDialogEnabled, loader) {
-	  if(!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
-			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result){
-				if(!result.success) {
+
+	checkLocationPermission : function(callback, forceUpdate, errorDialogEnabled, loader) {
+		if (!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
+			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result) {
+				if (!result.success) {
 					analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
-					if (loader) 
+					if (loader)
 						loader.hide(false);
 				} else {
 					Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
@@ -269,7 +269,8 @@ var Helper = {
 	 *  @param width to resize
 	 *  @param height to resize
 	 */
-	getPhoto : function(callback, window, width, height) {
+	getPhoto : function(watermark, callback, window, width, height) {
+		// alert(watermark);
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
 			cancel : 2
@@ -279,7 +280,7 @@ var Helper = {
 			var container = Ti.UI.createView();
 			var watermarkMe;
 			var label1;
-			
+
 			if (OS_ANDROID) {
 				label1 = Ti.UI.createLabel({
 					color : '#fff',
@@ -293,12 +294,12 @@ var Helper = {
 					},
 					shadowRadius : 5,
 					text : Alloy.Globals.strings.faxImageMessage,
-					textAlign :  Ti.UI.TEXT_ALIGNMENT_LEFT,
+					textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
 					top : 2,
 					width : Ti.UI.SIZE,
 					height : Ti.UI.SIZE
 				});
-				
+
 			} else {
 				label1 = Ti.UI.createLabel({
 					color : '#fff',
@@ -317,10 +318,12 @@ var Helper = {
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
-				label1.anchorPoint = {x: 0, y: 0};
+				label1.anchorPoint = {
+					x : 0,
+					y : 0
+				};
 			}
-			
-			
+
 			if (OS_ANDROID) {
 				var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "notwatermarked.jpg");
 				imageFile.write(blob);
@@ -328,8 +331,8 @@ var Helper = {
 
 				watermarkMe = Ti.UI.createImageView({
 					defaultImage : blobOfImage.nativePath,
-				    top : 0,
-			        left : 0,
+					top : 0,
+					left : 0,
 					height : 'auto',
 					width : 'auto',
 				});
@@ -346,7 +349,7 @@ var Helper = {
 				container.add(watermarkMe);
 				container.add(label1);
 			}
-		
+
 			var newBlob = container.toImage();
 			callback(newBlob);
 		};
@@ -355,21 +358,30 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					if(!Titanium.Media.hasCameraPermissions()){
-						Titanium.Media.requestCameraPermissions(function(result){
-							if(!result.success) {
+					if (!Titanium.Media.hasCameraPermissions()) {
+						Titanium.Media.requestCameraPermissions(function(result) {
+							if (!result.success) {
 								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							} else {
-								Helper.openCamera(watermarker, window, width, height);
+								if (watermark)
+									Helper.openCamera(watermarker, window, width, height);
+								else
+									Helper.openCamera(callback, window, width, height);
 							}
 						});
 					} else {
-						Helper.openCamera(watermarker, window, width, height);
+						if (watermark)
+							Helper.openCamera(watermarker, window, width, height);
+						else
+							Helper.openCamera(callback, window, width, height);
 					}
 					break;
 				case 1:
-					Helper.openGallery(watermarker, window, width, height);
+					if (watermark)
+						Helper.openGallery(watermarker, window, width, height);
+					else
+						Helper.openGallery(callback, window, width, height);
 					break;
 				}
 			}
@@ -679,14 +691,13 @@ var Helper = {
 		});
 		dialog.show();
 	},
-	
-	
+
 	showDialogWithButton : function(params) {
 		var btnOptions = [Alloy.Globals.strings.dialogBtnOK];
-		_.each(params.btnOptions , function(btnObj) {
+		_.each(params.btnOptions, function(btnObj) {
 			btnOptions.push(btnObj.title);
 		});
-		
+
 		_.defaults(params, {
 			title : Ti.App.name,
 			cancelIndex : -1,
@@ -702,8 +713,8 @@ var Helper = {
 		var dialog = Ti.UI.createAlertDialog(dict);
 		dialog.addEventListener("click", function(e) {
 			var index = e.index;
-			if(index >= 1) {
-				params.btnOptions[index-1].onClick && params.btnOptions[index-1].onClick();
+			if (index >= 1) {
+				params.btnOptions[index - 1].onClick && params.btnOptions[index - 1].onClick();
 			} else if (params.success && index !== cancel) {
 				params.success(index, e);
 			} else if (params.cancel && index === cancel) {
