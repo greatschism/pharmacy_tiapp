@@ -127,8 +127,9 @@ var Helper = {
 			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result) {
 				if (!result.success) {
 					analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
-					if (loader)
+					if (loader) {
 						loader.hide(false);
+					}
 				} else {
 					Helper.getLocation(callback, forceUpdate, errorDialogEnabled);
 				}
