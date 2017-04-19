@@ -12,6 +12,7 @@ module.exports = {
 	"INDE" : "Appload",
 	"MAIN" : "Appload",
 	"UPGR" : "Appload",
+	"VSIC" : "Appload",
 	/**
 	 * home
 	 */

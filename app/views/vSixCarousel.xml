@@ -1,0 +1,4 @@
+<Alloy>
+	<WebView id="webView" />
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill" />
+</Alloy>

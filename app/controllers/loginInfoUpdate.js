@@ -25,12 +25,6 @@ function init() {
 
 	$.askInfoLbl.text = Alloy.Globals.strings.loginInfoUpdateAskInfo;
 	uihelper.getImage("logo", $.logoImg);
-	setWindowTitle(OS_IOS ? $.rootwindow : $.window);
-	$.window.open();
-}
-
-function setWindowTitle(windowObj) {
-	windowObj.title = args.title;
 }
 
 function didChangeToggle() {
@@ -157,40 +151,34 @@ function didClickHide(e) {
 	$.tooltip.hide();
 }
 
-function didOpen(e) {
-	$.trigger("init");
-}
-
-function didClickCancel(e) {
-	args.callBack = didInitWin;
+function didClickCancel() {
 	args.keychain.reset();
-	args.logout(args);
+	didInitWin();
 }
 
-function doLogout(passthrough) {
-	http.request({
-		method : "patient_logout",
-		passthrough : passthrough,
-		errorDialogEnabled : false,
-		success : didInitWin,
-		failure : didInitWin
+function didInitWin(passthrough) {
+	app.navigator.hideLoader();
+	if (!Alloy.Globals.isAccountUpgraded) {
+		app.navigator.open({
+			ctrl : "login",
+			titleid : "titleLogin"
+		});	
+	};
+}
+
+function backButtonHandler(e) {
+	app.navigator.showLoader();
+	didClickCancel(e);
+}
+
+function didClickWhatsNew(e) {
+	app.navigator.open({
+		ctrl : "vSixCarousel",
+		titleid : "vSixCarouselTitle",
+		stack : true,
 	});
 }
 
-function didInitWin(e) {
-	app.navigator.hideLoader();
-	if (OS_ANDROID) {
-		$.window.setExitOnClose(false);
-	}
-	$.window.close();
-}
-
-function didClickLeftNavView(e) {
-	didClickCancel(e);
-}
-
-function didAndroidback(e) {
-	didClickCancel(e);
-}
-
 exports.init = init;
+exports.cancel = didClickCancel;
+exports.backButtonHandler = backButtonHandler;

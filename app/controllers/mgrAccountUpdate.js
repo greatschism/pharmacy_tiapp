@@ -317,6 +317,14 @@ function didAndroidback(e) {
 	didClickCancel(e);
 }
 
+function didClickWhatsNew(e) {
+	app.navigator.open({
+		ctrl : "vSixCarousel",
+		titleid : "vSixCarouselTitle",
+		stack : true,
+	});
+}
+
 exports.init = init;
 exports.cancel = didClickCancel;
 exports.setParentView = setParentView;

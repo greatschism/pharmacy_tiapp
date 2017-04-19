@@ -675,6 +675,7 @@ module.exports = {
 		"registerValStore" : "Please select a pharmacy.",
 		"registerSectionTermsDocuments" : "Documents",
 		"registerBtnTermsDone" : "Done",
+		"registerAttrAccountExists" : "Already have an account? Press here to <secondaryfont><secondarycolor>sign in</secondarycolor></secondaryfont>",
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
@@ -930,6 +931,8 @@ module.exports = {
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
-		"accessibilityAddFamilyIconButton" : "Add family."
+		"accessibilityAddFamilyIconButton" : "Add family.",
+		
+		"vSixCarouselTitle" : "What's new!"
 	}
 };
