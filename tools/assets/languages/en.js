@@ -208,6 +208,9 @@ module.exports = {
 		"titleManageAdult" : "Manage an adult",
 		"titleAddAnAdult" : "Add an adult",
 		"titleInsuranceCard" : "Update insurance card",
+		"titleRegister" : "Account creation",
+		"titleTransferSuccess" : "Order processed",
+		"titleRefillOrdered" : "Order processed",
 
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
