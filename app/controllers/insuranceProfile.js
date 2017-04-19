@@ -315,6 +315,7 @@ function didUploadImage(result, passthrough) {
 function didSuccess(result, passthrough) {
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
+		titleid : "titleRefillOrdered",
 		ctrlArguments : {
 			prescriptions : null,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),

@@ -274,6 +274,7 @@ function didClickSignup(e) {
 	{
 		$.app.navigator.open({
 			ctrl : "register",
+			titleid : "titleRegister",
 			stack : true
 		});
 	} else {

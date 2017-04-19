@@ -274,83 +274,6 @@ var Helper = {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
 			cancel : 2
 		});
-
-		var watermarker = function(blob) {
-			var container = Ti.UI.createView();
-			var watermarkMe;
-			var label1;
-			
-			if (OS_ANDROID) {
-				label1 = Ti.UI.createLabel({
-					color : '#fff',
-					font : {
-						fontSize : 24
-					},
-					shadowColor : '#000',
-					shadowOffset : {
-						x : 3,
-						y : 3
-					},
-					shadowRadius : 5,
-					text : Alloy.Globals.strings.faxImageMessage,
-					textAlign :  Ti.UI.TEXT_ALIGNMENT_LEFT,
-					top : 2,
-					width : Ti.UI.SIZE,
-					height : Ti.UI.SIZE
-				});
-				
-			} else {
-				label1 = Ti.UI.createLabel({
-					color : '#fff',
-					font : {
-						fontSize : 36
-					},
-					shadowColor : '#000',
-					shadowOffset : {
-						x : 3,
-						y : 3
-					},
-					shadowRadius : 5,
-					text : Alloy.Globals.strings.faxImageMessage,
-					textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
-					bottom : 2,
-					width : blob.width,
-					height : Ti.UI.SIZE
-				});
-				label1.anchorPoint = {x: 0, y: 0};
-			}
-			
-			
-			if (OS_ANDROID) {
-				var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "notwatermarked.jpg");
-				imageFile.write(blob);
-				var blobOfImage = imageFile.read();
-
-				watermarkMe = Ti.UI.createImageView({
-					defaultImage : blobOfImage.nativePath,
-				    top : 0,
-			        left : 0,
-					height : 'auto',
-					width : 'auto',
-				});
-				container.add(watermarkMe);
-				container.add(label1);
-			} else {
-				watermarkMe = Ti.UI.createImageView({
-					image : blob,
-					width : 'auto',
-					height : 'auto'
-				});
-				watermarkMe.transform = Ti.UI.create2DMatrix().rotate(270);
-				label1.transform = Ti.UI.create2DMatrix().rotate(270);
-				container.add(watermarkMe);
-				container.add(label1);
-			}
-		
-			var newBlob = container.toImage();
-			callback(newBlob);
-		};
-
 		optDialog.on("click", function didClick(evt) {
 			if (!evt.cancel) {
 				switch(evt.index) {
@@ -361,15 +284,15 @@ var Helper = {
 								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							} else {
-								Helper.openCamera(watermarker, window, width, height);
+								Helper.openCamera(callback, window, width, height);
 							}
 						});
 					} else {
-						Helper.openCamera(watermarker, window, width, height);
+						Helper.openCamera(callback, window, width, height);
 					}
 					break;
 				case 1:
-					Helper.openGallery(watermarker, window, width, height);
+					Helper.openGallery(callback, window, width, height);
 					break;
 				}
 			}
