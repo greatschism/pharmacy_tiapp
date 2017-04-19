@@ -2,7 +2,7 @@
 	<ScrollView id="scrollview" class="disable-bounce">
 		<View id="parentView" class="width-100 vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
-			<Widget id="mgrAccountUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" />
+			<Widget id="mgrAccountUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" onClick="didClickWhatsNew"/>
 			<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right-disabled txt border-disabled returnkey-next keyboard-phone" onChange="didChangePhone" onReturn="moveToNext" />

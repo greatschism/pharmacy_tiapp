@@ -931,6 +931,8 @@ module.exports = {
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
-		"accessibilityAddFamilyIconButton" : "Add family."
+		"accessibilityAddFamilyIconButton" : "Add family.",
+		
+		"vSixCarouselTitle" : "What's new!"
 	}
 };

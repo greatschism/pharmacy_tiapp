@@ -158,8 +158,16 @@ function didAuthenticate(result, passthrough) {
 		 */
 		passthrough.checkCodeValues = checkCodeValues;
 		passthrough.title = Alloy.Globals.strings.loginInfoUpdateTitle;
-		var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
-		ctrl.init();
+		if (passthrough.force_start) {
+			doLogout(passthrough);
+		} else {
+			app.navigator.open({
+	 			ctrl : "loginInfoUpdate",
+	 			titleid : "loginInfoUpdateTitle",
+	 			ctrlArguments : passthrough,
+	 			stack : true
+	 		});
+		}
 	} else if (result.data.patients.is_minor === "1" && result.data.patients.is_account_upgrade_req === "1") {
 		app.navigator.hideLoader();
 		/**
