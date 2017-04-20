@@ -272,7 +272,7 @@ function didGetStoreList(result) {
 
 function didGetStoreListResult(result) {
 	if (result && result.data) {
-		$.uihelper.openDialer(result.data.stores.phone);
+		$.uihelper.openDialer($.utilities.validatePhoneNumber(result.data.stores.phone));
 	}
 }
 
@@ -300,7 +300,7 @@ function didClickcontactOptionsMenu(e) {
 		break;
 	case 2:
 		if (phone_formatted) {
-			$.uihelper.openDialer(phone_formatted);
+			$.uihelper.openDialer($.utilities.validatePhoneNumber(phone_formatted));
 		} else {
 			getHomePharmacy();
 		}

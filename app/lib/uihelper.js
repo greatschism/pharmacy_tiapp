@@ -202,7 +202,7 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.openDialer(phone);
+					Helper.openDialer(utilities.validatePhoneNumber(phone));
 					break;
 				case 1:
 					Helper.addContact(personObj);
