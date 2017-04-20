@@ -105,7 +105,7 @@ function didError(e) {
 
 function didClickPhoto(e) {
 	//height is not being set to maintain the aspect ratio
-	$.uihelper.getPhoto(didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width);
+	$.uihelper.getPhoto(false, didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width);
 }
 
 function didGetPhoto(blob) {
