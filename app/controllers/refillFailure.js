@@ -56,7 +56,7 @@ function didClickType(e) {
 
 function didClickPhone(e) {
 	if (store) {
-		$.uihelper.openDialer(store.phone);
+		$.uihelper.openDialer($.utilities.validatePhoneNumber(store.phone));
 	} else {
 		$.app.navigator.open({
 			titleid : "titleStores",

@@ -144,7 +144,7 @@ function didClickEditPrec(e) {
 			stack : true
 		});
 	} else {
-		$.uihelper.getPhoto(didGetPhoto, $.window);
+		$.uihelper.getPhoto(true, didGetPhoto, $.window);
 	}
 }
 
