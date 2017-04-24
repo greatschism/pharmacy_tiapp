@@ -54,9 +54,18 @@ function init(passthrough) {
 			    v6Password = keydump.passwordKey,
 			    v6Username = keydump.usernameKey;
 			if (autologinFlag && v6Username !== "" && v6Password !== "") {
-				passthrough.username = v6Username;
-				passthrough.password = v6Password;
-				setAutoLoginEnabled(true);
+
+ 				//This detects if this instance of the v7 app was installed directly OVER a v6 installation
+ 				//If there was simply keychain data left over from a previous v6 installation (which had subsequently been deleted)
+ 				//then this will prevent the data from being used.
+				var savedV6File= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "logincount");
+
+				if (savedV6File.exists()) {
+					passthrough.username = v6Username;
+					passthrough.password = v6Password;
+					setAutoLoginEnabled(true);
+    			}
+					
 				/**
 				 * 	update previous values to empty string
 				 */
