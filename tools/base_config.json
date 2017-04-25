@@ -72,6 +72,7 @@
 			"invalid_combination_for_signup" : "ECOH673",
 			"date_format": "MM-DD-YYYY",
 			"date_time_format": "MM-DD-YYYY hh:mm A",
+			"day_of_week_time_format": "dddd hh:mm A",
 			"dob_format": "YYYY-MM-DD",
 			"ymd_date_time_format": "YYYY-MM-DD HH:mm:ss",
 			"reminder_delivery_mode_push_ios": "iospush",
