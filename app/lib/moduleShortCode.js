@@ -12,6 +12,7 @@ module.exports = {
 	"INDE" : "APPL",
 	"MAIN" : "APPL",
 	"UPGR" : "APPL",
+	"VSIC" : "APPL",
 	/**
 	 * home
 	 */

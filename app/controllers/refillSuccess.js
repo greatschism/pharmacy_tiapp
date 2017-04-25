@@ -199,8 +199,8 @@ function contactsHandler() {
 
 function didClickSignup(e) {
 	$.app.navigator.open({
-		titleid : "titleSignup",
-		ctrl : "signup"
+		titleid : "searchExistingPatientWelcome",
+		ctrl : "searchExistingPatient"
 	});
 }
 

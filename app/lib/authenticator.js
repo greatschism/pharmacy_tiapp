@@ -14,7 +14,7 @@ var TAG = "AUTH",
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
-    v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : null;
+    v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : require("com.mscripts.keychainimporter");
 
 function init(passthrough) {
 	if (!passthrough) {
@@ -28,22 +28,46 @@ function init(passthrough) {
 	/**
 	 * check username
 	 * and password
+	 * on first app launch check for v6 credentials
 	 */
-	if (OS_ANDROID) {
-		var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_static_encryption_key);
-		var v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_static_encryption_key);
-		if (v6Username !== "" && v6Password !== "") {
-			passthrough.username = v6Username;
-			passthrough.password = v6Password;
-			setAutoLoginEnabled(true);
-			//	update previous values to empty string 
-			v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_static_encryption_key);
-			v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_static_encryption_key);
+	if (utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false)) {
+		if (OS_ANDROID) {
+			var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_android_static_enc_key),
+			    v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_android_static_enc_key);
+			if (v6Username !== "" && v6Password !== "") {
+				passthrough.username = v6Username;
+				passthrough.password = v6Password;
+				setAutoLoginEnabled(true);
+				/**
+				 * 	update previous values to empty string
+				 */
+				v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_android_static_enc_key);
+				v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_android_static_enc_key);
+			}
+		} else {
+			var autologinFlag = v6keychain.getAutologinFlag({
+				serviceName : "com.mscripts.safeway"
+			}),
+			    keydump = v6keychain.obatainV6KeychainDictWithServiceName({
+				serviceName : Alloy.CFG.v6_service_name
+			}),
+			    v6Password = keydump.passwordKey,
+			    v6Username = keydump.usernameKey;
+			if (autologinFlag && v6Username !== "" && v6Password !== "") {
+				passthrough.username = v6Username;
+				passthrough.password = v6Password;
+				setAutoLoginEnabled(true);
+				/**
+				 * 	update previous values to empty string
+				 */
+				v6keychain.flushV6Keychain({
+					serviceName : Alloy.CFG.v6_service_name
+				});
+			}
 		}
-	} else{
-		//	iOS handling is yet to final
+		utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 	};
-	
+
 	var username = passthrough.username,
 	    password = passthrough.password;
 	if (username && password) {
@@ -134,8 +158,16 @@ function didAuthenticate(result, passthrough) {
 		 */
 		passthrough.checkCodeValues = checkCodeValues;
 		passthrough.title = Alloy.Globals.strings.loginInfoUpdateTitle;
-		var ctrl = Alloy.createController("loginInfoUpdate", passthrough);
-		ctrl.init();
+		if (passthrough.force_start) {
+			doLogout(passthrough);
+		} else {
+			app.navigator.open({
+	 			ctrl : "loginInfoUpdate",
+	 			titleid : "loginInfoUpdateTitle",
+	 			ctrlArguments : passthrough,
+	 			stack : true
+	 		});
+		}
 	} else if (result.data.patients.is_minor === "1" && result.data.patients.is_account_upgrade_req === "1") {
 		app.navigator.hideLoader();
 		/**
@@ -958,7 +990,7 @@ function hasMandatoryNavigation(mPatient) {
 	 * Note: created_at will be in UTC
 	 * so calculations should happen in UTC
 	 */
-	if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+	if (!Alloy.Globals.isAccountUpgraded && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		app.navigator.open({
 			ctrl : "emailVerify",
 			ctrlArguments : {

@@ -76,5 +76,6 @@ module.exports = {
 	"UPGR" : "Upgrade",
 	"INSU" : "insuraceCard",
 	"INPR" : "insuranceProfile",
-	"ININ" : "insuranceInput"
+	"ININ" : "insuranceInput",
+	"VSIC" : "vSixCarousel"
 };

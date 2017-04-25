@@ -136,7 +136,8 @@ function show() {
 			if (child == $.popoverView) {
 				return;
 			}
-			child.accessibilityHidden = true;
+			// child.accessibilityHidden = true;
+			uihelper.toggleAccessibility(parent, true, true);
 		});
 		$.popoverView.applyProperties({
 			visible : true,
@@ -171,7 +172,9 @@ function hide() {
 			if (child == $.popoverView) {
 				return;
 			}
-			child.accessibilityHidden = false;
+			// child.accessibilityHidden = false;
+			uihelper.toggleAccessibility(parent, false, true);
+
 		});
 		var animation = Ti.UI.createAnimation({
 			opacity : 0,

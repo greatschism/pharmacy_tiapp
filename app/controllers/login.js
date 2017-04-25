@@ -274,12 +274,13 @@ function didClickSignup(e) {
 	{
 		$.app.navigator.open({
 			ctrl : "register",
+			titleid : "titleRegister",
 			stack : true
 		});
 	} else {
 		$.app.navigator.open({
-			ctrl : "signup",
-			titleid : "titleCreateAccount",
+			ctrl : "searchExistingPatient",
+			titleid : "searchExistingPatientWelcome",
 			stack : true
 		});
 	}

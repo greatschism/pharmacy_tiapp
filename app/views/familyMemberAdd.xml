@@ -1,7 +1,7 @@
 <Alloy>
-	<ScrollView>
-		<View id="parentView" class="width-100 vgroup">
-			<Label id="familyMemberAddLbl" class="margin-top margin-left margin-right h2 txt-center"/>
+	<ScrollView class="width-100 vgroup" height="115%" disableBounce="true">
+		<View id="parentView" class="width-100 vgroup height-100 top-10">
+			<Label id="familyMemberAddLbl" class="margin-left margin-right h2 txt-center"/>
 			<ImageView id="imgFamilyAdd" class="margin-top-large"/>
 			<Label id="familyMemberAddTip" class="margin-top-large h4 margin-left margin-right"/>
 			<View class="margin-top-large margin-left margin-right auto-height vgroup border">

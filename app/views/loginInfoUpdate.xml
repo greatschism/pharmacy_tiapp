@@ -1,40 +1,15 @@
 <Alloy>
-	<Window id="window" onOpen="didOpen" onAndroidback="didAndroidback" platform="android">
-		<ActionBar onHomeIconItemSelected="didClickLeftNavView"/>
-		<ScrollView class="disable-bounce">
-			<View id="parentView" class="width-100 vgroup">
-				<ImageView id="logoImg" class="margin-top-large img-logo" />
-				<Widget id="loginInfoUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" />
-				<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
-				<View id="infoView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-					<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
-					<View class="h-divider"/>
-					<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue" onClick="didChangeToggle"/>
-				</View>
-				<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+	<ScrollView class="disable-bounce">
+		<View id="parentView" class="width-100 vgroup">
+			<ImageView id="logoImg" class="margin-top-large img-logo" />
+			<Widget id="loginInfoUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" onClick="didClickWhatsNew" />
+			<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
+			<View id="infoView" class="margin-top-large margin-left margin-right auto-height vgroup border">
+				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
+				<View class="h-divider"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue" onClick="didChangeToggle"/>
 			</View>
-		</ScrollView>
-	</Window>
-	<NavigationWindow id="window" onOpen="didOpen" platform="ios">
-		<Window id="rootwindow" class="bg-color">
-			<LeftNavButton>
-				<View id="leftNavView" onClick="didClickLeftNavView">
-					<Button class="top-disabled left-disabled right-disabled i5 primary-light-fg-color bg-color-disabled border-disabled icon-back" />
-				</View>
-			</LeftNavButton>
-			<ScrollView class="disable-bounce">
-				<View id="parentView" class="width-100 vgroup">
-					<ImageView id="logoImg" class="margin-top-large img-logo" />
-					<Widget id="loginInfoUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" />
-					<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
-					<View id="infoView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-						<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
-						<View class="h-divider"/>
-						<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue" onClick="didChangeToggle"/>
-					</View>
-					<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
-				</View>
-			</ScrollView>
-		</Window>
-	</NavigationWindow>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+		</View>
+	</ScrollView>
 </Alloy>

@@ -589,6 +589,7 @@ function didRefill(result, passthrough) {
 	});
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
+		titleid : "titleRefillOrdered",
 		ctrlArguments : {
 			prescriptions : refilledPrescs,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value")

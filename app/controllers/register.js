@@ -1,3 +1,5 @@
+var args = $.args;
+
 function didClickMyself(){
 	/*
 	$.app.navigator.open({
@@ -15,6 +17,7 @@ function didClickMyself(){
 function didClickChild(){
 	$.app.navigator.open({
 		ctrl : "registerChildInfo",
+		titleid : "titleRegister",
 		stack : true
 	});
 }
@@ -25,3 +28,16 @@ function didClickAddAnotherAdult(){
 		stack : true
 	});
 }
+
+function didClickAccountExists(){
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login"
+	});
+}
+
+function terminate() {
+	Alloy.Globals.carouselFlow = false;
+}
+
+exports.terminate = terminate;

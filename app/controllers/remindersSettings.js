@@ -181,6 +181,8 @@ function didClickDeliveryMode(e) {
 	var index = $.deliveryModesPicker.currentIndex,
 	    row = rows[index],
 	    params = row.getParams(),
+	    oldReminderDeliveryMode = params.reminderDeliveryMode,
+	    oldReply = params.reply,
 	    data = e.data;
 	/**
 	 * update new values
@@ -243,6 +245,14 @@ function didClickDeliveryMode(e) {
 						};
 					}
 					$.app.navigator.open(navigation);
+				},
+				cancel : function didCancel() {
+					_.extend(params, {
+						reminderDeliveryMode : oldReminderDeliveryMode,
+						reply : oldReply
+					});
+					rows[index] = Alloy.createController("itemTemplates/promptReply", params);
+					$.tableView.updateRow(index , rows[index].getView());
 				}
 			});
 		}

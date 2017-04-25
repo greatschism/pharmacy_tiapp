@@ -1,5 +1,6 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
+    moment = require("alloy/moment"),
     relationship;
 
 
@@ -39,13 +40,16 @@ function didGetRelationships(result, passthrough) {
 
 function didChangeRelationship() {
 	if ($.relationshipDp.getSelectedItem().code_display === "Other") {
-		$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
-			classes : ["form-txt"],
-			hintText : $.strings.familyMemberAddHintOther
-		}));
-		$.otherTxtView.add($.otherTxt.getView());
+		if ($.otherTxtView.getChildren().length === 0) {
+			$.otherTxt = Alloy.createWidget("ti.textfield", "widget", $.createStyle({
+				classes : ["form-txt"],
+				hintText : $.strings.familyMemberAddHintOther
+			}));
+			$.otherTxtView.add($.otherTxt.getView());
+		}
 	} else if ($.otherTxt) {
-		$.otherTxtView.remove($.otherTxt.getView());
+		if ($.otherTxtView.getChildren().length !== 0)
+			$.otherTxtView.remove($.otherTxt.getView());
 	}
 }
 
@@ -78,6 +82,14 @@ function didClickContinue() {
     if (!dob) {
         $.uihelper.showDialog({
             message: $.strings.familyMemberAddValDob
+        });
+        return;
+    }
+	var currentDate = new Date(moment());
+	var isInvalidDOB = moment(dob.toString()).isAfter(currentDate);
+    if (isInvalidDOB) {
+        $.uihelper.showDialog({
+            message: $.strings.familyMemberAddValFutureDob
         });
         return;
     }
