@@ -576,6 +576,7 @@ function didClickRefill(e) {
 
 function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions;
+	Ti.API.info(JSON.stringify(refilledPrescs));
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order

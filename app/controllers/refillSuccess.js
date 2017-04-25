@@ -152,6 +152,7 @@ function updateTable() {
 		_.extend(prescription, {
 			iconClasses : prescription.refill_is_error === true ? failureClasses : successClasses
 		});
+		Ti.API.info(JSON.stringify(prescription));
 		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
 	});
 	data.push($.prescSection);
