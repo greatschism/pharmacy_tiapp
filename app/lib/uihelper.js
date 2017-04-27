@@ -273,7 +273,8 @@ var Helper = {
 		// alert(watermark);
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
-			cancel : 2
+			cancel : 2,
+			title : "Select an option"
 		});
 
 		var watermarker = function(blob) {

@@ -333,7 +333,7 @@ function prepareList() {
 				var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
 				    progress = 0,
 				    subtitle;
-				if (prescription.get("latest_refill_promised_date")) {
+				if (prescription.get("latest_refill_promised_date") && Alloy.Models.appload.get("features").is_promisetime_enabled === "1") {
 					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
 					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
 					    timeSpent = currentDate.diff(requestedDate, "seconds", true);

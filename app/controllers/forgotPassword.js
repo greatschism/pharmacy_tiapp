@@ -7,6 +7,7 @@ function didClickContactSupport() {
 	$.contactSupport = Alloy.createWidget("ti.optiondialog", "widget", $.createStyle({
 		options : [Alloy.Globals.strings.dialogBtnPhone, Alloy.Globals.strings.dialogBtnEmail, Alloy.Globals.strings.dialogBtnCancel],
 		cancel : 2,
+		title : "Select an option",
 		analyticsId : "ContactSupportOptionDlg"
 	}));
 
