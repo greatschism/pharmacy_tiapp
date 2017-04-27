@@ -1,16 +1,9 @@
 var args = $.args;
 
 function didClickMyself(){
-	/*
 	$.app.navigator.open({
 		ctrl : "signup",
 		titleid : "titleCreateAccount",
-		stack : true
-	});
-	*/
-	$.app.navigator.open({
-		ctrl : "searchExistingPatient",
-		titleid : "searchExistingPatientWelcome",
 		stack : true
 	});
 }
