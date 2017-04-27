@@ -123,11 +123,12 @@ function didClickNext(e) {
 			Alloy.Globals.carouselFlow = true;
  			$.app.navigator.open({
 				ctrl : "register",
+				titleid : "titleRegister"
  			});
 		} else {
 			$.app.navigator.open({
-				ctrl : "searchExistingPatient",
-				titleid : "searchExistingPatientWelcome",
+				ctrl : "signup",
+				titleid : "titleCreateAccount"
 			});
 		}	
  	}
