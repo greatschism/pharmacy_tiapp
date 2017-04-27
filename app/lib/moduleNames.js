@@ -34,7 +34,6 @@ module.exports = {
 	"MGAC" : "LoginAndRegistration",
 	"MGAE" : "LoginAndRegistration",
 	"MGAU" : "LoginAndRegistration",
-	"MONU" : "LoginAndRegistration",
 	"PHON" : "LoginAndRegistration",
 	"REGI" : "LoginAndRegistration",
 	"RECI" : "LoginAndRegistration",

@@ -33,7 +33,6 @@ module.exports = {
 	"MGAC" : "mgrAccountCreation",
 	"MGAE" : "mgrAccountExists",
 	"MGAU" : "mgrAccountUpdate",
-	"MONU" : "mobileNumber",
 	"NEPA" : "newPassword",
 	"ORDE" : "OrderDetails",
 	"PHON" : "phone",
