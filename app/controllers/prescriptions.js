@@ -350,6 +350,16 @@ function prepareList() {
 					subtitleClasses : subtitleWrapClasses
 				});
 			}
+			if ( true/* prescription.get("out_of_stock")*/ ) {
+				prescription.set({
+					itemTemplate : "masterDetailWithLIcon",
+					customIconNegative : "icon-error",
+					masterWidth : 100,
+					detailWidth : 0,
+					subtitle : $.strings.prescOutOfStockLbl,
+					subtitleClasses : subtitleWrapClasses
+				});
+			}
 			prescription.set({
 				section : "inProgress",
 				titleClasses : titleClasses,
