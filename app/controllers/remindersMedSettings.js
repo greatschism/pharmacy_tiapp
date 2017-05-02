@@ -1112,6 +1112,23 @@ function didClickSubmitReminder(e) {
 		return false;
 	};
 	
+	/**
+	 * 	for on_a_day reminder
+	 * 	valid until day must be after reminder day
+	 */
+	if (data.frequency == apiCodes.reminder_frequency_onaday) {
+		var reminder_day = data.day_of_year;
+		var valid_until = data.reminder_end_date;
+		
+		var valid_reminder = moment(reminder_day).isAfter(new Date(moment(valid_until)));
+		if (valid_reminder) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValDailyDate
+			});
+			return false;
+		};
+	}
+	
 	//api request
 	$.http.request({
 		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",
