@@ -590,7 +590,26 @@ if (build) {
 		//tiapp.xml
 		var tiappData = fs.readFileSync(BASE_TIAPP_XML, "utf-8");
 		_u.each(BRAND_ENV_DATA.tiapp, function(val, key) {
-			tiappData = tiappData.replace(new RegExp("\\${" + key + "}", "g"), val);
+			if (program.platform == "android" && (key == "PACKAGE_NAME_ANDROID" || key == "APP_GUID_ANDROID" || key == "APM_ID_ANDROID")) {
+				console.log("value of key ", key);
+				if (key == "PACKAGE_NAME_ANDROID") {
+					tiappData = tiappData.replace(new RegExp("\\${PACKAGE_NAME}", "g"), val);
+				} else if (key == "APP_GUID_ANDROID") {
+					tiappData = tiappData.replace(new RegExp("\\${APP_GUID}", "g"), val);
+				} else if (key == "APM_ID_ANDROID") {
+					tiappData = tiappData.replace(new RegExp("\\${APM_ID}", "g"), val);
+				}
+			} else if (program.platform == "ios" && (key == "PACKAGE_NAME_IOS" || key == "APP_GUID_IOS" || key == "APM_ID_IOS")) {
+				if (key == "PACKAGE_NAME_IOS") {
+					tiappData = tiappData.replace(new RegExp("\\${PACKAGE_NAME}", "g"), val);
+				} else if (key == "APP_GUID_IOS") {
+					tiappData = tiappData.replace(new RegExp("\\${APP_GUID}", "g"), val);
+				} else if (key == "APM_ID_IOS") {
+					tiappData = tiappData.replace(new RegExp("\\${APM_ID}", "g"), val);
+				}
+			} else{
+				tiappData = tiappData.replace(new RegExp("\\${" + key + "}", "g"), val);
+			};
 		});
 		tiappData = tiappData.replace(new RegExp("\\${BUILD_NUMBER}", "g"), program.buildNumber);
 		fs.writeFileSync(APP_TIAPP_XML, tiappData);
