@@ -6,6 +6,7 @@ var args = $.args,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
+    subtitleNegativeWrapClasses = ["margin-top-small", "left", "negative-fg-info-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -357,7 +358,7 @@ function prepareList() {
 					masterWidth : 100,
 					detailWidth : 0,
 					subtitle : $.strings.prescOutOfStockLbl,
-					subtitleClasses : subtitleWrapClasses
+					subtitleClasses : subtitleNegativeWrapClasses
 				});
 			}
 			prescription.set({
