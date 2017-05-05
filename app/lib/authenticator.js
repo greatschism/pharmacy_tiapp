@@ -46,7 +46,7 @@ function init(passthrough) {
 			}
 		} else {
 			var autologinFlag = v6keychain.getAutologinFlag({
-				serviceName : "com.mscripts.safeway"
+				serviceName : Alloy.CFG.v6_service_name
 			}),
 			    keydump = v6keychain.obatainV6KeychainDictWithServiceName({
 				serviceName : Alloy.CFG.v6_service_name
