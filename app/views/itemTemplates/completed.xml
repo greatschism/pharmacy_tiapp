@@ -4,7 +4,7 @@
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="left h4" />
 				<View id="masterView" class="margin-top-small auto-height">
-					<Label class="left i6 positive-fg-color icon-thin-filled-success" />
+					<Label id="subtitleIconLbl" class="left i6" />
 					<Label id="subtitleLbl" class="margin-left-small inactive-fg-color" />
 				</View>
 			</View>

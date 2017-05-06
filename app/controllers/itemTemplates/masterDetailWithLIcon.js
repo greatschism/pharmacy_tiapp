@@ -10,6 +10,8 @@ var args = $.args,
 		});
 		if( args.customIconNegative ) {
 			$.addClass($.leftIconLbl, ["negative-fg-info-color", args.customIconNegative] );
+		} else if( args.customIconYield ) {
+			$.addClass($.leftIconLbl, ["yield-fg-info-color", args.customIconYield] );
 		} else {
 			$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
 		}

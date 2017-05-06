@@ -13,6 +13,11 @@ var args = $.args,
 	} else {
 		$.titleLbl.text = title;
 	}
+	if( args.customIconYield ) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
+	} else {
+		$.addClass($.subtitleIconLbl, ["positive-fg-color", "icon-thin-filled-success"] );
+	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {

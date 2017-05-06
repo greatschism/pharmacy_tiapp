@@ -972,6 +972,10 @@
                 "color":"${NEGATIVE_INFO_COLOR}",
                 "selectedColor":"${NEGATIVE_INFO_COLOR}"
             },
+            ".yield-fg-info-color":{
+                "color":"${YIELD_INFO_COLOR}",
+                "selectedColor":"${YIELD_INFO_COLOR}"
+            },
             ".tentative-fg-color":{
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
