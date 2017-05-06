@@ -257,6 +257,10 @@ function prepareList() {
 	 * filters are applied to determine whether it has to be displayed on screen
 	 * still the prescription object that doesn't pass the filter validation will be available in the collection
 	 */
+
+	var debugCounterOOS = 0;
+	var debugCounterPF = 0;
+
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
@@ -352,21 +356,27 @@ function prepareList() {
 					subtitleClasses : subtitleWrapClasses
 				});
 			}
-			if ( true/* prescription.get("out_of_stock")*/ ) {
-				prescription.set({
-					itemTemplate : "masterDetailWithLIcon",
-					customIconNegative : "icon-error",
-					masterWidth : 100,
-					detailWidth : 0,
-					subtitle : $.strings.prescOutOfStockLbl,
-					subtitleClasses : subtitleNegativeWrapClasses
-				});
+
+			if (debugCounterOOS === 0) {
+				if (true/* prescription.get("out_of_stock") */) {
+					prescription.set({
+						itemTemplate : "masterDetailWithLIcon",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.prescOutOfStockLbl,
+						subtitleClasses : subtitleNegativeWrapClasses
+					});
+				}
+				debugCounterOOS = 1;
 			}
+
 			prescription.set({
 				section : "inProgress",
 				titleClasses : titleClasses,
 				canHide : false
 			});
+
 			break;
 		case apiCodes.refill_status_ready:
 			if (args.selectable) {
@@ -393,6 +403,22 @@ function prepareList() {
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
+			
+			if (debugCounterPF === 0) {
+				if (true/* prescription.get("partial_fill") */) {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconYield : "icon-thin-filled-success",
+						subtitle : $.strings.prescPartialFillLbl
+					});
+					//,
+					//subtitleClasses : subtitleYieldWrapClasses
+				}
+				debugCounterPF = 1;
+			}
+
 			break;
 		default:
 			var dueInDays = 0,
