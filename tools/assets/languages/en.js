@@ -355,7 +355,7 @@ module.exports = {
 		"prescSwipeOptRefill" : "Refill",
 		"prescInProgressLblPromise" : "Order processed: ready by %s",
 		"prescOutOfStockLbl" : "Out of stock. We'll notify you when it's ready.",
-		"prescPartialFillLbl" : "This prescription has a Partial Fill available.",
+		"prescPartialFillLbl" : "This prescription is partially filled. We'll let you know when the remainder is available.",
 		"prescReadyPickupLblReady" : "Ready for pickup",
 		"prescReadyPickupAttrRestock" : "You have <secondaryfont><secondarycolor>%d %s</secondarycolor></secondaryfont> left to pick this up!",
 		"prescReadyPickupAttrRestockToday" : "You have to pick up this prescription <secondaryfont><secondarycolor>today</secondarycolor></secondaryfont>!",
