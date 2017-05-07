@@ -360,7 +360,7 @@ function prepareList() {
 			if (debugCounterOOS === 0) {
 				if (true/* prescription.get("out_of_stock") */) {
 					prescription.set({
-						itemTemplate : "masterDetailWithLIcon",
+						itemTemplate : "completed",
 						customIconNegative : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
