@@ -32,8 +32,6 @@ function init(passthrough) {
 	 */
 	if (utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false)) {
 		if (OS_ANDROID) {
-			console.log("value is ", v6keychain.retrieveSharedPreferences("password"));
-			console.log("value is ", v6keychain.retrieveSharedPreferences("username"));
 			var v6Password = v6keychain.retrieveSharedPreferences("password") == null ? "" : v6keychain.retrieveSharedPreferences("password");
 			var v6Username = v6keychain.retrieveSharedPreferences("username") == null ? "" : v6keychain.retrieveSharedPreferences("username");
 			if (v6Username !== "" && v6Password !== "") {
