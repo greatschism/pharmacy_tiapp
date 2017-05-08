@@ -202,7 +202,10 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.openDialer(utilities.validatePhoneNumber(phone));
+					if (phone && !utilities.isPhoneNumber(phone)) {
+						phone = utilities.validatePhoneNumber(phone);
+					};
+					Helper.openDialer(phone);
 					break;
 				case 1:
 					Helper.addContact(personObj);
@@ -305,7 +308,7 @@ var Helper = {
 				label1 = Ti.UI.createLabel({
 					color : '#fff',
 					font : {
-						fontSize : 36
+						fontSize : 42
 					},
 					shadowColor : '#000',
 					shadowOffset : {
@@ -314,7 +317,7 @@ var Helper = {
 					},
 					shadowRadius : 5,
 					text : Alloy.Globals.strings.faxImageMessage,
-					textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
+					textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 					bottom : 2,
 					width : blob.width,
 					height : Ti.UI.SIZE
@@ -345,8 +348,8 @@ var Helper = {
 					width : 'auto',
 					height : 'auto'
 				});
-				watermarkMe.transform = Ti.UI.create2DMatrix().rotate(270);
-				label1.transform = Ti.UI.create2DMatrix().rotate(270);
+				/*watermarkMe.transform = Ti.UI.create2DMatrix().rotate(270);
+				label1.transform = Ti.UI.create2DMatrix().rotate(270);*/
 				container.add(watermarkMe);
 				container.add(label1);
 			}
