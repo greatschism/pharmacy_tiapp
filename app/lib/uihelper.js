@@ -318,7 +318,7 @@ var Helper = {
 					shadowRadius : 5,
 					text : Alloy.Globals.strings.faxImageMessage,
 					textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-					bottom : 2,
+					top : 2,
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
@@ -344,6 +344,7 @@ var Helper = {
 				container.add(label1);
 			} else {
 				watermarkMe = Ti.UI.createImageView({
+					top : 0,
 					image : blob,
 					width : 'auto',
 					height : 'auto'
