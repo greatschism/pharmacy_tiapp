@@ -30,6 +30,10 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	if (args.subtitleColor) {
+			$.addClass($.subtitleLbl, [args.subtitleColor] );
+	}
+	
 	uihelper.wrapViews($.masterView);
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);

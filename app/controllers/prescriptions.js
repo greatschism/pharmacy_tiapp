@@ -6,8 +6,6 @@ var args = $.args,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
-    subtitleNegativeWrapClasses = ["margin-top-small", "left", "negative-fg-info-color"],
-    subtitleYieldWrapClasses = ["margin-top-small", "left", "yield-fg-info-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -349,26 +347,28 @@ function prepareList() {
 					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
 					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 				}
-				prescription.set({
-					itemTemplate : "inprogress",
-					subtitle : subtitle,
-					progress : progress,
-					subtitleClasses : subtitleWrapClasses
-				});
-			}
 
-			if (debugCounterOOS === 0) {
-				if (true/* prescription.get("out_of_stock") */) {
+				if (debugCounterOOS === 0) {
+					if (true/* prescription.get("out_of_stock") */) {
+						prescription.set({
+							itemTemplate : "completed",
+							customIconNegative : "icon-error",
+							masterWidth : 100,
+							detailWidth : 0,
+							subtitle : $.strings.prescOutOfStockLbl,
+							subtitleColor : "negative-fg-info-color"
+						});
+					}
+					debugCounterOOS = 1;
+				}	//TODO: remove debug counter but leave in conditional check for these two prescription.set calls
+				else {
 					prescription.set({
-						itemTemplate : "completed",
-						customIconNegative : "icon-error",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.prescOutOfStockLbl,
-						subtitleClasses : subtitleNegativeWrapClasses
-					});
+						itemTemplate : "inprogress",
+						subtitle : subtitle,
+						progress : progress,
+						subtitleClasses : subtitleWrapClasses
+					});						
 				}
-				debugCounterOOS = 1;
 			}
 
 			prescription.set({
@@ -413,8 +413,6 @@ function prepareList() {
 						customIconYield : "icon-thin-filled-success",
 						subtitle : $.strings.prescPartialFillLbl
 					});
-					//,
-					//subtitleClasses : subtitleYieldWrapClasses
 				}
 				debugCounterPF = 1;
 			}
