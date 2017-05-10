@@ -679,6 +679,8 @@ module.exports = {
 		"registerSectionTermsDocuments" : "Documents",
 		"registerBtnTermsDone" : "Done",
 		"registerAttrAccountExists" : "Already have an account? Press here to <secondaryfont><secondarycolor>sign in</secondarycolor></secondaryfont>",
+		"registerValPhone" : "Please enter your mobile number.",
+		"registerValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",

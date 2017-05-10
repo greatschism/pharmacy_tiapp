@@ -318,7 +318,7 @@ var Helper = {
 					shadowRadius : 5,
 					text : Alloy.Globals.strings.faxImageMessage,
 					textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-					top : 2,
+					bottom : 2,
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
@@ -344,13 +344,12 @@ var Helper = {
 				container.add(label1);
 			} else {
 				watermarkMe = Ti.UI.createImageView({
-					top : 0,
 					image : blob,
 					width : 'auto',
 					height : 'auto'
 				});
-				/*watermarkMe.transform = Ti.UI.create2DMatrix().rotate(270);
-				label1.transform = Ti.UI.create2DMatrix().rotate(270);*/
+				watermarkMe.transform = Ti.UI.create2DMatrix().rotate(270);
+				label1.transform = Ti.UI.create2DMatrix().rotate(270);
 				container.add(watermarkMe);
 				container.add(label1);
 			}

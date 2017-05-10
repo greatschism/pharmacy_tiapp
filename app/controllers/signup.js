@@ -243,10 +243,16 @@ function didClickSignup(e) {
 			});
 			return;
 		}
+		if (!mobileNumber) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValPhone
+			});
+			return;
+		}
 		mobileNumber = $.utilities.validatePhoneNumber(mobileNumber);
 		if (!mobileNumber) {
 			$.uihelper.showDialog({
-				message : $.strings.phoneValPhoneInvalid
+				message : $.strings.registerValPhoneInvalid
 			});
 			return;
 		}
