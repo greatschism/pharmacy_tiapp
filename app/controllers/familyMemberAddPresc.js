@@ -64,7 +64,8 @@ function didClickPharmacy() {
 		ctrl : "stores",
 		ctrlArguments : {
 			store : store,
-			selectable : true
+			selectable : true,
+			UpdatePartialAccount : true
 		},
 		stack : true
 	});
