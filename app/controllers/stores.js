@@ -135,7 +135,7 @@ function setPatientSwitcher() {
 				related_by : Alloy.CFG.apiCodes.relationship_manager
 			} : {
 				is_adult : true,
-				is_partial : false
+				is_partial : args.UpdatePartialAccount ? true : false
 			},
 			selectable : {
 				is_adult : true

@@ -142,6 +142,7 @@ function prepareData() {
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 		}
+		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
