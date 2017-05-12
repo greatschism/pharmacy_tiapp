@@ -74,7 +74,7 @@ function init() {
 			is_partial : false
 		}
 	});
-	
+
 	$.searchbar.visible = false;
 }
 
@@ -348,7 +348,7 @@ function prepareList() {
 					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 				}
 
-				// if (debugCounterOOS === 0) {
+				
 				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
 					prescription.set({
 						itemTemplate : "completed",
@@ -358,9 +358,16 @@ function prepareList() {
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "negative-fg-info-color"
 					});
+				} else if (prescription.get("refill_transaction_status") == "Partial Fill") {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconYield : "icon-thin-filled-success",
+						subtitle : prescription.get("refill_transaction_message")
+					});
 				}
-				// debugCounterOOS = 1;
-				// }	//TODO: remove debug counter but leave in conditional check for these two prescription.set calls
+				
 				else {
 					prescription.set({
 						itemTemplate : "inprogress",
@@ -403,19 +410,6 @@ function prepareList() {
 				subtitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
-
-			// if (debugCounterPF === 0) {
-			if (prescription.get("refill_transaction_status") == "Partial Fill") {
-				prescription.set({
-					itemTemplate : "completed",
-					masterWidth : 100,
-					detailWidth : 0,
-					customIconYield : "icon-thin-filled-success",
-					subtitle : refill_transaction_message
-				});
-			}
-			// debugCounterPF = 1;
-			// }
 
 			break;
 		default:
