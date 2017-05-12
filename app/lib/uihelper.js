@@ -45,7 +45,7 @@ var Helper = {
 			var children = view.children;
 			_.each(children, function(child) {
 				child.accessibilityHidden = value;
-				console.log(child, child.accessibilityHidden, value);
+				// console.log(child, child.accessibilityHidden, value);
 				if (recursive && _.has(child, "children")) {
 					Helper.toggleAccessibility(child, value, recursive);
 				}
