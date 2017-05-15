@@ -15,6 +15,8 @@ module.exports = {
 		"titleYoutube"	:"Youtube",
 		"titleInsurance" : "Update insurance card",
 
+		"barcodeLblTitle" : "Center the QR code inside the box to scan",
+
 		"prescSectionInProgress": "In process",
 
 		"prescInProgressLblPromise": "Ready by %s",
