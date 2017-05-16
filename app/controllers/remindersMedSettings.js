@@ -1,6 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    logger = require("logger"),
     apiCodes = Alloy.CFG.apiCodes,
     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     rows = [],
@@ -882,7 +883,6 @@ function showTimePicker(time, rowIndex) {
 			title : timeDropdownArgs.title,
 			okButtonTitle : timeDropdownArgs.rightTitle,
 			value : timeDropdownArgs.value,
-			minuteInterval : timeDropdownArgs.minuteInterval,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
@@ -910,6 +910,8 @@ function updateRemindAtRow(value, rowIndex) {
 	    currentCtrl = rows[rowIndex],
 	    currentRow = currentCtrl.getView(),
 	    currentParams = currentCtrl.getParams();
+	    logger.debug("\n\n\n formatted selected value ", selectedMoment, "\n\n\n");
+
 	_.extend(currentParams, {
 		value : {
 			hour : selectedMoment.format("HH"),

@@ -278,7 +278,7 @@ function showTimePicker() {
 			title : dropdownArgs.title,
 			okButtonTitle : dropdownArgs.rightTitle,
 			value : dropdownArgs.value,
-			minuteInterval : dropdownArgs.minuteInterval,
+			// minuteInterval : dropdownArgs.minuteInterval,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
