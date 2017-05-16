@@ -45,7 +45,7 @@ var Helper = {
 			var children = view.children;
 			_.each(children, function(child) {
 				child.accessibilityHidden = value;
-				console.log(child, child.accessibilityHidden, value);
+				// console.log(child, child.accessibilityHidden, value);
 				if (recursive && _.has(child, "children")) {
 					Helper.toggleAccessibility(child, value, recursive);
 				}
@@ -308,7 +308,7 @@ var Helper = {
 				label1 = Ti.UI.createLabel({
 					color : '#fff',
 					font : {
-						fontSize : 42
+						fontSize : 36
 					},
 					shadowColor : '#000',
 					shadowOffset : {
@@ -317,15 +317,12 @@ var Helper = {
 					},
 					shadowRadius : 5,
 					text : Alloy.Globals.strings.faxImageMessage,
-					textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+					textAlign : Ti.UI.TEXT_ALIGNMENT_LEFT,
 					bottom : 2,
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
-				label1.anchorPoint = {
-					x : 0,
-					y : 0
-				};
+				label1.anchorPoint = {x : 0, y : 0};
 			}
 
 			if (OS_ANDROID) {

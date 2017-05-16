@@ -214,7 +214,7 @@ function didClickSignup(e) {
 		var fvalue = $.contanierViewInfo.children[s].children[0].children[0].children[0].getValue();
 		if (!fvalue) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValFirstName
+				message : Alloy.Globals.strings.insuranceValFirstName
 			});
 			return;
 		} else if (!utilities.validateName(fvalue)) {
@@ -229,7 +229,7 @@ function didClickSignup(e) {
 		var lvalue = $.contanierViewInfo.children[s].children[0].children[1].children[0].getValue();
 		if (!lvalue) {
 			uihelper.showDialog({
-				message : Alloy.Globals.strings.registerValLastName
+				message : Alloy.Globals.strings.insuranceValLastName
 			});
 			return;
 		} else if (!utilities.validateName(lvalue)) {

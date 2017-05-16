@@ -591,7 +591,6 @@ if (build) {
 		var tiappData = fs.readFileSync(BASE_TIAPP_XML, "utf-8");
 		_u.each(BRAND_ENV_DATA.tiapp, function(val, key) {
 			if (program.platform == "android" && (key == "PACKAGE_NAME_ANDROID" || key == "APP_GUID_ANDROID" || key == "APM_ID_ANDROID")) {
-				console.log("value of key ", key);
 				if (key == "PACKAGE_NAME_ANDROID") {
 					tiappData = tiappData.replace(new RegExp("\\${PACKAGE_NAME}", "g"), val);
 				} else if (key == "APP_GUID_ANDROID") {

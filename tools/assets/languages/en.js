@@ -913,6 +913,8 @@ module.exports = {
 
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
 
+		"insuranceValFirstName" : "Please enter a first name.",
+		"insuranceValLastName" : "Please enter a last name.",
 		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
 		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",
