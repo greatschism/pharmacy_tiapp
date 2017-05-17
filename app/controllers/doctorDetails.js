@@ -191,14 +191,14 @@ function didClickPhone(e) {
 }
 
 function contactsHandler() {
-	if (doctor.phone) {
+	if (doctor.phone!= null) {
 		$.uihelper.getPhone({
 			firstName : $.utilities.ucword(doctor.first_name || ""),
 			lastName : $.utilities.ucword(doctor.last_name || ""),
 			phone : {
 				work : [$.phoneLbl.text]
 			}
-		}, doctor.phone);
+		}, $.phoneLbl.text);
 	}
 }
 
