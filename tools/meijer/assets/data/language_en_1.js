@@ -20,6 +20,10 @@ module.exports = {
 		"prescSectionInProgress": "In process",
 
 		"prescInProgressLblPromise": "Ready by %s",
+		
+		"loginLblAutoLogin" : "Remember my sign-in info",
+		"loginTooltipLblAutoSignIn" : "tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Remember my sign-in info\".",
+		"accountLblKeepMeSignedIn" : "Remember my sign-in info"
 
 	}
 
