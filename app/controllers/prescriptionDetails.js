@@ -11,6 +11,12 @@ var args = $.args,
     logger = require("logger");
 
 function init() {
+	Alloy.CFG.remind_before_in_days_max =  parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
+	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
+	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
+	Alloy.CFG.default_refill_reminder.reminder_hour = parseInt(Alloy.Models.appload.get("reminderSendHour"));
+	Alloy.CFG.default_refill_reminder.reminder_minute = parseInt(Alloy.Models.appload.get("reminderSendMinute"));
+	Alloy.CFG.default_refill_reminder.reminder_meridiem = Alloy.Models.appload.get("reminderSendMeridiem");
 	$.titleLbl.text = prescription.title;
 	var refillsLeft = parseInt(prescription.refill_left),
 	    refillsLeftIsNaN = _.isNaN(refillsLeft),

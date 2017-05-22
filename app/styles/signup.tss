@@ -8,6 +8,10 @@
 },
 "#dob":{
 	hintText:Alloy.Globals.strings.registerHintDOB,
+	nextItem: "moNumberTxt"
+},
+"#moNumberTxt":{
+	hintText:Alloy.Globals.strings.mobileNumberHint,
 	nextItem: "emailTxt"
 },
 "#emailTxt":{

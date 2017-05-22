@@ -142,6 +142,7 @@ function prepareData() {
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 		}
+		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
@@ -422,11 +423,11 @@ function prepareList() {
 			 */
 			if (prescription.get("anticipated_refill_date")) {
 				/**
-				 * if  anticipated_refill_date is <= prescription_ready_for_refill - move to ready for refill
+				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
 				 * */
 				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
 				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
-				if (dueInDays <= Alloy.CFG.prescription_ready_for_refill) {
+				if (dueInDays <= parseInt(Alloy.Models.appload.get("upcomingRefillDaysBeforeARD"))) {
 					section = "readyRefill";
 					/**
 					 * prevent any actions on list when selectable is true, use masterDetailWithLIcon only

@@ -38,7 +38,7 @@
 				</View>
 			</TableViewRow>
 			<TableViewRow if="!$.args.prescription">
-				<ImageView id="prescImg" class="top left" />
+				<ImageView id="prescImg" class="top left right fill-width" />
 			</TableViewRow>
 		</TableViewSection>
 		<FooterView>

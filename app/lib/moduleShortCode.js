@@ -34,7 +34,6 @@ module.exports = {
 	"MGAC" : "LORE",
 	"MGAE" : "LORE",
 	"MGAU" : "LORE",
-	"MONU" : "LORE",
 	"PHON" : "LORE",
 	"REGI" : "LORE",
 	"RECI" : "LORE",

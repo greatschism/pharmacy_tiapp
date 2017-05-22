@@ -49,19 +49,6 @@ function init() {
 	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
 	$.dob.__views.widget.applyProperties(iDict);
 
-	if (args.is_migrated_user || args.is_store_user || args.dispensing_account_exists) {
-		optionalValues = {};
-		if (args.is_migrated_user) {
-			optionalValues.is_migrated_user = args.is_migrated_user;
-		}
-		if (args.is_store_user) {
-			optionalValues.is_store_user = args.is_store_user;
-		}
-		if (args.dispensing_account_exists) {
-			optionalValues.dispensing_account_exists = args.dispensing_account_exists;
-		}
-	};
-
 	$.passwordTxt.tooltip = $.strings.msgPasswordTips;
 	$.rxNoTxt.tooltip = $.strings.msgRxNumberTips;
 
@@ -186,6 +173,13 @@ function didClickPharmacy(e) {
 	});
 }
 
+function didChangePhone(e) {
+	var value = $.utilities.formatPhoneNumber(e.value),
+	    len = value.length;
+	$.moNumberTxt.setValue(value);
+	$.moNumberTxt.setSelection(len, len);
+}
+
 function moveToNext(e) {
 	var nextItem = e.nextItem || "";
 	if (nextItem && $[nextItem]) {
@@ -216,7 +210,8 @@ function didClickSignup(e) {
 	    dob = $.dob.getValue(),
 	    email = $.emailTxt.getValue(),
 	    password = $.passwordTxt.getValue(),
-	    rxNo = $.rxNoTxt.getValue();
+	    rxNo = $.rxNoTxt.getValue(),
+	    mobileNumber = $.moNumberTxt.getValue();
 	if (!e.ageValidated) {
 		if (!fname) {
 			uihelper.showDialog({
@@ -245,6 +240,19 @@ function didClickSignup(e) {
 		if (!dob) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValDob
+			});
+			return;
+		}
+		if (!mobileNumber) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValPhone
+			});
+			return;
+		}
+		mobileNumber = $.utilities.validatePhoneNumber(mobileNumber);
+		if (!mobileNumber) {
+			$.uihelper.showDialog({
+				message : $.strings.registerValPhoneInvalid
 			});
 			return;
 		}
@@ -301,14 +309,6 @@ function didClickSignup(e) {
 		}
 	}
 
-	/**
-	 * 	check for mobile number
-	 */
-	var mobileNumber = "";
-	if (args.mobile_number) {
-		mobileNumber = "1" + args.mobile_number;
-	};
-
 	var userCredentials = {
 		email : email,
 		password : password
@@ -334,7 +334,7 @@ function didClickSignup(e) {
 					state : "",
 					zip : "",
 					home_phone : "",
-					mobile : mobileNumber,
+					mobile : "1" + mobileNumber,
 					email_address : email,
 					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
 					store_id : store.id,

@@ -111,7 +111,7 @@
                     },
                     {
                         "id":"Period",
-                        "reminder_end_date_enabled":false
+                        "reminder_end_date_enabled":true
                     }
                 ],
                 "reminder_med_periods":[

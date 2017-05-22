@@ -32,8 +32,8 @@ function init(passthrough) {
 	 */
 	if (utilities.getProperty(Alloy.CFG.first_launch_app, true, "bool", false)) {
 		if (OS_ANDROID) {
-			var v6Password = v6keychain.retrieveSharedPreferences("password", Alloy.CFG.v6_android_static_enc_key),
-			    v6Username = v6keychain.retrieveSharedPreferences("username", Alloy.CFG.v6_android_static_enc_key);
+			var v6Password = v6keychain.retrieveSharedPreferences("password") == null ? "" : v6keychain.retrieveSharedPreferences("password");
+			var v6Username = v6keychain.retrieveSharedPreferences("username") == null ? "" : v6keychain.retrieveSharedPreferences("username");
 			if (v6Username !== "" && v6Password !== "") {
 				passthrough.username = v6Username;
 				passthrough.password = v6Password;
@@ -41,12 +41,12 @@ function init(passthrough) {
 				/**
 				 * 	update previous values to empty string
 				 */
-				v6keychain.storeSharedPreferences("username", "", Alloy.CFG.v6_android_static_enc_key);
-				v6keychain.storeSharedPreferences("password", "", Alloy.CFG.v6_android_static_enc_key);
+				v6keychain.storeSharedPreferences("username", "");
+				v6keychain.storeSharedPreferences("password", "");
 			}
 		} else {
 			var autologinFlag = v6keychain.getAutologinFlag({
-				serviceName : "com.mscripts.safeway"
+				serviceName : Alloy.CFG.v6_service_name
 			}),
 			    keydump = v6keychain.obatainV6KeychainDictWithServiceName({
 				serviceName : Alloy.CFG.v6_service_name

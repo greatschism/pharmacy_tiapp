@@ -1,6 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    logger = require("logger"),
     apiCodes = Alloy.CFG.apiCodes,
     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     rows = [],
@@ -882,7 +883,6 @@ function showTimePicker(time, rowIndex) {
 			title : timeDropdownArgs.title,
 			okButtonTitle : timeDropdownArgs.rightTitle,
 			value : timeDropdownArgs.value,
-			minuteInterval : timeDropdownArgs.minuteInterval,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
@@ -910,6 +910,8 @@ function updateRemindAtRow(value, rowIndex) {
 	    currentCtrl = rows[rowIndex],
 	    currentRow = currentCtrl.getView(),
 	    currentParams = currentCtrl.getParams();
+	    logger.debug("\n\n\n formatted selected value ", selectedMoment, "\n\n\n");
+
 	_.extend(currentParams, {
 		value : {
 			hour : selectedMoment.format("HH"),
@@ -1111,6 +1113,23 @@ function didClickSubmitReminder(e) {
 		});
 		return false;
 	};
+	
+	/**
+	 * 	for on_a_day reminder
+	 * 	valid until day must be after reminder day
+	 */
+	if (data.frequency == apiCodes.reminder_frequency_onaday) {
+		var reminder_day = data.day_of_year;
+		var valid_until = data.reminder_end_date;
+		
+		var valid_reminder = moment(reminder_day).isAfter(new Date(moment(valid_until)));
+		if (valid_reminder) {
+			$.uihelper.showDialog({
+				message : $.strings.remindersMedSettingsValDailyDate
+			});
+			return false;
+		};
+	}
 	
 	//api request
 	$.http.request({

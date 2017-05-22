@@ -681,6 +681,8 @@ module.exports = {
 		"registerSectionTermsDocuments" : "Documents",
 		"registerBtnTermsDone" : "Done",
 		"registerAttrAccountExists" : "Already have an account? Press here to <secondaryfont><secondarycolor>sign in</secondarycolor></secondaryfont>",
+		"registerValPhone" : "Please enter your mobile number.",
+		"registerValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
@@ -737,10 +739,7 @@ module.exports = {
 
 		"mgrAccountExistsBtnSignIn" : "Sign in",
 
-		"mobileNumberWelcome" : "Welcome!",
-		"mobileNumberLbl" : "Please enter your mobile number and we'll check if we recognize you.",
 		"mobileNumberHint" : "Mobile number",
-		"mobileNumberContinue" : "Continue",
 
 		"childAddTitle" : "Add a child to your account",
 		"childAddHintFirstName" : "First name",
@@ -916,6 +915,8 @@ module.exports = {
 
 		"signupStoreUserAskInfo" : "Please fill out the information below to create your account.",
 
+		"insuranceValFirstName" : "Please enter a first name.",
+		"insuranceValLastName" : "Please enter a last name.",
 		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
 		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",

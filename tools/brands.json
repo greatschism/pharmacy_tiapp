@@ -32,5 +32,8 @@
 	}, {
 		"id": "meijer",
 		"description": "Meijer Rx."
+	}, {
+		"id": "jewelosco",
+		"description": "Jewel Osco Rx."
 	}
 ]

@@ -45,7 +45,7 @@ var Helper = {
 			var children = view.children;
 			_.each(children, function(child) {
 				child.accessibilityHidden = value;
-				console.log(child, child.accessibilityHidden, value);
+				// console.log(child, child.accessibilityHidden, value);
 				if (recursive && _.has(child, "children")) {
 					Helper.toggleAccessibility(child, value, recursive);
 				}
@@ -203,7 +203,10 @@ var Helper = {
 			if (!evt.cancel) {
 				switch(evt.index) {
 				case 0:
-					Helper.openDialer(utilities.validatePhoneNumber(phone));
+					if (phone && !utilities.isPhoneNumber(phone)) {
+						phone = utilities.validatePhoneNumber(phone);
+					};
+					Helper.openDialer(phone);
 					break;
 				case 1:
 					Helper.addContact(personObj);
@@ -320,10 +323,7 @@ var Helper = {
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
-				label1.anchorPoint = {
-					x : 0,
-					y : 0
-				};
+				label1.anchorPoint = {x : 0, y : 0};
 			}
 
 			if (OS_ANDROID) {

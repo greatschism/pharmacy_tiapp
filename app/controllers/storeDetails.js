@@ -69,8 +69,8 @@ function didGetStore(result, passthrough) {
 	var hoursSection = $.uihelper.createTableViewSection($, $.strings.storeDetSectionHours);
 	if (hours.length) {
 		//0th index will have today's hours
-		tillTime = hours[0].hours.split("- ")[1];
-		if (store.is_open && tillTime) {
+		tillTime = hours[0].hours.split("-")[1];
+		if (store.is_open === "1" && tillTime) {
 			clockType = "positive";
 			clockLbl = String.format($.strings.storeDetLblOpen, tillTime);
 		} else {

@@ -1,7 +1,0 @@
-<Alloy>
-	<View class="vgroup">
-		<Label id="moNumberLbl" class="margin-top margin-left margin-right h3 txt-left"/>
-		<Widget id="moNumberTxt" analyticsId="MobileNumberTxt" src="ti.textfield" class="margin-top-large margin-left margin-right txt border keyboard-phone returnkey-done" onChange="didChangePhone"/>
-		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
-	</View>
-</Alloy>

@@ -200,8 +200,8 @@ function contactsHandler() {
 
 function didClickSignup(e) {
 	$.app.navigator.open({
-		titleid : "searchExistingPatientWelcome",
-		ctrl : "searchExistingPatient"
+		titleid : "titleCreateAccount",
+		ctrl : "signup"
 	});
 }
 

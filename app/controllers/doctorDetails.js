@@ -69,7 +69,10 @@ function focus() {
 function updateInputs() {
 	$.titleLbl.text = doctor.title;
 	$.notesLbl.text = doctor.notes;
-	$.phoneLbl.text = $.utilities.formatPhoneNumber(doctor.phone) || $.strings.strNotAvailable;
+    $.phoneLbl.text = $.utilities.formatPhoneNumber(doctor.phone) || $.strings.strNotAvailable;
+
+	// $.phoneLbl.text =  doctor.phone!= null ? ($.utilities.isPhoneNumber((doctor.phone).substr(1, 10)) ? $.utilities.formatPhoneNumber((doctor.phone).substr(1, 10)) : $.strings.strNotAvailable) : $.strings.strNotAvailable ;
+
 	$.faxLbl.text = $.utilities.formatPhoneNumber(doctor.fax) || $.strings.strNotAvailable;
 	var address = "";
 	if (doctor.addressline1) {
@@ -190,7 +193,7 @@ function didClickPhone(e) {
 }
 
 function contactsHandler() {
-	if (doctor.phone) {
+	if (doctor.phone!= null) {
 		$.uihelper.getPhone({
 			firstName : $.utilities.ucword(doctor.first_name || ""),
 			lastName : $.utilities.ucword(doctor.last_name || ""),
