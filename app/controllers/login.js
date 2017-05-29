@@ -5,6 +5,7 @@ var args = $.args,
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
 	width: "25%",
 	backgroundColor: 'transparent'
 }),
@@ -54,14 +55,12 @@ function init() {
 		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
     }
 	$.autoLoginSwt.applyProperties(iDict);
-
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblPasswordField;
-	$.passwordTxt.applyProperties(iDict);
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblUsernameField;
-	$.usernameTxt.applyProperties(iDict);
-
+	
+	var sDict = {};
+	sDict.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+	$.forgotPwdAttr.applyProperties(sDict);
+	$.signupAttr.applyProperties(sDict);
+	$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
 }
 
 function didClickAbout() {
@@ -117,6 +116,7 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHide,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});
@@ -124,6 +124,7 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});

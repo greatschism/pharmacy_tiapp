@@ -30,6 +30,8 @@ module.exports = {
 		"strDeliveryModeNone" : "None",
 		"strShow" : "show",
 		"strHide" : "hide",
+		"accessibilityStrShow" : "Show password",
+		"accessibilityStrHide" : "Hide password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -110,8 +112,8 @@ module.exports = {
 
 		"iconAccessibilityLblMap" : "Map",
 		"accessibilityLblRememberUsernameToggle" : "Keep me signed in",
-		"accessibilityLblPasswordField" : "password field",
-		"accessibilityLblUsernameField" : "username field",
+		"accessibilityLblPasswordField" : "password",
+		"accessibilityLblUsernameField" : "username",
 		"iconAccessibilityLblList" : "List",
 		"iconAccessibilityLblAdd" : "add more",
 		"iconAccessibilityLblCancel" : "cancel",
@@ -265,6 +267,7 @@ module.exports = {
 		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 		"loginAgreementTOS" : "Terms of service",
 		"loginAgreementPrivacy" : "Privacy policy",
+		"loginAttrLabelsAccessibilityHint" : "Button",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
@@ -681,6 +684,7 @@ module.exports = {
 		"registerAttrAccountExists" : "Already have an account? Press here to <secondaryfont><secondarycolor>sign in</secondarycolor></secondaryfont>",
 		"registerValPhone" : "Please enter your mobile number.",
 		"registerValPhoneInvalid" : "The mobile number you have entered is invalid.",
+		"registerLblAgreementAccessibility" : "double tap to view terms and conditions and privacy policy.",
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",

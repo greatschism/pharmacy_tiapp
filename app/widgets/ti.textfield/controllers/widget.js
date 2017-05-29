@@ -92,6 +92,9 @@ function applyProperties(dict) {
 	options = _.pick(dict, ["hintText", "value", "font", "color", "hintTextColor", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txt.applyProperties(options);
+		if (!_.has(options, "accessibilityLabel") && _.has(options, "hintText")) {
+			$.txt.accessibilityLabel = $.txt.hintText;
+		};
 	}
 }
 
