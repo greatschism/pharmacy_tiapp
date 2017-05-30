@@ -84,6 +84,10 @@ function init() {
 	$.lastRefillLbl.accessibilityValue = $.lastRefillBtn.title !== $.strings.strNil ? $.lastRefillBtn.title : 0;
 	setAccessibilityLabelOnSwitch($.reminderRefillSwt, $.strings.prescDetAccessibilityReminderRefill);
     setAccessibilityLabelOnSwitch($.reminderMedSwt, $.strings.prescDetAccessibilityReminderMed);
+    
+    $.instructionLbl.accessibilityLabel = $.instructionLbl.text;
+	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
+	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -347,9 +351,17 @@ function toggleInstruction(e) {
 	var classes,
 	    result;
 	if ($.instructionExp.isExpanded()) {
+		$.prescInstructionLbl.accessibilityHidden = true;
+		$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
+		$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
+		$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 		classes = ["icon-thin-arrow-down"];
 		result = $.instructionExp.collapse();
 	} else {
+		$.prescInstructionLbl.accessibilityHidden = false;
+		$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
+		$.instructionLbl.accessibilityValue = "";
+		$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionCollapseAccessibility;
 		classes = ["icon-thin-arrow-up"];
 		result = $.instructionExp.expand();
 	}

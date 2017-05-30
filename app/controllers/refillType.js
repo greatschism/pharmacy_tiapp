@@ -17,7 +17,7 @@ var args = $.args,
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	$.rxTxt.setRightIcon("", $.createStyle({
-		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
+		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help", "rx-hintext"],
 		id : "sampleBtn"
 	}));
 	rxTxtHeight = $.createStyle({

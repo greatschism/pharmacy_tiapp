@@ -13,7 +13,7 @@
 							<Label id="distanceLbl" class="margin-left-small" />
 						</View>
 						<View id="clockView" class="margin-top-small auto-height">
-							<Label id="clockIconLbl" class="left i5 icon-clock" />
+							<Label id="clockIconLbl" class="left i5 icon-clock accessibility-disabled" />
 							<Label id="clockLbl" class="margin-left-small" />
 						</View>
 					</View>

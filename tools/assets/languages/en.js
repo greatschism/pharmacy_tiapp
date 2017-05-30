@@ -286,6 +286,7 @@ module.exports = {
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
 
+		"storeDetIconFavStore" : "Favorite Store",
 		"storeDetLblOpen" : "Open till %s",
 		"storeDetLblClose" : "Closed at %s",
 		"storeDetLblClosed" : "Closed",
@@ -399,6 +400,9 @@ module.exports = {
 		"prescDetSectionInformation" : "Information",
 		"prescDetLblHistory" : "Refill history",
 		"prescDetLblInstruction" : "Dosage instructions",
+		"prescDetLblInstructionAccessibilityCollapsed" : "Collapsed",
+		"prescDetLblInstructionCollapseAccessibility" : "Double tap to collapse",
+		"prescDetLblInstructionExpandAccessibility" : "Double tap to expand",
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 
@@ -413,6 +417,7 @@ module.exports = {
 		"orderDetValStore" : "Please choose a pharmacy for refill",
 
 		"rxSampleLblTitle" : "Where is my Rx number?",
+		"rxSampleImgAccessibilityLabel" : "Please check prescription bottle for rx number and pharmacy location.",
 
 		"refillBtnScan" : "Scan my prescription",
 		"refillBtnType" : "Type my prescription details",

@@ -73,11 +73,7 @@ function init() {
 }
 
 function setRightButtonForRx(iconText, iconDict) {
-	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
-	iconDict.accessibilityLabel = "";
-	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
-	// $.rxNoTxt.accessibilityLabel = "Rx help";
 }
 
 function didChangeRx(e) {
