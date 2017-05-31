@@ -188,6 +188,7 @@ function hide() {
 				zIndex : 0
 			});
 			$.arrowBtn.applyProperties(arrowDown);
+			$.imgBtn.accessibilityHidden = true;
 			isBusy = false;
 		});
 		$.popoverView.animate(animation);

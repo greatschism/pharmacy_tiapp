@@ -129,10 +129,10 @@ module.exports = {
 		"iconAccessibilityLblThickArrowUp" : "Close options",
 		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblTooltipArrowUp" : "Close options",
-		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
-		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
-		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
-		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
+		"iconAccessibilityLblFilledSuccess" : "Checkbox checked",
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox unchecked",
+		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox unchecked",
+		"iconAccessibilityLblThinFilledSuccess" : "Checkbox checked",
 		"iconAccessibilityLblSuccess" : "Checkbox",
 
 		"iconAccessibilityLblStar" : "Favourite",
@@ -144,8 +144,8 @@ module.exports = {
 		"iconAccessibilityLblCalendar" : "Calendar",
 		"iconAccessibilityLblDirection" : "Direction",
 		"iconAccessibilityLblBadgeStar" : "Badge",
-		"iconAccessibilityLblCheckboxChecked" : "Selected",
-		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
+		"iconAccessibilityLblCheckboxChecked" : "Checked",
+		"iconAccessibilityLblCheckboxUnchecked" : "Not checked",
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 
@@ -445,6 +445,7 @@ module.exports = {
 		"refillTypePopupSectionPickupMode" : "Pickup Modes",
 		"refillTypePopupPickupModeBtnClose" : "Close",
 		"refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
+		"refillTypeAddMore" : "Add another prescription field",
 
 		"refillSuccessLblSuccess" : "We have processed your order",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",

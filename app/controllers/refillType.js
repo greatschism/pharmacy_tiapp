@@ -45,6 +45,7 @@ function init() {
 			$.phoneTxt.setValue($.utilities.formatPhoneNumber(lastPhone));
 		}
 	}
+	$.addBtn.accessibilityLabel = $.strings.refillTypeAddMore;	
 }
 
 function didChange(e) {

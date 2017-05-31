@@ -286,6 +286,7 @@ function loadBanners() {
 		if (bannerItems.length) {
 			$.bannerScrollableView = Ti.UI.createScrollableView();
 			$.bannerScrollableView.accessibilityHidden = false;
+			$.bannerScrollableView.accessibilityLabel = bannerItems[0].description;
 			_.each(bannerItems, function(banner) {
 				$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 			});
@@ -299,8 +300,7 @@ function loadBanners() {
 			if (pagingcontrolEnabled) {
 				$.addListener($.bannerScrollableView, "scrollend", didScrollend);
 				$.pagingcontrol = Alloy.createWidget("ti.pagingcontrol", _.extend($.createStyle({
-					classes : ["margin-bottom", "pagingcontrol", "accessibility-enabled"],
-					accessibilityLabel: "Banner"
+					classes : ["margin-bottom", "pagingcontrol", "accessibility-enabled"]
 				}), {
 					currentPage : 0,
 					length : len
@@ -348,6 +348,7 @@ function didSpanTimeout() {
 		nextPage = 0;
 	}
 	$.bannerScrollableView.scrollToView(nextPage);
+	$.bannerScrollableView.accessibilityLabel = bannerItems[nextPage].description;
 	$.pagingcontrol.setCurrentPage(nextPage);
 	startSpanTime(bannerItems[nextPage].spanTime);
 }
@@ -363,7 +364,6 @@ function didScrollend(e) {
 function didChangePager(e) {
 	//scroll end will be triggered as result of this
 	$.bannerScrollableView.scrollToView(e.currentPage);
-
 }
 
 function create(dict) {
@@ -438,8 +438,7 @@ function create(dict) {
 			if (!bannerItems || (bannerItems && bannerItems.length)) {
 				$.bannerView.applyProperties({
 					width : Alloy.CFG.banner_width,
-					height : Alloy.CFG.banner_height,
-					accessibilityLabel: "banner"
+					height : Alloy.CFG.banner_height
 				});
 			}
 			/**
