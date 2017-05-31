@@ -40,6 +40,10 @@ function init() {
 			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
 		}));
 	
+	var sDict = {};
+	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	$.agreementAttr.applyProperties(sDict);
+	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 function setRightButton(iconText, iconDict) {	

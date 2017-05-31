@@ -279,6 +279,9 @@ function didUpdateUI() {
 	 * to init
 	 */
 	$.prescExp.expand();
+	if (Ti.App.accessibilityEnabled) {		
+		togglePrescription();
+	};
 	$.loader.hide();
 }
 

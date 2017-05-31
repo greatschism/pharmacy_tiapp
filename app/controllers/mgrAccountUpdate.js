@@ -28,6 +28,10 @@ function init() {
 	$.childAccInfoAttr.text = String.format(Alloy.Globals.strings.mgrAccountUpdateChildAccInfoAttr,Alloy.Globals.strings.strClientName);
 	$.passwordTxt.tooltip = Alloy.Globals.strings.msgPasswordTips;
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
+	
+	var sDict = {};
+	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	$.agreementAttr.applyProperties(sDict);
 }
 
 function focus() {

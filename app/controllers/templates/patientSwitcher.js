@@ -10,7 +10,7 @@ var args = $.args,
 	classes : ["icon-thin-arrow-down"]
 }),
     arrowUp = $.createStyle({
-	classes : ["icon-thin-arrow-up"]
+	classes : ["icon-thin-arrow-up", "accessibility-disabled"]
 }),
     titleClasses = ["left", "h4", "wrap-disabled"],
     inactiveTitleClasses = ["left", "h4", "inactive-fg-color", "wrap-disabled"],

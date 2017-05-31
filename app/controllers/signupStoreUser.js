@@ -76,6 +76,10 @@ function init() {
 	
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
+	
+	var sDict = {};
+	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	$.agreementLbl.applyProperties(sDict);
 }
 
 function setRightButtonForRx(iconText, iconDict) {
