@@ -8,7 +8,8 @@
 	hintText:Alloy.Globals.strings.familyMemberInviteHintSendText
 },
 "#emailTxt":{
-	hintText:Alloy.Globals.strings.familyMemberInviteHintSendEmail
+	hintText:Alloy.Globals.strings.familyMemberInviteHintSendEmail,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL
 },
 "#sendBtn":{
 	title:Alloy.Globals.strings.familyMemberInviteBtnSend

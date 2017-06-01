@@ -4,3 +4,6 @@
 "#doneBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnDone
 },
+"#emailTxt":{
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL
+},

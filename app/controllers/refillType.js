@@ -71,6 +71,8 @@ function didClickAdd(e) {
 	 */
 	$.containerView.add(ctrl.getView().getView());
 	rxTxts.push(ctrl);
+	var txtObj = ctrl.getView().getTextFieldObj();
+	$.uihelper.requestAccessibilityFocus(txtObj);
 }
 
 function didClickRemove(e) {

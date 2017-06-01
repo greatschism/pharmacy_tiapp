@@ -218,6 +218,10 @@ function removeEventListener(event, callback) {
 	$.widget.removeEventListener(event, callback);
 }
 
+function getTextFieldObj() {
+	return $.txt;
+}
+
 exports.blur = blur;
 exports.focus = focus;
 exports.animate = animate;
@@ -231,3 +235,4 @@ exports.getPasswordMask = getPasswordMask;
 exports.applyProperties = applyProperties;
 exports.addEventListener = addEventListener;
 exports.removeEventListener = removeEventListener;
+exports.getTextFieldObj = getTextFieldObj;
