@@ -40,7 +40,8 @@ function applyProperties(dict) {
 			$.txta.accessibilityLabel = $.txta.hintText;
 		};
 	}
-	$.hintLbl.accessibilityHidden = true;
+	if(OS_IOS)
+		$.hintLbl.accessibilityHidden = true;
 }
 
 function didFocus(e) {

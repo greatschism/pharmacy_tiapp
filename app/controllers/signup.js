@@ -68,7 +68,7 @@ function init() {
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 	
 	var sDict = {};
-	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
 	$.agreementLbl.applyProperties(sDict);
 }
 

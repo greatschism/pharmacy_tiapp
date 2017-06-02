@@ -30,7 +30,7 @@ function init() {
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	
 	var sDict = {};
-	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
 	$.agreementAttr.applyProperties(sDict);
 }
 

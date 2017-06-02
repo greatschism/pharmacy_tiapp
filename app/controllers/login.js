@@ -56,11 +56,13 @@ function init() {
     }
 	$.autoLoginSwt.applyProperties(iDict);
 	
-	var sDict = {};
-	sDict.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
-	$.forgotPwdAttr.applyProperties(sDict);
-	$.signupAttr.applyProperties(sDict);
-	$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+	if (OS_IOS) {
+		var sDict = {};
+		sDict.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+		$.forgotPwdAttr.applyProperties(sDict);
+		$.signupAttr.applyProperties(sDict);
+		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+	};
 }
 
 function didClickAbout() {

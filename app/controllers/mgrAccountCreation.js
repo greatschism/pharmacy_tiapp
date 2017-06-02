@@ -25,7 +25,7 @@ function init() {
     $.dobDp.__views.widget.applyProperties(iDict);
     
     var sDict = {};
-	sDict.accessibilityValue = $.strings.registerLblAgreementAccessibility;
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
 	$.agreementAttr.applyProperties(sDict);
 }
 
