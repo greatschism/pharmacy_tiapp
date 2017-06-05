@@ -287,6 +287,9 @@ function loadBanners() {
 			$.bannerScrollableView = Ti.UI.createScrollableView();
 			$.bannerScrollableView.accessibilityHidden = false;
 			$.bannerScrollableView.accessibilityLabel = bannerItems[0].description;
+			if (OS_ANDROID) {
+				$.bannerView.accessibilityLabel = bannerItems[0].description;
+			};
 			_.each(bannerItems, function(banner) {
 				$.bannerScrollableView.addView(Alloy.createController("templates/banner", banner).getView());
 			});
@@ -349,6 +352,9 @@ function didSpanTimeout() {
 	}
 	$.bannerScrollableView.scrollToView(nextPage);
 	$.bannerScrollableView.accessibilityLabel = bannerItems[nextPage].description;
+	if (OS_ANDROID) {
+		$.bannerView.accessibilityLabel = bannerItems[nextPage].description;
+	};
 	$.pagingcontrol.setCurrentPage(nextPage);
 	startSpanTime(bannerItems[nextPage].spanTime);
 }
