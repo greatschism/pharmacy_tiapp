@@ -104,7 +104,8 @@ function getRow(data) {
 	rowView.add(Ti.UI.createLabel(_.extend(choiceDict, {
 		text : data.title,
 		left : data.iconText ? paddingLeft : 0,
-		accessibilityHidden : true
+		accessibilityHidden : !OS_ANDROID,
+		accessibilityLabel : data.title + " " + (OS_ANDROID && data.iconText ? Alloy.Globals.strings.accessibilityCheckboxChecked : Alloy.Globals.strings.accessibilityCheckboxSelect)
 	})));
 	row.add(rowView);
 	return row;

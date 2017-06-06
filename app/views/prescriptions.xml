@@ -37,8 +37,8 @@
 	</TableView>
 	<ScrollView id="partialView" class="hide top margin-bottom vgroup">
 		<Label id="partialDescLbl" class="margin-top-medium margin-left margin-right txt-center" />
-		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center" onClick="didClickAddPresc"/>
-		<Button class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription" onClick="didClickAddPresc" />
+		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center"/>
+		<Button accessibilityLabel="Alloy.Globals.strings.prescAddBtnAccessibility" class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription accessibility-enabled" onClick="didClickAddPresc" />
 	</ScrollView>
 	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->

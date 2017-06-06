@@ -216,7 +216,7 @@ function getRow(data) {
 			color : data.selected ? selectedIconColor : iconColor,
 			touchEnabled : false,
 			accessibilityHidden : !OS_ANDROID,
-			accessibilityLabel : data[titleProperty] + " " + (OS_ANDROID && data.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect)
+			accessibilityLabel : data[titleProperty] + " " + (OS_ANDROID && data.selected ? Alloy.Globals.strings.accessibilityCheckboxChecked : Alloy.Globals.strings.accessibilityCheckboxSelect)
 		}));
 		rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
 			text : data[titleProperty],

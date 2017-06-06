@@ -143,8 +143,7 @@ function show() {
 			_.extend(pickerDict, {
 				choices : choices,
 				selectedIndex : selectedIndex,
-								selectedAccessibilityValue : args.selectedIconText ? "Checked" : "Not checked",
-
+				selectedAccessibilityValue : args.selectedIconText ? "Checked" : "Not checked",
 				parent : parent,
 				nextItem : args.nextItem || ""
 			});

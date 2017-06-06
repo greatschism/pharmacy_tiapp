@@ -405,6 +405,7 @@ module.exports = {
 		"prescDetLblInstructionExpandAccessibility" : "Double tap to expand",
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
+		"prescAddBtnAccessibility" : "Add prescriptions",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
