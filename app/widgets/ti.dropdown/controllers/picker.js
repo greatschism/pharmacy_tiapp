@@ -85,6 +85,7 @@ function getRow(data) {
 	var row = Ti.UI.createTableViewRow({
 		height : Ti.UI.SIZE,
 		selectionStyle : OS_IOS ? Ti.UI.iPhone.TableViewCellSelectionStyle.NONE : false,
+		accessibilityHidden : OS_ANDROID,
 		accessibilityLabel : data.title,
 		accessibilityValue : data.iconText ? args.selectedAccessibilityValue || "Selected" : null
 	}),
@@ -159,7 +160,8 @@ function didClickTableView(e) {
 	if (index !== selectedIndex) {
 		if (selectedIndex >= 0) {
 			$.tableView.updateRow( OS_IOS ? selectedIndex : $.tableView.sections[0].rows[selectedIndex], getRow({
-				title : choices[selectedIndex][titleProperty]
+				title : choices[selectedIndex][titleProperty],
+				iconText : selectedIndex ? args.selectedIconText : ""
 			}));
 		}
 		selectedIndex = index;
