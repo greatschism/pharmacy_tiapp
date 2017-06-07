@@ -31,6 +31,7 @@ function didGetPhoto(blob) {
 	blob = null;
 	smallBlob = null;
 
+	$.app.navigator.hideLoader();
 	$.app.navigator.open({
 		titleid : "titleInsuranceCard",
 		ctrl : "insuranceProfile",

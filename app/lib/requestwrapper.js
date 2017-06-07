@@ -16,6 +16,8 @@ var TAG = "REWR",
 
 function request(args) {
 
+	//Ti.API.info(JSON.stringify(args.params));
+	
 	/**
 	 * trigger session timeout
 	 * if session id is available and time of latest api call is more than session_timeout

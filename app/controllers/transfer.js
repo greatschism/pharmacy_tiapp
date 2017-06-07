@@ -53,6 +53,8 @@ function didGetPhoto(blob) {
 	blob = null;
 	smallBlob = null;
 
+	$.app.navigator.hideLoader();
+	
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
 			titleid : "titleTransferStore",
