@@ -196,6 +196,7 @@ module.exports = {
 		"titleChangePhone" : "Enter phone number",
 		"titleFamilyCare" : "Family care",
 		"titleCreateAccount" : "Create an account",
+		"titleConfirmAccount" : "Confirm account",
 		"titleMgrAccountExists" : "Existing account",
 		"titleChildAdd" : "Add a child",
 		"titleTermsAndConditions" : "Terms and Conditions",
@@ -259,7 +260,7 @@ module.exports = {
 		"loginBtnLogin" : "Sign in",
 		"loginTooltipBtnHide" : "Got it!",
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
-		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
+		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 		"loginVersionLbl" : "Version: %s",
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
@@ -268,6 +269,9 @@ module.exports = {
 		"loginAgreementTOS" : "Terms of service",
 		"loginAgreementPrivacy" : "Privacy policy",
 		"loginAttrLabelsAccessibilityHint" : "Button",
+		"loginErrTryAgain" : "Try again",
+		"loginErrForgotUsername" : "I forgot my username",
+		"loginErrCofirmAccount" : "No problem. Let's re-confirm your account and get you signed in.",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
@@ -277,6 +281,8 @@ module.exports = {
 		"userRecoveryValEmail" : "Please enter your email address or username.",
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
+		"userRecoveryBtnHelp" : "Help",
+		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
@@ -628,6 +634,7 @@ module.exports = {
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
 		"accountSuccessBtnContactSupport" : "Contact support",
+		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "View my agreements",
 		"accountLblMobileNumer" : "Mobile number",
 		"accountLblEmail" : "Email",

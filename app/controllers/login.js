@@ -176,6 +176,7 @@ function didClickLogin(e) {
 		authenticator.init({
 			username : username,
 			password : password,
+			loginFailure : didFailed,
 			success : didAuthenticate
 		});
 	}
@@ -264,11 +265,45 @@ function didAuthenticate(passthrough) {
 	}
 }
 
+function didFailed(error, passthrough) {
+	if (error.errorCode == "ECOH656") {			
+		$.uihelper.showDialogWithButton({
+			message : error.message,
+			deactivateDefaultBtn : true,
+			btnOptions : [{
+				title : $.strings.loginErrTryAgain
+			}, {
+				title : $.strings.loginErrForgotUsername,
+				onClick : showForgotUsernameDialog
+			}]
+		});
+	} else{
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	};
+}
+
 function didClickForgotPassword(e) {
 	$.app.navigator.open({
 		ctrl : "forgotPassword",
 		titleid : "titleForgotPassword",
 		stack : true
+	});
+}
+
+function didClickForgotUsername(e) {
+	$.app.navigator.open({
+		ctrl : "signup",
+		titleid : "titleConfirmAccount",
+		stack : true
+	});
+}
+
+function showForgotUsernameDialog(){
+	$.uihelper.showDialog({
+		message : $.strings.loginErrCofirmAccount,
+		success : didClickForgotUsername
 	});
 }
 

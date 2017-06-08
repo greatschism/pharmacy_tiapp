@@ -89,7 +89,7 @@ function init(passthrough) {
 		 * when passthrough has a valid username
 		 * and password properties
 		 */
-		passthrough.errorDialogEnabled = true;
+		// passthrough.errorDialogEnabled = true;
 	} else if (getAutoLoginEnabled() && !utilities.getProperty(Alloy.CFG.lastest_logout_explicit, false, "bool", false)) {
 		username = encryptionUtil.decrypt(keychain.account);
 		password = encryptionUtil.decrypt(keychain.valueData);
@@ -132,7 +132,10 @@ function didFail(error, passthrough) {
 	 */
 	app.navigator.hideLoader();
 	//fire failure if any
-	if (passthrough.failure) {
+	if (passthrough.loginFailure) {
+		passthrough.loginFailure(error, passthrough);
+	}
+	else if (passthrough.failure) {
 		passthrough.failure();
 	} else if (app.navigator.currentController.ctrlPath != "login") {
 		app.navigator.open({
