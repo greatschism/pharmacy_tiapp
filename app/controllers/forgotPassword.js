@@ -26,7 +26,9 @@ function didClickSend() {
 				}
 			}]
 		},
-		success : didSendEmail
+		errorDialogEnabled : false,
+		success : didSendEmail,
+		failure : didFailed
 	});
 }
 
@@ -40,6 +42,16 @@ function didSendEmail() {
 	});
 }
 
+function didFailed(error, passthrough) {
+	if (error.errorCode == "ECOH657") {			
+		showForgotUsernameDialog(error);
+	} else{
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	};
+} 
+
 function didClickForgotUsername() {
 	$.app.navigator.open({
 		ctrl : "signup",
@@ -48,9 +60,9 @@ function didClickForgotUsername() {
 	});
 }
 
-function showForgotUsernameDialog(){
+function showForgotUsernameDialog(error){
 	$.uihelper.showDialog({
-		message : $.strings.loginErrCofirmAccount,
+		message : error.message || $.strings.loginErrCofirmAccount,
 		success : didClickForgotUsername
 	});
 }
