@@ -10,7 +10,7 @@
 		<View id="containerView" class="top margin-bottom auto-height vgroup">
 			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickHelp" />
 		</View>
-		<View class="min-height inactive-light-bg-color">    
+		<View id="infoView" class="min-height inactive-light-bg-color">    
 			<Label id="yourInfo" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
 		<View id="moNumberView" class="top auto-height vgroup">

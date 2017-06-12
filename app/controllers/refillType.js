@@ -33,12 +33,18 @@ function init() {
 	/*
 	 * Make last name congiurable
 	 */
+ 
+	if (Alloy.Models.appload.get("isMobileEnabledForQuickRefill") == 0) {
+      $.infoView.height = 0; 
+      $.moNumberView.height = 0; 
+      
+	}
 
 	if (Alloy.Models.appload.get("isLastNameEnabled") == 0) {
 		$.lnameView.height = 0;
 	}
 
-	/**
+	/** 
 	 * only when phoneTxt
 	 * is included
 	 * determined by flag refill_type_phone_enabled
@@ -56,9 +62,9 @@ function init() {
 			$.phoneTxt.setValue($.utilities.formatPhoneNumber(lastPhone));
 		}
 	}
-	$.addBtn.accessibilityLabel = $.strings.refillTypeAddMore;	
-}
-
+	$.addBtn.accessibilityLabel = $.strings.refillTypeAddMore;
+} 
+ 
 function didChange(e) {
 	var value = $.utilities.formatPhoneNumber(e.value),
 	    len = value.length;
@@ -176,14 +182,14 @@ function didClickRefill(e) {
 		});
 	}
 
-	if (Alloy.Models.appload.get("isLastNameEnabled")) {
+	if (Alloy.Models.appload.get("isLastNameEnabled") == 1) {
 		lname = $.lnameTxt.getValue();
 		if (!lname) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValLastName
 			});
 			return;
-		}
+		} 
 		if (!utilities.validateName(lname)) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValLastNameInvalid
@@ -701,4 +707,4 @@ function hideAllPopups() {
 
 exports.init = init;
 exports.focus = focus;
-exports.backButtonHandler = hideAllPopups; 
+exports.backButtonHandler = hideAllPopups;
