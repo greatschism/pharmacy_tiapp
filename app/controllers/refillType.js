@@ -131,8 +131,8 @@ function didClickRefill(e) {
 
 	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
 		storeId = Alloy.Models.appload.get("mail_order_store_id");
-	}
-
+	} 
+ 
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {

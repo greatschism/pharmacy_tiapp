@@ -29,8 +29,8 @@
 "#keepMeSignedInLbl":{
 	text: Alloy.Globals.strings.accountLblKeepMeSignedIn
 },
-"#contactSupportBtn":{
-	title: Alloy.Globals.strings.accountSuccessBtnContactSupport
+"#helpBtn":{
+	title: Alloy.Globals.strings.accountSuccessBtnHelp
 },
 "#viewAgreementBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnViewAgreements
