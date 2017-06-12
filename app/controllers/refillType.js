@@ -131,8 +131,8 @@ function didClickRefill(e) {
 
 	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
 		storeId = Alloy.Models.appload.get("mail_order_store_id");
-	} 
- 
+	}  
+  
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
@@ -162,7 +162,7 @@ function didClickRefill(e) {
 		});
 		return false;
 	}
-	if ($.phoneTxt) {
+	if (Alloy.Models.appload.get("isMobileEnabledForQuickRefill") == 1) {
 		phone = $.phoneTxt.getValue();
 		if (!phone) {
 			$.uihelper.showDialog({
@@ -175,11 +175,15 @@ function didClickRefill(e) {
 			$.uihelper.showDialog({
 				message : $.strings.refillTypeValPhoneInvalid
 			});
-			return false;
+			return false; 
 		}
 		_.each(validRxs, function(validRx) {
 			validRx.mobile_number = phone;
 		});
+	} else{
+		_.each(validRxs, function(validRx) {
+			validRx.mobile_number = null;
+		}); 
 	}
 
 	if (Alloy.Models.appload.get("isLastNameEnabled") == 1) {
