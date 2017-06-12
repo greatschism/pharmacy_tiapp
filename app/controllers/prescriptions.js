@@ -359,12 +359,19 @@ function prepareList() {
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "negative-fg-info-color"
 					});
-				} else if (prescription.get("refill_transaction_status") == "Partial Fill") {
+				} else if (prescription.get("refill_transaction_status") == "Partial Fill" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
 						customIconYield : "icon-thin-filled-success",
+						subtitle : prescription.get("refill_transaction_message")
+					});
+				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message")
 					});
 				}
