@@ -146,8 +146,8 @@ function updateTable() {
 	 *  identifier yet for that case
 	 */
 	$.prescSection = $.uihelper.createTableViewSection($, $.strings.refillSuccessSectionPresc);
-	var successClasses = ["positive-fg-color", "icon-checkbox"],
-	    failureClasses = ["negative-fg-color", "icon-cancel"];
+	var successClasses = ["positive-fg-color", "icon-checkbox", "accessibility-disabled"],
+	    failureClasses = ["negative-fg-color", "icon-cancel", "accessibility-disabled"];
 	_.each(prescriptions, function(prescription) {
 		_.extend(prescription, {
 			iconClasses : prescription.refill_is_error === true ? failureClasses : successClasses

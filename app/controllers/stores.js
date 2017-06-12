@@ -45,7 +45,7 @@ function init() {
 	}
 	//search icon
 	$.searchTxt.setIcon("", "left", $.createStyle({
-		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search", "accessibility-disabled"],
 		id : "searchBtn"
 	}));
 	//clear button

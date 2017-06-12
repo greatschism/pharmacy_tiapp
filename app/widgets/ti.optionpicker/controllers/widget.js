@@ -203,7 +203,7 @@ function getRow(data) {
 		row = Ti.UI.createTableViewRow({
 			height : Ti.UI.SIZE,
 			selectedBackgroundColor : "transparent",
-			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Selected" : "Deselected",
+			accessibilityValue : data.selected ? args.selectedAccessibilityValue || "Checked" : "Not checked",
 			className : "optionPicker",
 		}),
 		rowView = Ti.UI.createView(optionPadding);
@@ -216,12 +216,13 @@ function getRow(data) {
 			color : data.selected ? selectedIconColor : iconColor,
 			touchEnabled : false,
 			accessibilityHidden : !OS_ANDROID,
-			accessibilityLabel : OS_ANDROID && data.selected ? Alloy.Globals.strings.accessibilityCheckboxChecked : Alloy.Globals.strings.accessibilityCheckboxSelect
+			accessibilityLabel : data[titleProperty] + " " + (OS_ANDROID && data.selected ? Alloy.Globals.strings.accessibilityCheckboxChecked : Alloy.Globals.strings.accessibilityCheckboxSelect)
 		}));
 		rowView.add(Ti.UI.createLabel(_.extend(optioDict, {
 			text : data[titleProperty],
 			left : paddingLeft,
-			touchEnabled : false
+			touchEnabled : false,
+			accessibilityHidden : OS_ANDROID,
 		})));
 		row.add(rowView);
 	}

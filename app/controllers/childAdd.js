@@ -4,8 +4,8 @@ var args = $.args,
     rxContainerViewFromTop = 0,
      strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
     authenticator = require("authenticator"),
-     rightButtonDict = $.createStyle({
-	classes : ["txt-tertiary-right-icon"],
+    rightButtonDict = $.createStyle({
+ 	classes : ["margin-right", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "rx-hintext"],
 }),
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"]
@@ -40,13 +40,13 @@ function init() {
 			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
 		}));
 	
+	var sDict = {};
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
+	$.agreementAttr.applyProperties(sDict);
+	
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
 }
 function setRightButton(iconText, iconDict) {	
-	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
-	iconDict.accessibilityLabel = "";
-	iconDict.accessibilityHint = "";
-
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
 }
 function focus() {

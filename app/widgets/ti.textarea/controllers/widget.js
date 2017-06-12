@@ -36,7 +36,12 @@ function applyProperties(dict) {
 	options = _.pick(dict, ["hintText", "value", "font", "color", "hintTextColor", "textAlign", "maxLength", "passwordMask", "autocorrect", "autocapitalization", "autoLink", "editable", "keyboardType", "returnKeyType", "suppressReturn", "enableReturnKey", "ellipsize", "accessibilityLabel", "accessibilityValue", "accessibilityHint", "accessibilityHidden"]);
 	if (!_.isEmpty(options)) {
 		$.txta.applyProperties(options);
+		if (!_.has(options, "accessibilityLabel") && _.has(options, "hintText")) {
+			$.txta.accessibilityLabel = $.txta.hintText;
+		};
 	}
+	if(OS_IOS)
+		$.hintLbl.accessibilityHidden = true;
 }
 
 function didFocus(e) {

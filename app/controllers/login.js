@@ -5,6 +5,7 @@ var args = $.args,
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn","positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
+	accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
 	width: "25%",
 	backgroundColor: 'transparent'
 }),
@@ -54,14 +55,14 @@ function init() {
 		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
     }
 	$.autoLoginSwt.applyProperties(iDict);
-
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblPasswordField;
-	$.passwordTxt.applyProperties(iDict);
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblUsernameField;
-	$.usernameTxt.applyProperties(iDict);
-
+	
+	if (OS_IOS) {
+		var sDict = {};
+		sDict.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+		$.forgotPwdAttr.applyProperties(sDict);
+		$.signupAttr.applyProperties(sDict);
+		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+	};
 }
 
 function didClickAbout() {
@@ -117,6 +118,7 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHide,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});
@@ -124,6 +126,7 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});
@@ -173,6 +176,7 @@ function didClickLogin(e) {
 		authenticator.init({
 			username : username,
 			password : password,
+			loginFailure : didFailed,
 			success : didAuthenticate
 		});
 	}
@@ -261,11 +265,45 @@ function didAuthenticate(passthrough) {
 	}
 }
 
+function didFailed(error, passthrough) {
+	if (error.errorCode == "ECOH656") {			
+		$.uihelper.showDialogWithButton({
+			message : error.message,
+			deactivateDefaultBtn : true,
+			btnOptions : [{
+				title : $.strings.loginErrTryAgain
+			}, {
+				title : $.strings.loginErrForgotUsername,
+				onClick : showForgotUsernameDialog
+			}]
+		});
+	} else{
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	};
+}
+
 function didClickForgotPassword(e) {
 	$.app.navigator.open({
 		ctrl : "forgotPassword",
 		titleid : "titleForgotPassword",
 		stack : true
+	});
+}
+
+function didClickForgotUsername(e) {
+	$.app.navigator.open({
+		ctrl : "signup",
+		titleid : "titleConfirmAccount",
+		stack : true
+	});
+}
+
+function showForgotUsernameDialog(){
+	$.uihelper.showDialog({
+		message : $.strings.loginErrCofirmAccount,
+		success : didClickForgotUsername
 	});
 }
 
@@ -317,7 +355,9 @@ function didPostlayout(e) {
 	 * As in full account (register.js) and partial account(mgrAccountCreation.js) registration scenarios
 	 */
 	if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
-		$.tooltip.show();
+		if (!Ti.App.accessibilityEnabled) {			
+			$.tooltip.show();
+		};
 	}
 
 }
