@@ -1,7 +1,8 @@
 var args = $.args,
-	logger = require("logger"),
-	uihelper = require("uihelper"),
+    logger = require("logger"),
+    uihelper = require("uihelper"),
     rx = require("rx"),
+    utilities = require("utilities"),
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
@@ -11,8 +12,9 @@ var args = $.args,
     store = _.omit(args.store || {}, ["shouldUpdate"]),
     rxTxtHeight,
     phone,
+    lname,
     isWindowOpen,
-    analyticsCategory; 
+    analyticsCategory;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -27,6 +29,15 @@ function init() {
 	}).top;
 	$.containerView.height = rxTxtHeight;
 	$.uihelper.wrapViews($.pickupModeView, "right");
+
+	/*
+	 * Make last name congiurable
+	 */
+
+	if (Alloy.Models.appload.get("isLastNameEnabled") == 0) {
+		$.lnameView.height = 0;
+	}
+
 	/**
 	 * only when phoneTxt
 	 * is included
@@ -97,23 +108,22 @@ function didClickRefill(e) {
 	 * need not to show errors
 	 * and should have at least one valid rx
 	 */
+
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    // storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
-	    
+	// storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+
 	    storeId = store.id,
 
 	    isInvalidRx = false,
 	    lastIndex = 0,
 	    validRxs = [];
-	    
-	    
-	    logger.debug("\n\n\n\n selected store id : ", storeId,"\n\n pickupmode : ",pickupMode);
-	    
-	    if( (Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order))
-	    {
-	    	storeId = Alloy.Models.appload.get("mail_order_store_id");
-	    }
-	    
+
+	logger.debug("\n\n\n\n selected store id : ", storeId, "\n\n pickupmode : ", pickupMode);
+
+	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
+		storeId = Alloy.Models.appload.get("mail_order_store_id");
+	}
+
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
@@ -162,6 +172,29 @@ function didClickRefill(e) {
 			validRx.mobile_number = phone;
 		});
 	}
+
+	if (Alloy.Models.appload.get("isLastNameEnabled")) {
+		lname = $.lnameTxt.getValue();
+		if (!lname) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValLastName
+			});
+			return;
+		}
+		if (!utilities.validateName(lname)) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.registerValLastNameInvalid
+			});
+			return;
+		}
+		_.each(validRxs, function(validRx) {
+			validRx.last_name = lname;
+		});
+	} else {
+		_.each(validRxs, function(validRx) {
+			validRx.last_name = null;
+		});
+	}
 	/**
 	 * store validated here
 	 * just to follow the same order on UI
@@ -173,7 +206,7 @@ function didClickRefill(e) {
 		return false;
 	}
 	$.http.request({
-		method : "prescriptions_refill",
+		method : "prescriptions_quick_refill",
 		params : {
 			filter : {
 				refill_type : apiCodes.refill_type_quick
@@ -222,7 +255,7 @@ function didRefill(result, passthrough) {
 }
 
 function didClickEdit(e) {
-	
+
 	$.app.navigator.open({
 		titleid : "titleStores",
 		ctrl : "stores",
@@ -238,17 +271,13 @@ function didClickEdit(e) {
 function focus() {
 	if (!isWindowOpen) {
 		isWindowOpen = true;
-		if ((!(_.isEmpty(store))) && store.id) 
-		{
+		if ((!(_.isEmpty(store))) && store.id) {
 			logger.debug("\n\n\n came into refill screen - get store call \n\n\n");
-			logger.debug("\n\n\n selected store details \n\n\n", JSON.stringify(store,null,4));
+			logger.debug("\n\n\n selected store details \n\n\n", JSON.stringify(store, null, 4));
 
 			getStore();
 
-		}
-
-		else
-		{
+		} else {
 			logger.debug("\n\n\n came into refill screen - getAllPharmacy call \n\n\n");
 
 			getAllPharmacy();
@@ -264,7 +293,7 @@ function focus() {
 		logger.debug("\n\n\n calling update store \n\n\n");
 
 	}
-	
+
 }
 
 function didFail(result, passthrough) {
@@ -276,7 +305,6 @@ function didFail(result, passthrough) {
 	$.app.navigator.hideLoader();
 	$.app.navigator.close();
 }
-
 
 function getStore() {
 	if (_.isEmpty(store) && store.id) {
@@ -322,44 +350,40 @@ function getAllPharmacy() {
 	});
 }
 
-function didGetNoStore()
-{
-				getOrSetPickupModes();
+function didGetNoStore() {
+	getOrSetPickupModes();
 
 }
 
 function getHomePharmacy(result) {
 	// var storeId = $.utilities.getProperty(Alloy.CFG.latest_store_refilled);
 	// if (_.isEmpty(store) && storeId) {
-		
-		if (Alloy.Globals.isLoggedIn)
-		{
-			_.each(result.data.stores.stores_list, function(store) {
-				if (parseInt(store.ishomepharmacy)) {
-					$.http.request({
-						method : "stores_get",
-						params : {
-							data : [{
-								stores : {
-									id : store.id,
-								}
-							}]
-						},
-						keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
-						success : didGetStore,
-						failure : didFail
-					});
-				}
-			});
-		} 
-		else 
-		{
-			getOrSetPickupModes();
-		}
+
+	if (Alloy.Globals.isLoggedIn) {
+		_.each(result.data.stores.stores_list, function(store) {
+			if (parseInt(store.ishomepharmacy)) {
+				$.http.request({
+					method : "stores_get",
+					params : {
+						data : [{
+							stores : {
+								id : store.id,
+							}
+						}]
+					},
+					keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
+					success : didGetStore,
+					failure : didFail
+				});
+			}
+		});
+	} else {
+		getOrSetPickupModes();
+	}
 }
 
 function didGetStore(result, passthrough) {
-	logger.debug("\n\n\n in didgetstore result", JSON.stringify(result,null,4), "\n\n\n");
+	logger.debug("\n\n\n in didgetstore result", JSON.stringify(result, null, 4), "\n\n\n");
 	/**
 	 * update properties to object
 	 * don't replace, if then might clear the reference
@@ -370,7 +394,7 @@ function didGetStore(result, passthrough) {
 		title : $.utilities.ucword(store.addressline1),
 		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 	});
-		logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store,null,4), "\n\n\n");
+	logger.debug("\n\n\n in didgetstore store obj", JSON.stringify(store, null, 4), "\n\n\n");
 
 	getOrSetPickupModes();
 }
@@ -409,8 +433,8 @@ function setPickupModes() {
 	var codes = Alloy.Models.pickupModes.get("code_values"),
 	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
 	    selectedCode;
-	  	logger.debug("\n\n\n code_values", JSON.stringify(codes),"\n\n\n");
-  
+	logger.debug("\n\n\n code_values", JSON.stringify(codes), "\n\n\n");
+
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 
 	/**
@@ -419,7 +443,7 @@ function setPickupModes() {
 	 * the same
 	 */
 	// if (defaultVal == apiCodes.pickup_mode_instore && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-		// defaultVal = apiCodes.pickup_mode_mail_order;
+	// defaultVal = apiCodes.pickup_mode_mail_order;
 	// }
 	//update selected value
 	_.each(codes, function(code) {
@@ -458,14 +482,13 @@ function updatePickupMode(e) {
 	updatePickupOption();
 }
 
-function showHideOptions()
-{
-	// use 		 if (Alloy.Models.appload.get("mail_order_store_id")) 
+function showHideOptions() {
+	// use 		 if (Alloy.Models.appload.get("mail_order_store_id"))
 
 	var codes = Alloy.Models.pickupModes.get("code_values");
-	
-	logger.debug("\n\n\n code_values", JSON.stringify(codes),"\n\n\n");
-	
+
+	logger.debug("\n\n\n code_values", JSON.stringify(codes), "\n\n\n");
+
 	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
 	case apiCodes.pickup_mode_instore:
 		/**
@@ -493,15 +516,12 @@ function showHideOptions()
 		}
 		break;
 	}
-	
-	
-	
+
 }
 
 function updatePickupOption() {
-	
-	// PHA-2600  -- enhancement - multiple mail order support
 
+	// PHA-2600  -- enhancement - multiple mail order support
 
 	switch(Alloy.Models.pickupModes.get("selected_code_value")) {
 	case apiCodes.pickup_mode_instore:
@@ -509,16 +529,15 @@ function updatePickupOption() {
 		 * check whether the store supports
 		 * instore pickup
 		 */
-			
-			if(Alloy.Globals.isMailOrderService)
-			{
-				store = {};
-				// if inside login, call home pharmacy
-			}
+
+		if (Alloy.Globals.isMailOrderService) {
+			store = {};
+			// if inside login, call home pharmacy
+		}
 		Alloy.Globals.isMailOrderService = false;
 		var ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
-		if(ishomepharmacy == 0)
-		// if ( !Alloy.CFG.mail_order_store_pickup_enabled) 
+		if (ishomepharmacy == 0)
+		// if ( !Alloy.CFG.mail_order_store_pickup_enabled)
 		{
 			// store = {};
 		}
@@ -539,8 +558,7 @@ function updatePickupOption() {
 		Alloy.Globals.isMailOrderService = true;
 		store = {};
 
-		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
-		{
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			if ($.storeView.visible) {
 				$.pickupView.remove($.storeView);
 				$.storeView.visible = false;
@@ -549,25 +567,18 @@ function updatePickupOption() {
 				$.mailorderView.visible = true;
 				$.pickupView.add($.mailorderView);
 			}
-					
+
 			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
 
-		}
+		} else {
+			if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+				mailOrderCall();
 
-		else
-		{
-			if(Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService)
-			{
-					mailOrderCall();
-		
+			} else {
+				updateStore();
+
 			}
-			else
-			{
-					updateStore();
-	
-			}
-		
-	
+
 			if ($.mailorderView.visible) {
 				$.pickupView.remove($.mailorderView);
 				$.mailorderView.visible = false;
@@ -576,41 +587,39 @@ function updatePickupOption() {
 				$.storeView.visible = true;
 				$.pickupView.add($.storeView);
 			}
-			
+
 			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
-	
+
 			// if ($.storeView.visible) {
-				// $.pickupView.remove($.storeView);
-				// $.storeView.visible = false;
+			// $.pickupView.remove($.storeView);
+			// $.storeView.visible = false;
 			// }
 			// if (!$.mailorderView.visible) {
-				// $.mailorderView.visible = true;
-				// $.pickupView.add($.mailorderView);
+			// $.mailorderView.visible = true;
+			// $.pickupView.add($.mailorderView);
 			// }
 		}
 		break;
 	}
 }
 
-
-function mailOrderCall()
-{
+function mailOrderCall() {
 	httpClient = $.http.request({
-				method : "mailorder_stores_get",
-				params : {
-					data : [{
-							rx_info : {
-			       				rx_number: ""
-		     				}
-					}],
-					feature_code : "IP-STLI-STOR"
-				},
-				passthrough : true ,
-				errorDialogEnabled :  true,
-				showLoader : false,
-				success : didGetMailOrderStores,
-				failure : didGetMailOrderStores
-				});
+		method : "mailorder_stores_get",
+		params : {
+			data : [{
+				rx_info : {
+					rx_number : ""
+				}
+			}],
+			feature_code : "IP-STLI-STOR"
+		},
+		passthrough : true,
+		errorDialogEnabled : true,
+		showLoader : false,
+		success : didGetMailOrderStores,
+		failure : didGetMailOrderStores
+	});
 }
 
 function didGetMailOrderStores(result, passthrough) {
@@ -625,7 +634,7 @@ function didGetMailOrderStores(result, passthrough) {
 	 */
 	if (!result.data) {
 		logger.debug("\n\n\ndidgetstores -- results list empty\n\n\n");
-		
+
 		//this resets the list populated already
 		result.data = {
 			stores : {
@@ -637,29 +646,26 @@ function didGetMailOrderStores(result, passthrough) {
 	var isLastFilled = parseInt(result.data.isLastFilled) || 0;
 	logger.debug("\n\n\n lastfilled ", isLastFilled);
 
-	if(isLastFilled === 1)
-	{
+	if (isLastFilled === 1) {
 		_.extend(store, result.data.stores.stores_list[0]);
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 		});
-	
-	
+
 		// _.each(result.data.stores.stores_list, function(store) {
-			// _.extend(store, {
-			// title : $.utilities.ucword(store.addressline1),
-			// subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
+		// _.extend(store, {
+		// title : $.utilities.ucword(store.addressline1),
+		// subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 		// });
-	//});
-	logger.debug("\n\n\n store last filled\n ",JSON.stringify(result.data.stores.stores_list[0], null, 4));
+		//});
+		logger.debug("\n\n\n store last filled\n ", JSON.stringify(result.data.stores.stores_list[0], null, 4));
 
 	}
-		updateStore();
-		logger.debug("\n\n\n update store for store\n", JSON.stringify(store, null, 4));
-	
-}
+	updateStore();
+	logger.debug("\n\n\n update store for store\n", JSON.stringify(store, null, 4));
 
+}
 
 function updateStore() {
 	$.storeTitleLbl.text = store.title || $.strings.refillTypeLblStoreTitle;
@@ -692,4 +698,4 @@ function hideAllPopups() {
 
 exports.init = init;
 exports.focus = focus;
-exports.backButtonHandler = hideAllPopups;
+exports.backButtonHandler = hideAllPopups; 

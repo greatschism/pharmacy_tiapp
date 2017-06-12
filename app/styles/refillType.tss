@@ -28,10 +28,16 @@
 	text: Alloy.Globals.strings.refillTypeSectionPhone
 },
 "#phoneTxt":{
-	hintText: Alloy.Globals.strings.refillTypeHintPhone
+	hintText: Alloy.Globals.strings.refillTypeMobile 
 },
 "#refillBtn":{
 	title: Alloy.Globals.strings.refillTypeBtnRefill
+},
+"#yourInfo":{
+	text: Alloy.Globals.strings.refillTypeLblInfoTitle
+},
+"#lnameTxt":{
+	hintText: Alloy.Globals.strings.refillTypeLastName
 },
 "#mailorderLbl":{
 	text: Alloy.Globals.strings.refillTypeLblMailOrder
