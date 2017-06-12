@@ -94,7 +94,7 @@
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">
-				<Button id="contactSupportBtn" analyticsId="ContactSupportBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickContactSupport" />
+				<Button id="helpBtn" analyticsId="HelpBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickHelp" />
 				<Button id="viewAgreementBtn" analyticsId="ViewAgreementBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickViewAgreement" />
 			</View>
 		</FooterView>
