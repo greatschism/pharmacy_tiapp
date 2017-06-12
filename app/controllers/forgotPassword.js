@@ -3,34 +3,9 @@ var args = $.args,
     uihelper = require("uihelper"),
     utilities = require("utilities");
 
-function didClickContactSupport() {
-	$.contactSupport = Alloy.createWidget("ti.optiondialog", "widget", $.createStyle({
-		options : [Alloy.Globals.strings.dialogBtnPhone, Alloy.Globals.strings.dialogBtnEmail, Alloy.Globals.strings.dialogBtnCancel],
-		cancel : 2,
-		title : "Select an option",
-		analyticsId : "ContactSupportOptionDlg"
-	}));
-
-	$.contactSupport.on("click", function didClick(evt) {
-		if (!evt.cancel) {
-			switch(evt.index) {
-			case 0:
-				var supportPhone = Alloy.Models.appload.get("supportphone");
-				uihelper.openDialer(utilities.validatePhoneNumber(supportPhone));
-				break;
-			case 1:
-				var supportEmail = Alloy.Models.appload.get("supportemail_to");
-				uihelper.openEmailDialog({
-					toRecipients : [supportEmail]
-				});
-				break;
-			}
-		}
-		$.contactSupport.off("click", didClick);
-		$.contactSupport.destroy();
-		$.contactSupport = null;
-	});
-	$.contactSupport.show();
+function didClickHelp() {
+	var url = Alloy.Models.appload.get("help_text_url");
+	Ti.Platform.openURL(url);
 }
 
 function didClickSend() {
@@ -51,7 +26,9 @@ function didClickSend() {
 				}
 			}]
 		},
-		success : didSendEmail
+		errorDialogEnabled : false,
+		success : didSendEmail,
+		failure : didFailed
 	});
 }
 
@@ -62,5 +39,30 @@ function didSendEmail() {
 		success : function() {
 			$.app.navigator.close();
 		}
+	});
+}
+
+function didFailed(error, passthrough) {
+	if (error.errorCode == "ECOH657") {			
+		showForgotUsernameDialog(error);
+	} else{
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	};
+} 
+
+function didClickForgotUsername() {
+	$.app.navigator.open({
+		ctrl : "signup",
+		titleid : "titleConfirmAccount",
+		stack : true
+	});
+}
+
+function showForgotUsernameDialog(error){
+	$.uihelper.showDialog({
+		message : error.message || $.strings.loginErrCofirmAccount,
+		success : didClickForgotUsername
 	});
 }

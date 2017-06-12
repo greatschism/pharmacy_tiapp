@@ -141,7 +141,7 @@ function updateFavourite() {
 	$.favouriteLbl.text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
 	$.favouriteIconLbl.applyProperties($.createStyle({
 		classes : ["accessibility-enabled", store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"],
-		accessibilityLabel : "Favorite"
+		accessibilityLabel : $.strings.storeDetIconFavStore
 	}));
 }
 

@@ -19,7 +19,7 @@ var args = $.args,
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	$.rxTxt.setRightIcon("", $.createStyle({
-		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help"],
+		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help", "rx-hintext"],
 		id : "sampleBtn"
 	}));
 	rxTxtHeight = $.createStyle({
@@ -56,6 +56,7 @@ function init() {
 			$.phoneTxt.setValue($.utilities.formatPhoneNumber(lastPhone));
 		}
 	}
+	$.addBtn.accessibilityLabel = $.strings.refillTypeAddMore;	
 }
 
 function didChange(e) {
@@ -81,6 +82,8 @@ function didClickAdd(e) {
 	 */
 	$.containerView.add(ctrl.getView().getView());
 	rxTxts.push(ctrl);
+	var txtObj = ctrl.getView().getTextFieldObj();
+	$.uihelper.requestAccessibilityFocus(txtObj);
 }
 
 function didClickRemove(e) {
