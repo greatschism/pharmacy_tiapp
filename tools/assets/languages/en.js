@@ -456,7 +456,7 @@ module.exports = {
 		"refillTypePopupPickupModeBtnClose" : "Close",
 		"refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 		"refillTypeAddMore" : "Add another prescription field",
-
+        "refillLimit" : "You can add a maximum of 10 prescriptions at a time.",
 		"refillSuccessLblSuccess" : "We have processed your order",
 		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
 		"refillSuccessLblFailure" : "We are sorry, your order could not be processed",
@@ -939,7 +939,7 @@ module.exports = {
 		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
 		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",
-		"insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
+		"insuranceCardUpdateLimit" : "You can add a maximum of 10 prescriptions at a time",
 		"insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
