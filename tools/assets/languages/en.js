@@ -939,7 +939,7 @@ module.exports = {
 		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
 		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",
-		"insuranceCardUpdateLimit" : "You can add a maximum of 10 prescriptions at a time",
+		"insuranceCardUpdateLimit" : "You can add a maximum of 10 family members.",
 		"insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
