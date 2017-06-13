@@ -222,6 +222,14 @@ function didGetStore(result, passthrough) {
 }
 
 function loadPresecription() {
+	/*
+	 * Hide schedule 2 drug for refill 
+	 *
+	 */
+	if(prescription.schedule == 2){
+		 $.refillBtn.height = 0; 
+	}
+	
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
 	/**
