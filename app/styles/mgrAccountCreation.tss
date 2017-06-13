@@ -16,6 +16,7 @@
 },
 "#emailTxt":{
 	hintText:Alloy.Globals.strings.mgrAccountCreationHintEmail,
+	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{

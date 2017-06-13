@@ -9,6 +9,7 @@ var args = $.args,
 		uihelper.wrapViews($.row, "right");
 	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
+	var accessibilityValue = args.accessibilityValue;
 	if (args.lblClasses) {
 		$.resetClass($.lbl, args.lblClasses, {
 			text : title
@@ -16,6 +17,10 @@ var args = $.args,
 	} else {
 		$.lbl.text = title;
 	}
+	if (accessibilityValue) {
+		$.lbl.accessibilityLabel = title;
+		$.lbl.accessibilityValue = accessibilityValue;
+	};
 	uihelper.wrapText($.lbl);
 })();
 

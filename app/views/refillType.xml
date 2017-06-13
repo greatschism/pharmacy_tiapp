@@ -10,9 +10,18 @@
 		<View id="containerView" class="top margin-bottom auto-height vgroup">
 			<Require id="rxTxt" src="templates/rxTxtWithRIcon" onClick="didClickHelp" />
 		</View>
-		<View class="min-height inactive-light-bg-color">
-			<Label id="pickupLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		<View id="infoView" class="min-height inactive-light-bg-color">    
+			<Label id="yourInfo" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
+		<View id="moNumberView" class="top auto-height vgroup">
+	        <Widget id="phoneTxt" analyticsId="MobileNumberTxt" src="ti.textfield" class="h4 margin-top margin-bottom margin-left margin-right border keyboard-phone returnkey-next" onChange="didChange"  />
+		</View> 
+		<View id="lnameView" class="auto-height vgroup">
+			<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="h4 margin-bottom margin-left margin-right border keyboard-phone returnkey-next"  />
+		</View>
+		<View class="min-height inactive-light-bg-color"> 
+			<Label id="pickupLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		</View>t
 		<View id="pickupView" class="auto-height vgroup">
 			<View id="pickupModeView" class="auto-height" onClick="didClickPickupMode">
 				<Label id="pickupModeLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
@@ -20,10 +29,6 @@
 			</View>
 			<View id="pickupDividerView" class="h-divider-light" />
 		</View>
-		<View class="min-height inactive-light-bg-color" if="Alloy.CFG.refill_type_phone_enabled">
-			<Label id="phoneLbl" class="margin-left margin-right h5 inactive-fg-color" />
-		</View>
-		<Widget id="phoneTxt" src="ti.textfield" class="txt phone keyboard-phone returnkey-done" onChange="didChange" onReturn="didClickRefill"  if="Alloy.CFG.refill_type_phone_enabled" />
 		<View id="dividerView" class="margin-top h-divider-light" />
 		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-border" onClick="didClickRefill" />
 	</ScrollView>
