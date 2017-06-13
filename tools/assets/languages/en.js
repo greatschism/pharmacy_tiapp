@@ -214,7 +214,8 @@ module.exports = {
 		"titleRegister" : "Account creation",
 		"titleTransferSuccess" : "Order processed",
 		"titleRefillOrdered" : "Order processed",
-
+		"titleRefillFailureOrder" : "Order not processed",
+        "titleRefillPartialOrder" : "Order partially processed",
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
@@ -457,9 +458,9 @@ module.exports = {
 		"refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
 		"refillTypeAddMore" : "Add another prescription field",
         "refillLimit" : "You can add a maximum of 10 prescriptions at a time.",
-		"refillSuccessLblSuccess" : "We have processed your order",
-		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessLblFailure" : "We are sorry, your order could not be processed",
+		"refillSuccessLblSuccess" : "We have placed your order.",
+		"refillSuccessLblPartial" : "We were able to process some of your refill requests but not all of them. Please review below.",
+		"refillSuccessLblFailure" : "We are sorry, your order could not be processed.",
 		"refillSuccessSectionPresc" : "Your order",
 		"refillSuccessSectionPickup" : "Pharmacy details",
 		"refillSuccessLblMailOrder" : "Your order will be mailed to the address that the pharmacy has on file.",
@@ -735,7 +736,7 @@ module.exports = {
 		"mgrAccountCreationLblTogglePassword" : "Show password",
 
 		"mgrAccountUpdateTitle" : "Welcome back!",
-		"mgrAccountUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
+		"mgrAccountUpdateLbl" : "We’ve improved the app. <secondaryfont><secondarycolor>Tap here to see what’s new!</secondarycolor></secondaryfont>",
 		"mgrAccountUpdateAskInfo" : "It looks like you're managing a minor. Please create an account for yourself to continue managing your family's prescriptions.",
 		"mgrAccountUpdateYourInfo" : "Your info",
 		"mgrAccountUpdateHintFName" : "First name",
@@ -943,8 +944,8 @@ module.exports = {
 		"insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
-		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
-		"loginInfoUpdateAskInfo" : "Please provide your email address and a new password. You'll use them to sign in from now on.",
+		"loginInfoUpdateLbl" : "We’ve improved the app. <secondaryfont><secondarycolor>Tap here to see what’s new!</secondarycolor></secondaryfont>",
+		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
 

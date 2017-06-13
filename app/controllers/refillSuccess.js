@@ -23,29 +23,53 @@ function init() {
 	var tKey,
 	    iKey,
 	    lKey;
-	isSuccess = true;
+	// isSuccess = true;
+	// isFailure = false;
+
+	isSuccess = false;
 	isFailure = false;
+	_.each(prescriptions, function(prescription) {
+		if (prescription.refill_is_error == true) {
+			isFailure = true;
+		} else {
+			isSuccess = true;
+		}
+	});
+	
+	
 	if (isSuccess && isFailure) {
 		//partial success
-		tKey = "titleRefillSuccess";
-		iKey = "img-success";
 		lKey = "refillSuccessLblPartial";
 	} else if (isSuccess) {
 		//complete success
-		tKey = "titleRefillSuccess";
 		iKey = "img-success";
 		lKey = "refillSuccessLblSuccess";
 	} else {
 		//complete failure
-		tKey = "titleRefillFailure";
 		lKey = "refillSuccessLblFailure";
 	}
+
+	// if (isSuccess && isFailure) {
+	// //partial success
+	// tKey = "titleRefillSuccess";
+	// iKey = "img-success";
+	// lKey = "refillSuccessLblPartial";
+	// } else if (isSuccess) {
+	// //complete success
+	// tKey = "titleRefillSuccess";
+	// iKey = "img-success";
+	// lKey = "refillSuccessLblSuccess";
+	// } else {
+	// //complete failure
+	// tKey = "titleRefillFailure";
+	// lKey = "refillSuccessLblFailure";
+	// }
 	/**
 	 * Note: window is yet to be opened,
 	 * actionBar / setTitle will not be
 	 * available here at init
 	 */
-	$.window.title = $.strings[tKey];
+	// $.window.title = $.strings[tKey];
 	if (iKey) {
 		$.img.applyProperties($.createStyle({
 			classes : ["margin-top-large", "margin-bottom-extra-large", iKey]
@@ -56,6 +80,7 @@ function init() {
 		}).bottom;
 	}
 	$.lbl.text = $.strings[lKey];
+	
 }
 
 function focus() {
