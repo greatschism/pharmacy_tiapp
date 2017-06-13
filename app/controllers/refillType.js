@@ -78,6 +78,13 @@ function didChange(e) {
  */
 function didClickAdd(e) {
 	var len = rxTxts.length;
+	
+	if (len == 10) {
+		$.uihelper.showDialog({
+			message : Alloy.Globals.strings.refillLimit
+		});
+		return;
+	} 
 	$.containerView.height = (rxTxtHeight * (len + 1));
 	var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
 	ctrl.setRightIcon("", rightIconDict);
