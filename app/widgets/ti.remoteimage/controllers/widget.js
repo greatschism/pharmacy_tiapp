@@ -4,7 +4,7 @@ var args = $.args,
 
 (function() {
 
-	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "images", "preventDefaultImage", "decodeRetries", "enableZoomControls", "backgroundColor", "backgroundImage", "borderColor", "borderWidth", "borderRadius", "accessibilityHidden"]);
+	var options = _.pick(args, ["width", "height", "top", "bottom", "left", "right", "images", "preventDefaultImage", "decodeRetries", "enableZoomControls", "backgroundColor", "backgroundImage", "borderColor", "borderWidth", "borderRadius", "accessibilityHidden", "accessibilityLabel"]);
 	if (!_.isEmpty(options)) {
 		$.widget.applyProperties(options);
 	}

@@ -3,7 +3,7 @@ var args = $.args,
     authenticator = require("authenticator"),
     rx = require("rx"),
     rightButtonDict = $.createStyle({
-	classes : ["txt-tertiary-right-icon"],
+	classes : ["margin-right", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "rx-hintext"],
 }),
     rightButtonTitle = $.createStyle({
 	classes : ["icon-help"]

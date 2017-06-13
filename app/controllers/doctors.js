@@ -192,6 +192,7 @@ function processModel(model) {
 	}
 	model.set({
 		image : imageURL && imageURL != "null" ? imageURL : "",
+		imageAccessibility : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")) + "s image",
 		defaultImage : defaultImg,
 		title : $.strings.strPrefixDoctor.concat($.utilities.ucword(model.get("first_name") || "") + " " + $.utilities.ucword(model.get("last_name") || "")),
 		subtitle : subtitle,

@@ -185,6 +185,11 @@ function didClickCloseLanguage(e) {
 	updateUserPreferences("pref_language", $.languagePicker.getSelectedItems()[0].code_display);
 }
 
+function didClickHelp(e) {
+	var url = Alloy.Models.appload.get("help_text_url");
+	Ti.Platform.openURL(url);
+}
+
 function didClickContactSupport(e) {
 	$.contactOptionsMenu.show();
 }

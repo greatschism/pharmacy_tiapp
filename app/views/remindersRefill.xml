@@ -19,7 +19,7 @@
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
 		<View class="top min-height inactive-light-bg-color">
 			<Label id="benefitsLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled" />
-			<Button class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-help" onClick="didClickBenefits" />
+			<Label class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-help" onClick="didClickBenefits" />
 		</View>
 	</View>
 	<TableView id="tableView" onClick="didClickTableView">

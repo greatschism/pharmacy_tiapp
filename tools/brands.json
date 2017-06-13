@@ -35,5 +35,8 @@
 	}, {
 		"id": "jewelosco",
 		"description": "Jewel Osco Rx."
+	}, {
+		"id": "uvmc",
+		"description": "UVMC Rx."
 	}
 ]

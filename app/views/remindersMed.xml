@@ -3,7 +3,7 @@
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="getAllPrescriptions" />
 		<View id="contentHeaderView" class="top min-height inactive-light-bg-color hide">
 			<Label id="remindersLbl" class="margin-left margin-right-icon h5 inactive-fg-color wrap-disabled" />
-			<Button id="addBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-add" onClick="didClickAdd" />
+			<Label id="addBtn" class="top-disabled left-disabled right icon-width i5 bg-color-disabled active-fg-color border-disabled icon-add" onClick="didClickAdd" />
 		</View>
 	</View>
 	<TableView id="tableView" onSingletap="didClickTableView">
