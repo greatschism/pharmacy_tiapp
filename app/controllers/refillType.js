@@ -261,9 +261,35 @@ function didRefill(result, passthrough) {
 	 * only if not logged in and
 	 * refill is not failure (success / partial success)
 	 */
+	
+	var isSuccess = false;
+	var isFailure = false;
+	_.each(prescriptions, function(prescription) {
+		if(prescription.refill_is_error == true){
+			isFailure = true;
+			
+		}else{
+			isSuccess = true;
+		}	
+	});
+	
+	var titleRefill = null;
+	if (isSuccess && isFailure) {
+		//partial success
+		titleRefill = "titleRefillPartialOrder";
+		
+	} else if (isSuccess) {
+		//complete success
+		titleRefill = "titleRefillOrdered";
+		
+	} else {
+		//complete failure
+		titleRefill = "titleRefillFailureOrder";
+	}
+	
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
-		titleid : "titleRefillOrdered",
+		titleid : titleRefill,
 		ctrlArguments : {
 			prescriptions : prescriptions,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value"),
