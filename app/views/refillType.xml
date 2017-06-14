@@ -17,7 +17,7 @@
 	        <Widget id="phoneTxt" analyticsId="MobileNumberTxt" src="ti.textfield" class="h4 margin-top margin-bottom margin-left margin-right border keyboard-phone returnkey-next" onChange="didChange"  />
 		</View> 
 		<View id="lnameView" class="auto-height vgroup">
-			<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="h4 margin-bottom margin-left margin-right border keyboard-phone returnkey-next"  />
+			<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="h4 margin-bottom margin-left margin-right name border autocaps-words returnkey-next"  />
 		</View>
 		<View class="min-height inactive-light-bg-color"> 
 			<Label id="pickupLbl" class="margin-left margin-right h5 inactive-fg-color" />
