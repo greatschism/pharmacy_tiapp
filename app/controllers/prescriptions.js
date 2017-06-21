@@ -1,5 +1,6 @@
 var args = $.args,
     moment = require("alloy/moment"),
+    logger = require("logger"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
@@ -14,6 +15,8 @@ var args = $.args,
     analyticsCategory;
 
 function init() {
+	//alert(JSON.stringify(args,null,4) );
+	
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	/**
 	 * may not be available when
@@ -374,9 +377,29 @@ function prepareList() {
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message")
 					});
-				}
-				
-				else {
+				} else if (prescription.get("refill_transaction_status") == "Rejected") {
+					var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+										
+					var phoneNumber =  message.substr((message.search("@")+1), 11) || "" ;
+
+					logger.debug("\n\n\n extracted phone number", phoneNumber);
+					prescription.set({
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : prescription.get("refill_transaction_message"),
+						subtitleColor : "negative-fg-info-color",
+						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : ""
+
+					});
+					
+					//row.on("clickphone", didClickPhone);
+
+				} else {
 					prescription.set({
 						itemTemplate : "inprogress",
 						subtitle : subtitle,
@@ -554,6 +577,39 @@ function prepareList() {
 		$.uihelper.showDialog({
 			message : $.strings.prescAddMsgEmptyList
 		});
+	}
+}
+
+function contactsHandler() {
+	$.uihelper.getPhone({
+		firstName : "x",
+		phone : {
+			work : [args.phone_formatted]
+		}
+	}, args.phone_formatted);
+}
+
+function didClickPhone(e) {
+
+	logger.debug("\n\n\n In parent phone click \n\n\n");
+	// alert('In parent phone click');
+			
+			
+	if(args.phone_formatted)
+	{
+		logger.debug("\n\n\n I clicked on phone number\n\n\n");
+		if(!Titanium.Contacts.hasContactsPermissions()) {
+			Titanium.Contacts.requestContactsPermissions(function(result){
+				if(result.success) {
+					contactsHandler();
+				}
+				else{
+					$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
+				}
+			});
+		} else {
+			contactsHandler();
+		}
 	}
 }
 
@@ -817,6 +873,7 @@ function hidePrescription(e) {
 }
 
 function didClickTableView(e) {
+	// alert('in parent');
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}

@@ -1,5 +1,7 @@
 var args = $.args,
-    uihelper = require("uihelper");
+    uihelper = require("uihelper"),
+    logger = require("logger");
+
 
 (function() {
 	if (args.filterText) {
@@ -23,13 +25,20 @@ var args = $.args,
 		}
 	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {
-			text : subtitle
+			text : subtitle,
 		});
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+		
+	var iDict = {
+	html : subtitle
+	};
+	$.subtitleLbl.applyProperties(iDict);
+
 	if (args.subtitleColor) {
 			$.addClass($.subtitleLbl, [args.subtitleColor] );
 	}
@@ -66,6 +75,16 @@ var args = $.args,
 
 function getParams() {
 	return args;
+}
+
+function didClickPhone(e) {
+	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
+	var source = e.source;
+	$.trigger("clickphone", {
+		source : $,
+		title : "",
+		data : args
+	});
 }
 
 exports.getParams = getParams;
