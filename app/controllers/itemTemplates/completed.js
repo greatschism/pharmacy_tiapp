@@ -36,11 +36,6 @@ var args = $.args,
 		$.subtitleLbl.text = subtitle;
 	}
 		
-	var iDict = {
-	html : subtitle
-	};
-	$.subtitleLbl.applyProperties(iDict);
-
 	if (args.subtitleColor) {
 			$.addClass($.subtitleLbl, [args.subtitleColor] );
 	}
