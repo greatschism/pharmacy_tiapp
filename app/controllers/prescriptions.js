@@ -16,7 +16,7 @@ var args = $.args,
 
 function init() {
 	//alert(JSON.stringify(args,null,4) );
-	
+
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	/**
 	 * may not be available when
@@ -352,7 +352,6 @@ function prepareList() {
 					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 				}
 
-				
 				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
 					prescription.set({
 						itemTemplate : "completed",
@@ -368,7 +367,8 @@ function prepareList() {
 						masterWidth : 100,
 						detailWidth : 0,
 						customIconYield : "icon-thin-filled-success",
-						subtitle : prescription.get("refill_transaction_message")
+						subtitle : prescription.get("refill_transaction_message"),
+						subtitleColor : "yield-fg-info-color"
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
@@ -382,22 +382,20 @@ function prepareList() {
 					logger.debug("\n\n\n transaction message", message);
 
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
-										
-					var phoneNumber =  message.substr((message.search("@")+1), 11) || "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 1), 11) || "";
 
 					logger.debug("\n\n\n extracted phone number", phoneNumber);
 					prescription.set({
 						itemTemplate : "completed",
-						customIconNegative : "icon-error",
+						customIconRejected : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "negative-fg-info-color",
+						subtitleColor : "tentative-fg-color",
 						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : ""
 
 					});
-					
-					//row.on("clickphone", didClickPhone);
 
 				} else {
 					prescription.set({
@@ -510,6 +508,9 @@ function prepareList() {
 		case "masterDetailBtn":
 			row.on("clickdetail", doConfirmHide);
 			break;
+		case "completed":
+			row.on("clickphone", didClickPhone);
+
 		}
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);

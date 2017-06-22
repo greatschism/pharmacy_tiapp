@@ -17,7 +17,9 @@ var args = $.args,
 	}
 	if( args.customIconYield ) {
 		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
-	} else {
+	} else if( args.customIconRejected ) {
+		$.addClass($.subtitleIconLbl, ["tentative-fg-color", args.customIconRejected] );
+	}else {
 		if( args.customIconNegative ) {
 			$.addClass($.subtitleIconLbl, ["negative-fg-info-color", args.customIconNegative] );
 		} else {
