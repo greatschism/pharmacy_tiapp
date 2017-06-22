@@ -622,7 +622,9 @@ if (build) {
 		tiapp.version = program.version;
 
 		//android launcher activity name
-		var names = (tiapp.name + " Activity").split(" ");
+		var appname = tiapp.name;
+		appname = appname.replace("-","");
+		var names = (appname + " Activity").split(" ");
 		for (var i in names) {
 			var name = names[i].toLowerCase();
 			name = (name + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
