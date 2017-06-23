@@ -581,35 +581,35 @@ function prepareList() {
 	}
 }
 
-function contactsHandler() {
+function contactsHandler(info) {
 	$.uihelper.getPhone({
-		firstName : "x",
+		firstName : "Pharmacy",
 		phone : {
-			work : [args.phone_formatted]
+			work : [info.phone_formatted]
 		}
-	}, args.phone_formatted);
+	}, $.utilities.validatePhoneNumber(info.phone_formatted));
 }
 
 function didClickPhone(e) {
 
-	logger.debug("\n\n\n In parent phone click \n\n\n");
+	logger.debug("\n\n\n In parent phone click: args",e.data,"\n\n\n");
 	// alert('In parent phone click');
 			
 			
-	if(args.phone_formatted)
+	if(e.data.phone_formatted)
 	{
 		logger.debug("\n\n\n I clicked on phone number\n\n\n");
 		if(!Titanium.Contacts.hasContactsPermissions()) {
 			Titanium.Contacts.requestContactsPermissions(function(result){
 				if(result.success) {
-					contactsHandler();
+					contactsHandler(e.data);
 				}
 				else{
 					$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
 				}
 			});
 		} else {
-			contactsHandler();
+			contactsHandler(e.data);
 		}
 	}
 }

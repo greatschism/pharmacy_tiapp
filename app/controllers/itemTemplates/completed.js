@@ -2,7 +2,6 @@ var args = $.args,
     uihelper = require("uihelper"),
     logger = require("logger");
 
-
 (function() {
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
@@ -27,7 +26,7 @@ var args = $.args,
 		}
 	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-
+	
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {
 			text : subtitle,
