@@ -361,7 +361,7 @@ function prepareList() {
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "negative-fg-info-color",
-						subtitleClasses : subtitleWrapClasses
+						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Partial Fill" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
@@ -372,7 +372,7 @@ function prepareList() {
 						customIconYield : "icon-thin-filled-success",
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "yield-fg-info-color",
-						subtitleClasses : subtitleWrapClasses
+						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
@@ -381,7 +381,7 @@ function prepareList() {
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message"),
-						subtitleClasses : subtitleWrapClasses
+						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
 					var message = prescription.get("refill_transaction_message");
@@ -401,7 +401,7 @@ function prepareList() {
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "tentative-fg-color",
 						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : "",
-						subtitleClasses : subtitleWrapClasses
+						/*subtitleClasses : subtitleWrapClasses*/
 					});
 
 				} else {
