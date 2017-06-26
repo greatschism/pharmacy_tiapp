@@ -354,28 +354,34 @@ function prepareList() {
 
 				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
 					prescription.set({
+						className : "OOS",
 						itemTemplate : "completed",
 						customIconNegative : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "negative-fg-info-color"
+						subtitleColor : "negative-fg-info-color",
+						subtitleClasses : subtitleWrapClasses
 					});
 				} else if (prescription.get("refill_transaction_status") == "Partial Fill" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
+						className : "PF",
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
 						customIconYield : "icon-thin-filled-success",
 						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "yield-fg-info-color"
+						subtitleColor : "yield-fg-info-color",
+						subtitleClasses : subtitleWrapClasses
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
 					prescription.set({
+						className : "IP",
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
-						subtitle : prescription.get("refill_transaction_message")
+						subtitle : prescription.get("refill_transaction_message"),
+						subtitleClasses : subtitleWrapClasses
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
 					var message = prescription.get("refill_transaction_message");
@@ -387,14 +393,15 @@ function prepareList() {
 
 					logger.debug("\n\n\n extracted phone number", phoneNumber);
 					prescription.set({
+						className : "RJ",
 						itemTemplate : "completed",
 						customIconRejected : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : prescription.get("refill_transaction_message"),
 						subtitleColor : "tentative-fg-color",
-						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : ""
-
+						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : "",
+						subtitleClasses : subtitleWrapClasses
 					});
 
 				} else {
