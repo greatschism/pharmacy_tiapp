@@ -588,14 +588,6 @@ function prepareList() {
 	}
 }
 
-function contactsHandler(info) {
-	$.uihelper.getPhone({
-		firstName : "Pharmacy",
-		phone : {
-			work : [info.phone_formatted]
-		}
-	}, $.utilities.validatePhoneNumber(info.phone_formatted));
-}
 
 function didClickPhone(e) {
 
@@ -605,19 +597,12 @@ function didClickPhone(e) {
 			
 	if(e.data.phone_formatted)
 	{
-		logger.debug("\n\n\n I clicked on phone number\n\n\n");
-		if(!Titanium.Contacts.hasContactsPermissions()) {
-			Titanium.Contacts.requestContactsPermissions(function(result){
-				if(result.success) {
-					contactsHandler(e.data);
-				}
-				else{
-					$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
-				}
-			});
-		} else {
-			contactsHandler(e.data);
-		}
+		$.uihelper.getPhoneWithContactsPrompt({
+			firstName : "Pharmacy",
+			phone : {
+				work : [e.data.phone_formatted]
+			}
+		}, $.utilities.validatePhoneNumber(e.data.phone_formatted));
 	}
 }
 

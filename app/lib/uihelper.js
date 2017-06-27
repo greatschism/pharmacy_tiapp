@@ -220,6 +220,45 @@ var Helper = {
 		optDialog.show();
 	},
 
+	getPhoneWithContactsPrompt : function(personObj, phone) {
+		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
+			options : [Alloy.Globals.strings.dialogBtnPhone, Alloy.Globals.strings.dialogBtnContactAdd, Alloy.Globals.strings.dialogBtnCancel],
+			cancel : 2
+		});
+		optDialog.on("click", function didClick(evt) {
+			if (!evt.cancel) {
+				switch(evt.index) {
+				case 0:
+					if (phone && !utilities.isPhoneNumber(phone)) {
+						phone = utilities.validatePhoneNumber(phone);
+					};
+					Helper.openDialer(phone);
+					break;
+				case 1:
+					if(!Titanium.Contacts.hasContactsPermissions()) {
+						Titanium.Contacts.requestContactsPermissions(function(result){
+							if(result.success) {
+								Helper.addContact(personObj);
+							}
+							else{
+								$.analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
+								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+							}
+						});
+					} else {
+						Helper.addContact(personObj);
+					}
+
+					break;
+				}
+			}
+			optDialog.off("click", didClick);
+			optDialog.destroy();
+			optDialog = null;
+		});
+		optDialog.show();
+	},
+
 	/**
 	 * Add phone number to contacts
 	 * @param {Object} personObj Titanium.Contacts.Person dictionary for creating contact
