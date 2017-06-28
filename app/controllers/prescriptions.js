@@ -598,7 +598,7 @@ function didClickPhone(e) {
 	if(e.data.phone_formatted)
 	{
 		$.uihelper.getPhoneWithContactsPrompt({
-			firstName : "Pharmacy",
+			firstName : $.strings.strClientName + " Pharmacy",
 			phone : {
 				work : [e.data.phone_formatted]
 			}
