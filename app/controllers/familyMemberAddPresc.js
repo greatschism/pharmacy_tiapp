@@ -137,6 +137,15 @@ function addPrescriptions() {
 		});
 		return;
 	}
+	/**
+	 * If the user is <18, stop him from registration. He shall contact the support for assistance
+	 */
+	if (moment().diff(dob, "years", true) < 18) {
+		$.uihelper.showDialog({
+			message : String.format(Alloy.Globals.strings.msgAgeRestriction, Alloy.Models.appload.get("supportphone")),
+		});
+		return;
+	}
 	$.http.request({
 		method : "patient_family_add_fullacount",
 		params : {
