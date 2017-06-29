@@ -241,7 +241,7 @@ var Helper = {
 								Helper.addContact(personObj);
 							}
 							else{
-								$.analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
+								analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							}
 						});
