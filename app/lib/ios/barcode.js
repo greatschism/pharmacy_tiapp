@@ -11,7 +11,8 @@ var TAG = "BARC",
     isBusy = false,
     keepOpen = false,
     supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
-    successCallback;
+    successCallback,
+    passthrough;
 
 var BarcodeReader = {
 
@@ -48,6 +49,11 @@ var BarcodeReader = {
 		if (_.has(options, "success")) {
 			successCallback = options.success;
 			delete options.success;
+		}
+		
+		if (_.has(options, "passthrough")) {
+			passthrough = options.passthrough;
+			delete options.passthrough;
 		}
 
 		BarcodeReader.__window = $.UI.create("Window", {
@@ -116,6 +122,13 @@ var BarcodeReader = {
 
 		//nullify instances
 		BarcodeReader.__window = BarcodeReader.__cameraView = null;
+		
+		/**
+		 * 	To enable accessibility on Refill screen
+		 */
+		if (passthrough) {
+			passthrough();
+		}
 
 		isBusy = false;
 	},
