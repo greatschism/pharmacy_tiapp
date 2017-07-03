@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<Label id="titleLbl" class="margin-top margin-left margin-right h2 txt-center" />
-		<ImageView id="img" class="margin-top-large margin-bottom-large margin-left-small margin-right-small" />
+		<ImageView id="img" class="margin-top-large margin-bottom-large margin-left-small margin-right-small accessibility-enabled" />
 	</ScrollView>
 </Alloy>

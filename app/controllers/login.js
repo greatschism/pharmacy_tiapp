@@ -3,10 +3,11 @@ var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn","positive-fg-color"],
+	classes : ["txt-positive-right-btn", "positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
-	width: "25%",
-	backgroundColor: 'transparent'
+	accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
+	width : "25%",
+	backgroundColor : 'transparent'
 }),
     utilities = require('utilities');
 
@@ -50,25 +51,25 @@ function init() {
 	if (OS_ANDROID) {
 		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
 		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
-    } else {
+	} else {
 		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
-    }
+	}
 	$.autoLoginSwt.applyProperties(iDict);
 
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblPasswordField;
-	$.passwordTxt.applyProperties(iDict);
-
-	iDict.accessibilityLabel = $.strings.accessibilityLblUsernameField;
-	$.usernameTxt.applyProperties(iDict);
-
+	if (OS_IOS) {
+		var sDict = {};
+		sDict.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+		$.forgotPwdAttr.applyProperties(sDict);
+		$.signupAttr.applyProperties(sDict);
+		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
+	};
 }
 
 function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
 	var buildNumber = String.format($.strings.loginBuildNumber, Alloy.CFG.buildNumber);
 	var buildDate = String.format($.strings.loginBuildDate, Alloy.CFG.buildDate);
-	var copyrightYearHelper = new Date(Date.parse(buildDate)); 
+	var copyrightYearHelper = new Date(Date.parse(buildDate));
 	var copyrightYearHelperString = $.strings.strClientName + ", " + copyrightYearHelper.getFullYear();
 	var copyright = String.format($.strings.loginCopyright, copyrightYearHelperString);
 
@@ -85,7 +86,7 @@ function didClickAbout() {
 
 }
 
-function showTOS(){
+function showTOS() {
 	var url = Alloy.Models.appload.get("tos_url");
 	$.app.navigator.open({
 		ctrl : "termsDoc",
@@ -98,7 +99,7 @@ function showTOS(){
 	});
 }
 
-function showPrivacy(){
+function showPrivacy() {
 	var url = Alloy.Models.appload.get("privacy_policy_url");
 	$.app.navigator.open({
 		ctrl : "termsDoc",
@@ -117,15 +118,17 @@ function didChangeToggle() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightButtonDict, {
 				title : $.strings.strHide,
-				width: "25%",
-				backgroundColor: 'transparent'
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHide,
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : $.strings.strShow,
-				width: "25%",
-				backgroundColor: 'transparent'
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
@@ -173,6 +176,7 @@ function didClickLogin(e) {
 		authenticator.init({
 			username : username,
 			password : password,
+			loginFailure : didFailed,
 			success : didAuthenticate
 		});
 	}
@@ -261,6 +265,35 @@ function didAuthenticate(passthrough) {
 	}
 }
 
+function didFailed(error, passthrough) {
+	if (error.errorCode == "ECOH656") {
+		$.uihelper.showDialogWithButton({
+			message : error.message,
+			deactivateDefaultBtn : true,
+			btnOptions : [{
+				title : $.strings.loginErrTryAgain
+			}, {
+				title : $.strings.loginErrForgotUsername,
+				onClick : showForgotUsernameDialog
+			}]
+		});
+	} else if (error.errorCode == "ECOH655") {
+		$.uihelper.showDialogWithButton({
+			message : error.message,
+			deactivateDefaultBtn : true,
+			btnOptions : [{
+				title : $.strings.dialogBtnOK,
+				onClick : didClickForgotUsername
+			}]
+		});
+	} else {
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	}
+	;
+}
+
 function didClickForgotPassword(e) {
 	$.app.navigator.open({
 		ctrl : "forgotPassword",
@@ -269,9 +302,23 @@ function didClickForgotPassword(e) {
 	});
 }
 
+function didClickForgotUsername(e) {
+	$.app.navigator.open({
+		ctrl : "signup",
+		titleid : "titleConfirmAccount",
+		stack : true
+	});
+}
+
+function showForgotUsernameDialog() {
+	$.uihelper.showDialog({
+		message : $.strings.loginErrCofirmAccount,
+		success : didClickForgotUsername
+	});
+}
+
 function didClickSignup(e) {
-	if(Alloy.CFG.is_proxy_enabled)
-	{
+	if (Alloy.CFG.is_proxy_enabled) {
 		$.app.navigator.open({
 			ctrl : "register",
 			titleid : "titleRegister",
@@ -285,7 +332,6 @@ function didClickSignup(e) {
 		});
 	}
 }
-
 
 function didPostlayout(e) {
 	/**
@@ -303,7 +349,7 @@ function didPostlayout(e) {
 	$.tooltip.updateArrow($.createStyle({
 		classes : ["direction-up"]
 	}).direction, $.createStyle({
-		classes : ["i5", "primary-fg-color", "icon-filled-arrow-up","right"]
+		classes : ["i5", "primary-fg-color", "icon-filled-arrow-up", "right"]
 	}));
 
 	$.tooltip.applyProperties($.createStyle({
@@ -317,7 +363,9 @@ function didPostlayout(e) {
 	 * As in full account (register.js) and partial account(mgrAccountCreation.js) registration scenarios
 	 */
 	if (args.is_adult_partial || utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA") {
-		$.tooltip.show();
+		if (!Ti.App.accessibilityEnabled) {
+			$.tooltip.show();
+		};
 	}
 
 }

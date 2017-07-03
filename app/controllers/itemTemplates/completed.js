@@ -34,13 +34,28 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
-		
+	
 	if (args.subtitleColor) {
-			$.addClass($.subtitleLbl, [args.subtitleColor] );
+			$.addClass($.detailLbl, [args.subtitleColor] );
+	}
+	
+		
+	var detail = args.detailTitle || (args.data ? args.data[args.detailProperty] : "");
+	
+	if (args.detailClasses) {
+		$.resetClass($.detailLbl, args.detailClasses, {
+			text : detail,
+		});
+	} else {
+		$.detailLbl.text = detail;
+	}
+		
+	if (args.detailColor) {
+			$.addClass($.detailLbl, [args.detailColor] );
 	}
 	
 	uihelper.wrapViews($.masterView);
-	_.each(["titleLbl", "subtitleLbl"], function(val) {
+	_.each(["titleLbl", "subtitleLbl", "detailLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
 	if (args.tooltip) {

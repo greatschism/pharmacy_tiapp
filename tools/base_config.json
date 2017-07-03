@@ -41,6 +41,7 @@
 			"prescriptions_hide": "prescriptions/hide",
 			"prescriptions_unhide": "prescriptions/unhide",
 			"prescriptions_refill": "prescriptions/refill",
+			"prescriptions_quick_refill": "prescriptions/quickRefill",
 			"prescriptions_get_refill_history": "prescriptions/getrefillhistory",
 			"reminders_refill_get": "reminders/refill/get",
 			"reminders_refill_add": "reminders/refill/add",

@@ -23,6 +23,10 @@ function init() {
     var iDict = {};
 	iDict.accessibilityValue = $.strings.dobAccessibilityLbl;
     $.dobDp.__views.widget.applyProperties(iDict);
+    
+    var sDict = {};
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
+	$.agreementAttr.applyProperties(sDict);
 }
 
 function focus() {

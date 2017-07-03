@@ -734,8 +734,8 @@ var Helper = {
 	},
 
 	showDialogWithButton : function(params) {
-		var btnOptions = [Alloy.Globals.strings.dialogBtnOK];
-		_.each(params.btnOptions, function(btnObj) {
+		var btnOptions = params.deactivateDefaultBtn ? [] : [Alloy.Globals.strings.dialogBtnOK];
+		_.each(params.btnOptions , function(btnObj) {
 			btnOptions.push(btnObj.title);
 		});
 
@@ -754,8 +754,9 @@ var Helper = {
 		var dialog = Ti.UI.createAlertDialog(dict);
 		dialog.addEventListener("click", function(e) {
 			var index = e.index;
-			if (index >= 1) {
-				params.btnOptions[index - 1].onClick && params.btnOptions[index - 1].onClick();
+			params.deactivateDefaultBtn && index++;
+			if(params.deactivateDefaultBtn || index >= 1) {
+				params.btnOptions[index-1].onClick && params.btnOptions[index-1].onClick();
 			} else if (params.success && index !== cancel) {
 				params.success(index, e);
 			} else if (params.cancel && index === cancel) {

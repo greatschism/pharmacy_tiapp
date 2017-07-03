@@ -56,5 +56,10 @@ module.exports = {
 		"ctrl" : "account",
 		"icon" : "thick_account",
 		"requires_login" : true
-	}]
+	}, {
+        "titleid": "titleHelp",
+        "url": "http://meijer.mobilepharmacyhelp.com/",
+        "icon": "help",
+        "requires_login": false
+    }]
 };

@@ -359,8 +359,9 @@ function prepareList() {
 						customIconNegative : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
-						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "negative-fg-info-color",
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
 						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Partial Fill" && prescription.get("refill_transaction_message") != null) {
@@ -370,8 +371,9 @@ function prepareList() {
 						masterWidth : 100,
 						detailWidth : 0,
 						customIconYield : "icon-thin-filled-success",
-						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "yield-fg-info-color",
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "yield-fg-info-color"
 						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
@@ -380,7 +382,8 @@ function prepareList() {
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
-						subtitle : prescription.get("refill_transaction_message"),
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message")
 						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
@@ -389,7 +392,7 @@ function prepareList() {
 
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
 
-					var phoneNumber = message.substr((message.search("@") + 1), 11) || "";
+					var phoneNumber = message.substr((message.search("@") + 1), 15) || "";
 
 					logger.debug("\n\n\n extracted phone number", phoneNumber);
 					prescription.set({
@@ -398,9 +401,10 @@ function prepareList() {
 						customIconRejected : "icon-error",
 						masterWidth : 100,
 						detailWidth : 0,
-						subtitle : prescription.get("refill_transaction_message"),
-						subtitleColor : "tentative-fg-color",
-						phone_formatted : (phoneNumber != "") ? $.utilities.formatPhoneNumber(phoneNumber) : "",
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
 						/*subtitleClasses : subtitleWrapClasses*/
 					});
 
@@ -443,7 +447,8 @@ function prepareList() {
 			prescription.set({
 				section : "readyPickup",
 				titleClasses : titleClasses,
-				subtitle : $.strings.prescReadyPickupLblReady,
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+				detailTitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
 
@@ -452,10 +457,35 @@ function prepareList() {
 			var dueInDays = 0,
 			    section = "others",
 			    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
+
 			/**
 			 * keep the swipe options out (masterDetailWithLIcon - is picked)
 			 * when selectable is true
 			 */
+			
+			if((prescription.get("refill_transaction_status") == "Rejected" && prescription.get("refill_transaction_message") != null)) //|| (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 1), 15) || "";
+
+					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
+					prescription.set({
+						section : section,
+						itemTemplate : "completed",
+						customIconRejected : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
+						});		
+			}
+			else{
 			if (prescription.get("anticipated_refill_date")) {
 				/**
 				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
@@ -503,6 +533,7 @@ function prepareList() {
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
 				canHide : true
 			});
+			}
 		}
 		var rowParams = prescription.toJSON(),
 		    row;

@@ -30,6 +30,8 @@ module.exports = {
 		"strDeliveryModeNone" : "None",
 		"strShow" : "show",
 		"strHide" : "hide",
+		"accessibilityStrShow" : "Show password",
+		"accessibilityStrHide" : "Hide password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -110,8 +112,8 @@ module.exports = {
 
 		"iconAccessibilityLblMap" : "Map",
 		"accessibilityLblRememberUsernameToggle" : "Keep me signed in",
-		"accessibilityLblPasswordField" : "password field",
-		"accessibilityLblUsernameField" : "username field",
+		"accessibilityLblPasswordField" : "password",
+		"accessibilityLblUsernameField" : "username",
 		"iconAccessibilityLblList" : "List",
 		"iconAccessibilityLblAdd" : "add more",
 		"iconAccessibilityLblCancel" : "cancel",
@@ -127,10 +129,10 @@ module.exports = {
 		"iconAccessibilityLblThickArrowUp" : "Close options",
 		"iconAccessibilityLblTooltipArrowDown" : "Click/Expand for options",
 		"iconAccessibilityLblTooltipArrowUp" : "Close options",
-		"iconAccessibilityLblFilledSuccess" : "Checkbox selected",
-		"iconAccessibilityLblUnfilledSuccess" : "Checkbox deselected",
-		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox deselected",
-		"iconAccessibilityLblThinFilledSuccess" : "Checkbox selected",
+		"iconAccessibilityLblFilledSuccess" : "Checkbox checked",
+		"iconAccessibilityLblUnfilledSuccess" : "Checkbox unchecked",
+		"iconAccessibilityLblThinUnfilledSuccess" : "Checkbox unchecked",
+		"iconAccessibilityLblThinFilledSuccess" : "Checkbox checked",
 		"iconAccessibilityLblSuccess" : "Checkbox",
 
 		"iconAccessibilityLblStar" : "Favourite",
@@ -142,8 +144,8 @@ module.exports = {
 		"iconAccessibilityLblCalendar" : "Calendar",
 		"iconAccessibilityLblDirection" : "Direction",
 		"iconAccessibilityLblBadgeStar" : "Badge",
-		"iconAccessibilityLblCheckboxChecked" : "Selected",
-		"iconAccessibilityLblCheckboxUnchecked" : "Deselected",
+		"iconAccessibilityLblCheckboxChecked" : "Checked",
+		"iconAccessibilityLblCheckboxUnchecked" : "Not checked",
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 
@@ -194,6 +196,7 @@ module.exports = {
 		"titleChangePhone" : "Enter phone number",
 		"titleFamilyCare" : "Family care",
 		"titleCreateAccount" : "Create an account",
+		"titleConfirmAccount" : "Confirm account",
 		"titleMgrAccountExists" : "Existing account",
 		"titleChildAdd" : "Add a child",
 		"titleTermsAndConditions" : "Terms and Conditions",
@@ -211,7 +214,8 @@ module.exports = {
 		"titleRegister" : "Account creation",
 		"titleTransferSuccess" : "Order processed",
 		"titleRefillOrdered" : "Order processed",
-
+		"titleRefillFailureOrder" : "Order not processed",
+        "titleRefillPartialOrder" : "Order partially processed",
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
@@ -257,7 +261,7 @@ module.exports = {
 		"loginBtnLogin" : "Sign in",
 		"loginTooltipBtnHide" : "Got it!",
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
-		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
+		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 		"loginVersionLbl" : "Version: %s",
 		"loginBuildNumber" : "Build Number: %s",
 		"loginBuildDate" : "Build Date: %s",
@@ -265,6 +269,10 @@ module.exports = {
 		"loginCopyright" : "© mscripts, LLC and %s.  All rights reserved.",
 		"loginAgreementTOS" : "Terms of service",
 		"loginAgreementPrivacy" : "Privacy policy",
+		"loginAttrLabelsAccessibilityHint" : "Button",
+		"loginErrTryAgain" : "Try again",
+		"loginErrForgotUsername" : "I forgot my username",
+		"loginErrCofirmAccount" : "No problem. Let's re-confirm your account and get you signed in.",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
@@ -274,6 +282,8 @@ module.exports = {
 		"userRecoveryValEmail" : "Please enter your email address or username.",
 		"userRecoveryBtnContactSupport" : "Contact support",
 		"userRecoveryBtnSend" : "Send",
+		"userRecoveryBtnHelp" : "Help",
+		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
@@ -283,6 +293,7 @@ module.exports = {
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
 
+		"storeDetIconFavStore" : "Favorite Store",
 		"storeDetLblOpen" : "Open till %s",
 		"storeDetLblClose" : "Closed at %s",
 		"storeDetLblClosed" : "Closed",
@@ -398,8 +409,12 @@ module.exports = {
 		"prescDetSectionInformation" : "Information",
 		"prescDetLblHistory" : "Refill history",
 		"prescDetLblInstruction" : "Dosage instructions",
+		"prescDetLblInstructionAccessibilityCollapsed" : "Collapsed",
+		"prescDetLblInstructionCollapseAccessibility" : "Double tap to collapse",
+		"prescDetLblInstructionExpandAccessibility" : "Double tap to expand",
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
+		"prescAddBtnAccessibility" : "Add prescriptions",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
@@ -412,6 +427,7 @@ module.exports = {
 		"orderDetValStore" : "Please choose a pharmacy for refill",
 
 		"rxSampleLblTitle" : "Where is my Rx number?",
+		"rxSampleImgAccessibilityLabel" : "Please check prescription bottle for rx number and pharmacy location.",
 
 		"refillBtnScan" : "Scan my prescription",
 		"refillBtnType" : "Type my prescription details",
@@ -423,6 +439,9 @@ module.exports = {
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
 		"refillTypeLblTitle" : "Refill prescriptions\nwithout an account",
+		"refillTypeLblInfoTitle" : "Your details",
+		"refillTypeLastName" : "Enter your last name",
+		"refillTypeMobile" : "Enter your mobile number",
 		"refillTypeLblDesc" : "Please enter the information below so we can process your refill.",
 		"refillTypeSectionPresc" : "Your order",
 		"refillTypeSectionPickup" : "Pharmacy where you filled this last",
@@ -439,10 +458,11 @@ module.exports = {
 		"refillTypePopupSectionPickupMode" : "Pickup Modes",
 		"refillTypePopupPickupModeBtnClose" : "Close",
 		"refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file.",
-
-		"refillSuccessLblSuccess" : "We have processed your order",
-		"refillSuccessLblPartial" : "We processed your order, but some prescriptions could not be filled.",
-		"refillSuccessLblFailure" : "We are sorry, your order could not be processed",
+		"refillTypeAddMore" : "Add another prescription field",
+        "refillLimit" : "You can add a maximum of 10 prescriptions at a time.",
+		"refillSuccessLblSuccess" : "We have placed your order.",
+		"refillSuccessLblPartial" : "We were able to process some of your refill requests but not all of them. Please review below.",
+		"refillSuccessLblFailure" : "We are sorry, your order could not be processed.",
 		"refillSuccessSectionPresc" : "Your order",
 		"refillSuccessSectionPickup" : "Pharmacy details",
 		"refillSuccessLblMailOrder" : "Your order will be mailed to the address that the pharmacy has on file.",
@@ -620,6 +640,7 @@ module.exports = {
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
 		"accountSuccessBtnContactSupport" : "Contact support",
+		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "View my agreements",
 		"accountLblMobileNumer" : "Mobile number",
 		"accountLblEmail" : "Email",
@@ -683,6 +704,7 @@ module.exports = {
 		"registerAttrAccountExists" : "Already have an account? Press here to <secondaryfont><secondarycolor>sign in</secondarycolor></secondaryfont>",
 		"registerValPhone" : "Please enter your mobile number.",
 		"registerValPhoneInvalid" : "The mobile number you have entered is invalid.",
+		"registerLblAgreementAccessibility" : "By signing up for this service, I agree to the Terms and Conditions and Privacy Policies. double tap to view terms and conditions and privacy policy.",
 
 		"registerChildInfoTitle" : "Great! You want to create a family account.",
 		"registerChildInfoLbl" : "To manage your child's prescriptions, first we need to create a manager account for you.",
@@ -716,7 +738,7 @@ module.exports = {
 		"mgrAccountCreationLblTogglePassword" : "Show password",
 
 		"mgrAccountUpdateTitle" : "Welcome back!",
-		"mgrAccountUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
+		"mgrAccountUpdateLbl" : "We’ve improved the app. <secondaryfont><secondarycolor>Tap here to see what’s new!</secondarycolor></secondaryfont>",
 		"mgrAccountUpdateAskInfo" : "It looks like you're managing a minor. Please create an account for yourself to continue managing your family's prescriptions.",
 		"mgrAccountUpdateYourInfo" : "Your info",
 		"mgrAccountUpdateHintFName" : "First name",
@@ -920,12 +942,12 @@ module.exports = {
 		"insuranceCardUploadLblSubTitle" : "To update your insurance, please take a photo of your new card.",
 		"insuranceCardUpdateInfoLblSubTitle" : "Whose profile are we updating today?",
 		"insuranceCardUpdateContactLblSubtitle" : "Your contact info",
-		"insuranceCardUpdateLimit" : "You can add a maximum of 10 family members",
+		"insuranceCardUpdateLimit" : "You can add a maximum of 10 family members.",
 		"insuranceCardUpdateAddFamilyLblSubtitle" : "<secondaryfont><secondarycolor>Add another family member</secondaryfont></secondarycolor>",
 
 		"loginInfoUpdateTitle" : "Welcome back!",
-		"loginInfoUpdateLbl" : "We've improved the app since your last visit. <secondaryfont><secondarycolor>Tap here to see what's new!</secondarycolor></secondaryfont>",
-		"loginInfoUpdateAskInfo" : "Please provide your email address and a new password. You'll use them to sign in from now on.",
+		"loginInfoUpdateLbl" : "We’ve improved the app. <secondaryfont><secondarycolor>Tap here to see what’s new!</secondarycolor></secondaryfont>",
+		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
 

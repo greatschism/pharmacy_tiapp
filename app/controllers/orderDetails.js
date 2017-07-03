@@ -588,9 +588,34 @@ function didRefill(result, passthrough) {
 			subtitle : presc.refill_inline_message || presc.refill_error_message
 		});
 	});
+	var isSuccess = false;
+	var isFailure = false;
+	_.each(refilledPrescs, function(presc) {
+		if(presc.refill_is_error == true){
+			isFailure = true;
+			
+		}else{
+			isSuccess = true;
+		}	
+	});
+	
+	var titleRefill = null;
+	if (isSuccess && isFailure) {
+		//partial success
+		titleRefill = "titleRefillPartialOrder";
+		
+	} else if (isSuccess) {
+		//complete success
+		titleRefill = "titleRefillOrdered";
+		
+	} else {
+		//complete failure
+		titleRefill = "titleRefillFailureOrder";
+	}
+	
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
-		titleid : "titleRefillOrdered",
+		titleid : titleRefill,
 		ctrlArguments : {
 			prescriptions : refilledPrescs,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value")

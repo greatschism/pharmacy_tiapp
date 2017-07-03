@@ -66,14 +66,14 @@ function init() {
 
 	$.containerView.addEventListener("postlayout", didPostlayoutPasswordContainerView);
 	$.rxContainer.addEventListener("postlayout", didPostlayoutRxContainerView);
+	
+	var sDict = {};
+	sDict.accessibilityLabel = $.strings.registerLblAgreementAccessibility;
+	$.agreementLbl.applyProperties(sDict);
 }
 
 function setRightButtonForRx(iconText, iconDict) {
-	iconDict.accessibilityValue = $.strings.iconAccessibilityLblHelp;
-	iconDict.accessibilityLabel = "";
-	iconDict.accessibilityHint = "";
 	$.rxNoTxt.setIcon(iconText, "right", iconDict);
-	// $.rxNoTxt.accessibilityLabel = "Rx help";
 }
 
 function didChangeRx(e) {
