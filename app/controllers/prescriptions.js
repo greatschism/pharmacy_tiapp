@@ -392,7 +392,7 @@ function prepareList() {
 
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
 
-					var phoneNumber = message.substr((message.search("@") + 1), 15) || "";
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
 
 					logger.debug("\n\n\n extracted phone number", phoneNumber);
 					prescription.set({
@@ -470,7 +470,7 @@ function prepareList() {
 
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
 
-					var phoneNumber = message.substr((message.search("@") + 1), 15) || "";
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
 
 					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
 					prescription.set({
@@ -634,6 +634,9 @@ function didClickPhone(e) {
 				work : [e.data.phone_formatted]
 			}
 		}, $.utilities.validatePhoneNumber(e.data.phone_formatted));
+		
+		logger.debug("\n\n\n presc phone formatted",e.data.phone_formatted,"\n\n\n");
+		logger.debug("\n\n\n presc phone plain",$.utilities.validatePhoneNumber(e.data.phone_formatted),"\n\n\n");
 	}
 }
 
