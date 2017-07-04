@@ -32,6 +32,8 @@ module.exports = {
 		"strHide" : "hide",
 		"accessibilityStrShow" : "Show password",
 		"accessibilityStrHide" : "Hide password",
+		"accessibilityStrShowing" : "Showing password",
+		"accessibilityStrHiding" : "Hiding password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 

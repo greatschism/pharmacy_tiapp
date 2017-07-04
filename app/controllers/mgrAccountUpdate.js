@@ -99,7 +99,9 @@ function didFocusPassword(e) {
 		});
 		delete $.passwordTooltip.size;
 	}
-	$.passwordTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.passwordTooltip.show();
+	}
 }
 
 function didPostlayoutPasswordContainerView(e) {

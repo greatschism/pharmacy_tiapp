@@ -27,6 +27,7 @@
 },
 "#passwordTxt":{
 	hintText:Alloy.Globals.strings.mgrAccountUpdateHintPassword,
+	accessibilityHint: Alloy.Globals.strings.msgPasswordTips,
 	passwordMask: true
 },
 "#passwordTooltip":{
