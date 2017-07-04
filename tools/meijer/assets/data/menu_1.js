@@ -59,7 +59,7 @@ module.exports = {
 	}, {
         "titleid": "titleHelp",
         "url": "http://meijer.mobilepharmacyhelp.com/",
-        "icon": "help",
+        "icon": "help_2",
         "requires_login": false
     }]
 };
