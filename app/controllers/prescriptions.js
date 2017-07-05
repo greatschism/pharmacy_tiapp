@@ -565,7 +565,8 @@ function prepareList() {
 			 */
 			if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
 				tvSection = Ti.UI.createTableViewSection();
-			} else {
+			}
+			 else {
 				if (headerBtnDict) {
 					/***
 					 * determine whether it should be
@@ -590,7 +591,18 @@ function prepareList() {
 						title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
 					});
 				}
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+									
+				if(key === "readyPickup"){
+					var readyHeaderDict = $.createStyle({
+						classes : ["right"],
+						title : "Checkout",
+						callback : didClickCheckout
+					});										
+					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+				}else{
+					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+				}
+
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -619,6 +631,13 @@ function prepareList() {
 	}
 }
 
+function didClickCheckout(e)
+{
+	logger.debug("\n\n\n Checkout clicked\n\n\n");	
+	/*
+	 * push new controller to avoid screen design complications
+	 */
+}
 
 function didClickPhone(e) {
 
