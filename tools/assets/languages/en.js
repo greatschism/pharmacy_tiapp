@@ -953,7 +953,7 @@ module.exports = {
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
-		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
+		"accessibilityCheckboxSelect" : "Checkbox not checked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"accessibilityCheckboxChecked" : "Checkbox Checked",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",

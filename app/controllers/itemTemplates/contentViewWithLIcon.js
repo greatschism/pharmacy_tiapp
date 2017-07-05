@@ -8,8 +8,14 @@ var args = $.args,
 		rDict = $.createStyle({
 			classes : ["row-selected-bg-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-enabled"] : ["inactive-fg-color", "icon-spot","accessibility-enabled"]);
-		$.leftIconLbl.accessibilityLabel = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
+		if (OS_IOS) {
+			$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-disabled"] : ["inactive-fg-color", "icon-spot","accessibility-disabled"]);
+			$.row.accessibilityValue = $.leftIconLbl.text == "+" ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;			
+		} else{
+			$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-enabled"] : ["inactive-fg-color", "icon-spot","accessibility-enabled"]);
+			$.leftIconLbl.accessibilityLabel = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
+		};
+		
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
