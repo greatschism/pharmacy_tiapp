@@ -212,7 +212,7 @@ function didClickSignup(e) {
 	    password = $.passwordTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
 	    mobileNumber = $.moNumberTxt.getValue();
-	if (!e.ageValidated) {
+	// if (!e.ageValidated) {
 		if (!fname) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValFirstName
@@ -307,7 +307,7 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-	}
+	// }
 
 	var userCredentials = {
 		email : email,
