@@ -603,14 +603,12 @@ function prepareList() {
 				
 				if(key === "readyPickup" && !args.hideCheckoutHeader && Alloy.CFG.is_checkout_cart_enabled ){
 									
-
-					hasReadyPrescription = 1;
-
 					//The following logic block assembles and displays the CC info prompt (MCE-169)
 					//TODO: presumedly it should be extrapolated into it's own module
 					//This block should be cut/paste to implement in a different view controller
 					if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
 
+logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
 						var dialogView = $.UI.create("ScrollView", {
 							apiName : "ScrollView",
 							classes : ["top", "auto-height", "vgroup"]
@@ -741,11 +739,11 @@ function prepareList() {
 					});										
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 				}
-				}else{
+				else{
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
 
-			
+			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});

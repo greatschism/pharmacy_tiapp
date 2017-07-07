@@ -416,7 +416,7 @@ function didGetPreferences(result, passthrough) {
 	//user? (ie does the preferences/get API only fire for the user who is logged in as opposed to any family memebers?)
 	if( JSON.stringify(result).indexOf("card_type") !== -1 ) {
 		//set flag that the user has been prompted
-		$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+		utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
 	}
 
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
