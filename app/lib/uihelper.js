@@ -830,30 +830,112 @@ var Helper = {
 		} else {
 			tClasses.push("margin-right");
 		}
-		var headerView = $.UI.create("View", {
-			classes : vClasses,
-			title : filterText
-		});
-		if (rightItem) {
-			var callback;
-			if (_.has(rightItem, "callback")) {
-				callback = rightItem.callback;
-				delete rightItem.callback;
+
+		// Ti.API.info("rightItem ++ " + JSON.stringify(rightItem));
+		// Ti.API.info("vclasses ++ " + JSON.stringify(vClasses));
+		// Ti.API.info("tclasses ++ " + JSON.stringify(tClasses));
+		var headerView;
+
+		//TODO: this logic needs to live in the prescriptions controller
+		//all in this 'ready for pickup' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
+		if(filterText.indexOf("ready for pickup") !== -1 ) {
+
+			if (rightItem) {
+				rightItem.title = "";
+				_.extend(rightItem, $.createStyle({
+					classes : [ "i4" , "margin-right-large"]
+				}));
+				tClasses.push("margin-right-icon");
 			}
-			var rightBtn = Ti.UI.createButton(rightItem);
-			if (callback) {
-				rightBtn.addEventListener("click", callback);
+			var headerView = $.UI.create("View", {
+				classes : vClasses,
+				height : 90
+			});
+    		
+			var headerViewTop = $.UI.create("View", {
+				classes : vClasses,
+				title : filterText,
+				height : 40,
+				top: 0
+			});
+
+			var lbl = $.UI.create("Label", {
+				classes : tClasses,
+				text : title
+			});
+
+			if (!isWrap) {
+				Helper.wrapText(lbl);
 			}
-			headerView.add(rightBtn);
+
+			headerViewTop.add(lbl);
+			headerView.add(headerViewTop);
+
+			//Build 'headerViewHelp', which is the bottom part of the section header including the shopping cart image
+			//TODO: color shouldn't be hard coded here 
+    		var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
+    		var headerLabel = $.UI.create("Label", {
+				classes : ["margin-left"],
+				color : "gray",
+				text : $.strings.orderCheckoutLbl
+			});
+
+    		headerViewHelp.add(headerLabel); 
+
+			if (rightItem) {
+				var callback;
+				if (_.has(rightItem, "callback")) {
+					callback = rightItem.callback;
+				}
+				var rightBtn = Ti.UI.createButton(rightItem);
+
+				var rightImg = Ti.UI.createImageView();
+				rightImg.image = Helper.getImage("checkout_shopping_image").image
+				rightImg.height = 25;
+				rightImg.top = '10pt';
+				if (callback) {
+					headerViewHelp.addEventListener("click", callback);
+				}
+				//headerViewHelp.add(rightImg);
+				rightBtn.add(rightImg);
+				headerViewHelp.add(rightBtn);
+			}
+
+			var lbl = $.UI.create("Label", {
+				classes : tClasses,
+				text : title
+			});
+
+    		headerView.add(headerViewHelp); 
+		} else {
+
+			headerView = $.UI.create("View", {
+				classes : vClasses,
+				title : filterText
+			});
+
+			if (rightItem) {
+				var callback;
+				if (_.has(rightItem, "callback")) {
+					callback = rightItem.callback;
+					delete rightItem.callback;
+				}
+				var rightBtn = Ti.UI.createButton(rightItem);
+				if (callback) {
+					rightBtn.addEventListener("click", callback);
+				}
+				headerView.add(rightBtn);
+			}
+			var lbl = $.UI.create("Label", {
+				classes : tClasses,
+				text : title
+			});
+			if (!isWrap) {
+				Helper.wrapText(lbl);
+			}
+			headerView.add(lbl);
 		}
-		var lbl = $.UI.create("Label", {
-			classes : tClasses,
-			text : title
-		});
-		if (!isWrap) {
-			Helper.wrapText(lbl);
-		}
-		headerView.add(lbl);
+
 		return headerView;
 	},
 

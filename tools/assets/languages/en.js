@@ -153,6 +153,7 @@ module.exports = {
 
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
+		"titleCheckout" : "Ready prescriptions",
 		"titleReminders" : "Reminders",
 		"titleRemindersRefill" : "Refill reminders",
 		"titleRemindersRefillBenefits" : "Refill reminder benefits",
@@ -416,6 +417,7 @@ module.exports = {
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
+        "orderCheckoutLbl": "Save time with mobile checkout!",
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",

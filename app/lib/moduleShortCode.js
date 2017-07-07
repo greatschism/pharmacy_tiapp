@@ -90,6 +90,10 @@ module.exports = {
 	"PRDE" : "PRES",
 	"PRES" : "PRES",
 	/**
+	 * checkout
+	 */
+	"CHEC" : "CHEC",
+	/**
 	 * quick refill
 	 */
 	"REFI" : "QURE",

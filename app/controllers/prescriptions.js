@@ -263,6 +263,8 @@ function prepareList() {
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
 
+	var hasReadyPrescription = 0;
+
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
@@ -565,8 +567,7 @@ function prepareList() {
 			 */
 			if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
 				tvSection = Ti.UI.createTableViewSection();
-			}
-			 else {
+			} else {
 				if (headerBtnDict) {
 					/***
 					 * determine whether it should be
@@ -593,13 +594,21 @@ function prepareList() {
 				}
 									
 				if(key === "readyPickup"){
+
+					hasReadyPrescription = 1;
+
+					//the title here is overridden in uihelper to show the shopping cart image
+					//TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
+					//TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
+					//TODO: module as opposed to living in the uihelper as much as possible
 					var readyHeaderDict = $.createStyle({
 						classes : ["right"],
-						title : "Checkout",
+						title : Alloy.CFG.icons.shopping_cart + "u",
 						callback : didClickCheckout
-					});										
+					});		
+													
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-				}else{
+				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
 
@@ -629,6 +638,12 @@ function prepareList() {
 			message : $.strings.prescAddMsgEmptyList
 		});
 	}
+
+
+	if(hasReadyPrescription === 1 ) {
+
+	}
+
 }
 
 function didClickCheckout(e)
@@ -637,7 +652,16 @@ function didClickCheckout(e)
 	/*
 	 * push new controller to avoid screen design complications
 	 */
-}
+/*titleCheckout*/
+	 		$.app.navigator.open({
+				titleid : "titleCheckout",
+				ctrl : "checkout",
+				ctrlArguments : {
+					prescriptions : Alloy.Collections.prescriptions
+				},
+				stack : true
+			});
+}	 			
 
 function didClickPhone(e) {
 

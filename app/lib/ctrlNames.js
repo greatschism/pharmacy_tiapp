@@ -4,6 +4,7 @@ module.exports = {
 	"ADAA" : "addAnotherAdult",
 	"APPL" : "Appload",
 	"CARO" : "Carousel",
+	"CHEC" : "Checkout",
 	"CHAD" : "childAdd",
 	"CHAT" : "childAccountTips",
 	"CHCO" : "childConsent",
