@@ -21,7 +21,7 @@ function init() {
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true
-	 */
+	 */	
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
@@ -79,6 +79,8 @@ function init() {
 	});
 
 	$.searchbar.visible = false;
+	$.checkoutTipView.visible = false;
+
 }
 
 function focus() {
@@ -737,7 +739,7 @@ function prepareList() {
 							callback : didClickCheckout
 						});		
 					//}
-													
+
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
@@ -1248,7 +1250,7 @@ function didPostlayout(e) {
 	    bottom;
 	bottom = margin;
 	if (args.selectable) {
-		bottom += $.submitBtn.height + $.submitBtn.bottom;
+		bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
 		if ($.tooltip) {
 			$.tooltip.applyProperties({
 				top : top - margin
