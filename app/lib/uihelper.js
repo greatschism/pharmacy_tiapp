@@ -837,8 +837,8 @@ var Helper = {
 		var headerView;
 
 		//TODO: this logic needs to live in the prescriptions controller
-		//all in this 'ready for pickup' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
-		if(filterText.indexOf("ready for pickup") !== -1 ) {
+		//all in this 'shopping' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
+		if(  ( rightItem && rightItem.title === "Checkout") ) {
 
 			if (rightItem) {
 				rightItem.title = "";
