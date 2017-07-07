@@ -168,7 +168,8 @@
                     "pharacyspecials":"0XE011",
                     "twitter":"0XE012",
                     "youtube":"0XE013",
-                    "help_2":"0xE00E"
+                    "help_2":"0xE00E",
+                    "cart":"0XE015"
                 },
                 "icons":{
                     "numeric_zero":"0",

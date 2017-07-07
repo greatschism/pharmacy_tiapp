@@ -416,6 +416,7 @@ module.exports = {
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
+		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",

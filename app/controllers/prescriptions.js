@@ -591,8 +591,9 @@ function prepareList() {
 						title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
 					});
 				}
-									
-				if(key === "readyPickup"){
+				
+				// if(Alloy.Models.appload.get("is_checkout_cart_enabled")){}	
+				if(key === "readyPickup" && !args.hideCheckoutHeader ){
 					var readyHeaderDict = $.createStyle({
 						classes : ["right"],
 						title : "Checkout",
@@ -633,18 +634,26 @@ function prepareList() {
 
 function didClickCheckout(e)
 {
-	logger.debug("\n\n\n Checkout clicked\n\n\n");	
-	/*
-	 * push new controller to avoid screen design complications
-	 */
+	$.app.navigator.open({
+		titleid : "titleReadyPrescriptions",
+		ctrl : "prescriptions",
+		ctrlArguments : {
+			filters : {
+				refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
+				section: ["others"]
+			},
+			prescriptions :null,
+			patientSwitcherDisabled : true,
+			useCache : true,
+			selectable : true,
+			hideCheckoutHeader : true
+		},
+		stack : true 
+	});
+	
 }
 
-function didClickPhone(e) {
-
-	logger.debug("\n\n\n In parent phone click: args",e.data,"\n\n\n");
-	// alert('In parent phone click');
-			
-			
+function didClickPhone(e) {			
 	if(e.data.phone_formatted)
 	{
 		$.uihelper.getPhoneWithContactsPrompt({
