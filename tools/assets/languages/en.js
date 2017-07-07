@@ -310,6 +310,12 @@ module.exports = {
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
+        "checkoutPrompt": "Did you know you can add a credit card at the pharmacy to speed up your checkout process?",
+        "checkoutRemindCheckbox": "Do not remind me again.",
+        "checkoutFindoutPrompt": "click here to find out how",
+        "checkoutPromptMore": "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
+        "checkoutClose": "close",
+
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",

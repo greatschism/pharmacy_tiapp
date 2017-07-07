@@ -1,6 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment"),
     logger = require("logger"),
+    authenticator = require("authenticator"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
@@ -77,6 +78,8 @@ function init() {
 			is_partial : false
 		}
 	});
+
+
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
@@ -599,17 +602,150 @@ function prepareList() {
 				}
 				
 				if(key === "readyPickup" && !args.hideCheckoutHeader && Alloy.CFG.is_checkout_cart_enabled ){
+									
+
+					hasReadyPrescription = 1;
+
+					//The following logic block assembles and displays the CC info prompt (MCE-169)
+					//TODO: presumedly it should be extrapolated into it's own module
+					//This block should be cut/paste to implement in a different view controller
+					if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
+
+						var dialogView = $.UI.create("ScrollView", {
+							apiName : "ScrollView",
+							classes : ["top", "auto-height", "vgroup"]
+						});
+						dialogView.add($.UI.create("Label", {
+							apiName : "Label",
+							classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
+							text : $.strings.checkoutPrompt
+						}));
+
+						var btn = $.UI.create("Button", {
+							apiName : "Button",
+							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+							title : $.strings.checkoutFindoutPrompt,
+							index : 0
+						});
+
+						$.addListener(btn, "click", function(){
+
+							// if the 'dont show me again checkbox is checked'
+							if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+								//set the flag that the user has been prompted
+								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+							}
+
+
+							$.contentView.remove($.checkoutInfoDialog.getView());
+
+							var dialogView2 = $.UI.create("ScrollView", {
+								apiName : "ScrollView",
+								classes : ["top", "auto-height", "vgroup"]
+							});
+							dialogView2.add($.UI.create("Label", {
+								apiName : "Label",
+								classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+								text : $.strings.checkoutPromptMore
+							}));
+							var btn3 = $.UI.create("Button", {
+								apiName : "Button",
+								classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+								title : $.strings.checkoutClose,
+								index : 0
+							});
+							$.addListener(btn3, "click", function(){
+								$.contentView.remove($.checkoutInfoDialog.getView());
+								$.checkoutInfoDialog = null;
+							});
+							dialogView2.add(btn3);
+
+							$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+								classes : ["modal-dialog"],
+								children : [dialogView2]
+							}));
+							$.contentView.add($.checkoutInfoDialog.getView());
+							$.checkoutInfoDialog.show();
+						});
+						dialogView.add(btn);
+
+						var swt = $.UI.create("View", {
+							apiName : "View",
+							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large",  "auto-height"],
+							index : 1
+						});
+						var swtCheckbox = $.UI.create("Label", {
+							apiName : "Label",
+							classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+						});
+						$.addListener(swtCheckbox, "click", function(){
+							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
+							
+							if(swtCheckbox.classes.indexOf("icon-checkbox-unchecked") > -1 ) {
+								swtCheckbox.applyProperties($.createStyle({
+	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
+								}));
+							} else {
+								swtCheckbox.applyProperties($.createStyle({
+	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+								}));
+							}
+
+						});
+
+						var swtLabel = $.UI.create("Label", {
+							apiName : "Label",
+							classes : ["h5",  "txt-center"],
+							text : $.strings.checkoutRemindCheckbox,
+						});
+						swt.add(swtCheckbox);
+						swt.add(swtLabel);
+						dialogView.add(swt);
+
+						var btn2 = $.UI.create("Button", {
+							apiName : "Button",
+							classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+							title : $.strings.checkoutClose,
+							index : 2
+						});
+						$.addListener(btn2, "click", function(){
+
+								// if the 'dont show me again checkbox is checked'
+							if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+								//set the flag that the user has been prompted
+								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+							}
+
+							$.contentView.remove($.checkoutInfoDialog.getView());
+							$.checkoutInfoDialog = null;
+						});
+						dialogView.add(btn2);
+
+						$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+							classes : ["modal-dialog"],
+							children : [dialogView]
+						}));
+						$.contentView.add($.checkoutInfoDialog.getView());
+						$.checkoutInfoDialog.show();
+					}
+
+
+					//the title here is overridden in uihelper to show the shopping cart image
+					//TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
+					//TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
+					//TODO: module as opposed to living in the uihelper as much as possible
 					var readyHeaderDict = $.createStyle({
 						classes : ["right"],
 						title : "Checkout",
 						callback : didClickCheckout
 					});										
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+				}
 				}else{
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
 
-			}
+			
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});

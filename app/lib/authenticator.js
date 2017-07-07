@@ -228,6 +228,7 @@ function checkCodeValues(passthrough) {
 }
 
 function didGetCodeValues(result, passthrough) {
+
 	Alloy.Models.language.set(result.data.codes[0]);
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
@@ -402,6 +403,22 @@ function didGetPatient(result, passthrough) {
 }
 
 function didGetPreferences(result, passthrough) {
+
+
+	// Ti.API.info("Patient PREFS!!!");
+	
+	// Ti.API.info(JSON.stringify(result));
+	// Ti.API.info("Patient PREFS ^^^^^^ !!!");
+
+	//if there is CC info for this user.
+	//TODO: this should detect for the node, not just the existance of the string in the response
+	//I'm uncertain how this applies to potential linked family memebers.  Can we confirm this conditional will only ever execute for the 'main'
+	//user? (ie does the preferences/get API only fire for the user who is logged in as opposed to any family memebers?)
+	if( JSON.stringify(result).indexOf("card_type") !== -1 ) {
+		//set flag that the user has been prompted
+		$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+	}
+
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
 	//get next patient information
 	passthrough.currentPatientIndex++;
