@@ -85,4 +85,7 @@
 },
 "#partialTitleLbl":{
 	text: Alloy.Globals.strings.prescPartialLblTitle
+},
+"#checkoutTipLbl":{
+	text: Alloy.Globals.strings.checkoutTipLblTitle
 }

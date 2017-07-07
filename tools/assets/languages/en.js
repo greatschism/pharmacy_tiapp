@@ -417,6 +417,8 @@ module.exports = {
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
+		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.\n\nYour card will not be charged until you pick up your prescriptions.",
+		
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",

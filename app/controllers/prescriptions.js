@@ -21,7 +21,7 @@ function init() {
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true
-	 */
+	 */	
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
@@ -79,6 +79,8 @@ function init() {
 	});
 
 	$.searchbar.visible = false;
+	$.checkoutTipView.visible = false;
+
 }
 
 function focus() {
@@ -118,6 +120,10 @@ function focus() {
 
 	$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblOptionsMenu;
 
+	if(args.hideCheckoutHeader)
+	{
+		$.checkoutTipView.visible = true;
+	}
 }
 
 function prepareData() {
@@ -592,8 +598,7 @@ function prepareList() {
 					});
 				}
 				
-				// if(Alloy.Models.appload.get("is_checkout_cart_enabled")){}	
-				if(key === "readyPickup" && !args.hideCheckoutHeader ){
+				if(key === "readyPickup" && !args.hideCheckoutHeader && Alloy.CFG.is_checkout_cart_enabled ){
 					var readyHeaderDict = $.createStyle({
 						classes : ["right"],
 						title : "Checkout",
@@ -1098,7 +1103,7 @@ function didPostlayout(e) {
 	    bottom;
 	bottom = margin;
 	if (args.selectable) {
-		bottom += $.submitBtn.height + $.submitBtn.bottom;
+		bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
 		if ($.tooltip) {
 			$.tooltip.applyProperties({
 				top : top - margin
