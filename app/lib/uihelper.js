@@ -837,7 +837,7 @@ var Helper = {
 		var headerView;
 
 		//TODO: this logic needs to live in the prescriptions controller
-		//all in this 'shopping' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
+		//all in this 'Checkout' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
 		if(  ( rightItem && rightItem.title === "Checkout") ) {
 
 			if (rightItem) {
@@ -873,7 +873,8 @@ var Helper = {
 
 			//Build 'headerViewHelp', which is the bottom part of the section header including the shopping cart image
 			//TODO: color shouldn't be hard coded here 
-    		var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
+    		//var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
+    		var headerViewHelp = Ti.UI.createView({ height: 50, bottom:0  });
     		var headerLabel = $.UI.create("Label", {
 				classes : ["margin-left"],
 				color : "gray",
@@ -887,18 +888,23 @@ var Helper = {
 				if (_.has(rightItem, "callback")) {
 					callback = rightItem.callback;
 				}
+				rightItem.backgroundColor = null;
 				var rightBtn = Ti.UI.createButton(rightItem);
+				rightBtn.image = Helper.getImage("checkout_shopping_image").image;
 
 				var rightImg = Ti.UI.createImageView();
-				rightImg.image = Helper.getImage("checkout_shopping_image").image
+				rightImg.backgrouindImage = Helper.getImage("checkout_shopping_image").image;
 				rightImg.height = 25;
 				rightImg.top = '10pt';
 				if (callback) {
 					headerViewHelp.addEventListener("click", callback);
 				}
 				//headerViewHelp.add(rightImg);
-				rightBtn.add(rightImg);
+				
+				//rightBtn.add(rightImg);
+				
 				headerViewHelp.add(rightBtn);
+				headerViewHelp.setBubbleParent(false);
 			}
 
 			var lbl = $.UI.create("Label", {
