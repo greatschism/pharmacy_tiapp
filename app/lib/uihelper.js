@@ -872,9 +872,14 @@ var Helper = {
 			headerView.add(headerViewTop);
 
 			//Build 'headerViewHelp', which is the bottom part of the section header including the shopping cart image
-			//TODO: color shouldn't be hard coded here 
-    		//var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
-    		var headerViewHelp = Ti.UI.createView({ height: 50, bottom:0  });
+			//TODO: color shouldn't be hard coded here
+			var headerViewHelp
+			if (OS_IOS) {
+				headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
+			} else {
+	    		var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EFFCFF', bottom:0  });
+	    		headerViewHelp.backgroundColor = '#EFFCFF';
+			}
     		var headerLabel = $.UI.create("Label", {
 				classes : ["margin-left"],
 				color : "gray",
@@ -888,14 +893,24 @@ var Helper = {
 				if (_.has(rightItem, "callback")) {
 					callback = rightItem.callback;
 				}
-				rightItem.backgroundColor = null;
+				
+				if (!OS_IOS) {
+					rightItem.backgroundColor = null;
+				}
+		
 				var rightBtn = Ti.UI.createButton(rightItem);
-				rightBtn.image = Helper.getImage("checkout_shopping_image").image;
+				if (OS_IOS) {
+					var rightImg = Ti.UI.createImageView();
+					rightImg.image = Helper.getImage("checkout_shopping_image").image;
+					rightImg.height = 25;
+					rightImg.top = '10pt';
+					rightBtn.add(rightImg);
+					headerViewHelp.add(rightBtn);
+				} else {
+					rightBtn.image = Helper.getImage("checkout_shopping_image").image;
+					headerViewHelp.add(rightBtn);
+				}
 
-				var rightImg = Ti.UI.createImageView();
-				rightImg.backgrouindImage = Helper.getImage("checkout_shopping_image").image;
-				rightImg.height = 25;
-				rightImg.top = '10pt';
 				if (callback) {
 					headerViewHelp.addEventListener("click", callback);
 				}
@@ -903,7 +918,6 @@ var Helper = {
 				
 				//rightBtn.add(rightImg);
 				
-				headerViewHelp.add(rightBtn);
 				headerViewHelp.setBubbleParent(false);
 			}
 
