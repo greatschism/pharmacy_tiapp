@@ -120,6 +120,8 @@ function focus() {
 
 	if(args.hideCheckoutHeader)
 	{
+		$.rightNavBtn.getNavButton().hide(); 
+		//$.rightNavBtn.getNavButton().visible = false; //this doesn't seem to be working.
 		$.submitBtn.title = $.strings.prescBtnNext;
 		$.checkoutTipView.visible = true;
 	}
