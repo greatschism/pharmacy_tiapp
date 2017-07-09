@@ -121,7 +121,6 @@ function focus() {
 	if(args.hideCheckoutHeader)
 	{
 		$.rightNavBtn.getNavButton().hide(); 
-		//$.rightNavBtn.getNavButton().visible = false; //this doesn't seem to be working.
 		$.submitBtn.title = $.strings.prescBtnNext;
 		$.checkoutTipView.visible = true;
 	}
@@ -601,7 +600,10 @@ function prepareList() {
 				}
 				
 				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && Alloy.CFG.is_checkout_cart_enabled ) {
-									
+
+					var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/
+					
+					
 					//The following logic block assembles and displays the CC info prompt (MCE-169)
 					//TODO: presumedly it should be extrapolated into it's own module
 					//This block should be cut/paste to implement in a different view controller
@@ -630,9 +632,10 @@ function prepareList() {
 						});
 
 						$.addListener(btn, "click", function(){
-
+							
 							// if the 'dont show me again checkbox is checked'
-							if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+							//if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+							if(checkBoxToggleFlag === 1 ) {
 								//set the flag that the user has been prompted
 								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 							}
@@ -672,21 +675,28 @@ function prepareList() {
 
 						var swt = $.UI.create("View", {
 							apiName : "View",
-							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large",  "auto-height"],
+							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
 							index : 1
 						});
 						var swtCheckbox = $.UI.create("Label", {
 							apiName : "Label",
 							classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
 						});
+						
+						
 						$.addListener(swtCheckbox, "click", function(){
-							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
+							//Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
 							
-							if(swtCheckbox.classes.indexOf("icon-checkbox-unchecked") > -1 ) {
+							//if(swtCheckbox.classes.indexOf("icon-checkbox-unchecked") > -1 ) {
+							if( checkBoxToggleFlag === 0 ) {
+								//Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+								checkBoxToggleFlag = 1;
 								swtCheckbox.applyProperties($.createStyle({
 	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
 								}));
 							} else {
+								//Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+								checkBoxToggleFlag = 0;
 								swtCheckbox.applyProperties($.createStyle({
 	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
 								}));
@@ -696,7 +706,7 @@ function prepareList() {
 
 						var swtLabel = $.UI.create("Label", {
 							apiName : "Label",
-							classes : ["h5",  "txt-center"],
+							classes : ["h5",   "text-right" ],
 							text : $.strings.checkoutRemindCheckbox,
 						});
 						swt.add(swtCheckbox);
@@ -711,7 +721,8 @@ function prepareList() {
 						});
 						$.addListener(btn2, "click", function(){
 							// if the 'dont show me again checkbox is checked'
-							if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+							//if(swtCheckbox.classes.indexOf("icon-checkbox-checked") > -1 ) {
+							if(checkBoxToggleFlag === 1 ) {
 								//set the flag that the user has been prompted
 								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 							}
