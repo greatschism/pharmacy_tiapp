@@ -1193,6 +1193,13 @@ function didClickSubmit(e) {
 	 * on the controller arguments
 	 * to the previous screen order details
 	 */
+	
+	// if this is the first checkout screen, then do nothing when the next button is pressed.
+	// This gets hooked up in a future user story.
+	if(args.hideCheckoutHeader) {
+		return;
+	}
+	
 	var prescriptions;
 	if (args.navigation) {
 		prescriptions = [];
