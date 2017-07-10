@@ -693,7 +693,7 @@ function prepareList() {
 
 						var swtLabel = $.UI.create("Label", {
 							apiName : "Label",
-							classes : ["h5",   "text-right" ],
+							classes : ["margin-right-large", "h5", "txt-right", ],
 							text : $.strings.checkoutRemindCheckbox,
 						});
 						swt.add(swtCheckbox);
