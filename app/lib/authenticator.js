@@ -405,10 +405,10 @@ function didGetPatient(result, passthrough) {
 function didGetPreferences(result, passthrough) {
 
 
-	// Ti.API.info("Patient PREFS!!!");
+	 //Ti.API.info("Patient PREFS!!!");
 	
-	// Ti.API.info(JSON.stringify(result));
-	// Ti.API.info("Patient PREFS ^^^^^^ !!!");
+	 //Ti.API.info(JSON.stringify(result));
+	 //Ti.API.info("Patient PREFS ^^^^^^ !!!");
 
 	//if there is CC info for this user.
 	//TODO: this should detect for the node, not just the existance of the string in the response
@@ -416,7 +416,8 @@ function didGetPreferences(result, passthrough) {
 	//user? (ie does the preferences/get API only fire for the user who is logged in as opposed to any family memebers?)
 	if( JSON.stringify(result).indexOf("card_type") !== -1 ) {
 		//set flag that the user has been prompted
-		utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+	  //Ti.API.info("setProperty(Alloy.CFG.checkout_info_prompted, true    !!!");
+		utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 	}
 
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);

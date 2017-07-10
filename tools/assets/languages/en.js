@@ -153,6 +153,7 @@ module.exports = {
 
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
+		"titleCheckout" : "Ready prescriptions",
 		"titleReminders" : "Reminders",
 		"titleRemindersRefill" : "Refill reminders",
 		"titleRemindersRefillBenefits" : "Refill reminder benefits",
@@ -396,6 +397,7 @@ module.exports = {
 		"prescAddSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
 		"prescAddTooltipLblReminder" : "tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
 		"prescAddTooltipBtnHide" : "Got it!",
+        "prescBtnNext": "Next",
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
 		"prescDetPromptCopay" : "Payment amount due:",
@@ -423,8 +425,8 @@ module.exports = {
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
-		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.\n\nYour card will not be charged until you pick up your prescriptions.",
-		
+		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.",
+        "orderCheckoutLbl": "Save time with mobile checkout!",
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",

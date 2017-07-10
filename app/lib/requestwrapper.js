@@ -15,8 +15,10 @@ var TAG = "REWR",
     logger = require("logger");
 
 function request(args) {
+	
+	// Ti.API.info(Alloy.Models.appconfig.get("ophurl").concat(Alloy.CFG.apiPath[args.method]));
 
-	//Ti.API.info(JSON.stringify(args.params));
+	// Ti.API.info(JSON.stringify(args.params));
 	
 	/**
 	 * trigger session timeout
@@ -100,7 +102,7 @@ function request(args) {
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
 	if (!ENV_PROD) {
-		Ti.API.debug(TAG + ":DEV-ONLY:request-data:" + requestParams.params);
+	//	Ti.API.debug(TAG + ":DEV-ONLY:request-data:" + requestParams.params);
 	}
 	//encrypt if enabled
 	if (Alloy.CFG.encryption_enabled) {
@@ -118,6 +120,7 @@ function didSuccess(result, passthrough) {
 	}
 	if (!ENV_PROD) {
 		Ti.API.debug(TAG + ":DEV-ONLY:response-data:" + result);
+        Ti.API.info(TAG + ":DEV-ONLY:response-data:" + result);
 	}
 	/**
 	 * should receive data as text from http

@@ -1,0 +1,11 @@
+<Alloy>
+	<ScrollView class="vgroup">
+
+		<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
+			<FooterView platform="ios">
+				<View class="auto-height" />
+			</FooterView>
+		</TableView>
+	</ScrollView>
+	<Widget id="loader" name="embedded" src="ti.loading" />
+</Alloy>
