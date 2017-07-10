@@ -729,22 +729,11 @@ function prepareList() {
 					}
 
 
-					//the title here is overridden in uihelper to show the shopping cart image
-					//TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
-					//TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
-					//TODO: module as opposed to living in the uihelper as much as possible
-					var readyHeaderDict = $.createStyle({
-						classes : ["right"],
-						title : "Checkout",
-						callback : didClickCheckout
-					});										
-					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-				}
-				else{
+
 					Ti.API.info("args = " + JSON.stringify(args) );
 					var headerTitle = "";// = "Checkout";
 			//		if(args.origin === "login" || args.origin === "home") {
-						headerTitle = "Checkout"
+						headerTitle = "Checkout";
 			//		}
 
 						// the title here is overridden in uihelper to show the shopping cart image
