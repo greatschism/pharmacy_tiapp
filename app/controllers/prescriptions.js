@@ -864,7 +864,12 @@ function didChangeSearch(e) {
 	$.tableView.filterText = e.value || e.source.getValue();
 }
 
-function didClickRightNavBtn(e) {
+function didClickRightNavBtn(e) { 
+	if( args.hideCheckoutHeader) {
+		//return if we're on the checkout page..
+		return
+	}
+
 	if (!hideAllPopups()) {
 		$.optionsMenu.show();
 	}
