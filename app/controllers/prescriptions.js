@@ -83,7 +83,6 @@ function init() {
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
-	//$.bottomView.visible = false;
 	if( ! args.selectable) {
 		$.bottomView.hide();
 	}
@@ -134,7 +133,6 @@ function focus() {
 		$.submitBtn.title = $.strings.prescBtnNext;
 
 		$.checkoutTipView.visible = true;
-		//$.bottomView.visible = true;
 		$.bottomView.show();
 	}
 }
