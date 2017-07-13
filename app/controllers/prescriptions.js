@@ -81,6 +81,10 @@ function init() {
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
+	//$.bottomView.visible = false;
+	if( ! args.selectable) {
+		$.bottomView.hide();
+	}
 
 }
 
@@ -128,6 +132,8 @@ function focus() {
 		$.submitBtn.title = $.strings.prescBtnNext;
 
 		$.checkoutTipView.visible = true;
+		//$.bottomView.visible = true;
+		$.bottomView.show();
 	}
 }
 
@@ -603,7 +609,7 @@ function prepareList() {
 					});
 				}
 				
-				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && Alloy.CFG.is_checkout_cart_enabled ) {
+				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
 
 					
 					
