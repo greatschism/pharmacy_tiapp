@@ -867,7 +867,7 @@ function didChangeSearch(e) {
 function didClickRightNavBtn(e) { 
 	if( args.hideCheckoutHeader) {
 		//return if we're on the checkout page..
-		return
+		return;
 	}
 
 	if (!hideAllPopups()) {
