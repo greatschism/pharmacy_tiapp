@@ -16,8 +16,6 @@ var args = $.args,
     analyticsCategory;
 
 function init() {
-	//alert(JSON.stringify(args,null,4) );
-
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	/**
 	 * may not be available when
@@ -741,7 +739,7 @@ function prepareList() {
 						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
 						// TODO: module as opposed to living in the uihelper as much as possible
 						var readyHeaderDict = $.createStyle({
-							classes : ["right"],
+							classes : ["right", "bubble-disabled"],
 							title : headerTitle,
 							callback : didClickCheckout
 						});		
@@ -804,7 +802,10 @@ function didClickCheckout(e)
 }
 
 
-function didClickPhone(e) {			
+function didClickPhone(e) {	
+	
+	logger.debug("\n\n\n am in didClickPhone\n\n\n");
+		
 	if(e.data.phone_formatted)
 	{
 		$.uihelper.getPhoneWithContactsPrompt({
@@ -1078,8 +1079,8 @@ function hidePrescription(e) {
 	});
 }
 
-function didClickTableView(e) {
-	// alert('in parent');
+function didClickTableView(e) {	
+	if(e.source != $.tableView){
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
@@ -1178,6 +1179,7 @@ function didClickTableView(e) {
 				stack : true
 			});
 		}
+	}
 	}
 }
 

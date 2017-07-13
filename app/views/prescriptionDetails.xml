@@ -11,6 +11,10 @@
 						<Label id="rxPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="rxReplyLbl" class="top margin-left-medium hide" />
 					</View>
+					<View id="quantityView" class="margin-top-medium auto-height">
+						<Label id="quantityPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="quantityReplyLbl" class="top margin-left-medium hide" />
+					</View>
 					<View class="margin-top auto-height">
 						<Label id="expiryPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="expiryReplyLbl" class="top margin-left-medium hide" />
