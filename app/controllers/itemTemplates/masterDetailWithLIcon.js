@@ -68,7 +68,7 @@ var args = $.args,
 
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "",
 	    detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
-	if (detailTitle) {
+	if (detailTitle && args.detailWidth) {
 		$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 			text : detailTitle
 		});
