@@ -81,6 +81,7 @@ function init() {
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
+
 	if( ! args.selectable) {
 		$.bottomView.hide();
 	}
