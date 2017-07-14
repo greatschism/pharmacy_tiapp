@@ -674,9 +674,17 @@ function prepareList() {
 							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
 							index : 1
 						});
+						
+						var checkboxClasses;
+						 
+						if ( $.utilities.isNarrowScreen() ) {	
+							checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
+						} else {
+							checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
+						}
 						var swtCheckbox = $.UI.create("Label", {
 							apiName : "Label",
-							classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+							classes : checkboxClasses,
 						});
 						
 						
