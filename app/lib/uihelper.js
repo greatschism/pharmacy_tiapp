@@ -913,10 +913,10 @@ var Helper = {
 
 				if (callback) {
 					headerViewHelp.addEventListener("click", callback);
+					rightBtn.addEventListener("click", callback);;
 				}
 				//headerViewHelp.add(rightImg);
 				
-				//rightBtn.add(rightImg);
 				
 				headerViewHelp.setBubbleParent(false);
 			}

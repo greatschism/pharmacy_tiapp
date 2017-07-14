@@ -81,7 +81,7 @@ function init() {
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
-	//$.bottomView.visible = false;
+
 	if( ! args.selectable) {
 		$.bottomView.hide();
 	}
@@ -132,7 +132,6 @@ function focus() {
 		$.submitBtn.title = $.strings.prescBtnNext;
 
 		$.checkoutTipView.visible = true;
-		//$.bottomView.visible = true;
 		$.bottomView.show();
 	}
 }
@@ -1269,14 +1268,20 @@ function didPostlayout(e) {
 	    bottom;
 	bottom = margin;
 	if (args.selectable) {
-		bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
+
+			bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
+
 		if ($.tooltip) {
 			$.tooltip.applyProperties({
 				top : top - margin
 			});
 			$.tooltip.show();
 		}
+		
+		
 	}
+	
+	
 	$.searchbar.top = top;
 	$.tableView.applyProperties({
 		top : top,
@@ -1286,6 +1291,13 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
+
+
+	if (!args.hideCheckoutHeader && args.selectable) {
+		$.bottomView.applyProperties({
+			bottom : $.bottomView.bottom  - $.submitBtn.height
+		});
+	}
 	if (Ti.App.accessibilityEnabled) {
 		$.tooltip && $.tooltip.hide();
 	};
