@@ -11,7 +11,7 @@ var args = $.args,
     logger = require("logger");
 
 function init() {
-	
+
 	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
 	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
 	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
@@ -253,21 +253,18 @@ function loadPresecription() {
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
 
-	if (prescription.refill_status === apiCodes.refill_status_ready) {
-		if (_.has(prescription, "copay")) {
-			if (prescription.copay != null) {
-				$.quantityReplyLbl.text = prescription.copay;
-				// $.copayView.hide(false);
+	if (_.has(prescription, "quantity")) {
+		if (prescription.quantity != null) {
+			$.quantityReplyLbl.text = prescription.quantity;
+			// $.copayView.hide(false);
 
-			} else {
-				logger.debug("quantity is null");
-				// $.copayView.hide(true);
-				$.quantityView.height = 0;
-			}
+		} else {
+			logger.debug("quantity is null");
+			// $.copayView.hide(true);
+			$.quantityView.height = 0;
 		}
 	} else {
 		$.quantityView.height = 0;
-
 	}
 }
 
