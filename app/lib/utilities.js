@@ -467,7 +467,29 @@ var Utility = {
 	 */
 	isPhoneNumber : function(str) {
 		return /^[0-9]{10}$/.test(str);
+	},
+	
+	/**
+	 * Check whether device screen size is particularly narrow
+	 * returns {Boolean}
+	 */
+	isNarrowScreen : function() {
+		
+		//Ti.API.info("WIDTH IS    "+ JSON.stringify(Titanium.Platform.displayCaps))
+		//Ti.API.info("calculated WIDTH IS    "+ Titanium.Platform.displayCaps.platformWidth / Titanium.Platform.displayCaps.logicalDensityFactor )
+
+		var screenWidthChecker;
+		if( OS_IOS ) {
+			screenWidthChecker = Titanium.Platform.displayCaps.platformWidth;
+		} else {
+			screenWidthChecker = Titanium.Platform.displayCaps.platformWidth / Titanium.Platform.displayCaps.logicalDensityFactor;
+		}
+		if ( screenWidthChecker < 325 ) {
+			return true;
+		}
+		return false;
 	}
+
 };
 
 module.exports = Utility;

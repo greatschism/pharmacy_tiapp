@@ -840,10 +840,18 @@ var Helper = {
 		//all in this 'Checkout' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
 		if(  ( rightItem && rightItem.title === "Checkout") ) {
 
+			var rightItemClasses; 
+
+			if (utilities.isNarrowScreen() ) {	
+				rightItemClasses = [ "i4" , "margin-right-small"];
+			} else {
+				rightItemClasses = [ "i4" , "margin-right-large"];
+			}
+			
 			if (rightItem) {
 				rightItem.title = "";
 				_.extend(rightItem, $.createStyle({
-					classes : [ "i4" , "margin-right-large"]
+					classes :rightItemClasses
 				}));
 				tClasses.push("margin-right-icon");
 			}
