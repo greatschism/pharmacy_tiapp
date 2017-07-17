@@ -128,7 +128,7 @@ function didClickContinue() {
 	}
 	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
-			message : String.format(Alloy.Globals.strings.childAddValRxNoInvalid,Alloy.CFG.rx_length)
+			message : String.format(Alloy.Globals.strings.childAddValRxNoInvalid,parseInt(Alloy.Globals.rx_max))
 		});
 		return;
 	}
@@ -149,7 +149,7 @@ function didClickContinue() {
 		first_name : fname,
 		last_name : lname,
 		birth_date : moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
-		rx_number : rxNo.substring(0, 7),
+		rx_number : rxNo,
 		store_id : store.id
 	};
 	var age = getAge(dob);
@@ -226,7 +226,7 @@ function didClickContinue() {
 						first_name : fname,
 						last_name : lname,
 						birth_date : moment(dob.toString(),strDateFormat).format(Alloy.CFG.apiCodes.dob_format),
-						rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+						rx_number : rxNo,
 						store_id : store.id
 					}
 				}]

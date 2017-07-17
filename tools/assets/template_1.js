@@ -99,6 +99,9 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
+				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+			}, {
+				"apiName" : "View",
 				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
@@ -208,6 +211,7 @@ module.exports = {
 					"titleid" : "titleInsuranceCard"
 				}
 			}, {
+				"feature_name" : "is_insurancecard_enabled",
 				"apiName" : "View",
 				"classes" : ["margin-top-medium", "h-divider-light"]
 			}, {

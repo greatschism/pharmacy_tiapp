@@ -690,6 +690,9 @@
             ".margin-right-extra-large":{
                 "right":"${MARGIN_RIGHT_EXTRA_LARGE}"
             },
+            ".margin-left-xxl":{
+                "left":"${BUTTON_HEIGHT}"
+            },
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"
             },

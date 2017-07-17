@@ -292,8 +292,9 @@ function didSuccessAppload(result) {
 			initMasterWindow();
 		}
 		
-	
-	
+	// Rx_max and rx_validator from Appload - Note able to change from theme.json
+	Alloy.Globals.rx_max = Alloy.Models.appload.get("rx_max_length"); 
+	Alloy.Globals.rx_validator = Alloy.Models.appload.get("rx_validator"); 
 		// 	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
 		if(appload.sampl_rx_image != null && appload.sampl_rx_image != '' && typeof(appload.sampl_rx_image) !== 'undefined')
 		{
