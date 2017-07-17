@@ -127,7 +127,7 @@ function addPrescriptions() {
 	}
 	if (!rx.validate(rxNo)) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.familyMemberAddPrescValRxNoInvalid, Alloy.CFG.rx_length)
+			message : String.format($.strings.familyMemberAddPrescValRxNoInvalid, parseInt(Alloy.Globals.rx_max))
 		});
 		return;
 	}
@@ -154,7 +154,7 @@ function addPrescriptions() {
 					first_name: fname,
             		last_name: lname,
                 	birth_date: moment(dob).format(Alloy.CFG.apiCodes.dob_format),
-					rx_number : rxNo.substring(0, 7),
+					rx_number : rxNo,
 					store_id : store.id
 				}
 			}]
