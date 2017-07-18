@@ -46,7 +46,7 @@
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<!--footer separator seems to disappear on iOS after a delete-->
 				<View class="h-divider-light" platform="ios" />
-				<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmitReminder" />
+				<Button id="submitBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmitReminder" />
 				<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
 			</View>
 		</FooterView>

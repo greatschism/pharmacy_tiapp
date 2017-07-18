@@ -27,7 +27,7 @@
 	</style>
 	<style name="Material.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
 		<item name="spinBars">true</item>
-		<item name="color">@android:color/white</item>
+		<item name="color">@android:color/black</item>
 	</style>
 	<style name="Theme.Material" parent="Theme.AppCompat">
 		<item name="colorControlHighlight">#D4D4D4</item>

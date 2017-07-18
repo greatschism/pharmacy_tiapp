@@ -34,7 +34,7 @@
 			<Label id="notesLbl" class="margin-left margin-right h5 inactive-fg-color wrap-disabled"/>
 		</View>
 		<Widget id="notesTxta" src="ti.textarea" class="margin-top txta notes" />
-		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
+		<Button id="submitBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmit" />
 		<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemove" if="$.args.isUpdate" />
 		</View>
 	</ScrollView>

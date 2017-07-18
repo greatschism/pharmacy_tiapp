@@ -310,9 +310,9 @@
                 "barColor":"${PRIMARY_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${DARK_COLOR}"
                 },
-                "navTintColor":"${PRIMARY_LIGHT_COLOR}",
+                "navTintColor":"${DARK_COLOR}",
                 "backgroundColor":"${BG_COLOR}"
             },
             "Window[platform=android]":{
@@ -320,7 +320,7 @@
                 "statusBarColor":"${PRIMARY_DARK_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${DARK_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
@@ -328,7 +328,7 @@
                 "barColor":"${PRIMARY_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${DARK_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}",
                 "openDrawerGestureMode":"OPEN_MODE_NONE",
@@ -341,13 +341,13 @@
                 "statusBarColor":"${PRIMARY_DARK_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${DARK_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
-            	"color":"${PRIMARY_LIGHT_COLOR}"
+            	"color":"${DARK_COLOR}"
             },
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
@@ -943,6 +943,10 @@
             ".primary-light-fg-color":{
                 "color":"${PRIMARY_LIGHT_COLOR}",
                 "selectedColor":"${PRIMARY_LIGHT_SELECTED_COLOR}"
+            },
+            ".dark-color":{
+            	"color":"${DARK_COLOR}",
+                "selectedColor":"${DARK_SELECTED_COLOR}"
             },
             ".active-fg-color":{
                 "color":"${ACTIVE_COLOR}",

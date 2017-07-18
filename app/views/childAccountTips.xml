@@ -13,6 +13,6 @@
 			<ImageView id="tip3Img" class="width-70 margin-top-large margin-bottom top-disabled margin-left i4  active-fg-color inactive-fg-color border-disabled"/>
 			<Label id="tip3Lbl" class="width-50 margin-top-large margin-bottom h3 margin-right"></Label>
 		</View>
-		<Button id="signInBtn" analyticsId="SignInBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignIn" if="!Alloy.Globals.isLoggedIn"/>
+		<Button id="signInBtn" analyticsId="SignInBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSignIn" if="!Alloy.Globals.isLoggedIn"/>
 	</ScrollView>
 </Alloy>

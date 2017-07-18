@@ -48,7 +48,7 @@ function didPostlayout(e) {
 	$.contentView.add($.tooltipLbl);
 	$.tooltipHideBtn = $.UI.create("Button", {
 		apiName : "Button",
-		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-light-fg-color", "primary-border"],
+		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "dark-color", "primary-border"],
 		title : $.strings.remindersTooltipBtnHide
 	});
 	$.tooltipHideBtn.addEventListener("click", didClickHide);

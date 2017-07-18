@@ -66,7 +66,7 @@ function init() {
 			}));
 			_.each([{
 				title : $.strings.homeDialogBtnGreat,
-				classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+				classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "dark-color", "primary-border"]
 			}, {
 				title : $.strings.homeDialogBtnImprove,
 				classes : ["margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]
@@ -140,7 +140,7 @@ function didFeedbackHide(index) {
 		dialogView.add($.feedbackTxta.getView());
 		_.each([{
 			title : $.strings.homeDialogBtnSubmit,
-			classes : ["margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "dark-color", "primary-border"]
 		}, {
 			title : $.strings.homeDialogBtnCancel,
 			classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"]
@@ -235,7 +235,7 @@ function showRateDialog() {
 	}));
 	_.each([{
 		title : $.strings.homeDialogBtnRate,
-		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "dark-color", "primary-border"]
 	}, {
 		title : $.strings.homeDialogBtnRemind,
 		classes : ["margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]

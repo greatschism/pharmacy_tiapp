@@ -12,5 +12,5 @@
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
-	<Button id="refillBtn" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickRefill" />
+	<Button id="refillBtn" class="top-disabled margin-bottom primary-bg-color dark-color primary-border" onClick="didClickRefill" />
 </Alloy> 
