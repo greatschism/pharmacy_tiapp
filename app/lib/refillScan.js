@@ -69,7 +69,7 @@ function didRefill(result, passthrough) {
 		 * the rx number if required
 		 */
 		var startIndex = Alloy.CFG.rx_start_index,
-		    endIndex = Alloy.CFG.rx_end_index;
+		    endIndex = Alloy.Globals.rx_max;
 		if (Alloy.CFG.rx_store_start_index === startIndex) {
 			var storeIdentifierLen = Alloy.CFG.rx_store_end_index - Alloy.CFG.rx_store_start_index;
 			startIndex += storeIdentifierLen;
