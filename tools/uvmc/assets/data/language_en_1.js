@@ -21,8 +21,8 @@ module.exports = {
         "userRecoveryLbl":"Please enter the <tertiaryfont><tertiarycolor>email address</tertiarycolor></tertiaryfont> that you use to sign in.",
 		"userRecoveryEmailHint":"Email address",
         "userRecoveryValEmail":"Please enter your email address.",
-        "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>"
-	
+        "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>"
 
 	}
 
