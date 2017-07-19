@@ -154,6 +154,7 @@ module.exports = {
 		"titleHome" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleCheckout" : "Ready prescriptions",
+        "titleCheckoutQuestions": "Mobile Checkout",
 		"titleReminders" : "Reminders",
 		"titleRemindersRefill" : "Refill reminders",
 		"titleRemindersRefillBenefits" : "Refill reminder benefits",
@@ -316,6 +317,14 @@ module.exports = {
         "checkoutFindoutPrompt": "click here to find out how",
         "checkoutPromptMore": "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
         "checkoutClose": "close",
+
+        "checkoutMedicationPrefQuestion": "Generics are availalbe for the medications listed below.  Would you prefer the brand-name medicine?",
+        "checkoutCounselingQuestion": "Would you like to speak to the pharmacist about your medications?",
+        "checkoutYes": "Yes",
+        "checkoutNo": "No",
+        "checkoutPaymentInformation": "Your payment information",
+        "checkoutCCEndingIn": "ending in",
+        "checkoutCCExpDate": "Expiration date:",
 
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",

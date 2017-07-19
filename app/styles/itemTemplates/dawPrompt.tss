@@ -1,0 +1,15 @@
+"#row":{
+	className: "contentViewWithLIcon"
+},
+"#noIcon":{
+	text: Alloy.CFG.icons.cancel
+},
+"#noLbl":{
+	text: Alloy.Globals.strings.checkoutNo
+},
+"#yesIcon":{
+	text: Alloy.CFG.icons.thin_filled_success
+},
+"#yesLbl":{
+	text: Alloy.Globals.strings.checkoutYes
+},

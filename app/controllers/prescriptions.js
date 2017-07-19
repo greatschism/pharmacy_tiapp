@@ -81,6 +81,10 @@ function init() {
 
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
+	//$.bottomView.visible = false;
+	if( ! args.selectable) {
+		$.bottomView.hide();
+	}
 
 	if( ! args.selectable) {
 		$.bottomView.hide();
@@ -132,6 +136,7 @@ function focus() {
 		$.submitBtn.title = $.strings.prescBtnNext;
 
 		$.checkoutTipView.visible = true;
+
 		$.bottomView.show();
 	}
 }
@@ -618,7 +623,7 @@ function prepareList() {
 					var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
 					if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
 
-						//logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
+						logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
 
 						var dialogView = $.UI.create("ScrollView", {
 							apiName : "ScrollView",
@@ -690,17 +695,17 @@ function prepareList() {
 						
 						
 						$.addListener(swtCheckbox, "click", function(){
-							//Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
+							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
 							
 							if( checkBoxToggleFlag === 0 ) {
-								//Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+								Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
 								checkBoxToggleFlag = 1;
 								swtCheckbox.applyProperties($.createStyle({
 	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
 								}));
 								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 							} else {
-								//Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+								Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 								checkBoxToggleFlag = 0;
 								swtCheckbox.applyProperties($.createStyle({
 	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
@@ -880,6 +885,7 @@ function didChangeSearch(e) {
 function didClickRightNavBtn(e) { 
 	if( args.hideCheckoutHeader) {
 		//return if we're on the checkout page..
+
 		return;
 	}
 
@@ -1222,9 +1228,35 @@ function didClickSubmit(e) {
 	 * to the previous screen order details
 	 */
 	
-	// if this is the first checkout screen, then do nothing when the next button is pressed.
-	// This gets hooked up in a future user story.
 	if(args.hideCheckoutHeader) {
+		var readyPrescriptions = [];
+		
+		_.each(sections, function(rows) {
+		_.each(rows, function(row) {
+			var prescription = row.getParams();
+			if (prescription.selected) {
+				readyPrescriptions.push(prescription);
+			}
+			});
+		});
+
+		if(readyPrescriptions.length)
+		{
+	 		$.app.navigator.open({
+				titleid : "titleCheckoutQuestions",
+				ctrl : "checkout",
+				ctrlArguments : {
+					prescriptions :readyPrescriptions,
+					selectable : true
+				},
+				stack : true
+			});
+		} else{
+			$.uihelper.showDialog({
+				message : String.format($.strings.prescAddMsgSelectMore, 1)
+			});
+		}
+		
 		return;
 	}
 	
@@ -1299,7 +1331,6 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
-
 
 	if (!args.hideCheckoutHeader && args.selectable) {
 		$.bottomView.applyProperties({

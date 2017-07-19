@@ -881,7 +881,7 @@ var Helper = {
 
 			//Build 'headerViewHelp', which is the bottom part of the section header including the shopping cart image
 			//TODO: color shouldn't be hard coded here
-			var headerViewHelp
+			var headerViewHelp;
 			if (OS_IOS) {
 				headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
 			} else {
