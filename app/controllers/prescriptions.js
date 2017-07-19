@@ -1308,8 +1308,11 @@ function didPostlayout(e) {
 	    bottom;
 	bottom = margin;
 	if (args.selectable) {
-
+		if(args.hideCheckoutHeader) {
+			bottom = bottom + $.submitBtn.height * 2 ; // accomodating the checkoutTipView
+		} else {
 			bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
+		}
 
 		if ($.tooltip) {
 			$.tooltip.applyProperties({
