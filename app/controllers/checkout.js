@@ -7,7 +7,9 @@ var args = $.args,
     prescriptions = args.prescriptions,
     postlayoutCount = 0,
     dawPrompt = 0,
+    hasSetDawPrompt = false,
     counselingPrompt = 0,
+    hasSetCounselingPrompt = false,
     isWindowOpen,
     httpClient,
     logger = require("logger");
@@ -15,40 +17,36 @@ var args = $.args,
 var data = [],
     questionSection,
     paymentSection;
-sections = {
-	questions : [],
-	payment : []
-};
 
-//loop data for rows
-/*var sectionHeaders = {
- questions : "",
- cardInfo : ""
- },*/
+var sections = {
+		questions : [],
+		payment : []
+	};
 
-sectionHeaders = {
-	questions : "",
-	payment : "",
-};
+var sectionHeaders = {
+		questions : "",
+		payment : "",
+	};
 
 function init() {
 
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 
+   $.submitBtn.visible = false;
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
 	/*
-	 var iDict = {};
-	 if (OS_ANDROID) {
-	 iDict.accessibilityLabelOn = strValue;
-	 iDict.accessibilityLabelOff = strValue;
-	 } else {
-	 iDict.accessibilityLabel = strValue;
-	 }
-	 iDict.accessibilityHint = "Double tap to toggle";
-	 switchObj.applyProperties(iDict);
-	 */
+	var iDict = {};
+	if (OS_ANDROID) {
+		iDict.accessibilityLabelOn = strValue;
+		iDict.accessibilityLabelOff = strValue;
+	} else {
+		iDict.accessibilityLabel = strValue;
+	}
+	iDict.accessibilityHint = "Double tap to toggle";
+	switchObj.applyProperties(iDict);
+	*/
 }
 
 function focus() {
@@ -69,23 +67,15 @@ function focus() {
 	}
 }
 
+function didUpdateUI() {
+
+}
+
 function prepareList() {
-	var question = {
-		section : "questions",
-		itemTemplate : "dawPrompt",
-		masterWidth : 100,
-		title : $.strings.checkoutCounselingQuestion
-	};
+	
+	
+	questionSection = $.uihelper.createTableViewSection($, "", sectionHeaders["questions"], false);
 
-	var rowParams = question,
-	    row;
-
-	rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	row.on("answerPrompt", didAnswerCounselingPrompt);
-
-	sectionHeaders[rowParams.section] += rowParams.filterText;
-	sections[rowParams.section].push(row);
 
 	var addDawRow = false,
 	    dawRx = "";
@@ -98,46 +88,120 @@ function prepareList() {
 		}
 	});
 
-	if (addDawRow) {
-		var question = {
-			section : "questions",
-			itemTemplate : "dawPrompt",
-			masterWidth : 100,
-			title : $.strings.checkoutMedicationPrefQuestion,
-			subtitle : dawRx
-		};
-
-		var rowParams = question,
-		    row;
-
-		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-		row.on("answerPrompt", didAnswerGenericPrompt);
-
-		sectionHeaders[rowParams.section] += rowParams.filterText;
-		sections[rowParams.section].push(row);
-
+	if(addDawRow) {	
+		//strip last newline character from list of rx names if applicable
+		dawRx = dawRx.substring(0, (dawRx.length-2) );
+		presentGenericsPrompt(dawRx);
+		$.tableView.setData(data);
+		$.loader.hide();
+	} else {
+		$.tableView.setData(data);
+		$.loader.hide();
+		presentCounselingPrompt();
 	}
-	_.each(sections, function(rows, key) {
-		if (rows.length) {
-			questionSection = $.uihelper.createTableViewSection($, "Questions", sectionHeaders[key], false);
-
-			_.each(rows, function(row) {
-				questionSection.add(row.getView());
-			});
-			data.push(questionSection);
-
-		}
-	});
-
-	$.tableView.setData(data);
-
-	$.loader.hide();
-
 }
 
-function didUpdateUI() {
 
+function presentGenericsPrompt(dawRxListText) {
+
+	var question = {
+			section : "questions",
+			itemTemplate : "checkoutQuestionPrompt",
+			masterWidth : 100,
+			title : $.strings.checkoutMedicationPrefQuestion,
+			subtitle : dawRxListText
+		};		
+
+	var rowParams = question, row;
+		
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	
+	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	switch(rowParams.itemTemplate) {
+
+	case "checkoutQuestionPrompt":
+		row.on("answerPrompt", didAnswerGenericsPrompt);
+	}
+	sectionHeaders[rowParams.section] += rowParams.filterText;
+	sections[rowParams.section].push(row);
+	questionSection.add(row.getView() );
+	data.push(questionSection);
+}
+
+function didAnswerGenericsPrompt(e) {
+	Ti.API.info("didAnswerGenericsPrompt");
+	dawPrompt = e.data.answer;
+
+	if( !hasSetDawPrompt){
+		hasSetDawPrompt = true;
+		presentCounselingPrompt();
+	}
+}
+
+function presentCounselingPrompt() {
+	var question = {
+		section : "questions",
+		itemTemplate : "checkoutQuestionPrompt",
+		masterWidth : 100,
+		title : $.strings.checkoutCounselingQuestion
+	};		
+
+	var rowParams = question, row2;
+		
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	switch(rowParams.itemTemplate) {
+
+	case "checkoutQuestionPrompt":
+		row2.on("answerPrompt", didAnswerCounselingPrompt);
+	}
+
+	if ( OS_IOS ) {
+		questionSection[1] = row2.getView() ;
+		data[0] = questionSection;
+		$.tableView.setData(data);
+		$.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });
+		
+	} else {
+		questionSection.add( row2.getView() );
+		$.tableView.setData(data);
+	}
+
+	// var question = {
+	// 	section : "questions",
+	// 	itemTemplate : "checkoutQuestionPrompt",
+	// 	masterWidth : 100,
+	// 	title : $.strings.checkoutCounselingQuestion
+	// };
+
+	// var rowParams = question,
+	//     row;
+
+	// rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	// row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	// row.on("answerPrompt", didAnswerCounselingPrompt);
+
+	// sectionHeaders[rowParams.section] += rowParams.filterText;
+	// sections[rowParams.section].push(row);
+}
+
+function didAnswerCounselingPrompt(e) {
+	Ti.API.info("\n\n\ndidAnswerCounselingPrompt\n\n\n");
+	counselingPrompt = e.data.answer;
+
+	if( !hasSetCounselingPrompt ){
+		hasSetCounselingPrompt = true;
+		//eventually this will go in the CC confirmation logic
+		presentSubmitButton();
+	}
+}
+
+function presentCCConfirmation() {
+}
+
+function presentSubmitButton() {
+	//Submit button can be shown here
+   $.submitBtn.visible = true;
 }
 
 function didPostlayoutPrompt(e) {
@@ -154,16 +218,7 @@ function didPostlayoutPrompt(e) {
 	 }*/
 }
 
-function didAnswerGenericPrompt(e) {
-	Ti.API.info("didAnswerGenericPrompt");
-	dawPrompt = e.data.answer;
-}
 
-function didAnswerCounselingPrompt(e) {
-	Ti.API.info("\n\n\ndidAnswerCounselingPrompt\n\n\n");
-	counselingPrompt = e.data.answer;
-
-}
 
 function didClickCCEdit(e) {
 	Ti.API.info("didClickCCEdit");

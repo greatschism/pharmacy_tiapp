@@ -961,7 +961,13 @@ var Helper = {
 			if (!isWrap) {
 				Helper.wrapText(lbl);
 			}
-			headerView.add(lbl);
+
+			if (title === "" ) {
+				//if no title is given, don't show the header!
+				headerView.height = 0;
+			} else {
+				headerView.add(lbl);
+			}
 		}
 
 		return headerView;

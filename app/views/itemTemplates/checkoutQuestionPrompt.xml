@@ -1,10 +1,10 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<View id="contentView" class="margin-top-small margin-bottom margin-left margin-right auto-height">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="margin-left h5 auto-height" />
 				<Label id="subtitleLbl" class="margin-top-small margin-left inactive-fg-color auto-height" />
-				<View id="masterView" class="margin-left margin-top-small auto-height hgroup">
+				<View id="masterView" class="margin-left margin-top-large auto-height hgroup">
 					<View id="qstnYesView" class="margin-left-large h5  width-45 auto-height left hgroup bubble-disabled" onClick="didClickYes" >
 						<Label id="yesIcon" class="positive-fg-color left txt-right i6 " />
 						<Label id="yesLbl" class="positive-fg-color right margin-left-small  txt-left h4 " />

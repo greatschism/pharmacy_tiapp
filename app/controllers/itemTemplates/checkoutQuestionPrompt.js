@@ -21,6 +21,9 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	if(subtitle === "") {
+		$.subtitleLbl.height = 0;
+	}
 	
 })();
 
