@@ -163,7 +163,12 @@ function presentCounselingPrompt() {
 		$.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });
 		
 	} else {
+			
 		questionSection.add( row2.getView() );
+		if(hasSetDawPrompt === false) {
+			data.push(questionSection);
+		}
+		
 		$.tableView.setData(data);
 	}
 
