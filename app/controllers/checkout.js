@@ -2,10 +2,12 @@ var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
+    uihelper = require("uihelper"),
     apiCodes = Alloy.CFG.apiCodes,
     prescriptions = args.prescriptions,
     postlayoutCount = 0,
-    newMedReminder,
+    dawPrompt = 0,
+    counselingPrompt = 0,
     isWindowOpen,
     httpClient,
     logger = require("logger");
@@ -154,14 +156,13 @@ function didPostlayoutPrompt(e) {
 
 function didAnswerGenericPrompt(e) {
 	Ti.API.info("didAnswerGenericPrompt");
-	
-	alert(e.data);
+	dawPrompt = e.data.answer;
 }
 
-function didAnswerCounselingPrompt(e) {	
+function didAnswerCounselingPrompt(e) {
 	Ti.API.info("\n\n\ndidAnswerCounselingPrompt\n\n\n");
-		alert(e.data);
-	
+	counselingPrompt = e.data.answer;
+
 }
 
 function didClickCCEdit(e) {
@@ -172,6 +173,62 @@ function didClickCCEdit(e) {
 function didClickSubmit(e) {
 	Ti.API.info("didClickSubmit");
 
+	var checkoutPrescriptions = [];
+
+	_.each(prescriptions, function(prescription) {
+		checkoutPrescriptions.push({
+			id : prescription.id,
+			rx_number : prescription.rx_number,
+			original_store_id : prescription.original_store_id
+		});
+	});
+
+	logger.debug("\n\n\n\n request checkoutPrescriptions", JSON.stringify(checkoutPrescriptions, 0, null), "\n\n\n");
+
+	$.http.request({
+		method : "checkout_preferences_update",
+		params : {
+			data : [{
+				checkout : {
+					prescriptions : checkoutPrescriptions,
+					counseling : counselingPrompt,
+					useLoyaltyCard : "0",
+					usePatientDaw : dawPrompt,
+					useCreditCard : "0"
+				}
+			}]
+		},
+		passthrough : true,
+		errorDialogEnabled : true,				
+		keepLoader : false,
+		success : didSuccess,
+		failure : didFail
+	});
+}
+
+function didSuccess(result, passthrough) {
+	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
+	$.app.navigator.hideLoader();
+	uihelper.showDialog({
+		message : result.message,
+		buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+		success : popToPrescriptions
+	});
+}
+
+function didFail(result, passthrough) {
+	$.app.navigator.hideLoader();
+	// $.app.navigator.close();
+		$.uihelper.showDialog({
+			message : result.message
+		});
+}
+
+function popToPrescriptions()
+{
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 function didClickTableView(e) {
