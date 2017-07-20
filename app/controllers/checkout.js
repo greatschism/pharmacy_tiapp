@@ -67,15 +67,17 @@ function focus() {
 	}
 }
 
+function didPostlayoutPrompt(e) {
+
+}
+
 function didUpdateUI() {
 
 }
 
 function prepareList() {
 	
-	
 	questionSection = $.uihelper.createTableViewSection($, "", sectionHeaders["questions"], false);
-
 
 	var addDawRow = false,
 	    dawRx = "";
@@ -117,11 +119,8 @@ function presentGenericsPrompt(dawRxListText) {
 	rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 	
 	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	switch(rowParams.itemTemplate) {
+	row.on("answerPrompt", didAnswerGenericsPrompt);
 
-	case "checkoutQuestionPrompt":
-		row.on("answerPrompt", didAnswerGenericsPrompt);
-	}
 	sectionHeaders[rowParams.section] += rowParams.filterText;
 	sections[rowParams.section].push(row);
 	questionSection.add(row.getView() );
@@ -150,11 +149,7 @@ function presentCounselingPrompt() {
 		
 	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 	row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	switch(rowParams.itemTemplate) {
-
-	case "checkoutQuestionPrompt":
-		row2.on("answerPrompt", didAnswerCounselingPrompt);
-	}
+	row2.on("answerPrompt", didAnswerCounselingPrompt);
 
 	if ( OS_IOS ) {
 		questionSection[1] = row2.getView() ;
@@ -168,30 +163,13 @@ function presentCounselingPrompt() {
 		if(hasSetDawPrompt === false) {
 			data.push(questionSection);
 		}
-		
+
 		$.tableView.setData(data);
 	}
-
-	// var question = {
-	// 	section : "questions",
-	// 	itemTemplate : "checkoutQuestionPrompt",
-	// 	masterWidth : 100,
-	// 	title : $.strings.checkoutCounselingQuestion
-	// };
-
-	// var rowParams = question,
-	//     row;
-
-	// rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	// row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	// row.on("answerPrompt", didAnswerCounselingPrompt);
-
-	// sectionHeaders[rowParams.section] += rowParams.filterText;
-	// sections[rowParams.section].push(row);
 }
 
 function didAnswerCounselingPrompt(e) {
-	Ti.API.info("\n\n\ndidAnswerCounselingPrompt\n\n\n");
+	logger.debug("\n\n\ndidAnswerCounselingPrompt\n\n\n");
 	counselingPrompt = e.data.answer;
 
 	if( !hasSetCounselingPrompt ){
@@ -204,30 +182,13 @@ function didAnswerCounselingPrompt(e) {
 function presentCCConfirmation() {
 }
 
+function didClickCCEdit(e) {
+	logger.debug("didClickCCEdit");
+}
+
 function presentSubmitButton() {
 	//Submit button can be shown here
    $.submitBtn.visible = true;
-}
-
-function didPostlayoutPrompt(e) {
-	/*	var source = e.source,
-	 children = source.getParent().children;
-	 source.removeEventListener("postlayout", didPostlayoutPrompt);
-	 children[1].applyProperties({
-	 left : children[1].left + children[0].rect.width,
-	 visible : true
-	 });
-	 postlayoutCount++;
-	 if (postlayoutCount === 4) {
-	 $.prescExp.setStopListening(true);
-	 }*/
-}
-
-
-
-function didClickCCEdit(e) {
-	Ti.API.info("didClickCCEdit");
-
 }
 
 function didClickSubmit(e) {
