@@ -38,11 +38,6 @@
                         "pattern":"\\D",
                         "modifiters":"g",
                         "value":""
-                    },
-                    {
-                        "pattern":"(\\d{7})(\\d)",
-                        "modifiters":"",
-                        "value":"$1-$2"
                     }
                 ],
                 "rx_schedule_2_validator":"^(2).*$",
