@@ -238,13 +238,8 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(result, passthrough) {
-	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
 	$.app.navigator.hideLoader();
-	uihelper.showDialog({
-		message : result.message,
-		buttonNames : [Alloy.Globals.strings.dialogBtnClose],
-		success : popToPrescriptions
-	});
+	popToPrescriptions();
 }
 
 function popToPrescriptions()
