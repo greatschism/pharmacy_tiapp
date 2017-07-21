@@ -212,9 +212,9 @@ function didClickSubmit(e) {
 			data : [{
 				checkout : {
 					prescriptions : checkoutPrescriptions,
-					counseling : counselingPrompt,
+					counseling : counselingPrompt.toString(),
 					useLoyaltyCard : "0",
-					usePatientDaw : dawPrompt,
+					usePatientDaw : dawPrompt.toString(),
 					useCreditCard : "0"
 				}
 			}]
@@ -238,11 +238,13 @@ function didSuccess(result, passthrough) {
 }
 
 function didFail(result, passthrough) {
+	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
 	$.app.navigator.hideLoader();
-	// $.app.navigator.close();
-		$.uihelper.showDialog({
-			message : result.message
-		});
+	uihelper.showDialog({
+		message : result.message,
+		buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+		success : popToPrescriptions
+	});
 }
 
 function popToPrescriptions()
