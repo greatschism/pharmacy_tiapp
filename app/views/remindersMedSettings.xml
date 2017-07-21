@@ -1,4 +1,12 @@
 <Alloy>
+	<Widget id="colorPicker" src="ti.modaldialog" class="modal-dialog">
+		<TableView id="tblColorPicker" dataCollection="reminderColors" class="auto-height" onClick="didClickColorPicker">
+			<TableViewRow id="row" class="hgroup" accessibilityLabel="{colorName}">
+				<View id="colorBoxView" class="margin-left color-box border accessibility-disabled" backgroundColor="{colorCode}" borderColor="#BEC2C6" />
+				<Label id="lbl" class="margin-top margin-bottom margin-left-large accessibility-disabled" text="{colorName}" />
+			</TableViewRow>
+		</TableView>
+	</Widget>
 	<Widget id="frequencyPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickFrequencyPicker">
 		<View class="min-height inactive-light-bg-color role-header-view">
 			<Label id="frequencyLbl" class="margin-left margin-right h5 inactive-fg-color" />
