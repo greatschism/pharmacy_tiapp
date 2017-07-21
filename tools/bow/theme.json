@@ -1,0 +1,25 @@
+{
+	"config": {
+		"global": {
+			"rx_length": 7,
+			"rx_start_index": 0,
+			"rx_end_index": 7,
+			"rx_store_start_index": 7,
+			"rx_store_end_index": 10,
+			"rx_validator": "^[0-9]{7}$",
+			"rx_formatters": [
+				{
+					"pattern": "\\D",
+					"modifiters": "g",
+					"value": ""
+				}
+			]
+		}
+	},
+	"values": {
+		"PRIMARY_COLOR": "#0277bd",
+		"PRIMARY_SELECTED_COLOR": "#0277bd",
+		"PRIMARY_DARK_COLOR": "#004c8c",
+		"PRIMARY_DARK_SELECTED_COLOR": "#004c8c"
+	}
+}

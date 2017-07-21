@@ -250,7 +250,7 @@ function didClickContinue(e) {
 		}
 		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
-				message : String.format(Alloy.Globals.strings.registerValRxInvalid,Alloy.CFG.rx_length)
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid,parseInt(Alloy.Globals.rx_max))
 			});
 			return;
 		}
@@ -312,7 +312,7 @@ function didClickContinue(e) {
 					home_phone : "",
 					mobile : mobileNumber,
 					email_address : email,
-					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					rx_number : rxNo,
 					store_id : store.id,
 					user_type : "FULL",
 					optional : optionalValues

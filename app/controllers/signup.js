@@ -212,7 +212,7 @@ function didClickSignup(e) {
 	    password = $.passwordTxt.getValue(),
 	    rxNo = $.rxNoTxt.getValue(),
 	    mobileNumber = $.moNumberTxt.getValue();
-	if (!e.ageValidated) {
+	// if (!e.ageValidated) {
 		if (!fname) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValFirstName
@@ -288,7 +288,7 @@ function didClickSignup(e) {
 		}
 		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
-				message : String.format(Alloy.Globals.strings.registerValRxInvalid, Alloy.CFG.rx_length)
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid, parseInt(Alloy.Globals.rx_max))
 			});
 			return;
 		}
@@ -307,7 +307,7 @@ function didClickSignup(e) {
 			});
 			return;
 		}
-	}
+	// }
 
 	var userCredentials = {
 		email : email,
@@ -336,7 +336,7 @@ function didClickSignup(e) {
 					home_phone : "",
 					mobile : "1" + mobileNumber,
 					email_address : email,
-					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					rx_number : rxNo,
 					store_id : store.id,
 					user_type : "FULL",
 					optional : optionalValues

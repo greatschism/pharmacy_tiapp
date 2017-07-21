@@ -15,13 +15,16 @@ function format(str) {
 	 *  reg exp configurable from theme
 	 *  as it depends on client
 	 */
+	
 	_.each(Alloy.CFG.rx_formatters, function(formatter) {
 		str = str.replace(formatter.exp, formatter.value);
 	});
-	return str.slice(0, Alloy.CFG.rx_length);
+	
+	// var rx_max = Alloy.Globals.rx_max;
+	return str.slice(0,parseInt(Alloy.Globals.rx_max));  
 }
 
-/**
+/**;
  * Check whether given string is valid rx number
  * @param {String} str
  * returns {String|Boolean}
@@ -31,7 +34,9 @@ function validate(str) {
 	 *  reg exp configurable from theme
 	 *  as it depends on client
 	 */
-	return Alloy.CFG.rx_validator.test(str) ? str.replace(/\D+/g, "") : false;
+	var patt = new RegExp(Alloy.Globals.rx_validator);
+   
+	return patt.test(str) ? str.replace(/\D+/g, "") : false;
 }
 
 /**

@@ -38,11 +38,6 @@
                         "pattern":"\\D",
                         "modifiters":"g",
                         "value":""
-                    },
-                    {
-                        "pattern":"(\\d{7})(\\d)",
-                        "modifiters":"",
-                        "value":"$1-$2"
                     }
                 ],
                 "rx_schedule_2_validator":"^(2).*$",
@@ -689,6 +684,9 @@
             },
             ".margin-right-extra-large":{
                 "right":"${MARGIN_RIGHT_EXTRA_LARGE}"
+            },
+            ".margin-left-xxl":{
+                "left":"${BUTTON_HEIGHT}"
             },
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"

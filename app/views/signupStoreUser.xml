@@ -11,7 +11,7 @@
 				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 			</View>
 			<View id="rxContainer" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield" class="rx top left right-disabled txt border-disabled keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
+				<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
 				<View class="h-divider"/>
 				<View id="storeView" analyticsId="StoreView" class="auto-height" onClick="didClickPharmacy">
 					<Label id="storeTitleLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
