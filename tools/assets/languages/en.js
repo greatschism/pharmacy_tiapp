@@ -318,7 +318,7 @@ module.exports = {
         "checkoutPromptMore": "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
         "checkoutClose": "close",
 
-        "checkoutMedicationPrefQuestion": "Generics are availalbe for the medications listed below.  Would you prefer the brand-name medicine?",
+        "checkoutMedicationPrefQuestion": "I confirm my request for the brand name version of the following medication(s):",
         "checkoutCounselingQuestion": "Would you like to speak to the pharmacist about your medications?",
         "checkoutYes": "Yes",
         "checkoutNo": "No",
