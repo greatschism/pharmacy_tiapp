@@ -325,7 +325,7 @@ module.exports = {
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
 		"doctorDetLblRefilled" : "Refilled: %s",
-		"doctorDetLblRefilledNone" : "Not filled yet",
+		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
 		"doctorSettingsHintLastName" : "Last Name",
