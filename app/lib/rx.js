@@ -15,10 +15,10 @@ function format(str) {
 	 *  reg exp configurable from theme
 	 *  as it depends on client
 	 */
-	/* no 7+2 rx validation
+	
 	_.each(Alloy.CFG.rx_formatters, function(formatter) {
 		str = str.replace(formatter.exp, formatter.value);
-	});*/
+	});
 	
 	// var rx_max = Alloy.Globals.rx_max;
 	return str.slice(0,parseInt(Alloy.Globals.rx_max));  
