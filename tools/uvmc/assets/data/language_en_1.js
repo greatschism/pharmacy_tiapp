@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "UVMC",
+		"strClientName" : "UVMC Rx",
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -22,8 +22,8 @@ module.exports = {
 		"userRecoveryEmailHint":"Email address",
         "userRecoveryValEmail":"Please enter your email address.",
         "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
-	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>"
-
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
+         "titleHelp" : "Help"
 	}
 
 };
