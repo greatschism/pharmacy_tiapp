@@ -623,7 +623,7 @@ if (build) {
 
 		//android launcher activity name
 		var appname = tiapp.name;
-		appname = appname.replace("-","");
+		appname = appname.replace("-"," ");
 		var names = (appname + " Activity").split(" ");
 		for (var i in names) {
 			var name = names[i].toLowerCase();
