@@ -264,12 +264,12 @@
             },
             "ios":{
                 "accepted_barcode_formats":[
-                    "Code128", "QR"
+                    "Code128", "QR", "Code39"
                 ]
             },
             "android":{
                 "accepted_barcode_formats":[
-                    "FORMAT_CODE_128", "FORMAT_QR_CODE"
+                    "FORMAT_CODE_128", "FORMAT_QR_CODE", "FORMAT_CODE_39"
                 ]
             }
         },
