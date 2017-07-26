@@ -168,7 +168,6 @@ module.exports = {
 		"titleRefill" : "Refill by scan",
 		"titleStores" : "Find a store",
 		"titleDoctors" : "Doctors",
-		// "titleInsurance" : "Send insurance card",
 		"titleAccount" : "Account",
 		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
