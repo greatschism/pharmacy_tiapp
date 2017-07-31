@@ -435,6 +435,7 @@ module.exports = {
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
+		"checkoutEditCardInfo" : "Please contact/visit your pharmacy",
 		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.",
         "orderCheckoutLbl": "Save time with mobile checkout!",
 		"orderDetSectionPresc" : "Your order",

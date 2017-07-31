@@ -19,34 +19,34 @@ var data = [],
     paymentSection;
 
 var sections = {
-		questions : [],
-		payment : []
-	};
+	questions : [],
+	payment : []
+};
 
 var sectionHeaders = {
-		questions : "",
-		payment : "",
-	};
+	questions : "",
+	payment : "",
+};
 
 function init() {
 
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 
-   $.submitBtn.visible = false;
+	$.submitBtn.visible = false;
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
 	/*
-	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = strValue;
-		iDict.accessibilityLabelOff = strValue;
-	} else {
-		iDict.accessibilityLabel = strValue;
-	}
-	iDict.accessibilityHint = "Double tap to toggle";
-	switchObj.applyProperties(iDict);
-	*/
+	 var iDict = {};
+	 if (OS_ANDROID) {
+	 iDict.accessibilityLabelOn = strValue;
+	 iDict.accessibilityLabelOff = strValue;
+	 } else {
+	 iDict.accessibilityLabel = strValue;
+	 }
+	 iDict.accessibilityHint = "Double tap to toggle";
+	 switchObj.applyProperties(iDict);
+	 */
 }
 
 function focus() {
@@ -76,7 +76,7 @@ function didUpdateUI() {
 }
 
 function prepareList() {
-	
+
 	questionSection = $.uihelper.createTableViewSection($, "", sectionHeaders["questions"], false);
 
 	var addDawRow = false,
@@ -90,9 +90,9 @@ function prepareList() {
 		}
 	});
 
-	if(addDawRow) {	
+	if (addDawRow) {
 		//strip last newline character from list of rx names if applicable
-		dawRx = dawRx.substring(0, (dawRx.length-2) );
+		dawRx = dawRx.substring(0, (dawRx.length - 2));
 		presentGenericsPrompt(dawRx);
 		$.tableView.setData(data);
 		$.loader.hide();
@@ -103,27 +103,27 @@ function prepareList() {
 	}
 }
 
-
 function presentGenericsPrompt(dawRxListText) {
 
 	var question = {
-			section : "questions",
-			itemTemplate : "checkoutQuestionPrompt",
-			masterWidth : 100,
-			title : $.strings.checkoutMedicationPrefQuestion,
-			subtitle : dawRxListText
-		};		
+		section : "questions",
+		itemTemplate : "checkoutQuestionPrompt",
+		masterWidth : 100,
+		title : $.strings.checkoutMedicationPrefQuestion,
+		subtitle : dawRxListText
+	};
 
-	var rowParams = question, row;
-		
+	var rowParams = question,
+	    row;
+
 	rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	
+
 	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 	row.on("answerPrompt", didAnswerGenericsPrompt);
 
 	sectionHeaders[rowParams.section] += rowParams.filterText;
 	sections[rowParams.section].push(row);
-	questionSection.add(row.getView() );
+	questionSection.add(row.getView());
 	data.push(questionSection);
 }
 
@@ -131,7 +131,7 @@ function didAnswerGenericsPrompt(e) {
 	Ti.API.info("didAnswerGenericsPrompt");
 	dawPrompt = e.data.answer;
 
-	if( !hasSetDawPrompt){
+	if (!hasSetDawPrompt) {
 		hasSetDawPrompt = true;
 		presentCounselingPrompt();
 	}
@@ -143,24 +143,27 @@ function presentCounselingPrompt() {
 		itemTemplate : "checkoutQuestionPrompt",
 		masterWidth : 100,
 		title : $.strings.checkoutCounselingQuestion
-	};		
+	};
 
-	var rowParams = question, row2;
-		
+	var rowParams = question,
+	    row2;
+
 	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 	row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 	row2.on("answerPrompt", didAnswerCounselingPrompt);
 
-	if ( OS_IOS ) {
-		questionSection[1] = row2.getView() ;
+	if (OS_IOS) {
+		questionSection[1] = row2.getView();
 		data[0] = questionSection;
 		$.tableView.setData(data);
-		$.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });
-		
+		$.tableView.appendRow(questionSection[1], {
+			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+		});
+
 	} else {
-			
-		questionSection.add( row2.getView() );
-		if(hasSetDawPrompt === false) {
+
+		questionSection.add(row2.getView());
+		if (hasSetDawPrompt === false) {
 			data.push(questionSection);
 		}
 
@@ -172,23 +175,79 @@ function didAnswerCounselingPrompt(e) {
 	logger.debug("\n\n\ndidAnswerCounselingPrompt\n\n\n");
 	counselingPrompt = e.data.answer;
 
-	if( !hasSetCounselingPrompt ){
+	if (!hasSetCounselingPrompt) {
 		hasSetCounselingPrompt = true;
-		//eventually this will go in the CC confirmation logic
-		presentSubmitButton();
+
+		var currentPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
+
+		var cardType = currentPatient.get("card_type"),
+		    cardExpiry = currentPatient.get("expiry_date"),
+		    card4Digits = currentPatient.get("last_four_digits");
+		if (_.has(currentPatient, ["card_type", "expiry_date", "last_four_digits"])) {
+			if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+				presentCCConfirmation(currentPatient);
+			}
+		}
+		else
+		{
+			presentSubmitButton();
+		}
 	}
 }
 
-function presentCCConfirmation() {
+function presentCCConfirmation(patient) {
+	paymentSection = $.uihelper.createTableViewSection($, "Your Payment Information", sectionHeaders["payment"], false);
+
+	var payment = {
+		section : "payment",
+		itemTemplate : "creditCardView",
+		masterWidth : 100,
+		title : currentPatient.get("card_type")+" ending in "+patient.get("last_four_digits"),
+		subtitle : "Expiration date:"+ patient.get("expiry_date")
+	};
+
+	var rowParams = payment,
+	    row;
+
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row.on("clickedit", didClickCCEdit);
+
+	if (OS_IOS) {
+
+		// sectionHeaders[rowParams.section] += rowParams.filterText;
+		// sections[rowParams.section].push(row);
+		paymentSection.add(row.getView());
+		data.push(paymentSection);
+		$.tableView.setData(data);
+		/*
+		 questionSection[1] = row.getView() ;
+		 data[0] = questionSection;
+		 $.tableView.setData(data);
+		 $.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });	*/
+	} else {
+
+		paymentSection.add(row.getView());
+		if (hasSetCounselingPrompt === false && hasSetDawPrompt === false) {
+			data.push(paymentSection);
+		}
+
+		$.tableView.setData(data);
+	}
 }
 
 function didClickCCEdit(e) {
 	logger.debug("didClickCCEdit");
+	$.uihelper.showDialog({
+			message : $.strings.checkoutEditCardInfo
+		});
 }
 
 function presentSubmitButton() {
 	//Submit button can be shown here
-   $.submitBtn.visible = true;
+	$.submitBtn.visible = true;
 }
 
 function didClickSubmit(e) {
@@ -220,7 +279,7 @@ function didClickSubmit(e) {
 			}]
 		},
 		passthrough : true,
-		errorDialogEnabled : true,				
+		errorDialogEnabled : true,
 		keepLoader : false,
 		success : didSuccess,
 		failure : didFail
@@ -242,8 +301,7 @@ function didFail(result, passthrough) {
 	popToPrescriptions();
 }
 
-function popToPrescriptions()
-{
+function popToPrescriptions() {
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());

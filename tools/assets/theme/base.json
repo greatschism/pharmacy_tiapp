@@ -169,7 +169,8 @@
                     "twitter":"0XE012",
                     "youtube":"0XE013",
                     "help_2":"0xE00E",
-                    "cart":"0XE015"
+                    "cart":"0XE015",
+                    "credit_card":"0XE00F"
                 },
                 "icons":{
                     "numeric_zero":"0",

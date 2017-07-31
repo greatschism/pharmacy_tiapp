@@ -1,0 +1,14 @@
+<Alloy autoStyle="true">
+	<TableViewRow id="row">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
+			<View class="auto-height hgroup">
+				<Label id="iconCardLbl" class="left i4 positive-fg-color icon-credit-card" />
+				<View id="masterView" class="margin-top-small auto-height auto-width vgroup">
+					<Label id="titleLbl" class="margin-left-medium margin-right-small h5" />
+					<Label id="subtitleLbl" class="margin-left margin-right-small inactive-fg-color" />
+				</View>
+			</View>
+			<Label id="iconEditLbl" class="right i4 primary-color icon-edit bubble-disabled" onClick="didClickEditCard"/>
+		</View>
+	</TableViewRow>
+</Alloy>
