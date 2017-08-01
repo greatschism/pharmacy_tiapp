@@ -10,6 +10,7 @@ var args = $.args,
     hasSetDawPrompt = false,
     counselingPrompt = 0,
     hasSetCounselingPrompt = false,
+    useCreditCard = "0",
     isWindowOpen,
     httpClient,
     logger = require("logger");
@@ -182,17 +183,18 @@ function didAnswerCounselingPrompt(e) {
 			selected : true
 		});
 
-		var cardType = currentPatient.get("card_type"),
-		    cardExpiry = currentPatient.get("expiry_date"),
-		    card4Digits = currentPatient.get("last_four_digits");
 		if (_.has(currentPatient, ["card_type", "expiry_date", "last_four_digits"])) {
-			if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			// if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) 
+			{
+				useCreditCard = "1";
 				presentCCConfirmation(currentPatient);
 			}
 		}
 		else
 		{
-			presentSubmitButton();
+			// presentSubmitButton();
+							presentCCConfirmation(currentPatient);
+
 		}
 	}
 }
@@ -200,12 +202,24 @@ function didAnswerCounselingPrompt(e) {
 function presentCCConfirmation(patient) {
 	paymentSection = $.uihelper.createTableViewSection($, "Your Payment Information", sectionHeaders["payment"], false);
 
+	var totalAmountDue = 0;
+	_.each(prescriptions, function(prescription) {
+		if (_.has(prescription, "copay")) {
+			if (prescription.copay != null) {
+				logger.debug("\n\n\n copay", prescription.copay, "\n\n\n");
+				
+				totalAmountDue+= parseFloat(prescription.copay);
+			}
+		}
+	});
+			
 	var payment = {
 		section : "payment",
 		itemTemplate : "creditCardView",
 		masterWidth : 100,
-		title : currentPatient.get("card_type")+" ending in "+patient.get("last_four_digits"),
-		subtitle : "Expiration date:"+ patient.get("expiry_date")
+		title : patient.get("card_type")+" ending in "+patient.get("last_four_digits"),
+		subtitle : "Expiration date:"+ patient.get("expiry_date"),
+		amountDue : totalAmountDue
 	};
 
 	var rowParams = payment,
@@ -236,6 +250,8 @@ function presentCCConfirmation(patient) {
 
 		$.tableView.setData(data);
 	}
+	
+	presentSubmitButton();
 }
 
 function didClickCCEdit(e) {
@@ -274,7 +290,7 @@ function didClickSubmit(e) {
 					counseling : counselingPrompt.toString(),
 					useLoyaltyCard : "0",
 					usePatientDaw : dawPrompt.toString(),
-					useCreditCard : "0"
+					useCreditCard : useCreditCard
 				}
 			}]
 		},
