@@ -1,4 +1,5 @@
 var args = $.args,
+	checkedAccessiblity,
     uihelper = require("uihelper");
 
 (function() {
@@ -9,7 +10,8 @@ var args = $.args,
 			classes : ["row-selected-bg-color-disabled"]
 		});
 		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
-		$.leftIconLbl.accessibilityLabel = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
+		checkedAccessiblity = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
+		$.leftIconLbl.accessibilityLabel = checkedAccessiblity;
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
@@ -71,6 +73,21 @@ var args = $.args,
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
+	$.containerView.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
+	if ($.detailTitleLbl.text) {
+		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + $.detailTitleLbl.text;
+	}
+	if ($.detailSubtitleLbl.text) {
+		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + $.detailSubtitleLbl.text;
+	}
+	if (checkedAccessiblity) {
+		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + checkedAccessiblity;
+		$.leftIconLbl.accessibilityHidden = true;
+	} else {
+		var lIconAccText = $.leftIconLbl.accessibilityLabel;
+		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + lIconAccText;
+		$.leftIconLbl.accessibilityHidden = true;
+	}
 	_.each(["titleLbl", "subtitleLbl", "detailSubtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

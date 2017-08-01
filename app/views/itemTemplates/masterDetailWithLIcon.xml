@@ -1,14 +1,16 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<Label id="leftIconLbl" class="margin-left i5 accessibility-enabled" />
-		<View id="contentView" class="margin-top margin-bottom margin-right auto-height">
-			<View id="masterView" class="left width-65 auto-height vgroup">
-				<Label id="titleLbl" class="left h4" />
-				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
-			</View>
-			<View id="detailView" class="right width-35 auto-height vgroup">
-				<Label id="detailTitleLbl" class="right txt-right wrap-disabled" />
-				<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled" />
+		<View id="containerView" class="top left">
+			<Label id="leftIconLbl" class="margin-left i5" />
+			<View id="contentView" class="margin-top margin-bottom margin-right auto-height accessibility-disabled">
+				<View id="masterView" class="left width-65 auto-height vgroup accessibility-disabled">
+					<Label id="titleLbl" class="left h4 accessibility-disabled" />
+					<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color accessibility-disabled" />
+				</View>
+				<View id="detailView" class="right width-35 auto-height vgroup accessibility-disabled">
+					<Label id="detailTitleLbl" class="right txt-right wrap-disabled accessibility-disabled" />
+					<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled accessibility-disabled" />
+				</View>
 			</View>
 		</View>
 	</TableViewRow>
