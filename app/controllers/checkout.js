@@ -173,7 +173,7 @@ function presentCounselingPrompt() {
 }
 
 function didAnswerCounselingPrompt(e) {
-	logger.debug("\n\n\ndidAnswerCounselingPrompt\n\n\n");
+	logger.debug("\n\n\ndidAnswerCounselingPrompt ", e.data.answer);
 	counselingPrompt = e.data.answer;
 
 	if (!hasSetCounselingPrompt) {
@@ -183,18 +183,12 @@ function didAnswerCounselingPrompt(e) {
 			selected : true
 		});
 
-		if (_.has(currentPatient, ["card_type", "expiry_date", "last_four_digits"])) {
-			// if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) 
-			{
-				useCreditCard = "1";
-				presentCCConfirmation(currentPatient);
-			}
-		}
-		else
-		{
-			// presentSubmitButton();
-							presentCCConfirmation(currentPatient);
+		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
 
+		} else {
+			presentSubmitButton();
 		}
 	}
 }
@@ -206,19 +200,17 @@ function presentCCConfirmation(patient) {
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "copay")) {
 			if (prescription.copay != null) {
-				logger.debug("\n\n\n copay", prescription.copay, "\n\n\n");
-				
-				totalAmountDue+= parseFloat(prescription.copay);
+				totalAmountDue += parseFloat(prescription.copay);
 			}
 		}
 	});
-			
+
 	var payment = {
 		section : "payment",
 		itemTemplate : "creditCardView",
 		masterWidth : 100,
-		title : patient.get("card_type")+" ending in "+patient.get("last_four_digits"),
-		subtitle : "Expiration date:"+ patient.get("expiry_date"),
+		title : patient.get("card_type") + " ending in " + patient.get("last_four_digits"),
+		subtitle : "Expiration date:" + patient.get("expiry_date"),
 		amountDue : totalAmountDue
 	};
 
@@ -250,15 +242,14 @@ function presentCCConfirmation(patient) {
 
 		$.tableView.setData(data);
 	}
-	
+
 	presentSubmitButton();
 }
 
 function didClickCCEdit(e) {
-	logger.debug("didClickCCEdit");
 	$.uihelper.showDialog({
-			message : $.strings.checkoutEditCardInfo
-		});
+		message : $.strings.checkoutEditCardInfo
+	});
 }
 
 function presentSubmitButton() {
@@ -278,8 +269,6 @@ function didClickSubmit(e) {
 			original_store_id : prescription.original_store_id
 		});
 	});
-
-	logger.debug("\n\n\n\n request checkoutPrescriptions", JSON.stringify(checkoutPrescriptions, 0, null), "\n\n\n");
 
 	$.http.request({
 		method : "checkout_preferences_update",
