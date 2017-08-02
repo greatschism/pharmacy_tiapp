@@ -1,6 +1,6 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<View id="containerView" class="top left">
+		<View id="containerView" class="top left auto-height">
 			<Label id="leftIconLbl" class="margin-left i5" />
 			<View id="contentView" class="margin-top margin-bottom margin-right auto-height accessibility-disabled">
 				<View id="masterView" class="left width-65 auto-height vgroup accessibility-disabled">

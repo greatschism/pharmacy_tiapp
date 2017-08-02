@@ -73,21 +73,25 @@ var args = $.args,
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
-	$.containerView.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
+	var rowContainerObj = OS_IOS ? $.row : $.containerView;
+	var rowAccessibilityText = $.titleLbl.text + " " + $.subtitleLbl.text;
 	if ($.detailTitleLbl.text) {
-		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + $.detailTitleLbl.text;
+		rowAccessibilityText = rowAccessibilityText + " " + $.detailTitleLbl.text;
 	}
 	if ($.detailSubtitleLbl.text) {
-		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + $.detailSubtitleLbl.text;
+		rowAccessibilityText = rowAccessibilityText + " " + $.detailSubtitleLbl.text;
 	}
 	if (checkedAccessiblity) {
-		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + checkedAccessiblity;
+		rowAccessibilityText = rowAccessibilityText + " " + checkedAccessiblity;
 		$.leftIconLbl.accessibilityHidden = true;
 	} else {
 		var lIconAccText = $.leftIconLbl.accessibilityLabel;
-		$.containerView.accessibilityLabel = $.containerView.accessibilityLabel + " " + lIconAccText;
-		$.leftIconLbl.accessibilityHidden = true;
+		if (lIconAccText) {			
+			rowAccessibilityText = rowAccessibilityText + " " + lIconAccText;
+			$.leftIconLbl.accessibilityHidden = true;
+		};
 	}
+	rowContainerObj.accessibilityLabel = rowAccessibilityText;
 	_.each(["titleLbl", "subtitleLbl", "detailSubtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
