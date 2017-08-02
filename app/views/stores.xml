@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-light-fg-color bg-color-disabled border-disabled icon-map" onClick="didClickRightNavBtn" if="Alloy.CFG.is_maps_enabled" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right dark-color bg-color-disabled border-disabled icon-map" onClick="didClickRightNavBtn" if="Alloy.CFG.is_maps_enabled" />
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="Alloy.Globals.isLoggedIn" />
 		<View class="top txt-border-view">

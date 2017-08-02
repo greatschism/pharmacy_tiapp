@@ -106,7 +106,7 @@ var BarcodeReader = {
 				classes : ["top", "nav-bar-height", "primary-bg-color"]
 			}),
 			    navIconBtn = $.UI.create("Button", {
-				classes : ["margin-left", "top-disabled", "right-disabled", "i5", "txt-left", "primary-light-fg-color", "bg-color-disabled", "border-disabled", "icon-back"]
+				classes : ["margin-left", "top-disabled", "right-disabled", "i5", "txt-left", "dark-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],

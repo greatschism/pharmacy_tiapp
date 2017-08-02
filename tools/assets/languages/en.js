@@ -32,6 +32,8 @@ module.exports = {
 		"strHide" : "hide",
 		"accessibilityStrShow" : "Show password",
 		"accessibilityStrHide" : "Hide password",
+		"accessibilityStrShowing" : "Showing password",
+		"accessibilityStrHiding" : "Hiding password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -950,7 +952,7 @@ module.exports = {
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
-		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
+		"accessibilityCheckboxSelect" : "Checkbox not checked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"accessibilityCheckboxChecked" : "Checkbox Checked",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",

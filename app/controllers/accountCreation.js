@@ -49,7 +49,9 @@ function didFocusUsername(e) {;
 		});
 		delete $.usernameTooltip.size;
 	}
-	$.usernameTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.usernameTooltip.show();
+	}
 }
 
 function didFocusPassword(e) {
@@ -59,7 +61,9 @@ function didFocusPassword(e) {
 		});
 		delete $.passwordTooltip.size;
 	}
-	$.passwordTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.passwordTooltip.show();
+	}
 }
 
 function didBlurTxt(e) {

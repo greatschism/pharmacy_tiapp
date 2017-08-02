@@ -95,6 +95,21 @@ function applyProperties(dict) {
 		if (!_.has(options, "accessibilityLabel") && _.has(options, "hintText")) {
 			$.txt.accessibilityLabel = $.txt.hintText;
 		};
+		if (OS_IOS) {
+			var attr = Titanium.UI.createAttributedString({
+				text : dict.hintText,
+				attributes : [{
+					type : Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+					value : dict.hintTextColor,
+					range : [0, dict.hintText.length]
+				}, {
+					type : Ti.UI.ATTRIBUTE_FONT,
+					value : dict.font,
+					range : [0, dict.hintText.length]
+				}]
+			}); 
+			$.txt.attributedHintText = attr;
+		};
 	}
 }
 

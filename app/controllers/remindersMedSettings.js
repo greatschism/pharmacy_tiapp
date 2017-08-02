@@ -28,6 +28,36 @@ var args = $.args,
     dateDropdownArgs,
     timeDropdownArgs,
     selectedColor;
+    
+	var reminder_colors = [{
+		"colorName" : "Orange",
+		"colorCode" : "#e67e22"
+	}, {
+		"colorName" : "White",
+		"colorCode" : "#ffffff"
+	}, {
+		"colorName" : "Red",
+		"colorCode" : "#c0392b"
+	}, {
+		"colorName" : "Green",
+		"colorCode" : "#27ae60"
+	}, {
+		"colorName" : "Pink",
+		"colorCode" : "#C452D8"
+	}, {
+		"colorName" : "Yellow",
+		"colorCode" : "#f1c40f"
+	}, {
+		"colorName" : "Blue",
+		"colorCode" : "#0000FF"
+	}, {
+		"colorName" : "Purple",
+		"colorCode" : "#7245C1"
+	}, {
+		"colorName" : "Black",
+		"colorCode" : "#181818"
+	}]; 
+    Alloy.Collections.reminderColors.reset(reminder_colors);
 
 function init() {
 	/**
@@ -191,6 +221,10 @@ function init() {
 	});
 	//set data
 	$.tableView.setData([$.reminderSection, $.optionsSection, $.notesSection, $.prescSection]);
+	// if android then set colorPicker in dialog as accessibility fix
+	if (OS_ANDROID) {
+		setColorPicker();
+	};
 }
 
 function getColorBoxRow(color) {
@@ -557,6 +591,42 @@ function hideKeyboard() {
 	}
 }
 
+function setColorPicker() {
+	var dialogView = $.UI.create("ScrollView", {
+		apiName : "ScrollView",
+		classes : ["top", "auto-height", "vgroup"]
+	});
+	for(var i=0,j=Alloy.Collections.reminderColors.length; i<j; i++){
+	  	var reminderColor = Alloy.Collections.reminderColors.at(i);
+		var rowView = $.UI.create("View", {
+			apiName : "View",
+			classes : ["left", "auto-height", "fill-width", "hgroup"],
+			index : i,
+			accessibilityLabel : reminderColor.get("colorName")
+		});
+		rowView.add($.UI.create("View", {
+			apiName : "View",
+			classes : ["margin-left", "color-box", "border", "accessibility-disabled", "touch-disabled"],
+			backgroundColor : reminderColor.get("colorCode"),
+			borderColor : "#BEC2C6"
+		}));
+		rowView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top", "margin-bottom", "margin-left-large", "accessibility-disabled", "touch-disabled"],
+			text : reminderColor.get("colorName"),
+		}));
+		dialogView.add(rowView);
+	};
+	
+	$.colorPicker = Ti.UI.createAlertDialog({
+    	androidView : dialogView
+  	});
+  	dialogView.addEventListener("click", function(e){
+  		console.log(e.source.index + " scroll click is: " + JSON.stringify(e));
+  		didClickColorPicker(e);
+  	});
+}
+
 function didClickTableView(e) {
 	var index = e.index,
 	    row = rows[index];
@@ -569,14 +639,7 @@ function didClickTableView(e) {
 			selectedColor = {
 				hex : params.color
 			};
-			$.app.navigator.open({
-				titleid : "titleRemindersMedColorPicker",
-				ctrl : "colorPicker",
-				ctrlArguments : {
-					color : selectedColor
-				},
-				stack : true
-			});
+			$.colorPicker.show();
 		} else if (index === 1) {
 			$.frequencyPicker.show();
 		} else {
@@ -596,6 +659,13 @@ function didClickTableView(e) {
 			}
 		}
 	}
+}
+
+function didClickColorPicker(e) {
+	var index = e.index || e.source.index;
+	selectedColor.hex = Alloy.Collections.reminderColors.at(index).get("colorName");
+	$.colorPicker.hide();
+	updateColorBoxRow(selectedColor.hex);
 }
 
 function didClickClosePicker(e) {

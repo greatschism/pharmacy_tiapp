@@ -43,43 +43,83 @@ function buildPopover() {
 		parent = $.patientSwitcher.getParent();
 	}
 	if (!$.popoverView) {
-		//popover view
-		$.popoverView = $.UI.create("View", {
-			classes : ["fade-out", "hide", "shadow-bg-color"],
-			zIndex : 0
-		});
-		$.popoverView.addEventListener("click", hide);
-		$.contentView = $.UI.create("View", {
-			classes : ["top", "auto-height", "bg-color", "bubble-disabled"]
-		});
-		$.tableView = $.UI.create("TableView", {
-			apiName : "TableView",
-			bubbleParent : false
-		});
-		$.tableView.addEventListener("click", didClickTableView);
-		$.contentView.add($.tableView);
-		$.popoverView.add($.contentView);
-		parent.add($.popoverView);
-		//rows
-		rows = [];
-		var data = [];
-		Alloy.Collections.patients.each(function(model) {
-			var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
-			_.extend(obj, {
-				titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
-				subtitleClasses : subtitleClasses
+		if (OS_IOS) {
+			//popover view
+			$.popoverView = $.UI.create("View", {
+				classes : ["fade-out", "hide", "shadow-bg-color"],
+				zIndex : 0
 			});
-			var row = Alloy.createController("itemTemplates/contentView", obj);
-			data.push(row.getView());
-			rows.push(row);
-		});
-		templateHeight = rows[0].getHeight();
-		$.tableView.setData(data);
-		//alignment
-		var height = args.height || (templateHeight * rows.length),
-		    rect = $.patientSwitcher.rect;
-		$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
-		$.popoverView.top = rect.y + rect.height;
+			$.popoverView.addEventListener("click", hide);
+			$.contentView = $.UI.create("View", {
+				classes : ["top", "auto-height", "bg-color", "bubble-disabled"]
+			});
+			$.tableView = $.UI.create("TableView", {
+				apiName : "TableView",
+				bubbleParent : false
+			});
+			$.tableView.addEventListener("click", didClickTableView);
+			$.contentView.add($.tableView);
+			$.popoverView.add($.contentView);
+			parent.add($.popoverView);
+			//rows
+			rows = [];
+			var data = [];
+			Alloy.Collections.patients.each(function(model) {
+				var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
+				_.extend(obj, {
+					titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
+					subtitleClasses : subtitleClasses
+				});
+				var row = Alloy.createController("itemTemplates/contentView", obj);
+				data.push(row.getView());
+				rows.push(row);
+			});
+			templateHeight = rows[0].getHeight();
+			$.tableView.setData(data);
+			//alignment
+			var height = args.height || (templateHeight * rows.length),
+			    rect = $.patientSwitcher.rect;
+			$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
+			$.popoverView.top = rect.y + rect.height;
+		} else{
+			$.contentView = $.UI.create("View", {
+				classes : ["top", "auto-height", "bg-color", "bubble-disabled"]
+			});
+			$.tableView = $.UI.create("TableView", {
+				apiName : "TableView",
+				bubbleParent : false
+			});
+			$.tableView.addEventListener("click", didClickTableView);
+			$.contentView.add($.tableView);
+			//rows
+			rows = [];
+			var data = [];
+			Alloy.Collections.patients.each(function(model) {
+				var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
+				_.extend(obj, {
+					titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
+					subtitleClasses : subtitleClasses
+				});
+				var row = Alloy.createController("itemTemplates/contentView", obj);
+				data.push(row.getView());
+				rows.push(row);
+			});
+			templateHeight = rows[0].getHeight();
+			$.tableView.setData(data);
+			
+			//popover view
+			$.popoverView = Ti.UI.createAlertDialog({
+				androidView : $.contentView
+			});
+			parent.add($.popoverView);
+			// $.popoverView.addEventListener("click", hide);
+			// $.popoverView.add($.contentView);
+			//alignment
+			/*var height = args.height || (templateHeight * rows.length),
+			    rect = $.patientSwitcher.rect;
+			$.contentView.height = MAX_HEIGHT > height ? height : MAX_HEIGHT;
+			$.popoverView.top = rect.y + rect.height;*/
+		};
 	}
 }
 
@@ -110,15 +150,19 @@ function toggle() {
 	 * the callback know the current visible
 	 * status. Callback should handle further
 	 */
-	if (options.dropdownHandler) {
-		options.dropdownHandler(isVisible);
-	} else {
-		if (isVisible) {
-			hide();
+	if (OS_IOS) {
+		if (options.dropdownHandler) {
+			options.dropdownHandler(isVisible);
 		} else {
-			show();
+			if (isVisible) {
+				hide();
+			} else {
+				show();
+			}
 		}
-	}
+	} else{
+		$.popoverView.show();
+	};
 }
 
 /**
@@ -166,6 +210,9 @@ function show() {
  * hide the dropdown
  */
 function hide() {
+	if (OS_ANDROID) {
+		$.popoverView.hide();
+	};
 	if (!isBusy && hasPopover() && $.popoverView.visible) {
 		isBusy = true;
 		_.each($.popoverView.getParent().children, function(child) {

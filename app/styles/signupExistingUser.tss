@@ -4,6 +4,7 @@
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.registerHintPassword,
+	accessibilityHint: Alloy.Globals.strings.msgPasswordTips,
 	passwordMask: true
 },
 "#showPasswordLbl":{

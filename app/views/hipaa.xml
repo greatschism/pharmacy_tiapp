@@ -5,7 +5,7 @@
 		</View>
 		<ScrollView id="scrollView" class="vgroup">
 			<WebView id="webView" />
-			<Button id="acceptBtn" analyticsId="AcceptBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickAccept" />
+			<Button id="acceptBtn" analyticsId="AcceptBtn" class="primary-bg-color dark-color primary-border margin-top-large" onClick="didClickAccept" />
 			<Button id="declineBtn" analyticsId="DeclineBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDecline" />
 		</ScrollView>
 	</View>

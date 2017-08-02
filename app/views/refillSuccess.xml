@@ -15,7 +15,7 @@
 				<!--footer separator seems to disappear on iOS-->
 				<View class="h-divider-light" platform="ios" />
 				<Label id="signupLbl" class="margin-top margin-left margin-right" if="$.args.signupEnabled" />
-				<Button id="signupBtn" class="margin-top primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignup" if="$.args.signupEnabled" />
+				<Button id="signupBtn" class="margin-top primary-bg-color dark-color primary-border" onClick="didClickSignup" if="$.args.signupEnabled" />
 				<Button id="doneBtn" class="margin-top margin-bottom bg-color primary-fg-color primary-border" onClick="didClickDone" />
 			</View>
 		</FooterView>
