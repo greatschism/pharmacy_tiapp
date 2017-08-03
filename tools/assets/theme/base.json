@@ -1011,6 +1011,9 @@
                 "font":"${FONT_SIZE_MEDIUM_14}",
                 "color":"${LIGHT_FG_COLOR}",
                 "textAlign": "center"
+            },
+            ".custom-fg-color":{
+            	"color":"${CUSTOM_FG_COLOR}"
             }
         }
     }

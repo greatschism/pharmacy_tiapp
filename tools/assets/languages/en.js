@@ -312,17 +312,25 @@ module.exports = {
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
 
+		"titleReadyPrescriptions" : "Ready Prescriptions",
+		"titleCheckoutCompleteHeader": "Mobile checkout complete. See you soon!",
+
+		"checkoutTotalAmount" : "Total Amount Due:",
+		"checkoutEditCardInfo" : "We're sorry, you can't edit your card on the mobile app at this time. Please see your local pharmacy to edit your stored payment information.",
+		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.",
+        "orderCheckoutLbl": "Save time with mobile checkout!",
         "checkoutPrompt": "Did you know you can add a credit card at the pharmacy to speed up your checkout process?",
         "checkoutRemindCheckbox": "Do not remind me again.",
         "checkoutFindoutPrompt": "click here to find out how",
         "checkoutPromptMore": "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
         "checkoutClose": "close",
+        "checkoutComplete": "Mobile checkout complete!",
 
         "checkoutMedicationPrefQuestion": "I confirm my request for the brand name version of the following medication(s):",
         "checkoutCounselingQuestion": "Would you like to speak to the pharmacist about your medications?",
         "checkoutYes": "Yes",
         "checkoutNo": "No",
-        "checkoutPaymentInformation": "Your payment information",
+        "checkoutPaymentInformation": "Your Payment Information",
         "checkoutCCEndingIn": "ending in",
         "checkoutCCExpDate": "Expiration date:",
 
@@ -434,11 +442,6 @@ module.exports = {
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
 
-		"titleReadyPrescriptions" : "Ready Prescriptions",
-		"checkoutTotalAmount" : "Total Amount Due:",
-		"checkoutEditCardInfo" : "We're sorry, you can't edit your card on the mobile app at this time. Please see your local pharmacy to edit your stored payment information.",
-		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.",
-        "orderCheckoutLbl": "Save time with mobile checkout!",
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pickup details",
 		"orderDetPopupSectionPickupMode" : "Pickup Modes",

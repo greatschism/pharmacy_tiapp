@@ -26,8 +26,9 @@ var sections = {
 
 var sectionHeaders = {
 	questions : "",
-	payment : "",
+	payment : "Your Payment Info",
 };
+
 
 function init() {
 
@@ -170,6 +171,8 @@ function presentCounselingPrompt() {
 
 		$.tableView.setData(data);
 	}
+	
+	
 }
 
 function didAnswerCounselingPrompt(e) {
@@ -194,8 +197,14 @@ function didAnswerCounselingPrompt(e) {
 }
 
 function presentCCConfirmation(patient) {
-	paymentSection = $.uihelper.createTableViewSection($, "Your Payment Information", sectionHeaders["payment"], false);
+	
+	paymentSection = Ti.UI.createTableViewSection();
 
+	paymentSection.add(Alloy.createController("itemTemplates/label", {
+			title : $.strings.checkoutPaymentInformation,
+			rowClasses : ["left","h5","inactive-light-bg-color", "inactive-fg-color"]
+		}).getView());
+		
 	var totalAmountDue = 0;
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "copay")) {
@@ -209,8 +218,8 @@ function presentCCConfirmation(patient) {
 		section : "payment",
 		itemTemplate : "creditCardView",
 		masterWidth : 100,
-		title : patient.get("card_type") + " ending in " + patient.get("last_four_digits"),
-		subtitle : "Expiration date:" + patient.get("expiry_date"),
+		title : patient.get("card_type") +" "+$.strings.checkoutCCEndingIn+" "+ patient.get("last_four_digits"),
+		subtitle : $.strings.checkoutCCExpDate + patient.get("expiry_date"),
 		amountDue : totalAmountDue
 	};
 
@@ -236,9 +245,7 @@ function presentCCConfirmation(patient) {
 	} else {
 
 		paymentSection.add(row.getView());
-		if (hasSetCounselingPrompt === false && hasSetDawPrompt === false) {
-			data.push(paymentSection);
-		}
+		data.push(paymentSection);
 
 		$.tableView.setData(data);
 	}

@@ -14,7 +14,10 @@ var args = $.args,
 	} else {
 		$.titleLbl.text = title;
 	}
-	if( args.customIconYield ) {
+	
+	if( args.customIconCheckoutComplete ) {
+		$.addClass($.subtitleIconLbl, ["custom-fg-color", args.customIconCheckoutComplete] );
+	} else if( args.customIconYield ) {
 		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
 	} else if( args.customIconRejected ) {
 		$.addClass($.subtitleIconLbl, ["tentative-fg-color", args.customIconRejected] );

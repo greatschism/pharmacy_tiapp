@@ -8,6 +8,7 @@ var args = $.args,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
+    detailClasses = ["left", "h5", "custom-fg-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -337,6 +338,7 @@ function prepareList() {
 		if (!proceed) {
 			return false;
 		}
+		
 		/**
 		 * append title and
 		 * selected flag
@@ -384,18 +386,6 @@ function prepareList() {
 						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
 						detailTitle : prescription.get("refill_transaction_message"),
 						detailColor : "negative-fg-info-color"
-						/*subtitleClasses : subtitleWrapClasses*/
-					});
-				} else if (prescription.get("refill_transaction_status") == "Partial Fill" && prescription.get("refill_transaction_message") != null) {
-					prescription.set({
-						className : "PF",
-						itemTemplate : "completed",
-						masterWidth : 100,
-						detailWidth : 0,
-						customIconYield : "icon-thin-filled-success",
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "yield-fg-info-color"
 						/*subtitleClasses : subtitleWrapClasses*/
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
@@ -462,15 +452,41 @@ function prepareList() {
 						tooltipType : "negative"
 					});
 				}
-				prescription.set({
-					itemTemplate : "completed"
-				});
+				
+				if(prescription.get("is_checkout_complete") === "1")
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconCheckoutComplete : "icon-thin-filled-success",
+						detailTitle : $.strings.checkoutComplete,
+						detailClasses : detailClasses
+					});	
+				}
+				else if (prescription.get("refill_transaction_status") == "Rx Ready Partial" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconYield : "icon-thin-filled-success",
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "yield-fg-info-color"
+					});
+				}
+				
+				else
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						detailTitle : $.strings.prescReadyPickupLblReady
+					});
+				}
 			}
 			prescription.set({
 				section : "readyPickup",
 				titleClasses : titleClasses,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-				detailTitle : $.strings.prescReadyPickupLblReady,
 				canHide : false
 			});
 
@@ -747,16 +763,20 @@ function prepareList() {
 
 
 					Ti.API.info("args = " + JSON.stringify(args) );
-					var headerTitle = "";// = "Checkout";
-			//		if(args.origin === "login" || args.origin === "home") {
+					var headerTitle = "";
+					
+					
+					{
 						headerTitle = "Checkout";
-			//		}
-
+					
+		
+					//Checkout Complete
+					
 						// the title here is overridden in uihelper to show the shopping cart image
 						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
 						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
 						// TODO: module as opposed to living in the uihelper as much as possible
-						var readyHeaderDict = $.createStyle({
+						readyHeaderDict = $.createStyle({
 							classes : ["right", "bubble-disabled"],
 							title : headerTitle,
 							callback : didClickCheckout
@@ -764,6 +784,7 @@ function prepareList() {
 					//}
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+					}
 				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
@@ -805,8 +826,10 @@ function didClickCheckout(e)
 		ctrl : "prescriptions",
 		ctrlArguments : {
 			filters : {
+				is_checkout_complete: ["1"],
 				refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
-				section: ["others"]
+				section: ["others"],
+
 			},
 			prescriptions :null,
 			patientSwitcherDisabled : true,

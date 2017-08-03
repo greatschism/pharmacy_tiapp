@@ -120,7 +120,6 @@ function didSuccess(result, passthrough) {
 	}
 	if (!ENV_PROD) {
 		Ti.API.debug(TAG + ":DEV-ONLY:response-data:" + result);
-        Ti.API.info(TAG + ":DEV-ONLY:response-data:" + result);
 	}
 	/**
 	 * should receive data as text from http
