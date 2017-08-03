@@ -8,11 +8,11 @@
 			<View class="margin-top-extra-large margin-bottom margin-left margin-right h-divider-light" />	
 			<View class="margin-top-extra-large hgroup">
 				<Label id="iconCardLbl" class="left margin-top i4 primary-fg-color icon-CREDIT-CARD" />
-				<View id="masterView" class="margin-top margin-left margin-right-title auto-width auto-height vgroup">
+				<View id="masterView" class="margin-top margin-left auto-width auto-height vgroup">
 					<Label id="titleLbl" class="h5" />
 					<Label id="subtitleLbl" class="inactive-fg-color" />
 				</View>
-				<Label id="iconEditLbl" class="right i4 primary-fg-color icon-edit bubble-disabled" onClick="didClickEditCard"/>
+				<Label id="iconEditLbl" class="margin-left-large i4 primary-fg-color icon-edit bubble-disabled" onClick="didClickEditCard"/>
 			</View>
 		</View>
 	</TableViewRow>

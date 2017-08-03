@@ -766,11 +766,10 @@ function prepareList() {
 					var headerTitle = "";
 					
 					
-					{
+					
 						headerTitle = "Checkout";
 					
 		
-					//Checkout Complete
 					
 						// the title here is overridden in uihelper to show the shopping cart image
 						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
@@ -781,10 +780,9 @@ function prepareList() {
 							title : headerTitle,
 							callback : didClickCheckout
 						});		
-					//}
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-					}
+					
 				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
