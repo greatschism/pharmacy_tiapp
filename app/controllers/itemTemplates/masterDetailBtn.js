@@ -28,7 +28,7 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
-	$.row.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
+	$.contentView.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
 	var btnDict;
 	if (args.detailWidth === 0) {
 		btnDict = {
