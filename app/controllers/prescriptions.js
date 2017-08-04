@@ -469,7 +469,7 @@ function prepareList() {
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
-						customIconYield : "icon-thin-filled-success",
+						customIconPartialFill : "icon-thin-filled-success",
 						detailTitle : prescription.get("refill_transaction_message"),
 						detailColor : "yield-fg-info-color"
 					});
@@ -824,10 +824,9 @@ function didClickCheckout(e)
 		ctrl : "prescriptions",
 		ctrlArguments : {
 			filters : {
-				is_checkout_complete: ["1"],
 				refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
 				section: ["others"],
-
+				is_checkout_complete: ["1"]
 			},
 			prescriptions :null,
 			patientSwitcherDisabled : true,

@@ -17,6 +17,8 @@ var args = $.args,
 	
 	if( args.customIconCheckoutComplete ) {
 		$.addClass($.subtitleIconLbl, ["custom-fg-color", args.customIconCheckoutComplete] );
+	} else if( args.customIconPartialFill ) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconPartialFill] );
 	} else if( args.customIconYield ) {
 		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
 	} else if( args.customIconRejected ) {
