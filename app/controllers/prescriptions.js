@@ -660,34 +660,7 @@ function prepareList() {
 
 						$.addListener(btn, "click", function(){
 							$.contentView.remove($.checkoutInfoDialog.getView());
-
-							var dialogView2 = $.UI.create("ScrollView", {
-								apiName : "ScrollView",
-								classes : ["top", "auto-height", "vgroup"]
-							});
-							dialogView2.add($.UI.create("Label", {
-								apiName : "Label",
-								classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
-								text : $.strings.checkoutPromptMore
-							}));
-							var btn3 = $.UI.create("Button", {
-								apiName : "Button",
-								classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
-								title : $.strings.checkoutClose,
-								index : 0
-							});
-							$.addListener(btn3, "click", function(){
-								$.contentView.remove($.checkoutInfoDialog.getView());
-								$.checkoutInfoDialog = null;
-							});
-							dialogView2.add(btn3);
-
-							$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-								classes : ["modal-dialog"],
-								children : [dialogView2]
-							}));
-							$.contentView.add($.checkoutInfoDialog.getView());
-							$.checkoutInfoDialog.show();
+							displayCheckoutInfo();
 						});
 						dialogView.add(btn);
 
@@ -816,10 +789,8 @@ function prepareList() {
 
 }
 
-function didClickCheckout(e)
+function displayCheckoutInfo()
 {
-	if( ! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)  ) {
-
 		var dialogView2 = $.UI.create("ScrollView", {
 			apiName : "ScrollView",
 			classes : ["top", "auto-height", "vgroup"]
@@ -849,6 +820,12 @@ function didClickCheckout(e)
 		$.checkoutInfoDialog.show();
 	
 
+}
+
+function didClickCheckout(e)
+{
+	if( ! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)  ) {
+		displayCheckoutInfo();
 	} else {
 		$.app.navigator.open({
 			titleid : "titleReadyPrescriptions",
