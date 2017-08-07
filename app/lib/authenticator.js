@@ -418,6 +418,7 @@ function didGetPreferences(result, passthrough) {
 		//set flag that the user has been prompted
 	    Ti.API.info("setProperty(Alloy.CFG.checkout_info_prompted, true    !!!");
 		utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+		utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
 	}
 
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
@@ -1074,6 +1075,9 @@ function doLogout(passthrough) {
 }
 
 function didLogout(result, passthrough) {
+
+	utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
+
 	//get next patient information
 	passthrough.currentPatientIndex++;
 	//check whether next index is available
