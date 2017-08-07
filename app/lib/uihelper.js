@@ -235,12 +235,11 @@ var Helper = {
 					Helper.openDialer(phone);
 					break;
 				case 1:
-					if(!Titanium.Contacts.hasContactsPermissions()) {
-						Titanium.Contacts.requestContactsPermissions(function(result){
-							if(result.success) {
+					if (!Titanium.Contacts.hasContactsPermissions()) {
+						Titanium.Contacts.requestContactsPermissions(function(result) {
+							if (result.success) {
 								Helper.addContact(personObj);
-							}
-							else{
+							} else {
 								analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
 								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 							}
@@ -362,7 +361,10 @@ var Helper = {
 					width : blob.width,
 					height : Ti.UI.SIZE
 				});
-				label1.anchorPoint = {x : 0, y : 0};
+				label1.anchorPoint = {
+					x : 0,
+					y : 0
+				};
 			}
 
 			if (OS_ANDROID) {
@@ -735,7 +737,7 @@ var Helper = {
 
 	showDialogWithButton : function(params) {
 		var btnOptions = params.deactivateDefaultBtn ? [] : [Alloy.Globals.strings.dialogBtnOK];
-		_.each(params.btnOptions , function(btnObj) {
+		_.each(params.btnOptions, function(btnObj) {
 			btnOptions.push(btnObj.title);
 		});
 
@@ -755,8 +757,8 @@ var Helper = {
 		dialog.addEventListener("click", function(e) {
 			var index = e.index;
 			params.deactivateDefaultBtn && index++;
-			if(params.deactivateDefaultBtn || index >= 1) {
-				params.btnOptions[index-1].onClick && params.btnOptions[index-1].onClick();
+			if (params.deactivateDefaultBtn || index >= 1) {
+				params.btnOptions[index - 1].onClick && params.btnOptions[index - 1].onClick();
 			} else if (params.success && index !== cancel) {
 				params.success(index, e);
 			} else if (params.cancel && index === cancel) {
@@ -838,20 +840,22 @@ var Helper = {
 
 		//TODO: this logic needs to live in the prescriptions controller
 		//all in this 'Checkout' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
-		if(  ( rightItem && rightItem.title === "Checkout") ) {
+		if (rightItem && (rightItem.title === "Checkout" || rightItem.title === $.strings.titleCheckoutCompleteHeader)) {
 
-			var rightItemClasses; 
+			var headerCheckoutTitle = rightItem.title;
 
-			if (utilities.isNarrowScreen() ) {	
-				rightItemClasses = [ "i4" , "margin-right-small"];
+			var rightItemClasses;
+
+			if (utilities.isNarrowScreen()) {
+				rightItemClasses = ["i4", "margin-right-small"];
 			} else {
-				rightItemClasses = [ "i4" , "margin-right-large"];
+				rightItemClasses = ["i4", "margin-right-large"];
 			}
-			
+
 			if (rightItem) {
 				rightItem.title = "";
 				_.extend(rightItem, $.createStyle({
-					classes :rightItemClasses
+					classes : rightItemClasses
 				}));
 				tClasses.push("margin-right-icon");
 			}
@@ -859,12 +863,12 @@ var Helper = {
 				classes : vClasses,
 				height : 90
 			});
-    		
+
 			var headerViewTop = $.UI.create("View", {
 				classes : vClasses,
 				title : filterText,
 				height : 40,
-				top: 0
+				top : 0
 			});
 
 			var lbl = $.UI.create("Label", {
@@ -883,50 +887,59 @@ var Helper = {
 			//TODO: color shouldn't be hard coded here
 			var headerViewHelp;
 			if (OS_IOS) {
-				headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EEFFCFF', bottom:0  });
+				headerViewHelp = Ti.UI.createView({
+					height : 50,
+					backgroundColor : '#EEFFCFF',
+					bottom : 0
+				});
 			} else {
-	    		var headerViewHelp = Ti.UI.createView({ height: 50,backgroundColor:'#EFFCFF', bottom:0  });
-	    		headerViewHelp.backgroundColor = '#EFFCFF';
+				var headerViewHelp = Ti.UI.createView({
+					height : 50,
+					backgroundColor : '#EFFCFF',
+					bottom : 0
+				});
+				headerViewHelp.backgroundColor = '#EFFCFF';
 			}
-    		var headerLabel = $.UI.create("Label", {
+			var headerLabel = $.UI.create("Label", {
 				classes : ["margin-left"],
 				color : "gray",
-				text : $.strings.orderCheckoutLbl
+				text : headerCheckoutTitle === "Checkout" ? $.strings.orderCheckoutLbl : headerCheckoutTitle
 			});
 
-    		headerViewHelp.add(headerLabel); 
+			headerViewHelp.add(headerLabel);
 
 			if (rightItem) {
 				var callback;
 				if (_.has(rightItem, "callback")) {
 					callback = rightItem.callback;
 				}
-				
+
 				if (!OS_IOS) {
 					rightItem.backgroundColor = null;
 				}
-		
-				var rightBtn = Ti.UI.createButton(rightItem);
-				if (OS_IOS) {
-					var rightImg = Ti.UI.createImageView();
-					rightImg.image = Helper.getImage("checkout_shopping_image").image;
-					rightImg.height = 25;
-					rightImg.top = '10pt';
-					rightBtn.add(rightImg);
-					headerViewHelp.add(rightBtn);
-				} else {
-					rightBtn.image = Helper.getImage("checkout_shopping_image").image;
-					headerViewHelp.add(rightBtn);
-				}
 
-				if (callback) {
-					headerViewHelp.addEventListener("click", callback);
-					rightBtn.addEventListener("click", callback);;
+				if (headerCheckoutTitle === "Checkout") {
+					var rightBtn = Ti.UI.createButton(rightItem);
+					if (OS_IOS) {
+						var rightImg = Ti.UI.createImageView();
+						rightImg.image = Helper.getImage("checkout_shopping_image").image;
+						rightImg.height = 25;
+						rightImg.top = '10pt';
+						rightBtn.add(rightImg);
+						headerViewHelp.add(rightBtn);
+					} else {
+						rightBtn.image = Helper.getImage("checkout_shopping_image").image;
+						headerViewHelp.add(rightBtn);
+					}
+
+					if (callback) {
+						headerViewHelp.addEventListener("click", callback);
+						rightBtn.addEventListener("click", callback);
+					}
+					//headerViewHelp.add(rightImg);
+
+					headerViewHelp.setBubbleParent(false);
 				}
-				//headerViewHelp.add(rightImg);
-				
-				
-				headerViewHelp.setBubbleParent(false);
 			}
 
 			var lbl = $.UI.create("Label", {
@@ -934,7 +947,7 @@ var Helper = {
 				text : title
 			});
 
-    		headerView.add(headerViewHelp); 
+			headerView.add(headerViewHelp);
 		} else {
 
 			headerView = $.UI.create("View", {
@@ -962,7 +975,7 @@ var Helper = {
 				Helper.wrapText(lbl);
 			}
 
-			if (title === "" ) {
+			if (title === "") {
 				//if no title is given, don't show the header!
 				headerView.height = 0;
 			} else {
@@ -1076,4 +1089,4 @@ var Helper = {
 	}
 };
 
-module.exports = Helper;
+module.exports = Helper; 

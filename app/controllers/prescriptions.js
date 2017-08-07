@@ -765,10 +765,34 @@ function prepareList() {
 					Ti.API.info("args = " + JSON.stringify(args) );
 					var headerTitle = "";
 					
+							
+					var checkoutCompeteCount = 0;
+					Alloy.Collections.prescriptions.each(function(prescription) {
+	
+						if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
+							//rows.length
+							checkoutCompeteCount++;
+						}
+					});
 					
+					var readyHeaderDict;
+					if(checkoutCompeteCount === rows.length)
+					{
+						headerTitle = $.strings.titleCheckoutCompleteHeader;
+
+						readyHeaderDict = $.createStyle({
+							classes : ["right"],
+							title : headerTitle
+						});
+						
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+					}
+					else	{		
 					
 						headerTitle = "Checkout";
 					
+		
+		
 		
 					
 						// the title here is overridden in uihelper to show the shopping cart image
@@ -782,7 +806,7 @@ function prepareList() {
 						});		
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-					
+					}
 				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}

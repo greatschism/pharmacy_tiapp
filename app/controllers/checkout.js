@@ -214,6 +214,7 @@ function presentCCConfirmation(patient) {
 		}
 	});
 
+	totalAmountDue = totalAmountDue.toFixed(2);
 	var payment = {
 		section : "payment",
 		itemTemplate : "creditCardView",
