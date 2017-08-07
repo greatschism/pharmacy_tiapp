@@ -523,6 +523,23 @@ function prepareList() {
 						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
 						});		
 			}
+			else if((prescription.get("refill_transaction_status") == "Out Of Stock") && (prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n OOS transaction message", message);
+
+						prescription.set({
+						section : section,
+						className : "OOS",
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
+					});
+			}
 			else{
 			if (prescription.get("anticipated_refill_date")) {
 				/**
