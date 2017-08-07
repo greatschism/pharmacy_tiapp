@@ -293,6 +293,7 @@ module.exports = {
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
+		"storesAutoSearchResultsInList" : "Showing item 1 of %s in list",
 
 		"storeDetIconFavStore" : "Favorite Store",
 		"storeDetLblOpen" : "Open till %s",

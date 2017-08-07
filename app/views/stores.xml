@@ -19,5 +19,6 @@
 			</FooterView>
 		</TableView>
 		<Widget id="loader" name="embedded" src="ti.loading" class="auto-width auto-height bg-color-disabled" />
+		<View id="countView" visible="false" platform="ios"></View>
 	</View>
 </Alloy> 
