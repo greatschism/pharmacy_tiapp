@@ -63,13 +63,13 @@ function didLoad(e) {
 function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
-	$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
+	$.pagingcontrol.accessibilityLabel = "Page "+ currentPage;
 	startOrStopAnimation(currentPage);
 }
 
 function didChangePager(e) {
 	//scroll end will be triggered as result of this
-	$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
+	$.pagingcontrol.accessibilityLabel = "Page "+ e.currentPage;
 	$.scrollableView.scrollToView(e.currentPage);
 
 	
