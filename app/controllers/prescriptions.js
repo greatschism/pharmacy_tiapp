@@ -8,7 +8,7 @@ var args = $.args,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
-    detailClasses = ["left", "h5", "custom-fg-color"],
+    detailClasses = ["margin-left-small", "custom-fg-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -459,7 +459,7 @@ function prepareList() {
 						itemTemplate : "completed",
 						masterWidth : 100,
 						detailWidth : 0,
-						customIconCheckoutComplete : "icon-thin-filled-success",
+						customIconCheckoutComplete : "icon-checkout-complete",
 						detailTitle : $.strings.checkoutComplete,
 						detailClasses : detailClasses
 					});	

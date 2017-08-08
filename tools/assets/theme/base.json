@@ -170,7 +170,8 @@
                     "youtube":"0XE013",
                     "help_2":"0xE00E",
                     "cart":"0XE015",
-                    "CREDIT_CARD":"0xE00F"
+                    "CREDIT_CARD":"0xE00F",
+                    "checkout_complete":"0xE017"
                 },
                 "icons":{
                     "numeric_zero":"0",
