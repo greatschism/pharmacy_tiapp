@@ -11,6 +11,7 @@ var args = $.args,
     counselingPrompt = 0,
     hasSetCounselingPrompt = false,
     useCreditCard = "0",
+    currentPatient,
     isWindowOpen,
     httpClient,
     logger = require("logger");
@@ -182,7 +183,7 @@ function didAnswerCounselingPrompt(e) {
 	if (!hasSetCounselingPrompt) {
 		hasSetCounselingPrompt = true;
 
-		var currentPatient = Alloy.Collections.patients.findWhere({
+		currentPatient = Alloy.Collections.patients.findWhere({
 			selected : true
 		});
 
@@ -274,6 +275,7 @@ function didClickSubmit(e) {
 		checkoutPrescriptions.push({
 			id : prescription.id,
 			rx_number : prescription.rx_number,
+			rx_name : prescription.presc_name,
 			original_store_id : prescription.original_store_id
 		});
 	});
@@ -287,7 +289,8 @@ function didClickSubmit(e) {
 					counseling : counselingPrompt.toString(),
 					useLoyaltyCard : "0",
 					usePatientDaw : dawPrompt.toString(),
-					useCreditCard : useCreditCard
+					useCreditCard : useCreditCard,
+					showRxNamesFlag: currentPatient.get("show_rx_names_flag")
 				}
 			}]
 		},
