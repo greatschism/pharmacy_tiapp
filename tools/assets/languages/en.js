@@ -334,6 +334,11 @@ module.exports = {
         "checkoutCCEndingIn": "ending in",
         "checkoutCCExpDate": "Expiration date:",
 
+		"loyaltyAddTipLblTitle": "Please enter your mPerks information at the cash register the next time you are at the pharmacy. We will save your information for future use in Mobile Checkout.",
+		"loyaltySignupTipLblTitle": "Would you like to sign up for our mPerks program?",
+		"loyaltySignupFeedbackYes": "Please click <secondaryfont><secondarycolor>here</secondarycolor></secondaryfont> to sign up for mPerks Reward Program",
+		"loyaltySignupFeedbackNo": "If you want to sign up please go to <secondaryfont><secondarycolor>www.meijer.com/mperks</secondarycolor></secondaryfont>",
+
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",
