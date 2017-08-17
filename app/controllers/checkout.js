@@ -1,5 +1,4 @@
 var args = $.args,
-    feedbackHandler = require("feedbackHandler"),
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
@@ -187,57 +186,46 @@ function didAnswerCounselingPrompt(e) {
 			selected : true
 		});
 
-		if(currentPatient.get("showLoyaltySignup") != null)
-		{
+		if (currentPatient.get("showLoyaltySignup") != null) {
 			logger.debug("\n\n\n showLoyaltySignup node found\n\n\n");
 
-			if(currentPatient.get("showLoyaltySignup") == true)
-			{
+			if (currentPatient.get("showLoyaltySignup") == true) {
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
-			}
-			else if(currentPatient.get("showLoyaltySignup") == false)
-			{
+			} else if (currentPatient.get("showLoyaltySignup") == false) {
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
 			}
-		}
-		
-		else
-		{
+		} else {
 			logger.debug("\n\n\n showLoyaltySignup node missing\n\n\n");
 
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
 		}
-		
+
 		// logger.debug("\n\n\n showLoyaltySignup ",$.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false),"\n\n\n");
-		
-		if(currentPatient.get("loyalty_card_opt_out") != null)
-		{
+
+		if (currentPatient.get("loyalty_card_opt_out") != null) {
 			logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
 
-			if(currentPatient.get("loyalty_card_opt_out") == "Y")
-			{
-							logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
+			if (currentPatient.get("loyalty_card_opt_out") == "Y") {
+				logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
 
 				if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
 					useCreditCard = "1";
 					presentCCConfirmation(currentPatient);
-			
+
 				} else {
 					presentSubmitButton();
 				}
 			} else if (currentPatient.get("loyalty_card_opt_out") == "N" && currentPatient.get("loyalty_card_number") != null) {
-											logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
+				logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
 
 				presentLoyaltyPrompt();
-			} else{
+			} else {
 				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
 
-				if($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false))
-				{
-					$.uihelper.showDialogWithButton({
+				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 						deactivateDefaultBtn : true,
-
 						btnOptions : [{
 							title : $.strings.dialogBtnYes,
 							onClick : showLoyaltyAddSuggestion
@@ -248,31 +236,25 @@ function didAnswerCounselingPrompt(e) {
 					});
 				}
 			}
-		}
-		else
-		{
+		} else {
 			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
 
-			if($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false))
-			{
-				$.uihelper.showDialogWithButton({
+			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+				uihelper.showDialogWithButton({
 					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
-								deactivateDefaultBtn : true,
-
-								btnOptions : [{
-									title : $.strings.dialogBtnYes,
-									onClick : showLoyaltyAddSuggestion
-								}, {
-									title : $.strings.dialogBtnNo,
-									onClick : showLoyaltySignupSuggestion
-								}]
-							});
+					deactivateDefaultBtn : true,
+					btnOptions : [{
+						title : $.strings.dialogBtnYes,
+						onClick : showLoyaltyAddSuggestion
+					}, {
+						title : $.strings.dialogBtnNo,
+						onClick : showLoyaltySignupSuggestion
+					}]
+				});
 			}
 		}
-		
 	}
 }
-
 
 function showLoyaltyAddSuggestion() {
 	var dialogView = $.UI.create("ScrollView", {
@@ -287,7 +269,7 @@ function showLoyaltyAddSuggestion() {
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top", "margin-left-extra-large", "margin-right-extra-large"],
-		text : $.strings.loyaltyAddTipLblTitle
+		text : "Please enter your mPerks information at the cash register the next time you are at the pharmacy. We will save your information for future use in Mobile Checkout."
 	}));
 	_.each([{
 		title : $.strings.dialogBtnOK,
@@ -301,64 +283,61 @@ function showLoyaltyAddSuggestion() {
 		});
 		$.addListener(btn, "click", didGetLoyaltyAddFeedback);
 		dialogView.add(btn);
-		
-		//
-			var swt = $.UI.create("View", {
-							apiName : "View",
-							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
-							index : 1
-						});
-		var checkboxClasses, checkBoxToggleFlag = 0;
-						 
-						 checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
 
-						// if ( $.utilities.isNarrowScreen() ) {	
-							// checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
-						// } else {
-							// checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
-						// }
-						var swtCheckbox = $.UI.create("Label", {
-							apiName : "Label",
-							classes : checkboxClasses,
-						});
-												
-						$.addListener(swtCheckbox, "click", function(){
-							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
-							
-							if( checkBoxToggleFlag === 0 ) {
-								Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
-								checkBoxToggleFlag = 1;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : [ "i4",  "icon-checkbox-checked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
-							} else {
-								Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
-								checkBoxToggleFlag = 0;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : [ "i4",  "icon-checkbox-unchecked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
-							}
-						});
+		var swt = $.UI.create("View", {
+			apiName : "View",
+			classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+			index : 1
+		});
+		var checkboxClasses,
+		    checkBoxToggleFlag = 0;
 
-						var swtLabel = $.UI.create("Label", {
-							apiName : "Label",
-							classes : ["margin-right-large", "h5", "txt-right", ],
-							text : $.strings.checkoutRemindCheckbox,
-						});
-						swt.add(swtCheckbox);
-						swt.add(swtLabel);
-						dialogView.add(swt);
-		
-		
+		if ($.utilities.isNarrowScreen()) {
+			checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+		} else {
+			checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+		}
+		var swtCheckbox = $.UI.create("Label", {
+			apiName : "Label",
+			classes : checkboxClasses
+		});
+
+		$.addListener(swtCheckbox, "click", function() {
+			Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
+
+			if (checkBoxToggleFlag === 0) {
+				Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+				checkBoxToggleFlag = 1;
+				swtCheckbox.applyProperties($.createStyle({
+					classes : ["i4", "icon-checkbox-checked"],
+				}));
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+			} else {
+				Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+				checkBoxToggleFlag = 0;
+				swtCheckbox.applyProperties($.createStyle({
+					classes : ["i4", "icon-checkbox-unchecked"],
+				}));
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
+			}
+		});
+
+		var swtLabel = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-right-large", "h5", "txt-center"],
+			text : $.strings.checkoutRemindCheckbox
+		});
+		swt.add(swtCheckbox);
+		swt.add(swtLabel);
+		dialogView.add(swt);
+
 	});
-	$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+	$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
 		classes : ["modal-dialog"],
 		children : [dialogView]
 	}));
-	$.contentView.add($.feedbackDialog.getView());
-	$.feedbackDialog.show();
+	$.contentView.add($.loyaltyDialog.getView());
+	$.loyaltyDialog.show();
 }
 
 function showLoyaltySignupSuggestion() {
@@ -379,9 +358,9 @@ function showLoyaltySignupSuggestion() {
 	_.each([{
 		title : $.strings.dialogBtnYes,
 		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
-	},{
+	}, {
 		title : $.strings.dialogBtnNo,
-		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]
 	}], function(obj, index) {
 		var btn = $.UI.create("Button", {
 			apiName : "Button",
@@ -392,131 +371,105 @@ function showLoyaltySignupSuggestion() {
 		$.addListener(btn, "click", didGetLoyaltySignupFeedback);
 		dialogView.add(btn);
 	});
-		//
-			var swt = $.UI.create("View", {
-							apiName : "View",
-							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
-							index : 1
-						});
-		var checkboxClasses, checkBoxToggleFlag = 0;
-						 
-						checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
+	//
+	var swt = $.UI.create("View", {
+		apiName : "View",
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+		index : 1
+	});
+	var checkboxClasses,
+	    checkBoxToggleFlag = 0;
 
-						var swtCheckbox = $.UI.create("Label", {
-							apiName : "Label",
-							classes : checkboxClasses,
-						});
-						
-						// showLoyaltySignup
-						
-						$.addListener(swtCheckbox, "click", function(){
-							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
-							
-							if( checkBoxToggleFlag === 0 ) {
-								Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
-								checkBoxToggleFlag = 1;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : [ "i4",  "icon-checkbox-checked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
-							} else {
-								Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
-								checkBoxToggleFlag = 0;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : [ "i4",  "icon-checkbox-unchecked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
-							}
-						});
+	if ($.utilities.isNarrowScreen()) {
+		checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+	} else {
+		checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+	}
+	var swtCheckbox = $.UI.create("Label", {
+		apiName : "Label",
+		classes : checkboxClasses,
+	});
 
-						var swtLabel = $.UI.create("Label", {
-							apiName : "Label",
-							classes : ["margin-right-large", "h5", "txt-right", ],
-							text : $.strings.checkoutRemindCheckbox,
-						});
-						swt.add(swtCheckbox);
-						swt.add(swtLabel);
-						dialogView.add(swt);
-		
-		
-	
-	$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+	// showLoyaltySignup
+
+	$.addListener(swtCheckbox, "click", function() {
+		Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
+
+		if (checkBoxToggleFlag === 0) {
+			Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+			checkBoxToggleFlag = 1;
+			swtCheckbox.applyProperties($.createStyle({
+				classes : ["i4", "icon-checkbox-checked"],
+			}));
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+		} else {
+			Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+			checkBoxToggleFlag = 0;
+			swtCheckbox.applyProperties($.createStyle({
+				classes : ["i4", "icon-checkbox-unchecked"],
+			}));
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
+		}
+	});
+
+	var swtLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-right-large", "h5", "txt-center"],
+		text : $.strings.checkoutRemindCheckbox,
+	});
+	swt.add(swtCheckbox);
+	swt.add(swtLabel);
+	dialogView.add(swt);
+
+	$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
 		classes : ["modal-dialog"],
 		children : [dialogView]
 	}));
-	$.contentView.add($.feedbackDialog.getView());
-	$.feedbackDialog.show();
+	$.contentView.add($.loyaltyDialog.getView());
+	$.loyaltyDialog.show();
 }
 
 function didGetLoyaltyAddFeedback(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source,"\n\n\n");
-	$.feedbackDialog.hide(function didHide() {
-		$.contentView.remove($.feedbackDialog.getView());
-		$.feedbackDialog = null;
+	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
 		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-					useCreditCard = "1";
-					presentCCConfirmation(currentPatient);
-			
-				} else {
-					presentSubmitButton();
-				}
-		});
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
+
+		} else {
+			presentSubmitButton();
+		}
+	});
 }
 
-function didGetLoyaltySignupFeedback(event)
-{
+function didGetLoyaltySignupFeedback(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source,"\n\n\n");
-	$.feedbackDialog.hide(function didHide() {
-		$.contentView.remove($.feedbackDialog.getView());
-		$.feedbackDialog = null;
-		
+	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
 		switch(index) {
 		case 0:
-			
-				
-				var dialogView = $.UI.create("ScrollView", {
-				apiName : "ScrollView",
-				classes : ["top", "auto-height", "vgroup"]
-			});
-			dialogView.add($.UI.create("Label", {
-				apiName : "Label",
-				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
-				text : "mPerks"
-			}));
-			
-			$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
-			classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-left", "attributed"],
-			text : $.strings.loyaltySignupFeedbackYes
-			}));
-			
-			dialogView.add($.lbl.getView());
-			_.each([{
-				title : $.strings.dialogBtnClose,
-				classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "primary-bg-color", "primary-light-fg-color", "primary-border"]
-			}], function(obj, index) {
-				var btn = $.UI.create("Button", {
-					apiName : "Button",
-					classes : obj.classes,
-					title : obj.title,
-					index : index
-				});
-				$.addListener(btn, "click", didClickClose);
-				dialogView.add(btn);
-			});
-			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-				classes : ["modal-dialog"],
-				children : [dialogView]
-			}));
-			$.contentView.add($.feedbackDialog.getView());
-			$.feedbackDialog.show();
-			
-			
+
+			showSignupLinkDialog();
 			break;
 		case 1:
 
-				var dialogView = $.UI.create("ScrollView", {
+			visitmPerksDialog();
+			break;
+		}
+	});
+}
+
+function visitmPerksDialog()
+{
+	var dialogView = $.UI.create("ScrollView", {
 				apiName : "ScrollView",
 				classes : ["top", "auto-height", "vgroup"]
 			});
@@ -525,11 +478,12 @@ function didGetLoyaltySignupFeedback(event)
 				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
 				text : "mPerks"
 			}));
-			
+
 			$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
-			classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-left", "attributed"],
-			text : $.strings.loyaltySignupFeedbackNo
+				classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+				text : $.strings.loyaltySignupFeedbackNo,
 			}));
+			$.lbl.on("click", openVisitmPerksURL);
 			
 			dialogView.add($.lbl.getView());
 			_.each([{
@@ -545,35 +499,84 @@ function didGetLoyaltySignupFeedback(event)
 				$.addListener(btn, "click", didClickClose);
 				dialogView.add(btn);
 			});
-			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
 				classes : ["modal-dialog"],
 				children : [dialogView]
 			}));
-			$.contentView.add($.feedbackDialog.getView());
-			$.feedbackDialog.show();
-			
-			
-			break;	
-		}
-		
-	});	
+			$.contentView.add($.loyaltyDialog.getView());
+			$.loyaltyDialog.show();
+
 }
 
-function didClickClose(event)
+function showSignupLinkDialog()
 {
-	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source,"\n\n\n");
-	$.feedbackDialog.hide(function didHide() {
-		$.contentView.remove($.feedbackDialog.getView());
-		$.feedbackDialog = null;
-		
-		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-					useCreditCard = "1";
-					presentCCConfirmation(currentPatient);
+	var dialogView = $.UI.create("ScrollView", {
+				apiName : "ScrollView",
+				classes : ["top", "auto-height", "vgroup"]
+			});
+			dialogView.add($.UI.create("Label", {
+				apiName : "Label",
+				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+				text : "mPerks"
+			}));
+
+			$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+				classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+				text : $.strings.loyaltySignupFeedbackYes
+			}));
+			$.lbl.on("click", openmPerksSignupLinkURL);
+
+			dialogView.add($.lbl.getView());
 			
-				} else {
-					presentSubmitButton();
-				}
+			_.each([{
+				title : $.strings.dialogBtnClose,
+				classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+			}], function(obj, index) {
+				var btn = $.UI.create("Button", {
+					apiName : "Button",
+					classes : obj.classes,
+					title : obj.title,
+					index : index
+				});
+				$.addListener(btn, "click", didClickClose);
+				dialogView.add(btn);
+			});
+			$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+				classes : ["modal-dialog"],
+				children : [dialogView]
+			}));
+			$.contentView.add($.loyaltyDialog.getView());
+			$.loyaltyDialog.show();
+
+}
+
+
+function openVisitmPerksURL(event)
+{
+	logger.debug("\n\n\n openURL triggered for ", url,"\n\n\n");
+	Ti.Platform.openURL("https://www.meijer.com/mperks");
+}
+
+function openmPerksSignupLinkURL(event)
+{
+	logger.debug("\n\n\n openURL triggered for ", url,"\n\n\n");
+	Ti.Platform.openURL("https://accounts.meijer.com/manage/Account/CreatemPerks#/user/createprofile?cmpid=SEM:mPerks:021017:mPerksAO");
+}
+
+function didClickClose(event) {
+	var index = event.source.index;
+	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
+		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
+
+		} else {
+			presentSubmitButton();
+		}
 	});
 }
 
@@ -691,7 +694,7 @@ function presentCCConfirmation(patient) {
 }
 
 function didClickCCEdit(e) {
-	$.uihelper.showDialog({
+	uihelper.showDialog({
 		message : $.strings.checkoutEditCardInfo
 	});
 }
@@ -769,13 +772,6 @@ function terminate() {
 	}
 }
 
-function backButtonHandler() {
-	if ($.feedbackDialog) {
-		return $.feedbackDialog.getVisible();
-	}
-	return false;
-}
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
-exports.backButtonHandler = backButtonHandler;
