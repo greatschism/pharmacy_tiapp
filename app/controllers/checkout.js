@@ -1,4 +1,7 @@
 var args = $.args,
+    
+    moduleNames = require("moduleNames"),
+    ctrlNames = require("ctrlNames"),
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
     rx = require("rx"),
@@ -16,8 +19,10 @@ var args = $.args,
     currentPatient,
     isWindowOpen,
     httpClient,
-    logger = require("logger");
+    utilities = require("utilities"),
 
+    logger = require("logger");
+    
 var data = [],
     questionSection,
     paymentSection;
@@ -35,30 +40,8 @@ var sectionHeaders = {
 function init() {
 
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
-
-	$.submitBtn.visible = false;
-}
-
-function setAccessibilityLabelOnSwitch(switchObj, strValue) {
-	/*
-	 var iDict = {};
-	 if (OS_ANDROID) {
-	 iDict.accessibilityLabelOn = strValue;
-	 iDict.accessibilityLabelOff = strValue;
-	 } else {
-	 iDict.accessibilityLabel = strValue;
-	 }
-	 iDict.accessibilityHint = "Double tap to toggle";
-	 switchObj.applyProperties(iDict);
-	 */
-}
-
-function focus() {
-	/*
-	 * avoid null pointer if another controller or another instance of this controller
-	 * used this global variable in it's life span
-	 */
-	Alloy.Globals.currentTable = $.tableView;
+	
+		Alloy.Globals.currentTable = $.tableView;
 	/**
 	 * focus will be called whenever window gets focus / brought to front (closing a window)
 	 * identify the first focus with a flag isWindowOpen
@@ -69,15 +52,10 @@ function focus() {
 		isWindowOpen = true;
 		prepareList();
 	}
+
+	$.submitBtn.visible = false;
 }
 
-function didPostlayoutPrompt(e) {
-
-}
-
-function didUpdateUI() {
-
-}
 
 function prepareList() {
 
@@ -99,10 +77,10 @@ function prepareList() {
 		dawRx = dawRx.substring(0, (dawRx.length - 2));
 		presentGenericsPrompt(dawRx);
 		$.tableView.setData(data);
-		$.loader.hide();
+		// $.loader.hide();
 	} else {
 		$.tableView.setData(data);
-		$.loader.hide();
+		// $.loader.hide();
 		presentCounselingPrompt();
 	}
 }
@@ -130,6 +108,7 @@ function presentGenericsPrompt(dawRxListText) {
 	questionSection.add(row.getView());
 	data.push(questionSection);
 }
+
 
 function didAnswerGenericsPrompt(e) {
 	Ti.API.info("didAnswerGenericsPrompt");
@@ -228,12 +207,13 @@ function didAnswerCounselingPrompt(e) {
 						deactivateDefaultBtn : true,
 						btnOptions : [{
 							title : $.strings.dialogBtnYes,
-							onClick : showLoyaltyAddSuggestion
+							onClick : showLoyaltyAdd
 						}, {
 							title : $.strings.dialogBtnNo,
-							onClick : showLoyaltySignupSuggestion
+							onClick : showLoyaltySignup
 						}]
 					});
+
 				}
 			}
 		} else {
@@ -245,10 +225,10 @@ function didAnswerCounselingPrompt(e) {
 					deactivateDefaultBtn : true,
 					btnOptions : [{
 						title : $.strings.dialogBtnYes,
-						onClick : showLoyaltyAddSuggestion
+						onClick : showLoyaltyAdd
 					}, {
 						title : $.strings.dialogBtnNo,
-						onClick : showLoyaltySignupSuggestion
+						onClick : showLoyaltySignup
 					}]
 				});
 			}
@@ -256,7 +236,8 @@ function didAnswerCounselingPrompt(e) {
 	}
 }
 
-function showLoyaltyAddSuggestion() {
+
+function showLoyaltyAdd() {
 	var dialogView = $.UI.create("ScrollView", {
 		apiName : "ScrollView",
 		classes : ["top", "auto-height", "vgroup"]
@@ -281,7 +262,7 @@ function showLoyaltyAddSuggestion() {
 			title : obj.title,
 			index : index
 		});
-		$.addListener(btn, "click", didGetLoyaltyAddFeedback);
+		$.addListener(btn, "click",  didGetLoyaltyAddRsp);
 		dialogView.add(btn);
 
 		var swt = $.UI.create("View", {
@@ -301,6 +282,7 @@ function showLoyaltyAddSuggestion() {
 			apiName : "Label",
 			classes : checkboxClasses
 		});
+
 
 		$.addListener(swtCheckbox, "click", function() {
 			Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
@@ -340,7 +322,7 @@ function showLoyaltyAddSuggestion() {
 	$.loyaltyDialog.show();
 }
 
-function showLoyaltySignupSuggestion() {
+function showLoyaltySignup() {
 	var dialogView = $.UI.create("ScrollView", {
 		apiName : "ScrollView",
 		classes : ["top", "auto-height", "vgroup"]
@@ -368,10 +350,43 @@ function showLoyaltySignupSuggestion() {
 			title : obj.title,
 			index : index
 		});
-		$.addListener(btn, "click", didGetLoyaltySignupFeedback);
+		$.addListener(btn, "click", didGetLoyaltySignupRsp);
 		dialogView.add(btn);
 	});
-	//
+	
+// 	
+	// //
+// 	
+	// var btn1 = $.UI.create("Button", {
+							// apiName : "Button",
+							// classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+							// title : $.strings.checkoutFindoutPrompt,
+							// index : 0
+						// });
+// 
+						// $.addListener(btn1, "click", didGetLoyaltySignupRsp);
+						// dialogView.add(btn1);
+// 						
+// 						
+// 	
+	// var btn2 = $.UI.create("Button", {
+							// apiName : "Button",
+							// classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+							// title : $.strings.checkoutFindoutPrompt,
+							// index : 0
+						// });
+// 
+						// $.addListener(btn2, "click", function(){
+							// $.contentView.remove($.checkoutInfoDialog.getView());
+							// displayCheckoutInfo();
+						// });
+						// dialogView.add(btn2);
+// 						
+	// //
+	
+	
+	
+	
 	var swt = $.UI.create("View", {
 		apiName : "View",
 		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
@@ -429,9 +444,10 @@ function showLoyaltySignupSuggestion() {
 	$.loyaltyDialog.show();
 }
 
-function didGetLoyaltyAddFeedback(event) {
+
+function didGetLoyaltyAddRsp(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+	logger.debug("\n\n\n loyalty add feedback \n\n\n");
 
 	$.loyaltyDialog.hide(function didHide() {
 		$.contentView.remove($.loyaltyDialog.getView());
@@ -447,7 +463,7 @@ function didGetLoyaltyAddFeedback(event) {
 	});
 }
 
-function didGetLoyaltySignupFeedback(event) {
+function didGetLoyaltySignupRsp(event) {
 	var index = event.source.index;
 	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
 	$.loyaltyDialog.hide(function didHide() {
@@ -704,7 +720,10 @@ function presentSubmitButton() {
 	$.submitBtn.visible = true;
 }
 
+
 function didClickSubmit(e) {
+	
+	
 	Ti.API.info("didClickSubmit");
 
 	var checkoutPrescriptions = [];
@@ -766,12 +785,7 @@ function didClickTableView(e) {
 
 }
 
-function terminate() {
-	if (httpClient) {
-		httpClient.abort();
-	}
-}
-
 exports.init = init;
-exports.focus = focus;
-exports.terminate = terminate;
+
+
+

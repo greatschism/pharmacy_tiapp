@@ -6,7 +6,8 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
-    spanTimeId;
+    spanTimeId,     logger = require("logger");
+;
 
 function init() {
 	var items = Alloy.Models.template.get("data");
@@ -503,6 +504,8 @@ function didClickRightNav(e) {
 }
 
 function didPostlayout(e) {
+		logger.debug("\n\n\n home didPostLayout\n\n\n");
+
 	var source = e.source,
 	    action = _.findWhere(source.actions, {
 		event : "postlayout"

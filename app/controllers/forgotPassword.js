@@ -1,68 +1,791 @@
 var args = $.args,
-    http = require("requestwrapper"),
+    
+    moduleNames = require("moduleNames"),
+    ctrlNames = require("ctrlNames"),
+    moment = require("alloy/moment"),
+    authenticator = require("authenticator"),
+    rx = require("rx"),
     uihelper = require("uihelper"),
-    utilities = require("utilities");
+    apiCodes = Alloy.CFG.apiCodes,
+    prescriptions = args.prescriptions,
+    postlayoutCount = 0,
+    dawPrompt = 0,
+    hasSetDawPrompt = false,
+    counselingPrompt = 0,
+    hasSetCounselingPrompt = false,
+    loyaltyPrompt = 0,
+    hasSetLoyaltyPrompt = false,
+    useCreditCard = "0",
+    currentPatient,
+    isWindowOpen,
+    httpClient,
+    utilities = require("utilities"),
 
-function didClickHelp() {
-	var url = Alloy.Models.appload.get("help_text_url");
-	Ti.Platform.openURL(url);
-}
+    logger = require("logger");
+    
+var data = [],
+    questionSection,
+    paymentSection;
 
-function didClickSend() {
-	//	As per requirements in Oxygen-7.1.0 user can enter either email or username 
-	var email = $.emailTxt.getValue();
-	if (!email) {
-		uihelper.showDialog({
-			message : Alloy.Globals.strings.userRecoveryValEmail
-		});
-		return;
+var sections = {
+	questions : [],
+	payment : []
+};
+
+var sectionHeaders = {
+	questions : "",
+	payment : "Your Payment Info",
+};
+
+function init() {
+
+	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
+	
+		Alloy.Globals.currentTable = $.tableView;
+	/**
+	 * focus will be called whenever window gets focus / brought to front (closing a window)
+	 * identify the first focus with a flag isWindowOpen
+	 * Note: Moving this api call to init can show dialog on previous window on android
+	 * as activities are created once window is opened
+	 */
+	if (!isWindowOpen) {
+		isWindowOpen = true;
+		prepareList();
 	}
-	http.request({
-		method : "patient_forgotpassword",
-		params : {
-			data : [{
-				forgotPassword : {
-					user_name : email
-				}
-			}]
-		},
-		errorDialogEnabled : false,
-		success : didSendEmail,
-		failure : didFailed
-	});
+
+	$.submitBtn.visible = false;
 }
 
-function didSendEmail() {
-	$.uihelper.showDialog({
-		message : Alloy.Globals.strings.msgUserRecoverySuccess,
-		buttonNames : [$.strings.dialogBtnOK],
-		success : function() {
-			$.app.navigator.close();
+
+function prepareList() {
+
+	questionSection = $.uihelper.createTableViewSection($, "", sectionHeaders["questions"], false);
+
+	var addDawRow = false,
+	    dawRx = "";
+	_.each(prescriptions, function(prescription) {
+		if (_.has(prescription, "daw_code")) {
+			if (prescription.daw_code != null && prescription.daw_code == 2) {
+				addDawRow = true;
+				dawRx = dawRx.concat(prescription.presc_name + "\n");
+			}
+		}
+	});
+
+	if (addDawRow) {
+		//strip last newline character from list of rx names if applicable
+		dawRx = dawRx.substring(0, (dawRx.length - 2));
+		presentGenericsPrompt(dawRx);
+		$.tableView.setData(data);
+		// $.loader.hide();
+	} else {
+		$.tableView.setData(data);
+		// $.loader.hide();
+		presentCounselingPrompt();
+	}
+}
+
+function presentGenericsPrompt(dawRxListText) {
+
+	var question = {
+		section : "questions",
+		itemTemplate : "checkoutQuestionPrompt",
+		masterWidth : 100,
+		title : $.strings.checkoutMedicationPrefQuestion,
+		subtitle : dawRxListText
+	};
+
+	var rowParams = question,
+	    row;
+
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+
+	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row.on("answerPrompt", didAnswerGenericsPrompt);
+
+	sectionHeaders[rowParams.section] += rowParams.filterText;
+	sections[rowParams.section].push(row);
+	questionSection.add(row.getView());
+	data.push(questionSection);
+}
+
+
+function didAnswerGenericsPrompt(e) {
+	Ti.API.info("didAnswerGenericsPrompt");
+	dawPrompt = e.data.answer;
+
+	if (!hasSetDawPrompt) {
+		hasSetDawPrompt = true;
+		presentCounselingPrompt();
+	}
+}
+
+function presentCounselingPrompt() {
+	var question = {
+		section : "questions",
+		itemTemplate : "checkoutQuestionPrompt",
+		masterWidth : 100,
+		title : $.strings.checkoutCounselingQuestion
+	};
+
+	var rowParams = question,
+	    row2;
+
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row2.on("answerPrompt", didAnswerCounselingPrompt);
+
+	if (OS_IOS) {
+		questionSection[1] = row2.getView();
+		data[0] = questionSection;
+		$.tableView.setData(data);
+		$.tableView.appendRow(questionSection[1], {
+			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+		});
+
+	} else {
+
+		questionSection.add(row2.getView());
+		if (hasSetDawPrompt === false) {
+			data.push(questionSection);
+		}
+
+		$.tableView.setData(data);
+	}
+}
+
+function didAnswerCounselingPrompt(e) {
+	logger.debug("\n\n\ndidAnswerCounselingPrompt ", e.data.answer);
+	counselingPrompt = e.data.answer;
+
+	if (!hasSetCounselingPrompt) {
+		hasSetCounselingPrompt = true;
+
+		currentPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
+
+		if (currentPatient.get("showLoyaltySignup") != null) {
+			logger.debug("\n\n\n showLoyaltySignup node found\n\n\n");
+
+			if (currentPatient.get("showLoyaltySignup") == true) {
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+			} else if (currentPatient.get("showLoyaltySignup") == false) {
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
+			}
+		} else {
+			logger.debug("\n\n\n showLoyaltySignup node missing\n\n\n");
+
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+		}
+
+		// logger.debug("\n\n\n showLoyaltySignup ",$.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false),"\n\n\n");
+
+		if (currentPatient.get("loyalty_card_opt_out") != null) {
+			logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
+
+			if (currentPatient.get("loyalty_card_opt_out") == "Y") {
+				logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
+
+				if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+					useCreditCard = "1";
+					presentCCConfirmation(currentPatient);
+
+				} else {
+					presentSubmitButton();
+				}
+			} else if (currentPatient.get("loyalty_card_opt_out") == "N" && currentPatient.get("loyalty_card_number") != null) {
+				logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
+
+				presentLoyaltyPrompt();
+			} else {
+				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
+
+				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+					uihelper.showDialogWithButton({
+						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
+						deactivateDefaultBtn : true,
+						btnOptions : [{
+							title : $.strings.dialogBtnYes,
+							onClick : showLoyaltyAdd
+						}, {
+							title : $.strings.dialogBtnNo,
+							onClick : showLoyaltySignup
+						}]
+					});
+
+				}
+			}
+		} else {
+			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
+
+			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+				uihelper.showDialogWithButton({
+					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
+					deactivateDefaultBtn : true,
+					btnOptions : [{
+						title : $.strings.dialogBtnYes,
+						onClick : showLoyaltyAdd
+					}, {
+						title : $.strings.dialogBtnNo,
+						onClick : showLoyaltySignup
+					}]
+				});
+			}
+		}
+	}
+}
+
+
+function showLoyaltyAdd() {
+	var dialogView = $.UI.create("ScrollView", {
+		apiName : "ScrollView",
+		classes : ["top", "auto-height", "vgroup"]
+	});
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
+		text : "mPerks"
+	}));
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top", "margin-left-extra-large", "margin-right-extra-large"],
+		text : "Please enter your mPerks information at the cash register the next time you are at the pharmacy. We will save your information for future use in Mobile Checkout."
+	}));
+	_.each([{
+		title : $.strings.dialogBtnOK,
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+	}], function(obj, index) {
+		var btn = $.UI.create("Button", {
+			apiName : "Button",
+			classes : obj.classes,
+			title : obj.title,
+			index : index
+		});
+		$.addListener(btn, "click",  didGetLoyaltyAddRsp);
+		dialogView.add(btn);
+
+		var swt = $.UI.create("View", {
+			apiName : "View",
+			classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+			index : 1
+		});
+		var checkboxClasses,
+		    checkBoxToggleFlag = 0;
+
+		if ($.utilities.isNarrowScreen()) {
+			checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+		} else {
+			checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+		}
+		var swtCheckbox = $.UI.create("Label", {
+			apiName : "Label",
+			classes : checkboxClasses
+		});
+
+
+		$.addListener(swtCheckbox, "click", function() {
+			Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
+
+			if (checkBoxToggleFlag === 0) {
+				Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+				checkBoxToggleFlag = 1;
+				swtCheckbox.applyProperties($.createStyle({
+					classes : ["i4", "icon-checkbox-checked"],
+				}));
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+			} else {
+				Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+				checkBoxToggleFlag = 0;
+				swtCheckbox.applyProperties($.createStyle({
+					classes : ["i4", "icon-checkbox-unchecked"],
+				}));
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
+			}
+		});
+
+		var swtLabel = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-right-large", "h5", "txt-center"],
+			text : $.strings.checkoutRemindCheckbox
+		});
+		swt.add(swtCheckbox);
+		swt.add(swtLabel);
+		dialogView.add(swt);
+
+	});
+	$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+		classes : ["modal-dialog"],
+		children : [dialogView]
+	}));
+	$.contentView.add($.loyaltyDialog.getView());
+	$.loyaltyDialog.show();
+}
+
+function showLoyaltySignup() {
+	var dialogView = $.UI.create("ScrollView", {
+		apiName : "ScrollView",
+		classes : ["top", "auto-height", "vgroup"]
+	});
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
+		text : "mPerks"
+	}));
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top", "margin-left-extra-large", "margin-right-extra-large"],
+		text : $.strings.loyaltySignupTipLblTitle
+	}));
+	_.each([{
+		title : $.strings.dialogBtnYes,
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+	}, {
+		title : $.strings.dialogBtnNo,
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]
+	}], function(obj, index) {
+		var btn = $.UI.create("Button", {
+			apiName : "Button",
+			classes : obj.classes,
+			title : obj.title,
+			index : index
+		});
+		$.addListener(btn, "click", didGetLoyaltySignupRsp);
+		dialogView.add(btn);
+	});
+	
+// 	
+	// //
+// 	
+	// var btn1 = $.UI.create("Button", {
+							// apiName : "Button",
+							// classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+							// title : $.strings.checkoutFindoutPrompt,
+							// index : 0
+						// });
+// 
+						// $.addListener(btn1, "click", didGetLoyaltySignupRsp);
+						// dialogView.add(btn1);
+// 						
+// 						
+// 	
+	// var btn2 = $.UI.create("Button", {
+							// apiName : "Button",
+							// classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+							// title : $.strings.checkoutFindoutPrompt,
+							// index : 0
+						// });
+// 
+						// $.addListener(btn2, "click", function(){
+							// $.contentView.remove($.checkoutInfoDialog.getView());
+							// displayCheckoutInfo();
+						// });
+						// dialogView.add(btn2);
+// 						
+	// //
+	
+	
+	
+	
+	var swt = $.UI.create("View", {
+		apiName : "View",
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+		index : 1
+	});
+	var checkboxClasses,
+	    checkBoxToggleFlag = 0;
+
+	if ($.utilities.isNarrowScreen()) {
+		checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+	} else {
+		checkboxClasses = ["margin-left-small", "i4", "icon-checkbox-unchecked"];
+	}
+	var swtCheckbox = $.UI.create("Label", {
+		apiName : "Label",
+		classes : checkboxClasses,
+	});
+
+	// showLoyaltySignup
+
+	$.addListener(swtCheckbox, "click", function() {
+		Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
+
+		if (checkBoxToggleFlag === 0) {
+			Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+			checkBoxToggleFlag = 1;
+			swtCheckbox.applyProperties($.createStyle({
+				classes : ["i4", "icon-checkbox-checked"],
+			}));
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
+		} else {
+			Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+			checkBoxToggleFlag = 0;
+			swtCheckbox.applyProperties($.createStyle({
+				classes : ["i4", "icon-checkbox-unchecked"],
+			}));
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
+		}
+	});
+
+	var swtLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-right-large", "h5", "txt-center"],
+		text : $.strings.checkoutRemindCheckbox,
+	});
+	swt.add(swtCheckbox);
+	swt.add(swtLabel);
+	dialogView.add(swt);
+
+	$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+		classes : ["modal-dialog"],
+		children : [dialogView]
+	}));
+	$.contentView.add($.loyaltyDialog.getView());
+	$.loyaltyDialog.show();
+}
+
+
+function didGetLoyaltyAddRsp(event) {
+	var index = event.source.index;
+	logger.debug("\n\n\n loyalty add feedback \n\n\n");
+
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
+		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
+
+		} else {
+			presentSubmitButton();
 		}
 	});
 }
 
-function didFailed(error, passthrough) {
-	if (error.errorCode == "ECOH657") {			
-		showForgotUsernameDialog(error);
-	} else{
-		$.uihelper.showDialog({
-			message : error.message,
-		});
+function didGetLoyaltySignupRsp(event) {
+	var index = event.source.index;
+	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
+		switch(index) {
+		case 0:
+
+			showSignupLinkDialog();
+			break;
+		case 1:
+
+			visitmPerksDialog();
+			break;
+		}
+	});
+}
+
+function visitmPerksDialog()
+{
+	var dialogView = $.UI.create("ScrollView", {
+				apiName : "ScrollView",
+				classes : ["top", "auto-height", "vgroup"]
+			});
+			dialogView.add($.UI.create("Label", {
+				apiName : "Label",
+				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+				text : "mPerks"
+			}));
+
+			$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+				classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+				html : $.strings.loyaltySignupFeedbackNo,
+			}));
+			$.lbl.on("click", openVisitmPerksURL);
+			
+			dialogView.add($.lbl.getView());
+			_.each([{
+				title : $.strings.dialogBtnClose,
+				classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+			}], function(obj, index) {
+				var btn = $.UI.create("Button", {
+					apiName : "Button",
+					classes : obj.classes,
+					title : obj.title,
+					index : index
+				});
+				$.addListener(btn, "click", didClickClose);
+				dialogView.add(btn);
+			});
+			$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+				classes : ["modal-dialog"],
+				children : [dialogView]
+			}));
+			$.contentView.add($.loyaltyDialog.getView());
+			$.loyaltyDialog.show();
+
+}
+
+function showSignupLinkDialog()
+{
+	var dialogView = $.UI.create("ScrollView", {
+				apiName : "ScrollView",
+				classes : ["top", "auto-height", "vgroup"]
+			});
+			dialogView.add($.UI.create("Label", {
+				apiName : "Label",
+				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+				text : "mPerks"
+			}));
+
+			$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+				classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+				html : $.strings.loyaltySignupFeedbackYes
+			}));
+			$.lbl.on("click", openmPerksSignupLinkURL);
+
+			dialogView.add($.lbl.getView());
+			
+			_.each([{
+				title : $.strings.dialogBtnClose,
+				classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+			}], function(obj, index) {
+				var btn = $.UI.create("Button", {
+					apiName : "Button",
+					classes : obj.classes,
+					title : obj.title,
+					index : index
+				});
+				$.addListener(btn, "click", didClickClose);
+				dialogView.add(btn);
+			});
+			$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+				classes : ["modal-dialog"],
+				children : [dialogView]
+			}));
+			$.contentView.add($.loyaltyDialog.getView());
+			$.loyaltyDialog.show();
+
+}
+
+
+function openVisitmPerksURL(event)
+{
+	logger.debug("\n\n\n openURL triggered for VisitmPerksURL\n\n\n");
+	Ti.Platform.openURL("https://www.meijer.com/mperks");
+}
+
+function openmPerksSignupLinkURL(event)
+{
+	logger.debug("\n\n\n openURL triggered for SignupLinkURL\n\n\n");
+	Ti.Platform.openURL("https://accounts.meijer.com/manage/Account/CreatemPerks#/user/createprofile?cmpid=SEM:mPerks:021017:mPerksAO");
+}
+
+function didClickClose(event) {
+	var index = event.source.index;
+	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
+	$.loyaltyDialog.hide(function didHide() {
+		$.contentView.remove($.loyaltyDialog.getView());
+		$.loyaltyDialog = null;
+
+		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
+
+		} else {
+			presentSubmitButton();
+		}
+	});
+}
+
+function presentLoyaltyPrompt() {
+	var question = {
+		section : "questions",
+		itemTemplate : "checkoutQuestionPrompt",
+		masterWidth : 100,
+		title : "Would you like to use your mPerks Pharmacy Rewards?"
 	};
-} 
 
-function didClickForgotUsername() {
-	$.app.navigator.open({
-		ctrl : "signup",
-		titleid : "titleConfirmAccount",
-		stack : true
+	var rowParams = question,
+	    row;
+
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row.on("answerPrompt", didAnswerLoyaltyPrompt);
+
+	if (OS_IOS) {
+		questionSection[1] = row.getView();
+		data[0] = questionSection;
+		$.tableView.setData(data);
+		$.tableView.appendRow(questionSection[1], {
+			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+		});
+
+	} else {
+
+		questionSection.add(row.getView());
+		if (hasSetDawPrompt === false) {
+			data.push(questionSection);
+		}
+
+		$.tableView.setData(data);
+	}
+}
+
+function didAnswerLoyaltyPrompt(e) {
+	logger.debug("\n\n\ndidAnswerLoyaltyPrompt ", e.data.answer);
+	loyaltyPrompt = e.data.answer;
+
+	if (!hasSetLoyaltyPrompt) {
+		hasSetLoyaltyPrompt = true;
+
+		currentPatient = Alloy.Collections.patients.findWhere({
+			selected : true
+		});
+
+		if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+			useCreditCard = "1";
+			presentCCConfirmation(currentPatient);
+
+		} else {
+			presentSubmitButton();
+		}
+	}
+}
+
+function presentCCConfirmation(patient) {
+
+	paymentSection = Ti.UI.createTableViewSection();
+
+	paymentSection.add(Alloy.createController("itemTemplates/label", {
+		title : $.strings.checkoutPaymentInformation,
+		rowClasses : ["left", "h5", "inactive-light-bg-color", "inactive-fg-color"]
+	}).getView());
+
+	var totalAmountDue = 0;
+	_.each(prescriptions, function(prescription) {
+		if (_.has(prescription, "copay")) {
+			if (prescription.copay != null) {
+				totalAmountDue += parseFloat(prescription.copay);
+			}
+		}
+	});
+
+	totalAmountDue = totalAmountDue.toFixed(2);
+	var payment = {
+		section : "payment",
+		itemTemplate : "creditCardView",
+		masterWidth : 100,
+		title : patient.get("card_type") + " " + $.strings.checkoutCCEndingIn + " " + patient.get("last_four_digits"),
+		subtitle : $.strings.checkoutCCExpDate + patient.get("expiry_date"),
+		amountDue : totalAmountDue
+	};
+
+	var rowParams = payment,
+	    row;
+
+	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row.on("clickedit", didClickCCEdit);
+
+	if (OS_IOS) {
+
+		// sectionHeaders[rowParams.section] += rowParams.filterText;
+		// sections[rowParams.section].push(row);
+		paymentSection.add(row.getView());
+		data.push(paymentSection);
+		$.tableView.setData(data);
+		/*
+		 questionSection[1] = row.getView() ;
+		 data[0] = questionSection;
+		 $.tableView.setData(data);
+		 $.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });	*/
+	} else {
+
+		paymentSection.add(row.getView());
+		data.push(paymentSection);
+
+		$.tableView.setData(data);
+	}
+
+	presentSubmitButton();
+}
+
+function didClickCCEdit(e) {
+	uihelper.showDialog({
+		message : $.strings.checkoutEditCardInfo
 	});
 }
 
-function showForgotUsernameDialog(error){
-	$.uihelper.showDialog({
-		message : error.message || $.strings.loginErrCofirmAccount,
-		success : didClickForgotUsername
+function presentSubmitButton() {
+	//Submit button can be shown here
+	$.submitBtn.visible = true;
+}
+
+
+function didClickSubmit(e) {
+	
+	
+	Ti.API.info("didClickSubmit");
+
+	var checkoutPrescriptions = [];
+
+	_.each(prescriptions, function(prescription) {
+		checkoutPrescriptions.push({
+			id : prescription.id,
+			rx_number : prescription.rx_number,
+			rx_name : prescription.presc_name,
+			original_store_id : prescription.original_store_id
+		});
+	});
+
+	$.http.request({
+		method : "checkout_preferences_update",
+		params : {
+			data : [{
+				checkout : {
+					prescriptions : checkoutPrescriptions,
+					counseling : counselingPrompt.toString(),
+					useLoyaltyCard : loyaltyPrompt.toString(),
+					usePatientDaw : dawPrompt.toString(),
+					useCreditCard : useCreditCard,
+					showLoyaltySignup : $.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false),
+					showRxNamesFlag : currentPatient.get("show_rx_names_flag")
+				}
+			}]
+		},
+		passthrough : true,
+		errorDialogEnabled : true,
+		keepLoader : false,
+		success : didSuccess,
+		failure : didFail
 	});
 }
+
+function didSuccess(result, passthrough) {
+	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
+	$.app.navigator.hideLoader();
+	uihelper.showDialog({
+		message : result.message,
+		buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+		success : popToPrescriptions
+	});
+}
+
+function didFail(result, passthrough) {
+	$.app.navigator.hideLoader();
+	popToPrescriptions();
+}
+
+function popToPrescriptions() {
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
+}
+
+function didClickTableView(e) {
+
+}
+
+exports.init = init;
+
+
+

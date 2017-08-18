@@ -26,6 +26,9 @@ module.exports = {
 	"EMAI" : "LORE",
 	"EMVE" : "LORE",
 	"FOPA" : "LORE",
+	
+		"PASS" : "LORE",
+
 	"HIPA" : "LORE",
 	"LOGI" : "LORE",
 	"LOIU" : "LORE",
@@ -92,6 +95,7 @@ module.exports = {
 	/**
 	 * checkout
 	 */
+	"CHPR" : "CHPR",
 	"CHEC" : "CHEC",
 	/**
 	 * quick refill

@@ -26,6 +26,8 @@ module.exports = {
 	"EMAI" : "LoginAndRegistration",
 	"EMVE" : "LoginAndRegistration",
 	"FOPA" : "LoginAndRegistration",
+		"PASS" : "LoginAndRegistration",
+
 	"HIPA" : "LoginAndRegistration",
 	"LOGI" : "LoginAndRegistration",
 	"LOIU" : "LoginAndRegistration",
@@ -73,10 +75,6 @@ module.exports = {
 	"DODE" : "Doctors",
 	"DOSE" : "Doctors",
 	"DOCT" : "Doctors",
-	/**
-	 * checkout
-	 */
-	"CHEC" : "Checkout",
 	/**
 	 * reminders
 	 */
