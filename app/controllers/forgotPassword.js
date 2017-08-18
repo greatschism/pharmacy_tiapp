@@ -20,7 +20,7 @@ var args = $.args,
     isWindowOpen,
     httpClient,
     utilities = require("utilities"),
-
+	showLoyaltySignupVal = true;
     logger = require("logger");
     
 var data = [],
@@ -169,17 +169,18 @@ function didAnswerCounselingPrompt(e) {
 			logger.debug("\n\n\n showLoyaltySignup node found\n\n\n");
 
 			if (currentPatient.get("showLoyaltySignup") == true) {
+				showLoyaltySignupVal = true;
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
 			} else if (currentPatient.get("showLoyaltySignup") == false) {
+				showLoyaltySignupVal = false;
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
 			}
 		} else {
 			logger.debug("\n\n\n showLoyaltySignup node missing\n\n\n");
+			showLoyaltySignupVal = true;
 
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
 		}
-
-		// logger.debug("\n\n\n showLoyaltySignup ",$.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false),"\n\n\n");
 
 		if (currentPatient.get("loyalty_card_opt_out") != null) {
 			logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
@@ -201,7 +202,7 @@ function didAnswerCounselingPrompt(e) {
 			} else {
 				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
 
-				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+				if (showLoyaltySignupVal) {
 					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 						deactivateDefaultBtn : true,
@@ -219,7 +220,7 @@ function didAnswerCounselingPrompt(e) {
 		} else {
 			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
 
-			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false)) {
+			if (showLoyaltySignupVal) {
 				uihelper.showDialogWithButton({
 					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 					deactivateDefaultBtn : true,
@@ -231,6 +232,17 @@ function didAnswerCounselingPrompt(e) {
 						onClick : showLoyaltySignup
 					}]
 				});
+			}
+		
+			else
+			{
+				if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+					useCreditCard = "1";
+					presentCCConfirmation(currentPatient);
+
+				} else {
+					presentSubmitButton();
+				}
 			}
 		}
 	}
@@ -293,6 +305,8 @@ function showLoyaltyAdd() {
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-checked"],
 				}));
+							showLoyaltySignupVal = false;
+
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
 			} else {
 				Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
@@ -300,6 +314,8 @@ function showLoyaltyAdd() {
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-unchecked"],
 				}));
+							showLoyaltySignupVal = true;
+
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
 			}
 		});
@@ -405,8 +421,6 @@ function showLoyaltySignup() {
 		classes : checkboxClasses,
 	});
 
-	// showLoyaltySignup
-
 	$.addListener(swtCheckbox, "click", function() {
 		Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
 
@@ -416,6 +430,8 @@ function showLoyaltySignup() {
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-checked"],
 			}));
+						showLoyaltySignupVal = false;
+
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false);
 		} else {
 			Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
@@ -423,6 +439,8 @@ function showLoyaltySignup() {
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-unchecked"],
 			}));
+						showLoyaltySignupVal = true;
+
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, false, "bool", false);
 		}
 	});
@@ -737,6 +755,8 @@ function didClickSubmit(e) {
 		});
 	});
 
+logger.debug("\n\n\n showLoyaltySignupVal ", showLoyaltySignupVal,"\n\n\n");
+
 	$.http.request({
 		method : "checkout_preferences_update",
 		params : {
@@ -747,7 +767,7 @@ function didClickSubmit(e) {
 					useLoyaltyCard : loyaltyPrompt.toString(),
 					usePatientDaw : dawPrompt.toString(),
 					useCreditCard : useCreditCard,
-					showLoyaltySignup : $.utilities.getProperty(Alloy.CFG.show_loyalty_signup, true, "bool", false),
+					showLoyaltySignup : showLoyaltySignupVal,
 					showRxNamesFlag : currentPatient.get("show_rx_names_flag")
 				}
 			}]
