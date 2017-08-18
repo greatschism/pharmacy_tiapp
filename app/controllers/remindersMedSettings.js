@@ -23,7 +23,8 @@ var args = $.args,
     removableDict = {
 	masterWidth : 80,
 	detailWidth : 20,
-	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"]
+	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"],
+	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove
 },
     dateDropdownArgs,
     timeDropdownArgs,
