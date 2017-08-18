@@ -5,6 +5,10 @@ function init(e) {
 	_.each(["refillView", "medView", "settingsView"], function(val) {
 		$.uihelper.wrapViews($[val]);
 	});
+	
+	$.refillView.accessibilityLabel = $.refillTitleLbl.text + " " + $.refillDescLbl.text;
+	$.medView.accessibilityLabel = $.medTitleLbl.text + " " + $.medDescLbl.text;
+	$.settingsView.accessibilityLabel = $.settingsTitleLbl.text + " " + $.settingsDescLbl.text;
 }
 
 function didPostlayout(e) {
