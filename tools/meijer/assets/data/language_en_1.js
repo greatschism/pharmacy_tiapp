@@ -23,8 +23,7 @@ module.exports = {
 		
 		"loginLblAutoLogin" : "Remember my sign-in info",
 		"loginTooltipLblAutoSignIn" : "tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Remember my sign-in info\".",
-		"accountLblKeepMeSignedIn" : "Remember my sign-in info"
-
+		"accountLblKeepMeSignedIn" : "Remember my sign-in info",
+		"storeDetMsgHomeCantUpdate" : "This is your home pharmacy. All refill reminders you receive will be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon."
 	}
-
 };
