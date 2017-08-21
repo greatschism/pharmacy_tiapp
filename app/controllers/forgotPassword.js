@@ -671,6 +671,15 @@ function didClickCCEdit(e) {
 }
 
 function presentSubmitButton() {
+	
+	var top = $.tableView.top,
+	    bottom = $.tableView.bottom;
+
+	$.tableView.applyProperties({
+		top : top,
+		bottom : bottom + $.submitBtn.height
+	});
+	
 	//Submit button can be shown here
 	$.submitBtn.visible = true;
 }
