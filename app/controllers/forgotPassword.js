@@ -166,14 +166,14 @@ function didAnswerCounselingPrompt(e) {
 			logger.debug("\n\n\n showLoyaltySignup found\n\n\n");
 
 			if (currentPatient.get("showLoyaltySignup") == true) {
-				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
 			} else if (currentPatient.get("showLoyaltySignup") == false) {
-				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "false");
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "0");
 			}
 
 		} else {
 			logger.debug("\n\n\n showLoyaltySignup missing\n\n\n");
-			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
 		}
 
 		logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
@@ -198,7 +198,7 @@ function didAnswerCounselingPrompt(e) {
 			} else {
 				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
 
-				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "true") {
+				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
 					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 						deactivateDefaultBtn : true,
@@ -215,7 +215,7 @@ function didAnswerCounselingPrompt(e) {
 			}
 		} else {
 			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
-			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "true") {
+			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
 				uihelper.showDialogWithButton({
 					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 					deactivateDefaultBtn : true,
@@ -295,14 +295,23 @@ function showLoyaltyAdd() {
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-checked"],
 				}));
-				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "false");
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "0");
+				logger.debug("\n\n\n checkbox checked\n\n\n");
+				Alloy.Collections.patients.findWhere({
+					selected : true
+				}).set("showLoyaltySignup", false);
+
 			} else {
 				Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 				checkBoxToggleFlag = 0;
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-unchecked"],
 				}));
-				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
+				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
+				logger.debug("\n\n\n checkbox unchecked\n\n\n");
+				Alloy.Collections.patients.findWhere({
+					selected : true
+				}).set("showLoyaltySignup", true);
 			}
 		});
 
@@ -383,14 +392,20 @@ function showLoyaltySignup() {
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-checked"],
 			}));
-			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "false");
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "0");
+			Alloy.Collections.patients.findWhere({
+				selected : true
+			}).set("showLoyaltySignup", false);
 		} else {
 			Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 			checkBoxToggleFlag = 0;
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-unchecked"],
 			}));
-			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
+			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
+			Alloy.Collections.patients.findWhere({
+				selected : true
+			}).set("showLoyaltySignup", true);
 		}
 	});
 
@@ -707,7 +722,7 @@ function didClickSubmit(e) {
 
 	Alloy.Collections.patients.findWhere({
 		selected : true
-	}).set("showLoyaltySignup", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup));
+	}).set("showLoyaltySignup", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1" ? true : false);
 
 	logger.debug("\n\n\n patient show_loyalty_signup after ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4), "\n\n\n");
 
@@ -721,7 +736,7 @@ function didClickSubmit(e) {
 					useLoyaltyCard : loyaltyPrompt.toString(),
 					usePatientDaw : dawPrompt.toString(),
 					useCreditCard : useCreditCard,
-					showLoyaltySignup : $.utilities.getProperty(Alloy.CFG.show_loyalty_signup),
+					showLoyaltySignup : $.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1" ? true : false,
 					showRxNamesFlag : currentPatient.get("show_rx_names_flag")
 				}
 			}]
