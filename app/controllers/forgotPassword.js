@@ -20,7 +20,7 @@ var args = $.args,
     isWindowOpen,
     httpClient,
     utilities = require("utilities"),
-	logger = require("logger");
+    logger = require("logger");
 
 var data = [],
     questionSection,
@@ -163,19 +163,20 @@ function didAnswerCounselingPrompt(e) {
 		});
 
 		if (currentPatient.get("showLoyaltySignup") != null) {
-			logger.debug("\n\n\n showLoyaltySignup node found\n\n\n");
+			logger.debug("\n\n\n showLoyaltySignup found\n\n\n");
 
 			if (currentPatient.get("showLoyaltySignup") == true) {
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
 			} else if (currentPatient.get("showLoyaltySignup") == false) {
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "false");
 			}
+
 		} else {
-			logger.debug("\n\n\n showLoyaltySignup node missing\n\n\n");
+			logger.debug("\n\n\n showLoyaltySignup missing\n\n\n");
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "true");
 		}
 
-		logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup),"\n\n\n");
+		logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
 
 		if (currentPatient.get("loyalty_card_opt_out") != null) {
 			logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
@@ -197,7 +198,7 @@ function didAnswerCounselingPrompt(e) {
 			} else {
 				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
 
-				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) === true) {
+				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "true") {
 					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 						deactivateDefaultBtn : true,
@@ -214,7 +215,7 @@ function didAnswerCounselingPrompt(e) {
 			}
 		} else {
 			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
-			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) === true) {
+			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "true") {
 				uihelper.showDialogWithButton({
 					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
 					deactivateDefaultBtn : true,
@@ -671,7 +672,7 @@ function didClickCCEdit(e) {
 }
 
 function presentSubmitButton() {
-	
+
 	var top = $.tableView.top,
 	    bottom = $.tableView.bottom;
 
@@ -679,7 +680,7 @@ function presentSubmitButton() {
 		top : top,
 		bottom : bottom + $.submitBtn.height
 	});
-	
+
 	//Submit button can be shown here
 	$.submitBtn.visible = true;
 }
@@ -699,18 +700,17 @@ function didClickSubmit(e) {
 		});
 	});
 
-	logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup),"\n\n\n");
-	logger.debug("\n\n\n patient show_loyalty_signup before ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4),"\n\n\n");
+	logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
+	logger.debug("\n\n\n patient show_loyalty_signup before ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4), "\n\n\n");
 
 	// $.utilities.setProperty(Alloy.Collections.patients.at(0).get("showLoyaltySignup"), $.utilities.getProperty(Alloy.CFG.show_loyalty_signup));
-	
-		Alloy.Collections.patients.findWhere({
-			selected : true
-		}).set("showLoyaltySignup", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup));
-	
-	
-	logger.debug("\n\n\n patient show_loyalty_signup after ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4),"\n\n\n");
-   
+
+	Alloy.Collections.patients.findWhere({
+		selected : true
+	}).set("showLoyaltySignup", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup));
+
+	logger.debug("\n\n\n patient show_loyalty_signup after ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4), "\n\n\n");
+
 	$.http.request({
 		method : "checkout_preferences_update",
 		params : {
