@@ -270,7 +270,7 @@ function showLoyaltyAdd() {
 
 		var swt = $.UI.create("View", {
 			apiName : "View",
-			classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+			classes : ["margin-top-large", "margin-bottom-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
 			index : 1
 		});
 		var checkboxClasses,
@@ -308,7 +308,7 @@ function showLoyaltyAdd() {
 
 		var swtLabel = $.UI.create("Label", {
 			apiName : "Label",
-			classes : ["margin-right-large", "h5", "txt-left"],
+			classes : ["margin-left-icon", "h5", "txt-left"],
 			text : $.strings.checkoutRemindCheckbox
 		});
 		swt.add(swtCheckbox);
@@ -358,7 +358,7 @@ function showLoyaltySignup() {
 
 	var swt = $.UI.create("View", {
 		apiName : "View",
-		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
+		classes : ["margin-top-large", "margin-bottom-large", "margin-left-extra-large", "margin-right-extra-large", "auto-height"],
 		index : 1
 	});
 	var checkboxClasses,
@@ -396,7 +396,7 @@ function showLoyaltySignup() {
 
 	var swtLabel = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["margin-right-large", "h5", "txt-left"],
+		classes : ["margin-left-icon", "h5", "txt-left"],
 		text : $.strings.checkoutRemindCheckbox,
 	});
 	swt.add(swtCheckbox);
