@@ -3,6 +3,7 @@ var args = $.args,
     authenticator = require("authenticator"),
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
+    touchID = require("touchid"),
     isWindowOpen,
     phone_formatted;
 
@@ -22,11 +23,22 @@ function init() {
 			subtitle : $.strings.accountPatientSwitcherSubtitleMinor
 		}]
 	});
+		
+
+	if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+		$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
+	} else {
+		var iDict = {};
+	    iDict.enabled = false;
+	    $.touchIDSwt.applyProperties(iDict);
+	}
 	
+
 	setAccountValues();
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
+    $.app.navigator.hideLoader();
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -117,7 +129,58 @@ function didChangeAutoLogin(e) {
 			message : $.strings.msgAutoLogin
 		});
 	}
+	/*Ti.API.info("acccount, did change auto login: ");
+	seen = [];
+	Ti.API.info(
+		JSON.stringify(e, function(key, val) {
+		   if (val != null && typeof val == "object") {
+		        if (seen.indexOf(val) >= 0) {
+		            return;
+		        }
+		        seen.push(val);
+		    }
+		    return val;
+		})
+	);
+
+	var value = e.value;
+
+	var currentAutologinState = $.keepMeSignedInSwt.getValue();
+	Ti.API.info("currentAutologinState "+currentAutologinState);
+
+	var currentTouchIDState = false;
+	
+	if (OS_IOS) {
+		currentTouchIDState = $.touchIDSwt.getValue();
+	}
+
+	Ti.API.info("currentTouchIDState "+currentTouchIDState);
+	var preExistingTouchIDState = authenticator.getTouchIDEnabled();
+	Ti.API.info("preExistingTouchIDState "+preExistingTouchIDState);
+
+	if (Alloy.CFG.auto_login_dialog_enabled && e.value && !currentTouchIDState ) {
+		$.uihelper.showDialog({
+			message : $.strings.msgAutoLogin
+		});
+	}
+
+	if (Alloy.CFG.auto_login_dialog_enabled && !e.value && currentTouchIDState ) {
+		$.touchIDSwt.setValue(false);
+		//$.uihelper.showDialog({
+		//	message : $.strings.msgTouchIdOff
+		//});
+	}
+
+	authenticator.setAutoLoginEnabled(value);
+*/
 }
+
+function didChangeTouchID(e) {
+	var value = e.value;
+	authenticator.setTouchIDEnabled(value);
+}
+
+
 
 function didClickmobileNumber(e) {
 	/**

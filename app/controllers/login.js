@@ -2,6 +2,7 @@ var args = $.args,
     authenticator = require("authenticator"),
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    isInitializing = false,
     rightButtonDict = $.createStyle({
 	classes : ["txt-positive-right-btn", "positive-fg-color"],
 	title : Alloy.Globals.strings.strShow,
@@ -9,13 +10,15 @@ var args = $.args,
 	width : "25%",
 	backgroundColor : 'transparent'
 }),
-    utilities = require('utilities');
+    utilities = require('utilities'),
+    touchID = require("touchid");
 
 function init() {
 	/**
 	 * Set the right button "show/hide"
 	 * with right parameters.
 	 */
+	isInitializing = true;
 	if (Alloy.CFG.toggle_password_enabled) {
 		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
@@ -47,6 +50,19 @@ function init() {
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
+
+
+	if (authenticator.getTouchIDEnabled()) {
+
+		if(args.useTouchID === true) {
+
+			if(authenticator.getTouchIDEnabled()) {
+				touchIDAuth({"success":true}); 
+				return;
+			} 
+		} 
+	}
+
 	var iDict = {};
 	if (OS_ANDROID) {
 		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
@@ -64,6 +80,32 @@ function init() {
 		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
 	};
 }
+
+function touchIDAuth(resp)  {
+ 	Ti.API.info("in touchIDAuth "+ JSON.stringify(resp));
+		
+	var data = authenticator.forceGetData();
+	var username = data.username;
+	var password = data.password;
+
+	if(resp.success == true) {
+			setTimeout(authenticator.init({
+				username : username,
+				password : password,
+				success : function() {
+					setTimeout( didAuthenticate , 0);
+				},
+				failure : function() {
+					Ti.API.info("big authentcate fail");
+				}
+			}) , 0);
+
+	} else {
+		alert("Please login manually.");
+	}
+}
+
+
 
 function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
@@ -183,6 +225,28 @@ function didClickLogin(e) {
 		//yet to handle
 	} else {
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
+
+		if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+			utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+			$.uihelper.showDialog({
+				message : $.strings.msgPromptTouchID,
+				buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+				cancelIndex : 0,
+				success : function(){
+					authenticator.setTouchIDEnabled(true);
+					$.uihelper.showDialog({
+						message : $.strings.msgEnabledTouchID,
+					});
+				},
+				cancel : function(){
+					authenticator.setTouchIDEnabled(false);
+					$.uihelper.showDialog({
+						message : $.strings.msgDeferredTouchID,
+					});
+				}
+			});
+		}
+
 		authenticator.init({
 			username : username,
 			password : password,

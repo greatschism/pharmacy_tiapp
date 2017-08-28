@@ -14,6 +14,7 @@ var TAG = "AUTH",
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
+	touchID = require("touchid"),
     v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : require("com.mscripts.keychainimporter");
 
 function init(passthrough) {
@@ -1146,6 +1147,14 @@ function getData() {
 	};
 }
 
+function forceGetData() {
+	return {
+		username : encryptionUtil.decrypt(keychain.account),
+		password : encryptionUtil.decrypt(keychain.valueData)
+	};
+}
+
+
 function setAutoLoginEnabled(value) {
 	utilities.setProperty(Alloy.CFG.auto_login_enabled, value, "bool", false);
 	/**
@@ -1153,13 +1162,28 @@ function setAutoLoginEnabled(value) {
 	 * user wants to disable it
 	 * this may be called from login or account page
 	 */
-	if (!value) {
+	if (!value && !getTouchIDEnabled()) {
 		keychain.reset();
 	}
 }
 
 function getAutoLoginEnabled() {
 	return utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
+}
+
+function setTouchIDEnabled(value) {
+					Ti.API.info(" ------------  setTouchIDEnabled() value = "+ value)
+	utilities.setProperty(Alloy.CFG.touch_id_enabled, value, "bool", false);
+}
+
+function getTouchIDEnabled() {
+	if(touchID.deviceCanAuthenticate) {
+					Ti.API.info(" ------------  getTouchIDEnabled() deviceCanAuthenticate")
+		return utilities.getProperty(Alloy.CFG.touch_id_enabled, false, "bool", false);
+	} else {
+		return false;
+	}
+
 }
 
 /**
@@ -1269,11 +1293,14 @@ function updateFamilyAccounts(passthrough) {
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
+exports.forceGetData = forceGetData;
 exports.asProxy = asProxy;
 exports.asManager = asManager;
 exports.setTimeZone = setTimeZone;
 exports.updatePreferences = updatePreferences;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
+exports.setTouchIDEnabled = setTouchIDEnabled;
+exports.getTouchIDEnabled = getTouchIDEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
 exports.getPushModeForDeviceToken = getPushModeForDeviceToken;
