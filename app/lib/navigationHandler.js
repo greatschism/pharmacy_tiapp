@@ -268,7 +268,7 @@ function loginOrNavigate(itemObj) {
 
 			//Don't try to navigate if we're on the login page already
 			//	app.navigator.open(itemObj);
-
+			}
 		} else {
 			app.navigator.open(itemObj);
 		}
