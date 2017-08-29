@@ -29,6 +29,9 @@
 "#keepMeSignedInLbl":{
 	text: Alloy.Globals.strings.accountLblKeepMeSignedIn
 },
+"#touchIDLbl":{
+	text: Alloy.Globals.strings.accountLblTouchID
+},
 "#helpBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnHelp
 },

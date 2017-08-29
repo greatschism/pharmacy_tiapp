@@ -460,6 +460,14 @@ function initMasterWindow() {
 		triggerUpdate : triggerAsyncUpdate
 	});
 	ctrl.on("init", didInitWin);
+
+	localBiometricFlag = touchID.deviceCanAuthenticate();
+	if(localBiometricFlag) {
+   		Ti.App.addEventListener("paused", appDidPause);
+  		Ti.App.addEventListener("resume", appDidResume);
+	}
+
+
 	ctrl.init();
 }
 
