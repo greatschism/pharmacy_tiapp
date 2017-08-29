@@ -118,7 +118,12 @@ function focus() {
 		if (args.useCache && Alloy.Collections.prescriptions.length) {
 			prepareList();
 		} else {
-			prepareData();
+			$.http.request({
+				method : "patient_sync",
+				keepLoader : true,
+				success : prepareData
+			});
+			// prepareData();
 		}
 	} else if (currentPrescription && currentPrescription.shouldUpdate) {
 		/**
