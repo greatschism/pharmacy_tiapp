@@ -76,6 +76,10 @@ module.exports = {
 	"DOSE" : "Doctors",
 	"DOCT" : "Doctors",
 	/**
+	 * checkout
+	 */
+	"CHEC" : "Checkout",
+	/**
 	 * reminders
 	 */
 	"COPI" : "Reminders",

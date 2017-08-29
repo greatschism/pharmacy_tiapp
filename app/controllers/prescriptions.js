@@ -1318,7 +1318,7 @@ function didClickSubmit(e) {
 		{
 	 		$.app.navigator.open({
 				titleid : "titleCheckoutQuestions",
-				ctrl : "forgotPassword",
+                ctrl : "checkout",
 				ctrlArguments : {
 					prescriptions :readyPrescriptions,
 					selectable : true
