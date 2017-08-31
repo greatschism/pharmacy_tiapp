@@ -3,7 +3,10 @@ var args = $.args,
     logger = require("logger");
 
 (function() {
-
+	if (args.filterText) {
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
 		$.resetClass($.titleLbl, args.titleClasses, {

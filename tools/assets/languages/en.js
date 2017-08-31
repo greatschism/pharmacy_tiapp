@@ -315,7 +315,7 @@ module.exports = {
 		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"titleCheckoutCompleteHeader": "Mobile checkout complete. See you soon!",
 
-        "checkoutComponentAmount" : "Amount Due:",
+		"checkoutComponentAmount" : "Amount Due:",
 		"checkoutTotalAmount" : "Total Amount Due:",
 		"checkoutEditCardInfo" : "We're sorry, you can't edit your card on the mobile app at this time. Please see your local pharmacy to edit your stored payment information.",
 		"checkoutTipLblTitle" : "Don't want to pay for a specific Rx now? Tap the checkbox to de-select individual Rx.",

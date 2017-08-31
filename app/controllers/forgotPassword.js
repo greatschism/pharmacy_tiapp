@@ -686,14 +686,58 @@ function presentCCConfirmation(patient) {
 		}
 	});
 
-	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
+/****/
+/* Add a couple fake stores to simulate more than 2 stores*/
 
+					var checkoutStoreData = {
+						section : "payment",
+						itemTemplate : "checkoutStoreItems",
+						masterWidth : 100,
+						title : "placeholder store A",
+						subtitle :  "placeholder rx A",
+						amountDue : "placholder amt a"
+					};
+
+					checkoutStores.push(checkoutStoreData);
+
+					var checkoutStoreData = {
+						section : "payment",
+						itemTemplate : "checkoutStoreItems",
+						masterWidth : 100,
+						title : "placeholder store B",
+						subtitle :  "placeholder rx B",
+						amountDue : "placholder amt b"
+					};
+
+					checkoutStores.push(checkoutStoreData);
+/****/
+
+	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
+	Ti.API.info("************      checkoutStores.length "+checkoutStores.length)
 	_.each(checkoutStores, function(checkoutStoreData) {
 		var rowParams = checkoutStoreData,
-		    row;
+		    row,  limitedRowParams;
 
-		rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		if(checkoutStores.length < 3) {
+			rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		} else {
+
+			limitedRowParams = {
+				section : "payment",
+				itemTemplate : "checkoutStoreItems",
+				masterWidth : 100,
+				title : rowParams.title,
+				fullRowParams : rowParams
+			};
+			limitedRowParams.filterText = _.values(_.pick(rowParams, ["title"])).join(" ").toLowerCase();
+			Ti.API.info("************      limitedRowParams.filterText "+limitedRowParams.filterText)
+
+			//Certainly there is a better way to do this ^^^^ !.....
+
+			row = Alloy.createController("itemTemplates/".concat(limitedRowParams.itemTemplate), limitedRowParams);
+			row.on("checkoutStoreDetails", presentCheckoutStoreDetails );
+		}
 
 		paymentSection.add(row.getView());
 	});
@@ -733,9 +777,51 @@ function presentCCConfirmation(patient) {
 }
 
 function presentCheckoutStoreDetails(e) {
-	uihelper.showDialog({
-		message : "you tapped store details"
+			Ti.API.info("************      presentCheckoutStoreDetails(e) "+JSON.stringify(e.data.fullRowParams))
+	// uihelper.showDialog({
+		// message : "you tapped store details"
+	// });
+	
+	
+	var dialogView = $.UI.create("ScrollView", {
+		apiName : "ScrollView",
+		classes : ["top", "auto-height", "vgroup"]
 	});
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
+		text : "placeholder store name"
+	}));
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
+		text : "placeholder list of rx' name"
+	}));
+	dialogView.add($.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
+		text : "placeholder list of rx' price"
+	}));
+
+
+	var btn = $.UI.create("Button", {
+		apiName : "Button",
+		classes :  ["margin-top", "margin-left-extra-large", "margin-right-extra-large",  "active-fg-color", "border-color-disabled" ],
+		title : "close",
+		index : 0
+	});
+	$.addListener(btn, "click", function(){$.storeDetailsDialog.hide()});
+	dialogView.add(btn);
+
+
+
+	$.storeDetailsDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+		classes : ["modal-dialog"],
+		children : [dialogView]
+	}));
+	$.contentView.add($.storeDetailsDialog.getView());
+	$.storeDetailsDialog.show();
+
 }
 
 function didClickCCEdit(e) {
