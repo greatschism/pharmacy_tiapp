@@ -274,32 +274,58 @@ function didClickLogin(e) {
 	} else {
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
 
-		if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
-			utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
-			$.uihelper.showDialog({
-				message : $.strings.msgPromptTouchID,
-				buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
-				cancelIndex : 0,
-				success : function(){
-					authenticator.setTouchIDEnabled(true);
-					$.uihelper.showDialog({
-						message : $.strings.msgEnabledTouchID,
-					});
-				},
-				cancel : function(){
-					authenticator.setTouchIDEnabled(false);
-					$.uihelper.showDialog({
-						message : $.strings.msgDeferredTouchID,
-					});
-				}
-			});
-		}
+
+
+		// if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+		// 	utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+		// 	$.uihelper.showDialog({
+		// 		message : $.strings.msgPromptTouchID,
+		// 		buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+		// 		cancelIndex : 0,
+		// 		success : function(){
+		// 			authenticator.setTouchIDEnabled(true);
+		// 			$.uihelper.showDialog({
+		// 				message : $.strings.msgEnabledTouchID,
+		// 			});
+		// 		},
+		// 		cancel : function(){
+		// 			authenticator.setTouchIDEnabled(false);
+		// 			$.uihelper.showDialog({
+		// 				message : $.strings.msgDeferredTouchID,
+		// 			});
+		// 		}
+		// 	});
+		// }
+
 
 		authenticator.init({
 			username : username,
 			password : password,
 			loginFailure : didFailed,
-			success : didAuthenticate
+			success : function(passedVar){
+				didAuthenticate(passedVar);		
+				if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+					utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+					$.uihelper.showDialog({
+						message : $.strings.msgPromptTouchID,
+						buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+						cancelIndex : 0,
+						success : function(){
+							authenticator.setTouchIDEnabled(true);
+							$.uihelper.showDialog({
+								message : $.strings.msgEnabledTouchID,
+							});
+						},
+						cancel : function(){
+							authenticator.setTouchIDEnabled(false);
+							$.uihelper.showDialog({
+								message : $.strings.msgDeferredTouchID,
+							});
+						}
+					});
+				}
+
+			}
 		});
 	}
 }
