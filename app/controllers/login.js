@@ -68,23 +68,21 @@ function init() {
 		 
 		 	var passcodeAuthProcess = function () {
 
-		 		touchID.authenticate({
-					reason : "Touch ID authentication failed.",
-					reason :  "Please use Touch ID to log in.",
-		 			callback : function(tIDResp) {
+		 		touchID.authenticate(function(tIDResp) {
+					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
+		 			setTimeout( function(){
 
-		 				if( ! tIDResp.error) {
-		 					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
+							touchIDAuth({"success":true}); 
+		 				},0);
+
+					}, function(tIDResp) {
+		 					Ti.API.info("error in TID.  resp = " + JSON.stringify(tIDResp));
 			 				setTimeout( function(){
 
-								touchIDAuth({"success":true}); 
+								$.app.navigator.hideLoader();
 			 				},0);
-		 				} else {
-
-							$.app.navigator.hideLoader();
-		 				}
 					}
-		 		});
+			 	);
 		 	};
 
 		 
