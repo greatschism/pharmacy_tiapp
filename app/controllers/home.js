@@ -1,4 +1,5 @@
-var args = $.args,
+var args = $.args,   
+	authenticator = require("authenticator"),
     navigationHandler = require("navigationHandler"),
     feedbackHandler = require("feedbackHandler"),
     moduleNames = require("moduleNames"),
