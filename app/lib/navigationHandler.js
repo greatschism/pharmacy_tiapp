@@ -180,8 +180,19 @@ function touchIDAuth(resp, itemObj)  {
 
 
 function loginOrNavigate(itemObj) {
+	//Ti.API.info("loginOrNavigate" + JSON.stringify(itemObj) );
+	//Ti.API.info("Alloy.Globals.isLoggedIn" + Alloy.Globals.isLoggedIn );
 	var ctrlPath = app.navigator.currentController.ctrlPath;
+	//Ti.API.info("******************    ctrlPath  _>  " + ctrlPath );
+	//Ti.API.info("******************    itemObj  ->   " + JSON.stringify(itemObj) );
 	if (itemObj.ctrl != ctrlPath) {
+		if (itemObj.requires_login_auth) {
+			itemObj.ctrlArguments = {  
+				requires_login_auth : true
+		  };
+			app.navigator.open(itemObj);
+			return;
+		}
 		if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 			if (ctrlPath != "login") {
 

@@ -4,14 +4,16 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     isInitializing = false,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn", "positive-fg-color"],
-	title : Alloy.Globals.strings.strShow,
-	accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
-	width : "25%",
-	backgroundColor : 'transparent'
-}),
-    utilities = require('utilities'),
-    touchID = require("touchid");
+		classes : ["txt-positive-right-btn", "positive-fg-color"],
+		title : Alloy.Globals.strings.strShow,
+		accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
+		width : "25%",
+		backgroundColor : 'transparent'
+	}),
+    utilities = require('utilities');
+
+	var touchID = require("touchid");
+
 
 function init() {
 	/**
@@ -54,13 +56,61 @@ function init() {
 
 	if (authenticator.getTouchIDEnabled()) {
 
+		Ti.API.info("args are + " + JSON.stringify(args));
+
+		//$.touchIDLoginSwt.setValue(true);
+
+		if(args.requires_login_auth === true) {
+
+			$.app.navigator.showLoader();
+		
+		 	var result = touchID.deviceCanAuthenticate();
+		 
+		 	var passcodeAuthProcess = function () {
+
+		 		touchID.authenticate({
+					reason : "Touch ID authentication failed.",
+					reason :  "Please use Touch ID to log in.",
+		 			callback : function(tIDResp) {
+
+		 				if( ! tIDResp.error) {
+		 					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
+			 				setTimeout( function(){
+
+								touchIDAuth({"success":true}); 
+			 				},0);
+		 				} else {
+
+							$.app.navigator.hideLoader();
+		 				}
+					}
+		 		});
+		 	};
+
+		 
+		 	if (!result) { //(!result.canAuthenticate) {
+		 	//	alert('Touch ID Message: ' + result.error + '\nCode: ' + result.code);
+		 	///  Add some kind of 'please turn off touchid error message here....'
+				$.app.navigator.hideLoader();
+		 	} else {
+		 		//alert("about to touchID auth "+JSON.stringify(itemObj));
+		 		passcodeAuthProcess();
+		 	}
+		 	
+			return;
+
+		}
+
 		if(args.useTouchID === true) {
 
 			if(authenticator.getTouchIDEnabled()) {
+
 				touchIDAuth({"success":true}); 
 				return;
 			} 
-		} 
+		} else {
+			
+		}
 	}
 
 	var iDict = {};
