@@ -631,6 +631,64 @@ function presentCCConfirmation(patient) {
 		rowClasses : ["left", "h5", "inactive-light-bg-color", "inactive-fg-color"]
 	}).getView());
 
+	/*
+	 * show original store of each Rx
+	 */
+	var stores;
+
+	_.each(prescriptions, function(prescription) {
+		if (_.has(prescription, "original_store_store_name")) {
+			if (prescription.original_store_store_name != null) {
+				stores = {
+					section : "payment",
+					itemTemplate : "checkoutStoreItems",
+					masterWidth : 100,
+					title : $.utilities.ucword(prescription.original_store_store_name),
+					subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
+					amountDue : "$1.00(placeholder)"
+				};
+			}
+		}
+	});
+
+	//TODO: should probably be the rx name not the rx number in the subtitle fields - this isn't a part of MCE-487 though...
+
+	//do this twice to simulate two stores.  Ultimately we have to determine number of stores here....
+
+	for (var i = 0; i < 2; i++) {
+		var rowParams = stores,
+		    row;
+
+		rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+
+		paymentSection.add(row.getView());
+	}
+
+	/*
+	 * block below will demonstrate 3 or more stores.  Comment out the above block and uncomment the below block in order to test 3 stores
+	 *
+
+	 for(var i=0; i<3; i++){
+
+	 // with more than 2 stores we only want the title....
+	 stores	= {
+	 section : "payment",
+	 itemTemplate : "checkoutStoreItems",
+	 masterWidth : 100,
+	 title :  $.utilities.ucword(store.addressline1),
+	 };
+	 var rowParams = stores,
+	 row;
+
+	 rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+	 row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	 row.on("checkoutStoreDetails", presentCheckoutStoreDetails);
+
+	 paymentSection.add(row.getView());
+
+	 }	*/
+
 	var totalAmountDue = 0;
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "copay")) {
@@ -641,6 +699,7 @@ function presentCCConfirmation(patient) {
 	});
 
 	totalAmountDue = totalAmountDue.toFixed(2);
+
 	var payment = {
 		section : "payment",
 		itemTemplate : "creditCardView",
@@ -651,33 +710,23 @@ function presentCCConfirmation(patient) {
 	};
 
 	var rowParams = payment,
-	    row;
+	    row1;
 
 	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	row.on("clickedit", didClickCCEdit);
+	row1 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+	row1.on("clickedit", didClickCCEdit);
 
-	if (OS_IOS) {
-
-		// sectionHeaders[rowParams.section] += rowParams.filterText;
-		// sections[rowParams.section].push(row);
-		paymentSection.add(row.getView());
-		data.push(paymentSection);
-		$.tableView.setData(data);
-		/*
-		 questionSection[1] = row.getView() ;
-		 data[0] = questionSection;
-		 $.tableView.setData(data);
-		 $.tableView.appendRow(questionSection[1],  { animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE });	*/
-	} else {
-
-		paymentSection.add(row.getView());
-		data.push(paymentSection);
-
-		$.tableView.setData(data);
-	}
+	paymentSection.add(row1.getView());
+	data.push(paymentSection);
+	$.tableView.setData(data);
 
 	presentSubmitButton();
+}
+
+function presentCheckoutStoreDetails(e) {
+	uihelper.showDialog({
+		message : "you tapped store details"
+	});
 }
 
 function didClickCCEdit(e) {
