@@ -38,7 +38,7 @@ var args = $.args,
 	var amountDue = args.amountDue || (args.data ? args.data[args.amountDue] : "");
 	if (args.amountDue) {
 
-		$.amountDueVal.text = amountDue;
+		$.amountDueVal.text = "$"+ amountDue;
 	} else {
 		$.amountDueView.height = 0;
 	}

@@ -632,62 +632,71 @@ function presentCCConfirmation(patient) {
 	}).getView());
 
 	/*
-	 * show original store of each Rx
+	 * show original store of each Rx with amountdue for each store
 	 */
-	var stores;
 
+	var checkoutStores = [];
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "original_store_store_name")) {
 			if (prescription.original_store_store_name != null) {
-				stores = {
-					section : "payment",
-					itemTemplate : "checkoutStoreItems",
-					masterWidth : 100,
-					title : $.utilities.ucword(prescription.original_store_store_name),
-					subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
-					amountDue : "$1.00(placeholder)"
-				};
+				if (checkoutStores.length) {
+					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
+					_.some(checkoutStores, function(storeInfo, index) {
+						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+						if (storeInfo.title === prescription.original_store_store_name) {
+							if (_.has(prescription, "copay")) {
+								if (prescription.copay != null) {
+									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+									storeInfo.amountDue += parseFloat(prescription.copay);
+									storeInfo.subtitle += ", "+ $.strings.strPrefixRx.concat(prescription.rx_number),
+									logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+								}
+							}
+						} else {
+							if (index >= checkoutStores.length-1) {
+								var checkoutStoreData = {
+									section : "payment",
+									itemTemplate : "checkoutStoreItems",
+									masterWidth : 100,
+									title : $.utilities.ucword(prescription.original_store_store_name),
+									subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
+									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
+								};
+								checkoutStores.push(checkoutStoreData);
+								logger.debug("\n\n\n same store not found in array", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
+							}
+						}
+					});
+				} else {
+
+					var checkoutStoreData = {
+						section : "payment",
+						itemTemplate : "checkoutStoreItems",
+						masterWidth : 100,
+						title : $.utilities.ucword(prescription.original_store_store_name),
+						subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
+						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
+					};
+
+					checkoutStores.push(checkoutStoreData);
+					logger.debug("\n\n\n checkoutStores first element addition", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
+
+				}
 			}
 		}
 	});
 
-	//TODO: should probably be the rx name not the rx number in the subtitle fields - this isn't a part of MCE-487 though...
+	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
 
-	//do this twice to simulate two stores.  Ultimately we have to determine number of stores here....
-
-	for (var i = 0; i < 2; i++) {
-		var rowParams = stores,
+	_.each(checkoutStores, function(checkoutStoreData) {
+		var rowParams = checkoutStoreData,
 		    row;
 
 		rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 
 		paymentSection.add(row.getView());
-	}
-
-	/*
-	 * block below will demonstrate 3 or more stores.  Comment out the above block and uncomment the below block in order to test 3 stores
-	 *
-
-	 for(var i=0; i<3; i++){
-
-	 // with more than 2 stores we only want the title....
-	 stores	= {
-	 section : "payment",
-	 itemTemplate : "checkoutStoreItems",
-	 masterWidth : 100,
-	 title :  $.utilities.ucword(store.addressline1),
-	 };
-	 var rowParams = stores,
-	 row;
-
-	 rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	 row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	 row.on("checkoutStoreDetails", presentCheckoutStoreDetails);
-
-	 paymentSection.add(row.getView());
-
-	 }	*/
+	});
 
 	var totalAmountDue = 0;
 	_.each(prescriptions, function(prescription) {
