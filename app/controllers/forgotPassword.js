@@ -588,10 +588,10 @@ function presentLoyaltyPrompt() {
 	row.on("answerPrompt", didAnswerLoyaltyPrompt);
 
 	if (OS_IOS) {
-		questionSection[1] = row.getView();
+		questionSection[2] = row.getView();
 		data[0] = questionSection;
 		$.tableView.setData(data);
-		$.tableView.appendRow(questionSection[1], {
+		$.tableView.appendRow(questionSection[2], {
 			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
 		});
 
