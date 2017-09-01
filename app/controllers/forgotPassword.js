@@ -637,28 +637,27 @@ function presentCCConfirmation(patient) {
 
 	var checkoutStores = [];
 	_.each(prescriptions, function(prescription) {
-		if (_.has(prescription, "original_store_store_name")) {
-			if (prescription.original_store_store_name != null) {
+		if (_.has(prescription, "original_store_address_line1")) {
+			if (prescription.original_store_address_line1 != null) {
 				if (checkoutStores.length) {
 					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
 					_.some(checkoutStores, function(storeInfo, index) {
 						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-						if (storeInfo.title === prescription.original_store_store_name) {
+						if (storeInfo.title.trim() == prescription.original_store_address_line1.trim()) {
 							if (_.has(prescription, "copay")) {
 								if (prescription.copay != null) {
 									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 									storeInfo.amountDue += parseFloat(prescription.copay);
-									storeInfo.subtitle += ", "+ $.strings.strPrefixRx.concat(prescription.rx_number),
-									logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+									storeInfo.subtitle += ", " + $.strings.strPrefixRx.concat(prescription.rx_number), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 								}
 							}
 						} else {
-							if (index >= checkoutStores.length-1) {
+							if (index >= checkoutStores.length - 1) {
 								var checkoutStoreData = {
 									section : "payment",
 									itemTemplate : "checkoutStoreItems",
 									masterWidth : 100,
-									title : $.utilities.ucword(prescription.original_store_store_name),
+									title : prescription.original_store_address_line1.trim(),
 									subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
 									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 								};
@@ -673,7 +672,7 @@ function presentCCConfirmation(patient) {
 						section : "payment",
 						itemTemplate : "checkoutStoreItems",
 						masterWidth : 100,
-						title : $.utilities.ucword(prescription.original_store_store_name),
+						title : prescription.original_store_address_line1.trim(),
 						subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
 						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 					};
@@ -686,38 +685,13 @@ function presentCCConfirmation(patient) {
 		}
 	});
 
-/****/
-/* Add a couple fake stores to simulate additional stores*/
-
-					// var checkoutStoreData = {
-					// 	section : "payment",
-					// 	itemTemplate : "checkoutStoreItems",
-					// 	masterWidth : 100,
-					// 	title : "placeholder store A",
-					// 	subtitle :  "placeholder rx A",
-					// 	amountDue : "placholder amt a"
-					// };
-
-					// checkoutStores.push(checkoutStoreData);
-
-					// var checkoutStoreData = {
-					// 	section : "payment",
-					// 	itemTemplate : "checkoutStoreItems",
-					// 	masterWidth : 100,
-					// 	title : "placeholder store B",
-					// 	subtitle :  "placeholder rx B",
-					// 	amountDue : "placholder amt b"
-					// };
-
-					// checkoutStores.push(checkoutStoreData);
-/****/
-
 	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
 	_.each(checkoutStores, function(checkoutStoreData) {
 		var rowParams = checkoutStoreData,
-		    row,  limitedRowParams;
+		    row,
+		    limitedRowParams;
 
-		if(checkoutStores.length < 3) {
+		if (checkoutStores.length < 3) {
 			rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 		} else {
@@ -728,11 +702,12 @@ function presentCCConfirmation(patient) {
 				masterWidth : 100,
 				title : rowParams.title,
 				fullRowParams : rowParams
-			}; // ^^^^ Certainly there is a better way to do this!.....
+			};
+			// ^^^^ Certainly there is a better way to do this!.....
 			limitedRowParams.filterText = _.values(_.pick(rowParams, ["title"])).join(" ").toLowerCase();
 
 			row = Alloy.createController("itemTemplates/".concat(limitedRowParams.itemTemplate), limitedRowParams);
-			row.on("checkoutStoreDetails", presentCheckoutStoreDetails );
+			row.on("checkoutStoreDetails", presentCheckoutStoreDetails);
 		}
 
 		paymentSection.add(row.getView());
@@ -773,11 +748,7 @@ function presentCCConfirmation(patient) {
 }
 
 function presentCheckoutStoreDetails(e) {
-			Ti.API.info("************      presentCheckoutStoreDetails(e) "+JSON.stringify(e.data.fullRowParams))
-	// uihelper.showDialog({
-		// message : "you tapped store details"
-	// });
-	
+	Ti.API.info("************      presentCheckoutStoreDetails(e) " + JSON.stringify(e.data.fullRowParams, null, 4));
 	
 	var dialogView = $.UI.create("ScrollView", {
 		apiName : "ScrollView",
@@ -786,30 +757,29 @@ function presentCheckoutStoreDetails(e) {
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center"],
-		text : "placeholder store name"
+		text : e.data.fullRowParams.title
 	}));
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
-		text : "placeholder list of rx' name"
+		text : e.data.fullRowParams.subtitle
 	}));
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
-		text : "placeholder list of rx' price"
+		text : "$" + e.data.fullRowParams.amountDue
 	}));
-
 
 	var btn = $.UI.create("Button", {
 		apiName : "Button",
-		classes :  ["margin-top", "margin-left-extra-large", "margin-right-extra-large",  "active-fg-color", "border-color-disabled" ],
+		classes : ["margin-top", "margin-bottom-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"],
 		title : "close",
 		index : 0
 	});
-	$.addListener(btn, "click", function(){$.storeDetailsDialog.hide()});
+	$.addListener(btn, "click", function() {
+		$.storeDetailsDialog.hide();
+	});
 	dialogView.add(btn);
-
-
 
 	$.storeDetailsDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
 		classes : ["modal-dialog"],
@@ -827,15 +797,15 @@ function didClickCCEdit(e) {
 }
 
 function presentSubmitButton() {
+	if (OS_ANDROID) {
+		var top = $.tableView.top,
+		    bottom = $.tableView.bottom;
 
-	var top = $.tableView.top,
-	    bottom = $.tableView.bottom;
-
-	$.tableView.applyProperties({
-		top : top,
-		bottom : bottom + $.submitBtn.height
-	});
-
+		$.tableView.applyProperties({
+			top : top,
+			bottom : bottom + $.submitBtn.height
+		});
+	}
 	//Submit button can be shown here
 	$.submitBtn.visible = true;
 }
