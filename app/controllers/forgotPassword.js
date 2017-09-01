@@ -587,6 +587,13 @@ function presentLoyaltyPrompt() {
 	row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 	row.on("answerPrompt", didAnswerLoyaltyPrompt);
 
+	sectionHeaders[rowParams.section] += rowParams.filterText;
+	sections[rowParams.section].push(row);
+	questionSection.add(row.getView());
+	data[0] = questionSection;
+
+	$.tableView.setData(data);
+/*
 	if (OS_IOS) {
 		questionSection[2] = row.getView();
 		data[0] = questionSection;
@@ -598,7 +605,7 @@ function presentLoyaltyPrompt() {
 	} else {
 		questionSection.add(row.getView());
 		$.tableView.setData(data);
-	}
+	}*/
 }
 
 function didAnswerLoyaltyPrompt(e) {
