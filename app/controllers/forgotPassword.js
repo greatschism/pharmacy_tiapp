@@ -687,33 +687,32 @@ function presentCCConfirmation(patient) {
 	});
 
 /****/
-/* Add a couple fake stores to simulate more than 2 stores*/
+/* Add a couple fake stores to simulate additional stores*/
 
-					var checkoutStoreData = {
-						section : "payment",
-						itemTemplate : "checkoutStoreItems",
-						masterWidth : 100,
-						title : "placeholder store A",
-						subtitle :  "placeholder rx A",
-						amountDue : "placholder amt a"
-					};
+					// var checkoutStoreData = {
+					// 	section : "payment",
+					// 	itemTemplate : "checkoutStoreItems",
+					// 	masterWidth : 100,
+					// 	title : "placeholder store A",
+					// 	subtitle :  "placeholder rx A",
+					// 	amountDue : "placholder amt a"
+					// };
 
-					checkoutStores.push(checkoutStoreData);
+					// checkoutStores.push(checkoutStoreData);
 
-					var checkoutStoreData = {
-						section : "payment",
-						itemTemplate : "checkoutStoreItems",
-						masterWidth : 100,
-						title : "placeholder store B",
-						subtitle :  "placeholder rx B",
-						amountDue : "placholder amt b"
-					};
+					// var checkoutStoreData = {
+					// 	section : "payment",
+					// 	itemTemplate : "checkoutStoreItems",
+					// 	masterWidth : 100,
+					// 	title : "placeholder store B",
+					// 	subtitle :  "placeholder rx B",
+					// 	amountDue : "placholder amt b"
+					// };
 
-					checkoutStores.push(checkoutStoreData);
+					// checkoutStores.push(checkoutStoreData);
 /****/
 
 	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
-	Ti.API.info("************      checkoutStores.length "+checkoutStores.length)
 	_.each(checkoutStores, function(checkoutStoreData) {
 		var rowParams = checkoutStoreData,
 		    row,  limitedRowParams;
@@ -729,11 +728,8 @@ function presentCCConfirmation(patient) {
 				masterWidth : 100,
 				title : rowParams.title,
 				fullRowParams : rowParams
-			};
+			}; // ^^^^ Certainly there is a better way to do this!.....
 			limitedRowParams.filterText = _.values(_.pick(rowParams, ["title"])).join(" ").toLowerCase();
-			Ti.API.info("************      limitedRowParams.filterText "+limitedRowParams.filterText)
-
-			//Certainly there is a better way to do this ^^^^ !.....
 
 			row = Alloy.createController("itemTemplates/".concat(limitedRowParams.itemTemplate), limitedRowParams);
 			row.on("checkoutStoreDetails", presentCheckoutStoreDetails );
