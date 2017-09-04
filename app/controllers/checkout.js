@@ -882,6 +882,7 @@ function didFail(result, passthrough) {
 }
 
 function popToPrescriptions() {
+	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());

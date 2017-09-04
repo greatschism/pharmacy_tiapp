@@ -118,12 +118,17 @@ function focus() {
 		if (args.useCache && Alloy.Collections.prescriptions.length) {
 			prepareList();
 		} else {
-			$.http.request({
-				method : "patient_sync",
-				keepLoader : true,
-				success : prepareData
-			});
-			// prepareData();
+			if ($.utilities.getProperty(Alloy.CFG.sync_after_checkout) == "1") {
+				$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "0");
+				$.http.request({
+					method : "patient_sync",
+					keepLoader : true,
+					success : prepareData,
+					failure : prepareData
+				});
+			} else {
+				prepareData();
+			}
 		}
 	} else if (currentPrescription && currentPrescription.shouldUpdate) {
 		/**
