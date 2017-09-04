@@ -27,7 +27,7 @@ module.exports = {
 	"EMVE" : "LORE",
 	"FOPA" : "LORE",
 	
-		"PASS" : "LORE",
+	"PASS" : "LORE",
 
 	"HIPA" : "LORE",
 	"LOGI" : "LORE",
