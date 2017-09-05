@@ -51,7 +51,7 @@
 				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border accessibility-disabled" />
 			</View>
 		</View>
-		<Button id="refillBtn" class="primary-bg-color dark-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
+		<Button id="refillBtn" class="primary-bg-color primary-font-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
 		<View class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_reminders_enabled">
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>

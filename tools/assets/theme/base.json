@@ -305,9 +305,9 @@
                 "barColor":"${PRIMARY_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${DARK_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
-                "navTintColor":"${DARK_COLOR}",
+                "navTintColor":"${PRIMARY_FONT_COLOR}",
                 "backgroundColor":"${BG_COLOR}"
             },
             "Window[platform=android]":{
@@ -315,7 +315,7 @@
                 "statusBarColor":"${PRIMARY_DARK_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${DARK_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
@@ -323,7 +323,7 @@
                 "barColor":"${PRIMARY_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${DARK_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}",
                 "openDrawerGestureMode":"OPEN_MODE_NONE",
@@ -336,13 +336,13 @@
                 "statusBarColor":"${PRIMARY_DARK_COLOR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${DARK_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
-            	"color":"${DARK_COLOR}"
+            	"color":"${PRIMARY_FONT_COLOR}"
             },
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
@@ -942,9 +942,9 @@
                 "color":"${PRIMARY_LIGHT_COLOR}",
                 "selectedColor":"${PRIMARY_LIGHT_SELECTED_COLOR}"
             },
-            ".dark-color":{
-            	"color":"${DARK_COLOR}",
-                "selectedColor":"${DARK_SELECTED_COLOR}"
+            ".primary-font-color":{
+            	"color":"${PRIMARY_FONT_COLOR}",
+                "selectedColor":"${PRIMARY_FONT_SELECTED_COLOR}"
             },
             ".active-fg-color":{
                 "color":"${ACTIVE_COLOR}",

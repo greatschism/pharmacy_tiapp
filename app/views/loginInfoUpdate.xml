@@ -9,7 +9,7 @@
 				<View class="h-divider"/>
 				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue" onClick="didChangeToggle"/>
 			</View>
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color dark-color primary-border" onClick="didClickContinue"/>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 		</View>
 	</ScrollView>
 </Alloy>

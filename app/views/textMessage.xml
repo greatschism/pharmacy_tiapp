@@ -9,7 +9,7 @@
 		<Label id="signUpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.signUpLbl"/>
 		<Label id="txtHelpMsgLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtHelpLbl"/>
 		<Label id="txtNotReceiveLbl" class="margin-top-large margin-left margin-right margin-bottom" if="$.args.txtNotReceiveLbl"/>
-		<Button id="txtMsgBtn" analyticsId="TxtMsgBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
+		<Button id="txtMsgBtn" analyticsId="TxtMsgBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="replyTextMessage" if="$.args.replyTextMsgBtn"/>
 		<Button id="txtNotReceiveBtn" analyticsId="TxtNotReceiveBtn" class="bg-color primary-fg-color primary-border" onClick="didNotReceiveText" if="$.args.txtNotReceiveBtn"/>
 		<Button id="sendTxtSignUpBtn" analyticsId="SendTxtSignUpBtn" class="bg-color primary-fg-color primary-border" onClick="sendTextSignUpMessage" if="$.args.sendMeTextAgainSignUpBtn"/>
 		<Button id="sendTxtTextHelpBtn" analyticsId="SendTxtTextHelpBtn" class="bg-color primary-fg-color primary-border" onClick="sendTextTextHelpMessage" if="$.args.sendMeTextAgainTextHelpBtn" />

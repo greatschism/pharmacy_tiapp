@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right dark-color bg-color-disabled border-disabled icon-options-menu accessibility-enabled" onClick="didClickRightNavBtn" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-font-color bg-color-disabled border-disabled icon-options-menu accessibility-enabled" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
 	<Widget id="sortPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickSortPicker" if="!$.args.showHiddenPrescriptions">
 		<View class="min-height inactive-light-bg-color role-header-view">
@@ -18,7 +18,7 @@
 			<View class="bottom h-divider-light" />
 		</View>
 		<View class="auto-height vgroup role-footer-view">
-			<Button id="unhideBtn" class="margin-left-extra-large margin-right-extra-large primary-bg-color dark-color primary-border" onClick="didClickUnhide"  />
+			<Button id="unhideBtn" class="margin-left-extra-large margin-right-extra-large primary-bg-color primary-font-color primary-border" onClick="didClickUnhide"  />
 			<Button id="unhideCloseBtn" class="margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
@@ -40,12 +40,12 @@
 		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center"/>
 		<Button accessibilityLabel="Alloy.Globals.strings.prescAddBtnAccessibility" class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription accessibility-enabled" onClick="didClickAddPresc" />
 	</ScrollView>
-	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
+	<Button id="submitBtn" class="top-disabled margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 	<!--tooltip shown only for first time from med reminder - showMedReminderTooltip flag should be sent with arguments-->
 	<Widget id="tooltip" src="ti.tooltip" class="margin-right width-50 bg-color primary-border show" if="$.args.showMedReminderTooltip">
 		<View class="auto-height vgroup">
 			<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
-			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 dark-color primary-border" onClick="didClickHide" />
+			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-font-color primary-border" onClick="didClickHide" />
 		</View>
 	</Widget>
 </Alloy> 

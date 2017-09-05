@@ -7,7 +7,7 @@
 			<Window id="rootWindow" class="bg-color">
 				<LeftNavButton>
 					<View id="leftNavView" onClick="didClickLeftNavView">
-						<Button class="top-disabled left-disabled right-disabled i5 dark-color bg-color-disabled border-disabled icon-hamburger" />
+						<Button class="top-disabled left-disabled right-disabled i5 primary-font-color bg-color-disabled border-disabled icon-hamburger" />
 					</View>
 				</LeftNavButton>
 				<TitleControl>

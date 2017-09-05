@@ -4,6 +4,6 @@
 		<View class="margin-top margin-left margin-right auto-height vgroup border">
 			<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-email returnkey-done" onReturn="didClickDone" />
 		</View>
-		<Button id="doneBtn" analyticsId="DoneBtn" class="margin-top primary-bg-color dark-color primary-border" onClick="didClickDone" />
+		<Button id="doneBtn" analyticsId="DoneBtn" class="margin-top primary-bg-color primary-font-color primary-border" onClick="didClickDone" />
 	</View>
 </Alloy>

@@ -9,6 +9,6 @@
 			<View id="colorBoxView" class="margin-right color-box border" />
 		</View>
 		<View class="h-divider-light" />
-		<Button id="submitBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmit" />
+		<Button id="submitBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" />
 	</ScrollView>
 </Alloy>

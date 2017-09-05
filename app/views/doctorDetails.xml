@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right dark-color bg-color-disabled border-disabled icon-edit" onClick="didClickRightNav" if="$.args.canUpdate" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-font-color bg-color-disabled border-disabled icon-edit" onClick="didClickRightNav" if="$.args.canUpdate" />
 	<TableView id="tableView">
 		<HeaderView>
 			<View class="auto-height vgroup">

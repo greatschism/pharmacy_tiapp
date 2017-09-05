@@ -25,7 +25,7 @@
 				</View>
 			</View>
 			<Widget id="agreementAttr" analyticsId="AgreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickContinue"/>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 			<Button id="skipBtn" analyticsId="SkipBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
 		</View>
 		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />

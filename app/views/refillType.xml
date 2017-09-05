@@ -30,7 +30,7 @@
 			<View id="pickupDividerView" class="h-divider-light" />
 		</View>
 		<View id="dividerView" class="margin-top h-divider-light" />
-		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-border" onClick="didClickRefill" />
+		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickRefill" />
 	</ScrollView>
 	<Widget id="pickupModePicker" src="ti.optionpicker" class="modal-dialog" onClick="updatePickupMode">
 		<View class="min-height inactive-light-bg-color role-header-view">
