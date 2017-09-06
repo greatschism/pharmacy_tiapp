@@ -650,12 +650,13 @@ function presentCCConfirmation(patient) {
 					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
 					_.some(checkoutStores, function(storeInfo, index) {
 						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-						if (storeInfo.title.trim() == prescription.original_store_address_line1.trim()) {
+						if (storeInfo.storeId == prescription.original_store_id) {
 							if (_.has(prescription, "copay")) {
 								if (prescription.copay != null) {
 									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 									storeInfo.amountDue += parseFloat(prescription.copay);
-									storeInfo.subtitle += ", " + $.strings.strPrefixRx.concat(prescription.rx_number), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+									storeInfo.subtitle = storeInfo.subtitle.concat("\n"+prescription.presc_name), 
+									logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 								}
 							}
 						} else {
@@ -664,8 +665,9 @@ function presentCCConfirmation(patient) {
 									section : "payment",
 									itemTemplate : "checkoutStoreItems",
 									masterWidth : 100,
+									storeId : prescription.original_store_id,
 									title : prescription.original_store_address_line1.trim(),
-									subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
+									subtitle : prescription.presc_name,
 									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 								};
 								checkoutStores.push(checkoutStoreData);
@@ -679,8 +681,9 @@ function presentCCConfirmation(patient) {
 						section : "payment",
 						itemTemplate : "checkoutStoreItems",
 						masterWidth : 100,
+						storeId : prescription.original_store_id,
 						title : prescription.original_store_address_line1.trim(),
-						subtitle : $.strings.strPrefixRx.concat(prescription.rx_number),
+						subtitle : prescription.presc_name,
 						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 					};
 
@@ -769,12 +772,12 @@ function presentCheckoutStoreDetails(e) {
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
-		text : e.data.fullRowParams.subtitle
+		text : e.data.fullRowParams.subtitle.trim()
 	}));
 	dialogView.add($.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h4", "txt-center"],
-		text : "$" + e.data.fullRowParams.amountDue
+		text : "$" + e.data.fullRowParams.amountDue.toFixed(2)
 	}));
 
 	var btn = $.UI.create("Button", {

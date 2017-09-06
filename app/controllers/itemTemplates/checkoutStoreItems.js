@@ -6,7 +6,7 @@ var args = $.args,
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	
+
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
 		$.resetClass($.titleLbl, args.titleClasses, {
@@ -15,49 +15,30 @@ var args = $.args,
 	} else {
 		$.titleLbl.text = title;
 	}
-	
+
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {
-			text : subtitle,
+			text : subtitle.trim(),
 		});
 	} else {
-		$.subtitleLbl.text = subtitle;
+		$.subtitleLbl.text = subtitle.trim();
 	}
-	if(subtitle === "") {
+	if (subtitle === "") {
 		$.subtitleLbl.height = 0;
 	}
-	/*
-	var amountDue = args.amountDue || (args.data ? args.data[args.amountDue] : "");
-	if (args.amountDue) {
-		$.resetClass($.amountDueVal, args.amountDueClasses, {
-			text : amountDue,
-		});
-	} else {
-		$.amountDueVal.text = amountDue;
-	}
-	*/
 
 	var amountDue = args.amountDue || (args.data ? args.data[args.amountDue] : "");
 	if (args.amountDue) {
-
-		$.amountDueVal.text = "$"+ amountDue;
+		$.amountDueVal.text = "$" + amountDue.toFixed(2);
 	} else {
 		$.amountDueView.height = 0;
 	}
-
-	if(subtitle === "") {
-		$.subtitleLbl.height = 0;
-	}
-	
-
-
 })();
 
 function getParams() {
 	return args;
 }
-
 
 function didClickItem(e) {
 
