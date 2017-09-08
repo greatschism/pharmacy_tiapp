@@ -31,7 +31,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "View",
-										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"classes" : ["left", "auto-width", "auto-height", "vgroup"],
 										"properties" : {
 											"width" : "30%"
 										},
@@ -71,8 +71,7 @@ module.exports = {
 										"navigation" : {
 											"action" : "refill"
 										}
-									},
-									{
+									},{
 										"apiName" : "View",
 										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
@@ -98,38 +97,16 @@ module.exports = {
 								}]
 							}, {
 								"apiName" : "View",
-								"classes" : ["h-divider-light", "touch-disabled"]
+								"classes" : ["v-divider-light", "touch-disabled"]
 							}, {
 								"apiName" : "View",
 								"classes" : ["auto-height"],
 								"children" : [{
-									"items" : [{
+									"items" : [ {
 										"apiName" : "View",
 										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
-											"width" : "50%"
-										},
-										"children" : [{
-											"items" : [{
-												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
-											}, {
-												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
-												"properties" : {
-													"textid" : "titleReminders"
-												}
-											}]
-										}],
-										"feature_name" : "is_reminders_enabled",
-										"navigation" : {
-											"ctrl" : "reminders"
-										}
-									}, {
-										"apiName" : "View",
-										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
-										"properties" : {
-											"width" : "50%"
+											"width" : "30%"
 										},
 										"children" : [{
 											"items" : [{
@@ -147,20 +124,12 @@ module.exports = {
 										"navigation" : {
 											"ctrl" : "familyCare"
 										}
-									}]
-								}]
-							}, {
-								"apiName" : "View",
-								"classes" : ["h-divider-light", "touch-disabled"]
-							}, {
-								"apiName" : "View",
-								"classes" : ["auto-height"],
-								"children" : [{
-									"items" : [{
+									},
+									{
 										"apiName" : "View",
-										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"classes" : ["center", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
-											"width" : "50%"
+											"width" : "30%"
 										},
 										"children" : [{
 											"items" : [{
@@ -178,11 +147,11 @@ module.exports = {
 										"navigation" : {
 											"ctrl" : "stores"
 										}
-									}, {
+									},{
 										"apiName" : "View",
 										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
-											"width" : "50%"
+											"width" : "30%"
 										},
 										"children" : [{
 											"items" : [{
@@ -204,7 +173,7 @@ module.exports = {
 								}]
 							}, {
 								"apiName" : "View",
-								"classes" : ["h-divider-light", "touch-disabled"]
+								"classes" : ["v-divider-light", "touch-disabled"]
 							}, {
 								"apiName" : "View",
 								"classes" : ["auto-height"],
@@ -213,7 +182,7 @@ module.exports = {
 										"apiName" : "View",
 										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
-											"width" : "50%"
+											"width" : "30%"
 										},
 										"children" : [{
 											"items" : [{
@@ -233,9 +202,9 @@ module.exports = {
 										}
 									}, {
 										"apiName" : "View",
-										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"classes" : ["center", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
-											"width" : "50%"
+											"width" : "30%"
 										},
 										"children" : [{
 											"items" : [{
@@ -254,9 +223,62 @@ module.exports = {
 										}
 									}]
 								}]
-							}, {
+							}, //{
+								//"apiName" : "View",
+								//"classes" : ["h-divider-light", "touch-disabled"]
+							// }, {
+								// "apiName" : "View",
+								// "classes" : ["auto-height"],
+								// "children" : [{
+									// "items" : [{
+										// "apiName" : "View",
+										// "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										// "properties" : {
+											// "width" : "50%"
+										// },
+										// "children" : [{
+											// "items" : [{
+												// "apiName" : "Label",
+												// "classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
+											// }, {
+												// "apiName" : "Label",
+												// "classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												// "properties" : {
+													// "textid" : "titleDoctors"
+												// }
+											// }]
+										// }],
+										// "feature_name" : "is_doctors_enabled",
+										// "navigation" : {
+											// "ctrl" : "doctors"
+										// }
+									// }, {
+										// "apiName" : "View",
+										// "classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										// "properties" : {
+											// "width" : "50%"
+										// },
+										// "children" : [{
+											// "items" : [{
+												// "apiName" : "Label",
+												// "classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
+											// }, {
+												// "apiName" : "Label",
+												// "classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												// "properties" : {
+													// "textid" : "titleAccount"
+												// }
+											// }]
+										// }],
+										// "navigation" : {
+											// "ctrl" : "account"
+										// }
+									// }]
+								// }]
+							// }, 
+							{
 								"apiName" : "View",
-								"classes" : ["h-divider-light", "touch-disabled"]
+								"classes" : ["v-divider-light", "touch-disabled"]
 							}]
 						}]
 					}, {
@@ -265,14 +287,15 @@ module.exports = {
 						"classes" : ["top", "v-divider-light", "touch-disabled"]
 					}]
 				}]
-			},
-			{ "id" : "bannerView",
+				},
+				{ "id" : "bannerView",
 				 "apiName" : "View",
 				 "classes" : ["auto-width", "auto-height"]
 			 }, {
 				 "apiName" : "View",
 				 "classes" : ["h-divider-light", "touch-disabled"]
-			 }]
+			 
+			}]
 		}]
 	}]
 };
