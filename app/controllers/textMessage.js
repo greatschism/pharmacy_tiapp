@@ -46,7 +46,7 @@ function skipClicked() {
 	currentPatient.set("is_mobile_verified", "0");
 
 	$.app.navigator.open({
-		titleid : "titleHome",
+		titleid : "titleHomePage",
 		ctrl : "home",
 		stack : false
 	});
@@ -106,7 +106,7 @@ function didReplied() {
 				}
 			} else {
 				$.app.navigator.open({
-					titleid : "titleHome",
+					titleid : "titleHomePage",
 					ctrl : "home",
 					stack : false
 				});

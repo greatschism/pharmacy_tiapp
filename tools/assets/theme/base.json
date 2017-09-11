@@ -309,6 +309,33 @@
             ".prescription-name":{
                 "maxLength":25
             },
+            ".refill-list-icon-color":{
+                "color":"${REFILL_LIST_ICON_COLOR}"
+            },
+            ".refill-scan-icon-color":{
+                "color":"${REFILL_SCAN_ICON_COLOR}"
+            },
+            ".transfer-rx-icon-color":{
+                "color":"${TRANSFER_RX_ICON_COLOR}"
+            },
+            ".find-store-icon-color":{
+                "color":"${FIND_STORE_ICON_COLOR}"
+            },
+            ".express-checkout-icon-color":{
+                "color":"${EXPRESS_CHECKOUT_ICON_COLOR}"
+            },
+            ".update-insurance-icon-color":{
+                "color":"${UPDATE_INSURANCE_ICON_COLOR}"
+            },
+            ".family-care-icon-color":{
+                "color":"${FAMILY_CARE_ICON_COLOR}"
+            },
+            ".prescribers-icon-color":{
+                "color":"${PRESCRIBERS_ICON_COLOR}"
+            },
+            ".settings-icon-color":{
+                "color":"${SETTINGS_ICON_COLOR}"
+            },
             "Window[platform=ios]":{
                 "barColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{

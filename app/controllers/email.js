@@ -53,7 +53,7 @@ function handleClose() {
 			buttonNames : [$.strings.dialogBtnOK],
 			success : function() {
 				$.app.navigator.open({
-					titleid : "titleHome",
+					titleid : "titleHomePage",
 					ctrl : "home",
 					stack : false
 				});

@@ -41,8 +41,22 @@
 		"left": 0,
 		"right": 0
 	},
-	"BORDER_COLOR": "#808082",
-	"BORDER_COLOR_LIGHT": "#D5D5D5",
+	"PRIMARY_COLOR": "#0a4d8c",
+	"PRIMARY_COLOR_BAR": "#0a4d8c",
+	"PRIMARY_SELECTED_COLOR": "#0a4d8c",
+	"PRIMARY_DARK_COLOR": "#063057",
+	"PRIMARY_DARK_SELECTED_COLOR": "#063057",
+	"REFILL_LIST_ICON_COLOR": "#0a4d8c",
+	"REFILL_SCAN_ICON_COLOR": "#0a4d8c",
+    "TRANSFER_RX_ICON_COLOR": "#0a4d8c",
+    "FIND_STORE_ICON_COLOR": "#0a4d8c",
+    "EXPRESS_CHECKOUT_ICON_COLOR": "#0a4d8c",
+    "UPDATE_INSURANCE_ICON_COLOR": "#0a4d8c",
+    "FAMILY_CARE_ICON_COLOR": "#0a4d8c",
+    "PRESCRIBERS_ICON_COLOR": "#0a4d8c",
+    "SETTINGS_ICON_COLOR": "#0a4d8c",
+    "BORDER_COLOR": "#808082",
+    "BORDER_COLOR_LIGHT": "#D5D5D5",
 	"BORDER_WIDTH": 1,
 	"BORDER_WIDTH_LIGHT": 0.5,
 	"BORDER_RADIUS": 3.4,
@@ -132,11 +146,11 @@
 	},
 	"H7_PLATFORM_IOS": {
 		"fontFamily": "medium",
-		"fontSize": 12
+		"fontSize": 14
 	},
 	"H7_PLATFORM_ANDROID": {
 		"fontFamily": "medium",
-		"fontSize": 12
+		"fontSize": 14
 	},
 	"H8_PLATFORM_IOS": {
 		"fontFamily": "regular",
