@@ -46,9 +46,6 @@ CONSTS = Alloy.TSS[CONSTS];
 	} else if (args.defaultImage) {
 		imageView.image = args.defaultImage;
 	}
-	if(args.imageAccessibility) {
-		imageView.accessibilityLabel = args.imageAccessibility;
-	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
 		$.resetClass($.titleLbl, args.titleClasses, {
@@ -65,6 +62,7 @@ CONSTS = Alloy.TSS[CONSTS];
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	$.containerView.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

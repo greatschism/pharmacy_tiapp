@@ -32,6 +32,8 @@ module.exports = {
 		"strHide" : "hide",
 		"accessibilityStrShow" : "Show password",
 		"accessibilityStrHide" : "Hide password",
+		"accessibilityStrShowing" : "Showing password",
+		"accessibilityStrHiding" : "Hiding password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -291,6 +293,7 @@ module.exports = {
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
+		"storesAutoSearchResultsInList" : "Showing item 1 of %s in list",
 
 		"storeDetIconFavStore" : "Favorite Store",
 		"storeDetLblOpen" : "Open till %s",
@@ -950,7 +953,7 @@ module.exports = {
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
-		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
+		"accessibilityCheckboxSelect" : "Checkbox not checked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"accessibilityCheckboxChecked" : "Checkbox Checked",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",

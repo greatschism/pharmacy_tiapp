@@ -11,7 +11,8 @@ var TAG = "BARC",
     isBusy = false,
     keepOpen = false,
     supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
-    successCallback;
+    successCallback,
+    passthrough;
 
 var BarcodeReader = {
 
@@ -49,6 +50,11 @@ var BarcodeReader = {
 			successCallback = options.success;
 			delete options.success;
 		}
+		
+		if (_.has(options, "passthrough")) {
+			passthrough = options.passthrough;
+			delete options.passthrough;
+		}
 
 		BarcodeReader.__window = $.UI.create("Window", {
 			apiName : "Window",
@@ -78,7 +84,11 @@ var BarcodeReader = {
 				classes : ["top", "nav-bar-height", "primary-bg-color"]
 			}),
 			    navIconBtn = $.UI.create("Button", {
-				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-light-fg-color", "bg-color-disabled", "border-disabled", "icon-back"]
+				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
+			}),
+				navTitleLbl = $.UI.create("Label", {
+				classes : ["title-control", "txt-center"],
+				text : Alloy.Globals.strings.titleRefill
 			}),
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
@@ -86,6 +96,9 @@ var BarcodeReader = {
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			navbarView.add(navIconBtn);
+			if (Ti.App.accessibilityEnabled) {
+				navbarView.add(navTitleLbl);
+			};
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
 			BarcodeReader.__window.add(overlayView);
@@ -116,6 +129,13 @@ var BarcodeReader = {
 
 		//nullify instances
 		BarcodeReader.__window = BarcodeReader.__cameraView = null;
+		
+		/**
+		 * 	To enable accessibility on Refill screen
+		 */
+		if (passthrough) {
+			passthrough();
+		}
 
 		isBusy = false;
 	},

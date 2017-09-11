@@ -47,5 +47,14 @@
 	}, {
 		"id": "clarks",
 		"description": "Clarks"
+	}, {
+		"id": "acme",
+		"description": "Acme Rx."
+	}, {
+		"id": "haggen",
+		"description": "Haggen Pharmacy Rx."
+	}, {
+		"id": "shaws",
+		"description": "Shaws Rx."
 	}
 ]

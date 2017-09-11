@@ -11,7 +11,7 @@
 		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
 			<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done keyboard-email"/>
 		</View>
-		<Button id="sendBtn" analyticsId="SendBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didSendInvite"/>
+		<Button id="sendBtn" analyticsId="SendBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didSendInvite"/>
 		<Button id="cancelBtn" analyticsId="CancelBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickCancel"/>
 	</ScrollView>
 </Alloy>

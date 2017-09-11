@@ -19,7 +19,7 @@
 				</View>
 			</View>
 			<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 		</View>
 		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />

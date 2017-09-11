@@ -3,23 +3,23 @@
 		<ScrollView id="appView" class="vgroup">
 			<ImageView id="logoImg" class="margin-top img-logo" />
 			<Label id="appLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
-			<ImageView id="appImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+			<ImageView id="appImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 		<ScrollView id="prescView" class="vgroup">
 			<Label id="prescLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
-			<ImageView id="prescImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+			<ImageView id="prescImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 		<ScrollView id="refillView" class="vgroup" if="Alloy.CFG.is_quick_refill_enabled">
 			<Label id="refillLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
-			<ImageView id="refillImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+			<ImageView id="refillImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 		<ScrollView id="remindersView" class="vgroup" if="Alloy.CFG.is_reminders_enabled">
 			<Label id="remindersLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
-			<ImageView id="remindersImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+			<ImageView id="remindersImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 		<ScrollView id="familyCareView" class="vgroup" if="Alloy.CFG.is_proxy_enabled">
 			<Label id="familyCareLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
-			<ImageView id="familyCareImg" class="margin-top width-100 repeat-disabled bubble-disabled" />
+			<ImageView id="familyCareImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 	</ScrollableView>
 	<View id="footerView" class="margin-bottom auto-height">

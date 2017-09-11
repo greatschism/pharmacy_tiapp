@@ -127,7 +127,9 @@ function didFocusPassword(e) {
 		});
 		delete $.passwordTooltip.size;
 	}
-	$.passwordTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.passwordTooltip.show();
+	}
 }
 
 function didFocusRx(e) {
@@ -143,7 +145,9 @@ function didFocusRx(e) {
 		});
 		delete $.rxTooltip.size;
 	}
-	$.rxTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.rxTooltip.show();
+	}
 }
 
 function didBlurFocusPassword() {
@@ -407,6 +411,7 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShowing,
 				width : "25%",
 				backgroundColor : 'transparent'
 			});
@@ -414,12 +419,23 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHiding,
 				width : "25%",
 				backgroundColor : 'transparent'
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
+		setTimeout(updatePasswordToggle, 2000);
 	}
+}
+
+function updatePasswordToggle() {
+	if ($.passwordTxt.getPasswordMask()) {
+		rightPwdButtonDict.accessibilityLabel = Alloy.Globals.strings.accessibilityStrShow;
+	} else {
+		rightPwdButtonDict.accessibilityLabel = Alloy.Globals.strings.accessibilityStrHide;
+	}
+	setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
 }
 
 function setRightButton(iconText, iconDict) {

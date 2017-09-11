@@ -73,7 +73,7 @@ function request(args) {
 	_.extend(args.params, {
 		client_identifier : Alloy.Models.appload.get("client_id"),
 		version : Alloy.CFG.api_version,
-		lang : localization.currentLanguage.code,
+		lang : "en",
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
 		session_id : Alloy.Globals.sessionId
 	});

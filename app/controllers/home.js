@@ -66,7 +66,7 @@ function init() {
 			}));
 			_.each([{
 				title : $.strings.homeDialogBtnGreat,
-				classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+				classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-font-color", "primary-border"]
 			}, {
 				title : $.strings.homeDialogBtnImprove,
 				classes : ["margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]
@@ -83,11 +83,17 @@ function init() {
 				$.addListener(btn, "click", didGetFeedback);
 				dialogView.add(btn);
 			});
-			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-				classes : ["modal-dialog"],
-				children : [dialogView]
-			}));
-			$.contentView.add($.feedbackDialog.getView());
+			if (OS_ANDROID) {
+				$.feedbackDialog = Ti.UI.createAlertDialog({
+			    	androidView : dialogView
+			  	});
+			} else{
+				$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+					classes : ["modal-dialog"],
+					children : [dialogView]
+				}));
+				$.contentView.add($.feedbackDialog.getView());
+			}
 			$.feedbackDialog.show();
 		}
 	}
@@ -95,67 +101,78 @@ function init() {
 
 function didGetFeedback(event) {
 	var index = event.source.index;
-	$.feedbackDialog.hide(function didHide() {
+	$.feedbackDialog.hide();
+	didFeedbackHide(index);
+}
+
+function didFeedbackHide(index) {
+	if (OS_IOS) {
 		$.contentView.remove($.feedbackDialog.getView());
 		$.feedbackDialog = null;
-		switch(index) {
-		case 0:
-			//great
-			trackEvent("click", "FeedbackGreat");
-			showRateDialog();
-			break;
-		case 1:
-			//improve
-			trackEvent("click", "FeedbackImprove");
-			var dialogView = $.UI.create("ScrollView", {
-				apiName : "ScrollView",
-				classes : ["top", "auto-height", "vgroup"]
+	};
+	switch(index) {
+	case 0:
+		//great
+		trackEvent("click", "FeedbackGreat");
+		showRateDialog();
+		break;
+	case 1:
+		//improve
+		trackEvent("click", "FeedbackImprove");
+		var dialogView = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
+		});
+		dialogView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+			text : $.strings.homeDialogTitleImprove
+		}));
+		dialogView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top", "margin-left-extra-large", "margin-right-extra-large"],
+			text : $.strings.homeMsgImprove
+		}));
+		$.feedbackTxta = Alloy.createWidget("ti.textarea", "widget", $.createStyle({
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "txta", "feedback"],
+			hintText : $.strings.homeDialogHintFeedback
+		}));
+		dialogView.add($.feedbackTxta.getView());
+		_.each([{
+			title : $.strings.homeDialogBtnSubmit,
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-font-color", "primary-border"]
+		}, {
+			title : $.strings.homeDialogBtnCancel,
+			classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"]
+		}], function(obj, index) {
+			var btn = $.UI.create("Button", {
+				apiName : "Button",
+				classes : obj.classes,
+				title : obj.title,
+				index : index
 			});
-			dialogView.add($.UI.create("Label", {
-				apiName : "Label",
-				classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
-				text : $.strings.homeDialogTitleImprove
-			}));
-			dialogView.add($.UI.create("Label", {
-				apiName : "Label",
-				classes : ["margin-top", "margin-left-extra-large", "margin-right-extra-large"],
-				text : $.strings.homeMsgImprove
-			}));
-			$.feedbackTxta = Alloy.createWidget("ti.textarea", "widget", $.createStyle({
-				classes : ["margin-left-extra-large", "margin-right-extra-large", "txta", "feedback"],
-				hintText : $.strings.homeDialogHintFeedback
-			}));
-			dialogView.add($.feedbackTxta.getView());
-			_.each([{
-				title : $.strings.homeDialogBtnSubmit,
-				classes : ["margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
-			}, {
-				title : $.strings.homeDialogBtnCancel,
-				classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"]
-			}], function(obj, index) {
-				var btn = $.UI.create("Button", {
-					apiName : "Button",
-					classes : obj.classes,
-					title : obj.title,
-					index : index
-				});
-				$.addListener(btn, "click", didGetComments);
-				dialogView.add(btn);
-			});
+			$.addListener(btn, "click", didGetComments);
+			dialogView.add(btn);
+		});
+		if (OS_ANDROID) {
+			$.feedbackDialog = Ti.UI.createAlertDialog({
+		    	androidView : dialogView
+		  	});
+		} else{
 			$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
 				classes : ["modal-dialog"],
 				children : [dialogView]
 			}));
 			$.contentView.add($.feedbackDialog.getView());
-			$.feedbackDialog.show();
-			break;
-		case 2:
-			//cancel
-			trackEvent("click", "FeedbackCancel");
-			feedbackHandler.option = apiCodes.feedback_option_cancel;
-			break;
 		}
-	});
+		$.feedbackDialog.show();
+		break;
+	case 2:
+		//cancel
+		trackEvent("click", "FeedbackCancel");
+		feedbackHandler.option = apiCodes.feedback_option_cancel;
+		break;
+	}
 }
 
 function didGetComments(event) {
@@ -194,10 +211,11 @@ function didGetComments(event) {
 		feedbackHandler.option = apiCodes.feedback_option_not_submitted;
 		break;
 	}
-	$.feedbackDialog.hide(function didHide() {
+	$.feedbackDialog.hide();
+	if (OS_IOS) {
 		$.contentView.remove($.feedbackDialog.getView());
 		$.feedbackDialog = $.commentTxta = null;
-	});
+	}
 }
 
 function showRateDialog() {
@@ -217,7 +235,7 @@ function showRateDialog() {
 	}));
 	_.each([{
 		title : $.strings.homeDialogBtnRate,
-		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+		classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-font-color", "primary-border"]
 	}, {
 		title : $.strings.homeDialogBtnRemind,
 		classes : ["margin-left-extra-large", "margin-right-extra-large", "bg-color", "primary-fg-color", "primary-border"]
@@ -234,20 +252,27 @@ function showRateDialog() {
 		$.addListener(btn, "click", didRateApp);
 		dialogView.add(btn);
 	});
-	$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-		classes : ["modal-dialog"],
-		children : [dialogView]
-	}));
-	$.contentView.add($.feedbackDialog.getView());
+	if (OS_ANDROID) {
+		$.feedbackDialog = Ti.UI.createAlertDialog({
+	    	androidView : dialogView
+	  	});
+	} else{
+		$.feedbackDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView]
+		}));
+		$.contentView.add($.feedbackDialog.getView());	
+	};
 	$.feedbackDialog.show();
 }
 
 function didRateApp(event) {
 	var index = event.source.index;
-	$.feedbackDialog.hide(function didHide() {
+	$.feedbackDialog.hide();
+	if (OS_IOS) {
 		$.contentView.remove($.feedbackDialog.getView());
 		$.feedbackDialog = null;
-	});
+	}
 	switch(index) {
 	case 0:
 		//rate now
