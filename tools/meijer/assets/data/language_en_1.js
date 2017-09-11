@@ -6,14 +6,14 @@ module.exports = {
 
 		"titlePrescriptions" : "Prescriptions",
 		"titleReminders" : "Reminders",
-		"titleRefill" : "Refill by scan",
+		"titleRefill" : "Refill by Scan",
 		
 		"loginLblTitle" : "Sign in to the Meijer Rx mobile pharmacy",
 		"familyMemberAddLbl" : "Great, let's add your family members!",
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
-		"titleInsurance" : "Update insurance card",
+		"titleInsurance" : "Update Insurance",
 
 		"barcodeLblTitle" : "Center the QR code inside the box to scan",
 
