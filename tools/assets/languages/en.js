@@ -55,6 +55,7 @@ module.exports = {
 		"dialogBtnCamera" : "Take a photo",
 		"dialogBtnGallery" : "Choose from gallery",
 		"dialogBtnEmail" : "Email",
+		"dialogBtnSettings": "Open Settings",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",

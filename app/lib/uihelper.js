@@ -405,7 +405,30 @@ var Helper = {
 						Titanium.Media.requestCameraPermissions(function(result) {
 							if (!result.success) {
 								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
-								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+								if (OS_IOS) {
+									Helper.showDialogWithButton({
+										message : Alloy.Globals.strings.msgDenyFeaturePermission,
+										deactivateDefaultBtn : true,
+										btnOptions : [{
+											title : Alloy.Globals.strings.dialogBtnSettings,
+											onClick : Helper.openSettings
+										}, {
+											title : Alloy.Globals.strings.dialogBtnCancel
+										}]
+									});
+								} else {
+									Helper.showDialogWithButton({
+										message : Alloy.Globals.strings.msgDenyFeaturePermission,
+										deactivateDefaultBtn : true,
+										btnOptions : [{
+											title : Alloy.Globals.strings.dialogBtnSettings,
+											onClick : Helper.openSettings
+										}, {
+											title : Alloy.Globals.strings.dialogBtnCancel
+										}]
+									});
+									// alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+								}
 							} else {
 								if (watermark)
 									Helper.openCamera(watermarker, window, width, height);
@@ -435,6 +458,23 @@ var Helper = {
 		optDialog.show();
 	},
 
+	openSettings : function(e) {
+		if (OS_IOS) {
+			var settingsURL = Ti.App.iOS.applicationOpenSettingsURL;
+			if (Ti.Platform.canOpenURL(settingsURL)) {
+				Ti.Platform.openURL(settingsURL);
+			}
+		} else {
+			var activity = Ti.Android.currentActivity;
+
+			var intent = Ti.Android.createIntent({
+				action : 'android.settings.APPLICATION_DETAILS_SETTINGS',
+				data: 'package:PACKAGE_NAME'
+			});
+			intent.addFlags(Ti.Android.FLAG_ACTIVITY_NEW_TASK);
+			activity.startActivity(intent);
+		}
+	},
 	/**
 	 * open camera for a photo
 	 * @param callback called upon success
@@ -1089,4 +1129,4 @@ var Helper = {
 	}
 };
 
-module.exports = Helper; 
+module.exports = Helper;
