@@ -55,7 +55,7 @@ module.exports = {
 		"dialogBtnCamera" : "Take a photo",
 		"dialogBtnGallery" : "Choose from gallery",
 		"dialogBtnEmail" : "Email",
-		"dialogBtnSettings": "Open Settings",
+		"dialogBtnSettings": "Settings",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -956,7 +956,7 @@ module.exports = {
 
 		"msgTryAgainStoragePermission" : "We’re sorry, this application will not run if you do not grant permission to store files on your device. To enable the application, please grant permission to store files on your device.",
 		"msgDenyStoragePermission" : "We are sorry, since you have denied the permission, you will not be able to use the application.",
-		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature.",
+		"msgDenyFeaturePermission" : "We are sorry, since you have denied the permission, you will not be able to use this feature. Tap settings and grant permission to use this feature",
 
 		"searchExistingPatientWelcome" : "Welcome!",
 		"searchExistingPatientLbl" : "Please enter your mobile number and we'll check if we recognize you.",
