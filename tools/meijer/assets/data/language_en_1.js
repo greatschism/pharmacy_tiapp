@@ -9,7 +9,6 @@ module.exports = {
 		"titleRefill" : "Refill by Scan",
 		
 		"titleHomePage" : "",
-		"homeNavBtnLogin": "W",
 
 		"loginLblTitle" : "Sign in to the Meijer Rx mobile pharmacy",
 		"familyMemberAddLbl" : "Great, let's add your family members!",
@@ -17,6 +16,8 @@ module.exports = {
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
 		"titleInsurance" : "Update Insurance",
+		"titleTransfer" : "Transfer Prescription",
+		"titleDoctors" : "Prescribers",
 
 		"barcodeLblTitle" : "Center the QR code inside the box to scan",
 

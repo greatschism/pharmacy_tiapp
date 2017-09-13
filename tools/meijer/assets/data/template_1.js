@@ -136,19 +136,15 @@ module.exports = {
                                         "children" : [{
                                             "items" : [{
                                                 "apiName" : "Label",
-                                                "classes" : ["margin-top-medium", "i4", "express-checkout-icon-color", "touch-disabled", "icon-thick-reminder"]
+                                                "classes" : ["margin-top-medium", "i4", "express-checkout-icon-color", "touch-disabled", "icon-express-checkout"]
                                             }, {
                                                 "apiName" : "Label",
                                                 "classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h7", "fg-color", "txt-center", "touch-disabled"],
                                                 "properties" : {
-                                                    "textid" : "titleReminders"
+                                                    "textid" : "titleExpressCheckout"
                                                 }
                                             }]
-                                        }],
-                                        "feature_name" : "is_reminders_enabled",
-                                        "navigation" : {
-                                            "ctrl" : "reminders"
-                                        }
+                                        }]
                                     }, {
                                         "apiName" : "View",
                                         "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
@@ -234,18 +230,19 @@ module.exports = {
 										"children" : [{
 											"items" : [{
 												"apiName" : "Label",
-												"classes" : ["margin-top-medium", "i4", "settings-icon-color", "touch-disabled", "icon-thick-account"]
+												"classes" : ["margin-top-medium", "i4", "settings-icon-color", "touch-disabled", "icon-thick-reminder"]
 											}, {
 												"apiName" : "Label",
 												"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h7", "fg-color", "txt-center", "touch-disabled"],
 												"properties" : {
-													"textid" : "titleAccount"
+													"textid" : "titleReminders"
 												}
 											}]
 										}],
-										"navigation" : {
-											"ctrl" : "account"
-										}
+										"feature_name" : "is_reminders_enabled",
+                                        "navigation" : {
+                                            "ctrl" : "reminders"
+                                        }
 									}]
 								}]
 							}]

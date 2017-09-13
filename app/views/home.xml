@@ -1,4 +1,4 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-light-fg-color bg-color-disabled border-disabled" onClick="didClickRightNav" if="!Alloy.Globals.isLoggedIn" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 bg-color-disabled border-disabled primary-fg-color icon-account-circle" onClick="didClickRightNav" if="!Alloy.Globals.isLoggedIn" />
 	<View id="templateView" />
 </Alloy> 
