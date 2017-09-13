@@ -1,6 +1,7 @@
 module.exports = {
 	"data" : [{
-		"titleid" : "titleHome",
+		"menuTitleid" : "titleHome",
+		"titleid" : "titleHomePage",
 		"ctrl" : "home",
 		"icon" : "home",
 		"requires_login" : false,

@@ -153,6 +153,7 @@ module.exports = {
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
 		"titleHome" : "Home",
+		"titleHomePage" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleCheckout" : "Ready prescriptions",
         "titleCheckoutQuestions": "Mobile Checkout",
