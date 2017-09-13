@@ -1,5 +1,5 @@
 var args = $.args,
-authenticator = require("authenticator");
+    authenticator = require("authenticator");
 function init() {
 	$.titleLbl.text = String.format(Alloy.Globals.strings.transferLblTitle, $.strings.strClientName);
 	if ($.patientSwitcher) {
@@ -24,9 +24,10 @@ function terminate() {
 		$.patientSwitcher.terminate();
 	}
 }
+
 function didChangePatient(e) {
 	/**
-	 * No actions here since it is just a static page. 
+	 * No actions here since it is just a static page.
 	 * Only thing to be passed is the right session_id and
 	 * that is taken care by the patient switcher by itself.
 	 */
@@ -48,15 +49,15 @@ function didGetPhoto(blob) {
 	 * image path is used throughout this module
 	 * should not be changed
 	 */
-	
-	var smallBlob = blob.imageAsResized(blob.getWidth()*0.4, blob.getHeight()*0.4); 
+
+	var smallBlob = blob.imageAsResized(blob.getWidth() * 0.4, blob.getHeight() * 0.4);
 	$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
-	
+
 	blob = null;
 	smallBlob = null;
 
 	$.app.navigator.hideLoader();
-	
+
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
 			titleid : "titleTransferStore",
@@ -93,4 +94,4 @@ function didClickType(e) {
 
 exports.init = init;
 exports.terminate = terminate;
-exports.setParentView = setParentView; 
+exports.setParentView = setParentView;

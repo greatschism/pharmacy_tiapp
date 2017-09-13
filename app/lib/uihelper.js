@@ -241,7 +241,17 @@ var Helper = {
 								Helper.addContact(personObj);
 							} else {
 								analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
-								alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+								// alert(Alloy.Globals.strings.msgDenyFeaturePermission);
+								Helper.showDialogWithButton({
+									message : Alloy.Globals.strings.msgDenyFeaturePermission,
+									deactivateDefaultBtn : true,
+									btnOptions : [{
+										title : Alloy.Globals.strings.dialogBtnSettings,
+										onClick : Helper.openSettings
+									}, {
+										title : Alloy.Globals.strings.dialogBtnCancel
+									}]
+								});
 							}
 						});
 					} else {
@@ -405,30 +415,16 @@ var Helper = {
 						Titanium.Media.requestCameraPermissions(function(result) {
 							if (!result.success) {
 								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
-								if (OS_IOS) {
-									Helper.showDialogWithButton({
-										message : Alloy.Globals.strings.msgDenyFeaturePermission,
-										deactivateDefaultBtn : true,
-										btnOptions : [{
-											title : Alloy.Globals.strings.dialogBtnSettings,
-											onClick : Helper.openSettings
-										}, {
-											title : Alloy.Globals.strings.dialogBtnCancel
-										}]
-									});
-								} else {
-									Helper.showDialogWithButton({
-										message : Alloy.Globals.strings.msgDenyFeaturePermission,
-										deactivateDefaultBtn : true,
-										btnOptions : [{
-											title : Alloy.Globals.strings.dialogBtnSettings,
-											onClick : Helper.openSettings
-										}, {
-											title : Alloy.Globals.strings.dialogBtnCancel
-										}]
-									});
-									// alert(Alloy.Globals.strings.msgDenyFeaturePermission);
-								}
+								Helper.showDialogWithButton({
+									message : Alloy.Globals.strings.msgDenyFeaturePermission,
+									deactivateDefaultBtn : true,
+									btnOptions : [{
+										title : Alloy.Globals.strings.dialogBtnSettings,
+										onClick : Helper.openSettings
+									}, {
+										title : Alloy.Globals.strings.dialogBtnCancel
+									}]
+								});
 							} else {
 								if (watermark)
 									Helper.openCamera(watermarker, window, width, height);
@@ -469,7 +465,7 @@ var Helper = {
 
 			var intent = Ti.Android.createIntent({
 				action : 'android.settings.APPLICATION_DETAILS_SETTINGS',
-				data: 'package:PACKAGE_NAME'
+				data :"package:"+Ti.App.id
 			});
 			intent.addFlags(Ti.Android.FLAG_ACTIVITY_NEW_TASK);
 			activity.startActivity(intent);

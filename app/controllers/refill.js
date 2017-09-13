@@ -6,12 +6,19 @@ function didClickScan(e) {
 	 * open barcode scanner directly
 	 * when phone number is disabled
 	 */
-	
-	if(!Titanium.Media.hasCameraPermissions()){
-		Titanium.Media.requestCameraPermissions(function(result){
-			if(!result.success) {
-				$.uihelper.showDialog({
-					message : $.strings.msgDenyFeaturePermission
+
+	if (!Titanium.Media.hasCameraPermissions()) {
+		Titanium.Media.requestCameraPermissions(function(result) {
+			if (!result.success) {
+				$.uihelper.showDialogWithButton({
+					message : Alloy.Globals.strings.msgDenyFeaturePermission,
+					deactivateDefaultBtn : true,
+					btnOptions : [{
+						title : Alloy.Globals.strings.dialogBtnSettings,
+						onClick : $.uihelper.openSettings
+					}, {
+						title : Alloy.Globals.strings.dialogBtnCancel
+					}]
 				});
 				$.analyticsHandler.trackEvent("RefillByScan", "click", "DeniedCameraPermission");
 			} else {
@@ -21,10 +28,10 @@ function didClickScan(e) {
 	} else {
 		callScanner();
 	}
-	
+
 }
 
-function callScanner(){
+function callScanner() {
 	if (Alloy.CFG.refill_scan_phone_enabled) {
 		$.app.navigator.open({
 			titleid : "titleRefill",

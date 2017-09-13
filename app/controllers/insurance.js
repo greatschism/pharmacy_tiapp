@@ -13,6 +13,7 @@ function init() {
 function didClickPhoto(e) {	
 	$.app.navigator.showLoader();
 	$.uihelper.getPhoto(true, didGetPhoto, $.window);
+	$.app.navigator.hideLoader();
 }
 
 function didGetPhoto(blob) {
