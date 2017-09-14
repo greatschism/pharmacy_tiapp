@@ -1,14 +1,14 @@
 <Alloy>
-	<TableView class="primary-bg-color bg-selected-color-disabled table-separator-disabled" dataCollection="menuItems" dataFilter="filterFunction" dataTransform="transformFunction" onClick="didClickTableView">
+	<TableView class="primary-bar-color bg-selected-color-disabled table-separator-disabled" dataCollection="menuItems" dataFilter="filterFunction" dataTransform="transformFunction" onClick="didClickTableView">
 		<HeaderView>
 			<View id="headerView" class="auto-height accessibility-disabled">
-				<ImageView id="logoImg" class="margin-top-status-bar margin-bottom-large img-logo-white" />
+				<ImageView id="logoImg" class="margin-top-status-bar margin-bottom img-logo-hamburger" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="primary-bg-color row-selected-bg-color-light" ctrl="{ctrl}" url="{url}" action="{action}">
+		<TableViewRow class="primary-bar-color" ctrl="{ctrl}" url="{url}" action="{action}">
 			<View class="margin-top margin-bottom margin-left margin-right auto-height touch-disabled">
-				<Label text="{icon}" class="left i4 primary-light-fg-color touch-disabled accessibility-disabled" />
-				<Label text="{title}" left="{left}" class="h4 primary-light-fg-color touch-disabled" />
+				<Label text="{icon}" class="left i5 primary-fg-color touch-disabled accessibility-disabled" />
+				<Label text="{title}" left="{left}" class="h5 primary-fg-color touch-disabled" />
 			</View>
 		</TableViewRow>
 		<FooterView platform="ios">

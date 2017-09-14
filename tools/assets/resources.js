@@ -148,7 +148,21 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/logo_white.png",
 		"selected" : true
-	}, {
+	},  {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "logo_hamburger_pl",
+		"name" : "logo_hamburger",
+		"format" : "png",
+		"properties" : {
+			"height" : 30
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/logo_hamburger.png",
+		"selected" : true
+	},  {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,

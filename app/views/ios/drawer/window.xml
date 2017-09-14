@@ -2,7 +2,7 @@
 	<Window onOpen="focus" onClose="terminate" onClick="handleEvent" onChange="handleEvent">
 		<LeftNavButton>
 			<View id="leftNavView" onClick="didClickLeftNavView">
-				<Button class="top-disabled left-disabled right-disabled i5 primary-light-fg-color bg-color-disabled border-disabled icon-back" />
+				<Button class="top-disabled left-disabled right-disabled i5 primary-fg-color bg-color-disabled border-disabled icon-back" />
 			</View>
 		</LeftNavButton>
 		<TitleControl>

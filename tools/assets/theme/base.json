@@ -173,7 +173,8 @@
                     "CREDIT_CARD":"0xE00F",
                     "checkout_complete":"0xE017",
                     "account_circle":"0xE01A",
-                    "express_checkout":"0xE018"
+                    "express_checkout":"0xE018",
+                    "insurance_card":"0xE019"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -379,7 +380,7 @@
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
-            	"color":"${PRIMARY_LIGHT_COLOR}"
+            	"color":"${PRIMARY_COLOR}"
             },
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
@@ -963,6 +964,13 @@
             ".light-fg-color":{
                 "color":"${LIGHT_FG_COLOR}",
                 "selectedColor":"${LIGHT_FG_SELECTED_COLOR}"
+            },
+            ".primary-bar-color":{
+                "color":"${PRIMARY_COLOR_BAR}",
+                "selectedColor":"${PRIMARY_COLOR_BAR}",
+                "backgroundColor":"${PRIMARY_COLOR_BAR}",
+                "backgroundSelectedColor":"${PRIMARY_COLOR_BAR}",
+                "selectedBackgroundColor":"${PRIMARY_COLOR_BAR}"
             },
             ".primary-fg-color":{
                 "color":"${PRIMARY_COLOR}",
