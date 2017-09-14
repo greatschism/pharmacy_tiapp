@@ -128,7 +128,7 @@ module.exports = {
 		"name" : "logo_white",
 		"format" : "png",
 		"properties" : {
-			"height" : 30
+			"height" : 100
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
