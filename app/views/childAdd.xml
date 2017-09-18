@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView>
+	<ScrollView class="fill-height fill-width">
 		<View class="vgroup">
 			<View class="vgroup auto-height">
 				<Label id="childTitle" class="margin-top margin-left margin-right h2 txt-center"/>
