@@ -156,7 +156,7 @@ module.exports = {
 		"name" : "logo_hamburger",
 		"format" : "png",
 		"properties" : {
-			"height" : 30
+			"width" : "50%"
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],

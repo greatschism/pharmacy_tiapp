@@ -2,7 +2,9 @@
  * mce grid view
  */
 module.exports = {
-	"data" : [{
+	"data" : [
+	{
+		"id" : "scrollView",
 		"apiName" : "ScrollView",
 		"classes" : ["vgroup"],
 		"children" : [{
@@ -265,9 +267,9 @@ module.exports = {
 				}]
 			}]
 		}]
-	}, {
-		"id" : "bannerView",
-		"apiName" : "View",
-		"classes" : ["auto-width", "auto-height", "bottom"]
-	}]
+	},{
+				"id" : "bannerView",
+				"apiName" : "View",
+				"classes" : ["auto-width", "auto-height", "bottom"]
+			}]
 };

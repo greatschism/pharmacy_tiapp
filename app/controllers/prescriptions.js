@@ -802,6 +802,7 @@ function prepareList() {
 						readyHeaderDict = $.createStyle({
 							classes : ["right", "bubble-disabled"],
 							title : headerTitle,
+							accessibilityLabel : "checkout",
 							callback : didClickCheckout
 						});		
 

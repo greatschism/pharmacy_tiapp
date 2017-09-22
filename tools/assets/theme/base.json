@@ -350,10 +350,10 @@
             },
             "Window[platform=android]":{
                 "barColor":"${PRIMARY_COLOR_BAR}",
-                "statusBarColor":"${PRIMARY_DARK_COLOR}",
+                "statusBarColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${PRIMARY_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
@@ -371,12 +371,12 @@
             },
             ".drawer[platform=android]":{
                 "barColor":"${PRIMARY_COLOR_BAR}",
-                "statusBarColor":"${PRIMARY_DARK_COLOR}",
+                "statusBarColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${PRIMARY_COLOR}"
                 },
-                "backgroundColor":"${BG_COLOR}"
+                "backgroundColor":"${PRIMARY_COLOR}"
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
