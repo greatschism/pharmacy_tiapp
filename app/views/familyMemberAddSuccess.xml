@@ -5,7 +5,7 @@
 			<Label id="addLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
 		</View>
 		<Label id="addMsg" class="margin-top margin-left margin-right h4 txt-left"/>
-		<Button id="addBtn" analyticsId="AddBtn" class="margin-bottom margin-top primary-bg-color primary-light-fg-color primary-border" onClick="didAddAnotherMember"/>
+		<Button id="addBtn" analyticsId="AddBtn" class="margin-bottom margin-top primary-bg-color primary-font-color primary-border" onClick="didAddAnotherMember"/>
 		<Button id="doneBtn" analyticsId="DoneBtn" class="bg-color primary-fg-color primary-border" onClick="didClickDone"/>
 	</ScrollView>
 </Alloy>

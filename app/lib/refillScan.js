@@ -5,7 +5,7 @@ var Alloy = require("alloy"),
     phone,
     barcodeData;
 
-function init(ctrl, ph) {
+function init(ctrl, ph, callback) {
 	$ = ctrl;
 	/**
 	 *  undefined will be excluded
@@ -15,7 +15,8 @@ function init(ctrl, ph) {
 	phone = ph || undefined;
 	barcode.capture($, {
 		acceptedFormats : Alloy.CFG.accepted_barcode_formats,
-		success : didGetBarcode
+		success : didGetBarcode,
+		passthrough : callback
 	});
 }
 

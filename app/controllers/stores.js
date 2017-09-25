@@ -75,7 +75,7 @@ function init() {
 	 */
 	if (OS_IOS) {
 		leftBtnDict = $.createStyle({
-			classes : ["left", "i4", "primary-bg-color", "primary-light-fg-color", "icon-direction"],
+			classes : ["left", "i4", "primary-bg-color", "primary-font-color", "icon-direction"],
 			width : 54,
 			height : 54
 		});
@@ -702,6 +702,15 @@ function prepareList() {
 		storeRows.push(row);
 	});
 	$.storeTableView.setData(data);
+	if (OS_IOS) {
+		$.countView.visible = true;
+		$.countView.accessibilityLabel = String.format($.strings.storesAutoSearchResultsInList, JSON.stringify(Alloy.Collections.stores.length));
+		$.uihelper.requestAccessibilityFocus($.countView);
+		setTimeout(function(e){
+			$.countView.visible = false;
+			$.uihelper.requestAccessibilityFocus($.storeTableView);
+		}, '2500');
+	}
 }
 
 /**
@@ -825,6 +834,7 @@ function prepareMap(shouldUpdateRegion) {
 				region.latitude.delta = region.latitude.max - region.latitude.min;
 				region.longitude.delta = region.longitude.max - region.longitude.min;
 				region.delta = Math.max(region.latitude.delta, region.longitude.delta);
+				region.delta = region.delta == 0 ? 0.5 : region.delta;
 			} else {
 				region.delta = 0.05;
 			}
@@ -897,6 +907,7 @@ function clearLastGeoSearch() {
 		setVisibleForSearchTable(false);
 		geoRows = [];
 		$.geoTableView.setData([]);
+		OS_IOS && ($.countView.visible = false);
 	}
 }
 
@@ -1090,6 +1101,14 @@ function didGetGeoCode(result, passthrough) {
 			//clear geo search results if any
 			clearLastGeoSearch();
 		}
+	}
+	if (OS_IOS) {
+		$.countView.visible = true;
+		$.countView.accessibilityLabel = String.format($.strings.storesAutoSearchResultsInList, JSON.stringify(data.length));
+		$.uihelper.requestAccessibilityFocus($.countView);
+		setTimeout(function(e){
+			$.countView.visible = false;
+		}, '2000');
 	}
 }
 
@@ -1299,6 +1318,7 @@ function didClickRightNavBtn(e) {
 		 * should update region as it is a sync from map
 		 */
 		prepareMap(true);
+		OS_IOS && ($.countView.visible = false);
 		$.mapView.setVisible(true);
 	} else {
 		$.storeTableView.visible = true;

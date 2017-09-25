@@ -28,6 +28,7 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	$.masterView.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text;
 	var btnDict;
 	if (args.detailWidth === 0) {
 		btnDict = {
@@ -50,6 +51,10 @@ var args = $.args,
 		}
 	}
 	$.detailBtn.applyProperties(btnDict);
+	if (args.accessibilityLabel) {
+		$.detailBtn.accessibilityLabel = args.accessibilityLabel;
+		$.detailBtn.accessibilityHidden = false;
+	};
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

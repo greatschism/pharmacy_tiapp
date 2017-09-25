@@ -1,4 +1,5 @@
 var args = $.args,
+	callback = args.callback,
     refillScan = require("refillScan");
 
 function init() {
@@ -32,7 +33,7 @@ function didClickSubmit(e) {
 		});
 		return;
 	}
-	refillScan.init($, phone);
+	refillScan.init($, phone, callback);
 }
 
 exports.init = init;

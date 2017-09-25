@@ -4,7 +4,7 @@ module.exports = {
 		"version" : 1,
 		"base_version" : 1,
 		"code" : "es",
-		"selected" : false,
-		"ignore" : true
+		"selected" : true,
+		"ignore" : false
 	}]
 };

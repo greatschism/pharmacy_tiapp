@@ -5,6 +5,10 @@ function init(e) {
 	_.each(["refillView", "medView", "settingsView"], function(val) {
 		$.uihelper.wrapViews($[val]);
 	});
+	
+	$.refillView.accessibilityLabel = $.refillTitleLbl.text + " " + $.refillDescLbl.text;
+	$.medView.accessibilityLabel = $.medTitleLbl.text + " " + $.medDescLbl.text;
+	$.settingsView.accessibilityLabel = $.settingsTitleLbl.text + " " + $.settingsDescLbl.text;
 }
 
 function didPostlayout(e) {
@@ -48,7 +52,7 @@ function didPostlayout(e) {
 	$.contentView.add($.tooltipLbl);
 	$.tooltipHideBtn = $.UI.create("Button", {
 		apiName : "Button",
-		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-light-fg-color", "primary-border"],
+		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-font-color", "primary-border"],
 		title : $.strings.remindersTooltipBtnHide
 	});
 	$.tooltipHideBtn.addEventListener("click", didClickHide);

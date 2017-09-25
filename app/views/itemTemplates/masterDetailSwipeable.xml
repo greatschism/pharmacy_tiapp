@@ -1,20 +1,20 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row" class="row-selected-bg-color-disabled">
-		<View id="containerView" class="auto-height">
-			<View id="swipeView" class="right bg-color auto-height bubble-disabled accessibility-disabled" />
-			<View id="contentView" class="right width-100 bg-color">
-				<View id="marginView" class="margin-top margin-bottom margin-left margin-right auto-height">
-					<View id="masterView" class="left width-65 auto-height vgroup">
-						<Label id="titleLbl" class="left h4 wrap-disabled" />
-						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color wrap-disabled" />
+		<View id="containerView" class="auto-height accessibility-disabled">
+			<View id="swipeView" class="right bg-color auto-height bubble-disabled accessibility-disabled accessibility-disabled" />
+			<View id="contentView" class="right width-100 bg-color accessibility-disabled">
+				<View id="marginView" class="margin-top margin-bottom margin-left margin-right auto-height accessibility-disabled">
+					<View id="masterView" class="left width-65 auto-height vgroup accessibility-disabled">
+						<Label id="titleLbl" class="left h4 wrap-disabled accessibility-disabled" />
+						<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color wrap-disabled accessibility-disabled" />
 					</View>
-					<View id="detailView" class="right width-35 auto-height vgroup">
-						<Label id="detailTitleLbl" class="right txt-right wrap-disabled" />
-						<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled" />
+					<View id="detailView" class="right width-35 auto-height vgroup accessibility-disabled">
+						<Label id="detailTitleLbl" class="right txt-right wrap-disabled accessibility-disabled" />
+						<Label id="detailSubtitleLbl" class="margin-top-small right txt-right wrap-disabled accessibility-disabled" />
 					</View>
 				</View>
 			</View>
-			<View id="dragView" class="right width-100" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
+			<View id="dragView" class="right width-100 accessibility-disabled" onTouchstart="didTouchstart" onTouchmove="didTouchmove" onTouchend="didTouchend" onTouchcancel="didTouchend" />
 		</View>
 	</TableViewRow>
 </Alloy>

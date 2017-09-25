@@ -24,6 +24,7 @@ var args = $.args,
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
+	$.row.accessibilityLabel = title + " " + subtitle;
 })();
 
 function getParams() {

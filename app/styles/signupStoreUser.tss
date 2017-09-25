@@ -5,6 +5,7 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.registerHintPassword,
 	passwordMask: true,
+	accessibilityHint: Alloy.Globals.strings.msgPasswordTips,
 	nextItem: "dob"
 },
 "#dob":{

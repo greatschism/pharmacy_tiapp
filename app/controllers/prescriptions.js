@@ -281,7 +281,7 @@ function prepareList() {
 		 * is getting refilled or ready for pickup
 		 * within prescriptions list
 		 */
-		if (hideZeroRefillPrescriptions && !parseInt(prescription.get("refill_left")) && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
+		if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
 			return false;
 		}
 		/**

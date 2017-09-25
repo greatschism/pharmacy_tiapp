@@ -30,7 +30,7 @@
 					<Label id="arrowLbl" class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 				</View>
 			</View>
-			<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSignup"/>
+			<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSignup"/>
 		</View>
 		</View>
 	</ScrollView>

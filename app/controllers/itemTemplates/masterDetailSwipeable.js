@@ -71,6 +71,9 @@ CONSTS = Alloy.TSS[CONSTS];
 	$.addClass($.detailSubtitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailSubtitle || (args.data ? args.data[args.detailSubtitleProperty] : "")
 	});
+	if (OS_IOS) {
+		$.row.accessibilityLabel = $.titleLbl.text + " " + $.subtitleLbl.text + " " + $.detailTitleLbl.text + " " + $.detailSubtitleLbl.text;		
+	};
 	_.each(["titleLbl", "subtitleLbl", "detailTitleLbl", "detailSubtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
