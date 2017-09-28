@@ -20,6 +20,7 @@ var TAG = "NAVI",
     ctrlNames = require("ctrlNames"),
     ctrlShortCode = require("ctrlShortCode"),
     analyticsHandler = require("analyticsHandler"),
+    leftNavButtonSaved,
     uihelper = require("uihelper");
 
 function Navigation(args) {
