@@ -115,6 +115,9 @@ function backButtonHandler(e) {
 }
 
 function setTitle(title) {
+	if(title == "Home") {
+		title = "Meijer";
+	}
 	$.window.title = title;
 	$.actionBar.setTitleAttributes(_.extend({
 		title : title

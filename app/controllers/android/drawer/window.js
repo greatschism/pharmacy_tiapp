@@ -11,7 +11,13 @@ function init() {
 
 	var strings = Alloy.Globals.strings;
 
-	$.window.title = args.title || strings[args.titleid || ""] || "";
+	// $.window.title = args.title || strings[args.titleid || ""] || "";
+
+	var title = args.title || strings[args.titleid || ""] || "";
+	if(title == "Home") {
+		title = "Meijer";
+	}
+	$.window.title = title;
 
 	/**
 	 *  let the new controller know where it is coming from
@@ -100,6 +106,9 @@ function didClickLeftNavView(e) {
 }
 
 function setTitle(title) {
+	if(title == "Home") {
+		title = "Meijer";
+	}
 	$.window.title = title;
 	$.actionBar.setTitleAttributes(_.extend({
 		title : title

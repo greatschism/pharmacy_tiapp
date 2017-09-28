@@ -103,7 +103,11 @@ function didClickLeftNavView(e) {
 }
 
 function setTitle(title) {
-	$.titleControl.text = title;
+	if(title == "Home") {
+		$.titleControl.text = "";
+	} else{
+		$.titleControl.text = title;
+	}
 }
 
 function showNavBar(animated) {

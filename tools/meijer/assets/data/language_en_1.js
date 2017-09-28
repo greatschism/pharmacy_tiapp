@@ -7,8 +7,6 @@ module.exports = {
 		"titlePrescriptions" : "Prescriptions",
 		"titleReminders" : "Reminders",
 		"titleRefill" : "Refill by Scan",
-		
-		"titleHomePage" : "",
 
 		"loginLblTitle" : "Sign in to the Meijer Rx mobile pharmacy",
 		"familyMemberAddLbl" : "Great, let's add your family members!",

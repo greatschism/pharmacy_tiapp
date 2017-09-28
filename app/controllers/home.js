@@ -331,6 +331,13 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
+		
+		$.scrollView.applyProperties({
+			// showVerticalScrollIndicator : true,
+			top : 0,
+			height : 328 //Ti.Platform.displayCaps.platformHeight - $.bannerView.height-60
+		});
+		
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}

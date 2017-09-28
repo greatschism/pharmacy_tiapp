@@ -124,7 +124,11 @@ function terminate(e) {
 }
 
 function setTitle(title) {
-	$.window.titleControl.text = title;
+	if(title == "Home") {
+		$.window.titleControl.text = "";
+	} else {
+		$.window.titleControl.text = title;
+	}
 }
 
 function showNavBar(animated) {
