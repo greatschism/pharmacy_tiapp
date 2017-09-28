@@ -1,6 +1,7 @@
 {
 	"config": {
 		"global": {
+			"homescreen_logo_enabled": "homescreenLogoEnabled",
 			"rx_length": 7,
 			"rx_start_index": 0,
 			"rx_end_index": 7,
