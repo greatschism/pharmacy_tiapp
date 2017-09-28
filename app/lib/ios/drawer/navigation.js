@@ -93,6 +93,38 @@ function Navigation(args) {
 	 */
 	this.open = function(params) {
 
+
+		if ( Alloy.CFG.homescreen_logo_enabled === "homescreenLogoEnabled" ){
+
+			if (params.titleid === "titleHomePage") {             
+				leftNavButtonSaved = that.rootWindow.getLeftNavButton();
+
+				var logoHamburgerImage = Ti.UI.createImageView();
+				logoHamburgerImage.image = helper.getImage("logo_hamburger").image,
+				logoHamburgerImage.height = 30;
+				logoHamburgerImage.left = '1pt';
+
+
+				var logoBtnDict = {
+					classes : ["left",  "primary-bg-color"],
+					width : 76,
+					height : 30,
+					image : logoHamburgerImage.image,
+					backgroundImage : logoHamburgerImage.image
+				};
+				var logoButton = Titanium.UI.createButton(logoBtnDict);
+				
+				logoButton.addEventListener('click',function(e) {
+		 			globalLeftNavHandler();
+				});
+				that.rootWindow.setLeftNavButton(logoButton);
+
+			} else {
+                if ( typeof leftNavButtonSaved !== 'undefined' ) {   
+					that.rootWindow.setLeftNavButton(leftNavButtonSaved);
+				}
+			}
+		}
 		if (that.isBusy) {
 			return;
 		}
