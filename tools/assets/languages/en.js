@@ -311,6 +311,8 @@ module.exports = {
 		"storeDetMsgHomeCantUpdate" : "This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
+		"storeDetBtnFavouriteAddAccessibility" : "Add Store to Favorites Button",
+		"storeDetBtnFavouriteRemoveAccessibility" : "Remove Store from Favorites Button",
 
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
@@ -864,6 +866,7 @@ module.exports = {
 		"familyMemberAddValFutureDob" : "The date of birth you selected is a date in the future. Please enter your family member's correct date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
 		"familyMemberAddHintOther" : "Relationship",
+		"familyMemberRelationshipDropdownHint" : "Relationship",
 		"familyMemberRelationshipTips" : "Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
 		"familyMemberRelationshipNotSelected" : "Please select the relationship of the family member you are adding.",
 
