@@ -19,7 +19,8 @@ var TAG = "NAVI",
     _ = require("alloy/underscore")._,
     ctrlNames = require("ctrlNames"),
     ctrlShortCode = require("ctrlShortCode"),
-    analyticsHandler = require("analyticsHandler");
+    analyticsHandler = require("analyticsHandler"),
+    uihelper = require("uihelper");
 
 function Navigation(args) {
 
@@ -93,34 +94,31 @@ function Navigation(args) {
 	 */
 	this.open = function(params) {
 
+		if (Alloy.CFG.homescreen_logo_enabled === "homescreenLogoEnabled") {
 
-		if ( Alloy.CFG.homescreen_logo_enabled === "homescreenLogoEnabled" ){
-
-			if (params.titleid === "titleHomePage") {             
+			if (params.titleid === "titleHomePage") {
 				leftNavButtonSaved = that.rootWindow.getLeftNavButton();
 
 				var logoHamburgerImage = Ti.UI.createImageView();
-				logoHamburgerImage.image = helper.getImage("logo_hamburger").image,
-				logoHamburgerImage.height = 30;
+				logoHamburgerImage.image = uihelper.getImage("logo_hamburger").image, logoHamburgerImage.height = 30;
 				logoHamburgerImage.left = '1pt';
 
-
 				var logoBtnDict = {
-					classes : ["left",  "primary-bg-color"],
+					classes : ["left", "primary-bg-color"],
 					width : 76,
 					height : 30,
 					image : logoHamburgerImage.image,
 					backgroundImage : logoHamburgerImage.image
 				};
 				var logoButton = Titanium.UI.createButton(logoBtnDict);
-				
-				logoButton.addEventListener('click',function(e) {
-		 			globalLeftNavHandler();
+
+				logoButton.addEventListener('click', function(e) {
+					globalLeftNavHandler();
 				});
 				that.rootWindow.setLeftNavButton(logoButton);
 
 			} else {
-                if ( typeof leftNavButtonSaved !== 'undefined' ) {   
+				if ( typeof leftNavButtonSaved !== 'undefined') {
 					that.rootWindow.setLeftNavButton(leftNavButtonSaved);
 				}
 			}
@@ -316,35 +314,35 @@ function Navigation(args) {
 
 			if (_.has(that.currentController, "requestTitleControlFocus")) {
 				that.currentController.requestTitleControlFocus();
+			}
 		}
-	}
-};
+	};
 
-/**
- * set loader message
- */
-this.setLoaderMessage = function(message) {
+	/**
+	 * set loader message
+	 */
+	this.setLoaderMessage = function(message) {
 
-	if (that.loader != null) {
+		if (that.loader != null) {
 
-		that.loader.setMessage(message);
-	}
-};
+			that.loader.setMessage(message);
+		}
+	};
 
-/**
- * Spits information about the navigation stack out to console
- */
-this.testOutput = function() {
+	/**
+	 * Spits information about the navigation stack out to console
+	 */
+	this.testOutput = function() {
 
-	var logger = require("logger");
+		var logger = require("logger");
 
-	logger.debug(TAG, "stack length", that.controllers.length);
+		logger.debug(TAG, "stack length", that.controllers.length);
 
-	for (var i = 0,
-	    x = that.controllers.length; i < x; i++) {
-		logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
-	}
-};
+		for (var i = 0,
+		    x = that.controllers.length; i < x; i++) {
+			logger.debug(TAG, "stack index", i, that.controllers[i].ctrlPath);
+		}
+	};
 }
 
 // Calling this module function returns a new navigation instance

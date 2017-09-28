@@ -6,7 +6,8 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
-    spanTimeId,     logger = require("logger");
+    spanTimeId,
+    logger = require("logger");
 ;
 
 function init() {
@@ -331,13 +332,20 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
-		
-		$.scrollView.applyProperties({
-			// showVerticalScrollIndicator : true,
-			top : 0,
-			height : 328 //Ti.Platform.displayCaps.platformHeight - $.bannerView.height-60
-		});
-		
+
+		if (OS_IOS) {
+			$.scrollView.applyProperties({
+				showVerticalScrollIndicator : true,
+				top : 0,
+				height : Ti.Platform.displayCaps.platformHeight - $.bannerView.height - 60
+			});
+		} else {
+			$.scrollView.applyProperties({
+				// showVerticalScrollIndicator : true,
+				top : 0,
+				height : 328 //Ti.Platform.displayCaps.platformHeight - $.bannerView.height-60
+			});
+		}
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}
@@ -371,7 +379,7 @@ function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
 	startSpanTime(bannerItems[currentPage].spanTime);
-		$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
+	$.pagingcontrol.accessibilityLabel = "Page " + currentPage;
 
 }
 
@@ -511,7 +519,7 @@ function didClickRightNav(e) {
 }
 
 function didPostlayout(e) {
-		logger.debug("\n\n\n home didPostLayout\n\n\n");
+	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
 	var source = e.source,
 	    action = _.findWhere(source.actions, {
