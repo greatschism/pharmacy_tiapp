@@ -7,8 +7,8 @@
 		</HeaderView>
 		<TableViewRow class="primary-bar-color" ctrl="{ctrl}" url="{url}" action="{action}">
 			<View class="margin-top margin-bottom margin-left margin-right auto-height touch-disabled">
-				<Label text="{icon}" class="left i5 primary-fg-color touch-disabled accessibility-disabled" />
-				<Label text="{title}" left="{left}" class="h5 primary-fg-color touch-disabled" />
+				<Label text="{icon}" class="left i4 primary-fg-color touch-disabled accessibility-disabled" />
+				<Label text="{title}" left="{left}" class="h4 primary-fg-color touch-disabled" />
 			</View>
 		</TableViewRow>
 		<FooterView platform="ios">
