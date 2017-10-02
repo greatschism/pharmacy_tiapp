@@ -18,6 +18,7 @@ module.exports = {
 	"DOSE" : "DoctorSettings",
 	"EMAI" : "email",
 	"EMVE" : "emailVerify",
+	"EXCH" : "ExpressCheckout",
 	"FACA" : "familyCare",
 	"FAMA" : "familyMemberAdd",
 	"FAMI" : "familyMemberInvite",

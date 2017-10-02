@@ -1,0 +1,9 @@
+<Alloy>
+	<View id="headerView" class="top auto-height vgroup">
+
+		<View class="auto-height role-header-view margin-bottom margin-top">
+			<Label id="titleLbl" class="margin-left margin-top margin-bottom h4"/>
+		</View>
+		
+	</View>
+</Alloy>

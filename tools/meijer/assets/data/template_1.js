@@ -146,7 +146,11 @@ module.exports = {
                                                     "textid" : "titleExpressCheckout"
                                                 }
                                             }]
-                                        }]
+                                        }],
+                                        "navigation" : {
+                                            "ctrl" : "expressCheckout",
+                                            "titleid" : "titleExpressCheckout"
+                                        }
                                     }, {
                                         "apiName" : "View",
                                         "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
