@@ -648,9 +648,9 @@ function presentCCConfirmation(patient) {
 			if (prescription.original_store_address_line1 != null) {
 				if (checkoutStores.length) {
 					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
-					_.some(checkoutStores, function(storeInfo, index) {
-						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-						if (storeInfo.storeId == prescription.original_store_id) {
+					 _.some(checkoutStores, function(storeInfo, index) {
+					logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+					 	if (storeInfo.storeId == prescription.original_store_id) {
 							if (_.has(prescription, "copay")) {
 								if (prescription.copay != null) {
 									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
@@ -659,7 +659,8 @@ function presentCCConfirmation(patient) {
 									logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 								}
 							}
-						} else {
+							return true
+					 	} else {
 							if (index >= checkoutStores.length - 1) {
 								var checkoutStoreData = {
 									section : "payment",
@@ -672,9 +673,11 @@ function presentCCConfirmation(patient) {
 								};
 								checkoutStores.push(checkoutStoreData);
 								logger.debug("\n\n\n same store not found in array", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
-							}
-						}
+							return false
+					 		}
+					 	}
 					});
+
 				} else {
 
 					var checkoutStoreData = {
