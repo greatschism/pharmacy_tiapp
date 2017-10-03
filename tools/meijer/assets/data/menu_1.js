@@ -47,6 +47,11 @@ module.exports = {
 		"feature_name" : "is_doctors_enabled",
 		"requires_login" : false
 	}, {
+		"titleid" : "titleExpressCheckout",
+		"ctrl" : "expressCheckout",
+		"icon" : "express_checkout",
+		"requires_login" : true
+	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
 		"icon" : "thick_doctor",
