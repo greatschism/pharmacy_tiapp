@@ -593,19 +593,19 @@ function presentLoyaltyPrompt() {
 	data[0] = questionSection;
 
 	$.tableView.setData(data);
-/*
-	if (OS_IOS) {
-		questionSection[2] = row.getView();
-		data[0] = questionSection;
-		$.tableView.setData(data);
-		$.tableView.appendRow(questionSection[2], {
-			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
-		});
+	/*
+	 if (OS_IOS) {
+	 questionSection[2] = row.getView();
+	 data[0] = questionSection;
+	 $.tableView.setData(data);
+	 $.tableView.appendRow(questionSection[2], {
+	 animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+	 });
 
-	} else {
-		questionSection.add(row.getView());
-		$.tableView.setData(data);
-	}*/
+	 } else {
+	 questionSection.add(row.getView());
+	 $.tableView.setData(data);
+	 }*/
 }
 
 function didAnswerLoyaltyPrompt(e) {
@@ -648,19 +648,18 @@ function presentCCConfirmation(patient) {
 			if (prescription.original_store_address_line1 != null) {
 				if (checkoutStores.length) {
 					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
-					 _.some(checkoutStores, function(storeInfo, index) {
-					logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-					 	if (storeInfo.storeId == prescription.original_store_id) {
+					_.some(checkoutStores, function(storeInfo, index) {
+						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+						if (storeInfo.storeId == prescription.original_store_id) {
 							if (_.has(prescription, "copay")) {
 								if (prescription.copay != null) {
 									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 									storeInfo.amountDue += parseFloat(prescription.copay);
-									storeInfo.subtitle = storeInfo.subtitle.concat("\n"+prescription.presc_name), 
-									logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+									storeInfo.subtitle = storeInfo.subtitle.concat("\n" + prescription.presc_name), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 								}
 							}
-							return true
-					 	} else {
+							return true;
+						} else {
 							if (index >= checkoutStores.length - 1) {
 								var checkoutStoreData = {
 									section : "payment",
@@ -673,9 +672,9 @@ function presentCCConfirmation(patient) {
 								};
 								checkoutStores.push(checkoutStoreData);
 								logger.debug("\n\n\n same store not found in array", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
-							return false
-					 		}
-					 	}
+								return false;
+							}
+						}
 					});
 
 				} else {
@@ -762,7 +761,7 @@ function presentCCConfirmation(patient) {
 
 function presentCheckoutStoreDetails(e) {
 	Ti.API.info("************      presentCheckoutStoreDetails(e) " + JSON.stringify(e.data.fullRowParams, null, 4));
-	
+
 	var dialogView = $.UI.create("ScrollView", {
 		apiName : "ScrollView",
 		classes : ["top", "auto-height", "vgroup"]
