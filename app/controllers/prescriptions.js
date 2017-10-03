@@ -1268,7 +1268,12 @@ function didClickTableView(e) {
 				 * validator, to prevent any validation
 				 * validator should be "none"
 				 */
-				rx.canRefill(prescription, toggleSelection);
+				if(!args.hideCheckoutHeader) {
+					rx.canRefill(prescription, toggleSelection);
+				}
+				else {
+					toggleSelection();
+				}			
 			}
 			return false;
 		} else {
