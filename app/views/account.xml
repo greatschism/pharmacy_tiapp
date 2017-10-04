@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="contactOptionsMenu" analyticsId="ContactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
-	<Widget id="timeZonePicker" analyticsId="TimeZonePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="timeZonePicker" analyticsId="TimeZonePicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="timezoneLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
@@ -8,7 +8,7 @@
 			<Button id="timezoneCloseBtn" analyticsId="TimezoneCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseTimeZone" />
 		</View>
 	</Widget>
-	<Widget id="languagePicker" analyticsId="LanguagePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="languagePicker" analyticsId="LanguagePicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="languageLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>

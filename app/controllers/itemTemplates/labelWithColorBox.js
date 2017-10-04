@@ -22,15 +22,16 @@ var args = $.args,
 		});
 	}
 	uihelper.wrapText($.lbl);
-	var color = args.color || "transparent";
+	var color = args.color.color_code || "transparent";
 	$.colorBoxView.applyProperties({
 		backgroundColor : color,
-		borderColor : color
+		borderColor : color,
+		accessibilityLabel : args.color.color_name
 	});
 })();
 
 function getParams() {
-	return args;
+	return args.color;
 }
 
 exports.getParams = getParams;
