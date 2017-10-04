@@ -146,6 +146,7 @@
 		"checkout_info_prompted": "checkoutInfoPrompted",
 		"show_loyalty_signup": "showLoyaltySignup",       
 		"cc_on_file": "ccOnFile",
+		"sync_after_checkout": "syncAfterCheckout",
 		"user_account": "account",
 		"resources_updated_on": "resourcesUpdated",
 		"latest_pickup_mode": "latestPickupMode",
