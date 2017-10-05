@@ -1,3 +1,11 @@
 "#rightNavBtn":{
 	analyticsId: "LoginBtn"
+},
+".rowmargin[platform=ios]": { 
+	top:Alloy.TSS.margin_top_large.top,
+	bottom:Alloy.TSS.margin_bottom_large.bottom
+},
+".rowmargin[platform=android]": { 
+	top:Alloy.TSS.margin_top_small.top,
+	bottom:Alloy.TSS.margin_bottom_small.bottom
 }
