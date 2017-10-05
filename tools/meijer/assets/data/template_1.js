@@ -147,9 +147,9 @@ module.exports = {
                                                 }
                                             }]
                                         }],
+                                        "feature_name" : "is_express_checkout_enabled",
                                         "navigation" : {
-                                            "ctrl" : "expressCheckout",
-                                            "titleid" : "titleExpressCheckout"
+                                            "ctrl" : "expressCheckout"
                                         }
                                     }, {
                                         "apiName" : "View",

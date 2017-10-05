@@ -118,36 +118,52 @@ function didAnswerGenericsPrompt(e) {
 }
 
 function presentCounselingPrompt() {
-	var question = {
-		section : "questions",
-		itemTemplate : "checkoutQuestionPrompt",
-		masterWidth : 100,
-		title : $.strings.checkoutCounselingQuestion
-	};
 
-	var rowParams = question,
-	    row2;
+	var values = Alloy.Models.counselingEligible.get("code_values").map(function(item) {
+		return item.code_value;
+	});
 
-	rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-	row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-	row2.on("answerPrompt", didAnswerCounselingPrompt);
-
-	if (OS_IOS) {
-		questionSection[1] = row2.getView();
-		data[0] = questionSection;
-		$.tableView.setData(data);
-		$.tableView.appendRow(questionSection[1], {
-			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+	var hide = _.some(prescriptions, function(prescription) {
+		return _.find(values, function(val) {
+			return prescription.original_store_state !== val ? true : false;
 		});
+	});
 
-	} else {
+	if (!hide) {
+		var question = {
+			section : "questions",
+			itemTemplate : "checkoutQuestionPrompt",
+			masterWidth : 100,
+			title : $.strings.checkoutCounselingQuestion
+		};
 
-		questionSection.add(row2.getView());
-		if (hasSetDawPrompt === false) {
-			data.push(questionSection);
+		var rowParams = question,
+		    row2;
+
+		rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		row2 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		row2.on("answerPrompt", didAnswerCounselingPrompt);
+
+		if (OS_IOS) {
+			questionSection[1] = row2.getView();
+			data[0] = questionSection;
+			$.tableView.setData(data);
+			$.tableView.appendRow(questionSection[1], {
+				animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+			});
+
+		} else {
+
+			questionSection.add(row2.getView());
+			if (hasSetDawPrompt === false) {
+				data.push(questionSection);
+			}
+
+			$.tableView.setData(data);
 		}
-
-		$.tableView.setData(data);
+	} else {
+		
+		didAnswerCounselingPrompt({data:{"answer":false}});
 	}
 }
 

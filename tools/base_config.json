@@ -43,6 +43,7 @@
 			"prescriptions_refill": "prescriptions/refill",
 			"prescriptions_quick_refill": "prescriptions/quickRefill",
 			"prescriptions_get_refill_history": "prescriptions/getrefillhistory",
+			"prescriptions_express_checkout_info": "prescriptions/checkout",
 			"reminders_refill_get": "reminders/refill/get",
 			"reminders_refill_add": "reminders/refill/add",
 			"reminders_refill_update": "reminders/refill/update",
@@ -128,7 +129,8 @@
 			"code_pickup_modes": "Pickup Mode",
 			"code_time_zone": "Time Zone",
 			"code_language": "MultiLanguage",
-			"code_relationship": "Relationship"
+			"code_relationship": "Relationship",
+			"code_counseling_eligible": "Counseling Eligible"
 		},
 		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",

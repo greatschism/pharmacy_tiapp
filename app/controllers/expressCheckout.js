@@ -1,15 +1,19 @@
-// Arguments passed into this controller can be accessed off of the `$.args` object directly or:
 var args = $.args,
-    utilities = require('utilities');
-
+    app = require("core"),
+    http = require("requestwrapper"),
+    utilities = require("utilities"),
+    rx = require("rx"),
+    apiCodes = Alloy.CFG.apiCodes,
+    uihelper = require("uihelper"),
+    moment = require("alloy/moment");
+    
 var checkoutDetails = {};
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
-		//getCheckoutDetails();
+		getCheckoutInfo();
 	}
 }
-
 
 function didFail(result, passthrough) {
 	/**
@@ -21,56 +25,55 @@ function didFail(result, passthrough) {
 	$.app.navigator.close();
 }
 
-function getCheckoutDetails() {
-
-	// $.http.request({
-	// 	method : "stores_list",
-	// 	params : {
-	// 		data : [{
-	// 			stores : {
-	// 				search_criteria : "",
-	// 				user_lat : "",
-	// 				user_long : "",
-	// 				search_lat : "",
-	// 				search_long : "",
-	// 				view_type : "LIST"
-	// 			}
-	// 		}]
-	// 	},
-	// 	errorDialogEnabled : false,
-	// 	success : didGetCheckoutDetails,
-	// 	failure : checkoutDetailsFail
-	// });
+function getCheckoutInfo() {
+	$.http.request({
+		method : "prescriptions_express_checkout_info",
+		params : {
+			data : []
+		},
+		errorDialogEnabled : true,
+		success : didGetCheckoutDetails,
+		failure : checkoutDetailsFail
+	});
 }
 
 function checkoutDetailsFail() {
-
-
+	popToHome();
 }
 
 function didGetCheckoutDetails(result) {
-
-	if (Alloy.Globals.isLoggedIn) {
-		// _.each(result.data.stores.stores_list, function(store) {
-		// 	if (parseInt(store.ishomepharmacy)) {
-		// 		$.http.request({
-		// 			method : "stores_get",
-		// 			params : {
-		// 				data : [{
-		// 					stores : {
-		// 						id : store.id,
-		// 					}
-		// 				}]
-		// 			},
-		// 			keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
-		// 			success : didGetStore,
-		// 			failure : didFail
-		// 		});
-		// 	}
-		//});
-	//	Here lives logic for preparing the express checkout screens
+	if(result.data.stores.length > 1)
+	{
+		uihelper.showDialog({
+			message :  "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
+			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+			success : popToHome
+		});
 	}
+}
+
+function popToHome() {
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
+}
+
+function didClickGenerateCode(e) {
+	var dob = $.dob.getValue();
+
+	if (!dob) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.registerValDob
+		});
+		return;
+	}
+	// birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
 
 }
 
-exports.init = init; 
+function setParentView(view) {
+	$.dob.setParentView(view);
+}
+
+exports.init = init;
+exports.setParentView = setParentView;

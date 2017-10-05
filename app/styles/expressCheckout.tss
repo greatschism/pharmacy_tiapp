@@ -1,3 +1,9 @@
 "#titleLbl":{
-	text:Alloy.Globals.strings.titleExpressCheckout
+	text:Alloy.Globals.strings.expressCheckoutLblTitle
+},
+"#dobLbl":{
+	text: Alloy.Globals.strings.generateValDob
+},
+"#generateCodeBtn":{
+	title: Alloy.Globals.strings.generateCodeBtn
 }
