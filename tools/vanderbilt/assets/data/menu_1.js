@@ -52,7 +52,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
-		"url": "http://acme.mobilepharmacyhelp.com/",
+		"url": "http://vanderbilt.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
 	}]
