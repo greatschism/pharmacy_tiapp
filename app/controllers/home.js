@@ -332,20 +332,11 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
-
-		if (OS_IOS) {
-			$.scrollView.applyProperties({
-				showVerticalScrollIndicator : true,
-				top : 0,
-				height : Ti.Platform.displayCaps.platformHeight - $.bannerView.height - 60
-			});
-		} else {
-			$.scrollView.applyProperties({
-				// showVerticalScrollIndicator : true,
-				top : 0,
-				height : 328 //Ti.Platform.displayCaps.platformHeight - $.bannerView.height-60
-			});
-		}
+		$.scrollView.applyProperties({
+			showVerticalScrollIndicator : true,
+			top : 0,
+			bottom : $.bannerView.rect.height
+		});
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}
