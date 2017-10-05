@@ -163,7 +163,7 @@ function presentCounselingPrompt() {
 		}
 	} else {
 		
-		didAnswerCounselingPrompt({data:{"answer":false}});
+		didAnswerCounselingPrompt({data:{"answer":true}});
 	}
 }
 
