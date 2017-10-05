@@ -65,7 +65,7 @@
 			"mobile_resend": "patient/mobile/resend",
 			"email_resend": "patient/email/resend",
 			"mailorder_stores_get": "stores/getmailorderservice",
-			"checkout_preferences_update": "payments/checkout/updateCheckoutPreferences"
+			"checkout_preferences_update": "payments/updateCheckoutPreferences"
 		},
 		"apiCodes": {
 			"success": "200",
