@@ -45,7 +45,7 @@ function didGetCheckoutDetails(result) {
 	if(result.data.stores.length > 1)
 	{
 		uihelper.showDialog({
-			message :  "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
+			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
