@@ -30,7 +30,7 @@ module.exports = {
 								"children" : [{
 									"items" : [{
 										"apiName" : "View",
-										"classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
 											"width" : "33%"
 										},
@@ -51,7 +51,7 @@ module.exports = {
 										}
 									}, {
 										"apiName" : "View",
-										"classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
 											"width" : "33%"
 										},
@@ -72,7 +72,7 @@ module.exports = {
 										}
 									}, {
                                         "apiName" : "View",
-                                        "classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+                                        "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
                                         "properties" : {
                                             "width" : "33%"
                                         },
@@ -103,7 +103,7 @@ module.exports = {
 								"children" : [{
                                     "items" : [{
                                         "apiName" : "View",
-                                        "classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+                                        "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
                                         "properties" : {
                                             "width" : "33%"
                                         },
@@ -125,7 +125,7 @@ module.exports = {
                                         }
                                     }, {
                                         "apiName" : "View",
-                                        "classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+                                        "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
                                         "properties" : {
                                             "width" : "33%"
                                         },
@@ -147,7 +147,7 @@ module.exports = {
                                         }
                                     }, {
                                         "apiName" : "View",
-                                        "classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+                                        "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
                                         "properties" : {
                                             "width" : "33%"
                                         },
@@ -179,7 +179,7 @@ module.exports = {
 								"children" : [{
                                     "items" : [ {
                                         "apiName" : "View",
-                                        "classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+                                        "classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
                                         "properties" : {
                                             "width" : "33%"
                                         },
@@ -201,7 +201,7 @@ module.exports = {
                                         }
                                     },{
 										"apiName" : "View",
-										"classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
 											"width" : "33%"
 										},
@@ -223,7 +223,7 @@ module.exports = {
 										}
 									}, {
 										"apiName" : "View",
-										"classes" : ["left", "rowmargin", "auto-height", "vgroup"],
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 										"properties" : {
 											"width" : "33%"
 										},
