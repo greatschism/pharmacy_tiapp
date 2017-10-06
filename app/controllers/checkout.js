@@ -123,7 +123,7 @@ function presentCounselingPrompt() {
 		return item.code_value;
 	});
 
-	//Ti.API.info("values     " + JSON.stringify(values) )
+	// alert("values     " + JSON.stringify(values) );
 
 	var counsellingRequiredStoreWasFound = _.some(prescriptions, function(prescription) {
 		var ans = _.find(values, function(val) {
@@ -137,7 +137,7 @@ function presentCounselingPrompt() {
 		}
 	});
 
-	//Ti.API.info("counsellingRequiredStoreWasFound     " + JSON.stringify(counsellingRequiredStoreWasFound) )
+	// alert("counsellingRequiredStoreWasFound     " + JSON.stringify(counsellingRequiredStoreWasFound) );
 
 	if (! counsellingRequiredStoreWasFound) {
 		var question = {
@@ -172,7 +172,7 @@ function presentCounselingPrompt() {
 		}
 	} else {
 		
-		didAnswerCounselingPrompt({data:{"answer":true}});
+		didAnswerCounselingPrompt({data:{"answer":1}});
 	}
 }
 

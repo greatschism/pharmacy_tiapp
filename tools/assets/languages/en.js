@@ -347,6 +347,7 @@ module.exports = {
 		"expressCheckoutLblTitle" : "When arriving at the pharmacy, please enter your Date of Birth below. The QR code will be good for 2 hours.",
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
+		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
 		
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
