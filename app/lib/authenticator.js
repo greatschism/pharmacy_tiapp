@@ -886,6 +886,22 @@ function completeAuthentication(passthrough) {
 	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
+	
+	/**
+	 * 	express checkout counter validation
+	 */
+	var exp_counter_key = passthrough.username + "_exp_counter";
+	utilities.setProperty(exp_counter_key, "2017-10-06T18:35:18+05:30", "string", false);
+	var exp_counter_time = utilities.getProperty(exp_counter_key, "", "string", false);
+	if (exp_counter_time.trim().length > 1) {
+		var timeThen = moment(exp_counter_time);
+		var now = moment();	// will give timestamp use the same for setting timer
+		console.log("time diff is: "+ now.diff(timeThen, 'hours'));
+		if (now.diff(timeThen, 'hours') >= 2) {
+			utilities.setProperty(exp_counter_key, "", "string", false);
+		}
+	}
+	
 	/**
 	 * check for mandatory screens
 	 * to be visited after successful login
