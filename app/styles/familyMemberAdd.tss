@@ -10,6 +10,7 @@
 },
 "#relationshipDp" : {
   hintText:Alloy.Globals.strings.familyMemberAddHintRelation,
+  accessibilityHint: Alloy.Globals.strings.familyMemberRelationshipDropdownHint,
   titleProperty: "code_display"
 },
 "#familyMemberRelationTip" : {

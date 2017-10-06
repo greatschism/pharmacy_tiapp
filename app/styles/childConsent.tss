@@ -3,6 +3,7 @@
 },
 "#consentObtainLbl":{
 	text:Alloy.Globals.strings.childConsentLblObtain,
+	accessibilityLabel:Alloy.Globals.strings.childConsentLblObtain,
 	accessibilityValue:Alloy.Globals.strings.accessibilityCheckboxSelect
 },
 "#inactiveBtn":{

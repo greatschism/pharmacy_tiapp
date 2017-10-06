@@ -1,6 +1,6 @@
 <Alloy>
 	<View onClick="show">
-		<Label id="lbl" />
-		<Label id="downArrowLbl" />
+		<Label id="lbl" accessibilityHidden="true" />
+		<Label id="downArrowLbl" accessibilityHidden="true" />
 	</View>
 </Alloy>

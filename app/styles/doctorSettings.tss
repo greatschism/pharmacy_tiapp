@@ -35,6 +35,7 @@
 },
 "#stateDp":{
 	hintText: Alloy.Globals.strings.doctorSettingsHintState,
+	accessibilityHint: Alloy.Globals.strings.doctorSettingsHintState,
 	titleProperty: "code_display",
 	valueProperty: "code_value",
 	nextItem: "notesTxta"
