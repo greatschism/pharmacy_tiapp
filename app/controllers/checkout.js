@@ -123,13 +123,23 @@ function presentCounselingPrompt() {
 		return item.code_value;
 	});
 
-	var hide = _.some(prescriptions, function(prescription) {
-		return _.find(values, function(val) {
-			return prescription.original_store_state !== val ? true : false;
+	//Ti.API.info("values     " + JSON.stringify(values) )
+
+	var counsellingRequiredStoreWasFound = _.some(prescriptions, function(prescription) {
+		var ans = _.find(values, function(val) {
+			return prescription.original_store_state === val ;
 		});
+
+		if ( typeof ans === 'undefined' ) {
+			return true;
+		} else {
+			return false;
+		}
 	});
 
-	if (!hide) {
+	//Ti.API.info("counsellingRequiredStoreWasFound     " + JSON.stringify(counsellingRequiredStoreWasFound) )
+
+	if (! counsellingRequiredStoreWasFound) {
 		var question = {
 			section : "questions",
 			itemTemplate : "checkoutQuestionPrompt",
@@ -151,7 +161,6 @@ function presentCounselingPrompt() {
 			$.tableView.appendRow(questionSection[1], {
 				animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
 			});
-
 		} else {
 
 			questionSection.add(row2.getView());
