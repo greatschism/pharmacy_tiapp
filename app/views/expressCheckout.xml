@@ -1,9 +1,10 @@
 <Alloy>
+
 	<ScrollView id="scrollView">
 		<View id="parentView" class="vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
 			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h4" />
-			<View class="margin-top-extra-large auto-height auto-width ">
+			<View  id="xpressView" class="margin-top-extra-large auto-height auto-width ">
 				<ImageView class="img-qr-bg width-80 height-90 fade-fifty" />
 				<View class="margin-top-extra-large auto-height auto-width vgroup ">
 					<Label id="dobLbl" class="margin-top margin-bottom margin-left margin-right bg-color txt-center h5" />

@@ -1,18 +1,28 @@
 var args = $.args,
+
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     uihelper = require("uihelper"),
-    moment = require("alloy/moment");
-    
+    moment = require("alloy/moment"),
+    qrcode = require('ti-qrcode-master/qrcode');
+
 var checkoutDetails = {};
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
 		getCheckoutInfo();
 	}
+
+
+
+	Ti.API.info("xpress  " + JSON.stringify($.xpressView))
+	var qrCodeView = new qrcode('This holds the data of the qr code we are supposed to render');
+	Ti.API.info("qrCodeView  " + JSON.stringify($.qrCodeView))
+	$.xpressView.add(qrCodeView);
+	// ^^^^^ putting this here on init simply to display POC of showing QR code.  Actual implementation will show QR code later.
 }
 
 function didFail(result, passthrough) {
@@ -68,6 +78,13 @@ function didClickGenerateCode(e) {
 		return;
 	}
 	// birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+
+/*
+	Ti.API.info("xpress  " + JSON.stringify($.xpressView))
+	var qrCodeView = new qrcode('This holds the data of the qr code we are supposed to render');
+	Ti.API.info("qrCodeView  " + JSON.stringify($.qrCodeView))
+	$.xpressView.add(qrCodeView);
+*/
 
 }
 
