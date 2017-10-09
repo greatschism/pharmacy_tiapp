@@ -890,17 +890,7 @@ function completeAuthentication(passthrough) {
 	/**
 	 * 	express checkout counter validation
 	 */
-	var exp_counter_key = passthrough.username + "_exp_counter";
-	utilities.setProperty(exp_counter_key, "2017-10-06T18:35:18+05:30", "string", false);
-	var exp_counter_time = utilities.getProperty(exp_counter_key, "", "string", false);
-	if (exp_counter_time.trim().length > 1) {
-		var timeThen = moment(exp_counter_time);
-		var now = moment();	// will give timestamp use the same for setting timer
-		console.log("time diff is: "+ now.diff(timeThen, 'hours'));
-		if (now.diff(timeThen, 'hours') >= 2) {
-			utilities.setProperty(exp_counter_key, "", "string", false);
-		}
-	}
+	isExpressCheckoutValid();
 	
 	/**
 	 * check for mandatory screens
@@ -915,6 +905,25 @@ function completeAuthentication(passthrough) {
 	if (passthrough.success) {
 		passthrough.success(passthrough, navigationHandled);	
 	}
+}
+
+function isExpressCheckoutValid() {
+	var username = encryptionUtil.decrypt(keychain.account);
+	var exp_counter_key = username + "_exp_counter";
+	utilities.setProperty(exp_counter_key, "2017-10-09T12:52:41+05:30", "string", false);
+	var exp_counter_time = utilities.getProperty(exp_counter_key, "", "string", false);
+	if (exp_counter_time.trim().length > 1) {
+		var timeThen = moment(exp_counter_time);
+		var now = moment();	// will give timestamp use the same for setting timer
+		logger.debug("time diff is: "+ now.diff(timeThen, 'hours'));
+		if (now.diff(timeThen, 'hours') >= 2) {
+			//	reset counter if more than 2 hours
+			utilities.setProperty(exp_counter_key, "", "string", false);
+		} else {
+			return true;
+		}
+	}
+	return false;
 }
 
 function setDefaultDevice(passthrough) {
@@ -1328,3 +1337,4 @@ exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
 exports.getPushModeForDeviceToken = getPushModeForDeviceToken;
+exports.isExpressCheckoutValid = isExpressCheckoutValid;

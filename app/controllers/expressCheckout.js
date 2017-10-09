@@ -49,6 +49,10 @@ function didGetCheckoutDetails(result) {
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
+	} else if(result.data.stores.length == 1) {
+		if (require("authenticator").isExpressCheckoutValid()) {
+			alert("naviagte to QR code screen!");
+		}
 	}
 }
 
