@@ -226,6 +226,7 @@ module.exports = {
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
+		"titleExpressQR" : "Express Checkout",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -348,6 +349,9 @@ module.exports = {
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
+		
+		"expressQRLblTitle" : "Please present this code at the pharmacy register to make picking up your prescriptions quick and easy.",
+		"expressQRDoneBtn" : "Done",
 		
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",

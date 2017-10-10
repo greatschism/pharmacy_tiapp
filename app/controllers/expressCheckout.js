@@ -7,7 +7,7 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    qrcode = require('ti-qrcode-master/qrcode');
+    checkout_result;
 
 var checkoutDetails = {};
 
@@ -15,14 +15,6 @@ function init() {
 	if (Alloy.Globals.isLoggedIn) {
 		getCheckoutInfo();
 	}
-
-
-
-	Ti.API.info("xpress  " + JSON.stringify($.xpressView))
-	var qrCodeView = new qrcode('This holds the data of the qr code we are supposed to render');
-	Ti.API.info("qrCodeView  " + JSON.stringify($.qrCodeView))
-	$.xpressView.add(qrCodeView);
-	// ^^^^^ putting this here on init simply to display POC of showing QR code.  Actual implementation will show QR code later.
 }
 
 function didFail(result, passthrough) {
@@ -52,6 +44,7 @@ function checkoutDetailsFail() {
 }
 
 function didGetCheckoutDetails(result) {
+	checkout_result = result;
 	if(result.data.stores.length > 1)
 	{
 		uihelper.showDialog({
@@ -61,7 +54,9 @@ function didGetCheckoutDetails(result) {
 		});
 	} else if(result.data.stores.length == 1) {
 		if (require("authenticator").isExpressCheckoutValid()) {
-			alert("naviagte to QR code screen!");
+			moveToExpressQR();
+		} else {
+			$.parentView.visible = true;
 		}
 	}
 }
@@ -82,14 +77,18 @@ function didClickGenerateCode(e) {
 		return;
 	}
 	// birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
+	moveToExpressQR();
+}
 
-/*
-	Ti.API.info("xpress  " + JSON.stringify($.xpressView))
-	var qrCodeView = new qrcode('This holds the data of the qr code we are supposed to render');
-	Ti.API.info("qrCodeView  " + JSON.stringify($.qrCodeView))
-	$.xpressView.add(qrCodeView);
-*/
-
+function moveToExpressQR() {
+	app.navigator.open({
+		ctrl : "expressQR",
+		titleid : "titleExpressQR",
+		ctrlArguments : {
+			checkout : checkout_result
+		},
+		stack : true
+	});
 }
 
 function setParentView(view) {

@@ -1,7 +1,7 @@
 <Alloy>
 
 	<ScrollView id="scrollView">
-		<View id="parentView" class="vgroup">
+		<View id="parentView" class="vgroup" visible="false">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
 			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h4" />
 			<View  id="xpressView" class="margin-top-extra-large auto-height auto-width ">

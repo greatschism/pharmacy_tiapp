@@ -916,8 +916,8 @@ function isExpressCheckoutValid() {
 		var timeThen = moment(exp_counter_time);
 		var now = moment();	// will give timestamp use the same for setting timer
 		logger.debug("time diff is: "+ now.diff(timeThen, 'hours'));
-		if (now.diff(timeThen, 'hours') >= 2) {
-			//	reset counter if more than 2 hours
+		if (now.diff(timeThen, 'hours') >= 4) {
+			//	reset counter if more than 4 hours
 			utilities.setProperty(exp_counter_key, "", "string", false);
 		} else {
 			return true;

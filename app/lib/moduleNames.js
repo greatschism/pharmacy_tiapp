@@ -68,6 +68,7 @@ module.exports = {
 	 * express checkout
 	 */
 	"EXCH" : "ExpressCheckout",
+	"EXQR" : "ExpressQR",
 	/**
 	 * stores
 	 */
