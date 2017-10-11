@@ -21,7 +21,12 @@ function init() {
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
-	exp_counter_key = currentPatient.get("email_address") + "_" + currentPatient.get("email_address") + "_exp_counter";
+	exp_counter_key = getExpressCheckoutCounter();
+}
+
+function getExpressCheckoutCounter() {
+	var	patient_id = currentPatient.get("parent_id") || currentPatient.get("child_id");
+	return ("expressCounterFor_" + patient_id);
 }
 
 function didFail(result, passthrough) {
@@ -86,7 +91,7 @@ function didClickGenerateCode(e) {
 
 	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
 	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
-  var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
+  	var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
 	if(dobMatch) {
 		var timeNow = moment();
 		utilities.setProperty(exp_counter_key, timeNow, "object", false);
