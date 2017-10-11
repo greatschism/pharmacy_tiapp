@@ -1,11 +1,13 @@
 var args = $.args,
+
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     uihelper = require("uihelper"),
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    checkout_result;
 
 var checkoutDetails = {};
 
@@ -42,12 +44,19 @@ function checkoutDetailsFail() {
 }
 
 function didGetCheckoutDetails(result) {
+	checkout_result = result;
 	if (result.data.stores.length > 1) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
+	} else if(result.data.stores.length == 1) {
+		if (require("authenticator").isExpressCheckoutValid()) {
+			moveToExpressQR();
+		} else {
+			$.parentView.visible = true;
+		}
 	}
 }
 
@@ -83,6 +92,18 @@ function didClickGenerateCode(e) {
 			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
 		});
 	}
+	moveToExpressQR();
+}
+
+function moveToExpressQR() {
+	app.navigator.open({
+		ctrl : "expressQR",
+		titleid : "titleExpressQR",
+		ctrlArguments : {
+			checkout : checkout_result
+		},
+		stack : true
+	});
 }
 
 function setParentView(view) {

@@ -1,0 +1,6 @@
+"#titleLbl":{
+	text:Alloy.Globals.strings.expressQRLblTitle
+},
+"#doneBtn":{
+	title: Alloy.Globals.strings.expressQRDoneBtn
+}

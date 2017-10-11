@@ -19,6 +19,7 @@ module.exports = {
 	"EMAI" : "email",
 	"EMVE" : "emailVerify",
 	"EXCH" : "expressCheckout",
+	"EXQR" : "expressQR",
 	"FACA" : "familyCare",
 	"FAMA" : "familyMemberAdd",
 	"FAMI" : "familyMemberInvite",

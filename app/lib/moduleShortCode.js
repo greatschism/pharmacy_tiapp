@@ -98,6 +98,7 @@ module.exports = {
 	"CHPR" : "CHPR",
 	"CHEC" : "CHEC",
 	"EXCH" : "EXCH",
+	"EXQR" : "EXQR",
 	/**
 	 * quick refill
 	 */
