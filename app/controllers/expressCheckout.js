@@ -51,7 +51,7 @@ function didGetCheckoutDetails(result) {
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
-	} else if(result.data.stores.length == 1) {
+	} else if (result.data.stores.length == 1) {
 		if (require("authenticator").isExpressCheckoutValid()) {
 			moveToExpressQR();
 		} else {
@@ -81,18 +81,18 @@ function didClickGenerateCode(e) {
 	});
 
 	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
-
 	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
+	var dobMatch;
+	dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
 
-	var dobMatch = moment(inputDob).diff(patientDob, "days") == 0;
-	if(dobMatch) {
-		// proceed to Qr code generation.	
+	if (dobMatch) {
+		// proceed to Qr code generation.
+		moveToExpressQR();
 	} else {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
 		});
 	}
-	moveToExpressQR();
 }
 
 function moveToExpressQR() {

@@ -773,6 +773,7 @@ function prepareList() {
 							//rows.length
 							checkoutCompeteCount++;
 						}
+						
 					});
 					
 					var readyHeaderDict;
@@ -834,11 +835,23 @@ function prepareList() {
 		 * alert user saying no prescriptions to select
 		 * occurs when all available prescriptions are already selected
 		 */
-		$.uihelper.showDialog({
-			message : $.strings.prescAddMsgEmptyList
-		});
+		if(args.hideCheckoutHeader) {
+			$.uihelper.showDialog({
+				message : $.strings.checkoutMsgEmptyList,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				success : handleClose
+			});
+		} else {
+			$.uihelper.showDialog({
+				message : $.strings.prescAddMsgEmptyList
+			});
+		}
 	}
 
+}
+
+function handleClose() {
+	$.app.navigator.close();
 }
 
 function displayCheckoutInfo()
@@ -886,7 +899,7 @@ function didClickCheckout(e)
 				filters : {
 					refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
 					section: ["others"],
-					is_checkout_complete: ["1"]
+					is_checkout_complete: ["1", null]
 				},
 				prescriptions :null,
 				patientSwitcherDisabled : true,
