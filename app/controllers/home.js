@@ -332,10 +332,11 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
+		Alloy.Globals.homeBannerHeight = $.bannerView.rect.height || Alloy.Globals.homeBannerHeight;
 		$.scrollView.applyProperties({
 			showVerticalScrollIndicator : true,
 			top : 0,
-			bottom : $.bannerView.rect.height
+			bottom : Alloy.Globals.homeBannerHeight
 		});
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
