@@ -6,7 +6,7 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     uihelper = require("uihelper"),
     moment = require("alloy/moment");
-    
+
 var checkoutDetails = {};
 
 function init() {
@@ -42,8 +42,7 @@ function checkoutDetailsFail() {
 }
 
 function didGetCheckoutDetails(result) {
-	if(result.data.stores.length > 1)
-	{
+	if (result.data.stores.length > 1) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
@@ -67,8 +66,23 @@ function didClickGenerateCode(e) {
 		});
 		return;
 	}
-	// birth_date : moment(dob).format(Alloy.CFG.apiCodes.dob_format),
 
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+
+	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
+
+	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
+
+	var dobMatch = moment(inputDob).diff(patientDob, "days") == 0;
+	if(dobMatch) {
+		// proceed to Qr code generation.	
+	} else {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
+		});
+	}
 }
 
 function setParentView(view) {

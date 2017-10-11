@@ -2,9 +2,9 @@
 	<ScrollView id="scrollView">
 		<View id="parentView" class="vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
-			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h4" />
+			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h6" />
 			<View class="margin-top-extra-large auto-height auto-width ">
-				<ImageView class="img-qr-bg width-80 height-90 fade-fifty" />
+				<ImageView class="img-qr-bg width-80 auto-height fade-value" />
 				<View class="margin-top-extra-large auto-height auto-width vgroup ">
 					<Label id="dobLbl" class="margin-top margin-bottom margin-left margin-right bg-color txt-center h5" />
 					<View class="margin-left margin-right auto-height bg-color vgroup border">
