@@ -345,7 +345,7 @@ module.exports = {
 		"loyaltySignupFeedbackNo" : "If you want to sign up please go to <secondaryfont><secondarycolor>www.meijer.com/mperks</secondarycolor></secondaryfont>",
 
 		"generateCodeBtn" : "Generate Pick Up QR code",
-		"expressCheckoutLblTitle" : "When arriving at the pharmacy, please enter your Date of Birth below. The QR code will be good for 2 hours.",
+		"expressCheckoutLblTitle" : "Enter your Date of Birth to enable your Express Checkout code. Use this code at the Express Checkout line at the pharmacy. The code will stay active for 4 hours. Re-enter your DOB to reactivate.",
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",

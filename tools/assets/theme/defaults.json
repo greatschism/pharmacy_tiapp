@@ -494,7 +494,7 @@
 	".fade-out": {
 		"opacity": 0
 	},
-	".fade-fifty": {
+	".fade-value": {
 		"opacity": 0.1
 	},
 	".touch-disabled": {
