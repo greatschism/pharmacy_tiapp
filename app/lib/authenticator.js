@@ -888,11 +888,6 @@ function completeAuthentication(passthrough) {
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
 	
 	/**
-	 * 	express checkout counter validation
-	 */
-	isExpressCheckoutValid();
-	
-	/**
 	 * check for mandatory screens
 	 * to be visited after successful login
 	 * i.e HIPAA or email verification etc.,
@@ -907,18 +902,14 @@ function completeAuthentication(passthrough) {
 	}
 }
 
-function isExpressCheckoutValid() {
-	var username = encryptionUtil.decrypt(keychain.account);
-	var exp_counter_key = username + "_exp_counter";
-	utilities.setProperty(exp_counter_key, "2017-10-09T12:52:41+05:30", "string", false);
-	var exp_counter_time = utilities.getProperty(exp_counter_key, "", "string", false);
-	if (exp_counter_time.trim().length > 1) {
-		var timeThen = moment(exp_counter_time);
-		var now = moment();	// will give timestamp use the same for setting timer
-		logger.debug("time diff is: "+ now.diff(timeThen, 'hours'));
-		if (now.diff(timeThen, 'hours') >= 4) {
-			//	reset counter if more than 4 hours
-			utilities.setProperty(exp_counter_key, "", "string", false);
+function isExpressCheckoutValid(exp_counter_key) {
+	var exp_counter_time = utilities.getProperty(exp_counter_key, null, "object", false);
+	if (exp_counter_time) {
+		var timeThen = exp_counter_time;
+		var now = moment();
+		if (now.diff(timeThen, 'hours') >= 4 && now.diff(timeThen, 'days') > 0) {
+			//	reset counter if more than 4 hours and if date changes
+			utilities.setProperty(exp_counter_key, null, "exp_counter_key", false);
 		} else {
 			return true;
 		}

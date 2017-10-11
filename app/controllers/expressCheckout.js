@@ -7,7 +7,10 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     uihelper = require("uihelper"),
     moment = require("alloy/moment"),
-    checkout_result;
+    authenticator = require("authenticator"),
+    checkout_result,
+    currentPatient,
+    exp_counter_key;
 
 var checkoutDetails = {};
 
@@ -15,6 +18,10 @@ function init() {
 	if (Alloy.Globals.isLoggedIn) {
 		getCheckoutInfo();
 	}
+	currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	exp_counter_key = currentPatient.get("email_address") + "_" + currentPatient.get("email_address") + "_exp_counter";
 }
 
 function didFail(result, passthrough) {
@@ -51,9 +58,10 @@ function didGetCheckoutDetails(result) {
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
+
 	} else if (result.data.stores.length == 1) {
-		if (require("authenticator").isExpressCheckoutValid()) {
-			moveToExpressQR();
+		if (authenticator.isExpressCheckoutValid(exp_counter_key)) {
+			moveToExpressQR(currentPatient, checkout_result);
 		} else {
 			$.parentView.visible = true;
 		}
@@ -76,31 +84,31 @@ function didClickGenerateCode(e) {
 		return;
 	}
 
-	var currentPatient = Alloy.Collections.patients.findWhere({
-		selected : true
-	});
-
 	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
 	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
-	var dobMatch;
-	dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
-
-	if (dobMatch) {
-		// proceed to Qr code generation.
-		moveToExpressQR();
+  var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
+	if(dobMatch) {
+		var timeNow = moment();
+		utilities.setProperty(exp_counter_key, timeNow, "object", false);
+		moveToExpressQR(currentPatient, checkout_result);
 	} else {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
 		});
+		return;
 	}
 }
 
-function moveToExpressQR() {
+function moveToExpressQR(patient, checkoutInfo) {
+	var first_name = patient.get("first_name");
+	var last_name = patient.get("last_name");
+	var rx_nnumber = checkoutInfo.data.stores[0].prescription[0].rx_number;
+	var checkout_qr = last_name + "," + first_name + "," + rx_nnumber;
 	app.navigator.open({
 		ctrl : "expressQR",
 		titleid : "titleExpressQR",
 		ctrlArguments : {
-			checkout : checkout_result
+			checkout : checkout_qr
 		},
 		stack : true
 	});

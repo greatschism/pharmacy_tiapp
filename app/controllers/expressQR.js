@@ -2,9 +2,7 @@ var args = $.args,
     qrcode = require('ti-qrcode-master/qrcode');
 
 function init() {
-	// Ti.API.info("xpress  " + JSON.stringify($.xpressView));
-	var qrCodeView = new qrcode('This holds the data of the qr code we are supposed to render');
-	// Ti.API.info("qrCodeView  " + JSON.stringify($.qrCodeView));
+	var qrCodeView = new qrcode(args.checkout);
 	$.qrHolderView.add(qrCodeView);
 }
 
