@@ -46,7 +46,8 @@ var QRCodeView = function(text, ecclevel, options) {
 		options = {
 			height: 200,
 			width: 200,
-			url: QRCODE_HTML_PATH
+			url: QRCODE_HTML_PATH,
+			visible: false
 		};
 	}
 	else {
@@ -56,8 +57,20 @@ var QRCodeView = function(text, ecclevel, options) {
 	}
 	
 	var self = Ti.UI.createWebView(options);
+	
+		
+	
 	Ti.App.addEventListener('generateQRcode', function(){
 		self.evalJS("doqr(unescape('" + text + "'), " + ecclevel + ");");
+	});
+	
+	var toggle = false;
+	self.addEventListener('load', function(e) {
+	    if (toggle == false && OS_ANDROID) {
+	        self.evalJS("generateQRcode();");
+	        toggle = true;
+	    }
+	    self.setVisible(true);
 	});
 	
 	return self;
