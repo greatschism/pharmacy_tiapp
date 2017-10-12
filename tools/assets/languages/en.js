@@ -353,6 +353,7 @@ module.exports = {
 		
 		"expressQRLblTitle" : "Please present this code at the pharmacy register to make picking up your prescriptions quick and easy.",
 		"expressQRDoneBtn" : "Done",
+		"expressQRCounterExpired" : "Your Express Checkout code has expired. Please re-enter your Date of Birth to enable again.",
 		
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
