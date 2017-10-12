@@ -4,7 +4,7 @@
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
 			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h4" />
 			<View  id="qrHolderView" class="margin-top-extra-large auto-height auto-width " />
-			<Button id="doneBtn" analyticsId="DoneBtn" class="margin-top-extra-large primary-bg-color primary-light-fg-color primary-border" onClick="didClickDone"/>
+			<Button id="doneBtn" analyticsId="DoneBtn" class="margin-top-extra-large primary-bg-color primary-light-fg-color primary-border margin-bottom" onClick="didClickDone"/>
 		</View>
 	</ScrollView>
 </Alloy>
