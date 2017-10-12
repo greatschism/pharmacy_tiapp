@@ -127,10 +127,10 @@ function presentCounselingPrompt() {
 
 	var counsellingRequiredStoreWasFound = _.some(prescriptions, function(prescription) {
 		var ans = _.find(values, function(val) {
-			return prescription.original_store_state === val ;
+			return prescription.original_store_state === val;
 		});
 
-		if ( typeof ans === 'undefined' ) {
+		if ( typeof ans === 'undefined') {
 			return true;
 		} else {
 			return false;
@@ -139,7 +139,7 @@ function presentCounselingPrompt() {
 
 	// alert("counsellingRequiredStoreWasFound     " + JSON.stringify(counsellingRequiredStoreWasFound) );
 
-	if (! counsellingRequiredStoreWasFound) {
+	if (!counsellingRequiredStoreWasFound) {
 		var question = {
 			section : "questions",
 			itemTemplate : "checkoutQuestionPrompt",
@@ -171,8 +171,12 @@ function presentCounselingPrompt() {
 			$.tableView.setData(data);
 		}
 	} else {
-		
-		didAnswerCounselingPrompt({data:{"answer":1}});
+
+		didAnswerCounselingPrompt({
+			data : {
+				"answer" : 1
+			}
+		});
 	}
 }
 
@@ -203,26 +207,47 @@ function didAnswerCounselingPrompt(e) {
 
 		logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
 
-		if (currentPatient.get("loyalty_card_opt_out") != null) {
-			logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
+		/*
+		 * check if loyalty program enabled
+		 */
+		if (Alloy.CFG.is_loyalty_program_enabled) {
+			if (currentPatient.get("loyalty_card_opt_out") != null) {
+				logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
 
-			if (currentPatient.get("loyalty_card_opt_out") == "Y") {
-				logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
+				if (currentPatient.get("loyalty_card_opt_out") == "Y") {
+					logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
 
-				if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-					useCreditCard = "1";
-					presentCCConfirmation(currentPatient);
+					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+						useCreditCard = "1";
+						presentCCConfirmation(currentPatient);
 
+					} else {
+						presentSubmitButton();
+					}
+				} else if (currentPatient.get("loyalty_card_opt_out") == "N" && currentPatient.get("loyalty_card_number") != null) {
+					logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
+
+					presentLoyaltyPrompt();
 				} else {
-					presentSubmitButton();
+					logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
+
+					if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
+						uihelper.showDialogWithButton({
+							message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
+							deactivateDefaultBtn : true,
+							btnOptions : [{
+								title : $.strings.dialogBtnYes,
+								onClick : showLoyaltyAdd
+							}, {
+								title : $.strings.dialogBtnNo,
+								onClick : showLoyaltySignup
+							}]
+						});
+
+					}
 				}
-			} else if (currentPatient.get("loyalty_card_opt_out") == "N" && currentPatient.get("loyalty_card_number") != null) {
-				logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
-
-				presentLoyaltyPrompt();
 			} else {
-				logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
-
+				logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
 				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
 					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
@@ -235,31 +260,26 @@ function didAnswerCounselingPrompt(e) {
 							onClick : showLoyaltySignup
 						}]
 					});
+				} else {
+					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+						useCreditCard = "1";
+						presentCCConfirmation(currentPatient);
 
+					} else {
+						presentSubmitButton();
+					}
 				}
 			}
 		} else {
-			logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
-			if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
-				uihelper.showDialogWithButton({
-					message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
-					deactivateDefaultBtn : true,
-					btnOptions : [{
-						title : $.strings.dialogBtnYes,
-						onClick : showLoyaltyAdd
-					}, {
-						title : $.strings.dialogBtnNo,
-						onClick : showLoyaltySignup
-					}]
-				});
-			} else {
-				if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-					useCreditCard = "1";
-					presentCCConfirmation(currentPatient);
+			/*
+			 * loyalty program disabled
+			 */
+			if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+				useCreditCard = "1";
+				presentCCConfirmation(currentPatient);
 
-				} else {
-					presentSubmitButton();
-				}
+			} else {
+				presentSubmitButton();
 			}
 		}
 	}
