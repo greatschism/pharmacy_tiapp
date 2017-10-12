@@ -907,8 +907,8 @@ function isExpressCheckoutValid(exp_counter_key) {
 	if (exp_counter_time) {
 		var timeThen = exp_counter_time;
 		var now = moment();
-		if (now.diff(timeThen, 'hours') >= 4 || now.diff(timeThen, 'days') > 0) {
-			//	reset counter if more than 4 hours or if date changes
+		if (now.diff(timeThen, 'hours') >= 24) {
+			//	reset counter if more than 24 hours
 			utilities.removeProperty(exp_counter_key);
 		} else {
 			return true;
