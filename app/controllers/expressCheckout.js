@@ -108,7 +108,7 @@ function moveToExpressQR(patient, checkoutInfo) {
 	var first_name = patient.get("first_name");
 	var last_name = patient.get("last_name");
 	var rx_nnumber = checkoutInfo.data.stores[0].prescription[0].rx_number;
-	var checkout_qr = last_name + "%09" + first_name + "%09%09%09%09%09%09%09%09%09%09%09" + rx_nnumber;
+	var checkout_qr = last_name + "%09" + first_name + "%09%09%09%09%09%09%09%09%09%09%09%09%09%09" + rx_nnumber;
 	app.navigator.open({
 		ctrl : "expressQR",
 		titleid : "titleExpressQR",
