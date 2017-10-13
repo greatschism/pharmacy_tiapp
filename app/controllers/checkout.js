@@ -53,6 +53,7 @@ function init() {
 	}
 
 	$.submitBtn.visible = false;
+
 }
 
 function prepareList() {
@@ -921,9 +922,11 @@ function didSuccess(result, passthrough) {
 	$.app.navigator.hideLoader();
 	uihelper.showDialog({
 		message : result.message,
-		buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+
+		buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes ],
 		cancelIndex : -1,
-		success : popToLanding
+		success : successMessageUserResponse
+
 	});
 }
 
@@ -932,29 +935,28 @@ function didFail(result, passthrough) {
 	popToPrescriptions();
 }
 
-function popToLanding(e) {
-	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
-	var navigationInfo = Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON();
 
-	_.extend(navigationInfo, {
-		ctrlArguments : {
-			navigation : {
-				titleid : "titleExpressCheckout",
-				ctrl : "expressCheckout",
-				stack : true
-			}
-		}
-	});
-	// alert(navigationInfo);
-	if (e == -1) {
+function successMessageUserResponse(whichButton) {
+	if(whichButton === 1) {
+		$.app.navigator.open({
+			titleid : "titleExpressCheckout",
+			ctrl : "expressCheckout",
+			stack : true
+		});
+	} else {
+		popToPrescriptions();
+	}
+}
+
+
+function popToPrescriptions() {
+
+	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
+
 		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
-	} else {
-		$.app.navigator.open(navigationInfo);
-	}
+
 }
 
 function didClickTableView(e) {
