@@ -504,10 +504,17 @@ function trackEvent(action, label) {
 }
 
 function didClickRightNav(e) {
-	$.app.navigator.open({
-		titleid : "titleLogin",
-		ctrl : "login"
-	});
+	if (Alloy.Globals.isLoggedIn) {
+		$.app.navigator.open({
+			titleid : "titleAccount",
+			ctrl : "account"
+		});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleLogin",
+			ctrl : "login"
+		});
+	}
 }
 
 function didPostlayout(e) {
