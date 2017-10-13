@@ -6,7 +6,7 @@ module.exports = {
 	{
 		"id" : "scrollView",
 		"apiName" : "ScrollView",
-		"classes" : ["vgroup"],
+		"classes" : ["vgroup", "top"],
 		"children" : [{
 			"items" : [{
 				"id" : "tilesView",
@@ -19,12 +19,6 @@ module.exports = {
 						"actions" : [{
 							"event" : "postlayout",
 							"binders" : [{
-								"id" : "vdividerl",
-								"pick" : ["height"]
-							}, {
-								"id" : "vdividerr",
-								"pick" : ["height"]
-							}, {
 								"id" : "tilesView",
 								"pick" : ["visible"]
 							}]
@@ -147,9 +141,9 @@ module.exports = {
                                                 }
                                             }]
                                         }],
+                                        "feature_name" : "is_express_checkout_enabled",
                                         "navigation" : {
-                                            "ctrl" : "expressCheckout",
-                                            "titleid" : "titleExpressCheckout"
+                                            "ctrl" : "expressCheckout"
                                         }
                                     }, {
                                         "apiName" : "View",
@@ -256,14 +250,14 @@ module.exports = {
 					}, {
 						"id" : "vdividerl",
 						"apiName" : "View",
-						"classes" : ["top", "v-divider-light", "touch-disabled"],
+						"classes" : ["top", "v-divider-light", "touch-disabled", "height-100"],
 						"properties" : {
 							"left" : "33%"
 						}
 					}, {
 						"id" : "vdividerr",
 						"apiName" : "View",
-						"classes" : ["top", "v-divider-light", "touch-disabled"],
+						"classes" : ["top", "v-divider-light", "touch-disabled", "height-100"],
 						"properties" : {
 							"right" : "33%"
 						}

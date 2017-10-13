@@ -216,6 +216,8 @@ function checkCodeValues(passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_relationship
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_sort_order_preference
+				}, {
+					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
 				}]
 			}]
 		},
@@ -233,6 +235,8 @@ function didGetCodeValues(result, passthrough) {
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
 	Alloy.Models.sortOrderPreferences.set(result.data.codes[3]);
+	Alloy.Models.counselingEligible.set(result.data.codes[4]);
+	
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
 	//now get family accounts
@@ -882,6 +886,7 @@ function completeAuthentication(passthrough) {
 	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
+	
 	/**
 	 * check for mandatory screens
 	 * to be visited after successful login
@@ -895,6 +900,21 @@ function completeAuthentication(passthrough) {
 	if (passthrough.success) {
 		passthrough.success(passthrough, navigationHandled);	
 	}
+}
+
+function isExpressCheckoutValid(exp_counter_key) {
+	var exp_counter_time = utilities.getProperty(exp_counter_key, null, "object", false);
+	if (exp_counter_time) {
+		var timeThen = exp_counter_time;
+		var now = moment();
+		if (now.diff(timeThen, 'hours') >= 24) {
+			//	reset counter if more than 24 hours
+			utilities.removeProperty(exp_counter_key);
+		} else {
+			return true;
+		}
+	}
+	return false;
 }
 
 function setDefaultDevice(passthrough) {
@@ -1308,3 +1328,4 @@ exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
 exports.getPushModeForDeviceToken = getPushModeForDeviceToken;
+exports.isExpressCheckoutValid = isExpressCheckoutValid;

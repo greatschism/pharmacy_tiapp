@@ -1,15 +1,33 @@
-// Arguments passed into this controller can be accessed off of the `$.args` object directly or:
 var args = $.args,
-    utilities = require('utilities');
+
+    app = require("core"),
+    http = require("requestwrapper"),
+    utilities = require("utilities"),
+    rx = require("rx"),
+    apiCodes = Alloy.CFG.apiCodes,
+    uihelper = require("uihelper"),
+    moment = require("alloy/moment"),
+    authenticator = require("authenticator"),
+    checkout_result,
+    currentPatient,
+    exp_counter_key;
 
 var checkoutDetails = {};
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
-		//getCheckoutDetails();
+		getCheckoutInfo();
 	}
+	currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
+	exp_counter_key = getExpressCheckoutCounter();
 }
 
+function getExpressCheckoutCounter() {
+	var	patient_id = currentPatient.get("parent_id") || currentPatient.get("child_id");
+	return ("expressCounterFor_" + patient_id);
+}
 
 function didFail(result, passthrough) {
 	/**
@@ -21,56 +39,89 @@ function didFail(result, passthrough) {
 	$.app.navigator.close();
 }
 
-function getCheckoutDetails() {
-
-	// $.http.request({
-	// 	method : "stores_list",
-	// 	params : {
-	// 		data : [{
-	// 			stores : {
-	// 				search_criteria : "",
-	// 				user_lat : "",
-	// 				user_long : "",
-	// 				search_lat : "",
-	// 				search_long : "",
-	// 				view_type : "LIST"
-	// 			}
-	// 		}]
-	// 	},
-	// 	errorDialogEnabled : false,
-	// 	success : didGetCheckoutDetails,
-	// 	failure : checkoutDetailsFail
-	// });
+function getCheckoutInfo() {
+	$.http.request({
+		method : "prescriptions_express_checkout_info",
+		params : {
+			data : []
+		},
+		errorDialogEnabled : true,
+		success : didGetCheckoutDetails,
+		failure : checkoutDetailsFail
+	});
 }
 
 function checkoutDetailsFail() {
-
-
+	popToHome();
 }
 
 function didGetCheckoutDetails(result) {
+	checkout_result = result;
+	if (result.data.stores.length > 1) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
+			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+			success : popToHome
+		});
 
-	if (Alloy.Globals.isLoggedIn) {
-		// _.each(result.data.stores.stores_list, function(store) {
-		// 	if (parseInt(store.ishomepharmacy)) {
-		// 		$.http.request({
-		// 			method : "stores_get",
-		// 			params : {
-		// 				data : [{
-		// 					stores : {
-		// 						id : store.id,
-		// 					}
-		// 				}]
-		// 			},
-		// 			keepLoader : Alloy.Models.pickupModes.get("code_values") ? false : true,
-		// 			success : didGetStore,
-		// 			failure : didFail
-		// 		});
-		// 	}
-		//});
-	//	Here lives logic for preparing the express checkout screens
+	} else if (result.data.stores.length == 1) {
+		if (authenticator.isExpressCheckoutValid(exp_counter_key)) {
+			moveToExpressQR(currentPatient, checkout_result);
+		} else {
+			$.parentView.visible = true;
+		}
 	}
-
 }
 
-exports.init = init; 
+function popToHome() {
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
+}
+
+function didClickGenerateCode(e) {
+	var dob = $.dob.getValue();
+
+	if (!dob) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.registerValDob
+		});
+		return;
+	}
+
+	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
+	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
+  	var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
+	if(dobMatch) {
+		var timeNow = moment();
+		utilities.setProperty(exp_counter_key, timeNow, "object", false);
+		moveToExpressQR(currentPatient, checkout_result);
+	} else {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
+		});
+		return;
+	}
+}
+
+function moveToExpressQR(patient, checkoutInfo) {
+	var first_name = patient.get("first_name");
+	var last_name = patient.get("last_name");
+	var rx_nnumber = checkoutInfo.data.stores[0].prescription[0].rx_number;
+	var checkout_qr = last_name + "%09" + first_name + "%09%09%09%09%09%09%09%09%09%09%09" + rx_nnumber;
+	app.navigator.open({
+		ctrl : "expressQR",
+		titleid : "titleExpressQR",
+		ctrlArguments : {
+			checkout : checkout_qr
+		},
+		stack : true
+	});
+}
+
+function setParentView(view) {
+	$.dob.setParentView(view);
+}
+
+exports.init = init;
+exports.setParentView = setParentView;

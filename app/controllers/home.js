@@ -332,20 +332,12 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
-
-		if (OS_IOS) {
-			$.scrollView.applyProperties({
-				showVerticalScrollIndicator : true,
-				top : 0,
-				height : Ti.Platform.displayCaps.platformHeight - $.bannerView.height - 60
-			});
-		} else {
-			$.scrollView.applyProperties({
-				// showVerticalScrollIndicator : true,
-				top : 0,
-				height : 328 //Ti.Platform.displayCaps.platformHeight - $.bannerView.height-60
-			});
-		}
+		Alloy.Globals.homeBannerHeight = $.bannerView.rect.height || Alloy.Globals.homeBannerHeight;
+		$.scrollView.applyProperties({
+			showVerticalScrollIndicator : true,
+			top : 0,
+			bottom : Alloy.Globals.homeBannerHeight
+		});
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}

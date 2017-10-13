@@ -138,6 +138,20 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "qr_bg_pl",
+		"name" : "qr_bg",
+		"format" : "png",
+		"properties" : {
+			"height" : 100
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/qr_bg.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "logo_white_pl",
 		"name" : "logo_white",
 		"format" : "png",

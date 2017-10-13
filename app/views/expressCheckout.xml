@@ -1,9 +1,19 @@
 <Alloy>
-	<View id="headerView" class="top auto-height vgroup">
 
-		<View class="auto-height role-header-view margin-bottom margin-top">
-			<Label id="titleLbl" class="margin-left margin-top margin-bottom h4"/>
+	<ScrollView id="scrollView">
+		<View id="parentView" class="vgroup" visible="false">
+			<ImageView id="logoImg" class="margin-top-large img-logo" />
+			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h6" />
+			<View class="margin-top-extra-large auto-height auto-width ">
+				<ImageView class="img-qr-bg width-80 auto-height fade-value" />
+				<View class="margin-top-extra-large auto-height auto-width vgroup ">
+					<Label id="dobLbl" class="margin-top margin-bottom margin-left margin-right bg-color txt-center h5" />
+					<View class="margin-left margin-right auto-height bg-color vgroup border">
+						<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" />
+					</View>
+					<Button id="generateCodeBtn" analyticsId="GenerateCodeBtn" class="primary-bg-color primary-light-fg-color primary-border" onClick="didClickGenerateCode"/>
+				</View>
+			</View>
 		</View>
-		
-	</View>
+	</ScrollView>
 </Alloy>
