@@ -517,8 +517,20 @@ function didClickRightNav(e) {
 	}
 }
 
+function didClickRightNavLoggedIn(e) {
+	$.app.navigator.open({
+		titleid : "titleAccount",
+		ctrl : "account"
+	});
+}
+
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
+	
+	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
+		$.rightNavBtn.getNavButton().show(); 
+	}
 
 	var source = e.source,
 	    action = _.findWhere(source.actions, {

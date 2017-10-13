@@ -149,6 +149,7 @@ module.exports = {
 		"iconAccessibilityLblCheckboxUnchecked" : "Not checked",
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
+        "iconAccessibilityLblAccount": "Account",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
