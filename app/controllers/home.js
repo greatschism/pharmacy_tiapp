@@ -93,15 +93,6 @@ function init() {
 			$.feedbackDialog.show();
 		}
 	}
-
-	// alert("home screen init called	" + JSON.stringify(args.navigation, null, 4));
-	if (args.navigation) {
-		// $.app.navigator.open(args.navigation); 
-		$.app.navigator.open({
-			titleid : args.navigation.titleid,
-			ctrl : args.navigation.ctrl
-		});
-	}
 }
 
 function didGetFeedback(event) {
