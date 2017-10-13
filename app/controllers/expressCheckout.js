@@ -119,9 +119,14 @@ function moveToExpressQR(patient, checkoutInfo) {
 	});
 }
 
+function backButtonHandler() {
+	popToHome();
+}
+
 function setParentView(view) {
 	$.dob.setParentView(view);
 }
 
 exports.init = init;
 exports.setParentView = setParentView;
+exports.backButtonHandler = backButtonHandler;
