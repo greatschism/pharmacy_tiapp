@@ -1010,6 +1010,7 @@ function updateColorBoxRow(color) {
 	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
 	rows[rowIndex] = getColorBoxRow(color);
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
+	$.uihelper.requestViewFocus($.tableView);
 }
 
 function didClickSubmitReminder(e) {
