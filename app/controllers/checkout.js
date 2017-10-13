@@ -921,8 +921,9 @@ function didSuccess(result, passthrough) {
 	$.app.navigator.hideLoader();
 	uihelper.showDialog({
 		message : result.message,
-		buttonNames : [Alloy.Globals.strings.dialogBtnClose],
-		success : popToPrescriptions
+		buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+		cancelIndex : -1,
+		success : popToLanding
 	});
 }
 
@@ -931,11 +932,29 @@ function didFail(result, passthrough) {
 	popToPrescriptions();
 }
 
-function popToPrescriptions() {
+function popToLanding(e) {
 	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
-	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+	var navigationInfo = Alloy.Collections.menuItems.findWhere({
 		landing_page : true
-	}).toJSON());
+	}).toJSON();
+
+	_.extend(navigationInfo, {
+		ctrlArguments : {
+			navigation : {
+				titleid : "titleExpressCheckout",
+				ctrl : "expressCheckout",
+				stack : true
+			}
+		}
+	});
+	// alert(navigationInfo);
+	if (e == -1) {
+		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	} else {
+		$.app.navigator.open(navigationInfo);
+	}
 }
 
 function didClickTableView(e) {

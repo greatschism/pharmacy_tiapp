@@ -93,6 +93,15 @@ function init() {
 			$.feedbackDialog.show();
 		}
 	}
+
+	// alert("home screen init called	" + JSON.stringify(args.navigation, null, 4));
+	if (args.navigation) {
+		// $.app.navigator.open(args.navigation); 
+		$.app.navigator.open({
+			titleid : args.navigation.titleid,
+			ctrl : args.navigation.ctrl
+		});
+	}
 }
 
 function didGetFeedback(event) {
@@ -504,17 +513,10 @@ function trackEvent(action, label) {
 }
 
 function didClickRightNav(e) {
-	if (Alloy.Globals.isLoggedIn) {
-		$.app.navigator.open({
-			titleid : "titleAccount",
-			ctrl : "account"
-		});
-	} else {
-		$.app.navigator.open({
-			titleid : "titleLogin",
-			ctrl : "login"
-		});
-	}
+	$.app.navigator.open({
+		titleid : "titleLogin",
+		ctrl : "login"
+	});
 }
 
 function didClickRightNavLoggedIn(e) {
@@ -526,10 +528,10 @@ function didClickRightNavLoggedIn(e) {
 
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
-	
+
 	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
-		$.rightNavBtn.getNavButton().show(); 
+		$.rightNavBtn.getNavButton().show();
 	}
 
 	var source = e.source,
