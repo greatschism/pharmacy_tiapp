@@ -939,7 +939,7 @@ function didFail(result, passthrough) {
 function successMessageUserResponse(whichButton) {
 	if(whichButton === 1) {
 		$.app.navigator.open({
-			titleid : "titleExpressCheckout",
+			titleid : "titleExpressPickup",
 			ctrl : "expressCheckout",
 			stack : true
 		});

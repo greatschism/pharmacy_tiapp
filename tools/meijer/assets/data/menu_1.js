@@ -47,7 +47,7 @@ module.exports = {
 		"feature_name" : "is_insurancecard_enabled",
 		"requires_login" : false
 	}, {
-		"titleid" : "titleExpressCheckout",
+		"titleid" : "titleExpressPickup",
 		"ctrl" : "expressCheckout",
 		"icon" : "express_checkout",
 		"feature_name" : "is_express_checkout_enabled",

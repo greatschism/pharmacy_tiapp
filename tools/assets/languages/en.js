@@ -156,7 +156,7 @@ module.exports = {
 		"titleHome" : "Home",
 		"titleHomePage" : "Home",
 		"titlePrescriptions" : "Refill from list",
-		"titleExpressCheckout" : "Express Checkout",
+		"titleExpressPickup" : "Express Pickup",
 		"titleCheckout" : "Ready prescriptions",
 		"titleCheckoutQuestions" : "Mobile Checkout",
 		"titleReminders" : "Reminders",
@@ -227,7 +227,7 @@ module.exports = {
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
-		"titleExpressQR" : "Express Checkout",
+		"titleExpressQR" : "Express Pickup",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -347,14 +347,14 @@ module.exports = {
 		"loyaltySignupFeedbackNo" : "If you want to sign up please go to <secondaryfont><secondarycolor>www.meijer.com/mperks</secondarycolor></secondaryfont>",
 
 		"generateCodeBtn" : "Generate Pick Up QR code",
-		"expressCheckoutLblTitle" : "Enter your Date of Birth to enable your Express Checkout code. Use this code at the Express Checkout line at the pharmacy. The code will stay active for 24 hours. Re-enter your DOB to reactivate.",
+		"expressCheckoutLblTitle" : "Enter your Date of Birth to enable your Express Pickup code. Use this code at the Express Pickup line at the pharmacy. The code will stay active for 24 hours. Re-enter your DOB to reactivate.",
 		"generateValDob" : "Please enter your date of birth.",
-		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Checkout is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
+		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pickup is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
 		
 		"expressQRLblTitle" : "Please present this code at the pharmacy register to make picking up your prescriptions quick and easy.",
 		"expressQRDoneBtn" : "Done",
-		"expressQRCounterExpired" : "Your Express Checkout code has expired. Please re-enter your Date of Birth to enable again.",
+		"expressQRCounterExpired" : "Your Express Pickup code has expired. Please re-enter your Date of Birth to enable again.",
 		
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",

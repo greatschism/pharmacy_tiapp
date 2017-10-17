@@ -137,7 +137,7 @@ module.exports = {
                                                 "apiName" : "Label",
                                                 "classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h7", "fg-color", "txt-center", "touch-disabled"],
                                                 "properties" : {
-                                                    "textid" : "titleExpressCheckout"
+                                                    "textid" : "titleExpressPickup"
                                                 }
                                             }]
                                         }],
