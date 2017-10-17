@@ -129,7 +129,7 @@ function init() {
 	var reminderColor = _.findWhere(reminder_colors, { "color_code": reminder.color_code });
 	if(!reminderColor) {
 		reminderColor = {};
-		reminderColor.color_name = "Custom Color";
+		reminderColor.color_name = Alloy.Globals.strings.remindersMedCustomColor;
 		reminderColor.color_code = Alloy.CFG.default_color;
 	}
 	var colorRow = getColorBoxRow(reminderColor);
