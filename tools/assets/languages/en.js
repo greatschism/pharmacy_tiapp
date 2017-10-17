@@ -486,7 +486,8 @@ module.exports = {
 		"refillPhoneValPhone" : "Please enter your mobile number to continue.",
 		"refillPhoneValPhoneInvalid" : "The mobile number you have entered is invalid.",
 
-		"refillTypeLblTitle" : "Refill prescriptions\nwithout an account",
+		"refillTypeLblTitle" : "Refill prescriptions",
+		"refillTypeLblTitleOutsideLogin" : "Refill prescriptions\nwithout an account",
 		"refillTypeLblInfoTitle" : "Your details",
 		"refillTypeLastName" : "Enter your last name",
 		"refillTypeMobile" : "Enter your mobile number",
