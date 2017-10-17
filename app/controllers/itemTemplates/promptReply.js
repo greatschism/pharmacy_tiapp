@@ -28,6 +28,8 @@ var args = $.args,
 	_.each(["promptLbl", "replyLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
+	
+	$.contentView.accessibilityLabel = $.promptLbl.text + " " + $.replyLbl.text;
 })();
 
 function didPostlayout(e) {

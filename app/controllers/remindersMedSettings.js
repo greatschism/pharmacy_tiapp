@@ -169,18 +169,7 @@ function init() {
 		value : reminder.additional_message || ""
 	});
 	$.notesTxt = Alloy.createWidget("ti.textfield", "widget", txtStyleDict);
-	$.headerView = Ti.UI.createView({
-		height : txtStyleDict.top + txtStyleDict.bottom + txtStyleDict.height
-	});
-	if (OS_IOS || Alloy.Globals.isLollipop) {
-		$.headerView.add($.UI.create("View", {
-			classes : ["top", "h-divider-light"]
-		}));
-	}
-	$.headerView.add($.notesTxt.getView());
-	$.notesSection = Ti.UI.createTableViewSection({
-		headerView : $.headerView
-	});
+	$.notesView.add($.notesTxt.getView());
 	/**
 	 * prescriptions section
 	 */
@@ -227,7 +216,7 @@ function init() {
 		rows.push(row);
 	});
 	//set data
-	$.tableView.setData([$.reminderSection, $.optionsSection, $.notesSection, $.prescSection]);
+	$.tableView.setData([$.reminderSection, $.optionsSection, $.prescSection]);
 	// if android then set colorPicker in dialog as accessibility fix
 	if (OS_ANDROID) {
 		setColorPicker();
