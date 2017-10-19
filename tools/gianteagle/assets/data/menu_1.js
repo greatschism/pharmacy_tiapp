@@ -11,27 +11,26 @@ module.exports = {
 		"icon" : "thick_prescription",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleRefill",
-		"action" : "refill",
-		"icon" : "refill_camera",
-		"requires_login" : false
-	}, {
 		"titleid" : "titleReminders",
 		"ctrl" : "reminders",
 		"icon" : "thick_reminder",
 		"feature_name" : "is_reminders_enabled",
 		"requires_login" : true
 	}, {
-		"titleid" : "titleFamilyAccounts",
-		"ctrl" : "familyCare",
-		"icon" : "users",
-		"feature_name" : "is_proxy_enabled",
-		"requires_login" : true
+		"titleid" : "titleRefill",
+		"action" : "refill",
+		"icon" : "thick_refill_now",
+		"requires_login" : false
 	}, {
 		"titleid" : "titleStores",
 		"ctrl" : "stores",
 		"icon" : "thick_pharmacy",
 		"feature_name" : "is_storelocator_enabled",
+		"requires_login" : false
+	}, {
+		"titleid" : "titleServices",
+		"url" : "https://www.gianteagle.com/Pharmacy/Services",
+		"icon" : "thick_services",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleTransfer",
@@ -40,15 +39,21 @@ module.exports = {
 		"feature_name" : "is_transferrx_enabled",
 		"requires_login" : false
 	}, {
+		"titleid" : "titleAccount",
+		"ctrl" : "account",
+		"icon" : "thick_account",
+		"requires_login" : true
+	}, {
+		"titleid" : "titleFamilyAccounts",
+		"ctrl" : "familyCare",
+		"icon" : "users",
+		"feature_name" : "is_proxy_enabled",
+		"requires_login" : true
+	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
 		"icon" : "thick_doctor",
 		"feature_name" : "is_doctors_enabled",
-		"requires_login" : true
-	}, {
-		"titleid" : "titleAccount",
-		"ctrl" : "account",
-		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
