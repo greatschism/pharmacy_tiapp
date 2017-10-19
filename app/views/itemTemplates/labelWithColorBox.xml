@@ -1,6 +1,8 @@
 <Alloy autoStyle="true">
 	<TableViewRow id="row">
-		<Label id="lbl" class="margin-top margin-bottom margin-left" />
-		<View id="colorBoxView" class="margin-right color-box border" />
+		<View id="contentView" class="auto-height">
+			<Label id="lbl" class="margin-top margin-bottom margin-left" />
+			<View id="colorBoxView" class="margin-right color-box border" />
+		</View>
 	</TableViewRow>
 </Alloy>
