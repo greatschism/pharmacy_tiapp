@@ -791,11 +791,7 @@ function prepareList() {
 					else	{		
 					
 						headerTitle = "Checkout";
-					
-		
-		
-		
-					
+
 						// the title here is overridden in uihelper to show the shopping cart image
 						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
 						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
@@ -808,6 +804,37 @@ function prepareList() {
 						});		
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+					
+										//if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+					
+		 $.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
+		classes : ["margin-right-small", "width-50", "direction-up", "bg-color", "primary-border", "show"],
+		arrowDict : $.createStyle({
+			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
+		}),
+		arrowPadding : 6.5,
+		top : getPosition(tvSection)
+	}));
+	$.contentView = $.UI.create("View", {
+		classes : ["auto-height", "vgroup"]
+	});
+	$.tooltipLbl = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-top", "margin-left", "margin-right"],
+		text : $.strings.checkoutMsgCreditCardExpiry
+	});
+	$.contentView.add($.tooltipLbl);
+	$.tooltipHideBtn = $.UI.create("Button", {
+		apiName : "Button",
+		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-light-fg-color", "primary-border"],
+		title : $.strings.remindersTooltipBtnHide
+	});
+	$.tooltipHideBtn.addEventListener("click", didClickHide);
+	$.contentView.add($.tooltipHideBtn);
+	$.tooltip.setContentView($.contentView);
+			$.tableView.add($.tooltip.getView());
+				
+					
 					}
 				} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
@@ -848,6 +875,14 @@ function prepareList() {
 		}
 	}
 
+}
+
+
+function getPosition(view) {
+	var contentView = view.headerView;
+	alert(JSON.stringify(contentView,null,4));
+	logger.debug("\n\n\n",JSON.stringify(view),"\n\n\n");
+	return contentView.height;
 }
 
 function handleClose() {
