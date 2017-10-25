@@ -53,4 +53,10 @@
 			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHide" />
 		</View>
 	</Widget>
+	<Widget id="tooltipCardExpiry" src="ti.tooltip" class="margin-right width-50 direction-up bg-color primary-border hide">
+		<View class="auto-height vgroup">
+			<Label id="tooltipExpiryLbl" class="margin-top margin-left margin-right txt-center" />
+			<Button id="tooltipExpiryHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHideCardTooltip" />
+		</View>
+	</Widget>
 </Alloy> 

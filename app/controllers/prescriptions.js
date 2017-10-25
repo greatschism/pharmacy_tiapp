@@ -657,9 +657,7 @@ function prepareList() {
 				}
 				
 				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
-
-					
-					
+			
 					//The following logic block assembles and displays the CC info prompt (MCE-169)
 					//TODO: presumedly it should be extrapolated into it's own module
 					//This block should be cut/paste to implement in a different view controller
@@ -805,41 +803,34 @@ function prepareList() {
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 					
-										//if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+ 				
+
+					var currentPatient = Alloy.Collections.patients.findWhere({
+						selected : true
+					});
 					
-		 $.tooltip = Alloy.createWidget("ti.tooltip", "widget", $.createStyle({
-		classes : ["margin-right-small", "width-50", "direction-up", "bg-color", "primary-border", "show"],
-		arrowDict : $.createStyle({
-			classes : ["bg-color", "i5", "primary-fg-color", "icon-tooltip-arrow-up"]
-		}),
-		arrowPadding : 6.5,
-		top : getPosition(tvSection)
-	}));
-	$.contentView = $.UI.create("View", {
-		classes : ["auto-height", "vgroup"]
-	});
-	$.tooltipLbl = $.UI.create("Label", {
-		apiName : "Label",
-		classes : ["margin-top", "margin-left", "margin-right"],
-		text : $.strings.checkoutMsgCreditCardExpiry
-	});
-	$.contentView.add($.tooltipLbl);
-	$.tooltipHideBtn = $.UI.create("Button", {
-		apiName : "Button",
-		classes : ["margin-top-medium", "margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "min-height", "primary-bg-color", "h5", "primary-light-fg-color", "primary-border"],
-		title : $.strings.remindersTooltipBtnHide
-	});
-	$.tooltipHideBtn.addEventListener("click", didClickHide);
-	$.contentView.add($.tooltipHideBtn);
-	$.tooltip.setContentView($.contentView);
-			$.tableView.add($.tooltip.getView());
+					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+						var expiryDate = currentPatient.get("expiry_date").split('/');						
+						var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+
+						var today = new Date();
+						var diffDays = moment(formattedExpiryDate).diff(today, "days");		
 				
-					
+			 			if(moment(formattedExpiryDate).isAfter(today)) {
+			 				if(diffDays <=30) {
+			 					$.tooltipCardExpiry.applyProperties({
+									top : getPosition(tvSection)
+								});
+									
+								$.tooltipCardExpiry.show();
+			 				}
+			 			}
 					}
-				} else {
+				}
+			} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
-
+		
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -880,9 +871,8 @@ function prepareList() {
 
 function getPosition(view) {
 	var contentView = view.headerView;
-	alert(JSON.stringify(contentView,null,4));
 	logger.debug("\n\n\n",JSON.stringify(view),"\n\n\n");
-	return contentView.height;
+	return $.tableView.rect.y + contentView.height;
 }
 
 function handleClose() {
@@ -1480,6 +1470,10 @@ function didPostlayout(e) {
 
 function didClickHide(e) {
 	$.tooltip.hide();
+}
+
+function didClickHideCardTooltip(e) {
+	$.tooltipCardExpiry.hide();
 }
 
 function setParentView(view) {

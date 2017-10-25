@@ -333,7 +333,8 @@ module.exports = {
 		"checkoutComplete" : "Mobile checkout complete!",
 		"checkoutMsgEmptyList" : "No prescriptions ready for checkout.",
 		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Pay.",
-
+		"cardExpiryTooltipBtnHide" : "Got it!",
+		
 		"checkoutMedicationPrefQuestion" : "I confirm my request for the brand name version of the following medication(s):",
 		"checkoutCounselingQuestion" : "Would you like to speak to the pharmacist about your medications?",
 		"checkoutYes" : "Yes",
