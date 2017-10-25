@@ -3,7 +3,7 @@
 	<ScrollView id="scrollView">
 		<View id="parentView" class="vgroup" visible="false">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
-			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h6" />
+			<Label id="titleLbl" class="margin-top margin-left-large margin-right-large h6 txt-center" />
 			<View class="margin-top-extra-large auto-height fill-width">
 				<ImageView class="img-qr-bg width-80 auto-height fade-value" />
 				<View class="margin-top-extra-large auto-height fill-width vgroup ">
