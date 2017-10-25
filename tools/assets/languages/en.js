@@ -149,7 +149,7 @@ module.exports = {
 		"iconAccessibilityLblCheckboxUnchecked" : "Not checked",
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
-        "iconAccessibilityLblAccount": "Account",
+		"iconAccessibilityLblAccount" : "Account",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
@@ -332,6 +332,8 @@ module.exports = {
 		"checkoutClose" : "close",
 		"checkoutComplete" : "Mobile checkout complete!",
 		"checkoutMsgEmptyList" : "No prescriptions ready for checkout.",
+		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Pay.",
+		"cardExpiryTooltipBtnHide" : "Got it!",
 		
 		"checkoutMedicationPrefQuestion" : "I confirm my request for the brand name version of the following medication(s):",
 		"checkoutCounselingQuestion" : "Would you like to speak to the pharmacist about your medications?",
@@ -351,11 +353,11 @@ module.exports = {
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pickup is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
-		
+
 		"expressQRLblTitle" : "Please present this code at the pharmacy register to make picking up your prescriptions quick and easy.",
 		"expressQRDoneBtn" : "Done",
 		"expressQRCounterExpired" : "Your Express Pickup code has expired. Please re-enter your Date of Birth to enable again.",
-		
+
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",

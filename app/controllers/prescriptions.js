@@ -657,9 +657,7 @@ function prepareList() {
 				}
 				
 				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
-
-					
-					
+			
 					//The following logic block assembles and displays the CC info prompt (MCE-169)
 					//TODO: presumedly it should be extrapolated into it's own module
 					//This block should be cut/paste to implement in a different view controller
@@ -791,11 +789,7 @@ function prepareList() {
 					else	{		
 					
 						headerTitle = "Checkout";
-					
-		
-		
-		
-					
+
 						// the title here is overridden in uihelper to show the shopping cart image
 						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
 						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
@@ -808,11 +802,35 @@ function prepareList() {
 						});		
 
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+					
+ 				
+
+					var currentPatient = Alloy.Collections.patients.findWhere({
+						selected : true
+					});
+					
+					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+						var expiryDate = currentPatient.get("expiry_date").split('/');						
+						var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+
+						var today = new Date();
+						var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+				
+			 			if(moment(formattedExpiryDate).isAfter(today)) {
+			 				if(diffDays <=30) {
+			 					$.tooltipCardExpiry.applyProperties({
+									top : getPosition(tvSection)
+								});
+									
+								$.tooltipCardExpiry.show();
+			 				}
+			 			}
 					}
-				} else {
+				}
+			} else {
 					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 				}
-
+		
 			}
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
@@ -848,6 +866,13 @@ function prepareList() {
 		}
 	}
 
+}
+
+
+function getPosition(view) {
+	var contentView = view.headerView;
+	logger.debug("\n\n\n",JSON.stringify(view),"\n\n\n");
+	return $.tableView.rect.y + contentView.height;
 }
 
 function handleClose() {
@@ -1445,6 +1470,10 @@ function didPostlayout(e) {
 
 function didClickHide(e) {
 	$.tooltip.hide();
+}
+
+function didClickHideCardTooltip(e) {
+	$.tooltipCardExpiry.hide();
 }
 
 function setParentView(view) {
