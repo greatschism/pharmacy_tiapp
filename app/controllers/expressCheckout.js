@@ -10,9 +10,8 @@ var args = $.args,
     authenticator = require("authenticator"),
     checkout_result,
     currentPatient,
-    exp_counter_key;
-
-var checkoutDetails = {};
+    exp_counter_key,
+    prescriptions;
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
@@ -25,7 +24,7 @@ function init() {
 }
 
 function getExpressCheckoutCounter() {
-	var	patient_id = currentPatient.get("parent_id") || currentPatient.get("child_id");
+	var patient_id = currentPatient.get("parent_id") || currentPatient.get("child_id");
 	return ("expressCounterFor_" + patient_id);
 }
 
@@ -57,18 +56,40 @@ function checkoutDetailsFail() {
 
 function didGetCheckoutDetails(result) {
 	checkout_result = result;
+
 	if (result.data.stores.length > 1) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
-
 	} else if (result.data.stores.length == 1) {
-		if (authenticator.isExpressCheckoutValid(exp_counter_key)) {
-			moveToExpressQR(currentPatient, checkout_result);
+		var isCheckoutComplete = false,
+		    indexOfCheckoutCompletePresc;
+		_.each(result.data.stores, function(store, index1) {
+			prescriptions = store.prescription;
+			_.some(prescriptions, function(prescription, index2) {
+				if (prescription.is_checkout_complete == 1) {
+					isCheckoutComplete = true;
+					indexOfCheckoutCompletePresc = [index1, index2];
+					return true;
+				}
+				return false;
+			});
+		});
+
+		if (isCheckoutComplete) {
+			if (authenticator.isExpressCheckoutValid(exp_counter_key)) {
+				moveToExpressQR(currentPatient, checkout_result, indexOfCheckoutCompletePresc);
+			} else {
+				$.parentView.visible = true;
+			}
 		} else {
-			$.parentView.visible = true;
+			uihelper.showDialog({
+				message : "Please complete checkout to use express pickup",
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				success : pushToReadyPrescriptions
+			});
 		}
 	}
 }
@@ -77,6 +98,26 @@ function popToHome() {
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());
+}
+
+function pushToReadyPrescriptions() {
+	$.app.navigator.open({
+		titleid : "titleReadyPrescriptions",
+		ctrl : "prescriptions",
+		ctrlArguments : {
+			filters : {
+				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
+				section : ["others"],
+				is_checkout_complete : ["1", null]
+			},
+			prescriptions : null,
+			patientSwitcherDisabled : true,
+			useCache : true,
+			selectable : true,
+			hideCheckoutHeader : true
+		},
+		stack : true
+	});
 }
 
 function didClickGenerateCode(e) {
@@ -91,8 +132,8 @@ function didClickGenerateCode(e) {
 
 	var patientDob = moment(currentPatient.get("birth_date")).format(Alloy.CFG.apiCodes.dob_format);
 	var inputDob = moment(dob).format(Alloy.CFG.apiCodes.dob_format);
-  	var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
-	if(dobMatch) {
+	var dobMatch = OS_IOS ? moment(dob).diff(patientDob, "days") == 0 : moment(inputDob).diff(patientDob, "days") == 0;
+	if (dobMatch) {
 		var timeNow = moment();
 		utilities.setProperty(exp_counter_key, timeNow, "object", false);
 		moveToExpressQR(currentPatient, checkout_result);
@@ -104,10 +145,10 @@ function didClickGenerateCode(e) {
 	}
 }
 
-function moveToExpressQR(patient, checkoutInfo) {
+function moveToExpressQR(patient, checkoutInfo, indexOfPresc) {
 	var first_name = patient.get("first_name");
 	var last_name = patient.get("last_name");
-	var rx_nnumber = checkoutInfo.data.stores[0].prescription[0].rx_number;
+	var rx_nnumber = checkoutInfo.data.stores[indexOfPresc[0]].prescription[indexOfPresc[1]].rx_number;
 	var checkout_qr = last_name + "%09" + first_name + "%09%09%09%09%09%09%09%09%09%09%09%09%09%09%09" + rx_nnumber;
 	app.navigator.open({
 		ctrl : "expressQR",
