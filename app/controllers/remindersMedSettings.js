@@ -129,7 +129,7 @@ function init() {
 	var reminderColor = _.findWhere(reminder_colors, { "color_code": reminder.color_code });
 	if(!reminderColor) {
 		reminderColor = {};
-		reminderColor.color_name = "Custom Color";
+		reminderColor.color_name = Alloy.Globals.strings.remindersMedCustomColor;
 		reminderColor.color_code = Alloy.CFG.default_color;
 	}
 	var colorRow = getColorBoxRow(reminderColor);
@@ -169,18 +169,7 @@ function init() {
 		value : reminder.additional_message || ""
 	});
 	$.notesTxt = Alloy.createWidget("ti.textfield", "widget", txtStyleDict);
-	$.headerView = Ti.UI.createView({
-		height : txtStyleDict.top + txtStyleDict.bottom + txtStyleDict.height
-	});
-	if (OS_IOS || Alloy.Globals.isLollipop) {
-		$.headerView.add($.UI.create("View", {
-			classes : ["top", "h-divider-light"]
-		}));
-	}
-	$.headerView.add($.notesTxt.getView());
-	$.notesSection = Ti.UI.createTableViewSection({
-		headerView : $.headerView
-	});
+	$.notesView.add($.notesTxt.getView());
 	/**
 	 * prescriptions section
 	 */
@@ -227,7 +216,7 @@ function init() {
 		rows.push(row);
 	});
 	//set data
-	$.tableView.setData([$.reminderSection, $.optionsSection, $.notesSection, $.prescSection]);
+	$.tableView.setData([$.reminderSection, $.optionsSection, $.prescSection]);
 	// if android then set colorPicker in dialog as accessibility fix
 	if (OS_ANDROID) {
 		setColorPicker();
@@ -1010,6 +999,7 @@ function updateColorBoxRow(color) {
 	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
 	rows[rowIndex] = getColorBoxRow(color);
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
+	$.uihelper.requestViewFocus($.tableView);
 }
 
 function didClickSubmitReminder(e) {

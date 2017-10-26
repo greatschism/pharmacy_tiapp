@@ -163,7 +163,9 @@
                     "pharacyspecials":"0XE011",
                     "twitter":"0XE012",
                     "youtube":"0XE013",
-                    "thick_help":"0xE00E"
+                    "thick_help":"0xE00E",
+                    "thick_refill_now":"0xe01b",
+                    "thick_services":"0XE01C"
                 },
                 "icons":{
                     "numeric_zero":"0",

@@ -18,7 +18,7 @@ var args = $.args,
 		$.lbl.applyProperties({
 			right : right,
 			text : title,
-			accessibilityValue : Alloy.Globals.strings.accessibilityColorPicker
+			accessibilityHidden: true
 		});
 	}
 	uihelper.wrapText($.lbl);
@@ -26,8 +26,10 @@ var args = $.args,
 	$.colorBoxView.applyProperties({
 		backgroundColor : color,
 		borderColor : color,
-		accessibilityLabel : args.color.color_name
+		accessibilityHidden: true
 	});
+	
+	$.contentView.accessibilityLabel = Alloy.Globals.strings.accessibilityColorPicker + " " + args.color.color_name;
 })();
 
 function getParams() {

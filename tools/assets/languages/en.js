@@ -524,6 +524,7 @@ module.exports = {
 		"remindersMedLblFrequencyMonthly" : "Every month on the %s at %s",
 		"remindersMedLblFrequencyOnADay" : "On %s at %s",
 		"remindersMedLblFrequencyPeriod" : "Every %s on %s from %s to %s",
+		"remindersMedCustomColor" : "Custom Color",
 
 		"remindersMedSettingsLblFrequencyDaily" : "Daily",
 		"remindersMedSettingsLblFrequencyWeekly" : "Weekly",
