@@ -58,13 +58,31 @@ function checkoutDetailsFail() {
 function didGetCheckoutDetails(result) {
 	checkout_result = result;
 
-	if (result.data.stores.length > 1) {
+	var indexOfMultipleStoreCheckoutComplete = [],
+	    totalPrescriptionCount = 0,
+	    totalCheckoutCompleteCount = 0;
+	_.each(result.data.stores, function(store, index1) {
+		prescriptionsTemp = store.prescription;
+		_.each(prescriptionsTemp, function(prescription, index2) {
+			totalPrescriptionCount++;
+			if (prescription.is_checkout_complete == 1) {
+				totalCheckoutCompleteCount++;
+				if (! _.has(indexOfMultipleStoreCheckoutComplete, index1)) {
+					indexOfMultipleStoreCheckoutComplete.push(index1);
+				}
+				return true;
+			}
+			return false;
+		});
+	});
+
+	if (indexOfMultipleStoreCheckoutComplete.length > 1 && totalCheckoutCompleteCount != totalPrescriptionCount) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 			success : popToHome
 		});
-	} else if (result.data.stores.length == 1) {
+	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
 		var isCheckoutComplete = false;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
@@ -86,7 +104,7 @@ function didGetCheckoutDetails(result) {
 			}
 		} else {
 			uihelper.showDialog({
-				message : "Please complete checkout to use express pickup",
+				message : Alloy.Globals.strings.expressCheckoutDependencyMsg,
 				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 				success : pushToReadyPrescriptions
 			});

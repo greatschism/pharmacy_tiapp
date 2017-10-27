@@ -353,7 +353,8 @@ module.exports = {
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pickup is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
-
+		"expressCheckoutDependencyMsg" : "Please complete Mobile Checkout to use Express Pickup",
+		
 		"expressQRLblTitle" : "Please present this code at the pharmacy register to make picking up your prescriptions quick and easy.",
 		"expressQRDoneBtn" : "Done",
 		"expressQRCounterExpired" : "Your Express Pickup code has expired. Please re-enter your Date of Birth to enable again.",
