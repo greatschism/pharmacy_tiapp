@@ -58,15 +58,11 @@ function checkoutDetailsFail() {
 function didGetCheckoutDetails(result) {
 	checkout_result = result;
 
-	var indexOfMultipleStoreCheckoutComplete = [],
-	    totalPrescriptionCount = 0,
-	    totalCheckoutCompleteCount = 0;
+	var indexOfMultipleStoreCheckoutComplete = [];
 	_.each(result.data.stores, function(store, index1) {
 		prescriptionsTemp = store.prescription;
 		_.each(prescriptionsTemp, function(prescription, index2) {
-			totalPrescriptionCount++;
 			if (prescription.is_checkout_complete == 1) {
-				totalCheckoutCompleteCount++;
 				if (! _.has(indexOfMultipleStoreCheckoutComplete, index1)) {
 					indexOfMultipleStoreCheckoutComplete.push(index1);
 				}
@@ -75,8 +71,7 @@ function didGetCheckoutDetails(result) {
 			return false;
 		});
 	});
-
-	if (indexOfMultipleStoreCheckoutComplete.length > 1 && totalCheckoutCompleteCount != totalPrescriptionCount) {
+	if (indexOfMultipleStoreCheckoutComplete.length > 1) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
 			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
