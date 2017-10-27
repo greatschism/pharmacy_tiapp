@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "GiantEagle Rx",
+		"strClientName" : "Giant Eagle Rx",
 
 		"titlePrescriptions" : "My Prescriptions",
 		"titleReminders" : "Reminders",
