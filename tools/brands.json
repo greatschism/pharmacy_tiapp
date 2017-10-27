@@ -56,5 +56,11 @@
 	}, {
 		"id": "shaws",
 		"description": "Shaws Rx."
+	}, {
+		"id": "vanderbilt",
+		"description": "Vanderbilt Test."
+	}, {
+		"id": "gianteagle",
+		"description": "GiantEagle Test."
 	}
 ]

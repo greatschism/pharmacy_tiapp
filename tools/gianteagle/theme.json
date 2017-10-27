@@ -1,0 +1,27 @@
+{
+	"config": {
+		"global": {
+			"rx_length": 7,
+			"rx_start_index": 0,
+			"rx_end_index": 7,
+			"rx_store_start_index": 7,
+			"rx_store_end_index": 10,
+			"rx_validator": "^[0-9]{7}$",
+			"rx_formatters": [
+				{
+					"pattern": "\\D",
+					"modifiters": "g",
+					"value": ""
+				}
+			]
+		}
+	},
+	"values": {
+		"PRIMARY_COLOR": "#005699",
+		"PRIMARY_SELECTED_COLOR": "#003d6c",
+		"PRIMARY_DARK_COLOR": "#191919",
+		"PRIMARY_DARK_SELECTED_COLOR": "#191919",
+		"PRIMARY_FONT_COLOR": "#FFFFFF",
+		"PRIMARY_FONT_SELECTED_COLOR": "#FFFFFF"
+	}
+}

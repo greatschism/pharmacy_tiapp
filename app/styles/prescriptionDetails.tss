@@ -45,6 +45,7 @@
 },
 "#historyLbl":{
 	text: Alloy.Globals.strings.prescDetLblHistory,
+	accessibilityLabel: Alloy.Globals.strings.prescDetLblHistory,
 	accessibilityValue : Alloy.Globals.strings.loginAttrLabelsAccessibilityHint
 },
 "#instructionLbl":{

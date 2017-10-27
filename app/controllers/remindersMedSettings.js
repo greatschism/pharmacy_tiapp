@@ -31,32 +31,32 @@ var args = $.args,
     selectedColor;
     
 	var reminder_colors = [{
-		"colorName" : "Orange",
-		"colorCode" : "#e67e22"
+		"color_name" : "Orange",
+		"color_code" : "#e67e22"
 	}, {
-		"colorName" : "White",
-		"colorCode" : "#ffffff"
+		"color_name" : "White",
+		"color_code" : "#ffffff"
 	}, {
-		"colorName" : "Red",
-		"colorCode" : "#c0392b"
+		"color_name" : "Red",
+		"color_code" : "#c0392b"
 	}, {
-		"colorName" : "Green",
-		"colorCode" : "#27ae60"
+		"color_name" : "Green",
+		"color_code" : "#27ae60"
 	}, {
-		"colorName" : "Pink",
-		"colorCode" : "#C452D8"
+		"color_name" : "Pink",
+		"color_code" : "#C452D8"
 	}, {
-		"colorName" : "Yellow",
-		"colorCode" : "#f1c40f"
+		"color_name" : "Yellow",
+		"color_code" : "#f1c40f"
 	}, {
-		"colorName" : "Blue",
-		"colorCode" : "#0000FF"
+		"color_name" : "Blue",
+		"color_code" : "#0000FF"
 	}, {
-		"colorName" : "Purple",
-		"colorCode" : "#7245C1"
+		"color_name" : "Purple",
+		"color_code" : "#7245C1"
 	}, {
-		"colorName" : "Black",
-		"colorCode" : "#181818"
+		"color_name" : "Black",
+		"color_code" : "#181818"
 	}]; 
     Alloy.Collections.reminderColors.reset(reminder_colors);
 
@@ -126,7 +126,13 @@ function init() {
 	 */
 	$.reminderSection = Ti.UI.createTableViewSection();
 	//color box row
-	var colorRow = getColorBoxRow(reminder.color_code || Alloy.CFG.default_color);
+	var reminderColor = _.findWhere(reminder_colors, { "color_code": reminder.color_code });
+	if(!reminderColor) {
+		reminderColor = {};
+		reminderColor.color_name = Alloy.Globals.strings.remindersMedCustomColor;
+		reminderColor.color_code = Alloy.CFG.default_color;
+	}
+	var colorRow = getColorBoxRow(reminderColor);
 	$.reminderSection.add(colorRow.getView());
 	rows.push(colorRow);
 	//remind frequency
@@ -163,18 +169,7 @@ function init() {
 		value : reminder.additional_message || ""
 	});
 	$.notesTxt = Alloy.createWidget("ti.textfield", "widget", txtStyleDict);
-	$.headerView = Ti.UI.createView({
-		height : txtStyleDict.top + txtStyleDict.bottom + txtStyleDict.height
-	});
-	if (OS_IOS || Alloy.Globals.isLollipop) {
-		$.headerView.add($.UI.create("View", {
-			classes : ["top", "h-divider-light"]
-		}));
-	}
-	$.headerView.add($.notesTxt.getView());
-	$.notesSection = Ti.UI.createTableViewSection({
-		headerView : $.headerView
-	});
+	$.notesView.add($.notesTxt.getView());
 	/**
 	 * prescriptions section
 	 */
@@ -221,7 +216,7 @@ function init() {
 		rows.push(row);
 	});
 	//set data
-	$.tableView.setData([$.reminderSection, $.optionsSection, $.notesSection, $.prescSection]);
+	$.tableView.setData([$.reminderSection, $.optionsSection, $.prescSection]);
 	// if android then set colorPicker in dialog as accessibility fix
 	if (OS_ANDROID) {
 		setColorPicker();
@@ -528,8 +523,8 @@ function focus() {
 		selectedPrescriptions = [];
 	} else if (selectedColor) {
 		//color picker is always on 0th index
-		if (selectedColor.hex != rows[0].getParams().value) {
-			updateColorBoxRow(selectedColor.hex);
+		if (selectedColor.color_code != rows[0].getParams().value) {
+			updateColorBoxRow(selectedColor);
 		}
 		//nullify
 		selectedColor = null;
@@ -603,18 +598,18 @@ function setColorPicker() {
 			apiName : "View",
 			classes : ["left", "auto-height", "fill-width", "hgroup"],
 			index : i,
-			accessibilityLabel : reminderColor.get("colorName")
+			accessibilityLabel : reminderColor.get("color_name")
 		});
 		rowView.add($.UI.create("View", {
 			apiName : "View",
 			classes : ["margin-left", "color-box", "border", "accessibility-disabled", "touch-disabled"],
-			backgroundColor : reminderColor.get("colorCode"),
+			backgroundColor : reminderColor.get("color_code"),
 			borderColor : "#BEC2C6"
 		}));
 		rowView.add($.UI.create("Label", {
 			apiName : "Label",
 			classes : ["margin-top", "margin-bottom", "margin-left-large", "accessibility-disabled", "touch-disabled"],
-			text : reminderColor.get("colorName"),
+			text : reminderColor.get("color_name"),
 		}));
 		dialogView.add(rowView);
 	};
@@ -623,7 +618,6 @@ function setColorPicker() {
     	androidView : dialogView
   	});
   	dialogView.addEventListener("click", function(e){
-  		console.log(e.source.index + " scroll click is: " + JSON.stringify(e));
   		didClickColorPicker(e);
   	});
 }
@@ -638,7 +632,8 @@ function didClickTableView(e) {
 		var params = rows[index].getParams();
 		if (index === 0) {
 			selectedColor = {
-				hex : params.color
+				color_name : params.color_name,
+				color_code : params.color_code
 			};
 			$.colorPicker.show();
 		} else if (index === 1) {
@@ -663,10 +658,11 @@ function didClickTableView(e) {
 }
 
 function didClickColorPicker(e) {
-	var index = e.index || e.source.index;
-	selectedColor.hex = Alloy.Collections.reminderColors.at(index).get("colorName");
+	var index = e.index || e.source.index || 0;
+	selectedColor.color_name = Alloy.Collections.reminderColors.at(index).get("color_name");
+	selectedColor.color_code = Alloy.Collections.reminderColors.at(index).get("color_code");
 	$.colorPicker.hide();
-	updateColorBoxRow(selectedColor.hex);
+	updateColorBoxRow(selectedColor);
 }
 
 function didClickClosePicker(e) {
@@ -1003,6 +999,7 @@ function updateColorBoxRow(color) {
 	    currentRow = OS_IOS ? rowIndex : rows[rowIndex].getView();
 	rows[rowIndex] = getColorBoxRow(color);
 	$.tableView.updateRow(currentRow, rows[rowIndex].getView());
+	$.uihelper.requestViewFocus($.tableView);
 }
 
 function didClickSubmitReminder(e) {
@@ -1014,7 +1011,7 @@ function didClickSubmitReminder(e) {
 	 * color code
 	 * will always be in 0th index
 	 */
-	data.color_code = rows[0].getParams().color;
+	data.color_code = rows[0].getParams().color_code;
 	/**
 	 * frequency
 	 * will always be in 1st index
