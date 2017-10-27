@@ -11,7 +11,8 @@ var args = $.args,
     checkout_result,
     currentPatient,
     exp_counter_key,
-    prescriptions;
+    prescriptions,
+    indexOfCheckoutCompletePresc;
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
@@ -64,8 +65,7 @@ function didGetCheckoutDetails(result) {
 			success : popToHome
 		});
 	} else if (result.data.stores.length == 1) {
-		var isCheckoutComplete = false,
-		    indexOfCheckoutCompletePresc;
+		var isCheckoutComplete = false;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
 			_.some(prescriptions, function(prescription, index2) {
@@ -136,7 +136,7 @@ function didClickGenerateCode(e) {
 	if (dobMatch) {
 		var timeNow = moment();
 		utilities.setProperty(exp_counter_key, timeNow, "object", false);
-		moveToExpressQR(currentPatient, checkout_result);
+		moveToExpressQR(currentPatient, checkout_result, indexOfCheckoutCompletePresc);
 	} else {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.expressCheckoutDobMismatchMsg
