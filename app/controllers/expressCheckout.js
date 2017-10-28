@@ -98,11 +98,7 @@ function didGetCheckoutDetails(result) {
 				$.parentView.visible = true;
 			}
 		} else {
-			uihelper.showDialog({
-				message : Alloy.Globals.strings.expressCheckoutDependencyMsg,
-				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-				success : pushToReadyPrescriptions
-			});
+			pushToPrescriptionList();
 		}
 	}
 }
@@ -113,9 +109,9 @@ function popToHome() {
 	}).toJSON());
 }
 
-function pushToReadyPrescriptions() {
+function pushToPrescriptionList() {
 	$.app.navigator.open({
-		titleid : "titleReadyPrescriptions",
+		titleid : "titlePrescriptions",
 		ctrl : "prescriptions",
 		ctrlArguments : {
 			filters : {
@@ -123,11 +119,8 @@ function pushToReadyPrescriptions() {
 				section : ["others"],
 				is_checkout_complete : ["1", null]
 			},
-			prescriptions : null,
 			patientSwitcherDisabled : true,
-			useCache : true,
-			selectable : true,
-			hideCheckoutHeader : true
+			hideCheckoutHeader : false
 		},
 		stack : true
 	});

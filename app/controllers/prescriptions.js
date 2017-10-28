@@ -1337,6 +1337,13 @@ function hideAllPopups() {
 	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
+	if(args.hideCheckoutHeader == false) {
+		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+		return true;
+	}
+	else 
 	return false;
 }
 
