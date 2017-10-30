@@ -620,222 +620,238 @@ function prepareList() {
 	});
 	var data = [];
 	_.each(sections, function(rows, key) {
-		if (rows.length) {
-			var tvSection;
-			/**
-			 * Hide section headers when
-			 * sectionHeaderViewDisabled is true (or)
-			 * when other section is only visible
-			 * Note: others section is the last section in sections list
-			 */
-			if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
-				tvSection = Ti.UI.createTableViewSection();
-			} else {
-				if (headerBtnDict) {
-					/***
-					 * determine whether it should be
-					 * select all / none
-					 */
-					var selected = false;
-					_.some(rows, function(row) {
-						if (!row.getParams().selected) {
-							selected = true;
-							return true;
-						}
-					});
-					/**
-					 * section id is different for each section
-					 * and callback property will be set to button and removed
-					 * from object before applying it by uihelper
-					 */
-					_.extend(headerBtnDict, {
-						sectionId : key,
-						selected : selected,
-						callback : didClickSelectAll,
-						title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
-					});
+		var addRows = false;
+		if (_.has(args, "navigationFrom")) {			
+			if (args.navigationFrom == "expressCheckout") {
+				if (key != "others") {
+					var addRows = true;
 				}
-				
-				if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
-			
-					//The following logic block assembles and displays the CC info prompt (MCE-169)
-					//TODO: presumedly it should be extrapolated into it's own module
-					//This block should be cut/paste to implement in a different view controller
-					var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
-					if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
+			} else {
+				addRows = true;
+			}
+		} else {
+				addRows = true;
+		}
 
-						logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
-
-						var dialogView = $.UI.create("ScrollView", {
-							apiName : "ScrollView",
-							classes : ["top", "auto-height", "vgroup"]
-						});
-						dialogView.add($.UI.create("Label", {
-							apiName : "Label",
-							classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
-							text : $.strings.checkoutPrompt
-						}));
-
-						var btn = $.UI.create("Button", {
-							apiName : "Button",
-							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
-							title : $.strings.checkoutFindoutPrompt,
-							index : 0
-						});
-
-						$.addListener(btn, "click", function(){
-							$.contentView.remove($.checkoutInfoDialog.getView());
-							displayCheckoutInfo();
-						});
-						dialogView.add(btn);
-
-						var swt = $.UI.create("View", {
-							apiName : "View",
-							classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
-							index : 1
-						});
-						
-						var checkboxClasses;
-						 
-						if ( $.utilities.isNarrowScreen() ) {	
-							checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
-						} else {
-							checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
-						}
-						var swtCheckbox = $.UI.create("Label", {
-							apiName : "Label",
-							classes : checkboxClasses,
-						});
-						
-						
-						$.addListener(swtCheckbox, "click", function(){
-							Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
-							
-							if( checkBoxToggleFlag === 0 ) {
-								Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
-								checkBoxToggleFlag = 1;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
-							} else {
-								Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
-								checkBoxToggleFlag = 0;
-								swtCheckbox.applyProperties($.createStyle({
-	  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
-								}));
-								$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+		if(addRows) {
+			if (rows.length) {
+				var tvSection;
+				/**
+				 * Hide section headers when
+				 * sectionHeaderViewDisabled is true (or)
+				 * when other section is only visible
+				 * Note: others section is the last section in sections list
+				 */
+				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
+					tvSection = Ti.UI.createTableViewSection();
+				} else {
+					if (headerBtnDict) {
+						/***
+						 * determine whether it should be
+						 * select all / none
+						 */
+						var selected = false;
+						_.some(rows, function(row) {
+							if (!row.getParams().selected) {
+								selected = true;
+								return true;
 							}
 						});
-
-						var swtLabel = $.UI.create("Label", {
-							apiName : "Label",
-							classes : ["margin-right-large", "h5", "txt-right", ],
-							text : $.strings.checkoutRemindCheckbox,
+						/**
+						 * section id is different for each section
+						 * and callback property will be set to button and removed
+						 * from object before applying it by uihelper
+						 */
+						_.extend(headerBtnDict, {
+							sectionId : key,
+							selected : selected,
+							callback : didClickSelectAll,
+							title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
 						});
-						swt.add(swtCheckbox);
-						swt.add(swtLabel);
-						dialogView.add(swt);
-
-						var btn2 = $.UI.create("Button", {
-							apiName : "Button",
-							classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
-							title : $.strings.checkoutClose,
-							index : 2
-						});
-						$.addListener(btn2, "click", function(){
-
-							$.contentView.remove($.checkoutInfoDialog.getView());
-							$.checkoutInfoDialog = null;
-						});
-						dialogView.add(btn2);
-
-						$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-							classes : ["modal-dialog"],
-							children : [dialogView]
-						}));
-						$.contentView.add($.checkoutInfoDialog.getView());
-						$.checkoutInfoDialog.show();
 					}
-
-
-
-					Ti.API.info("args = " + JSON.stringify(args) );
-					var headerTitle = "";
 					
-							
-					var checkoutCompeteCount = 0;
-					Alloy.Collections.prescriptions.each(function(prescription) {
-	
-						if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
-							//rows.length
-							checkoutCompeteCount++;
-						}
-						
-					});
-					
-					var readyHeaderDict;
-					if(checkoutCompeteCount === rows.length)
-					{
-						headerTitle = $.strings.titleCheckoutCompleteHeader;
-
-						readyHeaderDict = $.createStyle({
-							classes : ["right"],
-							title : headerTitle
-						});
-						
-						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-					}
-					else	{		
-					
-						headerTitle = "Checkout";
-
-						// the title here is overridden in uihelper to show the shopping cart image
-						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
-						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
-						// TODO: module as opposed to living in the uihelper as much as possible
-						readyHeaderDict = $.createStyle({
-							classes : ["right", "bubble-disabled"],
-							title : headerTitle,
-							accessibilityLabel : "checkout",
-							callback : didClickCheckout
-						});		
-
-					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-					
- 				
-
-					var currentPatient = Alloy.Collections.patients.findWhere({
-						selected : true
-					});
-					
-					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-						var expiryDate = currentPatient.get("expiry_date").split('/');						
-						var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
-
-						var today = new Date();
-						var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
 				
-			 			if(moment(formattedExpiryDate).isAfter(today)) {
-			 				if(diffDays <=30) {
-			 					$.tooltipCardExpiry.applyProperties({
-									top : getPosition(tvSection)
-								});
-									
-								$.tooltipCardExpiry.show();
-			 				}
-			 			}
-					}
-				}
-			} else {
-					tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
-				}
+						//The following logic block assembles and displays the CC info prompt (MCE-169)
+						//TODO: presumedly it should be extrapolated into it's own module
+						//This block should be cut/paste to implement in a different view controller
+						var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
+						if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
+	
+							logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
+	
+							var dialogView = $.UI.create("ScrollView", {
+								apiName : "ScrollView",
+								classes : ["top", "auto-height", "vgroup"]
+							});
+							dialogView.add($.UI.create("Label", {
+								apiName : "Label",
+								classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
+								text : $.strings.checkoutPrompt
+							}));
+	
+							var btn = $.UI.create("Button", {
+								apiName : "Button",
+								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+								title : $.strings.checkoutFindoutPrompt,
+								index : 0
+							});
+	
+							$.addListener(btn, "click", function(){
+								$.contentView.remove($.checkoutInfoDialog.getView());
+								displayCheckoutInfo();
+							});
+							dialogView.add(btn);
+	
+							var swt = $.UI.create("View", {
+								apiName : "View",
+								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
+								index : 1
+							});
+							
+							var checkboxClasses;
+							 
+							if ( $.utilities.isNarrowScreen() ) {	
+								checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
+							} else {
+								checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
+							}
+							var swtCheckbox = $.UI.create("Label", {
+								apiName : "Label",
+								classes : checkboxClasses,
+							});
+							
+							
+							$.addListener(swtCheckbox, "click", function(){
+								Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
+								
+								if( checkBoxToggleFlag === 0 ) {
+									Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+									checkBoxToggleFlag = 1;
+									swtCheckbox.applyProperties($.createStyle({
+		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
+									}));
+									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+								} else {
+									Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+									checkBoxToggleFlag = 0;
+									swtCheckbox.applyProperties($.createStyle({
+		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+									}));
+									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+								}
+							});
+	
+							var swtLabel = $.UI.create("Label", {
+								apiName : "Label",
+								classes : ["margin-right-large", "h5", "txt-right", ],
+								text : $.strings.checkoutRemindCheckbox,
+							});
+							swt.add(swtCheckbox);
+							swt.add(swtLabel);
+							dialogView.add(swt);
+	
+							var btn2 = $.UI.create("Button", {
+								apiName : "Button",
+								classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+								title : $.strings.checkoutClose,
+								index : 2
+							});
+							$.addListener(btn2, "click", function(){
+	
+								$.contentView.remove($.checkoutInfoDialog.getView());
+								$.checkoutInfoDialog = null;
+							});
+							dialogView.add(btn2);
+	
+							$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+								classes : ["modal-dialog"],
+								children : [dialogView]
+							}));
+							$.contentView.add($.checkoutInfoDialog.getView());
+							$.checkoutInfoDialog.show();
+						}
+	
+	
+	
+						Ti.API.info("args = " + JSON.stringify(args) );
+						var headerTitle = "";
+						
+								
+						var checkoutCompeteCount = 0;
+						Alloy.Collections.prescriptions.each(function(prescription) {
 		
+							if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
+								//rows.length
+								checkoutCompeteCount++;
+							}
+							
+						});
+						
+						var readyHeaderDict;
+						if(checkoutCompeteCount === rows.length)
+						{
+							headerTitle = $.strings.titleCheckoutCompleteHeader;
+	
+							readyHeaderDict = $.createStyle({
+								classes : ["right"],
+								title : headerTitle
+							});
+							
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						}
+						else	{		
+						
+							headerTitle = "Checkout";
+	
+							// the title here is overridden in uihelper to show the shopping cart image
+							// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
+							// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
+							// TODO: module as opposed to living in the uihelper as much as possible
+							readyHeaderDict = $.createStyle({
+								classes : ["right", "bubble-disabled"],
+								title : headerTitle,
+								accessibilityLabel : "checkout",
+								callback : didClickCheckout
+							});		
+	
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						
+	 				
+	
+						var currentPatient = Alloy.Collections.patients.findWhere({
+							selected : true
+						});
+						
+						if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+							var expiryDate = currentPatient.get("expiry_date").split('/');						
+							var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+	
+							var today = new Date();
+							var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+					
+				 			if(moment(formattedExpiryDate).isAfter(today)) {
+				 				if(diffDays <=30) {
+				 					$.tooltipCardExpiry.applyProperties({
+										top : getPosition(tvSection)
+									});
+										
+									$.tooltipCardExpiry.show();
+				 				}
+				 			}
+						}
+					}
+				} else {
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+				}
+
 			}
+			
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});
 			data.push(tvSection);
+		}
 		}
 	});
 	$.tableView.setData(data);
@@ -930,7 +946,8 @@ function didClickCheckout(e)
 				patientSwitcherDisabled : true,
 				useCache : true,
 				selectable : true,
-				hideCheckoutHeader : true
+				hideCheckoutHeader : true,
+				navigationFrom : ""
 			},
 			stack : true 
 		});

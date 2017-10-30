@@ -441,7 +441,8 @@ function didClickAdd(e) {
 			validator : "medReminder",
 			selectable : true,
 			minLength : 1,
-			useCache : true
+			useCache : true,
+			navigationFrom : ""
 		},
 		stack : true
 	});

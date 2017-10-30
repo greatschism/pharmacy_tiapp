@@ -710,7 +710,8 @@ function didGetMedReminders(result, passthrough) {
 			selectable : true,
 			minLength : 1,
 			useCache : true,
-			selectedItems : [prescription.id]
+			selectedItems : [prescription.id],
+			navigationFrom : ""
 		},
 		stack : true
 	});

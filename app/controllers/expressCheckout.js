@@ -120,7 +120,8 @@ function pushToPrescriptionList() {
 				is_checkout_complete : ["1", null]
 			},
 			patientSwitcherDisabled : true,
-			hideCheckoutHeader : false
+			hideCheckoutHeader : false,
+			navigationFrom : "expressCheckout"
 		},
 		stack : true
 	});

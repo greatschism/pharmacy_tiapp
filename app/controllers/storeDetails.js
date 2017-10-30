@@ -125,7 +125,7 @@ function didGetStore(result, passthrough) {
 	$.loader.hide();
 }
 
-function didFailed(){
+function didFailed() {
 	$.app.navigator.close();
 	$.loader.hide();
 }
@@ -155,12 +155,11 @@ function contactsHandler() {
 }
 
 function didClickPhone(e) {
-	if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
+	if (!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result) {
+			if (result.success) {
 				contactsHandler();
-			}
-			else{
+			} else {
 				$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
 			}
 		});
@@ -190,6 +189,7 @@ function didClickRefill(e) {
 				selectable : true,
 				minLength : 1,
 				useCache : false,
+				navigationFrom : "",
 				navigation : {
 					titleid : "titleOrderDetails",
 					ctrl : "orderDetails",
