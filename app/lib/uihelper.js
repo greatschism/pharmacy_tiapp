@@ -876,7 +876,7 @@ var Helper = {
 
 		//TODO: this logic needs to live in the prescriptions controller
 		//all in this 'Checkout' conditional is for building the custom (checkout) banner inside of the ready for pickup section header of this tableview
-		if (rightItem && (rightItem.title === "Checkout" || rightItem.title === $.strings.titleCheckoutCompleteHeader)) {
+		if (rightItem && (rightItem.title === "Checkout" || rightItem.title === $.strings.titleCheckoutCompleteHeader || rightItem.title === $.strings.titleContinueExpressPickupHeader)) {
 
 			var headerCheckoutTitle = rightItem.title;
 
@@ -954,7 +954,7 @@ var Helper = {
 					rightItem.backgroundColor = null;
 				}
 
-				if (headerCheckoutTitle === "Checkout") {
+				if (headerCheckoutTitle === "Checkout" || headerCheckoutTitle === $.strings.titleContinueExpressPickupHeader) {
 					var rightBtn = Ti.UI.createButton(rightItem);
 					if (OS_IOS) {
 						var rightImg = Ti.UI.createImageView();

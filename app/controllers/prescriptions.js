@@ -800,9 +800,18 @@ function prepareList() {
 							
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 						}
-						else	{		
+						else {		
 						
+						if (_.has(args, "navigationFrom")) {			
+							if (args.navigationFrom == "expressCheckout") {
+								headerTitle = $.strings.titleContinueExpressPickupHeader;
+							}
+							else {
+								headerTitle = "Checkout";
+							}
+						} else {
 							headerTitle = "Checkout";
+						}
 	
 							// the title here is overridden in uihelper to show the shopping cart image
 							// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
@@ -815,35 +824,35 @@ function prepareList() {
 								callback : didClickCheckout
 							});		
 	
-						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+							
+		 				
+		
+							var currentPatient = Alloy.Collections.patients.findWhere({
+								selected : true
+							});
+							
+							if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+								var expiryDate = currentPatient.get("expiry_date").split('/');						
+								var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+		
+								var today = new Date();
+								var diffDays = moment(formattedExpiryDate).diff(today, "days");		
 						
-	 				
-	
-						var currentPatient = Alloy.Collections.patients.findWhere({
-							selected : true
-						});
-						
-						if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-							var expiryDate = currentPatient.get("expiry_date").split('/');						
-							var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
-	
-							var today = new Date();
-							var diffDays = moment(formattedExpiryDate).diff(today, "days");		
-					
-				 			if(moment(formattedExpiryDate).isAfter(today)) {
-				 				if(diffDays <=30) {
-				 					$.tooltipCardExpiry.applyProperties({
-										top : getPosition(tvSection)
-									});
-										
-									$.tooltipCardExpiry.show();
-				 				}
-				 			}
+					 			if(moment(formattedExpiryDate).isAfter(today)) {
+					 				if(diffDays <=30) {
+					 					$.tooltipCardExpiry.applyProperties({
+											top : getPosition(tvSection)
+										});
+											
+										$.tooltipCardExpiry.show();
+					 				}
+					 			}
+							}
 						}
+					} else {
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 					}
-				} else {
-						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
-				}
 
 			}
 			

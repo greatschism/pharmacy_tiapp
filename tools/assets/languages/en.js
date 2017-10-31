@@ -319,6 +319,7 @@ module.exports = {
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"titleCheckoutCompleteHeader" : "Mobile checkout complete. See you soon!",
+		"titleContinueExpressPickupHeader" : "Continue Express pick-up here.",
 
 		"checkoutComponentAmount" : "Amount Due:",
 		"checkoutTotalAmount" : "Total Amount Due:",
