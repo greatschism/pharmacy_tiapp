@@ -332,7 +332,7 @@ module.exports = {
 		"checkoutClose" : "close",
 		"checkoutComplete" : "Mobile checkout complete!",
 		"checkoutMsgEmptyList" : "No prescriptions ready for checkout.",
-		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Pay.",
+		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Checkout.",
 		"cardExpiryTooltipBtnHide" : "Got it!",
 		
 		"checkoutMedicationPrefQuestion" : "I confirm my request for the brand name version of the following medication(s):",
@@ -352,7 +352,7 @@ module.exports = {
 		"expressCheckoutLblTitle" : "Enter your date of birth to enable your Express Pickup code. The code will stay active for 24 hours. After 24 hours has elapsed, re-enter your date of birth to activate again.\n\nShow this code at the pharmacy counter to make picking up your prescriptions faster",
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pickup is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
-		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please reenter your information.",
+		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please re-enter your information.",
 		
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
