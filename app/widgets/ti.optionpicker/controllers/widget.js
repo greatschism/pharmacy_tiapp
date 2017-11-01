@@ -307,7 +307,7 @@ function show(callback) {
 			animation.removeEventListener("complete", onComplete);
 			$.widget.opacity = 1;
 			if (Ti.App.accessibilityEnabled) {
-				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.tableView);
+				Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.contentView);
 			}
 			if (callback) {
 				callback();

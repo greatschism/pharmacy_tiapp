@@ -136,7 +136,9 @@ function didFocusPassword(e) {
 		});
 		delete $.passwordTooltip.size;
 	}
-	$.passwordTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.passwordTooltip.show();
+	}
 }
 
 function didFocusRx(e) {
@@ -152,7 +154,9 @@ function didFocusRx(e) {
 		});
 		delete $.rxTooltip.size;
 	}
-	$.rxTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.rxTooltip.show();
+	}
 }
 
 function didBlurFocusPassword() {
@@ -250,7 +254,7 @@ function didClickContinue(e) {
 		}
 		if (!rx.validate(rxNo)) {
 			uihelper.showDialog({
-				message : String.format(Alloy.Globals.strings.registerValRxInvalid,Alloy.CFG.rx_length)
+				message : String.format(Alloy.Globals.strings.registerValRxInvalid,parseInt(Alloy.Globals.rx_max))
 			});
 			return;
 		}
@@ -312,7 +316,7 @@ function didClickContinue(e) {
 					home_phone : "",
 					mobile : mobileNumber,
 					email_address : email,
-					rx_number : rxNo.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					rx_number : rxNo,
 					store_id : store.id,
 					user_type : "FULL",
 					optional : optionalValues
@@ -384,6 +388,7 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(false);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strHide,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShowing,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});
@@ -391,12 +396,23 @@ function didToggleShowPassword() {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightPwdButtonDict, {
 				title : $.strings.strShow,
+				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHiding,
 				width: "25%",
 				backgroundColor: 'transparent'
 			});
 		}
 		setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
+		setTimeout(updatePasswordToggle, 2000);
 	}
+}
+
+function updatePasswordToggle() {
+	if ($.passwordTxt.getPasswordMask()) {
+		rightPwdButtonDict.accessibilityLabel = Alloy.Globals.strings.accessibilityStrShow;
+	} else {
+		rightPwdButtonDict.accessibilityLabel = Alloy.Globals.strings.accessibilityStrHide;
+	}
+	setRightButton(rightPwdButtonDict.title, rightPwdButtonDict);
 }
 
 function setRightButton(iconText, iconDict) {

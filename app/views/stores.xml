@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-fg-color bg-color-disabled border-disabled icon-map" onClick="didClickRightNavBtn" if="Alloy.CFG.is_maps_enabled" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-font-color bg-color-disabled border-disabled icon-map" onClick="didClickRightNavBtn" if="Alloy.CFG.is_maps_enabled" />
 	<View id="headerView" class="top auto-height vgroup">
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="didChangePatient" if="Alloy.Globals.isLoggedIn" />
 		<View class="top txt-border-view">
@@ -19,5 +19,6 @@
 			</FooterView>
 		</TableView>
 		<Widget id="loader" name="embedded" src="ti.loading" class="auto-width auto-height bg-color-disabled" />
+		<View id="countView" visible="false" platform="ios"></View>
 	</View>
 </Alloy> 

@@ -7,6 +7,7 @@ var args = $.args,
 
 function init() {
 	isHIPAA = ($.args.terms.agreement_text === $.strings.accountsAgreementHIPAA ? true : false);
+	$.webView.enableZoomControls = false;
 	$.webView.applyProperties({
 		top : $.args.registrationFlow === true ? 0 : "10%",
 		bottom : isHIPAA ? "25%" : "15%",

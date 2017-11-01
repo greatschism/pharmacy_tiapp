@@ -1,5 +1,9 @@
 var args = $.args,
     refillScan = require("refillScan");
+    
+function focus(e) {
+	$.refillView.accessibilityHidden = false;
+}
 
 function didClickScan(e) {
 	/**
@@ -31,15 +35,22 @@ function didClickScan(e) {
 
 }
 
+
 function callScanner() {
+	if (OS_IOS) {		
+		$.refillView.accessibilityHidden = true;
+	};
 	if (Alloy.CFG.refill_scan_phone_enabled) {
 		$.app.navigator.open({
 			titleid : "titleRefill",
 			ctrl : "refillPhone",
-			stack : true
+			stack : true,
+			ctrlArguments : {
+				callback : focus
+			},
 		});
 	} else {
-		refillScan.init($);
+		refillScan.init($, undefined, focus);
 	}
 }
 
@@ -52,3 +63,5 @@ function didClickType(e) {
 		stack : true
 	});
 }
+
+exports.focus = focus;

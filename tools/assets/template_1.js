@@ -9,18 +9,21 @@ module.exports = {
 		"children" : [{
 			"items" : [{
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titlePrescriptions"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["margin-top-medium", "bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titlePrescriptions"
 								}
@@ -33,21 +36,24 @@ module.exports = {
 				}
 			},{
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium" , "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleRefill"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleRefill"
 								}
@@ -60,21 +66,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleReminders"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleReminders"
 								}
@@ -88,21 +97,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleFamilyAccounts"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleFamilyAccounts"
 								}
@@ -116,21 +128,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleStores"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleStores"
 								}
@@ -144,21 +159,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleTransfer"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleTransfer"
 								}
@@ -172,21 +190,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleInsurance"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-reward"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-reward"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleInsurance"
 								}
@@ -201,21 +222,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleDoctors"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleDoctors"
 								}
@@ -229,21 +253,24 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "margin-bottom-medium", "h-divider-light"]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top", "margin-bottom", "auto-height", "vgroup", "hwrap-disabled"],
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
+					"textid" : "titleAccount"
+				},
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
-						"classes" : ["bottom", "auto-height", "hgroup", "hwrap-disabled", "touch-disabled"],
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
 							}, {
 								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled", "accessibility-actionablelements"],
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-medium", "h4", "fg-color", "touch-disabled"],
 								"properties" : {
 									"textid" : "titleAccount"
 								}
@@ -256,18 +283,7 @@ module.exports = {
 				}
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-top-medium", "h-divider-light"]
-			},{
-				"id" : "bannerView",
-				"apiName" : "View",
-				"classes" : ["top", "auto-width", "auto-height"],
-				"actions" : [{
-					"event" : "postlayout",
-					"keepAlive" : true,
-					"binders" : [{
-						"id" : "scrollView"
-					}]
-				}]
+				"classes" : ["top", "bottom", "h-divider-light"]
 			}]
 		}]
 	}]

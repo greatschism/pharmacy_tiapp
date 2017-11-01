@@ -38,11 +38,6 @@
                         "pattern":"\\D",
                         "modifiters":"g",
                         "value":""
-                    },
-                    {
-                        "pattern":"(\\d{7})(\\d)",
-                        "modifiters":"",
-                        "value":"$1-$2"
                     }
                 ],
                 "rx_schedule_2_validator":"^(2).*$",
@@ -174,7 +169,10 @@
                     "checkout_complete":"0xE017",
                     "account_circle":"0xE01A",
                     "express_checkout":"0xE018",
-                    "insurance_card":"0xE019"
+                    "insurance_card":"0xE019",
+                    "thick_help":"0xE00E",
+                    "thick_refill_now":"0xe01b",
+                    "thick_services":"0XE01C"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -275,12 +273,12 @@
             },
             "ios":{
                 "accepted_barcode_formats":[
-                    "Code128", "QR"
+                    "Code128", "QR", "Code39"
                 ]
             },
             "android":{
                 "accepted_barcode_formats":[
-                    "FORMAT_CODE_128", "FORMAT_QR_CODE"
+                    "FORMAT_CODE_128", "FORMAT_QR_CODE", "FORMAT_CODE_39"
                 ]
             }
         },
@@ -343,9 +341,9 @@
                 "barColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
-                "navTintColor":"${PRIMARY_LIGHT_COLOR}",
+                "navTintColor":"${PRIMARY_FONT_COLOR}",
                 "backgroundColor":"${BG_COLOR}"
             },
             "Window[platform=android]":{
@@ -353,7 +351,7 @@
                 "statusBarColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}"
             },
@@ -361,7 +359,7 @@
                 "barColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_IOS}",
-                    "color":"${PRIMARY_LIGHT_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${BG_COLOR}",
                 "openDrawerGestureMode":"OPEN_MODE_NONE",
@@ -374,13 +372,13 @@
                 "statusBarColor":"${PRIMARY_COLOR_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
-                    "color":"${PRIMARY_COLOR}"
+                    "color":"${PRIMARY_FONT_COLOR}"
                 },
                 "backgroundColor":"${PRIMARY_COLOR}"
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
-            	"color":"${PRIMARY_COLOR}"
+            	"color":"${PRIMARY_FONT_COLOR}"
             },
             "TableView":{
                 "backgroundColor":"${BG_COLOR}",
@@ -723,6 +721,9 @@
             ".margin-right-extra-large":{
                 "right":"${MARGIN_RIGHT_EXTRA_LARGE}"
             },
+            ".margin-left-xxl":{
+                "left":"${BUTTON_HEIGHT}"
+            },
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"
             },
@@ -983,6 +984,10 @@
             ".primary-light-fg-color":{
                 "color":"${PRIMARY_LIGHT_COLOR}",
                 "selectedColor":"${PRIMARY_LIGHT_SELECTED_COLOR}"
+            },
+            ".primary-font-color":{
+            	"color":"${PRIMARY_FONT_COLOR}",
+                "selectedColor":"${PRIMARY_FONT_SELECTED_COLOR}"
             },
             ".active-fg-color":{
                 "color":"${ACTIVE_COLOR}",

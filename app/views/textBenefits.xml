@@ -5,24 +5,24 @@
 			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
 		</View>
 		<View class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup inactive-light-border">
-			<View class="auto-height hgroup ">
+			<View class="auto-height  ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
-				<Label id="textBenefit1" class="margin-top margin-bottom h4 margin-left margin-right" />
+				<Label id="textBenefit1" class="margin-left-xxl margin-top margin-bottom h4  margin-right" />
 			</View>
-			<View class="auto-height hgroup">
+			<View class="auto-height ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
-				<Label id="textBenefit2" class="margin-top margin-bottom h4 margin-left margin-right " />
+				<Label id="textBenefit2" class="margin-left-xxl margin-top margin-bottom h4  margin-right " />
 			</View>
-			<View class="auto-height hgroup">
+			<View class="auto-height ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
-				<Label id="textBenefit3" class="margin-top margin-bottom h4 margin-left margin-right" />
+				<Label id="textBenefit3" class="margin-left-xxl margin-top margin-bottom h4  margin-right" />
 			</View>
-			<View class="auto-height hgroup">
+			<View class="auto-height ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
-				<Label id="textBenefit4" class="margin-top margin-bottom h4 margin-left margin-right" />
+				<Label id="textBenefit4" class="margin-left-xxl margin-top margin-bottom h4  margin-right" />
 			</View>
 		</View>
-		<Button id="sendTxtBtn" analyticsId="SendTxtBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickTextSignup"/>
+		<Button id="sendTxtBtn" analyticsId="SendTxtBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickTextSignup"/>
 		<Button id="skipSendTxtBtn" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipTextSignup"/>
 	</ScrollView>
 </Alloy>

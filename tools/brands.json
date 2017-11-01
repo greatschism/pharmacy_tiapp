@@ -38,5 +38,29 @@
 	}, {
 		"id": "uvmc",
 		"description": "UVMC Rx."
+	}, {
+		"id": "apex",
+		"description": "Apex"
+	}, {
+		"id": "bow",
+		"description": "Bow"
+	}, {
+		"id": "clarks",
+		"description": "Clarks"
+	}, {
+		"id": "acme",
+		"description": "Acme Rx."
+	}, {
+		"id": "haggen",
+		"description": "Haggen Pharmacy Rx."
+	}, {
+		"id": "shaws",
+		"description": "Shaws Rx."
+	}, {
+		"id": "vanderbilt",
+		"description": "Vanderbilt Test."
+	}, {
+		"id": "gianteagle",
+		"description": "GiantEagle Test."
 	}
 ]

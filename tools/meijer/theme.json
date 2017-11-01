@@ -1,6 +1,7 @@
 {
 	"config": {
 		"global": {
+			"use_keep_signed_in_session_timeout": "useKeepSignedInSessionTimeout",
 			"homescreen_logo_enabled": "homescreenLogoEnabled",
 			"homescreen_rightnav_settings_enabled": "homescreenRightnavSettingsEnabled",
 			"rx_length": 7,
@@ -19,6 +20,10 @@
 		}
 	},
 	"values": {
+		"ACTIVE_COLOR": "#0095FF",
+		"ACTIVE_SELECTED_COLOR": "#0095FF",
+		"HINT_TEXT_COLOR": "#C7C7CD",
+		"CUSTOM_FG_COLOR": "#3056CD",
 		"PRIMARY_COLOR": "#0a4d8c",
 		"PRIMARY_COLOR_BAR": "#eeeeee",
 		"PRIMARY_SELECTED_COLOR": "#0a4d8c",

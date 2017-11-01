@@ -738,9 +738,9 @@ function didNotRemoveMedReminder(result, passthrough) {
 }
 
 function terminate() {
-	if (httpClient) {
-		httpClient.abort();
-	}
+	// if (httpClient) {
+		// httpClient.abort();
+	// }
 }
 
 function loadCopay() {

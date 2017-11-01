@@ -12,7 +12,7 @@
 				<Label id="autoLoginLbl" class="left right-40 h4 accessibility-disabled" onPostlayout="didPostlayout" />
 				<Widget id="autoLoginSwt" src="ti.switch" class="right swt" onChange="didChangeAutoLogin"/>
 			</View>
-			<Button id="loginBtn" class="primary-bg-color primary-light-fg-color primary-border margin-top-large" onClick="didClickLogin" />
+			<Button id="loginBtn" class="primary-bg-color primary-font-color primary-border margin-top-large" onClick="didClickLogin" />
 			<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed-20" onClick="didClickForgotPassword" />
 			<Widget id="signupAttr" src="ti.styledlabel" class="margin-left margin-top margin-bottom attributed-20" onClick="didClickSignup" />
 		</View>
@@ -20,7 +20,7 @@
 		<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
 			<View class="auto-height vgroup">
 				<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
-				<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-light-fg-color primary-border" onClick="didClickHide" />
+				<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-font-color primary-border" onClick="didClickHide" />
 			</View>
 		</Widget>
 	</ScrollView>

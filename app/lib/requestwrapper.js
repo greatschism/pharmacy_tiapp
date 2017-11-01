@@ -6,6 +6,7 @@ var TAG = "REWR",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
+    utilities = require("utilities"),
     app = require("core"),
     http = require("http"),
     encryptionUtil = require("encryptionUtil"),
@@ -26,7 +27,15 @@ function request(args) {
 	 * and must not be a patient logout
 	 */
 	var now = moment().unix();
-	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
+
+	var sessionTimeout;
+    if (Alloy.CFG.use_keep_signed_in_session_timeout === "useKeepSignedInSessionTimeout" && utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false)) {
+    	sessionTimeout = Alloy.CFG.keep_signed_in_session_timeout;
+    } else {
+    	sessionTimeout = Alloy.CFG.session_timeout;
+    }
+	
+	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > sessionTimeout && args.method != "patient_logout") {
 		/**
 		 *  hide loader is required in case
 		 *  it was created by a previous network call
@@ -77,7 +86,7 @@ function request(args) {
 	_.extend(args.params, {
 		client_identifier : Alloy.Models.appload.get("client_id"),
 		version : Alloy.CFG.api_version,
-		lang : localization.currentLanguage.code,
+		lang : "en",
 		msi_log_id : Alloy.Models.appload.get("msi_log_id"),
 		session_id : Alloy.Globals.sessionId
 	});

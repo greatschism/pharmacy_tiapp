@@ -21,7 +21,7 @@
 				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 			</View>
 			<Widget id="agreementAttr" analyticsId="AgreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 		</View>
 		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>

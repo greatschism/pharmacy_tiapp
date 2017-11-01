@@ -30,6 +30,8 @@ var log4js = require("log4js"),
     APP_ANDROID_DRAWABLE_XHDPI = APP_ANDROID_RES_BASE_DIR + "drawable-xhdpi",
     APP_ANDROID_DRAWABLE_XXHDPI = APP_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
     APP_ANDROID_DRAWABLE_XXXHDPI = APP_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi",
+    APP_ANDROID_VALUES_V14 = APP_ANDROID_RES_BASE_DIR + "values-v14",
+    APP_ANDROID_VALUES_V21 = APP_ANDROID_RES_BASE_DIR + "values-v21",
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
@@ -198,7 +200,7 @@ if (build) {
 	logger.debug("Initated cleanup");
 
 	//delete all resources
-	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
+	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_VALUES_V14, APP_ANDROID_VALUES_V21, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -229,6 +231,8 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xhdpi",
 		    BRAND_ANDROID_DRAWABLE_XXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxhdpi",
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
+		    BRAND_ANDROID_VALUES_V14 = BRAND_ANDROID_RES_BASE_DIR + "values-v14";
+		    BRAND_ANDROID_VALUES_V21 = BRAND_ANDROID_RES_BASE_DIR + "values-v21";
 
 		_u.each([{
 			source : BASE_ASSETS_IMAGES_SERIES_DIR,
@@ -272,6 +276,12 @@ if (build) {
 		}, {
 			source : BRAND_ANDROID_DRAWABLE_XXXHDPI,
 			dest : APP_ANDROID_DRAWABLE_XXXHDPI
+		}, {
+			source : BRAND_ANDROID_VALUES_V14,
+			dest : APP_ANDROID_VALUES_V14
+		}, {
+			source : BRAND_ANDROID_VALUES_V21,
+			dest : APP_ANDROID_VALUES_V21
 		}], function(obj) {
 			if (fs.existsSync(obj.source)) {
 				/**
@@ -623,7 +633,7 @@ if (build) {
 
 		//android launcher activity name
 		var appname = tiapp.name;
-		appname = appname.replace("-","");
+		appname = appname.replace("-"," ");
 		var names = (appname + " Activity").split(" ");
 		for (var i in names) {
 			var name = names[i].toLowerCase();
