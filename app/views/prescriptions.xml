@@ -1,5 +1,5 @@
 <Alloy>
-	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-font-color bg-color-disabled border-disabled icon-options-menu accessibility-enabled" onClick="didClickRightNavBtn" />
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right i5 txt-right primary-menu-font-color bg-color-disabled border-disabled icon-options-menu accessibility-enabled" onClick="didClickRightNavBtn" />
 	<Widget id="optionsMenu" src="ti.optiondialog" onClick="didClickOptionMenu" />
 	<Widget id="sortPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickSortPicker" if="!$.args.showHiddenPrescriptions">
 		<View class="min-height inactive-light-bg-color role-header-view">
