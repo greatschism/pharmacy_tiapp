@@ -1,6 +1,9 @@
 {
 	"config": {
 		"global": {
+			"use_additional_header_styling" : "useAdditionalHeaderStyling",
+			"use_hamburger_logo_for_menu_header" : "useHamburgerLogoForMenuHeader",
+			"homescreen_template_banner_below" : "homescreenTemplateBannerBelow",
 			"use_keep_signed_in_session_timeout": "useKeepSignedInSessionTimeout",
 			"homescreen_logo_enabled": "homescreenLogoEnabled",
 			"rx_number_for_ready_label": "rxNumberForReadyLabelEnabled",
@@ -45,6 +48,8 @@
 	    "UPDATE_INSURANCE_ICON_COLOR": "#24A599",
 	    "FAMILY_CARE_ICON_COLOR": "#558B2F",
 	    "PRESCRIBERS_ICON_COLOR": "#546E7A",
-	    "SETTINGS_ICON_COLOR": "#555555"
+	    "SETTINGS_ICON_COLOR": "#555555",
+		"TENTATIVE_COLOR": "#CD853F",
+		"TENTATIVE_SELECTED_COLOR": "#CD853F"
 	}
 }

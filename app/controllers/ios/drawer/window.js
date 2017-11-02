@@ -103,7 +103,7 @@ function didClickLeftNavView(e) {
 }
 
 function setTitle(title) {
-	if(title == "Home") {
+	if(title == "Home" && (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow")) {
 		$.titleControl.text = "";
 	} else{
 		$.titleControl.text = title;

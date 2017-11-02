@@ -343,7 +343,7 @@
                     "font":"${H3_PLATFORM_IOS}",
                     "color":"${PRIMARY_MENU_FONT_COLOR}"
                 },
-                "navTintColor":"${PRIMARY_MENU_FONT_COLOR}",
+                "navTintColor":"${PRIMARY_FONT_COLOR}",
                 "backgroundColor":"${BG_COLOR}"
             },
             "Window[platform=android]":{
@@ -361,7 +361,7 @@
                     "font":"${H3_PLATFORM_IOS}",
                     "color":"${PRIMARY_MENU_FONT_COLOR}"
                 },
-                "backgroundColor":"${BG_COLOR}",
+                "backgroundColor":"${PRIMARY_COLOR_BAR}",
                 "openDrawerGestureMode":"OPEN_MODE_NONE",
                 "closeDrawerGestureMode":"CLOSE_MODE_ALL",
                 "shouldStretchDrawer":false,
@@ -374,7 +374,7 @@
                     "font":"${H3_PLATFORM_ANDROID}",
                     "color":"${PRIMARY_MENU_FONT_COLOR}"
                 },
-                "backgroundColor":"${PRIMARY_COLOR}"
+                "backgroundColor":"${BG_COLOR}"
             },
             ".title-control":{
             	"font":"${H3_PLATFORM_IOS}",
@@ -875,6 +875,10 @@
             ".primary-bg-color":{
                 "backgroundColor":"${PRIMARY_COLOR}",
                 "backgroundSelectedColor":"${PRIMARY_SELECTED_COLOR}"
+            },
+            ".primary-menu-bg-color":{
+                "backgroundColor":"${PRIMARY_COLOR_BAR}",
+                "backgroundSelectedColor":"${PRIMARY_COLOR_BAR}"
             },
             ".primary-dark-bg-color":{
                 "backgroundColor":"${PRIMARY_DARK_COLOR}",

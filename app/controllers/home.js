@@ -357,12 +357,16 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
-		Alloy.Globals.homeBannerHeight = $.bannerView.rect.height || Alloy.Globals.homeBannerHeight;
-		$.scrollView.applyProperties({
-			showVerticalScrollIndicator : true,
-			top : 0,
-			bottom : Alloy.Globals.homeBannerHeight
-		});
+
+    	if (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow") {		
+			Alloy.Globals.homeBannerHeight = $.bannerView.rect.height || Alloy.Globals.homeBannerHeight;
+			$.scrollView.applyProperties({
+				showVerticalScrollIndicator : true,
+				top : 0,
+				bottom : Alloy.Globals.homeBannerHeight
+			});
+		}
+
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}

@@ -124,8 +124,8 @@ function terminate(e) {
 }
 
 function setTitle(title) {
-	if(title == "Home") {
-		$.window.titleControl.text = "";
+    if(title == "Home" && (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow")) {
+   		$.window.titleControl.text = "";
 	} else {
 		$.window.titleControl.text = title;
 	}

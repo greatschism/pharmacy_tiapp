@@ -115,8 +115,10 @@ function backButtonHandler(e) {
 }
 
 function setTitle(title) {
-	if(title == "Home") {
-		title = "Meijer";
+    if (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow") {	
+		if(title == "Home") {
+			title = "Meijer";
+		}
 	}
 	$.window.title = title;
 	$.actionBar.setTitleAttributes(_.extend({
