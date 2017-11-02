@@ -8,6 +8,17 @@ module.exports = {
 		"classes" : ["vgroup", "top", "fill-width", "fill-height"],
 		"children" : [{
 			"items" : [{
+				"id" : "bannerView",
+				"apiName" : "View",
+				"classes" : ["top", "auto-width", "auto-height"],
+				"actions" : [{
+					"event" : "postlayout",
+					"keepAlive" : true,
+					"binders" : [{
+						"id" : "scrollView"
+					}]
+				}]
+			}, {
 				"apiName" : "View",
 				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
 				"properties" : {
