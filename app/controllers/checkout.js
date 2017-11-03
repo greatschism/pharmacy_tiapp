@@ -36,6 +36,8 @@ var sectionHeaders = {
 	payment : "Your Payment Info",
 };
 
+var checkoutStores = [];
+
 function init() {
 
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -687,8 +689,7 @@ function presentCCConfirmation(patient) {
 	/*
 	 * show original store of each Rx with amountdue for each store
 	 */
-
-	var checkoutStores = [];
+	checkoutStores = [];
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "original_store_address_line1")) {
 			if (prescription.original_store_address_line1 != null) {
@@ -923,7 +924,7 @@ function didSuccess(result, passthrough) {
 	uihelper.showDialog({
 		message : result.message,
 
-		buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes ],
+		buttonNames : (checkoutStores.length > 1)?[$.strings.dialogBtnOK]:[$.strings.dialogBtnNo, $.strings.dialogBtnYes],
 		cancelIndex : -1,
 		success : successMessageUserResponse
 
@@ -932,7 +933,7 @@ function didSuccess(result, passthrough) {
 
 function didFail(result, passthrough) {
 	$.app.navigator.hideLoader();
-	popToPrescriptions();
+	popToHome();
 }
 
 
@@ -944,12 +945,12 @@ function successMessageUserResponse(whichButton) {
 			stack : true
 		});
 	} else {
-		popToPrescriptions();
+		popToHome();
 	}
 }
 
 
-function popToPrescriptions() {
+function popToHome() {
 
 	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
 
