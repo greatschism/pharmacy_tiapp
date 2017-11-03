@@ -51,5 +51,19 @@
 	    "SETTINGS_ICON_COLOR": "#555555",
 		"TENTATIVE_COLOR": "#CD853F",
 		"TENTATIVE_SELECTED_COLOR": "#CD853F"
+	},
+	"tss": {
+        "Window[platform=android]":{
+            "barColor":"#eeeeee",
+            "statusBarColor":"#0a4d8c",
+            "titleAttributes":{
+                "font":{
+					"fontFamily": "medium",
+					"fontSize": 20
+				},
+                "color":"#0A4D8C"
+            },
+            "backgroundColor":"#FFFFFF"
+        }
 	}
 }
