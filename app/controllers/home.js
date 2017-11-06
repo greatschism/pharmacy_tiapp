@@ -540,10 +540,7 @@ function didClickRightNav(e) {
 }
 
 function didClickRightNavLoggedIn(e) {
-	$.app.navigator.open({
-		titleid : "titleAccount",
-		ctrl : "account"
-	});
+	$.optionsMenu.show();
 }
 
 function didPostlayout(e) {
@@ -583,6 +580,41 @@ function didPostlayout(e) {
 			properties[transformer.to] = transformer.from === "width" || transformer.from === "height" ? source.rect[transformer.from] : source[transformer.from];
 		});
 		$[binder.id].applyProperties(properties);
+	});
+}
+
+function didClickOptionMenu(e) {
+	/**
+	 * cancel index may vary,
+	 * based on arguments, so check
+	 * the cancel flag before proceed
+	 */
+	if (e.cancel) {
+		return false;
+	}
+	switch(e.index) {
+	case 0:
+		$.app.navigator.open({
+			titleid : "titleAccount",
+			ctrl : "account"
+		});
+		break;
+	case 1:
+		$.uihelper.showDialog({
+			message : Alloy.Globals.strings.msgLogoutConfirm,
+			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : logout
+		});
+		break;
+	default:
+		break;
+	}
+}
+
+function logout() {
+	require("authenticator").logout({
+		dialogEnabled : true
 	});
 }
 

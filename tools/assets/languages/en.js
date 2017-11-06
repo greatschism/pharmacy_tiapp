@@ -336,7 +336,7 @@ module.exports = {
 		"checkoutPromptMore" : "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
 		"checkoutClose" : "close",
 		"checkoutComplete" : "Mobile checkout complete!",
-		"checkoutMsgEmptyList" : "No prescriptions ready for checkout.",
+		"checkoutMsgEmptyList" : "Due to the recent upgrade, Mobile Checkout is not available for this prescription on this refill only. Future refills of this prescription will not be affected.",
 		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Checkout.",
 		"cardExpiryTooltipBtnHide" : "Got it!",
 		
@@ -354,7 +354,7 @@ module.exports = {
 		"loyaltySignupFeedbackNo" : "If you want to sign up please go to <secondaryfont><secondarycolor>www.meijer.com/mperks</secondarycolor></secondaryfont>",
 
 		"generateCodeBtn" : "Generate Pick Up QR code",
-		"expressCheckoutLblTitle" : "Enter your date of birth to enable your Express Pickup code. The code will stay active for 24 hours. After 24 hours has elapsed, re-enter your date of birth to activate again.\n\nShow this code at the pharmacy counter to make picking up your prescriptions faster",
+		"expressCheckoutLblTitle" : "Enter your date of birth to enable your Express Pickup code. The code will stay active for 24 hours. After 24 hours has elapsed, re-enter your date of birth to activate again.\n\nShow this code at the pharmacy counter to make picking up your prescriptions faster.",
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pickup is not supported at multiple locations at this time. Please proceed to your pharmacy to pickup your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please re-enter your information.",
