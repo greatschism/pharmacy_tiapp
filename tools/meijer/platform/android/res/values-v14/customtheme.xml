@@ -48,6 +48,8 @@
 		<!--action bar shadow for pre-lollipop-->
 		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
 		<!--action bar shadow for pre-lollipop-->
+		<item name="colorControlNormal">#FF0A4D8C</item>
+		<item name="android:textColorPrimary">#FF0A4D8C</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
