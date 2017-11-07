@@ -47,7 +47,7 @@ function init() {
 		$.prescSection.add(row.getView());
 		rows.push(row);
 	});
-	
+
 }
 
 function didClickAdd(e) {
@@ -62,7 +62,8 @@ function didClickAdd(e) {
 			prescriptions : selectedPrescriptions,
 			patientSwitcherDisabled : true,
 			useCache : true,
-			selectable : true
+			selectable : true,
+			navigationFrom : ""
 		},
 		stack : true
 	});
@@ -259,12 +260,11 @@ function didGetPickupModes(result, passthrough) {
 function setPickupModes() {
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	    // defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	// defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
 	    defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
 	    selectedCode;
-	    
-	if( Alloy.CFG.latest_pickup_mode === "latestPickupMode")
-	{
+
+	if (Alloy.CFG.latest_pickup_mode === "latestPickupMode") {
 		defaultVal = apiCodes.pickup_mode_instore;
 	}
 
@@ -276,8 +276,8 @@ function setPickupModes() {
 	 * the same
 	 */
 	// if (defaultVal == apiCodes.pickup_mode_instore  && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-		// defaultVal = apiCodes.pickup_mode_mail_order;
-		// logger.debug("\n\n\n default mode : ", defaultVal,"\t\t",Alloy.CFG.mail_order_store_pickup_enabled);
+	// defaultVal = apiCodes.pickup_mode_mail_order;
+	// logger.debug("\n\n\n default mode : ", defaultVal,"\t\t",Alloy.CFG.mail_order_store_pickup_enabled);
 	// }
 	//update selected value
 	_.each(codes, function(code) {
@@ -345,58 +345,50 @@ function updatePickupOptionRow() {
 		 */
 		// if(Alloy.Globals.isMailOrderService)
 		// {
-			// store = {};
-			// // should get home pharmacy for the selected  prescription
+		// store = {};
+		// // should get home pharmacy for the selected  prescription
 		// }
-		
+
 		Alloy.Globals.isMailOrderService = false;
 		store = {};
-		
+
 		getPrescriptionOrStore();
-		
+
 		// var ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
 		// if(ishomepharmacy == 0){}
-// 		
+		//
 		// //point to new instance
 		// updateDisplay();
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
-		
-		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
-		{
+
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
 			logger.debug("\n\n\n $.pickupOptionRow.getView --> in updatePickupOptionRow\n\n\n");
 			//nullify last instance
 			$.pickupOptionRow = null;
-	
+
 			$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
 				title : $.strings.orderDetLblMailOrder
 			});
-			
-			
+
 			$.tableView.updateRow(row, $.pickupOptionRow.getView());
 
-		}
-		
-		
-		else
-		{			
+		} else {
 			logger.debug("\n\n ");
 			store = {};
 			Alloy.Globals.isMailOrderService = true;
-	
+
 			if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
 				mailOrderCall();
-	
+
 			}
 		}
 		break;
 	}
 	// $.tableView.updateRow(row, $.pickupOptionRow.getView());
 }
-
-
 
 function updateDisplay() {
 	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
@@ -408,7 +400,7 @@ function updateDisplay() {
 		 * check whether the store supports
 		 * instore pickup
 		 */
-	
+
 		//point to new instance
 		$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
 			masterWidth : 75,
@@ -421,15 +413,11 @@ function updateDisplay() {
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
-		if(Alloy.Models.appload.get("mail_order_store_id") > 0)
-		{
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
-			title : $.strings.orderDetLblMailOrder
+				title : $.strings.orderDetLblMailOrder
 			});
-		}
-				
-		else
-		{
+		} else {
 			$.pickupOptionRow = Alloy.createController("itemTemplates/masterDetailBtn", {
 				masterWidth : 75,
 				detailWidth : 25,
@@ -444,25 +432,23 @@ function updateDisplay() {
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
 }
 
-
-function mailOrderCall()
-{
+function mailOrderCall() {
 	httpClient = $.http.request({
-				method : "mailorder_stores_get",
-				params : {
-					data : [{
-							rx_info : {
-			       				rx_number: ""
-		     				}
-					}],
-					feature_code : "IP-STLI-STOR"
-				},
-				passthrough :  true ,
-				errorDialogEnabled :  true ,
-				showLoader : false,
-				success : didGetMailOrderStores,
-				failure : didGetMailOrderStores
-				});
+		method : "mailorder_stores_get",
+		params : {
+			data : [{
+				rx_info : {
+					rx_number : ""
+				}
+			}],
+			feature_code : "IP-STLI-STOR"
+		},
+		passthrough : true,
+		errorDialogEnabled : true,
+		showLoader : false,
+		success : didGetMailOrderStores,
+		failure : didGetMailOrderStores
+	});
 }
 
 function didGetMailOrderStores(result, passthrough) {
@@ -477,7 +463,7 @@ function didGetMailOrderStores(result, passthrough) {
 	 */
 	if (!result.data) {
 		logger.debug("\n\n\norder details - didgetstores -- results list empty\n\n\n");
-		
+
 		//this resets the list populated already
 		result.data = {
 			stores : {
@@ -488,21 +474,18 @@ function didGetMailOrderStores(result, passthrough) {
 
 	var isLastFilled = parseInt(result.data.isLastFilled) || 0;
 	logger.debug("\n\n\norder details - lastfilled ", isLastFilled);
-	if(isLastFilled === 1)
-	{
+	if (isLastFilled === 1) {
 		_.extend(store, result.data.stores.stores_list[0]);
 		_.extend(store, {
 			title : $.utilities.ucword(store.addressline1),
 			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip
 		});
-	
-		logger.debug("\n\n\n order details - store last filled\n ",JSON.stringify(result.data.stores.stores_list[0], null, 4));
+
+		logger.debug("\n\n\n order details - store last filled\n ", JSON.stringify(result.data.stores.stores_list[0], null, 4));
 	}
-	
+
 	updateDisplay();
 }
-
-
 
 function didClickTableView(e) {
 	/**
@@ -533,17 +516,16 @@ function didClickRefill(e) {
 	 *  this is specific to client
 	 */
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
-	    // storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
-	    
+	// storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
+
 	    storeId = store.id,
 
 	    data = [];
-	    
-	    if( (Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order))
-	    {
-	    	storeId = Alloy.Models.appload.get("mail_order_store_id");
-	    }
-	    
+
+	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
+		storeId = Alloy.Models.appload.get("mail_order_store_id");
+	}
+
 	//check if valid store id
 	if (!storeId) {
 		$.uihelper.showDialog({
@@ -577,6 +559,7 @@ function didClickRefill(e) {
 
 function didRefill(result, passthrough) {
 	var refilledPrescs = result.data.prescriptions;
+	Ti.API.info(JSON.stringify(refilledPrescs));
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order
@@ -591,28 +574,28 @@ function didRefill(result, passthrough) {
 	var isSuccess = false;
 	var isFailure = false;
 	_.each(refilledPrescs, function(presc) {
-		if(presc.refill_is_error == true){
+		if (presc.refill_is_error == true) {
 			isFailure = true;
-			
-		}else{
+
+		} else {
 			isSuccess = true;
-		}	
+		}
 	});
-	
+
 	var titleRefill = null;
 	if (isSuccess && isFailure) {
 		//partial success
 		titleRefill = "titleRefillPartialOrder";
-		
+
 	} else if (isSuccess) {
 		//complete success
 		titleRefill = "titleRefillOrdered";
-		
+
 	} else {
 		//complete failure
 		titleRefill = "titleRefillFailureOrder";
 	}
-	
+
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
 		titleid : titleRefill,
@@ -638,4 +621,4 @@ function terminate(e) {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
-exports.backButtonHandler = hideAllPopups;
+exports.backButtonHandler = hideAllPopups; 

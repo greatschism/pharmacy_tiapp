@@ -54,7 +54,8 @@ function didGetHistory(result, passthrough) {
 				id : history.store_id,
 				title : $.utilities.ucword(history.addressline1),
 				subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
-				detailSubtitle : history.sold_date && moment(history.sold_date, serverDateFormat).format(clientDateFormat) || ""
+				detailSubtitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || "",
+				detailTitle : history.copay != null ? "$"+parseFloat(history.copay) : ""
 			};
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);

@@ -1,0 +1,19 @@
+<Alloy autoStyle="true">
+	<TableViewRow id="row">
+		<View id="contentView" class="margin-top margin-bottom margin-left margin-right ">
+			<View class="top margin-left margin-right auto-height hgroup">
+				<Label id="amountDueLbl" class="top left inactive-fg-color" />
+				<Label id="amountDueVal" class="top margin-left-extra-large positive-fg-color h5" />
+			</View>
+			<View class="margin-top-extra-large margin-bottom margin-left margin-right h-divider-light" />	
+			<View class="margin-top-extra-large ">
+				<Label id="iconCardLbl" class="left margin-top margin-bottom i4 primary-fg-color icon-CREDIT-CARD" />
+				<View id="masterView" class="margin-top margin-bottom margin-left-icon auto-width auto-height vgroup">
+					<Label id="titleLbl" class="h5" />
+					<Label id="subtitleLbl" class="inactive-fg-color" />
+				</View>
+				<Label id="iconEditLbl" class="right margin-top margin-bottom i4 primary-fg-color icon-edit bubble-disabled" onClick="didClickEditCard"/>
+			</View>
+		</View>
+	</TableViewRow>
+</Alloy>

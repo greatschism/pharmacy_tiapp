@@ -11,7 +11,8 @@ var args = $.args,
     logger = require("logger");
 
 function init() {
-	Alloy.CFG.remind_before_in_days_max =  parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
+
+	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
 	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
 	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
 	Alloy.CFG.default_refill_reminder.reminder_hour = parseInt(Alloy.Models.appload.get("reminderSendHour"));
@@ -75,7 +76,7 @@ function init() {
 		loadStore();
 		loadCopay();
 	}
-	
+
 	$.refillsLeftLbl.accessibilityLabel = $.refillsLeftLbl.text;
 	$.refillsLeftLbl.accessibilityValue = $.refillsLeftBtn.title;
 	$.dueLbl.accessibilityLabel = $.dueLbl.text;
@@ -83,27 +84,26 @@ function init() {
 	$.lastRefillLbl.accessibilityLabel = $.lastRefillLbl.text;
 	$.lastRefillLbl.accessibilityValue = $.lastRefillBtn.title !== $.strings.strNil ? $.lastRefillBtn.title : 0;
 	setAccessibilityLabelOnSwitch($.reminderRefillSwt, $.strings.prescDetAccessibilityReminderRefill);
-    setAccessibilityLabelOnSwitch($.reminderMedSwt, $.strings.prescDetAccessibilityReminderMed);
-    
-    $.instructionLbl.accessibilityLabel = $.instructionLbl.text;
+	setAccessibilityLabelOnSwitch($.reminderMedSwt, $.strings.prescDetAccessibilityReminderMed);
+
+	$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
 	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 }
 
-function setAccessibilityLabelOnSwitch(switchObj , strValue) {
-    var iDict = {};
+function setAccessibilityLabelOnSwitch(switchObj, strValue) {
+	var iDict = {};
 	if (OS_ANDROID) {
 		iDict.accessibilityLabelOn = strValue;
 		iDict.accessibilityLabelOff = strValue;
-    } else {
+	} else {
 		iDict.accessibilityLabel = strValue;
-    }
-    iDict.accessibilityHint = "Double tap to toggle";
-    switchObj.applyProperties(iDict);
+	}
+	iDict.accessibilityHint = "Double tap to toggle";
+	switchObj.applyProperties(iDict);
 }
 
 function focus() {
-	logger.debug("\n\n\n in focus, so getting prescription detail again, am fucked\n\n\n");
 	if (!isWindowOpen) {
 		isWindowOpen = true;
 		if (!_.has(prescription, "store")) {
@@ -223,13 +223,13 @@ function didGetStore(result, passthrough) {
 
 function loadPresecription() {
 	/*
-	 * Hide schedule 2 drug for refill 
+	 * Hide schedule 2 drug for refill
 	 *
 	 */
-	if(prescription.schedule == 2){
-		 $.refillBtn.height = 0; 
+	if (prescription.schedule == 2) {
+		$.refillBtn.height = 0;
 	}
-	
+
 	$.instructionAsyncView.hide();
 	$.instructionExp.setStopListening(true);
 	/**
@@ -252,6 +252,20 @@ function loadPresecription() {
 	}
 	//dosage instructions
 	$.prescInstructionLbl.text = prescription.dosage_instruction_message;
+
+	if (_.has(prescription, "quantity")) {
+		if (prescription.quantity != null) {
+			$.quantityReplyLbl.text = prescription.quantity;
+			// $.copayView.hide(false);
+
+		} else {
+			logger.debug("quantity is null");
+			// $.copayView.hide(true);
+			$.quantityView.height = 0;
+		}
+	} else {
+		$.quantityView.height = 0;
+	}
 }
 
 function loadDoctor() {
@@ -287,7 +301,7 @@ function didUpdateUI() {
 	 * to init
 	 */
 	$.prescExp.expand();
-	if (Ti.App.accessibilityEnabled) {		
+	if (Ti.App.accessibilityEnabled) {
 		togglePrescription();
 	};
 	$.loader.hide();
@@ -696,7 +710,8 @@ function didGetMedReminders(result, passthrough) {
 			selectable : true,
 			minLength : 1,
 			useCache : true,
-			selectedItems : [prescription.id]
+			selectedItems : [prescription.id],
+			navigationFrom : ""
 		},
 		stack : true
 	});
@@ -729,34 +744,28 @@ function terminate() {
 }
 
 function loadCopay() {
-	logger.debug("\n\n\ncopay amount",prescription.copay );
-	logger.debug("\n\n\nrefill status",prescription.refill_status );
-	logger.debug("\n\n\nprescription", JSON.stringify(prescription) );
+	logger.debug("\n\n\ncopay amount", prescription.copay);
+	logger.debug("\n\n\nrefill status", prescription.refill_status);
+	logger.debug("\n\n\nprescription", JSON.stringify(prescription));
 
+	if (prescription.refill_status === apiCodes.refill_status_ready) {
+		if (_.has(prescription, "copay")) {
+			if (prescription.copay != null) {
+				$.copayReplyLbl.text = "$" + prescription.copay;
+				// $.copayView.hide(false);
 
-	if(prescription.refill_status === apiCodes.refill_status_ready )
-	{
-    if (_.has(prescription, "copay")) {
-    	if( prescription.copay != null){
-	   		$.copayReplyLbl.text = "$"+prescription.copay;
-	   		// $.copayView.hide(false);
-
-	   	}
-		
-		else
-		{
-			logger.debug("copay is null");
-			// $.copayView.hide(true);
-			$.copayView.height = 0;
+			} else {
+				logger.debug("copay is null");
+				// $.copayView.hide(true);
+				$.copayView.height = 0;
+			}
 		}
-	}
-	}
-	else
-	{
-					$.copayView.height = 0;
+	} else {
+		$.copayView.height = 0;
 
 	}
 }
+
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;

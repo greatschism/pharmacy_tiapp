@@ -1,0 +1,6 @@
+"#row":{
+	className: "contentViewWithLIcon"
+},
+"#amountDueLbl":{
+	text:Alloy.Globals.strings.checkoutComponentAmount
+}

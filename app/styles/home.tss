@@ -1,4 +1,7 @@
 "#rightNavBtn":{
-	title: Alloy.Globals.strings.homeNavBtnLogin,
 	analyticsId: "LoginBtn"
-}
+},
+"#optionsMenu[if=Alloy.Globals.isLoggedIn]":{
+	options: [Alloy.Globals.strings.titleAccount, Alloy.Globals.strings.titleLogout, Alloy.Globals.strings.dialogBtnCancel],
+	cancel: 2
+},

@@ -68,6 +68,15 @@
 "#tooltipHideBtn":{
 	title: Alloy.Globals.strings.prescAddTooltipBtnHide
 },
+"#tooltipCardExpiry":{
+	arrowPadding: 6.5
+},
+"#tooltipExpiryLbl":{
+	text: Alloy.Globals.strings.checkoutMsgCreditCardExpiry
+},
+"#tooltipExpiryHideBtn":{
+	title: Alloy.Globals.strings.cardExpiryTooltipBtnHide
+},
 "#headerLbl":{
 	text: Alloy.Globals.strings.prescAddSectionReminders
 },
@@ -85,4 +94,7 @@
 },
 "#partialTitleLbl":{
 	text: Alloy.Globals.strings.prescPartialLblTitle
+},
+"#checkoutTipLbl":{
+	text: Alloy.Globals.strings.checkoutTipLblTitle
 }

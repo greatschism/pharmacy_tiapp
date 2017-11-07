@@ -9,7 +9,13 @@ var args = $.args,
 		rDict = $.createStyle({
 			classes : ["row-selected-bg-color-disabled"]
 		});
-		$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
+		if( args.customIconNegative ) {
+			$.addClass($.leftIconLbl, ["negative-fg-info-color", args.customIconNegative] );
+		} else if( args.customIconYield ) {
+			$.addClass($.leftIconLbl, ["yield-fg-info-color", args.customIconYield] );
+		} else {
+			$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success"] : ["inactive-fg-color", "icon-spot"]);
+		}
 		checkedAccessiblity = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
 		$.leftIconLbl.accessibilityLabel = checkedAccessiblity;
 	} else {
@@ -60,9 +66,11 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+
+
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "",
 	    detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
-	if (detailTitle) {
+	if (detailTitle && args.detailWidth) {
 		$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 			text : detailTitle
 		});

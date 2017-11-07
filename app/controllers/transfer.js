@@ -25,16 +25,20 @@ function terminate() {
 		$.patientSwitcher.terminate();
 	}
 }
+
 function didChangePatient(e) {
 	/**
-	 * No actions here since it is just a static page. 
+	 * No actions here since it is just a static page.
 	 * Only thing to be passed is the right session_id and
 	 * that is taken care by the patient switcher by itself.
 	 */
 }
 
 function didClickPhoto(e) {
+	$.app.navigator.showLoader();
 	$.uihelper.getPhoto(true, didGetPhoto, $.window);
+	$.app.navigator.hideLoader();
+
 }
 
 function didGetPhoto(blob) {
@@ -46,6 +50,7 @@ function didGetPhoto(blob) {
 	 * image path is used throughout this module
 	 * should not be changed
 	 */
+
 	var smallBlob;
 	var maxDimension = 550;
 	if (blob.getHeight() > maxDimension || blob.getWidth() > maxDimension) {
@@ -69,6 +74,8 @@ function didGetPhoto(blob) {
 	
 	blob = null;
 	smallBlob = null;
+
+	$.app.navigator.hideLoader();
 
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
@@ -106,4 +113,4 @@ function didClickType(e) {
 
 exports.init = init;
 exports.terminate = terminate;
-exports.setParentView = setParentView; 
+exports.setParentView = setParentView;

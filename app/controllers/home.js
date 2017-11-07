@@ -6,7 +6,9 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
-    spanTimeId;
+    spanTimeId,
+    logger = require("logger");
+;
 
 function init() {
 	var items = Alloy.Models.template.get("data");
@@ -355,6 +357,16 @@ function loadBanners() {
 				height : Ti.UI.SIZE
 			});
 		}
+
+    	if (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow") {		
+			Alloy.Globals.homeBannerHeight = $.bannerView.rect.height || Alloy.Globals.homeBannerHeight;
+			$.scrollView.applyProperties({
+				showVerticalScrollIndicator : true,
+				top : 0,
+				bottom : Alloy.Globals.homeBannerHeight
+			});
+		}
+
 		if ($.pagingcontrol) {
 			$.pagingcontrol.accessibilityLabel = "Paging control";
 		}
@@ -388,7 +400,7 @@ function didScrollend(e) {
 	var currentPage = e.currentPage;
 	$.pagingcontrol.setCurrentPage(currentPage);
 	startSpanTime(bannerItems[currentPage].spanTime);
-		$.pagingcontrol.accessibilityLabel = "Page "+currentPage;
+	$.pagingcontrol.accessibilityLabel = "Page " + currentPage;
 
 }
 
@@ -527,7 +539,18 @@ function didClickRightNav(e) {
 	});
 }
 
+function didClickRightNavLoggedIn(e) {
+	$.optionsMenu.show();
+}
+
 function didPostlayout(e) {
+	logger.debug("\n\n\n home didPostLayout\n\n\n");
+
+	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
+		$.rightNavBtn.getNavButton().show();
+	}
+
 	var source = e.source,
 	    action = _.findWhere(source.actions, {
 		event : "postlayout"
@@ -557,6 +580,41 @@ function didPostlayout(e) {
 			properties[transformer.to] = transformer.from === "width" || transformer.from === "height" ? source.rect[transformer.from] : source[transformer.from];
 		});
 		$[binder.id].applyProperties(properties);
+	});
+}
+
+function didClickOptionMenu(e) {
+	/**
+	 * cancel index may vary,
+	 * based on arguments, so check
+	 * the cancel flag before proceed
+	 */
+	if (e.cancel) {
+		return false;
+	}
+	switch(e.index) {
+	case 0:
+		$.app.navigator.open({
+			titleid : "titleAccount",
+			ctrl : "account"
+		});
+		break;
+	case 1:
+		$.uihelper.showDialog({
+			message : Alloy.Globals.strings.msgLogoutConfirm,
+			buttonNames : [Alloy.Globals.strings.dialogBtnYes, Alloy.Globals.strings.dialogBtnNo],
+			cancelIndex : 1,
+			success : logout
+		});
+		break;
+	default:
+		break;
+	}
+}
+
+function logout() {
+	require("authenticator").logout({
+		dialogEnabled : true
 	});
 }
 

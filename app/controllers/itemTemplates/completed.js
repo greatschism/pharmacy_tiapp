@@ -1,5 +1,6 @@
 var args = $.args,
-    uihelper = require("uihelper");
+    uihelper = require("uihelper"),
+    logger = require("logger");
 
 (function() {
 	if (args.filterText) {
@@ -13,16 +14,53 @@ var args = $.args,
 	} else {
 		$.titleLbl.text = title;
 	}
+	
+	if( args.customIconCheckoutComplete ) {
+		$.addClass($.subtitleIconLbl, ["custom-fg-color", args.customIconCheckoutComplete] );
+	} else if( args.customIconPartialFill ) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconPartialFill] );
+	} else if( args.customIconYield ) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
+	} else if( args.customIconRejected ) {
+		$.addClass($.subtitleIconLbl, ["tentative-fg-color", args.customIconRejected] );
+	}else {
+		if( args.customIconNegative ) {
+			$.addClass($.subtitleIconLbl, ["negative-fg-info-color", args.customIconNegative] );
+		} else {
+			$.addClass($.subtitleIconLbl, ["positive-fg-color", "icon-thin-filled-success"] );
+		}
+	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
+	
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {
-			text : subtitle
+			text : subtitle,
 		});
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	
+	if (args.subtitleColor) {
+			$.addClass($.detailLbl, [args.subtitleColor] );
+	}
+	
+		
+	var detail = args.detailTitle || (args.data ? args.data[args.detailProperty] : "");
+	
+	if (args.detailClasses) {
+		$.resetClass($.detailLbl, args.detailClasses, {
+			text : detail,
+		});
+	} else {
+		$.detailLbl.text = detail;
+	}
+		
+	if (args.detailColor) {
+			$.addClass($.detailLbl, [args.detailColor] );
+	}
+	
 	uihelper.wrapViews($.masterView);
-	_.each(["titleLbl", "subtitleLbl"], function(val) {
+	_.each(["titleLbl", "subtitleLbl", "detailLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
 	if (args.tooltip) {
@@ -53,6 +91,16 @@ var args = $.args,
 
 function getParams() {
 	return args;
+}
+
+function didClickPhone(e) {
+	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
+	var source = e.source;
+	$.trigger("clickphone", {
+		source : $,
+		title : "",
+		data : args
+	});
 }
 
 exports.getParams = getParams;

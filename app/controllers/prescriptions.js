@@ -1,11 +1,14 @@
 var args = $.args,
     moment = require("alloy/moment"),
+    logger = require("logger"),
+    authenticator = require("authenticator"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
     titleClasses = ["left", "h4", "wrap-disabled"],
     subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
     subtitleWrapClasses = ["margin-top-small", "left", "inactive-fg-color"],
+    detailClasses = ["margin-left-small", "custom-fg-color"],
     headerBtnDict,
     swipeOptions,
     sections,
@@ -18,7 +21,7 @@ function init() {
 	/**
 	 * may not be available when
 	 * showHiddenPrescriptions is true
-	 */
+	 */	
 	if ($.unhideHeaderView) {
 		$.vDividerView.height = $.uihelper.getHeightFromChildren($.unhideHeaderView);
 	}
@@ -74,8 +77,20 @@ function init() {
 			is_partial : false
 		}
 	});
-	
+
+
+
 	$.searchbar.visible = false;
+	$.checkoutTipView.visible = false;
+	//$.bottomView.visible = false;
+	if( ! args.selectable) {
+		$.bottomView.hide();
+	}
+
+	if( ! args.selectable) {
+		$.bottomView.hide();
+	}
+
 }
 
 function focus() {
@@ -103,7 +118,17 @@ function focus() {
 		if (args.useCache && Alloy.Collections.prescriptions.length) {
 			prepareList();
 		} else {
-			prepareData();
+			if ($.utilities.getProperty(Alloy.CFG.sync_after_checkout) == "1") {
+				$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "0");
+				$.http.request({
+					method : "patient_sync",
+					keepLoader : true,
+					success : prepareData,
+					failure : prepareData
+				});
+			} else {
+				prepareData();
+			}
 		}
 	} else if (currentPrescription && currentPrescription.shouldUpdate) {
 		/**
@@ -115,6 +140,16 @@ function focus() {
 
 	$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblOptionsMenu;
 
+	if(args.hideCheckoutHeader)
+	{
+
+		$.rightNavBtn.getNavButton().hide(); 
+		$.submitBtn.title = $.strings.prescBtnNext;
+
+		$.checkoutTipView.visible = true;
+
+		$.bottomView.show();
+	}
 }
 
 function prepareData() {
@@ -256,6 +291,11 @@ function prepareList() {
 	 * filters are applied to determine whether it has to be displayed on screen
 	 * still the prescription object that doesn't pass the filter validation will be available in the collection
 	 */
+
+	var debugCounterOOS = 0;
+	var debugCounterPF = 0;
+
+
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
@@ -308,6 +348,7 @@ function prepareList() {
 		if (!proceed) {
 			return false;
 		}
+		
 		/**
 		 * append title and
 		 * selected flag
@@ -338,24 +379,77 @@ function prepareList() {
 					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
 					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
 					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
-					subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+						if (Alloy.CFG.show_promise_time_day_of_week === "showPromiseTimeDayOfWeek") {
+						subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
+						}	else {
+							subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+						}
 					progress = Math.floor((timeSpent / totalTime) * 100);
 				} else {
 					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
 					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
 				}
-				prescription.set({
-					itemTemplate : "inprogress",
-					subtitle : subtitle,
-					progress : progress,
-					subtitleClasses : subtitleWrapClasses
-				});
+
+				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
+					prescription.set({
+						className : "OOS",
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						className : "IP",
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message")
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+				} else if (prescription.get("refill_transaction_status") == "Rejected") {
+					var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
+
+					logger.debug("\n\n\n extracted phone number", phoneNumber);
+					prescription.set({
+						className : "RJ",
+						itemTemplate : "completed",
+						customIconRejected : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+
+				} else {
+					prescription.set({
+						itemTemplate : "inprogress",
+						subtitle : subtitle,
+						progress : progress,
+						subtitleClasses : subtitleWrapClasses
+					});
+				}
 			}
+
 			prescription.set({
 				section : "inProgress",
 				titleClasses : titleClasses,
 				canHide : false
 			});
+
 			break;
 		case apiCodes.refill_status_ready:
 			if (args.selectable) {
@@ -372,25 +466,101 @@ function prepareList() {
 						tooltipType : "negative"
 					});
 				}
-				prescription.set({
-					itemTemplate : "completed"
-				});
+				
+				if(prescription.get("is_checkout_complete") === "1")
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconCheckoutComplete : "icon-checkout-complete",
+						detailTitle : $.strings.checkoutComplete,
+						detailClasses : detailClasses
+					});	
+				}
+				else if (prescription.get("refill_transaction_status") == "Rx Ready Partial" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconPartialFill : "icon-thin-filled-success",
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "yield-fg-info-color"
+					});
+				}
+				
+				else
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						detailTitle : $.strings.prescReadyPickupLblReady
+					});
+				}
+			}
+			var readyRxLabel;
+			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
+				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
+			}	else {
+				readyRxLabel = $.strings.prescReadyPickupLblReady;
 			}
 			prescription.set({
 				section : "readyPickup",
 				titleClasses : titleClasses,
-				subtitle : $.strings.prescReadyPickupLblReady,
+                subtitle : readyRxLabel,
 				canHide : false
 			});
+
 			break;
 		default:
 			var dueInDays = 0,
 			    section = "others",
 			    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
+
 			/**
 			 * keep the swipe options out (masterDetailWithLIcon - is picked)
 			 * when selectable is true
 			 */
+			
+			if((prescription.get("refill_transaction_status") == "Rejected" && prescription.get("refill_transaction_message") != null)) //|| (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
+
+					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
+					prescription.set({
+						section : section,
+						itemTemplate : "completed",
+						customIconRejected : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
+						});		
+			}
+			else if((prescription.get("refill_transaction_status") == "Out Of Stock") && (prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n OOS transaction message", message);
+
+						prescription.set({
+						section : section,
+						className : "OOS",
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
+					});
+			}
+			else{
 			if (prescription.get("anticipated_refill_date")) {
 				/**
 				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
@@ -438,6 +608,7 @@ function prepareList() {
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
 				canHide : true
 			});
+			}
 		}
 		var rowParams = prescription.toJSON(),
 		    row;
@@ -450,53 +621,256 @@ function prepareList() {
 		case "masterDetailBtn":
 			row.on("clickdetail", doConfirmHide);
 			break;
+		case "completed":
+			row.on("clickphone", didClickPhone);
+
 		}
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);
 	});
 	var data = [];
 	_.each(sections, function(rows, key) {
-		if (rows.length) {
-			var tvSection;
-			/**
-			 * Hide section headers when
-			 * sectionHeaderViewDisabled is true (or)
-			 * when other section is only visible
-			 * Note: others section is the last section in sections list
-			 */
-			if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
-				tvSection = Ti.UI.createTableViewSection();
-			} else {
-				if (headerBtnDict) {
-					/***
-					 * determine whether it should be
-					 * select all / none
-					 */
-					var selected = false;
-					_.some(rows, function(row) {
-						if (!row.getParams().selected) {
-							selected = true;
-							return true;
-						}
-					});
-					/**
-					 * section id is different for each section
-					 * and callback property will be set to button and removed
-					 * from object before applying it by uihelper
-					 */
-					_.extend(headerBtnDict, {
-						sectionId : key,
-						selected : selected,
-						callback : didClickSelectAll,
-						title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
-					});
+		var addRows = false;
+		if (_.has(args, "navigationFrom")) {			
+			if (args.navigationFrom == "expressCheckout") {
+				if (key != "others") {
+					var addRows = true;
 				}
-				tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+			} else {
+				addRows = true;
 			}
+		} else {
+				addRows = true;
+		}
+
+		if(addRows) {
+			if (rows.length) {
+				var tvSection;
+				/**
+				 * Hide section headers when
+				 * sectionHeaderViewDisabled is true (or)
+				 * when other section is only visible
+				 * Note: others section is the last section in sections list
+				 */
+				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
+					tvSection = Ti.UI.createTableViewSection();
+				} else {
+					if (headerBtnDict) {
+						/***
+						 * determine whether it should be
+						 * select all / none
+						 */
+						var selected = false;
+						_.some(rows, function(row) {
+							if (!row.getParams().selected) {
+								selected = true;
+								return true;
+							}
+						});
+						/**
+						 * section id is different for each section
+						 * and callback property will be set to button and removed
+						 * from object before applying it by uihelper
+						 */
+						_.extend(headerBtnDict, {
+							sectionId : key,
+							selected : selected,
+							callback : didClickSelectAll,
+							title : $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"]
+						});
+					}
+					
+					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
+				
+						//The following logic block assembles and displays the CC info prompt (MCE-169)
+						//TODO: presumedly it should be extrapolated into it's own module
+						//This block should be cut/paste to implement in a different view controller
+						var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
+						if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
+	
+							logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
+	
+							var dialogView = $.UI.create("ScrollView", {
+								apiName : "ScrollView",
+								classes : ["top", "auto-height", "vgroup"]
+							});
+							dialogView.add($.UI.create("Label", {
+								apiName : "Label",
+								classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
+								text : $.strings.checkoutPrompt
+							}));
+	
+							var btn = $.UI.create("Button", {
+								apiName : "Button",
+								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+								title : $.strings.checkoutFindoutPrompt,
+								index : 0
+							});
+	
+							$.addListener(btn, "click", function(){
+								$.contentView.remove($.checkoutInfoDialog.getView());
+								displayCheckoutInfo();
+							});
+							dialogView.add(btn);
+	
+							var swt = $.UI.create("View", {
+								apiName : "View",
+								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
+								index : 1
+							});
+							
+							var checkboxClasses;
+							 
+							if ( $.utilities.isNarrowScreen() ) {	
+								checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
+							} else {
+								checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
+							}
+							var swtCheckbox = $.UI.create("Label", {
+								apiName : "Label",
+								classes : checkboxClasses,
+							});
+							
+							
+							$.addListener(swtCheckbox, "click", function(){
+								Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
+								
+								if( checkBoxToggleFlag === 0 ) {
+									Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
+									checkBoxToggleFlag = 1;
+									swtCheckbox.applyProperties($.createStyle({
+		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
+									}));
+									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+								} else {
+									Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
+									checkBoxToggleFlag = 0;
+									swtCheckbox.applyProperties($.createStyle({
+		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+									}));
+									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+								}
+							});
+	
+							var swtLabel = $.UI.create("Label", {
+								apiName : "Label",
+								classes : ["margin-right-large", "h5", "txt-right", ],
+								text : $.strings.checkoutRemindCheckbox,
+							});
+							swt.add(swtCheckbox);
+							swt.add(swtLabel);
+							dialogView.add(swt);
+	
+							var btn2 = $.UI.create("Button", {
+								apiName : "Button",
+								classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+								title : $.strings.checkoutClose,
+								index : 2
+							});
+							$.addListener(btn2, "click", function(){
+	
+								$.contentView.remove($.checkoutInfoDialog.getView());
+								$.checkoutInfoDialog = null;
+							});
+							dialogView.add(btn2);
+	
+							$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+								classes : ["modal-dialog"],
+								children : [dialogView]
+							}));
+							$.contentView.add($.checkoutInfoDialog.getView());
+							$.checkoutInfoDialog.show();
+						}
+	
+	
+	
+						Ti.API.info("args = " + JSON.stringify(args) );
+						var headerTitle = "";
+						
+								
+						var checkoutCompeteCount = 0;
+						Alloy.Collections.prescriptions.each(function(prescription) {
+		
+							if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
+								//rows.length
+								checkoutCompeteCount++;
+							}
+							
+						});
+						
+						var readyHeaderDict;
+						if(checkoutCompeteCount === rows.length)
+						{
+							headerTitle = $.strings.titleCheckoutCompleteHeader;
+	
+							readyHeaderDict = $.createStyle({
+								classes : ["right"],
+								title : headerTitle
+							});
+							
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						}
+						else {		
+						
+						if (_.has(args, "navigationFrom")) {			
+							if (args.navigationFrom == "expressCheckout") {
+								headerTitle = $.strings.titleContinueExpressPickupHeader;
+							}
+							else {
+								headerTitle = "Checkout";
+							}
+						} else {
+							headerTitle = "Checkout";
+						}
+	
+							// the title here is overridden in uihelper to show the shopping cart image
+							// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
+							// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
+							// TODO: module as opposed to living in the uihelper as much as possible
+							readyHeaderDict = $.createStyle({
+								classes : ["right", "bubble-disabled"],
+								title : headerTitle,
+								accessibilityLabel : "checkout",
+								callback : didClickCheckout
+							});		
+	
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+							
+		 				
+		
+							var currentPatient = Alloy.Collections.patients.findWhere({
+								selected : true
+							});
+							
+							if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+								var expiryDate = currentPatient.get("expiry_date").split('/');						
+								var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+		
+								var today = new Date();
+								var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+						
+					 			if(moment(formattedExpiryDate).isAfter(today)) {
+					 				if(diffDays <=30) {
+					 					$.tooltipCardExpiry.applyProperties({
+											top : getPosition(tvSection)
+										});
+											
+										$.tooltipCardExpiry.show();
+					 				}
+					 			}
+							}
+						}
+					} else {
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+					}
+
+			}
+			
 			_.each(rows, function(row) {
 				tvSection.add(row.getView());
 			});
 			data.push(tvSection);
+		}
 		}
 	});
 	$.tableView.setData(data);
@@ -514,9 +888,107 @@ function prepareList() {
 		 * alert user saying no prescriptions to select
 		 * occurs when all available prescriptions are already selected
 		 */
-		$.uihelper.showDialog({
-			message : $.strings.prescAddMsgEmptyList
+		if(args.hideCheckoutHeader) {
+			$.uihelper.showDialog({
+				message : $.strings.checkoutMsgEmptyList,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				success : handleClose
+			});
+		} else {
+			$.uihelper.showDialog({
+				message : $.strings.prescAddMsgEmptyList
+			});
+		}
+	}
+
+}
+
+
+function getPosition(view) {
+	var contentView = view.headerView;
+	logger.debug("\n\n\n",JSON.stringify(view),"\n\n\n");
+	return $.tableView.rect.y + contentView.height;
+}
+
+function handleClose() {
+	$.app.navigator.close();
+}
+
+function displayCheckoutInfo()
+{
+		var dialogView2 = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
 		});
+		dialogView2.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+			text : $.strings.checkoutPromptMore
+		}));
+		var btn3 = $.UI.create("Button", {
+			apiName : "Button",
+			classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+			title : $.strings.checkoutClose,
+			index : 0
+		});
+		$.addListener(btn3, "click", function(){
+			$.contentView.remove($.checkoutInfoDialog.getView());
+			$.checkoutInfoDialog = null;
+		});
+		dialogView2.add(btn3);
+
+		$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView2]
+		}));
+		$.contentView.add($.checkoutInfoDialog.getView());
+		$.checkoutInfoDialog.show();
+	
+
+}
+
+function didClickCheckout(e)
+{
+	if( ! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)  ) {
+		displayCheckoutInfo();
+	} else {
+		$.app.navigator.open({
+			titleid : "titleReadyPrescriptions",
+			ctrl : "prescriptions",
+			ctrlArguments : {
+				filters : {
+					refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
+					section: ["others"],
+					is_checkout_complete: ["1", null]
+				},
+				prescriptions :null,
+				patientSwitcherDisabled : true,
+				useCache : true,
+				selectable : true,
+				hideCheckoutHeader : true,
+				navigationFrom : ""
+			},
+			stack : true 
+		});
+	}
+}
+
+
+function didClickPhone(e) {	
+	
+	logger.debug("\n\n\n am in didClickPhone\n\n\n");
+		
+	if(e.data.phone_formatted)
+	{
+		$.uihelper.getPhoneWithContactsPrompt({
+			firstName : $.strings.strClientName + " Pharmacy",
+			phone : {
+				work : [e.data.phone_formatted]
+			}
+		}, $.utilities.validatePhoneNumber(e.data.phone_formatted));
+		
+		logger.debug("\n\n\n presc phone formatted",e.data.phone_formatted,"\n\n\n");
+		logger.debug("\n\n\n presc phone plain",$.utilities.validatePhoneNumber(e.data.phone_formatted),"\n\n\n");
 	}
 }
 
@@ -564,7 +1036,13 @@ function didChangeSearch(e) {
 	$.tableView.filterText = e.value || e.source.getValue();
 }
 
-function didClickRightNavBtn(e) {
+function didClickRightNavBtn(e) { 
+	if( args.hideCheckoutHeader) {
+		//return if we're on the checkout page..
+
+		return;
+	}
+
 	if (!hideAllPopups()) {
 		$.optionsMenu.show();
 	}
@@ -779,7 +1257,8 @@ function hidePrescription(e) {
 	});
 }
 
-function didClickTableView(e) {
+function didClickTableView(e) {	
+	if(e.source != $.tableView){
 	if (Alloy.Globals.currentRow) {
 		return Alloy.Globals.currentRow.touchEnd();
 	}
@@ -863,7 +1342,12 @@ function didClickTableView(e) {
 				 * validator, to prevent any validation
 				 * validator should be "none"
 				 */
-				rx.canRefill(prescription, toggleSelection);
+				if(!args.hideCheckoutHeader) {
+					rx.canRefill(prescription, toggleSelection);
+				}
+				else {
+					toggleSelection();
+				}			
 			}
 			return false;
 		} else {
@@ -879,6 +1363,7 @@ function didClickTableView(e) {
 			});
 		}
 	}
+	}
 }
 
 function hideAllPopups() {
@@ -888,6 +1373,13 @@ function hideAllPopups() {
 	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
+	if(args.hideCheckoutHeader == false) {
+		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+		return true;
+	}
+	else 
 	return false;
 }
 
@@ -901,6 +1393,39 @@ function didClickSubmit(e) {
 	 * on the controller arguments
 	 * to the previous screen order details
 	 */
+	
+	if(args.hideCheckoutHeader) {
+		var readyPrescriptions = [];
+		
+		_.each(sections, function(rows) {
+		_.each(rows, function(row) {
+			var prescription = row.getParams();
+			if (prescription.selected) {
+				readyPrescriptions.push(prescription);
+			}
+			});
+		});
+
+		if(readyPrescriptions.length)
+		{
+	 		$.app.navigator.open({
+				titleid : "titleCheckoutQuestions",
+                ctrl : "checkout",
+				ctrlArguments : {
+					prescriptions :readyPrescriptions,
+					selectable : true
+				},
+				stack : true
+			});
+		} else{
+			$.uihelper.showDialog({
+				message : String.format($.strings.prescAddMsgSelectMore, 1)
+			});
+		}
+		
+		return;
+	}
+	
 	var prescriptions;
 	if (args.navigation) {
 		prescriptions = [];
@@ -949,14 +1474,23 @@ function didPostlayout(e) {
 	    bottom;
 	bottom = margin;
 	if (args.selectable) {
-		bottom += $.submitBtn.height + $.submitBtn.bottom;
+		if(args.hideCheckoutHeader) {
+			bottom = bottom + $.submitBtn.height * 2 ; // accomodating the checkoutTipView
+		} else {
+			bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
+		}
+
 		if ($.tooltip) {
 			$.tooltip.applyProperties({
 				top : top - margin
 			});
 			$.tooltip.show();
 		}
+		
+		
 	}
+	
+	
 	$.searchbar.top = top;
 	$.tableView.applyProperties({
 		top : top,
@@ -966,6 +1500,12 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
+
+	if (!args.hideCheckoutHeader && args.selectable) {
+		$.bottomView.applyProperties({
+			bottom : $.bottomView.bottom  - $.submitBtn.height
+		});
+	}
 	if (Ti.App.accessibilityEnabled) {
 		$.tooltip && $.tooltip.hide();
 	};
@@ -973,6 +1513,10 @@ function didPostlayout(e) {
 
 function didClickHide(e) {
 	$.tooltip.hide();
+}
+
+function didClickHideCardTooltip(e) {
+	$.tooltipCardExpiry.hide();
 }
 
 function setParentView(view) {
