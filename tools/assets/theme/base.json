@@ -163,8 +163,6 @@
                     "pharacyspecials":"0XE011",
                     "twitter":"0XE012",
                     "youtube":"0XE013",
-<<<<<<< HEAD
-=======
                     "help_2":"0xE00E",
                     "cart":"0XE015",
                     "CREDIT_CARD":"0xE00F",
@@ -172,7 +170,6 @@
                     "account_circle":"0xE01A",
                     "express_checkout":"0xE018",
                     "insurance_card":"0xE019",
->>>>>>> combine_merge
                     "thick_help":"0xE00E",
                     "thick_refill_now":"0xe01b",
                     "thick_services":"0XE01C"
