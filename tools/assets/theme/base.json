@@ -348,7 +348,7 @@
             },
             "Window[platform=android]":{
                 "barColor":"${PRIMARY_COLOR_BAR}",
-                "statusBarColor":"${PRIMARY_COLOR_BAR}",
+                "statusBarColor":"${PRIMARY_COLOR_STATUS_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
                     "color":"${PRIMARY_MENU_FONT_COLOR}"
@@ -369,7 +369,7 @@
             },
             ".drawer[platform=android]":{
                 "barColor":"${PRIMARY_COLOR_BAR}",
-                "statusBarColor":"${PRIMARY_COLOR_BAR}",
+                "statusBarColor":"${PRIMARY_COLOR_STATUS_BAR}",
                 "titleAttributes":{
                     "font":"${H3_PLATFORM_ANDROID}",
                     "color":"${PRIMARY_MENU_FONT_COLOR}"

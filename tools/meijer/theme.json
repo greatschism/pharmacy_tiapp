@@ -31,6 +31,7 @@
 		"CUSTOM_FG_COLOR": "#3056CD",
 		"PRIMARY_COLOR": "#0a4d8c",
 		"PRIMARY_COLOR_BAR": "#eeeeee",
+		"PRIMARY_COLOR_STATUS_BAR": "#0a4d8c",
 		"PRIMARY_SELECTED_COLOR": "#0a4d8c",
 		"PRIMARY_DARK_COLOR": "#063057",
 		"PRIMARY_DARK_SELECTED_COLOR": "#063057",		
@@ -51,19 +52,5 @@
 	    "SETTINGS_ICON_COLOR": "#555555",
 		"TENTATIVE_COLOR": "#CD853F",
 		"TENTATIVE_SELECTED_COLOR": "#CD853F"
-	},
-	"tss": {
-        "Window[platform=android]":{
-            "barColor":"#eeeeee",
-            "statusBarColor":"#0a4d8c",
-            "titleAttributes":{
-                "font":{
-					"fontFamily": "medium",
-					"fontSize": 20
-				},
-                "color":"#0A4D8C"
-            },
-            "backgroundColor":"#FFFFFF"
-        }
 	}
 }
