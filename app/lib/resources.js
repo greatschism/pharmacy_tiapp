@@ -51,7 +51,17 @@ var Res = {
 		 */
 		var currentBuild = Ti.App.version + "_" + Alloy.CFG.buildNumber;
 
-		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != currentBuild || !ENV_PROD) {
+		var queryObj = {
+			selected : true,
+			data : {
+				$exists : true
+			}
+		};
+
+		queryObj.type = "menu";
+		var menu = Res.collection.find(queryObj)[0];
+
+		if (utilities.getProperty(Alloy.CFG.resources_updated_on) != currentBuild || !ENV_PROD || ( typeof menu == "undefined" )  ) {
 
 			var dataDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, Res.dataDirectory);
 			if (!dataDir.exists()) {
