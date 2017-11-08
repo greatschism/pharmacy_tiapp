@@ -68,5 +68,8 @@
 	}, {
 		"id": "harveys",
 		"description": "Harveys Rx."
+	}, {
+		"id": "winn-dixie",
+		"description": "Winn-Dixie Rx."
 	}
 ]
