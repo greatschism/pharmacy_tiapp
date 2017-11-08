@@ -42,7 +42,7 @@
 	</ScrollView>
 	<View id="bottomView" class="top-disabled margin-bottom auto-height vgroup">
 		<Button id="submitBtn" class="margin-top margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
-		<View id="checkoutTipView" class="auto-height vgroup">
+		<View id="checkoutTipView" class="auto-height vgroup" onClick="didClickTransferRx">
 			<Label id="checkoutTipLbl" class="margin-left margin-right txt-left"/>
 		</View>
 	</View>
