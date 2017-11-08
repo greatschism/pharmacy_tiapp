@@ -5,11 +5,11 @@
 				<Label id="titleLbl" class="margin-left h5 auto-height" />
 				<Label id="subtitleLbl" class="margin-top-small margin-left inactive-fg-color auto-height" />
 				<View id="masterView" class="margin-left margin-top-large auto-height hgroup">
-					<View id="qstnYesView" class="margin-left-large h5 width-45 auto-height hgroup left bubble-disabled inactive-border inactive-light-bg-color" onClick="didClickYes">
-						<Label id="yesLbl" class="inactive-fg-color h7 left-40 margin-top-small margin-bottom-small txt-center" />
+					<View id="qstnYesView" class="margin-left-large width-45 auto-height hgroup left bubble-disabled inactive-light-border inactive-light-bg-color" onClick="didClickYes">
+						<Label id="yesLbl" class="inactive-fg-color h5 left-40 margin-top-small margin-bottom-small txt-center" />
 					</View>
-					<View id="qstnNoView" class="margin-left-large h5  width-45 auto-height hgroup right bubble-disabled inactive-border inactive-light-bg-color" onClick="didClickNo" >
-						<Label id="noLbl" class="inactive-fg-color h7 left-40 margin-top-small margin-bottom-small txt-center"/>
+					<View id="qstnNoView" class="margin-left-large width-45 auto-height hgroup right bubble-disabled inactive-light-border inactive-light-bg-color" onClick="didClickNo" >
+						<Label id="noLbl" class="inactive-fg-color h5 left-40 margin-top-small margin-bottom-small txt-center"/>
 					</View>
 				</View>
 			</View>
