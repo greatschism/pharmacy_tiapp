@@ -58,9 +58,12 @@
 		"description": "Shaws Rx."
 	}, {
 		"id": "vanderbilt",
-		"description": "Vanderbilt Test."
+		"description": "Vanderbilt Rx."
 	}, {
 		"id": "gianteagle",
-		"description": "GiantEagle Test."
+		"description": "GE Pharmacy"
+	}, {
+		"id": "bi-lo",
+		"description": "Bi-Lo"
 	}
 ]
