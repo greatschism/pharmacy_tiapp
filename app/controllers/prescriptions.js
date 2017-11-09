@@ -1460,6 +1460,9 @@ function didClickAddPresc(e) {
 }
 
 function didClickTransferRx(e) {
+	if( $.checkoutTipLbl.text ===  Alloy.Globals.strings.checkoutTipLblTitle ) {
+		return;
+	}
 	$.app.navigator.open({
 		titleid : "titleTransfer",
 		ctrl : "transfer",
