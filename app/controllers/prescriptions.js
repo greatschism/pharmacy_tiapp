@@ -296,6 +296,8 @@ function prepareList() {
 	var debugCounterPF = 0;
 
 
+	//Ti.API.info(JSON.stringify(Alloy.Collections.prescriptions))
+
 	Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
@@ -1457,6 +1459,18 @@ function didClickAddPresc(e) {
 	});
 }
 
+function didClickTransferRx(e) {
+	if( $.checkoutTipLbl.text ===  Alloy.Globals.strings.checkoutTipLblTitle ) {
+		return;
+	}
+	$.app.navigator.open({
+		titleid : "titleTransfer",
+		ctrl : "transfer",
+		ctrlArguments : "",
+		stack : false
+	});
+}
+
 function didPostlayout(e) {
 	$.headerView.removeEventListener("postlayout", didPostlayout);
 	var top = $.headerView.rect.height,
@@ -1465,6 +1479,27 @@ function didPostlayout(e) {
 	bottom = margin;
 	if (args.selectable) {
 		if(args.hideCheckoutHeader) {
+			var readyPrescriptions = [];
+			Alloy.Collections.prescriptions.each(function(prescription) {
+				if (prescription.get("refill_status") == apiCodes.refill_status_ready ) {
+					readyPrescriptions.push(prescription);
+				}
+			});
+
+				Ti.API.info("readyPrescriptions IS   " + JSON.stringify(readyPrescriptions))
+			var firstParsedStore = additionalParsedStore =  readyPrescriptions[0].get("original_store_id");
+			_.each(readyPrescriptions, function(prescription) {
+				Ti.API.info("READY RX IS   " + JSON.stringify(prescription))
+				if (prescription.get("original_store_id") !== firstParsedStore) {
+					additionalParsedStore = prescription.get("original_store_id");
+				}			
+			});
+				Ti.API.info("additionalParsedStore RX IS   " + JSON.stringify(additionalParsedStore))
+				Ti.API.info("firstParsedStore RX IS   " + JSON.stringify(firstParsedStore))
+			if (additionalParsedStore !== firstParsedStore) {
+				$.checkoutTipLbl.text =  Alloy.Globals.strings.checkoutTipLblTitle + Alloy.Globals.strings.checkoutTipLblMultipleStores;
+			}
+
 			bottom = bottom + $.submitBtn.height * 2 ; // accomodating the checkoutTipView
 		} else {
 			bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
@@ -1476,8 +1511,6 @@ function didPostlayout(e) {
 			});
 			$.tooltip.show();
 		}
-		
-		
 	}
 	
 	
