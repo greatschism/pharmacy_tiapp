@@ -698,13 +698,9 @@ function presentCCConfirmation(patient) {
 					_.some(checkoutStores, function(storeInfo, index) {
 						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 						if (storeInfo.storeId == prescription.original_store_id) {
-							if (_.has(prescription, "copay")) {
-								if (prescription.copay != null) {
-									logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-									storeInfo.amountDue += parseFloat(prescription.copay);
-									storeInfo.subtitle = storeInfo.subtitle.concat("\n" + prescription.presc_name), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
-								}
-							}
+							logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+							storeInfo.amountDue += _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0;
+							storeInfo.subtitle = storeInfo.subtitle.concat("\n" + prescription.presc_name), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 							return true;
 						} else {
 							if (index >= checkoutStores.length - 1) {
@@ -924,7 +920,7 @@ function didSuccess(result, passthrough) {
 	uihelper.showDialog({
 		message : result.message,
 
-		buttonNames : (checkoutStores.length > 1)?[$.strings.dialogBtnOK]:[$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+		buttonNames : (checkoutStores.length > 1) ? [$.strings.dialogBtnOK] : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
 		cancelIndex : -1,
 		success : successMessageUserResponse
 
@@ -936,9 +932,8 @@ function didFail(result, passthrough) {
 	popToHome();
 }
 
-
 function successMessageUserResponse(whichButton) {
-	if(whichButton === 1) {
+	if (whichButton === 1) {
 		$.app.navigator.open({
 			titleid : "titleExpressPickup",
 			ctrl : "expressCheckout",
@@ -949,14 +944,13 @@ function successMessageUserResponse(whichButton) {
 	}
 }
 
-
 function popToHome() {
 
 	$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "1");
 
-		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
-			landing_page : true
-		}).toJSON());
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 
 }
 
