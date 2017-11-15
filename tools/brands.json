@@ -71,5 +71,8 @@
 	}, {
 		"id": "winn-dixie",
 		"description": "Winn-Dixie Rx."
+	}, {
+		"id": "fruth",
+		"description": "Fruth Pharmacy"
 	}
 ]
