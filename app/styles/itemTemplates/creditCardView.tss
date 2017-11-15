@@ -1,0 +1,3 @@
+"#amountDueLbl":{
+	text:Alloy.Globals.strings.checkoutTotalAmount
+}

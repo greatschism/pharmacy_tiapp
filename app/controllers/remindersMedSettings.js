@@ -433,7 +433,7 @@ function getOptionRows(frequencyId, data) {
 		 */
 		var endTime = endDate ? moment(endDate, apiCodes.ymd_date_time_format) : moment().hours(23).minutes(0).seconds(0);
 		if (!endDate) {
-			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);			
+			endDate = moment(new Date().toString(), strDateFormat).add(1, "year").format(apiCodes.ymd_date_time_format);
 		};
 		break;
 	}
@@ -547,7 +547,8 @@ function didClickAddPresc(e) {
 			showHiddenPrescriptions : true,
 			validator : "medReminder",
 			selectable : true,
-			useCache : true
+			useCache : true,
+			navigationFrom : ""
 		},
 		stack : true
 	});
@@ -819,7 +820,7 @@ function didClickDailyPicker(e) {
 		    rtCount = data.value,
 		    newRows = [];
 		for (var n = nStartIndex; n < nEndIndex; n++) {
-			var time = {				
+			var time = {
 				hour : (new Date().getHours()).toString(),
 				minutes : "00"
 			},
@@ -903,7 +904,7 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 			title : dateDropdownArgs.title,
 			okButtonTitle : dateDropdownArgs.rightTitle,
 			value : dateDropdownArgs.value,
-			minDate: currentDate,
+			minDate : currentDate,
 			callback : function(e) {
 				var value = e.value;
 				if (value) {
@@ -977,7 +978,7 @@ function updateRemindAtRow(value, rowIndex) {
 	    currentCtrl = rows[rowIndex],
 	    currentRow = currentCtrl.getView(),
 	    currentParams = currentCtrl.getParams();
-	    logger.debug("\n\n\n formatted selected value ", selectedMoment, "\n\n\n");
+	logger.debug("\n\n\n formatted selected value ", selectedMoment, "\n\n\n");
 
 	_.extend(currentParams, {
 		value : {
@@ -1172,7 +1173,7 @@ function didClickSubmitReminder(e) {
 		reminder_enabled : 1,
 		reminder_expiration_type : 0
 	});
-	
+
 	var currentDate = new Date(moment());
 	var isValidDate = moment(currentDate).isAfter(new Date(moment(data.reminder_end_date)));
 	if (isValidDate) {
@@ -1181,7 +1182,7 @@ function didClickSubmitReminder(e) {
 		});
 		return false;
 	};
-	
+
 	/**
 	 * 	for on_a_day reminder
 	 * 	valid until day must be after reminder day
@@ -1189,7 +1190,7 @@ function didClickSubmitReminder(e) {
 	if (data.frequency == apiCodes.reminder_frequency_onaday) {
 		var reminder_day = data.day_of_year;
 		var valid_until = data.reminder_end_date;
-		
+
 		var valid_reminder = moment(reminder_day).isAfter(new Date(moment(valid_until)));
 		if (valid_reminder) {
 			$.uihelper.showDialog({
@@ -1198,7 +1199,7 @@ function didClickSubmitReminder(e) {
 			return false;
 		};
 	}
-	
+
 	//api request
 	$.http.request({
 		method : args.isUpdate ? "reminders_med_update" : "reminders_med_add",

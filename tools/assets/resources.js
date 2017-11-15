@@ -124,6 +124,34 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "checkout_shopping_image_pl",
+		"name" : "checkout_shopping_image",
+		"format" : "png",
+		"properties" : {
+			"height" : 30
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/checkout_shopping_image.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "qr_bg_pl",
+		"name" : "qr_bg",
+		"format" : "png",
+		"properties" : {
+			"height" : 100
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/qr_bg.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "logo_white_pl",
 		"name" : "logo_white",
 		"format" : "png",
@@ -134,7 +162,21 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/logo_white.png",
 		"selected" : true
-	}, {
+	},  {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "logo_hamburger_pl",
+		"name" : "logo_hamburger",
+		"format" : "png",
+		"properties" : {
+			"width" : "50%"
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/logo_hamburger.png",
+		"selected" : true
+	},  {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,

@@ -2,7 +2,8 @@
 	<Window onOpen="focus" onClose="terminate" onClick="handleEvent" onChange="handleEvent">
 		<LeftNavButton>
 			<View id="leftNavView" onClick="didClickLeftNavView">
-				<Button class="top-disabled left-disabled right-disabled i5 primary-font-color bg-color-disabled border-disabled icon-back" />
+				<Button class="top-disabled left-disabled right-disabled i5 primary-menu-font-color bg-color-disabled border-disabled icon-back" if="!Alloy.CFG.use_additional_header_styling"  />
+				<Button class="top-disabled left-disabled right-disabled i5 primary-font-color bg-color-disabled border-disabled icon-back" if="Alloy.CFG.use_additional_header_styling"  />
 			</View>
 		</LeftNavButton>
 		<TitleControl>

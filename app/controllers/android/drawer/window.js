@@ -11,8 +11,15 @@ function init() {
 
 	var strings = Alloy.Globals.strings;
 
-	$.window.title = args.title || strings[args.titleid || ""] || "";
-
+    if (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow") {
+		var title = args.title || strings[args.titleid || ""] || "";
+		if(title == "Home") {
+			title = "Meijer";
+		}
+		$.window.title = title;
+	} else {
+		$.window.title = args.title || strings[args.titleid || ""] || "";
+	}
 	/**
 	 *  let the new controller know where it is coming from
 	 *  through the origin parameter
@@ -100,6 +107,11 @@ function didClickLeftNavView(e) {
 }
 
 function setTitle(title) {
+    if (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow") {	
+		if(title == "Home") {
+			title = "Meijer";
+		}
+	}
 	$.window.title = title;
 	$.actionBar.setTitleAttributes(_.extend({
 		title : title

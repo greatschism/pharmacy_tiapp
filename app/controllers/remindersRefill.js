@@ -13,13 +13,13 @@ var args = $.args,
     isWindowOpen;
 
 function init() {
-	Alloy.CFG.remind_before_in_days_max =  parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
+	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
 	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
 	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
 	Alloy.CFG.default_refill_reminder.reminder_hour = parseInt(Alloy.Models.appload.get("reminderSendHour"));
 	Alloy.CFG.default_refill_reminder.reminder_minute = parseInt(Alloy.Models.appload.get("reminderSendMinute"));
 	Alloy.CFG.default_refill_reminder.reminder_meridiem = Alloy.Models.appload.get("reminderSendMeridiem");
-	
+
 	$.tableView.top = $.uihelper.getHeightFromChildren($.headerView);
 	$.patientSwitcher.set({
 		title : $.strings.remindersRefillPatientSwitcher,
@@ -358,7 +358,8 @@ function didClickTableView(e) {
 				minLength : 1,
 				useCache : true,
 				selectedItems : _.pluck(currentData.prescriptions, "id"),
-				prescriptions : selectedPrescriptions
+				prescriptions : selectedPrescriptions,
+				navigationFrom : ""
 			},
 			stack : true
 		});
