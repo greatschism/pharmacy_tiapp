@@ -335,7 +335,7 @@ module.exports = {
 		"checkoutPrompt" : "Did you know you can add a credit card at the pharmacy to speed up your checkout process?",
 		"checkoutRemindCheckbox" : "Do not remind me again.",
 		"checkoutFindoutPrompt" : "click here to find out how",
-		"checkoutPromptMore" : "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
+		"checkoutPromptMore" : "Next time you are at the pharmacy, ask us to store your credit card to enable this feature for future transactions.",
 		"checkoutClose" : "close",
 		"checkoutComplete" : "Mobile checkout complete!",
 		"checkoutMsgEmptyList" : "Due to the recent upgrade, Mobile Checkout is not available for this prescription on this refill only. Future refills of this prescription will not be affected.",
