@@ -1,0 +1,6 @@
+"#pickupSignupBtn":{
+	title:Alloy.Globals.strings.expPickupBenefitsSignupBtn
+},
+"#skipPickupSignupBtn":{
+	title:Alloy.Globals.strings.expPickupBenefitsSkipSignupBtn
+}

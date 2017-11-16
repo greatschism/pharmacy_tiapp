@@ -1,0 +1,6 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<Button id="pickupSignupBtn" analyticsId="PickupSignupBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickPickupSignup"/>
+		<Button id="skipPickupSignupBtn" analyticsId="SkipPickupSignupBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipPickupSignup"/>
+	</ScrollView>
+</Alloy>
