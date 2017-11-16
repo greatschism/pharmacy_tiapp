@@ -182,6 +182,8 @@ function didTerminatePicker(e) {
 		setSelectedIndex(e.selectedIndex);
 		if (Ti.App.accessibilityEnabled) {
 			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.widget);
+			$.lbl.accessibilityHidden = true;
+			$.downArrowLbl.accessibilityHidden = true;
 		}
 		$.trigger("return", {
 			source : $,

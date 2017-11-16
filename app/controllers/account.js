@@ -55,6 +55,11 @@ function setAccountValues(){
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
 	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
+	
+	$.mobileInfoView.accessibilityLabel = $.mobileNumberLbl.text + "  " + $.mobileNumberValue.text;
+	$.emailInfoView.accessibilityLabel = $.emailLbl.text + "  " + $.emailValue.text;
+	$.timeZoneInfoView.accessibilityLabel = $.timeZonePromptLbl.text + "  " + $.timeZoneReplyLbl.text;
+	$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
 }
 
 function getTimeZone(currentPatient) {
