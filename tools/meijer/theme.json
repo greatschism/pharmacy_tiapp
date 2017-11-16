@@ -1,8 +1,14 @@
 {
 	"config": {
 		"global": {
+			"use_additional_header_styling" : "useAdditionalHeaderStyling",
+			"use_hamburger_logo_for_menu_header" : "useHamburgerLogoForMenuHeader",
+			"homescreen_template_banner_below" : "homescreenTemplateBannerBelow",
+			"use_keep_signed_in_session_timeout": "useKeepSignedInSessionTimeout",
 			"homescreen_logo_enabled": "homescreenLogoEnabled",
+			"rx_number_for_ready_label": "rxNumberForReadyLabelEnabled",
 			"homescreen_rightnav_settings_enabled": "homescreenRightnavSettingsEnabled",
+			"show_promise_time_day_of_week" : "showPromiseTimeDayOfWeek",
 			"rx_length": 7,
 			"rx_start_index": 0,
 			"rx_end_index": 7,
@@ -19,11 +25,22 @@
 		}
 	},
 	"values": {
+		"ACTIVE_COLOR": "#0095FF",
+		"ACTIVE_SELECTED_COLOR": "#0095FF",
+		"HINT_TEXT_COLOR": "#C7C7CD",
+		"CUSTOM_FG_COLOR": "#3056CD",
 		"PRIMARY_COLOR": "#0a4d8c",
 		"PRIMARY_COLOR_BAR": "#eeeeee",
+		"PRIMARY_COLOR_STATUS_BAR": "#0a4d8c",
 		"PRIMARY_SELECTED_COLOR": "#0a4d8c",
 		"PRIMARY_DARK_COLOR": "#063057",
-		"PRIMARY_DARK_SELECTED_COLOR": "#063057",
+		"PRIMARY_DARK_SELECTED_COLOR": "#063057",		
+		"PRIMARY_FONT_COLOR": "#FFFFFF",
+		"PRIMARY_FONT_SELECTED_COLOR": "#FFFFFF",		
+		"PRIMARY_MENU_FONT_COLOR": "#0A4D8C",
+		"PRIMARY_MENU_FONT_SELECTED_COLOR": "#0A4D8C",
+		"ACTIVE_COLOR": "#0070E1",
+		"ACTIVE_SELECTED_COLOR": "#0070E1",
 		"REFILL_LIST_ICON_COLOR": "#FF8F00",
 		"REFILL_SCAN_ICON_COLOR": "#362F2D",
 	    "TRANSFER_RX_ICON_COLOR": "#3BBFEB",
@@ -32,6 +49,8 @@
 	    "UPDATE_INSURANCE_ICON_COLOR": "#24A599",
 	    "FAMILY_CARE_ICON_COLOR": "#558B2F",
 	    "PRESCRIBERS_ICON_COLOR": "#546E7A",
-	    "SETTINGS_ICON_COLOR": "#555555"
+	    "SETTINGS_ICON_COLOR": "#555555",
+		"TENTATIVE_COLOR": "#CD853F",
+		"TENTATIVE_SELECTED_COLOR": "#CD853F"
 	}
 }

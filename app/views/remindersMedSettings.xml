@@ -1,4 +1,12 @@
 <Alloy>
+	<Widget id="colorPicker" src="ti.modaldialog" class="modal-dialog" children="tableView">
+		<TableView id="tblColorPicker" dataCollection="reminderColors" class="auto-height" onClick="didClickColorPicker">
+			<TableViewRow id="row" class="hgroup" accessibilityLabel="{color_name}">
+				<View id="colorBoxView" class="margin-left color-box border accessibility-disabled" backgroundColor="{color_code}" borderColor="#BEC2C6" />
+				<Label id="lbl" class="margin-top margin-bottom margin-left-large accessibility-disabled" text="{color_name}" />
+			</TableViewRow>
+		</TableView>
+	</Widget>
 	<Widget id="frequencyPicker" src="ti.optionpicker" class="modal-dialog" onClick="didClickFrequencyPicker">
 		<View class="min-height inactive-light-bg-color role-header-view">
 			<Label id="frequencyLbl" class="margin-left margin-right h5 inactive-fg-color" />
@@ -46,7 +54,8 @@
 				<View class="h-divider-light" if="Alloy.Globals.isLollipop" />
 				<!--footer separator seems to disappear on iOS after a delete-->
 				<View class="h-divider-light" platform="ios" />
-				<Button id="submitBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmitReminder" />
+				<View id="notesView" />
+				<Button id="submitBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmitReminder" />
 				<Button id="removeBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickRemoveReminder" if="$.args.isUpdate" />
 			</View>
 		</FooterView>

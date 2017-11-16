@@ -2,10 +2,10 @@
 	<TableViewRow id="row" class="row-selected-bg-color-disabled">
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">
-				<Label id="titleLbl" class="left h4 wrap-disabled" />
-				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color wrap-disabled" />
+				<Label id="titleLbl" class="left h4 wrap-disabled accessibility-disabled" />
+				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color wrap-disabled accessibility-disabled" />
 			</View>
-			<Button id="detailBtn" class="top-disabled left-disabled right width-35 min-height h5 bg-color primary-fg-color primary-border bubble-disabled" onClick="didClickDetail" />
+			<Button id="detailBtn" class="top-disabled left-disabled right width-35 min-height h5 bg-color primary-fg-color primary-border bubble-disabled accessibility-enabled" onClick="didClickDetail" />
 		</View>
 	</TableViewRow>
 </Alloy>

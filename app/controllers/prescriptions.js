@@ -323,7 +323,7 @@ function prepareList() {
 		 * is getting refilled or ready for pickup
 		 * within prescriptions list
 		 */
-		if (hideZeroRefillPrescriptions && !parseInt(prescription.get("refill_left")) && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
+		if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
 			return false;
 		}
 		/**
@@ -381,7 +381,11 @@ function prepareList() {
 					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
 					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
 					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
-					subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
+						if (Alloy.CFG.show_promise_time_day_of_week === "showPromiseTimeDayOfWeek") {
+						subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
+						}	else {
+							subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+						}
 					progress = Math.floor((timeSpent / totalTime) * 100);
 				} else {
 					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
@@ -495,10 +499,16 @@ function prepareList() {
 					});
 				}
 			}
+			var readyRxLabel;
+			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
+				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
+			}	else {
+				readyRxLabel = $.strings.prescReadyPickupLblReady;
+			}
 			prescription.set({
 				section : "readyPickup",
 				titleClasses : titleClasses,
-				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+                subtitle : readyRxLabel,
 				canHide : false
 			});
 

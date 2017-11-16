@@ -1,30 +1,30 @@
 <Alloy>
 	<ScrollView id="scrollView">
 		<View class="top auto-height vgroup">
-			<View id="refillView" class="margin-top-large margin-left margin-right auto-height" onClick="didClickRefill">
-				<Label class="margin-left-large i4 active-fg-color icon-filled-refresh"/>
-				<View class="auto-height vgroup" onPostlayout="didPostlayout">
-					<Label id="refillTitleLbl" class="left-10 h4" />
-					<Label id="refillDescLbl" class="left-10 inactive-fg-color" />
+			<View id="refillView" class="margin-top-large margin-left margin-right auto-height accessibility-actionablelements" onClick="didClickRefill">
+				<Label class="margin-left-large i4 active-fg-color icon-filled-refresh accessibility-disabled"/>
+				<View class="auto-height vgroup accessibility-disabled" onPostlayout="didPostlayout">
+					<Label id="refillTitleLbl" class="left-10 h4 accessibility-disabled" />
+					<Label id="refillDescLbl" class="left-10 inactive-fg-color accessibility-disabled" />
 				</View>
 			</View>
 			<View class="margin-top h-divider-light" />
-			<View id="medView" class="margin-top-large margin-left margin-right auto-height" onClick="didClickMed">
-				<Label class="margin-left-large i4 positive-fg-color icon-filled-torchlight"/>
-				<View class="auto-height vgroup">
-					<Label id="medTitleLbl" class="left-10 h4" />
-					<Label id="medDescLbl" class="left-10 inactive-fg-color" />
+			<View id="medView" class="margin-top-large margin-left margin-right auto-height accessibility-actionablelements" onClick="didClickMed">
+				<Label class="margin-left-large i4 positive-fg-color icon-filled-torchlight accessibility-disabled"/>
+				<View class="auto-height vgroup accessibility-disabled">
+					<Label id="medTitleLbl" class="left-10 h4 accessibility-disabled" />
+					<Label id="medDescLbl" class="left-10 inactive-fg-color accessibility-disabled" />
 				</View>
 			</View>
-			<View class="margin-top h-divider-light" />
-			<View id="settingsView" class="margin-top-large margin-left margin-right auto-height" onClick="didClickSettings">
-				<Label class="margin-left-large i4 tentative-fg-color icon-filled-settings"/>
-				<View class="auto-height vgroup">
-					<Label id="settingsTitleLbl" class="left-10 h4" />
-					<Label id="settingsDescLbl" class="left-10 inactive-fg-color" />
+			<View class="margin-top h-divider-light accessibility-disabled" />
+			<View id="settingsView" class="margin-top-large margin-left margin-right auto-height accessibility-actionablelements" onClick="didClickSettings">
+				<Label class="margin-left-large i4 tentative-fg-color icon-filled-settings accessibility-disabled"/>
+				<View class="auto-height vgroup accessibility-disabled">
+					<Label id="settingsTitleLbl" class="left-10 h4 accessibility-disabled" />
+					<Label id="settingsDescLbl" class="left-10 inactive-fg-color accessibility-disabled" />
 				</View>
 			</View>
-			<View class="margin-top margin-bottom h-divider-light" />
+			<View class="margin-top margin-bottom h-divider-light accessibility-disabled" />
 		</View>
 	</ScrollView>
 </Alloy>

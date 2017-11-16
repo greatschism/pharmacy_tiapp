@@ -32,6 +32,8 @@ module.exports = {
 		"strHide" : "hide",
 		"accessibilityStrShow" : "Show password",
 		"accessibilityStrHide" : "Hide password",
+		"accessibilityStrShowing" : "Showing password",
+		"accessibilityStrHiding" : "Hiding password",
 
 		"attrPhone" : "Call: <secondarycolor>%s</secondarycolor>",
 
@@ -157,6 +159,7 @@ module.exports = {
 		"titleHomePage" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleExpressPickup" : "Express Pickup",
+		"titleExpressPickupBenefits" : "Express Pickup Benefits",
 		"titleCheckout" : "Ready prescriptions",
 		"titleCheckoutQuestions" : "Mobile Checkout",
 		"titleReminders" : "Reminders",
@@ -174,7 +177,6 @@ module.exports = {
 		"titleRefill" : "Refill by Scan",
 		"titleStores" : "Find a Store",
 		"titleDoctors" : "Doctors",
-		// "titleInsurance" : "Send insurance card",
 		"titleAccount" : "Account",
 		"titleHelp" : "Help",
 		"titleStoreDetails" : "Store details",
@@ -267,7 +269,7 @@ module.exports = {
 		"loginValPassword" : "Please enter your password.",
 		"loginBtnLogin" : "Sign in",
 		"loginTooltipBtnHide" : "Got it!",
-		"loginTooltipLblAutoSignIn" : "tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
+		"loginTooltipLblAutoSignIn" : "Tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Keep me signed in\".",
 		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 		"loginVersionLbl" : "Version: %s",
 		"loginBuildNumber" : "Build Number: %s",
@@ -299,6 +301,7 @@ module.exports = {
 		"storesHintSearch" : "Search",
 		"storesGeoZeroResults" : "No matches found!",
 		"storesMsgGoogleApiFailed" : "Sorry, we are unable to process your request now. Please try again later.",
+		"storesAutoSearchResultsInList" : "Showing item 1 of %s in list",
 
 		"storeDetIconFavStore" : "Favorite Store",
 		"storeDetLblOpen" : "Open till %s",
@@ -316,6 +319,9 @@ module.exports = {
 		"storeDetMsgHomeCantUpdate" : "This is your home pharmacy. All refill reminders you receive will automatically be refilled here. If you would like to change your home pharmacy, please select the pharmacy of your choice and press the home icon.",
 		"storeDetDialogTitleHomeConfirm" : "Change home pharmacy",
 		"storeDetMsgHomeConfirm" : "Your home pharmacy is where all refill requests are sent when you refill by text. Are you sure you want to make %s your home pharmacy?",
+		"storeDetBtnFavouriteAddAccessibility" : "Add Store to Favorites Button",
+		"storeDetBtnFavouriteRemoveAccessibility" : "Remove Store from Favorites Button",
+
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"titleCheckoutCompleteHeader" : "Mobile checkout complete. See you soon!",
@@ -330,7 +336,7 @@ module.exports = {
 		"checkoutPrompt" : "Did you know you can add a credit card at the pharmacy to speed up your checkout process?",
 		"checkoutRemindCheckbox" : "Do not remind me again.",
 		"checkoutFindoutPrompt" : "click here to find out how",
-		"checkoutPromptMore" : "Next time you are at the pharmacy, ask us to store your credit card for future transactions to speed up your mobile checkout process.",
+		"checkoutPromptMore" : "Next time you are at the pharmacy, ask us to store your credit card to enable this feature for future transactions.",
 		"checkoutClose" : "close",
 		"checkoutComplete" : "Mobile checkout complete!",
 		"checkoutMsgEmptyList" : "Due to the recent upgrade, Mobile Checkout is not available for this prescription on this refill only. Future refills of this prescription will not be affected.",
@@ -375,7 +381,7 @@ module.exports = {
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
 		"doctorDetLblRefilled" : "Refilled: %s",
-		"doctorDetLblRefilledNone" : "Not filled yet",
+		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
 		"doctorSettingsHintLastName" : "Last Name",
@@ -438,7 +444,7 @@ module.exports = {
 		"prescAddMsgEmptyList" : "No more prescriptions found for refill.",
 		"prescAddMsgSelectMore" : "You must select at least %d prescription(s) to continue.",
 		"prescAddSectionReminders" : "Which medication(s) would you like to set up a reminder for? You can add or modify this at any time.",
-		"prescAddTooltipLblReminder" : "tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
+		"prescAddTooltipLblReminder" : "Tip: This will set up one reminder. You can add multiple prescriptions to one reminder.",
 		"prescAddTooltipBtnHide" : "Got it!",
 		"prescBtnNext" : "Next",
 		"prescPartialLblTitle" : "Want to add a prescription?",
@@ -537,9 +543,9 @@ module.exports = {
 		"remindersLblMedDesc" : "Set reminders to take your medications on time.",
 		"remindersLblSettingsTitle" : "Reminder and Notification Settings",
 		"remindersLblSettingsDesc" : "How would you like to receive your reminders?",
-		"remindersTooltipLblRefill" : "tip: Update your refill reminders & which prescriptions you want to get reminders for here.",
-		"remindersTooltipLblMed" : "tip: Set, modify and bundle medication reminders to never miss a dose again.",
-		"remindersTooltipLblSettings" : "tip: Set reminder delivery methods and the appearance of all your notifications.",
+		"remindersTooltipLblRefill" : "Tip: Update your refill reminders & which prescriptions you want to get reminders for here.",
+		"remindersTooltipLblMed" : "Tip: Set, modify and bundle medication reminders to never miss a dose again.",
+		"remindersTooltipLblSettings" : "Tip: Set reminder delivery methods and the appearance of all your notifications.",
 		"remindersTooltipBtnHide" : "Got it!",
 
 		"remindersRefillPatientSwitcher" : "%s's refill reminder settings",
@@ -575,6 +581,7 @@ module.exports = {
 		"remindersMedLblFrequencyMonthly" : "Every month on the %s at %s",
 		"remindersMedLblFrequencyOnADay" : "On %s at %s",
 		"remindersMedLblFrequencyPeriod" : "Every %s on %s from %s to %s",
+		"remindersMedCustomColor" : "Custom Color",
 
 		"remindersMedSettingsLblFrequencyDaily" : "Daily",
 		"remindersMedSettingsLblFrequencyWeekly" : "Weekly",
@@ -725,6 +732,7 @@ module.exports = {
 		"accountSwitcher" : "%s's account settings",
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
+		"accountHintEmail" : "Email address",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",
@@ -916,6 +924,7 @@ module.exports = {
 		"familyMemberAddValFutureDob" : "The date of birth you selected is a date in the future. Please enter your family member's correct date of birth.",
 		"familyMemberAddValRelationship" : "Please enter your relationship.",
 		"familyMemberAddHintOther" : "Relationship",
+		"familyMemberRelationshipDropdownHint" : "Relationship",
 		"familyMemberRelationshipTips" : "Family relationship is limited to alphanumeric characters, hyphen (-), apostrophe ('), and space. The maximum amount of characters is 25.",
 		"familyMemberRelationshipNotSelected" : "Please select the relationship of the family member you are adding.",
 
@@ -1006,13 +1015,16 @@ module.exports = {
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
-		"accessibilityCheckboxSelect" : "Checkbox Unchecked, double tap to check",
+		"accessibilityCheckboxSelect" : "Checkbox not checked, double tap to check",
 		"accessibilityCheckboxRemoveSelection" : "Checkbox Checked, double tap to uncheck",
 		"accessibilityCheckboxChecked" : "Checkbox Checked",
 		"prescDetAccessibilityReminderRefill" : "Remind me to refill this medication",
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
+		
+		"expPickupBenefitsSignupBtn" : "Sign me up",
+		"expPickupBenefitsSkipSignupBtn" : "Sign up later",
 
 		"vSixCarouselTitle" : "What's new!"
 	}

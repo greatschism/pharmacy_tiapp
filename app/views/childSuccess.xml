@@ -3,6 +3,6 @@
 		<ImageView id="childSuccessImg"/>
 		<Label id="successLbl" class="margin-top margin-left margin-right h2 txt-center"/>
 		<Button id="childAddBtn" analyticsId="ChildAddBtn" class="margin-top-large" onClick="didClickAddChild"/>
-		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 	</View>
 </Alloy>

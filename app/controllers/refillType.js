@@ -6,7 +6,8 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
-	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
+	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove", "accessibility-enabled"],
+	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
 	id : "removeBtn"
 }),
     store = _.omit(args.store || {}, ["shouldUpdate"]),
@@ -139,7 +140,7 @@ function didClickRefill(e) {
 	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
 		storeId = Alloy.Models.appload.get("mail_order_store_id");
 	}  
-  
+ 
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
@@ -147,7 +148,7 @@ function didClickRefill(e) {
 			if (value) {
 				//PHA-1424
 				validRxs.push({
-					rx_number : value.substring(Alloy.CFG.rx_start_index, Alloy.CFG.rx_end_index),
+					rx_number : value,
 					store_id : storeId,
 					pickup_mode : pickupMode,
 					pickup_time_group : apiCodes.pickup_time_group_asap
@@ -160,10 +161,11 @@ function didClickRefill(e) {
 		}
 		return false;
 	});
+
 	if (isInvalidRx || validRxs.length === 0) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.refillTypeValRx, Alloy.CFG.rx_length),
-			success : function() {
+			message : String.format($.strings.refillTypeValRx,parseInt(Alloy.Globals.rx_max)),
+			success : function() { 
 				rxTxts[lastIndex].getView().focus();
 			}
 		});

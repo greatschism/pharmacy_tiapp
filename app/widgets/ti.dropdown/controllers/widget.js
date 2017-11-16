@@ -34,6 +34,7 @@ var args = $.args,
 		});
 	}
 	$.lbl.applyProperties(options);
+	$.lbl.accessibilityHidden = true;
 
 	$.downArrowLbl.applyProperties({
 		right : args.iconPaddingRight || 12,
@@ -251,7 +252,7 @@ function setSelectedIndex(index) {
 	if (!_.isEmpty(selectedItem)) {
 		removeHint();
 		var label = selectedItem[args.valueProperty || args.titleProperty || "title"] || "";
-		$.widget.accessibilityLabel = label;
+		$.widget.accessibilityLabel = label + (args.accessibilityHint || "");
 		$.lbl.text = label;
 	}
 }
@@ -272,7 +273,7 @@ function setValue(date) {
 	selectedDate = date;
 	removeHint();
 	var label = moment(selectedDate.toString(), "ddd MMM DD YYYY HH:mm:ss").format(format);
-	$.widget.accessibilityLabel = label;
+	$.widget.accessibilityLabel = label + (args.accessibilityHint || "");
 	$.lbl.text = label;
 }
 

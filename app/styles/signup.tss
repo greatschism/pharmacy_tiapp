@@ -22,13 +22,15 @@
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.registerHintPassword,
 	passwordMask: true,
+	accessibilityHint : Alloy.Globals.strings.msgPasswordTips,
 	nextItem: "rxNoTxt"
 },
 "#showPasswordLbl":{
 	text: Alloy.Globals.strings.registerLblTogglePassword
 },
 "#rxNoTxt":{
-	hintText: Alloy.Globals.strings.registerHintRxFormat
+	hintText: Alloy.Globals.strings.registerHintRxFormat,
+	accessibilityHint: Alloy.Globals.strings.msgRxNumberTips
 },
 "#storeTitleLbl":{
 	text : Alloy.Globals.strings.registerHintPharmacyLocation,

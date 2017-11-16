@@ -20,6 +20,7 @@ module.exports = {
 	"EMVE" : "emailVerify",
 	"EXCH" : "expressCheckout",
 	"EXQR" : "expressQR",
+	"EXPB" : "expressPickupBenefits",
 	"FACA" : "familyCare",
 	"FAMA" : "familyMemberAdd",
 	"FAMI" : "familyMemberInvite",

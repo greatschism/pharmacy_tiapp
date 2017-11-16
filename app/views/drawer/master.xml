@@ -7,8 +7,9 @@
 			<Window id="rootWindow" class="bg-color">
 				<LeftNavButton>
 					<View id="leftNavView" onClick="didClickLeftNavView">
-                        <Button id="leftNavBtn" class="top-disabled left-disabled right-disabled i5 primary-fg-color bg-color-disabled border-disabled icon-hamburger" />					
-                    </View>
+						<Button id="leftNavBtn" class="top-disabled left-disabled right-disabled i5 primary-font-color bg-color-disabled border-disabled icon-hamburger"  if="!Alloy.CFG.use_additional_header_styling" />
+						<Button id="leftNavBtn" class="top-disabled left-disabled right-disabled i5 primary-menu-font-color bg-color-disabled border-disabled icon-hamburger" if="Alloy.CFG.use_additional_header_styling"  />
+					</View>
 				</LeftNavButton>
 				<TitleControl>
 					<Label id="titleControl" class="title-control" />

@@ -7,7 +7,7 @@
 				<View class="h-divider"/>
 				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
 			</View>
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 		</View>
 	</ScrollView>
 </Alloy>

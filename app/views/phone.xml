@@ -8,7 +8,7 @@
 				<View class="margin-top margin-left margin-right auto-height vgroup border">
 					<Widget id="phoneTxt" analyticsId="PhoneTxt" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" />
 				</View>
-				<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickContinue"/>
+				<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 				<Label id="receiveTextLbl" class="margin-top margin-bottom margin-left margin-right"/>
 			</View>
 		</FooterView>

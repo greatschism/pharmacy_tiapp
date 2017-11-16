@@ -139,8 +139,9 @@ function updateHome() {
 function updateFavourite() {
 	var isFavourite = store.isbookmarked || store.ishomepharmacy;
 	$.favouriteLbl.text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
+	$.favouriteLbl.accessibilityLabel = $.strings[ isFavourite ? "storeDetBtnFavouriteRemoveAccessibility" : "storeDetBtnFavouriteAddAccessibility"];
 	$.favouriteIconLbl.applyProperties($.createStyle({
-		classes : ["accessibility-enabled", store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"],
+		classes : store.isbookmarked || store.ishomepharmacy ? ["accessibility-enabled",  "icon-filled-star"] : ["accessibility-disabled", "icon-star"],
 		accessibilityLabel : $.strings.storeDetIconFavStore
 	}));
 }
