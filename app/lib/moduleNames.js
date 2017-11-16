@@ -69,6 +69,7 @@ module.exports = {
 	 */
 	"EXCH" : "ExpressCheckout",
 	"EXQR" : "ExpressQR",
+	"EXPB" : "ExpressPickupBenefits",
 	/**
 	 * stores
 	 */
