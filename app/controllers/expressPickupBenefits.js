@@ -1,33 +1,21 @@
 var args = $.args;
 
-function didClickPickupSignup() {
+function didClickClose() {
+	var currentPatient = Alloy.Collections.patients.findWhere({
+		selected : true
+	});
 	
-}
-
-function didClickSkipPickupSignup() {
-	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", false, "bool", true);
-	if (args.isFamilyMemberFlow) {
-		$.app.navigator.open({
-			titleid : "titleFamilyAccounts",
-			ctrl : "familyMemberAddSuccess",
-			ctrlArguments : {
-				familyRelationship : args.familyRelationship
-			},
-			stack : false
-		});
-	} else if (isFamilyMemberAddPrescFlow) {
-		$.app.navigator.open({
-			titleid : "titleFamilyCare",
-			ctrl : "familyCare",
-			stack : false
-		});
-	} else if (args.origin === "account" || args.origin === "remindersSettings") {
-		$.app.navigator.close();
-	} else {
+	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
 		$.app.navigator.open({
 			titleid : "titleHomePage",
 			ctrl : "home",
 			stack : false
 		});
-	}
+	} else{
+		$.app.navigator.open({
+			titleid : "titleTextBenefits",
+			ctrl : "textBenefits",
+			stack : false
+		});
+	};
 }
