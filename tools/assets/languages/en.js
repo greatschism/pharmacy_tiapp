@@ -1021,6 +1021,7 @@ module.exports = {
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
+		"expPickupBenefitsDoneBtn" :"Done",
 		"vSixCarouselTitle" : "What's new!"
 	}
 };

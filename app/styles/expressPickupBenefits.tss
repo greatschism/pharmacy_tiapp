@@ -1,6 +1,6 @@
 
 "#expCheckoutBenefitsDone":{
-	title:Alloy.Globals.strings.accountSuccessBtnDone
+	title:Alloy.Globals.strings.expPickupBenefitsDoneBtn
 },
 "#expPickupBenefitsAsk":{
 	text:Alloy.Globals.strings.expPickupBenefitsTitle
