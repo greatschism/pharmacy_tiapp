@@ -1,9 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup auto-height">
-		<View class="auto-height">
-			<ImageView id="expCheckoutBenefitsImage"/>
-			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
-		</View>
+		<ImageView id="expCheckoutBenefitsImage" class="width-100"/>
 		<View  class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup">
 		<View class="auto-height vgroup">
 			<Label id="expPickupBenefitsAsk" class="margin-left margin-top margin-right h3 attributed-bold"/>
