@@ -28,14 +28,14 @@ function request(args) {
 	 */
 	var now = moment().unix();
 
-	var sessionTimeout;
+	var sessionTimeoutValue;
     if (Alloy.CFG.use_keep_signed_in_session_timeout === "useKeepSignedInSessionTimeout" && utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false)) {
-    	sessionTimeout = Alloy.CFG.keep_signed_in_session_timeout;
+    	sessionTimeoutValue = Alloy.CFG.keep_signed_in_session_timeout;
     } else {
-    	sessionTimeout = Alloy.CFG.session_timeout;
+    	sessionTimeoutValue = Alloy.CFG.session_timeout;
     }
 	
-	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > sessionTimeout && args.method != "patient_logout") {
+	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > sessionTimeoutValue && args.method != "patient_logout") {
 		/**
 		 *  hide loader is required in case
 		 *  it was created by a previous network call
