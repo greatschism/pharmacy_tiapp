@@ -159,7 +159,6 @@ module.exports = {
 		"titleHomePage" : "Home",
 		"titlePrescriptions" : "Refill from list",
 		"titleExpressPickup" : "Express Pickup",
-		"titleExpressPickupBenefits" : "Express Pickup Benefits",
 		"titleCheckout" : "Ready prescriptions",
 		"titleCheckoutQuestions" : "Mobile Checkout",
 		"titleReminders" : "Reminders",
@@ -1021,9 +1020,12 @@ module.exports = {
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
+<<<<<<< Updated upstream
 		
 		"expPickupBenefitsCloseBtn" : "Close",
 
+=======
+>>>>>>> Stashed changes
 		"vSixCarouselTitle" : "What's new!"
 	}
 };

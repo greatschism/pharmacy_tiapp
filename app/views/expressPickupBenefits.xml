@@ -1,5 +1,49 @@
 <Alloy>
+<<<<<<< Updated upstream
 	<ScrollView class="vgroup">
 		<Button id="closeBtn" analyticsId="CloseBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickClose"/>
 	</ScrollView>
+=======
+	<ScrollView class="vgroup auto-height">
+		<View class="auto-height">
+			<ImageView id="expCheckoutBenefitsImage"/>
+			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color"/>
+		</View>
+		<View  class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup">
+		<View class="auto-height vgroup">
+			<Label id="expPickupBenefitsAsk" class="margin-left margin-top margin-right h3 attributed-bold"/>
+			<Label id="expPickupBenefitsDetails" class="margin-left margin-right margin-top h6"/>
+			<Label id="expPickupBenefitsUseTitle" class="margin-top margin-bottom margin-left margin-right h3 attributed-bold" />
+			<Label id="expPickupBenefitsListsTitle" class="margin-top margin-left margin-right h5" />
+			
+				<View class="auto-height">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="expPickupBenefits1" class="margin-left-xxl h6 margin-right margin-top" />
+				</View>
+				
+				<View class="auto-height">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="expPickupBenefits2" class="margin-left-xxl h6 margin-right margin-top" />
+				</View>
+				
+				<View class="auto-height">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="expPickupBenefits3" class="margin-left-xxl h6 margin-right margin-top" />
+				</View>
+				
+				<View class="auto-height">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="expPickupBenefits4" class="margin-left-xxl h6 margin-right margin-top" />
+				</View> 
+				
+				<View class="auto-height">
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
+				<Label id="expPickupBenefits5" class="margin-left-xxl h6 margin-right margin-top margin-bottom" />
+				</View>
+		</View>  
+			      
+		</View>	
+		<Button id="expCheckoutBenefitsDone" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipPickupSignup"/>	
+			</ScrollView>
+>>>>>>> Stashed changes
 </Alloy>
