@@ -124,7 +124,11 @@ function terminate(e) {
 }
 
 function setTitle(title) {
-	$.window.titleControl.text = title;
+    if(title == "Home" && (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow")) {
+   		$.window.titleControl.text = "";
+	} else {
+		$.window.titleControl.text = title;
+	}
 }
 
 function showNavBar(animated) {

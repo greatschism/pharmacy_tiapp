@@ -17,6 +17,11 @@ var args = $.args,
 	} else {
 		$.lbl.text = title;
 	}
+	if(args.rowClasses)
+	{
+		$.addClass($.row, ["left","h5","inactive-light-bg-color"] );
+
+	}
 	if (accessibilityValue) {
 		$.lbl.accessibilityLabel = title;
 		$.lbl.accessibilityValue = accessibilityValue;

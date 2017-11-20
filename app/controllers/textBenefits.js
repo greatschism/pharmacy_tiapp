@@ -50,7 +50,7 @@ function didClickSkipTextSignup() {
 		$.app.navigator.close();
 	} else {
 		$.app.navigator.open({
-			titleid : "titleHome",
+			titleid : "titleHomePage",
 			ctrl : "home",
 			stack : false
 		});

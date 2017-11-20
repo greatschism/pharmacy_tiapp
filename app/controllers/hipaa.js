@@ -113,7 +113,7 @@ function didAcceptOrDecline(){
 	
 	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
 		app.navigator.open({
-			titleid : "titleHome",
+			titleid : "titleHomePage",
 			ctrl : "home",
 			stack : false
 		});

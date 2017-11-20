@@ -6,6 +6,7 @@ var TAG = "REWR",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     moment = require("alloy/moment"),
+    utilities = require("utilities"),
     app = require("core"),
     http = require("http"),
     encryptionUtil = require("encryptionUtil"),
@@ -15,14 +16,26 @@ var TAG = "REWR",
     logger = require("logger");
 
 function request(args) {
+	
+	// Ti.API.info(Alloy.Models.appconfig.get("ophurl").concat(Alloy.CFG.apiPath[args.method]));
 
+	// Ti.API.info(JSON.stringify(args.params));
+	
 	/**
 	 * trigger session timeout
 	 * if session id is available and time of latest api call is more than session_timeout
 	 * and must not be a patient logout
 	 */
 	var now = moment().unix();
-	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > Alloy.CFG.session_timeout && args.method != "patient_logout") {
+
+	var sessionTimeout;
+    if (Alloy.CFG.use_keep_signed_in_session_timeout === "useKeepSignedInSessionTimeout" && utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false)) {
+    	sessionTimeout = Alloy.CFG.keep_signed_in_session_timeout;
+    } else {
+    	sessionTimeout = Alloy.CFG.session_timeout;
+    }
+	
+	if (Alloy.Globals.sessionId && (now - Alloy.Globals.latestRequest) > sessionTimeout && args.method != "patient_logout") {
 		/**
 		 *  hide loader is required in case
 		 *  it was created by a previous network call
