@@ -162,7 +162,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/logo_white.png",
 		"selected" : true
-	},  {
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -176,7 +176,7 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/logo_hamburger.png",
 		"selected" : true
-	},  {
+	}, {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -441,6 +441,20 @@ module.exports = {
 		"hires" : false,
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/child.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "expcheckout_benefits_pl",
+		"name" : "expcheckout_benefits",
+		"format" : "png",
+		"properties" : {
+			"width" : "100%"
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/expcheckout_benefits.png",
 		"selected" : true
 	}]
 };

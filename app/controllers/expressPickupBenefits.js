@@ -1,11 +1,13 @@
 var args = $.args;
 
-function didClickClose() {
-	var currentPatient = Alloy.Collections.patients.findWhere({
-		selected : true
-	});
+function init()
+{
+	$.uihelper.getImage("expcheckout_benefits", $.expCheckoutBenefitsImage);
 	
-	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+}
+
+function didClickDone(){
+		if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
 		$.app.navigator.open({
 			titleid : "titleHomePage",
 			ctrl : "home",
@@ -19,3 +21,4 @@ function didClickClose() {
 		});
 	};
 }
+exports.init = init;

@@ -1022,9 +1022,8 @@ module.exports = {
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
-		
 		"expPickupBenefitsCloseBtn" : "Close",
-
+		"expPickupBenefitsDoneBtn" :"Done",
 		"vSixCarouselTitle" : "What's new!"
 	}
 };

@@ -1,3 +1,34 @@
-"#closeBtn":{
-	title:Alloy.Globals.strings.expPickupBenefitsCloseBtn
+
+"#expCheckoutBenefitsDone":{
+	title:Alloy.Globals.strings.expPickupBenefitsDoneBtn
+},
+"#expPickupBenefitsAsk":{
+	text:Alloy.Globals.strings.expPickupBenefitsTitle
+},
+"#expPickupBenefitsDetails":{
+	text:Alloy.Globals.strings.expPickupBenefitsDescription
+},
+"#expPickupBenefitsUseTitle":{
+	text:Alloy.Globals.strings.expPickupBenefitsFeatureTitle
+},
+"#expPickupBenefitsListsTitle":{
+	text:Alloy.Globals.strings.expPickupBenefitsListTitle
+},
+"#expPickupBenefits1":{
+	text:Alloy.Globals.strings.expPickupBenefitsList1
+},
+"#expPickupBenefits2":{
+	text:Alloy.Globals.strings.expPickupBenefitsList2
+}
+"#expPickupBenefits3":{
+	text:Alloy.Globals.strings.expPickupBenefitsList3
+},
+"#expPickupBenefits4":{
+	text:Alloy.Globals.strings.expPickupBenefitsList4
+},
+"#expPickupBenefits5":{
+	text:Alloy.Globals.strings.expPickupBenefitsList5
+},
+"#textBenefitLbl":{
+	text:Alloy.Globals.strings.textSignUpBenefitLbl
 }
