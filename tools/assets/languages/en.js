@@ -1020,12 +1020,7 @@ module.exports = {
 		"prescDetAccessibilityReminderMed" : "Set a time to take this medication",
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
-<<<<<<< Updated upstream
-		
 		"expPickupBenefitsCloseBtn" : "Close",
-
-=======
->>>>>>> Stashed changes
 		"vSixCarouselTitle" : "What's new!"
 	}
 };

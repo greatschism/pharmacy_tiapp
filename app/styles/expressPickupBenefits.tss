@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-"#closeBtn":{
-	title:Alloy.Globals.strings.expPickupBenefitsCloseBtn
-}
-=======
+
 "#expCheckoutBenefitsDone":{
 	title:Alloy.Globals.strings.accountSuccessBtnDone
 },
@@ -35,5 +31,4 @@
 },
 "#textBenefitLbl":{
 	text:Alloy.Globals.strings.textSignUpBenefitLbl
-} 
->>>>>>> Stashed changes
+}

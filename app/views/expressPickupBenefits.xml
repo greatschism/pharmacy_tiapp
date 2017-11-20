@@ -1,9 +1,4 @@
 <Alloy>
-<<<<<<< Updated upstream
-	<ScrollView class="vgroup">
-		<Button id="closeBtn" analyticsId="CloseBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickClose"/>
-	</ScrollView>
-=======
 	<ScrollView class="vgroup auto-height">
 		<View class="auto-height">
 			<ImageView id="expCheckoutBenefitsImage"/>
@@ -43,7 +38,6 @@
 		</View>  
 			      
 		</View>	
-		<Button id="expCheckoutBenefitsDone" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipPickupSignup"/>	
+		<Button id="expCheckoutBenefitsDone" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickDone"/>	
 			</ScrollView>
->>>>>>> Stashed changes
 </Alloy>
