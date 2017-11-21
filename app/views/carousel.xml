@@ -22,7 +22,7 @@
 			<ImageView id="familyCareImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 		<ScrollView id="expPickupView" class="vgroup" if="Alloy.CFG.is_express_checkout_enabled">
-			<Label id="expPickupLbl" class="margin-top-extra-large margin-left-extra-large margin-right-extra-large h2 txt-center" />
+			<Label id="expPickupLbl" class="margin-top-extra-large margin-left margin-right h2 txt-center" />
 			<ImageView id="expPickupImg" class="margin-top width-100 repeat-disabled bubble-disabled accessibility-disabled" />
 		</ScrollView>
 	</ScrollableView>
