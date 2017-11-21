@@ -12,7 +12,7 @@ function init() {
 	
 	//logo - align all labels to be in sync with logo
 	var fromTop = $.logoImg.top + $.logoImg.height + $.appLbl.top;
-	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
+	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl","expPickupLbl"], function(val) {
 		if ($[val]) {
 			$[val].top = fromTop;
 		}
@@ -29,6 +29,7 @@ function init() {
 	Alloy.CFG.is_quick_refill_enabled && setImages($.refillImg, "refill", 28);
 	Alloy.CFG.is_reminders_enabled && setImages($.remindersImg, "reminders", 14);
 	Alloy.CFG.is_proxy_enabled && setImages($.familyCareImg, "family_care", 23);
+	Alloy.CFG.is_express_checkout_enabled && setImages($.expPickupImg, "exp_pickup", 17);
 	//first launch flag
 	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }

@@ -31,6 +31,12 @@
 "#familyCareImg":{
 	duration: 100
 },
+"#expPickupLbl":{
+	text: Alloy.Globals.strings.carouselLblExpPickupQR
+},
+"#expPickupImg":{
+	duration: 100
+},
 "#submitBtn":{
 	title: Alloy.Globals.strings.carouselBtnNext
 },
