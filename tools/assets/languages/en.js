@@ -418,6 +418,8 @@ module.exports = {
 		"prescSectionReadyPickup" : "Ready for pickup",
 		"prescSectionReadyRefill" : "Ready to refill",
 		"prescSectionOthers" : "Other prescriptions",
+		"prescSectionMedSync" : "Med Sync Prescriptions",
+
 		"prescSwipeOptHide" : "Hide",
 		"prescSwipeOptRefill" : "Refill",
 		"prescInProgressLblPromise" : "Order processed: ready by %s",

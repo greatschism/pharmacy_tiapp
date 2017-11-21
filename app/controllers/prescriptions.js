@@ -14,7 +14,8 @@ var args = $.args,
     sections,
     currentPrescription,
     isWindowOpen,
-    analyticsCategory;
+    analyticsCategory,
+    hasMedSyncEnabled;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -262,23 +263,41 @@ function didGetHiddenPrescriptions(result, passthrough) {
 }
 
 function prepareList() {
+	
+	
+	hasMedSyncEnabled = false;
+	var medSyncPrescriptions = [];
+
+	medSyncPrescriptions = Alloy.Collections.prescriptions.filter(function(prescription) {
+		return (prescription.get("syncScriptEnrolled") == "1");
+	});
+
+	hasMedSyncEnabled = medSyncPrescriptions.length > 0 ? true : false;
 	//reset section / row data
-	sections = {
-		readyPickup : [],
-		inProgress : [],
-		readyRefill : [],
-		others : []
-	};
+	sections = {};
+	if(hasMedSyncEnabled && !args.selectable) {
+		sections.medSync = [];
+	}
+	sections.readyPickup = [];
+	sections.inProgress = [];
+	sections.readyRefill = [];
+	sections.others = [];
+
 	//loop data for rows
-	var sectionHeaders = {
-		readyPickup : "",
-		inProgress : "",
-		readyRefill : "",
-		others : ""
-	},
-	    currentDate = moment(),
-	    filters = args.filters || {},
-	    selectedItems = args.selectedItems || [];
+	var sectionHeaders =  {};
+	if(hasMedSyncEnabled && !args.selectable) {
+		sectionHeaders.medSync = "";
+	}
+	sectionHeaders.readyPickup = "";
+	sectionHeaders.inProgress = "";
+	sectionHeaders.readyRefill = "";
+	sectionHeaders.others = "";
+	
+	currentDate = moment(),
+    filters = args.filters || {},
+    selectedItems = args.selectedItems || [];
+	    
+	    
 	/**
 	 * current user preferences
 	 * about hide zero refill prescription
@@ -295,10 +314,8 @@ function prepareList() {
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
 
-
-	//Ti.API.info(JSON.stringify(Alloy.Collections.prescriptions))
-
 	Alloy.Collections.prescriptions.each(function(prescription) {
+		
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
 		 * then it is returned to the "Ready for refill" list.
@@ -362,6 +379,20 @@ function prepareList() {
 			title : $.utilities.ucword(prescription.get("presc_name")),
 			selected : _.indexOf(selectedItems, prescription.get("id")) !== -1
 		});
+		
+		
+		/*
+		 * MCE-690
+		 * MedSync prescriptions should be kept separate from the rest of my prescriptions
+		 */
+		
+		if (hasMedSyncEnabled) {
+			var index = _.contains(medSyncPrescriptions, prescription);
+			if (index)
+				return;
+		}
+
+		
 		//process sections
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:
@@ -612,6 +643,7 @@ function prepareList() {
 			});
 			}
 		}
+	
 		var rowParams = prescription.toJSON(),
 		    row;
 		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
@@ -630,6 +662,33 @@ function prepareList() {
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);
 	});
+	
+
+	if (hasMedSyncEnabled && !args.selectable) {
+		_.each(medSyncPrescriptions, function(prescription) {
+			prescription.set({
+				className : "MS",
+				itemTemplate : "completed",
+				masterWidth : 100,
+				detailWidth : 0,
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+				detailTitle : "Next Pick Up " + prescription.get("nextSyncFillDate"),
+				detailColor : "custom-fg-color",
+				customIconCheckoutComplete : "icon-clock",
+				section : "medSync",
+				titleClasses : titleClasses,
+				canHide : false
+			});
+
+			var rowParams = prescription.toJSON(),
+			    row;
+			rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+			sectionHeaders[rowParams.section] += rowParams.filterText;
+			sections[rowParams.section].push(row);
+		});
+	}
+					
 	var data = [];
 	_.each(sections, function(rows, key) {
 		var addRows = false;
@@ -960,7 +1019,7 @@ function didClickCheckout(e)
 			ctrlArguments : {
 				filters : {
 					refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
-					section: ["others"],
+					section: ["others", "medSync"],
 					is_checkout_complete: ["1", null]
 				},
 				prescriptions :null,
