@@ -667,20 +667,17 @@ function prepareList() {
 	
 	if (hasMedSyncEnabled && !args.selectable) {
 				
-		var nextPickupDate = medSyncPrescriptions[0].get("nextSyncFillDate") ;// = "12/20/2017";
-					logger.debug("\n\n\nnextPickupDate	",nextPickupDate, "\n\n\n");
-		// _.some(medSyncPrescriptions, function(presc) {
-			// if (_.has(presc, "nextSyncFillDate")) {
-				// logger.debug("\n\n\npresc	", JSON.stringify(presc,null,4), "\n\n\n");
-// 
-				// if (presc.nextSyncFillDate != null) {
-					// logger.debug("\n\n\npresc.nextSyncFillDate	", presc.nextSyncFillDate, "\n\n\n");
-					// nextPickupDate = presc.nextSyncFillDate;
-					// return true;
-				// }
-			// }
-			// return false;
-		// });
+		var nextPickupDate;
+
+		_.some(medSyncPrescriptions, function(presc) {
+			if (presc.has("nextSyncFillDate")) {
+				if (presc.get("nextSyncFillDate") != null) {
+					nextPickupDate = presc.get("nextSyncFillDate");
+					return true;
+				}
+			}
+			return false;
+		}); 
 
 		
 		var detailBtnClasses = ["bg-color", "custom-fg-color", "inactive-light-border", "width-60", "h6"];
