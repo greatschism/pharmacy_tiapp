@@ -14,7 +14,9 @@ var args = $.args,
     sections,
     currentPrescription,
     isWindowOpen,
-    analyticsCategory;
+    analyticsCategory,
+    hasMedSyncEnabled,
+    medSyncPrescriptions;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -262,23 +264,40 @@ function didGetHiddenPrescriptions(result, passthrough) {
 }
 
 function prepareList() {
+	
+	hasMedSyncEnabled = false;
+	medSyncPrescriptions = [];
+
+	medSyncPrescriptions = Alloy.Collections.prescriptions.filter(function(prescription) {
+		return (prescription.get("syncScriptEnrolled") == "1");
+	});
+
+	hasMedSyncEnabled = medSyncPrescriptions.length > 0 ? true : false;
 	//reset section / row data
-	sections = {
-		readyPickup : [],
-		inProgress : [],
-		readyRefill : [],
-		others : []
-	};
+	sections = {};
+	if(hasMedSyncEnabled && !args.selectable) {
+		sections.medSync = [];
+	}
+	sections.readyPickup = [];
+	sections.inProgress = [];
+	sections.readyRefill = [];
+	sections.others = [];
+
 	//loop data for rows
-	var sectionHeaders = {
-		readyPickup : "",
-		inProgress : "",
-		readyRefill : "",
-		others : ""
-	},
-	    currentDate = moment(),
-	    filters = args.filters || {},
-	    selectedItems = args.selectedItems || [];
+	var sectionHeaders =  {};
+	if(hasMedSyncEnabled && !args.selectable) {
+		sectionHeaders.medSync = "";
+	}
+	sectionHeaders.readyPickup = "";
+	sectionHeaders.inProgress = "";
+	sectionHeaders.readyRefill = "";
+	sectionHeaders.others = "";
+	
+	currentDate = moment(),
+    filters = args.filters || {},
+    selectedItems = args.selectedItems || [];
+	    
+	    
 	/**
 	 * current user preferences
 	 * about hide zero refill prescription
@@ -295,10 +314,8 @@ function prepareList() {
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
 
-
-	//Ti.API.info(JSON.stringify(Alloy.Collections.prescriptions))
-
 	Alloy.Collections.prescriptions.each(function(prescription) {
+		
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
 		 * then it is returned to the "Ready for refill" list.
@@ -362,6 +379,20 @@ function prepareList() {
 			title : $.utilities.ucword(prescription.get("presc_name")),
 			selected : _.indexOf(selectedItems, prescription.get("id")) !== -1
 		});
+		
+		
+		/*
+		 * MCE-690
+		 * MedSync prescriptions should be kept separate from the rest of my prescriptions
+		 */
+	
+		if (hasMedSyncEnabled && !args.selectable) {
+			var index = _.contains(medSyncPrescriptions, prescription);
+			if (index)
+				return;
+		}
+
+		
 		//process sections
 		switch(prescription.get("refill_status")) {
 		case apiCodes.refill_status_in_process:
@@ -612,6 +643,7 @@ function prepareList() {
 			});
 			}
 		}
+	
 		var rowParams = prescription.toJSON(),
 		    row;
 		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
@@ -630,6 +662,84 @@ function prepareList() {
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);
 	});
+	
+	
+	
+	if (hasMedSyncEnabled && !args.selectable) {
+				
+		var nextPickupDate = medSyncPrescriptions[0].get("nextSyncFillDate") ;// = "12/20/2017";
+					logger.debug("\n\n\nnextPickupDate	",nextPickupDate, "\n\n\n");
+		// _.some(medSyncPrescriptions, function(presc) {
+			// if (_.has(presc, "nextSyncFillDate")) {
+				// logger.debug("\n\n\npresc	", JSON.stringify(presc,null,4), "\n\n\n");
+// 
+				// if (presc.nextSyncFillDate != null) {
+					// logger.debug("\n\n\npresc.nextSyncFillDate	", presc.nextSyncFillDate, "\n\n\n");
+					// nextPickupDate = presc.nextSyncFillDate;
+					// return true;
+				// }
+			// }
+			// return false;
+		// });
+
+		
+		var detailBtnClasses = ["bg-color", "custom-fg-color", "inactive-light-border", "width-60", "h6"];
+		var medSyncData = {
+			itemTemplate : "masterDetailBtn",
+			title : "MedSync",
+			titleClasses : titleClasses,
+			masterWidth : 40,
+			detailWidth : 60,
+			detailTitle : "Next Pick Up "+ nextPickupDate,
+			detailColor : "custom-fg-color",
+			btnClasses : detailBtnClasses,
+			section : "medSync",
+			canHide : false
+		};
+
+		var rowParams = medSyncData,
+		    row;
+		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+		row.on("clickdetail", showMedSyncPrescriptions);
+		sectionHeaders[rowParams.section] += rowParams.filterText;
+		sections[rowParams.section].push(row);
+	}
+
+
+
+		/*
+		 * MCE-719 MedSync Prescriptions List
+		 * uncomment below and use when showMedSyncPrescriptions() triggered(i.e. click on MedSync section)
+		 *
+		 */
+	/*
+	if (hasMedSyncEnabled && !args.selectable) {
+		_.each(medSyncPrescriptions, function(prescription) {
+			prescription.set({
+				className : "MS",
+				itemTemplate : "completed",
+				masterWidth : 100,
+				detailWidth : 0,
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+				detailTitle : "Next Pick Up " + prescription.get("nextSyncFillDate"),
+				detailColor : "custom-fg-color",
+				customIconCheckoutComplete : "icon-clock",
+				section : "medSync",
+				titleClasses : titleClasses,
+				canHide : false
+			});
+
+			var rowParams = prescription.toJSON(),
+			    row;
+			rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+			sectionHeaders[rowParams.section] += rowParams.filterText;
+			sections[rowParams.section].push(row);
+		});
+	}
+	*/
+					
 	var data = [];
 	_.each(sections, function(rows, key) {
 		var addRows = false;
@@ -654,7 +764,7 @@ function prepareList() {
 				 * when other section is only visible
 				 * Note: others section is the last section in sections list
 				 */
-				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0)) {
+				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0) || key == "medSync") {
 					tvSection = Ti.UI.createTableViewSection();
 				} else {
 					if (headerBtnDict) {
@@ -916,6 +1026,8 @@ function handleClose() {
 	$.app.navigator.close();
 }
 
+function showMedSyncPrescriptions() {}
+
 function displayCheckoutInfo()
 {
 		var dialogView2 = $.UI.create("ScrollView", {
@@ -949,9 +1061,9 @@ function displayCheckoutInfo()
 
 }
 
-function didClickCheckout(e)
-{
-	if( ! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)  ) {
+
+function didClickCheckout(e) {
+	if (! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)) {
 		displayCheckoutInfo();
 	} else {
 		$.app.navigator.open({
@@ -959,21 +1071,23 @@ function didClickCheckout(e)
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
-					refill_status : [apiCodes.refill_status_in_process,apiCodes.refill_status_sold],
-					section: ["others"],
-					is_checkout_complete: ["1", null]
+					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
+					section : ["others", "medSync"],
+					is_checkout_complete : ["1", null],
+					syncScriptEnrolled : ["1"]
 				},
-				prescriptions :null,
+				prescriptions : null,
 				patientSwitcherDisabled : true,
 				useCache : true,
 				selectable : true,
 				hideCheckoutHeader : true,
 				navigationFrom : ""
 			},
-			stack : true 
+			stack : true
 		});
 	}
 }
+
 
 
 function didClickPhone(e) {	
@@ -1259,114 +1373,119 @@ function hidePrescription(e) {
 	});
 }
 
-function didClickTableView(e) {	
-	if(e.source != $.tableView){
-	if (Alloy.Globals.currentRow) {
-		return Alloy.Globals.currentRow.touchEnd();
-	}
-	var index = e.index,
-	    count = 0,
-	    sectionId,
-	    rowId,
-	    row;
-	_.some(sections, function(rows, sid) {
-		count += rows.length;
-		if (count > index) {
-			sectionId = sid;
-			rowId = index - (count - rows.length);
-			/**
-			 *breaks the loop once row is assigned
-			 */
-			row = rows[rowId];
-			return true;
+
+function didClickTableView(e) {
+	if (e.source != $.tableView) {
+		if (Alloy.Globals.currentRow) {
+			return Alloy.Globals.currentRow.touchEnd();
 		}
-		return false;
-	});
-	if (row) {
-		if (args.selectable) {
-			var prescription = row.getParams(),
-			    toggleSelection = function() {
+		var index = e.index,
+		    count = 0,
+		    sectionId,
+		    rowId,
+		    row;
+		_.some(sections, function(rows, sid) {
+			count += rows.length;
+			if (count > index) {
+				sectionId = sid;
+				rowId = index - (count - rows.length);
 				/**
-				 * update selection flag
+				 *breaks the loop once row is assigned
 				 */
-				prescription.selected = !prescription.selected;
-				sections[sectionId][rowId] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
-				$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionId][rowId].getView());
-				/**
-				 * verify & update header button's
-				 * title and flag
-				 */
-				var headerBtn;
-				_.some($.tableView.data, function(tvSection) {
-					var btn = tvSection.headerView && tvSection.headerView.children[0];
-					if (btn && btn.sectionId === sectionId) {
-						headerBtn = btn;
-						return true;
-					}
-				});
-				if (headerBtn && headerBtn.selected === prescription.selected) {
-					var selected = false;
-					_.some(sections[sectionId], function(srow) {
-						if (!srow.getParams().selected) {
-							selected = true;
+				row = rows[rowId];
+				return true;
+			}
+			return false;
+		});
+		if (row) {
+			if (args.selectable) {
+				var prescription = row.getParams(),
+				    toggleSelection = function() {
+					/**
+					 * update selection flag
+					 */
+					prescription.selected = !prescription.selected;
+					sections[sectionId][rowId] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionId][rowId].getView());
+					/**
+					 * verify & update header button's
+					 * title and flag
+					 */
+					var headerBtn;
+					_.some($.tableView.data, function(tvSection) {
+						var btn = tvSection.headerView && tvSection.headerView.children[0];
+						if (btn && btn.sectionId === sectionId) {
+							headerBtn = btn;
 							return true;
 						}
 					});
-					if (selected !== headerBtn.selected) {
-						headerBtn.selected = selected;
-						headerBtn.title = $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"];
+					if (headerBtn && headerBtn.selected === prescription.selected) {
+						var selected = false;
+						_.some(sections[sectionId], function(srow) {
+							if (!srow.getParams().selected) {
+								selected = true;
+								return true;
+							}
+						});
+						if (selected !== headerBtn.selected) {
+							headerBtn.selected = selected;
+							headerBtn.title = $.strings[ selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"];
+						}
+					}
+				};
+				/**
+				 * validator
+				 * will say which validation
+				 * has to be done upon selection
+				 *
+				 * should be validate only if prescription.selected is false
+				 * when it is selected by user, not when unselected
+				 */
+				if (prescription.selected || validator === "none") {
+					/**
+					 * no validator
+					 */
+					toggleSelection();
+				} else if (validator === "medReminder") {
+					/**
+					 * used for med reminders
+					 * verify whether this prescription
+					 * has a reminder already.
+					 */
+					rx.hasMedReminder(args.reminderId, prescription, toggleSelection);
+				} else {
+					/**
+					 * considered as default
+					 * validator, to prevent any validation
+					 * validator should be "none"
+					 */
+					if (!args.hideCheckoutHeader) {
+						rx.canRefill(prescription, toggleSelection);
+					} else {
+						toggleSelection();
 					}
 				}
-			};
-			/**
-			 * validator
-			 * will say which validation
-			 * has to be done upon selection
-			 *
-			 * should be validate only if prescription.selected is false
-			 * when it is selected by user, not when unselected
-			 */
-			if (prescription.selected || validator === "none") {
-				/**
-				 * no validator
-				 */
-				toggleSelection();
-			} else if (validator === "medReminder") {
-				/**
-				 * used for med reminders
-				 * verify whether this prescription
-				 * has a reminder already.
-				 */
-				rx.hasMedReminder(args.reminderId, prescription, toggleSelection);
+				return false;
 			} else {
-				/**
-				 * considered as default
-				 * validator, to prevent any validation
-				 * validator should be "none"
-				 */
-				if(!args.hideCheckoutHeader) {
-					rx.canRefill(prescription, toggleSelection);
+				if (sectionId == "medSync" && hasMedSyncEnabled) {
+					showMedSyncPrescriptions();
+				} else {
+					currentPrescription = row.getParams();
+					$.app.navigator.open({
+						titleid : "titlePrescriptionDetails",
+						ctrl : "prescriptionDetails",
+						ctrlArguments : {
+							prescription : currentPrescription,
+							canHide : currentPrescription.canHide
+						},
+						stack : true
+					});
 				}
-				else {
-					toggleSelection();
-				}			
 			}
-			return false;
-		} else {
-			currentPrescription = row.getParams();
-			$.app.navigator.open({
-				titleid : "titlePrescriptionDetails",
-				ctrl : "prescriptionDetails",
-				ctrlArguments : {
-					prescription : currentPrescription,
-					canHide : currentPrescription.canHide
-				},
-				stack : true
-			});
 		}
 	}
-	}
 }
+
 
 function hideAllPopups() {
 	if ($.sortPicker && $.sortPicker.getVisible()) {
