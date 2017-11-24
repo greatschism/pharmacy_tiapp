@@ -125,7 +125,6 @@ function didAuthenticate(passthrough, navigationHandled) {
 	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
 		passthrough = null;
-		delete passthrough;
 	}
 }
 

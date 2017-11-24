@@ -271,7 +271,6 @@ function didAuthenticate(passthrough) {
 	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
 		passthrough = null;
-		delete passthrough;
 	}
 }
 
