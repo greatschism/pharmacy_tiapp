@@ -162,7 +162,7 @@ function prepareData() {
 	 * occurs on first launch
 	 * when all accounts
 	 * are partial
-	 */
+	 */     
 	var currentPatient = $.patientSwitcher.get();
 	if (currentPatient.get("is_partial")) {
 		/**
