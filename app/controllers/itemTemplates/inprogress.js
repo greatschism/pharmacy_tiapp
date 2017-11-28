@@ -21,11 +21,14 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	$.progressBar.width = args.progress + "%";
+	var rowContainerObj = OS_IOS ? $.row : $.contentView;
+ 	var rowAccessibilityText = $.titleLbl.text + " " + $.subtitleLbl.text;
+ 	rowContainerObj.accessibilityLabel = rowAccessibilityText;
+ 	rowContainerObj.accessibilityValue = $.progressBar.width;
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
-	$.progressBar.width = args.progress + "%";
-	$.progressBar.accessibilityValue = $.progressBar.width;
 })();
 
 function getParams() {

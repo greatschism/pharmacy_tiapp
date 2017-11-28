@@ -43,7 +43,7 @@
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup" onClick="handleEvent">
-				<Button id="doneBtn" analyticsId="DoneBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickDone" />
+				<Button id="doneBtn" analyticsId="DoneBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickDone" />
 			</View>
 		</FooterView>
 	</TableView>

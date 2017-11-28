@@ -43,6 +43,7 @@
 			"prescriptions_refill": "prescriptions/refill",
 			"prescriptions_quick_refill": "prescriptions/quickRefill",
 			"prescriptions_get_refill_history": "prescriptions/getrefillhistory",
+			"prescriptions_express_checkout_info": "prescriptions/checkout",
 			"reminders_refill_get": "reminders/refill/get",
 			"reminders_refill_add": "reminders/refill/add",
 			"reminders_refill_update": "reminders/refill/update",
@@ -63,7 +64,8 @@
 			"mobile_add": "patient/mobile/add",
 			"mobile_resend": "patient/mobile/resend",
 			"email_resend": "patient/email/resend",
-			"mailorder_stores_get": "stores/getmailorderservice"
+			"mailorder_stores_get": "stores/getmailorderservice",
+			"checkout_preferences_update": "payments/updateCheckoutPreferences"
 		},
 		"apiCodes": {
 			"success": "200",
@@ -73,6 +75,7 @@
 			"invalid_combination_for_signup" : "ECOH673",
 			"date_format": "MM-DD-YYYY",
 			"date_time_format": "MM-DD-YYYY hh:mm A",
+			"day_of_week_time_format": "dddd hh:mm A",
 			"dob_format": "YYYY-MM-DD",
 			"ymd_date_time_format": "YYYY-MM-DD HH:mm:ss",
 			"reminder_delivery_mode_push_ios": "iospush",
@@ -126,7 +129,8 @@
 			"code_pickup_modes": "Pickup Mode",
 			"code_time_zone": "Time Zone",
 			"code_language": "MultiLanguage",
-			"code_relationship": "Relationship"
+			"code_relationship": "Relationship",
+			"code_counseling_eligible": "Counseling Eligible"
 		},
 		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
@@ -139,9 +143,13 @@
 		"delete_unused_resources": false,
 		"storage_engine": "tiencrypted",
 		"first_launch_app": "firstLaunchApp",
-		"first_launch_reminders": "firstLaunchReminders",
-		"first_launch_med_reminders": "firstLaunchMedReminders",		
+		"first_launch_reminders": "firstLaunchReminders",		
 		"touchid_prompted": "touchidPrompted",
+		"first_launch_med_reminders": "firstLaunchMedReminders",        
+		"checkout_info_prompted": "checkoutInfoPrompted",
+		"show_loyalty_signup": "showLoyaltySignup",       
+		"cc_on_file": "ccOnFile",
+		"sync_after_checkout": "syncAfterCheckout",
 		"user_account": "account",
 		"resources_updated_on": "resourcesUpdated",
 		"latest_pickup_mode": "latestPickupMode",

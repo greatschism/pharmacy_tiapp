@@ -105,6 +105,8 @@
     <module platform="android" version="1.0">com.mscripts.androidkeychain</module>
     <module platform="iphone" version="0.1">com.mscripts.keychainimporter</module>
     <module platform="iphone" version="0.0">com.mscripts.mscriptstouchid</module>
+    <module platform="android" version="2.2.2">ti.imagefactory</module>
+    <module platform="iphone" version="1.3.0">ti.imagefactory</module>
   </modules>
   <deployment-targets>
     <target device="iphone">true</target>

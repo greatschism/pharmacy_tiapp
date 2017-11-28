@@ -75,7 +75,7 @@ function init() {
 	 */
 	if (OS_IOS) {
 		leftBtnDict = $.createStyle({
-			classes : ["left", "i4", "primary-bg-color", "dark-color", "icon-direction"],
+			classes : ["left", "i4", "primary-bg-color", "primary-font-color", "icon-direction"],
 			width : 54,
 			height : 54
 		});
@@ -834,6 +834,7 @@ function prepareMap(shouldUpdateRegion) {
 				region.latitude.delta = region.latitude.max - region.latitude.min;
 				region.longitude.delta = region.longitude.max - region.longitude.min;
 				region.delta = Math.max(region.latitude.delta, region.longitude.delta);
+				region.delta = region.delta == 0 ? 0.5 : region.delta;
 			} else {
 				region.delta = 0.05;
 			}

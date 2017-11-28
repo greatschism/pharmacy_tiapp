@@ -34,6 +34,7 @@ var args = $.args,
 		});
 	}
 	$.lbl.applyProperties(options);
+	$.lbl.accessibilityHidden = true;
 
 	$.downArrowLbl.applyProperties({
 		right : args.iconPaddingRight || 12,
@@ -181,6 +182,8 @@ function didTerminatePicker(e) {
 		setSelectedIndex(e.selectedIndex);
 		if (Ti.App.accessibilityEnabled) {
 			Ti.App.fireSystemEvent( OS_IOS ? Ti.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED : Ti.App.Android.EVENT_ACCESSIBILITY_VIEW_FOCUS_CHANGED, $.widget);
+			$.lbl.accessibilityHidden = true;
+			$.downArrowLbl.accessibilityHidden = true;
 		}
 		$.trigger("return", {
 			source : $,
@@ -251,7 +254,7 @@ function setSelectedIndex(index) {
 	if (!_.isEmpty(selectedItem)) {
 		removeHint();
 		var label = selectedItem[args.valueProperty || args.titleProperty || "title"] || "";
-		$.widget.accessibilityLabel = label;
+		$.widget.accessibilityLabel = label + (args.accessibilityHint || "");
 		$.lbl.text = label;
 	}
 }
@@ -272,7 +275,7 @@ function setValue(date) {
 	selectedDate = date;
 	removeHint();
 	var label = moment(selectedDate.toString(), "ddd MMM DD YYYY HH:mm:ss").format(format);
-	$.widget.accessibilityLabel = label;
+	$.widget.accessibilityLabel = label + (args.accessibilityHint || "");
 	$.lbl.text = label;
 }
 

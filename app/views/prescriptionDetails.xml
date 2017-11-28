@@ -3,13 +3,17 @@
 		<Widget id="prescExp" src="ti.expandable">
 			<View class="auto-height role-master-view" onClick="togglePrescription">
 				<Label id="titleLbl" class="margin-top margin-left right-35 h4" />
-				<Label id="toggleLbl" class="margin-top-large margin-right width-30 txt-right h7 active-fg-color" />
+				<Label id="toggleLbl" class="margin-top-large margin-right width-30 txt-right h8 active-fg-color" />
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
 				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
 					<View class="margin-top-medium auto-height">
 						<Label id="rxPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="rxReplyLbl" class="top margin-left-medium hide" />
+					</View>
+					<View id="quantityView" class="margin-top-medium auto-height">
+						<Label id="quantityPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="quantityReplyLbl" class="top margin-left-medium hide" />
 					</View>
 					<View class="margin-top auto-height">
 						<Label id="expiryPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
@@ -51,7 +55,7 @@
 				<Button id="lastRefillBtn" class="margin-top-small margin-left-small margin-right-small min-height h5 inactive-light-bg-color fg-color inactive-light-border accessibility-disabled" />
 			</View>
 		</View>
-		<Button id="refillBtn" class="primary-bg-color dark-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
+		<Button id="refillBtn" class="primary-bg-color primary-font-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
 		<View class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_reminders_enabled">
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>

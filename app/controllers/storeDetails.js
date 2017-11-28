@@ -125,7 +125,7 @@ function didGetStore(result, passthrough) {
 	$.loader.hide();
 }
 
-function didFailed(){
+function didFailed() {
 	$.app.navigator.close();
 	$.loader.hide();
 }
@@ -139,8 +139,9 @@ function updateHome() {
 function updateFavourite() {
 	var isFavourite = store.isbookmarked || store.ishomepharmacy;
 	$.favouriteLbl.text = $.strings[ isFavourite ? "storeDetBtnFavouriteRemove" : "storeDetBtnFavouriteAdd"];
+	$.favouriteLbl.accessibilityLabel = $.strings[ isFavourite ? "storeDetBtnFavouriteRemoveAccessibility" : "storeDetBtnFavouriteAddAccessibility"];
 	$.favouriteIconLbl.applyProperties($.createStyle({
-		classes : ["accessibility-enabled", store.isbookmarked || store.ishomepharmacy ? "icon-filled-star" : "icon-star"],
+		classes : store.isbookmarked || store.ishomepharmacy ? ["accessibility-enabled",  "icon-filled-star"] : ["accessibility-disabled", "icon-star"],
 		accessibilityLabel : $.strings.storeDetIconFavStore
 	}));
 }
@@ -155,12 +156,11 @@ function contactsHandler() {
 }
 
 function didClickPhone(e) {
-	if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
+	if (!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result) {
+			if (result.success) {
 				contactsHandler();
-			}
-			else{
+			} else {
 				$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
 			}
 		});
@@ -190,6 +190,7 @@ function didClickRefill(e) {
 				selectable : true,
 				minLength : 1,
 				useCache : false,
+				navigationFrom : "",
 				navigation : {
 					titleid : "titleOrderDetails",
 					ctrl : "orderDetails",

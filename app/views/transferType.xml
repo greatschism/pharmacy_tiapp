@@ -18,7 +18,7 @@
 			<Widget id="storeOriginalDp" analyticsId="StoreOriginalDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled" onReturn="didChangeStore"/>
 		</View>
 		<View id="otherTxtView" class="margin-top margin-left margin-right auto-height vgroup border"></View>
-		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmit" />
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" />
 	</View>
 	</ScrollView>
 </Alloy>

@@ -12,6 +12,9 @@
 "#titleLbl":{
 	text: Alloy.Globals.strings.refillTypeLblTitle
 },
+"#titleLblOutsideLogin":{
+	text: Alloy.Globals.strings.refillTypeLblTitleOutsideLogin
+},
 "#descLbl":{
 	text: Alloy.Globals.strings.refillTypeLblDesc
 },

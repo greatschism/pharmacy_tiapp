@@ -49,4 +49,7 @@
 },
 "#removeBtn":{
 	title: Alloy.Globals.strings.remindersMedSettingsBtnRemove
+},
+"#notesView":{
+	height: 70
 }

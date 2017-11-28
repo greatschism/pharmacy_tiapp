@@ -1,4 +1,5 @@
 var args = $.args,
+	checkedAccessiblity,
     uihelper = require("uihelper");
 
 (function() {
@@ -15,7 +16,7 @@ var args = $.args,
 			$.addClass($.leftIconLbl, args.selected ? ["positive-fg-color", "icon-thin-filled-success","accessibility-enabled"] : ["inactive-fg-color", "icon-spot","accessibility-enabled"]);
 			$.leftIconLbl.accessibilityLabel = args.selected ? Alloy.Globals.strings.accessibilityCheckboxRemoveSelection : Alloy.Globals.strings.accessibilityCheckboxSelect;
 		};
-		
+		checkedAccessiblity = $.leftIconLbl.accessibilityLabel;
 	} else {
 		var iDict = {};
 		if (args.iconClasses) {
@@ -56,6 +57,19 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	var rowContainerObj = OS_IOS ? $.row : $.containerView;
+	var rowAccessibilityText = $.titleLbl.text + " " + $.subtitleLbl.text;
+	if (checkedAccessiblity) {
+		rowAccessibilityText = rowAccessibilityText + " " + checkedAccessiblity;
+		$.leftIconLbl.accessibilityHidden = true;
+	} else {
+		var lIconAccText = $.leftIconLbl.accessibilityLabel;
+		if (lIconAccText) {			
+			rowAccessibilityText = rowAccessibilityText + " " + lIconAccText;
+			$.leftIconLbl.accessibilityHidden = true;
+		};
+	}
+	rowContainerObj.accessibilityLabel = rowAccessibilityText;
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});

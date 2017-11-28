@@ -24,7 +24,7 @@
 					<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
 				</View>
 			</View>
-		<Button id="btnUpdateAccount" analyticsId="UpdateAccountBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="addPrescriptions"/>
+		<Button id="btnUpdateAccount" analyticsId="UpdateAccountBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="addPrescriptions"/>
 		</View>
 		<Widget id="rxTooltip" analyticsId="RxToolTp" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 

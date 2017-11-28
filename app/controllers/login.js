@@ -444,7 +444,7 @@ function didFailed(error, passthrough) {
 
 function didClickForgotPassword(e) {
 	$.app.navigator.open({
-		ctrl : "forgotPassword",
+		ctrl : "password",
 		titleid : "titleForgotPassword",
 		stack : true
 	});

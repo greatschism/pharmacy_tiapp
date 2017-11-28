@@ -1,6 +1,7 @@
 module.exports = {
 	"data" : [{
-		"titleid" : "titleHome",
+		"menuTitleid" : "titleHome",
+		"titleid" : "titleHomePage",
 		"ctrl" : "home",
 		"icon" : "home",
 		"requires_login" : false,
@@ -43,8 +44,14 @@ module.exports = {
 		"titleid" : "titleInsurance",
 		"ctrl" : "insurance",
 		"icon" : "reward",
-		"feature_name" : "is_doctors_enabled",
+		"feature_name" : "is_insurancecard_enabled",
 		"requires_login" : false
+	}, {
+		"titleid" : "titleExpressPickup",
+		"ctrl" : "expressCheckout",
+		"icon" : "express_checkout",
+		"feature_name" : "is_express_checkout_enabled",
+		"requires_login" : true
 	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
@@ -61,7 +68,5 @@ module.exports = {
         "url": "http://meijer.mobilepharmacyhelp.com/",
         "icon": "thick_help",
         "requires_login": false
-    }
-	
-	]
+    }]
 };

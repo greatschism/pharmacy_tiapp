@@ -25,6 +25,9 @@ function init() {
 		$.drawer.on("close", didClose);
 		$.drawer.on("windowDidOpen", windowDidOpen);
 		$.drawer.on("windowDidClose", windowDidClose);
+				
+		globalLeftNavHandler = didClickLeftNavView;
+
 
 	}
 	if (OS_ANDROID) {

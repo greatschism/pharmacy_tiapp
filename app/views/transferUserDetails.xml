@@ -15,7 +15,7 @@
 			<View class="h-divider" />
 			<Widget id="phoneTxt" analyticsId="DobDropDwn" src="ti.textfield" class="top left right txt border-disabled keyboard-phone returnkey-done" onChange="didChangePhone" onReturn="didClickSubmit" />
 		</View>
-		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickSubmit"/>
+		<Button id="submitBtn" analyticsId="SubmitBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit"/>
 		<!--bring the login button on edit might bring additional efforts,
 		not required as user has already chosen to enter his information-->
 		<Widget id="loginAttr" analyticsId="LoginAttr" src="ti.styledlabel" class="margin-top margin-bottom attributed" onClick="didClickLogin" if="!$.args.user" />

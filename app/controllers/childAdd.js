@@ -354,7 +354,10 @@ function didFocusRx(e) {
 	$.rxTooltip.applyProperties({
 				top : top - margin
 			});
-			$.rxTooltip.show();
+	if (!Ti.App.accessibilityEnabled) {
+		$.rxTooltip.show();	
+	}
+			
 }
 
 function didClickPharmacy(e) {

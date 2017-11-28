@@ -1,6 +1,6 @@
 <Alloy>
 	<Widget id="contactOptionsMenu" analyticsId="ContactOptionsMenu" src="ti.optiondialog" onClick="didClickcontactOptionsMenu" />
-	<Widget id="timeZonePicker" analyticsId="TimeZonePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="timeZonePicker" analyticsId="TimeZonePicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="timezoneLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
@@ -8,7 +8,7 @@
 			<Button id="timezoneCloseBtn" analyticsId="TimezoneCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseTimeZone" />
 		</View>
 	</Widget>
-	<Widget id="languagePicker" analyticsId="LanguagePicker" src="ti.optionpicker" class="modal-dialog">
+	<Widget id="languagePicker" analyticsId="LanguagePicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
 		<View class="top min-height inactive-light-bg-color role-header-view">
 			<Label id="languageLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
@@ -27,15 +27,15 @@
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickmobileNumber">
-				<View class="auto-height">
-					<Label id="mobileNumberLbl" class="margin-top margin-bottom margin-left attributed" />
-					<Label id="mobileNumberValue" class="margin-right attributed active-fg-color" />
+				<View id="mobileInfoView" class="auto-height">
+					<Label id="mobileNumberLbl" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
+					<Label id="mobileNumberValue" class="margin-right attributed active-fg-color accessibility-disabled" />
 				</View>
 			</TableViewRow>
 			<TableViewRow onClick="didClickEmailAddress">
-				<View class="auto-height">
-					<Label id="emailLbl" class="margin-top margin-bottom margin-left attributed" />
-					<Label id="emailValue" class="margin-right attributed active-fg-color"/>
+				<View id="emailInfoView" class="auto-height">
+					<Label id="emailLbl" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
+					<Label id="emailValue" class="margin-right attributed active-fg-color accessibility-disabled"/>
 				</View>
 			</TableViewRow>
 		</TableViewSection>
@@ -65,16 +65,16 @@
 				</View>
 			</HeaderView>
 			<TableViewRow onClick="didClickTimeZone">
-				<View class="auto-height">
-					<Label id="timeZonePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
-					<Label id="timeZoneReplyLbl" class="margin-right-extra-large" />
+				<View id="timeZoneInfoView" class="auto-height">
+					<Label id="timeZonePromptLbl" class="margin-top margin-bottom margin-left margin-right-small accessibility-disabled" />
+					<Label id="timeZoneReplyLbl" class="margin-right-extra-large accessibility-disabled" />
 					<Label class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
 			</TableViewRow>
 			<TableViewRow onClick="didClickLanguage">
-				<View class="auto-height">
-					<Label id="languagePromptLbl" class="margin-top margin-bottom margin-left margin-right-small" />
-					<Label id="languageReplyLbl" class="margin-right-extra-large" />
+				<View id="languageInfoView" class="auto-height">
+					<Label id="languagePromptLbl" class="margin-top margin-bottom margin-left margin-right-small accessibility-disabled" />
+					<Label id="languageReplyLbl" class="margin-right-extra-large accessibility-disabled" />
 					<Label class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
 			</TableViewRow>

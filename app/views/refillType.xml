@@ -1,6 +1,7 @@
 <Alloy>
 	<ScrollView id="scrollView" class="vgroup">
-		<Label id="titleLbl" class="margin-top margin-left margin-right h2 txt-center" />
+		<Label id="titleLbl" class="margin-top margin-left margin-right h2 txt-center" if="Alloy.Globals.isLoggedIn" />
+		<Label id="titleLblOutsideLogin" class="margin-top margin-left margin-right h2 txt-center" if="!Alloy.Globals.isLoggedIn" />
 		<ImageView id="successImg" class="margin-top-large img-success" />
 		<Label id="descLbl" class="margin-top-large margin-left margin-right" />
 		<View class="margin-top min-height inactive-light-bg-color">
@@ -30,7 +31,7 @@
 			<View id="pickupDividerView" class="h-divider-light" />
 		</View>
 		<View id="dividerView" class="margin-top h-divider-light" />
-		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-border" onClick="didClickRefill" />
+		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickRefill" />
 	</ScrollView>
 	<Widget id="pickupModePicker" src="ti.optionpicker" class="modal-dialog" onClick="updatePickupMode">
 		<View class="min-height inactive-light-bg-color role-header-view">

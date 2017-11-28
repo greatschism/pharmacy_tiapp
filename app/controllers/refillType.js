@@ -6,7 +6,8 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
-	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove"],
+	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove", "accessibility-enabled"],
+	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
 	id : "removeBtn"
 }),
     store = _.omit(args.store || {}, ["shouldUpdate"]),

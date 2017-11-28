@@ -6,7 +6,7 @@
 	 *  this is recommended
 	 */
 	var moment = require("alloy/moment");
-	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "crashreporter", "analyticsHandler", "barcode", "navigationHandler", "feedbackHandler", "notificationHandler", "notificationPanel", "rx", "refillScan"], function(module) {
+	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "crashreporter", "analyticsHandler", "barcode", "navigationHandler", "feedbackHandler", "notificationHandler", "notificationPanel", "rx", "refillScan", "ti-qrcode-master/qrcode"], function(module) {
 		require(module);
 	});
 
@@ -53,7 +53,7 @@
 	Alloy.Models.language = new Backbone.Model();
 	Alloy.Models.timeZone = new Backbone.Model();
 	Alloy.Models.relationship = new Backbone.Model();
-	
 	Alloy.Models.touchid = new Backbone.Model();
+	Alloy.Models.counselingEligible = new Backbone.Model();
 
 })();

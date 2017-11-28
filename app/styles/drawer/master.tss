@@ -3,9 +3,9 @@
 	exitOnClose: true
 },
 "#leftWindow[platform=ios]":{
-	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+	statusBarStyle: Ti.UI.iPhone.StatusBar.DEFAULT
 },
 "#rootWindow[platform=ios]":{
 	title: Ti.App.name,
-	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+	statusBarStyle: Ti.UI.iPhone.StatusBar.DEFAULT
 }

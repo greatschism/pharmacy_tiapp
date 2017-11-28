@@ -22,7 +22,7 @@
 				<Label id="textBenefit4" class="margin-left-xxl margin-top margin-bottom h4  margin-right" />
 			</View>
 		</View>
-		<Button id="sendTxtBtn" analyticsId="SendTxtBtn" class="margin-bottom primary-bg-color dark-color primary-border" onClick="didClickTextSignup"/>
+		<Button id="sendTxtBtn" analyticsId="SendTxtBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickTextSignup"/>
 		<Button id="skipSendTxtBtn" analyticsId="SkipSendTxtBtn" class="bg-color primary-fg-color primary-border margin-bottom" onClick="didClickSkipTextSignup"/>
 	</ScrollView>
 </Alloy>

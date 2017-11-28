@@ -18,19 +18,22 @@ var args = $.args,
 		$.lbl.applyProperties({
 			right : right,
 			text : title,
-			accessibilityValue : Alloy.Globals.strings.accessibilityColorPicker
+			accessibilityHidden: true
 		});
 	}
 	uihelper.wrapText($.lbl);
-	var color = args.color || "transparent";
+	var color = args.color.color_code || "transparent";
 	$.colorBoxView.applyProperties({
 		backgroundColor : color,
-		borderColor : color
+		borderColor : color,
+		accessibilityHidden: true
 	});
+	
+	$.contentView.accessibilityLabel = Alloy.Globals.strings.accessibilityColorPicker + " " + args.color.color_name;
 })();
 
 function getParams() {
-	return args;
+	return args.color;
 }
 
 exports.getParams = getParams;

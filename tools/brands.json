@@ -4,7 +4,7 @@
 		"description": "Carbon base product."
 	}, {
 		"id": "henryford",
-		"description": "MCK based."
+		"description": "Henry Ford Rx."
 	}, {
 		"id": "brookshire",
 		"description": "Brookshire Brothers."
@@ -47,5 +47,35 @@
 	}, {
 		"id": "clarks",
 		"description": "Clarks"
+	}, {
+		"id": "acme",
+		"description": "Acme Rx."
+	}, {
+		"id": "haggen",
+		"description": "Haggen Pharmacy Rx."
+	}, {
+		"id": "shaws",
+		"description": "Shaws Rx."
+	}, {
+		"id": "vanderbilt",
+		"description": "Vanderbilt Rx."
+	}, {
+		"id": "gianteagle",
+		"description": "GE Pharmacy"
+	}, {
+		"id": "bi-lo",
+		"description": "Bi-Lo"
+	}, {
+		"id": "harveys",
+		"description": "Harveys Rx."
+	}, {
+		"id": "winn-dixie",
+		"description": "Winn-Dixie Rx."
+	}, {
+		"id": "fruth",
+		"description": "Fruth Pharmacy"
+	}, {
+		"id": "pharmacyadvantage",
+		"description": "Pharmacy Advantage Rx."
 	}
 ]
