@@ -746,6 +746,12 @@
             ".h2[platform=android]":{
                 "font":"${H2_PLATFORM_ANDROID}"
             },
+            ".h2m[platform=ios]":{
+                "font":"${H2M_PLATFORM_IOS}"
+            },
+            ".h2m[platform=android]":{
+                "font":"${H2M_PLATFORM_ANDROID}"
+            },
             ".h3[platform=ios]":{
                 "font":"${H3_PLATFORM_IOS}"
             },

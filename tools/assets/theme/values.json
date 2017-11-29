@@ -105,6 +105,14 @@
 		"fontFamily": "regular",
 		"fontSize": 24
 	},
+	"H2M_PLATFORM_IOS": {
+		"fontFamily": "medium",
+		"fontSize": 24
+	},
+	"H2M_PLATFORM_ANDROID": {
+		"fontFamily": "medium",
+		"fontSize": 24
+	},
 	"H3_PLATFORM_IOS": {
 		"fontFamily": "medium",
 		"fontSize": 20

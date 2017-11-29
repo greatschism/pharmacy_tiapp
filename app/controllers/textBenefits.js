@@ -1,6 +1,10 @@
 var args = $.args;
 function init() {
-	$.uihelper.getImage("text_benefits", $.textBenefitsImage);
+	if (Alloy.CFG.use_alternate_text_benefits_image) {
+		$.uihelper.getImage("text_benefits_alternate", $.textBenefitsImage);
+	} else {
+		$.uihelper.getImage("text_benefits", $.textBenefitsImage);
+	}
 	if (args.isFamilyMemberFlow) {
 		$.utilities.setProperty((Alloy.Globals.isLoggedIn ? Alloy.Collections.patients.at(0).get("email_address") + "-familyAccounts" : args.username + "-familyAccounts"), true, "bool", true);
 	}
