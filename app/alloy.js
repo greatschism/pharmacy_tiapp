@@ -53,6 +53,7 @@
 	Alloy.Models.language = new Backbone.Model();
 	Alloy.Models.timeZone = new Backbone.Model();
 	Alloy.Models.relationship = new Backbone.Model();
+	Alloy.Models.touchid = new Backbone.Model();
 	Alloy.Models.counselingEligible = new Backbone.Model();
 
 })();
