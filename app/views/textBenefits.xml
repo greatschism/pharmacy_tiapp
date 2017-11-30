@@ -4,7 +4,7 @@
 			<ImageView id="textBenefitsImage" class="width-100" if="!Alloy.CFG.use_alternate_text_benefits_image" />
 			<Label id="textBenefitLbl" class="margin-top-large margin-left margin-right h1 txt-center light-fg-color" if="!Alloy.CFG.use_alternate_text_benefits_image" />
 			<ImageView id="textBenefitsImage" if="Alloy.CFG.use_alternate_text_benefits_image" />
-			<Label id="textBenefitLbl" class="margin-bottom-large margin-left-large margin-right h2m txt-right primary-dark-fg-color" if="Alloy.CFG.use_alternate_text_benefits_image" />
+            <Label id="textBenefitLbl" class="margin-top-extra-large margin-left-large margin-right-small h2m txt-right primary-dark-fg-color" if="Alloy.CFG.use_alternate_text_benefits_image" />
 		</View>
 		<View class="margin-top inactive-light-bg-color margin-left margin-right margin-bottom auto-height vgroup inactive-light-border" >
 			<View class="auto-height  ">
