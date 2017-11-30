@@ -39,7 +39,8 @@ module.exports = {
 		"expPickupBenefitsList3" : "Have a question for your pharmacist? You now have the ability to request in-store counseling from your mobile phone.",
 		"expPickupBenefitsList4" : "Household sharing one card? No problem. With Express pick-up, the physical card does not need to be present at the time of pick up.",
 		"expPickupBenefitsList5" : "At Meijer, we take your privacy seriously. At the close of your transaction, you will be provided with a scan code which can be used to identify you without having to provide a name and date of birth to the store employee.",
-		"expPickupBenefitsTitle" : "What is it?"
+		"expPickupBenefitsTitle" : "What is it?",
 		
+		"textSignUpBenefitLbl": "Sign up to\nreceive text benefits"
 	}
 };
