@@ -116,15 +116,17 @@ function pushToPrescriptionList() {
 		ctrlArguments : {
 			filters : {
 				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
-				section : ["others"],
-				is_checkout_complete : ["1", null]
+				section : ["others", "medSync"],
+				is_checkout_complete : ["1", null],
+				syncScriptEnrolled : ["1"]
 			},
 			patientSwitcherDisabled : true,
 			hideCheckoutHeader : false,
 			navigationFrom : "expressCheckout"
 		},
 		stack : true
-	});
+	}); 
+
 }
 
 function didClickGenerateCode(e) {

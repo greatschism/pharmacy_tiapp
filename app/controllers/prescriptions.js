@@ -264,7 +264,6 @@ function didGetHiddenPrescriptions(result, passthrough) {
 }
 
 function prepareList() {
-	
 	hasMedSyncEnabled = false;
 	medSyncPrescriptions = [];
 
@@ -272,7 +271,7 @@ function prepareList() {
 		return (prescription.get("syncScriptEnrolled") == "1");
 	});
 
-	hasMedSyncEnabled = medSyncPrescriptions.length > 0 ? true : false;
+	hasMedSyncEnabled = (Alloy.CFG.is_med_sync_enabled && (medSyncPrescriptions.length> 0)) ? true : false;
 	//reset section / row data
 	sections = {};
 	if(hasMedSyncEnabled && !args.selectable) {
@@ -664,7 +663,6 @@ function prepareList() {
 	});
 	
 	
-	
 	if (hasMedSyncEnabled && !args.selectable) {
 				
 		var nextPickupDate;
@@ -742,7 +740,7 @@ function prepareList() {
 		var addRows = false;
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
-				if (key != "others") {
+				if (key != "others" || key != "medSync") {
 					var addRows = true;
 				}
 			} else {
