@@ -1,7 +1,8 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     baseDicts,
-    logger = require("logger");
+    logger = require("logger"),
+    moment = require("alloy/moment");
 
 var Configuration = {
 
@@ -101,17 +102,17 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 		 *  and
 		 * Ti.App.unregisterFont - is a method available only with custom SDK
 		 */
-		var lastUpdate = require("alloy/moment")().unix();
+		var lastUpdate = moment().unix();
 		_.each(fonts, function(font) {
 			var fontExists = _.findWhere(Alloy.RegFonts, {
 				postscript : font.postscript
 			}) || {};
 			if (_.isEmpty(fontExists)) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+				// Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
-			} else {
+			}/* else {
 				if (fontExists.data != font.data) {
 					if (OS_IOS) {
 						//ios will not allow to update a font, has to be unregistered and registered back
@@ -121,17 +122,17 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				}
 				fontExists.lastUpdate = lastUpdate;
-			}
+			}*/
 			Alloy.Fonts[font.code] = font.postscript;
 		});
 		//remove unwanted fonts from memory
-		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
+		/*Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
 				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 			}
 			return flag;
-		});
+		});*/
 
 		//images
 		Alloy.Images = {};
@@ -146,7 +147,7 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 		 *  load date format from device
 		 *  can be update form theme too
 		 */
-		var dateFormat = Ti.Platform.dateFormat.split("/");
+		var dateFormat = moment().format('L').split("/");
 		//match date format with momentjs
 		_.each(dateFormat, function(val, key) {
 			if (val.indexOf("d") != -1) {
