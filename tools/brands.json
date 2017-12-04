@@ -74,5 +74,8 @@
 	}, {
 		"id": "fruth",
 		"description": "Fruth Pharmacy"
+	}, {
+		"id": "pharmacyadvantage",
+		"description": "Pharmacy Advantage Rx."
 	}
 ]
