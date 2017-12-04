@@ -51,6 +51,11 @@ module.exports = {
 		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
+		"titleid": "titleCoupons",
+		"url": "https://www.henryfordrx.com/",
+		"icon": "thick_coupon",
+		"requires_login": false
+	}, {
 		"titleid": "titleHelp",
 		"url": "http://henryford.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
