@@ -143,8 +143,7 @@ function focus() {
 
 	$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblOptionsMenu;
 
-	if(args.hideCheckoutHeader)
-	{
+	if(args.hideCheckoutHeader && args.selectable) {
 
 		$.rightNavBtn.getNavButton().hide(); 
 		$.submitBtn.title = $.strings.prescBtnNext;
@@ -1581,6 +1580,17 @@ function didClickTableView(e) {
 					if (_.has(args, "navigationFrom")) {
 						if (args.navigationFrom != "medSync") {
 							showMedSyncPrescriptions();
+						} else {
+							currentPrescription = row.getParams();
+							$.app.navigator.open({
+								titleid : "titlePrescriptionDetails",
+								ctrl : "prescriptionDetails",
+								ctrlArguments : {
+									prescription : currentPrescription,
+									canHide : currentPrescription.canHide
+								},
+								stack : true
+							});
 						}
 					} else {
 						showMedSyncPrescriptions();
