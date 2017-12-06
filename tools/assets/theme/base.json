@@ -1035,7 +1035,7 @@
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
             },
-            ".light-blue-color":{
+            ".checkout-cart-color":{
                 "color":"${CHECKOUT_CART_COLOR}",
                 "selectedColor":"${CHECKOUT_CART_COLOR}"
             },
