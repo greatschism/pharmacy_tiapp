@@ -831,8 +831,9 @@ function prepareList() {
 		var addRows = false;
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
-				if (key != "others" || key != "medSync") {
-					var addRows = true;
+				if (key != "others" && key != "medSync") {
+					logger.debug("\n\n\n I am ", key, "\n\n\n");
+					addRows = true;
 				}
 			} else {
 				addRows = true;
