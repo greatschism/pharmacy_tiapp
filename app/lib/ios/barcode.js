@@ -58,7 +58,7 @@ var BarcodeReader = {
 
 		BarcodeReader.__window = $.UI.create("Window", {
 			apiName : "Window",
-			statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+			statusBarStyle : Ti.UI.iOS.StatusBar.LIGHT_CONTENT
 		});
 
 		BarcodeReader.__cameraView = BarcodeModule.createView({

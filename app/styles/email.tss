@@ -5,6 +5,6 @@
 	title: Alloy.Globals.strings.accountSuccessBtnDone
 },
 "#emailTxt":{
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
 	hintText:Alloy.Globals.strings.accountHintEmail
 },
