@@ -173,7 +173,8 @@
                     "insurance_card":"0xE019",
                     "thick_help":"0xE00E",
                     "thick_refill_now":"0xe01b",
-                    "thick_services":"0XE01C"
+                    "thick_services":"0XE01C",
+                    "checkout_cart" : "0XE01D"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -1039,6 +1040,10 @@
             ".tentative-fg-color":{
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
+            },
+            ".checkout-cart-color":{
+                "color":"${CHECKOUT_CART_COLOR}",
+                "selectedColor":"${CHECKOUT_CART_COLOR}"
             },
             ".txt-tool-tip[platform=ios]":{
             	"left":"${MARGIN_LEFT}",
