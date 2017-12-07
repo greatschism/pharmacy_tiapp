@@ -134,7 +134,23 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/checkout_shopping_image.png",
 		"selected" : true
-	}, {
+	}, 
+	{
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "cart_arrow_pl",
+		"name" : "cart_arrow",
+		"format" : "png",
+		"properties" : {
+			"height" : 30
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/cart_arrow.png",
+		"selected" : true
+	},
+	{
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,

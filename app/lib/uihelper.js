@@ -956,20 +956,25 @@ var Helper = {
 
 				if (headerCheckoutTitle === "Checkout" || headerCheckoutTitle === $.strings.titleContinueExpressPickupHeader) {
 					var rightBtn = Ti.UI.createButton(rightItem);
+					var rightImg = Ti.UI.createImageView(rightItem);
 					if (OS_IOS) {
-						_.extend(rightBtn,$.createStyle({
-							classes:["i4","margin-right","checkout-cart-color","icon-checkout-cart"],
+						_.extend(rightBtn, $.createStyle({
+							classes : ["margin-right-small"],
 							width : 54,
 							height : 54
 							}));
+						var rightImg = Ti.UI.createImageView();
+						rightImg.image = Helper.getImage("cart_arrow").image;
+					 	rightBtn.add(rightImg);					
 						headerViewHelp.add(rightBtn);
 					} else {
-						_.extend(rightBtn,$.createStyle({
-							classes:["i4","margin-right-small","checkout-cart-color","icon-checkout-cart"],
+						_.extend(rightImg, $.createStyle({
+							classes : ["margin-right-small"],
 							width: 54,
 							height: 54
-						}));
-						headerViewHelp.add(rightBtn);
+							}));
+						rightImg.image = Helper.getImage("cart_arrow").image;
+						headerViewHelp.add(rightImg);
 					}
 
 					if (callback) {
