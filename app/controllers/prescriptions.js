@@ -718,7 +718,7 @@ function prepareList() {
 						titleClasses : titleClasses,
 						masterWidth : 100,
 						detailWidth : 0,
-						subtitle : "Next Pick up " + nextPickupDate,
+						subtitle : "Next pick up " + nextPickupDate,
 						subtitleClasses : detailClasses,
 						section : "medSync",
 						canHide : false
@@ -731,7 +731,7 @@ function prepareList() {
 						title : "MedSync",
 						masterWidth : 100,
 						detailWidth : 0,
-						detailTitle : "Next Pick up " + nextPickupDate,
+						detailTitle : "Next pick up " + nextPickupDate,
 						detailColor : "custom-fg-color",
 						customIconCheckoutComplete : "icon-clock",
 						section : "medSync",
@@ -764,7 +764,7 @@ function prepareList() {
 					masterWidth : 100,
 					detailWidth : 0,
 					// detailType : "custom",
-					subtitle : "Next Pick up " + nextPickupDate,
+					subtitle : "Next pick up " + nextPickupDate,
 					// detailSubtitleColor : "custom-fg-color",
 					subtitleClasses : detailClasses,
 					section : "medSync",
@@ -777,7 +777,7 @@ function prepareList() {
 					title : "MedSync",
 					masterWidth : 100,
 					detailWidth : 0,
-					detailTitle : "Next Pick up " + nextPickupDate,
+					detailTitle : "Next pick up " + nextPickupDate,
 					detailColor : "custom-fg-color",
 					customIconCheckoutComplete : "icon-clock",
 					section : "medSync",
@@ -808,7 +808,7 @@ function prepareList() {
 				masterWidth : 100,
 				detailWidth : 0,
 				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-				detailTitle : "Next Pick Up " + prescription.get("nextSyncFillDate"),
+				detailTitle : "Next pick up " + prescription.get("nextSyncFillDate"),
 				detailColor : "custom-fg-color",
 				customIconCheckoutComplete : "icon-clock",
 				section : "medSync",
@@ -1061,7 +1061,7 @@ function prepareList() {
 						}
 					} else {
 						if(args.navigationFrom == "medSync") {
-							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync Pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
+							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
 						} else {
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 						}
