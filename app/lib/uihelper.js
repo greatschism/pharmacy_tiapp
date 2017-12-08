@@ -980,6 +980,7 @@ var Helper = {
 					if (callback) {
 						headerViewHelp.addEventListener("click", callback);
 						rightBtn.addEventListener("click", callback);
+						rightImg.addEventListener("click", callback);
 					}
 					//headerViewHelp.add(rightImg);
 
