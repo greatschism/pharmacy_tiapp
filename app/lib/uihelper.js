@@ -963,9 +963,9 @@ var Helper = {
 							width : 54,
 							height : 54
 							}));
-						var rightImg = Ti.UI.createImageView();
-						rightImg.image = Helper.getImage("cart_arrow").image;
-					 	rightBtn.add(rightImg);					
+						var rightBtnImg = Ti.UI.createImageView();
+						rightBtnImg.image = Helper.getImage("cart_arrow").image;
+					 	rightBtn.add(rightBtnImg);					
 						headerViewHelp.add(rightBtn);
 					} else {
 						_.extend(rightImg, $.createStyle({
