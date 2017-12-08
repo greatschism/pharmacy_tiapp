@@ -259,14 +259,23 @@ function didGetPickupModes(result, passthrough) {
 
 function setPickupModes() {
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
+	
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	// defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
-	    defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
+	defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	    // defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
 	    selectedCode;
 
+	logger.debug("\n\n\ncodes	",JSON.stringify(codes,null,4),"\n\n\n");
+	
 	if (Alloy.CFG.latest_pickup_mode === "latestPickupMode") {
-		defaultVal = apiCodes.pickup_mode_instore;
+		if (codes.length == 1) {
+			selectedCode = codes[0];
+		} else {
+			defaultVal = apiCodes.pickup_mode_instore;
+		}
 	}
+
+	logger.debug("\n\n\defaultVal	",defaultVal,"\n\n\n");
 
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 
@@ -289,6 +298,7 @@ function setPickupModes() {
 		}
 	});
 	//update selected value
+	
 	Alloy.Models.pickupModes.set("selected_code_value", selectedCode.code_value);
 	//pickup details section
 	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPickup);
