@@ -25,7 +25,8 @@ module.exports = {
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
          "titleHelp" : "Help",
-         "titleCoupons" : "Monthly Specials"
+         "titleCoupons" : "Monthly Specials",
+         "titleCouponsUrl" : "https://www.henryfordrx.com/"
 	}
 
 };

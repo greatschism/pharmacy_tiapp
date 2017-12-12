@@ -750,7 +750,8 @@ module.exports = {
 																"touch-disabled"
 															],
 															"properties": {
-																"textid": "titleCoupons"
+																"textid": "titleCoupons",
+																 stack : true
 															}
 														}
 													]
@@ -761,7 +762,7 @@ module.exports = {
 								}
 							],
 							"navigation": {
-								"url": "https://www.henryfordrx.com/"
+								"ctrl": "termsDoc"
 							}
 						},
 						{

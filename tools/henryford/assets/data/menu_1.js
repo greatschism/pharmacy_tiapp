@@ -52,8 +52,9 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleCoupons",
-		"url": "https://www.henryfordrx.com/",
+		"ctrl": "termsDoc",
 		"icon": "thick_coupon",
+		 stack : true,
 		"requires_login": false
 	}, {
 		"titleid": "titleHelp",
