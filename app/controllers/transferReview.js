@@ -1,5 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment");
+    
+ImageFactoryModule = require("ti.imagefactory");
 
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
@@ -153,10 +155,32 @@ function didGetPhoto(blob) {
 	 * android may show the image from cache
 	 * so send the blob
 	 */
-	var imgFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg");
-	$.utilities.writeFile(imgFile, blob, false);
-	$.prescImg.image = blob;
-	blob = imgFile = null;
+	
+	var smallBlob;
+	var maxDimension = 550;
+	if (blob.getHeight() > maxDimension || blob.getWidth() > maxDimension) {
+		var img_aspect_ratio = blob.getHeight()/blob.getWidth();
+		var scaledHeight, scaledWidth;
+		if (img_aspect_ratio > 1) {
+			scaledHeight = maxDimension;
+			scaledWidth = scaledHeight / img_aspect_ratio;
+		} else {
+			scaledWidth = maxDimension;
+			scaledHeight = scaledWidth * img_aspect_ratio;
+		}
+		var tempBlob = blob.imageAsResized(scaledWidth, scaledHeight);
+		smallBlob = ImageFactoryModule.compress(tempBlob, 0.7);
+		var imgFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg");
+		$.utilities.writeFile(imgFile, smallBlob, false);
+		$.prescImg.image = smallBlob;
+		tempBlob = null;
+	} else {
+		var imgFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg");
+		$.utilities.writeFile(imgFile, blob, false);
+		$.prescImg.image = blob;
+	} 
+	
+	blob = imgFile = smallBlob = null;
 }
 
 function focus() {

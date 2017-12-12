@@ -4,7 +4,7 @@
 		"description": "Carbon base product."
 	}, {
 		"id": "henryford",
-		"description": "MCK based."
+		"description": "Henry Ford Rx."
 	}, {
 		"id": "brookshire",
 		"description": "Brookshire Brothers."
@@ -74,5 +74,8 @@
 	}, {
 		"id": "fruth",
 		"description": "Fruth Pharmacy"
+	}, {
+		"id": "pharmacyadvantage",
+		"description": "Pharmacy Advantage Rx."
 	}
 ]
