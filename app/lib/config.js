@@ -2,7 +2,8 @@ var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     baseDicts,
     logger = require("logger"),
-    moment = require("alloy/moment");
+    moment = require("alloy/moment"),
+    TiCustomFontModule = require("com.mscripts.customfont");
 
 var Configuration = {
 
@@ -98,9 +99,9 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 			Alloy.RegFonts = [];
 		}
 		/**
-		 * Ti.App.registerFont
+		 * TiCustomFontModule.registerFont
 		 *  and
-		 * Ti.App.unregisterFont - is a method available only with custom SDK
+		 * TiCustomFontModule.unregisterFont - is a method available only with custom SDK
 		 */
 		var lastUpdate = moment().unix();
 		_.each(fonts, function(font) {
@@ -108,31 +109,31 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 				postscript : font.postscript
 			}) || {};
 			if (_.isEmpty(fontExists)) {
-				// Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+				TiCustomFontModule.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
-			}/* else {
+			} else {
 				if (fontExists.data != font.data) {
 					if (OS_IOS) {
 						//ios will not allow to update a font, has to be unregistered and registered back
-						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + fontExists.data), fontExists.postscript);
+						TiCustomFontModule.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + fontExists.data), fontExists.postscript);
 					}
 					//on android, registered font can be just replaced with new value
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+					TiCustomFontModule.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				}
 				fontExists.lastUpdate = lastUpdate;
-			}*/
+			}
 			Alloy.Fonts[font.code] = font.postscript;
 		});
 		//remove unwanted fonts from memory
-		/*Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
+		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+				TiCustomFontModule.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 			}
 			return flag;
-		});*/
+		});
 
 		//images
 		Alloy.Images = {};

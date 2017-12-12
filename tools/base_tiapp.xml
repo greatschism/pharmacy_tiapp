@@ -104,6 +104,7 @@
     <module platform="android" version="2.0.0">com.tripvi.drawerlayout</module>
     <module platform="android" version="2.0">com.mscripts.androidkeychain</module>
     <module platform="iphone" version="0.1">com.mscripts.keychainimporter</module>
+    <module platform="iphone" version="1.0">com.mscripts.customfont</module>
   </modules>
   <deployment-targets>
     <target device="iphone">true</target>
