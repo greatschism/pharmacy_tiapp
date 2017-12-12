@@ -33,6 +33,10 @@
 	"TableViewRow": {
 		"height": "Ti.UI.SIZE"
 	},
+	"TableViewRow[platform=ios]": {
+		"height": "Ti.UI.SIZE",
+		"selectionStyle": "Ti.UI.iOS.TableViewCellSelectionStyle.NONE"
+	},
 	"ListItem": {
 		"height": "Ti.UI.SIZE"
 	},
