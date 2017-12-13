@@ -142,6 +142,7 @@ function didClickSkip(e) {
 
 function reRegisterScreen() {
 	
+	//args.is_upgrade_required == null used for Testing purpose. Should be changed to args.is_reRegister_required === "1" during actual Implementation
 	if(args.is_upgrade_required == null) {
 			/**
 			 * Open Reregister window
