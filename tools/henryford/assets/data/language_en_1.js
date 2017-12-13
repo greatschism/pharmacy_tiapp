@@ -26,6 +26,11 @@ module.exports = {
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
          "titleHelp" : "Help",
          "titleCoupons" : "Monthly Specials",
+         "reRegisterUser" : "Welcome!",
+         "reRegister_welcome" : "Welcome to the new Henry Ford Mobile Pharmacy App!",
+         "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
+         "reRegisterBtnSubmit" : "Register",
+         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>",
          "titleCouponsUrl" : "https://www.henryfordrx.com/"
 	}
 

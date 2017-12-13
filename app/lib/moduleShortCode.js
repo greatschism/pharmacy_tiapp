@@ -39,6 +39,7 @@ module.exports = {
 	"MGAU" : "LORE",
 	"PHON" : "LORE",
 	"REGI" : "LORE",
+	"RERU" : "LORE",
 	"RECI" : "LORE",
 	"REAI" : "LORE",
 	"SHMC" : "LORE",

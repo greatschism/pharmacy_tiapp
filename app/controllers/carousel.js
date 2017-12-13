@@ -2,7 +2,8 @@ var args = $.args,
     navigationHandler = require("navigationHandler"),
     currentId = "appImg",
     statusObj = {},
-    viewsCount;
+    viewsCount,
+    logger = require("logger");
 
 function init() {
 	//update paging control count
@@ -136,9 +137,25 @@ function didClickNext(e) {
 }
 
 function didClickSkip(e) {
-	navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
+	reRegisterScreen();
+}
+
+function reRegisterScreen() {
+	
+	if(args.is_upgrade_required == null) {
+			/**
+			 * Open Reregister window
+			 */
+			$.app.navigator.open({
+				titleid : "reRegisterUser",
+				ctrl : "reRegisterUser"
+			});
+	}
+	else {
+		navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	}
 }
 
 exports.init = init;

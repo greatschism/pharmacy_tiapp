@@ -38,6 +38,7 @@ module.exports = {
 	"MGAU" : "LoginAndRegistration",
 	"PHON" : "LoginAndRegistration",
 	"REGI" : "LoginAndRegistration",
+	"RERU" : "LoginAndRegistration",
 	"RECI" : "LoginAndRegistration",
 	"REAI" : "LoginAndRegistration",
 	"SHMC" : "LoginAndRegistration",
