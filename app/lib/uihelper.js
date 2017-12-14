@@ -955,31 +955,18 @@ var Helper = {
 				}
 
 				if (headerCheckoutTitle === "Checkout" || headerCheckoutTitle === $.strings.titleContinueExpressPickupHeader) {
-					var rightBtn = Ti.UI.createButton(rightItem);
+					
 					var rightImg = Ti.UI.createImageView(rightItem);
-					if (OS_IOS) {
-						_.extend(rightBtn, $.createStyle({
-							classes : ["margin-right-small"],
-							width : 54,
-							height : 54
-							}));
-						var rightBtnImg = Ti.UI.createImageView();
-						rightBtnImg.image = Helper.getImage("cart_arrow").image;
-					 	rightBtn.add(rightBtnImg);					
-						headerViewHelp.add(rightBtn);
-					} else {
 						_.extend(rightImg, $.createStyle({
 							classes : ["margin-right-small"],
 							width: 54,
 							height: 54
 							}));
 						rightImg.image = Helper.getImage("cart_arrow").image;
-						headerViewHelp.add(rightImg);
-					}
-
+						headerViewHelp.add(rightImg);	
+							
 					if (callback) {
 						headerViewHelp.addEventListener("click", callback);
-						rightBtn.addEventListener("click", callback);
 						rightImg.addEventListener("click", callback);
 					}
 					//headerViewHelp.add(rightImg);

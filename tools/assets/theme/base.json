@@ -1035,10 +1035,6 @@
                 "color":"${TENTATIVE_COLOR}",
                 "selectedColor":"${TENTATIVE_SELECTED_COLOR}"
             },
-            ".checkout-cart-color":{
-                "color":"${CHECKOUT_CART_COLOR}",
-                "selectedColor":"${CHECKOUT_CART_COLOR}"
-            },
             ".txt-tool-tip[platform=ios]":{
             	"left":"${MARGIN_LEFT}",
             	"right":"${MARGIN_RIGHT}",
