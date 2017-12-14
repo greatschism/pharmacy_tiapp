@@ -1,6 +1,7 @@
 {
 	"config": {
 		"global": {
+			"use_alternate_text_benefits_list_order" : "useAlternateTextBenefitsListOrder",
 			"use_alternate_text_benefits_image" : "useAlternateTextBenefitsImage",
 			"use_additional_header_styling" : "useAdditionalHeaderStyling",
 			"use_hamburger_logo_for_menu_header" : "useHamburgerLogoForMenuHeader",

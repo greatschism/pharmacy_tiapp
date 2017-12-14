@@ -15,6 +15,10 @@
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success active-fg-color border-disabled"/>
 				<Label id="textBenefit2" class="margin-left-xxl margin-top margin-bottom h6  margin-right " />
 			</View>
+			<View class="auto-height " if="Alloy.CFG.use_alternate_text_benefits_list_order" >
+				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
+				<Label id="textBenefit5" class="margin-left-xxl margin-top margin-bottom h6  margin-right" />
+			</View>
 			<View class="auto-height ">
 				<Label id="leftIconLbl" class="top-disabled margin-left i4 positive-fg-color icon-thin-filled-success inactive-fg-color border-disabled"/>
 				<Label id="textBenefit3" class="margin-left-xxl margin-top margin-bottom h6  margin-right" />
