@@ -143,7 +143,7 @@ module.exports = {
 		"name" : "cart_arrow",
 		"format" : "png",
 		"properties" : {
-			"height" : 30
+			"height" : 50
 		},
 		"hires" : false,
 		"platform" : ["ios", "android"],
