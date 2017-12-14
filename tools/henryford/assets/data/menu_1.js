@@ -54,7 +54,7 @@ module.exports = {
 		"titleid": "titleCoupons",
 		"ctrl": "newMenuOption",
 		"icon": "thick_coupon",
-		 stack : true,
+		"stack" : true,
 		"requires_login": false
 	}, {
 		"titleid": "titleHelp",
