@@ -6,17 +6,15 @@ var args = $.args,
     isHIPAA;
 
 function init() {
-	isHIPAA = ($.args.terms ? ($.args.terms.agreement_text === $.strings.accountsAgreementHIPAA ? true : false) : false);
-	isMonthlySpecials = ($.strings.titleCouponsUrl ? true : false);
+	isHIPAA = ($.args.terms.agreement_text === $.strings.accountsAgreementHIPAA ? true : false);
 	$.webView.enableZoomControls = false;
 	$.webView.applyProperties({
-		top : ($.args.registrationFlow === true || !args.terms) ? 0 : "10%",
-		bottom : isHIPAA ? "25%" : (args.terms ? "15%" : "0%"),
-		url : (args.terms ? args.terms.agreement_url || args.terms : $.strings.titleCouponsUrl),
-		borderRadius: 1,
-		willHandleTouches: false
+		top : $.args.registrationFlow === true ? 0 : "10%",
+		bottom : isHIPAA ? "25%" : "15%",
+		url : args.terms.agreement_url || args.terms,
+		willHandleTouches: false 
 	});
-	if(!$.args.registrationFlow && args.terms){
+	if(!$.args.registrationFlow){
 		$.acceptedOnLbl.text = $.strings.accountLblAcceptedOn + " " + moment(args.terms.agreement_valid_from).format(Alloy.CFG.date_format);
 		if(isHIPAA) 
 			$.successBtn.title = $.strings.accountSuccessBtnDone;
@@ -27,10 +25,6 @@ function init() {
 	
 	if(isHIPAA){
 		$.revokeBtn.show();
-	}
-	
-	if(!args.terms) {
-		$.successBtn.hide();
 	}	
 }
 
