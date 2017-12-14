@@ -17,6 +17,8 @@ var args = $.args,
     analyticsCategory,
     hasMedSyncEnabled,
     medSyncPrescriptions,
+    hasSpecialtyEnabled,
+    specialtyPrescriptions,
     nextPickupDate = "";
 
 function init() {
@@ -164,7 +166,7 @@ function prepareData() {
 	 * occurs on first launch
 	 * when all accounts
 	 * are partial
-	 */     
+	 */
 	var currentPatient = $.patientSwitcher.get();
 	if (currentPatient.get("is_partial")) {
 		/**
@@ -268,14 +270,30 @@ function prepareList() {
 	medSyncPrescriptions = [];
 
 	medSyncPrescriptions = Alloy.Collections.prescriptions.filter(function(prescription) {
-		return (prescription.get("syncScriptEnrolled") == "1");
+		return (prescription.get("syncScriptEnrolled") == "1" && prescription.get("is_specialty_store") != "1");
 	});
 
 	hasMedSyncEnabled = (Alloy.CFG.is_med_sync_enabled && (medSyncPrescriptions.length> 0)) ? true : false;
+	
+
+	hasSpecialtyEnabled = false;
+	specialtyPrescriptions = [];
+
+	specialtyPrescriptions = Alloy.Collections.prescriptions.filter(function(prescription) {
+		return (prescription.get("is_specialty_store") == "1");
+	});
+	
+	hasSpecialtyEnabled = (Alloy.CFG.is_specialty_store_grouping_enabled && (specialtyPrescriptions.length> 0)) ? true : false;
+	
+	
+	
 	//reset section / row data
 	sections = {};
 	if(hasMedSyncEnabled && !args.selectable) {
 		sections.medSync = [];
+	}
+	if(hasSpecialtyEnabled && !args.selectable) {
+		sections.specialty = [];
 	}
 	sections.readyPickup = [];
 	sections.inProgress = [];
@@ -286,6 +304,9 @@ function prepareList() {
 	var sectionHeaders =  {};
 	if(hasMedSyncEnabled && !args.selectable) {
 		sectionHeaders.medSync = "";
+	}
+	if(hasSpecialtyEnabled && !args.selectable) {
+		sectionHeaders.specialty = "";
 	}
 	sectionHeaders.readyPickup = "";
 	sectionHeaders.inProgress = "";
@@ -391,6 +412,11 @@ function prepareList() {
 				return;
 		}
 
+		if (hasSpecialtyEnabled && !args.selectable) {
+			var index = _.contains(specialtyPrescriptions, prescription);
+			if (index)
+				return;
+		}
 		
 		//process sections
 		switch(prescription.get("refill_status")) {
@@ -800,38 +826,102 @@ function prepareList() {
 
 		
 	/*
-	if (hasMedSyncEnabled && !args.selectable) {
-		_.each(medSyncPrescriptions, function(prescription) {
-			prescription.set({
-				className : "MS",
-				itemTemplate : "completed",
-				masterWidth : 100,
-				detailWidth : 0,
-				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-				detailTitle : "Next pick up " + prescription.get("nextSyncFillDate"),
-				detailColor : "custom-fg-color",
-				customIconCheckoutComplete : "icon-clock",
-				section : "medSync",
-				titleClasses : titleClasses,
-				canHide : false
-			});
+	 * specialty
+	 * 
+	 */	
+	
+	if (hasSpecialtyEnabled) {
+	
+		if (_.has(args, "navigationFrom")) {
+			if (args.navigationFrom == "specialtyGrouping") {
+				_.each(specialtyPrescriptions, function(prescription) {
+								
+					prescription.set({
+						itemTemplate : "masterDetail",
+						titleClasses : titleClasses,
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						subtitleClasses : subtitleClasses,
+						section : "specialty",						
+						canHide : false
+					});
 
-			var rowParams = prescription.toJSON(),
-			    row;
-			rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-			sectionHeaders[rowParams.section] += rowParams.filterText;
-			sections[rowParams.section].push(row);
-		});
+					var rowParams = prescription.toJSON(),
+					    row;
+					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+					sectionHeaders[rowParams.section] += rowParams.filterText;
+					sections[rowParams.section].push(row);
+				});
+			} else {
+
+				if (!args.selectable && args.navigationFrom == "") {
+					
+					var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
+					var medSyncData = {
+						itemTemplate : "masterDetail",
+						title : "Specialty",
+						titleClasses : titleClasses,
+						masterWidth : 100,
+						detailWidth : 0,
+						// subtitle : "Next pick up " + nextPickupDate,
+						// subtitleClasses : detailClasses,
+						section : "specialty",
+						canHide : false
+					}; 
+					
+
+
+					var rowParams = medSyncData,
+					    row;
+					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+					row.on("clickdetail", showSpecialtyPrescriptions);
+					sectionHeaders[rowParams.section] += rowParams.filterText;
+					sections[rowParams.section].push(row);
+
+				}
+
+			}
+		} else {
+
+				if (!args.selectable) {
+
+				var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
+					var medSyncData = {
+						itemTemplate : "masterDetail",
+						title : "Specialty",
+						titleClasses : titleClasses,
+						masterWidth : 100,
+						detailWidth : 0,
+						// subtitle : "Next pick up " + nextPickupDate,
+						// subtitleClasses : detailClasses,
+						section : "specialty",
+						canHide : false
+					}; 
+
+				
+				var rowParams = medSyncData,
+				    row;
+				rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+				row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+				row.on("clickdetail", showSpecialtyPrescriptions);
+				sectionHeaders[rowParams.section] += rowParams.filterText;
+				sections[rowParams.section].push(row);
+			}
+
+		}
 	}
-	*/
+	
+	
 					
 	var data = [];
 	_.each(sections, function(rows, key) {
 		var addRows = false;
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
-				if (key != "others" && key != "medSync") {
+				if (key != "others" && key != "medSync" && key != "specialty") {
 					logger.debug("\n\n\n I am ", key, "\n\n\n");
 					addRows = true;
 				}
@@ -851,7 +941,7 @@ function prepareList() {
 				 * when other section is only visible
 				 * Note: others section is the last section in sections list
 				 */
-				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0) || (key == "medSync" && args.navigationFrom != "medSync")) {
+				if (args.sectionHeaderViewDisabled || (key == "others" && data.length === 0) || (key == "medSync" && args.navigationFrom != "medSync") || (key == "specialty" && args.navigationFrom != "specialtyGrouping")) {
 					tvSection = Ti.UI.createTableViewSection();
 				} else {
 					if (headerBtnDict) {
@@ -1062,6 +1152,8 @@ function prepareList() {
 					} else {
 						if(args.navigationFrom == "medSync") {
 							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
+						} else if(args.navigationFrom == "specialtyGrouping") {
+							tvSection = $.uihelper.createTableViewSection($, "Specialty", sectionHeaders[key], false, headerBtnDict);
 						} else {
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 						}
@@ -1133,6 +1225,27 @@ function showMedSyncPrescriptions() {
 				selectable : false,
 				hideCheckoutHeader : true,
 				navigationFrom : "medSync"
+			},
+			stack : true
+		});
+}
+
+function showSpecialtyPrescriptions() {
+	$.app.navigator.open({
+			titleid : "titlePrescriptions",
+			ctrl : "prescriptions",
+			ctrlArguments : {
+				filters : {
+					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
+					section : ["others", "readyPickup", "inProgress"],
+					is_checkout_complete : ["1", null]
+				},
+				prescriptions : null,
+				patientSwitcherDisabled : true,
+				useCache : true,
+				selectable : false,
+				hideCheckoutHeader : true,
+				navigationFrom : "specialtyGrouping"
 			},
 			stack : true
 		});
@@ -1595,6 +1708,25 @@ function didClickTableView(e) {
 						}
 					} else {
 						showMedSyncPrescriptions();
+					}
+				} else if (sectionId == "specialty" && hasSpecialtyEnabled) {
+					if (_.has(args, "navigationFrom")) {
+						if (args.navigationFrom != "specialtyGrouping") {
+							showSpecialtyPrescriptions();
+						} else {
+							currentPrescription = row.getParams();
+							$.app.navigator.open({
+								titleid : "titlePrescriptionDetails",
+								ctrl : "prescriptionDetails",
+								ctrlArguments : {
+									prescription : currentPrescription,
+									canHide : currentPrescription.canHide
+								},
+								stack : true
+							});
+						}
+					} else {
+						showSpecialtyPrescriptions();
 					}
 				} else {
 					currentPrescription = row.getParams();
