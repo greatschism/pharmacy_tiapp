@@ -154,6 +154,10 @@ function focus() {
 
 		$.bottomView.show();
 	}
+	if(args.navigationFrom == "medSync" || args.navigationFrom == "specialtyGrouping") {
+		$.rightNavBtn.getNavButton().hide(); 
+	}
+	
 }
 
 function prepareData() {
