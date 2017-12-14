@@ -762,7 +762,7 @@ module.exports = {
 								}
 							],
 							"navigation": {
-								"ctrl": "termsDoc"
+								"ctrl": "newMenuOption"
 							}
 						},
 						{

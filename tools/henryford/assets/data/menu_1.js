@@ -52,7 +52,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleCoupons",
-		"ctrl": "termsDoc",
+		"ctrl": "newMenuOption",
 		"icon": "thick_coupon",
 		 stack : true,
 		"requires_login": false

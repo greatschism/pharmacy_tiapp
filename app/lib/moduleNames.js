@@ -136,5 +136,10 @@ module.exports = {
 	 */
 	"INSU" : "InsuranceCard",
 	"INPR" : "InsuranceProfile",
-	"ININ" : "insuranceInput"
+	"ININ" : "insuranceInput",
+	
+	/**
+	 * new Menu Option
+	 */
+	"NEMO" : "newMenuOption"
 };

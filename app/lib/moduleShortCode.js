@@ -135,7 +135,10 @@ module.exports = {
 	 */
 	"INSU" : "INSU",
 	"INPR" : "INPR",
-	"ININ" : "ININ"
+	"ININ" : "ININ",
 	
-	
+	/**
+	 * new Menu Option
+	 */
+	"NEMO" : "NEMO"
 };

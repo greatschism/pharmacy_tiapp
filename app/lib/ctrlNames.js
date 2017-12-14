@@ -82,5 +82,6 @@ module.exports = {
 	"INSU" : "insuraceCard",
 	"INPR" : "insuranceProfile",
 	"ININ" : "insuranceInput",
-	"VSIC" : "vSixCarousel"
+	"VSIC" : "vSixCarousel",
+	"NEMO" : "newMenuOption"
 };
