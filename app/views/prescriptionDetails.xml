@@ -29,9 +29,14 @@
 						<Label id="doctorPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
 						<Label id="doctorReplyLbl" class="top margin-left-medium active-fg-color hide" />
 					</View>
-					<View class="margin-top auto-height" onClick="didClickStore">
-						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+					<View class="margin-top auto-height" onClick="didClickStore" if="!Alloy.CFG.is_specialty_store_grouping_enabled">
+						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />						
 						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color hide" />
+					</View>
+					<View class="margin-top auto-height" onClick="didClickStore" if="Alloy.CFG.is_specialty_store_grouping_enabled">
+						<Label id="storePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="storeCallIcon" class="top margin-left-medium i5 primary-fg-color icon-phone hide" />
+						<Label id="storeReplyLbl" class="top margin-left-medium active-fg-color hide " />
 					</View>
 					<View id="copayView" class="margin-top auto-height">
 						<Label id="copayPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />

@@ -276,7 +276,7 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
+	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
 	 * by default (PHA-1086)
@@ -310,26 +310,66 @@ function didUpdateUI() {
 function didPostlayoutPrompt(e) {
 	var source = e.source,
 	    children = source.getParent().children;
-	source.removeEventListener("postlayout", didPostlayoutPrompt);
-	children[1].applyProperties({
-		left : children[1].left + children[0].rect.width,
-		visible : true
-	});
+		source.removeEventListener("postlayout", didPostlayoutPrompt);
+		
+		children[1].applyProperties({
+			left : children[1].left + children[0].rect.width,
+			visible : true
+		});	
+		
+	if(Alloy.CFG.is_specialty_store_grouping_enabled!=0 && prescription.is_specialty_store!=null){
+		if(children.length==3){				
+		children[2].applyProperties({
+			left : children[0].rect.width + (2 * children[1].rect.width),
+			visible : true
+		});
+	}
+	}
 	postlayoutCount++;
 	if (postlayoutCount === 4) {
 		$.prescExp.setStopListening(true);
 	}
 }
 
-function didClickStore(e) {
-	$.app.navigator.open({
-		titleid : "titleStoreDetails",
-		ctrl : "storeDetails",
-		ctrlArguments : {
-			store : prescription.store
-		},
-		stack : true
-	});
+function didClickStore(e){
+	if(prescription.is_specialty_store!=null && Alloy.CFG.is_specialty_store_grouping_enabled!=0){
+		storePhone();
+	}
+	else{
+	  $.app.navigator.open({
+		  titleid : "titleStoreDetails",
+		  ctrl : "storeDetails",
+		  ctrlArguments : {
+			  store : prescription.store
+		  },
+		  stack : true
+	  });
+	 }	
+}
+
+function storePhone(){
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+function contactsHandler() {
+	 if (prescription.store_phone!= null) {
+		 $.uihelper.getPhone({
+			 firstName : prescription.original_store_store_name,
+			 phone : {
+				 work : [prescription.store_phone]
+			 }
+		 }, prescription.store_phone);
+	 }
 }
 
 function didClickDoctor(e) {
