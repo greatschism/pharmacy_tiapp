@@ -710,7 +710,7 @@ module.exports = {
 								"accessibility-actionablelements"
 							],
 							"properties": {
-								"textid": "titleCoupons"
+								"textid": "titleMonthlySpecials"
 							},
 							"children": [
 								{
@@ -750,8 +750,7 @@ module.exports = {
 																"touch-disabled"
 															],
 															"properties": {
-																"textid": "titleCoupons",
-																 stack : true
+																"textid": "titleMonthlySpecials"
 															}
 														}
 													]
@@ -761,8 +760,9 @@ module.exports = {
 									]
 								}
 							],
+							"feature_name": "is_monthlyspecials_enabled",
 							"navigation": {
-								"ctrl": "newMenuOption"
+								"menu_url": "MonthlySpecials"
 							}
 						},
 						{
