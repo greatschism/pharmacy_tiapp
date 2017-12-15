@@ -276,7 +276,10 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle;
+	if(Alloy.CFG.is_specialty_store_grouping_enabled)
+	$.storeReplyLbl.text = prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle;
+	else
+	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
 	 * by default (PHA-1086)
@@ -308,22 +311,37 @@ function didUpdateUI() {
 }
 
 function didPostlayoutPrompt(e) {
-	var source = e.source,
+		var source = e.source,
 	    children = source.getParent().children;
-		source.removeEventListener("postlayout", didPostlayoutPrompt);
-		
-		children[1].applyProperties({
+	    source.removeEventListener("postlayout", didPostlayoutPrompt);
+	    children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
 			visible : true
-		});	
-		
-	if(Alloy.CFG.is_specialty_store_grouping_enabled!=0 && prescription.is_specialty_store!=null){
-		if(children.length==3){				
+		});		    
+	postlayoutCount++;
+	if (postlayoutCount === 4) {
+		$.prescExp.setStopListening(true);
+	}
+}
+function didPostlayoutPromptStore(e){
+		var source = e.source,
+	    children = source.getParent().children;
+	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
+	    if(prescription.is_specialty_store && prescription.store_phone){	    		    
+	    children[1].applyProperties({
+			left : children[1].left + children[0].rect.width,
+			visible : true
+		});		    		
 		children[2].applyProperties({
 			left : children[0].rect.width + (2 * children[1].rect.width),
 			visible : true
 		});
 	}
+	else{
+	    children[2].applyProperties({
+			left : children[2].left + children[0].rect.width,
+			visible : true
+		});	
 	}
 	postlayoutCount++;
 	if (postlayoutCount === 4) {
@@ -332,8 +350,20 @@ function didPostlayoutPrompt(e) {
 }
 
 function didClickStore(e){
-	if(prescription.is_specialty_store!=null && Alloy.CFG.is_specialty_store_grouping_enabled!=0){
-		storePhone();
+	if(Alloy.CFG.is_specialty_store_grouping_enabled){	
+	if(prescription.is_specialty_store && prescription.store_phone){
+			storePhone();
+		}
+	else{
+	  $.app.navigator.open({
+		  titleid : "titleStoreDetails",
+		  ctrl : "storeDetails",
+		  ctrlArguments : {
+			  store : prescription.store
+		  },
+		  stack : true
+	  });
+	 }
 	}
 	else{
 	  $.app.navigator.open({
@@ -344,7 +374,7 @@ function didClickStore(e){
 		  },
 		  stack : true
 	  });
-	 }	
+	 }
 }
 
 function storePhone(){
