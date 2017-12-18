@@ -89,18 +89,23 @@ function buildPopover() {
 				apiName : "TableView",
 				bubbleParent : false
 			});
-			$.tableView.addEventListener("click", didClickTableView);
+			//$.tableView.addEventListener("click", didClickTableView);
 			$.contentView.add($.tableView);
 			//rows
 			rows = [];
 			var data = [];
+			var collectionsRowIndex = -1;
 			Alloy.Collections.patients.each(function(model) {
+				collectionsRowIndex++;
 				var obj = model.pick(["session_id", "first_name", "last_name", "birth_date", "child_id", "related_by", "relationship", "title", "subtitle", "is_partial", "is_adult", "should_invite", "selectable", "selected"]);
 				_.extend(obj, {
 					titleClasses : obj.selectable && titleClasses || inactiveTitleClasses,
 					subtitleClasses : subtitleClasses
 				});
+				obj.rowIndex = collectionsRowIndex;
 				var row = Alloy.createController("itemTemplates/contentView", obj);
+				row.on("clickedRowContainerView", didClickTableView);
+
 				data.push(row.getView());
 				rows.push(row);
 			});
@@ -316,6 +321,8 @@ function didClickTableView(e) {
 		 * or
 		 * params.selectable is false
 		 */
+	 	
+
 		if (params.selected || (options.callback ? !options.callback(params) : !params.selectable)) {
 			return hide();
 		}
