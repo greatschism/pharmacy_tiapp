@@ -173,7 +173,12 @@
                     "insurance_card":"0xE019",
                     "thick_help":"0xE00E",
                     "thick_refill_now":"0xe01b",
-                    "thick_services":"0XE01C"
+                    "thick_services":"0XE01C",
+                    "warehouse_coupons":"0xe016",
+                    "checkout_2":"0xe01d",
+                    "custom_rx_service":"0xe01e",
+                    "cart_arrow":"0xe01f"
+                    
                 },
                 "icons":{
                     "numeric_zero":"0",
