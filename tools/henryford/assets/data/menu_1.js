@@ -51,10 +51,10 @@ module.exports = {
 		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
-		"titleid": "titleMonthlySpecials",
-		"menu_url": "MonthlySpecials",
+		"titleid": "titleCustomMenu1",
+		"menu_url": "CustomMenu1",
 		"icon": "thick_coupon",
-		"feature_name" : "is_monthlyspecials_enabled",
+		"feature_name" : "is_custommenu1_enabled",
 		"requires_login": false
 	}, {
 		"titleid": "titleHelp",

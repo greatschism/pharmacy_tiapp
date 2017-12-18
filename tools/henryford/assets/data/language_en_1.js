@@ -30,7 +30,7 @@ module.exports = {
          "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
          "reRegisterBtnSubmit" : "Create a new account",
          "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>",
-         "titleMonthlySpecials" : "Monthly Specials"
+         "titleCustomMenu1" : "Monthly Specials"
 	}
 
 };
