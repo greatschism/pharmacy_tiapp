@@ -256,11 +256,8 @@ function loadPresecription() {
 	if (_.has(prescription, "quantity")) {
 		if (prescription.quantity != null) {
 			$.quantityReplyLbl.text = prescription.quantity;
-			// $.copayView.hide(false);
-
 		} else {
 			logger.debug("quantity is null");
-			// $.copayView.hide(true);
 			$.quantityView.height = 0;
 		}
 	} else {
@@ -321,10 +318,10 @@ function didPostlayoutPrompt(e) {
 		$.prescExp.setStopListening(true);
 	}
 }
-function didPostlayoutPromptStore(e){
+function didPostlayoutPromptSpecialty(e){
 		var source = e.source,
 	    children = source.getParent().children;
-	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
+	    source.removeEventListener("postlayout", didPostlayoutPromptSpecialty);
 	    if(prescription.is_specialty_store && prescription.store_phone){	    		    
 	    children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
@@ -820,11 +817,8 @@ function loadCopay() {
 		if (_.has(prescription, "copay")) {
 			if (prescription.copay != null) {
 				$.copayReplyLbl.text = "$" + prescription.copay;
-				// $.copayView.hide(false);
-
 			} else {
 				logger.debug("copay is null");
-				// $.copayView.hide(true);
 				$.copayView.height = 0;
 			}
 		}
