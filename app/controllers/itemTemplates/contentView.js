@@ -1,9 +1,13 @@
 var args = $.args,
+	rowIndex,
     uihelper = require("uihelper");
 
 (function() {
 	if (args.filterText) {
 		$.row[Alloy.Globals.filterAttribute] = args.filterText;
+	}
+	if (typeof args.rowIndex !== undefined) {
+		rowIndex = args.rowIndex;
 	}
 	var title = args.title || (args.data ? args.data[args.titleProperty] : "");
 	if (args.titleClasses) {
@@ -21,11 +25,22 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+
+
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
 	$.row.accessibilityLabel = title + " " + subtitle;
 })();
+
+function didClickContainerView(e) {
+	var source = e.source;
+	$.trigger("clickedRowContainerView", {
+		source : $,
+		theRow : $.row,
+		index : rowIndex,
+	});
+}
 
 function getParams() {
 	return args;

@@ -50,5 +50,10 @@ module.exports = {
 		"ctrl" : "account",
 		"icon" : "thick_account",
 		"requires_login" : true
+	}, {
+		"titleid": "titleHelp",
+		"url": "http://base.mobilepharmacyhelp.com/",
+		"icon": "thick_help",
+		"requires_login": false
 	}]
 };
