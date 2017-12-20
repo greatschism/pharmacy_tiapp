@@ -77,5 +77,8 @@
 	}, {
 		"id": "pharmacyadvantage",
 		"description": "Pharmacy Advantage Rx."
+	}, {
+		"id": "dartmouth",
+		"description": "D-H Pharmacy"
 	}
 ]
