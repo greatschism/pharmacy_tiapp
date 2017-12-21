@@ -453,7 +453,7 @@ module.exports = {
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
 		"prescDetPromptCopay" : "Payment amount due:",
-		"prescDetPromptAutofill" : "This prescription auto refills.",
+		"prescDetPromptAutofill" : "This prescription is enrolled in autofill.",
 		"prescDetPromptQuantity" : "Quantity:",
 		"prescDetExpand" : "Show more",
 		"prescDetCollapse" : "Show less",
