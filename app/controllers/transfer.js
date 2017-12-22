@@ -36,9 +36,12 @@ function didChangePatient(e) {
 
 function didClickPhoto(e) {
 	$.app.navigator.showLoader();
-	$.uihelper.getPhoto(true, didGetPhoto, $.window);
-	$.app.navigator.hideLoader();
+	$.uihelper.getPhoto(true, didGetPhoto, $.window, didFailure);
+	$.app.navigator.showLoader();
+}
 
+function didFailure(error){
+	$.app.navigator.hideLoader();
 }
 
 function didGetPhoto(blob) {
@@ -50,7 +53,6 @@ function didGetPhoto(blob) {
 	 * image path is used throughout this module
 	 * should not be changed
 	 */
-
 	var smallBlob;
 	var maxDimension = 550;
 	if (blob.getHeight() > maxDimension || blob.getWidth() > maxDimension) {
@@ -71,11 +73,10 @@ function didGetPhoto(blob) {
 		$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), blob, false);
 	} 
 	
+	//$.app.navigator.hideLoader();
 	
 	blob = null;
 	smallBlob = null;
-
-	$.app.navigator.hideLoader();
 
 	if (Alloy.Globals.isLoggedIn) {
 		$.app.navigator.open({
@@ -101,6 +102,7 @@ function didGetPhoto(blob) {
 			stack : true
 		});
 	}
+	$.app.navigator.hideLoader(); 
 }
 
 function didClickType(e) {

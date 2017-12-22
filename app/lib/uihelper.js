@@ -321,7 +321,7 @@ var Helper = {
 	 *  @param width to resize
 	 *  @param height to resize
 	 */
-	getPhoto : function(watermark, callback, window, width, height) {
+	getPhoto : function(watermark, callback, window, callback2, width, height) {
 		// alert(watermark);
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
@@ -434,16 +434,16 @@ var Helper = {
 						});
 					} else {
 						if (watermark)
-							Helper.openCamera(watermarker, window, width, height);
+							Helper.openCamera(watermarker, callback2, window, width, height);
 						else
-							Helper.openCamera(callback, window, width, height);
+							Helper.openCamera(callback, callback2, window, width, height);
 					}
 					break;
 				case 1:
 					if (watermark)
-						Helper.openGallery(watermarker, window, width, height);
+						Helper.openGallery(watermarker, callback2, window, width, height);
 					else
-						Helper.openGallery(callback, window, width, height);
+						Helper.openGallery(callback, callback2, window, width, height);
 					break;
 				}
 			}
@@ -478,7 +478,7 @@ var Helper = {
 	 * @param width to resize
 	 * @param height to resize
 	 */
-	openCamera : function(callback, window, width, height) {
+	openCamera : function(callback, callback2, window, width, height) {
 		if (OS_IOS) {
 			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
@@ -501,10 +501,14 @@ var Helper = {
 						callback(blob);
 					}
 				},
+				cancel:function() {
+					callback2();
+				},
 				error : function didFail(e) {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgCameraError
 					});
+					callback2();
 				}
 			});
 		} else {
@@ -580,6 +584,9 @@ var Helper = {
 						message : Alloy.Globals.strings.msgCameraError
 					});
 				}
+				else{
+					callback2();
+				}
 			});
 		}
 	},
@@ -591,7 +598,7 @@ var Helper = {
 	 * @param width to resize
 	 * @param height to resize
 	 */
-	openGallery : function(callback, window, width, height) {
+	openGallery : function(callback, callback2, window, width, height) {
 		if (OS_IOS) {
 			/**
 			 * authorization status is handled by
@@ -690,6 +697,10 @@ var Helper = {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgGalleryError
 					});
+				}
+				else
+				{
+					callback2();
 				}
 			});
 		}
