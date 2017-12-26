@@ -103,7 +103,11 @@ function didClickLeftNavView(e) {
 }
 
 function setTitle(title) {
-	$.titleControl.text = title;
+	if(title == "Home" && (Alloy.CFG.homescreen_template_banner_below === "homescreenTemplateBannerBelow")) {
+		$.titleControl.text = "";
+	} else{
+		$.titleControl.text = title;
+	}
 }
 
 function showNavBar(animated) {

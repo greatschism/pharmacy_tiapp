@@ -311,6 +311,7 @@ function didClickTableView(e) {
 					deletePatient(params);
 				}
 			});
+
 			return false;
 		}
 		/**
@@ -322,7 +323,6 @@ function didClickTableView(e) {
 		 * params.selectable is false
 		 */
 	 	
-
 		if (params.selected || (options.callback ? !options.callback(params) : !params.selectable)) {
 			return hide();
 		}

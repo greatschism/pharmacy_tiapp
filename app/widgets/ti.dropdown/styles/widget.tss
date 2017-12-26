@@ -7,7 +7,8 @@
 },
 "#lbl[platform=android]":{
 	ellipsize: true,
-	wordWrap: false
+	wordWrap: false,
+	accessibilityHidden: true
 },
 "#downArrowLbl":{
 	accessibilityHidden: true

@@ -16,6 +16,9 @@
 "#rxPromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptRx
 },
+"#quantityPromptLbl":{
+	text: Alloy.Globals.strings.prescDetPromptQuantity
+},
 "#expiryPromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptExpirationDate
 },

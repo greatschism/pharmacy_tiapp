@@ -54,9 +54,18 @@ function init(passthrough) {
 			    v6Password = keydump.passwordKey,
 			    v6Username = keydump.usernameKey;
 			if (autologinFlag && v6Username !== "" && v6Password !== "") {
-				passthrough.username = v6Username;
-				passthrough.password = v6Password;
-				setAutoLoginEnabled(true);
+
+ 				//This detects if this instance of the v7 app was installed directly OVER a v6 installation
+ 				//If there was simply keychain data left over from a previous v6 installation (which had subsequently been deleted)
+ 				//then this will prevent the data from being used.
+				var savedV6File= Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "logincount");
+
+				if (savedV6File.exists()) {
+					passthrough.username = v6Username;
+					passthrough.password = v6Password;
+					setAutoLoginEnabled(true);
+    			}
+					
 				/**
 				 * 	update previous values to empty string
 				 */
@@ -207,6 +216,8 @@ function checkCodeValues(passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_relationship
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_sort_order_preference
+				}, {
+					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
 				}]
 			}]
 		},
@@ -219,10 +230,13 @@ function checkCodeValues(passthrough) {
 }
 
 function didGetCodeValues(result, passthrough) {
+
 	Alloy.Models.language.set(result.data.codes[0]);
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
 	Alloy.Models.sortOrderPreferences.set(result.data.codes[3]);
+	Alloy.Models.counselingEligible.set(result.data.codes[4]);
+	
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
 	//now get family accounts
@@ -393,6 +407,24 @@ function didGetPatient(result, passthrough) {
 }
 
 function didGetPreferences(result, passthrough) {
+
+
+	 Ti.API.info("Patient PREFS!!!");
+	
+	 Ti.API.info(JSON.stringify(result));
+	 Ti.API.info("Patient PREFS ^^^^^^ !!!");
+
+	//if there is CC info for this user.
+	//TODO: this should detect for the node, not just the existance of the string in the response
+	//I'm uncertain how this applies to potential linked family memebers.  Can we confirm this conditional will only ever execute for the 'main'
+	//user? (ie does the preferences/get API only fire for the user who is logged in as opposed to any family memebers?)
+	if( JSON.stringify(result).indexOf("card_type") !== -1 ) {
+		//set flag that the user has been prompted
+	    Ti.API.info("setProperty(Alloy.CFG.checkout_info_prompted, true    !!!");
+		utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+		utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
+	}
+
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
 	//get next patient information
 	passthrough.currentPatientIndex++;
@@ -854,6 +886,7 @@ function completeAuthentication(passthrough) {
 	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
+	
 	/**
 	 * check for mandatory screens
 	 * to be visited after successful login
@@ -867,6 +900,21 @@ function completeAuthentication(passthrough) {
 	if (passthrough.success) {
 		passthrough.success(passthrough, navigationHandled);	
 	}
+}
+
+function isExpressCheckoutValid(exp_counter_key) {
+	var exp_counter_time = utilities.getProperty(exp_counter_key, null, "object", false);
+	if (exp_counter_time) {
+		var timeThen = exp_counter_time;
+		var now = moment();
+		if (now.diff(timeThen, 'hours') >= 24) {
+			//	reset counter if more than 24 hours
+			utilities.removeProperty(exp_counter_key);
+		} else {
+			return true;
+		}
+	}
+	return false;
 }
 
 function setDefaultDevice(passthrough) {
@@ -1047,6 +1095,9 @@ function doLogout(passthrough) {
 }
 
 function didLogout(result, passthrough) {
+
+	utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
+
 	//get next patient information
 	passthrough.currentPatientIndex++;
 	//check whether next index is available
@@ -1277,3 +1328,4 @@ exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
 exports.getPushModeForDeviceToken = getPushModeForDeviceToken;
+exports.isExpressCheckoutValid = isExpressCheckoutValid;

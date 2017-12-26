@@ -26,6 +26,8 @@ module.exports = {
 	"EMAI" : "LoginAndRegistration",
 	"EMVE" : "LoginAndRegistration",
 	"FOPA" : "LoginAndRegistration",
+	"PASS" : "LoginAndRegistration",
+
 	"HIPA" : "LoginAndRegistration",
 	"LOGI" : "LoginAndRegistration",
 	"LOIU" : "LoginAndRegistration",
@@ -63,6 +65,11 @@ module.exports = {
 	"FMIS" : "FamilyCare",
 	"ADAA" : "FamilyCare",
 	/**
+	 * express checkout
+	 */
+	"EXCH" : "ExpressCheckout",
+	"EXQR" : "ExpressQR",
+	/**
 	 * stores
 	 */
 	"STDE" : "StoreFinder",
@@ -73,6 +80,10 @@ module.exports = {
 	"DODE" : "Doctors",
 	"DOSE" : "Doctors",
 	"DOCT" : "Doctors",
+	/**
+	 * checkout
+	 */
+	"CHEC" : "Checkout",
 	/**
 	 * reminders
 	 */

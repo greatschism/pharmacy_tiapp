@@ -3,9 +3,10 @@
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View class="auto-height vgroup">
 				<Label id="titleLbl" class="left h4" />
+				<Label id="subtitleLbl" class="left inactive-fg-color"/>
 				<View id="masterView" class="margin-top-small auto-height">
-					<Label class="left i6 positive-fg-color icon-thin-filled-success" />
-					<Label id="subtitleLbl" class="margin-left-small inactive-fg-color" />
+					<Label id="subtitleIconLbl" class="left i6" />
+					<Label id="detailLbl" class="margin-left-small inactive-fg-color bubble-disabled" onClick="didClickPhone" />
 				</View>
 			</View>
 		</View>

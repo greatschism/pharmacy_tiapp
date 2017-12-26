@@ -10,8 +10,10 @@ function init() {
 	}
 }
 
-function didClickPhoto(e) {
+function didClickPhoto(e) {	
+	$.app.navigator.showLoader();
 	$.uihelper.getPhoto(true, didGetPhoto, $.window);
+	$.app.navigator.hideLoader();
 }
 
 function didGetPhoto(blob) {
@@ -30,6 +32,7 @@ function didGetPhoto(blob) {
 	blob = null;
 	smallBlob = null;
 
+	$.app.navigator.hideLoader();
 	$.app.navigator.open({
 		titleid : "titleInsuranceCard",
 		ctrl : "insuranceProfile",

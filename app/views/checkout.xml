@@ -1,0 +1,13 @@
+<Alloy>
+	
+	<!-- <ScrollView class="vgroup"> -->
+
+		<TableView id="tableView" class="top margin-bottom">
+			<FooterView platform="ios">
+				<View class="auto-height" />
+			</FooterView>
+		</TableView>	
+		<Button id="submitBtn" title="Submit" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border" onClick="didClickSubmit" />
+	<!-- </ScrollView> -->
+	<!-- <Widget id="loader" name="embedded" src="ti.loading" /> -->
+</Alloy>
