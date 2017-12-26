@@ -40,7 +40,7 @@ function didClickPhoto(e) {
 	$.app.navigator.showLoader();
 }
 
-function didFailure(error){
+function didFailure(){
 	$.app.navigator.hideLoader();
 }
 
