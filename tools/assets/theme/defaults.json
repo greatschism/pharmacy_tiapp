@@ -30,6 +30,9 @@
 	"ListView": {
 		"footerDividersEnabled": true
 	},
+	"ListView[platform=ios]": {
+		"selectionStyle": "Ti.UI.iOS.ListViewCellSelectionStyle.NONE"
+	},
 	"TableViewRow": {
 		"height": "Ti.UI.SIZE"
 	},
