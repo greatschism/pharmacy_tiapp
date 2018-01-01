@@ -3,7 +3,8 @@ var args = $.args,
     prescription = args.prescription,
     rows = [],
     isWindowOpen,
-    httpClient;
+    httpClient,
+    historyPrescriptions = [];
 
 function init() {
 	if (_.has(prescription, "history")) {
@@ -50,10 +51,11 @@ function didGetHistory(result, passthrough) {
 		 */
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
+			historyPrescriptions.push(history);
 			history = {
 				id : history.store_id,
-				title : $.utilities.ucword(history.addressline1),
-				subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+				title : Alloy.CFG.is_specialty_store_grouping_enabled ? (history.is_specialty_store==1 && history.original_store_phone_number ? history.original_store_phone_number : $.utilities.ucword(history.addressline1)): $.utilities.ucword(history.addressline1),
+				subtitle : Alloy.CFG.is_specialty_store_grouping_enabled ? (history.is_specialty_store==1 && history.original_store_phone_number ? "" : ($.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip)) : ($.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip),
 				detailSubtitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || "",
 				detailTitle : history.copay != null ? "$"+parseFloat(history.copay) : ""
 			};
@@ -76,10 +78,15 @@ function didGetHistory(result, passthrough) {
 	$.loader.hide();
 }
 
-function didClickTableView(e) {
+function didClickTableView(e) {	
 	var row = rows[e.index];
+	var prescription = historyPrescriptions[e.index];
 	if (row) {
-		$.app.navigator.open({
+		if(Alloy.CFG.is_specialty_store_grouping_enabled){
+			if(prescription.is_specialty_store==1 && prescription.original_store_phone_number)
+				storePhone(prescription);				
+			else{
+			$.app.navigator.open({
 			titleid : "titleStoreDetails",
 			ctrl : "storeDetails",
 			ctrlArguments : {
@@ -87,7 +94,43 @@ function didClickTableView(e) {
 			},
 			stack : true
 		});
+		}			
+		}
+		else{
+			$.app.navigator.open({
+			titleid : "titleStoreDetails",
+			ctrl : "storeDetails",
+			ctrlArguments : {
+				store : row.getParams()
+			},
+			stack : true
+		});
+		}
 	}
+}
+function storePhone(prescription){
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler(prescription);
+			}
+			else{
+				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler(prescription);
+	}
+}
+function contactsHandler(prescription) {
+	 if (prescription.original_store_phone_number!= null) {
+		 $.uihelper.getPhone({
+		 	 firstName : prescription.store_name, 
+			 phone : {
+				 work : [prescription.original_store_phone_number]
+			 }
+		 }, prescription.original_store_phone_number);
+	 }
 }
 
 function terminate() {
