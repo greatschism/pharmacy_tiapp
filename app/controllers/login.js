@@ -63,6 +63,10 @@ function init() {
 		$.signupAttr.applyProperties(sDict);
 		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
 	};
+	
+	$.loginBtn.addEventListener('touchstart', function(e){
+		$.uihelper.buttonTouchEventListener($.loginBtn);
+	});
 }
 
 function didClickAbout() {

@@ -1122,6 +1122,18 @@ var Helper = {
 			child[direction] = value;
 			value += child.width || child.font && child.font.fontSize || 0;
 		});
+	},
+	
+	/**
+	 * button set background selected color on touch 
+	 * and revert back in some fraction of a second 
+	 */
+	buttonTouchEventListener : function(view) {
+		oldBackgroundColor = view.backgroundColor;
+		view.backgroundColor = view.backgroundSelectedColor;
+		setTimeout(function(){
+			view.backgroundColor = oldBackgroundColor;
+		}, 150);
 	}
 };
 
