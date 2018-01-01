@@ -8,9 +8,14 @@ var args = $.args,
     bannerItems = Alloy.Models.banner.get("items"),
     spanTimeId,
     logger = require("logger");
+    /*logger = require("logger"),
+    utilities = require('utilities');*/
 ;
 
 function init() {
+	
+	//$.rightNavBtn.getNavButton().setImage($.uihelper.getImage("user").image);
+	
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
 		var view = create(item);
