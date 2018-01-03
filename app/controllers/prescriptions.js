@@ -862,19 +862,19 @@ function prepareList() {
 
 				if (!args.selectable && args.navigationFrom == "") {
 					
-					var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
 					var medSyncData = {
-						itemTemplate : "masterDetail",
+						className : "MS",
+						itemTemplate : "completed",
 						title : "Specialty",
-						titleClasses : titleClasses,
 						masterWidth : 100,
 						detailWidth : 0,
-						// subtitle : "Next pick up " + nextPickupDate,
-						// subtitleClasses : detailClasses,
+						detailTitle : "Click to view prescriptions",
+						detailColor : "custom-fg-color",
+						customIconCheckoutComplete : "icon-thick-prescription",
 						section : "specialty",
+						titleClasses : titleClasses,
 						canHide : false
 					}; 
-					
 
 
 					var rowParams = medSyncData,
@@ -892,19 +892,19 @@ function prepareList() {
 
 				if (!args.selectable) {
 
-				var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
-					var medSyncData = {
-						itemTemplate : "masterDetail",
+				var medSyncData = {
+						className : "MS",
+						itemTemplate : "completed",
 						title : "Specialty",
-						titleClasses : titleClasses,
 						masterWidth : 100,
 						detailWidth : 0,
-						// subtitle : "Next pick up " + nextPickupDate,
-						// subtitleClasses : detailClasses,
+						detailTitle : "Click to view prescriptions",
+						detailColor : "custom-fg-color",
+						customIconCheckoutComplete : "icon-thick-prescription",
 						section : "specialty",
+						titleClasses : titleClasses,
 						canHide : false
 					}; 
-
 				
 				var rowParams = medSyncData,
 				    row;
