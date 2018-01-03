@@ -323,7 +323,7 @@ function didPostlayoutPromptSpecialty(e){
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPromptSpecialty);
 
-		if(prescription.is_specialty_store) {
+		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
 			$.reminderRefillView.hide();
 			$.reminderRefillView.height = 0;
 
