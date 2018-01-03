@@ -50,13 +50,31 @@ function didGetHistory(result, passthrough) {
 		 */
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
-			history = {
-				id : history.store_id,
-				title : $.utilities.ucword(history.addressline1),
-				subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
-				detailSubtitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || "",
-				detailTitle : history.copay != null ? "$"+parseFloat(history.copay) : ""
-			};
+			
+			if (Alloy.CFG.is_specialty_store_grouping_enabled && history.is_specialty_store == 1) {
+				var subtitleClasses = ["active-fg-color", "left"];
+				history = {
+					id : history.store_id,
+					title : $.utilities.ucword(history.store_name),
+					subtitle : history.original_store_phone_number ? history.original_store_phone_number : $.utilities.ucword(history.addressline1) + ", " + $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+					subtitleClasses : history.original_store_phone_number ? subtitleClasses : "",
+					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
+					detailType : "positive",
+					detailSubtitle : history.quantity != null ? history.quantity : "",
+					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
+				};
+			} else {
+				history = {
+					id : history.store_id,
+					title : $.utilities.ucword(history.addressline1),
+					subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
+					detailType : "positive",
+					detailSubtitle : history.quantity != null ? history.quantity : "",
+					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
+				};
+			}
+
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			data.push(row.getView());

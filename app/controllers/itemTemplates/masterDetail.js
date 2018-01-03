@@ -31,6 +31,21 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+	
+	if (args.tertiaryTitle) {
+		var tertiaryTitle = args.tertiaryTitle || (args.data ? args.data[args.ttProperty] : "");
+		$.tertiaryTitleLbl.show();
+		if (args.ttClasses) {
+			$.resetClass($.tertiaryTitleLbl, args.ttClasses, {
+				text : tertiaryTitle
+			});
+		} else {
+			$.tertiaryTitleLbl.text = tertiaryTitle;
+		}
+	} else {
+		$.tertiaryTitleLbl.height = 0;
+	}
+
 	var detailClassPrefix = args.detailType ? args.detailType + "-" : "";
 	$.addClass($.detailTitleLbl, [detailClassPrefix + "fg-color"], {
 		text : args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "")
