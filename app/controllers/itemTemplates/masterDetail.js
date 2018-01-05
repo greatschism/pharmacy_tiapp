@@ -61,5 +61,13 @@ var args = $.args,
 function getParams() {
 	return args;
 }
-
+function didClickPhone(e){
+	 	var source = e.source;
+			$.trigger("clickPhone",{
+				source : $,
+				titile : "",
+				data : args
+			});
+	}
+	
 exports.getParams = getParams;
