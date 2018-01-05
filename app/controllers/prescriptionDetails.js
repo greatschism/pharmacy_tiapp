@@ -325,7 +325,7 @@ function didPostlayoutPromptStore(e){
 		var source = e.source,
 	    children = source.getParent().children;
 
-	    source.removeEventListener("postlayout", didPostlayoutPromptSpecialty);
+	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
 
 		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
 			$.reminderRefillView.hide();
