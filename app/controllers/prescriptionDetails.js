@@ -322,6 +322,13 @@ function didPostlayoutPromptSpecialty(e){
 		var source = e.source,
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPromptSpecialty);
+
+		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
+			$.reminderRefillView.hide();
+			$.reminderRefillView.height = 0;
+
+		}
+
 	    if(prescription.is_specialty_store && prescription.store_phone){	    		    
 	    children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
