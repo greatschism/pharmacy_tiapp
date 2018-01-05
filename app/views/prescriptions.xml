@@ -30,11 +30,14 @@
 		<Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" />
 		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
-	<TableView id="tableView" class="margin-bottom" onSingletap="didClickTableView" borderColor="red">
+	
+	<TableView id="tableView" class="top" onSingletap="didClickTableView" >
+		
 		<!-- search, shorthand with Ti.UI.SearchBar -->
-		<SearchBar id="searchbar" platform="ios" visible="false"  height="0"/>
+		<SearchBar id="searchbar" class="top" platform="ios" height="0" visible="false"/>
 		<!-- search, shorthand with Ti.UI.Android.SearchView -->
-		<SearchView id="searchbar" ns="Ti.UI.Android" platform="android" visible="false" top="0" height="0"/>
+		<SearchView id="searchbar" class="top" ns="Ti.UI.Android" platform="android" />
+		
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>

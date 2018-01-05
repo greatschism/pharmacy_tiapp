@@ -78,8 +78,7 @@ function init() {
 		}
 	});
 
-
-
+	$.tableView.search = $.searchbar;
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 	//$.bottomView.visible = false;
@@ -1093,7 +1092,7 @@ function toggleSearch() {
 	    opacity = 0;
 	if ($.tableView.top == top) {
 		opacity = 1;
-		top += $.searchbar.rect.height;
+		// top -= $.searchbar.rect.height;
 		$.searchbar.visible = true;
 	}
 	var sAnim = Ti.UI.createAnimation({
@@ -1492,7 +1491,7 @@ function didPostlayout(e) {
 	}
 	
 	
-	$.searchbar.top = top;
+	// $.searchbar.top = top;
 	$.tableView.applyProperties({
 		top : top,
 		bottom : bottom

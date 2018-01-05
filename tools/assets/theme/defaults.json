@@ -25,7 +25,8 @@
 	},
 	"TableView": {
 		"footerDividersEnabled": true,
-		"filterAttribute": "Alloy.Globals.filterAttribute"
+		"filterAttribute": "Alloy.Globals.filterAttribute",
+		"dimBackgroundForSearch": false
 	},
 	"ListView": {
 		"footerDividersEnabled": true
