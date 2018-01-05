@@ -59,6 +59,16 @@ var args = $.args,
 			$.addClass($.detailLbl, [args.detailColor] );
 	}
 	
+	if (args.showChild) {
+		if (args.showChild == true) {
+			$.childLbl.show();
+		} else {
+			$.childLbl.height = 0;
+		}
+	} else {
+		$.childLbl.height = 0;
+	}
+	
 	uihelper.wrapViews($.masterView);
 	_.each(["titleLbl", "subtitleLbl", "detailLbl"], function(val) {
 		uihelper.wrapText($[val]);

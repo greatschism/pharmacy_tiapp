@@ -9,6 +9,7 @@
 					<Label id="detailLbl" class="margin-left-small inactive-fg-color bubble-disabled" onClick="didClickPhone" />
 				</View>
 			</View>
+			<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled hide" />
 		</View>
 	</TableViewRow>
 </Alloy>

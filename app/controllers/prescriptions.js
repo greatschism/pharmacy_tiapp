@@ -766,6 +766,7 @@ function prepareList() {
 						customIconCheckoutComplete : "icon-clock",
 						section : "medSync",
 						titleClasses : titleClasses,
+						showChild : true,
 						canHide : false
 					};
 
@@ -812,6 +813,7 @@ function prepareList() {
 					customIconCheckoutComplete : "icon-clock",
 					section : "medSync",
 					titleClasses : titleClasses,
+					showChild : true,
 					canHide : false
 				}; 
 
@@ -873,9 +875,9 @@ function prepareList() {
 						customIconCheckoutComplete : "icon-thick-prescription",
 						section : "specialty",
 						titleClasses : titleClasses,
+						showChild : true,
 						canHide : false
-					}; 
-
+					};
 
 					var rowParams = medSyncData,
 					    row;
@@ -903,6 +905,7 @@ function prepareList() {
 						customIconCheckoutComplete : "icon-thick-prescription",
 						section : "specialty",
 						titleClasses : titleClasses,
+						showChild : true,
 						canHide : false
 					}; 
 				

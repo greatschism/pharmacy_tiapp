@@ -59,7 +59,7 @@ function didGetHistory(result, passthrough) {
 					subtitleClasses : history.original_store_phone_number ? subtitleClasses : "",
 					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
 					detailType : "positive",
-					detailSubtitle : history.quantity != null ? history.quantity : "",
+					detailSubtitle : history.quantity != null ? (history.quantityUnit ? history.quantity + " " + history.quantityUnit : history.quantity) : "",
 					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
 				};
 			} else {
@@ -69,7 +69,7 @@ function didGetHistory(result, passthrough) {
 					subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
 					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
 					detailType : "positive",
-					detailSubtitle : history.quantity != null ? history.quantity : "",
+					detailSubtitle : history.quantity != null ? (history.quantityUnit ? history.quantity + " " + history.quantityUnit : history.quantity) : "",
 					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
 				};
 			}
