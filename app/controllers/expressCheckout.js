@@ -1,4 +1,5 @@
 var args = $.args,
+    logger = require("logger"),
 
     app = require("core"),
     http = require("requestwrapper"),
@@ -45,14 +46,68 @@ function getCheckoutInfo() {
 		params : {
 			data : []
 		},
-		errorDialogEnabled : true,
+		errorDialogEnabled : false,
 		success : didGetCheckoutDetails,
 		failure : checkoutDetailsFail
 	});
 }
 
-function checkoutDetailsFail() {
-	popToHome();
+function checkoutDetailsFail(error, passthrough) {
+	var err = error.message;
+	if (err.indexOf("click here.")) {
+		var dialogView = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
+		});
+		dialogView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+			text : "Express Pick-up"
+		}));
+
+		$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+			classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+			html : $.strings.expressCheckoutNoCConFile,
+		}));
+		$.lbl.on("click", openExpressPickupBenefits);
+
+		dialogView.add($.lbl.getView());
+		_.each([{
+			title : Alloy.Globals.strings.dialogBtnOK,
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "bg-color", "primary-fg-color", "primary-border"]
+		}], function(obj, index) {
+			var btn = $.UI.create("Button", {
+				apiName : "Button",
+				classes : obj.classes,
+				title : obj.title,
+				index : index
+			});
+			$.addListener(btn, "click", popToHome);
+			dialogView.add(btn);
+		});
+		$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView]
+		}));
+		$.contentView.add($.loyaltyDialog.getView());
+		$.loyaltyDialog.show();
+
+	} else {
+		uihelper.showDialog({
+			message : err,
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			cancelIndex : 0,
+			success : popToHome
+		});
+	}
+}
+
+function openExpressPickupBenefits() {
+	$.app.navigator.open({
+		titleid : "titleExpressPickupBenefits",
+		ctrl : "expressPickupBenefits",
+		stack : false
+	}); 
 }
 
 function didGetCheckoutDetails(result) {

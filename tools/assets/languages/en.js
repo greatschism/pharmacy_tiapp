@@ -362,6 +362,7 @@ module.exports = {
 		"generateValDob" : "Please enter your date of birth.",
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pick-up is not supported at multiple locations at this time. Please proceed to your pharmacy to pick up your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please re-enter your information.",
+		"expressCheckoutNoCConFile" : "Please ask us to store your credit card during your next stop at the pharmacy to enable the Express Pick-up checkout feature for prescriptions that are READY FOR PICK UP. Want to learn more, click <secondaryfont><secondarycolor>here</secondarycolor></secondaryfont>.",
 		
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
