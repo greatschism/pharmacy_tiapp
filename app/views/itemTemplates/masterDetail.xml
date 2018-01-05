@@ -3,7 +3,7 @@
 		<View id="contentView" class="margin-top margin-bottom margin-left margin-right auto-height">
 			<View id="masterView" class="left width-65 auto-height vgroup">
 				<Label id="titleLbl" class="left h4" />
-				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color" />
+				<Label id="subtitleLbl" class="margin-top-small left inactive-fg-color bubble-disabled" onClick="didClickPhone" />
 				<Label id="tertiaryTitleLbl" class="margin-top-small left inactive-fg-color hide" />
 			</View>
 			<View id="detailView" class="right width-35 auto-height vgroup">

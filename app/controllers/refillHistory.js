@@ -36,7 +36,6 @@ function focus() {
 function didFail(error, passthrough) {
 	$.loader.hide();
 	handleClose();
-
 }
 
 function didGetHistory(result, passthrough) {
@@ -74,11 +73,11 @@ function didGetHistory(result, passthrough) {
 					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
 				};
 			}
-
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			data.push(row.getView());
 			rows.push(row);
+			row.on("clickPhone",didClickPhone);
 		});
 	} else {
 		/**
@@ -95,7 +94,7 @@ function didGetHistory(result, passthrough) {
 }
 
 function didClickTableView(e) {
-	var row = rows[e.index];
+	var row = rows[e.index];		
 	if (row) {
 		$.app.navigator.open({
 			titleid : "titleStoreDetails",
@@ -116,6 +115,32 @@ function terminate() {
 
 function handleClose() {
 	$.app.navigator.close();
+}
+function didClickPhone(e){
+	if($.utilities.validatePhoneNumber(e.data.subtitle)){
+		if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+			 $.uihelper.getPhone({
+			 firstName : e.data.title,
+			 phone : {
+				 work : [e.data.subtitle]
+			 }
+		 	}, e.data.subtitle);
+			}
+			else{
+				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+			 $.uihelper.getPhone({
+			 firstName : e.data.title,
+			 phone : {
+				 work : [e.data.subtitle]
+			 }
+		 	 }, e.data.subtitle);
+	}
+	}
 }
 
 exports.init = init;
