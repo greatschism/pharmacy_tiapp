@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: Module to close soft keyboard if it is vissible.
+author: Harshal Hardiya
+license: Specify your license
+copyright: 2018 Mscripts
+
+# these should not be edited
+name: ios_hide_keyboard
+moduleid: com.mscripts.hidekeyboard
+guid: a7fc350b-4218-426a-82fb-350f4df68e75
+platform: iphone
+minsdk: 7.0.0.GA
