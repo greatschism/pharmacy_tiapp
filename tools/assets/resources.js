@@ -134,7 +134,8 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/checkout_shopping_image.png",
 		"selected" : true
-	}, {
+	}, 
+	{
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
@@ -148,21 +149,8 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/cart_arrow.png",
 		"selected" : true
-	}, {
-		"type" : "image",
-		"version" : 1,
-		"base_version" : 1,
-		"code" : "auto_fill_pl",
-		"name" : "auto_fill",
-		"format" : "png",
-		"properties" : {
-			"height" : 20
-		},
-		"hires" : true,
-		"platform" : ["ios", "android"],
-		"url" : "http://example.com/auto_fill.png",
-		"selected" : true
-	}, {
+	},
+	{
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,

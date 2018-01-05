@@ -31,9 +31,6 @@
 "#copayPromptLbl":{
 	text: Alloy.Globals.strings.prescDetPromptCopay
 },
-"#autofillReplyLbl":{
-	text: Alloy.Globals.strings.prescDetPromptAutofill
-},
 "#remindersLbl":{
 	text: Alloy.Globals.strings.prescDetSectionReminders
 },

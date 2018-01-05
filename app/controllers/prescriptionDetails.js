@@ -226,7 +226,7 @@ function loadPresecription() {
 	 * Hide schedule 2 drug for refill
 	 *
 	 */
-	if ($.refillBtn && prescription.schedule == 2) {
+	if (prescription.schedule == 2) {
 		$.refillBtn.height = 0;
 	}
 
@@ -256,8 +256,11 @@ function loadPresecription() {
 	if (_.has(prescription, "quantity")) {
 		if (prescription.quantity != null) {
 			$.quantityReplyLbl.text = prescription.quantity;
+			// $.copayView.hide(false);
+
 		} else {
 			logger.debug("quantity is null");
+			// $.copayView.hide(true);
 			$.quantityView.height = 0;
 		}
 	} else {
@@ -318,9 +321,10 @@ function didPostlayoutPrompt(e) {
 		$.prescExp.setStopListening(true);
 	}
 }
-function didPostlayoutPromptSpecialty(e){
+function didPostlayoutPromptStore(e){
 		var source = e.source,
 	    children = source.getParent().children;
+
 	    source.removeEventListener("postlayout", didPostlayoutPromptSpecialty);
 
 		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
@@ -824,8 +828,11 @@ function loadCopay() {
 		if (_.has(prescription, "copay")) {
 			if (prescription.copay != null) {
 				$.copayReplyLbl.text = "$" + prescription.copay;
+				// $.copayView.hide(false);
+
 			} else {
 				logger.debug("copay is null");
+				// $.copayView.hide(true);
 				$.copayView.height = 0;
 			}
 		}

@@ -321,7 +321,7 @@ var Helper = {
 	 *  @param width to resize
 	 *  @param height to resize
 	 */
-	getPhoto : function(watermark, callback, window, width, height) {
+	getPhoto : function(watermark, callback, window, callbackError, width, height) {
 		// alert(watermark);
 		var optDialog = Alloy.createWidget("ti.optiondialog", "widget", {
 			options : [Alloy.Globals.strings.dialogBtnCamera, Alloy.Globals.strings.dialogBtnGallery, Alloy.Globals.strings.dialogBtnCancel],
@@ -425,27 +425,32 @@ var Helper = {
 										title : Alloy.Globals.strings.dialogBtnCancel
 									}]
 								});
+								callbackError();
 							} else {
 								if (watermark)
-									Helper.openCamera(watermarker, window, width, height);
+									Helper.openCamera(watermarker, callbackError, window, width, height);
 								else
-									Helper.openCamera(callback, window, width, height);
+									Helper.openCamera(callback, callbackError, window, width, height);
 							}
 						});
 					} else {
 						if (watermark)
-							Helper.openCamera(watermarker, window, width, height);
+							Helper.openCamera(watermarker, callbackError, window, width, height);
 						else
-							Helper.openCamera(callback, window, width, height);
+							Helper.openCamera(callback, callbackError, window, width, height);
 					}
 					break;
 				case 1:
 					if (watermark)
-						Helper.openGallery(watermarker, window, width, height);
+						Helper.openGallery(watermarker, callbackError, window, width, height);
 					else
-						Helper.openGallery(callback, window, width, height);
+						Helper.openGallery(callback, callbackError, window, width, height);
 					break;
 				}
+			}
+			else
+			{
+				callbackError();
 			}
 			optDialog.off("click", didClick);
 			optDialog.destroy();
@@ -478,17 +483,19 @@ var Helper = {
 	 * @param width to resize
 	 * @param height to resize
 	 */
-	openCamera : function(callback, window, width, height) {
+	openCamera : function(callback, callbackError, window, width, height) {
 		if (OS_IOS) {
 			var authorization = Ti.Media.cameraAuthorization;
 			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
-				return Helper.showDialog({
+				Helper.showDialog({
 					message : Alloy.Globals.strings.msgCameraAuthorizationDenied
 				});
+				callbackError();
 			} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
-				return Helper.showDialog({
+				Helper.showDialog({
 					message : Alloy.Globals.strings.msgCameraAuthorizationRestricted
 				});
+				callbackError();	
 			}
 			Ti.Media.showCamera({
 				allowEditing : true,
@@ -501,10 +508,14 @@ var Helper = {
 						callback(blob);
 					}
 				},
+				cancel : function didCanceled() {
+					callbackError();
+				},
 				error : function didFail(e) {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgCameraError
 					});
+					callbackError();
 				}
 			});
 		} else {
@@ -514,9 +525,10 @@ var Helper = {
 			 * to pickup different camera apps he has
 			 */
 			if (!Ti.Filesystem.isExternalStoragePresent()) {
-				return Helper.showDialog({
+				Helper.showDialog({
 					message : Alloy.Globals.strings.msgExternalStorageError
 				});
+				callbackError();
 			}
 			var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempCamera.jpg"),
 			    intent = Ti.Android.createIntent({
@@ -555,6 +567,7 @@ var Helper = {
 								Helper.showDialog({
 									message : Alloy.Globals.strings.msgCameraInvalid
 								});
+								callbackError();
 							}
 						} else {
 							/**
@@ -565,11 +578,13 @@ var Helper = {
 							Helper.showDialog({
 								message : Alloy.Globals.strings.msgCameraInvalid
 							});
+							callbackError();
 						}
 					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgCameraInvalid
 						});
+						callbackError();
 					}
 				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
 					/**
@@ -579,6 +594,10 @@ var Helper = {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgCameraError
 					});
+					callbackError();
+				}
+				else{
+					callbackError();
 				}
 			});
 		}
@@ -591,7 +610,7 @@ var Helper = {
 	 * @param width to resize
 	 * @param height to resize
 	 */
-	openGallery : function(callback, window, width, height) {
+	openGallery : function(callback, callbackError, window, width, height) {
 		if (OS_IOS) {
 			/**
 			 * authorization status is handled by
@@ -609,10 +628,14 @@ var Helper = {
 						callback(blob);
 					}
 				},
+				cancel : function didCanceled(){
+					callbackError();
+				},
 				error : function didFail(e) {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgGalleryError
 					});
+					callbackError();
 				}
 			});
 		} else {
@@ -623,9 +646,10 @@ var Helper = {
 			 * to the intent so making our own
 			 */
 			if (!Ti.Filesystem.isExternalStoragePresent()) {
-				return Helper.showDialog({
+				Helper.showDialog({
 					message : Alloy.Globals.strings.msgExternalStorageError
 				});
+				callbackError();
 			}
 			var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempGallery.jpg"),
 			    intent = Ti.Android.createIntent({
@@ -666,6 +690,7 @@ var Helper = {
 								Helper.showDialog({
 									message : Alloy.Globals.strings.msgGalleryInvalid
 								});
+								callbackError();
 							}
 						} else {
 							/**
@@ -676,11 +701,13 @@ var Helper = {
 							Helper.showDialog({
 								message : Alloy.Globals.strings.msgGalleryInvalid
 							});
+							callbackError();
 						}
 					} else {
 						Helper.showDialog({
 							message : Alloy.Globals.strings.msgGalleryInvalid
 						});
+						callbackError();
 					}
 				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
 					/**
@@ -690,6 +717,11 @@ var Helper = {
 					Helper.showDialog({
 						message : Alloy.Globals.strings.msgGalleryError
 					});
+					callbackError();
+				}
+				else
+				{
+					callbackError();
 				}
 			});
 		}
