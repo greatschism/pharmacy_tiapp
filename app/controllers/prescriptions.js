@@ -1090,7 +1090,8 @@ function didClickOptionMenu(e) {
 function toggleSearch() {
 	var top = $.headerView.rect.height,
 	    opacity = 0;
-	if ($.tableView.top == top) {
+	    $.searchbar.visible = !$.searchbar.visible;
+	/*if ($.tableView.top == top) {
 		opacity = 1;
 		// top -= $.searchbar.rect.height;
 		$.searchbar.visible = true;
@@ -1118,7 +1119,7 @@ function toggleSearch() {
 			// $.searchTxt.focus();
 		}
 	});
-	$.tableView.animate(tAnim);
+	$.tableView.animate(tAnim);*/
 	/**
 	 * required when partialView view is
 	 * enabled or visible or when switched

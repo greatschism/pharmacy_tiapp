@@ -55,9 +55,8 @@
 "#unhideCloseBtn":{
 	title: Alloy.Globals.strings.prescPopupUnhideBtnClose
 },
-"#searchTxt":{
-	hintText:Alloy.Globals.strings.prescHintSearch,
-	clearButtonEnabled: true
+"#searchbar":{
+	hintText:Alloy.Globals.strings.prescHintSearch
 },
 "#tooltip":{
 	arrowPadding: 6.5
