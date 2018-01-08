@@ -1,5 +1,6 @@
 var args = $.args,
-    cancelIndex;
+    cancelIndex,
+    keyboardModule = require("com.mscripts.hidekeyboard");
 
 (function() {
 
@@ -52,7 +53,7 @@ function show() {
 	 * the keyboard by default
 	 */
 	if (OS_ANDROID && Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+    	keyboardModule.hideKeyboard();
 	}
 	$.optionDialog.show();
 }

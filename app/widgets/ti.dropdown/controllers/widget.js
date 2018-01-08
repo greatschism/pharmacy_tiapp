@@ -1,5 +1,6 @@
 var args = $.args,
     moment = require("alloy/moment"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     isHintText = false,
     choices = [],
     selectedIndex = -1,
@@ -102,7 +103,7 @@ function show() {
 	if (!picker && parent) {
 		//hide keyboard if any
 		if (Ti.App.keyboardVisible) {
-			Ti.App.hideKeyboard();
+    		keyboardModule.hideKeyboard();
 		}
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {
 			if (OS_ANDROID) {

@@ -1,4 +1,5 @@
 var args = $.args,
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75;
 
 if (OS_ANDROID) {
@@ -55,7 +56,7 @@ function show(callback) {
 	if (!$.widget.visible) {
 		//hide keyboard if any
 		if (Ti.App.keyboardVisible) {
-			Ti.App.hideKeyboard();
+    		keyboardModule.hideKeyboard();
 		}
 		//disable accessibility of other elements
 		// _.each($.widget.getParent().children, function(child) {

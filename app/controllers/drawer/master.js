@@ -7,6 +7,7 @@ var args = $.args,
     notificationPanel = require("notificationPanel"),
     authenticator = require("authenticator"),
     logger = require("logger"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     reload = false;
 
 function init() {
@@ -203,7 +204,7 @@ function didClickLeftNavView(e) {
 
 function hideKeyboard(e) {
 	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+		keyboardModule.hideKeyboard();
 	}
 }
 

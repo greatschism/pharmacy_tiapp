@@ -1,6 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     logger = require("logger"),
     apiCodes = Alloy.CFG.apiCodes,
     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
@@ -584,7 +585,7 @@ function hideKeyboard() {
 	 * right value always on android
 	 */
 	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+    	keyboardModule.hideKeyboard();
 	}
 }
 

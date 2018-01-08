@@ -2,6 +2,7 @@ var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
@@ -157,7 +158,7 @@ function didBlurFocusPassword() {
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
 	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+    	keyboardModule.hideKeyboard();
 	}
 }
 
