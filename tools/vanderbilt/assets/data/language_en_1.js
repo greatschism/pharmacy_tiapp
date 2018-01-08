@@ -25,7 +25,8 @@ module.exports = {
         "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
 	    "loginLblTitle" : "Sign in to the %s Health Pharmacy",
-         "titleHelp" : "Help"
+        "titleHelp" : "Help",
+        "msgPrescriptionRefillLeftNone": "This prescription is not refillable. Please contact your doctor to authorize a new prescription."
 	}
 
 };
