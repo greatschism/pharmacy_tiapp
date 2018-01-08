@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "Vanderbilt",
+		"strClientName" : "D-H",
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -18,15 +18,14 @@ module.exports = {
 		"familyMemberAddPrescValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
         "refillTypeValRx" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"registerValRxInvalid" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
-        "userRecoveryLbl":"Please enter the <tertiaryfont><tertiarycolor>email address</tertiarycolor></tertiaryfont> that you use to sign in.",
-		"userRecoveryEmailHint":"Email address",
-		"loginHintEmailOrUsername" : "Email address",
-        "userRecoveryValEmail":"Please enter your email address.",
-        "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
-	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
-	    "loginLblTitle" : "Sign in to the %s Health Pharmacy",
-        "titleHelp" : "Help",
-        "msgPrescriptionRefillLeftNone": "This prescription is not refillable. Please contact your doctor to authorize a new prescription."
+        "userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
+		"userRecoveryEmailHint" : "Email address or username",
+		"loginHintEmailOrUsername" : "Email address or username",
+        "userRecoveryValEmail" : "Please enter your email address or username.",
+        "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
+	    "loginLblTitle" : "Sign in to the %s Pharmacy",
+         "titleHelp" : "Help"
 	}
 
 };
