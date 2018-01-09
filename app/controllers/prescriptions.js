@@ -616,8 +616,6 @@ function prepareList() {
 		    row;
 		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-		console.error('rowParams.filterText ', rowParams.filterText);
-		console.error('"itemTemplates/".concat(rowParams.itemTemplate)', "itemTemplates/".concat(rowParams.itemTemplate));
 		switch(rowParams.itemTemplate) {
 		case "masterDetailSwipeable":
 			row.on("clickoption", didClickSwipeOption);
