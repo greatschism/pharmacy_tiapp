@@ -35,11 +35,11 @@ CONSTS = Alloy.TSS[CONSTS];
 
 (function() {
 	if (args.filterText) {
-		// $.row[Alloy.Globals.filterAttribute] = args.filterText;
+		$.row[Alloy.Globals.filterAttribute] = args.filterText;
 	}
-	if (args.filterText) {
-		$.row.filter = args.filterText;
-	}
+	// if (args.filterText) {
+		// $.row.filter = args.filterText;
+	// }
 	/**
 	 *  keep different class names for different layouts
 	 */
