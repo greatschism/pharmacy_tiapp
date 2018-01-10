@@ -53,9 +53,6 @@ function init() {
 		isWindowOpen = true;
 		prepareList();
 	}
-
-	$.submitBtn.visible = false;
-
 }
 
 function prepareList() {
@@ -862,7 +859,7 @@ function presentSubmitButton() {
 		});
 	}
 	//Submit button can be shown here
-	$.submitBtn.visible = true;
+	$.submitBtn.show();
 }
 
 function didClickSubmit(e) {
