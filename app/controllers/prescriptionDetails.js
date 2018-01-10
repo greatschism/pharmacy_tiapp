@@ -225,8 +225,8 @@ function loadPresecription() {
 	/*
 	 * Hide schedule 2 drug for refill
 	 *
-	 */
-	if (prescription.schedule == 2) {
+	 */	
+	 if ($.refillBtn && prescription.schedule == 2) {
 		$.refillBtn.height = 0;
 	}
 
