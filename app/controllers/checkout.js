@@ -686,6 +686,8 @@ function presentCCConfirmation(patient) {
 	/*
 	 * show original store of each Rx with amountdue for each store
 	 */
+	var titleClasses = ["active-fg-color", "margin-left"];
+
 	checkoutStores = [];
 	_.each(prescriptions, function(prescription) {
 		if (_.has(prescription, "original_store_address_line1")) {
@@ -706,7 +708,8 @@ function presentCCConfirmation(patient) {
 									itemTemplate : "checkoutStoreItems",
 									masterWidth : 100,
 									storeId : prescription.original_store_id,
-									title : prescription.original_store_address_line1.trim(),
+									title : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
+									titleClasses : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 									subtitle : prescription.presc_name,
 									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 								};
@@ -724,7 +727,8 @@ function presentCCConfirmation(patient) {
 						itemTemplate : "checkoutStoreItems",
 						masterWidth : 100,
 						storeId : prescription.original_store_id,
-						title : prescription.original_store_address_line1.trim(),
+						title : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
+						titleClasses : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 						subtitle : prescription.presc_name,
 						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 					};
@@ -746,6 +750,9 @@ function presentCCConfirmation(patient) {
 		if (checkoutStores.length < 3) {
 			rowParams.filterText = _.values(_.pick(rowParams, ["title", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+			if ($.utilities.validatePhoneNumber(rowParams.title)) {
+				row.on("clickPhone", didClickPhone);
+			}
 		} else {
 
 			limitedRowParams = {
@@ -953,6 +960,32 @@ function popToHome() {
 
 function didClickTableView(e) {
 
+}
+
+function didClickPhone(e) {
+	if ($.utilities.validatePhoneNumber(e.data.title)) {
+		if (!Titanium.Contacts.hasContactsPermissions()) {
+			Titanium.Contacts.requestContactsPermissions(function(result) {
+				if (result.success) {
+					$.uihelper.getPhone({
+						firstName : e.data.title,
+						phone : {
+							work : [e.data.title]
+						}
+					}, e.data.subtitle);
+				} else {
+					$.analyticsHandler.trackEvent("checkoutSpecialty-ContactDetails", "click", "DeniedContactsPermission");
+				}
+			});
+		} else {
+			$.uihelper.getPhone({
+				firstName : e.data.title,
+				phone : {
+					work : [e.data.title]
+				}
+			}, e.data.title);
+		}
+	}
 }
 
 exports.init = init;

@@ -50,4 +50,13 @@ function didClickItem(e) {
 	});
 }
 
+function didClickPhone(e) {
+	var source = e.source;
+	$.trigger("clickPhone", {
+		source : $,
+		titile : "",
+		data : args
+	});
+}
+
 exports.getParams = getParams;

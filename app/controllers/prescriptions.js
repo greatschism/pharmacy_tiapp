@@ -83,14 +83,8 @@ function init() {
 		}
 	});
 
-
-
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
-	//$.bottomView.visible = false;
-	if( ! args.selectable) {
-		$.bottomView.hide();
-	}
 
 	if( ! args.selectable) {
 		$.bottomView.hide();
@@ -383,6 +377,7 @@ function prepareList() {
 		_.some(filters, function(filter, key) {
 			if (_.indexOf(filter, prescription.get(key)) !== -1) {
 				proceed = false;
+				logger.debug("\n\n\n\n", key	, JSON.stringify(prescription,null,4), proceed, "\n\n\n\n");
 				//breaks the loop
 				return true;
 			}
@@ -418,8 +413,13 @@ function prepareList() {
 
 		if (hasSpecialtyEnabled && !args.selectable) {
 			var index = _.contains(specialtyPrescriptions, prescription);
-			if (index)
-				return;
+			if (index) {
+				if (_.has(args, "navigationFrom")) {
+					if (args.navigationFrom != "expressCheckout") {
+						return;
+					}
+				} else return;
+			}
 		}
 		
 		//process sections
@@ -836,79 +836,82 @@ function prepareList() {
 	 * 
 	 */	
 	
-	if (hasSpecialtyEnabled) {
 	
+	if (hasSpecialtyEnabled) {
 		if (_.has(args, "navigationFrom")) {
-			if (args.navigationFrom == "specialtyGrouping") {
-				_.each(specialtyPrescriptions, function(prescription) {
-								
-					prescription.set({
-						itemTemplate : "masterDetail",
-						titleClasses : titleClasses,
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						subtitleClasses : subtitleClasses,
-						section : "specialty",						
-						canHide : false
+			if (args.navigationFrom != "expressCheckout") {
+
+				if (args.navigationFrom == "specialtyGrouping") {
+					_.each(specialtyPrescriptions, function(prescription) {
+
+						prescription.set({
+							itemTemplate : "masterDetail",
+							titleClasses : titleClasses,
+							masterWidth : 100,
+							detailWidth : 0,
+							subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+							subtitleClasses : subtitleClasses,
+							section : "specialty",
+							canHide : false
+						});
+
+						var rowParams = prescription.toJSON(),
+						    row;
+						rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+						row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+						sectionHeaders[rowParams.section] += rowParams.filterText;
+						sections[rowParams.section].push(row);
 					});
+				} else {
 
-					var rowParams = prescription.toJSON(),
-					    row;
-					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-					sectionHeaders[rowParams.section] += rowParams.filterText;
-					sections[rowParams.section].push(row);
-				});
-			} else {
+					if (!args.selectable && args.navigationFrom == "") {
 
-				if (!args.selectable && args.navigationFrom == "") {
-					
-					var medSyncData = {
-						className : "MS",
-						itemTemplate : "completed",
-						title : "Specialty",
-						masterWidth : 100,
-						detailWidth : 0,
-						detailTitle : "Click to view prescriptions",
-						detailColor : "custom-fg-color",
-						customIconCheckoutComplete : "icon-thick-prescription",
-						section : "specialty",
-						titleClasses : titleClasses,
-						showChild : true,
-						canHide : false
-					};
+						var medSyncData = {
+							className : "MS",
+							itemTemplate : "completed",
+							title : "Specialty",
+							masterWidth : 100,
+							detailWidth : 0,
+							detailTitle : "Click to view prescriptions",
+							detailColor : "custom-fg-color",
+							customIconCheckoutComplete : "icon-thick-prescription",
+							section : "specialty",
+							titleClasses : titleClasses,
+							showChild : true,
+							canHide : false
+						};
 
-					var rowParams = medSyncData,
-					    row;
-					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-					row.on("clickdetail", showSpecialtyPrescriptions);
-					sectionHeaders[rowParams.section] += rowParams.filterText;
-					sections[rowParams.section].push(row);
+						var rowParams = medSyncData,
+						    row;
+						rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+						row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+						row.on("clickdetail", showSpecialtyPrescriptions);
+						sectionHeaders[rowParams.section] += rowParams.filterText;
+						sections[rowParams.section].push(row);
+
+					}
 
 				}
-
 			}
 		} else {
 
-				if (!args.selectable) {
+			if (!args.selectable) {
 
 				var medSyncData = {
-						className : "MS",
-						itemTemplate : "completed",
-						title : "Specialty",
-						masterWidth : 100,
-						detailWidth : 0,
-						detailTitle : "Click to view prescriptions",
-						detailColor : "custom-fg-color",
-						customIconCheckoutComplete : "icon-thick-prescription",
-						section : "specialty",
-						titleClasses : titleClasses,
-						showChild : true,
-						canHide : false
-					}; 
-				
+					className : "MS",
+					itemTemplate : "completed",
+					title : "Specialty",
+					masterWidth : 100,
+					detailWidth : 0,
+					detailTitle : "Click to view prescriptions",
+					detailColor : "custom-fg-color",
+					customIconCheckoutComplete : "icon-thick-prescription",
+					section : "specialty",
+					titleClasses : titleClasses,
+					showChild : true,
+					canHide : false
+				};
+
 				var rowParams = medSyncData,
 				    row;
 				rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
@@ -917,9 +920,9 @@ function prepareList() {
 				sectionHeaders[rowParams.section] += rowParams.filterText;
 				sections[rowParams.section].push(row);
 			}
-
 		}
 	}
+
 	
 	
 					
@@ -928,7 +931,8 @@ function prepareList() {
 		var addRows = false;
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
-				if (key != "others" && key != "medSync" && key != "specialty") {
+				// if (key != "others" && key != "medSync" && key != "specialty") {
+					if (key != "others" && key != "medSync") {
 					logger.debug("\n\n\n I am ", key, "\n\n\n");
 					addRows = true;
 				}
@@ -1302,9 +1306,8 @@ function didClickCheckout(e) {
 			ctrlArguments : {
 				filters : {
 					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
-					section : ["others", "medSync"],
 					is_checkout_complete : ["1", null],
-					syncScriptEnrolled : ["1"]
+					section : ["others", "medSync"]
 				},
 				prescriptions : null,
 				patientSwitcherDisabled : true,

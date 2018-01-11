@@ -49,7 +49,7 @@ function didGetHistory(result, passthrough) {
 		 */
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
-			
+
 			if (Alloy.CFG.is_specialty_store_grouping_enabled && history.is_specialty_store == 1) {
 				var subtitleClasses = ["active-fg-color", "left"];
 				history = {
@@ -77,7 +77,7 @@ function didGetHistory(result, passthrough) {
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			data.push(row.getView());
 			rows.push(row);
-			row.on("clickPhone",didClickPhone);
+			row.on("clickPhone", didClickPhone);
 		});
 	} else {
 		/**
@@ -94,7 +94,7 @@ function didGetHistory(result, passthrough) {
 }
 
 function didClickTableView(e) {
-	var row = rows[e.index];		
+	var row = rows[e.index];
 	if (row) {
 		$.app.navigator.open({
 			titleid : "titleStoreDetails",
@@ -116,30 +116,30 @@ function terminate() {
 function handleClose() {
 	$.app.navigator.close();
 }
-function didClickPhone(e){
-	if($.utilities.validatePhoneNumber(e.data.subtitle)){
-		if(!Titanium.Contacts.hasContactsPermissions()) {
-		Titanium.Contacts.requestContactsPermissions(function(result){
-			if(result.success) {
-			 $.uihelper.getPhone({
-			 firstName : e.data.title,
-			 phone : {
-				 work : [e.data.subtitle]
-			 }
-		 	}, e.data.subtitle);
-			}
-			else{
-				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
-			}
-		});
-	} else {
-			 $.uihelper.getPhone({
-			 firstName : e.data.title,
-			 phone : {
-				 work : [e.data.subtitle]
-			 }
-		 	 }, e.data.subtitle);
-	}
+
+function didClickPhone(e) {
+	if ($.utilities.validatePhoneNumber(e.data.subtitle)) {
+		if (!Titanium.Contacts.hasContactsPermissions()) {
+			Titanium.Contacts.requestContactsPermissions(function(result) {
+				if (result.success) {
+					$.uihelper.getPhone({
+						firstName : e.data.title,
+						phone : {
+							work : [e.data.subtitle]
+						}
+					}, e.data.subtitle);
+				} else {
+					$.analyticsHandler.trackEvent("Specialty-ContactDetails", "click", "DeniedContactsPermission");
+				}
+			});
+		} else {
+			$.uihelper.getPhone({
+				firstName : e.data.title,
+				phone : {
+					work : [e.data.subtitle]
+				}
+			}, e.data.subtitle);
+		}
 	}
 }
 

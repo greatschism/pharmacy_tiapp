@@ -172,8 +172,7 @@ function pushToPrescriptionList() {
 			filters : {
 				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
 				section : ["others", "medSync"],
-				is_checkout_complete : ["1", null],
-				syncScriptEnrolled : ["1"]
+				is_checkout_complete : ["1", null]
 			},
 			patientSwitcherDisabled : true,
 			hideCheckoutHeader : false,
