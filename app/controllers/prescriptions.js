@@ -407,8 +407,13 @@ function prepareList() {
 	
 		if (hasMedSyncEnabled && !args.selectable) {
 			var index = _.contains(medSyncPrescriptions, prescription);
-			if (index)
-				return;
+			if (index) {
+				if (_.has(args, "navigationFrom")) {
+					if (args.navigationFrom != "expressCheckout") {
+						return;
+					}
+				} else return;
+			}
 		}
 
 		if (hasSpecialtyEnabled && !args.selectable) {
@@ -712,95 +717,92 @@ function prepareList() {
 			}
 			return false;
 		});
-
+	
 		if (_.has(args, "navigationFrom")) {
-			if (args.navigationFrom == "medSync") {
-				_.each(medSyncPrescriptions, function(prescription) {
-					prescription.set({
-						className : "MS",
-						itemTemplate : "completed",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("dosage_instruction_message") ? $.utilities.lcfirst(prescription.get("dosage_instruction_message")) : "",
-						detailColor : "custom-fg-color",
-						customIconCheckoutComplete : "icon-clock",
-						section : "medSync",
-						titleClasses : titleClasses,
-						canHide : false
+			if (args.navigationFrom != "expressCheckout") {
+				if (args.navigationFrom == "medSync") {
+					_.each(medSyncPrescriptions, function(prescription) {
+						prescription.set({
+							className : "MS",
+							itemTemplate : "completed",
+							masterWidth : 100,
+							detailWidth : 0,
+							subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+							detailTitle : prescription.get("dosage_instruction_message") ? $.utilities.lcfirst(prescription.get("dosage_instruction_message")) : "",
+							detailColor : "custom-fg-color",
+							customIconCheckoutComplete : "icon-clock",
+							section : "medSync",
+							titleClasses : titleClasses,
+							canHide : false
+						});
+
+						var rowParams = prescription.toJSON(),
+						    row;
+						rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+						row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+						sectionHeaders[rowParams.section] += rowParams.filterText;
+						sections[rowParams.section].push(row);
 					});
+				} else {
 
-					var rowParams = prescription.toJSON(),
-					    row;
-					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-					sectionHeaders[rowParams.section] += rowParams.filterText;
-					sections[rowParams.section].push(row);
-				});
-			} else {
+					if (!args.selectable && args.navigationFrom == "") {
+						/*
+						 var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
+						 var medSyncData = {
+						 itemTemplate : "masterDetail",
+						 title : "MedSync",
+						 titleClasses : titleClasses,
+						 masterWidth : 100,
+						 detailWidth : 0,
+						 subtitle : "Next pick up " + nextPickupDate,
+						 subtitleClasses : detailClasses,
+						 section : "medSync",
+						 canHide : false
+						 }; */
 
-				if (!args.selectable && args.navigationFrom == "") {
-					/*
-					var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
-					var medSyncData = {
-						itemTemplate : "masterDetail",
-						title : "MedSync",
-						titleClasses : titleClasses,
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : "Next pick up " + nextPickupDate,
-						subtitleClasses : detailClasses,
-						section : "medSync",
-						canHide : false
-					}; */
-					
-					
-					var medSyncData = {
-						className : "MS",
-						itemTemplate : "completed",
-						title : "MedSync",
-						masterWidth : 100,
-						detailWidth : 0,
-						detailTitle : "Next pick up " + nextPickupDate,
-						detailColor : "custom-fg-color",
-						customIconCheckoutComplete : "icon-clock",
-						section : "medSync",
-						titleClasses : titleClasses,
-						showChild : true,
-						canHide : false
-					};
+						var medSyncData = {
+							className : "MS",
+							itemTemplate : "completed",
+							title : "MedSync",
+							masterWidth : 100,
+							detailWidth : 0,
+							detailTitle : "Next pick up " + nextPickupDate,
+							detailColor : "custom-fg-color",
+							customIconCheckoutComplete : "icon-clock",
+							section : "medSync",
+							titleClasses : titleClasses,
+							showChild : true,
+							canHide : false
+						};
 
-
-					var rowParams = medSyncData,
-					    row;
-					rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
-					row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
-					row.on("clickdetail", showMedSyncPrescriptions);
-					sectionHeaders[rowParams.section] += rowParams.filterText;
-					sections[rowParams.section].push(row);
-
+						var rowParams = medSyncData,
+						    row;
+						rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+						row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+						row.on("clickdetail", showMedSyncPrescriptions);
+						sectionHeaders[rowParams.section] += rowParams.filterText;
+						sections[rowParams.section].push(row);
+					}
 				}
-
 			}
 		} else {
-
-				if (!args.selectable) {
+			if (!args.selectable) {
 
 				/*
-				var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
-				var medSyncData = {
-					itemTemplate : "masterDetail",
-					title : "MedSync",
-					titleClasses : titleClasses,
-					masterWidth : 100,
-					detailWidth : 0,
-					// detailType : "custom",
-					subtitle : "Next pick up " + nextPickupDate,
-					// detailSubtitleColor : "custom-fg-color",
-					subtitleClasses : detailClasses,
-					section : "medSync",
-					canHide : false
-				}; */
+				 var detailClasses = ["bg-color", "custom-fg-color", "h6", "left"];
+				 var medSyncData = {
+				 itemTemplate : "masterDetail",
+				 title : "MedSync",
+				 titleClasses : titleClasses,
+				 masterWidth : 100,
+				 detailWidth : 0,
+				 // detailType : "custom",
+				 subtitle : "Next pick up " + nextPickupDate,
+				 // detailSubtitleColor : "custom-fg-color",
+				 subtitleClasses : detailClasses,
+				 section : "medSync",
+				 canHide : false
+				 }; */
 
 				var medSyncData = {
 					className : "MS",
@@ -815,9 +817,8 @@ function prepareList() {
 					titleClasses : titleClasses,
 					showChild : true,
 					canHide : false
-				}; 
+				};
 
-				
 				var rowParams = medSyncData,
 				    row;
 				rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
@@ -826,11 +827,10 @@ function prepareList() {
 				sectionHeaders[rowParams.section] += rowParams.filterText;
 				sections[rowParams.section].push(row);
 			}
-
 		}
 	}
 
-		
+	
 	/*
 	 * specialty
 	 * 
@@ -840,7 +840,6 @@ function prepareList() {
 	if (hasSpecialtyEnabled) {
 		if (_.has(args, "navigationFrom")) {
 			if (args.navigationFrom != "expressCheckout") {
-
 				if (args.navigationFrom == "specialtyGrouping") {
 					_.each(specialtyPrescriptions, function(prescription) {
 
@@ -888,15 +887,11 @@ function prepareList() {
 						row.on("clickdetail", showSpecialtyPrescriptions);
 						sectionHeaders[rowParams.section] += rowParams.filterText;
 						sections[rowParams.section].push(row);
-
 					}
-
 				}
 			}
 		} else {
-
 			if (!args.selectable) {
-
 				var medSyncData = {
 					className : "MS",
 					itemTemplate : "completed",
@@ -931,8 +926,7 @@ function prepareList() {
 		var addRows = false;
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
-				// if (key != "others" && key != "medSync" && key != "specialty") {
-					if (key != "others" && key != "medSync") {
+					if (key != "others") {
 					logger.debug("\n\n\n I am ", key, "\n\n\n");
 					addRows = true;
 				}
@@ -1307,7 +1301,7 @@ function didClickCheckout(e) {
 				filters : {
 					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
 					is_checkout_complete : ["1", null],
-					section : ["others", "medSync"]
+					section : ["others"]
 				},
 				prescriptions : null,
 				patientSwitcherDisabled : true,
