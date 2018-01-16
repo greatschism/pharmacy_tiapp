@@ -2,8 +2,8 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 3.0
-apiversion: 3
+version: 4.0
+apiversion: 4
 architectures: armeabi-v7a x86
 description: Android keychain module forked from github repo of Paul Mietz Egli
 author: Harshal
@@ -15,4 +15,4 @@ name: an_obscure_keychain
 moduleid: com.obscure.keychain
 guid: ec21c0f5-f27a-40d0-a314-51650c14ea91
 platform: android
-minsdk: 6.1.0.GA
+minsdk: 7.0.0.GA
