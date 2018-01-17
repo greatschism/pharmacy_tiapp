@@ -25,12 +25,7 @@ module.exports = {
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
          "titleHelp" : "Help",
-         "reRegisterUser" : "Welcome!",
-         "reRegister_welcome" : "Welcome to the new Henry Ford Mobile Pharmacy App!",
-         "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
-         "reRegisterBtnSubmit" : "Create a new account",
-         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>",
-         "titleCustomMenu1" : "Monthly Specials"
+         "titleCoupons" : "Monthly Specials"
 	}
 
 };

@@ -56,20 +56,20 @@ function didDrawerclose(e) {
 	}
 	var navigation;
 	Alloy.Collections.menuItems.some(function(model) {
-		if (model.get("ctrl") === currentItem || model.get("url") === currentItem || model.get("action") === currentItem || model.get("menu_url") === currentItem) {
+		if (model.get("ctrl") === currentItem || model.get("url") === currentItem || model.get("action") === currentItem) {
 			navigation = model.toJSON();
 			return true;
 		}
 	});
 	navigationHandler.navigate(navigation);
-	analyticsHandler.trackEvent("HamburgerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url || navigation.menu_url));
+	analyticsHandler.trackEvent("HamburgerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentItem = null;
 }
 
 function didClickTableView(e) {
 	var row = e.row;
 	if (row) {
-		currentItem = row.ctrl || row.url || row.action || row.menu_url;
+		currentItem = row.ctrl || row.url || row.action;
 	}
 	app.navigator.drawer.toggleLeftWindow();
 }

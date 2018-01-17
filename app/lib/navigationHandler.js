@@ -57,15 +57,6 @@ function navigate(itemObj) {
 			break;
 		}
 	}
-	else if (_.has(itemObj, "menu_url")) {
-		app.navigator.open({
-				titleid : "title"+itemObj.menu_url,
-				ctrl : "newMenuOption",
-				ctrlArguments : {
-					menu_url : itemObj.menu_url
-				}
-			});	
-	}
 }
 
 function loginOrNavigate(itemObj) {

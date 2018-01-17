@@ -8,14 +8,8 @@ var args = $.args,
     bannerItems = Alloy.Models.banner.get("items"),
     spanTimeId,
     logger = require("logger");
-    /*logger = require("logger"),
-    utilities = require('utilities');*/
-;
 
 function init() {
-	
-	//$.rightNavBtn.getNavButton().setImage($.uihelper.getImage("user").image);
-	
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
 		var view = create(item);
@@ -530,7 +524,7 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url || navigation.menu_url);
+	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url);
 }
 
 function trackEvent(action, label) {
