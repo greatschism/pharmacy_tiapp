@@ -14,6 +14,7 @@ function init() {
 		url : args.terms.agreement_url || args.terms,
 		willHandleTouches: false 
 	});
+		
 	if(!$.args.registrationFlow){
 		$.acceptedOnLbl.text = $.strings.accountLblAcceptedOn + " " + moment(args.terms.agreement_valid_from).format(Alloy.CFG.date_format);
 		if(isHIPAA) 
@@ -22,7 +23,11 @@ function init() {
 	else{
 		$.successBtn.title = $.strings.registerBtnTermsDone;
 	}
-	
+	if($.args.terms.agreement_text=="Meijer's Notice of Privacy Practices" || $.args.terms.agreement_text=="Non-Discrimination Policy"){
+		$.revokeBtn.hide();
+		$.successBtn.hide();
+		$.acceptedOnLbl.hide();
+	}
 	if(isHIPAA){
 		$.revokeBtn.show();
 	}	

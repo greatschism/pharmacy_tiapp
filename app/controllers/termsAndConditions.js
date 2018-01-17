@@ -39,13 +39,26 @@ function getTerms(){
 	});
 }
 
-function didSuccess(result) {
-	
+function didSuccess(result) {	
 	var terms = result.data,
-		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs);
-		
-	Alloy.Collections.termsAndConditions.reset(terms);
-	
+		notices = Alloy.Models.appload.get("features"),
+		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs),
+		noticeSection = $.uihelper.createTableViewSection($, notices.privacy_practices_url || notices.non_discrimination_policy_url ? $.strings.accountAgreementsSectionNotice : "");
+		agreementsNotices = JSON.parse(JSON.stringify([
+										{ "agreement_name": "mscripts",
+										"agreement_text": "Meijer's Notice of Privacy Practices",
+										"agreement_valid_from":"",
+										"agreement_valid_to":"",
+										"agreement_url": notices.privacy_practices_url
+										},
+										{ "agreement_name": "mscripts",
+										"agreement_text": "Non-Discrimination Policy",
+										"agreement_valid_from":"",
+										"agreement_valid_to":"",
+										"agreement_url": notices.non_discrimination_policy_url
+										}])),
+		termsNotices= terms.concat(agreementsNotices);		
+	Alloy.Collections.termsAndConditions.reset(termsNotices);
 	_.each(terms, function(term) {
 		/**
 		 * Hide HIPAA from displaying in the list. HIPAA flow is separate (when user logs in for the 1st time)
@@ -69,14 +82,24 @@ function didSuccess(result) {
 			data.push(term.agreement_text);
 		}
 	});
-	$.tableView.setData([section]); 
+			_.each(agreementsNotices, function(notices){
+			noticeSection.add(Alloy.createController("itemTemplates/label",{
+			title : notices.agreement_text,
+			accessibilityLabel : notices.agreement_text + " " + $.strings.loginAttrLabelsAccessibilityHint,
+			hasChild : true
+			}).getView());
+			data.push(notices.agreement_text);
+			});
+					
+	$.tableView.setData([section, noticeSection]);
 }
 
 function didClickItem(e) {
 	var item = Alloy.Collections.termsAndConditions.findWhere({
-			agreement_text : data[e.index]
-		}).toJSON();
-		logger.debug("\n\n\n item = ", JSON.stringify(item), "\n\n\n");
+				agreement_text : data[e.index]
+				}).toJSON();
+				logger.debug("\n\n\n item = ", JSON.stringify(item), "\n\n\n");
+				
 	$.app.navigator.open({
 		ctrl : "termsDoc",
 		title : item.agreement_text,
@@ -85,7 +108,7 @@ function didClickItem(e) {
 			terms : item,
 			registrationFlow : args.registrationFlow
 		}
-	});	
+	});
 }
 
 function didClickDone(e) {
