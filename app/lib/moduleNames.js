@@ -38,6 +38,7 @@ module.exports = {
 	"MGAU" : "LoginAndRegistration",
 	"PHON" : "LoginAndRegistration",
 	"REGI" : "LoginAndRegistration",
+	"RERU" : "LoginAndRegistration",
 	"RECI" : "LoginAndRegistration",
 	"REAI" : "LoginAndRegistration",
 	"SHMC" : "LoginAndRegistration",
@@ -135,5 +136,10 @@ module.exports = {
 	 */
 	"INSU" : "InsuranceCard",
 	"INPR" : "InsuranceProfile",
-	"ININ" : "insuranceInput"
+	"ININ" : "insuranceInput",
+	
+	/**
+	 * new Menu Option
+	 */
+	"NEMO" : "newMenuOption"
 };

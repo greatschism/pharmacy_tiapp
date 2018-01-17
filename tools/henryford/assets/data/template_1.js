@@ -710,7 +710,7 @@ module.exports = {
 								"accessibility-actionablelements"
 							],
 							"properties": {
-								"textid": "titleCoupons"
+								"textid": "titleMonthlySpecials"
 							},
 							"children": [
 								{
@@ -750,7 +750,7 @@ module.exports = {
 																"touch-disabled"
 															],
 															"properties": {
-																"textid": "titleCoupons"
+																"textid": "titleMonthlySpecials"
 															}
 														}
 													]
@@ -760,8 +760,9 @@ module.exports = {
 									]
 								}
 							],
+							"feature_name": "is_monthlyspecials_enabled",
 							"navigation": {
-								"url": "https://www.henryfordrx.com/"
+								"menu_url": "MonthlySpecials"
 							}
 						},
 						{

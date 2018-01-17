@@ -48,6 +48,7 @@ module.exports = {
 	"REFA" : "RefillFailure",
 	"REFI" : "Refill",
 	"REGI" : "register",
+	"RERU" : "reRegisterUser",
 	"REHI" : "RefillHistory",
 	"REME" : "RemindersMed",
 	"REMI" : "Reminders",
@@ -81,5 +82,6 @@ module.exports = {
 	"INSU" : "insuraceCard",
 	"INPR" : "insuranceProfile",
 	"ININ" : "insuranceInput",
-	"VSIC" : "vSixCarousel"
+	"VSIC" : "vSixCarousel",
+	"NEMO" : "newMenuOption"
 };
