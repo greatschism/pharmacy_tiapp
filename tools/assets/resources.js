@@ -442,5 +442,19 @@ module.exports = {
 		"platform" : ["ios", "android"],
 		"url" : "http://example.com/child.png",
 		"selected" : true
-	}]
+	}/*, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
+		"code" : "user_icon",
+		"name" : "user",
+		"format" : "png",
+		"properties" : {
+			"width" : "20"
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/user.png",
+		"selected" : true
+	}*/]
 };
