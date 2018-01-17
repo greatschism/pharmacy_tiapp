@@ -42,9 +42,12 @@ function getTerms(){
 function didSuccess(result) {	
 	var terms = result.data,
 		notices = Alloy.Models.appload.get("features"),
+		agreementsNotices,
 		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs),
-		noticeSection = $.uihelper.createTableViewSection($, notices.privacy_practices_url || notices.non_discrimination_policy_url ? $.strings.accountAgreementsSectionNotice : "");
-		agreementsNotices = JSON.parse(JSON.stringify([
+		noticeSection = $.uihelper.createTableViewSection($, notices.privacy_practices_url && notices.non_discrimination_policy_url ? $.strings.accountAgreementsSectionNotice : "");
+		
+		if(notices.privacy_practices_url && notices.non_discrimination_policy_url){
+			agreementsNotices = JSON.parse(JSON.stringify([
 										{ "agreement_name": "mscripts",
 										"agreement_text": "Meijer's Notice of Privacy Practices",
 										"agreement_valid_from":"",
@@ -56,9 +59,12 @@ function didSuccess(result) {
 										"agreement_valid_from":"",
 										"agreement_valid_to":"",
 										"agreement_url": notices.non_discrimination_policy_url
-										}])),
-		termsNotices= terms.concat(agreementsNotices);		
-	Alloy.Collections.termsAndConditions.reset(termsNotices);
+										}]));
+		var termsNotices= terms.concat(agreementsNotices);
+		Alloy.Collections.termsAndConditions.reset(termsNotices);
+										}
+		else	
+	        Alloy.Collections.termsAndConditions.reset(terms);
 	_.each(terms, function(term) {
 		/**
 		 * Hide HIPAA from displaying in the list. HIPAA flow is separate (when user logs in for the 1st time)
@@ -82,6 +88,7 @@ function didSuccess(result) {
 			data.push(term.agreement_text);
 		}
 	});
+			if(notices.privacy_practices_url && notices.non_discrimination_policy_url){
 			_.each(agreementsNotices, function(notices){
 			noticeSection.add(Alloy.createController("itemTemplates/label",{
 			title : notices.agreement_text,
@@ -90,6 +97,7 @@ function didSuccess(result) {
 			}).getView());
 			data.push(notices.agreement_text);
 			});
+			}
 					
 	$.tableView.setData([section, noticeSection]);
 }
