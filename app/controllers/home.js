@@ -8,13 +8,8 @@ var args = $.args,
     bannerItems = Alloy.Models.banner.get("items"),
     spanTimeId,
     logger = require("logger");
-    /*logger = require("logger"),
-    utilities = require('utilities');*/
-;
 
 function init() {
-	
-	//$.rightNavBtn.getNavButton().setImage($.uihelper.getImage("user").image);
 	
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
@@ -551,9 +546,8 @@ function didClickRightNavLoggedIn(e) {
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
-	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
-		$.rightNavBtn.getNavButton().show();
 	}
 
 	var source = e.source,
