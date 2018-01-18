@@ -48,16 +48,14 @@ function didSuccess(result) {
 		
 		if(notices.privacy_practices_url && notices.non_discrimination_policy_url){
 			agreementsNotices = JSON.parse(JSON.stringify([
-										{ "agreement_name": "mscripts",
+										{"agreement_name": "mscripts",
+										"agreement_type": "notices",
 										"agreement_text": "Meijer's Notice of Privacy Practices",
-										"agreement_valid_from":"",
-										"agreement_valid_to":"",
 										"agreement_url": notices.privacy_practices_url
 										},
-										{ "agreement_name": "mscripts",
+										{"agreement_name": "mscripts",
+										"agreement_type": "notices",
 										"agreement_text": "Non-Discrimination Policy",
-										"agreement_valid_from":"",
-										"agreement_valid_to":"",
 										"agreement_url": notices.non_discrimination_policy_url
 										}]));
 		var termsNotices= terms.concat(agreementsNotices);

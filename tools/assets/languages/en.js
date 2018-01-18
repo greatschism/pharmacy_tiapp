@@ -707,7 +707,7 @@ module.exports = {
 		"accountSectionSignin" : "Sign-in",
 		"accountSuccessBtnContactSupport" : "Contact support",
 		"accountSuccessBtnHelp" : "Help",
-		"accountSuccessBtnViewAgreements" : "View my agreements",
+		"accountSuccessBtnViewAgreements" : "Agreements and Notices",
 		"accountLblMobileNumer" : "Mobile number",
 		"accountLblEmail" : "Email",
 		"accountLblHideExpiredPrescription" : "Hide expired prescriptions",
