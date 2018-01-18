@@ -5,8 +5,7 @@ var args = $.args,
     data = [];
 
 function init() {
-	if(args.registrationFlow)
-	{
+	if (args.registrationFlow) {
 		http.request({
 			method : "terms_get_all",
 			params : {
@@ -16,18 +15,17 @@ function init() {
 			},
 			success : didSuccess
 		});
-	}
-	else{
+	} else {
 		getTerms();
 	}
 }
 
-function focus(){
-	if(!args.registrationFlow)
+function focus() {
+	if (!args.registrationFlow)
 		getTerms();
 }
 
-function getTerms(){
+function getTerms() {
 	http.request({
 		method : "terms_get",
 		params : {
@@ -40,18 +38,36 @@ function getTerms(){
 }
 
 function didSuccess(result) {
-	
 	var terms = result.data,
-		section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs);
-		
-	Alloy.Collections.termsAndConditions.reset(terms);
-	
+	    section = $.uihelper.createTableViewSection($, args.registrationFlow === true ? $.strings.registerSectionTermsDocuments : $.strings.accountSectionAcceptedDocs),
+	    notices = Alloy.Models.appload.get("features"),
+	    agreementsNotices,
+	    noticeSection = $.uihelper.createTableViewSection($, notices.privacy_practices_url && notices.non_discrimination_policy_url ? $.strings.accountAgreementsSectionNotice : "");
+
+	if ((notices.privacy_practices_url && notices.non_discrimination_policy_url) && !args.registrationFlow) {
+		agreementsNotices = JSON.parse(JSON.stringify([{
+			"agreement_name" : "mscripts",
+			"agreement_type" : "notices",
+			"agreement_text" : "Meijer's Notice of Privacy Practices",
+			"agreement_url" : notices.privacy_practices_url
+		}, {
+			"agreement_name" : "mscripts",
+			"agreement_type" : "notices",
+			"agreement_text" : "Non-Discrimination Policy",
+			"agreement_url" : notices.non_discrimination_policy_url
+		}]));
+		var termsNotices = terms.concat(agreementsNotices);
+		Alloy.Collections.termsAndConditions.reset(termsNotices);
+	} else {
+		Alloy.Collections.termsAndConditions.reset(terms);
+	}
+
 	_.each(terms, function(term) {
 		/**
 		 * Hide HIPAA from displaying in the list. HIPAA flow is separate (when user logs in for the 1st time)
 		 */
-		if( args.registrationFlow){
-			if(term.agreement_text != $.strings.accountAgreementHIPAA){
+		if (args.registrationFlow) {
+			if (term.agreement_text != $.strings.accountAgreementHIPAA) {
 				section.add(Alloy.createController("itemTemplates/label", {
 					title : term.agreement_text,
 					accessibilityLabel : term.agreement_text + " " + $.strings.loginAttrLabelsAccessibilityHint,
@@ -59,8 +75,7 @@ function didSuccess(result) {
 				}).getView());
 				data.push(term.agreement_text);
 			}
-		}
-		else{
+		} else {
 			section.add(Alloy.createController("itemTemplates/label", {
 				title : term.agreement_text,
 				accessibilityLabel : term.agreement_text + " " + $.strings.loginAttrLabelsAccessibilityHint,
@@ -69,14 +84,27 @@ function didSuccess(result) {
 			data.push(term.agreement_text);
 		}
 	});
-	$.tableView.setData([section]); 
+	if ((notices.privacy_practices_url && notices.non_discrimination_policy_url) && !args.registrationFlow) {
+		_.each(agreementsNotices, function(notices) {
+			noticeSection.add(Alloy.createController("itemTemplates/label", {
+				title : notices.agreement_text,
+				accessibilityLabel : notices.agreement_text + " " + $.strings.loginAttrLabelsAccessibilityHint,
+				hasChild : true
+			}).getView());
+			data.push(notices.agreement_text);
+		});
+		$.tableView.setData([section, noticeSection]);
+	} else {
+		$.tableView.setData([section]);
+	}
 }
 
 function didClickItem(e) {
 	var item = Alloy.Collections.termsAndConditions.findWhere({
-			agreement_text : data[e.index]
-		}).toJSON();
-		logger.debug("\n\n\n item = ", JSON.stringify(item), "\n\n\n");
+		agreement_text : data[e.index]
+	}).toJSON();
+	logger.debug("\n\n\n item = ", JSON.stringify(item), "\n\n\n");
+
 	$.app.navigator.open({
 		ctrl : "termsDoc",
 		title : item.agreement_text,
@@ -85,7 +113,7 @@ function didClickItem(e) {
 			terms : item,
 			registrationFlow : args.registrationFlow
 		}
-	});	
+	});
 }
 
 function didClickDone(e) {
