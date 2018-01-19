@@ -161,7 +161,7 @@ function didClickPhone(e) {
 			if (result.success) {
 				contactsHandler();
 			} else {
-				$.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
+				// $.analyticsHandler.trackEvent("StoreFinder-StoreDetails", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {
@@ -306,7 +306,7 @@ function didConfirmHome() {
 }
 
 function handleEvent(e) {
-	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 function terminate() {

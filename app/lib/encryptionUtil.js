@@ -12,6 +12,7 @@ var TAG = "ENUT",
     STATIC_KEY = generateStaticKey();
 
 function generateStaticKey() {
+	//	ascii to string
 	var keys = Alloy.CFG.static_encryption_key;
 	for (var i in keys) {
 		keys[i] = String.fromCharCode(keys[i]);

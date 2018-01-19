@@ -458,7 +458,7 @@ function terminate() {
 }
 
 function handleEvent(e) {
-	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 exports.focus = focus;

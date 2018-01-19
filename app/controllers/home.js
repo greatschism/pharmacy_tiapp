@@ -529,7 +529,7 @@ function didClickItem(e) {
 }
 
 function trackEvent(action, label) {
-	$.analyticsHandler.trackEvent(moduleNames[$.ctrlShortCode] + "-" + ctrlNames[$.ctrlShortCode], action, label);
+	// $.analyticsHandler.trackEvent(moduleNames[$.ctrlShortCode] + "-" + ctrlNames[$.ctrlShortCode], action, label);
 }
 
 function didClickRightNav(e) {

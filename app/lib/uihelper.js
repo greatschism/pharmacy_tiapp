@@ -5,7 +5,7 @@ var TAG = "UIHE",
     config = require("config"),
     utilities = require("utilities"),
     logger = require("logger"),
-    analyticsHandler = require("analyticsHandler"),
+    // analyticsHandler = require("analyticsHandler"),
     moment = require("alloy/moment");
 
 var Helper = {
@@ -126,7 +126,7 @@ var Helper = {
 		if (!OS_IOS && !Titanium.Geolocation.hasLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS)) {
 			Titanium.Geolocation.requestLocationPermissions(Titanium.Geolocation.AUTHORIZATION_ALWAYS, function(result) {
 				if (!result.success) {
-					analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
+					// analyticsHandler.trackEvent("StoreFinder", "click", "DeniedLocationPermission");
 					if (loader) {
 						loader.hide(false);
 					}
@@ -240,7 +240,7 @@ var Helper = {
 							if (result.success) {
 								Helper.addContact(personObj);
 							} else {
-								analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
+								// analyticsHandler.trackEvent("Prescriptions-CallPharmacy", "click", "DeniedContactsPermission");
 								// alert(Alloy.Globals.strings.msgDenyFeaturePermission);
 								Helper.showDialogWithButton({
 									message : Alloy.Globals.strings.msgDenyFeaturePermission,
@@ -414,7 +414,7 @@ var Helper = {
 					if (!Titanium.Media.hasCameraPermissions()) {
 						Titanium.Media.requestCameraPermissions(function(result) {
 							if (!result.success) {
-								analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
+								// analyticsHandler.trackEvent("UploadPhoto", "click", "DeniedCameraPermission");
 								Helper.showDialogWithButton({
 									message : Alloy.Globals.strings.msgDenyFeaturePermission,
 									deactivateDefaultBtn : true,

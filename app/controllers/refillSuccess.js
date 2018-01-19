@@ -206,7 +206,7 @@ function didClickStorePhone(e) {
 			if (result.success) {
 				contactsHandler();
 			} else {
-				$.analyticsHandler.trackEvent("QuickRefill-RefillSuccess", "click", "DeniedContactsPermission");
+				// $.analyticsHandler.trackEvent("QuickRefill-RefillSuccess", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {
@@ -237,7 +237,7 @@ function didClickDone(e) {
 }
 
 function handleEvent(e) {
-	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 exports.init = init;
