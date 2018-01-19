@@ -48,7 +48,7 @@ function didSuccess(result) {
 		agreementsNotices = JSON.parse(JSON.stringify([{
 			"agreement_name" : "mscripts",
 			"agreement_type" : "notices",
-			"agreement_text" : "Meijer's Notice of Privacy Practices",
+			"agreement_text" : "Notice of Privacy Practices",
 			"agreement_url" : notices.privacy_practices_url
 		}, {
 			"agreement_name" : "mscripts",

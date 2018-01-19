@@ -199,7 +199,7 @@ module.exports = {
 		"titleDoctorAdd" : "Add a doctor",
 		"titleDoctorUpdate" : "Edit doctor",
 		"titleTransferReview" : "Transfer prescription",
-		"titleAccountAgreements" : "My Agreements/Notices",
+		"titleAccountAgreements" : "Agreements and Notices",
 		"accountAgreementsSectionNotice" : "Notices",
 		"titleChangeEmail" : "Change email address",
 		"titleChangePhone" : "Enter phone number",
