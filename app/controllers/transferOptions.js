@@ -27,7 +27,7 @@ function setAccessibilityLabelOnSwitch(switchObj , strValue) {
 }
 
 function handleEvent(e) {
-	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 function didClickComplete(e) {
 	if (args.prescription) {

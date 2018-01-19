@@ -2,7 +2,7 @@ var args = $.args,
     app = require("core"),
     navigationHandler = require("navigationHandler"),
     ctrlShortCode = require("ctrlShortCode"),
-    analyticsHandler = require("analyticsHandler"),
+    // analyticsHandler = require("analyticsHandler"),
     strings = Alloy.Globals.strings,
     icons = Alloy.CFG.icons,
     currentItem,
@@ -62,7 +62,7 @@ function didDrawerclose(e) {
 		}
 	});
 	navigationHandler.navigate(navigation);
-	analyticsHandler.trackEvent("HamburgerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
+	// analyticsHandler.trackEvent("HamburgerMenu", "navigate", (ctrlShortCode[navigation.ctrl] || navigation.action || navigation.url));
 	currentItem = null;
 }
 

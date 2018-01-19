@@ -24,7 +24,7 @@ function didClickScan(e) {
 						title : Alloy.Globals.strings.dialogBtnCancel
 					}]
 				});
-				$.analyticsHandler.trackEvent("RefillByScan", "click", "DeniedCameraPermission");
+				// $.analyticsHandler.trackEvent("RefillByScan", "click", "DeniedCameraPermission");
 			} else {
 				callScanner();
 			}

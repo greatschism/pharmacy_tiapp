@@ -101,7 +101,7 @@ function didClickAdd(e) {
 }
 
 function didClickRemove(e) {
-	$.analyticsHandler.trackEvent(analyticsCategory, "click", "RemoveBtn");
+	// $.analyticsHandler.trackEvent(analyticsCategory, "click", "RemoveBtn");
 	/**
 	 * length after removing one text field
 	 * length - 1
@@ -729,7 +729,7 @@ function didClickPickupMode(e) {
 }
 
 function didClickHelp(e) {
-	$.analyticsHandler.trackEvent(analyticsCategory, "click", "HelpBtn");
+	// $.analyticsHandler.trackEvent(analyticsCategory, "click", "HelpBtn");
 	$.app.navigator.open({
 		titleid : "titleRxSample",
 		ctrl : "rxSample",
