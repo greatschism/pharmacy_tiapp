@@ -69,9 +69,10 @@
   </ios>
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <manifest android:versionCode="${BUILD_NUMBER}">
+    <manifest android:versionCode="${BUILD_NUMBER}" xmlns:tools="http://schemas.android.com/tools" >
       <uses-sdk android:minSdkVersion="16" />
-      <application android:largeHeap="true" android:theme="@style/Theme.Material">
+      <application android:largeHeap="true" android:theme="@style/Theme.Material" 
+      		tools:replace="android:icon" >
         <activity android:configChanges="keyboardHidden|orientation" android:name="${LAUNCHER_ACTIVITY}" android:theme="@style/Theme.Material.Splash">
           <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
@@ -90,21 +91,21 @@
   </android>
   <modules>
     <module platform="iphone" version="2.0.0">com.appcelerator.apm</module>
-    <module platform="android" version="2.0.0">com.appcelerator.apm</module>
+    <module platform="android" version="3.0.0">com.appcelerator.apm</module>
     <module platform="iphone" version="2.1.1">appcelerator.https</module>
-    <module platform="android" version="2.1.0">appcelerator.https</module>
+    <module platform="android" version="3.0.0">appcelerator.https</module>
     <module platform="iphone" version="3.0.2">ti.ga</module>
-    <module platform="android" version="3.0.7">ti.ga</module>
+    <!-- <module platform="android" version="3.0.8">ti.ga</module> -->
     <module platform="iphone" version="2.12.3">ti.map</module>
-    <module platform="android" version="3.3.1">ti.map</module>
-    <module platform="android" version="2.0.0">ti.push</module>
+    <module platform="android" version="4.0.0">ti.map</module>
+    <!-- <module platform="android" version="3.0.0">ti.push</module> -->
     <module platform="iphone" version="2.1">com.obscure.keychain</module>
-    <module platform="android" version="3.0">com.obscure.keychain</module>
+    <module platform="android" version="4.0">com.obscure.keychain</module>
     <module platform="iphone" version="0.8.0">com.mfogg.squarecamera</module>
-    <module platform="android" version="3.0.0">ti.barcode</module>
+    <module platform="android" version="4.0.0">ti.barcode</module>
     <module platform="iphone" version="1.2.4">dk.napp.drawer</module>
-    <module platform="android" version="2.0.0">com.tripvi.drawerlayout</module>
-    <module platform="android" version="2.0">com.mscripts.androidkeychain</module>
+    <module platform="android" version="3.0.1">com.tripvi.drawerlayout</module>
+    <module platform="android" version="3.0">com.mscripts.androidkeychain</module>
     <module platform="iphone" version="0.1">com.mscripts.keychainimporter</module>
     <module platform="iphone" version="1.0">com.mscripts.customfont</module>
     <module platform="iphone" version="1.0">com.mscripts.datetime</module>
