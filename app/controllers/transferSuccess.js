@@ -57,7 +57,7 @@ function didClickPhone(e) {
 				contactsHandler();
 			}
 			else{
-				// $.analyticsHandler.trackEvent("TransferRx-TransferSuccess", "click", "DeniedContactsPermission");
+				$.analyticsHandler.trackEvent("TransferRx-TransferSuccess", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {
@@ -80,6 +80,6 @@ function didClickDone(e) {
 	}).toJSON());
 }
 function handleEvent(e) {
-	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 exports.focus = focus; 

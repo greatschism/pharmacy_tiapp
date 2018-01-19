@@ -184,7 +184,7 @@ function didClickPhone(e) {
 				contactsHandler();
 			}
 			else{
-				// $.analyticsHandler.trackEvent("Doctors-DoctorDetails", "click", "DeniedContactsPermission");
+				$.analyticsHandler.trackEvent("Doctors-DoctorDetails", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {

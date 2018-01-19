@@ -1061,11 +1061,11 @@ function didClickOptionMenu(e) {
 	}
 	switch(e.index) {
 	case 0:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "click", "ToggleSearchOptionDialog");
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "ToggleSearchOptionDialog");
 		toggleSearch();
 		break;
 	case 1:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "click", "PatientSyncOptionDialog");
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "PatientSyncOptionDialog");
 		/**
 		 * Refresh: By default sync happens on server side
 		 * while patient authenticate, here we force
@@ -1079,11 +1079,11 @@ function didClickOptionMenu(e) {
 		});
 		break;
 	case 2:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "click", "SortOptionDialog");
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "SortOptionDialog");
 		$.sortPicker.show();
 		break;
 	case 3:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "click", "UnhidePrescriptionsOptionDialog");
+		$.analyticsHandler.trackEvent(analyticsCategory, "click", "UnhidePrescriptionsOptionDialog");
 		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker, false, true);
 		break;
 	}
@@ -1208,11 +1208,11 @@ function didClickSwipeOption(e) {
 	}
 	switch (e.action) {
 	case 1:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "swipe", "HideBtn");
+		$.analyticsHandler.trackEvent(analyticsCategory, "swipe", "HideBtn");
 		doConfirmHide(e);
 		break;
 	case 2:
-		// $.analyticsHandler.trackEvent(analyticsCategory, "swipe", "RefillBtn");
+		$.analyticsHandler.trackEvent(analyticsCategory, "swipe", "RefillBtn");
 		/**
 		 * check whether this
 		 * prescription can be refilled

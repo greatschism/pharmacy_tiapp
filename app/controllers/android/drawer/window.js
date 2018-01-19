@@ -2,7 +2,7 @@ var args = $.args,
     TAG = "DRWC",
     app = require("core"),
     ctrlShortCode = require("ctrlShortCode"),
-    // analyticsHandler = require("analyticsHandler"),
+    analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
     rightNavItem,
     controller;
@@ -55,7 +55,7 @@ function init() {
 		httpClient : require("http"),
 		utilities : require("utilities"),
 		uihelper : require("uihelper"),
-		// analyticsHandler : analyticsHandler,
+		analyticsHandler : analyticsHandler,
 		crashreporter : require("crashreporter"),
 		contentView : $.window,
 		window : $.window,
@@ -149,7 +149,7 @@ function setRightNavButton(view) {
 }
 
 function handleEvent(e) {
-	// analyticsHandler.handleEvent($.ctrlShortCode, e);
+	analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 _.extend($, {

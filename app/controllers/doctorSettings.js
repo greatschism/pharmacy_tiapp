@@ -218,8 +218,8 @@ function didClickSubmit(e) {
 		 * APP-222: This is a temporary fix to track the usage of
 		 * people who are trying to edit a doctor created by system 
 		 */
-		// $.analyticsHandler.trackEvent("Doctors-DoctorSettings-SystemDoctor", "click", "SaveBtn");
-		// $.analyticsHandler.trackScreen("Doctors-DoctorSettings-SystemDoctor");
+		$.analyticsHandler.trackEvent("Doctors-DoctorSettings-SystemDoctor", "click", "SaveBtn");
+		$.analyticsHandler.trackScreen("Doctors-DoctorSettings-SystemDoctor");
 	}
 }
 

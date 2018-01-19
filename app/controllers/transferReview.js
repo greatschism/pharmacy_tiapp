@@ -6,7 +6,7 @@ function init() {
 }
 
 function handleEvent(e) {
-	// $.analyticsHandler.handleEvent($.ctrlShortCode, e);
+	$.analyticsHandler.handleEvent($.ctrlShortCode, e);
 }
 
 function didClickComplete(e) {
@@ -237,7 +237,7 @@ function didClickPhone(e) {
 			if (result.success) {
 				contactsHandler();
 			} else {
-				// $.analyticsHandler.trackEvent("TransferRx-TransferReview", "click", "DeniedContactsPermission");
+				$.analyticsHandler.trackEvent("TransferRx-TransferReview", "click", "DeniedContactsPermission");
 			}
 		});
 	} else {
