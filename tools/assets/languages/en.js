@@ -454,6 +454,8 @@ module.exports = {
 		"prescBtnNext" : "Next",
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
+		"prescPrefCarryOverTitle" : "We noticed that you have a new prescription which closely matches a recent prescription with dosage reminders. Would you like to move dosage reminder settings from <secondarycolor>%s</secondarycolor> to <secondarycolor>%s</secondarycolor>?",
+		
 		"prescDetPromptCopay" : "Payment amount due:",
 		"prescDetPromptAutofill" : "This prescription is enrolled in autofill.",
 		"prescDetPromptQuantity" : "Quantity:",

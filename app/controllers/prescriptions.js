@@ -19,7 +19,10 @@ var args = $.args,
     medSyncPrescriptions,
     hasSpecialtyEnabled,
     specialtyPrescriptions,
-    nextPickupDate = "";
+    nextPickupDate = "",
+    dosagePrefCarryOver = [],
+    preferenceUpdateRx = [],
+    dialogCount = 0;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -89,6 +92,17 @@ function init() {
 	if( ! args.selectable) {
 		$.bottomView.hide();
 	}
+	
+	Ti.App.addEventListener('sync_data', function(e) {
+		Ti.App.removeEventListener("sync_data", function(){});
+
+		$.http.request({
+			method : "patient_sync",
+			keepLoader : true,
+			success : prepareData,
+			failure : prepareData
+		});
+	});
 
 }
 
@@ -244,7 +258,110 @@ function didGetPrescriptions(result, passthrough) {
 	} else {
 		prepareList();
 	}
+						
+	if (!_.has(args, "navigationFrom")) {
+		checkNewRxPreferenceUpdate();
+	}
+	
 }
+
+function updateDosagePreference() {
+	$.http.request({
+		method : "patient_preferences_update_carryoverpref",
+		params : {
+			data : [{
+				updateCarryOverPref : dosagePrefCarryOver
+			}]
+		},
+		keepLoader : true,
+		errorDialogEnabled : true,
+		success : didSuccess,
+		failure : didSuccess
+	});
+}
+
+function didSuccess() {
+	$.app.navigator.hideLoader();
+	dosagePrefCarryOver = [];
+	dialogCount = 0;
+}
+
+
+function checkNewRxPreferenceUpdate() {
+	preferenceUpdateRx = Alloy.Collections.prescriptions.filter(function(prescription, index) {
+		if (prescription.get("carry_over_dosage_pref_enabled")) {
+			return true;
+		}
+		return false;
+	});
+
+	if(preferenceUpdateRx.length) {
+		showRxPreferenceUpdateDialog();
+	}
+}
+
+
+function showRxPreferenceUpdateDialog() {
+	if (dialogCount < preferenceUpdateRx.length) {
+		var updatePresc = preferenceUpdateRx[dialogCount];
+
+		var dialogView = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
+		});
+		var prescfrom = $.utilities.ucword(updatePresc.get("old_presc_name")),
+			prescTo = $.utilities.ucword(updatePresc.get("presc_name"));
+							
+		$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "txt-centre", "attributed"],
+			html : String.format(Alloy.Globals.strings.prescPrefCarryOverTitle, prescfrom, prescTo)
+		}));
+
+		dialogView.add($.lbl.getView());
+
+		_.each([{
+			title : $.strings.dialogBtnYes,
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "primary-bg-color", "primary-light-fg-color", "primary-border"]
+		}, {
+			title : $.strings.dialogBtnNo,
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "bg-color", "primary-fg-color", "primary-border"]
+		}], function(obj, index) {
+			var btn = $.UI.create("Button", {
+				apiName : "Button",
+				classes : obj.classes,
+				title : obj.title,
+				index : index,
+				id : updatePresc.id
+			});
+			$.addListener(btn, "click", function(e) {
+
+				dosagePrefCarryOver.push({
+					prescriptionId : e.source.id,
+					userConsent : e.source.index == 0 ? "Yes" : "No"
+				});
+
+				$.loyaltyDialog.hide(function didHide() {
+					$.contentView.remove($.loyaltyDialog.getView());
+					$.loyaltyDialog = null;
+				});
+				dialogCount++;
+				setTimeout(showRxPreferenceUpdateDialog, 500);
+
+			});
+			dialogView.add(btn);
+		});
+		$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView]
+		}));
+		$.contentView.add($.loyaltyDialog.getView());
+		$.loyaltyDialog.show();
+	} else {
+		updateDosagePreference();
+	}
+}
+
+
 
 function didGetHiddenPrescriptions(result, passthrough) {
 	if (!result.data) {

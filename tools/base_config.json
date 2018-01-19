@@ -11,6 +11,7 @@
 			"patient_get": "patient/get",
 			"patient_preferences_get": "patient/preferences/get",
 			"patient_preferences_update": "patient/preferences/update",
+			"patient_preferences_update_carryoverpref": "patient/preferences/updatecarryoverpref",
 			"patient_default_device": "setdefaultdevice",
 			"patient_update": "patient/update/email",
 			"patient_logout": "patient/logout",
