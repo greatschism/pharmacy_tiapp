@@ -149,7 +149,7 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 		 *  load date format from device
 		 *  can be update form theme too
 		 */
-		var dateFormat = DateTimeModule.dateFormat.split("/");
+		var dateFormat = OS_IOS ? DateTimeModule.dateFormat.split("/") : DateTimeModule.getDateFormat().split("/");
 		//match date format with momentjs
 		_.each(dateFormat, function(val, key) {
 			if (val.indexOf("d") != -1) {
