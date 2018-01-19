@@ -14,3 +14,4 @@ dist
 build
 Resources
 /i18n
+*.DS_Store
