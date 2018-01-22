@@ -545,9 +545,8 @@ function didClickRightNavLoggedIn(e) {
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
-	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
-		$.rightNavBtn.getNavButton().show();
 	}
 
 	var source = e.source,
