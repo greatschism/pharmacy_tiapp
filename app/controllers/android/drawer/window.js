@@ -113,11 +113,15 @@ function setTitle(title) {
 		}
 	}
 	$.window.title = title;
-	$.actionBar.setTitleAttributes(_.extend({
-		title : title
-	}, $.createStyle({
-		apiName : "Window"
-	}).titleAttributes));
+	// $.actionBar.setTitleAttributes(_.extend({
+		// title : title
+	// }, $.createStyle({
+		// apiName : "Window"
+	// }).titleAttributes));
+	var abx = require('com.alcoapps.actionbarextras');
+	abx.setTitle({
+		text : title,
+	});
 }
 
 function showNavBar() {
