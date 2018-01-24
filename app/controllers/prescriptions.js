@@ -179,7 +179,7 @@ function prepareData() {
 	 * when all accounts
 	 * are partial
 	 */
-	var currentPatient = $.patientSwitcher.get();
+	var currentPatient = $.patientSwitcher.get();	
 	if (currentPatient.get("is_partial")) {
 		/**
 		 * reset table if any
@@ -593,8 +593,9 @@ function prepareList() {
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message")
+						detailTitle : prescription.get("refill_transaction_message"),
 						/*subtitleClasses : subtitleWrapClasses*/
+						changeTimeLbl : $.strings.prescriptionsInProcessNewTime
 					});
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
 					var message = prescription.get("refill_transaction_message");
@@ -623,7 +624,8 @@ function prepareList() {
 						itemTemplate : "inprogress",
 						subtitle : subtitle,
 						progress : progress,
-						subtitleClasses : subtitleWrapClasses
+						subtitleClasses : subtitleWrapClasses,
+						changeTimeLbl : prescription.get("refill_transaction_message") ? $.strings.prescriptionsInProcessNewTime : ""
 					});
 				}
 			}
@@ -797,7 +799,7 @@ function prepareList() {
 	
 		var rowParams = prescription.toJSON(),
 		    row;
-		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
+		rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle", "changeTimeLbl"])).join(" ").toLowerCase();
 		row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 		switch(rowParams.itemTemplate) {
 		case "masterDetailSwipeable":

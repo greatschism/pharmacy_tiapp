@@ -29,6 +29,9 @@ var args = $.args,
 	_.each(["titleLbl", "subtitleLbl"], function(val) {
 		uihelper.wrapText($[val]);
 	});
+	if (args.changeTimeLbl && Alloy.CFG.is_update_promise_time_enabled) {
+	$.changeTimeLbl.text = args.changeTimeLbl;
+	}
 })();
 
 function getParams() {

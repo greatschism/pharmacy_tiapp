@@ -40,6 +40,7 @@ module.exports = {
 		"expPickupBenefitsList4" : "Household sharing one card? No problem. With Express Pick-up, the physical card does not need to be present at the time of pick up.",
 		"expPickupBenefitsList5" : "At Meijer, we take your privacy seriously. At the close of your transaction, you will be provided with a scan code which can be used to identify you without having to provide a name and date of birth to the store employee.",
 		"expPickupBenefitsTitle" : "What is it?",
+		"prescriptionsInProcessNewTime": "Click here to select new time",
 		
 		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits"
 	}

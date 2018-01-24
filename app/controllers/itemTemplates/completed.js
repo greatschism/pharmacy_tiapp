@@ -97,6 +97,9 @@ var args = $.args,
 	} else {
 		$.row.className = "completed";
 	}
+	if (args.changeTimeLbl && Alloy.CFG.is_update_promise_time_enabled) {
+	$.changeTimeLbl.text = args.changeTimeLbl;
+	}
 })();
 
 function getParams() {
