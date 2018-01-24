@@ -27,25 +27,24 @@
 	</style>
 	<style name="Material.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
 		<item name="spinBars">true</item>
-		<item name="color">#FF0A4D8C</item>
+		<item name="color">@android:color/black</item>
 	</style>
-	<style name="Theme.Material" parent="Theme.AppCompat">
+	<style name="Theme.Material" parent="Theme.AppCompat.Light">
 		<item name="colorControlHighlight">#D4D4D4</item>
 		<item name="android:colorEdgeEffect">#D4D4D4</item>
 		<item name="android:textAllCaps">false</item>
-		<item name="android:textColorHint">#C7C7CD</item>
+		<item name="android:textColorHint">#757584</item>
 		<item name="android:textCursorDrawable">@null</item>
 		<item name="android:windowBackground">@android:color/white</item>
 		<item name="dialogTheme">@style/Material.AlertDialog</item>
 		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
 		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
-    	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
 		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
 		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
- 		<item name="colorControlNormal">#FF0A4D8C</item>
- 		<item name="android:textColorPrimary">#FF0A4D8C</item>
+		<item name="colorControlNormal">@android:color/black</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>
