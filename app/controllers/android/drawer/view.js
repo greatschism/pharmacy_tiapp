@@ -126,10 +126,12 @@ function setTitle(title) {
 	// }, $.createStyle({
 		// apiName : "Window"
 	// }).titleAttributes));
+	var styleParam = $.createStyle({
+		apiName : "Window"
+	}).titleAttributes;
+	styleParam.text = title;
 	var abx = require('com.alcoapps.actionbarextras');
-	abx.setTitle({
-		text : title,
-	});
+	abx.setTitle(styleParam);
 }
 
 function showNavBar() {
