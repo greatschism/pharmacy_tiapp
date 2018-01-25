@@ -10,4 +10,7 @@
 	</android>
 	<mobileweb>
 	</mobileweb>
+	<modules>
+		<module platform="android">ti.playservices</module>
+	</modules>
 </ti:module>
