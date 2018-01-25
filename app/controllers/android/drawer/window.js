@@ -121,9 +121,17 @@ function setTitle(title) {
 	var styleParam = $.createStyle({
 		apiName : "Window"
 	}).titleAttributes;
+	var barColor = $.createStyle({
+		apiName : "Window"
+	}).barColor;
+	var statusBarColor = $.createStyle({
+		apiName : "Window"
+	}).statusBarColor;
 	styleParam.text = title;
 	var abx = require('com.alcoapps.actionbarextras');
 	abx.setTitle(styleParam);
+	abx.setBackgroundColor(barColor);
+	abx.setStatusbarColor(statusBarColor);
 }
 
 function showNavBar() {
