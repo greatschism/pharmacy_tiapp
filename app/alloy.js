@@ -6,7 +6,7 @@
 	 *  this is recommended
 	 */
 	var moment = require("alloy/moment");
-	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "crashreporter", "barcode", "navigationHandler", "feedbackHandler", "rx", "refillScan", "ti-qrcode-master/qrcode"], function(module) {
+	_.each(["alloy/moment-timezone", "alloy/underscore", "styleSheets", "com.scule", "utilities", "encryptionUtil", "com.scule.tiencrypted", "uihelper", "core", "resources", "config", "localization", "logger", "http", "ctrlShortCode", "requestwrapper", "authenticator", "crashreporter", "analyticsHandler", "barcode", "navigationHandler", "feedbackHandler", "notificationHandler", "notificationPanel", "rx", "refillScan", "ti-qrcode-master/qrcode"], function(module) {
 		require(module);
 	});
 
