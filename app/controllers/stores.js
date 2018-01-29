@@ -1293,7 +1293,7 @@ function didClickUpdate() {
 	 * ti.push module has a inbuilt method
 	 * to run the update request intent
 	 */
-	// require("ti.push").updateGooglePlayServices();
+	require("ti.push").updateGooglePlayServices();
 }
 
 function didClickRightNavBtn(e) {

@@ -9,10 +9,10 @@ var TAG = "AUTH",
     http = require("requestwrapper"),
     localization = require("localization"),
     feedbackHandler = require("feedbackHandler"),
-    // notificationHandler = require("notificationHandler"),
+    notificationHandler = require("notificationHandler"),
     crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
-    // analyticsHandler = require("analyticsHandler"),
+    analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
     v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : require("com.mscripts.keychainimporter");
 
@@ -536,7 +536,7 @@ function didGetPreferences(result, passthrough) {
 				var deliveryMode = mPatient.get(val);
 				return deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push || deliveryMode === Alloy.CFG.apiCodes.reminder_delivery_mode_push_invalid;
 			})) {
-				// setDefaultDeviceForManager(passthrough);
+				setDefaultDeviceForManager(passthrough);
 			} else {
 				//if push is not enabled, then move further
 				initiateTimeZoneCheck(passthrough);
@@ -802,7 +802,7 @@ function updatePreferences(params, passthrough) {
 	 * before time zone check
 	 */
 	if (passthrough.explicit !== false && isPushEnabled) {
-		// setDefaultDevice(passthrough);
+		setDefaultDevice(passthrough);
 	} else {
 		updatePreferencesApi(passthrough);
 	}
@@ -878,7 +878,7 @@ function completeAuthentication(passthrough) {
 		icon : "logout"
 	});
 	//track new session
-	// analyticsHandler.startSession();
+	analyticsHandler.startSession();
 	/**
 	 * update crash reporter
 	 * with user username
@@ -1124,7 +1124,7 @@ function didLogout(result, passthrough) {
 		//hide loader
 		app.navigator.hideLoader();
 		//track session ended
-		// analyticsHandler.endSession();
+		analyticsHandler.endSession();
 		/**
 		 * success callback
 		 * if any
