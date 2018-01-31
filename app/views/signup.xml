@@ -1,34 +1,32 @@
 <Alloy>
-	<ScrollView class="disable-bounce">
-		<View id="parentView" class="width-100 vgroup">
-			<ImageView id="logoImg" class="margin-top" />
-			<View id="nameView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<View id="txtView" class="auto-height" >
-					<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
-					<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
-					<View id="vDividerView" class="v-divider"/>
-				</View>
-				<View class="h-divider"/>
-				<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
-				<View class="h-divider"/>
-				<Widget id="moNumberTxt" analyticsId="MobileNumberTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
+	<ScrollView class="disable-bounce width-100 vgroup">
+		<ImageView id="logoImg" class="margin-top" />
+		<View id="nameView" class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<View id="txtView" class="auto-height" >
+				<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+				<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="vDividerView" class="v-divider"/>
 			</View>
-			<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-email returnkey-next" onReturn="moveToNext" />
-				<View class="h-divider"/>
-				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
-			</View>
-			<View id="rxContainer" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
-				<View class="h-divider"/>
-				<View id="storeView" analyticsId="StoreView" class="auto-height" onClick="didClickPharmacy">
-					<Label id="storeTitleLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
-					<Label id="arrowLbl" class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-right touch-disabled accessibility-disabled" />
-				</View>
-			</View>
-			<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
-			<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSignup"/>
+			<View class="h-divider"/>
+			<Widget id="dob" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
+			<View class="h-divider"/>
+			<Widget id="moNumberTxt" analyticsId="MobileNumberTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-phone returnkey-next" onChange="didChangePhone" onReturn="moveToNext" />
 		</View>
+		<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-email returnkey-next" onReturn="moveToNext" />
+			<View class="h-divider"/>
+			<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
+		</View>
+		<View id="rxContainer" class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-number returnkey-next" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
+			<View class="h-divider"/>
+			<View id="storeView" analyticsId="StoreView" class="auto-height" onClick="didClickPharmacy">
+				<Label id="storeTitleLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
+				<Label id="arrowLbl" class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-right touch-disabled accessibility-disabled" />
+			</View>
+		</View>
+		<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
+		<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSignup"/>
 		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
