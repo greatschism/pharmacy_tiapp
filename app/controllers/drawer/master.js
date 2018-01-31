@@ -203,7 +203,7 @@ function didClickLeftNavView(e) {
 }
 
 function hideKeyboard(e) {
-	if (Ti.App.keyboardVisible) {
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
 		keyboardModule.hideKeyboard();
 	}
 }

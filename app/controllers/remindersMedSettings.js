@@ -584,7 +584,7 @@ function hideKeyboard() {
 	 * Note: keyboardVisible may not return
 	 * right value always on android
 	 */
-	if (Ti.App.keyboardVisible) {
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
     	keyboardModule.hideKeyboard();
 	}
 }

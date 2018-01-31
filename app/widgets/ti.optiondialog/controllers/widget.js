@@ -52,7 +52,7 @@ function show() {
 	 * In iOS the action sheet hides
 	 * the keyboard by default
 	 */
-	if (OS_ANDROID && Ti.App.keyboardVisible) {
+	if (OS_ANDROID && keyboardModule.getKeyboardVisible()) {
     	keyboardModule.hideKeyboard();
 	}
 	$.optionDialog.show();
