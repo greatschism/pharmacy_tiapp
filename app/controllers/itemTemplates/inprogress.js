@@ -38,4 +38,13 @@ function getParams() {
 	return args;
 }
 
+function didClickPromiseTime(e) {
+	var source = e.source;
+	$.trigger("clickpromisetime", {
+		source : $,
+		title : "",
+		data : args
+	});
+}
+
 exports.getParams = getParams;

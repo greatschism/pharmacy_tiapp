@@ -22,7 +22,8 @@ var args = $.args,
     nextPickupDate = "",
     dosagePrefCarryOver = [],
     preferenceUpdateRx = [],
-    dialogCount = 0;
+    dialogCount = 0,
+    promiseTimeRx= {};
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -166,6 +167,47 @@ function focus() {
 		$.rightNavBtn.getNavButton().hide(); 
 	}
 	
+	if (Alloy.CFG.is_update_promise_time_enabled) {
+		getPromiseTimeOptions();
+	}
+}
+
+
+function getPromiseTimeOptions() {
+	$.http.request({
+		method : "codes_get",
+		params : {
+			data : [{
+				codes : [{
+					code_name : Alloy.CFG.apiCodes.code_promise_time
+				}]
+			}]
+		},
+		forceRetry : true,
+		success : didGetPromiseTimeOptions
+	});
+}
+
+function didGetPromiseTimeOptions(result, passthrough) {
+	
+	Alloy.Models.promiseTimeOptions.set(result.data.codes[0]);
+	if ($.promiseTimePicker) {
+		var defaultVal = Alloy.Globals.strings.prescPromiseTimeNoChange,
+		    selectedCode;
+
+		var codes = Alloy.Models.promiseTimeOptions.get("code_values");
+		_.each(codes, function(code) {
+			if (code.code_value === defaultVal) {
+				selectedCode = code;
+				code.selected = true;
+			} else {
+				code.selected = false;
+			}
+		});
+
+		Alloy.Models.promiseTimeOptions.set("selected_code_value", selectedCode.code_value);
+		$.promiseTimePicker.setItems(Alloy.Models.promiseTimeOptions.get("code_values"));
+	}
 }
 
 function prepareData() {
@@ -593,10 +635,16 @@ function prepareList() {
 						masterWidth : 100,
 						detailWidth : 0,
 						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
+						detailTitle : prescription.get("refill_transaction_message")
 						/*subtitleClasses : subtitleWrapClasses*/
-						changeTimeLbl : $.strings.prescriptionsInProcessNewTime
 					});
+					if(prescription.get("promise_time_options_enabled") != null) {
+						if (prescription.get("promise_time_options_enabled") == "1") {
+							prescription.set({
+								changeTimeLbl : $.strings.prescriptionsInProcessNewTime
+							});
+						}
+					}
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
 					var message = prescription.get("refill_transaction_message");
 					logger.debug("\n\n\n transaction message", message);
@@ -624,9 +672,15 @@ function prepareList() {
 						itemTemplate : "inprogress",
 						subtitle : subtitle,
 						progress : progress,
-						subtitleClasses : subtitleWrapClasses,
-						changeTimeLbl : prescription.get("refill_transaction_message") ? $.strings.prescriptionsInProcessNewTime : ""
+						subtitleClasses : subtitleWrapClasses
 					});
+					if(prescription.get("promise_time_options_enabled") != null) {
+						if (prescription.get("promise_time_options_enabled") == "1") {
+							prescription.set({
+								changeTimeLbl : prescription.get("refill_transaction_message") ? $.strings.prescriptionsInProcessNewTime : ""
+							});
+						}
+					}		
 				}
 			}
 
@@ -808,9 +862,21 @@ function prepareList() {
 		case "masterDetailBtn":
 			row.on("clickdetail", doConfirmHide);
 			break;
-		case "completed":
-			row.on("clickphone", didClickPhone);
+		case "completed": logger.debug("\n\n\nh complete");
+			var h = _.has(rowParams, "changeTimeLbl");
+			if(h) {
+				row.on("clickpromisetime", didClickChangePromiseTime);
+			} else {
+				row.on("clickphone", didClickPhone);
+			}
+			break;	
+		case "inprogress": logger.debug("\n\n\ng in progress");
+					var g = _.has(rowParams, "changeTimeLbl");
 
+			if(g){
+				row.on("clickpromisetime", didClickChangePromiseTime);
+			}
+			break;
 		}
 		sectionHeaders[rowParams.section] += rowParams.filterText;
 		sections[rowParams.section].push(row);
@@ -1434,12 +1500,48 @@ function didClickCheckout(e) {
 	}
 }
 
+function didUpdatePromiseTimeOption() {
+	$.app.navigator.hideLoader();
+	promiseTimeRx = {};
+	prepareData();
+}
+
+function updatePromiseTimeOption() {
+	$.http.request({
+		method : "update_promise_time",
+		params : {
+			data : [{
+				updatePromiseTime : [promiseTimeRx]
+			}]
+		},
+		keepLoader : true,
+		success : didUpdatePromiseTimeOption,
+		failure : didUpdatePromiseTimeOption
+	});
+}
+
+function didClickClosePromiseTime(e) {
+	if ($.promiseTimePicker.getSelectedItems()[0].code_value != Alloy.Globals.strings.prescPromiseTimeNoChange) {
+		_.extend(promiseTimeRx, {
+			promiseTimeOption : $.promiseTimePicker.getSelectedItems()[0].code_display
+		});
+		$.promiseTimePicker.hide();
+		updatePromiseTimeOption();
+	} else {
+		promiseTimeRx = {};
+		$.promiseTimePicker.hide();
+	}
+}
+
+function didClickChangePromiseTime(e) {
+	if(e.data.changeTimeLbl) {
+		promiseTimeRx.prescriptionId = e.data.id;
+		$.promiseTimePicker.show();
+	}
+}
 
 
-function didClickPhone(e) {	
-	
-	logger.debug("\n\n\n am in didClickPhone\n\n\n");
-		
+function didClickPhone(e) {		
 	if(e.data.phone_formatted)
 	{
 		$.uihelper.getPhoneWithContactsPrompt({
@@ -1870,6 +1972,9 @@ function didClickTableView(e) {
 
 
 function hideAllPopups() {
+	if ($.promiseTimePicker && $.promiseTimePicker.getVisible()) {
+		return $.promiseTimePicker.hide();
+	}
 	if ($.sortPicker && $.sortPicker.getVisible()) {
 		return $.sortPicker.hide();
 	}

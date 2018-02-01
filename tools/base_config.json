@@ -66,7 +66,8 @@
 			"mobile_resend": "patient/mobile/resend",
 			"email_resend": "patient/email/resend",
 			"mailorder_stores_get": "stores/getmailorderservice",
-			"checkout_preferences_update": "payments/updateCheckoutPreferences"
+			"checkout_preferences_update": "payments/updateCheckoutPreferences",
+			"update_promise_time": "prescriptions/updatepromisetimeoption"
 		},
 		"apiCodes": {
 			"success": "200",
@@ -131,7 +132,8 @@
 			"code_time_zone": "Time Zone",
 			"code_language": "MultiLanguage",
 			"code_relationship": "Relationship",
-			"code_counseling_eligible": "Counseling Eligible"
+			"code_counseling_eligible": "Counseling Eligible",
+			"code_promise_time": "Promise Time Option"
 		},
 		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",

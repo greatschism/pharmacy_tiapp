@@ -423,6 +423,9 @@ module.exports = {
 		"prescSectionOthers" : "Other prescriptions",
 		"prescSectionMedSync" : "Med Sync Prescriptions",
 
+		"prescPopupSectionPromiseTime" : "Promise Time",
+		"prescPopupPromiseTimeBtnClose" : "Close",
+		"prescPromiseTimeNoChange" : "No Changes",
 		"prescSwipeOptHide" : "Hide",
 		"prescSwipeOptRefill" : "Refill",
 		"prescInProgressLblPromise" : "Order processed: ready by %s",
