@@ -2,3 +2,12 @@
 	width: 56,
 	height: 36
 }
+
+"#swt[platform=android]": {
+	color: 'gray',
+	text: '\uf204',
+	font: {
+		fontFamily: 'mscripts',
+		fontSize: '30dp'
+	}
+}
