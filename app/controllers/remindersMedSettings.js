@@ -59,7 +59,9 @@ var args = $.args,
 		"color_name" : "Black",
 		"color_code" : "#181818"
 	}]; 
-    Alloy.Collections.reminderColors.reset(reminder_colors);
+	if (!Alloy.Collections.reminderColors.length) {
+		Alloy.Collections.reminderColors.reset(reminder_colors);	
+	};
 
 function init() {
 	/**
@@ -584,7 +586,7 @@ function hideKeyboard() {
 	 * Note: keyboardVisible may not return
 	 * right value always on android
 	 */
-	if (Ti.App.keyboardVisible) {
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
     	keyboardModule.hideKeyboard();
 	}
 }

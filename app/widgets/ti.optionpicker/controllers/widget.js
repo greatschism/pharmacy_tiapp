@@ -286,7 +286,7 @@ function animate(dict, callback) {
 function show(callback) {
 	if (!$.widget.visible) {
 		//hide keyboard if any
-		if (Ti.App.keyboardVisible) {
+		if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
     		keyboardModule.hideKeyboard();
 		}
 		//disable accessibility of other elements

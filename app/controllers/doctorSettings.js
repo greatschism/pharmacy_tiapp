@@ -118,7 +118,7 @@ function didChange(e) {
 }
 
 function didClickSubmit(e) {
-	if (Ti.App.keyboardVisible) {
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
 		keyboardModule.hideKeyboard();
 	}
 	var fname,

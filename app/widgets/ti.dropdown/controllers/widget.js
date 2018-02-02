@@ -102,7 +102,7 @@ function show() {
 	disableAccessibilityForParent();
 	if (!picker && parent) {
 		//hide keyboard if any
-		if (Ti.App.keyboardVisible) {
+		if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
     		keyboardModule.hideKeyboard();
 		}
 		if (args.type == Ti.UI.PICKER_TYPE_DATE || args.type == Ti.UI.PICKER_TYPE_TIME) {

@@ -157,7 +157,7 @@ function didBlurFocusPassword() {
 
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
-	if (Ti.App.keyboardVisible) {
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
     	keyboardModule.hideKeyboard();
 	}
 }
