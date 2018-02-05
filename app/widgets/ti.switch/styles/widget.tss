@@ -4,10 +4,10 @@
 }
 
 "#swt[platform=android]": {
-	color: 'gray',
-	text: '\uf204',
+	color: '#A7A7A7',
+	text: Alloy.CFG.icons.switch_off,
 	font: {
 		fontFamily: 'mscripts',
-		fontSize: '30dp'
+		fontSize: '34dp'
 	}
 }

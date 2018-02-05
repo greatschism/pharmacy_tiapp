@@ -48,12 +48,7 @@ function init() {
 		$.autoLoginSwt.setValue(false);
 	}
 	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
-		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
-	} else {
-		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
-	}
+	iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
 	$.autoLoginSwt.applyProperties(iDict);
 
 	if (OS_IOS) {
