@@ -76,6 +76,7 @@ function init() {
 function didOpen(e) {
 
 	$.actionBar = $.window.getActivity().actionBar;
+	$.actionBar.setDisplayHomeAsUp(true);
 
 	if (rightNavItem) {
 		setRightNavButton(rightNavItem);
