@@ -368,7 +368,6 @@ module.exports = {
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
 		"expressQRCounterExpired" : "Your Express Pick-up code has expired. Please re-enter your Date of Birth to enable again.",
-		"expressPickupEmptyReadyForCheckout" : "You do not have any prescriptions ready for checkout at the moment.",
 		
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",

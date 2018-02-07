@@ -1365,13 +1365,6 @@ function prepareList() {
 		 */
 		Alloy.Globals.isSwipeInProgress = false;
 		Alloy.Globals.currentRow = null;
-		if (Alloy.Collections.prescriptions.length && !data.length) {
-			$.uihelper.showDialog({
-				message : Alloy.Globals.strings.expressPickupEmptyReadyForCheckout,
-				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-				success : popToHome
-			});
-		}
 	} else if (Alloy.Collections.prescriptions.length && !data.length) {
 		/**
 		 * alert user saying no prescriptions to select
