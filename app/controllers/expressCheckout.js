@@ -54,7 +54,7 @@ function getCheckoutInfo() {
 
 function checkoutDetailsFail(error, passthrough) {
 	var err = error.message;
-	if (err.indexOf("click here.")) {
+	if (err.indexOf("click here.") !== -1) {
 		var dialogView = $.UI.create("ScrollView", {
 			apiName : "ScrollView",
 			classes : ["top", "auto-height", "vgroup"]
@@ -92,11 +92,16 @@ function checkoutDetailsFail(error, passthrough) {
 		$.contentView.add($.loyaltyDialog.getView());
 		$.loyaltyDialog.show();
 
+	} else if (err.indexOf("Express Pick-up is not available because you do not have any prescriptions ready for pick up.") !== -1) {
+		uihelper.showDialog({
+			message : err,
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			success : pushToPrescriptionList
+		});
 	} else {
 		uihelper.showDialog({
 			message : err,
 			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-			cancelIndex : 0,
 			success : popToHome
 		});
 	}
