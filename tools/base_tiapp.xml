@@ -108,7 +108,7 @@
     <module platform="android" version="3.0">com.mscripts.androidkeychain</module>
     <module platform="iphone" version="0.1">com.mscripts.keychainimporter</module>
     <module platform="iphone" version="1.0">com.mscripts.customfont</module>
-    <module platform="android" version="1.0">com.mscripts.customfont</module>
+    <module platform="android" version="1.1">com.mscripts.customfont</module>
     <module platform="iphone" version="1.0">com.mscripts.datetime</module>
     <module platform="android" version="1.0">com.mscripts.datetime</module>
     <module platform="iphone" version="1.0">com.mscripts.hidekeyboard</module>
