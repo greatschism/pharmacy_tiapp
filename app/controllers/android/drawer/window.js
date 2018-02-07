@@ -77,6 +77,7 @@ function didOpen(e) {
 
 	$.actionBar = $.window.getActivity().actionBar;
 	$.actionBar.setDisplayHomeAsUp(true);
+	$.actionBar.setBackgroundColor($.window.barColor);	//	method available in custom sdk only
 
 	if (rightNavItem) {
 		setRightNavButton(rightNavItem);
