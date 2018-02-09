@@ -42,7 +42,13 @@
         <key>UIPrerenderedIcon</key>
         <false/>
         <key>NSCameraUsageDescription</key>
-        <string>${NS_Camera_Usage}</string>
+        <string>${NS_CAMERA_USAGE_DESCRIPTION}</string>
+        <key>NSContactsUsageDescription</key>
+        <string>${NS_CONTACTS_USAGE_DESCRIPTION}</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>${NS_PHOTO_LIBRARY_USAGE_DESCRIPTION}</string>
+        <key>NSRemindersUsageDescription</key>
+        <string>${NS_REMINDERS_USAGE_DESCRIPTION}</string>
         <key>UIStatusBarHidden</key>
         <false/>
         <key>UIStatusBarStyle</key>
