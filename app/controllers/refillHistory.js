@@ -41,7 +41,8 @@ function didFail(error, passthrough) {
 function didGetHistory(result, passthrough) {
 	var data = [],
 	    clientDateFormat = Alloy.CFG.date_format,
-	    serverDateFormat = Alloy.CFG.apiCodes.date_format;
+	    serverDateFormat = Alloy.CFG.apiCodes.date_format,
+	    presNameSection = $.uihelper.createTableViewSection($, prescription.presc_name);
 	httpClient = null;
 	if (result && result.data) {
 		/**
@@ -75,7 +76,8 @@ function didGetHistory(result, passthrough) {
 			}
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
+			data.push(presNameSection);
 			rows.push(row);
 			row.on("clickPhone", didClickPhone);
 		});
@@ -85,7 +87,8 @@ function didGetHistory(result, passthrough) {
 		 */
 		_.each(prescription.history, function(history) {
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
+			data.push(presNameSection);
 			rows.push(row);
 		});
 	}
