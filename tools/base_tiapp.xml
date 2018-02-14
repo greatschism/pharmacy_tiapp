@@ -42,7 +42,7 @@
         <key>UIPrerenderedIcon</key>
         <false/>
         <key>NSCameraUsageDescription</key>
-        <string>${NS_Camera_Usage}</string>
+        <string>${NS_CAMERA_USAGE}</string>
         <key>UIStatusBarHidden</key>
         <false/>
         <key>UIStatusBarStyle</key>
