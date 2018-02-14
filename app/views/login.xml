@@ -15,11 +15,11 @@
 		<Widget id="forgotPwdAttr" src="ti.styledlabel" class="margin-left margin-top attributed-20" onClick="didClickForgotPassword" />
 		<Widget id="signupAttr" src="ti.styledlabel" class="margin-left margin-top margin-bottom attributed-20" onClick="didClickSignup" />
 		<Label id="aboutAttr" class="margin-right margin-top-large active-fg-color" onClick="didClickAbout"/>
-		<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
-			<View class="auto-height vgroup">
-				<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
-				<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-font-color primary-border" onClick="didClickHide" />
-			</View>
-		</Widget>
 	</ScrollView>
+	<Widget id="tooltip" src="ti.tooltip" class="margin-top margin-right bg-color primary-border">
+		<View class="auto-height vgroup">
+			<Label id="tooltipLbl" class="margin-top margin-left margin-right" />
+			<Button id="tooltipHideBtn" class="margin-top-medium margin-bottom margin-left-extra-large margin-right-extra-large min-height primary-bg-color h5 primary-font-color primary-border" onClick="didClickHide" />
+		</View>
+	</Widget>
 </Alloy> 

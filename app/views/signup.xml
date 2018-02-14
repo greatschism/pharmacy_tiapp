@@ -27,7 +27,7 @@
 		</View>
 		<Widget id="agreementLbl" analyticsId="AgreementLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed" onClick="didClickAgreement" />
 		<Button id="signupBtn" analyticsId="SignupBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSignup"/>
-		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
-		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 	</ScrollView>
+	<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+	<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 </Alloy>
