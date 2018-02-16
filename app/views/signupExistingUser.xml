@@ -1,15 +1,13 @@
 <Alloy>
-	<ScrollView class="disable-bounce">
-		<View id="parentView" class="width-100 vgroup">
-			<Label id="signupExistingUserLbl" class="margin-top margin-left margin-right h3 txt-left"/>
-			<Label id="askInfoLbl" class="margin-top margin-left margin-right h3 txt-left"/>
-			<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-email returnkey-next" onReturn="moveToNext" />
-				<View class="h-divider"/>
-				<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
-			</View>
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
+	<ScrollView class="disable-bounce width-100 vgroup" onScroll="didScrollerEnd">
+		<Label id="signupExistingUserLbl" class="margin-top margin-left margin-right h3 txt-left"/>
+		<Label id="askInfoLbl" class="margin-top margin-left margin-right h3 txt-left"/>
+		<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right-disabled txt border-disabled keyboard-email returnkey-next" onReturn="moveToNext" />
+			<View class="h-divider"/>
+			<Widget id="passwordTxt" analyticsId="PasswordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next"  onFocus="didFocusPassword" onBlur="didBlurFocusPassword" onReturn="moveToNext" onPostlayout="didPostlayoutPasswordContainerView" onClick="didToggleShowPassword"/>
 		</View>
-		<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 	</ScrollView>
+	<Widget id="passwordTooltip" analyticsId="PasswordTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 </Alloy>

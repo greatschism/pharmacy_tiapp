@@ -344,20 +344,23 @@ function didBlurFocusRx() {
 }
 
 function didPostlayoutRxContainerView(e) {
-	rxContainerViewFromTop = e.source.rect.y;
+	rxContainerViewFromTop = $.rxContainer.rect.y - $.rxContainer.rect.height;
 }
 
 function didFocusRx(e) {
 
-	var top = $.rxContainer.rect.height,
-	    margin = $.rxContainer.bottom;
 	$.rxTooltip.applyProperties({
-				top : top - margin
-			});
+		top : rxContainerViewFromTop
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.rxTooltip.show();	
 	}
 			
+}
+
+function didScrollerEnd(e) {
+	$.rxTooltip.hide();
+	$.rxContainer.fireEvent("postlayout", didPostlayoutRxContainerView);
 }
 
 function didClickPharmacy(e) {
