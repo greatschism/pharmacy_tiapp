@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView class="disable-bounce width-100 vgroup" onScroll="didScrollerEnd">
+	<ScrollView class="disable-bounce width-100 vgroup content-width-100" onDragend="didScrollerEnd">
 		<ImageView id="logoImg" class="margin-top" />
 		<Label id="askInfoLbl" class="margin-top-medium margin-left margin-right h3 txt-left"/>
 		<View id="containerView" class="margin-top-large margin-left margin-right auto-height vgroup border">

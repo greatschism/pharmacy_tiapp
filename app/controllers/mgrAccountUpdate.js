@@ -115,7 +115,7 @@ function didFocusPassword(e) {
 
 function didScrollerEnd(e) {
 	$.passwordTooltip.hide();
-	$.containerView.fireEvent("postlayout", didPostlayoutPasswordContainerView);
+	$.containerView.fireEvent("postlayout");
 }
 
 function didPostlayoutPasswordContainerView(e) {

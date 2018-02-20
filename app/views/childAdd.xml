@@ -1,5 +1,5 @@
 <Alloy>
-	<ScrollView class="fill-height fill-width vgroup" onScroll="didScrollerEnd">
+	<ScrollView class="fill-height fill-width vgroup content-width-100" onDragend="didScrollerEnd">
 		<View class="vgroup auto-height">
 			<Label id="childTitle" class="margin-top margin-left margin-right h2 txt-center"/>
 			<ImageView id="childImg" class="margin-top-large"/>

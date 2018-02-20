@@ -360,7 +360,7 @@ function didFocusRx(e) {
 
 function didScrollerEnd(e) {
 	$.rxTooltip.hide();
-	$.rxContainer.fireEvent("postlayout", didPostlayoutRxContainerView);
+	$.rxContainer.fireEvent("postlayout");
 }
 
 function didClickPharmacy(e) {
