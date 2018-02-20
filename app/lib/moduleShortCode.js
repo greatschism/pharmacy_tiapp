@@ -99,6 +99,7 @@ module.exports = {
 	"CHEC" : "CHEC",
 	"EXCH" : "EXCH",
 	"EXQR" : "EXQR",
+	"EXPB" : "EXPB",
 	/**
 	 * quick refill
 	 */

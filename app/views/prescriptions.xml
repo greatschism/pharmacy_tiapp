@@ -9,6 +9,14 @@
 			<Button id="sortCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickSortClose" />
 		</View>
 	</Widget>
+	<Widget id="promiseTimePicker" analyticsId="PromiseTimePicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
+		<View class="top min-height inactive-light-bg-color role-header-view">
+			<Label id="promiseTimeLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="promiseTimeCloseBtn" analyticsId="PromiseTimeCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickClosePromiseTime" />
+		</View>
+	</Widget>
 	<Widget id="unhidePicker" src="ti.optionpicker" class="modal-dialog" if="!$.args.showHiddenPrescriptions">
 		<View id="unhideHeaderView" class="auto-height role-header-view">
 			<Button id="selectNoneBtn" class="top left right-50 bg-color h5 active-fg-color border-disabled" onClick="toggleUnhideSelection" />
@@ -42,7 +50,7 @@
 	</ScrollView>
 	<View id="bottomView" class="top-disabled margin-bottom auto-height vgroup">
 		<Button id="submitBtn" class="margin-top margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
-		<View id="checkoutTipView" class="auto-height vgroup">
+		<View id="checkoutTipView" class="auto-height vgroup" onClick="didClickTransferRx">
 			<Label id="checkoutTipLbl" class="margin-left margin-right txt-left"/>
 		</View>
 	</View>

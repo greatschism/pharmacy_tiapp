@@ -27,6 +27,16 @@
 	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.prescOptMenuSort, Alloy.Globals.strings.prescOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 4
 },
+"#promiseTimePicker":{
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#promiseTimeLbl":{
+	text: Alloy.Globals.strings.prescPopupSectionPromiseTime
+},
+"#promiseTimeCloseBtn":{
+	title: Alloy.Globals.strings.prescPopupPromiseTimeBtnClose
+},
 "#sortPicker":{
 	autoHide: true,
 	radioButton: true,

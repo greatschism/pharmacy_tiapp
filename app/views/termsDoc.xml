@@ -1,7 +1,7 @@
 <Alloy>
 	<Label id="acceptedOnLbl" class="margin-top active-fg-color" if="!$.args.registrationFlow"/>
 	<WebView id="webView" class="margin-top" />
-	<View class="auto-height vgroup bottom">
+	<View id="btnsView" class="auto-height vgroup bottom">
 		<Button id="revokeBtn" analyticsId="RevokeBtn" class="margin-top bg-color primary-fg-color primary-border hide" onClick="didClickRevoke" />
 		<Button id="successBtn" analyticsId="SuccessBtn" class="margin-top margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSuccess" />
 	</View>

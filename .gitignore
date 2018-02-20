@@ -9,6 +9,8 @@ app/styles/app.tss
 platform/android/res/drawable-*
 platform/android/res/values-*
 tools/defaults.json
+plugins/ti.alloy/hooks/alloy.js
+plugins/ti.alloy/hooks/deepclean.js
 dist
 .settings
 build
