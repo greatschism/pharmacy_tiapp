@@ -14,24 +14,24 @@ var args = $.args,
 	} else {
 		$.titleLbl.text = title;
 	}
-	
-	if( args.customIconCheckoutComplete ) {
-		$.addClass($.subtitleIconLbl, ["custom-fg-color", args.customIconCheckoutComplete] );
-	} else if( args.customIconPartialFill ) {
-		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconPartialFill] );
-	} else if( args.customIconYield ) {
-		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield] );
-	} else if( args.customIconRejected ) {
-		$.addClass($.subtitleIconLbl, ["tentative-fg-color", args.customIconRejected] );
-	}else {
-		if( args.customIconNegative ) {
-			$.addClass($.subtitleIconLbl, ["negative-fg-info-color", args.customIconNegative] );
+
+	if (args.customIconCheckoutComplete) {
+		$.addClass($.subtitleIconLbl, ["custom-fg-color", args.customIconCheckoutComplete]);
+	} else if (args.customIconPartialFill) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconPartialFill]);
+	} else if (args.customIconYield) {
+		$.addClass($.subtitleIconLbl, ["yield-fg-info-color", args.customIconYield]);
+	} else if (args.customIconRejected) {
+		$.addClass($.subtitleIconLbl, ["tentative-fg-color", args.customIconRejected]);
+	} else {
+		if (args.customIconNegative) {
+			$.addClass($.subtitleIconLbl, ["negative-fg-info-color", args.customIconNegative]);
 		} else {
-			$.addClass($.subtitleIconLbl, ["positive-fg-color", "icon-thin-filled-success"] );
+			$.addClass($.subtitleIconLbl, ["positive-fg-color", "icon-thin-filled-success"]);
 		}
 	}
 	var subtitle = args.subtitle || (args.data ? args.data[args.subtitleProperty] : "");
-	
+
 	if (args.subtitleClasses) {
 		$.resetClass($.subtitleLbl, args.subtitleClasses, {
 			text : subtitle,
@@ -39,14 +39,13 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
-	
+
 	if (args.subtitleColor) {
-			$.addClass($.detailLbl, [args.subtitleColor] );
+		$.addClass($.detailLbl, [args.subtitleColor]);
 	}
-	
-		
+
 	var detail = args.detailTitle || (args.data ? args.data[args.detailProperty] : "");
-	
+
 	if (args.detailClasses) {
 		$.resetClass($.detailLbl, args.detailClasses, {
 			text : detail,
@@ -54,11 +53,21 @@ var args = $.args,
 	} else {
 		$.detailLbl.text = detail;
 	}
-		
+
 	if (args.detailColor) {
-			$.addClass($.detailLbl, [args.detailColor] );
+		$.addClass($.detailLbl, [args.detailColor]);
 	}
-	
+
+	if (args.showChild) {
+		if (args.showChild == true) {
+			$.childLbl.show();
+		} else {
+			$.childLbl.height = 0;
+		}
+	} else {
+		$.childLbl.height = 0;
+	}
+
 	uihelper.wrapViews($.masterView);
 	_.each(["titleLbl", "subtitleLbl", "detailLbl"], function(val) {
 		uihelper.wrapText($[val]);
@@ -87,6 +96,9 @@ var args = $.args,
 	} else {
 		$.row.className = "completed";
 	}
+	if (args.changeTimeLbl && Alloy.CFG.is_update_promise_time_enabled) {
+		$.changeTimeLbl.text = args.changeTimeLbl;
+	}
 })();
 
 function getParams() {
@@ -97,6 +109,15 @@ function didClickPhone(e) {
 	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
 	var source = e.source;
 	$.trigger("clickphone", {
+		source : $,
+		title : "",
+		data : args
+	});
+}
+
+function didClickPromiseTime(e) {
+	var source = e.source;
+	$.trigger("clickpromisetime", {
 		source : $,
 		title : "",
 		data : args

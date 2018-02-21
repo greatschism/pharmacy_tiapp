@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "UVMC Rx",
+		"strClientName" : "UVM Health Network",
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",

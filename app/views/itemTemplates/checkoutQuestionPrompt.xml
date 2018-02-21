@@ -5,13 +5,11 @@
 				<Label id="titleLbl" class="margin-left h5 auto-height" />
 				<Label id="subtitleLbl" class="margin-top-small margin-left inactive-fg-color auto-height" />
 				<View id="masterView" class="margin-left margin-top-large auto-height hgroup">
-					<View id="qstnYesView" class="margin-left-large h5  width-45 auto-height left hgroup bubble-disabled" onClick="didClickYes" >
-						<Label id="yesIcon" class="positive-fg-color left txt-right i6 " />
-						<Label id="yesLbl" class="positive-fg-color right margin-left-small  txt-left h4 " />
+					<View id="qstnYesView" class="margin-left-large width-45 auto-height hgroup left bubble-disabled inactive-light-border inactive-light-bg-color" onClick="didClickYes">
+						<Label id="yesLbl" class="inactive-fg-color h5 left-40 margin-top-small margin-bottom-small txt-center" />
 					</View>
-					<View id="qstnNoView" class="margin-left-large  h5  width-45 auto-height right hgroup bubble-disabled" onClick="didClickNo" >
-						<Label id="noIcon" class="negative-fg-info-color margin-left-large txt-right i6 " />
-						<Label id="noLbl" class="negative-fg-info-color right margin-left-small txt-left h4 " />
+					<View id="qstnNoView" class="margin-left-large width-45 auto-height hgroup right bubble-disabled inactive-light-border inactive-light-bg-color" onClick="didClickNo" >
+						<Label id="noLbl" class="inactive-fg-color h5 left-40 margin-top-small margin-bottom-small txt-center"/>
 					</View>
 				</View>
 			</View>

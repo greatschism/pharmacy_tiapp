@@ -34,10 +34,9 @@ function getParams() {
 function didClickNo(e) {
 	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
 	var source = e.source;
-	$.yesIcon.applyProperties($.createStyle({classes : ["inactive-fg-color"] }));
-	$.yesLbl.applyProperties($.createStyle({classes : ["inactive-fg-color"] }));
-	$.noIcon.applyProperties($.createStyle({classes : ["negative-fg-info-color"] }));
-	$.noLbl.applyProperties($.createStyle({classes : ["negative-fg-info-color"] }));
+	$.qstnYesView.applyProperties($.createStyle({classes:["hide"]}));
+	$.noLbl.applyProperties($.createStyle({classes : ["primary-light-fg-color"] }));
+	$.qstnNoView.applyProperties($.createStyle({classes:["primary-bg-color"]}));
 	
 		_.extend(args,{
 			answer : "0"
@@ -53,10 +52,9 @@ function didClickYes(e) {
 	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
 	var source = e.source;
 
-	$.noIcon.applyProperties($.createStyle({classes : ["inactive-fg-color"] }));
-	$.noLbl.applyProperties($.createStyle({classes : ["inactive-fg-color"] }));
-	$.yesIcon.applyProperties($.createStyle({classes : ["positive-fg-color"] }));
-	$.yesLbl.applyProperties($.createStyle({classes : ["positive-fg-color"] }));
+	$.qstnYesView.applyProperties($.createStyle({classes:["primary-bg-color"]}));
+	$.yesLbl.applyProperties($.createStyle({classes : ["primary-light-fg-color"] }));
+	$.qstnNoView.applyProperties($.createStyle({classes:["hide"]}));
 	
 		_.extend(args,{
 			answer : "1"

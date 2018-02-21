@@ -7,6 +7,7 @@
 				<View id="inactiveBar" class="inactive-light-bg-color touch-disabled accessibility-disabled" />
 				<View id="progressBar" class="left auto-width progress-bar-height active-strong-bg-color touch-disabled accessibility-disabled" />
 			</View>
+			<Label id="changeTimeLbl" class="left custom-fg-color bubble-disabled margin-top-small" onClick="didClickPromiseTime" if = "Alloy.CFG.is_update_promise_time_enabled && $.args.changeTimeLbl" />
 		</View>
 	</TableViewRow>
 </Alloy>
