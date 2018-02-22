@@ -440,7 +440,9 @@ function prepareList() {
 		return (prescription.get("is_specialty_store") == "1");
 	});
 	
-	hasSpecialtyEnabled = (Alloy.CFG.is_specialty_store_grouping_enabled && (specialtyPrescriptions.length> 0)) ? true : false;
+	// if (args.navigationFrom !== "specialtyGrouping") {
+		hasSpecialtyEnabled = (Alloy.CFG.is_specialty_store_grouping_enabled && (specialtyPrescriptions.length> 0)) ? true : false;
+	// };
 	
 	
 	
@@ -587,269 +589,7 @@ function prepareList() {
 		}
 		
 		//process sections
-		switch(prescription.get("refill_status")) {
-		case apiCodes.refill_status_in_process:
-			if (args.selectable) {
-				prescription.set({
-					itemTemplate : "masterDetailWithLIcon",
-					masterWidth : 100,
-					detailWidth : 0,
-					subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-					subtitleClasses : subtitleClasses
-				});
-			} else {
-				var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
-				    progress = 0,
-				    subtitle;
-				if (prescription.get("latest_refill_promised_date") && Alloy.Models.appload.get("features").is_promisetime_enabled === "1") {
-					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
-					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
-					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
-						if (Alloy.CFG.show_promise_time_day_of_week === "showPromiseTimeDayOfWeek") {
-						subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
-						}	else {
-							subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
-						}
-					progress = Math.floor((timeSpent / totalTime) * 100);
-				} else {
-					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
-				}
-
-				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
-					prescription.set({
-						className : "OOS",
-						itemTemplate : "completed",
-						customIconNegative : "icon-error",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "negative-fg-info-color"
-						/*subtitleClasses : subtitleWrapClasses*/
-					});
-				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
-					prescription.set({
-						className : "IP",
-						itemTemplate : "completed",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message")
-						/*subtitleClasses : subtitleWrapClasses*/
-					});
-					if(prescription.get("promise_time_options_enabled") != null) {
-						if (prescription.get("promise_time_options_enabled") == "1") {
-							prescription.set({
-								changeTimeLbl : $.strings.prescriptionsInProcessNewTime
-							});
-						}
-					}
-				} else if (prescription.get("refill_transaction_status") == "Rejected") {
-					var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n transaction message", message);
-
-					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
-
-					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
-
-					logger.debug("\n\n\n extracted phone number", phoneNumber);
-					prescription.set({
-						className : "RJ",
-						itemTemplate : "completed",
-						customIconRejected : "icon-error",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "tentative-fg-color",
-						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
-						/*subtitleClasses : subtitleWrapClasses*/
-					});
-
-				} else {
-					prescription.set({
-						itemTemplate : "inprogress",
-						subtitle : subtitle,
-						progress : progress,
-						subtitleClasses : subtitleWrapClasses
-					});
-					if(prescription.get("promise_time_options_enabled") != null) {
-						if (prescription.get("promise_time_options_enabled") == "1") {
-							prescription.set({
-								changeTimeLbl : prescription.get("refill_transaction_message") ? $.strings.prescriptionsInProcessNewTime : ""
-							});
-						}
-					}		
-				}
-			}
-
-			prescription.set({
-				section : "inProgress",
-				titleClasses : titleClasses,
-				canHide : false
-			});
-
-			break;
-		case apiCodes.refill_status_ready:
-			if (args.selectable) {
-				prescription.set({
-					itemTemplate : "masterDetailWithLIcon",
-					masterWidth : 100,
-					detailWidth : 0,
-					subtitleClasses : subtitleClasses
-				});
-			} else {
-				if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
-					prescription.set({
-						tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
-						tooltipType : "negative"
-					});
-				}
-				
-				if(prescription.get("is_checkout_complete") === "1")
-				{
-					prescription.set({
-						itemTemplate : "completed",
-						masterWidth : 100,
-						detailWidth : 0,
-						customIconCheckoutComplete : "icon-checkout-complete",
-						detailTitle : $.strings.checkoutComplete,
-						detailClasses : detailClasses
-					});	
-				}
-				else if (prescription.get("refill_transaction_status") == "Rx Ready Partial" && prescription.get("refill_transaction_message") != null) {
-					prescription.set({
-						itemTemplate : "completed",
-						masterWidth : 100,
-						detailWidth : 0,
-						customIconPartialFill : "icon-thin-filled-success",
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "yield-fg-info-color"
-					});
-				}
-				
-				else
-				{
-					prescription.set({
-						itemTemplate : "completed",
-						detailTitle : $.strings.prescReadyPickupLblReady
-					});
-				}
-			}
-			var readyRxLabel;
-			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
-				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-			}	else {
-				readyRxLabel = $.strings.prescReadyPickupLblReady;
-			}
-			prescription.set({
-				section : "readyPickup",
-				titleClasses : titleClasses,
-                subtitle : readyRxLabel,
-				canHide : false
-			});
-
-			break;
-		default:
-			var dueInDays = 0,
-			    section = "others",
-			    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
-
-			/**
-			 * keep the swipe options out (masterDetailWithLIcon - is picked)
-			 * when selectable is true
-			 */
-			
-			if((prescription.get("refill_transaction_status") == "Rejected" && prescription.get("refill_transaction_message") != null)) //|| (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null))
-			{
-				var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n transaction message", message);
-
-					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
-
-					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
-
-					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
-					prescription.set({
-						section : section,
-						itemTemplate : "completed",
-						customIconRejected : "icon-error",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "tentative-fg-color",
-						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
-						});		
-			}
-			else if((prescription.get("refill_transaction_status") == "Out Of Stock") && (prescription.get("refill_transaction_message") != null))
-			{
-				var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n OOS transaction message", message);
-
-						prescription.set({
-						section : section,
-						className : "OOS",
-						itemTemplate : "completed",
-						customIconNegative : "icon-error",
-						masterWidth : 100,
-						detailWidth : 0,
-						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-						detailTitle : prescription.get("refill_transaction_message"),
-						detailColor : "negative-fg-info-color"
-					});
-			}
-			else{
-			if (prescription.get("anticipated_refill_date")) {
-				/**
-				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
-				 * */
-				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
-				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
-				if (dueInDays <= parseInt(Alloy.Models.appload.get("upcomingRefillDaysBeforeARD"))) {
-					section = "readyRefill";
-					/**
-					 * prevent any actions on list when selectable is true, use masterDetailWithLIcon only
-					 * show auto hide button when anticipated_refill_date - current date  <= prescription_auto_hide
-					 */
-					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
-						template = "masterDetailBtn";
-						prescription.set({
-							detailTitle : $.strings.prescReadyRefillBtnHide
-						});
-					} else {
-						var dueInDaysAbs = Math.abs(dueInDays);
-						//if over due use negative classes
-						prescription.set({
-							detailType : dueInDays < 0 ? "negative" : "",
-							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : "prescReadyRefillLblRefillIn"],
-							detailSubtitle : dueInDaysAbs + " " + $.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
-						});
-					}
-				} else {
-					prescription.set({
-						detailTitle : $.strings.prescOthersLblDueOn,
-						detailSubtitle : anticipatedRefillDate.format(Alloy.CFG.date_format)
-					});
-				}
-			} else {
-				prescription.set({
-					masterWidth : 100,
-					detailWidth : 0
-				});
-			}
-			prescription.set({
-				section : section,
-				itemTemplate : template,
-				options : Ti.App.accessibilityEnabled ? null : swipeOptions,
-				titleClasses : titleClasses,
-				subtitleClasses : subtitleClasses,
-				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-				canHide : true
-			});
-			}
-		}
+		prescription = processSections(prescription, daysLeft);
 	
 		var rowParams = prescription.toJSON(),
 		    row;
@@ -1027,27 +767,44 @@ function prepareList() {
 			if (args.navigationFrom != "expressCheckout") {
 				if (args.navigationFrom == "specialtyGrouping") {
 					_.each(specialtyPrescriptions, function(prescription) {
-
-						prescription.set({
-							itemTemplate : "masterDetail",
-							titleClasses : titleClasses,
-							masterWidth : 100,
-							detailWidth : 0,
-							subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
-							subtitleClasses : subtitleClasses,
-							section : "specialty",
-							canHide : false
-						});
+						
+						var daysLeft;
+						if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
+							daysLeft = parseInt(Alloy.Models.appload.get("restocking_period") || 0) - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
+							if (daysLeft < 0) {
+								/**
+								 * update the status from Ready to Sold
+								 * as mentioned above
+								 *  */
+								prescription.set("refill_status", apiCodes.refill_status_sold);
+							}
+						}
+						prescription = processSections(prescription, daysLeft);						
 
 						var rowParams = prescription.toJSON(),
 						    row;
 						rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle", "detailTitle", "detailSubtitle"])).join(" ").toLowerCase();
 						row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+						switch(rowParams.itemTemplate) {
+							case "completed":
+								var hasTimeLabel = _.has(rowParams, "changeTimeLbl");
+								if(hasTimeLabel) {
+									row.on("clickpromisetime", didClickChangePromiseTime);
+								} else {
+									row.on("clickphone", didClickPhone);
+								}
+								break;	
+							case "inprogress":
+								var hasTimeLabel = _.has(rowParams, "changeTimeLbl");
+								if(hasTimeLabel){
+									row.on("clickpromisetime", didClickChangePromiseTime);
+								}
+								break;
+						}	
 						sectionHeaders[rowParams.section] += rowParams.filterText;
 						sections[rowParams.section].push(row);
 					});
 				} else {
-
 					if (!args.selectable && args.navigationFrom == "") {
 
 						var medSyncData = {
@@ -1340,7 +1097,22 @@ function prepareList() {
 						if(args.navigationFrom == "medSync") {
 							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
 						} else if(args.navigationFrom == "specialtyGrouping") {
-							tvSection = $.uihelper.createTableViewSection($, "Specialty", sectionHeaders[key], false, headerBtnDict);
+							var headerName;
+							switch(key) {
+								case "inProgress":
+								headerName = "In Process";
+								break;
+								case "readyPickup":
+								headerName = $.strings.prescSectionReadyPickup;
+								break;
+								case "readyRefill":
+								headerName = $.strings.prescSectionReadyRefill;
+								break;
+								default:
+								headerName = $.strings.prescSectionOthers;
+								break;
+							}
+							tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
 						} else {
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 						}
@@ -1383,6 +1155,282 @@ function prepareList() {
 		}
 	}
 
+}
+
+function processSections(prescription, daysLeft) {
+	switch(prescription.get("refill_status")) {
+		case apiCodes.refill_status_in_process:
+			if (args.selectable) {
+				prescription.set({
+					itemTemplate : "masterDetailWithLIcon",
+					masterWidth : 100,
+					detailWidth : 0,
+					subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+					subtitleClasses : subtitleClasses
+				});
+			} else {
+				var requestedDate = prescription.get("latest_refill_requested_date") ? moment(prescription.get("latest_refill_requested_date"), apiCodes.date_time_format) : currentDate,
+				    progress = 0,
+				    subtitle;
+				if (prescription.get("latest_refill_promised_date") && Alloy.Models.appload.get("features").is_promisetime_enabled === "1") {
+					var promisedDate = moment(prescription.get("latest_refill_promised_date"), apiCodes.date_time_format),
+					    totalTime = promisedDate.diff(requestedDate, "seconds", true),
+					    timeSpent = currentDate.diff(requestedDate, "seconds", true);
+						if (Alloy.CFG.show_promise_time_day_of_week === "showPromiseTimeDayOfWeek") {
+						subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.day_of_week_time_format));
+						}	else {
+							subtitle = String.format($.strings.prescInProgressLblPromise, promisedDate.format(Alloy.CFG.date_time_format));
+						}
+					progress = Math.floor((timeSpent / totalTime) * 100);
+				} else {
+					subtitle = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
+					progress = currentDate.diff(requestedDate, "hours", true) > Alloy.CFG.prescription_progress_x_hours ? Alloy.CFG.prescription_progress_x_hours_after : Alloy.CFG.prescription_progress_x_hours_before;
+				}
+
+				if (prescription.get("refill_transaction_status") == "Out Of Stock") {
+					prescription.set({
+						className : "OOS",
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+				} else if (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						className : "IP",
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message")
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+					if(prescription.get("promise_time_options_enabled") != null) {
+						if (prescription.get("promise_time_options_enabled") == "1") {
+							prescription.set({
+								changeTimeLbl : $.strings.prescriptionsInProcessNewTime
+							});
+						}
+					}
+				} else if (prescription.get("refill_transaction_status") == "Rejected") {
+					var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
+
+					logger.debug("\n\n\n extracted phone number", phoneNumber);
+					prescription.set({
+						className : "RJ",
+						itemTemplate : "completed",
+						customIconRejected : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
+						/*subtitleClasses : subtitleWrapClasses*/
+					});
+
+				} else {
+					prescription.set({
+						itemTemplate : "inprogress",
+						subtitle : subtitle,
+						progress : progress,
+						subtitleClasses : subtitleWrapClasses
+					});
+					if(prescription.get("promise_time_options_enabled") != null) {
+						if (prescription.get("promise_time_options_enabled") == "1") {
+							prescription.set({
+								changeTimeLbl : prescription.get("refill_transaction_message") ? $.strings.prescriptionsInProcessNewTime : ""
+							});
+						}
+					}		
+				}
+			}
+
+			prescription.set({
+				section : "inProgress",
+				titleClasses : titleClasses,
+				canHide : false
+			});
+
+			break;
+		case apiCodes.refill_status_ready:
+			if (args.selectable) {
+				prescription.set({
+					itemTemplate : "masterDetailWithLIcon",
+					masterWidth : 100,
+					detailWidth : 0,
+					subtitleClasses : subtitleClasses
+				});
+			} else {
+				if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
+					prescription.set({
+						tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
+						tooltipType : "negative"
+					});
+				}
+				
+				if(prescription.get("is_checkout_complete") === "1")
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconCheckoutComplete : "icon-checkout-complete",
+						detailTitle : $.strings.checkoutComplete,
+						detailClasses : detailClasses
+					});	
+				}
+				else if (prescription.get("refill_transaction_status") == "Rx Ready Partial" && prescription.get("refill_transaction_message") != null) {
+					prescription.set({
+						itemTemplate : "completed",
+						masterWidth : 100,
+						detailWidth : 0,
+						customIconPartialFill : "icon-thin-filled-success",
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "yield-fg-info-color"
+					});
+				}
+				
+				else
+				{
+					prescription.set({
+						itemTemplate : "completed",
+						detailTitle : $.strings.prescReadyPickupLblReady
+					});
+				}
+			}
+			var readyRxLabel;
+			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
+				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
+			}	else {
+				readyRxLabel = $.strings.prescReadyPickupLblReady;
+			}
+			prescription.set({
+				section : "readyPickup",
+				titleClasses : titleClasses,
+                subtitle : readyRxLabel,
+				canHide : false
+			});
+
+			break;
+		default:
+			var dueInDays = 0,
+			    section = "others",
+			    template;
+			    if (args.navigationFrom === "specialtyGrouping") {
+			    	template = args.selectable ? "masterDetailWithLIcon" : "masterDetail";
+			    } else {			    	
+				    template = args.selectable ? "masterDetailWithLIcon" : "masterDetailSwipeable";
+			    }
+
+			/**
+			 * keep the swipe options out (masterDetailWithLIcon - is picked)
+			 * when selectable is true
+			 */
+			
+			if((prescription.get("refill_transaction_status") == "Rejected" && prescription.get("refill_transaction_message") != null)) //|| (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n transaction message", message);
+
+					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
+
+					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
+
+					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
+					prescription.set({
+						section : section,
+						itemTemplate : "completed",
+						customIconRejected : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "tentative-fg-color",
+						phone_formatted : ((phoneNumber != "") && $.utilities.formatPhoneNumber(phoneNumber)) ? phoneNumber : ""
+						});		
+			}
+			else if((prescription.get("refill_transaction_status") == "Out Of Stock") && (prescription.get("refill_transaction_message") != null))
+			{
+				var message = prescription.get("refill_transaction_message");
+					logger.debug("\n\n\n OOS transaction message", message);
+
+						prescription.set({
+						section : section,
+						className : "OOS",
+						itemTemplate : "completed",
+						customIconNegative : "icon-error",
+						masterWidth : 100,
+						detailWidth : 0,
+						subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+						detailTitle : prescription.get("refill_transaction_message"),
+						detailColor : "negative-fg-info-color"
+					});
+			}
+			else{
+			if (prescription.get("anticipated_refill_date")) {
+				/**
+				 * if  anticipated_refill_date is <= upcomingRefillDaysBeforeARD - move to ready for refill
+				 * */
+				var anticipatedRefillDate = moment(prescription.get("anticipated_refill_date"), apiCodes.date_format);
+				dueInDays = anticipatedRefillDate.diff(currentDate, "days");
+				if (dueInDays <= parseInt(Alloy.Models.appload.get("upcomingRefillDaysBeforeARD"))) {
+					section = "readyRefill";
+					/**
+					 * prevent any actions on list when selectable is true, use masterDetailWithLIcon only
+					 * show auto hide button when anticipated_refill_date - current date  <= prescription_auto_hide
+					 */
+					if (!args.selectable && dueInDays <= Alloy.CFG.prescription_auto_hide) {
+						if(args.navigationFrom === "specialtyGrouping") {
+							template =  "masterDetail";	
+						} else {
+							template =  "masterDetailBtn";
+							prescription.set({
+								detailTitle : $.strings.prescReadyRefillBtnHide
+							});
+						}
+					} else {
+						var dueInDaysAbs = Math.abs(dueInDays);
+						//if over due use negative classes
+						prescription.set({
+							detailType : dueInDays < 0 ? "negative" : "",
+							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : "prescReadyRefillLblRefillIn"],
+							detailSubtitle : dueInDaysAbs + " " + $.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
+						});
+					}
+				} else {
+					prescription.set({
+						detailTitle : $.strings.prescOthersLblDueOn,
+						detailSubtitle : anticipatedRefillDate.format(Alloy.CFG.date_format)
+					});
+				}
+			} else {
+				prescription.set({
+					masterWidth : 100,
+					detailWidth : 0
+				});
+			}
+			prescription.set({
+				section : section,
+				itemTemplate : template,
+				options : Ti.App.accessibilityEnabled ? null : swipeOptions,
+				titleClasses : titleClasses,
+				subtitleClasses : subtitleClasses,
+				subtitle : $.strings.strPrefixRx.concat(prescription.get("rx_number")),
+				canHide : true
+			});
+			}
+		}
+		return prescription;
 }
 
 
