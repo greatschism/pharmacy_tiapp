@@ -61,6 +61,13 @@
 		<item name="android:windowBackground">@drawable/background</item>
 	</style>
 	<style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
-	    	<item name="android:datePickerMode">spinner</item>
+	    <item name="android:datePickerMode">spinner</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:textColorPrimary">#000000</item>
+		<item name="android:colorAccent">#FF0000</item>
+		<item name="colorAccent">#FF0000</item>
+		<item name="android:textColorHint">#0000FF</item>
+		<item name="android:colorControlNormal">#000000</item>
+		<item name="colorControlNormal">#000000</item>
 	</style>
 </resources>
