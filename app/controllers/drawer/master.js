@@ -55,10 +55,6 @@ function didAppResumed(e) {
 		return doLogout();
 	}
 	
-	logger.debug("\n\n\n",JSON.stringify(app.navigator.currentController,null,4),"\n\n\n");
-	if(app.navigator.currentController.ctrlPath == "prescriptions") {
-		Ti.App.fireEvent('sync_data');
-	}
 
 	//disable notification panel
 	notificationPanel.active = true;

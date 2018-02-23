@@ -94,16 +94,6 @@ function init() {
 		$.bottomView.hide();
 	}
 	
-	Ti.App.addEventListener('sync_data', function(e) {
-		Ti.App.removeEventListener("sync_data", function(){});
-
-		$.http.request({
-			method : "patient_sync",
-			keepLoader : true,
-			success : prepareData,
-			failure : prepareData
-		});
-	});
 
 }
 
