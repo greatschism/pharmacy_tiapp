@@ -15,7 +15,8 @@
 	<style name="Material.ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
-    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<!--<item name="colorAccent">#FFFFFF</item>-->
 	</style>
 	<style name="Material.EditText" parent="@android:style/Widget.EditText">
 		<item name="android:background">@null</item>
@@ -61,7 +62,7 @@
 		<item name="android:windowBackground">@drawable/background</item>
 	</style>
 	<style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
-	    <item name="android:datePickerMode">spinner</item>
+    	<item name="android:datePickerMode">spinner</item>
 		<item name="android:background">#FFFFFF</item>
 		<item name="android:textColorPrimary">#000000</item>
 		<item name="android:colorAccent">#FF0000</item>
