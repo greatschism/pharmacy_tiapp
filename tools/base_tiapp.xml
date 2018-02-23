@@ -109,7 +109,7 @@
     <module platform="android" version="4.0">com.obscure.keychain</module>
     <module platform="iphone" version="0.8.0">com.mfogg.squarecamera</module>
     <module platform="android" version="4.0.0">ti.barcode</module>
-    <module platform="iphone" version="1.2.4">dk.napp.drawer</module>
+    <module platform="iphone" version="2.1.0">dk.napp.drawer</module>
     <module platform="android" version="3.0.1">com.tripvi.drawerlayout</module>
     <module platform="android" version="3.0">com.mscripts.androidkeychain</module>
     <module platform="iphone" version="0.1">com.mscripts.keychainimporter</module>
