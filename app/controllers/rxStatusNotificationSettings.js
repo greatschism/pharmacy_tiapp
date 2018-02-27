@@ -5,7 +5,8 @@ var args = $.args,
     childClassesSelected = ["margin-right", "i5", "primary-fg-color", "icon-thin-filled-success", "accessibility-disabled", "touch-enabled", "bubble-enabled"],
     childClassesUnselected = ["margin-right", "i5", "inactive-fg-color", "icon-spot", "accessibility-disabled", "touch-enabled", "bubble-enabled"],
     rows = [],
-    options;
+    options,
+    req_params = [];
 
 function init() {
 	//tableview form top
@@ -46,6 +47,8 @@ function prepareData(result) {
 
 			rows.push(row);
 			data.push(row.getView());
+			type = _.omit(type, "notification_name", "notification_key");
+			req_params.push(type);
 		});
 
 		//set data
@@ -56,22 +59,27 @@ function prepareData(result) {
 function didClickTableView(e) {
 	var index = e.index;
 	var params = rows[index].getParams(), row = rows[index];
-	$.logger.debug("\n\n\n row params\t",JSON.stringify(params,null,4),"\n\n\n");
-	
 	_.extend(params, {
-				childClasses : params.selected == true ? childClassesUnselected : childClassesSelected,
-				selected : !params.selected
-			});
-				
-	$.logger.debug("\n\n\n row params\t",JSON.stringify(params,null,4),"\n\n\n");
-
+		childClasses : params.selected == true ? childClassesUnselected : childClassesSelected,
+		selected : !params.selected
+	}); 
+	_.extend(req_params[index], {
+		is_enabled : params.selected ? "1" : "0" 
+	});
+	
 	rows[index] = Alloy.createController("itemTemplates/promptReply", params);
 	$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
 }
 
-
-function terminate() {
+function backButtonHandler() {
+	$.http.request({
+		method : "patient_rx_notification_update",
+		params : {
+			data : req_params
+		},
+		errorDialogEnabled : true
+	});
 }
 
 exports.init = init;
-exports.terminate = terminate;
+exports.backButtonHandler = backButtonHandler;

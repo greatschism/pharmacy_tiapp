@@ -24,6 +24,7 @@
 			"patient_forgotpassword": "patient/forgotpassword",
 			"patient_manager_add": "patient/manager/add",
 			"patient_rx_notification_types": "patient/preferences/getnotificationtypes",
+			"patient_rx_notification_update": "patient/preferences/updatenotificationsettings",
 			"stores_list": "stores/listnew",
 			"stores_get": "stores/get",
 			"stores_bookmark_add": "stores/bookmark/add",
