@@ -5,7 +5,8 @@ var args = $.args,
     promptClasses = ["left", "width-60"],
     replyClasses = ["right", "width-40", "txt-right", "inactive-fg-color"],
     rows = [],
-    options;
+    options,
+    patient;
 
 function init() {
 	//tableview form top
@@ -34,7 +35,7 @@ function init() {
 	 * rather than using a callback (upon selection)
 	 * which may be affect by a invite dialog
 	 */
-	var patient = $.patientSwitcher.set({
+	patient = $.patientSwitcher.set({
 		title : $.strings.remindersSettingsPatientSwitcher,
 		where : {
 			is_adult : true,
@@ -51,16 +52,21 @@ function init() {
 		}],
 		dropdownHandler : patientDropdownHandler
 	});
+
 	//Reminders section - dynamic & configurable
 	$.deliveryModesSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionMode);
 	_.each(Alloy.CFG.reminders, function(reminder) {
 		if (reminder.enabled) {
+			var promptTitle = "";
+			if (reminder.id == "refill" && parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
+				promptTitle = $.strings.remindersRxStatus + "/";
+			}
 			var reminderDeliveryMode = patient.get(reminder.col_pref),
 			    row = Alloy.createController("itemTemplates/promptReply", {
 				reminderId : reminder.id,
 				reminderDeliveryMode : reminderDeliveryMode,
 				prefColumn : reminder.col_pref,
-				prompt : $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)],
+				prompt : promptTitle != "" ? promptTitle + $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)] : $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)],
 				reply : _.findWhere(options, {
 					value : reminderDeliveryMode
 				}).title,
@@ -72,6 +78,22 @@ function init() {
 			rows.push(row);
 		}
 	});
+	
+	if (parseInt(patient.get("refill_reminder_flag")) === 1 && parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
+		var row = Alloy.createController("itemTemplates/promptReply", {
+			reminderId : "app",
+			reminderDeliveryMode : "app_rx_status_notification",
+			prefColumn : "app_rx_status_notification",
+			prompt : $.strings.remindersRxStatusLbl,
+			reply : $.strings.familyMemberAddHintRelation,
+			promptClasses : promptClasses,
+			replyClasses : replyClasses,
+			hasChild : true
+		});
+		$.deliveryModesSection.add(row.getView());
+		rows.push(row);
+	}
+
 	//Rx section - static
 	$.rxSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionRx);
 	var showRxRow = Alloy.createController("itemTemplates/labelWithSwitch", {
@@ -163,16 +185,24 @@ function didClickTableView(e) {
 		 * let keep reference of this index
 		 * deliveryModesPicker - is a controller (widget)
 		 */
-		$.deliveryModesPicker.currentIndex = index;
-		/**
-		 * prepare option items
-		 */
-		_.each(options, function(option) {
-			option.selected = option.value === params.reminderDeliveryMode;
-		});
-		//set items and show
-		$.deliveryModesPicker.setItems(options);
-		$.deliveryModesPicker.show();
+		if (parseInt(patient.get("refill_reminder_flag")) === 1 && parseInt(patient.get("rx_status_notifications_enabled")) === 1 && index === ($.deliveryModesSection.rowCount - 1)) {
+			$.app.navigator.open({
+				titleid : "remindersRxStatus",
+				ctrl : "rxStatusNotificationSettings",
+				stack : true
+			});
+		} else {
+			$.deliveryModesPicker.currentIndex = index;
+			/**
+			 * prepare option items
+			 */
+			_.each(options, function(option) {
+				option.selected = option.value === params.reminderDeliveryMode;
+			});
+			//set items and show
+			$.deliveryModesPicker.setItems(options);
+			$.deliveryModesPicker.show();
+		}
 	}
 }
 
@@ -252,7 +282,7 @@ function didClickDeliveryMode(e) {
 						reply : oldReply
 					});
 					rows[index] = Alloy.createController("itemTemplates/promptReply", params);
-					$.tableView.updateRow(index , rows[index].getView());
+					$.tableView.updateRow(index, rows[index].getView());
 				}
 			});
 		}

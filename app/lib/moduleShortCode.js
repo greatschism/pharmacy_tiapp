@@ -86,6 +86,7 @@ module.exports = {
 	"RERE" : "REMI",
 	"RERB" : "REMI",
 	"RESE" : "REMI",
+	"RSNS" : "REMI",
 	/**
 	 * prescriptions
 	 */

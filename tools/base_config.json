@@ -23,6 +23,7 @@
 			"patient_family_add_fullacount": "patient/addfullaccount",
 			"patient_forgotpassword": "patient/forgotpassword",
 			"patient_manager_add": "patient/manager/add",
+			"patient_rx_notification_types": "patient/preferences/getnotificationtypes",
 			"stores_list": "stores/listnew",
 			"stores_get": "stores/get",
 			"stores_bookmark_add": "stores/bookmark/add",

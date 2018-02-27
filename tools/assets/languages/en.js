@@ -642,6 +642,9 @@ module.exports = {
 		"remindersSettingsLblTypeMed" : "Medication reminders",
 		"remindersSettingsLblTypeRefill" : "Refill reminders",
 		"remindersSettingsLblTypePromotional" : "Promotional offers",
+		"remindersRxStatus" : "Rx Status Notice",
+		"remindersRxStatusLbl" : "Send alerts for these Rx Status",
+
 		"remindersSettingsLblShowRx" : "Show full prescription name in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "Close",
