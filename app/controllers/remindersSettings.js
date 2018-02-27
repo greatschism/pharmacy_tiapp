@@ -6,7 +6,8 @@ var args = $.args,
     replyClasses = ["right", "width-40", "txt-right", "inactive-fg-color"],
     rows = [],
     options,
-    patient;
+    patient,
+    canSetRefillAlerts;
 
 function init() {
 	//tableview form top
@@ -57,19 +58,23 @@ function init() {
 	$.deliveryModesSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionMode);
 	_.each(Alloy.CFG.reminders, function(reminder) {
 		if (reminder.enabled) {
-			var promptTitle = "";
+			var promptTitle = "",
+			reminderDeliveryMode = patient.get(reminder.col_pref),
+			reminderType = _.findWhere(options, { value : reminderDeliveryMode }).title;
 			if (reminder.id == "refill" && parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
 				promptTitle = $.strings.remindersRxStatus + "/";
+				if (reminderDeliveryMode == null) {
+					canSetRefillAlerts = false;
+				} else {
+					canSetRefillAlerts = true;
+				}
 			}
-			var reminderDeliveryMode = patient.get(reminder.col_pref),
-			    row = Alloy.createController("itemTemplates/promptReply", {
+			var row = Alloy.createController("itemTemplates/promptReply", {
 				reminderId : reminder.id,
 				reminderDeliveryMode : reminderDeliveryMode,
 				prefColumn : reminder.col_pref,
 				prompt : promptTitle != "" ? promptTitle + $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)] : $.strings["remindersSettingsLblType" + $.utilities.ucfirst(reminder.id, true)],
-				reply : _.findWhere(options, {
-					value : reminderDeliveryMode
-				}).title,
+				reply : reminderType,
 				promptClasses : promptClasses,
 				replyClasses : replyClasses,
 				hasChild : true
@@ -79,7 +84,7 @@ function init() {
 		}
 	});
 	
-	if (parseInt(patient.get("refill_reminder_flag")) === 1 && parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
+	if (parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
 		var row = Alloy.createController("itemTemplates/promptReply", {
 			reminderId : "app",
 			reminderDeliveryMode : "app_rx_status_notification",
@@ -185,12 +190,16 @@ function didClickTableView(e) {
 		 * let keep reference of this index
 		 * deliveryModesPicker - is a controller (widget)
 		 */
-		if (parseInt(patient.get("refill_reminder_flag")) === 1 && parseInt(patient.get("rx_status_notifications_enabled")) === 1 && index === ($.deliveryModesSection.rowCount - 1)) {
-			$.app.navigator.open({
-				titleid : "remindersRxStatus",
-				ctrl : "rxStatusNotificationSettings",
-				stack : true
-			});
+		if (parseInt(patient.get("rx_status_notifications_enabled")) === 1 && index === ($.deliveryModesSection.rowCount - 1)) {
+			if (canSetRefillAlerts) {
+				$.app.navigator.open({
+					titleid : "remindersRxStatus",
+					ctrl : "rxStatusNotificationSettings",
+					stack : true
+				});				
+			} else{
+				return;
+			};
 		} else {
 			$.deliveryModesPicker.currentIndex = index;
 			/**
@@ -228,6 +237,11 @@ function didClickDeliveryMode(e) {
 	$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[index].getView());
 	//delete index
 	delete $.deliveryModesPicker.currentIndex;
+	
+	//	enable Refill Alerts
+	if (params.reminderId === "refill") {
+		canSetRefillAlerts = true;
+	};
 	/**
 	 * check whether delivery mode
 	 * is verified
@@ -239,6 +253,8 @@ function didClickDeliveryMode(e) {
 	 * device push settings are validated as
 	 * part of update preferences
 	 */
+	case apiCodes.reminder_delivery_mode_push:
+	break;
 	case apiCodes.reminder_delivery_mode_email:
 		if (!isEmailSent && mPatient.get("is_email_verified") !== "1") {
 			$.http.request({
@@ -286,6 +302,11 @@ function didClickDeliveryMode(e) {
 				}
 			});
 		}
+		break;
+		default:
+		if (params.reminderId === "refill") {
+			canSetRefillAlerts = false;
+		};
 		break;
 	}
 }
