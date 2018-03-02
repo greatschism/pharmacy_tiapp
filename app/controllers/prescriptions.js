@@ -769,7 +769,11 @@ function prepareList() {
 								prescription.set("refill_status", apiCodes.refill_status_sold);
 							}
 						}
-						prescription = processSections(prescription, daysLeft);						
+						prescription = processSections(prescription, daysLeft);
+						prescription.set({
+							title : $.utilities.ucword(prescription.get("presc_name")),
+							selected : _.indexOf(selectedItems, prescription.get("id")) !== -1
+							});						
 
 						var rowParams = prescription.toJSON(),
 						    row;
