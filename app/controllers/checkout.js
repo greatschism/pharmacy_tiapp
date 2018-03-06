@@ -708,8 +708,8 @@ function presentCCConfirmation(patient) {
 									itemTemplate : "checkoutStoreItems",
 									masterWidth : 100,
 									storeId : prescription.original_store_id,
-									title : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
-									titleClasses : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
+									title : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
+									titleClasses : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 									subtitle : prescription.presc_name,
 									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 								};
@@ -727,8 +727,8 @@ function presentCCConfirmation(patient) {
 						itemTemplate : "checkoutStoreItems",
 						masterWidth : 100,
 						storeId : prescription.original_store_id,
-						title : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
-						titleClasses : (Alloy.CFG.is_specialty_store_grouping_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
+						title : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
+						titleClasses : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 						subtitle : prescription.presc_name,
 						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 					};

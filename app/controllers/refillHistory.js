@@ -51,7 +51,7 @@ function didGetHistory(result, passthrough) {
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
 
-			if (Alloy.CFG.is_specialty_store_grouping_enabled && history.is_specialty_store == 1) {
+			if (Alloy.CFG.is_specialty_store_enabled && history.is_specialty_store == 1) {
 				var subtitleClasses = ["active-fg-color", "left"];
 				history = {
 					id : history.store_id,
