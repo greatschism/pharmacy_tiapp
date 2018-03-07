@@ -92,7 +92,7 @@ function didGetHistory(result, passthrough) {
 			rows.push(row);
 		});
 	}
-	$.tableView.setData(data);
+	$.tableView.appendSection(presNameSection);
 	$.loader.hide();
 }
 
