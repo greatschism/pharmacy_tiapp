@@ -77,7 +77,6 @@ function didGetHistory(result, passthrough) {
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			presNameSection.add(row.getView());
-			data.push(presNameSection);
 			rows.push(row);
 			row.on("clickPhone", didClickPhone);
 		});
@@ -88,11 +87,11 @@ function didGetHistory(result, passthrough) {
 		_.each(prescription.history, function(history) {
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			presNameSection.add(row.getView());
-			data.push(presNameSection);
 			rows.push(row);
 		});
 	}
-	$.tableView.appendSection(presNameSection);
+	data.push(presNameSection);
+	$.tableView.setData(data);	//	$.tableView.appendSection(presNameSection);	// alternate way is to use appendSection 
 	$.loader.hide();
 }
 
