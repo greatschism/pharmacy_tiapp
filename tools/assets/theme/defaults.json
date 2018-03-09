@@ -470,6 +470,9 @@
 	".txt-center": {
 		"textAlign": "center"
 	},
+	".vertical-center": {
+		"verticalAlign": "middle"
+	},
 	".vgroup": {
 		"layout": "vertical"
 	},
