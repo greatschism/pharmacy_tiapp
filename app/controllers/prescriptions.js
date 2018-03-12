@@ -1499,6 +1499,7 @@ function displayCheckoutInfo()
 
 
 function didClickCheckout(e) {
+	getCodeCounselingEligible();
 	if (! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)) {
 		displayCheckoutInfo();
 	} else {
@@ -1521,6 +1522,25 @@ function didClickCheckout(e) {
 			stack : true
 		});
 	}
+}
+
+function getCodeCounselingEligible() {
+	$.http.request({
+		method : "codes_get",
+		params : {
+			data : [{
+				codes : [{
+					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
+				}]
+			}]
+		},
+		forceRetry : true,
+		success : didGetCounselingEligible
+	});
+}
+
+function didGetCounselingEligible(result, passthrough) {
+	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
 function didUpdatePromiseTimeOption() {

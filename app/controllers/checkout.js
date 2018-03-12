@@ -41,7 +41,6 @@ var checkoutStores = [];
 function init() {
 	
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
-	getCodeCounselingEligible();
 	Alloy.Globals.currentTable = $.tableView;
 	/**
 	 * focus will be called whenever window gets focus / brought to front (closing a window)
@@ -53,25 +52,6 @@ function init() {
 		isWindowOpen = true;
 		prepareList();
 	}
-}
-
-function getCodeCounselingEligible() {
-	$.http.request({
-		method : "codes_get",
-		params : {
-			data : [{
-				codes : [{
-					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
-				}]
-			}]
-		},
-		forceRetry : true,
-		success : didGetCounselingEligible
-	});
-}
-
-function didGetCounselingEligible(result, passthrough) {
-	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
 function prepareList() {
