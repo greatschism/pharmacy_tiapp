@@ -127,7 +127,6 @@ function presentGenericsPrompt(dawRxListText) {
 }
 
 function didAnswerGenericsPrompt(e) {
-	Ti.API.info("didAnswerGenericsPrompt");
 	dawPrompt = e.data.answer;
 
 	if (!hasSetDawPrompt) {
@@ -200,7 +199,6 @@ function presentCounselingPrompt() {
 }
 
 function didAnswerCounselingPrompt(e) {
-	logger.debug("\n\n\ndidAnswerCounselingPrompt ", e.data.answer);
 	counselingPrompt = e.data.answer;
 
 	if (!hasSetCounselingPrompt) {
@@ -211,8 +209,6 @@ function didAnswerCounselingPrompt(e) {
 		});
 
 		if (currentPatient.get("showLoyaltySignup") != null) {
-			logger.debug("\n\n\n showLoyaltySignup found\n\n\n");
-
 			if (currentPatient.get("showLoyaltySignup") == true) {
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
 			} else if (currentPatient.get("showLoyaltySignup") == false) {
@@ -220,21 +216,16 @@ function didAnswerCounselingPrompt(e) {
 			}
 
 		} else {
-			logger.debug("\n\n\n showLoyaltySignup missing\n\n\n");
 			$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
 		}
-
-		logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
 
 		/*
 		 * check if loyalty program enabled
 		 */
 		if (Alloy.CFG.is_loyalty_program_enabled) {
 			if (currentPatient.get("loyalty_card_opt_out") != null) {
-				logger.debug("\n\n\n loyalty_card_opt_out  found\n\n\n");
 
 				if (currentPatient.get("loyalty_card_opt_out") == "Y") {
-					logger.debug("\n\n\n loyalty_card_opt_out = Y\n\n\n");
 
 					if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
 						useCreditCard = "1";
@@ -244,11 +235,9 @@ function didAnswerCounselingPrompt(e) {
 						presentSubmitButton();
 					}
 				} else if (currentPatient.get("loyalty_card_opt_out") == "N" && currentPatient.get("loyalty_card_number") != null) {
-					logger.debug("\n\n\n loyalty_card_opt_out = N \n\n\n");
 
 					presentLoyaltyPrompt();
 				} else {
-					logger.debug("\n\n\n loyalty_card_opt_out else case \n\n\n");
 
 					if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
 						uihelper.showDialogWithButton({
@@ -266,7 +255,6 @@ function didAnswerCounselingPrompt(e) {
 					}
 				}
 			} else {
-				logger.debug("\n\n\n loyalty_card_opt_out not found\n\n\n");
 				if ($.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1") {
 					uihelper.showDialogWithButton({
 						message : "We don't see your mPerks for Pharmacy information. Are you an mPerks member?",
@@ -351,28 +339,23 @@ function showLoyaltyAdd() {
 		});
 
 		$.addListener(swtCheckbox, "click", function() {
-			Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
 
 			if (checkBoxToggleFlag === 0) {
-				Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
 				checkBoxToggleFlag = 1;
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-checked"],
 				}));
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "0");
-				logger.debug("\n\n\n checkbox checked\n\n\n");
 				Alloy.Collections.patients.findWhere({
 					selected : true
 				}).set("showLoyaltySignup", false);
 
 			} else {
-				Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 				checkBoxToggleFlag = 0;
 				swtCheckbox.applyProperties($.createStyle({
 					classes : ["i4", "icon-checkbox-unchecked"],
 				}));
 				$.utilities.setProperty(Alloy.CFG.show_loyalty_signup, "1");
-				logger.debug("\n\n\n checkbox unchecked\n\n\n");
 				Alloy.Collections.patients.findWhere({
 					selected : true
 				}).set("showLoyaltySignup", true);
@@ -448,10 +431,8 @@ function showLoyaltySignup() {
 	});
 
 	$.addListener(swtCheckbox, "click", function() {
-		Ti.API.info("swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes));
 
 		if (checkBoxToggleFlag === 0) {
-			Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
 			checkBoxToggleFlag = 1;
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-checked"],
@@ -461,7 +442,6 @@ function showLoyaltySignup() {
 				selected : true
 			}).set("showLoyaltySignup", false);
 		} else {
-			Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 			checkBoxToggleFlag = 0;
 			swtCheckbox.applyProperties($.createStyle({
 				classes : ["i4", "icon-checkbox-unchecked"],
@@ -492,7 +472,6 @@ function showLoyaltySignup() {
 
 function didGetLoyaltyAddRsp(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n loyalty add feedback \n\n\n");
 
 	$.loyaltyDialog.hide(function didHide() {
 		$.contentView.remove($.loyaltyDialog.getView());
@@ -510,7 +489,6 @@ function didGetLoyaltyAddRsp(event) {
 
 function didGetLoyaltySignupRsp(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
 	$.loyaltyDialog.hide(function didHide() {
 		$.contentView.remove($.loyaltyDialog.getView());
 		$.loyaltyDialog = null;
@@ -610,18 +588,15 @@ function showSignupLinkDialog() {
 }
 
 function openVisitmPerksURL(event) {
-	logger.debug("\n\n\n openURL triggered for VisitmPerksURL\n\n\n");
 	Ti.Platform.openURL("https://www.meijer.com/mperks");
 }
 
 function openmPerksSignupLinkURL(event) {
-	logger.debug("\n\n\n openURL triggered for SignupLinkURL\n\n\n");
 	Ti.Platform.openURL("https://accounts.meijer.com/manage/Account/CreatemPerks#/user/createprofile?cmpid=SEM:mPerks:021017:mPerksAO");
 }
 
 function didClickClose(event) {
 	var index = event.source.index;
-	logger.debug("\n\n\n mperks feedback event.source ", event.source, "\n\n\n");
 	$.loyaltyDialog.hide(function didHide() {
 		$.contentView.remove($.loyaltyDialog.getView());
 		$.loyaltyDialog = null;
@@ -673,7 +648,6 @@ function presentLoyaltyPrompt() {
 }
 
 function didAnswerLoyaltyPrompt(e) {
-	logger.debug("\n\n\ndidAnswerLoyaltyPrompt ", e.data.answer);
 	loyaltyPrompt = e.data.answer;
 
 	if (!hasSetLoyaltyPrompt) {
@@ -712,13 +686,10 @@ function presentCCConfirmation(patient) {
 		if (_.has(prescription, "original_store_address_line1")) {
 			if (prescription.original_store_address_line1 != null) {
 				if (checkoutStores.length) {
-					logger.debug("\n\n\n checkoutStores has contents\n\n\n");
 					_.some(checkoutStores, function(storeInfo, index) {
-						logger.debug("\n\n\n storeInfo to evaluate", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 						if (storeInfo.storeId == prescription.original_store_id) {
-							logger.debug("\n\n\n same store found: previous amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
 							storeInfo.amountDue += _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0;
-							storeInfo.subtitle = storeInfo.subtitle.concat("\n" + prescription.presc_name), logger.debug("\n\n\n same store found: new amount", JSON.stringify(storeInfo, null, 4), "\n\n\n");
+							storeInfo.subtitle = storeInfo.subtitle.concat("\n" + prescription.presc_name);
 							return true;
 						} else {
 							if (index >= checkoutStores.length - 1) {
@@ -733,7 +704,6 @@ function presentCCConfirmation(patient) {
 									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
 								};
 								checkoutStores.push(checkoutStoreData);
-								logger.debug("\n\n\n same store not found in array", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
 								return false;
 							}
 						}
@@ -753,14 +723,12 @@ function presentCCConfirmation(patient) {
 					};
 
 					checkoutStores.push(checkoutStoreData);
-					logger.debug("\n\n\n checkoutStores first element addition", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
 
 				}
 			}
 		}
 	});
 
-	logger.debug("\n\n\n final checkoutStores", JSON.stringify(checkoutStores, null, 4), "\n\n\n");
 	_.each(checkoutStores, function(checkoutStoreData) {
 		var rowParams = checkoutStoreData,
 		    row,
@@ -826,7 +794,6 @@ function presentCCConfirmation(patient) {
 }
 
 function presentCheckoutStoreDetails(e) {
-	Ti.API.info("************      presentCheckoutStoreDetails(e) " + JSON.stringify(e.data.fullRowParams, null, 4));
 
 	var dialogView = $.UI.create("ScrollView", {
 		apiName : "ScrollView",
@@ -890,8 +857,6 @@ function presentSubmitButton() {
 
 function didClickSubmit(e) {
 
-	Ti.API.info("didClickSubmit");
-
 	var checkoutPrescriptions = [];
 
 	_.each(prescriptions, function(prescription) {
@@ -903,16 +868,11 @@ function didClickSubmit(e) {
 		});
 	});
 
-	logger.debug("\n\n\n Alloy.CFG.show_loyalty_signup ", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup), "\n\n\n");
-	logger.debug("\n\n\n patient show_loyalty_signup before ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4), "\n\n\n");
-
 	// $.utilities.setProperty(Alloy.Collections.patients.at(0).get("showLoyaltySignup"), $.utilities.getProperty(Alloy.CFG.show_loyalty_signup));
 
 	Alloy.Collections.patients.findWhere({
 		selected : true
 	}).set("showLoyaltySignup", $.utilities.getProperty(Alloy.CFG.show_loyalty_signup) == "1" ? true : false);
-
-	logger.debug("\n\n\n patient show_loyalty_signup after ", JSON.stringify(Alloy.Collections.patients.at(0), null, 4), "\n\n\n");
 
 	$.http.request({
 		method : "checkout_preferences_update",
@@ -938,7 +898,6 @@ function didClickSubmit(e) {
 }
 
 function didSuccess(result, passthrough) {
-	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
 	$.app.navigator.hideLoader();
 	uihelper.showDialog({
 		message : result.message,

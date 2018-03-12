@@ -528,7 +528,6 @@ function prepareList() {
 		_.some(filters, function(filter, key) {
 			if (_.indexOf(filter, prescription.get(key)) !== -1) {
 				proceed = false;
-				logger.debug("\n\n\n\n", key	, JSON.stringify(prescription,null,4), proceed, "\n\n\n\n");
 				//breaks the loop
 				return true;
 			}
@@ -592,7 +591,7 @@ function prepareList() {
 		case "masterDetailBtn":
 			row.on("clickdetail", doConfirmHide);
 			break;
-		case "completed": logger.debug("\n\n\nh complete");
+		case "completed":
 			var h = _.has(rowParams, "changeTimeLbl");
 			if(h) {
 				row.on("clickpromisetime", didClickChangePromiseTime);
@@ -600,7 +599,7 @@ function prepareList() {
 				row.on("clickphone", didClickPhone);
 			}
 			break;	
-		case "inprogress": logger.debug("\n\n\ng in progress");
+		case "inprogress":
 					var g = _.has(rowParams, "changeTimeLbl");
 
 			if(g){
@@ -860,7 +859,6 @@ function prepareList() {
 		if (_.has(args, "navigationFrom")) {			
 			if (args.navigationFrom == "expressCheckout") {
 					if (key != "others") {
-					logger.debug("\n\n\n I am ", key, "\n\n\n");
 					addRows = true;
 				}
 			} else {
@@ -915,8 +913,6 @@ function prepareList() {
 						var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
 						if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
 	
-							logger.debug("\n\n\ncheckout_info_prompted",Alloy.CFG.checkout_info_prompted,"\n\n\n");
-	
 							var dialogView = $.UI.create("ScrollView", {
 								apiName : "ScrollView",
 								classes : ["top", "auto-height", "vgroup"]
@@ -960,17 +956,14 @@ function prepareList() {
 							
 							
 							$.addListener(swtCheckbox, "click", function(){
-								Ti.API.info( "swtCheckbox.getProperties " + JSON.stringify(swtCheckbox.classes) ) ;
 								
 								if( checkBoxToggleFlag === 0 ) {
-									Ti.API.info("!!!!!!!!!!should set checked here. indexOf > -1, unchecked was found ");
 									checkBoxToggleFlag = 1;
 									swtCheckbox.applyProperties($.createStyle({
 		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
 									}));
 									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 								} else {
-									Ti.API.info("!!!!!!!!!!should set unchecked here. indexOf unchecked was NOT found ");
 									checkBoxToggleFlag = 0;
 									swtCheckbox.applyProperties($.createStyle({
 		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
@@ -1011,7 +1004,6 @@ function prepareList() {
 	
 	
 	
-						Ti.API.info("args = " + JSON.stringify(args) );
 						var headerTitle = "";
 						
 								
@@ -1212,13 +1204,10 @@ function processSections(prescription, daysLeft) {
 					}
 				} else if (prescription.get("refill_transaction_status") == "Rejected") {
 					var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n transaction message", message);
-
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
 
 					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
 
-					logger.debug("\n\n\n extracted phone number", phoneNumber);
 					prescription.set({
 						className : "RJ",
 						itemTemplate : "completed",
@@ -1334,13 +1323,10 @@ function processSections(prescription, daysLeft) {
 			if((prescription.get("refill_transaction_status") == "Rejected" && prescription.get("refill_transaction_message") != null)) //|| (prescription.get("refill_transaction_status") == "Rx In Process" && prescription.get("refill_transaction_message") != null))
 			{
 				var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n transaction message", message);
-
 					// var phoneNumber =  $.utilities.isPhoneNumber(message.substr(((message.search("@"))+1) , 11)) ? message.substr(((message.search("@"))+1) , 11) : "" ;
 
 					var phoneNumber = message.substr((message.search("@") + 2), 15) || "";
 
-					logger.debug("\n\n\n other prescriptions - extracted phone number",phoneNumber);
 					prescription.set({
 						section : section,
 						itemTemplate : "completed",
@@ -1356,7 +1342,6 @@ function processSections(prescription, daysLeft) {
 			else if((prescription.get("refill_transaction_status") == "Out Of Stock") && (prescription.get("refill_transaction_message") != null))
 			{
 				var message = prescription.get("refill_transaction_message");
-					logger.debug("\n\n\n OOS transaction message", message);
 
 						prescription.set({
 						section : section,
@@ -1430,7 +1415,6 @@ function processSections(prescription, daysLeft) {
 
 function getPosition(view) {
 	var contentView = view.headerView;
-	logger.debug("\n\n\n",JSON.stringify(view),"\n\n\n");
 	return $.tableView.rect.y + contentView.height;
 }
 
@@ -1589,9 +1573,6 @@ function didClickPhone(e) {
 				work : [e.data.phone_formatted]
 			}
 		}, $.utilities.validatePhoneNumber(e.data.phone_formatted));
-		
-		logger.debug("\n\n\n presc phone formatted",e.data.phone_formatted,"\n\n\n");
-		logger.debug("\n\n\n presc phone plain",$.utilities.validatePhoneNumber(e.data.phone_formatted),"\n\n\n");
 	}
 }
 
@@ -2141,16 +2122,12 @@ function didPostlayout(e) {
 				}
 			});
 
-				Ti.API.info("readyPrescriptions IS   " + JSON.stringify(readyPrescriptions))
 			var firstParsedStore = additionalParsedStore =  readyPrescriptions[0].get("original_store_id");
 			_.each(readyPrescriptions, function(prescription) {
-				Ti.API.info("READY RX IS   " + JSON.stringify(prescription))
 				if (prescription.get("original_store_id") !== firstParsedStore) {
 					additionalParsedStore = prescription.get("original_store_id");
 				}			
 			});
-				Ti.API.info("additionalParsedStore RX IS   " + JSON.stringify(additionalParsedStore))
-				Ti.API.info("firstParsedStore RX IS   " + JSON.stringify(firstParsedStore))
 			if (additionalParsedStore !== firstParsedStore) {
 				$.checkoutTipLbl.text =  Alloy.Globals.strings.checkoutTipLblTitle + Alloy.Globals.strings.checkoutTipLblMultipleStores;
 			}
