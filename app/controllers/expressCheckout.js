@@ -17,12 +17,46 @@ var args = $.args,
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
-		getCheckoutInfo();
+		getCreditCardInfo();
 	}
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
 	exp_counter_key = getExpressCheckoutCounter();
+}
+
+function getCreditCardInfo() {
+	$.http.request({
+		method : "payments_credit_card_get",
+		params : {
+			data : []
+		},
+		errorDialogEnabled : false,
+		success : didGetCreditCardInfo,
+		failure : didFailureInCreditCardInfo
+	});
+}
+
+function didGetCreditCardInfo(result, passthrough) {
+	/**
+	 * 	for now we are picking just first credit card 
+	 * 	but in future we may need to store multiple cards
+	 */
+	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
+	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
+	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
+	currentPatient.set("expiry_date", result.data.CreditCard[0].expiryDate);
+	getCheckoutInfo();
+}
+
+function didFailureInCreditCardInfo(result, passthrough) {
+	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
+	currentPatient.unset("card_type");
+	currentPatient.unset("last_four_digits");
+	currentPatient.unset("expiry_date");
+	getCheckoutInfo();
 }
 
 function getExpressCheckoutCounter() {
