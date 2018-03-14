@@ -2,7 +2,8 @@ var args = $.args,
     navigationHandler = require("navigationHandler"),
     currentId = "appImg",
     statusObj = {},
-    viewsCount;
+    viewsCount,
+    logger = require("logger");
 
 function init() {
 	//update paging control count
@@ -119,27 +120,48 @@ function didClickNext(e) {
 	} else {	
 		$.submitBtn.accessibilityValue = $.strings.accessibilityLblScreenChange;
 	
-		if(Alloy.CFG.is_proxy_enabled)
+		if(Alloy.Models.appload.get("is_reRegister_required") === "1")
 		{
-			Alloy.Globals.carouselFlow = true;
- 			$.app.navigator.open({
-				ctrl : "register",
-				titleid : "titleRegister"
- 			});
-		} else {
-			$.app.navigator.open({
-				ctrl : "signup",
-				titleid : "titleCreateAccount"
-			});
-		}	
+			reRegisterScreen();
+		}
+		else {
+			if(Alloy.CFG.is_proxy_enabled)
+			{
+				Alloy.Globals.carouselFlow = true;
+	 			$.app.navigator.open({
+					ctrl : "register",
+					titleid : "titleRegister"
+	 			});
+			} else {
+				$.app.navigator.open({
+					ctrl : "signup",
+					titleid : "titleCreateAccount"
+				});
+			}
+		}
  	}
 
 }
 
 function didClickSkip(e) {
-	navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
+	if(Alloy.Models.appload.get("is_reRegister_required") === "1") {
+		reRegisterScreen();
+	}
+	else {
+		navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	}
+}
+
+function reRegisterScreen() {
+	/**
+	 * Open Reregister window
+	 */
+	$.app.navigator.open({
+		titleid : "reRegisterUser",
+		ctrl : "reRegisterUser"
+	});
 }
 
 exports.init = init;

@@ -6,7 +6,7 @@
 				<ImageView id="logoImg" class="margin-top-status-bar margin-bottom img-logo-hamburger" if="Alloy.CFG.use_hamburger_logo_for_menu_header" />
 			</View>
 		</HeaderView>
-		<TableViewRow class="primary-menu-bg-color row-selected-bg-color-light" ctrl="{ctrl}" url="{url}" action="{action}">
+		<TableViewRow class="primary-menu-bg-color row-selected-bg-color-light" ctrl="{ctrl}" url="{url}" action="{action}" menu_url="{menu_url}">
 			<View class="margin-top margin-bottom margin-left margin-right auto-height touch-disabled">
 				<Label text="{icon}" class="left i4 primary-menu-font-color touch-disabled accessibility-disabled"  if="Alloy.CFG.use_additional_header_styling" />
 				<Label text="{title}" left="{left}" class="h4 primary-menu-font-color touch-disabled" if="Alloy.CFG.use_additional_header_styling" />
