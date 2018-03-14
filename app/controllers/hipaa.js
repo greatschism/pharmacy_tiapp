@@ -55,7 +55,7 @@ function applyWebViewProperties(url){
 	$.webView.addEventListener('load', function (e){
 		var actualHeight = 0;
 		actualHeight = e.source.evalJS('document.documentElement.scrollHeight;');
-    	e.source.height = parseInt(actualHeight);
+		e.source.height = OS_IOS ? parseInt(actualHeight) + 60 : parseInt(actualHeight);
 	    hideLoader();
     }); 
     
