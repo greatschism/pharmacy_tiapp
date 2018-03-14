@@ -681,7 +681,8 @@ function presentCCConfirmation(patient) {
 									title : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
 									titleClasses : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 									subtitle : prescription.presc_name,
-									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
+									amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0,
+									isSpecialtyStore : (prescription.is_specialty_store ? true : false)
 								};
 								checkoutStores.push(checkoutStoreData);
 								return false;
@@ -699,7 +700,8 @@ function presentCCConfirmation(patient) {
 						title : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? prescription.store_phone : prescription.original_store_address_line1.trim(),
 						titleClasses : (Alloy.CFG.is_specialty_store_enabled && prescription.is_specialty_store == 1) ? titleClasses : "",
 						subtitle : prescription.presc_name,
-						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0
+						amountDue : _.has(prescription, "copay") ? (prescription.copay != null ? parseFloat(prescription.copay) : 0) : 0,
+						isSpecialtyStore : (prescription.is_specialty_store ? true : false)
 					};
 
 					checkoutStores.push(checkoutStoreData);
@@ -879,10 +881,11 @@ function didClickSubmit(e) {
 
 function didSuccess(result, passthrough) {
 	$.app.navigator.hideLoader();
+	checkoutStores = _.where(checkoutStores, {"isSpecialtyStore": false});
 	uihelper.showDialog({
 		message : result.message,
 
-		buttonNames : (checkoutStores.length > 1) ? [$.strings.dialogBtnOK] : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+		buttonNames : (checkoutStores.length == 1) ? [$.strings.dialogBtnNo, $.strings.dialogBtnYes] : [$.strings.dialogBtnOK],
 		cancelIndex : -1,
 		success : successMessageUserResponse
 
