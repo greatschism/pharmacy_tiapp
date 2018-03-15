@@ -16,6 +16,7 @@
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
     	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
     	<item name="colorAccent">#FFFFFF</item>
 	</style>
 	<style name="Material.EditText" parent="@android:style/Widget.EditText">
@@ -41,6 +42,7 @@
 		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
 		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
     	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
 		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
@@ -70,5 +72,18 @@
 		<item name="android:textColorHint">#0000FF</item>
 		<item name="android:colorControlNormal">#000000</item>
 		<item name="colorControlNormal">#000000</item>
+	</style>
+	<style name="TimePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+	    <item name="colorAccent">#FF0AAEEF</item>
+	    <item name="android:timePickerStyle">@style/MyTimePicker</item> 
+	</style>
+	<style name="MyTimePicker" parent="android:Widget.Material.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
+        <item name="android:headerBackground">#c7c7cd</item>
+        <item name="android:numbersTextColor">#000000</item>
+        <item name="android:numbersInnerTextColor">#000000</item>
+        <item name="android:numbersSelectorColor">#FFFFFF</item>
+        <item name="android:numbersBackgroundColor">#DEDEDE</item>
+        <item name="android:amPmTextColor">#0a4dac</item>
 	</style>
 </resources>

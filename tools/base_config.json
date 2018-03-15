@@ -69,6 +69,7 @@
 			"email_resend": "patient/email/resend",
 			"mailorder_stores_get": "stores/getmailorderservice",
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
+			"payments_credit_card_get": "payments/getCreditCard",
 			"update_promise_time": "prescriptions/updatepromisetimeoption"
 		},
 		"apiCodes": {
