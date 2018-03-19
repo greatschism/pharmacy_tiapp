@@ -83,5 +83,8 @@
 	}, {
 		"id": "reasors",
 		"description": "Reasors Rx"
+	}, {
+		"id": "froedtert",
+		"description": "Froedtert Rx"
 	}
 ]
