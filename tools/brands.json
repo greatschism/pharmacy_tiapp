@@ -86,5 +86,8 @@
 	}, {
 		"id": "froedtert",
 		"description": "Froedtert Rx"
+	}, {
+		"id": "supervalu",
+		"description": "Supervalu Rx"
 	}
 ]
