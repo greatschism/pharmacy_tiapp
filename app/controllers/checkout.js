@@ -899,11 +899,7 @@ function didFail(result, passthrough) {
 
 function successMessageUserResponse(whichButton) {
 	if (whichButton === 1) {
-		$.app.navigator.open({
-			titleid : "titleExpressPickup",
-			ctrl : "expressCheckout",
-			stack : true
-		});
+		getCheckoutInfo();
 	} else {
 		popToHome();
 	}
@@ -947,6 +943,98 @@ function didClickPhone(e) {
 			}, e.data.title);
 		}
 	}
+}
+
+function getCheckoutInfo() {
+	$.http.request({
+		method : "prescriptions_express_checkout_info",
+		params : {
+			data : []
+		},
+		errorDialogEnabled : false,
+		success : didGetCheckoutDetails,
+		failure : checkoutDetailsFail
+	});
+}
+
+function checkoutDetailsFail(error, passthrough) {
+	var err = error.message;
+	uihelper.showDialog({
+		message : err,
+		buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+		success : popToHome
+	});
+}
+
+function didGetCheckoutDetails(result) {
+	var checkout_result = result;
+
+	var indexOfMultipleStoreCheckoutComplete = [];
+	_.each(result.data.stores, function(store, index1) {
+		prescriptionsTemp = store.prescription;
+		_.each(prescriptionsTemp, function(prescription, index2) {
+			if (prescription.is_checkout_complete == 1) {
+				if (! _.has(indexOfMultipleStoreCheckoutComplete, index1)) {
+					indexOfMultipleStoreCheckoutComplete.push(index1);
+				}
+				return true;
+			}
+			return false;
+		});
+	});
+	if (indexOfMultipleStoreCheckoutComplete.length > 1) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.expressCheckoutMultipleStoreMsg,
+			buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+			success : popToHome
+		});
+	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
+		var isCheckoutComplete = false;
+		_.each(result.data.stores, function(store, index1) {
+			prescriptions = store.prescription;
+			_.some(prescriptions, function(prescription, index2) {
+				if (prescription.is_checkout_complete == 1) {
+					isCheckoutComplete = true;
+					indexOfCheckoutCompletePresc = [index1, index2];
+					return true;
+				}
+				return false;
+			});
+		});
+
+		if (isCheckoutComplete) {
+			exp_counter_key = getExpressCheckoutCounter();
+			if (authenticator.isExpressCheckoutValid(exp_counter_key)) {
+				moveToExpressQR(currentPatient, checkout_result, indexOfCheckoutCompletePresc);
+			} else {
+				$.app.navigator.open({
+					titleid : "titleExpressPickup",
+					ctrl : "expressCheckout",
+					stack : true
+				});
+			}
+		}
+	}
+}
+
+function getExpressCheckoutCounter() {
+	var patient_id = currentPatient.get("parent_id") || currentPatient.get("child_id");
+	return ("expressCounterFor_" + patient_id);
+}
+
+function moveToExpressQR(patient, checkoutInfo, indexOfPresc) {
+	var first_name = patient.get("first_name");
+	var last_name = patient.get("last_name");
+	var rx_nnumber = checkoutInfo.data.stores[indexOfPresc[0]].prescription[indexOfPresc[1]].rx_number;
+	var checkout_qr = last_name + "%09" + first_name + "%09%09%09%09%09%09%09%09%09%09%09%09%09%09%09" + rx_nnumber;
+	$.app.navigator.open({
+		ctrl : "expressQR",
+		titleid : "titleExpressQR",
+		ctrlArguments : {
+			checkout : checkout_qr
+		},
+		stack : true
+	});
 }
 
 exports.init = init;
