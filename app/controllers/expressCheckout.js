@@ -29,7 +29,13 @@ function getCreditCardInfo() {
 	$.http.request({
 		method : "payments_credit_card_get",
 		params : {
-			data : []
+			data : [
+				{
+					"getCreditCard": {
+						"fetchAll": Alloy.CFG.fetch_all_credit_cards
+					}
+		        }
+			]
 		},
 		errorDialogEnabled : false,
 		success : didGetCreditCardInfo,
