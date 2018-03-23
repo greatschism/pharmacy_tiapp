@@ -499,7 +499,47 @@ function prepareList() {
 		 */
 		var daysLeft;
 		if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
-			daysLeft = parseInt(Alloy.Models.appload.get("restocking_period") || 0) - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
+			
+			//daysLeft = parseInt(Alloy.Models.appload.get("restocking_period") || 0) - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
+			
+			var MS_PER_DAY = 1000*60*60*24;
+ 
+			var currentDateTime = new Date();
+			//var currentDateTime = new Date("21-Mar-2018 11:59 PM CDT");
+			var timeZoneOffset = currentDateTime.getTimezoneOffset();
+			 
+			// Get the filled date from the server (in UTC). Add the client timezone’s offset to it
+			//var filledDateTime = new Date("16-Mar-2018 00:00 AM UTC");
+			var temp = prescription.get("presc_last_filled_date");
+			var filledDateTime = new Date(temp.replace(/-/g,"/"));
+			filledDateTime.setDate(filledDateTime.getDate() + timeZoneOffset/(60*24));
+			 
+			// Strip off the time component from the filledDate and currentDate
+			var filledDate = new Date(filledDateTime.getFullYear(), filledDateTime.getMonth(), filledDateTime.getDate());
+			//var currentDate = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
+			var currDate = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
+			 
+			var restockDays = parseInt(Alloy.Models.appload.get("restocking_period") || 0);
+			 
+			// Calculate the restock cutoff by adding the restock days to the filled date
+			var restockCutoff = new Date();
+			restockCutoff.setDate(filledDate.getDate() + restockDays);
+			
+			// Compute days remaining by subtracting the current date from the restock cutoff time. Floor to avoid round off errors.
+			var restockCutoffPlusOne = new Date();
+			restockCutoffPlusOne.setDate(restockCutoff.getDate() + 1);
+			restockCutoffPlusOne = new Date(restockCutoffPlusOne.getFullYear(), restockCutoffPlusOne.getMonth(), restockCutoffPlusOne.getDate());
+			 
+			var daysRemainingtoRestock;
+			if (currentDate >= restockCutoffPlusOne) {
+			       daysRemainingtoRestock = -1;
+			}
+			else {
+			      daysRemainingtoRestock = Math.ceil(Math.abs(restockCutoff - currentDate) / MS_PER_DAY);
+			}
+			
+			daysLeft = daysRemainingtoRestock;
+			
 			if (daysLeft < 0) {
 				/**
 				 * update the status from Ready to Sold
