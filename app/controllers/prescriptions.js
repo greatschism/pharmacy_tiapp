@@ -1457,7 +1457,7 @@ function showSpecialtyPrescriptions() {
 				patientSwitcherDisabled : true,
 				useCache : true,
 				selectable : false,
-				hideCheckoutHeader : true,
+				hideCheckoutHeader : false,
 				navigationFrom : "specialtyGrouping"
 			},
 			stack : true
