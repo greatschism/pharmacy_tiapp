@@ -23,6 +23,7 @@ var args = $.args,
     dosagePrefCarryOver = [],
     preferenceUpdateRx = [],
     dialogCount = 0,
+    isMedSyncCheckoutReady = false;
     promiseTimeRx= {};
 
 function init() {
@@ -649,6 +650,17 @@ function prepareList() {
 							titleClasses : titleClasses,
 							canHide : false
 						});
+						
+						var isDateReadyForCheckout = false;
+						if (Alloy.CFG.medsync_days_checkout_enabled && Alloy.CFG.medsync_days_checkout_enabled != "" && prescription.get("syncScriptEnrolled") === "1") {
+							var checkOutBy = parseInt(Alloy.CFG.medsync_days_checkout_enabled);
+							var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
+							var now = moment();						
+							isDateReadyForCheckout = nextSyncFillDate.diff(now, 'days') <= 1 ? true : false;
+						};
+						if(prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1" && isDateReadyForCheckout) {							
+							isMedSyncCheckoutReady = true;
+						}
 
 						var rowParams = prescription.toJSON(),
 						    row;
@@ -1008,17 +1020,34 @@ function prepareList() {
 						
 								
 						var checkoutCompeteCount = 0;
+						var specialtyCompleteCount = 0;
 						Alloy.Collections.prescriptions.each(function(prescription) {
 		
 							if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
 								//rows.length
-								checkoutCompeteCount++;
+								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1) {
+									specialtyCompleteCount++;
+								} else{
+									checkoutCompeteCount++;									
+								};
+								
 							}
 							
 						});
 						
 						var readyHeaderDict;
-						if(checkoutCompeteCount === rows.length)
+						
+						if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && specialtyCompleteCount == rows.length) {
+							headerTitle = $.strings.titleCheckoutCompleteHeader;
+	
+							readyHeaderDict = $.createStyle({
+								classes : ["right"],
+								title : headerTitle
+							});
+							
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						}
+						else if(checkoutCompeteCount === rows.length)
 						{
 							headerTitle = $.strings.titleCheckoutCompleteHeader;
 	
@@ -1081,6 +1110,14 @@ function prepareList() {
 						}
 					} else {
 						if(args.navigationFrom == "medSync") {
+							if(isMedSyncCheckoutReady && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
+								headerBtnDict = $.createStyle({
+									classes : ["right", "bubble-disabled"],
+									title : "Checkout",
+									accessibilityLabel : "checkout",
+									callback : didClickCheckout
+								});
+							}
 							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
 						} else if(args.navigationFrom == "specialtyGrouping") {
 							var headerName;
@@ -1436,7 +1473,7 @@ function showMedSyncPrescriptions() {
 				patientSwitcherDisabled : true,
 				useCache : true,
 				selectable : false,
-				hideCheckoutHeader : true,
+				hideCheckoutHeader : false,
 				navigationFrom : "medSync"
 			},
 			stack : true
@@ -1512,7 +1549,7 @@ function proceedToCheckout() {
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
-					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
+					refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold, null],
 					is_checkout_complete : ["1", null],
 					section : ["others"]
 				},
