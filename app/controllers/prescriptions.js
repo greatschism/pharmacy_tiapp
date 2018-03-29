@@ -1019,16 +1019,16 @@ function prepareList() {
 						var headerTitle = "";
 						
 								
-						var checkoutCompeteCount = 0;
+						var checkoutReadyScripts = true;
 						var specialtyCompleteCount = 0;
 						Alloy.Collections.prescriptions.each(function(prescription) {
 		
-							if (prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "1") {
+							if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
 								//rows.length
-								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1) {
+								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1 && prescription.get("is_checkout_complete") === "1") {
 									specialtyCompleteCount++;
-								} else{
-									checkoutCompeteCount++;									
+								} else if (prescription.get("is_checkout_complete") === "0") {
+									checkoutReadyScripts = false;
 								};
 								
 							}
@@ -1037,26 +1037,18 @@ function prepareList() {
 						
 						var readyHeaderDict;
 						
-						if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && specialtyCompleteCount == rows.length) {
-							headerTitle = $.strings.titleCheckoutCompleteHeader;
-	
-							readyHeaderDict = $.createStyle({
-								classes : ["right"],
-								title : headerTitle
-							});
-							
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping") {
+							if (specialtyCompleteCount == rows.length) {
+								tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+							} else{
+								headerTitle = "Checkout";
+								tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+							};
 						}
-						else if(checkoutCompeteCount === rows.length)
+						else if(checkoutReadyScripts)
 						{
 							headerTitle = $.strings.titleCheckoutCompleteHeader;
-	
-							readyHeaderDict = $.createStyle({
-								classes : ["right"],
-								title : headerTitle
-							});
-							
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+							tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
 						}
 						else {		
 						
@@ -1178,6 +1170,30 @@ function prepareList() {
 		}
 	}
 
+}
+
+function showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection) {
+	headerTitle = $.strings.titleCheckoutCompleteHeader;
+	
+	readyHeaderDict = $.createStyle({
+		classes : ["right"],
+		title : headerTitle
+	});
+	
+	tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+	return tvSection;
+}
+
+function showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection) {
+	readyHeaderDict = $.createStyle({
+		classes : ["right", "bubble-disabled"],
+		title : headerTitle,
+		accessibilityLabel : "checkout",
+		callback : didClickCheckout
+	});		
+
+	tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+	return tvSection;
 }
 
 function processSections(prescription, daysLeft) {
