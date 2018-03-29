@@ -326,6 +326,8 @@ module.exports = {
 
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
+		"titleMedSyncPrescriptions" : "MedSync Prescriptions",
+		"titleSpecialtyPrescriptions": "Specialty Prescriptions",
 		"titleCheckoutCompleteHeader" : "Mobile checkout complete. See you soon!",
 		"titleContinueExpressPickupHeader" : "Continue Express Pick-up here.",
 

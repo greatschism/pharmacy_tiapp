@@ -1071,75 +1071,75 @@ function prepareList() {
 							headerTitle = "Checkout";
 						}
 	
-							// the title here is overridden in uihelper to show the shopping cart image
-							// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
-							// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
-							// TODO: module as opposed to living in the uihelper as much as possible
-							readyHeaderDict = $.createStyle({
-								classes : ["right", "bubble-disabled"],
-								title : headerTitle,
-								accessibilityLabel : "checkout",
-								callback : didClickCheckout
-							});		
-	
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
-							
-		 				
-		
-							var currentPatient = Alloy.Collections.patients.findWhere({
-								selected : true
-							});
-							
-							if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-								var expiryDate = currentPatient.get("expiry_date").split('/');						
-								var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
-		
-								var today = new Date();
-								var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+						// the title here is overridden in uihelper to show the shopping cart image
+						// TODO: either refactor this to take the image passed as a value or add the shopping cart and arrow to the custom font
+						// TODO: either way, the prescriptions logic for the custom 'readyPickup' section header needs to be refactored into the prescriptions
+						// TODO: module as opposed to living in the uihelper as much as possible
+						readyHeaderDict = $.createStyle({
+							classes : ["right", "bubble-disabled"],
+							title : headerTitle,
+							accessibilityLabel : "checkout",
+							callback : didClickCheckout
+						});		
+
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 						
-					 			if(moment(formattedExpiryDate).isAfter(today)) {
-					 				if(diffDays <=30) {
-					 					$.tooltipCardExpiry.applyProperties({
-											top : getPosition(tvSection)
-										});
-											
-										$.tooltipCardExpiry.show();
-					 				}
-					 			}
-							}
-						}
-					} else {
-						if(args.navigationFrom == "medSync") {
-							if(isMedSyncCheckoutReady && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
-								headerBtnDict = $.createStyle({
-									classes : ["right", "bubble-disabled"],
-									title : "Checkout",
-									accessibilityLabel : "checkout",
-									callback : didClickCheckout
-								});
-							}
-							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
-						} else if(args.navigationFrom == "specialtyGrouping") {
-							var headerName;
-							switch(key) {
-								case "inProgress":
-								headerName = "In Process";
-								break;
-								case "readyPickup":
-								headerName = $.strings.prescSectionReadyPickup;
-								break;
-								case "readyRefill":
-								headerName = $.strings.prescSectionReadyRefill;
-								break;
-								default:
-								headerName = $.strings.prescSectionOthers;
-								break;
-							}
-							tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
-						} else {
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+	 				
+	
+						var currentPatient = Alloy.Collections.patients.findWhere({
+							selected : true
+						});
+						
+						if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+							var expiryDate = currentPatient.get("expiry_date").split('/');						
+							var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
+	
+							var today = new Date();
+							var diffDays = moment(formattedExpiryDate).diff(today, "days");		
+					
+				 			if(moment(formattedExpiryDate).isAfter(today)) {
+				 				if(diffDays <=30) {
+				 					$.tooltipCardExpiry.applyProperties({
+										top : getPosition(tvSection)
+									});
+										
+									$.tooltipCardExpiry.show();
+				 				}
+				 			}
 						}
 					}
+				} else {
+					if(args.navigationFrom == "medSync") {
+						if(isMedSyncCheckoutReady && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
+							headerBtnDict = $.createStyle({
+								classes : ["right", "bubble-disabled"],
+								title : "Checkout",
+								accessibilityLabel : "checkout",
+								callback : didClickCheckout
+							});
+						}
+						tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
+					} else if(args.navigationFrom == "specialtyGrouping") {
+						var headerName;
+						switch(key) {
+							case "inProgress":
+							headerName = "In Process";
+							break;
+							case "readyPickup":
+							headerName = $.strings.prescSectionReadyPickup;
+							break;
+							case "readyRefill":
+							headerName = $.strings.prescSectionReadyRefill;
+							break;
+							default:
+							headerName = $.strings.prescSectionOthers;
+							break;
+						}
+						tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
+					} else {
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+					}
+				}
 
 			}
 			
@@ -1461,7 +1461,7 @@ function handleClose() {
 
 function showMedSyncPrescriptions() {
 	$.app.navigator.open({
-			titleid : "titlePrescriptions",
+			titleid : "titleMedSyncPrescriptions",
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
@@ -1482,7 +1482,7 @@ function showMedSyncPrescriptions() {
 
 function showSpecialtyPrescriptions() {
 	$.app.navigator.open({
-			titleid : "titlePrescriptions",
+			titleid : "titleSpecialtyPrescriptions",
 			ctrl : "prescriptions",
 			ctrlArguments : {
 				filters : {
@@ -2109,7 +2109,7 @@ function hideAllPopups() {
 	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
-	if(args.hideCheckoutHeader == false) {
+	if ((args.hideCheckoutHeader == false) && !(args.navigationFrom == "medSync") && !(args.navigationFrom == "specialtyGrouping")) {
 		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
