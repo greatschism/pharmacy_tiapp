@@ -24,7 +24,8 @@ var args = $.args,
     preferenceUpdateRx = [],
     dialogCount = 0,
     isMedSyncCheckoutReady = false;
-    promiseTimeRx= {};
+    promiseTimeRx= {},
+    isCheckoutHeaderVisible = false;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -1129,7 +1130,25 @@ function prepareList() {
 						}
 						tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
 					} else {
-						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+						if (isCheckoutHeaderVisible || args.navigationFrom == "") {
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
+						} else{
+							var prescriptions = Alloy.Collections.prescriptions.where({
+								"is_checkout_complete": "0",
+								"refill_status": "Ready",
+								"is_specialty_store": "1"
+							});
+							
+							if (prescriptions.length > 0) {
+								headerTitle = "Checkout";
+								tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+							} else {
+								headerTitle = "Checkout";
+								tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+							}
+								
+							isCheckoutHeaderVisible = true;
+						};
 					}
 				}
 
