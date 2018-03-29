@@ -1581,6 +1581,7 @@ function getCodeCounselingEligible() {
 }
 
 function didGetCounselingEligible(result, passthrough) {
+	$.app.navigator.showLoader();
 	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
