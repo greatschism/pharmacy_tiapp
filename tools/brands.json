@@ -89,5 +89,8 @@
 	}, {
 		"id": "supervalu",
 		"description": "Supervalu Rx"
+	}, {
+		"id": "ingles",
+		"description": "Ingles Rx"
 	}
 ]
