@@ -52,7 +52,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
-		"url": "http://froedtert.mobilepharmacyhelp.com/",
+		"url": "http://ingles.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
 	}]
