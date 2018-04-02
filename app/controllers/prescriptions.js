@@ -484,9 +484,7 @@ function prepareList() {
 
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
-
-	Alloy.Collections.prescriptions.each(function(prescription) {
-		
+		Alloy.Collections.prescriptions.each(function(prescription) {
 		/**
 		 * If the user don't pick up the prescription after the restock period, DAYS_TO_RESTOCK – (TODAY_DATE - LAST_FILLED_DATE)
 		 * then it is returned to the "Ready for refill" list.
@@ -511,9 +509,15 @@ function prepareList() {
 		 * is getting refilled or ready for pickup
 		 * within prescriptions list
 		 */
-		if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
+
+		if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && prescription.get("refill_status") != apiCodes.refill_status_ready) {
 			return false;
 		}
+/*
+		else if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
+			return false;
+		}*/
+
 		/**
 		 *	exclude anything that matches with filter
 		 *  example
@@ -638,6 +642,9 @@ function prepareList() {
 			if (args.navigationFrom != "expressCheckout") {
 				if (args.navigationFrom == "medSync") {
 					_.each(medSyncPrescriptions, function(prescription) {
+						if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && prescription.get("refill_status") != apiCodes.refill_status_ready) {
+							return false;
+							}
 						prescription.set({
 							className : "MS",
 							itemTemplate : "completed",
@@ -768,8 +775,7 @@ function prepareList() {
 		if (_.has(args, "navigationFrom")) {
 			if (args.navigationFrom != "expressCheckout") {
 				if (args.navigationFrom == "specialtyGrouping") {
-					_.each(specialtyPrescriptions, function(prescription) {
-						
+					_.each(specialtyPrescriptions, function(prescription) {					
 						var daysLeft;
 						if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
 							daysLeft = parseInt(Alloy.Models.appload.get("restocking_period") || 0) - currentDate.diff(moment(prescription.get("presc_last_filled_date"), apiCodes.date_time_format), "days");
@@ -781,6 +787,9 @@ function prepareList() {
 								prescription.set("refill_status", apiCodes.refill_status_sold);
 							}
 						}
+						if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && prescription.get("refill_status") != apiCodes.refill_status_ready) {
+							return false;
+							}
 						prescription = processSections(prescription, daysLeft);
 						prescription.set({
 							title : $.utilities.ucword(prescription.get("presc_name")),
