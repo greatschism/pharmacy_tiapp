@@ -1161,6 +1161,29 @@ function prepareList() {
 		}
 		}
 	});
+	
+	if (!sections.length && data.length && !data[(data.length - 1)].headerView) {
+		var prescriptions = Alloy.Collections.prescriptions.where({
+			"is_checkout_complete": "0",
+			"refill_status": "Ready",
+			"is_specialty_store": "1"
+		});
+		var key = "Others";
+		var readyHeaderDict;
+		var tvSection;
+		
+		if (prescriptions.length > 0) {
+			headerTitle = "Checkout";
+			tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+		} else {
+			headerTitle = "Checkout";
+			tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+		}
+			
+		isCheckoutHeaderVisible = true;
+		data.push(tvSection);
+	};
+	
 	$.tableView.setData(data);
 	//further resets
 	if (!args.selectable) {
