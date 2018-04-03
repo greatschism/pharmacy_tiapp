@@ -92,5 +92,8 @@
 	}, {
 		"id": "ingles",
 		"description": "Ingles Rx"
-	}
+	},{
+		"id": "raleys",
+		"description": "Raleys Rx"
+	}	
 ]
