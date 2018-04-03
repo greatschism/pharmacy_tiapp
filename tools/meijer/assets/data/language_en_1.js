@@ -42,6 +42,7 @@ module.exports = {
 		"expPickupBenefitsTitle" : "What is it?",
 		"prescriptionsInProcessNewTime": "Click here to select new time",
 		
-		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits"
+		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits",
+		"remindersSettingsSectionRx" : "Rx message settings"
 	}
 };
