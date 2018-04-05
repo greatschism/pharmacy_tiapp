@@ -379,6 +379,7 @@ function didRegister(result, passthrough) {
 	/**
 	 * Set property to display HIPAA during first login flow
 	 */
+	if(Alloy.Models.appload.get("hipaa_url"))
 	utilities.setProperty(passthrough.email, "showHIPAA", "string", true);
 	utilities.setProperty("familyMemberAddPrescFlow", false, "bool", true);
 	$.uihelper.showDialog({
