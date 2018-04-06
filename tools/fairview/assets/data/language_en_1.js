@@ -12,7 +12,14 @@ module.exports = {
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
-		"titlePharmacySpecials"	: "Pharmacy Specials"
+		"titlePharmacySpecials"	: "Pharmacy Specials",
+		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address </tertiarycolor></tertiaryfont> that you use to sign in.",
+		"userRecoveryEmailHint" : "Email address",
+		"loginHintEmailOrUsername" : "Email address",
+        "userRecoveryValEmail" : "Please enter your email address.",
+        "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
+         "titleHelp" : "Help"
 	}
 
 };
