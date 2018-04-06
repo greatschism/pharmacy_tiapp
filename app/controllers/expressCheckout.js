@@ -48,7 +48,7 @@ function didGetCreditCardInfo(result, passthrough) {
 	 * 	for now we are picking just first credit card 
 	 * 	but in future we may need to store multiple cards
 	 */
-	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+	//$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 	$.utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
 	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
 	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
@@ -57,7 +57,7 @@ function didGetCreditCardInfo(result, passthrough) {
 }
 
 function didFailureInCreditCardInfo(result, passthrough) {
-	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+	//$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
 	$.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
 	currentPatient.unset("card_type");
 	currentPatient.unset("last_four_digits");
