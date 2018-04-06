@@ -1130,7 +1130,7 @@ function prepareList() {
 						}
 						tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
 					} else {
-						if (isCheckoutHeaderVisible || args.navigationFrom == "") {
+						if (sections.readyPickup.length != 0 || isCheckoutHeaderVisible || args.navigationFrom == "") {
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 						} else{
 							var prescriptions = Alloy.Collections.prescriptions.where({
@@ -1162,7 +1162,7 @@ function prepareList() {
 		}
 	});
 	
-	if (!sections.length && data.length && !data[(data.length - 1)].headerView) {
+	if (sections.readyPickup.length == 0 && data.length && !data[(data.length - 1)].headerView) {
 		var prescriptions = Alloy.Collections.prescriptions.where({
 			"is_checkout_complete": "0",
 			"refill_status": "Ready",
