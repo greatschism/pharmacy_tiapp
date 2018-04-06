@@ -920,7 +920,7 @@ function prepareList() {
 					
 					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
 
-						getCreditCardInfo()
+						getCreditCardInfo();
 	
 						var headerTitle = "";
 						
@@ -1544,7 +1544,10 @@ function getCodeCounselingEligible() {
 }
 
 function didGetCounselingEligible(result, passthrough) {
-	$.app.navigator.showLoader();
+	if ($.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false))
+	{		
+		$.app.navigator.showLoader();
+	}
 	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
@@ -1590,6 +1593,10 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	currentPatient.unset("last_four_digits");
 	currentPatient.unset("expiry_date");
 
+	showAddCreditCardDialog();
+}
+
+function showAddCreditCardDialog() {
 	//The following logic block assembles and displays the CC info prompt (MCE-169)
 	//TODO: presumedly it should be extrapolated into it's own module
 	//This block should be cut/paste to implement in a different view controller
