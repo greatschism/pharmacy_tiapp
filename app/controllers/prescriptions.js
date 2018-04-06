@@ -919,103 +919,8 @@ function prepareList() {
 					}
 					
 					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
-				
-						//The following logic block assembles and displays the CC info prompt (MCE-169)
-						//TODO: presumedly it should be extrapolated into it's own module
-						//This block should be cut/paste to implement in a different view controller
-						var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
-						if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
-	
-							var dialogView = $.UI.create("ScrollView", {
-								apiName : "ScrollView",
-								classes : ["top", "auto-height", "vgroup"]
-							});
-							dialogView.add($.UI.create("Label", {
-								apiName : "Label",
-								classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
-								text : $.strings.checkoutPrompt
-							}));
-	
-							var btn = $.UI.create("Button", {
-								apiName : "Button",
-								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
-								title : $.strings.checkoutFindoutPrompt,
-								index : 0
-							});
-	
-							$.addListener(btn, "click", function(){
-								$.contentView.remove($.checkoutInfoDialog.getView());
-								displayCheckoutInfo();
-							});
-							dialogView.add(btn);
-	
-							var swt = $.UI.create("View", {
-								apiName : "View",
-								classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
-								index : 1
-							});
-							
-							var checkboxClasses;
-							 
-							if ( $.utilities.isNarrowScreen() ) {	
-								checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
-							} else {
-								checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
-							}
-							var swtCheckbox = $.UI.create("Label", {
-								apiName : "Label",
-								classes : checkboxClasses,
-							});
-							
-							
-							$.addListener(swtCheckbox, "click", function(){
-								
-								if( checkBoxToggleFlag === 0 ) {
-									checkBoxToggleFlag = 1;
-									swtCheckbox.applyProperties($.createStyle({
-		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
-									}));
-									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
-								} else {
-									checkBoxToggleFlag = 0;
-									swtCheckbox.applyProperties($.createStyle({
-		  								classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
-									}));
-									$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
-								}
-							});
-	
-							var swtLabel = $.UI.create("Label", {
-								apiName : "Label",
-								classes : ["margin-right-large", "h5", "txt-right", ],
-								text : $.strings.checkoutRemindCheckbox,
-							});
-							swt.add(swtCheckbox);
-							swt.add(swtLabel);
-							dialogView.add(swt);
-	
-							var btn2 = $.UI.create("Button", {
-								apiName : "Button",
-								classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
-								title : $.strings.checkoutClose,
-								index : 2
-							});
-							$.addListener(btn2, "click", function(){
-	
-								$.contentView.remove($.checkoutInfoDialog.getView());
-								$.checkoutInfoDialog = null;
-							});
-							dialogView.add(btn2);
-	
-							$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
-								classes : ["modal-dialog"],
-								children : [dialogView]
-							}));
-							$.contentView.add($.checkoutInfoDialog.getView());
-							$.checkoutInfoDialog.show();
-						}
-	
-	
+
+						getCreditCardInfo();
 	
 						var headerTitle = "";
 						
@@ -1595,7 +1500,7 @@ function displayCheckoutInfo()
 
 function didClickCheckout(e) {
 	getCodeCounselingEligible();
-	getCreditCardInfo();
+	proceedToCheckout();
 }
 
 function proceedToCheckout() {
@@ -1639,7 +1544,10 @@ function getCodeCounselingEligible() {
 }
 
 function didGetCounselingEligible(result, passthrough) {
-	$.app.navigator.showLoader();
+	if ($.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false))
+	{		
+		$.app.navigator.showLoader();
+	}
 	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
@@ -1670,16 +1578,13 @@ function didGetCreditCardInfo(result, passthrough) {
 	 * 	for now we are picking just first credit card 
 	 * 	but in future we may need to store multiple cards
 	 */
-	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
 	$.utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
 	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
 	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
 	currentPatient.set("expiry_date", result.data.CreditCard[0].expiryDate);
-	proceedToCheckout();
 }
 
 function didFailureInCreditCardInfo(result, passthrough) {
-	$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
 	$.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
 	var currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
@@ -1687,7 +1592,105 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	currentPatient.unset("card_type");
 	currentPatient.unset("last_four_digits");
 	currentPatient.unset("expiry_date");
-	proceedToCheckout();
+
+	showAddCreditCardDialog();
+}
+
+function showAddCreditCardDialog() {
+	//The following logic block assembles and displays the CC info prompt (MCE-169)
+	//TODO: presumedly it should be extrapolated into it's own module
+	//This block should be cut/paste to implement in a different view controller
+	var checkBoxToggleFlag = 0; //box is unchecked by default - flag needed to get android to work :/ (sniffing property after reset does not)
+	if( !$.utilities.getProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false) )  {
+
+		var dialogView = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
+		});
+		dialogView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h5", "txt-center"],
+			text : $.strings.checkoutPrompt
+		}));
+
+		var btn = $.UI.create("Button", {
+			apiName : "Button",
+			classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large", "primary-bg-color", "primary-light-fg-color", "primary-border"],
+			title : $.strings.checkoutFindoutPrompt,
+			index : 0
+		});
+
+		$.addListener(btn, "click", function(){
+			$.contentView.remove($.checkoutInfoDialog.getView());
+			displayCheckoutInfo();
+		});
+		dialogView.add(btn);
+
+		var swt = $.UI.create("View", {
+			apiName : "View",
+			classes : ["margin-top-large", "margin-left-extra-large", "margin-right-extra-large","auto-height"],
+			index : 1
+		});
+		
+		var checkboxClasses;
+		 
+		if ( $.utilities.isNarrowScreen() ) {	
+			checkboxClasses = ["margin-left-small", "i4",  "icon-checkbox-unchecked" ];
+		} else {
+			checkboxClasses = ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ];
+		}
+		var swtCheckbox = $.UI.create("Label", {
+			apiName : "Label",
+			classes : checkboxClasses,
+		});
+		
+		
+		$.addListener(swtCheckbox, "click", function(){
+			
+			if( checkBoxToggleFlag === 0 ) {
+				checkBoxToggleFlag = 1;
+				swtCheckbox.applyProperties($.createStyle({
+						classes : ["margin-left-extra-large", "i4",  "icon-checkbox-checked" ],
+				}));
+				$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
+			} else {
+				checkBoxToggleFlag = 0;
+				swtCheckbox.applyProperties($.createStyle({
+						classes : ["margin-left-extra-large", "i4",  "icon-checkbox-unchecked" ],
+				}));
+				$.utilities.setProperty(Alloy.CFG.checkout_info_prompted, false, "bool", false);
+			}
+		});
+
+		var swtLabel = $.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-right-large", "h5", "txt-right", ],
+			text : $.strings.checkoutRemindCheckbox,
+		});
+		swt.add(swtCheckbox);
+		swt.add(swtLabel);
+		dialogView.add(swt);
+
+		var btn2 = $.UI.create("Button", {
+			apiName : "Button",
+			classes : ["margin-bottom-extra-large", "margin-left-extra-large", "margin-right-extra-large", "bg-color", "active-fg-color", "border-color-disabled"],
+			title : $.strings.checkoutClose,
+			index : 2
+		});
+		$.addListener(btn2, "click", function(){
+
+			$.contentView.remove($.checkoutInfoDialog.getView());
+			$.checkoutInfoDialog = null;
+		});
+		dialogView.add(btn2);
+
+		$.checkoutInfoDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView]
+		}));
+		$.contentView.add($.checkoutInfoDialog.getView());
+		$.checkoutInfoDialog.show();
+	}
 }
 
 function didUpdatePromiseTimeOption() {
