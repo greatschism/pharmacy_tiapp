@@ -1544,7 +1544,7 @@ function getCodeCounselingEligible() {
 }
 
 function didGetCounselingEligible(result, passthrough) {
-	if ($.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false))
+	if ($.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false))
 	{		
 		$.app.navigator.showLoader();
 	}
