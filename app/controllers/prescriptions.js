@@ -1500,7 +1500,7 @@ function displayCheckoutInfo()
 
 function didClickCheckout(e) {
 	getCodeCounselingEligible();
-	proceedToCheckout();
+	getCreditCardInfo(proceedToCheckout);
 }
 
 function proceedToCheckout() {
@@ -1551,7 +1551,7 @@ function didGetCounselingEligible(result, passthrough) {
 	Alloy.Models.counselingEligible.set(result.data.codes[0]);
 }
 
-function getCreditCardInfo() {
+function getCreditCardInfo(passthrough) {
 	$.http.request({
 		method : "payments_credit_card_get",
 		params : {
@@ -1564,6 +1564,7 @@ function getCreditCardInfo() {
 			]
 		},
 		errorDialogEnabled : false,
+		passthrough: passthrough,
 		success : didGetCreditCardInfo,
 		failure : didFailureInCreditCardInfo
 	});
@@ -1582,6 +1583,9 @@ function didGetCreditCardInfo(result, passthrough) {
 	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
 	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
 	currentPatient.set("expiry_date", result.data.CreditCard[0].expiryDate);
+	if (passthrough) {
+		passthrough();
+	}
 }
 
 function didFailureInCreditCardInfo(result, passthrough) {
@@ -1593,7 +1597,11 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	currentPatient.unset("last_four_digits");
 	currentPatient.unset("expiry_date");
 
-	showAddCreditCardDialog();
+	if (passthrough) {
+		passthrough();
+	} else{		
+		showAddCreditCardDialog();
+	};
 }
 
 function showAddCreditCardDialog() {
