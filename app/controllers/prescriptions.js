@@ -1035,25 +1035,7 @@ function prepareList() {
 						}
 						tvSection = $.uihelper.createTableViewSection($, headerName, sectionHeaders[key], false, headerBtnDict);
 					} else {
-						if (sections.readyPickup.length != 0 || isCheckoutHeaderVisible || args.navigationFrom == "") {
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
-						} else{
-							var prescriptions = Alloy.Collections.prescriptions.where({
-								"is_checkout_complete": "0",
-								"refill_status": "Ready",
-								"is_specialty_store": "1"
-							});
-							
-							if (prescriptions.length > 0) {
-								headerTitle = "Checkout";
-								tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
-							} else {
-								headerTitle = "Checkout";
-								tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
-							}
-								
-							isCheckoutHeaderVisible = true;
-						};
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 					}
 				}
 
@@ -1067,13 +1049,13 @@ function prepareList() {
 		}
 	});
 	
-	if (sections.readyPickup.length == 0 && data.length && !data[(data.length - 1)].headerView) {
+	var checkoutSectionData = [];
+	if (!args.navigationFrom && sections.readyPickup.length == 0) {
 		var prescriptions = Alloy.Collections.prescriptions.where({
 			"is_checkout_complete": "0",
-			"refill_status": "Ready",
-			"is_specialty_store": "1"
+			"refill_status": "Ready"
 		});
-		var key = "Others";
+		var key = "readyPickup";
 		var readyHeaderDict;
 		var tvSection;
 		
@@ -1086,8 +1068,23 @@ function prepareList() {
 		}
 			
 		isCheckoutHeaderVisible = true;
-		data.push(tvSection);
+		checkoutSectionData.push(tvSection);
 	};
+	
+	var headersPosition= 0;
+	if (sections.medSync && sections.medSync.length == 1) {
+		headersPosition++;
+	};
+	if (sections.specialty && sections.specialty.length == 1) {
+		headersPosition++;
+	};
+	
+	var headersTempData = _.first(data, [headersPosition]);
+	var restTempData = _.rest(data, [headersPosition]);
+	data = _.union(headersTempData, checkoutSectionData, restTempData);
+	
+	headersTempData = null;
+	restTempData = null;
 	
 	$.tableView.setData(data);
 	//further resets
