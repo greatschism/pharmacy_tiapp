@@ -657,7 +657,7 @@ function prepareList() {
 							var checkOutBy = parseInt(Alloy.CFG.medsync_days_checkout_enabled);
 							var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
 							var now = moment();						
-							isDateReadyForCheckout = nextSyncFillDate.diff(now, 'days') <= 1 ? true : false;
+							isDateReadyForCheckout = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
 						};
 						if(prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1" && isDateReadyForCheckout) {							
 							isMedSyncCheckoutReady = true;
@@ -1059,16 +1059,39 @@ function prepareList() {
 		var readyHeaderDict;
 		var tvSection;
 		
-		if (prescriptions.length > 0) {
-			headerTitle = "Checkout";
-			tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+		if (prescriptions && prescriptions.length > 0) {
+			var isCheckoutReady = false;
+			_.each(prescriptions, function(prescription){
+				if (prescription.get("syncScriptEnrolled") === "0" && !isCheckoutReady) {				
+					isCheckoutReady = true;
+					headerTitle = "Checkout";
+					tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+					checkoutSectionData.push(tvSection);
+				} else if (Alloy.CFG.medsync_days_checkout_enabled && Alloy.CFG.medsync_days_checkout_enabled != "" && prescription.get("syncScriptEnrolled") === "1" && !isCheckoutReady) {
+					var checkOutBy = parseInt(Alloy.CFG.medsync_days_checkout_enabled);
+					var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
+					var now = moment();						
+					isCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
+					if (isCheckoutReady) {
+						headerTitle = "Checkout";
+						tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+						checkoutSectionData.push(tvSection);
+					};
+				};
+			});
 		} else {
-			headerTitle = "Checkout";
-			tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+			var checkout_prescriptions = Alloy.Collections.prescriptions.findWhere({
+				"is_checkout_complete": "1",
+				"refill_status": "Ready"
+			});
+			if (checkout_prescriptions && checkout_prescriptions.length > 0 ) {
+				headerTitle = "Checkout";
+				tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+				checkoutSectionData.push(tvSection);
+			}
 		}
 			
 		isCheckoutHeaderVisible = true;
-		checkoutSectionData.push(tvSection);
 	};
 	
 	var headersPosition= 0;
