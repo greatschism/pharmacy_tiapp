@@ -579,6 +579,16 @@ function prepareList() {
 			}
 		}
 		
+		if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
+			var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
+			var now = moment();						
+			var isCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
+			if (!isCheckoutReady) {
+				return;
+			};
+		};
+		
 		//process sections
 		prescription = processSections(prescription, daysLeft);
 	
@@ -652,16 +662,13 @@ function prepareList() {
 							canHide : false
 						});
 						
-						var isDateReadyForCheckout = false;
-						if (Alloy.CFG.medsync_days_checkout_enabled && Alloy.CFG.medsync_days_checkout_enabled != "" && prescription.get("syncScriptEnrolled") === "1") {
-							var checkOutBy = parseInt(Alloy.CFG.medsync_days_checkout_enabled);
+						if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" 
+								&& prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1") {
+							var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
 							var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
 							var now = moment();						
-							isDateReadyForCheckout = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
+							isMedSyncCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
 						};
-						if(prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1" && isDateReadyForCheckout) {							
-							isMedSyncCheckoutReady = true;
-						}
 
 						var rowParams = prescription.toJSON(),
 						    row;
@@ -686,7 +693,7 @@ function prepareList() {
 						 section : "medSync",
 						 canHide : false
 						 }; */
-
+						
 						var medSyncData = {
 							className : "MS",
 							itemTemplate : "completed",
@@ -933,7 +940,7 @@ function prepareList() {
 								//rows.length
 								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1 && prescription.get("is_checkout_complete") === "1") {
 									specialtyCompleteCount++;
-								} else if (prescription.get("is_checkout_complete") === "0") {
+								} else if (prescription.get("is_checkout_complete") === "1") {
 									checkoutReadyScripts = false;
 								};
 								
@@ -953,7 +960,7 @@ function prepareList() {
 						}
 						else if(checkoutReadyScripts)
 						{
-							headerTitle = $.strings.titleCheckoutCompleteHeader;
+							headerTitle = "Checkout";
 							tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
 						}
 						else {		
@@ -1067,8 +1074,8 @@ function prepareList() {
 					headerTitle = "Checkout";
 					tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
 					checkoutSectionData.push(tvSection);
-				} else if (Alloy.CFG.medsync_days_checkout_enabled && Alloy.CFG.medsync_days_checkout_enabled != "" && prescription.get("syncScriptEnrolled") === "1" && !isCheckoutReady) {
-					var checkOutBy = parseInt(Alloy.CFG.medsync_days_checkout_enabled);
+				} else if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" && !isCheckoutReady) {
+					var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
 					var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
 					var now = moment();						
 					isCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
