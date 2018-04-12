@@ -84,6 +84,9 @@ function init() {
 		}
 	});
 	
+	//Rx section - static
+	$.rxSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionRx);
+	
 	if (parseInt(patient.get("rx_status_notifications_enabled")) === 1) {
 		var row = Alloy.createController("itemTemplates/promptReply", {
 			reminderId : "app",
@@ -95,12 +98,10 @@ function init() {
 			replyClasses : replyClasses,
 			hasChild : true
 		});
-		$.deliveryModesSection.add(row.getView());
+		$.rxSection.add(row.getView());
 		rows.push(row);
 	}
-
-	//Rx section - static
-	$.rxSection = $.uihelper.createTableViewSection($, $.strings.remindersSettingsSectionRx);
+	
 	var showRxRow = Alloy.createController("itemTemplates/labelWithSwitch", {
 		prefColumn : "show_rx_names_flag",
 		title : $.strings.remindersSettingsLblShowRx,
@@ -186,32 +187,31 @@ function didClickTableView(e) {
 	var index = e.index;
 	if (index < $.deliveryModesSection.rowCount) {
 		var params = rows[index].getParams();
+		$.deliveryModesPicker.currentIndex = index;
+		/**
+		 * prepare option items
+		 */
+		_.each(options, function(option) {
+			option.selected = option.value === params.reminderDeliveryMode;
+		});
+		//set items and show
+		$.deliveryModesPicker.setItems(options);
+		$.deliveryModesPicker.show();
+	}
+	else if (parseInt(patient.get("rx_status_notifications_enabled")) === 1 && index === 3) {
 		/**
 		 * let keep reference of this index
 		 * deliveryModesPicker - is a controller (widget)
 		 */
-		if (parseInt(patient.get("rx_status_notifications_enabled")) === 1 && index === ($.deliveryModesSection.rowCount - 1)) {
-			if (canSetRefillAlerts) {
-				$.app.navigator.open({
-					titleid : "remindersRxStatus",
-					ctrl : "rxStatusNotificationSettings",
-					stack : true
-				});				
-			} else{
-				return;
-			};
-		} else {
-			$.deliveryModesPicker.currentIndex = index;
-			/**
-			 * prepare option items
-			 */
-			_.each(options, function(option) {
-				option.selected = option.value === params.reminderDeliveryMode;
-			});
-			//set items and show
-			$.deliveryModesPicker.setItems(options);
-			$.deliveryModesPicker.show();
-		}
+		if (canSetRefillAlerts) {
+			$.app.navigator.open({
+				titleid : "remindersRxStatus",
+				ctrl : "rxStatusNotificationSettings",
+				stack : true
+			});				
+		} else{
+			return;
+		};
 	}
 }
 
