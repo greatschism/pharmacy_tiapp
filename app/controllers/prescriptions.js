@@ -581,8 +581,8 @@ function prepareList() {
 		
 		if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
 			var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
-			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
-			var now = moment();						
+			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
+			var now = moment().format("MM/DD/YYYY");					
 			var isCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
 			if (!isCheckoutReady) {
 				return;
@@ -665,8 +665,8 @@ function prepareList() {
 						if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" 
 								&& prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1") {
 							var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
-							var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
-							var now = moment();						
+							var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
+							var now = moment().format("MM/DD/YYYY");					
 							isMedSyncCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
 						};
 
@@ -1076,8 +1076,8 @@ function prepareList() {
 					checkoutSectionData.push(tvSection);
 				} else if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" && !isCheckoutReady) {
 					var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
-					var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"));
-					var now = moment();						
+					var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
+					var now = moment().format("MM/DD/YYYY");
 					isCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
 					if (isCheckoutReady) {
 						headerTitle = "Checkout";
