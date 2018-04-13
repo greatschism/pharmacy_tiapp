@@ -934,12 +934,33 @@ function prepareList() {
 								
 						var checkoutReadyScripts = true;
 						var specialtyCompleteCount = 0;
+						var specialtyReadyCount = 0;
 						Alloy.Collections.prescriptions.each(function(prescription) {
+							
+							
+							if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" && prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") !== "1") {
+								var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+								var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
+								var now = moment().format("MM/DD/YYYY");					
+								isMedSyncCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
+							};
+							
 		
 							if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
 								//rows.length
-								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1 && prescription.get("is_checkout_complete") === "1") {
-									specialtyCompleteCount++;
+								if (_.has(args, "navigationFrom") && args.navigationFrom == "specialtyGrouping" && prescription.get("is_specialty_store") == 1) {
+									if (prescription.get("is_checkout_complete") === "1") {										
+										specialtyCompleteCount++;
+									} else if(prescription.get("is_checkout_complete") !== "1") {
+										if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1" && specialtyReadyCount === 0 && !isMedSyncCheckoutReady) {
+											var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+											var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
+											var now = moment().format("MM/DD/YYYY");					
+											isMedSyncCheckoutReady = nextSyncFillDate.diff(now, 'days') <= checkOutBy ? true : false;
+										} else {											
+											specialtyReadyCount++;
+										}
+									};
 								} else if (prescription.get("is_checkout_complete") === "1") {
 									checkoutReadyScripts = false;
 								};
@@ -954,7 +975,9 @@ function prepareList() {
 							if (specialtyCompleteCount == rows.length) {
 								tvSection = showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
 							} else{
-								headerTitle = "Checkout";
+								if ((specialtyReadyCount == 0 && isMedSyncCheckoutReady) || specialtyReadyCount > 0) {
+									headerTitle = "Checkout";
+								}
 								tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
 							};
 						}
