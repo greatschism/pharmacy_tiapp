@@ -977,8 +977,11 @@ function prepareList() {
 							} else{
 								if ((specialtyReadyCount == 0 && isMedSyncCheckoutReady) || specialtyReadyCount > 0) {
 									headerTitle = "Checkout";
+									tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+								} else {
+									tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
 								}
-								tvSection = showCheckoutButtonInHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection);
+								
 							};
 						}
 						else if(checkoutReadyScripts)
