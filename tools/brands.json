@@ -80,8 +80,11 @@
 	}, {
 		"id": "dartmouth",
 		"description": "D-H Pharmacy"
-	}, {
+	},	{
 		"id": "reasors",
 		"description": "Reasors Rx"
+	},	{
+		"id": "pharmaca",
+		"description": "Pharmaca"
 	}
 ]
