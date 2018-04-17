@@ -15,8 +15,10 @@ var args = $.args,
     logger = require("logger"),
     TAG = ctrlShortCode[$.__controllerPath],
     strings = Alloy.Globals.strings,
-        encryptionUtil = require("encryptionUtil"),
-        resources = require("resources"),
+	encryptionUtil = require("encryptionUtil"),
+	resources = require("resources"),
+    touchID = require("touchid"),
+    localBiometricFlag = false,
 
 
     triggerAsyncUpdate = false;
@@ -398,6 +400,45 @@ function loadConfig(errorQueue) {
 		config.load(initMasterWindow);
 	}
 }
+var bgCounter;
+
+function appDidResume() {
+	Ti.API.info(" ------------  appDidResume() touch_id_enabled = "+ utilities.getProperty(Alloy.CFG.first_launch_app, false, "bool", false)   )
+	var bgComparer = new Date();
+
+	if( ( bgComparer - bgCounter > 10000 ) && Alloy.Globals.isLoggedIn &&  require("authenticator").getTouchIDEnabled() ) {
+
+		touchID.authenticate( function(){
+		//	alert("yay hooray (nore than 10 s)");
+		}, function(){
+			setTimeout( function(){ 
+				var passthrough = {};
+				passthrough.success = function(){
+					//alert("Please login manually.");
+					uihelper.showDialog({
+						title : "Biometric Authentication",
+						message : "Please login manually.",
+						buttonNames : [strings.dialogBtnOK],
+						success : function(){
+							app.navigator.open({
+								titleid : "titleLogin",
+								ctrl : "login",
+							});
+						}
+					});
+					
+				}
+				require("authenticator").logout(passthrough); 
+				
+			},500);
+		});
+	}
+}
+
+function appDidPause() {
+	bgCounter = new Date();
+}
+
 
 function initMasterWindow() {
 	hideLoader();
@@ -419,6 +460,14 @@ function initMasterWindow() {
 		triggerUpdate : triggerAsyncUpdate
 	});
 	ctrl.on("init", didInitWin);
+
+	localBiometricFlag = touchID.deviceCanAuthenticate();
+	if(localBiometricFlag) {
+   		Ti.App.addEventListener("paused", appDidPause);
+  		Ti.App.addEventListener("resume", appDidResume);
+	}
+
+
 	ctrl.init();
 }
 
