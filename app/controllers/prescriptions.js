@@ -633,15 +633,9 @@ function prepareList() {
 	
 	
 	if (hasMedSyncEnabled) {
-
-		_.some(medSyncPrescriptions, function(presc) {
-			if (presc.has("nextSyncFillDate")) {
-				if (presc.get("nextSyncFillDate") != null) {
-					nextPickupDate = presc.get("nextSyncFillDate");
-					return true;
-				}
-			}
-			return false;
+		
+		_.each(medSyncPrescriptions, function(presc) {
+			updateNextPickDate(presc);
 		});
 	
 		if (_.has(args, "navigationFrom")) {
@@ -1170,6 +1164,18 @@ function prepareList() {
 		}
 	}
 
+}
+
+function updateNextPickDate(presc) {
+	if (presc.has("nextSyncFillDate") && presc.get("nextSyncFillDate") != null && presc.get("refill_status") == apiCodes.refill_status_ready) {
+		var nextSyncFillDate = moment(presc.get("nextSyncFillDate"), "MM/DD/YYYY");
+		if((presc.get("primary_store_id") === presc.get("original_store_id")) || 
+			(nextPickupDate != "" && (nextSyncFillDate.isBefore(moment(nextPickupDate)))) ||
+			(nextPickupDate == "")) 
+		{
+			nextPickupDate = presc.get("nextSyncFillDate");
+		}
+	}
 }
 
 function showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection) {
