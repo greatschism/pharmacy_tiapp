@@ -67,7 +67,7 @@ module.exports = {
 		"requires_login" : false
 	}, {
 		"titleid" : "titlePharmacySpecials",
-		"url" : "https://www.fairview.org/Pharmacy/InStoreSpecials",
+		"url" : "https://www.fairview.org/~/media/Fairview/PDFs/Pharmacy/In-Store-Pharmacy-Specials.ashx?la=en",
 		"icon" : "pharacyspecials",
 		"requires_login" : false
 	}, {
