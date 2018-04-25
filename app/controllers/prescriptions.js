@@ -511,15 +511,9 @@ function prepareList() {
 		 * within prescriptions list
 		 */
 
-		if (hideZeroRefillPrescriptions && !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready))) {
-			return false;
-		}
-
-	/*
 		if (hideZeroRefillPrescriptions && !parseInt(prescription.get("refill_left")) && (prescription.get("refill_left") !== "As Needed") && ((args.selectable && validator != "medReminder") || (!args.selectable && prescription.get("refill_status") != apiCodes.refill_status_ready && prescription.get("refill_status") != apiCodes.refill_status_in_process))) {
-				logger.info("Executed!!!");
 				return false;
-			}*/
+			}
 	
 		/**
 		 *	exclude anything that matches with filter
@@ -655,9 +649,6 @@ function prepareList() {
 			if (args.navigationFrom != "expressCheckout") {
 				if (args.navigationFrom == "medSync") {
 					_.each(medSyncPrescriptions, function(prescription) {
-						if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && prescription.get("refill_status") != apiCodes.refill_status_ready) {
-							return false;
-							}
 						prescription.set({
 							className : "MS",
 							itemTemplate : "completed",
@@ -797,9 +788,6 @@ function prepareList() {
 								prescription.set("refill_status", apiCodes.refill_status_sold);
 							}
 						}
-						if (hideZeroRefillPrescriptions &&  !parseInt(prescription.get("refill_left")) && prescription.get("refill_status") != apiCodes.refill_status_ready) {
-							return false;
-							}
 						prescription = processSections(prescription, daysLeft);
 						prescription.set({
 							title : $.utilities.ucword(prescription.get("presc_name")),
