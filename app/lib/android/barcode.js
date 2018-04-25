@@ -3,7 +3,8 @@
  * A zxing barcode reader
  */
 
-var TAG = "BARC",
+var	app = require("core"),
+	TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     BarcodeModule = require("ti.barcode"),
@@ -108,12 +109,17 @@ var BarcodeReader = {
 			    navIconBtn = $.UI.create("Button", {
 				classes : ["margin-left", "top-disabled", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
+				helpBtn = $.UI.create("Button", {
+				classes : ["margin-right", "top-disabled", "i5", "txt-right", "primary-font-color", "border-disabled", "icon-help"]
+			}),
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
+			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
 			navbarView.add(navIconBtn);
+			navbarView.add(helpBtn);
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
 			_.extend(options, {
@@ -150,6 +156,15 @@ var BarcodeReader = {
 		BarcodeModule.cancel();
 
 		isBusy = false;
+	},
+	
+	didClickHelp : function(e) {
+		BarcodeReader.cancel();
+		app.navigator.open({
+			titleid : "titleRxSample",
+			ctrl : "rxSample",
+			stack : true
+		});
 	},
 
 	/**
