@@ -24,15 +24,17 @@ function init() {
 		}]
 	});
 		
-
-	if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
-		$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
+	if (Alloy.CFG.is_fingerprint_scanner_enabled) {
+		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
+		} else {
+			var iDict = {};
+		    iDict.enabled = false;
+		    $.touchIDSwt.applyProperties(iDict);
+		}		
 	} else {
-		var iDict = {};
-	    iDict.enabled = false;
-	    $.touchIDSwt.applyProperties(iDict);
+		authenticator.setTouchIDEnabled(false);
 	}
-	
 
 	setAccountValues();
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
@@ -134,50 +136,6 @@ function didChangeAutoLogin(e) {
 			message : $.strings.msgAutoLogin
 		});
 	}
-	/*Ti.API.info("acccount, did change auto login: ");
-	seen = [];
-	Ti.API.info(
-		JSON.stringify(e, function(key, val) {
-		   if (val != null && typeof val == "object") {
-		        if (seen.indexOf(val) >= 0) {
-		            return;
-		        }
-		        seen.push(val);
-		    }
-		    return val;
-		})
-	);
-
-	var value = e.value;
-
-	var currentAutologinState = $.keepMeSignedInSwt.getValue();
-	Ti.API.info("currentAutologinState "+currentAutologinState);
-
-	var currentTouchIDState = false;
-	
-	if (OS_IOS) {
-		currentTouchIDState = $.touchIDSwt.getValue();
-	}
-
-	Ti.API.info("currentTouchIDState "+currentTouchIDState);
-	var preExistingTouchIDState = authenticator.getTouchIDEnabled();
-	Ti.API.info("preExistingTouchIDState "+preExistingTouchIDState);
-
-	if (Alloy.CFG.auto_login_dialog_enabled && e.value && !currentTouchIDState ) {
-		$.uihelper.showDialog({
-			message : $.strings.msgAutoLogin
-		});
-	}
-
-	if (Alloy.CFG.auto_login_dialog_enabled && !e.value && currentTouchIDState ) {
-		$.touchIDSwt.setValue(false);
-		//$.uihelper.showDialog({
-		//	message : $.strings.msgTouchIdOff
-		//});
-	}
-
-	authenticator.setAutoLoginEnabled(value);
-*/
 }
 
 function didChangeTouchID(e) {

@@ -403,7 +403,6 @@ function loadConfig(errorQueue) {
 var bgCounter;
 
 function appDidResume() {
-	Ti.API.info(" ------------  appDidResume() touch_id_enabled = "+ utilities.getProperty(Alloy.CFG.first_launch_app, false, "bool", false)   )
 	var bgComparer = new Date();
 
 	if( ( bgComparer - bgCounter > 10000 ) && Alloy.Globals.isLoggedIn &&  require("authenticator").getTouchIDEnabled() ) {
@@ -416,8 +415,8 @@ function appDidResume() {
 				passthrough.success = function(){
 					//alert("Please login manually.");
 					uihelper.showDialog({
-						title : "Biometric Authentication",
-						message : "Please login manually.",
+						title : strings.loginTouchTitle,
+						message : strings.loginTouchCancel,
 						buttonNames : [strings.dialogBtnOK],
 						success : function(){
 							app.navigator.open({
@@ -427,7 +426,7 @@ function appDidResume() {
 						}
 					});
 					
-				}
+				};
 				require("authenticator").logout(passthrough); 
 				
 			},500);

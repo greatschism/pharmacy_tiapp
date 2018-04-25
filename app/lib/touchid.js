@@ -17,11 +17,8 @@ var TouchIDHelper = {
 
 	deviceCanAuthenticate : function() {
 		var result = false;
-		Ti.API.info(JSON.stringify(TiTouchId));
 		if (OS_IOS) {
 		 	var canAuthenticate = TiTouchId.deviceCanAuthenticate();
-		 	Ti.API.info("Can Authenticate Value is   " + JSON.stringify(canAuthenticate) )
-
 		 	if (canAuthenticate.canAuthenticate === true) {
 		 		result = true;
 		 	}
@@ -37,12 +34,11 @@ var TouchIDHelper = {
 
 		
 		TiTouchId.authenticateOnlyPasscode({
-			reason : "Touch ID authentication failed.",
-			reason :  "Please use touch ID to log in.",
+			reason : Alloy.Globals.strings.loginTouchFailure,
+			reason :  Alloy.Globals.strings.loginUseTouch,
  			callback : function(tIDResp) {
 
  				if( ! tIDResp.error) {
- 					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
 	 				setTimeout( function(){
 
 						successCallback();
@@ -51,7 +47,6 @@ var TouchIDHelper = {
  						//touchIDAuth(tIDResp, itemObj);
  					},0);
  				} else {
- 					Ti.API.info("YES ERROR in TID.  resp = " + JSON.stringify(tIDResp));
  					failureCallback();
  				}
 			} 				
@@ -63,12 +58,11 @@ var TouchIDHelper = {
 
 		
 		TiTouchId.authenticate({
-			reason : "Touch ID authentication failed.",
-			reason :  "Please use touch ID to log in.",
+			reason : Alloy.Globals.strings.loginTouchFailure,
+			reason :  Alloy.Globals.strings.loginUseTouch,
  			callback : function(tIDResp) {
 
  				if( ! tIDResp.error) {
- 					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
 	 				setTimeout( function(){
 
 						successCallback();
@@ -77,7 +71,6 @@ var TouchIDHelper = {
  						//touchIDAuth(tIDResp, itemObj);
  					},0);
  				} else {
- 					Ti.API.info("YES ERROR in TID.  resp = " + JSON.stringify(tIDResp));
  					failureCallback();
  				}
 			} 				

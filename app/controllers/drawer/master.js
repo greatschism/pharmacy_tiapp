@@ -142,8 +142,8 @@ function didAuthenticate(passthrough, navigationHandled) {
 					passthrough.success = function(){
 						//alert("Please login manually.");
 						uihelper.showDialog({
-							title : "Touch ID",
-							message : "Please login manually.",
+							title : Alloy.Globals.strings.loginTouchTitle,
+							message : Alloy.Globals.strings.loginTouchCancel,
 							buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 							success : function(){
 								app.navigator.open({
@@ -153,7 +153,7 @@ function didAuthenticate(passthrough, navigationHandled) {
 							}
 						});
 						
-					}
+					};
 					require("authenticator").logout(passthrough); 
 					
 				},500);

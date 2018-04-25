@@ -66,9 +66,6 @@ function navigate(itemObj) {
 }
 
 function touchIDAuth(resp, itemObj)  {
- 	Ti.API.info("in touchIDAuth "+ JSON.stringify(resp));
- 	//Ti.API.info("args = "+ JSON.stringify(args));
- 	Ti.API.info("itemObj = "+ JSON.stringify(itemObj));
 	var data = authenticator.getData();
 	var username = data.username,
     password = data.password;
@@ -163,7 +160,7 @@ function touchIDAuth(resp, itemObj)  {
 			}
 		});
 
- 		alert("ti auth conditional fallbac:  itmObj "+JSON.stringify(itemObj));
+ 		// alert("ti auth conditional fallbac:  itmObj "+JSON.stringify(itemObj));
 			setTimeout( function(){
 				app.navigator.open({
 				titleid : itemObj.titleid,
@@ -174,17 +171,13 @@ function touchIDAuth(resp, itemObj)  {
 
 
 	} else {
-			alert("Wah wah.  I can't go for that, no can do.... : "+JSON.stringify(resp) );
+			// alert("Wah wah.  I can't go for that, no can do.... : "+JSON.stringify(resp) );
 	}
 }
 
 
 function loginOrNavigate(itemObj) {
-	//Ti.API.info("loginOrNavigate" + JSON.stringify(itemObj) );
-	//Ti.API.info("Alloy.Globals.isLoggedIn" + Alloy.Globals.isLoggedIn );
 	var ctrlPath = app.navigator.currentController.ctrlPath;
-	//Ti.API.info("******************    ctrlPath  _>  " + ctrlPath );
-	//Ti.API.info("******************    itemObj  ->   " + JSON.stringify(itemObj) );
 	if (itemObj.ctrl != ctrlPath) {
 		if (itemObj.requires_login_auth) {
 			itemObj.ctrlArguments = {  
@@ -196,45 +189,31 @@ function loginOrNavigate(itemObj) {
 		if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 			if (ctrlPath != "login") {
 
-				if( authenticator.getTouchIDEnabled() ) {
-					app.navigator.showLoader();
-					//navigation.isLoading = true;
+				if(OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled && authenticator.getTouchIDEnabled()) {
+					var result = TiTouchId.deviceCanAuthenticate();
+					var passcodeAuthProcess = function() {
+						TiTouchId.authenticate({
+							reason : Alloy.Globals.strings.loginTouchFailure,
+							reason :  Alloy.Globals.strings.loginUseTouch,
+							callback : function(tIDResp) {
+								if (!tIDResp.error) {
+									setTimeout(function() {
 				
-				 	var result = TiTouchId.deviceCanAuthenticate();
-				 
-				 	var passcodeAuthProcess = function () {
-
-				 		TiTouchId.authenticate({
-							reason : "Touch ID authentication failed.",
-							reason :  "Please use Touch ID to log in.",
-				 			callback : function(tIDResp) {
-
-				 				if( ! tIDResp.error) {
-				 					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
-					 				setTimeout( function(){
-
-											app.navigator.open({
-												titleid : "titleLogin",
-												ctrl : "login",
-												ctrlArguments : {
-													navigation : itemObj,
-													useTouchID : true
-												}
-											});
-											return;
-
-					 						touchIDAuth(tIDResp, itemObj);
-					 					},0);
-					 				
-				 				
-
-				 				} else {
-
-				 					Ti.API.info("YES ERROR in TID.  resp = " + JSON.stringify(tIDResp));
-				 					//app.navigator.hideLoader();
-			 						
-									setTimeout( function(){
-
+										app.navigator.open({
+											titleid : "titleLogin",
+											ctrl : "login",
+											ctrlArguments : {
+												navigation : itemObj,
+												useTouchID : true
+											}
+										});
+										return;
+				
+										touchIDAuth(tIDResp, itemObj);
+									}, 0);
+								} else {
+									//app.navigator.hideLoader();
+									setTimeout(function() {
 										app.navigator.open({
 											titleid : "titleLogin",
 											ctrl : "login",
@@ -244,25 +223,20 @@ function loginOrNavigate(itemObj) {
 											}
 										});
 										app.navigator.hideLoader();
-				 					},0);
-				 				}
-
+									}, 0);
+								}
 							}
-				 				
-				 		});
-				 	};
-
-				 
-				 	if (!result) { //(!result.canAuthenticate) {
-				 	//	alert('Touch ID Message: ' + result.error + '\nCode: ' + result.code);
-				 	///  Add some kind of 'please turn off touchid error message here....'
-				 	} else {
-				 		//alert("about to touchID auth "+JSON.stringify(itemObj));
-				 		passcodeAuthProcess();
-				 	}
-				 	
-				 	return;
-
+						});
+					}; 
+					if (!result) { //(!result.canAuthenticate) {
+						//	alert('Touch ID Message: ' + result.error + '\nCode: ' + result.code);
+						///  Add some kind of 'please turn off touchid error message here....'
+					}
+					else {
+						//alert("about to touchID auth "+JSON.stringify(itemObj));
+						passcodeAuthProcess();
+					}
+					return;
 				}  else {
 
 					app.navigator.open({

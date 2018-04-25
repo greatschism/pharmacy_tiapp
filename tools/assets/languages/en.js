@@ -292,6 +292,10 @@ module.exports = {
 		"loginErrTryAgain" : "Try again",
 		"loginErrForgotUsername" : "I forgot my username",
 		"loginErrCofirmAccount" : "No problem. Let's re-confirm your account and get you signed in.",
+		"loginTouchCancel" : "Please login manually.",
+		"loginTouchTitle" : "Biometric Authentication",
+		"loginTouchFailure" : "Touch ID authentication failed.",
+		"loginUseTouch" : "Please use touch ID to log in.",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",

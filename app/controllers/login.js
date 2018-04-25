@@ -54,29 +54,23 @@ function init() {
 	}
 
 
-	if (authenticator.getTouchIDEnabled()) {
-
-		Ti.API.info("args are + " + JSON.stringify(args));
+	if(OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled && authenticator.getTouchIDEnabled()) {
 
 		//$.touchIDLoginSwt.setValue(true);
 
 		if(args.requires_login_auth === true) {
 
-			$.app.navigator.showLoader();
-		
 		 	var result = touchID.deviceCanAuthenticate();
 		 
 		 	var passcodeAuthProcess = function () {
 
 		 		touchID.authenticate(function(tIDResp) {
-					Ti.API.info("no error in TID.  resp = " + JSON.stringify(tIDResp));
 		 			setTimeout( function(){
 
 							touchIDAuth({"success":true}); 
 		 				},0);
 
 					}, function(tIDResp) {
-		 					Ti.API.info("error in TID.  resp = " + JSON.stringify(tIDResp));
 			 				setTimeout( function(){
 
 								$.app.navigator.hideLoader();
@@ -130,8 +124,6 @@ function init() {
 }
 
 function touchIDAuth(resp)  {
- 	Ti.API.info("in touchIDAuth "+ JSON.stringify(resp));
-		
 	var data = authenticator.forceGetData();
 	var username = data.username;
 	var password = data.password;
@@ -144,12 +136,12 @@ function touchIDAuth(resp)  {
 					setTimeout( didAuthenticate , 0);
 				},
 				failure : function() {
-					Ti.API.info("big authentcate fail");
+					
 				}
 			}) , 0);
 
 	} else {
-		alert("Please login manually.");
+		alert($.strings.loginTouchCancel);
 	}
 }
 
@@ -304,7 +296,7 @@ function didClickLogin(e) {
 			loginFailure : didFailed,
 			success : function(passedVar){
 				didAuthenticate(passedVar);		
-				if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+				if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() && OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled) {
 					utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
 					$.uihelper.showDialog({
 						message : $.strings.msgPromptTouchID,

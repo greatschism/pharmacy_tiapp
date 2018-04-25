@@ -1204,13 +1204,11 @@ function getAutoLoginEnabled() {
 }
 
 function setTouchIDEnabled(value) {
-					Ti.API.info(" ------------  setTouchIDEnabled() value = "+ value)
 	utilities.setProperty(Alloy.CFG.touch_id_enabled, value, "bool", false);
 }
 
 function getTouchIDEnabled() {
 	if(touchID.deviceCanAuthenticate) {
-					Ti.API.info(" ------------  getTouchIDEnabled() deviceCanAuthenticate")
 		return utilities.getProperty(Alloy.CFG.touch_id_enabled, false, "bool", false);
 	} else {
 		return false;
