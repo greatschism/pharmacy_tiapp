@@ -91,6 +91,12 @@
 					<Widget id="keepMeSignedInSwt" analyticsId="KeepMeSignedInSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
 				</View>
 			</TableViewRow>
+			<TableViewRow id="touchIDRow"  platform="ios" if="Alloy.CFG.is_fingerprint_scanner_enabled">
+				<View class="auto-height">
+					<Label id="touchIDLbl" class="margin-top margin-bottom margin-left" />
+					<Widget id="touchIDSwt" analyticsId="touchIDSwt" src="ti.switch" class="margin-right swt" onChange="didChangeTouchID" />
+				</View>
+			</TableViewRow>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">

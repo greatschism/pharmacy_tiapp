@@ -129,7 +129,41 @@ function didAuthenticate(passthrough, navigationHandled) {
 		passthrough = null;
 		delete passthrough;
 	}
+
+	var touchID = require("touchid");
+	var localBiometricFlag = touchID.deviceCanAuthenticate();
+	if(localBiometricFlag) {
+		if(  Alloy.Globals.isLoggedIn &&  require("authenticator").getTouchIDEnabled() ) {
+			touchID.authenticate( function(){
+			//	alert("yay hooray (nore than 10 s)");
+			}, function(){
+				setTimeout( function(){ 
+					var passthrough = {};
+					passthrough.success = function(){
+						//alert("Please login manually.");
+						uihelper.showDialog({
+							title : Alloy.Globals.strings.loginTouchTitle,
+							message : Alloy.Globals.strings.loginTouchCancel,
+							buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+							success : function(){
+								app.navigator.open({
+									titleid : "titleLogin",
+									ctrl : "login",
+								});
+							}
+						});
+						
+					};
+					require("authenticator").logout(passthrough); 
+					
+				},500);
+			});	
+		}
+		return;
+	}
+
 }
+
 
 function didCompleteUpdate() {
 	logger.debug(TAG, "completed async update");

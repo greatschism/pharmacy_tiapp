@@ -3,6 +3,7 @@ var args = $.args,
     authenticator = require("authenticator"),
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
+    touchID = require("touchid"),
     isWindowOpen,
     phone_formatted;
 
@@ -22,11 +23,24 @@ function init() {
 			subtitle : $.strings.accountPatientSwitcherSubtitleMinor
 		}]
 	});
-	
+		
+	if (Alloy.CFG.is_fingerprint_scanner_enabled) {
+		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
+		} else {
+			var iDict = {};
+		    iDict.enabled = false;
+		    $.touchIDSwt.applyProperties(iDict);
+		}		
+	} else {
+		authenticator.setTouchIDEnabled(false);
+	}
+
 	setAccountValues();
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
+    $.app.navigator.hideLoader();
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -123,6 +137,13 @@ function didChangeAutoLogin(e) {
 		});
 	}
 }
+
+function didChangeTouchID(e) {
+	var value = e.value;
+	authenticator.setTouchIDEnabled(value);
+}
+
+
 
 function didClickmobileNumber(e) {
 	/**
