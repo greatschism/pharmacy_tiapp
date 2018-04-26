@@ -28,9 +28,11 @@ function init() {
 		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
 			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
 		} else {
-			var iDict = {};
+			// Disabling till finger-print scanning is not enabled for android
+		/*	var iDict = {};
 		    iDict.enabled = false;
 		    $.touchIDSwt.applyProperties(iDict);
+	    */
 		}		
 	} else {
 		authenticator.setTouchIDEnabled(false);
