@@ -219,9 +219,15 @@ module.exports = {
 							}]
 						}],
 						"navigation" : {
-							"url" : "https://www.pharmacarewards.com/cp/login.aspx"
+							"url" : "https://www.pharmacarewards.com/cp/login.aspx?RGD=90C3391A-AC59-4B3F-A164-0FAB24998D0B"
 						}
-					}, {
+					}]
+				}]	
+			}, {
+				"apiName" : "View",
+				"classes" : ["margin-left-large", "margin-right-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"children" : [{
+					"items" : [{
 						"apiName" : "View",
 						"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
 						"properties" : {
