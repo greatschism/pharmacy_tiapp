@@ -101,11 +101,11 @@ var BarcodeReader = {
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
+			navbarView.add(helpBtn);
 			navbarView.add(navIconBtn);
 			if (Ti.App.accessibilityEnabled) {
 				navbarView.add(navTitleLbl);
 			};
-			navbarView.add(helpBtn);
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
 			BarcodeReader.__window.add(overlayView);

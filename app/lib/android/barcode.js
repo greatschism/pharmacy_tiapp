@@ -118,8 +118,8 @@ var BarcodeReader = {
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
-			navbarView.add(navIconBtn);
 			navbarView.add(helpBtn);
+			navbarView.add(navIconBtn);
 			overlayView.add(titleLbl);
 			overlayView.add(navbarView);
 			_.extend(options, {
