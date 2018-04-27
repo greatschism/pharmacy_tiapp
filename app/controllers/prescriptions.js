@@ -25,7 +25,8 @@ var args = $.args,
     dialogCount = 0,
     isMedSyncCheckoutReady = false;
     promiseTimeRx= {},
-    isCheckoutHeaderVisible = false;
+    isCheckoutHeaderVisible = false,
+    isPrimaryStoreAvailable = false;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -957,7 +958,9 @@ function prepareList() {
 									};
 								} else if (prescription.get("is_checkout_complete") === "1") {
 									checkoutReadyScripts = false;
-								};
+								} else if (prescription.get("is_checkout_complete") === "0") {
+									checkoutReadyScripts = true;
+								}
 								
 							}
 							
@@ -993,7 +996,12 @@ function prepareList() {
 								headerTitle = "Checkout";
 							}
 						} else {
-							headerTitle = "Checkout";
+							if (checkoutReadyScripts) {
+								headerTitle = "Checkout";
+							} else{
+								headerTitle = $.strings.titleCheckoutCompleteHeader;
+							};
+							
 						}
 	
 						// the title here is overridden in uihelper to show the shopping cart image
@@ -1169,10 +1177,11 @@ function prepareList() {
 function updateNextPickDate(presc) {
 	if (presc.has("nextSyncFillDate") && presc.get("nextSyncFillDate") != null && presc.get("refill_status") == apiCodes.refill_status_ready) {
 		var nextSyncFillDate = moment(presc.get("nextSyncFillDate"), "MM/DD/YYYY");
-		if((presc.get("primary_store_id") === presc.get("original_store_id")) || 
-			(nextPickupDate != "" && (nextSyncFillDate.isBefore(moment(nextPickupDate)))) ||
-			(nextPickupDate == "")) 
+		if((presc.get("primary_store_id") === presc.get("original_store_id")) || (nextPickupDate == "")) 
 		{
+			nextPickupDate = presc.get("nextSyncFillDate");
+			isPrimaryStoreAvailable = true;
+		} else if (!isPrimaryStoreAvailable && nextPickupDate != "" && nextSyncFillDate.isBefore(moment(nextPickupDate))) {
 			nextPickupDate = presc.get("nextSyncFillDate");
 		}
 	}

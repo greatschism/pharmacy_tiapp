@@ -171,6 +171,7 @@ function didGetCheckoutDetails(result) {
 		});
 	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
 		var isCheckoutComplete = false;
+		var isMedSyncScriptReady = false;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
 			_.some(prescriptions, function(prescription, index2) {
@@ -179,6 +180,9 @@ function didGetCheckoutDetails(result) {
 					indexOfCheckoutCompletePresc = [index1, index2];
 					return true;
 				}
+				if (prescription.nextSyncFillDate != null || prescription.nextSyncFillDate != "") {
+					isMedSyncScriptReady = isMedSyncCheckoutReady(prescription);
+				};
 				return false;
 			});
 		});
@@ -189,10 +193,28 @@ function didGetCheckoutDetails(result) {
 			} else {
 				$.parentView.visible = true;
 			}
+		} else if(!isMedSyncScriptReady) {
+			uihelper.showDialog({
+				message : "No Prescription available for checkout.",
+				buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+				success : popToHome
+			});
 		} else {
 			pushToPrescriptionList();
 		}
 	}
+}
+
+function isMedSyncCheckoutReady(prescription) {
+	var isMedSyncScriptReady = false;
+	if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "") {
+		var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+		var nextSyncFillDate = prescription.nextSyncFillDate; 
+		var medSyncDate = moment(prescription.nextSyncFillDate).format("MM/DD/YYYY");
+		var now = moment().format("MM/DD/YYYY");					
+		isMedSyncScriptReady = moment(medSyncDate).diff(now, 'days') <= checkOutBy ? true : false;
+	};
+	return isMedSyncScriptReady;
 }
 
 function popToHome() {
