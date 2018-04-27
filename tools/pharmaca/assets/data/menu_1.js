@@ -51,6 +51,16 @@ module.exports = {
 		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
+		"titleid": "titleRewards",
+		"url": "https://www.pharmacarewards.com/cp/login.aspx",
+		"icon": "thick_coupon",
+		"requires_login": false
+	}, {
+		"titleid": "titleShop",
+		"url": "https://www.pharmaca.com",
+		"icon": "cart",
+		"requires_login": false
+	}, {
 		"titleid": "titleHelp",
 		"url": "http://pharmaca.mobilepharmacyhelp.com/",
 		"icon": "thick_help",

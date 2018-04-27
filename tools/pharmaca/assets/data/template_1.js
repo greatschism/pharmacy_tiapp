@@ -200,6 +200,48 @@ module.exports = {
 						"navigation" : {
 							"ctrl" : "account"
 						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+						"properties" : {
+							"width" : "33%"
+						},
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-coupon"]
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleRewards"
+								}
+							}]
+						}],
+						"navigation" : {
+							"url" : "https://www.pharmacarewards.com/cp/login.aspx"
+						}
+					}, {
+						"apiName" : "View",
+						"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+						"properties" : {
+							"width" : "33%"
+						},
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-cart"]
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleShop"
+								}
+							}]
+						}],
+						"navigation" : {
+							"url" : "https://www.pharmaca.com"
+						}
 					}]
 				}]
 			}]

@@ -25,7 +25,9 @@ module.exports = {
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
 	    "loginLblTitle" : "Sign in to the %s Mobile Pharmacy",
-        "titleHelp" : "Help"
+        "titleHelp" : "Help",
+        "titleRewards" : "Rewards",
+        "titleShop" : "Shop"
 	}
 
 };
