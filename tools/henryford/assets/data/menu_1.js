@@ -51,9 +51,10 @@ module.exports = {
 		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
-		"titleid": "titleCoupons",
-		"url": "https://www.henryfordrx.com/",
+		"titleid": "titleCustomMenu1",
+		"menu_url": "customMenu1",
 		"icon": "thick_coupon",
+		"feature_name" : "is_custommenu1_enabled",
 		"requires_login": false
 	}, {
 		"titleid": "titleHelp",

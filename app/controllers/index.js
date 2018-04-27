@@ -59,6 +59,6 @@ function loadAppConifg() {
 	 *  initialize crashreporter only when configurations are ready
 	 *  so can be disabled from server through theme
 	 */
-	require("crashreporter").init();
+	// require("crashreporter").init();
 	Alloy.createController("appload").init();
 }
