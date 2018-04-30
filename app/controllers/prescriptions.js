@@ -1177,11 +1177,11 @@ function prepareList() {
 function updateNextPickDate(presc) {
 	if (presc.has("nextSyncFillDate") && presc.get("nextSyncFillDate") != null && presc.get("refill_status") == apiCodes.refill_status_ready) {
 		var nextSyncFillDate = moment(presc.get("nextSyncFillDate"), "MM/DD/YYYY");
-		if((presc.get("primary_store_id") === presc.get("original_store_id")) || (nextPickupDate == "")) 
+		if((presc.get("primary_store_id") === presc.get("original_store_id"))) 
 		{
 			nextPickupDate = presc.get("nextSyncFillDate");
 			isPrimaryStoreAvailable = true;
-		} else if (!isPrimaryStoreAvailable && nextPickupDate != "" && nextSyncFillDate.isBefore(moment(nextPickupDate))) {
+		} else if ((!isPrimaryStoreAvailable && nextPickupDate != "" && nextSyncFillDate.isBefore(moment(nextPickupDate)))  || nextPickupDate == "") {
 			nextPickupDate = presc.get("nextSyncFillDate");
 		}
 	}
