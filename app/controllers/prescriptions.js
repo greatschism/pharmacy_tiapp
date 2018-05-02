@@ -25,7 +25,8 @@ var args = $.args,
     dialogCount = 0,
     isMedSyncCheckoutReady = false;
     promiseTimeRx= {},
-    isCheckoutHeaderVisible = false;
+    isCheckoutHeaderVisible = false,
+    isPrimaryStoreAvailable = false;
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -154,9 +155,6 @@ function focus() {
 		$.checkoutTipView.visible = true;
 
 		$.bottomView.show();
-	}
-	if(args.navigationFrom == "medSync" || args.navigationFrom == "specialtyGrouping") {
-		$.rightNavBtn.getNavButton().hide(); 
 	}
 	
 	if (Alloy.CFG.is_update_promise_time_enabled) {
@@ -634,15 +632,9 @@ function prepareList() {
 	
 	
 	if (hasMedSyncEnabled) {
-
-		_.some(medSyncPrescriptions, function(presc) {
-			if (presc.has("nextSyncFillDate")) {
-				if (presc.get("nextSyncFillDate") != null) {
-					nextPickupDate = presc.get("nextSyncFillDate");
-					return true;
-				}
-			}
-			return false;
+		
+		_.each(medSyncPrescriptions, function(presc) {
+			updateNextPickDate(presc);
 		});
 	
 		if (_.has(args, "navigationFrom")) {
@@ -963,7 +955,9 @@ function prepareList() {
 									};
 								} else if (prescription.get("is_checkout_complete") === "1") {
 									checkoutReadyScripts = false;
-								};
+								} else if (prescription.get("is_checkout_complete") === "0") {
+									checkoutReadyScripts = true;
+								}
 								
 							}
 							
@@ -999,7 +993,12 @@ function prepareList() {
 								headerTitle = "Checkout";
 							}
 						} else {
-							headerTitle = "Checkout";
+							if (checkoutReadyScripts) {
+								headerTitle = "Checkout";
+							} else{
+								headerTitle = $.strings.titleCheckoutCompleteHeader;
+							};
+							
 						}
 	
 						// the title here is overridden in uihelper to show the shopping cart image
@@ -1170,6 +1169,19 @@ function prepareList() {
 		}
 	}
 
+}
+
+function updateNextPickDate(presc) {
+	if (presc.has("nextSyncFillDate") && presc.get("nextSyncFillDate") != null && presc.get("refill_status") == apiCodes.refill_status_ready) {
+		var nextSyncFillDate = moment(presc.get("nextSyncFillDate"), "MM/DD/YYYY");
+		if((presc.get("primary_store_id") === presc.get("original_store_id"))) 
+		{
+			nextPickupDate = presc.get("nextSyncFillDate");
+			isPrimaryStoreAvailable = true;
+		} else if ((!isPrimaryStoreAvailable && nextPickupDate != "" && nextSyncFillDate.isBefore(moment(nextPickupDate)))  || nextPickupDate == "") {
+			nextPickupDate = presc.get("nextSyncFillDate");
+		}
+	}
 }
 
 function showCheckoutCompleteHeader(key, sectionHeaders, headerTitle, readyHeaderDict, tvSection) {
@@ -1851,7 +1863,7 @@ function didChangeSearch(e) {
 	$.tableView.filterText = e.value || e.source.getValue();
 }
 
-function didClickRightNavBtn(e) { 
+function didClickRightNavBtn(e) {
 	if( args.hideCheckoutHeader) {
 		//return if we're on the checkout page..
 
@@ -2232,7 +2244,7 @@ function hideAllPopups() {
 	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
-	if ((args.hideCheckoutHeader == false) && !(args.navigationFrom == "medSync") && !(args.navigationFrom == "specialtyGrouping")) {
+	if ((args.hideCheckoutHeader == false) && !(args.navigationFrom == "medSync") && !(args.navigationFrom == "specialtyGrouping") && !(args.navigationFrom == "expressCheckout")) {
 		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
