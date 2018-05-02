@@ -1,7 +1,8 @@
 var args = $.args,
-    authenticator = require("authenticator");
-phone = args.phone;
-otp = args.otp;
+    authenticator = require("authenticator"),
+    flow = "",
+	phone = args.phone,
+	otp = args.otp;
 
 function init() {
 
@@ -53,6 +54,11 @@ function skipClicked() {
 }
 
 function didNotReceiveClicked() {
+	flow = 'noReply';
+	getPatient(onFailure);
+}
+
+function onFailure() {
 	$.app.navigator.open({
 		titleid : "titleTextHelp",
 		ctrl : "textMessage",
@@ -85,10 +91,15 @@ function didNotReceiveClicked() {
 }
 
 function replyTextMessage() {
+	flow = 'relpied';
+	getPatient(didFailPatient);
+}
+
+function getPatient(passthrough) {
 	$.http.request({
 		method : "patient_get",
 		success : didGetPatient,
-		failure : didFailPatient
+		failure : passthrough
 	});
 }
 
@@ -152,40 +163,44 @@ function didGetPatient(result) {
 	var verified = result.data.patients.is_mobile_verified;
 	if (parseInt(verified)) {
 		$.uihelper.showDialog({
-			message : Alloy.Globals.strings.textMessageMobileVerified,
+			message : flow === 'noReply' ? Alloy.Globals.strings.textMessageNoReplyMobileVerified : Alloy.Globals.strings.textMessageMobileVerified,
 			success : didReplied
 		});
 	} else {
-		$.app.navigator.open({
-			titleid : "titleTextMsgSignUp",
-			ctrl : "textMessage",
-			stack : true,
-			ctrlArguments : {
-				"phone" : phone,
-				"otp" : otp,
-				"txtCode" : true,
-				"txtMsgTitle" : false,
-				"txtMsgLbl" : false,
-				"signUpLbl" : true,
-				"signUpTitle" : true,
-				"txtHelpTitle" : false,
-				"txtHelpLbl" : false,
-				"replyTextMsgBtn" : true,
-				"sendMeTextAgainSignUpBtn" : true,
-				"sendMeTextAgainTextHelpBtn" : false,
-				"skipSignUpAttr" : true,
-				"skipNoTextMsgAttr" : false,
-				"didNotReceiveTextAttr" : false,
-				"stillReceiveTextAttr" : false,
-				"checkPhoneAttr" : false,
-				"txtNotReceiveTitle" : false,
-				"txtNotReceiveLbl" : false,
-				"txtNotReceiveBtn" : false,
-				"skipTxtNotReceiveAttr" : false,
-				"txtSuccessImg" : false,
-				"txtFailImg" : true
-			},
-		});
+		if(flow !== 'noReply') {
+			$.app.navigator.open({
+				titleid : "titleTextMsgSignUp",
+				ctrl : "textMessage",
+				stack : true,
+				ctrlArguments : {
+					"phone" : phone,
+					"otp" : otp,
+					"txtCode" : true,
+					"txtMsgTitle" : false,
+					"txtMsgLbl" : false,
+					"signUpLbl" : true,
+					"signUpTitle" : true,
+					"txtHelpTitle" : false,
+					"txtHelpLbl" : false,
+					"replyTextMsgBtn" : true,
+					"sendMeTextAgainSignUpBtn" : true,
+					"sendMeTextAgainTextHelpBtn" : false,
+					"skipSignUpAttr" : true,
+					"skipNoTextMsgAttr" : false,
+					"didNotReceiveTextAttr" : false,
+					"stillReceiveTextAttr" : false,
+					"checkPhoneAttr" : false,
+					"txtNotReceiveTitle" : false,
+					"txtNotReceiveLbl" : false,
+					"txtNotReceiveBtn" : false,
+					"skipTxtNotReceiveAttr" : false,
+					"txtSuccessImg" : false,
+					"txtFailImg" : true
+				},
+			});
+		} else {
+			onFailure();
+		}
 	}
 }
 
