@@ -236,8 +236,7 @@ function pushToPrescriptionList() {
 			patientSwitcherDisabled : true,
 			hideCheckoutHeader : false,
 			navigationFrom : "expressCheckout"
-		},
-		stack : true
+		}
 	}); 
 
 }

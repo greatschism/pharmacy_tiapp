@@ -156,9 +156,6 @@ function focus() {
 
 		$.bottomView.show();
 	}
-	if(args.navigationFrom == "medSync" || args.navigationFrom == "specialtyGrouping") {
-		$.rightNavBtn.getNavButton().hide(); 
-	}
 	
 	if (Alloy.CFG.is_update_promise_time_enabled) {
 		getPromiseTimeOptions();
@@ -1866,7 +1863,7 @@ function didChangeSearch(e) {
 	$.tableView.filterText = e.value || e.source.getValue();
 }
 
-function didClickRightNavBtn(e) { 
+function didClickRightNavBtn(e) {
 	if( args.hideCheckoutHeader) {
 		//return if we're on the checkout page..
 
@@ -2247,7 +2244,7 @@ function hideAllPopups() {
 	if ($.unhidePicker && $.unhidePicker.getVisible()) {
 		return $.unhidePicker.hide();
 	}
-	if ((args.hideCheckoutHeader == false) && !(args.navigationFrom == "medSync") && !(args.navigationFrom == "specialtyGrouping")) {
+	if ((args.hideCheckoutHeader == false) && !(args.navigationFrom == "medSync") && !(args.navigationFrom == "specialtyGrouping") && !(args.navigationFrom == "expressCheckout")) {
 		$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 			landing_page : true
 		}).toJSON());
