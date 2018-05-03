@@ -156,6 +156,9 @@ function focus() {
 
 		$.bottomView.show();
 	}
+	if(args.navigationFrom == "medSync" || args.navigationFrom == "specialtyGrouping") {
+		$.rightNavBtn.getNavButton().hide();
+	}
 	
 	if (Alloy.CFG.is_update_promise_time_enabled) {
 		getPromiseTimeOptions();
