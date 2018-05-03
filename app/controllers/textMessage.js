@@ -35,6 +35,16 @@ function init() {
 }
 
 function backButtonHandler() {
+	flow = 'noReply';
+	getPatient(goToHome);
+}
+
+function goToHome() {
+	$.app.navigator.open({
+		titleid : "titleHomePage",
+		ctrl : "home",
+		stack : false
+	});
 }
 
 function skipClicked() {
@@ -46,11 +56,7 @@ function skipClicked() {
 	});
 	currentPatient.set("is_mobile_verified", "0");
 
-	$.app.navigator.open({
-		titleid : "titleHomePage",
-		ctrl : "home",
-		stack : false
-	});
+	goToHome();
 }
 
 function didNotReceiveClicked() {
