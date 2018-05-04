@@ -172,6 +172,7 @@ function didGetCheckoutDetails(result) {
 	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
 		var isCheckoutComplete = false;
 		var isMedSyncScriptReady = false;
+		var isMedSyncOnly = true;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
 			_.some(prescriptions, function(prescription, index2) {
@@ -180,9 +181,11 @@ function didGetCheckoutDetails(result) {
 					indexOfCheckoutCompletePresc = [index1, index2];
 					return true;
 				}
-				if (prescription.nextSyncFillDate != null || prescription.nextSyncFillDate != "") {
+				if (prescription.nextSyncFillDate != null) {
 					isMedSyncScriptReady = isMedSyncCheckoutReady(prescription);
-				};
+				} else {
+					isMedSyncOnly = false;
+				}
 				return false;
 			});
 		});
@@ -193,9 +196,9 @@ function didGetCheckoutDetails(result) {
 			} else {
 				$.parentView.visible = true;
 			}
-		} else if(!isMedSyncScriptReady) {
+		} else if(isMedSyncOnly && !isMedSyncScriptReady) {
 			uihelper.showDialog({
-				message : "No Prescription available for checkout.",
+				message : Alloy.Globals.strings.expressCheckoutNoRxReady,
 				buttonNames : [Alloy.Globals.strings.dialogBtnClose],
 				success : popToHome
 			});
