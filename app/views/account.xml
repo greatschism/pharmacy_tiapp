@@ -98,6 +98,13 @@
 				</View>
 			</TableViewRow>
 		</TableViewSection>
+		<TableViewSection id="paymentOptionsSection">
+			<HeaderView>
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="paymentOptionsLbl" class="margin-left right-25 h3 inactive-fg-color" />
+				</View>
+			</HeaderView>
+		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">
 				<Button id="helpBtn" analyticsId="HelpBtn" class="margin-top bg-color primary-fg-color primary-border" onClick="didClickHelp" />

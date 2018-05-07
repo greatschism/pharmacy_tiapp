@@ -65,3 +65,6 @@
 "#loginLbl":{
 	text : Alloy.Globals.strings.accountSectionSignin
 }
+"#paymentOptionsLbl":{
+	text : Alloy.Globals.strings.accountSectionPaymentOptions
+}

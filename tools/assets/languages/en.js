@@ -728,6 +728,7 @@ module.exports = {
 		"accountSectionPrescriptionDisplay" : "Prescription display",
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
+		"accountSectionPaymentOptions" : "Payment Options",
 		"accountSuccessBtnContactSupport" : "Contact support",
 		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "Agreements and Notices",

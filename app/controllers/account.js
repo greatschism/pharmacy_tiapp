@@ -39,6 +39,7 @@ function init() {
 	}
 
 	setAccountValues();
+	getCreditCardInfo();
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
@@ -367,6 +368,48 @@ function terminate() {
 	if ($.patientSwitcher) {
 		$.patientSwitcher.terminate();
 	}
+}
+
+function getCreditCardInfo(passthrough) {
+	$.http.request({
+		method : "payments_credit_card_get",
+		params : {
+			data : [
+				{
+					"getCreditCard": {
+						"fetchAll": Alloy.CFG.fetch_all_credit_cards
+					}
+		        }
+			]
+		},
+		errorDialogEnabled : false,
+		passthrough: passthrough,
+		success : didGetCreditCardInfo,
+		failure : didFailureInCreditCardInfo
+	});
+}
+
+function didGetCreditCardInfo(result, passthrough) {
+	
+	for(var i=0,j=result.data.CreditCard.length; i<j; i++){
+		var creditCardInfo = result.data.CreditCard[i];
+  		var cardType = creditCardInfo.paymentType.paymentTypeDesc;
+  		var lastFourDigits = creditCardInfo.lastFourDigits;
+  		var expiry_date = creditCardInfo.expiry_date;
+	  
+		
+	};
+	
+}
+
+function didClickCCEdit() {
+	uihelper.showDialog({
+		message : $.strings.checkoutEditCardInfo
+	});
+}
+
+function didFailureInCreditCardInfo(result, passthrough) {
+	
 }
 
 exports.init = init;
