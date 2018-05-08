@@ -764,6 +764,8 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 		"accountHintEmail" : "Email address",
+		"accountEditCC" : "Edit",
+		"accountInfoCC" : "%s ending with ***%s",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",

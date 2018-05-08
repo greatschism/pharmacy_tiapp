@@ -98,7 +98,7 @@
 				</View>
 			</TableViewRow>
 		</TableViewSection>
-		<TableViewSection id="paymentOptionsSection">
+		<TableViewSection id="paymentOptionsSection" if="Alloy.CFG.show_credit_card">
 			<HeaderView>
 				<View class="margin-top min-height inactive-light-bg-color">
 					<Label id="paymentOptionsLbl" class="margin-left right-25 h3 inactive-fg-color" />

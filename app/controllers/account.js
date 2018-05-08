@@ -39,7 +39,9 @@ function init() {
 	}
 
 	setAccountValues();
-	getCreditCardInfo();
+	if(Alloy.CFG.show_credit_card) {
+		getCreditCardInfo();
+	}
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
@@ -393,23 +395,22 @@ function didGetCreditCardInfo(result, passthrough) {
 	
 	for(var i=0,j=result.data.CreditCard.length; i<j; i++){
 		var creditCardInfo = result.data.CreditCard[i];
-  		var cardType = creditCardInfo.paymentType.paymentTypeDesc;
-  		var lastFourDigits = creditCardInfo.lastFourDigits;
-  		var expiry_date = creditCardInfo.expiry_date;
 	  
-		
+		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", creditCardInfo);
+		creditCardRow.on("clickedit", didClickCCEdit);
+		$.tableView.appendRow(creditCardRow.getView());
 	};
 	
 }
 
 function didClickCCEdit() {
-	uihelper.showDialog({
+	$.uihelper.showDialog({
 		message : $.strings.checkoutEditCardInfo
 	});
 }
 
 function didFailureInCreditCardInfo(result, passthrough) {
-	
+	// $.tableView.remove
 }
 
 exports.init = init;
