@@ -765,7 +765,9 @@ module.exports = {
 		"accountsAgreementHIPAA" : "HIPAA",
 		"accountHintEmail" : "Email address",
 		"accountEditCC" : "Edit",
+		"accountAddCC" : "Add",
 		"accountInfoCC" : "%s ending with ***%s",
+		"accountNoCC" : "No card available",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",

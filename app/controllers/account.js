@@ -396,7 +396,12 @@ function didGetCreditCardInfo(result, passthrough) {
 	for(var i=0,j=result.data.CreditCard.length; i<j; i++){
 		var creditCardInfo = result.data.CreditCard[i];
 	  
-		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", creditCardInfo);
+	  	var params = {
+			hasCard : true,
+			rightButtonText : Alloy.Globals.strings.accountEditCC,
+			creditCardInfo : creditCardInfo
+		};
+		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 		creditCardRow.on("clickedit", didClickCCEdit);
 		$.tableView.appendRow(creditCardRow.getView());
 	};
@@ -410,7 +415,13 @@ function didClickCCEdit() {
 }
 
 function didFailureInCreditCardInfo(result, passthrough) {
-	// $.tableView.remove
+	var params = {
+		hasCard : false,
+		rightButtonText : Alloy.Globals.strings.accountAddCC
+	};
+	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
+	creditCardRow.on("clickedit", didClickCCEdit);
+	$.tableView.appendRow(creditCardRow.getView());
 }
 
 exports.init = init;
