@@ -980,7 +980,7 @@ function prepareList() {
 						var headerTitle = "";
 						
 								
-						var checkoutReadyScripts = true;
+						var checkoutReadyScripts = false;
 						var specialtyCompleteCount = 0;
 						var specialtyReadyCount = 0;
 						Alloy.Collections.prescriptions.each(function(prescription) {
@@ -1009,7 +1009,7 @@ function prepareList() {
 											specialtyReadyCount++;
 										}
 									};
-								} else if (prescription.get("is_checkout_complete") === "1") {
+								} else if (!checkoutReadyScripts && prescription.get("is_checkout_complete") === "1") {
 									checkoutReadyScripts = false;
 								} else if (prescription.get("is_checkout_complete") === "0") {
 									checkoutReadyScripts = true;
