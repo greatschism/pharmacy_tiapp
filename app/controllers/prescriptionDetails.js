@@ -833,11 +833,15 @@ function loadCopay() {
 			} else {
 				logger.debug("copay is null");
 				// $.copayView.hide(true);
-				$.copayView.height = 0;
+				if($.copayView) {
+					$.copayView.height = 0;
+				}
 			}
 		}
 	} else {
-		$.copayView.height = 0;
+		if($.copayView) {
+			$.copayView.height = 0;
+		}
 
 	}
 }

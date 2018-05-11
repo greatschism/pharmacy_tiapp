@@ -80,5 +80,20 @@
 	}, {
 		"id": "dartmouth",
 		"description": "D-H Pharmacy"
-	}
+	}, {
+		"id": "reasors",
+		"description": "Reasors Rx"
+	}, {
+		"id": "froedtert",
+		"description": "Froedtert Rx"
+	}, {
+		"id": "supervalu",
+		"description": "Supervalu Rx"
+	}, {
+		"id": "ingles",
+		"description": "Ingles Rx"
+	},{
+		"id": "raleys",
+		"description": "Raleys Rx"
+	}	
 ]

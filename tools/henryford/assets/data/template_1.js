@@ -710,7 +710,7 @@ module.exports = {
 								"accessibility-actionablelements"
 							],
 							"properties": {
-								"textid": "titleCoupons"
+								"textid": "titleCustomMenu1"
 							},
 							"children": [
 								{
@@ -750,7 +750,7 @@ module.exports = {
 																"touch-disabled"
 															],
 															"properties": {
-																"textid": "titleCoupons"
+																"textid": "titleCustomMenu1"
 															}
 														}
 													]
@@ -760,8 +760,9 @@ module.exports = {
 									]
 								}
 							],
+							"feature_name": "is_custommenu1_enabled",
 							"navigation": {
-								"url": "https://www.henryfordrx.com/"
+								"menu_url": "customMenu1"
 							}
 						},
 						{

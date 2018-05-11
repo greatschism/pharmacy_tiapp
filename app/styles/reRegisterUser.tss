@@ -1,0 +1,11 @@
+"#window[platform=android]":{
+	exitOnClose: true,
+	theme: "Theme.Material.NoActionBar"
+},
+"#submitBtn":{
+	title: Alloy.Globals.strings.reRegisterBtnSubmit
+},
+
+"#reregisterInfoAttr":{
+	html: Alloy.Globals.strings.reRegisterBtnSkip
+}
