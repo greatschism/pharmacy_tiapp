@@ -10,7 +10,7 @@ var TAG = "AUTH",
     localization = require("localization"),
     feedbackHandler = require("feedbackHandler"),
     notificationHandler = require("notificationHandler"),
-    crashreporter = require("crashreporter"),
+    // crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
@@ -216,8 +216,6 @@ function checkCodeValues(passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_relationship
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_sort_order_preference
-				}, {
-					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
 				}]
 			}]
 		},
@@ -235,7 +233,6 @@ function didGetCodeValues(result, passthrough) {
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
 	Alloy.Models.sortOrderPreferences.set(result.data.codes[3]);
-	Alloy.Models.counselingEligible.set(result.data.codes[4]);
 	
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
@@ -883,7 +880,7 @@ function completeAuthentication(passthrough) {
 	 * update crash reporter
 	 * with user username
 	 */
-	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
+	// crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
 	

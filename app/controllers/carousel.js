@@ -2,7 +2,8 @@ var args = $.args,
     navigationHandler = require("navigationHandler"),
     currentId = "appImg",
     statusObj = {},
-    viewsCount;
+    viewsCount,
+    logger = require("logger");
 
 function init() {
 	//update paging control count
@@ -12,7 +13,7 @@ function init() {
 	
 	//logo - align all labels to be in sync with logo
 	var fromTop = $.logoImg.top + $.logoImg.height + $.appLbl.top;
-	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl"], function(val) {
+	_.each(["prescLbl", "refillLbl", "remindersLbl", "familyCareLbl","expPickupLbl"], function(val) {
 		if ($[val]) {
 			$[val].top = fromTop;
 		}
@@ -29,6 +30,7 @@ function init() {
 	Alloy.CFG.is_quick_refill_enabled && setImages($.refillImg, "refill", 28);
 	Alloy.CFG.is_reminders_enabled && setImages($.remindersImg, "reminders", 14);
 	Alloy.CFG.is_proxy_enabled && setImages($.familyCareImg, "family_care", 23);
+	Alloy.CFG.is_express_checkout_enabled && setImages($.expPickupImg, "exp_pickup", 17);
 	//first launch flag
 	$.utilities.setProperty(Alloy.CFG.first_launch_app, false, "bool", false);
 }
@@ -118,27 +120,48 @@ function didClickNext(e) {
 	} else {	
 		$.submitBtn.accessibilityValue = $.strings.accessibilityLblScreenChange;
 	
-		if(Alloy.CFG.is_proxy_enabled)
+		if(Alloy.Models.appload.get("is_reRegister_required") === "1")
 		{
-			Alloy.Globals.carouselFlow = true;
- 			$.app.navigator.open({
-				ctrl : "register",
-				titleid : "titleRegister"
- 			});
-		} else {
-			$.app.navigator.open({
-				ctrl : "signup",
-				titleid : "titleCreateAccount"
-			});
-		}	
+			reRegisterScreen();
+		}
+		else {
+			if(Alloy.CFG.is_proxy_enabled)
+			{
+				Alloy.Globals.carouselFlow = true;
+	 			$.app.navigator.open({
+					ctrl : "register",
+					titleid : "titleRegister"
+	 			});
+			} else {
+				$.app.navigator.open({
+					ctrl : "signup",
+					titleid : "titleCreateAccount"
+				});
+			}
+		}
  	}
 
 }
 
 function didClickSkip(e) {
-	navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
+	if(Alloy.Models.appload.get("is_reRegister_required") === "1") {
+		reRegisterScreen();
+	}
+	else {
+		navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
+	}
+}
+
+function reRegisterScreen() {
+	/**
+	 * Open Reregister window
+	 */
+	$.app.navigator.open({
+		titleid : "reRegisterUser",
+		ctrl : "reRegisterUser"
+	});
 }
 
 exports.init = init;

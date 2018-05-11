@@ -30,7 +30,7 @@ function didClickTextSignup() {
 }
 
 function didClickSkipTextSignup() {
-	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", true, "bool", true);
+	var isFamilyMemberAddPrescFlow = $.utilities.getProperty("familyMemberAddPrescFlow", false, "bool", true);
 	if (args.isFamilyMemberFlow) {
 		$.app.navigator.open({
 			titleid : "titleFamilyAccounts",

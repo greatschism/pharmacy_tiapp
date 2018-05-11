@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="MaterialAlertDialogTitle">
+		<item name="android:textColor">#000000</item>
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+	</style>
+	<style name="Material.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorControlHighlight">#D4D4D4</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:textColorPrimary">#000000</item>
+		<item name="android:windowTitleStyle">@style/MaterialAlertDialogTitle</item>
+		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+	</style>
+	<style name="Material.ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<!--Required on pre-lollipop, will make entire dialog transparent on lollipop-->
+		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+	</style>
+	<style name="Material.EditText" parent="@android:style/Widget.EditText">
+		<item name="android:background">@null</item>
+		<item name="android:paddingLeft">8dp</item>
+		<item name="android:paddingRight">8dp</item>
+	</style>
+	<style name="Material.ListView" parent="@android:style/Widget.ListView">
+		<item name="android:dividerHeight">1px</item>
+	</style>
+	<style name="Material.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
+		<item name="spinBars">true</item>
+		<item name="color">@android:color/black</item>
+	</style>
+	<style name="Theme.Material" parent="Theme.AppCompat.Light">
+		<item name="colorControlHighlight">#D4D4D4</item>
+		<item name="android:colorEdgeEffect">#D4D4D4</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:textColorHint">#757584</item>
+		<item name="android:textCursorDrawable">@null</item>
+		<item name="android:windowBackground">@android:color/white</item>
+		<item name="dialogTheme">@style/Material.AlertDialog</item>
+		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
+		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
+		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
+		<item name="android:editTextStyle">@style/Material.EditText</item>
+		<item name="android:listViewStyle">@style/Material.ListView</item>
+		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
+		<!--action bar shadow for pre-lollipop-->
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+		<!--action bar shadow for pre-lollipop-->
+		<item name="colorControlNormal">@android:color/black</item>
+	</style>
+	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+	</style>
+	<style name="Theme.Material.Translucent.NoActionBar" parent="Theme.Material.NoActionBar">
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:colorBackgroundCacheHint">@null</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
+	<style name="Theme.Material.Splash" parent="Theme.Material.NoActionBar">
+		<item name="android:windowBackground">@drawable/background</item>
+	</style>
+</resources>
