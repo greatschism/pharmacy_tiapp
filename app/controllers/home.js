@@ -8,7 +8,6 @@ var args = $.args,
     bannerItems = Alloy.Models.banner.get("items"),
     spanTimeId,
     logger = require("logger");
-;
 
 function init() {
 	var items = Alloy.Models.template.get("data");
