@@ -19,7 +19,8 @@ module.exports = {
         "userRecoveryValEmail" : "Please enter your email address.",
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
-         "titleHelp" : "Help"
+	    "refillFailureLblTitle": "We don't recognize that barcode. If scanning, please try the other barcode on your label. If you still experience problems, please contact your pharmacy.",
+        "titleHelp" : "Help"
 	}
 
 };
