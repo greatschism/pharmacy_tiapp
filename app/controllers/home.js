@@ -10,7 +10,6 @@ var args = $.args,
     spanTimeId,     
     logger = require("logger");
 
-
 function init() {
 	var items = Alloy.Models.template.get("data");
 	_.each(items, function(item) {
