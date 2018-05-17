@@ -550,7 +550,7 @@ function didClickRefill(e) {
 			rx_number : prescription.rx_number,
 			store_id : storeId,
 			pickup_mode : pickupMode,
-			pickup_time_group : apiCodes.pickup_time_group_asap
+			pickup_time_group : Alloy.CFG.pickup_time_group
 		});
 	});
 	$.http.request({

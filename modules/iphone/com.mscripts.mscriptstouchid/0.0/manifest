@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 0.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: another attempt to get this to work
+author: Macsolving
+license: ask my boss
+copyright: 2017
+
+# these should not be edited
+name: mscripts touch id
+moduleid: com.mscripts.mscriptstouchid
+guid: 0a2752ff-aa15-4c55-8098-064ef8b20742
+platform: iphone
+minsdk: 5.1.2.GA

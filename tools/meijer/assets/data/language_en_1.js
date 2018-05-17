@@ -41,7 +41,7 @@ module.exports = {
 		"expPickupBenefitsList5" : "At Meijer, we take your privacy seriously. At the close of your transaction, you will be provided with a scan code which can be used to identify you without having to provide a name and date of birth to the store employee.",
 		"expPickupBenefitsTitle" : "What is it?",
 		"prescriptionsInProcessNewTime": "Click here to select new time",
-		
-		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits"
+		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits",
+		"remindersSettingsSectionRx" : "Rx message settings"
 	}
 };

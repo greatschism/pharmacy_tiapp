@@ -1,4 +1,5 @@
-var args = $.args,
+var args = $.args,   
+	authenticator = require("authenticator"),
     navigationHandler = require("navigationHandler"),
     feedbackHandler = require("feedbackHandler"),
     moduleNames = require("moduleNames"),
@@ -6,7 +7,7 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
-    spanTimeId,
+    spanTimeId,     
     logger = require("logger");
 
 function init() {
@@ -532,10 +533,29 @@ function trackEvent(action, label) {
 }
 
 function didClickRightNav(e) {
-	$.app.navigator.open({
-		titleid : "titleLogin",
-		ctrl : "login"
-	});
+
+
+
+	if ( authenticator.getTouchIDEnabled() ) {
+		// $.app.navigator.open({
+		// 	titleid : "titleLogin",
+		// 	ctrl : "login",
+		// 	ctrlArguments : {  
+		// 		useTouchID : true
+		//   	}
+		// });
+		navigationHandler.navigate({
+			titleid : "titleLogin",
+			ctrl : "login",
+			requires_login_auth : true
+		});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleLogin",
+			ctrl : "login"
+		});
+	}
+
 }
 
 function didClickRightNavLoggedIn(e) {

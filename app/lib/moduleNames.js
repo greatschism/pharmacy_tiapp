@@ -96,6 +96,7 @@ module.exports = {
 	"RERE" : "Reminders",
 	"RERB" : "Reminders",
 	"RESE" : "Reminders",
+	"RSNS" : "Reminders",
 	/**
 	 * prescriptions
 	 */

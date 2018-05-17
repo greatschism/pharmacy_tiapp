@@ -78,7 +78,7 @@ function init() {
 		$.moNumberTxt.setSelection(len, len);
 		store = args.store;
 
-		if (store) {
+		if (store && store.title) {
 			store.shouldUpdate = false;
 			$.storeTitleLbl.text = store.title;
 		}
@@ -93,7 +93,7 @@ function focus() {
 	 */
 
 	// alert($.nameView.getRect().height);
-	if (store && store.shouldUpdate) {
+	if (store && store.shouldUpdate && store.title) {
 		store.shouldUpdate = false;
 		$.storeTitleLbl.text = store.title;
 	}

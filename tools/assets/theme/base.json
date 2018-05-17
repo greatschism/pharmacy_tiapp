@@ -145,6 +145,7 @@
                 "photo_default_height":600,
                 "thumbnail_default_width":250,
                 "thumbnail_default_height":250,
+                "fetch_all_credit_cards": "1",
                 "iconNotations":{
                     "tooltip_arrow_up":"0xE000",
                     "switch_on":"0xE001",

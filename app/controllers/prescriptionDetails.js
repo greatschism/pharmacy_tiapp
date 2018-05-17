@@ -276,7 +276,7 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_grouping_enabled ?(prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle):
+	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_enabled ?(prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle):
 	prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
@@ -356,7 +356,7 @@ function didPostlayoutPromptStore(e){
 }
 
 function didClickStore(e){
-	if(Alloy.CFG.is_specialty_store_grouping_enabled){	
+	if(Alloy.CFG.is_specialty_store_enabled){	
 	if(prescription.is_specialty_store && prescription.store_phone){
 			storePhone();
 		}
