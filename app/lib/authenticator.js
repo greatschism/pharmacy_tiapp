@@ -10,7 +10,7 @@ var TAG = "AUTH",
     localization = require("localization"),
     feedbackHandler = require("feedbackHandler"),
     notificationHandler = require("notificationHandler"),
-    crashreporter = require("crashreporter"),
+    // crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
@@ -865,7 +865,7 @@ function completeAuthentication(passthrough) {
 	 * update crash reporter
 	 * with user username
 	 */
-	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
+	// crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
 	

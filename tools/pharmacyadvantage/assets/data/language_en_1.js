@@ -24,7 +24,12 @@ module.exports = {
         "userRecoveryValEmail" : "Please enter your email address or username.",
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-         "titleHelp" : "Help"
+         "titleHelp" : "Help",
+         "reRegisterUser" : "Welcome!",
+         "reRegister_welcome" : "Welcome to the new Pharmacy Advantage Mobile Pharmacy App!",
+         "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
+         "reRegisterBtnSubmit" : "Create a new account",
+         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>"
 	}
 
 };

@@ -526,7 +526,7 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url);
+	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url || navigation.menu_url);
 }
 
 function trackEvent(action, label) {

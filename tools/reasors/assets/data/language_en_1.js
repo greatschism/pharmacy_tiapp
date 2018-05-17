@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "Reasors Rx",
+		"strClientName" : "Reasor’s",
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
 		"titleRefill" : "Refill by scan",
@@ -11,7 +11,8 @@ module.exports = {
 		"loginHintEmailOrUsername" : "Email address",
         "userRecoveryValEmail":"Please enter your email address.",
         "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
-	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>"
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
+	    "loginLblTitle" : "Sign in to the %s Pharmacy on your phone"
 	}
 
 };

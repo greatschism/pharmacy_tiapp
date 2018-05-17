@@ -63,6 +63,18 @@ function navigate(itemObj) {
 			break;
 		}
 	}
+	else if (_.has(itemObj, "menu_url")) {
+		
+		var title = "title"+itemObj.menu_url[0].toUpperCase() + itemObj.menu_url.substring(1);
+		
+		app.navigator.open({
+				titleid : title,
+				ctrl : "dynamicMenuOption",
+				ctrlArguments : {
+					menu_url : itemObj.menu_url
+				}
+			});	
+	}
 }
 
 function touchIDAuth(resp, itemObj)  {
