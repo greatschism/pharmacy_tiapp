@@ -70,15 +70,18 @@ function setAccountValues(){
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
 	$.timeZoneReplyLbl.text = getTimeZone(currentPatient);
-	$.languageReplyLbl.text = currentPatient.get("pref_language");
+	
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
-	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
 	
 	$.mobileInfoView.accessibilityLabel = $.mobileNumberLbl.text + "  " + $.mobileNumberValue.text;
 	$.emailInfoView.accessibilityLabel = $.emailLbl.text + "  " + $.emailValue.text;
 	$.timeZoneInfoView.accessibilityLabel = $.timeZonePromptLbl.text + "  " + $.timeZoneReplyLbl.text;
-	$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
+	if (Alloy.CFG.show_language_enabled) {
+		$.languageReplyLbl.text = currentPatient.get("pref_language");
+		$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
+		$.languagePicker.setItems(Alloy.Models.language.get("code_values"));		
+	};
 }
 
 function getTimeZone(currentPatient) {
