@@ -2431,7 +2431,7 @@ function didPostlayout(e) {
 				$.checkoutTipLbl.text =  Alloy.Globals.strings.checkoutTipLblTitle + Alloy.Globals.strings.checkoutTipLblMultipleStores;
 			}
 
-			bottom = bottom + $.submitBtn.height * 3 ; // accomodating the checkoutTipView
+			bottom = bottom + $.submitBtn.height * 2 ; // accomodating the checkoutTipView
 		} else {
 			bottom = $.checkoutTipView.getVisible() ? $.checkoutTipView.height + bottom + $.submitBtn.height + $.submitBtn.bottom : bottom + $.submitBtn.height;
 		}
