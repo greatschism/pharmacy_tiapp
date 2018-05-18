@@ -39,13 +39,13 @@ function init() {
 	}
 
 	setAccountValues();
-	if(Alloy.CFG.show_credit_card) {
-		getCreditCardInfo();
-	}
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
     $.app.navigator.hideLoader();
+    if(Alloy.CFG.show_credit_card) {
+		getCreditCardInfo();
+	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -389,6 +389,7 @@ function getCreditCardInfo(passthrough) {
 		},
 		errorDialogEnabled : false,
 		passthrough: passthrough,
+		keepLoader: true,
 		success : didGetCreditCardInfo,
 		failure : didFailureInCreditCardInfo
 	});
@@ -408,7 +409,7 @@ function didGetCreditCardInfo(result, passthrough) {
 		creditCardRow.on("clickedit", didClickCCEdit);
 		$.tableView.appendRow(creditCardRow.getView());
 	};
-	
+	$.app.navigator.hideLoader();
 }
 
 function didClickCCEdit() {
@@ -425,6 +426,7 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 	creditCardRow.on("clickedit", didClickCCEdit);
 	$.tableView.appendRow(creditCardRow.getView());
+	$.app.navigator.hideLoader();
 }
 
 exports.init = init;
