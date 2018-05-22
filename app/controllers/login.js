@@ -345,7 +345,7 @@ function didPostlayout(e) {
 	 * Note: event listener should be removed
 	 * to avoid redundant event calls
 	 */
-	$.autoLoginLbl.removeEventListener("postlayout", didPostlayout);
+	$.autoLoginView.removeEventListener("postlayout", didPostlayout);
 	/**
 	 * apply properties for the tooltip
 	 *
@@ -358,7 +358,7 @@ function didPostlayout(e) {
 	}));
 
 	$.tooltip.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,
+		top : OS_IOS ? $.autoLoginView.rect.y + $.autoLoginView.rect.height : $.autoLoginView.rect.y - $.autoLoginView.rect.height,
 		width : "90%"
 	}));
 
@@ -372,7 +372,6 @@ function didPostlayout(e) {
 			$.tooltip.show();
 		};
 	}
-
 }
 
 function didClickHide(e) {
