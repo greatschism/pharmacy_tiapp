@@ -8,7 +8,55 @@ var args = $.args,
     authenticator = require("authenticator"),
     logger = require("logger"),
     keyboardModule = require("com.mscripts.hidekeyboard"),
+    openedViaUrl = false,
+    needsUrlRedirect = false,
     reload = false;
+
+
+
+function confirmUrlRedirect(url, resumed) {
+
+		Ti.API.info(" !!! confirmUrlRedirect !!! ")
+	var navPage = (url.split('page='))[1];
+		navPage = navPage.split('&')[0];
+	Alloy.Globals.url = url
+	if(navPage === "prescriptions") {
+		if (resumed === true) {
+			navigationHandler.navigate({
+				titleid : "titlePrescriptions",
+				ctrl : "prescriptions",
+				requires_login : true
+			}); 
+		} else {
+			needsUrlRedirect = true;
+			return true;
+		}
+	} else if (navPage === "doctors") {
+		if (resumed === true) {
+			navigationHandler.navigate({
+				titleid : "titleDoctors",
+				ctrl : "doctors",
+				requires_login : true
+			}); 
+		} else {
+			needsUrlRedirect = true;
+			return true;
+		}
+	} else if (navPage === "insurance") {
+		if (resumed === true) {
+			navigationHandler.navigate({
+				titleid : "titleInsurance",
+				ctrl : "insurance"
+			});
+		} else {
+			needsUrlRedirect = true;
+			return true;
+		}
+	} else {
+		Alloy.Globals.url = undefined
+		return false;
+	}
+}
 
 function init() {
 	if (OS_IOS) {
@@ -21,6 +69,30 @@ function init() {
 		 */
 		Ti.App.addEventListener("paused", didAppPaused);
 		Ti.App.addEventListener("resumed", didAppResumed);
+
+		$.rootWindow.addEventListener('open', function (e) {
+		    
+
+		    	Ti.API.info("opened")
+
+		        // Handle the URL in case it opened the app
+		    	//Ti.API.info( JSON.stringify( Ti.App.getArguments().url) )
+		     	if( typeof Ti.App.getArguments().url === 'string' ) {
+		     		confirmUrlRedirect(Ti.App.getArguments().url, false)
+		         }
+
+		        // Handle the URL in case it resumed the app
+		        Ti.App.addEventListener('resumed', function () {
+			    	//Ti.API.info("resumed")
+
+			        // Handle the URL in case it opened the app
+			     	if( typeof Ti.App.getArguments().url === 'string' ) {
+		     			confirmUrlRedirect(Ti.App.getArguments().url, true)
+		     		}
+		        });
+		});
+
+
 		//drawer window events
 		$.drawer.on("open", didOpen);
 		$.drawer.on("close", didClose);
@@ -38,6 +110,12 @@ function init() {
 		$.rootWindow.addEventListener("androidback", didAndoridBack);
 		//to hide keyboard when drawer slides
 		$.drawer.on("draweropen", hideKeyboard);
+
+        if( typeof Alloy.Globals.url === 'string' ) {
+			confirmUrlRedirect(Alloy.Globals.url, false)
+			openedViaUrl = true;
+	    }
+	    
 	}
 	$.drawer.open();
 }
@@ -86,6 +164,57 @@ function didOpen(e) {
 		failure : didAuthenticate,
 		force_start : true
 	});
+
+	if(OS_IOS) {
+				// ctrlArguments : {
+				//  	navigationFrom : "url"
+				// },
+		if (needsUrlRedirect) {
+			needsUrlRedirect = false;
+			if(typeof Alloy.Globals.url === 'string') {
+				Ti.API.info("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url )
+				var navPage = (Alloy.Globals.url.split('page='))[1];
+					navPage = navPage.split('&')[0];
+				if(navPage === "prescriptions") {
+					navigationHandler.navigate({
+						titleid : "titlePrescriptions",
+						ctrl : "prescriptions",
+						requires_login : true
+					}); 
+				} else if (navPage === "doctors") {
+					navigationHandler.navigate({
+						titleid : "titleDoctors",
+						ctrl : "doctors",
+						requires_login : true
+					}); 
+				} else if (navPage === "insurance") {
+					app.navigator.open({
+						titleid : "titleInsurance",
+						ctrl : "insurance"
+					});
+				}
+			}
+		}
+	}
+	if(OS_ANDROID) {
+		if (openedViaUrl) {
+			openedViaUrl = false;
+			if(typeof Alloy.Globals.url === 'string') {
+				Ti.API.info("openedViaUrl Alloy.Globals.url == "+ Alloy.Globals.url )
+				var navPage = (Alloy.Globals.url.split('page='))[1];
+					navPage = navPage.split('&')[0];
+			 	if (navPage === "insurance") {
+					app.navigator.open({
+						titleid : "titleInsurance",
+						ctrl : "insurance"
+					});
+				}
+			}
+		}
+
+	}
+
+
 }
 
 function didAuthenticate(passthrough, navigationHandled) {	
@@ -94,22 +223,88 @@ function didAuthenticate(passthrough, navigationHandled) {
 	/**
 	 * Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (Alloy.Globals.isAccountUpgraded) {
-		app.navigator.open({
-			ctrl : "hipaa",
-			titleid : "titleHIPAAauthorization",
-			stack : false
-		});
+	 
+	if (OS_IOS) {
+		if (Alloy.Globals.url) {
+			var navPage = (Alloy.Globals.url.split('page='))[1];
+			navPage = navPage.split('&')[0];
+			if (navPage === "prescriptions") {
+				app.navigator.open({
+					titleid : "titlePrescriptions",
+					ctrl : "prescriptions",
+					ctrlArguments : {
+						navigationFrom : "url"
+					}
+				});
+			} else if (navPage === "settings") {
+				app.navigator.open({
+					titleid : "titleAccount",
+					ctrl : "account",
+					ctrlArguments : {
+						navigationFrom : "url"
+					}
+				});
+			}
+			Alloy.Globals.url = null;
+		} else if (Alloy.Globals.isAccountUpgraded) {
+			app.navigator.open({
+				ctrl : "hipaa",
+				titleid : "titleHIPAAauthorization",
+				stack : false
+			});
+		}
+		/**
+		 * navigationHandled - whether or not to
+		 * initiate a navigation.
+		 */
+		else  if (!navigationHandled && !needsUrlRedirect) {
+			navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
+				landing_page : true
+			}).toJSON());
+		}
+	} else {
+		if (Alloy.Globals.isAccountUpgraded) {
+			app.navigator.open({
+				ctrl : "hipaa",
+				titleid : "titleHIPAAauthorization",
+				stack : false
+			});
+		}
+		/**
+		 * navigationHandled - whether or not to
+		 * initiate a navigation.
+		 */
+		else  if (!navigationHandled && !needsUrlRedirect) {
+
+			navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
+				landing_page : true
+			}).toJSON());
+		}
+
+
+			if (needsUrlRedirect) {
+				needsUrlRedirect = false;
+				if(typeof Alloy.Globals.url === 'string') {
+					Ti.API.info("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url )
+					var navPage = (Alloy.Globals.url.split('page='))[1];
+						navPage = navPage.split('&')[0];
+					if(navPage === "prescriptions") {
+						navigationHandler.navigate({
+							titleid : "titlePrescriptions",
+							ctrl : "prescriptions",
+							requires_login : true
+						}); 
+					} else if (navPage === "doctors") {
+						navigationHandler.navigate({
+							titleid : "titleDoctors",
+							ctrl : "doctors",
+							requires_login : true
+						}); 
+					}
+				}
+			}
 	}
-	/**
-	 * navigationHandled - whether or not to
-	 * initiate a navigation.
-	 */
-	else if (!navigationHandled) {
-		navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
-			landing_page : true
-		}).toJSON());
-	}
+	
 	/**
 	 * set active flag
 	 * for notification panel
