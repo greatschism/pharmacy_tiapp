@@ -10,10 +10,11 @@ var TAG = "AUTH",
     localization = require("localization"),
     feedbackHandler = require("feedbackHandler"),
     notificationHandler = require("notificationHandler"),
-    crashreporter = require("crashreporter"),
+    // crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
+	touchID = require("touchid"),
     v6keychain = OS_ANDROID ? require('com.mscripts.androidkeychain') : require("com.mscripts.keychainimporter");
 
 function init(passthrough) {
@@ -216,8 +217,6 @@ function checkCodeValues(passthrough) {
 					code_name : Alloy.CFG.apiCodes.code_relationship
 				}, {
 					code_name : Alloy.CFG.apiCodes.code_sort_order_preference
-				}, {
-					code_name : Alloy.CFG.apiCodes.code_counseling_eligible
 				}]
 			}]
 		},
@@ -235,7 +234,6 @@ function didGetCodeValues(result, passthrough) {
 	Alloy.Models.timeZone.set(result.data.codes[1]);
 	Alloy.Models.relationship.set(result.data.codes[2]);
 	Alloy.Models.sortOrderPreferences.set(result.data.codes[3]);
-	Alloy.Models.counselingEligible.set(result.data.codes[4]);
 	
 	appendFlag(Alloy.Models.language.get("code_values"), localization.currentLanguage.code);
 	appendFlag(Alloy.Models.relationship.get("code_values"), Alloy.Models.relationship.get("default_value"));
@@ -408,22 +406,6 @@ function didGetPatient(result, passthrough) {
 
 function didGetPreferences(result, passthrough) {
 
-
-	 Ti.API.info("Patient PREFS!!!");
-	
-	 Ti.API.info(JSON.stringify(result));
-	 Ti.API.info("Patient PREFS ^^^^^^ !!!");
-
-	//if there is CC info for this user.
-	//TODO: this should detect for the node, not just the existance of the string in the response
-	//I'm uncertain how this applies to potential linked family memebers.  Can we confirm this conditional will only ever execute for the 'main'
-	//user? (ie does the preferences/get API only fire for the user who is logged in as opposed to any family memebers?)
-	if( JSON.stringify(result).indexOf("card_type") !== -1 ) {
-		//set flag that the user has been prompted
-	    Ti.API.info("setProperty(Alloy.CFG.checkout_info_prompted, true    !!!");
-		utilities.setProperty(Alloy.CFG.checkout_info_prompted, true, "bool", false);
-		utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
-	}
 
 	Alloy.Collections.patients.at(passthrough.currentPatientIndex).set(result.data.patients.preferences);
 	//get next patient information
@@ -883,7 +865,7 @@ function completeAuthentication(passthrough) {
 	 * update crash reporter
 	 * with user username
 	 */
-	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
+	// crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
 	
@@ -1197,6 +1179,14 @@ function getData() {
 	};
 }
 
+function forceGetData() {
+	return {
+		username : encryptionUtil.decrypt(keychain.account),
+		password : encryptionUtil.decrypt(keychain.valueData)
+	};
+}
+
+
 function setAutoLoginEnabled(value) {
 	utilities.setProperty(Alloy.CFG.auto_login_enabled, value, "bool", false);
 	/**
@@ -1204,13 +1194,26 @@ function setAutoLoginEnabled(value) {
 	 * user wants to disable it
 	 * this may be called from login or account page
 	 */
-	if (!value) {
+	if (!value && !getTouchIDEnabled()) {
 		keychain.reset();
 	}
 }
 
 function getAutoLoginEnabled() {
 	return utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
+}
+
+function setTouchIDEnabled(value) {
+	utilities.setProperty(Alloy.CFG.touch_id_enabled, value, "bool", false);
+}
+
+function getTouchIDEnabled() {
+	if(touchID.deviceCanAuthenticate) {
+		return utilities.getProperty(Alloy.CFG.touch_id_enabled, false, "bool", false);
+	} else {
+		return false;
+	}
+
 }
 
 /**
@@ -1320,12 +1323,15 @@ function updateFamilyAccounts(passthrough) {
 exports.init = init;
 exports.logout = logout;
 exports.getData = getData;
+exports.forceGetData = forceGetData;
 exports.asProxy = asProxy;
 exports.asManager = asManager;
 exports.setTimeZone = setTimeZone;
 exports.updatePreferences = updatePreferences;
 exports.setAutoLoginEnabled = setAutoLoginEnabled;
 exports.getAutoLoginEnabled = getAutoLoginEnabled;
+exports.setTouchIDEnabled = setTouchIDEnabled;
+exports.getTouchIDEnabled = getTouchIDEnabled;
 exports.updateFamilyAccounts = updateFamilyAccounts;
 exports.getPushModeForDeviceToken = getPushModeForDeviceToken;
 exports.isExpressCheckoutValid = isExpressCheckoutValid;

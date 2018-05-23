@@ -351,6 +351,11 @@ function didClickTableView(e) {
 			titleid : "titlePrescriptionsAdd",
 			ctrl : "prescriptions",
 			ctrlArguments : {
+				filters : {
+					syncScriptEnrolled : ["1"],
+					prefill : ["Y"],
+					is_specialty_store : ["1"]
+				},
 				patientSwitcherDisabled : true,
 				showHiddenPrescriptions : true,
 				validator : "none",

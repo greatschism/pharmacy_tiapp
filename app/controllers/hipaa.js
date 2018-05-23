@@ -54,14 +54,8 @@ function applyWebViewProperties(url){
 	
 	$.webView.addEventListener('load', function (e){
 		var actualHeight = 0;
-		if (OS_ANDROID) {
-			actualHeight = e.source.evalJS('document.documentElement.scrollHeight;') - e.source.evalJS('document.documentElement.clientHeight;');
-		}
-		else{
-	    	actualHeight = e.source.evalJS('document.documentElement.scrollHeight;');
-	   	}
-	   	
-    	e.source.height = parseInt(actualHeight) + 80;
+		actualHeight = e.source.evalJS('document.documentElement.scrollHeight;');
+		e.source.height = OS_IOS ? parseInt(actualHeight) + 60 : parseInt(actualHeight);
 	    hideLoader();
     }); 
     
@@ -107,23 +101,31 @@ function didAcceptOrDecline(){
 	 */
 	utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
 	
-	currentPatient = Alloy.Collections.patients.findWhere({
-		selected : true
-	});
-	
-	if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
-		app.navigator.open({
-			titleid : "titleHomePage",
-			ctrl : "home",
+	if (Alloy.CFG.is_express_checkout_enabled) {
+		$.app.navigator.open({
+			titleid : "titleExpressPickupBenefits",
+			ctrl : "expressPickupBenefits",
 			stack : false
 		});
-	} else{
-		app.navigator.open({
-			titleid : "titleTextBenefits",
-			ctrl : "textBenefits",
-			stack : false
+	} else {
+		currentPatient = Alloy.Collections.patients.findWhere({
+			selected : true
 		});
-	};
+		
+		if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+			app.navigator.open({
+				titleid : "titleHomePage",
+				ctrl : "home",
+				stack : false
+			});
+		} else{
+			app.navigator.open({
+				titleid : "titleTextBenefits",
+				ctrl : "textBenefits",
+				stack : false
+			});
+		};
+	}
 }
 
 function showLoader() {

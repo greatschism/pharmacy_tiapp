@@ -20,6 +20,7 @@ module.exports = {
 	"EMVE" : "emailVerify",
 	"EXCH" : "expressCheckout",
 	"EXQR" : "expressQR",
+	"EXPB" : "expressPickupBenefits",
 	"FACA" : "familyCare",
 	"FAMA" : "familyMemberAdd",
 	"FAMI" : "familyMemberInvite",
@@ -48,6 +49,7 @@ module.exports = {
 	"REFA" : "RefillFailure",
 	"REFI" : "Refill",
 	"REGI" : "register",
+	"RERU" : "reRegisterUser",
 	"REHI" : "RefillHistory",
 	"REME" : "RemindersMed",
 	"REMI" : "Reminders",
@@ -56,6 +58,7 @@ module.exports = {
 	"RERB" : "RemindersRefillBenefits",
 	"RERE" : "RemindersRefill",
 	"RESE" : "RemindersSettings",
+	"RSNS" : "RxStatusNotificationSettings",
 	"RESU" : "RefillSuccess",
 	"RETY" : "RefillType",
 	"RXSA" : "RxSample",
@@ -81,5 +84,6 @@ module.exports = {
 	"INSU" : "insuraceCard",
 	"INPR" : "insuranceProfile",
 	"ININ" : "insuranceInput",
-	"VSIC" : "vSixCarousel"
+	"VSIC" : "vSixCarousel",
+	"DYMO" : "dynamicMenuOption"
 };

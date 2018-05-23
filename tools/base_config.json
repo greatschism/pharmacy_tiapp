@@ -11,6 +11,7 @@
 			"patient_get": "patient/get",
 			"patient_preferences_get": "patient/preferences/get",
 			"patient_preferences_update": "patient/preferences/update",
+			"patient_preferences_update_carryoverpref": "patient/preferences/updatecarryoverpref",
 			"patient_default_device": "setdefaultdevice",
 			"patient_update": "patient/update/email",
 			"patient_logout": "patient/logout",
@@ -22,6 +23,8 @@
 			"patient_family_add_fullacount": "patient/addfullaccount",
 			"patient_forgotpassword": "patient/forgotpassword",
 			"patient_manager_add": "patient/manager/add",
+			"patient_rx_notification_types": "patient/preferences/getnotificationtypes",
+			"patient_rx_notification_update": "patient/preferences/updatenotificationsettings",
 			"stores_list": "stores/listnew",
 			"stores_get": "stores/get",
 			"stores_bookmark_add": "stores/bookmark/add",
@@ -65,7 +68,9 @@
 			"mobile_resend": "patient/mobile/resend",
 			"email_resend": "patient/email/resend",
 			"mailorder_stores_get": "stores/getmailorderservice",
-			"checkout_preferences_update": "payments/updateCheckoutPreferences"
+			"checkout_preferences_update": "payments/updateCheckoutPreferences",
+			"payments_credit_card_get": "payments/getCreditCard",
+			"update_promise_time": "prescriptions/updatepromisetimeoption"
 		},
 		"apiCodes": {
 			"success": "200",
@@ -130,7 +135,8 @@
 			"code_time_zone": "Time Zone",
 			"code_language": "MultiLanguage",
 			"code_relationship": "Relationship",
-			"code_counseling_eligible": "Counseling Eligible"
+			"code_counseling_eligible": "Counseling Eligible",
+			"code_promise_time": "Promise Time Option"
 		},
 		"appconfig_url": "https://applink.mscripts.com/app_handler_carbon/getappjconfig",
 		"geocode_url": "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:US&address=",
@@ -143,7 +149,8 @@
 		"delete_unused_resources": false,
 		"storage_engine": "tiencrypted",
 		"first_launch_app": "firstLaunchApp",
-		"first_launch_reminders": "firstLaunchReminders",
+		"first_launch_reminders": "firstLaunchReminders",		
+		"touchid_prompted": "touchidPrompted",
 		"first_launch_med_reminders": "firstLaunchMedReminders",        
 		"checkout_info_prompted": "checkoutInfoPrompted",
 		"show_loyalty_signup": "showLoyaltySignup",       
@@ -158,6 +165,7 @@
 		"latest_feedback_option": "latestFeedbackOption",
 		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
+		"touch_id_enabled": "touchIDEnabled",
 		"auto_login_enabled": "autoLoginEnabled"
 	},
 	"env:development": {},

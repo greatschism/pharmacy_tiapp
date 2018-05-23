@@ -36,13 +36,13 @@ function focus() {
 function didFail(error, passthrough) {
 	$.loader.hide();
 	handleClose();
-
 }
 
 function didGetHistory(result, passthrough) {
 	var data = [],
 	    clientDateFormat = Alloy.CFG.date_format,
-	    serverDateFormat = Alloy.CFG.apiCodes.date_format;
+	    serverDateFormat = Alloy.CFG.apiCodes.date_format,
+	    presNameSection = $.uihelper.createTableViewSection($, prescription.presc_name);
 	httpClient = null;
 	if (result && result.data) {
 		/**
@@ -50,17 +50,35 @@ function didGetHistory(result, passthrough) {
 		 */
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
-			history = {
-				id : history.store_id,
-				title : $.utilities.ucword(history.addressline1),
-				subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
-				detailSubtitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || "",
-				detailTitle : history.copay != null ? "$"+parseFloat(history.copay) : ""
-			};
+
+			if (Alloy.CFG.is_specialty_store_enabled && history.is_specialty_store == 1) {
+				var subtitleClasses = ["active-fg-color", "left"];
+				history = {
+					id : history.store_id,
+					title : $.utilities.ucword(history.store_name),
+					subtitle : history.original_store_phone_number ? history.original_store_phone_number : $.utilities.ucword(history.addressline1) + ", " + $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+					subtitleClasses : history.original_store_phone_number ? subtitleClasses : "",
+					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
+					detailType : "positive",
+					detailSubtitle : history.quantity != null ? (history.quantityUnit ? history.quantity + " " + history.quantityUnit : history.quantity) : "",
+					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
+				};
+			} else {
+				history = {
+					id : history.store_id,
+					title : $.utilities.ucword(history.addressline1),
+					subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
+					detailType : "positive",
+					detailSubtitle : history.quantity != null ? (history.quantityUnit ? history.quantity + " " + history.quantityUnit : history.quantity) : "",
+					tertiaryTitle : history.filled_date && moment(history.filled_date, serverDateFormat).format(clientDateFormat) || ""
+				};
+			}
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
 			rows.push(row);
+			row.on("clickPhone", didClickPhone);
 		});
 	} else {
 		/**
@@ -68,11 +86,12 @@ function didGetHistory(result, passthrough) {
 		 */
 		_.each(prescription.history, function(history) {
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
 			rows.push(row);
 		});
 	}
-	$.tableView.setData(data);
+	data.push(presNameSection);
+	$.tableView.setData(data);	//	$.tableView.appendSection(presNameSection);	// alternate way is to use appendSection 
 	$.loader.hide();
 }
 
@@ -98,6 +117,32 @@ function terminate() {
 
 function handleClose() {
 	$.app.navigator.close();
+}
+
+function didClickPhone(e) {
+	if ($.utilities.validatePhoneNumber(e.data.subtitle)) {
+		if (!Titanium.Contacts.hasContactsPermissions()) {
+			Titanium.Contacts.requestContactsPermissions(function(result) {
+				if (result.success) {
+					$.uihelper.getPhone({
+						firstName : e.data.title,
+						phone : {
+							work : [e.data.subtitle]
+						}
+					}, e.data.subtitle);
+				} else {
+					$.analyticsHandler.trackEvent("Specialty-ContactDetails", "click", "DeniedContactsPermission");
+				}
+			});
+		} else {
+			$.uihelper.getPhone({
+				firstName : e.data.title,
+				phone : {
+					work : [e.data.subtitle]
+				}
+			}, e.data.subtitle);
+		}
+	}
 }
 
 exports.init = init;

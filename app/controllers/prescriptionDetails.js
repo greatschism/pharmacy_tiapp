@@ -220,8 +220,8 @@ function loadPresecription() {
 	/*
 	 * Hide schedule 2 drug for refill
 	 *
-	 */
-	if (prescription.schedule == 2) {
+	 */	
+	 if ($.refillBtn && prescription.schedule == 2) {
 		$.refillBtn.height = 0;
 	}
 
@@ -271,7 +271,8 @@ function loadDoctor() {
 
 function loadStore() {
 	$.prescAsyncView.hide();
-	$.storeReplyLbl.text = prescription.store.title + "\n" + prescription.store.subtitle;
+	$.storeReplyLbl.text = Alloy.CFG.is_specialty_store_enabled ?(prescription.is_specialty_store && prescription.store_phone ? prescription.store_phone : prescription.store.title + "\n" + prescription.store.subtitle):
+	prescription.store.title + "\n" + prescription.store.subtitle;
 	/**
 	 * Keep the expandable view opened
 	 * by default (PHA-1086)
@@ -303,28 +304,103 @@ function didUpdateUI() {
 }
 
 function didPostlayoutPrompt(e) {
-	var source = e.source,
+		var source = e.source,
 	    children = source.getParent().children;
-	source.removeEventListener("postlayout", didPostlayoutPrompt);
-	children[1].applyProperties({
-		left : children[1].left + children[0].rect.width,
-		visible : true
-	});
+	    source.removeEventListener("postlayout", didPostlayoutPrompt);
+	    children[1].applyProperties({
+			left : children[1].left + children[0].rect.width,
+			visible : true
+		});		    
+	postlayoutCount++;
+	if (postlayoutCount === 4) {
+		$.prescExp.setStopListening(true);
+	}
+}
+function didPostlayoutPromptStore(e){
+		var source = e.source,
+	    children = source.getParent().children;
+
+	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
+
+		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
+			$.reminderRefillView.hide();
+			$.reminderRefillView.height = 0;
+
+		}
+
+	    if(prescription.is_specialty_store && prescription.store_phone){	    		    
+	    children[1].applyProperties({
+			left : children[1].left + children[0].rect.width,
+			visible : true
+		});		    		
+		children[2].applyProperties({
+			left : children[0].rect.width + (2 * children[1].rect.width),
+			visible : true
+		});
+	}
+	else{
+	    children[2].applyProperties({
+			left : children[2].left + children[0].rect.width,
+			visible : true
+		});	
+	}
 	postlayoutCount++;
 	if (postlayoutCount === 4) {
 		$.prescExp.setStopListening(true);
 	}
 }
 
-function didClickStore(e) {
-	$.app.navigator.open({
-		titleid : "titleStoreDetails",
-		ctrl : "storeDetails",
-		ctrlArguments : {
-			store : prescription.store
-		},
-		stack : true
-	});
+function didClickStore(e){
+	if(Alloy.CFG.is_specialty_store_enabled){	
+	if(prescription.is_specialty_store && prescription.store_phone){
+			storePhone();
+		}
+	else{
+	  $.app.navigator.open({
+		  titleid : "titleStoreDetails",
+		  ctrl : "storeDetails",
+		  ctrlArguments : {
+			  store : prescription.store
+		  },
+		  stack : true
+	  });
+	 }
+	}
+	else{
+	  $.app.navigator.open({
+		  titleid : "titleStoreDetails",
+		  ctrl : "storeDetails",
+		  ctrlArguments : {
+			  store : prescription.store
+		  },
+		  stack : true
+	  });
+	 }
+}
+
+function storePhone(){
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				contactsHandler();
+			}
+			else{
+				$.analyticsHandler.trackEvent("Spacialty-ContactDetails", "click", "DeniedContactsPermission");
+			}
+		});
+	} else {
+		contactsHandler();
+	}
+}
+function contactsHandler() {
+	 if (prescription.store_phone!= null) {
+		 $.uihelper.getPhone({
+			 firstName : prescription.original_store_store_name,
+			 phone : {
+				 work : [prescription.store_phone]
+			 }
+		 }, prescription.store_phone);
+	 }
 }
 
 function didClickDoctor(e) {
@@ -752,11 +828,15 @@ function loadCopay() {
 			} else {
 				logger.debug("copay is null");
 				// $.copayView.hide(true);
-				$.copayView.height = 0;
+				if($.copayView) {
+					$.copayView.height = 0;
+				}
 			}
 		}
 	} else {
-		$.copayView.height = 0;
+		if($.copayView) {
+			$.copayView.height = 0;
+		}
 
 	}
 }

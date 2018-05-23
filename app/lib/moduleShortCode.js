@@ -39,6 +39,7 @@ module.exports = {
 	"MGAU" : "LORE",
 	"PHON" : "LORE",
 	"REGI" : "LORE",
+	"RERU" : "LORE",
 	"RECI" : "LORE",
 	"REAI" : "LORE",
 	"SHMC" : "LORE",
@@ -86,6 +87,7 @@ module.exports = {
 	"RERE" : "REMI",
 	"RERB" : "REMI",
 	"RESE" : "REMI",
+	"RSNS" : "REMI",
 	/**
 	 * prescriptions
 	 */
@@ -99,6 +101,7 @@ module.exports = {
 	"CHEC" : "CHEC",
 	"EXCH" : "EXCH",
 	"EXQR" : "EXQR",
+	"EXPB" : "EXPB",
 	/**
 	 * quick refill
 	 */
@@ -134,7 +137,10 @@ module.exports = {
 	 */
 	"INSU" : "INSU",
 	"INPR" : "INPR",
-	"ININ" : "ININ"
+	"ININ" : "ININ",
 	
-	
+	/**
+	 * dynamic menu option
+	 */
+	"DYMO" : "DYMO"
 };

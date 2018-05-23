@@ -145,6 +145,7 @@
                 "photo_default_height":600,
                 "thumbnail_default_width":250,
                 "thumbnail_default_height":250,
+                "fetch_all_credit_cards": "1",
                 "iconNotations":{
                     "tooltip_arrow_up":"0xE000",
                     "switch_on":"0xE001",
@@ -173,7 +174,8 @@
                     "insurance_card":"0xE019",
                     "thick_help":"0xE00E",
                     "thick_refill_now":"0xe01b",
-                    "thick_services":"0XE01C"
+                    "thick_services":"0XE01C",
+                    "checkout_cart" : "0XE01D"
                 },
                 "icons":{
                     "numeric_zero":"0",
@@ -745,6 +747,12 @@
             },
             ".h2[platform=android]":{
                 "font":"${H2_PLATFORM_ANDROID}"
+            },
+            ".h2m[platform=ios]":{
+                "font":"${H2M_PLATFORM_IOS}"
+            },
+            ".h2m[platform=android]":{
+                "font":"${H2M_PLATFORM_ANDROID}"
             },
             ".h3[platform=ios]":{
                 "font":"${H3_PLATFORM_IOS}"

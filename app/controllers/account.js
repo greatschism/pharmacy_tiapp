@@ -3,6 +3,7 @@ var args = $.args,
     authenticator = require("authenticator"),
     localization = require("localization"),
     apiCodes = Alloy.CFG.apiCodes,
+    touchID = require("touchid"),
     isWindowOpen,
     phone_formatted;
 
@@ -22,11 +23,29 @@ function init() {
 			subtitle : $.strings.accountPatientSwitcherSubtitleMinor
 		}]
 	});
-	
+		
+	if (Alloy.CFG.is_fingerprint_scanner_enabled) {
+		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
+		} else {
+			// Disabling till finger-print scanning is not enabled for android
+		/*	var iDict = {};
+		    iDict.enabled = false;
+		    $.touchIDSwt.applyProperties(iDict);
+	    */
+		}		
+	} else {
+		authenticator.setTouchIDEnabled(false);
+	}
+
 	setAccountValues();
+	if(Alloy.CFG.show_credit_card) {
+		getCreditCardInfo();
+	}
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
+    $.app.navigator.hideLoader();
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -118,6 +137,13 @@ function didChangeAutoLogin(e) {
 		});
 	}
 }
+
+function didChangeTouchID(e) {
+	var value = e.value;
+	authenticator.setTouchIDEnabled(value);
+}
+
+
 
 function didClickmobileNumber(e) {
 	/**
@@ -339,6 +365,58 @@ function terminate() {
 	if ($.patientSwitcher) {
 		$.patientSwitcher.terminate();
 	}
+}
+
+function getCreditCardInfo(passthrough) {
+	$.http.request({
+		method : "payments_credit_card_get",
+		params : {
+			data : [
+				{
+					"getCreditCard": {
+						"fetchAll": Alloy.CFG.fetch_all_credit_cards
+					}
+		        }
+			]
+		},
+		errorDialogEnabled : false,
+		passthrough: passthrough,
+		success : didGetCreditCardInfo,
+		failure : didFailureInCreditCardInfo
+	});
+}
+
+function didGetCreditCardInfo(result, passthrough) {
+	
+	for(var i=0,j=result.data.CreditCard.length; i<j; i++){
+		var creditCardInfo = result.data.CreditCard[i];
+	  
+	  	var params = {
+			hasCard : true,
+			rightButtonText : Alloy.Globals.strings.accountEditCC,
+			creditCardInfo : creditCardInfo
+		};
+		var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
+		creditCardRow.on("clickedit", didClickCCEdit);
+		$.tableView.appendRow(creditCardRow.getView());
+	};
+	
+}
+
+function didClickCCEdit() {
+	$.uihelper.showDialog({
+		message : $.strings.checkoutEditCardInfo
+	});
+}
+
+function didFailureInCreditCardInfo(result, passthrough) {
+	var params = {
+		hasCard : false,
+		rightButtonText : Alloy.Globals.strings.accountAddCC
+	};
+	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
+	creditCardRow.on("clickedit", didClickCCEdit);
+	$.tableView.appendRow(creditCardRow.getView());
 }
 
 exports.init = init;

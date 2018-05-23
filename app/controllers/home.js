@@ -1,4 +1,5 @@
-var args = $.args,
+var args = $.args,   
+	authenticator = require("authenticator"),
     navigationHandler = require("navigationHandler"),
     feedbackHandler = require("feedbackHandler"),
     moduleNames = require("moduleNames"),
@@ -525,7 +526,7 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url);
+	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url || navigation.menu_url);
 }
 
 function trackEvent(action, label) {
@@ -533,10 +534,29 @@ function trackEvent(action, label) {
 }
 
 function didClickRightNav(e) {
-	$.app.navigator.open({
-		titleid : "titleLogin",
-		ctrl : "login"
-	});
+
+
+
+	if ( authenticator.getTouchIDEnabled() ) {
+		// $.app.navigator.open({
+		// 	titleid : "titleLogin",
+		// 	ctrl : "login",
+		// 	ctrlArguments : {  
+		// 		useTouchID : true
+		//   	}
+		// });
+		navigationHandler.navigate({
+			titleid : "titleLogin",
+			ctrl : "login",
+			requires_login_auth : true
+		});
+	} else {
+		$.app.navigator.open({
+			titleid : "titleLogin",
+			ctrl : "login"
+		});
+	}
+
 }
 
 function didClickRightNavLoggedIn(e) {
@@ -546,9 +566,8 @@ function didClickRightNavLoggedIn(e) {
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
-	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
-		$.rightNavBtn.getNavButton().show();
 	}
 
 	var source = e.source,

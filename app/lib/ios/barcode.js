@@ -3,7 +3,8 @@
  * A zbar barcode reader
  */
 
-var TAG = "BARC",
+var	app = require("core"),
+	TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     BarcodeModule = require("com.mfogg.squarecamera"),
@@ -86,6 +87,10 @@ var BarcodeReader = {
 			    navIconBtn = $.UI.create("Button", {
 				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
+			    helpBtn = $.UI.create("Button", {
+				classes : ["margin-right", "marin-top-extra-large", "i4", "txt-right", "primary-font-color", "border-disabled", "icon-help"]
+				
+			}),
 				navTitleLbl = $.UI.create("Label", {
 				classes : ["title-control", "txt-center"],
 				text : Alloy.Globals.strings.titleRefill
@@ -95,6 +100,8 @@ var BarcodeReader = {
 				text : Alloy.Globals.strings.barcodeLblTitle
 			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
+			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
+			navbarView.add(helpBtn);
 			navbarView.add(navIconBtn);
 			if (Ti.App.accessibilityEnabled) {
 				navbarView.add(navTitleLbl);
@@ -138,6 +145,15 @@ var BarcodeReader = {
 		}
 
 		isBusy = false;
+	},
+	
+	didClickHelp : function(e) {
+		BarcodeReader.cancel();
+		app.navigator.open({
+			titleid : "titleRxSample",
+			ctrl : "rxSample",
+			stack : true
+		});
 	},
 
 	/**

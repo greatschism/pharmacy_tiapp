@@ -1,4 +1,5 @@
 var args = $.args,
+    logger = require("logger"),
 
     app = require("core"),
     http = require("requestwrapper"),
@@ -16,12 +17,50 @@ var args = $.args,
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
-		getCheckoutInfo();
+		getCreditCardInfo();
 	}
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
 	exp_counter_key = getExpressCheckoutCounter();
+}
+
+function getCreditCardInfo() {
+	$.http.request({
+		method : "payments_credit_card_get",
+		params : {
+			data : [
+				{
+					"getCreditCard": {
+						"fetchAll": Alloy.CFG.fetch_all_credit_cards
+					}
+		        }
+			]
+		},
+		errorDialogEnabled : false,
+		success : didGetCreditCardInfo,
+		failure : didFailureInCreditCardInfo
+	});
+}
+
+function didGetCreditCardInfo(result, passthrough) {
+	/**
+	 * 	for now we are picking just first credit card 
+	 * 	but in future we may need to store multiple cards
+	 */
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
+	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
+	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
+	currentPatient.set("expiry_date", result.data.CreditCard[0].expiryDate);
+	getCheckoutInfo();
+}
+
+function didFailureInCreditCardInfo(result, passthrough) {
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
+	currentPatient.unset("card_type");
+	currentPatient.unset("last_four_digits");
+	currentPatient.unset("expiry_date");
+	getCheckoutInfo();
 }
 
 function getExpressCheckoutCounter() {
@@ -45,14 +84,67 @@ function getCheckoutInfo() {
 		params : {
 			data : []
 		},
-		errorDialogEnabled : true,
+		errorDialogEnabled : false,
 		success : didGetCheckoutDetails,
 		failure : checkoutDetailsFail
 	});
 }
 
-function checkoutDetailsFail() {
-	popToHome();
+function checkoutDetailsFail(error, passthrough) {
+	var err = error.message;
+	if (err.indexOf("click here.") !== -1) {
+		var dialogView = $.UI.create("ScrollView", {
+			apiName : "ScrollView",
+			classes : ["top", "auto-height", "vgroup"]
+		});
+		dialogView.add($.UI.create("Label", {
+			apiName : "Label",
+			classes : ["margin-top-extra-large", "margin-left-extra-large", "margin-right-extra-large", "h3"],
+			text : "Express Pick-up"
+		}));
+
+		$.lbl = Alloy.createWidget("ti.styledlabel", "widget", $.createStyle({
+			classes : ["margin-top", "margin-bottom", "margin-left-extra-large", "margin-right", "h6", "txt-centre", "attributed"],
+			html : $.strings.expressCheckoutNoCConFile,
+		}));
+		$.lbl.on("click", openExpressPickupBenefits);
+
+		dialogView.add($.lbl.getView());
+		_.each([{
+			title : Alloy.Globals.strings.dialogBtnOK,
+			classes : ["margin-left-extra-large", "margin-right-extra-large", "margin-bottom", "bg-color", "primary-fg-color", "primary-border"]
+		}], function(obj, index) {
+			var btn = $.UI.create("Button", {
+				apiName : "Button",
+				classes : obj.classes,
+				title : obj.title,
+				index : index
+			});
+			$.addListener(btn, "click", popToHome);
+			dialogView.add(btn);
+		});
+		$.loyaltyDialog = Alloy.createWidget("ti.modaldialog", "widget", $.createStyle({
+			classes : ["modal-dialog"],
+			children : [dialogView]
+		}));
+		$.contentView.add($.loyaltyDialog.getView());
+		$.loyaltyDialog.show();
+
+	} else {
+		uihelper.showDialog({
+			message : err,
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			success : popToHome
+		});
+	}
+}
+
+function openExpressPickupBenefits() {
+	$.app.navigator.open({
+		titleid : "titleExpressPickupBenefits",
+		ctrl : "expressPickupBenefits",
+		stack : false
+	}); 
 }
 
 function didGetCheckoutDetails(result) {
@@ -79,6 +171,8 @@ function didGetCheckoutDetails(result) {
 		});
 	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
 		var isCheckoutComplete = false;
+		var isMedSyncScriptReady = false;
+		var isMedSyncOnly = true;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
 			_.some(prescriptions, function(prescription, index2) {
@@ -86,6 +180,11 @@ function didGetCheckoutDetails(result) {
 					isCheckoutComplete = true;
 					indexOfCheckoutCompletePresc = [index1, index2];
 					return true;
+				}
+				if (prescription.nextSyncFillDate != null) {
+					isMedSyncScriptReady = isMedSyncCheckoutReady(prescription);
+				} else {
+					isMedSyncOnly = false;
 				}
 				return false;
 			});
@@ -97,10 +196,28 @@ function didGetCheckoutDetails(result) {
 			} else {
 				$.parentView.visible = true;
 			}
+		} else if(isMedSyncOnly && !isMedSyncScriptReady) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.expressCheckoutNoRxReady,
+				buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+				success : popToHome
+			});
 		} else {
 			pushToPrescriptionList();
 		}
 	}
+}
+
+function isMedSyncCheckoutReady(prescription) {
+	var isMedSyncScriptReady = false;
+	if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "") {
+		var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+		var nextSyncFillDate = prescription.nextSyncFillDate; 
+		var medSyncDate = moment(prescription.nextSyncFillDate).format("MM/DD/YYYY");
+		var now = moment().format("MM/DD/YYYY");					
+		isMedSyncScriptReady = moment(medSyncDate).diff(now, 'days') <= checkOutBy ? true : false;
+	};
+	return isMedSyncScriptReady;
 }
 
 function popToHome() {
@@ -116,15 +233,15 @@ function pushToPrescriptionList() {
 		ctrlArguments : {
 			filters : {
 				refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
-				section : ["others"],
+				section : ["others", "medSync"],
 				is_checkout_complete : ["1", null]
 			},
 			patientSwitcherDisabled : true,
 			hideCheckoutHeader : false,
 			navigationFrom : "expressCheckout"
-		},
-		stack : true
-	});
+		}
+	}); 
+
 }
 
 function didClickGenerateCode(e) {

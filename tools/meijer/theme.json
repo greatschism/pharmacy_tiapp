@@ -1,6 +1,8 @@
 {
 	"config": {
 		"global": {
+			"use_alternate_text_benefits_list_order" : "useAlternateTextBenefitsListOrder",
+			"use_alternate_text_benefits_image" : "useAlternateTextBenefitsImage",
 			"use_additional_header_styling" : "useAdditionalHeaderStyling",
 			"use_hamburger_logo_for_menu_header" : "useHamburgerLogoForMenuHeader",
 			"homescreen_template_banner_below" : "homescreenTemplateBannerBelow",
@@ -21,7 +23,8 @@
 					"modifiters": "g",
 					"value": ""
 				}
-			]
+			],
+			"fetch_all_credit_cards": "0"
 		}
 	},
 	"values": {
@@ -51,6 +54,7 @@
 	    "PRESCRIBERS_ICON_COLOR": "#546E7A",
 	    "SETTINGS_ICON_COLOR": "#555555",
 		"TENTATIVE_COLOR": "#CD853F",
-		"TENTATIVE_SELECTED_COLOR": "#CD853F"
+		"TENTATIVE_SELECTED_COLOR": "#CD853F",
+		"CHECKOUT_CART_COLOR": "#235499"
 	}
 }
