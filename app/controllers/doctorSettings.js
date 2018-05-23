@@ -1,7 +1,8 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     doctor = args.doctor,
-    isWindowOpen;
+    isWindowOpen,
+    keyboardModule = require("com.mscripts.hidekeyboard");
 
 function init() {
 	/**
@@ -117,8 +118,8 @@ function didChange(e) {
 }
 
 function didClickSubmit(e) {
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+		keyboardModule.hideKeyboard();
 	}
 	var fname,
 	    lname,
