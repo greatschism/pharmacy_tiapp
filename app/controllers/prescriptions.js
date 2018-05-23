@@ -52,16 +52,16 @@ function init() {
 		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
 	}
 	//search icon
-	$.searchTxt.setIcon("", "left", $.createStyle({
-		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
-		id : "searchBtn"
-	}));
-	//clear button
-	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
-		id : "clearBtn",
-		accessibilityLabel : "clear search"
-	}));
+	// $.searchTxt.setIcon("", "left", $.createStyle({
+		// classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		// id : "searchBtn"
+	// }));
+	// //clear button
+	// $.searchTxt.setIcon("", "right", $.createStyle({
+		// classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		// id : "clearBtn",
+		// accessibilityLabel : "clear search"
+	// }));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
 			classes : ["right", "fill-height", "h5", "bg-color-disabled", "active-fg-color", "border-disabled"],
@@ -90,6 +90,7 @@ function init() {
 		}
 	});
 
+	$.tableView.search = $.searchbar;
 	$.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 
@@ -205,10 +206,10 @@ function didGetPromiseTimeOptions(result, passthrough) {
 
 function prepareData() {
 	//reset search if any
-	if ($.searchTxt.getValue()) {
-		$.searchTxt.setValue("");
-		$.tableView.filterText = "";
-	}
+	// if ($.searchTxt.getValue()) {
+		// $.searchTxt.setValue("");
+		// $.tableView.filterText = "";
+	// }
 	/**
 	 * occurs on first launch
 	 * when all accounts
@@ -1362,7 +1363,8 @@ function processSections(prescription, daysLeft) {
 			prescription.set({
 				section : "inProgress",
 				titleClasses : titleClasses,
-				canHide : false
+				canHide : false,
+				filterAttribute: 'filter'
 			});
 
 			break;
@@ -1422,7 +1424,8 @@ function processSections(prescription, daysLeft) {
 				section : "readyPickup",
 				titleClasses : titleClasses,
                 subtitle : readyRxLabel,
-				canHide : false
+				canHide : false,
+				filterAttribute: 'filter'
 			});
 
 			break;
@@ -1916,7 +1919,7 @@ function didClickSelectAll(e) {
 }
 
 function didChangeSearch(e) {
-	$.tableView.filterText = e.value || e.source.getValue();
+	$.tableView.filter = e.value || e.source.getValue();
 }
 
 function didClickRightNavBtn(e) {
@@ -1973,9 +1976,10 @@ function didClickOptionMenu(e) {
 function toggleSearch() {
 	var top = $.headerView.rect.height,
 	    opacity = 0;
-	if ($.tableView.top == top) {
+	    $.searchbar.visible = !$.searchbar.visible;
+	/*if ($.tableView.top == top) {
 		opacity = 1;
-		top += $.searchbar.rect.height;
+		// top -= $.searchbar.rect.height;
 		$.searchbar.visible = true;
 	}
 	var sAnim = Ti.UI.createAnimation({
@@ -1998,10 +2002,10 @@ function toggleSearch() {
 		tAnim.removeEventListener("complete", onComplete);
 		$.tableView.top = top;
 		if (top !== $.headerView.rect.height) {
-			$.searchTxt.focus();
+			// $.searchTxt.focus();
 		}
 	});
-	$.tableView.animate(tAnim);
+	$.tableView.animate(tAnim);*/
 	/**
 	 * required when partialView view is
 	 * enabled or visible or when switched
@@ -2445,7 +2449,7 @@ function didPostlayout(e) {
 	}
 	
 	
-	$.searchbar.top = top;
+	// $.searchbar.top = top;
 	$.tableView.applyProperties({
 		top : top,
 		bottom : bottom

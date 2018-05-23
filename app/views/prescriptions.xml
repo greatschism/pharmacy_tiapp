@@ -30,15 +30,22 @@
 			<Button id="unhideCloseBtn" class="margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickUnhideClose" />
 		</View>
 	</Widget>
-	<View id="searchbar" class="top txt-border-view">
+	<!-- <View id="searchbar" class="top txt-border-view">
 		<Widget id="searchTxt" src="ti.textfield" class="top margin-left margin-right-small txt returnkey-done border-disabled" onChange="didChangeSearch" onClear="didChangeSearch" />
-	</View>
+	</View> -->
 	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
 		<Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" />
 		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
-	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
+	
+	<TableView id="tableView" class="top" onSingletap="didClickTableView" >
+		
+		<!-- search, shorthand with Ti.UI.SearchBar -->
+		<SearchBar id="searchbar" class="top" platform="ios" height="0" visible="false"/>
+		<!-- search, shorthand with Ti.UI.Android.SearchView -->
+		<SearchView id="searchbar" class="top" ns="Ti.UI.Android" platform="android" />
+		
 		<FooterView platform="ios">
 			<View class="auto-height" />
 		</FooterView>

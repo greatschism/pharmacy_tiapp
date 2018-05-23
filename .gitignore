@@ -8,6 +8,8 @@ app/lib/styleSheets.js
 app/styles/app.tss
 platform/android/res/drawable-*
 platform/android/res/values-*
+app/platform/android/res/drawable-*
+app/platform/android/res/values-*
 tools/defaults.json
 plugins/ti.alloy/hooks/alloy.js
 plugins/ti.alloy/hooks/deepclean.js
@@ -16,3 +18,4 @@ dist
 build
 Resources
 /i18n
+*.DS_Store

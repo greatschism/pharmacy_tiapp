@@ -19,7 +19,8 @@ var TAG = "NAVI",
     _ = require("alloy/underscore")._,
     ctrlNames = require("ctrlNames"),
     ctrlShortCode = require("ctrlShortCode"),
-    analyticsHandler = require("analyticsHandler");
+    analyticsHandler = require("analyticsHandler"),
+    keyboardModule = require("com.mscripts.hidekeyboard");
 
 function Navigation(args) {
 
@@ -103,8 +104,8 @@ function Navigation(args) {
 		 * on android keyboard will not be hidden
 		 * if it is opened, hide it
 		 */
-		if (Ti.App.keyboardVisible) {
-			Ti.App.hideKeyboard();
+		if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+			keyboardModule.hideKeyboard();
 		}
 
 		that.currentController = Alloy.createController("drawer/view", params);

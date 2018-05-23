@@ -2,3 +2,12 @@
 	width: 56,
 	height: 36
 }
+
+"#swt[platform=android]": {
+	color: '#A7A7A7',
+	text: Alloy.CFG.icons.switch_off,
+	font: {
+		fontFamily: 'mscripts',
+		fontSize: '34dp'
+	}
+}

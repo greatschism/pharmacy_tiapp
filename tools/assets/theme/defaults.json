@@ -3,7 +3,7 @@
 		"version": "Alloy.TSS.Theme.version"
 	},
 	"Window[platform=ios]": {
-		"statusBarStyle": "Ti.UI.iPhone.StatusBar.DEFAULT"
+		"statusBarStyle": "Ti.UI.iOS.StatusBar.DEFAULT"
 	},
 	"Window[platform=android]": {
 		"windowSoftInputMode": "Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN | Ti.UI.Android.SOFT_INPUT_ADJUST_RESIZE"
@@ -25,19 +25,27 @@
 	},
 	"TableView": {
 		"footerDividersEnabled": true,
-		"filterAttribute": "Alloy.Globals.filterAttribute"
+		"filterAttribute": "Alloy.Globals.filterAttribute",
+		"dimBackgroundForSearch": false
 	},
 	"ListView": {
 		"footerDividersEnabled": true
 	},
+	"ListView[platform=ios]": {
+		"selectionStyle": "Ti.UI.iOS.ListViewCellSelectionStyle.NONE"
+	},
 	"TableViewRow": {
 		"height": "Ti.UI.SIZE"
+	},
+	"TableViewRow[platform=ios]": {
+		"height": "Ti.UI.SIZE",
+		"selectionStyle": "Ti.UI.iOS.TableViewCellSelectionStyle.NONE"
 	},
 	"ListItem": {
 		"height": "Ti.UI.SIZE"
 	},
 	"Button[platform=ios]": {
-		"style": "Ti.UI.iPhone.SystemButtonStyle.PLAIN"
+		"style": "Ti.UI.iOS.SystemButtonStyle.PLAIN"
 	},
 	"ImageView": {
 		"width": "Ti.UI.SIZE",
@@ -136,6 +144,9 @@
 	},
 	".right-disabled": {
 		"right": null
+	},
+	".content-width-100": {
+		"contentWidth": "100%"
 	},
 	".auto-width": {
 		"width": "Ti.UI.SIZE"
@@ -580,10 +591,10 @@
 		"keyboardType": "Ti.UI.KEYBOARD_TYPE_URL"
 	},
 	".keyboard-number": {
-		"keyboardType": "Titanium.UI.KEYBOARD_NUMBER_PAD"
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_NUMBER_PAD"
 	},
 	".keyboard-phone": {
-		"keyboardType": "Titanium.UI.KEYBOARD_NUMBER_PAD"
+		"keyboardType": "Ti.UI.KEYBOARD_TYPE_NUMBER_PAD"
 	},
 	".returnkey-next": {
 		"returnKeyType": "Ti.UI.RETURNKEY_NEXT"

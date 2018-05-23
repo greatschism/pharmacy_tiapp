@@ -1,7 +1,10 @@
 var Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     baseDicts,
-    logger = require("logger");
+    logger = require("logger"),
+    moment = require("alloy/moment"),
+    TiCustomFontModule = require("com.mscripts.customfont"),
+    DateTimeModule = require("com.mscripts.datetime");
 
 var Configuration = {
 
@@ -97,17 +100,17 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 			Alloy.RegFonts = [];
 		}
 		/**
-		 * Ti.App.registerFont
+		 * TiCustomFontModule.registerFont
 		 *  and
-		 * Ti.App.unregisterFont - is a method available only with custom SDK
+		 * TiCustomFontModule.unregisterFont
 		 */
-		var lastUpdate = require("alloy/moment")().unix();
+		var lastUpdate = moment().unix();
 		_.each(fonts, function(font) {
 			var fontExists = _.findWhere(Alloy.RegFonts, {
 				postscript : font.postscript
 			}) || {};
 			if (_.isEmpty(fontExists)) {
-				Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+				TiCustomFontModule.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				Alloy.RegFonts.push(_.extend(utilities.clone(font), {
 					lastUpdate : lastUpdate
 				}));
@@ -115,10 +118,10 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 				if (fontExists.data != font.data) {
 					if (OS_IOS) {
 						//ios will not allow to update a font, has to be unregistered and registered back
-						Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + fontExists.data), fontExists.postscript);
+						TiCustomFontModule.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + fontExists.data), fontExists.postscript);
 					}
 					//on android, registered font can be just replaced with new value
-					Ti.App.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+					TiCustomFontModule.registerFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 				}
 				fontExists.lastUpdate = lastUpdate;
 			}
@@ -128,7 +131,7 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 		Alloy.RegFonts = _.reject(Alloy.RegFonts, function(font) {
 			var flag = lastUpdate !== font.lastUpdate;
 			if (flag) {
-				Ti.App.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
+				TiCustomFontModule.unregisterFont(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, resources.dataDirectory + "/" + font.data), font.postscript);
 			}
 			return flag;
 		});
@@ -146,7 +149,7 @@ logger.debug("\n\n\nit's prod env yo\n\n\n");
 		 *  load date format from device
 		 *  can be update form theme too
 		 */
-		var dateFormat = Ti.Platform.dateFormat.split("/");
+		var dateFormat = OS_IOS ? DateTimeModule.dateFormat.split("/") : DateTimeModule.getDateFormat().split("/");
 		//match date format with momentjs
 		_.each(dateFormat, function(val, key) {
 			if (val.indexOf("d") != -1) {
