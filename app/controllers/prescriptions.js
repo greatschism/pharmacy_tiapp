@@ -88,7 +88,7 @@ function init() {
 	});
 
 	$.tableView.search = $.searchbar;
-	$.searchbar.visible = false;
+	// $.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 
 	if( ! args.selectable) {
@@ -1708,7 +1708,7 @@ function didClickOptionMenu(e) {
 function toggleSearch() {
 	var top = $.headerView.rect.height,
 	    opacity = 0;
-	    $.searchbar.visible = !$.searchbar.visible;
+	    // $.searchbar.visible = !$.searchbar.visible;
 	/*if ($.tableView.top == top) {
 		opacity = 1;
 		// top -= $.searchbar.rect.height;
