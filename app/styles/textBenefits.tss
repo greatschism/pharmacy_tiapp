@@ -13,6 +13,9 @@
 "#textBenefit4":{
 	text:Alloy.Globals.strings.textSignupBenefit4
 },
+"#textBenefit5":{
+	text:Alloy.Globals.strings.textSignupBenefit5
+},
 "#sendTxtBtn":{
 	title:Alloy.Globals.strings.textSignupBtnSendMeTexts
 },

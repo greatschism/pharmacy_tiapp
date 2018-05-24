@@ -75,7 +75,7 @@ function init() {
 		utilities : require("utilities"),
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
-		crashreporter : require("crashreporter"),
+		// crashreporter : require("crashreporter"),
 		contentView : $.contentView,
 		window : $.window,
 		setTitle : setTitle,

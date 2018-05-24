@@ -37,7 +37,7 @@
 		"description": "Jewel Osco Rx."
 	}, {
 		"id": "uvmc",
-		"description": "UVMC Rx."
+		"description": "UVM Health Rx."
 	}, {
 		"id": "apex",
 		"description": "Apex"
@@ -63,16 +63,37 @@
 		"id": "gianteagle",
 		"description": "GE Pharmacy"
 	}, {
-		"id": "bi-lo",
+		"id": "bilo",
 		"description": "Bi-Lo"
 	}, {
 		"id": "harveys",
 		"description": "Harveys Rx."
 	}, {
-		"id": "winn-dixie",
+		"id": "winndixie",
 		"description": "Winn-Dixie Rx."
 	}, {
 		"id": "fruth",
 		"description": "Fruth Pharmacy"
-	}
+	}, {
+		"id": "pharmacyadvantage",
+		"description": "Pharmacy Advantage Rx."
+	}, {
+		"id": "dartmouth",
+		"description": "D-H Pharmacy"
+	}, {
+		"id": "reasors",
+		"description": "Reasors Rx"
+	}, {
+		"id": "froedtert",
+		"description": "Froedtert Rx"
+	}, {
+		"id": "supervalu",
+		"description": "Supervalu Rx"
+	}, {
+		"id": "ingles",
+		"description": "Ingles Rx"
+	},{
+		"id": "raleys",
+		"description": "Raleys Rx"
+	}	
 ]

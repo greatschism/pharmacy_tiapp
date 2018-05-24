@@ -698,6 +698,80 @@ module.exports = {
 								"bottom",
 								"h-divider-light"
 							]
+						},
+						{
+							"apiName": "View",
+							"classes": [
+								"top",
+								"bottom",
+								"auto-height",
+								"vgroup",
+								"hwrap-disabled",
+								"accessibility-actionablelements"
+							],
+							"properties": {
+								"textid": "titleCustomMenu1"
+							},
+							"children": [
+								{
+									"items": [
+										{
+											"apiName": "View",
+											"classes": [
+												"top",
+												"bottom",
+												"auto-height",
+												"hgroup",
+												"hwrap-disabled",
+												"accessibility-disabled",
+												"touch-disabled"
+											],
+											"children": [
+												{
+													"items": [
+														{
+															"apiName": "Label",
+															"classes": [
+																"margin-top-extra-large",
+																"margin-bottom-extra-large",
+																"margin-left",
+																"i4",
+																"primary-fg-color",
+																"touch-disabled",
+																"icon-thick-coupon"
+															]
+														},
+														{
+															"apiName": "Label",
+															"classes": [
+																"margin-left-medium",
+																"h4",
+																"fg-color",
+																"touch-disabled"
+															],
+															"properties": {
+																"textid": "titleCustomMenu1"
+															}
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							],
+							"feature_name": "is_custommenu1_enabled",
+							"navigation": {
+								"menu_url": "customMenu1"
+							}
+						},
+						{
+							"apiName": "View",
+							"classes": [
+								"top",
+								"bottom",
+								"h-divider-light"
+							]
 						}
 					]
 				}

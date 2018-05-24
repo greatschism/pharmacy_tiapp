@@ -18,13 +18,19 @@ module.exports = {
 		"familyMemberAddPrescValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
         "refillTypeValRx" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
 		"registerValRxInvalid" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
-        "userRecoveryLbl":"Please enter the <tertiaryfont><tertiarycolor>email address</tertiarycolor></tertiaryfont> that you use to sign in.",
-		"userRecoveryEmailHint":"Email address",
-		"loginHintEmailOrUsername" : "Email address",
-        "userRecoveryValEmail":"Please enter your email address.",
-        "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
-	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
-         "titleHelp" : "Help"
+        "userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address or username</tertiarycolor></tertiaryfont> that you use to sign in.",
+		"userRecoveryEmailHint" : "Email address or username",
+		"loginHintEmailOrUsername" : "Email address or username",
+        "userRecoveryValEmail" : "Please enter your email address or username.",
+        "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
+	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
+         "titleHelp" : "Help",
+         "reRegisterUser" : "Welcome!",
+         "reRegister_welcome" : "Welcome to the new Henry Ford Mobile Pharmacy App!",
+         "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
+         "reRegisterBtnSubmit" : "Create a new account",
+         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>",
+         "titleCustomMenu1" : "Monthly Specials"
 	}
 
 };

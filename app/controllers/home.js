@@ -525,7 +525,7 @@ function didClickItem(e) {
 	 */
 	navigation = menuItem ? menuItem.toJSON() : _.clone(navigation);
 	navigationHandler.navigate(navigation);
-	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url);
+	trackEvent("navigate", ctrlNames[navigation.ctrl] || navigation.action || navigation.url || navigation.menu_url);
 }
 
 function trackEvent(action, label) {
@@ -546,9 +546,8 @@ function didClickRightNavLoggedIn(e) {
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
-	if (Alloy.CFG.homescreen_rightnav_settings_enabled === "homescreenRightnavSettingsEnabled") {
+	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
-		$.rightNavBtn.getNavButton().show();
 	}
 
 	var source = e.source,
