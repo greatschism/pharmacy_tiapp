@@ -484,6 +484,7 @@ module.exports = {
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
+		"prescriptionSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pick up details",
@@ -691,6 +692,7 @@ module.exports = {
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",
 		"transferOptsBtnTransfer" : "Submit transfer",
+		"transferOptsSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"transferReviewSectionUser" : "Personal details",
 		"transferReviewSectionStore" : "Your transfer is being placed at:",
@@ -744,6 +746,7 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 		"accountHintEmail" : "Email address",
+		"accountSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",

@@ -45,12 +45,12 @@ function init() {
 	}
 	//search icon
 	$.searchTxt.setIcon("", "left", $.createStyle({
-		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search", "accessibility-disabled"],
+		classes : ["margin-left-small", "i6", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search", "accessibility-disabled"],
 		id : "searchBtn"
 	}));
 	//clear button
 	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		classes : ["margin-right-small", "i6", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
 		id : "clearBtn",
 		accessibilityLabel : "clear search"
 

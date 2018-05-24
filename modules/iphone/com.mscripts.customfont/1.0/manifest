@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: Module to register and unregister font file dynamically in iOS app.
+author: Harshal Hardiya
+license: Specify your license
+copyright: Copyright (c) 2017 by Your Company
+
+# these should not be edited
+name: AppcCustomFont
+moduleid: com.mscripts.customfont
+guid: 97638559-f394-47ae-834d-15310ebff496
+platform: iphone
+minsdk: 6.2.2.GA

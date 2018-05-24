@@ -150,12 +150,11 @@ exports.init = function (logger, config, cli, appc) {
 					// arg processing from https://github.com/MarcDiethelm/superspawn
 					child = spawn('cmd', [['/s', '/c', '"' +
 						cmd.map(function(a) {
-							if (/^[^"].* .*[^"]/.test(a)) return '"'+a+'"'; return a;
-						}).join(" ") + '"'].join(" ")], {
-							stdio: 'inherit',
-							windowsVerbatimArguments: true
-						}
-					);
+							if (/^[^"].* .*[^"]/.test(a)) return '"' + a + '"'; return a;
+						}).join(' ') + '"'].join(' ')], {
+						stdio: 'inherit',
+						windowsVerbatimArguments: true
+					});
 				} else {
 					logger.info(__('Executing Alloy compile: %s', cmd.join(' ').cyan));
 					child = spawn(cmd.shift(), cmd);
