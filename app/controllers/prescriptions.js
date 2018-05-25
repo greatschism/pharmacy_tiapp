@@ -235,12 +235,14 @@ function prepareData() {
 		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
+			$.searchbar.visible = false;
 		}
 		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
+			$.searchbar.visible = true;
 		}
 		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}
