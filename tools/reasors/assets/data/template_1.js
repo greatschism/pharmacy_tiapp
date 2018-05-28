@@ -147,7 +147,7 @@ module.exports = {
 																"i4",
 																"primary-fg-color",
 																"touch-disabled",
-																"icon-thin-refill"
+																"icon-thin-camera"
 															]
 														},
 														{
