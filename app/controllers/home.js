@@ -546,8 +546,11 @@ function didClickRightNavLoggedIn(e) {
 function didPostlayout(e) {
 	logger.debug("\n\n\n home didPostLayout\n\n\n");
 
+	$.rightNavBtn.getNavButton().accessibilityHidden = false;
 	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
+	} else {
+		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblSignIn;
 	}
 
 	var source = e.source,
