@@ -72,7 +72,7 @@ function scrollOnKeyboardEvent(e) {
 	var scroller = controller.getTopLevelViews()[0];
 	if (scroller.rect && scroller.rect.height) {		
 		scroller.height = parseInt(scroller.rect.height) + "dp";
-		scroller.scrollToBottom();
+		scroller.scrollToBottom && scroller.scrollToBottom();
 	};
 }
 
