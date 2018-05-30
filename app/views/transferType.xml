@@ -1,6 +1,6 @@
 <Alloy>
-	<ScrollView class="disable-bounce vgroup top width-100">
-		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+	<ScrollView class="vgroup fill-width">
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom width-100">
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h3 inactive-fg-color"/>
 		</View>
 		<View class="margin-top margin-bottom margin-left margin-right auto-height vgroup border">
@@ -8,7 +8,7 @@
 			<View class="h-divider" />
 			<Widget id="rxTxt" analyticsId="RxTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext" />
 		</View>
-		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
+		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom width-100">
 			<Label id="fromLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>
 		<View class="margin-top margin-left margin-right auto-height vgroup border">
