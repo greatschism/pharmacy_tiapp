@@ -1679,10 +1679,6 @@ function didClickOptionMenu(e) {
 	}
 	switch(e.index) {
 	case 0:
-		$.analyticsHandler.trackEvent(analyticsCategory, "click", "ToggleSearchOptionDialog");
-		toggleSearch();
-		break;
-	case 1:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "PatientSyncOptionDialog");
 		/**
 		 * Refresh: By default sync happens on server side
@@ -1696,65 +1692,15 @@ function didClickOptionMenu(e) {
 			success : prepareData
 		});
 		break;
-	case 2:
+	case 1:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "SortOptionDialog");
 		$.sortPicker.show();
 		break;
-	case 3:
+	case 2:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "UnhidePrescriptionsOptionDialog");
 		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker, false, true);
 		break;
 	}
-}
-
-function toggleSearch() {
-	var top = $.headerView.rect.height,
-	    opacity = 0;
-	    // $.searchbar.visible = !$.searchbar.visible;
-	/*if ($.tableView.top == top) {
-		opacity = 1;
-		// top -= $.searchbar.rect.height;
-		$.searchbar.visible = true;
-	}
-	var sAnim = Ti.UI.createAnimation({
-		opacity : opacity,
-		duration : 200
-	});
-	sAnim.addEventListener("complete", function onComplete() {
-		sAnim.removeEventListener("complete", onComplete);
-		$.searchbar.opacity = opacity;
-		if (!opacity) {
-			$.searchbar.visible = false;
-		}
-	});
-	$.searchbar.animate(sAnim);
-	var tAnim = Ti.UI.createAnimation({
-		top : top,
-		duration : 200
-	});
-	tAnim.addEventListener("complete", function onComplete() {
-		tAnim.removeEventListener("complete", onComplete);
-		$.tableView.top = top;
-		if (top !== $.headerView.rect.height) {
-			// $.searchTxt.focus();
-		}
-	});
-	$.tableView.animate(tAnim);*/
-	/**
-	 * required when partialView view is
-	 * enabled or visible or when switched
-	 * to a partial account
-	 * with search is enabled
-	 */
-	var pAnim = Ti.UI.createAnimation({
-		top : top,
-		duration : 200
-	});
-	pAnim.addEventListener("complete", function onComplete() {
-		pAnim.removeEventListener("complete", onComplete);
-		$.partialView.top = top;
-	});
-	$.partialView.animate(pAnim);
 }
 
 function prepareUnhidePicker(result, passthrough) {
