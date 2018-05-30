@@ -232,8 +232,8 @@ module.exports = {
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
-		"titleEmailVerify" : "Verify Email",
-		"titlePhoneVerify" : "Verify Phone",
+		"titleEmailVerify" : "Email Confirmation",
+		"titlePhoneVerify" : "Phone Confirmation",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
