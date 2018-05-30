@@ -159,6 +159,7 @@ module.exports = {
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 		"iconAccessibilityLblAccount" : "Account",
+		"iconAccessibilityLblSignIn" : "Sign in",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
@@ -238,6 +239,8 @@ module.exports = {
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
+		"titleEmailVerify" : "Email Confirmation",
+		"titlePhoneVerify" : "Phone Confirmation",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -307,8 +310,6 @@ module.exports = {
 		"userRecoveryBtnSend" : "Send",
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-
-		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",

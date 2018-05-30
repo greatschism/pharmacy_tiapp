@@ -1,7 +1,5 @@
 var args = $.args,
     moment = require("alloy/moment");
-    
-ImageFactoryModule = require("ti.imagefactory");
 
 function init() {
 	$.tableView.bottom = $.tableView.bottom + $.transferBtn.height + $.transferBtn.bottom;
@@ -169,7 +167,7 @@ function didGetPhoto(blob) {
 			scaledHeight = scaledWidth * img_aspect_ratio;
 		}
 		var tempBlob = blob.imageAsResized(scaledWidth, scaledHeight);
-		smallBlob = ImageFactoryModule.compress(tempBlob, 0.7);
+		smallBlob = tempBlob.imageAsCompressed(0.7);
 		var imgFile = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg");
 		$.utilities.writeFile(imgFile, smallBlob, false);
 		$.prescImg.image = smallBlob;

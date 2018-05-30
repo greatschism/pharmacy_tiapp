@@ -75,7 +75,7 @@ function init() {
 		utilities : require("utilities"),
 		uihelper : require("uihelper"),
 		analyticsHandler : analyticsHandler,
-		// crashreporter : require("crashreporter"),
+		crashreporter : require("crashreporter"),
 		contentView : $.contentView,
 		window : $.window,
 		setTitle : setTitle,
@@ -97,8 +97,10 @@ function init() {
 
 function scrollOnKeyboardEvent(e) {
 	var scroller = controller.getTopLevelViews()[0];
-	scroller.height = parseInt(scroller.rect.height) + "dp";
-	scroller.scrollToBottom();
+	if (scroller.rect && scroller.rect.height) {		
+		scroller.height = parseInt(scroller.rect.height) + "dp";
+		scroller.scrollToBottom && scroller.scrollToBottom();
+	};
 }
 
 function requestTitleControlFocus() {

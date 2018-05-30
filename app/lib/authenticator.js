@@ -10,7 +10,7 @@ var TAG = "AUTH",
     localization = require("localization"),
     feedbackHandler = require("feedbackHandler"),
     notificationHandler = require("notificationHandler"),
-    // crashreporter = require("crashreporter"),
+    crashreporter = require("crashreporter"),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     analyticsHandler = require("analyticsHandler"),
     logger = require("logger"),
@@ -865,7 +865,7 @@ function completeAuthentication(passthrough) {
 	 * update crash reporter
 	 * with user username
 	 */
-	// crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
+	crashreporter.setUsername(Alloy.Collections.patients.at(0).get("email_address"));
 	//update feedback counter
 	feedbackHandler.updateCounter(Alloy.CFG.apiCodes.feedback_action_login);
 	
@@ -1025,6 +1025,7 @@ function hasMandatoryNavigation(mPatient) {
 	 */
 	if (!Alloy.Globals.isAccountUpgraded && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		app.navigator.open({
+			titleid : "titleEmailVerify",
 			ctrl : "emailVerify",
 			ctrlArguments : {
 				email : mPatient.get("email_address")

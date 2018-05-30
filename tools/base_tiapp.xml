@@ -77,6 +77,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="${BUILD_NUMBER}" xmlns:tools="http://schemas.android.com/tools" >
       <uses-sdk android:minSdkVersion="16" />
+      <uses-permission android:name="android.permission.CAMERA"/>
+      <uses-feature android:name="android.hardware.camera"/>
       <application android:largeHeap="true" android:theme="@style/Theme.Material" 
       		tools:replace="android:icon" >
         <activity android:configChanges="keyboardHidden|orientation" android:name="${LAUNCHER_ACTIVITY}" android:theme="@style/Theme.Material.Splash">
