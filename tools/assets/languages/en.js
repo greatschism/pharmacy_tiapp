@@ -481,7 +481,7 @@ module.exports = {
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
 		"prescDetInfoDueOn" : "Due for refill",
-		"prescDetInfoLastRefilled" : "Last refilled",
+		"prescDetInfoLastRefilled" : "Last filled",
 		"prescDetBtnRefill" : "Refill prescription",
 		"prescDetPromptRx" : "Prescription number:",
 		"prescDetPromptExpirationDate" : "Expiration date:",
