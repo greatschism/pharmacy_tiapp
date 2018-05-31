@@ -1138,7 +1138,7 @@ if (program.buildOnly) {
 	appcParams.push("--log-level");
 	appcParams.push(program.logLevel);
 	
-	console.log("appcParams >>>>>>>> " + JSON.stringify(appcParams));
+	logger.info("Running appc with params " + JSON.stringify(appcParams));
 
 	//run app using spwan
 	var appc = spawn("appc", appcParams, {
