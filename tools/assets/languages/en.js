@@ -398,7 +398,7 @@ module.exports = {
 		"doctorDetLblManual" : "You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
-		"doctorDetLblRefilled" : "Refilled: %s",
+		"doctorDetLblRefilled" : "Picked up: %s",
 		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
