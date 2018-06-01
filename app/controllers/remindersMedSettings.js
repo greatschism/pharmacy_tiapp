@@ -1,6 +1,7 @@
 var args = $.args,
     moment = require("alloy/moment"),
     authenticator = require("authenticator"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     logger = require("logger"),
     apiCodes = Alloy.CFG.apiCodes,
     strDateFormat = "ddd MMM DD YYYY HH:mm:ss",
@@ -58,7 +59,7 @@ var args = $.args,
 		"color_name" : "Black",
 		"color_code" : "#181818"
 	}]; 
-    Alloy.Collections.reminderColors.reset(reminder_colors);
+	Alloy.Collections.reminderColors.reset(reminder_colors);	
 
 function init() {
 	/**
@@ -583,8 +584,8 @@ function hideKeyboard() {
 	 * Note: keyboardVisible may not return
 	 * right value always on android
 	 */
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+    	keyboardModule.hideKeyboard();
 	}
 }
 

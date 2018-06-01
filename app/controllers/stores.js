@@ -45,12 +45,12 @@ function init() {
 	}
 	//search icon
 	$.searchTxt.setIcon("", "left", $.createStyle({
-		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search", "accessibility-disabled"],
+		classes : ["margin-left-small", "i6", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search", "accessibility-disabled"],
 		id : "searchBtn"
 	}));
 	//clear button
 	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		classes : ["margin-right-small", "i6", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
 		id : "clearBtn",
 		accessibilityLabel : "clear search"
 
@@ -805,7 +805,7 @@ function prepareMap(shouldUpdateRegion) {
 				 * right view just allows user to click on the right corner of
 				 * info window
 				 */
-				annotationDict.rightButton = Ti.UI.iPhone.SystemButton.INFO_DARK;
+				annotationDict.rightButton = Ti.UI.iOS.SystemButton.INFO_DARK;
 				leftBtn.applyProperties({
 					clicksource : "leftPane",
 					storeId : storeId

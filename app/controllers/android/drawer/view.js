@@ -121,11 +121,25 @@ function setTitle(title) {
 		}
 	}
 	$.window.title = title;
-	$.actionBar.setTitleAttributes(_.extend({
-		title : title
-	}, $.createStyle({
+	// $.actionBar.setTitleAttributes(_.extend({
+		// title : title
+	// }, $.createStyle({
+		// apiName : "Window"
+	// }).titleAttributes));
+	var styleParam = $.createStyle({
 		apiName : "Window"
-	}).titleAttributes));
+	}).titleAttributes;
+	var barColor = $.createStyle({
+		apiName : "Window"
+	}).barColor;
+	var statusBarColor = $.createStyle({
+		apiName : "Window"
+	}).statusBarColor;
+	styleParam.text = title;
+	var abx = require('com.alcoapps.actionbarextras');
+	abx.setTitle(styleParam);
+	abx.setBackgroundColor(barColor);
+	abx.setStatusbarColor(statusBarColor);
 }
 
 function showNavBar() {

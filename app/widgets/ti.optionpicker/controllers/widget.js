@@ -1,5 +1,6 @@
 var args = $.args,
     uihelper = require("uihelper"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     MAX_HEIGHT = (Ti.Platform.displayCaps.platformHeight / 100) * 75,
     SELECTION_LIMIT = args.selectionLimit || 0,
     IS_RADIO_BUTTON = args.radioButton || false,
@@ -285,8 +286,8 @@ function animate(dict, callback) {
 function show(callback) {
 	if (!$.widget.visible) {
 		//hide keyboard if any
-		if (Ti.App.keyboardVisible) {
-			Ti.App.hideKeyboard();
+		if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+    		keyboardModule.hideKeyboard();
 		}
 		//disable accessibility of other elements
 		_.each($.widget.getParent().children, function(child) {

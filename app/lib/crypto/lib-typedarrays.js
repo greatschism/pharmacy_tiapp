@@ -1,7 +1,7 @@
 ;(function (root, factory) {
 	if (typeof exports === "object") {
 		// CommonJS
-		module.exports = exports = factory(require("crypto/core"));
+		module.exports = exports = factory(require("./core"));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -37,7 +37,7 @@
 	        // Convert other array views to uint8
 	        if (
 	            typedArray instanceof Int8Array ||
-	            typedArray instanceof Uint8ClampedArray ||
+	            (typeof Uint8ClampedArray !== "undefined" && typedArray instanceof Uint8ClampedArray) ||
 	            typedArray instanceof Int16Array ||
 	            typedArray instanceof Uint16Array ||
 	            typedArray instanceof Int32Array ||

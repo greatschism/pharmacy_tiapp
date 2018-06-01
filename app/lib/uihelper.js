@@ -497,6 +497,14 @@ var Helper = {
 				});
 				callbackError();	
 			}
+		} else {
+			if (!Ti.Filesystem.isExternalStoragePresent()) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgExternalStorageError
+				});
+				callbackError();
+			}
+		}
 			Ti.Media.showCamera({
 				allowEditing : true,
 				saveToPhotoGallery : false,
@@ -518,89 +526,6 @@ var Helper = {
 					callbackError();
 				}
 			});
-		} else {
-			/**
-			 * TiCameraActivity doesn't handle orientations of images
-			 * so just use a intent, this also gives user an option
-			 * to pickup different camera apps he has
-			 */
-			if (!Ti.Filesystem.isExternalStoragePresent()) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgExternalStorageError
-				});
-				callbackError();
-			}
-			var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempCamera.jpg"),
-			    intent = Ti.Android.createIntent({
-				action : "android.media.action.IMAGE_CAPTURE"
-			});
-			intent.putExtraUri("output", tempFile.nativePath);
-			window.getActivity().startActivityForResult(intent, function didSuccess(e) {
-				var resultCode = e.resultCode,
-				    blob;
-				if (resultCode == Ti.Android.RESULT_OK) {
-					if (tempFile.exists()) {
-						blob = Helper.imageAsResized(tempFile.read(), width || Alloy.CFG.photo_default_width, height).blob;
-						tempFile.deleteFile();
-						tempFile = null;
-						callback(blob);
-					} else if (e.intent && e.intent.data) {
-						/**
-						 * output file was was not written
-						 * by the camera app
-						 * Note: some third party applications
-						 * just returns the content-uri (e.intent.data),
-						 * doesn't write the file properly.
-						 */
-						intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
-						blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
-						if (blob) {
-							blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
-							if (blob) {
-								callback(blob);
-							} else {
-								/**
-								 * something went wrong
-								 * may be not enough memory
-								 * for processing this bitmap
-								 */
-								Helper.showDialog({
-									message : Alloy.Globals.strings.msgCameraInvalid
-								});
-								callbackError();
-							}
-						} else {
-							/**
-							 * if at all the blob
-							 * is not available then
-							 * show an alert
-							 */
-							Helper.showDialog({
-								message : Alloy.Globals.strings.msgCameraInvalid
-							});
-							callbackError();
-						}
-					} else {
-						Helper.showDialog({
-							message : Alloy.Globals.strings.msgCameraInvalid
-						});
-						callbackError();
-					}
-				} else if (resultCode != Ti.Android.RESULT_CANCELED) {
-					/**
-					 *  it is not success and user has not cancelled it
-					 *  so something else went wrong
-					 */
-					Helper.showDialog({
-						message : Alloy.Globals.strings.msgCameraError
-					});
-					callbackError();
-				}
-				else{
-					callbackError();
-				}
-			});
-		}
 	},
 
 	/**

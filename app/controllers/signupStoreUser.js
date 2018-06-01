@@ -2,6 +2,7 @@ var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
@@ -109,13 +110,11 @@ function setParentView(view) {
 }
 
 function didPostlayoutRxContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
-	rxContainerViewFromTop = e.source.rect.y;
+	rxContainerViewFromTop = $.rxContainer.rect.y - $.rxContainer.rect.height;
 }
 
 function didPostlayoutPasswordContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y - 15;
+	passwordContainerViewFromTop = $.containerView.rect.y - 80;
 }
 
 function didPostlayoutTooltip(e) {
@@ -125,17 +124,14 @@ function didPostlayoutTooltip(e) {
 
 function didFocusPassword(e) {
 	$.passwordTooltip.updateArrow($.createStyle({
-			classes : ["direction-down"]
-		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
-		}));
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+	}));
 		
-	if (_.has($.passwordTooltip, "size")) {
-		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + $.containerView.top ) 
-		});
-		delete $.passwordTooltip.size;
-	}
+	$.passwordTooltip.applyProperties({
+		top : passwordContainerViewFromTop 
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.passwordTooltip.show();
 	}
@@ -143,20 +139,24 @@ function didFocusPassword(e) {
 
 function didFocusRx(e) {
 	$.rxTooltip.updateArrow($.createStyle({
-			classes : ["direction-down"]
-		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
-		}));
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+	}));
 	
-	if (_.has($.rxTooltip, "size")) {
-		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop - $.rxContainer.top * 2) 
-		});
-		delete $.rxTooltip.size;
-	}
+	$.rxTooltip.applyProperties({
+		top : rxContainerViewFromTop
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.rxTooltip.show();
 	}
+}
+
+function didScrollerEnd(e) {
+	$.passwordTooltip.hide();
+	$.rxTooltip.hide();
+	$.containerView.fireEvent("postlayout");
+	$.rxContainer.fireEvent("postlayout");
 }
 
 function didBlurFocusPassword() {
@@ -165,8 +165,8 @@ function didBlurFocusPassword() {
 
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+	    keyboardModule.hideKeyboard();
 	}
 }
 
