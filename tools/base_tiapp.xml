@@ -121,7 +121,6 @@
     <module platform="android" version="1.0">com.mscripts.datetime</module>
     <module platform="iphone" version="1.0">com.mscripts.hidekeyboard</module>
     <module platform="android" version="1.0">com.mscripts.hidekeyboard</module>
-    <module platform="android" version="2.0.0">com.alcoapps.actionbarextras</module>
   </modules>
   <deployment-targets>
     <target device="iphone">true</target>
