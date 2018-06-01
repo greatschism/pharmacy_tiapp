@@ -727,6 +727,9 @@
             ".margin-left-xxl":{
                 "left":"${BUTTON_HEIGHT}"
             },
+            ".margin-top-xxl":{
+                "top":"${MARGIN_TOP_XXL}"
+            },
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"
             },
@@ -789,6 +792,12 @@
             },
             ".h8[platform=android]":{
                 "font":"${H8_PLATFORM_ANDROID}"
+            },
+            ".h11[platform=ios]":{
+                "font":"${H11_PLATFORM_IOS}"
+            },
+            ".h11[platform=android]":{
+                "font":"${H11_PLATFORM_ANDROID}"
             },
             ".i1[platform=ios]":{
                 "font":"${I1_PLATFORM_IOS}"
@@ -908,6 +917,10 @@
             ".inactive-light-bg-color":{
                 "backgroundColor":"${INACTIVE_LIGHT_COLOR}",
                 "backgroundSelectedColor":"${INACTIVE_LIGHT_SELECTED_COLOR}"
+            },
+            ".inactive-lighter-bg-color":{
+                "backgroundColor":"${INACTIVE_LIGHTER_COLOR}",
+                "backgroundSelectedColor":"${INACTIVE_LIGHTER_SELECTED_COLOR}"
             },
             ".positive-bg-color":{
                 "backgroundColor":"${POSITIVE_COLOR}",

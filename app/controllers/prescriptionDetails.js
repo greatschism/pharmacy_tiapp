@@ -8,10 +8,14 @@ var args = $.args,
     newMedReminder,
     isWindowOpen,
     httpClient,
-    logger = require("logger");
+    logger = require("logger"),
+    noReminderLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-left-large", "margin-top-xxl", "margin-right", "h11", "negative-color"],
+		text : Alloy.Globals.strings.prescDetSectionNoReminders
+	});
 
 function init() {
-
 	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
 	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
 	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
@@ -38,7 +42,7 @@ function init() {
 	_.each(["refillsLeftBtn", "dueBtn", "lastRefillBtn"], function(val) {
 		$.uihelper.roundedCorners($[val]);
 	});
-	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView"], function(val) {
+	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView", "autoFillView"], function(val) {
 		if ($[val]) {
 			$.uihelper.wrapViews($[val], "right");
 		}
@@ -89,6 +93,9 @@ function init() {
 	$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
 	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
+	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
+	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
@@ -312,6 +319,16 @@ function didPostlayoutPrompt(e) {
 		var source = e.source,
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
+	    
+	    if(prescription.prefill === "Y") {
+			$.autoFillSwt.setValue(true, isWindowOpen);
+			$.reminderRefillView.applyProperties($.createStyle({
+				classes : ["auto-height", "inactive-lighter-bg-color"]
+			}));
+			$.reminderRefillView.add(noReminderLabel);
+			$.reminderRefillSwt.getSwitch().setEnabled(false);
+		}
+	    
 	    children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
 			visible : true
@@ -327,7 +344,7 @@ function didPostlayoutPromptStore(e){
 
 	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
 
-		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
+		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled) {
 			$.reminderRefillView.hide();
 			$.reminderRefillView.height = 0;
 
@@ -845,6 +862,57 @@ function loadCopay() {
 
 	}
 }
+
+
+function didChangeAutoFill(e) {
+	var isAutofillEnabled;
+	if(e.value) {
+		isAutofillEnabled = "1";
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "inactive-lighter-bg-color"]
+		}));
+		$.reminderRefillView.add(noReminderLabel);
+		$.reminderRefillSwt.getSwitch().setEnabled(false);
+		
+	} else {
+		isAutofillEnabled = "0";
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "bg-color"]
+		}));
+		$.reminderRefillView.remove(noReminderLabel);
+		$.reminderRefillSwt.getSwitch().setEnabled(true);
+	}
+	$.http.request({
+		method : "update_mscripts_autofill",
+		params : {
+			data : [
+	          {
+	              "updateAutofill": [{
+	                  "prescriptionId": prescription.id,
+	                  "isMscriptsAutofillEnabled": isAutofillEnabled
+	              }]
+	          }
+	      ]
+		},
+		keepLoader : false,
+		errorDialogEnabled : false,
+		success : didSuccessAutoFill,
+		failure : didFailAutoFill
+	});
+}
+
+function didSuccessAutoFill() {
+	//$.autoFillSwt.setValue(true, isWindowOpen);
+}
+
+function didFailAutoFill(result) {
+	$.autoFillSwt.setValue(false, isWindowOpen);
+	$.uihelper.showDialog({
+		message : result.message
+	});
+}
+
+
 
 exports.init = init;
 exports.focus = focus;

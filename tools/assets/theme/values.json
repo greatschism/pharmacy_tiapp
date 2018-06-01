@@ -28,6 +28,8 @@
 	"INACTIVE_SELECTED_COLOR": "#6D6E71",
 	"INACTIVE_LIGHT_COLOR": "#EDEDED",
 	"INACTIVE_LIGHT_SELECTED_COLOR": "#EDEDED",
+	"INACTIVE_LIGHTER_COLOR": "#F2F2F2",
+	"INACTIVE_LIGHTER_SELECTED_COLOR": "#F2F2F2",
 	"POSITIVE_COLOR": "#009344",
 	"POSITIVE_SELECTED_COLOR": "#009344",
 	"NEGATIVE_COLOR": "#ED1C24",
@@ -80,6 +82,7 @@
 	"MARGIN_BOTTOM_EXTRA_LARGE": 24,
 	"MARGIN_LEFT_EXTRA_LARGE": 24,
 	"MARGIN_RIGHT_EXTRA_LARGE": 24,
+	"MARGIN_TOP_XXL": 30,
 	"MARGIN_TOP_STATUS_BAR": 40,
 	"HL_PLATFORM_IOS": {
 		"fontFamily": "light",
@@ -176,6 +179,14 @@
 	"H10_PLATFORM_ANDROID": {
 		"fontFamily": "Roboto-Regular",
 		"fontSize": 20
+	},
+	"H11_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 8
+	},
+	"H11_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 8
 	},
 	"I1_PLATFORM_IOS": {
 		"fontFamily": "icon",

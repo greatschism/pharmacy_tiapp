@@ -59,4 +59,10 @@
 },
 "#hideBtn":{
 	title: Alloy.Globals.strings.prescDetBtnHide
+},
+"#autoFillAttr":{
+	html: Alloy.Globals.strings.autoFillAttr
+},
+"#autoFillLbl":{
+	text: Alloy.Globals.strings.prescDetSectionAutofill
 }
