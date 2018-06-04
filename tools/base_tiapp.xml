@@ -76,7 +76,7 @@
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="${BUILD_NUMBER}" xmlns:tools="http://schemas.android.com/tools" >
-      <uses-sdk android:minSdkVersion="16" />
+      <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/>
       <uses-permission android:name="android.permission.CAMERA"/>
       <uses-feature android:name="android.hardware.camera"/>
       <application android:largeHeap="true" android:theme="@style/Theme.Material" 
@@ -121,6 +121,7 @@
     <module platform="android" version="1.0">com.mscripts.datetime</module>
     <module platform="iphone" version="1.0">com.mscripts.hidekeyboard</module>
     <module platform="android" version="1.0">com.mscripts.hidekeyboard</module>
+    <module platform="android" version="11.0.40">ti.playservices</module>
   </modules>
   <deployment-targets>
     <target device="iphone">true</target>
