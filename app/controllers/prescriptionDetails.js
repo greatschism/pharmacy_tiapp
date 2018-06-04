@@ -321,12 +321,20 @@ function didPostlayoutPrompt(e) {
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
 	    
 	    if(prescription.prefill === "Y") {
+	    	if(Alloy.CFG.is_autofill_message_enabled) {
+	    		$.autofillView.show();
+	    		$.autofillView.height = Ti.UI.SIZE;
+	    	}
 			$.autoFillSwt.setValue(true, isWindowOpen);
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
+		}
+		else if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.hide();
+			$.autofillView.height = 0;
 		}
 	    
 	    children[1].applyProperties({
@@ -868,6 +876,10 @@ function didChangeAutoFill(e) {
 	var isAutofillEnabled;
 	if(e.value) {
 		isAutofillEnabled = "1";
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.show();
+			$.autofillView.height = Ti.UI.SIZE;
+		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
@@ -876,6 +888,10 @@ function didChangeAutoFill(e) {
 		
 	} else {
 		isAutofillEnabled = "0";
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.hide();
+			$.autofillView.height = 0;	
+		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]
 		}));
