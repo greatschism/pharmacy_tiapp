@@ -903,6 +903,7 @@ function didChangeAutoFill(e) {
 
 function didSuccessAutoFill() {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
+	prescription.shouldUpdate = true;
 }
 
 function didFailAutoFill(result) {
