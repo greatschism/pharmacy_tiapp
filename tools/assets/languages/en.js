@@ -541,6 +541,7 @@ module.exports = {
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 		"refillSuccessBtnDone" : "Done",
+		"refillSuccessMesaage": "Your refill request with Rx %s has been placed.Your prescription will be ready for pickup after %s",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "Type prescription details",
