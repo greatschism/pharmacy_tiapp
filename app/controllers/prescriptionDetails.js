@@ -11,7 +11,7 @@ var args = $.args,
     logger = require("logger"),
     noReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["margin-left-large", "margin-top-xxl", "margin-right", "h11", "negative-color"],
+		classes : ["margin-left-large", "margin-top-xxl", "margin-right", "h11", "negative-fg-color"],
 		text : Alloy.Globals.strings.prescDetSectionNoReminders
 	});
 
