@@ -71,7 +71,10 @@
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
 			"payments_credit_card_get": "payments/getCreditCard",
 			"update_promise_time": "prescriptions/updatepromisetimeoption",
-			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill"
+			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill",
+			"get_addional_cust_conf": "getAddionalCustInfoConf",
+			"update_additional_customer_info": "patient/updateAdditionalCustomerInfo",
+			"get_additional_cust_info": "patient/getAdditionalCustomerInfo"
 		},
 		"apiCodes": {
 			"success": "200",
