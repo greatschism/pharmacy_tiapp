@@ -10,7 +10,6 @@ module.exports = {
 		"childAddHintRxNo" : "Rx number (7 digits)",
 		"familyMemberAddPrescHintRxNo" : "Rx number (7 digits)",
 		"registerHintRxFormat" : "Rx number (7 digits)",
-
 		"titleTwitter" : "Twitter",
 		"titleFacebook" : "Facebook",
 		"titleYoutube"	:"Youtube",
@@ -27,7 +26,13 @@ module.exports = {
 	    "loginLblTitle" : "Sign in to the %s Mobile Pharmacy",
         "titleHelp" : "Help",
         "titleRewards" : "Rewards",
-        "titleShop" : "Shop"
+        "titleShop" : "Shop",
+        "titleRewardCards" : "Reward Card",
+        "addRewardCardsHintName" : "Reward card number",
+        "additionalCustInfoBtnSubmit" : "Save",
+        "deleteButton" : "Delete",
+        "AdditionalDataDeleteConfirm" : "Are you sure you want to delete?",
+        "adCustInfoNoDataFoundMessage" : "Sorry, No data found"
 	}
 
 };

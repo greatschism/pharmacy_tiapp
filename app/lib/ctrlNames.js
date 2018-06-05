@@ -85,5 +85,7 @@ module.exports = {
 	"INPR" : "insuranceProfile",
 	"ININ" : "insuranceInput",
 	"VSIC" : "vSixCarousel",
-	"DYMO" : "dynamicMenuOption"
+	"DYMO" : "dynamicMenuOption",
+	"ADCI" : "additionalCustInfo",
+	"ACID" : "additionalCustInfoDelete"
 };

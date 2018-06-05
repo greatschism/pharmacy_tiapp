@@ -143,5 +143,10 @@ module.exports = {
 	/**
 	 * dynamic menu option
 	 */
-	"DYMO" : "dynamicMenuOption"
+	"DYMO" : "dynamicMenuOption",
+	/**
+	 * additional customers info
+	 */
+	"ADCI" : "additionalCustInfo",
+	"ACID" : "additionalCustInfoDelete"
 };

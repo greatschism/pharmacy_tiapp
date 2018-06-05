@@ -1,0 +1,4 @@
+"#rightNavBtn":{
+	title: Alloy.Globals.strings.deleteButton,
+	analyticsId: "DeleteBtn"
+}
