@@ -134,8 +134,8 @@ var args = $.args,
 						inputBoxIds[j].setValue(existing_data[i].field_value);
 					}
 					else {
-	 					inputBoxIds[j].setValue("");
-	 				}
+						inputBoxIds[j].setValue("");
+					}
 				}
 				else {
 					inputBoxIds[j].setValue("");
