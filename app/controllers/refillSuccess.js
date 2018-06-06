@@ -231,9 +231,7 @@ function didClickSignup(e) {
 }
 
 function didClickDone(e) {
-	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
+	$.app.navigator.closeToRoot();	
 }
 
 function handleEvent(e) {
