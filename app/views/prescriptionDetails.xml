@@ -71,7 +71,7 @@
 		</View>
 		<View class="h-divider-light" />
 		<View id="autoFillView" class="auto-height" if="Alloy.CFG.is_mscripts_autofill_enabled">
-			<Widget id="autoFillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" onPostlayout="didPostlayoutPrompt" />
+			<Widget id="autoFillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
 			<Widget id="autoFillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoFill" />
 		</View>
 		

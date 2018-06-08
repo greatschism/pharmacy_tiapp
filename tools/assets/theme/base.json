@@ -730,6 +730,9 @@
             ".margin-top-xxl":{
                 "top":"${MARGIN_TOP_XXL}"
             },
+            ".margin-top-xxxl":{
+                "top":"${MARGIN_TOP_XXXL}"
+            },
             ".margin-top-status-bar":{
                 "top":"${MARGIN_TOP_STATUS_BAR}"
             },
@@ -798,6 +801,12 @@
             },
             ".h11[platform=android]":{
                 "font":"${H11_PLATFORM_ANDROID}"
+            },
+            ".h12[platform=ios]":{
+                "font":"${H12_PLATFORM_IOS}"
+            },
+            ".h12[platform=android]":{
+                "font":"${H12_PLATFORM_ANDROID}"
             },
             ".i1[platform=ios]":{
                 "font":"${I1_PLATFORM_IOS}"

@@ -83,6 +83,7 @@
 	"MARGIN_LEFT_EXTRA_LARGE": 24,
 	"MARGIN_RIGHT_EXTRA_LARGE": 24,
 	"MARGIN_TOP_XXL": 30,
+	"MARGIN_TOP_XXXL": 38,
 	"MARGIN_TOP_STATUS_BAR": 40,
 	"HL_PLATFORM_IOS": {
 		"fontFamily": "light",
@@ -187,6 +188,14 @@
 	"H11_PLATFORM_ANDROID": {
 		"fontFamily": "regular",
 		"fontSize": 8
+	},
+	"H12_PLATFORM_IOS": {
+		"fontFamily": "regular",
+		"fontSize": 10
+	},
+	"H12_PLATFORM_ANDROID": {
+		"fontFamily": "regular",
+		"fontSize": 10
 	},
 	"I1_PLATFORM_IOS": {
 		"fontFamily": "icon",

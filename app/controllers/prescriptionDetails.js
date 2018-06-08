@@ -11,7 +11,7 @@ var args = $.args,
     logger = require("logger"),
     noReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
-		classes : ["margin-left-large", "margin-top-xxl", "margin-right", "h11", "negative-fg-color"],
+		classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
 		text : Alloy.Globals.strings.prescDetSectionNoReminders
 	});
 
@@ -323,7 +323,7 @@ function didPostlayoutPrompt(e) {
 	    if(prescription.prefill === "Y") {
 	    	if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.show();
-	    		$.autofillView.height = Ti.UI.SIZE;
+	    		//$.autofillView.height = Ti.UI.SIZE;
 	    	}
 			$.autoFillSwt.setValue(true, isWindowOpen);
 			$.reminderRefillView.applyProperties($.createStyle({
@@ -334,7 +334,7 @@ function didPostlayoutPrompt(e) {
 		}
 		else if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
-			$.autofillView.height = 0;
+			//$.autofillView.height = 0;
 		}
 	    
 	    children[1].applyProperties({
@@ -878,19 +878,20 @@ function didChangeAutoFill(e) {
 		isAutofillEnabled = "1";
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
-			$.autofillView.height = Ti.UI.SIZE;
+			//$.autofillView.height = Ti.UI.SIZE;
 		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
 		$.reminderRefillView.add(noReminderLabel);
+		$.reminderRefillSwt.setValue(false, isWindowOpen);
 		$.reminderRefillSwt.getSwitch().setEnabled(false);
 		
 	} else {
 		isAutofillEnabled = "0";
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
-			$.autofillView.height = 0;	
+			//$.autofillView.height = 0;	
 		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]
@@ -923,7 +924,7 @@ function didSuccessAutoFill() {
 }
 
 function didFailAutoFill(result) {
-	$.autoFillSwt.setValue(false, isWindowOpen);
+	isAutofillEnabled === "1" ? $.autoFillSwt.setValue(false, isWindowOpen) : $.autoFillSwt.setValue(true, isWindowOpen);
 	$.uihelper.showDialog({
 		message : result.message
 	});
