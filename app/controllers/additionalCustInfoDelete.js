@@ -1,7 +1,7 @@
 var args = $.args,
 	logger = require("logger"),
 	field_data = args.field_data,
-	existing_data = args.user_data,
+	//existing_data = args.user_data,
 	inputBoxIds = [],
 	rightIconDict = $.createStyle({
 		classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-remove", "accessibility-enabled"],
@@ -10,10 +10,17 @@ var args = $.args,
 	});
 
 function init() {
- 	
- 	createViewFunc(field_data);
-	
+ 	httpClient = $.http.request({
+		 method : "get_additional_cust_info",
+		 showLoader : false,
+		 success : didGetData
+	 });
 	}
+	
+	function didGetData(result) {
+		existing_data = result.data.records;
+		createViewFunc(field_data);
+	}	
 
 	function createViewFunc(data) {	
 		for(var i = 0; i < existing_data.length; i++) {

@@ -186,6 +186,8 @@ var args = $.args,
 		// navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
 			// landing_page : true
 		// }).toJSON());
+		$.rightNavBtn.getNavButton().show();
+		$.rightNavBtn.getNavButton().addEventListener("click", didClickRightNav);
 		$.uihelper.showDialog({
 			message : result.message
 		});
@@ -203,8 +205,8 @@ var args = $.args,
 		  titleid : "titleRewardCards",
 		  ctrl : "additionalCustInfoDelete",
 		  ctrlArguments : {
-			  field_data : resultset,
-			  user_data : existing_data,
+			  field_data : resultset
+			  //user_data : existing_data,
 		  },
 		  stack : true
 	  });
