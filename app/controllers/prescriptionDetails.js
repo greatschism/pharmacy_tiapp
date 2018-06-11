@@ -9,6 +9,7 @@ var args = $.args,
     isWindowOpen,
     httpClient,
     logger = require("logger"),
+    isAutofillEnabled,
     noReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
@@ -320,17 +321,27 @@ function didPostlayoutPrompt(e) {
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
 	    
-	    if(prescription.prefill === "Y") {
+	    if(prescription.prefill === "Y" && Alloy.CFG.is_mscripts_autofill_enabled) {
 	    	if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.show();
 	    		//$.autofillView.height = Ti.UI.SIZE;
 	    	}
-			$.autoFillSwt.setValue(true, isWindowOpen);
+	    	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+	    		$.autoFillSwt.setValue(true, isWindowOpen);
+	    	}
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
+		}
+		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
+			if(Alloy.CFG.is_autofill_message_enabled) {
+	    		$.autofillView.show();
+	    		//$.autofillView.height = Ti.UI.SIZE;
+	    	}
+			$.reminderRefillView.hide();
+  			$.reminderRefillView.height = 0;
 		}
 		else if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
@@ -873,32 +884,8 @@ function loadCopay() {
 
 
 function didChangeAutoFill(e) {
-	var isAutofillEnabled;
-	if(e.value) {
-		isAutofillEnabled = "1";
-		if(Alloy.CFG.is_autofill_message_enabled) {
-			$.autofillView.show();
-			//$.autofillView.height = Ti.UI.SIZE;
-		}
-		$.reminderRefillView.applyProperties($.createStyle({
-			classes : ["auto-height", "inactive-lighter-bg-color"]
-		}));
-		$.reminderRefillView.add(noReminderLabel);
-		$.reminderRefillSwt.setValue(false, isWindowOpen);
-		$.reminderRefillSwt.getSwitch().setEnabled(false);
-		
-	} else {
-		isAutofillEnabled = "0";
-		if(Alloy.CFG.is_autofill_message_enabled) {
-			$.autofillView.hide();
-			//$.autofillView.height = 0;	
-		}
-		$.reminderRefillView.applyProperties($.createStyle({
-			classes : ["auto-height", "bg-color"]
-		}));
-		$.reminderRefillView.remove(noReminderLabel);
-		$.reminderRefillSwt.getSwitch().setEnabled(true);
-	}
+	isAutofillEnabled;
+	e.value ? isAutofillEnabled = "1" : isAutofillEnabled = "0";
 	$.http.request({
 		method : "update_mscripts_autofill",
 		params : {
@@ -920,6 +907,31 @@ function didChangeAutoFill(e) {
 
 function didSuccessAutoFill() {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
+	if(isAutofillEnabled === "1") {
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.show();
+			//$.autofillView.height = Ti.UI.SIZE;
+		}
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "inactive-lighter-bg-color"]
+		}));
+		$.reminderRefillView.add(noReminderLabel);
+		if($.reminderRefillSwt.getValue()) {
+			$.reminderRefillSwt.setValue(false, isWindowOpen);
+		}
+		$.reminderRefillSwt.getSwitch().setEnabled(false);
+	}
+	else {
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.hide();
+			//$.autofillView.height = 0;	
+		}
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "bg-color"]
+		}));
+		$.reminderRefillView.remove(noReminderLabel);
+		$.reminderRefillSwt.getSwitch().setEnabled(true);
+	}
 	prescription.shouldUpdate = true;
 }
 
