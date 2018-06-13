@@ -364,7 +364,7 @@ function didClickTableView(e) {
 				useCache : true,
 				selectedItems : _.pluck(currentData.prescriptions, "id"),
 				prescriptions : selectedPrescriptions,
-				navigationFrom : ""
+				navigationFrom : "refillReminders"
 			},
 			stack : true
 		});

@@ -23,7 +23,14 @@ var args = $.args,
     dosagePrefCarryOver = [],
     preferenceUpdateRx = [],
     dialogCount = 0,
-    promiseTimeRx= {};
+    promiseTimeRx = {},
+    totalDeliveryAmount = 0,
+    dictDeliveryOptions,
+    rxInCart = [],
+    showCart = false;
+    
+    var countPrepData = 0;
+
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -96,19 +103,28 @@ function init() {
 	}
 	
 	Ti.App.addEventListener('sync_data', function(e) {
-		Ti.App.removeEventListener("sync_data", function(){});
-
-		$.http.request({
-			method : "patient_sync",
-			keepLoader : true,
-			success : prepareData,
-			failure : prepareData
+		Ti.App.removeEventListener("sync_data", function() {
 		});
+		// rxInCart = [];
+		logger.debug("\n\n\n\n\n fire event sync\n\n\n\n\n");
+		
+		$.utilities.setProperty(Alloy.CFG.sync_after_app_resume, "1");
+
+		/*
+		$.http.request({
+					method : "patient_sync",
+					keepLoader : true,
+					success : prepareData,
+					failure : prepareData
+				});
+				*/
+		
 	});
 
 }
 
 function focus() {
+	countPrepData = 0;
 	/*
 	 * avoid null pointer if another controller or another instance of this controller
 	 * used this global variable in it's life span
@@ -131,17 +147,31 @@ function focus() {
 		 * i.e - order details to prescriptions
 		 */
 		if (args.useCache && Alloy.Collections.prescriptions.length) {
+			if (args.selectable && (Alloy.CFG.is_delivery_option_enabled == 1)) {
+				Alloy.Collections.prescriptions.each(function(prescription) {
+					if (_.indexOf(args.selectedItems, prescription.get("id")) !== -1) {
+						totalDeliveryAmount += prescription.get("copay") != null ? parseFloat(prescription.get("copay")) : 0;
+					}
+				});
+			}
 			prepareList();
 		} else {
-			if ($.utilities.getProperty(Alloy.CFG.sync_after_checkout) == "1") {
-				$.utilities.setProperty(Alloy.CFG.sync_after_checkout, "0");
+			if ($.utilities.getProperty(Alloy.CFG.sync_after_checkout) == "1" || $.utilities.getProperty(Alloy.CFG.sync_after_app_resume) == "1") {
+								logger.debug("\n\n\n\n\n  sync call \n\n\n\n");
+
+				// $.utilities.setProperty(Alloy.CFG.sync_after_checkout, "0"); 		$.utilities.setProperty(Alloy.CFG.sync_after_app_resume, "0");
+				$.utilities.getProperty(Alloy.CFG.sync_after_checkout) == "1" ? $.utilities.setProperty(Alloy.CFG.sync_after_checkout, "0") : $.utilities.setProperty(Alloy.CFG.sync_after_app_resume, "0");
+				rxInCart = [];
 				$.http.request({
 					method : "patient_sync",
 					keepLoader : true,
+					errorDialogEnabled : false,
 					success : prepareData,
 					failure : prepareData
 				});
 			} else {
+				logger.debug("\n\n\n\n\nno sync jus get presc\n\n\n");
+
 				prepareData();
 			}
 		}
@@ -149,6 +179,8 @@ function focus() {
 		/**
 		 * checking whether any updates made from prescription details / any other detail screen
 		 */
+						logger.debug("\n\n\n\n\nDid I ? \n\n\n");
+
 		currentPrescription = null;
 		prepareData();
 	}
@@ -157,10 +189,18 @@ function focus() {
 
 	if(args.hideCheckoutHeader && args.selectable) {
 
-		$.rightNavBtn.getNavButton().hide(); 
-		$.submitBtn.title = $.strings.prescBtnNext;
+		$.rightNavBtn.getNavButton().hide();
 
-		$.checkoutTipView.visible = true;
+		if (Alloy.CFG.is_delivery_option_enabled == 1) {
+			$.checkoutTipView.visible = false;
+			$.checkoutTipView.height = 0;
+			$.submitBtn.title = "Checkout";
+			$.submitBtn.show();
+			$.deliveryAmountView.show();
+		} else {
+			$.checkoutTipView.visible = true;
+			$.submitBtn.title = $.strings.prescBtnNext;
+		}
 
 		$.bottomView.show();
 	}
@@ -171,6 +211,9 @@ function focus() {
 	if (Alloy.CFG.is_update_promise_time_enabled) {
 		getPromiseTimeOptions();
 	}
+	
+	$.utilities.setProperty(Alloy.CFG.show_saved_delivery_info, "0");
+	$.utilities.setProperty(Alloy.CFG.show_updated_card_info, "0");
 }
 
 
@@ -212,6 +255,8 @@ function didGetPromiseTimeOptions(result, passthrough) {
 }
 
 function prepareData() {
+	countPrepData++;
+	logger.debug("\n\n\ncalled		",countPrepData);
 	//reset search if any
 	// if ($.searchTxt.getValue()) {
 		// $.searchTxt.setValue("");
@@ -244,6 +289,8 @@ function prepareData() {
 			$.partialView.visible = false;
 			$.searchbar.visible = true;
 		}
+				logger.debug("\n\n\n\n\n getPrescriptions \n\n\n\n\n");
+
 		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}
 }
@@ -491,6 +538,13 @@ function prepareList() {
 	 * still the prescription object that doesn't pass the filter validation will be available in the collection
 	 */
 
+
+	showCart = Alloy.Collections.prescriptions.some(function(prescription) {
+		return (prescription.get("is_deliverable") == 1 && prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "0");
+	});
+	
+	logger.debug("\n\n\n showCart	", showCart,"\n\n\n");
+	
 	var debugCounterOOS = 0;
 	var debugCounterPF = 0;
 
@@ -752,18 +806,25 @@ function prepareList() {
 			if (args.selectable) {
 				prescription.set({
 					itemTemplate : "masterDetailWithLIcon",
-					masterWidth : 100,
-					detailWidth : 0,
+					masterWidth : Alloy.CFG.is_delivery_option_enabled == 1 && args.navigationFrom == "" ? 65 : 100,
+					detailWidth : Alloy.CFG.is_delivery_option_enabled == 1 && args.navigationFrom == "" ? 35 : 0,
 					subtitleClasses : subtitleClasses
 				});
-			} else {
-				if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
+				
+				if (Alloy.CFG.is_delivery_option_enabled == 1  && args.navigationFrom == "") {
 					prescription.set({
-						tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
-						tooltipType : "negative"
+						detailTitle : prescription.get("copay") != null ? "$" + parseFloat(prescription.get("copay")).toFixed(2) : "$0.00" ,
+						detailType : "positive"
 					});
 				}
-				
+
+			} else {
+				if (daysLeft <= Alloy.CFG.prescription_pickup_reminder) {
+					// prescription.set({
+						// tooltip : String.format($.strings[daysLeft === 0 ? "prescReadyPickupAttrRestockToday" : "prescReadyPickupAttrRestock"], daysLeft, $.strings[daysLeft > 1 ? "strDays" : "strDay"]),
+						// tooltipType : "negative"
+					// });
+				}
 				if(prescription.get("is_checkout_complete") === "1")
 				{
 					prescription.set({
@@ -786,12 +847,26 @@ function prepareList() {
 					});
 				}
 				
-				else
-				{
-					prescription.set({
-						itemTemplate : "completed",
-						detailTitle : $.strings.prescReadyPickupLblReady
-					});
+				else {	
+					dictDeliveryOptions = {
+						text : "Add to Cart",
+						selected : false
+					};
+					
+					if (Alloy.CFG.is_delivery_option_enabled == 1 && prescription.get("is_deliverable") == 1 && prescription.get("is_checkout_complete") === "0") {
+						prescription.set({
+							itemTemplate : "completed",
+							detailTitle : $.strings.prescReadyPickupLblDeliver,
+							showDeliveryOption : true,
+							optionDict : dictDeliveryOptions
+						});
+					} else {
+						prescription.set({
+							itemTemplate : "completed",
+							detailTitle : $.strings.prescReadyPickupLblReady,
+							showDeliveryOption : false
+						});
+					}	
 				}
 			}
 			var readyRxLabel;
@@ -925,6 +1000,8 @@ function prepareList() {
 			var h = _.has(rowParams, "changeTimeLbl");
 			if(h) {
 				row.on("clickpromisetime", didClickChangePromiseTime);
+			} else if(_.has(rowParams, "showDeliveryOption")) {
+				row.on("clickdeliver", didClickDeliver);
 			} else {
 				row.on("clickphone", didClickPhone);
 			}
@@ -1215,7 +1292,7 @@ function prepareList() {
 						});
 					}
 					
-					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled ) {
+					if( ( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled && (Alloy.CFG.is_delivery_option_enabled != 1)) {
 				
 						//The following logic block assembles and displays the CC info prompt (MCE-169)
 						//TODO: presumedly it should be extrapolated into it's own module
@@ -1377,29 +1454,63 @@ function prepareList() {
 								selected : true
 							});
 							
-							if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
-								var expiryDate = currentPatient.get("expiry_date").split('/');						
-								var formattedExpiryDate = new Date(expiryDate[0]+'/01/'+expiryDate[1]);
-		
-								var today = new Date();
-								var diffDays = moment(formattedExpiryDate).diff(today, "days");		
-						
-					 			if(moment(formattedExpiryDate).isAfter(today)) {
-					 				if(diffDays <=30) {
-					 					$.tooltipCardExpiry.applyProperties({
-											top : getPosition(tvSection)
-										});
-											
-										$.tooltipCardExpiry.show();
-					 				}
-					 			}
+							
+							if(Alloy.CFG.is_card_expiry_tip_enabled == 1) {
+								if (currentPatient.get("card_type") != null && currentPatient.get("expiry_date") != null && currentPatient.get("last_four_digits") != null) {
+									var expiryDate = currentPatient.get("expiry_date").split('/');
+									var formattedExpiryDate = new Date(expiryDate[0] + '/01/' + expiryDate[1]);
+
+									var today = new Date();
+									var diffDays = moment(formattedExpiryDate).diff(today, "days");
+
+									if (moment(formattedExpiryDate).isAfter(today)) {
+										if (diffDays <= 30) {
+											$.tooltipCardExpiry.applyProperties({
+												top : getPosition(tvSection)
+											});
+
+											$.tooltipCardExpiry.show();
+										}
+									}
+								}
 							}
 						}
+					} else if(( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled && (Alloy.CFG.is_delivery_option_enabled == 1)) {
+						var readyHeaderDict, headerTitle = "";
+							
+						
+						headerTitle = Alloy.Globals.strings.orderHomeDeliveryLbl;
+						var secondaryHeaderRightItem = $.createStyle({
+							id : "cartBtn",
+							title : "Go to Cart",
+							classes : ["width-30", "fill-height", "h4", "primary-bg-color", "border-disabled", "margin-top-small", "margin-bottom-small", "margin-left-extra-large"]
+						});
+	
+						readyHeaderDict = $.createStyle({
+							classes : ["bubble-disabled"],
+
+							title : "Save time with home delivery!",
+							accessibilityLabel : "Save time with home delivery",
+							secondaryHeader : true,
+							
+							callback : didClickCheckout
+						}); 
+
+						if(showCart) {
+							_.extend(readyHeaderDict, {secondaryHeaderRightItem : secondaryHeaderRightItem});
+						}
+							
+							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+
 					} else {
 						if(args.navigationFrom == "medSync") {
 							tvSection = $.uihelper.createTableViewSection($, "MedSync - Sync pick up "+nextPickupDate, sectionHeaders[key], false, headerBtnDict);
 						} else if(args.navigationFrom == "specialtyGrouping") {
 							tvSection = $.uihelper.createTableViewSection($, "Specialty", sectionHeaders[key], false, headerBtnDict);
+						} else if(args.selectable && (Alloy.CFG.is_delivery_option_enabled == 1) && args.navigationFrom == "") {
+							$.deliveryAmountView.show();
+							$.deliveryAmountLbl.text = "$" + (parseFloat(totalDeliveryAmount)).toFixed(2);
+							tvSection = $.uihelper.createTableViewSection($, "Prescriptions to pay for and deliver", sectionHeaders[key], false, headerBtnDict);
 						} else {
 							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, headerBtnDict);
 						}
@@ -1439,6 +1550,15 @@ function prepareList() {
 			$.uihelper.showDialog({
 				message : $.strings.prescAddMsgEmptyList
 			});
+			$.submitBtn.hide();
+			$.deliveryAmountView.hide();
+		}
+	} else {
+		logger.debug("\n\n\n Am I here ????????\t",data.length," \n\n\n\n");
+		if (args.selectable && data.length > 0) {
+			$.submitBtn.show();
+		} else {
+			$.submitBtn.hide();
 		}
 	}
 
@@ -1532,7 +1652,47 @@ function displayCheckoutInfo()
 
 
 function didClickCheckout(e) {
-	if (! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)) {
+	if (Alloy.CFG.is_delivery_option_enabled == 1) {
+		if (rxInCart.length) {
+			var ids = [], storeIds = [];
+			Alloy.Collections.prescriptions.each(function(prescription) {
+				if (prescription.get("refill_status") == apiCodes.refill_status_ready) {
+					rxInCart.indexOf(prescription.get("id")) === -1 ? ids.push(prescription.get("id")) : (storeIds.indexOf(prescription.get("original_store_id")) === -1 ? storeIds.push(prescription.get("original_store_id")) : "");
+				}
+			});
+			logger.debug("\n\n\n storeIds ids	",storeIds,"\n\n\n");
+			if(storeIds.length > 1){
+				$.uihelper.showDialog({
+					message : $.strings.prescCartMultipleStoreError
+				});
+				return;
+			}
+			$.app.navigator.open({
+				titleid : "titleReadyPrescriptions",
+				ctrl : "prescriptions",
+				ctrlArguments : {
+					filters : {
+						id : ids,
+						refill_status : [apiCodes.refill_status_in_process, apiCodes.refill_status_sold],
+						is_checkout_complete : ["1", null],
+						section : ["others"]
+					},
+					prescriptions : null,
+					patientSwitcherDisabled : true,
+					useCache : true,
+					selectable : true,
+					hideCheckoutHeader : true,
+					navigationFrom : "",
+					selectedItems : rxInCart
+				},
+				stack : true
+			});
+		} else {
+			$.uihelper.showDialog({
+				message : $.strings.prescCartMsgSelectMore
+			});
+		}
+	} else if (! $.utilities.getProperty(Alloy.CFG.cc_on_file, false, "bool", false)) {
 		displayCheckoutInfo();
 	} else {
 		$.app.navigator.open({
@@ -1597,9 +1757,59 @@ function didClickChangePromiseTime(e) {
 }
 
 
-function didClickPhone(e) {		
-	if(e.data.phone_formatted)
-	{
+function didClickDeliver(e) {
+	var count = 0,
+	    rowInfo = e.data,
+	    sectionId = rowInfo.section;
+
+	_.some(sections, function(rows, sid) {
+		if (sid === sectionId) {
+			/**
+			 * index till previous section
+			 */
+			var index = count - 1;
+			_.each(rows, function(row, rid) {
+				/**
+				 * index for this row
+				 */
+				index++;
+				var newRow;
+				var params = row.getParams();
+				if (rowInfo.id == params.id) {
+
+					var selected = !params.optionDict.selected;
+
+					params.optionDict.selected = selected;
+					params.optionDict.text = selected ? "Added to Cart" : "Add to Cart";
+					logger.debug("\n\n\n params after  			", JSON.stringify(params, null, 4), "\n\n\n");
+
+					newRow = Alloy.createController("itemTemplates/completed", params);
+					newRow.on("clickdeliver", didClickDeliver);
+
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
+					// row = newRow;
+					rows[rid] = newRow;
+
+					logger.debug("\n\n rxInCart		", rxInCart, "\n");
+					
+					if (rxInCart.length > 0) {
+						rxInCart.indexOf(rowInfo.id) != -1 ? rxInCart.splice(rxInCart.indexOf(rowInfo.id),1) : rxInCart.push(rowInfo.id);
+
+					} else {
+						rxInCart.push(rowInfo.id);
+					}
+
+					logger.debug("\n\n rxInCart		", rxInCart, "\n");
+				}
+			});
+
+		}
+	});
+}
+
+
+function didClickPhone(e) {
+	if (e.data.phone_formatted) {
 		$.uihelper.getPhoneWithContactsPrompt({
 			firstName : $.strings.strClientName + " Pharmacy",
 			phone : {
@@ -1633,7 +1843,8 @@ function didClickSelectAll(e) {
 			 * index till previous section
 			 */
 			var index = count - 1,
-			    selected = headerBtn.selected;
+			    selected = headerBtn.selected,
+			    deliveryAmount = 0;
 			_.each(rows, function(row, rid) {
 				/**
 				 * index for this row
@@ -1641,9 +1852,21 @@ function didClickSelectAll(e) {
 				index++;
 				var params = row.getParams();
 				params.selected = selected;
+				deliveryAmount += params.copay != null ? parseFloat(params.copay) : 0;
 				rows[rid] = Alloy.createController("itemTemplates/masterDetailWithLIcon", params);
 				$.tableView.updateRow( OS_IOS ? index : row.getView(), rows[rid].getView());
 			});
+
+			if (selected) {
+				$.deliveryAmountLbl.text = "$" + deliveryAmount.toFixed(2);
+			} else {
+				deliveryAmount = 0;
+				$.deliveryAmountLbl.text = "$0.00";
+			}
+			totalDeliveryAmount = deliveryAmount.toFixed(2);
+			logger.debug("\n\n\n select function 		",totalDeliveryAmount);
+
+
 			headerBtn.selected = !headerBtn.selected;
 			headerBtn.title = $.strings[headerBtn.selected ? "prescAddSectionBtnAll" : "prescAddSectionBtnNone"];
 			return true;
@@ -1686,6 +1909,7 @@ function didClickOptionMenu(e) {
 		 * sync the patient data / prescriptions
 		 * with the dispensing system
 		 */
+		rxInCart = [];
 		$.http.request({
 			method : "patient_sync",
 			keepLoader : true,
@@ -1858,6 +2082,19 @@ function didClickTableView(e) {
 					prescription.selected = !prescription.selected;
 					sections[sectionId][rowId] = Alloy.createController("itemTemplates/masterDetailWithLIcon", prescription);
 					$.tableView.updateRow( OS_IOS ? index : row.getView(), sections[sectionId][rowId].getView());
+
+					var amountChanges = 0;
+													
+					if (prescription.selected) {
+						amountChanges = parseFloat(totalDeliveryAmount) + parseFloat(prescription.copay != null ? prescription.copay : 0);
+					} else {
+						amountChanges = parseFloat(totalDeliveryAmount) - parseFloat(prescription.copay != null ? prescription.copay : 0);
+					}
+					totalDeliveryAmount = amountChanges;
+
+					$.deliveryAmountLbl.text = "$" + totalDeliveryAmount.toFixed(2);
+
+
 					/**
 					 * verify & update header button's
 					 * title and flag
@@ -2021,7 +2258,7 @@ function didClickSubmit(e) {
 		{
 	 		$.app.navigator.open({
 				titleid : "titleCheckoutQuestions",
-                ctrl : "checkout",
+				ctrl : "checkout",
 				ctrlArguments : {
 					prescriptions :readyPrescriptions,
 					selectable : true

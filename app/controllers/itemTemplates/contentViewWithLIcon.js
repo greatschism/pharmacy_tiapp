@@ -57,6 +57,17 @@ var args = $.args,
 	} else {
 		$.subtitleLbl.text = subtitle;
 	}
+
+	if (args.detailTitle) {
+		var detailTitle = args.detailTitle || (args.data ? args.data[args.detailTitleProperty] : "");
+		if (args.subtitleClasses) {
+			$.resetClass($.detailLbl, args.subtitleClasses, {
+				text : "$"+ detailTitle
+			});
+		} else {
+			$.detailLbl.text = "$"+detailTitle;
+		}
+	}
 	var rowContainerObj = OS_IOS ? $.row : $.containerView;
 	var rowAccessibilityText = $.titleLbl.text + " " + $.subtitleLbl.text;
 	if (checkedAccessiblity) {

@@ -101,6 +101,9 @@ module.exports = {
 	"EXCH" : "EXCH",
 	"EXQR" : "EXQR",
 	"EXPB" : "EXPB",
+	"DEOE" : "DEOE",
+	"PAOE" : "PAOE",
+	"CHSS" : "CHSS",
 	/**
 	 * quick refill
 	 */

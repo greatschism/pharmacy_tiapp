@@ -68,6 +68,17 @@ var args = $.args,
 		$.childLbl.height = 0;
 	}
 
+	if (args.showDeliveryOption) {
+		if (args.showDeliveryOption == true) {
+			$.deliveryView.show();
+			$.deliveryLbl.text = args.optionDict.text || "";
+		} else {
+			$.deliveryView.height = 0;
+		}
+	} else {
+		$.deliveryView.height = 0;
+	}
+
 	uihelper.wrapViews($.masterView);
 	_.each(["titleLbl", "subtitleLbl", "detailLbl"], function(val) {
 		uihelper.wrapText($[val]);
@@ -106,7 +117,7 @@ function getParams() {
 }
 
 function didClickPhone(e) {
-	logger.debug("\n\n\n\n\npassing control to parent\n\n\n");
+	logger.debug("\n\n\n\n\n completed passing control to parent\n\n\n");
 	var source = e.source;
 	$.trigger("clickphone", {
 		source : $,
@@ -124,4 +135,13 @@ function didClickPromiseTime(e) {
 	});
 }
 
-exports.getParams = getParams;
+function didClickDeliver(e) {
+	var source = e.source;
+	$.trigger("clickdeliver", {
+		source : $,
+		title : "",
+		data : args
+	});
+}
+
+exports.getParams = getParams; 

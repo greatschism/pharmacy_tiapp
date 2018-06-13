@@ -1,0 +1,12 @@
+"#signupLbl":{
+	text: Alloy.Globals.strings.refillSuccessLblSignup
+},
+"#signupBtn":{
+	title: Alloy.Globals.strings.refillSuccessBtnSignup
+},
+"#doneBtn":{
+	title: Alloy.Globals.strings.refillSuccessBtnDone
+},
+"#lblContact":{
+	text: "Where Am I?"
+}

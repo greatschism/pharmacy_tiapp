@@ -67,7 +67,13 @@
 			"email_resend": "patient/email/resend",
 			"mailorder_stores_get": "stores/getmailorderservice",
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
-			"update_promise_time": "prescriptions/updatepromisetimeoption"
+			"update_promise_time": "prescriptions/updatepromisetimeoption",
+			"delivery_options_get": "delivery/getdeliveryoptions",
+			"patient_creditcard_get": "payments/getCreditCard",
+			"patient_creditcard_add": "payments/addCreditCard",
+			"patient_creditcard_update": "payments/updateCreditCard",
+			"transaction_setupid_get": "payments/getTransactionToken",
+			"transaction_create_account": "payments/createTransactionAccount"
 		},
 		"apiCodes": {
 			"success": "200",
@@ -152,6 +158,9 @@
 		"show_loyalty_signup": "showLoyaltySignup",       
 		"cc_on_file": "ccOnFile",
 		"sync_after_checkout": "syncAfterCheckout",
+		"sync_after_app_resume": "syncAfterResume",
+		"show_saved_delivery_info": "savedDeliveryInfo",
+		"show_updated_card_info": "savedCardInfo",
 		"user_account": "account",
 		"resources_updated_on": "resourcesUpdated",
 		"latest_pickup_mode": "latestPickupMode",

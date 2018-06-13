@@ -1,13 +1,18 @@
 <Alloy>
-	
-	<!-- <ScrollView class="vgroup"> -->
 
-		<TableView id="tableView" class="top margin-bottom">
-			<FooterView platform="ios">
-				<View class="auto-height" />
-			</FooterView>
-		</TableView>	
-		<Button id="submitBtn" title="Submit" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border hide" onClick="didClickSubmit" />
-	<!-- </ScrollView> -->
-	<!-- <Widget id="loader" name="embedded" src="ti.loading" /> -->
+	<Widget id="deliveryOptionsPicker" analyticsId="DeliveryOptionsPicker" src="ti.optionpicker" class="modal-dialog" children="tableView">
+		<View class="top min-height inactive-light-bg-color role-header-view hgroup">
+			<Label id="deliveryOptionLbl" class="margin-left margin-right h5 inactive-fg-color" />
+			<Label id="deliveryOptionLblValue" class="right h5 inactive-fg-color" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="deliveryOptionsCloseBtn" title="Close" analyticsId="DeliveryOptionsCloseBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickCloseDeliveryOptions" />
+		</View>
+	</Widget>
+	<TableView id="tableView" class="top margin-bottom">
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
+	<Button id="submitBtn" title="Submit" class="top-disabled margin-bottom primary-bg-color primary-light-fg-color primary-border hide" onClick="didClickSubmit" />
 </Alloy>

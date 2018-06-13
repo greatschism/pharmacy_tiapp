@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "builder.js",
+  "dependencies": {
+    "sync-exec": "^0.6.2",
+    "nofs": "^0.10.9",
+    "commander": "^2.8.1",
+    "log4js": "^0.6.27",
+    "tiapp.xml": "^0.2.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

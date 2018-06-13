@@ -63,7 +63,7 @@ function didClickAdd(e) {
 			patientSwitcherDisabled : true,
 			useCache : true,
 			selectable : true,
-			navigationFrom : ""
+			navigationFrom : "orderDetails"
 		},
 		stack : true
 	});

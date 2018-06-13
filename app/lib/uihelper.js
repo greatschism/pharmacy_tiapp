@@ -825,6 +825,7 @@ var Helper = {
 		} else {
 			tClasses.push("margin-right");
 		}
+		logger.debug("\n\n\n rightItem		", JSON.stringify(rightItem, null, 4), "\n\n\n");
 
 		// Ti.API.info("rightItem ++ " + JSON.stringify(rightItem));
 		// Ti.API.info("vclasses ++ " + JSON.stringify(vClasses));
@@ -836,6 +837,7 @@ var Helper = {
 		if (rightItem && (rightItem.title === "Checkout" || rightItem.title === $.strings.titleCheckoutCompleteHeader || rightItem.title === $.strings.titleContinueExpressPickupHeader)) {
 
 			var headerCheckoutTitle = rightItem.title;
+			logger.debug("\n\n\n headerCheckoutTitle		", headerCheckoutTitle, "\n\n\n");
 
 			var rightItemClasses;
 
@@ -938,6 +940,80 @@ var Helper = {
 			});
 
 			headerView.add(headerViewHelp);
+
+		} else if (rightItem && rightItem.secondaryHeader) {
+
+			var headerView = $.UI.create("View", {
+				classes : vClasses,
+				height : 90
+			});
+
+			var headerViewPrimary = $.UI.create("View", {
+				classes : vClasses,
+				height : 40,
+				top : 0
+			});
+
+			var lbl = $.UI.create("Label", {
+				classes : tClasses,
+				text : title
+			});
+
+			if (!isWrap) {
+				Helper.wrapText(lbl);
+			}
+
+			headerViewPrimary.add(lbl);
+			headerView.add(headerViewPrimary);
+
+			// vClasses.shift();
+			vClasses.push("hgroup");
+			var headerViewSecondary = $.UI.create("View", {
+				classes : vClasses,
+				height : 50,
+				backgroundColor : '#EFFCFF',
+				bottom : 0
+			});
+
+			var lblSecondary = $.UI.create("Label", {
+				classes : ["h6", "margin-left", "margin-top-large"],
+				text : rightItem.title
+			});
+
+			if (!isWrap) {
+				Helper.wrapText(lblSecondary);
+			}
+
+			headerViewSecondary.add(lblSecondary);
+
+			if (rightItem.secondaryHeaderRightItem) {
+				if (rightItem.secondaryHeaderRightIcon) {
+
+				} else {
+					var callback;
+					if (_.has(rightItem, "callback")) {
+						callback = rightItem.callback;
+						delete rightItem.callback;
+					}
+
+					var rightBtn = $.UI.create("Button", {
+						classes : rightItem.secondaryHeaderRightItem.classes,
+						title : rightItem.secondaryHeaderRightItem.title,
+						id : rightItem.secondaryHeaderRightItem.id
+					});
+					_.extend(rightBtn, $.createStyle({
+						classes : ["margin-right-small"]
+					}));
+
+					if (callback) {
+						rightBtn.addEventListener("click", callback);
+					}
+					headerViewSecondary.add(rightBtn);
+
+				}
+			}
+			headerView.add(headerViewSecondary);
+
 		} else {
 
 			headerView = $.UI.create("View", {
@@ -957,6 +1033,7 @@ var Helper = {
 				}
 				headerView.add(rightBtn);
 			}
+			logger.debug("\n\n\n headerView title		",title, "\n\n\n");
 			var lbl = $.UI.create("Label", {
 				classes : tClasses,
 				text : title

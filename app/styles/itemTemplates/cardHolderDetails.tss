@@ -1,0 +1,21 @@
+"#nameTxt": {
+	hintText: "Cardholder Name"//Alloy.Globals.strings.storesHintSearch
+},
+"#addressTxt[if=$.args.name]":{
+	hintText: "Billing Address"
+},
+"#addressTxt[if=!$.args.name]":{
+	hintText: "Delivery Address"
+},
+"#cityTxt": {
+	hintText: "City"
+},
+"#stateTxt": {
+	hintText: "State"
+},
+"#zipTxt": {
+	hintText: "Zip Code"
+},
+"#descTxt": {
+	hintText: "Delivery Instructions"
+}

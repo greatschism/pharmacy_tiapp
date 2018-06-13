@@ -190,7 +190,7 @@ function didClickRefill(e) {
 				selectable : true,
 				minLength : 1,
 				useCache : false,
-				navigationFrom : "",
+				navigationFrom : "storeDetails",
 				navigation : {
 					titleid : "titleOrderDetails",
 					ctrl : "orderDetails",

@@ -86,6 +86,10 @@ module.exports = {
 	 * checkout
 	 */
 	"CHEC" : "Checkout",
+	"DEOE" : "DeliveryOptions",
+	"PAOE" : "PaymentOptions",
+	"CHSS" : "CheckoutSuccessSummary",
+
 	/**
 	 * reminders
 	 */

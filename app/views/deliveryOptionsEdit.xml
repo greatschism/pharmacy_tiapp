@@ -1,0 +1,11 @@
+<Alloy>
+	<TableView id="tableView" class="top margin-bottom" onSingletap="didClickTableView">
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
+	<View id="bottomView" class="bottom auto-height vgroup">
+		<Button id="submitBtn" class="margin-top margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" />
+	</View>
+	<Widget id="loader" name="embedded" src="ti.loading" class="loader-embedded-fill hide" />
+</Alloy>
