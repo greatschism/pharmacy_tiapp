@@ -96,6 +96,9 @@ function init() {
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 	if(Alloy.CFG.is_mscripts_autofill_enabled) {
 		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
+	} else {
+		$.autofillView.hide();
+		$.autofillView.height = 0;	
 	}
 }
 
@@ -910,7 +913,7 @@ function didSuccessAutoFill() {
 	if(isAutofillEnabled === "1") {
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
-			//$.autofillView.height = Ti.UI.SIZE;
+			$.autofillView.height = Ti.UI.SIZE;
 		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
@@ -924,7 +927,7 @@ function didSuccessAutoFill() {
 	else {
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
-			//$.autofillView.height = 0;	
+			$.autofillView.height = 0;	
 		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]
