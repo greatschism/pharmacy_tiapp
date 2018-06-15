@@ -62,8 +62,8 @@ module.exports = {
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
 		"msgNetworkTimeout" : "It's taking longer than expected, please check your network connection and try again.",
-		"msgServicesDown" : "Services are currently down. please try again later.",
-		"msgUnknownError" : "Something went wrong! please try again later.",
+		"msgServicesDown" : "Services are currently down. Please try again later.",
+		"msgUnknownError" : "Something went wrong! Please try again later.",
 		"msgAppUpdateFound" : "There is an update, do you want to download now?",
 		"msgAppUpdateFailed" : "We are unable to download the updates at the moment. Please try again later.",
 		"msgAppUpdatedReload" : "The updates has been downloaded, requires restart inorder to apply the updates. Do you want to restart now?",
@@ -105,6 +105,7 @@ module.exports = {
 		"msgMgrAdultAccountCreation" : "Your manager account is created! Now please add your adult family member.",
 		"msgRegisterSuccessful" : "Registration is complete. You can now sign into the app. Enjoy!",
 		"msgAccountHIPAARevoked" : "Your HIPAA Authorization has been revoked. You will no longer receive tailored offers or educational information.",
+		"msgAddCardError" : "There was an error adding the card. Please try again.",
 
 		"accessibilityLblSwitchOn" : "On",
 		"accessibilityLblSwitchOff" : "Off",
@@ -235,6 +236,10 @@ module.exports = {
 		"titleEmailVerify" : "Email Confirmation",
 		"titlePhoneVerify" : "Phone Confirmation",
 
+		"titleDeliveryOptions" : "Delivery Options",
+		"titlePaymentMethod" : "Payment Method",
+		"paymentDetBtnSubmit" : "Submit",
+
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "Refill prescriptions instantly",
@@ -299,6 +304,8 @@ module.exports = {
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
 
+		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
+
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
 		"storesHintSearch" : "Search",
@@ -325,6 +332,7 @@ module.exports = {
 		"storeDetBtnFavouriteAddAccessibility" : "Add Store to Favorites Button",
 		"storeDetBtnFavouriteRemoveAccessibility" : "Remove Store from Favorites Button",
 
+		"orderHomeDeliveryLbl" : "Save time with home delivery!",
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
 		"titleCheckoutCompleteHeader" : "Mobile checkout complete. See you soon!",
@@ -345,7 +353,7 @@ module.exports = {
 		"checkoutMsgEmptyList" : "Due to the recent upgrade, Mobile Checkout is not available for this prescription on this refill only. Future refills of this prescription will not be affected.",
 		"checkoutMsgCreditCardExpiry" : "Your credit card is expiring soon. Please update at the pharmacy to use Mobile Checkout.",
 		"cardExpiryTooltipBtnHide" : "Got it!",
-		
+
 		"checkoutMedicationPrefQuestion" : "I confirm my request for the brand name version of the following medication(s):",
 		"checkoutCounselingQuestion" : "Would you like to speak to the pharmacist about your medications?",
 		"checkoutYes" : "Yes",
@@ -353,6 +361,7 @@ module.exports = {
 		"checkoutPaymentInformation" : "Your Payment Information",
 		"checkoutCCEndingIn" : "ending in",
 		"checkoutCCExpDate" : "Expiration date:",
+		"checkoutSuccessLblSuccess" : "Checkout complete!",
 
 		"loyaltyAddTipLblTitle" : "Please enter your mPerks information at the cash register the next time you are at the pharmacy. We will save your information for future use in Mobile Checkout.",
 		"loyaltySignupTipLblTitle" : "Would you like to sign up for our mPerks program?",
@@ -365,11 +374,11 @@ module.exports = {
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pick-up is not supported at multiple locations at this time. Please proceed to your pharmacy to pick up your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please re-enter your information.",
 		"expressCheckoutNoCConFile" : "Please ask us to store your credit card during your next stop at the pharmacy to enable the Express Pick-up checkout feature for prescriptions that are READY FOR PICK UP. Want to learn more, click <secondaryfont><secondarycolor>here</secondarycolor></secondaryfont>.",
-		
+
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
 		"expressQRCounterExpired" : "Your Express Pick-up code has expired. Please re-enter your Date of Birth to enable again.",
-		
+
 		"doctorsPatientSwitcher" : "%s's doctors",
 		"doctorsSectionDoctors" : "Doctors",
 		"doctorsSwipeOptRemove" : "Remove",
@@ -433,6 +442,7 @@ module.exports = {
 		"prescOutOfStockLbl" : "Out of stock. We'll notify you when it's ready.",
 		"prescPartialFillLbl" : "This prescription is partially filled. We'll let you know when the remainder is available.",
 		"prescReadyPickupLblReady" : "Ready for pick up",
+		"prescReadyPickupLblDeliver" : "Eligible for delivery",
 		"prescReadyPickupAttrRestock" : "You have <secondaryfont><secondarycolor>%d %s</secondarycolor></secondaryfont> left to pick this up!",
 		"prescReadyPickupAttrRestockToday" : "You have to pick up this prescription <secondaryfont><secondarycolor>today</secondarycolor></secondaryfont>!",
 		"prescReadyRefillBtnHide" : "Hide",
@@ -459,7 +469,9 @@ module.exports = {
 		"prescPartialLblTitle" : "Want to add a prescription?",
 		"prescPartialLblDesc" : "It looks like you don't have any prescriptions associated with your account.",
 		"prescPrefCarryOverTitle" : "We noticed that you have a new prescription which closely matches a recent prescription with dosage reminders. Would you like to move dosage reminder settings from <secondarycolor>%s</secondarycolor> to <secondarycolor>%s</secondarycolor>?",
-		
+		"prescCartMsgSelectMore" : "Please add at least 1 prescription to cart to continue.",
+		"prescCartMultipleStoreError" : "You may not add prescriptions from different stores to the cart. Please remove one of your prescriptions and try again.",
+
 		"prescDetPromptCopay" : "Payment amount due:",
 		"prescDetPromptAutofill" : "This prescription is enrolled in autofill.",
 		"prescDetPromptQuantity" : "Quantity:",
@@ -873,11 +885,11 @@ module.exports = {
 		"textSignupBtnSendMeTexts" : "Send me texts",
 		"textSignupBtnSkipSendMeTexts" : "Not at this time",
 		"textSignUpBenefitLbl" : "Sign up to receive text benefits",
-        "textSignupBenefit1": "Reminders when it's time to refill.",
-        "textSignupBenefit2": "Instantly order new refills!",
-        "textSignupBenefit3": "Pick up notifications when your prescriptions are ready.",
-        "textSignupBenefit4": "Receive other health care messages.",
-        "textSignupBenefit5": "Know the status of your prescription throughout the filling process.",
+		"textSignupBenefit1" : "Reminders when it's time to refill.",
+		"textSignupBenefit2" : "Instantly order new refills!",
+		"textSignupBenefit3" : "Pick up notifications when your prescriptions are ready.",
+		"textSignupBenefit4" : "Receive other health care messages.",
+		"textSignupBenefit5" : "Know the status of your prescription throughout the filling process.",
 
 		"receiveTextChildSectionLbl" : "Who would you like to receive texts for?",
 		"receiveTextChildSectionPhoneNum" : "Mobile number",
@@ -1039,7 +1051,7 @@ module.exports = {
 		"accessibilityColorPicker" : "Color picker. This is optional.",
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
-		"expPickupBenefitsDoneBtn" :"Done",
+		"expPickupBenefitsDoneBtn" : "Done",
 		"vSixCarouselTitle" : "What's new!"
 	}
 };

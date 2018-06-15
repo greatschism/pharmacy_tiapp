@@ -152,6 +152,20 @@ module.exports = {
 		"type" : "image",
 		"version" : 1,
 		"base_version" : 1,
+		"code" : "shipping_truck_pl",
+		"name" : "shipping_truck",
+		"format" : "png",
+		"properties" : {
+			"height" : 50
+		},
+		"hires" : false,
+		"platform" : ["ios", "android"],
+		"url" : "http://example.com/shipping_truck.png",
+		"selected" : true
+	}, {
+		"type" : "image",
+		"version" : 1,
+		"base_version" : 1,
 		"code" : "auto_fill_pl",
 		"name" : "auto_fill",
 		"format" : "png",

@@ -1347,39 +1347,6 @@ function didGetCreditCardDetails(result, passthrough) {
 	 });*/
 	$.app.navigator.hideLoader();
 
-	var res = {
-		"status" : "SUCCESS",
-		"code" : "200",
-		"errorNodeType" : null,
-		"error_id" : null,
-		"errorCode" : null,
-		"message" : null,
-		"description" : null,
-		"version" : null,
-		"data" : {
-			"CreditCard" : [{
-				"customerId" : 1401,
-				"paymentType" : {
-					"paymentTypeId" : 2,
-					"paymentTypeDesc" : "Visa",
-					"pdxIdentifier" : 2,
-					"mckessonIdentifier" : null
-				},
-				"lastFourDigits" : "0007",
-				"expiryDate" : "12/49"
-			}, {
-				"customerId" : 1402,
-				"paymentType" : {
-					"paymentTypeId" : 2,
-					"paymentTypeDesc" : "Master Card",
-					"pdxIdentifier" : 2,
-					"mckessonIdentifier" : null
-				},
-				"lastFourDigits" : "0009",
-				"expiryDate" : "1/20"
-			}]
-		}
-	};
 }
 
 function presentSubmitButton() {
@@ -1510,8 +1477,7 @@ function didClickSubmit(e) {
 			showRxNamesFlag : currentPatient.get("show_rx_names_flag")
 		};
 	}
-	
-	
+
 	var deliveryCharge = 0.0;
 	Alloy.Collections.deliveryOptions.some(function(option, index) {
 		if (option.get("selected") == true) {
@@ -1521,54 +1487,48 @@ function didClickSubmit(e) {
 
 	_.extend(checkout, {
 		totalAmount : totalAmountDue,
-		deliveryCharge : deliveryCharge
-	});
-	$.app.navigator.open({
-		titleid : "Summary",
-		ctrl : "checkoutSuccessSummary",
-		ctrlArguments : {
-			checkoutDetails : checkout
-		},
-		stack : false
+		deliveryCharge : deliveryCharge,
 	});
 
 	/*
-	 $.http.request({
-	 method : "checkout_preferences_update",
-	 params : {
-	 data : [{
-	 checkout : checkout
-	 }]
+	 $.app.navigator.open({
+	 titleid : "Summary",
+	 ctrl : "checkoutSuccessSummary",
+	 ctrlArguments : {
+	 checkoutDetails : checkout
 	 },
-	 passthrough : true,
-	 errorDialogEnabled : true,
-	 keepLoader : false,
-	 success : didSuccess,
-	 failure : didFail
+	 stack : false
 	 });
 	 */
+
+	$.http.request({
+		method : "checkout_preferences_update",
+		params : {
+			data : [{
+				checkout : checkout
+			}]
+		},
+		passthrough : true,
+		errorDialogEnabled : true,
+		keepLoader : false,
+		success : didSuccess,
+		failure : didFail
+	});
 
 }
 
 function didSuccess(result, passthrough) {
 	logger.debug("\n\n\n\n checkout result", JSON.stringify(result, 0, null), "\n\n\n");
+	_.extend(checkout, {
+		orderId : result.data.orderNumber
+	});
 	$.app.navigator.hideLoader();
 	updateCard();
-
-	/*
-	 uihelper.showDialog({
-	 message : result.message,
-	 buttonNames : (Alloy.CFG.is_delivery_option_enabled == 1) ? [$.strings.dialogBtnOK] : ((checkoutStores.length > 1) ? [$.strings.dialogBtnOK] : [$.strings.dialogBtnNo, $.strings.dialogBtnYes]),
-	 cancelIndex : -1,
-	 success : successMessageUserResponse
-
-	 });*/
-
 }
 
 function didFail(result, passthrough) {
 	$.app.navigator.hideLoader();
-	updateCard();
+	// updateCard();
 	popToHome();
 }
 

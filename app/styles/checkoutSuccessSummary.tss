@@ -8,5 +8,5 @@
 	title: Alloy.Globals.strings.refillSuccessBtnDone
 },
 "#lblContact":{
-	text: "Where Am I?"
+	text: "Order #: "
 }

@@ -111,6 +111,9 @@ function updateTable() {
 	/**
 	 * process table
 	 */
+	
+	logger.debug("\n\n\n args ---------- ",JSON.stringify(args,null,4),"\n\n\n");
+	$.lblContact.text = "Order #".concat(checkoutDetails.orderId);
 	var data = [],
 	    isMailOrder = args.pickupMode && args.pickupMode === Alloy.CFG.apiCodes.pickup_mode_mail_order;
 	if (store || isMailOrder) {
@@ -172,23 +175,11 @@ function updateTable() {
 
 	$.delDetailsSection = $.uihelper.createTableViewSection($, "Delivery details");
 
-	/*
-	 * 	prescriptions : checkoutPrescriptions,
-	 deliveryDetail : {
-	 type : selectedDeliveryType,
-	 address_line : delAddressInfo.address,
-	 city : delAddressInfo.city,
-	 state : delAddressInfo.state,
-	 zip : delAddressInfo.zip,
-	 mobile_number : $.utilities.validatePhoneNumber(delAddressInfo.phone),
-	 instructions : ""
-	 },
-	 cardDetails : {
-	 creditCardType : card.paymentType.paymentTypeDesc,
-	 lastFourDigit : card.lastFourDigits,
-	 expirationDate : card.expiryDate
-	 }
-	 */
+	
+	var amount = parseFloat(checkoutDetails.totalAmount).toFixed(2);
+	var deliverCharge = parseFloat(checkoutDetails.deliveryCharge).toFixed(2);
+	var total = parseFloat(amount) + parseFloat(deliverCharge);
+	
 	var deliveryData = {
 		section : "deliveryInfo",
 		itemTemplate : "deliveryInfo",
@@ -198,9 +189,9 @@ function updateTable() {
 		subtitleClasses : subtitleClasses,
 		deliveryOption : deliveryDetails.type,
 		optionClasses : optionClasses,
-		tertiaryTitle : "$" + checkoutDetails.totalAmount,
-		detailTitle : "$" + checkoutDetails.deliveryCharge,
-		detailSubtitle : "$".concat(parseFloat(checkoutDetails.totalAmount) + parseFloat(checkoutDetails.deliveryCharge))
+		tertiaryTitle : "$" + amount,
+		detailTitle : "$" + deliverCharge,
+		detailSubtitle : "$".concat(total.toFixed(2))		
 	};
 
 	var rowParams = deliveryData,
