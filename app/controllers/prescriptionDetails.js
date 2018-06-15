@@ -96,9 +96,6 @@ function init() {
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 	if(Alloy.CFG.is_mscripts_autofill_enabled) {
 		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
-	} else {
-		$.autofillView.hide();
-		$.autofillView.height = 0;	
 	}
 }
 
@@ -327,7 +324,7 @@ function didPostlayoutPrompt(e) {
 	    if(prescription.prefill === "Y" && Alloy.CFG.is_mscripts_autofill_enabled) {
 	    	if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.show();
-	    		//$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.height = Ti.UI.SIZE;
 	    	}
 	    	if(Alloy.CFG.is_mscripts_autofill_enabled) {
 	    		$.autoFillSwt.setValue(true, isWindowOpen);
@@ -341,14 +338,14 @@ function didPostlayoutPrompt(e) {
 		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.show();
-	    		//$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.height = Ti.UI.SIZE;
 	    	}
 			$.reminderRefillView.hide();
   			$.reminderRefillView.height = 0;
 		}
 		else if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
-			//$.autofillView.height = 0;
+			$.autofillView.height = 0;
 		}
 	    
 	    children[1].applyProperties({
