@@ -588,7 +588,7 @@ function didRefill(result, passthrough) {
 			date += " UTC";
 			date = new Date(date.replace(/-/g,"/"));
 			dateTimeFormat = moment(date).format(apiCodes.ymd_date_time_format);
-			dateTimeFormat = moment(dateTimeFormat).format(apiCodes.date_time_format);
+			dateTimeFormat = moment(dateTimeFormat).format(apiCodes.month_date_year_time_format);
 			reg_ex = '#[0-9]{'+Alloy.Globals.rx_max+'}';
 			reg_ex = new RegExp(reg_ex);			
 			rxNumber = presc.refill_inline_message.match(reg_ex).toString();
