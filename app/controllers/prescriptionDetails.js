@@ -31,7 +31,7 @@ function init() {
 		$.refillsLeftBtn.title = refillsLeftTitle;
 	}
 	$.dueBtn.title = prescription.anticipated_refill_date ? moment(prescription.anticipated_refill_date, apiCodes.date_format).format(Alloy.CFG.date_format) : $.strings.strNil;
-	$.lastRefillBtn.title = prescription.latest_sold_date ? moment(prescription.latest_sold_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
+    $.lastRefillBtn.title = prescription.presc_last_filled_date ? moment(prescription.presc_last_filled_date, apiCodes.date_time_format).format(Alloy.CFG.date_format) : $.strings.strNil;
 	_.each(["refillsLeftLbl", "dueLbl", "lastRefillLbl"], function(val) {
 		$.uihelper.wrapText($[val]);
 	});
