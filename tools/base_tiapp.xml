@@ -106,7 +106,7 @@
     <module platform="android" version="4.0.1">ti.ga</module>
     <module platform="iphone" version="2.12.3">ti.map</module>
     <module platform="android" version="4.0.0">ti.map</module>
-    <module platform="android" version="3.0.0">ti.push</module>
+    <module platform="android" version="3.0.1">ti.push</module>
     <module platform="iphone" version="2.1">com.obscure.keychain</module>
     <module platform="android" version="4.0">com.obscure.keychain</module>
     <module platform="iphone" version="0.8.0">com.mfogg.squarecamera</module>
