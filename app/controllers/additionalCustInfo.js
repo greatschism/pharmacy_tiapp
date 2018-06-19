@@ -11,6 +11,7 @@ var args = $.args,
 	is_delete_flow = 0;
  
 	function init() {
+		init_called = 1;
 	 	httpClient = $.http.request({
 			method : "get_addional_cust_conf",
 			params : {
@@ -21,8 +22,6 @@ var args = $.args,
 			showLoader : false,
 			success : didGetConfigs
 		});
-		
-		init_called = 1;
 		
 	}
 	
@@ -87,6 +86,7 @@ var args = $.args,
 	}	
 	
 	function createViewFunc(data) {	
+		console.log("is_delete_flow: "+is_delete_flow);
 		if(!is_delete_flow) {
 			for(var i = 0; i < data.length; i++) {
 				var hintText = data[i].field_name;
@@ -125,25 +125,23 @@ var args = $.args,
 						
 				}
 			}
-		}
 		
-		for(var i = 0; i < resultset.length; i++) {
-			for(var j = 0; j < resultset.length; j++) {
-				if(existing_data[i]) {
-					if(existing_data[i].field_id === resultset[j].id) {
-						inputBoxIds[j].setValue(existing_data[i].field_value);
+			for(var i = 0; i < resultset.length; i++) {
+				for(var j = 0; j < resultset.length; j++) {
+					if(existing_data[i]) {
+						if(existing_data[i].field_id === resultset[j].id) {
+							inputBoxIds[j].setValue(existing_data[i].field_value);
+						}
+						else {
+							inputBoxIds[j].setValue("");
+						}
 					}
 					else {
 						inputBoxIds[j].setValue("");
 					}
 				}
-				else {
-					inputBoxIds[j].setValue("");
-				}
 			}
-		}
 		
-		if(!is_delete_flow) {
 			var btn = $.UI.create("Button", {
 				apiName : "Button",
 				classes : ["margin-bottom", "primary-bg-color", "primary-font-color", "primary-border"],
@@ -201,6 +199,8 @@ var args = $.args,
  	
  		
  	function didClickRightNav() {
+ 		init_called = 0;
+	  	is_delete_flow = 1;
  		$.app.navigator.open({
 		  titleid : "titleRewardCards",
 		  ctrl : "additionalCustInfoDelete",
@@ -210,8 +210,6 @@ var args = $.args,
 		  },
 		  stack : true
 	  });
-	  init_called = 0;
-	  is_delete_flow = 0;
  	}
 
  	

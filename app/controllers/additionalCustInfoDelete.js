@@ -3,11 +3,7 @@ var args = $.args,
 	field_data = args.field_data,
 	//existing_data = args.user_data,
 	inputBoxIds = [],
-	rightIconDict = $.createStyle({
-		classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-remove", "accessibility-enabled"],
-		accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
-		id : "removeBtn"
-	});
+	cust_data;
 
 function init() {
  	httpClient = $.http.request({
@@ -65,7 +61,11 @@ function init() {
 				if(existing_data[i]) {
 					if(existing_data[i].field_id === field_data[j].id) {
 						inputBoxIds[j].setValue(existing_data[i].field_value);
-						inputBoxIds[j].setIcon("", "right", rightIconDict);
+						inputBoxIds[j].setIcon("", "right", $.createStyle({
+							classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-remove", "accessibility-enabled"],
+							accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
+							id : "removeBtn"
+						}));
 						inputBoxIds[j].addEventListener("click", didClickRemove);
 					}
 				}
@@ -75,15 +75,18 @@ function init() {
 	}
 	
 	function didClickRemove(e) {
-		var data;
-		for(var i = 0; i < existing_data.length; i++) {
-			if(existing_data[i].field_value === e.source.value) {
-				data = {
-					"field_id" : existing_data[i].field_id,
-					"field_value" : existing_data[i].field_value
-				};
+		for(var i = 0; i < field_data.length; i++) {
+			for(var j = 0; j < field_data.length; j++) {
+				if(existing_data[i]) {
+					if(existing_data[i].field_id === field_data[j].id) {
+						cust_data = {
+							"field_id" : existing_data[i].field_id,
+							"field_value" : existing_data[i].field_value
+						};
+					}
+				}
 			}
-		} 
+		}
 		
 		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.AdditionalDataDeleteConfirm,
@@ -96,7 +99,7 @@ function init() {
 						filter : {
 							action : "delete"
 						},
-						data : [data]
+						data : [cust_data]
 					},
 					success : didRemove,
 					failure : didFail
