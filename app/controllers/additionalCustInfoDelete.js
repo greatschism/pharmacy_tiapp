@@ -62,7 +62,7 @@ function init() {
 					if(existing_data[i].field_id === field_data[j].id) {
 						inputBoxIds[j].setValue(existing_data[i].field_value);
 						inputBoxIds[j].setIcon("", "right", $.createStyle({
-							classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-remove", "accessibility-enabled"],
+							classes : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-filled-remove"],
 							accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
 							id : "removeBtn"
 						}));

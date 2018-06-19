@@ -125,6 +125,7 @@ var args = $.args,
 						
 				}
 			}
+		}
 		
 			for(var i = 0; i < resultset.length; i++) {
 				for(var j = 0; j < resultset.length; j++) {
@@ -142,6 +143,7 @@ var args = $.args,
 				}
 			}
 		
+		if(!is_delete_flow) {
 			var btn = $.UI.create("Button", {
 				apiName : "Button",
 				classes : ["margin-bottom", "primary-bg-color", "primary-font-color", "primary-border"],
