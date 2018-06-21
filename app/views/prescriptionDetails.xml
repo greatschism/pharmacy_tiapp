@@ -46,9 +46,7 @@
                         <ImageView id="autofillPromptLbl" class="top left primary-fg-color img-auto-fill" onPostlayout="didPostlayoutPrompt" />
                         <Label id="autofillReplyLbl" class="top margin-left-medium active-fg-color" />
                     </View>
-                    <View id="padderView" platform="ios" class="top height-10" if="Alloy.CFG.is_autofill_message_enabled">
-                    </View>
-                    <View id="padderView" platform="android" class="margin-top height-10" if="Alloy.CFG.is_autofill_message_enabled">
+                    <View id="padderView" class="margin-top height-10" if="Alloy.CFG.is_autofill_message_enabled">
                     </View>
 				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
