@@ -323,8 +323,8 @@ function didPostlayoutPrompt(e) {
 	    
 	    if(prescription.prefill === "Y" && Alloy.CFG.is_mscripts_autofill_enabled) {
 	    	if(Alloy.CFG.is_autofill_message_enabled) {
-	    		$.autofillView.show();
 	    		$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.show();
 	    	}
 	    	if(Alloy.CFG.is_mscripts_autofill_enabled) {
 	    		$.autoFillSwt.setValue(true, isWindowOpen);
@@ -337,8 +337,8 @@ function didPostlayoutPrompt(e) {
 		}
 		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
-	    		$.autofillView.show();
 	    		$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.show();
 	    	}
 			$.reminderRefillView.hide();
   			$.reminderRefillView.height = 0;
