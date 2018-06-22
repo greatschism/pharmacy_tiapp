@@ -98,5 +98,23 @@
 	},{
 		"id": "raleys",
 		"description": "Raleys Rx"
+	}, {
+		"id": "albertsons",
+		"description": "Albertsons Pharmacy"
+	}, {
+		"id": "pavilions",
+		"description": "Pavilions Pharmacy"
+	},	{
+		"id": "randalls",
+		"description": "Randalls Pharmacy"
+	},	{
+		"id": "safeway",
+		"description": "Safeway Pharmacy"
+	},	{
+		"id": "tomthumb",
+		"description": "Tom Thumb Pharmacy"
+	},	{
+		"id": "vons",
+		"description": "Vons Pharmacy"
 	}	
 ]
