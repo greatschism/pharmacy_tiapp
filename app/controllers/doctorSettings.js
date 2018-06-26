@@ -274,7 +274,6 @@ function didDeleteDoctor(result, passthrough) {
 	 */
 	doctor.method = "doctors_delete";
 	//close
-	$.app.navigator.closeToRoot();
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());

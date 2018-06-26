@@ -177,7 +177,6 @@ function updateTable() {
 		_.extend(prescription, {
 			iconClasses : prescription.refill_is_error === true ? failureClasses : successClasses
 		});
-		Ti.API.info(JSON.stringify(prescription));
 		$.prescSection.add(Alloy.createController("itemTemplates/contentViewWithLIcon", prescription).getView());
 	});
 	data.push($.prescSection);
@@ -231,7 +230,6 @@ function didClickSignup(e) {
 }
 
 function didClickDone(e) {
-	$.app.navigator.closeToRoot();
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());
