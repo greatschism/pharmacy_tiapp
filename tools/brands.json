@@ -26,6 +26,9 @@
 	}, {
 		"id": "oxygen_mck",
 		"description": "Oxygen MCK base product."
+	},{
+		"id": "mscripts-mck",
+		"description": "Mscripts MCK base product."
 	}, {
 		"id": "oxygen_pdx",
 		"description": "Oxygen PDX base product."
