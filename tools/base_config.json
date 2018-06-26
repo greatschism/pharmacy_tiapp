@@ -178,7 +178,7 @@
 	"dependencies": {
 		"ti.tsstrimmer": "1.0",
 		"nl.fokkezb.color": "1.1.0",
-		"nl.fokkezb.drawer": "1.0",
+		"nl.fokkezb.drawer": "1.2.0",
 		"ti.asyncview": "1.0",
 		"ti.dropdown": "1.0",
 		"ti.expandable": "1.0",

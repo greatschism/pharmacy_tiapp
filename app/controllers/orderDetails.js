@@ -563,6 +563,7 @@ function didClickRefill(e) {
 				prescriptions : data
 			}]
 		},
+		keepLoader : true,
 		success : didRefill
 	});
 
@@ -576,7 +577,6 @@ function didRefill(result, passthrough) {
 	reg_ex,
 	rxNumber;
 	
-	Ti.API.info(JSON.stringify(refilledPrescs));
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order
@@ -630,12 +630,13 @@ function didRefill(result, passthrough) {
 	}
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
-		titleid : titleRefill,
+		titleid : "titleRefill",
 		ctrlArguments : {
 			prescriptions : refilledPrescs,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value")
 		}
 	});
+	$.app.navigator.hideLoader();
 }
 
 function hideAllPopups() {
