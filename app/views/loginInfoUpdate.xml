@@ -7,7 +7,11 @@
 			<View id="infoView" class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider"/>
-				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue" onClick="didChangeToggle"/>
+				<Widget id="emailVerifyTxt" analyticsId="EmailVerifyTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
+				<View class="h-divider"/>
+				<Widget id="passwordTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="moveToNext" onClick="didChangeToggle"/>
+				<View class="h-divider"/>
+				<Widget id="passwordVerifyTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue"/>
 			</View>
 			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
 		</View>
