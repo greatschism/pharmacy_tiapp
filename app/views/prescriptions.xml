@@ -55,7 +55,7 @@
 		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center"/>
 		<Button accessibilityLabel="Alloy.Globals.strings.prescAddBtnAccessibility" class="margin-top-small margin-bottom auto-height bg-color-disabled i1 primary-fg-color border-disabled icon-add-prescription accessibility-enabled" onClick="didClickAddPresc" />
 	</ScrollView>
-	<View id="bottomView" class="top-disabled margin-bottom auto-height vgroup">
+	<View id="bottomView" class="top-disabled margin-bottom auto-height vgroup" onPostlayout="onBottomViewLoaded">
 		<Button id="submitBtn" class="margin-top margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickSubmit" if="$.args.selectable" />
 		<View id="checkoutTipView" class="auto-height vgroup" onClick="didClickTransferRx">
 			<Label id="checkoutTipLbl" class="margin-left margin-right txt-left"/>

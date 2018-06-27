@@ -2417,6 +2417,12 @@ function didPostlayout(e) {
 	};
 }
 
+function onBottomViewLoaded() {
+	if(args.hideCheckoutHeader) {
+		$.tableView.bottom = $.bottomView.rect.height;
+	}
+}
+
 function popToHome() {
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true

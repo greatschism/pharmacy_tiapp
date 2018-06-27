@@ -97,3 +97,7 @@ _.extend($, {
 	setValue : setValue,
 	applyProperties : applyProperties
 });
+
+exports.getSwitch = function() {
+	return $.swt;
+};

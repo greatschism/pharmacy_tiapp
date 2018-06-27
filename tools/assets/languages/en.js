@@ -1067,6 +1067,9 @@ module.exports = {
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
-		"vSixCarouselTitle" : "What's new!"
+		"vSixCarouselTitle" : "What's new!",
+		"autoFillAttr" : "Automatically refill this medication",
+		"prescDetSectionAutofill" : "Autofill",
+		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
 	}
 };
