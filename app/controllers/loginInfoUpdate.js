@@ -2,11 +2,11 @@ var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn", "positive-fg-color"],
-	title : Alloy.Globals.strings.strShow,
-	width : "25%",
-	backgroundColor : 'transparent'
-}),
+		classes : ["txt-positive-right-btn", "positive-fg-color"],
+		title : Alloy.Globals.strings.strShow,
+		width : "25%",
+		backgroundColor : 'transparent'
+	}),
     utilities = require('utilities'),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     uihelper = require("uihelper"),
