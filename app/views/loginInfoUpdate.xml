@@ -3,7 +3,7 @@
 		<View id="parentView" class="width-100 vgroup">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
 			<Widget id="loginInfoUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" onClick="didClickWhatsNew" />
-			<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
+			<Widget id="askInfoLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right attributed-20 txt-left"/>
 			<View id="infoView" class="margin-top-large margin-left margin-right auto-height vgroup border">
 				<Widget id="emailTxt" analyticsId="EmailTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-next" onReturn="moveToNext"  />
 				<View class="h-divider"/>

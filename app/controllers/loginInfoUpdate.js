@@ -24,7 +24,7 @@ function init() {
 		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
 
-	$.askInfoLbl.text = Alloy.Globals.strings.loginInfoUpdateAskInfoUpdatedText;
+	$.askInfoLbl.html = Alloy.Globals.strings.loginInfoUpdateAskInfoUpdatedText;
 
 	uihelper.getImage("logo", $.logoImg);
 }
@@ -78,11 +78,11 @@ function test(who) {
 	if (who == "email") {
 
 		uihelper.showDialog({
-			message : "Entered email ids do not match"
+			message : "The email IDs entered do not match"
 		});
 	} else if (who == "password") {
 		uihelper.showDialog({
-			message : "Entered passwords do not match"
+			message : "The passwords entered do not match"
 		});
 	}
 }
