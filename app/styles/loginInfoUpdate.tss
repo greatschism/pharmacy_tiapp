@@ -1,4 +1,3 @@
-
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.loginHintUsername,
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
@@ -6,6 +5,15 @@
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.loginHintNewPassword,
+	passwordMask: true
+},
+"#emailVerifyTxt":{
+	hintText: "Confirm Email address",
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
+	nextItem: "passwordTxt"
+},
+"#passwordVerifyTxt":{
+	hintText: "Confirm New Password",
 	passwordMask: true
 },
 "#continueBtn":{
