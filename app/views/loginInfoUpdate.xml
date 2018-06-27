@@ -1,6 +1,5 @@
 <Alloy>
-	<ScrollView class="disable-bounce">
-		<View id="parentView" class="width-100 vgroup">
+	<ScrollView id="scrollView" class="disable-bounce width-100 vgroup content-width-100">
 			<ImageView id="logoImg" class="margin-top-large img-logo" />
 			<Widget id="loginInfoUpdateLbl" src="ti.styledlabel" class="margin-top-large margin-left margin-right txt-left attributed-20" onClick="didClickWhatsNew" />
 			<Label id="askInfoLbl" class="margin-top-large margin-left margin-right h4 txt-left"/>
@@ -14,6 +13,5 @@
 				<Widget id="passwordVerifyTxt" src="ti.textfield" class="top left right txt border-disabled returnkey-done" onReturn="didClickContinue"/>
 			</View>
 			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-top-large margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
-		</View>
 	</ScrollView>
 </Alloy>
