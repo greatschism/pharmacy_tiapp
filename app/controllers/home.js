@@ -568,6 +568,8 @@ function didPostlayout(e) {
 
 	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
+	} else {
+		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblSignIn;
 	}
 
 	var source = e.source,

@@ -159,6 +159,7 @@ module.exports = {
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 		"iconAccessibilityLblAccount" : "Account",
+		"iconAccessibilityLblSignIn" : "Sign in",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
@@ -238,6 +239,8 @@ module.exports = {
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
+		"titleEmailVerify" : "Email Confirmation",
+		"titlePhoneVerify" : "Phone Confirmation",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -307,8 +310,6 @@ module.exports = {
 		"userRecoveryBtnSend" : "Send",
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-
-		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -398,7 +399,7 @@ module.exports = {
 		"doctorDetLblManual" : "You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
-		"doctorDetLblRefilled" : "Refilled: %s",
+		"doctorDetLblRefilled" : "Picked up: %s",
 		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
@@ -481,7 +482,7 @@ module.exports = {
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
 		"prescDetInfoDueOn" : "Due for refill",
-		"prescDetInfoLastRefilled" : "Last refilled",
+		"prescDetInfoLastRefilled" : "Last filled",
 		"prescDetBtnRefill" : "Refill prescription",
 		"prescDetPromptRx" : "Prescription number:",
 		"prescDetPromptExpirationDate" : "Expiration date:",
@@ -555,6 +556,7 @@ module.exports = {
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 		"refillSuccessBtnDone" : "Done",
+		"refillSuccessMesaage": "Your refill request with Rx %s has been placed.Your prescription will be ready for pickup after %s",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "Type prescription details",
@@ -1052,6 +1054,7 @@ module.exports = {
 		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
+		"loginInfoUpdateAskInfoUpdatedText" : "We've improved your experience since your last visit! <secondaryfont><secondarycolor>With our new improvements, the email address associated with your account must be UNIQUE and cannot be shared with another family member.</secondarycolor></secondaryfont> If another member of your family care team has the same email address, please make sure to use a different email address for your account setup.",
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
@@ -1064,6 +1067,9 @@ module.exports = {
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
-		"vSixCarouselTitle" : "What's new!"
+		"vSixCarouselTitle" : "What's new!",
+		"autoFillAttr" : "Automatically refill this medication",
+		"prescDetSectionAutofill" : "Autofill",
+		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
 	}
 };

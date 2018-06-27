@@ -25,15 +25,14 @@ function init() {
 	});
 		
 	if (Alloy.CFG.is_fingerprint_scanner_enabled) {
-		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+		if ( OS_IOS ) {
 			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
-		} else {
-			// Disabling till finger-print scanning is not enabled for android
-		/*	var iDict = {};
-		    iDict.enabled = false;
-		    $.touchIDSwt.applyProperties(iDict);
-	    */
-		}		
+			if( !touchID.deviceCanAuthenticate() ) {
+				var iDict = {};
+		    	iDict.enabled = false;
+		    	$.touchIDSwt.applyProperties(iDict);
+			}
+		}	
 	} else {
 		authenticator.setTouchIDEnabled(false);
 	}

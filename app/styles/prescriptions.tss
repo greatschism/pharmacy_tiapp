@@ -15,7 +15,7 @@
 * alphabetic sort by default)
 */
 "#optionsMenu[if=$.args.showHiddenPrescriptions]":{
-	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.dialogBtnCancel],
+	options: [Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 2
 },
 /**
@@ -24,7 +24,7 @@
 *  unhide and sort
 */
 "#optionsMenu[if=!$.args.showHiddenPrescriptions]":{
-	options: [Alloy.Globals.strings.prescOptMenuSearch, Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.prescOptMenuSort, Alloy.Globals.strings.prescOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
+	options: [Alloy.Globals.strings.prescOptMenuRefresh, Alloy.Globals.strings.prescOptMenuSort, Alloy.Globals.strings.prescOptMenuUnhide, Alloy.Globals.strings.dialogBtnCancel],
 	cancel: 4
 },
 "#promiseTimePicker":{

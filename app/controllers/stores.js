@@ -805,7 +805,7 @@ function prepareMap(shouldUpdateRegion) {
 				 * right view just allows user to click on the right corner of
 				 * info window
 				 */
-				annotationDict.rightButton = Ti.UI.iPhone.SystemButton.INFO_DARK;
+				annotationDict.rightButton = Ti.UI.iOS.SystemButton.INFO_DARK;
 				leftBtn.applyProperties({
 					clicksource : "leftPane",
 					storeId : storeId

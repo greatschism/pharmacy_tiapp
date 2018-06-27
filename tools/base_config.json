@@ -70,7 +70,8 @@
 			"mailorder_stores_get": "stores/getmailorderservice",
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
 			"payments_credit_card_get": "payments/getCreditCard",
-			"update_promise_time": "prescriptions/updatepromisetimeoption"
+			"update_promise_time": "prescriptions/updatepromisetimeoption",
+			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill"
 		},
 		"apiCodes": {
 			"success": "200",
@@ -80,6 +81,7 @@
 			"invalid_combination_for_signup" : "ECOH673",
 			"date_format": "MM-DD-YYYY",
 			"date_time_format": "MM-DD-YYYY hh:mm A",
+			"month_date_year_time_format" : "LLL",
 			"day_of_week_time_format": "dddd hh:mm A",
 			"dob_format": "YYYY-MM-DD",
 			"ymd_date_time_format": "YYYY-MM-DD HH:mm:ss",
@@ -182,7 +184,7 @@
 	"dependencies": {
 		"ti.tsstrimmer": "1.0",
 		"nl.fokkezb.color": "1.1.0",
-		"nl.fokkezb.drawer": "1.0",
+		"nl.fokkezb.drawer": "1.2.0",
 		"ti.asyncview": "1.0",
 		"ti.dropdown": "1.0",
 		"ti.expandable": "1.0",

@@ -8,6 +8,6 @@
 	text: Alloy.CFG.icons.switch_off,
 	font: {
 		fontFamily: 'mscripts',
-		fontSize: '34dp'
+		fontSize: '44dp'
 	}
 }

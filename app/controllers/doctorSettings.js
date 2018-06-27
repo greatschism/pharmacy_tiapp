@@ -214,9 +214,9 @@ function didClickSubmit(e) {
 	});
 	if (doctor.doctor_type != apiCodes.doctor_type_manual) {
 		/**
-		 * 
+		 *
 		 * APP-222: This is a temporary fix to track the usage of
-		 * people who are trying to edit a doctor created by system 
+		 * people who are trying to edit a doctor created by system
 		 */
 		$.analyticsHandler.trackEvent("Doctors-DoctorSettings-SystemDoctor", "click", "SaveBtn");
 		$.analyticsHandler.trackScreen("Doctors-DoctorSettings-SystemDoctor");
@@ -274,7 +274,9 @@ function didDeleteDoctor(result, passthrough) {
 	 */
 	doctor.method = "doctors_delete";
 	//close
-	$.app.navigator.closeToRoot();
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 exports.init = init;
