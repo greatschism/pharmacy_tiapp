@@ -18,7 +18,13 @@
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.searchExistingPatientContinue
-}
+},
 "#loginInfoUpdateLbl":{
 	html : Alloy.Globals.strings.loginInfoUpdateLbl
+},
+"#askInfoLbl":{
+	html : Alloy.Globals.strings.loginInfoUpdateAskInfoUpdatedText
 }
+
+
+

@@ -24,8 +24,6 @@ function init() {
 		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
 
-	$.askInfoLbl.html = Alloy.Globals.strings.loginInfoUpdateAskInfoUpdatedText;
-
 	uihelper.getImage("logo", $.logoImg);
 }
 
