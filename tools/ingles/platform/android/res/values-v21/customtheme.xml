@@ -39,7 +39,7 @@
 		<item name="dialogTheme">@style/Material.AlertDialog</item>
 		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
 		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
-    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:datePickerStyle">@style/MyDatePicker</item>
 		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>

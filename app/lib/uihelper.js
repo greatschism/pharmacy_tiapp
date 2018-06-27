@@ -708,10 +708,11 @@ var Helper = {
 			title : Ti.App.name,
 			cancelIndex : -1,
 			persistent : true,
+			canceledOnTouchOutside : false,
 			buttonNames : [Alloy.Globals.strings.dialogBtnOK]
 		});
 		var cancel = params.cancelIndex,
-		    dict = _.pick(params, ["title", "buttonNames", "persistent", "style", "androidView"]);
+		    dict = _.pick(params, ["title", "buttonNames", "persistent", "style", "androidView","canceledOnTouchOutside"]);
 		_.extend(dict, {
 			cancel : cancel,
 			message : ( OS_IOS ? "\n" : "").concat(params.message || "")

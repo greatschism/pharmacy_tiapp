@@ -1054,6 +1054,7 @@ module.exports = {
 		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
+		"loginInfoUpdateAskInfoUpdatedText" : "We've improved your experience since your last visit! <secondaryfont><secondarycolor>With our new improvements, the email address associated with your account must be UNIQUE and cannot be shared with another family member.</secondarycolor></secondaryfont> If another member of your family care team has the same email address, please make sure to use a different email address for your account setup.",
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",

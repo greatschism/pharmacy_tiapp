@@ -1,6 +1,6 @@
 var Alloy = require("alloy"),
-    _ = require("alloy/underscore")._,
-    crashreporter = require("crashreporter");
+    _ = require("alloy/underscore")._;
+    // crashreporter = require("crashreporter");
 
 var TiLog = {
 	trace : function() {
@@ -20,7 +20,7 @@ var TiLog = {
 	},
 	log : function(level, messages) {
 		var logStr = messages.join(":");
-		crashreporter.leaveBreadcrumb(level + ":" + logStr);
+		// crashreporter.leaveBreadcrumb(level + ":" + logStr);
 		if (!ENV_PROD) {
 			Ti.API[level](logStr);
 		}
