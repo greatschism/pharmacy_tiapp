@@ -70,7 +70,8 @@
 			"mailorder_stores_get": "stores/getmailorderservice",
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
 			"payments_credit_card_get": "payments/getCreditCard",
-			"update_promise_time": "prescriptions/updatepromisetimeoption"
+			"update_promise_time": "prescriptions/updatepromisetimeoption",
+			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill"
 		},
 		"apiCodes": {
 			"success": "200",

@@ -8,10 +8,15 @@ var args = $.args,
     newMedReminder,
     isWindowOpen,
     httpClient,
-    logger = require("logger");
+    logger = require("logger"),
+    isAutofillEnabled,
+    noReminderLabel = $.UI.create("Label", {
+		apiName : "Label",
+		classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
+		text : Alloy.Globals.strings.prescDetSectionNoReminders
+	});
 
 function init() {
-
 	Alloy.CFG.remind_before_in_days_max = parseInt(Alloy.Models.appload.get("startReminderPeriod")) > Alloy.CFG.remind_before_in_days_max ? parseInt(Alloy.Models.appload.get("startReminderPeriod")) : Alloy.CFG.remind_before_in_days_max;
 	Alloy.CFG.default_refill_reminder.remind_before_in_days = parseInt(Alloy.Models.appload.get("startReminderPeriod"));
 	Alloy.CFG.default_refill_reminder.no_of_reminders = parseInt(Alloy.Models.appload.get("numberOfReminder"));
@@ -38,7 +43,7 @@ function init() {
 	_.each(["refillsLeftBtn", "dueBtn", "lastRefillBtn"], function(val) {
 		$.uihelper.roundedCorners($[val]);
 	});
-	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView"], function(val) {
+	_.each(["reminderRefillView", "reminderMedView", "historyView", "instructionView", "autoFillView"], function(val) {
 		if ($[val]) {
 			$.uihelper.wrapViews($[val], "right");
 		}
@@ -89,6 +94,9 @@ function init() {
 	$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
 	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
+	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
+	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj, strValue) {
@@ -312,6 +320,34 @@ function didPostlayoutPrompt(e) {
 		var source = e.source,
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
+	    
+	    if(prescription.prefill === "Y" && Alloy.CFG.is_mscripts_autofill_enabled) {
+	    	if(Alloy.CFG.is_autofill_message_enabled) {
+	    		$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.show();
+	    	}
+	    	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+	    		$.autoFillSwt.setValue(true, isWindowOpen);
+	    	}
+			$.reminderRefillView.applyProperties($.createStyle({
+				classes : ["auto-height", "inactive-lighter-bg-color"]
+			}));
+			$.reminderRefillView.add(noReminderLabel);
+			$.reminderRefillSwt.getSwitch().setEnabled(false);
+		}
+		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
+			if(Alloy.CFG.is_autofill_message_enabled) {
+	    		$.autofillView.height = Ti.UI.SIZE;
+	    		$.autofillView.show();
+	    	}
+			$.reminderRefillView.hide();
+  			$.reminderRefillView.height = 0;
+		}
+		else if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.hide();
+			$.autofillView.height = 0;
+		}
+	    
 	    children[1].applyProperties({
 			left : children[1].left + children[0].rect.width,
 			visible : true
@@ -327,7 +363,7 @@ function didPostlayoutPromptStore(e){
 
 	    source.removeEventListener("postlayout", didPostlayoutPromptStore);
 
-		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled || "Y" === prescription.prefill  ) {
+		if(prescription.is_specialty_store || "1" === prescription.syncScriptEnrolled) {
 			$.reminderRefillView.hide();
 			$.reminderRefillView.height = 0;
 
@@ -845,6 +881,68 @@ function loadCopay() {
 
 	}
 }
+
+
+function didChangeAutoFill(e) {
+	isAutofillEnabled;
+	e.value ? isAutofillEnabled = "1" : isAutofillEnabled = "0";
+	$.http.request({
+		method : "update_mscripts_autofill",
+		params : {
+			data : [
+	          {
+	              "updateAutofill": [{
+	                  "prescriptionId": prescription.id,
+	                  "isMscriptsAutofillEnabled": isAutofillEnabled
+	              }]
+	          }
+	      ]
+		},
+		keepLoader : false,
+		errorDialogEnabled : false,
+		success : didSuccessAutoFill,
+		failure : didFailAutoFill
+	});
+}
+
+function didSuccessAutoFill() {
+	//$.autoFillSwt.setValue(true, isWindowOpen);
+	if(isAutofillEnabled === "1") {
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.show();
+			$.autofillView.height = Ti.UI.SIZE;
+		}
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "inactive-lighter-bg-color"]
+		}));
+		$.reminderRefillView.add(noReminderLabel);
+		if($.reminderRefillSwt.getValue()) {
+			$.reminderRefillSwt.setValue(false, isWindowOpen);
+		}
+		$.reminderRefillSwt.getSwitch().setEnabled(false);
+	}
+	else {
+		if(Alloy.CFG.is_autofill_message_enabled) {
+			$.autofillView.hide();
+			$.autofillView.height = 0;	
+		}
+		$.reminderRefillView.applyProperties($.createStyle({
+			classes : ["auto-height", "bg-color"]
+		}));
+		$.reminderRefillView.remove(noReminderLabel);
+		$.reminderRefillSwt.getSwitch().setEnabled(true);
+	}
+	prescription.shouldUpdate = true;
+}
+
+function didFailAutoFill(result) {
+	isAutofillEnabled === "1" ? $.autoFillSwt.setValue(false, isWindowOpen) : $.autoFillSwt.setValue(true, isWindowOpen);
+	$.uihelper.showDialog({
+		message : result.message
+	});
+}
+
+
 
 exports.init = init;
 exports.focus = focus;

@@ -25,27 +25,26 @@ function init() {
 	});
 		
 	if (Alloy.CFG.is_fingerprint_scanner_enabled) {
-		if ( OS_IOS && touchID.deviceCanAuthenticate() ) {
+		if ( OS_IOS ) {
 			$.touchIDSwt.setValue(authenticator.getTouchIDEnabled());
-		} else {
-			// Disabling till finger-print scanning is not enabled for android
-		/*	var iDict = {};
-		    iDict.enabled = false;
-		    $.touchIDSwt.applyProperties(iDict);
-	    */
-		}		
+			if( !touchID.deviceCanAuthenticate() ) {
+				var iDict = {};
+		    	iDict.enabled = false;
+		    	$.touchIDSwt.applyProperties(iDict);
+			}
+		}	
 	} else {
 		authenticator.setTouchIDEnabled(false);
 	}
 
 	setAccountValues();
-	if(Alloy.CFG.show_credit_card) {
-		getCreditCardInfo();
-	}
     setAccessibilityLabelOnSwitch($.hideExpiredPrescriptionSwt, $.strings.accountLblHideExpiredPrescription);
     setAccessibilityLabelOnSwitch($.hideZeroRefillPrescriptionSwt, $.strings.accountLblHideZeroRefillPrescription);
     setAccessibilityLabelOnSwitch($.keepMeSignedInSwt, $.strings.accountLblKeepMeSignedIn);
     $.app.navigator.hideLoader();
+    if(Alloy.CFG.show_credit_card) {
+		getCreditCardInfo();
+	}
 }
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
@@ -70,15 +69,18 @@ function setAccountValues(){
 	$.hideExpiredPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_expired_prescriptions")) || 0) ? true : false);
 	$.hideZeroRefillPrescriptionSwt.setValue((parseInt(currentPatient.get("hide_zero_refill_prescriptions")) || 0) ? true : false);
 	$.timeZoneReplyLbl.text = getTimeZone(currentPatient);
-	$.languageReplyLbl.text = currentPatient.get("pref_language");
+	
 	$.keepMeSignedInSwt.setValue(authenticator.getAutoLoginEnabled());
 	$.timeZonePicker.setItems(Alloy.Models.timeZone.get("code_values"));
-	$.languagePicker.setItems(Alloy.Models.language.get("code_values"));
 	
 	$.mobileInfoView.accessibilityLabel = $.mobileNumberLbl.text + "  " + $.mobileNumberValue.text;
 	$.emailInfoView.accessibilityLabel = $.emailLbl.text + "  " + $.emailValue.text;
 	$.timeZoneInfoView.accessibilityLabel = $.timeZonePromptLbl.text + "  " + $.timeZoneReplyLbl.text;
-	$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
+	if (Alloy.CFG.show_language_enabled) {
+		$.languageReplyLbl.text = currentPatient.get("pref_language");
+		$.languageInfoView.accessibilityLabel = $.languagePromptLbl.text + "  " + $.languageReplyLbl.text;
+		$.languagePicker.setItems(Alloy.Models.language.get("code_values"));		
+	};
 }
 
 function getTimeZone(currentPatient) {
@@ -386,6 +388,7 @@ function getCreditCardInfo(passthrough) {
 		},
 		errorDialogEnabled : false,
 		passthrough: passthrough,
+		keepLoader: true,
 		success : didGetCreditCardInfo,
 		failure : didFailureInCreditCardInfo
 	});
@@ -405,7 +408,7 @@ function didGetCreditCardInfo(result, passthrough) {
 		creditCardRow.on("clickedit", didClickCCEdit);
 		$.tableView.appendRow(creditCardRow.getView());
 	};
-	
+	$.app.navigator.hideLoader();
 }
 
 function didClickCCEdit() {
@@ -422,6 +425,7 @@ function didFailureInCreditCardInfo(result, passthrough) {
 	var creditCardRow = Alloy.createController("itemTemplates/creditCardInfo", params);
 	creditCardRow.on("clickedit", didClickCCEdit);
 	$.tableView.appendRow(creditCardRow.getView());
+	$.app.navigator.hideLoader();
 }
 
 exports.init = init;
