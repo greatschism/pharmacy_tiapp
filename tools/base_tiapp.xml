@@ -17,7 +17,7 @@
   <property name="com-appcelerator-apm-id" type="string">${APM_ID}</property>
   <property name="android.javac.maxmemory" type="string">1024M</property>
   <ios>
-    <min-ios-ver>7.1</min-ios-ver>
+    <min-ios-ver>11.0</min-ios-ver>
    	<use-auto-layout>true</use-auto-layout>
    	<use-app-thinning>true</use-app-thinning>
    	<default-background-color>#FFFFFF</default-background-color>
@@ -76,7 +76,7 @@
   <android 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <manifest android:versionCode="${BUILD_NUMBER}" xmlns:tools="http://schemas.android.com/tools" >
-      <uses-sdk android:minSdkVersion="16" />
+      <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/>
       <uses-permission android:name="android.permission.CAMERA"/>
       <uses-feature android:name="android.hardware.camera"/>
       <application android:largeHeap="true" android:theme="@style/Theme.Material" 
@@ -98,15 +98,15 @@
     </manifest>
   </android>
   <modules>
-    <module platform="iphone" version="2.0.0">com.appcelerator.apm</module>
-    <module platform="android" version="3.0.0">com.appcelerator.apm</module>
+    <module platform="iphone" version="3.1.1">com.appcelerator.apm</module>
+    <module platform="android" version="3.1.1">com.appcelerator.apm</module>
     <module platform="iphone" version="2.1.1">appcelerator.https</module>
     <module platform="android" version="3.0.0">appcelerator.https</module>
     <module platform="iphone" version="3.0.2">ti.ga</module>
     <module platform="android" version="4.0.1">ti.ga</module>
     <module platform="iphone" version="2.12.3">ti.map</module>
     <module platform="android" version="4.0.0">ti.map</module>
-    <module platform="android" version="3.0.0">ti.push</module>
+    <module platform="android" version="3.0.1">ti.push</module>
     <module platform="iphone" version="2.1">com.obscure.keychain</module>
     <module platform="android" version="4.0">com.obscure.keychain</module>
     <module platform="iphone" version="0.8.0">com.mfogg.squarecamera</module>
@@ -121,6 +121,7 @@
     <module platform="android" version="1.0">com.mscripts.datetime</module>
     <module platform="iphone" version="1.0">com.mscripts.hidekeyboard</module>
     <module platform="android" version="1.0">com.mscripts.hidekeyboard</module>
+    <module platform="android" version="11.0.40">ti.playservices</module>
     <module platform="android" version="2.0.0">com.alcoapps.actionbarextras</module>
     <module platform="iphone" version="0.0">com.mscripts.mscriptstouchid</module>
   </modules>

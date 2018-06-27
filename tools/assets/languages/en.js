@@ -399,7 +399,7 @@ module.exports = {
 		"doctorDetLblManual" : "You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
-		"doctorDetLblRefilled" : "Refilled: %s",
+		"doctorDetLblRefilled" : "Picked up: %s",
 		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
@@ -482,7 +482,7 @@ module.exports = {
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
 		"prescDetInfoDueOn" : "Due for refill",
-		"prescDetInfoLastRefilled" : "Last refilled",
+		"prescDetInfoLastRefilled" : "Last filled",
 		"prescDetBtnRefill" : "Refill prescription",
 		"prescDetPromptRx" : "Prescription number:",
 		"prescDetPromptExpirationDate" : "Expiration date:",
@@ -556,6 +556,7 @@ module.exports = {
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 		"refillSuccessBtnDone" : "Done",
+		"refillSuccessMesaage": "Your refill request with Rx %s has been placed.Your prescription will be ready for pickup after %s",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "Type prescription details",
