@@ -23,6 +23,7 @@ var	app = require("core"),
 BarcodeModule.allowRotation = true;
 BarcodeModule.displayedMessage = "";
 BarcodeModule.allowInstructions = false;
+BarcodeModule.useLED = true;
 
 var BarcodeReader = {
 
