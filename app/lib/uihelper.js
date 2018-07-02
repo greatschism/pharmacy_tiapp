@@ -512,8 +512,8 @@ var Helper = {
 	var overlay;
 
 	if(OS_ANDROID) {
-	overlay = Titanium.UI.createView();
-	overlay.add(cameraBox);
+		overlay = Titanium.UI.createView();
+		overlay.add(cameraBox);
 
 		var button = Titanium.UI.createButton({
 			color : '#fff',
