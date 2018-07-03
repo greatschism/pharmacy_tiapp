@@ -573,13 +573,15 @@ var Helper = {
 
 		overlay.add(button);
 		overlay.add(messageView);
-	}
 
+		if (!Ti.Filesystem.isExternalStoragePresent()) {
+			Helper.showDialog({
+				message : Alloy.Globals.strings.msgExternalStorageError
+			});
+			callbackError();
+		}
 
-
-
-
-	if (OS_IOS) {
+	} else {
 		overlay = Titanium.UI.createView({touchEnabled: false});
 		overlay.add(cameraBox);
 		var authorization = Ti.Media.cameraAuthorization;
@@ -594,67 +596,34 @@ var Helper = {
 			});
 			callbackError();	
 		}
+	}
 
-		Ti.Media.showCamera({
-			allowEditing : true,
-			saveToPhotoGallery : false,
-			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
-			overlay : overlay,
-			success : function didSuccess(e) {
-				var blob = e.media;
-				if (blob) {
-					blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
-					callback(blob);
-				}
-			},
-			cancel : function didCanceled() {
-				callbackError();
-			},
-			error : function didFail(e) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgCameraError
-				});
-				callbackError();
+
+	Ti.Media.showCamera({
+		allowEditing : true,
+		autohide : OS_IOS,
+		showControls : OS_IOS,
+		saveToPhotoGallery : false,
+		mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
+		overlay : overlay,
+		success : function didSuccess(e) {
+			var blob = e.media;
+			if (blob) {
+				blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
+				callback(blob);
 			}
-		});
-	} else {
-		/**
-		 * TiCameraActivity doesn't handle orientations of images
-		 */
-
-		if (!Ti.Filesystem.isExternalStoragePresent()) {
+		},
+		cancel : function didCanceled() {
+			callbackError();
+		},
+		error : function didFail(e) {
 			Helper.showDialog({
-				message : Alloy.Globals.strings.msgExternalStorageError
+				message : Alloy.Globals.strings.msgCameraError
 			});
 			callbackError();
 		}
-
-		Ti.Media.showCamera({
-			allowEditing : true,
-						
-			overlay : overlay,
-			showControls : false, // don't show system controls
-
-			saveToPhotoGallery : false,
-			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
-			success : function didSuccess(e) {
-				var blob = e.media;
-				if (blob) {
-					blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
-					callback(blob);
-				}
-			},
-			cancel : function didCanceled() {
-				callbackError();
-			},
-			error : function didFail(e) {
-				Helper.showDialog({
-					message : Alloy.Globals.strings.msgCameraError
-				});
-				callbackError();
-			}
-		});
-	}
+	});
+	
 
 		// 	var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempCamera.jpg"),
 		// 	    intent = Ti.Android.createIntent({
