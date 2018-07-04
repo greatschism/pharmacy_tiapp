@@ -52,7 +52,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
-		"url": "http://tomthumbs.mobilepharmacyhelp.com/",
+		"url": "http://tomthumb.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
 	}]
