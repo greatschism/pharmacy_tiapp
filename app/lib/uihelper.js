@@ -489,213 +489,141 @@ var Helper = {
 	 */
 	openCamera : function(callback, callbackError, window, width, height, cardFormat) {
 
-	var cameraBox;
+		var cameraBox;
 
-	if(cardFormat) {
-		cameraBox = Titanium.UI.createView({
-			width : 260,
-			height : 200,
-			borderColor : '#0095FF',
-			borderWidth : 7,
-			borderRadius : 10
-		});
-	} else {
-		cameraBox = Titanium.UI.createView({
-			width : 260,
-			height : 400,
-			borderColor : '#0095FF',
-			borderWidth : 7,
-			borderRadius : 10
-		});
-	}
-
-	var overlay;
-
-	if(OS_ANDROID) {
-		overlay = Titanium.UI.createView();
-		overlay.add(cameraBox);
-
-		var button = Titanium.UI.createButton({
-			color : '#fff',
-			bottom : 10,
-			width : 301,
-			height : 57,
-			font : {
-				fontSize : 20,
-				fontWeight : 'bold',
-				fontFamily : 'Helvetica Neue'
-			},
-			title : Alloy.Globals.strings.cameraTakePhoto
-		});
-
-		var messageView = Titanium.UI.createView({
-			height : 30,
-			width : 250,
-			visible : false
-		});
-
-		var indView = Titanium.UI.createView({
-			height : 30,
-			width : 250,
-			backgroundColor : '#000',
-			borderRadius : 10,
-			opacity : 0.7
-		});
-		messageView.add(indView);
-
-		// message
-		var message = Titanium.UI.createLabel({
-			text : Alloy.Globals.strings.cameraPictureTaken,
-			color : '#fff',
-			font : {
-				fontSize : 20,
-				fontWeight : 'bold',
-				fontFamily : 'Helvetica Neue'
-			},
-			width : 'auto',
-			height : 'auto'
-		});
-		messageView.add(message);
-
-		button.addEventListener('click', function() {
-			cameraBox.borderColor = 'white';
-			Ti.Media.takePicture();
-			messageView.animate({
-				visible : true
+		if(cardFormat) {
+			cameraBox = Titanium.UI.createView({
+				width : 260,
+				height : 200,
+				borderColor : '#0095FF',
+				borderWidth : 7,
+				borderRadius : 10
 			});
-			setTimeout(function() {
-				cameraBox.borderColor = '#0095FF';
+		} else {
+			cameraBox = Titanium.UI.createView({
+				width : 260,
+				height : 400,
+				borderColor : '#0095FF',
+				borderWidth : 7,
+				borderRadius : 10
+			});
+		}
+
+		var overlay;
+
+		if(OS_ANDROID) {
+			overlay = Titanium.UI.createView();
+			overlay.add(cameraBox);
+
+			var button = Titanium.UI.createButton({
+				color : '#fff',
+				bottom : 10,
+				width : 301,
+				height : 57,
+				font : {
+					fontSize : 20,
+					fontWeight : 'bold',
+					fontFamily : 'Helvetica Neue'
+				},
+				title : Alloy.Globals.strings.cameraTakePhoto
+			});
+
+			var messageView = Titanium.UI.createView({
+				height : 30,
+				width : 250,
+				visible : false
+			});
+
+			var indView = Titanium.UI.createView({
+				height : 30,
+				width : 250,
+				backgroundColor : '#000',
+				borderRadius : 10,
+				opacity : 0.7
+			});
+			messageView.add(indView);
+
+			// message
+			var message = Titanium.UI.createLabel({
+				text : Alloy.Globals.strings.cameraPictureTaken,
+				color : '#fff',
+				font : {
+					fontSize : 20,
+					fontWeight : 'bold',
+					fontFamily : 'Helvetica Neue'
+				},
+				width : 'auto',
+				height : 'auto'
+			});
+			messageView.add(message);
+
+			button.addEventListener('click', function() {
+				cameraBox.borderColor = 'white';
+				Ti.Media.takePicture();
 				messageView.animate({
-					visible : false
+					visible : true
 				});
-			}, 500);
-		});
-
-		overlay.add(button);
-		overlay.add(messageView);
-
-		if (!Ti.Filesystem.isExternalStoragePresent()) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgExternalStorageError
+				setTimeout(function() {
+					cameraBox.borderColor = '#0095FF';
+					messageView.animate({
+						visible : false
+					});
+				}, 500);
 			});
-			callbackError();
-		}
 
-	} else {
-		overlay = Titanium.UI.createView({touchEnabled: false});
-		overlay.add(cameraBox);
-		var authorization = Ti.Media.cameraAuthorization;
-		if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgCameraAuthorizationDenied
-			});
-			callbackError();
-		} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgCameraAuthorizationRestricted
-			});
-			callbackError();	
-		}
-	}
+			overlay.add(button);
+			overlay.add(messageView);
 
-
-	Ti.Media.showCamera({
-		allowEditing : true,
-		autohide : OS_IOS,
-		showControls : OS_IOS,
-		saveToPhotoGallery : false,
-		mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
-		overlay : overlay,
-		success : function didSuccess(e) {
-			var blob = e.media;
-			if (blob) {
-				blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
-				callback(blob);
+			if (!Ti.Filesystem.isExternalStoragePresent()) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgExternalStorageError
+				});
+				callbackError();
 			}
-		},
-		cancel : function didCanceled() {
-			callbackError();
-		},
-		error : function didFail(e) {
-			Helper.showDialog({
-				message : Alloy.Globals.strings.msgCameraError
-			});
-			callbackError();
-		}
-	});
-	
 
-		// 	var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, "tempCamera.jpg"),
-		// 	    intent = Ti.Android.createIntent({
-		// 		action : "android.media.action.IMAGE_CAPTURE"
-		// 	});
-		// 	intent.putExtraUri("output", tempFile.nativePath);
-		// 	window.getActivity().startActivityForResult(intent, function didSuccess(e) {
-		// 		var resultCode = e.resultCode,
-		// 		    blob;
-		// 		if (resultCode == Ti.Android.RESULT_OK) {
-		// 			if (tempFile.exists()) {
-		// 				blob = Helper.imageAsResized(tempFile.read(), width || Alloy.CFG.photo_default_width, height).blob;
-		// 				tempFile.deleteFile();
-		// 				tempFile = null;
-		// 				callback(blob);
-		// 			} else if (e.intent && e.intent.data) {
-		// 				/**
-		// 				 * output file was was not written
-		// 				 * by the camera app
-		// 				 * Note: some third party applications
-		// 				 * just returns the content-uri (e.intent.data),
-		// 				 * doesn't write the file properly.
-		// 				 */
-		// 				intent.putExtraUri(Ti.Android.EXTRA_STREAM, e.intent.data);
-		// 				blob = intent.getBlobExtra(Ti.Android.EXTRA_STREAM);
-		// 				if (blob) {
-		// 					blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
-		// 					if (blob) {
-		// 						callback(blob);
-		// 					} else {
-		// 						/**
-		// 						 * something went wrong
-		// 						 * may be not enough memory
-		// 						 * for processing this bitmap
-		// 						 */
-		// 						Helper.showDialog({
-		// 							message : Alloy.Globals.strings.msgCameraInvalid
-		// 						});
-		// 						callbackError();
-		// 					}
-		// 				} else {
-		// 					/**
-		// 					 * if at all the blob
-		// 					 * is not available then
-		// 					 * show an alert
-		// 					 */
-		// 					Helper.showDialog({
-		// 						message : Alloy.Globals.strings.msgCameraInvalid
-		// 					});
-		// 					callbackError();
-		// 				}
-		// 			} else {
-		// 				Helper.showDialog({
-		// 					message : Alloy.Globals.strings.msgCameraInvalid
-		// 				});
-		// 				callbackError();
-		// 			}
-		// 		} else if (resultCode != Ti.Android.RESULT_CANCELED) {
-		// 			/**
-		// 			 *  it is not success and user has not cancelled it
-		// 			 *  so something else went wrong
-		// 			 */
-		// 			Helper.showDialog({
-		// 				message : Alloy.Globals.strings.msgCameraError
-		// 			});
-		// 			callbackError();
-		// 		}
-		// 		else{
-		// 			callbackError();
-		// 		}
-		// 	});
-		// }
+		} else {
+			overlay = Titanium.UI.createView({touchEnabled: false});
+			overlay.add(cameraBox);
+			var authorization = Ti.Media.cameraAuthorization;
+			if (authorization == Ti.Media.CAMERA_AUTHORIZATION_DENIED) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgCameraAuthorizationDenied
+				});
+				callbackError();
+			} else if (authorization == Ti.Media.CAMERA_AUTHORIZATION_RESTRICTED) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgCameraAuthorizationRestricted
+				});
+				callbackError();	
+			}
+		}
+
+
+		Ti.Media.showCamera({
+			allowEditing : true,
+			autohide : OS_IOS,
+			showControls : OS_IOS,
+			saveToPhotoGallery : false,
+			mediaTypes : [Titanium.Media.MEDIA_TYPE_PHOTO],
+			overlay : overlay,
+			success : function didSuccess(e) {
+				var blob = e.media;
+				if (blob) {
+					blob = Helper.imageAsResized(blob, width || Alloy.CFG.photo_default_width, height).blob;
+					callback(blob);
+				}
+			},
+			cancel : function didCanceled() {
+				callbackError();
+			},
+			error : function didFail(e) {
+				Helper.showDialog({
+					message : Alloy.Globals.strings.msgCameraError
+				});
+				callbackError();
+			}
+		});
+		
 	},
 
 	/**
