@@ -209,7 +209,7 @@ function didAuthenticate(passthrough) {
 	/**
 	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (utilities.getProperty(($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) && Alloy.Models.appload.get("hipaa_url")) {
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
 		$.app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",

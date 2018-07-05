@@ -94,7 +94,7 @@ function didAuthenticate(passthrough, navigationHandled) {
 	/**
 	 * Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (Alloy.Globals.isAccountUpgraded && Alloy.Models.appload.get("hipaa_url")) {
+	if (Alloy.Globals.isAccountUpgraded) {
 		app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
