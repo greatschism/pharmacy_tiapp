@@ -39,12 +39,13 @@
 		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
 	
+		<View id="searchbar" platform="android" visible="false" height="0" />
 	<TableView id="tableView" class="top" onSingletap="didClickTableView" >
 		
 		<!-- search, shorthand with Ti.UI.SearchBar -->
 		<SearchBar id="searchbar" class="top" platform="ios" height="0" visible="true"/>
-		<!-- search, shorthand with Ti.UI.Android.SearchView -->
-		<SearchView id="searchbar" color="#000000" iconifiedByDefault="false" class="top" ns="Ti.UI.Android" platform="android" visible="true"/>
+		<!-- search, shorthand with Ti.UI.Android.SearchView
+		<SearchView id="searchbar" color="#000000" iconifiedByDefault="false" class="top" ns="Ti.UI.Android" platform="android" visible="false"/> -->
 		
 		<FooterView platform="ios">
 			<View class="auto-height" />
