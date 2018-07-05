@@ -24,7 +24,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-prescription"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-prescription"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -45,7 +45,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-refill-camera"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-refill-camera"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -66,7 +66,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-reminder"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-reminder"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -94,7 +94,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-users"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-users"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -116,7 +116,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-pharmacy"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-pharmacy"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -138,7 +138,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-transfer"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-transfer"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -166,7 +166,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-doctor"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-doctor"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
@@ -188,7 +188,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
+								"classes" : ["margin-top-medium", "i4", "custom-fg-color", "touch-disabled", "icon-thick-account"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],
