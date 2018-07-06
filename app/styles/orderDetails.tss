@@ -9,6 +9,16 @@
 "#pickupModeCloseBtn":{
 	title: Alloy.Globals.strings.orderDetPopupPickupModeBtnClose
 },
+"#pickupTimegroupPicker":{
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#pickupTimegroupLbl":{
+	text: "Time group Options"
+},
+"#pickupTimegroupCloseBtn":{
+	title: Alloy.Globals.strings.accountPopupTimeZoneBtnClose
+},
 "#refillBtn":{
 	title: Alloy.Globals.strings.orderDetBtnRefill
 }
