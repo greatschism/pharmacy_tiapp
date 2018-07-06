@@ -18,7 +18,7 @@ var args = $.args,
 	masterWidth : 80,
 	detailWidth : 20,
 	btnClasses : ["top-disabled", "left-disabled", "right", "width-20", "i5", "txt-right", "bg-color-disabled", "negative-fg-color", "border-disabled", "icon-unfilled-remove"],
-	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove
+	accessibilityLabel : Alloy.Globals.strings.iconAccessibilityLblRemove
 },
     detailBtnClasses = ["top-disabled", "left-disabled", "right", "width-25", "i4", "txt-right", "bg-color-disabled", "active-fg-color", "border-disabled", "icon-edit"],
     isWindowOpen,
@@ -259,14 +259,14 @@ function didGetPickupModes(result, passthrough) {
 
 function setPickupModes() {
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode = ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
-	
+
 	var codes = Alloy.Models.pickupModes.get("code_values"),
-	defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
-	    // defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
+	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_mode, Alloy.Models.pickupModes.get("default_value")),
+	// defaultVal = Alloy.Models.pickupModes.get("selected_code_value"),
 	    selectedCode;
 
-	logger.debug("\n\n\ncodes	",JSON.stringify(codes,null,4),"\n\n\n");
-	
+	logger.debug("\n\n\ncodes	", JSON.stringify(codes, null, 4), "\n\n\n");
+
 	if (Alloy.CFG.latest_pickup_mode === "latestPickupMode") {
 		if (codes.length == 1) {
 			selectedCode = codes[0];
@@ -275,7 +275,7 @@ function setPickupModes() {
 		}
 	}
 
-	logger.debug("\n\n\defaultVal	",defaultVal,"\n\n\n");
+	logger.debug("\n\n\defaultVal	", defaultVal, "\n\n\n");
 
 	logger.debug("\n\n\n Alloy.CFG.latest_pickup_mode from api= ", Alloy.CFG.latest_pickup_mode, "\n\n\n");
 
@@ -298,7 +298,7 @@ function setPickupModes() {
 		}
 	});
 	//update selected value
-	
+
 	Alloy.Models.pickupModes.set("selected_code_value", selectedCode.code_value);
 	//pickup details section
 	$.pickupSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPickup);
@@ -325,6 +325,9 @@ function setPickupModes() {
 	$.tableView.setData([$.prescSection, $.pickupSection]);
 	//update options row
 	// updatePickupOptionRow();
+
+	logger.debug("\n\n\n leaving setPickupModes\n\n\n");
+
 	updateDisplay();
 }
 
@@ -401,6 +404,9 @@ function updatePickupOptionRow() {
 }
 
 function updateDisplay() {
+
+	logger.debug("\n\n\n In updateDisplay\n\n\n");
+
 	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
 	//nullify last instance
 	$.pickupOptionRow = null;
@@ -440,6 +446,9 @@ function updateDisplay() {
 		break;
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
+
+	getPickupTimegroup();
+	// setPickupTimegroup();
 }
 
 function mailOrderCall() {
@@ -503,6 +512,8 @@ function didClickTableView(e) {
 	 */
 	if ($.pickupModeRow && e.row.className == "labelWithChild") {
 		$.pickupModePicker.show();
+	} else if ($.pickupTimegroupRow && e.row.className == "labelWithChild") {
+		$.pickupTimegroupPicker.show();
 	}
 }
 
@@ -517,6 +528,246 @@ function didClickStoreChange(e) {
 		},
 		stack : true
 	});
+}
+
+function getPickupTimegroup() {
+	logger.debug("\n\n\n TG get call\n\n\n");
+
+	$.http.request({
+		method : "codes_get",
+		params : {
+			data : [{
+				codes : [{
+					code_name : apiCodes.code_pickup_timegroup
+				}]
+			}]
+		},
+		success : didGetPickupTimegroup,
+		failure : didFail
+	});
+}
+
+function didGetPickupTimegroup(result, passthrough) {
+	Alloy.Models.pickupTimegroup.set(result.data.codes[0]);
+	setPickupTimegroup();
+}
+
+function didClickPickupTimegroupClose(e) {
+	var selTG = $.pickupTimegroupPicker.getSelectedItems()[0].code_value;
+
+	Alloy.Models.pickupTimegroup.set("selected_code_value", selTG);
+
+	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickuptimegroupRow.getView();
+	//nullify last instance
+	$.pickupTimegroupRow = null;
+	//point to new instance
+	$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+		title : $.pickupTimegroupPicker.getSelectedItems()[0].code_display,
+		hasChild : true
+	});
+	$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
+
+	$.pickupTimegroupPicker.hide();
+}
+
+function setPickupTimegroup() {
+
+	logger.debug("\n\n\n Alloy.Models.pickupTimegroup = ", JSON.stringify(Alloy.Models.pickupTimegroup, null, 4), "\n\n\n");
+
+	var codes = Alloy.Models.pickupTimegroup.get("code_values"),
+	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_timegroup, Alloy.Models.pickupTimegroup.get("default_value")),
+	    selectedCode;
+
+	logger.debug("\n\n\ncodes	", JSON.stringify(codes, null, 4), "\n\n\n");
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_timegroup ", Alloy.CFG.latest_pickup_timegroup, "\n\n\n");
+
+	if (Alloy.CFG.latest_pickup_timegroup === "latestPickupTimegroup") {
+
+		if (codes.length == 1) {
+			selectedCode = codes[0];
+		} else {
+			if (defaultVal === "latestPickupTimegroup") {
+				defaultVal = apiCodes.pickup_time_group_asap;
+			}
+
+			selectedCode = _.findWhere(codes, {
+				code_value : defaultVal
+			});
+
+			logger.debug("\n\n\selectedCode	", JSON.stringify(selectedCode, null, 4), "\n\n\n");
+			logger.debug("\n\n\defaultVal	", defaultVal, "\n\n\n");
+
+		}
+	}
+
+	/**
+	 * if defaultVal in store pickup
+	 * then make sure the given store supports
+	 * the same
+	 */
+	// if (defaultVal == apiCodes.pickup_mode_instore  && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
+	// defaultVal = apiCodes.pickup_mode_mail_order;
+	// logger.debug("\n\n\n default mode : ", defaultVal,"\t\t",Alloy.CFG.mail_order_store_pickup_enabled);
+	// }
+	//update selected value
+	_.each(codes, function(code) {
+		if (code.code_value === defaultVal) {
+			selectedCode = code;
+			code.selected = true;
+		} else {
+			code.selected = false;
+		}
+	});
+	//update selected value
+
+	Alloy.Models.pickupTimegroup.set("selected_code_value", selectedCode.code_value);
+	//pickup details section
+	// $.pickupSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPickup);
+	/**
+	 * if there are more then one option populate picker
+	 * otherwise just show the default option
+	 * if only one pickup option then
+	 * don't show option to change
+	 */
+	if (codes.length > 1) {
+		logger.debug("codes		", JSON.stringify(codes, null, 4));
+		$.pickupTimegroupPicker.setItems(codes);
+		$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+			title : selectedCode.code_display,
+			hasChild : true
+		});
+		$.pickupSection.add($.pickupTimegroupRow.getView());
+	}
+	//selected options value
+	/*
+	$.pickupOptionRow = Alloy.createController("itemTemplates/label", {
+	title : $.strings.strLoading
+	});
+	$.pickupSection.add($.pickupOptionRow.getView());*/
+
+	//set data
+	$.tableView.setData([$.prescSection, $.pickupSection]);
+	//update options row
+	// updatePickupOptionRow();
+	// updateDisplayForTimeGroup();
+}
+
+function updatePickupTimegroupRow(e) {
+	logger.debug("\n\n\n  in updatePickupTimegroupRow", JSON.stringify(e, null, 4), "\n\n\n");
+	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
+	var row = OS_IOS ? $.prescSection.rowCount : $.pickuptimegroupRow.getView();
+	//nullify last instance
+	$.pickupTimegroupRow = null;
+	//point to new instance
+	$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+		title : e.data.code_display,
+		hasChild : true
+	});
+	$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
+	// updatePickupTimegroupOptionRow();
+}
+
+function updatePickupTimegroupOptionRow() {
+	// var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupOptionRow.getView();
+	// logger.debug("\n\n\n $.pickupOptionRow.getView --> in updatePickupOptionRow\n\n\n");
+	// //nullify last instance
+	// $.pickupOptionRow = null;
+	switch(Alloy.Models.pickupTimegroup.get("selected_code_value")) {
+	case apiCodes.pickup_time_group_asap:
+		/**
+		 * check whether the store supports
+		 * instore pickup
+		 */
+		// if(Alloy.Globals.isMailOrderService)
+		// {
+		// store = {};
+		// // should get home pharmacy for the selected  prescription
+		// }
+
+		/*
+
+		Alloy.Globals.isMailOrderService = false;
+		store = {};
+
+		getPrescriptionOrStore();
+		*/
+
+		// var ishomepharmacy = parseInt(store.ishomepharmacy) || 0;
+		// if(ishomepharmacy == 0){}
+		//
+		// //point to new instance
+		// updateDisplay();
+		break;
+	case apiCodes.pickup_time_group_nbd:
+		//point to new instance
+
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
+			var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
+			logger.debug("\n\n\n $.pickupTimegroupRow.getView --> in updatePickupTimegroupRow\n\n\n");
+			//nullify last instance
+			$.pickupTimegroupRow = null;
+
+			$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+				title : "NBD"
+			});
+
+			$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
+
+		} else {
+			logger.debug("\n\n ");
+			store = {};
+			Alloy.Globals.isMailOrderService = true;
+
+			if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+				mailOrderCall();
+
+			}
+		}
+		break;
+	}
+	// $.tableView.updateRow(row, $.pickupOptionRow.getView());
+}
+
+function updateDisplayForTimeGroup() {
+	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
+	//nullify last instance
+	$.pickupTimegroupRow = null;
+	switch(Alloy.Models.pickupTimegroup.get("selected_code_value")) {
+	case apiCodes.pickup_time_group_asap:
+		/**
+		 * check whether the store supports
+		 * instore pickup
+		 */
+
+		//point to new instance
+		$.pickupTimegroupRow = Alloy.createController("itemTemplates/masterDetailBtn", {
+			masterWidth : 75,
+			detailWidth : 25,
+			title : store.title || $.strings.orderDetLblStoreTitle,
+			subtitle : store.subtitle || $.strings.orderDetLblStoreSubtitle,
+			btnClasses : detailBtnClasses
+		});
+		$.pickupTimegroupRow.on("clickdetail", didClickStoreChange);
+		break;
+	case apiCodes.pickup_time_group_nbd:
+		//point to new instance
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
+			$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
+				title : $.strings.orderDetLblMailOrder
+			});
+		} else {
+			$.pickupTimegroupRow = Alloy.createController("itemTemplates/masterDetailBtn", {
+				masterWidth : 75,
+				detailWidth : 25,
+				title : store.title || $.strings.orderDetLblStoreTitle,
+				subtitle : store.subtitle || $.strings.orderDetLblStoreSubtitle,
+				btnClasses : detailBtnClasses
+			});
+			$.pickupTimegroupRow.on("clickdetail", didClickStoreChange);
+		}
+		break;
+	}
+	$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
 }
 
 function didClickRefill(e) {
@@ -550,7 +801,7 @@ function didClickRefill(e) {
 			rx_number : prescription.rx_number,
 			store_id : storeId,
 			pickup_mode : pickupMode,
-			pickup_time_group : apiCodes.pickup_time_group_asap
+			pickup_time_group : Alloy.Models.pickupTimegroup.get("selected_code_value")
 		});
 	});
 	$.http.request({
@@ -620,6 +871,9 @@ function hideAllPopups() {
 	if ($.pickupModePicker && $.pickupModePicker.getVisible()) {
 		return $.pickupModePicker.hide();
 	}
+	if ($.pickupTimegroupPicker && $.pickupTimegroupPicker.getVisible()) {
+		return $.pickupTimegroupPicker.hide();
+	}
 	return false;
 }
 
@@ -631,4 +885,4 @@ function terminate(e) {
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
-exports.backButtonHandler = hideAllPopups; 
+exports.backButtonHandler = hideAllPopups;

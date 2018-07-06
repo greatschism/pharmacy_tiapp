@@ -538,7 +538,6 @@ function prepareList() {
 	 * still the prescription object that doesn't pass the filter validation will be available in the collection
 	 */
 
-
 	showCart = Alloy.Collections.prescriptions.some(function(prescription) {
 		return (prescription.get("is_deliverable") == 1 && prescription.get("refill_status") == apiCodes.refill_status_ready && prescription.get("is_checkout_complete") === "0");
 	});
@@ -1475,32 +1474,28 @@ function prepareList() {
 								}
 							}
 						}
-					} else if(( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled && (Alloy.CFG.is_delivery_option_enabled == 1)) {
-						var readyHeaderDict, headerTitle = "";
-							
+					} else if(( key === "readyPickup" ) && !args.hideCheckoutHeader && !args.selectable && Alloy.CFG.is_checkout_cart_enabled && (Alloy.CFG.is_delivery_option_enabled == 1) && showCart) {
 						
+						var readyHeaderDict,
+						    headerTitle = "";
+
 						headerTitle = Alloy.Globals.strings.orderHomeDeliveryLbl;
 						var secondaryHeaderRightItem = $.createStyle({
 							id : "cartBtn",
 							title : "Go to Cart",
 							classes : ["width-30", "fill-height", "h4", "primary-bg-color", "border-disabled", "margin-top-small", "margin-bottom-small", "margin-left-extra-large"]
 						});
-	
+
 						readyHeaderDict = $.createStyle({
 							classes : ["bubble-disabled"],
-
 							title : "Save time with home delivery!",
 							accessibilityLabel : "Save time with home delivery",
 							secondaryHeader : true,
-							
+							secondaryHeaderRightItem : secondaryHeaderRightItem,
 							callback : didClickCheckout
-						}); 
+						});
 
-						if(showCart) {
-							_.extend(readyHeaderDict, {secondaryHeaderRightItem : secondaryHeaderRightItem});
-						}
-							
-							tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict);
+						tvSection = $.uihelper.createTableViewSection($, $.strings["prescSection".concat($.utilities.ucfirst(key, false))], sectionHeaders[key], false, readyHeaderDict); 
 
 					} else {
 						if(args.navigationFrom == "medSync") {
