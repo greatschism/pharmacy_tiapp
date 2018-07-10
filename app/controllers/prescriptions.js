@@ -90,7 +90,13 @@ function init() {
 		}
 	});
 
-	$.tableView.search = $.searchbar;
+
+	if (Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+
+	//	$.tableView.search = false
+	} else {
+		$.tableView.search = $.searchbar;
+	}
 	// $.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 
@@ -228,14 +234,19 @@ function prepareData() {
 		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
-			$.searchbar.visible = false;
+
+			if (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+				$.searchbar.visible = false;
+			}
 		}
 		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
-			$.searchbar.visible = true;
+			if (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+				$.searchbar.visible = true;
+			}
 		}
 		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}

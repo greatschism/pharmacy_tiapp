@@ -5,6 +5,7 @@
 			"use_alternate_text_benefits_image" : "useAlternateTextBenefitsImage",
 			"use_additional_header_styling" : "useAdditionalHeaderStyling",
 			"use_hamburger_logo_for_menu_header" : "useHamburgerLogoForMenuHeader",
+			"remove_android_rx_search" : "removeAndroidRxSearch",
 			"homescreen_template_banner_below" : "homescreenTemplateBannerBelow",
 			"use_keep_signed_in_session_timeout": "useKeepSignedInSessionTimeout",
 			"homescreen_logo_enabled": "homescreenLogoEnabled",
