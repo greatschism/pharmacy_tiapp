@@ -180,15 +180,11 @@ function updateCreditCardView() {
 
 		if (sid === "paymentInfo") {
 			var index = count - 1;
-			_.each(rows, function(row, rid) {
-
-				index++;
-				var params = row.getParams();
-				logger.debug("\n\n\n params		 ", JSON.stringify(params, null, 4), "\n\n\n");
+			if (rows.length == 0) {
 
 				var card;
-				_.some(updatedCardDetails, function(cardDet, index) {
-					if (cardDet.selected == true) {
+				_.some(currentPatient.get("cardDetails"), function(cardDet, index) {
+					if (cardDet.priorityOrder == "1") {
 						card = cardDet;
 						return true;
 					}
@@ -196,18 +192,67 @@ function updateCreditCardView() {
 				});
 
 				if (!card) {
-					card = updatedCardDetails[0];
+					card = currentPatient.get("cardDetails")[0];
 				}
 
-				params.title = card.paymentType.paymentTypeDesc + " " + Alloy.Globals.strings.checkoutCCEndingIn + " " + card.lastFourDigits;
-				params.subtitle = Alloy.Globals.strings.checkoutCCExpDate + " " + card.expiryDate;
-				params.showEditIcon = false;
+				var payment = {
+					section : "paymentInfo",
+					itemTemplate : "creditCardView",
+					masterWidth : 100,
+					title : card.paymentType.paymentTypeDesc + " " + Alloy.Globals.strings.checkoutCCEndingIn + " " + card.lastFourDigits,
+					subtitle : Alloy.Globals.strings.checkoutCCExpDate + " " + card.expiryDate,
+					showEditIcon : false
+				};
 
-				var newRow = Alloy.createController("itemTemplates/creditCardView", params);
+				var rowParams = payment,
+				    row1;
 
-				$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
-				rows[rid] = newRow;
-			});
+				rowParams.filterText = _.values(_.pick(rowParams, ["title", "subtitle"])).join(" ").toLowerCase();
+				row1 = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
+				row1.on("clickedit", didClickCCEdit);
+
+				sectionHeaders[rowParams.section] += rowParams.filterText;
+				sections[rowParams.section].push(row1);
+				paymentInfo.add(row1.getView());
+
+				data.pop();
+				data.push(paymentInfo);
+				$.tableView.setData(data);
+
+			} else {
+				_.each(rows, function(row, rid) {
+
+					index++;
+					var params = row.getParams();
+					logger.debug("\n\n\n params		 ", JSON.stringify(params, null, 4), "\n\n\n");
+
+					var card;
+					_.some(updatedCardDetails, function(cardDet, index) {
+						if (cardDet.selected == true) {
+							card = cardDet;
+							return true;
+						}
+						return false;
+					});
+
+					logger.debug("\n\n\n update card view		 ", JSON.stringify(card, null, 4), "\n\n\n");
+
+					if (!card) {
+						logger.debug("\n\n\n No default card \n\n\n");
+
+						card = updatedCardDetails[0];
+					}
+
+					params.title = card.paymentType.paymentTypeDesc + " " + Alloy.Globals.strings.checkoutCCEndingIn + " " + card.lastFourDigits;
+					params.subtitle = Alloy.Globals.strings.checkoutCCExpDate + " " + card.expiryDate;
+					params.showEditIcon = false;
+
+					var newRow = Alloy.createController("itemTemplates/creditCardView", params);
+
+					$.tableView.updateRow( OS_IOS ? index : row.getView(), newRow.getView());
+					rows[rid] = newRow;
+				});
+			}
 		}
 		count += rows.length;
 
@@ -292,6 +337,7 @@ function didGetCardDetails(result, passthrough) {
 
 		logger.debug("\n\n\n currentPatient		", JSON.stringify(currentPatient, null, 4), "\n\n\n");
 	}
+
 	prepareList();
 }
 
