@@ -1629,7 +1629,7 @@ function updateCard() {
 					zipCode : billingAddress.zip,
 					lastFourDigits : cardDetails.lastFourDigits,
 					token : cardDetails.ccToken,
-					paymentProcessorType : cardDetails.paymentType.paymentTypeId
+					paymentProcessorType : Alloy.CFG.payment_processor_type
 				}
 			}]
 		},

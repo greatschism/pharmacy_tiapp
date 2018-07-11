@@ -435,7 +435,7 @@ function addNewCard(result) {
 					zipCode : billingAddress.zip,
 					lastFourDigits : lastFourDigits[0],
 					token : paymentAccountID,
-					paymentProcessorType : "0"
+					paymentProcessorType : Alloy.CFG.payment_processor_type
 				}
 			}]
 		},
