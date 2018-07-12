@@ -38,7 +38,7 @@
 		<Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" />
 		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
 	</View>
-	<TableView id="tableView" class="top" onSingletap="didClickTableView" if="!Alloy.CFG.remove_android_rx_search"  >
+	<TableView id="tableView" class="top" onSingletap="didClickTableView" if="!Alloy.CFG.remove_android_rx_search" platform="android" >
 		<SearchView id="searchbar" color="#000000" iconifiedByDefault="false" class="top" ns="Ti.UI.Android" platform="android" visible="true"/>
 	</TableView>
 	<TableView id="tableView" class="top" onSingletap="didClickTableView" platform="android" if="Alloy.CFG.remove_android_rx_search"  >

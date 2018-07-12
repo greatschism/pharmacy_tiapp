@@ -68,10 +68,10 @@
 		</View>
 		<Button id="refillBtn" class="primary-bg-color primary-font-color primary-border" onClick="didClickRefill" if="$.args.canHide" />
 		
-		<View class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_mscripts_autofill_enabled">
+		<View id="autoFillSection" class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_mscripts_autofill_enabled">
 			<Label id="autoFillLbl" class="margin-left margin-right h5 inactive-fg-color" />
 		</View>
-		<View class="h-divider-light" />
+		<View id="autoFillSeperator" class="h-divider-light" />
 		<View id="autoFillView" class="auto-height" if="Alloy.CFG.is_mscripts_autofill_enabled">
 			<Widget id="autoFillAttr" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
 			<Widget id="autoFillSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoFill" />

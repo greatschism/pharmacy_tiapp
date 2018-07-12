@@ -94,8 +94,12 @@ function init() {
 	$.instructionLbl.accessibilityLabel = $.instructionLbl.text;
 	$.instructionLbl.accessibilityValue = $.strings.prescDetLblInstructionAccessibilityCollapsed;
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
-	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+	if(isAutoFillEligible()) {
 		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
+	} else {
+		$.autoFillSection.height = 0;
+		$.autoFillView.height = 0;
+		$.autoFillSeperator.height = 0;
 	}
 }
 
@@ -937,7 +941,13 @@ function didFailAutoFill(result) {
 	});
 }
 
-
+ function isAutoFillEligible() {
+	if(Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "1") {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 exports.init = init;
 exports.focus = focus;
