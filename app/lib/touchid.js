@@ -10,6 +10,7 @@ var TAG = "UIHE",
 
 if (OS_IOS) {
  	var TiTouchId = require("com.mscripts.mscriptstouchid");
+	var TiIdentity = require('ti.identity');
 }
 
 var TouchIDHelper = {
@@ -18,6 +19,10 @@ var TouchIDHelper = {
 	deviceCanAuthenticate : function() {
 		var result = false;
 		if (OS_IOS) {
+			var supported =  TiIdentity.isSupported();
+			if (TiIdentity.biometryType == TiIdentity.BIOMETRY_TYPE_FACE_ID) {
+				return result; //we don't support FaceID right this second...
+			}
 		 	var canAuthenticate = TiTouchId.deviceCanAuthenticate();
 		 	if (canAuthenticate.canAuthenticate === true) {
 		 		result = true;

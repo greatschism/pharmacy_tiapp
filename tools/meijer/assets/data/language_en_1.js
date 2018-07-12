@@ -42,6 +42,9 @@ module.exports = {
 		"expPickupBenefitsTitle" : "What is it?",
 		"prescriptionsInProcessNewTime": "Click here to select new time",
 		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits",
-		"remindersSettingsSectionRx" : "Rx message settings"
+		"remindersSettingsSectionRx" : "Rx message settings",
+		"msgEnabledTouchIDwKeep": "We see that you also have 'Remember my sign-in info' turned on. Please note that enabling Touch ID will not hide your user credentials from the sign in screen - would you like to turn ‘Remember my sign-in info’ off (you’ll still be able to log in with Touch ID)?",
+        "msgTouchIDwKeepTurnedOff": "Ok, 'Remember my sign-in info' has been turned off and your credentials won't show in the 'sign-in' page now. You can always turn this on in the 'account' page.",
+        "msgTouchIDwKeep": "We also see that you also have Touch ID turned on. Please note that Touch ID will not hide your user credentials from the sign-in screen when 'Remember my sign-in info' is enabled'."
 	}
 };

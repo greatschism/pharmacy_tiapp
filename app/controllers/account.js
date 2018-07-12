@@ -135,7 +135,14 @@ function didChangeAutoLogin(e) {
 	authenticator.setAutoLoginEnabled(value);
 	if (Alloy.CFG.auto_login_dialog_enabled && value) {
 		$.uihelper.showDialog({
-			message : $.strings.msgAutoLogin
+			message : $.strings.msgAutoLogin,
+			success : function(){
+				if(authenticator.getTouchIDEnabled()) {
+					$.uihelper.showDialog({
+						message : $.strings.msgTouchIDwKeep,
+					});
+				} 
+			}
 		});
 	}
 }
@@ -143,6 +150,33 @@ function didChangeAutoLogin(e) {
 function didChangeTouchID(e) {
 	var value = e.value;
 	authenticator.setTouchIDEnabled(value);
+
+	if(value){
+		$.uihelper.showDialog({
+			message : $.strings.msgTouchIDDisclaimer,
+			success : function(){
+				authenticator.setTouchIDEnabled(true);
+				if(!authenticator.getAutoLoginEnabled()) {
+					$.uihelper.showDialog({
+						message : $.strings.msgEnabledTouchID,
+					});
+				} else {
+					$.uihelper.showDialog({
+						message : $.strings.msgEnabledTouchIDwKeep,
+						buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+						cancelIndex : 0,
+						success : function() {
+							authenticator.setAutoLoginEnabled(false);
+							$.keepMeSignedInSwt.setValue(false);
+							$.uihelper.showDialog({
+								message : $.strings.msgTouchIDwKeepTurnedOff,
+							});
+						}
+					});
+				}
+			}
+		});
+	}
 }
 
 

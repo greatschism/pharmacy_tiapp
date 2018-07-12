@@ -230,7 +230,14 @@ function setRightButton(iconText, iconDict) {
 function didChangeAutoLogin(e) {
 	if (Alloy.CFG.auto_login_dialog_enabled && e.value) {
 		$.uihelper.showDialog({
-			message : $.strings.msgAutoLogin
+			message : $.strings.msgAutoLogin,
+			success : function(){
+				if(authenticator.getTouchIDEnabled()) {
+					$.uihelper.showDialog({
+						message : $.strings.msgTouchIDwKeep,
+					});
+				} 
+			}
 		});
 	}
 }
@@ -241,6 +248,88 @@ function moveToNext(e) {
 		$[nextItem].focus();
 	}
 }
+function loginProcess(e) {
+	var username = $.usernameTxt.getValue(),
+	    password = $.passwordTxt.getValue();
+
+
+
+	authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
+
+
+
+	// if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+	// 	utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+	// 	$.uihelper.showDialog({
+	// 		message : $.strings.msgPromptTouchID,
+	// 		buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+	// 		cancelIndex : 0,
+	// 		success : function(){
+	// 			authenticator.setTouchIDEnabled(true);
+	// 			$.uihelper.showDialog({
+	// 				message : $.strings.msgEnabledTouchID,
+	// 			});
+	// 		},
+	// 		cancel : function(){
+	// 			authenticator.setTouchIDEnabled(false);
+	// 			$.uihelper.showDialog({
+	// 				message : $.strings.msgDeferredTouchID,
+	// 			});
+	// 		}
+	// 	});
+	// }
+
+
+	authenticator.init({
+		username : username,
+		password : password,
+		loginFailure : didFailed,
+		success : function(passedVar){
+			didAuthenticate(passedVar);		
+			if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() && OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled) {
+				utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+				$.uihelper.showDialog({
+					message : $.strings.msgPromptTouchID,
+					buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+					cancelIndex : 0,
+					success : function() {
+						$.uihelper.showDialog({
+							message : $.strings.msgTouchIDDisclaimer,
+							success : function(){
+								authenticator.setTouchIDEnabled(true);
+								if(!authenticator.getAutoLoginEnabled()) {
+									$.uihelper.showDialog({
+										message : $.strings.msgEnabledTouchID,
+									});
+								} else {
+									$.uihelper.showDialog({
+										message : $.strings.msgEnabledTouchIDwKeep,
+										buttonNames : [$.strings.dialogBtnNo, $.strings.dialogBtnYes],
+										cancelIndex : 0,
+										success : function() {
+											authenticator.setAutoLoginEnabled(false);
+											$.uihelper.showDialog({
+												message : $.strings.msgTouchIDwKeepTurnedOff,
+											});
+										}
+									});
+								}
+							}
+						});
+					},
+					cancel : function(){
+						authenticator.setTouchIDEnabled(false);
+						$.uihelper.showDialog({
+							message : $.strings.msgDeferredTouchID,
+						});
+					}
+				});
+			}
+
+		}
+	});
+}
+
 
 function didClickLogin(e) {
 	var username = $.usernameTxt.getValue(),
@@ -260,61 +349,33 @@ function didClickLogin(e) {
 	if ($.utilities.isPhoneNumber(username)) {
 		//yet to handle
 	} else {
-		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
 
 
+		//Solution for risk 3: prior to a user tapping ‘sign-in’, the username/password provided is checked against the username stored in the device keychain for Touch ID — 
+		//if it does not match, then Touch ID must be immediately disabled prior to the login attempt. At this point, the user should be informed that Touch ID has been 
+		//	disabled for login since the credentials of this login attempt did not match the previous ones used for Touch ID.
+		if( authenticator.getTouchIDEnabled() ) {
 
-		// if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
-		// 	utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
-		// 	$.uihelper.showDialog({
-		// 		message : $.strings.msgPromptTouchID,
-		// 		buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
-		// 		cancelIndex : 0,
-		// 		success : function(){
-		// 			authenticator.setTouchIDEnabled(true);
-		// 			$.uihelper.showDialog({
-		// 				message : $.strings.msgEnabledTouchID,
-		// 			});
-		// 		},
-		// 		cancel : function(){
-		// 			authenticator.setTouchIDEnabled(false);
-		// 			$.uihelper.showDialog({
-		// 				message : $.strings.msgDeferredTouchID,
-		// 			});
-		// 		}
-		// 	});
-		// }
+			var data = authenticator.forceGetData();
+			var oldusername = data.username;
+			var oldpassword = data.password;
 
-
-		authenticator.init({
-			username : username,
-			password : password,
-			loginFailure : didFailed,
-			success : function(passedVar){
-				didAuthenticate(passedVar);		
-				if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() && OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled) {
-					utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
-					$.uihelper.showDialog({
-						message : $.strings.msgPromptTouchID,
-						buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
-						cancelIndex : 0,
-						success : function(){
-							authenticator.setTouchIDEnabled(true);
-							$.uihelper.showDialog({
-								message : $.strings.msgEnabledTouchID,
-							});
-						},
-						cancel : function(){
-							authenticator.setTouchIDEnabled(false);
-							$.uihelper.showDialog({
-								message : $.strings.msgDeferredTouchID,
-							});
-						}
-					});
-				}
-
+			if( (oldpassword !== password) || (oldusername !== username) ) {
+				$.uihelper.showDialog({
+					message : $.strings.msgTouchIDReset,
+					success : function(e){
+						utilities.setProperty(Alloy.CFG.touchid_prompted, false, "bool", false);
+						authenticator.setTouchIDEnabled(false);
+						loginProcess(e);
+					}
+				});
+			} else {
+				loginProcess(e);
 			}
-		});
+
+		} else {
+			loginProcess(e);
+		}
 	}
 }
 
