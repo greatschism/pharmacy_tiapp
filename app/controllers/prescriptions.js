@@ -235,7 +235,7 @@ function prepareData() {
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
 
-			if (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
 				$.searchbar.visible = false;
 			}
 		}
@@ -244,7 +244,7 @@ function prepareData() {
 		//hide if any
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
-			if (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
 				$.searchbar.visible = true;
 			}
 		}
