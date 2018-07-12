@@ -320,14 +320,12 @@ function didPostlayoutPrompt(e) {
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
 	    
-	    if(prescription.prefill === "Y" && Alloy.CFG.is_mscripts_autofill_enabled) {
-	    	if(Alloy.CFG.is_autofill_message_enabled) {
-	    		$.autofillView.height = Ti.UI.SIZE;
-	    		$.autofillView.show();
-	    	}
-	    	if(Alloy.CFG.is_mscripts_autofill_enabled) {
+	    if(prescription.prefill === "Y" && isAutoFillEligible()) {
+		    	if(Alloy.CFG.is_autofill_message_enabled) {
+		    		$.autofillView.height = Ti.UI.SIZE;
+		    		$.autofillView.show();
+		    	}
 	    		$.autoFillSwt.setValue(true, isWindowOpen);
-	    	}
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
