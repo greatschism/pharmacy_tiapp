@@ -25,7 +25,9 @@ module.exports = {
 		"loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
 		"titleHelp" : "Help",
-		"loginHintUsername" : "Email address"
+		"loginHintUsername" : "Email address",
+		"titleHome" : "Safeway Pharmacy",
+		"titleHomePage" : "Safeway Pharmacy"
 	}
 
 };

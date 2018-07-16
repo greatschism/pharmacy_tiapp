@@ -24,7 +24,9 @@ module.exports = {
         "userRecoveryValEmail" : "Please enter your email address or username.",
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-         "titleHelp" : "Help"
+         "titleHelp" : "Help",
+         "titleHome" : "Randalls Pharmacy",
+		 "titleHomePage" : "Randalls Pharmacy"
 	}
 
 };
