@@ -3,7 +3,11 @@ module.exports = {
 	"data" : {
 
 		"strClientName" : "Jewel-Osco",
-		"titleRefill" : "Refill by typing",
+
+		"titlePrescriptions" : "My Prescriptions",
+		"titleReminders" : "Reminders",
+
+		"titleRefill" : "Refill now",
 		"titleRefillType" : "Refill by typing",
 		"loginHintUsername" : "Email address",
 		"loginHintEmailOrUsername" : "Email address",
@@ -21,7 +25,7 @@ module.exports = {
 		"loginTooltipLblAutoSignIn" : "Tip: We have entered your email address and password this time. If you would like to save this setting, enable \"Remember me\".",
 		"accessibilityLblRememberUsernameToggle" : "Remember me",
 		"prescSectionInProgress" : "Being filled",
-		
+
 		"childAddValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on the prescription label. It should be %d digits.",
 		"familyMemberAddPrescValRxNoInvalid" : "Sorry, we don't recognize this prescription number. Please confirm that it's exactly what appears on your prescription label. It should be %d digits.",
 		"refillTypeValRx" : "Your Rx number is incorrect, please enter the %d digit prescription number found on your prescription bottle.",
