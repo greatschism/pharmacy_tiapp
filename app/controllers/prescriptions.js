@@ -1350,8 +1350,6 @@ function processSections(prescription, daysLeft) {
 			var readyRxLabel;
 			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
 				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-			}	else {
-				readyRxLabel = $.strings.prescReadyPickupLblReady;
 			}
 			prescription.set({
 				section : "readyPickup",
