@@ -600,16 +600,6 @@ function setPickupTimegroup() {
 		}
 	}
 
-	/**
-	 * if defaultVal in store pickup
-	 * then make sure the given store supports
-	 * the same
-	 */
-	// if (defaultVal == apiCodes.pickup_mode_instore  && store.id == Alloy.Models.appload.get("mail_order_store_id") && !Alloy.CFG.mail_order_store_pickup_enabled) {
-	// defaultVal = apiCodes.pickup_mode_mail_order;
-	// logger.debug("\n\n\n default mode : ", defaultVal,"\t\t",Alloy.CFG.mail_order_store_pickup_enabled);
-	// }
-	//update selected value
 	_.each(codes, function(code) {
 		if (code.code_value === defaultVal) {
 			selectedCode = code;
@@ -618,6 +608,7 @@ function setPickupTimegroup() {
 			code.selected = false;
 		}
 	});
+	
 	//update selected value
 
 	Alloy.Models.pickupTimegroup.set("selected_code_value", selectedCode.code_value);

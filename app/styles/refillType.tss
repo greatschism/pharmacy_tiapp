@@ -9,6 +9,16 @@
 "#pickupModeCloseBtn":{
 	title: Alloy.Globals.strings.refillTypePopupPickupModeBtnClose
 },
+"#pickupTimegroupPicker":{
+	radioButton: true,
+	titleProperty: "code_display"
+},
+"#pickupTimegroupSectionLbl":{
+	text: "Time group Options"
+},
+"#pickupTimegroupCloseBtn":{
+	title: Alloy.Globals.strings.accountPopupTimeZoneBtnClose
+},
 "#titleLbl":{
 	text: Alloy.Globals.strings.refillTypeLblTitle
 },
@@ -24,9 +34,15 @@
 "#pickupLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPickup
 },
+"#pickupTgHeaderLbl":{
+	text: "Pickup Time group"
+},
 "#pickupModeLbl":{
 	text: Alloy.Globals.strings.strLoading
 },
+"#pickupTimegroupLbl":{
+	text: Alloy.Globals.strings.strLoading
+}, 
 "#phoneLbl":{
 	text: Alloy.Globals.strings.refillTypeSectionPhone
 },

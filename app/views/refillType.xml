@@ -22,7 +22,7 @@
 		</View>
 		<View class="min-height inactive-light-bg-color"> 
 			<Label id="pickupLbl" class="margin-left margin-right h5 inactive-fg-color" />
-		</View>t
+		</View>
 		<View id="pickupView" class="auto-height vgroup">
 			<View id="pickupModeView" class="auto-height" onClick="didClickPickupMode">
 				<Label id="pickupModeLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
@@ -30,6 +30,20 @@
 			</View>
 			<View id="pickupDividerView" class="h-divider-light" />
 		</View>
+		
+		
+		<View id="pickupTgHeaderView" class="min-height inactive-light-bg-color"> 
+			<Label id="pickupTgHeaderLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		</View>
+		<View id="pickupTgOptionsView" class="auto-height vgroup">
+			<View id="pickupTimegroupView" class="auto-height" onClick="didClickPickupTimegroup">
+				<Label id="pickupTimegroupLbl" class="margin-top margin-bottom margin-left margin-right-small h4" />
+				<Label id="childTgLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+			</View>
+			<View id="pickupTgDividerView" class="h-divider-light" />
+		</View>
+		
+		
 		<View id="dividerView" class="margin-top h-divider-light" />
 		<Button id="refillBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickRefill" />
 	</ScrollView>
@@ -39,6 +53,14 @@
 		</View>
 		<View class="auto-height role-footer-view">
 			<Button id="pickupModeCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupModeClose" />
+		</View>
+	</Widget>
+	<Widget id="pickupTimegroupPicker" src="ti.optionpicker" class="modal-dialog" onClick="updatePickupTimegroup">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="pickupTimegroupSectionLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="pickupTimegroupCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupTimegroupClose" />
 		</View>
 	</Widget>
 	<View id="storeView" class="hide auto-height role-ignore" onClick="didClickEdit">
