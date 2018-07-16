@@ -45,7 +45,7 @@ module.exports = {
 						"children" : [{
 							"items" : [{
 								"apiName" : "Label",
-								"classes" : ["margin-top-medium", "i4", "primary-dark-fg-color", "touch-disabled", "icon-refill-camera"]
+								"classes" : ["margin-top-medium", "i4", "primary-dark-fg-color", "touch-disabled", "icon-thick-refill-now"]
 							}, {
 								"apiName" : "Label",
 								"classes" : ["margin-top-medium", "margin-bottom-medium", "margin-left-medium", "margin-right-medium", "h4", "fg-color", "txt-center", "touch-disabled"],

@@ -6,7 +6,8 @@ module.exports = {
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
-		"titleRefill" : "Refill by scan",
+		"titleRefill" : "Refill Now",
+		"titleRefillType" : "Refill Now",
 		"childAddHintRxNo" : "Rx number (7 digits)",
 		"familyMemberAddPrescHintRxNo" : "Rx number (7 digits)",
 		"registerHintRxFormat" : "Rx number (7 digits)",
