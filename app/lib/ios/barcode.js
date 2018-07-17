@@ -130,9 +130,9 @@ var BarcodeReader = {
 		
 		uihelper.showDialog({
 		message : Alloy.Globals.strings.barcodeScanUserInfo,
-		buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-		success : BarcodeReader.__window.open()
-		});	
+		buttonNames : [Alloy.Globals.strings.dialogBtnOK]
+		});
+		BarcodeReader.__window.open();	
 	},
 
 	cancel : function() {
