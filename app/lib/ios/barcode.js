@@ -169,8 +169,8 @@ var BarcodeReader = {
 	},
 	
 	didClickFlash : function(e){
-		var fadeIn = {classes : ["fade-in"]},
-			fadeHalf = {classes : ["fade-half"]};		
+		var fadeIn = {opacity : 1},
+			fadeHalf = {opacity : 0.5};		
 		if(toggle){
 			flashBtn.applyProperties(fadeHalf);
 			toggle = 0;
