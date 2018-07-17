@@ -13,14 +13,17 @@ var	app = require("core"),
     keepOpen = false,
     supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
     successCallback,
-    passthrough;
-
-var BarcodeReader = {
-
+    passthrough,
+    flashBtn,
+    toggle = 0,
+    uihelper = require("uihelper");
+	
+	
+var BarcodeReader = {	
 	values : [],
 
 	capture : function($, options) {
-
+		
 		if (isBusy) {
 			logger.error(TAG, "barcode capture is already in progress");
 			return false;
@@ -88,8 +91,7 @@ var BarcodeReader = {
 				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
 			    helpBtn = $.UI.create("Button", {
-				classes : ["margin-right", "marin-top-extra-large", "i4", "txt-right", "primary-font-color", "border-disabled", "icon-help"]
-				
+				classes : ["left-85", "bottom-0", "top-30", "i4", "primary-font-color", "icon-help", "auto-width","auto-height","border-disabled"]				
 			}),
 				navTitleLbl = $.UI.create("Label", {
 				classes : ["title-control", "txt-center"],
@@ -98,9 +100,15 @@ var BarcodeReader = {
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
+			});			
+				flashBtn = $.UI.create("Button", {
+				classes : ["i4", "left-45","bottom-0", "top-30", "fade-half", "primary-font-color", "icon-tip","auto-width","auto-height", "border-disabled"]				
 			});
+			
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
+			flashBtn.addEventListener("click", BarcodeReader.didClickFlash);
+			navbarView.add(flashBtn);
 			navbarView.add(helpBtn);
 			navbarView.add(navIconBtn);
 			if (Ti.App.accessibilityEnabled) {
@@ -119,8 +127,12 @@ var BarcodeReader = {
 				classes : ["width-85", "height-40", "negative-border", "thick-border", "border-radius-disabled"]
 			}));
 		}
-
-		BarcodeReader.__window.open();
+		
+		uihelper.showDialog({
+		message : Alloy.Globals.strings.barcodeScanUserInfo,
+		buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+		success : BarcodeReader.__window.open()
+		});	
 	},
 
 	cancel : function() {
@@ -154,6 +166,22 @@ var BarcodeReader = {
 			ctrl : "rxSample",
 			stack : true
 		});
+	},
+	
+	didClickFlash : function(e){
+		var fadeIn = {classes : ["fade-in"]},
+			fadeHalf = {classes : ["fade-half"]};		
+		if(toggle){
+			flashBtn.applyProperties(fadeHalf);
+			toggle = 0;
+			BarcodeReader.__cameraView.turnFlashOff();
+		}
+		else{
+			flashBtn.applyProperties(fadeIn);
+			toggle = 1;
+			BarcodeReader.__cameraView.turnFlashOn();
+			
+		}		
 	},
 
 	/**

@@ -229,6 +229,7 @@ module.exports = {
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
+		"barcodeScanUserInfo" : "When scanning the label, please use a Flash or make sure there is adequate background lighting in order to ensure a successful image capture.",
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
