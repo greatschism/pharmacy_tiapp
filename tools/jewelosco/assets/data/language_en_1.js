@@ -8,7 +8,6 @@ module.exports = {
 		"titleReminders" : "Reminders",
 
 		"titleRefill" : "Refill now",
-		"titleRefillType" : "Refill by typing",
 		"loginHintUsername" : "Email address",
 		"loginHintEmailOrUsername" : "Email address",
 		"userRecoveryLbl" : "Please enter the <tertiaryfont><tertiarycolor>email address</tertiarycolor></tertiaryfont> that you use to sign in.",

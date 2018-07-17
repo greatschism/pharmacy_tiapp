@@ -4,9 +4,9 @@ module.exports = {
 
 		"strClientName" : "Shaws Rx",
 
-		"titlePrescriptions" : "Refill from list",
+		"titlePrescriptions" : "My Prescriptions",
 		"titleReminders" : "Reminders",
-		"titleRefill" : "Refill by scan",
+		"titleRefill" : "Refill now",
 
 		"childAddHintRxNo" : "Rx number (7 digits)",
 		"familyMemberAddPrescHintRxNo" : "Rx number (7 digits)",
