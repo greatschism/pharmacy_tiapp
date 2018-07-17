@@ -35,17 +35,26 @@ var args = $.args,
 				 success : didGetData
 			 });
 		}
+		if(inputBoxIds.length) {
+			for(var i = 0; i < inputBoxIds.length; i++) {
+				inputBoxIds[i].setValue("");
+			}
+		}
 	}
 	
 	function didGetConfigs(result) {
 		no_of_fields = result.data.records.length;
 		if(!no_of_fields) {
 			$.uihelper.showDialog({
-				message : $.strings.adCustInfoNoDataFoundMessage
+				message : Alloy.Globals.strings.adCustInfoNoDataFoundMessage,
+				buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+				cancelIndex : 0,
+				cancel : function didClickOK() {
+					navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
+						landing_page : true
+					}).toJSON());
+				}
 			});
-			navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
-				landing_page : true
-			}).toJSON());
 		}
 		else {
 			sortingFunc(result.data);
@@ -86,7 +95,6 @@ var args = $.args,
 	}	
 	
 	function createViewFunc(data) {	
-		console.log("is_delete_flow: "+is_delete_flow);
 		if(!is_delete_flow) {
 			for(var i = 0; i < data.length; i++) {
 				var hintText = data[i].field_name;
@@ -118,32 +126,20 @@ var args = $.args,
 						$.headerView.add(textBoxView);
 						inputBoxIds.push(inputBoxId);
 						break;
-						
-					case "radio":
-						break;
-						
-						
 				}
 			}
 		}
-		
+			
 			for(var i = 0; i < resultset.length; i++) {
 				for(var j = 0; j < resultset.length; j++) {
-					if(existing_data[i]) {
-						if(existing_data[i].field_id === resultset[j].id) {
-							inputBoxIds[j].setValue(existing_data[i].field_value);
-						}
-						else {
-							inputBoxIds[j].setValue("");
-						}
-					}
-					else {
-						inputBoxIds[j].setValue("");
+					if(existing_data[i] && existing_data[i].field_id === resultset[j].id) {
+						inputBoxIds[j].setValue(existing_data[i].field_value);
 					}
 				}
 			}
-		
+			
 		if(!is_delete_flow) {
+
 			var btn = $.UI.create("Button", {
 				apiName : "Button",
 				classes : ["margin-bottom", "primary-bg-color", "primary-font-color", "primary-border"],
@@ -153,7 +149,6 @@ var args = $.args,
 			$.addListener(btn, "click", didClickSubmit);
 			$.headerView.add(btn);
 		}
-		
 	}
 	
 	function didClickSubmit(e) {
@@ -162,8 +157,10 @@ var args = $.args,
 				"field_id" : resultset[i].id,
 				"field_value" : inputBoxIds[i].getValue()
 			};
-						
-			inputData.push(temp);
+			
+			if(temp.field_value != null && temp.field_value != "") {
+				inputData.push(temp);
+			}		
 		}
 		
 		httpClient = $.http.request({
@@ -183,9 +180,6 @@ var args = $.args,
 	}
 	
 	function didUpdate(result) {
-		// navigationHandler.navigate(Alloy.Collections.menuItems.findWhere({
-			// landing_page : true
-		// }).toJSON());
 		$.rightNavBtn.getNavButton().show();
 		$.rightNavBtn.getNavButton().addEventListener("click", didClickRightNav);
 		$.uihelper.showDialog({
@@ -208,7 +202,6 @@ var args = $.args,
 		  ctrl : "additionalCustInfoDelete",
 		  ctrlArguments : {
 			  field_data : resultset
-			  //user_data : existing_data,
 		  },
 		  stack : true
 	  });
