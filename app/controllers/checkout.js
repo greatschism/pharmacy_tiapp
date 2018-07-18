@@ -487,8 +487,8 @@ function didGetLoyaltySignupRsp(event) {
 }
 
 function visitmPerksDialog() {
-	var dialogView = $.UI.create("ScrollView", {
-		apiName : "ScrollView",
+	var dialogView = $.UI.create("View", {
+		apiName : "View",
 		classes : ["top", "auto-height", "vgroup"]
 	});
 	dialogView.add($.UI.create("Label", {
@@ -527,8 +527,8 @@ function visitmPerksDialog() {
 }
 
 function showSignupLinkDialog() {
-	var dialogView = $.UI.create("ScrollView", {
-		apiName : "ScrollView",
+	var dialogView = $.UI.create("View", {
+		apiName : "View",
 		classes : ["top", "auto-height", "vgroup"]
 	});
 	dialogView.add($.UI.create("Label", {
