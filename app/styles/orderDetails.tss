@@ -14,7 +14,7 @@
 	titleProperty: "code_display"
 },
 "#pickupTimegroupLbl":{
-	text: "Time group Options"
+	text: "When should the prescription(s) be ready?"
 },
 "#pickupTimegroupCloseBtn":{
 	title: Alloy.Globals.strings.accountPopupTimeZoneBtnClose
