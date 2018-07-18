@@ -426,6 +426,9 @@ function updateDisplay() {
 			btnClasses : detailBtnClasses
 		});
 		$.pickupOptionRow.on("clickdetail", didClickStoreChange);
+
+		getPickupTimegroup();
+
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		//point to new instance
@@ -447,7 +450,6 @@ function updateDisplay() {
 	}
 	$.tableView.updateRow(row, $.pickupOptionRow.getView());
 
-	getPickupTimegroup();
 	// setPickupTimegroup();
 }
 
@@ -557,12 +559,13 @@ function didClickPickupTimegroupClose(e) {
 
 	Alloy.Models.pickupTimegroup.set("selected_code_value", selTG);
 
-	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickuptimegroupRow.getView();
+	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount) - 1 : $.pickuptimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	//point to new instance
 	$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
 		title : $.pickupTimegroupPicker.getSelectedItems()[0].code_display,
+		lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
 		hasChild : true
 	});
 	$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
@@ -608,12 +611,12 @@ function setPickupTimegroup() {
 			code.selected = false;
 		}
 	});
-	
+
 	//update selected value
 
 	Alloy.Models.pickupTimegroup.set("selected_code_value", selectedCode.code_value);
-	//pickup details section
-	// $.pickupSection = $.uihelper.createTableViewSection($, $.strings.orderDetSectionPickup);
+	//pickup Time group details section
+	$.pickupTgSection = $.uihelper.createTableViewSection($, "When should the prescription(s) be ready?");
 	/**
 	 * if there are more then one option populate picker
 	 * otherwise just show the default option
@@ -625,9 +628,10 @@ function setPickupTimegroup() {
 		$.pickupTimegroupPicker.setItems(codes);
 		$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
 			title : selectedCode.code_display,
+			lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
 			hasChild : true
 		});
-		$.pickupSection.add($.pickupTimegroupRow.getView());
+		$.pickupTgSection.add($.pickupTimegroupRow.getView());
 	}
 	//selected options value
 	/*
@@ -637,7 +641,7 @@ function setPickupTimegroup() {
 	$.pickupSection.add($.pickupOptionRow.getView());*/
 
 	//set data
-	$.tableView.setData([$.prescSection, $.pickupSection]);
+	$.tableView.setData([$.prescSection, $.pickupSection, $.pickupTgSection]);
 	//update options row
 	// updatePickupOptionRow();
 	// updateDisplayForTimeGroup();
@@ -646,12 +650,13 @@ function setPickupTimegroup() {
 function updatePickupTimegroupRow(e) {
 	logger.debug("\n\n\n  in updatePickupTimegroupRow", JSON.stringify(e, null, 4), "\n\n\n");
 	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
-	var row = OS_IOS ? $.prescSection.rowCount : $.pickuptimegroupRow.getView();
+	var row = OS_IOS ? $.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount : $.pickuptimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	//point to new instance
 	$.pickupTimegroupRow = Alloy.createController("itemTemplates/label", {
 		title : e.data.code_display,
+		lblClasses : ["h4", "margin-left", "margin-top", "margin-bottom"],
 		hasChild : true
 	});
 	$.tableView.updateRow(row, $.pickupTimegroupRow.getView());
@@ -693,7 +698,7 @@ function updatePickupTimegroupOptionRow() {
 		//point to new instance
 
 		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
-			var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
+			var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
 			logger.debug("\n\n\n $.pickupTimegroupRow.getView --> in updatePickupTimegroupRow\n\n\n");
 			//nullify last instance
 			$.pickupTimegroupRow = null;
@@ -720,7 +725,7 @@ function updatePickupTimegroupOptionRow() {
 }
 
 function updateDisplayForTimeGroup() {
-	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
+	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	switch(Alloy.Models.pickupTimegroup.get("selected_code_value")) {
