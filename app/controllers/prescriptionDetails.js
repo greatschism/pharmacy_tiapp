@@ -100,6 +100,10 @@ function init() {
 		$.autoFillSection.height = 0;
 		$.autoFillView.height = 0;
 		$.autoFillSeperator.height = 0;
+		$.autoFillDateView.height = 0;
+		$.autoFillDateSeperator.height = 0;
+		$.autoFillChangeDateView.height = 0;
+		$.autoFillChangeDateSeperator.height = 0;
 	}
 }
 
@@ -273,6 +277,14 @@ function loadPresecription() {
 	} else {
 		$.quantityView.height = 0;
 	}
+
+	if ( prescription.is_autofill_eligible !== "1") {
+		$.autoFillDateView.height = 0;
+		$.autoFillDateSeperator.height = 0;
+		$.autoFillChangeDateView.height = 0;
+		$.autoFillChangeDateSeperator.height = 0;
+	}
+
 }
 
 function loadDoctor() {
@@ -326,12 +338,19 @@ function didPostlayoutPrompt(e) {
 		    		$.autofillView.show();
 		    	}
 	    		$.autoFillSwt.setValue(true, isWindowOpen);
-			$.reminderRefillView.applyProperties($.createStyle({
+				$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
-		}
+		} else if (prescription.prefill !== "Y" && isAutoFillEligible()){
+			if(Alloy.CFG.is_autofill_message_enabled) {
+				$.autoFillDateView.height = 0;
+				$.autoFillDateSeperator.height = 0;
+				$.autoFillChangeDateView.height = 0;
+				$.autoFillChangeDateSeperator.height = 0;
+		    }
+		} 
 		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.height = Ti.UI.SIZE;
@@ -909,6 +928,17 @@ function didSuccessAutoFill() {
 			$.autofillView.show();
 			$.autofillView.height = Ti.UI.SIZE;
 		}
+		if($.autoFillSwt.getValue()) {
+			$.autoFillDateView.height =  Ti.UI.SIZE;
+			$.autoFillDateSeperator.height =  Ti.UI.SIZE;
+			$.autoFillChangeDateView.height =  Ti.UI.SIZE;
+			$.autoFillChangeDateSeperator.height =  Ti.UI.SIZE;
+		} else {
+			$.autoFillDateView.height = 0;
+			$.autoFillDateSeperator.height = 0;
+			$.autoFillChangeDateView.height = 0;
+			$.autoFillChangeDateSeperator.height = 0;
+		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
@@ -922,6 +952,10 @@ function didSuccessAutoFill() {
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
 			$.autofillView.height = 0;	
+			$.autoFillDateView.height = 0;
+			$.autoFillDateSeperator.height = 0;
+			$.autoFillChangeDateView.height = 0;
+			$.autoFillChangeDateSeperator.height = 0;
 		}
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]

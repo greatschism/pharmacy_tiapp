@@ -34,6 +34,9 @@
 "#autofillReplyLbl":{
 	text: Alloy.Globals.strings.prescDetPromptAutofill
 },
+"#reminderSectionView[if=Alloy.CFG.is_mscripts_autofill_enabled]":{
+	top: 0
+},
 "#remindersLbl":{
 	text: Alloy.Globals.strings.prescDetSectionReminders
 },
@@ -65,4 +68,16 @@
 },
 "#autoFillLbl":{
 	text: Alloy.Globals.strings.prescDetSectionAutofill
+},
+"#autoFillDateLbl":{
+	text: Alloy.Globals.strings.autoFillDateLbl
+},
+"#autoFillChangeDateLbl":{
+	text: Alloy.Globals.strings.autoFillChangeDateLbl
+},
+"#autoFillDate":{
+	text: Alloy.Globals.strings.autoFillDate
+},
+"#autoFillChangeDate":{
+	text: Alloy.Globals.strings.autoFillChangeDate
 }

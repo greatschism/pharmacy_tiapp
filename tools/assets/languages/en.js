@@ -1070,7 +1070,11 @@ module.exports = {
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
 		"vSixCarouselTitle" : "What's new!",
-		"autoFillAttr" : "Automatically refill this medication",
+        "autoFillAttr": "Automatically refill this medication",
+        "autoFillDateLbl": "Next Refill Date is Scheduled on - ",
+        "autoFillChangeDateLbl": "Need to delay? Reschedule Autofill Here",
+        "autoFillDate": "June 17, 2018",
+        "autoFillChangeDate": "M",
 		"prescDetSectionAutofill" : "Autofill",
 		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
 	}
