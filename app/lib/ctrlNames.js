@@ -43,6 +43,8 @@ module.exports = {
 	"MGAU" : "mgrAccountUpdate",
 	"NEPA" : "newPassword",
 	"ORDE" : "OrderDetails",
+	"ORHD" : "orderHistoryDetails",
+	"ORHI" : "orderHistory",
 	"PAOE" : "paymentOptions",
 	"PHON" : "phone",
 	"PRDE" : "PrescriptionDetails",

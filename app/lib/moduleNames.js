@@ -89,7 +89,8 @@ module.exports = {
 	"DEOE" : "DeliveryOptions",
 	"PAOE" : "PaymentOptions",
 	"CHSS" : "CheckoutSuccessSummary",
-
+	"ORHI" : "OrderHistory",
+	"ORHD" : "orderHistoryDetails",
 	/**
 	 * reminders
 	 */
@@ -135,14 +136,14 @@ module.exports = {
 	 * accounts
 	 */
 	"ACCO" : "Accounts",
-	
+
 	/**
 	 * insurance card
 	 */
 	"INSU" : "InsuranceCard",
 	"INPR" : "InsuranceProfile",
 	"ININ" : "insuranceInput",
-	
+
 	/**
 	 * dynamic menu option
 	 */

@@ -1,0 +1,16 @@
+<Alloy>
+	<ScrollView class="vgroup">
+		<Widget id="prescExp" src="ti.expandable">
+			<View class="auto-height role-master-view vgroup" onClick="togglePrescription">
+				<Label id="orderNumberLbl" class="margin-top margin-left right-35 h4" />
+				<Label id="toggleLbl" class="margin-top-large margin-right width-30 txt-right h8 active-fg-color" />
+				<Label id="orderDateLbl" class="margin-top margin-left right-35 h4" />
+
+			</View>
+			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
+				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup"></View>
+				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
+			</Widget>
+		</Widget>
+	</ScrollView>
+</Alloy>

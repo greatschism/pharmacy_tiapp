@@ -73,7 +73,8 @@
 			"patient_creditcard_add": "payments/addCreditCard",
 			"patient_creditcard_update": "payments/updateCreditCard",
 			"transaction_setupid_get": "payments/getTransactionToken",
-			"transaction_create_account": "payments/createTransactionAccount"
+			"transaction_create_account": "payments/createTransactionAccount",
+			"order_history_get": "payments/getOrderDetailsHistory"
 		},
 		"apiCodes": {
 			"success": "200",

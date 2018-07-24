@@ -26,7 +26,7 @@ module.exports = {
 	"EMAI" : "LORE",
 	"EMVE" : "LORE",
 	"FOPA" : "LORE",
-	
+
 	"PASS" : "LORE",
 
 	"HIPA" : "LORE",
@@ -104,6 +104,8 @@ module.exports = {
 	"DEOE" : "DEOE",
 	"PAOE" : "PAOE",
 	"CHSS" : "CHSS",
+	"ORHI" : "ORHI",
+	"ORHD" : "ORHD",
 	/**
 	 * quick refill
 	 */
@@ -133,14 +135,14 @@ module.exports = {
 	 * accounts
 	 */
 	"ACCO" : "ACCO",
-	
+
 	/**
 	 * Insurance card
 	 */
 	"INSU" : "INSU",
 	"INPR" : "INPR",
 	"ININ" : "ININ",
-	
+
 	/**
 	 * dynamic menu option
 	 */

@@ -239,6 +239,8 @@ module.exports = {
 		"titleDeliveryOptions" : "Delivery Options",
 		"titlePaymentMethod" : "Payment Method",
 		"paymentDetBtnSubmit" : "Submit",
+		
+		"titleOrderHistory" : "Order History",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
