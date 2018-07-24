@@ -247,7 +247,7 @@ module.exports = {
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "Refill prescriptions instantly",
-		"carouselLblReminders" : "Get refill, pick up and other\nimportant notifications",
+		"carouselLblReminders" : "Get refill, pick up, autofill and \nother important notifications",
 		"carouselLblFamilyCare" : "Manage your family's\nprescriptions in one place",
 		"carouselLblExpPickupQR" : "Save time with\nExpress Pick-up",
 		"carouselBtnStart" : "Get started",
