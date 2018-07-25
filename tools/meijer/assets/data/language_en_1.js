@@ -44,6 +44,6 @@ module.exports = {
 		"textSignUpBenefitLbl": "Sign up to receive\ntext benefits",
 		"remindersSettingsSectionRx" : "Rx message settings",
 		"carouselLblReminders" : "Get refill, pick up, autofill and \nother important notifications",
-		"receiveTextChildLbl" : "By providing your phone number and clicking Continue, you consent to receiving text messages from Meijer Pharmacy. Texts are for healthcare-related purposes, including, but not limited to: prescription, refill, and pick-up notices and reminders.  Messages may be sent using an automatic telephone dialing system.  Your consent to receive messages is not required for purchase at Meijer.",
+		"receiveTextChildLbl" : "By providing your phone number and clicking \"Continue\", you consent to receiving text messages from Meijer Pharmacy. Texts are for healthcare-related purposes, including, but not limited to: prescription, refill, and pick-up notices and reminders.  Messages may be sent using an automatic telephone dialing system.  Your consent to receive messages is not required for purchase at Meijer.",
 	}
 };
