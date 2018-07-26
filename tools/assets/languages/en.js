@@ -241,7 +241,8 @@ module.exports = {
 		"paymentDetBtnSubmit" : "Submit",
 		
 		"titleOrderHistory" : "Order History",
-
+		"orderHistoryMsgEmptyList" : "No order history found.",
+		
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "Refill prescriptions instantly",
