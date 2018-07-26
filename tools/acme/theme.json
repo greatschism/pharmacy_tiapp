@@ -2,6 +2,7 @@
 	"config": {
 		"global": {
 			"payment_processor_type": "0",
+			"latest_pickup_timegroup": "latestPickupTimegroup",
 			"add_card_if_not_onfile": "1",
 			"delivery_time_limit": "12:30:00",
 			"rx_number_for_ready_label": "rxNumberForReadyLabelEnabled",
