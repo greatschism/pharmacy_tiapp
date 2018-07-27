@@ -76,6 +76,7 @@
 	text: Alloy.Globals.strings.autoFillChangeDateLbl
 },
 "#autoFillDate":{
+	//	Needed to be changed
 	text: Alloy.Globals.strings.autoFillDate
 },
 "#autoFillChangeDate":{
