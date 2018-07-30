@@ -332,6 +332,15 @@ function didPostlayoutPrompt(e) {
 	    children = source.getParent().children;
 	    source.removeEventListener("postlayout", didPostlayoutPrompt);
 	    
+		if (prescription.prefill !== "Y" && isAutoFillEligible()) {
+			if(Alloy.CFG.is_autofill_message_enabled) {
+				$.autoFillDateView.height = 0;
+				$.autoFillDateSeperator.height = 0;
+				$.autoFillChangeDateView.height = 0;
+				$.autoFillChangeDateSeperator.height = 0;
+		    }
+		} 
+
 	    if(prescription.prefill === "Y" && isAutoFillEligible()) {
 	    	if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.height = Ti.UI.SIZE;
@@ -343,23 +352,14 @@ function didPostlayoutPrompt(e) {
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
-		} else if (prescription.prefill !== "Y" && isAutoFillEligible()){
-			if(Alloy.CFG.is_autofill_message_enabled) {
-				$.autoFillDateView.height = 0;
-				$.autoFillDateSeperator.height = 0;
-				$.autoFillChangeDateView.height = 0;
-				$.autoFillChangeDateSeperator.height = 0;
-		    }
-		} 
-		else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
+		} else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.height = Ti.UI.SIZE;
 	    		$.autofillView.show();
 	    	}
 			$.reminderRefillView.hide();
   			$.reminderRefillView.height = 0;
-		}
-		else if(Alloy.CFG.is_autofill_message_enabled) {
+		} else if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
 			$.autofillView.height = 0;
 		}
@@ -930,9 +930,9 @@ function didSuccessAutoFill() {
 		}
 		if($.autoFillSwt.getValue()) {
 			$.autoFillDateView.height =  Ti.UI.SIZE;
-			$.autoFillDateSeperator.height =  Ti.UI.SIZE;
+			$.autoFillDateSeperator.height =  1;
 			$.autoFillChangeDateView.height =  Ti.UI.SIZE;
-			$.autoFillChangeDateSeperator.height =  Ti.UI.SIZE;
+			$.autoFillChangeDateSeperator.height =  1;
 		} else {
 			$.autoFillDateView.height = 0;
 			$.autoFillDateSeperator.height = 0;
