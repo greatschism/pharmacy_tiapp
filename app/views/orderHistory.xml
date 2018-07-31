@@ -1,7 +1,16 @@
 <Alloy>
+	<View id="headerView" class="top auto-height vgroup" >
+		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
+		<!-- <Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" /> -->
+		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
+	</View>
 	<TableView id="tableView" class="margin-bottom" onClick="didClickTableView">
 		<FooterView platform="ios">
 			<View id="footerView" class="auto-height" />
 		</FooterView>
 	</TableView>
+	<ScrollView id="partialView" class="hide top margin-bottom vgroup">
+		<Label id="partialDescLbl" class="margin-top-medium margin-left margin-right txt-center" />
+		<Label id="partialTitleLbl" class="margin-top-large margin-left margin-right h3 txt-center"/>
+	</ScrollView>
 </Alloy>

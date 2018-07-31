@@ -1,16 +1,49 @@
 <Alloy>
 	<ScrollView class="vgroup">
 		<Widget id="prescExp" src="ti.expandable">
-			<View class="auto-height role-master-view vgroup" onClick="togglePrescription">
+			<View class="auto-height role-master-view vgroup" onClick="didClickShowPrescriptions">
 				<Label id="orderNumberLbl" class="margin-top margin-left right-35 h4" />
-				<Label id="toggleLbl" class="margin-top-large margin-right width-30 txt-right h8 active-fg-color" />
-				<Label id="orderDateLbl" class="margin-top margin-left right-35 h4" />
-
+				<Label id="orderDateLbl" class="margin-top margin-left right-35 h6 inactive-fg-color" />
+				<Label id="toggleLbl" class="margin-top-large margin-bottom-large fill-width h5 txt-center active-fg-color" />
 			</View>
 			<Widget id="prescAsyncView" src="ti.asyncview" class="vgroup role-detail-view">
-				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup"></View>
+				<View id="prescAsyncContentView" class="margin-left-extra-large margin-right-extra-large auto-height vgroup">
+					<View class="margin-top-medium auto-height">
+						<Label id="orderDeliveryTypePromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderDeliveryTypeReplyLbl" class="top margin-left-medium hide" />
+					</View>
+					<View id="deliveryCostView" class="margin-top-medium auto-height">
+						<Label id="orderDeliveryCostPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderDeliveryCostReplyLbl" class="top margin-left-medium positive-fg-color hide" />
+					</View>
+					<View id="addressView" class="margin-top-medium auto-height">
+						<Label id="orderDeliveryAddressPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderDeliveryAddressReplyLbl" class="top margin-left-medium hide" />
+					</View>
+					<View id="phoneNumberView" class="margin-top-medium auto-height">
+						<Label id="orderContactNumerPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderContactNumerReplyLbl" class="top margin-left-medium active-fg-color hide" />
+					</View>
+					<View id="paymentMethodView" class="margin-top-medium auto-height">
+						<Label id="orderPaymentMethodPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderPaymentMethodReplyLbl" class="top margin-left-medium hide" />
+					</View>
+					<View id="totalCostView" class="margin-top-medium auto-height">
+						<Label id="orderTotalCostPromptLbl" class="top left inactive-fg-color" onPostlayout="didPostlayoutPrompt" />
+						<Label id="orderTotalCostReplyLbl" class="top margin-left-medium positive-fg-color hide" />
+					</View>
+				</View>
 				<View class="margin-top margin-left-extra-large margin-right-extra-large h-divider-light" />
 			</Widget>
 		</Widget>
 	</ScrollView>
+	<View id="rxContainerView" class="fill-height vgroup hide" onPostlayout="didPostlayout">
+		<TableView id="tableView" class="top height-85" >
+			<FooterView platform="ios">
+				<View id="footerView" class="auto-height" />
+			</FooterView>
+		</TableView>
+		<Button id="hideBtn" class="bottom bg-color primary-fg-color primary-border" onClick="didClickHide" />
+	</View>
+	<Widget id="loader" name="embedded" src="ti.loading" />
 </Alloy>

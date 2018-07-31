@@ -1,0 +1,30 @@
+"#toggleLbl":{
+	text: "Show Prescriptions"
+},
+"#rxPromptLbl":{
+	text: Alloy.Globals.strings.prescDetPromptRx
+},
+"#quantityPromptLbl":{
+	text: Alloy.Globals.strings.prescDetPromptQuantity
+},
+"#orderDeliveryTypePromptLbl":{
+	text: "Delivery Type"
+},
+"#orderDeliveryCostPromptLbl":{
+	text: "Delivery Cost"
+},
+"#orderDeliveryAddressPromptLbl":{
+	text: "Delivery Address"
+},
+"#orderContactNumerPromptLbl":{
+	text: "Phone number"
+},
+"#orderPaymentMethodPromptLbl":{
+	text: "Payment Method"
+},
+"#orderTotalCostPromptLbl":{
+	text: "Order Total"
+},
+"#hideBtn":{
+	title: Alloy.Globals.strings.prescSwipeOptHide
+}
