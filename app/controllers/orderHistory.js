@@ -14,14 +14,14 @@ var args = $.args,
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
-	
+
 	/**
 	 * by default point to a
 	 * non partial account
 	 * only if patientSwitcherDisabled is false
 	 */
 	$.patientSwitcher.set({
-		revert : false,
+		revert : true,
 		title : $.strings.prescPatientSwitcher,
 		where : {
 			is_partial : false
@@ -34,6 +34,10 @@ function focus() {
 		isWindowOpen = true;
 
 		getOrderHistory();
+
+		if($.patientSwitcher.visible) {
+		logger.debug("\n\n\n patientSwitcher is visible \n\n\n");
+		}
 	}
 }
 
@@ -129,7 +133,7 @@ function didPostlayout(e) {
 	    margin = $.tableView.bottom,
 	    bottom;
 	bottom = margin;
-	
+
 	$.tableView.applyProperties({
 		top : top,
 		bottom : bottom
@@ -141,7 +145,9 @@ function didPostlayout(e) {
 }
 
 function setParentView(view) {
-	$.patientSwitcher.setParentView(view);
+	if ($.patientSwitcher) {
+		$.patientSwitcher.setParentView(view);
+	}
 }
 
 function handleClose() {
@@ -152,7 +158,9 @@ function handleClose() {
 
 function terminate() {
 	//terminate patient switcher
-	$.patientSwitcher.terminate();
+	if ($.patientSwitcher) {
+		$.patientSwitcher.terminate();
+	}
 }
 
 exports.init = init;

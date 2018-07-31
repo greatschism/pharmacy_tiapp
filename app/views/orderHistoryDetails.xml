@@ -43,7 +43,7 @@
 				<View id="footerView" class="auto-height" />
 			</FooterView>
 		</TableView>
-		<Button id="hideBtn" class="bottom bg-color primary-fg-color primary-border" onClick="didClickHide" />
+		<Button id="doneBtn" class="bottom bg-color primary-fg-color primary-border" onClick="didClickDone" />
 	</View>
 	<Widget id="loader" name="embedded" src="ti.loading" />
 </Alloy>

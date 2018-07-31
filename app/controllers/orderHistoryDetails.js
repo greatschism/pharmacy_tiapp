@@ -102,7 +102,7 @@ function didClickShowPrescriptions() {
 	$.rxContainerView.show();
 }
 
-function didClickHide(e) {
+function didClickDone(e) {
 	$.rxContainerView.hide();
 }
 

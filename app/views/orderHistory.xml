@@ -1,8 +1,8 @@
 <Alloy>
-	<View id="headerView" class="top auto-height vgroup" >
+	<View id="headerView" class="top auto-height vgroup" onPostlayout="didPostlayout" >
 		<Require id="patientSwitcher" src="templates/patientSwitcher" onChange="prepareData" />
 		<!-- <Label id="headerLbl" class="margin-top margin-bottom margin-left margin-right" if="$.args.isMedReminder" /> -->
-		<View class="h-divider-light" if="$.args.sectionHeaderViewDisabled" />
+		<View class="h-divider-light" />
 	</View>
 	<TableView id="tableView" class="margin-bottom" onClick="didClickTableView">
 		<FooterView platform="ios">

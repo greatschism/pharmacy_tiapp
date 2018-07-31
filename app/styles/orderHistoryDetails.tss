@@ -25,6 +25,6 @@
 "#orderTotalCostPromptLbl":{
 	text: "Order Total"
 },
-"#hideBtn":{
-	title: Alloy.Globals.strings.prescSwipeOptHide
+"#doneBtn":{
+	title: Alloy.Globals.strings.refillSuccessBtnDone
 }
