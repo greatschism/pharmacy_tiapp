@@ -29,7 +29,9 @@ module.exports = {
          "reRegister_welcome" : "Welcome to the new Pharmacy Advantage Mobile Pharmacy App!",
          "reRegister_message" : "To experience our updated service, both new and existing patients must create a new account.",
          "reRegisterBtnSubmit" : "Create a new account",
-         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>"
+         "reRegisterBtnSkip" : "<secondaryfont><secondarycolor>Skip to home screen</secondarycolor></secondaryfont>",
+         "orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage.",
+         "refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage."
 	}
 
 };
