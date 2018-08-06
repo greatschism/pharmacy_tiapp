@@ -1,22 +1,22 @@
 <Alloy>
 	<TableView>
 		<TableViewRow class="margin-bottom">
-			<Widget id="patientServices" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
+			<Widget id="patientServices" class="margin-left-large margin-top-large margin-bottom-small attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow class="margin-bottom">
-			<Widget id="physicianService" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
+			<Widget id="physicianService" class="margin-left-large margin-top-small margin-bottom-small attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow class="margin-bottom">
-			<Widget id="serviceHours" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
+			<Widget id="serviceHours" class="margin-left-large margin-top-small margin-bottom-small attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow class="margin-bottom">
-			<Widget id="paCorporate" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
+			<Widget id="paCorporate" class="margin-left-large margin-top-small margin-bottom-small attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow class="margin-bottom">
-			<Widget id="responseTime" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
+			<Widget id="responseTime" class="margin-left-large margin-top-small margin-bottom-small attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow>
-			<Button id="paSupportMail" class="margin-top-large margin-bottom-large primary-bg-color primary-font-color primary-border h5" onClick="didClickMail" />
+			<Button id="paSupportMail" class="margin-top-large margin-bottom-medium primary-bg-color primary-font-color primary-border h5" onClick="didClickMail" />
 		</TableViewRow>
 	</TableView>
 </Alloy>
