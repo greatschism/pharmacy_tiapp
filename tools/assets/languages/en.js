@@ -1046,6 +1046,7 @@ module.exports = {
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
-		"vSixCarouselTitle" : "What's new!"
+		"vSixCarouselTitle" : "What's new!",
+		"titleContactUs" : "Contact Us"
 	}
 };

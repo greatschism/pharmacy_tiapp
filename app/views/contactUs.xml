@@ -1,0 +1,22 @@
+<Alloy>
+	<TableView>
+		<TableViewRow>
+			<Widget id="patientServices" class="margin-left-large margin-top-large attributed-20" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="physicianService" class="margin-left-large margin-top-large attributed-20" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="serviceHours" class="margin-left-large margin-top-large attributed-20" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="paCorporate" class="margin-left-large margin-top-large attributed-20" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="responseTime" class="margin-left-large margin-top-large attributed-20" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Button id="paSupportMail" class="margin-top-large margin-bottom-large primary-bg-color primary-font-color primary-border h5" onClick="didClickMail" />
+		</TableViewRow>
+	</TableView>
+</Alloy>

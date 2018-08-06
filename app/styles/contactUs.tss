@@ -1,0 +1,18 @@
+"#patientServices":{
+	html: Alloy.Globals.strings.patientCustomerService
+},
+"#physicianService":{
+	html: Alloy.Globals.strings.physicianCustomerService
+},
+"#serviceHours":{
+	html: Alloy.Globals.strings.customerServiceHours
+},
+"#paCorporate":{
+	html: Alloy.Globals.strings.pharmacyAdvantageCorporate
+},
+"#responseTime":{
+	html: Alloy.Globals.strings.expectedResponseTime
+},
+"#paSupportMail":{
+	title: Alloy.Globals.strings.supportMail
+},
