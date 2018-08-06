@@ -1,18 +1,18 @@
 <Alloy>
 	<TableView>
-		<TableViewRow>
+		<TableViewRow class="margin-bottom">
 			<Widget id="patientServices" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
-		<TableViewRow>
+		<TableViewRow class="margin-bottom">
 			<Widget id="physicianService" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
-		<TableViewRow>
+		<TableViewRow class="margin-bottom">
 			<Widget id="serviceHours" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
-		<TableViewRow>
+		<TableViewRow class="margin-bottom">
 			<Widget id="paCorporate" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
-		<TableViewRow>
+		<TableViewRow class="margin-bottom">
 			<Widget id="responseTime" class="margin-left-large margin-top-large attributed-17" src="ti.styledlabel"/>
 		</TableViewRow>
 		<TableViewRow>
