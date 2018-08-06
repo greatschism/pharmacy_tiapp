@@ -41,7 +41,7 @@ module.exports = {
           "pharmacyAdvantageCorporate" : '<secondaryfont>Pharmacy Advantage Corporate HQ </secondaryfont>\n1191 South Blvd E \nRochester Hills, MI 48307',          
           "expectedResponseTime": '<secondaryfont>Expected Response Time</secondaryfont>\nA customer support representative will \ncontact you within 2-3 business days. \nFor an immediate response please call \ncustomer service.',
           "supportMail" : "contactus@pharmacyadvantagerx.com",
-          "contactUsMailSubject" : "Pharmacy Advantage App Feedback",
+          "contactUsMailSubject" : "Pharmacy Advantage %s App",
           "contactUsFeedbackHeader" : "Please provide your feedback below:\n\n\n",
           "contactUsMsgBody": "Also, please provide the below information. Sharing the below information help us improve our services.\
 	 		We never share your information with third parties and only use it to provide customer support to you.\n\n",
