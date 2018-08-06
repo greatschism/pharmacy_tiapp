@@ -34,12 +34,12 @@ module.exports = {
          "orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage.",
          "refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage.",         
          
-         "patientCustomerService": '<secondaryfont>Patient Customer Service</secondaryfont>\nPhone: (800) 456 - 2112 \nPress "2" Refills \nPress "4" Billing Representative \nPress "5" Clinical Prior Authorizations\
-          \nPress "8" Customer Service Representative \nFax: (248) 386 - 5335',          
+         "patientCustomerService": '<secondaryfont>Patient Customer Service</secondaryfont>\nPhone: (800) 456 - 2112 \nFax: (248) 386 - 5335 \nPress "2" Refills \nPress "4" Billing Representative \nPress "5" Clinical Prior Authorizations\
+          \nPress "8" Customer Service Representative',          
           "physicianCustomerService" : '<secondaryfont>Physician Customer Service</secondaryfont>\nPhone: (800) 456 - 2112 Press "1" \nClinical Fax: (888) 400 - 0109',          
           "customerServiceHours" : '<secondaryfont>Customer Service Hours</secondaryfont>\nMonday - Friday: 7am - 7pm (EST) \nSaturday: 8am - 4pm (EST) \nClosed: Sunday & National Holidays',          
           "pharmacyAdvantageCorporate" : '<secondaryfont>Pharmacy Advantage Corporate HQ </secondaryfont>\n1191 South Blvd E \nRochester Hills, MI 48307',          
-          "expectedResponseTime": '<secondaryfont>Expected Response Time</secondaryfont>\nA customer support representative will \ncontact you within 2-3 business days. \nFor an immediate response please call \ncustomer service.',
+          "expectedResponseTime": '<secondaryfont>Expected Response Time</secondaryfont>\nA customer support representative will contact you within 2-3 business days. For an immediate response please call customer service.',
           "supportMail" : "contactus@pharmacyadvantagerx.com",
           "contactUsMailSubject" : "Pharmacy Advantage %s App",
           "contactUsFeedbackHeader" : "Please provide your feedback below:\n\n\n",
