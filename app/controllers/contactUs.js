@@ -17,5 +17,47 @@ function didClickMail(e) {
 	emailDialog.open();
 }
 
+function didClickPatientPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				patientContactsHandler();
+			}
+		});
+	} else {
+		patientContactsHandler();
+	}
+}
+function didClickPhysicianPhone(e) {
+	if(!Titanium.Contacts.hasContactsPermissions()) {
+		Titanium.Contacts.requestContactsPermissions(function(result){
+			if(result.success) {
+				physicianContactsHandler();
+			}
+		});
+	} else {
+		physicianContactsHandler();
+	}
+}
+
+function patientContactsHandler() {
+	if ($.patientPhn.text!= null) {
+		$.uihelper.getPhone({
+			phone : {
+				work : [$.patientPhn.text]
+			}
+		}, $.patientPhn.text);
+	}
+}
+
+function physicianContactsHandler() {
+	if ($.physicianPhn.text!= null) {
+		$.uihelper.getPhone({
+			phone : {
+				work : [$.physicianPhn.text]
+			}
+		}, $.physicianPhn.text);
+	}
+}
 
 

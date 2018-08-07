@@ -33,10 +33,7 @@ module.exports = {
          "titleContactUs" : "Contact Us",
          "orderDetLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage.",
          "refillTypeLblMailOrder" : "All orders will be mailed to the address your pharmacy has on file and shipped from our mail order facility, Pharmacy Advantage.",         
-         
-         "patientCustomerService": '<secondaryfont>Patient Customer Service</secondaryfont>\nPhone: (800) 456 - 2112 \nFax: (248) 386 - 5335 \nPress "2" Refills \nPress "4" Billing Representative \nPress "5" Clinical Prior Authorizations\
-          \nPress "8" Customer Service Representative',          
-          "physicianCustomerService" : '<secondaryfont>Physician Customer Service</secondaryfont>\nPhone: (800) 456 - 2112 Press "1" \nClinical Fax: (888) 400 - 0109',          
+                 
           "customerServiceHours" : '<secondaryfont>Customer Service Hours</secondaryfont>\nMonday - Friday: 7am - 7pm (EST) \nSaturday: 8am - 4pm (EST) \nClosed: Sunday & National Holidays',          
           "pharmacyAdvantageCorporate" : '<secondaryfont>Pharmacy Advantage Corporate HQ </secondaryfont>\n1191 South Blvd E \nRochester Hills, MI 48307',          
           "expectedResponseTime": '<secondaryfont>Expected Response Time</secondaryfont>\nA customer support representative will contact you within 2-3 business days. For an immediate response please call customer service.',
@@ -51,7 +48,19 @@ module.exports = {
 	 	  "contactUsUserDevice": "*Phone Model: %s\n",
 	 	  "contactUsUDeviceOS" : "*Phone OS: %s %s\n",
 	 	  "contactUsAppBuild": "*Build: %s\n",
-	 	  "contactUsAppVer": "*Application Version: %s\n"
+	 	  "contactUsAppVer": "*Application Version: %s\n",	 	  
+	 	  
+	 	  "patientServiceTitle" : "<secondaryfont>Patient Customer Service</secondaryfont>",
+	 	  "patientServiceFaxLbl": "Fax:",
+		  "patientServicePhone": "(800) 456-2112",
+		  "patientServiceFax": "(248) 386-5335",  
+		  "patientServiceCallInst": 'Press "2" Refills \nPress "4" Billing Representative \nPress "5" Clinical Prior Authorizations \nPress "8" Customer Service Representative',
+		 
+		  "physicianServiceTitle": "<secondaryfont>Physician Customer Service</secondaryfont>",
+          "physicianServiceFaxLbl": "Clinical Fax:",
+          "physicianServicePhone": "(800) 456-2112",
+          "physicianServiceCallInst": 'Press "1"', 
+          "physicianServiceFax": "(888) 400-0109",
           }
 
 };
