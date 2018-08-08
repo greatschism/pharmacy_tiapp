@@ -559,7 +559,7 @@ function didClickPickupTimegroupClose(e) {
 
 	Alloy.Models.pickupTimegroup.set("selected_code_value", selTG);
 
-	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount) - 1 : $.pickuptimegroupRow.getView();
+	var row = OS_IOS ? ($.prescSection.rowCount + $.pickupSection.rowCount + $.pickupTgSection.rowCount) - 1 : $.pickupTimegroupRow.getView();
 	//nullify last instance
 	$.pickupTimegroupRow = null;
 	//point to new instance
