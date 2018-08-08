@@ -8,6 +8,7 @@ var args = $.args,
     newMedReminder,
     isWindowOpen,
     httpClient,
+    dateDropdownArgs,
     logger = require("logger"),
     isAutofillEnabled,
     noReminderLabel = $.UI.create("Label", {
@@ -112,6 +113,16 @@ function setAccessibilityLabelOnSwitch(switchObj, strValue) {
 	iDict.accessibilityLabel = strValue;
 	iDict.accessibilityHint = $.strings.prescriptionSwitchAccessibilityHint;
 	switchObj.applyProperties(iDict);
+}
+
+function setParentView(view) {
+	dateDropdownArgs = $.createStyle({
+		classes : ["dropdown", "date"]
+	});
+	_.extend(dateDropdownArgs, {
+		minDate : new Date(),
+		parent : view
+	});
 }
 
 function focus() {
@@ -981,6 +992,42 @@ function didFailAutoFill(result) {
 	}
 }
 
+function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
+	var mDate = moment(dValue, inputFormat),
+	    date = new Date();
+	date.setFullYear(mDate.year(), mDate.month(), mDate.date());
+	dateDropdownArgs.value = date;
+	if (OS_ANDROID) {
+		var currentDate = new Date(moment());
+		var dPicker = Ti.UI.createPicker();
+		dPicker.showDatePickerDialog({
+			title : dateDropdownArgs.title,
+			okButtonTitle : dateDropdownArgs.rightTitle,
+			value : dateDropdownArgs.value,
+			minDate : currentDate,
+			callback : function(e) {
+				var value = e.value;
+				if (value) {
+					// $.autoFillDate.text = e.value;
+				}
+			}
+		});
+	} else if (OS_IOS) {
+		$.datePicker = Alloy.createWidget("ti.dropdown", "datePicker", dateDropdownArgs);
+		$.datePicker.on("terminate", function didTerminateDatePicker(e) {
+			if ($.datePicker) {
+				$.datePicker.off("terminate", didTerminateDatePicker);
+				if (e.value) {
+					// $.autoFillDate.text = e.value;
+				}
+				$.datePicker = null;
+			}
+		});
+		$.datePicker.init();
+	}
+}
+
 exports.init = init;
 exports.focus = focus;
 exports.terminate = terminate;
+exports.setParentView = setParentView;
