@@ -4,6 +4,7 @@
  * should not affect the previous screen
  */
 var args = $.args,
+ 	moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rows = [],
     store = _.omit(args.store || {}, ["shouldUpdate"]),
@@ -47,7 +48,6 @@ function init() {
 		$.prescSection.add(row.getView());
 		rows.push(row);
 	});
-
 }
 
 function didClickAdd(e) {
@@ -563,23 +563,46 @@ function didClickRefill(e) {
 				prescriptions : data
 			}]
 		},
+		keepLoader : true,
 		success : didRefill
 	});
+
+
 }
 
 function didRefill(result, passthrough) {
-	var refilledPrescs = result.data.prescriptions;
-	Ti.API.info(JSON.stringify(refilledPrescs));
+	var refilledPrescs = result.data.prescriptions,
+	date,
+	dateTimeFormat,
+	reg_ex,
+	rxNumber;
+	
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order
 	 * of prescriptions client sent, otherwise this can break
 	 */
 	_.each(refilledPrescs, function(presc, index) {
+		if(typeof(presc.refillPromisedDate_pdx_format) != 'undefined' && presc.refillPromisedDate_pdx_format){
+			date = presc.refillPromisedDate_pdx_format;
+			date += " UTC";
+			date = new Date(date.replace(/-/g,"/"));
+			dateTimeFormat = moment(date).format(apiCodes.ymd_date_time_format);
+			dateTimeFormat = moment(dateTimeFormat).format(apiCodes.month_date_year_time_format);
+			reg_ex = '#[0-9]{'+Alloy.Globals.rx_max+'}';
+			reg_ex = new RegExp(reg_ex);			
+			rxNumber = presc.refill_inline_message.match(reg_ex).toString();
+			_.extend(presc, {
+			title : prescriptions[index].title,
+			subtitle : String.format($.strings.refillSuccessMesaage, rxNumber, dateTimeFormat)
+		});										
+		}
+		else{		
 		_.extend(presc, {
 			title : prescriptions[index].title,
 			subtitle : presc.refill_inline_message || presc.refill_error_message
 		});
+		}
 	});
 	var isSuccess = false;
 	var isFailure = false;
@@ -605,15 +628,15 @@ function didRefill(result, passthrough) {
 		//complete failure
 		titleRefill = "titleRefillFailureOrder";
 	}
-
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
-		titleid : titleRefill,
+		titleid : "titleRefill",
 		ctrlArguments : {
 			prescriptions : refilledPrescs,
 			pickupMode : Alloy.Models.pickupModes.get("selected_code_value")
 		}
 	});
+	$.app.navigator.hideLoader();
 }
 
 function hideAllPopups() {

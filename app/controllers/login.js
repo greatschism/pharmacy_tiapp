@@ -106,12 +106,7 @@ function init() {
 	}
 
 	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
-		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
-	} else {
-		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
-	}
+	iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
 	$.autoLoginSwt.applyProperties(iDict);
 
 	if (OS_IOS) {
@@ -121,6 +116,7 @@ function init() {
 		$.signupAttr.applyProperties(sDict);
 		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
 	};
+	
 }
 
 function touchIDAuth(resp)  {
@@ -370,6 +366,7 @@ function didAuthenticate(passthrough) {
 		}
 	} else if (mPatient && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
+			titleid : "titleEmailVerify",
 			ctrl : "emailVerify",
 			ctrlArguments : {
 				email : mPatient.get("email_address"),
@@ -401,7 +398,6 @@ function didAuthenticate(passthrough) {
 	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
 		passthrough = null;
-		delete passthrough;
 	}
 }
 
@@ -480,7 +476,7 @@ function didPostlayout(e) {
 	 * Note: event listener should be removed
 	 * to avoid redundant event calls
 	 */
-	$.autoLoginLbl.removeEventListener("postlayout", didPostlayout);
+	$.autoLoginView.removeEventListener("postlayout", didPostlayout);
 	/**
 	 * apply properties for the tooltip
 	 *
@@ -493,7 +489,7 @@ function didPostlayout(e) {
 	}));
 
 	$.tooltip.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,
+		top : OS_IOS ? $.autoLoginView.rect.y + $.autoLoginView.rect.height : $.autoLoginView.rect.y - $.autoLoginView.rect.height,
 		width : "90%"
 	}));
 
@@ -507,7 +503,6 @@ function didPostlayout(e) {
 			$.tooltip.show();
 		};
 	}
-
 }
 
 function didClickHide(e) {

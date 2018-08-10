@@ -10,7 +10,7 @@
 	textAlign: "center",
 	maxLength: 3,
 	hintText: Alloy.Globals.strings.hintYourCode,
-	keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
+	keyboardType: Ti.UI.KEYBOARD_TYPE_NUMBER_PAD
 },
 "#continueBtn":{
 	title: Alloy.Globals.strings.btnContinue

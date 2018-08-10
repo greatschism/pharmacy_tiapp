@@ -1,7 +1,7 @@
 ;(function (root, factory, undef) {
 	if (typeof exports === "object") {
 		// CommonJS
-		module.exports = exports = factory(require("crypto/core"), require("crypto/enc-base64"), require("crypto/md5"), require("crypto/evpkdf"), require("crypto/cipher-core"));
+		module.exports = exports = factory(require("./core"), require("./enc-base64"), require("./md5"), require("./evpkdf"), require("./cipher-core"));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD

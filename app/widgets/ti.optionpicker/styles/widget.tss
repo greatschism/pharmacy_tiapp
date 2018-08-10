@@ -9,7 +9,7 @@
 	height: Ti.UI.SIZE
 },
 "#tableView[platform=ios]":{
-	selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	selectionStyle: Ti.UI.iOS.TableViewCellSelectionStyle.NONE,
 	tableSeparatorInsets: {
 		top: 0,
 		left: 0

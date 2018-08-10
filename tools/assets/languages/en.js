@@ -59,6 +59,8 @@ module.exports = {
 		"dialogBtnGallery" : "Choose from gallery",
 		"dialogBtnEmail" : "Email",
 		"dialogBtnSettings" : "Settings",
+		"cameraPictureTaken" : "Picture Taken",
+		"cameraTakePhoto" : "Take Photo",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -159,6 +161,7 @@ module.exports = {
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 		"iconAccessibilityLblAccount" : "Account",
+		"iconAccessibilityLblSignIn" : "Sign in",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
@@ -238,6 +241,8 @@ module.exports = {
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
+		"titleEmailVerify" : "Email Confirmation",
+		"titlePhoneVerify" : "Phone Confirmation",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -307,8 +312,6 @@ module.exports = {
 		"userRecoveryBtnSend" : "Send",
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-
-		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -499,6 +502,7 @@ module.exports = {
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
+		"prescriptionSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pick up details",
@@ -554,6 +558,7 @@ module.exports = {
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 		"refillSuccessBtnDone" : "Done",
+		"refillSuccessMesaage": "Your refill request with Rx %s has been placed.Your prescription will be ready for pickup after %s",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "Type prescription details",
@@ -709,6 +714,7 @@ module.exports = {
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",
 		"transferOptsBtnTransfer" : "Submit transfer",
+		"transferOptsSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"transferReviewSectionUser" : "Personal details",
 		"transferReviewSectionStore" : "Your transfer is being placed at:",
@@ -764,6 +770,7 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 		"accountHintEmail" : "Email address",
+		"accountSwitchAccessibilityHint" : "Double tap to toggle",
 		"accountEditCC" : "Edit",
 		"accountAddCC" : "Add",
 		"accountInfoCC" : "%s ending with ***%s",
@@ -1049,6 +1056,7 @@ module.exports = {
 		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
+		"loginInfoUpdateAskInfoUpdatedText" : "We've improved your experience since your last visit! <secondaryfont><secondarycolor>With our new improvements, the email address associated with your account must be UNIQUE and cannot be shared with another family member.</secondarycolor></secondaryfont> If another member of your family care team has the same email address, please make sure to use a different email address for your account setup.",
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",

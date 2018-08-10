@@ -1,707 +1,255 @@
 /**
- * list view
+ * gird view
  */
 module.exports = {
-	"data" : [
-		{
-			"id": "scrollView",
-			"apiName": "ScrollView",
-			"classes": [
-				"vgroup",
-				"top",
-				"fill-width",
-				"fill-height"
-			],
-			"children": [
-				{
-					"items": [
-						{
-							"id": "bannerView",
-							"apiName": "View",
-							"classes": [
-								"top",
-								"auto-width",
-								"auto-height"
-							],
-							"actions": [
-								{
-									"event": "postlayout",
-									"keepAlive": true,
-									"binders": [
-										{
-											"id": "scrollView"
-										}
-									]
-								}
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titlePrescriptions"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-prescription"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titlePrescriptions"
-															}
-														}
-													]
+	"data" : [{
+		"apiName" : "ScrollView",
+		"classes" : ["vgroup"],
+		"children" : [{
+			"items" : [{
+				"id" : "bannerView",
+				"apiName" : "View",
+				"classes" : ["auto-width", "auto-height"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["h-divider-light", "touch-disabled"]
+			}, {
+				"id" : "tilesView",
+				"apiName" : "View",
+				"classes" : ["auto-height", "hide"],
+				"children" : [{
+					"items" : [{
+						"apiName" : "View",
+						"classes" : ["auto-height", "vgroup", "show"],
+						"actions" : [{
+							"event" : "postlayout",
+							"binders" : [{
+								"id" : "vdivider",
+								"pick" : ["height"]
+							}, {
+								"id" : "tilesView",
+								"pick" : ["visible"]
+							}]
+						}],
+						"children" : [{
+							"items" : [{
+								"apiName" : "View",
+								"classes" : ["auto-height"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "View",
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-prescription"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titlePrescriptions"
 												}
-											]
+											}]
+										}],
+										"navigation" : {
+											"ctrl" : "prescriptions"
 										}
-									]
-								}
-							],
-							"navigation": {
-								"ctrl": "prescriptions"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleRefill"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-refill-camera"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleRefill"
-															}
-														}
-													]
+									}, {
+										"apiName" : "View",
+										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-camera"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleRefill"
 												}
-											]
+											}]
+										}],
+										"navigation" : {
+											"action" : "refill"
 										}
-									]
-								}
-							],
-							"navigation": {
-								"action": "refill"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleReminders"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-reminder"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleReminders"
-															}
-														}
-													]
+									}]
+								}]
+							}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+							}, {
+								"apiName" : "View",
+								"classes" : ["auto-height"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "View",
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-reminder"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleReminders"
 												}
-											]
+											}]
+										}],
+										"feature_name" : "is_reminders_enabled",
+										"navigation" : {
+											"ctrl" : "reminders"
 										}
-									]
-								}
-							],
-							"feature_name": "is_reminders_enabled",
-							"navigation": {
-								"ctrl": "reminders"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleFamilyAccounts"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-users"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleFamilyAccounts"
-															}
-														}
-													]
+									}, {
+										"apiName" : "View",
+										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-user"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleFamilyAccounts"
 												}
-											]
+											}]
+										}],
+										"feature_name" : "is_proxy_enabled",
+										"navigation" : {
+											"ctrl" : "familyCare"
 										}
-									]
-								}
-							],
-							"feature_name": "is_proxy_enabled",
-							"navigation": {
-								"ctrl": "familyCare"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleStores"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-pharmacy"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleStores"
-															}
-														}
-													]
+									}]
+								}]
+							}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+							}, {
+								"apiName" : "View",
+								"classes" : ["auto-height"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "View",
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-pharmacy"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleStores"
 												}
-											]
+											}]
+										}],
+										"feature_name" : "is_storelocator_enabled",
+										"navigation" : {
+											"ctrl" : "stores"
 										}
-									]
-								}
-							],
-							"feature_name": "is_storelocator_enabled",
-							"navigation": {
-								"ctrl": "stores"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleTransfer"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-transfer"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleTransfer"
-															}
-														}
-													]
+									}, {
+										"apiName" : "View",
+										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-transfer"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleTransfer"
 												}
-											]
+											}]
+										}],
+										"feature_name" : "is_transferrx_enabled",
+										"navigation" : {
+											"ctrl" : "transfer"
 										}
-									]
-								}
-							],
-							"feature_name": "is_transferrx_enabled",
-							"navigation": {
-								"ctrl": "transfer"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleInsurance"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-reward"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleInsurance"
-															}
-														}
-													]
+									}]
+								}]
+							}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+							}, {
+								"apiName" : "View",
+								"classes" : ["auto-height"],
+								"children" : [{
+									"items" : [{
+										"apiName" : "View",
+										"classes" : ["left", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-doctor"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleDoctors"
 												}
-											]
+											}]
+										}],
+										"feature_name" : "is_doctors_enabled",
+										"navigation" : {
+											"ctrl" : "doctors"
 										}
-									]
-								}
-							],
-							"feature_name": "is_insurancecard_enabled",
-							"navigation": {
-								"ctrl": "insurance",
-								"titleid": "titleInsuranceCard"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleDoctors"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-doctor"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleDoctors"
-															}
-														}
-													]
+									}, {
+										"apiName" : "View",
+										"classes" : ["right", "margin-top-large", "margin-bottom-large", "auto-height", "vgroup"],
+										"properties" : {
+											"width" : "50%"
+										},
+										"children" : [{
+											"items" : [{
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "i4", "primary-fg-color", "touch-disabled", "icon-thin-account"]
+											}, {
+												"apiName" : "Label",
+												"classes" : ["margin-top-medium", "margin-bottom-medium", "h4", "fg-color", "txt-center", "touch-disabled", "accessibility-actionablelements"],
+												"properties" : {
+													"textid" : "titleAccount"
 												}
-											]
+											}]
+										}],
+										"navigation" : {
+											"ctrl" : "account"
 										}
-									]
-								}
-							],
-							"feature_name": "is_doctors_enabled",
-							"navigation": {
-								"ctrl": "doctors"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"auto-height",
-								"vgroup",
-								"hwrap-disabled",
-								"accessibility-actionablelements"
-							],
-							"properties": {
-								"textid": "titleAccount"
-							},
-							"children": [
-								{
-									"items": [
-										{
-											"apiName": "View",
-											"classes": [
-												"top",
-												"bottom",
-												"auto-height",
-												"hgroup",
-												"hwrap-disabled",
-												"accessibility-disabled",
-												"touch-disabled"
-											],
-											"children": [
-												{
-													"items": [
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-top-extra-large",
-																"margin-bottom-extra-large",
-																"margin-left",
-																"i4",
-																"primary-fg-color",
-																"touch-disabled",
-																"icon-thick-account"
-															]
-														},
-														{
-															"apiName": "Label",
-															"classes": [
-																"margin-left-medium",
-																"h4",
-																"fg-color",
-																"touch-disabled"
-															],
-															"properties": {
-																"textid": "titleAccount"
-															}
-														}
-													]
-												}
-											]
-										}
-									]
-								}
-							],
-							"navigation": {
-								"ctrl": "account"
-							}
-						},
-						{
-							"apiName": "View",
-							"classes": [
-								"top",
-								"bottom",
-								"h-divider-light"
-							]
-						}
-					]
-				}
-			]
-		}
-	]
+									}]
+								}]
+							}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+							}]
+						}]
+					}, {
+						"id" : "vdivider",
+						"apiName" : "View",
+						"classes" : ["top", "v-divider-light", "touch-disabled"]
+					}]
+				}]
+			}]
+		}]
+	}]
 };

@@ -3,7 +3,8 @@ var Alloy = require("alloy"),
     apiCodes = Alloy.CFG.apiCodes,
     $,
     phone,
-    barcodeData;
+    barcodeData,
+    refillErroMessage;
 
 function init(ctrl, ph, callback) {
 	$ = ctrl;
@@ -58,7 +59,8 @@ function didRefill(result, passthrough) {
 			titleid : "titleRefillFailure",
 			ctrl : "refillFailure",
 			ctrlArguments : {
-				phone : phone
+				phone : phone,
+				refillErroMessage : prescription.refill_error_message				
 			}
 		};
 	} else {

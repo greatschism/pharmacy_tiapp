@@ -108,8 +108,13 @@ function didError(e) {
 
 function didClickPhoto(e) {
 	//height is not being set to maintain the aspect ratio
-	$.uihelper.getPhoto(false, didGetPhoto, $.window, Alloy.CFG.thumbnail_default_width);
+	$.app.navigator.showLoader();
+	$.uihelper.getPhoto(false, didGetPhoto, $.window, didFailure, Alloy.CFG.thumbnail_default_width);
 }
+
+function didFailure(){
+ 	$.app.navigator.hideLoader();
+ }
 
 function didGetPhoto(blob) {
 	var base64Str = Ti.Utils.base64encode(blob).text;
