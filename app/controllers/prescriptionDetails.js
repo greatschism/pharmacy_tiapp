@@ -363,6 +363,8 @@ function didPostlayoutPrompt(e) {
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
+			$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
+			$.autoFillChangeDateView.touchEnabled = prescription.isAutofillPickupDateEditable === "1" ? true : false;
 		} else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.height = Ti.UI.SIZE;
@@ -935,6 +937,8 @@ function didChangeAutoFill(e) {
 function didSuccessAutoFill() {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
 	if(isAutofillEnabled === "1") {
+		$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
+		$.autoFillChangeDateView.touchEnabled = prescription.isAutofillPickupDateEditable === "1" ? true : false;
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
 			$.autofillView.height = Ti.UI.SIZE;

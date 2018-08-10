@@ -82,9 +82,9 @@
 			<Widget id="autoFillDate" src="ti.styledlabel" class="margin-top margin-bottom tentative-fg-color margin-right attributed accessibility-disabled" />
 		</View>
 		<View id="autoFillChangeDateSeperator" class="h-divider-light" if="Alloy.CFG.is_mscripts_autofill_enabled" />
-		<View id="autoFillChangeDateView" class="auto-height" if="Alloy.CFG.is_mscripts_autofill_enabled">
+		<View id="autoFillChangeDateView" class="auto-height" if="Alloy.CFG.is_mscripts_autofill_enabled" onClick="showDatePicker">
 			<Widget id="autoFillChangeDateLbl" src="ti.styledlabel" class="margin-top margin-bottom margin-left attributed accessibility-disabled" />
-			<Widget id="autoFillChangeDate" src="ti.styledlabel" class="margin-top tentative-fg-color margin-bottom margin-right-extra-large i5 attributed accessibility-disabled" onClick="showDatePicker"/>
+			<Widget id="autoFillChangeDate" src="ti.styledlabel" class="margin-top tentative-fg-color margin-bottom margin-right-extra-large i5 attributed accessibility-disabled"/>
 		</View>
 		<View id="reminderSectionView"  class="margin-top min-height inactive-light-bg-color" if="Alloy.CFG.is_reminders_enabled">
 			<Label id="remindersLbl" class="margin-left margin-right h5 inactive-fg-color" />
