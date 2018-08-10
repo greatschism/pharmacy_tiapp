@@ -1,9 +1,15 @@
 var TAG = "NAHA",
     Alloy = require("alloy"),
+	authenticator = require("authenticator"),
     _ = require("alloy/underscore")._,
     app = require("core"),
     utilities = require("utilities"),
     uihelper = require("uihelper");
+
+if (OS_IOS) {
+ 	var TiTouchId = require("com.mscripts.mscriptstouchid");
+}
+
 
 function navigate(itemObj) {
 	if (_.has(itemObj, "ctrl")) {
@@ -71,18 +77,194 @@ function navigate(itemObj) {
 	}
 }
 
+function touchIDAuth(resp, itemObj)  {
+	var data = authenticator.getData();
+	var username = data.username,
+    password = data.password;
+		
+	if(resp.success == true) {
+
+
+		authenticator.init({
+			username : username,
+			password : password,
+			success : function() {
+
+				
+				if (itemObj.origin == "transferUserDetails") {
+					transferUserDetails = true;
+				} else {
+					transferUserDetails = false;
+				}
+				/**
+				 * Verify email address
+				 * if user has not verified it within 24rs
+				 * after registration taking him to email verification
+				 * screen upon every login
+				 */
+				
+				var mPatient = Alloy.Collections.patients.at(0);
+				/**
+				 * First time login flow takes the uesr to HIPAA screen
+				 */
+				if (utilities.getProperty(username, null, "string", true) == "showHIPAA") {
+					app.navigator.open({
+						ctrl : "hipaa",
+						titleid : "titleHIPAAauthorization",
+						stack : false
+					});
+				}
+				
+				/**
+				 * Check if the partial account has been created.
+				 * if so, take the user to log in screen.
+				 */
+				
+				else if (itemObj.is_adult_partial && itemObj.username === mPatient.get("email_address")) {
+					if (itemObj.parent === "registerChildInfo") {
+						app.navigator.open({
+							titleid : "titleChildAdd",
+							ctrl : "childAdd",
+							ctrlArguments : {
+								username : itemObj.username,
+								password : itemObj.password,
+								isFamilyMemberFlow : false
+							},
+							stack : false
+						});
+					} else {
+						app.navigator.open({
+							titleid : "titleAddAnAdult",
+							ctrl : "addAnotherAdult",
+							stack : false
+						});
+					}
+				} else if (mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
+					app.navigator.open({
+						ctrl : "emailVerify",
+						ctrlArguments : {
+							email : mPatient.get("email_address"),
+							transferUserDetails : transferUserDetails,
+							navigation : {
+								titleid : "titleTransferStore",
+								ctrl : "stores",
+								ctrlArguments : {
+									navigation : {
+										titleid : "titleTransferOptions",
+										ctrl : "transferOptions",
+										ctrlArguments : {
+											prescription : transferUserDetails ? args.navigation.ctrlArguments.navigation.ctrlArguments.prescription : {},
+											store : {}
+										},
+										stack : true
+									},
+									selectable : true
+								}
+							}
+						},
+						stack : false
+					});
+				} else {
+//						app.navigator.open(itemObj.navigation || Alloy.Collections.menuItems.findWhere({
+//							landing_page : true
+//						}).toJSON());
+				}
+			}
+		});
+
+ 		// alert("ti auth conditional fallbac:  itmObj "+JSON.stringify(itemObj));
+			setTimeout( function(){
+				app.navigator.open({
+				titleid : itemObj.titleid,
+				ctrl : itemObj.ctrl,
+				icon : itemObj.icon
+			});
+			},0);
+
+
+	} else {
+			// alert("Wah wah.  I can't go for that, no can do.... : "+JSON.stringify(resp) );
+	}
+}
+
+
 function loginOrNavigate(itemObj) {
 	var ctrlPath = app.navigator.currentController.ctrlPath;
 	if (itemObj.ctrl != ctrlPath) {
+		if (itemObj.requires_login_auth) {
+			itemObj.ctrlArguments = {  
+				requires_login_auth : true
+		  };
+			app.navigator.open(itemObj);
+			return;
+		}
 		if (itemObj.requires_login && !Alloy.Globals.isLoggedIn) {
 			if (ctrlPath != "login") {
-				app.navigator.open({
-					titleid : "titleLogin",
-					ctrl : "login",
-					ctrlArguments : {
-						navigation : itemObj
+
+				if(OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled && authenticator.getTouchIDEnabled()) {
+					var result = TiTouchId.deviceCanAuthenticate();
+					var passcodeAuthProcess = function() {
+						TiTouchId.authenticate({
+							reason : Alloy.Globals.strings.loginTouchFailure,
+							reason :  Alloy.Globals.strings.loginUseTouch,
+							callback : function(tIDResp) {
+								if (!tIDResp.error) {
+									setTimeout(function() {
+				
+										app.navigator.open({
+											titleid : "titleLogin",
+											ctrl : "login",
+											ctrlArguments : {
+												navigation : itemObj,
+												useTouchID : true
+											}
+										});
+										return;
+				
+										touchIDAuth(tIDResp, itemObj);
+									}, 0);
+								} else {
+									//app.navigator.hideLoader();
+									setTimeout(function() {
+										app.navigator.open({
+											titleid : "titleLogin",
+											ctrl : "login",
+											ctrlArguments : {
+												navigation : itemObj,
+												useTouchID : false
+											}
+										});
+										app.navigator.hideLoader();
+									}, 0);
+								}
+							}
+						});
+					}; 
+					if (!result) { //(!result.canAuthenticate) {
+						//	alert('Touch ID Message: ' + result.error + '\nCode: ' + result.code);
+						///  Add some kind of 'please turn off touchid error message here....'
 					}
-				});
+					else {
+						//alert("about to touchID auth "+JSON.stringify(itemObj));
+						passcodeAuthProcess();
+					}
+					return;
+				}  else {
+
+					app.navigator.open({
+						titleid : "titleLogin",
+						ctrl : "login",
+						ctrlArguments : {
+							navigation : itemObj
+						}
+					});
+				}
+
+
+			} else {
+
+			//Don't try to navigate if we're on the login page already
+			//	app.navigator.open(itemObj);
 			}
 		} else {
 			app.navigator.open(itemObj);
@@ -91,7 +273,7 @@ function loginOrNavigate(itemObj) {
 }
 
 function logout() {
-	require("authenticator").logout({
+	authenticator.logout({
 		dialogEnabled : true
 	});
 }

@@ -1,0 +1,7 @@
+<Alloy>
+	<TableView id="tableView" onClick="didClickTableView">
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
+</Alloy>

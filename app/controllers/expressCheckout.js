@@ -17,12 +17,50 @@ var args = $.args,
 
 function init() {
 	if (Alloy.Globals.isLoggedIn) {
-		getCheckoutInfo();
+		getCreditCardInfo();
 	}
 	currentPatient = Alloy.Collections.patients.findWhere({
 		selected : true
 	});
 	exp_counter_key = getExpressCheckoutCounter();
+}
+
+function getCreditCardInfo() {
+	$.http.request({
+		method : "payments_credit_card_get",
+		params : {
+			data : [
+				{
+					"getCreditCard": {
+						"fetchAll": Alloy.CFG.fetch_all_credit_cards
+					}
+		        }
+			]
+		},
+		errorDialogEnabled : false,
+		success : didGetCreditCardInfo,
+		failure : didFailureInCreditCardInfo
+	});
+}
+
+function didGetCreditCardInfo(result, passthrough) {
+	/**
+	 * 	for now we are picking just first credit card 
+	 * 	but in future we may need to store multiple cards
+	 */
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, true, "bool", false);
+	currentPatient.set("card_type", result.data.CreditCard[0].paymentType.paymentTypeDesc);
+	currentPatient.set("last_four_digits", result.data.CreditCard[0].lastFourDigits);
+	currentPatient.set("expiry_date", result.data.CreditCard[0].expiryDate);
+	getCheckoutInfo();
+}
+
+function didFailureInCreditCardInfo(result, passthrough) {
+	$.utilities.setProperty(Alloy.CFG.cc_on_file, false, "bool", false);
+	currentPatient.unset("card_type");
+	currentPatient.unset("last_four_digits");
+	currentPatient.unset("expiry_date");
+	getCheckoutInfo();
 }
 
 function getExpressCheckoutCounter() {
@@ -133,6 +171,8 @@ function didGetCheckoutDetails(result) {
 		});
 	} else if (indexOfMultipleStoreCheckoutComplete.length <= 1) {
 		var isCheckoutComplete = false;
+		var isMedSyncScriptReady = false;
+		var isMedSyncOnly = true;
 		_.each(result.data.stores, function(store, index1) {
 			prescriptions = store.prescription;
 			_.some(prescriptions, function(prescription, index2) {
@@ -140,6 +180,11 @@ function didGetCheckoutDetails(result) {
 					isCheckoutComplete = true;
 					indexOfCheckoutCompletePresc = [index1, index2];
 					return true;
+				}
+				if (prescription.nextSyncFillDate != null) {
+					isMedSyncScriptReady = isMedSyncCheckoutReady(prescription);
+				} else {
+					isMedSyncOnly = false;
 				}
 				return false;
 			});
@@ -151,10 +196,28 @@ function didGetCheckoutDetails(result) {
 			} else {
 				$.parentView.visible = true;
 			}
+		} else if(isMedSyncOnly && !isMedSyncScriptReady) {
+			uihelper.showDialog({
+				message : Alloy.Globals.strings.expressCheckoutNoRxReady,
+				buttonNames : [Alloy.Globals.strings.dialogBtnClose],
+				success : popToHome
+			});
 		} else {
 			pushToPrescriptionList();
 		}
 	}
+}
+
+function isMedSyncCheckoutReady(prescription) {
+	var isMedSyncScriptReady = false;
+	if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "") {
+		var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
+		var nextSyncFillDate = prescription.nextSyncFillDate; 
+		var medSyncDate = moment(prescription.nextSyncFillDate).format("MM/DD/YYYY");
+		var now = moment().format("MM/DD/YYYY");					
+		isMedSyncScriptReady = moment(medSyncDate).diff(now, 'days') <= checkOutBy ? true : false;
+	};
+	return isMedSyncScriptReady;
 }
 
 function popToHome() {
@@ -176,8 +239,7 @@ function pushToPrescriptionList() {
 			patientSwitcherDisabled : true,
 			hideCheckoutHeader : false,
 			navigationFrom : "expressCheckout"
-		},
-		stack : true
+		}
 	}); 
 
 }

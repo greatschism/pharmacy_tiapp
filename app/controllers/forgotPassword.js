@@ -137,7 +137,7 @@ function presentCounselingPrompt() {
 		data[0] = questionSection;
 		$.tableView.setData(data);
 		$.tableView.appendRow(questionSection[1], {
-			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+			animationStyle : Ti.UI.iOS.RowAnimationStyle.FADE
 		});
 
 	} else {
@@ -599,7 +599,7 @@ function presentLoyaltyPrompt() {
 		data[0] = questionSection;
 		$.tableView.setData(data);
 		$.tableView.appendRow(questionSection[2], {
-			animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+			animationStyle : Ti.UI.iOS.RowAnimationStyle.FADE
 		});
 
 	} else {

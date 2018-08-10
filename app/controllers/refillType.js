@@ -6,7 +6,7 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
-	classes : ["margin-right-small", "i5", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove", "accessibility-enabled"],
+	classes : ["margin-right-small", "i6", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove", "accessibility-enabled"],
 	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
 	id : "removeBtn"
 }),
@@ -20,7 +20,7 @@ var args = $.args,
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
 	$.rxTxt.setRightIcon("", $.createStyle({
-		classes : ["margin-right-small", "i5", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help", "rx-hintext"],
+		classes : ["margin-right-small", "i6", "active-fg-color", "bg-color-disabled", "touch-enabled", "icon-help", "rx-hintext"],
 		id : "sampleBtn"
 	}));
 	rxTxtHeight = $.createStyle({
@@ -151,7 +151,7 @@ function didClickRefill(e) {
 					rx_number : value,
 					store_id : storeId,
 					pickup_mode : pickupMode,
-					pickup_time_group : apiCodes.pickup_time_group_asap
+					pickup_time_group : Alloy.CFG.pickup_time_group
 				});
 			} else {
 				lastIndex = index;

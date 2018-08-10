@@ -55,5 +55,11 @@ module.exports = {
 		"url": "http://pharmacyadvantage.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
+	}, {
+		"titleid" : "titleContactUs",
+		"ctrl" : "contactUs",
+		"icon" : "phone",
+		"feature_name" : "is_contactus_enabled",
+		"requires_login" : false
 	}]
 };

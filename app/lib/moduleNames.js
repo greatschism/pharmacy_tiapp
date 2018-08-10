@@ -96,6 +96,7 @@ module.exports = {
 	"RERE" : "Reminders",
 	"RERB" : "Reminders",
 	"RESE" : "Reminders",
+	"RSNS" : "Reminders",
 	/**
 	 * prescriptions
 	 */
@@ -142,5 +143,9 @@ module.exports = {
 	/**
 	 * dynamic menu option
 	 */
-	"DYMO" : "dynamicMenuOption"
+	"DYMO" : "dynamicMenuOption",
+	/**
+	 * contact us
+	 */
+	"COUS" : "ContactUs"
 };

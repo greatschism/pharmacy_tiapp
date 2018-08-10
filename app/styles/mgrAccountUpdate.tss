@@ -22,7 +22,7 @@
 },
 "#emailTxt":{
 	hintText:Alloy.Globals.strings.mgrAccountUpdateHintEmail,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{

@@ -5,6 +5,6 @@
 			<Label id="leftIconLbl" analyticsId="LeftIconLbl" class="top-disabled margin-left i4 txt-right active-fg-color icon-checkbox-unchecked inactive-fg-color border-disabled" onClick="didClickConsent"/>
 			<Label id="consentObtainLbl" analyticsId="ConsentObtainLbl" class="margin-left-small margin-top margin-bottom h2" onClick="didClickConsent"/>
 		</View>
-		<Button id="inactiveBtn" analyticsId="InactiveBtn" class="margin-bottom inactive-bg-color inactive-border" visible="true" />
+		<Button id="inactiveBtn" analyticsId="InactiveBtn" class="margin-bottom inactive-bg-color inactive-border primary-light-fg-color" visible="true" />
 	</ScrollView>
 </Alloy>

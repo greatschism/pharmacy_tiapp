@@ -15,8 +15,10 @@ var args = $.args,
     logger = require("logger"),
     TAG = ctrlShortCode[$.__controllerPath],
     strings = Alloy.Globals.strings,
-        encryptionUtil = require("encryptionUtil"),
-        resources = require("resources"),
+	encryptionUtil = require("encryptionUtil"),
+	resources = require("resources"),
+    touchID = require("touchid"),
+    localBiometricFlag = false,
 
 
     triggerAsyncUpdate = false;
@@ -215,7 +217,7 @@ function callAppload()
 							phone_os : Ti.Platform.osname,
 							phone_platform : Alloy.CFG.platform_code,
 							device_id : notificationHandler.deviceId,
-							carrier : Ti.Platform.carrier,
+							carrier : Ti.Platform.carrier || null,
 							client_name : Alloy.CFG.client_name,
 							client_param_lang_code : localization.currentLanguage.code,
 							app_version : Alloy.CFG.app_version
@@ -398,6 +400,44 @@ function loadConfig(errorQueue) {
 		config.load(initMasterWindow);
 	}
 }
+var bgCounter;
+
+function appDidResume() {
+	var bgComparer = new Date();
+
+	if( ( bgComparer - bgCounter > 10000 ) && Alloy.Globals.isLoggedIn &&  require("authenticator").getTouchIDEnabled() ) {
+
+		touchID.authenticate( function(){
+		//	alert("yay hooray (nore than 10 s)");
+		}, function(){
+			setTimeout( function(){ 
+				var passthrough = {};
+				passthrough.success = function(){
+					//alert("Please login manually.");
+					uihelper.showDialog({
+						title : strings.loginTouchTitle,
+						message : strings.loginTouchCancel,
+						buttonNames : [strings.dialogBtnOK],
+						success : function(){
+							app.navigator.open({
+								titleid : "titleLogin",
+								ctrl : "login",
+							});
+						}
+					});
+					
+				};
+				require("authenticator").logout(passthrough); 
+				
+			},500);
+		});
+	}
+}
+
+function appDidPause() {
+	bgCounter = new Date();
+}
+
 
 function initMasterWindow() {
 	hideLoader();
@@ -419,6 +459,14 @@ function initMasterWindow() {
 		triggerUpdate : triggerAsyncUpdate
 	});
 	ctrl.on("init", didInitWin);
+
+	localBiometricFlag = touchID.deviceCanAuthenticate();
+	if(localBiometricFlag) {
+   		Ti.App.addEventListener("paused", appDidPause);
+  		Ti.App.addEventListener("resume", appDidResume);
+	}
+
+
 	ctrl.init();
 }
 

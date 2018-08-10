@@ -97,7 +97,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 			var startDelimeter = "module.exports = [",
 			    endDelimeter = "];";
 			strToExclude = fs.readFileSync(alloyDir + "/widgets/" + defaultWidget + "/styles/widget.js", "utf-8");
-			var subStartIndex = strToExclude.lastIndexOf(startDelimeter) + startDelimeter.length;
+			var subStartIndex = strToExclude.lastIndexOf(startDelimeter) + startDelimeter.length + 2;
 			strToExclude = strToExclude.substr(subStartIndex, ((strToExclude.lastIndexOf(endDelimeter) - endDelimeter.length) - subStartIndex) + 1);
 			/**
 			 * process widgets
@@ -108,7 +108,7 @@ exports.init = function(logger, config, cli, nodeappc) {
 				for (var i in widgetTiStyleSheets) {
 					var widgetTiStyleSheet = widgetTiStyleSheets[i];
 					logger.debug(TAG + ": trimming " + widgetTiStyleSheet);
-					var widgetTiStyleSheetStr = fs.readFileSync(widgetTiStyleSheet, "utf-8").replace(strToExclude, "").replace("[,", "[");
+					var widgetTiStyleSheetStr = fs.readFileSync(widgetTiStyleSheet, "utf-8").replace(strToExclude, "").replace("[,", "[").replace("{ },","");
 					fs.writeFileSync(widgetTiStyleSheet, widgetTiStyleSheetStr);
 					/**
 					 * if still string is too long

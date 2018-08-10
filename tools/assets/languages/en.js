@@ -46,6 +46,7 @@ module.exports = {
 		"dialogBtnOK" : "OK",
 		"dialogBtnYes" : "Yes",
 		"dialogBtnNo" : "No",
+		"dialogBtnNotNow" : "Not now",
 		"dialogBtnCancel" : "Cancel",
 		"dialogBtnContinue" : "Continue",
 		"dialogBtnClose" : "Close",
@@ -58,6 +59,8 @@ module.exports = {
 		"dialogBtnGallery" : "Choose from gallery",
 		"dialogBtnEmail" : "Email",
 		"dialogBtnSettings" : "Settings",
+		"cameraPictureTaken" : "Picture Taken",
+		"cameraTakePhoto" : "Take Photo",
 
 		"msgLoading" : "Processing. Please wait.",
 		"msgNoInternet" : "You need an internet connection to use this app. Please try again once you are connected.",
@@ -98,6 +101,12 @@ module.exports = {
 		"msgPasswordTips" : "Your password must be between 6 and 15 characters and contain at least 1 letter and 1 number.",
 		"msgRxNumberTips" : "Your Rx number can be found on your prescription bottle. You can use any prescription.",
 		"msgAutoLogin" : "Turning this feature on allows you to skip this screen in the future. By doing this, you accept that your privacy may be at risk if your phone is lost or stolen.",
+		"msgTouchIdWithAuto" : "Turning this feature on requires your fingerprint or device passcode to sign in.",
+		"msgTouchIdWithoutAuto" : "Turning this feature on allows you to sign in with your fingerprint.",
+		"msgTouchIdOff": "You have just disabled touch ID for signing in. You will now have to enter your password to log in.",
+		"msgPromptTouchID": "Would you like to use touch ID to log in instead of entering your password?",
+		"msgEnabledTouchID": "Great! You can now use touch ID to log in. If you need to change your password, or login manually, just tap 'sign-in'. You can disable this feature in the 'account' page.",
+		"msgDeferredTouchID": "No problem, you can always enable this feature in the 'account' page when you are logged in.",		
 		"msgAgeRestriction" : "You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
 		"msgAccountExists" : "It looks like you already have an account with %s",
 		"msgUserRecoverySuccess" : "We've just sent you an email with a password reset link. You can use it to create a new password.",
@@ -152,6 +161,7 @@ module.exports = {
 		"iconAccessibilityLblSpot" : "Deselected",
 		"iconAccessibilityLblHome" : "Home Pharmacy",
 		"iconAccessibilityLblAccount" : "Account",
+		"iconAccessibilityLblSignIn" : "Sign in",
 
 		"accessibilityLblScreenChange" : "Navigate to next screen",
 
@@ -228,9 +238,13 @@ module.exports = {
 		"upgradeBtnSubmit" : "Upgrade now",
 		"maintenanceBtnSubmit" : "Try again",
 		"barcodeLblTitle" : "Center the barcode inside the box to scan",
+		"barcodeScanUserInfo" : "When scanning the label, please use a Flash or make sure there is adequate background lighting in order to ensure a successful image capture.",
 		"tmplRxTxtHintRx" : "Enter your prescription number",
 		"tmplOptionDividerLbl" : "Or",
 		"titleExpressQR" : "Express Pick-up",
+		"titleEmailVerify" : "Email Confirmation",
+		"titlePhoneVerify" : "Phone Confirmation",
+		"titleContactUs" : "Contact Us",
 
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
@@ -266,6 +280,7 @@ module.exports = {
 		"loginHintPassword" : "Password",
 		"loginHintNewPassword" : "New Password",
 		"loginLblAutoLogin" : "Keep me signed in",
+		"loginLblTouchID" : "Use touch ID for login",
 		"loginAttrSignup" : "Need to <secondaryfont><secondarycolor>create a new account?</secondarycolor></secondaryfont>",
 		"loginValUsername" : "Please enter your email address.",
 		"loginValPassword" : "Please enter your password.",
@@ -284,6 +299,10 @@ module.exports = {
 		"loginErrTryAgain" : "Try again",
 		"loginErrForgotUsername" : "I forgot my username",
 		"loginErrCofirmAccount" : "No problem. Let's re-confirm your account and get you signed in.",
+		"loginTouchCancel" : "Please login manually.",
+		"loginTouchTitle" : "Biometric Authentication",
+		"loginTouchFailure" : "Touch ID authentication failed.",
+		"loginUseTouch" : "Please use touch ID to log in.",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",
@@ -295,8 +314,6 @@ module.exports = {
 		"userRecoveryBtnSend" : "Send",
 		"userRecoveryBtnHelp" : "Help",
 		"userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-
-		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 
 		"storesPatientSwitcher" : "%s's stores",
 		"storesPatientSwitcherSubtitleMinor" : "Same settings as account manager.",
@@ -326,6 +343,8 @@ module.exports = {
 
 
 		"titleReadyPrescriptions" : "Ready Prescriptions",
+		"titleMedSyncPrescriptions" : "MedSync Prescriptions",
+		"titleSpecialtyPrescriptions": "Specialty Prescriptions",
 		"titleCheckoutCompleteHeader" : "Mobile checkout complete. See you soon!",
 		"titleContinueExpressPickupHeader" : "Continue Express Pick-up here.",
 
@@ -364,6 +383,7 @@ module.exports = {
 		"expressCheckoutMultipleStoreMsg" : "You have prescriptions ready in multiple locations. Express Pick-up is not supported at multiple locations at this time. Please proceed to your pharmacy to pick up your prescriptions.",
 		"expressCheckoutDobMismatchMsg" : "This Date of Birth does not match our records, please re-enter your information.",
 		"expressCheckoutNoCConFile" : "Please ask us to store your credit card during your next stop at the pharmacy to enable the Express Pick-up checkout feature for prescriptions that are READY FOR PICK UP. Want to learn more, click <secondaryfont><secondarycolor>here</secondarycolor></secondaryfont>.",
+		"expressCheckoutNoRxReady" : "No Prescription available for checkout.",
 		
 		"expressQRLblTitle" : "This code is active for 24 hours and identifies you at the register in-store to save you time.\n\nAfter 24 hours has elapsed, please re-enter your date of birth to activate again.",
 		"expressQRDoneBtn" : "Done",
@@ -383,7 +403,7 @@ module.exports = {
 		"doctorDetLblManual" : "You manually added this doctor. Associated prescriptions are not available.",
 		"doctorDetLblPrescribedNone" : "You have no prescriptions associated with this doctor.",
 		"doctorDetLblExpired" : "Expired",
-		"doctorDetLblRefilled" : "Refilled: %s",
+		"doctorDetLblRefilled" : "Picked up: %s",
 		"doctorDetLblRefilledNone" : "Not picked up yet",
 
 		"doctorSettingsHintFirstName" : "First Name",
@@ -466,7 +486,7 @@ module.exports = {
 		"prescDetCollapse" : "Show less",
 		"prescDetInfoRefillsLeft" : "Refills left",
 		"prescDetInfoDueOn" : "Due for refill",
-		"prescDetInfoLastRefilled" : "Last refilled",
+		"prescDetInfoLastRefilled" : "Last filled",
 		"prescDetBtnRefill" : "Refill prescription",
 		"prescDetPromptRx" : "Prescription number:",
 		"prescDetPromptExpirationDate" : "Expiration date:",
@@ -484,6 +504,7 @@ module.exports = {
 		"prescDetBtnHide" : "Hide this prescription",
 		"prescDetMsgHideConfirm" : "Are you sure you want to hide %s?",
 		"prescAddBtnAccessibility" : "Add prescriptions",
+		"prescriptionSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"orderDetSectionPresc" : "Your order",
 		"orderDetSectionPickup" : "Pick up details",
@@ -539,6 +560,7 @@ module.exports = {
 		"refillSuccessLblSignup" : "Sign up now to receive a text message when your prescription is ready.",
 		"refillSuccessBtnSignup" : "Sign up",
 		"refillSuccessBtnDone" : "Done",
+		"refillSuccessMesaage": "Your refill request with Rx %s has been placed.Your prescription will be ready for pickup after %s",
 
 		"refillFailureLblTitle" : "We could not process your refill correctly. You can type the prescription details manually or call your pharmacy for additional help.",
 		"refillFailureBtnType" : "Type prescription details",
@@ -642,6 +664,9 @@ module.exports = {
 		"remindersSettingsLblTypeMed" : "Medication reminders",
 		"remindersSettingsLblTypeRefill" : "Refill reminders",
 		"remindersSettingsLblTypePromotional" : "Promotional offers",
+		"remindersRxStatus" : "Rx Status Notice",
+		"remindersRxStatusLbl" : "Send alerts for these Rx Status",
+
 		"remindersSettingsLblShowRx" : "Show full prescription name in notifications",
 		"remindersSettingsPopupSectionDeliveryModes" : "Choose a delivery method",
 		"remindersSettingsPopupBtnClose" : "Close",
@@ -691,6 +716,7 @@ module.exports = {
 		"transferOptsLblSendTxtMsg" : "Send me text messages when my prescriptions are ready",
 		"transferOptsLblReview" : "Review transfer details",
 		"transferOptsBtnTransfer" : "Submit transfer",
+		"transferOptsSwitchAccessibilityHint" : "Double tap to toggle",
 
 		"transferReviewSectionUser" : "Personal details",
 		"transferReviewSectionStore" : "Your transfer is being placed at:",
@@ -710,6 +736,7 @@ module.exports = {
 		"accountSectionPrescriptionDisplay" : "Prescription display",
 		"accountSectionLocationSettings" : "Location settings",
 		"accountSectionSignin" : "Sign-in",
+		"accountSectionPaymentOptions" : "Payment Options",
 		"accountSuccessBtnContactSupport" : "Contact support",
 		"accountSuccessBtnHelp" : "Help",
 		"accountSuccessBtnViewAgreements" : "Agreements and Notices",
@@ -719,7 +746,8 @@ module.exports = {
 		"accountLblHideZeroRefillPrescription" : "Hide zero refill prescriptions",
 		"accountLblTimeZone" : "Time zone",
 		"accountLblLanguage" : "Language",
-		"accountLblKeepMeSignedIn" : "Keep me signed in",
+		"accountLblKeepMeSignedIn" : "Keep me signed in",		
+		"accountLblTouchID" : "Use touch ID for login",
 		"accountSuccessBtnEmail" : "E-mail this to me",
 		"accountFailureBtnRevoke" : "Revoke",
 		"accountLblAcceptedOn" : "You accepted this on",
@@ -744,6 +772,11 @@ module.exports = {
 		"accountPatientSwitcherSubtitleMinor" : "Same settings as account manager",
 		"accountsAgreementHIPAA" : "HIPAA",
 		"accountHintEmail" : "Email address",
+		"accountSwitchAccessibilityHint" : "Double tap to toggle",
+		"accountEditCC" : "Edit",
+		"accountAddCC" : "Add",
+		"accountInfoCC" : "%s ending with ***%s",
+		"accountNoCC" : "No card available",
 
 		"registerLbl" : "Are you managing prescriptions for yourself, your child, or another adult?",
 		"registerBtnMyself" : "Myself",
@@ -905,6 +938,7 @@ module.exports = {
 		"textMessageNotReceiveBtn" : "I unblocked the shortcode",
 		"textMessageNotReceiveAttrSkip" : "Skip",
 		"textMessageMobileVerified" : "You will now receive text reminders",
+		"textMessageNoReplyMobileVerified" : "Your number is already verified. You will now receive text messages.",
 		"textMessagePhoneNumberNotUpdatedWarningMsg" : "You have not clicked on ‘I replied to the text message’ button. if you have already verified your number by sending the OTP, it will reflect when you login the next time",
 
 		"phoneValPhone" : "Please enter your mobile number to continue.",
@@ -1024,6 +1058,7 @@ module.exports = {
 		"loginInfoUpdateAskInfo" : "Please provide the email address you’d like to use for this account and a new password. You’ll use them to sign in from now on.",
 		"loginInfoUpdateValEmailInvalid" : "Please enter a valid email address.",
 		"loginInfoUpdateContinue" : "Continue",
+		"loginInfoUpdateAskInfoUpdatedText" : "We've improved your experience since your last visit! <secondaryfont><secondarycolor>With our new improvements, the email address associated with your account must be UNIQUE and cannot be shared with another family member.</secondarycolor></secondaryfont> If another member of your family care team has the same email address, please make sure to use a different email address for your account setup.",
 
 		"optionPickerHintToSelect" : "Double tap to select.",
 		"optionPickerHintToRemoveSelection" : "Double tap to remove selection.",
@@ -1036,6 +1071,9 @@ module.exports = {
 		"accessibilityAddFamilyIconButton" : "Add family.",
 		"expPickupBenefitsCloseBtn" : "Close",
 		"expPickupBenefitsDoneBtn" :"Done",
-		"vSixCarouselTitle" : "What's new!"
+		"vSixCarouselTitle" : "What's new!",
+		"autoFillAttr" : "Automatically refill this medication",
+		"prescDetSectionAutofill" : "Autofill",
+		"prescDetSectionNoReminders" : "Reminders cannot be adjusted and are sent via Autofill Program"
 	}
 };

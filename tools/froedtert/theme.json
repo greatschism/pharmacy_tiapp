@@ -1,6 +1,7 @@
 {
 	"config": {
 		"global": {
+			"mail_order_store_pickup_enabled": true,
 			"rx_length": 7,
 			"rx_start_index": 0,
 			"rx_end_index": 7,

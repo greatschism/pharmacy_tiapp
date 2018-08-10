@@ -2,20 +2,25 @@ var args = $.args,
     authenticator = require("authenticator"),
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
+    isInitializing = false,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn", "positive-fg-color"],
-	title : Alloy.Globals.strings.strShow,
-	accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
-	width : "25%",
-	backgroundColor : 'transparent'
-}),
+		classes : ["txt-positive-right-btn", "positive-fg-color"],
+		title : Alloy.Globals.strings.strShow,
+		accessibilityLabel : Alloy.Globals.strings.accessibilityStrShow,
+		width : "25%",
+		backgroundColor : 'transparent'
+	}),
     utilities = require('utilities');
+
+	var touchID = require("touchid");
+
 
 function init() {
 	/**
 	 * Set the right button "show/hide"
 	 * with right parameters.
 	 */
+	isInitializing = true;
 	if (Alloy.CFG.toggle_password_enabled) {
 		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
@@ -47,13 +52,61 @@ function init() {
 		$.passwordTxt.setValue(args.password);
 		$.autoLoginSwt.setValue(false);
 	}
-	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = $.strings.accessibilityLblRememberUsernameToggle;
-		iDict.accessibilityLabelOff = $.strings.accessibilityLblRememberUsernameToggle;
-	} else {
-		iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
+
+
+	if(OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled && authenticator.getTouchIDEnabled()) {
+
+		//$.touchIDLoginSwt.setValue(true);
+
+		if(args.requires_login_auth === true) {
+
+		 	var result = touchID.deviceCanAuthenticate();
+		 
+		 	var passcodeAuthProcess = function () {
+
+		 		touchID.authenticate(function(tIDResp) {
+		 			setTimeout( function(){
+
+							touchIDAuth({"success":true}); 
+		 				},0);
+
+					}, function(tIDResp) {
+			 				setTimeout( function(){
+
+								$.app.navigator.hideLoader();
+			 				},0);
+					}
+			 	);
+		 	};
+
+		 
+		 	if (!result) { //(!result.canAuthenticate) {
+		 	//	alert('Touch ID Message: ' + result.error + '\nCode: ' + result.code);
+		 	///  Add some kind of 'please turn off touchid error message here....'
+				$.app.navigator.hideLoader();
+		 	} else {
+		 		//alert("about to touchID auth "+JSON.stringify(itemObj));
+		 		passcodeAuthProcess();
+		 	}
+		 	
+			return;
+
+		}
+
+		if(args.useTouchID === true) {
+
+			if(authenticator.getTouchIDEnabled()) {
+
+				touchIDAuth({"success":true}); 
+				return;
+			} 
+		} else {
+			
+		}
 	}
+
+	var iDict = {};
+	iDict.accessibilityLabel = $.strings.accessibilityLblRememberUsernameToggle;
 	$.autoLoginSwt.applyProperties(iDict);
 
 	if (OS_IOS) {
@@ -63,7 +116,32 @@ function init() {
 		$.signupAttr.applyProperties(sDict);
 		$.aboutAttr.accessibilityValue = $.strings.loginAttrLabelsAccessibilityHint;
 	};
+	
 }
+
+function touchIDAuth(resp)  {
+	var data = authenticator.forceGetData();
+	var username = data.username;
+	var password = data.password;
+
+	if(resp.success == true) {
+			setTimeout(authenticator.init({
+				username : username,
+				password : password,
+				success : function() {
+					setTimeout( didAuthenticate , 0);
+				},
+				failure : function() {
+					
+				}
+			}) , 0);
+
+	} else {
+		alert($.strings.loginTouchCancel);
+	}
+}
+
+
 
 function didClickAbout() {
 	var version = String.format($.strings.loginVersionLbl, Ti.App.version);
@@ -179,17 +257,62 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if ($.utilities.isPhoneNumber(username)) {
-		//yet to handle
-	} else {
+
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
+
+
+
+		// if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() ) {
+		// 	utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+		// 	$.uihelper.showDialog({
+		// 		message : $.strings.msgPromptTouchID,
+		// 		buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+		// 		cancelIndex : 0,
+		// 		success : function(){
+		// 			authenticator.setTouchIDEnabled(true);
+		// 			$.uihelper.showDialog({
+		// 				message : $.strings.msgEnabledTouchID,
+		// 			});
+		// 		},
+		// 		cancel : function(){
+		// 			authenticator.setTouchIDEnabled(false);
+		// 			$.uihelper.showDialog({
+		// 				message : $.strings.msgDeferredTouchID,
+		// 			});
+		// 		}
+		// 	});
+		// }
+
+
 		authenticator.init({
 			username : username,
 			password : password,
 			loginFailure : didFailed,
-			success : didAuthenticate
+			success : function(passedVar){
+				didAuthenticate(passedVar);		
+				if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() && OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled) {
+					utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+					$.uihelper.showDialog({
+						message : $.strings.msgPromptTouchID,
+						buttonNames : [$.strings.dialogBtnNotNow, $.strings.dialogBtnOK ],
+						cancelIndex : 0,
+						success : function(){
+							authenticator.setTouchIDEnabled(true);
+							$.uihelper.showDialog({
+								message : $.strings.msgEnabledTouchID,
+							});
+						},
+						cancel : function(){
+							authenticator.setTouchIDEnabled(false);
+							$.uihelper.showDialog({
+								message : $.strings.msgDeferredTouchID,
+							});
+						}
+					});
+				}
+
+			}
 		});
-	}
 }
 
 function didAuthenticate(passthrough) {
@@ -240,6 +363,7 @@ function didAuthenticate(passthrough) {
 		}
 	} else if (mPatient && mPatient.get("is_email_verified") !== "1" && moment.utc().diff(moment.utc(mPatient.get("created_at"), Alloy.CFG.apiCodes.ymd_date_time_format), "days", true) > 1) {
 		$.app.navigator.open({
+			titleid : "titleEmailVerify",
 			ctrl : "emailVerify",
 			ctrlArguments : {
 				email : mPatient.get("email_address"),
@@ -271,7 +395,6 @@ function didAuthenticate(passthrough) {
 	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
 		passthrough = null;
-		delete passthrough;
 	}
 }
 
@@ -350,7 +473,7 @@ function didPostlayout(e) {
 	 * Note: event listener should be removed
 	 * to avoid redundant event calls
 	 */
-	$.autoLoginLbl.removeEventListener("postlayout", didPostlayout);
+	$.autoLoginView.removeEventListener("postlayout", didPostlayout);
 	/**
 	 * apply properties for the tooltip
 	 *
@@ -363,7 +486,7 @@ function didPostlayout(e) {
 	}));
 
 	$.tooltip.applyProperties($.createStyle({
-		top : $.autoLoginView.rect.y + $.autoLoginView.rect.height,
+		top : OS_IOS ? $.autoLoginView.rect.y + $.autoLoginView.rect.height : $.autoLoginView.rect.y - $.autoLoginView.rect.height,
 		width : "90%"
 	}));
 
@@ -377,7 +500,6 @@ function didPostlayout(e) {
 			$.tooltip.show();
 		};
 	}
-
 }
 
 function didClickHide(e) {

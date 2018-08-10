@@ -3,7 +3,8 @@ var Alloy = require("alloy"),
     apiCodes = Alloy.CFG.apiCodes,
     $,
     phone,
-    barcodeData;
+    barcodeData,
+    refillErroMessage;
 
 function init(ctrl, ph, callback) {
 	$ = ctrl;
@@ -37,7 +38,7 @@ function didGetBarcode(e) {
 				prescriptions : [{
 					mobile_number : phone,
 					pickup_mode : barcodeData.substring(Alloy.CFG.rx_store_start_index, Alloy.CFG.rx_store_end_index) === Alloy.Models.appload.get("mail_order_store_identifier") ? apiCodes.pickup_mode_mail_order : apiCodes.pickup_mode_instore,
-					pickup_time_group : apiCodes.pickup_time_group_asap,
+					pickup_time_group : Alloy.CFG.pickup_time_group,
 					barcode_data : barcodeData
 				}]
 			}]
@@ -58,7 +59,8 @@ function didRefill(result, passthrough) {
 			titleid : "titleRefillFailure",
 			ctrl : "refillFailure",
 			ctrlArguments : {
-				phone : phone
+				phone : phone,
+				refillErroMessage : prescription.refill_error_message				
 			}
 		};
 	} else {

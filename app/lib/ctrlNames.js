@@ -58,6 +58,7 @@ module.exports = {
 	"RERB" : "RemindersRefillBenefits",
 	"RERE" : "RemindersRefill",
 	"RESE" : "RemindersSettings",
+	"RSNS" : "RxStatusNotificationSettings",
 	"RESU" : "RefillSuccess",
 	"RETY" : "RefillType",
 	"RXSA" : "RxSample",
@@ -84,5 +85,6 @@ module.exports = {
 	"INPR" : "insuranceProfile",
 	"ININ" : "insuranceInput",
 	"VSIC" : "vSixCarousel",
-	"DYMO" : "dynamicMenuOption"
+	"DYMO" : "dynamicMenuOption",
+	"COUS" : "contactUs"
 };

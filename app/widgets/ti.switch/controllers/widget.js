@@ -11,21 +11,20 @@ var args = $.args,
 function updateForState(preventAccessbilityFocus) {
 	if (OS_ANDROID) {
 		var value = $.swt.value;
-		if (args.style == Ti.UI.Android.SWITCH_STYLE_TOGGLEBUTTON) {
-			var dict = {};
-			if (args.tintColorOn) {
-				dict.color = value ? args.tintColorOn : args.tintColorOff;
-			}
-			if (args.imageOn) {
-				dict.backgroundImage = value ? args.imageOn : args.imageOff;
-			}
-			if (args.accessibilityLabelOn) {
-				dict.accessibilityLabel = value ? args.accessibilityLabelOn : args.accessibilityLabelOff;
-			}
-			$.swt.applyProperties(dict);
-		} else if (args.accessibilityLabelOn) {
-			$.swt.accessibilityLabel = value ? args.accessibilityLabelOn : args.accessibilityLabelOff;
+		 if(value){
+			$.swt.color = "#38E780";
+			$.swt.text = Alloy.CFG.icons.switch_on;
+		} else {
+			$.swt.color = "#A7A7A7";
+			$.swt.text = Alloy.CFG.icons.switch_off;
 		}
+		if (args.accessibilityLabel) {
+			$.swt.accessibilityLabel = args.accessibilityLabel;
+		}
+		if (args.accessibilityHint) {
+			$.swt.accessibilityHint = args.accessibilityHint;
+		}
+
 		if (Ti.App.accessibilityEnabled && preventAccessbilityFocus !== true && args.triggerAccessbilityFocus !== false) {
 			Ti.App.fireSystemEvent(Ti.App.Android.EVENT_ACCESSIBILITY_FOCUS_CHANGED, $.swt);
 		}
@@ -79,8 +78,26 @@ function didChange(e) {
 	});
 }
 
+
+function didClick(e){
+	if (preventChangeEvt) {
+		preventChangeEvt = false;
+		return;
+	}
+	$.swt.value = !e.source.value;
+	$.trigger("change", {
+		value : (OS_ANDROID) ? e.source.value : e.value,
+		source : $
+	});
+	updateForState();
+}
+
 _.extend($, {
 	getValue : getValue,
 	setValue : setValue,
 	applyProperties : applyProperties
 });
+
+exports.getSwitch = function() {
+	return $.swt;
+};

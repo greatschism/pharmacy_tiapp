@@ -3,7 +3,8 @@
  * A zbar barcode reader
  */
 
-var TAG = "BARC",
+var	app = require("core"),
+	TAG = "BARC",
     Alloy = require("alloy"),
     _ = require("alloy/underscore")._,
     BarcodeModule = require("com.mfogg.squarecamera"),
@@ -12,14 +13,17 @@ var TAG = "BARC",
     keepOpen = false,
     supportedFormats = ["UPCE", "Code39", "Code39Mod43", "EAN13", "EAN8", "Code93", "Code128", "PDF417", "QR", "Aztec", "Interleaved2of5", "ITF14", "DataMatrix"],
     successCallback,
-    passthrough;
-
-var BarcodeReader = {
-
+    passthrough,
+    flashBtn,
+    toggle = 0,
+    uihelper = require("uihelper");
+	
+	
+var BarcodeReader = {	
 	values : [],
 
 	capture : function($, options) {
-
+		
 		if (isBusy) {
 			logger.error(TAG, "barcode capture is already in progress");
 			return false;
@@ -58,7 +62,7 @@ var BarcodeReader = {
 
 		BarcodeReader.__window = $.UI.create("Window", {
 			apiName : "Window",
-			statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+			statusBarStyle : Ti.UI.iOS.StatusBar.LIGHT_CONTENT
 		});
 
 		BarcodeReader.__cameraView = BarcodeModule.createView({
@@ -86,6 +90,9 @@ var BarcodeReader = {
 			    navIconBtn = $.UI.create("Button", {
 				classes : ["margin-left", "marin-top-extra-large", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
+			    helpBtn = $.UI.create("Button", {
+				classes : ["left-85", "bottom-0", "top-30", "i4", "primary-font-color", "icon-help", "auto-width","auto-height","border-disabled"]				
+			}),
 				navTitleLbl = $.UI.create("Label", {
 				classes : ["title-control", "txt-center"],
 				text : Alloy.Globals.strings.titleRefill
@@ -93,8 +100,16 @@ var BarcodeReader = {
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
+			});			
+				flashBtn = $.UI.create("Button", {
+				classes : ["i4", "left-45","bottom-0", "top-30", "fade-half", "primary-font-color", "icon-tip","auto-width","auto-height", "border-disabled"]				
 			});
+			
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
+			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
+			flashBtn.addEventListener("click", BarcodeReader.didClickFlash);
+			navbarView.add(flashBtn);
+			navbarView.add(helpBtn);
 			navbarView.add(navIconBtn);
 			if (Ti.App.accessibilityEnabled) {
 				navbarView.add(navTitleLbl);
@@ -112,8 +127,12 @@ var BarcodeReader = {
 				classes : ["width-85", "height-40", "negative-border", "thick-border", "border-radius-disabled"]
 			}));
 		}
-
-		BarcodeReader.__window.open();
+		
+		uihelper.showDialog({
+		message : Alloy.Globals.strings.barcodeScanUserInfo,
+		buttonNames : [Alloy.Globals.strings.dialogBtnOK]
+		});
+		BarcodeReader.__window.open();	
 	},
 
 	cancel : function() {
@@ -138,6 +157,31 @@ var BarcodeReader = {
 		}
 
 		isBusy = false;
+	},
+	
+	didClickHelp : function(e) {
+		BarcodeReader.cancel();
+		app.navigator.open({
+			titleid : "titleRxSample",
+			ctrl : "rxSample",
+			stack : true
+		});
+	},
+	
+	didClickFlash : function(e){
+		var fadeIn = {opacity : 1},
+			fadeHalf = {opacity : 0.5};		
+		if(toggle){
+			flashBtn.applyProperties(fadeHalf);
+			toggle = 0;
+			BarcodeReader.__cameraView.turnFlashOff();
+		}
+		else{
+			flashBtn.applyProperties(fadeIn);
+			toggle = 1;
+			BarcodeReader.__cameraView.turnFlashOn();
+			
+		}		
 	},
 
 	/**

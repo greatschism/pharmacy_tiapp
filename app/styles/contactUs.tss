@@ -1,0 +1,48 @@
+"#serviceHours":{
+	html: Alloy.Globals.strings.customerServiceHours
+},
+"#paCorporate":{
+	html: Alloy.Globals.strings.pharmacyAdvantageCorporate
+},
+"#responseTime":{
+	html: Alloy.Globals.strings.expectedResponseTime
+},
+"#paSupportMail":{
+	title: Alloy.Globals.strings.supportMail
+},
+"#patientServicesTtl":{
+	html: Alloy.Globals.strings.patientServiceTitle
+},
+"#patientPhnLbl":{
+	text: Alloy.Globals.strings.patientServicePhoneLbl
+},
+"#patientPhn":{
+	text: Alloy.Globals.strings.patientServicePhone
+},
+"#patientFaxLbl":{
+	text: Alloy.Globals.strings.patientServiceFaxLbl
+},
+"#patientFax":{
+	 text: Alloy.Globals.strings.patientServiceFax
+},
+"#patientCallInst":{
+	 text: Alloy.Globals.strings.patientServiceCallInst
+},
+"#physicianServicesTtl":{
+	html: Alloy.Globals.strings.physicianServiceTitle
+},
+"#physicianPhnLbl":{
+	text: Alloy.Globals.strings.physicianServicePhoneLbl
+},
+"#physicianPhn":{
+	text: Alloy.Globals.strings.physicianServicePhone
+},
+"#physicianFaxLbl":{
+	text: Alloy.Globals.strings.physicianServiceFaxLbl
+},
+"#physicianFax":{
+	text: Alloy.Globals.strings.physicianServiceFax
+},
+"#physicianCallInst":{
+	text: Alloy.Globals.strings.physicianServiceCallInst
+}
