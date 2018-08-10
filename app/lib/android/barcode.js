@@ -13,7 +13,10 @@ var	app = require("core"),
     keepOpen = false,
     successCallback,
     errorCallback,
-    cancelCallback;
+    cancelCallback,
+    flashBtn,
+    toggle = 0,
+    uihelper = require("uihelper");
 
 /**
  *  set default properties
@@ -23,7 +26,7 @@ var	app = require("core"),
 BarcodeModule.allowRotation = true;
 BarcodeModule.displayedMessage = "";
 BarcodeModule.allowInstructions = false;
-BarcodeModule.useLED = true;
+BarcodeModule.useLED = false;
 
 var BarcodeReader = {
 
@@ -36,9 +39,8 @@ var BarcodeReader = {
 			}
 		});
 	},
-
 	capture : function($, options) {
-
+		
 		if (isBusy) {
 			logger.error(TAG, "barcode capture is already in progress");
 			return false;
@@ -111,14 +113,19 @@ var BarcodeReader = {
 				classes : ["margin-left", "top-disabled", "right-disabled", "i5", "txt-left", "primary-font-color", "bg-color-disabled", "border-disabled", "icon-back"]
 			}),
 				helpBtn = $.UI.create("Button", {
-				classes : ["margin-right", "top-disabled", "i4", "txt-right", "primary-font-color", "border-disabled", "icon-help"]
+				classes : ["left-80", "bottom-0", "i4", "primary-font-color", "icon-help", "auto-width","auto-height","border-disabled"]				
 			}),
 			    titleLbl = $.UI.create("Label", {
 				classes : ["margin-bottom", "margin-left-extra-large", "margin-right-extra-large", "h3", "txt-center", "inactive-fg-color"],
 				text : Alloy.Globals.strings.barcodeLblTitle
 			});
+				flashBtn = $.UI.create("Button", {
+				classes : ["i4", "left-35","bottom-0", "fade-half", "primary-font-color", "icon-tip","auto-width","auto-height", "border-disabled"]				
+			});
 			navIconBtn.addEventListener("click", BarcodeReader.cancel);
 			helpBtn.addEventListener("click", BarcodeReader.didClickHelp);
+			flashBtn.addEventListener("click", BarcodeReader.didClickFlash);
+			navbarView.add(flashBtn);
 			navbarView.add(helpBtn);
 			navbarView.add(navIconBtn);
 			overlayView.add(titleLbl);
@@ -133,7 +140,15 @@ var BarcodeReader = {
 		/**
 		 * start scanning
 		 */
-		BarcodeModule.capture(options);
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.barcodeScanUserInfo,
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			success : function startCapture(){
+				BarcodeModule.capture(options);
+			}
+		});
+		
+		
 	},
 
 	removeEventListeners : function() {
@@ -166,6 +181,24 @@ var BarcodeReader = {
 			ctrl : "rxSample",
 			stack : true
 		});
+	},
+	
+	didClickFlash : function(e){
+			
+		var fadeIn = {opacity : 1},
+			fadeHalf = {opacity : 0.5};
+							
+		if(toggle){
+			flashBtn.applyProperties(fadeHalf);
+			toggle = 0;
+			BarcodeModule.useLED = false;
+		}
+		else{
+			flashBtn.applyProperties(fadeIn);
+			toggle = 1;
+			BarcodeModule.useLED = true;
+			
+		}		
 	},
 
 	/**

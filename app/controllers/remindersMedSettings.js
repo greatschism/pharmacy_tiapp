@@ -167,7 +167,8 @@ function init() {
 	var txtStyleDict = $.createStyle({
 		classes : ["margin-bottom", "txt", "autocaps-sentences", "returnkey-done", "reminder-notes"],
 		hintText : $.strings.remindersMedSettingsHintNotes,
-		value : reminder.additional_message || ""
+		value : reminder.additional_message || "",
+		maxLength : 50
 	});
 	$.notesTxt = Alloy.createWidget("ti.textfield", "widget", txtStyleDict);
 	$.notesView.add($.notesTxt.getView());

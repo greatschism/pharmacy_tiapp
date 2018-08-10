@@ -508,6 +508,9 @@
 	".fade-out": {
 		"opacity": 0
 	},
+	".fade-half": {
+		"opacity": 0.5
+	},
 	".fade-value": {
 		"opacity": 0.1
 	},

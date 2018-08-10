@@ -1,0 +1,45 @@
+<Alloy>
+	<TableView>
+		<TableViewRow class="vgroup">
+			<Widget id="patientServicesTtl" class="attributed-17 margin-left-large margin-top-large" src="ti.styledlabel"/>
+			<View id="phoneViewPatient" class="hgroup margin-left-large auto-height" onClick="didClickPatientPhone">
+				<Label class="i5 primary-fg-color icon-phone" />
+				<Label id="patientPhn" class="active-fg-color margin-left-small" />
+			</View>
+			<View id="FaxViewPatient" class="hgroup margin-left-large auto-height">
+				<Label class="i5 icon-print primary-fg-color left" />
+				<Label id="patientFax" class="margin-left-small" />
+			</View>
+			<Widget id="patientCallInst" class="margin-left-large margin-bottom-large attributed-17" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow class="vgroup">
+			<Widget id="physicianServicesTtl" class="attributed-17 margin-left-large margin-top-large" src="ti.styledlabel"/>
+			<View id="phoneViewPhysician" class="hgroup margin-left-large auto-height" onClick="didClickPhysicianPhone">
+				<Label class="i5 primary-fg-color icon-phone" />
+				<Label id="physicianPhn" class="active-fg-color margin-left-small" />
+				<Label id="physicianCallInst" class="margin-left" />
+			</View>
+			<View id="FaxViewPhysician" class="hgroup margin-left-large margin-bottom-large auto-height">
+				<Label class="i5 icon-print primary-fg-color" />
+				<Label id="physicianFax" class="margin-left-small"/>
+			</View>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="serviceHours" class="margin-left-large margin-top-large margin-bottom-large attributed-17" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="paCorporate" class="margin-left-large margin-top-large margin-bottom-large attributed-17" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<Widget id="responseTime" class="margin-left-large margin-top-large margin-bottom-large attributed-17" src="ti.styledlabel"/>
+		</TableViewRow>
+		<TableViewRow>
+			<View class="margin-top-large margin-bottom-large auto-height">
+			<Button id="paSupportMail" class="primary-bg-color primary-font-color primary-border h5" onClick="didClickMail" />
+			</View>
+		</TableViewRow>
+		<FooterView platform="ios">
+			<View class="auto-height" />
+		</FooterView>
+	</TableView>
+</Alloy>
