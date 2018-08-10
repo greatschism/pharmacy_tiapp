@@ -175,9 +175,11 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if ($.utilities.isPhoneNumber(username)) {
-		//yet to handle
-	} else {
+/*
+	 if ($.utilities.isPhoneNumber(username)) {
+		// yet to handle
+	 } */
+	else {
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
 		authenticator.init({
 			username : username,
