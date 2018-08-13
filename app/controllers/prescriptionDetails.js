@@ -249,7 +249,7 @@ function loadPresecription() {
 	 * Hide schedule 2 drug for refill
 	 *
 	 */	
-	 if ($.refillBtn && prescription.schedule == 2) {
+	 if ($.refillBtn && (prescription.schedule == 2 || prescription.is_specialty_store === "1") ) {
 		$.refillBtn.height = 0;
 	}
 
