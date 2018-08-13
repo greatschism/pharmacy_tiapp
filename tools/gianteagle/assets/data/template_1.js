@@ -205,6 +205,36 @@ module.exports = {
 				"apiName" : "View",
 				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
 				"properties" : {
+					"textid" : "titleAccount"
+				},
+				"children" : [{
+					"items" : [{
+						"apiName" : "View",
+						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
+						"children" : [{
+							"items" : [{
+								"apiName" : "Label",
+								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
+							}, {
+								"apiName" : "Label",
+								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
+								"properties" : {
+									"textid" : "titleAccount"
+								}
+							}]
+						}]
+					}]
+				}],
+				"navigation" : {
+					"ctrl" : "account"
+				}
+			}, {
+				"apiName" : "View",
+				"classes" : ["top", "bottom", "h-divider-light"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
+				"properties" : {
 					"textid" : "titleFamilyAccounts"
 				},
 				"children" : [{
@@ -291,36 +321,6 @@ module.exports = {
 				"feature_name" : "is_doctors_enabled",
 				"navigation" : {
 					"ctrl" : "doctors"
-				}
-			}, {
-				"apiName" : "View",
-				"classes" : ["top", "bottom", "h-divider-light"]
-			}, {
-				"apiName" : "View",
-				"classes" : ["top", "bottom", "auto-height", "vgroup", "hwrap-disabled", "accessibility-actionablelements"],
-				"properties" : {
-					"textid" : "titleAccount"
-				},
-				"children" : [{
-					"items" : [{
-						"apiName" : "View",
-						"classes" : ["top", "bottom", "auto-height", "hgroup", "hwrap-disabled", "accessibility-disabled", "touch-disabled"],
-						"children" : [{
-							"items" : [{
-								"apiName" : "Label",
-								"classes" : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left", "i4", "primary-fg-color", "touch-disabled", "icon-thick-account"]
-							}, {
-								"apiName" : "Label",
-								"classes" : ["margin-left-medium", "h4", "fg-color", "touch-disabled"],
-								"properties" : {
-									"textid" : "titleAccount"
-								}
-							}]
-						}]
-					}]
-				}],
-				"navigation" : {
-					"ctrl" : "account"
 				}
 			}, {
 				"apiName" : "View",
