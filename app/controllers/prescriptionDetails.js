@@ -11,6 +11,7 @@ var args = $.args,
     dateDropdownArgs,
     logger = require("logger"),
     isAutofillEnabled,
+    changeTargetDateParams,
     noReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
 		classes : ["margin-left", "margin-top-xxxl", "margin-right", "h12", "negative-fg-color"],
@@ -996,23 +997,78 @@ function didFailAutoFill(result) {
 	}
 }
 
+function getPrefillOrderDetails() {
+	$.http.request({
+		method : "get_prefill_order_prescriptions",
+		params : {
+			data : [{
+				"getPrefillOrderDetails" : {
+					"uniqueToken" : prescription.uniqueToken
+				}
+			}],
+		  	"filter": null
+		},
+		success : didSuccessInGetPrefillOrderDetails,
+		failure : didFailureInGetPrefillOrderDetails
+	}); 
+}
+
+function didFailureInGetPrefillOrderDetails(result, passthrough) {
+	
+}
+
+function didSuccessInGetPrefillOrderDetails(result, passthrough) {
+	changeTargetDateParams = {
+		"changeTargetDateInPrefillPrescriptions" : {
+			"orderDetails" : {
+				"customerId" : result.data.orderDetails.customerId,
+				"customerName" : result.data.orderDetails.customerName,
+				"orderId" : result.data.orderDetails.orderId,
+				"patientId" : result.data.orderDetails.patientId,
+				"customerTimezone" : result.data.orderDetails.customerTimezone,
+				"uniqueToken" : prescription.uniqueToken
+			},
+			"prefillRx" : [{
+				"prescriptionId" : result.data.prefillRx[0].prescriptionId,
+				"rxNumber" : result.data.prefillRx[0].rxNumber,
+				"writtenProduct" : result.data.prefillRx[0].writtenProduct,
+				"promisedDate" : result.data.prefillRx[0].promisedDate,
+				"storeId" : result.data.prefillRx[0].storeId,
+				"storeAddress" : result.data.prefillRx[0].storeAddress,
+				"storeCity" : result.data.prefillRx[0].storeCity,
+				"storePhoneNumber" : result.data.prefillRx[0].storePhoneNumber,
+				"storeNcpdpId" : result.data.prefillRx[0].storeNcpdpId,
+				"facilityId" : result.data.prefillRx[0].facilityId,
+				"promiseDateDelayDays" : result.data.prefillRx[0].promiseDateDelayDays,
+				"modifiedPromiseDate" : result.data.prefillRx[0].modifiedPromiseDate,
+				"earliestModifiedPromiseDate" : result.data.prefillRx[0].earliestModifiedPromiseDate,
+				"latestModifiedPromiseDate" : result.data.prefillRx[0].latestModifiedPromiseDate
+			}]
+		}
+	}; 
+	
+	showDatePicker();
+}
+
 function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
-	var mDate = moment(dValue, inputFormat),
-	    date = new Date();
-	date.setFullYear(mDate.year(), mDate.month(), mDate.date());
-	dateDropdownArgs.value = date;
+	var promisedDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].promisedDate),
+	    minDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].earliestModifiedPromiseDate),
+	    maxDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].latestModifiedPromiseDate);
+	
+	dateDropdownArgs.value = new Date(promisedDate);
+	dateDropdownArgs.minDate = new Date(minDate);
+	dateDropdownArgs.maxDate = new Date(maxDate);
 	if (OS_ANDROID) {
-		var currentDate = new Date(moment());
 		var dPicker = Ti.UI.createPicker();
 		dPicker.showDatePickerDialog({
 			title : dateDropdownArgs.title,
 			okButtonTitle : dateDropdownArgs.rightTitle,
 			value : dateDropdownArgs.value,
-			minDate : currentDate,
+			minDate : dateDropdownArgs.minDate,
+			maxDate : dateDropdownArgs.maxDate,
 			callback : function(e) {
-				var value = e.value;
-				if (value) {
-					// $.autoFillDate.text = e.value;
+				if (e.value) {
+					changePrefillDate(e.value);
 				}
 			}
 		});
@@ -1022,13 +1078,19 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 			if ($.datePicker) {
 				$.datePicker.off("terminate", didTerminateDatePicker);
 				if (e.value) {
-					// $.autoFillDate.text = e.value;
+					changePrefillDate(e.value);
 				}
 				$.datePicker = null;
 			}
 		});
 		$.datePicker.init();
 	}
+}
+
+function changePrefillDate(date) {
+	var modifiedPromisedDate = date;
+	$.autoFillDate.setText(moment(modifiedPromisedDate).format("ll"));
+	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate = moment(modifiedPromisedDate).format(Alloy.CFG.apiCodes.dob_format);
 }
 
 exports.init = init;
