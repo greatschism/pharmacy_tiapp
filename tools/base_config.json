@@ -154,7 +154,6 @@
 		"storage_engine": "tiencrypted",
 		"first_launch_app": "firstLaunchApp",
 		"first_launch_reminders": "firstLaunchReminders",		
-		"touchid_prompted": "touchidPrompted",
 		"first_launch_med_reminders": "firstLaunchMedReminders",
 		"checkout_info_prompted": "checkoutInfoPrompted",
 		"show_loyalty_signup": "showLoyaltySignup",
@@ -169,7 +168,6 @@
 		"latest_feedback_option": "latestFeedbackOption",
 		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
-		"touch_id_enabled": "touchIDEnabled",
 		"auto_login_enabled": "autoLoginEnabled"
 	},
 	"env:development": {},
