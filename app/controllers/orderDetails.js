@@ -577,6 +577,7 @@ function didRefill(result, passthrough) {
 	reg_ex,
 	rxNumber;
 	
+	Ti.API.info(JSON.stringify(refilledPrescs));
 	/**
 	 * sending prescription name and rx number for success screen
 	 * ensure the api returns the result in the same order
