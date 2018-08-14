@@ -364,8 +364,22 @@ function didPostlayoutPrompt(e) {
 			}));
 			$.reminderRefillView.add(noReminderLabel);
 			$.reminderRefillSwt.getSwitch().setEnabled(false);
-			$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
-			$.autoFillChangeDateView.touchEnabled = prescription.isAutofillPickupDateEditable === "1" ? true : false;
+			if (prescription.nextAutofillPickupDate) {			
+				$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
+			};
+			if (prescription.isAutofillPickupDateEditable !== "1") {
+				$.autoFillChangeDateView.applyProperties($.createStyle({
+					classes : ["auto-height", "inactive-lighter-bg-color"]
+				}));
+				$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
+			} else {
+				$.autoFillChangeDateView.applyProperties($.createStyle({
+					classes : ["auto-height", "bg-color"]
+				}));	
+				if (!$.autoFillChangeDateView._events) {
+					$.autoFillChangeDateView.addEventListener('click', getPrefillOrderDetails);
+				};	
+			}
 		} else if(prescription.prefill === "Y" && !Alloy.CFG.is_mscripts_autofill_enabled) {
 			if(Alloy.CFG.is_autofill_message_enabled) {
 	    		$.autofillView.height = Ti.UI.SIZE;
@@ -935,10 +949,12 @@ function didChangeAutoFill(e) {
 	});
 }
 
-function didSuccessAutoFill() {
+function didSuccessAutoFill(result, passthrough) {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
 	if(isAutofillEnabled === "1") {
-		$.autoFillDate.setText(moment(prescription.nextAutofillPickupDate).format('ll'));
+		if (result.data.updateAutofill[0].nextAutofillPickupDate) {
+			$.autoFillDate.setText(moment(result.data.updateAutofill[0].nextAutofillPickupDate).format('ll'));
+		};
 		$.autoFillChangeDateView.touchEnabled = prescription.isAutofillPickupDateEditable === "1" ? true : false;
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
