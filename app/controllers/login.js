@@ -279,15 +279,19 @@ function loginProcess(e) {
 	// 	});
 	// }
 
+				Ti.API.info("!!!!!!!!!!!!  is_fingerprint_scanner_enabled  !!!!!!!!!!!!!!!!!!! ===== "+Alloy.CFG.is_fingerprint_scanner_enabled )
+				Ti.API.info("!!!!!!!!!!!!  touchID.deviceCanAuthenticate  !!!!!!!!!!!!!!!!!!! ===== "+touchID.deviceCanAuthenticate() )
 
 	authenticator.init({
 		username : username,
 		password : password,
 		loginFailure : didFailed,
-		success : function(passedVar){
-			didAuthenticate(passedVar);		
+		success : function(passedVar){	
 			if( !utilities.getProperty(Alloy.CFG.touchid_prompted, false, "bool", false) && touchID.deviceCanAuthenticate() && OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled) {
 				utilities.setProperty(Alloy.CFG.touchid_prompted, true, "bool", false);
+
+				Ti.API.info("!!!!!!!!!!!!  getProperty(Alloy.CFG.touchid_prompted)  !!!!!!!!!!!!!!!!!!! ===== "+utilities.getProperty(Alloy.CFG.touchid_prompted) )
+				Ti.API.info("!!!!!!!!!!!!  OS_IOS  !!!!!!!!!!!!!!!!!!! ===== "+OS_IOS )
 
 				var dialogView = $.UI.create("ScrollView", {
 					apiName : "ScrollView",
@@ -315,23 +319,23 @@ function loginProcess(e) {
 						title : obj.title,
 						index : index
 					});
-					$.addListener(btn, "click", 
-						function(event) {
-							var index = event.source.index;
+					$.addListener(btn, "click",  function(event) {
+						var index = event.source.index;
+						var message =  $.strings.msgDeferredTouchID;
+						if( index === 1 ) {
+							authenticator.setTouchIDEnabled(true);
+							message =  $.strings.msgEnabledTouchID;
+						} else {
+							authenticator.setTouchIDEnabled(false);
+						}
 
-							if( index === 1 ) {
-								authenticator.setTouchIDEnabled(true);
-								$.uihelper.showDialog({
-									message : $.strings.msgEnabledTouchID,
-								});
-							} else {
-								authenticator.setTouchIDEnabled(false);
-								$.uihelper.showDialog({
-									message : $.strings.msgDeferredTouchID,
-								});	
+						$.uihelper.showDialog({
+							message : message,
+							success : function(){
+								didAuthenticate(passedVar);	
 							}
-
-							$.tID.hide();
+						});	
+						$.tID.hide();
 					});
 					buttonView.add(btn);
 				});
@@ -345,7 +349,7 @@ function loginProcess(e) {
 					apiName : "Label",
 					classes : ["margin-top-extra-large", "margin-bottom-extra-large", "margin-left-extra-large", "h8", "negative-fg-color", "margin-right-extra-large", "txt-center"],
 					text : Alloy.Globals.strings.msgTouchIDLearnMore
-				})
+				});
 
 				dialogView.add(moreInfo);
 				$.addListener(moreInfo, "click", 
@@ -367,11 +371,13 @@ function loginProcess(e) {
 						classes : ["modal-dialog"],
 						children : [dialogView]
 					}));
+				Ti.API.info("!!!!!!!!!!!!  will add to content view !!!!!!!!!!!!!!!!!!! ===== " )
 					$.contentView.add($.tID.getView());
 				//}
 				$.tID.show();
 
 
+				Ti.API.info("!!!!!!!!!!!!  $.tID.show(); !!!!!!!!!!!!!!!!!!! ===== " )
 
 				// $.uihelper.showDialog({
 				// 	message : $.strings.msgPromptTouchID,
@@ -414,6 +420,8 @@ function loginProcess(e) {
 
 
 
+			} else {
+				didAuthenticate(passedVar);	
 			}
 
 		}

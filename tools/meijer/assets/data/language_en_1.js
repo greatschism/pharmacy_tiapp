@@ -46,7 +46,7 @@ module.exports = {
 
 		"msgEnabledTouchIDwKeep": "We see that you also have 'Remember my sign-in info' turned on. Please note that enabling Touch ID will not hide your user credentials from the sign in screen - would you like to turn ‘Remember my sign-in info’ off (you’ll still be able to log in with Touch ID)?",
         "msgTouchIDwKeepTurnedOff": "Ok, 'Remember my sign-in info' has been turned off and your credentials won't show in the 'sign-in' page now. You can always turn this on in the 'account' page.",
-        "msgTouchIDwKeep": "We also see that you also have Touch ID turned on. Please note that Touch ID will not hide your user credentials from the sign-in screen when 'Remember my sign-in info' is enabled'."
+        "msgTouchIDwKeep": "We also see that you also have Touch ID turned on. Please note that Touch ID will not hide your user credentials from the sign-in screen when 'Remember my sign-in info' is enabled'.",
 
 		"carouselLblReminders" : "Get refill, pick up, autofill and \nother important notifications",
 		"receiveTextChildLbl" : "By providing your phone number and clicking \"Continue\", you consent to receiving text messages from Meijer Pharmacy. Texts are for healthcare-related purposes, including, but not limited to: prescription, refill, and pick-up notices and reminders.  Messages may be sent using an automatic telephone dialing system.  Your consent to receive messages is not required for purchase at Meijer.",
