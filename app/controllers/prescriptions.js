@@ -354,8 +354,8 @@ function showRxPreferenceUpdateDialog() {
 	if (dialogCount < preferenceUpdateRx.length) {
 		var updatePresc = preferenceUpdateRx[dialogCount];
 
-		var dialogView = $.UI.create("ScrollView", {
-			apiName : "ScrollView",
+		var dialogView = $.UI.create("View", {
+			apiName : "View",
 			classes : ["top", "auto-height", "vgroup"]
 		});
 		var prescfrom = $.utilities.ucword(updatePresc.get("old_presc_name")),

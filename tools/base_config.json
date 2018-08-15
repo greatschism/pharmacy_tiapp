@@ -71,7 +71,8 @@
 			"checkout_preferences_update": "payments/updateCheckoutPreferences",
 			"payments_credit_card_get": "payments/getCreditCard",
 			"update_promise_time": "prescriptions/updatepromisetimeoption",
-			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill"
+			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill",
+			"get_prefill_order_prescriptions": "prescriptions/getPrefillOrderPrescriptions"
 		},
 		"apiCodes": {
 			"success": "200",
