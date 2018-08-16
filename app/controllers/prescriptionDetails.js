@@ -955,7 +955,19 @@ function didSuccessAutoFill(result, passthrough) {
 		if (result.data.updateAutofill[0].nextAutofillPickupDate) {
 			$.autoFillDate.setText(moment(result.data.updateAutofill[0].nextAutofillPickupDate).format('ll'));
 		};
-		$.autoFillChangeDateView.touchEnabled = prescription.isAutofillPickupDateEditable === "1" ? true : false;
+		if (result.data.updateAutofill[0].isAutofillPickupDateEditable !== "1") {
+			$.autoFillChangeDateView.applyProperties($.createStyle({
+				classes : ["auto-height", "inactive-lighter-bg-color"]
+			}));
+			$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
+		} else {
+			$.autoFillChangeDateView.applyProperties($.createStyle({
+				classes : ["auto-height", "bg-color"]
+			}));	
+			if (!$.autoFillChangeDateView._events) {
+				$.autoFillChangeDateView.addEventListener('click', getPrefillOrderDetails);
+			};	
+		}
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.show();
 			$.autofillView.height = Ti.UI.SIZE;
