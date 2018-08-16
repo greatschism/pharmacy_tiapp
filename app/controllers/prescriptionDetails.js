@@ -1075,10 +1075,10 @@ function didSuccessInGetPrefillOrderDetails(result, passthrough) {
 		}
 	}; 
 	
-	showDatePicker();
+	showDatePicker(result.data);
 }
 
-function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
+function showDatePicker(passthrough) {
 	var promisedDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].promisedDate),
 	    minDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].earliestModifiedPromiseDate),
 	    maxDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].latestModifiedPromiseDate);
@@ -1096,7 +1096,7 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 			maxDate : dateDropdownArgs.maxDate,
 			callback : function(e) {
 				if (e.value) {
-					changePrefillDate(e.value);
+					changePrefillDate(e.value, passthrough);
 				}
 			}
 		});
@@ -1106,7 +1106,7 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 			if ($.datePicker) {
 				$.datePicker.off("terminate", didTerminateDatePicker);
 				if (e.value) {
-					changePrefillDate(e.value);
+					changePrefillDate(e.value, passthrough);
 				}
 				$.datePicker = null;
 			}
@@ -1115,10 +1115,29 @@ function showDatePicker(dValue, inputFormat, outputFormat, rowIndex) {
 	}
 }
 
-function changePrefillDate(date) {
+function changePrefillDate(date, passthrough) {
 	var modifiedPromisedDate = date;
 	$.autoFillDate.setText(moment(modifiedPromisedDate).format("ll"));
 	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate = moment(modifiedPromisedDate).format(Alloy.CFG.apiCodes.dob_format);
+	
+	$.http.request({
+		method : "change_prefill_target_date",
+		params : {
+			data : [changeTargetDateParams]
+		},
+		headers : {
+			"SESSION_ID" : passthrough.sessionId
+		},
+		success : didSuccessPrefillDateChanged,
+		failure : didFailurePrefillDateChanged
+	});
+}
+
+function didSuccessPrefillDateChanged(result, passthrough) {
+}
+
+function didFailurePrefillDateChanged(result, passthrough) {
+	$.autoFillDate.setText(moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].promisedDate).format("ll"));
 }
 
 exports.init = init;
