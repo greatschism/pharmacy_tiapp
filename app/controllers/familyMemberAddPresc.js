@@ -167,11 +167,13 @@ function didAddPrescriptions() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
 	authenticator.updateFamilyAccounts({
 		success : function didUpdateFamilyAccounts() {
-			$.app.navigator.open({
-				ctrl : "hipaa",
-				titleid : "titleHIPAAauthorization",
-				stack : false
-			});
+			if (Alloy.Globals.is_hipaa_url_enabled) {
+				$.app.navigator.open({
+					ctrl : "hipaa",
+					titleid : "titleHIPAAauthorization",
+					stack : false
+				});
+			}
 		}
 	});
 }

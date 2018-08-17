@@ -206,7 +206,7 @@ function didAuthenticate(passthrough) {
 	/**
 	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
+	if ((utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) && Alloy.Globals.is_hipaa_url_enabled) {
 		$.app.navigator.open({
 			ctrl : "hipaa",
 			titleid : "titleHIPAAauthorization",
