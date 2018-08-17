@@ -928,8 +928,10 @@ function loadCopay() {
 
 
 function didChangeAutoFill(e) {
-	isAutofillEnabled;
 	e.value ? isAutofillEnabled = "1" : isAutofillEnabled = "0";
+	if ((prescription.prefill === "Y" && isAutofillEnabled === "1") || (prescription.prefill === "N" && isAutofillEnabled === "0")) {
+		return;
+	}
 	$.http.request({
 		method : "update_mscripts_autofill",
 		params : {
@@ -952,6 +954,7 @@ function didChangeAutoFill(e) {
 function didSuccessAutoFill(result, passthrough) {
 	//$.autoFillSwt.setValue(true, isWindowOpen);
 	if(isAutofillEnabled === "1") {
+		prescription.prefill = "Y";
 		if (result.data.updateAutofill[0].nextAutofillPickupDate) {
 			$.autoFillDate.setText(moment(result.data.updateAutofill[0].nextAutofillPickupDate).format('ll'));
 		};
@@ -993,6 +996,7 @@ function didSuccessAutoFill(result, passthrough) {
 		$.reminderRefillSwt.getSwitch().setEnabled(false);
 	}
 	else {
+		prescription.prefill = "N";
 		if(Alloy.CFG.is_autofill_message_enabled) {
 			$.autofillView.hide();
 			$.autofillView.height = 0;	
@@ -1118,7 +1122,7 @@ function showDatePicker(passthrough) {
 function changePrefillDate(date, passthrough) {
 	var modifiedPromisedDate = date;
 	$.autoFillDate.setText(moment(modifiedPromisedDate).format("ll"));
-	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate = moment(modifiedPromisedDate).format(Alloy.CFG.apiCodes.dob_format);
+	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate = moment(modifiedPromisedDate).format("YYYY-MM-DD HH:mm:ss");
 	
 	$.http.request({
 		method : "change_prefill_target_date",
@@ -1134,6 +1138,7 @@ function changePrefillDate(date, passthrough) {
 }
 
 function didSuccessPrefillDateChanged(result, passthrough) {
+	prescription.nextAutofillPickupDate = changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate;
 }
 
 function didFailurePrefillDateChanged(result, passthrough) {
