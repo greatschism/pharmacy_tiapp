@@ -206,13 +206,48 @@ function didAuthenticate(passthrough) {
 	/**
 	 * First time login flow OR Account Upgraded flow takes the uesr to HIPAA screen
 	 */
-	if ((utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) && Alloy.Globals.is_hipaa_url_enabled) {
-		$.app.navigator.open({
-			ctrl : "hipaa",
-			titleid : "titleHIPAAauthorization",
-			stack : false
-		});
+
+	if (utilities.getProperty($.usernameTxt.getValue(), null, "string", true) == "showHIPAA" || Alloy.Globals.isAccountUpgraded) {
+		if (Alloy.Globals.is_hipaa_url_enabled) {
+			$.app.navigator.open({
+				ctrl : "hipaa",
+				titleid : "titleHIPAAauthorization",
+				stack : false
+			});
+		} else {
+			/**
+			 * remove the entry from the properties so that HIPAA is not displayed to the user next time
+			 */
+			utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
+
+			if (Alloy.CFG.is_express_checkout_enabled) {
+				$.app.navigator.open({
+					titleid : "titleExpressPickupBenefits",
+					ctrl : "expressPickupBenefits",
+					stack : false
+				});
+			} else {
+				currentPatient = Alloy.Collections.patients.findWhere({
+					selected : true
+				});
+
+				if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+					app.navigator.open({
+						titleid : "titleHomePage",
+						ctrl : "home",
+						stack : false
+					});
+				} else {
+					app.navigator.open({
+						titleid : "titleTextBenefits",
+						ctrl : "textBenefits",
+						stack : false
+					});
+				};
+			}
+		}
 	}
+
 	/**
 	 * Check if the partial account has been created.
 	 * if so, take the user to log in screen.
