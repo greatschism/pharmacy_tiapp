@@ -219,7 +219,6 @@ function didAuthenticate(passthrough) {
 			 * remove the entry from the properties so that HIPAA is not displayed to the user next time
 			 */
 			utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
-
 			if (Alloy.CFG.is_express_checkout_enabled) {
 				$.app.navigator.open({
 					titleid : "titleExpressPickupBenefits",
@@ -232,13 +231,13 @@ function didAuthenticate(passthrough) {
 				});
 
 				if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
-					app.navigator.open({
+					$.app.navigator.open({
 						titleid : "titleHomePage",
 						ctrl : "home",
 						stack : false
 					});
 				} else {
-					app.navigator.open({
+					$.app.navigator.open({
 						titleid : "titleTextBenefits",
 						ctrl : "textBenefits",
 						stack : false

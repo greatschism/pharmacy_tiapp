@@ -165,10 +165,8 @@ function addPrescriptions() {
 
 function didAddPrescriptions() {
 	$.utilities.setProperty("familyMemberAddPrescFlow", true, "bool", true);
-	authenticator.updateFamilyAccounts({
-	
-		success :
-		function didUpdateFamilyAccounts() {
+	authenticator.updateFamilyAccounts({	
+		success : function didUpdateFamilyAccounts() {
 			if (Alloy.Globals.is_hipaa_url_enabled) {
 				$.app.navigator.open({
 					ctrl : "hipaa",
@@ -193,13 +191,13 @@ function didAddPrescriptions() {
 					});
 
 					if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
-						app.navigator.open({
+						$.app.navigator.open({
 							titleid : "titleHomePage",
 							ctrl : "home",
 							stack : false
 						});
 					} else {
-						app.navigator.open({
+						$.app.navigator.open({
 							titleid : "titleTextBenefits",
 							ctrl : "textBenefits",
 							stack : false
