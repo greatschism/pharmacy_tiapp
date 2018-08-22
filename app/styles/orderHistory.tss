@@ -1,6 +1,7 @@
 "#patientSwitcher":{
 	disabled: false
-},
-"#partialTitleLbl":{
-	text: Alloy.Globals.strings.prescPartialLblTitle
 }
+//,
+// "#partialTitleLbl":{
+	// text: Alloy.Globals.strings.prescPartialLblTitle
+// }

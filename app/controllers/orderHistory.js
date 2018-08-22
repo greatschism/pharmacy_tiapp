@@ -5,9 +5,9 @@ var args = $.args,
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
-    titleClasses = ["left", "h4", "wrap-disabled"],
-    subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
-    detailClasses = ["margin-left-small", "custom-fg-color"],
+    titleClasses = ["left", "h5", "inactive-fg-color", "wrap-disabled"],
+    subtitleClasses = ["margin-top-small", "h5", "left", "inactive-fg-color", "wrap-disabled"],
+    detailClasses = ["margin-left-small", "h5", "right", "txt-left", "wrap-disabled"],
     isWindowOpen,
     orderDetailsData = [],
     rows = [];
@@ -21,8 +21,8 @@ function init() {
 	 * only if patientSwitcherDisabled is false
 	 */
 	$.patientSwitcher.set({
-		revert : true,
-		title : $.strings.prescPatientSwitcher,
+		// revert : true,
+		title : $.strings.orderHistoryPatientSwitcher,
 		where : {
 			is_partial : false
 		}
@@ -35,8 +35,8 @@ function focus() {
 
 		getOrderHistory();
 
-		if($.patientSwitcher.visible) {
-		logger.debug("\n\n\n patientSwitcher is visible \n\n\n");
+		if ($.patientSwitcher.visible) {
+			logger.debug("\n\n\n patientSwitcher is visible \n\n\n");
 		}
 	}
 }
@@ -66,13 +66,22 @@ function didGetOrderHistory(result, passthrough) {
 			var totalPrice = history.totalRxPrice != null ? (history.deliveryCost != null ? parseFloat(history.totalRxPrice) + parseFloat(history.deliveryCost) : parseFloat(history.totalRxPrice) ) : 0;
 
 			history = {
+				masterWidth : 40,
+				detailWidth : 60,
 				id : history.orderNumber,
-				title : "#" + history.orderNumber,
-				subtitle : moment(history.orderDate, apiCodes.date_format).format(Alloy.CFG.date_format), //history.orderDate && moment(history.orderDate, serverDateFormat).format(clientDateFormat) || ""
-				detailTitle : totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2),
-				detailType : "positive"
-				// tertiaryTitle :
+				title : "Order date",
+				detailTitle : moment(history.orderDate, apiCodes.date_format).format(Alloy.CFG.date_format),
+				subtitle : "Order #",
+				detailSubtitle : history.orderNumber,
+				tertiaryTitle : "Order total",
+				detailTertiaryTitle : totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2),
+				detailTertiaryType : "positive",
+				titleClasses : titleClasses,
+				subtitleClasses : titleClasses,
+				ttClasses : titleClasses,
+				detailClasses : detailClasses
 			};
+
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
 			data.push(row.getView());
 			rows.push(row);
@@ -82,8 +91,7 @@ function didGetOrderHistory(result, passthrough) {
 	} else {
 		$.uihelper.showDialog({
 			message : $.strings.orderHistoryMsgEmptyList,
-			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
-			success : handleClose
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK]
 		});
 	}
 }
@@ -113,18 +121,28 @@ function didClickTableView(e) {
 
 function prepareData() {
 	var currentPatient = $.patientSwitcher.get();
-	if (currentPatient.get("is_partial")) {
-		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
-		if (!$.partialView.visible) {
-			$.partialView.visible = true;
-		}
-	} else {
-		//hide if any
-		if ($.partialView.visible) {
-			$.partialView.visible = false;
-		}
-		getOrderHistory();
-	}
+	/*
+	 if (currentPatient.get("is_partial")) {
+	 $.partialDescLbl.text = $.strings.prescPartialLblDesc;
+	 if (!$.partialView.visible) {
+	 $.partialView.visible = true;
+	 }
+	 } else {
+	 //hide if any
+	 if ($.partialView.visible) {
+	 $.partialView.visible = false;
+	 }
+	 }
+	 */
+
+	getOrderHistory();
+
+}
+
+function handleClose() {
+	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
+		landing_page : true
+	}).toJSON());
 }
 
 function didPostlayout(e) {
@@ -138,22 +156,19 @@ function didPostlayout(e) {
 		top : top,
 		bottom : bottom
 	});
-	$.partialView.applyProperties({
-		top : top,
-		bottom : bottom
-	});
+	/*
+	 $.partialView.applyProperties({
+	 top : top,
+	 bottom : bottom
+	 });
+	 */
+
 }
 
 function setParentView(view) {
 	if ($.patientSwitcher) {
 		$.patientSwitcher.setParentView(view);
 	}
-}
-
-function handleClose() {
-	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
-		landing_page : true
-	}).toJSON());
 }
 
 function terminate() {

@@ -239,10 +239,11 @@ module.exports = {
 		"titleDeliveryOptions" : "Delivery Options",
 		"titlePaymentMethod" : "Payment Method",
 		"paymentDetBtnSubmit" : "Submit",
-		
-		"titleOrderHistory" : "Order History",
-		"orderHistoryMsgEmptyList" : "No order history found.",
-		
+
+		"titleOrderHistory" : "Delivery Order History",
+		"orderHistoryMsgEmptyList" : "No delivery order history found.",
+		"orderHistoryPatientSwitcher" : "%s's orders",
+
 		"carouselLblApp" : "Manage your prescriptions\nanytime, anywhere.",
 		"carouselLblPrescriptions" : "See a complete list of your\nprescriptions",
 		"carouselLblRefill" : "Refill prescriptions instantly",
