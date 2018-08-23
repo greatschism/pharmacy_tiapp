@@ -13,7 +13,8 @@
 					"modifiters": "g",
 					"value": ""
 				}
-			]
+			],
+			"prescription_pickup_reminder":10
 		}
 	},
 	"values": {
