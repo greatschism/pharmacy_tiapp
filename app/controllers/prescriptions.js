@@ -1936,7 +1936,7 @@ function didChangeSearch(e) {
 }
 
 function didClickRightNavBtn(e) {
-	if( args.hideCheckoutHeader) {
+	if( args.hideCheckoutHeader || !$.rightNavBtn.getNavButton().visible) {
 		//return if we're on the checkout page..
 
 		return;
