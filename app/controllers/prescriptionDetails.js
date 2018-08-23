@@ -11,6 +11,7 @@ var args = $.args,
     dateDropdownArgs,
     logger = require("logger"),
     isAutofillEnabled,
+    prefillRx,
     changeTargetDateParams,
     noReminderLabel = $.UI.create("Label", {
 		apiName : "Label",
@@ -1060,22 +1061,7 @@ function didSuccessInGetPrefillOrderDetails(result, passthrough) {
 				"customerTimezone" : result.data.orderDetails.customerTimezone,
 				"uniqueToken" : prescription.uniqueToken
 			},
-			"prefillRx" : [{
-				"prescriptionId" : result.data.prefillRx[0].prescriptionId,
-				"rxNumber" : result.data.prefillRx[0].rxNumber,
-				"writtenProduct" : result.data.prefillRx[0].writtenProduct,
-				"promisedDate" : result.data.prefillRx[0].promisedDate,
-				"storeId" : result.data.prefillRx[0].storeId,
-				"storeAddress" : result.data.prefillRx[0].storeAddress,
-				"storeCity" : result.data.prefillRx[0].storeCity,
-				"storePhoneNumber" : result.data.prefillRx[0].storePhoneNumber,
-				"storeNcpdpId" : result.data.prefillRx[0].storeNcpdpId,
-				"facilityId" : result.data.prefillRx[0].facilityId,
-				"promiseDateDelayDays" : result.data.prefillRx[0].promiseDateDelayDays,
-				"modifiedPromiseDate" : result.data.prefillRx[0].modifiedPromiseDate,
-				"earliestModifiedPromiseDate" : result.data.prefillRx[0].earliestModifiedPromiseDate,
-				"latestModifiedPromiseDate" : result.data.prefillRx[0].latestModifiedPromiseDate
-			}]
+			"prefillRx" : result.data.prefillRx
 		}
 	}; 
 	
@@ -1083,9 +1069,12 @@ function didSuccessInGetPrefillOrderDetails(result, passthrough) {
 }
 
 function showDatePicker(passthrough) {
-	var promisedDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].promisedDate),
-	    minDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].earliestModifiedPromiseDate),
-	    maxDate = moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].latestModifiedPromiseDate);
+	prefillRx = _.findWhere(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx, {"prescriptionId": prescription.id, "prescriptionStatus": "Active"});
+	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx = [];
+	
+	var promisedDate = moment(prefillRx.promisedDate),
+	    minDate = moment(prefillRx.earliestModifiedPromiseDate),
+	    maxDate = moment(prefillRx.latestModifiedPromiseDate);
 	
 	dateDropdownArgs.value = new Date(promisedDate);
 	dateDropdownArgs.minDate = new Date(minDate);
@@ -1110,7 +1099,7 @@ function showDatePicker(passthrough) {
 			if ($.datePicker) {
 				$.datePicker.off("terminate", didTerminateDatePicker);
 				if (e.value) {
-					changePrefillDate(e.value, passthrough);
+					changePrefillDate(e.value.toLocaleString(), passthrough);
 				}
 				$.datePicker = null;
 			}
@@ -1120,9 +1109,11 @@ function showDatePicker(passthrough) {
 }
 
 function changePrefillDate(date, passthrough) {
-	var modifiedPromisedDate = date;
+	var modifiedPromisedDate = moment.utc(date);
 	$.autoFillDate.setText(moment(modifiedPromisedDate).format("ll"));
-	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate = moment(modifiedPromisedDate).format("YYYY-MM-DD HH:mm:ss");
+	prefillRx.modifiedPromiseDate = moment(modifiedPromisedDate).format("YYYY-MM-DD HH:mm:ss");
+	prefillRx = _.omit(prefillRx, 'promiseDateInDayOfWeekMonthDateFormat', 'prescriptionStatus');
+	changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx.push(prefillRx);
 	
 	$.http.request({
 		method : "change_prefill_target_date",
@@ -1138,11 +1129,11 @@ function changePrefillDate(date, passthrough) {
 }
 
 function didSuccessPrefillDateChanged(result, passthrough) {
-	prescription.nextAutofillPickupDate = changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].modifiedPromiseDate;
+	prescription.nextAutofillPickupDate = prefillRx.modifiedPromiseDate;
 }
 
 function didFailurePrefillDateChanged(result, passthrough) {
-	$.autoFillDate.setText(moment(changeTargetDateParams.changeTargetDateInPrefillPrescriptions.prefillRx[0].promisedDate).format("ll"));
+	$.autoFillDate.setText(moment(prefillRx.promisedDate).format("ll"));
 }
 
 exports.init = init;
