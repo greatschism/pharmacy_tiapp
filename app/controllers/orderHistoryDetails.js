@@ -5,13 +5,33 @@ var args = $.args,
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     validator = args.validator,
-    titleClasses = ["left", "h4", "wrap-disabled"],
-    subtitleClasses = ["margin-top-small", "left", "inactive-fg-color", "wrap-disabled"],
-    detailClasses = ["margin-left-small", "custom-fg-color"],
+    titleClasses = ["left", "h5", "inactive-fg-color", "wrap-disabled"],
+    subtitleClasses = ["margin-top-small", "h5", "left", "inactive-fg-color", "wrap-disabled"],
+    detailClasses = ["margin-left-small", "h5", "right", "txt-left", "wrap-disabled"],
     isWindowOpen,
     orderDetailsData = args.orderDetailsData,
     postlayoutCount = 0,
     rows = [];
+
+var data = [],
+    orderDetails,
+    shipmentDetails,
+    paymentDetails,
+    orderSummary;
+
+var sections = {
+	orderDetails : [],
+	shipmentDetails : [],
+	paymentDetails : [],
+	orderSummary : []
+};
+
+var sectionHeaders = {
+	orderDetails : "",
+	shipmentDetails : "Shipment details",
+	paymentDetails : "Payment information",
+	orderSummary : "Order Summary"
+};
 
 function init() {
 	analyticsCategory = require("moduleNames")[$.ctrlShortCode] + "-" + require("ctrlNames")[$.ctrlShortCode];
@@ -22,126 +42,156 @@ function focus() {
 		isWindowOpen = true;
 		logger.debug("\n\n\n args.orderDetailsData		", JSON.stringify(orderDetailsData, null, 4), "\n\n\n");
 
+		var totalPrice = orderDetailsData.totalRxPrice != null ? (orderDetailsData.deliveryCost != null ? parseFloat(orderDetailsData.totalRxPrice) + parseFloat(orderDetailsData.deliveryCost) : parseFloat(orderDetailsData.totalRxPrice) ) : 0;
+
 		if (orderDetailsData) {
-			$.orderNumberLbl.text = "#" + orderDetailsData.orderNumber || null;
-			$.orderDateLbl.text = moment(orderDetailsData.orderDate, apiCodes.date_format).format(Alloy.CFG.date_format);
+			var history = {
+				section : "orderDetails",
+				itemTemplate : "masterDetail",
+				masterWidth : 40,
+				detailWidth : 60,
+				id : orderDetailsData.orderNumber || null,
+				title : "Order date",
+				detailTitle : moment(orderDetailsData.orderDate, apiCodes.date_format).format(Alloy.CFG.date_format),
+				subtitle : "Order #",
+				detailSubtitle : orderDetailsData.orderNumber || null,
+				tertiaryTitle : "Order total",
+				detailTertiaryTitle : totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2),
+				detailTertiaryType : "positive",
+				titleClasses : titleClasses,
+				subtitleClasses : titleClasses,
+				ttClasses : titleClasses,
+				detailClasses : detailClasses
+			};
 
-			$.orderDeliveryTypeReplyLbl.text = orderDetailsData.deliveryType;
-			$.orderDeliveryCostReplyLbl.text = "$" + orderDetailsData.deliveryCost;
-			$.orderDeliveryAddressReplyLbl.text = orderDetailsData.deliveryAddress;
-			$.orderContactNumerReplyLbl.text = $.utilities.isPhoneNumber(orderDetailsData.mobileNumber) ? $.utilities.formatPhoneNumber(orderDetailsData.mobileNumber) : "";
-			$.orderPaymentMethodReplyLbl.text = orderDetailsData.cardType + " ending in " + orderDetailsData.lastFourDigit;
+			orderDetails = $.uihelper.createTableViewSection($, "", sectionHeaders["orderDetails"], false);
 
-			var totalPrice = orderDetailsData.totalRxPrice != null ? (orderDetailsData.deliveryCost != null ? parseFloat(orderDetailsData.totalRxPrice) + parseFloat(orderDetailsData.deliveryCost) : parseFloat(orderDetailsData.totalRxPrice) ) : 0;
+			var rowParams = history,
+			    row;
 
-			$.orderTotalCostReplyLbl.text = totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2);
-			$.prescAsyncView.hide();
+			rowParams.filterText = _.values(_.pick(rowParams, ["title", "tertiaryTitle"])).join(" ").toLowerCase();
+			row = Alloy.createController("itemTemplates/".concat(rowParams.itemTemplate), rowParams);
 
-			var data = [];
+			sectionHeaders[rowParams.section] += rowParams.filterText;
+			sections[rowParams.section].push(row);
+			orderDetails.add(row.getView());
+
+			data.push(orderDetails);
 
 			if (orderDetailsData.prescriptions.length) {
+
+				var headerDict = $.createStyle({
+					classes : ["bubble-disabled"],
+					title : orderDetailsData.deliveryType,
+					accessibilityLabel : orderDetailsData.deliveryType,
+					secondaryHeader : true
+				});
+
+				shipmentDetails = $.uihelper.createTableViewSection($, "Shipment details", sectionHeaders["shipmentDetails"], false, headerDict);
+
 				_.each(orderDetailsData.prescriptions, function(prescription) {
 
 					prescription = {
+						section : "shipmentDetails",
+						itemTemplate : "masterDetail",
 						id : prescription.rxNumber,
 						title : $.utilities.ucword(prescription.rxName),
 						subtitle : "#" + prescription.rxNumber,
 						detailTitle : prescription.copay == 0 ? "$0" : "$" + parseFloat(prescription.copay).toFixed(2),
-						detailType : "positive"
-						// tertiaryTitle :
+						detailType : "positive",
+						titleClasses : titleClasses
 					};
-					var row = Alloy.createController("itemTemplates/masterDetail", prescription);
-					data.push(row.getView());
-					rows.push(row);
+
+					_.extend(prescription, {
+						titleClasses : ["left", "h5", "fg-color"]
+					});
+
+					var rowParams1 = prescription,
+					    row1;
+
+					rowParams1.filterText = _.values(_.pick(rowParams1, ["title", "tertiaryTitle"])).join(" ").toLowerCase();
+					row1 = Alloy.createController("itemTemplates/".concat(rowParams1.itemTemplate), rowParams1);
+
+					sectionHeaders[rowParams1.section] += rowParams1.filterText;
+					sections[rowParams1.section].push(row1);
+					shipmentDetails.add(row1.getView());
+
 				});
 
-				$.tableView.setData(data);
+				data.push(shipmentDetails);
+
 			}
-			setTimeout(didUpdateUI, 1000);
+
+			paymentDetails = $.uihelper.createTableViewSection($, "Payment information", sectionHeaders["paymentDetails"], false);
+
+			var payment = {
+				section : "paymentDetails",
+				itemTemplate : "masterDetail",
+				masterWidth : 100,
+				detailWidth : 0,
+				title : "Payment Method",
+				subtitle : orderDetailsData.cardType + " " + Alloy.Globals.strings.checkoutCCEndingIn + " " + orderDetailsData.lastFourDigit,
+				titleClasses : titleClasses
+			};
+
+			_.extend(payment, {
+				titleClasses : ["left", "h5", "fg-color"]
+			});
+
+			var rowParams2 = payment,
+			    row2;
+
+			rowParams2.filterText = _.values(_.pick(rowParams2, ["title"])).join(" ").toLowerCase();
+			row2 = Alloy.createController("itemTemplates/".concat(rowParams2.itemTemplate), rowParams2);
+
+			sectionHeaders[rowParams2.section] += rowParams2.filterText;
+			sections[rowParams2.section].push(row2);
+			paymentDetails.add(row2.getView());
+
+			data.push(paymentDetails);
+
+			orderSummary = $.uihelper.createTableViewSection($, "Order Summary", sectionHeaders["orderSummary"], false);
+
+			var summary = {
+				section : "orderSummary",
+				itemTemplate : "masterDetail",
+				masterWidth : 100,
+				detailWidth : 0,
+				title : "Items:",
+				detailTitle : "$" +(orderDetailsData.totalRxPrice || "0"),
+				subtitle : "Shipping & Handling:",
+				detailSubtitle : "$" +(orderDetailsData.deliveryCost || "0"),
+				tertiaryTitle : "Order total",
+				detailTertiaryTitle : totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2),
+				detailTertiaryType : "positive",
+				titleClasses : titleClasses,
+				subtitleClasses : titleClasses,
+				ttClasses : titleClasses,
+				detailClasses : detailClasses
+			};
+
+			_.extend(summary, {
+				ttClasses : ["left", "h3", "fg-color", "wrap-disabled"],
+				detailClasses : ["margin-left-small", "h5", "right", "txt-right", "wrap-disabled"]
+			});
+
+			var rowParams3 = summary,
+			    row3;
+
+			rowParams3.filterText = _.values(_.pick(rowParams3, ["title"])).join(" ").toLowerCase();
+			row3 = Alloy.createController("itemTemplates/".concat(rowParams3.itemTemplate), rowParams3);
+
+			sectionHeaders[rowParams3.section] += rowParams3.filterText;
+			sections[rowParams3.section].push(row3);
+			orderSummary.add(row3.getView());
+
+			data.push(orderSummary);
+
+			$.tableView.setData(data);
+
 		}
 
 	}
-}
-
-function didUpdateUI() {
-	/**
-	 * PHA-1086 - keep it expanded
-	 * incase to revert:
-	 * 1. Update the toggle
-	 * (show more / less) title in xml
-	 * 2. remove $.prescExp.expand();
-	 * 3. keep only $.loader.hide();
-	 * 4. move this setTimeout(didUpdateUI, 1000);
-	 * to init
-	 */
-	$.prescExp.expand();
-	if (Ti.App.accessibilityEnabled) {
-		togglePrescription();
-	};
-	$.loader.hide();
-}
-
-function togglePrescription(e) {
-	var title,
-	    result;
-	if ($.prescExp.isExpanded()) {
-		title = "prescDetExpand";
-		result = $.prescExp.collapse();
-	} else {
-		title = "prescDetCollapse";
-		result = $.prescExp.expand();
-	}
-	if (result) {
-		// $.toggleLbl.text = $.strings[title];
-	}
-	// $.loader.hide();
-
-}
-
-function didClickShowPrescriptions() {
-	$.rxContainerView.show();
-}
-
-function didClickDone(e) {
-	$.rxContainerView.hide();
-}
-
-function didPostlayoutPrompt(e) {
-	logger.debug("\n\n\n in didPostlayoutPrompt\n\n\n");
-
-	var source = e.source,
-	    children = source.getParent().children;
-	// source.removeEventListener("postlayout", didPostlayoutPrompt);
-	children[1].applyProperties({
-		left : children[1].left + children[0].rect.width,
-		visible : true
-	});
-	postlayoutCount++;
-	if (postlayoutCount === 0) {
-		$.prescExp.setStopListening(true);
-		// $.loader.hide();
-		logger.debug("\n\n\n stop listening\n\n\n");
-	}
-}
-
-function didPostlayout(e) {
-	/*
-	$.rxContainerView.removeEventListener("postlayout", didPostlayout);
-		var top = $.tableView.top,
-			margin = $.tableView.bottom,
-			bottom;
-		bottom = margin;
-		bottom = bottom + $.hideBtn.height * 2;
-	
-		$.tableView.applyProperties({
-			top : top,
-			bottom : bottom
-		});
-		
-		$.hideBtn.applyProperties({
-			top : bottom
-		});*/
-	
 }
 
 exports.init = init;
