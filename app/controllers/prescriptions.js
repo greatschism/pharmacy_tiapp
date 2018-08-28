@@ -648,7 +648,7 @@ function prepareList() {
 			}
 		}
 		
-		if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
+		if (hasMedSyncEnabled && Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
 			var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
 			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
 			var now = moment().format("MM/DD/YYYY");					
@@ -657,6 +657,7 @@ function prepareList() {
 				return;
 			};
 		};
+		
 		
 		//process sections
 		prescription = processSections(prescription, daysLeft);
