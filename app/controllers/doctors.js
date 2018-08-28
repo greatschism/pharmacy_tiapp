@@ -1,5 +1,6 @@
 var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
+    logger = require("logger"),
     prescriptions = [],
     rows,
     swipeOptions,
@@ -122,22 +123,31 @@ function didGetPrescriptions(result, passthrough) {
 	}
 	rows = [];
 	var data = [];
+
+	logger.debug("\n\n\n processing doctor model \n\n\n");
+
+	logger.debug(JSON.stringify(Alloy.Collections.doctors), "\n\n\n");
+
 	Alloy.Collections.doctors.each(function(model) {
 		/*
-		* ALBD-160 : Hide/show doctors based on flag is_hidden
-		*
-		*/
+		 * ALBD-160 : Hide/show doctors based on flag is_hidden
+		 *
+		 */
+		logger.debug("\n\n\n in for each\t", JSON.stringify(model), " \n\n\n");
+
 		if (showHiddenDoctors) {
-			var row = processModel(model);
-			data.push(row.getView());
-			rows.push(row);
-		} else if (!model.is_hidden) { // if (model.is_hidden == 0) { //use this once OPH release is done.
+			model.set("is_hidden", 0);
+		}
+
+		if (model.get("is_hidden") == 0) {
+			logger.debug("\n\n\n show doc \t", JSON.stringify(model), "\n\n\n");
 			var row = processModel(model);
 			data.push(row.getView());
 			rows.push(row);
 		}
 	});
 	$.tableView.setData(data);
+	showHiddenDoctors = showHiddenDoctors == true ? !showHiddenDoctors : showHiddenDoctors;
 	/*
 	 *  reset the swipe flag
 	 *  once a fresh list is loaded
@@ -284,6 +294,28 @@ function hideDoctor(e) {
 	});
 }
 
+function unhideDoctors() {
+	var d;
+	Alloy.Collections.doctors.each(function(model) {
+		if (model.get("is_hidden") == 1) {
+			model.set("is_hidden", 0);
+			d = model;
+		}
+	});
+	logger.debug("\n\n\n update data\t", JSON.stringify(d), "\n\n\n");
+	var data = _.pick(d, ["id", "is_hidden"]);
+	$.http.request({
+		method : "doctors_update",
+		params : {
+			data : [{
+				doctors : data
+			}]
+		},
+		passthrough : data,
+		success : didSuccessDoctor
+	});
+}
+
 function didSuccessDoctor(result, passthrough) {
 	getDoctors();
 }
@@ -364,7 +396,7 @@ function didClickOptionMenu(e) {
 		break;
 	case 1:
 		showHiddenDoctors = true;
-		getDoctors();
+		unhideDoctors();
 		break;
 	}
 }
