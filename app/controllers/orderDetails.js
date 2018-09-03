@@ -814,8 +814,14 @@ function didClickRefill(e) {
 	});
 }
 
+
 function didRefill(result, passthrough) {
-	var refilledPrescs = result.data.prescriptions;
+	var refilledPrescs = result.data.prescriptions,
+	date,
+	dateTimeFormat,
+	reg_ex,
+	rxNumber;
+	
 	Ti.API.info(JSON.stringify(refilledPrescs));
 	/**
 	 * sending prescription name and rx number for success screen

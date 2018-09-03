@@ -147,8 +147,8 @@ module.exports = {
 	 * contact us
 	 */
 	"COUS" : "COUS",
-	/**
-	 * 
+	 /**
+	 * Additional Cust Info
 	 */
 	"ADCI" : "additionalCustInfo",
 	"ACID" : "additionalCustInfoDelete"
