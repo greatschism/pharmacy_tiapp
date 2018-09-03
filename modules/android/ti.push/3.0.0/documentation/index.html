@@ -1,0 +1,133 @@
+<h1>TiPush</h1>
+
+<h2>Description</h2>
+
+<p>GCM Push support for android.</p>
+
+<h2>Usage</h2>
+
+<p><code></code>`javascript
+var TiPush = require(&quot;ti.push&quot;);
+TiPush.addEventListener(&quot;callback&quot;, function(e) {
+	console.log(&quot;callback fired&quot;);
+	//test parsing
+	var data = JSON.parse(e.payload);
+	label.text = JSON.stringify(data);
+});</p>
+
+<p>var isAvailable = TiPush.isGooglePlayServicesAvailable();
+switch (isAvailable) {
+case TiPush.SERVICE<em>DISABLED:
+	Ti.API.info(&quot;SERVICE</em>DISABLED&quot;);
+	break;
+case TiPush.SERVICE<em>INVALID:
+	Ti.API.info(&quot;SERVICE</em>INVALID&quot;);
+	break;
+case TiPush.SERVICE<em>MISSING:
+	Ti.API.info(&quot;SERVICE</em>MISSING&quot;);
+	break;
+case TiPush.SERVICE<em>UPDATING:
+	Ti.API.info(&quot;SERVICE</em>UPDATING&quot;);
+	break;
+case TiPush.SERVICE<em>VERSION</em>UPDATE<em>REQUIRED:
+	Ti.API.info(&quot;SERVICE</em>VERSION<em>UPDATE</em>REQUIRED&quot;);
+	break;
+case TiPush.SUCCESS:
+	Ti.API.info(&quot;SUCCESS&quot;);
+	break;
+default:
+	Ti.API.info(&quot;Something went wrong, no matches : &quot; + isAvailable);
+}</p>
+
+<p>var window = Ti.UI.createWindow({
+	backgroundColor : &quot;#FFFFFF&quot;
+});
+window.open();</p>
+
+<p>var scrollView = Ti.UI.createScrollView({
+	layout : &quot;vertical&quot;
+});
+window.add(scrollView);</p>
+
+<p>var deviceIdBtn = Ti.UI.createButton({
+	title : &quot;Get device id&quot;,
+	top : &quot;20&quot;
+});
+deviceIdBtn.addEventListener(&quot;click&quot;, getDeviceId);
+scrollView.add(deviceIdBtn);</p>
+
+<p>var registerBtn = Ti.UI.createButton({
+	title : &quot;Register&quot;,
+	top : &quot;20&quot;
+});
+registerBtn.addEventListener(&quot;click&quot;, getToken);
+scrollView.add(registerBtn);</p>
+
+<p>var unregisterBtn = Ti.UI.createButton({
+	title : &quot;Un-Register&quot;,
+	top : &quot;20&quot;
+});
+unregisterBtn.addEventListener(&quot;click&quot;, deleteToken);
+scrollView.add(unregisterBtn);</p>
+
+<p>var updateBtn = Ti.UI.createButton({
+	title : &quot;Update&quot;,
+	top : &quot;20&quot;
+});
+updateBtn.addEventListener(&quot;click&quot;, update);
+scrollView.add(updateBtn);</p>
+
+<p>var newWinBtn = Ti.UI.createButton({
+	title : &quot;Open new window&quot;,
+	top : &quot;20&quot;
+});
+newWinBtn.addEventListener(&quot;click&quot;, openNewWin);
+scrollView.add(newWinBtn);</p>
+
+<p>var label = Ti.UI.createLabel({
+	top : 20,
+	left : 12,
+	right : 12,
+	textAlign : &quot;center&quot;,
+	color : &quot;#000&quot;
+});
+scrollView.add(label);</p>
+
+<p>function getDeviceId() {
+	alert(TiPush.deviceId);
+}</p>
+
+<p>function update() {
+	TiPush.updateGooglePlayServices();
+}</p>
+
+<p>function getToken() {
+	TiPush.retrieveDeviceToken({
+		senderId : &quot;15063256342&quot;,
+		success : function(evt) {
+			console.log(evt);
+		},
+		error : function(evt) {
+			console.log(evt);
+		}
+	});
+}</p>
+
+<p>function deleteToken() {
+	TiPush.clearStatus({
+		senderId : &quot;15063256342&quot;,
+		success : function(evt) {
+			console.log(evt);
+		},
+		error : function(evt) {
+			console.log(evt);
+		}
+	});
+}</p>
+
+<p>function openNewWin() {
+	Ti.UI.createWindow({
+		backgroundColor : &quot;#FFFFFF&quot;
+	}).open();
+}
+<code></code>`</p>

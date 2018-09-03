@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.1
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86
+description: an_customfont
+author: Harshal Hardiya
+license: Specify your license
+copyright: Copyright (c) 2018 by Your Company
+
+# these should not be edited
+name: an_customfont
+moduleid: com.mscripts.customfont
+guid: 8edabd28-1497-4cc5-bd56-56f90313462b
+platform: android
+minsdk: 7.0.1

@@ -12,7 +12,7 @@
 					</View>
 				</LeftNavButton>
 				<TitleControl>
-					<Label id="titleControl" class="title-control" />
+					<Label id="titleControl" class="width-100 hight-100 title-control txt-center" />	
 				</TitleControl>
 			</Window>
 		</NavigationWindow>

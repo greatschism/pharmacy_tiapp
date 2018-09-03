@@ -1,6 +1,5 @@
 var TAG = "ENUT",
-    c = require("crypto/core"),
-    aes = require("crypto/aes"),
+    CryptoJS = require("crypto/crypto-js"),
     logger = require("logger"),
     utilities = require("utilities"),
     STATIC_KEY_LENGTH = 8,
@@ -21,25 +20,25 @@ function generateStaticKey() {
 }
 
 function encrypt(plainText) {
-	var encryptDynamicKey = c.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH)),
-	    encryptIV = c.lib.WordArray.random(IV_LENGTH),
-	    encryptFinalKey = c.enc.Hex.parse(STATIC_KEY).concat(encryptDynamicKey),
-	    encryptedData = aes.encrypt(plainText, encryptFinalKey, {
+	var encryptDynamicKey = CryptoJS.enc.Utf8.parse(utilities.getRandomString(DYNAMIC_KEY_LENGTH)),
+	    encryptIV = CryptoJS.lib.WordArray.random(IV_LENGTH),
+	    encryptFinalKey = CryptoJS.enc.Hex.parse(STATIC_KEY).concat(encryptDynamicKey),
+	    encryptedData = CryptoJS.AES.encrypt(plainText, encryptFinalKey, {
 		iv : encryptIV
 	}).ciphertext;
-	return c.enc.Base64.stringify(encryptDynamicKey.concat(encryptIV).concat(encryptedData));
+	return CryptoJS.enc.Base64.stringify(encryptDynamicKey.concat(encryptIV).concat(encryptedData));
 }
 
 function decrypt(cipherText) {
 	try {
-		cipherText = c.enc.Base64.parse(cipherText).toString();
-		var decryptFinalKey = c.enc.Hex.parse(STATIC_KEY.concat(cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
-		    decryptIV = c.enc.Hex.parse(cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
-		return aes.decrypt({
-			ciphertext : c.enc.Hex.parse(cipherText.substring(IV_BYTES_LAST_INDEX))
+		cipherText = CryptoJS.enc.Base64.parse(cipherText).toString();
+		var decryptFinalKey = CryptoJS.enc.Hex.parse(STATIC_KEY.concat(cipherText.substring(0, DYNAMIC_KEY_LENGTH_IN_BYTES))),
+		    decryptIV = CryptoJS.enc.Hex.parse(cipherText.substring(DYNAMIC_KEY_LENGTH_IN_BYTES, IV_BYTES_LAST_INDEX));
+		return CryptoJS.AES.decrypt({
+			ciphertext : CryptoJS.enc.Hex.parse(cipherText.substring(IV_BYTES_LAST_INDEX))
 		}, decryptFinalKey, {
 			iv : decryptIV
-		}).toString(c.enc.Utf8);
+		}).toString(CryptoJS.enc.Utf8);
 	} catch(error) {
 		logger.error(TAG, "Unable to decrypt");
 		return "";

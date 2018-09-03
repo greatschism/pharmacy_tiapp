@@ -49,13 +49,8 @@ function init() {
 
 function setAccessibilityLabelOnSwitch(switchObj , strValue) {
     var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = strValue;
-		iDict.accessibilityLabelOff = strValue;
-    } else {
-		iDict.accessibilityLabel = strValue;
-    }
-    iDict.accessibilityHint = "Double tap to toggle";
+    iDict.accessibilityLabel = strValue;
+    iDict.accessibilityHint = $.strings.accountSwitchAccessibilityHint;
     switchObj.applyProperties(iDict);
 }
 

@@ -157,7 +157,7 @@ function presentCounselingPrompt() {
 			data[0] = questionSection;
 			$.tableView.setData(data);
 			$.tableView.appendRow(questionSection[1], {
-				animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+				animationStyle : Ti.UI.iOS.RowAnimationStyle.FADE
 			});
 		} else {
 
@@ -487,8 +487,8 @@ function didGetLoyaltySignupRsp(event) {
 }
 
 function visitmPerksDialog() {
-	var dialogView = $.UI.create("ScrollView", {
-		apiName : "ScrollView",
+	var dialogView = $.UI.create("View", {
+		apiName : "View",
 		classes : ["top", "auto-height", "vgroup"]
 	});
 	dialogView.add($.UI.create("Label", {
@@ -527,8 +527,8 @@ function visitmPerksDialog() {
 }
 
 function showSignupLinkDialog() {
-	var dialogView = $.UI.create("ScrollView", {
-		apiName : "ScrollView",
+	var dialogView = $.UI.create("View", {
+		apiName : "View",
 		classes : ["top", "auto-height", "vgroup"]
 	});
 	dialogView.add($.UI.create("Label", {
@@ -618,7 +618,7 @@ function presentLoyaltyPrompt() {
 	 data[0] = questionSection;
 	 $.tableView.setData(data);
 	 $.tableView.appendRow(questionSection[2], {
-	 animationStyle : Ti.UI.iPhone.RowAnimationStyle.FADE
+	 animationStyle : Ti.UI.iOS.RowAnimationStyle.FADE
 	 });
 
 	 } else {

@@ -217,7 +217,7 @@ function callAppload()
 							phone_os : Ti.Platform.osname,
 							phone_platform : Alloy.CFG.platform_code,
 							device_id : notificationHandler.deviceId,
-							carrier : Ti.Platform.carrier,
+							carrier : Ti.Platform.carrier || null,
 							client_name : Alloy.CFG.client_name,
 							client_param_lang_code : localization.currentLanguage.code,
 							app_version : Alloy.CFG.app_version

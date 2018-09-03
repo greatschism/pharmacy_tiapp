@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: Module for customisation required in date, time fomatting and other related features.
+author: Harshal hardiya
+license: Specify your license
+copyright: Copyright (c) 2017 by Your Company
+
+# these should not be edited
+name: iOS_DateTime
+moduleid: com.mscripts.datetime
+guid: e1cb533b-8007-4218-83f8-eff51dff8561
+platform: iphone
+minsdk: 6.2.2.GA

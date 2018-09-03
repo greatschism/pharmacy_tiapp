@@ -52,16 +52,16 @@ function init() {
 		$.sortPicker.setItems(Alloy.Models.sortOrderPreferences.get("code_values"));
 	}
 	//search icon
-	$.searchTxt.setIcon("", "left", $.createStyle({
-		classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
-		id : "searchBtn"
-	}));
-	//clear button
-	$.searchTxt.setIcon("", "right", $.createStyle({
-		classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
-		id : "clearBtn",
-		accessibilityLabel : "clear search"
-	}));
+	// $.searchTxt.setIcon("", "left", $.createStyle({
+		// classes : ["margin-left-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-disabled", "icon-search"],
+		// id : "searchBtn"
+	// }));
+	// //clear button
+	// $.searchTxt.setIcon("", "right", $.createStyle({
+		// classes : ["margin-right-small", "i5", "inactive-fg-color", "bg-color-disabled", "touch-enabled", "icon-filled-cancel", "accessibility-enabled"],
+		// id : "clearBtn",
+		// accessibilityLabel : "clear search"
+	// }));
 	if (args.selectable) {
 		headerBtnDict = $.createStyle({
 			classes : ["right", "fill-height", "h5", "bg-color-disabled", "active-fg-color", "border-disabled"],
@@ -90,7 +90,14 @@ function init() {
 		}
 	});
 
-	$.searchbar.visible = false;
+
+	if (Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+
+	//	$.tableView.search = false
+	} else {
+		$.tableView.search = $.searchbar;
+	}
+	// $.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 
 	if( ! args.selectable) {
@@ -205,10 +212,10 @@ function didGetPromiseTimeOptions(result, passthrough) {
 
 function prepareData() {
 	//reset search if any
-	if ($.searchTxt.getValue()) {
-		$.searchTxt.setValue("");
-		$.tableView.filterText = "";
-	}
+	// if ($.searchTxt.getValue()) {
+		// $.searchTxt.setValue("");
+		// $.tableView.filterText = "";
+	// }
 	/**
 	 * occurs on first launch
 	 * when all accounts
@@ -227,12 +234,19 @@ function prepareData() {
 		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
+
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
+				$.searchbar.visible = false;
+			}
 		}
 		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
+				$.searchbar.visible = true;
+			}
 		}
 		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}
@@ -340,8 +354,8 @@ function showRxPreferenceUpdateDialog() {
 	if (dialogCount < preferenceUpdateRx.length) {
 		var updatePresc = preferenceUpdateRx[dialogCount];
 
-		var dialogView = $.UI.create("ScrollView", {
-			apiName : "ScrollView",
+		var dialogView = $.UI.create("View", {
+			apiName : "View",
 			classes : ["top", "auto-height", "vgroup"]
 		});
 		var prescfrom = $.utilities.ucword(updatePresc.get("old_presc_name")),
@@ -634,7 +648,7 @@ function prepareList() {
 			}
 		}
 		
-		if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
+		if (hasMedSyncEnabled && Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
 			var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
 			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
 			var now = moment().format("MM/DD/YYYY");					
@@ -643,6 +657,7 @@ function prepareList() {
 				return;
 			};
 		};
+		
 		
 		//process sections
 		prescription = processSections(prescription, daysLeft);
@@ -1362,7 +1377,8 @@ function processSections(prescription, daysLeft) {
 			prescription.set({
 				section : "inProgress",
 				titleClasses : titleClasses,
-				canHide : false
+				canHide : false,
+				filterAttribute: 'filter'
 			});
 
 			break;
@@ -1422,7 +1438,8 @@ function processSections(prescription, daysLeft) {
 				section : "readyPickup",
 				titleClasses : titleClasses,
                 subtitle : readyRxLabel,
-				canHide : false
+				canHide : false,
+				filterAttribute: 'filter'
 			});
 
 			break;
@@ -1916,11 +1933,11 @@ function didClickSelectAll(e) {
 }
 
 function didChangeSearch(e) {
-	$.tableView.filterText = e.value || e.source.getValue();
+	$.tableView.filter = e.value || e.source.getValue();
 }
 
 function didClickRightNavBtn(e) {
-	if( args.hideCheckoutHeader) {
+	if( args.hideCheckoutHeader || !$.rightNavBtn.getNavButton().visible) {
 		//return if we're on the checkout page..
 
 		return;
@@ -1942,10 +1959,6 @@ function didClickOptionMenu(e) {
 	}
 	switch(e.index) {
 	case 0:
-		$.analyticsHandler.trackEvent(analyticsCategory, "click", "ToggleSearchOptionDialog");
-		toggleSearch();
-		break;
-	case 1:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "PatientSyncOptionDialog");
 		/**
 		 * Refresh: By default sync happens on server side
@@ -1959,64 +1972,15 @@ function didClickOptionMenu(e) {
 			success : prepareData
 		});
 		break;
-	case 2:
+	case 1:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "SortOptionDialog");
 		$.sortPicker.show();
 		break;
-	case 3:
+	case 2:
 		$.analyticsHandler.trackEvent(analyticsCategory, "click", "UnhidePrescriptionsOptionDialog");
 		getPrescriptions(apiCodes.prescription_display_status_hidden, prepareUnhidePicker, false, true);
 		break;
 	}
-}
-
-function toggleSearch() {
-	var top = $.headerView.rect.height,
-	    opacity = 0;
-	if ($.tableView.top == top) {
-		opacity = 1;
-		top += $.searchbar.rect.height;
-		$.searchbar.visible = true;
-	}
-	var sAnim = Ti.UI.createAnimation({
-		opacity : opacity,
-		duration : 200
-	});
-	sAnim.addEventListener("complete", function onComplete() {
-		sAnim.removeEventListener("complete", onComplete);
-		$.searchbar.opacity = opacity;
-		if (!opacity) {
-			$.searchbar.visible = false;
-		}
-	});
-	$.searchbar.animate(sAnim);
-	var tAnim = Ti.UI.createAnimation({
-		top : top,
-		duration : 200
-	});
-	tAnim.addEventListener("complete", function onComplete() {
-		tAnim.removeEventListener("complete", onComplete);
-		$.tableView.top = top;
-		if (top !== $.headerView.rect.height) {
-			$.searchTxt.focus();
-		}
-	});
-	$.tableView.animate(tAnim);
-	/**
-	 * required when partialView view is
-	 * enabled or visible or when switched
-	 * to a partial account
-	 * with search is enabled
-	 */
-	var pAnim = Ti.UI.createAnimation({
-		top : top,
-		duration : 200
-	});
-	pAnim.addEventListener("complete", function onComplete() {
-		pAnim.removeEventListener("complete", onComplete);
-		$.partialView.top = top;
-	});
-	$.partialView.animate(pAnim);
 }
 
 function prepareUnhidePicker(result, passthrough) {
@@ -2445,7 +2409,7 @@ function didPostlayout(e) {
 	}
 	
 	
-	$.searchbar.top = top;
+	// $.searchbar.top = top;
 	$.tableView.applyProperties({
 		top : top,
 		bottom : bottom

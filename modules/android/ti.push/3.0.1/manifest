@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 3.0.1
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86
+description: Push Notification Handler
+author: Manoj Kumar
+license: MIT
+copyright: @ 2017
+
+# these should not be edited
+name: tipush
+moduleid: ti.push
+guid: 0315afc4-9658-479a-a967-ccfe568d7146
+platform: android
+minsdk: 7.0.0.GA

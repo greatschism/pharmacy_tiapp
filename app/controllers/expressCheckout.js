@@ -93,8 +93,8 @@ function getCheckoutInfo() {
 function checkoutDetailsFail(error, passthrough) {
 	var err = error.message;
 	if (err.indexOf("click here.") !== -1) {
-		var dialogView = $.UI.create("ScrollView", {
-			apiName : "ScrollView",
+		var dialogView = $.UI.create("View", {
+			apiName : "View",
 			classes : ["top", "auto-height", "vgroup"]
 		});
 		dialogView.add($.UI.create("Label", {

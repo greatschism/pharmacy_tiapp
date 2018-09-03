@@ -99,26 +99,27 @@ function didBlurFocusPassword() {
 }
 
 function didFocusPassword(e) {
-		$.passwordTooltip.updateArrow($.createStyle({
-			classes : ["direction-down"]
-		}).direction, $.createStyle({
-			classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
-		}));
+	$.passwordTooltip.updateArrow($.createStyle({
+		classes : ["direction-down"]
+	}).direction, $.createStyle({
+		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
+	}));
 	
-	if (_.has($.passwordTooltip, "size")) {
-		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + $.containerView.top ) 
-		});
-		delete $.passwordTooltip.size;
-	}
+	$.passwordTooltip.applyProperties({
+		top : passwordContainerViewFromTop
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.passwordTooltip.show();
 	}
 }
 
+function didScrollerEnd(e) {
+	$.passwordTooltip.hide();
+	$.containerView.fireEvent("postlayout");
+}
+
 function didPostlayoutPasswordContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y - 15;
+	passwordContainerViewFromTop = $.containerView.rect.y - 80;
 }
 
 function didPostlayoutTooltip(e) {

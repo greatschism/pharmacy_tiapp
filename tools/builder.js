@@ -23,7 +23,7 @@ var log4js = require("log4js"),
     APP_ASSETS_IMAGES_DIR = APP_ASSETS_DIR + "images",
     APP_ASSETS_IMAGES_SERIES_DIR = APP_ASSETS_IMAGES_DIR + "/series",
     APP_DEFAULT_ICON = ROOT_DIR + "DefaultIcon.png",
-    APP_ANDROID_RES_BASE_DIR = ROOT_DIR + "platform/android/res/",
+    APP_ANDROID_RES_BASE_DIR = ROOT_DIR + "app/platform/android/res/",
     APP_ANDROID_DRAWABLE_LDPI = APP_ANDROID_RES_BASE_DIR + "drawable-ldpi",
     APP_ANDROID_DRAWABLE_MDPI = APP_ANDROID_RES_BASE_DIR + "drawable-mdpi",
     APP_ANDROID_DRAWABLE_HDPI = APP_ANDROID_RES_BASE_DIR + "drawable-hdpi",
@@ -32,6 +32,9 @@ var log4js = require("log4js"),
     APP_ANDROID_DRAWABLE_XXXHDPI = APP_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi",
     APP_ANDROID_VALUES_V14 = APP_ANDROID_RES_BASE_DIR + "values-v14",
     APP_ANDROID_VALUES_V21 = APP_ANDROID_RES_BASE_DIR + "values-v21",
+    APP_ANDROID_VALUES_V24 = APP_ANDROID_RES_BASE_DIR + "values-v24",
+    APP_ANDROID_VALUES_V25 = APP_ANDROID_RES_BASE_DIR + "values-v25",
+    APP_ANDROID_VALUES_V26 = APP_ANDROID_RES_BASE_DIR + "values-v26",
     APP_CONFIG_JSON = ROOT_DIR + "app/config.json",
     APP_TIAPP_XML = ROOT_DIR + "tiapp.xml",
     TOOLS_DIR = ROOT_DIR + "tools/",
@@ -200,7 +203,7 @@ if (build) {
 	logger.debug("Initated cleanup");
 
 	//delete all resources
-	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_VALUES_V14, APP_ANDROID_VALUES_V21, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
+	_u.each([APP_HTTPS_CER, APP_ASSETS_IPHONE_DIR, APP_ASSETS_ANDROID_DIR, APP_ASSETS_MOBILEWEB_DIR, APP_ASSETS_DATA_DIR, APP_ASSETS_IMAGES_DIR, APP_DEFAULT_ICON, APP_ANDROID_DRAWABLE_LDPI, APP_ANDROID_DRAWABLE_MDPI, APP_ANDROID_DRAWABLE_HDPI, APP_ANDROID_DRAWABLE_XHDPI, APP_ANDROID_DRAWABLE_XXHDPI, APP_ANDROID_DRAWABLE_XXXHDPI, APP_ANDROID_VALUES_V14, APP_ANDROID_VALUES_V21, APP_ANDROID_VALUES_V24, APP_ANDROID_VALUES_V25, APP_ANDROID_VALUES_V26, APP_CONFIG_JSON, APP_TIAPP_XML, CTRL_SHORT_CODE_JS, STYLE_SHEETS_JS, APP_TSS], function(path) {
 		if (fs.existsSync(path)) {
 			fs.removeSync(path);
 			logger.debug("Unlinked => " + path);
@@ -233,6 +236,9 @@ if (build) {
 		    BRAND_ANDROID_DRAWABLE_XXXHDPI = BRAND_ANDROID_RES_BASE_DIR + "drawable-xxxhdpi";
 		    BRAND_ANDROID_VALUES_V14 = BRAND_ANDROID_RES_BASE_DIR + "values-v14";
 		    BRAND_ANDROID_VALUES_V21 = BRAND_ANDROID_RES_BASE_DIR + "values-v21";
+		    BRAND_ANDROID_VALUES_V24 = BRAND_ANDROID_RES_BASE_DIR + "values-v24";
+		    BRAND_ANDROID_VALUES_V25 = BRAND_ANDROID_RES_BASE_DIR + "values-v25";
+		    BRAND_ANDROID_VALUES_V26 = BRAND_ANDROID_RES_BASE_DIR + "values-v26";
 
 		_u.each([{
 			source : BASE_ASSETS_IMAGES_SERIES_DIR,
@@ -282,6 +288,15 @@ if (build) {
 		}, {
 			source : BRAND_ANDROID_VALUES_V21,
 			dest : APP_ANDROID_VALUES_V21
+		}, {
+			source : BRAND_ANDROID_VALUES_V24,
+			dest : APP_ANDROID_VALUES_V24
+		}, {
+			source : BRAND_ANDROID_VALUES_V25,
+			dest : APP_ANDROID_VALUES_V25
+		}, {
+			source : BRAND_ANDROID_VALUES_V26,
+			dest : APP_ANDROID_VALUES_V26
 		}], function(obj) {
 			if (fs.existsSync(obj.source)) {
 				/**
@@ -1010,7 +1025,12 @@ if (program.buildOnly) {
 		 * multiple targets
 		 */
 		appcParams.push("--target");
-		appcParams.push(program.target);
+		if (program.environment === "prod") {
+			program.target = "dist-appstore";
+			appcParams.push(program.target);
+		} else{		
+			appcParams.push(program.target);
+		};
 
 		//distribution certificate
 		logger.debug("Searching for distribution certificate " + buildKeys.certificate_name);
@@ -1122,6 +1142,8 @@ if (program.buildOnly) {
 	//log level
 	appcParams.push("--log-level");
 	appcParams.push(program.logLevel);
+	
+	logger.info("Running appc with params " + JSON.stringify(appcParams));
 
 	//run app using spwan
 	var appc = spawn("appc", appcParams, {

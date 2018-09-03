@@ -38,12 +38,7 @@ var args = $.args,
 	}
 	
 	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = $.lbl.text;
-		iDict.accessibilityLabelOff = $.lbl.text;
-    } else {
-		iDict.accessibilityLabel = $.lbl.text;
-    }
+	iDict.accessibilityLabel = $.lbl.text;
 	$.swt.applyProperties(iDict);
 })();
 

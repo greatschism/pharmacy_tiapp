@@ -1,6 +1,3 @@
-"#titleLbl":{
-	text: Alloy.Globals.strings.refillFailureLblTitle
-},
 "#typeLbl":{
 	text: Alloy.Globals.strings.refillFailureBtnType
 },

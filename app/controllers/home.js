@@ -7,8 +7,9 @@ var args = $.args,
     apiCodes = Alloy.CFG.apiCodes,
     icons = Alloy.CFG.icons,
     bannerItems = Alloy.Models.banner.get("items"),
-    spanTimeId,     
-    logger = require("logger");
+    spanTimeId,
+    logger = require("logger"),
+    keyboardModule = require("com.mscripts.hidekeyboard");
 
 function init() {
 	var items = Alloy.Models.template.get("data");
@@ -182,7 +183,7 @@ function didGetComments(event) {
 	 * hide keyboard, on android it might stay on window
 	 * even after removing text area from window
 	 */
-	Ti.App.hideKeyboard();
+	keyboardModule.hideKeyboard();
 	//identify button and process
 	var index = event.source.index;
 	switch(index) {
@@ -567,6 +568,8 @@ function didPostlayout(e) {
 
 	if (Alloy.Globals.isLoggedIn) {
 		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblAccount;
+	} else {
+		$.rightNavBtn.getNavButton().accessibilityLabel = Alloy.Globals.strings.iconAccessibilityLblSignIn;
 	}
 
 	var source = e.source,

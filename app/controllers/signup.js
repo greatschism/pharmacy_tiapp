@@ -2,6 +2,7 @@ var args = $.args,
     app = require("core"),
     http = require("requestwrapper"),
     utilities = require("utilities"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     rx = require("rx"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
@@ -99,18 +100,23 @@ function setParentView(view) {
 }
 
 function didPostlayoutRxContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutRxContainerView);
-	rxContainerViewFromTop = e.source.rect.y;
+	rxContainerViewFromTop = $.rxContainer.rect.y - $.rxContainer.rect.height;
 }
 
 function didPostlayoutPasswordContainerView(e) {
-	$.containerView.removeEventListener("postlayout", didPostlayoutPasswordContainerView);
-	passwordContainerViewFromTop = e.source.rect.y - 15;
+	passwordContainerViewFromTop = $.containerView.rect.y - 80;
 }
 
 function didPostlayoutTooltip(e) {
 	e.source.size = e.size;
 	e.source.off("postlayout", didPostlayoutTooltip);
+}
+
+function didScrollerEnd(e) {
+	$.passwordTooltip.hide();
+	$.rxTooltip.hide();
+	$.containerView.fireEvent("postlayout");
+	$.rxContainer.fireEvent("postlayout");		
 }
 
 
@@ -121,12 +127,9 @@ function didFocusPassword(e) {
 		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
 	}));
 
-	if (_.has($.passwordTooltip, "size")) {
-		$.passwordTooltip.applyProperties({
-			top : (passwordContainerViewFromTop + $.containerView.top )
-		});
-		delete $.passwordTooltip.size;
-	}
+	$.passwordTooltip.applyProperties({
+		top : passwordContainerViewFromTop
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.passwordTooltip.show();
 	}
@@ -139,12 +142,9 @@ function didFocusRx(e) {
 		classes : ["i5", "inactive-fg-color", "icon-filled-arrow-down"]
 	}));
 
-	if (_.has($.rxTooltip, "size")) {
-		$.rxTooltip.applyProperties({
-			top : (rxContainerViewFromTop - $.rxContainer.top * 2)
-		});
-		delete $.rxTooltip.size;
-	}
+	$.rxTooltip.applyProperties({
+		top : rxContainerViewFromTop
+	});
 	if (!Ti.App.accessibilityEnabled) {
 		$.rxTooltip.show();
 	}
@@ -156,8 +156,8 @@ function didBlurFocusPassword() {
 
 function didBlurFocusRx() {
 	$.rxTooltip.hide();
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+    	keyboardModule.hideKeyboard();
 	}
 }
 

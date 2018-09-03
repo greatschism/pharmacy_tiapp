@@ -1,3 +1,4 @@
 <Alloy>
-	<Switch id="swt" onChange="didChange" />
+	<Switch id="swt" onChange="didChange" platform="ios" />
+	<Label id="swt" onClick="didClick" platform="android" />
 </Alloy>

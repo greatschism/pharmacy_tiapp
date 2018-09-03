@@ -87,7 +87,8 @@ function buildPopover() {
 			});
 			$.tableView = $.UI.create("TableView", {
 				apiName : "TableView",
-				bubbleParent : false
+				bubbleParent : false,
+				classes : ["auto-height"]
 			});
 			//$.tableView.addEventListener("click", didClickTableView);
 			$.contentView.add($.tableView);
@@ -367,7 +368,7 @@ function updateUI(params) {
 	 */
 	Alloy.Globals.sessionId = params.session_id;
 	$.lbl.text = options.title ? String.format(options.title, params.first_name) : params.first_name;
-	$.lbl.accessibilityValue = Alloy.Globals.strings.patientSwitcherAccessibilityHint;
+	$.lbl.accessibilityHint = Alloy.Globals.strings.patientSwitcherAccessibilityHint;
 }
 
 /**

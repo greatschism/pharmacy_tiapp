@@ -2,7 +2,7 @@ module.exports = {
 
 	"data" : {
 
-		"strClientName" : "Supervalu Rx",
+		"strClientName" : "Raley's",
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
@@ -24,7 +24,7 @@ module.exports = {
         "userRecoveryValEmail":"Please enter your email address.",
         "loginAttrForgotPassword":"<secondaryfont><secondarycolor>Forgot password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor> </secondaryfont></secondarycolor>",
-	    "loginLblTitle" : "Sign in to the %s Mobile Pharmacy",
+	    "loginLblTitle" : "Sign in to the %s mobile pharmacy",
         "titleHelp" : "Help",
 	}
 

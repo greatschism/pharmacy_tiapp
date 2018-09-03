@@ -1,6 +1,6 @@
 <Alloy>
 	<ScrollView class="vgroup">
-	<View class="vgroup">
+	<View class="vgroup width-100">
 		<View class="auto-height inactive-light-bg-color role-header-view margin-bottom">
 			<Label id="titleLbl" class="margin-left margin-top margin-bottom h5 inactive-fg-color"/>
 		</View>

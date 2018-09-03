@@ -211,6 +211,7 @@ function didCheckMobileNumber(result) {
 		success : function() {
 			currentPatient.set("is_mobile_verified", "0"); //set the flag to false because at this stage the mobile no. is not verified
 			$.app.navigator.open({
+				titleid : "titlePhoneVerify",
 				ctrl : "textMessage",
 				stack : true,
 				ctrlArguments : {
