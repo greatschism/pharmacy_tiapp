@@ -7,6 +7,7 @@ var args = $.args,
     notificationPanel = require("notificationPanel"),
     authenticator = require("authenticator"),
     logger = require("logger"),
+    keyboardModule = require("com.mscripts.hidekeyboard"),
     reload = false;
 
 function init() {
@@ -55,10 +56,6 @@ function didAppResumed(e) {
 		return doLogout();
 	}
 	
-	logger.debug("\n\n\n",JSON.stringify(app.navigator.currentController,null,4),"\n\n\n");
-	if(app.navigator.currentController.ctrlPath == "prescriptions") {
-		Ti.App.fireEvent('sync_data');
-	}
 
 	//disable notification panel
 	notificationPanel.active = true;
@@ -97,13 +94,49 @@ function didAuthenticate(passthrough, navigationHandled) {
 	/**
 	 * Account Upgraded flow takes the uesr to HIPAA screen
 	 */
+	
 	if (Alloy.Globals.isAccountUpgraded) {
-		app.navigator.open({
-			ctrl : "hipaa",
-			titleid : "titleHIPAAauthorization",
-			stack : false
-		});
+
+		if (Alloy.Globals.is_hipaa_url_enabled) {
+			app.navigator.open({
+				ctrl : "hipaa",
+				titleid : "titleHIPAAauthorization",
+				stack : false
+			});
+		} else {
+			/**
+			 * remove the entry from the properties so that HIPAA is not displayed to the user next time
+			 */
+			utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
+
+			if (Alloy.CFG.is_express_checkout_enabled) {
+				$.app.navigator.open({
+					titleid : "titleExpressPickupBenefits",
+					ctrl : "expressPickupBenefits",
+					stack : false
+				});
+			} else {
+				currentPatient = Alloy.Collections.patients.findWhere({
+					selected : true
+				});
+
+				if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+					$.app.navigator.open({
+						titleid : "titleHomePage",
+						ctrl : "home",
+						stack : false
+					});
+				} else {
+					$.app.navigator.open({
+						titleid : "titleTextBenefits",
+						ctrl : "textBenefits",
+						stack : false
+					});
+				};
+			}
+		}
 	}
+
 	/**
 	 * navigationHandled - whether or not to
 	 * initiate a navigation.
@@ -131,9 +164,42 @@ function didAuthenticate(passthrough, navigationHandled) {
 	if (passthrough && passthrough.callBack) {
 		passthrough.callBack();
 		passthrough = null;
-		delete passthrough;
 	}
+
+	var touchID = require("touchid");
+	var localBiometricFlag = touchID.deviceCanAuthenticate();
+	if(localBiometricFlag) {
+		if(  Alloy.Globals.isLoggedIn &&  require("authenticator").getTouchIDEnabled() ) {
+			touchID.authenticate( function(){
+			//	alert("yay hooray (nore than 10 s)");
+			}, function(){
+				setTimeout( function(){ 
+					var passthrough = {};
+					passthrough.success = function(){
+						//alert("Please login manually.");
+						uihelper.showDialog({
+							title : Alloy.Globals.strings.loginTouchTitle,
+							message : Alloy.Globals.strings.loginTouchCancel,
+							buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+							success : function(){
+								app.navigator.open({
+									titleid : "titleLogin",
+									ctrl : "login",
+								});
+							}
+						});
+						
+					};
+					require("authenticator").logout(passthrough); 
+					
+				},500);
+			});	
+		}
+		return;
+	}
+
 }
+
 
 function didCompleteUpdate() {
 	logger.debug(TAG, "completed async update");
@@ -209,8 +275,8 @@ function didClickLeftNavView(e) {
 }
 
 function hideKeyboard(e) {
-	if (Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (Ti.App.keyboardVisible || keyboardModule.getKeyboardVisible()) {
+		keyboardModule.hideKeyboard();
 	}
 }
 

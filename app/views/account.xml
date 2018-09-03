@@ -71,7 +71,7 @@
 					<Label class="margin-right-medium i6 inactive-fg-color icon-thin-arrow-down touch-disabled" />
 				</View>
 			</TableViewRow>
-			<TableViewRow onClick="didClickLanguage">
+			<TableViewRow onClick="didClickLanguage" if="Alloy.CFG.show_language_enabled">
 				<View id="languageInfoView" class="auto-height">
 					<Label id="languagePromptLbl" class="margin-top margin-bottom margin-left margin-right-small accessibility-disabled" />
 					<Label id="languageReplyLbl" class="margin-right-extra-large accessibility-disabled" />
@@ -91,6 +91,19 @@
 					<Widget id="keepMeSignedInSwt" analyticsId="KeepMeSignedInSwt" src="ti.switch" class="margin-right swt" onChange="didChangeAutoLogin" />
 				</View>
 			</TableViewRow>
+			<TableViewRow id="touchIDRow"  platform="ios" if="OS_IOS && Alloy.CFG.is_fingerprint_scanner_enabled">
+				<View class="auto-height">
+					<Label id="touchIDLbl" class="margin-top margin-bottom margin-left" />
+					<Widget id="touchIDSwt" analyticsId="touchIDSwt" src="ti.switch" class="margin-right swt" onChange="didChangeTouchID" />
+				</View>
+			</TableViewRow>
+		</TableViewSection>
+		<TableViewSection id="paymentOptionsSection" if="Alloy.CFG.show_credit_card">
+			<HeaderView>
+				<View class="margin-top min-height inactive-light-bg-color">
+					<Label id="paymentOptionsLbl" class="margin-left right-25 h3 inactive-fg-color" />
+				</View>
+			</HeaderView>
 		</TableViewSection>
 		<FooterView>
 			<View class="auto-height vgroup">

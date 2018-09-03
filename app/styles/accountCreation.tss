@@ -9,7 +9,7 @@
 },
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.hintEmail,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
 	nextItem: "dob"
 },
 "#dob":{

@@ -1,16 +1,30 @@
-
 "#emailTxt":{
 	hintText: Alloy.Globals.strings.loginHintUsername,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL,
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
 	nextItem: "passwordTxt"
 },
 "#passwordTxt":{
 	hintText: Alloy.Globals.strings.loginHintNewPassword,
 	passwordMask: true
 },
+"#emailVerifyTxt":{
+	hintText: "Confirm Email address",
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL,
+	nextItem: "passwordTxt"
+},
+"#passwordVerifyTxt":{
+	hintText: "Confirm New Password",
+	passwordMask: true
+},
 "#continueBtn":{
 	title: Alloy.Globals.strings.searchExistingPatientContinue
-}
+},
 "#loginInfoUpdateLbl":{
 	html : Alloy.Globals.strings.loginInfoUpdateLbl
+},
+"#askInfoLbl":{
+	html : Alloy.Globals.strings.loginInfoUpdateAskInfoUpdatedText
 }
+
+
+

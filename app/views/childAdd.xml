@@ -1,33 +1,31 @@
 <Alloy>
-	<ScrollView class="fill-height fill-width">
-		<View class="vgroup">
-			<View class="vgroup auto-height">
-				<Label id="childTitle" class="margin-top margin-left margin-right h2 txt-center"/>
-				<ImageView id="childImg" class="margin-top-large"/>
-			</View>
-			<View class="margin-top-large margin-left margin-right auto-height vgroup border">
-				<View id="nameView" class="auto-height">
-					<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
-					<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
-					<View id="nameVDividerView" class="v-divider" />
-				</View>
-				<View class="h-divider"/>
-				<Widget id="dobDp" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
-			</View>
-			<View id="rxContainer" class="margin-top margin-left margin-right auto-height vgroup border">
-				<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield"class="txt-right-btn top left margin-right txt border-disabled returnkey-next keyboard-number" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
-				<View class="h-divider"/>
-				<View id="storeView" class="auto-height" onClick="didClickPharmacy">
-					<View class="left width-75 auto-height vgroup margin-bottom">
-						<Label id="storeTitleLbl" class="margin-top margin-left h4" />
-					</View>
-					<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
-				</View>
-			</View>
-			<Widget id="agreementAttr" analyticsId="AgreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
-			<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
-			<Button id="skipBtn" analyticsId="SkipBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
+	<ScrollView class="fill-height fill-width vgroup content-width-100" onDragend="didScrollerEnd">
+		<View class="vgroup auto-height">
+			<Label id="childTitle" class="margin-top margin-left margin-right h2 txt-center"/>
+			<ImageView id="childImg" class="margin-top-large"/>
 		</View>
-		<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
+		<View class="margin-top-large margin-left margin-right auto-height vgroup border">
+			<View id="nameView" class="auto-height">
+				<Widget id="fnameTxt" analyticsId="FnameTxt" src="ti.textfield" class="top left right-disabled width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext"  />
+				<Widget id="lnameTxt" analyticsId="LnameTxt" src="ti.textfield" class="top left-disabled right width-50 txt border-disabled name autocaps-words returnkey-next" onReturn="moveToNext" />
+				<View id="nameVDividerView" class="v-divider" />
+			</View>
+			<View class="h-divider"/>
+			<Widget id="dobDp" analyticsId="DobDropDwn" src="ti.dropdown" class="top left-disabled left dropdown border-disabled dob date" onReturn="moveToNext" />
+		</View>
+		<View id="rxContainer" class="margin-top margin-left margin-right auto-height vgroup border">
+			<Widget id="rxNoTxt" analyticsId="RxNoTxt" src="ti.textfield"class="txt-right-btn top left margin-right txt border-disabled returnkey-next keyboard-number" onFocus="didFocusRx" onBlur="didBlurFocusRx" onChange="didChangeRx" onPostlayout="didPostlayoutRxContainerView" onClick="didClickHelp"/>
+			<View class="h-divider"/>
+			<View id="storeView" class="auto-height" onClick="didClickPharmacy">
+				<View class="left width-75 auto-height vgroup margin-bottom">
+					<Label id="storeTitleLbl" class="margin-top margin-left h4" />
+				</View>
+				<Label id="childLbl" class="margin-right-small i6 inactive-fg-color icon-thin-arrow-right touch-disabled" />
+			</View>
+		</View>
+		<Widget id="agreementAttr" analyticsId="AgreementAttr" src="ti.styledlabel" class="attributed margin-top margin-bottom margin-left margin-right" onClick="didClickAgreement" />
+		<Button id="continueBtn" analyticsId="ContinueBtn" class="margin-bottom primary-bg-color primary-font-color primary-border" onClick="didClickContinue"/>
+		<Button id="skipBtn" analyticsId="SkipBtn" class="margin-bottom bg-color primary-fg-color primary-border" onClick="didClickSkip"  if="!$.args.isFamilyMemberFlow"/>
 	</ScrollView>
+	<Widget id="rxTooltip" analyticsId="RxTooltip" src="ti.tooltip" class="txt-tool-tip" onClick="didClickTooltip" onPostlayout="didPostlayoutTooltip" />
 </Alloy>

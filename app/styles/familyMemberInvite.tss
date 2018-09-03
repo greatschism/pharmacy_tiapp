@@ -9,7 +9,7 @@
 },
 "#emailTxt":{
 	hintText:Alloy.Globals.strings.familyMemberInviteHintSendEmail,
-	keyboardType: Titanium.UI.KEYBOARD_EMAIL
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_EMAIL
 },
 "#sendBtn":{
 	title:Alloy.Globals.strings.familyMemberInviteBtnSend

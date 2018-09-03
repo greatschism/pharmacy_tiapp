@@ -7,12 +7,7 @@ var args = $.args,
 function init() {
 	$.userLbl.text = String.format(Alloy.Globals.strings.strHi, args.name || "");
 	var iDict = {};
-	if (OS_ANDROID) {
-		iDict.accessibilityLabelOn = Alloy.Globals.strings.lblShowPassword;
-		iDict.accessibilityLabelOff = Alloy.Globals.strings.lblShowPassword;
-    } else {
-		iDict.accessibilityLabel = Alloy.Globals.strings.lblShowPassword;
-    }
+	iDict.accessibilityLabel = Alloy.Globals.strings.lblShowPassword;
 	$.toggleSwt.applyProperties(iDict);
 }
 

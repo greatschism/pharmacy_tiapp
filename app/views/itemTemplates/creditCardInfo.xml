@@ -1,0 +1,8 @@
+<Alloy autoStyle="true">
+	<TableViewRow id="row">
+		<View id="contentView" class="auto-height">			
+			<Label id="infolbl" class="margin-top margin-left" />
+			<Label id="iconEditLbl" class="margin-right margin-top margin-bottom primary-fg-color bubble-disabled" onClick="didClickEditCard"/>
+		</View>
+	</TableViewRow>
+</Alloy>

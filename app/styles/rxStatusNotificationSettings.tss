@@ -1,0 +1,10 @@
+"#deliveryModesPicker":{
+	autoHide: true,
+	radioButton: true
+},
+"#deliveryModeLbl":{
+	text: Alloy.Globals.strings.remindersSettingsPopupSectionDeliveryModes
+},
+"#closeBtn":{
+	title: Alloy.Globals.strings.remindersSettingsPopupBtnClose
+}

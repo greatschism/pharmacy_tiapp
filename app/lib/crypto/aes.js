@@ -1,7 +1,7 @@
 ;(function (root, factory, undef) {
 	if (typeof exports === "object") {
 		// CommonJS
-		module.exports = exports = factory(require("crypto/core"), require("crypto/enc-base64"), require("crypto/md5"), require("crypto/evpkdf"), require("crypto/cipher-core"));
+		module.exports = exports = factory(require("./core"), require("./enc-base64"), require("./md5"), require("./evpkdf"), require("./cipher-core"));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -91,13 +91,18 @@
 	     */
 	    var AES = C_algo.AES = BlockCipher.extend({
 	        _doReset: function () {
+	            // Skip reset of nRounds has been set before and key did not change
+	            if (this._nRounds && this._keyPriorReset === this._key) {
+	                return;
+	            }
+
 	            // Shortcuts
-	            var key = this._key;
+	            var key = this._keyPriorReset = this._key;
 	            var keyWords = key.words;
 	            var keySize = key.sigBytes / 4;
 
 	            // Compute number of rounds
-	            var nRounds = this._nRounds = keySize + 6
+	            var nRounds = this._nRounds = keySize + 6;
 
 	            // Compute number of key schedule rows
 	            var ksRows = (nRounds + 1) * 4;

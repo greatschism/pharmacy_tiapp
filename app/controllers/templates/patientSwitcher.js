@@ -367,7 +367,7 @@ function updateUI(params) {
 	 */
 	Alloy.Globals.sessionId = params.session_id;
 	$.lbl.text = options.title ? String.format(options.title, params.first_name) : params.first_name;
-	$.lbl.accessibilityValue = Alloy.Globals.strings.patientSwitcherAccessibilityHint;
+	$.lbl.accessibilityHint = Alloy.Globals.strings.patientSwitcherAccessibilityHint;
 }
 
 /**

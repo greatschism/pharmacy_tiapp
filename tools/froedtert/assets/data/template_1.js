@@ -12,8 +12,35 @@ module.exports = {
 				"apiName" : "View",
 				"classes" : ["auto-width", "auto-height"]
 			}, {
+			
+			"apiName" : "View",
+				"classes" : ["h-divider-light", "touch-disabled"]
+			}, {
+				"id" : "tilesView",
 				"apiName" : "View",
-				"classes" : ["margin-left-large", "margin-right-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["auto-height", "hide"],
+				"children" : [{
+					"items" : [{
+						"apiName" : "View",
+						"classes" : ["auto-height", "vgroup", "show"],
+						"actions" : [{
+							"event" : "postlayout",
+							"binders" : [{
+								"id" : "vdividerl",
+								"pick" : ["height"]
+							}, {
+								"id" : "vdividerr",
+								"pick" : ["height"]
+							}, {
+								"id" : "tilesView",
+								"pick" : ["visible"]
+							}]
+						}],
+						"children" : [{
+							"items" : [{
+			
+				"apiName" : "View",
+				"classes" : ["auto-height", "hgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -83,7 +110,10 @@ module.exports = {
 				}]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-left-large", "margin-right-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["h-divider-light", "touch-disabled"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["auto-height", "hgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -155,7 +185,10 @@ module.exports = {
 				}]
 			}, {
 				"apiName" : "View",
-				"classes" : ["margin-left-large", "margin-right-large", "auto-height", "hgroup", "hwrap-disabled"],
+				"classes" : ["h-divider-light", "touch-disabled"]
+			}, {
+				"apiName" : "View",
+				"classes" : ["auto-height", "hgroup", "hwrap-disabled"],
 				"children" : [{
 					"items" : [{
 						"apiName" : "View",
@@ -202,6 +235,28 @@ module.exports = {
 						}
 					}]
 				}]
+				}, {
+								"apiName" : "View",
+								"classes" : ["h-divider-light", "touch-disabled"]
+				}]
+						}]
+					}, {
+						"id" : "vdividerl",
+						"apiName" : "View",
+						"classes" : ["v-divider-light", "touch-disabled"],
+						"properties" : {
+							"left" : "33%"
+						}
+					}, {
+						"id" : "vdividerr",
+						"apiName" : "View",
+						"classes" : ["v-divider-light", "touch-disabled"],
+						"properties" : {
+							"right" : "33%"
+						}
+					}]
+				}]
+
 			}]
 		}]
 	}]

@@ -1,5 +1,5 @@
 "#window": {
-	statusBarStyle: Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+	statusBarStyle: Ti.UI.iOS.StatusBar.LIGHT_CONTENT
 },
 "#window[if=$.args.navBarHidden]":{
 	navBarHidden: true

@@ -2,17 +2,18 @@ var args = $.args,
     moment = require("alloy/moment"),
     apiCodes = Alloy.CFG.apiCodes,
     rightButtonDict = $.createStyle({
-	classes : ["txt-positive-right-btn","positive-fg-color"],
-	title : Alloy.Globals.strings.strShow,
-	width: "25%",
-	backgroundColor: 'transparent'
-}),
+		classes : ["txt-positive-right-btn", "positive-fg-color"],
+		title : Alloy.Globals.strings.strShow,
+		width : "25%",
+		backgroundColor : 'transparent'
+	}),
     utilities = require('utilities'),
     keychain = require("com.obscure.keychain").createKeychainItem(Alloy.CFG.user_account),
     uihelper = require("uihelper"),
     http = require("requestwrapper"),
     app = require("core"),
-    encryptionUtil = require("encryptionUtil");
+    encryptionUtil = require("encryptionUtil"),
+    logger = require("logger");
 
 function init() {
 	/**
@@ -23,7 +24,6 @@ function init() {
 		setRightButton(rightButtonDict.title, rightButtonDict);
 	}
 
-	$.askInfoLbl.text = Alloy.Globals.strings.loginInfoUpdateAskInfo;
 	uihelper.getImage("logo", $.logoImg);
 }
 
@@ -34,16 +34,16 @@ function didChangeToggle() {
 			_.extend(rightButtonDict, {
 				title : Alloy.Globals.strings.strHide,
 				accessibilityLabel : Alloy.Globals.strings.accessibilityStrShowing,
-				width: "25%",
-				backgroundColor: 'transparent'
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		} else {
 			$.passwordTxt.setPasswordMask(true);
 			_.extend(rightButtonDict, {
 				title : Alloy.Globals.strings.strShow,
 				accessibilityLabel : Alloy.Globals.strings.accessibilityStrHiding,
-				width: "25%",
-				backgroundColor: 'transparent'
+				width : "25%",
+				backgroundColor : 'transparent'
 			});
 		}
 		setRightButton(rightButtonDict.title, rightButtonDict);
@@ -71,35 +71,68 @@ function moveToNext(e) {
 	}
 }
 
+function test(who) {
+
+	if (who == "email") {
+
+		uihelper.showDialog({
+			message : "The email IDs entered do not match"
+		});
+	} else if (who == "password") {
+		uihelper.showDialog({
+			message : "The passwords entered do not match"
+		});
+	}
+}
+
 function didClickContinue(e) {
-	
-	
+
 	var email = $.emailTxt.getValue(),
-	    password = $.passwordTxt.getValue();
-	    
-	if (!email) {
+	    password = $.passwordTxt.getValue(),
+	    emailVerify = $.emailVerifyTxt.getValue(),
+	    passwordVerify = $.passwordVerifyTxt.getValue();
+
+	if (!email || !emailVerify) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.loginValUsername
 		});
 		return;
 	}
-	if(!utilities.validateEmail(email)) {
+	if (!utilities.validateEmail(email)) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.loginInfoUpdateValEmailInvalid
 		});
 		return;
 	}
-	if (!password) {
+	if (!utilities.validateEmail(emailVerify)) {
+		uihelper.showDialog({
+			message : Alloy.Globals.strings.loginInfoUpdateValEmailInvalid
+		});
+		return;
+	}
+	if (!password || !passwordVerify) {
 		uihelper.showDialog({
 			message : Alloy.Globals.strings.loginValPassword
 		});
 		return;
 	}
+
+	if (email !== emailVerify) {
+		test("email");
+
+		return;
+	}
+
+	if (password !== passwordVerify) {
+		test("password");
+		return;
+	}
+
 	var upgraded_info = {
 		email : email,
 		password : password
 	};
-	
+
 	var is_auto_login_enabled = utilities.getProperty(Alloy.CFG.auto_login_enabled, false, "bool", false);
 	if (is_auto_login_enabled && email && password) {
 		/**
@@ -123,22 +156,27 @@ function didClickContinue(e) {
 		 */
 		upgraded_info.errorDialogEnabled = true;
 	}
-	
+
 	http.request({
 		method : "patient_upgrade_account",
 		params : {
 			data : [{
 				patient : {
-				   "disp_password" : password,
-				   "email_address" : email
-				  }
+					"disp_password" : password,
+					"email_address" : email
+				}
 			}]
-
 		},
 		success : didSuccess,
 		failure : didFailed,
-		passthrough : upgraded_info
+		passthrough : upgraded_info,
+		errorDialogEnabled : false
 	});
+
+}
+
+function handleClose() {
+
 }
 
 function didSuccess(result, passthrough) {
@@ -148,19 +186,26 @@ function didSuccess(result, passthrough) {
 		message : result.message,
 		buttonNames : [Alloy.Globals.strings.dialogBtnOK],
 		cancelIndex : -1,
-		success : function didOk () {
+		success : function didOk() {
 			args.callBack = didInitWin;
 			args.checkCodeValues(args);
 		}
 	});
 }
 
-function didFailed() {
-	
-}
-
-function didClickHide(e) {
-	$.tooltip.hide();
+function didFailed(error, passthrough) {
+	logger.debug("\n\n\ncame into error		", JSON.stringify(error, null, 4), "\n\n\n");
+	if (error.errorCode == "ECOH668") {
+		uihelper.showDialog({
+			message : "This email address cannot be used; it is already in use with another member’s account. Please use a different email address to complete the upgrade process and sync your account.",
+			buttonNames : [Alloy.Globals.strings.dialogBtnOK],
+			success : handleClose
+		});
+	} else {
+		$.uihelper.showDialog({
+			message : error.message,
+		});
+	}
 }
 
 function didClickCancel() {
@@ -174,7 +219,7 @@ function didInitWin(passthrough) {
 		app.navigator.open({
 			ctrl : "login",
 			titleid : "titleLogin"
-		});	
+		});
 	};
 }
 

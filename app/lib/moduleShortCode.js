@@ -87,6 +87,7 @@ module.exports = {
 	"RERE" : "REMI",
 	"RERB" : "REMI",
 	"RESE" : "REMI",
+	"RSNS" : "REMI",
 	/**
 	 * prescriptions
 	 */
@@ -141,5 +142,14 @@ module.exports = {
 	/**
 	 * dynamic menu option
 	 */
-	"DYMO" : "DYMO"
+	"DYMO" : "DYMO",
+	/**
+	 * contact us
+	 */
+	"COUS" : "COUS",
+	 /**
+	 * Additional Cust Info
+	 */
+	"ADCI" : "additionalCustInfo",
+	"ACID" : "additionalCustInfoDelete"
 };

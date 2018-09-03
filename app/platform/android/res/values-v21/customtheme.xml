@@ -15,7 +15,8 @@
 	<style name="Material.ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
 		<item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
 		<item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
-    		<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
 	</style>
 	<style name="Material.EditText" parent="@android:style/Widget.EditText">
 		<item name="android:background">@null</item>
@@ -40,6 +41,7 @@
 		<item name="alertDialogTheme">@style/Material.AlertDialog</item>
 		<item name="android:dialogTheme">@style/Material.ProgressDialog</item>
     	<item name="android:datePickerStyle">@style/MyDatePicker</item>
+    	<item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
 		<item name="android:alertDialogTheme">@style/Material.ProgressDialog</item>
 		<item name="android:editTextStyle">@style/Material.EditText</item>
 		<item name="android:listViewStyle">@style/Material.ListView</item>
@@ -61,6 +63,27 @@
 		<item name="android:windowBackground">@drawable/background</item>
 	</style>
 	<style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
-	    	<item name="android:datePickerMode">spinner</item>
+	    <item name="android:datePickerMode">spinner</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:textColorPrimary">#000000</item>
+		<item name="android:colorAccent">#FF0000</item>
+		<item name="colorAccent">#FF0000</item>
+		<item name="android:textColorHint">#0000FF</item>
+		<item name="android:colorControlNormal">#000000</item>
+		<item name="colorControlNormal">#000000</item>
+	</style>
+	<style name="TimePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+	    <item name="colorAccent">#FF0AAEEF</item>
+	    <item name="android:timePickerStyle">@style/MyTimePicker</item> 
+	</style>
+	<style name="MyTimePicker" parent="android:Widget.Material.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:textColorPrimary">#000000</item>
+		<item name="android:colorAccent">#FF0000</item>
+		<item name="colorAccent">#FF0000</item>
+		<item name="android:textColorHint">#0000FF</item>
+		<item name="android:colorControlNormal">#000000</item>
+		<item name="colorControlNormal">#000000</item>
 	</style>
 </resources>

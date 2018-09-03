@@ -60,15 +60,20 @@ var QRCodeView = function(text, ecclevel, options) {
 	
 		
 	
-	Ti.App.addEventListener('generateQRcode', function(){
-		self.evalJS("doqr(unescape('" + text + "'), " + ecclevel + ");");
-	});
-	
+	if (OS_ANDROID) {
+		Ti.App.addEventListener('generateQRcode', function(){
+			self.evalJS("doqr(unescape('" + text + "'), " + ecclevel + ");");
+		});
+	} 
+
+
 	var toggle = false;
 	self.addEventListener('load', function(e) {
 	    if (toggle == false && OS_ANDROID) {
 	        self.evalJS("generateQRcode();");
 	        toggle = true;
+	    } else {
+	    	self.evalJS("doqr(unescape('" + text + "'), " + ecclevel + ");");
 	    }
 	    self.setVisible(true);
 	});

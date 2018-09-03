@@ -13,7 +13,7 @@ module.exports = {
 	}, {
 		"titleid" : "titleRefill",
 		"action" : "refill",
-		"icon" : "thin_refill",
+		"icon" : "thin_camera",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleReminders",

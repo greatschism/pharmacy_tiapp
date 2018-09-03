@@ -12,7 +12,7 @@ function init() {
 
 function didClickPhoto(e) {	
 	$.app.navigator.showLoader();
- 	$.uihelper.getPhoto(true, didGetPhoto, $.window, didFailure);
+ 	$.uihelper.getPhotoForCard(true, didGetPhoto, $.window, didFailure);
  	$.app.navigator.showLoader();
  }
  

@@ -29,6 +29,9 @@
 "#keepMeSignedInLbl":{
 	text: Alloy.Globals.strings.accountLblKeepMeSignedIn
 },
+"#touchIDLbl":{
+	text: Alloy.Globals.strings.accountLblTouchID
+},
 "#helpBtn":{
 	title: Alloy.Globals.strings.accountSuccessBtnHelp
 },
@@ -61,4 +64,7 @@
 },
 "#loginLbl":{
 	text : Alloy.Globals.strings.accountSectionSignin
+}
+"#paymentOptionsLbl":{
+	text : Alloy.Globals.strings.accountSectionPaymentOptions
 }

@@ -46,7 +46,6 @@ function transformFunction(model) {
 }
 
 function didDrawerclose(e) {
-	logger.debug("\n\n\n\n\n\n I close drawer here\n\n\n\n");
 	if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
 		Alloy.Globals.isMailOrderService = false;
 	}
@@ -72,10 +71,12 @@ function didClickTableView(e) {
 		currentItem = row.ctrl || row.url || row.action || row.menu_url;
 	}
 	app.navigator.drawer.toggleLeftWindow();
+	if (OS_ANDROID) {
+		didDrawerclose();
+	}
 }
 
 function terminate() {
-	logger.debug("\n\n\n I terminated \n\n\n");
 	app.navigator.drawer.off("drawerclose", didDrawerclose);
 	$.destroy();
 }

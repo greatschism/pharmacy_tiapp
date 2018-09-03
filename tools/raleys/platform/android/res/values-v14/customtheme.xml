@@ -29,9 +29,9 @@
 	</style>
 	<style name="Material.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
 		<item name="spinBars">true</item>
-		<item name="color">@android:color/black</item>
+		<item name="color">@android:color/white</item>
 	</style>
-	<style name="Theme.Material" parent="Theme.AppCompat.Light">
+	<style name="Theme.Material" parent="Theme.AppCompat">
 		<item name="colorControlHighlight">#D4D4D4</item>
 		<item name="android:colorEdgeEffect">#D4D4D4</item>
 		<item name="android:textAllCaps">false</item>
@@ -48,7 +48,6 @@
 		<!--action bar shadow for pre-lollipop-->
 		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
 		<!--action bar shadow for pre-lollipop-->
-		<item name="colorControlNormal">@android:color/black</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>

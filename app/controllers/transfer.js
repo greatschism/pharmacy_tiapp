@@ -1,6 +1,5 @@
 var args = $.args,
-authenticator = require("authenticator"),
-ImageFactoryModule = require("ti.imagefactory");
+authenticator = require("authenticator");
 function init() {
 	$.titleLbl.text = String.format(Alloy.Globals.strings.transferLblTitle, $.strings.strClientName);
 	if ($.patientSwitcher) {
@@ -66,7 +65,7 @@ function didGetPhoto(blob) {
 			scaledHeight = scaledWidth * img_aspect_ratio;
 		}
 		var tempBlob = blob.imageAsResized(scaledWidth, scaledHeight);
-		smallBlob = ImageFactoryModule.compress(tempBlob, 0.7);
+		smallBlob = tempBlob.imageAsCompressed(0.7);
 		$.utilities.writeFile(Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "transfer.jpg"), smallBlob, false);
 		tempBlob = null;
 	} else {

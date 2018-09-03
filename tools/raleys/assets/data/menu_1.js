@@ -8,51 +8,51 @@ module.exports = {
 	}, {
 		"titleid" : "titlePrescriptions",
 		"ctrl" : "prescriptions",
-		"icon" : "thick_prescription",
+		"icon" : "thin_prescription",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleRefill",
 		"action" : "refill",
-		"icon" : "refill_camera",
+		"icon" : "thin_camera",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleReminders",
 		"ctrl" : "reminders",
-		"icon" : "thick_reminder",
+		"icon" : "thin_reminder",
 		"feature_name" : "is_reminders_enabled",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleFamilyAccounts",
 		"ctrl" : "familyCare",
-		"icon" : "users",
+		"icon" : "user",
 		"feature_name" : "is_proxy_enabled",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleStores",
 		"ctrl" : "stores",
-		"icon" : "thick_pharmacy",
+		"icon" : "thin_pharmacy",
 		"feature_name" : "is_storelocator_enabled",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleTransfer",
 		"ctrl" : "transfer",
-		"icon" : "thick_transfer",
+		"icon" : "thin_transfer",
 		"feature_name" : "is_transferrx_enabled",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleDoctors",
 		"ctrl" : "doctors",
-		"icon" : "thick_doctor",
+		"icon" : "thin_doctor",
 		"feature_name" : "is_doctors_enabled",
 		"requires_login" : true
 	}, {
 		"titleid" : "titleAccount",
 		"ctrl" : "account",
-		"icon" : "thick_account",
+		"icon" : "thin_account",
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
-		"url": "http://vanderbilt.mobilepharmacyhelp.com/",
+		"url": "http://raleys.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
 	}]

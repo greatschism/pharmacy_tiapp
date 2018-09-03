@@ -3,6 +3,7 @@ var args = $.args,
     isWindowOpen;
 
 function init() {
+	$.titleLbl.text = args.refillErroMessage;
 	_.each(["typeView", "phoneView"], function(val) {
 		if ($[val]) {
 			$.uihelper.wrapViews($[val]);

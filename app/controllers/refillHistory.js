@@ -41,7 +41,8 @@ function didFail(error, passthrough) {
 function didGetHistory(result, passthrough) {
 	var data = [],
 	    clientDateFormat = Alloy.CFG.date_format,
-	    serverDateFormat = Alloy.CFG.apiCodes.date_format;
+	    serverDateFormat = Alloy.CFG.apiCodes.date_format,
+	    presNameSection = $.uihelper.createTableViewSection($, prescription.presc_name);
 	httpClient = null;
 	if (result && result.data) {
 		/**
@@ -50,7 +51,7 @@ function didGetHistory(result, passthrough) {
 		prescription.history = [];
 		_.each(result.data.prescriptions, function(history) {
 
-			if (Alloy.CFG.is_specialty_store_grouping_enabled && history.is_specialty_store == 1) {
+			if (Alloy.CFG.is_specialty_store_enabled && history.is_specialty_store == 1) {
 				var subtitleClasses = ["active-fg-color", "left"];
 				history = {
 					id : history.store_id,
@@ -75,7 +76,7 @@ function didGetHistory(result, passthrough) {
 			}
 			prescription.history.push(history);
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
 			rows.push(row);
 			row.on("clickPhone", didClickPhone);
 		});
@@ -85,11 +86,12 @@ function didGetHistory(result, passthrough) {
 		 */
 		_.each(prescription.history, function(history) {
 			var row = Alloy.createController("itemTemplates/masterDetail", history);
-			data.push(row.getView());
+			presNameSection.add(row.getView());
 			rows.push(row);
 		});
 	}
-	$.tableView.setData(data);
+	data.push(presNameSection);
+	$.tableView.setData(data);	//	$.tableView.appendSection(presNameSection);	// alternate way is to use appendSection 
 	$.loader.hide();
 }
 

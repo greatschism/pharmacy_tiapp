@@ -64,8 +64,7 @@ function didPostlayout(e) {
 }
 
 function getPosition(view) {
-	var contentView = view.children[1];
-	return view.rect.y + contentView.rect.y + contentView.rect.height;
+	return view.rect.y;
 }
 
 function didClickHide(e) {

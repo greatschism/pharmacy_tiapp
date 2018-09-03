@@ -45,6 +45,7 @@
 		<item name="android:listViewStyle">@style/Material.ListView</item>
 		<item name="drawerArrowStyle">@style/Material.DrawerArrow</item>
 		<item name="colorControlNormal">@android:color/black</item>
+		<item name="android:statusBarColor">#F7941E</item>
 	</style>
 	<style name="Theme.Material.NoActionBar" parent="Theme.Material">
 		<item name="windowActionBar">false</item>

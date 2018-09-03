@@ -7,6 +7,12 @@ var args = $.args,
 	}
 	if (args.hasChild) {
 		uihelper.wrapViews($.row, "right");
+		if(args.childClasses) {
+			var iDict = $.createStyle({
+				classes : args.childClasses
+			});
+			$.childLbl.applyProperties(iDict);
+		}
 	}
 	var pDict = $.createStyle({
 		classes : args.promptClasses || ["left", "width-40", "inactive-fg-color"],

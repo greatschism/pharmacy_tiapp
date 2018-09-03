@@ -1,5 +1,6 @@
 var args = $.args,
-    cancelIndex;
+    cancelIndex,
+    keyboardModule = require("com.mscripts.hidekeyboard");
 
 (function() {
 
@@ -51,8 +52,8 @@ function show() {
 	 * In iOS the action sheet hides
 	 * the keyboard by default
 	 */
-	if (OS_ANDROID && Ti.App.keyboardVisible) {
-		Ti.App.hideKeyboard();
+	if (OS_ANDROID && keyboardModule.getKeyboardVisible()) {
+    	keyboardModule.hideKeyboard();
 	}
 	$.optionDialog.show();
 }

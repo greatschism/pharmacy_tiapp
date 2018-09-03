@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86
+description: an_datetime
+author: Harshal Hardiya
+license: Specify your license
+copyright: Copyright (c) 2018 by Your Company
+
+# these should not be edited
+name: an_datetime
+moduleid: com.mscripts.datetime
+guid: 2e51d97c-5310-4c4e-b35b-20f6c0a7bca4
+platform: android
+minsdk: 7.0.0.GA
