@@ -51,6 +51,12 @@ module.exports = {
 		"icon" : "thick_account",
 		"requires_login" : true
 	}, {
+		"titleid" : "titleRewardCards",
+		"ctrl" : "additionalCustInfo",
+		"ctrlArguments" : "RECA",
+		"icon" : "insurance_card",
+		"requires_login" : true
+	}, {
 		"titleid": "titleRewards",
 		"url": "https://www.pharmacarewards.com/cp/login.aspx?RGD=90C3391A-AC59-4B3F-A164-0FAB24998D0B",
 		"icon": "thick_coupon",

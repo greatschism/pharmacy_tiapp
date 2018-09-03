@@ -147,5 +147,10 @@ module.exports = {
 	/**
 	 * contact us
 	 */
-	"COUS" : "ContactUs"
+	"COUS" : "ContactUs",
+	/**
+	 * additional customers info
+	 */
+	"ADCI" : "additionalCustInfo",
+	"ACID" : "additionalCustInfoDelete"
 };

@@ -343,8 +343,8 @@ function showRxPreferenceUpdateDialog() {
 	if (dialogCount < preferenceUpdateRx.length) {
 		var updatePresc = preferenceUpdateRx[dialogCount];
 
-		var dialogView = $.UI.create("ScrollView", {
-			apiName : "ScrollView",
+		var dialogView = $.UI.create("View", {
+			apiName : "View",
 			classes : ["top", "auto-height", "vgroup"]
 		});
 		var prescfrom = $.utilities.ucword(updatePresc.get("old_presc_name")),
@@ -1506,8 +1506,8 @@ function processSections(prescription, daysLeft) {
 						//if over due use negative classes
 						prescription.set({
 							detailType : dueInDays < 0 ? "negative" : "",
-							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : "prescReadyRefillLblRefillIn"],
-							detailSubtitle : dueInDaysAbs + " " + $.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
+							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : (dueInDaysAbs == 0 ? "prescReadyRefillLblRefillToday" : "prescReadyRefillLblRefillIn")],
+							detailSubtitle : dueInDaysAbs > 0 ? dueInDaysAbs + " " + $.strings.strDays : ""
 						});
 					}
 				} else {
