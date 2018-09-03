@@ -99,7 +99,7 @@ function init() {
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 	if(isAutoFillEligible()) {
 		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
-	} else {
+	} else if(!Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "0") {
 		$.autoFillSection.height = 0;
 		$.autoFillView.height = 0;
 		$.autoFillSeperator.height = 0;
