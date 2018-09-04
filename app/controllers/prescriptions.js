@@ -90,7 +90,13 @@ function init() {
 		}
 	});
 
-	$.tableView.search = $.searchbar;
+
+	if (Alloy.CFG.remove_android_rx_search && OS_ANDROID) {
+
+	//	$.tableView.search = false
+	} else {
+		$.tableView.search = $.searchbar;
+	}
 	// $.searchbar.visible = false;
 	$.checkoutTipView.visible = false;
 
@@ -228,14 +234,19 @@ function prepareData() {
 		$.partialDescLbl.text = $.strings.prescPartialLblDesc;
 		if (!$.partialView.visible) {
 			$.partialView.visible = true;
-			$.searchbar.visible = false;
+
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
+				$.searchbar.visible = false;
+			}
 		}
 		$.app.navigator.hideLoader();
 	} else {
 		//hide if any
 		if ($.partialView.visible) {
 			$.partialView.visible = false;
-			$.searchbar.visible = true;
+			if ( OS_IOS || (!Alloy.CFG.remove_android_rx_search && OS_ANDROID) ) {
+				$.searchbar.visible = true;
+			}
 		}
 		getPrescriptions(apiCodes.prescription_display_status_active, didGetPrescriptions, args.showHiddenPrescriptions, !args.showHiddenPrescriptions);
 	}
@@ -637,7 +648,7 @@ function prepareList() {
 			}
 		}
 		
-		if (Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
+		if (hasMedSyncEnabled && Alloy.Models.appload.get("medsync_checkout_prior_days") && Alloy.Models.appload.get("medsync_checkout_prior_days") != "" && prescription.get("syncScriptEnrolled") === "1") {
 			var checkOutBy = parseInt(Alloy.Models.appload.get("medsync_checkout_prior_days"));
 			var nextSyncFillDate = moment(prescription.get("nextSyncFillDate"), "MM/DD/YYYY");
 			var now = moment().format("MM/DD/YYYY");					
@@ -646,6 +657,7 @@ function prepareList() {
 				return;
 			};
 		};
+		
 		
 		//process sections
 		prescription = processSections(prescription, daysLeft);
@@ -1923,7 +1935,7 @@ function didChangeSearch(e) {
 }
 
 function didClickRightNavBtn(e) {
-	if( args.hideCheckoutHeader) {
+	if( args.hideCheckoutHeader || !$.rightNavBtn.getNavButton().visible) {
 		//return if we're on the checkout page..
 
 		return;
