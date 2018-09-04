@@ -1,0 +1,6 @@
+<Alloy>
+	<Widget id="rightNavBtn" src="ti.navbutton" class="margin-right h5 txt-right primary-light-fg-color bg-color-disabled border-disabled" />
+	<View id="headerView" class="top auto-height vgroup">
+		
+	</View>
+</Alloy>

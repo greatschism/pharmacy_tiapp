@@ -457,6 +457,7 @@ module.exports = {
 		"prescReadyRefillBtnHide" : "Hide",
 		"prescReadyRefillLblOverdue" : "overdue by",
 		"prescReadyRefillLblRefillIn" : "refill in",
+		"prescReadyRefillLblRefillToday" : "refill today",
 		"prescOthersLblDueOn" : "due on",
 		"prescPopupSectionSort" : "Sort",
 		"prescPopupSortBtnClose" : "Close",
