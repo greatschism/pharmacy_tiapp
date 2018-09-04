@@ -87,7 +87,8 @@ function buildPopover() {
 			});
 			$.tableView = $.UI.create("TableView", {
 				apiName : "TableView",
-				bubbleParent : false
+				bubbleParent : false,
+				classes : ["auto-height"]
 			});
 			//$.tableView.addEventListener("click", didClickTableView);
 			$.contentView.add($.tableView);

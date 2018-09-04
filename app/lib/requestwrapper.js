@@ -108,6 +108,10 @@ function request(args) {
 	if (Alloy.Globals.securityManager) {
 		requestParams.securityManager = Alloy.Globals.securityManager;
 	}
+	//put headers if any
+	if (args.headers) {		
+		requestParams.headers = args.headers;
+	}
 	//put params as string
 	requestParams.params = JSON.stringify(args.params);
 	if (!ENV_PROD) {
