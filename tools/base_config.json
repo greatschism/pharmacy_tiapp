@@ -74,7 +74,7 @@
 			"update_mscripts_autofill": "patient/preferences/updateMscriptsAutofill",
 			"get_addional_cust_conf": "getAddionalCustInfoConf",
 			"update_additional_customer_info": "patient/updateAdditionalCustomerInfo",
-			"get_additional_cust_info": "patient/getAdditionalCustomerInfo"
+			"get_additional_cust_info": "patient/getAdditionalCustomerInfo",
 			"get_prefill_order_prescriptions": "prescriptions/getPrefillOrderPrescriptions",
 			"change_prefill_target_date": "prescriptions/changeTargetDateInPrefillPrescriptions"
 		},
