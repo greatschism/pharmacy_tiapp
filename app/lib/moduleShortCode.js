@@ -142,5 +142,9 @@ module.exports = {
 	/**
 	 * dynamic menu option
 	 */
-	"DYMO" : "DYMO"
+	"DYMO" : "DYMO",
+	/**
+	 * contact us
+	 */
+	"COUS" : "COUS"
 };

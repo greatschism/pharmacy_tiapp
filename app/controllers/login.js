@@ -257,9 +257,7 @@ function didClickLogin(e) {
 		});
 		return;
 	}
-	if ($.utilities.isPhoneNumber(username)) {
-		//yet to handle
-	} else {
+
 		authenticator.setAutoLoginEnabled($.autoLoginSwt.getValue());
 
 
@@ -315,7 +313,6 @@ function didClickLogin(e) {
 
 			}
 		});
-	}
 }
 
 function didAuthenticate(passthrough) {

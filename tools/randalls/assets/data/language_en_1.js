@@ -6,7 +6,8 @@ module.exports = {
 
 		"titlePrescriptions" : "Refill from list",
 		"titleReminders" : "Reminders",
-		"titleRefill" : "Refill by scan",
+		"titleRefill" : "Refill Now",
+		"titleRefillType" : "Refill Now",
 		"childAddHintRxNo" : "Rx number (7 digits)",
 		"familyMemberAddPrescHintRxNo" : "Rx number (7 digits)",
 		"registerHintRxFormat" : "Rx number (7 digits)",
@@ -24,7 +25,9 @@ module.exports = {
         "userRecoveryValEmail" : "Please enter your email address or username.",
         "loginAttrForgotPassword" : "<secondaryfont><secondarycolor>Forgot username or password?</secondaryfont></secondarycolor>",
 	    "userRecoveryAttrForgotUsername" : "<secondaryfont><secondarycolor>I forgot my username</secondaryfont></secondarycolor>",
-         "titleHelp" : "Help"
+         "titleHelp" : "Help",
+         "titleHome" : "Randalls Pharmacy",
+		 "titleHomePage" : "Randalls Pharmacy"
 	}
 
 };

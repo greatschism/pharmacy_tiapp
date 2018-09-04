@@ -13,7 +13,7 @@ module.exports = {
 	}, {
 		"titleid" : "titleRefill",
 		"action" : "refill",
-		"icon" : "refill_camera",
+		"icon" : "thick_refill_now",
 		"requires_login" : false
 	}, {
 		"titleid" : "titleReminders",
@@ -52,7 +52,7 @@ module.exports = {
 		"requires_login" : true
 	}, {
 		"titleid": "titleHelp",
-		"url": "http://tomthumbs.mobilepharmacyhelp.com/",
+		"url": "http://tomthumb.mobilepharmacyhelp.com/",
 		"icon": "thick_help",
 		"requires_login": false
 	}]
