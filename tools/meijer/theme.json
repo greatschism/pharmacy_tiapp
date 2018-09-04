@@ -12,6 +12,7 @@
 			"rx_number_for_ready_label": "rxNumberForReadyLabelEnabled",
 			"homescreen_rightnav_settings_enabled": "homescreenRightnavSettingsEnabled",
 			"show_promise_time_day_of_week" : "showPromiseTimeDayOfWeek",
+			"is_fingerprint_scanner_enabled" : true,
 			"rx_length": 7,
 			"rx_start_index": 0,
 			"rx_end_index": 7,
