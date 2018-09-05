@@ -74,7 +74,7 @@ function didGetOrderHistory(result, passthrough) {
 				subtitle : "Order #",
 				detailSubtitle : history.orderNumber,
 				tertiaryTitle : "Order total",
-				detailTertiaryTitle : totalPrice == 0 ? "$0" : "$" + totalPrice.toFixed(2),
+				detailTertiaryTitle : totalPrice == 0 ? "$0.00" : "$" + totalPrice.toFixed(2),
 				detailTertiaryType : "positive",
 				titleClasses : titleClasses,
 				subtitleClasses : titleClasses,
