@@ -112,7 +112,7 @@ module.exports = {
         "msgEnabledTouchIDwKeep": "We see that you also have 'keep me signed in' turned on. Please note that enabling Touch ID will not hide your user credentials from the sign in screen - would you like to turn ‘keep me signed-in’ off (you’ll still be able to log in with Touch ID)?",
         "msgTouchIDwKeepTurnedOff": "Ok, 'keep me signed-in' has been turned off and your credentials won't show in the 'sign-in' page now. You can always turn this on in the 'account' page.",
         "msgDeferredTouchID": "No problem, you can always enable this feature in the 'account' page when you are logged in.",	
-		"msgTouchIDNote":"note: All users with a registered fingerprint on this device will be able to log in.\nPlease use caution when allowing others access.",
+		"msgTouchIDNote":"Note: All users with a registered fingerprint on this device will be able to log in.\nPlease use caution when allowing others access.",
 		"msgTouchIDLearnMore":"learn more about how TouchID interacts with 'keep me signed in' - tap here",
 		"msgTouchIDLearnMoreInfo":"Login via touch-ID functions independently of the 'keep me signed in' feature.  If 'keep me signed in' is turned on when you enable touchID you'll still always be prompted to authenticate with your fingerprint when you log in or come back to the app after a period of inactivity, and the login screen will always still retain your username and password.",
 		"msgAgeRestriction" : "You must be 18 or older to create your own account. If you are an emancipated minor or have further questions, please contact us at %s for assistance.",
@@ -311,6 +311,8 @@ module.exports = {
 		"loginTouchTitle" : "Biometric Authentication",
 		"loginTouchFailure" : "Touch ID authentication failed.",
 		"loginUseTouch" : "Please use touch ID to log in.",
+		"biometricYes" : "Yes",
+		"biometricNo" : "No",
 
 		"patientSwitcherAccessibilityHint" : "Double tap to select patient from dropdown.",
 		"patientSwitcherMsgChildBecameAdult" : "This person has recently turned 18 and is now an adult. They will be unlinked from your account and you must invite them as an adult to continue managing their prescriptions.",

@@ -304,10 +304,10 @@ function loginProcess(e) {
 					classes : ["margin-left", "margin-top-large", "auto-height", "hgroup"]
 				});
 				_.each([ {
-					title : "no",
+					title : Alloy.Globals.strings.biometricNo,
 					classes : ["margin-left", "margin-right", "bg-color", "auto-height", "width-45", "left",  "hgroup", "primary-fg-color", "primary-border"]
 				}, {
-					title : "YES",
+					title : Alloy.Globals.strings.biometricYes,
 					classes : ["margin-left", "auto-height", "margin-right", "right", "width-45",   "hgroup", "primary-bg-color", "primary-font-color", "primary-border"]
 				}], function(obj, index) {
 					var btn = $.UI.create("Button", {
