@@ -175,7 +175,8 @@
 		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
 		"touch_id_enabled": "touchIDEnabled",
-		"auto_login_enabled": "autoLoginEnabled"
+		"auto_login_enabled": "autoLoginEnabled",
+		"show_pickup_timegroup_option": "1"
 	},
 	"env:development": {},
 	"env:test": {},
