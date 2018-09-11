@@ -173,7 +173,8 @@
 		"latest_feedback_option": "latestFeedbackOption",
 		"latest_feedback_app_version": "latestFeedbackAppVersion",
 		"lastest_logout_explicit": "latestLogoutExplicit",
-		"auto_login_enabled": "autoLoginEnabled"
+		"auto_login_enabled": "autoLoginEnabled",
+		"show_pickup_timegroup_option": "1"
 	},
 	"env:development": {},
 	"env:test": {},
