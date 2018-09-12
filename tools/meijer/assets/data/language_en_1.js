@@ -53,7 +53,8 @@ module.exports = {
 
 		"registerHintRxFormat" : "Rx number",
 		"childAddHintRxNo" : "Rx number",
-		"familyMemberAddPrescHintRxNo" : "Rx number"
+		"familyMemberAddPrescHintRxNo" : "Rx number",
+		"refillTypeValRx" : "Your Rx number is incorrect, please enter the 7 to %d digit prescription number found on your prescription bottle."
 
 	}
 };
