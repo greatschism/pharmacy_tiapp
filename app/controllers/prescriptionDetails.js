@@ -210,8 +210,8 @@ function didGetStore(result, passthrough) {
 	var store = prescription.store;
 	_.extend(store, result.data.stores);
 	_.extend(store, {
-		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + $.utilities.ucword(store.zip)
+		title : Alloy.CFG.is_storename_enabled ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+		subtitle : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(store.addressline1) + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city) + ", " + store.state + ", " + $.utilities.ucword(store.zip)
 	});
 	loadStore();
 }

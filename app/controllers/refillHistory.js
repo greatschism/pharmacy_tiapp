@@ -65,8 +65,8 @@ function didGetHistory(result, passthrough) {
 			} else {
 				history = {
 					id : history.store_id,
-					title : $.utilities.ucword(history.addressline1),
-					subtitle : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
+					title : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(history.store_name) + $.utilities.ucword(history.addressline1)) : $.utilities.ucword(history.addressline1),
+					subtitle : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(history.addressline1) + $.utilities.ucword(history.city)) : $.utilities.ucword(history.city) + ", " + history.state + ", " + history.zip,
 					detailTitle : history.copay != null ? "$" + parseFloat(history.copay) : "",
 					detailType : "positive",
 					detailSubtitle : history.quantity != null ? (history.quantityUnit ? history.quantity + " " + history.quantityUnit : history.quantity) : "",

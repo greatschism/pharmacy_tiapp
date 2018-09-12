@@ -119,8 +119,8 @@ function didGetStore(result, passthrough) {
 	var phoneFormatted = $.utilities.formatPhoneNumber(store.phone);
 	_.extend(store, {
 		phone_formatted : phoneFormatted,
-		title : $.utilities.ucword(store.addressline1),
-		subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
+		title : Alloy.CFG.is_storename_enabled ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+		subtitle : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(store.addressline1) + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
 		attributed : String.format($.strings.attrPhone, phoneFormatted)
 	});
 	updateTable();

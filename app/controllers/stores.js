@@ -646,8 +646,8 @@ function prepareData(result, passthrough) {
 		 * Number
 		 */
 		_.extend(store, {
-			title : $.utilities.ucword(store.addressline1),
-			subtitle : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
+			title : Alloy.CFG.is_storename_enabled ? $.utilities.ucword(store.store_name) : $.utilities.ucword(store.addressline1),
+			subtitle : Alloy.CFG.is_storename_enabled ? ($.utilities.ucword(store.addressline1) + $.utilities.ucword(store.city)) : $.utilities.ucword(store.city) + ", " + store.state + ", " + store.zip,
 			detailType : "inactive",
 			iconClasses : iconClasses,
 			latitude : Number(store.latitude),
