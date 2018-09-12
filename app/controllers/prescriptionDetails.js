@@ -99,7 +99,7 @@ function init() {
 	$.instructionLbl.accessibilityHint = $.strings.prescDetLblInstructionExpandAccessibility;
 	if(isAutoFillEligible()) {
 		setAccessibilityLabelOnSwitch($.autoFillSwt, $.strings.autoFillAttr);
-	} else if(!Alloy.CFG.is_mscripts_autofill_enabled || prescription.is_autofill_eligible == "0") {
+	} else if(Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible == "0") {
 		$.autoFillSection.height = 0;
 		$.autoFillView.height = 0;
 		$.autoFillSeperator.height = 0;
@@ -291,7 +291,7 @@ function loadPresecription() {
 		$.quantityView.height = 0;
 	}
 
-	if ( prescription.is_autofill_eligible !== "1") {
+	if (Alloy.CFG.is_mscripts_autofill_enabled && prescription.is_autofill_eligible !== "1") {
 		$.autoFillDateView.height = 0;
 		$.autoFillDateSeperator.height = 0;
 		$.autoFillChangeDateView.height = 0;
