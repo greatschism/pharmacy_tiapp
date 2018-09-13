@@ -360,6 +360,9 @@ function didPostlayoutPrompt(e) {
 	    		$.autofillView.show();
 	    	}
     		$.autoFillSwt.setValue(true, isWindowOpen);
+			$.reminderRefillAttr.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
 			$.reminderRefillView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
@@ -371,6 +374,12 @@ function didPostlayoutPrompt(e) {
 			if (prescription.isAutofillPickupDateEditable !== "1") {
 				$.autoFillChangeDateView.applyProperties($.createStyle({
 					classes : ["auto-height", "inactive-lighter-bg-color"]
+				}));
+				$.autoFillChangeDateLbl.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
+				}));
+				$.autoFillChangeDate.applyProperties($.createStyle({
+					classes : ["disabled-text-color"]
 				}));
 				$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 			} else {
@@ -963,6 +972,12 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.applyProperties($.createStyle({
 				classes : ["auto-height", "inactive-lighter-bg-color"]
 			}));
+			$.autoFillChangeDateLbl.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
+			$.autoFillChangeDate.applyProperties($.createStyle({
+				classes : ["disabled-text-color"]
+			}));
 			$.autoFillChangeDateView.removeEventListener('click', getPrefillOrderDetails);
 		} else {
 			$.autoFillChangeDateView.applyProperties($.createStyle({
@@ -987,6 +1002,9 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.height = 0;
 			$.autoFillChangeDateSeperator.height = 0;
 		}
+		$.reminderRefillAttr.applyProperties($.createStyle({
+			classes : ["disabled-text-color"]
+		}));
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "inactive-lighter-bg-color"]
 		}));
@@ -1006,6 +1024,9 @@ function didSuccessAutoFill(result, passthrough) {
 			$.autoFillChangeDateView.height = 0;
 			$.autoFillChangeDateSeperator.height = 0;
 		}
+		$.reminderRefillAttr.applyProperties($.createStyle({
+			classes : ["attributed"]
+		}));
 		$.reminderRefillView.applyProperties($.createStyle({
 			classes : ["auto-height", "bg-color"]
 		}));
