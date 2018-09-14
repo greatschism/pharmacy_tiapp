@@ -1462,8 +1462,6 @@ function processSections(prescription, daysLeft) {
 			var readyRxLabel;
 			if (Alloy.CFG.rx_number_for_ready_label === "rxNumberForReadyLabelEnabled") {
 				readyRxLabel = $.strings.strPrefixRx.concat(prescription.get("rx_number"));
-			}	else {
-				readyRxLabel = $.strings.prescReadyPickupLblReady;
 			}
 			prescription.set({
 				section : "readyPickup",
@@ -1551,8 +1549,8 @@ function processSections(prescription, daysLeft) {
 						//if over due use negative classes
 						prescription.set({
 							detailType : dueInDays < 0 ? "negative" : "",
-							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : "prescReadyRefillLblRefillIn"],
-							detailSubtitle : dueInDaysAbs + " " + $.strings[dueInDaysAbs > 1 ? "strDays" : "strDay"]
+							detailTitle : $.strings[dueInDays < 0 ? "prescReadyRefillLblOverdue" : (dueInDaysAbs == 0 ? "prescReadyRefillLblRefillToday" : "prescReadyRefillLblRefillIn")],
+							detailSubtitle : dueInDaysAbs > 0 ? dueInDaysAbs + " " + $.strings.strDays : ""
 						});
 					}
 				} else {

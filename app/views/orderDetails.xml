@@ -7,6 +7,14 @@
 			<Button id="pickupModeCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupModeClose" />
 		</View>
 	</Widget>
+	<Widget id="pickupTimegroupPicker" src="ti.optionpicker" class="modal-dialog">
+		<View class="min-height inactive-light-bg-color role-header-view">
+			<Label id="pickupTimegroupLbl" class="margin-left margin-right h5 inactive-fg-color" />
+		</View>
+		<View class="auto-height role-footer-view">
+			<Button id="pickupTimegroupCloseBtn" class="top margin-bottom-extra-large margin-left-extra-large margin-right-extra-large bg-color primary-fg-color primary-border" onClick="didClickPickupTimegroupClose" />
+		</View>
+	</Widget>
 	<TableView id="tableView" class="margin-bottom" onClick="didClickTableView">
 		<FooterView platform="ios">
 			<View id="footerView" class="auto-height" />

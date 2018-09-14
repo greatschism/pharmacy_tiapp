@@ -16,10 +16,10 @@ var args = $.args,
 
 function confirmUrlRedirect(url, resumed) {
 
-		Ti.API.info(" !!! confirmUrlRedirect !!! ")
+	logger.debug(" !!! confirmUrlRedirect !!! ");
 	var navPage = (url.split('page='))[1];
 		navPage = navPage.split('&')[0];
-	Alloy.Globals.url = url
+	Alloy.Globals.url = url;
 	if(navPage === "prescriptions") {
 		if (resumed === true) {
 			navigationHandler.navigate({
@@ -53,7 +53,7 @@ function confirmUrlRedirect(url, resumed) {
 			return true;
 		}
 	} else {
-		Alloy.Globals.url = undefined
+		Alloy.Globals.url = undefined;
 		return false;
 	}
 }
@@ -72,22 +72,19 @@ function init() {
 
 		$.rootWindow.addEventListener('open', function (e) {
 		    
-
-		    	Ti.API.info("opened")
-
-		        // Handle the URL in case it opened the app
-		    	//Ti.API.info( JSON.stringify( Ti.App.getArguments().url) )
+	        // Handle the URL in case it opened the app
+		    	//logger.debug( JSON.stringify( Ti.App.getArguments().url) )
 		     	if( typeof Ti.App.getArguments().url === 'string' ) {
-		     		confirmUrlRedirect(Ti.App.getArguments().url, false)
+		     		confirmUrlRedirect(Ti.App.getArguments().url, false);
 		         }
 
 		        // Handle the URL in case it resumed the app
 		        Ti.App.addEventListener('resumed', function () {
-			    	//Ti.API.info("resumed")
+			    	//logger.debug("resumed")
 
 			        // Handle the URL in case it opened the app
 			     	if( typeof Ti.App.getArguments().url === 'string' ) {
-		     			confirmUrlRedirect(Ti.App.getArguments().url, true)
+		     			confirmUrlRedirect(Ti.App.getArguments().url, true);
 		     		}
 		        });
 		});
@@ -112,7 +109,7 @@ function init() {
 		$.drawer.on("draweropen", hideKeyboard);
 
         if( typeof Alloy.Globals.url === 'string' ) {
-			confirmUrlRedirect(Alloy.Globals.url, false)
+			confirmUrlRedirect(Alloy.Globals.url, false);
 			openedViaUrl = true;
 	    }
 	    
@@ -172,7 +169,7 @@ function didOpen(e) {
 		if (needsUrlRedirect) {
 			needsUrlRedirect = false;
 			if(typeof Alloy.Globals.url === 'string') {
-				Ti.API.info("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url )
+				logger.debug("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url );
 				var navPage = (Alloy.Globals.url.split('page='))[1];
 					navPage = navPage.split('&')[0];
 				if(navPage === "prescriptions") {
@@ -200,7 +197,7 @@ function didOpen(e) {
 		if (openedViaUrl) {
 			openedViaUrl = false;
 			if(typeof Alloy.Globals.url === 'string') {
-				Ti.API.info("openedViaUrl Alloy.Globals.url == "+ Alloy.Globals.url )
+				logger.debug("openedViaUrl Alloy.Globals.url == "+ Alloy.Globals.url );
 				var navPage = (Alloy.Globals.url.split('page='))[1];
 					navPage = navPage.split('&')[0];
 			 	if (navPage === "insurance") {
@@ -220,89 +217,35 @@ function didOpen(e) {
 function didAuthenticate(passthrough, navigationHandled) {	
 	//initialize menu controller
 	$.menuCtrl.init();
+	var navPage = "";
 	/**
-	 * Account Upgraded flow takes the uesr to HIPAA screen
+	 * 	Check for url redirect 
 	 */
-	 
-	if (OS_IOS) {
-		if (Alloy.Globals.url) {
-			var navPage = (Alloy.Globals.url.split('page='))[1];
-			navPage = navPage.split('&')[0];
-			if (navPage === "prescriptions") {
-				app.navigator.open({
-					titleid : "titlePrescriptions",
-					ctrl : "prescriptions",
-					ctrlArguments : {
-						navigationFrom : "url"
-					}
-				});
-			} else if (navPage === "settings") {
-				app.navigator.open({
-					titleid : "titleAccount",
-					ctrl : "account",
-					ctrlArguments : {
-						navigationFrom : "url"
-					}
-				});
-			}
-			Alloy.Globals.url = null;
-		} else if (Alloy.Globals.isAccountUpgraded) {
-			app.navigator.open({
-				ctrl : "hipaa",
-				titleid : "titleHIPAAauthorization",
-				stack : false
-			});
+	if (Alloy.Globals.url && typeof Alloy.Globals.url === 'string') {
+		navPage = (Alloy.Globals.url.split('page='))[1];
+		navPage = navPage.split('&')[0];
+	}
+	if (needsUrlRedirect) {
+		if (navPage === "prescriptions") {
+			urlRedirectTo("titlePrescriptions", "prescriptions");
+		} else if (navPage === "settings") {
+			urlRedirectTo("titleAccount", "account");
+		} else if (navPage === "doctors") {
+			urlRedirectTo("titleDoctors", "doctors");
 		}
+		Alloy.Globals.url = null;
+		needsUrlRedirect = false;
+	} else if (Alloy.Globals.isAccountUpgraded) {
+		whenAccountUpgraded();
+	}
+	else  if (!navigationHandled && !needsUrlRedirect) {
 		/**
 		 * navigationHandled - whether or not to
 		 * initiate a navigation.
 		 */
-		else  if (!navigationHandled && !needsUrlRedirect) {
-			navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
-				landing_page : true
-			}).toJSON());
-		}
-	} else {
-		if (Alloy.Globals.isAccountUpgraded) {
-			app.navigator.open({
-				ctrl : "hipaa",
-				titleid : "titleHIPAAauthorization",
-				stack : false
-			});
-		}
-		/**
-		 * navigationHandled - whether or not to
-		 * initiate a navigation.
-		 */
-		else  if (!navigationHandled && !needsUrlRedirect) {
-
-			navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
-				landing_page : true
-			}).toJSON());
-		}
-
-
-			if (needsUrlRedirect) {
-				needsUrlRedirect = false;
-				if(typeof Alloy.Globals.url === 'string') {
-					Ti.API.info("needsUrlRedirect Alloy.Globals.url == "+ Alloy.Globals.url )
-					var navPage = (Alloy.Globals.url.split('page='))[1];
-						navPage = navPage.split('&')[0];
-					if(navPage === "prescriptions") {
-						navigationHandler.navigate({
-							titleid : "titlePrescriptions",
-							ctrl : "prescriptions",
-							requires_login : true
-						}); 
-					} else if (navPage === "doctors") {
-						navigationHandler.navigate({
-							titleid : "titleDoctors",
-							ctrl : "doctors",
-							requires_login : true
-						}); 
-					}
-				}
-			}
+		navigationHandler.navigate(args.navigation || Alloy.Collections.menuItems.findWhere({
+			landing_page : true
+		}).toJSON());
 	}
 	
 	/**
@@ -359,6 +302,67 @@ function didAuthenticate(passthrough, navigationHandled) {
 
 }
 
+function urlRedirectTo(titleId, controller) {
+	if (OS_IOS) {
+		app.navigator.open({
+			titleid : titleId,
+			ctrl : controller,
+			ctrlArguments : {
+				navigationFrom : "url"
+			}
+		});
+	} else {
+		navigationHandler.navigate({
+			titleid : titleId,
+			ctrl : controller,
+			requires_login : true
+		});
+	};
+}
+
+function whenAccountUpgraded() {
+	if (Alloy.Globals.is_hipaa_url_enabled) {
+		/**
+		 * Account Upgraded flow takes the uesr to HIPAA screen
+		 */
+		app.navigator.open({
+			ctrl : "hipaa",
+			titleid : "titleHIPAAauthorization",
+			stack : false
+		});
+	} else if (!needsUrlRedirect) {
+		/**
+		 * remove the entry from the properties so that HIPAA is not displayed to the user next time
+		 */
+		utilities.removeProperty(Alloy.Collections.patients.at(0).get("email_address"));
+
+		if (Alloy.CFG.is_express_checkout_enabled) {
+			$.app.navigator.open({
+				titleid : "titleExpressPickupBenefits",
+				ctrl : "expressPickupBenefits",
+				stack : false
+			});
+		} else {
+			currentPatient = Alloy.Collections.patients.findWhere({
+				selected : true
+			});
+
+			if (currentPatient.get("mobile_number") && currentPatient.get("is_mobile_verified") === "1") {
+				$.app.navigator.open({
+					titleid : "titleHomePage",
+					ctrl : "home",
+					stack : false
+				});
+			} else {
+				$.app.navigator.open({
+					titleid : "titleTextBenefits",
+					ctrl : "textBenefits",
+					stack : false
+				});
+			};
+		}
+	}
+}
 
 function didCompleteUpdate() {
 	logger.debug(TAG, "completed async update");

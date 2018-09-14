@@ -76,5 +76,5 @@
 	Alloy.Models.touchid = new Backbone.Model();
 	Alloy.Models.counselingEligible = new Backbone.Model();
 	Alloy.Models.promiseTimeOptions = new Backbone.Model();
-
+	Alloy.Models.pickupTimegroup = new Backbone.Model();
 })();

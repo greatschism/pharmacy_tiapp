@@ -25,7 +25,7 @@ function init() {
 		classes : ["margin-bottom-extra-large"]
 	}).bottom;
 	//get images list ready
-	setImages($.appImg, "app", 18);
+	Alloy.CFG.is_proxy_enabled ?  setImages($.appImg, "app", 18) : setImages($.appImg, "app", 14);
 	setImages($.prescImg, "prescriptions", 23);
 	Alloy.CFG.is_quick_refill_enabled && setImages($.refillImg, "refill", 28);
 	Alloy.CFG.is_reminders_enabled && setImages($.remindersImg, "reminders", 14);

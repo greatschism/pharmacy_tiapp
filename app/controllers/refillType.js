@@ -7,7 +7,7 @@ var args = $.args,
     rxTxts = [$.rxTxt],
     rightIconDict = $.createStyle({
 	classes : ["margin-right-small", "i6", "negative-fg-color", "bg-color-disabled", "touch-enabled", "icon-unfilled-remove", "accessibility-enabled"],
-	accessibilityLabel: Alloy.Globals.strings.iconAccessibilityLblRemove,
+	accessibilityLabel : Alloy.Globals.strings.iconAccessibilityLblRemove,
 	id : "removeBtn"
 }),
     store = _.omit(args.store || {}, ["shouldUpdate"]),
@@ -30,22 +30,23 @@ function init() {
 	}).top;
 	$.containerView.height = rxTxtHeight;
 	$.uihelper.wrapViews($.pickupModeView, "right");
+	$.uihelper.wrapViews($.pickupTimegroupView, "right");
 
 	/*
 	 * Make last name congiurable
 	 */
- 
+
 	if (Alloy.Models.appload.get("isMobileEnabledForQuickRefill") == 0) {
-      $.infoView.height = 0; 
-      $.moNumberView.height = 0; 
-      
+		$.infoView.height = 0;
+		$.moNumberView.height = 0;
+
 	}
 
 	if (Alloy.Models.appload.get("isLastNameEnabled") == 0) {
 		$.lnameView.height = 0;
 	}
 
-	/** 
+	/**
 	 * only when phoneTxt
 	 * is included
 	 * determined by flag refill_type_phone_enabled
@@ -64,8 +65,8 @@ function init() {
 		}
 	}
 	$.addBtn.accessibilityLabel = $.strings.refillTypeAddMore;
-} 
- 
+}
+
 function didChange(e) {
 	var value = $.utilities.formatPhoneNumber(e.value),
 	    len = value.length;
@@ -79,13 +80,13 @@ function didChange(e) {
  */
 function didClickAdd(e) {
 	var len = rxTxts.length;
-	
+
 	if (len == 10) {
 		$.uihelper.showDialog({
 			message : Alloy.Globals.strings.refillLimit
 		});
 		return;
-	} 
+	}
 	$.containerView.height = (rxTxtHeight * (len + 1));
 	var ctrl = Alloy.createController("templates/rxTxtWithRIcon");
 	ctrl.setRightIcon("", rightIconDict);
@@ -127,6 +128,7 @@ function didClickRefill(e) {
 	 */
 
 	var pickupMode = Alloy.Models.pickupModes.get("selected_code_value"),
+	    pickupTG = Alloy.CFG.show_pickup_timegroup_option == "1" ? Alloy.Models.pickupTimegroup.get("selected_code_value") : apiCodes.pickup_time_group_asap,
 	// storeId = pickupMode == apiCodes.pickup_mode_mail_order ? Alloy.Models.appload.get("mail_order_store_id") : store.id,
 
 	    storeId = store.id,
@@ -139,8 +141,8 @@ function didClickRefill(e) {
 
 	if ((Alloy.Models.appload.get("mail_order_store_id") > 0 ) && (pickupMode == apiCodes.pickup_mode_mail_order)) {
 		storeId = Alloy.Models.appload.get("mail_order_store_id");
-	}  
- 
+	}
+
 	_.some(rxTxts, function(rxTxt, index) {
 		var value = rxTxt.getValue();
 		if (value) {
@@ -151,7 +153,7 @@ function didClickRefill(e) {
 					rx_number : value,
 					store_id : storeId,
 					pickup_mode : pickupMode,
-					pickup_time_group : Alloy.CFG.pickup_time_group
+					pickup_time_group : pickupTG
 				});
 			} else {
 				lastIndex = index;
@@ -164,8 +166,8 @@ function didClickRefill(e) {
 
 	if (isInvalidRx || validRxs.length === 0) {
 		$.uihelper.showDialog({
-			message : String.format($.strings.refillTypeValRx,parseInt(Alloy.Globals.rx_max)),
-			success : function() { 
+			message : String.format($.strings.refillTypeValRx, parseInt(Alloy.Globals.rx_max)),
+			success : function() {
 				rxTxts[lastIndex].getView().focus();
 			}
 		});
@@ -184,15 +186,15 @@ function didClickRefill(e) {
 			$.uihelper.showDialog({
 				message : $.strings.refillTypeValPhoneInvalid
 			});
-			return false; 
+			return false;
 		}
 		_.each(validRxs, function(validRx) {
 			validRx.mobile_number = phone;
 		});
-	} else{
+	} else {
 		_.each(validRxs, function(validRx) {
 			validRx.mobile_number = null;
-		}); 
+		});
 	}
 
 	if (Alloy.Models.appload.get("isLastNameEnabled") == 1) {
@@ -202,7 +204,7 @@ function didClickRefill(e) {
 				message : Alloy.Globals.strings.registerValLastName
 			});
 			return;
-		} 
+		}
 		if (!utilities.validateName(lname)) {
 			uihelper.showDialog({
 				message : Alloy.Globals.strings.registerValLastNameInvalid
@@ -263,32 +265,32 @@ function didRefill(result, passthrough) {
 	 * only if not logged in and
 	 * refill is not failure (success / partial success)
 	 */
-	
+
 	var isSuccess = false;
 	var isFailure = false;
 	_.each(prescriptions, function(prescription) {
-		if(prescription.refill_is_error == true){
+		if (prescription.refill_is_error == true) {
 			isFailure = true;
-			
-		}else{
+
+		} else {
 			isSuccess = true;
-		}	
+		}
 	});
-	
+
 	var titleRefill = null;
 	if (isSuccess && isFailure) {
 		//partial success
 		titleRefill = "titleRefillPartialOrder";
-		
+
 	} else if (isSuccess) {
 		//complete success
 		titleRefill = "titleRefillOrdered";
-		
+
 	} else {
 		//complete failure
 		titleRefill = "titleRefillFailureOrder";
 	}
-	
+
 	$.app.navigator.open({
 		ctrl : "refillSuccess",
 		titleid : titleRefill,
@@ -522,6 +524,7 @@ function setPickupModes() {
 		$.pickupDividerView = null;
 		updatePickupOption();
 	}
+
 }
 
 function updatePickupMode(e) {
@@ -601,10 +604,19 @@ function updatePickupOption() {
 			$.pickupView.add($.storeView);
 		}
 		$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionPickup;
+
+		if (Alloy.CFG.show_pickup_timegroup_option == "1") {
+			getPickupTimegroup();
+		} else {
+			updatePickTimegroupView(true);
+		}
+
 		break;
 	case apiCodes.pickup_mode_mail_order:
 		Alloy.Globals.isMailOrderService = true;
 		store = {};
+
+		pickupTgHeaderView.hide();
 
 		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
 			if ($.storeView.visible) {
@@ -720,12 +732,219 @@ function updateStore() {
 	$.storeSubtitleLbl.text = store.subtitle || $.strings.refillTypeLblStoreSubtitle;
 }
 
+function getPickupTimegroup() {
+	logger.debug("\n\n\n TG get call\n\n\n");
+
+	$.http.request({
+		method : "codes_get",
+		params : {
+			data : [{
+				codes : [{
+					code_name : apiCodes.code_pickup_timegroup
+				}]
+			}]
+		},
+		success : didGetPickupTimegroup,
+		failure : didFail
+	});
+}
+
+function didGetPickupTimegroup(result, passthrough) {
+	Alloy.Models.pickupTimegroup.set(result.data.codes[0]);
+	setPickupTimegroup();
+}
+
+function updatePickTimegroupView(shouldHide) {
+	if (shouldHide) {
+		$.scrollView.remove($.pickupTgHeaderView);
+		$.pickupTgOptionsView.remove($.pickupTimegroupView);
+		$.pickupTgOptionsView.remove($.pickupTgDividerView);
+		$.pickupTimegroupView = null;
+		$.pickupTgDividerView = null;
+		$.pickupTgHeaderView = null;
+	}
+}
+
+function setPickupTimegroup() {
+
+	logger.debug("\n\n\n Alloy.Models.pickupTimegroup = ", JSON.stringify(Alloy.Models.pickupTimegroup, null, 4), "\n\n\n");
+
+	var codes = Alloy.Models.pickupTimegroup.get("code_values"),
+	    defaultVal = $.utilities.getProperty(Alloy.CFG.latest_pickup_timegroup, Alloy.Models.pickupTimegroup.get("default_value")),
+	    selectedCode;
+
+	logger.debug("\n\n\n code_values", JSON.stringify(codes), "\n\n\n");
+
+	logger.debug("\n\n\n Alloy.CFG.latest_pickup_timegroup ", Alloy.CFG.latest_pickup_timegroup, "\n\n\n");
+
+	if (Alloy.CFG.latest_pickup_timegroup === "latestPickupTimegroup") {
+
+		if (codes.length == 1) {
+			selectedCode = codes[0];
+			defaultVal = codes[0].code_value;
+		} else {
+			if (defaultVal === "latestPickupTimegroup") {
+				defaultVal = apiCodes.pickup_time_group_asap;
+			}
+
+			selectedCode = _.findWhere(codes, {
+				code_value : defaultVal
+			});
+
+			logger.debug("\n\n\selectedCode	", JSON.stringify(selectedCode, null, 4), "\n\n\n");
+			logger.debug("\n\n\defaultVal	", defaultVal, "\n\n\n");
+
+		}
+	}
+
+	_.each(codes, function(code) {
+		if (code.code_value === defaultVal) {
+			selectedCode = code;
+			code.selected = true;
+		} else {
+			code.selected = false;
+		}
+	});
+
+	//update selected value
+	Alloy.Models.pickupTimegroup.set("selected_code_value", selectedCode.code_value);
+	/**
+	 * if there are more then one option populate picker
+	 * otherwise just show the default option
+	 * if only one pickup option then
+	 * don't show option to change
+	 */
+	/*
+	 if (codes.length > 1) {
+	 logger.debug("codes		", JSON.stringify(selectedCode, null, 4));
+	 $.pickupTimegroupPicker.setItems(codes);
+	 updatePickupTimegroup({
+	 data : selectedCode
+	 });
+	 } else {
+	 $.pickupTgOptionsView.remove($.pickupTimegroupView);
+	 $.pickupTgOptionsView.remove($.pickupTgDividerView);
+	 $.pickupTimegroupView = null;
+	 $.pickupTgDividerView = null;
+	 //updatePickupTimegroupOption();
+	 }*/
+
+	updatePickupTimegroup({
+		data : selectedCode
+	});
+	$.pickupTimegroupPicker.setItems(codes);
+
+	// if (codes.length > 1) {
+	// logger.debug("codes		", JSON.stringify(selectedCode, null, 4));
+	//
+	// } else {
+	// $.pickupTgOptionsView.hide($.childTgLbl);
+	// //updatePickupTimegroupOption();
+	// }
+}
+
+function updatePickupTimegroup(e) {
+	logger.debug("e		", JSON.stringify(e, null, 4));
+
+	Alloy.Models.pickupTimegroup.set("selected_code_value", e.data.code_value);
+	$.pickupTimegroupLbl.text = e.data.code_display;
+	//updatePickupTimegroupOption();
+}
+
+function updatePickupTimegroupOption() {
+
+	switch(Alloy.Models.pickupTimegroup.get("selected_code_value")) {
+	case apiCodes.pickup_time_group_asap:
+		//update correspondent views
+		if ($.mailorderView.visible) {
+			$.pickupView.remove($.mailorderView);
+			$.mailorderView.visible = false;
+		}
+		if (!$.storeView.visible) {
+			$.storeView.visible = true;
+			$.pickupView.add($.storeView);
+		}
+		$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionPickup;
+		break;
+	case apiCodes.pickup_time_group_nbd:
+		Alloy.Globals.isMailOrderService = true;
+		store = {};
+
+		if (Alloy.Models.appload.get("mail_order_store_id") > 0) {
+			if ($.storeView.visible) {
+				$.pickupView.remove($.storeView);
+				$.storeView.visible = false;
+			}
+			if (!$.mailorderView.visible) {
+				$.mailorderView.visible = true;
+				$.pickupView.add($.mailorderView);
+			}
+
+			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
+
+		} else {
+			if (Alloy.Globals.isLoggedIn && Alloy.Globals.isMailOrderService) {
+				mailOrderCall();
+
+			} else {
+				updateStore();
+
+			}
+
+			if ($.mailorderView.visible) {
+				$.pickupView.remove($.mailorderView);
+				$.mailorderView.visible = false;
+			}
+			if (!$.storeView.visible) {
+				$.storeView.visible = true;
+				$.pickupView.add($.storeView);
+			}
+
+			$.pickupLbl.text = Alloy.Globals.strings.refillTypeSectionMail;
+
+			// if ($.storeView.visible) {
+			// $.pickupView.remove($.storeView);
+			// $.storeView.visible = false;
+			// }
+			// if (!$.mailorderView.visible) {
+			// $.mailorderView.visible = true;
+			// $.pickupView.add($.mailorderView);
+			// }
+		}
+		break;
+	}
+}
+
 function didClickPickupModeClose(e) {
 	$.pickupModePicker.hide();
 }
 
 function didClickPickupMode(e) {
 	$.pickupModePicker.show();
+}
+
+function didClickPickupTimegroupClose(e) {
+	var codes = Alloy.Models.pickupTimegroup.get("code_values"),
+	    selectedCode;
+
+	_.some(codes, function(code) {
+		if (code.selected === true) {
+			selectedCode = code;
+			$.pickupTimegroupLbl.text = selectedCode.code_display;
+			Alloy.Models.pickupTimegroup.set("selected_code_value", selectedCode.code_value);
+
+			return true;
+		}
+		return false;
+	});
+
+	logger.debug("\n\n\n\n selected_code_value\t\t", JSON.stringify(Alloy.Models.pickupTimegroup.get("selected_code_value"), null, 4), "\n\n\n");
+	logger.debug("\n\n\n\n selectedCode\t\t", JSON.stringify(selectedCode, null, 4), "\n\n\n");
+	$.pickupTimegroupPicker.hide();
+}
+
+function didClickPickupTimegroup(e) {
+	$.pickupTimegroupPicker.show();
 }
 
 function didClickHelp(e) {

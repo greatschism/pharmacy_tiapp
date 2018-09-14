@@ -230,6 +230,9 @@ function didClickSignup(e) {
 }
 
 function didClickDone(e) {
+	logger.debug("\n\n\n Refill success done button click \n\n\n");
+	// $.app.navigator.closeToRoot(); /* doesn't work */
+	
 	$.app.navigator.open(Alloy.Collections.menuItems.findWhere({
 		landing_page : true
 	}).toJSON());
@@ -241,3 +244,4 @@ function handleEvent(e) {
 
 exports.init = init;
 exports.focus = focus;
+exports.backButtonHandler = didClickDone;
