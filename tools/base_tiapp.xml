@@ -22,10 +22,19 @@
    	<use-app-thinning>true</use-app-thinning>
    	<default-background-color>#FFFFFF</default-background-color>
    	<!-- <enable-launch-screen-storyboard>true</enable-launch-screen-storyboard> -->
+    <entitlements>
+        <dict>
+            <key>com.apple.developer.associated-domains</key> 
+            <array> 
+                <string>applinks:www.qu-byte.com</string> 
+                <string>applinks:o-mjtest.remscripts.com</string> 
+            </array>
+        </dict>
+    </entitlements>
     <plist>
       <dict>
       	<key>CFBundleVersion</key>
-		<string>${BUILD_NUMBER}</string>
+		    <string>${BUILD_NUMBER}</string>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>${NS_LOCATION_WHEN_IN_USEUSAGE}</string>
         <key>UISupportedInterfaceOrientations~iphone</key>
@@ -54,9 +63,9 @@
         <key>UIStatusBarStyle</key>
         <string>${STATUS_BAR_STYLE}</string>
         <key>LSApplicationQueriesSchemes</key>
-		<array>
-		    <string>comgooglemaps</string>
-		</array>
+		    <array>
+		      <string>comgooglemaps</string>
+		    </array>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>
